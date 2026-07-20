@@ -124,6 +124,13 @@ printed significant digits; gate 1e-9); `argmax_xi` — 26 conjugate flips,
 itself is a last-bit artifact, as expected). GPU selftest: DP vs host brute
 force max |ΔS| = 8.6e-14; count identities exact incl. (6,3) = 2. **PASS.**
 
+Benchmark-scale spot check: the CPU K=26, L=14 full-ξ row (62.3M ξ, 53
+minutes single-core) matches the GPU row (1.7 s) in **every** printed
+column — including `argmax_xi` (4616733, no conjugate flip) — except the
+informational `resid` (4.5e-18 vs 2.4e-16, both ≈ 0). The CPU K=26 L=15/16
+rows were still computing at write-up time (`akdeniz:~/collatz/gpu/ref/
+cpu_exh_K26.tsv` fills in as they land).
+
 ## Measured performance (akdeniz; RTX 4090 vs CPU)
 
 Caveat: the box's 32 cores were running a foreign job at load ≈ 70–110
@@ -137,7 +144,8 @@ quoted below as the *optimistic* CPU-32 estimate.
 | family anchors N=10^7 | 9.25 s | ≈ 4.7 s (only 5 maps → slowest-map bound) | 2.73 s | 3.4× | ≈ 1.7× |
 | family grid2 5 5 N=10^6 (1050 maps) | 1124 s | ≈ 35 s | 21.2 s | 53× | ≈ 1.7× |
 | expsum exhaustive 2 22 (58 signatures) | 664 s | ≈ 21 s | 0.74 s | 898× | ≈ 28× |
-| expsum exhaustive 26 26 (3 signatures, 1.39e8 ξ) | K26CPUFILL | K26CPU32FILL | 4.15 s | K26SP1FILL | K26SP32FILL |
+| expsum K=26, L=14 full-ξ (M = 62,325,895) | 3183 s | ≈ 99 s | 1.7 s | 1872× | ≈ 59× |
+| expsum exhaustive 26 26 (3 signatures, 1.39e8 ξ) | ≈ 7330 s (L=14 measured, L=15/16 scaled by M·K·L) | ≈ 229 s | 4.15 s | ≈ 1770× | ≈ 55× |
 
 Notes:
 
