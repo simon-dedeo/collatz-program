@@ -1,0 +1,191 @@
+{
+ "domain": "bbchallenge \"rule mining\": semi-automatic extraction of exact high-level arithmetic recurrences (Collatz-level rules) from raw Turing machine dynamics \u2014 Ligocki's Proof_System/config-algebra, Racheline's Antihydra rules, savask's structural analyses, mei's busycoq certification",
+ "translations": [
+  {
+   "technique": "Compression-guided block abstraction (Block_Finder + RLE macro machines + strip_config skeletons)",
+   "what_it_actually_does": "Code path: Block_Finder.py simulates the TM to find the moment of WORST run-length compression, then picks block size k minimizing the k-block RLE tape size at that adversarial moment (compression_efficiency counts adjacent k-block repeats), then tunes a multiplier by measuring chain-step speedup. The simulator thereafter works over \u03a3^k blocks with repetition exponents (Marxen-Buntrock macro machine + back-symbol trick). strip_config (Proof_System.py:427-444) hashes a configuration to a 'skeleton': (state, head direction, tuple of block symbols with exponents erased except exponent==1 kept literal). Skeletons index both the rule store and the pattern-detection memory. In busycoq/Skelet1.v the same move is done by hand at heroic scale: an alphabet x, Dl/Dr, C0..C3, F0..F3, G0..G2, P of tape words is defined and all lemmas are stated over that alphabet, including counters like x^^10344.",
+   "math_translation": "Implicit definition: for a TM M, a 'skeleton' \u03c3 determines a cylinder family C_\u03c3: N^p \u2192 configurations, C_\u03c3(x) = 0^\u221e w1^{x1}...wp^{xp} [q,d] ...0^\u221e. Implicit claim (empirical, never stated): for busy-beaver-champion-like machines there exists a block size k and a FINITE set of skeletons S such that the reachable set from blank tape is contained in \u222a_{\u03c3\u2208S} Im(C_\u03c3), and the induced return dynamics on exponent vectors is piecewise affine/exponential \u2014 i.e., M restricted to its reachable set is semi-conjugate to a flat counter system. Block size selection is a minimum-description-length model-selection criterion over conjugacies: choose the coordinate change (block grouping) minimizing description length of the worst-compressed reachable state.",
+   "nearest_known_math": [
+    {
+     "theory": "Marxen-Buntrock macro machines (1990, 'Attacking the Busy Beaver 5')",
+     "relationship": "subsumed-by: block/RLE simulation is exactly their technique; the new part is automatic MDL-style selection of k and the skeleton hash",
+     "ref": "Marxen & Buntrock 1990; sligocki busy-beaver Code/Macro/Turing_Machine.py"
+    },
+    {
+     "theory": "Markov partitions / inducing in symbolic dynamics (choosing a partition so the return map becomes symbolic+affine)",
+     "relationship": "overlaps as analogy only: cylinder families with counter coordinates play the role of a countable Markov partition adapted to the orbit, but no invariant-measure or hyperbolicity structure is used",
+     "ref": "e.g. Adler, 'Symbolic dynamics and Markov partitions', BAMS 1998"
+    },
+    {
+     "theory": "Flat counter systems / flattening in infinite-state model checking (FAST tool)",
+     "relationship": "overlaps: the implicit claim 'reachable set covered by finitely many cylinder families with affine return maps' is precisely 'the system is flattable'; PL literature assumes the counter system is given, bb practice DISCOVERS it from tape dynamics",
+     "ref": "Bardin, Finkel, Leroux, Petrucci, 'FAST: Fast Acceleration of Symbolic Transition systems'; Leroux-Sutre 'Flat counter automata almost everywhere'"
+    }
+   ],
+   "novelty_verdict": "known-math-with-new-twist",
+   "fusion_opportunity": "Fuse Block_Finder's MDL criterion with the flattability literature: treat block-size/skeleton discovery as automatic synthesis of a flattable counter-system simulation of a TM, then hand the synthesized counter program to complete acceleration engines (FAST, LoAT). Conversely, import from symbolic dynamics the discipline of proving the cover is closed (currently only checked empirically: rules fail and the prover silently falls back to step-by-step simulation when the orbit leaves the cover).",
+   "collatz_application": "For Collatz towers the analogous coordinate discovery is choosing digit groupings: run-length encoding of the binary expansion of n is exactly the coordinate system in which T acts by finite rewrite rules on runs (n = ...1^{a}0^{b}... \u21a6 Collatz word dynamics). An automated Block_Finder-for-numeration-systems (search over base/digit-grouping minimizing description of the accelerated map) would mechanize the choice we currently make by hand (2-adic runs vs mod-3^k refinements) in certificate construction.",
+   "sources_read": [
+    "/private/tmp/.../scratchpad/busy-beaver/Code/Macro/Block_Finder.py",
+    "/private/tmp/.../scratchpad/busy-beaver/Code/Macro/Proof_System.py (strip_config, stripped_info)",
+    "/private/tmp/.../scratchpad/busycoq/verify/Skelet1.v",
+    "https://www.sligocki.com/2021/07/17/bb-collatz.html"
+   ]
+  },
+  {
+   "technique": "Trace-triggered guess-and-check rule proving (Past_Config heuristic + prove_rule symbolic re-simulation)",
+   "what_it_actually_does": "Proof_System.log_and_apply hashes every macro-config to its skeleton. Past_Config.log_config fires a proof attempt when the SAME skeleton recurs twice with the SAME loop-delta \u0394 (a Floyd/Brent-style cycle heuristic lifted to abstraction space). prove_rule then generalizes the concrete config by replacing each exponent c>1 with a fresh symbolic x+c, re-runs the macro simulator SYMBOLICALLY for exactly \u0394 loops (Algebraic_Expression arithmetic), aborts if any exponent's provable minimum reaches 0 (parity/branch ambiguity), tracks per-variable minima to synthesize the guard x \u2265 m, and accepts iff the final skeleton equals the initial one. The exponent-update map is then classified: Diff_Rule (x\u2192x+c), Linear_Rule (x\u2192mx+b), Exponential_Rule (x\u2192(a\u00b7b^{ux+v}+c)/d), else General_Rule. Verification is sound because symbolic macro-steps are exact transformers, not abstractions.",
+   "math_translation": "Implicit theorem produced per rule: \u2200x \u2208 N^p with x \u2265 m: F^\u0394(C_\u03c3(x)) = C_\u03c3(f(x)), and the base-step count equals a stated polynomial s(x), where F is the macro-machine step map and f is the classified componentwise update. The procedure is: hypothesis generation from one orbit (two equal first-return times on a cylinder family), followed by exact symbolic execution as verifier. It is sound and incomplete; no characterization of which machines admit finite rule sets is stated or known.",
+   "nearest_known_math": [
+    {
+     "theory": "Dynamic (trace-based) invariant inference with post-hoc verification: Daikon, guess-and-check / data-driven invariant synthesis, ICE learning",
+     "relationship": "overlaps: same guess-from-execution-then-verify architecture; differs in that candidates are equalities defining a return map on an unbounded configuration space with no fixed control-flow graph, and verification is exact symbolic execution rather than SMT entailment of an annotation",
+     "ref": "Ernst et al., Daikon (2001); Sharma-Aiken 'From invariant checking to invariant inference using randomized search' (CAV 2014); Garg et al. ICE (2014)"
+    },
+    {
+     "theory": "Kincaid-Reps-Farzan compositional recurrence analysis (CRA/ICRA): extract recurrences of loop bodies statically, solve for closed forms",
+     "relationship": "overlaps: same end product (recurrences + closed forms) but CRA is static, over-approximate on multipath bodies (wedge/convex domain merges paths and loses parity), and requires a given program over integer variables; Proof_System is dynamic, exact, and discovers its own variables",
+     "ref": "Farzan-Kincaid FMCAD 2015; Kincaid et al. 'Compositional recurrence analysis revisited' PLDI 2017; 'Closed forms for numerical loops' POPL 2019"
+    },
+    {
+     "theory": "Predecessor/return-map computation in dynamical systems (first-return map to a section)",
+     "relationship": "overlaps: a rule is literally a first-return map to the section \u222aIm(C_\u03c3); the loop-delta-equality trigger is a heuristic section-finder",
+     "ref": "standard Poincar\u00e9 section theory"
+    }
+   ],
+   "novelty_verdict": "known-math-with-new-twist",
+   "fusion_opportunity": "Answer to the domain's core question: Kincaid-style CRA as-is could NOT derive the Hydra/Antihydra rules \u2014 (i) it has no tape\u2192counter coordinate discovery (needs technique 1 as a front end), and (ii) its convex wedge domain merges the 2n/2n+1 paths, so it would only derive over-approximations like b' \u2264 (3/2)b + c, never the exact parity-split rules. But the fusion works in the other order: run technique 1 to synthesize the macro-machine return map as a multipath integer program, refine paths by a CONGRUENCE abstract domain (Granger 1991; or porous/N-semilinear invariants, Lefaucheux-Ouaknine-Purser-Worrell CAV 2021) so each residue class becomes a single-path affine loop, then CRA/LoAT/FAST derive the exact closed forms automatically \u2014 including full exponential-polynomial step counts where Proof_System's series_sum gives up beyond cubic Faulhaber sums (Proof_System.py:1489 raises NotImplementedError for k^4). What MORE the PL stack derives: coupled inequality invariants between counters (candidate Lyapunov/anti-ranking functions for phases), LoAT-certified runtime lower bounds (= BB step lower bounds), and porous invariants that can PROVE nonhalting when an invariant union of congruence classes avoids the halt set \u2014 a Collatz-level decider the bb community lacks (their prover just returns UNPROVEN_PARITY).",
+   "collatz_application": "Directly reusable for our certificate program: mine acceleration lemmas for Collatz-like maps from trajectory data (e.g., rediscover \u2200k: T^{2k}(a\u00b72^k\u22121) = a\u00b73^k\u22121 as a Diff/Linear rule over the run-length coordinates of n), then verify symbolically. The Past_Config trigger (same skeleton, same delta, twice) is a cheap, effective screen for candidate acceleration lemmas over orbit databases \u2014 applicable verbatim to Collatz trajectories written in run-length coordinates.",
+   "sources_read": [
+    "/private/tmp/.../scratchpad/busy-beaver/Code/Macro/Proof_System.py (Past_Config, prove_rule, log_and_apply)",
+    "https://www.cs.princeton.edu/~zkincaid/pub/fmcad15.pdf (via search)",
+    "https://arxiv.org/pdf/2106.00662 (Porous Invariants, via search)"
+   ]
+  },
+  {
+   "technique": "Closed-form acceleration hierarchy: Diff/Linear/Exponential rule application + recursive meta-rules (rule levels)",
+   "what_it_actually_does": "apply_diff_rule (Proof_System.py:1094): given concrete exponents, computes K = number of times the translation rule can fire before the unique fastest-decreasing exponent hits its guard (Rule_Func.Subtract_Func.max_reps does divmod, keeping the exact remainder \u2014 the residue is preserved, not discarded), then updates x \u21a6 x + K\u00b7v in one step and computes total base steps by summing the per-application polynomial via Faulhaber formulas (series_sum, exact up to k^3). Mult_Func.apply_rep applies x\u21a6mx+b K times in closed geometric form ((am+c)m^K \u2212 c)/m using ExpInt. If no exponent decreases, returns INF_REPEAT (nonhalting certificate). With --recursive, rules may be used inside proofs of other rules; rule.level = 1 + max level used, so level-L rules have closed forms that are L-fold towers. Explicit give-ups in code: two decreasing symbolic exponents ('Multiple negative diffs ... we fail'), and Collatz-type decreases (|\u0394|>1) applied to symbolic counts return UNPROVEN_PARITY because the branch depends on an unknowable residue.",
+   "math_translation": "Implicit theorem (translation case): if \u2200x\u2265m: F^\u0394(C(x)) = C(x+v) with v having negative components, then for concrete x the maximal K with x+Kv \u2265 m is K = min_{i: v_i<0} \u230a(x_i \u2212 m_i + |v_i|)/|v_i|\u230b, and F^{K\u0394}(C(x)) = C(x+Kv) with step count \u03a3_{k=0}^{K\u22121} s(x+kv) \u2014 the transitive closure of a guarded translation, which is Presburger-definable; (affine case) the K-fold iterate of x\u21a6mx+b is the exact exponential closed form, leaving Presburger for the decidable extension with exponentiation; (meta case) closure of these operations under composition and recursion generates exp-towers of unbounded height with exact integer step counts.",
+   "nearest_known_math": [
+    {
+     "theory": "Presburger acceleration: transitive closures of guarded translations and affine functions with finite monoid (Boigelot; Finkel-Leroux), complete acceleration of octagonal relations (Bozga-Iosif-Kone\u010dn\u00fd CAV 2010)",
+     "relationship": "subsumed-by for the Diff_Rule case \u2014 and the PL theory is STRONGER: octagonal-relation acceleration handles multiple decreasing counters exactly where apply_diff_rule explicitly fails",
+     "ref": "Finkel-Leroux 2002; Bozga, Iosif, Kone\u010dn\u00fd, 'Fast acceleration of ultimately periodic relations', CAV 2010"
+    },
+    {
+     "theory": "LoAT modular loop acceleration calculus (accelerated loops reused inside further acceleration; nontermination and lower runtime bounds)",
+     "relationship": "overlaps strongly: LoAT's calculus is the same architecture as meta-rules (acceleration of accelerations) with soundness conditions ('monotonic'/'eventual' guards) that generalize the min_val bookkeeping; LoAT lower-bound certificates are the PL mirror of BB step-count lower bounds",
+     "ref": "Frohn, 'A calculus for modular loop acceleration'; Frohn-Giesl IJCAR 2022 (LoAT system description)"
+    },
+    {
+     "theory": "Semenov arithmetic: Presburger + x\u21a62^x is decidable",
+     "relationship": "overlaps: the logical home of Exponential_Rule guards and closed forms; nobody in either community exploits the decidability for rule entailment checking",
+     "ref": "Semenov 1984; Benedikt-Chistikov-Mansutti, 'The complexity of Presburger arithmetic with power or powers'"
+    }
+   ],
+   "novelty_verdict": "known-math-with-new-twist",
+   "fusion_opportunity": "Three concrete upgrades flow from PL\u2192bb: (1) octagonal/FMA complete acceleration removes the 'multiple decreasing symbolic exponents' failure; (2) LoAT's eventual-monotonicity conditions let rules fire from configurations that only EVENTUALLY satisfy guards; (3) OCRS/wedge recurrence solvers replace the k\u22643 Faulhaber limit with full exponential-polynomial sums. One upgrade flows bb\u2192PL: no PL tool iterates its own accelerations to UNBOUNDED tower height with exact arithmetic \u2014 LoAT/CRA bottom out in fixed SMT theories, while rule levels + ExpInt give a genuinely new operating regime (closed forms and residue decisions at 10\u2191\u219115 scale, as in the t15 machine analyses).",
+   "collatz_application": "This IS the 'acceleration tower' formalized: level-1 rules = single Collatz steps on run-length coordinates; level-2 = closed forms for maximal odd/even runs (x\u21a6(3^k x + c)/2^j indexed by the run word); level-3+ = closed forms over repeated run-patterns. Our certificate format should adopt the rule-level structure plus the two PL soundness conditions (guard monotonicity, eventual applicability), giving machine-checkable acceleration towers for Collatz with exact step accounting.",
+   "sources_read": [
+    "/private/tmp/.../scratchpad/busy-beaver/Code/Macro/Proof_System.py (apply_diff_rule, apply_linear_rule, series_sum)",
+    "/private/tmp/.../scratchpad/busy-beaver/Code/Macro/Rule_Func.py",
+    "https://loat-developers.github.io/LoAT/ (via search)"
+   ]
+  },
+  {
+   "technique": "ExpInt: exact arithmetic in the tower closure of Z with computable residues (Carmichael recursion)",
+   "what_it_actually_does": "Exp_Int.py defines formal integers (\u03a3 a_i\u00b7b^{e_i} + c)/d where exponents e_i are themselves ExpInts or symbolic expressions (unbounded nesting). Ring operations normalize term lists; comparison uses a two-component 'tower_value' approximation (height, top) with hybrid int/float precision tricks (prec_mult via ldexp shifts). The load-bearing operation \u2014 flagged in a code comment as 'the reason that this class works!' \u2014 is __mod__: x mod m is computed EXACTLY by rd = (\u03a3 a_i\u00b7(b^{e_i} mod dm) + c) mod dm with b^e mod M evaluated via Math.exp_mod: reduce e modulo the Carmichael function \u03bb(M) past the preperiod k0, recursing on e (itself a tower) through the iterated-\u03bb chain. divmod, floordiv, and division-by-integer follow. This lets the simulator decide which parity/residue branch of a Collatz-level rule applies to counters of tower height ~15.",
+   "math_translation": "Implicit definition: E_b = smallest class of formal integers containing Z closed under (t1,...,tk,c,d) \u21a6 (\u03a3 a_i b^{t_i} + c)/d (with integrality side conditions). Implicit theorem: every residue map Z\u2192Z/m extends to a computable map E_b\u2192Z/m, via \u2200e\u2265k0(M): b^e \u2261 b^{((e\u2212k0) mod \u03bb(M))+k0} (mod M), recursion terminating because iterated \u03bb decreases to 1; hence order/branch decisions ('which residue class does this tower inhabit') are decidable in time polynomial in formula size and the \u03bb-chain length. Comparisons are decided by the (height, top) valuation \u2014 implicitly, the order on E_b constants is computably approximated by the Hardy-field-style ranking of towers.",
+   "nearest_known_math": [
+    {
+     "theory": "Folklore iterated-totient algorithm for tetration mod m (e.g., last digits of Graham's number); Euler/Carmichael lifting",
+     "relationship": "subsumed-by for the core trick \u2014 but folklore treats one tower at a time; ExpInt makes it a closed ARITHMETIC DOMAIN (add/mul/divmod/compare) over sums of towers with rational normalization, which no CAS provides as a type",
+     "ref": "Knuth up-arrow folklore; Wikipedia 'Carmichael function # exponential cycle length' (cited in Math.py)"
+    },
+    {
+     "theory": "Semenov arithmetic and the theory of towers (decidability of Presburger + exponentiation)",
+     "relationship": "overlaps: the decision procedures there also hinge on eventual periodicity of b^x mod m; ExpInt is an efficient term-level implementation of that fragment",
+     "ref": "Semenov 1984; Cherlin-Point on towers"
+    },
+    {
+     "theory": "Hardy fields / levels of exponential growth (comparison of exp-log terms)",
+     "relationship": "overlaps: tower_value comparison is a crude computable Hardy-field ordering restricted to integer towers",
+     "ref": "Richardson et al. on exp-log constant comparison"
+    }
+   ],
+   "novelty_verdict": "known-math-with-new-twist",
+   "fusion_opportunity": "Package ExpInt as a general 'residue-computable tower arithmetic' library and connect it to decision procedures for Semenov arithmetic: rule guards and parity branches become decidable queries instead of ad-hoc code paths. In the other direction, CAS/SMT communities get a worked example that exact mod-arithmetic \u2014 not approximation \u2014 is the right primitive for reasoning about hyper-exponential program values.",
+   "collatz_application": "Essential for Collatz certificates at tower scale: verifying a claimed accelerated trajectory of n = 2\u2191\u2191k + c requires exactly ExpInt's operations (residues of towers mod 2^j\u00b73^i to choose branches, exact division by 2^j). It is also the natural computational substrate for Michel's Definition 1.5 'exponential Collatz-like functions' (f(dn+i) = (a_i p^n + b_i)/c_i), which his 2015 paper explicitly notes have never been studied.",
+   "sources_read": [
+    "/private/tmp/.../scratchpad/busy-beaver/Code/Exp_Int.py",
+    "/private/tmp/.../scratchpad/busy-beaver/Code/Math.py (exp_mod, carmichael)",
+    "/Users/simon/Desktop/COLLATZ/papers/michel2015_number_theory_bb.pdf pp.1-5"
+   ]
+  },
+  {
+   "technique": "Config-algebra rule DSL with inductive validator (Ligocki's rust validator.rs; busycoq as its certified big sibling)",
+   "what_it_actually_does": "rust/src/validator.rs defines: Rule = (init_config, final_config, proof), where configs are RLE words with symbolic count expressions ('0^inf <B 0^2n 3^b+1 2 0^inf'), and proof is a list of steps: TMSteps(n) (checked by direct simulation), RuleStep{rule_id, var_assignment} (checked by substitute-and-replace on the word), chain rules (schema: block^n crossing the head in c\u00b7n steps), and InductiveStep (apply the rule being proven at a strictly smaller induction variable; checker enforces decrease). RuleSet is stratified (rule n uses only rules < n or induction). The test suite validates the complete published rule tables for Hydra, Antihydra, Bigfoot, t15, mxdys' halt-cryptids etc. \u2014 e.g. test_hydra proves A(2n,b+1)\u2192A(3n+3,b), A(2n+1,b)\u2192A(3n+3,b+2), A(2n,0)\u2192Halt(3n+3) from 5 base steps plus an inductive shift rule '0^inf 3^a 1 A> 0^2n \u2192 0^inf 3^{3n+a} 1 A>'. busycoq re-plays the same rule structure inside Coq (Skelet1.v: dozens of word-rewriting lemmas proven by 'triv', composed by induction) for full certification.",
+   "math_translation": "Implicit proof system: judgments \u22a2 \u2200x\u0304\u2265m: C1(x\u0304) \u2192* C2(x\u0304) over the monoid of power words (products w^e with e in a linear-expression semiring); inference rules = exact simulation steps, substitution instances of earlier judgments, chain-rule axiom schema, and well-founded induction on a designated variable. Soundness theorem (implicit, and actually proven in Coq for busycoq): every derivable judgment holds for the TM's reachability relation. This is rewriting induction (inductive theorem proving for rewrite systems) instantiated on SLP/power-compressed words, where matching/replacement is the power-word analogue of pattern matching.",
+   "nearest_known_math": [
+    {
+     "theory": "Rewriting induction / inductive theorem proving in term rewriting (Reddy 1990; Aoto et al.), cyclic proof systems",
+     "relationship": "subsumed-by in proof-theoretic shape: base case + inductive step with decreasing measure, stratified lemma reuse; the instantiation domain differs",
+     "ref": "U. Reddy, 'Term rewriting induction', CADE 1990"
+    },
+    {
+     "theory": "Algorithmics of compressed words: power word problem, straight-line programs (Lohrey school)",
+     "relationship": "overlaps: config matching/equality in the validator is exactly computation on power words, known to be decidable efficiently; the validator is an applied power-word rewriting engine",
+     "ref": "Lohrey, 'The power word problem' and 'Algorithmics on SLP-compressed strings' survey"
+    },
+    {
+     "theory": "Hoare-style relational verification with procedure summaries",
+     "relationship": "overlaps: a rule is a summary; RuleStep is summary application; stratification = call-graph acyclicity plus one self-call discharged by induction",
+     "ref": "standard; cf. ICRA's summaries (Kincaid et al. PLDI 2017)"
+    }
+   ],
+   "novelty_verdict": "known-math-reinvented",
+   "fusion_opportunity": "The validator is a summary-calculus a PL researcher would recognize instantly \u2014 so make the identification explicit and get both directions: (1) compile validated rule sets into CHCs so SMT/CHC solvers can search for the MISSING lemmas (today humans write the rule tables; the checker only checks); (2) import the power-word algorithms literature to make matching provably efficient at scale; (3) busycoq shows the certification endgame \u2014 the same three-layer architecture (miner \u2192 validator \u2192 Coq) is the right shape for any certificate program over discrete dynamics.",
+   "collatz_application": "Blueprint for our Collatz certificate checker: certificates = stratified rule sets over run-length numerals with one induction variable per rule; checking = substitution + power-word replacement + base-step simulation of the Collatz map; Coq/Lean backend by direct transliteration (busycoq proves this scales to rule sets with 5-digit exponents and hundreds of lemmas). The 'chain rule' axiom schema corresponds to the v2-valuation shortcuts (dividing out 2^k in one move).",
+   "sources_read": [
+    "/private/tmp/.../scratchpad/busy-beaver/rust/src/validator.rs (incl. test_hydra, test_antihydra, test_bigfoot)",
+    "/private/tmp/.../scratchpad/busycoq/verify/Skelet1.v",
+    "/private/tmp/.../scratchpad/busy-beaver/rust/src/count_expr.rs (skimmed)"
+   ]
+  },
+  {
+   "technique": "Collatz-level extraction: reduction of halting to RCWA-map reachability, plus random-walk drift heuristics (Racheline's Antihydra rules; Hydra; Bigfoot mod-6 table)",
+   "what_it_actually_does": "Humans (Racheline for Antihydra within days of mxdys' discovery; Ligocki for Hydra/Bigfoot from savask's low-level description) compose the machine-mined level-1/2 rules into a top-level parity-split table, then validate mechanically. Hydra: A(2n,0)\u2192Halt(3n+3), A(2n,b+1)\u2192A(3n+3,b), A(2n+1,b)\u2192A(3n+3,b+2), start\u2192A(3,0). Antihydra: E(2n,b)\u2192E(3n+2,b+2), E(2n+1,b+1)\u2192E(3n+3,b), E(2n+1,0)\u2192Halt. Bigfoot: six rules on b mod 6 with coupled counter c and a \u00b1-stepped counter a, halting only from A(0,6k+2,c). Nonhalting is then argued heuristically: model the residue sequence as i.i.d. fair bits, get a biased random walk on b with positive drift, so P(return to 0 from current b > 2^37) < (something)^{2^37} \u2248 10^{-10^10}. The wiki further reduces Antihydra's halting to the parity behavior of \u230aK\u00b7(3/2)^n\u230b \u2014 Mahler Z-number territory.",
+   "math_translation": "Implicit theorem schema (fully rigorous, mechanically validated): M halts from blank tape \u27fa the orbit of a given point under an EXPLICIT residue-class-wise affine partial map with parameter (Michel Def 1.1/1.3; Kohl's RCWA class: f(dn+i) = a_i n + b_i with side counter updates) reaches a designated residue set. The heuristic layer is a separate, clearly demarcated claim: under a Bernoulli model of the residue sequence, halting has probability \u2248 0 ('probvious' nonhalting). The extraction as a whole constructs a semi-conjugacy from the TM's reachable dynamics onto an RCWA system of 2-3 integer variables.",
+   "nearest_known_math": [
+    {
+     "theory": "Michel's hand analyses of BB champions as Collatz-like/RCWA iterations (1993, 2015), building on Buttsworth-Matthews generalized Collatz mappings and Kohl's RCWA",
+     "relationship": "subsumed-by in concept: identical end product and definitions; the community's advance is semi-automation (miner+validator), scale (thousands of machines), and the discipline of machine-checking the reduction",
+     "ref": "/Users/simon/Desktop/COLLATZ/papers/michel2015_number_theory_bb.pdf; michel1993_bb_collatz.pdf"
+    },
+    {
+     "theory": "Conway's unpredictable iterations; Kurtz-Simon undecidability of generalized-Collatz problems",
+     "relationship": "overlaps: guarantees such reductions exist for SOME machines (universality), explaining why cryptids appear; but Conway/Kurtz-Simon encode configurations into one huge integer, whereas rule mining finds the minimal-dimension reduction valid on the reachable set only \u2014 a different, non-universal construction",
+     "ref": "Conway 1972 'Unpredictable iterations'; Kurtz-Simon 2007"
+    },
+    {
+     "theory": "Stochastic models of Collatz maps: Terras density, Lagarias-Weiss, Tao's log-density almost-all result; supermartingale almost-sure-termination in probabilistic programs (Chakarov-Sankaranarayanan, Chatterjee et al.)",
+     "relationship": "overlaps: the random-walk drift argument is the Terras/Lagarias heuristic transplanted; the probabilistic-program literature has the RIGOROUS version (Lyapunov/supermartingale certificates) but only for genuinely stochastic branching \u2014 for deterministic pseudorandom residues it remains a heuristic in both communities",
+     "ref": "Lagarias 1985; Tao 2019; Chakarov-Sankaranarayanan CAV 2013"
+    }
+   ],
+   "novelty_verdict": "known-math-reinvented",
+   "fusion_opportunity": "Two fusions: (1) Porous/N-semilinear invariants (Ouaknine et al. CAV 2021 \u2014 explicitly motivated by 'Collatz-like' multipath affine loops) applied to mined RCWA tables could mechanically prove nonhalting for the sub-cryptid machines whose orbits stay in an invariant union of congruence classes \u2014 turning today's UNPROVEN_PARITY failures into certificates, and cleanly fencing off the genuinely hard residue-equidistributed cryptids; (2) make the drift heuristic conditional-rigorous: state equidistribution of the residue sequence as an explicit hypothesis (\u00e0 la Mahler Z-numbers / Tao's averaging) and prove 'nonhalting given equidistribution', a theorem template both communities currently leave implicit.",
+   "collatz_application": "This closes the loop with Collatz proper: cryptid halting problems ARE Collatz-type problems (Antihydra \u27fa parity of \u230a8\u00b7(3/2)^n\u230b-type orbits). For our certificate program the transferable asset is the two-layer discipline: exact machine-checked reduction to an RCWA map, plus a quarantined stochastic layer. Certificates for partial Collatz results (residue families that provably descend, e.g. via porous invariants of the accelerated map) can be mined and validated with precisely this pipeline run in reverse.",
+   "sources_read": [
+    "https://wiki.bbchallenge.org/wiki/Antihydra",
+    "https://wiki.bbchallenge.org/wiki/Cryptids",
+    "https://www.sligocki.com/2024/05/10/bb-2-5-is-hard.html",
+    "https://www.sligocki.com/2024/07/06/bb-6-2-is-hard.html",
+    "https://www.sligocki.com/2023/10/16/bb-3-3-is-hard.html",
+    "/Users/simon/Desktop/COLLATZ/papers/michel2015_number_theory_bb.pdf pp.1-5"
+   ]
+  }
+ ],
+ "weird_unnoticed": "The coordinate system of the entire analysis is chosen by a compression criterion applied at the dynamics' WORST moment: Block_Finder simulates until the tape is least run-length-compressible, then picks the block size minimizing RLE size of that specific adversarial tape (compression_efficiency), then multiplies it by whatever factor maximizes the chain-step speedup ratio. Nobody's summary mentions that the celebrated 'high-level rules' inherit their variables from an MDL/model-selection heuristic \u2014 an empirical Markov-partition construction by minimum description length. Second unnoticed practice: the prover instruments itself with a number-theoretic-hardness detector \u2014 every rule whose exponent decreases by more than 1 sets has_collatz_decrease (counted as num_collatz_rules), and rule application returns the sentinel UNPROVEN_PARITY exactly when halting hinges on an unknowable residue of a symbolic count. The simulator mechanically flags the precise moment a machine's halting problem becomes an open Collatz-like problem; 'cryptid' is operationally defined by a telemetry counter in Proof_System.py.",
+ "dead_ends": "Searched for prior cross-application in both directions and found none: no PL paper applies recurrence analysis/loop acceleration to TM tape run-length dynamics (searches for combinations of 'loop acceleration', 'recurrence', 'busy beaver', 'run-length' return only the bb community itself), and no bb tooling cites or uses complete octagonal acceleration, congruence domains, or CRA \u2014 the literatures are fully disjoint despite solving the same problem. Looked for a completeness/characterization theorem behind Proof_System (which machines admit finite rule covers, analogous to 'solvable loop' completeness results): none exists anywhere. Checked whether the community has any residue-tracking abstract domain to resolve UNPROVEN_PARITY on symbolic counts: they don't \u2014 they either fail or wait for counts to become concrete ExpInts. The Cryptids wiki page documents no methodology (confirmed by direct read); the method lives in blog posts and in test functions inside validator.rs, so the most refined artifacts (Hydra/Antihydra/Bigfoot machine-checked rule tables) are effectively unpublished test code. docs.bbchallenge.org was unreachable as warned; wiki.bbchallenge.org and the repos sufficed. Did not manage to confirm how much of the Hydra top-level parity split the Python prover found unassisted versus Ligocki hand-composing from mined level-1/2 rules; the blog posts present derivations pedagogically and the code cannot represent a 2n/2n+1 case split natively (strip_config cannot distinguish parities), so I concluded top-level splits are human contributions \u2014 stated with that caveat."
+}

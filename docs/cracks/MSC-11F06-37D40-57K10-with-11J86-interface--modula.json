@@ -1,0 +1,74 @@
+{
+ "area": "MSC 11F06, 37D40, 57K10 (with 11J86 interface) \u2014 modular surface geometry, continued fractions as cutting sequences of geodesics, Ghys's modular/Lorenz knots, Rademacher function and Dedekind sums",
+ "hole_status": "virgin",
+ "hole_justification": "Searches run: web searches \"Collatz 'Dedekind sums' 3x+1\"; \"'3x+1' OR Collatz 'modular surface' geodesic\"; \"Collatz 'Lorenz knot' OR 'modular knot' OR 'Rademacher function'\"; \"Collatz knot theory trefoil linking number arxiv\"; \"Collatz 'parity vector' SL(2,Z) continued fraction\"; \"mathoverflow Collatz modular geodesic / Dedekind sum / Ghys\"; \"Ghys Collatz 3n+1\"; \"Collatz Farey map\"; \"q-deformed rationals continuants Collatz (Morier-Genoud/Ovsienko)\"; plus arXiv full-text search for Collatz+Dedekind. Result: ZERO serious papers connecting 3x+1 to modular geodesics, Dedekind sums, Rademacher functions, or knots. The only hit is a non-mathematical crank preprint on academia.edu (\"Integrated Spiral Topological String Theory\" deriving a trefoil from Collatz). Lagarias's annotated bibliographies (math/0309224 and part II, already in /papers) contain no entries in this direction. What IS explored is the Diophantine shadow of the bridge: Steiner 1977, Simons 2005 (Math. Comp. 74, no 2-cycles), Simons\u2013de Weger (Acta Arith.), Hercher 2023 (arXiv 2201.00406, no m-cycles m<=91) all use continued-fraction convergents of log_2 3 plus Baker/Rhin linear-forms bounds \u2014 purely Diophantine, never the geometric/automorphic realization of those continued fractions. The modular-knot side (Ghys, Duke\u2013Imamoglu\u2013Toth, C.-L. Simon, Matsusaka\u2013Ueki) has never been evaluated on Collatz parity words.",
+ "bridge": "A hypothetical Syracuse cycle (U(n)=(3n+1)/2^a on odds) with L odd steps and halving-run vector a=(a_1,...,a_L), a_i>=1, sum a_i = K, is a necklace (cyclic word). It has two parallel realizations. (i) Affine/arithmetic: the product Prod_i (3,1;0,2^{a_i}) = (3^L, W; 0, 2^K) with Bohm\u2013Sontacchi weight W(a) = sum_{i=1}^{L} 3^{L-i} 2^{a_1+...+a_{i-1}}, and cycle element n(a) = W/(2^K-3^L); by Lagarias 1990 (Acta Arith. 56) EVERY necklace is realized as a rational cycle, and integer cycles are exactly the necklaces with (2^K-3^L) | W. (ii) Modular/topological: M(a) = Prod_i R^{a_i}L in PSL(2,Z) (R=(1,1;0,1), L=(1,0;1,1)) is a primitive hyperbolic class = closed geodesic on the modular surface whose cutting sequence/CF is the periodic [a_1,1,a_2,1,...] = a modular knot in T^1(PSL(2,Z)\\H) ~ S^3 minus trefoil = a Lorenz knot whose Lorenz word avoids LL (Ghys 2006). Conjugacy = cyclic rotation, and rotation maps n(a) to its T-iterate, so \"this necklace is an integer cycle\" (equivalently the Collatz defect delta(a) := W mod (2^K-3^L) = 0 with odd quotient) is a well-defined function on modular knots (closed geodesics). Dictionary entries verified: trefoil linking number = Rademacher Phi(M(a)) = #R - #L = K - L (checked in Ghys's paper: link(k_A, trefoil) = sum of left/right exit signs); braid index/trip number = L (number of odd steps); the trivial cycle n=1 has word R^2L, which is exactly Ghys's unknot class R^aL^b. Cycle-candidate constraint 2^K-3^L small <=> K/L a CF convergent of log_2 3 <=> the geodesic's digit statistics track the (non-periodic) cutting sequence of log_2 3's CF. Crucially: the existing cycle exclusions (Steiner...Hercher) use exactly Phi(M(a)) = K-L and nothing finer \u2014 the entire Baker machinery factors through the trefoil linking number.",
+ "strongest_adjacent_theorems": [
+  "Ghys 2006/2007 (ICM 'Knots and dynamics'): periodic orbits of the modular geodesic flow are precisely the Lorenz knots (template isotopy), and link(k_A, trefoil) = R(A), the Rademacher function; on words, R(Prod R^{n_i}L^{m_i}) = sum n_i - sum m_i; modular links are fibered with nonnegative signature, prime, and k_A is trivial iff A ~ (UV)^a(UV^{-1})^b.",
+  "Series 1985 (J. London Math. Soc., 'The modular surface and continued fractions'): cutting sequences of geodesics on PSL(2,Z)\\H are continued fraction expansions; closed geodesics <-> periodic CFs <-> PSL(2,Z)-classes of quadratic irrationals.",
+  "Barkan 1977 / Hickerson 1977 (J. reine angew. Math. 290): Dedekind sums s(d,c) as alternating sums of continued-fraction partial quotients; density of {(d/c, s(d,c))} in R^2 \u2014 the exact sense in which Dedekind sums are LINEAR functionals of CF digits.",
+  "Duke\u2013Imamoglu\u2013Toth 2017 (Duke Math. J. 166, 'Modular cocycles and linking numbers'): linking numbers of modular knots expressed as cycle integrals of weight-2 modular cocycles, with equidistribution consequences.",
+  "Christopher-Lloyd Simon 2022-2025 (arXiv 2211.05957, Geom. Topol. 29): closed combinatorial formula for the linking number of any PAIR of modular knots as an intersection/interleaving pairing on the cyclic R,L-words, answering Ghys's question \u2014 a QUADRATIC word functional, strictly finer than Rademacher.",
+  "Matsusaka\u2013Ueki 2021 (arXiv 2109.01114): Rademacher symbols for Hecke triangle groups = linking numbers with general torus knots \u2014 shows the Rademacher/linking mechanism deforms in families.",
+  "Rodriguez-Migueles et al. 2020 (arXiv 2008.12436): hyperbolic volume of modular knot complements is bounded above/below by the period (sum of CF digits) \u2014 a geometric invariant polynomial in K, L.",
+  "Morier-Genoud\u2013Ovsienko 2019-20 (arXiv 1812.00170, Forum Math. Sigma): q-deformed rationals and q-continuants with total positivity \u2014 the natural one-parameter family in which W(a) sits as a (3,2)-twisted continuant specialization; no Collatz connection in the literature.",
+  "Mozzochi 2013 (Israel J. Math.) and Sarnak (linking numbers letter): Gaussian value distribution of the Rademacher function over closed geodesics ordered by length, via Selberg/Eisenstein methods.",
+  "Atiyah 1987 (Math. Ann. 278, 'The logarithm of the Dedekind eta function'): omnibus theorem \u2014 seven definitions of the Rademacher function (eta-multiplier, signature defect, eta-invariant, Euler cocycle, ...) coincide."
+ ],
+ "the_push": "Three honest levels. LEVEL 0 (certain, new, cheap): the dictionary itself. Collatz cycle candidates = LL-avoiding Lorenz knots; the cycle conjecture becomes: the arithmetic function delta(v) = W(v) mod (2^K-3^L) on modular knots vanishes (with odd quotient in the right range) only on the known necklaces \u2014 and the trivial cycle is the UNKNOT. This is a genuinely unmined reformulation: 'is a Collatz cycle' is conjugation-invariant, hence a function on closed geodesics. LEVEL 1 (the sobering theorem-shaped fact): the trefoil linking number Phi = K-L is EXACTLY the data that Steiner-through-Hercher already exploit via Baker bounds; and all classical Dedekind-sum/Rademacher invariants are linear/alternating in the CF digits a_i, while W is exponential in the partial sums c_i = a_1+...+a_i. So no classical automorphic invariant can decide delta = 0; any topological obstruction beyond Baker must come from invariants at least quadratic in the word: C.-L. Simon's pairwise linking pairing (interleaving counts against reference knots), DIT cycle integrals, hyperbolic volume, or the Jones-polynomial/q-continuant layer (Morier-Genoud\u2013Ovsienko connect q-continuants of exactly these words to Jones polynomials of the associated rational knots; W(v) is a (3,2)-specialized twisted continuant of the same word). LEVEL 2 (the concrete falsifiable question): does delta descend to knot ISOTOPY type? Distinct geodesics can be isotopic as Lorenz knots (e.g., repeated torus-knot types); comparing delta across such pairs decides immediately whether topology can in principle see the cycle condition, and if it fails (likely), the failure localizes exactly which arithmetic refinement of the knot (the conjugacy class vs its isotopy shadow, i.e., the class number ambiguity) carries the Collatz content \u2014 paralleling how Dedekind sums separate geodesics of the same length. Realistic new mathematics even in the negative case: mod-12 constraints from the eta-multiplier (K-L mod 12 has automorphic meaning via epsilon(A) = exp(pi i Phi/12)), positivity constraints on W from total positivity of q-continuants, and word-class (rather than (K,L)-class) cycle exclusions via linking pairings \u2014 a structurally different axis to combine with Hercher-type computations.",
+ "first_move": "Two-track first move. (Compute, 32-core, ~hours): exhaustively enumerate parity necklaces with L <= 18 odd steps, 3^L < 2^K (all arithmetic fits in 64 bits since 2^K-3^L < 2^29 range for the critical band K = ceil(L log_2 3)); for each necklace compute the Collatz defect delta(v) = W(v) mod (2^K-3^L), Rademacher Phi = K-L, the Dedekind sum s(d,c) of M(v) = Prod R^{a_i}L via the Barkan\u2013Hickerson CF formula, C.-L. Simon's interleaving linking numbers against a fixed basis of short reference words, and hyperbolic length 2 arccosh(tr M/2); then (a) test whether the delta = 0 locus (Lagarias's rational-cycle necklaces that yield integers) is separated within fixed (K,L) by any linear/quadratic combination of knot invariants, and (b) run the isotopy test: for pairs of distinct necklaces realizing the same Lorenz knot type (repeated torus knots are abundant and enumerable via Birman\u2013Kofman T-link normal forms), check whether delta agrees \u2014 an immediate yes/no on whether the cycle condition can factor through knot topology. (Lean, ~days): formalize the dictionary lemma \u2014 v -> (M(v), 2^K-3^L, W(v)) is well-defined on necklaces, with rotation covariance W(sigma v) = 2^{a_1} W(v) - (2^{a_1} - ... ) making delta(sigma v) = 2^{a_1} delta(v) in Z/(2^K-3^L), hence 'delta = 0' (and n(v) in Z) is a genuine invariant of the modular knot; anchor case: necklace (2) -> R^2L -> unknot -> trivial cycle n=1.",
+ "payoff_odds": "Honest odds. Best realistic case (~5-10%): the quadratic layer (pairwise linking pairings / q-continuant positivity) yields word-class cycle exclusions orthogonal to Baker \u2014 e.g., all necklaces whose interleaving pairing with a reference knot is below a threshold carry delta != 0 \u2014 which would be the first structurally new cycle-exclusion axis since Steiner 1977 and could extend Hercher's m <= 91 with less computation; even a mod-12 eta-multiplier congruence on W would be a publishable new constraint. Likely case (~40%): the dictionary plus the L <= 18 dataset plus the (probably negative) isotopy-descent theorem make a solid paper \u2014 'the Collatz cycle condition as an arithmetic function on modular knots' \u2014 that cleanly PROVES the limitation (all classical automorphic invariants factor through data Baker already uses), a Monks-2006-style rigorous negative result matching this program's exhaustive-certificate style. Failure mode (~50%): the invariants decorrelate from delta completely and the bridge remains a (beautiful) reformulation with no leverage; even then the unknot = trivial cycle anchor and the LL-avoiding Lorenz characterization are worth a short note. What this will NOT do: touch divergence or almost-all results; it is strictly a cycles play, and the trefoil-linking = K-L fact proves the naive version of the push cannot beat linear forms in logarithms at their own game.",
+ "prior_art": [
+  {
+   "ref": "Hercher 2023, J. Integer Seq. 26, art. 23.3.5 (arXiv 2201.00406)",
+   "what": "No Collatz m-cycles with m <= 91; state of the art of the CF-convergent + linear-forms method; uses only (K,L) data \u2014 exactly the trefoil-linking shadow of the knot.",
+   "url": "https://arxiv.org/abs/2201.00406"
+  },
+  {
+   "ref": "Simons 2005, Math. Comp. 74, 1565-1572",
+   "what": "No 2-cycles, via convergents of log_2 3; template for how the Diophantine side of the bridge is mined.",
+   "url": "https://www.ams.org/journals/mcom/2005-74-251/S0025-5718-04-01728-4/S0025-5718-04-01728-4.pdf"
+  },
+  {
+   "ref": "Lagarias 1990, Acta Arith. 56, 'The set of rational cycles for the 3x+1 problem'",
+   "what": "Every parity necklace is realized by a rational cycle with odd denominator \u2014 makes the Collatz defect delta a TOTAL function on modular knots; no geometric interpretation given."
+  },
+  {
+   "ref": "Ghys 2007, Proc. ICM 2006 vol. I, 'Knots and dynamics'",
+   "what": "The other side of the bridge: modular knots = Lorenz knots, trefoil linking = Rademacher; never applied to Collatz.",
+   "url": "https://perso.ens-lyon.fr/ghys/articles/knotsdynamics.pdf"
+  },
+  {
+   "ref": "C.-L. Simon 2022-25, Geom. Topol. 29 (arXiv 2211.05957)",
+   "what": "Combinatorial formula for pairwise linking numbers of modular knots \u2014 the finest currently-computable conjugation invariant of parity words; unmined for Collatz.",
+   "url": "https://arxiv.org/abs/2211.05957"
+  },
+  {
+   "ref": "Duke\u2013Imamoglu\u2013Toth 2017, Duke Math. J. 166",
+   "what": "Linking numbers as cycle integrals of modular cocycles; the automorphic machinery that would have to carry any congruence obstruction on W."
+  },
+  {
+   "ref": "Matsusaka\u2013Ueki 2021 (arXiv 2109.01114)",
+   "what": "Rademacher symbols for triangle groups as linking numbers with torus knots; shows the framework deforms \u2014 relevant if the (2,3)-weighting of W needs a deformed group.",
+   "url": "https://arxiv.org/abs/2109.01114"
+  },
+  {
+   "ref": "Morier-Genoud\u2013Ovsienko 2019 (arXiv 1812.00170)",
+   "what": "q-continuants, total positivity, Jones polynomials of rational knots from the same R,L-words; the natural deformation family containing the Bohm\u2013Sontacchi weight W; no Collatz literature exists.",
+   "url": "https://arxiv.org/abs/1812.00170"
+  },
+  {
+   "ref": "academia.edu 'ISTST' preprint (2024?)",
+   "what": "Sole search hit combining Collatz and trefoil: non-mathematical crank content; confirms the hole rather than filling it.",
+   "url": "https://www.academia.edu/144503361/"
+  }
+ ],
+ "downloaded_papers": [
+  "/Users/simon/Desktop/COLLATZ/papers/ghys-2006-knots-and-dynamics.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/simon-2022-linking-numbers-modular-knots-2211.05957.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/matsusaka-ueki-2021-rademacher-symbols-triangle-groups-2109.01114.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/rodriguez-migueles-2020-periods-cf-volumes-modular-knots-2008.12436.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/hercher-2023-no-collatz-m-cycles-91-2201.00406.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/morier-genoud-ovsienko-2019-q-rationals-1812.00170.pdf"
+ ]
+}

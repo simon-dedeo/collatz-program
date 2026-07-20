@@ -1,0 +1,1239 @@
+                                               Bounds for the 3x + 1 Problem using Difference Inequalities
+
+                                                                                    Ilia Krasikov
+                                                                                  Brunel University
+                                                                         Department of Mathematical Sciences
+                                                                         Uxbridge UB8 3PH, United Kingdom
+
+
+
+
+arXiv:math/0205002v1 [math.NT] 30 Apr 2002
+                                                                                  Jeffrey C. Lagarias
+                                                                                AT&T Labs - Research ,
+                                                                             Florham Park, NJ 07932-0971
+
+
+                                                                                     (April 30, 2002)
+
+
+                                                                                     ABSTRACT
+
+                                             We study difference inequality systems for the 3x + 1 problem introduced by the first author in
+                                             1989. These systems can be used to derive lower bounds for the number of integers below x for
+                                             which the 3x + 1 conjecture is true. Previous methods obtaining such lower bounds gave away
+                                             some information in these inequalities; we give an improvement which (apparently) extracts
+                                             full information from the inequalities in obtaining a lower bound.
+                                                 We deduce, by computer-aided proof, that for any fixed positive integer a not divisible by
+                                             3, and for large enough x (depending on a), at least x0.84 of integers below x have a in their
+                                             forward orbit under the 3x + 1 function.
+
+
+                                             Mathematics Subject Classification (2000): 11B83 Primary; 26A18, 32H50 Secondary
+
+                                             Keywords: 3x + 1 problem, difference equations, dynamical system, iteration, nonlinear pro-
+                                             gramming
+
+
+
+                                             1. Introduction
+                                             The 3x + 1 problem concerns the iteration of the 3x + 1 function T (n) = n/2 if n is an even
+                                             integer, (3n + 1)/2 if n is an odd integer. The well known 3x + 1 Conjecture asserts that all
+                                             integers n ≥ 1 eventually reach 1 under iteration of the 3x + 1 function. Known results on this
+                                             problem are surveyed in Lagarias [5] and Wirsching [7].
+                                                 Let π1 (x) count the number of integers below x that eventually reach 1 under this iteration.
+                                             There are several methods known for establishing lower bounds of the form π1 (x) > xβ for a
+                                             positive constant β. see [1], [2]. The first such bound was obtained in 1978 by Crandall [3].
+                                             The strongest of these methods at present is one introduced by the first author in 1989 ([4]),
+                                             which uses systems of difference inequalities, and here we consider it further.
+     This method formulates, for each k ≥ 2, a system Ik of functional difference inequalities
+(mod 3k ), containing about 3k variables, which certain functions, computed from 3x + 1 iter-
+ates, satisfy; they are specified in §2. One can establish an exponential lower bound for the
+growth rate of positive monotone solutions to these inequalities, and this translates into lower
+bounds for π1 (x) of the form xβ for some positive β. The paper [4] used the system k = 2
+to obtain a lower bound x0.43 for the number of such integers. Later Wirsching [6] used the
+system k = 3 to obtain the lower bound x0.48 , for all sufficiently large x.
+     In 1995 Applegate and Lagarias [2] gave an approach using nonlinear programming to
+systematically extract lower bounds from the difference inequalities Ik . The first step was
+to iterate the inequalities to obtain a derived system of difference inequalities D such that
+any positive, monotone solution to the original inequalities would remain a solution of the
+derived inequalities. This step can be done in many ways, in an ad hoc fashion. Given such
+a system of difference inequalities D they associated a family of auxiliary linear programs
+LDk (λ) depending on a parameter λ. The parameter λ lies in the interval 1 ≤ λ ≤ 2, and the
+coefficients of the linear program depend nonlinearly on λ. If the system D contained only
+“retarded” variables (as defined below) then any positive feasible solution to the linear program
+for a fixed λ yields rigorous exponential lower bounds for the growth of any positive montone
+solution of the system D, with exponential growth constant λ; the associated exponent in lower
+bounding π1 (x) is then γ = log2 λ. One searches for the largest value of λ for which a positive
+feasible solution exists, which is a nonlinear programming problem. To obtain an inequality
+system with retarded variables only, Applegate and Lagarias [2] found it necessary to apply a
+“truncation” operation which weakens the inequalities and presumably weakens the exponential
+lower bounds attained. Using the system k = 9, and a particular sequence of reductions to
+derive a suitable system D, a large computation yielded a lower bound π1 (x) ≥ x0.81 for all
+sufficiently large x. Up to now this is the best asymptotic lower bound for π1 (x).
+     The nonlinear programming approach in [2] does not apply directly to the original differ-
+ence inequalities because they contain terms with “advanced” variables (as defined below).
+The purpose of this paper is to establish that the lower bounds derived from the auxiliary
+linear program family associated to the original inequality system Ik , denoted LN   T
+                                                                                   k (λ), do give
+legitimate lower bounds for the 3x + 1 function, even though this system contains advanced
+variables. The main theorem is stated in §2.
+     This result yields an immediate improvement of the exponent for lower bounds for the 3x+1
+problem for the system k = 9, relying on computations reported in [2]. The computations given
+there for the linear program denoted LN  λ
+                                           T for k = 9 (which has equivalent growth expoonent
+                           N T
+to the linear program L9 (λ) studied here) yield a better exponent than any of lower bounds
+rigorously established in [2]. Using a further computation for k = 11, we obtain the improved
+lower bound
+                                          π1 (x) > x0.84 ,
+valid for all sufficiently large x, given in §6.
+    The main interest in the improved result, however, is that the linear program families
+LNk
+    T (λ), although of exponential size in k, have a relatively simple structure. One hopes that
+
+a bound of the form π1 (x) > x1−ǫ for any ǫ > 0 can eventually be proved by considering
+LN  T
+  k (λ) for arbitrarily large λ, and understanding better the structure of the feasible solution
+sets to these linear program systems.
+
+
+                                               2
+2. Main Result
+We first recall the difference inequalities Ik of Krasikov [4]. We consider the 3x + 1 function
+T (n), and for a 6≡ 0 (mod 3) and x ≥ 1 we define the function
+                            πa (x) := #{n : 1 ≤ n ≤ x, some T (j) (n) = a.}
+and the related function
+           πa∗ (x) := #{n : n ≤ x, some T (j) (n) = a, all T (i) (n) ≤ x for 0 ≤ i ≤ j}.
+Note that πa∗ (x) ≤ πa (x). For each residue class m (mod 3k ) with m 6= 0 (mod 3), we define
+for y ≥ 0 the function
+                               ∗ y                   j
+                φm
+                 k (y) := inf{πa (2 a) : a ≡ m (mod 3 ) and a not in a cycle}.
+
+This function is well defined because there always exists some a ≡ m (mod 3k ) not in a cycle.
+   This definition immediately implies that for k ≥ 2 and all m (mod 3k ), m 6≡ 0 (mod 3),
+these functions satisfy the three properties:
+   (P1) (Positivity) For all y ≥ 0,
+                                           φm
+                                            k (y) ≥ 1.
+   (P2) (Monotonicity) For y ≥ 0,
+                               φm
+                                k (y) is a nondecreasing function of y.
+
+   (P3) (Minimization) For m ∈ [3k−1 ] and all y ≥ 0,
+                                                      k−1               k−1
+                       φm              m       m+3
+                        k−1 (y) = min[φk (y), φk            (y), φkm+2·3      (y)].
+   It is easy to see that
+                            φm        2m
+                             k (y) = φk (y − 1) if m ≡ 1 (mod 3),                             (2.1)
+hence it suffices to study φm                                                                 k
+                            k (y) for y ≡ 2( mod 3). For convenience in what follows we let [3 ]
+denote the set of congruence classes
+                            [3k ] := {m (mod 3k ) : m ≡ 2 (mod 3)}.                           (2.2)
+   The difference inequality system of Krasikov [4] can be put in the following form.
+Proposition 2.1. Let α := log2 3 ≃ 1.585. For each k ≥ 2, the set of functions {φm      k (y) : m ∈
+[3k ]} satisfy the following system Ik of difference inequalities, valid for all y ≥ 2.
+     (D1) If m ≡ 2 (mod 9) then
+                                  4m               (4m−2)/3
+                        φm
+                         k (y) ≥ φk (y − 2) + φk−1            (y + α − 2).                    (2.3)
+   (D2) If m ≡ 5 (mod 9) then
+                                                4m
+                                      φm
+                                       k (y) ≥ φk (y − 2).                                    (2.4)
+   (D3) If m ≡ 8 (mod 9) then
+                                  4m               (2m−1)/3
+                        φm
+                         k (y) ≥ φk (y − 2) + φk−1            (y + α − 1)                     (2.5)
+   In these inequalities the functions φm
+                                        k−1 (y) are defined by
+                                                       k−1                 k−1
+                       φm               m       m+3
+                        k−1 (y) := min[φk (y), φk            (y), φkm+2·3        (y)].        (2.6)
+
+
+                                                  3
+Proof. This follows from [4, Lemma 4], and appears in [2, Prop. 2.1].
+    We regard the system Ik of inequalities as expressed entirely in terms of the functions
+{φk (y) : m ∈ [3k ]}, by using the minimum formulas (2.6). In that case all functions appearing
+   m
+
+are of the form φmk (y + βj ) for various real numbers βj . If βj ≥ 0 we call such a term advanced,
+while if β < 0 we call such a term retarded, since the terms have advanced arguments and
+retarded arguments respectively, in terms of the “time” variable y.
+    Applegate and Lagarias [2] associated to Ik various auxiliary linear programs LD        k (λ) de-
+pending on a parameter λ > 1; strictly positive feasible solutions for admissible linear programs
+for a given λ lead to exponential lower bounds for the functions φm               y
+                                                                      k (y) ≥ c0 λ . Here we study a
+                                                N T
+particular linear program family, denoted Lλ in [2], associated directly to the inequalities Ik ,
+to which their methods did not apply to get any lower bound. Actually we consider a modified
+linear program family LN    T                                     N T in having a different objective
+                         k (λ) given below; this differs from Lλ
+function variable, being a minimization rather than a maximization, and having the certain
+nonnegativity constraints modified to make them strictly positive. However, as shown in §6,
+this modified linear program is equivalent to the one in [2] in the sense that matters here: it
+has a feasible solution for λ if and only if the corresponding linear program in [2] has a strictly
+positive feasible solution for the same λ.
+    The linear program family LN      T
+                                    k (λ) is as follows.
+
+
+                                                       max
+                                    LN T
+                                     k (λ) : Minimize Ck                                       (2.7)
+
+subject to:
+(L0) For all m ∈ [3k ],
+                                                 max
+                                       1 ≤ cm
+                                            k ≤ Ck                                             (2.8)
+
+(L1) For all m ∈ [3k ] with m ≡ 2 (mod 9),
+                                                      4m−2
+                                         4m −2
+                                   cm
+                                    k ≤ ck λ   + ck−1
+                                                    3
+                                                      λα−2 .                                   (2.9)
+
+(L2) For all m ∈ [3k ] with m ≡ 5 (mod 9),
+                                                4m −2
+                                          cm
+                                           k ≤ ck λ   .                                       (2.10)
+
+(L3) For all m ∈ [3k ] with m ≡ 8 (mod 9),
+                                                      2m−1
+                                   cm    4m −2
+                                    k ≤ ck λ   + ck−1
+                                                    3
+                                                      λα−1 .                                  (2.11)
+
+(L4) For all m ∈ [3k ],
+
+                                        cm      m
+                                         k−1 ≤ ck ,                                           (2.12)
+                                                     m+3k
+                                        cm
+                                         k−1 ≤ ck            ,                                (2.13)
+                                                     m+2·3k
+                                        cm
+                                         k−1 ≤ ck                .                            (2.14)
+
+    Note that the inequality signs in (L1)–(L3) go in the opposite direction from that in the
+difference inequalities Ik , while (L4) goes in the same direction.
+
+                                                 4
+   We call the variables {cm            k                         NT
+                           k : m ∈ [3 ]} principal variables in Lk (λ), and the variables
+  m           k−1                                              max
+{ck−1 : m ∈ [3 ]} auxiliary variables; the remaining variable Ck   is the objective function
+variable. The objective function variable itself plays no role in determining feasibility of the
+linear program; the inequalities it appears in can always be satisfied by setting it equal to the
+maximum of the principal variables. If this linear program has any feasible solution, then this
+solution may be rescaled by a multiplicative constant so that min {cm  k } = 1, while decreasing
+Cmax , hence any optimum value of this linear program will have min {cm k } = 1. Given a feasible
+solution, set
+                                                     k−1           k−1
+                           c̄m           m    m+3
+                             k−1 := min{ck , ck            , ckm+2·3     }.                  (2.15)
+
+The inequalities (D4) say that cm        m
+                                 k−1 ≤ c̄k−1 . There are no lower bounds imposed on the auxiliary
+variables cm
+           k−1 , but given any feasible solution, there exists a positive feasible solution with the
+same principal variables and with auxiliary variables
+
+                                         cm       m
+                                          k−1 = c̄k−1 ≥ 1.
+
+Indeed (D4) still holds for this choice of auxiliary variables and the remaining inequalities
+(D1)-(D3) stay the same or weaken.
+   The linear program LN     T
+                            k (λ) encodes advanced variables, and the theorems in [2] do not
+apply to it. Conjecture 4.1 of [2] asserts that the largest value of λ for which LN  T
+                                                                                   k (λ) has a
+positive feasible solution should give the largest possible exponential lower bound for positive,
+monotone functions Φk satisfying Ik . Our main result is that LN     T
+                                                                   k (λ) gives legitimate lower
+bounds for positive solutions for such functions φm k (y).
+
+Theorem 2.2. Let 1 ≤ λ ≤ 2 be such that the linear program LN      T
+                                                                 k (λ) has a feasible solution
+                           m         k                           k
+with principal variables {ck : m ∈ [3 ]}. Then for and all m ∈ [3 ] and all y ≥ 0,
+
+                                     φm             m y
+                                      k (y) ≥ ∆1 · ck λ ,                                    (2.16)
+
+in which
+                                                  1
+                                ∆1 :=                         .                              (2.17)
+                                        4 max {cm         k
+                                                k : m ∈ [3 ]}
+
+    We believe, although we have no proof, that this result gives the largest exponential-type
+lower bound that can be extracted from the difference inequalities Ik . This is discussed at the
+end of §6.
+    Theorem 2.2 is established as follows. In §3 we show that there exists a sequence of back
+substitutions of the difference inequalities into themselves that results in a difference inequality
+system from which all advanced variables have been eliminated. This results in a new system of
+difference inequalities Ik (EL). We show that all solutions φmk of Ik which possess the positivity
+and monotonicity properties (P1) and (P2) will also be solutions of Ik (EL).
+    In §4 we consider linear programs. To each difference inequality system D (of a specified
+kind) we associate in a strictly deterministic way an auxiliary linear program family LD (λ).
+Let LELk (λ) denote the linear program family attached to Ik (EL). The main result of §4 is
+the deduction that if the linear program LN    T
+                                              k (λ) has a positive feasible solution with principal
+
+
+                                                 5
+variables {cm           k                             EL
+            k : m ∈ [3 ]}, then the linear program Lk (λ) with the same value of λ also has a
+positive feasible solution with the same principal variable values.
+    In §5 we show that any difference inequality system D in which only retarded variables
+appear has the property that positive feasible solutions to the auxiliary linear program LD (λ)
+for fixed λ yields lower bounds of the form (2.16); the proof is similar to [2, Theorem 2.1]. It
+immediately follows that we get such lower bounds from the linear program family LEL     k (λ).
+We then prove Theorem 2.2, by combining this result with the main result of §4.
+    In §6 we present taxonomic data on the derived systems LEL    k (λ) for 2 ≤ k ≤ 5 and infor-
+mation on positive feasible solutions the system LN k
+                                                      T (λ) for 2 ≤ k ≤ 11, computed by David
+
+Applegate, which yield the lower bound πa (x) ≥ x0.84 for all sufficiently large x. The results
+of §4 imply that the linear program family LELk (λ) might conceivably give better exponential
+lower bounds than are obtainable from the linear program family LN      T
+                                                                      k (λ). Numerical experi-
+ments show this is not the case for 2 ≤ k ≤ 5; here k = 5 was the limit of computability for
+the system LELk (λ).
+
+
+3. Eliminating Advanced Variables
+We describe a recursive back-substitution procedure to eliminate “advanced” terms of the
+inequality system Ik . We view the inequality system Ik as expressed entirely in terms of func-
+tions φm                                                             m′       ′
+        k (y + β) by replacing each term involving any variable φk−1 (y + β ) by the minimization
+expression on the right side of (2.6) in terms of φm  k functions.
+      We start with a single inequality (D3) of the system Ik associated to a fixed m ∈ [3k ],
+m ≡ 8 (mod 9), and perform a recursive back-substitution process of the inequalities Ik into
+its right-hand side. At the lth-stage of this process we will have an inequality Ikm (l) whose
+left side is φm
+              k (y) and whose right side is a nested series of minimizations of various functions
+  m ′
+φk (y + β ). The step from Ikm (l) to Ikm (l + 1) has two substeps. First, one picks an advanced
+            ′
+          ′
+term φm          ′   ′
+        k (y + β ), β ≥ 0 appearing   in the right side of Ikm (l) and replaces it with the right side
+                            m ′
+of the inequality Kk for φk (y ) with y ′ = y + β ′ . (This is called “splitting” a term in [2].) A
+                                 ′
+
+new minimization term may appear in this process, which contains three terms
+                        ′             ′   k−1                 ′   k−1
+                     φm       ′′   m +3
+                      k (y + β ), φk            (y + β ′′ ), φm
+                                                              k
+                                                                +3
+                                                                        (y + β ′′′ ) .          (3.1)
+The second substep in obtaining Ikm (l + 1) is to apply a deletion rule described below, which,
+if β ′′ ≥ 0, may remove up to two of these terms. The resulting inequality after the deletion
+substep is Ikm (l + 1).
+    At each stage in this process the inequality Ikm (l) has φm  k (y) on its left side and a sum
+of nested minimization terms on its right side, involving various functions φm    k (y + βj ); it will
+have each βj ≥ −2, because we will only substitute for terms φm    k (y + βj ) with βj ≥ 0, and the
+                                             m′      ′                ′
+formulas (D1)–(D3) produce new terms φk (y + βj ) which have βj ≥ βj − 2. The structure of
+the right side of an inequality Ikm (l) is described by a directed rooted labelled tree Tkm (l), in
+which the root mode is labelled with the left side φm  k (y) of the original inequality, each node
+is either a p-node (for “principal”) or an m-node (for “minimization”). The initial tree for the
+inequality Ikm for an m ∈ [3k ] with m ≡ 8 (mod 9) is pictured in Figure 1.
+
+   Here p-nodes are indicated by solid points and m-nodes by circled points. Each p-node is
+                                                       ′
+labelled by data (m′ , β ′ ) specifying the function φm       ′
+                                                      k (y + β ), while each m-node is labelled by
+
+
+                                                     6
+                                                    φm
+                                                     k (y) ≡ (m, 0)
+
+
+
+
+                   (4m, −2)
+
+
+
+
+                                  ( 2m−1
+                                      3
+                                         , α − 1)     ( 2m−1
+                                                          3
+                                                             + 3k−1 , α − 1)   ( 2m−1
+                                                                                   3
+                                                                                      + 2 · 3k−1 , α − 1)
+
+
+
+                              Figure 1: Rooted tree for inequality (D3).
+
+
+data (m′ , β ′ ) of the p-node of which it is a child. The root node is a p-node and has label
+(m, 0). The inequality Ikm (l) is uniquely specified by the tree Tkm (l) and vice-versa; the root
+node specifies the left side φm                          m
+                                k (y) of the inequality Ik (l), leaf nodes specify functions appearing
+in the right side, and the internal tree structure specifies the nested sequence of additions and
+minimizations comprising this right side of the inequality.
+                                                                                        ′
+      A step from Tkm (l) to Tkm (l + 1) consists of picking a leaf node with label φm          ′
+                                                                                      k (y + β ) which
+        ′
+has β ≥ 0 and changing the tree in the following two substeps. First we attach to thie leaf
+                                                                                             ′
+node (as root node) the directed tree associated to the formula (D1)–(D3) of φm                   ′
+                                                                                            k (y ) with
+ ′             ′                                                                          m
+y = y + β . We term this “splitting” the leaf node, following [2]. The tree T̃k (l + 1) that
+                                            ′
+results has a new p-node labelled φ4m              ′
+                                         k (y + β − 2), and may or may not have a new m-node
+with three new leaves (3.1) depending from it. If there is no m-node this tree will be Tkm (l + 1).
+Second, if there is a new m node, we apply the deletion rule given below to T̃km (l +1) to remove
+some (possibly empty) subset of the three leaves in a m-term.
+                                              ′′
+Deletion Rule. For each such leaf φm                 ′′    ′′
+                                           k (y + β ), if β ≥ 0, consider the directed path from the
+               m
+root node φk (y) to this leaf. At each internal p-vertex on this path, one has an associated value
+    ′                             m′′
+φm           ′                               ′′
+  k (y + β ). The leaf node φk (y + β ) is deleted if there is an internal node with m ≡ m
+                                                                                                  ′   ′′
+          k
+(mod 3 ) and with β < β .    ′′
+
+      After the deletion rule is applied to T̃km (l + 1), the tree that results is Tkm (l + 1), and the
+inequality correspoding to it is Ikm (l + 1). We will show that the deletion rule cannot remove
+all three leaves, hence all leaf nodes on the new tree Tkm (l + 1) are p-nodes, so the process can
+continue.
+      The back-substitution process is not completely specified, in that one has the freedom to
+choose to split any leaf node carrying an advanced term. In practice it is convenient to require
+that all nodes at a given depth that have advanced terms be split before proceeding to split
+nodes at greater depth, but the order of splitting does not matter as the following result asserts.
+
+Theorem 3.1. Let k ≥ 2, and take m ∈ [3k ] with m ≡ 8 (mod 9). The back-substitution
+process applied to φm                                                            m
+                    k (y) halts after a finite number of steps at an inequality Ik (l) having
+no advanced terms on its right side. The number of steps l and the final inequality Ikm (l)
+are independent of the order in which advanced terms are split; let Ikm (EL) denote this final
+inequality.
+
+
+                                                       7
+Proof. We first show that the back-substitution procedure always halts. We suppose not,
+and obtain a contradiction. Let Tl ≡ Tkm (l) denote the rooted labelled tree associated to the
+inequality Ikm (l) for l = 1, 2, . . . . Then we have an infinite sequence of trees, each containing
+the last as a subtree having the same root, and the process defines an infinite limiting tree T∞ .
+Without loss of generality we can suppose that T∞ has the property that in it all nodes that
+can be split are split, if necessary by doing additional splittings of any advanced nodes that
+were missed, using transfinite induction. By Konig’s infinity lemma there is an infinite directed
+path in T∞ starting from the root. Along that path there is some residue class m′ ∈ [3k ] that
+                                               ′
+occurs as a label infinitely often. Let φm    k (x + βj ) be the successive labels of the p-nodes on
+this path having residue class m′ ( mod 3k ), starting from the root. We must have each βj ≥ 0
+(or the process halts) and also
+
+                                     β1 > β2 > β3 > · · · ,                                    (3.2)
+                                                                           ′
+because the deletion rule would have removed the p-node labelled φm     k (x + βj ) if βj ≥ βi for
+some j > i.
+    The tree T∞ has a recursive self-similar structure, using the fact that all nodes that could
+                                                                                          ′
+be split were split. Consider the subtree T∞ [j] grown starting from the root node φm   k (y + βj )
+along this chain, using the variable yj = y + βj . These subtrees are all identical, and T∞ [2]
+is obtained from T∞ [1] by shifting the argument of y by δ = β2 − β1 > 0. The isomorphism
+of T∞ [2] and T∞ [1] identifies T∞ [j] with T∞ [j − 1], and therefore, by induction on j ≥ 2, we
+obtain βj − βj−1 = δ. Thus βj = β1 + (j − 1)δ for all j ≥ 2, hence βj < 0 for sufficiently large
+j, which contradicts all βj ≥ 0.
+    The back-substitution process halts at a unique tree, regardless of the order leaf nodes are
+split, because the back-substitution process on a given leaf node v does not depend on any
+other leaf nodes, but only on the path from the root node to v. One grows out all leaf nodes
+until they halt, and the total number of steps l until halting is independent of the order of
+growth.
+
+Theorem 3.2. Let Ik (EL) denote the difference inequality system consisting of the inequal-
+ities (D1), (D2) of Ik plus the complete set of inequalities {Ikm (EL) : m ∈ [3k ], m ≡ 8
+(mod 9)}. If Φk = {φm                 k                                          m
+                        k (y) : m ∈ [3 ]} is any set of functions in which each φk (y) is strictly
+positive and nondecreasing on R≥0 and satisfies the inequality system Ik for all y ≥ 2, then Φk
+also satisfies the inequalities Ik (EL) for all y ≥ 2.
+
+Proof. It suffices to show that if the set Φk := {φm                  k
+                                                       k (y) : m ∈ [3 ]} of positive nondecreasing
+functions on R+ = {y ≥ 0} satisfies Ik for all y ≥ 2, then they satisfy each inequality Ikm (l)
+for each l ≥ 1, for all y ≥ 2.
+     We prove, by induction on l ≥ 1, that the set Φk satisfies Tkm (l). The base case l = 1 holds
+because Tkm (l) has only one internal p-node, its root node, and the corresponding inequality
+Ikm (1) is a member of Ik . Now suppose the induction hypothesis holds for Tkm (l), and consider
+Tkm (l + 1). To obtain Tkm (l + 1) we first split a leaf of Tkm (l) to obtain a tree T˜km (l + 1) and
+then, if a new m-node was added, we apply the deletion rule to the three vertices of that
+m-node. The splitting procedure yielding T̃km (l + 1) substitutes an inequality of Ik , hence Φk
+automatically satisfies T̃km (l + 1).
+
+
+                                                 8
+   Consider the deletion step, applied to the three leaf-node labels of T̃km (l + 1) inside the
+min-term
+                                     ′             ′′              ′′′
+                    f (y) := min[φm       ′    m       ′
+                                  k (y + β ), φk (y + β ), φ
+                                                            m
+                                                              (y + β ′ )] ,                       (3.3)
+                                                              ′′
+in which m′ ≡ m′′ ≡ m′′′ (mod 3k−1 ). The leaf node φm     k (y + β
+                                                                      ′ ) is to be deleted if earlier in
+                                                                    ′
+its directed path from the root appears a p-node with label φm                ′′
+                                                                   k (y + β ) with β < β .
+                                                                                             ′
+                                                                                         m
+    To justify the deletion rule, note that the inequality associated to each tree Tk (l) for fixed
+functions Φk and a fixed value y ≥ 2, can be written as a sum of terms corresponding to a
+subset of leaves of the tree which are specified by choosing one of the terms in each min-term
+that attains the minimum. (This choice is usually unique once the functions Φk and the value
+y are specified, unless two terms in a min-term have equal values.) We call this set of leaves a
+critical assignment, the leaves in it critical leaves, and the set of paths to these leaves critical
+paths.
+                                                                ′′
+Claim. To each internal p-vertex v of the tree with label φm               ′′
+                                                              k (y + β ), and for each fixed value
+of y ≥ 2, one of two possibilities occurs.
+    (a) There are no critical assignments A having a critical path passing through v.
+    (b) There is at least one critical assignment A with a path passing through v. For any such
+assignment
+                              ′′
+                                               X m(w)
+                           φm
+                            k    (y + β ′′
+                                           ) ≥    φk    (y + β(w)) ,                               (3.4)
+                                            w∈Av
+
+where Av denotes the set of critical leaves in A whose paths pass through v.
+
+    Warning: which case (a) or (b) occurs depends on the value of y. The key content of the
+claim is the property (3.4) enforced in case (b).
+    We will prove the claim by induction on l, and justify the deletion rule at the same time.
+Now (3.4) holds for the base case l = 1 where the only internal p-node is the root node,
+and (3.4) is then an inequality in Ik . We assume it holds for Tkm (l) and wish to prove it for
+Tkm (l + 1). First of all, the relations (a), (b) hold for all T̃kn (l + 1). They hold for internal
+                            (m)
+p-nodes inherited from Tk (l), because we have back-substituted Ik on the right side of (3.4).
+We have added one new internal node v′ , the one that was split, and for it condition (3.4) in
+(b) directly expresses the Ik inequality substituted.
+    We call a vertex v of T̃km (l + 1) totally non-critical if no critical path passes through it, for
+any critical assignment A, for any y ≥ 2; that is, case (a) holds for v for all y ≥ 2. We can
+safely delete all totally non-critical vertices in T̃km (l + 1), and property (b) will still hold for
+the resulting tree T ′ . (The property that a vertex in a tree is totally non-critical is hereditary
+in the sense that all vertices below a totally non-critical vertex are also totally non-critical.)
+    We now show that, for those sets of functions Φk that are positive and monotone, all vertices
+removed by the deletion rule are totally non-critical. Suppose the deletion rule appears to the
+                               ′
+leaf vertex w with label φm             ′     ˜m
+                    ′
+                              k (x + β ) of Tk (l + 1), and let v be a vertex on its directed path
+                   m       ′′         ′′    ′
+that has label φk (y + β ) with β ≤ β . If w is not totally non-critical, there is some y ≥ 2
+and a critical assignment
+                      P       A containing w as a critical vertex. Formula (3.4) of (b) applies to
+        m
+gives φk (y + β ) ≥ (m̃,β̃)∈Av φm̃
+                ′′
+                                    k (y + β̃). We deduce
+                                     ′                  ′
+                                  φm       ′′    m       ′
+                                   k (y + β ) ≥ φk (y + β ) ,                                     (3.5)
+
+                                                   9
+            ′
+because φm         ′
+           k (y + β ) is the contribution of w ∈ Av . There is at least one more critical    path in
+                                                                                         ′′
+the sum Av which passes through the p-vertex v′ that was split, whose label is φm      k    (y + β ′ ),
+                                      ′′
+to its direct p-node descendant φ4mk     (y + β ′ − 2). Now β ≥ 0 since the node v′ is split, hence
+      ′               4m ′′     ′
+y + β − 2 ≥ 0, so φk (y + β − 2) > 0 by positivity and monotonicity of Φk . We conclude
+that (3.5) can be replaced by strict inequality
+                                                 m     ′
+                                  φm       ′′            ′
+                                   k (y + β ) > φk (y + β ) .                                    (3.6)
+
+Since β ′′ < β ′ , this violates monotonicity of Φk , the desired contradiction.
+    Thus, the vertices removed by the deletion rule are totally non-critical, hence for the
+resulting tree Tkm (l + 1), the criteria (a), (b) and (3.4) hold for all p-vertices, for the functions
+Φk , for all y ≥ 2. This completes the claim’s induction step, and proves the claim.
+    Now we may apply (3.4) to the root vertex v for all critical assignments A for all y ≥ 2 is
+equivalent to saying that the Φk satisfy the inequality Ikm (l + 1) associated to Tkm (l + 1) for all
+y ≥ 2. This completes the main induction step.
+
+Remark. The inequality system Ik (EL) involves nested minimization to a depth d(k) which
+grows exponentially with k. The exponential growth occurs because the deletion rule requires
+          ′           m′′
+labels φm                                  ′      ′′       k
+        k (y + βj ), φk (y + βj ) with m ≡ m (mod 3 ) and these are typically separated
+                              k
+by distance comparable to 3 . We present statistics in Table 1 on the size of this inequality
+system Ik (EL) for 2 ≤ k ≤ 5, computed by D. Applegate. We measure the size in two ways:
+the depth of nested minimizations, and the total of the number of terms that appear in such an
+inequality. The data is for the term φm
+                                      k (y) that had the largest expansion under the elimination
+procedure.
+
+                                      k   depth    # (literals)
+                                      2       3               8
+                                      3      10             84
+                                      4      41          12829
+                                      5   > 226          > 109
+
+                            Table 1: Statistics on Ik (EL) Inequalities
+
+
+
+
+4. Linear Programs
+We associate to a general difference inequality system Dk (of a sort described below) a family of
+linear program LD                                                                  m          k
+                  k (λ), as follows. We suppose that Dk consists of inequalities {Dk : [m] ∈ 3 }
+in which each inequality Dkm is described by a rooted labelled tree Tkm of the type considered
+in §3, involving variables {cm           k
+                              k : [m] ∈ 3 }. The linear program has the basic form:
+
+                                   LD
+                                    k (λ) : Minimize Cmax                                        (4.1)
+
+subject to, for all m ∈ [3k ],
+                                                    max
+                                          1 ≤ cm
+                                               k ≤ Ck   ,
+
+
+                                                  10
+together with all inequalities associated to each tree Tkm as specified below.
+    The LP-inequality system associated to a given tree T involves the principal variables {cm
+                                                                                             k :
+        k
+m ∈ [3 ]} and certain auxiliary variables {av : v an m-vertex of T } . These auxiliary variables
+are distinct for different trees Tkm . We associate to each node w the label (m(w), β(w)) which
+consists of a residue class m(w) and a weight β(w). For a p-node w these labels are determined
+                              m(w)
+by its associated function φk      (x + β(w)) with m(w) determined (mod 3k ). For an m-node
+it is taken from the node function of any of its children, where we view m(w) (mod 3k−1 )
+in this case, noting that β(w)(mod 3k−1 ) is the same for all the child nodes. To specify the
+inequalities, we subdivide the tree T into levels: we say that a vertex w is at m-depth d if
+there are exactly d − 1 internal m-nodes on the path from the root node to w (not counting w
+itself). The LP inequalities associated to T are in one-one correspondence with the leaf nodes
+of T . To each leaf node w we assign a rooted subtree Tw which consists of:
+    (1) The terminal part of the path from the root node to the leaf node. If an m-node occurs
+on the path, then it consists of that part of the path from the final m-node to the leaf; if no
+m-node occurs then it is the entire path from the root. We denote this path Pw and call its
+top node the w-root node. Every vertex on Pw is a p-node except possibly the w-root node.
+    (2) All other children of any p-node on the path Pw . These other children are all m-nodes.
+A typical subtree Tw is pictured in Figure 2.
+                                                                m−node
+
+
+
+
+                        w
+
+                Figure 2: Subtree Tw of the leaf node w (m-nodes are circled)
+
+
+   All the edges of T are partitioned among the Pw and each Pw contains exactly one leaf
+node. The trees in this partition are also in one-one correspondence with: either the root node
+v or a pair (v, v′ ) consisting of an m-node v and one of its children v′ .
+
+
+                                              11
+    The LP-inequality associated to the unique leaf node w having no m-nodes on its path is
+of the form
+                                                X
+                                  β(w) m(w)
+                          cm
+                           k ≤λ       ck    +         λβ(v) av                        (4.2)
+                                                       v∈Tw
+                                                  m-node
+where m = m(v0 ) for the root vertex v0 . For all leaf nodes w such that Tw has a node v0 as
+w-root node, the associated LP-inequality is
+                                           m(w)
+                                                    X
+                      λβ(v0 ) av0 ≤ λβ(w) ck    +         λβ(v) av .                   (4.3)
+                                                         v∈Tw
+                                                       m-node
+                                                        v6=v  0
+
+
+Note that the direction of this LP-inequality (4.2) for the root node is opposite to that of the
+φm
+ k (y)-inequality.
+    For the original difference inequality system Ik , the linear program LIk (λ) produced in this
+way is equivalent to LN   T                                                           NT
+                        k (λ) in the following sense: to every feasible solution of Lk (λ) with
+                      m                                              I
+principal variables {ck } there corresponds a feasible solution to Lk (λ) with the same principal
+variables, and vice-versa. To see this, we note that LN   T                            m
+                                                        k (λ) has auxiliary variables ck−1 , while
+  I                                                                    m
+Lk (λ) has auxiliary variables av in one-one correspondence with ck for m ≡ 2 or 8 (mod 9);
+the LP-inequalities in LIk (λ) on these variables are equivalent to
+                                      4m−2                    2m−1
+                               av ≤ c̄k−1
+                                        3
+                                             or    av ≤ c̄k−1
+                                                            3
+                                                              ,                               (4.4)
+
+                                                                                       m+j3     k−1
+according as m ≡ 2 ( mod 9) or m ≡ 8 ( mod 9), respectively, where c̄m
+                                                                     k−1 := min0≤j≤2 {ck              }.
+                                                  N T          I
+The correspondence between feasible solutions of Lk (λ) and Lk (λ) is obtained by setting
+                                      4m−2                    2m−1
+                               av = c̄k−1
+                                        3
+                                             or    av = c̄k−1
+                                                            3
+                                                              ,                               (4.5)
+
+according as m ≡ 2 (mod 9) or m ≡ 8 (mod 9), respectively.
+    We let LEL
+            k (λ) denote the family of linear programs associated to the derived inequality
+system Ikm(EL) of Theorem 3.2.
+
+Theorem 4.1. Suppose for a given λ with 1 ≤ λ ≤ 2 that the linear program LN        T
+                                                                                   k (λ) has a
+feasible solution with principal variables {ck : m ∈ [3 ]}. Then the linear program LEL
+                                             m         k
+                                                                                     k (λ) has
+a positive feasible solution with the same principal variables.
+
+Proof. We prove this by starting with the inequality system D1 := Ik and then successively
+producing inequality systems {Dj : 1 ≤ j ≤ r}, in which Dj+1 is obtained from Dj by a
+single back-substitution in one inequality, and ending at the final system Dr = Ik (EL). For
+definiteness we choose to do the back-substitution procedure on each inequality Ikm , for m ∈
+[3k ]} in order until it halts, as guaranteed by Theorem 3.1, and go to the next m, in the order
+m = 2, 5, 8, . . . , 3k − 1.
+     We prove by induction on j ≥ 1 that if {cm           k                                  NT
+                                                k : m ∈ [3 ]} yields a feasible solution of Lk (λ),
+                                                                                              D
+then these same principal variable values occur in some positive feasible solution of Lk j (λ).
+The base case j = 1 holds because the linear program LD                            NT
+                                                             k (λ) agrees with Lk (λ); when we
+
+
+                                                  12
+assign the auxiliary variables av the values (4.5) we obtain a positive feasible solution with the
+given {cmk }.
+    For the induction step, first note that in going from Dj to Dj+1 , we “split” one leaf vertex w
+of a particular tree Tkm (l), leaving all other trees alone, and then perform a deletion operation.
+The vertex w being a p-node, has associated value m(v) (mod 3k ). We let D̃j+1 denote the
+inequalities resulting from the splitting operation before the deletion step. It suffices to show
+      D̃
+that Lk j+1 has a feasible solution with the same principal variables, for the deletion step merely
+deletes linear programming inequalities, which preserves feasible solutions. The splitting step
+                                              D
+changes exactly one of the inequalities in Lk j ; if it adds a new m-vertex v, then it adds on up
+to three new inequalities, each involving the new auxiliary variable av for the added m-vertex.
+The corresponding tree is updated to Tkm (l + 1).
+     Let m′ = m(w). If m′ ≡ 5 (mod 9), the unique LP -inequality containing the term
+   ′  β(w) corresponding to w on its right side, has this term replaced by that of a new leaf
+cm
+ k λ
+vertex w′ with m(w′ ) = 4m′ , β(w′ ) = β(w) − 2 and w′ has the same depth no w; its new term
+       ′ β(w)−2
+is c4m
+     k λ        . However by hypothesis {cm                NT
+                                            k } satisfies Lk (λ), hence it satisfies the inequality
+                                              ′            ′
+                                            cm    4m −2
+                                             k ≤ ck λ   .
+                    ′            ′
+Thus we obtain cm   k λ
+                        β(w) ≤ c4m λβ(w−2 , so the right side of the new inequality (4.2) or (4.3)
+                                k
+is less binding than before, and the solution remains feasible. If m′ ≡ 2 (mod 9), the term
+   ′ β(w)
+cm
+ k λ       is replaced with
+                                        ′ β(w)−2
+                                     c4m
+                                      k λ         + av λβ(w) ,
+                                     D̃
+where β(v) = β(w) + α − 2, and Lk j+1 has three new inequalities
+                                                  m(v)+j3k−1 β(v)
+                                 av λβ(v) ≤ ck                    λ                           (4.6)
+
+for 0 ≤ j ≤ 2, with m(v) = 4m(w)−2
+                              3    . We may choose
+                                     m(v)                      m(v)+j3k−1
+                             av = c̄k−1 := min {ck                          }                 (4.7)
+                                                  0≤j≤2
+
+and satisfy (4.6); the fact that {cm              NT
+                                   k } satisfies Lk (λ) gives
+
+                ′            ′               4m′ −1                         ′
+             cm
+              k λ
+                  β(w)
+                       ≤ c4m
+                          k λ
+                              β(w)−2
+                                     + ck−13 λβ(w)+α2 = c4m
+                                                         k λ
+                                                             β(w)−2
+                                                                    − av λβ(v) .
+
+Thus the right side of the equation is less binding than before, so remains feasible. The case
+m′ ≡ 8 (mod 9) is handled by similar reasoning to the case m′ ≡ 2 (mod 9), so feasibility is
+maintained in this case. The induction step follows.
+    The final case of the induction step gives the inequality system Ik (EL), and the theorem
+follows.
+
+
+5. Lower Bounds For Difference Inequalities
+We obtain exponential lower bounds for systems of positive nondecreasing functions Φk satis-
+fying difference inequalities D without advanced variables, using an associated linear program
+LDk . The following result is similar in spirit to [2, Theorem 2.1].
+
+
+                                                      13
+Theorem 5.1. Let Φk := {φm                   k
+                               k (y) : m ∈ [3 ]} be a set of positive nondecreasing functions on
+R+ = {y : y ≥ 0}. Suppose that Φk satisfies a system D of difference inequalities specified by
+a set of rooted labelled trees {Tkm : m ∈ [3k ]}, such that all inequalities contain no advanced
+variables on their right side. If the associated linear program LD  k (λ) for λ > 1 has a positive
+feasible solution with principal variables {ck } then, for all m ∈ [3k ],
+                                             m
+
+                                        m y
+                             φm
+                              k (y) ≥ ∆ck λ , for all y ≥ 0,                                  (5.1)
+
+with
+                                                    min{φm
+                                                         k (0)}
+                                      ∆ := λ−ν                  ,                             (5.2)
+                                                     max{cmk }
+
+and ν is the largest backward time-shift of a variable in D.
+
+Proof. Suppose that the set of functions Φk satisfies the system D := {Dkm : m ∈ [3k ]} of
+difference inequalities. Set
+                                      ′
+                  µ := min{β : φm                                        m
+                                k (y − β) appears on right side of some Dk }
+
+and
+                                  ′
+                 ν := max{β : φm                                        m
+                               k (y − β) appears on right side of some Dk } .
+
+The hypothesis of no advanced variables in D means that µ > 0. Now the inequalities (5.1)
+hold for all m ∈ [3k ], on the initial interval [0, ν], since the definition of ∆ gives
+                           m              m   ν    m y
+                 φm
+                  k (y) ≥ φk (0) ≥ ∆ max{ck }λ ≥ ∆ck λ for y ∈ [0, v],                        (5.3)
+
+using the monotonicity and inequality properties of φm    k (y).
+                                                     k
+    We now prove that (5.1) holds for all m ∈ [3 ] on the interval y ∈ [0, ν + jµ] by induction
+on j ≥ 0. It holds for the base case j = 0 by (5.3).
+    For the induction step, suppose that (5.1) holds for j and we are to prove it for j + 1. It
+suffices to consider a given y ∈ [ν + jµ, ν + (j + 1)µ]. The induction step consists, schematically,
+of showing
+                                          X                     ′
+                           φmk (y) ≥             nested-min[φm        ′
+                                                              k (y + β )]                     (5.4)
+                                             Dkm (EL)
+                                               X                      ′    ′
+                                   ≥                    nested-min[cm
+                                                                    k λ
+                                                                        y+β
+                                                                            ]                 (5.5)
+                                             Tkm (EL)
+                                                    y
+                                   ≥         ∆cm k λ .                                        (5.6)
+
+Here (5.4) represents schematically the inequality Dkm (EL), with the right side actually being
+                                                    ′
+a nested series of minimizations. Each function φm         ′
+                                                   k (y + β ) that appears on the right side of
+                  ′
+(5.4) has −ν ≤ β ≤ −µ, hence
+
+                                          0 ≤ jµ ≤ y + β ′ ≤ ν + jµ,
+
+so the induction hypothesis applies to each such term.
+
+                                                         14
+   The induction hypothesis gives
+                              ′                 ′        ′        ′   ′
+                           φm       ′      m y+β
+                            k (y + β ) ≥ ∆ck λ   = ∆λy (cm  β
+                                                         k λ ).
+
+Substituting thes inequalities in (5.4) term by term yields the right side of (5.5), because the
+nested minimization on the right side of (5.4) involves only the operations of addition and
+minimization and these operations are both monotone in each variable appearing in them; also
+the structure Tkm (EL) in (5.5) is the tree structure of the inequality Dkm (EL). Now let f (y)
+represent the value of the right side of (5.5) as a function of y. Each minimization on the
+right side of (5.5) corresponds to a m-vertex v of Tkm (EL); we let fv (y) equal the value of this
+minimization expression as a function of y. Next we can apply the inequalities in LEL  k (λ) in a
+suitable order to prove that
+                                     fv (y) ≥ ∆λy (av λβ(v) ).
+for all m-vertices; the order starts with the innermost minimization and works outward. At
+the last step we reach the root vertex and obtain
+
+                                  f (y) ≥ ∆λy cm
+                                               k λ
+                                                   β(w0 )
+                                                          = ∆cm  y
+                                                              k λ ,
+
+since β(w0 ) = 0. This gives the right side of (5.6). Since this holds for all k ∈ [3m ], this
+completes the induction step.
+    We now prove the main Theorem 2.2 by combining the results of §3–§5.
+
+Proof of Theorem 2.2. Theorem 3.2 shows that any set of positive nondecreasing functions
+Φk that satisfies the inequality system Ik also satisfies the derived inequality system Ik (EL)
+which has inequalities with no advanced variables on their right sides. The family of linear
+programs associated to this inequality system in §4 is denoted LEL k (λ).
+    Suppose now that for a given λ > 1 the inequality system LN     T
+                                                                   k (λ) has a feasible solution
+                            m           k
+with principal variables {ck : m ∈ [3 ]}. Theorem 4.1 established that the linear program
+LEL
+  k (λ) has a positive feasible solution with the same principal variables and the same value
+of λ.
+    Theorem 5.1 then applies to the system Ik (EL) to show that any positive feasible solution
+of LEL                                      k
+    k (λ) yields the bounds, for all m ∈ [3 ],
+                                         k y
+                              φm
+                               k (y) ≥ ∆cm λ for all y ≥ 0,                                  (5.7)
+
+with
+                                               min{φm
+                                                    k (0)}
+                                    ∆ := λ−ν                                                 (5.8)
+                                                max{cmk }
+
+where ν is the largest backwards timeshift.
+   For the system Φk = {φm               k
+                           k (y) : m ∈ [3 ]} coming from the 3x + 1 problem, we have by (P1)
+      m
+that φk (0) ≥ 1. We also have λ ≤ 2 and the maximum retarded term ν ≤ 2. Thus we have
+                                                        1
+                                      ∆ ≥ ∆1 =
+                                                    4 max {cm
+                                                            k }
+
+which, with (5.7), implies the desired bound (2.16).
+
+                                                    15
+Remark. Theorem 2.2 has the counterintuitive feature that iterating the inequalities seems
+potentially to strengthen, rather than weaken, the exponential lower bound obtained. It allows
+the possibility that the linear program LEL
+                                         k (λ) has a positive feasible solutions for a larger value
+of λ than is obtainable using the original linear program family LN    T
+                                                                     k (λ). However we believe
+this cannot occur, and that the exponent obtained from LN       T
+                                                               k (λ) is the largest possible for
+positive monotone solutions to the original difference inequalities Ik . This is discussed at the
+end of §6.
+
+
+6. 3X + 1 Lower Bounds
+We obtain lower bounds for the number π1 (x) of integers below x that eventually iterate to 1
+under the 3x + 1 function.
+
+Theorem 6.1. For each positive a 6≡ 0(mod 3) the function
+
+                            πa (x) := |{1 ≤ n ≤ x : Some T (j (n) = a.}|
+
+satisfies, for all sufficiently large x ≥ x0 (a),
+
+                                            πa (x) ≥ x0.84 .
+
+
+Proof. This follows from Theorem 2.2, by finding a positive feasible solution by computer
+to the linear program family LN  T
+                                k (λ) for k = 11, for λ = 1.7922310, see Table 2 below. This
+yields the exponent γ = log2 λ ≈ 0.84175.     .
+    Table 2 gives data on the bounds for the optimal λ for LNk
+                                                               T for 2 ≤ k ≤ 11. For 1 ≤ k ≤ 9
+
+these are taken from [2]; the new values for k = 10, 11 were computed by D. Applegate.
+
+       k         γk            λk          Ckmax               c̄k,k        c̄k−1,k   c̄k,k − c̄k−1,k
+        2    0.4365880     1.3534010     1.8316920          1.5237640     1.0000000       0.5237640
+        3    0.6112620     1.5275960     3.4881908          2.1014900     1.6994294       0.4020606
+        4    0.6891080     1.6122870     5.4951954          2.7869040     2.4010985       0.3858055
+        5    0.7335790     1.6627590     9.0756176          3.4648343     3.0771822       0.3876521
+        6    0.7608180     1.6944520    12.8769418          3.9667005     3.5825321       0.3841684
+        7    0.7825670     1.7201900    20.1963763          4.8122983     4.4061650       0.4061333
+        8    0.8031960     1.7449630    29.1315157          5.2028179     4.8181536       0.3846643
+        9    0.8168300     1.7615320    43.3394210          5.8102043     5.4164870       0.3937173
+       10    0.8295450     1.7771270    64.9801068          6.4567870     6.0648572       0.3919298
+       11    0.8417560     1.7922310    98.4009647          7.1552344     6.7695583       0.3856761
+
+                Table 2: NLP Lower Bounds: No truncation of advanced terms
+
+
+   The last three columns in Table 2 give some average quantities formulated in [2]. Define
+                                                     1      X
+                                        c̄k,k :=                     cm
+                                                                      k
+                                                    3k−1
+                                                           m∈[3k ]
+
+
+                                                     16
+and                                                       X
+                                                 1
+                                   c̄k−1,k :=                      c̄m
+                                                                     k−1 .
+                                                3k−2
+                                                       m∈[3k−1 ]
+
+Adding up all the inequalities in LN T
+                                   k (λ) leads to
+
+                                                1
+                             c̄k,k ≤ λ−2 c̄k,k + (λα−1 + λα−2 )c̄k−1,k .
+                                                3
+In [2] it was noted that a necessary and sufficient condition for a bound like π1 (x) > x1−ǫ to
+hold for each ǫ > 0 and all sufficiently large x is that λk → 2 as k → ∞, and this in turn would
+follow from the existence of feasible solutions with
+                                     ck−1,k
+                                            → 1 as k → ∞.
+                                      ck,k
+
+Table 2 gives more empirical data on these quantities.
+    The supremum of the exponential lower bounds that can be extracted from the linear
+program family LN   T                                                              NT
+                   k (λ) is given by λk , the supremum of values of λ for which Lk (λ) has a
+feasible solution. These values satisfy λk ≤ λk+1 , because given a feasible solution to Lk (λ)
+with principal variables cm
+                          k one can define
+
+                                        k
+                                  cm+j·3
+                                   k+1   := cm
+                                             k         for 0 ≤ j ≤ 2,
+
+and obtain a feasible solution to LN   T
+                                     k+1 (λ). It remains an open problem to show that the values
+λk are strictly increasing in k. As already noted in [2], showing that λk → 2 as k → ∞ would
+imply a lower bound πa (x) ≥ x1−ǫ holds for each positive ǫ, for each a 6≡ 0 (mod 3) and all
+sufficiently large x ≥ x0 (a).
+    We now relate the linear program system LN       T
+                                                    k (λ) used here to the linear program system
+            N T
+denoted Lλ in [2]. These two linear program systems are equivalent in the sense of Theo-
+rem 2.2; namely, the set of λ for which they have a strictly positive feasible solution coincide.
+To see this, observe first that if LN T
+                                     k (λ) has a feasible solution, then it has a strictly positive
+feasible solution. One may have to modify the auxiliary variables, which might be negative,
+while holding the principal variables fixed. However the auxiliary variables can be forced to
+their maximal values in terms of the principal variables without affecting feasiblity. Such a
+feasible solution has all values at least 1, so strict positivity is attained, and this solution also
+satisfies LN T                                                        NT
+           λ . Conversely, given a positive feasible solution to Lλ , it can be multiplicatively
+rescaled to have objective function value c1 = 1, and this gives a feasible solution to LN
+                                              2                                                 T
+                                                                                              k (λ),
+on taking Ckmax := max {cm  k }.
+    We conclude the paper by discussing the possibility that the lower bound obtained in
+Theorem 2.2 give the largest that is implied by the difference inequalities Ik . This would
+follow if one could exhibit a positive monotone solution to Ik that has a growth rate matching
+the lower bound. Such a pure exponential lower bound could potentially be constructed from
+a solution to LN  T
+                 k (λk ). Two conditions must hold:
+    (1) The supremum λk is attained. That is, LN       T
+                                                     k (λk ) has a feasible solution.
+    (2) At the supremum value λk , there exists a feasible solution in which all of the principal
+inequalities (L1)-(L3) hold with equality.
+
+
+                                                     17
+    If conditions (1), (2) hold, then the functions φm         m y
+                                                      k (y) = ck λk would satisfy Ik with equality
+for all times y ≥ 2, and would constitute a positive monotone solution to Ik attaining the best
+lower bound given by Theorem 2.2. Experimentally this is the case for k ≤ 11.
+    Regarding condition (1), LN    T
+                                  k (λk ) could fail to have a feasible solution at the supremum
+value λk only if the objective function value as λ → λk from below diverges to ∞, so some
+variables cmk become unbounded. Regarding condition (2), the complementary slackness con-
+ditions for an optimal solution would for a generic linear program of this type force all the
+principal inequalities (L1)-(L3) to hold with equality. This would happen, for example, if there
+were an optimal solution at which all variables cm  k took distinct values. We think it likely that
+properties (1), (2) hold for all k ≥ 2, but this may be difficult to prove.
+    The supremum linear program LN       T                                                      max
+                                       k (λk ) has a finite optimal objective function value Ck
+                                                                                   max
+provided that condition (1) holds, as we now assume: denote this value by C̃k . The value
+C̃kmax has an interesting meaning: it measures the minimal spread attainable in the values
+of cm                                                   m
+     k , while normalizing these variables by min {ck } = 1. This quantity shows up in the
+constant ∆1 in Theorem 2.2. One may view the value C̃kmax as a quantitative measure of a
+rate of “mixing” between congruence classes ( mod 3k ) that the 3x + 1 function produces. The
+fourth column of Table 2 indicates that the quantity C̃kmax exists for k ≤ 11, and it appears to
+grow exponentially with k.
+    Acknowledgments. The authors thank David Applegate for computations given in Tables
+1 and 2.
+
+
+Appendix: Inequalities for k = 2
+The case k = 2 is the only case where the derived inequalities Ik (EM ) and the linear program
+family LEM                                                                    2      5      8
+        k (λ) can be easily written down. There are three functions Φ2 := {φ2 (y), φ2 (y), φ2 (y) :
+y ≥ 0} . Recall that α = log2 3 ≈ 1.585. The inequalities I2 are
+
+           φ22 (y) ≥ φ82 (y − 2) + min[φ22 (y + α − 2), φ52 (y + α − 2), φ82 (y + α − 2)] ,
+           φ52 (y) ≥ φ22 (y − 2) ,
+           φ82 (y) ≥ φ52 (y − 2) + min[φ22 (y + α − 1), φ52 (y + α − 1), φ82 (y + α − 1)] .
+
+Of these, only the inequality for φ82 (y) contains advanced terms on its right side.
+
+     The corresponding inequality I28 (EL) has three leaves of nested minimization. The cor-
+responding tree T28 (EL) is pictured in Figure 3, with the deleted nodes indicated. The tree
+T28 (EL) has three m-nodes and eight leaf nodes. We let a1 , a2 , a3 be the auxiliary variables
+for the leaf nodes, numbered as in Figure 3, and its associated inequalities are:
+
+               φ82 (y) ≥ φ52 (y − 2) + min[φ82 (y + α − 3) + M1 (y), φ22 (y + α − 3)] ,
+
+in which
+                    M1 (y) := min[φ82 (y + 2α − 5) + M2 (y), φ52 (y + 2α − 5)] ,
+and
+                M2 (y) := min[φ22 (y + 3α − 5), φ52 (y + 3α − 5), φ82 (y + 3α − 5)] .
+
+
+                                                 18
+                                            φ82 (y) ≡ (8, 0)
+
+
+
+
+                  (5, −2)
+
+
+
+
+                               (2, α − 1)                      (5, α − 1)    (8, α − 1)
+
+
+
+
+                (8, α − 3)
+
+
+
+
+                              (2, 2α − 3)                      (5, 2α − 3)   (8, 2α − 3)
+
+
+
+
+               (8, 2α − 5)
+
+
+
+
+                              (2, 3α − 5)                      (5, 3α − 5)   (8, 3α − 5)
+
+
+
+                 Figure 3: Tree T28 (EL) (Nodes marked ⊗ are deleted nodes)
+
+
+   The inequalities in the linear program LEL                             m
+                                             2 (λ) for the three trees T2 (EL) with m = 2, 5
+and 8 are given in Table 3; they are associated to the leaves of these trees, identified by their
+labels in Table 3.
+
+
+
+
+                                                 19
+Tree        Leaf node label              Inequality
+                                              ′
+            (8, −2)           c22 ≤ c82 λ−2 + a1 λα−2
+                               ′
+T22 (EL) (2, α − 2)           a1 λα−2 ≤ c22 λα−2
+                               ′
+            (5, α − 2)        a1 λα−2 ≤ c52 λα−2
+                               ′
+            (8, α − 2)        a1 λα−2 ≤ c82 λα−2
+
+
+T25 (EL) (2, − 2)             c52 ≤ c22 λ−2
+
+
+            (5, − 2)          c82 ≤ c52 λ−2 + a1 λα−1
+
+            (8, α − 3)        a1 λα−1 ≤ c82 λα−3 + a2 λ2α−3
+
+            (2, α − 3)        a1 λα−1 ≤ c22 λα−3
+
+T28 (EL) (8, 2α − 5)          a2 λ2λ−3 ≤ c82 λ2α−5 + a3 λ3α−5
+
+            (2, 2α − 5)       a2 λ2α−3 ≤ c22 λ2α−5
+
+            (2, 3α − 5)       a3 λ3α−5 ≤ c22 λ3α−5
+
+            (5, 3α − 5)       a3 λ3α−5 ≤ c52 λ3α−5
+
+            (8, 3α − 5)       a3 λ3α−5 ≤ c82 λ3α−5
+
+       Table 3: LEL                             m
+                 2 (λ) inequalities for trees T2 (EL).
+
+
+
+
+                              20
+References
+[1] D. Applegate and J. C. Lagarias, Density bounds for the 3x + 1 problem. I. Tree-search
+    method, Math. Comp. 64 (1995), 411-426.
+
+[2] D. Applegate and J. C. Lagarias, Density bounds for the 3x + 1 problem. II. Krasikov in-
+    equalities, Math. Comp. 64 (1995), 427-438.
+
+[3] R. E. Crandall, On the 3x + 1 problem, Math. Comp. 32 (1978), 1281-1292.
+
+[4] I. Krasikov, How many numbers satisfy 3X + 1 conjecture?, Internat. J. Math & Math.Sci.
+    12 (1989), 791-796
+
+[5] J. C. Lagarias, The 3x+1 problem and its generalizations, Amer. Moth. Monthly 92 (1985),
+    3-21.
+
+[6] G. J. Wirsching, An improved estimate concerning 3N + 1 predecessor sets, Acta Arith. 63
+    (1993), 205-210.
+
+[7] G. J. Wirsching, The Dynamical System Generated by the 3n + 1 Function, Lecture Notes
+    in Math. No. 1631, Springer-Verlag: Berlin 1998.
+
+   email:    Ilia.Krasikov@brunel.ac.uk
+             jcl@research.att.com
+
+
+
+
+                                            21
+

@@ -1,0 +1,126 @@
+{
+ "downloaded_papers": [
+  "/Users/simon/Desktop/COLLATZ/papers/tao-2019-almost-all-collatz-orbits.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/goncalves-greenfeld-madrid-2021-generalized-collatz.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/inselmann-2024-collatz-reals.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/alon-behajaina-paran-2024-collatz-f2x.pdf"
+ ],
+ "key_facts": [
+  {
+   "fact": "Main theorem (Theorem 1.3): Let f: N+1 -> R be ANY function with lim_{N->infinity} f(N) = +infinity (arbitrarily slowly growing, e.g. f(N) = log log log log N). Then Col_min(N) < f(N) for almost all N in N+1 in the sense of LOGARITHMIC density, where Col_min(N) := inf_{n in N} Col^n(N). Published as Forum of Mathematics, Pi, Vol. 10 (2022), Paper e12, 56 pages.",
+   "source": "T. Tao, arXiv:1909.03562, Theorem 1.3; https://arxiv.org/abs/1909.03562"
+  },
+  {
+   "fact": "Logarithmic density is defined probabilistically (Definition 1.2): Log(R) is a random variable on finite R with P(Log(R) in A) = (sum_{N in A cap R} 1/N)/(sum_{N in R} 1/N); a property holds for almost all N if lim_{x->infinity} P(P(Log(N+1 cap [1,x]))) = 1. Logarithmic density is used because it has better approximate multiplicative invariance than natural density; the multiplicative inaccuracy exp(O(n^{1/2})) in the heuristic Syr^n(N) = exp(O(n^{1/2}))(3/4)^n N is 'the main reason why we work with logarithmic density instead of natural density'.",
+   "source": "Tao 2019, Definition 1.2 and equation (1.17), arXiv:1909.03562"
+  },
+  {
+   "fact": "Prior art superseded: Terras (1976, and independently Everett) showed Col_min(N) < N for almost all N; Allouche extended to Col_min(N) < N^theta for theta > 0.869; Korec (1994) to any theta > log3/log4 ~ 0.7924 (these hold in natural density). Krasikov-Lagarias (2003) showed #{N <= x : Col_min(N)=1} >> x^0.84. Numerical verification: Col_min(N)=1 for all N <= 2^68 ~ 2.95e20 (Barina).",
+   "source": "Tao 2019, Section 1.1, arXiv:1909.03562"
+  },
+  {
+   "fact": "Quantitative equivalent form (Remark 1.4): Theorem 1.3 is equivalent to: for every delta > 0 there is C_delta with Col_min(N) <= C_delta for all N in a set of LOWER logarithmic density at least 1 - delta; the argument gives C_delta << exp(delta^{-O(1)}). Ben Green's observation (footnote 3): a sufficiently explicit version combined with numerical verification could in principle prove the Collatz conjecture for a set of N of positive logarithmic density.",
+   "source": "Tao 2019, Remark 1.4 and footnote 3, arXiv:1909.03562"
+  },
+  {
+   "fact": "Syracuse formulation: Syr: 2N+1 -> 2N+1, Syr(N) = largest odd divisor of 3N+1 = Aff_{nu2(3N+1)}(N) where Aff_a(x) = (3x+1)/2^a. Iterates: Syr^n(N) = 3^n 2^{-|a^{(n)}(N)|} N + F_n(a^{(n)}(N)), where the n-Syracuse valuation a^{(n)}(N) = (nu2(3N+1), nu2(3Syr(N)+1), ..., nu2(3Syr^{n-1}(N)+1)) and the n-Syracuse offset map F_n(a) = sum_{m=1}^n 3^{n-m} 2^{-a_{[m,n]}} takes values in Z[1/2].",
+   "source": "Tao 2019, Section 1.2, equations (1.1)-(1.8), arXiv:1909.03562"
+  },
+  {
+   "fact": "Valuation heuristic made rigorous (Proposition 1.9): if N mod 2^{n'} is within total-variation distance 2^{-n'} of uniform on odd residues (2Z+1)/2^{n'}Z for some n' >= (2+c_0)n, then d_TV(a^{(n)}(N), Geom(2)^n) << 2^{-c_1 n}, i.e., the n-Syracuse valuation behaves like n iid geometric(mean 2) variables. This gives control of Syracuse iterates for times n up to c log N ('almost sure local well-posedness'), recovering Korec-type results.",
+   "source": "Tao 2019, Proposition 1.9 and Section 1.3, arXiv:1909.03562"
+  },
+  {
+   "fact": "First-passage/invariant-measure mechanism (Proposition 1.11, 'Stabilisation of first passage'): with T_x(N) := inf{n : Syr^n(N) <= x}, Pass_x(N) := Syr^{T_x(N)}(N), alpha := 1.001, and N_y ~ Log(2N+1 cap [y, y^alpha]): for y = x^alpha and y = x^{alpha^2}, P(T_x(N_y) = +infinity) << x^{-c}, and d_TV(Pass_x(N_{x^alpha}), Pass_x(N_{x^{alpha^2}})) << log^{-c} x. Inspired by Bourgain's invariant measures for NLS (almost-sure global well-posedness): since geometric decay means no useful invariant probability measure exists (the conjecture would force the Dirac measure at 1), Tao instead constructs a FAMILY of measures nu_x = law of Pass_x that are approximately transported to each other by the Syracuse iteration, allowing indefinite iteration of the local theory. Any bound O((log log x)^{-1-c}) in place of log^{-c}x would have sufficed.",
+   "source": "Tao 2019, Proposition 1.11 and Sections 1.3, 3, arXiv:1909.03562"
+  },
+  {
+   "fact": "Syracuse random variables (3-adic structure): Syrac(Z/3^nZ) := F_n(Geom(2)^n) mod 3^n; equivalently Syrac(Z_3) = sum_{j>=0} 3^j 2^{-a_{[1,j+1]}} with a_i iid Geom(2), the unique stationary measure of the Markov process on Z_3 mapping x -> (3x+1)/2^a with probability 2^{-a}. Recursive formula (Lemma 1.12) allows exact computation: e.g. Syrac(Z/9Z) takes values 0..8 with probabilities 0, 8/63, 16/63, 0, 11/63, 4/63, 0, 2/63, 22/63. Then d_TV(Syr^n(N) mod 3^k, Syrac(Z/3^kZ)) << 2^{-c_1 n} for k <= n.",
+   "source": "Tao 2019, equations (1.22),(1.25),(1.29), Lemma 1.12, Remark 1.13, arXiv:1909.03562"
+  },
+  {
+   "fact": "Key analytic inputs: Proposition 1.14 (fine-scale mixing): Osc_{m,n}(P(Syrac(Z/3^nZ) = Y mod 3^n)) <<_A m^{-A} for all 1 <= m <= n and any fixed A>0 (Syrac is approximately uniform on high-frequency cosets Y + 3^m Z/3^n Z). Equivalent to Proposition 1.17 (decay of characteristic function): |E e^{-2pi i xi Syrac(Z/3^nZ)/3^n}| <<_A n^{-A} uniformly for n >= 1 and xi in Z/3^nZ not divisible by 3. Entropy heuristic (Remark 1.15): Geom(2) has Shannon entropy log 4, so Geom(2)^n occupies ~4^{n+o(n)} tuples mapping to only 3^n residues, predicting even exp(-cm) mixing (not proven).",
+   "source": "Tao 2019, Propositions 1.14, 1.17, Remarks 1.15, 1.18, arXiv:1909.03562"
+  },
+  {
+   "fact": "Hardest step (Section 7, proof of Prop 1.17): Syrac(Z/3^nZ) = 2^{-a_1} + 3 2^{-a_{[1,2]}} + ... + 3^{n-1} 2^{-a_{[1,n]}} mod 3^n is NOT a sum of independent variables; grouping adjacent terms via b_j := a_{2j-1} + a_{2j} (iid Pascal) yields conditional independence, expressing the characteristic function as an average of products of cosines over trajectories of a two-dimensional renewal process v_1, v_{[1,2]}, ... in Z^2. Elementary number theory describes the 'black' regions (where cosines are large) as a union of well-separated TRIANGLES; the renewal process exiting a black triangle very likely hits a white point; large triangles are fairly well separated from each other (near even larger triangles), which closes the argument.",
+   "source": "Tao 2019, Section 1.4 discussion and Section 7, arXiv:1909.03562"
+  },
+  {
+   "fact": "WHY the method cannot reach all N (Remark 1.4): strengthening to an absolute constant C_0 with Col_min(N) <= C_0 for almost all N 'is likely to be almost as hard to settle as the full Collatz conjecture, and out of reach of the methods of this paper': if ANY single orbit never dropped below C_0 (which would happen if there are infinitely many periodic orbits or one unbounded orbit), probabilistic heuristics such as (1.16) predict that a POSITIVE DENSITY set of N would encounter an element of that orbit and hence never dip below C_0. The almost-sure method fundamentally cannot exclude a single bad orbit, and one bad orbit poisons a positive-density set. Separately (p.2), the naive iteration of Korec-type results fails because the uniform/logarithmic measure has no invariance under Col: the iteration may send almost all of [1,x] into the density-zero exceptional set of the claim at scale x^theta.",
+   "source": "Tao 2019, Remark 1.4 and Section 1.1, arXiv:1909.03562"
+  },
+  {
+   "fact": "Obstruction to natural density (Remark 1.16): upgrading logarithmic to natural density 'seems to necessitate' fine-scale mixing of the ENTIRE random affine map Aff_{Geom(2)^n} (both the multiplier 3^n 2^{-|a|} and offset), not just the offset F_n(Geom(2)^n); Tao writes this 'looks plausibly attainable from the methods in this paper, but we do not pursue this question here.' As of this search (July 2026) no published paper has carried out this upgrade.",
+   "source": "Tao 2019, Remark 1.16, arXiv:1909.03562"
+  },
+  {
+   "fact": "Version history: v1 Sep 8 2019; v2 Sep 13 2019; v3 Jun 7 2020; v4 Sep 18 2021; v5 Feb 15 2022; v6 Jul 6 2026; v7 Jul 16 2026. The July 2026 revisions are typo corrections only (v7 comment: 'Two more minor typos corrected, and one medium typo (affecting the statement of Lemma 7.9) corrected').",
+   "source": "https://arxiv.org/abs/1909.03562v7 submission history"
+  },
+  {
+   "fact": "Origin story: in August 2019 an anonymous reader left a comment on Tao's blog suggesting he attack Collatz for 'almost all' numbers; Tao: 'I didn't reply, but it did get me thinking about the problem again.' The paper's acknowledgments thank 'several anonymous commenters on his blog'.",
+   "source": "Quanta Magazine, K. Hartnett, 'Mathematician Proves Huge Result on Dangerous Problem', Dec 11, 2019, https://www.quantamagazine.org/mathematician-proves-huge-result-on-dangerous-problem-20191211/; Tao 2019 acknowledgments"
+  },
+  {
+   "fact": "Tao's follow-up blog post (Jan 25, 2020, 'Equidistribution of Syracuse random variables and density of Collatz preimages'): define c_n := inf_{b in Z/3^nZ, 3 does not divide b} P(Syrac(Z/3^nZ) = b); submultiplicativity c_{n1+n2-1} >= c_{n1} c_{n2} gives c_n = 3^{-beta n + o(n)} for some absolute beta >= 1. CONDITIONAL result (Proposition 3): if beta = 1 (full equidistribution at exponential scale), then #{N <= x : Col_min(N) = 1} >> x^{1-o(1)}, improving Krasikov-Lagarias's unconditional x^{0.84}.",
+   "source": "https://terrytao.wordpress.com/2020/01/25/equidistribution-of-syracuse-random-variables-and-density-of-collatz-preimages/"
+  },
+  {
+   "fact": "Follow-up (Goncalves-Greenfeld-Madrid, arXiv:2111.06170, Indiana Univ. Math. J.): for maps C_{p,q,r}(N) = N/p if N = 0 mod p, and qN + r(j) if N = j mod p (r: Z/pZ\\{0} -> Z), under (a) gcd(p,q)=1, (b) q < p^{p/(p-1)}, (c) qj + r(j) = 0 mod p for all j, almost all orbits attain almost bounded values in logarithmic density (Theorem 1.3), with the explicit form sum_{N in [1,x], C_min(N) < B_delta} 1/N > (1-delta) log x. They modularized Tao's 'triangle-avoiding' 2D renewal process (Tao Section 7) as a black box; non-prime q makes bad-region triangles behave differently near the region's edge. Their Conjecture 1.5: under (a)-(c) there are only finitely many cycles and every orbit enters one; numerically, condition (b) (drift, generalizing 3 < 2^2) appears to be the crucial one. Context: Matthews-Watts conjecture predicts divergent trajectories almost everywhere when q_0...q_{p-1} > p^p.",
+   "source": "F. Goncalves, R. Greenfeld, J. Madrid, arXiv:2111.06170"
+  },
+  {
+   "fact": "Follow-up (Inselmann 2024, arXiv:2401.17241): for the real analogue C_R(x) = x/2 if floor(x) even, 3x/2 if floor(x) odd (with x - floor(x) in (-1/2,1/2]), there EXISTS an absolute K > 0 such that {x : liminf_n C_R^n(x) <= K} is Lebesgue co-null \u2014 i.e., in the real setting one gets a genuinely bounded threshold (not just f(N) -> infinity), showing the 'almost bounded' limitation is tied to the arithmetic (integer/3-adic) structure, not the probabilistic framework.",
+   "source": "M. Inselmann, arXiv:2401.17241"
+  },
+  {
+   "fact": "Function-field analogues are fully resolved and quantitative: Hicks-Mullen-Yucas-Zavislak (2008) proved the Collatz analogue in F_2[x] reaches 1 for every polynomial, with quadratic stopping-time bound; Alon-Behajaina-Paran improved the stopping time to O(deg(f)^{1.5}) (arXiv:2401.03210, Finite Fields Appl. 2024) and studied average stopping time (arXiv:2401.12781); the analogue in general polynomial rings and completions (F_p[x], F_p[[x]]) is treated in arXiv:2312.00390 (Discrete Math.) and 'The Collatz problem in F_p[x] and F_p[[x]]' (Finite Fields Appl. 2023).",
+   "source": "G. Alon, A. Behajaina, E. Paran, arXiv:2401.03210 and arXiv:2312.00390"
+  },
+  {
+   "fact": "Other derivative work: M.C. Siegel, 'Syracuse Random Variables and the Periodic Points of Collatz-type maps' (2020; developed in arXiv:2007.15936 and arXiv:2412.02902) parameterizes composition sequences of H_p(x) = x/2 or (px+1)/2 by a continuous 'numen' chi_p: Z_2 -> Z_p (the p=3 case is an alternative form of Tao's Syracuse random variables) and proves a Correspondence Theorem: odd omega is a periodic point of H_p iff omega = chi_p(n)/(1 - r_p(n)) for some integer n >= 1 \u2014 turning cycle-finding into a value-distribution problem for chi_p.",
+   "source": "M.C. Siegel, arXiv:2007.15936; https://www.semanticscholar.org/paper/2ce7562e750c83e2b97aa65a576196b413defe64"
+  },
+  {
+   "fact": "Tao's own PDE analogy for the proof architecture: Proposition 1.9 gives 'almost sure local well-posedness' (control up to time c log N); Theorem 1.6/1.3 is 'almost sure ALMOST global well-posedness'; the bootstrap follows Bourgain's invariant-measure method for nonlinear Schrodinger equations, replacing the (nonexistent) invariant measure with the family nu_x of first-passage laws, quasi-transported by Pass_x. The estimate (1.19) P(T_x = infinity) << x^{-c} is easy; the TV-stability (1.20) is 'the most important and difficult conclusion'.",
+   "source": "Tao 2019, Section 1.3, arXiv:1909.03562; https://terrytao.wordpress.com/2019/09/10/almost-all-collatz-orbits-attain-almost-bounded-values/"
+  }
+ ],
+ "repos_and_links": [
+  "https://arxiv.org/abs/1909.03562 (paper; v7 July 16, 2026)",
+  "https://terrytao.wordpress.com/2019/09/10/almost-all-collatz-orbits-attain-almost-bounded-values/ (announcement blog post, Sep 10, 2019)",
+  "https://terrytao.wordpress.com/2020/01/25/equidistribution-of-syracuse-random-variables-and-density-of-collatz-preimages/ (follow-up: beta=1 equidistribution conjecture => x^{1-o(1)} preimages)",
+  "https://terrytao.wordpress.com/2011/08/25/the-collatz-conjecture-littlewood-offord-theory-and-powers-of-2-and-3/ (earlier 2011 post on Collatz and Littlewood-Offord)",
+  "https://terrytao.wordpress.com/2020/02/16/some-slides-from-basel/ (talk slides, Feb 2020)",
+  "https://terrytao.wordpress.com/tag/collatz-conjecture/ (all his Collatz posts)",
+  "https://www.youtube.com/watch?v=k-dtx8s2ehM (Tao lecture on the result)",
+  "https://www.quantamagazine.org/mathematician-proves-huge-result-on-dangerous-problem-20191211/ (Quanta coverage incl. anonymous-comment origin)",
+  "https://arxiv.org/abs/2111.06170 (Goncalves-Greenfeld-Madrid, generalized Collatz maps, Indiana Univ. Math. J.)",
+  "https://arxiv.org/abs/2401.17241 (Inselmann, real analogue, bounded K on co-null set)",
+  "https://arxiv.org/abs/2401.03210 and https://arxiv.org/abs/2401.12781 and https://arxiv.org/abs/2312.00390 (Alon-Behajaina-Paran F_2[x]/polynomial-ring line)",
+  "https://arxiv.org/abs/2007.15936 and https://arxiv.org/abs/2412.02902 (Siegel, numen/periodic-point correspondence, (p,q)-adic analysis)",
+  "Journal: Forum of Mathematics, Pi, Vol. 10 (2022), Paper e12, 56 pp."
+ ],
+ "precise_statements": [
+  "Theorem 1.3 (Tao 2019, verbatim): 'Let f: N+1 -> R be any function with lim_{N->infinity} f(N) = +infinity. Then one has Col_min(N) < f(N) for almost all N in N+1 (in the sense of logarithmic density).'",
+  "Equivalent form (Remark 1.4): For any delta > 0 there exists C_delta << exp(delta^{-O(1)}) such that Col_min(N) <= C_delta for all N in a subset of N+1 of LOWER logarithmic density at least 1 - delta. [The failure mode: if for some C_0 an orbit existed that never dropped below C_0, probabilistic heuristics predict a positive-density set of N whose orbits encounter that orbit and hence never dip below C_0 \u2014 so replacing f(N)->infinity by an absolute constant 'is likely to be almost as hard to settle as the full Collatz conjecture'.]",
+  "Proposition 1.9 (Distribution of n-Syracuse valuation): Let n in N and N a random variable on 2N+1. If for absolute c_0 > 0 and some n' >= (2+c_0)n one has d_TV(N mod 2^{n'}, Unif((2Z+1)/2^{n'}Z)) << 2^{-n'}, then d_TV(a^{(n)}(N), Geom(2)^n) << 2^{-c_1 n} for some absolute c_1 > 0.",
+  "Proposition 1.11 (Stabilisation of first passage): For y with 2N+1 cap [y, y^alpha] nonempty (alpha = 1.001), let N_y ~ Log(2N+1 cap [y, y^alpha]). Then for sufficiently large x, P(T_x(N_y) = +infinity) << x^{-c} for y = x^alpha, x^{alpha^2}, and d_TV(Pass_x(N_{x^alpha}), Pass_x(N_{x^{alpha^2}})) << log^{-c} x for an absolute c > 0. [T_x(N) := inf{n : Syr^n(N) <= x}; Pass_x(N) := Syr^{T_x(N)}(N).]",
+  "Proposition 1.14 (Fine-scale mixing of n-Syracuse offsets): For all 1 <= m <= n, Osc_{m,n}(P(Syrac(Z/3^nZ) = Y mod 3^n))_{Y in Z/3^nZ} <<_A m^{-A} for any fixed A > 0, where Osc_{m,n}(c_Y) := sum_{Y in Z/3^nZ} |c_Y - 3^{m-n} sum_{Y' = Y mod 3^m} c_{Y'}| and Syrac(Z/3^nZ) := F_n(Geom(2)^n) mod 3^n.",
+  "Proposition 1.17 (Decay of characteristic function; the paper's hardest step): Let n >= 1 and xi in Z/3^nZ not divisible by 3. Then |E e^{-2 pi i xi Syrac(Z/3^nZ)/3^n}| <<_A n^{-A} for any fixed A > 0, with the implied constant uniform in n and xi. [Proved by writing Syrac = 2^{-a_1} + 3*2^{-a_[1,2]} + ... + 3^{n-1} 2^{-a_[1,n]} mod 3^n, pairing b_j = a_{2j-1}+a_{2j} (Pascal), and averaging products of cosines over a 2D renewal process in Z^2 that must avoid a union of well-separated 'black triangles'.]",
+  "Blog Proposition (Jan 25, 2020, conditional): with c_n := inf_{b in Z/3^nZ, 3 not dividing b} P(Syrac(Z/3^nZ) = b) = 3^{-beta n + o(n)}, beta >= 1: if beta = 1 then #{N <= x : Col_min(N) = 1} >> x^{1-o(1)} (vs. Krasikov-Lagarias unconditional x^{0.84}).",
+  "Goncalves-Greenfeld-Madrid Theorem 1.3: For C(N) = N/p if p | N, C(N) = qN + r(j) if N = j mod p, with (a) gcd(p,q) = 1, (b) q < p^{p/(p-1)}, (c) qj + r(j) = 0 mod p for all j in {1,...,p-1}: for every delta > 0 there is B_delta > 0 with sum_{N in [1,x]: C_min(N) < B_delta} 1/N > (1-delta) log x for x large; equivalently {N : C_min(N) > f(N)} has zero logarithmic density for any f -> infinity."
+ ],
+ "open_questions": [
+  "Upgrade logarithmic density to natural density: Tao's Remark 1.16 says this seems to require fine-scale mixing of the full random affine map Aff_{Geom(2)^n} (multiplier and offset jointly), not just the offset F_n(Geom(2)^n), and calls it 'plausibly attainable' \u2014 apparently still unpublished as of July 2026.",
+  "Equidistribution exponent beta = 1 for Syracuse random variables (Tao's Jan 2020 blog conjecture): would give #{N <= x : Col_min(N) = 1} >> x^{1-o(1)}, nearly closing the preimage-density problem; only beta >= 1 and submultiplicativity are known.",
+  "Make C_delta << exp(delta^{-O(1)}) explicit and combine with the 2^68 numerical verification to prove Collatz for a set of positive logarithmic density (Ben Green's observation, Remark 1.4 / footnote 3) \u2014 no one appears to have carried this out.",
+  "Improve the mixing rates: log^{-c} x in (1.20) toward x^{-c}, and m^{-A}/n^{-A} in Propositions 1.14/1.17 toward exp(-cm)/exp(-cn) (the entropy heuristic in Remark 1.15 predicts exponential decay).",
+  "Replace f(N) -> infinity by an absolute constant C_0: Tao states this is likely almost as hard as the full conjecture, since the method cannot exclude even one orbit that never drops below C_0 (and one such orbit infects a positive-density set of starting values). Any strategy for 'all N' must control density-zero exceptional sets, which almost-sure/invariant-measure transport arguments structurally cannot.",
+  "Goncalves-Greenfeld-Madrid Conjecture 1.5: under conditions (a)-(c) the maps C_{p,q,r} have finitely many cycles and every orbit enters one; also whether the drift condition q < p^{p/(p-1)} is necessary for bounded orbits (their numerics suggest yes).",
+  "Whether the logarithmic density (not just lower logarithmic density) of the set {Col_min(N) <= C_delta} exists (Tao flags this refinement as possible in Remark 1.4)."
+ ],
+ "strategy_relevance": "Tao's method is the strongest known 'measure-theoretic' attack: it converts Collatz dynamics into a skew random walk whose 3-adic residue distribution (Syracuse random variables, the stationary law of x -> (3x+1)/2^a with probability 2^{-a}) mixes at fine scales, then bootstraps short-time control to almost-global control by transporting a family of first-passage measures nu_x in the style of Bourgain's invariant-measure argument. For a full proof, the structural obstruction is explicit: any almost-all/positive-density technique dies on density-zero exceptional sets, and a single orbit avoiding [1, C_0] would poison a positive-density set of starting values \u2014 so 'all N' requires either cycle/divergent-orbit exclusion by different (algebraic, transcendence, or rigidity) methods, or proving much stronger equidistribution (beta = 1, or exponential mixing of the full affine map) which Tao's own follow-up shows would already push preimage density to x^{1-o(1)}. Conversely, for a disproof strategy the theorem sharply constrains counterexamples: divergent or high-cycle orbits form a set of logarithmic density zero, and by GGM the same holds across a wide (p,q) family below the drift threshold q < p^{p/(p-1)}. The most actionable near-term targets are Remark 1.16 (natural density), Ben Green's positive-density-via-computation route, and the beta = 1 conjecture.",
+ "topic": "Terence Tao (2019): Almost all orbits of the Collatz map attain almost bounded values \u2014 theorem, proof mechanism, limitations, and follow-up work 2020-2026"
+}

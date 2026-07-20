@@ -1,0 +1,116 @@
+{
+ "topic": "Formalization landscape for Collatz in Lean 4 / mathlib, Coq/Rocq, and Isabelle: existing statements, partial-result formalizations, Coq-BB5 architecture, and practical Lean tooling",
+ "key_facts": [
+  {
+   "fact": "mathlib4 contains NO Collatz-related code: a GitHub code search for 'collatz' in leanprover-community/mathlib4 returns zero results (verified 2026-07-20 via gh CLI). Neither the collatz step function, stopping times, nor the syracuse/accelerated map exist in mathlib.",
+   "source": "gh search code collatz --repo leanprover-community/mathlib4 (empty result), 2026-07-20"
+  },
+  {
+   "fact": "Google DeepMind's formal-conjectures repo contains the canonical open Lean 4 statement of Collatz: `def collatzStep (n : \u2115) : \u2115 := if Even n then n / 2 else 3 * n + 1` and `theorem collatz_conjecture (n : \u2115) (hn : n > 0) : \u2203 m, collatzStep^[m] n = 1`, tagged `@[category research open, AMS 11 37]`, in FormalConjectures/Wikipedia/CollatzConjecture.lean; it is aliased as Erd\u0151s Problem 1135 (ErdosProblems/1135.lean). The repo tracks monthly mathlib releases and is explicitly intended as a benchmark for automated theorem provers and autoformalization.",
+   "source": "https://github.com/google-deepmind/formal-conjectures (raw file FormalConjectures/Wikipedia/CollatzConjecture.lean)"
+  },
+  {
+   "fact": "formal-conjectures also formalizes the Collatz-like Erd\u0151s 1979 conjecture equivalent to halting of a 15-state 2-symbol TM (St\u00e9rin\u2013Woods BB(15) hardness): `theorem CollatzLike (n : \u2115) (hn : 8 < n) : 2 \u2208 Nat.digits 3 (2^n)` in FormalConjectures/Arxiv/2107.12475/CollatzLike.lean, with a `norm_num`-verified test case for n=8.",
+   "source": "https://github.com/google-deepmind/formal-conjectures FormalConjectures/Arxiv/2107.12475/CollatzLike.lean; arXiv:2107.12475"
+  },
+  {
+   "fact": "The Collatz Conjecture Challenge (ccchallenge.org), launched ~Feb 2026 and maintained by Tristan St\u00e9rin ('cosmo', of bbchallenge/Coq-BB5) and Olivier Rozier, is a bbchallenge-style project to 'formalise the Collatz literature one paper at a time'. Its database tracks 371 papers: as of 2026-07-20, 1 audited/formalized (B\u00f6hm\u2013Sontacchi 1978 cycle equation, Lean 4, AI-assisted with Claude Opus 4.6, repo tcosmo/BohmSontacchi1978_lean), 5 waiting to be audited, 4 being formalized. Proof-assistant agnostic; AI use allowed with mandatory disclosure of models.",
+   "source": "https://ccchallenge.org/ and https://ccchallenge.org/api/papers (JSON API queried 2026-07-20)"
+  },
+  {
+   "fact": "A claimed complete, sorry-free Lean 4 formalization of Tao's theorem (arXiv:1909.03562, 'Almost all orbits of the Collatz map attain almost bounded values') exists at gotrevor/tao-collatz: main theorems TaoCollatz.tao_collatz (Thm 1.3: for any f : \u2115 \u2192 \u211d with f(N) \u2192 \u221e, almost all N in logarithmic density satisfy Colmin(N) < f(N)) and tao_collatz_quantitative (Thm 3.1). Axiom audit reports only propext, Classical.choice, Quot.sound. It was AI-authored by autonomous Claude agent runs against human-frozen statements, Lean/mathlib pinned v4.31.0. STATUS: 'waiting_to_be_audited' on ccchallenge \u2014 statement fidelity not yet independently audited.",
+   "source": "https://github.com/gotrevor/tao-collatz; https://ccchallenge.org/api/papers/Tao2022/formalisations"
+  },
+  {
+   "fact": "Terras' 1976 theorem is being formalized in Lean 4 at lechmazur/terras_density_one (AI-assisted, GPT-5.5; ccchallenge status 'formalising'): checked main theorem `TerrasDensity.finiteStoppingTime_natDensity_one : HasNatDensity {n : Nat | \u2203 k : Nat, accelerated^[k] n < n} 1`, i.e. the set of n whose accelerated Collatz orbit drops below n has natural density 1; repo claims sorry-free with axiom audit, Lean 4.30.0-rc2.",
+   "source": "https://github.com/lechmazur/terras_density_one; https://ccchallenge.org/api/papers/Terras1976/formalisations"
+  },
+  {
+   "fact": "Other ccchallenge Lean 4 formalizations (all AI-assisted): Bernstein\u2013Lagarias 1996 3x+1 Conjugacy Map (rwst/lean-code/tree/main/BL, Opus 4.8, awaiting audit); Eliahou 1993 cycle-length lower bounds (tangentstorm/eliahou-collatz-bounds, built with Harmonic's Aristotle, awaiting audit); Rozier\u2013Terracol 2025 'Paradoxical behavior in Collatz sequences' (rwst/lean-code/tree/main/RT, awaiting audit); Eliahou\u2013Verger-Gaugry 2025 rational base 3/2 (rwst's Collatz-Map-Basics, awaiting audit); Knight 2026 'Collatz high cycles do not exist' (tcosmo/Knight2026_lean, Opus 4.6, in progress); Monks 2006 sufficiency of arithmetic progressions (tcosmo/Monks2006_lean, in progress); Krasikov\u2013Lagarias 2003 difference inequalities (Menta2357/collatz-classical, Codex + Claude Fable 5, in progress).",
+   "source": "https://ccchallenge.org/api/papers/<key>/formalisations, queried 2026-07-20"
+  },
+  {
+   "fact": "Isabelle AFP has NO entry on Collatz, FRACTRAN, or generalized Collatz (grep of the full 1012-entry AFP index.json, 2026-07-20). Nearest entries: Minsky_Machines (Bertram Felgenhauer, 2018-08-14) and Busy_Beaver ('The Busy Beaver Function', Ramos/Hulak/de Queiroz, 2026-06-01), the latter proving only abstract noncomputability of BB (any total upper bound decides halting), with no concrete BB values and no Collatz content.",
+   "source": "https://www.isa-afp.org/entries/index.json; https://www.isa-afp.org/entries/Busy_Beaver.html"
+  },
+  {
+   "fact": "Conway-style generalized-Collatz undecidability IS formalized in Coq: the Coq Library of Undecidability Proofs (uds-psl/coq-library-undecidability) defines FRACTRAN halting (`Halt_FRACTRAN '(P, n) := exists m, P /F/ n \u25b9 m` with inductive step relation `q*m = p*n`) and proves it undecidable via the chain TM \u2192 Minsky machines \u2192 FRACTRAN, due to Larchey-Wendling & Forster ('Hilbert's Tenth Problem in Coq', FSCD 2019; extended version arXiv:2003.04604); FRACTRAN then seeds their DPRM/Hilbert-10 and MSELL (FSCD 2021, LIPIcs.FSCD.2021.18) undecidability proofs. A `fractran_reversible` (left-unique step) variant Halt_REV_FRACTRAN is also included.",
+   "source": "https://github.com/uds-psl/coq-library-undecidability/blob/coq-8.20/theories/FRACTRAN/FRACTRAN.v; arXiv:2003.04604"
+  },
+  {
+   "fact": "Coq-BB5 (bbchallenge Collaboration, arXiv:2509.12337) proves S(5) = 47,176,870 in Coq/Rocq 8.20.1 with a single extra axiom (functional_extensionality_dep): 27,274 lines of Coq, 638 lemmas, plus 10,553 lines / 319 lemmas imported from busycoq. Architecture: Tree Normal Form enumeration of 181,385,789 machines, then a pipeline of proved-correct deciders run inside Coq by proof-by-reflection (four-color-theorem style): Loops (175,373,810 machines), NGramCPS (6,005,142), RepWL (6,577), FAR (23), WFAR (17), long halters (183), 1RB-reduction (24), plus 13 'Sporadic Machines' with individual proofs.",
+   "source": "arXiv:2509.12337 'Determination of the fifth Busy Beaver value' (local copy papers/bbchallenge-2025-bb5-determination.pdf)"
+  },
+  {
+   "fact": "Coq-BB5's Collatz-like machine analysis: the 13 sporadic 5-state machines exhibit Collatz-like accelerated dynamics (Skelet #1 enters a cycle after >5.41e51 steps; Skelet #10 is a base-Fibonacci double counter; Skelet #17, 'obfuscated Gray code', needed a ~7,000-line Coq proof). 12 of 13 proofs came from busycoq (K\u0105dzio\u0142ka & Yuen) and were embedded into Coq-BB5; Skelet #1's final computation used an extracted OCaml program. The unifying nonhalting method is the Closed Tape Language (CTL) framework: exhibit a configuration set C containing the initial configuration, closed under transitions, containing no halting configuration.",
+   "source": "arXiv:2509.12337 sections 4-5; https://github.com/meithecatte/busycoq"
+  },
+  {
+   "fact": "busycoq's reusable structure (the style to imitate in Lean): an untrusted Rust decider emits per-machine certificates checked by a Coq-verified checker (theorem: certificate validity implies nonhalting), covering Cyclers, Translated Cyclers, Backwards Reasoning, Bouncers; manual Coq proofs handle Skelet #1, #10, #15, #26, #33, #34, #35 and five 'cubic-finned' machines analyzed by Justin Blanchard. Individual proofs parametrize tape configurations by natural-number tuples and prove multi-step acceleration lemmas by induction (config(a,b) \u2192* config(f(a,b)) for a Collatz-like f), then rule out halting by invariant.",
+   "source": "https://github.com/meithecatte/busycoq README; arXiv:2509.12337"
+  },
+  {
+   "fact": "Compilation of Coq-BB5 initially took ~13 hours on a laptop; using Coq's native_compute evaluation engine plus splitting the enumeration tree into 12 independent subtrees for parallel compilation brought it to ~45 minutes on 13 cores \u2014 the Coq analogue of Lean's native_decide-scale computation inside a kernel-checked proof.",
+   "source": "arXiv:2509.12337; https://github.com/ccz181078/Coq-BB5"
+  },
+  {
+   "fact": "Current recommended Lean 4 + mathlib project setup: `lake +v4.24.0 new my_project math` (the +version only pins lake for project creation, not the project's Lean), then inside the project `lake update` and `lake exe cache get` to download precompiled mathlib oleans; `lake exe cache get` only works in projects depending on mathlib4. formal-conjectures' practice of pinning monthly mathlib releases (rather than tracking master) is the stable pattern for research repos.",
+   "source": "https://leanprover-community.github.io/install/project.html"
+  },
+  {
+   "fact": "decide vs native_decide for finite Collatz orbit checks: `decide` evaluates a Decidable instance in the kernel \u2014 viable for small orbit checks because the Lean 4 kernel has special GMP-backed reduction for Nat literal arithmetic, but it fails on definitions made by well-founded recursion (compiled to WellFounded.fix, which does not reduce definitionally; Lean's whnf treats such definitions as opaque, so decide 'either fails to reduce or times out') \u2014 so orbit checkers must be written with structural/fuel recursion (e.g. `collatzStep^[m] n` via Nat.iterate, or an explicit fuel parameter). `native_decide` compiles the check to native code and 'trusts the compiler \u2014 it doesn't verify the computation in the kernel' (adds the Lean.ofReduceBool/trustCompiler axioms and honors unchecked @[implemented_by]), scaling to millions of orbit checks but enlarging the trusted base; mathlib itself does not accept native_decide in its proofs.",
+   "source": "https://lean4.dev/tactics/automation/decide; Lean 4 reference manual (Decision Procedures); e.g. fuel-based pattern in https://github.com/sdiehl/zero-to-qed/blob/main/src/Examples/Collatz.lean"
+  },
+  {
+   "fact": "Autoformalization context: the Xena Project blog post 'Formalization of Erd\u0151s problems' (2025-12-05) reports formal-conjectures now holds Lean statements of a large and growing set of Erd\u0151s problems; solutions to Erd\u0151s #379 (Cambie\u2013Kova\u010d\u2013Tao) and #987 (Tao) were formalized in Lean; Thomas Bloom's erdosproblems.com forum (added Aug 2025) accelerated this. Tao's Equational Theories Project (launched Oct 2024) is the template for crowdsourced+AI Lean projects. On ccchallenge every current formalization is Lean 4 and AI-assisted, with disclosed models Claude Opus 4.6/4.8, Claude Fable 5, GPT-5.5, Codex, and Harmonic's Aristotle; a Lean Zulip thread 'Opus 4.6 is great at formal proofs (Rocq/Lean4)' discusses the BohmSontacchi1978 formalization.",
+   "source": "https://xenaproject.wordpress.com/2025/12/05/formalization-of-erdos-problems/; https://ccchallenge.org/api; leanprover-community archive stream 219941"
+  },
+  {
+   "fact": "Caution on unvetted 'Collatz formalizations': johnjanik/syracuse-confinement (12,947 lines Lean 4, mathlib v4.27.0) is CONDITIONAL \u2014 it postulates 9 axioms (Baker, Rhin's \u03bc(log\u20823) \u2264 6, Hercher 2024 cycles, Matveev, Weyl, Denjoy\u2013Koksma, Furstenberg, spectral-gap 'decoupling') and has 12 sorries including the load-bearing `nu3_linear_bound` (\u2203 K T\u2080, \u2200 t \u2265 T\u2080, 3\u00b7\u03bd\u2083(n,t) \u2264 t + K); not peer-reviewed, likely AI-generated, superseded by johnjanik/collatz_lean. Similar caution applies to collatz-lab.org (conditional no-nontrivial-cycles mod external hypotheses) and a preprints.org Isabelle 'proof' of full Collatz (10.20944/preprints202508.0891.v2), which should be treated as unvetted.",
+   "source": "https://github.com/johnjanik/syracuse-confinement; https://collatz-lab.org/; https://sciety.org/articles/activity/10.20944/preprints202508.0891.v2"
+  }
+ ],
+ "repos_and_links": [
+  "https://github.com/google-deepmind/formal-conjectures (Collatz statement: FormalConjectures/Wikipedia/CollatzConjecture.lean; BB(15) CollatzLike: FormalConjectures/Arxiv/2107.12475/CollatzLike.lean; ErdosProblems/1135.lean)",
+  "https://ccchallenge.org/ (Collatz Conjecture Challenge; JSON API at /api/papers and /api/papers/<key>/formalisations)",
+  "https://github.com/ccchallenge-org/ccchallenge (site/backend)",
+  "https://github.com/gotrevor/tao-collatz (claimed sorry-free Lean 4 formalization of Tao 2019/2022, awaiting audit; trusted statement file TaoCollatz/Statement.lean)",
+  "https://github.com/lechmazur/terras_density_one (Terras 1976 density-one, Lean 4, in progress)",
+  "https://github.com/tcosmo/BohmSontacchi1978_lean (audited: B\u00f6hm\u2013Sontacchi 1978 cycle equation)",
+  "https://github.com/tcosmo/Monks2006_lean and https://github.com/tcosmo/Knight2026_lean (in progress, Opus 4.6 autoformalization)",
+  "https://github.com/rwst/lean-code (BL = Bernstein\u2013Lagarias 1996, RT = Rozier\u2013Terracol 2025) and https://rwst.github.io/Collatz-Map-Basics/",
+  "https://github.com/Menta2357/collatz-classical (Krasikov\u2013Lagarias 2003)",
+  "https://github.com/tangentstorm/eliahou-collatz-bounds (Eliahou 1993, via Harmonic Aristotle)",
+  "https://github.com/ccz181078/Coq-BB5 (Coq-BB5; paper arXiv:2509.12337)",
+  "https://github.com/meithecatte/busycoq (verified BB deciders + Skelet machine proofs)",
+  "https://github.com/uds-psl/coq-library-undecidability (theories/FRACTRAN/FRACTRAN.v \u2014 generalized-Collatz/FRACTRAN halting undecidability in Coq)",
+  "https://www.isa-afp.org/entries/Minsky_Machines.html and https://www.isa-afp.org/entries/Busy_Beaver.html (closest AFP entries; no Collatz entry exists)",
+  "https://leanprover-community.github.io/install/project.html (lake new <proj> math; lake exe cache get)",
+  "https://lean4.dev/tactics/automation/decide (decide vs native_decide)",
+  "https://leanprover-community.github.io/archive/stream/270676-lean4/topic/Handling.20potentially.20infinite.20loop.3F.html (Zulip: Collatz stopping-time function computability in Lean)",
+  "https://xenaproject.wordpress.com/2025/12/05/formalization-of-erdos-problems/ (Erd\u0151s problems formalization wave)",
+  "https://github.com/johnjanik/syracuse-confinement (conditional, 9 axioms + 12 sorries \u2014 use with caution)",
+  "arXiv:2509.12337, arXiv:2003.04604, arXiv:2105.14697, arXiv:2107.12475"
+ ],
+ "precise_statements": [
+  "formal-conjectures canonical Lean 4 statement (verbatim): def collatzStep (n : \u2115) : \u2115 := if Even n then n / 2 else 3 * n + 1 ; @[category research open, AMS 11 37] theorem collatz_conjecture (n : \u2115) (hn : n > 0) : \u2203 m, collatzStep^[m] n = 1 := by sorry",
+  "formal-conjectures BB(15)-equivalent (verbatim): @[category research open, AMS 5 11] theorem CollatzLike (n : \u2115) (hn : 8 < n) : 2 \u2208 Nat.digits 3 (2^n) := by sorry \u2014 'For n > 8, 2^n is not the sum of distinct powers of 3', equivalent to halting of an explicit 15-state 2-symbol Turing machine (St\u00e9rin\u2013Woods).",
+  "terras_density_one checked theorem (verbatim): TerrasDensity.finiteStoppingTime_natDensity_one : HasNatDensity {n : Nat | \u2203 k : Nat, accelerated^[k] n < n} 1 \u2014 Terras 1976: the set of n with finite stopping time has natural density one.",
+  "gotrevor/tao-collatz main theorem (as stated in repo): TaoCollatz.tao_collatz \u2014 for any f : \u2115 \u2192 \u211d with f(N) \u2192 \u221e, almost all N in logarithmic density satisfy Colmin(N) < f(N) (Tao arXiv:1909.03562 Theorem 1.3); plus quantitative version tao_collatz_quantitative (Theorem 3.1). Sorry-free; axioms only propext, Classical.choice, Quot.sound; awaiting statement audit.",
+  "Coq FRACTRAN halting (verbatim from FRACTRAN.v): Inductive fractran_step : ... | in_fractran_0 : forall p q l n m, q*m = p*n -> (p,q)::l /F/ n \u227b m | in_fractran_1 : forall p q l n m', ~(exists m, (p*n) = m*q) -> l /F/ n \u227b m' -> (p,q)::l /F/ n \u227b m' ; Definition Halt_FRACTRAN '(P, n) := exists m, P /F/ n \u25b9 m \u2014 proven undecidable via TM \u2192 Minsky \u2192 FRACTRAN (Larchey-Wendling & Forster).",
+  "Coq-BB5 main result: S(5) = 47,176,870, kernel-checked in Coq 8.20.1 assuming only functional_extensionality_dep, by TNF enumeration of 181,385,789 machines + proved-correct deciders run by reflection + 13 individually-proved sporadic machines (Skelet #17 \u2248 7,000 lines of Coq)."
+ ],
+ "open_questions": [
+  "Statement-fidelity audit of gotrevor/tao-collatz: it is 'waiting_to_be_audited' on ccchallenge \u2014 do the frozen Lean definitions (Colmin, logarithmic density, the Syracuse map) faithfully match Tao's paper? If the audit passes, this is the first formalization of a deep partial Collatz result and the single most reusable Lean asset for the program.",
+  "No formalization of Terras' theorem is finished in any assistant (lechmazur/terras_density_one is in progress); nobody has formalized Korec's \u03b8 > log4(3) refinement or Krasikov\u2013Lagarias density bounds (Menta2357/collatz-classical in progress).",
+  "Isabelle/AFP is a green field: no Collatz, FRACTRAN, or generalized-Collatz-undecidability entry exists; the Kurtz\u2013Simon undecidability result has apparently never been mechanized in any assistant (only Conway-style FRACTRAN halting, in Coq).",
+  "Should basic Collatz definitions (collatzStep, Syracuse/accelerated map, stopping time, cycle equation) be upstreamed to mathlib proper \u2014 nothing exists there today, and formal-conjectures' FormalConjecturesForMathlib directory is a staging path?",
+  "How far can kernel `decide` scale on Collatz orbit checks (GMP-backed Nat reduction) before native_decide (compiler-trusting) becomes necessary, and would a certificate-checking design (busycoq-style: untrusted search emits certificates, verified Lean checker validates them) sidestep the tradeoff entirely?",
+  "Can the busycoq/Coq-BB5 CTL (closed tape language) and acceleration-lemma style be ported to Lean 4 as a reusable library for Collatz-like maps \u2014 e.g., proving multi-step lemmas config(a,b) \u2192* config(f(a,b)) with mathlib's Nat.iterate and omega/decide automation?"
+ ],
+ "strategy_relevance": "The formalization ecosystem is suddenly load-bearing for Collatz: ccchallenge.org (St\u00e9rin/Rozier, 2026) provides an auditable pipeline where the two deepest known partial results \u2014 Terras 1976 and Tao 2019/2022 \u2014 already have Lean 4 formalizations in flight, all AI-assisted, so any new partial result the program produces should be stated against those frozen Lean definitions and submitted there for audit rather than formalized in isolation. Since mathlib contains zero Collatz material, the highest-leverage infrastructure move is a small mathlib-style base library (step map, Syracuse map, stopping time, B\u00f6hm\u2013Sontacchi cycle equation) reusing formal-conjectures' canonical statement, with finite checks done by fuel/structural recursion (kernel decide) or certificate-checking in the busycoq style rather than native_decide. For the disproof/undecidability direction, Coq is the mature substrate: FRACTRAN halting undecidability (coq-library-undecidability) and Coq-BB5's reflection-based decider pipeline with hand-proved Collatz-like acceleration lemmas for sporadic machines give a concrete, portable template for machine-assisted analysis of Collatz-like dynamics in Lean.",
+ "downloaded_papers": [
+  "/Users/simon/Desktop/COLLATZ/papers/larchey-wendling-forster-2019-hilberts-tenth-coq-fractran.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/sterin-woods-2021-bb15-hardness-collatz-like.pdf"
+ ]
+}

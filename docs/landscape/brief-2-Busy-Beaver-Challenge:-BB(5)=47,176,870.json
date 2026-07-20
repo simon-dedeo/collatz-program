@@ -1,0 +1,164 @@
+{
+ "topic": "Busy Beaver Challenge: BB(5)=47,176,870 Coq proof, decider/certificate technology (CTL, NGramCPS, RepWL, FAR, WFAR, bouncers, translated cyclers), BB(6) Cryptids (Antihydra, Hydra, Bigfoot, Space Needle, Lucy's Moonlight), and BB(6) status 2025-2026",
+ "key_facts": [
+  {
+   "fact": "S(5) = 47,176,870 was proven in the Coq proof assistant by enumerating 181,385,789 5-state 2-symbol Turing machines in Tree Normal Form and deciding halting for each. Coq-BB5 totals 27,274 lines of Coq and 638 lemmas, plus 10,553 lines and 319 lemmas imported from busycoq; it compiles in ~45 minutes on 13 cores with native_compute (originally ~13 hours). It also proves BB(2)=6, BB(3)=21, BB(4)=107, BB(2,3)=38, BB(2,4)=3,932,964. Released July 2024 (four stages); paper posted 15 Sep 2025; published at STOC 2026.",
+   "source": "arXiv:2509.12337 'Determination of the fifth Busy Beaver value', The bbchallenge Collaboration; ACM DOI 10.1145/3798129.3806376"
+  },
+  {
+   "fact": "The exact S(5) decider pipeline (Table 3 of the paper): Loops decided 175,373,810 machines (126,994,099 nonhalt + 48,379,711 halt); NGramCPS 6,005,142 nonhalt; RepWL 6,577 nonhalt; FAR 23 nonhalt; WFAR 17 nonhalt; long-halter simulation to 47,176,870 steps 183 halt; 13 Sporadic Machines needed individual Coq proofs; 1RB-reduction decided 24. Totals: 133,005,895 nonhalt + 48,379,894 halt = 181,385,789.",
+   "source": "arXiv:2509.12337, Section 4, Table 3"
+  },
+  {
+   "fact": "Only the VERIFIER part of FAR and WFAR is implemented in Coq-BB5: 40 FAR/WFAR certificates (finite-state automata / weighted FSAs describing CTL sets) are hardcoded in files Verifier_FAR_Hardcoded_Certificates.v and Verifier_WFAR_Hardcoded_Certificates.v; the untrusted search (including SAT-solver search for FAR) ran outside the proof. This search/verify split is the central architecture of the proof.",
+   "source": "arXiv:2509.12337, Section 4.2 'Deciders vs. verifiers'"
+  },
+  {
+   "fact": "CTL (Closed Tape Language) framework, attributed to Marxen\u2013Buntrock and first documented by Ligocki: if a set C of configurations (1) contains the initial all-0 configuration, (2) is closed under one TM step, and (3) contains no halting configuration, the machine never halts. 'Regular CTL' means C is a regular language; NGramCPS, RepWL and FAR are regular CTL instances; WFAR is non-regular. The 17 machines solved only by WFAR are believed irregular (no regular CTL certificate found despite intensive search), drawing a conceptual line between S(4) (all regular) and S(5).",
+   "source": "arXiv:2509.12337 Section 4.2; https://www.sligocki.com/2022/06/10/ctl.html; https://wiki.bbchallenge.org/wiki/Closed_Tape_Language"
+  },
+  {
+   "fact": "FAR (Finite Automata Reduction, Justin Blanchard Oct 2022, SAT-based implementation by Konrad Deka) is co-CTL: build an NFA over word-representations of configurations (tape segment containing all 1s with the head-state letter inserted before the head position, e.g. 00A001100) whose language contains ALL eventually-halting configurations; if the NFA rejects the all-0 initial configuration, the machine never halts. Sufficient algebraic conditions (Theorem 6.4 of the deciders write-up): q0*T0=q0; T0*a^T=a^T; s*a^T=1; s*T0,s*T1 >= s (steady accepted state-set); for halting transitions (f,r)->\u22a5: q0*Tu*Tf*Tr >= s for all u; for left transitions: Tb*Tf*Tr >= Tt*Tb*Tw for b in {0,1}; for right transitions: Tf*Tr >= Tw*Tt; and q0*TA*a^T=0 (initial config rejected). Verification is computationally trivial given the NFA.",
+   "source": "bbchallenge deciders write-up Section 6, https://github.com/bbchallenge/bbchallenge-proofs (correctness-deciders.pdf); https://wiki.bbchallenge.org/wiki/Finite_Automata_Reduction"
+  },
+  {
+   "fact": "WFAR (Weighted FAR) uses two DETERMINISTIC weighted automata with integer edge weights: the left WA reads the tape left of the head left-to-right, the right WA reads the tape right of the head right-to-left; a configuration maps to [p] Sr [q] with total weight W = Wl + Wr. A certificate is an accept set A of weighted configurations with weight bounds (m <= W <= M). Theorem 4.10 (Coq lemma MITM_WDFA_verifier_spec): the machine does not halt if (1) \u03b4L(p0,0)=p0, \u03b4R(q0,0)=q0, wL(p0,0)=wR(q0,0)=0; (2) [p0] A0 [q0]; W=0 is in A; (3) A is weighted-forward-closed (bounds updated by weight change wL(p,b)\u2212wR(q',r') for right moves, symmetric for left; configurations incompatible with feasible per-state weight bounds computed via Bellman\u2013Ford are discarded); (4) A contains no halting configuration. Weighted automata recognize non-regular languages such as 0^n 1^n.",
+   "source": "arXiv:2509.12337 Section 4.7; https://github.com/Iijil1/MITMWFAR (meet-in-the-middle variant by Iijil)"
+  },
+  {
+   "fact": "NGramCPS (Nathan Fenner Feb 2023, improved in Coq by mxdys Apr 2024) tracks only a radius-n local window around the head plus sets of left/right n-grams seen at the boundary; when the window shifts, the dropped side is recorded as an n-gram and the unknown new cell is filled by all previously recorded matching n-grams. If the set of local configurations closes without reaching an undefined/halting transition, the TM is nonhalting. Augmentations: fixed-length history (each cell also stores the last l (state,symbol) pairs that visited it) and LRU history. It decided 6,005,142 machines in the S(5) pipeline.",
+   "source": "https://wiki.bbchallenge.org/wiki/NGram_CPS; https://github.com/Nathan-Fenner/bb-simple-n-gram-cps; arXiv:2509.12337 Section 4.4"
+  },
+  {
+   "fact": "RepWL (Repeated Word List, mxdys Apr 2024) abstracts the tape as blocks of fixed length l grouped into powers; exponents at or above threshold T become 'T+' (an abstraction of arbitrarily many repeats); simulation branches ('regex branching') when the head faces a T+ block: one branch with multiplicity T-1, one keeping T+. If the resulting configuration graph closes with no halting node, the machine is nonhalting. This is regular CTL with languages of the form of regular expressions like w1^a w2^{T+} ...",
+   "source": "https://wiki.bbchallenge.org/wiki/Repeated_Word_List; arXiv:2509.12337 Section 4.5"
+  },
+  {
+   "fact": "Translated cyclers (Lin recurrence, first decided by Shen Lin 1963-1965) are detected by record-breaking: if two configurations that break a tape-extent record occur in the same state and the tape contents within distance L of the two record positions agree (L = max distance backtracked between the records), the machine repeats forever, translated in space. ~95% of all infinite BB(6) TMs are translated cyclers within 1000 steps. Skelet #1 is a translated cycler with period 8,468,569,863 steps, offset 107,917 cells, and preperiod ~5.42\u00d710^51 steps.",
+   "source": "https://wiki.bbchallenge.org/wiki/Translated_cycler; bbchallenge deciders write-up Section 3; Lin & Rado, J.ACM 12(2) 1965"
+  },
+  {
+   "fact": "Bouncers are machines whose head bounces linearly between growing tape edges; certificate = shift rules plus an inductive 'bounce rule' (e.g. B_n: A 00(10^{2n})>00 \u2192[8n+8] A (10^{2(n+1)})>). Decider by Tony Guilfoyle (Nov 2022), reproduced by savask and Iijil (2023), formally verified by meithecatte in busycoq/verify/Bouncers.v (Sep 2023); Section 7 of the deciders write-up.",
+   "source": "https://wiki.bbchallenge.org/wiki/Bouncer; https://github.com/meithecatte/busycoq/blob/master/verify/Bouncers.v"
+  },
+  {
+   "fact": "The BB(5) champion 1RB1LC_1RC1RB_1RD0LE_1LA1LD_1RZ0LA (Marxen\u2013Buntrock, Feb 1990; high-level rules by Michael Buro, Nov 1990) halts after exactly 47,176,870 steps with 4098 ones. With g(x) := 0^inf <A 1^x 0^inf, its exact Collatz-like rules are: g(3x) \u2192 g(5x+6) in (5/9)x'-scaled quadratic steps [table: 5x^2+19x+15 in x]; g(3x+1) \u2192 g(5x+9) [i.e., n \u2192 (5n+22)/3]; g(3x+2) \u2192 HALT in 6x+12 steps. Equivalently: iterate f(n) = 3n + 6 \u2212 4\u00b7floor(n/3) (\u2248 (5/3)n) and halt iff n \u2261 2 (mod 3). Trajectory from blank tape: 0\u21926\u219216\u219234\u219264\u2192114\u2192196\u2192334\u2192564\u2192946\u21921584\u21922646\u21924416\u21927366\u219212284 (\u22612 mod 3), i.e., the champion halts after only 15 iterations of this residue-lottery.",
+   "source": "https://wiki.bbchallenge.org/wiki/5-state_busy_beaver_winner; Pascal Michel, Behavior of busy beavers; Aaronson, The Busy Beaver Frontier (2020), pp.10-11"
+  },
+  {
+   "fact": "Antihydra (mxdys, 28 June 2024; high-level rules by Racheline) is the 6-state 2-symbol machine 1RB1RA_0LC1LE_1LD1LC_1LA0LB_1LF1RE_---0RA. With A(a,b) := 0^inf 1^a 0 1^b E> 0^inf: A(a,2b) \u2192 A(a+2, 3b+2) [2a+3b^2+12b+11 steps]; A(0,2b+1) \u2192 HALT configuration 0^inf <F 110 1^{3b} 0^inf [3b^2+9b\u22121 steps]; A(a+1,2b+1) \u2192 A(a, 3b+3) [3b^2+12b+5 steps]. Blank tape reaches A(0,4) in 11 steps. Equivalent arithmetic form: iterate the Hydra map H(n)=floor(3n/2) from n=8 (or f(n)=floor(3n/2)+2 from n=4; H^i(8)=f^i(4)+4); keep counter c starting at 0 with c+=2 on even n, c\u2212=1 on odd n; Antihydra halts iff c ever reaches \u22121, i.e., iff strictly more than twice as many odd as even iterates ever occur.",
+   "source": "https://wiki.bbchallenge.org/wiki/Antihydra; S. Ligocki, 'BB(6) is Hard (Antihydra)', https://www.sligocki.com/2024/07/06/bb-6-2-is-hard.html"
+  },
+  {
+   "fact": "Antihydra 'probviously' never halts: the counter is a random walk stepping +2 or \u22121 with equal probability (drift +1/2 per step); P(reach \u22121 from position n) = ((\u221a5\u22121)/2)^(n+1) (golden-ratio root of P(n)=\u00bdP(n\u22121)+\u00bdP(n+2)). Antihydra has been simulated for 2^38 rule steps (~2.7\u00d710^11), at which point the counter a exceeds 2^37, giving halting probability < ((\u221a5\u22121)/2)^(2^37) \u2248 2.884\u00d710^\u221228,723,042,565. Greg Kuperberg's near-linear-time simulation splits h into high/low parts: hydra(n, e) = p3t\u00b7(n>>t) + hydra(n&mask, e\u22121) applied twice with t=2^(e\u22121), p3t=3^t. Iterates are OEIS A386792; counter values are OEIS A385902.",
+   "source": "https://wiki.bbchallenge.org/wiki/Antihydra"
+  },
+  {
+   "fact": "Antihydra reduces to a Mahler-type problem: the sequence is equivalent to D(0)=7, D(n+1)=ceil(3D(n)/2) (via H(n)=D(n)+1), and by Odlyzko\u2013Wilf (Josephus problem paper) D(n) = floor(K\u00b7(3/2)^n) for some constant K. Hence Antihydra's halting is a question about the parity distribution of floor(K\u00b7(3/2)^n) \u2014 the same shape as Mahler's 3/2 problem (Z-numbers), open since 1968. Equidistribution of the fractional parts {\u03be(3/2)^n} would imply the parity vector is a random walk. Formalized (Lean) basics at github.com/rwst/Antihydra-Basics. Antihydra also provably does not generate Sturmian words (Dubickas 2009, Glasgow Math. J. 51(2):243-252, Corollary 4).",
+   "source": "https://wiki.bbchallenge.org/wiki/Antihydra, 'More Analysis' section"
+  },
+  {
+   "fact": "Hydra (Daniel Yuan, April-May 2024) is the BB(2,5) Cryptid 1RB3RB---3LA1RA_2LA3RA4LB0LB0LA. Iterate H(n)=floor(3n/2) from n=3 with counter b: b\u2212=1 on even, b+=2 on odd; Hydra halts iff b reaches \u22121 (more even terms than twice the odd terms) \u2014 the mirror image of Antihydra (hence the name Antihydra: same map, start 8 instead of 3, termination O>2E swapped to E>2O). After 4,000,000 rule steps b=2,005,373; heuristic halting probability ((\u221a5\u22121)/2)^2,005,374 \u2248 4.168\u00d710^\u2212419,099. The Hydra function satisfies H^s(2^s\u00b7t) = 3^s\u00b7t and H^s(2^s\u00b7t+1) = 3^s\u00b7t+1, enabling batch acceleration of s steps at once.",
+   "source": "https://wiki.bbchallenge.org/wiki/Hydra; https://wiki.bbchallenge.org/wiki/Hydra_function; S. Ligocki, 'BB(2,5) is Hard (Hydra)', https://www.sligocki.com/2024/05/10/bb-2-5-is-hard.html"
+  },
+  {
+   "fact": "Bigfoot (savask/Shawn Ligocki, Oct-Nov 2023) is the BB(3,3) Cryptid 1RB2RA1LC_2LC1RB2RB_---2LA1LA \u2014 the first machine called a 'Cryptid' (term coined by Ligocki). With A(a,b,c) := 0^inf 12^a 1^{2b} <A 1^{2c} 0^inf, its rules depend on b mod 6: b\u22610: A(a,(4/3)b+c\u22121,2); b\u22611: A(a+1,(4b\u22127)/3+c,3); b\u22612 & a=0: HALT; b\u22612 & a>0: A(a\u22121,(4b+1)/3+c,2); b\u22613: A(a,(4/3)b+c\u22123,5); b\u22614: A(a+1,(4b\u22127)/3+c,2); b\u22615: A(a,(4b\u22125)/3+c,3). Halting requires hitting b\u22612 (mod 6) with a=0; a performs a random walk +1 w.p. 2/3, \u22121 w.p. 1/3, so P(halt from a=n) = 2^\u2212(n+1); after 24,000,000 rule steps a=3,999,888, giving P \u2248 2.697\u00d710^\u22121,204,087. Bigfoot was compiled to a 7-state 2-symbol machine (Iijil, June 2024), making BB(7) also Collatz-hard; Hydra compiled to 9 states 2 symbols.",
+   "source": "https://wiki.bbchallenge.org/wiki/Bigfoot; S. Ligocki, 'BB(3,3) is Hard (Bigfoot)', https://www.sligocki.com/2023/10/16/bb-3-3-is-hard.html; https://wiki.bbchallenge.org/wiki/Cryptids"
+  },
+  {
+   "fact": "Space Needle (mxdys, 9 Jan 2025; higher-level rules by Katelyn Doucette and Racheline) is BB(6) cryptid 1RB1LA_1LC0RE_1LF1LD_0RB0LA_1RC1RE_---0LD. Its halting problem: starting from b=6, iterate 'if b = 2^v(b) (b is a power of 2): HALT; else b \u2192 b + v(b) + (3/2)(b/2^v(b) \u2212 1)' where v(b) is the 2-adic data of b (wiki states 'largest power of 2 that divides b'). Sequence: 6\u219210\u219217\u219241\u2192101\u2192251\u2192626\u21921095\u21922736\u21922995\u2192...; computed past 17 million terms reaching b > 10^4,800,000 with no power of 2 hit; max 2-adic valuation seen was 24. Growth averages log-factor 0.652355 per step. Halting would require deep control of how addition affects the number of factors of 2 in sums \u2014 a 2-adic valuation problem, distinct from the drift-random-walk cryptids.",
+   "source": "https://wiki.bbchallenge.org/wiki/Space_Needle (page 1RB1LA_1LC0RE_1LF1LD_0RB0LA_1RC1RE_---0LD)"
+  },
+  {
+   "fact": "Lucy's Moonlight (Racheline, 1 Mar 2025) is a PROBVIOUSLY HALTING tetrational BB(6) cryptid 1RB0RD_0RC1RE_1RD0LA_1LE1LC_1RF0LD_---0RA with a 5% chance (treating Collatz behavior as random) of beating the former BB(6) champion. Exact Lean-formalized halting map on pairs (a,b) starting f^k(0,0): HALT if a=1, b\u22611 (mod 3); (2\u230ab/3\u230b,8) if a=0,b\u22610; (2\u230ab/3\u230b+4,8) if a=1,b\u22612; (0,8\u230ab/3\u230b+5) if a=0,b\u22620; (a\u22121,8\u230ab/3\u230b+6) if a\u22651,b\u22610; (a\u22122,8\u230ab/3\u230b+16) if a\u22652,b\u22611; (a\u22122,8\u230ab/3\u230b+22) if a\u22652,b\u22612. The 'restart' values c_0=14, c_1=11,292, c_2\u224810^2901.92 grow tetrationally.",
+   "source": "https://wiki.bbchallenge.org/wiki/Lucy's_Moonlight; Lean proof https://github.com/rwst/bbchallenge/blob/main/1RB0RD_0RC1RE_1RD0LA_1LE1LC_1RF0LD_---0RA/machine.lean; S. Ligocki https://www.sligocki.com/2025/04/21/lucys-moonlight.html"
+  },
+  {
+   "fact": "BB(6) status: current champion 1RB1RA_1RC1RZ_1LD0RF_1RA0LE_0LD1RC_1RA0RE (mxdys, June 2025) proves S(6) > \u03a3(6) > 2\u2191\u2191\u21915 (pentation); runner-up scores \u03a3 \u2248 10\u2191\u219111,010,000 (mxdys) and 10\u2191\u219115.60465 (Kropitz, the pre-2025 champion). As of June 2026: mxdys's informal holdouts list has 1094 machines up to equivalence (2320 without equivalence); annotated community spreadsheet counts 1101; ALL holdouts simulated to 1e13 steps. A partial Rocq (Coq) BB(6) proof is maintained at github.com/ccz181078/busycoq/tree/BB6. A new FAR method by mxdys (github.com/ccz181078/TM/tree/FAR) decided 113 of 1534 holdouts on first application; Iijil's MITMWFAR was too slow to help at BB(6) scale. Known BB(6) cryptids: 8+ probviously non-halting (Antihydra, 3 Hydra-variants, Space Needle + 2 similar, more), 10 probviously halting (incl. Lucy's Moonlight, a 16-machine family), plus ~4 chaotic 'potential cryptids' with no identified math connection.",
+   "source": "https://wiki.bbchallenge.org/wiki/BB(6); Quanta Magazine, Ben Brubaker, 'Busy Beaver Hunters Reach Numbers That Overwhelm Ordinary Math', 22 Aug 2025"
+  },
+  {
+   "fact": "The 13 BB(5) Sporadic Machines required individual formal proofs: Skelet #1 (chaotic for >5.41\u00d710^51 steps before entering a translated cycle), Skelet #10 (base-Fibonacci double counter), Skelet #17 (obfuscated Gray code; standalone paper by Chris Xu, arXiv:2407.02426; its Coq proof lives in Coq-BB5 itself as BB5_Skelet17.v), Skelet #15, #26, #33, #34, #35, and five 'Finned' machines (Justin Blanchard). All except Skelet #17 are proven in the busycoq snapshot (github.com/meithecatte/busycoq, by Maja K\u0105dzio\u0142ka/meithecatte) imported into Coq-BB5. busycoq architecture: untrusted Rust deciders emit certificates checked by a Coq-verified OCaml-extracted verifier (Cyclers, Translated Cyclers, Backwards Reasoning, Bouncers).",
+   "source": "arXiv:2509.12337 Section 5; https://wiki.bbchallenge.org/wiki/Coq-BB5; https://github.com/meithecatte/busycoq; https://github.com/ccz181078/Coq-BB5"
+  },
+  {
+   "fact": "Constructed larger cryptids/reductions relevant to Collatz: a 25-state 2-symbol TM halts iff Goldbach's conjecture is false (2016, verified in Lean); BB(15) and BB(5,4) machines halt iff Erd\u0151s' 1979 conjecture ('for all n>8 there is a 2 in the base-3 representation of 2^n') is false (St\u00e9rin & Woods 2021, arXiv:2107.12475); a 124-state (also 43-state 4-symbol) machine halts iff the 'weak Collatz conjecture' (3x+1 has only the one positive cycle) is false (St\u00e9rin, unverified); BB(744) encodes the Riemann Hypothesis; BB(432) encodes Con(ZF) (Wade 2025, improving O'Rear); BB(372) encodes Con(PA) (LegionMammal, 2026). Hence BB(15) is already Collatz-adjacent-hard and BB(6) requires solving an actual Collatz-like problem.",
+   "source": "https://wiki.bbchallenge.org/wiki/Cryptids 'Larger Cryptids' table; arXiv:2107.12475 'Hardness of busy beaver value BB(15)'"
+  },
+  {
+   "fact": "Quanta (Ben Brubaker, 22 Aug 2025) reports: BB(6) champion halts after more than 2\u2191\u2191\u21915 steps (found by mxdys June 2025, nine days after a previous record); Antihydra 'almost certainly never halts. But researchers haven't been able to prove it'; Racheline discovered its Collatz connection and the team has since found many similar 6-rule machines; key figures named: Shawn Ligocki, Pavel Kropitz, Katelyn Doucette (shift overflow counters), mxdys (pseudonymous, most prolific), Racheline. Companion blog: Ben Brubaker, 'Why Busy Beaver Hunters Fear the Antihydra' (benbrubaker.com), reporting Antihydra simulated to more than 270 billion steps.",
+   "source": "https://www.quantamagazine.org/busy-beaver-hunters-reach-numbers-that-overwhelm-ordinary-math-20250822/; https://benbrubaker.com/why-busy-beaver-hunters-fear-the-antihydra/"
+  }
+ ],
+ "repos_and_links": [
+  "https://github.com/ccz181078/Coq-BB5 (canonical Coq/Rocq proof of BB(5)=47,176,870 by mxdys; github.com/bbchallenge/Coq-BB5 does NOT exist - 404)",
+  "https://github.com/meithecatte/busycoq (Maja Kadziolka's verified deciders + individual Skelet/Finned proofs; snapshot imported into Coq-BB5)",
+  "https://github.com/ccz181078/busycoq/tree/BB6 (partial Rocq proof for BB(6), mxdys)",
+  "https://github.com/ccz181078/TM/tree/FAR (mxdys's new FAR method that decided 113 of 1534 BB(6) holdouts)",
+  "https://github.com/Iijil1/MITMWFAR (Meet-in-the-Middle Weighted Finite Automata Reduction decider)",
+  "https://github.com/bbchallenge/bbchallenge-deciders (official decider implementations incl. decider-finite-automata-reduction)",
+  "https://github.com/UncombedCoconut/bbchallenge-deciders/tree/finite-automata-reduction/decider-finite-automata-reduction (Justin Blanchard's original FAR)",
+  "https://github.com/colette-b/bbchallenge (Konrad Deka's SAT-based FAR)",
+  "https://github.com/bbchallenge/bbchallenge-proofs (deciders correctness write-up, correctness-deciders.pdf)",
+  "https://github.com/Nathan-Fenner/bb-simple-n-gram-cps (original NGramCPS)",
+  "https://github.com/sligocki/busy-beaver (Ligocki simulator/Enumerate.py; Machines/bb/6x2.txt top halters list)",
+  "https://github.com/rwst/Antihydra-Basics (Lean formalization: Antihydra = parity of floor(K*(3/2)^n))",
+  "https://github.com/TonyGuil/bbchallenge (bouncers + FAR reproductions)",
+  "https://arxiv.org/abs/2509.12337 (Determination of the fifth Busy Beaver value)",
+  "https://arxiv.org/abs/2107.12475 (Sterin-Woods: BB(15) hardness via Erdos base-3 conjecture)",
+  "https://arxiv.org/abs/2407.02426 (Chris Xu: Skelet #17 and the fifth Busy Beaver number)",
+  "https://wiki.bbchallenge.org/wiki/Antihydra",
+  "https://wiki.bbchallenge.org/wiki/Hydra",
+  "https://wiki.bbchallenge.org/wiki/Hydra_function",
+  "https://wiki.bbchallenge.org/wiki/Bigfoot",
+  "https://wiki.bbchallenge.org/wiki/Cryptids",
+  "https://wiki.bbchallenge.org/wiki/BB(6)",
+  "https://wiki.bbchallenge.org/wiki/Closed_Tape_Language",
+  "https://wiki.bbchallenge.org/wiki/Finite_Automata_Reduction",
+  "https://wiki.bbchallenge.org/wiki/NGram_CPS",
+  "https://wiki.bbchallenge.org/wiki/Repeated_Word_List",
+  "https://wiki.bbchallenge.org/wiki/Translated_cycler",
+  "https://wiki.bbchallenge.org/wiki/Bouncer",
+  "https://wiki.bbchallenge.org/wiki/5-state_busy_beaver_winner",
+  "https://wiki.bbchallenge.org/wiki/Lucy's_Moonlight",
+  "https://www.quantamagazine.org/busy-beaver-hunters-reach-numbers-that-overwhelm-ordinary-math-20250822/ (Ben Brubaker, 22 Aug 2025)",
+  "https://benbrubaker.com/why-busy-beaver-hunters-fear-the-antihydra/",
+  "https://www.sligocki.com/2024/07/06/bb-6-2-is-hard.html (BB(6) is Hard / Antihydra)",
+  "https://www.sligocki.com/2024/05/10/bb-2-5-is-hard.html (Hydra)",
+  "https://www.sligocki.com/2023/10/16/bb-3-3-is-hard.html (Bigfoot)",
+  "https://www.sligocki.com/2022/06/10/ctl.html (CTL explained)",
+  "https://oeis.org/A386792 (Antihydra Hydra-function iterates), https://oeis.org/A385902 (Antihydra counter)",
+  "https://dl.acm.org/doi/10.1145/3798129.3806376 (STOC 2026 publication of BB(5) paper)"
+ ],
+ "precise_statements": [
+  "Theorem (bbchallenge Collaboration, 2024/2025, Coq-verified): S(5) = 47,176,870. The maximum-step 5-state 2-symbol halting TM from blank tape is 1RB1LC_1RC1RB_1RD0LE_1LA1LD_1RZ0LA, halting after 47,176,870 steps with 4098 ones.",
+  "BB(5) champion arithmetic: with g(x) := 0^inf <A 1^x 0^inf, the rules are g(3x) -> g(5x+6), g(3x+1) -> g(5x+9), g(3x+2) -> HALT. Equivalently: iterate f(n) = 3n + 6 - 4*floor(n/3); halt iff n = 2 (mod 3). The champion's blank-tape trajectory is 0,6,16,34,64,114,196,334,564,946,1584,2646,4416,7366,12284 -> HALT (15 iterations; 12284 = 2 mod 3).",
+  "Antihydra halting criterion (exact): iterate H(n) = floor(3n/2) from n = 8, with counter c = 0 updated c += 2 if n even, c -= 1 if n odd, BEFORE each application of H; Antihydra halts iff c ever equals -1 (i.e., iff at some finite time the number of odd iterates exceeds twice the number of even iterates). TM: 1RB1RA_0LC1LE_1LD1LC_1LA0LB_1LF1RE_---0RA. Tape-level rules: A(a,2b) -> A(a+2,3b+2); A(a+1,2b+1) -> A(a,3b+3); A(0,2b+1) -> HALT, where A(a,b) = 0^inf 1^a 0 1^b E> 0^inf and blank tape -> A(0,4) in 11 steps.",
+  "Antihydra probviously-nonhalting bound: modeling the counter as a random walk with steps +2/-1 each with probability 1/2, P(hit -1 from n) = ((sqrt(5)-1)/2)^(n+1); after 2^38 simulated rule steps the counter exceeds 2^37, so the residual halting probability is below ((sqrt(5)-1)/2)^(2^37) ~ 2.884e-28723042565.",
+  "Hydra halting criterion (exact): iterate H(n) = floor(3n/2) from n = 3 with counter b = 0 updated b -= 1 if n even, b += 2 if n odd; Hydra (BB(2,5) TM 1RB3RB---3LA1RA_2LA3RA4LB0LB0LA) halts iff b ever equals -1 (more even iterates than twice the odd iterates).",
+  "Hydra-function acceleration identities: H^s(2^s * t) = 3^s * t and H^s(2^s * t + 1) = 3^s * t + 1 for all s >= 1 and any t; consequently s steps can be applied in one arithmetic operation on the low s bits (basis of Kuperberg's near-linear simulator).",
+  "Antihydra = Mahler-type problem: the iteration is equivalent to D(0)=7, D(n+1) = ceil(3*D(n)/2), and D(n) = floor(K*(3/2)^n) for a constant K (Odlyzko-Wilf); Antihydra's halting is thus a statement about the parity sequence of floor(K*(3/2)^n), the same genre as Mahler's 3/2 (Z-number) problem.",
+  "CTL certificate (general): for TM M, if a set C of configurations contains the all-0 initial configuration, is closed under one TM step, and contains no halting configuration, then M runs forever. Regular CTL: C is a regular language over tape-with-head-state words. (This is the exact analogue of an inductive invariant; FAR is the co-CTL dual where an NFA over-approximates the eventually-halting set and must reject the initial configuration.)",
+  "FAR Theorem (deciders write-up Thm 6.4): M does not halt from all-0 if there is an NFA (q0, {T_gamma}, a) over alphabet {0,1,A,...,E} and a row vector s with: q0*T0 = q0; T0*a^T = a^T; s*a^T = 1; s*T0 >= s and s*T1 >= s; for every halting transition (f,r)->bot: q0*Tu*Tf*Tr >= s for all u in {0,1}*; for every left-move transition (f,r)->(t,w,L): Tb*Tf*Tr >= Tt*Tb*Tw for b in {0,1}; for every right-move transition (f,r)->(t,w,R): Tf*Tr >= Tw*Tt; and q0*TA*a^T = 0.",
+  "WFAR Theorem (arXiv:2509.12337 Thm 4.10, Coq lemma MITM_WDFA_verifier_spec): let W consist of deterministic weighted automata (left, read L-to-R; right, read R-to-L; integer weights) and accept set A of weighted configurations [p] Fr [q] with weight bounds. If (1) delta_L(p0,0)=p0, delta_R(q0,0)=q0, w_L(p0,0)=w_R(q0,0)=0; (2) [p0] A0 [q0]; W=0 is in A; (3) A is weighted-forward-closed (successor bounds shifted by the transition weight change; configurations violating Bellman-Ford-computed feasible per-state weight ranges discarded); (4) A has no halting configuration - then M does not halt from any configuration accepted by W, including the all-0 tape.",
+  "Bigfoot halting criterion: with A(a,b,c) := 0^inf 12^a 1^{2b} <A 1^{2c} 0^inf, the map on b mod 6 gives b -> (4/3)b + c + O(1) and a -> a+1 (b=1,4 mod 6), a -> a-1 (b=2 mod 6), a unchanged otherwise; Bigfoot (BB(3,3) TM 1RB2RA1LC_2LC1RB2RB_---2LA1LA) halts iff it reaches b = 2 (mod 6) while a = 0. Drift: a walks +1 w.p. 2/3, -1 w.p. 1/3, so P(halt | a=n) = 2^-(n+1).",
+  "Space Needle halting criterion (Doucette): start b=6; if b is a power of two, HALT; else b -> b + v(b) + (3/2)*(b/2^v(b) - 1) (v = 2-adic part); verified past 17,000,000 iterations without hitting a power of 2 (values exceed 10^4,800,000; max 2-adic valuation observed 24).",
+  "Sterin-Woods (arXiv:2107.12475): there is an explicitly-given 15-state 2-symbol TM (and a 5-state 4-symbol TM) that halts iff Erdos' conjecture ('for all n>8, 2^n contains a 2 in base 3') is false; hence knowing BB(15) is at least as hard as that Collatz-adjacent conjecture. Similarly (Sterin, unverified) a 124-state machine halts iff the weak Collatz conjecture (uniqueness of the positive 3x+1 cycle) is false."
+ ],
+ "open_questions": [
+  "Does Antihydra halt? Equivalently: does the parity-driven counter of H(n)=floor(3n/2) iterates from 8 ever see #odd > 2*#even? This is now the recognized gatekeeper for BB(6); a community trophy awaits its solver.",
+  "Is the parity sequence of floor(K*(3/2)^n) (equivalently the Antihydra trajectory) equidistributed/normal - i.e., can any progress be made on Mahler's 3/2 problem for the specific constant K arising from D(0)=7?",
+  "Can any certificate formalism (regular CTL, weighted automata, or a new class) express and verify positive-drift arguments, converting 'probviously non-halting' into proof for even one drift-type cryptid (Antihydra, Hydra, Bigfoot)?",
+  "Space Needle: does the sequence b -> b + v(b) + (3/2)(b/2^v(b)-1) from 6 avoid all powers of 2? (A 2-adic valuation-of-sums problem, different in kind from the drift cryptids.)",
+  "BB(6) itself: can the ~1094 holdouts (June 2026) be reduced by stronger FAR/WFAR variants, and is BB(6) = the 2-up-arrow-arrow-arrow-5 champion's runtime? mxdys's new FAR decided 113/1534 on first application - what is its ceiling?",
+  "Are the 17 WFAR-only BB(5) machines provably irregular (no regular CTL certificate exists)? A proof of irregularity would formalize the regular/non-regular hierarchy of nonhalting certificates.",
+  "What is the weighted-automaton (or richer certificate) analogue for Collatz iteration on binary/ternary digit strings, and can SAT/solver-driven certificate search (as in FAR) find invariant sets ruling out cycles or divergence for Collatz-like maps? (Compare Yolcu-Aaronson-Heule's automated approach.)",
+  "Fenrir (Fractran, BBf(22), Mar 2026, found partly by Claude Opus 4.6): a 5-fraction Fractran program that is a cryptid - how far does Collatz-hardness reach down into Fractran program-space?"
+ ],
+ "downloaded_papers": [
+  "/Users/simon/Desktop/COLLATZ/papers/bbchallenge-2025-bb5-determination.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/bbchallenge-2024-correctness-deciders.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/xu-2024-skelet17-bb5.pdf"
+ ],
+ "strategy_relevance": "The BB(5) proof is the best existing template for industrializing nonhalting proofs of Collatz-like systems: it splits work into cheap mass deciders (loops, NGramCPS, RepWL), automaton-certificate methods (FAR via NFAs/SAT search, WFAR via weighted automata whose integer weights capture exactly the kind of +2/-1 counter structure that appears in Antihydra), and hand-built inductive proofs for sporadic machines - all reduced to small, machine-checkable certificates verified in Coq. Porting to Collatz-space means searching for regular or weighted-regular invariant sets of the Collatz map acting on binary/ternary digit strings (a CTL analogue), with SAT/solver-driven certificate search and a formal verifier; the acceleration identity H^s(2^s t)=3^s t shows how digit-block abstraction linearizes 3/2-type maps. Equally important is the negative information: the entire BB decider arsenal fails precisely on machines whose halting encodes parity statistics of floor(K*(3/2)^n) trajectories (Antihydra/Hydra/Bigfoot), where only measure-theoretic drift heuristics apply - identifying exactly the barrier (individual-orbit parity control, cf. Mahler's 3/2 problem) that any Collatz proof must overcome, and suggesting that certificate technology is the right tool for the cycle/invariant-set side of Collatz rather than the divergence side."
+}

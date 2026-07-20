@@ -1,0 +1,10 @@
+# sequential build (no OpenMP)
+# sampled (K=20,L=10) M=989527 n_xi=101000: 0.2s
+# sampled (K=20,L=11) M=871429 n_xi=101000: 0.2s
+# sampled (K=20,L=12) M=517135 n_xi=101000: 0.2s
+# sampled (K=21,L=11) M=1920005 n_xi=101000: 0.2s
+# sampled (K=21,L=12) M=1565711 n_xi=101000: 0.2s
+# sampled (K=21,L=13) M=502829 n_xi=101000: 0.2s
+# sampled (K=22,L=11) M=4017157 n_xi=101000: 0.2s
+# sampled (K=22,L=12) M=3662863 n_xi=101000: 0.2s
+# sampled (K=22,L=13) M=2599981 n_xi=101000: 0.2s

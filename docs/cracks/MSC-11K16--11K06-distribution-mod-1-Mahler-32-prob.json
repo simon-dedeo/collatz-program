@@ -1,0 +1,99 @@
+{
+ "area": "MSC 11K16 / 11K06 (distribution mod 1, Mahler 3/2-problem), 37B10 (symbolic dynamics / numeration), 52C23 (aperiodic order, model sets), 37A44/37C85 (rigidity of higher-rank abelian actions on solenoids) \u2014 beta/rational-base numeration, cut-and-project schemes with (2,3)-adic internal spaces, solenoid dynamics",
+ "hole_status": "fringe",
+ "hole_justification": "Searches run: \"Collatz cut and project / model set / quasicrystal / aperiodic order\" (zero hits \u2014 only pure aperiodic-order papers, none mentioning Collatz); \"Collatz diffraction Meyer set internal space\" (zero hits); \"Collatz solenoid 2-adic 3-adic compact abelian group\" (only 2-adic-dynamics papers and crank preprints; no solenoid formulation); \"Collatz adeles/adelic\" (one numerology GitHub repo, plus Siegel's genuine (p,q)-adic work); \"mathoverflow Collatz solenoid / Q_2 x Q_3\" (nothing). VERDICT: nobody has formulated Collatz or (3/2)^n parity control as a cut-and-project / model-set / diffraction problem, and nobody has used solenoid rigidity (Berend, Einsiedler-Lindenstrauss) in a Collatz context. But the BRIDGE ITSELF is fringe-active, not virgin: (a) Siegel (arXiv 2412.02902, PhD 2024) built genuine (2,3)-adic analysis for Collatz \u2014 his \"numen\" chi_H: Z_2 -> Z_3 with a periodic-point Correspondence Principle and a (p,q)-adic Wiener Tauberian criterion; no model sets, no solenoid, no rigidity. (b) Eliahou & Verger-Gaugry (arXiv 2504.13716, C. R. Math. 2025) prove T(odd n) = append digit 1 in base 3/2, saturated words = U-iterates, and pose a normality conjecture \"of the same order of difficulty\" as Collatz; explicitly no compact-group dynamics. (c) Kari (DLT 2012) + Kari-Kopra (RAIRO-TIA) + Kopra (TCS; ETDS 2024 \"Multiplication cubes\") realize x3/2 as a base-6 cellular automaton, encode Mahler's Z-number problem as a trace condition, and simulate Collatz by a modified x3 automaton \u2014 the symbolic-dynamics face of this exact bridge, actively mined 2012-2024. (d) Matthews-Watts (Acta Arith. 1984/85) proved ergodicity of generalized 3x+1 maps on d-adic/polyadic completions \u2014 the Haar-ergodic base fact. (e) bbchallenge Antihydra wiki explicitly ties BB(6) halting to Mahler-Z-number-type parity control. So: the numeration/CA end is explored; the model-set/diffraction/solenoid-rigidity end is untouched.",
+ "bridge": "Let Lambda = Z[1/6] embedded diagonally in A = R x Q_2 x Q_3; Lambda is a cocompact lattice with fundamental domain [0,1) x Z_2 x Z_3, and X = A/Lambda is the 6-adic solenoid, on which every unit 2^a 3^b of Z[1/6] acts as an automorphism. Cut-and-project dictionary: in the scheme (physical R, internal Q_2 x Q_3, lattice Z[1/6]), the model set with window W = Z_2 x Z_3 is EXACTLY Z \u2014 the integers are a (degenerate limit-periodic) model set with (2,3)-adic internal space, the Baake-Moody-Schlottmann regime. The Collatz branches f_0(x) = x/2 and f_1(x) = (3x+1)/2 are affine BIJECTIONS of X (2 is a unit of Z[1/6]); branch choice is a window condition on the internal 2-adic coordinate. Correspondences: orbit size <-> physical (real) coordinate; parity/congruence data <-> internal coordinate; divergence certificate <-> window class: clopen window = finite union of congruence classes = regular/DFA certificates (our 7-state exhaustion) and Monks' semilinear sets; null-boundary measurable window = weak model set (Baake-Huck-Strungaru) = the unexplored next class. On the internal group Z_2 x Z_3 the extended map T-hat factorizes: the 2-adic coordinate is the Bernstein-Lagarias shift conjugacy; the 3-adic coordinate contracts by |3|_3 = 1/3 at each odd step onto the graph of Siegel's numen chi: Z_2 -> Z_3 (chi IS the asymptotic 3-adic coordinate; Wirsching's 3-adic predecessor averages are the fiber Haar disintegration). The single automorphism x3/2 on X has entropy log(3/2) + log 2 = log 3 (Yuzvinskii/Lind-Ward S-adic formula), and its orbit of 1 is Mahler's (3/2)^n problem verbatim. Divergence of an integer orbit = positive real Lyapunov drift = odd-step frequency > log2/log3 ~ 0.6309 along ONE orbit, versus Haar-generic 1/2: individual-orbit window equidistribution, the exact genre of Mahler Z-numbers ({xi(3/2)^n} in [0,1/2) for all n) and of Antihydra's halting condition.",
+ "strongest_adjacent_theorems": [
+  "Flatto-Lagarias-Pollington, Acta Arith. 70 (1995) 125-147: for coprime p>q>1 and any xi>0, limsup{xi(p/q)^n} - liminf{xi(p/q)^n} >= 1/p; for 3/2 the fractional parts of any orbit have spread >= 1/3 \u2014 the strongest unconditional individual-orbit parity-control theorem known.",
+  "Zudilin, J. Theor. Nombres Bordeaux 19 (2007) 311-323: ||(3/2)^k|| > (0.5803)^k for all k >= K effective (after Habsieger 2003, Dubickas 1990, Beukers 1981) \u2014 Pade/hypergeometric technology for effective bounds at exponential scale.",
+  "Akiyama-Frougny-Sakarovitch, Israel J. Math. 168 (2008) 53-91: rational-base p/q number systems: unique finite expansions of integers, expansion language not context-free, and an explicit equivalence between tails of base-3/2 expansions and Mahler's Z-number problem.",
+  "Berend, Trans. AMS 286 (1984) 505-535: complete characterization of semigroups of endomorphisms of finite-dimensional connected compact abelian groups (including a-adic solenoids) with the ID property \u2014 every infinite closed invariant set is dense; applies to the x2,x3 semigroup on the 6-adic solenoid.",
+  "Einsiedler-Lindenstrauss, ERA-AMS 9 (2003) + ETDS (2022, arXiv 2101.11120): positive-entropy measure rigidity and full classification of factors/joinings for higher-rank commuting automorphism actions on solenoids without virtually cyclic factors \u2014 covers the Z^2-action of x2, x3 on the (2,3)-solenoid.",
+  "Rudolph-Johnson (ETDS 1990/1992): the only xp,xq-invariant ergodic measure on the circle with positive entropy is Lebesgue \u2014 the template whose hypotheses (higher rank, positive entropy) mark exactly what a single Collatz orbit lacks.",
+  "Baake-Moody-Schlottmann, J. Phys. A 31 (1998) 5755-5765: limit-(quasi)periodic point sets are model sets with p-adic internal spaces and have pure point diffraction (with Baake-Moody-Pleasants 2000 extending to adelic internal spaces for k-free integers) \u2014 the exact machinery for windows in Z_2 x Z_3.",
+  "Lagarias (1985) / Bernstein-Lagarias (1996): T on Z_2 is topologically conjugate to the 2-shift via the parity vector map Q \u2014 the internal 2-adic coordinate is a full Bernoulli shift, Haar-ergodic (Matthews-Watts 1984/85 for generalized maps on polyadic completions).",
+  "Kari (DLT 2012, LNCS 7410) and Kari-Kopra (RAIRO-TIA 2017), Kopra (TCS 2021; ETDS 2024): x3/2 is a reversible base-6 cellular automaton whose trace subshift encodes Mahler's problem; Collatz is simulated by a modified x3 automaton \u2014 symbolic-dynamical rigidity results for exactly this bridge."
+ ],
+ "the_push": "Precise statement Collatz becomes: the parity-directed IFS {x/2, (3x+1)/2} of affine automorphisms of the solenoid X = (R x Q_2 x Q_3)/Z[1/6], where an integer orbit is a lattice orbit whose internal (Z_2 x Z_3) coordinate directs the branch and whose real coordinate measures size; divergence iff the orbit's internal empirical parity frequency exceeds log2/log3 ~ 0.6309 forever, versus Haar's 1/2. HONEST RIGIDITY ANSWER: solenoid rigidity does NOT directly touch individual integer orbits. Rudolph-Johnson and Einsiedler-Lindenstrauss require higher rank AND positive entropy; a single orbit closure is a rank-1 object possibly of zero entropy \u2014 precisely the unclassified regime (even the density of {(3/2)^n mod 1}, the x3/2-orbit of 1 on this very solenoid, is open). Anyone claiming Furstenberg-school rigidity resolves divergence is wrong; the two problems share a wall, they do not solve each other. What the bridge genuinely buys: (1) CERTIFICATE HIERARCHY UPGRADE \u2014 clopen windows in Z_2 correspond exactly to congruence/DFA/semilinear certificates (Monks 2006, our 7-state exhaustion); the model-set theory identifies the strictly larger natural class, null-boundary measurable windows (weak model sets), and Haar-ergodicity of T-hat on Z_2 should exclude ALL positive-density certificates in that class in one theorem \u2014 a strict, machine-checkable generalization of both prior results. (2) UNIFICATION \u2014 Siegel's numen chi: Z_2 -> Z_3 is revealed as the attractor graph of the 3-adic fiber contraction (rate 3^-#odd), and Wirsching's 3-adic averaging as the fiber Haar disintegration: three literatures (2-adic conjugacy, 3-adic predecessor theory, (p,q)-adic analysis) become one geometric object, plus the base-3/2 numeration of Eliahou-Verger-Gaugry is the natural coding of the physical coordinate. (3) A NEW PROVABLE TARGET \u2014 a Berend-type affine-ID theorem: classify closed subsets of X invariant under the FULL {f_0,f_1}-semigroup (the Collatz graph, not one orbit), using Berend 1984 plus the adelic orbit-density technology of arXiv 1303.1661; plausible outcome: every infinite closed invariant set is a finite union of fiber cosets \u2014 the strongest possible \"no closed 2,3-adic obstruction to the Collatz graph\" statement, strictly above Monks. The individual divergent orbit remains out of reach: it is a density-zero point set (Korec/Terras/Tao force this), invisible to positive-density window arguments and too sparse for diffraction theory (no relative denseness, so not even Meyer).",
+ "first_move": "Prove the weak-model-set certificate exclusion lemma. Statement: let W be a Haar-measurable subset of Z_2 with null boundary (mu(dW) = 0), and A_W = {n in Z>=1 : n in W} its weak model set under the canonical embedding Z into Z_2. If T(A_W) is contained in A_W up to a finite set, then the natural density of A_W is 0 or 1; hence no divergence certificate of positive density exists in the entire null-boundary-window class (strictly containing all clopen-window = congruence/DFA/semilinear certificates: Monks 2006 and our 7-state exhaustion). Proof ingredients, both verified in the literature: (a) null-boundary windows satisfy density(A_W) = Haar(W) via clopen approximation \u2014 elementary and Lean-formalizable; (b) T-hat on Z_2 preserves Haar and is ergodic (indeed conjugate to the full 2-shift, Lagarias 1985), so T-invariance of A_W forces W = T-hat^(-1)W mod null, whence mu(W) in {0,1}. Lean target: formalize (a), then the lemma, reusing whatever 2-shift conjugacy infrastructure the program has. Parallel 32-core computation: lift the record high-flying orbits (27; 230631; the 2^71-era champions from Barina's verification) into Z_2 x Z_3 and measure (i) the convergence of the 3-adic coordinate to Siegel's chi-graph (predicted rate 3^-#odd \u2014 direct numerical confirmation that the numen is the fiber attractor) and (ii) the discrepancy of the orbit's 2-adic coordinate against Haar at radii 2^-k for k <= 40, calibrated against the 0.6309 parity threshold \u2014 this quantifies exactly how \"window-abnormal\" real near-divergent segments get, the empirical shadow of the exclusion lemma.",
+ "payoff_odds": "Realistic best case: two publishable structural theorems \u2014 (1) the weak-model-set exclusion lemma (~70 percent provable within weeks; the ingredients are standard ergodic theory plus an equidistribution triviality), giving the program's certificate-exclusion frontier a genuine strict upgrade over Monks 2006 and the DFA exhaustion, in a form that composes with the existing Lean work; (2) a Berend-style ID/orbit-density classification for the full Collatz affine semigroup on the 6-adic solenoid (~25-35 percent within months, leaning on Berend 1984 and arXiv 1303.1661) \u2014 the sharpest \"no closed adelic obstruction\" statement available. Likely case: exactly those and nothing about actual divergence \u2014 every route from this machinery to an individual integer orbit passes through the rank-1/zero-entropy wall that keeps Furstenberg x2,x3, Mahler's 3/2 problem, and Antihydra open; probability this line controls an individual orbit: under 2 percent. Secondary payoff with real value: the unification (numen = fiber attractor, Wirsching = fiber disintegration, base-3/2 words = physical coding) makes three currently disjoint literatures interoperable for the program, and the solenoid formulation is the correct home for any future transfer of Mahler-technology improvements (e.g., a Zudilin-type effective bound applied along orbit subsequences). This is a bridge worth building for infrastructure, not for a miracle.",
+ "prior_art": [
+  {
+   "ref": "M. C. Siegel, (p,q)-adic Analysis and the Collatz Conjecture, arXiv 2412.02902 (2024; USC PhD thesis 2022)",
+   "what": "The one genuine (2,3)-adic Collatz program: constructs the numen chi_H: Z_p -> Z_q for Hydra maps, proves a Correspondence Principle (periodic points <-> special values of chi) and a (p,q)-adic Wiener Tauberian spectral criterion. No solenoid, no model sets, no rigidity, no diffraction.",
+   "url": "https://arxiv.org/abs/2412.02902"
+  },
+  {
+   "ref": "S. Eliahou, J.-L. Verger-Gaugry, The number system in rational base 3/2 and the 3x+1 problem, C. R. Math. (2025), arXiv 2504.13716",
+   "what": "For odd n, base-3/2 expansion of T(n) = expansion of n with digit 1 appended; saturated words are U-iterates; normality conjecture on the limit word posed as possibly Collatz-equivalent. Explicitly no compact-group dynamics, no Z-numbers, no adeles.",
+   "url": "https://arxiv.org/abs/2504.13716"
+  },
+  {
+   "ref": "J. Kari, Cellular Automata, the Collatz Conjecture and Powers of 3/2, DLT 2012, LNCS 7410; J. Kari & J. Kopra, RAIRO-TIA; J. Kopra, TCS + ETDS 44 (2024)",
+   "what": "x3 and x3/2 as reversible base-6 cellular automata; Mahler's Z-number problem as a trace/column condition; Collatz simulated by modified x3 automaton; trace subshift structure of fractional multiplication automata.",
+   "url": "https://link.springer.com/chapter/10.1007/978-3-642-31653-1_5"
+  },
+  {
+   "ref": "K. R. Matthews & A. M. Watts, Acta Arith. 43 (1984) & 45 (1985); Matthews, Generalized 3x+1 mappings: Markov chains and ergodic theory",
+   "what": "Generalized Collatz maps extended to d-adic/polyadic completions are Haar-measure-preserving and ergodic (Markov-chain criteria) \u2014 the base ergodicity fact on the internal group; no solenoid suspension, no windows.",
+   "url": "http://www.numbertheory.org/3x+1/"
+  },
+  {
+   "ref": "L. Flatto, J. C. Lagarias, A. D. Pollington, Acta Arith. 70 (1995) 125-147",
+   "what": "Spread of {xi(p/q)^n} is >= 1/p for every xi: the strongest unconditional individual-orbit result in the Mahler 3/2 genre.",
+   "url": "http://matwbn.icm.edu.pl/ksiazki/aa/aa70/aa7023.pdf"
+  },
+  {
+   "ref": "W. Zudilin, J. Theor. Nombres Bordeaux 19 (2007) 311-323 (after Habsieger, Dubickas 1990, Beukers 1981)",
+   "what": "Effective ||(3/2)^k|| > 0.5803^k \u2014 state of the art for fractional parts of powers of 3/2.",
+   "url": "https://www.numdam.org/article/JTNB_2007__19_1_311_0.pdf"
+  },
+  {
+   "ref": "S. Akiyama, C. Frougny, J. Sakarovitch, Israel J. Math. 168 (2008) 53-91",
+   "what": "Rational base number systems; base-3/2 integer expansions unique, language not context-free; explicit connection to Mahler's problem.",
+   "url": "https://www.irif.fr/~cf/publications/AFSwords05.pdf"
+  },
+  {
+   "ref": "D. Berend, Multi-invariant sets on compact abelian groups, Trans. AMS 286 (1984) 505-535",
+   "what": "ID-property characterization for endomorphism semigroups of solenoids: infinite closed x2,x3-invariant sets on the 6-adic solenoid are dense \u2014 the topological rigidity input for the proposed affine-semigroup classification.",
+   "url": "https://www.ams.org/journals/tran/1984-286-02/S0002-9947-1984-0760973-X/S0002-9947-1984-0760973-X.pdf"
+  },
+  {
+   "ref": "M. Einsiedler, E. Lindenstrauss, ERA-AMS 9 (2003) 99-110; ETDS (2022), arXiv 2101.11120",
+   "what": "Positive-entropy measure rigidity and factor/joining classification for higher-rank commuting automorphisms of solenoids \u2014 covers x2,x3 on the (2,3)-solenoid; hypotheses (rank >= 2, positive entropy) mark exactly what single Collatz orbits lack.",
+   "url": "https://arxiv.org/abs/2101.11120"
+  },
+  {
+   "ref": "M. Baake, R. V. Moody, M. Schlottmann, J. Phys. A 31 (1998) 5755-5765; Baake-Moody-Pleasants, Discrete Math. 221 (2000)",
+   "what": "Model sets with p-adic and adelic internal spaces (limit-periodic sets, k-free integers): pure point diffraction; the machinery for windows in Z_2 x Z_3 \u2014 never applied to Collatz.",
+   "url": "https://arxiv.org/abs/math-ph/9901008"
+  },
+  {
+   "ref": "Density of orbits of semigroups of endomorphisms acting on the Adeles, arXiv 1303.1661 (2013)",
+   "what": "Berend-type orbit density on adelic quotients \u2014 the technical toolkit for the proposed classification of the full Collatz affine semigroup on the solenoid.",
+   "url": "https://arxiv.org/abs/1303.1661"
+  },
+  {
+   "ref": "bbchallenge wiki, Antihydra (2024-)",
+   "what": "BB(6) cryptid halting explicitly reduced to parity control of iterated 3x/2 maps and compared to Mahler Z-numbers and uniform distribution of (3/2)^n \u2014 confirms the named barrier is one genre across Collatz and BB.",
+   "url": "https://wiki.bbchallenge.org/wiki/Antihydra"
+  },
+  {
+   "ref": "T. Tao, blog (2011), The Collatz conjecture, Littlewood-Offord theory, and powers of 2 and 3",
+   "what": "Reduces weak Collatz (cycles) statements to |2^a - 3^b|-type bounds and discusses the powers-of-3/2 obstruction \u2014 prior art for the bridge at the cycle level via Baker theory, not divergence.",
+   "url": "https://terrytao.wordpress.com/2011/08/25/the-collatz-conjecture-littlewood-offord-theory-and-powers-of-2-and-3/"
+  }
+ ],
+ "downloaded_papers": [
+  "/Users/simon/Desktop/COLLATZ/papers/siegel-2024-pq-adic-collatz.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/eliahou-vergergaugry-2025-base32-3x1.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/flatto-lagarias-pollington-1995-fracparts.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/zudilin-2007-lowerbound-32k.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/baake-moody-schlottmann-1998-padic-model-sets.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/einsiedler-lindenstrauss-2021-tori-solenoids.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/berend-1984-multi-invariant-compact-abelian.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/akiyama-frougny-sakarovitch-rational-base.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/adele-semigroup-orbit-density-2013.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/debruijn-powers-32-2018.pdf"
+ ]
+}

@@ -1,0 +1,115 @@
+{
+ "topic": "Scott Aaronson's \"The Busy Beaver Frontier\" (blog post p=4916 + SIGACT News 2020 survey): Busy Beaver champions as Collatz-like iterators, open problems, and small machines encoding hard number theory",
+ "key_facts": [
+  {
+   "fact": "In the blog post announcing the survey (dedicated to John Conway, who died April 2020), Aaronson writes verbatim: \"most of the best known candidates for Busy Beaver Turing machines turn out, when you analyze them, to be testing variants of the notorious Collatz Conjecture\u2014and Conway is the one who proved, in 1972, that the set of 'Collatz-like questions' is Turing-undecidable.\"",
+   "source": "https://scottaaronson.blog/?p=4916"
+  },
+  {
+   "fact": "The Marxen\u2013Buntrock 5-state champion (found 1990, runs exactly 47,176,870 steps, establishing BB(5) >= 47,176,870) semantically iterates the Collatz-like partial map g(x) = (5x+18)/3 if x \u2261 0 (mod 3); (5x+22)/3 if x \u2261 1 (mod 3); \u22a5 (halt) if x \u2261 2 (mod 3), starting from x = 0. The halting orbit is 0\u21926\u219216\u219234\u219264\u2192114\u2192196\u2192334\u2192564\u2192946\u21921584\u21922646\u21924416\u21927366\u219212284\u2192\u22a5 (14 iterations), and each iteration costs roughly (5/9)x^2 Turing-machine steps, which produces the ~4.7\u00d710^7 runtime.",
+   "source": "Aaronson, The Busy Beaver Frontier, SIGACT News 51(3), 2020, Section 4, pp. 10\u201311 (https://www.scottaaronson.com/papers/bb.pdf), citing Michel arXiv:0906.3749 Section 5.2.1"
+  },
+  {
+   "fact": "The Kropitz 6-state champion (BB(6) > 7.4\u00d710^36,534 as of July 2020) also applies a Collatz-like map, but one that sends x to an EXPONENTIALLY larger integer ('exponential Collatz-like'); only five iterations occur before halting, but repeated exponentiation produces x of order 4^30,340 and hence an astronomical runtime.",
+   "source": "Aaronson survey Section 4.1, p. 11, citing Michel arXiv:0906.3749 Section 5.3.1"
+  },
+  {
+   "fact": "Verbatim from the survey (p. 11): \"Most other strong contenders over the past 30 years have also applied Collatz-like maps to integers or pairs of integers, although not quite all of them. This of course raises the possibility\u2014whether enticing or terrifying!\u2014that progress on determining the small values of BB(n) might go hand in hand with progress on the Collatz Conjecture and its variants.\"",
+   "source": "Aaronson survey p. 11, https://www.scottaaronson.com/papers/bb.pdf"
+  },
+  {
+   "fact": "Michel proved (Archive for Mathematical Logic 32:351\u2013367, 1993) that the 2-, 3-, and 4-state Busy Beavers halt on EVERY finite input (not just all-0), and that the Marxen\u2013Buntrock 5-state champion halts on every finite input IF AND ONLY IF Aaronson's Conjecture 22 holds: the map g above reaches \u22a5 when iterated from ANY natural number x. Aaronson: \"proving it is yet another unsolved 'Collatz-like' problem in number theory. The situation for the current 6- and 7-state champions is similar: they plausibly halt on all inputs, but only if some Collatz-like conjecture is true.\"",
+   "source": "Aaronson survey Section 5.6, p. 19; P. Michel, Busy beaver competition and Collatz-like problems, Arch. Math. Logic 32:351\u2013367, 1993"
+  },
+  {
+   "fact": "Aaronson's Conjecture 10 was BB(5) = 47,176,870; as of the 2020 survey, BB(5) had been reduced to 25 holdout machines, all simulated 100 billion steps without halting (so BB(5)=47,176,870 or BB(5)>10^11), and Aaronson explicitly asked \"whether the non-halting of some or all of these holdouts can be reduced to Collatz-like statements, as with the halting of the Marxen-Buntrock machine.\" This conjecture was PROVED on July 2, 2024 by the bbchallenge collaboration with a Coq-verified proof (Coq-BB5).",
+   "source": "Aaronson survey Section 5.1, p. 13; https://discuss.bbchallenge.org/t/july-2nd-2024-we-have-proved-bb-5-47-176-870/237; https://scottaaronson.blog/?p=8088"
+  },
+  {
+   "fact": "Theorem 8 of the survey: there is an explicit 27-state (2-symbol) Turing machine, due to GitHub user \"Code Golf Addict\" (improving a 47-state machine by Jared Showalter), that halts iff Goldbach's Conjecture is false \u2014 it \"runs through all even numbers 4 and greater, halting if it finds one that isn't a sum of two primes.\" Hence knowing BB(27) would settle Goldbach's Conjecture \"in the abstract sense of reducing that problem to a finite, BB(27)-step computation.\"",
+   "source": "Aaronson survey Theorem 8, p. 12 and p. 6; machine at https://gist.github.com/anonymous/a64213f391339236c2fe31f8749a0df6"
+  },
+  {
+   "fact": "Theorem 9 (Matiyasevich, O'Rear, Aaronson): there is an explicit 744-state Turing machine that halts iff the Riemann Hypothesis is false.",
+   "source": "Aaronson survey Theorem 9, p. 12; https://github.com/sorear/metamath-turing-machines/blob/master/riemann-matiyasevich-aaronson.nql"
+  },
+  {
+   "fact": "Theorem 6 (Yedidia\u2013Aaronson 2016): an explicit 7,910-state TM halts iff ZF+SRP (Stationary Ramsey Property) is inconsistent, so that theory cannot prove the value of BB(7910). Theorem 7 (O'Rear, improving via 1919 states to 748): an explicit 748-state TM halts iff ZF is inconsistent, so assuming Con(ZF), ZF cannot prove the value of BB(748). The construction uses the custom language \"Laconic\" plus \"introspective encoding\" (a TM writes a program onto its tape and executes it with a built-in interpreter).",
+   "source": "Aaronson survey Theorems 6\u20137, p. 12; Yedidia & Aaronson, Complex Systems 25(4), 2016, arXiv:1605.04343; https://github.com/sorear/metamath-turing-machines/blob/master/zf2.nql"
+  },
+  {
+   "fact": "Known values/bounds tabulated as of July 2020: BB(1)=1, BB(2)=6 (Lin 1963), BB(3)=21 (Lin 1963), BB(4)=107 (Brady 1983), BB(5) \u2265 47,176,870 (Marxen\u2013Buntrock 1990), BB(6) > 7.4\u00d710^36,534 (Kropitz 2010), BB(7) > 10^(2\u00d710^(10^(10^18,705,352))) (\"Wythagoras\" 2014). Also Green 1964: \u03a3(2n) \u2265 A(n\u22122) (Ackermann), and \"Wythagoras\" 2016: BB(18) > Graham's number.",
+   "source": "Aaronson survey Section 4 (table, p. 9) and Section 4.1, p. 11"
+  },
+  {
+   "fact": "Aaronson notes the Collatz Conjecture itself \"has been verified for all x \u2264 2^68 but remains open\" (as of 2020), and states the conjecture as: for every positive integer x, repeated application of f(x) = x/2 (x even), 3x+1 (x odd) eventually leads to 1.",
+   "source": "Aaronson survey Section 4, p. 10"
+  },
+  {
+   "fact": "Aaronson's threshold-of-unknowability argument invokes Collatz directly (Section 5.2, p. 14): \"the known lower bounds show that 5-state and 6-state machines can already engage number theory problems closely related to the Collatz Conjecture. How far off could G\u00f6del-undecidability possibly be?\" \u2014 supporting Conjecture 11 (ZF does not prove the value of BB(20)) and Conjecture 12 (PA does not prove the value of BB(10)).",
+   "source": "Aaronson survey Section 5.2, pp. 13\u201314"
+  },
+  {
+   "fact": "Michel's companion paper formalizes the machine-to-number-theory dictionary: f: Z\u2192Z is a 'generalized Collatz mapping' if there exists d \u2265 2 and integers a_0,...,a_{d\u22121}, b_0,...,b_{d\u22121} with f(dn+i) = a_i\u00b7n + b_i for all n (Definition 1.1(iii)); a 'pure Collatz-like function' is the partial version (undefined on some residues, e.g. where the machine halts); an 'exponential Collatz-like function' has f(dn+i) = (a_i\u00b7p^n + b_i)/c_i (Definition 1.5). His abstract: small Turing machines produce very big numbers \"mostly by simulating Collatz-like functions, that are generalizations of the famous 3x+1 function.\"",
+   "source": "P. Michel, Problems in number theory from busy beaver competition, Logical Methods in Computer Science 11(4:10), 2015, pp. 1\u201335, arXiv:1311.1029"
+  },
+  {
+   "fact": "The undecidability anchor cited by Aaronson: J. H. Conway, \"Unpredictable iterations,\" Proc. 1972 Number Theory Conference, University of Colorado, Boulder, pp. 49\u201352 \u2014 a generalized version of the Collatz problem (iterating f(n) = a_i\u00b7n + b_i on residue classes) is Turing-undecidable.",
+   "source": "Aaronson survey reference [4], p. 23"
+  },
+  {
+   "fact": "Post-survey development directly continuing Aaronson's program: the current BB(6) frontier machine \"Antihydra\" (6 states, 2 symbols, found June 28, 2024 by mxdys) halts iff, iterating the Hydra map n \u2192 \u230a3n/2\u230b starting from 8, the running count of odd iterates ever exceeds twice the count of even iterates \u2014 an open Collatz-like problem ('Cryptid'); heuristically it runs forever with failure probability estimated below ~10^-287,230,425 scale, but no proof is known, so BB(6) is now believed to be blocked behind a Collatz-like statement exactly as Aaronson anticipated.",
+   "source": "https://wiki.bbchallenge.org/wiki/Antihydra"
+  },
+  {
+   "fact": "Blog comments highlights: Oscar Cunningham (comment linked as #comment-1849770, quoted in survey Section 2) observed that theories T_n = PA + \"the n-th Busy Beaver machine is b\" form a countable ladder of arbitrarily high consistency strength on which large-cardinal axioms can be placed; commenter maline (~#91) pressed the disanalogy that \"with the Collatz Conjecture, one cares about all orbits, whereas with BB, one only cares about the orbit that starts at 0,\" which Aaronson answers via Michel's halt-on-all-inputs results (Section 5.6); Nick Drozd (comment-1852398) found BBB(4) \u2265 2,819 for the Beeping Busy Beaver function (BBB(3) \u2265 55 > BB(3) = 21), a \u03a32-complete variant growing like BB with a halting oracle.",
+   "source": "https://scottaaronson.blog/?p=4916 comments; Aaronson survey footnotes 12, 28, 41 and Sections 5.6, 5.10"
+  },
+  {
+   "fact": "Growth open problem (Conjecture 13, raised by Joshua Zelinsky): there exists n_0 such that BB(n+1) > 2^BB(n) for all n \u2265 n_0. Computability arguments only give this for infinitely many n; the best unconditional bounds are BB(n+1) \u2265 BB(n)+3 (Bruce Smith, Prop. 14), BB(n+2) \u2265 (1+2/n)\u00b7BB(n) (Prop. 15), and Ben-Amram\u2013Petersen 2002: BB(n + 8\u2308n/log2 n\u2309 + c_f) > f(BB(n)) for any computable f (Theorem 16, via introspective encoding).",
+   "source": "Aaronson survey Section 5.3, pp. 14\u201316"
+  }
+ ],
+ "repos_and_links": [
+  "https://scottaaronson.blog/?p=4916 (blog post, The Busy Beaver Frontier, July 2020)",
+  "https://www.scottaaronson.com/papers/bb.pdf (survey PDF, SIGACT News 2020)",
+  "https://arxiv.org/abs/0906.3749 (Michel, The Busy Beaver competition: a historical survey \u2014 champion-by-champion Collatz-like analyses, Sections 5.2.1, 5.3.1, 5.7)",
+  "https://arxiv.org/abs/1311.1029 (Michel, Problems in number theory from busy beaver competition, LMCS 2015 \u2014 formal definitions of generalized/pure/exponential Collatz-like functions and tables of open problems per champion machine)",
+  "https://arxiv.org/abs/1605.04343 (Yedidia\u2013Aaronson, A relatively small Turing machine whose behavior is independent of set theory)",
+  "https://github.com/sorear/metamath-turing-machines (O'Rear: zf2.nql 748-state ZF-inconsistency machine; riemann-matiyasevich-aaronson.nql 744-state RH machine)",
+  "https://gist.github.com/anonymous/a64213f391339236c2fe31f8749a0df6 (27-state Goldbach machine, 'Code Golf Addict')",
+  "https://gist.github.com/jms137/cbb6fb58dde067b0bece12873fadc76 (earlier 47-state Goldbach machine, Jared Showalter)",
+  "https://github.com/danbriggs/Turing (Daniel Briggs, BB(5) holdout machine analyses; doc/analysis7-24-20.txt)",
+  "https://skelet.ludost.net/bb/nreg.html (Skelet/Georgiev list of 43 then-unresolved 5-state holdouts)",
+  "http://turbotm.de/~heiner/BB/ (Heiner Marxen's Busy Beaver page; mabu90.html = Marxen\u2013Buntrock paper)",
+  "http://www.logique.jussieu.fr/~michel/bbc.html (Michel's Busy Beaver Competition clearinghouse)",
+  "https://scottaaronson.blog/?p=8088 (Aaronson, 'BusyBeaver(5) is now known to be 47,176,870', July 2, 2024)",
+  "https://wiki.bbchallenge.org/wiki/Antihydra (Antihydra: 6-state Collatz-like Cryptid blocking BB(6))",
+  "https://bbchallenge.org (Busy Beaver Challenge collaboration; Coq-BB5 formal proof)"
+ ],
+ "precise_statements": [
+  "Marxen\u2013Buntrock BB(5)-champion semantics (Aaronson survey p.10, after Michel): define g: N \u2192 N \u222a {\u22a5} by g(x) = (5x+18)/3 if x \u2261 0 (mod 3); g(x) = (5x+22)/3 if x \u2261 1 (mod 3); g(x) = \u22a5 if x \u2261 2 (mod 3). The machine halts on the all-0 tape because the orbit of 0 under g reaches \u22a5: 0\u21926\u219216\u219234\u219264\u2192114\u2192196\u2192334\u2192564\u2192946\u21921584\u21922646\u21924416\u21927366\u219212284\u2192\u22a5. Except for the last iteration, mapping x to g(x) takes ~(5/9)x^2 machine steps.",
+  "Conjecture 22 (Aaronson survey, Section 5.6): 'The map g: N \u2192 N \u222a {\u22a5}, from Section 4, leads to \u22a5 when iterated starting from any natural number x.' Michel proved the Marxen\u2013Buntrock 5-state champion halts on every finite input if and only if Conjecture 22 holds; the 2-, 3-, and 4-state Busy Beavers provably halt on every finite input.",
+  "Theorem 8 (survey): 'There's an explicit 27-state Turing machine that halts iff Goldbach's Conjecture is false.' Consequence stated on p.6: 'knowing the value of BB(27) would settle Goldbach's Conjecture\u2014at least in the abstract sense of reducing that problem to a finite, BB(27)-step computation. Analogous remarks apply to the Riemann Hypothesis and every other unproved mathematical conjecture that's expressible as a \u03a01 sentence.'",
+  "Theorem 9 (survey): 'There's an explicit 744-state Turing machine that halts iff the Riemann Hypothesis is false.' Theorem 7 (O'Rear): 'There's an explicit 748-state Turing machine that halts iff ZF is inconsistent. Thus, assuming ZF is consistent, ZF cannot prove the value of BB(748).'",
+  "Undecidability anchor (Conway 1972, as cited by Aaronson): the halting/reachability problem for the class of generalized Collatz maps \u2014 f(dn+i) = a_i n + b_i on residue classes mod d (Michel Definition 1.1) \u2014 is Turing-undecidable; hence no uniform algorithm decides 'Collatz-like questions', though this says nothing about the specific 3x+1 map.",
+  "Michel Definition 1.1(iii) (LMCS 2015): f: Z\u2192Z is a generalized Collatz mapping iff there exist d \u2265 2 and integers a_0,\u2026,a_{d\u22121}, b_0,\u2026,b_{d\u22121} such that f(dn+i) = a_i n + b_i for all n \u2208 Z, 0 \u2264 i \u2264 d\u22121. Definition 1.5: f is exponential Collatz-like iff f(dn+i) = (a_i p^n + b_i)/c_i. The 3x+1 map is the case d=2, T(2n)=n, T(2n+1)=3n+2.",
+  "Aaronson survey p.11 (the central Collatz\u2013BB connection): 'Most other strong contenders over the past 30 years have also applied Collatz-like maps to integers or pairs of integers, although not quite all of them. This of course raises the possibility\u2014whether enticing or terrifying!\u2014that progress on determining the small values of BB(n) might go hand in hand with progress on the Collatz Conjecture and its variants.'"
+ ],
+ "open_questions": [
+  "Conjecture 22 (still open): does the Marxen\u2013Buntrock map g(x) = (5x+18)/3 / (5x+22)/3 / \u22a5 (mod 3 cases) reach \u22a5 from EVERY natural-number start \u2014 equivalently, does the BB(5) champion halt on every finite input? This is a concrete, minimal 'sibling' of Collatz produced by extremal computation rather than by human choice.",
+  "Do all Busy Beaver machines halt on all finite inputs, not just the all-0 tape? If not, does some Busy Beaver contain an infinite loop on a fixed set of tape squares? Does any Busy Beaver act as a universal Turing machine? (Survey Section 5.6.)",
+  "Antihydra (2024, open): iterating n \u2192 \u230a3n/2\u230b from 8, does the number of odd iterates ever exceed twice the number of even iterates? BB(6) cannot be determined without settling this Collatz-like statement \u2014 evidence that BB(6) is 'Collatz-complete' in practice.",
+  "What is the smallest n for which the value of BB(n) is independent of ZF (Aaronson conjectures n \u2264 20) or of PA (he conjectures n \u2264 10)? Equivalently: how few states suffice to encode a Collatz-hard or G\u00f6del-hard statement?",
+  "Which subclasses of Michel's generalized Collatz maps f(dn+i) = a_i n + b_i have decidable halting/total-convergence, and where does 3x+1 sit relative to the decidability boundary? (Conway 1972 makes the full class undecidable; the survey asks whether the 25 BB(5) holdouts reduce to Collatz-like statements \u2014 the 2024 Coq-BB5 proof resolved all holdouts, showing those particular Collatz-like statements were provable.)",
+  "Conjecture 13: BB(n+1) > 2^BB(n) for all sufficiently large n (open even with any computable function in place of exponentiation).",
+  "Is it decidable whether BB(n) is even or odd? Is BB(n) infinitely often prime? (Andy Drucker's questions, survey Section 5.11.)"
+ ],
+ "strategy_relevance": "Aaronson's survey establishes that Collatz-like iterations are not a curiosity but the generic mechanism by which extremal small programs achieve long runtimes \u2014 the BB(5) champion literally halts because one specific orbit of a mod-3 affine map reaches an undefined residue, and the BB(6)/BB(7) champions run exponential Collatz-like maps. For a Collatz proof strategy this cuts two ways: Conway's 1972 undecidability of the generalized class f(dn+i)=a_i\u00b7n+b_i means any successful proof must exploit arithmetic specific to 3x+1 (not generic orbit machinery), while Michel's formal taxonomy pinpoints exactly which parameter families a decidability-boundary result would need to separate. Conversely, the 2024 Coq-BB5 resolution of all 5-state holdouts shows that individual Collatz-like non-halting statements of nontrivial difficulty CAN be proven and formally verified with decider technology (closed tape languages, weighted automata), suggesting a concrete program: port bbchallenge-style certified deciders to fragments of the generalized-Collatz class and map where 3x+1 sits relative to the provable frontier; the Antihydra impasse for BB(6) marks the current edge of that frontier.",
+ "downloaded_papers": [
+  "/Users/simon/Desktop/COLLATZ/papers/aaronson-2020-busy-beaver-frontier.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/michel-2019-busy-beaver-survey.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/michel-2015-number-theory-busy-beaver.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/yedidia-aaronson-2016-tm-independent-set-theory.pdf"
+ ]
+}

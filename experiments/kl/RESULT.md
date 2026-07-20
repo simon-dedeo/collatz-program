@@ -1,0 +1,182 @@
+# RESULT.md — Certification of improved Krasikov–Lagarias lower-bound exponents
+
+Date: 2026-07-20 (extended same day with k = 15–18). Paper: Krasikov–Lagarias, *Bounds for
+the 3x+1 problem using difference inequalities* (arXiv:math/0205002; Acta Arith. 109 (2003)
+237–258). See `THEOREM.md` for the exact hypotheses and `certify.py` for the certifier. All
+certificates verified in exact integer arithmetic (Python bigints; no floating point in the
+verification chain).
+
+## Bottom line
+
+**By KL Theorem 2.2 with the certified feasible points below, for every positive integer
+a ≢ 0 (mod 3) and all sufficiently large x ≥ x₀(a):**
+
+    π_a(x) ≥ x^γ   for every fixed γ < log₂(λ_cert),
+
+with the certified values
+
+| k  | λ_cert (exact rational)   | γ_cert = log₂ λ_cert | constraints | min rel. slack | C^max (⇒ Δ₁)   |
+|----|---------------------------|----------------------|-------------|----------------|----------------|
+| 12 | 18064231/10^7 = 1.8064231 | 0.8531358401…        | 177,147     | 1.85e-07       | ≤ 146.97       |
+| 13 | 18188232/10^7 = 1.8188232 | 0.8630053116…        | 531,441     | 2.02e-07       | ≤ 223.53       |
+| 14 | 18307718/10^7 = 1.8307718 | 0.8724519749…        | 1,594,323   | 1.82e-07       | ≤ 339.26       |
+| 15 | 18419679/10^7 = 1.8419679 | 0.8812479198…        | 4,782,969   | 9.50e-08       | ≤ 516.32       |
+| 16 | 18522343/10^7 = 1.8522343 | 0.8892666051…        | 14,348,907  | 5.95e-08       | ≤ 793.06       |
+| 17 | 18616883/10^7 = 1.8616883 | 0.8966115446…        | 43,046,721  | 3.90e-08       | ≤ 1207.44      |
+| 18 | 18703245/10^7 = 1.8703245 | 0.9032885984…        | 129,140,163 | 1.23e-07       | ≤ 1834.78      |
+
+All seven rows are CERTIFIED (every constraint verified in exact integer arithmetic, twice:
+once at generation, once independently from the on-disk certificate).
+
+In the paper's own presentation style (Theorem 6.1 rounds the exponent down to absorb the
+a-dependent constant): **π_a(x) ≥ x^0.9032 for all a ≢ 0 (mod 3) and x ≥ x₀(a)** — improving
+the 2003 record exponent 0.84 (γ₁₁ = log₂ 1.7922310 = 0.8417566) via the k = 18 system; any
+fixed exponent below 0.9032885 is equally certified. Fully explicit form for any a ≡ 2 (mod 3)
+not in a cycle, from Theorem 2.2 directly: π_a(x) ≥ π*_a(x) ≥ Δ₁ (x/a)^{γ_cert} for ALL x ≥ a,
+with Δ₁ = 1/(4 max c^m) as tabulated (k = 18: Δ₁ = 10^12/(4·1834778119576418) ≈ 1/7339.1).
+
+The claimed candidates (float thresholds; γ̂ = log₂ λ̂: 0.8724524 at k = 14, and from the GPU
+run 0.8812483, 0.8892670, 0.8966119, 0.9032890 at k = 15–18) are all CONFIRMED, with the
+uniform caveat that each *certified* value is log₂ of the rational λ_cert chosen 5e-7 below
+the float threshold on the 10^-7 grid (exactly as KL themselves published the truncated
+λ₁₁ = 1.7922310 rather than the float optimum) — so each certified γ is ~4e-7 below the
+quoted candidate. That difference is certification margin, not a disagreement.
+
+## What exactly was certified
+
+For each k, the certificate `cert_k{k}.json` contains integers (A, B2, B8, C[0..3^{k-1}-1])
+encoding λ = A/10^7, W2 = B2/10^15, W8 = B8/10^15, c^m = C[i]/10^12 (i indexes ascending
+residues m ≡ 2 mod 3, mod 3^k; for k ≥ 15 the C array lives in a sha256-pinned int64 .npy
+sidecar). `certify.py verify` re-derives the residue system from k alone
+and checks, in exact integer arithmetic:
+
+1. 10^7 < A ≤ 2·10^7 (Theorem 2.2's hypothesis 1 ≤ λ ≤ 2, and λ > 1);
+2. 2^50508 < 3^31867 (hence P/Q = 50508/31867 < α = log₂3);
+3. B2^Q·A^{2Q−P} ≤ 10^{15Q}·10^{7(2Q−P)} (hence W2 ≤ λ^{P/Q−2} < λ^{α−2});
+4. B8^Q·10^{7(P−Q)} ≤ A^{P−Q}·10^{15Q} (hence W8 ≤ λ^{P/Q−1} < λ^{α−1});
+5. C[i] ≥ 10^12 for all i (LP constraint (L0): c^m ≥ 1);
+6. for every m ∈ [3^k] (LP constraints (L1)–(L3) with auxiliaries at their maximal values
+   c̄^m_{k−1} of (2.15), which is the paper's own reduction — see THEOREM.md §2):
+   C[i]·A²·10^15 ≤ C[4m]·10^29 + B·A²·min₃(C)  (B = B2 if m ≡ 2 mod 9, B8 if m ≡ 8 mod 9,
+   absent if m ≡ 5 mod 9; indices: 4m mod 3^k; min₃ over (4m−2)/3 resp. (2m−1)/3 mod 3^{k−1}
+   + j·3^{k−1}, j = 0,1,2).
+
+Steps 2–4 make the verification immune to the irrationality of α = log₂3: since W2 < λ^{α−2}
+and W8 < λ^{α−1} multiply nonnegative variables on the ≤-side, step 6 certifies a *strictly
+tighter* system than L^NT_k(λ); its feasibility implies feasibility of L^NT_k(λ) itself.
+Therefore the hypotheses of KL Theorem 2.2 hold verbatim at (k, λ_cert), and the conclusion
+φ^m_k(y) ≥ Δ₁ c^m_k λ_cert^y (all m ∈ [3^k], all y ≥ 0) follows, with Δ₁ = 1/(4 max c^m_k).
+The π_a transfer is the paper's own Theorem 6.1 mechanism (see THEOREM.md §4).
+
+Floating point was used ONLY to search for the candidate (λ_cert and the eigenvector before
+rounding down to the 10^-12 grid); nothing in the acceptance decision depends on it.
+
+## Does anything in the paper limit k? — No.
+
+- Theorem 2.2 and its entire supporting chain (Thms 3.1, 3.2, 4.1, 5.1) are stated and proved
+  for all k ≥ 2; k ≤ 11 in §6 is a 2002 computational budget, not a hypothesis. §6 proves
+  λ_k ≤ λ_{k+1} by lifting feasible solutions, and poses λ_k → 2 as the open problem; our
+  k = 12, 13, 14 points are new terms of the very sequence the paper defines.
+- The superscript "NT" means "No Truncation" (of advanced terms); **there are no N or T
+  truncation parameters** and nothing grows with k except the number of residue classes
+  3^{k-1}. The constant C^max_k (max principal variable) affects only the constant
+  Δ₁ = 1/(4·C^max_k), never the exponent; it grows (≈147, ≈224, ≈339 at k = 12, 13, 14,
+  vs 98.4 at k = 11), consistent with the paper's observation that C̃^max_k grows
+  exponentially — harmless, as it only shifts x₀(a).
+- The retarded-shift bound ν ≤ 2 used for Δ₁ holds for every k (all shifts produced by the
+  back-substitution are ≥ −2 by construction; paper line 346), and requires λ ≤ 2 — satisfied.
+- The derived eliminated system I_k(EL) is astronomically large for k ≥ 5 (paper Table 1) but
+  is never constructed in applying Theorem 2.2 — only L^NT_k(λ) feasibility is exhibited,
+  which is exactly what our certificates do. No overflow-type issue arises: our verification
+  is arbitrary-precision integer arithmetic throughout.
+
+## Interpretations / deviations from the paper (all conservative)
+
+1. **Irrational exponents λ^{α−2}, λ^{α−1}.** The paper does not document how Applegate's
+   computation handled these (Theorem 6.1: "by finding a positive feasible solution by
+   computer … for λ = 1.7922310"; no exact-arithmetic device appears). We did NOT copy an
+   undocumented device; we replaced the coefficients by certified rational lower bounds
+   (items 2–4 above), which only tightens the LP. mpmath was not needed; the bounds are
+   certified by two integer power comparisons plus 2^P < 3^Q.
+2. **λ_cert below the float threshold.** The feasible region is λ ≤ λ_k (paper §6: λ_k is the
+   supremum of feasible λ); we certify at λ_cert = floor(λ̂_k·10^7 − 5)/10^7, i.e. 5e-7 below
+   the float estimate, mirroring KL's own truncation of λ₁₁. Direction of all inequalities
+   checked is verbatim (2.9)–(2.14) — c^m on the small side. No monotonicity-in-λ claim is
+   used anywhere in the certification: feasibility is checked directly at λ_cert.
+3. **Eigenvector rounding.** The float Perron vector (Collatz–Wielandt ratios pinched to
+   ~1+2e-7) is normalized to min = 1 and rounded DOWN on the 10^-12 grid (finer than the
+   task's suggested 10^-9 — strictly safer, certificate ~2.7–24 MB).
+4. **pdftotext artifacts.** In the extracted text of (2.12)–(2.14) the superscripts read
+   "m+3k"; they are m+3^{k−1}, m+2·3^{k−1} (unambiguous from (2.6), (2.15), (4.6)–(4.7) and
+   the k = 2 appendix). Our k = 2 system reproduces the paper's Appendix I₂ literally
+   (selftest), and our float solver reproduces the full Table 2 λ-column (k = 2..11) to the
+   published 10^-6 precision — strong evidence the transcribed system is theirs.
+5. **Cycle caveat in the π_a transfer.** Theorem 2.2 bounds φ^m_k, defined via inf over
+   a ≡ m (mod 3^k) *not in a cycle*; Theorem 6.1 states the π_a bound for all positive
+   a ≢ 0 (mod 3). For a in a cycle ({1, 2} for the known positive T-cycle) the bound follows
+   by π_a(x) ≥ π_{a′}(x) for a non-cycle predecessor a′ of a (e.g. π₁ ≥ π₈); for
+   a ≡ 1 (mod 3), via (2.1). We inherit Theorem 6.1's statement form: γ strictly below
+   log₂ λ_cert, x ≥ x₀(a).
+6. **Paper-internal precision notes.** Table 2's γ-column is log₂(λ) truncated at the 7th
+   decimal (log₂ 1.7922310 = 0.8417566, printed as 0.8417560); the program-status quotes of
+   "0.8417566" and our "0.8724524" refer to log₂ of the float-optimal λ, while certified
+   exponents are log₂ of the (slightly smaller) rational λ_cert.
+
+## The k = 15–18 pipeline (GPU candidates, local exact certification)
+
+Levels 15–18 use candidate eigenvectors from a GPU run (bridges2 H100, `kl_gpu.py`, a cupy
+port of the identical constraint system) fetched via the PSC data-transfer node
+(`data.bridges2.psc.edu`; k = 18 file sha256-matched against the remote copy). **No
+correctness burden rests on the GPU**: its vectors are candidates only. Float thresholds
+λ̂ = 1.8419684 / 1.8522348 / 1.8616888 / 1.8703250 (the GPU run also reproduced the certified
+k = 12–14 thresholds exactly, and its k = 14 eigenvector matches the locally certified vector
+to 4.3e-6 relative — the expected λ̂-vs-λ_cert offset scale). Pipeline per level:
+
+1. λ_cert = (round(λ̂·10^7) − 5)/10^7, as for k = 12–14.
+2. The GPU vector (saved at λ̂) is power-iterated locally at λ_cert until
+   min F(c)/c > 1 + 2e-8 — needed because moving λ̂ → λ_cert lowers the λ^{α−1} coefficient,
+   and indeed the raw vectors started at cwlo ≈ 0.9999998 (20 iters sufficed for k = 15–17,
+   40 for k = 18).
+3. Round down on the 10^-12 grid; exact-integer verification of every constraint, now with
+   a dict-free chunked verifier (`verify_exact_big`; arithmetic indexing idx(m) = (m−2)/3,
+   required at this scale) — **regression-tested to agree exactly (same slack, same argmin)
+   with the original k ≤ 14 verifier on all three existing certificates**, and cross-checked
+   against `build_exact` for k = 2..8 in the selftest.
+4. Certificate storage for k ≥ 15: int64 `.npy` sidecar (cert_k{k}_C.npy) with its sha256
+   pinned inside cert_k{k}.json (inline JSON would be ~2 GB at k = 18); the verifier checks
+   the digest before use.
+
+Verification times (single core, exact bigint arithmetic): k = 15: 1.5 s; k = 16: 3.6 s;
+k = 17: 10.6 s; k = 18: 29.3 s (129,140,163 constraints). End-to-end generation including
+refinement: 3 s / 7 s / 18 s / 61 s. Run entirely on the local Mac (128 GB RAM; the akdeniz
+fallback was not needed).
+
+## Falsification tests (the certifier has teeth)
+
+On the k = 12 certificate: raising λ above the threshold (A = 18064300) → 11+ constraint
+failures; perturbing a single coordinate C[12345] by +1% → fails; inflating B2 by 10^-7 →
+fails the W2 integer check (iii). Genuine certificates pass with min relative slack ~2e-7,
+matching the Perron margin ρ(λ_cert) − 1 (CW-pinched to 12 digits) — the slack is exactly
+where theory predicts, another consistency check.
+
+Repeated on the k = 15 certificate (the chunked-verifier code path): λ raised above the
+threshold (A = 18419750) → fails (11+ violations); one coordinate perturbed +1% → fails;
+genuine certificate passes (slack 9.50e-08). The min-rel-slack values for k = 15–17 (~4–10e-8)
+are smaller than for k ≤ 14 because refinement stops at the 2e-8 CW gate rather than running
+to full convergence; k = 18's 40-iteration refinement landed at 1.2e-07. All positive, all
+exact.
+
+## Files
+
+- `THEOREM.md` — exact hypotheses, LP definition, solver correspondence, k-limit analysis.
+- `certify.py` — generator + independent exact verifier (`selftest`, `gen`, `genvec`,
+  `verify` modes; dict-free chunked verification for large k).
+- `cert_k{12..14}.json` — certificates with inline C (rational feasible points).
+- `cert_k{15..18}.json` + `cert_k{15..18}_C.npy` — certificates with sha256-pinned int64
+  sidecars (38 MB / 115 MB / 344 MB / 1033 MB).
+- `cert_k{12..18}_report.json` — verification reports.
+- `eigvec_k{14..18}.npy` — GPU candidate eigenvectors (bridges2; candidates only, not part
+  of the trust chain).
+- `kl_paper.txt` — pdftotext extraction of the paper (line numbers cited in THEOREM.md).
+- `solver_k14.log` — float threshold estimates λ̂_k for k = 2..14 (CPU); k = 15–18 thresholds
+  from the GPU log on bridges2 (`job_42443602.out`, `job_42443622.out`).

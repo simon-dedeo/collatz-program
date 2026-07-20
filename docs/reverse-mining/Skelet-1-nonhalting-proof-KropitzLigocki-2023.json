@@ -1,0 +1,152 @@
+{
+ "domain": "Skelet 1 nonhalting proof (Kropitz\u2013Ligocki 2023; Coq formalizations: K\u0105dzio\u0142ka's busycoq/verify/Skelet1.v and the in-kernel Coq-BB5/BusyCoq/Skelet1.v adaptation) \u2014 certified eventual periodicity (period 8,468,569,863; preperiod ~5.42e51) obtained from ~8.8e7 accelerated steps instead of 5.42e51 base steps",
+ "translations": [
+  {
+   "technique": "Level-1: run-length-encoded block abstraction with certified partial semiconjugacy (the `lift`/`simple_step` layer)",
+   "what_it_actually_does": "Skelet1.v defines ~15 finite binary words as blocks (x=110110, D=11010, P=110, digit blocks C0..C3, F0..F3, G0..G2, and mega-blocks Fl, Gl, Hl built from thousands of x's and D's). Abstract configurations are conf = dir x ltape x rtape where tapes are lists of counter-annotated letters (l_xs n = x^n, l_Gs n = G^n, ...). A deterministic partial function simple_step : conf -> option conf implements ~30 local rewrite rules (e.g. '> P D x --> C1 D > P', 'x > C --> C0 >'), each proven sound: simple_step c = Some c' implies lift c -->* lift c' in the raw TM (Lemma simple_step_spec). Counters make the representation logarithmic: x^10344 is one letter.",
+   "math_translation": "Let (X, ->) be the TM configuration graph. There exists an alphabet Sigma of words over {0,1}, a decoding lift : D x Sigma_N^* x Sigma_N^* -> X (Sigma_N = letters annotated with positive-integer exponents), and a partial map s : A -> A on abstract configurations A such that: for all a in A, if s(a) is defined then lift(a) ->* lift(s(a)). I.e., s is a partial one-step-sound abstraction (a semiconjugacy onto a sub-relation of ->*), and the abstract orbit projects to a genuine TM orbit segment whose length is data-dependent and unbounded. The abstract system is a deterministic rewriting system on words over an infinite (counter-annotated) alphabet.",
+   "nearest_known_math": [
+    {
+     "theory": "Macro machines / accelerated simulation (Marxen\u2013Buntrock 1990, 'Attacking the Busy Beaver 5')",
+     "ref": "cs.cmu.edu/~cdm/papers/MarxenBuntrock1990-busy-beaver-5.pdf",
+     "relationship": "subsumed-by: block-symbol simulation with run-length counters is exactly Marxen\u2013Buntrock's macro-machine + counted-repeat tape, here with hand-chosen non-uniform blocks and a machine-checked soundness proof"
+    },
+    {
+     "theory": "Higher-block recoding / conjugacy of subshifts (Lind\u2013Marcus, Symbolic Dynamics and Coding)",
+     "ref": "Lind & Marcus 1995, ch. 1\u20132",
+     "relationship": "overlaps: recoding into block alphabets is standard; the twist is partiality (rules only defined on the reachable fragment) and unbounded counter annotations, which leave the sofic/SFT setting"
+    }
+   ],
+   "novelty_verdict": "known-math-reinvented",
+   "fusion_opportunity": "Fuse with symbolic-dynamics recoding theory: treat block discovery (currently hand-tuned; sligocki's Block_Finder.py does it heuristically) as search for a sofic cover in which the TM's reachable language becomes low-complexity; conjugacy invariants (follower sets, syntactic monoids) could predict which block alphabets linearize the dynamics before simulating.",
+   "collatz_application": "For Collatz-like maps, the analogue is binary/RLE representation of n with runs as counters: T acts on run-length words (a run of k ones at the low end = k consecutive odd steps). Our certificate program should fix a counter-annotated alphabet for parity/residue patterns and prove once-and-for-all soundness lemmas 'abstract rule => arithmetic identity on orbits', giving a certified accelerated Collatz simulator identical in architecture to simple_step_spec.",
+   "sources_read": [
+    "/private/tmp/claude-503/-Users-simon-Desktop-COLLATZ/9f856e7c-a0ad-44ae-bdf4-ecc5f1403748/scratchpad/busycoq/verify/Skelet1.v (lines 1\u2013730)",
+    "https://www.sligocki.com/2023/02/25/skelet-1-wip.html",
+    "/Users/simon/Desktop/COLLATZ/papers/bbchallenge-2025-bb5-determination.pdf (Section 5, Sporadic Machines)"
+   ]
+  },
+  {
+   "technique": "Level-2: the 'stride' rule \u2014 closed-form k-th iterate of the sweep-return map on counter words (certified acceleration of a base-4 odometer with fuel)",
+   "what_it_actually_does": "stride xs k t computes, in ONE left-to-right pass over the RLE right tape, the effect of k full head sweeps across the right half and back. The key arithmetic in the code: passing a digit letter r_C requires the accumulated x-count xs >= k, replaces it by xs - k, emits 2k x's behind the C, and recurses with parameter 4k (Coq: n~0~0, i.e. append two binary zero bits). So the 'cost' of a stride at the i-th C from the left is 4^i \u2014 the digits form a base-4 counter and one stride = '+1'. Lemma stride_add proves the flow law stride(0,n+m,t) factors as stride(0,n);stride(0,m) \u2014 a partial monoid action of (N,+). Theorem stride_correct' proves soundness by double induction on stride_level (the number of C's), unfolding one level-k stride into 4 level-(k-1) strides interleaved with the digit's C0->C1->C2->C3 increments: literally the carry recursion of an odometer. This lets the simulator jump k ~ 10^19 sweeps in O(|tape|) arithmetic.",
+   "math_translation": "Let W be the set of words D|x^{n_1} c_1 x^{n_2} c_2 ... x^{n_m} c_m ... P (c_i in {C,D,G-blocks}) and Phi : W -> W the first-return map of the head to the left boundary (one sweep). Implicit theorem: (forall t in W)(forall k >= 1) if the guard n_i >= k * w_i(t) holds for every digit position i (w_i = 4^{#C's strictly left of i}, computed through D and G letters transparently), then Phi^k(t) is given by the explicit affine substitution x^{n_i} C ... |-> x^{n_i - k w_i} C x^{2 k w_i} ..., computable in one pass uniformly in k; moreover Phi^{n+m} = Phi^m o Phi^n wherever defined. In dynamical language: on the counter phase the return map is conjugate to '+1' on a base-4 odometer, and the run-lengths evolve as an affine cocycle over that odometer; the k-th iterate is therefore Presburger-definable in k.",
+   "nearest_known_math": [
+    {
+     "theory": "Affine loop acceleration / flat acceleration (Boigelot; Finkel\u2013Leroux FSTTCS'02 'How to compose Presburger-accelerations'; Bardin et al. FAST; Frohn\u2013Giesl LoAT)",
+     "ref": "arxiv.org/pdf/1905.11187; link.springer.com/article/10.1007/s10009-008-0064-3",
+     "relationship": "overlaps: computing the transitive closure/k-th power of an affine relation with Presburger guards is exactly flat acceleration \u2014 but that literature works in fixed finite dimension, while stride accelerates over words of unbounded length with position-dependent geometric weights 4^i"
+    },
+    {
+     "theory": "Odometers (adding machines) and skew products / cocycles over them (Downarowicz's survey; cutting-and-stacking constructions)",
+     "ref": "Downarowicz, 'Survey of odometers and Toeplitz flows'",
+     "relationship": "overlaps: the counter phase is an odometer and stride^k is 'add k'; the fuel depletion is an affine cocycle over it. The BB community reinvented odometer coordinates without naming them"
+    },
+    {
+     "theory": "Transitive closures of regular relations / iterating transducers in regular model checking (Jonsson\u2013Nilsson TACAS 2000; Boigelot\u2013Legay\u2013Wolper CAV 2003)",
+     "ref": "link.springer.com/content/pdf/10.1007/978-3-540-73368-3_16.pdf",
+     "relationship": "overlaps: RMC iterates length-preserving transducers; stride is a non-length-preserving RLE transducer with arithmetic guards \u2014 outside the classes with known closure theorems (searched; found no covering result)"
+    }
+   ],
+   "novelty_verdict": "known-math-with-new-twist",
+   "fusion_opportunity": "State and prove the general theorem the code instantiates: 'the iterates of any sweep-return map that is odometer-like (triangular, expanding integer weights) on RLE words are uniformly Presburger-definable in k, with guards computable in one pass'. Fusing with Finkel\u2013Leroux composition results would give an algorithm that DISCOVERS stride-type rules automatically for any TM/rewriting system, replacing Kropitz's hand-derivation; fusing with cocycle theory over odometers would let one compute collision statistics (when guards fail) analytically instead of by simulation.",
+   "collatz_application": "Collatz already has stride-type rules: n = a*2^k - 1 => T_odd^k(n) = a*3^k - 1 (k odd steps in closed form), n = a*2^k => a (k even steps). These are accelerations over runs in the binary RLE of n. The obstruction and the research target: Collatz's x3 carry couples adjacent runs non-triangularly, so closed forms exist exactly on 'rigid' run patterns \u2014 the certified-stride framework tells us precisely what to look for: sub-dynamics where the return map's action on run-lengths is triangular-affine with monotone guards. Those are the loci where 10^19-fold certified jumps are possible.",
+   "sources_read": [
+    "/private/tmp/claude-503/-Users-simon-Desktop-COLLATZ/9f856e7c-a0ad-44ae-bdf4-ecc5f1403748/scratchpad/busycoq/verify/Skelet1.v (lines 728\u20131130: max_stride, stride, stride_add, stride_correct')",
+    "https://www.sligocki.com/2023/02/25/skelet-1-wip.html",
+    "web searches on flat acceleration / Finkel-Leroux / iterating transducers (see links in analysis)"
+   ]
+  },
+  {
+   "technique": "Level-3: the uni-cycle \u2014 acceleration of the accelerated system (nested self-similarity), with an untrusted oracle choosing the exponent",
+   "what_it_actually_does": "Theorem uni_cycle proves: from left tape D C1 x^{xs+P+1} J l (J a fixed 34-letter context, P = uni_P = 53946) and any right tape r admitting T = uni_T = 4P-5 = 215779 strides, the machine returns to the SAME shape with xs decreased by P, one F-block (C2 x^7640 D x^10344) appended to the left, one G-block appended to the right, and r replaced by stride^T(r). The proof is ~982 symbolic applications of apply_step with l and r free. uni_cycles then gives the n-fold closed form (xs -> xs - nP, F^n, G^n, stride^{nT}) by induction, so n ~ 10^19 macro-cycles (~10^24 strides, ~10^43 base steps) collapse into one abstract step with F^n, G^n stored as single counted letters. The exponent n is chosen by uni_cycle_count = min(floor((xs-1)/P), floor(max_stride(r)/T)) where max_stride is explicitly UNVERIFIED \u2014 the comment says 'max_stride is not critical for correctness in any way'; a wrong guess just makes the certified check fail, never the theorem.",
+   "math_translation": "Implicit theorem: the accelerated system (A, fullstep) itself contains a parameterized loop whose body is Presburger-affine in its counters; hence its n-th power is again explicitly definable: (forall n, xs, l, r, r') stride(0, n*T, r) = Some r' implies lift(right, D C1 x^{xs+nP+1} J l, r) ->* lift(right, D C1 x^{xs+1} J F^n l, G^n r'). Note the exact cross-level identity T = 4P - 5 tying level-3 constants to level-2's base-4 structure. Structurally: a two-level acceleration tower \u2014 accelerate the return map, find the accelerated system's own return map is affine, accelerate again \u2014 with each level's soundness reduced compositionally to the previous level's (stride_add is what makes stride^{nT} decomposable along the induction).",
+   "nearest_known_math": [
+    {
+     "theory": "Composition/nesting of Presburger accelerations (Finkel\u2013Leroux FSTTCS'02), hierarchical loop summarization, and nontermination via loop acceleration (Frohn\u2013Giesl FMCAD'19)",
+     "ref": "arxiv.org/pdf/1905.11187; arxiv.org/pdf/2111.13952",
+     "relationship": "overlaps: Frohn\u2013Giesl accelerate loops and then search for nontermination certificates \u2014 the same architecture \u2014 but over fixed-dimension integer transition systems and one acceleration level; here there are two nested levels over unbounded RLE words"
+    },
+    {
+     "theory": "Guess-and-check / certificate-based verification (interactive proof with untrusted prover; e.g. busycoq's own decider+verifier split)",
+     "ref": "/private/tmp/.../busycoq/README.md",
+     "relationship": "subsumed-by: the untrusted max_stride oracle inside a certified procedure is the standard de Bruijn/certificate separation, applied unusually at the granularity of a single acceleration exponent"
+    },
+    {
+     "theory": "Substitution dynamical systems / self-induced structure (Fogg, 'Substitutions in Dynamics'; renormalization of interval maps)",
+     "ref": "N. Pytheas Fogg, LNM 1794",
+     "relationship": "overlaps: 'the return map of the return map has the same affine shape' is a renormalization statement; here it holds only along one orbit's reachable region, not globally"
+    }
+   ],
+   "novelty_verdict": "known-math-with-new-twist",
+   "fusion_opportunity": "Fuse with Frohn\u2013Giesl-style automated acceleration calculi: their modular acceleration is exactly what could synthesize uni_cycle from stride mechanically, and their tool emits certificates \u2014 retarget the certificate format to Coq lemmas of the uni_cycles shape. Conversely, export the BB insight back: acceleration towers of depth >1 over parameterized words appear absent from the verification literature (searched; LoAT/FAST are depth-1, fixed dimension) and Skelet 1 is a natural benchmark family for them.",
+   "collatz_application": "This is the piece our certificate program most needs: after first-level run-burst acceleration of a Collatz-like map, search the ACCELERATED orbit for affine macro-cycles (patterns of odd/even bursts whose composite effect on the run-length vector is affine with a decreasing fuel coordinate). A certified uni_cycles-analogue would let us fast-forward residue/parity patterns through 10^40+ steps in one checked move \u2014 precisely what 'certifying rigidity at unreachable scales' requires. The T = 4P - 5 phenomenon predicts that in a successful Collatz instance the level-3 constants will be exact affine functions of level-2's multiplier (3 or 3/2), a concrete signature to search for.",
+   "sources_read": [
+    "/private/tmp/claude-503/-Users-simon-Desktop-COLLATZ/9f856e7c-a0ad-44ae-bdf4-ecc5f1403748/scratchpad/busycoq/verify/Skelet1.v (lines 1131\u20131440: try_stride, uni_cycle, uni_cycles, uni_cycle_count, try_uni_cycle)",
+    "https://www.sligocki.com/2023/03/13/skelet-1-infinite.html"
+   ]
+  },
+  {
+   "technique": "Level-4: context-universal shift-template certificate \u2014 translated-cycler (Lin recurrence) detection transplanted to the doubly-accelerated level, certifying eventual periodicity from a finite window with the period never computed",
+   "what_it_actually_does": "Lemma infinite_cycle: for ALL left tapes l, lift(right, C0\u00b7l, K) ->+ lift(right, C0\u00b7F\u00b7l, K), where K is one specific 25-letter right tape (hard numbers: x^7639 D x^10347 C ... x^3849 P) and F the 4-letter block. It is proven by running the certified simulator 30+952 = 982 abstract steps SYMBOLICALLY with l a free variable \u2014 the derivation never inspects l, which is what makes the window self-supporting. progress_nonhalt_simple (ordinary coinduction: a nonempty family closed under ->+ avoids halting) then gives cycle_nonhalt for every member. Detection was: run the greedy accelerated simulator ~tens of millions of steps and watch for exact recurrence of (top-left symbol, entire right tape) \u2014 Lin-recurrence matching on accelerated RLE configurations instead of raw configurations, where it is physically impossible (preperiod 5.42e51). The famous constants are absent: grep confirms neither 8,468,569,863 nor the 5.42e51 preperiod occurs anywhere in either Skelet1.v \u2014 the certified theorem is number-free.",
+   "math_translation": "Implicit theorem (with quantifiers): Let (X,->) be TM dynamics, A abstract configurations, lift : A -> X, fullstep : A \u21c0 A one-step-sound (fullstep(a)=a' => lift(a) ->* lift(a')). Suppose there exist a letter s, a finite word K, a block F, and a derivation showing (forall l in L*) lift(s\u00b7l, K) ->+ lift(s\u00b7F\u00b7l, K). Then (i) (forall l) lift(s\u00b7l,K) never halts; (ii) each such orbit is a translated cycler: eventually periodic modulo spatial shift, its limit tape being F^omega\u00b7K \u2014 though the certificate never computes period or preperiod; (iii) if fullstep^m(a_0) = (s\u00b7l_0, K) for some finite m, the orbit of lift(a_0) is eventually periodic-mod-shift, certified in time O(m) with m polylogarithmic in the true preperiod (here m \u2248 8.8e7 vs preperiod 5.42e51, compression ~6e43). Crucially this is a sound semi-decision for ONE orbit, not a decision procedure for a class: the same abstract system provably admits halting configurations (Ligocki's '... C0 x^f D C2 x^e D C1 x^d D C1 x^c D C2 x^b DC x^a < R' halts for all a..f), so nonhalting is orbit-specific and no structural/class-level decidability argument can subsume the method.",
+   "nearest_known_math": [
+    {
+     "theory": "Honkala 1986 (ultimate periodicity of k-automatic sequences is decidable) and fast versions via Walnut (Bell\u2013Charlier\u2013Fraenkel\u2013Shallit; Marsault\u2013Sakarovitch quasilinear)",
+     "ref": "arxiv.org/abs/0808.1657; arxiv.org/pdf/1301.2691",
+     "relationship": "disjoint-from: Honkala-type results decide periodicity of sequences given by a FINITE automaton presentation; the Skelet-1 configuration sequence is generated by data-dependent rewriting with collisions, is not automatic, and the method is certificate-based semi-decision of one orbit, not decision of a presented class"
+    },
+    {
+     "theory": "Durand 2013 / Mitrofanov (decidability of HD0L/morphic ultimate periodicity)",
+     "ref": "lamfa.u-picardie.fr/fdurand/Papiers/periodicite051112.pdf",
+     "relationship": "disjoint-from (same reason): the orbit is not morphic; only the LIMIT word F^omega\u00b7K is (trivially) periodic \u2014 the theorem certifies reaching it, which is outside the morphic framework"
+    },
+    {
+     "theory": "Lin recurrence / translated-cycler deciders (Shen Lin 1963; bbchallenge decider-Loops, Theorem 4.5 of the BB5 paper: back-to-back transcript repetition + tape-extremity condition)",
+     "ref": "bbchallenge-2025-bb5-determination.pdf Section 4.3; wiki.bbchallenge.org/wiki/Translated_Cycler",
+     "relationship": "overlaps: the certificate SHAPE (finite window + arbitrary context, repeat with shift) is Lin's; the new content is running it in a quotient where one step is a variable ~10^43-base-step acceleration, with soundness carried through the tower by machine-checked lemmas"
+    },
+    {
+     "theory": "Recurrent sets for nontermination (Gupta\u2013Henzinger\u2013Majumdar\u2013Rybalchenko POPL'08) and regular model checking (Bouajjani\u2013Jonsson\u2013Nilsson\u2013Touili CAV'00)",
+     "ref": "arxiv.org/pdf/1905.11187 (uses recurrent sets); RMC surveys",
+     "relationship": "overlaps: {(s\u00b7l,K) : l free} is a regular recurrent set, so the soundness principle is subsumed; but neither field certifies EVENTUAL PERIODICITY (they certify nontermination only), and neither reaches the set through a certified acceleration tower"
+    },
+    {
+     "theory": "Kannan\u2013Lipton orbit problem / Skolem problem (exact reachability and zero-hitting for linear recurrences)",
+     "ref": "Kannan\u2013Lipton JACM 1986; Ouaknine\u2013Worrell surveys",
+     "relationship": "disjoint-from but instructive: those are decidability results in fixed dimension where hardness comes from complex eigenvalues; Skelet-1's accelerations stay decidable-by-inspection because the dynamics is triangular with positive integer weights (4^i), i.e. the method lives exactly in the Skolem-easy cone \u2014 a hint that certificate methods should target monotone/triangular sub-dynamics"
+    }
+   ],
+   "novelty_verdict": "plausibly-new-mathematics",
+   "fusion_opportunity": "The unstated general theorem is worth extracting and proving: 'For 1-D rewriting dynamics on counter-annotated words admitting a sound acceleration tower whose levels are triangular-affine, eventual periodicity-mod-shift of an orbit admits certificates of size polynomial in the description and checkable in time polylog in the preperiod; certificates are context-universal window recurrences at the top level.' Fusing with Honkala/Durand: identify the subclass where the collision sequence is itself automatic/morphic \u2014 there the semi-decision should become a decision procedure (Honkala-style completeness for an odometer-with-collisions class). Fusing with GHMR/RMC: their well-developed synthesis machinery (constraint solving for recurrent sets) could automate finding K and F instead of eyeballing simulator output.",
+   "collatz_application": "Direct blueprint for the rigidity exit: to certify that a residue/parity pattern of a Collatz-like orbit is eventually periodic at scale ~1e50, (1) build the certified accelerated simulator on RLE parity words, (2) run greedily, (3) match for a context-universal template phi(l) with phi(l) ->+ phi(sigma(l)) where sigma prepends/extends the inert context. Two sobering transfers: (a) the halting-config lesson \u2014 expect the abstract parity system to admit 'bad' configurations, so only orbit-specific certificates are possible, matching the documented fact that rigidity is the only exit that has worked; (b) for Collatz proper a sigma that GROWS the context (translated cycler in log n) would certify a divergent orbit of 5n+1-type maps \u2014 the same certificate schema covers both periodicity and controlled divergence.",
+   "sources_read": [
+    "/private/tmp/claude-503/-Users-simon-Desktop-COLLATZ/9f856e7c-a0ad-44ae-bdf4-ecc5f1403748/scratchpad/busycoq/verify/Skelet1.v (lines 1440\u20131511: K, infinite_cycle, cycle_nonhalt, is_cycling, Extraction)",
+    "https://www.sligocki.com/2023/02/27/skelet-1-halting-config.html",
+    "https://wiki.bbchallenge.org/wiki/Translated_Cycler",
+    "web searches: Honkala/Durand decidability; recurrent sets; regular model checking (no covering analogue found)"
+   ]
+  },
+  {
+   "technique": "Level-5 (proof engineering): in-kernel certified fast-forward \u2014 Coq-BB5 replays 88,000,000 accelerated steps by vm_compute; busycoq's original used extracted OCaml",
+   "what_it_actually_does": "busycoq's Skelet1.v ends with 'Extraction \"skelet1.ml\" int_of_pos initial fullstep is_cycling' \u2014 the preperiod search ran as extracted OCaml (README admits: 'the final computation is done by an extracted OCaml program'), so the original result trusted extraction + the OCaml runtime. The Coq-BB5 adaptation (BusyCoq/Skelet1.v) closes this: it defines doit : nat -> conf -> bool iterating fullstep with an is_cycling check, proves doit_spec (doit n c = true -> ~halts tm (lift c)), then 'Definition doit_result := Eval vm_compute in doit 88000000 initial' inside the kernel, and concludes Theorem nonhalt : ~halts tm c0 with zero axioms. One kernel computation of 8.8e7 certified abstract steps stands in for 5.42e51 machine steps \u2014 a certified fast-forward ratio of ~6e43.",
+   "math_translation": "Proof by reflection: (forall n, c) doit n c = true -> ~halts(lift c), plus a single closed computation doit 88000000 initial = true evaluated by the kernel's VM, plus c0 ->* lift(initial). The mathematical content is the reduction of a Pi-0-1-flavored claim about 10^51 steps to a checkable finite computation whose cost scales with the ACCELERATED orbit length; the constant 88000000 is an untrusted upper bound (any n past the hitting time works).",
+   "nearest_known_math": [
+    {
+     "theory": "Proof by reflection (Boutin 1997) and large reflective proofs: Four-Color Theorem (Gonthier 2005, in-kernel) vs CompCert-style extraction (out-of-kernel); vm_compute (Gr\u00e9goire\u2013Leroy 2002)",
+     "ref": "Gonthier, 'Formal proof \u2014 the Four-Color Theorem', Notices AMS 2008",
+     "relationship": "subsumed-by: the technique is textbook reflection; the two Skelet1.v variants are a textbook illustration of the extraction-TCB vs in-kernel tradeoff on the same theorem"
+    }
+   ],
+   "novelty_verdict": "known-math-reinvented",
+   "fusion_opportunity": "For any certificate our program produces, budget by this precedent: ~1e8 accelerated steps of a nontrivial per-step function is demonstrably within vm_compute range (Coq-BB5 timed it in-kernel). Fuse the acceleration tower with reflection: prove the tower lemmas once, then all orbit-specific facts (which orbit, which template, which exponent schedule) become data checked by one vm_compute \u2014 the proof does not grow with preperiod.",
+   "collatz_application": "A Lean/Coq Collatz-rigidity certificate at scale 1e50 is feasible iff its accelerated hitting time is ~1e8-1e9: the pipeline 'untrusted search (Rust/Python) finds template + step count; kernel replays' is exactly reusable. The busycoq/Coq-BB5 pair also warns: design the checker as a boolean reflective function from day one (doit-style), or the result will carry an extraction asterisk as busycoq's did for a year.",
+   "sources_read": [
+    "/private/tmp/claude-503/-Users-simon-Desktop-COLLATZ/9f856e7c-a0ad-44ae-bdf4-ecc5f1403748/scratchpad/Coq-BB5/BusyCoq/Skelet1.v (final 120 lines: doit, doit_spec, vm_compute, Theorem nonhalt)",
+    "/private/tmp/claude-503/-Users-simon-Desktop-COLLATZ/9f856e7c-a0ad-44ae-bdf4-ecc5f1403748/scratchpad/busycoq/README.md",
+    "/Users/simon/Desktop/COLLATZ/papers/bbchallenge-2025-bb5-determination.pdf (Section 1.4, footnote 14, Section 5)"
+   ]
+  }
+ ],
+ "weird_unnoticed": "The certified proof is number-free: the headline constants \u2014 period 8,468,569,863 and preperiod 5.42e51 \u2014 appear NOWHERE in either Skelet1.v (grep count: 0 in both busycoq and Coq-BB5 versions). The theorem actually proven never computes, states, or needs the period; it is a pure existence certificate (reach template, template reproduces itself), and the famous numbers are uncertified journalism derived afterwards (the preperiod by a separate 2025 computation, Huang/hipparcos, ref [40] of the BB5 paper). Two smaller unnoticed gems: (1) the acceleration-exponent chooser max_stride is deliberately unverified, with the comment 'max_stride is not critical for correctness in any way... we don't really prove anything about max_stride' \u2014 an untrusted oracle embedded INSIDE a certified decision procedure, with soundness recovered by the guarded check (the guess/check split at single-instruction granularity); (2) the strict-progress obligation (->+ vs ->*, needed for coinduction) is discharged by a hack: infinite_cycle first takes 30 steps to a phase 'where the head is pointing the other way for a maximally easy proof of distinctness' \u2014 the entire distinction between 'making progress' and 'standing still' rests on the head direction bit of one intermediate configuration. Also nobody seems to have noticed uni_T = 4*uni_P - 5 is written as an exact affine identity in the source \u2014 the level-3 constants are algebraic functions of the level-2 base (4), i.e. the hierarchy's self-similarity is exact, not approximate.",
+ "dead_ends": "(1) Pavel Kropitz's original accelerated simulator (github.com/univerz/bbc, branch no1, per BB5-paper ref [47]) was not cloned/read \u2014 the Coq artifact supersedes it mathematically, but the discovery-phase heuristics (how the uni-cycle was first spotted in simulator output) remain unexamined. (2) sligocki/busy-beaver contains NO Skelet-1-specific code: searched for constants 53946/215779/8468569863 across py/rs/cpp \u2014 zero hits; only the generic Macro/Proof_System.py acceleration infrastructure lives there, so 'sligocki repo code for it' (per task) is a dead pointer; the code is in univerz/bbc and in the Coq files. (3) docs.bbchallenge.org unreachable as warned; wiki.bbchallenge.org/wiki/Skelet_1 is a stub with the numbers but no method. (4) Searched for any published bridge between bbchallenge acceleration/CTL techniques and the loop-acceleration / recurrent-set / regular-model-checking literature: none exists in print \u2014 the reverse-translation made here appears to be unmade anywhere, which strengthens the fusion opportunities but means the 'nearest known math' mapping could not be checked against prior comparisons. (5) Could not determine from sources whether the 982-step abstract cycle equals the blog's '1,357 simulator steps per cycle' under a different step-counting convention \u2014 granularity differs between Kropitz's simulator and the Coq fullstep; unresolved but immaterial to the mathematics."
+}

@@ -1,0 +1,17 @@
+{
+ "ok": true,
+ "fails": [],
+ "n_constraints": 43046721,
+ "min_rel_slack": 3.8973755781995025e-08,
+ "argmin_slack_m": 93738218,
+ "lambda": "18616883/10000000",
+ "gamma_float": 0.8966115446005303,
+ "Cmax_over_SCC": 1207.439368044594,
+ "Delta1": "1000000000000/(4*1207439368044594)",
+ "verify_seconds": 10.63,
+ "verifier": "big/chunked",
+ "lambda_float_estimate": 1.8616888,
+ "cert_path": "/Users/simon/Desktop/COLLATZ/experiments/kl/cert_k17.json",
+ "vec_source": "eigvec_k17.npy",
+ "refine_iters": 20
+}

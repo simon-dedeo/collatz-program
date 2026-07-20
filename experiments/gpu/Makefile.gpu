@@ -1,0 +1,36 @@
+# Makefile.gpu — CUDA builds for the RTX 4090 box (akdeniz, CUDA 12.8)
+#
+#   make -f Makefile.gpu            build family_gpu + expsum_gpu
+#   make -f Makefile.gpu test       run both selftests (needs the GPU)
+#   make -f Makefile.gpu probe      build + run the device-u128 probe
+#
+# sm_89 = Ada Lovelace (RTX 4090).  -O3 is passed to both nvcc and the host
+# compiler; --use_fast_math is deliberately NOT used (expsum needs IEEE
+# double sincospi/log for the 1e-9 validation gate).
+
+NVCC     ?= nvcc
+ARCH     ?= -arch=sm_89
+NVFLAGS  ?= -O3 $(ARCH) -Xcompiler -O3,-Wall
+
+all: family_gpu expsum_gpu
+
+family_gpu: family_gpu.cu
+	$(NVCC) $(NVFLAGS) -o family_gpu family_gpu.cu
+
+expsum_gpu: expsum_gpu.cu
+	$(NVCC) $(NVFLAGS) -o expsum_gpu expsum_gpu.cu
+
+u128_probe: u128_probe.cu
+	$(NVCC) $(NVFLAGS) -o u128_probe u128_probe.cu
+
+probe: u128_probe
+	./u128_probe
+
+test: family_gpu expsum_gpu
+	./family_gpu --selftest
+	./expsum_gpu selftest
+
+clean:
+	rm -f family_gpu expsum_gpu u128_probe
+
+.PHONY: all probe test clean

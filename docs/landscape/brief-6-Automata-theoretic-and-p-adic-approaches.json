@@ -1,0 +1,157 @@
+{
+ "topic": "Automata-theoretic and p-adic approaches to the Collatz (3x+1) conjecture: Shallit-Wilson regularity, regular/automatic invariant sets, the 2-adic conjugacy (Lagarias-Bernstein), stochastic models (Lagarias-Weiss, Borovkov-Pfeifer, Kontorovich-Lagarias/Sinai), and rewriting-system formulations",
+ "key_facts": [
+  {
+   "fact": "Shallit-Wilson (Bulletin of the EATCS No. 46, Feb 1992, pp. 182-185), full text obtained: with f(x)=3x+1 (x odd), x/2 (x even), define g(n) = number of applications of x->3x+1 in the trajectory of n before reaching 1 (g=infinity if non-convergent), and S_i = {k>=1 : g(k)=i}. Their ONLY theorem (Thm 3.1): S_i is 2-automatic for every i>=0 (S_0 = powers of 2). Proof is induction on i via S_i = (A_i \u2229 B)P with A_i={x: 3x+1 in S_i}, B = odds >=3, P = powers of 2, simulating the DFA on the reversed binary expansion of 3x+1 with a carry component (states Q x {carry 0,1,2}). They prove each S_i is infinite. They do NOT prove anything about the full set of convergent n, invariant sets, or non-regularity.",
+   "source": "https://cs.uwaterloo.ca/~shallit/Papers/wilson.pdf (paper text extracted in full)"
+  },
+  {
+   "fact": "A remark in Shallit-Wilson 1992: the same carry-simulation technique shows 2-automatic sets are closed under sumset S+T; they note 2-automatic sets are NOT closed under the product set ST.",
+   "source": "https://cs.uwaterloo.ca/~shallit/Papers/wilson.pdf"
+  },
+  {
+   "fact": "Sterin (arXiv:1907.00775, 'Binary expression of ancestors in the Collatz graph', RP 2020): the set EPred_k(x) of binary expressions of ancestors reaching x with at most k odd steps is regular (Shallit-Wilson); Shallit-Wilson's automaton construction is doubly exponential in k, and Sterin constructs an explicit regular expression reg_k(x) of size exponential in k, generalizing Colussi (TCS 2011), who handled x=1 (Colussi: the k-th 'convergence class' is regular with explicit regexp).",
+   "source": "https://arxiv.org/abs/1907.00775"
+  },
+  {
+   "fact": "Terras (Acta Arith. 30 (1976), 241-252): the set of integers with stopping time exactly k (first index with T^k(n)<n) is a union of congruence classes mod 2^k minus a finite set; the set of n with finite stopping time has natural density 1. Terras also formulated the Coefficient Stopping Time Conjecture kappa(n)=sigma(n) (verified for kappa(n)<=2593), still open. This means bounded-horizon Collatz data is 'eventually periodic mod 2^k' \u2014 essentially finite-state \u2014 while unbounded-horizon data is not known to be.",
+   "source": "Lagarias, The 3x+1 problem: an annotated bibliography (1963-1999), arXiv:math/0309224, entry 164"
+  },
+  {
+   "fact": "Lagarias (Amer. Math. Monthly 92 (1985), 3-23): T extends continuously to the 2-adic integers Z_2. Theorem L: the parity-vector map Q_infty: Z_2 -> Z_2, Q_infty(x) = sum_{k>=0} (T^k(x) mod 2) 2^k, is a continuous, one-one, onto, measure-preserving map of Z_2; it conjugates T to the 2-adic shift sigma (Q_infty o T = sigma o Q_infty). Theorem K (due to Matthews-Watts 1984): T is a measure-preserving, strongly mixing (hence ergodic) transformation of Z_2 with respect to Haar (2-adic) measure.",
+   "source": "https://www.cecm.sfu.ca/organics/papers/lagarias/paper/html/node10.html (Lagarias 1985, Section on ergodic theory); restated in Monks-Yazinski, https://monks.scranton.edu/files/pubs/AutoConjV13.pdf"
+  },
+  {
+   "fact": "Lagarias 1985 Periodicity Conjecture: Q_infty maps Q_odd (rationals with odd denominator, = eventually periodic 2-adic expansions) into Q_odd; equivalently, every x in Q_odd is eventually cyclic under T. The Periodicity Conjecture implies the Divergent Trajectories Conjecture (no divergent trajectories). The converse inclusion IS a theorem: Phi(Q_odd) \u2286 Q_odd, i.e., if the parity vector of x is rational (eventually periodic) then x is rational \u2014 because eventually cyclic points satisfy a linear equation with rational coefficients.",
+   "source": "Monks-Yazinski, The autoconjugacy of the 3x+1 function (Discrete Math. 275 (2004)), https://monks.scranton.edu/files/pubs/AutoConjV13.pdf, Section 2"
+  },
+  {
+   "fact": "Bernstein (Proc. AMS 121 (1994), 405-408), full text obtained: define Phi(2^{d_0}+2^{d_1}+...) = -(1/3)2^{d_0} - (1/9)2^{d_1} - (1/27)2^{d_2} - ... for 0<=d_0<d_1<.... Phi is a homeomorphism of Z_2 and is exactly the inverse of Lagarias's Q_infty. Theorem 1: C(Phi(Q)) = Phi(H(Q)), where H(Q)=Q/2 (Q even), Q-1 (Q odd) and C(N)=N/2 (even), 3N+1 (odd). Theorems 2+3: the 3x+1 conjecture is EQUIVALENT to: Z^+ \u2286 Phi((1/3)Z), i.e., for every positive integer N, 3\u00b7Phi^{-1}(N) is an integer ('3Q is an integer whenever Phi(Q) is a positive integer'). Example computed in the paper: Phi(-1/3)=1.",
+   "source": "https://www.ams.org/journals/proc/1994-121-02/S0002-9939-1994-1186982-9/S0002-9939-1994-1186982-9.pdf"
+  },
+  {
+   "fact": "Bernstein-Lagarias (Canad. J. Math. 48 (1996), 1154-1169), 'The 3x+1 conjugacy map': Phi mod 2^n is a permutation of Z/2^nZ whose order is exactly 2^{n-4} for n>=6. Phi has odd fixed points x=-1 and x=1/3 and the 2-cycle {1,-1/3}; empirically Phi-hat_n has about 2n fixed points for n<=1000, and they conjecture -1 and 1/3 are the only odd fixed points of Phi.",
+   "source": "Lagarias annotated bibliography arXiv:math/0309224, entry 23 (Bernstein-Lagarias 1996)"
+  },
+  {
+   "fact": "Monks-Yazinski: Aut(T) (autoconjugacies of T on Z_2) = {id, Omega} where Omega = Phi o V o Phi^{-1} and V(x) = -1-x is the ones-complement of the parity vector (uses Hedlund's theorem Aut(sigma)={id,V}). Theorem: if Omega maps rationals to rationals, then there are no divergent T-orbits of positive integers. Also: for rational 2-adic x, lim kappa_n(x)/n + lim kappa_n(Omega(x))/n = 1, where kappa_n counts ones among the first n parity bits.",
+   "source": "https://monks.scranton.edu/files/pubs/AutoConjV13.pdf"
+  },
+  {
+   "fact": "Lagarias-Weiss (Ann. Appl. Prob. 2 (1992), 229-261), 'The 3x+1 problem: two stochastic models': in both the repeated-random-walk (RRW) and branching-process models, the average number of T-steps to reach 1 from n is (1/2 log(4/3))^{-1} log n \u2248 6.95212 log n; with probability one limsup sigma_infty(n)/log n = gamma \u2248 41.677647 (only finitely many n need more than (c0+eps)log n steps, infinitely many need (c0-eps)log n); the RRW model has a.s. limsup log t(n)/log n = 2 for the maximal excursion t(n)=max_k T^k(n), motivating the conjecture t(n) <= n^{2+o(1)}. Largest known empirical value gamma(n)=36.716918 at n \u2248 7.2x10^21 (Roosendaal).",
+   "source": "Lagarias annotated bibliography arXiv:math/0309224 entry 112; Kontorovich-Lagarias arXiv:0910.1944 Theorems 4.1, 4.3, 4.4"
+  },
+  {
+   "fact": "Borovkov-Pfeifer (Theory Probab. Appl. 45 (2000), 300-310), Theorem 5: in the multiplicative random-walk model (i.i.d. factors 1/2 or 3/2 with prob. 1/2), the normalized total stopping time (sigma_infty(X0) - c1 log X0)/(c2 (log X0)^{1/2}) converges to standard normal N(0,1), with c1 = (1/2 log(4/3))^{-1} = 6.95212 and c2 = c1^{3/2} (1/2 log 3) \u2248 10.07. Equivalently (Kontorovich-Lagarias Thm 3.2): mean mu^{-1} log n with mu = |1/2 log(3/4)|, standard deviation mu^{-3/2} sigma sqrt(log n) with sigma = 1/2 log 3. Also: 'stochasticity' of k-bit inputs is predicted to persist for about c0\u00b7k iterations with c0 = 2/log_2(4/3) \u2248 4.8187.",
+   "source": "Lagarias annotated bibliography II arXiv:math/0608208 entry 16 and entry 89; Kontorovich-Lagarias arXiv:0910.1944 Theorem 3.2"
+  },
+  {
+   "fact": "Kontorovich-Lagarias (arXiv:0910.1944, 'Stochastic models for the 3x+1 and 5x+1 problems', 2009): stochastic-model predictions stated up front: (1) #{n<=x reaching 1} = x^{eta_3+o(1)} with eta_3=1; (2) typical trajectories reach 1 in ~6.95212 log n steps; (3) gamma_3 \u2248 41.67765 extremal scaled stopping constant; (4) maximum excursion constant rho=2 (Conjecture 4.2: limsup log t(n)/log n = 2); only seeds n<=1042431 with rho(n)>2 are 27,31,41,47,55,63. Extremal (large-deviation) trajectories should follow two line segments in scaled coordinates (k/log n, log T^k(n)/log n): (0,1)->(7.645,2) with slope (3/4)log3 - log2 \u2248 0.1308, then (7.645,2)->(21.55,0) with slope -(1/2 log(4/3)) \u2248 -0.1453. Theorem 6.4 (duality): gamma_RRW = gamma_BP exactly (forward RW and backward branching-process models give the identical constant 41.677647). For 5x+1: eta_5 \u2248 0.65049, gamma_5 \u2248 84.76012.",
+   "source": "https://arxiv.org/abs/0910.1944"
+  },
+  {
+   "fact": "Kontorovich-Sinai (Bull. Braz. Math. Soc. 33 (2002), 213-224; arXiv:math/0601622): Structure Theorem for (d,g,h)-maps T(x) = (gx+h(gx))/d^k (d,g coprime, g>d>=2): exactly (d-1)^m triples (q,r,delta) produce a given m-step path, with T^m(gd(d^k x+q)+eps) = gd(g^m x+r)+delta; consequently log-scaled trajectories converge to Brownian motion with drift log g - (d/(d-1)) log d and positive diffusion constant. For 3x+1 (d=2,g=3) the drift is log 3 - 2 log 2 = log(3/4) < 0, so typical trajectories return toward the origin. Sinai (CPAM 56 (2003), 1016-1028) proved the entropy bound H_m >= m log 3 - O(log m) for the induced distribution on 3x+1 trees mod 3^m, conjecturing O(1).",
+   "source": "https://arxiv.org/abs/math/0601622; Lagarias annotated bibliography II arXiv:math/0608208 entries 49, 102"
+  },
+  {
+   "fact": "Yolcu-Aaronson-Heule (CADE-28 2021; arXiv:2105.14697v3): an 11-rule string rewriting system T over alphabet {f,t,0,1,2,/,.} on mixed binary-ternary representations (f,t = binary digits 0,1; 0,1,2 = ternary digits; f(x)=2x, t(x)=2x+1, 0(x)=3x, 1(x)=3x+1, 2(x)=3x+2, /(x)=1, .(x)=x) with rules DT={f.-> . , t.->2.}, A={f0->0f, f1->0t, f2->1f, t0->1t, t1->2f, t2->2t}, B={/0->/t, /1->/ff, /2->/ft}. Theorem 3.17: T is terminating (on ALL strings) if and only if the Collatz conjecture holds. Theorems 3.8/3.10: Zantema's unary 7-rule system Z (termination of Z <=> Collatz, Zantema FI 2005 Thm 16) admits NO termination proof via natural matrix interpretations of any dimension, even with dependency pairs (proof via N-rational sequences: f(8n+1)>f(9n+2) for all n is impossible). Their SAT-based prover automatically proved: convergence of Farkas' Collatz variant (Thm 4.2); every nonconvergent Syracuse trajectory contains some n \u2261 3 (mod 4) (Prop 4.6); every nonconvergent Collatz trajectory contains some n \u2261 6 (mod 8) (Prop 4.7), using arctic/natural matrix interpretations up to dimension 5.",
+   "source": "https://arxiv.org/abs/2105.14697; code and proofs: https://github.com/emreyolcu/rewriting-collatz"
+  },
+  {
+   "fact": "Dhiman-Pandey (arXiv:2602.06066, v1 Feb 1 2026, v2 Jun 26 2026; NOTE: math.GM, unrefereed preprint, one independent researcher + U. Washington): for all odd q>=3, d>=1 with q+d a power of 2 (includes classical T_{3,1}), the unparameterized reachability relation R(x,z) (z = T_{q,d}^k(x) for some k>=0) is NOT first-order definable in base-q Buchi arithmetic <N,+,V_q>; equivalently no finite automaton recognizes the base-q encoding of R. Proof: definability of R would let one define the powers of 2 in BA_q, contradicting Cobham's theorem (2 and odd q are multiplicatively independent). They explicitly note base 2 would make division by 2 free but multiplication by 3 hard, and they do NOT claim non-definability in base 2; pairs (q,d) with q+d not a power of 2 are left open. Independent of the Collatz conjecture and of Conway/Kurtz-Simon undecidability encodings.",
+   "source": "https://arxiv.org/abs/2602.06066"
+  },
+  {
+   "fact": "On 'regular divergence certificates' (nonempty regular S with T(S) \u2286 S avoiding 1): NO published theorem rules this out, and none can without progress on cycles, because every finite set is regular, and a finite nonempty T-invariant S avoiding {1,2} is exactly a union of nontrivial cycles \u2014 whose nonexistence is open (Hercher, arXiv:2201.00406, 2023: any nontrivial cycle has at least 92 local minima, improving Simons-de Weger's 76; combined with exhaustive verification to 2^68 \u2248 2.95x10^20 by Barina 2020). Conversely, verifying any PROPOSED certificate DFA is decidable: the one-step graph of T is Presburger-definable ((x,y): (exists z: x=2z, y=z) or (x=2z+1, y=3z+2)), hence a 2-synchronized automatic relation, so T(S) and T^{-1}(S) are effectively regular and T(S) \u2286 S, 1 not in S are decidable by standard closure properties of Buchi arithmetic (Bruyere-Hansel-Michaux-Villemaire 1994 framework).",
+   "source": "https://arxiv.org/abs/2201.00406 (Hercher); D. Barina, J. Supercomputing 77 (2021) 2681-2688; V. Bruyere, G. Hansel, C. Michaux, R. Villemaire, Bull. Belg. Math. Soc. 1 (1994) 191-238"
+  },
+  {
+   "fact": "K. Monks (Proc. AMS 134 (2006), 2861-2872): every nonconstant arithmetic progression A+BN (B\u22600) is a SUFFICIENT set: the T-orbit of every positive integer intersects the T-orbit of some element of A+BN. Derived consequence for certificates (immediate corollary, our observation): taking x=1, every AP contains an element whose orbit hits {1,2}; hence any T-invariant set avoiding {1,2} contains no infinite arithmetic progression; therefore no infinite Presburger-definable/semilinear (equivalently, ultimately periodic) divergence certificate exists \u2014 any semilinear certificate must be finite, i.e., a nontrivial cycle. Regular-in-base-2 but non-semilinear (sparse, e.g. powers-of-2-like) certificates remain entirely unruled-out. The Monks family (Discrete Math. 313 (2013), 468-489; arXiv:1204.3904) strengthened sufficiency: every AP is 'strongly sufficient' and arithmetic sequences are ubiquitous in every 'reasonable' region of the Collatz graph.",
+   "source": "https://monks.scranton.edu/files/pubs/SufficiencyRev4.pdf; https://arxiv.org/abs/1204.3904"
+  },
+  {
+   "fact": "Unconditional density constraints any divergence certificate must satisfy: Krasikov-Lagarias (Acta Arith. 109 (2003), 237-258): #{n<=x : some T^k(n)=a} > x^{0.84} for all sufficiently large x, for any a not \u2261 0 mod 3; Tao (arXiv:1909.03562, Forum Math. Pi 2022): Colmin(N) < f(N) for almost all N in logarithmic density, for ANY f tending to infinity \u2014 so seeds whose orbits avoid the (verified) interval [1,2^68] form a logarithmically sparse set.",
+   "source": "https://arxiv.org/abs/1909.03562; Krasikov-Lagarias via arXiv:math/0608208 entry 51"
+  },
+  {
+   "fact": "Sterin-Woods (Reachability Problems 2020; arXiv:2007.06979): a 2D quasi-cellular automaton (CQCA) exactly simulates the Collatz process; horizontal rows are iterates in base 2 while vertical columns simultaneously iterate the map in base 3; the Collatz process embeds an algorithm converting any natural number from base 3 to base 2, and computes the parity of the number of 1s in ternary inputs; consequently predicting about half of the bits of T^i(x) for i=O(log x) is in NC^1 but outside AC^0; the cyclic Collatz conjecture is encoded as a natural reachability problem in the automaton on 2-adic inputs.",
+   "source": "https://arxiv.org/abs/2007.06979; simulator https://github.com/tcosmo/simcqca"
+  },
+  {
+   "fact": "Eliahou & Verger-Gaugry (arXiv:2504.13716, Apr 2025): in the Akiyama-Frougny-Sakarovitch rational-base-3/2 number system (n = sum (a_i/2)(3/2)^i, digits in {0,1,2}), the Collatz T-map is digit-appending: for odd n, <T(n)> = <n>1; for even n, <3n/2> = <n>0 and <(3n+2)/2> = <n>2. So the language L of valid base-3/2 expansions encodes Collatz dynamics as suffix-extension; they state equivalent conjectures (their Conj. 2.4/2.5, shown equivalent in Prop. 2.6) linking Collatz to lexicographic structure of L. (AFS 2008 proved L is not context-free, so this route leaves regularity behind.)",
+   "source": "https://arxiv.org/abs/2504.13716"
+  },
+  {
+   "fact": "Older rewriting/string formulations: Blazewicz-Pettorossi (J. Found. Control Engr. 8 (1983), 53-63) first treated 3x+1 as (strong termination of) a rewriting system on binary strings, tracking patterns 1^n, 0^n, (10)^n; Scollo (Fund. Inform. 64 (2005), 401-412) gave an omega-rewriting formulation extending inputs to rationals with odd denominator, analogous to the 2-adic extension; De Mol (2008) showed the 2-tag system {a->bc, b->a, c->aaa} computes the Collatz function on unary a^n, connecting Collatz to Post's tag systems.",
+   "source": "Lagarias annotated bibliographies arXiv:math/0309224 entry 24, arXiv:math/0608208 entry 90; L. De Mol, 'Tag systems and Collatz-like functions', Theoret. Comput. Sci. 390 (2008) 92-101"
+  },
+  {
+   "fact": "Kascak (MFCS 1992, LNCS 629, 327-335): the 3x+1 problem encodes as a one-state linear operator algorithm (OLOA) with modulus 30, and there exists a universal OLOA with modulus 396 \u2014 the smallest known 'Collatz-like' universal machine class; complements Conway 1972 (undecidability of generalized Collatz iteration) and Kurtz-Simon 2007 (the generalized Collatz problem is Pi^0_2-complete).",
+   "source": "Lagarias annotated bibliography arXiv:math/0309224 entry 91; Kurtz-Simon, TAMC 2007, LNCS 4484, 542-553"
+  }
+ ],
+ "repos_and_links": [
+  "https://cs.uwaterloo.ca/~shallit/Papers/wilson.pdf (original Shallit-Wilson 1992 full text)",
+  "https://arxiv.org/abs/1907.00775 (Sterin, exponential regexp for k-step Collatz ancestors)",
+  "https://github.com/tcosmo/coreli (Sterin's Collatz regular-expression / 2-adic library)",
+  "https://arxiv.org/abs/2007.06979 (Sterin-Woods, Collatz embeds base conversion)",
+  "https://github.com/tcosmo/simcqca (Collatz quasi-cellular-automaton simulator)",
+  "https://arxiv.org/abs/2105.14697 (Yolcu-Aaronson-Heule, rewriting + SAT)",
+  "https://github.com/emreyolcu/rewriting-collatz (termination prover + machine-checkable proofs)",
+  "https://arxiv.org/abs/2602.06066 (Dhiman-Pandey, Buchi-arithmetic non-definability; math.GM preprint)",
+  "https://arxiv.org/abs/0910.1944 (Kontorovich-Lagarias stochastic models survey)",
+  "https://arxiv.org/abs/math/0601622 (Kontorovich-Sinai structure theorem)",
+  "https://www.ams.org/journals/proc/1994-121-02/S0002-9939-1994-1186982-9/S0002-9939-1994-1186982-9.pdf (Bernstein 1994, open access)",
+  "https://www.cecm.sfu.ca/organics/papers/lagarias/paper/html/paper.html (Lagarias 1985 survey, HTML)",
+  "https://arxiv.org/abs/math/0309224 and https://arxiv.org/abs/math/0608208 (Lagarias annotated bibliographies I and II)",
+  "https://arxiv.org/abs/2111.02635 (Lagarias 2021 overview)",
+  "https://monks.scranton.edu/files/pubs/SufficiencyRev4.pdf (Monks 2006 sufficiency of APs)",
+  "https://arxiv.org/abs/1204.3904 (Monks family, strongly sufficient sets)",
+  "https://monks.scranton.edu/files/pubs/AutoConjV13.pdf (Monks-Yazinski autoconjugacy)",
+  "https://arxiv.org/abs/2504.13716 (Eliahou-Verger-Gaugry, rational base 3/2)",
+  "https://arxiv.org/abs/2201.00406 (Hercher, no m-cycles with m<=91)",
+  "https://arxiv.org/abs/1909.03562 (Tao, almost all orbits attain almost bounded values)"
+ ],
+ "precise_statements": [
+  "Shallit-Wilson 1992, Theorem 3.1 (verbatim modulo notation): Let f(x)=3x+1 if x odd, x/2 if x even; let g(n) = number of instances of the map x->3x+1 in the trajectory of n up to f^j(n)=1 (g(n)=infinity if the trajectory is non-trivial cyclic or divergent); let S_i = {k>=1 : g(k)=i}. Then 'S_i is 2-automatic for all i>=0.' (S_0 = {1,2,4,8,...}; S_1 = {5,10,20,21,40,42,...}.) This is the entire technical content of the paper; it says nothing about unions over all i or about invariant sets.",
+  "Lagarias 1985, Theorem L: the parity-vector map Q_infty(x) = sum_{k>=0} (T^k(x) mod 2) 2^k is a continuous, one-one, onto, measure-preserving map of Z_2 to itself, and Q_infty o T = sigma o Q_infty where sigma is the 2-adic shift; hence T on Z_2 is topologically and metrically conjugate to the full one-sided 2-shift. Theorem K (Matthews-Watts 1984): T: Z_2 -> Z_2 is measure-preserving and strongly mixing (hence ergodic) for Haar measure.",
+  "Bernstein 1994 (Proc. AMS 121, 405-408): define Phi(2^{d_0}+2^{d_1}+2^{d_2}+...) = -(1/3)2^{d_0} + (-1/9)2^{d_1} + (-1/27)2^{d_2} + ... for 0<=d_0<d_1<d_2<...; Phi is a homeomorphism of Z_2 with Phi = Q_infty^{-1}. Theorem 1: C(Phi(Q)) = Phi(H(Q)) with H(Q)=Q/2 (Q even), Q-1 (Q odd). Theorems 2 and 3: the 3x+1 conjecture holds if and only if Z^+ \u2286 Phi((1/3)Z), i.e., iff 3\u00b7Q_infty(N) is a (2-adic) integer in (1/3)Z for every positive integer N \u2014 equivalently '3Q is an integer whenever Phi(Q) is a positive integer.'",
+  "Lagarias 1985, Periodicity Conjecture: Q_infty(Q_odd) \u2286 Q_odd (every rational with odd denominator has eventually periodic parity vector; equivalently every such rational is eventually cyclic under T). Its truth implies the Divergent Trajectories Conjecture. The reverse inclusion is a theorem: if Q_infty(x) is rational then x is rational (Phi(Q_odd) \u2286 Q_odd).",
+  "Borovkov-Pfeifer 2000, Theorem 5 (Gaussian limit for the model): with Y_j = X_0 X_1...X_j, X_i i.i.d. taking values 3/2 and 1/2 with probability 1/2, and sigma_infty the first j with Y_j < 1: E[sigma_infty] = (1/2 log(4/3))^{-1} log X_0, and (sigma_infty - c_1 log X_0)/(c_2 (log X_0)^{1/2}) -> N(0,1) as X_0 -> infinity, where c_1 = (1/2 log(4/3))^{-1} \u2248 6.95212 and c_2 = c_1^{3/2}\u00b7(1/2 log 3) \u2248 10.07.",
+  "Lagarias-Weiss 1992, Theorem 2.1 (via Kontorovich-Lagarias Thm 4.1): in the 3x+1 repeated random walk model, with probability one, limsup_n S_infty(n)/log n = gamma_RRW \u2248 41.677647, the unique gamma > (1/2 log(4/3))^{-1} solving (1/gamma) g*(1/gamma)... = 1 (large-deviations fixed-point equation); Theorem 2.3 (KL Thm 4.3): with probability one limsup_n log t(n;omega)/log n = 2 \u2014 the source of the conjecture that the 3x+1 maximal excursion satisfies t(n) <= n^{2+o(1)} (limsup log t(n)/log n = 2). Theorem (KL Thm 6.4, duality): gamma_BP = gamma_RRW exactly.",
+  "Kontorovich-Sinai 2002 (Structure Theorem): for a (d,g,h)-map, given a path type (k_1,...,k_m) and residue eps mod dg, exactly (d-1)^m triples (q,r,delta), 0<=q<d^k, 0<r<g^m, delta in E, satisfy T^m(gd(d^k x+q)+eps) = gd(g^m x+r)+delta for all x; consequently log T^{[tm]}(x), properly scaled, converges to Brownian motion with drift log g - (d/(d-1)) log d (= log(3/4) < 0 for 3x+1).",
+  "Yolcu-Aaronson-Heule 2021, Theorem 3.17: the 11-rule SRS T = {f.-> . , t.->2.} \u222a {f0->0f, f1->0t, f2->1f, t0->1t, t1->2f, t2->2t} \u222a {/0->/t, /1->/ff, /2->/ft} over {f,t,0,1,2,/,.} is terminating on all strings if and only if the Collatz conjecture holds (mixed binary-ternary digit semantics; T(n)=n/2 or (3n+1)/2). Theorem 3.8/3.10: Zantema's unary system Z = {h11->1h, 11h->11s, 1s->s1, s->h, h1->t11, 1t->t111, t->h} (whose termination is also equivalent to Collatz, Zantema 2005 Thm 16) admits no termination proof by natural matrix interpretations of any dimension, even with dependency pairs.",
+  "Dhiman-Pandey 2026 (preprint, math.GM \u2014 treat as unrefereed): for every pair of odd integers q>=3, d>=1 with q+d = 2^s, the reachability relation R = {(x,z) : z = T_{q,d}^k(x), k>=0} is not first-order definable in Buchi arithmetic <N,+,V_q>; equivalently R is not base-q automatic. Applies to the classical Collatz map (q,d)=(3,1). Base-2 definability of R and pairs with q+d not a power of 2 are explicitly left open.",
+  "Monks 2006 (Proc. AMS 134, 2861-2872): for T(x)=(3x+1)/2 (x odd), x/2 (x even), every nonconstant arithmetic sequence A+BN (B\u22600) is a sufficient set: the T-orbit of every positive integer intersects the T-orbit of some element of A+BN; analogous statements hold for the Divergent Orbits and Nontrivial Cycles conjectures. Corollary (derived here, not in print): any set S with T(S) \u2286 S and S \u2229 {1,2} = empty contains no infinite arithmetic progression; hence no infinite semilinear/Presburger-definable 'regular divergence certificate' exists, and a finite one is precisely a nontrivial cycle (open; >= 92 local minima by Hercher 2023, verified region 2^68 by Barina).",
+  "Terras 1976: the set {n : stopping time sigma(n) = k} is a union of congruence classes mod 2^k minus a finite set, and {n : sigma(n) < infinity} has natural density 1; the truncated parity vector (first k parities) of n depends only on n mod 2^k and induces a bijection Z/2^kZ -> {0,1}^k \u2014 the finite-state 'shadow' of Theorem L."
+ ],
+ "open_questions": [
+  "Is the full predecessor set Pred(1) = {n : some T^k(n) = 1} 2-automatic? (Trivially regular if Collatz is true, = N; nothing known unconditionally; Shallit-Wilson only handle each bounded-odd-step layer S_i.)",
+  "Does a nonempty 2-automatic (base-2 regular) T-invariant set avoiding {1,2} exist? No theorem rules it out; the finite case is exactly the open nontrivial-cycles problem, the infinite semilinear case is ruled out via Monks 2006, and the sparse non-semilinear regular case is completely open in both directions.",
+  "Is the Collatz reachability relation definable in base-2 Buchi arithmetic <N,+,V_2>? (Dhiman-Pandey 2026 handle only base q for q+d = 2^s and explicitly leave base 2 open; also open for (q,d) with q+d not a power of 2.)",
+  "Lagarias's Periodicity Conjecture: does Q_infty map Q_odd into Q_odd (equivalently, is every rational with odd denominator eventually cyclic under T)? Known to imply the Divergent Trajectories Conjecture.",
+  "Bernstein-Lagarias: are -1 and 1/3 the only odd fixed points of the conjugacy Phi? (Empirical evidence via Phi mod 2^n up to n=1000.)",
+  "Prove unconditionally that infinitely many n have total stopping time sigma_infty(n) >= 6.95212 log n (the model MEAN) \u2014 Kontorovich-Lagarias call the absence of such a proof 'scandalous'; best unconditional: infinitely many n with sigma_infty(n) >= 6.14316 log n.",
+  "Maximal excursion conjecture: limsup log t(n)/log n = 2 (t(n) <= n^{2+o(1)}); proved only in the RRW stochastic model (Lagarias-Weiss Thm 2.3).",
+  "Can any automated termination method (e.g., matrix interpretations of higher dimension over the mixed binary-ternary system T) prove full Collatz termination, given that natural matrix interpretations provably fail for the unary system Z? (Yolcu-Aaronson-Heule suggest dimension >= 5 already needed for weak fragments.)",
+  "Sinai's entropy conjecture: H_m >= m log 3 - O(1) for the distribution on 3x+1 trees mod 3^m (proved: m log 3 - O(log m)).",
+  "Is Sterin's exponential-in-k regular expression for EPred_k(x) optimal, i.e., what is the true state complexity growth of the minimal DFA for S_i / Pred_k(x)?",
+  "Terras's Coefficient Stopping Time Conjecture: kappa(n) = sigma(n) for all n >= 2 (verified only for kappa(n) <= 2593); would imply the stopping-time structure is fully governed by the finite-state parity data."
+ ],
+ "downloaded_papers": [
+  "/Users/simon/Desktop/COLLATZ/papers/shallit-wilson-1992-3x1-finite-automata.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/bernstein-1994-noniterative-2adic.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/yazinski-monks-autoconjugacy.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/monks-2006-sufficiency-arithmetic-progressions.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/monks-family-2012-strongly-sufficient-sets.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/kontorovich-lagarias-2009-stochastic-models.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/kontorovich-sinai-2002-structure-theorem.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/sterin-2019-binary-ancestors-collatz-graph.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/sterin-woods-2020-collatz-base-conversion.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/yolcu-aaronson-heule-2021-automated-collatz.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/dhiman-pandey-2026-buchi-nondefinability-collatz.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/eliahou-vergergaugry-2025-rational-base-32-3x1.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/lagarias-2021-3x1-overview.pdf"
+ ],
+ "strategy_relevance": "The finite-state layer of Collatz is completely tame: the one-step graph of T is Presburger-definable, every bounded-horizon object (Terras stopping-time classes mod 2^k, Shallit-Wilson layers S_i, Sterin's Pred_k(x)) is regular and effectively computable, so any proposed regular certificate \u2014 for divergence or otherwise \u2014 is machine-checkable; what is provably or plausibly non-finite-state is exactly the unbounded closure (reachability), and Monks's sufficiency theorem already kills all infinite semilinear invariant certificates while finite ones are equivalent to nontrivial cycles (open below 92 local minima). The 2-adic picture sharpens this dichotomy: T is exactly conjugate to the full 2-shift via Q_infty (Lagarias/Bernstein), so ergodic-theoretic structure is maximal entropy noise and the conjecture is equivalent to the arithmetic statement Z^+ \u2286 Phi((1/3)Z) about where the measure-zero set of integers sits inside Z_2 \u2014 any proof must exploit non-random structure invisible to both Haar measure and finite automata. The stochastic models supply sharp quantitative targets any candidate framework should reproduce or beat: sigma_infty(n) \u2248 6.95212 log n with Gaussian fluctuations of s.d. \u2248 10.07 sqrt(log n), extremal constant 41.677647 (identical in dual forward/backward models), and maximal excursion exponent 2 (t(n) <= n^{2+o(1)}); notably, even the model MEAN lower bound is unproved, marking the precise frontier between finite-horizon (regular, provable) and infinite-horizon (conjectural) statements. For a disproof strategy, the realistic automata-theoretic play is a sparse non-semilinear 2-automatic invariant set or a cycle certificate, both decidably verifiable; for a proof strategy, the mixed binary-ternary rewriting formulation (Yolcu-Aaronson-Heule) is the currently most machine-amenable route, with a proven no-go theorem telling you unary/matrix-interpretation methods cannot suffice."
+}

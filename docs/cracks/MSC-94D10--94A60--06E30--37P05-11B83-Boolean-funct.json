@@ -1,0 +1,92 @@
+{
+ "area": "MSC 94D10 / 94A60 / 06E30 (+ 37P05, 11B83): Boolean function analysis, Walsh\u2013Fourier spectra, cryptographic nonlinearity, T-function (Klimov\u2013Shamir/Anashin) theory",
+ "hole_status": "fringe",
+ "hole_justification": "Searches run (web/arXiv/IACR/MathOverflow-targeted): \"Collatz T-function Klimov Shamir single cycle 2-adic\"; '\"Walsh spectrum\" Collatz OR \"3x+1\" Boolean function'; '\"Collatz\" \"circuit complexity\" OR \"Boolean circuit\" lower bound'; \"Anashin 2-adic ergodic Collatz triangular function\"; '\"Collatz\" \"T-function\" mod 2^n invertible cryptography'; \"Shallit Wilson 3x+1 finite automata\"; \"Collatz parity pseudorandomness linear complexity correlation PRNG\"; '\"linear cryptanalysis\" OR \"correlation matrix\" Collatz'; \"mathoverflow Collatz boolean Fourier carry\"; 'Anashin \"3x+1\" OR Collatz van der Put 1-Lipschitz'. FOUND NOTHING on: Walsh spectra of Collatz steps/iterates, correlation-matrix (linear-cryptanalysis) analysis of T^k, or application of Klimov\u2013Shamir/Anashin single-cycle T-function classification to Collatz. FOUND at the fringe: Sterin\u2013Woods 2020 (mid-orbit bit prediction in NC1 but not AC0, quasi-CA embedding of base conversion \u2014 the one real circuit-theoretic result, known to us); Shallit\u2013Wilson 1992 (T^k as finite transducers); Laarhoven\u2013de Weger 2013 (Collatz graph mod 2^n IS the binary De Bruijn graph, isomorphism = Bernstein\u2013Lagarias conjugacy); Sopin 2023 (HAL) extends Anashin measure-preservation criteria to p^k-Lipschitz maps and names 2-adic Collatz as THE motivating example \u2014 one line, no spectral analysis; applied Collatz-PRNG/hash papers (MDPI Entropy 2018, IACR eprint 2025/1606, Collatz-Weyl arXiv 2312.17043) are pure engineering with NIST tests, no Walsh analysis of T itself. The crypto toolkit side is mature but never pointed at Collatz: Wall\u00e9n FSE 2003 and Schulte-Geers 2013 give the exact carry/addition spectrum; Anashin/Khrennikov\u2013Yurova give ANF-coordinate ergodicity criteria.",
+ "bridge": "Identify Z/2^n with F_2^n by bit coordinates. The Collatz step is T = S \u2218 A where A(x) = x or 3x+1 branch-selected by bit x_0, and S = right shift. A is triangular (bit i of 3x+1 = x_i \u2295 x_{i-1} \u2295 carry_i(x_0..x_{i-1}) \u2295 [i=0]): ALL nonlinearity of a Collatz step is the carry function of x + (x<<1) + 1. T itself is NOT a T-function (the shift breaks triangularity; 2-adically T is 2-Lipschitz \u2014 exactly Sopin's observation). What IS a T-function: the Terras/Lagarias parity-vector map Q_\u221e: Z_2 \u2192 Z_2 (x \u21a6 (parity of T^k x)_k), an ISOMETRY (invertible 1-Lipschitz map = invertible T-function in Klimov\u2013Shamir's sense) conjugating T to the 2-shift; Terras 1976 bijectivity mod 2^k IS the statement that Q_\u221e is an invertible T-function, and Laarhoven\u2013de Weger showed the mod-2^n Collatz graph is the binary De Bruijn graph via this conjugacy. Correspondence table: Collatz step mod 2^n \u2194 cipher round function; T^k \u2194 k-round cipher; parity vector \u2194 systematic/known bits; Terras's exact uniformity of first k parities \u2194 perfect k-round diffusion of the systematic bits; bias of w\u00b7T^k(x) for a linear mask w \u2194 linear-cryptanalysis correlation; k-step correlations \u2194 products over trails in Daemen's correlation-matrix formalism, whose trail graph here is exactly the De Bruijn graph. CORRECTION to the prompt's framing, discovered in verification: (1) full single-cycle classification of T-functions is really Anashin's 2-adic ergodic theory (Klimov\u2013Shamir proved criteria for specific families like x + (x\u00b2\u2228C)); (2) the mod-2^n truncated DYNAMICS of Collatz is completely understood and contains zero Collatz-specific obstruction (it is the full De Bruijn shift) \u2014 so the productive targets are (a) the one-step correlation matrix and its k-fold trail composition, and (b) the coordinate Boolean functions \u03c6_i(x_0..x_{i-1}) of the conjugacy Q_\u221e/\u03a6, where all the arithmetic content actually lives.",
+ "strongest_adjacent_theorems": [
+  "Wall\u00e9n (FSE 2003, LNCS 2887): complete classification of linear approximations of the carry function; the correlation of ANY linear approximation of addition mod 2^n is 0 or \u00b12^{-t} with t an explicit combinatorial count of active carry stages, computable in O(log n); full distribution of correlation coefficients determined. Since 3x+1 = x + (x<<1) + 1, this yields the exact Walsh spectrum of every Collatz step for free.",
+  "Schulte-Geers (Cryptography and Communications 5, 2013, 'On CCZ-equivalence of addition mod 2^n'): addition mod 2^n is CCZ-equivalent to a QUADRATIC vectorial Boolean function, with fully explicit Walsh spectrum \u2014 every Collatz step is quadratic up to CCZ-equivalence.",
+  "Klimov\u2013Shamir (CHES 2002, LNCS 2523, pp. 470\u2013483): x \u21a6 x + (x\u00b2 \u2228 C) mod 2^n is a permutation with a single cycle of length 2^n iff C \u2261 5,7 (mod 8); model theorem for bit-slice invertibility/single-cycle analysis of T-functions.",
+  "Anashin (1994; arXiv:1111.3093 'T-functions revisited') and Khrennikov\u2013Yurova (arXiv:1303.6472): a 1-Lipschitz f: Z_2\u2192Z_2 is measure-preserving iff its i-th coordinate function has ANF x_i \u2295 \u03c6_i(x_0..x_{i-1}); ergodic (single cycle mod 2^n for ALL n) iff explicit parity/weight conditions on the \u03c6_i (equivalently on van der Put coefficients) hold \u2014 the complete classification of single-cycle T-functions.",
+  "Anashin (arXiv:1112.5089): f is the function of a FINITE automaton iff its van der Put coefficients satisfy an explicit eventual-linearity criterion \u2014 a bridge between 1-Lipschitz 2-adic analysis and our regular-certificate/DFA program.",
+  "Terras 1976 / Lagarias 1985 / Bernstein 1994 / Bernstein\u2013Lagarias 1996: Q_\u221e is an isometry of Z_2 conjugating T to the 2-shift; first k parities are EXACTLY uniform on Z/2^k; the conjugacy is nowhere differentiable (M\u00fcller). Laarhoven\u2013de Weger (Indag. Math. 24, 2013; arXiv:1209.3495): Collatz graph mod 2^n \u2245 binary De Bruijn graph B(2,n), iso given by the conjugacy.",
+  "Sterin\u2013Woods (RP 2020; arXiv:2007.06979): predicting ~half the bits of T^i(x) for i = O(log x) is in NC1 but NOT in AC0 \u2014 combined with Linial\u2013Mansour\u2013Nisan, this already implies the Fourier mass of mid-orbit Collatz bit-functions is not concentrated on low degrees, i.e., an implicit (unquantified) Fourier-hardness statement exists in the literature."
+ ],
+ "the_push": "Two prongs, both untouched. PRONG 1 (correlation decay = quantitative mod-2^n randomization): Define the one-step correlation matrix \u039b_n(u,w) = 2^{-n} \u03a3_x (-1)^{u\u00b7x \u2295 w\u00b7T(x)} on n-bit windows. Because the only nonlinearity is one carry chain, Wall\u00e9n/Schulte-Geers machinery gives closed-form entries (0 or \u00b12^{-t}, sparse, explicitly structured). k-step correlations are trail sums (Daemen composition), and the trail graph is exactly the Laarhoven\u2013de Weger De Bruijn graph \u2014 so k-step biases are governed by a weighted transfer operator on B(2,n). Goal theorem: for output masks w outside the 'systematic' parity-vector subspace, |corr(u\u00b7x, w\u00b7T^k(x) mod 2^n)| \u2264 2^{-ck} with explicit c > 0. This is strictly finer than Terras: Terras gives EXACT uniformity of the first k parities given x mod 2^k but says nothing about joint biases of high-bit masks or about windows n \u2260 k; a correlation-decay theorem quantifies how fast ALL linear statistics of the window randomize and thus how long an orbit can maintain atypical LINEAR structure mod 2^n. It would interact with our DFA result: a regular divergence certificate induces persistent linear correlations mod 2^n (a DFA's acceptance parity is a bounded-degree function of window bits), so provable correlation decay constrains certificate size for-all-n, not just \u22647 states; it also constrains hypothetical cycles, whose parity vectors are eigenvector-like fixed structures of the trail operator (combinable with Hercher-type cycle bounds). PRONG 2 (spectral analysis of the conjugacy): compute Walsh spectra of the coordinate Boolean functions \u03c6_i of the Bernstein\u2013Lagarias conjugacy \u03a6 (explicit 2-adic series: \u03a6(\u03a32^{a_i}) = -\u03a3 3^{-(i+1)}2^{a_i}) \u2014 nobody has done this; conjecture near-flat spectra (near-maximal nonlinearity) as i grows, which would be the Boolean-analysis quantification of the known qualitative wildness (nowhere differentiable, non-semilinear per Monks); ANY proven deviation from flatness is exploitable arithmetic structure. HONEST LIMIT: mod-2^n analysis is provably blind to global divergence (De Bruijn fullness: every window pattern is realized by some integer), so this cannot alone decide the conjecture; realistic outputs are new quantitative theorems with provable constants, tightened structured-divergence exclusions, and sharpened inputs to density arguments (Korec/Krasikov\u2013Lagarias style benign-path counting).",
+ "first_move": "Lemma 1 (one-step spectrum, Lean-formalizable): derive from Wall\u00e9n's carry classification the closed form for \u039b_n(u,w) = 2^{-n} \u03a3_x (-1)^{u\u00b7x \u2295 w\u00b7T(x)} \u2014 entries are 0 or \u00b12^{-t} with t = number of active carry positions determined by the mask pair; verify exhaustively for n \u2264 16 by direct enumeration. In parallel on the 32-core machine: compute w\u00b7T^k(x) truth tables for all x < 2^n (n \u2264 24, k \u2264 40) and take fast Walsh\u2013Hadamard transforms (n\u00b72^n per output mask; full matrix for n \u2264 20, sampled masks above) to measure the empirical decay rate c in max_{u; w non-systematic} |corr| \u2248 2^{-ck}. Then prove c > 0 via an operator-norm bound on the |\u039b_n|-weighted De Bruijn transfer operator restricted to the complement of the systematic subspace (spectral radius of a weighted De Bruijn adjacency is computable). Cross-check k=1 against Lemma 1 and the systematic subspace against Terras exactness.",
+ "payoff_odds": "Realistic best case (~20%): a genuinely new theorem \u2014 'linear correlations of Collatz iterates mod 2^n decay as 2^{-ck} outside the parity subspace, with explicit c' \u2014 the first quantitative mod-2^n randomization rate with provable constants, sharpening Terras, giving a for-all-DFA-size obstruction complementing our \u22647-state exhaustion, and a new constraint on cycle parity vectors. Likely case (~70%): exact one-step Walsh spectrum (new but modest), clean empirical decay, partial operator-norm bound, plus first-ever spectral data on the Bernstein\u2013Lagarias conjugacy \u2014 a publishable bridge paper connecting the crypto toolkit to Collatz. Failure mode (~10%): the transfer operator has norm 1 on a larger-than-systematic subspace (hidden linear structure \u2014 which would itself be interesting). Conjecture-level impact: <1%; mod-2^n methods provably cannot see divergence alone (De Bruijn fullness), so this is a structure-and-constants play, not a proof strategy.",
+ "prior_art": [
+  {
+   "ref": "St\u00e9rin & Woods 2020, 'The Collatz process embeds a base conversion algorithm', RP 2020 / arXiv:2007.06979",
+   "what": "Quasi-cellular-automaton form of Collatz in binary/ternary; predicting ~half the bits of T^i(x), i=O(log x), is in NC1 but not AC0. The only real circuit-complexity result; implicitly Fourier-theoretic via LMN but no spectra computed.",
+   "url": "https://arxiv.org/abs/2007.06979"
+  },
+  {
+   "ref": "Laarhoven & de Weger 2013, 'The Collatz conjecture and De Bruijn graphs', Indag. Math. 24:971-983 / arXiv:1209.3495",
+   "what": "Collatz graph mod 2^n is isomorphic to the binary De Bruijn graph; the 2-adic limit isomorphism is exactly the Bernstein-Lagarias conjugacy. Fully settles the mod-2^n truncated dynamics (no Collatz-specific structure there) \u2014 redirects the T-function push to the conjugacy and correlation structure.",
+   "url": "https://arxiv.org/abs/1209.3495"
+  },
+  {
+   "ref": "Shallit & Wilson 1992, 'The 3x+1 problem and finite automata', Bull. EATCS 46",
+   "what": "Each iterate T^k is computed by a finite-state transducer; studies automaton growth. Automata-theoretic ancestor of the k-bit-window view; no spectral analysis.",
+   "url": "https://cs.uwaterloo.ca/~shallit/Papers/collatz.ps"
+  },
+  {
+   "ref": "Klimov & Shamir 2002, 'A New Class of Invertible Mappings', CHES 2002, LNCS 2523",
+   "what": "T-function invertibility and single-cycle criteria (x + (x^2 \u2228 C) single-cycle iff C \u2261 5,7 mod 8). Never applied to Collatz by them or anyone since.",
+   "url": "https://link.springer.com/content/pdf/10.1007/3-540-36400-5_34.pdf"
+  },
+  {
+   "ref": "Wall\u00e9n 2003, 'Linear approximations of addition modulo 2^n', FSE 2003, LNCS 2887",
+   "what": "Complete classification of linear approximations of the carry function; O(log n) exact correlation computation; correlation distribution. The exact spectral toolkit for the \u00d73 carry \u2014 never pointed at Collatz.",
+   "url": "https://iacr.org/archive/fse2003/28870277/28870277.pdf"
+  },
+  {
+   "ref": "Schulte-Geers 2013, 'On CCZ-equivalence of addition mod 2^n', Cryptogr. Commun. 5:75-87",
+   "what": "Addition mod 2^n is CCZ-equivalent to a quadratic vectorial Boolean map; explicit Walsh spectrum. Means each Collatz step is quadratic-up-to-CCZ. Not applied to Collatz.",
+   "url": "https://link.springer.com/article/10.1007/s12095-012-0072-8"
+  },
+  {
+   "ref": "Anashin arXiv:1111.3093 ('T-functions revisited'); Khrennikov & Yurova arXiv:1303.6472; Anashin arXiv:1112.5089 (automata finiteness via van der Put)",
+   "what": "The real classification of invertible/single-cycle T-functions: measure-preservation iff coordinate ANF is x_i \u2295 \u03c6_i(lower bits); ergodicity criteria via van der Put coefficients; finite-automaton criterion. The school's ONLY Collatz contact is naming it as a 2-Lipschitz (not 1-Lipschitz) example.",
+   "url": "https://arxiv.org/abs/1111.3093"
+  },
+  {
+   "ref": "Sopin 2023 (HAL hal-04098731), 'Criteria of measure-preserving for p^k-Lipschitz mappings'",
+   "what": "Extends Anashin-style measure-preservation criteria beyond 1-Lipschitz, explicitly citing the 2-adic Collatz extension as 'a striking example of 2-Lipschitz measure-preserving ergodic mapping'. One example line; no Walsh/spectral analysis. The single clearest fringe datum.",
+   "url": "https://hal.science/hal-04098731/document"
+  },
+  {
+   "ref": "Terras 1976; Lagarias 1985; Bernstein 1994; Bernstein & Lagarias 1996 ('The 3x+1 conjugacy map'); Monks & Yazinski (autoconjugacy)",
+   "what": "Parity-vector bijectivity mod 2^k; Q_\u221e isometry conjugating T to the 2-shift; explicit inverse conjugacy series; nowhere-differentiability. This IS the invertible T-function at the heart of the bridge \u2014 stated 25 years before Klimov-Shamir, never analyzed with Boolean-Fourier tools.",
+   "url": "https://arxiv.org/abs/math/9509208"
+  },
+  {
+   "ref": "Cloney, Goles & Vichniac 1987; 'Two Cellular Automata for the 3x+1 Map' (arXiv:nlin/0502061)",
+   "what": "Quasi-cellular-automaton binary representations of Collatz dynamics; qualitative complexity observations, no spectra.",
+   "url": "https://arxiv.org/abs/nlin/0502061"
+  },
+  {
+   "ref": "Applied fringe: 'A Novel Image Encryption Scheme Based on Collatz' (Entropy 2018); Collatz-Weyl generators (arXiv:2312.17043); Collatz Hash (IACR eprint 2025/1606)",
+   "what": "Engineering uses of Collatz as entropy source with NIST statistical tests and avalanche measurements; zero mathematical analysis of T's Walsh spectrum. Confirms the analysis direction is untouched.",
+   "url": "https://eprint.iacr.org/2025/1606.pdf"
+  },
+  {
+   "ref": "Karras & de Weger 2026, 'Determinants of modular Collatz graphs and variants', arXiv:2601.15463",
+   "what": "Very recent: determinants of adjacency-type matrices of Collatz graphs mod m; number-theoretic graph invariants, adjacent to but distinct from correlation-matrix analysis.",
+   "url": "https://arxiv.org/abs/2601.15463"
+  }
+ ],
+ "downloaded_papers": [
+  "/Users/simon/Desktop/COLLATZ/papers/sterin-woods-2020-collatz-base-conversion.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/laarhoven-deweger-2013-collatz-debruijn.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/wallen-2003-linear-approximations-addition.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/klimov-shamir-2002-invertible-mappings.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/anashin-2011-tfunctions-revisited.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/anashin-khrennikov-yurova-2013-ergodicity-coordinate-functions.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/anashin-2011-automata-finiteness-vanderput.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/sopin-2023-pk-lipschitz-measure-preserving.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/kari-nlin0502061-two-cellular-automata-3x1.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/karras-deweger-2026-modular-collatz-graph-determinants.pdf"
+ ]
+}

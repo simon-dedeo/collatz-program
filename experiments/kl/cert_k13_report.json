@@ -1,0 +1,14 @@
+{
+ "ok": true,
+ "fails": [],
+ "n_constraints": 531441,
+ "min_rel_slack": 2.0157368664715972e-07,
+ "argmin_slack_m": 1410614,
+ "lambda": "18188232/10000000",
+ "gamma_float": 0.863005311609584,
+ "Cmax_over_SCC": 223.527237154359,
+ "Delta1": "1000000000000/(4*223527237154359)",
+ "verify_seconds": 0.55,
+ "lambda_float_estimate": 1.818823796134019,
+ "cert_path": "/Users/simon/Desktop/COLLATZ/experiments/kl/cert_k13.json"
+}

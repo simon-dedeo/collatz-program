@@ -1,0 +1,128 @@
+{
+ "topic": "State of the art of partial results on the 3x+1 (Collatz) problem: computational verification limits, density results, cycle exclusions, surveys, and divergent-trajectory results",
+ "key_facts": [
+  {
+   "fact": "Computational verification limit: David Barina's distributed project has verified convergence of the Collatz function for ALL n < 2^71 (~2.36x10^21), milestone reached January 15, 2025. Earlier milestones: 2^68 on May 7, 2020; 2^69 on Dec 10, 2021; 2^70 on July 9, 2023; 1.5*2^70 = 3*2^69 on Nov 3, 2023. As of the July 2026 fetch, 2^71 remains the latest announced completed milestone. Repo confirmed: github.com/xbarin02/collatz (plus xbarin02/collatz-sieve).",
+   "source": "https://pcbarina.fit.vutbr.cz/ and https://github.com/xbarin02/collatz"
+  },
+  {
+   "fact": "Barina, 'Improved verification limit for the convergence of the Collatz conjecture', The Journal of Supercomputing 81:810 (2025), accepted 21 April 2025, DOI 10.1007/s11227-025-07337-0 (open access): pushes verified limit to 2^71; total CPU-to-GPU acceleration 1335x; ~159 GPU-years plus CPU time on European supercomputers (Karolina, LUMI, MetaCentrum); also found new path records (OEIS A006884), including 1,735,519,168,865,914,451,271. The 2^68 result is Barina, J. Supercomput. 77:2681-2688 (2021), DOI 10.1007/s11227-020-03368-x.",
+   "source": "https://link.springer.com/article/10.1007/s11227-025-07337-0 (PDF saved locally)"
+  },
+  {
+   "fact": "Vigleik Angeltveit, 'An improved algorithm for checking the Collatz Conjecture for all n < 2^N' (arXiv:2602.10466, submitted Feb 11, 2026): new sieve-style algorithm whose cost to verify all n < 2^{N+1} is less than twice the cost for n < 2^N; also treats the negative-numbers analogue. Most recent algorithmic development beyond Barina.",
+   "source": "https://arxiv.org/abs/2602.10466"
+  },
+  {
+   "fact": "Terras 1976 (Acta Arith. 30:241-252): define stopping time sigma(n) = least k with T^(k)(n) < n (T(n) = (3n+1)/2 for odd n, n/2 for even). The set of n with stopping time exactly k is a union of congruence classes mod 2^k minus finitely many elements, and the set of integers with FINITE stopping time has natural density one. Details of the density-existence proof were completed in Terras 1979 (Acta Arith. 35:101-102) after criticism by Moller 1978. Independently proved by C. J. Everett 1977, Advances in Math. 25:42-45. Terras 1976 also introduced the Coefficient Stopping Time Conjecture kappa(n) = sigma(n) (verified there for kappa(n) <= 2593; still open).",
+   "source": "Lagarias annotated bibliography, arXiv:math/0309224 (entries 164-165); Tao arXiv:1909.03562 Section 1"
+  },
+  {
+   "fact": "Allouche 1979 improved Terras/Everett: Colmin(N) < N^theta for almost all N, for any theta > 3/2 - log3/log2 ~ 0.869. Korec 1994 (Math. Slovaca 44(1):85-89) extended this to any theta > log3/log4 = 0.7924...: the set of n whose trajectory attains a value below n^theta has natural density 1.",
+   "source": "Tao, arXiv:1909.03562, Section 1.1; Korec paper PDF at https://dml.cz/bitstream/handle/10338.dmlcz/133225/MathSlov_44-1994-1_8.pdf"
+  },
+  {
+   "fact": "Krasikov-Lagarias 2003 ('Bounds for the 3x+1 problem using difference inequalities', Acta Arith. 109:237-258; arXiv:math/0205002): for any fixed positive integer a not divisible by 3 and all sufficiently large x (depending on a), pi_a(x) = #{n <= x : a is in the forward orbit of n} >= x^0.84. Exponent comes from difference-inequality systems mod 3^k with k = 11, gamma = log_2(lambda) ~ 0.84175. History: Crandall 1978 first x^c; Krasikov 1989 x^0.43; Applegate-Lagarias 1995 x^0.81 (0.81683).",
+   "source": "arXiv:math/0205002 (PDF saved locally)"
+  },
+  {
+   "fact": "Tao 2019/2022 ('Almost all orbits of the Collatz map attain almost bounded values', Forum of Math. Pi 10 (2022), e12): for ANY f: N -> R with f(N) -> infinity, Colmin(N) < f(N) for almost all N in the sense of LOGARITHMIC density (e.g. Colmin(N) < log log log log N a.a. N). Equivalent form: for any delta > 0 there is C_delta << exp(delta^{-O(1)}) with Colmin(N) <= C_delta on a set of lower logarithmic density >= 1 - delta. Upgrading to a single absolute constant C_0 is argued (Remark 1.4) to be essentially as hard as the full conjecture.",
+   "source": "arXiv:1909.03562 / Forum of Mathematics Pi 10 (2022) e12"
+  },
+  {
+   "fact": "Steiner 1977 (R. P. Steiner, 'A theorem on the Syracuse problem', Proc. 7th Manitoba Conf. Numerical Math. and Computing, Winnipeg 1977, pp. 553-559): there is no nontrivial 1-cycle (one increasing run of odds followed by one decreasing run of evens); equivalently (2^a - 1)/(2^{a+b} - 3^b) is a positive integer only for a = b = 1. Proof uses the continued fraction of log_2(3) plus Baker-type bounds on linear forms in logarithms \u2014 historically the first use of transcendence theory on Collatz.",
+   "source": "https://www.scirp.org/reference/referencespapers?referenceid=3590539 ; arXiv:1805.10496 (Dual-Radix approach description)"
+  },
+  {
+   "fact": "Simons 2005 (Math. Comp. 74(251):1565-1572, electronically published Dec 8, 2004): there is no 2-cycle. Generalizes Steiner's method; upper bound from the Laurent-Mignotte-Nesterenko theorem on linear forms in two logarithms, then numerical computation of convergents of log_2(3).",
+   "source": "https://www.ams.org/journals/mcom/2005-74-251/S0025-5718-04-01728-4/S0025-5718-04-01728-4.pdf (saved locally)"
+  },
+  {
+   "fact": "Simons & de Weger, 'Theoretical and computational bounds for m-cycles of the 3n+1 problem': published version (Acta Arith. 117 (2005) 51-70) proved no nontrivial m-cycles for m <= 68; the updated preprint v1.44 (Aug 31, 2010, using Oliveira e Silva's computations) proves no nontrivial m-cycles for 1 <= m <= 75 (i.e., m >= 76). Method: 0 < Lambda = (K+L)log2 - K log3 is exponentially small in K (from cycle inequalities using the verification bound X0), while transcendence theory (Rhin's theorem on |x log2 + y log3|) gives Lambda > e^{-13.3(0.46057 + log K)} (their Lemma 12); also x_min < m*e^{13.3(0.46057+log K)} (Corollary 13). The contradiction bounds K.",
+   "source": "https://deweger.net/papers/[35a]SidW-3n+1-v1.44[2010].pdf (saved locally)"
+  },
+  {
+   "fact": "Hercher 2023 ('There are no Collatz m-cycles with m <= 91', J. Integer Sequences 26 (2023), Article 23.3.5; arXiv:2201.00406, v1 Jan 2 2022, v3 Apr 4 2023): any nontrivial cycle has m >= 92 local minima. Uses X0 = 704*2^60 ~ 8.1x10^20 (Barina's bound at the time) and an iterated continued-fraction bootstrap: assuming m <= 91, successive refinements force K (number of odd members) > 7.94x10^21, contradicting the Simons-de Weger upper bound K < 1.4784*m*delta^m ~ 2.2x10^20. His Corollary 24: for ALL m, K > 7.2x10^10 (with X0 = 704*2^60); e.g. if m <= 1.34x10^10 then K > 1.37x10^11.",
+   "source": "https://arxiv.org/abs/2201.00406 (PDF saved locally); https://cs.uwaterloo.ca/journals/JIS/VOL26/Hercher/hercher5.html"
+  },
+  {
+   "fact": "Hercher's Corollary 29: verification up to X0 >= 1536*2^60 = 3*2^69 suffices to prove K > 1.375x10^11 odd members for ANY nontrivial cycle (reducing the previously needed 3781*2^60 by ~60%). Since Barina verified 3*2^69 (= 1.5*2^70) on Nov 3, 2023 and 2^71 on Jan 15, 2025, this bound now holds unconditionally: K >= 137,528,045,312. Hence current best cycle-length lower bounds: at least 217,976,794,617 steps of the shortcut map T (= K+L), i.e. 355,504,839,929 steps of the original Collatz map (= 2K+L).",
+   "source": "arXiv:2201.00406 (Remark 28, Corollary 29) combined with https://pcbarina.fit.vutbr.cz/; totals as quoted on https://en.wikipedia.org/wiki/Collatz_conjecture"
+  },
+  {
+   "fact": "Eliahou 1993 ('The 3x+1 problem: new lower bounds on nontrivial cycle lengths', Discrete Math. 118:45-56): using verification of the conjecture for n < 2^40 and the continued fraction expansion of log_2(3), the period p = K+L of any nontrivial T-cycle satisfies p = 301994a + 17087915b + 85137581c with a,b,c nonnegative integers, b >= 1, ac = 0; in particular p >= 17,087,915. Mechanism: the cycle equation 2^{K+L} = 3^K * prod(1 + 1/(3n_i)) forces 0 < (K+L)/K - log_2(3) <= ~K^{-1} * K/(3*x_min*ln2) with x_min > X0, so (K+L)/K is a rational approximation of log_2(3) far better than generic, hence built from convergent numerators/denominators of log_2(3); each increase of X0 kills further convergents. Hercher & Puchert (Die Wurzel 2018, nos. 6, 7, 11) improved the odd-step count to K > 7.2x10^10 with modern X0.",
+   "source": "https://www.sciencedirect.com/science/article/pii/0012365X9390052U ; arXiv:2201.00406 introduction"
+  },
+  {
+   "fact": "Divergent trajectories, negative result on density of orbit SETS: Garcia & Tal 1999 ('A note on the generalized 3n+1 problem', Acta Arith. 90(3):245-250) prove that for the class of generalized H-maps with m < d^{d/(d-1)} (which includes the 3x+1 map), the Banach (upper) density of the forward orbit of ANY integer is ZERO; in particular any divergent 3x+1 trajectory, viewed as a set of integers, has Banach density zero. So a divergent trajectory canNOT have positive density (this settles the parenthetical question in the negative).",
+   "source": "Lagarias annotated bibliography I, arXiv:math/0309224, entry 69 (Garcia-Tal)"
+  },
+  {
+   "fact": "Divergent trajectories, size of the divergent SET of starting values: if a single divergent trajectory exists, it contains an element a with a not divisible by 3 (after any odd step, iterates are never \u2261 0 mod 3), and Krasikov-Lagarias' pi_a(x) >= x^0.84 then implies the set of divergent starting values has at least x^0.84 elements below x for all large x. Complementary heuristic (Tao 2019, Remark 1.4): if any orbit forever avoids [1, C_0] (divergent orbit or extra cycle), probabilistic heuristics suggest a POSITIVE (logarithmic) density set of starting values would be attracted to it before dropping below C_0 \u2014 but this is not a theorem. Whether the set of divergent starting values has natural density zero is OPEN (Terras only gives density zero for the infinite-stopping-time set). Elementary constraint: a divergent T-trajectory must have liminf_{k->inf} (#odd iterates among first k)/k >= log2/log3 = 0.6309... .",
+   "source": "arXiv:math/0205002 (Krasikov-Lagarias); arXiv:1909.03562 Remark 1.4; Lagarias arXiv:math/0309224"
+  },
+  {
+   "fact": "Reduction theorems relevant to both cycles and divergence: K. M. Monks 2006 (Proc. Amer. Math. Soc. 134(10):2861-2872) proved the 3x+1 conjecture is true iff it is true on any single arithmetic progression {A + Bn : n >= 0} (A >= 0, B >= 1), with analogous reductions for the 'no divergent orbits' conjecture and the 'no nontrivial cycles' conjecture separately.",
+   "source": "Lagarias annotated bibliography II, arXiv:math/0608208, entry 78"
+  },
+  {
+   "fact": "Lagarias's reference works: 'The 3x+1 Problem: An Annotated Bibliography (1963-1999)', arXiv:math/0309224 (latest v13, Jan 11, 2011) and 'The 3x+1 Problem: An Annotated Bibliography, II (2000-2009)', arXiv:math/0608208 (latest v6, Feb 12, 2012); both downloaded. Book: J. C. Lagarias (ed.), 'The Ultimate Challenge: The 3x+1 Problem', AMS, 2010 (includes T. Oliveira e Silva, 'Empirical verification of the 3x+1 and related conjectures', pp. 189-207). Also J. C. Lagarias, 'The 3x+1 problem and its generalizations', Amer. Math. Monthly 92 (1985), 3-23, and the 2021 overview arXiv:2111.02635 ('The 3x+1 Problem: An Overview').",
+   "source": "https://arxiv.org/abs/math/0309224 ; https://arxiv.org/abs/math/0608208 ; AMS bookstore"
+  }
+ ],
+ "repos_and_links": [
+  "https://github.com/xbarin02/collatz (verification code, confirmed active)",
+  "https://github.com/xbarin02/collatz-sieve",
+  "https://pcbarina.fit.vutbr.cz/ (live project status; 2^71 verified 2025-01-15)",
+  "https://link.springer.com/article/10.1007/s11227-025-07337-0 (Barina 2025, open access)",
+  "https://link.springer.com/article/10.1007/s11227-020-03368-x (Barina 2021, 2^68)",
+  "https://arxiv.org/abs/2602.10466 (Angeltveit 2026 verification algorithm)",
+  "https://arxiv.org/abs/2201.00406 (Hercher, no m-cycles m<=91)",
+  "https://cs.uwaterloo.ca/journals/JIS/VOL26/Hercher/hercher5.html (JIS published version)",
+  "https://deweger.net/papers/[35a]SidW-3n+1-v1.44[2010].pdf (Simons-de Weger v1.44, m<=75)",
+  "https://www.ams.org/journals/mcom/2005-74-251/S0025-5718-04-01728-4/S0025-5718-04-01728-4.pdf (Simons 2005, no 2-cycles)",
+  "https://arxiv.org/abs/math/0205002 (Krasikov-Lagarias x^0.84)",
+  "https://arxiv.org/abs/1909.03562 (Tao, almost-bounded values)",
+  "https://dml.cz/bitstream/handle/10338.dmlcz/133225/MathSlov_44-1994-1_8.pdf (Korec 1994)",
+  "https://www.sciencedirect.com/science/article/pii/0012365X9390052U (Eliahou 1993)",
+  "https://arxiv.org/abs/math/0309224 (Lagarias annotated bibliography I)",
+  "https://arxiv.org/abs/math/0608208 (Lagarias annotated bibliography II)",
+  "https://www.ericr.nl/wondrous/pathrecs.html (Roosendaal path records)",
+  "https://oeis.org/A006884 (path records sequence)",
+  "https://ccchallenge.org/story (Collatz Conjecture Challenge: Lean formalization of the Collatz literature)"
+ ],
+ "precise_statements": [
+  "Terras (1976), completed in Terras (1979): Let T(n) = (3n+1)/2 if n odd, n/2 if n even, and sigma(n) = min{k : T^k(n) < n}. For each k, {n : sigma(n) = k} is a finite union of congruence classes mod 2^k minus finitely many elements, the limiting density F(k) of {n : sigma(n) <= k} exists, and lim_{k->inf} F(k) = 1; i.e., the set of positive integers with finite stopping time has natural density 1. (Independently: Everett 1977.)",
+  "Korec (1994): For every real c > log3/log4 = 0.79248125..., the set {n : some T-iterate of n is < n^c} has natural density 1.",
+  "Krasikov-Lagarias (2003): For any fixed positive integer a with a not \u2261 0 (mod 3), there is x_0(a) such that for all x >= x_0(a): #{n <= x : some T-iterate of n equals a} >= x^0.84. In particular pi_1(x) >= x^0.84.",
+  "Tao (2022): For any function f: N -> R with lim_{N->inf} f(N) = +infinity, one has Colmin(N) < f(N) for almost all N in the sense of logarithmic density.",
+  "Eliahou (1993): The period p (length of a cycle of T) of any nontrivial cycle satisfies p = 301994a + 17087915b + 85137581c for nonnegative integers a, b, c with b >= 1 and ac = 0; hence p >= 17,087,915. (Derived from verification for n < 2^40 plus the continued fraction of log_2 3; the general mechanism: 2^{K+L} = 3^K prod_i(1 + 1/(3 n_i)) over a cycle gives 0 < (K+L)log2 - K log3 <= K/(3 X_0), so (K+L)/K must be an anomalously good rational over-approximation of log_2 3, forcing K, K+L into the convergent lattice of log_2 3.)",
+  "Steiner (1977): The only 1-cycle of T on the positive integers is the trivial cycle {1, 2}. Simons (2005): There are no 2-cycles. Simons-de Weger (2005, Acta Arith. 117:51-70): there are no nontrivial m-cycles for m <= 68; updated version 1.44 (2010): none for 1 <= m <= 75. Transcendence input (their Lemma 12, from Rhin): Lambda := (K+L)log2 - K log3 > exp(-13.3(0.46057 + log K)).",
+  "Hercher (2023), Main Theorem 23: There is no m-cycle of the Collatz map with m <= 91, where an m-cycle is a nontrivial cycle with exactly m local minima (equivalently m maximal ascending runs). Proof inputs: X_0 = 704*2^60 (Barina), Simons-de Weger's upper bound K < 1.4784 m delta^m, and iterated continued-fraction refinement reaching K > 7.94x10^21 > 2.2x10^20.",
+  "Hercher (2023), Corollary 24 + Corollary 29: With X_0 = 704*2^60, every nontrivial cycle has K > 7.2x10^10 odd members (for all m); and if X_0 >= 1536*2^60 = 3*2^69 \u2014 which Barina's project reached on Nov 3, 2023 \u2014 then K > 1.375x10^11 for all m. Consequently any nontrivial cycle currently must have >= 217,976,794,617 T-steps (>= 355,504,839,929 steps of the original 3x+1 map).",
+  "Garcia-Tal (1999): For generalized Collatz maps H with parameter condition m < d^{d/(d-1)} (including the 3x+1 map), the Banach density rho_b of the forward orbit {H^k(n) : k >= 0} of any positive integer n is zero; in particular every divergent trajectory has Banach (hence upper natural) density zero as a subset of Z+.",
+  "Corollary of Krasikov-Lagarias (folklore observation): if any divergent trajectory exists, then the set of starting values with divergent trajectories has cardinality >= x^0.84 below x for all sufficiently large x (apply pi_a(x) >= x^0.84 to any orbit element a with 3 not dividing a; such a exists because after the first odd step no iterate is divisible by 3).",
+  "Barina (2025): The Collatz conjecture holds for all n < 2^71 (~2.36x10^21). Verified computationally; milestone completed January 15, 2025."
+ ],
+ "open_questions": [
+  "Does the set of n that eventually reach 1 have natural density 1? (Open. Known: >= x^0.84 below x reach any fixed a with 3 not dividing a; Tao gives log-density-1 for 'almost bounded' minima only.) Equivalently: can the divergent set be shown to have density zero \u2014 or would an existing divergent orbit necessarily attract a positive-density basin, as Tao's Remark 1.4 heuristic suggests?",
+  "Terras's Coefficient Stopping Time Conjecture (kappa(n) = sigma(n) for all n >= 2) \u2014 still open; it would make the stopping-time structure fully congruence-determined.",
+  "Can Tao's logarithmic density be upgraded to natural density, and can f(N) -> infinity be replaced by an absolute constant C_0? (Tao Remark 1.16 and Remark 1.4: the latter is 'almost as hard' as the full conjecture.)",
+  "Next m-cycle milestone: what verification bound X_0 (or improved linear-forms-in-two-logs constants, currently Rhin's exponent 13.3) is needed to push beyond m >= 92, and can Hercher's bootstrap be run against X_0 = 2^71 to raise both m and K further? (Hercher only needed 3*2^69 for K > 1.375x10^11; 2^71 is ~2.7x larger and its consequences have not yet appeared in print.)",
+  "Is there any nontrivial lower bound on the density-in-residue-classes structure a divergent trajectory must have (beyond liminf odd-step fraction >= log2/log3 and Banach density 0)?",
+  "Independence/reliability of the computational record: Barina's 2^71 run is a single-project result (GPU work units with CPU spot-checks); no fully independent replication above ~10^20 (Oliveira e Silva's 5.76x10^18 and yoyo@home's 10^20 are the largest independent checks)."
+ ],
+ "strategy_relevance": "The partial-results landscape shows exactly which two failure modes remain and how each is attacked: nontrivial cycles are being squeezed by a rigid Diophantine mechanism (cycle equation => (K+L)/K is an impossibly good rational approximation to log_2(3), so verification bound X_0 + continued fractions + Rhin/Baker linear-forms bounds yield K > 1.375x10^11 odd terms and no m-cycles for m <= 91), meaning any cycle-side contribution should target either the linear-forms constant (13.3) or automation of Hercher-style bootstraps against X_0 = 2^71. Divergence, by contrast, is only controlled in measure (Terras/Korec/Tao density-1 results, all one-sided and non-iterable due to lack of measure invariance), and it is open whether the divergent set has density zero \u2014 while Krasikov-Lagarias implies a single divergent orbit would force >= x^0.84 divergent seeds, and Garcia-Tal shows the orbit itself must be Banach-density-zero. A disproof search is therefore hopeless below 2^71 for a counterexample seed and below ~2.2x10^11 steps for a cycle; a proof must either close the measure-to-all gap (where Tao's argument provably stalls) or find a new invariant, with Monks's arithmetic-progression reduction offering a legal way to restrict attention to any single residue class.",
+ "downloaded_papers": [
+  "/Users/simon/Desktop/COLLATZ/papers/barina-2025-improved-verification-limit.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/barina-2020-convergence-verification-collatz.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/angeltveit-2026-improved-collatz-checking-algorithm.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/hercher-2023-no-m-cycles-91.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/simons-deweger-2010-m-cycles-v144.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/simons-2005-no-2-cycles.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/krasikov-lagarias-2002-bounds-3x1-difference-inequalities.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/korec-1994-density-estimate-3x1.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/lagarias-2003-annotated-bibliography-I.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/lagarias-2006-annotated-bibliography-II.pdf"
+ ]
+}

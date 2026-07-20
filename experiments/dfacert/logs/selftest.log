@@ -1,0 +1,9 @@
+selftest: transducer == 3n+1 on 100000 random odd n < 2^60
+selftest: even step (drop first char) == n/2 on 100000 random n
+selftest: encode/decode roundtrip ok
+selftest: closure-checker controls ok (C, C-minus-{1}, {3}, empty)
+selftest: q=1 canonical tables = 1 (brute-force agrees)
+selftest: q=2 canonical tables = 12 (brute-force agrees)
+selftest: q=3 canonical tables = 216 (brute-force agrees)
+selftest: q=4 canonical tables = 5248 (brute-force agrees)
+SELFTEST PASSED

@@ -1,0 +1,238 @@
+{
+ "domain": "Epistemic practices and unpublished tricks of the bbchallenge community (probvious calculus, cryptid taxonomy, holdout management, machine breeding) \u2014 reverse-translated into standard mathematics",
+ "translations": [
+  {
+   "technique": "The 'probvious' calculus: per-machine stochastic models with exact conditional hitting probabilities, updated by simulation burn-in",
+   "what_it_actually_does": "For each cryptid they first PROVE (often later in Coq/Rocq) an exact Collatz-like rule set, e.g. Hydra: C(2k,0)->Halt, C(2k,b)->C(3k+3,b-1), C(2k+1,b)->C(3k+3,b+2); halting reduces to an auxiliary counter hitting -1. They then model the residue/parity itinerary as i.i.d. uniform and compute the EXACT absorbing-barrier hitting probability under that model: for Hydra's +2/-1 walk, P(hit -1 from n) = (1/phi)^(n+1); for Bigfoot's walk, (1/2)^(n+1). Finally they simulate the real machine for millions of steps purely to certify the counter has reached level N (Hydra: b = 2,005,373 after 4M steps) and quote P(halt) <= (1/phi)^(N+1) ~ 10^-400,000. The BB5 paper prints ((sqrt(5)-1)/2)^1,073,720,885 for Antihydra. Classification labels 'probviously (non)halting' are assigned per machine; crucially they also assign INTERMEDIATE credences (machine 1RB1LE_0LC0LB_1RD1LC_1RD1RA_1RF0LA_---1RE: '3/5 chance of becoming a Translated Cycler, 2/5 chance of halting', Racheline) and curate a failure-mode counterexample: for 1RB0LE_1LC1RA_---1LD_0RB1LF_1RD1LA_0LA0RD the naive i.i.d.-uniform model on residues mod 6 predicts halting w.p. 1, but the reachable set is deterministically confined to residues {0,3} mod 6, avoiding the halting residues {2,4}; mxdys proved it nonhalting in Rocq (Nov 2024).",
+   "math_translation": "Implicit conditional theorem schema: Let f be a map on N^k with proven rule set R, halting set D, and itinerary map pi(x) in {0,...,m-1}^omega (residues driving rule choice). (1) [Exact, provable] For every n >= 0, if pi(x) ~ mu (i.i.d. uniform, or any Markov measure respecting R's proven congruence constraints), then P_mu(orbit of x hits D | counter currently at n) = h(n), where h is the exact solution of the gambler's-ruin recurrence (e.g. h(n) = ((sqrt(5)-1)/2)^(n+1) for increments {+2,-1} with equal probability). (2) [The single unproven hypothesis, always the same] the actual orbit's itinerary is mu-generic. So 'M probviously does not halt with confidence 1-eps' is precisely the conditional theorem: 'itinerary genericity of the observed orbit implies M's halting event lies in a set of mu-measure <= eps, where eps = h(N) for the certified burn-in level N.' The failure mode is precisely choosing mu that violates a PROVABLE invariant sub-lattice of congruences \u2014 i.e., failing to quotient out the structured part before randomizing.",
+   "nearest_known_math": [
+    {
+     "theory": "Lagarias & Weiss, 'The 3x+1 Problem: Two Stochastic Models', Ann. Appl. Prob. 2 (1992) 329-361 \u2014 random walk imitating T mod 2^j plus large deviations",
+     "relationship": "subsumed-by (in mechanism): the drift/random-walk model of a Collatz-like map with quantitative predictions is exactly Lagarias-Weiss's RW model, reinvented per machine",
+     "ref": "projecteuclid.org/euclid.aoap/1177005779"
+    },
+    {
+     "theory": "Terras (1976) density-1 stopping-time theorem; Tao (2019) 'Almost all orbits of the Collatz map attain almost bounded values'",
+     "relationship": "overlaps: these are the rigorous shadows of the same heuristic \u2014 genericity of parity itineraries proven for almost-all seeds instead of assumed for one seed",
+     "ref": "arXiv:1909.03562"
+    },
+    {
+     "theory": "Cram\u00e9r's model for primes and heuristic-calculus traditions (Poonen-style heuristic frameworks, Cohen-Lenstra)",
+     "relationship": "overlaps: same epistemic move (structured part exact, residual modeled random), but number theorists rarely quote conditional probabilities for a SINGLE instance",
+     "ref": "Cram\u00e9r 1936; Poonen, 'Heuristics for the Brauer-Manin obstruction'"
+    },
+    {
+     "theory": "Algorithmic randomness: Martin-L\u00f6f tests and Schnorr supermartingales",
+     "relationship": "overlaps (unnoticed by the community): the burn-in-conditioned bound h(N) is exactly a supermartingale value certifying the halting event sits in level N of an effective null cover under the model measure",
+     "ref": "Downey & Hirschfeldt, Algorithmic Randomness and Complexity"
+    }
+   ],
+   "novelty_verdict": "known-math-with-new-twist",
+   "fusion_opportunity": "Fuse with Lagarias-Weiss and verified reductions to define a formal object: a 'heuristic certificate' = (Coq-verified rule set R, model class M = all Markov measures consistent with R's provable congruence lattice, exact hitting bound sup_{mu in M} P_mu(halt | certified prefix) <= eps). This is machine-checkable end-to-end; the only informal residue is the choice of M, and the mod-6 failure case shows how to make M's construction algorithmic (quotient by the maximal provable invariant congruence structure first \u2014 Tao's structure-vs-randomness dichotomy as an executable preprocessing step). Result: 'probvious' becomes a precise conditional theorem with an auditable hypothesis, uniformly over a model class rather than one cherry-picked measure.",
+   "collatz_application": "For Collatz proper this recovers the Terras/Lagarias program (and explains why the heuristic is stuck: for the actual orbit of a single n, genericity IS the conjecture). For our certificate program: (a) emit two-part certificates \u2014 verified reduction + worst-case-over-model-class hitting bound \u2014 as first-class outputs for machines we cannot decide; (b) adopt the community's debugging discipline: before any drift computation, compute the exact invariant congruence lattice of the map (2-adic/3-adic constraints) and model only the residual degrees of freedom, since our critical-drift-gap statistics are garbage if a deterministic sub-lattice is silently biasing the itinerary distribution.",
+   "sources_read": [
+    "https://wiki.bbchallenge.org/wiki/Probviously",
+    "https://www.sligocki.com/2024/05/10/bb-2-5-is-hard.html",
+    "https://www.sligocki.com/2023/10/16/bb-3-3-is-hard.html",
+    "https://wiki.bbchallenge.org/wiki/Antihydra",
+    "https://wiki.bbchallenge.org/wiki/1RB0LE_1LC1RA_---1LD_0RB1LF_1RD1LA_0LA0RD",
+    "https://wiki.bbchallenge.org/wiki/1RB1LE_0LC0LB_1RD1LC_1RD1RA_1RF0LA_---1RE",
+    "/Users/simon/Desktop/COLLATZ/papers/bbchallenge-2025-bb5-determination.pdf (Sec 1.2 'Cryptids', Appendix C, footnotes 17-23, via pdftotext)"
+   ]
+  },
+  {
+   "technique": "Champion-beating forecasts: probability distributions over the value of an uncomputable function (Lucy's Moonlight, 'the 5% champion')",
+   "what_it_actually_does": "Racheline and Shawn Ligocki derived reset-structured rules C(a,b,c) for BB(6) holdout Lucy's Moonlight, computed c0=14, c1=11,292, c2~10^2901.92, then built a checkpoint model: P(reach a=1 from a checkpoint) converges exponentially fast to the fixed point 3/5 of P(n)=1-(2/3)P(n-1); at a=1, halting/reset/zero-phase each get 1/3; net: 1/5 halt, 4/5 reset per checkpoint, so reset count is geometric(1/5). Each reset tetrates the output (r resets -> > 10^^(r+3.5) ones); the reigning champion writes < 10^^15.6 ones, so beating it requires r >= 13 resets, P = (4/5)^13 ~ 5.5%. Conclusion published as: 'Lucy's Moonlight has a 5% chance of being the true BB(6) champion.' The same move at BB(3,3): the 'probvious champion' 1RB2LC1RC_2LC---2RB_2LA0LB0RA 'probabilistically has a 100% chance of halting' and would extend the 10^17 bound if proven.",
+   "math_translation": "Implicit statement with quantifiers: under the product model mu = prod over holdouts M of mu_M, the busy beaver value Sigma(6) is the random variable max(champion, max_M sigma(M) * 1[M halts under mu_M]); the community computes tail probabilities such as P_mu(Sigma(6) >= 10^^16) ~ 0.055 from geometric reset-count laws composed with tetrational output-scale maps. The exact sub-theorem: if checkpoint outcomes are i.i.d. with the stated conditionals, then (number of resets before halt) ~ Geometric(1/5) and conditional on r resets the halting output exceeds 10^^(r+3.5). Note the probability arithmetic is forced onto the log-log (tetration-index) scale \u2014 the model's randomness only matters through an integer-valued 'height' variable.",
+   "nearest_known_math": [
+    {
+     "theory": "Lagarias-Weiss extremal-constant predictions: their stochastic models predict lim sup sigma_infty(n)/log n = gamma_0 ~ 41.677647 for 3x+1, matching data to 10^11 \u2014 literally a 'champion forecast' via large deviations/extreme value theory",
+     "relationship": "subsumed-by in spirit: forecasting the extremal statistic of an arithmetic dynamical ensemble from a stochastic model is their program; bbchallenge does it for the BB record over a FINITE explicit ensemble of machines",
+     "ref": "Lagarias & Weiss 1992; Lagarias 3x+1 annotated bibliography"
+    },
+    {
+     "theory": "Chaitin's Omega / algorithmic probability (halting probability of a universal machine)",
+     "relationship": "disjoint-from in mechanism (Omega weights by program length, not dynamics), but it is the only prior art assigning probabilities to halting events of specific machines",
+     "ref": "Chaitin 1975, J. ACM"
+    },
+    {
+     "theory": "Extreme value theory of record processes (Gumbel; records of heavy-tailed sequences)",
+     "relationship": "overlaps: the BB record over holdouts is a record process over wildly heavy-tailed (tetrational) score distributions; nobody in EVT handles tetration-scale tails",
+     "ref": "Feller Vol II; Resnick, Extreme Values"
+    }
+   ],
+   "novelty_verdict": "known-math-with-new-twist",
+   "fusion_opportunity": "Formalize 'conditional busy beaver distributions': fix a model-class assignment M -> mu_M for every holdout (auditable, as in technique 1) and define BB_mu(6) as a genuine random variable; then EVT over the holdout ensemble gives a posterior record distribution whose tail is dominated by near-critical-drift machines. The mathematically clean fusion object: since gambler's-ruin excursion scales blow up like exp(c/|drift|) as drift -> 0, the record tail of BB_mu is governed by the empirical density of holdouts near zero drift \u2014 an explicit, testable link between a population statistic (drift spectrum of the machine ensemble) and the forecast of a single uncomputable integer.",
+   "collatz_application": "Directly imports to our critical-drift-gap experiment: for bred families of Collatz-like maps, the community's practice predicts stopping-time records among near-critical members scale like exp(Theta(1/|drift|)) with geometric 'reset' counts controlling the tetration height \u2014 a quantitative null hypothesis our experiment can confirm or refute. Also a warning: their probabilities are model tail-bounds, not calibrated credences; if we publish 'confidence' numbers for Collatz-adjacent claims we should publish the model class alongside, as they now (post-BB5-paper footnote 23) implicitly do.",
+   "sources_read": [
+    "https://www.sligocki.com/2025/04/21/lucys-moonlight.html",
+    "https://wiki.bbchallenge.org/wiki/Lucy%27s_Moonlight",
+    "/Users/simon/Desktop/COLLATZ/papers/bbchallenge-2025-bb5-determination.pdf (Sec 1.2)",
+    "https://wiki.bbchallenge.org/wiki/BB(6)"
+   ]
+  },
+  {
+   "technique": "Wall arguments with backward-reachability pruning (the BB(3,3) 'probvious champion' analysis, LegionMammal)",
+   "what_it_actually_does": "For 1RB2LC1RC_2LC---2RB_2LA0LB0RA they did BOTH directions: backward, they enumerated the halting basin exactly \u2014 only 64 halting c-values up to 3.4x10^15, organized into 'halter families' (infinite parametrized sets), and showed the first 58 are unreachable by forward iteration; then they found one halting value H = (3^307 - 8282708212)/13959275 with a 'wall': every A(1,c) with c <= H - 3,403,055 flows into H, i.e. a certified interval of >3.4 million consecutive attracted values. Forward, the orbit's c-values grow by pseudorandom chains whose lengths are empirically geometric with mean ~ log_3(c) + const. Jumping over a 3.4M-wide wall would need a chain of length ~10^1000-scale improbability, so the machine 'probabilistically has a 100% chance of halting' (BB5 paper's phrasing) \u2014 a probviously HALTING cryptid, which if proven becomes the BB(3,3) champion.",
+   "math_translation": "Hybrid exact/stochastic theorem: Let f be the induced map on c-values, D the halting basin. (i) [exact, certified] D contains an interval I of length L = 3,403,055 immediately below H; (ii) [exact] forward orbits are monotone-increasing between rare renewal events, with jump sizes J_k; (iii) [model] if J_k are independent geometric with mean m(c) = log_3 c + O(1), then P(the increasing orbit ever leaps over an interval of length L below its running position) <= sum_k P(J_k > L) ~ exp(-cL/m), so P(halt) = 1 - o(1). Quantifier form: for all monotone processes with certified sub-basin interval of length L and jump law stochastically dominated by Geometric(p), P(miss I forever) <= exp(-pL(1-o(1))). The structure \u2014 exact backward basin computation composed with a forward stochastic hitting estimate on the residual \u2014 is Lagarias-Weiss's two models (forward RW mod 2^j, backward branching RW mod 3^j) fused into a single argument about one orbit.",
+   "nearest_known_math": [
+    {
+     "theory": "Renewal theory / first-passage and interval-hitting for random walks (Feller); ladder epochs",
+     "relationship": "subsumed-by: the wall-jump estimate is a union bound over renewal jumps, textbook probability",
+     "ref": "Feller, An Introduction to Probability Theory, Vol I-II"
+    },
+    {
+     "theory": "Wirsching's analysis of the Collatz predecessor tree (branching structure of T^{-1}); Lagarias-Weiss backward branching random walk",
+     "relationship": "overlaps: exact backward-reachability over the preimage tree is the rigorous half of their program; bbchallenge runs it as a finite computation ('halter families', 58 of 64 values pruned)",
+     "ref": "Wirsching, LNM 1681, 'The Dynamical System Generated by the 3n+1 Function'"
+    },
+    {
+     "theory": "Covering-congruence + heuristic hybrid arguments in number theory (Erd\u0151s-style: exact algebraic pruning, then density heuristics on the residue)",
+     "relationship": "overlaps in epistemic shape",
+     "ref": "Erd\u0151s covering systems literature"
+    }
+   ],
+   "novelty_verdict": "known-math-with-new-twist",
+   "fusion_opportunity": "Package the hybrid as a reusable certified lemma: 'certified basin interval of length L' + 'certified stochastic domination of jump law by Geometric(p)' => quantitative model-halting bound 1 - exp(-pL). The first two components are individually provable (the basin interval by finite computation, the domination sometimes provable from the rule set's structure); this would make wall arguments the FIRST probvious arguments where every input to the probability calculation is a theorem, leaving only itinerary independence as hypothesis. No one in the community has isolated this; no one in the Collatz literature composes exact finite basin computations with domination lemmas this way.",
+   "collatz_application": "The Collatz verified range n <= 2^68 IS a wall: any orbit dipping below its start enters certified territory and dies, so divergent orbits must be monotone-in-records above 2^68 \u2014 the community's formulation suggests certifying 'wall-width vs jump-law' inequalities as lemmas in our certificate program: compute exact preimage-tree coverage below a threshold (Wirsching-style), prove a jump-law domination for the residual map, and emit a quantitative conditional halting bound. For bred families near critical drift, wall arguments are the natural certificate for the probviously-halting side of the gap.",
+   "sources_read": [
+    "https://wiki.bbchallenge.org/wiki/1RB2LC1RC_2LC---2RB_2LA0LB0RA",
+    "/Users/simon/Desktop/COLLATZ/papers/bbchallenge-2025-bb5-determination.pdf (Sec 1.2, footnote 21)",
+    "https://wiki.bbchallenge.org/wiki/BB(3,3) (via search excerpts)"
+   ]
+  },
+  {
+   "technique": "Behavioral-equivalence quotients: certified orbit-merging, TNF canonicalization, and cross-substrate cryptid identification",
+   "what_it_actually_does": "Three distinct layers operate in practice. (i) Syntactic: Tree Normal Form quotients machine space by permutations of non-start states/symbols/directions, normalizes unused transitions to '---' and halts to 1RZ (plus the TNF-1RB refinement). (ii) Orbit-merging: holdout #758 was shown equivalent to holdout #153 because after ~1.8M steps its configuration equals a configuration of #153 up to state/symbol relabeling \u2014 identical evolution thereafter; mxdys's grouping cut BB(6) holdout equivalence classes from 2467 to 1691 (31%), and the canonical list is now maintained 'up to equivalence' (1094 classes vs 2320 machines, June 2026). (iii) Abstract conjugacy: Hydra (BB(2,5)) and Antihydra (BB(6)) provably reduce to the SAME map H(n) = floor(3n/2) with different seeds (3 vs 8) and dual halting conditions (E > 2O vs O > 2E); Racheline's 'Collatz Coincidence' (Sept 2024) found by hand-comparing trajectory sequences that the 1989 S(5) champion, S(5) runner-up, BBB(4) champion, and S(2,4) champion all simulate one Collatz-like map up to affine conjugacy (B(n) -> M(2n)).",
+   "math_translation": "Layer (ii), the load-bearing one: define M1 ~ M2 iff there exist t1, t2 in N and a bijection sigma on (states x symbols) (optionally with tape reflection) such that sigma(conf_{M1}(t1)) = conf_{M2}(t2). Trivial theorem: ~ implies halting statuses from blank tape coincide (and step counts differ by t1 - t2). The relation is Sigma_1 (semi-decidable); the community computes explicit finite certificates (t1, t2, sigma) at population scale and quotients its problem lists by them. Layer (iii): machines are 'the same cryptid' iff their verified abstractions (f_i, seed x_i, halting set D_i) are conjugate by an affine map phi on the parameter lattice with phi(D_1) = D_2 (or the order-dual condition, as with Hydra/Antihydra where the halting inequality is reversed) \u2014 i.e., commensurability of Collatz-like maps up to affine change of variables and duality.",
+   "nearest_known_math": [
+    {
+     "theory": "Conjugacy and shift equivalence in symbolic dynamics (Lind & Marcus); orbit equivalence",
+     "relationship": "overlaps: layer (iii) is affine conjugacy of induced maps, standard; but layer (ii) \u2014 literal orbit MERGING of two different systems after finite time in a common configuration space \u2014 is stronger than conjugacy and is not a standard studied relation",
+     "ref": "Lind & Marcus, An Introduction to Symbolic Dynamics and Coding"
+    },
+    {
+     "theory": "Bisimulation and weak bisimulation (Milner, Park) in process theory",
+     "relationship": "overlaps: halting-status-preserving behavioral equivalence with finite certificates is bisimulation-flavored, but orbit-merging is a single-trace, not branching, notion",
+     "ref": "Milner, Communication and Concurrency"
+    },
+    {
+     "theory": "Classification of generalized 3x+1 maps up to linear conjugacy (Wirsching; Matthews's generalized Collatz surveys)",
+     "relationship": "subsumed-by for the abstract layer: affine-conjugacy classification of periodic-linear maps is established",
+     "ref": "Wirsching LNM 1681; K. Matthews, generalized 3x+1 mappings survey"
+    },
+    {
+     "theory": "Michel 1993, 'Busy beaver competition and Collatz-like problems' (local PDF)",
+     "relationship": "subsumed-by for the discovery that champions simulate Collatz-like maps \u2014 published 1993; the community's addition is recognizing the SAME map across substrates, which Michel did not do",
+     "ref": "Arch. Math. Logic 32:351-367"
+    }
+   ],
+   "novelty_verdict": "known-math-reinvented",
+   "fusion_opportunity": "The one genuinely under-theorized piece is certified orbit-merging as a quotient on POPULATIONS of dynamical systems: a semi-decidable equivalence with explicit finite witnesses, used so that any proof about one representative transfers to the class. Fusing with symbolic dynamics: study the 'merge graph' on machine space (edges = orbit-merge certificates) as an object \u2014 its components measure redundancy of the enumeration, and merge-time (1.8M steps for #758/#153) is a new conjugacy-like invariant with no classical analogue. A dynamicist would recognize everything else here; merge-time distributions across TNF space they would not.",
+   "collatz_application": "Before running certificate searches over bred Collatz-like families, canonicalize by affine conjugacy + duality (Hydra/Antihydra teach that one theorem about H(n) = floor(3n/2) parity statistics simultaneously resolves machines in BB(2,5) and BB(6)); and de-duplicate by orbit-merging, or the critical-drift-gap statistics will double-count (bbchallenge's own numbers: 2320 nominal problems = 1094 real ones \u2014 a factor 2.1 that would corrupt any population-level drift census).",
+   "sources_read": [
+    "https://wiki.bbchallenge.org/wiki/Tree_Normal_Form",
+    "https://wiki.bbchallenge.org/wiki/Holdouts_lists",
+    "https://www.sligocki.com/2024/09/20/collatz-coincidence.html",
+    "https://wiki.bbchallenge.org/wiki/Hydra_function",
+    "https://wiki.bbchallenge.org/wiki/1RB2LC1RC_2LC---2RB_2LA0LB0RA (the #758 ~ #153 merge)",
+    "https://wiki.bbchallenge.org/wiki/TMBR:_September_2025",
+    "/Users/simon/Desktop/COLLATZ/papers/michel1993_bb_collatz.pdf (pp. 1-3)"
+   ]
+  },
+  {
+   "technique": "Cryptid breeding via TNF-tree adjacency: the 'Mother of Giants' pattern of one-cylinder perturbation families",
+   "what_it_actually_does": "Take a machine with one undefined transition \u2014 the Mother, 1RB1LE_0LC0LB_0LD1LC_1RD1RA_---0LA, which itself halts in 58 steps \u2014 and consider all 'children' obtained by filling the E0 slot. ALL children provably share a common Collatz-like rule set on F(a,b,c) = 0^inf <D 0^a 1 0^b 1^c 0^inf: F(a,b+2,c) -> F(a+7,b,c); F(a,1,c+1) -> F(a+6,0,c); F(a,0,1) -> F(1,0,a+3); F(a,0,0) -> quasihalt. They differ ONLY in how the exceptional configuration F(2k,0,c+2) resolves: E0->1RC/1LC gives F(1,k+3,c+1); E0->1RD gives F(7,k-1,c+1); etc. The children's quasihalting times range from ~10^4079 through ~10^12978 to >10^14006 (the current BBB(5) champion) \u2014 tetration-scale sensitivity to a single rule. The community explicitly frames this as exploring 'parameterizations of these 2-stage style Collatz-like functions' and tracks which parameter choices give exceptional orbits. The same pattern generates variant cryptids (a dozen 6-state cryptids, several Antihydra variants; Coq-BB5's constructed BB(3,3)-in-BB(7) compilations).",
+   "math_translation": "Definition (implicit): a breeding family is {f_theta : theta in Theta} of maps on N^k agreeing outside one congruence-defined cylinder C, with f_theta|_C ranging over a finite set of affine maps indexed by the filled transition. Empirical theorem (with quantifiers): there exists a single proven rule set R and cylinder C such that for all theta, f_theta satisfies R off C, yet the quasihalting-time functional T(f_theta) varies over a range exceeding 10^10000 \u2014 i.e., sup_theta log T / inf_theta log T > 10^3 \u2014 while all members remain 'probviously quasihalting'. The drift-determining skeleton is shared; the exceptional rule alone selects the excursion scale.",
+   "nearest_known_math": [
+    {
+     "theory": "Conway's unpredictable iterations (1972) / FRACTRAN; Kurtz & Simon, 'The Undecidability of the Generalized Collatz Problem' (Pi^0_2-completeness)",
+     "relationship": "overlaps: explains WHY one-rule perturbations can do anything (the family of Collatz-like maps is a universal programming substrate), but says nothing about the statistics of stopping times across a structured family",
+     "ref": "Kurtz & Simon 2007, people.cs.uchicago.edu/~simon/RES/collatz.pdf"
+    },
+    {
+     "theory": "One-parameter families in interval dynamics / kneading theory / bifurcation theory",
+     "relationship": "disjoint-from in technique: continuous parameters, observables are entropy and attractors, not stopping times of integer orbits",
+     "ref": "Milnor & Thurston, kneading theory"
+    },
+    {
+     "theory": "Lagarias-Weiss / Kontorovich-Lagarias stochastic models for qx+1 families (3x+1 vs 5x+1 drift sign flip)",
+     "relationship": "overlaps: the qx+1 family is the classical drift-interpolating family (3x+1 contracts, 5x+1 expands), but it is a coarse 1-parameter family; nothing in that literature studies one-cylinder perturbations with fixed skeleton",
+     "ref": "Kontorovich & Lagarias, 'Stochastic Models for the 3x+1 and 5x+1 Problems', arXiv:0910.1944"
+    }
+   ],
+   "novelty_verdict": "known-math-with-new-twist",
+   "fusion_opportunity": "I searched for established work on stopping-time statistics across families of Collatz-like maps that differ on a single congruence class and found none (Kurtz-Simon gives undecidability of the family, Kontorovich-Lagarias only the coarse qx+1 axis). Fusion: treat the filled transition as a discrete parameter sweeping the exceptional-rule contribution to the mean drift, and prove/measure a scaling law T(f_theta) ~ exp(c / |drift(theta)|) as the family crosses criticality \u2014 importing the gambler's-ruin excursion asymptotics from technique 1 into the breeding protocol. The Mother-of-Giants data (10^4079 vs 10^14006 among siblings) is existing empirical evidence for exactly this blow-up that nobody has fit a scaling law to.",
+   "collatz_application": "This is a ready-made protocol for our critical-drift-gap experiment: freeze a verified rule skeleton that pins the bulk drift, and vary one exceptional rule (one congruence class) to interpolate drift through zero \u2014 exactly what TNF-tree children do for free. Deliverables: (a) the empirical distribution of stopping times vs drift across the family, (b) certificate-size growth along the same axis (do FAR/CTL certificates blow up polynomially or exponentially as drift -> 0?), (c) whether 'probviously halting' and 'probviously nonhalting' siblings are separated by a genuine gap or a crossover \u2014 the community has the specimens but has never plotted the phase diagram.",
+   "sources_read": [
+    "https://wiki.bbchallenge.org/wiki/Mother_of_Giants",
+    "https://wiki.bbchallenge.org/wiki/Cryptids",
+    "https://wiki.bbchallenge.org/wiki/BB(6)",
+    "web search results on Kurtz-Simon and Kontorovich-Lagarias (calibration)"
+   ]
+  },
+  {
+   "technique": "N-gram entropy as a provability barometer: empirical entropy of the head-window process predicts decider success (sligocki, forum Heuristics thread #119)",
+   "what_it_actually_does": "For each machine, sample the process (TM state, 5-symbol tape window centered at the head) along the run and estimate three empirical entropy rates: average entropy increase per symbol, h1 (state + current symbol), h5 (state + window). Findings across populations: 20 machines proven nonhalting by CPS (Closed Position Set, a regular-language decider) with block size <= 6 have median entropy ~0.1; Skelet's list and random BB(5)-era holdouts range 0.06-0.70; the top-100 halting 6-state machines have the lowest entropies (0.026-0.311) because 'they spend 99.99% of their time doing some basic bouncer behavior'. Explicit inference drawn in the thread: 'CPS is taking advantage of lower entropy to create a limited model' \u2014 i.e., low measured entropy predicts that a small finite-automaton certificate exists, and high entropy flags machines needing non-regular methods (or cryptid status). Code is on sligocki's GitHub.",
+   "math_translation": "A CPS/FAR/CTL nonhalting certificate is a regular language L (n-state automaton) with: initial configuration in L; L closed under the TM step relation; L disjoint from halting configurations. Implicit theorem (the necessary direction, provable): if M admits an n-state certificate, then the closure of M's reachable configuration set lies in a sofic shift with an n-state cover, so the topological entropy of the reachable subshift \u2014 and hence the entropy rate of any factor process, including the (state, window) process \u2014 is at most log(n) (per window normalization). The community uses the CONVERSE empirically: measured entropy h implies 'certificate needs >= exp(h * window) states', treating a necessary condition as a predictive sufficient statistic. Quantified conjecture implicit in the thread: over the enumerated machine population, P(regular certificate with n <= N states exists | empirical h5 = h) is a sharply decreasing function of h with a threshold near h ~ 0.1-0.3.",
+   "nearest_known_math": [
+    {
+     "theory": "Topological entropy of Turing machines as dynamical systems (K\u016frka's TM dynamical topologies; Blondel-Cassaigne-Nichitiu; Jeandel on computability of TM entropy)",
+     "relationship": "subsumed-by for the quantity: TM entropy is established and its computability limits are known; NOT established is any link to decider/certificate success",
+     "ref": "K\u016frka, 'On topological dynamics of Turing machines', TCS 174 (1997); Jeandel, STACS 2014"
+    },
+    {
+     "theory": "Sofic approximation and entropy of sofic shifts (entropy of an n-state sofic cover <= log n)",
+     "relationship": "subsumed-by for the necessary direction \u2014 it is a textbook inequality once the certificate is recognized as a sofic cover",
+     "ref": "Lind & Marcus, Ch. 3-4"
+    },
+    {
+     "theory": "Empirical entropy estimation of symbolic sequences (Lempel-Ziv / block-entropy estimators)",
+     "relationship": "subsumed-by for the estimator itself",
+     "ref": "Cover & Thomas, Elements of Information Theory"
+    }
+   ],
+   "novelty_verdict": "known-math-with-new-twist",
+   "fusion_opportunity": "The fusion is to make the converse precise: define cert(M) = min states of a regular closed invariant separator, and prove/refute two-sided bounds cert(M) >= exp(c1 * h(M)) (easy, sofic-cover inequality) and cert(M) <= exp(c2 * h(M) + o(1)) for machines in 'equilibrium-like' classes (hard, probably false in general \u2014 Skelet 17 should be the counterexample: low entropy, no small regular certificate, needed a bespoke proof). That failure analysis would itself be a publishable result: WHICH low-entropy machines defeat regular-language methods characterizes the boundary between sofic-approximable and inherently non-regular TM dynamics \u2014 a question symbolic dynamics has the tools for but has never asked about certificates.",
+   "collatz_application": "Collatz parity itineraries are conjecturally normal (entropy ~1 bit/step), which via the sofic-cover inequality gives a clean, previously-unarticulated statement: no regular-language certificate of any subexponential size can decide Collatz-like behavior for maps whose itinerary process has positive entropy \u2014 explaining in one line why FAR-style methods dispatch bouncers/counters but never cryptids. For our program: measure h5-analogues (block entropies of orbit encodings) across bred families as the cheap triage statistic \u2014 the critical-drift-gap should manifest as an entropy jump, and entropy estimates tell us where certificate search is a priori hopeless.",
+   "sources_read": [
+    "https://discuss.bbchallenge.org/t/n-gram-frequencies/119",
+    "https://discuss.bbchallenge.org/t/current-zoology/23",
+    "https://discuss.bbchallenge.org/categories.json (category census)",
+    "/Users/simon/Desktop/COLLATZ/papers/bbchallenge-2025-bb5-determination.pdf (Sec 7 Zoology, FAR/CTL description around line 1145 of extracted text)"
+   ]
+  },
+  {
+   "technique": "Verified-reduction factorization and problem export: the Beaver Math Olympiad pipeline (halting problem = Coq-checked reduction \u2218 named open conjecture)",
+   "what_it_actually_does": "For each cryptid the community proves \u2014 increasingly in Coq/Rocq or Lean \u2014 the exact equivalence 'M halts from blank tape iff arithmetic statement phi', then names and exports phi stripped of all TM detail. Concretely: the BB5 paper states Conjecture 1.1 (Antihydra: iterating H(x)=floor(3x/2) from 8 never accumulates more than twice as many odd as even values) as a first-class mathematical conjecture extracted from the machine; the rules of a near-variant are proven in Coq (busycoq AntiHydra2.v, footnote 66); the Beaver Math Olympiad page curates ~8 such problems as olympiad-style sequence questions (e.g. BMO1: (a1,b1)=(1,2), (a_{n+1},b_{n+1}) = (a_n - b_n, 4b_n + 2) if a_n >= b_n else (2a_n + 1, b_n - a_n); does a_i = b_i ever?), now formalized in Lean and merged into DeepMind's formal-conjectures dataset. Three BMO problems have been solved (e.g. Problem 4 by a mod-3 closed form), retiring their machines from holdout lists.",
+   "math_translation": "For every cryptid M: produce a Collatz-like map f on N^k, seed x0, target set D, and a machine-checked proof of the biconditional [M halts from 0^inf] <-> [exists n: f^n(x0) in D]. This is a verified many-one reduction between two Sigma_1 sentences, with the abstraction chosen to minimize human description length. The epistemic content: the halting problem is FACTORED into a certified part (the reduction, which carries all the TM-specific work and is never again disputed) and a portable open kernel (a pure statement about integer sequences), and problem difficulty is then assessed, traded, and attacked entirely at the kernel level.",
+   "nearest_known_math": [
+    {
+     "theory": "Coq Library of Undecidability Proofs (Forster, Larchey-Wendling, et al., ITP 2019+): verified many-one reductions between seed problems",
+     "relationship": "subsumed-by in mechanism: mechanized reductions between halting-type problems are established practice in certified CS",
+     "ref": "github.com/uds-psl/coq-library-undecidability"
+    },
+    {
+     "theory": "Michel 1993 (and Michel 2015, local PDFs): champions' halting problems are Collatz-like problems",
+     "relationship": "subsumed-by in content: the reduction-to-Collatz observation is 30+ years old; the community added mechanization and systematic export",
+     "ref": "Arch. Math. Logic 32:351-367"
+    },
+    {
+     "theory": "Hilbert-problem / olympiad-style problem curation (e.g., Erd\u0151s problem lists); formal-conjectures benchmark datasets",
+     "relationship": "overlaps: problem curation is old sociology, but curating machine-generated open problems WITH certified provenance of their difficulty (each is exactly equivalent to a concrete undecided instance) is new practice",
+     "ref": "DeepMind formal-conjectures repo (Lean)"
+    }
+   ],
+   "novelty_verdict": "known-math-reinvented",
+   "fusion_opportunity": "The exportable idea is 'certified provenance of hardness': each BMO problem comes with a proof that solving it settles a specific frontier instance (a BB holdout), so the problem list is guaranteed non-decorative \u2014 every solution mechanically advances a global program. Fusing with the equivalence quotient (technique 4): the right export unit is the conjugacy class of the abstract map, not the machine \u2014 one kernel theorem about H(n)=floor(3n/2) retires machines in BB(2,5) AND BB(6) simultaneously. A formal 'kernel registry' (abstract maps up to affine conjugacy, each with its list of certified TM reductions) does not exist yet in either community.",
+   "collatz_application": "Our certificate program should emit exactly this factorization: every certificate = (mechanized reduction to a canonical abstract map, chosen as the affine-conjugacy representative) + (certificate or open conjecture about that map). Benefits: cross-instance transfer for free, and our critical-drift-gap families become exportable as a graded conjecture benchmark (each family member a named sequence problem with certified drift parameter) \u2014 the BMO pipeline shows this export path is socially and technically viable, including Lean formalization feeding AI-benchmark datasets.",
+   "sources_read": [
+    "https://wiki.bbchallenge.org/wiki/Beaver_Math_Olympiad",
+    "/Users/simon/Desktop/COLLATZ/papers/bbchallenge-2025-bb5-determination.pdf (Sec 1.2, Conjecture 1.1, Problem 1.1, footnotes 17-23, 64-69, Appendix C)",
+    "/Users/simon/Desktop/COLLATZ/papers/michel1993_bb_collatz.pdf (pp. 1-3)"
+   ]
+  }
+ ],
+ "weird_unnoticed": "The probvious confidence numbers are COMPUTE-INDEXED, and nobody says so. Every quoted probability \u2014 Hydra's (1/phi)^2,005,374, Antihydra's ((sqrt5-1)/2)^1,073,720,885 \u2248 4.84x10^-224,394,395 in the BB5 paper \u2014 is an exact gambler's-ruin hitting probability CONDITIONED on the simulated prefix: they run the machine for millions of steps specifically to push the counter to level N, then read off h(N). So 'confidence' is a monotone function of compute spent, an anytime certificate that mechanically strengthens with every simulated step; structurally it is a supermartingale value, i.e. the halting event is being placed ever deeper inside a Martin-L\u00f6f-style effective null cover under the model measure \u2014 an algorithmic-randomness object the community has reinvented without recognizing it. Weirder still, the community treats -log P(halt) as an informal invariant of the machine (cryptids are compared by exponent order: 10^-400,000 vs 10^-224 million), effectively using model tail-mass as a 'distance-to-proof' metric, while simultaneously curating its own calibration counterexample (the mod-6 machine where the naive i.i.d. model gives P(halt)=1 but the reachable set provably avoids the halting residues \u2014 footnote 23 of the BB5 paper). That pairing \u2014 a quantitative confidence currency PLUS a maintained counterexample showing the exact failure mode (forgetting to quotient by the provable invariant congruence lattice before randomizing) \u2014 is Tao's structure-vs-randomness dichotomy operating as a community debugging practice, and no summary, wiki page, or paper articulates it.",
+ "dead_ends": "(1) Discord is where the real methods threads live (mxdys's equivalence-grouping algorithm, cryptid classification debates, the 50 Random Holdouts initiative) \u2014 inaccessible from this network; wiki pages repeatedly link into Discord for the actual derivations, so mxdys's 2467->1691 holdout-grouping algorithm is documented only by its input/output sizes, and I could not extract its exact equivalence relation beyond the certified orbit-merge examples. (2) docs.bbchallenge.org unreachable as warned. (3) discuss.bbchallenge.org is largely a fossil: the Heuristics category has only 3-4 topics (the N-gram entropy thread was the sole substantive find); category URLs by guessed ID returned wrong categories until I used categories.json. (4) The BB(6) annotated holdout Google spreadsheet is referenced everywhere but not directly fetchable (no stable public URL found; wiki describes it secondhand). (5) The Probviously wiki page itself is much thinner than the task brief hoped \u2014 no explicit confidence taxonomy exists anywhere; the quantitative calculus lives scattered across per-machine wiki pages, sligocki's blog, and Section 1.2/Appendix C of the BB5 paper, and had to be reassembled. (6) Did not clone Coq-BB5/busycoq to read AntiHydra2.v or the RWLAcc/FAR Rocq sources \u2014 decider internals belong to a different domain slice and web+PDF evidence sufficed for the epistemic-practice claims; noting this as unverified-at-source for the Coq formalization details."
+}

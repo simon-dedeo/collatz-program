@@ -1,0 +1,13 @@
+k= 2 states=       3 lambda=1.3534001 gamma=0.4365884  KL: 1.3534010 diff=-0.0000009
+k= 3 states=       9 lambda=1.5275951 gamma=0.6112622  KL: 1.5275960 diff=-0.0000009
+k= 4 states=      27 lambda=1.6122874 gamma=0.6891089  KL: 1.6122870 diff=+0.0000004
+k= 5 states=      81 lambda=1.6627599 gamma=0.7335799  KL: 1.6627590 diff=+0.0000009
+k= 6 states=     243 lambda=1.6944520 gamma=0.7608188  KL: 1.6944520 diff=+0.0000000
+k= 7 states=     729 lambda=1.7201909 gamma=0.7825687  KL: 1.7201900 diff=+0.0000009
+k= 8 states=    2187 lambda=1.7449635 gamma=0.8031969  KL: 1.7449630 diff=+0.0000005
+k= 9 states=    6561 lambda=1.7615325 gamma=0.8168311  KL: 1.7615320 diff=+0.0000005
+k=10 states=   19683 lambda=1.7771263 gamma=0.8295463  KL: 1.7771270 diff=-0.0000007
+k=11 states=   59049 lambda=1.7922310 gamma=0.8417566  KL: 1.7922310 diff=+0.0000000
+k=12 states=  177147 lambda=1.8064236 gamma=0.8531363  ** NEW **
+k=13 states=  531441 lambda=1.8188238 gamma=0.8630058  ** NEW **
+k=14 states= 1594323 lambda=1.8307724 gamma=0.8724524  ** NEW **

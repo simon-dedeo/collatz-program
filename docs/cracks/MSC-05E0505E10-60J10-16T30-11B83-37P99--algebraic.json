@@ -1,0 +1,85 @@
+{
+ "area": "MSC 05E05/05E10, 60J10, 16T30, 11B83, 37P99 \u2014 algebraic combinatorics of carries (Holte/Diaconis\u2013Fulman carries chains, descent algebras, quasisymmetric/Hopf structure) applied to base-2 digit dynamics of the 3x+1 map",
+ "hole_status": "fringe",
+ "hole_justification": "Searches run: (1) web + arXiv full-text \"Collatz carries\", \"3x+1 carry propagation\", \"Collatz Holte/Diaconis/Fulman/amazing matrix\" \u2014 zero papers apply Holte/Diaconis\u2013Fulman carry-chain theory to 3x+1; (2) arXiv full-text \"amazing matrix carries\" \u2014 exactly 4 papers (Diaconis\u2013Fulman x2, Nakano\u2013Sadahiro, Diaconis\u2013Fulman balanced), none mention Collatz or (3/2)^n; (3) grep of Lagarias's two annotated bibliographies (~350 papers) and his 2021 overview for \"carr\" \u2014 only hit is the remark that Cloney\u2013Goles\u2013Vichniac's base-6 CA works because x\u21923x+1 has no carries in base 6; (4) \"Collatz + riffle shuffle / descent algebra / quasisymmetric functions\" \u2014 nothing; (5) Mahler Z-number/(3/2)^n + carries \u2014 only automata-theoretic work (Kari 2012 CA; Kurgansky\u2013Potapov 2018 De Bruijn; Akiyama\u2013Frougny\u2013Sakarovitch 2008 base-3/2), none spectral/algebraic-combinatorial; (6) read Diaconis\u2013Fulman 0806.3583 \u00a75.2 \"Carries for multiplication\" in full \u2014 they define the multiplication-carries chain, prove double stochasticity, g-circulant structure, K_aK_b=K_{ab}, and a TV upper bound k/(2b^r), explicitly note the eigenvalues are complex and that lower bounds \"depend on the number theoretic relation of k and b in a complicated way\", and stop \u2014 no exact spectrum, no Collatz; (7) searched for follow-ups computing that spectrum (\"multiplication carries eigenvalues g-circulant\", Moj 2026 biorthogonal-Holte paper, Heuberger\u2013Kropf\u2013Prodinger signed-digit carries) \u2014 none do it, none touch Collatz; (8) grepped Tao 2019 locally: the word \"carry\" never appears. The only Collatz-side carry literature is automata-flavored (St\u00e9rin 2019 \"message passing based on carry propagation\"; St\u00e9rin\u2013Woods; a 2026 fringe \"Carry Independence Conjecture\" in an exploratory human-LLM paper, arXiv 2603.11066; a 2025 amateur automaton preprint 2506.21728). Verdict: the specific bridge \u2014 exact carry-chain eigenstructure applied to Collatz parity/digit statistics \u2014 is unworked; \"fringe\" rather than \"virgin\" only because carry propagation per se is discussed at the automata level.",
+ "prior_art": [
+  {
+   "ref": "Holte 1997, 'Carries, Combinatorics, and an Amazing Matrix', Amer. Math. Monthly 104, 138\u2013149",
+   "what": "Carries in adding n random base-b numbers form a Markov chain with eigenvalues 1, 1/b, ..., 1/b^{n-1}; no multiplication, no Collatz."
+  },
+  {
+   "ref": "Diaconis\u2013Fulman 2009, 'Carries, Shuffling and an Amazing Matrix', arXiv:0806.3583",
+   "url": "https://arxiv.org/abs/0806.3583",
+   "what": "Carries chain = descent process of repeated b-shuffles. Crucially \u00a75.2 defines the carries-for-multiplication chain (states {0..k-1}, doubly stochastic, generalized circulant with shift b mod k, K_aK_b=K_{ab}, TV \u2264 k/(2b^r)) but leaves its spectrum open and never mentions 3x+1. This is the closest anyone came to the bridge."
+  },
+  {
+   "ref": "Diaconis\u2013Fulman 2012, 'Foulkes Characters, Eulerian Idempotents, and an Amazing Matrix', arXiv:1102.5159",
+   "url": "https://arxiv.org/abs/1102.5159",
+   "what": "Exact eigenvectors of the addition carries chain: left = Foulkes characters, right = Loday's Eulerian idempotents (descent algebra); exact correlation functions. Addition only."
+  },
+  {
+   "ref": "Izsak\u2013Pippenger 2011, 'Carry Propagation in Multiplication by Constants', ACM Trans. Algorithms / arXiv:0801.4040",
+   "url": "https://arxiv.org/abs/0801.4040",
+   "what": "Longest carry-propagation chain when a random n-bit number is multiplied by a fixed odd constant: asymptotically same law as adding two random n-bit numbers (~log2 n). Computer-arithmetic focus, single multiplication, no iteration, no Collatz."
+  },
+  {
+   "ref": "Kari 2012, 'Cellular Automata, the Collatz Conjecture and Powers of 3/2', DLT 2012, LNCS 7410, 40\u201349",
+   "url": "https://link.springer.com/chapter/10.1007/978-3-642-31653-1_5",
+   "what": "Reversible CAs multiplying by 3 and 3/2 in base 6 (carry-free trick); Mahler's Z-number problem reformulated on the \u00d73/2 automaton; Collatz simulable by modified CA. Automata/topological-dynamics level, no stochastic carry-chain spectral theory."
+  },
+  {
+   "ref": "Kurgansky\u2013Potapov 2018, 'De Bruijn graphs and powers of 3/2', arXiv:1811.02254",
+   "url": "https://arxiv.org/abs/1811.02254",
+   "what": "Finite-automaton/De Bruijn-graph analysis of digit columns of \u03be(3/2)^n toward Mahler Z-numbers; sufficient conditions for emptiness. No Markov spectral structure."
+  },
+  {
+   "ref": "Akiyama\u2013Frougny\u2013Sakarovitch 2008, 'Powers of rationals modulo 1 and rational base number systems', Israel J. Math. 168, 53\u201391",
+   "url": "https://perso.telecom-paristech.fr/jsaka/PUB/Files/RBNS-rev.pdf",
+   "what": "Base-3/2 number system; representations non-regular but addition (carries!) done by a finite letter-to-letter transducer; links to distribution of (3/2)^n mod 1. Carries as automata, not as a solvable stochastic chain."
+  },
+  {
+   "ref": "St\u00e9rin 2019, 'Binary expression of ancestors in the Collatz graph', arXiv:1907.00775 (+ St\u00e9rin\u2013Woods 2020)",
+   "url": "https://arxiv.org/abs/1907.00775",
+   "what": "Collatz predecessors in binary exhibit 'complex message passing behaviors based on carry propagation'; regular-language structure of ancestor sets. Qualitative carry observations, no carries-chain machinery."
+  },
+  {
+   "ref": "Cloney\u2013Goles\u2013Vichniac 1987, 'The 3x+1 problem: a quasi-cellular automaton', Complex Systems 1",
+   "what": "Base-6 CA encoding of Collatz exploiting absence of carry propagation for \u00d73 in base 6 (the one carry mention in Lagarias's bibliographies)."
+  },
+  {
+   "ref": "Isaksen 2002, 'A Cohomological Viewpoint on Elementary School Arithmetic', Amer. Math. Monthly 109; Diaconis\u2013Shao\u2013Soundararajan 2014, 'Carries, Group Theory, and Additive Combinatorics', Amer. Math. Monthly 121",
+   "what": "Carries as 2-cocycles on Z/b; minimal-carry transversals via additive combinatorics. No dynamics, no Collatz follow-up found."
+  },
+  {
+   "ref": "arXiv:2603.11066 (2026, exploratory human-LLM paper) and arXiv:2506.21728 (2025 amateur preprint)",
+   "url": "https://arxiv.org/abs/2603.11066",
+   "what": "Fringe items that use the word 'carry' for Collatz (a 'Carry Independence Conjecture' at Sturmian depths; a digit-triplet automaton model). Neither engages Holte/Diaconis\u2013Fulman theory; no theorems of weight."
+  }
+ ],
+ "bridge": "Objects: one Syracuse step n \u2192 (3n+1)/2^\u03bd is base-2 long multiplication by 3 plus increment: the pending carry c is a finite state read against the digit stream of n, LSB-first (c' = \u230a(3d+c)/2\u230b on digit d, i.e., c' \u2261 2^{-1}(c\u2212d') mod 3 with output digit d'). Under Haar measure on Z_2 this is EXACTLY Diaconis\u2013Fulman's \u00a75.2 carries-for-multiplication chain K_{m,b} with b=2, m=3; k Syracuse steps with a odd steps compute T_v(n) = (3^a n + \u03c1_v)/2^k, whose digit action factors through K_{3^a,2} on carry states {0,...,3^a\u22121}. Correspondence table: Holte's addition-of-independent-addends chain (eigenvalues b^{-j}; left eigenvectors = Foulkes characters, right = Eulerian idempotents in Solomon's descent algebra; descents of b-shuffles) \u2194 multiplication-by-fixed-m chain (g-circulant diagonalized by characters of Z/m \u2014 abelian Fourier replaces the descent algebra; Foulkes characters degenerate to exponential sums; the shuffle is replaced by the inverse-doubling walk c \u21a6 2^{-1}(c\u2212d') on Z/m). Orbit parity sequence = the bit-0 output stream (which under Haar is EXACTLY i.i.d. Bernoulli(1/2) \u2014 Terras 1976 / Lagarias 1985 conjugacy \u2014 so the chain adds nothing for the parity marginal; this explains why nobody needed it); per-step carry count \u03ba = 2s_2(n)+1\u2212s_2(n') by Kummer/Legendre (\u03ba = \u03bd_2(C(3n+1,n))), so Hamming-weight evolution along orbits is precisely the carry functional; Antihydra/(3/2)^n parity = the same carry transducer run on the single deterministic input 3^n.",
+ "strongest_adjacent_theorems": [
+  "Holte 1997 (AMM 104): the base-b n-addend carries chain has eigenvalues 1, 1/b, ..., 1/b^{n-1}, simple, base-independent right eigenvectors ('amazing matrix').",
+  "Diaconis\u2013Fulman 2009 (AMM 116 / arXiv:0806.3583): carries chain = descent process under repeated b-riffle shuffles; \u00a75.2: the multiplication-carries chain K_{m,b} is doubly stochastic, a g-circulant (shift b mod m), satisfies K_aK_b = K_{ab}, and mixes in TV at rate \u2264 m/(2b^r) \u2014 spectrum left open.",
+  "Diaconis\u2013Fulman 2012 (J. Algebraic Combin. / arXiv:1102.5159): left eigenvectors of the amazing matrix = Foulkes character table of S_n, right eigenvectors = Loday's Eulerian idempotents; closed-form correlation functions for carries.",
+  "Izsak\u2013Pippenger 2011 (ACM Trans. Alg. / arXiv:0801.4040): longest carry-propagation chain in multiplying a random n-bit number by a fixed odd constant has the same asymptotic law (~log_2 n) as addition of two independent n-bit numbers.",
+  "Terras 1976 (Acta Arith. 30) / Everett 1977: the k-step parity vector of T is exactly equidistributed on {0,1}^k as n runs over residues mod 2^k \u2014 the exact-Bernoulli statement the carry chain must be measured against.",
+  "Kari 2012 (DLT, LNCS 7410): reversible CAs for \u00d73 and \u00d73/2 in base 6; all finite words occur in orbits of nonzero finite configurations; Mahler's Z-number problem is a statement about the \u00d73/2 automaton.",
+  "Akiyama\u2013Frougny\u2013Sakarovitch 2008 (Israel J. Math. 168): the base-3/2 number system has non-regular integer representations, yet addition is computed by a finite letter-to-letter right transducer (bounded carries); connections to (3/2)^n mod 1.",
+  "Stewart 1980 (J. reine angew. Math. 319): s_2(3^n) \u226b log n/log log n \u2014 the deterministic state of the art for carries of powers of 3, exponentially far from the linear truth, marking the wall this bridge does not breach.",
+  "Diaconis\u2013Shao\u2013Soundararajan 2014 (AMM 121) + Isaksen 2002: carries as group 2-cocycles; minimal-carry transversals via additive combinatorics.",
+  "Tao 2019 (Forum Math. Pi): decay of characteristic functions of Syracuse random variables over Z/3^n \u2014 the same \u27e82\u27e9 mod 3^n arithmetic as the carry spectrum below, in probabilistic garb, never phrased as carries."
+ ],
+ "the_push": "We computed the thing Diaconis\u2013Fulman left open, and it lands directly on Collatz arithmetic. Numerically verified for m \u2208 {3,5,7,9,11,15,27,81} (exact match of eigenvalues, phases, and multiplicities): det(xI \u2212 K_{m,2}) = (x\u22121)\u00b7\u220f_O (x^{|O|} \u2212 2^{\u2212|O|}), the product over orbits O of multiplication-by-2 acting on Z/m\u2216{0}. Hence EVERY subdominant eigenvalue has modulus exactly 1/2 (a uniform spectral gap independent of m), with phases 2\u03c0j/ord_2(m) and multiplicities counting cyclotomic \u27e82\u27e9-cosets; for m = 3^a the spectrum encodes the full tower ord_2(3^i) = 2\u00b73^{i\u22121} \u2014 i.e., the group \u27e82\u27e9 \u2264 (Z/3^a)^\u00d7 whose Diophantine structure (|2^J \u2212 3^K|, linear forms in logs) governs cycle nonexistence from Steiner through Hercher 2023, and which is exactly the arithmetic in Tao's Syracuse characteristic-function decay. What this gives beyond the crude drift heuristic: (i) exact correlation decay 2^{\u2212r} per bit of separation \u2014 with explicitly computable oscillatory phases \u2014 for EVERY finite digit-window functional of Haar-random orbits: exact joint laws of (parity vector, per-step carry counts \u03ba_k, digit-sum increments s_2(n_{k+1}) = 2s_2(n_k)+1\u2212\u03ba_k), strictly more than Terras equidistribution (which is the parity marginal only); (ii) the exactly-solvable approximating process requested: truncating carry influence beyond r bit positions incurs provable error O(2^{\u2212r}) from the uniform gap, giving a rigorous finite-window surrogate for orbit digit statistics with error bars; (iii) program-specific leverage: a DFA reading binary expansions computes finite-window functionals, so the 2^{\u2212r} mixing with incommensurate phases is a quantitative obstruction to small regular divergence certificates \u2014 a possible route from our exhaustive \u22647-state result to an asymptotic lower-bound theorem on certificate size. Honest limits: all of this is a Haar-measure statement; integers form a Haar-null set, individual orbits (and Antihydra's single input) are invisible to the spectrum, and nothing here approaches Stewart's wall on deterministic digit bounds. The bridge yields exact statistics and obstructions, not convergence.",
+ "first_move": "Lemma A (one week, half theory / half Lean): prove det(xI \u2212 K_{m,2}) = (x\u22121)\u00b7\u220f_{O \u2208 (Z/m\u2216{0})/\u27e82\u27e9} (x^{|O|} \u2212 2^{\u2212|O|}) for odd m, where K_{m,2}(c, \u230a(md+c)/2\u230b) = 1/2, d \u2208 {0,1}. Proof route is short: the chain satisfies c' \u2261 2^{\u22121}(c \u2212 d') mod m (d' = output digit), so conjugating by the character basis {e^{2\u03c0iac/m}} block-triangularizes K into the \u27e82\u27e9-orbit blocks of a g-circulant (Davis Ch. 5), each block a cyclic weighted shift with determinant 2^{\u2212|O|}. Already verified numerically for m = 3, 5, 7, 9, 11, 15, 27, 81 (script logic: P[c, (m*d+c)//2] += 1/2; spectra match orbit prediction exactly, e.g., m=27: (x^18\u22122^{\u221218})(x^6\u22122^{\u22126})(x^2\u22122^{\u22122})). Formalize in Lean as finite linear algebra over cyclotomics. Then the 32-core computation: build the exact one-step (3x+1)/2 letter transducer (carry \u2208 {0,1,2} + increment bit), compose and minimize k-fold products for k \u2264 8 over all 2^k parity vectors, and compute the induced transfer-operator spectra under Haar \u2014 test the persistence conjecture that the coupled digit-carry operator for k steps with a odd steps has spectrum contained in {2^{\u2212r}\u00b7\u03b6 : \u03b6^{ord_2(3^a)} = 1}, and extract the exact joint law of (parity window, \u03ba-sequence) as eigen-expansions. If persistence holds, write the correlation-decay theorem and then attack the DFA-certificate obstruction: show any regular invariant separating a divergent orbit must distinguish states at correlation scale 2^{\u2212r}, forcing state-count lower bounds as a function of r.",
+ "payoff_odds": "Realistic best case (~20%): the spectral persistence holds for the full Syracuse transducer, giving (a) a clean publishable theorem 'exact spectrum of the Diaconis\u2013Fulman multiplication-carries chain + exact digit-correlation decay for 3x+1 orbits', new to both communities, and (b) a genuine quantitative lower-bound mechanism against regular divergence certificates that extends our \u22647-state exhaustive result asymptotically \u2014 real value for the program even though it proves non-existence of proofs-of-divergence-of-a-certain-shape, not the conjecture. Likely case (~75%): Lemma A goes through (it is essentially forced by g-circulant character theory), the orbit-level statistics reproduce Terras equidistribution plus modest new exact identities for carry counts/digit sums (\u03ba = \u03bd_2(C(3n+1,n)) ledger), and the certificate obstruction stays heuristic \u2014 a nice paper, no movement on Collatz. Chance of direct progress on convergence, cycles, or Antihydra: <1% \u2014 the machinery is measure-theoretic and integers are Haar-null; the deterministic wall (Stewart's log n/log log n for s_2(3^n)) is untouched by any spectral statement here. The area is a real hole with a bounded, honest payoff: exact solvability and obstructions, not resolution.",
+ "downloaded_papers": [
+  "/Users/simon/Desktop/COLLATZ/papers/diaconis-fulman-carries-shuffling-0806.3583.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/diaconis-fulman-foulkes-eulerian-1102.5159.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/diaconis-fulman-balanced-carries-1309.5116.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/nakano-sadahiro-carries-eulerian-1306.2790.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/izsak-pippenger-carry-mult-constants-0801.4040.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/akiyama-frougny-sakarovitch-2008-rational-base.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/debruijn-powers-32-1811.02254.pdf",
+  "/Users/simon/Desktop/COLLATZ/papers/moj-2026-biorthogonal-holte-2604.04591.pdf"
+ ]
+}

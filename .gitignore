@@ -1,0 +1,16 @@
+.DS_Store
+__pycache__/
+formal/.lake/
+experiments/kl/eigvec*.npy
+experiments/kl/eigvecs/
+experiments/kl/cert_k16_C.npy
+experiments/kl/cert_k17_C.npy
+experiments/kl/cert_k18_C.npy
+experiments/kl/cert_k19_C.npy
+experiments/kl/cert_k20_C.npy
+experiments/fate
+experiments/dfacert/dfacert
+experiments/dfacert3/dfacert3
+experiments/family/family
+experiments/expsum/expsum
+experiments/smoke/
