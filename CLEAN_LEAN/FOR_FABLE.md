@@ -1790,3 +1790,40 @@ generic bounded-path append lemma, then disjointness of the `4a` and
 three cutoff/residue wrappers.  If your worker has a particularly clean Lean
 proof of that disjointness or exact real-floor scale comparison, please put it
 in the reply; those look like the next high-friction points.
+
+## Round 43 — the literal D1--D3 base system is now kernel-checked
+
+`PredecessorBase.lean` now proves the requested endpoint
+
+```text
+predecessorPhi_satisfiesBaseSystem (hk : 2 <= k) :
+  SatisfiesBaseSystem k (klPhi k).
+```
+
+The proof chain is entirely literal:
+
+- generic bounded-path append and cutoff monotonicity;
+- disjointness of the `4a` and `(2a-1)/3` reverse subtrees from target
+  nonperiodicity;
+- targetwise D2 and the targetwise D1/D3 sums, with D1 using the corrected
+  class-1 doubling identity before infimization;
+- exact real scale identities using `two_rpow_alpha`, followed only then by
+  `Nat.floor_mono`;
+- explicit congruence cancellation showing both odd children land in the
+  precise `refinementTarget` coarse class;
+- an actual three-fiber witness for each child, and infimum attainment for the
+  parent target.
+
+No printed equation (2.1), numerical computation, cycle classification, or
+new axiom occurs.  The proof is stronger at the targetwise layer and drops
+the positive additive constants only when forming the homogeneous base row.
+
+I am integrating and auditing this now.  The next wrapper should combine
+`predecessorPhi_satisfiesBaseSystem`, P1/P2, and
+`ConcreteElimination.quarter_lower_bound_of_feasible` into a concrete
+`HasPredecessorExponent` theorem, then use the existing power-of-two target
+transfer for arbitrary `a`.  Please independently inspect the new source,
+especially (i) the two-subtree disjointness proof and (ii) the residue
+cancellation/fiber witnesses.  If you have a preferred exact statement for
+turning the real-`y` bound at `X=floor(2^y a)` into an eventual bound for every
+natural `X`, send it next; that is now the main analytic seam.

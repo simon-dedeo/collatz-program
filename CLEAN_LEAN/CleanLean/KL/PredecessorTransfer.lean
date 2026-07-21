@@ -84,6 +84,38 @@ theorem boundedPredecessorCount_mono {a X Y : ℕ} (hXY : X ≤ Y) :
     boundedPredecessorCount a X ≤ boundedPredecessorCount a Y := by
   exact Finset.card_le_card (boundedPredecessorFinset_mono hXY)
 
+/-- Append a bounded path from one target to another. -/
+theorem boundedPredecessor_of_target_path
+    {a b X n r : ℕ}
+    (hreach : syracuseStep^[r] b = a)
+    (hpath : ∀ i : ℕ, i ≤ r → syracuseStep^[i] b ≤ X)
+    (hn : IsBoundedSyracusePredecessor b X n) :
+    IsBoundedSyracusePredecessor a X n := by
+  obtain ⟨hnpos, hnX, j, hj, hjbound⟩ := hn
+  refine ⟨hnpos, hnX, r + j, ?_, ?_⟩
+  · rw [Function.iterate_add_apply, hj, hreach]
+  · intro i hi
+    by_cases hij : i ≤ j
+    · exact hjbound i hij
+    · have hji : j ≤ i := Nat.le_of_lt (Nat.lt_of_not_ge hij)
+      have hdiff : i - j ≤ r := by omega
+      calc
+        syracuseStep^[i] n =
+            syracuseStep^[i - j] (syracuseStep^[j] n) := by
+              rw [← Function.iterate_add_apply,
+                Nat.sub_add_cancel hji]
+        _ = syracuseStep^[i - j] b := by rw [hj]
+        _ ≤ X := hpath (i - j) hdiff
+
+theorem boundedPredecessorFinset_subset_of_target_path
+    {a b X r : ℕ}
+    (hreach : syracuseStep^[r] b = a)
+    (hpath : ∀ i : ℕ, i ≤ r → syracuseStep^[i] b ≤ X) :
+    boundedPredecessorFinset b X ⊆ boundedPredecessorFinset a X := by
+  intro n hn
+  rw [mem_boundedPredecessors_iff] at hn ⊢
+  exact boundedPredecessor_of_target_path hreach hpath hn
+
 /-- A target lies on a positive Syracuse cycle. -/
 def IsSyracusePeriodic (a : ℕ) : Prop :=
   ∃ j : ℕ, 0 < j ∧ syracuseStep^[j] a = a
@@ -262,6 +294,196 @@ theorem nonperiodic_two_pow_mul {a : ℕ}
     ¬ IsSyracusePeriodic (2 ^ r * a) := by
   apply nonperiodic_of_target_reaches ha
   exact ⟨r, iterate_syracuse_two_pow_mul a r⟩
+
+/-- Arithmetic of the odd inverse branch of a `2 (mod 3)` target. -/
+theorem three_mul_oddPredecessor {a : ℕ} (ha : 0 < a)
+    (ha3 : a % 3 = 2) :
+    3 * ((2 * a - 1) / 3) = 2 * a - 1 := by
+  have hmod : (2 * a - 1) % 3 = 0 := by
+    have hdecomp := Nat.mod_add_div a 3
+    omega
+  omega
+
+theorem oddPredecessor_mod_two {a : ℕ} (ha : 0 < a)
+    (ha3 : a % 3 = 2) :
+    ((2 * a - 1) / 3) % 2 = 1 := by
+  have hthree := three_mul_oddPredecessor ha ha3
+  have hmodlt := Nat.mod_lt ((2 * a - 1) / 3) (by norm_num : 0 < 2)
+  omega
+
+theorem syracuseStep_oddPredecessor {a : ℕ} (ha : 0 < a)
+    (ha3 : a % 3 = 2) :
+    syracuseStep ((2 * a - 1) / 3) = a := by
+  have hthree := three_mul_oddPredecessor ha ha3
+  have hodd := oddPredecessor_mod_two ha ha3
+  rw [syracuseStep, if_neg (by omega)]
+  have hnum : 3 * ((2 * a - 1) / 3) + 1 = 2 * a := by omega
+  rw [hnum]
+  omega
+
+/-- The reverse subtrees rooted at the two distinct incoming branches `4a`
+and `(2a-1)/3` are disjoint when `a` is nonperiodic.  Any common predecessor
+would place one branch target on the forward orbit of the other and hence
+give a positive return to `a`. -/
+theorem boundedPredecessorFinset_four_disjoint_oddPredecessor
+    {a X Y : ℕ} (ha : 0 < a) (ha3 : a % 3 = 2)
+    (hanon : ¬ IsSyracusePeriodic a) :
+    Disjoint (boundedPredecessorFinset (4 * a) X)
+      (boundedPredecessorFinset ((2 * a - 1) / 3) Y) := by
+  classical
+  rw [Finset.disjoint_left]
+  intro n hn4 hnc
+  rw [mem_boundedPredecessors_iff] at hn4 hnc
+  obtain ⟨_, _, j, hj, _⟩ := hn4
+  obtain ⟨_, _, l, hl, _⟩ := hnc
+  let c := (2 * a - 1) / 3
+  have hcstep : syracuseStep c = a := syracuseStep_oddPredecessor ha ha3
+  have h4one : syracuseStep^[1] (4 * a) = 2 * a := by
+    convert iterate_syracuse_two_pow_mul (2 * a) 1 using 1 <;> norm_num <;> ring
+  have h4two : syracuseStep^[2] (4 * a) = a := by
+    simpa using iterate_syracuse_two_pow_mul a 2
+  have hc_ne_four : c ≠ 4 * a := by
+    intro heq
+    have hthree := three_mul_oddPredecessor ha ha3
+    dsimp [c] at heq
+    omega
+  have hc_ne_two : c ≠ 2 * a := by
+    intro heq
+    have hthree := three_mul_oddPredecessor ha ha3
+    dsimp [c] at heq
+    omega
+  by_cases hjl : j ≤ l
+  · let d := l - j
+    have hdj : d + j = l := Nat.sub_add_cancel hjl
+    have h4c : syracuseStep^[d] (4 * a) = c := by
+      calc
+        syracuseStep^[d] (4 * a) =
+            syracuseStep^[d] (syracuseStep^[j] n) := by rw [hj]
+        _ = syracuseStep^[d + j] n := by
+          rw [Function.iterate_add_apply]
+        _ = syracuseStep^[l] n := by rw [hdj]
+        _ = c := hl
+    by_cases hd0 : d = 0
+    · rw [hd0] at h4c
+      change 4 * a = c at h4c
+      exact hc_ne_four h4c.symm
+    by_cases hd1 : d = 1
+    · rw [hd1] at h4c
+      rw [h4one] at h4c
+      exact hc_ne_two h4c.symm
+    apply hanon
+    refine ⟨d - 1, by omega, ?_⟩
+    calc
+      syracuseStep^[d - 1] a =
+          syracuseStep^[d - 1] (syracuseStep^[2] (4 * a)) := by rw [h4two]
+      _ = syracuseStep^[(d - 1) + 2] (4 * a) := by
+        rw [Function.iterate_add_apply]
+      _ = syracuseStep^[d + 1] (4 * a) := by congr 1 <;> omega
+      _ = syracuseStep (syracuseStep^[d] (4 * a)) := by
+        rw [Function.iterate_succ_apply']
+      _ = a := by rw [h4c, hcstep]
+  · have hlj : l ≤ j := (Nat.le_of_lt (Nat.lt_of_not_ge hjl))
+    let d := j - l
+    have hdl : d + l = j := Nat.sub_add_cancel hlj
+    have hdc : syracuseStep^[d] c = 4 * a := by
+      calc
+        syracuseStep^[d] c =
+            syracuseStep^[d] (syracuseStep^[l] n) := by rw [hl]
+        _ = syracuseStep^[d + l] n := by
+          rw [Function.iterate_add_apply]
+        _ = syracuseStep^[j] n := by rw [hdl]
+        _ = 4 * a := hj
+    apply hanon
+    refine ⟨d + 1, by omega, ?_⟩
+    calc
+      syracuseStep^[d + 1] a =
+          syracuseStep^[d + 1] (syracuseStep c) := by rw [hcstep]
+      _ = syracuseStep^[(d + 1) + 1] c := by
+        simpa only [Function.iterate_one] using
+          (Function.iterate_add_apply syracuseStep (d + 1) 1 c).symm
+      _ = syracuseStep^[2] (syracuseStep^[d] c) := by
+        rw [← Function.iterate_add_apply]
+        congr 1 <;> omega
+      _ = a := by rw [hdc, h4two]
+
+/-- The entire bounded reverse subtree rooted at `4a` embeds in the subtree
+rooted at `a`, provided the two halving steps stay below the cutoff. -/
+theorem boundedPredecessorFinset_four_subset
+    {a X : ℕ} (ha : 0 < a) (h4aX : 4 * a ≤ X) :
+    boundedPredecessorFinset (4 * a) X ⊆
+      boundedPredecessorFinset a X := by
+  have h4one : syracuseStep^[1] (4 * a) = 2 * a := by
+    convert iterate_syracuse_two_pow_mul (2 * a) 1 using 1 <;> norm_num <;> ring
+  have h4two : syracuseStep^[2] (4 * a) = a := by
+    simpa using iterate_syracuse_two_pow_mul a 2
+  apply boundedPredecessorFinset_subset_of_target_path
+    (r := 2) h4two
+  intro i hi
+  interval_cases i
+  · simpa using h4aX
+  · have h2a : 2 * a ≤ X := by omega
+    rw [h4one]
+    exact h2a
+  · have haX : a ≤ X := by omega
+    rw [h4two]
+    exact haX
+
+/-- The bounded odd-inverse subtree also embeds in the target subtree.  Its
+own cutoff may be smaller than the target cutoff. -/
+theorem boundedPredecessorFinset_oddPredecessor_subset
+    {a X Y : ℕ} (ha : 0 < a) (ha3 : a % 3 = 2)
+    (hYX : Y ≤ X) (h4aX : 4 * a ≤ X) :
+    boundedPredecessorFinset ((2 * a - 1) / 3) Y ⊆
+      boundedPredecessorFinset a X := by
+  let c := (2 * a - 1) / 3
+  have hcstep : syracuseStep c = a := syracuseStep_oddPredecessor ha ha3
+  have hc_le_a : c ≤ a := by
+    have hthree := three_mul_oddPredecessor ha ha3
+    dsimp [c]
+    omega
+  have haX : a ≤ X := by omega
+  intro n hn
+  have hnX : n ∈ boundedPredecessorFinset c X :=
+    boundedPredecessorFinset_mono hYX hn
+  rw [mem_boundedPredecessors_iff] at hnX ⊢
+  apply boundedPredecessor_of_target_path
+    (r := 1) (by simpa using hcstep) _ hnX
+  intro i hi
+  interval_cases i
+  · exact hc_le_a.trans haX
+  · change syracuseStep c ≤ X
+    rw [hcstep]
+    exact haX
+
+/-- Homogeneous targetwise core of D1/D3: the `4a` and odd-inverse reverse
+subtrees inject disjointly into the reverse subtree of `a`. -/
+theorem boundedPredecessorCount_four_add_oddPredecessor_le
+    {a X Y : ℕ} (ha : 0 < a) (ha3 : a % 3 = 2)
+    (hanon : ¬ IsSyracusePeriodic a)
+    (hYX : Y ≤ X) (h4aX : 4 * a ≤ X) :
+    boundedPredecessorCount (4 * a) X +
+        boundedPredecessorCount ((2 * a - 1) / 3) Y ≤
+      boundedPredecessorCount a X := by
+  rw [boundedPredecessorCount, boundedPredecessorCount,
+    boundedPredecessorCount,
+    ← Finset.card_union_of_disjoint
+      (boundedPredecessorFinset_four_disjoint_oddPredecessor
+        ha ha3 hanon)]
+  apply Finset.card_le_card
+  intro n hn
+  rw [Finset.mem_union] at hn
+  rcases hn with hn | hn
+  · exact boundedPredecessorFinset_four_subset ha h4aX hn
+  · exact boundedPredecessorFinset_oddPredecessor_subset
+      ha ha3 hYX h4aX hn
+
+/-- Targetwise core of the neutral branch D2. -/
+theorem boundedPredecessorCount_four_le
+    {a X : ℕ} (ha : 0 < a) (h4aX : 4 * a ≤ X) :
+    boundedPredecessorCount (4 * a) X ≤
+      boundedPredecessorCount a X := by
+  exact Finset.card_le_card
+    (boundedPredecessorFinset_four_subset ha h4aX)
 
 /-- If a periodic point `b` reaches `a`, then `b` occurs on the forward orbit
 of `a`.  This is the elementary finite-cycle fact used to manufacture

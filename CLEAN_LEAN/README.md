@@ -199,8 +199,13 @@ now defines the literal floor cutoff, path-bounded target count, and natural
 infimum in every concrete residue state.  It proves every target pool
 nonempty by Euler multiplication above a finite periodic orbit, and therefore
 proves positivity and monotonicity of the infimum functions without additional
-hypotheses.  The three concrete base difference inequalities remain to be
-instantiated.
+hypotheses.  `PredecessorBase.lean` proves the two reverse subtrees disjoint
+for a nonperiodic target, checks all real `log_2(3)` cutoff identities, maps
+the transformed targets into the exact transport/refinement residue fibers,
+and proves `predecessorPhi_satisfiesBaseSystem` for every `k>=2`.  Thus the
+abstract elimination theorem is now instantiated by the literal predecessor
+functions; the remaining finite-level seam is packaging its exponential
+bound as `HasPredecessorExponent` for arbitrary targets.
 
 `PressureCertificate.lean` now also accepts the portable sparse-edge format
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational
@@ -240,8 +245,9 @@ arithmetic qualification in the earlier no-go statement is therefore closed.
 `FiniteRecord.lean` contains a small Lean-native certificate at level 2.  It
 checks the integer rows and logarithmic cross-products by kernel reduction and
 then invokes the same soundness path intended for the large streamed records.
-The inference from any finite feasible record to a predecessor-counting bound
-still depends on the now-unrepaired KL advanced-term elimination theorem.
+The repaired elimination theorem and literal predecessor base system are now
+both kernel-checked; connecting a finite feasible record to the public
+ordinary-predecessor exponent statement is the next wrapper theorem.
 
 `RESEARCH_AUDIT.md` separates the statements supported by the live research
 notes from the pressure/mass estimate that is still open, including the exact

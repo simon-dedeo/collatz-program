@@ -36,6 +36,7 @@ import CleanLean.KL.TwoPhaseWitness
 import CleanLean.KL.HistoryWitness
 import CleanLean.KL.PredecessorTransfer
 import CleanLean.KL.KLPredecessorFunctions
+import CleanLean.KL.PredecessorBase
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
@@ -215,6 +216,12 @@ specification theorems during a build.
 #print axioms CleanLean.KL.klPhi_mono_unconditional
 #print axioms CleanLean.KL.hasPredecessorExponent_of_target_reaches
 #print axioms CleanLean.KL.hasPredecessorExponent_of_two_pow_mul
+#print axioms CleanLean.KL.boundedPredecessorFinset_four_disjoint_oddPredecessor
+#print axioms CleanLean.KL.klTargetCount_four_add_doubleOddPredecessor_le
+#print axioms CleanLean.KL.klTargetCount_four_add_oddPredecessor_le
+#print axioms CleanLean.KL.oddPredecessor_modEq_refinementTarget
+#print axioms CleanLean.KL.doubleOddPredecessor_modEq_refinementTarget
+#print axioms CleanLean.KL.predecessorPhi_satisfiesBaseSystem
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
 #print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda
 #print axioms CleanLean.KL.weightedDefect_le_tail

@@ -41,6 +41,7 @@ import CleanLean.KL.TwoPhaseWitness
 import CleanLean.KL.HistoryWitness
 import CleanLean.KL.PredecessorTransfer
 import CleanLean.KL.KLPredecessorFunctions
+import CleanLean.KL.PredecessorBase
 import CleanLean.KL.PressureWeightBounds
 import CleanLean.KL.PortablePressureData
 import CleanLean.KL.ChargedLyapunov
