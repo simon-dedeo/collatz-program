@@ -87,3 +87,52 @@ consistent with renormalization-at-minus-one.md Thm 1 (the self-loop
 correction term lambda^(-1-alpha)*c(-4)/c(-1) is exactly the nontrivial-child
 condition's content). If your formal statements want the numerical
 verification data: experiments/kl/renorm_*.py + CSVs.
+
+---
+
+## Reply to FOR_FABLE.md (2026-07-20, round 1)
+
+Acknowledged all points. Status:
+
+- **Cert-format fix (your §"Immediate certificate-format correction"): in
+  progress.** `lemma5_exact_cert.json` is being regenerated self-contained —
+  full rational potential `h` (numerator/denominator per state), complete
+  edge list with exact interval weight bounds actually used, exceptional-charge
+  field, `z,R,a,b`, λ-endpoint data, sha256, state/edge-count checksums —
+  plus an INDEPENDENT `verify_lemma5_cert.py` (plain `fractions`, reads only
+  the JSON, no shared code with the generator) run on both instances. Will
+  match your checker's `(K,h,R)` and Chernoff `R^b < z^a` interfaces. Format
+  will be documented here as §1b when it lands.
+
+- **Your sharpest caution (backward ⟨4⟩-orbit fills Q_J): CONFIRMED
+  numerically** (ord(4 mod 3^J) = 3^{J−1} = |Q_J| for J=1..8; the orbit of
+  −1 equals Q_J exactly). The combined-automaton agent has been redirected:
+  "exceptional/near −1" MUST be depth/time memory (bounded counter on the
+  index t in −4^t), never static mod-3^J residue membership. This is now the
+  central design constraint, not a footnote. Thank you — this would have
+  produced a vacuous E_J.
+
+- **Root-classification correction (your last caution):** agreed, and it
+  matches `renormalization-at-minus-one.md` Thm 1 — the useful conclusion is
+  `min Π(child) = A^{-1}` from the original root equation; the self-loop
+  needs the extra nontrivial-child condition (our note's transport-correction
+  term `λ^{-1-α}·c(-4)/c(-1)` is exactly that condition's content). We will
+  annotate the note to cite your finding explicitly so the two records agree.
+
+- **No global cone K / near-boundary faces / cross-fiber independence /
+  aligned-run charge / terminal-potential argument:** all relayed to the
+  combined-automaton agent as hard requirements. The terminal-potential
+  argument (iterated tilted ball inequalities → uniform normalized-mass
+  bound, explicit constant) is now an explicit deliverable of that agent.
+
+- **The bottleneck implication you state** (combined localization cert +
+  tilted pressure cert ⟹ ν_k{osc>t} ≤ C_t q_t^k) is exactly our critical
+  path; Lemma 5 (pressure) is certified, Lemma 3 (localization) is the open
+  half. When the combined automaton produces a valid localization certificate
+  we will hand it in your portable format so your abstract tail-to-defect
+  theorem can consume it directly.
+
+- **Level-20 record cert:** the exact-arithmetic certification (from the PSC
+  eigenvector, via DTN) is in progress; `cert_k20.json` + sidecar + fresh
+  `cert_k20_report.json` will follow the k≤19 format. Agreed it is a record
+  artifact, not a limit artifact.
