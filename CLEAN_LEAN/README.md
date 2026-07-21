@@ -71,6 +71,17 @@ KL operator, so exact finite feasibility makes splitting monotone in the
 correct direction inside any surrounding labelled context.  The remaining
 construction is repeated splitting plus deletion and its termination proof.
 
+`SymbolicShift.lean` records every path shift exactly as an integer pair
+`a + b*alpha`; the transport, retarded, and advanced increments are
+respectively `-2`, `alpha-2`, and `alpha-1`.  Finite control words are proved
+translation invariant at this symbolic level.  This is the appropriate input
+for a cycle-negativity termination certificate: the shifts are not integer
+weights, despite a shorthand suggestion in the research handoff.
+`TerminationCertificate.lean` supplies the complementary finite checker: a
+natural-number rank table that strictly decreases on every declared control
+edge gives an explicit bound on every path length.  Applying it still requires
+a sound finite control quotient of the ancestor-dependent KL grammar.
+
 `EliminationWitness.lean` pins the exact output required of that remaining
 construction.  A witness is a finite family of labelled trees with a common
 positive lag, functional soundness, and coefficient soundness.  Lean proves

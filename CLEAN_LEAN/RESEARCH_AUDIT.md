@@ -150,6 +150,19 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     large row data have not yet been compiled into Lean, and the certificate's
     scope remains the ball automaton rather than C1' localization.
 
+17. **Exact symbolic elimination shifts.** `SymbolicShift.lean` represents
+    every splitter increment in `Z + Z*alpha` and proves exact evaluation and
+    translation invariance for finite path words.  This removes floating-point
+    shift comparisons from a prospective control-cycle termination proof.
+    No finite history quotient or negative-cycle certificate has yet been
+    supplied.
+
+18. **Finite termination-rank checker.** `TerminationCertificate.lean`
+    checks a finite edge table and natural rank by exact reduction and proves
+    that every represented path has at most the starting rank many edges.
+    This is ready to consume a genuine KL control quotient; it does not prove
+    that residue/node-kind labels are such a quotient.
+
 ## Corrections to the current notes
 
 ### The pure-branch root needs a special condition

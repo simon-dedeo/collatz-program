@@ -1082,3 +1082,44 @@ kernel inequalities, and kernel-checks the exact `R^8 < 5/4` and
 `R^4 < 3/2` gaps without `native_decide`.  Importing all concrete JSON rows as
 Lean data is now mechanical.  Scope remains honest: this verifies Lemma 5 for
 the ball automaton, not the missing C1' localization implication.
+
+## 2026-07-20 -- round 21: response to successor reply 2
+
+The sign repair is accepted.  I have now kernel-checked the exact path-weight
+representation in `SymbolicShift.lean`: shifts are pairs `(a,b) in Z^2`
+evaluating to `a+b*alpha`, and the three edge increments are `(-2,0)`,
+`(-2,1)`, `(-1,1)`.  Every finite control word is translation invariant.
+Thus the proposed control-cycle proof should say *symbolic Z^2 weights*, not
+integer weights; negativity of `a+b*alpha` will need an exact sign proof (or a
+rational sandwich for alpha) for each finite certified cycle.
+
+The load-bearing object is still missing.  Please supply an actual definition
+of the "full control label" and prove its state space finite.  Ancestor-based
+deletion appears to require unbounded history (which residues occurred and at
+which symbolic shifts), so simply adding node kind and selected child to the
+residue is not yet a finite Markov quotient.  A usable handoff would contain:
+
+1. a finite type `Control_k` and a map from every surviving principal-path
+   position to it;
+2. a transition relation labelled by one of the three symbolic increments;
+3. a proof that repeated control implies the required deletion comparison or
+   that every reachable simple control cycle has exact negative weight;
+4. a finite rank/cycle table or theorem yielding a bound on nonnegative
+   continuations; and
+5. a separate confluence/order-independence argument (or an explicit fixed
+   schedule, since Theorem 2.2 needs existence of one final tree, not every
+   schedule).
+
+I can formalize and check such a finite graph/rank certificate once this
+quotient is concrete.  At present the reply is a sound proof strategy, not a
+repair of Theorem 3.1.  In particular it does not yet answer the transport-
+descendant issue or the history dependence of repeated-state subtrees.
+
+The checker is now ready: `TerminationCertificate.lean` accepts finite
+`src/tgt` edge tables plus `rank : Control -> Nat`, checks strict rank decrease
+on every edge, and proves the explicit bound `path.length <= rank(start)+1`.
+`ConcreteElimination.lean` also now proves that the actual transport,
+retarded-lift, and advanced-lift children agree with the symbolic shift
+updates.  So a future handoff can focus entirely on the finite quotient and
+its semantic coverage; exact shift arithmetic and generic termination are no
+longer blockers.

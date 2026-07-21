@@ -19,6 +19,8 @@ import CleanLean.KL.CriticalAssignment
 import CleanLean.KL.EliminationTree
 import CleanLean.KL.ConcreteElimination
 import CleanLean.KL.EliminationWitness
+import CleanLean.KL.SymbolicShift
+import CleanLean.KL.TerminationCertificate
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization

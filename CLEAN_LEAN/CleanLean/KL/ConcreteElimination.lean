@@ -6,6 +6,7 @@ Authors: Simon DeDeo, OpenAI Codex
 import CleanLean.KL.EliminationTree
 import CleanLean.KL.KLWeights
 import CleanLean.KL.ResidueSystem
+import CleanLean.KL.SymbolicShift
 
 /-!
 # The concrete KL split tree
@@ -26,6 +27,11 @@ namespace ConcreteElimination
 
 open EliminationTree
 
+/-- Embed an exact symbolic shift into the real-labelled elimination tree. -/
+noncomputable def symbolicLabel (state : ResidueSystem.State k)
+    (shift : SymbolicShift) : PrincipalLabel (ResidueSystem.State k) :=
+  ⟨state, shift.value⟩
+
 /-- A binary representation of a three-way minimum. -/
 def inf3 {ι : Type} (a b c : EliminationTree ι) : EliminationTree ι :=
   .inf a (.inf b c)
@@ -36,12 +42,40 @@ def transportLeaf (k : ℕ)
     EliminationTree (ResidueSystem.State k) :=
   .leaf ⟨(ResidueSystem.system k).transport label.state, label.shift - 2⟩
 
+/-- The concrete transport child respects the exact symbolic shift update. -/
+theorem transportLeaf_symbolic (k : ℕ) (state : ResidueSystem.State k)
+    (shift : SymbolicShift) :
+    transportLeaf k (symbolicLabel state shift) =
+      .leaf (symbolicLabel ((ResidueSystem.system k).transport state)
+        shift.transport) := by
+  simp [transportLeaf, symbolicLabel]
+
 /-- One labelled lift in a newly created branch minimum. -/
 def branchLabel (k : ℕ) (label : PrincipalLabel (ResidueSystem.State k))
     (delta : ℝ) (j : Fin 3) : PrincipalLabel (ResidueSystem.State k) :=
   ⟨(ResidueSystem.system k).fiber
       ((ResidueSystem.system k).refinementTarget label.state) j,
     label.shift + delta⟩
+
+/-- The retarded three-lift child respects the symbolic `alpha-2` update. -/
+theorem branchLabel_retarded_symbolic (k : ℕ)
+    (state : ResidueSystem.State k) (shift : SymbolicShift) (j : Fin 3) :
+    branchLabel k (symbolicLabel state shift) (alpha - 2) j =
+      symbolicLabel
+        ((ResidueSystem.system k).fiber
+          ((ResidueSystem.system k).refinementTarget state) j)
+        shift.retarded := by
+  simp [branchLabel, symbolicLabel]
+
+/-- The advanced three-lift child respects the symbolic `alpha-1` update. -/
+theorem branchLabel_advanced_symbolic (k : ℕ)
+    (state : ResidueSystem.State k) (shift : SymbolicShift) (j : Fin 3) :
+    branchLabel k (symbolicLabel state shift) (alpha - 1) j =
+      symbolicLabel
+        ((ResidueSystem.system k).fiber
+          ((ResidueSystem.system k).refinementTarget state) j)
+        shift.advanced := by
+  simp [branchLabel, symbolicLabel]
 
 /-- One leaf of the newly created branch minimum. -/
 def branchLeaf (k : ℕ) (label : PrincipalLabel (ResidueSystem.State k))

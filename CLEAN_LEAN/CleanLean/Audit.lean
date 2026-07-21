@@ -22,6 +22,8 @@ import CleanLean.KL.CriticalAssignment
 import CleanLean.KL.EliminationTree
 import CleanLean.KL.ConcreteElimination
 import CleanLean.KL.EliminationWitness
+import CleanLean.KL.SymbolicShift
+import CleanLean.KL.TerminationCertificate
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
@@ -100,6 +102,9 @@ specification theorems during a build.
 #print axioms CleanLean.KL.EliminationTree.Assignment.eval_delete_left_of_noCriticalUse
 #print axioms CleanLean.KL.EliminationTree.Assignment.eval_delete_right_of_noCriticalUse
 #print axioms CleanLean.KL.ConcreteElimination.eval_splitBody_eq_base
+#print axioms CleanLean.KL.ConcreteElimination.transportLeaf_symbolic
+#print axioms CleanLean.KL.ConcreteElimination.branchLabel_retarded_symbolic
+#print axioms CleanLean.KL.ConcreteElimination.branchLabel_advanced_symbolic
 #print axioms CleanLean.KL.ConcreteElimination.repeated_concrete_branch_not_selected
 #print axioms CleanLean.KL.ConcreteElimination.splitTree_locallyValid
 #print axioms CleanLean.KL.ConcreteElimination.eval_split_in_context_le_leaf
@@ -111,6 +116,12 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ConcreteElimination.coeff_leaf_le_split_in_context
 #print axioms CleanLean.KL.ConcreteElimination.quarter_lower_bound_of_retardedElimination
 #print axioms CleanLean.KL.ConcreteElimination.baseBody_allLeaves_retarded_of_not_advanced
+#print axioms CleanLean.KL.SymbolicShift.value_follow
+#print axioms CleanLean.KL.SymbolicShift.value_neg_of_alpha_upper_check
+#print axioms CleanLean.KL.SymbolicShift.value_neg_of_alpha_lower_check
+#print axioms CleanLean.KL.SymbolicShift.wordWeight_replicate_transport_neg
+#print axioms CleanLean.KL.rank_decreases_of_check
+#print axioms CleanLean.KL.edgePath_length_le_of_check
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
 #print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda
 #print axioms CleanLean.KL.weightedDefect_le_tail
