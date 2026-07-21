@@ -279,6 +279,103 @@ theorem initial_defect_tendsto_zero_of_uniform_quadratic_growth
     mul_le_mul_of_nonneg_right (hcoeff k j hj) (sq_nonneg (e k j))
   nlinarith [hstep k j hj]
 
+/-- Reciprocal telescoping in the precision-indexed direction.  Here `e n`
+is the finest defect and `e 0` the final coarse defect, so every coarse step
+appears with the reverse inequality from the stage-indexed formulation. -/
+theorem reverse_reciprocal_drop_sum_with
+    (a : ℝ) (e : ℕ → ℝ) (n : ℕ) (ha : 0 < a)
+    (hpos : ∀ j ≤ n, 0 < e j)
+    (hone : ∀ j ≤ n, e j ≤ 1)
+    (hstep : ∀ j < n, e (j + 1) + a * (e (j + 1)) ^ 2 ≤ e j) :
+    (a / (1 + a)) * n ≤ 1 / e n - 1 / e 0 := by
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      have ih' : (a / (1 + a)) * n ≤ 1 / e n - 1 / e 0 := by
+        apply ih
+        · intro j hj
+          exact hpos j (by omega)
+        · intro j hj
+          exact hone j (by omega)
+        · intro j hj
+          exact hstep j (by omega)
+      have hlast : a / (1 + a) ≤ 1 / e (n + 1) - 1 / e n :=
+        coefficient_div_one_add_le_reciprocal_drop ha
+          (hpos (n + 1) (by omega)) (hone (n + 1) (by omega))
+          (hstep n (by omega))
+      rw [Nat.cast_succ]
+      calc
+        (a / (1 + a)) * ((n : ℝ) + 1) =
+            (a / (1 + a)) * n + a / (1 + a) := by ring
+        _ ≤ (1 / e n - 1 / e 0) +
+            (1 / e (n + 1) - 1 / e n) := add_le_add ih' hlast
+        _ = 1 / e (n + 1) - 1 / e 0 := by ring
+
+/-- Finite bound in the natural precision indexing: the finest defect is at
+index `n`, and repeated coarse-minimum gains force it to be `O(1/n)`. -/
+theorem terminal_defect_le_of_reverse_quadratic_growth_with
+    (a : ℝ) (e : ℕ → ℝ) (n : ℕ) (ha : 0 < a)
+    (hpos : ∀ j ≤ n, 0 < e j)
+    (hone : ∀ j ≤ n, e j ≤ 1)
+    (hstep : ∀ j < n, e (j + 1) + a * (e (j + 1)) ^ 2 ≤ e j) :
+    e n ≤ 1 / (1 + (a / (1 + a)) * n) := by
+  have htel := reverse_reciprocal_drop_sum_with a e n ha hpos hone hstep
+  have hcoarse : (1 : ℝ) ≤ 1 / e 0 := by
+    rw [le_div_iff₀ (hpos 0 (Nat.zero_le n))]
+    simpa using hone 0 (Nat.zero_le n)
+  have hrecip : 1 + (a / (1 + a)) * n ≤ 1 / e n := by
+    linarith
+  have hdena : 0 < 1 + a := by linarith
+  have hc0 : 0 ≤ a / (1 + a) := div_nonneg ha.le hdena.le
+  have hden : 0 < 1 + (a / (1 + a)) * n := by positivity
+  have hen := hpos n le_rfl
+  apply (le_div_iff₀ hden).2
+  have hmul := mul_le_mul_of_nonneg_left hrecip hen.le
+  have hcancel : e n * (1 / e n) = 1 := by
+    field_simp [hen.ne']
+  nlinarith
+
+/-- A triangular precision-indexed family with uniformly positive, possibly
+stage-dependent reverse quadratic gains has vanishing finest defect. -/
+theorem terminal_defect_tendsto_zero_of_uniform_reverse_quadratic_growth
+    (a₀ : ℝ) (a : ℕ → ℕ → ℝ) (e : ℕ → ℕ → ℝ) (ha₀ : 0 < a₀)
+    (hpos : ∀ k j, j ≤ k → 0 < e k j)
+    (hone : ∀ k j, j ≤ k → e k j ≤ 1)
+    (hcoeff : ∀ k j, j < k → a₀ ≤ a k j)
+    (hstep : ∀ k j, j < k →
+      e k (j + 1) + a k j * (e k (j + 1)) ^ 2 ≤ e k j) :
+    Filter.Tendsto (fun k => e k k) Filter.atTop (nhds 0) := by
+  let c := a₀ / (1 + a₀)
+  have hdena : 0 < 1 + a₀ := by linarith
+  have hc : 0 < c := div_pos ha₀ hdena
+  have hbound : ∀ k, e k k ≤ 1 / (1 + c * k) := by
+    intro k
+    apply terminal_defect_le_of_reverse_quadratic_growth_with
+      a₀ (e k) k ha₀ (hpos k) (hone k)
+    intro j hj
+    have hmul : a₀ * (e k (j + 1)) ^ 2 ≤
+        a k j * (e k (j + 1)) ^ 2 :=
+      mul_le_mul_of_nonneg_right (hcoeff k j hj)
+        (sq_nonneg (e k (j + 1)))
+    nlinarith [hstep k j hj]
+  have hupper : Filter.Tendsto (fun k : ℕ => 1 / (1 + c * k : ℝ))
+      Filter.atTop (nhds 0) := by
+    have hden : Filter.Tendsto (fun k : ℕ => (1 + c * k : ℝ))
+        Filter.atTop Filter.atTop := by
+      have hmul : Filter.Tendsto (fun k : ℕ => c * (k : ℝ))
+          Filter.atTop Filter.atTop :=
+        Filter.Tendsto.const_mul_atTop (r := c) hc
+          tendsto_natCast_atTop_atTop
+      simpa [add_comm] using
+        Filter.tendsto_atTop_add_const_right Filter.atTop (1 : ℝ) hmul
+    have honeT : Filter.Tendsto (fun _ : ℕ => (1 : ℝ))
+        Filter.atTop (nhds 1) := tendsto_const_nhds
+    simpa [one_div] using honeT.div_atTop hden
+  apply squeeze_zero'
+  · exact Filter.Eventually.of_forall fun k => (hpos k k le_rfl).le
+  · exact Filter.Eventually.of_forall hbound
+  · exact hupper
+
 /-- The selected iterated-minimum conjecture, expressed only through its
 scalar defects, is sufficient for `lambda_k -> 2`.  The hypothesis `hidentity`
 is the exact fixed-vector oscillation identity already proved elsewhere. -/
@@ -338,6 +435,29 @@ theorem klLambda_tendsto_two_of_uniform_quadratic_defect_growth
   · intro k
     exact (hpos k 0 (Nat.zero_le k)).le
   · exact initial_defect_tendsto_zero_of_uniform_quadratic_growth
+      a₀ a e ha₀ hpos hone hcoeff hstep
+  · exact hidentity
+
+/-- Precision-indexed concrete endpoint.  This matches a tower whose profile
+at index `j+1` is replaced by its coarse minimum at index `j`; no reversal of
+indices is left to an informal argument. -/
+theorem klLambda_tendsto_two_of_uniform_reverse_quadratic_defect_growth
+    (a₀ : ℝ) (a : ℕ → ℕ → ℝ)
+    (lam : ℕ → ℝ) (e : ℕ → ℕ → ℝ) (ha₀ : 0 < a₀)
+    (hlam : ∀ k, lam k ∈ Set.Icc (1 : ℝ) 2)
+    (hpos : ∀ k j, j ≤ k → 0 < e k j)
+    (hone : ∀ k j, j ≤ k → e k j ≤ 1)
+    (hcoeff : ∀ k j, j < k → a₀ ≤ a k j)
+    (hstep : ∀ k j, j < k →
+      e k (j + 1) + a k j * (e k (j + 1)) ^ 2 ≤ e k j)
+    (hidentity : ∀ k, annealedKL (lam k) - 1 =
+      ((klWeights (lam k)).retarded +
+        (klWeights (lam k)).advanced) * e k k) :
+    Filter.Tendsto lam Filter.atTop (nhds 2) := by
+  apply klLambda_tendsto_two_of_defect lam (fun k => e k k) hlam
+  · intro k
+    exact (hpos k k le_rfl).le
+  · exact terminal_defect_tendsto_zero_of_uniform_reverse_quadratic_growth
       a₀ a e ha₀ hpos hone hcoeff hstep
   · exact hidentity
 

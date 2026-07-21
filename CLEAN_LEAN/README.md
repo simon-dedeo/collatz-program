@@ -120,6 +120,11 @@ The coefficient may also vary with both the outer level and the successive
 coarse-minimum stage.  Lean only asks for one uniform positive lower bound on
 those coefficients, so a pressure proof may lose constants at different
 stages without first making them exactly equal.
+Both orientations are kernel-checked: the original stage indexing starts at
+the finest profile, while the precision-indexed form stores the finest profile
+at the terminal index and takes coarse minima toward index zero.  The latter
+matches the actual KL tower directly and removes an otherwise informal index
+reversal from the endpoint argument.
 
 `ArgminFrustration.lean` kernel-checks the local algebra behind that missing
 inequality.  For an arbitrary fine profile, every coarse slack row is exactly

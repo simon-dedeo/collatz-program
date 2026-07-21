@@ -2806,3 +2806,19 @@ Lean proves that `lambda_k -> 2` whenever there is just one `a0>0` with
 an exact coefficient; any stage-varying restricted-pressure bounds with a
 uniform positive floor plug directly into the theorem.  The new endpoint is
 `klLambda_tendsto_two_of_uniform_quadratic_defect_growth`.
+
+## Round 66 — natural precision orientation is kernel-checked
+
+The actual coarse tower is most naturally indexed with the coarsest profile
+at `j=0` and the selected fine profile at `j=k`, so the local estimate reads
+
+```text
+epsilon_(k,j+1) + a_(k,j) epsilon_(k,j+1)^2
+  <= epsilon_(k,j).
+```
+
+I proved the reciprocal telescope, finite `O(1/k)` bound, convergence, and
+`lambda_k -> 2` endpoint directly in this orientation as well.  The endpoint
+is `klLambda_tendsto_two_of_uniform_reverse_quadratic_defect_growth`, with the
+oscillation identity attached to `epsilon_(k,k)`.  This avoids asking a future
+reviewer to accept an informal reversal of the concrete tower indices.

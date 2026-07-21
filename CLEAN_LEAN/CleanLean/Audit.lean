@@ -423,9 +423,13 @@ specification theorems during a build.
 #print axioms CleanLean.KL.initial_defect_tendsto_zero_of_quadratic_growth
 #print axioms CleanLean.KL.initial_defect_tendsto_zero_of_quadratic_growth_with
 #print axioms CleanLean.KL.initial_defect_tendsto_zero_of_uniform_quadratic_growth
+#print axioms CleanLean.KL.reverse_reciprocal_drop_sum_with
+#print axioms CleanLean.KL.terminal_defect_le_of_reverse_quadratic_growth_with
+#print axioms CleanLean.KL.terminal_defect_tendsto_zero_of_uniform_reverse_quadratic_growth
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_quadratic_defect_growth
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_quadratic_defect_growth_with
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_uniform_quadratic_defect_growth
+#print axioms CleanLean.KL.klLambda_tendsto_two_of_uniform_reverse_quadratic_defect_growth
 #print axioms CleanLean.KL.exists_strict_feasible_ladder_from_k12
 #print axioms CleanLean.KL.exists_later_feasible_gt_k12
 #print axioms CleanLean.KL.exists_predecessorExponent_gt_k12
