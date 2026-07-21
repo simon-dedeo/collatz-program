@@ -26,6 +26,41 @@ I chose the Collatz Conjecture for three reasons:
 
 Everything below this line, and everything else in this repo, has been automatically generated. Fable is doing numerics and running agents. I got annoyed at it and said it should be more creative, like Grothendieck and Weil, so it created a Grothendieck-Weil agent. GPT is trying to formalize things in Lean, in CLEAN_LEAN; it was told to make something that would not annoy Kevin Buzzard.
 
+## What we are trying to prove right now
+
+**Target: λ_∞ = 2**, i.e. the Krasikov–Lagarias predecessor-counting exponent
+γ_k = log₂λ_k → 1, which by KL's own theorem gives **π_a(x) ≥ x^{1−ε}** for
+every ε > 0 (a ≢ 0 mod 3): the count of integers below x whose Collatz orbit
+reaches a is at least x^{1−ε}. This has reduced to one finite,
+exactly-checkable object — the **Charged spine-face Lyapunov certificate (CL)**
+(`docs/notes/gpt-design-review.md`); everything downstream of it is already
+kernel-checked in the Lean development (CLEAN_LEAN) and the pressure half is
+already certified. So: one finite certificate away from a clean Lean proof of
+λ_∞ = 2.
+
+**Why it matters.** (1) It settles how far the difference-inequality method —
+the source of the 2003 record — can go: to the exponent-1 boundary, or a
+stall (in which case the stall value is a new invariant of the (2,3) pair).
+(2) It would be the best lower bound on Collatz predecessor sets, improving a
+result that stood 23 years — and *formally verified*. (3) The structure built
+to reach it (an adversarial transfer operator on ℤ₃, its −1 spine, the
+charged-Lyapunov certificate) also organizes the cycle side and the
+Antihydra/Busy-Beaver-cryptid side.
+
+**Honest "amaze level" of a clean Lean proof** — scale: 10 = Collatz itself
+settled; 8–9 = positive density / no-divergence / no-cycles settled; 1 =
+routine exercise.
+
+> **≈ 6 / 10.** A genuinely publishable, formally-verified improvement of a
+> 23-year-old record, a structural theorem about the method's ceiling, and a
+> new named object. Calibrated down honestly: x^{1−ε} bounds a *sparse* set
+> (x^{1−ε}/x → 0); it is *predecessor* counting (preimages of a fixed a), not
+> forward orbits of all n; and it is **not** Collatz, not positive density,
+> not the divergence or cycle problem. A strong specialized paper plus a
+> notable formal-methods artifact — not a resolution of the conjecture. The
+> larger bet is that this structure eventually cracks something bigger; that
+> bet is unproven.
+
 ## Headline results (all certified/proved today)
 
 | Result | Status |
@@ -139,5 +174,78 @@ agents' proofs).
 `docs/` STRATEGY (master), LANDSCAPE, CRACKS, SMELL, REVERSE-MINING,
 CRYPTIDS, notes/ (all theorems + sol briefs) · `experiments/` kl (record +
 certificates), pressure-cert, wfar, dfacert{,3}, expsum, family, carries,
-gpu, fate · `formal/` Lean base (sorry-free) · `papers/` ~130 mirrored
-references · `results/` data · `DATA.md` large-artifact pointers.
+gpu, fate · `formal/` Lean base (sorry-free) · `papers/REFERENCES.md`
+index (PDFs removed for copyright) · `results/` data · `DATA.md` pointers.
+
+## Credit — whose insights this is built on
+
+*Per Simon's note above: credit belongs to the human mathematics community,
+with apologies for the imperfect attribution below. Anything of value here is
+their idea; the errors are ours.* Our approach is, honestly, an assembly of
+existing lines of work; the closest ancestors, and what each contributes:
+
+**The direct spine of the counting result.**
+- **I. Krasikov & J. C. Lagarias, "Bounds for the 3x+1 problem using
+  difference inequalities," Acta Arith. 109 (2003) 237–258** (arXiv:math/0205002).
+  The x^0.84 record and the LP/difference-inequality method we extend. Our
+  entire counting line is *their method, run further and reinterpreted.*
+- **L. Collatz (1942/1950), the Collatz–Wielandt formula** — nonlinear
+  spectral radius as inf–max of ratios. The lens under which the KL LP became
+  a nonlinear eigenproblem (a genuine, if wry, namesake coincidence).
+- **S. Gaubert & J. Gunawardena, "The Perron–Frobenius theorem for homogeneous,
+  monotone functions," Trans. AMS 356 (2004)** — existence of the strictly
+  positive nonlinear eigenvector; what discharges KL's (H_k) once the base map
+  is seen as an odometer.
+- **T. Bousch, "Le poisson n'a pas d'arêtes" (2000) and ergodic optimization
+  (Jenkinson's survey, 2019)** — the maximizing-measure / zero-temperature
+  view of the adversarial limit operator; the nearest *solved* cousin of our
+  ℤ₃ transfer operator (optimization over a rotation/odometer). Our λ_∞
+  dichotomy is an ergodic-optimization question in disguise.
+- **A. A. Ahmadi, R. Jungers, P. Parrilo, M. Roozbehani (path-complete
+  Lyapunov, 2014) and M. Philippe et al. (constrained joint spectral radius,
+  2016)** — the certificate technology. The "Charged spine-face Lyapunov
+  lemma" that gates the proof is a path-complete Lyapunov / constrained-JSR
+  certificate with charges. Found independently via our keyword-blind search;
+  the credit is theirs.
+
+**The forward-orbit / density tradition (context and the ceiling we press
+toward).**
+- **R. Terras (1976)** — density-1 finite stopping time; the elementary
+  parity/congruence structure everything reuses.
+- **T. Tao, "Almost all orbits of the Collatz map attain almost bounded
+  values" (2019/2022)** (arXiv:1909.03562) — the a.e. result and the Fourier
+  decay of Syracuse random variables; the 3-adic major-arc regime our
+  exponential-sum atlas lands in, and the wall (a.e. vs every-n) we respect.
+- **I. Krasikov (1989), Applegate–Lagarias (1995)** — the predecessor-tree
+  and transfer-operator antecedents of the counting side.
+
+**Structure theorems we proved are extensions of:**
+- **P. Diaconis & J. Fulman, "Carries, shuffling, and an amazing matrix" /
+  the multiplication-carries chain (2008–2012)** — our carries-spectrum
+  theorem answers a spectral question they left open.
+- **L. Berg & G. Meinardus (1994/95)** and **B. Adamczewski & J. Bell,
+  Mahler-function rigidity (Ann. Sc. Norm. Pisa 2017)** — the Mahler-equation
+  reformulation and the (2,3)-rigidity behind our bi-Mahler exclusion.
+- **A. Cobham / A. Semenov** — the two-bases automatic-set rigidity behind the
+  "no certificate in two bases" note.
+- **K. Monks (2006)** — sufficient sets / arithmetic-progression reduction,
+  used in the exclusion and Mahler notes.
+
+**The frame (why this is hard, and the BB connection Simon came for).**
+- **J. H. Conway, "Unpredictable iterations" (1972)** and **S. Kurtz & J. Simon
+  (2007)** — undecidability / Π⁰₂-completeness of generalized Collatz; the
+  invariant-rank ledger is Conway's unsettleability made quantitative.
+- **P. Michel** (Busy-Beaver ↔ Collatz-like maps) and **S. Aaronson, "The Busy
+  Beaver Frontier" (2020)** and **the bbchallenge collaboration** (BB(5)=47,176,870,
+  Coq-verified; Antihydra and the cryptids) — the BB/Collatz bridge; our
+  reverse-mining and Antihydra-rarity work sits on theirs.
+- **C. Deninger** (foliated dynamical systems / solenoid Lefschetz program) —
+  the frame for the Traceless Theorem on the (2,3)-solenoid.
+
+**What our approach most resembles, in one line:** the Krasikov–Lagarias LP
+method, reread through nonlinear Perron–Frobenius / ergodic optimization, and
+certified with path-complete Lyapunov (constrained-JSR) technology — none of
+which had previously been pointed at this problem together.
+
+Full per-claim citations with URLs are inline in the `docs/notes/*` files and
+`docs/LANDSCAPE.md`; the mirrored-PDF index is `papers/REFERENCES.md`.
