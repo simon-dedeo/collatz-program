@@ -1,7 +1,8 @@
 # collatz-program
 
 An ad hoc and playful investigation of the Collatz (3x+1) conjecture:
-experiments, theory, and formalization and the new *Kontorovich Challenge*. Certified claims are backed by
+experiments, theory, formalization, and the new *Kontorovich Challenge*.
+Certified claims are backed by
 machine-checkable artifacts; research derivations and finite evidence are
 scoped explicitly. Started 2026-07-20 (Claude Fable 5 +
 GPT-5.6-sol; PSC Bridges-2 grant mth260010p).
@@ -117,12 +118,49 @@ classes will be recorded here with explicit bounds, just as in the proof
 strategy's failure ledger.  Nothing will be called a disproof unless the
 positive integer and its claimed behavior are machine-checked.
 
+### First exact checkpoint
+
+The first compiler and certificate seam is now live.  The dependency-free
+[`path_compiler.py`](experiments/kontorovich/path_compiler.py) reproduces the
+thread's `(1,1,2,2) -> 199` example, compiles both Kontorovich--Sinai seed
+progressions, and replays every valuation with arbitrary-precision integers.
+The independent [`KontoroC/`](KontoroC/README.md) Lean package checks the same
+affine identity and proves that a valid nontrivial cycle artifact refutes the
+literal ordinary Collatz conjecture.  No such artifact has been found.
+
+The first bounded adversarial sweep tested all `3,447,691` positive-
+denominator valuation compositions with total halving count at most `22`.
+Only the eleven bounded repetitions of the seed-`1` trivial cycle closed.  A
+separate low-description sweep tested `168` binary uniform morphisms of widths
+two through four, all `16` codings by valuations in `{1,2,3,4}`, and `20,224`
+depth instances through expanded length `16,384`.  Its `1,960` closure hits
+are again all seed `1`; there is no nontrivial cycle in this stated template
+class.  Seed stabilization was checked separately through length `512`.  Its
+longest `1`-avoiding event is the length-nine prefix of seed `107`, which
+exact continuation sends to `1` after `36` accelerated steps.  These are exact
+bounded exclusions of small program classes, not a new global verification
+bound and not evidence of convergence.
+
+A short research derivation also closes the most literal glider: if one fixed
+nonempty `k`-block repeats forever on a positive orbit, divisibility by
+arbitrarily high powers of `2^sum(k)` forces the block endpoint to equal its
+start.  Thus an eventually periodic valuation program is a cycle, not a
+growing glider; a supercritical repeated block has only a negative 2-adic
+seed.  This statement has been sent to the independent Lean agent and remains
+labeled a research derivation until its kernel proof lands.  The active search
+therefore moves to aperiodic one-counter and recursively nested templates.
+See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-program-synthesis.md)
+for the exact algebra, bounds, result digest, and next attacks.
+
+## Project guides
 
 The front page is the state-of-the-project map.  These are the other README
 entry points, grouped by role:
 
 | Guide | Scope |
 |---|---|
+| [`experiments/kontorovich/README.md`](experiments/kontorovich/README.md) | Exact finite `k`-word compiler, replayable cycle artifacts, and bounded morphic-glider searches. |
+| [`KontoroC/README.md`](KontoroC/README.md) | Independent Lean checker connecting a nontrivial accelerated cycle artifact to the ordinary Collatz conjecture. |
 | [`CLEAN_LEAN/README.md`](CLEAN_LEAN/README.md) | Main Lean 4 formalization, build instructions, theorem inventory, and trust boundary. |
 | [`formal/README.md`](formal/README.md) | Small original Lean scaffold: definitions, descent reduction, and a bounded `native_decide` check. |
 | [`experiments/cycles/README.md`](experiments/cycles/README.md) | Finite-place obstruction tests for hypothetical Collatz cycles; calibrated negative verdict. |

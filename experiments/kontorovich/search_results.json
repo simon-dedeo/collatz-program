@@ -1,0 +1,357 @@
+{
+  "arithmetic": "exact_python_integers",
+  "composition_search": {
+    "cycles": [
+      {
+        "accelerated_steps": 1,
+        "affine_constant": "1",
+        "map": "accelerated_odd_3x_plus_1",
+        "orbit": [
+          "1"
+        ],
+        "ordinary_steps": 3,
+        "schema": "collatz-accelerated-cycle-v1",
+        "seed": "1",
+        "total_halvings": 2,
+        "word": [
+          2
+        ]
+      },
+      {
+        "accelerated_steps": 2,
+        "affine_constant": "7",
+        "map": "accelerated_odd_3x_plus_1",
+        "orbit": [
+          "1",
+          "1"
+        ],
+        "ordinary_steps": 6,
+        "schema": "collatz-accelerated-cycle-v1",
+        "seed": "1",
+        "total_halvings": 4,
+        "word": [
+          2,
+          2
+        ]
+      },
+      {
+        "accelerated_steps": 3,
+        "affine_constant": "37",
+        "map": "accelerated_odd_3x_plus_1",
+        "orbit": [
+          "1",
+          "1",
+          "1"
+        ],
+        "ordinary_steps": 9,
+        "schema": "collatz-accelerated-cycle-v1",
+        "seed": "1",
+        "total_halvings": 6,
+        "word": [
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "accelerated_steps": 4,
+        "affine_constant": "175",
+        "map": "accelerated_odd_3x_plus_1",
+        "orbit": [
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "ordinary_steps": 12,
+        "schema": "collatz-accelerated-cycle-v1",
+        "seed": "1",
+        "total_halvings": 8,
+        "word": [
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "accelerated_steps": 5,
+        "affine_constant": "781",
+        "map": "accelerated_odd_3x_plus_1",
+        "orbit": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "ordinary_steps": 15,
+        "schema": "collatz-accelerated-cycle-v1",
+        "seed": "1",
+        "total_halvings": 10,
+        "word": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "accelerated_steps": 6,
+        "affine_constant": "3367",
+        "map": "accelerated_odd_3x_plus_1",
+        "orbit": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "ordinary_steps": 18,
+        "schema": "collatz-accelerated-cycle-v1",
+        "seed": "1",
+        "total_halvings": 12,
+        "word": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "accelerated_steps": 7,
+        "affine_constant": "14197",
+        "map": "accelerated_odd_3x_plus_1",
+        "orbit": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "ordinary_steps": 21,
+        "schema": "collatz-accelerated-cycle-v1",
+        "seed": "1",
+        "total_halvings": 14,
+        "word": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "accelerated_steps": 8,
+        "affine_constant": "58975",
+        "map": "accelerated_odd_3x_plus_1",
+        "orbit": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "ordinary_steps": 24,
+        "schema": "collatz-accelerated-cycle-v1",
+        "seed": "1",
+        "total_halvings": 16,
+        "word": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "accelerated_steps": 9,
+        "affine_constant": "242461",
+        "map": "accelerated_odd_3x_plus_1",
+        "orbit": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "ordinary_steps": 27,
+        "schema": "collatz-accelerated-cycle-v1",
+        "seed": "1",
+        "total_halvings": 18,
+        "word": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "accelerated_steps": 10,
+        "affine_constant": "989527",
+        "map": "accelerated_odd_3x_plus_1",
+        "orbit": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "ordinary_steps": 30,
+        "schema": "collatz-accelerated-cycle-v1",
+        "seed": "1",
+        "total_halvings": 20,
+        "word": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "accelerated_steps": 11,
+        "affine_constant": "4017157",
+        "map": "accelerated_odd_3x_plus_1",
+        "orbit": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        "ordinary_steps": 33,
+        "schema": "collatz-accelerated-cycle-v1",
+        "seed": "1",
+        "total_halvings": 22,
+        "word": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      }
+    ],
+    "exact_cycle_words": 11,
+    "max_total_halvings": 22,
+    "nontrivial_cycle_words": 0,
+    "positive_multiplier_shapes_only": true,
+    "search": "all_ordered_positive_compositions",
+    "words_tested": 3447691
+  },
+  "morphic_search": {
+    "coding_pairs_per_morphism": 16,
+    "depth_instances_tested": 20224,
+    "exact_cycle_instances": 1960,
+    "longest_nontrivial_seed_stabilization": {
+      "coding": [
+        4,
+        2
+      ],
+      "depth": 9,
+      "first_one_step": 1,
+      "image_0": "01",
+      "image_1": "11",
+      "residue_mod_6": 5,
+      "seed": "5",
+      "stable_extensions": 8,
+      "uniform_width": 2,
+      "word_length": 512
+    },
+    "longest_one_avoiding_seed_stabilization": {
+      "coding": [
+        1,
+        2
+      ],
+      "continuation": {
+        "accelerated_steps": 36,
+        "peak": "3077",
+        "status": "reaches_one"
+      },
+      "depth": 2,
+      "first_one_step": null,
+      "image_0": "011",
+      "image_1": "010",
+      "residue_mod_6": 5,
+      "seed": "107",
+      "stable_extensions": 1,
+      "uniform_width": 3,
+      "word_length": 9
+    },
+    "longest_seed_stabilization": {
+      "coding": [
+        2,
+        1
+      ],
+      "depth": 9,
+      "first_one_step": 0,
+      "image_0": "00",
+      "image_1": "00",
+      "residue_mod_6": 1,
+      "seed": "1",
+      "stable_extensions": 8,
+      "uniform_width": 2,
+      "word_length": 512
+    },
+    "max_coding_value": 4,
+    "max_expanded_word_length": 16384,
+    "max_seed_stabilization_word_length": 512,
+    "max_uniform_width": 4,
+    "morphisms_tested": 168,
+    "nontrivial_cycle_instances": 0,
+    "nontrivial_cycles": [],
+    "nontrivial_seed_stabilization_events": 20,
+    "one_avoiding_seed_stabilization_events": 5,
+    "positive_multiplier_instances": 16565,
+    "search": "binary_uniform_prolongable_morphisms",
+    "seed_stabilization_events": 932
+  },
+  "schema": "collatz-program-search-v1",
+  "source_sha256": "08c7a02de3bfadc918577c8dbc76c28d9d1474393c0556c1a5327b0d362eec03"
+}

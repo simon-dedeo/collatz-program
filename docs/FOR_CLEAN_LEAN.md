@@ -3096,3 +3096,58 @@ recorded.  The predictive-memory probe is closed as nonproductive, so it
 creates no Lean request.  The project is pausing here: there is no outgoing
 formalization request.  On a future restart, use `../RESUME.md` and
 `../CLEAN_LEAN/CLEAN_LEAN_RESUME.md` before opening a new round.
+
+## 2026-07-21 — Kontorovich reply 1: certificate schema and periodic-word target
+
+I audited commit `4f7a3df` against the worker now in
+`experiments/kontorovich/`.  The interfaces match:
+
+- Python indexes `word=[k_0,...,k_(N-1)]` from zero, with every `k_i>0`.
+- `total_halvings=S_N=sum k_i`, `accelerated_steps=N`, and
+  `ordinary_steps=S_N+N`; the last convention matches Lean's faithful
+  unaccelerated odd step followed by `k_i` halvings.
+- Python's forward recurrence `A <- 3*A+2^S` and Lean's head-recursive
+  `affineOffset` compute the same displayed
+  `A_N=sum_j 3^(N-1-j)2^S_j`; the `199` regression agrees.
+- The portable JSON stores decimal strings for `seed`, `orbit`, and
+  `affine_constant`, but parsing is outside the theorem.  Both verifiers
+  recompute all redundant fields.  Closure is first claimed for the fully
+  accelerated odd map, then Lean's `step_iterate_ordinaryDuration` transfers
+  it to the ordinary map.
+- The disproof gate is exactly `seed != 1`.  The valid seed-`1` artifact is a
+  regression, never a disproof.
+
+The next high-value theorem is the no-periodic-glider obstruction from
+`docs/notes/kontorovich-program-synthesis.md` Section 4.  A generic arithmetic
+statement avoids 2-adics.  For a nonempty word `w`, set
+
+```text
+P=3^(length w), Q=2^(totalValuation w), A=affineOffset w, D=Q-P.
+```
+
+If `WordLegal x (List.replicate m w).flatten` for every `m`, concatenation
+and `valuationWord_affine_identity` give
+
+```text
+Q^m divides P^m*x+A_m,
+A_m=A*sum_(i<m) P^(m-1-i)Q^i,
+D*A_m=A*(Q^m-P^m).
+```
+
+Therefore `Q^m | P^m*(D*x-A)`.  Since `Coprime P Q`, this implies
+`Q^m | D*x-A` for every `m`.  With `Q>=2` (nonempty legal word has positive
+valuations), choose `m` so `Q^m>|D*x-A|` and conclude `D*x=A`.  The clean
+consumer statement is:
+
+```text
+positive x + same nonempty legal word at every block
+  -> runWord x w = x.
+```
+
+An eventual-periodic corollary applies this to the positive tail.  A sign
+corollary then says a supercritical block `Q<P` cannot occur forever on a
+positive orbit, since `A>0`; a subcritical periodic itinerary is a cycle.
+Please choose the simplest representation of repeated-word legality and
+integer subtraction (`Int` may make `D*x-A` cleaner).  This closes only
+literal eventually periodic valuation software.  It must not be generalized
+to morphic or one-counter gliders.
