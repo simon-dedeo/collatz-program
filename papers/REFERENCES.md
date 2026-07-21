@@ -1,9 +1,52 @@
 # References (mirrored PDFs removed from the public repo)
 
-The `papers/` directory held ~130 mirrored PDFs used during the
+## Primary sources used in the active endpoint work
+
+- Lothar Collatz, *Einschließungssatz für die charakteristischen Zahlen von
+  Matrizen* (1942), https://eudml.org/doc/168987.
+- Helmut Wielandt, *Unzerlegbare, nicht negative Matrizen* (1950),
+  https://doi.org/10.1007/BF02230720.
+- Anuran Makur and Japneet Singh, *Doeblin Coefficients and Related Measures*,
+  https://arxiv.org/abs/2309.08475.
+- Dongmin Lee, William Lu, Anuran Makur, and Japneet Singh, *Doeblin Curves*,
+  https://arxiv.org/abs/2606.19859.
+- Grigory Litvinov, *The Maslov dequantization, idempotent and tropical
+  mathematics*, https://arxiv.org/abs/math/0507014.
+- Yagiz Savas, Mohamadreza Ahmadi, Takashi Tanaka, and Ufuk Topcu,
+  *Entropy-Regularized Stochastic Games*, https://arxiv.org/abs/1907.11543.
+- Jean-René Chazottes and Michael Hochman, *On the zero-temperature limit of
+  Gibbs states*, https://arxiv.org/abs/0907.0081.
+- Marianne Akian, Stéphane Gaubert, and Antoine Hochart, *A game theory
+  approach to the existence and uniqueness of nonlinear Perron--Frobenius
+  eigenvectors*, https://arxiv.org/abs/1812.09871.
+- Afonso S. Bandeira, Amit Singer, and Daniel A. Spielman, *A Cheeger
+  Inequality for the Graph Connection Laplacian*,
+  https://arxiv.org/abs/1204.3873.
+- Carsten Lange, Shiping Liu, Norbert Peyerimhoff, and Olaf Post, *Frustration
+  index and Cheeger inequalities for discrete and continuous magnetic
+  Laplacians*, https://arxiv.org/abs/1502.06299.
+- Marcus Pivato, *Defect Particle Kinematics in One-Dimensional Cellular
+  Automata*, https://arxiv.org/abs/math/0506417.
+- Robert Paige and Robert E. Tarjan, *Three Partition Refinement Algorithms*,
+  https://doi.org/10.1137/0216062.
+- Randal E. Bryant, *Graph-Based Algorithms for Boolean Function
+  Manipulation*, https://doi.org/10.1109/TC.1986.1676819.
+- Ivan V. Oseledets, *Tensor-Train Decomposition*,
+  https://doi.org/10.1137/090752286.
+- Borja Balle, Prakash Panangaden, and Doina Precup, *A Canonical Form for
+  Weighted Automata and Applications to Approximate Minimization*,
+  https://arxiv.org/abs/1501.06841.
+
+These papers provide language, neighboring theorems, warnings, or algorithms;
+none by itself proves a KL endpoint statement. Per-claim use and limitations
+are recorded in the relevant notes.
+
+## Legacy local PDF inventory
+
+The `papers/` directory held roughly 130 mirrored PDFs used during the
 investigation. They are omitted from the public repository. Below is the
-index; arXiv IDs are recoverable from filenames where present, else search
-the slug. (Kept locally / in `DATA.md`-style pointers only.)
+filename index; arXiv IDs are recoverable from filenames where present, else
+search the slug. (Kept locally / in `DATA.md`-style pointers only.)
 
 - `2303.03203-linear-dynamics-collatz-operator.pdf` — arXiv:2303.03203
 - `BlondelTsitsiklis2000_boundedness_undecidable.pdf`

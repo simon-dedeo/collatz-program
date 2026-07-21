@@ -86,9 +86,11 @@ squared-`L2` energy ratio `1605/1387>1` in one direction. The live Pearson
 inputs are therefore a selected mean-defect rate and level-uniform
 anti-concentration; the direct alternative is regularity for the audited
 research-side nonlinear renewal-min fixed-point system. The exact finite core
-checks the low-level coding identities; Lean commit `f0e96a5` now checks the
-all-level trace and explicit `r_2,r_3,Delta_2` data. Perron uniqueness and the
-countable coding remain pending. A new exact streamed audit now monitors both terminal inputs on the
+checks the low-level coding identities; Lean commit `f0e96a5` checks the
+all-level trace and explicit `r_2,r_3,Delta_2` data, while `2bdb286` proves the
+full transport cycle, normalized nonnegative Perron uniqueness, and the
+low-level endpoint identifications. The countable coding remains research-side.
+A new exact streamed audit now monitors both terminal inputs on the
 selected `k=12,...,19` feasible records. It proves the post-hoc finite bounds
 `delta<0.21/k`, `E[a^2]<1.533 delta^2`, and
 `chi_terminal<0.483/k^2`, and rigorously encloses the true normalized slack.
@@ -109,23 +111,60 @@ with an extra `O(epsilon^2)` selection theorem. The same channel gives a
 cylinder Frostman bound for infinite towers and weak limits, but the exact
 class-eight row at `-1` rules out uniform fiberwise `L-infinity` flattening.
 The coarse minimum is also an exact lower-level supersolution, with
-`sum(q-Fq)=(b/3)(epsilon(q)-epsilon)`. These are the current nonlinear levers;
-the bin cones remain the fallback. Lean formalization of the all-level
-projection/Perron implication is now reduced to endpoint uniqueness. Lean commits
+`sum(q-Fq)=(b/3)(epsilon(q)-epsilon)`. Commits `5a8727f`/`786c02e`
+kernel-check its order and defect-data-processing consequences. These are the
+current nonlinear levers; the bin cones remain the fallback. Lean commits
 `9cdcfaf`/`764b815` now check the scalar slack identity, the full weighted
 terminal variation/Pearson chain, and `delta_k,Sigma_k->0 => lambda_k->2`.
 Commit `f0e96a5` checks the all-level trace and explicit low-level endpoint
-fixed vectors/floor; it does not prove Perron uniqueness or localization.
-An independently audited successor proof now shows that an attained positive
-critical vector at `lambda_k in (1,2)` implies
-`lambda_(k+1)>lambda_k`: the copy lift has nonzero total branch slack, and
-superadditive orbit-averaging spreads it around the full fine transport cycle.
-Combined with the repo's literature-backed research proof of `(H_k)`, this
-settles qualitative strict growth at research-proof level. The bounded exact
-checker `experiments/kl/verify_strict_lift_mechanism.py` verifies the index,
-slack-sum, cycle, and orbit-averaging cores through the stated finite ranges;
-Lean formalization is pending. The margin can be exponentially small, so this
+fixed vectors/floor; `2bdb286` supplies Perron uniqueness but not localization.
+Commit `78602d4` proves the stronger qualitative statement that any positive
+feasible vector below two lifts to a strictly larger feasible parameter at the
+next level, with no critical eigenvector premise. Commits `882a00e`/`9323f26`
+construct an infinite strict ladder from the exact `k=12` theorem and transfer
+one strict improvement to an existential predecessor-count exponent above the
+current Lean-native exponent. The margin can be exponentially small, so this
 does not advance the endpoint without a quantitative gain.
+
+The sharpest new finite law is iterated coarse-minimum growth: every selected
+exact record `k=12,...,19` satisfies
+`epsilon_(j+1)>=epsilon_j+(3/2)epsilon_j^2` at every adjacent stage. An
+all-level selected-critical version would give `epsilon=O(1/k)` and close
+`lambda_infinity=2`. A strict feasible `k=3` counterexample rules out any
+cone-wide version. Lean commit `38f1497` kernel-checks the complete reciprocal
+telescope and endpoint implication conditional on this law. The exact
+translated-law Doeblin dictionary recovers only
+an exponentially small sharp generic gain, so the live proof targets are a
+renewal-min-constrained Doeblin curve and a weighted argmin-frustration theorem.
+The exact local frustration certificate clears the first-stage quadratic
+target on selected `k=12,...,15` with ratios
+`1.05836,1.10316,1.15642,1.21269`; Lean commits `ee37cd9`/`27b9e69` expose the
+rowwise and one-stage canonical frustration seams, while `d4b328b` tracks the
+inherited supersolution slack at later projections. The remaining all-stage
+premise is the normalized slack gain
+`Sigma_f-Sigma_c >= ((w_2+w_8)/2)epsilon_f^2`, not a naive reapplication of
+the first-stage fixed-vector theorem. Lean commits `ca0a6e9`/`e2723e2`
+kernel-check this named scalar premise, its exact rowwise equivalent, and the
+first-stage implication into it.
+See `docs/notes/coarse-minimum-gap.md` and
+`docs/notes/doeblin-renewal-bridge.md`.
+
+The homogeneous soft-min route now has a stronger scalar target. For fixed
+`lambda<2` and finite `beta`, proving
+`rho_(k,lambda,-beta)->s(lambda)` would combine with the uniform
+`3^(1/beta)` hard/soft sandwich to prove the endpoint, without uniform
+eigenvector response. Power-mean projection proves research-side that these
+radii increase with `k` and have a bounded limit; only identification of that
+limit with `s(lambda)` remains conjectural. Floating Collatz--Wielandt
+diagnostics support it through `k=13`. The same-policy defect graph is a
+genuine active Jacobian with recurrent split/merge SCCs, but its natural
+carry/policy quotient refines to essentially all coordinates and is not a
+bounded-state invariant. See `docs/notes/softmin-replica.md` and
+`docs/notes/same-policy-defect-automaton.md`. The circuit audit finds a short
+output-linear uniform operator circuit, but the exact `k=12,...,15` selected
+policies defeat the tested ordered read-once, aligned-grammar, sparse-ANF, and
+tensor-train representations. General `poly(k)` coordinate circuits remain
+open; see `docs/notes/policy-circuit-complexity.md`.
 Around this sits a cluster of proved structure theorems and — equally important — a
 growing **failure ledger** of proof routes that are now provably dead. A
 separate GPT instance runs an independent Lean formalization in `CLEAN_LEAN/`
@@ -215,13 +254,14 @@ and the two collaboration channels current.
   Lean commits `9cdcfaf`/`764b815` kernel-check the scalar terminal/slack
   endpoint bridge and full weighted Pearson chain; `f0e96a5` checks all-level
   trace intertwining, the explicit endpoint fixed vectors, their projection,
-  and exact low-marginal floor. Perron uniqueness remains open.
-- **Strict adjacent growth (research-proof level):** the copy-lift slack has
-  exact total `(w_2+w_8)E=3(s(lambda)-1)sum c`; superadditivity and the full
-  fine transport cycle convert any nonzero slack into coordinatewise strict
-  slack. Thus `(H_k)` implies `lambda_(k+1)>lambda_k`. A bounded exact core
-  passes through old level `k=8`; Lean formalization is requested. This is
-  qualitative only and supplies no lower bound uniform in `k`.
+  and exact low-marginal floor; `2bdb286` proves Perron uniqueness and endpoint
+  identification.
+- **Strict adjacent feasibility (kernel-checked):** `78602d4` proves that any
+  positive feasible vector at `1<lambda<2` lifts to a strictly larger feasible
+  parameter at the next level. `882a00e`/`9323f26` build the strict ladder from
+  the exact `k=12` theorem and transfer an existential strict improvement to
+  predecessor counting. This is qualitative only and supplies no lower bound
+  uniform in `k`.
 - **Proved structure theorems:** KL method = adversarial min-plus transfer
   operator on ℤ₃ (base ×4 = 3-adic odometer); Diaconis–Fulman carries spectrum
   (their open question); Antihydra population-rarity; local renormalization at
@@ -412,7 +452,14 @@ terminal variation/Pearson bounds including the weighted mean-square lower
 bound, and derive `lambda_k->2` from vanishing
 defect plus slack on `1<=lambda_k<=2`. Commit `f0e96a5` proves the all-level
 trace and checks the explicit normalized `r_2,r_3`, their projection, and
-`Delta_2=622/1533>81/200`. Perron uniqueness remains open.
+`Delta_2=622/1533>81/200`; `2bdb286` proves Perron uniqueness and endpoint
+identification. Commits `5a8727f`/`786c02e` check coarse-minimum order and
+defect data processing, while `78602d4`/`882a00e`/`9323f26` check the strict
+feasible ladder and its existential counting improvement. Commits
+`d4b328b`/`ca0a6e9`/`e2723e2` track inherited coarse slack and expose the
+normalized and rowwise all-stage quadratic-gain interfaces. Commit `174b16b`
+reduces nonlinear positive-eigenpair existence to a simplex fixed point; the
+pinned mathlib currently has no Brouwer theorem.
 The completed branch-checkpoint design and provenance-scope warning are in
 `docs/FOR_CLEAN_LEAN.md` replies 16--20.
 On the separate pressure lane, generated rows, S1--S4
@@ -471,7 +518,27 @@ entropy theorem is selection-specific, and the pressure/KL bridge remains open.
 4. Sanity-check infrastructure (§4) with one `ssh`/`squeue`; it carries over.
 5. Pick the top LIVE bet you can advance. The immediate mathematical target is
    a cofinal exact feasible sequence with `λ→2`, or the pressure/localization
-   mechanism that supplies one. The current localization seam is
+   mechanism that supplies one. The sharpest current theorem target is the
+   selected iterated-minimum law
+   `epsilon_(j+1)>=epsilon_j+(3/2)epsilon_j^2`; its first-stage reduction is a
+   weighted global argmin-frustration inequality, and its information-theory
+   form is a renewal-min-constrained Doeblin curve. The exact finite audit,
+   cone-wide counterexample, and sharp generic Doeblin no-go are in
+   `docs/notes/coarse-minimum-gap.md` and
+   `docs/notes/doeblin-renewal-bridge.md`. The homogeneous power-mean probe in
+   `docs/notes/softmin-replica.md` gives uniform zero-temperature convergence
+   of operator values, a drifting near-tie boundary layer for selectors, and
+   an exact projection proof that each fixed-temperature spectral tower is
+   increasing and bounded. Its strongest surviving target is identifying that
+   limit through
+   `rho_(k,lambda,-beta)->s(lambda)`, which would imply the endpoint after
+   choosing `beta>log(3)/log(s(lambda))`. The aggregate two-copy curvature
+   lower bound with explicit cold-limit error is the local alternative. The
+   same-policy defect graph has real recurrent split/merge dynamics, but its
+   natural finite quotient fails; do not present it as a bounded automaton.
+   The policy-circuit audit rules out only the named restricted finite models,
+   not unrestricted succinct coordinate circuits.
+   A parallel localization seam is
    a terminal mean-defect rate plus level-uniform anti-concentration consistent
    with the exact finite `chi<=6/j^2` candidate and the selected-record bounds
    `delta<0.21/k`, `E[a^2]<1.533 delta^2`, or regularity for the audited
@@ -485,7 +552,8 @@ entropy theorem is selection-specific, and the pressure/KL bridge remains open.
    argument refutes both as endpoint laws in `1<lambda_k<=2`. The scalar
    slack/terminal endpoint bridge and full weighted Pearson chain are
    kernel-checked in `9cdcfaf`/`764b815`; `f0e96a5` checks trace and the
-   explicit endpoint vectors/floor, while Perron uniqueness remains pending.
+   explicit endpoint vectors/floor, while `2bdb286` closes Perron uniqueness
+   and endpoint identification.
    Feasibility-only entropy monotonicity is also refuted, so
    any weaker entropy endpoint needs an explicit selection hypothesis. The expanding-window cone with
    terminal-offset defect/immigration decay is the fallback and is described in

@@ -296,7 +296,8 @@ Lasota–Yorke/Walters bootstrap — precisely the regularity theory that does n
 over isometric bases (§2.3). The empirical flat-to-rising ε_k ≈ 0.46 is this
 non-contraction made visible.
 
-**Remark 3.4 (why strict increase of λ_k resists).** At the extremal eigenvector the
+**Remark 3.4 (qualitative strictness is now checked; a uniform gain still
+resists).** At the extremal eigenvector the
 class-5 rows (no chord) are *tight and slackless*: c^m = λ^{−2}c^{4m} exactly, with
 no min-term to gain from refinement. The refinement slack of [LIM] Lemma 1.2 lives
 only on chord rows, and converting it into a strictly larger feasible λ requires
@@ -308,8 +309,11 @@ Under an attained positive critical eigenvector at `lambda_k in (1,2)`, this
 produces a vector with strict slack in every coordinate and hence proves
 `lambda_(k+1)>lambda_k` by continuity. The propagated margin can be
 exponentially small in the state count, so the quantitative endpoint problem
-described here is unchanged. See `annealed-critical-coding.md §5.3`; Lean
-formalization is pending.
+described here is unchanged. Lean commits `d4c08a2`/`5fecf65` check this
+fixed-vector argument. Commit `78602d4` proves the stronger result that any
+positive feasible vector below two lifts to a strictly larger feasible
+parameter at the next level, and constructs an infinite strict ladder without
+critical attainment. See `annealed-critical-coding.md §5.3`.
 
 **Remark 3.5 (scheme-theoretic reading — pointer, not a claim).** F^{(k)} is a
 monotone, stable, adversarially one-sided discretization of the linear eigenproblem
@@ -460,11 +464,11 @@ measures land on X; M(σ⃗) compact convex); h(μ) = h(word marginal) on X.
 adversarial Mather measure with Haar-singular marginal under (B)).
 
 **Open after the 2026-07-21 successor update.** The dichotomy itself; a
-dimension-free quantitative adjacent gain (qualitative strict increase now
-follows at audited research-proof level by combining Theorem 2.1 with Remark
-3.4's successor argument, but is not yet kernel-checked); an a priori
-mean-oscillation bound (the exact missing lemma, §3.2); eigenvector uniqueness
-at fixed k.
+dimension-free quantitative adjacent gain (qualitative strict feasible lifting
+is kernel-checked in `78602d4`); an a priori mean-oscillation bound (the exact
+missing lemma, §3.2); and nonlinear eigenvector uniqueness at fixed `k` (which
+is not needed for the strict feasible ladder and need not hold for a general
+topical map).
 
 **Sharpest findings of this session.**
 1. **(H_k) is a theorem** (Theorem 2.1): the odometer cycle makes G(F) strongly

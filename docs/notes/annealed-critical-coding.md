@@ -3,15 +3,16 @@
 **Status (2026-07-21): independently audited research derivation with exact
 finite cores. Lean commits `9cdcfaf`/`764b815` check the scalar slack identity,
 full weighted terminal-Pearson chain, and defect-plus-slack endpoint bridge. A
-new exact
-checker identifies the pair-carry kernel as a two-state affine Green kernel and
-checks its conductor-shell decomposition at bounded levels. A separate audited
-conditional argument proves strict adjacent growth from an attained positive
-critical eigenvector; Lean formalization has been requested. Commit `f0e96a5`
-checks the all-level annealed trace and the exact `r_2,r_3,Delta_2` floor.
-Endpoint Perron uniqueness, the countable coding, the signed
-conductor-cancellation estimate, and the selected-family Pearson estimate
-remain open on the Lean/theorem side.**
+new exact checker identifies the pair-carry kernel as a two-state affine Green
+kernel and checks its conductor-shell decomposition at bounded levels. Commit
+`f0e96a5` checks the all-level annealed trace and exact `r_2,r_3,Delta_2` floor;
+`2bdb286` proves transport irreducibility, normalized nonnegative Perron
+uniqueness, and the low-level endpoint identifications. Commits
+`d4c08a2`/`5fecf65` check the conditional fixed-vector strict lift, while
+`78602d4` proves the stronger statement from any positive feasible vector and
+constructs an infinite strict feasible ladder. The countable coding, signed
+conductor-cancellation estimate, selected-family Pearson estimate, and every
+dimension-free endpoint rate remain open on the theorem side.**
 
 This note explains why the `lambda=2` annealed endpoint is neither a generic
 smooth law nor evidence for a simple one-step contraction.  It has a derived
@@ -732,9 +733,10 @@ for this lane.
 
 ### 5.3 Conditional strict adjacent growth
 
-The full coupling does give a qualitative strict-lift theorem. This is an
-independently audited all-level research proof with a bounded exact index core;
-Lean formalization has been requested. Run
+The full coupling gives a qualitative strict-lift theorem. The original
+fixed-vector form below is kernel-checked in `d4c08a2`/`5fecf65`; the stronger
+feasible-vector form described after it is checked in `78602d4`. Run the
+independent bounded index audit with
 
 ```bash
 python3 experiments/kl/verify_strict_lift_mechanism.py
@@ -818,6 +820,23 @@ Together with attained positive critical vectors and bounded monotone
 target; the unresolved step is making the gain uniform across the growing
 transport cycle. Qualitative strictness alone permits summable adjacent gains.
 
+Lean subsequently removed the fixed-vector premise. If `c` is merely a
+positive subeigenvector, copy lifting still gives nonnegative fine slack. The
+copied vector is constant on every new fiber, so the exact oscillation identity
+forces its normalized fine slack to be `annealedKL(lambda)-1>0` whenever
+`1<lambda<2`; no coarse eigen-equation is needed. The rest of the transport
+spreading proof is unchanged. Commit `78602d4` therefore proves
+
+```text
+LevelFeasible k lambda, 1<lambda<2
+  ==> exists lambda'>lambda, LevelFeasible (k+1) lambda'
+```
+
+and an infinite strictly increasing feasible ladder from any starting
+certificate. This closes qualitative strict feasibility completely, but the
+same exponentially small transport factor leaves the quantitative endpoint
+problem intact.
+
 ## 6. Current status and live statements
 
 The all-level research derivation, independently audited but not fully
@@ -844,8 +863,11 @@ The scalar terminal/slack portion and full weighted Pearson chain are now
 kernel-checked in `9cdcfaf`/`764b815`, as described after (4.3). Commit
 `f0e96a5` additionally checks all-level one-step trace intertwining, mass
 preservation, the exact endpoint vectors `r_2,r_3`, their projection, and
-`Delta_2=622/1533>81/200`. Endpoint Perron uniqueness and the nonlinear
-renewal-min reduction are not kernel-checked.
+`Delta_2=622/1533>81/200`. Commit `2bdb286` checks the full transport cycle,
+normalized nonnegative Perron uniqueness, and the endpoint identifications.
+Commits `5a8727f`/`786c02e` check the coarse-minimum supersolution and its
+terminal-defect data-processing consequence. The nonlinear renewal-min
+identity and its conjectural quadratic improvement are not kernel-checked.
 
 The original exact finite checker certifies:
 
@@ -883,6 +905,6 @@ particular, do not infer signed cancellation from decay of individual
 conductor shells, do not infer local Pearson decay from Renyi criticality, do
 not infer smoothing from the renewal operator alone, and do not promote the
 finite `6/j^2` calibration to an annealed asymptotic. The all-level trace and
-exact low-level floor are kernel-checked in `f0e96a5`; Perron uniqueness still
-remains the Lean-side seam needed to identify every normalized endpoint fixed
-marginal with those exact vectors.
+exact low-level floor are kernel-checked in `f0e96a5`, and `2bdb286` closes
+Perron uniqueness and endpoint identification. The remaining seams are
+quantitative and selection-specific, not finite-dimensional Perron theory.

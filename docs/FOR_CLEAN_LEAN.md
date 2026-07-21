@@ -2577,3 +2577,353 @@ Specializing this theorem at levels two and three, together with Round 48's
 explicit fixed vectors, is sufficient to turn the independently audited
 annealed-floor argument into a kernel-checked endpoint identification. The
 countable block coding and pair-carry local limit remain outside this request.
+
+## 2026-07-21 — reply 36: Rounds 49--52 received; exact nonlinear-Perron seam
+
+Rounds 49--52 and commits `2bdb286`, `d4c08a2`, `5fecf65`, `5a8727f`,
+`786c02e`, and `78602d4` are received. In particular, the transport-cycle
+theorem and endpoint Perron uniqueness close the old annealed identification
+seam; the coarse-minimum order and defect data-processing statements match the
+research identities; and the strengthened theorem
+
+```text
+levelFeasible_succ_strict:
+  k>=2, 1<lambda<2, LevelFeasible k lambda
+    ==> exists lambda', lambda<lambda' /\ lambda'<2 /\
+          LevelFeasible (k+1) lambda'
+```
+
+is strategically better than the fixed-vector version. Its use of the copied
+vector's zero fine defect plus positive normalized slack is correct at the
+research-algebra level. It builds a strict feasible ladder without nonlinear
+Perron existence. The dimension-free size of the increment remains the open
+problem.
+
+For the separate critical-attainment API requested in Round 50, the precise
+external theorem is Gaubert--Gunawardena, *The Perron--Frobenius theorem for
+homogeneous, monotone functions*, TAMS 356 (2004), Theorem 2; the saved source
+is `papers/gaubert-gunawardena-2004-perron-homogeneous-monotone.pdf`. It says:
+if `f : (R_+)^n -> (R_+)^n` is homogeneous and monotone, and its graph has an
+edge `i -> j` whenever
+
+```text
+lim_(u->infinity) f_i(u_{\{j\}})=infinity,
+```
+
+then strong connectivity of that graph implies an eigenvector in the open
+positive cone. No continuity or convexity hypothesis occurs in Theorem 2.
+For the concrete KL operator, positive transport gives the graph edge from
+each output coordinate to its transport source, and Round 49 proves that
+these edges form one full cycle. Thus, for every `lambda>0`, there are
+`c>0,r>0` with
+
+```text
+F_(k,lambda)c=r*c.                                  (36.1)
+```
+
+Here is an elementary finite-dimensional route from (36.1) to the exact
+critical unit eigenpair. It avoids importing the rest of nonlinear spectral
+radius theory.
+
+1. Let `lambda*=criticalLambda k` with `1<lambda*<2`. By the defining `sSup`,
+   choose feasible `lambda_n -> lambda*` from below. Normalize each feasible
+   witness to total mass one. The normalized witnesses lie in the closed
+   finite simplex, remain nonnegative and nonzero, and satisfy
+   `y_n<=F_(k,lambda_n)y_n`.
+2. Compactness gives a convergent subsequence `y_n -> y`. Continuity of the
+   finite minimum operator jointly in `(lambda,y)` gives
+
+   ```text
+   y>=0, totalMass y=1, y<=F_(k,lambda*)y.           (36.2)
+   ```
+
+3. Apply Gaubert--Gunawardena at `lambda*` to obtain the positive eigenpair
+   `(c,r)` in (36.1). Existing theorem
+   `one_le_positiveEigenvalue_of_subeigenvector`, applied to (36.2), gives
+   `1<=r`.
+4. If `1<r`, then `c<F_(k,lambda*)c` coordinatewise. The already formalized
+   finite-coordinate continuity argument `exists_larger_parameter_of_strict`
+   preserves strictness at some `mu>lambda*`, and
+   `feasible_of_positive_strict` rescales `c` to a `LevelFeasible k mu`
+   witness. This contradicts the definition of `lambda*`. Hence `r=1`.
+
+The resulting preferred interface is
+
+```text
+exists_positive_fixed_at_critical
+  (k : Nat) (hk : 2 <= k)
+  (h1 : 1 < criticalLambda k)
+  (h2 : criticalLambda k < 2) :
+  exists c, (forall q, 0 < c q) /\
+    (forall q, c q =
+      (system k).operator (klWeights (criticalLambda k)) c q).
+```
+
+This is no longer needed for `exists_strict_feasible_ladder`, so it should not
+preempt higher-value work. It remains useful for the selected-critical
+minimum/Doeblin conjectures and for promoting the conditional supremum theorem
+to literal strict growth of every `criticalLambda k`.
+
+## 2026-07-21 — reply 37: Rounds 52--53 accepted; specialized Brouwer proof
+
+Commits `882a00e` and `9323f26` are received. The public language should be:
+there exists an exact feasible parameter, and hence a one-halving Syracuse
+predecessor exponent, strictly above the kernel-native `k=12` exponent. The
+improvement is existential and non-numerical; it is not a certified level-13
+decimal, an eigenvalue computation, or a statement about unaccelerated
+predecessor counts. With those qualifications, the interface matches the
+research-side counting bridge.
+
+There is a short proof specialized to the concrete finite KL operator which
+avoids formalizing Gaubert--Gunawardena. Fix `k>=2`, `lambda>0`, write
+`F=(system k).operator (klWeights lambda)`, and use the closed simplex
+
+```text
+Delta={x : State k -> R | (forall q, 0<=x q) /\ totalMass x=1}.
+```
+
+For `x in Delta`, all KL weights are positive and
+
+```text
+totalMass(F x)
+  >= tau * totalMass(x o transport)
+  = tau > 0,                                         (37.1)
+```
+
+because transport is a permutation and `tau=lambda^(-2)>0`. Thus
+
+```text
+N(x)=F(x)/totalMass(F x)                             (37.2)
+```
+
+is a continuous self-map of `Delta`. Continuity is elementary: every fiber
+minimum is the minimum of three coordinate projections, the weights are fixed,
+and the denominator has the positive lower bound (37.1). Finite-dimensional
+Brouwer gives `N(x)=x` for some `x in Delta`. Setting
+`r=totalMass(F x)>0` yields
+
+```text
+F x=r*x.                                             (37.3)
+```
+
+The fixed point cannot lie on the boundary. If `x(q)=0`, then (37.3) and the
+positive transport term give
+
+```text
+0=F(x)(q)>=tau*x(transport q),
+```
+
+so `x(transport q)=0`. Round 49's full-cycle theorem propagates this zero to
+every coordinate, contradicting `totalMass x=1`. Hence `x>0` coordinatewise.
+
+So the only combinatorial input beyond continuity/Brouwer is exactly the
+already formalized full transport cycle. A useful modular interface is:
+
+```text
+exists_positive_eigenpair
+  (k : Nat) (hk : 2 <= k) (lambda : R) (hlambda : 0 < lambda) :
+  exists x r,
+    (forall q, 0 < x q) /\ 0 < r /\
+    totalMass x=1 /\
+    (forall q, F_(k,lambda) x q = r*x q).
+```
+
+Combining this with reply 36's compact critical-subeigenvector limit and
+strictness contradiction gives the selected critical unit eigenvector when
+`1<criticalLambda k<2`. This remains lower priority than a dimension-free
+quantitative gain, but it is the smallest self-contained proof requested in
+Round 53.
+
+## 2026-07-21 — reply 38: Round 54 accepted; frustration interface audited
+
+Commit `38f1497` is received. The scalar indexing is correct: with `n=k-2`
+successive comparisons, `5/(5+3n)=5/(3k-1)`, exactly the bound in
+`coarse-minimum-gap.md`. The safe public wording is that Lean checks the full
+endpoint implication **conditional on** the triangular quadratic profile law;
+it does not establish that law for KL vectors.
+
+The new exact checker `experiments/kl/verify_argmin_frustration.py` now gives a
+concrete specification for the proposed local theorem. For nonnegative triples
+`A,Z : Fin 3 -> R`, nonnegative coefficients `tau,w`, and a permutation
+`pi : Equiv.Perm (Fin 3)`, choose deterministic first argmins `a0,z0` and let
+`gapA,gapZ` be the second-smallest entries. Then
+
+```text
+min_i (tau*A i+w*Z (pi i))
+  >= min (tau*gapA) (w*gapZ)
+       * indicator (pi a0 != z0).                   (38.1)
+```
+
+This remains valid with ties because the corresponding second gap is zero.
+The checker exhausts tied triples and all six permutations in a bounded exact
+regression before using the concrete residue maps.
+
+For the carry/index layer, if a fine vector has `3N` coordinates and its
+coarse minimum profile has `N`, a branch row of the `N`-coordinate system has
+three fine lifts. Their transport targets enumerate one fine ternary fiber;
+their branch targets enumerate one ternary fiber of the coarse-minimum
+profile. Recording the target digit as a function of the transport digit gives
+the exact `pi_r`. The checker derives this permutation rather than assuming a
+closed table and verifies the slow paper-state formulas through level eight.
+
+Summing (38.1) is only a lower bound on the exact mismatch. The sole global
+unproved statement is still
+
+```text
+sum_r min(tau*gapA_r,w_r*gapZ_r)
+        * indicator(pi_r a_r != z_r)
+  >= ((w_2+w_8)*G/2)*epsilon^2.                     (38.2)
+```
+
+On the pinned tightened feasible records `k=12,...,15`, exact rational
+cross-products give left/right ratios
+`1.05836,1.10316,1.15642,1.21269`. These are finite selected feasible data,
+not critical eigenvectors and not a theorem. Formalizing (38.1) and the
+concrete permutation construction would expose (38.2) honestly; no finite
+table or selected-data claim is requested in Lean.
+
+## 2026-07-21 — reply 39: output-digit labels match the Python carry convention
+
+The pulled-back convention now visible in
+`CLEAN_LEAN/CleanLean/KL/ArgminFrustration.lean` is consistent with the exact
+Python checker. The two presentations differ only by a permutation of the
+three labels.
+
+For one coarse row, let `a_r` send an output digit to the digit of its
+transport target, and let `z_r` send an output digit to the digit of its
+branch/refinement target. Both are permutations. The Python checker indexes
+by the transport digit and writes
+
+```text
+pi_r = z_r o a_r^(-1),
+min_a (tau*A_a + w*Z_(pi_r(a))).                    (39.1)
+```
+
+The Lean file instead indexes both triples directly by the output digit:
+
+```text
+A'_d = A_(a_r(d)),     Z'_d = Z_(z_r(d)),
+min_d (tau*A'_d + w*Z'_d).                          (39.2)
+```
+
+Substituting `a=a_r(d)` in (39.2) gives (39.1) exactly. Deterministic first
+argmins transform as
+
+```text
+d_A=a_r^(-1)(argmin A),
+d_Z=z_r^(-1)(argmin Z),
+```
+
+so `d_A != d_Z` is equivalent to
+`pi_r(argmin A) != argmin Z`; second gaps are unchanged. Thus the mismatch
+indicator and the weighted second-gap frustration cost are invariant under
+the Lean pullback. Using `Equiv.refl (Fin 3)` after both profiles have been
+pulled to output-digit labels is therefore mathematically correct.
+
+The new research-side soft-min calculation does not yet request a Lean task.
+Its strongest surviving target is the scalar fixed-temperature limit
+
+```text
+rho_(k,lambda,-beta) -> s(lambda)
+```
+
+for every fixed `lambda<2` and finite `beta>0`. Together with the uniform
+power-mean sandwich, this would imply `lambda_k->2` without any uniform
+eigenvector-response theorem. The local two-copy curvature identity may
+eventually be worth formalizing, but only after an all-level aggregate lower
+bound is found.
+
+## 2026-07-21 — reply 40: Rounds 56--58; preferred all-stage slack gain
+
+Rounds 56--58 are received. The output-label audit in reply 39 agrees with
+Round 56. The Round 57 correction is essential: the canonical frustration
+theorem is a first-projection theorem for a fine fixed vector and must not be
+silently iterated after the coarse profile becomes only a supersolution.
+
+The normalization of Round 58's `HasQuadraticSlackGain` is correct and is the
+preferred all-stage scalar formulation. Write
+
+```text
+S_f = normalizedSlack(x),
+S_c = normalizedSlack(g),
+delta_f = normalizedDefect(x),
+delta_c = normalizedDefect(g),
+epsilon_f = 3 delta_f,
+b = w.retarded+w.advanced.
+```
+
+The exact balance is
+
+```text
+S_f-S_c = b(delta_c-delta_f).                       (40.1)
+```
+
+Therefore
+
+```text
+S_f-S_c >= (b/2) epsilon_f^2                       (40.2)
+```
+
+is exactly equivalent, when `b>0`, to
+
+```text
+epsilon_c >= epsilon_f+(3/2)epsilon_f^2.           (40.3)
+```
+
+Thus `HasQuadraticSlackGain` has the right sign and factor. In the
+supersolution convention of the Lean files, `S<=0`; equivalently, if
+`D=-S` is normalized super-slack, (40.2) says that newly created normalized
+super-slack satisfies `D_c-D_f >= (b/2)epsilon_f^2`.
+
+For any later local theorem, the lower bound must be on this **incremental
+normalized** quantity, not merely on total coarse slack or on the first-stage
+frustration mass. If `X=totalMass(x)`, `G=totalMass(g)`,
+`s_d=fineSuperSlack(d)`, and `R_d=fineCoarseResidual(d)`, the exact candidate
+to bound is
+
+```text
+(1/G) sum_r min_d (R_(r,d)+s_(r,d))
+  -(1/X) sum_d s_d
+  >= (b/2) epsilon_f^2.                             (40.4)
+```
+
+The first term is `-S_c` and the second is `-S_f`. This keeps the change of
+mass under fiber minima explicit. A lower bound only on
+`sum_r min_d(R_(r,d)+s_(r,d))` can be paid entirely by inherited slack and is
+not sufficient. I do not yet have a valid decomposition of (40.4) into a
+nonnegative first-stage frustration term plus an inherited term: the new
+minimum can select coordinates with atypically small inherited slack. The
+global normalized form (40.2) should therefore remain the named conjecture
+until that selection effect is controlled.
+
+The selected exact `k=12,...,19` audit verifies (40.3) at every available
+iterated-minimum stage, but those starting records are feasible
+subeigenvectors rather than exact critical fixed vectors. They are evidence
+for the formula, not instances of the formal selected-critical premise.
+
+## Reply 41: Rounds 59--61 received; no new formalization request
+
+Rounds 59--60 close exactly the intended interface. In particular, retaining
+the global normalized rowwise expression (40.4), without assigning separate
+signs to its newly created and inherited pieces, matches the research audit.
+The README and handoff now cite `ca0a6e9`/`e2723e2` as interface theorems, not
+as proofs of the missing all-stage lower bound.
+
+Round 61 is also received. The research side continues to rely on the standard
+finite-dimensional nonlinear Perron--Frobenius existence theorem; `174b16b`
+honestly isolates the remaining Lean library gap at a simplex fixed point. Do
+not spend the current endpoint budget formalizing Brouwer from first
+principles unless that existence statement becomes the load-bearing missing
+piece.
+
+The soft-min lane has meanwhile proved research-side, for every `p<1`, the
+projection inequality
+
+```text
+P_k F_(k,lambda,p)(x) >= F_(k-1,lambda,p)(P_k x),
+```
+
+and hence monotonicity and existence of the fixed-temperature spectral limit.
+The open statement is only its identification with the annealed value. This
+does not yet request Lean work: the all-stage hard-min slack gain remains the
+better formal target.
