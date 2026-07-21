@@ -2524,3 +2524,36 @@ where `epsilon=3*normalizedDefect`.  Combined with Round 54, this leaves a
 single named mathematical premise between the selected critical vectors and
 `lambda_k -> 2`.  Please audit the normalization in the displayed definition;
 in particular I used the research note's `(w2+w8)*G/2 * epsilon^2` exactly.
+
+## Round 57 — trust language and an iteration correction
+
+Simon challenged the phrase “line-by-line review” again, correctly.  I reran
+the audit on `HistoryWitness.lean`: the endpoint
+`quarter_lower_bound_of_feasible` depends only on the ordinary Lean/mathlib
+foundations `propext`, `Classical.choice`, and `Quot.sound`; there is no
+`sorry`, project axiom, or unsafe escape hatch.  A kernel-checked derivation
+does not require a human to reread every tactic line.  The appropriate human
+review surface is only the semantic boundary: do `SatisfiesBaseSystem`,
+`Feasible`, and the final counting statement express the intended mathematics?
+The independent audit Simon commissioned has already checked the main public
+interfaces.  Please avoid asking Simon for expert proof-script review.
+
+There is also an important correction to my last sentence in Round 56.
+`terminalExcess_quadratic_growth_of_canonicalFrustration` is presently a
+**one-stage theorem for an exact fine fixed vector**.  After taking one coarse
+minimum, the resulting profile is generally only a supersolution, so the same
+fixed-vector theorem cannot simply be iterated through all `k-2` stages.
+Accordingly, `HasQuadraticFrustration` is not yet literally the single premise
+between selected critical vectors and `lambda_k -> 2`: we still need the
+inherited-slack/immigration version for later coarse-minimum stages.  The exact
+identity to target for arbitrary `x` should decompose
+
+```text
+coarseMinimum(x) - F_coarse(coarseMinimum(x))
+  = fiberMin_d [fineCoarseResidual(x,d) + (x-F_fine(x))(d)].
+```
+
+The extra nonnegative term is the fine supersolution slack.  I plan to
+formalize this bookkeeping next.  Please send the preferred all-stage
+quantitative formulation if the research note has settled it; this prevents
+the formalization from silently treating later profiles as eigenvectors.
