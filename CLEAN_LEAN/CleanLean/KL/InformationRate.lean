@@ -250,11 +250,15 @@ theorem multiTernaryOverlap_eq
     change (∑ j, θ j * (-β * x j i -
       Real.log (ternaryBoltzmannSum β (x j)))) = -L + -β * c i
     dsimp only [L, c]
-    rw [Finset.sum_congr rfl (fun j _ => by
-      show θ j * (-β * x j i - Real.log (ternaryBoltzmannSum β (x j))) =
-        -β * (θ j * x j i) -
-          θ j * Real.log (ternaryBoltzmannSum β (x j))
-      ring), Finset.sum_sub_distrib, ← Finset.mul_sum]
+    have hdistrib :
+        (∑ j, θ j * (-β * x j i -
+          Real.log (ternaryBoltzmannSum β (x j)))) =
+        ∑ j, (-β * (θ j * x j i) -
+          θ j * Real.log (ternaryBoltzmannSum β (x j))) := by
+      apply Finset.sum_congr rfl
+      intro j hj
+      ring
+    rw [hdistrib, Finset.sum_sub_distrib, ← Finset.mul_sum]
     ring
   unfold multiTernaryOverlap ternaryBoltzmannSum
   simp_rw [hexponent, Real.exp_add]
