@@ -34,6 +34,7 @@ import CleanLean.KL.StrictLift
 import CleanLean.KL.CoarseMinimum
 import CleanLean.KL.ArgminFrustration
 import CleanLean.KL.QuadraticDefect
+import CleanLean.KL.ConcreteQuadraticEndpoint
 import CleanLean.KL.RootLaw
 import CleanLean.KL.Mixer
 import CleanLean.KL.TransportResolvent

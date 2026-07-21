@@ -438,6 +438,29 @@ theorem klLambda_tendsto_two_of_uniform_quadratic_defect_growth
       a₀ a e ha₀ hpos hone hcoeff hstep
   · exact hidentity
 
+/-- Correctly normalized endpoint when the recurrent scalar is the terminal
+excess `ε = 3δ`, rather than the normalized defect `δ` itself. -/
+theorem klLambda_tendsto_two_of_uniform_quadratic_terminalExcess_growth
+    (a₀ : ℝ) (a : ℕ → ℕ → ℝ)
+    (lam : ℕ → ℝ) (e : ℕ → ℕ → ℝ) (ha₀ : 0 < a₀)
+    (hlam : ∀ k, lam k ∈ Set.Icc (1 : ℝ) 2)
+    (hpos : ∀ k j, j ≤ k → 0 < e k j)
+    (hone : ∀ k j, j ≤ k → e k j ≤ 1)
+    (hcoeff : ∀ k j, j < k → a₀ ≤ a k j)
+    (hstep : ∀ k j, j < k →
+      e k j + a k j * (e k j) ^ 2 ≤ e k (j + 1))
+    (hidentity : ∀ k, annealedKL (lam k) - 1 =
+      ((klWeights (lam k)).retarded +
+        (klWeights (lam k)).advanced) * (e k 0 / 3)) :
+    Filter.Tendsto lam Filter.atTop (nhds 2) := by
+  apply klLambda_tendsto_two_of_defect lam (fun k => e k 0 / 3) hlam
+  · intro k
+    exact div_nonneg (hpos k 0 (Nat.zero_le k)).le (by norm_num)
+  · have he := initial_defect_tendsto_zero_of_uniform_quadratic_growth
+      a₀ a e ha₀ hpos hone hcoeff hstep
+    simpa using he.div_const (3 : ℝ)
+  · exact hidentity
+
 /-- Precision-indexed concrete endpoint.  This matches a tower whose profile
 at index `j+1` is replaced by its coarse minimum at index `j`; no reversal of
 indices is left to an informal argument. -/
@@ -459,6 +482,29 @@ theorem klLambda_tendsto_two_of_uniform_reverse_quadratic_defect_growth
     exact (hpos k k le_rfl).le
   · exact terminal_defect_tendsto_zero_of_uniform_reverse_quadratic_growth
       a₀ a e ha₀ hpos hone hcoeff hstep
+  · exact hidentity
+
+/-- Precision-indexed endpoint with the actual KL normalization
+`terminalExcess = 3 * normalizedDefect`. -/
+theorem klLambda_tendsto_two_of_uniform_reverse_quadratic_terminalExcess_growth
+    (a₀ : ℝ) (a : ℕ → ℕ → ℝ)
+    (lam : ℕ → ℝ) (e : ℕ → ℕ → ℝ) (ha₀ : 0 < a₀)
+    (hlam : ∀ k, lam k ∈ Set.Icc (1 : ℝ) 2)
+    (hpos : ∀ k j, j ≤ k → 0 < e k j)
+    (hone : ∀ k j, j ≤ k → e k j ≤ 1)
+    (hcoeff : ∀ k j, j < k → a₀ ≤ a k j)
+    (hstep : ∀ k j, j < k →
+      e k (j + 1) + a k j * (e k (j + 1)) ^ 2 ≤ e k j)
+    (hidentity : ∀ k, annealedKL (lam k) - 1 =
+      ((klWeights (lam k)).retarded +
+        (klWeights (lam k)).advanced) * (e k k / 3)) :
+    Filter.Tendsto lam Filter.atTop (nhds 2) := by
+  apply klLambda_tendsto_two_of_defect lam (fun k => e k k / 3) hlam
+  · intro k
+    exact div_nonneg (hpos k k le_rfl).le (by norm_num)
+  · have he := terminal_defect_tendsto_zero_of_uniform_reverse_quadratic_growth
+      a₀ a e ha₀ hpos hone hcoeff hstep
+    simpa using he.div_const (3 : ℝ)
   · exact hidentity
 
 end CleanLean.KL

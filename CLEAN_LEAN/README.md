@@ -126,6 +126,15 @@ at the terminal index and takes coarse minima toward index zero.  The latter
 matches the actual KL tower directly and removes an otherwise informal index
 reversal from the endpoint argument.
 
+`ConcreteQuadraticEndpoint.lean` now packages the literal dependent family:
+the selected profile at precision `k+2`, and its successive coarse minima down
+to precision two.  This check exposed and fixes an important normalization
+distinction.  The recurrent terminal excess is `epsilon = 3*delta`, whereas
+the oscillation identity contains `delta`; the concrete theorem therefore
+feeds `epsilon/3` to the limit bridge.  Explicitly named terminal-excess
+endpoints preserve that factor, and the older abstract defect endpoints remain
+valid only with the identity stated in their own hypotheses.
+
 `ArgminFrustration.lean` kernel-checks the local algebra behind that missing
 inequality.  For an arbitrary fine profile, every coarse slack row is exactly
 the minimum of three sums: a fine-versus-coarse residual plus the inherited

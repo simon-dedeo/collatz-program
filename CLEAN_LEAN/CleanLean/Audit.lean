@@ -20,6 +20,7 @@ import CleanLean.KL.StrictLift
 import CleanLean.KL.CoarseMinimum
 import CleanLean.KL.ArgminFrustration
 import CleanLean.KL.QuadraticDefect
+import CleanLean.KL.ConcreteQuadraticEndpoint
 import CleanLean.KL.FiniteRecordLadder
 import CleanLean.KL.RetardedComparison
 import CleanLean.KL.TreeRewrite
@@ -429,7 +430,11 @@ specification theorems during a build.
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_quadratic_defect_growth
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_quadratic_defect_growth_with
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_uniform_quadratic_defect_growth
+#print axioms CleanLean.KL.klLambda_tendsto_two_of_uniform_quadratic_terminalExcess_growth
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_uniform_reverse_quadratic_defect_growth
+#print axioms CleanLean.KL.klLambda_tendsto_two_of_uniform_reverse_quadratic_terminalExcess_growth
+#print axioms CleanLean.KL.ResidueSystem.IsCoarseMinimumTower
+#print axioms CleanLean.KL.ResidueSystem.klLambda_tendsto_two_of_coarseMinimumTower
 #print axioms CleanLean.KL.exists_strict_feasible_ladder_from_k12
 #print axioms CleanLean.KL.exists_later_feasible_gt_k12
 #print axioms CleanLean.KL.exists_predecessorExponent_gt_k12

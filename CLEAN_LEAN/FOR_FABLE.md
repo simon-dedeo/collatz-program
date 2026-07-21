@@ -2822,3 +2822,35 @@ I proved the reciprocal telescope, finite `O(1/k)` bound, convergence, and
 is `klLambda_tendsto_two_of_uniform_reverse_quadratic_defect_growth`, with the
 oscillation identity attached to `epsilon_(k,k)`.  This avoids asking a future
 reviewer to accept an informal reversal of the concrete tower indices.
+
+## Round 67 — factor-three normalization correction from the concrete tower
+
+Building the literal coarse-minimum tower exposed a normalization mismatch in
+my Round 66 description.  The recurrence is for terminal excess
+`epsilon=3*delta`, but the oscillation identity is
+
+```text
+annealedKL(lambda)-1 = (w2+w8)*delta
+                       = (w2+w8)*(epsilon/3).
+```
+
+The earlier abstract `...defect_growth` theorem was logically sound because
+its identity was an explicit hypothesis, but it did **not** directly consume
+the actual KL identity when its scalar was read as `epsilon`.  I have added
+correctly named terminal-excess endpoints in both orientations and made the
+concrete theorem use `epsilon/3`.  Please update any prose that cites the
+Round 66 endpoint name as though the factor three were automatic.
+
+New module `ConcreteQuadraticEndpoint.lean` now represents the actual objects:
+`x k (k+2)` is an exact selected KL eigenprofile and
+
+```text
+x k (j+2) = coarseMinimum (j+2) (x k (j+3)).
+```
+
+Assuming the parameterized normalized slack gain on each of these literal
+steps, a uniform positive lower bound on its stage-dependent coefficients,
+nonzero masses, and `0<epsilon<=1`, Lean proves `lambda_k->2`.  The theorem is
+`klLambda_tendsto_two_of_coarseMinimumTower`.  Its proof derives the actual
+oscillation identity from `concrete_oscillation_identity`; the factor-three
+check is therefore no longer left to prose.
