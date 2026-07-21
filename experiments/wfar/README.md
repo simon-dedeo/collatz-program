@@ -196,9 +196,9 @@ probability ≈ 1.
    INFEASIBLE. Dropping the `β ≥ 0` side row must flip it to feasible
    (`β = −1`), demonstrating that the boundedness side-condition is
    load-bearing (see §2). (With a value automaton that can *see* the first
-   bit — possible for `q ≥ 2` in the main sweep — an all-odd domain is
-   legitimately certified as escape-type, since an odd step lands even; the
-   control pins the pure-length direction the brief calls out.)
+   bit — first expressible at `q = 3` in the `A' = A` sweep — an all-odd
+   domain is legitimately certified as escape-type, since an odd step lands
+   even; the control pins the pure-length direction.)
 4. **Constraint-generator completeness.** For the control pairs and several
    canonical 3-state tables × all `F` × `L₀ ∈ {1,3}`: every actual step
    `n → T(n)`, `n ≤ 2^16`, `n ∈ D`, `len(n) ≥ L₀` must hit a generated
@@ -212,60 +212,78 @@ probability ≈ 1.
 ## 6. Results (this machine, sequential; `δ = 1` normalized)
 
 Sweep of all canonical `q`-state tables × all accepting sets `F`, `A' = A`.
-"pairs" = (table, F) pairs; "feasible" = certified domains (bug path never
-triggered: **no global or cofinite domain was ever feasible**; every feasible
-witness passed exact re-check and simulation, up to 10⁵ steps each).
+"pairs" = (table, F) pairs; "vacuous" = `D` nonempty but no member of length
+≥ L₀; "feasible" = certified domains. The bug path never triggered: **no
+global or cofinite domain was ever feasible** (433 global pairs per L₀
+across q ≤ 3, plus the handmade cofinite control); every feasible witness
+passed the exact re-check against all constraints and the orbit simulation.
 
-| q | L₀ | pairs | empty D | infeasible | (global D) | feasible | escape-type | drift-type | distinct fingerprints | finite-D feasible |
-|---|----|------:|--------:|-----------:|-----------:|---------:|------------:|-----------:|----------------------:|------------------:|
-| 1 | 1  |     2 |       1 |          1 |          1 |        0 |           0 |          0 |                     0 |                 0 |
-| 2 | 1  |    48 |      12 |         30 |         12 |        6 |           6 |          0 |                     4 |                 0 |
-| 3 | 1  |  1728 |     216 |       1273 |        216 |      239 |         239 |          0 |                    62 |                17 |
-| 1 | 4  |     2 |       1 |          1 |          1 |        0 |           0 |          0 |                     0 |                 0 |
-| 2 | 4  |    48 |      12 |         30 |         12 |        6 |           6 |          0 |                     4 |                 0 |
-| 3 | 4  |  1728 |     216 |       1268 |        216 |      244 |         243 |          1 |                    64 |                19 |
+| q | L₀ | pairs | empty D | vacuous | infeasible | (global D) | feasible | escape | drift | distinct fingerprints | finite-D feasible |
+|---|----|------:|--------:|--------:|-----------:|-----------:|---------:|-------:|------:|----------------------:|------------------:|
+| 1 | 1  |     2 |       1 |       0 |          1 |          1 |        0 |      0 |     0 |                     0 |                 0 |
+| 2 | 1  |    48 |      18 |       0 |         27 |         18 |        3 |      1 |     2 |                     3 |                 0 |
+| 3 | 1  |  1728 |     414 |       0 |       1123 |        414 |      191 |     71 |   120 |                    91 |                16 |
+| 1 | 4  |     2 |       1 |       0 |          1 |          1 |        0 |      0 |     0 |                     0 |                 0 |
+| 2 | 4  |    48 |      18 |       0 |         27 |         18 |        3 |      1 |     2 |                     3 |                 0 |
+| 3 | 4  |  1728 |     414 |      16 |       1111 |        414 |      187 |     55 |   132 |                    92 |                 0 |
 
-Headline numbers:
+Consistency checks visible in the table: `empty D = global D` at every size
+(exact, by the `F ↔ ¬F` symmetry of "every reachable `'1'`-target
+non-accepting" vs "accepting"); at q = 3 the 16 finite feasible domains at
+L₀ = 1 are all `D = {1}` and become exactly the 16 vacuous pairs at L₀ = 4;
+the 12 domains newly feasible at L₀ = 4 (187 = 191 − 16 + 12) are domains
+whose only blocking constraints came from small members (the `1 → 4 → 2 → 1`
+cycle region), excised by `N₀ = 8`.
 
-* **The global domain is infeasible at every size tested** (all 229 global
-  `(table, F)` pairs per L₀, plus the handmade cofinite control) — as it must
-  be (Lemma 2), and consistently with the all-odd 2-adic ray obstruction: the
-  ray `n ≡ 2^k − 1` forces unboundedly many consecutive odd steps, whose
-  constraints `w(q) − w(p) + βΔ ≤ −1` (Δ ≥ 1) around reachable product
-  cycles sum to `0 ≤ −(cycle length)`.
-* **At `A' = A`, q ≤ 3, L₀ = 1, every certificate is escape-type** (β = 0
-  suffices): with only 3 states shared between domain and value automaton,
-  the LP certifies domains that orbits *combinatorially leave* (the weight
-  vector is a ranking of "how far out of D one has stepped"), not yet
-  genuine value descent. The first drift-type certificate in the sweep
-  appears at `q = 3, L₀ = 4`; the hand control (`D` = evens, `A` trivial,
-  `A'` 3-state) is drift-type but needs `A ≠ A'` — at `A' = A` the
-  first-symbol tracker cannot simultaneously accept `0Σ*` and rank it.
-* Certified-domain examples, decoded (q = 3, L₀ = 1 sweep):
-  * `D = odd numbers` (`1Σ*` trackers, several tables): escape-type,
-    `w(odd-class) = 0, w(even-class) = −2, β = 0`. Retires: *no orbit tail is
-    all-odd* — one odd step lands on an even number. (True but trivial;
-    exactly the "value direction needs β > 0" boundary of control 3.)
-  * `D = {n ≡ 3 (mod 4)}` (`11Σ*` trackers): escape-type; `T(n)` is even,
-    leaving `D` in one step.
-  * `D = {n : second bit 1} = {n ≡ 2,3 (mod 4)}`: escape-type with a
-    2-level ranking — `T` maps `n ≡ 3 (4)` to even and `n ≡ 2 (4)` to
-    `n/2 ≡ 1 (2)`; either way the `D`-membership witness state degrades
-    monotonically.
-  * The unique drift-type at `q = 3, L₀ = 4`: table `d(0)=(1,2), d(1)=(1,1),
-    d(2)=(1,2)`, `F = {1}`: `D = {n : enc(n) contains a 0}` = ℕ minus
-    `{2^k − 1}` — wait for it — *minus the all-ones ray*, certified with
-    `w = (0, 0, 5/2), β = 1/2`: precisely "everything except the 2-adic
-    obstruction ray admits length-drift". (See `results/q3_L04.txt`;
-    simulation-checked like all others.)
-* No certificate at these sizes retires a divergence family that was not
-  already retirable by inspection (one-step escape) — the honest v1
-  conclusion. The machinery, however, now *measures* this: the value
-  direction first activates exactly when the domain can exclude the
-  `1^k` ray, matching the SMELL.md §1 #5 prediction that weights must be
-  indexed by value-reading transducer states.
+Decoded examples (raw lines in `results/q{1,2,3}_L0{1,4}.txt`):
 
-*(Raw per-certificate lines: `results/q{1,2,3}_L0{1,4}.txt`.)*
+* **`D` = even numbers** — found in-sweep at q = 3 (`tab=179, d=12.11.22,
+  F={1}`, the first-symbol tracker): drift-type, `w = (0,0,0), β = 1, δ = 1`,
+  i.e. `V(n) = len(n)`: an always-even tail halves forever. This replicates
+  positive control 2 inside the sweep (the control itself uses `A` = 1-state,
+  `A'` = 3-state, showing decoupling `A ≠ A'` buys the same certificate with
+  a trivial value automaton). Retires: *no orbit tail is all-even*.
+* **`D` = odd numbers** (`tab=179, F={2}`): escape-type, `w = (0,−1,0),
+  β = 0` — the weight ranks "has stepped even"; one odd step lands even.
+  Retires the all-odd tail trivially, and marks precisely the boundary of
+  control 3: as a *pure length* certificate it is infeasible (odd steps
+  lengthen), but a value automaton that sees the first bit certifies it by
+  ranking.
+* **`D` = the all-ones ray `{2^k − 1}`** — q = 2 already (`tab=7, d=10.11,
+  F={0}`): escape-type, `w = (0,−1), β = 0`. The 2-adic all-odd ray that
+  obstructs every *global* certificate (it forces unboundedly many
+  consecutive odd, hence lengthening, steps) is itself retired as a *tail*
+  family: `T(2^k − 1) = 3·2^k − 2` contains a `0`-bit, so no orbit stays on
+  the ray for two steps. The obstruction to global certification is not an
+  obstruction to relativized certification.
+* **`D` = {n whose binary expansion begins with an even-length run of 1s}**
+  (q = 2, `tab=0, d=01.00, F={0}`; members 3, 6, 12, 13, 15, 24, 25, 26, …):
+  **drift-type**, `w = (0,−3), β = 1` — a genuinely non-obvious quantitative
+  certificate: `V(n) = len(n) − 3·[state 1]` decreases by ≥ 1 at every step
+  taken from a point of `D`, mixing length descent with a state correction. Retires:
+  no orbit tail keeps an even-length leading-1-run forever.
+* **L₀ at work**: `tab=13, d=01.12.11, F={1}` (members 8, 13, 14, 16, 25,
+  26, 27, …) is infeasible at L₀ = 1 — `1 ∈ D` and `V(4) ≤ V(1) − δ` needs
+  `2β ≤ −1` — but drift-certified at L₀ = 4 (`w = (0,3,0), β = 1`), i.e.
+  for the tail statement restricted to `D ∩ [8, ∞)`, which is all a
+  divergence-retirement claim needs.
+
+Honest bottom line for v1: about 11% of q = 3 domains admit certificates,
+almost all retiring tail families that are either one-step escapes or
+halving-dominated; the drift-type class (120 of 191 at L₀ = 1) already goes
+beyond what the Boolean `dfacert` search could express (those domains are
+not `T`-invariant, so Boolean closure could never certify them), but none
+yet touches a family adjacent to the hard region (parity-balanced
+itineraries near odd-density `log 2 / log 3`). The global case is infeasible
+everywhere it must be, and the machinery measures exactly where the value
+direction (`β > 0`) activates — matching the SMELL.md §1 #5 prediction that
+useful weights must be indexed by value-reading transducer states.
+
+Simulation coverage note: for dense domains the 10⁵-step target is met by
+the scan of all `n ≤ 2·10⁶` plus long orbits; for sparse domains (e.g. the
+all-ones ray) *every* member below 2·10⁶ and every in-domain orbit point
+encountered is checked — the reported `sim=` count is the number of
+in-domain steps actually available, not a sampling shortfall.
 
 ## 7. Build and run
 
@@ -292,8 +310,8 @@ global/cofinite certificate (treated as bug per Lemma 2).
   valid for every `L₀` since divergent tails have `len → ∞`.
 * `β ≥ 0` cannot be dropped (§2); a per-state length coefficient
   `β_s` (still ≥ 0) is the natural next template, as is decoupling `A ≠ A'`
-  in the sweep (the even-domain control shows it strictly enlarges the
-  certified set at fixed size), and per-state-pair drift `δ` (max-plus /
-  arctic weights proper).
+  in the sweep (the even-domain control certifies `D` = evens with a 1-state
+  value automaton, which `A' = A` cannot do below q = 3), and per-state-pair
+  drift `δ` (max-plus / arctic weights proper).
 * Different `(table, F)` pairs repeat languages; fingerprints (n ≤ 64
   membership masks) give the distinct-domain counts.

@@ -18,7 +18,10 @@ It is deliberately defined before any proposed proof machinery.
 | KL feasibility certificate checker | Planned |
 | KL difference-inequality transfer theorem | Planned |
 | Finite weighted-tail inequality in R' | Kernel checked |
-| Oscillation identity and asymptotic R' | Planned |
+| Full abstract asymptotic R' | Kernel checked |
+| Geometric pressure-gap implies tail decay | Kernel checked |
+| Transport-free local family is neutrally two-periodic | Kernel checked |
+| Concrete KL oscillation identity | Planned |
 | Restricted-pressure theorem C1' | Open mathematics |
 | Collatz conjecture | Open mathematics |
 

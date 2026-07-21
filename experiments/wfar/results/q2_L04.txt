@@ -1,0 +1,4 @@
+CERT q=2 L0=4 tab=0 d=01.00 F={0} type=drift D=infinite members=12,13,15,24,25,26,27,30 w=(0,-3) beta=1 delta=1 sim=100000
+CERT q=2 L0=4 tab=7 d=10.11 F={0} type=escape D=infinite members=15,31,63,127,255,511,1023,2047 w=(0,-1) beta=0 delta=1 sim=38
+CERT q=2 L0=4 tab=10 d=11.10 F={1} type=drift D=infinite members=12,13,24,25,26,27,30,31 w=(0,3) beta=1 delta=1 sim=100000
+q=2 L0=4: pairs=48 emptyD=18 vacuous=0 infeasible=27 (globalD=18) feasible=3 [escape=1, drift=2] fingerprints=3 finiteD=0

@@ -60,6 +60,46 @@ theorem weightedDefect_le_tail
   rw [Finset.sum_add_distrib, hfirst, hsecond] at hsum
   exact div_le_div_of_nonneg_right hsum (by norm_num)
 
+/-- Asymptotic form of corrected Proposition R': if every fixed positive
+oscillation tail vanishes and `δ` satisfies the finite weighted-tail estimate,
+then `δ` vanishes.  The finite state spaces may vary with `k`; all of that
+geometry is compressed into `tail`. -/
+theorem tendsto_zero_of_weighted_tail
+    (δ : ℕ → ℝ) (tail : ℕ → ℝ → ℝ)
+    (hδ : ∀ k, 0 ≤ δ k)
+    (hbound : ∀ k t, 0 ≤ t → δ k ≤ (t + tail k t) / 3)
+    (htail : ∀ t, 0 < t → Filter.Tendsto (fun k => tail k t)
+      Filter.atTop (nhds 0)) :
+    Filter.Tendsto δ Filter.atTop (nhds 0) := by
+  rw [Metric.tendsto_atTop]
+  intro ε hε
+  let t : ℝ := 3 * ε / 2
+  have ht : 0 < t := by dsimp [t]; linarith
+  rcases Metric.tendsto_atTop.1 (htail t ht) t ht with ⟨N, hN⟩
+  refine ⟨N, fun n hn => ?_⟩
+  have hdist := hN n hn
+  have htail_lt : tail n t < t := by
+    rw [Real.dist_eq, sub_zero, abs_lt] at hdist
+    exact hdist.2
+  have hδle := hbound n t ht.le
+  rw [Real.dist_eq, sub_zero, abs_of_nonneg (hδ n)]
+  dsimp [t] at htail_lt hδle
+  linarith
+
+/-- A geometric restricted-pressure estimate is more than enough for the tail
+hypothesis in `tendsto_zero_of_weighted_tail`. -/
+theorem tail_tendsto_zero_of_geometric_bound
+    (tail : ℕ → ℝ) (C q : ℝ)
+    (hC : 0 ≤ C) (hq0 : 0 ≤ q) (hq1 : q < 1)
+    (htail0 : ∀ k, 0 ≤ tail k)
+    (htail : ∀ k, tail k ≤ C * q ^ k) :
+    Filter.Tendsto tail Filter.atTop (nhds 0) := by
+  have hgeom : Filter.Tendsto (fun k : ℕ => C * q ^ k)
+      Filter.atTop (nhds 0) :=
+    by simpa using (tendsto_pow_atTop_nhds_zero_of_lt_one hq0 hq1).const_mul C
+  exact squeeze_zero' (Filter.Eventually.of_forall htail0)
+    (Filter.Eventually.of_forall htail) hgeom
+
 end WeightedTail
 
 end CleanLean.KL
