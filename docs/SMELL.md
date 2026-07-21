@@ -17,9 +17,12 @@
 > at `k=19` (`0.542601...>0.42`). The successor mass-genealogy audit is more
 > promising but still finite: all 756 equal-threshold adjacent-scale tails for
 > the eight `k=12,...,19` feasible subeigenvectors are nonincreasing, with 619
-> strict nonsaturated decreases. The live bounded question is a rational
-> weighted-bin contraction with vanishing immigration, not another assertion
-> of the false pointwise bound. See `docs/notes/multiscale-genealogy.md`.
+> strict nonsaturated decreases. Rational weighted-bin cones close exactly
+> after finite burn-in, with an exact obstruction before it; the floating
+> `k=20` holdout then violates the fitted earliest-burn-in constants. The live
+> question is uniform burn-in plus terminal-offset immigration decay, not
+> another assertion of the false pointwise bound. See
+> `docs/notes/multiscale-genealogy.md`.
 
 > **ERRATA & external verification (2026-07-20, from independent GPT review +
 > our follow-up checks — see gpt_sol_feedback.txt):**
@@ -224,11 +227,12 @@ discrepancy directly.
    speculative tools only after a valid all-level localization theorem exists.
 5. **Current localization test.** The exact depth-nine `U(21/50)` pointwise
    split is false, but the full within-vector genealogy shows strong
-   mass-averaged behavior on the finite `k=12,...,19` grid. Search its exact
-   eight-bin transition matrices for a common rational weighted contraction
-   and a controlled immigration term. Even a successful finite cone is only a
-   candidate: Proposition R' needs uniform all-level control for thresholds
-   tending to zero and an appropriate family of KL vectors.
+   mass-averaged behavior on the finite `k=12,...,19` grid. Its exact eight-bin
+   matrices admit rational cones after finite burn-in and rule out an earlier
+   start, while the floating `k=20` vector shifts that burn-in one level later.
+   Proposition R' still needs a uniformly justified burn-in and terminal-
+   offset immigration decay for thresholds tending to zero and an appropriate
+   family of KL vectors.
 
 ### PQ-2. Antihydra rarity + discrepancy theorem (fuse #2 and #3) — *computation + proof sketch*
 1. **Lottery ticket withdrawn.** The unconditioned maximum is exactly `m_k=k`;

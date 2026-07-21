@@ -51,6 +51,10 @@ mass signal: all 756 tested equal-threshold adjacent-scale tails through
 `k=19` are nonincreasing, and at the final `t=.2` scale the averaged retention
 is `.335470...` even though 66 pointwise-retention-one parents survive. This is
 finite evidence on eight feasible subeigenvectors, not an all-level theorem.
+The exact successor bin-cone search succeeds from depth three on those eight
+levels and proves an exact obstruction to starting earlier. The local floating
+`k=20` candidate then violates the fitted earliest-burn-in constants in three
+coarse rows, while later rows and terminal-offset immigration remain favorable.
 Around this sits a cluster of proved structure theorems and — equally important — a
 growing **failure ledger** of proof routes that are now provably dead. A
 separate GPT instance runs an independent Lean formalization in `CLEAN_LEAN/`
@@ -91,8 +95,11 @@ and the two collaboration channels current.
   tail rows and 5,292 transition rows; independent reconstruction checked the
   `k=19` totals and headline transitions. Every one of 756 tested diagonal
   tails is nonincreasing, but pointwise contraction at `t=.2` is false. The
-  live bounded target is a common rational weight on the high-bin transition
-  blocks plus a vanishing low-to-high immigration bound. See
+  exact bin audit finds a post-hoc rational cone after the minimal observed
+  burn-in and an exact obstruction before it. A floating `k=20` holdout
+  provisionally falsifies the original burn-in constants but passes after one
+  extra level. The live theorem target is a uniformly justified burn-in and
+  terminal-offset low-to-high immigration decay. See
   `docs/notes/multiscale-genealogy.md`; do not call its aggregates lower-level
   KL vectors or extrapolate its finite trend.
 - **Proved structure theorems:** KL method = adversarial min-plus transfer
@@ -159,9 +166,9 @@ and the two collaboration channels current.
   note; the DP tables themselves are unchanged. The inherited arctic proof also had a
   reducible-matrix slope gap. An elementary all-dimension weighted-walk pumping
   candidate replaces it, but remains provisional until Lean. The calibrated
-  live agenda is now: (1) test the exact mass-genealogy transition matrices for
-  a rational weighted contraction and, if it survives, prove its all-level
-  localization/immigration statement, while retaining direct cofinal
+  live agenda is now: (1) turn the exact finite mass-genealogy cone into a
+  uniform burn-in and terminal-offset immigration theorem—or falsify that
+  possibility—while retaining direct cofinal
   feasibility as the fallback and importing the first large certificate into
   Lean; (2) kernelize and adversarially check the arctic
   Theorems A/B; (3) mixed-radix anti-concentration; (4) other non-
@@ -285,8 +292,10 @@ proposed uniform `U(21/50)` bound (and every smaller `σ`) on the class of
 feasible subeigenvectors, not scalar H1 with an arbitrary non-closing constant
 or an eventual theorem specialized to selected critical eigenvectors. The
 rarity of the violations motivates the exact mass-genealogy audit. That
-audit is favorable on its finite grid, but a uniform weighted contraction,
-vanishing immigration, all-positive-threshold localization, and the
+audit is favorable on its exact finite grid, but its first floating `k=20`
+holdout breaks the fitted earliest-burn-in cone constants. A shifted burn-in
+passes provisionally and terminal-offset immigration continues to fall;
+uniform contraction, burn-in, all-positive-threshold localization, and the
 pressure/KL bridge all remain open.
 
 ## 6. The user (Simon) — how to work with him
@@ -315,8 +324,8 @@ pressure/KL bridge all remain open.
 4. Sanity-check infrastructure (§4) with one `ssh`/`squeue`; it carries over.
 5. Pick the top LIVE bet you can advance. The immediate mathematical target is
    a cofinal exact feasible sequence with `λ→2`, or the pressure/localization
-   mechanism that supplies one. The current bounded localization experiment is
-   the rational high-bin common-weight search described in
+   mechanism that supplies one. The current localization seam is uniform
+   burn-in plus terminal-offset weighted immigration decay, described in
    `docs/notes/multiscale-genealogy.md`. Kernel/adversarial review of the repaired
    arctic proof is the bounded side target; mixed-radix has three named gaps.
    Do not

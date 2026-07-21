@@ -241,6 +241,33 @@ result for every positive rational `t`, or enough thresholds tending to zero,
 as well as an all-level family of appropriate KL vectors and the pressure
 bridge.  The CSV does none of those things.
 
+For the triangular `k,j` data, a terminal-offset formulation is more natural
+than an absolute-depth envelope. If `V_(k,j)` is a weighted high-bin potential,
+`eta_(k,j)` its weighted low-to-high immigration, and
+
+```text
+V_(k,j+1) <= rho V_(k,j) + eta_(k,j),       rho < 1,
+```
+
+then it is enough that, for every fixed terminal offset `ell>=0`,
+
+```text
+eta_(k,k-2-ell) -> 0                         as k -> infinity.
+```
+
+Indeed, if the cone starts at a fixed depth `j0` and all high weights lie in
+`[1,W]`, then
+
+```text
+M_(k,k-1)(t) <= V_(k,k-1)
+  <= W rho^(k-1-j0)
+     + sum_(ell=0)^(k-2-j0) rho^ell eta_(k,k-2-ell).
+```
+
+The last sum tends to zero by dominated convergence, because automatically
+`0<=eta<=W`. This reduces the immigration target to convergence along each
+fixed distance from the true fiber scale; it does not prove that convergence.
+
 The scalar diagonal recurrence may be too crude.  The generated transition
 table already provides the exact mass matrix between the eight oscillation
 bins. Let `mu_(k,j)(a)` be normalized mass in bin `a`, and let
@@ -251,23 +278,183 @@ children. Then, exactly,
 mu_(k,j+1) = mu_(k,j) P_(k,j),
 ```
 
-and every nonempty row of `P` is stochastic. A more flexible target is a
-common rational weight `w>=0`, with `w_b>=1` on every bin above the target
-threshold, and `rho<1` such that
+and every nonempty row of `P` is stochastic. A more flexible target sets
+`w=0` on the low bins and uses a common rational weight `w_b>=1` on every high
+bin, with `rho<1`, such that the high block contracts while its low-to-high
+source is bounded. In full-matrix shorthand this has the form
 
 ```text
 P_(k,j) w <= rho w + e_j 1,            e_j -> 0,
 ```
 
 coordinatewise and uniformly for `k>=j+2`. The weighted potential then obeys
-the same contracting recurrence and dominates the desired tail. Equivalently,
-one can seek a contraction on the high-to-high substochastic block while
-bounding low-to-high weighted immigration. This is a small rational linear-
-programming search on the finite data and a precise all-level theorem request
-afterward. If no common weight exists, augment the state by a small amount of
-3-adic/arithmetic genealogy before abandoning the mass route.
+the same contracting recurrence and dominates the desired tail. This is a
+stronger sufficient form because `e_j` bounds the worst conditional low-bin
+row. The weaker actual-genealogy form used below contracts the high-to-high
+block rowwise and bounds only mass-averaged low-to-high immigration. The first
+exact finite search is now complete.
 
-## 5. Calibration and next decision
+## 5. Exact finite weighted-cone audit
+
+The seven thresholds define eight bins `B_0,...,B_7`, where the bin index is
+the number of thresholds strictly exceeded. For each transition `(k,j)`, let
+`S_ab` be the mass with parent bin at least `a` and child bin at least `b`.
+The cumulative fields in `multiscale_transitions_exact.csv` determine every
+exact bin-to-bin mass by Möbius differencing:
+
+```text
+H_ab = S_ab - S_(a+1)b - S_a(b+1) + S_(a+1)(b+1).
+```
+
+All 6,912 reconstructed cells in the 108 observed transition matrices are
+nonnegative and reproduce their exact row, column, contingency, and total
+masses. Normalize a nonempty parent-bin row to a stochastic matrix `P`, and
+write `Q=P_HH` for the high-to-high block at the chosen threshold.
+
+The portable standard-library verifier is:
+
+```bash
+python3 experiments/kl/verify_weighted_bin_cone.py
+```
+
+It pins the input-table SHA-256, checks the Möbius reconstruction and two exact
+cone obstructions, and writes 533 exact row inequalities plus 192 exact
+potential recurrences to:
+
+- `analysis_cache/weighted_bin_cone_rows_exact.csv`;
+- `analysis_cache/weighted_bin_recurrence_exact.csv`.
+
+### 5.1 A sharp finite burn-in at `t=1/5`
+
+A common positive one-step cone cannot start at depth one: every observed
+depth-one matrix has the exact `B_7 -> B_7` self-loop. More strongly, it cannot
+start at depth two. At `k=17`, the depth-two `B_7` row has exactly
+
+```text
+B_7 -> B_5 :  51,502,644,182,774,780,905
+B_7 -> B_7 : 427,972,643,644,712,297,522,
+```
+
+and no other child mass, while the depth-four row sends all
+`11,131,874,291,182,481,018` units of `B_5` mass to `B_7`. For any common
+positive weight and `rho<1`, the first row forces `w_5<w_7` and the second
+forces `w_7<w_5`. This is an exact cone obstruction, not a consecutive-depth
+cycle or a failure of the actual tail recurrence.
+
+After the fixed burn-in `j0=3`, the obstruction disappears. On high bins
+`B_4,...,B_7`, the normalized rational weight
+
+```text
+w = (31/25, 69/50, 1, 34/25)
+```
+
+satisfies
+
+```text
+Q_(k,j) w <= (68/69) w
+```
+
+for all 349 populated high-bin rows in all 92 observed matrices with
+`k=12,...,19` and `j>=3`. The maximum is exactly `68/69`, attained by the
+deterministic `B_5 -> B_7` row at depth four. The nonmonotone weights are
+legitimate: every high-bin weight is at least one, so the potential still
+dominates the `t=1/5` tail. The cone was selected after seeing all eight levels;
+it is post-hoc, and an exact `k=20` vector is its first genuine level holdout.
+
+At `t=3/10`, the simpler `w=(1,1)` satisfies
+
+```text
+Q_(k,j) w <= (179/200) w                    for j>=2,
+```
+
+over 184 populated rows in 100 matrices. Its exact maximum is
+
+```text
+4334815655959768610198 / 4845180013388557558821
+  = 0.894665552978... < 179/200.
+```
+
+### 5.2 Immigration is now the exposed seam
+
+For the weights above, define
+
+```text
+eta_(k,j) = total^(-1)
+            sum_(parent low, child high) H_ab w_b.
+```
+
+The verifier checks the exact recurrence
+
+```text
+V_(k,j+1) = persistent_(k,j) + eta_(k,j)
+            <= rho V_(k,j) + eta_(k,j).
+```
+
+At five fixed offsets from the terminal transition, the exact decimal
+renderings decrease from `k=12` to `k=19` as follows:
+
+| threshold | offset 0 | offset 1 | offset 2 | offset 3 | offset 4 |
+|---:|---:|---:|---:|---:|---:|
+| `1/5`, `k=12` | .0394489 | .0659603 | .125727 | .164829 | .170793 |
+| `1/5`, `k=19` | .00857639 | .0171795 | .0344012 | .0597367 | .0817288 |
+| `3/10`, `k=12` | .00651823 | .0147174 | .0358959 | .0732195 | .0890965 |
+| `3/10`, `k=19` | .000888977 | .00295249 | .00717138 | .0156453 | .0235596 |
+
+This is the right direction for the terminal-offset theorem above, but it is
+only eight points at two fixed thresholds. Intermediate immigration is not
+uniformly tiny—the observed maxima are `.173908...` and `.144527...`—and no
+all-level decay theorem, uniform cone, vector-selection theorem, or
+threshold-to-zero argument follows.
+
+### 5.3 The floating `k=20` holdout falsifies both earliest burn-ins
+
+The local untracked `eigvec_k20.npy` is a float64 approximate vector, not an
+exact feasible certificate. It nevertheless provides a useful provisional
+falsifier for the fixed weights and bounds above. The reproducible audit is:
+
+```bash
+python3 experiments/kl/audit_float_k20_weighted_cone.py
+```
+
+It pins sidecar SHA-256
+`35fa2453500ce4dec5d8a504e7dc29acd8d4088d4d3ebdc366b2f8796fb91681`
+and writes `float_k20_weighted_{cone_rows,recurrence}.csv`. Both original cone
+candidates fail, only at their earliest permitted depth:
+
+| cone | scope | rows / matrices | worst ratio | outcome |
+|---|---:|---:|---:|---:|
+| `t=.2`, `rho=68/69` | `j>=3` | 61 / 16 | `.994172542989`, `j=3,B_7` | 2 violations |
+| `t=.3`, `rho=.895` | `j>=2` | 31 / 17 | `.895576168344`, `j=2,B_7` | 1 violation |
+| `t=.2`, shifted | `j>=4` | 59 / 15 | `.976332930340`, `j=4,B_4` | passes provisionally |
+| `t=.3`, shifted | `j>=3` | 30 / 16 | `.833251699071`, `j=3,B_7` | passes provisionally |
+
+The other failing `t=.2` row is `j=3,B_5`, with ratio
+`.989901581202`. The smallest excess over a proposed bound is
+`.000576168344`; the maximum observed mass-conservation error is
+`1.04e-15`, and the minimum distance of any classified oscillation from a
+threshold is `1.64e-10`. Thus ordinary summation roundoff does not explain the
+violations. The underlying vector is still approximate, so this is not an
+exact `k=20` countercertificate.
+
+The immigration evidence remains favorable. At terminal offsets zero through
+four, the `t=.2` values continue from exact `k=19` to floating `k=20` as
+
+```text
+.00857639,.0171795,.0344012,.0597367,.0817288
+  -> .00716920,.0143126,.0285191,.0499714,.0690982,
+```
+
+and the `t=.3` values similarly continue to
+`.000755811,.00245109,.00583290,.0127437,.0192612`.
+
+The correct conclusion is mixed. The fixed `j0=3`/`j0=2` cones were genuine
+finite patterns and are now provisional holdout failures. Moving each burn-in
+one level later repairs this floating instance, but that repair is post-hoc
+and could drift again. The live mathematical content is therefore the
+terminal-offset immigration formulation and the search for a *uniformly
+justified* burn-in/weight family, not the particular constants just falsified.
+
+## 6. Calibration and next decision
 
 - The favorable result concerns eight particular exact feasible points, not
   all feasible subeigenvectors and not selected exact critical eigenfunctions.
@@ -279,10 +466,14 @@ afterward. If no common weight exists, augment the state by a small amount of
 - Pointwise scalar contraction at `t=1/5` is already false on these data.  Any
   successful statement must be mass-averaged, use a higher threshold, or
   carry more state.
-- The next bounded experiment is the rational common-weight search on the
-  eight-bin transition matrices, with held-out depth/level tests. Failure should be
-  recorded as a cone obstruction.  Success is only a candidate until an
-  all-level domination theorem is found.
+- The rational common-weight search succeeded finitely after the minimal
+  observed burn-in, while an earlier-start cone has an exact obstruction. The
+  next mathematical target is terminal-offset immigration decay for an
+  all-level family, first at `t=1/5`, followed by thresholds tending to zero.
+- The fixed weights and rational bounds are preregistered for the first exact
+  `k=20` certificate. The floating candidate already falsifies their earliest
+  burn-ins provisionally; an exact vector is still needed to decide the exact
+  `k=20` rows.
 - If both scalar and low-dimensional weighted recurrences fail, return to a
   direct primal construction of a cofinal feasible family rather than
   continuing to enlarge the annealed pressure surrogate.

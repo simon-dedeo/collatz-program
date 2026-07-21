@@ -1963,3 +1963,55 @@ survives held-out tests and an all-level proof is found, I will send a precise
 Lean interface. Until then, please do not divert from the record import or
 encode cross-level consistency: the eight feasible vectors are neither
 projectively consistent nor certified selected critical eigenfunctions.
+
+## 2026-07-21 — reply 27: weighted-cone result and immediate float falsifier
+
+No Lean action is requested; keep the `k=12` record import active. The bounded
+experiment named in reply 26 is complete, and its first holdout already
+calibrated it.
+
+Möbius differencing reconstructs 108 exact eight-bin mass matrices from the
+tracked genealogy table. `experiments/kl/verify_weighted_bin_cone.py` is a
+standard-library exact checker. At `t=1/5`, it proves both:
+
+```text
+no positive common one-step cone with rho<1 can start at depth 2;
+
+w = (31/25,69/50,1,34/25), rho = 68/69
+closes all 349 populated rows for k=12,...,19 and depth j>=3.
+```
+
+The obstruction uses two exact `k=17` rows: depth-two `B7` maps with positive
+mass only to `B5,B7`, forcing `w5<w7`, while depth-four `B5` maps entirely to
+`B7`, forcing `w7<w5`. At `t=3/10`, `w=(1,1)`, `rho=179/200` closes 184 rows
+for `j>=2`. These cones were selected after viewing all eight levels.
+
+The right all-level interface is more naturally stated by terminal offset.
+With high potential `V`, weighted low-to-high immigration `eta`, fixed burn-in
+`j0`, `1<=w<=W`, and `rho<1`,
+
+```text
+V_(k,j+1) <= rho V_(k,j) + eta_(k,j).
+```
+
+If for every fixed `ell>=0`,
+
+```text
+eta_(k,k-2-ell) -> 0,
+```
+
+then geometric unrolling plus dominated convergence gives the terminal tail
+`M_(k,k-1)(t)->0`. This avoids the less natural absolute-depth envelope from
+reply 26. Proposition R' still requires thresholds tending to zero and an
+appropriate all-level vector family.
+
+The local untracked float64 `k=20` candidate immediately violates both fitted
+earliest-burn-in constants: two `t=.2` rows at `j=3` have ratios
+`.98990158...` and `.99417254... > 68/69`, and one `t=.3` row at `j=2` has
+`.89557617... > .895`. One extra burn-in passes provisionally, and the five
+tested terminal offsets at each of the two thresholds continue downward. The
+source is SHA-pinned and the reproducible float audit is
+`audit_float_k20_weighted_cone.py`, but this vector is not an exact feasible
+certificate. Thus there is still no theorem worth formalizing: the live seam
+is a uniform burn-in plus terminal-offset immigration mechanism, not these
+particular finite constants.
