@@ -168,8 +168,10 @@ statement from the information-geometric defect note.  For two ternary
 profiles with minimum zero, mixing parameter `0<theta<1`, and coldness
 `beta>0`, the soft Jensen information rate is within `log(3)/beta` of the hard
 minimum of the mixed profile.  The constant is uniform in both profiles.  The
-theorem justifies the local zero-temperature passage; it does not supply the
-open all-row aggregate lower bound.
+same estimate is proved for an arbitrary finite family with nonnegative
+weights summing to one; in particular, the error does not grow with the number
+of competitors.  These theorems justify the local zero-temperature passage;
+they do not supply the open all-row aggregate lower bound.
 
 `RetardedComparison.lean` formalizes the analytic core of KL Theorem 5.1.
 For any finite nested sum/min difference system whose leaves all have positive

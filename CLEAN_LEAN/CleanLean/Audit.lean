@@ -443,6 +443,7 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ternaryBoltzmannSum_bounds
 #print axioms CleanLean.KL.log_ternaryBoltzmannSum_bounds
 #print axioms CleanLean.KL.ternaryInformationRate_bounds
+#print axioms CleanLean.KL.multiTernaryInformationRate_bounds
 #print axioms CleanLean.Collatz.syracuseStep_sideTarget
 #print axioms CleanLean.Collatz.sidePredecessor_eq_two_mul_next_of_odd
 #print axioms CleanLean.Collatz.sideTarget_eq_two_mul_sidePredecessor

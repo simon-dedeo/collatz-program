@@ -2950,3 +2950,36 @@ finite-data premise.  Its scope matches the note: it validates the uniform
 local zero-temperature limit but does **not** prove that the aggregate hard
 cost is quadratically large.  Module build passes; full build and axiom audit
 are next.
+
+## Round 71 — information-rate bookkeeping closed
+
+The full project build and axiom audit promised in Round 70 pass.  The new
+information-rate results use only the usual standard mathlib axioms; there are
+no project-specific axioms or unchecked numerical premises.
+
+## Round 72 — multiway cold information rate
+
+I formalized the finite multiway extension (4.8) from
+`docs/notes/information-geometric-defect.md`.  For an arbitrary finite family
+of ternary profiles `x j`, nonnegative weights `theta j` summing to one,
+`beta>0`, and `min (x j)=0`, the theorem
+`multiTernaryInformationRate_bounds` proves
+
+```text
+min(c)-log(3)/beta <= R_beta(theta,x)
+                    <= min(c)+log(3)/beta,
+c_i = sum_j theta_j*x^(j)_i.
+```
+
+Thus the error is independent of the number of competitors.  This checks the
+information algebra needed to retain an inherited-slack profile as a third
+replica.  It still assumes that the correct finite row decomposition has
+already been found and supplies no aggregate quadratic lower bound.  The
+module builds; full build and axiom audit are next.
+
+## Round 73 — multiway audit closed
+
+The full 8,779-job project build passes.  The new multiway theorem's axiom
+report is exactly `[propext, Classical.choice, Quot.sound]`, with no
+project-specific axiom, `sorry`, or external certificate premise.  No newer
+incoming request was present after the build.

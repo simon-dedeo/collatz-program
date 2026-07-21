@@ -121,4 +121,64 @@ theorem ternaryInformationRate_bounds
     field_simp [hβ.ne']
     nlinarith
 
+/-- The cold information rate for a finite weighted family of ternary
+profiles.  The weights are kept as data; normalization is a hypothesis of the
+uniform bound below. -/
+noncomputable def multiTernaryInformationRate
+    {ι : Type*} [Fintype ι]
+    (θ : ι → ℝ) (β : ℝ) (x : ι → Fin 3 → ℝ) : ℝ :=
+  let c := fun i => ∑ j, θ j * x j i
+  (-Real.log (ternaryBoltzmannSum β c) +
+      ∑ j, θ j * Real.log (ternaryBoltzmannSum β (x j))) / β
+
+/-- Multiway uniform zero-temperature estimate.  The error is still exactly
+`log 3 / beta`, independently of the number of profiles, because the
+partition-function errors are averaged by nonnegative weights summing to one.
+This is the logarithmic form of equation (4.8) in the information-geometric
+defect note. -/
+theorem multiTernaryInformationRate_bounds
+    {ι : Type*} [Fintype ι]
+    (θ : ι → ℝ) {β : ℝ} (x : ι → Fin 3 → ℝ)
+    (hθ : ∀ j, 0 ≤ θ j) (hθsum : ∑ j, θ j = 1) (hβ : 0 < β)
+    (hmin : ∀ j, ternaryMin (x j) = 0) :
+    let c := fun i => ∑ j, θ j * x j i
+    ternaryMin c - Real.log 3 / β ≤
+        multiTernaryInformationRate θ β x ∧
+      multiTernaryInformationRate θ β x ≤
+        ternaryMin c + Real.log 3 / β := by
+  classical
+  dsimp only
+  let c : Fin 3 → ℝ := fun i => ∑ j, θ j * x j i
+  obtain ⟨hcLower, hcUpper⟩ := log_ternaryBoltzmannSum_bounds hβ c
+  have hxLower (j : ι) :
+      0 ≤ Real.log (ternaryBoltzmannSum β (x j)) := by
+    obtain ⟨hj, _⟩ := log_ternaryBoltzmannSum_bounds hβ (x j)
+    rw [hmin j, mul_zero] at hj
+    exact hj
+  have hxUpper (j : ι) :
+      Real.log (ternaryBoltzmannSum β (x j)) ≤ Real.log 3 := by
+    obtain ⟨_, hj⟩ := log_ternaryBoltzmannSum_bounds hβ (x j)
+    rw [hmin j, mul_zero, sub_zero] at hj
+    exact hj
+  have hweightedLower :
+      0 ≤ ∑ j, θ j * Real.log (ternaryBoltzmannSum β (x j)) := by
+    exact Finset.sum_nonneg fun j _ => mul_nonneg (hθ j) (hxLower j)
+  have hweightedUpper :
+      (∑ j, θ j * Real.log (ternaryBoltzmannSum β (x j))) ≤ Real.log 3 := by
+    calc
+      (∑ j, θ j * Real.log (ternaryBoltzmannSum β (x j))) ≤
+          ∑ j, θ j * Real.log 3 := by
+        exact Finset.sum_le_sum fun j _ =>
+          mul_le_mul_of_nonneg_left (hxUpper j) (hθ j)
+      _ = Real.log 3 := by rw [← Finset.sum_mul, hθsum, one_mul]
+  unfold multiTernaryInformationRate
+  dsimp only
+  constructor
+  · apply (le_div_iff₀ hβ).2
+    field_simp [hβ.ne']
+    nlinarith
+  · apply (div_le_iff₀ hβ).2
+    field_simp [hβ.ne']
+    nlinarith
+
 end CleanLean.KL
