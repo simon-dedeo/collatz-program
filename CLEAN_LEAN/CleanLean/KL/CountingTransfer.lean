@@ -5,6 +5,7 @@ Authors: Simon DeDeo, OpenAI Codex
 -/
 import CleanLean.Collatz.PredecessorCount
 import CleanLean.KL.ConcreteLimit
+import CleanLean.KL.CriticalParameter
 
 /-!
 # From KL exponents to almost-linear predecessor counting
@@ -110,6 +111,23 @@ theorem almostLinearPredecessorCounting_of_klLambda
     AlmostLinearPredecessorCounting :=
   almostLinearPredecessorCounting_of_exponents
     (fun k => klExponent (lam k)) (klExponent_tendsto_one lam hlam) hbound
+
+/-- Fully direct route from a cofinal family of exact feasible vectors to
+almost-linear predecessor counting.  This avoids critical eigenvector
+existence and localization; the sole literature hypothesis is the KL
+difference-inequality transfer from exact finite feasibility to the power
+lower bound. -/
+theorem almostLinearPredecessorCounting_of_feasible_sequence
+    (mu : ℕ → ℝ)
+    (hmu : Tendsto mu atTop (nhds 2))
+    (hfeasible : ∀ k, LevelFeasible k (mu k))
+    (htransfer : ∀ a : ℕ, 0 < a → a % 3 ≠ 0 → ∀ k : ℕ,
+      LevelFeasible k (mu k) →
+        HasPredecessorExponent a (klExponent (mu k))) :
+    AlmostLinearPredecessorCounting := by
+  apply almostLinearPredecessorCounting_of_klLambda mu hmu
+  intro a ha ha3 k
+  exact htransfer a ha ha3 k (hfeasible k)
 
 /-- A convenience composition with the already formalized concrete
 defect-to-endpoint theorem. -/

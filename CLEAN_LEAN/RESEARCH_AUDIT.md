@@ -63,7 +63,9 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
 8. **The counting endgame.** `PredecessorCount.lean` defines the count using
    the actual Syracuse iterate. `CountingTransfer.lean` proves that
    `lambda_k -> 2`, together with the KL Theorem 2.2 lower bounds, gives
-   `X^(1-epsilon)` counting for every positive epsilon.
+   `X^(1-epsilon)` counting for every positive epsilon.  It also proves the
+   direct variant in which exact finite feasible parameters themselves tend
+   to two, bypassing critical eigenvector existence and localization.
 
 ## Corrections to the current notes
 
@@ -129,7 +131,10 @@ swap of lift labels 1 and 2.  Both the mean vector `(1,1,1)` and the co-spine
 oscillation vector `(2,-1,-1)` are fixed by that swap, so their eigenvalues
 are exactly equal.  A zero-charge residue cycle can therefore carry a
 normalized multiplier of one. `MarginalObstruction.lean` proves the
-J-independent algebraic part of this no-go result.
+J-independent algebraic part of this no-go result and the concrete retarded
+`2 -> 2` self-lift at every precision.  The stronger assertion that this loop
+is uncharged for every truncated set `E_J` additionally needs the exact first
+hitting-time formula; it does not follow merely from cyclicity of `x -> 4x`.
 
 This falsifies the proposed strict relative-contraction certificate class; it
 does not imply a finite ceiling for the KL exponents.  The abstract corrected
@@ -191,14 +196,16 @@ strict Lyapunov route is exactly marginal and cannot close.
 
 ## Lean dependency path to the counting theorem
 
-1. Formalize critical nonlinear Perron eigenfunction existence and define the
-   critical parameters `lambda_k` without importing an unchecked theorem.
-2. Ingest the portable finite pressure certificate into a Lean-computable
-   certificate value (the generic exact checker is already proved sound).
-3. Formalize the combined uniform localization/domination theorem or a direct feasible-vector
-   construction.
-4. Formalize the Krasikov--Lagarias difference-inequality transfer from
-   finite feasibility to predecessor lower bounds.  The later analytic step
+1. Formalize the Krasikov--Lagarias difference-inequality transfer from exact
+   finite feasibility to predecessor lower bounds.
+2. Prove either a cofinal exact feasible-vector construction with parameters
+   tending to two, or the critical-eigenvector localization theorem.  The
+   first route is already connected to the counting endgame and needs no
+   nonlinear Perron existence theorem.
+3. If pursuing localization, ingest the portable finite pressure certificate
+   into a Lean-computable certificate value (the generic exact checker is
+   already proved sound).
+4. Formalize the combined uniform localization/domination theorem.  The later analytic step
    from `lambda_k -> 2` to `x^(1-epsilon)` is already kernel checked.
 
 The last conclusion is not the Collatz conjecture.  It says that every target

@@ -3,7 +3,7 @@ Copyright (c) 2026 Simon DeDeo. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
-import Mathlib
+import CleanLean.KL.ResidueSystem
 
 /-!
 # The aligned marginal oscillation mode
@@ -74,5 +74,20 @@ theorem no_strict_relative_contraction_on_aligned_modes
   have h := hcontract meanMode swapLifts_meanMode 0
   simp [alignedSymmetricMap, meanMode, swapLifts, abs_of_pos hab] at h
   nlinarith
+
+/-- At every residue precision, the retarded branch at coordinate zero has a
+self lift at coordinate zero.  In original residue coordinates this is the
+all-level B2 edge `2 → 2`. -/
+theorem retarded_zero_selfLift (k : ℕ) :
+    (ResidueSystem.system k).branch (0 : ResidueSystem.State k) = Branch.retarded ∧
+      (ResidueSystem.system k).fiber
+        ((ResidueSystem.system k).refinementTarget
+          (0 : ResidueSystem.State k)) (0 : Fin 3) =
+            (0 : ResidueSystem.State k) := by
+  constructor
+  · exact ResidueSystem.branch_zero k
+  · simp [ResidueSystem.system, ResidueSystem.refinementTarget,
+      ResidueSystem.branch_zero, ResidueSystem.retardedTarget,
+      ResidueSystem.fiber]
 
 end CleanLean.KL

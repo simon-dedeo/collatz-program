@@ -12,14 +12,20 @@ terminal-potential/Chernoff estimate, and defect-to-`lambda = 2` limit bridge
 are now kernel checked.  The scaled integer checker now also proves
 feasibility for the true irrational KL weights, and the analytic implication
 from `lambda_k -> 2` to `X^(1-epsilon)` Syracuse predecessor counting is
-formalized.  The central missing theorem remains a uniform
-localization/domination or direct-feasibility argument forcing the weighted
-oscillation defect to vanish.
+formalized.  There is also a second, shorter endgame: any sequence of exact
+finite feasible parameters tending to two implies the same counting result
+directly, without choosing critical eigenvectors.  The central missing
+theorem remains either a uniform localization/domination argument forcing the
+weighted oscillation defect to vanish, or a cofinal construction of exact
+feasible vectors below every fixed parameter less than two.
 
 The first charged spine-face Lyapunov proposal has been exactly falsified,
 not assumed away: `MarginalObstruction.lean` proves that its aligned mean and
 co-spine modes have the same eigenvalue.  This is a no-go theorem for that
-certificate class, not evidence against `lambda_k -> 2`.
+certificate class, not evidence against `lambda_k -> 2`.  The concrete KL
+system also has the retarded `2 -> 2` self-lift at every precision; proving
+that this loop is outside the proposed truncated charge set still requires a
+separate exact orbit-hitting lemma.
 
 `FiniteRecord.lean` contains a small Lean-native certificate at level 2.  It
 checks the integer rows and logarithmic cross-products by kernel reduction and

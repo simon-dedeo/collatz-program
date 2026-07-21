@@ -96,9 +96,11 @@ specification theorems during a build.
 #print axioms CleanLean.KL.badMass_le_of_chargedCarrier_and_pressure
 #print axioms CleanLean.KL.aligned_mean_and_cospine_same_eigenvalue
 #print axioms CleanLean.KL.no_strict_relative_contraction_on_aligned_modes
+#print axioms CleanLean.KL.retarded_zero_selfLift
 #print axioms CleanLean.KL.positiveEigenvalue_unique
 #print axioms CleanLean.KL.one_le_positiveEigenvalue_of_subeigenvector
 #print axioms CleanLean.KL.eventually_rpow_le_of_constant_mul_rpow_le
 #print axioms CleanLean.KL.klExponent_tendsto_one
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_klLambda
+#print axioms CleanLean.KL.almostLinearPredecessorCounting_of_feasible_sequence
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_klDefect

@@ -47,12 +47,15 @@ It is deliberately defined before any proposed proof machinery.
 | Terminal-potential and block-Chernoff pressure bound | Kernel checked |
 | Corrected relative charged-carrier implication | Kernel checked |
 | Aligned marginal-mode obstruction to strict CL contraction | Kernel checked |
+| Retarded `2 -> 2` self-lift at every residue precision | Kernel checked |
 | Concrete KL oscillation identity | Kernel checked |
 | Concrete annealed root: strict decrease and `s(2)=1` | Kernel checked |
 | Vanishing defect implies `lambda_k -> 2` | Kernel checked |
 | `lambda_k -> 2` implies `X^(1-epsilon)` counting, conditional on KL transfer | Kernel checked |
+| Exact feasible sequence tending to `2` implies the same counting conclusion | Kernel checked |
+| Feasible lower sequence tending to `2` squeezes exact critical suprema to `2` | Kernel checked |
 | Exact Syracuse predecessor-count specification | Kernel checked |
-| Critical nonlinear eigenfunction existence/selection | Planned |
+| Critical nonlinear eigenfunction existence/selection | Planned; unnecessary for direct-feasibility route |
 | Portable pressure JSON independently verified | External exact check; Lean ingestion planned |
 | Restricted-pressure theorem C1' | Open mathematics |
 | Original charged spine-face Lyapunov route | Falsified at its algebraic marginal mode |

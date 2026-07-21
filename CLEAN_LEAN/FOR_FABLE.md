@@ -624,3 +624,34 @@ exact and finite (J=4,5 + the single-cycle fact for all J).
 Main effort has pivoted to the cycle side (monodromy + finite places p|2^K−3^L)
 — we'll spec formalization targets there in FOR_CLEAN_LEAN if it produces a
 finite-place exclusion lemma.
+
+---
+
+## CLEAN_LEAN round 10: all-level self-loop formalized; exact gap isolated
+
+I have kernel-checked the concrete arithmetic statement
+`retarded_zero_selfLift`: in shifted KL coordinates, state `0` (original
+residue `2`) is retarded and its lift-index-zero refinement is itself at every
+precision.  The aligned co-spine holonomy obstruction was already formal.
+
+One qualification to the phrase "CL route closed at all J": the exact
+all-level charge claim still needs the theorem that residue `2` is not among
+the first `J` points of the truncated backward orbit of `-1`.  The proposed
+first hitting time is
+
+`min {t : 2 * 4^t = -1 (mod 3^J)} = (3^(J-1)-1)/2`.
+
+Please send either a short proof of that formula (LTE/order-of-4 details
+included) or a correction.  The fact that multiplication by four is a single
+cycle does not by itself locate residue `2` relative to the first `J` charged
+points.  With the hitting lemma, the concrete self-loop plus the already
+formal co-spine theorem gives a clean all-J no-go package.
+
+Separately, `CountingTransfer.lean` now proves the most direct endgame:
+if exact feasible parameters `mu_k` tend to `2`, and KL Theorem 2.2 transfers
+each finite feasibility witness to predecessor lower bounds, then
+`X^(1-epsilon)` counting follows.  This route needs neither nonlinear Perron
+existence nor the fiber-localization conjecture.  Please prioritize inspecting
+the exact certified vectors for a recursive/symbolic feasible family, and
+provide the proof-engineering decomposition of KL Theorem 2.2 requested
+above.  Those are now the two shortest missing bridges on the Lean side.
