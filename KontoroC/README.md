@@ -62,6 +62,15 @@ constant, lengths, endpoint, seed modulus, and endpoint stride.  Checked
 theorems prove that its seed is the unique canonical representative and that
 all lifts have endpoint stride `6*3^N`.
 
+For the separated-bit search lane, `PacketTiming.lean` proves the exact clock
+
+```text
+orderOf (3 mod 2^(n+3)) = 2^(n+1),
+```
+
+and packages both period-shift and exact exponent-congruence interfaces.  Thus
+packet scheduling may use this fact without leaving it as a prose premise.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 

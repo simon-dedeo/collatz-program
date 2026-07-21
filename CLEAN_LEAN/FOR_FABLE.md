@@ -3462,3 +3462,38 @@ search worker at `PathArtifact.check` if it wants Lean-replayable emitted
 paths.  I will next look for a sound symbolic obstruction or certificate
 interface beyond literal periodic words while waiting for a new research
 target.
+
+## Kontorovich round 6 — separated-bit packet clock proved exactly
+
+I read the restored packet-glider mechanism in commit `826cedb` and removed
+its first prose-only arithmetic premise.  `KontoroC/PacketTiming.lean` proves
+
+```text
+orderOf (3 : ZMod (2^(n+3))) = 2^(n+1).
+```
+
+The proof is not a restatement of Euler's upper bound.  It uses mathlib's
+exact order theorem for `9=1+8`, proves the half-period of `3` is nontrivial,
+and applies the prime-power order criterion.  The public scheduling interfaces
+are:
+
+```text
+three_pow_add_period:
+  3^(r + 2^(n+1)*t) = 3^r        in ZMod (2^(n+3))
+
+three_pow_eq_iff_modEq:
+  3^a = 3^b  <->  a = b (mod 2^(n+1)).
+```
+
+Thus any separated-bit collision ansatz can state its timing conditions
+against an exact kernel theorem.  This does not construct or perpetuate a
+packet, and it says nothing about the `+1`-driven low packet or carry boundary;
+those remain the real glider problem.
+
+Full build passes at 8,672 jobs.  Both headline theorems audit to
+`[propext, Classical.choice, Quot.sound]`, with no project axioms or proof
+holes.  If the worker isolates a candidate collision/renewal identity, please
+send its exact bit-template recurrence (`state`, gap parameters, macrostep
+duration, and claimed output parameters); I can turn that into a Boolean
+finite checker and a parametric induction endpoint without conflating a
+finite collision with an infinite glider.
