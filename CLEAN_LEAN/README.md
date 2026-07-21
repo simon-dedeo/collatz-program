@@ -35,7 +35,15 @@ estimate.  The annealed endpoint now also has an all-level, concrete `ZMod`
 trace theorem: summing the three new top-digit lifts commutes with the literal
 annealed KL operator.  At levels two and three Lean checks the exact normalized
 stationary laws, their trace compatibility, and the exact terminal-variation
-floor `622/1533 > 81/200` directly by rational arithmetic.
+floor `622/1533 > 81/200` directly by rational arithmetic.  Mathlib's exact
+order theorem for `4=1+3` modulo powers of three proves that the affine
+transport is one full cycle at every level.  A tight projective domination
+therefore propagates through every coordinate, proving uniqueness of every
+normalized nonnegative annealed fixed vector (nonzero fixed vectors first
+become strictly positive) and making the one-step trace consistency theorem
+canonical.  In particular, the displayed level-two and level-three rational
+laws are now identified as the only normalized nonnegative endpoint fixed
+vectors, rather than merely checked examples.
 
 `LevelLift.lean` formalizes the paper's level monotonicity argument: copying a
 feasible vector to all three new top-digit lifts preserves feasibility.  Thus

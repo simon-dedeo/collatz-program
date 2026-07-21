@@ -3,7 +3,7 @@ Copyright (c) 2026 Simon DeDeo. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
-import CleanLean.KL.AnnealedTrace
+import CleanLean.KL.AnnealedIrreducible
 import CleanLean.KL.KLWeights
 import CleanLean.KL.TerminalPearson
 
@@ -204,6 +204,114 @@ theorem annealedR3_terminalVariation_gt :
     (81 / 200 : ℝ) < (system 3).normalizedTerminalVariation annealedR3 := by
   rw [annealedR3_terminalVariation]
   norm_num
+
+/-- At the endpoint, a strictly positive normalized annealed fixed vector is
+unique at every level. -/
+theorem annealedEndpoint_fixedVector_unique
+    (k : ℕ) (hk : 1 ≤ k) {x y : State k → ℝ}
+    (hxpos : ∀ q, 0 < x q) (hypos : ∀ q, 0 < y q)
+    (hxfixed : (system k).annealedOperator annealedEndpointWeights x = x)
+    (hyfixed : (system k).annealedOperator annealedEndpointWeights y = y)
+    (hxmass : (system k).totalMass x = 1)
+    (hymass : (system k).totalMass y = 1) :
+    x = y := by
+  apply annealed_fixedVector_unique k hk annealedEndpointWeights
+  · norm_num [annealedEndpointWeights]
+  · norm_num [annealedEndpointWeights]
+  · norm_num [annealedEndpointWeights]
+  · exact hxpos
+  · exact hypos
+  · exact hxfixed
+  · exact hyfixed
+  · exact hxmass
+  · exact hymass
+
+/-- Preferred endpoint interface: normalization and nonnegativity already
+force strict positivity, hence uniqueness. -/
+theorem annealedEndpoint_fixedVector_unique_nonnegative
+    (k : ℕ) (hk : 1 ≤ k) {x y : State k → ℝ}
+    (hx : ∀ q, 0 ≤ x q) (hy : ∀ q, 0 ≤ y q)
+    (hxfixed : (system k).annealedOperator annealedEndpointWeights x = x)
+    (hyfixed : (system k).annealedOperator annealedEndpointWeights y = y)
+    (hxmass : (system k).totalMass x = 1)
+    (hymass : (system k).totalMass y = 1) :
+    x = y := by
+  apply annealed_fixedVector_unique_nonnegative
+    k hk annealedEndpointWeights
+  · norm_num [annealedEndpointWeights]
+  · norm_num [annealedEndpointWeights]
+  · norm_num [annealedEndpointWeights]
+  · exact hx
+  · exact hy
+  · exact hxfixed
+  · exact hyfixed
+  · exact hxmass
+  · exact hymass
+
+theorem annealedR2_pos (q : State 2) : 0 < annealedR2 q := by
+  have hlt := ZMod.val_lt q
+  interval_cases hval : q.val <;> simp [annealedR2, hval]
+
+theorem annealedR3_pos (q : State 3) : 0 < annealedR3 q := by
+  have hlt := ZMod.val_lt q
+  interval_cases hval : q.val <;>
+    simp [annealedR3, annealedR3Numerator, hval]
+
+/-- Every normalized nonnegative level-two endpoint fixed vector is the
+displayed rational law. -/
+theorem annealedR2_eq_of_nonnegative_fixed
+    {c : State 2 → ℝ} (hc : ∀ q, 0 ≤ c q)
+    (hfixed :
+      (system 2).annealedOperator annealedEndpointWeights c = c)
+    (hmass : (system 2).totalMass c = 1) :
+    c = annealedR2 := by
+  apply annealedEndpoint_fixedVector_unique_nonnegative 2 (by omega)
+  · exact hc
+  · exact fun q => (annealedR2_pos q).le
+  · exact hfixed
+  · exact annealedR2_eigen
+  · exact hmass
+  · exact annealedR2_normalized
+
+/-- Every normalized nonnegative level-three endpoint fixed vector is the
+displayed rational law. -/
+theorem annealedR3_eq_of_nonnegative_fixed
+    {c : State 3 → ℝ} (hc : ∀ q, 0 ≤ c q)
+    (hfixed :
+      (system 3).annealedOperator annealedEndpointWeights c = c)
+    (hmass : (system 3).totalMass c = 1) :
+    c = annealedR3 := by
+  apply annealedEndpoint_fixedVector_unique_nonnegative 3 (by omega)
+  · exact hc
+  · exact fun q => (annealedR3_pos q).le
+  · exact hfixed
+  · exact annealedR3_eigen
+  · exact hmass
+  · exact annealedR3_normalized
+
+/-- Consequently, normalized positive endpoint laws are projectively
+consistent under the one-step trace. -/
+theorem annealedEndpoint_oneStepTrace_fixedVector_eq
+    (k : ℕ) (hk : 2 ≤ k)
+    {fine : State (k + 1) → ℝ} {coarse : State k → ℝ}
+    (hfinePos : ∀ q, 0 < fine q) (hcoarsePos : ∀ q, 0 < coarse q)
+    (hfineFixed :
+      (system (k + 1)).annealedOperator annealedEndpointWeights fine = fine)
+    (hcoarseFixed :
+      (system k).annealedOperator annealedEndpointWeights coarse = coarse)
+    (hfineMass : (system (k + 1)).totalMass fine = 1)
+    (hcoarseMass : (system k).totalMass coarse = 1) :
+    oneStepTrace k fine = coarse := by
+  apply oneStepTrace_fixedVector_eq k hk annealedEndpointWeights
+  · norm_num [annealedEndpointWeights]
+  · norm_num [annealedEndpointWeights]
+  · norm_num [annealedEndpointWeights]
+  · exact hfinePos
+  · exact hcoarsePos
+  · exact hfineFixed
+  · exact hcoarseFixed
+  · exact hfineMass
+  · exact hcoarseMass
 
 end
 

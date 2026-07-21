@@ -38,7 +38,7 @@ It is deliberately defined before any proposed proof machinery.
 | Local deletion from a minimum is not sound from positivity/monotonicity alone | Kernel-checked counterexample |
 | Repaired two-phase advanced-term elimination and original-system transfer | Kernel checked |
 | Literal KL predecessor functions satisfy the base system for every `k>=2` | Kernel checked |
-| Exact finite feasibility implies the ordinary predecessor exponent | Kernel checked |
+| Exact finite feasibility implies the one-halving Syracuse predecessor exponent for positive targets not divisible by three | Kernel checked |
 | Finite weighted-tail inequality in R' | Kernel checked |
 | Full abstract asymptotic R' | Kernel checked |
 | Geometric pressure-gap implies tail decay | Kernel checked |

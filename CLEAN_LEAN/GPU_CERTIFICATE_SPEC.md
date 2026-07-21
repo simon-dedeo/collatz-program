@@ -14,7 +14,8 @@ useful for the next record, but it is not needed for the limit proof.
 The inline level-12 artifact is now imported by
 `FiniteRecordK12.lean`: its 177,147 coordinates are SHA-pinned, checked by
 kernel reduction in bounded synchronous blocks, and carried through to the
-ordinary predecessor exponent.  This is the reference implementation of the
+one-halving Syracuse predecessor exponent for positive targets not divisible
+by three.  This is the reference implementation of the
 finite-record semantics.  It is not a scalable encoding for the much larger
 sidecars below.
 

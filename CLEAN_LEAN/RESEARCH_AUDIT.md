@@ -420,8 +420,9 @@ strict Lyapunov route is exactly marginal and cannot close.
 4. Formalize the combined uniform localization/domination theorem.  The later analytic step
    from `lambda_k -> 2` to `x^(1-epsilon)` is already kernel checked.
 
-The last conclusion is not the Collatz conjecture.  It says that every target
-has very many predecessors up to `x`; it does not say every positive integer's
+The last conclusion is not the Collatz conjecture.  It says that every
+positive target not divisible by three has very many predecessors up to `x`
+in the one-halving Syracuse graph; it does not say every positive integer's
 forward orbit reaches 1.  The standard Collatz statement is already fixed in
 the project so that no later theorem can silently substitute the counting
 milestone for the conjecture.

@@ -45,7 +45,7 @@ theorem mem_boundedPredecessors_iff {a X n : ℕ} :
     Finset.mem_Icc, IsBoundedSyracusePredecessor]
   tauto
 
-/-- Bounded predecessors are ordinary predecessors. -/
+/-- Path-bounded Syracuse predecessors are unbounded Syracuse predecessors. -/
 theorem boundedPredecessorFinset_subset (a X : ℕ) :
     boundedPredecessorFinset a X ⊆ predecessorFinset a X := by
   intro n hn
@@ -249,7 +249,7 @@ theorem boundedPredecessorCount_eq_succ_double
       (self_not_mem_boundedPredecessors_double haNonperiodic),
     boundedPredecessorCount]
 
-/-- Reachability of targets reverses inclusion of their ordinary predecessor
+/-- Reachability of targets reverses inclusion of their Syracuse predecessor
 sets: if `b` reaches `a`, every predecessor of `b` is a predecessor of `a`. -/
 theorem predecessorFinset_subset_of_target_reaches
     {a b X : ℕ} (hba : IsSyracusePredecessor a b) :

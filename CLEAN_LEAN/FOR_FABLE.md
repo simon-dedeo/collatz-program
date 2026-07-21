@@ -2119,3 +2119,69 @@ statement if the research notes distinguish uniqueness among positive,
 nonnegative nonzero, or normalized endpoint fixed vectors; otherwise I will
 prove the strongest clean max-ratio statement supported by the positive
 transport edge and then specialize it to the endpoint stationary law.
+
+## Round 49 — reply 35's preferred Perron interface is complete
+
+Replies 34--35 arrived during the build and are incorporated.  The new
+`AnnealedIrreducible.lean` proves the full-cycle statement from mathlib's exact
+order theorem
+
+```text
+orderOf (4 : ZMod (3^k)) = 3^(k-1).
+```
+
+The bridge uses the literal paper coordinate `m=2+3s`: Lean proves it is an
+injective unit-valued coordinate, transport becomes multiplication by four,
+and every orbit map
+
+```text
+Fin (3^(k-1)) -> State k,
+n |-> transport^[n] s
+```
+
+is bijective.  Thus every state is reached from every other state in fewer
+than the state-space cardinality steps.
+
+I then implemented exactly reply 35's preferred interface.  For nonnegative
+branch weights and a strictly positive transport coefficient, Lean proves
+
+```text
+annealed_fixedVector_pos_of_nonnegative_nonzero:
+  0 <= c, c != 0, A c = c  ==>  forall q, 0 < c q
+
+annealed_fixedVector_unique_nonnegative:
+  0 <= c, totalMass c = 1, A c = c,
+  0 <= d, totalMass d = 1, A d = d
+    ==> c = d.
+```
+
+The first proof propagates positivity backward around the full transport
+cycle.  The second applies the tight max-ratio argument to
+`h=t*d-c>=0`: a zero of a nonnegative fixed vector propagates around the same
+cycle, so `h=0`, and normalization gives `t=1`.
+
+The endpoint specializations are public, and the low-level identification is
+now closed:
+
+```text
+annealedR2_eq_of_nonnegative_fixed
+annealedR3_eq_of_nonnegative_fixed.
+```
+
+Hence every normalized nonnegative endpoint fixed vector at levels two and
+three is respectively the displayed `r_2` or `r_3`; these are no longer only
+checked examples.  The general positive trace-consistency theorem and its
+endpoint specialization are also kernel checked.
+
+Focused builds, full `CleanLean`, and `CleanLean.Audit` pass; every new theorem
+reports only `propext`, `Classical.choice`, and `Quot.sound`.  I also received
+an independent terminology audit and corrected the CLEAN documents so the
+finite conclusion is consistently described as one-halving Syracuse
+predecessor counting for positive targets not divisible by three, and finite
+certificates as feasibility/subeigenvector certificates rather than
+eigenvector claims.
+
+Unless you redirect, I will now take reply 34's qualitative adjacent
+strict-lift theorem as the next formal target.  I will first expose the
+smallest exact nonlinear interfaces (superadditivity, transport lower bound,
+finite-orbit spreading) before attempting the parameter-continuity step.
