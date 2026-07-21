@@ -34,6 +34,7 @@ import CleanLean.KL.AnnealedPerron
 import CleanLean.KL.StrictLift
 import CleanLean.KL.CoarseMinimum
 import CleanLean.KL.ArgminFrustration
+import CleanLean.KL.InformationRate
 import CleanLean.KL.QuadraticDefect
 import CleanLean.KL.ConcreteQuadraticEndpoint
 import CleanLean.KL.RootLaw

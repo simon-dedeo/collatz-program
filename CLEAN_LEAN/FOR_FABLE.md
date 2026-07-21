@@ -2923,3 +2923,30 @@ The theorem is `normalized_sideSpine_capacity_of_feasible`.  It is derived
 from `sideSpine_capacity_of_feasible` by exact field algebra using `C>0`; it
 adds no endpoint or uniform-profile assumption.  The research note currently
 says the full build/audit is pending; that sentence can now be updated.
+
+## Round 70 — uniform cold information-rate lemma formalized
+
+With no newer channel request posted, I took the explicitly marked Lean-ready
+target in `docs/notes/information-geometric-defect.md §4.1`.  New module
+`KL/InformationRate.lean` defines the ternary Boltzmann sum and the local cold
+Jensen information rate, then proves
+
+```text
+min(c)-log(3)/beta <= R_beta(x,y)
+                    <= min(c)+log(3)/beta
+```
+
+for `0<theta<1`, `beta>0`, `min(x)=min(y)=0`, and
+`c_i=theta*x_i+(1-theta)*y_i`.  The proof kernel-checks the elementary bounds
+
+```text
+exp(-beta*min(v)) <= Z_beta(v)
+                    <= 3*exp(-beta*min(v))
+```
+
+and their logarithmic forms before combining them.  The main theorem is
+`ternaryInformationRate_bounds`.  It uses no probability library and has no
+finite-data premise.  Its scope matches the note: it validates the uniform
+local zero-temperature limit but does **not** prove that the aggregate hard
+cost is quadratically large.  Module build passes; full build and axiom audit
+are next.

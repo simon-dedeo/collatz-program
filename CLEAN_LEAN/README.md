@@ -163,6 +163,14 @@ by coarse mass, minus inherited fine slack normalized by fine mass.  This
 identity exposes the selection effect without assuming it has a favorable
 sign.
 
+`InformationRate.lean` kernel-checks the strongest self-contained scalar
+statement from the information-geometric defect note.  For two ternary
+profiles with minimum zero, mixing parameter `0<theta<1`, and coldness
+`beta>0`, the soft Jensen information rate is within `log(3)/beta` of the hard
+minimum of the mixed profile.  The constant is uniform in both profiles.  The
+theorem justifies the local zero-temperature passage; it does not supply the
+open all-row aggregate lower bound.
+
 `RetardedComparison.lean` formalizes the analytic core of KL Theorem 5.1.
 For any finite nested sum/min difference system whose leaves all have positive
 backward shifts, LP feasibility propagates an exponential lower bound from an
