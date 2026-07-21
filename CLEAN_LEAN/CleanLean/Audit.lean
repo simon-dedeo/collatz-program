@@ -366,6 +366,10 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.coarseMinimum_operator_le_of_fixed
 #print axioms CleanLean.KL.ResidueSystem.coarseMinimum_operator_le_of_supersolution
 #print axioms CleanLean.KL.ResidueSystem.normalizedSlack_sub_eq_defect_gap
+#print axioms CleanLean.KL.ResidueSystem.HasQuadraticSlackGain
+#print axioms CleanLean.KL.ResidueSystem.terminalExcess_quadratic_growth_of_slackGain
+#print axioms CleanLean.KL.ResidueSystem.HasQuadraticCoarseSlackGain
+#print axioms CleanLean.KL.ResidueSystem.terminalExcess_quadratic_growth_of_coarseSlackGain
 #print axioms CleanLean.KL.ResidueSystem.neg_normalizedSlack_eq_defect_gap
 #print axioms CleanLean.KL.ResidueSystem.normalizedDefect_le_coarseMinimum_of_fixed
 #print axioms CleanLean.KL.weighted_argmin_mismatch_le_ternaryMin
@@ -384,6 +388,8 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.transportArgmin_isArgmin
 #print axioms CleanLean.KL.ResidueSystem.refinementArgmin_isArgmin
 #print axioms CleanLean.KL.ResidueSystem.pulledFrustrationMass_le_coarseSlackSum
+#print axioms CleanLean.KL.ResidueSystem.quadraticCoarseSlackGain_of_frustration
+#print axioms CleanLean.KL.ResidueSystem.quadraticCoarseSlackGain_of_canonicalFrustration
 #print axioms CleanLean.KL.ResidueSystem.terminalExcess_quadratic_growth_of_frustration
 #print axioms CleanLean.KL.ResidueSystem.terminalExcess_quadratic_growth_of_canonicalFrustration
 #print axioms CleanLean.KL.three_fifths_le_reciprocal_drop

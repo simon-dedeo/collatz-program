@@ -80,8 +80,12 @@ an inherited normalized-slack term.  For the first projection of a positive
 exact fine fixed vector that term vanishes, identifying normalized coarse
 super-slack with the increase in normalized minimum defect and proving the
 ordinary data-processing inequality.  At later stages it cannot be discarded.
-The missing research claim is therefore an inherited-slack quantitative
-increase, not merely repeated use of the first-stage fixed-vector theorem.
+The module names the correct general premise `HasQuadraticSlackGain`: the
+gain in normalized slack between adjacent profiles must dominate half the
+branch weight times the squared terminal excess.  Lean proves this premise is
+exactly sufficient for one `3/2` quadratic defect step.  The missing research
+claim is therefore this inherited-slack quantitative increase, not merely
+repeated use of the first-stage fixed-vector theorem.
 
 `QuadraticDefect.lean` now kernel-checks the exact endgame proposed by the
 iterated-minimum experiments, without assuming it has been proved for KL
@@ -112,7 +116,9 @@ Thus the local algebra, the global reduction, and the reciprocal telescope are
 checked for the first exact-fixed-vector projection.  Two linked ingredients
 remain open for the all-stage conclusion: the selected-critical frustration
 lower bound and its inherited-slack extension for the subsequent
-supersolution profiles.
+supersolution profiles.  Lean also checks that the first-stage frustration
+bound implies `HasQuadraticSlackGain`, so the first and later formulations now
+meet at one precise normalized interface.
 
 `RetardedComparison.lean` formalizes the analytic core of KL Theorem 5.1.
 For any finite nested sum/min difference system whose leaves all have positive

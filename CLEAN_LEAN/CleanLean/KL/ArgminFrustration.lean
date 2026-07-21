@@ -526,9 +526,9 @@ noncomputable def canonicalFrustrationMass
     (k : ℕ) (w : Weights ℝ) (x : State (k + 1) → ℝ) : ℝ :=
   pulledFrustrationMass k w x (transportArgmin k x) (refinementArgmin k x)
 
-/-- The sole quantitative premise suggested by the selected records: the
-canonical frustration mass dominates half the branch-weighted coarse mass
-times the square of the fine terminal excess. -/
+/-- The first-stage quantitative premise suggested by the selected records:
+the canonical frustration mass dominates half the branch-weighted coarse
+mass times the square of the fine terminal excess. -/
 def HasQuadraticFrustration
     (k : ℕ) (w : Weights ℝ) (x : State (k + 1) → ℝ) : Prop :=
   ((w.retarded + w.advanced) *
@@ -538,7 +538,7 @@ def HasQuadraticFrustration
 
 /-- The global pulled-back frustration is bounded above by the total coarse
 supersolution slack.  A quadratic lower bound for this frustration mass is the
-remaining selected-critical conjecture. -/
+remaining first-stage selected-critical conjecture. -/
 theorem pulledFrustrationMass_le_coarseSlackSum
     (k : ℕ) (hk : 2 ≤ k) (w : Weights ℝ)
     (x : State (k + 1) → ℝ)
@@ -567,10 +567,83 @@ theorem pulledFrustrationMass_le_coarseSlackSum
       exact pulledLocalFrustration_le_coarseSlack_advanced
         k hk w x sigmaA sigmaZ hwt hadv hfixed r hb
 
-/-- The exact global reduction: a quadratic lower bound for the concrete
-frustration mass implies one step of the conjectural `3/2` growth law for the
-normalized terminal excess `3 * normalizedDefect`.  This theorem does not
-prove the frustration lower bound. -/
+/-- The first-stage frustration estimate supplies exactly the normalized
+slack-gain premise used by the all-stage scalar interface.  The proof uses the
+fine fixed equation only to set the inherited fine slack to zero; this is the
+step that is unavailable at later coarse projections. -/
+theorem quadraticCoarseSlackGain_of_frustration
+    (k : ℕ) (hk : 2 ≤ k) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ)
+    (sigmaA sigmaZ : State k → Fin 3)
+    (hwt : 0 ≤ w.transport) (hret : 0 ≤ w.retarded)
+    (hadv : 0 ≤ w.advanced)
+    (hx : ∀ s, 0 < x s)
+    (hfixed : ∀ s, x s = (system (k + 1)).operator w x s)
+    (hfrustration :
+      ((w.retarded + w.advanced) *
+          (system k).totalMass (coarseMinimum k x) / 2) *
+          (3 * (system (k + 1)).normalizedDefect x) ^ 2 ≤
+        pulledFrustrationMass k w x sigmaA sigmaZ) :
+    HasQuadraticCoarseSlackGain k w x := by
+  let g := coarseMinimum k x
+  let b := w.retarded + w.advanced
+  have hg : ∀ r, 0 < g r := by
+    intro r
+    simp only [g, coarseMinimum, FiniteSystem.fiberMin]
+    exact lt_min (hx _) (lt_min (hx _) (hx _))
+  have hG : 0 < (system k).totalMass g := by
+    apply Finset.sum_pos
+    · intro r hr
+      exact hg r
+    · exact ⟨(0 : State k), Finset.mem_univ _⟩
+  have hupper := pulledFrustrationMass_le_coarseSlackSum
+    k hk w x sigmaA sigmaZ hwt hret hadv hfixed
+  change pulledFrustrationMass k w x sigmaA sigmaZ ≤
+    ∑ r, (g r - (system k).operator w g r) at hupper
+  have hsum :
+      (∑ r, (g r - (system k).operator w g r)) =
+        -(system k).slackMass w g := by
+    unfold FiniteSystem.slackMass
+    rw [← Finset.sum_neg_distrib]
+    apply Finset.sum_congr rfl
+    intro r hr
+    ring
+  have hlower :
+      (b * (system k).totalMass g / 2) *
+          (3 * (system (k + 1)).normalizedDefect x) ^ 2 ≤
+        -(system k).slackMass w g := by
+    change (b * (system k).totalMass g / 2) *
+      (3 * (system (k + 1)).normalizedDefect x) ^ 2 ≤
+        pulledFrustrationMass k w x sigmaA sigmaZ at hfrustration
+    exact hfrustration.trans (hupper.trans_eq hsum)
+  have hfine := (system (k + 1)).normalizedSlack_eq_zero w x hfixed
+  unfold HasQuadraticCoarseSlackGain HasQuadraticSlackGain
+  rw [hfine, zero_sub]
+  have hnormalized :
+      (b / 2) * (3 * (system (k + 1)).normalizedDefect x) ^ 2 ≤
+        (-(system k).slackMass w g) / (system k).totalMass g := by
+    rw [le_div_iff₀ hG]
+    nlinarith [hlower]
+  simpa only [FiniteSystem.normalizedSlack, g, b, neg_div] using hnormalized
+
+theorem quadraticCoarseSlackGain_of_canonicalFrustration
+    (k : ℕ) (hk : 2 ≤ k) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ)
+    (hwt : 0 ≤ w.transport) (hret : 0 ≤ w.retarded)
+    (hadv : 0 ≤ w.advanced)
+    (hx : ∀ s, 0 < x s)
+    (hfixed : ∀ s, x s = (system (k + 1)).operator w x s)
+    (hfrustration : HasQuadraticFrustration k w x) :
+    HasQuadraticCoarseSlackGain k w x := by
+  exact quadraticCoarseSlackGain_of_frustration
+    k hk w x (transportArgmin k x) (refinementArgmin k x)
+    hwt hret hadv hx hfixed hfrustration
+
+/-- The exact first-stage global reduction: a quadratic lower bound for the
+concrete frustration mass of a fine fixed vector implies one step of the
+conjectural `3/2` growth law for the normalized terminal excess
+`3 * normalizedDefect`.  This theorem does not prove the frustration lower
+bound or its inherited-slack later-stage analogue. -/
 theorem terminalExcess_quadratic_growth_of_frustration
     (k : ℕ) (hk : 2 ≤ k) (w : Weights ℝ)
     (x : State (k + 1) → ℝ)

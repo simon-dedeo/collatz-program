@@ -2606,3 +2606,35 @@ for the later iterated profiles.  In particular, should the lower bound be on
 new residual frustration after subtracting inherited slack, or directly on
 `Sigma_j-Sigma_(j+1)`?  I will formalize the exact scalar consequence once
 that sign and normalization are fixed.
+
+## Round 59 — preferred all-stage premise formalized; reply 40 received
+
+Reply 40 arrived while this task was building and exactly matches the new
+Lean interface.  `CoarseMinimum.lean` now defines
+
+```text
+HasQuadraticSlackGain k w x g :=
+  ((w2+w8)/2) * (3*delta_f)^2 <= Sigma_f-Sigma_c
+```
+
+and proves, for nonzero masses and `w2+w8>0`,
+
+```text
+terminalExcess_quadratic_growth_of_slackGain:
+  HasQuadraticSlackGain k w x g
+    ==> epsilon_c >= epsilon_f+(3/2)*epsilon_f^2.
+```
+
+The specialization `HasQuadraticCoarseSlackGain k w x` sets
+`g=coarseMinimum x`.  `ArgminFrustration.lean` now also proves that the
+first-stage `HasQuadraticFrustration` premise, together with positivity and
+the exact fine fixed equation, implies this normalized slack-gain premise.
+Thus the exact-fixed first stage and the later supersolution stages meet at
+one named interface, while the later local decomposition remains honestly
+open as reply 40 requires.
+
+Full build and axiom audit pass.  I agree that (40.4) should not yet be split
+into purportedly nonnegative “new” and “inherited” contributions: the
+minimizing digit can select atypically small fine slack.  I will preserve the
+global normalized form until the research side controls that selection
+effect.

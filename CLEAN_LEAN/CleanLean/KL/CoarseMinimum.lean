@@ -146,6 +146,67 @@ theorem normalizedSlack_sub_eq_defect_gap
   have hcoarse := concrete_oscillation_identity_with_slack k hk w g hgmass
   linarith
 
+/-- The dimensionless quantitative premise needed at a general coarse stage.
+It asks for a quadratic gain in normalized supersolution slack, not merely a
+lower bound on the total slack of the new coarse profile.  At the first stage
+an exact fine fixed vector has zero normalized slack, but later stages retain
+the fine term displayed here. -/
+def HasQuadraticSlackGain
+    (k : ℕ) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ) (g : State k → ℝ) : Prop :=
+  ((w.retarded + w.advanced) / 2) *
+      (3 * (system (k + 1)).normalizedDefect x) ^ 2 ≤
+    (system (k + 1)).normalizedSlack w x -
+      (system k).normalizedSlack w g
+
+/-- Exact all-stage scalar reduction.  Once the normalized slack gain pays
+half the branch weight times the squared fine terminal excess, the terminal
+excess grows by the conjectural factor `3/2` at this coarse step. -/
+theorem terminalExcess_quadratic_growth_of_slackGain
+    (k : ℕ) (hk : 2 ≤ k) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ) (g : State k → ℝ)
+    (hbranch : 0 < w.retarded + w.advanced)
+    (hxmass : (system (k + 1)).totalMass x ≠ 0)
+    (hgmass : (system k).totalMass g ≠ 0)
+    (hgain : HasQuadraticSlackGain k w x g) :
+    3 * (system (k + 1)).normalizedDefect x +
+        (3 / 2 : ℝ) *
+          (3 * (system (k + 1)).normalizedDefect x) ^ 2 ≤
+      3 * (system k).normalizedDefect g := by
+  have hbalance := normalizedSlack_sub_eq_defect_gap
+    k hk w x g hxmass hgmass
+  unfold HasQuadraticSlackGain at hgain
+  rw [hbalance] at hgain
+  have hfactored :
+      (w.retarded + w.advanced) *
+          ((1 / 2 : ℝ) *
+            (3 * (system (k + 1)).normalizedDefect x) ^ 2) ≤
+        (w.retarded + w.advanced) *
+          ((system k).normalizedDefect g -
+            (system (k + 1)).normalizedDefect x) := by
+    nlinarith
+  have hcancel := le_of_mul_le_mul_left hfactored hbranch
+  nlinarith
+
+/-- Specialized name for the premise along the actual coarse-minimum chain. -/
+def HasQuadraticCoarseSlackGain
+    (k : ℕ) (w : Weights ℝ) (x : State (k + 1) → ℝ) : Prop :=
+  HasQuadraticSlackGain k w x (coarseMinimum k x)
+
+theorem terminalExcess_quadratic_growth_of_coarseSlackGain
+    (k : ℕ) (hk : 2 ≤ k) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ)
+    (hbranch : 0 < w.retarded + w.advanced)
+    (hxmass : (system (k + 1)).totalMass x ≠ 0)
+    (hgmass : (system k).totalMass (coarseMinimum k x) ≠ 0)
+    (hgain : HasQuadraticCoarseSlackGain k w x) :
+    3 * (system (k + 1)).normalizedDefect x +
+        (3 / 2 : ℝ) *
+          (3 * (system (k + 1)).normalizedDefect x) ^ 2 ≤
+      3 * (system k).normalizedDefect (coarseMinimum k x) := by
+  exact terminalExcess_quadratic_growth_of_slackGain
+    k hk w x (coarseMinimum k x) hbranch hxmass hgmass hgain
+
 /-- Exact normalized mass-gap identity.  Comparing the fine fixed-vector
 oscillation law with the coarse law including slack shows that the coarse
 super-slack is precisely the increase in normalized minimum defect. -/
