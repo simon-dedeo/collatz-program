@@ -250,9 +250,16 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     Phase-A invariant, and `MarkedPruning.lean` checks the structural dead
     recursion, live-root criterion, absence of marks from live output, and
     coefficient monotonicity.  `TwoPhasePruning.lean` checks one sound
-    pointwise dead-alternative deletion and invariant preservation.  The
-    occurrence-indexed functional soundness of the one-pass pruner and the
-    concrete finite raw-tree/König construction remain open.
+    pointwise dead-alternative deletion and invariant preservation.
+    `OccurrencePruning.lean` now distinguishes syntactic leaf occurrences and
+    proves one-pass root liveness, exact functional equality, preservation of
+    leaf bounds, and coefficient monotonicity, conditional only on the exact
+    semantic statement that every marked occurrence contradicts inherited
+    principal bounds.  Localized repeated-branch lemmas prove the numerical
+    contradiction for an arbitrary expanded transport sibling using
+    positivity only at nonnegative arguments.  What remains open is to attach
+    that certificate to every concrete Phase-A mark, and to construct the
+    finite raw tree via the branch-arrival/König argument.
 
 ## Corrections to the current notes
 

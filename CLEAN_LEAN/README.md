@@ -152,8 +152,15 @@ without an empty minimum while avoiding the split-after-deletion activation
 counterexample.  `MarkedPruning.lean` now checks the structural dead recursion,
 live-root criterion, mark-free output, and coefficient monotonicity;
 `TwoPhasePruning.lean` checks pointwise functional deletion and invariant
-preservation.  The occurrence-indexed one-pass functional theorem and concrete
-finite raw-tree construction are not yet formalized.
+preservation.  `OccurrencePruning.lean` replaces label-based marks by marks on
+individual syntax occurrences and proves the full one-pass Phase-B theorem:
+if every marked occurrence contradicts inherited principal bounds, the root
+is live, functional evaluation is exactly preserved, leaf bounds survive,
+and coefficient evaluation moves in the feasible direction.  The repeated
+branch contradiction now also accepts arbitrary recursively expanded
+transport siblings and assumes positivity only at the nonnegative arguments
+actually used.  The remaining targets are the concrete occurrence-provenance
+certificate for Phase-A marks and the finite raw-tree/König construction.
 
 `PressureCertificate.lean` now also accepts the portable sparse-edge format
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational

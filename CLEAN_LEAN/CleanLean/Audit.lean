@@ -31,6 +31,7 @@ import CleanLean.KL.AllThreeDeletionObstruction
 import CleanLean.KL.SplitInvariantObstruction
 import CleanLean.KL.TwoPhasePruning
 import CleanLean.KL.MarkedPruning
+import CleanLean.KL.OccurrencePruning
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
@@ -168,6 +169,15 @@ specification theorems during a build.
 #print axioms CleanLean.KL.EliminationTree.exists_live_prune_of_assignment_not_hits
 #print axioms CleanLean.KL.EliminationTree.allLeaves_unmarked_of_pruneMarked_live
 #print axioms CleanLean.KL.ConcreteElimination.coeffEval_le_of_pruneMarked_live
+#print axioms CleanLean.KL.EliminationTree.Assignment.selectedEval_pos_of_nonnegative_arguments
+#print axioms
+  CleanLean.KL.EliminationTree.Assignment.repeated_branch_leaf_not_selected_of_nonnegative_arguments
+#print axioms CleanLean.KL.EliminationTree.OccurrenceTree.structurallyDead_iff_forall_hits
+#print axioms CleanLean.KL.EliminationTree.OccurrenceTree.exists_live_prune_of_noCriticalHits
+#print axioms CleanLean.KL.EliminationTree.OccurrenceTree.eval_pruneOccurrences
+#print axioms CleanLean.KL.EliminationTree.OccurrenceTree.pruneOccurrences_sound
+#print axioms CleanLean.KL.EliminationTree.OccurrenceTree.allLeaves_of_pruneOccurrences_live
+#print axioms CleanLean.KL.ConcreteElimination.coeffEval_le_of_pruneOccurrences_live
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
 #print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda
 #print axioms CleanLean.KL.weightedDefect_le_tail

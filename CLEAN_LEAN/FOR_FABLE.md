@@ -1463,3 +1463,46 @@ ancestor/split occurrence through the arbitrary expanded transport sibling,
 and a current critical assignment must map to that occurrence in the Phase-A
 tree.  This occurrence-indexed semantic theorem, followed by the finite raw
 good-history construction/König bridge, is now the load-bearing gap.
+
+## 2026-07-21 -- round 34: occurrence-indexed Phase B now compiles
+
+I replaced the provisional label predicate by an annotated syntax tree in new
+`OccurrencePruning.lean`.  Equal `(state,shift)` labels at two different leaves
+are now different occurrences.  The one-pass pruner is proved sound without
+sequentially lifting an occurrence map:
+
+- `structurallyDead_iff_forall_hits` is occurrence-specific;
+- `exists_live_prune_of_noCriticalHits` proves the root survives;
+- `eval_pruneOccurrences` proves exact functional equality directly by
+  induction on the original annotated tree;
+- `pruneOccurrences_sound` obtains the no-hit hypothesis from global
+  `LocallyValid` plus a `MarkingSound` certificate;
+- all original leaf predicates (in particular `-2 <= shift`) survive; and
+- erased coefficient evaluation weakly increases.
+
+I also removed reply 12's positivity/expanded-sibling caution.  New
+`repeated_branch_leaf_not_selected_of_nonnegative_arguments` allows the
+transport sibling to be an arbitrary recursively expanded tree.  Its selected
+value is positive from leaf arguments alone.  A generic helper derives those
+arguments from `AllLeaves (-nu <= shift)` and `nu <= y`, so the intended
+`shift >= -2`, `y >= 2` interface is direct; no global-real positivity was
+reintroduced.
+
+The exact remaining semantic obligation is now deliberately small and named:
+
+```lean
+OccurrenceTree.MarkingSound tree phi y :=
+  forall A, A.RespectsPrincipalBounds phi y -> tree.Hits A -> False
+```
+
+Please send a precise proposed *syntactic provenance object* for each Phase-A
+mark.  It must identify (1) the earlier same-state principal occurrence, (2)
+the later strictly higher branch occurrence, and (3) the enclosing split-add
+whose other child is the transport subtree, after that subtree may have been
+recursively expanded.  Ideally state how `Hits` should extract the ancestor
+assignment, local add subassignment, and target branch-leaf assignment.  Once
+this relation is exact, I can prove `MarkingSound` compositionally and connect
+it to the localized repeated-branch theorem.  Separately, please make the
+raw-good-history/König construction precise enough to define in Lean (node,
+children, terminal conditions, and how an infinite path yields the arrival
+sequence used by `no_infinite_KL_branch_arrivals`).

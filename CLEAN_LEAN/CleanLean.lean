@@ -36,6 +36,7 @@ import CleanLean.KL.AllThreeDeletionObstruction
 import CleanLean.KL.SplitInvariantObstruction
 import CleanLean.KL.TwoPhasePruning
 import CleanLean.KL.MarkedPruning
+import CleanLean.KL.OccurrencePruning
 import CleanLean.KL.PressureWeightBounds
 import CleanLean.KL.PortablePressureData
 import CleanLean.KL.ChargedLyapunov

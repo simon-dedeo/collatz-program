@@ -89,6 +89,28 @@ def AllLeaves (tree : EliminationTree ι) (P : PrincipalLabel ι → Prop) : Pro
   | .add left right => left.AllLeaves P ∧ right.AllLeaves P
   | .inf left right => left.AllLeaves P ∧ right.AllLeaves P
 
+/-- Pointwise strengthening transports through the finite leaf predicate. -/
+theorem allLeaves_mono {tree : EliminationTree ι}
+    {P Q : PrincipalLabel ι → Prop}
+    (h : tree.AllLeaves P) (hPQ : ∀ label, P label → Q label) :
+    tree.AllLeaves Q := by
+  induction tree with
+  | leaf label => exact hPQ label h
+  | principal label body ih => exact ih h
+  | add left right ihLeft ihRight =>
+      exact ⟨ihLeft h.1, ihRight h.2⟩
+  | inf left right ihLeft ihRight =>
+      exact ⟨ihLeft h.1, ihRight h.2⟩
+
+/-- A uniform lower shift bound `-nu` makes every leaf argument nonnegative
+when the common root argument is at least `nu`. -/
+theorem allLeaves_nonnegative_arguments_of_shift_lower_bound
+    {tree : EliminationTree ι} (y nu : ℝ)
+    (hshifts : tree.AllLeaves fun label => -nu ≤ label.shift)
+    (hy : nu ≤ y) :
+    tree.AllLeaves fun label => 0 ≤ y + label.shift := by
+  exact allLeaves_mono hshifts fun _ hshift => by linarith
+
 /-- A one-hole context for a labelled elimination tree. -/
 inductive Context (ι : Type) where
   | hole
@@ -295,6 +317,23 @@ theorem selectedEval_pos {tree : EliminationTree ι} (A : Assignment tree)
   | infLeft left ih => exact ih
   | infRight right ih => exact ih
 
+/-- The positivity lemma in the form needed by the retarded comparison
+theorem.  Function values are assumed positive only at nonnegative arguments,
+and the tree records that every selected leaf is evaluated there. -/
+theorem selectedEval_pos_of_nonnegative_arguments
+    {tree : EliminationTree ι} (A : Assignment tree)
+    (φ : ι → ℝ → ℝ) (y : ℝ)
+    (hargs : tree.AllLeaves fun label => 0 ≤ y + label.shift)
+    (hφ : ∀ i t, 0 ≤ t → 0 < φ i t) :
+    0 < A.selectedEval φ y := by
+  induction A with
+  | principalLeaf label => exact hφ label.state (y + label.shift) hargs
+  | principalNode child ih => exact ih hargs
+  | add left right ihLeft ihRight =>
+      exact add_pos (ihLeft hargs.1) (ihRight hargs.2)
+  | infLeft left ih => exact ih hargs.1
+  | infRight right ih => exact ih hargs.2
+
 /-- A decomposition into one target leaf plus a positive remainder propagates
 from a selected subassignment to the whole assignment.  Crossing a sum only
 adds another strictly positive selected subtree. -/
@@ -325,6 +364,39 @@ theorem decomp_of_selectedSubassignment
   | infLeft h ih => simpa [selectedEval] using ih hdecomp
   | infRight h ih => simpa [selectedEval] using ih hdecomp
 
+/-- Localized-positivity version of `decomp_of_selectedSubassignment`.  This
+is the form used after Phase A of elimination, where every remaining leaf has
+shift at least `-2` and the comparison is evaluated at `y ≥ 2`. -/
+theorem decomp_of_selectedSubassignment_of_nonnegative_arguments
+    {small big : EliminationTree ι}
+    {smallA : Assignment small} {bigA : Assignment big}
+    (hsub : SelectedSubassignment smallA bigA)
+    (φ : ι → ℝ → ℝ) (y targetValue extra : ℝ)
+    (hargs : big.AllLeaves fun label => 0 ≤ y + label.shift)
+    (hφ : ∀ i t, 0 ≤ t → 0 < φ i t)
+    (hdecomp : smallA.selectedEval φ y = targetValue + extra)
+    (hextra : 0 < extra) :
+    ∃ extra', bigA.selectedEval φ y = targetValue + extra' ∧ 0 < extra' := by
+  induction hsub with
+  | refl A => exact ⟨extra, hdecomp, hextra⟩
+  | principal h ih => simpa [selectedEval] using ih hargs hdecomp
+  | addLeft h rightA ih =>
+      obtain ⟨extra', heq, hpos⟩ := ih hargs.1 hdecomp
+      refine ⟨extra' + rightA.selectedEval φ y, ?_,
+        add_pos hpos
+          (selectedEval_pos_of_nonnegative_arguments rightA φ y hargs.2 hφ)⟩
+      simp only [selectedEval, heq]
+      ring
+  | addRight leftA h ih =>
+      obtain ⟨extra', heq, hpos⟩ := ih hargs.2 hdecomp
+      refine ⟨extra' + leftA.selectedEval φ y, ?_,
+        add_pos hpos
+          (selectedEval_pos_of_nonnegative_arguments leftA φ y hargs.1 hφ)⟩
+      simp only [selectedEval, heq]
+      ring
+  | infLeft h ih => simpa [selectedEval] using ih hargs.1 hdecomp
+  | infRight h ih => simpa [selectedEval] using ih hargs.2 hdecomp
+
 /-- At a split body, the transport child is the strictly positive extra term
 beside whichever leaf/minimum value the branch assignment selects. -/
 theorem add_decomp_from_right
@@ -340,6 +412,24 @@ theorem add_decomp_from_right
   · simp only [selectedEval, hbranch]
     ring
   · exact selectedEval_pos transportA φ y hφ
+
+/-- Localized-positivity version of `add_decomp_from_right`, allowing the
+transport sibling to be an arbitrary recursively expanded subtree. -/
+theorem add_decomp_from_right_of_nonnegative_arguments
+    {transport branch : EliminationTree ι}
+    (transportA : Assignment transport) (branchA : Assignment branch)
+    (φ : ι → ℝ → ℝ) (y targetValue : ℝ)
+    (htransportArgs : transport.AllLeaves fun label => 0 ≤ y + label.shift)
+    (hφ : ∀ i t, 0 ≤ t → 0 < φ i t)
+    (hbranch : branchA.selectedEval φ y = targetValue) :
+    (Assignment.add transportA branchA).selectedEval φ y =
+        targetValue + transportA.selectedEval φ y ∧
+      0 < transportA.selectedEval φ y := by
+  constructor
+  · simp only [selectedEval, hbranch]
+    ring
+  · exact selectedEval_pos_of_nonnegative_arguments
+      transportA φ y htransportArgs hφ
 
 /-- Before any deletion, local validity of every attached split implies KL's
 critical-path bound (3.4) for every critical assignment.  The deletion proof
@@ -620,6 +710,30 @@ theorem repeated_label_contradiction_of_selected_subassignment
   exact repeated_label_contradiction_of_principal_bound ancestor target ancestorA φ
     y extra hrespect hstate hshift hmono hdecomp hextra
 
+/-- Localized-positivity version of the selected-subassignment
+contradiction.  Only the leaf arguments actually present in the enclosing
+assignment must be nonnegative. -/
+theorem repeated_label_contradiction_of_selected_subassignment_of_nonnegative_arguments
+    {ancestorBody localTree : EliminationTree ι}
+    (ancestor target : PrincipalLabel ι)
+    (ancestorA : Assignment ancestorBody) (localA : Assignment localTree)
+    (φ : ι → ℝ → ℝ) (y localExtra : ℝ)
+    (hrespect :
+      (Assignment.principalNode (label := ancestor) ancestorA).RespectsPrincipalBounds φ y)
+    (hsub : SelectedSubassignment localA ancestorA)
+    (hargs : ancestorBody.AllLeaves fun label => 0 ≤ y + label.shift)
+    (hφ : ∀ i t, 0 ≤ t → 0 < φ i t)
+    (hstate : ancestor.state = target.state)
+    (hshift : ancestor.shift < target.shift)
+    (hmono : Monotone (φ ancestor.state))
+    (hlocal : localA.selectedEval φ y = target.value φ y + localExtra)
+    (hlocalExtra : 0 < localExtra) : False := by
+  obtain ⟨extra, hdecomp, hextra⟩ :=
+    decomp_of_selectedSubassignment_of_nonnegative_arguments
+      hsub φ y (target.value φ y) localExtra hargs hφ hlocal hlocalExtra
+  exact repeated_label_contradiction_of_principal_bound ancestor target ancestorA φ
+    y extra hrespect hstate hshift hmono hdecomp hextra
+
 /-- KL deletion-rule interface for the actual split shape.  The local split is
 an addition of a transport assignment and a chosen branch assignment.  If the
 branch chooses a later occurrence of the ancestor's state, the transport side
@@ -644,6 +758,37 @@ theorem repeated_branch_leaf_not_selected
   exact repeated_label_contradiction_of_selected_subassignment
     ancestor target ancestorA (.add transportA branchA) φ y
       (transportA.selectedEval φ y) hrespect hsub hφ hstate hshift hmono
+      hlocal htransport
+
+/-- The Phase-A deletion contradiction with the exact positivity interface
+needed by the final retarded theorem.  In particular, `transport` can be any
+recursively expanded subtree: its selected evaluation is positive because
+all of its terminal arguments are nonnegative. -/
+theorem repeated_branch_leaf_not_selected_of_nonnegative_arguments
+    {ancestorBody transport branch : EliminationTree ι}
+    (ancestor target : PrincipalLabel ι)
+    (ancestorA : Assignment ancestorBody)
+    (transportA : Assignment transport) (branchA : Assignment branch)
+    (φ : ι → ℝ → ℝ) (y : ℝ)
+    (hrespect :
+      (Assignment.principalNode (label := ancestor) ancestorA).RespectsPrincipalBounds φ y)
+    (hsub : SelectedSubassignment (.add transportA branchA) ancestorA)
+    (hancestorArgs :
+      ancestorBody.AllLeaves fun label => 0 ≤ y + label.shift)
+    (htransportArgs :
+      transport.AllLeaves fun label => 0 ≤ y + label.shift)
+    (hφ : ∀ i t, 0 ≤ t → 0 < φ i t)
+    (hstate : ancestor.state = target.state)
+    (hshift : ancestor.shift < target.shift)
+    (hmono : Monotone (φ ancestor.state))
+    (hbranch : branchA.selectedEval φ y = target.value φ y) : False := by
+  obtain ⟨hlocal, htransport⟩ :=
+    add_decomp_from_right_of_nonnegative_arguments
+      transportA branchA φ y (target.value φ y) htransportArgs hφ hbranch
+  exact
+    repeated_label_contradiction_of_selected_subassignment_of_nonnegative_arguments
+      ancestor target ancestorA (.add transportA branchA) φ y
+      (transportA.selectedEval φ y) hrespect hsub hancestorArgs hφ hstate hshift hmono
       hlocal htransport
 
 end Assignment
