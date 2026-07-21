@@ -33,6 +33,7 @@ import CleanLean.KL.RootLaw
 import CleanLean.KL.Mixer
 import CleanLean.KL.TransportResolvent
 import CleanLean.KL.PressureCertificate
+import CleanLean.KL.PressureWeightBounds
 import CleanLean.KL.PortablePressureData
 import CleanLean.KL.ChargedLyapunov
 import CleanLean.KL.MarginalObstruction
@@ -159,6 +160,7 @@ specification theorems during a build.
 #print axioms CleanLean.KL.real_pressureCertificate_of_checkSparseRat
 #print axioms CleanLean.KL.real_pressureCertificate_of_checkAdjacencyRat
 #print axioms CleanLean.KL.pressureMass_le_of_checkAdjacencyRat
+#print axioms CleanLean.KL.klWeights_le_of_checkBallWeightUpperData
 #print axioms CleanLean.KL.ballTransportJ6_semantics
 #print axioms CleanLean.KL.ballRetardedTargetJ6_semantics
 #print axioms CleanLean.KL.ballAdvancedTargetJ6_semantics
@@ -166,6 +168,10 @@ specification theorems during a build.
 #print axioms CleanLean.KL.exceptionalOrbitJ6_backward_chain
 #print axioms CleanLean.KL.lemma5_lamTwo_chernoff_gap
 #print axioms CleanLean.KL.lemma5_uniform_chernoff_gap
+#print axioms CleanLean.KL.PortablePressureData.portableAlphaUpper
+#print axioms CleanLean.KL.PortablePressureData.lam2_interval_cover
+#print axioms CleanLean.KL.PortablePressureData.lam2_piece0_weight_check
+#print axioms CleanLean.KL.PortablePressureData.lam2_piece0_real_weight_bounds
 #print axioms CleanLean.KL.PortablePressureData.lam2_h_pos
 #print axioms CleanLean.KL.PortablePressureData.lam2_one_le_h
 #print axioms CleanLean.KL.PortablePressureData.lam2_residue_semantics
@@ -174,6 +180,9 @@ specification theorems during a build.
 #print axioms CleanLean.KL.PortablePressureData.lam2_piece0_real_rows
 #print axioms CleanLean.KL.PortablePressureData.lam2_piece0_pressureMass_le
 #print axioms CleanLean.KL.PortablePressureData.uniformLam182_h_pos
+#print axioms CleanLean.KL.PortablePressureData.uniformLam182_interval_cover
+#print axioms CleanLean.KL.PortablePressureData.uniformLam182_piece0_weight_check
+#print axioms CleanLean.KL.PortablePressureData.uniformLam182_piece0_real_weight_bounds
 #print axioms CleanLean.KL.PortablePressureData.uniformLam182_one_le_h
 #print axioms CleanLean.KL.PortablePressureData.uniformLam182_residue_semantics
 #print axioms CleanLean.KL.PortablePressureData.uniformLam182_piece0_edge_semantics
@@ -181,6 +190,8 @@ specification theorems during a build.
 #print axioms CleanLean.KL.PortablePressureData.uniformLam182_piece0_real_rows
 #print axioms CleanLean.KL.PortablePressureData.uniformLam182_piece0_pressureMass_le
 #print axioms CleanLean.KL.PortablePressureData.uniformLam182_piece7_rows
+#print axioms CleanLean.KL.PortablePressureData.uniformLam182_piece7_weight_check
+#print axioms CleanLean.KL.PortablePressureData.uniformLam182_piece7_real_weight_bounds
 #print axioms CleanLean.KL.relativeCarrier_step
 #print axioms CleanLean.KL.chargedCarrier_iterate
 #print axioms CleanLean.KL.badMass_le_of_chargedCarrier_and_pressure

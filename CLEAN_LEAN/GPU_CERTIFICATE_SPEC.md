@@ -92,6 +92,10 @@ tilted rows.  A portable certificate contains:
 The Lean project now has sound executable checkers for rational KL
 feasibility rows, dense or sparse rational pressure rows, and the
 integer-power Chernoff gap.  Both Lemma-5 gaps are kernel-checked exactly.
+For the current nine-piece portable artifact Lean also checks the rational
+interval tiling, an exact upper enclosure for `alpha = log_2 3`, and proves
+that every stored rational edge weight bounds the corresponding true
+irrational KL weight throughout its parameter piece.
 What computation must discover is the finite state decomposition and
 potential; what the mathematical proof must establish is that those rows
 dominate the real nonlinear KL genealogy uniformly.

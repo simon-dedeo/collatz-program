@@ -155,9 +155,12 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     every one of the nine parameter pieces Lean now composes those rows into
     the all-length terminal-potential estimate
     `pressureMass K n q <= R^n * h(q)` over the concrete real kernel.
-    The certificate's scope remains the ball automaton rather than C1'
-    localization; endpoint weight domination and JSON semantic regeneration
-    are still checked by the independent external verifier.
+    `PressureWeightBounds.lean` also kernel-checks the exact rational upper
+    bound for `alpha`, every interval endpoint and tiling relation, and proves
+    that the stored rational edge weights dominate the three true irrational
+    KL weights throughout each piece.  The certificate's scope remains the
+    ball automaton rather than C1' localization; a general theorem connecting
+    the graph to all-level aggregated KL ball masses is still separate.
 
 17. **Exact symbolic elimination shifts.** `SymbolicShift.lean` represents
     every splitter increment in `Z + Z*alpha` and proves exact evaluation and
@@ -178,9 +181,10 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     data.  It also checks the charged states are the first six points of the
     backward-four orbit from `-1`.  Every generated portable adjacency row is
     kernel-checked equal to this graph, including its target tilt.  This closes
-    the finite S1/S2 table-identity check.  A general ball-mass domination
-    theorem, irrational endpoint domination, interval tiling, and C1'
-    localization remain separate obligations.
+    the finite S1/S2 table-identity check.  The exact S3 interval-weight
+    domination and S4 interval tiling are also now kernel-checked.  A general
+    all-level ball-mass domination theorem and C1' localization remain
+    separate obligations.
 
 20. **Obstruction to the printed derivation of KL equation (3.2).**
     `TerminationObstruction.lean` checks a legal level-five principal path

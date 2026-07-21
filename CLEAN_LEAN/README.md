@@ -138,8 +138,13 @@ its transport, branch targets, and three lifts agree with `ResidueSystem`, and
 that the six charged states form the advertised initial backward-four orbit
 of `-1`.  The generator checks every imported adjacency list equal to this
 independent graph, including the target-dependent tilt.  This closes the
-finite state/edge-table identity, but not yet the all-level ball-mass
-domination or the irrational interval-weight bounds.
+finite state/edge-table identity.  `PressureWeightBounds.lean` additionally
+checks an exact rational upper bound for `alpha`, verifies that all nine
+rational parameter pieces tile their advertised intervals, and proves that
+the stored rational edge weights dominate the true irrational KL weights on
+every piece.  The remaining pressure-side semantic obligation is a general
+all-level ball-mass domination theorem; C1' localization is still the central
+open implication.
 
 The first charged spine-face Lyapunov proposal has been exactly falsified,
 not assumed away: `MarginalObstruction.lean` proves that its aligned mean and

@@ -3,7 +3,7 @@ Copyright (c) 2026 Simon DeDeo. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
-import CleanLean.KL.BallPressureAutomaton
+import CleanLean.KL.PressureWeightBounds
 
 /-!
 # Portable Lemma-5 pressure-certificate data
@@ -16,6 +16,12 @@ Payload SHA-256: `9060479a62a004387af6a4fca171ca18c376605a5037d20703235f0f8242e5
 set_option linter.style.longLine false
 
 namespace CleanLean.KL.PortablePressureData
+
+set_option maxHeartbeats 0 in
+-- Exact upper convergent for alpha; the exponents contain about 25,000 bits.
+theorem portableAlphaUpper :
+    checkAlphaUpper 24727 15601 = true := by
+  decide +kernel
 
 def lam2H : Fin 243 → ℚ :=
   ![(11253237 / 1000000 : ℚ),
@@ -509,6 +515,12 @@ def lam2Residue : Fin 243 → ℕ :=
 
 def lam2Z : ℚ := (5 / 4 : ℚ)
 
+def lam2LambdaLo : ℚ := (2 : ℚ)
+
+def lam2LambdaHi : ℚ := (2 : ℚ)
+
+def lam2Intervals : List RatInterval := [⟨(2 : ℚ), (2 : ℚ)⟩]
+
 def lam2Piece0Weights : BallEdgeWeights where
   transport := (1 / 4 : ℚ)
   retarded := (498673948642 / 1994695790247 : ℚ)
@@ -770,6 +782,27 @@ theorem lam2_one_le_h : ∀ q, 1 ≤ lam2H q := by decide +kernel
 theorem lam2_residue_semantics :
     ∀ q, lam2Residue q = ballRawResidueJ6 q := by
   decide +kernel
+
+theorem lam2_interval_cover :
+    checkRatIntervalCover lam2LambdaLo lam2LambdaHi
+      lam2Intervals = true := by
+  decide +kernel
+
+set_option maxHeartbeats 0 in
+-- Exact rational powers certify the true irrational KL weights.
+theorem lam2_piece0_weight_check :
+    checkBallWeightUpperData (2 : ℚ) (2 : ℚ) lam2Piece0Weights
+      24727 15601 = true := by
+  decide +kernel
+
+theorem lam2_piece0_real_weight_bounds
+    {lam : ℝ} (hlam : ((2 : ℚ) : ℝ) ≤ lam ∧ lam ≤ ((2 : ℚ) : ℝ)) :
+    (klWeights lam).transport ≤ (lam2Piece0Weights.transport : ℝ) ∧
+      (klWeights lam).retarded ≤ (3 * lam2Piece0Weights.retarded : ℚ) ∧
+      (klWeights lam).advanced ≤ (3 * lam2Piece0Weights.advanced : ℚ) := by
+  apply klWeights_le_of_checkBallWeightUpperData (2 : ℚ) (2 : ℚ)
+    lam2Piece0Weights 24727 15601 (by norm_num)
+    portableAlphaUpper lam2_piece0_weight_check hlam
 
 set_option maxHeartbeats 0 in
 -- Kernel reduction unfolds all 243 independently generated rows.
@@ -1293,6 +1326,12 @@ def uniformLam182Residue : Fin 243 → ℕ :=
     728]
 
 def uniformLam182Z : ℚ := (3 / 2 : ℚ)
+
+def uniformLam182LambdaLo : ℚ := (3740649 / 2000000 : ℚ)
+
+def uniformLam182LambdaHi : ℚ := (2 : ℚ)
+
+def uniformLam182Intervals : List RatInterval := [⟨(3740649 / 2000000 : ℚ), (30184543 / 16000000 : ℚ)⟩, ⟨(30184543 / 16000000 : ℚ), (15221947 / 8000000 : ℚ)⟩, ⟨(15221947 / 8000000 : ℚ), (6140649 / 3200000 : ℚ)⟩, ⟨(6140649 / 3200000 : ℚ), (7740649 / 4000000 : ℚ)⟩, ⟨(7740649 / 4000000 : ℚ), (31221947 / 16000000 : ℚ)⟩, ⟨(31221947 / 16000000 : ℚ), (15740649 / 8000000 : ℚ)⟩, ⟨(15740649 / 8000000 : ℚ), (31740649 / 16000000 : ℚ)⟩, ⟨(31740649 / 16000000 : ℚ), (2 : ℚ)⟩]
 
 def uniformLam182Piece0Weights : BallEdgeWeights where
   transport := (4000000000000 / 13992454941201 : ℚ)
@@ -3306,6 +3345,27 @@ theorem uniformLam182_residue_semantics :
     ∀ q, uniformLam182Residue q = ballRawResidueJ6 q := by
   decide +kernel
 
+theorem uniformLam182_interval_cover :
+    checkRatIntervalCover uniformLam182LambdaLo uniformLam182LambdaHi
+      uniformLam182Intervals = true := by
+  decide +kernel
+
+set_option maxHeartbeats 0 in
+-- Exact rational powers certify the true irrational KL weights.
+theorem uniformLam182_piece0_weight_check :
+    checkBallWeightUpperData (3740649 / 2000000 : ℚ) (30184543 / 16000000 : ℚ) uniformLam182Piece0Weights
+      24727 15601 = true := by
+  decide +kernel
+
+theorem uniformLam182_piece0_real_weight_bounds
+    {lam : ℝ} (hlam : ((3740649 / 2000000 : ℚ) : ℝ) ≤ lam ∧ lam ≤ ((30184543 / 16000000 : ℚ) : ℝ)) :
+    (klWeights lam).transport ≤ (uniformLam182Piece0Weights.transport : ℝ) ∧
+      (klWeights lam).retarded ≤ (3 * uniformLam182Piece0Weights.retarded : ℚ) ∧
+      (klWeights lam).advanced ≤ (3 * uniformLam182Piece0Weights.advanced : ℚ) := by
+  apply klWeights_le_of_checkBallWeightUpperData (3740649 / 2000000 : ℚ) (30184543 / 16000000 : ℚ)
+    uniformLam182Piece0Weights 24727 15601 (by norm_num)
+    portableAlphaUpper uniformLam182_piece0_weight_check hlam
+
 set_option maxHeartbeats 0 in
 -- Kernel reduction unfolds all 243 independently generated rows.
 set_option maxRecDepth 100000 in
@@ -3335,6 +3395,22 @@ theorem uniformLam182_piece0_pressureMass_le :
     uniformLam182H uniformLam182R uniformLam182_piece0_rows
     uniformLam182_one_le_h
   norm_num [uniformLam182R]
+
+set_option maxHeartbeats 0 in
+-- Exact rational powers certify the true irrational KL weights.
+theorem uniformLam182_piece1_weight_check :
+    checkBallWeightUpperData (30184543 / 16000000 : ℚ) (15221947 / 8000000 : ℚ) uniformLam182Piece1Weights
+      24727 15601 = true := by
+  decide +kernel
+
+theorem uniformLam182_piece1_real_weight_bounds
+    {lam : ℝ} (hlam : ((30184543 / 16000000 : ℚ) : ℝ) ≤ lam ∧ lam ≤ ((15221947 / 8000000 : ℚ) : ℝ)) :
+    (klWeights lam).transport ≤ (uniformLam182Piece1Weights.transport : ℝ) ∧
+      (klWeights lam).retarded ≤ (3 * uniformLam182Piece1Weights.retarded : ℚ) ∧
+      (klWeights lam).advanced ≤ (3 * uniformLam182Piece1Weights.advanced : ℚ) := by
+  apply klWeights_le_of_checkBallWeightUpperData (30184543 / 16000000 : ℚ) (15221947 / 8000000 : ℚ)
+    uniformLam182Piece1Weights 24727 15601 (by norm_num)
+    portableAlphaUpper uniformLam182_piece1_weight_check hlam
 
 set_option maxHeartbeats 0 in
 -- Kernel reduction unfolds all 243 independently generated rows.
@@ -3367,6 +3443,22 @@ theorem uniformLam182_piece1_pressureMass_le :
   norm_num [uniformLam182R]
 
 set_option maxHeartbeats 0 in
+-- Exact rational powers certify the true irrational KL weights.
+theorem uniformLam182_piece2_weight_check :
+    checkBallWeightUpperData (15221947 / 8000000 : ℚ) (6140649 / 3200000 : ℚ) uniformLam182Piece2Weights
+      24727 15601 = true := by
+  decide +kernel
+
+theorem uniformLam182_piece2_real_weight_bounds
+    {lam : ℝ} (hlam : ((15221947 / 8000000 : ℚ) : ℝ) ≤ lam ∧ lam ≤ ((6140649 / 3200000 : ℚ) : ℝ)) :
+    (klWeights lam).transport ≤ (uniformLam182Piece2Weights.transport : ℝ) ∧
+      (klWeights lam).retarded ≤ (3 * uniformLam182Piece2Weights.retarded : ℚ) ∧
+      (klWeights lam).advanced ≤ (3 * uniformLam182Piece2Weights.advanced : ℚ) := by
+  apply klWeights_le_of_checkBallWeightUpperData (15221947 / 8000000 : ℚ) (6140649 / 3200000 : ℚ)
+    uniformLam182Piece2Weights 24727 15601 (by norm_num)
+    portableAlphaUpper uniformLam182_piece2_weight_check hlam
+
+set_option maxHeartbeats 0 in
 -- Kernel reduction unfolds all 243 independently generated rows.
 set_option maxRecDepth 100000 in
 theorem uniformLam182_piece2_edge_semantics :
@@ -3395,6 +3487,22 @@ theorem uniformLam182_piece2_pressureMass_le :
     uniformLam182H uniformLam182R uniformLam182_piece2_rows
     uniformLam182_one_le_h
   norm_num [uniformLam182R]
+
+set_option maxHeartbeats 0 in
+-- Exact rational powers certify the true irrational KL weights.
+theorem uniformLam182_piece3_weight_check :
+    checkBallWeightUpperData (6140649 / 3200000 : ℚ) (7740649 / 4000000 : ℚ) uniformLam182Piece3Weights
+      24727 15601 = true := by
+  decide +kernel
+
+theorem uniformLam182_piece3_real_weight_bounds
+    {lam : ℝ} (hlam : ((6140649 / 3200000 : ℚ) : ℝ) ≤ lam ∧ lam ≤ ((7740649 / 4000000 : ℚ) : ℝ)) :
+    (klWeights lam).transport ≤ (uniformLam182Piece3Weights.transport : ℝ) ∧
+      (klWeights lam).retarded ≤ (3 * uniformLam182Piece3Weights.retarded : ℚ) ∧
+      (klWeights lam).advanced ≤ (3 * uniformLam182Piece3Weights.advanced : ℚ) := by
+  apply klWeights_le_of_checkBallWeightUpperData (6140649 / 3200000 : ℚ) (7740649 / 4000000 : ℚ)
+    uniformLam182Piece3Weights 24727 15601 (by norm_num)
+    portableAlphaUpper uniformLam182_piece3_weight_check hlam
 
 set_option maxHeartbeats 0 in
 -- Kernel reduction unfolds all 243 independently generated rows.
@@ -3427,6 +3535,22 @@ theorem uniformLam182_piece3_pressureMass_le :
   norm_num [uniformLam182R]
 
 set_option maxHeartbeats 0 in
+-- Exact rational powers certify the true irrational KL weights.
+theorem uniformLam182_piece4_weight_check :
+    checkBallWeightUpperData (7740649 / 4000000 : ℚ) (31221947 / 16000000 : ℚ) uniformLam182Piece4Weights
+      24727 15601 = true := by
+  decide +kernel
+
+theorem uniformLam182_piece4_real_weight_bounds
+    {lam : ℝ} (hlam : ((7740649 / 4000000 : ℚ) : ℝ) ≤ lam ∧ lam ≤ ((31221947 / 16000000 : ℚ) : ℝ)) :
+    (klWeights lam).transport ≤ (uniformLam182Piece4Weights.transport : ℝ) ∧
+      (klWeights lam).retarded ≤ (3 * uniformLam182Piece4Weights.retarded : ℚ) ∧
+      (klWeights lam).advanced ≤ (3 * uniformLam182Piece4Weights.advanced : ℚ) := by
+  apply klWeights_le_of_checkBallWeightUpperData (7740649 / 4000000 : ℚ) (31221947 / 16000000 : ℚ)
+    uniformLam182Piece4Weights 24727 15601 (by norm_num)
+    portableAlphaUpper uniformLam182_piece4_weight_check hlam
+
+set_option maxHeartbeats 0 in
 -- Kernel reduction unfolds all 243 independently generated rows.
 set_option maxRecDepth 100000 in
 theorem uniformLam182_piece4_edge_semantics :
@@ -3455,6 +3579,22 @@ theorem uniformLam182_piece4_pressureMass_le :
     uniformLam182H uniformLam182R uniformLam182_piece4_rows
     uniformLam182_one_le_h
   norm_num [uniformLam182R]
+
+set_option maxHeartbeats 0 in
+-- Exact rational powers certify the true irrational KL weights.
+theorem uniformLam182_piece5_weight_check :
+    checkBallWeightUpperData (31221947 / 16000000 : ℚ) (15740649 / 8000000 : ℚ) uniformLam182Piece5Weights
+      24727 15601 = true := by
+  decide +kernel
+
+theorem uniformLam182_piece5_real_weight_bounds
+    {lam : ℝ} (hlam : ((31221947 / 16000000 : ℚ) : ℝ) ≤ lam ∧ lam ≤ ((15740649 / 8000000 : ℚ) : ℝ)) :
+    (klWeights lam).transport ≤ (uniformLam182Piece5Weights.transport : ℝ) ∧
+      (klWeights lam).retarded ≤ (3 * uniformLam182Piece5Weights.retarded : ℚ) ∧
+      (klWeights lam).advanced ≤ (3 * uniformLam182Piece5Weights.advanced : ℚ) := by
+  apply klWeights_le_of_checkBallWeightUpperData (31221947 / 16000000 : ℚ) (15740649 / 8000000 : ℚ)
+    uniformLam182Piece5Weights 24727 15601 (by norm_num)
+    portableAlphaUpper uniformLam182_piece5_weight_check hlam
 
 set_option maxHeartbeats 0 in
 -- Kernel reduction unfolds all 243 independently generated rows.
@@ -3487,6 +3627,22 @@ theorem uniformLam182_piece5_pressureMass_le :
   norm_num [uniformLam182R]
 
 set_option maxHeartbeats 0 in
+-- Exact rational powers certify the true irrational KL weights.
+theorem uniformLam182_piece6_weight_check :
+    checkBallWeightUpperData (15740649 / 8000000 : ℚ) (31740649 / 16000000 : ℚ) uniformLam182Piece6Weights
+      24727 15601 = true := by
+  decide +kernel
+
+theorem uniformLam182_piece6_real_weight_bounds
+    {lam : ℝ} (hlam : ((15740649 / 8000000 : ℚ) : ℝ) ≤ lam ∧ lam ≤ ((31740649 / 16000000 : ℚ) : ℝ)) :
+    (klWeights lam).transport ≤ (uniformLam182Piece6Weights.transport : ℝ) ∧
+      (klWeights lam).retarded ≤ (3 * uniformLam182Piece6Weights.retarded : ℚ) ∧
+      (klWeights lam).advanced ≤ (3 * uniformLam182Piece6Weights.advanced : ℚ) := by
+  apply klWeights_le_of_checkBallWeightUpperData (15740649 / 8000000 : ℚ) (31740649 / 16000000 : ℚ)
+    uniformLam182Piece6Weights 24727 15601 (by norm_num)
+    portableAlphaUpper uniformLam182_piece6_weight_check hlam
+
+set_option maxHeartbeats 0 in
 -- Kernel reduction unfolds all 243 independently generated rows.
 set_option maxRecDepth 100000 in
 theorem uniformLam182_piece6_edge_semantics :
@@ -3515,6 +3671,22 @@ theorem uniformLam182_piece6_pressureMass_le :
     uniformLam182H uniformLam182R uniformLam182_piece6_rows
     uniformLam182_one_le_h
   norm_num [uniformLam182R]
+
+set_option maxHeartbeats 0 in
+-- Exact rational powers certify the true irrational KL weights.
+theorem uniformLam182_piece7_weight_check :
+    checkBallWeightUpperData (31740649 / 16000000 : ℚ) (2 : ℚ) uniformLam182Piece7Weights
+      24727 15601 = true := by
+  decide +kernel
+
+theorem uniformLam182_piece7_real_weight_bounds
+    {lam : ℝ} (hlam : ((31740649 / 16000000 : ℚ) : ℝ) ≤ lam ∧ lam ≤ ((2 : ℚ) : ℝ)) :
+    (klWeights lam).transport ≤ (uniformLam182Piece7Weights.transport : ℝ) ∧
+      (klWeights lam).retarded ≤ (3 * uniformLam182Piece7Weights.retarded : ℚ) ∧
+      (klWeights lam).advanced ≤ (3 * uniformLam182Piece7Weights.advanced : ℚ) := by
+  apply klWeights_le_of_checkBallWeightUpperData (31740649 / 16000000 : ℚ) (2 : ℚ)
+    uniformLam182Piece7Weights 24727 15601 (by norm_num)
+    portableAlphaUpper uniformLam182_piece7_weight_check hlam
 
 set_option maxHeartbeats 0 in
 -- Kernel reduction unfolds all 243 independently generated rows.

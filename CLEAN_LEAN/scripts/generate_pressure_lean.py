@@ -36,7 +36,7 @@ def camel(name: str) -> str:
     return chunks[0] + "".join(chunk.capitalize() for chunk in chunks[1:])
 
 
-def compile_certificate(cert: dict) -> str:
+def compile_certificate(cert: dict, alpha_p: int, alpha_q: int) -> str:
     prefix = camel(cert["name"])
     states = cert["states"]
     residues = [int(state["q"]) for state in states]
@@ -53,6 +53,15 @@ def compile_certificate(cert: dict) -> str:
     z = rat(cert["z"])
     output.append(f"def {prefix}Z : ℚ := {lean_rat(z)}\n")
     pieces = cert["pieces"]
+    output.append(f"def {prefix}LambdaLo : ℚ := {lean_rat(rat(cert['lambda_lo']))}\n")
+    output.append(f"def {prefix}LambdaHi : ℚ := {lean_rat(rat(cert['lambda_hi']))}\n")
+    interval_entries = ", ".join(
+        f"⟨{lean_rat(rat(piece['lam_lo']))}, {lean_rat(rat(piece['lam_hi']))}⟩"
+        for piece in pieces
+    )
+    output.append(
+        f"def {prefix}Intervals : List RatInterval := [{interval_entries}]\n"
+    )
     edges = cert["edges"]
     for piece_number in range(len(pieces)):
         piece = pieces[piece_number]
@@ -100,9 +109,36 @@ def compile_certificate(cert: dict) -> str:
         f"    ∀ q, {prefix}Residue q = ballRawResidueJ6 q := by\n"
         f"  decide +kernel\n"
     )
+    output.append(
+        f"theorem {prefix}_interval_cover :\n"
+        f"    checkRatIntervalCover {prefix}LambdaLo {prefix}LambdaHi\n"
+        f"      {prefix}Intervals = true := by\n"
+        f"  decide +kernel\n"
+    )
     for piece_number in range(len(pieces)):
+        piece = pieces[piece_number]
         edge_name = f"{prefix}Edges{piece_number}"
         weights_name = f"{prefix}Piece{piece_number}Weights"
+        lo_name = lean_rat(rat(piece["lam_lo"]))
+        hi_name = lean_rat(rat(piece["lam_hi"]))
+        output.append(
+            f"set_option maxHeartbeats 0 in\n"
+            f"-- Exact rational powers certify the true irrational KL weights.\n"
+            f"theorem {prefix}_piece{piece_number}_weight_check :\n"
+            f"    checkBallWeightUpperData {lo_name} {hi_name} {weights_name}\n"
+            f"      {alpha_p} {alpha_q} = true := by\n"
+            f"  decide +kernel\n"
+        )
+        output.append(
+            f"theorem {prefix}_piece{piece_number}_real_weight_bounds\n"
+            f"    {{lam : ℝ}} (hlam : ({lo_name} : ℝ) ≤ lam ∧ lam ≤ ({hi_name} : ℝ)) :\n"
+            f"    (klWeights lam).transport ≤ ({weights_name}.transport : ℝ) ∧\n"
+            f"      (klWeights lam).retarded ≤ (3 * {weights_name}.retarded : ℚ) ∧\n"
+            f"      (klWeights lam).advanced ≤ (3 * {weights_name}.advanced : ℚ) := by\n"
+            f"  apply klWeights_le_of_checkBallWeightUpperData {lo_name} {hi_name}\n"
+            f"    {weights_name} {alpha_p} {alpha_q} (by norm_num)\n"
+            f"    portableAlphaUpper {prefix}_piece{piece_number}_weight_check hlam\n"
+        )
         output.append(
             f"set_option maxHeartbeats 0 in\n"
             f"-- Kernel reduction unfolds all 243 independently generated rows.\n"
@@ -158,13 +194,18 @@ def main() -> None:
     if actual_hash != declared_hash:
         raise ValueError("portable payload SHA-256 mismatch")
 
-    modules = "\n\n".join(compile_certificate(cert) for cert in document["certificates"])
+    alpha_p = int(document["alpha_upper"]["P"])
+    alpha_q = int(document["alpha_upper"]["Q"])
+    modules = "\n\n".join(
+        compile_certificate(cert, alpha_p, alpha_q)
+        for cert in document["certificates"]
+    )
     generated = f"""/-
 Copyright (c) 2026 Simon DeDeo. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
-import CleanLean.KL.BallPressureAutomaton
+import CleanLean.KL.PressureWeightBounds
 
 /-!
 # Portable Lemma-5 pressure-certificate data
@@ -177,6 +218,12 @@ Payload SHA-256: `{declared_hash}`.
 set_option linter.style.longLine false
 
 namespace CleanLean.KL.PortablePressureData
+
+set_option maxHeartbeats 0 in
+-- Exact upper convergent for alpha; the exponents contain about 25,000 bits.
+theorem portableAlphaUpper :
+    checkAlphaUpper {alpha_p} {alpha_q} = true := by
+  decide +kernel
 
 {modules}
 

@@ -1270,3 +1270,29 @@ corollary now compile as well.  Thus the new-tie/invariant issue is closed for
 all positions in the binary encoding of the three-way minimum.  The remaining
 advanced-elimination bridge is no longer “invariant plus termination”; it is
 the construction of a terminating legal history (a fixed schedule suffices).
+
+## 2026-07-21 -- round 29: S3/S4 pressure semantics now kernel-checked
+
+The portable pressure artifact's interval arithmetic has moved across the
+Lean trust boundary.  New `PressureWeightBounds.lean` supplies an executable
+interval-cover checker and a rational weight checker, together with the real
+soundness theorem.  `PortablePressureData.lean` now checks:
+
+1. the exact upper bound `alpha < 24727/15601`;
+2. the singleton `lambda=2` piece and all eight pieces tiling
+   `[lambda_18,2]` exactly;
+3. for each piece, rational cross-power inequalities implying that the stored
+   transport, retarded, and advanced weights dominate the true real KL
+   coefficients at every `lambda` in that interval.
+
+Thus the finite S1--S4 import checks, exact rows, Chernoff gaps, and all-length
+terminal-potential bounds are now in Lean.  This supersedes round 24's statement
+that S3/S4 remained external.  The remaining semantic obligation before the
+artifact becomes an actual KL ball-pressure theorem is a general all-level
+aggregated ball-mass domination theorem (min-to-mean plus the residue-ball
+maps).  C1' localization remains wholly open and is still the decisive limit
+step.
+
+Successor reply 8's branch-arrival compactness lemma looks promising.  I will
+formalize and try to break the abstract finite-state theorem next, before
+connecting it to the concrete deletion tree.
