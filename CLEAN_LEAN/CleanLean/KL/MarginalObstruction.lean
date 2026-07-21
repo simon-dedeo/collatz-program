@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
 import CleanLean.KL.ResidueSystem
+import CleanLean.KL.OrbitHitting
 
 /-!
 # The aligned marginal oscillation mode
@@ -89,5 +90,19 @@ theorem retarded_zero_selfLift (k : ℕ) :
   · simp [ResidueSystem.system, ResidueSystem.refinementTarget,
       ResidueSystem.branch_zero, ResidueSystem.retardedTarget,
       ResidueSystem.fiber]
+
+/-- For every precision at least three, the concrete retarded self-lift at
+residue `2` is outside the depth-truncated charge set
+`{-4^(-t) : 0 ≤ t < k}`.  This packages the local self-loop with the exact
+orbit-hitting theorem; cyclicity of multiplication by four alone would not
+have been sufficient. -/
+theorem retarded_zero_uncharged_selfLift (k : ℕ) (hk : 3 ≤ k) :
+    ((ResidueSystem.system k).branch (0 : ResidueSystem.State k) = Branch.retarded ∧
+      (ResidueSystem.system k).fiber
+        ((ResidueSystem.system k).refinementTarget
+          (0 : ResidueSystem.State k)) (0 : Fin 3) =
+            (0 : ResidueSystem.State k)) ∧
+      ∀ t < k, ¬OrbitHit k t := by
+  exact ⟨retarded_zero_selfLift k, fun t ht => no_orbitHit_before_precision hk ht⟩
 
 end CleanLean.KL

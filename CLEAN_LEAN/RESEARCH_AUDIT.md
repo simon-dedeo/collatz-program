@@ -159,9 +159,11 @@ oscillation vector `(2,-1,-1)` are fixed by that swap, so their eigenvalues
 are exactly equal.  A zero-charge residue cycle can therefore carry a
 normalized multiplier of one. `MarginalObstruction.lean` proves the
 J-independent algebraic part of this no-go result and the concrete retarded
-`2 -> 2` self-lift at every precision.  The stronger assertion that this loop
-is uncharged for every truncated set `E_J` additionally needs the exact first
-hitting-time formula; it does not follow merely from cyclicity of `x -> 4x`.
+`2 -> 2` self-lift at every precision.  `OrbitHitting.lean` now supplies the
+previously missing location theorem: by LTE, the first `t` with
+`2*4^t = -1 (mod 3^J)` is exactly `(3^(J-1)-1)/2`.  In particular, for every
+`J >= 3` the first `J` backward-orbit points do not charge the `2 -> 2`
+self-loop.  `retarded_zero_uncharged_selfLift` packages the two facts.
 
 This falsifies the proposed strict relative-contraction certificate class; it
 does not imply a finite ceiling for the KL exponents.  The abstract corrected

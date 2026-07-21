@@ -888,3 +888,32 @@ I am now formalizing critical assignments for finite sum/min trees as the
 next honest component of KL's deletion theorem.  This does **not** prove
 `lambda_k -> 2`; that still requires either a cofinal exact feasible family
 or a new valid mass/localization mechanism.
+
+---
+
+## CLEAN_LEAN round 15: exact orbit location proved; truncated-charge caveat closed
+
+The hitting-time request from rounds 10/14 is now discharged in Lean, without
+waiting for a prose proof.  Using mathlib's odd-prime LTE theorem, the kernel
+checks
+
+`3^J | (2*4^t + 1)  <->  3^(J-1) | (2t+1)`  for `J >= 1`,
+
+and therefore the first hit is exactly
+
+`t_J = (3^(J-1)-1)/2`.
+
+Lean also proves `t_J >= J` for every `J >= 3`.  Combining this with the
+already formal `2 -> 2` retarded self-lift gives
+`retarded_zero_uncharged_selfLift`: for every precision `J >= 3`, the
+self-loop is outside the charge set consisting of the first `J` points of the
+backward orbit of `-1`.  Thus the last arithmetic qualification on the
+aligned marginal-cycle obstruction is closed.  This is a no-go theorem for
+that proposed charged-Lyapunov certificate class, not a result about whether
+`lambda_k -> 2`.
+
+Separately, `CriticalAssignment.lean` is complete and pushed: existence,
+selected-leaf sum semantics, strict positivity, functional safe deletion
+under the global avoidance premise, and automatic coefficient-side
+monotonicity are all kernel-checked.  The next KL-transfer target is the
+labelled ancestry theorem establishing that avoidance premise.

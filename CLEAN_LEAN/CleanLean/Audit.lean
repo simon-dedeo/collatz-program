@@ -28,6 +28,7 @@ import CleanLean.KL.TransportResolvent
 import CleanLean.KL.PressureCertificate
 import CleanLean.KL.ChargedLyapunov
 import CleanLean.KL.MarginalObstruction
+import CleanLean.KL.OrbitHitting
 import CleanLean.KL.NonlinearPerron
 import CleanLean.KL.CountingTransfer
 
@@ -116,6 +117,10 @@ specification theorems during a build.
 #print axioms CleanLean.KL.aligned_mean_and_cospine_same_eigenvalue
 #print axioms CleanLean.KL.no_strict_relative_contraction_on_aligned_modes
 #print axioms CleanLean.KL.retarded_zero_selfLift
+#print axioms CleanLean.KL.retarded_zero_uncharged_selfLift
+#print axioms CleanLean.KL.orbitHit_iff_exponent_dvd
+#print axioms CleanLean.KL.orbitHit_first_time
+#print axioms CleanLean.KL.no_orbitHit_before_precision
 #print axioms CleanLean.KL.positiveEigenvalue_unique
 #print axioms CleanLean.KL.one_le_positiveEigenvalue_of_subeigenvector
 #print axioms CleanLean.KL.eventually_rpow_le_of_constant_mul_rpow_le

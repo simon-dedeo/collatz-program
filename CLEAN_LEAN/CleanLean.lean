@@ -25,6 +25,7 @@ import CleanLean.KL.TransportResolvent
 import CleanLean.KL.PressureCertificate
 import CleanLean.KL.ChargedLyapunov
 import CleanLean.KL.MarginalObstruction
+import CleanLean.KL.OrbitHitting
 import CleanLean.KL.NonlinearPerron
 import CleanLean.KL.CountingTransfer
 import CleanLean.Audit

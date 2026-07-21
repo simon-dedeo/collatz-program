@@ -53,9 +53,11 @@ The first charged spine-face Lyapunov proposal has been exactly falsified,
 not assumed away: `MarginalObstruction.lean` proves that its aligned mean and
 co-spine modes have the same eigenvalue.  This is a no-go theorem for that
 certificate class, not evidence against `lambda_k -> 2`.  The concrete KL
-system also has the retarded `2 -> 2` self-lift at every precision; proving
-that this loop is outside the proposed truncated charge set still requires a
-separate exact orbit-hitting lemma.
+system also has the retarded `2 -> 2` self-lift at every precision.
+`OrbitHitting.lean` now proves with mathlib's LTE theorem that the first time
+`2*4^t = -1 (mod 3^J)` is exactly `(3^(J-1)-1)/2`; hence for every `J >= 3`
+this self-loop is outside the proposed first-`J`-orbit-point charge set.  The
+arithmetic qualification in the earlier no-go statement is therefore closed.
 
 `FiniteRecord.lean` contains a small Lean-native certificate at level 2.  It
 checks the integer rows and logarithmic cross-products by kernel reduction and
