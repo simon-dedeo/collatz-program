@@ -73,6 +73,18 @@ theorem wordLegal_runWord_pos {x : ℕ} {ks : List ℕ}
   | cons k ks ih =>
       exact ih (oddStep_pos x) h.2
 
+theorem wordLegal_positive_entries {x : ℕ} {ks : List ℕ}
+    (h : WordLegal x ks) : ∀ k ∈ ks, 0 < k := by
+  induction ks generalizing x with
+  | nil => simp
+  | cons k ks ih =>
+      intro j hj
+      simp only [List.mem_cons] at hj
+      rcases hj with rfl | hj
+      · rw [h.1.2.2]
+        exact oddValuation_pos_of_odd h.1.2.1
+      · exact ih h.2 j hj
+
 theorem runWord_append (x : ℕ) (u v : List ℕ) :
     runWord x (u ++ v) = runWord (runWord x u) v := by
   induction u generalizing x with
@@ -142,6 +154,27 @@ theorem cycle_denominator_mul_seed {x : ℕ} {ks : List ℕ}
   rw [Nat.sub_mul]
   omega
 
+theorem affineOffset_pos_of_ne_nil {ks : List ℕ} (hks : ks ≠ []) :
+    0 < affineOffset ks := by
+  cases ks with
+  | nil => exact (hks rfl).elim
+  | cons k ks =>
+      rw [affineOffset_cons]
+      exact Nat.add_pos_left (Nat.pow_pos (by omega)) _
+
+/-- A positive legal cycle must have expanding affine multiplier
+`2^S > 3^N`; this justifies the search worker's positive-shape filter. -/
+theorem cycle_shape_strict {x : ℕ} {ks : List ℕ}
+    (hx : 0 < x) (hks : ks ≠ [])
+    (hlegal : WordLegal x ks) (hclose : runWord x ks = x) :
+    3 ^ ks.length < 2 ^ totalValuation ks := by
+  have heq := cycle_denominator_mul_seed hx hlegal hclose
+  have hA := affineOffset_pos_of_ne_nil hks
+  by_contra hnot
+  have hsub : 2 ^ totalValuation ks - 3 ^ ks.length = 0 := by omega
+  rw [hsub, zero_mul] at heq
+  omega
+
 /-- Conversely, the affine cycle equation forces closure once legality and
 the nonnegative denominator direction have been checked. -/
 theorem runWord_eq_of_cycle_equation {x : ℕ} {ks : List ℕ}
@@ -158,5 +191,35 @@ theorem runWord_eq_of_cycle_equation {x : ℕ} {ks : List ℕ}
     rw [← heq, ← Nat.add_mul, hsum]
   rw [hrhs] at hid
   exact Nat.eq_of_mul_eq_mul_left (Nat.pow_pos (by omega)) hid
+
+/-- Exact closure criterion used by cycle synthesis.  Legality is kept as an
+explicit replay premise; divisibility alone cannot manufacture it. -/
+theorem runWord_eq_self_iff_cycle_equation {x : ℕ} {ks : List ℕ}
+    (hx : 0 < x) (hks : ks ≠ []) (hlegal : WordLegal x ks) :
+    runWord x ks = x ↔
+      (2 ^ totalValuation ks - 3 ^ ks.length) * x = affineOffset ks := by
+  constructor
+  · exact cycle_denominator_mul_seed hx hlegal
+  · intro heq
+    have hdenom : 0 < 2 ^ totalValuation ks - 3 ^ ks.length := by
+      by_contra hnot
+      have hle : 2 ^ totalValuation ks ≤ 3 ^ ks.length := by omega
+      have hzero : 2 ^ totalValuation ks - 3 ^ ks.length = 0 := by omega
+      rw [hzero, zero_mul] at heq
+      exact (affineOffset_pos_of_ne_nil hks).ne' heq.symm
+    exact runWord_eq_of_cycle_equation hlegal (by omega) heq
+
+/-- The seed of a legal positive cycle is the quotient tested by the search
+worker. -/
+theorem cycle_seed_eq_affineOffset_div {x : ℕ} {ks : List ℕ}
+    (hx : 0 < x) (hks : ks ≠ [])
+    (hlegal : WordLegal x ks) (hclose : runWord x ks = x) :
+    x = affineOffset ks /
+      (2 ^ totalValuation ks - 3 ^ ks.length) := by
+  have heq := cycle_denominator_mul_seed hx hlegal hclose
+  have hdenom : 0 < 2 ^ totalValuation ks - 3 ^ ks.length := by
+    exact Nat.sub_pos_of_lt (cycle_shape_strict hx hks hlegal hclose)
+  rw [← heq, Nat.mul_comm (2 ^ totalValuation ks - 3 ^ ks.length) x,
+    Nat.mul_div_left _ hdenom]
 
 end KontoroC

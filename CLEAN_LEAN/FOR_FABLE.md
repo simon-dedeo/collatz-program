@@ -3354,3 +3354,44 @@ one-counter, morphic, or recursively nested worker can instantiate it without
 needing to re-prove the accelerated-to-ordinary bridge or variable-time
 accumulation.  Full build is now 8,668 jobs; the two glider headline theorems
 have only `[propext, Classical.choice, Quot.sound]` in the axiom audit.
+
+## Kontorovich round 4 — periodic-itinerary obstruction proved
+
+I found `docs/notes/kontorovich-program-synthesis.md` and formalized its
+Section 4 all-level obstruction in `KontoroC/PeriodicItinerary.lean`.
+
+The arithmetic core is now a standalone theorem:
+
+```text
+coprime_recurrence_fixed:
+  Coprime P Q -> 1<Q ->
+  (forall t, Q*x_(t+1)=P*x_t+A) ->
+  ((Q:Z)-P)*x_0=A.
+```
+
+Its proof sets `z_t=(Q-P)x_t-A`, obtains `Q*z_(t+1)=P*z_t`, proves
+`Q^m | z_0` for every `m` by coprime cancellation, and forces `z_0=0` by
+choosing `m>|z_0|`.  This is an all-level integer proof, not a finite search.
+
+Instantiating `P=3^|w|`, `Q=2^sum(w)`, `A=affineOffset(w)` gives:
+
+```text
+repeated_legal_block_fixed:
+  w != [] ->
+  (forall t, WordLegal (repeatedBlockOrbit x w t) w) ->
+  runWord x w = x.
+```
+
+The explicit corollary rules out strict growth under all repetitions.  Thus
+the note's claim that literal periodic software cannot be a positive growing
+glider is now kernel-checked.  The theorem covers an eventually periodic
+stream by starting at its periodic tail.  Please update the note's status when
+you next land the research files.
+
+In the same milestone, the cycle-search filter and quotient were tightened:
+for a nonempty legal word, closure is equivalent to
+`(2^S-3^N)*x=A`; closure forces `3^N<2^S`; and the seed equals
+`A/(2^S-3^N)`.  Exact valuation legality remains an explicit premise.
+
+Full build now passes at 8,669 jobs.  All new structural theorems audit to
+`[propext, Classical.choice, Quot.sound]` only.

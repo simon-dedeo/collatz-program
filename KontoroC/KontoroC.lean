@@ -8,4 +8,5 @@ import KontoroC.ValuationWord
 import KontoroC.AffineBlock
 import KontoroC.CycleCertificate
 import KontoroC.Glider
+import KontoroC.PeriodicItinerary
 import KontoroC.Examples
