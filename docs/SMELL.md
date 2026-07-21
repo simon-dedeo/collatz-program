@@ -18,9 +18,11 @@
 > promising but still finite: all 756 equal-threshold adjacent-scale tails for
 > the eight `k=12,...,19` feasible subeigenvectors are nonincreasing, with 619
 > strict nonsaturated decreases. Rational weighted-bin cones close exactly
-> after finite burn-in, with an exact obstruction before it; the floating
-> `k=20` holdout then violates the fitted earliest-burn-in constants. The live
-> question is uniform burn-in plus terminal-offset immigration decay, not
+> after exactly classified finite burn-ins; the floating `k=20` audit then
+> exceeds every fitted margin but no qualitative cone or minimal start. The
+> `.2,.3` immigration signal is favorable but the `.05` offsets rise. The live
+> question is expanding-window contraction plus terminal-offset
+> immigration/defect decay, not
 > another assertion of the false pointwise bound. See
 > `docs/notes/multiscale-genealogy.md`.
 
@@ -228,10 +230,11 @@ discrepancy directly.
 5. **Current localization test.** The exact depth-nine `U(21/50)` pointwise
    split is false, but the full within-vector genealogy shows strong
    mass-averaged behavior on the finite `k=12,...,19` grid. Its exact eight-bin
-   matrices admit rational cones after finite burn-in and rule out an earlier
-   start, while the floating `k=20` vector shifts that burn-in one level later.
-   Proposition R' still needs a uniformly justified burn-in and terminal-
-   offset immigration decay for thresholds tending to zero and an appropriate
+   matrices admit rational cones after exactly classified finite burn-ins. The
+   floating `k=20` vector exceeds every fitted margin but keeps every same-start
+   maximum below one. Its `.05` immigration trend is adverse. Proposition R'
+   still needs an expanding terminal window and terminal-offset
+   immigration/defect decay for thresholds tending to zero and an appropriate
    family of KL vectors.
 
 ### PQ-2. Antihydra rarity + discrepancy theorem (fuse #2 and #3) — *computation + proof sketch*

@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Provisional floating k=20 holdout for the exact-data weighted cones.
+"""Provisional floating k=20 audit for the exact-data weighted cones.
 
-This script applies the rational cone witnesses in
-``verify_weighted_bin_cone.py`` to the local float64 vector
+This script applies the seven-threshold rational cone frontier and the original
+preregistered ``t=1/5`` witness from ``verify_weighted_bin_cone.py`` to the
+local float64 vector
 ``eigvec_k20.npy``.  That 8.7 GiB sidecar is not an exact feasible certificate
 and is intentionally not tracked by git.  Consequently this audit can falsify
-numerical stability of a proposed cone, but it cannot certify or confirm an
-exact k=20 statement.
+a proposed exact-data margin and provisionally test qualitative contraction,
+but it cannot certify or confirm an exact k=20 statement.
 
 The source SHA-256 is pinned.  Coarsening follows the same three-block 3-adic
 indexing as ``multiscale_genealogy.py``.  Float64 is used throughout; threshold
@@ -19,7 +20,6 @@ from __future__ import annotations
 import argparse
 import csv
 import hashlib
-from fractions import Fraction
 from pathlib import Path
 
 import numpy as np
@@ -40,6 +40,7 @@ EXPECTED_SHA256 = (
 )
 K = 20
 EXPECTED_SIZE = 3 ** (K - 1)
+FLOAT_SPECS = exact.CONE_SPECS + exact.PREREGISTERED_CONE_SPECS
 
 
 def sha256_file(path: Path, chunk_bytes: int = 8 << 20) -> str:
@@ -135,7 +136,7 @@ def analyze_transition(
     child_masses = cells.sum(axis=0)
     conservation_error = abs(float(cells.sum()) - total_mass) / total_mass
 
-    for spec in exact.CONE_SPECS:
+    for spec in FLOAT_SPECS:
         if parent_depth < spec.first_parent_depth:
             continue
         high = spec.first_high_bin
@@ -155,6 +156,7 @@ def analyze_transition(
         recurrence_error = abs(child_potential - persistent - immigration)
 
         recurrence_rows.append({
+            "spec_name": spec.name,
             "threshold": str(spec.threshold),
             "k": K,
             "parent_depth": parent_depth,
@@ -189,6 +191,7 @@ def analyze_transition(
             weighted_parent = parent_mass * weights[parent_bin - high]
             ratio = weighted_child / weighted_parent
             cone_rows.append({
+                "spec_name": spec.name,
                 "threshold": str(spec.threshold),
                 "k": K,
                 "parent_depth": parent_depth,
@@ -203,6 +206,7 @@ def analyze_transition(
                 **float_fields("ratio", ratio),
                 **float_fields("ratio_minus_rho", ratio - rho),
                 "passes": ratio <= rho,
+                "contracts": ratio < 1.0,
                 **float_fields("mass_relative_error", conservation_error),
                 **float_fields("parent_minimum_threshold_gap", parent_gap),
                 **float_fields("child_minimum_threshold_gap", child_gap),
@@ -216,46 +220,37 @@ def analyze_transition(
 
 def check_expected_summary(cone_rows: list[dict[str, object]]) -> None:
     expected = {
-        "1/5": {
-            "rows": 61,
-            "matrices": 16,
-            "violations": 2,
-            "maximum": 0.9941725429887102,
-            "location": (3, 7),
-            "shifted_rows": 59,
-            "shifted_matrices": 15,
-            "shifted_maximum": 0.9763329303398277,
-            "shifted_location": (4, 4),
-        },
-        "3/10": {
-            "rows": 31,
-            "matrices": 17,
-            "violations": 1,
-            "maximum": 0.8955761683443402,
-            "location": (2, 7),
-            "shifted_rows": 30,
-            "shifted_matrices": 16,
-            "shifted_maximum": 0.8332516990705758,
-            "shifted_location": (3, 7),
-        },
+        "frontier_t_1_20": (91, 13, 1, 0, 0.99514995432466358, (6, 2),
+                             84, 12, 0.9919763645834655, (7, 7)),
+        "frontier_t_1_10": (89, 16, 2, 0, 0.99975874832582279, (3, 7),
+                             87, 15, 0.9995309724658249, (4, 4)),
+        "frontier_t_3_20": (75, 16, 2, 0, 0.99738611814473221, (3, 7),
+                             73, 15, 0.99490860633569156, (4, 4)),
+        "frontier_t_1_5": (61, 16, 2, 0, 0.9938806602034661, (3, 7),
+                            59, 15, 0.98026146188639796, (4, 4)),
+        "frontier_t_1_4": (46, 16, 2, 0, 0.93382479353776293, (3, 7),
+                            44, 15, 0.84778007179143022, (4, 7)),
+        "frontier_t_3_10": (31, 17, 1, 0, 0.89557616834434017, (2, 7),
+                             30, 16, 0.8332516990709159, (3, 7)),
+        "frontier_t_2_5": (17, 17, 1, 0, 0.89557616834434017, (2, 7),
+                            16, 16, 0.8332516990709159, (3, 7)),
+        "preregistered_t_1_5": (
+            61, 16, 2, 0, 0.99417254298871016, (3, 7),
+            59, 15, 0.97633293034002711, (4, 4),
+        ),
     }
-    for threshold, target in expected.items():
-        rows = [row for row in cone_rows if row["threshold"] == threshold]
+    if set(expected) != {spec.name for spec in FLOAT_SPECS}:
+        raise AssertionError("floating summary specs changed")
+
+    for spec in FLOAT_SPECS:
+        target = expected[spec.name]
+        rows = [row for row in cone_rows if row["spec_name"] == spec.name]
         matrices = {(row["parent_depth"], row["child_depth"]) for row in rows}
         violations = [row for row in rows if not bool(row["passes"])]
+        unit_violations = [row for row in rows if not bool(row["contracts"])]
         worst = max(rows, key=lambda row: float(row["ratio"]))
         maximum = float(worst["ratio"])
         location = (int(worst["parent_depth"]), int(worst["parent_bin"]))
-        if len(rows) != target["rows"]:
-            raise AssertionError(f"{threshold}: row count changed")
-        if len(matrices) != target["matrices"]:
-            raise AssertionError(f"{threshold}: matrix count changed")
-        if len(violations) != target["violations"]:
-            raise AssertionError(f"{threshold}: violation count changed")
-        if abs(maximum - target["maximum"]) > 1e-12:
-            raise AssertionError(f"{threshold}: maximum changed")
-        if location != target["location"]:
-            raise AssertionError(f"{threshold}: maximum location changed")
 
         shifted = [
             row
@@ -271,22 +266,117 @@ def check_expected_summary(cone_rows: list[dict[str, object]]) -> None:
             int(shifted_worst["parent_depth"]),
             int(shifted_worst["parent_bin"]),
         )
-        if len(shifted) != target["shifted_rows"]:
-            raise AssertionError(f"{threshold}: shifted row count changed")
-        if len(shifted_matrices) != target["shifted_matrices"]:
-            raise AssertionError(f"{threshold}: shifted matrix count changed")
-        if abs(shifted_maximum - target["shifted_maximum"]) > 1e-12:
-            raise AssertionError(f"{threshold}: shifted maximum changed")
-        if shifted_location != target["shifted_location"]:
-            raise AssertionError(f"{threshold}: shifted maximum location changed")
+        observed_discrete = (
+            len(rows),
+            len(matrices),
+            len(violations),
+            len(unit_violations),
+            location,
+            len(shifted),
+            len(shifted_matrices),
+            shifted_location,
+        )
+        expected_discrete = (
+            target[0], target[1], target[2], target[3], target[5],
+            target[6], target[7], target[9],
+        )
+        if observed_discrete != expected_discrete:
+            raise AssertionError(
+                f"{spec.name}: floating discrete summary changed: "
+                f"{observed_discrete} != {expected_discrete}"
+            )
+        if abs(maximum - target[4]) > 1e-12:
+            raise AssertionError(f"{spec.name}: floating maximum changed")
+        if abs(shifted_maximum - target[8]) > 1e-12:
+            raise AssertionError(
+                f"{spec.name}: shifted floating maximum changed"
+            )
         rho = float(rows[0]["rho"])
         print(
-            f"FLOAT FALSIFIER: t={threshold}, rows={len(rows)}, "
-            f"violations={len(violations)}, max={maximum:.12g} at "
-            f"depth/bin={location}; after one extra burn-in, "
+            f"FLOAT AUDIT: {spec.name}, rows/matrices="
+            f"{len(rows)}/{len(matrices)}, rho violations="
+            f"{len(violations)}, unit violations={len(unit_violations)}, "
+            f"max={maximum:.12g} at depth/bin={location}; after one "
+            f"extra burn-in, rows/matrices={len(shifted)}/"
+            f"{len(shifted_matrices)}, "
             f"max={shifted_maximum:.12g} at depth/bin={shifted_location} "
-            f"< rho={rho:.12g}"
+            f"versus rho={rho:.12g}"
         )
+
+
+def check_expected_immigration_summary(
+    recurrence_rows: list[dict[str, object]],
+) -> None:
+    expected_k20 = {
+        "frontier_t_1_20": (
+            0.13436942114963304,
+            0.11950714601259599,
+            0.11812143706780046,
+            0.10841316047888633,
+            0.090004602862998315,
+        ),
+        "frontier_t_1_5": (
+            0.0071675743321247256,
+            0.014311721607429526,
+            0.02852967703265695,
+            0.050015499811874142,
+            0.069178869534380127,
+        ),
+        "frontier_t_3_10": (
+            0.00075581062316027565,
+            0.0024510937749100945,
+            0.0058329025414332273,
+            0.012743697266712112,
+            0.019261244488348244,
+        ),
+    }
+    exact_k19 = {
+        "frontier_t_1_20": (
+            0.138297954298,
+            0.117606935642,
+            0.110456641856,
+            0.0972237178444,
+            0.0774336265414,
+        ),
+        "frontier_t_1_5": (
+            0.00857462496819,
+            0.0171791992247,
+            0.0344159645883,
+            0.0597948574014,
+            0.0818344592235,
+        ),
+        "frontier_t_3_10": (
+            0.000888976853819,
+            0.00295249425926,
+            0.00717137934039,
+            0.0156453291614,
+            0.0235595995234,
+        ),
+    }
+
+    for spec_name, expected in expected_k20.items():
+        rows = sorted(
+            (row for row in recurrence_rows if row["spec_name"] == spec_name),
+            key=lambda row: int(row["terminal_offset"]),
+        )
+        observed = tuple(
+            float(row["immigration_potential"])
+            for row in rows
+            if int(row["terminal_offset"]) < 5
+        )
+        if len(observed) != 5 or any(
+            abs(left - right) > 1e-12
+            for left, right in zip(observed, expected)
+        ):
+            raise AssertionError(f"{spec_name}: k20 immigration changed")
+
+        previous = exact_k19[spec_name]
+        if spec_name == "frontier_t_1_20":
+            if not all(observed[offset] > previous[offset] for offset in range(1, 5)):
+                raise AssertionError("t=1/20 adverse immigration trend changed")
+        elif not all(right < left for left, right in zip(previous, observed)):
+            raise AssertionError(f"{spec_name}: favorable immigration trend changed")
+    print("PASS: floating fixed-offset immigration trend regressions")
 
 
 def main() -> None:
@@ -362,16 +452,17 @@ def main() -> None:
     root_relative_error = abs(float(children[0]) - total_mass) / total_mass
     print(f"root relative mass error={root_relative_error:.3g}")
     check_expected_summary(all_cone_rows)
+    check_expected_immigration_summary(all_recurrence_rows)
     all_cone_rows.sort(
         key=lambda row: (
-            exact.THRESHOLDS.index(Fraction(row["threshold"])),
+            tuple(spec.name for spec in FLOAT_SPECS).index(row["spec_name"]),
             int(row["parent_depth"]),
             int(row["parent_bin"]),
         )
     )
     all_recurrence_rows.sort(
         key=lambda row: (
-            exact.THRESHOLDS.index(Fraction(row["threshold"])),
+            tuple(spec.name for spec in FLOAT_SPECS).index(row["spec_name"]),
             int(row["parent_depth"]),
         )
     )

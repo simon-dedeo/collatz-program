@@ -5,8 +5,8 @@ The input table stores cumulative high-parent/high-child masses for seven
 oscillation thresholds.  Mobius differencing reconstructs the exact 8-by-8
 mass matrix between oscillation bins at every observed genealogy transition.
 
-For a target threshold with high-bin block Q, this script checks exact
-rational inequalities
+For every tracked target threshold with high-bin block Q, this script checks
+exact rational inequalities
 
     Q_(k,j) w <= rho w
 
@@ -17,10 +17,13 @@ or all-vector operator statement.  It also records the exact recurrence
     V_(k,j+1) = persistent_(k,j) + immigration_(k,j)
                 <= rho V_(k,j) + immigration_(k,j).
 
-The cones were selected after inspecting k=12,...,19, so they are exact finite
-certificates and future falsifiers, not independent evidence for an all-level
-theorem.  The decisive missing statement is decay of weighted immigration for
-each fixed terminal offset (and ultimately for thresholds tending to zero).
+The minimal observed burn-in is exactly classified on this finite grid: direct
+obstructions rule out every earlier start, and rational cones close every row
+from the stated start onward.  The cones were selected after inspecting
+k=12,...,19, so they are exact finite certificates and future falsifiers, not
+independent evidence for an all-level theorem.  The decisive missing statement
+is decay of weighted immigration for each fixed terminal offset (and ultimately
+for thresholds tending to zero).
 
 The verifier is standard-library only.  Floating point is used solely to
 render already exact fractions as decimals.
@@ -56,6 +59,7 @@ EXPECTED_LEVELS = tuple(range(12, 20))
 
 @dataclass(frozen=True)
 class ConeSpec:
+    name: str
     threshold: Fraction
     first_parent_depth: int
     weights: tuple[Fraction, ...]
@@ -64,6 +68,7 @@ class ConeSpec:
     expected_matrix_count: int
     expected_maximum: Fraction
     expected_maximum_location: tuple[int, int, int]
+    lower_policy_locations: tuple[tuple[int, int, int], ...] = ()
 
     @property
     def first_high_bin(self) -> int:
@@ -72,6 +77,187 @@ class ConeSpec:
 
 CONE_SPECS = (
     ConeSpec(
+        name="frontier_t_1_20",
+        threshold=Fraction(1, 20),
+        first_parent_depth=6,
+        weights=tuple(
+            Fraction(value, 1_000_000_000)
+            for value in (
+                1_000_000_000,
+                1_078_786_101,
+                1_083_682_611,
+                1_072_436_018,
+                1_087_675_568,
+                1_090_717_598,
+                1_097_747_396,
+            )
+        ),
+        rho=Fraction(
+            25604305653308784707641489927,
+            25747725810864661525426071486,
+        ),
+        expected_row_count=476,
+        expected_matrix_count=68,
+        expected_maximum=Fraction(
+            25604305653308784707641489927,
+            25747725810864661525426071486,
+        ),
+        expected_maximum_location=(19, 6, 2),
+        lower_policy_locations=(
+            (12, 6, 1),
+            (19, 6, 2),
+            (18, 6, 3),
+            (14, 6, 4),
+            (19, 6, 5),
+            (15, 6, 6),
+            (19, 6, 7),
+        ),
+    ),
+    ConeSpec(
+        name="frontier_t_1_10",
+        threshold=Fraction(1, 10),
+        first_parent_depth=3,
+        weights=tuple(
+            Fraction(value, 1_000_000_000)
+            for value in (
+                1_000_000_000,
+                1_103_526_563,
+                1_098_866_751,
+                1_103_113_704,
+                1_092_593_986,
+                1_102_660_524,
+            )
+        ),
+        rho=Fraction(13126911, 13132306),
+        expected_row_count=503,
+        expected_matrix_count=92,
+        expected_maximum=Fraction(13126911, 13132306),
+        expected_maximum_location=(15, 4, 5),
+        lower_policy_locations=(
+            (17, 6, 2),
+            (12, 4, 3),
+            (16, 3, 4),
+            (15, 4, 5),
+            (17, 4, 6),
+            (19, 4, 7),
+        ),
+    ),
+    ConeSpec(
+        name="frontier_t_3_20",
+        threshold=Fraction(3, 20),
+        first_parent_depth=3,
+        weights=tuple(
+            Fraction(value, 1_000_000_000)
+            for value in (
+                1_118_644_048,
+                1_067_801_896,
+                1_114_108_653,
+                1_000_000_000,
+                1_109_159_419,
+            )
+        ),
+        rho=Fraction(1109159419, 1114108653),
+        expected_row_count=427,
+        expected_matrix_count=92,
+        expected_maximum=Fraction(1109159419, 1114108653),
+        expected_maximum_location=(15, 4, 5),
+        lower_policy_locations=(
+            (12, 4, 3),
+            (16, 3, 4),
+            (15, 4, 5),
+            (17, 4, 6),
+            (19, 4, 7),
+        ),
+    ),
+    ConeSpec(
+        name="frontier_t_1_5",
+        threshold=Fraction(1, 5),
+        first_parent_depth=3,
+        weights=tuple(
+            Fraction(value, 500_000_000)
+            for value in (
+                618_715_355,
+                696_512_628,
+                500_000_000,
+                684_092_097,
+            )
+        ),
+        rho=Fraction(
+            2912532534121995264428473938133,
+            2965413132193948656185125405206,
+        ),
+        expected_row_count=349,
+        expected_matrix_count=92,
+        expected_maximum=Fraction(
+            2912532534121995264428473938133,
+            2965413132193948656185125405206,
+        ),
+        expected_maximum_location=(19, 3, 7),
+        lower_policy_locations=(
+            (16, 3, 4),
+            (15, 4, 5),
+            (17, 4, 6),
+            (19, 3, 7),
+        ),
+    ),
+    ConeSpec(
+        name="frontier_t_1_4",
+        threshold=Fraction(1, 4),
+        first_parent_depth=3,
+        weights=tuple(
+            Fraction(value, 1_000_000_000)
+            for value in (1_452_832_836, 1_000_000_000, 1_246_903_523)
+        ),
+        rho=Fraction(1246903523, 1452832836),
+        expected_row_count=260,
+        expected_matrix_count=92,
+        expected_maximum=Fraction(1246903523, 1452832836),
+        expected_maximum_location=(15, 4, 5),
+        lower_policy_locations=(
+            (15, 4, 5),
+            (17, 4, 6),
+            (19, 3, 7),
+        ),
+    ),
+    ConeSpec(
+        name="frontier_t_3_10",
+        threshold=Fraction(3, 10),
+        first_parent_depth=2,
+        weights=(Fraction(1), Fraction(1)),
+        rho=Fraction(
+            4334815655959768610198, 4845180013388557558821
+        ),
+        expected_row_count=184,
+        expected_matrix_count=100,
+        expected_maximum=Fraction(
+            4334815655959768610198, 4845180013388557558821
+        ),
+        expected_maximum_location=(19, 2, 7),
+    ),
+    ConeSpec(
+        name="frontier_t_2_5",
+        threshold=Fraction(2, 5),
+        first_parent_depth=2,
+        weights=(Fraction(1),),
+        rho=Fraction(
+            4334815655959768610198, 4845180013388557558821
+        ),
+        expected_row_count=100,
+        expected_matrix_count=100,
+        expected_maximum=Fraction(
+            4334815655959768610198, 4845180013388557558821
+        ),
+        expected_maximum_location=(19, 2, 7),
+    ),
+)
+
+
+# This simpler witness was selected and committed before the floating k=20
+# holdout was inspected.  Keep it as a separate regression even though the
+# systematic exact frontier above contains a tighter t=1/5 cone.
+PREREGISTERED_CONE_SPECS = (
+    ConeSpec(
+        name="preregistered_t_1_5",
         threshold=Fraction(1, 5),
         first_parent_depth=3,
         # Integer representative (62,69,50,68), normalized so min(w)=1.
@@ -81,18 +267,6 @@ CONE_SPECS = (
         expected_matrix_count=92,
         expected_maximum=Fraction(68, 69),
         expected_maximum_location=(15, 4, 5),
-    ),
-    ConeSpec(
-        threshold=Fraction(3, 10),
-        first_parent_depth=2,
-        weights=(Fraction(1), Fraction(1)),
-        rho=Fraction(179, 200),
-        expected_row_count=184,
-        expected_matrix_count=100,
-        expected_maximum=Fraction(
-            4334815655959768610198, 4845180013388557558821
-        ),
-        expected_maximum_location=(19, 2, 7),
     ),
 )
 
@@ -288,9 +462,10 @@ def verify_obstruction(
         if row[7] <= 0 or any(row[child_bin] for child_bin in range(7)):
             raise AssertionError(f"expected B7 self-loop is absent at k={k}")
 
-    # A stronger exact obstruction rules out a common t=.2 cone beginning at
-    # depth two.  The first row forces w5<w7 for rho<1; the second forces
-    # w7<w5.  They need not be consecutive: a common cone must satisfy both.
+    # A stronger exact obstruction rules out every threshold at most 1/4 from
+    # beginning at depth two.  The first row forces w5<w7 for rho<1; the
+    # second forces w7<w5.  They need not be consecutive: a common cone must
+    # satisfy both.
     depth_two = matrices[(17, 2)][7]
     expected_depth_two = {
         5: 51502644182774780905,
@@ -311,7 +486,52 @@ def verify_obstruction(
         if mass
     } != expected_depth_four:
         raise AssertionError("k=17 depth-four B5 obstruction row changed")
-    print("PASS: exact t=1/5 common-cone obstruction through depth two")
+
+    # At t=3/10 and 2/5, the k=19 depth-two B7 row has only a low B5 child
+    # and a B7 child.  Its B7 self-coefficient is therefore an unavoidable
+    # lower bound for every positive cone, and the unit-weight witness attains
+    # it.  This pins the last two optima exactly.
+    high_threshold_row = matrices[(19, 2)][7]
+    expected_high_threshold_row = {
+        5: 510364357428788948623,
+        7: 4334815655959768610198,
+    }
+    if {
+        child_bin: mass
+        for child_bin, mass in enumerate(high_threshold_row)
+        if mass
+    } != expected_high_threshold_row:
+        raise AssertionError("k=19 high-threshold optimum row changed")
+    exact_high_threshold_optimum = Fraction(
+        expected_high_threshold_row[7], sum(expected_high_threshold_row.values())
+    )
+    if any(
+        spec.rho != exact_high_threshold_optimum
+        for spec in CONE_SPECS[-2:]
+    ):
+        raise AssertionError("high-threshold exact optimum changed")
+
+    # At t=1/20 the obstruction persists through every start depth <=5.  At
+    # depth at least five, each high bin has a row that loses no mass to B0.
+    # Choose a minimum-weight high bin: its stochastic average of high-child
+    # weights is at least its own weight, so no rho<1 can contract that row.
+    lossless_coverage = {
+        1: (12, 5),
+        2: (15, 5),
+        3: (12, 5),
+        4: (12, 5),
+        5: (13, 5),
+        6: (12, 5),
+        7: (12, 5),
+    }
+    for parent_bin, key in lossless_coverage.items():
+        row = matrices[key][parent_bin]
+        if row[0] != 0 or sum(row) <= 0:
+            raise AssertionError(
+                f"lossless t=1/20 obstruction row changed at {key}, "
+                f"B{parent_bin}"
+            )
+    print("PASS: exact minimal-burn-in obstruction families")
 
 
 def verify_cones(
@@ -321,11 +541,12 @@ def verify_cones(
     input_name: str,
     input_sha256: str,
     input_sha256_verified: bool,
+    specs: tuple[ConeSpec, ...] = CONE_SPECS,
 ) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
     cone_rows: list[dict[str, object]] = []
     recurrence_rows: list[dict[str, object]] = []
 
-    for spec in CONE_SPECS:
+    for spec in specs:
         high = spec.first_high_bin
         if len(spec.weights) != 8 - high:
             raise AssertionError(f"wrong weight dimension for {spec.threshold}")
@@ -400,6 +621,7 @@ def verify_cones(
                 raise AssertionError(f"weighted potential does not dominate tail at {key}")
 
             recurrence_rows.append({
+                "spec_name": spec.name,
                 "threshold": str(spec.threshold),
                 "k": k,
                 "parent_depth": parent_depth,
@@ -448,6 +670,7 @@ def verify_cones(
                     maximum = ratio
                     maximum_location = (k, parent_depth, parent_bin)
                 cone_rows.append({
+                    "spec_name": spec.name,
                     "threshold": str(spec.threshold),
                     "k": k,
                     "parent_depth": parent_depth,
@@ -487,13 +710,93 @@ def verify_cones(
                 f"{spec.threshold}: expected first max at "
                 f"{spec.expected_maximum_location}, got {maximum_location}"
             )
+        if not (maximum <= spec.rho < 1):
+            raise AssertionError(f"{spec.name}: invalid exact cone bound")
+
+        lower_text = ""
+        if spec.lower_policy_locations:
+            expected_bins = tuple(range(high, 8))
+            policy_bins = tuple(
+                parent_bin
+                for _, _, parent_bin in spec.lower_policy_locations
+            )
+            if policy_bins != expected_bins:
+                raise AssertionError(
+                    f"{spec.name}: lower policy does not cover high bins"
+                )
+            policy_ratios = []
+            for k, parent_depth, parent_bin in spec.lower_policy_locations:
+                cells = matrices[(k, parent_depth)]
+                parent_mass = sum(cells[parent_bin])
+                if parent_mass == 0:
+                    raise AssertionError(f"{spec.name}: empty lower-policy row")
+                weighted_child = sum(
+                    cells[parent_bin][child_bin]
+                    * spec.weights[child_bin - high]
+                    for child_bin in range(high, 8)
+                )
+                weighted_parent = (
+                    parent_mass * spec.weights[parent_bin - high]
+                )
+                policy_ratios.append(weighted_child / weighted_parent)
+            lower = min(policy_ratios)
+            if lower > maximum:
+                raise AssertionError(f"{spec.name}: inverted optimum bracket")
+            if maximum - lower >= Fraction(7, 10_000_000_000):
+                raise AssertionError(f"{spec.name}: optimum bracket widened")
+            lower_text = f", rho*>= {float(lower):.12g}"
         print(
-            f"PASS: t={spec.threshold}, depth>={spec.first_parent_depth}, "
+            f"PASS: {spec.name}, t={spec.threshold}, "
+            f"depth>={spec.first_parent_depth}, "
             f"{observed_rows} rows/{observed_matrices} matrices, "
             f"max={maximum}={float(maximum):.12g} <= "
-            f"rho={spec.rho}"
+            f"rho={spec.rho}{lower_text}"
         )
     return cone_rows, recurrence_rows
+
+
+def verify_terminal_immigration_patterns(
+    recurrence_rows: list[dict[str, object]],
+) -> None:
+    def immigration(row: dict[str, object]) -> Fraction:
+        return Fraction(
+            int(row["immigration_potential_num"]),
+            int(row["immigration_potential_den"]),
+        )
+
+    def sequence(spec_name: str, terminal_offset: int) -> list[Fraction]:
+        matching = sorted(
+            (
+                row
+                for row in recurrence_rows
+                if row["spec_name"] == spec_name
+                and int(row["terminal_offset"]) == terminal_offset
+            ),
+            key=lambda row: int(row["k"]),
+        )
+        if [int(row["k"]) for row in matching] != list(EXPECTED_LEVELS):
+            raise AssertionError(
+                f"{spec_name}: incomplete fixed-offset immigration sequence"
+            )
+        return [immigration(row) for row in matching]
+
+    for spec_name in ("frontier_t_1_5", "frontier_t_3_10"):
+        for terminal_offset in range(5):
+            values = sequence(spec_name, terminal_offset)
+            if not all(right < left for left, right in zip(values, values[1:])):
+                raise AssertionError(
+                    f"{spec_name}: expected decreasing immigration at "
+                    f"offset {terminal_offset}"
+                )
+
+    for terminal_offset in range(1, 5):
+        values = sequence("frontier_t_1_20", terminal_offset)
+        if not all(right > left for left, right in zip(values, values[1:])):
+            raise AssertionError(
+                "frontier_t_1_20: expected increasing immigration at "
+                f"offset {terminal_offset}"
+            )
+    print("PASS: exact fixed-offset immigration trend regressions")
 
 
 def main() -> None:
@@ -515,9 +818,27 @@ def main() -> None:
     print(f"PASS: reconstructed {len(matrices)} exact 8x8 mass matrices")
 
     verify_obstruction(matrices)
-    cone_rows, recurrence_rows = verify_cones(
-        groups, matrices, totals, args.input.name, digest, not args.skip_sha
+    # Preserve the originally preregistered t=1/5 witness as a regression,
+    # but keep the generated tables on the systematic seven-threshold map.
+    verify_cones(
+        groups,
+        matrices,
+        totals,
+        args.input.name,
+        digest,
+        not args.skip_sha,
+        PREREGISTERED_CONE_SPECS,
     )
+    cone_rows, recurrence_rows = verify_cones(
+        groups,
+        matrices,
+        totals,
+        args.input.name,
+        digest,
+        not args.skip_sha,
+        CONE_SPECS,
+    )
+    verify_terminal_immigration_patterns(recurrence_rows)
     write_rows(args.cone_output, cone_rows)
     write_rows(args.recurrence_output, recurrence_rows)
 

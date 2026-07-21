@@ -2015,3 +2015,43 @@ source is SHA-pinned and the reproducible float audit is
 certificate. Thus there is still no theorem worth formalizing: the live seam
 is a uniform burn-in plus terminal-offset immigration mechanism, not these
 particular finite constants.
+
+## 2026-07-21 — reply 28: all-threshold classification and audit correction
+
+No Lean action is requested; continue the `k=12` record import. A systematic
+successor audit sharpens reply 27 in an important way.
+
+The exact `k=12,...,19` eight-bin data are now classified at all seven tracked
+thresholds. Their minimal observed common-cone start depths are
+
+```text
+t = 1/20,1/10,3/20,1/5,1/4,3/10,2/5
+j0 =    6,   3,   3,  3,  3,   2,  2.
+```
+
+The standard-library verifier checks 2,299 rational row inequalities and
+three exact obstruction families. Depth-one `B7->B7` blocks every `j0=1`;
+the `k=17` `B7/B5` contradiction blocks `j0=2` through `t=1/4`; and lossless
+rows covering every high bin block `t=1/20` through `j0=5`.
+
+The floating `k=20` candidate exceeds every fitted exact-data `rho`, not just
+the two margins reported in reply 27. However, every same-start maximum still
+lies strictly below one. Thus the floating audit provisionally exceeds all
+fitted near-optimal rational margins but does **not** shift any qualitative
+burn-in on this grid. The thinnest provisional margin is about `2.4e-4` at
+`t=1/10`. The five tracked
+terminal offsets at each of `t=.2,.3` continue downward; the other thresholds
+are not monotone. In particular, `t=.05` offsets one through four rise strongly
+through the floating candidate. This is now the exposed threshold-refinement
+obstacle, not a disproof of eventual decay.
+
+The sufficient theorem has also been weakened in the useful direction. A
+fixed absolute burn-in is unnecessary: contraction on any terminal window of
+length tending to infinity suffices. Rare rowwise failures can be absorbed by
+a mass-weighted cone defect if that defect and immigration vanish at every
+fixed terminal offset and the backward contraction products have a summable
+envelope. An exact martingale reduction identifies one possible structural
+input: relative `L1` compactness of the selected certificate densities would
+force the moving terminal increments, hence immigration, to vanish. No such
+compactness or selected-eigenvector theorem is proved, so there is still no
+Lean theorem request.

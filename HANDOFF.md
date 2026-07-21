@@ -51,10 +51,12 @@ mass signal: all 756 tested equal-threshold adjacent-scale tails through
 `k=19` are nonincreasing, and at the final `t=.2` scale the averaged retention
 is `.335470...` even though 66 pointwise-retention-one parents survive. This is
 finite evidence on eight feasible subeigenvectors, not an all-level theorem.
-The exact successor bin-cone search succeeds from depth three on those eight
-levels and proves an exact obstruction to starting earlier. The local floating
-`k=20` candidate then violates the fitted earliest-burn-in constants in three
-coarse rows, while later rows and terminal-offset immigration remain favorable.
+The exact successor bin-cone search now classifies all seven tracked
+thresholds: their minimal observed starts are `(6,3,3,3,3,2,2)`, with exact
+obstructions below and rational cones above. The local floating `k=20`
+candidate provisionally exceeds every fitted margin but remains qualitatively contracting at
+the same seven starts. Terminal-offset immigration improves at `t=.2,.3` but
+rises at offsets one through four for the smallest threshold `.05`.
 Around this sits a cluster of proved structure theorems and — equally important — a
 growing **failure ledger** of proof routes that are now provably dead. A
 separate GPT instance runs an independent Lean formalization in `CLEAN_LEAN/`
@@ -95,11 +97,11 @@ and the two collaboration channels current.
   tail rows and 5,292 transition rows; independent reconstruction checked the
   `k=19` totals and headline transitions. Every one of 756 tested diagonal
   tails is nonincreasing, but pointwise contraction at `t=.2` is false. The
-  exact bin audit finds a post-hoc rational cone after the minimal observed
-  burn-in and an exact obstruction before it. A floating `k=20` holdout
-  provisionally falsifies the original burn-in constants but passes after one
-  extra level. The live theorem target is a uniformly justified burn-in and
-  terminal-offset low-to-high immigration decay. See
+  exact bin audit fully classifies the finite burn-in at all seven thresholds.
+  A floating `k=20` audit provisionally exceeds every fitted exact-data margin but no
+  qualitative cone or minimal start. The live theorem target is an expanding
+  terminal contraction window with mass-weighted defect and low-to-high
+  immigration decay; the rising `.05` immigration is the exposed negative signal. See
   `docs/notes/multiscale-genealogy.md`; do not call its aggregates lower-level
   KL vectors or extrapolate its finite trend.
 - **Proved structure theorems:** KL method = adversarial min-plus transfer
@@ -166,9 +168,9 @@ and the two collaboration channels current.
   note; the DP tables themselves are unchanged. The inherited arctic proof also had a
   reducible-matrix slope gap. An elementary all-dimension weighted-walk pumping
   candidate replaces it, but remains provisional until Lean. The calibrated
-  live agenda is now: (1) turn the exact finite mass-genealogy cone into a
-  uniform burn-in and terminal-offset immigration theorem—or falsify that
-  possibility—while retaining direct cofinal
+  live agenda is now: (1) turn the exact finite mass-genealogy cone into an
+  expanding-terminal-window and terminal-offset immigration/defect theorem—or
+  falsify that possibility—while retaining direct cofinal
   feasibility as the fallback and importing the first large certificate into
   Lean; (2) kernelize and adversarially check the arctic
   Theorems A/B; (3) mixed-radix anti-concentration; (4) other non-
@@ -293,10 +295,11 @@ feasible subeigenvectors, not scalar H1 with an arbitrary non-closing constant
 or an eventual theorem specialized to selected critical eigenvectors. The
 rarity of the violations motivates the exact mass-genealogy audit. That
 audit is favorable on its exact finite grid, but its first floating `k=20`
-holdout breaks the fitted earliest-burn-in cone constants. A shifted burn-in
-passes provisionally and terminal-offset immigration continues to fall;
-uniform contraction, burn-in, all-positive-threshold localization, and the
-pressure/KL bridge all remain open.
+candidate breaks every fitted contraction margin. All seven same-start worst-row maxima
+remain below one, and the tracked `t=.2,.3` terminal-offset immigration values
+continue to fall, while the `.05` offsets rise. Uniform expanding-window
+contraction, mass-defect/immigration decay,
+all-positive-threshold localization, and the pressure/KL bridge remain open.
 
 ## 6. The user (Simon) — how to work with him
 
@@ -324,8 +327,9 @@ pressure/KL bridge all remain open.
 4. Sanity-check infrastructure (§4) with one `ssh`/`squeue`; it carries over.
 5. Pick the top LIVE bet you can advance. The immediate mathematical target is
    a cofinal exact feasible sequence with `λ→2`, or the pressure/localization
-   mechanism that supplies one. The current localization seam is uniform
-   burn-in plus terminal-offset weighted immigration decay, described in
+   mechanism that supplies one. The current localization seam is an expanding
+   terminal contraction window plus terminal-offset weighted defect and
+   immigration decay, described in
    `docs/notes/multiscale-genealogy.md`. Kernel/adversarial review of the repaired
    arctic proof is the bounded side target; mixed-radix has three named gaps.
    Do not

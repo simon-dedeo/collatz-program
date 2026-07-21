@@ -47,9 +47,13 @@ mass-weighted high-oscillation tails are nonincreasing at every one of 756
 tested adjacent-scale rows through `k=19` (strictly decreasing in all 619
 nonsaturated rows). This is finite evidence, not an all-level
 recurrence. A rational bin cone then closes exactly on all tested rows after a
-fixed burn-in, but the floating `k=20` holdout violates both earliest-burn-in
-constants. Moving the burn-ins one level later passes provisionally. The live
-theorem target is now uniform control of the burn-in and of weighted
+threshold-dependent burn-in. The seven minimal observed starts are now exactly
+classified as `(6,3,3,3,3,2,2)`. The floating `k=20` audit exceeds every
+fitted contraction margin, but all seven worst-row maxima remain below one at
+the same starts. Immigration improves at the tested `t=.2,.3` terminal offsets but
+rises sharply at offsets one through four for `t=.05`; threshold refinement is
+therefore the exposed negative signal. The live theorem target is an expanding
+terminal contraction window with vanishing mass-weighted defects and
 immigration at every fixed terminal offset.
 The preceding advanced-term elimination gap is repaired by a replacement,
 not by validating the printed construction.
@@ -105,7 +109,7 @@ an `x^{1−ε}` lower bound would still have density zero for fixed `ε`.
 | The KL method = finite sections of an **adversarial transfer operator on ℤ₃** (base ×4 = the Iwasawa generator of 1+3ℤ₃) | `docs/notes/kl-limit-object.md`, `adversarial-operator.md` |
 | KL's own §6 positivity hypotheses (H_k) | Literature-backed research proof (odometer conjugacy → Gaubert–Gunawardena); nonlinear Perron existence is not Lean-formalized, and the exact feasible-point route bypasses it. |
 | Oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k | proved, now unconditional |
-| Exact multiscale genealogy of the `k=12,...,19` feasible vectors: all 756 tested equal-threshold tail transitions are nonincreasing; exact weighted cones close after finite burn-in at `t=.2,.3` | SHA-pinned bigint/rational diagnostics and independent reconstruction. The untracked floating `k=20` candidate falsifies both earliest-burn-in constants but continues the terminal-immigration decline; neither side is a limit/eigenfunction theorem. See `docs/notes/multiscale-genealogy.md`. |
+| Exact multiscale genealogy of the `k=12,...,19` feasible vectors: all 756 tested equal-threshold tail transitions are nonincreasing; all seven tracked thresholds have exactly classified finite burn-ins and rational cones | SHA-pinned bigint/rational diagnostics and independent reconstruction. The untracked floating `k=20` candidate exceeds every exact-data margin but preserves qualitative contraction at the same seven burn-ins. Terminal immigration declines at `t=.2,.3` but rises at the smallest threshold `.05`; neither side is a limit/eigenfunction theorem. See `docs/notes/multiscale-genealogy.md`. |
 | Local renormalization at −1 solved: **a = λ^{1−α}** (= 2/3 at λ=2); "period-2" = the u↦2u relabeling; spine sheds mass at λ^{α−1}/3 | `renormalization-at-minus-one.md`, sol cross-confirmed |
 | Diaconis–Fulman multiplication-carries spectrum (their open question) | proved, exact-verified: `carries-spectrum.md` |
 | Berg–Meinardus ⟺ aₙ = a_{T(n)}; **bi-(2,3)-Mahler divergence certificates impossible** | proved: `mahler-cartier-lemma0.md`, `two-bases.md` |
@@ -238,16 +242,21 @@ knowing which routes are dead (and why) is most of the value.
    `.006848...` of total mass, and the child tail is `.0248165...`. Across
    `k=12,...,19`, all 756 tested equal-threshold adjacent-scale tails are
    nonincreasing. Exact Möbius reconstruction of the eight-bin transition
-   matrices finds a sharp finite cone result at `t=.2`: no common one-step cone
-   can start before depth three, while
-   `w=(31/25,69/50,1,34/25)`, `rho=68/69` closes all 349 observed rows from
-   there. At `t=.3`, `w=(1,1)`, `rho=179/200` closes after depth two. Both were
-   selected on `k=12,...,19`; the floating `k=20` candidate then violates them
-   at two depth-three rows and one depth-two row, respectively, although one
-   extra burn-in passes and all ten tested terminal-offset immigration values
-   continue downward. The missing theorem is a uniform burn-in plus decay of
-   weighted immigration for each fixed terminal offset and thresholds tending
-   to zero. `experiments/pressure-cert2/split_ratio_audit.py`;
+   matrices now classifies the complete threshold grid: the minimal observed
+   burn-ins for `t=.05,.10,...,.40` are `(6,3,3,3,3,2,2)`, with explicit
+   obstruction rows below them and rational cones above them. All 2,299 exact
+   row inequalities pass. Every fitted, nearly optimal rational margin is then
+   exceeded by the floating `k=20` candidate, but every maximum remains below
+   one at the same burn-in; the thinnest surviving margin is about `2.4e-4` at
+   `t=.1`.
+   The ten tracked fixed-offset values at `t=.2,.3` continue downward, but at
+   `t=.05` offsets one through four instead rise strongly through the floating
+   candidate. This is the sharpest current obstacle to threshold refinement. A
+   corrected sufficient theorem needs only an expanding terminal window, not
+   a fixed absolute burn-in, and can absorb rare bad rows through their
+   mass-weighted defect. The remaining hard input is terminal-offset
+   immigration/defect decay for one selected vector family and thresholds
+   tending to zero. `experiments/pressure-cert2/split_ratio_audit.py`;
    `docs/notes/multiscale-genealogy.md`.
 5. **Quantitative adelic descent** / **open-quantum-systems reframing** — the
    no-go = peripheral spectrum of the KL channel (`wildcard.md`, WARM); descent
@@ -418,11 +427,14 @@ hits the same wall.
   causes the failure. A separate exact audit coarsened each feasible vector
   through its full 3-adic genealogy and found no increase among 756 tested
   diagonal tail transitions. The follow-up rational common-weight search now
-  has an exact finite certificate and an exact earlier-depth obstruction. Its
-  first floating `k=20` holdout falsifies the original burn-in constants while
-  leaving later-depth contraction and terminal immigration favorable. Uniform
-  all-level contraction, burn-in, immigration decay, and threshold refinement
-  remain entirely open.
+  exactly classifies the finite burn-in at all seven thresholds. Its first
+  floating `k=20` candidate breaks every fitted margin but no qualitative cone
+  or minimal start. Terminal immigration remains favorable at `t=.2,.3` but
+  worsens at `.05`. A new martingale reduction shows that cross-level `L1`
+  compactness would force the required terminal increments to vanish, but no
+  such compactness or selected-eigenvector theorem is known. Expanding-window
+  contraction, immigration and defect decay, and threshold refinement remain
+  entirely open.
 - The arctic/max-plus lane remains active. Two independent audits found the
   same reducible-slope gap; an elementary weighted-walk pumping candidate now
   replaces it, and the exact marked macro checker passes. The general theorem

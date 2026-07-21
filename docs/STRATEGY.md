@@ -40,10 +40,11 @@ sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 > is `0.542601...`, not `<=0.42`. A separate exact multiscale genealogy audit
 > is favorable in mass—zero increases among 756 tested diagonal tail rows—but
 > is finite evidence on `k=12,...,19`, not a localization theorem. The rational
-> common-weight search succeeds exactly after a finite burn-in and has an exact
-> obstruction before it; its first floating `k=20` holdout then breaks the
-> fitted earliest-burn-in constants in three rows. The live seam is uniform
-> burn-in plus terminal-offset immigration decay; see
+> common-weight search exactly classifies the finite burn-in at all seven
+> thresholds. The floating `k=20` audit breaks every fitted margin but
+> no qualitative cone or minimal start. Immigration improves at `t=.2,.3` but
+> rises at `.05`. The live seam is an expanding terminal contraction window
+> plus terminal-offset immigration/defect decay; see
 > `docs/notes/multiscale-genealogy.md`.
 
 ## 0. Ground rules
@@ -362,12 +363,13 @@ verified rather than Lean-ingested. The theorem-grade open step is the limit
 `λ_k→2`, not another fixed-level feasibility check.
 The newest exact diagnostic separates pointwise and mass contraction: the
 prepared uniform `U(21/50)` split fails, while all 756 tested within-vector
-genealogy tails are nonincreasing. Exact rational cones close the observed
-high-bin matrices after a fixed burn-in, but the floating `k=20` candidate
-falsifies both fitted earliest-burn-in constants. Later rows still pass and
-terminal-offset immigration continues downward. Any success now requires a
-uniform burn-in/immigration proof for thresholds tending to zero, not another
-finite cone fit.
+genealogy tails are nonincreasing. Exact rational cones classify the observed
+high-bin matrices at all seven thresholds. The floating `k=20` candidate
+exceeds every fitted margin while remaining below one at every same-start
+maximum; the tracked `t=.2,.3` terminal-offset immigration values also
+continue downward, while offsets one through four rise at `t=.05`. Any success
+now requires an expanding-window immigration/defect theorem for thresholds
+tending to zero, not another finite cone fit.
 Also top-ranked (SMELL.md §1): Mahler 1968 Z-numbers ↔ Antihydra rarity
 theorem (golden-ratio counting via no-11 subshift); Antihydra as a robust-
 queueing/discrepancy problem, with the former unconditioned finite-computation
