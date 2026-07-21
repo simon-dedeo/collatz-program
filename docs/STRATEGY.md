@@ -24,7 +24,9 @@ sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 > family and P1/P2 are checked in `331ff48`; commit `729f5fa` checks D1--D3.
 > Commit `76ec861` checks the final fixed-target/all-target exponent wrapper,
 > so the `k=19` counting result is established under the mixed exact-Python +
-> kernel-Lean trust policy. The large record is not yet Lean-ingested;
+> kernel-Lean trust policy. Commits `4c7fcc3`/`659dc81` now kernel-check the
+> first large record at exact `k=12`; the headline `k=19` data are not yet
+> Lean-ingested;
 > the analytic-
 > combinatorics ordinary-pole identification is retracted;
 > the unsigned-zeta natural boundary at `|u|=1/4` has a candidate refutation
@@ -46,7 +48,11 @@ sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 > rises at `.05`. A direct exact audit now computes 116 density-martingale
 > increments; all 108 at `j>=2` fit the post-hoc summable envelope
 > `(1/2)(9/10)^j` from depth two, as does floating `k=20`. A uniform version
-> would force `L1` compactness and localization. This is the live seam; the
+> would force `L1` compactness and localization. A companion floating-log
+> entropy audit finds decreasing selected profiles and the post-hoc envelope
+> `(1/5)(3/4)^j`, but an exact positive `k=3` feasible vector with `h_2>h_1`
+> refutes monotonicity on the full feasible cone. Uniform martingale/weighted-
+> entropy control or a genuinely selection-specific endpoint is the live seam; the
 > expanding-window immigration/defect recurrence is the fallback. See
 > `docs/notes/multiscale-genealogy.md`.
 
@@ -361,8 +367,9 @@ Headline: **the Krasikov–Lagarias method is a nonlinear Perron eigenproblem**
 policy/power iteration extends their 20-year-old table. The solver reproduces
 all published values `k=2..11`; exact-rational certificates now pass through
 `k=19`, with `γ₁₉=0.9094372617…`. The finite counting implication is
-kernel-checked generically, while the `k=19` rows remain externally exact-
-verified rather than Lean-ingested. The theorem-grade open step is the limit
+kernel-checked generically; the exact `k=12` record is now also one Lean theorem,
+while the `k=19` rows remain externally exact-verified rather than Lean-ingested.
+The theorem-grade open step is the limit
 `λ_k→2`, not another fixed-level feasibility check.
 The newest exact diagnostic separates pointwise and mass contraction: the
 prepared uniform `U(21/50)` split fails, while all 756 tested within-vector
@@ -372,9 +379,11 @@ exceeds every fitted margin while remaining below one at every same-start
 maximum; the tracked `t=.2,.3` terminal-offset immigration values also
 continue downward, while offsets one through four rise at `t=.05`. The sharper
 martingale diagnostic has 116 exact increments, with all 108 at `j>=2` inside
-a simple post-hoc summable depth envelope; floating `k=20` remains inside it. The live
-problem is to prove such an envelope for an all-level selected critical or
-normalized-slack-vanishing family. The cone/immigration theorem is now the
+a simple post-hoc summable depth envelope; floating `k=20` remains inside it.
+The selected entropy profiles also fit a post-hoc geometric envelope, but
+feasibility-only depth monotonicity is exactly refuted at `k=3`. The live
+problem is to prove martingale or weighted-entropy control for an all-level
+selected critical or normalized-slack-vanishing family. The cone/immigration theorem is now the
 fallback, not another finite fit.
 Also top-ranked (SMELL.md §1): Mahler 1968 Z-numbers ↔ Antihydra rarity
 theorem (golden-ratio counting via no-11 subshift); Antihydra as a robust-

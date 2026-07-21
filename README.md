@@ -39,8 +39,11 @@ exact KL feasibility at every `k≥2` and `1<λ≤2` into
 `HasPredecessorExponent a (log₂λ)` for every positive target not divisible by
 three. The immediate mathematical target is therefore the limit again: build
 a cofinal feasible sequence with `λ→2`, or prove the pressure/localization
-statement that supplies one. In parallel, the first larger streamed record is
-being imported into Lean to make the mixed Python/Lean trust chain portable.
+statement that supplies one. The first portability checkpoint is now complete:
+commits `4c7fcc3` and `659dc81` make the exact `k=12`,
+`λ=18064231/10^7` record a Lean theorem and pin the generator/source
+provenance. Scaling that architecture to the multi-gigabyte `k=15,...,19`
+records remains open.
 An exact within-vector genealogy audit has now isolated a sharper candidate
 for the localization half: the required pointwise depth-nine split fails, but
 mass-weighted high-oscillation tails are nonincreasing at every one of 756
@@ -57,9 +60,15 @@ audit now computes all 116 `L1` martingale increments of the normalized
 certificate densities. Every row at depth at least two fits the post-hoc
 summable envelope `Delta_(k,j) <= (1/2)(9/10)^j`, as do all 18 corresponding
 rows of the floating `k=20` calibration. A uniform all-level version would
-force relative `L1` compactness and terminal localization directly. Proving
-such an envelope for selected critical—or normalized-slack-vanishing—densities
-is now the live theorem target; the bin cones are the fallback.
+force relative `L1` compactness and terminal localization directly. A
+floating-log audit on the same exact integer masses computes 116 entropy-chain
+increments; the selected profiles decrease with depth and all fit the post-hoc
+envelope `h_(k,j)<=(1/5)(3/4)^j`, as do 19 rows from floating `k=20`. This
+suggests both a weighted-entropy compactness route and a weaker
+selection-specific monotonicity-plus-sublinear-entropy endpoint. Feasibility
+alone cannot prove the latter: an exact positive `k=3` feasible vector has
+`h_2>h_1`. Proving a uniform envelope or another selected-family endpoint is
+now the live theorem target; the bin cones are the fallback.
 The preceding advanced-term elimination gap is repaired by a replacement,
 not by validating the printed construction.
 The printed proof still has three exact, kernel-checked defects—its descent
@@ -89,7 +98,8 @@ fixed-target, arbitrary-cycle-target, and all-level transfer wrappers. Combined
 with the exact `k=19` certificate, this proves the headline bound under the
 repo's mixed trust policy: the 387,420,489 feasibility rows are checked by the
 exact Python bigint verifier, while the generic implication is kernel-checked
-in Lean. The large record is not yet a single Lean-native theorem.
+in Lean. The headline `k=19` record is not yet a single Lean-native theorem;
+the exact `k=12` record now is.
 
 The clearest bounded theorem-shaped side target is the all-dimension
 **arctic/max-plus no-go** for Zantema's Collatz string-rewriting system. A successor audit replaced a
@@ -110,11 +120,12 @@ an `x^{1−ε}` lower bound would still have density zero for fixed `ε`.
 
 | Result | Status |
 |---|---|
+| Exact Lean-native `k=12` KL certificate at `λ=18064231/10^7`, hence `HasPredecessorExponent a (log₂λ)` for every positive `a≢0 (mod 3)` (`γ≈0.8531358401`) | Commits `4c7fcc3`/`659dc81` kernel-reduce all 177,147 feasibility rows through 2,768 blocks in 44 cached modules, prove the literal state/fiber map, and connect the record to ordinary predecessor counting. The clean 8,765-job build and axiom audit pass with only mathlib's standard `propext`, `Classical.choice`, and `Quot.sound`; there is no `native_decide`, `sorry`, or project axiom in the chain. The generator pins source SHA `a6386...59f`; Lean checks the emitted integers and mathematics, while generator check mode enforces the JSON-to-source provenance link. |
 | Exact `k=19` KL feasible certificate at `γ₀=log₂(18783127/10⁷)=0.9094372617…`; `π_a(X)≥X^γ` eventually for every positive `a≢0 (mod 3)` and fixed `γ<γ₀` | A fresh run of the reference verifier passed the SHA-pinned 2.9 GB sidecar and all 387,420,489 exact inequalities. Exact `k=5` witnesses invalidate the printed advanced-elimination construction, and a separate exact semantic countermodel blocks its split-invariant induction. Lean checks all three defects and, in commit `3d6a186`, checks a replacement: a well-founded raw-history builder, root provenance, live deterministic pruning, a common lag, and the complete abstract feasible-point comparison. Commit `58f0ef8` checks the corrected targetwise predecessor transfer replacing false equation (2.1); `331ff48` defines the statewise infimum and proves target-pool nonemptiness, normalization, and monotonicity; `729f5fa` proves the literal D1–D3 base system; `76ec861` closes the all-target exponent transfer. This is a mixed exact-Python + kernel-Lean chain, not yet a single Lean-native `k=19` theorem. The sidecar is local but not in git, the rerun used the same reference verifier rather than an independent second implementation, and a fresh clone is self-contained through k=15. See `experiments/kl/RESULT.md` and `TERMINATION_AUDIT.md`. |
 | The KL method = finite sections of an **adversarial transfer operator on ℤ₃** (base ×4 = the Iwasawa generator of 1+3ℤ₃) | `docs/notes/kl-limit-object.md`, `adversarial-operator.md` |
 | KL's own §6 positivity hypotheses (H_k) | Literature-backed research proof (odometer conjugacy → Gaubert–Gunawardena); nonlinear Perron existence is not Lean-formalized, and the exact feasible-point route bypasses it. |
 | Oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k | proved, now unconditional |
-| Exact multiscale genealogy of the `k=12,...,19` feasible vectors: all 756 tested equal-threshold tails are nonincreasing; all seven thresholds have classified finite burn-ins; 116 exact density-martingale increments are computed and all 108 at `j>=2` fit a simple summable envelope | SHA-pinned bigint/rational diagnostics and independent reconstruction. The post-hoc increment envelope is `(1/2)(9/10)^j`; floating `k=20` also fits, with worst in-scope ratio `.888669`. A uniform all-level envelope would imply `L1` compactness and localization, but the vectors are only selected finite feasible points. The cone audit remains mixed: `k=20` exceeds every fitted margin, and `.05` immigration rises. See `docs/notes/multiscale-genealogy.md`. |
+| Multiscale genealogy of the `k=12,...,19` feasible vectors: all 756 tested equal-threshold tails are nonincreasing; all seven thresholds have classified finite burn-ins; 116 exact density-martingale increments and 116 floating-log entropy increments on exact inputs are reconstructed | SHA-pinned bigint/rational diagnostics and independent reconstruction support the tail and `L1` claims. The post-hoc exact increment envelope is `(1/2)(9/10)^j` for `j>=2`; floating `k=20` also fits. The selected entropy profiles fit `(1/5)(3/4)^j`, including floating `k=20`, but this part uses binary64 logarithms. Uniform all-level versions would imply `L1` compactness and localization. The vectors are only selected finite feasible points; an exact `k=3` counterexample refutes entropy-depth monotonicity on the full feasible cone. The cone audit remains mixed: `k=20` exceeds every fitted margin, and `.05` immigration rises. See `docs/notes/multiscale-genealogy.md`. |
 | Local renormalization at −1 solved: **a = λ^{1−α}** (= 2/3 at λ=2); "period-2" = the u↦2u relabeling; spine sheds mass at λ^{α−1}/3 | `renormalization-at-minus-one.md`, sol cross-confirmed |
 | Diaconis–Fulman multiplication-carries spectrum (their open question) | proved, exact-verified: `carries-spectrum.md` |
 | Berg–Meinardus ⟺ aₙ = a_{T(n)}; **bi-(2,3)-Mahler divergence certificates impossible** | proved: `mahler-cartier-lemma0.md`, `two-bases.md` |
@@ -127,15 +138,17 @@ an `x^{1−ε}` lower bound would still have density zero for fixed `ε`.
 
 The locally rerun `k=19` feasible certificate and the checked generic transfer
 now form a complete mixed-verifier proof chain. The remaining integration
-caveat is portability—a Lean-native large-record import—not a mathematical
-hypothesis. Everything below is about reaching *further*.
+caveat is portability of the headline `k=19` record, not a mathematical
+hypothesis: the first chunked Lean-native import is complete at `k=12`, while
+the multi-gigabyte higher records still need a scalable representation.
+Everything below is about reaching *further*.
 After tunneling on one line we have re-widened. This
 section is kept fresh; the **failure ledger** is deliberately explicit because
 knowing which routes are dead (and why) is most of the value.
 
-### LIVE bets (updated through the 2026-07-21 exact genealogy audit)
+### LIVE bets (updated through the 2026-07-21 entropy and Lean-record audits)
 
-1. **KL finite bridge complete — prove the limit; import the large records.**
+1. **KL finite bridge complete — prove the limit; scale the record imports.**
    At `k=5`, the legal path
    `188→206→137→182→161→107→71→47→188` returns through a transport
    edge at symbolic shift `7 log₂3−11>0`. The deletion rule never tests that
@@ -196,8 +209,12 @@ knowing which routes are dead (and why) is most of the value.
    measure mechanism that forces them. The checked theorem
    `almostLinearPredecessorCounting_of_feasible_sequence_concrete` then gives
    `X^(1−ε)` predecessor counting with no further literature-transfer
-   hypothesis. The parallel engineering task is a kernel-reduced, chunked
-   import of `k=12` before attempting the multi-gigabyte `k=15–19` records.
+   hypothesis. The first kernel-reduced, chunked import is now complete at
+   `k=12` in commits `4c7fcc3`/`659dc81`: all 177,147 rows, their semantic map,
+   and the resulting literal predecessor-count theorem are kernel-checked. The
+   remaining engineering task is a smaller or streamed representation for the
+   multi-gigabyte `k=15–19` records; raw embedding at those sizes is
+   impractical.
    `verify_predecessor_base_inequalities.py` exactly checks the targetwise
    reverse-tree partitions and stronger `+3,+3,+2` rows in 660 bounded cases,
    including a periodic-target regression. A twice-audited explicit finite
@@ -272,6 +289,19 @@ knowing which routes are dead (and why) is most of the value.
    feasible near-critical family additionally needs vanishing aggregate
    normalized slack. This is a finite calibration, not a limit theorem, and
    future exact levels are the first genuine falsifiers.
+   A companion floating-log diagnostic on the exact integer masses computes
+   116 entropy-chain increments. Every selected profile decreases strictly
+   with depth, all rows fit the post-hoc envelope
+   `h_(k,j)<=(1/5)(3/4)^j`, and total entropy rises from `.324539` at `k=12`
+   to `.444583` at exact `k=19` (`.459211` at floating `k=20`). A uniform
+   entropy envelope would give relative `L1` compactness by chain rule and
+   Pinsker. A weaker selected-family route is depth monotonicity plus
+   `Ent(f_k)=o(k)`, which already forces terminal localization. Neither is
+   proved. Exact tightened feasibility at `k=3` admits a positive vector with
+   `h_2>h_1`, so monotonicity cannot be a theorem about the whole feasible
+   cone. The remaining plausible theorem must exploit critical or canonical
+   near-critical selection, perhaps through a cross-scale
+   power-mean/partial-annealing comparison.
    `experiments/pressure-cert2/split_ratio_audit.py`;
    `docs/notes/multiscale-genealogy.md`.
 5. **Quantitative adelic descent** / **open-quantum-systems reframing** — the
@@ -332,6 +362,16 @@ knowing which routes are dead (and why) is most of the value.
   are rare, which motivates the distinct mass-genealogy lane rather than
   rescuing the false pointwise bound. `pressure-certificate-2.md`;
   `experiments/pressure-cert2/split_ratio_audit.py`.
+- **Entropy-increment monotonicity from feasibility alone — REFUTED.** At
+  `k=3`, `lambda=1001/1000`, the positive vector
+  `(101,100,75,101,100,75,101,100,150)` is strictly feasible even after both
+  irrational branch weights are replaced by tighter rational lower bounds,
+  yet its entropy increments satisfy `h_2>h_1`. The standard-library verifier
+  checks all nine rational feasibility rows and the exact comparison
+  `h_1<2/90601<50/2709<h_2`; the analytic inputs are the stated elementary
+  logarithm inequalities. This closes a theorem about the full feasible cone,
+  not a critical-eigenvector or canonical vanishing-slack entropy route.
+  `experiments/kl/verify_entropy_monotonicity_counterexample.py`.
 - **Cycle exclusion via finite places p | 2^K−3^L — CLOSED (collapses to
   Baker).** "Infeasible where new, redundant where feasible"; the Steiner
   stratum *is* the Baker bound. One falsifiable Poisson-model survivor only.
@@ -393,7 +433,13 @@ supplies the actual predecessor-count definition, unconditional target-pool
 nonemptiness, normalization, and monotonicity. Commit `729f5fa` supplies the
 literal D1–D3/base-system proof, and commit `76ec861` supplies the corrected
 fixed-target and arbitrary-target exponent transfer plus the concrete
-feasible-sequence endpoint. Rounds 22–29 also
+feasible-sequence endpoint. Commits `4c7fcc3`/`659dc81` then make the literal
+level-12 record an exact theorem: Lean reduces all 177,147 rows, proves their
+semantic equality with the generic KL system, derives
+`LevelFeasible 12 (18064231/10^7)`, and carries it through to the unconditional
+literal-predecessor counting theorem. The full 8,765-job build and axiom audit
+pass with only `propext`, `Classical.choice`, and `Quot.sound`; this record path
+uses neither `native_decide` nor a project axiom. Rounds 22–29 also
 kernel-check the generated payload's 2,187 row inequalities, their all-length
 mass bounds, equality with an independently defined 243-state KL graph, the
 irrational interval-weight domination, and exact interval tiling. General
@@ -417,8 +463,8 @@ hits the same wall.
 - The new Codex research driver is active. Its first audit stopped five orphaned
   arctic writers left after the final handoff, preserved their completed CSV
   rows, reran the k=19 reference verifier, corrected inherited status and
-  artifact-portability errors, and has now completed exact split-pressure and
-  multiscale-genealogy audits.
+  artifact-portability errors, and has now completed exact split-pressure,
+  multiscale-genealogy, martingale, and entropy audits.
 - The finite KL predecessor-count bridge has just closed. An exact integer checker pins a
   legal `k=5` path that invalidates the printed proof's descent and identical-
   subtree claims without forming a repeatable nontermination lasso. CLEAN_LEAN
@@ -436,8 +482,9 @@ hits the same wall.
   defines the literal predecessor family and proves P1/P2; commit `729f5fa`
   proves D1–D3; commit `76ec861` proves the fixed-target/all-target exponent
   transfer and the feasible-sequence-to-almost-linear endpoint. The top KL
-  theorem lane is now the open limit `λ_∞=2`; the immediate integration task is
-  a portable Lean-native import of the first large record.
+  theorem lane is now the open limit `λ_∞=2`. Commits `4c7fcc3`/`659dc81`
+  complete the first portable Lean-native large-record checkpoint at `k=12`;
+  higher-record scaling remains the integration task.
 - The pointwise pressure lane is calibrated more sharply. The proposed
   `U(21/50)` split fails exactly at `k=19`, but only a small fraction of mass
   causes the failure. A separate exact audit coarsened each feasible vector
@@ -448,10 +495,14 @@ hits the same wall.
   or minimal start. Terminal immigration remains favorable at `t=.2,.3` but
   worsens at `.05`. The direct exact martingale audit is cleaner: it computes
   116 increments, and all 108 at `j>=2` fit a post-hoc summable depth envelope;
-  floating `k=20` preserves it. An all-level envelope would force the required `L1`
-  compactness and terminal localization, but no such bound, coherent selected
-  family, or normalized-slack theorem is known. The cone/immigration route is
-  retained as a fallback.
+  floating `k=20` preserves it. The companion entropy audit finds decreasing
+  selected profiles and a post-hoc geometric envelope on all 116 exact-input
+  and 19 floating rows, but a new exact `k=3` counterexample proves that
+  feasibility alone does not force that monotonicity. An all-level martingale
+  or entropy envelope would force the required `L1` compactness and terminal
+  localization, but no such bound, coherent selected family, or
+  normalized-slack theorem is known. The cone/immigration route is retained as
+  a fallback.
 - The arctic/max-plus lane remains active. Two independent audits found the
   same reducible-slope gap; an elementary weighted-walk pumping candidate now
   replaces it, and the exact marked macro checker passes. The general theorem
@@ -469,7 +520,9 @@ hits the same wall.
   finite history compiler and abstract feasible-point comparison, alongside
   the symbolic-shift, compactness, obstruction, pruning, and rank-checking
   infrastructure, and has now closed the finite counting transfer. No hidden
-  premise remains behind the paper's invalid self-similarity argument. The
+  premise remains behind the paper's invalid self-similarity argument. It has
+  also kernel-checked the complete exact `k=12` record and counting consequence;
+  the headline `k=19` record retains the mixed Python/Lean trust boundary. The
   research driver communicates through
   `docs/FOR_CLEAN_LEAN.md` and does not edit `CLEAN_LEAN/`.
 - Remote compute is currently uncommitted. Any new diagnostic job will be
@@ -477,8 +530,8 @@ hits the same wall.
   all-dimension proofs.
 
 (Computing still larger finite-`k` KL records is deprioritized as a limit
-strategy. Importing the existing exact records remains an active portability
-task.)
+strategy. Scaling the completed `k=12` import architecture to the existing
+higher exact records remains an active portability task.)
 
 ## Verification discipline
 

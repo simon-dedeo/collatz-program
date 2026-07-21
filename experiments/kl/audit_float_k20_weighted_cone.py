@@ -13,9 +13,11 @@ The source SHA-256 is pinned.  Coarsening follows the same three-block 3-adic
 indexing as ``multiscale_genealogy.py``.  Float64 is used throughout; threshold
 gaps and mass-conservation errors are recorded, and floating point appears in
 every substantive output column.  The same pass also records the 19
-conditional-expectation increments and audits the post-hoc summable envelope
-from ``verify_martingale_increment_envelope.py``.  The default run peaks near
-23 GB RSS.
+conditional-expectation increments and 19 natural-log entropy increments,
+auditing the separate post-hoc envelopes from
+``verify_martingale_increment_envelope.py`` and
+``verify_entropy_increment_envelope.py``.  The default run peaks near 23 GB
+RSS.
 """
 
 from __future__ import annotations
@@ -28,6 +30,7 @@ from pathlib import Path
 import numpy as np
 
 import verify_weighted_bin_cone as exact
+import verify_entropy_increment_envelope as entropy_exact
 
 
 HERE = Path(__file__).resolve().parent
@@ -41,6 +44,12 @@ DEFAULT_RECURRENCE_OUTPUT = (
 DEFAULT_MARTINGALE_OUTPUT = (
     HERE / "analysis_cache" / "float_k20_martingale_increments.csv"
 )
+DEFAULT_ENTROPY_OUTPUT = (
+    HERE / "analysis_cache" / "float_k20_entropy_increments.csv"
+)
+EXACT_ENTROPY_OUTPUT = (
+    HERE / "analysis_cache" / "entropy_increments_exact.csv"
+)
 EXPECTED_SHA256 = (
     "35fa2453500ce4dec5d8a504e7dc29acd8d4088d4d3ebdc366b2f8796fb91681"
 )
@@ -50,6 +59,8 @@ FLOAT_SPECS = exact.CONE_SPECS + exact.PREREGISTERED_CONE_SPECS
 MARTINGALE_FIRST_ENVELOPE_DEPTH = 2
 MARTINGALE_ENVELOPE_SCALE = 0.5
 MARTINGALE_ENVELOPE_RATIO = 0.9
+ENTROPY_ENVELOPE_SCALE = entropy_exact.ENVELOPE_SCALE
+ENTROPY_ENVELOPE_RATIO = entropy_exact.ENVELOPE_RATIO
 
 
 def sha256_file(path: Path, chunk_bytes: int = 8 << 20) -> str:
@@ -178,6 +189,47 @@ def analyze_martingale_increment(
         "passes_envelope": increment <= envelope,
         **float_fields("mass_relative_error", parent_mass_error),
         "envelope_scope": "post_hoc_k12_through_float_k20",
+        "source_kind": "uncertified_float_candidate",
+        "source": source_name,
+        "source_sha256": source_sha256,
+        "source_sha256_verified": source_sha256_verified,
+    }
+
+
+def analyze_entropy_increment(
+    parent_depth: int,
+    children: np.ndarray,
+    parents: np.ndarray,
+    total_mass: float,
+    chunk_size: int,
+    source_name: str,
+    source_sha256: str,
+    source_sha256_verified: bool,
+) -> dict[str, object]:
+    """Measure one floating natural-log entropy chain-rule increment."""
+
+    increment = (
+        entropy_exact.generalized_kl_sum(children, parents, chunk_size)
+        / total_mass
+    )
+    envelope = ENTROPY_ENVELOPE_SCALE * ENTROPY_ENVELOPE_RATIO**parent_depth
+    parent_mass_error = abs(float(parents.sum()) - total_mass) / total_mass
+    return {
+        "k": K,
+        "parent_depth": parent_depth,
+        "child_depth": parent_depth + 1,
+        "terminal_offset": K - 1 - parent_depth,
+        "parent_node_count": len(parents),
+        "child_node_count": len(children),
+        **float_fields("entropy_increment", increment),
+        **float_fields("envelope", envelope),
+        **float_fields("increment_over_envelope", increment / envelope),
+        **float_fields("envelope_slack", envelope - increment),
+        "passes_envelope": increment <= envelope,
+        **float_fields("mass_relative_error", parent_mass_error),
+        "envelope_scope": "post_hoc_k12_through_float_k20",
+        "logarithm": "natural",
+        "arithmetic": "float64_log_on_float64_masses",
         "source_kind": "uncertified_float_candidate",
         "source": source_name,
         "source_sha256": source_sha256,
@@ -512,6 +564,59 @@ def check_expected_martingale_summary(
     )
 
 
+def check_expected_entropy_summary(
+    rows: list[dict[str, object]],
+) -> None:
+    if len(rows) != K - 1:
+        raise AssertionError("floating entropy row count changed")
+    rows_by_depth = sorted(rows, key=lambda row: int(row["parent_depth"]))
+    increments = [float(row["entropy_increment"]) for row in rows_by_depth]
+    if not all(left > right for left, right in zip(increments, increments[1:])):
+        raise AssertionError("floating entropy depth monotonicity changed")
+    violations = [row for row in rows if not bool(row["passes_envelope"])]
+    worst = max(rows, key=lambda row: float(row["increment_over_envelope"]))
+    total_entropy = sum(increments)
+    if violations or int(worst["parent_depth"]) != 1:
+        raise AssertionError("floating entropy envelope summary changed")
+    if abs(total_entropy - 0.459210510112) > 5.0e-12:
+        raise AssertionError("floating total entropy regression changed")
+
+    if not EXACT_ENTROPY_OUTPUT.exists():
+        raise FileNotFoundError(
+            "the tracked exact entropy table is required for trend comparison: "
+            f"{EXACT_ENTROPY_OUTPUT}"
+        )
+    with EXACT_ENTROPY_OUTPUT.open(newline="") as handle:
+        exact_rows = [
+            row
+            for row in csv.DictReader(handle)
+            if int(row["k"]) == 19
+        ]
+    exact_by_offset = {
+        int(row["terminal_offset"]): float(row["entropy_increment"])
+        for row in exact_rows
+    }
+    floating_by_offset = {
+        int(row["terminal_offset"]): float(row["entropy_increment"])
+        for row in rows
+    }
+    expected_offsets = set(range(11))
+    if not expected_offsets <= exact_by_offset.keys() or not expected_offsets <= floating_by_offset.keys():
+        raise AssertionError("missing shared entropy terminal offsets")
+    if not all(
+        floating_by_offset[offset] < exact_by_offset[offset]
+        for offset in expected_offsets
+    ):
+        raise AssertionError("floating terminal entropy trend changed")
+    print(
+        "PASS: floating entropy envelope, 19 rows, zero violations, "
+        f"worst ratio={float(worst['increment_over_envelope']):.12g} "
+        f"at depth={int(worst['parent_depth'])}, total="
+        f"{total_entropy:.12g}"
+    )
+    print("PASS: floating entropy falls at all 11 shared terminal offsets")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
@@ -521,6 +626,9 @@ def main() -> None:
     )
     parser.add_argument(
         "--martingale-output", type=Path, default=DEFAULT_MARTINGALE_OUTPUT
+    )
+    parser.add_argument(
+        "--entropy-output", type=Path, default=DEFAULT_ENTROPY_OUTPUT
     )
     parser.add_argument("--chunk-size", type=int, default=1_000_000)
     parser.add_argument("--skip-sha", action="store_true")
@@ -553,6 +661,7 @@ def main() -> None:
     all_cone_rows: list[dict[str, object]] = []
     all_recurrence_rows: list[dict[str, object]] = []
     martingale_rows: list[dict[str, object]] = []
+    entropy_rows: list[dict[str, object]] = []
     finer_masses: np.ndarray | None = None
     finer_categories: np.ndarray | None = None
     finer_gap: float | None = None
@@ -563,6 +672,16 @@ def main() -> None:
             children, args.chunk_size
         )
         martingale_rows.append(analyze_martingale_increment(
+            depth,
+            children,
+            node_masses,
+            total_mass,
+            args.chunk_size,
+            args.input.name,
+            digest,
+            not args.skip_sha,
+        ))
+        entropy_rows.append(analyze_entropy_increment(
             depth,
             children,
             node_masses,
@@ -601,6 +720,7 @@ def main() -> None:
     check_expected_summary(all_cone_rows)
     check_expected_immigration_summary(all_recurrence_rows)
     check_expected_martingale_summary(martingale_rows)
+    check_expected_entropy_summary(entropy_rows)
     all_cone_rows.sort(
         key=lambda row: (
             tuple(spec.name for spec in FLOAT_SPECS).index(row["spec_name"]),
@@ -615,9 +735,11 @@ def main() -> None:
         )
     )
     martingale_rows.sort(key=lambda row: int(row["parent_depth"]))
+    entropy_rows.sort(key=lambda row: int(row["parent_depth"]))
     write_rows(args.cone_output, all_cone_rows)
     write_rows(args.recurrence_output, all_recurrence_rows)
     write_rows(args.martingale_output, martingale_rows)
+    write_rows(args.entropy_output, entropy_rows)
 
 
 if __name__ == "__main__":

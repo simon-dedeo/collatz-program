@@ -43,6 +43,14 @@ targetwise D1--D3 reverse-tree partitions and strengthened constants in 660
 bounded cases; commit `729f5fa` supplies their all-`k` Lean proof and passes the
 8,717-job audit. Commit `76ec861` supplies the exact cutoff, arbitrary-target,
 and exponent wrappers. The finite mathematical chain is therefore complete.
+Commits `4c7fcc3`/`659dc81` additionally ingest the literal `k=12` record:
+Lean kernel-reduces all 177,147 rows, proves their coordinate/transport/fiber
+map agrees with the generic KL system, and derives both
+`LevelFeasible 12 (18064231/10^7)` and its unconditional ordinary-predecessor
+counting theorem. The generator pins and checks the JSON/source provenance;
+Lean itself checks the emitted integers and mathematics rather than hashing the
+JSON. The clean 8,765-job build and axiom audit pass without `native_decide` or
+project axioms.
 See `TERMINATION_AUDIT.md`.
 
 **The certified feasible points below give, for every positive integer
@@ -70,11 +78,12 @@ tracked JSONs but ignored by git; a fresh clone is self-contained through
 `k=15`. During the successor audit, a fresh run of the same reference verifier
 again passed the `k=19` sidecar hash and all 387,420,489 inequalities. This was
 an exact rerun, not a second independently implemented verifier. The generic
-certificate-to-counting implication is kernel-checked in Lean, but the large
-`k=19` array has not been ingested there: no concrete Lean declaration yet
-constructs `LevelFeasible 19 (18783127/10^7)`. Thus the result follows under
-the repo's accepted mixed exact-Python + kernel-Lean trust policy; it is not a
-single end-to-end Lean-native artifact.
+certificate-to-counting implication and the concrete `k=12` record are
+kernel-checked in Lean, but the large `k=19` array has not been ingested there:
+no concrete Lean declaration yet constructs
+`LevelFeasible 19 (18783127/10^7)`. Thus the headline `k=19` result follows
+under the repo's accepted mixed exact-Python + kernel-Lean trust policy; unlike
+the `k=12` checkpoint, it is not a single end-to-end Lean-native artifact.
 
 In the paper's own presentation style (rounding the exponent down absorbs the
 a-dependent constant): **π_a(x) ≥ x^0.9094 for all a ≢ 0 (mod 3) and x ≥ x₀(a)** — improving

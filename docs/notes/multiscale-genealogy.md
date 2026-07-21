@@ -327,8 +327,27 @@ fixed-depth convergence, weak convergence, bounded entropy, or even uniform
 coherence. The counterexample whose density depends only on the newest ternary
 digit has perfectly flat earlier marginals and a permanent terminal defect.
 With natural logarithms and `Ent_H(f)=integral f log(f) dH`, an entropy variant
-sets `h_(k,j)=Ent_H(f_(k,j))-Ent_H(f_(k,j-1))` and gives
-`M_(k,j)(t) <= 18 h_(k,j)/t^2`.
+sets
+
+```text
+h_(k,j) = Ent_H(f_(k,j)) - Ent_H(f_(k,j-1))
+        = E_(mu_k)[D(p_children || uniform_3)].
+```
+
+The chain rule gives `Ent_H(f_k)=sum_j h_(k,j)`, while conditional Pinsker and
+Jensen give `Delta_(k,j)^2<=2h_(k,j)`. There is also a sharp range form. If
+`R=max_i p_i-min_i p_i` and `omega=3R`, the entropy variational formula with
+the test values `(1,0,-1)` gives
+
+```text
+D(p || uniform_3) >= (3/4) R^2 = omega^2/12,
+M_(k,j)(t) <= min(1, 12 h_(k,j)/t^2).
+```
+
+For the first inequality, bound
+`(1+2 cosh(theta))/3 <= exp(theta^2/3)` coefficientwise and optimize at
+`theta=3R/2`. The constant `12` is sharp to second order at
+`p=(1/3-epsilon,1/3,1/3+epsilon)`.
 
 There is now an exact finite audit of the increments themselves. Since the
 atoms of `F_j` carry the masses `A_(j+1)`, integer arithmetic gives
@@ -414,10 +433,171 @@ or uniform translation continuity under `3^J Z_3`.
 This summable-increment condition is sufficient, not necessary: a compact
 family can have nonsummable `L1` martingale differences. Uniform integrability,
 bounded entropy, fixed-depth convergence, and weak convergence are weaker and
-do not control a newest-digit defect. A useful alternative would be a weighted
-entropy bound `sup_k sum_j b_j h_(k,j)<infinity` for some `b_j->infinity`; by
-Pinsker it also forces the conditional-expectation tails to vanish. No such
-bound is proved.
+do not control a newest-digit defect.
+
+#### Entropy calibration and exact monotonicity obstruction
+
+A second verifier computes the natural-log chain-rule increments:
+
+```bash
+python3 experiments/kl/verify_entropy_increment_envelope.py
+```
+
+A fresh clone can run the tracked prefix separately:
+
+```bash
+python3 experiments/kl/verify_entropy_increment_envelope.py \
+  --levels 12 13 14 15 --output /tmp/entropy-increments.csv
+```
+
+The input masses and all coarsenings are exact integers, and the same manifest
+and sidecar hashes are checked as above. The logarithms and output increments
+are binary64, evaluated with a stable nonnegative KL kernel. Thus
+`entropy_increments_exact.csv` is a floating diagnostic on exact inputs, not a
+rational certificate. Its 116 rows have SHA-256
+`8850a350801b4763...`. The pinned but uncertified floating `k=20` pass writes
+19 more rows to `float_k20_entropy_increments.csv`, SHA-256
+`b0c0e09a81a45a25...`.
+
+Every one of the 135 observed rows fits the deliberately simple post-hoc
+envelope
+
+```text
+h_(k,j) <= (1/5) (3/4)^j.                       (finite calibration)
+```
+
+The worst exact ratio is `.939571383` at `(k,j)=(19,1)`; the floating `k=20`
+ratio is `.950720798`, also at `j=1`. This is not an out-of-sample success. At
+fixed rate `.75`, the tight scale fitted through exact `k=19` is about
+`.187914`, and floating `k=20` raises it to `.190144`, a `1.19%` overrun. The
+round scale `.2` merely leaves a readable finite margin; future exact levels
+are the first genuine tests.
+
+The finite triangular pattern is strong but selection-specific. Within every
+observed level, `h_(k,j)` strictly decreases with depth. Every shared fixed
+depth `j=1,...,11` increases across levels, while all eleven shared fixed
+terminal offsets decrease. Total entropy rises
+
+```text
+k=12 exact:  .324539499
+k=19 exact:  .444583263
+k=20 float:  .459210510.
+```
+
+These numbers do not establish bounded or sublinear entropy. If the displayed
+geometric envelope held uniformly, however, then
+
+```text
+D(f_k || f_(k,J)) = sum_(j>J) h_(k,j)
+                  <= (4/5)(3/4)^(J+1),
+||f_k-f_(k,J)||_1 <= sqrt((8/5)(3/4)^(J+1)).
+```
+
+This would give the same relative `L1` compactness and localization as the
+summable `Delta` envelope. More generally, if `b_j->infinity` and
+
+```text
+sup_k sum_j b_j h_(k,j) <= C,
+b_*(J) = inf_(j>J) b_j,
+```
+
+then the same calculation gives
+`||f_k-f_(k,J)||_1<=sqrt(2C/b_*(J))`. For terminal localization alone, the
+triangular condition `B_k/b_(k-1-ell)->0` at every fixed `ell`, where
+`B_k=sum_j b_j h_(k,j)`, is enough.
+
+There is an even weaker selection-specific endpoint theorem. Put `n=k-1`. If
+one proves for a selected all-level family that
+
+```text
+h_(k,1) >= ... >= h_(k,n) >= 0,
+Ent_H(f_k) = o(n),
+```
+
+then `j h_(k,j)<=Ent_H(f_k)`, so every fixed terminal-offset entropy increment
+and hence every corresponding `Delta` tends to zero. For critical
+eigenvectors, `2delta<=Delta_terminal` then closes `lambda_k->2`; selected
+feasible points still require vanishing aggregate normalized slack.
+
+Crucially, KL feasibility alone cannot supply the monotonicity premise. Run
+
+```bash
+python3 experiments/kl/verify_entropy_monotonicity_counterexample.py
+```
+
+At `k=3`, `lambda=1001/1000`, in the standard coordinate order, the positive
+vector
+
+```text
+(101,100,75, 101,100,75, 101,100,150)
+```
+
+satisfies all nine KL feasibility rows strictly. The checker replaces the two
+irrational branch weights by the stricter rational lower bounds
+`lambda^-1` and `1`; the minimum exact margin is `799900/1002001`. Its first
+digit masses are `(303,300,300)`, while its only nonuniform terminal fiber is
+`(75,75,150)`. The elementary bounds `D<=chi^2` and
+`log(9/8)>1/9` give exactly
+
+```text
+h_1 < 2/90601 < 50/2709 < h_2.
+```
+
+This refutes entropy-depth monotonicity on the full feasible cone. It does not
+refute monotonicity, an endpoint-Cesaro estimate, or a geometric envelope for
+critical eigenvectors or another canonical near-critical selection.
+
+One possible route to such a selection theorem is a partial-annealing
+deformation. For child masses `x=(x_0,x_1,x_2)`, set
+
+```text
+M_t(x) = ((x_0^t+x_1^t+x_2^t)/3)^(1/t).
+```
+
+Then, exactly,
+
+```text
+d/dt log M_t(x)|_(t=1) = D(p_x || uniform_3).
+```
+
+Thus if `Z_(k,j)(t)` is the sum of `M_t` over all depth-`j` parent fibers,
+then `Z_(k,j)(1)=sum C/3` and
+`h_(k,j)=d/dt log Z_(k,j)(t)|_(t=1)`. At the terminal fibers, keep the KL
+weights `q_0=lambda^-2,q_2=w_2,q_8=w_8` fixed and replace only each hard fiber
+minimum by `M_t`. If
+
+```text
+R_c(t) = sum F_(lambda,t)(c) / sum c,
+```
+
+the branch bijections give
+`R_c(t)=q_0+(q_2+q_8)Z_(k,k-1)(t)/sum c`, and hence
+
+```text
+d/dt log R_c(t)|_(t=1)
+  = (w_2+w_8) h_(k,k-1) / (3 s(lambda)).
+```
+
+This is a genuine local bridge, not yet a pressure proof for the hard-min
+critical vector. In fact, for
+`p_i(t)=x_i^t/sum_l x_l^t`, the full identity is
+
+```text
+d/dt log M_t(x) = D(p(t) || uniform_3)/t^2.
+```
+
+The `t=1` endpoint therefore does not control the finite path to
+`t=-infinity`, where `M_t` becomes the minimum, without estimates along the
+whole deformation. Nor is `R_c(t)` generally a spectral radius for a selected
+hard-min certificate; a spectral derivative at `t=1` uses the annealed
+operator's right Perron vector. The entropy rate in the existing
+policy-pressure formula is
+also a different object: its equilibrium measure weights coordinates by a
+left Perron vector times `c`, whereas the spatial genealogy weights them by
+`c/sum c`. No uniform comparison of those measures is known. A successful
+pressure revival therefore needs a new cross-scale partial-annealing
+comparison; ordinary path entropy cannot simply be substituted for the
+spatial increments above.
 
 Finally, the increment connects directly to the KL endpoint. On one terminal
 fiber, if `p_i` are the three conditional probabilities, put
@@ -711,8 +891,15 @@ any fitted finite constant.
   family. The post-hoc `(1/2)(9/10)^j` finite calibration passes 108 exact
   rows and 18 floating rows at `j>=2`; it is not an all-level theorem.
 - A proof may instead establish relative `L1` compactness directly, or a
-  scale-weighted entropy/energy bound. Bounded entropy or unweighted
-  entropy/energy bounds do not suffice.
+  scale-weighted entropy/energy bound. The selected entropy profiles fit the
+  post-hoc `(1/5)(3/4)^j` calibration on 116 exact-input and 19 floating rows,
+  but the logarithms are floating and future exact levels have not tested the
+  fit out of sample. Bounded entropy or unweighted entropy/energy bounds do not
+  suffice.
+- Depthwise entropy monotonicity is not a property of the full feasible cone:
+  the exact positive `k=3` counterexample above has `h_2>h_1`. A surviving
+  entropy theorem must exploit critical/canonical selection, a weighted
+  budget, or a new cross-scale partial-annealing comparison.
 - If both scalar and low-dimensional weighted recurrences fail, return to a
   direct primal construction of a cofinal feasible family rather than
   continuing to enlarge the annealed pressure surrogate.

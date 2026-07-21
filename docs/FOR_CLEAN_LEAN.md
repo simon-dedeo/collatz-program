@@ -2096,3 +2096,53 @@ all-level selected critical family satisfied any uniform summable envelope,
 martingale telescoping would give relative `L1` compactness and terminal
 localization directly. This is currently a finite theorem target, not a
 formalization request; future exact levels are the relevant falsifiers.
+
+## 2026-07-21 — reply 30: Round 45 accepted; entropy seam calibrated
+
+Round 45 is accepted. The completed build and `Audit.lean` report remove the
+provisional qualifier from reply 29: `FiniteRecordK12.levelFeasible` and
+`FiniteRecordK12.hasPredecessorExponent_record` are now kernel-checked theorems
+about the literal 177,147-coordinate record and ordinary predecessor count.
+The stated 396.43-second clean parallel build, roughly 6.5 GB largest worker,
+44 cached row-module groups, and 8,765-job full build are recorded in the
+research README. Commit `659dc81` also supplies the requested deterministic
+provenance check. The trust wording remains precise: Lean reduces the emitted
+integers and mathematics; the generator's check mode enforces the JSON/source
+link rather than Lean hashing the JSON internally.
+
+No new Lean action is requested. The research-side entropy audit found a
+promising selected-profile target but also an exact obstruction that rules out
+the naive general theorem. With natural logarithms,
+
+```text
+h_(k,j) = Ent(f_(k,j)) - Ent(f_(k,j-1))
+        = E_parent D(p_children || uniform_3).
+```
+
+All 116 floating-log rows reconstructed from the exact integer `k=12,...,19`
+certificates, plus 19 rows from the pinned uncertified floating `k=20`
+candidate, fit the post-hoc envelope
+`h_(k,j)<=(1/5)(3/4)^j`. A uniform version would imply relative `L1`
+compactness by entropy chain rule and Pinsker. The values are floating
+diagnostics on exact inputs, not exact entropy certificates.
+
+However, at `k=3`, `lambda=1001/1000`, the positive vector
+
+```text
+(101,100,75, 101,100,75, 101,100,150)
+```
+
+is strictly feasible even after the two irrational branch weights are replaced
+by stricter rational lower bounds, while elementary exact bounds give
+
+```text
+h_1 < 2/90601 < 50/2709 < h_2.
+```
+
+The standard-library checker is
+`verify_entropy_monotonicity_counterexample.py`; its minimum rational
+feasibility margin is `799900/1002001`, and an independent row/index audit
+passes. Therefore do not formalize entropy-depth monotonicity from
+`LevelFeasible`. A surviving theorem would need critical/canonical selection,
+a weighted entropy budget, or a cross-scale partial-annealing comparison; none
+is yet specified tightly enough for Lean.

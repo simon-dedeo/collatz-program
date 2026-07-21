@@ -10,7 +10,9 @@
 > `729f5fa` proves its D1--D3 base system. Commit `76ec861` closes the fixed-
 > target/all-target exponent wrapper. The `k=19` counting result is established
 > under the mixed exact-Python + kernel-Lean trust policy, but the large record
-> is not yet one Lean-native artifact. See `README.md`,
+> is not yet one Lean-native artifact. Commits `4c7fcc3`/`659dc81` do make the
+> exact `k=12` record and its literal-predecessor consequence one kernel-checked
+> theorem. See `README.md`,
 > `experiments/kl/RESULT.md`, and `experiments/kl/TERMINATION_AUDIT.md`.
 >
 > A later exact pressure audit refutes the prepared pointwise `U(21/50)` split
@@ -23,7 +25,10 @@
 > `.2,.3` immigration signal is favorable but the `.05` offsets rise. All 116
 > exact density-martingale increments fit a post-hoc summable depth envelope
 > from `j=2`, and floating `k=20` does too. Proving an all-level envelope is the
-> live question; expanding-window contraction plus terminal-offset
+> live question. The selected entropy profiles fit a parallel post-hoc
+> geometric envelope, but an exact `k=3` counterexample refutes entropy-depth
+> monotonicity from feasibility alone; any surviving entropy theorem must use
+> additional selected-family structure. Expanding-window contraction plus terminal-offset
 > immigration/defect decay is the fallback, not
 > another assertion of the false pointwise bound. See
 > `docs/notes/multiscale-genealogy.md`.

@@ -37,7 +37,10 @@ monotonicity. Commit `729f5fa` proves the literal D1--D3 base system for every
 wrapper and the concrete feasible-sequence endpoint. The `k=19` counting
 result is therefore established under the repo's mixed exact-Python +
 kernel-Lean trust policy; its large data are not yet imported as one Lean-
-native theorem. An adjacent exact
+native theorem. The first portability checkpoint is complete: commits
+`4c7fcc3`/`659dc81` kernel-check all 177,147 rows of the exact `k=12`,
+`lambda=18064231/10^7` record, its semantic map to the generic KL system, and
+its literal-predecessor counting consequence. An adjacent exact
 audit found that the paper's printed equation (2.1) is false as an equality:
 `φ^7_2(1)=3` while `φ^{14}_2(0)=2`. Commit `58f0ef8` kernel-checks the exact
 targetwise replacement and ordinary-count transfer. For the paper's full
@@ -62,7 +65,12 @@ from depth two onward they fit the post-hoc summable envelope
 `Delta_(k,j)<=(1/2)(9/10)^j`, and the floating `k=20` calibration does too. A
 uniform all-level envelope would imply relative `L1` compactness and terminal
 localization without the bin cones; proving it for an appropriate selected
-family is now the live localization target.
+family is now the live localization target. A companion floating-log audit on
+the exact integer masses finds decreasing selected entropy profiles and the
+post-hoc envelope `h_(k,j)<=(1/5)(3/4)^j` through exact `k=19` and floating
+`k=20`. An exact positive `k=3` feasible vector with `h_2>h_1` proves that
+feasibility alone cannot imply the observed monotonicity. Any entropy proof
+must use critical/canonical selection or a different weighted endpoint bound.
 Around this sits a cluster of proved structure theorems and — equally important — a
 growing **failure ledger** of proof routes that are now provably dead. A
 separate GPT instance runs an independent Lean formalization in `CLEAN_LEAN/`
@@ -97,6 +105,13 @@ and the two collaboration channels current.
   proves the generic implication. The full large sidecars `k=16..19`
   are not in git, so portable clone verification currently stops at `k=15`.
   `experiments/kl/RESULT.md`.
+- **Lean-native first large record:** commits `4c7fcc3`/`659dc81` make the
+  exact `k=12`, `lambda=18064231/10^7` certificate a kernel theorem and derive
+  `HasPredecessorExponent` for every admissible target. The generated proof is
+  split into 2,768 row blocks in 44 modules; the full 8,765-job build and axiom
+  audit pass. Lean checks the emitted integers and mathematics, while generator
+  check mode pins the JSON/source provenance. Scaling to the headline `k=19`
+  record remains open.
 - **Exact multiscale localization diagnostic:**
   `experiments/kl/multiscale_genealogy.py` builds the complete within-vector
   3-adic mass genealogy for `k=12,...,19`. Its exact rational CSVs have 812
@@ -108,10 +123,14 @@ and the two collaboration channels current.
   qualitative cone or minimal start. The exact martingale audit adds 116
   SHA-pinned rational increments; all 108 rows at `j>=2` fit
   `(1/2)(9/10)^j`, as do 18 floating `k=20` rows. Fixed-depth increments rise
-  while fixed-terminal-offset increments fall. The live theorem target is a
-  uniform summable increment envelope for selected critical—or aggregate-
-  slack-vanishing—densities. The cone route remains a fallback, with rising
-  `.05` immigration as its exposed negative signal. See
+  while fixed-terminal-offset increments fall. The entropy audit adds 116
+  floating-log increments on the exact integer inputs and 19 on the
+  uncertified floating candidate; all fit `(1/5)(3/4)^j`. These selected
+  profiles decrease with depth, but an exact `k=3` feasible-cone counterexample
+  has `h_2>h_1`. The live theorem target is therefore a uniform martingale or
+  weighted-entropy envelope, or a weaker endpoint theorem for a genuinely
+  selected critical/aggregate-slack-vanishing family. The cone route remains a
+  fallback, with rising `.05` immigration as its exposed negative signal. See
   `docs/notes/multiscale-genealogy.md`; do not call its aggregates lower-level
   KL vectors or extrapolate its finite trend.
 - **Proved structure theorems:** KL method = adversarial min-plus transfer
@@ -178,11 +197,12 @@ and the two collaboration channels current.
   note; the DP tables themselves are unchanged. The inherited arctic proof also had a
   reducible-matrix slope gap. An elementary all-dimension weighted-walk pumping
   candidate replaces it, but remains provisional until Lean. The calibrated
-  live agenda is now: (1) turn the exact finite martingale profile into a
-  uniform summable increment envelope—or falsify that possibility—while
+  live agenda is now: (1) turn the exact finite martingale/entropy profiles into
+  a selected-family compactness or endpoint theorem—or falsify that
+  possibility—while
   retaining the expanding-window cone and direct cofinal
-  feasibility as the fallback and importing the first large certificate into
-  Lean; (2) kernelize and adversarially check the arctic
+  feasibility as the fallback and scaling the completed `k=12` Lean import to
+  higher records; (2) kernelize and adversarially check the arctic
   Theorems A/B; (3) mixed-radix anti-concentration; (4) other non-
   autonomous/arithmetic mechanisms for the KL limit; (5) adelic/quantum-
   channel reframing; (6) any nonlinear-pressure salvage only after an exact
@@ -289,8 +309,9 @@ Commit `729f5fa` checks the full D1--D3/base-system bridge; its 8,717-job build
 and axiom audit pass. Commit `76ec861` checks the final connection to
 `HasPredecessorExponent` for every admissible target and the concrete
 feasible-sequence-to-almost-linear implication. The finite mathematical bridge
-is closed; the live frontier is the all-level limit and portable large-record
-integration.
+is closed. Commits `4c7fcc3`/`659dc81` close the first portable large-record
+checkpoint at `k=12`; the live frontier is the all-level limit and scalable
+higher-record integration.
 The completed branch-checkpoint design and provenance-scope warning are in
 `docs/FOR_CLEAN_LEAN.md` replies 16--20.
 On the separate pressure lane, generated rows, S1--S4
@@ -311,7 +332,10 @@ continue to fall, while the `.05` offsets rise. The direct martingale envelope
 is now the cleaner target: if its finite summable profile held uniformly, it
 would force `L1` compactness and all-positive-threshold localization. No
 all-level envelope, coherent critical selection, or normalized-slack theorem
-is known, and the pressure/KL bridge remains open.
+is known. The floating-log entropy profile supplies a parallel geometric
+target, but exact tightened feasibility already refutes depth monotonicity on
+the full feasible cone. Any surviving entropy theorem is selection-specific,
+and the pressure/KL bridge remains open.
 
 ## 6. The user (Simon) — how to work with him
 
@@ -333,15 +357,17 @@ is known, and the pressure/KL bridge remains open.
 1. Read `README.md` top-to-failure-ledger.
 2. Poll `CLEAN_LEAN/FOR_FABLE.md` for anything addressed to the driver.
 3. No inherited research-side background job is running; the partial state of
-   each stopped lane is in its note. The independent Lean side is actively
-   importing the `k=12` record, so poll its handoff before touching related
-   files.
+   each stopped lane is in its note. The independent Lean side completed the
+   `k=12` import at `659dc81`; poll its handoff for any higher-record work before
+   touching related files.
 4. Sanity-check infrastructure (§4) with one `ssh`/`squeue`; it carries over.
 5. Pick the top LIVE bet you can advance. The immediate mathematical target is
    a cofinal exact feasible sequence with `λ→2`, or the pressure/localization
    mechanism that supplies one. The current localization seam is a uniform
-   summable `L1` martingale-increment envelope for selected critical or
-   normalized-slack-vanishing densities; the expanding-window cone with
+   summable `L1` martingale-increment or weighted-entropy envelope for selected
+   critical or normalized-slack-vanishing densities. Feasibility-only entropy
+   monotonicity is refuted, so any weaker entropy endpoint needs an explicit
+   selection hypothesis. The expanding-window cone with
    terminal-offset defect/immigration decay is the fallback. Both are described in
    `docs/notes/multiscale-genealogy.md`. Kernel/adversarial review of the repaired
    arctic proof is the bounded side target; mixed-radix has three named gaps.
