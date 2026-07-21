@@ -171,6 +171,18 @@ static u64 median_from_bins(const u64 *bin,int nb,u64 total){
     return (u64)1<<(nb-1);
 }
 
+/* index of the highest nonzero bin (worst-case log2 quantity); -1 if empty */
+static int maxbin(const u64 *bin,int nb){
+    int m=-1; for(int b=0;b<nb;b++) if(bin[b]) m=b; return m;
+}
+/* smallest log2 bin b such that CDF up to b >= p*total (upper-quantile proxy) */
+static int quantile_bin(const u64 *bin,int nb,u64 total,double p){
+    if(!total)return -1;
+    u64 thr=(u64)(p*(double)total), run=0;
+    for(int b=0;b<nb;b++){ run+=bin[b]; if(run>=thr) return b; }
+    return nb-1;
+}
+
 int main(int argc,char**argv){
     if (argc<4){ fprintf(stderr,"usage: %s LABEL d a0 b0 ... wE wO L N STEPCAP OUTDIR\n",argv[0]); return 1; }
     const char *label=argv[1];
@@ -233,12 +245,19 @@ int main(int argc,char**argv){
     double mean_ltc=total.n_hit?total.sum_ltc/(double)total.n_hit:0.0;
     u64 med_tau=median_from_bins(total.tau_bin,NBIN,total.n_drop);
     u64 med_tc =median_from_bins(total.tc_bin,NBIN,total.n_hit);
+    /* worst-case (max) log2 excursion height and stopping times; upper quantiles */
+    int max_h   = maxbin(total.h_bin,HBIN);
+    int wtau    = maxbin(total.tau_bin,NBIN);
+    int wtc     = maxbin(total.tc_bin,NBIN);
+    int h_p99   = quantile_bin(total.h_bin,HBIN, (u64)N, 0.99);
+    int tau_p99 = quantile_bin(total.tau_bin,NBIN,total.n_drop,0.99);
 
-    printf("%s,%d,%.6f,%.6f,%.4f,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%.4f,%llu,%.4f,%.4f,%llu,%.5f,%.5f\n",
+    printf("%s,%d,%.6f,%.6f,%.4f,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%.4f,%llu,%.4f,%.4f,%llu,%.5f,%.5f,%d,%d,%d,%d,%d\n",
            label,D,vdrift,edrift,cdrift,cdrift_meas,p_odd,
            (double)total.n_drop/N,(double)total.n_escape/N,(double)total.n_cap/N,
            (double)total.n_hit/N,(double)total.n_nohit/N,
            mean_ltau,(unsigned long long)med_tau,mean_h,
-           mean_ltc,(unsigned long long)med_tc,hK,cond);
+           mean_ltc,(unsigned long long)med_tc,hK,cond,
+           max_h,h_p99,wtau,tau_p99,wtc);
     return 0;
 }

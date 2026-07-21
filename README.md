@@ -134,15 +134,25 @@ knowing which routes are dead (and why) is most of the value.
    (Fel'shtyn et al.). Cycle arithmetic lives in that natural boundary — and this
    *connects to Bell–Lagarias* (natural boundaries of Collatz generating functions,
    already in the landscape). Unexploited; worth developing.
-3. **Mixed-radix anti-concentration** (gpt's top pick — but DOWNGRADED after
-   gpt's own review found 3 gaps). B(w)=Σ3^{m−r}2^{i_r} flattens mod p
-   numerically, BUT: (i) the flattening was tested at full-period scale, while the
-   theorem claims it at k~log p where it *may fail* — being tested now; (ii)
-   fixed-Hamming-weight conditioning is not automatic from the Bernoulli estimate;
-   (iii) operator-norm upgrade open. Status: **numerical evidence + proof program**,
-   not a near-theorem. `docs/notes/mixed-radix-flattening.md`.
-4. **Arctic/max-plus SRS no-go** (cheap, definitive; agent resumed). Closes the
-   stated Yolcu–Aaronson–Heule open problem. `docs/notes/arctic-nogo.md`.
+3. **Mixed-radix anti-concentration** (gpt's top pick; numerical-evidence +
+   proof-program). Re-tested at the correct scale: B(w)=Σ3^{m−r}2^{i_r}
+   **does flatten mod p at k ≈ 3 log p** (uniform over p ≤ 10⁶, strong e^{−ck}
+   rate, no exceptional prime — the claimed-scale statement is *likely true*).
+   But the easy proof mechanism is dead: single-generator short-orbit sums
+   Σ_{j<k} e_p(c2^j) do **not** decay, so flattening is driven by the genuine
+   **2–3 coupling** — a proof needs a coupled-transfer gap (hard, open), plus a
+   bivariate fixed-weight conditioning estimate. Clean anchor: the normalized
+   object reduces *exactly* to a **conditioned two-multiplier Chung–Diaconis–Graham
+   walk** (X ↦ X/2 | (3X+1)/2) — publishable framing independent of Collatz; the
+   one substantive missing theorem is a rank-two matrix-product contraction no
+   cited result (Eberhard–Varjú, Bourgain–Gamburd) supplies.
+   `docs/notes/mixed-radix-flattening.md`.
+4. **Arctic/max-plus SRS no-go — largely DONE.** Theorem B **proved**, Theorem A
+   provable-looking (one std cite), closing Yolcu–Aaronson–Heule's stated open
+   problem for arctic interpretations. Honest nuance: the naive blanket claim is
+   *false* (dim-1 witnesses); the true statement is a sharp two-part theorem
+   mirroring YAH's Thms 3.8/3.10. z3 + independent checker certified.
+   `docs/notes/arctic-nogo.md`.
 5. **Quantitative adelic descent** / **open-quantum-systems reframing** — the
    no-go = peripheral spectrum of the KL channel (`wildcard.md`, WARM); descent
    under a dynamical Fourier norm (on deck). Both risk rediscovering the marginal

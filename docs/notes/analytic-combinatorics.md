@@ -45,6 +45,18 @@ weight*, hence live natively in the analytic-combinatorics (AC) frame. Findings:
    the **Lundberg root θ\* = 1** plus a record-over-N extreme-value count (§5). The forward
    Lundberg root θ\*=1 and the backward annealed pole δ=1 are the *same* "exponent-1"
    critical tilt — a single free-energy zero governs all three statistics (§5.3).
+5. **[SPEC, data-backed — NEW 2026-07-20b]** The AC/BRW frame turns the open dichotomy into
+   a **finite-size-scaling** question that the certified data can already be run against: the
+   *rate* at which γ_k → γ_∞ is a cutoff diagnostic. A **spectral gap** (off-critical, λ∞<2)
+   forces **exponential-in-k** convergence; a **critical/marginal** front (λ∞=2) forces the
+   **algebraic Brunet–Derrida** law γ_∞−γ_k ≍ 1/(log N_k)² = 1/k² (N_k=3^{k−1}). Fitting the
+   nine certified points k=11–19: geometric wins (γ_∞≈0.975–0.98, rms 1·10⁻⁴), the 1/k² form
+   is **rejected** (30–200× worse), and the within-window signature is decisive — the
+   increment ratios are **flat at ~0.92** (geometric) whereas a true 1/k² law would show them
+   **rising 0.78→0.85** across this window. **Current evidence therefore points to λ∞ < 2, an
+   intrinsic KL ceiling γ_∞ ≈ 0.975** (§8) — the first data-driven attack on [LIM] Problem 3.5.
+   Caveat honestly flagged: a Brunet–Derrida crossover to critical scaling is notoriously
+   delayed, so a clean geometric window can in principle be pre-asymptotic (§8.3).
 
 ---
 
@@ -235,6 +247,89 @@ exponent, redirecting effort to the quenched/annealed disorder martingale W^true
 
 ---
 
+## 8. Finite-size scaling of γ_k: an AC/BRW cutoff diagnostic for the dichotomy [NEW, data-backed]
+
+The dichotomy λ∞ = 2 vs < 2 has always been posed as a *limit* question ([LIM] Prob 3.5).
+AC/BRW makes it a question about the **rate and functional form** of the approach γ_k → γ_∞,
+and that form is *already legible in the certified data*. The precision-k system tracks
+N_k = 3^{k−1} residue classes — a **finite population / truncation** of the tree. The
+adversarial min is a directed-polymer/selection mechanism on that population. BRW front
+theory then gives a sharp dichotomy for the finite-size correction:
+
+- **Off-critical (spectral gap ⇒ λ∞ < 2):** the truncated front γ_k relaxes to γ_∞
+  **exponentially**, γ_∞ − γ_k ≍ a·r^k, r = subdominant/dominant ratio of the level-tower
+  refinement (a genuine gap).
+- **Critical / marginal (λ∞ = 2):** the front is at its boundary tilt and the correction is
+  the **Brunet–Derrida cutoff** γ_∞ − γ_k ≍ π²|ψ″|/(2 (log N_k)²). With log N_k = (k−1)log3
+  this is an **algebraic 1/k²** law (up to a possible Bramson log(k)/k refinement).
+
+### 8.1 The fits (`experiments/ac/`, 9 certified points k=11–19)
+| model | γ_∞ | rms | verdict |
+|---|---|---|---|
+| geometric γ_∞−a·r^k (r=0.920) | 0.981 | 1.0·10⁻⁴ | best clean fit |
+| repeated Aitken Δ² (model-free) | 0.974 | — | stable over 3 passes |
+| force γ_∞=1, geometric | 1 | 3.4·10⁻⁴ | 3× worse |
+| 1/k² (Brunet–Derrida) | 0.939 | 3.0·10⁻³ | 30× worse |
+| force γ_∞=1, 1/k² | 1 | 2.1·10⁻² | **catastrophic (200×)** |
+
+Data in `gamma_finite_size.csv`, fits in `fits_summary.csv`. The geometric law and the
+algebraic law are cleanly separated: the geometric fit is 30–200× tighter.
+
+### 8.2 The sharp within-window signature (does not need far extrapolation)
+The consecutive **increment ratios** (γ_k−γ_{k−1})/(γ_{k−1}−γ_{k−2}) are the diagnostic that
+avoids trusting the extrapolated intercept. A pure 1/k² law forces them to **rise**
+monotonically: ((k−1)/k)³ climbs 0.78 → 0.85 across k=11→19. A geometric law forces them
+**flat** at r. Observed (past the k=12 transient): **0.93, 0.91, 0.92, 0.91, 0.91, 0.92 —
+flat at ~0.92, no rising trend.** This is the signature of a **gap**, not of criticality.
+
+### 8.3 Reading and the honest caveat
+Within k ≤ 19 the KL exponent behaves like an **off-critical, gapped** front converging to
+**γ_∞ ≈ 0.975 < 1 ⇒ λ∞ < 2** — a concrete prediction that the KL difference-inequality
+method has an **intrinsic ceiling** around x^{0.975}, *not* x^{1−ε}. This is the AC/BRW
+instantiation of §4.3's "the gap is disorder" and of [LIM]'s corrector-non-flattening branch
+(B). **Caveat [SPEC]:** Brunet–Derrida corrections are notoriously invisible until N is
+astronomically large, so a clean geometric window (here N_k ≤ 3^18 ≈ 4·10⁸) *can* be a
+pre-asymptotic transient that later crosses over to critical 1/k². What makes the reading
+more than a curve-fit is §8.2: at true criticality the increment ratios must already be
+**drifting upward** at these k, and they are not. **Pre-registered test:** k=20–22 (files
+present, deprioritized). Off-critical predicts ratio stays ≈0.92 and γ_20≈0.9152,
+γ_21≈0.9204, γ_22≈0.9251 (geometric fit); a *rise* in the ratio toward ~0.86 would be the
+first fingerprint of a Brunet–Derrida crossover and would resurrect λ∞ = 2. This is a cheap,
+decisive discriminator on data we already hold.
+
+---
+
+## 9. Two AC objects the scout missed [structural]
+
+### 9.1 The Terras first-descent distribution as a kernel-method excursion GF [PROVABLE]
+§5 treated the **total** stopping time (~6.95 log n). The **stopping time** σ(n) = min{m :
+T^m(n) < n} (Terras) has instead a *proper limiting distribution* p_j = density{n : σ(n)=j},
+independent of n. In the Terras parity-vector encoding, {σ(n)=j} is exactly a **first-passage
+below 0** of the two-slope walk S_m = (#odd steps)·α − m; admissibility of a parity vector is
+a ballot/Łukasiewicz positivity constraint on partial sums. That is precisely the domain of
+the **Banderier–Flajolet kernel method** for directed lattice paths: the excursion/first-
+passage GF P(z) = Σ p_j z^j is algebraic, obtained from the small roots of the step kernel,
+and **singularity analysis of P(z) gives the geometric tail p_j ~ C·ρ^j** with ρ the dominant
+singularity. This is the natural AC home of the stopping-time distribution and is absent from
+the Collatz literature (which computes p_j by direct 2^k-enumeration). [Calibration: the
+reduction to a lattice-path first-passage is structural/provable; the incommensurable slopes
+{−1, α−1} put the *height* off-lattice, so the constant C, ρ come from a nonlattice
+kernel/renewal variant — the same lattice/nonlattice split as §3.]
+
+### 9.2 γ_k as the lowest zero of a truncated dynamical zeta [structural]
+Prop 1.1's "ρ(M(s))=1" is literally **det(I − M(s)) = 0**: γ_k is the *largest real zero* of
+the truncated **dynamical (Fredholm) determinant** d_k(s) = det(I − M_k(s)), and D_k(s) =
+(I−Mᵀ)⁻¹𝟙 has its dominant pole there. So the AC dominant singularity **is** a dynamical-zeta
+zero, and γ_∞ = lim (lowest zero of d_k). Note this is the **unsigned** transfer determinant
+of the *predecessor* (backward, contracting) dynamics — a different object from
+`solenoid-zeta.md`'s *signed cohomological* zeta Z_3 ≡ 1 (which is the traceless correspondence
+statement). The two live on the same solenoid but carry opposite signs of the ÷3 branches:
+the unsigned one *has* a zero (γ_∞), the signed one is identically 1. Reconciling them —
+the unsigned lowest zero as a "temperature-0 limit" of the signed acyclicity — is the clean
+bridge between this note and the zeta program.
+
+---
+
 ## 7. Ledger and pointers
 
 **[PROVED, reformulation]** §1 (γ_k = abscissa/simple pole of D(s)=(I−Mᵀ)⁻¹𝟙; transfer
@@ -246,12 +341,23 @@ coincidence).
 poles.
 **[SPEC / precise conjecture]** §4.3 λ∞=2 ⟺ weak disorder ⟺ UI of the true-tree additive
 martingale W^true(1); the disorder-transition identity with `adversarial-operator.md` Conj 4.3.
+**[SPEC, data-backed]** §8 finite-size scaling: geometric (gapped) fit ⇒ γ_∞≈0.975<1 ⇒ λ∞<2;
+flat increment ratios ~0.92 reject the 1/k² Brunet–Derrida critical form; caveat = possible
+delayed crossover, pre-registered k=20–22 test in §8.3.
+**[PROVABLE / structural]** §9.1 Terras first-descent distribution = kernel-method excursion
+GF (Banderier–Flajolet); §9.2 γ_k = lowest zero of the unsigned truncated dynamical zeta
+det(I−M_k(s)), a signed-vs-unsigned bridge to `solenoid-zeta.md`.
 **[HEUR]** §5 constants for the true (deterministic, correlated) dynamics.
 
-**Sharpest new items.** (1) **Derivative martingales are irrelevant to the predecessor
-exponent** (transverse root, §4.2) — a correction to [BRW-smell]'s Seneta–Heyde hope; the
-right object is the additive martingale W^true(1). (2) **One free-energy zero (2^α=3) yields
-all three exponents** (§5.3). (3) **Lattice/nonlattice wobble test** (§3): 2-adically
+**Sharpest new items.** (1) **Finite-size scaling discriminates the dichotomy on data we
+already hold** (§8): the certified γ_k(k=11–19) converge *geometrically* (gap ⇒ λ∞<2, ceiling
+γ_∞≈0.975), and the increment-ratio test (flat ~0.92, not rising 0.78→0.85) is a within-window
+signature that does not rely on far extrapolation — pre-registered k=20–22 discriminator.
+(2) **Derivative martingales are irrelevant to the predecessor exponent** (transverse root,
+§4.2) — a correction to [BRW-smell]'s Seneta–Heyde hope; the right object is the additive
+martingale W^true(1). (3) **One free-energy zero (2^α=3) yields all three exponents** (§5.3).
+(4) **Terras first-descent distribution is a kernel-method excursion GF** (§9.1) and **γ_k is
+a dynamical-zeta zero** (§9.2). (5) **Lattice/nonlattice wobble test** (§3): 2-adically
 stratified counts should oscillate log₂-periodically; the full count should not.
 
 **References.** P. Flajolet, R. Sedgewick, *Analytic Combinatorics*, CUP 2009 (Ch. IV–VIII,

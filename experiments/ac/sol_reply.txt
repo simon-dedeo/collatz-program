@@ -1,0 +1,141 @@
+Several conceptual distinctions are being conflated.
+
+### 1. Exponential versus Brunet–Derrida convergence
+
+**Not sound without additional hypotheses.**
+
+- Brunet–Derrida \(1/(\log N)^2\) applies to a **finite-population or cutoff approximation of a pulled, marginally selected front**. Your
+  \[
+  N_k=3^{k-1}
+  \]
+  is the number of retained residue types, not obviously the particle number or cutoff of an \(N\)-BRW. Identifying these two truncations requires a theorem, not just \(N_k\) growing exponentially.
+
+- If that identification were valid, then indeed
+  \[
+  (\log N_k)^{-2}\asymp k^{-2}.
+  \]
+
+- A spectral gap plus exponentially accurate operator approximation can imply exponential eigenvalue convergence, via standard perturbation theory. But:
+  - off-criticality does not by itself imply that the approximation error is exponential in \(k\);
+  - criticality does not force \(k^{-2}\) for an arbitrary finite-memory/type truncation;
+  - equality \(\gamma_\infty=1\) with the annealed bound is not automatically Biggins/Bramson “criticality.” Criticality normally involves a tangency/minimizer condition in the dispersion relation.
+
+Also, a spectral gap inside the limiting operator and a gap \(2-\lambda_\infty>0\) to the annealed bound are different notions.
+
+Finally, “adversarial minimum” is better described as worst-case control/min-plus optimization. It is not literally quenched disorder unless the digits form a fixed random environment.
+
+### 2. What the data support
+
+A defensible statement is:
+
+> On \(11\le k\le19\), a geometric transient fits substantially better than an unshifted one-term \(C/k^2\) correction.
+
+It is **not** defensible from these nine values alone to infer \(\gamma_\infty<1\), much less a ceiling near \(0.975\).
+
+In particular, let \(e_k=1-\gamma_k\). The observed ratios are approximately
+\[
+\frac{e_k}{e_{k-1}}
+=0.928,\ 0.933,\ 0.931,\ 0.931,\ 0.932,\ 0.934,\ 0.935,\ 0.936.
+\]
+Thus an exponential approach **to \(1\)**,
+\[
+\gamma_k=1-Cr^k,
+\]
+is also quite compatible with the window. A simple endpoint fit has RMS around \(7\times10^{-4}\), much better than the quoted forced unshifted \(1/k^2\) fit, though worse than the free-limit geometric fit.
+
+Two numerical cautions:
+
+- The last-three-point Aitken estimate is about
+  \[
+  0.981,
+  \]
+  not \(0.974\):
+  \[
+  \gamma_{17}-\frac{(\gamma_{18}-\gamma_{17})^2}
+  {\gamma_{19}-2\gamma_{18}+\gamma_{17}}
+  \approx0.981.
+  \]
+  Earlier local Aitken estimates vary substantially, which itself signals extrapolation instability.
+
+- Comparing RMS values is not a statistical “rejection” unless there is an error/noise model. These are deterministic data, and the ansätze have different parameter counts.
+
+So the evidence favors **local geometric curvature**, not a strict annealed/quenched gap.
+
+### 3. Pre-asymptotic crossover and better diagnostics
+
+Yes, a crossover is entirely possible. Although \(N_k\approx3.9\times10^8\), the relevant logarithmic variable is only
+\[
+\log N_k\approx20,
+\]
+and the actual memory depth is only \(k=19\). That is not necessarily asymptotic for a Brunet–Derrida law.
+
+Moreover, the critical ansatz should generally allow a shift and subleading terms:
+\[
+1-\gamma_k\sim \frac{C}{(k+a)^2}
+\left(1+O\!\left(\frac{\log k}{k}\right)\right).
+\]
+The unshifted ratio prediction \(((k-1)/k)^3\) is therefore too rigid. For example, fitting the endpoints to
+\[
+\gamma_k=1-\frac{C}{(k+a)^2}
+\]
+gives approximately \(a=13.9\) and an RMS of order \(10^{-3}\), not \(2\times10^{-2}\). That is still worse than the free geometric fit, but it removes the claim of catastrophic incompatibility.
+
+Useful within-window diagnostics are:
+
+1. **Forced-limit residual ratios:** examine
+   \[
+   q_k(L)=\frac{L-\gamma_k}{L-\gamma_{k-1}}
+   \]
+   for \(L=1\) and for candidate \(L<1\). Constancy indicates geometric convergence.
+
+2. **Rolling Aitken estimates:** check whether local geometric limits stabilize as the fitting window moves. Yours do not yet stabilize strongly.
+
+3. **Effective shifted-power parameter:** for \(d_k=\gamma_k-\gamma_{k-1}\), a shifted \(k^{-2}\) law gives approximately
+   \[
+   \frac{d_k}{d_{k-1}}
+   \approx
+   \left(1-\frac{1}{k+a-\tfrac12}\right)^3.
+   \]
+   Infer \(a\) from each ratio and test whether it stabilizes.
+
+4. **Out-of-sample fits:** fit \(k=11,\dots,16\) and predict \(17,\dots,19\), rather than comparing in-sample RMS.
+
+No finite-window diagnostic can exclude an arbitrarily late crossover without structural information.
+
+### 4. Rigorous theorems
+
+There is **no general theorem** saying
+
+\[
+\text{exponential convergence in }k
+\quad\Longrightarrow\quad
+\lambda_\infty<2.
+\]
+
+The implication is false abstractly: \(\lambda_k=2-c\rho^k\) converges exponentially while \(\lambda_\infty=2\).
+
+Closest relevant results:
+
+- **Bérard–Gouéré**, *Brunet–Derrida behavior of branching-selection particle systems on the line*, CMP 298 (2010), proves
+  \[
+  v_\infty-v_N\asymp(\log N)^{-2}
+  \]
+  for specific \(N\)-particle branching-selection systems under regularity assumptions.
+
+- **Biggins/Bramson/Aïdékon** establish BRW speeds, boundary-case corrections, and minimum laws, but not a generic finite-type-truncation theorem for an adversarial Collatz operator.
+
+- **Kato/Keller–Liverani spectral perturbation theory** gives a forward result: if the limiting operator has an isolated simple eigenvalue and
+  \[
+  \|T_k-T_\infty\|\le C\rho^k,
+  \]
+  then typically \(|\lambda_k-\lambda_\infty|\le C'\rho^k\). It does not imply \(\lambda_\infty<2\), and the converse is false.
+
+For a rigorous strict gap, you would need a uniform tail bound—for example, a proved eventual contraction
+\[
+d_{k+1}\le q\,d_k,\qquad q<1,
+\]
+strong enough that
+\[
+\gamma_K+\frac{d_{K+1}}{1-q}<1.
+\]
+Absent such a bound or a model-specific truncation theorem, the current data distinguish local shapes but do not decide \(\gamma_\infty=1\) versus \(<1\).

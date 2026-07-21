@@ -77,11 +77,12 @@ and the two collaboration channels current.
   incrementally in small pieces and keep final reports short — several workers
   here died hitting a 64k output-token cap by composing one giant message.
 
-## 4. Infrastructure & access — VERIFY, do not assume
+## 4. Infrastructure & access — carries over (same machine)
 
-These worked from Fable's environment (a specific Mac). **A fresh Codex
-environment may not have any of them. Test each before relying on it; if a
-resource is unreachable, say so and adapt rather than pretending.**
+You are running on the **same machine** as the previous driver, so all of the
+following **carry over** (SSH keys, PSC grant, API key path are all reachable).
+Still worth a one-line `ssh`/`squeue` sanity check on first use, but do not
+expect them to be dark.
 
 - **CMU machines:** `ssh akdeniz.lan.cmu.edu` (32c + idle RTX 4090),
   `ssh ganesha.lan.cmu.edu` (32c). Work lives in `~/collatz/`. Needs the SSH

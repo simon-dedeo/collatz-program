@@ -113,3 +113,59 @@ gaps + block combinatorics** (Hercher's bootstrap at X₀=2^71), NOT on importin
 Zaremba machinery. Sources: BK arXiv:1107.3776; Kan–Frolenkov arXiv:1210.4204;
 Ouaknine–Worrell pos12 (cs.ox.ac.uk/james.worrell/pos12.pdf); Wu, Math. Comp. 72
 (2003) 901; Rhin 1987; Simons–de Weger 2010; Eliahou 1993; Hercher arXiv:2201.00406.
+
+---
+
+## Addendum (2026-07-20, second scout): independent verification + a mechanism correction
+
+Re-scouted from **primary sources** (read Hercher arXiv:2201.00406 pp.1–8
+directly; Simons–de Weger MComp 74 (2005) 1565). Verified: CF and convergents of
+log₂3 (`data/log2_3_convergents.csv`), and Eliahou's generators
+301994/17087915/85137581 = convergent numerators p₁₃/p₁₅/p₁₆. Two genuinely new
+points; one correction to §4/§5 above.
+
+**(A) The mechanism is a Baker *sandwich*, not a uniform-κ argument.** Simons–de
+Weger and Hercher do NOT plug κ≈13.3 into `K ≫ X_min^{1/(κ+1)}`. They use
+Laurent–Mignotte–Nesterenko (linear forms in 2 logs) only to get an *upper* bound
+on the period K for each fixed m (effective finiteness), then **check the exact CF
+convergents of log₂3 numerically over that finite range**. Baker's sole job is to
+make the search finite; the exclusion itself is a finite CF computation. §4's
+clean `K ≫ X_min^{1/(κ+1)}` is pedagogical, not what the records run on. Hercher's
+m≥92 uses **no linear form in logs at all** — it is harmonic sums `T(nᵢ)=Σ1/Cᵗ(nᵢ)
+< 3/X₀` + a Stern–Brocot "smallest denominator in an interval" lemma (his Lem. 22).
+
+**(B) Two regimes — the true bottleneck is X₀, not the type of log₂3 (until you
+go unconditional).** [PROVED/LIT]
+- *Finite-range records* (K > 7.2·10¹⁰ Hercher–Puchert; m ≥ 92; Hercher shows
+  K ≥ 1.375·10¹¹ needs only X₀ ≥ 3·2⁶⁹): bottleneck is the **verification bound
+  X₀ = 704·2⁶⁰ ≈ 2^69.46**, entering through harmonic sums and through the CF
+  *height* one must tabulate. Improving Rhin's uniform κ does ~nothing here.
+- *Unconditional cycle exclusion (all sizes)*: would require ruling out an
+  anomalously large partial quotient of log₂3 at **any** height ⟺ bounded partial
+  quotients ⟺ μ(log₂3)=2. Baker gives only μ<∞. **This** is where §5's
+  "single-Gauss-orbit = the wall" is exactly right — but it is a *different*
+  regime from where the current numbers live.
+
+**Quantified "why it works" [VERIFIED].** A hidden cycle with X_min ≤ X₀ ⟺ an
+anomalously large partial quotient aₙ of log₂3 at a convergent of height ≤ ~X₀.
+Computed: the **max partial quotient with convergent height ≤ X₀ is a₁₄ = 55**
+(convergent 16785921/10590737, relative gap |2^K/3^L−1| ≈ 5.2·10⁻⁸). Everything
+in the verified range is that tame — no 2^K≈3^L coincidence deep enough to seat a
+small cycle. That single number, 55, is the honest content of "the cycle side is
+excluded up to X₀."
+
+**BK sharper kill.** Not merely a category mismatch — Zaremba/BK is the
+*transpose* problem: fix the digit alphabet, count denominators q realizing it. We
+fix the number (log₂3) and ask whether *its* digits are bounded. There is no
+transfer between "density-one q with bounded aᵢ" and "this x has bounded aᵢ".
+
+**OW tightening.** OW order-6 Positivity ⟺ computing the *homogeneous*
+approximation type (Lagrange constant) of a class of transcendentals ⟺ deciding
+bounded partial quotients — **literally the regime-(B) unknown**, not merely an
+analogous barrier.
+
+**Net.** Still no new cycle bound; Baker re-derived. But the diagnosis is now
+sharp and correct: the *records* are gated by **computation (X₀)** + exact CF, and
+the *unconditional* wall is bounded-partial-quotients of log₂3 (= OW's Lagrange
+problem). Effort → push X₀ / tabulate CF to greater height; the transcendence
+constant is not the active lever. Data: `data/log2_3_convergents.csv`.
