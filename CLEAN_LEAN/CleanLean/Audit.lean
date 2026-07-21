@@ -32,6 +32,7 @@ import CleanLean.KL.SplitInvariantObstruction
 import CleanLean.KL.TwoPhasePruning
 import CleanLean.KL.MarkedPruning
 import CleanLean.KL.OccurrencePruning
+import CleanLean.KL.TwoPhaseWitness
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
@@ -180,6 +181,9 @@ specification theorems during a build.
   CleanLean.KL.EliminationTree.OccurrenceTree.markingSound_principal_of_repeatProvenance
 #print axioms CleanLean.KL.EliminationTree.OccurrenceTree.allLeaves_of_pruneOccurrences_live
 #print axioms CleanLean.KL.ConcreteElimination.coeffEval_le_of_pruneOccurrences_live
+#print axioms
+  CleanLean.KL.ConcreteElimination.TwoPhaseEliminationData.toRetardedEliminationWitness
+#print axioms CleanLean.KL.ConcreteElimination.quarter_lower_bound_of_twoPhaseElimination
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
 #print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda
 #print axioms CleanLean.KL.weightedDefect_le_tail

@@ -260,6 +260,10 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     positivity only at nonnegative arguments.  What remains open is to attach
     that certificate to every concrete Phase-A mark, and to construct the
     finite raw tree via the branch-arrival/König argument.
+    `TwoPhaseWitness.lean` now pins those obligations in
+    `TwoPhaseEliminationData` and proves that satisfying them produces exactly
+    the previously audited retarded-elimination witness and quarter-factor
+    comparison theorem.
 
 ## Corrections to the current notes
 

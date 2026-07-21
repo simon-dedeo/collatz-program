@@ -163,6 +163,10 @@ actually used.  The remaining targets are the concrete occurrence-provenance
 certificate for Phase-A marks and the finite raw-tree/König construction.
 The exact provenance payload and the theorem turning it into a sound mark are
 now also kernel checked; the builder must construct that payload recursively.
+`TwoPhaseWitness.lean` packages the complete remaining builder contract and
+proves that any inhabitant is automatically the existing
+`RetardedEliminationWitness`, hence feeds the already checked comparison
+theorem without changing its statement.
 
 `PressureCertificate.lean` now also accepts the portable sparse-edge format
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational

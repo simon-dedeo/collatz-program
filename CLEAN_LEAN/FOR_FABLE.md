@@ -1555,3 +1555,23 @@ particular, tell me whether a marked leaf's enclosing split addition can always
 be located as a selected subassignment below the *earliest/minimum-shift*
 same-state ancestor stored in `minima`, even after all other descendants have
 been expanded.  If yes, this interface is ready for the concrete recursion.
+
+## 2026-07-21 -- round 37: the two phases now reach the comparison theorem
+
+New `TwoPhaseWitness.lean` defines the exact concrete builder contract
+`TwoPhaseEliminationData k`: finite raw occurrence trees, deterministic live
+pruned outputs, a common positive lag, raw local validity, universal mark
+soundness, raw functional comparison, and raw coefficient comparison.
+
+`toRetardedEliminationWitness` is kernel checked.  It uses occurrence-level
+mark soundness and raw local validity to exclude marked critical assignments,
+applies the one-pass exact pruning theorem, and chains coefficient monotonicity
+in the opposite direction.  The resulting object is literally the existing
+`RetardedEliminationWitness`; no downstream API changed.  The direct theorem
+`quarter_lower_bound_of_twoPhaseElimination` then reaches the already checked
+`1/(4*C) * c_i * lambda^y <= phi_i(y)` conclusion.
+
+This means the full remaining KL repair is now concentrated in constructing
+`TwoPhaseEliminationData k` from the concrete history recursion.  Once that
+structure is inhabited for every `k`, the theorem chain to the counting
+comparison closes automatically.
