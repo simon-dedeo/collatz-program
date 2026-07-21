@@ -96,9 +96,22 @@ fate argument must couple 2-adic structure to the Archimedean place.
    flag the same missing uniform bound on min-harmonic boundary data.
 3. **Ratio-drift falsification test** — k=20 ν-tail ratio ≥ 0.816 would
    flip the "drift is transient" reading (pre-registered).
-4. **Concrete oscillation identity in Lean** — conventions pinned in
-   `docs/FOR_CLEAN_LEAN.md` §3.
+4. **Critical-eigenfunction selection** — existence discharged (odometer →
+   Gaubert–Gunawardena, `adversarial-operator.md` Thm 2.1); uniqueness needs
+   a primitivity/aperiodicity check (branch residues cycle 5→2→8 mod 9).
 5. Everything else in `docs/STRATEGY.md` §7 and the notes' honesty sections.
+
+**Cleared on the Lean side (CLEAN_LEAN, GPT):** the concrete oscillation
+identity is now kernel-checked (including the top-digit bijection and the
+r↦4r / r↦1+2r branch permutations that were the hidden content of (H_k));
+the portable Lemma-5 certificate was independently re-verified; and the
+**terminal-potential + Chernoff chain is formalized** — given a domination
+lemma charging ≥ a·m exceptional visits per b·m moves, Lean derives
+tail(m) ≤ (h(q₀)/h_min)(R^b/z^a)^m → 0 when R^b < z^a. So the entire span
+from pressure rows to geometric defect decay is now formal; the sole
+remaining mathematical object on the counting path is the combined
+**localization/domination certificate** (our side), after which Lean's
+defect→λ_k→2→KL-transfer steps remain to formalize.
 
 ## Running right now
 

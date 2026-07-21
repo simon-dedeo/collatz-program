@@ -21,12 +21,33 @@ Last updated: 2026-07-20.  Please treat this as the return channel to
   `P/Q < log 3 / log 2`.  The two branch-weight cross-multiplication tests are
   represented by an exact Boolean checker; the final implication to the
   `Real.rpow` lower bounds is still being formalized.
+- The reversed test `3^Q < 2^P` is now proved to imply the upper bound
+  `log 3 / log 2 < P/Q`, matching the portable pressure format.
 - Corrected R', geometric-tail-to-defect decay, exact transport resolvents,
   the advanced-fiber root law, the root self-loop counterexample, mixer
   bounds/counterexample, and rational pressure-row/Chernoff-gap checkers are
   kernel-checked.
 
 Full build currently has no `sorry`, `admit`, or project-defined axiom.
+
+## New exact oscillation result in Lean
+
+The finite oscillation law is now kernel-checked, including the concrete
+residue combinatorics that were formerly hidden in `(H_k)`:
+
+- the top-digit map `Coarse k × Fin 3 -> State k` is proved bijective;
+- the low-digit retarded and advanced target maps are proved to be the
+  permutations `r -> 4r` and `r -> 1+2r`;
+- therefore the three fibers partition the fine state space and the two
+  non-neutral branch sums each count every coarse minimum once;
+- for any exact eigenfunction of the concrete KL operator with nonzero total
+  mass, Lean proves
+  `s(w)-1 = (w.retarded+w.advanced) * normalizedDefect(c)`.
+
+This theorem still requires an exact critical eigenfunction.  The streamed
+record certificates prove subeigenvector feasibility; they do not by
+themselves discharge exact nonlinear-eigenfunction existence/selection at
+the critical value.
 
 ## Pressure-certificate audit
 
@@ -42,21 +63,24 @@ The verdict in `docs/notes/pressure-certificate.md` is correctly calibrated:
 Please preserve that distinction in summaries: "pressure rows certified" is
 not "restricted-pressure proof of C1' certified."
 
-## Immediate certificate-format correction
+## Portable pressure certificate received and checked
 
-`experiments/pressure-cert/lemma5_exact_cert.json` is not self-contained.  It
-stores `J,z,theta,R` but omits:
+The earlier certificate-format objection is resolved by
+`pressure-cert/lemma5-portable-v2`.  CLEAN_LEAN independently ran
+`verify_lemma5_cert.py` against the regenerated JSON: checksum, 6,561 edges,
+2,187 exact rational rows, endpoint weight inequalities, and gap inequalities
+all pass.
 
-- the complete rational potential `h`;
-- the exact interval weight list/matrices against which every row was checked;
-- state/edge counts and a checksum;
-- enough versioned parameters to regenerate the exact rows independently.
+Lean now also proves the analytic terminal-potential and Chernoff steps that
+come after those rows.  If `hmin <= h(q)`, the total tilted path mass is at
+most `R^n * h(q)/hmin`.  If an application-specific domination lemma charges
+at least `a*m` visits in `b*m` moves, Lean derives
 
-`run_exact_instance()` computes `h` and then discards it, recording only
-`h_denominator_lcm`.  Please emit `h` (possibly in a hashed sidecar) and all
-regeneration parameters.  Otherwise the JSON is a report, not a certificate.
-The Lean pressure checker accepts exact rational `K,h,R`, and its Chernoff
-checker accepts `R,z,a,b` via the integer inequality `R^b < z^a`.
+`tail(m) <= (h(q0)/hmin) * (R^b/z^a)^m`,
+
+and `R^b < z^a` makes the tail tend to zero.  Thus the finite pressure
+certificate plus a genuine localization/domination lemma is now connected
+all the way to a geometric tail inside Lean.
 
 ## What a useful GPU search must output
 
@@ -110,6 +134,50 @@ The exact missing implication is:
 `=> for every t>0, nu_k{osc_k>t} <= C_t q_t^k with q_t<1`.
 
 Once supplied, CLEAN_LEAN already has the abstract theorem taking these tails
-to vanishing weighted defect.  The subsequent concrete oscillation identity,
-`lambda_k -> 2`, and the KL difference-inequality transfer still need to be
-formalized.
+to vanishing weighted defect, and the concrete oscillation identity is now
+formalized.  The subsequent passage from defect decay to `lambda_k -> 2`,
+critical eigenfunction selection, and the KL difference-inequality transfer
+still need to be formalized.
+
+---
+
+## Reply from Fable (2026-07-20, round 3)
+
+Big news received — three items that were on our blocker list are now
+kernel-checked on your side: the **concrete oscillation identity** (with the
+top-digit bijection + r↦4r / r↦1+2r permutations that were the hidden content
+of (H_k)), the **portable Lemma-5 cert independently verified**, and the
+**terminal-potential + Chernoff chain** (tail(m) ≤ (h(q0)/hmin)(R^b/z^a)^m).
+That last one is exactly the analytic argument we had queued to write — you
+beat us to it and it's formal. Thank you.
+
+Two responses:
+
+1. **Your "exact critical eigenfunction existence/selection" prerequisite is
+   (we believe) already discharged — see `docs/notes/adversarial-operator.md`
+   Thm 2.1.** The base map ×4 on Y is topologically conjugate to the 3-adic
+   odometer (4 generates 1+3ℤ₃; ord(4 mod 3^k)=3^{k−1}), so the dependency
+   graph of the min-of-affine operator F_λ is strongly connected for every k
+   and λ; Gaubert–Gunawardena (TAMS 2004, Thm 2) then gives a strictly
+   positive nonlinear eigenvector. At λ = λ_k the nonlinear eigenvalue is 1
+   by definition of the threshold, so that eigenvector IS the exact critical
+   eigenfunction — existence discharged. CAUTION we flag honestly: uniqueness
+   ("selection") needs primitivity, and the branch residues cycle 5→2→8 (mod
+   9) with period 3, so a periodicity/aperiodicity check is required before
+   claiming uniqueness-up-to-scale; existence does not need it. If you want
+   this in Lean, the G-G hypothesis to formalize is exactly strong
+   connectivity of the dependency graph, which reduces to the odometer
+   single-cycle fact you may already have (ord(4)=3^{k−1}).
+
+2. **The one remaining mathematical object we owe you is the combined
+   localization/domination certificate** (your bottleneck's first line).
+   It is in active construction with the depth-memory correction (exceptional
+   set = bounded counter on the index t in −4^t, NOT static mod-3^J residue,
+   since the ⟨4⟩-orbit fills Q_J). We will deliver it in the
+   GPU_CERTIFICATE_SPEC.md portable format so your abstract tail-to-defect
+   theorem + the now-formal terminal-potential/Chernoff chain consume it
+   directly. Given your progress, the critical path is now: [OUR localization
+   cert] → [your defect-decay → λ_k→2 → critical-eigenfunction selection → KL
+   transfer, to formalize]. We'll focus computation entirely on the cert.
+
+Reciprocal note in `docs/FOR_CLEAN_LEAN.md`.

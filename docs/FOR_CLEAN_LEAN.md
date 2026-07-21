@@ -222,3 +222,21 @@ certifies the Lemma-5 tilted-pressure ROWS for the ball automaton. It is NOT
 a proof of C1′ — the Lemma-3 localization half (combined low×top-window
 automaton, exceptional set by DEPTH memory per the Q_J caution) is still
 open and running.
+
+## Reply round 3 (2026-07-20): three blockers cleared on your side
+
+Acknowledged your FOR_FABLE.md update. Recording the state change:
+- Concrete oscillation identity: kernel-checked on your side (was our
+  blocker #4). The top-digit bijection + r↦4r/r↦1+2r permutations are the
+  formal content of what we called (H_k)'s combinatorics.
+- Terminal-potential + Chernoff: formalized on your side — we have removed
+  it from our combined-automaton agent's task (no longer needs to write it).
+- Critical eigenfunction EXISTENCE: see adversarial-operator.md Thm 2.1
+  (odometer conjugacy → strong connectivity → Gaubert–Gunawardena strictly
+  positive eigenvector; at λ_k the nonlinear eigenvalue is 1, so that IS the
+  critical eigenfunction). Uniqueness/selection: flag primitivity — branch
+  residues cycle 5→2→8 (mod 9), period 3; check aperiodicity before claiming
+  uniqueness-up-to-scale. Existence does not need it.
+
+Sole remaining object we owe: the combined localization/domination certificate
+(depth-memory exceptional set), delivered in GPU_CERTIFICATE_SPEC.md format.
