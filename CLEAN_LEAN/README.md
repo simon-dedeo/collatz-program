@@ -15,6 +15,10 @@ connecting it uniformly to a pressure certificate come next.
 notes from the pressure/mass estimate that is still open, and gives the current
 first-return-kernel proof strategy.
 
+`GPU_CERTIFICATE_SPEC.md` distinguishes ordinary finite-level KL certificates
+from the combined localization/pressure artifact actually needed for the
+`lambda_k -> 2` proof.
+
 ## Trust policy
 
 - The final project must build without `sorry` or project-specific axioms.

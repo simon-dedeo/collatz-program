@@ -26,6 +26,7 @@ specification theorems during a build.
 #print axioms CleanLean.Collatz.conjecture_iff_syracuse
 #print axioms CleanLean.Collatz.conjecture_of_descent
 #print axioms CleanLean.KL.FiniteSystem.operator_mono
+#print axioms CleanLean.KL.FiniteSystem.fiberMin_le_average
 #print axioms CleanLean.KL.ResidueSystem.transport_apply
 #print axioms CleanLean.KL.ResidueSystem.transport_residue_modEq
 #print axioms CleanLean.KL.ResidueSystem.card_state

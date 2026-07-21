@@ -59,6 +59,21 @@ theorem fiberMin_le (c : S.State → ℝ) (r : S.Coarse) (j : Fin 3) :
     S.fiberMin c r ≤ c (S.fiber r j) := by
   fin_cases j <;> simp [fiberMin]
 
+/-- The fiber minimum is at most the fiber average.  The factor `1/3` in the
+annealed ball-mass automaton comes from exactly this finite inequality. -/
+theorem three_mul_fiberMin_le_sum (c : S.State → ℝ) (r : S.Coarse) :
+    3 * S.fiberMin c r ≤
+      c (S.fiber r 0) + c (S.fiber r 1) + c (S.fiber r 2) := by
+  have h0 := S.fiberMin_le c r 0
+  have h1 := S.fiberMin_le c r 1
+  have h2 := S.fiberMin_le c r 2
+  linarith
+
+theorem fiberMin_le_average (c : S.State → ℝ) (r : S.Coarse) :
+    S.fiberMin c r ≤
+      (c (S.fiber r 0) + c (S.fiber r 1) + c (S.fiber r 2)) / 3 := by
+  linarith [S.three_mul_fiberMin_le_sum c r]
+
 theorem fiberMin_mono {R : Type} [LinearOrder R] {c d : S.State → R}
     (h : ∀ m, c m ≤ d m) (r : S.Coarse) :
     S.fiberMin c r ≤ S.fiberMin d r := by

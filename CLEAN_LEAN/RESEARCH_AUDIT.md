@@ -137,6 +137,12 @@ dominates the full nonlinear KL refinement uniformly in `k`.  GPU eigenvectors
 can suggest `h`, `R`, and the relevant states, but Lean must check an exact
 domination theorem, not the floating-point spectrum.
 
+The subsequent ball-automaton experiment confirms this diagnosis.  Its
+tilted pressure rows have exact rational gaps, but its single-profile
+localization matrices fail on aligned top-digit classes at every block
+length.  See `GPU_CERTIFICATE_SPEC.md` for the refined combined-automaton
+artifact and the fields missing from the current pressure JSON.
+
 ## Other proof routes worth keeping alive
 
 - **Direct subeigenvectors.**  For each fixed rational `lambda < 2`, construct

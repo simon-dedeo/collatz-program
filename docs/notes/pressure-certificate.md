@@ -45,6 +45,8 @@ in-code at J=2..7.]
 (J=3: {26, 20, 5} = the verbatim periodic addresses (2)^inf, (20)^inf,
 (2100)^inf of -1, -1/4, -1/16). NB the full orbit mod 3^J is all of Q_J
 (period 3^(J-1)), so qcut is essential; E cannot be "the whole orbit".
+J=2 is degenerate (E = {2,8} is 2/3 of Q_2, theta_req > 1: nothing
+certifiable there); J >= 3 is the meaningful range.
 
 **Weights.** Certified rational enclosures for lambda-intervals via the
 alpha-sandwich 50508/31867 < alpha < 24727/15601 (verified by 2^p vs 3^q

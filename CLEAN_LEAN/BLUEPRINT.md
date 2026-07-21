@@ -15,6 +15,7 @@ It is deliberately defined before any proposed proof machinery.
 | Equivalence of those specifications | Kernel checked |
 | Accelerated/Syracuse equivalence | Kernel checked |
 | Abstract finite KL operator | In progress |
+| Exact min-to-fiber-average `/3` domination | Kernel checked |
 | Concrete KL residue coordinates and affine transport | Kernel checked |
 | Affine transport agrees with multiplication by four mod `3^k` | Kernel checked |
 | Concrete branch/refinement arithmetic | In progress |
