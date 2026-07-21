@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
 import CleanLean.KL.ExactCertificate
+import CleanLean.KL.KLWeights
 
 /-!
 # Integer-scaled KL certificate format
@@ -130,6 +131,45 @@ theorem feasibleRat_of_valid (d : S.ScaledCertificate) (hd : d.Valid) :
 theorem feasibleRat_of_check (d : S.ScaledCertificate) (hcheck : d.check = true) :
     S.FeasibleRat d.weightsRat d.valuesRat :=
   feasibleRat_of_valid d ((check_eq_true_iff d).1 hcheck)
+
+/-- The rational transport coefficient stored in a scaled certificate is
+exactly the true `lambda^(-2)` coefficient. -/
+theorem transportWeight_cast_eq (d : S.ScaledCertificate)
+    (hA : 0 < d.lambdaNum) (hL : 0 < d.lambdaScale) :
+    (d.weightsRat.transport : ℝ) =
+      ((d.lambdaNum : ℝ) / d.lambdaScale) ^ (-2 : ℝ) := by
+  have hAR : (0 : ℝ) < d.lambdaNum := by exact_mod_cast hA
+  have hLR : (0 : ℝ) < d.lambdaScale := by exact_mod_cast hL
+  rw [weightsRat]
+  norm_num only [Rat.cast_div, Rat.cast_pow, Rat.cast_natCast]
+  rw [Real.rpow_neg (div_nonneg hAR.le hLR.le)]
+  norm_num only [Real.rpow_natCast]
+  rw [div_pow, inv_div]
+
+/-- End-to-end soundness of the streamed integer certificate format for the
+true irrational KL operator.  No floating-point eigenvalue or weight enters
+this implication. -/
+theorem feasibleKL_of_checks
+    (d : S.ScaledCertificate) (P Q : ℕ)
+    (hcheck : d.check = true)
+    (hQ : 0 < Q)
+    (hlambda : d.lambdaScale < d.lambdaNum)
+    (halpha : checkAlphaLower P Q = true)
+    (hweights : checkBranchWeightLowerData d.lambdaNum d.lambdaScale
+      d.retardedNum d.advancedNum d.weightScale P Q = true) :
+    S.Feasible (klWeights ((d.lambdaNum : ℝ) / d.lambdaScale))
+      (fun m => (d.valuesRat m : ℝ)) := by
+  have hd : d.Valid := (check_eq_true_iff d).1 hcheck
+  rcases hd with ⟨hA, hL, hW, hC, hnorm, hrows⟩
+  have hrat : S.FeasibleRat d.weightsRat d.valuesRat :=
+    feasibleRat_of_valid d ⟨hA, hL, hW, hC, hnorm, hrows⟩
+  have hreal := S.feasible_of_feasibleRat d.weightsRat d.valuesRat hrat
+  have hbranch := branchWeightLower_of_checks hL hW hQ
+    hlambda halpha hweights
+  apply S.feasible_mono_weights hreal
+  · simpa [klWeights] using (d.transportWeight_cast_eq hA hL).le
+  · simpa [weightsRat, klWeights] using hbranch.1
+  · simpa [weightsRat, klWeights] using hbranch.2
 
 end ScaledCertificate
 

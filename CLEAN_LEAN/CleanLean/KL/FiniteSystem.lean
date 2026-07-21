@@ -126,10 +126,46 @@ theorem operator_nonneg
   | neutral => simpa [operator, hb] using ht
   | advanced => simpa [operator, hb] using add_nonneg ht (mul_nonneg hw8 hf)
 
+/-- Increasing nonnegative operator coefficients can only increase the KL
+operator on a nonnegative vector. -/
+theorem operator_mono_weights
+    {w v : Weights ℝ} {c : S.State → ℝ}
+    (hc : ∀ m, 0 ≤ c m)
+    (ht : w.transport ≤ v.transport)
+    (hret : w.retarded ≤ v.retarded)
+    (hadv : w.advanced ≤ v.advanced) :
+    ∀ m, S.operator w c m ≤ S.operator v c m := by
+  intro m
+  have htransport := mul_le_mul_of_nonneg_right ht (hc (S.transport m))
+  have hf : 0 ≤ S.fiberMin c (S.refinementTarget m) :=
+    S.fiberMin_nonneg c hc (S.refinementTarget m)
+  cases hb : S.branch m with
+  | retarded =>
+      simpa [operator, hb] using
+        add_le_add htransport (mul_le_mul_of_nonneg_right hret hf)
+  | neutral => simpa [operator, hb] using htransport
+  | advanced =>
+      simpa [operator, hb] using
+        add_le_add htransport (mul_le_mul_of_nonneg_right hadv hf)
+
 /-- Reduced KL feasibility, with the normalization separated from the
 componentwise subeigenvector inequality. -/
 def Feasible (w : Weights ℝ) (c : S.State → ℝ) : Prop :=
   (∀ m, 1 ≤ c m) ∧ ∀ m, c m ≤ S.operator w c m
+
+theorem feasible_mono_weights
+    {w v : Weights ℝ} {c : S.State → ℝ}
+    (h : S.Feasible w c)
+    (ht : w.transport ≤ v.transport)
+    (hret : w.retarded ≤ v.retarded)
+    (hadv : w.advanced ≤ v.advanced) :
+    S.Feasible v c := by
+  constructor
+  · exact h.1
+  · intro m
+    exact (h.2 m).trans
+      (S.operator_mono_weights (fun q => (h.1 q).trans' zero_le_one)
+        ht hret hadv m)
 
 end
 

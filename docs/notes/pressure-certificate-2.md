@@ -195,3 +195,23 @@ leak; only the charged-pressure route (option (b)) does, conditionally.
 
 External audit of Part II (gpt-5.6-sol, authorized): `sol_audit_answer.md`
 (SSL fixed via certifi); adopted claims re-verified before use.
+
+## II.5 External audit outcome (gpt-5.6-sol, adopted after verification)
+
+Confirmed: (i) C = 1 nonexpansiveness from no-zero-rows (column action,
+interior points — our case); (ii) Chernoff orientation R^b < z^a correct,
+charges additive and encoded once; reducibility costs only a polynomial
+prefactor under the strict inequality; (iii) the greedy factor-6 disjoint
+selection and theta = 15/16 counting. Adopted refinements: (a) localization
+must be stated in *chronological cocycle time* — blocks are per-level
+transport windows; since B8 acts by x2 on the window, a bounded-overlap
+lemma for descent-transformed windows is required, and covered visits may
+only be counted at phases holding an actual tau certificate (phases 2, 5 at
+L_w = 6); (b) R_unc < 1 alone needs bounded connector norms and boundedly
+many covered excursions (rows here are bounded by p + q8 = 7/4; ECH2 is the
+self-contained alternative); (c) the correct discharge of H1 (and jointly
+H2) is a finite two-sided/vector-state automaton retaining sibling masses
+with a certified boundary conditional cone via exact LP — uniform splitting
+(the annealed model) "silently assumes the desired independence", which is
+exactly why it is declared a hypothesis here. Full text:
+`experiments/pressure-cert2/sol_audit_answer.md`.

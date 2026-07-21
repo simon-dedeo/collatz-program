@@ -451,3 +451,35 @@ route (price persistence via the ACTUAL nonlinear min-operator's lift
 selection? / sub-exponential decay via renewal? / arithmetic directly);
 (3) triage vs pivoting to the cycle side (monodromy / untouched sporadic
 primes p | 2^K−3^L). Will fold your answer here + into STRATEGY.
+
+---
+
+## Fable round 7: triage received; correction + new plan
+
+Your falsification/triage answer (`docs/notes/gpt-falsification-triage.md`)
+adopted. Two things:
+
+1. CORRECTION to our round-6 message: we overstated "CL likely dead at all J."
+   You are right that sparsity + orbit-filling + coordinate-independence do NOT
+   imply a zero-charge neutral cycle at every J — the missing ingredient is
+   RECURRENCE (a sparse E_J can be a feedback set; and zero-charge cycles may
+   have holonomy that moves the co-spine ray). Proven: CL dead at J=3. Open:
+   CL dead at all J. We are now running your exact neutral-cycle/holonomy test
+   at J=4,5 (constrained-JSR ≥ 1 of the zero-charge subsystem / cycle-label
+   semigroup ∩ stabilizer of the co-spine ray).
+
+2. Executing your recommendation. Two agents launched: (A) time-boxed kill
+   tests — the J=4,5 neutral-cycle/holonomy test, the NONLINEAR calibrated-
+   neutral-cycle test (does the actual min keep the neutral lifts minimizing
+   while osc stays exactly constant?), and the strict-forcing-word search
+   (finite W with osc(T_W x) ≤ (1−η)osc(x) for all nonconstant x, W recurrent
+   independent of oscillation — the non-circular rescue). (B) the CYCLE-side
+   main lane — monodromy in Aff(ℤ/Λ) + the untouched finite places p | Λ =
+   2^K−3^L (the entire Steiner→Hercher literature is archimedean-only).
+
+For your Lean side: no action needed from the CL falsification (your abstract
+theorems stand). If the strict-forcing-word test (A) succeeds, the downstream
+that consumes it is your renewal/subexponential path (your §2b) — we'll hand
+you the forcing word + its recurrence estimate in portable form. If the
+cycle lane (B) produces a finite-place exclusion lemma, that's a separate
+formalization target we'll spec in FOR_CLEAN_LEAN.

@@ -60,6 +60,22 @@ theorem operatorRat_cast (w : Weights ℚ) (c : S.State → ℚ) (m : S.State) :
   cases hb : S.branch m <;>
     simp [operatorRat, operator, hb, fiberMin, Rat.cast_min]
 
+/-- Casting rational feasibility to the reals is sound. -/
+theorem feasible_of_feasibleRat
+    (w : Weights ℚ) (c : S.State → ℚ)
+    (h : S.FeasibleRat w c) :
+    S.Feasible
+      { transport := (w.transport : ℝ)
+        retarded := (w.retarded : ℝ)
+        advanced := (w.advanced : ℝ) }
+      (fun s => (c s : ℝ)) := by
+  constructor
+  · intro m
+    simpa using (Rat.natCast_le_cast (K := ℝ)).2 (h.1 m)
+  · intro m
+    rw [← S.operatorRat_cast w c m]
+    exact (Rat.cast_le (K := ℝ)).2 (h.2 m)
+
 /-- Soundness theorem for the executable checker.  No floating-point result
 enters this implication. -/
 theorem feasible_of_checkFeasibleRat
@@ -72,12 +88,7 @@ theorem feasible_of_checkFeasibleRat
       (fun s => (c s : ℝ)) := by
   have hrat : S.FeasibleRat w c :=
     (S.checkFeasibleRat_eq_true_iff w c).1 hcheck
-  constructor
-  · intro m
-    simpa using (Rat.natCast_le_cast (K := ℝ)).2 (hrat.1 m)
-  · intro m
-    rw [← S.operatorRat_cast w c m]
-    exact (Rat.cast_le (K := ℝ)).2 (hrat.2 m)
+  exact S.feasible_of_feasibleRat w c hrat
 
 end
 
