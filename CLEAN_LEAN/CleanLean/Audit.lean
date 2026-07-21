@@ -51,6 +51,7 @@ import CleanLean.KL.MarginalObstruction
 import CleanLean.KL.OrbitHitting
 import CleanLean.KL.NonlinearPerron
 import CleanLean.KL.CountingTransfer
+import CleanLean.KL.FiniteRecordK12
 
 /-!
 # Trust-boundary audit
@@ -305,3 +306,10 @@ specification theorems during a build.
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_feasible_sequence
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_feasible_sequence_concrete
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_klDefect
+#print axioms CleanLean.KL.FiniteRecordK12.transport_val_eq_direct
+#print axioms CleanLean.KL.FiniteRecordK12.refinementTarget_val_eq_direct
+#print axioms CleanLean.KL.FiniteRecordK12.fiberMinValue_eq_direct
+#print axioms CleanLean.KL.FiniteRecordK12.certificate_valid_of_allChunks
+#print axioms CleanLean.KL.FiniteRecordK12.allChunksValid
+#print axioms CleanLean.KL.FiniteRecordK12.levelFeasible
+#print axioms CleanLean.KL.FiniteRecordK12.hasPredecessorExponent_record

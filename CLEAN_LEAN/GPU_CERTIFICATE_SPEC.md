@@ -11,6 +11,13 @@ The existing integer KL feasibility certificates through level 19 prove
 finite predecessor-counting exponents.  A level-20 candidate eigenvector is
 useful for the next record, but it is not needed for the limit proof.
 
+The inline level-12 artifact is now imported by
+`FiniteRecordK12.lean`: its 177,147 coordinates are SHA-pinned, checked by
+kernel reduction in bounded synchronous blocks, and carried through to the
+ordinary predecessor exponent.  This is the reference implementation of the
+finite-record semantics.  It is not a scalable encoding for the much larger
+sidecars below.
+
 A portable level-20 record certificate consists of:
 
 - `cert_k20.json`, including all scales, rational weight lower bounds, and the

@@ -1882,3 +1882,67 @@ or (b) a chunked generated proof whose arithmetic is reduced by the kernel.
 For `k=15--19`, a raw embedded array is not realistic; we need either a
 smaller certificate/proof artifact or a carefully documented native/streamed
 checker architecture.
+
+## Round 45 — the exact level-12 record is now a kernel theorem
+
+The requested first large-record import is complete.  The source is
+`experiments/kl/cert_k12.json`, pinned at
+
+```text
+a6386bfc8d0410a3dd82a98d765690e53c620259e6b7c4a5359f150ce6d1459f
+```
+
+The deterministic generator checks the fixed metadata and 177,147-coordinate
+length, then emits balanced coordinate lookups and 2,768 disjoint 64-row
+proof blocks.  Those blocks are split into 44 independently cached modules;
+each row is discharged by kernel `rfl`, not `native_decide` or the external
+Python verifier.  A small top module assembles all blocks into `certificate.Valid`.
+
+`FiniteRecordK12Core.lean` proves the semantic map once, including
+
+```text
+state coordinate i <-> paper residue m = 2 + 3*i,
+transport coordinate (4*i+2) mod 3^11,
+both branch-dependent coarse targets,
+and the three refinement lifts.
+```
+
+Thus the fast direct natural-coordinate rows are proved equal to the generic
+`ZMod` KL system before `ScaledCertificate` soundness is invoked.  The final
+load-bearing declarations are
+
+```text
+FiniteRecordK12.levelFeasible :
+  LevelFeasible 12 (18064231 / 10000000 : Real)
+
+FiniteRecordK12.hasPredecessorExponent_record
+  (ha : 0 < a) (ha3 : a % 3 != 0) :
+  HasPredecessorExponent a
+    (logb 2 (18064231 / 10000000 : Real)).
+```
+
+The latter exponent is approximately `0.8531358400955402`.  It is now an
+unconditional theorem about the literal Syracuse predecessor count, not only
+an eigenvalue calculation or LP statement.
+
+Benchmark on this machine: a clean parallel rebuild of the split row modules
+took 396.43 seconds; the largest reported worker resident set was about 6.5 GB.
+Generated source is 14.72 MB and cached row-proof `.olean` files total about
+221 MB.  Rerunning the generator gives no diff.  The focused build, audit, and
+full 8,765-job `lake build` all pass.  The audit reports only `propext`,
+`Classical.choice`, and `Quot.sound` for the semantic map, assembled
+certificate, exact feasibility theorem, and final counting theorem.
+
+This architecture is a good exact portability checkpoint but not the right
+raw embedding for `k=15--19`; those levels need a smaller proof artifact or a
+streamed checker with a deliberately stated trust boundary.  It also does not
+prove `lambda_k -> 2`: the remaining mathematical input is still an all-level
+feasible sequence tending to two, or a valid pressure/localization theorem
+that constructs one.  I have taken replies 26--27 as explicit instructions
+not to formalize the finite genealogy/cone fits.
+
+Please independently audit (i) the direct index/residue semantics in
+`FiniteRecordK12Core.lean`, (ii) the irrational weight checks in
+`FiniteRecordK12.lean`, and (iii) the final use of
+`hasPredecessorExponent_of_levelFeasible`.  If you agree, this is ready to be
+cited as the first exact large-record end-to-end theorem.

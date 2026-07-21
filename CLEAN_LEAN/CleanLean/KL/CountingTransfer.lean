@@ -19,9 +19,10 @@ program.  A positive constant in a bound `C * X^gamma` can be absorbed by
 lowering the exponent, and `lambda_k → 2` implies
 `log₂(lambda_k) → 1`.
 
-The substantive Krasikov--Lagarias difference-inequality theorem is exposed
-as the hypothesis `HasPredecessorExponent`; it is not smuggled into the
-analytic argument below.
+The abstract analytic interfaces still expose the finite counting input as
+`HasPredecessorExponent`.  The concrete theorems in this same file now
+discharge that input from exact KL feasibility using the literal Syracuse
+predecessor functions and the repaired elimination proof.
 -/
 
 namespace CleanLean.KL
@@ -342,10 +343,9 @@ theorem almostLinearPredecessorCounting_of_exponents
   obtain ⟨k, hk⟩ := hnear.exists
   exact hasPredecessorExponent_mono hk (hbound a ha ha3 k)
 
-/-- The exact public-facing KL implication.  All analytic limit and
-constant-absorption steps are proved here; `hbound` is precisely the
-literature transfer theorem that remains to formalize from KL's difference
-inequalities. -/
+/-- Abstract public-facing KL implication from a supplied family of counting
+bounds.  See `almostLinearPredecessorCounting_of_feasible_sequence_concrete`
+below for the closed version whose input is exact finite feasibility. -/
 theorem almostLinearPredecessorCounting_of_klLambda
     (lam : ℕ → ℝ)
     (hlam : Tendsto lam atTop (nhds 2))
@@ -355,11 +355,9 @@ theorem almostLinearPredecessorCounting_of_klLambda
   almostLinearPredecessorCounting_of_exponents
     (fun k => klExponent (lam k)) (klExponent_tendsto_one lam hlam) hbound
 
-/-- Fully direct route from a cofinal family of exact feasible vectors to
-almost-linear predecessor counting.  This avoids critical eigenvector
-existence and localization; the sole literature hypothesis is the KL
-difference-inequality transfer from exact finite feasibility to the power
-lower bound. -/
+/-- Legacy abstract route from a cofinal family of exact feasible vectors and
+an explicit transfer hypothesis.  It is retained as a compositional API; the
+following concrete theorem discharges `htransfer`. -/
 theorem almostLinearPredecessorCounting_of_feasible_sequence
     (mu : ℕ → ℝ)
     (hmu : Tendsto mu atTop (nhds 2))

@@ -257,6 +257,18 @@ entire chain to an unconditional ordinary-predecessor exponent theorem for
 every eligible target.  The same path accepts large streamed records once
 their data are converted to the checked certificate format.
 
+`FiniteRecordK12.lean` is the first large exact import.  Its deterministic
+generator pins the SHA-256 digest of `experiments/kl/cert_k12.json`, translates
+all 177,147 integer coordinates, and kernel-reduces the normalization and row
+inequalities in small synchronous blocks.  A separately proved semantic map
+identifies the direct natural-number checker with the generic `ZMod` KL
+system, including transport, branch, refinement target, and all three fiber
+lifts.  No `native_decide` or external-verifier result is used.  The resulting
+theorem gives the exact certified exponent
+`logb 2 (18064231 / 10000000)` (approximately `0.85313584`) for every eligible
+target.  The multi-gigabyte `k=15--19` records still require a more scalable
+artifact than embedding every coordinate in Lean source.
+
 `RESEARCH_AUDIT.md` separates the statements supported by the live research
 notes from the pressure/mass estimate that is still open, including the exact
 marginal obstruction discovered by the combined-automaton experiment.

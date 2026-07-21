@@ -21,11 +21,12 @@ This is a plausible target for formalization.  The downstream implications
 from weighted-tail decay to `lambda_k -> 2`, and from that endpoint to
 `x^(1-epsilon)` predecessor counting, are formalized.  Finite feasibility now
 implies the abstract KL difference-function bound without a literature
-elimination hypothesis.  The separate instantiation of those functions by
-actual predecessor counts remains open and must avoid the false printed
-equation (2.1).  The uniform localization premise is also not proved.  Thus
-this is not presently a proof of `lambda_k -> 2`, the counting result, or
-Collatz.
+elimination hypothesis.  Those functions are now instantiated by actual
+Syracuse predecessor counts using a targetwise one-sided doubling argument
+that avoids the false printed equation (2.1).  Thus exact finite feasibility
+now reaches the ordinary counting exponent.  The uniform localization premise
+is still not proved, so this is not presently a proof of `lambda_k -> 2`, the
+almost-linear counting result, or Collatz.
 
 ## Claims that survive the audit
 
@@ -69,11 +70,12 @@ Collatz.
    operator without floating point.
 
 8. **The counting endgame.** `PredecessorCount.lean` defines the count using
-   the actual Syracuse iterate. `CountingTransfer.lean` proves that
-   `lambda_k -> 2`, together with the KL Theorem 2.2 lower bounds, gives
-   `X^(1-epsilon)` counting for every positive epsilon.  It also proves the
-   direct variant in which exact finite feasible parameters themselves tend
-   to two, bypassing critical eigenvector existence and localization.
+   the actual Syracuse iterate. `PredecessorBase.lean` proves the literal
+   residue-infimum functions satisfy the KL base system, and
+   `CountingTransfer.lean` proves exact feasibility at any `k>=2` supplies the
+   exponent `logb 2 lambda` for every eligible target.  Consequently an exact
+   feasible sequence tending to two gives `X^(1-epsilon)` counting, with no
+   remaining literature-transfer hypothesis.
 
 9. **The retarded difference comparison.** `RetardedComparison.lean`
    represents the eliminated right-hand sides as finite nested sum/min trees
@@ -404,11 +406,10 @@ strict Lyapunov route is exactly marginal and cannot close.
 
 ## Lean dependency path to the counting theorem
 
-1. Repair and formalize the advanced-term elimination and LP lifting in
-   Krasikov--Lagarias Theorems 3.1--4.1.  The published termination proof
-   cannot be imported as written because the formal obstruction defeats its
-   finite-step shift-decrease inference and history-free-subtree step.  The downstream
-   retarded comparison in Theorem 5.1 is already kernel checked.
+1. The repaired two-phase history construction, retarded comparison, literal
+   predecessor base system, and arbitrary-target counting transfer are now
+   kernel checked.  This completes the finite-feasibility-to-counting path
+   without using the invalid printed derivation.
 2. Prove either a cofinal exact feasible-vector construction with parameters
    tending to two, or the critical-eigenvector localization theorem.  The
    first route is already connected to the counting endgame and needs no

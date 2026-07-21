@@ -31,11 +31,14 @@ It is deliberately defined before any proposed proof machinery.
 | Integer branch-weight checks imply true `Real.rpow` bounds | Kernel checked |
 | Scaled integer certificate implies feasibility for true KL weights | Kernel checked |
 | Lean-native level-2 end-to-end certificate at `lambda=4/3` | Kernel checked |
+| Exact 177,147-coordinate level-12 record and counting exponent | Kernel checked |
 | SHA-256/NPY streaming front end | Planned |
 | KL Theorem 5.1 retarded-tree comparison and `1/(4 max c)` constant | Kernel checked |
 | Sum/min tree contexts and sound splitting substitution | Kernel checked |
 | Local deletion from a minimum is not sound from positivity/monotonicity alone | Kernel-checked counterexample |
-| KL advanced-term elimination and original-system transfer (Theorems 3.1--4.1) | Planned |
+| Repaired two-phase advanced-term elimination and original-system transfer | Kernel checked |
+| Literal KL predecessor functions satisfy the base system for every `k>=2` | Kernel checked |
+| Exact finite feasibility implies the ordinary predecessor exponent | Kernel checked |
 | Finite weighted-tail inequality in R' | Kernel checked |
 | Full abstract asymptotic R' | Kernel checked |
 | Geometric pressure-gap implies tail decay | Kernel checked |
@@ -54,7 +57,7 @@ It is deliberately defined before any proposed proof machinery.
 | Concrete KL oscillation identity | Kernel checked |
 | Concrete annealed root: strict decrease and `s(2)=1` | Kernel checked |
 | Vanishing defect implies `lambda_k -> 2` | Kernel checked |
-| `lambda_k -> 2` implies `X^(1-epsilon)` counting, conditional on KL transfer | Kernel checked |
+| `lambda_k -> 2` via exact feasible levels implies `X^(1-epsilon)` counting | Kernel checked |
 | Exact feasible sequence tending to `2` implies the same counting conclusion | Kernel checked |
 | Feasible lower sequence tending to `2` squeezes exact critical suprema to `2` | Kernel checked |
 | Level feasibility and exact critical suprema are monotone in `k` | Kernel checked |
