@@ -18,6 +18,11 @@ ordinary predecessor exponent.  This is the reference implementation of the
 finite-record semantics.  It is not a scalable encoding for the much larger
 sidecars below.
 
+Lean does not itself hash the source JSON.  The deterministic generator pins
+the expected digest and its `--check` mode enforces byte-for-byte currency of
+all generated Lean modules; the kernel then checks the emitted integer
+certificate independently of that provenance step.
+
 A portable level-20 record certificate consists of:
 
 - `cert_k20.json`, including all scales, rational weight lower bounds, and the

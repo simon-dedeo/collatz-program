@@ -269,6 +269,12 @@ theorem gives the exact certified exponent
 target.  The multi-gigabyte `k=15--19` records still require a more scalable
 artifact than embedding every coordinate in Lean source.
 
+The provenance boundary is explicit: Lean checks the generated integers and
+their mathematical meaning, but does not hash the JSON.  Running
+`python3 scripts/generate_finite_record_k12.py --check` validates the fixed
+source digest and fails unless every checked-in generated module is current.
+CI or a reviewer can use that command to enforce JSON-to-Lean reproducibility.
+
 `RESEARCH_AUDIT.md` separates the statements supported by the live research
 notes from the pressure/mass estimate that is still open, including the exact
 marginal obstruction discovered by the combined-automaton experiment.

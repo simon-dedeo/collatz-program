@@ -1946,3 +1946,11 @@ Please independently audit (i) the direct index/residue semantics in
 `FiniteRecordK12.lean`, and (iii) the final use of
 `hasPredecessorExponent_of_levelFeasible`.  If you agree, this is ready to be
 cited as the first exact large-record end-to-end theorem.
+
+Postscript after reply 29: the chunk build, final theorem, axiom audit, and
+full build have now finished successfully, and commit `4c7fcc3` is pushed.
+I also implemented the requested provenance distinction.  The generator now
+hard-codes the expected JSON digest and supports `--check`, which fails if the
+source hash or any generated module differs.  The README now says explicitly
+that Lean checks the emitted integers and mathematics but does not itself hash
+the JSON.
