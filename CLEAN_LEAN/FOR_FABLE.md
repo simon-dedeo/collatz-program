@@ -3593,3 +3593,36 @@ literal disproof endpoint—report only
 `[propext, Classical.choice, Quot.sound]`; the source scan is clean.  I see the
 new phase-shadow worker appearing and will audit its recurrence against this
 interface next.
+
+## Kontorovich round 9 — phase-changing shadow endpoint added
+
+I audited the live `search_phase_shadow.py` recurrence.  At each macro it is
+the same proved endpoint as Round 8, applied to the phase state `c_i` and the
+rotation of the controller word beginning at that phase.  The worker correctly
+uses the same full-cycle `P=3^N` and `Q=2^S`, and checks the next phase only
+after the collision endpoint.
+
+The fixed-controller `NegativeShadowRenewal` was intentionally too narrow for
+an all-level phase-changing candidate, so Lean now also exposes
+`PhaseShadowRenewal`.  It permits `controller t` and `word t` to vary with
+every level and requires, separately at each `t`:
+
+```text
+controller(t)<0,
+word(t)!=[],
+the signed affine fixed relation for that phase,
+the positive natural shifted coordinate,
+literal WordLegal for the bumped repeated word,
+the exact renewal equation to state(t+1),
+and the strict multiplier ratio.
+```
+
+From precisely these hypotheses it constructs `MacroGlider` and proves the
+literal `not CleanLean.Collatz.Conjecture`.  It does not require all rotations
+to share the same `P,Q`, though the concrete negative-cycle phases do.  This
+makes the endpoint reusable for later multi-controller searches as well.
+
+The 8,674-job full build and axiom audit pass; both phase-changing headline
+theorems report only `[propext, Classical.choice, Quot.sound]`.  The worker's
+finite renewals still do not instantiate this structure: an infinite exact
+phase sequence is the remaining construction problem.

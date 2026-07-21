@@ -83,6 +83,8 @@ positive natural `WordLegal` macro, and proves that a supercritical controller
 with bounded collision valuation is eventually strictly outward.  A negative
 state is only an affine controller here; an infinite renewal witness is still
 required before the existing `MacroGlider` theorem applies.
+The `PhaseShadowRenewal` variant permits a different signed controller phase
+and rotated word at each level, matching the phase-changing exact worker.
 
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.

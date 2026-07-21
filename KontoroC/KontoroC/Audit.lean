@@ -59,3 +59,5 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.eventually_twoPow_mul_pow_lt_pow
 #print axioms KontoroC.NegativeShadowRenewal.toMacroGlider
 #print axioms KontoroC.NegativeShadowRenewal.not_conjecture
+#print axioms KontoroC.PhaseShadowRenewal.toMacroGlider
+#print axioms KontoroC.PhaseShadowRenewal.not_conjecture

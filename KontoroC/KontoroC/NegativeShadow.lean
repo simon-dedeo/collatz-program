@@ -311,4 +311,64 @@ theorem not_conjecture (g : NegativeShadowRenewal) :
 
 end NegativeShadowRenewal
 
+/-- Phase-changing variant: the negative controller and its rotated word may
+change at every renewal.  This matches `search_phase_shadow.py`; no theorem
+assumes that a finite compatible phase path extends indefinitely. -/
+structure PhaseShadowRenewal where
+  controller : ℕ → ℤ
+  word : ℕ → List ℕ
+  level0 : ℕ
+  extra : ℕ → ℕ
+  packet : ℕ → ℕ
+  state : ℕ → ℕ
+  controller_neg : ∀ t, controller t < 0
+  word_nonempty : ∀ t, word t ≠ []
+  level0_pos : 0 < level0
+  start_large : 4 < state 0
+  packet_pos : ∀ t, 0 < packet t
+  fixed_affine : ∀ t,
+    (2 ^ totalValuation (word t) : ℤ) * controller t =
+      (3 ^ (word t).length : ℤ) * controller t + affineOffset (word t)
+  coordinate : ∀ t, (state t : ℤ) = controller t +
+    (2 ^ totalValuation (word t) : ℤ) ^ (level0 + t) * packet t
+  legal : ∀ t, WordLegal (state t)
+    (shadowMacroWord (word t) (level0 + t) (extra t))
+  renewal : ∀ t, (2 ^ extra t : ℤ) * state (t + 1) = controller t +
+    (3 ^ (word t).length : ℤ) ^ (level0 + t) * packet t
+  ratio : ∀ t,
+    2 ^ extra t * (2 ^ totalValuation (word t)) ^ (level0 + t) <
+      (3 ^ (word t).length) ^ (level0 + t)
+
+namespace PhaseShadowRenewal
+
+/-- A phase-changing all-level renewal is still a literal macro-glider. -/
+def toMacroGlider (g : PhaseShadowRenewal) : MacroGlider where
+  state := g.state
+  word := fun t => shadowMacroWord (g.word t) (g.level0 + t) (g.extra t)
+  start_large := g.start_large
+  word_nonempty := fun t => by
+    apply bumpLast_ne_nil
+    exact repeatWord_ne_nil (g.word_nonempty t)
+      (Nat.add_pos_left g.level0_pos t)
+  legal := g.legal
+  transition := fun t => by
+    have hend := negativeShadow_endpoint (g.word_nonempty t)
+      (Nat.add_pos_left g.level0_pos t)
+      (g.fixed_affine t) (g.coordinate t) (g.legal t)
+    have heq : (runWord (g.state t)
+        (shadowMacroWord (g.word t) (g.level0 + t) (g.extra t)) : ℤ) =
+        g.state (t + 1) := by
+      apply mul_left_cancel₀ (show (2 ^ g.extra t : ℤ) ≠ 0 by positivity)
+      exact hend.trans (g.renewal t).symm
+    exact_mod_cast heq
+  grows := fun t =>
+    negativeShadow_strict_growth (g.controller_neg t) (g.packet_pos t)
+      (g.coordinate t) (g.renewal t) (g.ratio t)
+
+theorem not_conjecture (g : PhaseShadowRenewal) :
+    ¬CleanLean.Collatz.Conjecture :=
+  g.toMacroGlider.not_conjecture
+
+end PhaseShadowRenewal
+
 end KontoroC
