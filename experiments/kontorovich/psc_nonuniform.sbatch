@@ -11,6 +11,8 @@
 
 set -euo pipefail
 
+module load anaconda3/2024.10-1
+
 mkdir -p shards logs
 srun --kill-on-bad-exit=1 bash -lc '
   python3 search_nonuniform.py \
