@@ -7,7 +7,8 @@ Lean also proves the abstract branch-arrival compactness theorem. The printed
 construction remains invalid. Lean commit `3d6a186` now kernel-checks the
 occurrence-aware replacement through the abstract feasible-point comparison.
 Commit `331ff48` defines the actual predecessor family and proves target-pool
-nonemptiness and P1/P2; D1--D3 and the final exponent wrapper remain open. Run:
+nonemptiness and P1/P2; commit `729f5fa` proves D1--D3; commit `76ec861`
+proves the final exponent wrapper. Run:
 
 ```sh
 python3 verify_termination_obstruction.py
@@ -60,11 +61,10 @@ that child survived below the original root. The pruned subtree depends on the
 ancestor history, not only on the root residue and a translated shift.
 
 This certificate is **not** a nontermination lasso. The re-expanded subtree is
-different, and the path cannot simply repeat. The precise remaining theorem is
-that the finitely branching tree of legal histories has no infinite path for
-every `k>=2` and every advanced root. A fixed breadth-first schedule would
-suffice downstream; a proof of confluence for arbitrary schedules is not
-needed for existence of the final retarded witness.
+different, and the path cannot simply repeat. The needed theorem that the
+compressed branch-arrival relation is well-founded for every `k>=2` is now
+kernel-checked as `BranchChild.wellFounded`; the replacement does not require
+confluence for arbitrary interleaved schedules.
 
 ## A second obstruction: the rule can delete all three leaves
 
@@ -164,8 +164,8 @@ class `2m`, so the valid statement is
 
 This is a genuine printed error but not an additional fatal gap: the useful
 lower-bound direction survives (even with `+1`) and yields the same exponent
-with the usual factor `λ^{-1}`. The formal counting bridge must use this
-inequality or the direct inclusion `π_a(x) ≥ π_{2a}(x)`, not the equality.
+with the usual factor `λ^{-1}`. The formal bridge in commit `76ec861` uses the
+direct inclusion `π_a(x) ≥ π_{2a}(x)`, not the equality.
 
 ## Consequence for the record certificate
 
@@ -174,13 +174,15 @@ verified. The inference from that feasible point to the predecessor-counting
 bound uses KL Theorem 2.2, whose published supporting chain invokes Theorem
 3.1. The corrected retarded-elimination witness is kernel-checked in commit
 `3d6a186`, while commit `331ff48` defines the actual function family and proves
-nonemptiness, normalization, and monotonicity. The formal trust chain now has
-one visible construction gap: prove D1--D3 for that family and discharge the
-final counting transfer using the correction above. Until that is checked, the numerical certificate is exact but the
-headline exponent is conditional. This is a trust-chain correction, not
-evidence that the bound or Theorem 3.1 is false.
+nonemptiness, normalization, and monotonicity. Commit `729f5fa` proves the
+literal D1--D3/base-system theorem, and commit `76ec861` discharges the final
+fixed-target/all-target counting transfer using the correction above. The
+headline exponent is therefore established under the repo's mixed trust
+policy: exact Python verifies the large concrete rows, while Lean proves the
+generic implication. The `k=19` data are not yet Lean-ingested. This is a
+trust-chain repair, not a validation of the printed construction.
 
-## Repair frontier
+## Repair history and completed replacement
 
 The global deletion-lifting lemma is now kernel-checked in both left and right
 orientations: under occurrence-specific whole-tree `NoCriticalUse`, every
@@ -207,7 +209,7 @@ which the assignment-specific principal bounds were never established. It is
 therefore deprioritized unless a materially stronger provenance invariant is
 found.
 
-The leading replacement is **finite policy-menu compilation**. Build the
+The successful replacement is **finite policy-menu compilation**. Build the
 universal occurrence-annotated history forest by expanding every nonnegative
 leaf, retaining all transport and branch children but marking a branch child
 which is strictly above an earlier same-state occurrence on *that path*.
@@ -262,17 +264,18 @@ The replacement proof chain is now sharply factored:
 4. assemble `TwoPhaseEliminationData`, whose checked consumer already produces
    the abstract retarded comparison with the correct functional and coefficient
    directions; and
-5. prove the now-defined predecessor `phi` satisfies D1--D3 and close the
-   corrected counting transfer.
+5. prove the now-defined predecessor `phi` satisfies D1--D3; and
+6. close the corrected fixed-target/all-target counting transfer.
 
 Commit `3d6a186` kernel-checks steps 1--4, including
 `BranchChild.wellFounded`, `buildHistory`, root-only mark provenance, live
 pruning, the common lag, `builtRetardedEliminationWitness`, and
-`quarter_lower_bound_of_feasible`. A full 8,714-job build passes, and the axiom
+`quarter_lower_bound_of_feasible`. After the base-system checkpoint, a full
+8,717-job build passes, and the axiom
 audit reports no `sorryAx`. Commit `331ff48` also completes the definition,
 target-pool nonemptiness, normalization, and monotonicity portion of step 5;
-its base inequalities and exponent wrapper are the sole remaining finite-level
-seam.
+commit `729f5fa` completes its base inequalities. The exponent wrapper is the
+content of commit `76ec861`; all six steps are now checked.
 
 The preferred termination implementation uses
 `wellFounded_iff_isEmpty_descending_chain` directly on compressed branch
@@ -297,5 +300,5 @@ the complete two-phase-to-retarded consumer. CLEAN_LEAN commit `2f17afe` checks
 the rich word syntax and raw-tree shift, local-validity, functional,
 coefficient, and negative-terminal invariants; commit `3d6a186` completes the
 producer and witness assembly. Commit `331ff48` defines the predecessor-count
-family and proves P1/P2. Only D1--D3 and its final exponent transfer remain
-provisional.
+family and proves P1/P2; commit `729f5fa` proves D1--D3; commit `76ec861`
+proves the final exponent transfer. The finite mathematical bridge is complete.

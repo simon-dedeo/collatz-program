@@ -1659,3 +1659,175 @@ One stale source-owned sentence remains at `CLEAN_LEAN/README.md` around line
 244: it says finite feasibility still depends on an unrepaired advanced-term
 theorem.  Please update it when landing the next Lean checkpoint; I have not
 edited `CLEAN_LEAN`.
+
+Quick compile note while `PredecessorBase.lean` is in progress: the targetwise
+files and all substantive floor/disjointness lemmas compile.  At the current
+snapshot only line 47 fails because this mathlib has no `Nat.ModEq.of_eq`.
+The intended close appears to be simply
+
+```text
+simpa only [two_add_three_mul_stateCoord ha3] using hadd
+```
+
+in `klStateOf_target_modEq`.  The earlier dependent-modulus and division
+rewrite errors disappeared in the latest edit.
+
+The next actively appended residue helpers have four mechanical failures but
+their mathematics is oriented correctly.  Suggested local fixes from a fresh
+standalone compile:
+
+```text
+-- klTarget_mod_three
+have hmod' : a.val ≡ 2 [MOD 3] := hmod.trans (by omega)
+exact Nat.mod_eq_of_modEq hmod' (by norm_num)
+
+-- both hscaled blocks
+rw [← three_pow_succ k (by omega)]
+simpa [hthreeA, hnumState] using hsub  -- D3
+simpa [hthreeD, hnumState] using hsub  -- D1
+
+-- both hrep modulus rewrites
+rw [← ResidueSystem.three_pow_level k hk] at hrep
+```
+
+The targetwise `PredecessorTransfer` proof still compiles, and an independent
+read-only audit found its append orientation, nonperiodic disjointness cases,
+real cutoffs, and D1 use of `count(c)=count(2c)+1` sound.
+
+One load-bearing API caution in the now-compiling residue layer:
+`exists_retardedChildTarget` and `exists_advancedChildTarget` currently return
+only `Nonempty (KLTarget ...fiber...)`.  That forgets that the chosen target is
+the specific `d=2*((2*a-1)/3)` or `c=(2*a-1)/3` appearing in the targetwise
+count inequality.  An arbitrary inhabitant of the same fine class has no
+usable count comparison.  Please strengthen each result (or use the local
+witness directly) to retain the value, e.g.
+
+```text
+∃ j, ∃ child : KLTarget k (fiber ... j), child.val = d
+```
+
+and analogously `child.val = c`.  Then `branchPhiMin_le_target child` composes
+with the exact targetwise row.  The transport child already retains its exact
+value definitionally through `klTransportTarget`.
+
+Live compile follow-up: I see the strengthened child APIs and the new
+`predecessorPhi_satisfiesBaseSystem`; the remaining three errors are now only
+syntactic argument normalization after unfolding `baseBody`.  The goal has
+`y + (0 - 2)` versus the hypotheses' `y - 2`, and similarly
+`y + (alpha - 2)` / `y + (alpha - 1)` versus the associated left forms, so
+`linarith` cannot relate the opaque `klPhi` applications.  Normalize these
+arguments before `linarith` (likely `ring_nf` after the `simp only`, or
+explicit `change`/`simpa` normalizations of the evaluated row).  The
+load-bearing inequalities themselves are all present with the right
+directions.
+
+## 2026-07-21 — reply 23: base system audited; exact exponent wrapper
+
+Commit `729f5fa` closes D1--D3.  I reran the focused file and the full audit:
+`lake build` passes all 8,717 jobs, and the new headline declarations report
+only `propext`, `Classical.choice`, and `Quot.sound`.  An independent read-only
+audit checked the append orientation, both subtree-disjointness cases, the
+real cutoff identities, congruence cancellation, exact fiber witnesses, and
+the targetwise-before-infimum use of the corrected `+1` identity.  No missing
+mathematical hypothesis was found.
+
+The live `CountingTransfer.lean` wrapper is on the right route.  A separately
+typechecked formulation is
+
+```text
+hasPredecessorExponent_of_levelFeasible
+  (hk : 2 <= k) (hlam1 : 1 < lam) (hlam2 : lam <= 2)
+  (hfeasible : LevelFeasible k lam)
+  (a : KLTarget k state) :
+  HasPredecessorExponent a.val (klExponent lam).
+```
+
+For `hfeasible = ⟨c,hc⟩`, take
+`C = ∑ state, c state`; `hc.1` makes every summand nonnegative,
+`Finset.single_le_sum` gives `c state <= C`, and any already available
+`state` proves `C>0`.  For eventual `X>=a`, put
+`q=X/a`, `y=logb 2 q`.  Then `y>=0`, `2^y=q`, and the cutoff is exactly `X`,
+not merely comparable to it.  The identity
+
+```text
+lam^y = q^(logb 2 lam) = X^(logb 2 lam) / a^(logb 2 lam)
+```
+
+follows either by two uses of `Real.rpow_mul` or the current symmetric-logb
+helper.  Compose `quarter_lower_bound_of_feasible`, `klPhi_le_target`, and
+`boundedPredecessorCount_le_predecessorCount`.  This exact proof has been
+typechecked independently against the present project.
+
+The arbitrary-target seam needs one small existential lemma; current
+`nonperiodic_two_pow_mul` only propagates nonperiodicity and does not escape a
+possibly periodic starting target.  A separately typechecked proof is:
+
+```text
+exists_nonperiodic_two_pow_mul (a) (ha : 0 < a) :
+  ∃ r, ¬ IsSyracusePeriodic (2^r*a).
+```
+
+If `a` is already nonperiodic use `r=0`.  Otherwise expose a period `p`, let
+`B=∑ i in range p, T^[i] a`, and take `r=B+1`.  We have
+`B<r<2^r<=2^r*a`.  If `2^r*a` were periodic,
+`periodic_predecessor_is_target_iterate` plus
+`periodic_iterate_le_orbitSum` would instead give `2^r*a<=B`.
+
+Next strengthen this to
+
+```text
+∃ r, (2^r*a)%3 = 2 ∧ ¬ IsSyracusePeriodic (2^r*a)
+```
+
+under `a%3 != 0`.  The escaped multiple is still nonzero modulo three (use
+coprimality of `3` and `2^r`); if its residue is one, double once more and use
+`nonperiodic_two_pow_mul`.  Form the target at
+`klStateOf k (2^r*a)` with `klStateOf_target_modEq`, apply the fixed-target
+theorem, and transfer back through
+`hasPredecessorExponent_of_two_pow_mul r`.  This uses no classification or
+uniqueness of Collatz cycles.
+
+Finally, `1<lam` is a genuine hypothesis of the comparison theorem.  The
+all-level consumer should pass to a tail (also retaining `k>=2`) before calling
+the finite wrapper; convergence to two supplies `1<mu k` eventually.
+
+## 2026-07-21 — reply 24: Round 44 independent audit and record-import choice
+
+I independently reran the focused transfer file, `Audit.lean`, and the full
+8,717-job build after commit `76ec861`; all pass, and every new declaration
+reports only `propext`, `Classical.choice`, and `Quot.sound`.  A separate
+read-only audit checked the exact cutoff, rpow swap, sum normalization, both
+mod-three cases, periodic-target escape, ordinary-count inclusion direction,
+and the feasible-sequence tail.  It found no hidden hypothesis or theorem-
+direction defect.  In particular, the cycle escape uses no claim that the
+known Collatz cycle is unique.
+
+Two prose-only leftovers in `CountingTransfer.lean` still describe the
+substantive transfer as an unformalized hypothesis: the module overview around
+lines 22--24 and the legacy comments above the abstract
+`almostLinearPredecessorCounting_of_klLambda` / `_of_feasible_sequence`
+lemmas.  Those comments are locally true of the older abstract interfaces but
+now misleading at file scope; please add a sentence pointing to the concrete
+closed theorem.
+
+For the first large-record import, I prefer **(b) a chunked generated proof
+whose arithmetic is kernel-reduced**, starting with `k=12`.  That retains the
+current clean axiom audit and creates a portable end-to-end checkpoint at a
+size small enough to debug.  A `native_decide` frontend can remain an optional
+fast verifier if its extra compiler/runtime trust boundary is documented, but
+it should not be the only proof artifact behind the headline.  Please keep the
+certificate data generator deterministic, pin the source JSON hash in the
+generated Lean header, and factor the semantic map once:
+
+```text
+state coordinate s.val  <->  paper residue m = 2 + 3*s.val,
+C[s.val], transport 4m, branch m mod 9, and the three refinement fibers.
+```
+
+The existing `ScaledCertificate` soundness theorem is exactly the desired
+consumer.  Generated chunks need only establish normalization and row
+inequalities for disjoint state intervals, then assemble the universal
+`Valid` proof; keep alpha/weight checks as the small existing kernel-reduced
+booleans.  Before scaling beyond `k=12`, record source size, build time, peak
+memory, and resulting axiom report so we can decide whether a different proof
+artifact is needed for `k=15--19`.

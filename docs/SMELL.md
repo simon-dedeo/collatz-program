@@ -1,15 +1,16 @@
 # Smell-Search Synthesis: Keyword-Blind Mathematics Bearing the Collatz Signature
 
 > **CURRENT STATUS OVERRIDE (2026-07-21).** This document is a historical
-> research snapshot. Its claim below that the KL predecessor exponent is
-> unconditional or end-to-end externally confirmed is superseded. The finite
-> feasible certificates remain exact, but the published advanced-elimination
+> research snapshot. The finite feasible certificates remain exact, but the published advanced-elimination
 > proof has three checked defects and its equation (2.1) has the exact
 > counterexample `φ^7_2(1)=3≠2=φ^{14}_2(0)`. Commit `58f0ef8` checks the
 > targetwise one-sided correction and ordinary-count transfer. Lean commit
 > `3d6a186` checks the corrected retarded witness and abstract comparison;
-> `331ff48` defines the literal predecessor family and proves P1/P2. Only
-> D1--D3 and the final exponent wrapper remain open. See `README.md`,
+> `331ff48` defines the literal predecessor family and proves P1/P2, and
+> `729f5fa` proves its D1--D3 base system. Commit `76ec861` closes the fixed-
+> target/all-target exponent wrapper. The `k=19` counting result is established
+> under the mixed exact-Python + kernel-Lean trust policy, but the large record
+> is not yet one Lean-native artifact. See `README.md`,
 > `experiments/kl/RESULT.md`, and `experiments/kl/TERMINATION_AUDIT.md`.
 
 > **ERRATA & external verification (2026-07-20, from independent GPT review +
@@ -40,7 +41,7 @@
 >    VERDICT: CONFIRMED (gpt_review_result.md); that verdict is now superseded. The exact
 >    finite statement is LP feasibility at the displayed λ; the then-claimed
 >    consequence `π_a(x) ≥ x^γ` for every fixed
->    `γ < log₂(18307718/10⁷) = 0.8724519…` remains conditional on the repaired
+>    `γ < log₂(18307718/10⁷) = 0.8724519…` is now recovered by the repaired
 >    trust chain described in the status override above.
 > 1c. **Crack 3 empirical sharpening** (expsum atlas, K ≤ 22 exhaustive): the
 >    brief's ⟨2⟩-orbit symmetry claim |S(2ξ)|=|S(ξ)| is FALSE (the true
@@ -69,23 +70,25 @@ Ranking metric: **(collatz-blindness) × (tightness of hypothesis-match) × (con
 
 ## 1. Ranked Shortlist (Top 8)
 
-### #1. Nonlinear Perron roots and the Krasikov–Lagarias finite systems — exact thresholds, counting transfer conditional **[warm; highest payoff on the board]**
+### #1. Nonlinear Perron roots and the Krasikov–Lagarias finite systems — finite transfer checked, limit open **[warm; highest payoff on the board]**
 **Refs:** Gaubert–Gunawardena, *Perron–Frobenius for homogeneous monotone functions*, TAMS 2004 — https://www.ams.org/journals/tran/2004-356-12/S0002-9947-04-03470-1/ ; Biggins, *Spreading speeds in reducible multitype BRW* — https://arxiv.org/abs/1003.4716 ; Biggins–Sani 2005 — https://www.cambridge.org/core/journals/advances-in-applied-probability/article/convergence-results-on-multitype-multivariate-branching-random-walks/1387982E5A820FA5D1F2376CA25F97C4
 
 **Theorem.** For monotone, homogeneous-degree-1 maps F (any min/max of nonnegative linear maps), a nonlinear spectral radius exists with the Collatz–Wielandt formula r(F) = inf_{x>0} max_i F(x)_i/x_i, computable by power/policy iteration with certified two-sided bounds. (The "Collatz" here is Lothar Collatz 1942 — the man himself, in a blind paper.) Biggins supplies the multitype-BRW front formula: count exponents are Legendre transforms of log Perron roots of tilted mean matrices.
 
-**Match & gaps.** KL's "sup λ with L_k(λ) positively feasible" is *exactly* r(F_λ) ≤ 1 for the min-type (adversarial lost-3-adic-digit) tilted system on residues mod 3^k. **Verified computationally**: reproduces KL's entire table k=2..11 to 1e-6, and extends it — **γ_12 = 0.8531363, γ_13 = 0.8630058, γ_14 = 0.8724524** vs the 20-year record γ_11 = 0.8417566. Annealed (mean-refinement) value is exactly 2 at every k: the whole 0.84-vs-1 gap is quantified as adversarial-vs-average 3-adic refinement. Gap: new γ values are eigenvalue computations, not yet theorems — feasibility in KL's retarded LP (their Thm 2.2) must be certified.
+**Match & gaps.** KL's "sup λ with L_k(λ) positively feasible" is *exactly* the threshold of the min-type (adversarial lost-3-adic-digit) tilted system on residues mod 3^k, with the feasibility orientation calibrated in the erratum above. Exact certificates now extend the table through `k=19`, where `γ₀=log₂(18783127/10⁷)=0.9094372617…`; the repaired mixed Python/Lean chain transfers every fixed smaller exponent to ordinary predecessor counting. Annealed (mean-refinement) value is exactly 2 at every k: the whole finite-k-vs-1 gap is quantified as adversarial-vs-average 3-adic refinement. The live gap is the limit `λ_k→2`, not finite feasibility or counting transfer.
 
-**Transfer.** (i) Exact feasibility would imply `π_a(x) ≥ x^0.8724`
-through the repaired KL trust chain; that counting conclusion is currently
-conditional, while the finite certificate is exact. (ii) The k→∞ increments
-empirically decide λ_k→2 (⇔ x^{1−ε} counting, again conditional on that chain)
+**Transfer.** (i) Exact feasibility now implies `π_a(x) ≥ x^γ` eventually for
+every fixed `γ<log₂λ` through the repaired KL trust chain. (ii) The k→∞ increments
+empirically probe λ_k→2 (⇔ x^{1−ε} counting through the now-checked transfer)
 vs stall — either is a structural theorem about the limit of the entire
 difference-inequality method; the limit object (min-type transfer operator on
 Z_3 driven by the ergodic isometry x↦2x, annealed value exactly 2) is a new
 attack surface.
 
-**First move.** Interval arithmetic on the k=12..14 eigenvectors against KL's conditions (1),(2) — which held for all k≤11, so feasibility is expected. Solver in hand: `/Users/simon/Desktop/COLLATZ/kl_perron_solver.py`.
+**First move.** Prove a cofinal exact feasible sequence tending to two, or the
+non-autonomous pressure/localization statement that yields one. In parallel,
+import the `k=12` record as a chunked kernel-reduced Lean certificate before
+attempting the multi-gigabyte `k=15–19` sidecars.
 
 ---
 
@@ -102,16 +105,24 @@ attack surface.
 
 ---
 
-### #3. Antihydra as a Lindley walk: exact discrepancy thresholds + a finite check that could end it **[cold; contains a day-1 lottery ticket]**
+### #3. Antihydra as a Lindley walk: exact discrepancy thresholds; finite lottery ticket withdrawn **[cold conversion, open arithmetic input]**
 **Refs:** Bandi–Bertsimas–Youssef, *Robust Queueing Theory*, OR 2015 — https://www.mit.edu/~dbertsim/papers/Robust%20Optimization/Robust%20Queueing%20Theory.pdf ; Le Boudec–Thiran, *Network Calculus* — https://leboudec.github.io/netcal/latex/netCalBook.pdf ; van der Laan thesis (unbalance comparison) — https://pub.math.leidenuniv.nl/~tijdemanr/proefschriftvanderlaan.pdf
 
 **Theorem.** BBY Eq.(12): the worst-case Lindley functional over all input words satisfying one-sided windowed partial-sum constraints is given exactly, with the extremal path explicit; uniform bounds in n (Thm 2). Network calculus: arrival-curve constraint + service curve ⇒ backlog ≤ sup_s{α(s)−β(s)}, deterministic, and certificates **compose** under (min,+) convolution. Van der Laan/Altman–Gaujal–Hordijk: waiting-time functionals are multimodular, minimized by balanced (Sturmian) words, with performance gaps sandwiched by the word's **unbalance**.
 
 **Match & gaps.** Antihydra halts iff the +2/−1 counter (a Lindley sup-functional of the parity word) hits −1 against drift +1/2; halting at n forces odd-density ≈ 2/3 — a *linear* one-sided windowed discrepancy. The math is deterministic optimization and transfers exactly. Gaps: proving any arrival curve for the actual orbit from seed 8 is the open core (the theorems convert the problem, they don't solve it); unbalance theorems control long-run averages, not first passage — the first-passage analogue must be proved; and if the parity map is bijective mod 2^k, the unconditioned window maxima m_k are trivial.
 
-**Transfer.** "**Halting at time n forces the parity prefix out of U(Γ,α) / forces unbalance ≥ cn**" — a rigorous, explicitly-constanted cryptid partial result, with a density-1 corollary via Terras-level equidistribution. Balanced density-1/2 drivers provably never halt (bounded remainder ⇒ counter stays O(1) from the drift line).
+**Transfer.** The surviving target is an explicitly constanted statement that
+halting at time `n` forces a linear one-sided prefix discrepancy. Converting
+that into an unbalance theorem or a density-one corollary needs a separate
+first-passage argument. A bounded-remainder *prefix* condition would prevent
+halting; asymptotic density `1/2` alone does not.
 
-**First move (day 1, pure computation).** Compute m_k = max over residues mod 2^k of odd-counts over k steps of floor(3n/2). If m_k/k ever drops below 2/3, Antihydra non-halting follows **unconditionally** by (min,+) window composition — a finite computation with a nonzero chance of finishing a Busy-Beaver cryptid. If not (expected), the m_k profile plus measured unbalance of 10^7 actual parity bits calibrates exactly what a Terras-style argument must supply.
+**Withdrawn first move.** The proposed unconditioned maximum satisfies
+`m_k=k` for every `k`, because the all-odd itinerary occurs. Do not rerun that
+search. The live version is seed-specific: synthesize a finite-state
+abstraction with maximum cycle mean below `2/3`, or prove the required prefix
+discrepancy directly.
 
 ---
 
@@ -190,15 +201,28 @@ attack surface.
 
 ## 2. Play-Out Queue: Three Hard Attacks
 
-### PQ-1. Krasikov–Lagarias record push (from #1) — *computation + interval proof + Lean kernel*
-1. **Certify k=12–14 (days 1–3).** Interval arithmetic (Arb/MPFI, or exact rationals after rounding the eigenvector down) verifying the computed eigenvectors are feasible points of KL's retarded LP L^NT_k(λ) per their Thm 2.2. Deliverable: **theorem π_a(x) ≥ x^0.8724**, unconditional, beating the 2003 record.
-2. **32-core scale-up k=15–18.** States 2/3·3^{k−1} ≤ 8.6×10^7 at k=18, ≤2 sparse terms per state; policy iteration (λ_k = min over policies of ordinary Perron roots) with Collatz–Wielandt two-sided certificates; parallelize the power iteration over residue blocks mod 3^j. Fit increment decay γ_{k+1}−γ_k: geometric-ratio estimate decides empirically between λ_k → 2 (KL: ⟺ π_1(x) ≥ x^{1−ε}) and a stall λ_∞ < 2. Either outcome is publishable.
-3. **Lean target.** The feasibility certificate at k=12 is a finite list of rationals + finitely many linear inequalities — a small, fully decidable kernel; a Lean-verified improvement of a 20-year-old bound is a flagship deliverable.
-4. **Endgame hook.** If increments say λ_k→2, the system is asymptotically critical: open the Seneta–Heyde/derivative-martingale file (Grama–Mentemeier–Xiao — https://arxiv.org/abs/2507.09737) and the spine measure (zero-drift tilted log2/−log3 walk — the (1/φ)-flavored tilt from the cryptid heuristics) for the x/polylog(x) refinement.
+### PQ-1. Krasikov–Lagarias record push (from #1) — *finite phase completed; limit open*
+1. **Exact finite phase complete.** Rational feasibility certificates pass for
+   `k=12..19`; the strongest has `γ₀=0.9094372617…`.
+2. **Counting transfer complete under the mixed trust policy.** Lean proves the
+   generic finite-feasibility implication, while exact Python checks the large
+   concrete records. This proves every fixed exponent below `γ₀`; it is not
+   yet one Lean-native `k=19` artifact.
+3. **Portability target.** A chunked kernel-reduced import of `k=12` is in
+   progress before attempting the multi-gigabyte records.
+4. **Mathematical target.** Prove a cofinal feasible sequence with `λ→2`, which
+   would imply almost-linear predecessor counting. Finite increment fits are
+   evidence, not a decision of the limit. Critical branching/spine methods are
+   speculative tools only after a valid all-level localization theorem exists.
 
 ### PQ-2. Antihydra rarity + discrepancy theorem (fuse #2 and #3) — *computation + proof sketch*
-1. **Day 1 (32 cores): the lottery ticket.** Compute m_k = max over residues mod 2^k of odd-counts along k steps of floor(3n/2), for k as far as feasible (bitpacked sweep to k≈32–34; branch-and-bound on the residue tree beyond, since the maximizing path is monotone-structured). If m_k/k < 2/3 for any k: **unconditional Antihydra non-halting** by network-calculus window composition. Done.
-2. **Expected branch.** m_k/k ≥ 2/3 (parity-map bijectivity — prove or refute this Terras analogue as step 0; it is also the cylinder-residue lemma #2 needs). Then: (a) BBY Eq.(12) ⇒ exact threshold "halting at n forces the parity prefix out of U(Γ,α) on some suffix window"; (b) Mahler-style transfer-matrix counting over ballot words ⇒ **#{seeds ≤ x whose counter survives t steps in a bounded window} ≤ x^{θ(C)}**, θ(C)→log₂φ = 0.694; (c) prove the first-passage analogue of van der Laan Thm 3.3.8 (drawdown vs unbalance) — "halting at n ⇒ unbalance ≥ cn", the first rigorous cryptid partial result, with the density-1 corollary.
+1. **Lottery ticket withdrawn.** The unconditioned maximum is exactly `m_k=k`;
+   the all-odd word makes the proposed computation vacuous.
+2. **Surviving branch.** Use the cylinder-residue bijection together with a
+   genuinely seed-specific or constrained window bound. Then: (a) BBY Eq.(12)
+   gives an exact prefix-discrepancy threshold; (b) Mahler-style transfer-matrix
+   counting bounds bounded-window survivors; and (c) a still-missing
+   first-passage analogue of van der Laan must connect drawdown to unbalance.
 3. **Calibration layer.** Banderier–Flajolet kernel method (https://lipn.fr/~cb/Papers/tcs_banderier_flajolet_2002.pdf , https://arxiv.org/abs/1606.08412): exact algebraic GF of halting itineraries under the iid null (root reproduces q = 1/φ), full C·φ^{−n}·n^{−3/2} asymptotics; fit against bbchallenge simulation of the true stream — the measured deviation is itself a quantitative pseudorandomness statement, the right target for any later derandomization.
 4. **Unification.** Prove the exceptional-set dimension statement: seeds whose counter returns to a boundary neighborhood infinitely often have 2-adic Hausdorff dimension log₂φ — the *same* exponent from Mahler's count and the ADDS local-time picture (https://www.math.umd.edu/~dolgop/CylinderMap6.pdf).
 
@@ -214,7 +238,19 @@ attack surface.
 
 **(a) Path-complete/WFAR certificates — three communities, one computation.** The multinorm scalar collapse (#5) and Gaubert's (max,+) worst-case theorem (http://www.cmap.polytechnique.fr/~gaubert/PAPERS/IEEE-TAC-93-172-preprint.pdf) were found by *different agents* and reduce to the identical object: **max cycle mean over a product automaton** (tropical Perron root). Kozyakin's sliding-window frequency SFTs (https://arxiv.org/abs/1403.5050 , Markovian Berger–Wang arXiv:1401.2711), network-calculus arrival curves (#3), and the folklore density lemma are three languages for the same window-density certificate — build it once. Endrullis–Zantema's SAT-searched regular non-termination certificates (https://drops.dagstuhl.de/storage/00lipics/lipics-vol036-rta2015/LIPIcs.RTA.2015.160/LIPIcs.RTA.2015.160.pdf , with match-bounds and sparse tiling arXiv:2003.01696) mechanize our DFA search in a strictly larger class (rule-labeled states, tree automata) — rerun our negative result there. Ceiling: Daviaud–Guillon–Merlet tropical-JSR undecidability (https://arxiv.org/abs/1612.02647) caps the certificate landscape but leaves approximability (their Thm 5) — the engine for PQ-3. Guy–Smith/sparse-space certificates from octal games (https://link.springer.com/article/10.1007/BF01254294) are an XOR-closed certificate class *disjoint* from regular — untested against the 7-state theorem.
 
-**(b) BRW/Krasikov–Lagarias ↔ JSR.** λ_k = min-over-policies of Perron roots is literally a **lower spectral radius** — the policy-iteration face of the constrained-JSR machinery in (a); Dai's constrained Berger–Wang (https://arxiv.org/abs/1107.0124) transfers extremal growth to *rational cycle spectra* (Böhm–Sontacchi as constrained-GSR bounds), tying agent 1's cycle-enumeration transfer to agent 2's pressure computation. Lalley's renewal theorem (https://projecteuclid.org/journals/acta-mathematica/volume-163/issue-none/Renewal-theorems-in-symbolic-dynamics-with-applications-to-geodesic-flows/10.1007/BF02392732.full) upgrades KL exponents to exact asymptotics N(log x) ~ Cx^{δ_k} (hypotheses verified: no-two-consecutive-/3-edges gives eventual positivity; nonlattice from log2/log3 irrational). The barrier question (π* vs π at exponent level) has its tool in Biggins–Lubachevsky–Shwartz–Weiss (https://projecteuclid.org/euclid.aoap/1177005839). The annealed-vs-adversarial gap (2 vs 0.84) is the probabilistic twin of tropical min-plus vs mean-payoff.
+**(b) BRW/Krasikov–Lagarias ↔ JSR.** The nonlinear min-over-fibers system has
+a useful policy-family and constrained-JSR analogy, but the earlier claim that
+`λ_k` is literally a lower spectral radius is not established. The associated
+policy or annealed matrices are not exact recursions for the true predecessor
+count. Consequently the proposed Lalley-renewal upgrade to
+`N(log x) ~ Cx^{δ_k}` is **retracted**: no sandwich theorem identifies that
+linear resolvent with the nonlinear KL threshold. Dai's constrained
+Berger–Wang theorem (https://arxiv.org/abs/1107.0124), Lalley's renewal theorem
+(https://projecteuclid.org/journals/acta-mathematica/volume-163/issue-none/Renewal-theorems-in-symbolic-dynamics-with-applications-to-geodesic-flows/10.1007/BF02392732.full),
+and Biggins–Lubachevsky–Shwartz–Weiss
+(https://projecteuclid.org/euclid.aoap/1177005839) remain possible tools only
+after such a bridge is proved. The annealed-versus-adversarial gap remains a
+diagnostic, not an exact counting asymptotic.
 
 **(c) Two-bases/Cobham rigidity — one constant, five faces.** Set-level: our Cobham note; point-level effective companion: Stewart 1980 (URLs above; quantitative model = arXiv:2311.17348's log log lower bound). Group-level: Potapov–Semukhin BS(1,q) open cell (https://arxiv.org/abs/1910.02302). Automaton-level: Bartholdi boundedness failing exactly at the ×3 carry machine (#8); Sutner's abelian-transducer theorems stopping exactly at the non-abelian carries (https://www.semanticscholar.org/paper/Invertible-Transducers,-Iteration-and-Coordinates-Sutner/faa52056c56027ef30940386c7180dc8f4386e48 — CMU, conversation not citation). Dynamics-level: non-soficity of the 3/2 fiber (#7). Certificate-meta-level: Bedaride–Fernique local rules (https://arxiv.org/abs/1512.04679) — pattern-enforceable slopes are *quadratic*, computation-carrying ones are *computable*; log₂3 is transcendental (Gelfond–Schneider), which is the same transcendence that powers the substitutive-parity exclusion (bubble list) and predicts the certificate frontier sits strictly between sofic and computation-embedding. Near-term theorem: **no infinite T-invariant set avoiding 1 is both 2- and 3-automatic** (Cobham → eventually periodic → kill APs with the 2-adic/3-adic action) — one week, and it upgrades the Cobham note from remark to theorem.
 

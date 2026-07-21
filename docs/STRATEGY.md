@@ -9,8 +9,8 @@ sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 > are no longer current. Use `README.md` as the live state map. In particular:
 > all inherited background jobs are stopped; `k=19` has now passed a fresh
 > exact 387,420,489-constraint run of the reference verifier (large sidecar local, not in
-> git), but its counting consequence is conditional because an exact obstruction
-> invalidates the printed KL Theorem 3.1 termination proof; that obstruction is
+> git). An exact obstruction invalidates the printed KL Theorem 3.1 termination
+> proof; that obstruction is
 > now independently kernel-checked in Lean. A second exact witness makes all
 > three leaves of a new minimum deletion-eligible, contradicting another
 > invariant asserted by the printed construction; a finite semantic countermodel
@@ -21,8 +21,10 @@ sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 > checker reproduces the published small-level literal counts, and Lean commit
 > `3d6a186` now checks the all-`k` history producer, occurrence provenance,
 > live pruning, common lag, and abstract feasible-point comparison. The literal
-> family and P1/P2 are checked in `331ff48`, while D1--D3 and the
-> final exponent wrapper remain open;
+> family and P1/P2 are checked in `331ff48`; commit `729f5fa` checks D1--D3.
+> Commit `76ec861` checks the final fixed-target/all-target exponent wrapper,
+> so the `k=19` counting result is established under the mixed exact-Python +
+> kernel-Lean trust policy. The large record is not yet Lean-ingested;
 > the analytic-
 > combinatorics ordinary-pole identification is retracted;
 > the unsigned-zeta natural boundary at `|u|=1/4` has a candidate refutation
@@ -68,9 +70,9 @@ killed one claim of the reviewer's).
    that one divergent orbit forces ≥ x^0.84 divergent seeds below x, but the
    successor audit found a gap in its printed advanced-term termination
    bridge. Lean commit `3d6a186` repairs the abstract elimination seam, and
-   `331ff48` checks the literal family and P1/P2; D1--D3 and the final
-   exponent wrapper remain open, so that crowding
-   consequence is presently conditional. Independently,
+   `331ff48` checks the literal family and P1/P2. Commit `729f5fa` checks
+   D1--D3; commit `76ec861` checks the final exponent wrapper, so that crowding
+   consequence is now established under the repo's mixed verifier policy. Independently,
    an orbit bounded below by C₀ forces positive
    density absorbed (Tao Remark 1.4). Counterexamples, if any, come in crowds
    — a disproof must be structural, not exhibitional.
@@ -341,17 +343,16 @@ structurally inapplicable (stopping times are ~log n, not fast-growing).
 
 Headline: **the Krasikov–Lagarias method is a nonlinear Perron eigenproblem**
 (Gaubert–Gunawardena / Collatz–Wielandt — Lothar Collatz's own theorem), and
-policy/power iteration extends their 20-year-old table: γ₁₂ = 0.8531,
-γ₁₃ = 0.8630, γ₁₄ = 0.8725 (vs record γ₁₁ = 0.8417566). Status: solver
-reproduces ALL published values k = 2..11 exactly AND the new levels
-γ₁₂ = 0.8531363 / γ₁₃ = 0.8630058 / γ₁₄ = 0.8724524 independently reproduced
-(2026-07-20, experiments/kl/); theorem-grade step IN PROGRESS: exact-rational
-feasibility certification against KL Thm 2.2 as stated in the paper (skeptical
-agent; then k = 15–18 at scale on akdeniz).
+policy/power iteration extends their 20-year-old table. The solver reproduces
+all published values `k=2..11`; exact-rational certificates now pass through
+`k=19`, with `γ₁₉=0.9094372617…`. The finite counting implication is
+kernel-checked generically, while the `k=19` rows remain externally exact-
+verified rather than Lean-ingested. The theorem-grade open step is the limit
+`λ_k→2`, not another fixed-level feasibility check.
 Also top-ranked (SMELL.md §1): Mahler 1968 Z-numbers ↔ Antihydra rarity
-theorem (golden-ratio counting via no-11 subshift); Antihydra as robust-queueing
-Lindley walk (with a finite-computation lottery ticket: m_k/k < 2/3 ⇒
-unconditional non-halting); powers-Presburger decidability frontier tracing
+theorem (golden-ratio counting via no-11 subshift); Antihydra as a robust-
+queueing/discrepancy problem, with the former unconditioned finite-computation
+lottery ticket closed because `m_k=k`; powers-Presburger decidability tracing
 the m-cycle frontier (KLNOW SODA 2025); constrained-JSR multinorms collapsing
 to scalar-weight LPs (Karp cycle mean) — the weighted certificate search at
 10^6 states; Bartholdi automatic-actions pumping → ω-regularity no-go target
@@ -398,17 +399,19 @@ Strategic consequences adopted:
 state is in `README.md`; in particular all jobs named below are stopped, and
 the k=19 exact certificate supersedes the k=18 headline.
 
-1. **EXACT FINITE CERTIFICATE; COUNTING CONSEQUENCE CONDITIONAL:** the k=19
-   feasible point is intended to give `π_a(x) ≥ x^γ` for every fixed
+1. **EXACT FINITE CERTIFICATE; COUNTING CONSEQUENCE NOW ESTABLISHED:** the k=19
+   feasible point gives `π_a(x) ≥ x^γ` eventually for every fixed
    `γ < 0.9094372617`, `a ≢ 0 mod 3`, `x ≥ x₀(a)`, improving the 2003 KL record
    0.84. Levels k=12..19 pass exact integer verification, falsification
    controls, and SHA-256-pinned checks (`experiments/kl/RESULT.md`), but the
    successor audit invalidates the published advanced-term termination bridge,
    and a later exact `k=2` audit refutes printed equation (2.1). Lean commit
    `3d6a186` supplies a checked occurrence-aware retarded witness and abstract
-   comparison. The useful one-sided counting transfer survives, but the
-   displayed counting bound is conditional until D1--D3 and the final exponent
-   wrapper are formalized for the literal family of commit `331ff48`. The k=19 sidecar is local and ignored by git; k=20 never became a certificate.
+   comparison. Commit `729f5fa` proves D1--D3 for the literal family of commit
+   `331ff48`, and `76ec861` formalizes the useful one-sided all-target transfer.
+   The displayed counting bound is therefore established, with the explicit
+   caveat that the k=19 sidecar is checked by exact Python rather than imported
+   into Lean. The sidecar is local and ignored by git; k=20 never became a certificate.
    Pre-registered dichotomy fits (notes/kl-limit-object.md): data favor
    γ_∞ near 1 (branch A ⟹ x^{1−ε} counting), γ_∞ ≤ 0.95 disfavored ~9–30×;
    exact oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k proved (Thm 3.2).

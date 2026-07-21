@@ -8,8 +8,9 @@ explicit about things a same-model continuation could assume.
 ## 0. The one-paragraph situation
 
 This repo is an ad-hoc, honest attempt at progress on the Collatz conjecture.
-Its largest exact artifact is a `k=19` KL feasible certificate whose intended
-consequence improves a 23-year-old predecessor-counting exponent to every fixed
+Its largest exact artifact is a `k=19` KL feasible certificate whose checked
+consequence, under the repo's mixed exact-Python + kernel-Lean trust policy,
+improves a 23-year-old predecessor-counting exponent to every fixed
 `γ<0.9094372617` (`experiments/kl/`). A fresh run of the reference verifier passed the `k=19`
 sidecar hash and every exact constraint in this worktree, but the 2.9 GB
 sidecar is not tracked by git; a fresh clone is
@@ -31,14 +32,18 @@ deterministic pruning, a common positive lag, and the abstract feasible-point
 comparison theorem. No termination, deletion, provenance, or retarded-tree
 hypothesis remains. Commit `331ff48` defines the actual statewise
 predecessor-count family and checks nonemptiness, normalization, and
-monotonicity. The counting consequence is still conditional on its D1--D3
-base-system proof and final exponent wrapper. An adjacent exact
+monotonicity. Commit `729f5fa` proves the literal D1--D3 base system for every
+`k>=2`, and commit `76ec861` proves the fixed-target/all-target exponent
+wrapper and the concrete feasible-sequence endpoint. The `k=19` counting
+result is therefore established under the repo's mixed exact-Python +
+kernel-Lean trust policy; its large data are not yet imported as one Lean-
+native theorem. An adjacent exact
 audit found that the paper's printed equation (2.1) is false as an equality:
 `φ^7_2(1)=3` while `φ^{14}_2(0)=2`. Commit `58f0ef8` kernel-checks the exact
 targetwise replacement and ordinary-count transfer. For the paper's full
 target-class definition, the induced statewise inequality
 `φ^m_k(y)≥1+φ^{2m}_k(y−1)` has the needed direction. The Lean class-2 family
-can bypass class-1 `φ` entirely in the final wrapper by using the checked
+bypasses class-1 `φ` entirely in the final wrapper by using the checked
 ordinary-count inclusion.
 Around
 it sits a cluster of proved structure theorems and — equally important — a
@@ -62,13 +67,17 @@ and the two collaboration channels current.
 
 ## 2. Current state (snapshot at handoff — trust README over this if they differ)
 
-- **Locally exact-verified certificate:** the `k=19` feasible point intended to
-  yield `π_a(x)≥x^γ` for all fixed `γ<0.9094372617` (`a not≡0 mod 3`);
-  all 387,420,489 inequalities and the sidecar hash pass. The transfer to the
-  counting statement is conditional on the D1--D3/base-system proof and final
-  exponent wrapper for the actual predecessor-count family. Its definition,
-  nonemptiness, normalization, and monotonicity are kernel-checked in
-  `331ff48`; the corrected retarded-elimination witness is also checked. The full large sidecars `k=16..19`
+- **Locally exact-verified certificate:** the `k=19` feasible point yields
+  `π_a(x)≥x^γ` eventually for every fixed `γ<0.9094372617`
+  (`a not≡0 mod 3`) under the mixed trust policy;
+  all 387,420,489 inequalities and the sidecar hash pass. Commit `76ec861`
+  closes the transfer to the counting statement for the actual predecessor-
+  count family. Its definition, nonemptiness,
+  normalization, and monotonicity are kernel-checked in `331ff48`; its D1--D3
+  base system is checked in `729f5fa`; the corrected retarded-elimination
+  witness and all-target transfer are also checked. The exact result has a
+  split trust boundary: Python verifies the concrete large record, while Lean
+  proves the generic implication. The full large sidecars `k=16..19`
   are not in git, so portable clone verification currently stops at `k=15`.
   `experiments/kl/RESULT.md`.
 - **Proved structure theorems:** KL method = adversarial min-plus transfer
@@ -84,8 +93,8 @@ and the two collaboration channels current.
   spectral-gap descent; tropical-geometry-proper; Bourgain–Kontorovich; the
   solenoid→hidden-RH hope.
 - **Successor audit correction to the forward agenda:** the KL advanced-term
-  termination bridge has now been replaced; finish D1--D3 and the final
-  predecessor-count exponent wrapper. `verify_termination_obstruction.py` exactly
+  termination bridge has now been replaced, D1--D3 are checked, and the
+  predecessor-count exponent wrapper is complete. `verify_termination_obstruction.py` exactly
   checks a legal positive-shift transport return that invalidates the paper's
   derivation of strict descent (3.2); it is not a repeatable lasso or a disproof of
   termination. `verify_all_three_deletion.py` exactly checks the independent
@@ -110,7 +119,8 @@ and the two collaboration channels current.
   also exactly refutes printed equation (2.1) at `k=2,m=7,y=1`; run
   `verify_equation_2_1_obstruction.py`. Commit `58f0ef8` checks its exact
   targetwise `+1` replacement and ordinary-count transfer; `331ff48` then
-  defines the statewise infimum and its P1/P2 API. For arbitrary
+  defines the statewise infimum and its P1/P2 API, and `729f5fa` proves its
+  all-`k` D1--D3/base-system theorem. For arbitrary
   possible cycle targets, transfer through a sufficiently large nonperiodic
   `2^r a ≡ 2 (mod 3)` rather than assuming the known cycle is unique.
   `verify_predecessor_base_inequalities.py` independently checks the exact
@@ -134,11 +144,13 @@ and the two collaboration channels current.
   note; the DP tables themselves are unchanged. The inherited arctic proof also had a
   reducible-matrix slope gap. An elementary all-dimension weighted-walk pumping
   candidate replaces it, but remains provisional until Lean. The calibrated
-  live agenda is now: (1) finish the KL predecessor-count bridge; (2) kernelize and adversarially
-  check the arctic Theorems A/B; (3) mixed-radix anti-concentration; (4) non-
-  autonomous/global-measure mechanisms for the KL limit; (5) adelic/quantum-
-  channel reframing; (6) any nonlinear-pressure
-  salvage only after an exact counting bridge.
+  live agenda is now: (1) prove the KL limit via a cofinal feasible sequence or
+  non-autonomous localization/global measure, while importing the first large
+  certificate into Lean; (2) kernelize and adversarially check the arctic
+  Theorems A/B; (3) mixed-radix anti-concentration; (4) other non-
+  autonomous/arithmetic mechanisms for the KL limit; (5) adelic/quantum-
+  channel reframing; (6) any nonlinear-pressure salvage only after an exact
+  sandwich from that pressure object to the true predecessor counts.
 - **All background lanes were STOPPED at handoff** (killed mid-flight by user
   request). Partial state is recorded in each note; nothing is silently lost:
   - `docs/notes/mixed-radix-flattening.md` — COMPLETE (numerical-evidence +
@@ -229,15 +241,20 @@ history-word syntax, rich finite raw-tree type, and its shift, terminal,
 functional, local-validity, and coefficient invariants. Commit `3d6a186`
 completes the concrete well-founded raw-history producer, root-only provenance,
 live deterministic pruning, common-lag assembly, and
-`quarter_lower_bound_of_feasible`. A full 8,714-job build passed with no
+`quarter_lower_bound_of_feasible`. After the base-system checkpoint, a full
+8,717-job build passed with no
 `sorryAx`; the new declarations use only the standard classical axioms reported
 in `Audit.lean`. Commit `58f0ef8` then checks the literal bounded-predecessor
 finset, the exact targetwise replacement for false equation (2.1), and transfer
 of ordinary predecessor bounds backward along a finite target orbit. Commit
 `331ff48` defines the statewise predecessor family and checks
-unconditional target-pool nonemptiness, normalization, and monotonicity. The KL
-frontier is now its D1--D3/base-system proof and final connection to
-`HasPredecessorExponent`.
+unconditional target-pool nonemptiness, normalization, and monotonicity.
+Commit `729f5fa` checks the full D1--D3/base-system bridge; its 8,717-job build
+and axiom audit pass. Commit `76ec861` checks the final connection to
+`HasPredecessorExponent` for every admissible target and the concrete
+feasible-sequence-to-almost-linear implication. The finite mathematical bridge
+is closed; the live frontier is the all-level limit and portable large-record
+integration.
 The completed branch-checkpoint design and provenance-scope warning are in
 `docs/FOR_CLEAN_LEAN.md` replies 16--20.
 On the separate pressure lane, generated rows, S1--S4
@@ -264,14 +281,16 @@ remain open, so the pressure half is not a limit proof.
 
 1. Read `README.md` top-to-failure-ledger.
 2. Poll `CLEAN_LEAN/FOR_FABLE.md` for anything addressed to the driver.
-3. All background lanes are already stopped (§2) — nothing is mid-flight to
-   monitor; the partial state of each is in its note. Start fresh.
+3. No inherited research-side background job is running; the partial state of
+   each stopped lane is in its note. The independent Lean side is actively
+   importing the `k=12` record, so poll its handoff before touching related
+   files.
 4. Sanity-check infrastructure (§4) with one `ssh`/`squeue`; it carries over.
-5. Pick the top LIVE bet you can advance. The current immediate target is the
-   occurrence-aware finite policy compiler replacing KL advanced-term
-   elimination. Kernel/adversarial
-   review of the repaired arctic proof is next; mixed-radix has three named
-   gaps, and the KL limit needs a genuinely non-autonomous mechanism. Do not
+5. Pick the top LIVE bet you can advance. The immediate mathematical target is
+   a cofinal exact feasible sequence with `λ→2`, or the pressure/localization
+   mechanism that supplies one. Kernel/adversarial review of the repaired
+   arctic proof is the bounded side target; mixed-radix has three named gaps.
+   Do not
    revive the retracted AC resolvent or first-circle zeta boundary. If you advance
    it, update README (living map) + commit + push, and tell the Lean side via
    `docs/FOR_CLEAN_LEAN.md` if it affects a formalization target.

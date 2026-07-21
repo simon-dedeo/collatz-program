@@ -26,25 +26,26 @@ pruning, a common positive lag, and the abstract feasible-point comparison
 theorem. There is no remaining termination, deletion, provenance, or
 retarded-tree assumption. Commit `331ff48` defines the literal statewise
 predecessor family and proves target-pool nonemptiness, normalization, and
-monotonicity. The remaining formal step is to prove its D1--D3 base system and
-close the final counting transfer. That audit also found that the paper's printed equation (2.1) is
+monotonicity. Commit `729f5fa` proves its full D1--D3 base system for every
+`k>=2`, and commit `76ec861` closes the fixed-target/all-target counting
+transfer. That audit also found that the paper's printed equation (2.1) is
 false as an equality: exactly, `φ^7_2(1)=3` while
 `φ^{14}_2(0)=φ^5_2(0)=2`. Lean commit `58f0ef8` kernel-checks the exact
 targetwise decomposition and ordinary-count transfer. For the paper's full
 target-class definition, infimizing gives
 `φ^m_k(y) ≥ 1+φ^{2m}_k(y−1)`, which has the direction needed for the same
 exponent transfer. The Lean class-2 family need not define this class-1 row;
-its final wrapper can use the direct ordinary-count inclusion. Thus this is a genuine erratum—the finite counterexample is
+its final wrapper uses the direct ordinary-count inclusion. Thus this is a genuine erratum—the finite counterexample is
 checked by `verify_equation_2_1_obstruction.py`—but not a new conjectural
 obstruction. A companion exact checker,
 `verify_predecessor_base_inequalities.py`, independently verifies the
 targetwise D1--D3 reverse-tree partitions and strengthened constants in 660
-bounded cases; their all-`k` Lean proof is the active base-system task.
-Until that bridge is proved, the predecessor-counting consequence
-below remains conditional. See `TERMINATION_AUDIT.md`.
+bounded cases; commit `729f5fa` supplies their all-`k` Lean proof and passes the
+8,717-job audit. Commit `76ec861` supplies the exact cutoff, arbitrary-target,
+and exponent wrappers. The finite mathematical chain is therefore complete.
+See `TERMINATION_AUDIT.md`.
 
-**Conditional on the D1--D3/base-system proof and final exponent wrapper, the
-certified feasible points below give, for every positive integer
+**The certified feasible points below give, for every positive integer
 a ≢ 0 (mod 3) and all sufficiently large x ≥ x₀(a):**
 
     π_a(x) ≥ x^γ   for every fixed γ < log₂(λ_cert),
@@ -68,9 +69,14 @@ sidecars for `k=16..19` are 109 MB through 2.9 GB and are hash-pinned by the
 tracked JSONs but ignored by git; a fresh clone is self-contained through
 `k=15`. During the successor audit, a fresh run of the same reference verifier
 again passed the `k=19` sidecar hash and all 387,420,489 inequalities. This was
-an exact rerun, not a second independently implemented verifier.
+an exact rerun, not a second independently implemented verifier. The generic
+certificate-to-counting implication is kernel-checked in Lean, but the large
+`k=19` array has not been ingested there: no concrete Lean declaration yet
+constructs `LevelFeasible 19 (18783127/10^7)`. Thus the result follows under
+the repo's accepted mixed exact-Python + kernel-Lean trust policy; it is not a
+single end-to-end Lean-native artifact.
 
-Conditionally, in the paper's own presentation style (Theorem 6.1 rounds the exponent down to absorb the
+In the paper's own presentation style (rounding the exponent down absorbs the
 a-dependent constant): **π_a(x) ≥ x^0.9094 for all a ≢ 0 (mod 3) and x ≥ x₀(a)** — improving
 the 2003 record exponent 0.84 (γ₁₁ = log₂ 1.7922310 = 0.8417566) via the k = 19 system; any
 fixed exponent below 0.9094372 is equally verified. Fully explicit form for any a ≡ 2 (mod 3)
@@ -113,9 +119,8 @@ comparison hold at `(k, λ_cert)`. For any positive monotone function family
 satisfying the KL base system, the kernel-checked elimination theorem gives
 `φ^m_k(y) ≥ Δ₁ c^m_k λ_cert^y` for all `m ∈ [3^k]` and `y ≥ 0`, with
 `Δ₁ = 1/(4 max c^m_k)`.
-The remaining `π_a` transfer will use the corrected one-sided form of the
-paper's Theorem 6.1 mechanism (see `THEOREM.md` §4); it must not use the false
-equality (2.1).
+Commit `76ec861` performs the `π_a` transfer with the corrected one-sided
+mechanism (see `THEOREM.md` §4); it does not use the false equality (2.1).
 
 Floating point was used ONLY to search for the candidate (λ_cert and the eigenvector before
 rounding down to the 10^-12 grid); nothing in the acceptance decision depends on it.
@@ -127,10 +132,11 @@ rounding down to the 10^-12 grid); nothing in the acceptance decision depends on
   The successor audit invalidates a step in the printed proof of Theorem 3.1,
   but Lean commit `3d6a186` proves an all-`k` replacement at the abstract
   base-system level. Commit `331ff48` defines the literal family and proves
-  P1/P2; the remaining applicability obligation is D1--D3 and the final
-  exponent wrapper. §6 proves
-  λ_k ≤ λ_{k+1} by lifting feasible solutions, and poses λ_k → 2 as the open problem; our
-  k = 12, 13, 14 points are new terms of the very sequence the paper defines.
+  P1/P2; commit `729f5fa` proves D1--D3; commit `76ec861` proves the final
+  all-target exponent wrapper. §6 proves
+  λ_k ≤ λ_{k+1} by lifting feasible solutions, and poses λ_k → 2 as the open
+  problem; our `k=12..19` points are new finite-level lower bounds for the very
+  sequence the paper defines.
 - The superscript "NT" means "No Truncation" (of advanced terms); **there are no N or T
   truncation parameters** and nothing grows with k except the number of residue classes
   3^{k-1}. The constant C^max_k (max principal variable) affects only the constant

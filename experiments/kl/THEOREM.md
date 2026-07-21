@@ -79,8 +79,8 @@ even though the child targets cover only subsets of their residue pools. An
 exact reverse-tree checker `verify_predecessor_base_inequalities.py` passed
 these inclusions and disjointness claims for all nonperiodic `a<500` and
 integer `2≤y≤5`; the targetwise doubling lemma is
-kernel-checked, while the all-`k` D1--D3 partition is independently audited but
-not yet kernel-checked. The nonperiodicity hypothesis is essential for
+kernel-checked, and commit `729f5fa` kernel-checks the all-`k` D1--D3
+residue-infimum theorem. The nonperiodicity hypothesis is essential for
 disjointness.
 
 Arithmetic sanity (used by our indexing): if `m ≡ 2 (mod 9)` then `4m−2 ≡ 0 (mod 3)` and
@@ -197,9 +197,11 @@ deterministic pruning, a common positive lag, and the complete comparison from
 finite feasibility to the `1/(4C)` exponential lower bound. Thus the abstract
 advanced-elimination seam is kernel-checked without the printed construction.
 Commit `331ff48` defines the literal statewise predecessor family and proves
-target-pool nonemptiness, normalization, and monotonicity. It has not yet proved
-that family satisfies D1--D3 or closed the final exponent transfer. The chain
-to the literal `π_a` statement is therefore not yet end-to-end verified.
+target-pool nonemptiness, normalization, and monotonicity. Commit `729f5fa`
+proves that family satisfies D1--D3. Commit `76ec861` proves the final fixed-
+target/all-target exponent transfer, so the mathematical chain to the literal
+`π_a` statement is complete. The large `k=19` data remain externally exact-
+verified rather than Lean-ingested.
 
 - **Theorem 3.1** (lines 428–433): for `m ∈ [3^k]`, `m ≡ 8 (mod 9)`, the back-substitution
   process (with the deletion rule) halts in finitely many steps at an inequality `I^m_k(EL)`
@@ -272,9 +274,9 @@ Nothing else. In particular:
   feasibility; it does not certify that the literal predecessor functions
   satisfy `I_k`. Proposition 2.1 supplies that paper-side step. Its targetwise
   D1--D3 derivation has now been independently re-audited, and bounded cases
-  have an exact checker, but the end-to-end chain still requires the active
-  Lean proof that the concrete `klPhi` of commit `331ff48` satisfies the base
-  system.
+  have an exact checker; commit `729f5fa` proves that the concrete `klPhi` of
+  commit `331ff48` satisfies the base system. Commit `76ec861` closes the final
+  exponent wrapper for arbitrary admissible targets.
 - **Conditions "(1)", "(2)" at the end of §6** (lines 1067–1086: λ_k attained; principal
   inequalities tight at the optimum) concern only whether Theorem 2.2's bound is *best
   possible* for I_k — the converse direction. They are not hypotheses of Theorem 2.2 and
