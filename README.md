@@ -36,8 +36,8 @@ method, not evidence that `λ_∞<2`.
 
 The immediate research target is now repair or replacement of the finite
 advanced-term termination theorem used in the Krasikov–Lagarias transfer. An
-exact `k=5` legal path invalidates the derivation of equation (3.2) in the
-printed proof and shows
+exact `k=5` legal path, now independently kernel-checked in Lean, invalidates
+the derivation of equation (3.2) in the printed proof and shows
 that its supposedly translated subtrees retain ancestor history. This does
 **not** disprove termination, but until a fixed terminating schedule or explicit
 retarded-elimination witness is constructed, the exact `k=19` feasible point
@@ -62,7 +62,7 @@ an `x^{1−ε}` lower bound would still have density zero for fixed `ε`.
 
 | Result | Status |
 |---|---|
-| Exact `k=19` KL feasible certificate at `γ=0.9094372617…`; **conditional** consequence `π_a(x)≥x^γ` for every fixed smaller `γ` | A fresh run of the reference verifier passed the SHA-pinned 2.9 GB sidecar and all 387,420,489 exact inequalities. However, an exact `k=5` path invalidates the key descent inference in the published proof of KL Theorem 3.1. The certificate remains exact; the counting consequence is conditional until that termination bridge is repaired. The sidecar is local but not in git; a fresh clone is self-contained through k=15. See `experiments/kl/RESULT.md` and `TERMINATION_AUDIT.md`. |
+| Exact `k=19` KL feasible certificate at `γ=0.9094372617…`; **conditional** consequence `π_a(x)≥x^γ` for every fixed smaller `γ` | A fresh run of the reference verifier passed the SHA-pinned 2.9 GB sidecar and all 387,420,489 exact inequalities. However, an exact, independently Lean-checked `k=5` path invalidates the key descent inference in the published proof of KL Theorem 3.1. The certificate remains exact; the counting consequence is conditional until that termination bridge is repaired. The sidecar is local but not in git; a fresh clone is self-contained through k=15. See `experiments/kl/RESULT.md` and `TERMINATION_AUDIT.md`. |
 | The KL method = finite sections of an **adversarial transfer operator on ℤ₃** (base ×4 = the Iwasawa generator of 1+3ℤ₃) | `docs/notes/kl-limit-object.md`, `adversarial-operator.md` |
 | KL's own §6 positivity hypotheses (H_k) | Literature-backed research proof (odometer conjugacy → Gaubert–Gunawardena); nonlinear Perron existence is not Lean-formalized, and the exact feasible-point route bypasses it. |
 | Oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k | proved, now unconditional |
@@ -95,7 +95,9 @@ knowing which routes are dead (and why) is most of the value.
    `experiments/kl/verify_termination_obstruction.py`. This is not a
    nontermination lasso: the open target is absence of any infinite legal
    history, preferably via a fixed breadth-first schedule and a recursive
-   critical-assignment invariant. `experiments/kl/TERMINATION_AUDIT.md`.
+   critical-assignment invariant. Both the Python certificate and the Lean
+   reconstruction in `CLEAN_LEAN/CleanLean/KL/TerminationObstruction.lean`
+   check the obstruction. `experiments/kl/TERMINATION_AUDIT.md`.
 2. **Arctic/max-plus SRS no-go — candidate proof written, formal check next.**
    The inherited proof incorrectly assigned one eventual slope to a reducible
    max-plus sequence. The repair is elementary: a long maximizing walk with
@@ -209,13 +211,14 @@ The oscillation identity, Lemma-5 row checker and exact Chernoff gaps,
 terminal-potential / Chernoff chain, exact backward-orbit hitting formula,
 labelled critical-
 assignment contradiction, concrete split arithmetic, global value-preserving
-deletion, and the final retarded-witness consumer are kernel-checked. Lean also
+deletion, the finite `k=5` termination-proof obstruction, and the final
+retarded-witness consumer are kernel-checked. Lean also
 has symbolic `Z²` shift updates and a generic finite-rank termination checker.
 What is missing is the semantic bridge: a genuinely finite `Control_k` (or a
 fixed terminating schedule) that handles ancestor history, transport
 descendants, newly tied critical assignments, and deletion order. The active
 research-side formalization request is the provisional arctic weighted-walk
-argument. Rounds 22–24 kernel-check the generated payload's 2,187 row
+argument. Rounds 22–24 also kernel-check the generated payload's 2,187 row
 inequalities, their all-length mass bounds, and equality of the imported edge
 tables with an independently defined 243-state KL graph. Irrational interval-
 weight domination, interval tiling, and especially localization remain open;
@@ -240,7 +243,9 @@ hits the same wall.
 - The top theorem lane is now KL termination. An exact integer checker pins a
   legal `k=5` path that invalidates the printed proof's descent and identical-
   subtree claims without forming a repeatable nontermination lasso. CLEAN_LEAN
-  has been sent the certificate and the precise fixed-schedule/history target.
+  independently reconstructed and kernel-checked the path, ancestry tests,
+  symbolic shifts, and re-expansion deletion. The fixed-schedule/history repair
+  remains open.
 - The arctic/max-plus lane remains active. Two independent audits found the
   same reducible-slope gap; an elementary weighted-walk pumping candidate now
   replaces it, and the exact marked macro checker passes. The general theorem

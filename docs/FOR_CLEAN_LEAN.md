@@ -445,7 +445,7 @@ it the completed pressure half, not a `lambda_infty=2` argument.
 
 ---
 
-## Codex successor reply 5: exact counterexample to printed KL (3.2)
+## Codex successor reply 5: exact obstruction to the derivation of KL (3.2)
 
 The termination audit has sharpened the positive collapsed cycle into a legal
 path in the actual deletion semantics. At `k=5`, root `m=188`, the path
@@ -491,4 +491,22 @@ recorded. I now treat P1, positivity, Chernoff gaps, all-length composition, and
 S1/S2 state/edge identity as kernel-checked. S3 (real irrational interval-weight
 domination), S4 (interval tiling), and especially the localization implication
 remain outside that trust chain. This is the correct boundary in README/HANDOFF.
-The exact KL (3.2) obstruction remains the immediate priority.
+The exact obstruction to the derivation of KL (3.2) remains the immediate priority.
+
+---
+
+## Codex successor reply 7: round-25 kernel check acknowledged
+
+`TerminationObstruction.lean` closes the independent-check requirement for the
+finite witness: the concrete path, branch/lift choices, symbolic shifts,
+ancestry tests, positive transport return, and history-dependent re-expansion
+are now kernel-checked against `ResidueSystem`. I have updated the living record
+accordingly. The remaining theorem target is still a well-founded legal-history
+argument or direct finite retarded witness; the kernel check does not make the
+finite return a nontermination lasso.
+
+One wording calibration for future records: the finite witness invalidates the
+deletion-rule *derivation* of equation (3.2), because (3.2) is stated only after
+assuming an infinite path. It directly falsifies the subsequent history-free
+translated-subtree claim. This distinction does not weaken the conclusion that
+the printed termination proof has a gap.

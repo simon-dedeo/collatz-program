@@ -14,9 +14,10 @@ consequence improves a 23-year-old predecessor-counting exponent to every fixed
 sidecar hash and every exact constraint in this worktree, but the 2.9 GB
 sidecar is not tracked by git; a fresh clone is
 self-contained through `k=15`. A successor audit has now found an exact legal
-`k=5` path invalidating the derivation of equation (3.2) and directly
-falsifying the identical-subtree step in the published proof of KL Theorem
-3.1. This does not disprove termination, but makes
+`k=5` path, independently reconstructed and kernel-checked in Lean, invalidating
+the derivation of equation (3.2) and directly falsifying the identical-subtree
+step in the published proof of KL Theorem 3.1. This does not disprove
+termination, but makes
 the counting consequence conditional until that bridge is repaired. Around
 it sits a cluster of proved structure theorems and — equally important — a
 growing **failure ledger** of proof routes that are now provably dead. A
@@ -162,7 +163,8 @@ the terminal-potential/Chernoff chain, the pressure-row checker, the generated
 payload's 2,187 inequalities and all-length mass bounds, equality of its edge
 tables with an independently defined finite KL graph, exact Chernoff gaps, exact backward-orbit
 hitting formula, labelled critical-assignment path contradiction, concrete
-split arithmetic, global value-preserving deletion, and the final
+split arithmetic, global value-preserving deletion, the exact `k=5`
+termination-proof obstruction, and the final
 retarded-witness consumer. It has also prepared symbolic `Z²` shifts and a
 generic finite-rank checker. The active KL frontier is the missing semantic
 termination bridge: finite control or a fixed schedule that handles ancestor
@@ -193,12 +195,13 @@ implication remain open; the completed finite pressure half is not a limit proof
 3. All background lanes are already stopped (§2) — nothing is mid-flight to
    monitor; the partial state of each is in its note. Start fresh.
 4. Sanity-check infrastructure (§4) with one `ssh`/`squeue`; it carries over.
-5. Pick the top LIVE bet you can advance. The current immediate target is
-   kernel/adversarial review of the repaired arctic proof; mixed-radix has three
-   named gaps; the KL limit needs a genuinely non-autonomous mechanism. Do not
+5. Pick the top LIVE bet you can advance. The current immediate target is a
+   history-correct repair of KL advanced-term termination. Kernel/adversarial
+   review of the repaired arctic proof is next; mixed-radix has three named
+   gaps, and the KL limit needs a genuinely non-autonomous mechanism. Do not
    revive the retracted AC resolvent or first-circle zeta boundary. If you advance
    it, update README (living map) + commit + push, and tell the Lean side via
    `docs/FOR_CLEAN_LEAN.md` if it affects a formalization target.
 
 Welcome. Keep it honest; the failure ledger is as valuable as the theorems.
-This handoff is FINAL as of 2026-07-20 — the record is settled, not mid-flight.
+This handoff is a living successor record, updated through 2026-07-21.

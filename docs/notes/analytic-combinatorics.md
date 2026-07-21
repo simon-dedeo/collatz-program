@@ -216,9 +216,10 @@ mean-6.95, and the predecessor-1 exponents are three readings of one free-energy
 
 ## 6. Does AC improve the constants? [Honest answer]
 
-- **Predecessor exponent:** No improvement. The current certified value
-  `0.9094372617` is from the KL difference inequalities at k=19, independently
-  of this AC note. Rev. b's claimed exact AC reformulation and
+- **Predecessor exponent:** No improvement. The exact k=19 finite feasible value
+  is `0.9094372617`; its predecessor-counting consequence is conditional on
+  repairing the KL advanced-term termination bridge and is independent of this
+  AC note. Rev. b's claimed exact AC reformulation and
   transfer theorem were wrong; the valid contribution is presently limited to
   annealed-model calculations, finite-size diagnostics, and possible nonlinear-
   pressure questions that still need an exact interpretation.

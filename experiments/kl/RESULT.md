@@ -11,8 +11,10 @@ verification chain).
 **Trust-chain correction (2026-07-21).** The feasible points below remain exact.
 However, `verify_termination_obstruction.py` checks a legal `k=5` path that
 invalidates the derivation of equation (3.2) and directly falsifies the
-history-free subtree step in the published proof of KL Theorem 3.1. This does
-not refute termination or Theorem 2.2, but
+history-free subtree step in the published proof of KL Theorem 3.1. The path
+and deletion tests are also independently kernel-checked in
+`CLEAN_LEAN/CleanLean/KL/TerminationObstruction.lean`. This does not refute
+termination or Theorem 2.2, but
 until the termination bridge is repaired, the predecessor-counting consequence
 below is conditional on an unclosed literature-proof gap. See
 `TERMINATION_AUDIT.md`.

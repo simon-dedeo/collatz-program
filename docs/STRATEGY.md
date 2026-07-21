@@ -4,13 +4,15 @@ v2, 2026-07-20 (v1 same day; [verify] tags resolved against the literature
 sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 `landscape/`). Everything in §4 is backed by artifacts in this repo.
 
-> **Successor-audit notice (2026-07-20, late):** this v2 memo preserves the
+> **Successor-audit notice (updated 2026-07-21):** this v2 memo preserves the
 > historical program that generated the repo, so several “running” lines below
 > are no longer current. Use `README.md` as the live state map. In particular:
 > all inherited background jobs are stopped; `k=19` has now passed a fresh
 > exact 387,420,489-constraint run of the reference verifier (large sidecar local, not in
-> git), but its counting consequence is conditional while an exact obstruction
-> to the printed KL Theorem 3.1 termination proof is repaired; the analytic-
+> git), but its counting consequence is conditional because an exact obstruction
+> invalidates the printed KL Theorem 3.1 termination proof; that obstruction is
+> now independently kernel-checked in Lean, and the termination gap remains open;
+> the analytic-
 > combinatorics ordinary-pole identification is retracted;
 > the unsigned-zeta natural boundary at `|u|=1/4` has a candidate refutation
 > by a handwritten leading-pole factorization plus exact finite checks (formal
@@ -51,9 +53,11 @@ killed one claim of the reviewer's).
    or nontrivial cycle. Current squeeze: seeds < 2⁷¹ excluded (Barina, Jan
    2025); no m-cycles for m ≤ 91 and any nontrivial cycle has ≥ 2.18×10¹¹
    T-steps with > 1.375×10¹¹ odd terms (Hercher 2023 + Barina). A divergent
-   orbit has no finite witness, and moreover can't be lonely: one divergent
-   orbit forces ≥ x^0.84 divergent seeds below x (Krasikov–Lagarias applied to
-   a divergent target), and an orbit bounded below by C₀ forces positive
+   orbit has no finite witness. The published Krasikov–Lagarias argument claims
+   that one divergent orbit forces ≥ x^0.84 divergent seeds below x, but the
+   successor audit found an unresolved gap in its advanced-term termination
+   bridge, so that crowding consequence is presently conditional. Independently,
+   an orbit bounded below by C₀ forces positive
    density absorbed (Tao Remark 1.4). Counterexamples, if any, come in crowds
    — a disproof must be structural, not exhibitional.
 4. **Why almost-all methods stall at almost-all.** Tao's own Remark 1.4:
@@ -67,8 +71,8 @@ killed one claim of the reviewer's).
    Haar-null set sits inside a solved system. Proof structure must be
    invisible-to-Haar — i.e., genuinely arithmetic.
 6. **No-go theorems for automated methods.** Zantema's 7-rule rewriting system
-   (termination ⟺ Collatz) admits no matrix-interpretation termination proof
-   in any dimension (Yolcu–Aaronson–Heule 2021). No infinite semilinear
+   (termination ⟺ Collatz) admits no natural-number matrix-interpretation
+   termination proof in any dimension (Yolcu–Aaronson–Heule 2021). No infinite semilinear
    T-invariant set avoiding {1,2} exists (Monks 2006 corollary) — so any
    regular divergence certificate must be sparse and non-semilinear, or
    finite (= a cycle). The 2-automatic case is open; see §3.3 and §4.

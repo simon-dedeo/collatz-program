@@ -1,7 +1,8 @@
 # Audit of the KL advanced-term termination proof
 
-**Status (2026-07-21): exact obstruction to the published proof; termination
-itself remains open in this audit.** Run:
+**Status (2026-07-21): exact obstruction to the published proof, independently
+reconstructed and kernel-checked in Lean; termination itself remains open in
+this audit.** Run:
 
 ```sh
 python3 verify_termination_obstruction.py
@@ -14,6 +15,11 @@ the Krasikov--Lagarias back-substitution tree:
 188 -B8-> 206 -B8-> 137 -B2-> 182 -B2-> 161
     -B8-> 107 -B8-> 71 -B8-> 47 -T-> 188.
 ```
+
+`CLEAN_LEAN/CleanLean/KL/TerminationObstruction.lean` separately checks the
+same path against the formal `ResidueSystem` definitions, including lift
+indices, symbolic shifts, ancestry tests, the positive return, and the
+re-expanded child's deletion eligibility.
 
 Writing every shift as the exact pair `(a,b)` for `a+b log_2(3)`, the
 successive shifts are
