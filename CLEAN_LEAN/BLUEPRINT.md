@@ -33,6 +33,8 @@ It is deliberately defined before any proposed proof machinery.
 | Lean-native level-2 end-to-end certificate at `lambda=4/3` | Kernel checked |
 | SHA-256/NPY streaming front end | Planned |
 | KL Theorem 5.1 retarded-tree comparison and `1/(4 max c)` constant | Kernel checked |
+| Sum/min tree contexts and sound splitting substitution | Kernel checked |
+| Local deletion from a minimum is not sound from positivity/monotonicity alone | Kernel-checked counterexample |
 | KL advanced-term elimination and original-system transfer (Theorems 3.1--4.1) | Planned |
 | Finite weighted-tail inequality in R' | Kernel checked |
 | Full abstract asymptotic R' | Kernel checked |

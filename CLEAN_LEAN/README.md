@@ -32,6 +32,13 @@ paper's exact `1/(4 max c)` constant.  The still-unformalized literature bridge
 is now the advanced-term elimination and the proof that its retarded trees
 preserve both the Collatz inequalities and LP feasibility.
 
+`TreeRewrite.lean` handles the splitting substep: substituting a valid rule
+inside any sum/min context preserves the functional inequality, while the
+associated exponential coefficient inequality moves in the opposite, feasible
+direction.  It also kernel-checks a counterexample showing that deleting a
+minimum alternative is not a local consequence of positivity and monotonicity;
+the paper's global critical-path argument is genuinely required.
+
 The first charged spine-face Lyapunov proposal has been exactly falsified,
 not assumed away: `MarginalObstruction.lean` proves that its aligned mean and
 co-spine modes have the same eigenvalue.  This is a no-go theorem for that

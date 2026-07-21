@@ -74,6 +74,14 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
    and the initial lower bound one.  The advanced-term elimination which
    produces those trees remains to be formalized.
 
+10. **Sound tree splitting, with deletion kept explicit.** `TreeRewrite.lean`
+    proves substitution inside arbitrary sum/min contexts on both the
+    functional and exponential-coefficient sides.  A concrete positive,
+    nondecreasing counterexample shows that simply removing a child from a
+    minimum can destroy the root inequality.  Thus the global
+    critical-assignment argument in KL Theorem 3.2 cannot be replaced by a
+    generic local monotonicity lemma.
+
 ## Corrections to the current notes
 
 ### The pure-branch root needs a special condition
