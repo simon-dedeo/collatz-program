@@ -1,0 +1,373 @@
+# References (mirrored PDFs removed from the public repo)
+
+The `papers/` directory held ~130 mirrored PDFs used during the
+investigation. They are omitted from the public repository. Below is the
+index; arXiv IDs are recoverable from filenames where present, else search
+the slug. (Kept locally / in `DATA.md`-style pointers only.)
+
+- `2303.03203-linear-dynamics-collatz-operator.pdf` — arXiv:2303.03203
+- `BlondelTsitsiklis2000_boundedness_undecidable.pdf`
+- `aaronson-2020-busy-beaver-frontier.pdf`
+- `aazan_girard_greco_mason_omega_regular_jsr.pdf`
+- `adamczewski-2003-balances-primitive-substitutions.pdf`
+- `adamczewski-bell-mahler-problem-1303.2019.pdf` — arXiv:1303.2019
+- `adamczewski-dreyfus-hardouin-hypertranscendence-1910.01874.pdf` — arXiv:1910.01874
+- `adds.txt`
+- `adele-semigroup-orbit-density-2013.pdf`
+- `adhw-algebraic-independence-2010.09266.pdf` — arXiv:2010.09266
+- `ahmadi-jungers-parrilo-roozbehani-2014-path-complete-lyapunov-jsr.pdf`
+- `aidekon2013_minimum_BRW.pdf`
+- `aidekon2013_minimum_BRW.txt`
+- `aidekon_shi2014_seneta_heyde_BRW.pdf`
+- `aidekon_shi2014_seneta_heyde_BRW.txt`
+- `ajpr.txt`
+- `akian-gaubert-hochart-2014-ergodicity-zero-sum-games.pdf`
+- `akiyama-frougny-sakarovitch-2008-rational-base.pdf`
+- `akiyama-frougny-sakarovitch-rational-base.pdf`
+- `akiyama-frougny-sakarovitch-rational-base.txt`
+- `allaart-kong-2023-entropy-plateaus-beta-hole-at-0.pdf`
+- `alon-behajaina-paran-2024-collatz-f2x.pdf`
+- `alvarezlopez-kordyukov-2007-lefschetz-lie-foliations.pdf`
+- `am.txt`
+- `anashin-2011-automata-finiteness-vanderput.pdf`
+- `anashin-2011-tfunctions-revisited.pdf`
+- `anashin-khrennikov-yurova-2013-ergodicity-coordinate-functions.pdf`
+- `angeltveit-2026-improved-collatz-checking-algorithm.pdf`
+- `applegate-lagarias-2004-3x1-semigroup.pdf`
+- `applegate-lagarias-2006-3x1-semigroup.pdf`
+- `applegate-lagarias-3x1-semigroup-math0411140.pdf` — arXiv:math0411140
+- `ar.txt`
+- `arxiv_1107.0124.pdf` — arXiv:1107.0124
+- `arxiv_1111.3427.pdf` — arXiv:1111.3427
+- `arxiv_1212.0605.pdf` — arXiv:1212.0605
+- `arxiv_1212.0605.txt` — arXiv:1212.0605
+- `arxiv_1304.2295.pdf` — arXiv:1304.2295
+- `arxiv_1304.2295.txt` — arXiv:1304.2295
+- `arxiv_1311.3362.pdf` — arXiv:1311.3362
+- `arxiv_1311.3362.txt` — arXiv:1311.3362
+- `arxiv_1401.2711.pdf` — arXiv:1401.2711
+- `arxiv_1403.5050.pdf` — arXiv:1403.5050
+- `arxiv_1409.1107.pdf` — arXiv:1409.1107
+- `arxiv_1409.1107.txt` — arXiv:1409.1107
+- `arxiv_1410.7197.pdf` — arXiv:1410.7197
+- `arxiv_1503.06984.pdf` — arXiv:1503.06984
+- `arxiv_1512.04887.pdf` — arXiv:1512.04887
+- `arxiv_1710.01814.pdf` — arXiv:1710.01814
+- `arxiv_1712.07408.pdf` — arXiv:1712.07408
+- `arxiv_1712.07408.txt` — arXiv:1712.07408
+- `arxiv_1807.03965.pdf` — arXiv:1807.03965
+- `arxiv_1811.09420.pdf` — arXiv:1811.09420
+- `arxiv_1811.09420.txt` — arXiv:1811.09420
+- `arxiv_1912.06897.pdf` — arXiv:1912.06897
+- `arxiv_1912.06897.txt` — arXiv:1912.06897
+- `arxiv_2008.05220.pdf` — arXiv:2008.05220
+- `arxiv_2008.05220.txt` — arXiv:2008.05220
+- `arxiv_2312.05427.pdf` — arXiv:2312.05427
+- `arxiv_2312.05427.txt` — arXiv:2312.05427
+- `arxiv_2509.05524.pdf` — arXiv:2509.05524
+- `arxiv_2509.05524.txt` — arXiv:2509.05524
+- `arxiv_2606.08101.pdf` — arXiv:2606.08101
+- `arxiv_2606.08101.txt` — arXiv:2606.08101
+- `asarin-mysore-pnueli-schneider-2012-low-dim-hybrid.pdf`
+- `aurzada-mukherjee-zeitouni-persistence-markov-1703.06447.pdf` — arXiv:1703.06447
+- `aurzada-simon-persistence-survey-1203.6554.pdf` — arXiv:1203.6554
+- `avila-dolgopyat-duryev-sarig-visits-to-zero.pdf`
+- `ba.txt`
+- `baake-moody-schlottmann-1998-padic-model-sets.pdf`
+- `bacik-etal-2026-variable-bounded-nonlinear-presburger.pdf`
+- `bajpai-bennett-2016-sums-two-sunits-frey-1603.07922.pdf` — arXiv:1603.07922
+- `baldan-bonchi-kerstan-koenig-2018-coalgebraic-behavioral-metrics.pdf`
+- `banderier_flajolet_2002_lattice_paths.pdf`
+- `banderier_wallner_2016_rational_slope.pdf`
+- `bandi-bertsimas-youssef-robust-queueing-2015.pdf`
+- `baraviera-leplaideur-lopes-2013-maxplus-zero-temp.pdf`
+- `barbieri-etal-medvedev-degrees-subshifts-groups-2406.12777.pdf` — arXiv:2406.12777
+- `barina-2020-convergence-verification-collatz.pdf`
+- `barina-2025-improved-verification-limit.pdf`
+- `bbchallenge-2024-correctness-deciders.pdf`
+- `bbchallenge-2025-bb5-determination.pdf`
+- `bbchallenge-2025-deciders-part1-2504.20563.pdf` — arXiv:2504.20563
+- `bedaride-fernique-weak-local-rules-octagonal-2015.pdf`
+- `behani-2023-linear-dynamics-collatz-2303.03203.pdf` — arXiv:2303.03203
+- `belk-bleak-kokyuroku-2265-simple-groups.pdf`
+- `bell-lagarias-2014-natural-boundaries-1408.6884.pdf` — arXiv:1408.6884
+- `bell-lagarias-natural-boundaries-1408.6884.pdf` — arXiv:1408.6884
+- `belloum_mallein2021_anomalous_spreading_reducible_multitype_BBM.pdf`
+- `belloum_mallein2021_anomalous_spreading_reducible_multitype_BBM.txt`
+- `benamram-2013-mortality-iterated-pam.pdf`
+- `benedetto-etal-2019-current-trends-arithmetic-dynamics-1806.04980.pdf` — arXiv:1806.04980
+- `benedetto-ghioca-hutz-kurlberg-scanlon-tucker-2013-periods-mod-primes-1107.2816.pdf` — arXiv:1107.2816
+- `bennett-2001-pillai-exponential-equations.pdf`
+- `berend-1984-multi-invariant-compact-abelian.pdf`
+- `berger-bethencourt-sparre-andersen-exchangeable-2304.09031.pdf` — arXiv:2304.09031
+- `bernstein-1994-noniterative-2adic.pdf`
+- `berthe-delecroix-sadic-survey.pdf`
+- `bertok-hajdu-2014-hasse-principle-exponential-diophantine.pdf`
+- `bertok-hajdu-2016-hasse-principle-exponential-diophantine-1407.6499.pdf` — arXiv:1407.6499
+- `bezuglyi-karpel-kwiatkowski-wata-generalized-bratteli-2404.14654.pdf` — arXiv:2404.14654
+- `biggins2012_reducible_multitype_spreading_speeds.pdf`
+- `biggins2012_reducible_multitype_spreading_speeds.txt`
+- `biziere-leroux-sutre-2026-forward-semilinear-invariants-vas-2606.27166.pdf` — arXiv:2606.27166
+- `blondel_tsitsiklis_boundedness_undecidable_2000.pdf`
+- `bonanno-cristadoro-lenci-2021-maximal-escape-rate-shifts.pdf`
+- `bonchi-petrisan-pous-rot-2014-coinduction-up-to-fibrational.pdf`
+- `bonchi-pous-2013-nfa-equivalence-up-to-congruence.pdf`
+- `borger-2009-lambda-rings-F1-0906.3146.pdf` — arXiv:0906.3146
+- `borger-2013-witt-semirings-positivity-1310.3013.pdf` — arXiv:1310.3013
+- `bourgain-1989-pointwise-ergodic-arithmetic-sets.pdf`
+- `bourgain-lindenstrauss-michel-venkatesh-2009-effective-xa-xb.pdf`
+- `bousch-2000-le-poisson.pdf`
+- `bousch-mairesse-2002-tetris-finiteness.pdf`
+- `bratteli-jorgensen-9612002-ifs-permutation-cuntz.pdf`
+- `bromberg-ulcigrai-temporal-CLT.pdf`
+- `bromberg-ulcigrai-temporal-CLT.txt`
+- `bruin-carminati-kalle-2017-matching-generalised-beta.pdf`
+- `bruin-carminati-kalle-2017-matching-generalised-beta.txt`
+- `bruin-carminati-marmi-profeti-2017-matching-piecewise-affine.pdf`
+- `bruin-carminati-marmi-profeti-2017-matching-piecewise-affine.txt`
+- `bruin-fokkink-records-zeros-deterministic-walk.pdf`
+- `bruin-fokkink-records-zeros-deterministic-walk.txt`
+- `bt.txt`
+- `buchi-nondefinability-generalized-collatz-family-2602.06066.pdf` — arXiv:2602.06066
+- `bugeaud-dubickas-2005-fractional-parts-sturmian.pdf`
+- `bugeaud-mignotte-siksek-2006-fibonacci-perfect-powers.pdf`
+- `bullett-lomonaco-mating-equidistribution-2202.06910.pdf` — arXiv:2202.06910
+- `bunimovich-yurchenko-2008-where-to-place-hole.pdf`
+- `calta-kraaikamp-schmidt-2017-synchronization-full-measure.pdf`
+- `calta-kraaikamp-schmidt-2017-synchronization-full-measure.txt`
+- `capretta-2005-general-recursion-coinductive-delay.pdf`
+- `carminati-langeveld-steiner-2021-tanaka-ito-matching.pdf`
+- `carminati-langeveld-steiner-2021-tanaka-ito-matching.txt`
+- `carminati-tiozzo-2013-tuning-plateaux-alphaCF.pdf`
+- `carminati-tiozzo-2013-tuning-plateaux-alphaCF.txt`
+- `carminati_tiozzo_2010_canonical_thickening.pdf`
+- `char2-polynomial-collatz-1610.02545.pdf` — arXiv:1610.02545
+- `chazottes-hochman-2009-zero-temperature-limit.pdf`
+- `chothi-everest-ward-1997-sinteger-periodic-points.pdf`
+- `conlon-fox-zhao-2015-relative-szemeredi.pdf`
+- `constrained-jsr-algebraic-lifting-1807.03965.pdf` — arXiv:1807.03965
+- `constrained-switching-boundedness-deadbeat-1512.04887.pdf` — arXiv:1512.04887
+- `conway-1972-unpredictable-iterations.pdf`
+- `conway-2013-on-unsettleable-arithmetical-problems.pdf`
+- `corvaja-zannier-2004-height-sunit-points-gcd.pdf`
+- `cubarsi-generalized-pythagorean-scales.pdf`
+- `cyr-kra-generic-measures-linear-growth.pdf`
+- `czerner-esparza-krasotin-welzelmohr-2024-regular-abstraction-invariants-2404.10752.pdf` — arXiv:2404.10752
+- `dai.txt`
+- `dajani-kalle-2017-signed-binary-matching.pdf`
+- `dajani-kalle-2017-signed-binary-matching.txt`
+- `daviaud-guillon-merlet-tropical-jsr-1612.02647.pdf` — arXiv:1612.02647
+- `debauche-philippe-jungers-path-complete-lifts-2110.13474.pdf` — arXiv:2110.13474
+- `debruijn-powers-32-1811.02254.pdf` — arXiv:1811.02254
+- `debruijn-powers-32-2018.pdf`
+- `demol-2009-boundaries-solvability-tag-systems.pdf`
+- `deninger-2001-explicit-formulas-simple-example.pdf`
+- `deninger-2005-arithmetic-foliated-aws.pdf`
+- `deninger-2018-dynamical-systems-arithmetic-schemes.pdf`
+- `deninger-singhof-2001-counterexample-hodge.pdf`
+- `deweger-2011-opfer-comments.pdf`
+- `dhiman-pandey-2026-buchi-nondefinability-collatz.pdf`
+- `diaconis-fulman-balanced-carries-1309.5116.pdf` — arXiv:1309.5116
+- `diaconis-fulman-carries-shuffling-0806.3583.pdf` — arXiv:0806.3583
+- `diaconis-fulman-foulkes-eulerian-1102.5159.pdf` — arXiv:1102.5159
+- `diekert-potapov-semukhin-2020-flat-rational-GL2Q.pdf`
+- `diekert_potapov_semukhin_GL2Q_flat_rational.pdf`
+- `dinh-kaufmann-wu-correspondences-1808.10130.pdf` — arXiv:1808.10130
+- `dion-lei-ray-vallieres-2022-iwasawa-invariants-multigraphs.pdf`
+- `dolgopyat-sarig-temporal-DLT.pdf`
+- `dolgopyat-sarig-temporal-DLT.txt`
+- `donoso-durand-maass-petite-finite-rank-sadic.pdf`
+- `dotto-krause-nikolaus-patchkoria-2020-witt-charpoly-2002.01538.pdf` — arXiv:2002.01538
+- `dreyfus-hardouin-roques-hypertranscendence-mahler-1507.03361.pdf` — arXiv:1507.03361
+- `effective-sunit-beyond-3-terms-newman-2308.05162.pdf` — arXiv:2308.05162
+- `einsiedler-lindenstrauss-2021-tori-solenoids.pdf`
+- `eliahou-vergergaugry-2025-base32-3x1.pdf`
+- `eliahou-vergergaugry-2025-rational-base-32-3x1.pdf`
+- `endrullis-zantema-2015-nontermination-finite-automata.pdf`
+- `endrullis-zantema-nontermination-automata-2015.pdf`
+- `erdos_conjecture_tm_2107.12475.pdf` — arXiv:2107.12475
+- `eskin-fisher-whyte-2012-coarse-differentiation-I.pdf`
+- `evertse-schlickewei-schmidt-2002-linear-equations-multiplicative-group.pdf`
+- `feldman-immerman-sagiv-shoham-2020-invariant-inference-complexity.pdf`
+- `fgh.txt`
+- `fijalkow-etal-2019-monniaux-problem-1907.08257.pdf` — arXiv:1907.08257
+- `finkel-goeller-haase-2013-register-polynomial.pdf`
+- `finkel_schnoebelen_2001_wsts.pdf`
+- `flatto-lagarias-pollington-1995-fracparts.pdf`
+- `flatto-lagarias-pollington-1995-range-fractional-parts.pdf`
+- `flatto-lagarias-pollington-1995-range-fractional-parts.txt`
+- `four-term-consecutive-bases-skolem-2025.pdf`
+- `frantzikinakis-host-2018-logarithmic-sarnak.pdf`
+- `frittaion-etal-sct-strength-2017.pdf`
+- `gaubert-1995-performance-maxplus-automata.pdf`
+- `gaubert-gunawardena-2004-perron-homogeneous-monotone.pdf`
+- `genevois-2022-intro-diagram-groups.pdf`
+- `geuvers-jacobs-2021-apartness-bisimulation.pdf`
+- `ghahremani-kelmendi-ouaknine-injective-pam-2023.pdf`
+- `ghys-2006-knots-and-dynamics.pdf`
+- `gko-injective.txt`
+- `glendinning-sidorov-2013-doubling-map-asymmetrical-holes.pdf`
+- `goncalves-greenfeld-madrid-2021-generalized-collatz.pdf`
+- `goresky-klapper-mwc-generators-2003.pdf`
+- `grama_mentemeier_xiao2025_matrix_BRW_spinal_derivative_martingale.pdf`
+- `grama_mentemeier_xiao2025_matrix_BRW_spinal_derivative_martingale.txt`
+- `green-tao-2008-primes-long-aps.pdf`
+- `hercher-2023-no-collatz-m-cycles-91-2201.00406.pdf` — arXiv:2201.00406
+- `hercher-2023-no-m-cycles-91.pdf`
+- `hesselholt-witt-survey.pdf`
+- `hines-2022-collatz-thompson-F-girard.pdf`
+- `hochman-shmerkin-2012-local-entropy-averages.pdf`
+- `hofbauer-waldmann-sparse-tiling-termination-2020.pdf`
+- `hohertz-2012.08006-collatz-polynomials-zeros.pdf` — arXiv:2012.08006
+- `hosseini_ouaknine_worrell_2019_linear_loop_termination.pdf`
+- `hsia-silverman-2009-dynamical-brauer-manin-0801.3045.pdf` — arXiv:0801.3045
+- `hyde-skipper-zaremsky-2026-action-graphs-nonembedding-V.pdf`
+- `ingram-2019-canonical-heights-correspondences-1411.1041.pdf` — arXiv:1411.1041
+- `ingram-canonical-heights-correspondences-1411.1041.pdf` — arXiv:1411.1041
+- `inselmann-2024-collatz-reals.pdf`
+- `izsak-pippenger-carry-mult-constants-0801.4040.pdf` — arXiv:0801.4040
+- `jaax-kiefer-2020-affine-reachability.pdf`
+- `jenkinson-2017-ergodic-optimization-survey.pdf`
+- `jenkinson-pollicott-2016-rigorous-dimension-E2-hundred-digits.pdf`
+- `jerabek_2007_approximate_counting.pdf`
+- `jordan-livne-2000-ramanujan-cubical-complexes.pdf`
+- `kalle-etal-2020-matching-infinite-measure-CF.pdf`
+- `kalle-etal-2020-matching-infinite-measure-CF.txt`
+- `kalle-kong-langeveld-li-2018-beta-transformation-hole-at-0.pdf`
+- `kari-kopra-2017-cellular-automata-powers-pq.pdf`
+- `kari-nlin0502061-two-cellular-automata-3x1.pdf` — arXiv:nlin0502061
+- `karimov-luca-nieuwveld-ouaknine-worrell-2024-presburger-powers.pdf`
+- `karras-deweger-2026-modular-collatz-graph-determinants.pdf`
+- `keller-howard-klages-2008-continuity-transport-coefficients.pdf`
+- `keller-howard-klages-2008-continuity-transport-coefficients.txt`
+- `keller-liverani-2008-rare-events-escape-rates.pdf`
+- `kim-2019-leafwise-zeta-rfds.pdf`
+- `kim2008_coinductive_lipschitz_streams_collatz.pdf`
+- `kl2002.txt`
+- `klages-dorfman-1999-fractal-diffusion-coefficients.pdf`
+- `klages-dorfman-1999-fractal-diffusion-coefficients.txt`
+- `klimov-shamir-2002-invertible-mappings.pdf`
+- `kohl-2017-collatz-group-theoretic-context.pdf`
+- `kong-sun-wang-2025-open-systems-moving-hole.pdf`
+- `kontorovich-2013-apollonius-zaremba-thin-orbits-1208.5460.pdf` — arXiv:1208.5460
+- `kontorovich-lagarias-2009-stochastic-models.pdf`
+- `kontorovich-sinai-2002-structure-theorem.pdf`
+- `korec-1994-density-estimate-3x1.pdf`
+- `koz.txt`
+- `kp-pam.txt`
+- `krasikov-lagarias-2002-bounds-3x1-difference-inequalities.pdf`
+- `krumm-2016-local-global-quadratic-dynamics-1508.03830.pdf` — arXiv:1508.03830
+- `kurganskyy-potapov-pam-reachability-2016.pdf`
+- `kurtz-simon-2007-generalized-collatz-undecidable.pdf`
+- `laarhoven-deweger-2013-collatz-debruijn.pdf`
+- `lagarias-2003-annotated-bibliography-I.pdf`
+- `lagarias-2003-annotated-bibliography-I.txt`
+- `lagarias-2006-annotated-bibliography-II.pdf`
+- `lagarias-2021-3x1-overview.pdf`
+- `lagarias-2021-3x1-overview.txt`
+- `lagarias-3x1-bibliography-I.pdf`
+- `larchey-wendling-forster-2019-hilberts-tenth-coq-fractran.pdf`
+- `leboudec-thiran-network-calculus-book.pdf`
+- `leichtnam-2006-lefschetz-padic-transversal.pdf`
+- `leroux-sutre-2005-flat-counter-automata.pdf`
+- `leroux-vas-presburger-invariants-1009.1076.pdf` — arXiv:1009.1076
+- `leventides-poulios-2010.12987-koopman-3x1.pdf` — arXiv:2010.12987
+- `li-2023-stein-groups-topological-full-groups.pdf`
+- `li-sahlsten-samuel-steiner-2019-denseness-SFT-intermediate-beta.pdf`
+- `li-sahlsten-samuel-steiner-2019-denseness-SFT-intermediate-beta.txt`
+- `lpj.txt`
+- `ls.txt`
+- `lu-steiner-zou-2025-double-base-binary-shift-hole.pdf`
+- `mahler-1968-powers-of-3-2.pdf`
+- `mahler-1968-unsolved-problem-powers-3-2.pdf`
+- `mahler.txt`
+- `mahler1968_powers_of_3_2.pdf`
+- `matsusaka-ueki-2021-rademacher-symbols-triangle-groups-2109.01114.pdf` — arXiv:2109.01114
+- `matthews-3x+1-slides.pdf`
+- `michel-2009-busy-beaver-historical-survey.pdf`
+- `michel-2013-problems-number-theory-busy-beaver.pdf`
+- `michel-2014-simulation-collatz-turing-machines.pdf`
+- `michel-2015-number-theory-busy-beaver.pdf`
+- `michel-2019-busy-beaver-survey.pdf`
+- `michel1993_bb_collatz.pdf`
+- `michel2015_number_theory_bb.pdf`
+- `michel_bb_historical_survey.pdf`
+- `mitchell-random-substitution-entropy-dichotomy.pdf`
+- `moj-2026-biorthogonal-holte-2604.04591.pdf` — arXiv:2604.04591
+- `molyneux-2026-tree-pairs-bieri-strebel.pdf`
+- `monks-2006-sufficiency-arithmetic-progressions.pdf`
+- `monks-2025-q-analog-collatz-2508.10153.pdf` — arXiv:2508.10153
+- `monks-family-2012-strongly-sufficient-sets.pdf`
+- `mori-2024-operator-theory-collatz-cuntz.pdf`
+- `mori-2411.08084-operator-theory-collatz.pdf` — arXiv:2411.08084
+- `mori-2508.05713-bounded-condition-cstar.pdf` — arXiv:2508.05713
+- `mori.txt`
+- `morier-genoud-ovsienko-2019-q-rationals-1812.00170.pdf` — arXiv:1812.00170
+- `morris-2011-mather-sets-matrices-jsr.pdf`
+- `nakano-sadahiro-carries-eulerian-1306.2790.pdf` — arXiv:1306.2790
+- `neklyudov-2021-functional-analysis-collatz-2106.11859.pdf` — arXiv:2106.11859
+- `opfer-2011-analytic-approach-hbam2011-09.pdf`
+- `ouaknine_worrell_positivity_2013.pdf`
+- `paaj.txt`
+- `pedj.txt`
+- `philippe-essick-dullerud-jungers-2016-constrained-switching-cjsr.pdf`
+- `potapov_semukhin_2x2_membership.pdf`
+- `pous-2016-coinduction-all-the-way-up.pdf`
+- `pp.txt`
+- `rahn-sultanow-aberkane-2021-collatz-hydra-mathGM-UNRELIABLE.pdf`
+- `ramachandran-2014-zeta-witt-1407.1813.pdf` — arXiv:1407.1813
+- `ranzato-2020-abstract-inductive-invariants-2004.03170.pdf` — arXiv:2004.03170
+- `rodriguez-migueles-2020-periods-cf-volumes-modular-knots-2008.12436.pdf` — arXiv:2008.12436
+- `roques-frobenius-mahler-2503.12995.pdf` — arXiv:2503.12995
+- `rttv-2008-dense-subsets-pseudorandom.pdf`
+- `santana-2601.03297-topological-ergodic.pdf` — arXiv:2601.03297
+- `sarnak-2011-mobius-lectures.pdf`
+- `schafke-singer-2016-mahler-rationality-1605.08830.pdf` — arXiv:1605.08830
+- `schafke-singer-consistent-systems-1605.02616.pdf` — arXiv:1605.02616
+- `sct.txt`
+- `shallit-wilson-1992-3x1-finite-automata.pdf`
+- `siegel-2024-pq-adic-collatz.pdf`
+- `siegel-collatz-nonarchimedean-spectral-I-2007.15936.pdf` — arXiv:2007.15936
+- `silverman-voloch-2009-local-global-p1-0806.2580.pdf` — arXiv:0806.2580
+- `simon-2022-linking-numbers-modular-knots-2211.05957.pdf` — arXiv:2211.05957
+- `simons-2005-no-2-cycles.pdf`
+- `simons-deweger-2010-m-cycles-v144.pdf`
+- `simons-deweger-2010-m-cycles-v144.txt`
+- `skolem-meets-schanuel-mfcs2022.pdf`
+- `sopin-2023-pk-lipschitz-measure-preserving.pdf`
+- `steila-yokoyama-termination-theorem-2015.pdf`
+- `sterin-2019-binary-ancestors-collatz-graph.pdf`
+- `sterin-woods-2020-collatz-base-conversion-2007.06979.pdf` — arXiv:2007.06979
+- `sterin-woods-2020-collatz-base-conversion.pdf`
+- `sterin-woods-2021-bb15-hardness-collatz-like.pdf`
+- `stewart_1980_two_bases.pdf`
+- `stix-etal-2023-sarithmetic-products-of-trees.pdf`
+- `sun-li-ding-2022-SFT-matching-intermediate-beta.pdf`
+- `sun-li-ding-2022-SFT-matching-intermediate-beta.txt`
+- `sun-li-ding-2023-lorenz-maps-hole-critical-point.pdf`
+- `sutner-cdm-mealy-notes.pdf`
+- `sutner-cdm-mealy-notes.txt`
+- `sy.txt`
+- `tao-2019-almost-all-collatz-orbits.pdf`
+- `terras-1976-stopping-time.pdf`
+- `ultradiscrete-solitons-crystal-rep-theory-1212.2774.pdf` — arXiv:1212.2774
+- `vanderlaan-thesis-optimal-routing-sequences.pdf`
+- `vb.txt`
+- `wallen-2003-linear-approximations-addition.pdf`
+- `wang-2015-looping-nonlooping-nontermination-automata.pdf`
+- `wst21.txt`
+- `xie-dml-survey-2307.05885.pdf` — arXiv:2307.05885
+- `xu-2024-skelet17-bb5.pdf`
+- `xu-skelet17-chrisxu.pdf`
+- `yah.txt`
+- `yazinski-monks-autoconjugacy.pdf`
+- `yedidia-aaronson-2016-tm-independent-set-theory.pdf`
+- `yolcu-aaronson-heule-2021-automated-approach-collatz.pdf`
+- `yolcu-aaronson-heule-2021-automated-collatz.pdf`
+- `yolcu-aaronson-heule-2021-collatz-rewriting.pdf`
+- `yolcu-heule-wst21-mixed-base.pdf`
+- `zantema-2005-torpa.pdf`
+- `zantema-2014-nontermination-regular-languages.pdf`
+- `zantema05.txt`
+- `zaremsky-2020-bnsr-stein-group-F23.pdf`
+- `zudilin-2007-lowerbound-32k.pdf`
