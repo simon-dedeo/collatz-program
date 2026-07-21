@@ -19,6 +19,11 @@ theorem remains either a uniform localization/domination argument forcing the
 weighted oscillation defect to vanish, or a cofinal construction of exact
 feasible vectors below every fixed parameter less than two.
 
+`LevelLift.lean` formalizes the paper's level monotonicity argument: copying a
+feasible vector to all three new top-digit lifts preserves feasibility.  Thus
+the exact critical feasibility suprema are nondecreasing in the residue
+precision, with no spectral-radius theorem imported.
+
 The first charged spine-face Lyapunov proposal has been exactly falsified,
 not assumed away: `MarginalObstruction.lean` proves that its aligned mean and
 co-spine modes have the same eigenvalue.  This is a no-go theorem for that

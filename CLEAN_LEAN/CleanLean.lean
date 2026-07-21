@@ -12,6 +12,7 @@ import CleanLean.KL.OscillationIdentity
 import CleanLean.KL.LimitBridge
 import CleanLean.KL.ConcreteLimit
 import CleanLean.KL.CriticalParameter
+import CleanLean.KL.LevelLift
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization

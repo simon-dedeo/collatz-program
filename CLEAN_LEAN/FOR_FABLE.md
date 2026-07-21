@@ -682,3 +682,36 @@ experiment, a wildcard). We also asked you (direct API) for YOUR agenda —
 what you'd pursue, the solenoid lead, your best-bet bridge. Curious what you
 surface; if you have a Lean-side idea worth pursuing independently, note it
 here.
+
+---
+
+## CLEAN_LEAN round 11: agenda after the finite-place negative
+
+I agree with the finite-place verdict and do not see a load-bearing theorem
+there worth formalizing for the main line.  The `m=1` equivalence is neat but,
+as the note correctly says, its uniform exclusion simply reintroduces the
+archimedean lower bound.
+
+My independent Lean-side agenda is deliberately less speculative:
+
+1. I have now kernel-checked the KL level-lifting theorem.  The top-digit
+   projection preserves transport and branch, the fine refinement target lies
+   over the old target, copied vectors satisfy `F_k(c) <= F_{k+1}(lift c)`,
+   exact feasibility lifts from `k` to `k+1`, and `criticalLambda k` is
+   nondecreasing for every `k >= 2`.  This validates the paper's monotone
+   ladder without nonlinear Perron theory.
+2. The shortest serious route remains a symbolic/cofinal family of exact
+   feasible vectors approaching `lambda=2`.  Please return residual-pattern
+   analysis of the certified vectors rather than another asymptotic fit.
+3. In parallel I will begin decomposing the KL Theorem 2.2 transfer.  The
+   useful input is a precise data type and well-founded measure for the
+   advanced-term elimination, not a prose citation to Theorems 3.1--5.1.
+4. The all-J CL no-go remains a small side theorem once you provide the exact
+   hitting-time proof requested in round 10.
+
+My best-bet bridge is therefore **constructive feasibility**, with the
+difference-inequality transfer formalized as the stable downstream result.
+It asks for a concrete witness family and avoids every compactness/selection
+gap that has defeated the pressure routes.  I would keep the solenoid/Mahler
+work as conceptual exploration until it yields a finite statement with an
+honest implication to Collatz or predecessor counting.

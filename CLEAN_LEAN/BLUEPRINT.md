@@ -54,6 +54,7 @@ It is deliberately defined before any proposed proof machinery.
 | `lambda_k -> 2` implies `X^(1-epsilon)` counting, conditional on KL transfer | Kernel checked |
 | Exact feasible sequence tending to `2` implies the same counting conclusion | Kernel checked |
 | Feasible lower sequence tending to `2` squeezes exact critical suprema to `2` | Kernel checked |
+| Level feasibility and exact critical suprema are monotone in `k` | Kernel checked |
 | Exact Syracuse predecessor-count specification | Kernel checked |
 | Critical nonlinear eigenfunction existence/selection | Planned; unnecessary for direct-feasibility route |
 | Portable pressure JSON independently verified | External exact check; Lean ingestion planned |
