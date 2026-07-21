@@ -10,10 +10,23 @@ Context: `experiments/kl/THEOREM.md` (exact KL hypotheses, certified values),
 Acta Arith. 109 (2003) 237–258; line references below are to this file).
 All numerical claims in this note are reproduced by `experiments/kl/limit_object_checks.py`.
 
+**Successor update (2026-07-21).** An independently audited argument now proves
+the conditional implication `(H_k) => lambda_(k+1)>lambda_k`: the ordinary
+copy lift has nonzero branch slack, and superadditive orbit-averaging spreads
+that slack around the full fine transport cycle. Combined with the later
+literature-backed research proof of `(H_k)` in `adversarial-operator.md`, this
+settles qualitative strict growth at research-proof level whenever
+`lambda_k<2`. Neither component is yet kernel-checked. The gain is
+dimension-dependent and can be exponentially small, so this does not address
+`lambda_k->2`. The lift proof is recorded in
+`docs/notes/annealed-critical-coding.md §5.3`.
+
 Ledger (details in §5): **proved here** — Lemmas 1.1–1.3, Propositions 1.4, 2.1, 2.2,
 3.1, Theorem 3.2, Corollaries 1.5, 3.3, 3.4. **Verified numerically, not proved** —
 hypothesis (H_k) (positivity/attainment of the extremal eigenvector, = KL's §6 conditions
-(1)+(2)), strict increase of λ_k, strict decrease of ρ_k(λ) in λ. **Open** — the
+(1)+(2)), strict decrease of ρ_k(λ) in λ. **Later research proofs, not yet
+formalized** — `(H_k)` and the implication
+`(H_k) => lambda_(k+1)>lambda_k`. **Open** — the
 dichotomy itself (Problem 3.5).
 
 ---
@@ -140,9 +153,11 @@ c̃^m ≤ λ^{−2} c̃^{4m} + … breaks because the minimizing lift m′* has 
 with no matching upper bound. Interpretation: **in passing from level k to level k+1, one
 digit that the adversary controlled becomes an honest dynamical output** (the value r′ is
 computed from m′ rather than chosen); refinement can only weaken the adversary, so the
-value λ_k can only go up. Whether it goes up *strictly* for every k is open — KL, lines
-1041–1042: "It remains an open problem to show that the values λ_k are strictly increasing
-in k." Empirically it is strict for 2 ≤ k ≤ 14 (Table, §4).
+value λ_k can only go up. KL, lines 1041–1042, asked whether it goes up
+strictly. The successor argument cited at the top of this note proves strict
+growth whenever the positive extremal eigenvector in `(H_k)` is attained;
+kernel-formalizing `(H_k)` uniformly remains open. Empirically the growth is strict on the
+reported finite levels (Table, §4).
 
 ### 1.4 The annealed comparison: λ_k ≤ 2 exactly
 
@@ -520,9 +535,10 @@ Then:
  be π_a(x) ≥ x^{1−ε}. (B) measures the information content of the I_k inequalities, i.e.
  the price of replacing the lost digit by its worst case.
 
-Adjacent open questions, distinct from Problem 3.5: (a) strict monotonicity of λ_k (KL's
-stated open problem); (b) prove (H_k) for all k (existence, attainment, positivity —
-KL: "may be difficult to prove"); (c) does ρ_k(2) → 1 ⟺ λ∞ = 2? (plausible transfer
+Adjacent open questions, distinct from Problem 3.5: (a) kernel-check the later
+research proofs of `(H_k)` and qualitative strict growth; (b) prove a
+quantitative adjacent gain strong enough for endpoint convergence; (c) does
+ρ_k(2) → 1 ⟺ λ∞ = 2? (plausible transfer
 between the two monotone families; we use ρ_k(2) only as a secondary empirical observable
 in §4); (d) identify λ∞ (if < 2) with the value of an explicitly-defined game on Y — the
 exchange-of-limits question that makes "limit object" precise.
@@ -611,13 +627,17 @@ contradicts Proposition 1.4; both would indicate computation error, not mathemat
   λ_k → 2 ⟺ δ_k → 0, sup-oscillation sufficiency), under (H_k).
 - Corollaries 3.3 (unconditional inequality version), 3.4 (persistent oscillation under (B)).
 
-**Verified numerically, not proved:** (H_k) for k ≤ 12 (KL assert conditions (1),(2)
-experimentally for k ≤ 11); strict increase of λ_k (k ≤ 14, via certified values); strict
+**Original numerical ledger (superseded for `(H_k)` by the later research
+proof):** (H_k) for k ≤ 12 (KL assert conditions (1),(2)
+experimentally for k ≤ 11); the finite values increase through the reported
+levels; strict
 decrease of ρ_k(λ) on [1,2]; infeasibility for all λ ∈ (2,12] (k ≤ 6); identity residuals
 ≤ 10⁻⁶; ε_k (sup fiber oscillation) flat ≈ 0.46 while median fiber oscillation decays.
 
-**Conjectured / open:** Problem 3.5 (the dichotomy) — the point of the note; (H_k) for
-all k; strict monotonicity of λ_k (KL's open problem); ρ_k(2) → 1 ⟺ λ∞ = 2; an intrinsic
+**Conjectured / open after the successor update:** Problem 3.5 (the dichotomy)
+— the point of the note; kernel formalization of the research proofs of
+`(H_k)` and qualitative strict growth; a quantitative adjacent gain;
+ρ_k(2) → 1 ⟺ λ∞ = 2; an intrinsic
 game on Y whose value is λ∞ (exchange of limits).
 
 **Honest failure report.** We did not prove the criterion in the form first attempted

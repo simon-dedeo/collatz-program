@@ -301,8 +301,15 @@ class-5 rows (no chord) are *tight and slackless*: c^m = λ^{−2}c^{4m} exactly
 no min-term to gain from refinement. The refinement slack of [LIM] Lemma 1.2 lives
 only on chord rows, and converting it into a strictly larger feasible λ requires
 re-solving the eigenvector globally (any λ-increase breaks the slackless rows
-first). So no local/greedy argument gives λ_{k+1} > λ_k; this matches KL's listing
-of strict monotonicity as open.
+first). So no local/greedy argument gives λ_{k+1} > λ_k. A 2026-07-21
+successor argument does spread the nonzero lifted slack globally: iterate the
+superadditive operator around the full transport cycle and average its orbit.
+Under an attained positive critical eigenvector at `lambda_k in (1,2)`, this
+produces a vector with strict slack in every coordinate and hence proves
+`lambda_(k+1)>lambda_k` by continuity. The propagated margin can be
+exponentially small in the state count, so the quantitative endpoint problem
+described here is unchanged. See `annealed-critical-coding.md §5.3`; Lean
+formalization is pending.
 
 **Remark 3.5 (scheme-theoretic reading — pointer, not a claim).** F^{(k)} is a
 monotone, stable, adversarially one-sided discretization of the linear eigenproblem
@@ -452,9 +459,12 @@ measures land on X; M(σ⃗) compact convex); h(μ) = h(word marginal) on X.
 **Conjectural.** Conjecture 4.3 (λ∞ = value of the constrained limit game; defect =
 adversarial Mather measure with Haar-singular marginal under (B)).
 
-**Open (unchanged).** The dichotomy itself; strict increase of λ_k (Remark 3.4
-explains the obstruction); an a priori mean-oscillation bound (the exact missing
-lemma, §3.2); eigenvector uniqueness at fixed k.
+**Open after the 2026-07-21 successor update.** The dichotomy itself; a
+dimension-free quantitative adjacent gain (qualitative strict increase now
+follows at audited research-proof level by combining Theorem 2.1 with Remark
+3.4's successor argument, but is not yet kernel-checked); an a priori
+mean-oscillation bound (the exact missing lemma, §3.2); eigenvector uniqueness
+at fixed k.
 
 **Sharpest findings of this session.**
 1. **(H_k) is a theorem** (Theorem 2.1): the odometer cycle makes G(F) strongly

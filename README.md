@@ -45,6 +45,15 @@ commits `4c7fcc3` and `659dc81` make the exact `k=12`,
 `λ=18064231/10^7` record a Lean theorem and pin the generator/source
 provenance. Scaling that architecture to the larger sidecar-backed records,
 culminating in the 2.9 GB `k=19` record, remains open.
+An independently audited successor argument also resolves KL's qualitative
+strict-adjacent-growth question under an attained positive critical
+eigenvector: the ordinary copy lift has nonzero branch slack, and
+superadditive orbit-averaging spreads it around the full fine transport cycle,
+so `lambda_(k+1)>lambda_k` whenever `lambda_k<2`. Combined with the existing
+literature-backed research proof of the positivity/attainment hypothesis, this
+gives strict growth at research-proof level. The margin can be exponentially
+small in `3^k`, so it does not prove `lambda_k->2`; Lean formalization and a
+bounded exact combinatorial core are now respectively requested and checked.
 An exact within-vector genealogy audit has now isolated a sharper candidate
 for the localization half: the required pointwise depth-nine split fails, but
 mass-weighted high-oscillation tails are nonincreasing at every one of 756
@@ -93,8 +102,20 @@ squared-`L2` energy ratio `1605/1387>1` in one direction. Late exploratory
 endpoint profiles are also
 compatible with a mixed exponential/power decay, so `6/j^2` is an upper-envelope
 candidate, not a claimed annealed asymptotic.
-The accompanying exact finite-core checker verifies the low-level identities;
-all-level coding/trace/Perron formalization is pending.
+The alignment kernels are now identified as finite quotients of one fixed
+self-adjoint Markov operator with a two-state geometric Green kernel generated
+by `T(u)=2u+1` and `V(u)=32u+24`; their commutator is the unit translation
+`u->u+7`. Its martingale-shell decomposition has the exact first contribution
+`-2086/67963`. Thus the desired multiplier limit requires signed cancellation
+across persistent conductor shells; termwise affine equidistribution or mere
+high-shell decay is not enough. A second exact checker verifies this structure
+through 27 states and detail level three, with an independent 81-state kernel
+comparison.
+The accompanying exact finite-core checkers verify the low-level coding
+identities. Lean commit `f0e96a5` now checks the all-level annealed trace,
+exact endpoint vectors `r_2,r_3`, their projection, and
+`Delta_2=622/1533>81/200`; endpoint Perron uniqueness and the countable coding
+remain pending.
 
 The terminal seam is now precise. If
 `a=1/3-min_i p_i` in a ternary fiber, then
@@ -104,18 +125,44 @@ anti-concentration estimate `E[a^2]<=K(E[a])^2`. Qualitative endpoint
 convergence needs only `E[a]->0` for exact critical vectors; merely feasible
 vectors also require aggregate normalized slack `Sigma->0`. The displayed
 Pearson rate additionally needs `E[a]=O(1/k)` and a `k`-independent `K`.
+An exact streamed audit now measures both hypotheses on the selected
+`k=12,...,19` records. Every row satisfies the post-hoc rational comparisons
+`delta<0.21/k`, `E[a^2]<1.533 delta^2`, and
+`chi_terminal<0.483/k^2`. The favorable rate signal is accompanied by the
+main warning: `K=E[a^2]/delta^2` rises monotonically from `1.36411` to
+`1.53221`, so this window cannot distinguish a uniform bound from slow
+divergence. Rigorous true-slack intervals are tiny, about five to six parts in
+a million of the main defect term, but are not monotone. These are finite
+regression targets, not an all-level theorem; see
+`docs/notes/terminal-defect-statistics.md`.
 Direct regularity for the
 research-side nonlinear renewal-min fixed-point system is the alternative.
-Lean commit `9cdcfaf` now kernel-checks the scalar slack identity, sharp
+For general `lambda`, its induced block law is exactly
+`p_e=(lambda-1)lambda^-e`. Projecting a critical vector down the ternary tower
+makes `q_j/mu_j` a Radon--Nikodym martingale and turns the finite statistic
+`K` into the identity
+`chi^2(q||mu)=(epsilon^2/theta^2)(K-1)`. The automatic martingale bound is
+only `chi^2(q||mu)<=epsilon/theta`, so the desired uniform `K` is precisely an
+extra `O(epsilon^2)` selection theorem, not a generic consequence of renewal.
+The same code does give a cylinder Frostman bound for infinite towers and weak
+limits when `6/5<=lambda<=2`, but an exact row at `-1` leaves max-normalized
+fiber oscillation at least `1/3` near the endpoint; uniform fiberwise
+`L-infinity` flattening is therefore the wrong target. A separate exact
+min-projection inequality makes the normalized coarse minimum profile a
+lower-level supersolution with no smaller terminal excess, exposing a possible
+quadratic misalignment route.
+Lean commits `9cdcfaf` and `764b815` now kernel-check the scalar slack identity, sharp
 terminal variation/Pearson comparisons, and the implication
-`delta_k,Sigma_k->0 => lambda_k->2`. It does not supply the missing defect
-rate, anti-concentration, trace/Perron argument, or selected-family regularity.
+`delta_k,Sigma_k->0 => lambda_k->2`. Commit `f0e96a5` additionally checks the
+all-level annealed trace and exact low-level floor. The formal chain does not
+supply the missing defect rate, anti-concentration, Perron-uniqueness
+identification, or selected-family regularity.
 Since `h<=chi`, a uniform constant-six theorem
 would still give entropy tail at most `6/J` and `L1` residual at most
 `sqrt(12/J)`. Feasibility alone is insufficient for entropy-depth
 monotonicity: an exact positive `k=3` feasible vector has `h_2>h_1`. The bin
-cones remain the fallback. Formalization of the all-level annealed
-projection/Perron step has been requested from the Lean side.
+cones remain the fallback. The Lean side is now working on endpoint Perron
+uniqueness, the remaining identification step after `f0e96a5`.
 
 The preceding advanced-term elimination gap is repaired by a replacement,
 not by validating the printed construction.
@@ -172,9 +219,10 @@ an `x^{1−ε}` lower bound would still have density zero for fixed `ε`.
 | Exact `k=19` KL feasible certificate at `γ₀=log₂(18783127/10⁷)=0.9094372617…`; `π_a(X)≥X^γ` eventually for every positive `a≢0 (mod 3)` and fixed `γ<γ₀` | A fresh run of the reference verifier passed the SHA-pinned 2.9 GB sidecar and all 387,420,489 exact inequalities. Exact `k=5` witnesses invalidate the printed advanced-elimination construction, and a separate exact semantic countermodel blocks its split-invariant induction. Lean checks all three defects and, in commit `3d6a186`, checks a replacement: a well-founded raw-history builder, root provenance, live deterministic pruning, a common lag, and the complete abstract feasible-point comparison. Commit `58f0ef8` checks the corrected targetwise predecessor transfer replacing false equation (2.1); `331ff48` defines the statewise infimum and proves target-pool nonemptiness, normalization, and monotonicity; `729f5fa` proves the literal D1–D3 base system; `76ec861` closes the all-target exponent transfer. This is a mixed exact-Python + kernel-Lean chain, not yet a single Lean-native `k=19` theorem. The sidecar is local but not in git, the rerun used the same reference verifier rather than an independent second implementation, and a fresh clone is self-contained through k=15. See `experiments/kl/RESULT.md` and `experiments/kl/TERMINATION_AUDIT.md`. |
 | The KL method = finite sections of an **adversarial transfer operator on ℤ₃** (base ×4 = the Iwasawa generator of 1+3ℤ₃) | `docs/notes/kl-limit-object.md`, `adversarial-operator.md` |
 | KL's own §6 positivity hypotheses (H_k) | Literature-backed research proof (odometer conjugacy → Gaubert–Gunawardena); nonlinear Perron existence is not Lean-formalized, and the exact feasible-point route bypasses it. |
+| Strict adjacent KL growth when `lambda_k<2` | Independently audited research proof: the copy lift has total slack `3(s(lambda_k)-1) sum c>0`; superadditive orbit-averaging over the full fine transport cycle makes every coordinate strict, and continuity permits a larger parameter. Together with the preceding `(H_k)` result this answers qualitative strictness at research-proof level, but the margin is dimension-dependent and gives no endpoint rate. `verify_strict_lift_mechanism.py` checks the combinatorial core through `k=8` and the orbit mechanism through `k=7`; Lean formalization is pending. See `docs/notes/annealed-critical-coding.md §5.3`. |
 | Oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k | Proved unconditionally; see `CLEAN_LEAN/CleanLean/KL/OscillationIdentity.lean`. |
-| Multiscale genealogy of the `k=12,...,19` feasible vectors: all 756 tested equal-threshold tails are nonincreasing; all seven thresholds have classified finite burn-ins; 116 exact density-martingale, 116 floating-log entropy, and 116 certified Pearson-energy rows are reconstructed | SHA-pinned bigint/rational diagnostics and independent reconstruction support the tail and `L1` claims. The post-hoc fits `(1/2)(9/10)^j` and `(1/5)(3/4)^j` remain correct on the finite records, including the stated floating `k=20` candidate checks, but an independently audited annealed-floor research proof with an exact finite core shows that those constants cannot be all-level critical/vanishing-slack laws in `1<lambda<=2`. Commit `9cdcfaf` kernel-checks the scalar slack/terminal endpoint bridge; trace intertwining, Perron uniqueness, and the low-marginal floor remain pending. The new exact integer-interval audit has `chi_(k,j)<=6/j^2` on every selected row; this is a finite polynomial candidate, additionally screened only exploratorily against annealed profiles, not a theorem. An exact `k=3` counterexample separately refutes entropy-depth monotonicity on the full feasible cone. The cone audit remains mixed: `k=20` exceeds every fitted cone margin, and `.05` immigration rises. See `docs/notes/multiscale-genealogy.md`. |
-| Critical coding of the `lambda=2` annealed endpoint | An independently audited research derivation gives induced blocks `P(E=e)=2^-e`, `H_e(x)=(3x+b_e)/2^e`, with `H(E)=log 4` and `sum p_e^2=1/3`, and a stochastic-kernel collision renewal whose Haar-uniform benchmark increment is `2/7`. A standard-library finite-core checker reconstructs the first two Perron marginals and verifies the renewal through depth four; all-level coding/renewal formalization is pending. It also checks exact finite no-gos to a uniform unweighted one-step scalar contraction for the shell-response operator and the algebraic core of the global-collision/local-Pearson separation. Commit `9cdcfaf` separately checks the scalar terminal/slack endpoint bridge. The affine local-limit estimate, terminal mean-defect rate plus level-uniform anti-concentration, and nonlinear selected-family regularity remain open. See `docs/notes/annealed-critical-coding.md`. |
+| Multiscale genealogy of the `k=12,...,19` feasible vectors: all 756 tested equal-threshold tails are nonincreasing; all seven thresholds have classified finite burn-ins; 116 exact density-martingale, 116 floating-log entropy, and 116 certified Pearson-energy rows are reconstructed | SHA-pinned bigint/rational diagnostics and independent reconstruction support the tail and `L1` claims. The post-hoc fits `(1/2)(9/10)^j` and `(1/5)(3/4)^j` remain correct on the finite records, including the stated floating `k=20` candidate checks, but an independently audited annealed-floor research proof with an exact finite core shows that those constants cannot be all-level critical/vanishing-slack laws in `1<lambda<=2`. Commits `9cdcfaf`/`764b815` kernel-check the scalar slack/terminal endpoint bridge and full weighted Pearson chain; `f0e96a5` checks all-level trace intertwining plus the exact low-marginal vectors and floor. Perron uniqueness remains pending. The exact integer-interval audit has `chi_(k,j)<=6/j^2` on every selected row. A separate streamed terminal audit proves the finite comparisons `delta<0.21/k`, `E[a^2]<1.533 delta^2`, and `chi_terminal<0.483/k^2`; its monotone rise in `K` from `1.36411` to `1.53221` is an explicit caution against extrapolation. These are finite polynomial candidates, not theorems. An exact `k=3` counterexample separately refutes entropy-depth monotonicity on the full feasible cone. The cone audit remains mixed: `k=20` exceeds every fitted cone margin, and `.05` immigration rises. See `docs/notes/multiscale-genealogy.md` and `docs/notes/terminal-defect-statistics.md`. |
+| Critical coding and renewal tower at the annealed endpoint | An independently audited research derivation gives general blocks `p_e=(lambda-1)lambda^-e`, specializing at `lambda=2` to `P(E=e)=2^-e`, `H(E)=log 4`, and `sum p_e^2=1/3`. At the endpoint, a stochastic collision renewal has Haar-uniform benchmark increment `2/7`; the research derivation identifies every alignment kernel as a quotient of a fixed two-state affine Green kernel. A second exact checker verifies the quotient through 27 parent states and the martingale-shell decomposition through detail three, finding the persistent first-shell correlation `-2086/67963`; an independent 81-state comparison also passes. Thus the local limit needs signed conductor cancellation, not termwise mixing. On the nonlinear selected tower, `q_j/mu_j` is an exact Radon--Nikodym martingale and bounded terminal `K` is equivalent to `chi^2(q||mu)=O(epsilon^2)`; the automatic bound is only `O(epsilon)`. A cylinder Frostman estimate survives, while an exact `-1` row rules out uniform fiberwise sup-norm flattening. Commits `9cdcfaf`/`764b815` check the scalar terminal/slack endpoint bridge and full weighted Pearson chain. Signed conductor cancellation, the selected quadratic chi-square estimate and mean-defect rate, and a quantitative strict-lift gain remain open. See `docs/notes/annealed-critical-coding.md`. |
 | Local renormalization at −1 solved: **a = λ^{1−α}** (= 2/3 at λ=2); "period-2" = the u↦2u relabeling; spine sheds mass at λ^{α−1}/3 | `renormalization-at-minus-one.md`, sol cross-confirmed |
 | Diaconis–Fulman multiplication-carries spectrum (their open question) | proved, exact-verified: `carries-spectrum.md` |
 | Berg–Meinardus ⟺ aₙ = a_{T(n)}; **bi-(2,3)-Mahler divergence certificates impossible** | proved: `mahler-cartier-lemma0.md`, `two-bases.md` |
@@ -308,6 +356,12 @@ mathematical lane is item 4, the KL limit/localization problem.
    needs a non-autonomous global-measure or arithmetic mechanism. The finite
    bridge in item 1 is now ready to consume any exact feasible family directly;
    what is missing is an all-level construction whose parameters tend to two.
+   Qualitative adjacent strictness is no longer the missing lemma at
+   research-proof level: under the attained positive critical eigenvector, the
+   copy-lift slack can be spread around the fine transport cycle to prove
+   `lambda_(k+1)>lambda_k`. The argument supplies no uniform lower bound on
+   that gain—a bounded strictly increasing sequence may still converge below
+   two—so the localization/rate problem below is unchanged.
    A new exact streamed audit also blocks the prepared `(J,L_w)=(3,9)`
    annealed pressure scale-up as formulated. The actual depth-`9→10` split of
    the `k=19` feasible vector has `σ_max=0.542601…` even on uncovered-to-
@@ -369,8 +423,11 @@ mathematical lane is item 4, the KL limit/localization problem.
    finite-only. The audited endpoint coding identifies a global quadratic
    critical mechanism without supplying this local law. Its induced block
    distribution has `H(E)=log 4` but `sum p_e^2=1/3`; the resulting collision
-   renewal has Haar-uniform benchmark increment `2/7` and an open affine pair-carry local-limit
-   factor. Even a linear global collision theorem would be insufficient: an
+   renewal has Haar-uniform benchmark increment `2/7`. The alignment kernels
+   are quotients of a fixed two-state Green operator whose generators have
+   commutator `u->u+7`. The exact first conductor correlation is
+   `-2086/67963`, so its open local-limit factor is a signed cross-shell
+   cancellation problem rather than termwise affine mixing. Even a linear global collision theorem would be insufficient: an
    audited sparse product law has `Q_j=Theta(j)` while its local Pearson energy is
    one at infinitely many depths. A separate exact `k=3` calculation gives the
    normalized squared-`L2` detail-energy ratio `1605/1387>1`, excluding a
@@ -383,12 +440,37 @@ mathematical lane is item 4, the KL limit/localization problem.
    Pinsker residual `<=sqrt(12/J)`. The sharp fiber inequality
    `(9/2)a^2<=chi<=18a^2<=6a`, `a=1/3-min p`, reduces the terminal route to
    a selected mean-defect rate plus level-uniform defect anti-concentration.
+   The new exact streamed terminal audit turns those two missing hypotheses
+   into a compact finite falsifier. On every selected record `k=12,...,19`,
+   it proves
+   `delta<0.21/k`, `E[a^2]<1.533 delta^2`, and
+   `chi_terminal<0.483/k^2`, while rigorously bracketing the true normalized
+   feasibility slack. The observed `K=E[a^2]/delta^2` nevertheless rises at
+   every level, from `1.36411` to `1.53221`; no uniform constant or asymptotic
+   rate is inferred. Algebraically, if `mu` is the parent profile and `v` is
+   the normalized terminal excess profile, then
+   `K=sum v^2/mu=1+chi^2(v||mu)`, locating the required
+   anti-concentration exactly. The general-parameter renewal tower sharpens
+   this further. If `theta=1-epsilon`, then
+   `chi^2(q||mu)=(epsilon^2/theta^2)(K-1)`, whereas the automatic
+   Radon--Nikodym martingale estimate gives only
+   `chi^2(q||mu)<=epsilon/theta`. The missing input is therefore exactly one
+   extra power of terminal excess. The induced channel does give
+   `||q_j||_infinity<=rho^j` with `rho<1` on `6/5<=lambda<=2`, hence a
+   Frostman/non-atomicity statement for infinite towers or weak limits. It
+   cannot be upgraded to uniform fiberwise flattening: the exact `-1` row
+   leaves max-normalized fiber oscillation with endpoint liminf at least
+   `1/3`.
    Direct compactness now has a research-side nonlinear renewal-min fixed-point
    interface; audited algebra shows why renewal and defect support separately
-   supply no smoothing. These, or a selection-sensitive
-   partial-annealing comparison, are the alternatives.
+   supply no smoothing. The exact coarse-minimum projection
+   `q>=F_(k-1,lambda)q` and
+   `sum(q-Fq)=(b/3)(epsilon(q)-epsilon)` is a new possible source of the
+   needed quadratic defect. A selection-sensitive partial-annealing comparison
+   or a dimension-free quantitative strict lift are the other live variants.
    `experiments/pressure-cert2/split_ratio_audit.py`;
    `docs/notes/multiscale-genealogy.md`;
+   `docs/notes/terminal-defect-statistics.md`;
    `docs/notes/annealed-critical-coding.md`.
 5. **Quantitative adelic descent** / **open-quantum-systems reframing** — the
    no-go = peripheral spectrum of the KL channel (`wildcard.md`, WARM); descent
@@ -460,7 +542,7 @@ mathematical lane is item 4, the KL limit/localization problem.
   `experiments/kl/verify_entropy_monotonicity_counterexample.py`.
 - **The two fitted geometric localization envelopes — CLOSED at independently
   audited research-proof level as all-level critical/vanishing-slack laws;
-  scalar endpoint bridge kernel-checked, trace/Perron floor pending.** For
+  scalar bridge, trace, and explicit floor kernel-checked; uniqueness pending.** For
   `1<lambda_k<=2`, the audited projection/
   Perron argument implies that any localizing critical family—or feasible
   family with aggregate normalized slack tending to zero—has the fixed-depth
@@ -471,9 +553,11 @@ mathematical lane is item 4, the KL limit/localization problem.
   both still pass every finite row on which they were reported. This does not
   close relative `L1` compactness, looser summable bounds, polynomial
   entropy/Pearson control, or direct selected-family arguments.
-  Commit `9cdcfaf` checks the slack identity, terminal-variation comparison,
-  and defect-plus-slack endpoint convergence; it does not yet formalize the
-  projection/Perron convergence or displayed low-level floor.
+  Commits `9cdcfaf`/`764b815` check the slack identity, the full weighted
+  terminal-Pearson chain, and defect-plus-slack endpoint convergence. Commit
+  `f0e96a5` checks the trace and the displayed fixed vectors/floor. Perron
+  uniqueness—and therefore identification of every endpoint limit with those
+  vectors—remains unformalized.
   `experiments/kl/verify_annealed_envelope_floor.py`.
 - **Renyi-2 criticality or global `L2` growth generically implies local Pearson
   decay — FALSE at audited research-proof level.** The annealed block
@@ -487,7 +571,13 @@ mathematical lane is item 4, the KL limit/localization problem.
   contraction for this linear shell-response operator—not weighted, multistep,
   or selection-specific energy arguments. The all-level product/coding algebra
   is an independently audited research proof with a bounded exact core.
+  The fixed Green-kernel decomposition also closes a subtler shortcut: decay of
+  each new conductor shell, even with absolute summability, does not identify
+  the local-limit constant. The first shell contributes
+  `-2086/67963`, so the proof must evaluate the signed sum and recover exact
+  cancellation rather than merely discard high shells.
   `experiments/kl/verify_annealed_critical_coding.py`;
+  `experiments/kl/verify_pair_carry_green_kernel.py`;
   `docs/notes/annealed-critical-coding.md`.
 - **Renewal and positive-defect support, with the nonlinear minimum coupling
   removed, are insufficient for compactness.** The audited critical-vector
@@ -500,7 +590,11 @@ mathematical lane is item 4, the KL limit/localization problem.
   compactness proof must add the full renewal-min coupling or comparably strong
   selection-specific information. This does not close direct compactness
   itself; the all-level reduction is research-proof-level, pending
-  formalization. `docs/notes/annealed-critical-coding.md`.
+  formalization. Uniform fiberwise `L-infinity` flattening is separately
+  refuted by the exact critical class-eight row at `-1`: its max-normalized
+  range has endpoint liminf at least `1/3`. The weaker cylinder Frostman bound
+  for infinite towers and weak limits survives, as does the mass-weighted
+  terminal-defect route. `docs/notes/annealed-critical-coding.md`.
 - **Cycle exclusion via finite places p | 2^K−3^L — CLOSED (collapses to
   Baker).** "Infeasible where new, redundant where feasible"; the Steiner
   stratum *is* the Baker bound. One falsifiable Poisson-model survivor only.
@@ -576,11 +670,13 @@ all-level aggregated ball-mass domination and especially localization remain
 open; this pressure half is not a limit proof. The exact depth-nine split audit
 further rules out promoting its proposed `σ≤0.42` annealed scalar H1 bound to
 the five exact certified feasible points tested (`k=15,…,19`).
-Commit `9cdcfaf` additionally defines the annealed linear operator and
-normalized slack, proves the exact scalar slack/oscillation identity and sharp
-terminal variation/Pearson bounds, and derives endpoint convergence from
-vanishing defect plus slack. It deliberately leaves trace intertwining,
-Perron uniqueness, and the exact low-level annealed floor open.
+Commits `9cdcfaf`/`764b815` additionally define the annealed linear operator and
+normalized slack, prove the exact scalar slack/oscillation identity and sharp
+terminal variation/Pearson bounds including the weighted mean-square lower
+bound, and derive endpoint convergence from
+vanishing defect plus slack. Commit `f0e96a5` proves all-level trace
+intertwining and checks the explicit normalized endpoint vectors, their
+projection, and exact low-level floor. Perron uniqueness remains open.
 
 ### Standing frame
 
@@ -599,8 +695,12 @@ hits the same wall.
   rows, reran the k=19 reference verifier, corrected inherited status and
   artifact-portability errors, and has now completed exact split-pressure,
   multiscale-genealogy, martingale, entropy, annealed-floor finite-core, and
-  Pearson-energy audits, followed by the annealed critical-coding derivation
-  and its exact finite-core audit.
+  Pearson-energy audits, followed by the annealed critical-coding derivation,
+  its exact finite-core audit, an exact streamed audit of both terminal defect
+  hypotheses on the selected `k=12,...,19` records, the fixed pair-carry Green
+  kernel, the general-parameter projected renewal tower, and a conditional
+  strict-adjacent-lift proof. Independent mathematical audits and bounded exact
+  checkers now cover the three new all-level arguments.
 - The finite KL predecessor-count bridge is closed and standing. An exact integer checker pins a
   legal `k=5` path that invalidates the printed proof's descent and identical-
   subtree claims without forming a repeatable nontermination lasso. CLEAN_LEAN
@@ -634,8 +734,9 @@ hits the same wall.
   floor research argument and exact finite core show that both fitted geometric
   constants fail for `1<lambda_k<=2` localizing critical families, or feasible
   localizing families whose aggregate normalized slack tends to zero. Commit
-  `9cdcfaf` now kernel-checks the scalar slack/terminal endpoint bridge; the
-  trace/Perron and exact low-marginal floor steps remain pending.
+  `9cdcfaf`/`764b815` now kernel-check the scalar slack/terminal endpoint bridge
+  and full weighted Pearson chain; `f0e96a5` checks trace and the explicit
+  low-marginal fixed vectors/floor. Perron uniqueness remains pending.
   The exact Pearson follow-up produces 116 certified intervals and verifies the
   post-hoc `chi<=6/j^2` calibration; via `h<=chi`, its uniform analogue would
   give the required relative compactness with polynomial rate. The audited
@@ -645,9 +746,18 @@ hits the same wall.
   growth nor that scalar contraction implies the local Pearson law. The live
   Pearson inputs are a mean-defect rate and level-uniform anti-concentration;
   the direct alternative is regularity for the audited research-side nonlinear
-  renewal-min fixed-point system. A uniform Pearson law,
-  a coherent selected family, and the normalized-slack endpoint are all still
-  open. The cone/immigration route is retained as a fallback.
+  renewal-min fixed-point system. The new finite terminal checker supports both
+  inputs with the post-hoc bounds `delta<0.21/k` and
+  `E[a^2]<1.533 delta^2`, but the fitted ratio rises monotonically across all
+  eight records and is not extrapolated. The projected renewal tower now
+  identifies uniform anti-concentration exactly with an
+  `O(epsilon^2)` chi-square estimate; its generic martingale bound loses one
+  power. It also proves weak cylinder regularity but rules out uniform
+  fiberwise sup-norm flattening. The exact coarse-minimum supersolution and the
+  conditional strict lift are now the most concrete nonlinear levers. A
+  uniform Pearson law, the defect rate, signed conductor cancellation, and a
+  dimension-free adjacent gain are all still open. The cone/immigration route
+  is retained as a fallback.
 - The arctic/max-plus lane remains active. Two independent audits found the
   same reducible-slope gap; an elementary weighted-walk pumping candidate now
   replaces it, and the exact marked macro checker passes. The general theorem
@@ -668,9 +778,10 @@ hits the same wall.
   premise remains behind the paper's invalid self-similarity argument. It has
   also kernel-checked the complete exact `k=12` record and counting consequence;
   the headline `k=19` record retains the mixed Python/Lean trust boundary. The
-  new `9cdcfaf` checkpoint checks the scalar annealed-slack identity, terminal
-  variation/Pearson inequalities, and defect-plus-slack endpoint implication;
-  it does not prove localization or the annealed Perron floor. The
+  `9cdcfaf`/`764b815` check the scalar annealed-slack identity, full weighted
+  terminal-Pearson chain, and defect-plus-slack endpoint implication;
+  `f0e96a5` checks all-level trace and the explicit `r_2,r_3,Delta_2` data. It
+  does not prove localization or endpoint Perron uniqueness. The
   research driver communicates through
   `docs/FOR_CLEAN_LEAN.md` and does not edit `CLEAN_LEAN/`.
 - Remote compute is currently uncommitted. Any new diagnostic job will be

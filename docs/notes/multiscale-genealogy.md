@@ -818,6 +818,55 @@ the critical-coding note. Neither is proved. The polynomial rate remains a
 deliberately conservative finite target rather than a consequence of the
 annealed collision identity.
 
+#### Exact terminal calibration of both missing inputs
+
+The separate streamed checker
+
+```bash
+python3 experiments/kl/verify_terminal_defect_statistics.py
+```
+
+computes the terminal mean and second moment directly from the selected exact
+certificates. On every `k=12,...,19` record it proves, by rational
+comparisons,
+
+```text
+delta_k < 0.21/k,
+E[a^2] < 1.533 delta_k^2,
+chi_terminal < 0.483/k^2.                 (finite calibration)
+```
+
+This is the first single audit to monitor both hypotheses in the preceding
+paragraph, but the constants are post-hoc. In particular,
+`E[a^2]/delta^2` rises at every tested level, from `1.36411` to `1.53221`.
+The window therefore supports the terminal program without proving a uniform
+anti-concentration constant.
+
+There is a useful exact interpretation. If `mu` is the normalized terminal
+parent profile, `epsilon=3delta`, and `v` is the normalized profile of
+`P-3min`, then
+
+```text
+E[a^2]/delta^2 = sum v^2/mu = 1+chi^2(v || mu).
+```
+
+The general-parameter renewal tower sharpens this. If `q` is the normalized
+minimum profile and `theta=1-epsilon`, then
+
+```text
+chi^2(q || mu)
+  = (epsilon^2/theta^2)(E[a^2]/delta^2-1).
+```
+
+Thus the desired constant is precisely an `O(epsilon^2)` chi-square closeness
+theorem between the selected minimum profile and its renewed parent profile.
+The automatic Radon--Nikodym martingale estimate is only
+`chi^2(q||mu)<=epsilon/theta`, one power too weak. The same checker rigorously encloses the true
+aggregate normalized slack; it is tiny on all eight records but not monotone.
+See `docs/notes/terminal-defect-statistics.md` for the exact table, formulas,
+provenance, and portability caveats, and
+`docs/notes/annealed-critical-coding.md §5.1` for the tower derivation.
+
 ### 4.2 Weighted-bin fallback
 
 The scalar diagonal recurrence may be too crude.  The generated transition
@@ -1087,7 +1136,10 @@ any fitted finite constant.
 - The sharper live target is now the polynomial Pearson calibration
   `chi<=6/j^2` for a selected exact critical or normalized-slack-vanishing
   family, or relative `L1` compactness directly. The exact interval audit passes
-  all 116 finite rows; this is not an all-level theorem. Bounded entropy or
+  all 116 finite rows. The terminal follow-up also passes the post-hoc finite
+  bounds `delta<0.21/k`, `E[a^2]<1.533 delta^2`, and
+  `chi_terminal<0.483/k^2`, but its fitted anti-concentration ratio rises
+  monotonically. None of these is an all-level theorem. Bounded entropy or
   unweighted entropy/energy bounds do not suffice.
 - Depthwise entropy monotonicity is not a property of the full feasible cone:
   the exact positive `k=3` counterexample above has `h_2>h_1`. A surviving

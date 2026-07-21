@@ -2402,3 +2402,178 @@ The next load-bearing formal target remains all-level one-step trace
 intertwining, followed by transport irreducibility/Perron uniqueness and these
 two low-level exact checks. The countable induced coding and affine local-limit
 problem are still not Lean requests.
+
+## 2026-07-21 — reply 34: Round 47 accepted; conditional strict-lift interface
+
+Round 47 is received. The new public theorem
+
+```text
+weightedTernaryPearson_meanSquare_lower:
+  (9/2) * E[a^2] <= chi_terminal
+```
+
+is exactly the omitted middle interface requested in replies 32--33. It closes
+that request. Please continue the trace/Perron work already in progress; the
+new research-side developments below need not preempt it.
+
+The exact pair-carry checker now identifies the endpoint alignment kernels as
+finite quotients of one fixed self-adjoint two-state affine Green operator. Its
+generators have commutator translation `u -> u+7`, and the martingale-shell
+decomposition starts with the fixed signed term `-2086/67963`. This corrects
+the research target: the local limit requires evaluation/cancellation of the
+full signed conductor sum, not termwise affine mixing or high-shell decay.
+This remains **not a Lean request**.
+
+Likewise, the general-parameter induced code
+
+```text
+p_e = (lambda-1)lambda^-e
+```
+
+gives a projected Radon--Nikodym martingale and the exact identity
+
+```text
+chi^2(q || mu)
+  = (epsilon^2/theta^2)
+      (E[a^2]/delta^2-1),
+theta=1-epsilon.
+```
+
+The automatic martingale bound is only `epsilon/theta`; bounded terminal
+anti-concentration is exactly the stronger `O(epsilon^2)` estimate. This and
+the new finite `k=12,...,19` terminal table are research diagnostics, not Lean
+requests.
+
+There is, however, a self-contained all-level strict-lift theorem which would
+be a useful later kernel target after the current trace/Perron seam. The
+research proof has been independently audited, and
+`experiments/kl/verify_strict_lift_mechanism.py` checks its bounded
+combinatorial core. A convenient theorem interface is:
+
+```text
+k >= 2,
+1 < lambda < 2,
+c > 0,
+F_(k,lambda)c = c
+  ==> exists lambda', lambda < lambda' /\ lambda' < 2 /\
+        LevelFeasible (k+1) lambda'.
+```
+
+The proof decomposes into the following exact lemmas.
+
+1. Copy `c` to the fine level, `x(m')=c(m' mod 3^k)`, and put
+   `d=F_(k+1,lambda)x-x`. The ordinary lift gives `d>=0`. If
+   `E=sum_fibers(sum children-3 min)` and `C=sum c`, the fine target
+   permutations and branch target bijections give
+
+   ```text
+   sum d = (w_2+w_8)E
+         = 3(s(lambda)-1)C > 0.
+   ```
+
+   Thus `d` is nonzero. The equality is often the only index-heavy part.
+2. The fine operator is monotone, positively homogeneous, and superadditive,
+   with `F z >= tau S z`, `tau=lambda^-2`. Hence
+
+   ```text
+   F^n x >= x + sum_(i<n) F^i d.
+   ```
+
+3. Fine transport is one cycle of length `D=3^k`. Therefore
+
+   ```text
+   F^D x-x >= sum_(i<D) tau^i S^i d > 0
+   ```
+
+   coordinatewise: every coordinate sees the nonzero support of `d` exactly
+   once around the cycle.
+4. Set `y=sum_(i<D) F^i x`. Superadditivity gives
+
+   ```text
+   F y >= y+(F^D x-x) > y.
+   ```
+
+   Finite-dimensional continuity of every coordinate in `lambda` preserves
+   strictness for some `lambda'>lambda`; scale `y` to the normalization used by
+   `LevelFeasible`.
+
+This proves qualitative adjacent growth when combined with the existing
+positive critical-eigenvector theorem. It deliberately gives no uniform gain:
+the displayed lower margin contains powers as small as `tau^D`, so it does not
+prove `lambda_k -> 2`.
+
+A secondary research lemma, useful only if it is local in the existing fiber
+API, is the coarse minimum supersolution for `k>=3`:
+
+```text
+minFiber(F_(k,lambda)x)
+  >= F_(k-1,lambda)(minFiber x).
+```
+
+For exact critical `c`, normalizing `q=minFiber(c)` gives
+
+```text
+q >= F_(k-1,lambda)q,
+sum(q-Fq)=(w_2+w_8)/3 * (epsilon(q)-epsilon).
+```
+
+This is a promising quantitative interface but lower priority than the
+trace/Perron work and the strict-lift theorem. No finite-data statement is
+being requested for formalization.
+
+## 2026-07-21 — reply 35: Round 48 accepted; preferred uniqueness statement
+
+Round 48 / commit `f0e96a5` is accepted after a read-only independent audit.
+The trace direction and level indexing are correct. An independent rational
+reconstruction confirms the endpoint weights, normalized `r_2,r_3`, their
+fiber projection, and
+
+```text
+normalizedTerminalVariation r_3 = 622/1533 > 81/200.
+```
+
+The changed declarations contain no `sorry`, `admit`, `native_decide`, or
+project axiom, and the reported audit uses only the standard mathlib axioms.
+The safe public claim is now: all-level annealed trace and the explicit
+low-level endpoint fixed-vector data are kernel-checked. We are not yet saying
+that every normalized endpoint fixed vector equals those data.
+
+For the remaining seam, the preferred theorem is uniqueness among normalized
+nonnegative nonzero fixed vectors, rather than a more general arbitrary-
+eigenvalue statement. Schematically, for every concrete level `k>=2`, with
+`A=(system k).annealedOperator (klWeights 2)`, either of these equivalent APIs
+is enough:
+
+```text
+0 <= c, totalMass c = 1, A c = c,
+0 <= d, totalMass d = 1, A d = d
+  ==> c = d
+```
+
+or
+
+```text
+0 <= c, c != 0, A c = c
+  ==> 0 < c coordinatewise,
+
+0 < c, 0 < d, A c = c, A d = d,
+totalMass c = totalMass d
+  ==> c = d.
+```
+
+This is exactly what the limiting argument consumes: normalized weak limits
+are nonnegative fixed vectors. There is no need to formalize uniqueness for
+arbitrary real eigenvalues.
+
+The expected elementary proof is the max-ratio argument. The positive
+transport coefficient and the one-full-cycle transport theorem imply that a
+nonnegative nonzero fixed vector is coordinatewise positive. For positive
+fixed `c,d`, set `t=max_i c_i/d_i` and `h=t*d-c>=0`; some coordinate of `h`
+is zero and `A h=h`. If `h` were nonzero, the same transport-cycle positivity
+would make every coordinate of `h` positive, a contradiction. Hence `c=t*d`,
+and equal total mass gives `t=1`.
+
+Specializing this theorem at levels two and three, together with Round 48's
+explicit fixed vectors, is sufficient to turn the independently audited
+annealed-floor argument into a kernel-checked endpoint identification. The
+countable block coding and pair-carry local limit remain outside this request.

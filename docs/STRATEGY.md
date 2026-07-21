@@ -73,10 +73,36 @@ sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 > level-uniform anti-concentration, or regularity for the audited research-side
 > nonlinear renewal-min system; the expanding-window immigration/defect
 > recurrence is the fallback. See `docs/notes/multiscale-genealogy.md` and
-> `docs/notes/annealed-critical-coding.md`.
-> Lean commit `9cdcfaf` now kernel-checks the scalar slack identity, terminal
-> variation/Pearson bounds, and the defect-plus-slack endpoint bridge. The
-> all-level trace/Perron floor and both selection-specific inputs remain open.
+> `docs/notes/annealed-critical-coding.md`. A new exact streamed audit gives
+> both terminal inputs a finite regression table on the selected
+> `k=12,...,19` records: `delta<0.21/k`,
+> `E[a^2]<1.533 delta^2`, and `chi_terminal<0.483/k^2`. The ratio
+> `E[a^2]/delta^2` rises monotonically from `1.36411` to `1.53221`, so these
+> post-hoc constants are not promoted to an all-level theorem. See
+> `docs/notes/terminal-defect-statistics.md`.
+> The endpoint alignment kernels are now identified as quotients of one fixed
+> two-state affine Green operator. Its generators have commutator translation
+> `u->u+7`, while its conductor-shell expansion starts with
+> `-2086/67963`; the desired local limit needs signed cancellation of the full
+> shell sum, not merely termwise mixing or high-shell decay. A separate audited
+> general-parameter reduction gives `p_e=(lambda-1)lambda^-e` and makes
+> `q_j/mu_j` a Radon--Nikodym martingale on every projected critical tower.
+> It identifies bounded terminal `K` exactly with
+> `chi^2(q||mu)=O(epsilon^2)`; the automatic martingale bound is only
+> `O(epsilon)`. The channel supplies a Frostman bound for infinite towers and
+> weak limits on `6/5<=lambda<=2`, but an exact `-1` row rules out uniform
+> fiberwise sup-norm flattening. The exact coarse-minimum supersolution is the
+> clearest remaining nonlinear source of the missing quadratic gain.
+> Lean commits `9cdcfaf`/`764b815` now kernel-check the scalar slack identity,
+> full weighted terminal-Pearson chain, and the defect-plus-slack endpoint bridge. The
+> all-level trace and explicit `r_2,r_3,Delta_2` floor are now checked in
+> `f0e96a5`; Perron uniqueness and both selection-specific inputs remain open.
+> A separate independently audited successor proof establishes qualitative
+> strict adjacent growth at research-proof level: `(H_k)` implies
+> `lambda_(k+1)>lambda_k` by spreading nonzero copy-lift slack around the full
+> fine transport cycle. A bounded exact checker verifies its combinatorial
+> core. The gain is dimension-dependent, so the endpoint problem is unchanged;
+> Lean formalization is pending.
 
 ## 0. Ground rules
 
@@ -393,6 +419,10 @@ kernel-checked generically; the exact `k=12` record is now also one Lean theorem
 while the `k=19` rows remain externally exact-verified rather than Lean-ingested.
 The theorem-grade open step is the limit
 `λ_k→2`, not another fixed-level feasibility check.
+Qualitative strictness of the adjacent values is now settled at audited
+research-proof level by combining `(H_k)` with the superadditive copy-lift
+orbit argument. The constructed margin can be exponentially small, so this
+does not distinguish a strict limit below two from convergence to two.
 The newest exact diagnostic separates pointwise and mass contraction: the
 prepared uniform `U(21/50)` split fails, while all 756 tested within-vector
 genealogy tails are nonincreasing. Exact rational cones classify the observed
@@ -413,8 +443,16 @@ needed local Pearson law. The live Pearson inputs are a mean-defect rate plus
 level-uniform anti-concentration, or regularity for the nonlinear renewal-min system of an
 all-level selected critical or normalized-slack-vanishing family. The
 cone/immigration theorem is now the fallback, not another finite fit.
-Commit `9cdcfaf` checks the scalar terminal/slack endpoint implication but not
-the trace/Perron floor, defect rate, anti-concentration, or nonlinear regularity.
+The exact terminal dashboard proves the finite selected-record bounds
+`delta<0.21/k`, `E[a^2]<1.533 delta^2`, and
+`chi_terminal<0.483/k^2`, while exposing a monotone increase of the fitted
+anti-concentration ratio. This sharpens the target and its falsifier but does
+not supply either all-level input.
+Commits `9cdcfaf`/`764b815` check the scalar terminal/slack endpoint implication
+and full weighted Pearson chain but not
+the defect rate, anti-concentration, or nonlinear regularity. Commit `f0e96a5`
+checks all-level trace and the explicit normalized endpoint vectors/floor;
+Perron uniqueness remains open.
 Also top-ranked (SMELL.md §1): Mahler 1968 Z-numbers ↔ Antihydra rarity
 theorem (golden-ratio counting via no-11 subshift); Antihydra as a robust-
 queueing/discrepancy problem, with the former unconditioned finite-computation
