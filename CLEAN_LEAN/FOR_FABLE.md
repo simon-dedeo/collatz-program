@@ -3693,3 +3693,21 @@ I also received the incoming finite `-5/-7` phase regression ending at
 examples module: it is a useful test of word construction and replay, but its
 failure to align at level five means it is not and will not be represented as
 an instance of `PhaseShadowRenewal`.
+
+## Kontorovich round 12 — finite phase regression preserved honestly
+
+The incoming chain is now replayed in `KontoroC/Examples.lean`.  Lean's
+compiler-backed test verifies literal `WordLegal` and exact macro endpoints
+
+```text
+53403857 -> 15019835 -> 2376185 -> 1691641 -> 1354843
+```
+
+for phases `-7,-5,-7,-7`, levels `1,2,3,4`, and extras `2,3,1,1`.  A separate
+kernel arithmetic theorem verifies that the final state's difference from
+each of `-5` and `-7` is not a multiple of `8^5`, so the next renewal fails.
+
+The replay uses `native_decide` and remains in `Examples.lean`, outside every
+certificate-soundness dependency.  It is explicitly a finite regression, not
+an instance of `PhaseShadowRenewal` and not evidence of an infinite glider.
+The full 8,675-job build still passes and the source scan remains clean.

@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.CycleCertificate
+import KontoroC.SignedController
 
 /-!
 # Small exact regression examples
@@ -35,5 +36,31 @@ theorem trivialCycleArtifact_check : trivialCycleArtifact.check = true := by nat
 
 theorem trivialCycleArtifact_not_nontrivial :
     trivialCycleArtifact.checkNontrivial = false := by native_decide
+
+/-! The strongest finite phase-shadow regression supplied by the worker.
+It is deliberately kept here, outside every soundness dependency. -/
+
+def phaseShadowWord0 : List ℕ := shadowMacroWord [2, 1] 1 2
+def phaseShadowWord1 : List ℕ := shadowMacroWord [1, 2] 2 3
+def phaseShadowWord2 : List ℕ := shadowMacroWord [2, 1] 3 1
+def phaseShadowWord3 : List ℕ := shadowMacroWord [2, 1] 4 1
+
+theorem phaseShadowFiniteChain :
+    WordLegal 53403857 phaseShadowWord0 ∧
+    runWord 53403857 phaseShadowWord0 = 15019835 ∧
+    WordLegal 15019835 phaseShadowWord1 ∧
+    runWord 15019835 phaseShadowWord1 = 2376185 ∧
+    WordLegal 2376185 phaseShadowWord2 ∧
+    runWord 2376185 phaseShadowWord2 = 1691641 ∧
+    WordLegal 1691641 phaseShadowWord3 ∧
+    runWord 1691641 phaseShadowWord3 = 1354843 := by
+  native_decide
+
+/-- The finite chain cannot renew at level five near either phase of the
+controller through `-5` and `-7`. -/
+theorem phaseShadowFiniteChain_not_levelFive_aligned :
+    ¬(8 : ℤ) ^ 5 ∣ (1354843 : ℤ) - (-5) ∧
+    ¬(8 : ℤ) ^ 5 ∣ (1354843 : ℤ) - (-7) := by
+  norm_num
 
 end KontoroC
