@@ -2185,3 +2185,64 @@ Unless you redirect, I will now take reply 34's qualitative adjacent
 strict-lift theorem as the next formal target.  I will first expose the
 smallest exact nonlinear interfaces (superadditivity, transport lower bound,
 finite-orbit spreading) before attempting the parameter-continuity step.
+
+## Round 50 — reply 34's qualitative adjacent strict lift is complete
+
+The new `CleanLean/KL/StrictLift.lean` proves the proposed theorem with the
+premises exposed exactly:
+
+```text
+levelFeasible_succ_strict_of_positive_fixed:
+  k >= 2,
+  1 < lambda < 2,
+  (forall q, 0 < c q),
+  (forall q, c q = F_(k,lambda)c q)
+    ==> exists lambda', lambda < lambda' /\ lambda' < 2 /\
+          LevelFeasible (k+1) lambda'.
+```
+
+The kernel-checked proof follows your four-step decomposition, with one useful
+shortcut at the index-heavy slack step.  The copied fine vector has exactly
+zero new fiber defect.  The already-proved concrete oscillation identity with
+slack therefore gives
+
+```text
+normalizedSlack = annealedKL(lambda)-1 > 0,
+```
+
+and positive total mass converts this directly into a nonzero nonnegative
+coordinate slack `d=F x-x`.  Thus no duplicated branch-sum calculation is
+needed.
+
+The module separately proves:
+
+```text
+fiberMin_add_super
+operator_superadditive
+operator_iterate_transport_lower
+orbit_gain_lower
+iterateSum_pos_of_gain
+fullCycleSum_strict_subeigen
+continuousAt_operator_klWeights
+exists_larger_parameter_of_strict
+feasible_of_positive_strict.
+```
+
+The full-cycle step uses the exact `3^(k-1)` transport orbit equivalence from
+Round 49; continuity is combined across the literal finite coordinate set;
+and the final vector is explicitly rescaled into the `Feasible` normalization.
+Focused, complete-project, and audit builds pass.  The four audited headline
+declarations use only `propext`, `Classical.choice`, and `Quot.sound`.
+
+One important correction to reply 34's last sentence: CLEAN_LEAN does **not**
+currently contain an existence theorem for a positive nonlinear fixed vector
+at each critical parameter.  `NonlinearPerron.lean` proves comparison and
+eigenvalue uniqueness *given* positive eigenpairs, but explicitly leaves
+existence open.  Therefore the new strict-lift theorem does not yet iterate,
+and the README says so.  Please send either (a) the exact research theorem and
+reference/finite-dimensional hypotheses that give critical positive fixed
+vectors for this min-type map, or (b) a preferred elementary compact-simplex
+proof.  That is now the cleanest seam for converting qualitative adjacent
+lifting into strict growth of the actual `criticalLambda` sequence.  Even with
+existence, there is still no uniform increment and hence no proof of convergence
+to two.

@@ -16,6 +16,7 @@ import CleanLean.KL.LimitBridge
 import CleanLean.KL.ConcreteLimit
 import CleanLean.KL.CriticalParameter
 import CleanLean.KL.LevelLift
+import CleanLean.KL.StrictLift
 import CleanLean.KL.RetardedComparison
 import CleanLean.KL.TreeRewrite
 import CleanLean.KL.CriticalAssignment
@@ -349,3 +350,7 @@ specification theorems during a build.
 #print axioms CleanLean.KL.FiniteRecordK12.allChunksValid
 #print axioms CleanLean.KL.FiniteRecordK12.levelFeasible
 #print axioms CleanLean.KL.FiniteRecordK12.hasPredecessorExponent_record
+#print axioms CleanLean.KL.FiniteSystem.operator_superadditive
+#print axioms CleanLean.KL.FiniteSystem.ResidueSystem.fullCycleSum_strict_subeigen
+#print axioms CleanLean.KL.ResidueSystem.lifted_gain_nonnegative_nonzero
+#print axioms CleanLean.KL.ResidueSystem.levelFeasible_succ_strict_of_positive_fixed

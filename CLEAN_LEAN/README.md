@@ -50,6 +50,17 @@ feasible vector to all three new top-digit lifts preserves feasibility.  Thus
 the exact critical feasibility suprema are nondecreasing in the residue
 precision, with no spectral-radius theorem imported.
 
+`StrictLift.lean` proves a qualitative strengthening under an explicit extra
+hypothesis.  If `1 < lambda < 2` and level `k >= 2` has an exact strictly
+positive fixed vector for the nonlinear KL operator, then level `k+1` is
+feasible at some `lambda'` strictly between `lambda` and `2`.  The proof
+kernel-checks superadditivity, propagation of a nonzero lift slack around the
+full transport cycle, finite-coordinate continuity in `lambda`, and final
+subeigenvector normalization.  This does not yet iterate to `lambda_k -> 2`:
+the project does not currently prove the positive exact fixed-vector premise
+at successive critical parameters, and the theorem supplies no uniform size
+for the increase.
+
 `RetardedComparison.lean` formalizes the analytic core of KL Theorem 5.1.
 For any finite nested sum/min difference system whose leaves all have positive
 backward shifts, LP feasibility propagates an exponential lower bound from an
