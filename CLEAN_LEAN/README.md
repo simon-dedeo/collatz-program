@@ -17,7 +17,10 @@ finite feasible parameters tending to two implies the same counting result
 directly, without choosing critical eigenvectors.  The central missing
 theorem remains either a uniform localization/domination argument forcing the
 weighted oscillation defect to vanish, or a cofinal construction of exact
-feasible vectors below every fixed parameter less than two.
+feasible vectors below every fixed parameter less than two.  A separate
+remaining bridge must instantiate the KL difference functions with the actual
+Syracuse predecessor counts; it must use the corrected one-sided doubling
+argument, not the false printed equation (2.1).
 
 `LevelLift.lean` formalizes the paper's level monotonicity argument: copying a
 feasible vector to all three new top-digit lifts preserves feasibility.  Thus
@@ -28,9 +31,9 @@ precision, with no spectral-radius theorem imported.
 For any finite nested sum/min difference system whose leaves all have positive
 backward shifts, LP feasibility propagates an exponential lower bound from an
 initial strip to every nonnegative time.  Its final corollary derives the
-paper's exact `1/(4 max c)` constant.  The still-unformalized literature bridge
-is now the advanced-term elimination and the proof that its retarded trees
-preserve both the Collatz inequalities and LP feasibility.
+paper's exact `1/(4 max c)` constant.  `HistoryWitness.lean` now supplies the
+previously missing advanced-term elimination by a repaired two-phase
+construction, rather than by the invalid printed finite-step derivation.
 
 `TreeRewrite.lean` handles the splitting substep: substituting a valid rule
 inside any sum/min context preserves the functional inequality, while the
@@ -43,7 +46,7 @@ the paper's global critical-path argument is genuinely required.
 argument.  A critical assignment keeps both sides of every sum and one
 minimizing side of every minimum; Lean proves that one always exists and that
 the tree value is exactly the sum of its selected leaves.  It also proves the
-precise safe-deletion interface: once the still-missing path argument shows
+precise safe-deletion interface: once a path argument shows
 that no critical assignment can use an alternative, deleting it preserves the
 functional inequality, while coefficient feasibility is weakened in the
 sound direction automatically.  This first model deliberately omits the
@@ -56,9 +59,9 @@ that valid local split inequalities imply KL's assignment-specific bound
 (equation 3.4), formalizes selected subassignments through arbitrary nested
 sums/minima, and proves the deletion contradiction: a later leaf repeating an
 ancestor state cannot be selected when its split has the mandatory positive
-transport sibling.  What remains is to instantiate this abstract theorem with
-the recursive concrete KL splitter and then prove termination and
-order-independence.
+transport sibling.  The later occurrence-indexed two-phase construction
+instantiates this argument without interleaving splits and deletions, so no
+order-independence claim is needed.
 
 `ConcreteElimination.lean` now instantiates one complete split.  Its labelled
 body is exactly the KL transport leaf plus the appropriate three-lift minimum
@@ -68,8 +71,9 @@ parent shift is proved exact; permitted splits preserve the lower shift bound
 erasing internal labels preserves functional evaluation.  On the LP side,
 the erased base split's coefficient is proved equal to the concrete nonlinear
 KL operator, so exact finite feasibility makes splitting monotone in the
-correct direction inside any surrounding labelled context.  The remaining
-construction is repeated splitting plus deletion and its termination proof.
+correct direction inside any surrounding labelled context.  The repaired
+repeated construction and its termination proof are supplied by the indexed
+history modules described below.
 
 `SymbolicShift.lean` records every path shift exactly as an integer pair
 `a + b*alpha`; the transport, retarded, and advanced increments are
@@ -93,7 +97,7 @@ assumes an infinite path, and directly refutes the following history-free
 subtree argument.  It does not establish nontermination or refute the intended
 elimination theorem; that theorem now requires a repaired proof.
 
-`EliminationWitness.lean` pins the exact output required of that remaining
+`EliminationWitness.lean` pins the exact output required of the elimination
 construction.  A witness is a finite family of labelled trees with a common
 positive lag, functional soundness, and coefficient soundness.  Lean proves
 that any such witness immediately gives KL's exact `1/(4*C)` exponential
@@ -159,10 +163,9 @@ is live, functional evaluation is exactly preserved, leaf bounds survive,
 and coefficient evaluation moves in the feasible direction.  The repeated
 branch contradiction now also accepts arbitrary recursively expanded
 transport siblings and assumes positivity only at the nonnegative arguments
-actually used.  The remaining targets are the concrete occurrence-provenance
-certificate for Phase-A marks and the finite raw-tree/König construction.
+actually used.
 The exact provenance payload and the theorem turning it into a sound mark are
-now also kernel checked; the builder must construct that payload recursively.
+kernel checked; the indexed builder now constructs that payload recursively.
 The global form allows each marked hit to name a different earlier ancestor;
 `AllMarkProvenance` plus the universal `shift>=-2` invariant now implies
 `MarkingSound` without an additional semantic assumption.
@@ -170,13 +173,20 @@ The global form allows each marked hit to name a different earlier ancestor;
 edge words and the real KL split grammar.  Lean derives local functional
 validity, the raw root comparison, the feasible-coefficient comparison, and
 the terminal shift invariants from any finite such tree.  Consequently the
-remaining construction contract contains no analytic or LP soundness fields:
-it asks for the finite histories, their syntactic mark provenance, a live
-pruning, and one common retarded lag bound.
-`TwoPhaseWitness.lean` packages the complete remaining builder contract and
-proves that any inhabitant is automatically the existing
-`RetardedEliminationWitness`, hence feeds the already checked comparison
-theorem without changing its statement.
+construction contract contains no analytic or LP soundness fields: it asks
+for the finite histories, their syntactic mark provenance, a live pruning,
+and one common retarded lag bound; all four are now supplied below.
+`TwoPhaseWitness.lean` packages the builder contract and proves that any
+inhabitant is automatically the existing `RetardedEliminationWitness`.
+`CheckpointTermination.lean`, `HistoryBuilder.lean`, and `RawZipper.lean` now
+construct that inhabitant: compressed branch recursion is well founded,
+finite transport spines terminate, and every selected mark yields exact
+prefix provenance for its source split and earlier principal.
+`HistoryWitness.lean` proves deterministic pruning live, takes the finite
+minimum of the positive output lags, and constructs the full witness.  Its
+`quarter_lower_bound_of_feasible` theorem derives the exact comparison bound
+directly from finite KL feasibility, with no remaining elimination or
+provenance assumption.
 
 `PressureCertificate.lean` now also accepts the portable sparse-edge format
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational

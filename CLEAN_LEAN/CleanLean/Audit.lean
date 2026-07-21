@@ -33,6 +33,7 @@ import CleanLean.KL.TwoPhasePruning
 import CleanLean.KL.MarkedPruning
 import CleanLean.KL.OccurrencePruning
 import CleanLean.KL.TwoPhaseWitness
+import CleanLean.KL.HistoryWitness
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
@@ -196,6 +197,12 @@ specification theorems during a build.
 #print axioms
   CleanLean.KL.ConcreteElimination.RawHistoryEliminationData.toTwoPhaseEliminationData
 #print axioms CleanLean.KL.ConcreteElimination.quarter_lower_bound_of_twoPhaseElimination
+#print axioms CleanLean.KL.ConcreteElimination.BranchChild.wellFounded
+#print axioms CleanLean.KL.ConcreteElimination.buildHistory
+#print axioms CleanLean.KL.ConcreteElimination.RawHistoryTree.allMarkProvenance_root
+#print axioms CleanLean.KL.ConcreteElimination.builtRawHistoryEliminationData
+#print axioms CleanLean.KL.ConcreteElimination.builtRetardedEliminationWitness
+#print axioms CleanLean.KL.ConcreteElimination.quarter_lower_bound_of_feasible
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
 #print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda
 #print axioms CleanLean.KL.weightedDefect_le_tail

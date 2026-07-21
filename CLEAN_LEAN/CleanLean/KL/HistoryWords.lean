@@ -157,6 +157,23 @@ theorem validFrom_append_singleton_iff
       rw [ih]
       tauto
 
+/-- A transport spine is legal after every legal occurrence word. -/
+theorem validFrom_append_transports
+    (k : ℕ) (root : ResidueSystem.State k)
+    (word : OccurrenceId) (transports : ℕ)
+    (hvalid : ValidFrom k root word) :
+    ValidFrom k root
+      (word ++ List.replicate transports HistoryStep.transport) := by
+  induction transports with
+  | zero => simpa using hvalid
+  | succ transports ih =>
+      rw [show List.replicate (transports + 1) HistoryStep.transport =
+        List.replicate transports HistoryStep.transport ++
+          [HistoryStep.transport] by
+        simpa using List.replicate_add transports 1 HistoryStep.transport,
+        ← List.append_assoc, validFrom_append_singleton_iff]
+      exact ⟨ih, trivial⟩
+
 /-- The earlier occurrence in a repeat certificate is a concrete prefix of
 the marked target word. -/
 def EarlierPrefix (earlier target : OccurrenceId) : Prop :=
@@ -170,6 +187,40 @@ def arrivalHistoryStep (kind : ArrivalKind) (lift : Fin 3) : HistoryStep :=
   match kind with
   | .retarded => .retarded lift
   | .advanced => .advanced lift
+
+namespace OccurrenceId
+
+/-- Following a finite transport spine agrees with iterating the symbolic
+transport map. -/
+theorem shiftAt_append_transports
+    (word : OccurrenceId) (transports : ℕ) :
+    shiftAt (word ++ List.replicate transports HistoryStep.transport) =
+      SymbolicShift.transport^[transports] (shiftAt word) := by
+  induction transports generalizing word with
+  | zero => simp
+  | succ transports ih =>
+      rw [List.replicate_succ]
+      rw [show
+        word ++ HistoryStep.transport ::
+            List.replicate transports HistoryStep.transport =
+          (word ++ [HistoryStep.transport]) ++
+            List.replicate transports HistoryStep.transport by simp]
+      rw [ih, shiftAt_append_singleton, Function.iterate_succ_apply]
+      rfl
+
+/-- A compressed transport spine followed by one branch edge has exactly the
+symbolic update used by the branch-arrival compactness theorem. -/
+theorem shiftAt_append_compressedArrival
+    (word : OccurrenceId) (transports : ℕ)
+    (kind : ArrivalKind) (lift : Fin 3) :
+    shiftAt
+        (word ++ List.replicate transports HistoryStep.transport ++
+          [arrivalHistoryStep kind lift]) =
+      kind.follow transports (shiftAt word) := by
+  rw [shiftAt_append_singleton, shiftAt_append_transports]
+  cases kind <;> rfl
+
+end OccurrenceId
 
 /-- Path-level certificate stored at one marked branch occurrence.  The
 earlier word may equal the source word (a marked self-child), but is always a

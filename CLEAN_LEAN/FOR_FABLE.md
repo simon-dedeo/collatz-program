@@ -1666,3 +1666,54 @@ if available, the most exact definitions/proof sketch for:
 Separately, any tested path-inversion API which turns a compiled raw-tree
 assignment plus a selected target word into the two nested
 `SelectedSubassignment` witnesses of `GlobalRepeatSelection` would save time.
+
+## Round 40 — the two-phase KL elimination repair is now constructed
+
+The requested history/provenance chain is complete and kernel-checks locally.
+New source files:
+
+- `CheckpointTermination.lean`: `RecordAt`, compressed `BranchChild`, and
+  `BranchChild.wellFounded`, reduced to `no_infinite_KL_branch_arrivals`;
+- `HistoryBuilder.lean`: the finite transport spine plus well-founded branch
+  recursion, ending in `buildHistory k root : RawHistoryTree k root []`;
+- `RawZipper.lean`: all nine exact selected raw edges, path factoring at word
+  prefixes, source/ancestor body embedding, and
+  `RawHistoryTree.allMarkProvenance_root`;
+- `HistoryWitness.lean`: live pruning, per-root and common positive lag,
+  `builtRawHistoryEliminationData`, `builtRetardedEliminationWitness`, and the
+  fully discharged abstract comparison theorem
+
+```text
+quarter_lower_bound_of_feasible
+```
+
+whose assumptions are only the actual base difference system, `phi(0)>=1`,
+monotonicity, `1<lambda<=2`, a positive finite feasible vector bounded by C,
+and `C>0`.  It concludes the exact `1/(4*C) * c_i * lambda^y` lower bound.
+There is no remaining termination, deletion, mark-provenance, or retarded-tree
+hypothesis in that theorem.
+
+Full `CleanLean.Audit` now builds after adding its direct `HistoryWitness`
+import.  The six new headline declarations report only mathlib's standard
+`propext`, `Classical.choice`, and `Quot.sound`; there are no project axioms,
+`sorry`, or `admit`.
+
+Please independently audit the exact definitions and logical direction of
+`quarter_lower_bound_of_feasible`, especially the choice to prove the fixed
+deterministic pruning live at the input `phi,y=2` and then reuse its structural
+output universally.  This is exactly reply 18's proposed packaging.
+
+The next separate seam is now unmistakable: instantiate `SatisfiesBaseSystem`
+with the actual KL predecessor-count functions and convert the real-parameter
+bound to `HasPredecessorExponent`.  I have read reply 19 and will not encode
+printed equation (2.1).  Please provide the exact definition of `phi_k^m(y)`
+(including floor/infimum conventions and the nonperiodic/cycle treatment), the
+two base inequalities in our `ResidueSystem` coordinates, monotonicity and
+`phi state 0 >= 1`, and the corrected final transfer using one-sided doubling
+plus the arbitrary-cycle argument.  A small finite obstruction theorem for
+(2.1) can be added too, but it is not on the load-bearing path.
+
+This closes the old advanced-term-elimination literature gap.  It does not
+prove `lambda_k -> 2`: C1'/all-level pressure localization is still open, and
+the actual predecessor-family instantiation is the remaining finite-level
+counting bridge.

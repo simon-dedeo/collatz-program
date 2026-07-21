@@ -1,6 +1,6 @@
 # Audit of the fiber-geometry program
 
-Last updated: 2026-07-20.  This audit compares the current Lean development
+Last updated: 2026-07-21.  This audit compares the current Lean development
 with the live notes in `../docs/notes/`, especially `fiber-geometry.md`,
 `adversarial-operator.md`, `sol-pressure.md`, and
 `renormalization-at-minus-one.md`.
@@ -11,16 +11,21 @@ The numerical geometry is strong evidence for a useful theorem, but the
 restricted-pressure inequality C1' has not been proved.  The missing step is
 not the elementary weighted-tail reduction.  It is a uniform, global bound
 showing that the exact extremal eigenvector cannot move enough mass into the
-exceptional return tree as the precision grows.  Independently, the published
-advanced-term elimination argument used to transfer finite KL feasibility to
-counting has a now-kernel-checked obstruction to the finite-step derivation of
-its equation (3.2), so that literature bridge also needs repair.
+exceptional return tree as the precision grows.  The published advanced-term
+elimination derivation does contain a kernel-checked obstruction, but that
+bridge is now repaired by a different two-phase construction: Lean builds a
+finite occurrence-indexed history, proves its marking sound, prunes it, and
+constructs the exact retarded witness.
 
 This is a plausible target for formalization.  The downstream implications
 from weighted-tail decay to `lambda_k -> 2`, and from that endpoint to
-`x^(1-epsilon)` predecessor counting (given the KL literature transfer), are
-now formalized.  The uniform localization premise is not proved.  Thus this
-is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
+`x^(1-epsilon)` predecessor counting, are formalized.  Finite feasibility now
+implies the abstract KL difference-function bound without a literature
+elimination hypothesis.  The separate instantiation of those functions by
+actual predecessor counts remains open and must avoid the false printed
+equation (2.1).  The uniform localization premise is also not proved.  Thus
+this is not presently a proof of `lambda_k -> 2`, the counting result, or
+Collatz.
 
 ## Claims that survive the audit
 
@@ -74,8 +79,9 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
    represents the eliminated right-hand sides as finite nested sum/min trees
    and proves the strip induction of KL Theorem 5.1.  It also derives the
    exact `1/(4 max c)` constant from `lambda <= 2`, maximum lag at most two,
-   and the initial lower bound one.  The advanced-term elimination which
-   produces those trees remains to be formalized.
+   and the initial lower bound one.  `HistoryWitness.lean` now produces these
+   trees by the repaired two-phase history construction and states the fully
+   discharged `quarter_lower_bound_of_feasible` theorem.
 
 10. **Sound tree splitting, with deletion kept explicit.** `TreeRewrite.lean`
     proves substitution inside arbitrary sum/min contexts on both the
@@ -94,8 +100,8 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     alternative can be deleted inside an arbitrary surrounding context and
     the root functional inequality survives.  On the LP coefficient side,
     the same deletion is automatically monotone in the feasible direction.
-    What remains is the KL-specific theorem proving the avoidance premise
-    from repeated residue/shift labels; it has not been assumed.
+    The occurrence-indexed construction in item 25 now supplies the
+    KL-specific avoidance premise from repeated residue/shift labels.
 
 12. **Labelled critical paths and the KL deletion contradiction.**
     `EliminationTree.lean` retains internal principal labels `(state,shift)`,
@@ -107,9 +113,8 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     later shift, the split's positive transport sibling makes the selected
     sum strictly larger than that leaf, contradicting monotonicity and the
     ancestor bound.  This checks the mathematical heart of the deletion rule.
-    The remaining engineering theorem must show that the concrete recursive
-    splitter produces exactly this shape and carries the invariant after each
-    deletion; termination/order-independence are also still open.
+    Item 25 now instantiates the exact shape in a two-phase splitter and avoids
+    any need for split/delete order-independence.
 
 13. **Concrete KL split and coefficient identity.**
     `ConcreteElimination.lean` constructs the exact residue-system split with
@@ -122,7 +127,7 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     feasible KL vector makes every split increase the coefficient right-hand
     side, even inside an arbitrary labelled tree context, while decreasing
     the functional right-hand side.  This is the concrete splitting half of
-    KL Theorems 3.2 and 4.1; recursive deletion and termination remain.
+    KL Theorems 3.2 and 4.1; item 25 supplies the terminating global repair.
 
 14. **Global safe deletion.** `EliminationTree.lean` defines occurrence of a
     chosen minimum branch as a selected subassignment of a critical assignment
@@ -132,9 +137,9 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     minimum contexts.  The proof handles the important outer-minimum case:
     an unselected path is only raised, so it cannot become newly minimizing.
     This is a valid formal counterpart of KL's “totally non-critical” pruning,
-    unlike the false local deletion rule.  What remains is to derive this
-    whole-tree avoidance uniformly from the repeated-label contradiction at
-    each recursive step and preserve the ancestor-bound invariant.
+    unlike the false local deletion rule.  The occurrence-specific zipper in
+    item 25 derives the required whole-tree avoidance after all splitting is
+    complete, so the failed split-time invariant is not used.
     Symmetric left/right deletion and automatic coefficient-side monotonicity
     are both checked.
 
@@ -143,8 +148,8 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     must produce: finite labelled trees, one common lag in `(0,2]`, functional
     soundness for every positive monotone solution of the base system, and
     coefficient soundness for every feasible KL vector.  From this package
-    Lean derives the exact `1/(4*C)` comparison bound.  This is a conditional
-    composition theorem, not an existence proof for the witness.
+    Lean derives the exact `1/(4*C)` comparison bound.  Item 25 now constructs
+    the witness rather than assuming its existence.
 
 16. **Portable sparse pressure rows.** `PressureCertificate.lean` now has an
     executable exact-rational checker matching a finite source/target/weight
@@ -165,15 +170,14 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
 17. **Exact symbolic elimination shifts.** `SymbolicShift.lean` represents
     every splitter increment in `Z + Z*alpha` and proves exact evaluation and
     translation invariance for finite path words.  This removes floating-point
-    shift comparisons from a prospective control-cycle termination proof.
-    No finite history quotient or negative-cycle certificate has yet been
-    supplied.
+    shift comparisons from the completed checkpoint termination proof; no
+    finite control quotient is required by the repaired argument.
 
 18. **Finite termination-rank checker.** `TerminationCertificate.lean`
     checks a finite edge table and natural rank by exact reduction and proves
     that every represented path has at most the starting rank many edges.
-    This is ready to consume a genuine KL control quotient; it does not prove
-    that residue/node-kind labels are such a quotient.
+    This remains a valid alternative certificate interface, but the completed
+    checkpoint proof uses irrational branch-arrival compactness instead.
 
 19. **Independent pressure-graph semantics.** `BallPressureAutomaton.lean`
     defines the 243-state depth-six graph directly from the concrete KL
@@ -213,10 +217,9 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     bounded costs, constructs recurrent-state limits, and excludes the
     resulting finite coboundary by a new Lean proof that `alpha=log_2 3` is
     irrational.  It also checks the exact compressed KL costs after any
-    number of transport steps.  The remaining termination obligation is the
-    concrete interface from an infinite path surviving the ancestry-sensitive
-    KL deletion rule to this abstract arrival sequence; this item alone does
-    not repair Theorem 3.1.
+    number of transport steps.  `CheckpointTermination.lean` now supplies the
+    concrete interface: its well-founded checkpoint relation maps any
+    hypothetical descending chain to exactly this abstract arrival sequence.
 
 23. **All-three-deletion obstruction.**
     `AllThreeDeletionObstruction.lean` checks an eleven-edge legal level-five
@@ -238,47 +241,39 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     proposed backjump repair; a split-stable invariant or new semantics is
     required.
 
-25. **Two-phase repair target.**
-    The current candidate constructs the finite raw good-history tree using
-    splits only, marks higher repeated branch leaves instead of deleting them,
-    and performs all dead-context pruning afterward.  Branch-arrival
-    compactness is intended to prove Phase-A finiteness; split-only expansion
-    preserves global local validity, avoiding item 24.  Phase B would propagate
-    an all-dead three-way minimum upward and delete it only at a live ancestor
-    minimum, avoiding item 23.  This is presently a proof architecture, not a
-    theorem.  The generic local-validity replacement theorem now proves the
-    Phase-A invariant, and `MarkedPruning.lean` checks the structural dead
-    recursion, live-root criterion, absence of marks from live output, and
-    coefficient monotonicity.  `TwoPhasePruning.lean` checks one sound
-    pointwise dead-alternative deletion and invariant preservation.
-    `OccurrencePruning.lean` now distinguishes syntactic leaf occurrences and
-    proves one-pass root liveness, exact functional equality, preservation of
-    leaf bounds, and coefficient monotonicity, conditional only on the exact
-    semantic statement that every marked occurrence contradicts inherited
-    principal bounds.  Localized repeated-branch lemmas prove the numerical
-    contradiction for an arbitrary expanded transport sibling using
-    positivity only at nonnegative arguments.  What remains open is to attach
-    that certificate to every concrete Phase-A mark, and to construct the
-    finite raw tree via the branch-arrival/König argument.
-    `TwoPhaseWitness.lean` now pins those obligations in
-    `TwoPhaseEliminationData` and proves that satisfying them produces exactly
-    the previously audited retarded-elimination witness and quarter-factor
-    comparison theorem.
-    The contract requires occurrence-specific `AllMarkProvenance` rather than
-    assuming semantic mark soundness; a kernel-checked global extraction
-    theorem converts this provenance, leaf bounds, positivity, and monotonicity
-    into the exact Phase-B hypothesis.
-    `HistoryWords.lean` identifies occurrences by exact transport/retarded/
-    advanced edge words.  `RawHistoryTree.lean` is an indexed finite syntax
-    whose constructors are exactly the legal KL cases; its compiler is proved
-    locally valid and below the root functionally, above the root in feasible
-    coefficient evaluation, bounded below by shift `-2`, and strictly negative
-    at every unmarked terminal.  `RawHistoryEliminationData` therefore reduces
-    the remaining theorem to constructing this finite forest, extracting
-    prefix provenance for its marks, proving structural liveness, and choosing
-    a common lag for its finitely many pruned leaves.
+25. **Completed two-phase elimination repair.**
+    The repaired construction builds a raw good-history tree using splits
+    only, marks higher repeated branch leaves, and performs deterministic
+    occurrence pruning afterward.  `CheckpointTermination.lean` proves the
+    compressed recursive-call relation well founded from branch-arrival
+    compactness; `HistoryBuilder.lean` combines this with finite transport
+    spines to construct `buildHistory k root` for every root.
+    `RawZipper.lean` mirrors all nine selected child shapes of the compiled
+    grammar.  It turns every marked hit into an exact raw path, factors that
+    path at the certified source and earlier-prefix words, recovers the source
+    addition and arbitrary expanded transport sibling, and proves
+    `RawHistoryTree.allMarkProvenance_root`.
+    `HistoryWitness.lean` then proves the structural prune live, obtains a
+    positive lag at every finite root output, takes their finite minimum, and
+    constructs `builtRetardedEliminationWitness`.  The resulting theorem
+    `quarter_lower_bound_of_feasible` has no termination, deletion,
+    provenance, or eliminated-tree hypothesis: finite KL feasibility and the
+    base functional assumptions imply the exact quarter-factor exponential
+    bound.  The axiom audit reports only `propext`, `Classical.choice`, and
+    `Quot.sound`.
 
 ## Corrections to the current notes
+
+### The printed predecessor identity (2.1) is false
+
+The literal identity `phi_k^m(y) = phi_k^(2m)(y-1)` for `m = 1 (mod 3)`
+fails already at `k=2, m=7, y=1`: the two sides are 3 and 2.  The intended
+counting transfer must instead use the one-sided inclusion
+`phi_k^m(y) >= 1 + phi_k^(2m)(y-1)` under the appropriate nonperiodicity and
+range hypotheses, then pass from arbitrary targets by sufficiently many
+doublings while avoiding the finitely many points of a cycle.  This actual
+predecessor-family instantiation is not yet in Lean; no theorem in the current
+project assumes the false equality.
 
 ### The pure-branch root needs a special condition
 

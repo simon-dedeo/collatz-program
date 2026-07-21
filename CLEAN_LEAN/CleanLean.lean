@@ -38,6 +38,7 @@ import CleanLean.KL.TwoPhasePruning
 import CleanLean.KL.MarkedPruning
 import CleanLean.KL.OccurrencePruning
 import CleanLean.KL.TwoPhaseWitness
+import CleanLean.KL.HistoryWitness
 import CleanLean.KL.PressureWeightBounds
 import CleanLean.KL.PortablePressureData
 import CleanLean.KL.ChargedLyapunov
