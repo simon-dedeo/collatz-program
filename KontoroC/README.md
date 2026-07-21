@@ -89,6 +89,8 @@ and rotated word at each level, matching the phase-changing exact worker.
 controllers are literal signed accelerated cycles and derives the affine fixed
 equation consumed by the shadow endpoint.  These negative cycles remain
 controllers only, never positive counterexamples.
+Every cyclic rotation is also proved legal and closing at its corresponding
+phase state, so the phase-changing worker needs only one checked base cycle.
 
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.

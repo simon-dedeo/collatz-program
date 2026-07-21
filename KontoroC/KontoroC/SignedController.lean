@@ -53,6 +53,22 @@ instance signedWordLegalDecidable : ∀ n ks, Decidable (SignedWordLegal n ks)
 @[simp] theorem signedRunWord_cons (n : ℤ) (k : ℕ) (ks : List ℕ) :
     signedRunWord n (k :: ks) = signedRunWord (signedStepAt n k) ks := rfl
 
+theorem signedRunWord_append (n : ℤ) (u v : List ℕ) :
+    signedRunWord n (u ++ v) = signedRunWord (signedRunWord n u) v := by
+  induction u generalizing n with
+  | nil => rfl
+  | cons k u ih => simpa using ih (signedStepAt n k)
+
+theorem signedWordLegal_append_iff (n : ℤ) (u v : List ℕ) :
+    SignedWordLegal n (u ++ v) ↔
+      SignedWordLegal n u ∧ SignedWordLegal (signedRunWord n u) v := by
+  induction u generalizing n with
+  | nil => simp [SignedWordLegal]
+  | cons k u ih =>
+      simp only [List.cons_append, SignedWordLegal, signedRunWord_cons]
+      rw [ih]
+      tauto
+
 /-- Signed analogue of the finite valuation-word affine identity. -/
 theorem signedValuationWord_affine_identity {x : ℤ} {ks : List ℕ}
     (h : SignedWordLegal x ks) :
@@ -89,6 +105,33 @@ theorem signedCycle_affine_fixed {c : ℤ} {w : List ℕ}
     (2 ^ totalValuation w : ℤ) * c =
       (3 ^ w.length : ℤ) * c + affineOffset w := by
   simpa [hclose] using signedValuationWord_affine_identity hlegal
+
+/-- Every cyclic rotation of an exact signed cycle is an exact signed cycle
+at the corresponding phase state. -/
+theorem signedCycle_rotate {c : ℤ} {u v : List ℕ}
+    (hlegal : SignedWordLegal c (u ++ v))
+    (hclose : signedRunWord c (u ++ v) = c) :
+    SignedWordLegal (signedRunWord c u) (v ++ u) ∧
+      signedRunWord (signedRunWord c u) (v ++ u) = signedRunWord c u := by
+  have huv := (signedWordLegal_append_iff c u v).mp hlegal
+  have hvc : signedRunWord (signedRunWord c u) v = c := by
+    rw [← signedRunWord_append]
+    exact hclose
+  constructor
+  · apply (signedWordLegal_append_iff (signedRunWord c u) v u).mpr
+    refine ⟨huv.2, ?_⟩
+    rw [hvc]
+    exact huv.1
+  · rw [signedRunWord_append, hvc]
+
+theorem signedCycle_rotate_affine_fixed {c : ℤ} {u v : List ℕ}
+    (hlegal : SignedWordLegal c (u ++ v))
+    (hclose : signedRunWord c (u ++ v) = c) :
+    (2 ^ totalValuation (v ++ u) : ℤ) * signedRunWord c u =
+      (3 ^ (v ++ u).length : ℤ) * signedRunWord c u +
+        affineOffset (v ++ u) := by
+  have hr := signedCycle_rotate hlegal hclose
+  exact signedCycle_affine_fixed hr.1 hr.2
 
 /-- Portable exact negative-controller certificate. -/
 structure SignedCycleCertificate where

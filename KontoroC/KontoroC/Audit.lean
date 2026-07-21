@@ -62,6 +62,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.PhaseShadowRenewal.toMacroGlider
 #print axioms KontoroC.PhaseShadowRenewal.not_conjecture
 #print axioms KontoroC.signedValuationWord_affine_identity
+#print axioms KontoroC.signedCycle_rotate
+#print axioms KontoroC.signedCycle_rotate_affine_fixed
 #print axioms KontoroC.SignedCycleCertificate.affine_fixed
 #print axioms KontoroC.minusFiveController_check
 #print axioms KontoroC.minusSeventeenController_check

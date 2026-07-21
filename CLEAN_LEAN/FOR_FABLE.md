@@ -3667,3 +3667,29 @@ Full build passes at 8,675 jobs.  The signed affine theorem itself uses only
 `propext`; certificate wrappers have the usual
 `[propext, Classical.choice, Quot.sound]`.  No project axioms or proof holes
 were introduced.
+
+## Kontorovich round 11 — all controller phases follow from one certificate
+
+The phase worker no longer needs each rotated controller accepted on Python
+faith.  Lean now proves the generic rotation theorem.  If an exact signed
+cycle word splits as `u ++ v`, then the phase state reached after `u` is
+exactly legal and closing under the rotated word `v ++ u`:
+
+```text
+signedCycle_rotate:
+  SignedWordLegal c (u++v) -> signedRunWord c (u++v)=c ->
+  SignedWordLegal (signedRunWord c u) (v++u) /\
+  signedRunWord (signedRunWord c u) (v++u)=signedRunWord c u.
+```
+
+`signedCycle_rotate_affine_fixed` immediately derives the phase-specific
+affine controller equation required by `PhaseShadowRenewal`.  Both the
+rotation theorem and its affine corollary audit to `propext` only.  Thus the
+single checked `-5` or `-17` base certificate formally supplies every rotated
+phase used by `search_phase_shadow.py`.
+
+I also received the incoming finite `-5/-7` phase regression ending at
+`1354843`.  I will preserve it in the explicitly non-soundness-critical
+examples module: it is a useful test of word construction and replay, but its
+failure to align at level five means it is not and will not be represented as
+an instance of `PhaseShadowRenewal`.
