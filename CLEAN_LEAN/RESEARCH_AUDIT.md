@@ -121,6 +121,18 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     the functional right-hand side.  This is the concrete splitting half of
     KL Theorems 3.2 and 4.1; recursive deletion and termination remain.
 
+14. **Global safe deletion.** `EliminationTree.lean` defines occurrence of a
+    chosen minimum branch as a selected subassignment of a critical assignment
+    of the entire surrounding tree.  If no whole-tree critical assignment
+    uses the proposed alternative, Lean proves that deleting it preserves the
+    expanded functional value under arbitrary nested principal, sum, and
+    minimum contexts.  The proof handles the important outer-minimum case:
+    an unselected path is only raised, so it cannot become newly minimizing.
+    This is a valid formal counterpart of KL's “totally non-critical” pruning,
+    unlike the false local deletion rule.  What remains is to derive this
+    whole-tree avoidance uniformly from the repeated-label contradiction at
+    each recursive step and preserve the ancestor-bound invariant.
+
 ## Corrections to the current notes
 
 ### The pure-branch root needs a special condition

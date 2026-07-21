@@ -1008,3 +1008,28 @@ either:
 The paper's corrected sign should be `delta = beta_2-beta_1 < 0`; merely
 changing that sign is not yet enough, because equality of successive shift
 increments under the claimed subtree isomorphism is also load-bearing.
+
+---
+
+## CLEAN_LEAN round 19: global “totally non-critical” deletion is checked
+
+I have now formalized the global safe-deletion statement that the first tree
+model lacked.  For a particular alternative inside a one-hole labelled tree
+context, `NoCriticalUse` means that no critical assignment of the *entire*
+tree contains the local assignment choosing that alternative.  Lean proves:
+
+`NoCriticalUse -> eval(tree before deletion) = eval(tree after deletion)`.
+
+The proof is an induction through arbitrary principal, sum, and minimum
+contexts.  The outer-minimum case is the important one: if the path containing
+the deletion was not minimizing, deletion only raises it, so it remains
+unselected; if it was minimizing, the global avoidance premise descends to
+the inner context.  Thus this theorem does not assume the false local pruning
+rule caught by the earlier counterexample.
+
+Together with `repeated_concrete_branch_not_selected`, the remaining
+Theorem-3.2 task is now sharply mechanical: show that any whole-tree critical
+assignment purportedly using a deletion candidate contains the concrete
+split subassignment below the repeated ancestor and inherits the maintained
+(3.4) bound.  The strict contradiction then supplies `NoCriticalUse`, and
+the new theorem performs the deletion soundly.

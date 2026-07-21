@@ -352,6 +352,104 @@ theorem selectedPaths_ne_nil {tree : EliminationTree ι} (A : Assignment tree) :
   | infLeft left ih => simpa [selectedPaths] using ih
   | infRight right ih => simpa [selectedPaths] using ih
 
+/-- Deleting the left side of a minimum can only increase expanded
+evaluation, in any surrounding context. -/
+theorem eval_delete_left_le
+    (K : Context ι) (left right : EliminationTree ι)
+    (φ : ι → ℝ → ℝ) (y : ℝ) :
+    (K.fill (.inf left right)).eval φ y ≤ (K.fill right).eval φ y := by
+  apply K.eval_fill_mono
+  simp only [eval]
+  exact min_le_right _ _
+
+/-- Global safe-deletion theorem.  The hypothesis says that no critical
+assignment of the *whole surrounding tree* contains an assignment choosing
+the left side of this particular minimum.  This is KL's “totally
+non-critical” condition, expressed without a local shortcut.
+
+Unlike the false local rule, this remains sound when the minimum lies below
+other minima: if the path to the hole is not selected, raising its value
+cannot make it newly minimizing. -/
+theorem eval_delete_left_of_noCriticalUse
+    (K : Context ι) (left right : EliminationTree ι)
+    (φ : ι → ℝ → ℝ) (y : ℝ)
+    (havoid : ∀ bigA : Assignment (K.fill (.inf left right)),
+      bigA.IsCritical φ y → ∀ leftA : Assignment left,
+        ¬SelectedSubassignment
+          (.infLeft (right := right) leftA) bigA) :
+    (K.fill (.inf left right)).eval φ y = (K.fill right).eval φ y := by
+  induction K with
+  | hole =>
+      have hnot : ¬left.eval φ y ≤ right.eval φ y := by
+        intro hle
+        obtain ⟨leftA, hleftA⟩ := exists_isCritical left φ y
+        let bigA : Assignment (.inf left right) := .infLeft leftA
+        exact (havoid bigA ⟨hle, hleftA⟩ leftA) (.refl bigA)
+      simp [Context.fill, eval, min_eq_right (le_of_not_ge hnot)]
+  | principal label K ih =>
+      have hinner : ∀ bigA : Assignment (K.fill (.inf left right)),
+          bigA.IsCritical φ y → ∀ leftA : Assignment left,
+            ¬SelectedSubassignment (.infLeft (right := right) leftA) bigA := by
+        intro bigA hbig leftA hsub
+        exact (havoid (.principalNode bigA) hbig leftA) (.principal hsub)
+      simpa [Context.fill, eval] using ih hinner
+  | addLeft K sibling ih =>
+      obtain ⟨siblingA, hsiblingA⟩ := exists_isCritical sibling φ y
+      have hinner : ∀ bigA : Assignment (K.fill (.inf left right)),
+          bigA.IsCritical φ y → ∀ leftA : Assignment left,
+            ¬SelectedSubassignment (.infLeft (right := right) leftA) bigA := by
+        intro bigA hbig leftA hsub
+        exact (havoid (.add bigA siblingA) ⟨hbig, hsiblingA⟩ leftA)
+          (.addLeft hsub siblingA)
+      simpa [Context.fill, eval] using congrArg
+        (fun z => z + sibling.eval φ y) (ih hinner)
+  | addRight sibling K ih =>
+      obtain ⟨siblingA, hsiblingA⟩ := exists_isCritical sibling φ y
+      have hinner : ∀ bigA : Assignment (K.fill (.inf left right)),
+          bigA.IsCritical φ y → ∀ leftA : Assignment left,
+            ¬SelectedSubassignment (.infLeft (right := right) leftA) bigA := by
+        intro bigA hbig leftA hsub
+        exact (havoid (.add siblingA bigA) ⟨hsiblingA, hbig⟩ leftA)
+          (.addRight siblingA hsub)
+      simpa [Context.fill, eval] using congrArg
+        (fun z => sibling.eval φ y + z) (ih hinner)
+  | infLeft K sibling ih =>
+      let oldInner := (K.fill (.inf left right)).eval φ y
+      let newInner := (K.fill right).eval φ y
+      have hmono : oldInner ≤ newInner :=
+        eval_delete_left_le K left right φ y
+      by_cases hchosen : oldInner ≤ sibling.eval φ y
+      · have hinner : ∀ bigA : Assignment (K.fill (.inf left right)),
+            bigA.IsCritical φ y → ∀ leftA : Assignment left,
+              ¬SelectedSubassignment (.infLeft (right := right) leftA) bigA := by
+          intro bigA hbig leftA hsub
+          exact (havoid (.infLeft bigA) ⟨hchosen, hbig⟩ leftA) (.infLeft hsub)
+        have heq := ih hinner
+        simpa [Context.fill, eval] using congrArg
+          (fun z => min z (sibling.eval φ y)) heq
+      · have hold : sibling.eval φ y ≤ oldInner := le_of_not_ge hchosen
+        have hnew : sibling.eval φ y ≤ newInner := hold.trans hmono
+        simp [Context.fill, eval, oldInner, newInner,
+          min_eq_right hold, min_eq_right hnew]
+  | infRight sibling K ih =>
+      let oldInner := (K.fill (.inf left right)).eval φ y
+      let newInner := (K.fill right).eval φ y
+      have hmono : oldInner ≤ newInner :=
+        eval_delete_left_le K left right φ y
+      by_cases hchosen : oldInner ≤ sibling.eval φ y
+      · have hinner : ∀ bigA : Assignment (K.fill (.inf left right)),
+            bigA.IsCritical φ y → ∀ leftA : Assignment left,
+              ¬SelectedSubassignment (.infLeft (right := right) leftA) bigA := by
+          intro bigA hbig leftA hsub
+          exact (havoid (.infRight bigA) ⟨hchosen, hbig⟩ leftA) (.infRight hsub)
+        have heq := ih hinner
+        simpa [Context.fill, eval] using congrArg
+          (fun z => min (sibling.eval φ y) z) heq
+      · have hold : sibling.eval φ y ≤ oldInner := le_of_not_ge hchosen
+        have hnew : sibling.eval φ y ≤ newInner := hold.trans hmono
+        simp [Context.fill, eval, oldInner, newInner,
+          min_eq_left hold, min_eq_left hnew]
+
 /-- The strict numerical contradiction at the heart of KL's deletion rule.
 If an ancestor value bounds a selected sum containing the later repeated leaf
 plus a positive contribution, monotonicity in the shift makes this impossible.

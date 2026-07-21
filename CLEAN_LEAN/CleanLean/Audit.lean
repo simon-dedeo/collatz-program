@@ -96,6 +96,7 @@ specification theorems during a build.
 #print axioms CleanLean.KL.EliminationTree.Assignment.respectsPrincipalBounds_of_locallyValid
 #print axioms CleanLean.KL.EliminationTree.Assignment.repeated_label_contradiction
 #print axioms CleanLean.KL.EliminationTree.Assignment.repeated_branch_leaf_not_selected
+#print axioms CleanLean.KL.EliminationTree.Assignment.eval_delete_left_of_noCriticalUse
 #print axioms CleanLean.KL.ConcreteElimination.eval_splitBody_eq_base
 #print axioms CleanLean.KL.ConcreteElimination.repeated_concrete_branch_not_selected
 #print axioms CleanLean.KL.ConcreteElimination.splitTree_locallyValid

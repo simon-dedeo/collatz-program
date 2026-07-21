@@ -71,6 +71,15 @@ KL operator, so exact finite feasibility makes splitting monotone in the
 correct direction inside any surrounding labelled context.  The remaining
 construction is repeated splitting plus deletion and its termination proof.
 
+The global safe-deletion theorem is now also formal.  “Totally
+non-critical” is defined at the whole-tree level using selected
+subassignments, not as a local inequality.  Lean proves by induction through
+arbitrary principal, sum, and minimum contexts that removing such an
+alternative leaves the functional value unchanged.  In the subtle case where
+an outer minimum does not select the path to the deletion, raising that path
+cannot make it newly minimizing.  This is precisely the global fact the local
+counterexample does not provide.
+
 The first charged spine-face Lyapunov proposal has been exactly falsified,
 not assumed away: `MarginalObstruction.lean` proves that its aligned mean and
 co-spine modes have the same eigenvalue.  This is a no-go theorem for that
