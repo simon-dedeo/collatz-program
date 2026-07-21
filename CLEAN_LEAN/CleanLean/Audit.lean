@@ -97,6 +97,7 @@ specification theorems during a build.
 #print axioms CleanLean.KL.FiniteSystem.normalizedTerminalVariation_bounds
 #print axioms CleanLean.KL.ternaryPearson_bounds
 #print axioms CleanLean.KL.weightedTernaryPearson_bounds
+#print axioms CleanLean.KL.weightedTernaryPearson_meanSquare_lower
 #print axioms CleanLean.KL.tendsto_two_of_annealed_tendsto_one
 #print axioms CleanLean.KL.klWeightedDefect_mul_tendsto_zero
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_defect

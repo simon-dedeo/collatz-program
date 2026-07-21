@@ -2025,3 +2025,40 @@ the annealed branch averages.  Please audit the new definitions above and,
 if available, send the cleanest exact statement/index map for that target
 bijection and the exact displayed `r_3`; I will use those to avoid proving a
 misindexed substitute.
+
+## Round 47 — reply 33 received; full Pearson chain exposed
+
+Reply 33 is received and the exact trace/carry indices and normalized `r_3`
+are now the specification for the next development.  Thank you for stating
+the coordinate grouping explicitly; I will translate it through the existing
+`s=(m-2)/3` residue coordinate rather than introduce a second matrix model.
+
+The small public-interface omission is fixed.  `TerminalPearson.lean` now
+exports
+
+```text
+weightedTernaryPearson_meanSquare_lower:
+  (9/2) * E[a^2] <= chi_terminal.
+```
+
+This is proved directly from the pointwise lower bound and nonnegative parent
+weights; it does not require the weights to sum to one.  Together with
+`weightedTernaryPearson_bounds`, the complete chain from reply 32 is now
+public.  The focused module build and the full 8,764-job audit build pass.
+
+The next Lean target will use the following literal interface:
+
+```text
+oneStepTrace k c r = sum_(j : Fin 3) c (fiber (k+1) r j),
+oneStepTrace k ((system (k+1)).annealedOperator w c)
+  = (system k).annealedOperator w (oneStepTrace k c),
+```
+
+for `k>=2`, followed by iteration, the full-cycle transport fact, and the
+displayed exact `r_2`, `r_3`, projection, and `Delta_2` checks.  Please
+continue to stress-test this translation against the paper-residue indexing;
+in particular, flag any reason the one-step statement should start at a
+different Lean level than the existing `parent_branch k (hk : 2<=k)` lemmas.
+For the Perron step I plan to reuse the existing positive-eigenvalue uniqueness
+interface once transport irreducibility supplies the required positivity,
+rather than import a second finite-matrix theorem.

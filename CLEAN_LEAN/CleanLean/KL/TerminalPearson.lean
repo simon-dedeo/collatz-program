@@ -329,6 +329,30 @@ theorem weightedTernaryPearson_bounds {ι : Type} [Fintype ι]
         intro i _
         ring
 
+/-- The intermediate weighted pointwise lower bound in the Pearson chain:
+`(9/2) E[a²] ≤ chi`.  This is stronger than the Jensen consequence involving
+only the square of the mean defect. -/
+theorem weightedTernaryPearson_meanSquare_lower {ι : Type} [Fintype ι]
+    (nu : ι → ℝ) (p : ι → Triple)
+    (hnu : ∀ i, 0 ≤ nu i)
+    (hprofileSum : ∀ i, p i 0 + p i 1 + p i 2 = 1)
+    (hprofileNonneg : ∀ i j, 0 ≤ p i j) :
+    (9 / 2) * (∑ i, nu i * (ternaryDefect (p i)) ^ 2) ≤
+      weightedTernaryPearson nu p := by
+  calc
+    (9 / 2 : ℝ) * (∑ i, nu i * (ternaryDefect (p i)) ^ 2) =
+        ∑ i, nu i * ((9 / 2) * (ternaryDefect (p i)) ^ 2) := by
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro i _
+      ring
+    _ ≤ ∑ i, nu i * ternaryPearson (p i) := by
+      apply Finset.sum_le_sum
+      intro i _
+      exact mul_le_mul_of_nonneg_left
+        (ternaryPearson_lower (p i) (hprofileSum i) (hprofileNonneg i)) (hnu i)
+    _ = weightedTernaryPearson nu p := rfl
+
 namespace FiniteSystem
 
 variable (S : FiniteSystem)
