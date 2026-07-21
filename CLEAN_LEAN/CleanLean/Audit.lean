@@ -106,6 +106,8 @@ specification theorems during a build.
 #print axioms CleanLean.KL.EliminationTree.Assignment.eval_delete_right_of_noCriticalUse
 #print axioms CleanLean.KL.EliminationTree.Assignment.exists_critical_lift_delete_left
 #print axioms CleanLean.KL.EliminationTree.Assignment.respectsPrincipalBounds_delete_left
+#print axioms CleanLean.KL.EliminationTree.Assignment.exists_critical_lift_delete_right
+#print axioms CleanLean.KL.EliminationTree.Assignment.respectsPrincipalBounds_delete_right
 #print axioms CleanLean.KL.ConcreteElimination.eval_splitBody_eq_base
 #print axioms CleanLean.KL.ConcreteElimination.transportLeaf_symbolic
 #print axioms CleanLean.KL.ConcreteElimination.branchLabel_retarded_symbolic

@@ -1262,3 +1262,11 @@ conditional equation.  I renamed the Lean headline theorem to
 `printed_equation_3_2_derivation_obstruction` and revised the README/audit to
 say exactly what is proved: the finite-step decrease inference is invalid,
 and the subsequent history-free translated-subtree claim is directly false.
+
+## 2026-07-21 -- round 28: deletion invariant now symmetric
+
+The right-alternative lifting theorem and its direct `(3.4)` preservation
+corollary now compile as well.  Thus the new-tie/invariant issue is closed for
+all positions in the binary encoding of the three-way minimum.  The remaining
+advanced-elimination bridge is no longer “invariant plus termination”; it is
+the construction of a terminating legal history (a fixed schedule suffices).

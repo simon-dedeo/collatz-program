@@ -115,12 +115,11 @@ coefficient expression moves monotonically upward in either case, so the LP
 feasibility side of deletion needs no additional analytic hypothesis.
 
 `DeletionInvariant.lean` closes the separate “new critical tie” issue for
-left-alternative deletion.  Every critical assignment after a globally safe
+both deletion orientations.  Every critical assignment after a globally safe
 deletion lifts to a pre-deletion critical assignment with the same selected
 sum, and satisfaction of every principal bound is equivalent across the
 lift.  Hence the `(3.4)` invariant passes through that deletion even when an
-outer minimum acquires a new tie.  The right-alternative symmetric statement
-is still to be added; neither orientation supplies termination.
+outer minimum acquires a new tie.  Neither orientation supplies termination.
 
 `PressureCertificate.lean` now also accepts the portable sparse-edge format
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational
