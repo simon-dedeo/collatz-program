@@ -18,8 +18,11 @@ sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 > both newer obstructions and proves the abstract branch-arrival compactness
 > theorem. The leading repair now compiles all complete occurrence-aware
 > record-admissible additive policies into one fixed outer minimum. A bounded
-> checker reproduces the published small-level literal counts, but the all-`k`
-> history/policy producer is not yet kernel-checked;
+> checker reproduces the published small-level literal counts, and Lean commit
+> `3d6a186` now checks the all-`k` history producer, occurrence provenance,
+> live pruning, common lag, and abstract feasible-point comparison. The literal
+> family and P1/P2 are checked in `331ff48`, while D1--D3 and the
+> final exponent wrapper remain open;
 > the analytic-
 > combinatorics ordinary-pole identification is retracted;
 > the unsigned-zeta natural boundary at `|u|=1/4` has a candidate refutation
@@ -63,8 +66,11 @@ killed one claim of the reviewer's).
    T-steps with > 1.375×10¹¹ odd terms (Hercher 2023 + Barina). A divergent
    orbit has no finite witness. The published Krasikov–Lagarias argument claims
    that one divergent orbit forces ≥ x^0.84 divergent seeds below x, but the
-   successor audit found an unresolved gap in its advanced-term termination
-   bridge, so that crowding consequence is presently conditional. Independently,
+   successor audit found a gap in its printed advanced-term termination
+   bridge. Lean commit `3d6a186` repairs the abstract elimination seam, and
+   `331ff48` checks the literal family and P1/P2; D1--D3 and the final
+   exponent wrapper remain open, so that crowding
+   consequence is presently conditional. Independently,
    an orbit bounded below by C₀ forces positive
    density absorbed (Tao Remark 1.4). Counterexamples, if any, come in crowds
    — a disproof must be structural, not exhibitional.
@@ -398,10 +404,11 @@ the k=19 exact certificate supersedes the k=18 headline.
    0.84. Levels k=12..19 pass exact integer verification, falsification
    controls, and SHA-256-pinned checks (`experiments/kl/RESULT.md`), but the
    successor audit invalidates the published advanced-term termination bridge,
-   and a later exact `k=2` audit refutes printed equation (2.1). The useful
-   one-sided transfer survives, but the displayed counting bound is conditional
-   until both the retarded witness and actual predecessor-count instantiation
-   are formalized. The k=19 sidecar is local and ignored by git; k=20 never became a certificate.
+   and a later exact `k=2` audit refutes printed equation (2.1). Lean commit
+   `3d6a186` supplies a checked occurrence-aware retarded witness and abstract
+   comparison. The useful one-sided counting transfer survives, but the
+   displayed counting bound is conditional until D1--D3 and the final exponent
+   wrapper are formalized for the literal family of commit `331ff48`. The k=19 sidecar is local and ignored by git; k=20 never became a certificate.
    Pre-registered dichotomy fits (notes/kl-limit-object.md): data favor
    γ_∞ near 1 (branch A ⟹ x^{1−ε} counting), γ_∞ ≤ 0.95 disfavored ~9–30×;
    exact oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k proved (Thm 3.2).

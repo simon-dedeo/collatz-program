@@ -31,8 +31,7 @@ All line references below are to `kl_paper.txt`.
       `P*_a(x) = {a} ⊔ P*_{2a}(x)`,
 
   because `2a` is the only positive immediate predecessor of `a`. This
-  elementary all-`k` identity has been independently audited but is not yet
-  kernel-checked. Taking
+  elementary all-`k` identity is kernel-checked in Lean commit `58f0ef8`. Taking
   infima over residue classes loses equality—the doubled targets form only a
   subset of the targets in class `2m`—but gives the valid and stronger useful
   direction
@@ -60,6 +59,29 @@ For each `k ≥ 2`, the functions `{φ^m_k : m ∈ [3^k]}` satisfy, **for all y 
 
 where `φ^m_{k−1}(y) := min[φ^m_k(y), φ^{m+3^{k−1}}_k(y), φ^{m+2·3^{k−1}}_k(y)]` (2.6).
 (Provenance: [Krasikov 1989, Lemma 4]; also [Applegate–Lagarias 1995 II, Prop. 2.1].)
+
+**Independent successor audit.** These three inequalities do not depend on the
+false equality (2.1). For a positive nonperiodic target `a ≡ 2 (mod 3)`, put
+`b=4a`, `c=(2a−1)/3`, `X=2^y a`, and
+`X'=2^{y−1}(2a−1)`. Uniqueness of the hit on a nonperiodic target gives, for
+`y≥2`, the exact disjoint partition
+
+    `P*_a(X) = {a,2a} ⊔ P*_b(X) ⊔ P*_c(X)`.
+
+In the three classes modulo 9, the corrected targetwise doubling identity,
+discarding the unusable `c` branch, or retaining it directly gives D1, D2, or
+D3 respectively. In fact the right sides may be strengthened by additive
+constants `+3,+3,+2`. The scale identities are exact:
+`X=2^{y−2}(4a)`,
+`X'=2^{y+α−2}(4a−2)/3`, and
+`X'=2^{y+α−1}(2a−1)/3`. Taking infima has the favorable inequality direction
+even though the child targets cover only subsets of their residue pools. An
+exact reverse-tree checker `verify_predecessor_base_inequalities.py` passed
+these inclusions and disjointness claims for all nonperiodic `a<500` and
+integer `2≤y≤5`; the targetwise doubling lemma is
+kernel-checked, while the all-`k` D1--D3 partition is independently audited but
+not yet kernel-checked. The nonperiodicity hypothesis is essential for
+disjointness.
 
 Arithmetic sanity (used by our indexing): if `m ≡ 2 (mod 9)` then `4m−2 ≡ 0 (mod 3)` and
 `(4m−2)/3 ≡ 2 (mod 3)`; if `m ≡ 8 (mod 9)` then `2m−1 ≡ 0 (mod 3)` and `(2m−1)/3 ≡ 2 (mod 3)`;
@@ -169,15 +191,15 @@ deletion-eligible, contradicting the construction's claimed nonempty-minimum
 invariant. A generic four-value countermodel also refutes the split-invariant
 induction from the hypotheses it uses. CLEAN_LEAN independently checks both
 newer obstructions and proves the abstract branch-arrival compactness theorem.
-It also checks the global occurrence-provenance interface and the full consumer
-from any inhabited two-phase package to the abstract retarded comparison theorem. The
-leading replacement is an occurrence-aware finite menu of complete
-record-admissible additive policies, represented by one structurally pruned
-tree; its all-`k` raw producer and live/common-lag assembly remain provisional.
-The present Lean development also has not yet instantiated its abstract
-function family by the actual predecessor counts or closed the separate
-counting-transfer hypothesis. The chain below is therefore not presently
-treated as end-to-end verified.
+Commit `3d6a186` also checks an all-`k` replacement construction: a
+well-founded raw-history producer, root-level occurrence provenance, live
+deterministic pruning, a common positive lag, and the complete comparison from
+finite feasibility to the `1/(4C)` exponential lower bound. Thus the abstract
+advanced-elimination seam is kernel-checked without the printed construction.
+Commit `331ff48` defines the literal statewise predecessor family and proves
+target-pool nonemptiness, normalization, and monotonicity. It has not yet proved
+that family satisfies D1--D3 or closed the final exponent transfer. The chain
+to the literal `π_a` statement is therefore not yet end-to-end verified.
 
 - **Theorem 3.1** (lines 428–433): for `m ∈ [3^k]`, `m ≡ 8 (mod 9)`, the back-substitution
   process (with the deletion rule) halts in finitely many steps at an inequality `I^m_k(EL)`
@@ -246,9 +268,13 @@ Nothing else. In particular:
 - **No x-range hypothesis** enters Theorem 2.2 (conclusion holds for all `y ≥ 0`); the
   `x ≥ x₀(a)` in Theorem 6.1 only absorbs the explicit constant `Δ₁ a^{−γ}` and the rounding
   of the exponent.
-- **I_k itself needs no certification**: Proposition 2.1 (that the 3x+1 functions φ satisfy
-  I_k) is proved in the paper (from Krasikov's Lemma 4); the computer-verified object is
-  solely LP feasibility.
+- **Certificate-format scope.** The finite JSON/sidecar certifies solely LP
+  feasibility; it does not certify that the literal predecessor functions
+  satisfy `I_k`. Proposition 2.1 supplies that paper-side step. Its targetwise
+  D1--D3 derivation has now been independently re-audited, and bounded cases
+  have an exact checker, but the end-to-end chain still requires the active
+  Lean proof that the concrete `klPhi` of commit `331ff48` satisfies the base
+  system.
 - **Conditions "(1)", "(2)" at the end of §6** (lines 1067–1086: λ_k attained; principal
   inequalities tight at the optimum) concern only whether Theorem 2.2's bound is *best
   possible* for I_k — the converse direction. They are not hypotheses of Theorem 2.2 and

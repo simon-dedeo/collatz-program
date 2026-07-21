@@ -19,27 +19,31 @@ all three minimum alternatives deletion-eligible. Neither certificate refutes
 termination or Theorem 2.2. A third finite checker shows that local split
 validity plus the paper's assignment-specific invariant does not preserve that
 invariant across a split. CLEAN_LEAN independently checks both newer defects
-and proves the abstract branch-arrival compactness theorem. Lean also checks
-the global occurrence-provenance interface and the consumer from an inhabited
-two-phase history package to the abstract retarded comparison theorem. The leading
-replacement compiles all complete occurrence-aware record-admissible policies
-into one fixed pruned tree; a bounded exact checker reproduces KL's `k=2,3,4`
-literal counts, while the all-`k` raw producer and live/common-lag assembly are
-not yet kernel-checked. A later formal step must also instantiate the abstract
-function family by predecessor counts and close the counting-transfer
-hypothesis. That audit also found that the paper's printed equation (2.1) is
+and proves the abstract branch-arrival compactness theorem. Lean commit
+`3d6a186` also checks the complete replacement: the well-founded all-`k`
+raw-history producer, root-level occurrence provenance, live deterministic
+pruning, a common positive lag, and the abstract feasible-point comparison
+theorem. There is no remaining termination, deletion, provenance, or
+retarded-tree assumption. Commit `331ff48` defines the literal statewise
+predecessor family and proves target-pool nonemptiness, normalization, and
+monotonicity. The remaining formal step is to prove its D1--D3 base system and
+close the final counting transfer. That audit also found that the paper's printed equation (2.1) is
 false as an equality: exactly, `φ^7_2(1)=3` while
-`φ^{14}_2(0)=φ^5_2(0)=2`. An elementary, independently audited but not yet
-kernel-checked targetwise decomposition gives
+`φ^{14}_2(0)=φ^5_2(0)=2`. Lean commit `58f0ef8` kernel-checks the exact
+targetwise decomposition and ordinary-count transfer. For the paper's full
+target-class definition, infimizing gives
 `φ^m_k(y) ≥ 1+φ^{2m}_k(y−1)`, which has the direction needed for the same
-exponent transfer. Thus this is a genuine erratum—the finite counterexample is
+exponent transfer. The Lean class-2 family need not define this class-1 row;
+its final wrapper can use the direct ordinary-count inclusion. Thus this is a genuine erratum—the finite counterexample is
 checked by `verify_equation_2_1_obstruction.py`—but not a new conjectural
-obstruction.
-Until both bridges are proved, the predecessor-counting consequence
+obstruction. A companion exact checker,
+`verify_predecessor_base_inequalities.py`, independently verifies the
+targetwise D1--D3 reverse-tree partitions and strengthened constants in 660
+bounded cases; their all-`k` Lean proof is the active base-system task.
+Until that bridge is proved, the predecessor-counting consequence
 below remains conditional. See `TERMINATION_AUDIT.md`.
 
-**Conditional on a corrected advanced-term elimination witness and the formal
-predecessor-count instantiation, the
+**Conditional on the D1--D3/base-system proof and final exponent wrapper, the
 certified feasible points below give, for every positive integer
 a ≢ 0 (mod 3) and all sufficiently large x ≥ x₀(a):**
 
@@ -104,11 +108,14 @@ and checks, in exact integer arithmetic:
 Steps 2–4 make the verification immune to the irrationality of α = log₂3: since W2 < λ^{α−2}
 and W8 < λ^{α−1} multiply nonnegative variables on the ≤-side, step 6 certifies a *strictly
 tighter* system than L^NT_k(λ); its feasibility implies feasibility of L^NT_k(λ) itself.
-Therefore the finite feasibility hypotheses of KL Theorem 2.2 hold verbatim at
-(k, λ_cert). Conditional on the theorem's audited termination bridge, the conclusion
-φ^m_k(y) ≥ Δ₁ c^m_k λ_cert^y (all m ∈ [3^k], all y ≥ 0) follows, with Δ₁ = 1/(4 max c^m_k).
-The `π_a` transfer uses the corrected one-sided form of the paper's Theorem
-6.1 mechanism (see `THEOREM.md` §4); it does not use the false equality (2.1).
+Therefore the finite feasibility hypotheses of the abstract replacement
+comparison hold at `(k, λ_cert)`. For any positive monotone function family
+satisfying the KL base system, the kernel-checked elimination theorem gives
+`φ^m_k(y) ≥ Δ₁ c^m_k λ_cert^y` for all `m ∈ [3^k]` and `y ≥ 0`, with
+`Δ₁ = 1/(4 max c^m_k)`.
+The remaining `π_a` transfer will use the corrected one-sided form of the
+paper's Theorem 6.1 mechanism (see `THEOREM.md` §4); it must not use the false
+equality (2.1).
 
 Floating point was used ONLY to search for the candidate (λ_cert and the eigenvector before
 rounding down to the 10^-12 grid); nothing in the acceptance decision depends on it.
@@ -118,8 +125,10 @@ rounding down to the 10^-12 grid); nothing in the acceptance decision depends on
 - Theorem 2.2 and its supporting chain (Thms 3.1, 3.2, 4.1, 5.1) are stated
   for all k ≥ 2; k ≤ 11 in §6 is a 2002 computational budget, not a hypothesis.
   The successor audit invalidates a step in the printed proof of Theorem 3.1,
-  so universal applicability is now a proof obligation rather than something
-  this note treats as settled. §6 proves
+  but Lean commit `3d6a186` proves an all-`k` replacement at the abstract
+  base-system level. Commit `331ff48` defines the literal family and proves
+  P1/P2; the remaining applicability obligation is D1--D3 and the final
+  exponent wrapper. §6 proves
   λ_k ≤ λ_{k+1} by lifting feasible solutions, and poses λ_k → 2 as the open problem; our
   k = 12, 13, 14 points are new terms of the very sequence the paper defines.
 - The superscript "NT" means "No Truncation" (of advanced terms); **there are no N or T

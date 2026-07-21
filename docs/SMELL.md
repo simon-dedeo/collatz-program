@@ -5,9 +5,11 @@
 > unconditional or end-to-end externally confirmed is superseded. The finite
 > feasible certificates remain exact, but the published advanced-elimination
 > proof has three checked defects and its equation (2.1) has the exact
-> counterexample `φ^7_2(1)=3≠2=φ^{14}_2(0)`. An audited one-sided correction
-> preserves the counting transfer; the corrected retarded witness and actual
-> predecessor-count instantiation are still being formalized. See `README.md`,
+> counterexample `φ^7_2(1)=3≠2=φ^{14}_2(0)`. Commit `58f0ef8` checks the
+> targetwise one-sided correction and ordinary-count transfer. Lean commit
+> `3d6a186` checks the corrected retarded witness and abstract comparison;
+> `331ff48` defines the literal predecessor family and proves P1/P2. Only
+> D1--D3 and the final exponent wrapper remain open. See `README.md`,
 > `experiments/kl/RESULT.md`, and `experiments/kl/TERMINATION_AUDIT.md`.
 
 > **ERRATA & external verification (2026-07-20, from independent GPT review +

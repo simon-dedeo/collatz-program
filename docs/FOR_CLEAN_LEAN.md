@@ -1458,7 +1458,7 @@ the two infima by showing every `a=9q+7` has the bounded predecessors
 reverse-tree searches agree on the finite witness sets `{7,9,14}` and
 `{9,14}`.
 
-The elementary all-`k` correction, audited but not yet kernel-checked, is this.
+The elementary all-`k` correction (later kernel-checked in commit `58f0ef8`) is this.
 Write `Pstar a x` for the set counted by `piStar a x`.  If `a` is nonperiodic,
 `a = 1 (mod 3)`, and `2*a <= x`, then
 
@@ -1487,3 +1487,175 @@ the actual predecessor family is instantiated, use the corrected inclusion
 lemma (and arbitrary-cycle doubling argument), never the printed equality.
 This removes a paper erratum from the open `CountingTransfer` seam but does not
 by itself instantiate that seam.
+
+## 2026-07-21 — reply 20: full-build integration check
+
+The current source-level milestones are substantial and targeted compilation
+of `HistoryWitness.lean` succeeds: `buildHistory`, root
+`allMarkProvenance_root`, live pruning, common `mu`,
+`builtRetardedEliminationWitness`, and `quarter_lower_bound_of_feasible` are all
+present.  A full `lake build` currently fails only in `CleanLean/Audit.lean`:
+its six new `#print axioms` commands report unknown constants because that file
+does not yet import `CleanLean.KL.HistoryWitness`.  Please add the direct import
+(or otherwise expose those declarations to `Audit.lean`), rerun the full build,
+and inspect the six axiom reports before committing.  I have not touched any
+`CLEAN_LEAN` source.
+
+Follow-up: the import landed while this check was being reported.  A fresh full
+`lake build` now passes all 8,714 jobs, and each new axiom report lists only
+`propext`, `Classical.choice`, and `Quot.sound`.  This closes the repaired
+all-`k` retarded-witness bridge at the abstract-function level.  Please commit
+that checkpoint, then pivot to the predecessor-family/base-system
+instantiation described in reply 19.
+
+## 2026-07-21 — reply 21: exact Proposition 2.1 decomposition and Lean API
+
+An independent derivation and bounded adversarial check confirm that D1--D3
+survive the false equation (2.1).  The load-bearing hypothesis is that the
+target is **not itself periodic**, encoded as no positive return
+`T^[p] a = a`; do not weaken this to a statement about eventual behavior.
+
+For positive nonperiodic `a = 2 (mod 3)`, put
+
+```text
+c = (2*a - 1)/3,   b = 4*a.
+```
+
+If `X >= 4*a`, uniqueness of the hit on a nonperiodic target gives the exact
+disjoint reverse-tree partition
+
+```text
+Pstar a X = {a, 2*a} disjoint-union Pstar b X disjoint-union Pstar c X.
+```
+
+Here `T c = a`, `T^[2] b = a`, and the last incoming edge partitions every
+other predecessor.  Nonperiodicity propagates backward along both branches.
+For `X = 2^y*a`, `y >= 2`, set
+
+```text
+X' = 2^(y-1) * (2*a - 1) = X - 2^(y-1).
+```
+
+Then `X' < X`, and the exact scale identities are
+
+```text
+X  = 2^(y-2)         * (4*a)
+X' = 2^(y+alpha-2)   * ((4*a-2)/3)
+X' = 2^(y+alpha-1)   * ((2*a-1)/3).
+```
+
+The three residue cases yield targetwise bounds stronger than the published
+homogeneous rows:
+
+```text
+a = 2 (mod 9): count a X >= 3 + count (4*a) X
+                              + count ((4*a-2)/3) X'
+a = 5 (mod 9): count a X >= 3 + count (4*a) X
+a = 8 (mod 9): count a X >= 2 + count (4*a) X
+                              + count ((2*a-1)/3) X'.
+```
+
+For D1, `c = 1 (mod 3)` and the already drafted corrected identity at cutoff
+`X'` gives `Pstar c X' = {c} disjoint-union Pstar (2*c) X'`, with
+`2*c=(4*a-2)/3`.  For D2, retain only `{c}` from the third branch.  For D3,
+`c=(2*a-1)/3` is already class 2.  Taking infima is safe because each child
+target lies in only a subset of the indicated residue-class pool; every
+individual child count is still at least the infimum over the full pool.  Drop
+the positive constants to obtain exactly `baseBody`.
+
+Suggested factorization:
+
+1. unique hit on a nonperiodic target;
+2. backward propagation of nonperiodicity;
+3. cutoff monotonicity;
+4. classification of positive immediate Syracuse predecessors;
+5. the exact disjoint partition above;
+6. three finite-set/cardinality lemmas `boundedPredecessorCount_D1/D2/D3`;
+7. residue and real-cutoff identities, then the state/fiber wrapper
+   `predecessorPhi_satisfiesBaseSystem (hk : 2 <= k)`.
+
+Commit `58f0ef8` adds `PredecessorTransfer.lean`; it compiles standalone and
+contains the literal bounded predecessor finsets, the corrected targetwise
+doubling identity, target monotonicity, and
+`predecessorCount_two_pow_mul_le`.  A natural next file is
+`PredecessorPhi.lean`, with cutoff `floor (2^(max y 0)*a)`, a Nat `sInf` over
+eligible targets, and member domination, normalization, and global
+monotonicity lemmas.  For target-pool nonemptiness, a formalization-friendly
+route avoids proving that 2 is a primitive root: start from any positive
+representative `m` of the state and multiply by
+`2^(totient(3^k)*t)`.  Euler preserves the residue.  If `m` is periodic,
+choose the multiple above the maximum of its finite cycle; since repeated even
+steps reach `m`, that multiple cannot itself lie in a cycle.  If `m` is
+nonperiodic, backward propagation already suffices.
+
+Regression test for the nonperiodicity hypothesis: if periodic `a=2` is
+incorrectly admitted in D1 at `y=3`, then
+
+```text
+|Pstar 2 16| = 10,  |Pstar 8 16| = 7,  |Pstar 2 12| = 9,
+```
+
+and the two RHS sets overlap on `{3,5,6,8,10,12}`.  Thus even the homogeneous
+targetwise sum fails without the no-positive-return condition.  Exact reverse
+enumeration in `experiments/kl/verify_predecessor_base_inequalities.py` checks
+the correct inclusions, disjointness, and strengthened constants for every
+nonperiodic `a<500`, `a=2 (mod 3)`, and integer `2<=y<=5` (660 target-scale
+cases, split evenly among D1--D3).
+
+After the base-system theorem, feed `predecessorPhi` directly to
+`quarter_lower_bound_of_feasible`, then close `CountingTransfer`.  For an
+arbitrary fixed target `a`, multiply by at most one factor of 2 to reach class
+2 and then by sufficiently many factors of 4 to obtain a nonperiodic
+`b=2^r*a`; transfer back using `predecessorCount_two_pow_mul_le`.  This uses no
+uniqueness assumption about the known `{1,2}` cycle.  The all-level sequence
+wrapper should use the tail `mu (n+2)`, since Proposition 2.1 requires `k>=2`.
+
+## 2026-07-21 — reply 22: post-`331ff48` audit and D1--D3 proof hints
+
+I audited `KLPredecessorFunctions.lean` read-only.  The literal floor/`Nat.sInf`
+definition, Euler target-pool construction, attainment, P1, and global
+monotonicity have the right directions.  In particular, no `max y 0` clamp is
+needed: `klCutoff` is globally monotone already, while positivity is used only
+for nonnegative arguments.  The public research docs now record commit
+`331ff48`; the remaining seam is D1--D3 plus the final exponent wrapper.
+
+Calibration on the corrected `+1` statement: the current `klPhi` correctly
+indexes only class-2 states.  Do **not** add a class-1 state family merely to
+state the paper-level infimum inequality.  In D1, apply
+`boundedPredecessorCount_eq_succ_double` targetwise to the class-1 target `c`
+before passing to the class-2 infimum at `d=2*c`.  In the final all-target
+wrapper, use `hasPredecessorExponent_of_two_pow_mul` directly.  Thus neither
+load-bearing Lean endpoint needs a class-1 `phi`.
+
+For subtree disjointness, a short proof may be easier through unique hit time
+than through direct cycle algebra.  If `n` has witnesses of lengths `r,s` to
+`b=4*a` and `c=(2*a-1)/3`, appending the fixed paths gives hits on `a` at
+times `r+2` and `s+1`.  Nonperiodicity of `a` implies these times are equal,
+so `s=r+1`.  Determinism then gives `T b = c`, whereas `T(4*a)=2*a` and
+`c != 2*a`; contradiction.  The same unique-hit lemma handles the singleton
+blocks `{a,2*a}`.  A reusable statement is:
+
+```text
+not IsSyracusePeriodic a ->
+T^[r] n = a -> T^[s] n = a -> r = s.
+```
+
+For the real-floor seam, first prove the real identities, then rewrite the
+cutoffs; avoid floor arithmetic until the final monotonic inclusion.  Existing
+`KLWeights.two_rpow_alpha`, `Real.rpow_add`, and `Real.rpow_sub` should give
+
+```text
+2^(z-2)       * (4*a)         = 2^z*a
+2^(z+alpha-2) * ((4*a-2)/3)  = 2^(z-1)*(2*a-1)
+2^(z+alpha-1) * ((2*a-1)/3)  = 2^(z-1)*(2*a-1).
+```
+
+For cutoff monotonicity, use positivity of `2^(z-1)` and
+`2*a-1 <= 2*a` to show the second real cutoff is at most `2^z*a`, then
+`Nat.floor_mono`.  The hypothesis `2<=z` separately puts `4*a` and every
+child root below its cutoff.
+
+One stale source-owned sentence remains at `CLEAN_LEAN/README.md` around line
+244: it says finite feasibility still depends on an unrepaired advanced-term
+theorem.  Please update it when landing the next Lean checkpoint; I have not
+edited `CLEAN_LEAN`.

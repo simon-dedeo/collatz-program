@@ -25,16 +25,21 @@ checks both newer defects and proves the abstract branch-arrival compactness
 theorem. The leading repair compiles every complete occurrence-aware
 record-admissible additive policy into one fixed outer minimum. It has survived
 independent audits and reproduces KL's small-level literal counts exactly.
-Lean now checks the global occurrence-provenance interface and the seam from
-any inhabited two-phase package to its abstract retarded comparison theorem,
-but the all-`k`
-raw-history producer, live-output/common-lag assembly, and the later
-predecessor-count instantiation are not yet kernel-checked; the counting
-consequence remains conditional until both bridges exist. An adjacent exact
+Lean commit `3d6a186` now checks the complete replacement seam: the all-`k`
+well-founded raw-history producer, root-level occurrence provenance, live
+deterministic pruning, a common positive lag, and the abstract feasible-point
+comparison theorem. No termination, deletion, provenance, or retarded-tree
+hypothesis remains. Commit `331ff48` defines the actual statewise
+predecessor-count family and checks nonemptiness, normalization, and
+monotonicity. The counting consequence is still conditional on its D1--D3
+base-system proof and final exponent wrapper. An adjacent exact
 audit found that the paper's printed equation (2.1) is false as an equality:
-`φ^7_2(1)=3` while `φ^{14}_2(0)=2`. The audited, not-yet-kernel-checked inequality
-`φ^m_k(y)≥1+φ^{2m}_k(y−1)` has the needed direction, so the all-target exponent
-transfer survives, but the formal counting bridge must use the correction.
+`φ^7_2(1)=3` while `φ^{14}_2(0)=2`. Commit `58f0ef8` kernel-checks the exact
+targetwise replacement and ordinary-count transfer. For the paper's full
+target-class definition, the induced statewise inequality
+`φ^m_k(y)≥1+φ^{2m}_k(y−1)` has the needed direction. The Lean class-2 family
+can bypass class-1 `φ` entirely in the final wrapper by using the checked
+ordinary-count inclusion.
 Around
 it sits a cluster of proved structure theorems and — equally important — a
 growing **failure ledger** of proof routes that are now provably dead. A
@@ -60,8 +65,10 @@ and the two collaboration channels current.
 - **Locally exact-verified certificate:** the `k=19` feasible point intended to
   yield `π_a(x)≥x^γ` for all fixed `γ<0.9094372617` (`a not≡0 mod 3`);
   all 387,420,489 inequalities and the sidecar hash pass. The transfer to the
-  counting statement is conditional on both a corrected retarded-elimination
-  witness and formal instantiation by the actual predecessor-count family. The full large sidecars `k=16..19`
+  counting statement is conditional on the D1--D3/base-system proof and final
+  exponent wrapper for the actual predecessor-count family. Its definition,
+  nonemptiness, normalization, and monotonicity are kernel-checked in
+  `331ff48`; the corrected retarded-elimination witness is also checked. The full large sidecars `k=16..19`
   are not in git, so portable clone verification currently stops at `k=15`.
   `experiments/kl/RESULT.md`.
 - **Proved structure theorems:** KL method = adversarial min-plus transfer
@@ -76,8 +83,9 @@ and the two collaboration channels current.
   regular divergence certificates (exhausted ≤8 states base 2, ≤5 base 3);
   spectral-gap descent; tropical-geometry-proper; Bourgain–Kontorovich; the
   solenoid→hidden-RH hope.
-- **Successor audit correction to the forward agenda:** first repair the KL
-  advanced-term termination bridge. `verify_termination_obstruction.py` exactly
+- **Successor audit correction to the forward agenda:** the KL advanced-term
+  termination bridge has now been replaced; finish D1--D3 and the final
+  predecessor-count exponent wrapper. `verify_termination_obstruction.py` exactly
   checks a legal positive-shift transport return that invalidates the paper's
   derivation of strict descent (3.2); it is not a repeatable lasso or a disproof of
   termination. `verify_all_three_deletion.py` exactly checks the independent
@@ -92,16 +100,22 @@ and the two collaboration channels current.
   fiber minimum. `verify_two_phase_small_levels.py` reproduces the published
   `k=2,3,4` literal maxima and exhibits why marks must be occurrence-indexed:
   the identical `74@(-7+5*alpha)` label is bad on one exact path and live on
-  another. The all-`k` history/policy producer remains open in Lean. A
+  another. Lean commit `3d6a186` completes the all-`k` well-founded
+  history/policy producer, root provenance, live pruning, common lag, and
+  abstract comparison. A
   preferred well-founded implementation recurses only at surviving branch
-  arrivals and unrolls deterministic transport spines with finite fuel; a
+  arrivals and unrolls deterministic transport spines; a
   twice-audited, non-kernel-checked fallback gives an explicit all-`k` word-depth
   bound in `docs/notes/kl-explicit-history-bound.md`. The later counting audit
   also exactly refutes printed equation (2.1) at `k=2,m=7,y=1`; run
-  `verify_equation_2_1_obstruction.py`. Its audited, not-yet-kernel-checked
-  one-sided `+1` inequality preserves the lower-bound transfer. For arbitrary
+  `verify_equation_2_1_obstruction.py`. Commit `58f0ef8` checks its exact
+  targetwise `+1` replacement and ordinary-count transfer; `331ff48` then
+  defines the statewise infimum and its P1/P2 API. For arbitrary
   possible cycle targets, transfer through a sufficiently large nonperiodic
   `2^r a ≡ 2 (mod 3)` rather than assuming the known cycle is unique.
+  `verify_predecessor_base_inequalities.py` independently checks the exact
+  targetwise D1--D3 partitions, stronger `+3,+3,+2` constants, and a
+  periodic-target regression in 660 bounded target-scale cases.
   Separately, the analytic-
   combinatorics scout is **not** a proved reformulation. Its ordinary-resolvent
   identification conflates the nonlinear KL min operator with a linear
@@ -120,7 +134,7 @@ and the two collaboration channels current.
   note; the DP tables themselves are unchanged. The inherited arctic proof also had a
   reducible-matrix slope gap. An elementary all-dimension weighted-walk pumping
   candidate replaces it, but remains provisional until Lean. The calibrated
-  live agenda is now: (1) repair KL termination; (2) kernelize and adversarially
+  live agenda is now: (1) finish the KL predecessor-count bridge; (2) kernelize and adversarially
   check the arctic Theorems A/B; (3) mixed-radix anti-concentration; (4) non-
   autonomous/global-measure mechanisms for the KL limit; (5) adelic/quantum-
   channel reframing; (6) any nonlinear-pressure
@@ -210,13 +224,22 @@ fixed retarded-witness consumer. It has also proved occurrence-indexed one-pass
 pruning with exact functional semantics and prepared symbolic `Z²` shifts and
 a generic finite-rank checker. The global repeat-provenance interface,
 localized mark soundness, and the conversion from `TwoPhaseEliminationData` to the abstract
-comparison theorem are checked. Commit `2f17afe` also checks the indexed
+comparison theorem are checked. Commit `2f17afe` checks the indexed
 history-word syntax, rich finite raw-tree type, and its shift, terminal,
-functional, local-validity, and coefficient invariants. The active KL frontier
-is the concrete well-founded raw-history producer, root-level provenance,
-root-liveness/common-lag assembly, and the
-later predecessor-count transfer. The preferred branch-checkpoint recursion
-and a provenance-scope warning are in `docs/FOR_CLEAN_LEAN.md` replies 16--17.
+functional, local-validity, and coefficient invariants. Commit `3d6a186`
+completes the concrete well-founded raw-history producer, root-only provenance,
+live deterministic pruning, common-lag assembly, and
+`quarter_lower_bound_of_feasible`. A full 8,714-job build passed with no
+`sorryAx`; the new declarations use only the standard classical axioms reported
+in `Audit.lean`. Commit `58f0ef8` then checks the literal bounded-predecessor
+finset, the exact targetwise replacement for false equation (2.1), and transfer
+of ordinary predecessor bounds backward along a finite target orbit. Commit
+`331ff48` defines the statewise predecessor family and checks
+unconditional target-pool nonemptiness, normalization, and monotonicity. The KL
+frontier is now its D1--D3/base-system proof and final connection to
+`HasPredecessorExponent`.
+The completed branch-checkpoint design and provenance-scope warning are in
+`docs/FOR_CLEAN_LEAN.md` replies 16--20.
 On the separate pressure lane, generated rows, S1--S4
 finite graph/interval semantics, and all-length bounds are checked; general
 all-level ball-mass domination and the high-oscillation localization implication

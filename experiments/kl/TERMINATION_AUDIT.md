@@ -4,8 +4,10 @@
 positive-return history, all-three-deletion history, and split-invariant
 countermodel are all independently reconstructed and kernel-checked in Lean.
 Lean also proves the abstract branch-arrival compactness theorem. The printed
-construction remains invalid; occurrence-aware finite policy compilation is
-now the leading, but not yet end-to-end checked, replacement. Run:
+construction remains invalid. Lean commit `3d6a186` now kernel-checks the
+occurrence-aware replacement through the abstract feasible-point comparison.
+Commit `331ff48` defines the actual predecessor family and proves target-pool
+nonemptiness and P1/P2; D1--D3 and the final exponent wrapper remain open. Run:
 
 ```sh
 python3 verify_termination_obstruction.py
@@ -13,6 +15,7 @@ python3 verify_all_three_deletion.py
 python3 verify_split_invariant_counterexample.py
 python3 verify_two_phase_small_levels.py
 python3 verify_equation_2_1_obstruction.py
+python3 verify_predecessor_base_inequalities.py
 ```
 
 The checkers use exact integer or affine arithmetic throughout; the finite
@@ -151,8 +154,8 @@ statement for nonperiodic `a ≡ 1 (mod 3)` and `x ≥ 2a` is
 P*_a(x) = {a} ⊔ P*_{2a}(x).
 ```
 
-This elementary all-`k` identity has been independently audited but is not yet
-kernel-checked. After taking infima, doubled targets are only a subset of the
+This elementary all-`k` identity is kernel-checked in Lean commit `58f0ef8`.
+After taking infima, doubled targets are only a subset of the
 class `2m`, so the valid statement is
 
 ```text
@@ -169,10 +172,11 @@ inequality or the direct inclusion `π_a(x) ≥ π_{2a}(x)`, not the equality.
 The `k=19` feasible point and its 387,420,489 inequalities remain exactly
 verified. The inference from that feasible point to the predecessor-counting
 bound uses KL Theorem 2.2, whose published supporting chain invokes Theorem
-3.1. The formal trust chain has two separately visible construction gaps: construct the
-corrected retarded-elimination witness, then instantiate the abstract function
-family by the actual predecessor counts and discharge the counting-transfer
-hypothesis using the corrected transfer above. Until both are checked, the numerical certificate is exact but the
+3.1. The corrected retarded-elimination witness is kernel-checked in commit
+`3d6a186`, while commit `331ff48` defines the actual function family and proves
+nonemptiness, normalization, and monotonicity. The formal trust chain now has
+one visible construction gap: prove D1--D3 for that family and discharge the
+final counting transfer using the correction above. Until that is checked, the numerical certificate is exact but the
 headline exponent is conditional. This is a trust-chain correction, not
 evidence that the bound or Theorem 3.1 is false.
 
@@ -244,7 +248,7 @@ shifts are positive and every preceding branch destination survives.
 occurrence-sensitive policy compiler for every advanced root at `k=2,3,4`; it
 reproduces KL Table 1's maximum literal counts `8,84,12829` exactly.
 
-The remaining proof chain is now more sharply factored:
+The replacement proof chain is now sharply factored:
 
 1. construct the full word-indexed raw forest by well-founded recursion at
    surviving branch-arrival checkpoints, using ordinary finite recursion along
@@ -258,8 +262,17 @@ The remaining proof chain is now more sharply factored:
 4. assemble `TwoPhaseEliminationData`, whose checked consumer already produces
    the abstract retarded comparison with the correct functional and coefficient
    directions; and
-5. separately instantiate the abstract `phi` by the predecessor-count family
-   and close the `CountingTransfer` hypothesis.
+5. prove the now-defined predecessor `phi` satisfies D1--D3 and close the
+   corrected counting transfer.
+
+Commit `3d6a186` kernel-checks steps 1--4, including
+`BranchChild.wellFounded`, `buildHistory`, root-only mark provenance, live
+pruning, the common lag, `builtRetardedEliminationWitness`, and
+`quarter_lower_bound_of_feasible`. A full 8,714-job build passes, and the axiom
+audit reports no `sorryAx`. Commit `331ff48` also completes the definition,
+target-pool nonemptiness, normalization, and monotonicity portion of step 5;
+its base inequalities and exponent wrapper are the sole remaining finite-level
+seam.
 
 The preferred termination implementation uses
 `wellFounded_iff_isEmpty_descending_chain` directly on compressed branch
@@ -275,15 +288,14 @@ Its fractional-part proof is in
 `docs/notes/kl-explicit-history-bound.md`. The bound is proof fuel, not a
 practical enumeration limit.
 
-This proposal has survived independent audits of ties, transport returns,
+This replacement has survived independent audits of ties, transport returns,
 all-three events, off-path additive children, uniformity in `phi,y`, and the
 opposite functional/coefficient orientations. CLEAN_LEAN already checks the
 occurrence-indexed one-pass pruner, exact functional semantics, coefficient
 monotonicity, localized positivity, the global repeat-provenance interface, and
-the complete two-phase-to-retarded consumer. CLEAN_LEAN commit `2f17afe` also checks the rich
-word syntax and raw-tree shift, local-validity, functional, coefficient, and
-negative-terminal invariants. The actual
-well-founded producer, root-level provenance inversion, live/common-lag
-assembly, and predecessor-count transfer remain provisional. Pointwise
-adaptive comparison is a viable fallback if fixed compilation becomes
-awkward.
+the complete two-phase-to-retarded consumer. CLEAN_LEAN commit `2f17afe` checks
+the rich word syntax and raw-tree shift, local-validity, functional,
+coefficient, and negative-terminal invariants; commit `3d6a186` completes the
+producer and witness assembly. Commit `331ff48` defines the predecessor-count
+family and proves P1/P2. Only D1--D3 and its final exponent transfer remain
+provisional.
