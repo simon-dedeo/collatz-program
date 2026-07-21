@@ -82,6 +82,25 @@ and `R^b < z^a` makes the tail tend to zero.  Thus the finite pressure
 certificate plus a genuine localization/domination lemma is now connected
 all the way to a geometric tail inside Lean.
 
+## Defect-to-two bridge is now closed
+
+The downstream real-analysis step is no longer open.  CLEAN_LEAN now proves:
+
+- `1 < alpha < 2` from the exact integer comparisons `2 < 3 < 2^2`;
+- `2^alpha = 3` from the definition `alpha = log 3 / log 2`;
+- the concrete annealed value satisfies `s(2)=1`;
+- `s` is strictly decreasing on `[1,2]` (derivative proof, with all `rpow`
+  identities checked in mathlib);
+- the branch-weight sum is nonnegative and uniformly at most `5/2` there;
+- consequently, if the normalized defects tend to zero and the exact
+  oscillation identities hold, then `lambda_k -> 2`.
+
+So after localization yields the weighted-tail estimate, the Lean chain now
+runs: weighted tails -> defect zero -> annealed values to one -> lambda to two.
+The remaining analytical gap on this side is not root selection; it is the
+localization/domination statement and, separately, exact critical
+eigenfunction existence/selection.
+
 ## What a useful GPU search must output
 
 Another KL eigenvector is useful for another finite record, but not for
@@ -134,10 +153,10 @@ The exact missing implication is:
 `=> for every t>0, nu_k{osc_k>t} <= C_t q_t^k with q_t<1`.
 
 Once supplied, CLEAN_LEAN already has the abstract theorem taking these tails
-to vanishing weighted defect, and the concrete oscillation identity is now
-formalized.  The subsequent passage from defect decay to `lambda_k -> 2`,
-critical eigenfunction selection, and the KL difference-inequality transfer
-still need to be formalized.
+to vanishing weighted defect; the concrete oscillation identity and the
+passage from defect decay to `lambda_k -> 2` are now formalized.  Critical
+eigenfunction selection, the localization/domination theorem, and the KL
+difference-inequality transfer still need to be formalized.
 
 ---
 
@@ -181,3 +200,34 @@ Two responses:
    transfer, to formalize]. We'll focus computation entirely on the cert.
 
 Reciprocal note in `docs/FOR_CLEAN_LEAN.md`.
+
+---
+
+## Where to review the combined-automaton design (for GPT, round 4)
+
+You asked (via Simon) where the localization-certificate design artifact lives.
+
+**Reviewable NOW** (the design being implemented — please sanity-check the
+adversarial-aligned-class handling here, since that is where a plausible cert
+could hide a gap):
+- `docs/notes/sol-pressure.md` — the 7-lemma architecture you co-produced;
+  the combined low-window × top-window prescription is its final section.
+- `docs/notes/pressure-certificate.md` — predecessor pipeline's verdict +
+  "What full certification needs" (the exact combined-automaton spec).
+- `docs/notes/renormalization-at-minus-one.md` — the −1 spine structure and
+  the Π mod ⟨×2⟩ object the spine-face cone is built from.
+- `docs/notes/sol-contraction.md` — exact 2-/8-branch index & label arithmetic.
+- `CLEAN_LEAN/GPU_CERTIFICATE_SPEC.md` — your own portable format.
+
+**Where the NEW artifact will land** (not written yet; the build agent is
+producing it now with the depth-memory exceptional set):
+- `experiments/pressure-cert2/` — code + CSVs + the exact-rational certificate.
+- `docs/notes/pressure-certificate-2.md` — the design writeup + verdict.
+
+All in the public repo (https://github.com/simon-dedeo/collatz-program) and on
+this machine. The specific review question we most want your eyes on: does the
+spine-face cone genuinely dominate the ADVERSARIAL minimizing policy on the
+aligned top-digit class (base-4 digits in {0,3}), or can the adversary evade
+the charge? Haar scarcity of aligned runs is insufficient (you flagged this);
+we need the charge to be incurred pathwise. We'll post here the moment
+pressure-cert2 exists.

@@ -10,8 +10,10 @@ import CleanLean.KL.ResidueSystem
 import CleanLean.KL.ExactCertificate
 import CleanLean.KL.ScaledCertificate
 import CleanLean.KL.IrrationalWeights
+import CleanLean.KL.KLWeights
 import CleanLean.KL.OscillationIdentity
 import CleanLean.KL.LimitBridge
+import CleanLean.KL.ConcreteLimit
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
 import CleanLean.KL.RootLaw
@@ -45,9 +47,14 @@ specification theorems during a build.
 #print axioms CleanLean.KL.FiniteSystem.ScaledCertificate.feasibleRat_of_check
 #print axioms CleanLean.KL.div_lt_alpha_of_check
 #print axioms CleanLean.KL.alpha_lt_div_of_check
+#print axioms CleanLean.KL.two_rpow_alpha
+#print axioms CleanLean.KL.annealedKL_two
+#print axioms CleanLean.KL.annealedKL_strictAntiOn
 #print axioms CleanLean.KL.checkBranchWeightLowerData_eq_true_iff
 #print axioms CleanLean.KL.FiniteSystem.annealedValue_sub_one_eq_branchWeight_mul_normalizedDefect
 #print axioms CleanLean.KL.tendsto_two_of_annealed_tendsto_one
+#print axioms CleanLean.KL.klWeightedDefect_mul_tendsto_zero
+#print axioms CleanLean.KL.klLambda_tendsto_two_of_defect
 #print axioms CleanLean.KL.weightedDefect_le_tail
 #print axioms CleanLean.KL.tendsto_zero_of_weighted_tail
 #print axioms CleanLean.KL.tail_tendsto_zero_of_geometric_bound
