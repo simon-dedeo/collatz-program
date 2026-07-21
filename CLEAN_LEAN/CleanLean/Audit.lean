@@ -14,6 +14,8 @@ import CleanLean.KL.KLWeights
 import CleanLean.KL.OscillationIdentity
 import CleanLean.KL.LimitBridge
 import CleanLean.KL.ConcreteLimit
+import CleanLean.KL.CriticalParameter
+import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
 import CleanLean.KL.RootLaw
@@ -21,6 +23,7 @@ import CleanLean.KL.Mixer
 import CleanLean.KL.TransportResolvent
 import CleanLean.KL.PressureCertificate
 import CleanLean.KL.ChargedLyapunov
+import CleanLean.KL.MarginalObstruction
 import CleanLean.KL.NonlinearPerron
 import CleanLean.KL.CountingTransfer
 
@@ -54,10 +57,20 @@ specification theorems during a build.
 #print axioms CleanLean.KL.annealedKL_two
 #print axioms CleanLean.KL.annealedKL_strictAntiOn
 #print axioms CleanLean.KL.checkBranchWeightLowerData_eq_true_iff
+#print axioms CleanLean.KL.branchWeightLower_of_checks
+#print axioms CleanLean.KL.FiniteSystem.operator_mono_weights
+#print axioms CleanLean.KL.FiniteSystem.feasible_of_feasibleRat
+#print axioms CleanLean.KL.FiniteSystem.ScaledCertificate.feasibleKL_of_checks
 #print axioms CleanLean.KL.FiniteSystem.annealedValue_sub_one_eq_branchWeight_mul_normalizedDefect
 #print axioms CleanLean.KL.tendsto_two_of_annealed_tendsto_one
 #print axioms CleanLean.KL.klWeightedDefect_mul_tendsto_zero
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_defect
+#print axioms CleanLean.KL.levelFeasible_one
+#print axioms CleanLean.KL.le_criticalLambda_of_feasible
+#print axioms CleanLean.KL.levelFeasible_of_scaledCertificate
+#print axioms CleanLean.KL.criticalLambda_tendsto_two_of_feasible_lower
+#print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
+#print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda
 #print axioms CleanLean.KL.weightedDefect_le_tail
 #print axioms CleanLean.KL.tendsto_zero_of_weighted_tail
 #print axioms CleanLean.KL.tail_tendsto_zero_of_geometric_bound
@@ -81,6 +94,8 @@ specification theorems during a build.
 #print axioms CleanLean.KL.relativeCarrier_step
 #print axioms CleanLean.KL.chargedCarrier_iterate
 #print axioms CleanLean.KL.badMass_le_of_chargedCarrier_and_pressure
+#print axioms CleanLean.KL.aligned_mean_and_cospine_same_eigenvalue
+#print axioms CleanLean.KL.no_strict_relative_contraction_on_aligned_modes
 #print axioms CleanLean.KL.positiveEigenvalue_unique
 #print axioms CleanLean.KL.one_le_positiveEigenvalue_of_subeigenvector
 #print axioms CleanLean.KL.eventually_rpow_le_of_constant_mul_rpow_le

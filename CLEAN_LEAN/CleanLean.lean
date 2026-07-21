@@ -11,6 +11,8 @@ import CleanLean.KL.KLWeights
 import CleanLean.KL.OscillationIdentity
 import CleanLean.KL.LimitBridge
 import CleanLean.KL.ConcreteLimit
+import CleanLean.KL.CriticalParameter
+import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
 import CleanLean.KL.RootLaw
@@ -18,6 +20,7 @@ import CleanLean.KL.Mixer
 import CleanLean.KL.TransportResolvent
 import CleanLean.KL.PressureCertificate
 import CleanLean.KL.ChargedLyapunov
+import CleanLean.KL.MarginalObstruction
 import CleanLean.KL.NonlinearPerron
 import CleanLean.KL.CountingTransfer
 import CleanLean.Audit

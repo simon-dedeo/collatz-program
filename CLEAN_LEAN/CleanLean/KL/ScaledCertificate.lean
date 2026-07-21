@@ -143,7 +143,6 @@ theorem transportWeight_cast_eq (d : S.ScaledCertificate)
   rw [weightsRat]
   norm_num only [Rat.cast_div, Rat.cast_pow, Rat.cast_natCast]
   rw [Real.rpow_neg (div_nonneg hAR.le hLR.le)]
-  norm_num only [Real.rpow_natCast]
   field_simp [ne_of_gt hAR]
   rw [Real.rpow_two]
   rw [div_pow]

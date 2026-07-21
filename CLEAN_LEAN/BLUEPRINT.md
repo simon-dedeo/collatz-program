@@ -28,7 +28,9 @@ It is deliberately defined before any proposed proof machinery.
 | Integer proof `2^P < 3^Q` implies `P/Q < log₂ 3` | Kernel checked |
 | Integer proof `3^Q < 2^P` implies `log₂ 3 < P/Q` | Kernel checked |
 | Integer branch-weight lower-bound checker | Kernel checked |
-| Integer branch-weight checks imply true `Real.rpow` bounds | In progress |
+| Integer branch-weight checks imply true `Real.rpow` bounds | Kernel checked |
+| Scaled integer certificate implies feasibility for true KL weights | Kernel checked |
+| Lean-native level-2 end-to-end certificate at `lambda=4/3` | Kernel checked |
 | SHA-256/NPY streaming front end | Planned |
 | KL difference-inequality transfer theorem | Planned |
 | Finite weighted-tail inequality in R' | Kernel checked |
@@ -43,12 +45,17 @@ It is deliberately defined before any proposed proof machinery.
 | Generic finite restricted-pressure certificate | Kernel checked |
 | Exact rational pressure-row and Chernoff-gap checkers | Kernel checked |
 | Terminal-potential and block-Chernoff pressure bound | Kernel checked |
+| Corrected relative charged-carrier implication | Kernel checked |
+| Aligned marginal-mode obstruction to strict CL contraction | Kernel checked |
 | Concrete KL oscillation identity | Kernel checked |
 | Concrete annealed root: strict decrease and `s(2)=1` | Kernel checked |
 | Vanishing defect implies `lambda_k -> 2` | Kernel checked |
+| `lambda_k -> 2` implies `X^(1-epsilon)` counting, conditional on KL transfer | Kernel checked |
+| Exact Syracuse predecessor-count specification | Kernel checked |
 | Critical nonlinear eigenfunction existence/selection | Planned |
 | Portable pressure JSON independently verified | External exact check; Lean ingestion planned |
 | Restricted-pressure theorem C1' | Open mathematics |
+| Original charged spine-face Lyapunov route | Falsified at its algebraic marginal mode |
 | Collatz conjecture | Open mathematics |
 
 The predecessor-counting conclusions of the KL method are milestones, not a

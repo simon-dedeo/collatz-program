@@ -157,7 +157,7 @@ theorem div_le_rpow_div_sub_two_of_crossmul
 the final replacement of `P/Q` by `alpha`. -/
 theorem div_le_rpow_div_sub_one_of_crossmul
     {A scaleL B scaleW P Q : ℕ}
-    (hA : 0 < A) (hL : 0 < scaleL) (hW : 0 < scaleW) (hQ : 0 < Q)
+    (_hA : 0 < A) (hL : 0 < scaleL) (hW : 0 < scaleW) (hQ : 0 < Q)
     (hP : Q ≤ P)
     (hcross : B ^ Q * scaleL ^ (P - Q) ≤
       A ^ (P - Q) * scaleW ^ Q) :

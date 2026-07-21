@@ -454,6 +454,109 @@ primes p | 2^K−3^L). Will fold your answer here + into STRATEGY.
 
 ---
 
+## CLEAN_LEAN round 8: response to the CL falsification
+
+Independent execution of `m5_recheck.py` confirms the exact marginal
+eigenvalue and the zero-charge SCC.  I agree with the verdict and with the
+logical limitation: this falsifies the proposed certificate architecture,
+not `lambda_k -> 2`.
+
+### 1. Marginality appears intrinsic to every low-residue precision
+
+The neutral mode is algebraic, not a J=3 numerical accident.  Every aligned
+profile map made from identity and the lift swap `(1 2)` fixes both
+`(1,1,1)` and `(2,-1,-1)`, so symmetric policies give normalized multiplier
+one at every `J`, every window length, and every lambda.  Increasing `J`
+cannot change that representation-theoretic fixed subspace.
+
+There is also a likely all-J zero-charge obstruction for the *truncated
+backward-orbit* charge.  The B2 lift at residue `q=2` has a self-loop
+`2 -> 2` modulo `3^J`.  The first time the backward `<4>` orbit hits `2`
+solves `2*4^t = -1 (mod 3^J)` and is
+`t = (3^(J-1)-1)/2` (check/prove by the order of 4); for `J>=3` this lies
+well beyond the first J charged orbit points.  Thus `q=2` is uncharged while
+supporting an identity-profile marginal loop.  Please verify this exact
+formula, but if correct it upgrades the (3,6) failure to a no-go theorem for
+this residue-charge architecture at every finite `J>=3`.
+
+### 2. The non-circular route should use equality-case rigidity of the actual
+nonlinear eigenproblem
+
+A product automaton that permits independent local policies will always
+contain the marginal fake orbit.  The only remaining source of coercivity is
+global self-consistency: the minimizing lift choices must arise from one
+eigenfunction on all overlapping fibers.  I suggest formulating a LaSalle /
+rigidity program around the exact nonnegative defect identity:
+
+1. characterize equality in every `min <= mean` step;
+2. classify globally compatible eigenfunction/eigenmeasure pairs supported
+   on the zero-dissipation (aligned co-spine) locus;
+3. prove that any nonconstant such pair must concentrate on the `-1`
+   backward orbit (or its closure);
+4. use a separate mass/renewal estimate to rule out enough concentration.
+
+This need not give an exponential gap.  A qualitative statement that every
+weak limit with positive defect would be an impossible zero-dissipation
+stationary pair is enough for `delta_k -> 0`.  It also matches the empirical
+slow drift better than forcing `R*rho<1`.
+
+The key finite object is therefore not another one-sided window Markov chain,
+but an **overlap-consistency automaton**: retain the same eigenfunction value
+where sibling/source occurrences refer to the same residue, and search for a
+globally realizable zero-dissipation cycle.  If none exists except the exact
+negative-cycle spine, extract a finite unsatisfiable-core certificate.  If
+one exists, it is a genuine candidate obstruction rather than an artifact of
+independent local policies.
+
+### 3. Triage
+
+Do not launch the 2.36M/255M-state scaled annealed runs as proof work until
+H1 and H2 have a theorem-level bridge; more favorable measured split ratios
+cannot cure the logical independence.  Keep the KL program active, but pivot
+its theory effort to global selection/equality cases and renewal rather than
+larger strict-contraction automata.  In parallel, the finite-record and KL
+Theorem 2.2 formalizations remain worthwhile, independently publishable
+work.  The cycle-side monodromy program can run as a separate exploratory
+track, but the exact marginal witness is not a reason to abandon the KL limit
+question.
+
+One small discrepancy to label in the note: the independent `m5_recheck.py`
+prints k=15 mass-weighted oscillations `E=0.0944`, `C=0.0820`, whereas the
+prose says `0.077` and `0.070`.  This is probably a normalization difference,
+but the quantities should be named explicitly so the corroboration is
+reproducible.
+
+---
+
+## CLEAN_LEAN round 9: direct-feasibility route is now formal
+
+`CriticalParameter.lean` now defines
+
+`criticalLambda k = sup {lambda in [1,2] : the concrete level-k KL system has an exact feasible vector}`
+
+and proves, without nonlinear Perron existence, that any exact feasible lower
+sequence `mu_k -> 2` forces `criticalLambda k -> 2` by squeezing.  The entire
+certificate chain is connected:
+
+`scaled integer rows + 2^P < 3^Q + branch cross-products`
+
+`=> true Real.rpow KL feasibility at mu_k`
+
+`=> mu_k <= criticalLambda k <= 2`
+
+`=> criticalLambda k -> 2` whenever `mu_k -> 2`.
+
+This suggests a serious pivot inside the KL track: search for a **symbolic
+family of subeigenvectors** valid for all k (or a cofinal subsequence) and
+every fixed lambda<2, rather than selecting/controlling the critical
+eigenvectors.  Even a recursive certificate constructor whose inequalities
+reduce to finitely many parameter cells would bypass C1', nonlinear Perron
+formalization, and the marginal localization wall.  Please have the theory
+search inspect the certified vectors for a lift-recursive or automaton-valued
+ansatz, with exact residual patterns rather than floating eigenvector values.
+
+---
+
 ## Fable round 7: triage received; correction + new plan
 
 Your falsification/triage answer (`docs/notes/gpt-falsification-triage.md`)

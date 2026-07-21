@@ -13,10 +13,11 @@ not the elementary weighted-tail reduction.  It is a uniform, global bound
 showing that the exact extremal eigenvector cannot move enough mass into the
 exceptional return tree as the precision grows.
 
-This is a plausible target for formalization.  The downstream implication
-from weighted-tail decay to `lambda_k -> 2` is now formalized, but its uniform
-localization premise is not proved.  Thus this is not presently a proof of
-`lambda_k -> 2`, the `x^(1-epsilon)` predecessor-counting result, or Collatz.
+This is a plausible target for formalization.  The downstream implications
+from weighted-tail decay to `lambda_k -> 2`, and from that endpoint to
+`x^(1-epsilon)` predecessor counting (given the KL literature transfer), are
+now formalized.  The uniform localization premise is not proved.  Thus this
+is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
 
 ## Claims that survive the audit
 
@@ -52,6 +53,17 @@ localization premise is not proved.  Thus this is not presently a proof of
    annealed scalar is strictly decreasing on `[1,2]` and equals one at two.
    `ConcreteLimit.lean` proves that vanishing normalized defect therefore
    forces `lambda_k -> 2`; no extrapolation is used.
+
+7. **Exact irrational certificate soundness.** `IrrationalWeights.lean` now
+   proves that the stored integer cross-products lower-bound the true
+   `Real.rpow` branch coefficients. `ScaledCertificate.lean` composes this
+   with the integer row checker, yielding feasibility for the actual KL
+   operator without floating point.
+
+8. **The counting endgame.** `PredecessorCount.lean` defines the count using
+   the actual Syracuse iterate. `CountingTransfer.lean` proves that
+   `lambda_k -> 2`, together with the KL Theorem 2.2 lower bounds, gives
+   `X^(1-epsilon)` counting for every positive epsilon.
 
 ## Corrections to the current notes
 
@@ -110,7 +122,20 @@ valuable diagnostics.  Fits and pre-registered predictions are evidence, not
 uniform estimates.  Slowly varying, polynomial, or renewal-critical behavior
 cannot be excluded by the present number of levels.
 
-## Most promising proof route: a certified first-return pressure bound
+### The first charged spine-face Lyapunov architecture is impossible
+
+The aligned profile action is a scalar combination of the identity and the
+swap of lift labels 1 and 2.  Both the mean vector `(1,1,1)` and the co-spine
+oscillation vector `(2,-1,-1)` are fixed by that swap, so their eigenvalues
+are exactly equal.  A zero-charge residue cycle can therefore carry a
+normalized multiplier of one. `MarginalObstruction.lean` proves the
+J-independent algebraic part of this no-go result.
+
+This falsifies the proposed strict relative-contraction certificate class; it
+does not imply a finite ceiling for the KL exponents.  The abstract corrected
+charged-carrier and pressure theorems remain valid conditional tools.
+
+## Revised proof route: global equality-case rigidity
 
 Write the exact finite eigen-equation schematically as
 
@@ -122,34 +147,31 @@ branch/min contribution.  Unrolling for `n` steps gives
 `c(x) = p^n c(U^n x) + sum_{j<n} p^j b(c)(U^j x)`.
 
 On a transport cycle of length `N`, this becomes an exact resolvent formula.
-This suggests the following proof architecture.
+The failed charged construction shows that a product automaton allowing
+independent local policies contains marginal paths which need not arise from
+one globally compatible eigenfunction.  The revised architecture is:
 
-1. Define a nonnegative exceptional energy that records both within-fiber
-   range and the cross-fiber variation imported by a branch minimum.
-2. Collapse transport stretches exactly with the cycle resolvent and define a
-   first-return kernel to the 2- and 8-branch exceptional states.
-3. Construct a finite product cone or finite automaton that dominates every
-   policy, every precision, and every admissible profile.  A state recording
-   only the `-1` itinerary is insufficient; it must retain the genealogy of
-   variation imported from sibling fibers.
-4. Prove an analytic bound on the omitted long-return tail.
-5. Exhibit rational `h > 0` and a tilted rational gap `R^b < z^a` satisfying
-   `K h <= R h`.  `PressureCertificate.lean` now proves the explicit
-   terminal-potential bound and block-Chernoff geometric decay; `R` itself
-   need not be below one.
-6. Connect that decay to the actual eigenvector-weighted tails and invoke the
-   formal R' theorem.
+1. Characterize equality in the local `min <= mean` inequalities underlying
+   the exact defect identity.
+2. Retain overlap constraints forcing every local minimizing choice to come
+   from one global eigenfunction, instead of treating sibling sources as
+   independent profiles.
+3. Classify globally compatible zero-dissipation eigenfunction/eigenmeasure
+   pairs.  The expected exceptional possibility is concentration on the
+   negative-cycle spine and its backward orbit.
+4. Prove a mass or renewal estimate excluding sufficient concentration.  A
+   qualitative decay theorem is enough; an exponential spectral gap is not
+   required.
+5. Invoke the formal weighted-tail, defect, endpoint, and counting bridges.
 
-The hard mathematical step is item 3: proving that the finite kernel really
-dominates the full nonlinear KL refinement uniformly in `k`.  GPU eigenvectors
-can suggest `h`, `R`, and the relevant states, but Lean must check an exact
-domination theorem, not the floating-point spectrum.
+The hard mathematical step is the global compatibility classification.  GPU
+eigenvectors can suggest its equality locus, but a finite over-approximation
+which forgets shared values is too weak by construction.
 
-The subsequent ball-automaton experiment confirms this diagnosis.  Its
-portable tilted pressure certificate now passes an independent exact verifier,
-but its single-profile localization matrices fail on aligned top-digit classes
-at every block length.  See `GPU_CERTIFICATE_SPEC.md` for the refined combined
-automaton needed to prove localization.
+The subsequent combined-automaton experiment sharpens this diagnosis.  Its
+portable tilted rows are exact for an annealed window-split model, but the
+split law and multi-input localization remain hypotheses; the residue-charged
+strict Lyapunov route is exactly marginal and cannot close.
 
 ## Other proof routes worth keeping alive
 
@@ -176,7 +198,8 @@ automaton needed to prove localization.
 3. Formalize the combined uniform localization/domination theorem or a direct feasible-vector
    construction.
 4. Formalize the Krasikov--Lagarias difference-inequality transfer from
-   `lambda_k -> 2` to predecessor counts `x^(1-epsilon)`.
+   finite feasibility to predecessor lower bounds.  The later analytic step
+   from `lambda_k -> 2` to `x^(1-epsilon)` is already kernel checked.
 
 The last conclusion is not the Collatz conjecture.  It says that every target
 has very many predecessors up to `x`; it does not say every positive integer's
