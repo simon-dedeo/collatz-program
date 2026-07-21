@@ -13,7 +13,9 @@ not the elementary weighted-tail reduction.  It is a uniform, global bound
 showing that the exact extremal eigenvector cannot move enough mass into the
 exceptional return tree as the precision grows.
 
-This is a plausible target for formalization.  It is not presently a proof of
+This is a plausible target for formalization.  The downstream implication
+from weighted-tail decay to `lambda_k -> 2` is now formalized, but its uniform
+localization premise is not proved.  Thus this is not presently a proof of
 `lambda_k -> 2`, the `x^(1-epsilon)` predecessor-counting result, or Collatz.
 
 ## Claims that survive the audit
@@ -28,8 +30,8 @@ This is a plausible target for formalization.  It is not presently a proof of
 
 2. **The oscillation identity.**  Given a positive exact unit eigenvector,
    summing the finite eigen-equations gives the displayed defect identity.
-   Its algebra is finite.  It should be formalized after the concrete residue
-   operator is defined.
+   `OscillationIdentity.lean` and `ResidueSystem.lean` now prove both its
+   algebra and the concrete fiber/branch bijections.
 
 3. **Corrected Proposition R'.**  If, for every fixed `t > 0`, the
    eigenvector-weighted tail mass `nu_k {o_k > t}` tends to zero, then the mean
@@ -45,6 +47,11 @@ This is a plausible target for formalization.  It is not presently a proof of
    around a finite cycle into a resolvent identity.  This is proved in
    `TransportResolvent.lean` and is a better starting point for a return-kernel
    proof than an empirical per-level dilution factor.
+
+6. **The downstream limit bridge.**  `KLWeights.lean` proves exactly that the
+   annealed scalar is strictly decreasing on `[1,2]` and equals one at two.
+   `ConcreteLimit.lean` proves that vanishing normalized defect therefore
+   forces `lambda_k -> 2`; no extrapolation is used.
 
 ## Corrections to the current notes
 
@@ -126,9 +133,10 @@ This suggests the following proof architecture.
    only the `-1` itinerary is insufficient; it must retain the genealogy of
    variation imported from sibling fibers.
 4. Prove an analytic bound on the omitted long-return tail.
-5. Exhibit rational `h > 0` and rational `R < 1` satisfying `K h <= R h` for
-   the resulting finite nonnegative kernel.  `PressureCertificate.lean`
-   already proves that such a certificate forces geometric decay.
+5. Exhibit rational `h > 0` and a tilted rational gap `R^b < z^a` satisfying
+   `K h <= R h`.  `PressureCertificate.lean` now proves the explicit
+   terminal-potential bound and block-Chernoff geometric decay; `R` itself
+   need not be below one.
 6. Connect that decay to the actual eigenvector-weighted tails and invoke the
    formal R' theorem.
 
@@ -138,10 +146,10 @@ can suggest `h`, `R`, and the relevant states, but Lean must check an exact
 domination theorem, not the floating-point spectrum.
 
 The subsequent ball-automaton experiment confirms this diagnosis.  Its
-tilted pressure rows have exact rational gaps, but its single-profile
-localization matrices fail on aligned top-digit classes at every block
-length.  See `GPU_CERTIFICATE_SPEC.md` for the refined combined-automaton
-artifact and the fields missing from the current pressure JSON.
+portable tilted pressure certificate now passes an independent exact verifier,
+but its single-profile localization matrices fail on aligned top-digit classes
+at every block length.  See `GPU_CERTIFICATE_SPEC.md` for the refined combined
+automaton needed to prove localization.
 
 ## Other proof routes worth keeping alive
 
@@ -161,15 +169,13 @@ artifact and the fields missing from the current pressure JSON.
 
 ## Lean dependency path to the counting theorem
 
-1. Finish the concrete finite KL residue operator using the `ZMod` coordinate
-   scaffold now in `ResidueSystem.lean`; prove its refinement formulas agree
-   with the original residues.
-2. Prove the residue permutations, fiber partitions, branch counts, and the
-   exact oscillation identity.
-3. Implement exact rational feasibility and pressure-certificate checkers.
-4. Formalize the uniform return-pressure theorem or a direct feasible-vector
+1. Formalize critical nonlinear Perron eigenfunction existence and define the
+   critical parameters `lambda_k` without importing an unchecked theorem.
+2. Ingest the portable finite pressure certificate into a Lean-computable
+   certificate value (the generic exact checker is already proved sound).
+3. Formalize the combined uniform localization/domination theorem or a direct feasible-vector
    construction.
-5. Formalize the Krasikov--Lagarias difference-inequality transfer from
+4. Formalize the Krasikov--Lagarias difference-inequality transfer from
    `lambda_k -> 2` to predecessor counts `x^(1-epsilon)`.
 
 The last conclusion is not the Collatz conjecture.  It says that every target

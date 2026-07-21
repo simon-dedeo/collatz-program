@@ -14,17 +14,19 @@ It is deliberately defined before any proposed proof machinery.
 | Relational specification | Kernel checked |
 | Equivalence of those specifications | Kernel checked |
 | Accelerated/Syracuse equivalence | Kernel checked |
-| Abstract finite KL operator | In progress |
+| Abstract finite KL operator | Kernel checked |
 | Exact min-to-fiber-average `/3` domination | Kernel checked |
 | Concrete KL residue coordinates and affine transport | Kernel checked |
 | Affine transport agrees with multiplication by four mod `3^k` | Kernel checked |
-| Concrete branch/refinement arithmetic | In progress |
+| Concrete branch/refinement arithmetic | Kernel checked |
 | Retarded/advanced target quotient formulas | Kernel checked |
 | Concrete three-lift fiber injectivity | Kernel checked |
+| Concrete top/low-digit fiber equivalences and branch counts | Kernel checked |
 | Abstract exact-rational KL feasibility checker and soundness | Kernel checked |
 | Streaming checker for the large GPU certificate format | Planned |
 | Integer-scaled GPU row format and rational soundness | Kernel checked |
 | Integer proof `2^P < 3^Q` implies `P/Q < log₂ 3` | Kernel checked |
+| Integer proof `3^Q < 2^P` implies `log₂ 3 < P/Q` | Kernel checked |
 | Integer branch-weight lower-bound checker | Kernel checked |
 | Integer branch-weight checks imply true `Real.rpow` bounds | In progress |
 | SHA-256/NPY streaming front end | Planned |
@@ -40,7 +42,12 @@ It is deliberately defined before any proposed proof machinery.
 | Exact finite-cycle transport resolvent | Kernel checked |
 | Generic finite restricted-pressure certificate | Kernel checked |
 | Exact rational pressure-row and Chernoff-gap checkers | Kernel checked |
-| Concrete KL oscillation identity | Planned |
+| Terminal-potential and block-Chernoff pressure bound | Kernel checked |
+| Concrete KL oscillation identity | Kernel checked |
+| Concrete annealed root: strict decrease and `s(2)=1` | Kernel checked |
+| Vanishing defect implies `lambda_k -> 2` | Kernel checked |
+| Critical nonlinear eigenfunction existence/selection | Planned |
+| Portable pressure JSON independently verified | External exact check; Lean ingestion planned |
 | Restricted-pressure theorem C1' | Open mathematics |
 | Collatz conjecture | Open mathematics |
 

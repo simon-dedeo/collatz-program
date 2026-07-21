@@ -5,11 +5,13 @@ A Lean 4 formalization project for the Collatz work in the parent repository.
 The project begins by fixing the standard conjecture itself, then proves that
 independently shaped relational and Syracuse specifications are equivalent.
 An abstract finite Krasikov--Lagarias operator, the corrected weighted-tail
-reduction, exact local algebra, transport resolvents, and a generic rational
-restricted-pressure certificate theorem have also been added.  The concrete
-residue model now has `ZMod` state/coarse coordinates and the affine transport
-permutation; its branch/refinement compatibility lemmas and the theorem
-connecting it uniformly to a pressure certificate come next.
+reduction, exact local algebra, transport resolvents, and exact rational
+restricted-pressure machinery have also been added.  The concrete `ZMod`
+residue arithmetic, fiber partition, branch counting, oscillation identity,
+terminal-potential/Chernoff estimate, and defect-to-`lambda = 2` limit bridge
+are now kernel checked.  The central missing theorem is the uniform
+localization/domination step connecting large fiber oscillation to the finite
+charged pressure automaton.
 
 `RESEARCH_AUDIT.md` separates the statements supported by the live research
 notes from the pressure/mass estimate that is still open, and gives the current
