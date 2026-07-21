@@ -23,6 +23,8 @@ It is deliberately defined before any proposed proof machinery.
 | Concrete three-lift fiber injectivity | Kernel checked |
 | Abstract exact-rational KL feasibility checker and soundness | Kernel checked |
 | Streaming checker for the large GPU certificate format | Planned |
+| Integer-scaled GPU row format and rational soundness | Kernel checked |
+| SHA-256/NPY streaming front end | Planned |
 | KL difference-inequality transfer theorem | Planned |
 | Finite weighted-tail inequality in R' | Kernel checked |
 | Full abstract asymptotic R' | Kernel checked |

@@ -8,6 +8,7 @@ import CleanLean.Collatz.Syracuse
 import CleanLean.KL.FiniteSystem
 import CleanLean.KL.ResidueSystem
 import CleanLean.KL.ExactCertificate
+import CleanLean.KL.ScaledCertificate
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
 import CleanLean.KL.RootLaw
@@ -35,6 +36,7 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.advanced_target_numerator
 #print axioms CleanLean.KL.ResidueSystem.branch_eq_advanced_iff_residue
 #print axioms CleanLean.KL.FiniteSystem.feasible_of_checkFeasibleRat
+#print axioms CleanLean.KL.FiniteSystem.ScaledCertificate.feasibleRat_of_check
 #print axioms CleanLean.KL.weightedDefect_le_tail
 #print axioms CleanLean.KL.tendsto_zero_of_weighted_tail
 #print axioms CleanLean.KL.tail_tendsto_zero_of_geometric_bound

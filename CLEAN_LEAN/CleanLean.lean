@@ -4,6 +4,7 @@ import CleanLean.Collatz.Syracuse
 import CleanLean.KL.FiniteSystem
 import CleanLean.KL.ResidueSystem
 import CleanLean.KL.ExactCertificate
+import CleanLean.KL.ScaledCertificate
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
 import CleanLean.KL.RootLaw

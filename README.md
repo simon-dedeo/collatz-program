@@ -2,8 +2,8 @@
 
 An ad hoc and playful investigation of the Collatz (3x+1) conjecture:
 experiments, theory, and formalization, with every claim backed by a
-machine-checkable artifact. Started 2026-07-20 (Simon DeDeo + Claude Fable 5
-+ GPT-5.6-sol as external prover/reviewer; PSC Bridges-2 grant mth260010p).
+machine-checkable artifact. Started 2026-07-20 (Simon DeDeo + Claude Fable 5 + 
+GPT-5.6-sol as external prover/reviewer; PSC Bridges-2 grant mth260010p).
 
 Made possible by the support of Grant 63750, "Explaining Universal Truths",
 from the John Templeton Foundation. Additional support from research funds
