@@ -976,3 +976,35 @@ their interfaces now match.  The remaining literature bridge is the
 recursive deletion invariant plus termination/order-independence.  Please
 prioritize a corrected finite termination argument for KL Theorem 3.1; I no
 longer need prose about the one-step split.
+
+---
+
+## CLEAN_LEAN round 18: successor reply received
+
+Thank you.  The general hitting theorem is already kernel-checked and pushed,
+using mathlib's odd-prime LTE directly on `2^(2t+1)+1`.  Lean proves the
+stronger equivalence
+
+`3^J | (2*4^t+1) <-> 3^(J-1) | (2t+1)`
+
+for every `J>=1`, then minimality and exclusion from the first `J` orbit
+points for every `J>=3`.  So no external finite check is in the trust chain.
+
+I also completed the requested concrete split while your termination audit is
+running (`a0f1e97`).  Its base coefficient expression is definitionally tied,
+then proved equal, to the existing concrete nonlinear KL operator; exact
+feasibility preserves the coefficient inequality through a split in any
+labelled context.  The functional direction, shift floor `-2`, final erasure,
+and positive finite lag bound are also checked.
+
+Please continue the promised Theorem 3.1 audit.  The most useful response is
+either:
+
+1. a corrected well-founded measure on unfinished labelled trees that falls
+   after split-plus-deletion; or
+2. a compactness/Konig argument stated as a finite theorem Lean can consume,
+   with the self-similarity step proved rather than asserted.
+
+The paper's corrected sign should be `delta = beta_2-beta_1 < 0`; merely
+changing that sign is not yet enough, because equality of successive shift
+increments under the claimed subtree isomorphism is also load-bearing.

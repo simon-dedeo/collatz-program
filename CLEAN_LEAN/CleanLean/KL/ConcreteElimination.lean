@@ -30,30 +30,92 @@ open EliminationTree
 def inf3 {ι : Type} (a b c : EliminationTree ι) : EliminationTree ι :=
   .inf a (.inf b c)
 
+/-- The always-present transport leaf of a split. -/
+def transportLeaf (k : ℕ)
+    (label : PrincipalLabel (ResidueSystem.State k)) :
+    EliminationTree (ResidueSystem.State k) :=
+  .leaf ⟨(ResidueSystem.system k).transport label.state, label.shift - 2⟩
+
+/-- One labelled lift in a newly created branch minimum. -/
+def branchLabel (k : ℕ) (label : PrincipalLabel (ResidueSystem.State k))
+    (delta : ℝ) (j : Fin 3) : PrincipalLabel (ResidueSystem.State k) :=
+  ⟨(ResidueSystem.system k).fiber
+      ((ResidueSystem.system k).refinementTarget label.state) j,
+    label.shift + delta⟩
+
+/-- One leaf of the newly created branch minimum. -/
+def branchLeaf (k : ℕ) (label : PrincipalLabel (ResidueSystem.State k))
+    (delta : ℝ) (j : Fin 3) : EliminationTree (ResidueSystem.State k) :=
+  .leaf (branchLabel k label delta j)
+
 /-- The branch minimum over the three fine lifts of the refinement target. -/
 def branchMinimum (k : ℕ) (label : PrincipalLabel (ResidueSystem.State k))
     (delta : ℝ) : EliminationTree (ResidueSystem.State k) :=
   inf3
-    (.leaf ⟨(ResidueSystem.system k).fiber
-      ((ResidueSystem.system k).refinementTarget label.state) 0,
-        label.shift + delta⟩)
-    (.leaf ⟨(ResidueSystem.system k).fiber
-      ((ResidueSystem.system k).refinementTarget label.state) 1,
-        label.shift + delta⟩)
-    (.leaf ⟨(ResidueSystem.system k).fiber
-      ((ResidueSystem.system k).refinementTarget label.state) 2,
-        label.shift + delta⟩)
+    (branchLeaf k label delta 0)
+    (branchLeaf k label delta 1)
+    (branchLeaf k label delta 2)
 
 /-- The body attached when one principal KL leaf is split. -/
 noncomputable def splitBody (k : ℕ)
     (label : PrincipalLabel (ResidueSystem.State k)) :
     EliminationTree (ResidueSystem.State k) :=
-  let transport : EliminationTree (ResidueSystem.State k) :=
-    .leaf ⟨(ResidueSystem.system k).transport label.state, label.shift - 2⟩
   match (ResidueSystem.system k).branch label.state with
-  | .retarded => .add transport (branchMinimum k label (alpha - 2))
-  | .neutral => transport
-  | .advanced => .add transport (branchMinimum k label (alpha - 1))
+  | .retarded => .add (transportLeaf k label) (branchMinimum k label (alpha - 2))
+  | .neutral => transportLeaf k label
+  | .advanced => .add (transportLeaf k label) (branchMinimum k label (alpha - 1))
+
+/-- The unique assignment of the transport leaf. -/
+def transportAssignment (k : ℕ)
+    (label : PrincipalLabel (ResidueSystem.State k)) :
+    EliminationTree.Assignment (transportLeaf k label) :=
+  .principalLeaf _
+
+/-- The critical-assignment shape choosing a specified lift from the binary
+encoding of the three-way minimum.  Criticality itself depends on values and
+is a separate predicate. -/
+def branchAssignment (k : ℕ)
+    (label : PrincipalLabel (ResidueSystem.State k)) (delta : ℝ) :
+    (j : Fin 3) → EliminationTree.Assignment (branchMinimum k label delta) :=
+  Fin.cases
+    (.infLeft (.principalLeaf (branchLabel k label delta 0)))
+    (fun j => Fin.cases
+      (.infRight (.infLeft (.principalLeaf (branchLabel k label delta 1))))
+      (fun _ => .infRight (.infRight
+        (.principalLeaf (branchLabel k label delta 2)))) j)
+
+/-- Choosing lift `j` contributes exactly that labelled leaf value. -/
+@[simp] theorem branchAssignment_selectedEval (k : ℕ)
+    (label : PrincipalLabel (ResidueSystem.State k)) (delta : ℝ) (j : Fin 3)
+    (φ : ResidueSystem.State k → ℝ → ℝ) (y : ℝ) :
+    (branchAssignment k label delta j).selectedEval φ y =
+      (branchLabel k label delta j).value φ y := by
+  fin_cases j <;> rfl
+
+/-- Concrete form of the KL deletion contradiction for one newly created
+branch leaf.  If its selected split lies below a repeated ancestor, the
+transport leaf supplies the strict positive sibling contribution. -/
+theorem repeated_concrete_branch_not_selected
+    {ancestorBody : EliminationTree (ResidueSystem.State k)}
+    (ancestor splitLabel : PrincipalLabel (ResidueSystem.State k))
+    (delta : ℝ) (j : Fin 3)
+    (ancestorA : EliminationTree.Assignment ancestorBody)
+    (φ : ResidueSystem.State k → ℝ → ℝ) (y : ℝ)
+    (hrespect :
+      (EliminationTree.Assignment.principalNode
+        (label := ancestor) ancestorA).RespectsPrincipalBounds φ y)
+    (hsub : EliminationTree.Assignment.SelectedSubassignment
+      (.add (transportAssignment k splitLabel)
+        (branchAssignment k splitLabel delta j)) ancestorA)
+    (hφ : ∀ i t, 0 < φ i t)
+    (hstate : ancestor.state = (branchLabel k splitLabel delta j).state)
+    (hshift : ancestor.shift < (branchLabel k splitLabel delta j).shift)
+    (hmono : Monotone (φ ancestor.state)) : False := by
+  exact EliminationTree.Assignment.repeated_branch_leaf_not_selected
+    ancestor (branchLabel k splitLabel delta j) ancestorA
+      (transportAssignment k splitLabel) (branchAssignment k splitLabel delta j)
+      φ y hrespect hsub hφ hstate hshift hmono
+      (branchAssignment_selectedEval k splitLabel delta j φ y)
 
 /-- Split an unsplit principal leaf while retaining its internal label. -/
 noncomputable def splitTree (k : ℕ)
@@ -84,7 +146,8 @@ theorem eval_splitBody_eq_base (k : ℕ)
       (baseBody k label.state).eval φ (y + label.shift) := by
   generalize hb : (ResidueSystem.system k).branch label.state = branch
   cases branch <;>
-    simp [splitBody, baseBody, branchMinimum, inf3, hb,
+    simp [splitBody, baseBody, transportLeaf, branchMinimum, branchLeaf,
+      branchLabel, inf3, hb,
       EliminationTree.eval, PrincipalLabel.value] <;>
     congr 1 <;> ring_nf
 
@@ -94,7 +157,7 @@ theorem splitBody_locallyValid (k : ℕ)
     (label : PrincipalLabel (ResidueSystem.State k))
     (φ : ResidueSystem.State k → ℝ → ℝ) (y : ℝ) :
     (splitBody k label).LocallyValid φ y := by
-  unfold splitBody branchMinimum inf3
+  unfold splitBody transportLeaf branchMinimum branchLeaf branchLabel inf3
   split <;> simp [EliminationTree.LocallyValid]
 
 /-- Splitting an advanced term never creates a shift below `-2`. -/
@@ -109,7 +172,8 @@ theorem splitBody_leaf_shifts_ge_neg_two (k : ℕ)
     linarith [one_lt_alpha]
   generalize hb : (ResidueSystem.system k).branch label.state = branch
   cases branch <;>
-    simp [splitBody, branchMinimum, inf3, hb, EliminationTree.AllLeaves,
+    simp [splitBody, transportLeaf, branchMinimum, branchLeaf, branchLabel,
+      inf3, hb, EliminationTree.AllLeaves,
       htransport, hretarded, hadvanced]
 
 /-- Every permitted split (`y+beta >= 2`) is a valid labelled principal
@@ -196,7 +260,8 @@ theorem erase_splitBody_eq_shiftLags (k : ℕ)
       (eraseToRetarded (baseBody k label.state)).shiftLags (-label.shift) := by
   generalize hb : (ResidueSystem.system k).branch label.state = branch
   cases branch <;>
-    simp [splitBody, baseBody, branchMinimum, inf3, hb, eraseToRetarded,
+    simp [splitBody, baseBody, transportLeaf, branchMinimum, branchLeaf,
+      branchLabel, inf3, hb, eraseToRetarded,
       RetardedExpr.shiftLags] <;>
     congr 1 <;> ring_nf <;> simp
 
@@ -225,7 +290,8 @@ theorem coeffEval_baseBody_eq_operator (k : ℕ)
   have hadv : 0 ≤ lam ^ (alpha - 1) := Real.rpow_nonneg hlam.le _
   generalize hb : (ResidueSystem.system k).branch state = branch
   cases branch <;>
-    simp [baseBody, splitBody, branchMinimum, inf3, hb, eraseToRetarded,
+    simp [baseBody, splitBody, transportLeaf, branchMinimum, branchLeaf,
+      branchLabel, inf3, hb, eraseToRetarded,
       RetardedExpr.coeffEval, FiniteSystem.operator, FiniteSystem.fiberMin,
       klWeights, hret, hadv, ← min_mul_of_nonneg] <;>
     ring
