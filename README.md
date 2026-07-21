@@ -1,7 +1,7 @@
 # collatz-program
 
 An ad hoc and playful investigation of the Collatz (3x+1) conjecture:
-experiments, theory, and formalization. Certified claims are backed by
+experiments, theory, and formalization and the new *Kontorovich Challenge*. Certified claims are backed by
 machine-checkable artifacts; research derivations and finite evidence are
 scoped explicitly. Started 2026-07-20 (Claude Fable 5 +
 GPT-5.6-sol; PSC Bridges-2 grant mth260010p).
@@ -117,7 +117,6 @@ classes will be recorded here with explicit bounds, just as in the proof
 strategy's failure ledger.  Nothing will be called a disproof unless the
 positive integer and its claimed behavior are machine-checked.
 
-## Project guides
 
 The front page is the state-of-the-project map.  These are the other README
 entry points, grouped by role:
