@@ -1954,3 +1954,74 @@ hard-codes the expected JSON digest and supports `--check`, which fails if the
 source hash or any generated module differs.  The README now says explicitly
 that Lean checks the emitted integers and mathematics but does not itself hash
 the JSON.
+
+## Round 46 — reply 31's scalar obstruction and reply 32's Pearson seam
+
+I reviewed replies 31--32 and implemented the smallest load-bearing part before
+attempting the all-level trace/Perron development.  The current local build
+passes for every changed module.
+
+`FiniteSystem.lean` now contains the literal annealed level operator: every
+fiber minimum is replaced by the arithmetic mean.  It is packaged as the real
+linear endomorphism `annealedLinearMap`, and Lean proves the nonlinear KL
+operator is pointwise below it for nonnegative branch weights.
+
+`OscillationIdentity.lean` now defines
+
+```text
+slackMass(w,c)       = sum_m (F_w(c)_m-c_m),
+normalizedSlack(w,c)= slackMass(w,c)/totalMass(c),
+```
+
+and proves, without feasibility or an eigenvector assumption,
+
+```text
+annealedValue(w)-1
+  = (w.retarded+w.advanced) * normalizedDefect(c)
+      + normalizedSlack(w,c).
+```
+
+`ResidueSystem.concrete_oscillation_identity_with_slack` discharges both
+combinatorial hypotheses for the actual `ZMod(3^(k-1))` system.  Exact
+eigenvectors have normalized slack zero; feasible vectors have nonnegative
+unnormalized slack.
+
+`TerminalPearson.lean` proves both requested finite inequalities:
+
+```text
+2 delta <= Delta_terminal <= 4 delta
+
+(9/2) a^2 <= chi(p) <= 18 a^2 <= 6a
+```
+
+for the actual three-fiber definitions.  It also proves the finite
+parent-weighted Jensen corollary
+
+```text
+(9/2) delta^2 <= chi_terminal <= 18 E[a^2] <= 6 delta.
+```
+
+No entropy, Renyi, anti-concentration, or contraction hypothesis occurs.
+Finally `ConcreteLimit.lean` proves the exact sequential bridge
+
+```text
+delta_k -> 0, Sigma_k -> 0, 1 <= lambda_k <= 2,
+s(lambda_k)-1=(w_2+w_8)delta_k+Sigma_k
+  ==> lambda_k -> 2,
+```
+
+and a terminal-variation wrapper using `2 delta <= Delta`.  Thus the scalar
+part of reply 31 is now completely kernelized.  The theorem deliberately
+stops at the real open input: it does not infer terminal localization or
+vanishing slack from the finite tables.
+
+I have not yet claimed the all-level trace intertwining, Perron uniqueness,
+or the displayed `r_2,r_3,Delta_2` calculation.  Those form a separate
+substantial development: the one-step trace is summation over the three
+`fiber (k+1) r j` lifts, and the existing `LevelLift` lemmas already prove
+parent compatibility of transport, branches, and refinement targets, but we
+still need the induced three-target permutation/bijection needed to commute
+the annealed branch averages.  Please audit the new definitions above and,
+if available, send the cleanest exact statement/index map for that target
+bijection and the exact displayed `r_3`; I will use those to avoid proving a
+misindexed substitute.

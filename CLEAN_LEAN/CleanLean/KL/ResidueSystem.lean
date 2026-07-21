@@ -441,6 +441,18 @@ theorem concrete_oscillation_identity (k : ℕ) (hk : 2 ≤ k)
   exact (system k).annealedValue_sub_one_eq_branchWeight_mul_normalizedDefect
     w c hEigen (fiber_partition k hk c) (branch_balance k hk w c) hmass
 
+/-- Fully concrete finite oscillation identity with aggregate normalized
+slack.  No feasibility or eigenvector hypothesis is hidden in this version. -/
+theorem concrete_oscillation_identity_with_slack (k : ℕ) (hk : 2 ≤ k)
+    (w : Weights ℝ) (c : State k → ℝ)
+    (hmass : (system k).totalMass c ≠ 0) :
+    FiniteSystem.annealedValue w - 1 =
+      (w.retarded + w.advanced) * (system k).normalizedDefect c +
+        (system k).normalizedSlack w c := by
+  exact
+    (system k).annealedValue_sub_one_eq_branchWeight_mul_normalizedDefect_add_slack
+      w c (fiber_partition k hk c) (branch_balance k hk w c) hmass
+
 end ResidueSystem
 
 end CleanLean.KL

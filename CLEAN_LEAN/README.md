@@ -22,6 +22,17 @@ counting bridge is now complete: the KL difference functions are instantiated
 with actual Syracuse predecessor counts using the corrected one-sided
 doubling argument, not the false printed equation (2.1).
 
+The annealed comparison is now stated at the actual finite-system level.  Lean
+defines the linear operator obtained by replacing each fiber minimum by its
+three-point average and proves the exact slack identity
+`s(lambda)-1=(w_2+w_8)delta+Sigma`.  It also proves
+`2 delta <= Delta_terminal <= 4 delta`, the sharp local ternary Pearson bounds,
+their parent-mass-weighted Jensen corollary, and the resulting sequential
+bridge: terminal localization together with vanishing aggregate normalized
+slack forces `lambda -> 2`.  This kernelizes the algebra around the current
+research gap without asserting the missing uniform pressure/localization
+estimate.
+
 `LevelLift.lean` formalizes the paper's level monotonicity argument: copying a
 feasible vector to all three new top-digit lifts preserves feasibility.  Thus
 the exact critical feasibility suprema are nondecreasing in the residue

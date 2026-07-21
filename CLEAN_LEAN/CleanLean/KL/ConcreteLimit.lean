@@ -60,4 +60,62 @@ theorem klLambda_tendsto_two_of_defect
   exact tendsto_two_of_annealed_tendsto_one annealedKL lam
     annealedKL_strictAntiOn annealedKL_two hlam hs
 
+/-- The endpoint bridge for merely feasible vectors.  Vanishing normalized
+fiber defect and vanishing aggregate normalized slack together force the KL
+parameters to converge to two. -/
+theorem klLambda_tendsto_two_of_defect_and_slack
+    (lam delta sigma : ℕ → ℝ)
+    (hlam : ∀ k, lam k ∈ Set.Icc (1 : ℝ) 2)
+    (hdelta0 : ∀ k, 0 ≤ delta k)
+    (hdelta : Filter.Tendsto delta Filter.atTop (nhds 0))
+    (hsigma : Filter.Tendsto sigma Filter.atTop (nhds 0))
+    (hidentity : ∀ k, annealedKL (lam k) - 1 =
+      ((klWeights (lam k)).retarded +
+        (klWeights (lam k)).advanced) * delta k + sigma k) :
+    Filter.Tendsto lam Filter.atTop (nhds 2) := by
+  have hprod := klWeightedDefect_mul_tendsto_zero lam delta hlam hdelta0 hdelta
+  have hsum : Filter.Tendsto
+      (fun k => ((klWeights (lam k)).retarded +
+        (klWeights (lam k)).advanced) * delta k + sigma k)
+      Filter.atTop (nhds 0) := by
+    simpa using hprod.add hsigma
+  have hs : Filter.Tendsto (fun k => annealedKL (lam k))
+      Filter.atTop (nhds 1) := by
+    have hadd := hsum.add_const 1
+    have heq :
+        (fun k => ((klWeights (lam k)).retarded +
+          (klWeights (lam k)).advanced) * delta k + sigma k + 1) =ᶠ[Filter.atTop]
+          (fun k => annealedKL (lam k)) := Filter.Eventually.of_forall fun k => by
+      have hi := hidentity k
+      dsimp
+      linarith
+    simpa using hadd.congr' heq
+  exact tendsto_two_of_annealed_tendsto_one annealedKL lam
+    annealedKL_strictAntiOn annealedKL_two hlam hs
+
+/-- Terminal `L¹` localization implies vanishing min-defect through the lower
+comparison `2 delta ≤ Delta`; adding vanishing aggregate slack then forces the
+KL endpoint. -/
+theorem klLambda_tendsto_two_of_terminalVariation_and_slack
+    (lam delta terminalVariation sigma : ℕ → ℝ)
+    (hlam : ∀ k, lam k ∈ Set.Icc (1 : ℝ) 2)
+    (hdelta0 : ∀ k, 0 ≤ delta k)
+    (hcompare : ∀ k, 2 * delta k ≤ terminalVariation k)
+    (hterminal : Filter.Tendsto terminalVariation Filter.atTop (nhds 0))
+    (hsigma : Filter.Tendsto sigma Filter.atTop (nhds 0))
+    (hidentity : ∀ k, annealedKL (lam k) - 1 =
+      ((klWeights (lam k)).retarded +
+        (klWeights (lam k)).advanced) * delta k + sigma k) :
+    Filter.Tendsto lam Filter.atTop (nhds 2) := by
+  have hdeltaUpper : ∀ k, delta k ≤ terminalVariation k := by
+    intro k
+    linarith [hcompare k, hdelta0 k]
+  have hdelta : Filter.Tendsto delta Filter.atTop (nhds 0) := by
+    apply squeeze_zero'
+    · exact Filter.Eventually.of_forall hdelta0
+    · exact Filter.Eventually.of_forall hdeltaUpper
+    · exact hterminal
+  exact klLambda_tendsto_two_of_defect_and_slack lam delta sigma hlam
+    hdelta0 hdelta hsigma hidentity
+
 end CleanLean.KL

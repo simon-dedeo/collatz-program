@@ -93,6 +93,73 @@ def operator (w : Weights ℝ) (c : S.State → ℝ) (m : S.State) : ℝ :=
     | Branch.neutral => 0
     | Branch.advanced => w.advanced * S.fiberMin c (S.refinementTarget m)
 
+/-- Arithmetic mean over a three-point refinement fiber. -/
+def fiberAverage (c : S.State → ℝ) (r : S.Coarse) : ℝ :=
+  (c (S.fiber r 0) + c (S.fiber r 1) + c (S.fiber r 2)) / 3
+
+/-- The annealed finite KL operator, obtained from the adversarial operator by
+replacing every three-fiber minimum with its arithmetic mean. -/
+def annealedOperator (w : Weights ℝ) (c : S.State → ℝ) (m : S.State) : ℝ :=
+  w.transport * c (S.transport m) +
+    match S.branch m with
+    | Branch.retarded => w.retarded * S.fiberAverage c (S.refinementTarget m)
+    | Branch.neutral => 0
+    | Branch.advanced => w.advanced * S.fiberAverage c (S.refinementTarget m)
+
+theorem fiberAverage_add (c d : S.State → ℝ) (r : S.Coarse) :
+    S.fiberAverage (c + d) r = S.fiberAverage c r + S.fiberAverage d r := by
+  simp only [fiberAverage, Pi.add_apply]
+  ring
+
+theorem fiberAverage_smul (a : ℝ) (c : S.State → ℝ) (r : S.Coarse) :
+    S.fiberAverage (a • c) r = a * S.fiberAverage c r := by
+  simp only [fiberAverage, Pi.smul_apply, smul_eq_mul]
+  ring
+
+theorem annealedOperator_add (w : Weights ℝ) (c d : S.State → ℝ) :
+    S.annealedOperator w (c + d) =
+      S.annealedOperator w c + S.annealedOperator w d := by
+  funext m
+  cases hbranch : S.branch m <;>
+    simp [annealedOperator, hbranch, S.fiberAverage_add]
+  all_goals ring
+
+theorem annealedOperator_smul (w : Weights ℝ) (a : ℝ)
+    (c : S.State → ℝ) :
+    S.annealedOperator w (a • c) = a • S.annealedOperator w c := by
+  funext m
+  cases hbranch : S.branch m <;>
+    simp [annealedOperator, hbranch, S.fiberAverage_smul]
+  all_goals ring
+
+/-- The annealed operator as an honest real-linear endomorphism of the finite
+state function space. -/
+def annealedLinearMap (w : Weights ℝ) :
+    (S.State → ℝ) →ₗ[ℝ] (S.State → ℝ) where
+  toFun := S.annealedOperator w
+  map_add' := S.annealedOperator_add w
+  map_smul' := S.annealedOperator_smul w
+
+/-- The adversarial operator is pointwise bounded above by its annealed
+linearization when the two branch weights are nonnegative. -/
+theorem operator_le_annealedOperator
+    (w : Weights ℝ) (c : S.State → ℝ)
+    (hret : 0 ≤ w.retarded) (hadv : 0 ≤ w.advanced) (m : S.State) :
+    S.operator w c m ≤ S.annealedOperator w c m := by
+  cases hbranch : S.branch m with
+  | retarded =>
+      simp only [operator, annealedOperator, hbranch]
+      apply add_le_add (le_refl _)
+      simpa [fiberAverage] using
+        (mul_le_mul_of_nonneg_left (S.fiberMin_le_average c _) hret)
+  | neutral =>
+      simp [operator, annealedOperator, hbranch]
+  | advanced =>
+      simp only [operator, annealedOperator, hbranch]
+      apply add_le_add (le_refl _)
+      simpa [fiberAverage] using
+        (mul_le_mul_of_nonneg_left (S.fiberMin_le_average c _) hadv)
+
 theorem operator_neutral
     (w : Weights ℝ) (c : S.State → ℝ) {m : S.State}
     (hm : S.branch m = Branch.neutral) :

@@ -51,6 +51,16 @@ def defectMass (c : S.State → ℝ) : ℝ := ∑ r, S.fiberDefect c r
 def normalizedDefect (c : S.State → ℝ) : ℝ :=
   S.defectMass c / S.totalMass c
 
+/-- Total excess of the KL operator over a candidate vector.  For a feasible
+vector every summand is nonnegative; for an exact eigenvector it vanishes. -/
+def slackMass (w : Weights ℝ) (c : S.State → ℝ) : ℝ :=
+  ∑ m, (S.operator w c m - c m)
+
+/-- Aggregate KL slack, normalized by the total mass of the candidate vector.
+This is the finite quantity denoted `Sigma(c,lambda)` in the limit argument. -/
+def normalizedSlack (w : Weights ℝ) (c : S.State → ℝ) : ℝ :=
+  S.slackMass w c / S.totalMass c
+
 /-- The value of the averaged, rather than adversarial, operator. -/
 def annealedValue (w : Weights ℝ) : ℝ :=
   w.transport + (w.retarded + w.advanced) / 3
@@ -105,6 +115,40 @@ theorem summed_eigen_equation
       rw [S.transport.sum_comp c, hbranch]
       rfl
 
+/-- Summing the operator, without assuming an exact eigen-equation, expresses
+the aggregate slack using only the total and minimum masses. -/
+theorem slackMass_eq
+    (w : Weights ℝ) (c : S.State → ℝ)
+    (hbranch : ∑ m, S.branchTerm w c m =
+      (w.retarded + w.advanced) * S.minimumMass c) :
+    S.slackMass w c =
+      (w.transport - 1) * S.totalMass c +
+        (w.retarded + w.advanced) * S.minimumMass c := by
+  simp only [slackMass, operator_eq_transport_add_branchTerm]
+  rw [Finset.sum_sub_distrib, Finset.sum_add_distrib, ← Finset.mul_sum,
+    S.transport.sum_comp c, hbranch]
+  simp only [totalMass]
+  ring
+
+/-- The normalized slack of an exact eigenvector is zero. -/
+theorem normalizedSlack_eq_zero
+    (w : Weights ℝ) (c : S.State → ℝ)
+    (hEigen : ∀ m, c m = S.operator w c m) :
+    S.normalizedSlack w c = 0 := by
+  simp only [normalizedSlack, slackMass]
+  have hzero : ∀ m, S.operator w c m - c m = 0 := fun m => by
+    rw [← hEigen m]
+    ring
+  simp [hzero]
+
+/-- Feasibility makes the aggregate (unnormalized) slack nonnegative. -/
+theorem slackMass_nonneg
+    (w : Weights ℝ) (c : S.State → ℝ) (hc : S.Feasible w c) :
+    0 ≤ S.slackMass w c := by
+  apply Finset.sum_nonneg
+  intro m _
+  exact sub_nonneg.mpr (hc.2 m)
+
 /-- Exact finite oscillation law.  In the KL specialization the annealed value
 is a function `s(λ)` and the two non-transport weights are
 `λ^(α-2)` and `λ^(α-1)`, giving
@@ -141,6 +185,34 @@ theorem annealedValue_sub_one_eq_branchWeight_mul_normalizedDefect
     _ = (w.retarded + w.advanced) *
           (S.totalMass c / 3 - S.minimumMass c) := by ring
     _ = (w.retarded + w.advanced) * S.defectMass c := by rw [hdefect]
+
+/-- Exact finite oscillation law with aggregate feasibility slack.  Unlike the
+eigenvector specialization above, this identity applies to any nonzero-mass
+candidate vector. -/
+theorem annealedValue_sub_one_eq_branchWeight_mul_normalizedDefect_add_slack
+    (w : Weights ℝ) (c : S.State → ℝ)
+    (hpartition : ∑ r, S.fiberSum c r = S.totalMass c)
+    (hbranch : ∑ m, S.branchTerm w c m =
+      (w.retarded + w.advanced) * S.minimumMass c)
+    (hmass : S.totalMass c ≠ 0) :
+    annealedValue w - 1 =
+      (w.retarded + w.advanced) * S.normalizedDefect c +
+        S.normalizedSlack w c := by
+  have hdefect := S.defectMass_eq c hpartition
+  have hslack := S.slackMass_eq w c hbranch
+  simp only [annealedValue, normalizedDefect, normalizedSlack]
+  rw [← mul_div_assoc, ← add_div]
+  apply (eq_div_iff hmass).2
+  rw [hslack]
+  calc
+    (w.transport + (w.retarded + w.advanced) / 3 - 1) * S.totalMass c =
+        (w.transport - 1) * S.totalMass c +
+          (w.retarded + w.advanced) * (S.totalMass c / 3) := by ring
+    _ = (w.retarded + w.advanced) * S.defectMass c +
+          ((w.transport - 1) * S.totalMass c +
+            (w.retarded + w.advanced) * S.minimumMass c) := by
+      rw [hdefect]
+      ring
 
 end
 

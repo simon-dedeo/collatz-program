@@ -40,6 +40,7 @@ import CleanLean.KL.PredecessorBase
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
+import CleanLean.KL.TerminalPearson
 import CleanLean.KL.RootLaw
 import CleanLean.KL.Mixer
 import CleanLean.KL.TransportResolvent
@@ -65,6 +66,8 @@ specification theorems during a build.
 #print axioms CleanLean.Collatz.conjecture_of_descent
 #print axioms CleanLean.KL.FiniteSystem.operator_mono
 #print axioms CleanLean.KL.FiniteSystem.fiberMin_le_average
+#print axioms CleanLean.KL.FiniteSystem.annealedLinearMap
+#print axioms CleanLean.KL.FiniteSystem.operator_le_annealedOperator
 #print axioms CleanLean.KL.ResidueSystem.transport_apply
 #print axioms CleanLean.KL.ResidueSystem.transport_residue_modEq
 #print axioms CleanLean.KL.ResidueSystem.card_state
@@ -75,6 +78,7 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.fiber_partition
 #print axioms CleanLean.KL.ResidueSystem.branch_balance
 #print axioms CleanLean.KL.ResidueSystem.concrete_oscillation_identity
+#print axioms CleanLean.KL.ResidueSystem.concrete_oscillation_identity_with_slack
 #print axioms CleanLean.KL.FiniteSystem.feasible_of_checkFeasibleRat
 #print axioms CleanLean.KL.FiniteSystem.ScaledCertificate.feasibleRat_of_check
 #print axioms CleanLean.KL.div_lt_alpha_of_check
@@ -88,9 +92,16 @@ specification theorems during a build.
 #print axioms CleanLean.KL.FiniteSystem.feasible_of_feasibleRat
 #print axioms CleanLean.KL.FiniteSystem.ScaledCertificate.feasibleKL_of_checks
 #print axioms CleanLean.KL.FiniteSystem.annealedValue_sub_one_eq_branchWeight_mul_normalizedDefect
+#print axioms CleanLean.KL.FiniteSystem.annealedValue_sub_one_eq_branchWeight_mul_normalizedDefect_add_slack
+#print axioms CleanLean.KL.FiniteSystem.normalizedSlack_eq_zero
+#print axioms CleanLean.KL.FiniteSystem.normalizedTerminalVariation_bounds
+#print axioms CleanLean.KL.ternaryPearson_bounds
+#print axioms CleanLean.KL.weightedTernaryPearson_bounds
 #print axioms CleanLean.KL.tendsto_two_of_annealed_tendsto_one
 #print axioms CleanLean.KL.klWeightedDefect_mul_tendsto_zero
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_defect
+#print axioms CleanLean.KL.klLambda_tendsto_two_of_defect_and_slack
+#print axioms CleanLean.KL.klLambda_tendsto_two_of_terminalVariation_and_slack
 #print axioms CleanLean.KL.levelFeasible_one
 #print axioms CleanLean.KL.le_criticalLambda_of_feasible
 #print axioms CleanLean.KL.levelFeasible_of_scaledCertificate
