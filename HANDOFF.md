@@ -75,9 +75,24 @@ imply entropy monotonicity. The replacement audit gives 116 certified integer
 intervals for the parent-weighted Pearson energy; all fit the finite,
 polynomial calibration `chi_(k,j)<=6/j^2`. Since `h<=chi`, a uniform
 version would give entropy tail `<=6/J` and `L1` residual `<=sqrt(12/J)`.
-Polynomial energy/entropy control or direct selected-family compactness is now
-the live localization target; the bin cones remain the fallback. Lean
-formalization of the all-level projection/Perron implication has been requested.
+An independently audited research derivation now gives the annealed endpoint an induced code
+`P(E=e)=2^-e`, `H_e(x)=(3x+b_e)/2^e`, with `H(E)=log 4` and
+`sum p_e^2=1/3`. Its collision energy has a symmetric-stochastic-kernel
+renewal with Haar-uniform benchmark increment `2/7`. This does not prove the
+Pearson law: an independently audited sparse-product derivation, with a bounded exact core,
+separates global linear collision growth from local decay generically, and the
+first annealed detail shell has an exact normalized
+squared-`L2` energy ratio `1605/1387>1` in one direction. The live Pearson
+inputs are therefore a selected mean-defect rate and level-uniform
+anti-concentration; the direct alternative is regularity for the audited
+research-side nonlinear renewal-min fixed-point system. The exact finite core
+checks the low-level identities; all-level coding/trace/Perron formalization is
+pending. The bin
+cones remain the fallback. Lean formalization of the all-level
+projection/Perron implication has been requested. Lean commit `9cdcfaf` now
+checks the scalar slack identity, sharp terminal variation/Pearson comparisons,
+and `delta_k,Sigma_k->0 => lambda_k->2`; it does not prove the missing
+trace/Perron floor or localization inputs.
 Around this sits a cluster of proved structure theorems and — equally important — a
 growing **failure ledger** of proof routes that are now provably dead. A
 separate GPT instance runs an independent Lean formalization in `CLEAN_LEAN/`
@@ -88,7 +103,7 @@ and the two collaboration channels current.
 ## 1. Read these, in this order
 
 1. `README.md` — the **living map**: "What we are trying to prove right now,"
-   Headline results, "Current proof strategy" (LIVE bets, ranked + the FAILURE
+   Headline results, "Current proof strategy" (LIVE bets, grouped + the FAILURE
    LEDGER), and the Credit/Bibliography. This is the single source of truth for
    *state*; keep it fresh.
 2. `docs/STRATEGY.md` — the master memo (constraints, the machine-graded space,
@@ -126,8 +141,9 @@ and the two collaboration channels current.
   `k=19` totals and headline transitions. Every one of 756 tested diagonal
   tails is nonincreasing, but pointwise contraction at `t=.2` is false. The
   exact bin audit fully classifies the finite burn-in at all seven thresholds.
-  A floating `k=20` audit provisionally exceeds every fitted exact-data margin but no
-  qualitative cone or minimal start. The exact martingale audit adds 116
+  A floating `k=20` audit provisionally exceeds every fitted exact-data margin
+  while preserving all seven qualitative cones at the same starts. The exact
+  martingale audit adds 116
   SHA-pinned rational increments; all 108 rows at `j>=2` fit
   `(1/2)(9/10)^j`, as do 18 floating `k=20` rows. Fixed-depth increments rise
   while fixed-terminal-offset increments fall. The entropy audit adds 116
@@ -141,12 +157,20 @@ and the two collaboration channels current.
   feasible family whose aggregate normalized slack vanishes. The exact
   Pearson audit adds 116 certified intervals, all below the post-hoc
   `6/j^2` calibration; its uniform analogue would imply relative compactness.
-  The live theorem target is polynomial energy/entropy control consistent with
-  the annealed floor, or direct compactness for a genuinely selected critical/aggregate-
-  slack-vanishing family. The cone route remains a fallback, with rising `.05`
-  immigration as its exposed negative signal. See
-  `docs/notes/multiscale-genealogy.md`; do not call its aggregates lower-level
-  KL vectors or extrapolate its finite trend.
+  The audited research-side endpoint block coding is Shannon-supercritical and Renyi-2
+  critical. Its stochastic collision renewal is a useful new pair-carry
+  problem, but audited no-gos show that generic global `L2` growth and a
+  uniform unweighted one-step scalar contraction for the shell-response
+  operator do not supply local Pearson decay. The live theorem target is
+  a mean-defect rate plus level-uniform anti-concentration, or nonlinear renewal-min regularity for a genuinely
+  selected critical/aggregate-slack-vanishing family. The cone route remains a
+  fallback, with rising `.05` immigration as its exposed negative signal. See
+  `docs/notes/multiscale-genealogy.md` and
+  `docs/notes/annealed-critical-coding.md`; do not call the genealogy
+  aggregates lower-level KL vectors or extrapolate their finite trend.
+  Lean commit `9cdcfaf` kernel-checks the scalar terminal/slack endpoint bridge;
+  trace intertwining, Perron uniqueness, and the exact low-marginal floor remain
+  open.
 - **Proved structure theorems:** KL method = adversarial min-plus transfer
   operator on ℤ₃ (base ×4 = 3-adic odometer); Diaconis–Fulman carries spectrum
   (their open question); Antihydra population-rarity; local renormalization at
@@ -161,19 +185,20 @@ and the two collaboration channels current.
   solenoid→hidden-RH hope.
 - **Successor audit correction to the forward agenda:** the KL advanced-term
   termination bridge has now been replaced, D1--D3 are checked, and the
-  predecessor-count exponent wrapper is complete. `verify_termination_obstruction.py` exactly
+  predecessor-count exponent wrapper is complete.
+  `experiments/kl/verify_termination_obstruction.py` exactly
   checks a legal positive-shift transport return that invalidates the paper's
   derivation of strict descent (3.2); it is not a repeatable lasso or a disproof of
-  termination. `verify_all_three_deletion.py` exactly checks the independent
+  termination. `experiments/kl/verify_all_three_deletion.py` exactly checks the independent
   nonempty-minimum failure at depth eleven. CLEAN_LEAN independently checks it
   and proves the abstract branch-arrival compactness theorem.
-  `verify_split_invariant_counterexample.py` shows the existing (3.4)
+  `experiments/kl/verify_split_invariant_counterexample.py` shows the existing (3.4)
   invariant is insufficient to justify the earlier backjump proposal after
   later splits. The primary replacement builds the universal record-admissible
   history forest, retains every complete add-only policy without a higher
   repeat, and compiles the finite menu into one outer minimum. Raw `phi`
   minimizers prove functional coverage; every lift dominates the coefficient
-  fiber minimum. `verify_two_phase_small_levels.py` reproduces the published
+  fiber minimum. `experiments/kl/verify_two_phase_small_levels.py` reproduces the published
   `k=2,3,4` literal maxima and exhibits why marks must be occurrence-indexed:
   the identical `74@(-7+5*alpha)` label is bad on one exact path and live on
   another. Lean commit `3d6a186` completes the all-`k` well-founded
@@ -184,13 +209,13 @@ and the two collaboration channels current.
   twice-audited, non-kernel-checked fallback gives an explicit all-`k` word-depth
   bound in `docs/notes/kl-explicit-history-bound.md`. The later counting audit
   also exactly refutes printed equation (2.1) at `k=2,m=7,y=1`; run
-  `verify_equation_2_1_obstruction.py`. Commit `58f0ef8` checks its exact
+  `experiments/kl/verify_equation_2_1_obstruction.py`. Commit `58f0ef8` checks its exact
   targetwise `+1` replacement and ordinary-count transfer; `331ff48` then
   defines the statewise infimum and its P1/P2 API, and `729f5fa` proves its
   all-`k` D1--D3/base-system theorem. For arbitrary
   possible cycle targets, transfer through a sufficiently large nonperiodic
   `2^r a ≡ 2 (mod 3)` rather than assuming the known cycle is unique.
-  `verify_predecessor_base_inequalities.py` independently checks the exact
+  `experiments/kl/verify_predecessor_base_inequalities.py` independently checks the exact
   targetwise D1--D3 partitions, stronger `+3,+3,+2` constants, and a
   periodic-target regression in 660 bounded target-scale cases.
   Separately, the analytic-
@@ -211,11 +236,13 @@ and the two collaboration channels current.
   note; the DP tables themselves are unchanged. The inherited arctic proof also had a
   reducible-matrix slope gap. An elementary all-dimension weighted-walk pumping
   candidate replaces it, but remains provisional until Lean. The calibrated
-  live agenda is now: (1) prove polynomial Pearson/entropy control consistent
-  with the annealed floor, or direct selected-family compactness—or falsify that possibility—while
-  retaining the expanding-window cone and direct cofinal
-  feasibility as the fallback and scaling the completed `k=12` Lean import to
-  higher records; (2) kernelize and adversarially check the arctic
+  live agenda is now: (1) for the KL limit, prove a terminal mean-defect rate
+  plus level-uniform anti-concentration, or regularity for the audited
+  research-side nonlinear renewal-min system—or falsify those possibilities.
+  Retain the finite polynomial Pearson envelope as the quantitative target and
+  the expanding-window cone/direct cofinal-feasibility routes as fallbacks;
+  separately scale the completed `k=12` Lean import to higher records;
+  (2) kernelize and adversarially check the arctic
   Theorems A/B; (3) mixed-radix anti-concentration; (4) other non-
   autonomous/arithmetic mechanisms for the KL limit; (5) adelic/quantum-
   channel reframing; (6) any nonlinear-pressure salvage only after an exact
@@ -288,9 +315,9 @@ A separate GPT instance formalizes results in `CLEAN_LEAN/` (sorry-free Lean 4
 - `docs/FOR_CLEAN_LEAN.md` — you → Lean side. Keep current: certificate
   formats, exact statements with pinned conventions, constants it needs.
 - `CLEAN_LEAN/FOR_FABLE.md` — Lean side → you. Poll it; the user may also drop
-  requests there. Writing back into it is authorized. (The name is legacy —
-  "Fable" was the previous driver; treat it as "notes to/from the research
-  driver.")
+  requests there. Treat this file as read-only from the research side. (The
+  name is legacy—"Fable" was the previous driver; read it as notes to the
+  research driver.)
 The Lean side has kernel-checked the oscillation identity, the R′ reduction,
 the terminal-potential/Chernoff chain, the pressure-row checker, the generated
 payload's 2,187 inequalities and all-length mass bounds, equality of its edge
@@ -325,6 +352,11 @@ feasible-sequence-to-almost-linear implication. The finite mathematical bridge
 is closed. Commits `4c7fcc3`/`659dc81` close the first portable large-record
 checkpoint at `k=12`; the live frontier is the all-level limit and scalable
 higher-record integration.
+Commit `9cdcfaf` additionally defines the annealed linear operator and
+normalized slack, proves the exact scalar slack/oscillation identity and sharp
+terminal variation/Pearson bounds, and derives `lambda_k->2` from vanishing
+defect plus slack on `1<=lambda_k<=2`. It leaves the all-level trace
+intertwining, Perron uniqueness, and exact `r_2,r_3,Delta_2` floor open.
 The completed branch-checkpoint design and provenance-scope warning are in
 `docs/FOR_CLEAN_LEAN.md` replies 16--20.
 On the separate pressure lane, generated rows, S1--S4
@@ -345,8 +377,15 @@ continue to fall, while the `.05` offsets rise. The direct martingale and
 floating-log entropy fits are valid finite diagnostics, but the audited
 annealed-floor research proof now shows that both displayed geometric constants fail for every
 localizing critical or aggregate-slack-vanishing endpoint family. The live
-replacement is the exact finite Pearson calibration `chi<=6/j^2`, or a direct
-compactness theorem; neither is proved all-level. Exact tightened feasibility
+replacement is the exact finite Pearson calibration `chi<=6/j^2`. The audited research-side
+annealed block code is Renyi-2 critical and has a stochastic collision
+renewal, but the audited sparse-product example shows that global collision
+growth does not generically imply local Pearson decay; the checker includes
+its bounded finite core and an exact normalized
+squared-`L2` detail-energy ratio `1605/1387>1`. The precise live Pearson inputs
+are a mean-defect rate plus level-uniform anti-concentration, or regularity for
+the audited research-side nonlinear renewal-min system;
+neither is proved all-level. Exact tightened feasibility
 also refutes depth monotonicity on the full feasible cone. Any surviving
 entropy theorem is selection-specific, and the pressure/KL bridge remains open.
 
@@ -377,14 +416,18 @@ entropy theorem is selection-specific, and the pressure/KL bridge remains open.
 5. Pick the top LIVE bet you can advance. The immediate mathematical target is
    a cofinal exact feasible sequence with `λ→2`, or the pressure/localization
    mechanism that supplies one. The current localization seam is
-   polynomial Pearson/entropy control consistent with the annealed floor (the
-   exact finite candidate is `chi<=6/j^2`) or direct relative compactness for selected
-   critical or normalized-slack-vanishing densities. Do not promote the fitted
+   a terminal mean-defect rate plus level-uniform anti-concentration consistent
+   with the exact finite `chi<=6/j^2` candidate, or regularity for the audited
+   research-side nonlinear renewal-min system of selected critical or
+   normalized-slack-vanishing densities. The induced
+   annealed code and its exact limitations are in
+   `docs/notes/annealed-critical-coding.md`. Do not promote the fitted
    geometric martingale or entropy constants: the audited annealed-floor
-   argument refutes both as endpoint laws in `1<lambda_k<=2`, with Lean
-   formalization pending. Feasibility-only entropy monotonicity is also refuted, so
+   argument refutes both as endpoint laws in `1<lambda_k<=2`. The scalar
+   slack/terminal endpoint bridge is kernel-checked in `9cdcfaf`; trace/Perron
+   formalization remains pending. Feasibility-only entropy monotonicity is also refuted, so
    any weaker entropy endpoint needs an explicit selection hypothesis. The expanding-window cone with
-   terminal-offset defect/immigration decay is the fallback. Both are described in
+   terminal-offset defect/immigration decay is the fallback and is described in
    `docs/notes/multiscale-genealogy.md`. Kernel/adversarial review of the repaired
    arctic proof is the bounded side target; mixed-radix has three named gaps.
    Do not

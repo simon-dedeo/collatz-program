@@ -722,8 +722,8 @@ family whose aggregate normalized slack vanishes. This does **not** refute
 relative `L1` compactness, a looser summable law, polynomial entropy control,
 or a direct selected-family endpoint argument.
 
-A replacement diagnostic avoids logarithms and matches the slower scale seen
-in exploratory annealed profiles. For one parent with children
+A replacement diagnostic avoids logarithms and supplies a conservative finite
+scale for the selected records. For one parent with children
 `x_0,x_1,x_2`, put
 
 ```text
@@ -779,6 +779,21 @@ certified intervals separate all three observed trends: they decrease within
 every level, rise at every shared fixed depth, and fall at every shared fixed
 terminal offset.
 
+The endpoint audit has since exposed a relevant global collision mechanism,
+but not an explanation of those local exploratory profiles. Resolving the
+`lambda=2` annealed isometric return gives
+blocks `P(E=e)=2^-e`, `H_e(x)=(3x+b_e)/2^e`, with Shannon entropy
+`log 4` but Renyi-2 mass exactly `1/3`. Its global collision energy has a
+symmetric-stochastic-kernel renewal, but an independently audited sparse-product
+derivation with a bounded exact core shows that even `Q_j=Theta(j)` does not
+generically imply local Pearson decay. The first
+annealed detail shell also has normalized squared-`L2` energy ratio
+`1605/1387>1` in one exact direction. Late numerical windows are compatible with a mixed
+exponential/power decay, so `6/j^2` is an upper-envelope candidate, not a
+claimed annealed asymptotic. See
+`docs/notes/annealed-critical-coding.md` and run
+`experiments/kl/verify_annealed_critical_coding.py`.
+
 If the constant-six law held uniformly for a suitable selected all-level
 family, then `h<=chi` and `sum_(j>J)j^-2<=1/J` would give
 
@@ -787,9 +802,21 @@ sum_(j>J) h_(k,j) <= 6/J,
 ||f_k-E[f_k|F_J]||_1 <= sqrt(12/J).
 ```
 
-This is the current theorem target, alongside direct relative compactness. Its
-polynomial rate is intentionally weaker than the structurally impossible
-geometric fits.
+For a ternary fiber, putting `a=1/3-min p` gives the sharp bounds
+
+```text
+(9/2)a^2 <= chi(p) <= 18a^2 <= 6a.
+```
+
+Thus the terminal Pearson route needs both a selected mean-defect rate such as
+`E[a]=O(1/k)` and the level-uniform anti-concentration estimate
+`E[a^2]<=K(E[a])^2`, with `K` independent of the level. Qualitative endpoint
+convergence only needs `E[a]->0` for exact critical vectors; merely feasible
+vectors also need aggregate normalized slack tending to zero. The direct alternative is
+regularity for the audited research-side nonlinear renewal-min fixed-point system derived in
+the critical-coding note. Neither is proved. The polynomial rate remains a
+deliberately conservative finite target rather than a consequence of the
+annealed collision identity.
 
 ### 4.2 Weighted-bin fallback
 

@@ -21,7 +21,8 @@
 > the eight `k=12,...,19` feasible subeigenvectors are nonincreasing, with 619
 > strict nonsaturated decreases. Rational weighted-bin cones close exactly
 > after exactly classified finite burn-ins; the floating `k=20` audit then
-> exceeds every fitted margin but no qualitative cone or minimal start. The
+> exceeds every fitted margin while preserving all seven qualitative cones at
+> the same starts. The
 > `.2,.3` immigration signal is favorable but the `.05` offsets rise. All 116
 > exact density-martingale increments fit a post-hoc summable depth envelope
 > from `j=2`, and floating `k=20` does too. The selected entropy profiles fit a parallel post-hoc
@@ -33,11 +34,25 @@
 > vanishing-slack laws (`h_1>6431/39690>3/20` and
 > `Delta_2=622/1533>81/200`). The exact replacement audit certifies the finite
 > polynomial calibration `chi_(k,j)<=6/j^2` on all 116 selected rows.
-> Polynomial energy/entropy control or direct selected-family compactness is the
-> live question. Expanding-window contraction plus terminal-offset
+> An independently audited research derivation gives the endpoint code
+> `P(E=e)=2^-e` and
+> `H_e(x)=(3x+b_e)/2^e`, with Shannon entropy `log 4` and Renyi-2 mass
+> `1/3`. Its global collision renewal has Haar-uniform benchmark increment
+> `2/7`, but the audited
+> product-law counterexample and an exact normalized squared-`L2`
+> detail-energy ratio `1605/1387>1` rule out generic
+> global-`L2`/scalar-contraction shortcuts to the local Pearson law. A terminal
+> mean-defect rate plus level-uniform anti-concentration, or regularity for the
+> audited research-side nonlinear renewal-min system, is the live
+> selected-family question.
+> Expanding-window contraction plus terminal-offset
 > immigration/defect decay is the fallback, not
 > another assertion of the false pointwise bound. See
-> `docs/notes/multiscale-genealogy.md`.
+> `docs/notes/multiscale-genealogy.md` and
+> `docs/notes/annealed-critical-coding.md`.
+> Lean commit `9cdcfaf` checks the scalar slack identity, terminal
+> variation/Pearson comparisons, and defect-plus-slack endpoint bridge; the
+> trace/Perron floor and selection-specific inputs remain open.
 
 > **ERRATA & external verification (2026-07-20, from independent GPT review +
 > our follow-up checks — see gpt_sol_feedback.txt):**
@@ -115,9 +130,14 @@ attack surface.
 non-autonomous pressure/localization statement that yields one. In parallel,
 scale the completed chunked, kernel-reduced `k=12` Lean certificate architecture
 toward the larger `k=15–19` sidecars, culminating in 2.9 GB at `k=19`. On localization, pursue
-polynomial Pearson/entropy control consistent with the annealed floor, or direct compactness;
-the two fitted geometric constants are now closed at research-proof level,
-with Lean formalization requested.
+a terminal mean-defect rate plus level-uniform anti-concentration for the
+finite polynomial Pearson target, or
+regularity of the audited research-side nonlinear renewal-min system. Renyi-critical collision
+growth and a uniform unweighted one-step scalar contraction for the linear
+shell-response operator are now calibrated no-gos for this generic
+implication. The two fitted geometric constants are closed at research-proof
+level. Commit `9cdcfaf` kernel-checks the scalar endpoint bridge; trace/Perron
+formalization remains open.
 
 ---
 
@@ -255,8 +275,13 @@ discrepancy directly.
    displayed geometric constants fail as endpoint laws. The replacement exact
    Pearson audit gives 116 certified intervals, all below `6/j^2`; a uniform
    selected-family theorem would imply entropy tail `<=6/J` and `L1` residual
-   `<=sqrt(12/J)`. No such theorem or coherent selection is known. The
-   cone/immigration route remains the fallback.
+   `<=sqrt(12/J)`. The audited research-side annealed block coding is Renyi-2
+   critical, but the audited no-gos separate global collision growth and scalar detail energy from
+   the needed local law. The precise live Pearson inputs are a mean-defect rate
+   plus level-uniform anti-concentration, or nonlinear renewal-min regularity.
+   No such theorem or
+   coherent selection is known. The cone/immigration route remains the
+   fallback.
 
 ### PQ-2. Antihydra rarity + discrepancy theorem (fuse #2 and #3) — *computation + proof sketch*
 1. **Lottery ticket withdrawn.** The unconditioned maximum is exactly `m_k=k`;

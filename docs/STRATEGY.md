@@ -43,8 +43,8 @@ sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 > is favorable in mass—zero increases among 756 tested diagonal tail rows—but
 > is finite evidence on `k=12,...,19`, not a localization theorem. The rational
 > common-weight search exactly classifies the finite burn-in at all seven
-> thresholds. The floating `k=20` audit breaks every fitted margin but
-> no qualitative cone or minimal start. Immigration improves at `t=.2,.3` but
+> thresholds. The floating `k=20` audit breaks every fitted margin while
+> preserving all seven qualitative cones at the same starts. Immigration improves at `t=.2,.3` but
 > rises at `.05`. A direct exact audit now computes 116 density-martingale
 > increments; all 108 at `j>=2` fit the post-hoc summable envelope
 > `(1/2)(9/10)^j` from depth two, as does floating `k=20`. A uniform version
@@ -58,10 +58,25 @@ sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 > `h_1>6431/39690>3/20` also closes the displayed entropy fit as an endpoint
 > law. The replacement exact audit puts all 116 selected Pearson-energy rows
 > below the finite calibration `chi_(k,j)<=6/j^2`. Polynomial energy/entropy
-> control consistent with the annealed floor, or direct selected-family
-> compactness, is the live seam; the expanding-window immigration/defect
-> recurrence is the fallback. See
-> `docs/notes/multiscale-genealogy.md`.
+> control remains the quantitative target, but the endpoint mechanism is now
+> more sharply calibrated. An independently audited research derivation resolves
+> the annealed isometric return into the block code
+> `P(E=e)=2^-e`, `H_e(x)=(3x+b_e)/2^e`, with Shannon
+> entropy `log 4` and Renyi-2 mass `1/3`. Its collision energy has an exact
+> symmetric stochastic alignment-kernel renewal with Haar-uniform benchmark
+> increment `2/7`.
+> An independently audited sparse-product derivation, with a bounded exact
+> core, shows that even global `Q_j=Theta(j)` does not generically imply local
+> Pearson decay, and the first annealed detail shell has normalized
+> squared-`L2` energy ratio `1605/1387>1` in one exact direction. The live
+> selected-family Pearson inputs are therefore a mean-defect rate plus
+> level-uniform anti-concentration, or regularity for the audited research-side
+> nonlinear renewal-min system; the expanding-window immigration/defect
+> recurrence is the fallback. See `docs/notes/multiscale-genealogy.md` and
+> `docs/notes/annealed-critical-coding.md`.
+> Lean commit `9cdcfaf` now kernel-checks the scalar slack identity, terminal
+> variation/Pearson bounds, and the defect-plus-slack endpoint bridge. The
+> all-level trace/Perron floor and both selection-specific inputs remain open.
 
 ## 0. Ground rules
 
@@ -391,11 +406,15 @@ The selected entropy profiles also fit a post-hoc geometric envelope, but
 feasibility-only depth monotonicity is exactly refuted at `k=3`. An audited
 annealed-floor research proof additionally shows that neither fitted geometric constant can be
 the all-level critical/vanishing-slack law. The exact replacement diagnostic
-certifies `chi<=6/j^2` on all 116 selected rows; the live problem is to prove
-polynomial energy/entropy control consistent with the annealed floor, or direct
-compactness for an all-level selected critical or normalized-slack-vanishing
-family. The cone/immigration theorem is now the fallback, not another finite
-fit.
+certifies `chi<=6/j^2` on all 116 selected rows. The audited research-side endpoint coding is
+Renyi-2 critical and has a stochastic affine collision renewal, but the audited
+no-gos separate global collision growth and scalar detail energy from the
+needed local Pearson law. The live Pearson inputs are a mean-defect rate plus
+level-uniform anti-concentration, or regularity for the nonlinear renewal-min system of an
+all-level selected critical or normalized-slack-vanishing family. The
+cone/immigration theorem is now the fallback, not another finite fit.
+Commit `9cdcfaf` checks the scalar terminal/slack endpoint implication but not
+the trace/Perron floor, defect rate, anti-concentration, or nonlinear regularity.
 Also top-ranked (SMELL.md §1): Mahler 1968 Z-numbers ↔ Antihydra rarity
 theorem (golden-ratio counting via no-11 subshift); Antihydra as a robust-
 queueing/discrepancy problem, with the former unconditioned finite-computation

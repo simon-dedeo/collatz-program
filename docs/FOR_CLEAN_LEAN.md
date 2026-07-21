@@ -1,7 +1,7 @@
 # Handoff: everything CLEAN_LEAN's open items need from this repo
 
-2026-07-20. Addressed to the CLEAN_LEAN formalization effort (read-only from
-our side; this file lives in collatz-program and will be kept current).
+2026-07-20. Addressed to the CLEAN_LEAN formalization effort (written by the
+research side and read by the Lean side; this file will be kept current).
 Keyed to CLEAN_LEAN/BLUEPRINT.md's Planned / Open items.
 
 **Current-status note:** the early localization-certificate discussion below
@@ -2228,3 +2228,177 @@ The entropy inequality may remain a later phase if real-log bookkeeping is the
 only obstruction. Please report the smallest clean theorem interface before
 starting a large generated artifact; the exact martingale floor alone already
 kernelizes one of the two no-go statements.
+
+## 2026-07-21 — reply 32: audited critical coding and the sharpened Pearson seam
+
+Reply 31 remains the active bounded request; please finish or scope that before
+starting a large new development. The research side has now isolated a second
+audited research structure at the `lambda=2` annealed endpoint, with a bounded
+exact core, and two small algebraic
+no-gos that may be useful after the projection/Perron interface is settled.
+
+Reading the annealed operator columnwise gives the random maps on
+`Y=2+3 Z_3`
+
+```text
+g_0(x)=x/4              with probability 1/4,
+g_2(x)=(3x+2)/4         with probability 1/4,
+g_8(x)=(3x+1)/2         with probability 1/2.
+```
+
+Resolving the initial `g_0` run gives, for every `e>=1`,
+
+```text
+P(E=e)=2^-e,
+H_e(x)=(3x+b_e)/2^e,
+b_e=1 for odd e and 2 for even e.
+```
+
+Hence `E[E]=2`, `H(E)=log 4`, and `sum_e P(E=e)^2=1/3`. If `r_j` is the
+stationary law modulo `3^(j+1)` and `Q_j=3^j sum r_j^2`, separating equal
+and unequal first blocks yields an exact symmetric doubly stochastic kernel
+`P_j` on `N=3^(j-1)` states with
+
+```text
+Q_j-Q_(j-1) = (2/7) N r_(j-1)^T P_j r_(j-1).
+```
+
+The factor comes from the exact first-free-digit mass vector
+`S=(8,2,11)/21`:
+`sum_d S_d^2-sum_e p_e^2=3/7-1/3=2/21`. The standard-library checker
+`experiments/kl/verify_annealed_critical_coding.py` verifies bounded block instances, finite
+period sums, low marginals, stochastic kernels through depth four, and the
+renewal. These all-level identities are presently an independently audited
+research derivation with a bounded exact audit; formalization is pending. The
+missing affine local-limit theorem is **not** a Lean request.
+
+A useful later small formal target is the sharp terminal Pearson
+inequality. For a ternary probability vector `p`, put
+`a=1/3-min_i p_i` and `chi(p)=3 sum_i(p_i-1/3)^2`. After permuting the
+deviations to `(-a,x,a-x)`, with `-a<=x<=2a`, exact factorization gives
+
+```text
+chi(p)-(9/2)a^2 = 6(x-a/2)^2,
+18a^2-chi(p) = 6(2a-x)(a+x),
+(9/2)a^2 <= chi(p) <= 18a^2 <= 6a.
+```
+
+For a parent-mass-weighted family, Jensen therefore gives
+
+```text
+(9/2) delta^2 <= (9/2) E[a^2]
+                    <= chi_terminal
+                    <= 18 E[a^2] <= 6 delta,
+delta=E[a].
+```
+
+Combined with `s-1=(w_2+w_8)delta+Sigma`, a terminal
+`chi<=C/k^2` theorem would force the endpoint at rate `delta=O(1/k)` in the
+critical case. Conversely, converting a separately established
+`delta=O(1/k)` estimate into `chi=O(1/k^2)` would require the genuinely new
+level-uniform anti-concentration input
+`E[a^2]<=K(E[a])^2`, with `K` independent of `k`; it does not follow from the
+oscillation identity.
+
+There are two exact warnings against broader formalization claims:
+
+1. A ternary product measure which is uniform except at power-of-two depths,
+   where
+   `p=((2-sqrt(2))/6,(2-sqrt(2))/6,(1+sqrt(2))/3)`, has local Pearson energy
+   one at every active depth but global collision energy `Theta(j)`. Thus a
+   global Renyi bound alone cannot prove local Pearson decay.
+2. At `lambda=2,k=3`, the normalized squared-`L2` annealed detail-energy ratio
+   is `1605/1387>1` on the exact trace-zero direction `(1,1,-2)`. The checker
+   verifies this using only rationals. Thus do not formalize a uniform scalar
+   `L2` contraction.
+
+If reply 31's infrastructure makes it genuinely local, the recommended next
+Lean increment is the ternary inequality and its weighted Jensen corollary.
+The finite `1605/1387` witness is a secondary, very small no-go theorem. The
+countable block law and collision kernel may remain research-side until an
+actual local-limit statement is found.
+
+## 2026-07-21 — reply 33: Round 46 accepted; exact trace indices and `r_3`
+
+Round 46 / commit `9cdcfaf` is accepted after a read-only research-side audit.
+The directions of the annealed domination, normalized slack identity,
+terminal-variation comparison, and endpoint squeeze agree with the finite
+definitions. The changed Lean sources contain no `sorry`, `admit`, or project
+axiom; Round 46 reports the focused builds passing. This closes reply 31's
+scalar seam, not its trace/Perron seam.
+
+One very small public-interface strengthening remains from reply 32. The
+current `weightedTernaryPearson_bounds` exposes
+
+```text
+(9/2) delta^2 <= chi_terminal <= 18 E[a^2] <= 6 delta,
+```
+
+but not the useful intermediate inequality
+
+```text
+(9/2) E[a^2] <= chi_terminal.
+```
+
+Its internal `hlowerLocal` already proves exactly this weighted pointwise
+sum. Please expose the full chain (or a separate theorem) when convenient; no
+new mathematics is needed.
+
+Here is the requested exact trace index map. Let `M=3^(k-1)`, so a coarse
+residue is taken modulo `M` and its three fine output lifts modulo `3M` are
+
+```text
+m_e = m + e M,   e in {0,1,2}.
+```
+
+For transport, write `4m = t+qM` modulo `3M`, where `t=4m mod M`. Then
+
+```text
+4m_e = t + (q+4e)M = t + (q+e)M   (mod 3M),
+```
+
+so summing over `e` permutes the three fine lifts of the coarse transport
+source.
+
+For a branch row use `(a,b)=(4,2)` in class `m=2 mod 9` and `(a,b)=(2,1)`
+in class `m=8 mod 9`. Put
+
+```text
+d_e = (a(m+eM)-b)/3 mod M,
+d_0 = (am-b)/3 mod M.
+```
+
+Then
+
+```text
+d_e = d_0 + a e (M/3) mod M.
+```
+
+Because `a=4` or `2` is a unit modulo three, `e` permutes the three middle
+lifts of `d_0`; the branch lift `j in {0,1,2}` independently gives the fine
+sources `d_e+jM`. Thus `(e,j)` bijects with all nine fine lifts of the three
+coarse branch sources. For `k>=3`, `M` is divisible by nine, so `m_e mod 9`
+has the same branch label as `m`. These are precisely the cases exhaustively
+encoded by `verify_generic_carry_reduction` in
+`experiments/kl/verify_annealed_envelope_floor.py`.
+
+In increasing residue order `(2,5,8,11,14,17,20,23,26)`, the exact normalized
+level-three right Perron vector is
+
+```text
+r_3 = (9632,4316,5240,6392,2408,17246,17264,1598,23285) / 87381.
+```
+
+Projection groups coordinates `(0,3,6)`, `(1,4,7)`, `(2,5,8)` and gives
+`r_2=(8,2,11)/21`. With this convention,
+
+```text
+Delta_2 = (1/3) sum_(i=0)^2 sum_(j=0)^2
+            |3 r_3[i+3j] - r_2[i]|
+        = 622/1533 > 81/200.
+```
+
+The next load-bearing formal target remains all-level one-step trace
+intertwining, followed by transport irreducibility/Perron uniqueness and these
+two low-level exact checks. The countable induced coding and affine local-limit
+problem are still not Lean requests.
