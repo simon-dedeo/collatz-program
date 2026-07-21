@@ -2,6 +2,7 @@
 #SBATCH --job-name=kc-nonuniform
 #SBATCH --account=mth260010p
 #SBATCH --partition=RM
+#SBATCH --qos=low
 #SBATCH --nodes=1
 #SBATCH --ntasks=64
 #SBATCH --cpus-per-task=1
