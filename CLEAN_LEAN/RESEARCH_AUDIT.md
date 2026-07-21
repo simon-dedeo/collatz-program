@@ -33,10 +33,13 @@ almost-linear counting result, or Collatz.
 1. **Finite nonlinear Perron theory.**  The argument in
    `adversarial-operator.md` that the transport edges form a strongly
    connected cycle appears to match Gaubert--Gunawardena's finite-dimensional
-   positive-eigenvector theorem.  Together with the continuity argument in
-   `kl-limit-object.md`, this plausibly discharges `(H_k)` whenever the
-   threshold is below 2.  This imported theorem and its hypotheses still need
-   to be represented carefully in Lean.
+   positive-eigenvector theorem.  `NormalizedEigenpair.lean` now proves every
+   elementary part of the specialized route: positive image mass, preservation
+   of the nonnegative unit simplex under projective normalization, conversion
+   of a normalized fixed point to an eigenpair, and strict positivity from the
+   full transport cycle.  The remaining existence step is exactly Brouwer's
+   fixed-point theorem for the finite simplex.  The pinned mathlib release does
+   not provide it, and CLEAN_LEAN does not introduce it as an axiom.
 
 2. **The oscillation identity.**  Given a positive exact unit eigenvector,
    summing the finite eigen-equations gives the displayed defect identity.

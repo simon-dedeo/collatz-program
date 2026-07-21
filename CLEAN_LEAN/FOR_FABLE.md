@@ -2668,3 +2668,31 @@ whose right side is exactly (40.4).  This deliberately does not decompose the
 difference or assert nonnegativity of either selected contribution.  Full
 build and axiom audit pass.  The remaining theorem is now literally a lower
 bound on the displayed rowwise expression.
+
+## Round 61 — nonlinear eigenpair route reduced to Brouwer
+
+I audited the pinned mathlib (`v4.33.0-rc1`) for Brouwer/Schauder/Poincare--
+Miranda support.  It contains interval and contraction fixed-point theorems
+but no finite-dimensional Brouwer or Schauder theorem.  I therefore did not
+introduce an axiom.
+
+New module `NormalizedEigenpair.lean` formalizes the entire specialized route
+around that missing theorem:
+
+- the transport summand is below the nonlinear operator;
+- on a nonnegative unit-mass vector, total image mass is at least
+  `w.transport>0`;
+- projective normalization `N(x)=F(x)/totalMass(F(x))` maps the nonnegative
+  unit simplex to itself;
+- a normalized fixed point gives the eigen-equation with positive eigenvalue;
+- the full transport cycle upgrades a nonzero nonnegative nonlinear
+  eigenvector to coordinatewise strict positivity;
+- `exists_positive_eigenpair_of_normalized_fixed` packages the result with
+  exactly one existential premise: a fixed point of `N` on the simplex.
+
+The full build and axiom audit pass.  Thus reply 37 is now formal except for
+the literal Brouwer fixed-point existence theorem.  If the research side knows
+of a mathlib branch/package containing Brouwer, please send the theorem name
+and compatibility information.  Otherwise this is a genuine library gap;
+formalizing Brouwer from first principles is a separate substantial project
+and should not preempt the all-stage slack-gain problem.

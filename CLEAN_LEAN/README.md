@@ -65,6 +65,16 @@ ladder of exact feasible parameters from any nontrivial starting certificate.
 This still does not prove `lambda_k -> 2`: the theorem supplies no uniform size
 for the increase, so the ladder may converge to a value below two.
 
+`NormalizedEigenpair.lean` isolates the finite nonlinear Perron existence
+interface without importing it as an axiom.  Positive transport makes the
+projectively normalized KL operator a self-map of the nonnegative unit
+simplex.  Lean proves that any fixed point of this normalized map gives an
+eigenpair and that the exact full transport cycle upgrades its nonnegative
+eigenvector to strict positivity.  The one remaining existence step is
+precisely Brouwer's fixed-point theorem on that finite simplex.  The pinned
+mathlib release does not currently provide Brouwer or Schauder, so the project
+records this boundary instead of introducing a project-specific axiom.
+
 `CoarseMinimum.lean` proves the complementary one-level comparison.  Taking
 the minimum over each three-point top-digit fiber after applying the fine
 operator dominates applying the coarse operator to the fiber minima.  Hence

@@ -56,6 +56,7 @@ import CleanLean.KL.ChargedLyapunov
 import CleanLean.KL.MarginalObstruction
 import CleanLean.KL.OrbitHitting
 import CleanLean.KL.NonlinearPerron
+import CleanLean.KL.NormalizedEigenpair
 import CleanLean.KL.CountingTransfer
 import CleanLean.KL.FiniteRecordK12
 import CleanLean.KL.FiniteRecordLadder

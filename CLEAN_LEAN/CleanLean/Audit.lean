@@ -39,6 +39,7 @@ import CleanLean.KL.MarkedPruning
 import CleanLean.KL.OccurrencePruning
 import CleanLean.KL.TwoPhaseWitness
 import CleanLean.KL.HistoryWitness
+import CleanLean.KL.NormalizedEigenpair
 import CleanLean.KL.PredecessorTransfer
 import CleanLean.KL.KLPredecessorFunctions
 import CleanLean.KL.PredecessorBase
@@ -333,6 +334,13 @@ specification theorems during a build.
 #print axioms CleanLean.KL.no_orbitHit_before_precision
 #print axioms CleanLean.KL.positiveEigenvalue_unique
 #print axioms CleanLean.KL.one_le_positiveEigenvalue_of_subeigenvector
+#print axioms CleanLean.KL.FiniteSystem.transport_term_le_operator
+#print axioms CleanLean.KL.FiniteSystem.transport_mul_totalMass_le_operator_totalMass
+#print axioms CleanLean.KL.FiniteSystem.totalMass_normalizedOperator
+#print axioms CleanLean.KL.FiniteSystem.normalizedOperator_maps_unitSimplex
+#print axioms CleanLean.KL.FiniteSystem.eigen_equation_of_normalized_fixed
+#print axioms CleanLean.KL.ResidueSystem.nonlinear_eigenvector_pos_of_nonnegative_nonzero
+#print axioms CleanLean.KL.ResidueSystem.exists_positive_eigenpair_of_normalized_fixed
 #print axioms CleanLean.KL.rpow_logb_swap
 #print axioms CleanLean.KL.klCutoff_logb_div
 #print axioms CleanLean.KL.hasPredecessorExponent_klTarget_of_feasible
