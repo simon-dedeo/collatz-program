@@ -119,32 +119,34 @@ knowing which routes are dead (and why) is most of the value.
 
 ### LIVE bets (ranked, as of 2026-07-20 late)
 
-1. **Mixed-radix anti-concentration** (gpt-5.6-sol's top pick; agent proving).
-   The cycle numerator B(w) = Σ 3^{m−r}2^{i_r} — does it flatten mod p (max_a
-   Pr(B≡a) ≈ 1/p)? A cycle needs (2^k−3^m) | B, a severe concentration event.
-   Numerically validated (flat to sampling-noise floor for nonexceptional p,
-   k ≥ 3 log p). Target: an inverse-Littlewood–Offord / sum-product-in-Aff(𝔽_p)
-   flattening lemma — **a new theorem independent of Collatz**, and if strong +
-   combined with a large sieve, real cycle-population rarity. `docs/notes/
-   mixed-radix-flattening.md` (in progress).
-2. **Solenoid → zeta/rigidity** (gpt Team B). Push the Traceless Theorem: compute
-   the *full* iterated Lefschetz sequence L(Eⁿ) on the (2,3)-solenoid, not just
-   L(E). Honest calibration (gpt): likely a clean **pressure/rigidity** theorem
-   ("q=3 = zero-drift member"), **not** a hidden RH — Lefschetz traces are
-   signed, so vanishing ≠ no cycles, and divergence is invisible to periodic-orbit
-   zeta. Conceptual payoff, low Collatz-payoff. `docs/notes/solenoid-zeta.md`.
-3. **Arctic/max-plus SRS no-go** (gpt Team C; cheap, definitive). Finish the
-   extension of Yolcu–Aaronson–Heule: no arctic matrix interpretation proves
-   Zantema's Collatz SRS terminating. Closes a *stated open problem*.
-   `docs/notes/arctic-nogo.md` (in progress).
-4. **Re-widen scouts** (running): tropical geometry proper, analytic
-   combinatorics of the predecessor GF (is x^0.9033 a singularity/BRW-front
-   exponent?), Bourgain–Kontorovich CF-thermodynamics on log₂3, the
-   critical-drift BB-cryptid experiment, a wildcard. Speculative; triage on
-   arrival.
-5. **Quantitative adelic descent** (gpt Team D; on deck) — Haar→integer
-   discrepancy under a dynamical Fourier norm; clearest route back to certified
-   integer theorems, but risks rediscovering the marginal mode.
+1. **Analytic-combinatorics reframing of the counting side** (scout: PROVED
+   reformulation, `docs/notes/analytic-combinatorics.md`). Our certified KL
+   exponent γ_k *is* the abscissa of convergence / dominant simple pole of an
+   explicit multitype Dirichlet GF D(s)=(I−M(s))⁻¹𝟙 for the backward tree, so
+   Flajolet–Odlyzko gives π_a(x) ~ C·x^{γ_k} with **no log factor** (nonlattice);
+   and λ_∞=2 becomes a precise **confluence-of-singularities** statement (quenched
+   pole → annealed pole at s=1). Doesn't improve γ_k, but it is the right language
+   and connects λ_∞ to BRW derivative-martingale theory (the live analytic route).
+2. **Unsigned solenoid zeta's natural boundary / Pólya–Carlson** (new lead from
+   the solenoid scout, `docs/notes/solenoid-zeta.md §6`). The *signed* zeta is
+   rational (Z₃≡1) but the *unsigned* Artin–Mazur zeta has a **natural boundary
+   at |u|=1/4** — placing Collatz on the two sides of the Pólya–Carlson dichotomy
+   (Fel'shtyn et al.). Cycle arithmetic lives in that natural boundary — and this
+   *connects to Bell–Lagarias* (natural boundaries of Collatz generating functions,
+   already in the landscape). Unexploited; worth developing.
+3. **Mixed-radix anti-concentration** (gpt's top pick — but DOWNGRADED after
+   gpt's own review found 3 gaps). B(w)=Σ3^{m−r}2^{i_r} flattens mod p
+   numerically, BUT: (i) the flattening was tested at full-period scale, while the
+   theorem claims it at k~log p where it *may fail* — being tested now; (ii)
+   fixed-Hamming-weight conditioning is not automatic from the Bernoulli estimate;
+   (iii) operator-norm upgrade open. Status: **numerical evidence + proof program**,
+   not a near-theorem. `docs/notes/mixed-radix-flattening.md`.
+4. **Arctic/max-plus SRS no-go** (cheap, definitive; agent resumed). Closes the
+   stated Yolcu–Aaronson–Heule open problem. `docs/notes/arctic-nogo.md`.
+5. **Quantitative adelic descent** / **open-quantum-systems reframing** — the
+   no-go = peripheral spectrum of the KL channel (`wildcard.md`, WARM); descent
+   under a dynamical Fourier norm (on deck). Both risk rediscovering the marginal
+   mode.
 
 ### FAILURE LEDGER — what didn't work, and why (do not retry)
 
@@ -162,6 +164,22 @@ knowing which routes are dead (and why) is most of the value.
 - **Spectral-gap route to descent — CLOSED (Collapse Lemma).** Collatz
   projects to a point of the arithmetic tree-product quotient; automorphic
   gaps are blind. `tree-products.md`.
+- **Tropical geometry proper — CLOSED-NEGATIVE.** The arithmetic lives in the
+  *Archimedean* balancing of the KL characteristic (log-sum-exp branching at
+  O(1) temperature), not the tropical skeleton; only the adversary/min is
+  genuinely tropical and we already handle it. Box-ball is the wrong shape.
+  Minor surviving lead: ambitropical geometry (Gaubert 2021). `tropical-geometry.md`.
+- **Beat Baker via Bourgain–Kontorovich CF thermodynamics — CLOSED-NEGATIVE
+  (category mismatch).** BK is an *ensemble* statement; a single number's
+  Diophantine type is invisible to it. Ouaknine–Worrell gives the *explanation*:
+  the cycle-length bound, Positivity, and Zaremba all reduce to effective
+  equidistribution of one Gauss-map orbit, capped by Baker. Explains why nothing
+  beats Baker; beats nothing. `bourgain-kontorovich.md`.
+- **Solenoid → hidden RH / Weil positivity — CLOSED-NEGATIVE (but see live #2).**
+  The signed zeta trivialises (Z₃≡1), so Weil positivity is vacuous and any
+  constant-coefficient Connes/Bost–Connes zeta is blind to the +1. The Traceless
+  Theorem is real but *shallow* (repackages first-moment criticality). The live
+  residue is the *unsigned* zeta's natural boundary (live bet #2). `solenoid-zeta.md`.
 - **"One certificate away" framing (earlier README) — RETRACTED.** It was
   wrong; the certificate provably doesn't exist in its class.
 

@@ -1,0 +1,8 @@
+# DP arctic search (Theorem A): dmax=4 K=2
+setting,dim,K,strict_I_rule,result,time_ms
+DP,1,2,I_s,unsat,11
+DP,1,2,I_t,unsat,6
+DP,2,2,I_s,unsat,35276
+DP,2,2,I_t,unsat,7472
+DP,3,2,I_s,unknown,299953
+DP,3,2,I_t,unknown,300004

@@ -1,0 +1,17 @@
+bridge,object,k_or_shape,quantity,value,note
+QC,annealed_channel_lam2,k=3,perron_rho,1.000000,s(2)=1
+QC,annealed_channel_lam2,k=3,n_peripheral,1,primitive
+QC,annealed_channel_lam2,k=3,spectral_gap,0.75000,=1-lambda^-2
+QC,annealed_channel_lam2,k=4,spectral_gap,0.75000,stable
+QC,annealed_channel_lam2,k=5,spectral_gap,0.75000,stable
+QC,annealed_channel_lam2,k=6,spectral_gap,0.75000,stable
+QC,odometer_only,k=3,n_peripheral,9,full cyclic 3^(k-1)
+QC,odometer_only,k=4,n_peripheral,27,full cyclic 3^(k-1)
+QC,x2_relabeling,depth<=1,eig_-1_count,1,charge=sign-rep
+QC,x2_relabeling,depth<=2,eig_-1_count,2,
+QC,x2_relabeling,depth<=3,eig_-1_count,3,
+DG,dolan_grady_rel1,k=3,rel_residual,0.9941,NOT integrable
+DG,dolan_grady_rel1,k=4,rel_residual,0.9995,NOT integrable
+DG,dolan_grady_rel1,k=5,rel_residual,0.9999,residual->1
+DG,dolan_grady_rel2,k=5,rel_residual,0.9999,beta^2->0
+GoN,obstruction,(7,1),N_5,0,Lambda=125=5^3 W=power of 2
