@@ -10,6 +10,12 @@ from the John Templeton Foundation. Additional support from research funds
 of the Laboratory for Social Minds and from the Survival and Flourishing
 Fund. Proofs and Reasons — https://proofsandreasons.io
 
+## A note from the human
+
+I (Simon) am a cognitive scientist, not a mathematician; http://santafe.edu/~simon/cv.pdf 
+
+This is a purely experimental project to see what these systems do, and how they reason. There are *many* problems with using AI for mathematics, some of which my colleagues and I have written about---see, e.g., https://arxiv.org/pdf/2603.13680 
+
 ## Headline results (all certified/proved today)
 
 | Result | Status |

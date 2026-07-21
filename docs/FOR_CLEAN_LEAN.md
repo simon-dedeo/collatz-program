@@ -40,6 +40,58 @@ acceptance path):
 - sha256 manifest: in each JSON (`sha256` field for sidecars); the k=12..14
   vectors are inline so the JSON itself is the certificate.
 
+## 1b. Lemma-5 tilted-pressure certificates (pressure-cert) — the format
+
+File: `experiments/pressure-cert/lemma5_exact_cert.json`, format tag
+`pressure-cert/lemma5-portable-v2`. Self-contained: everything needed to
+re-verify is in the JSON (potential h, edge lists, exact rational weights);
+no `.npy` sidecars, no floats on the acceptance path. Reference independent
+verifier: `experiments/pressure-cert/verify_lemma5_cert.py` (stdlib-only,
+reads only the JSON; exit 0 iff all checks pass — negative-controlled).
+Mathematical context: sol-pressure.md (2.9)-(2.11) and
+docs/notes/pressure-certificate.md.
+
+Top level: `format`, `predicate` (the claim, verbatim), `state_encoding`,
+`alpha_upper = {P, Q}` with P/Q > alpha = log2(3) certified by `2^P > 3^Q`
+(and 1 < P/Q < 2 by Q < P < 2Q — recompute, do not trust), `certificates`
+(list), `sha256_payload` = sha256 of the canonical serialization
+(json, sort_keys, separators=(',',':')) of the document minus the sha field.
+
+Each certificate: `J`, `modulus = 3^J`; `lambda_lo, lambda_hi` (rationals as
+"num/den" strings, all rationals below likewise); `z`, `theta`, `R`;
+`E` = list of exceptional residues; `states` = [{q, exc, h}] over all
+q = 2 mod 3, q < 3^J; `pieces` = [{lam_lo, lam_hi, w_T, w_B2, w_B8}] tiling
+[lambda_lo, lambda_hi]; `edges` = flat rows {piece, src, tgt, kind, b, w}.
+
+Checks a (streaming) verifier must make — one pass per group is enough,
+rows are independent given (h, z, R):
+
+1. states are exactly {q mod 3^J : q = 2 mod 3}; E is exactly
+   {-4^(-t) mod 3^J : 0 <= t < J}; exc and b flags consistent (b = 1_{tgt in E}).
+2. per piece, the edge multiset is exactly: T: q -> 4q mod 3^J; for
+   q = 2 mod 9 three B2 edges q -> ((4q-2)/3 mod 3^(J-1)) + i*3^(J-1);
+   for q = 8 mod 9 three B8 edges with (2q-1)/3. (The /3 per-fiber-mass
+   dilution lives in the weights, which are per-lift.)
+3. weight soundness per piece [a/b, c/d] by integer inequalities:
+   w_T >= (a/b)^-2;  (3*w_B2)^Q * a^(2Q-P) >= b^(2Q-P);
+   (3*w_B8)^Q * d^(P-Q) >= c^(P-Q).  Monotonicity facts used (elementary,
+   prove once in Lean): for 1 < lam <= 2, lam^-2 and lam^(alpha-2) are
+   decreasing in lam, lam^(alpha-1) increasing, and t -> lam^t increasing,
+   so endpoint checks dominate the whole piece.
+4. row inequalities (the certificate core), all in exact rationals:
+   for every piece and state q:
+   sum over edges e out of q of w_e * z^b(e) * h(tgt(e)) <= R * h(q).
+5. gap: R * z^-theta < 1, i.e. R_num^td * z_den^tn < R_den^td * z_num^tn
+   for theta = tn/td; plus h > 0, z > 1, theta > 0.
+
+What the certificate then proves (given the automaton-domination lemma,
+which is Lean-provable from the eigen-inequality c <= F_lambda(c) plus
+min <= mean per fiber — see pressure-certificate.md sec. 1): for every
+feasible c at any level k and every lambda in [lambda_lo, lambda_hi],
+nu_k{N_E >= theta*n} <= C * (R*z^-theta)^n over n automaton moves.
+Current instances: (J=6, lambda=2, z=5/4, theta=1/8, R=2021589/1975507) and
+(J=6, uniform [lambda_18, 2] in 8 pieces, z=3/2, theta=1/4).
+
 ## 2. "KL difference-inequality transfer theorem" — exact statement + constants
 
 Extraction with paper line references: `experiments/kl/THEOREM.md`. Key facts

@@ -135,41 +135,107 @@ def run_scaling():
     return rows
 
 
-def run_exact_instance():
-    """One fully exact (2.9)+(2.10) certificate at lambda=2, J=6, z=5/4,
-    theta=1/8, and one uniform-[lam18,2] instance at J=6."""
-    out = {}
-    J, z, theta = 6, Fraction(5, 4), Fraction(1, 8)
+PREDICATE = [
+    "PORTABLE CERTIFICATE. Claim per certificate, all arithmetic exact rational:",
+    "(P1) for every piece and every state q:",
+    "       sum over edges e with piece(e)=piece, src(e)=q of",
+    "         w_e * z^b(e) * h(tgt(e))  <=  R * h(q),",
+    "(P2) R * z^(-theta) < 1,  z > 1,  theta > 0,  h(q) > 0 for all q.",
+    "Soundness side conditions (checked by the verifier from first principles):",
+    "(S1) states = all residues q mod 3^J with q = 2 mod 3;",
+    "     E = {-4^(-t) mod 3^J : 0 <= t < J} (backward <4>-orbit balls);",
+    "     b(e) = 1 if tgt(e) in E else 0.",
+    "(S2) edges per piece are EXACTLY: T: q -> 4q mod 3^J; and for q = 2 mod 9",
+    "     the three B2 edges q -> ((4q-2)/3 mod 3^(J-1)) + i*3^(J-1), i=0,1,2;",
+    "     for q = 8 mod 9 the three B8 edges with (2q-1)/3.  (Per-fiber-mass",
+    "     normalization: branch weights carry the /3 dilution.)",
+    "(S3) weight soundness on the piece [lam_lo, lam_hi] (1 < lam_lo <= lam_hi <= 2):",
+    "     w_T >= lam_lo^(-2) >= lambda^(-2);",
+    "     3*w_B2 >= lam_lo^(P/Q - 2) > lambda^(alpha-2)   (alpha < P/Q, lam > 1,",
+    "       and lambda^(alpha-2) decreasing in lambda since alpha < 2);",
+    "     3*w_B8 >= lam_hi^(P/Q - 1) > lambda^(alpha-1)   (increasing, alpha > 1);",
+    "     P/Q > alpha = log2(3) certified by the integer inequality 2^P > 3^Q;",
+    "     P/Q < 2 and P/Q > 1 certified by P < 2Q, P > Q.",
+    "(S4) pieces tile [lambda_lo, lambda_hi] contiguously.",
+    "Consequence (sol-pressure.md (2.9)-(2.11)): for every c <= F_lambda(c),",
+    "lambda in [lambda_lo, lambda_hi], every minimizing policy, the ball-mass",
+    "flow M satisfies M <= W M edgewise-dominated by (w_e); Markov then gives",
+    "nu_k{N_E >= theta*n} <= C*(R*z^(-theta))^n per n automaton moves.",
+]
+
+STATE_ENCODING = (
+    "state q = integer residue mod 3^J, q = 2 mod 3 (the 3-adic ball"
+    " B(q,3^-J) in Y = 2+3Z_3); 'exc' = 1 iff q in E; h = 'num/den'"
+    " positive rational; edges keyed (piece,src,tgt,kind) with kind in"
+    " {T,B2,B8}; w = 'num/den' certified upper bound valid on the piece.")
+
+
+def _frac(s: Fraction) -> str:
+    return f'{s.numerator}/{s.denominator}'
+
+
+def _build_portable(name, J, z, theta, lam_lo, lam_hi, npieces):
     E = am.exceptional_set(J)
-    subw = l5.lambda_subintervals(TWO, TWO, 1)
+    Eset = set(E)
+    S = am.states(J)
+    # pieces with certified endpoint weight bounds (the ones actually used)
+    pieces, subw = [], []
+    for i in range(npieces):
+        a = lam_lo + (lam_hi - lam_lo) * i / npieces
+        b = lam_lo + (lam_hi - lam_lo) * (i + 1) / npieces
+        enc = ew.weight_enclosures(a, b)
+        pieces.append({'lam_lo': _frac(a), 'lam_hi': _frac(b),
+                       'w_T': _frac(enc['p_hi']),
+                       'w_B2': _frac(enc['q2_hi'] / 3),
+                       'w_B8': _frac(enc['q8_hi'] / 3)})
+        subw.append({'p': enc['p_hi'], 'q2': enc['q2_hi'],
+                     'q8': enc['q8_hi']})
     h, R, _ = l5.certify_h(J, subw, E, z)
-    ok = l5.exact_gap_check(R, z, theta)
-    out['lam2'] = {'J': J, 'z': str(z), 'theta': str(theta), 'R': str(R),
-                   'R_float': float(R), 'gap_check_R_z^-theta<1': bool(ok),
-                   'E': E, 'h_denominator_lcm': 10 ** 6}
-    # uniform interval version
-    subw = l5.lambda_subintervals(LAM18, TWO, 8)
-    best = None
-    for z2 in (Fraction(3, 2), Fraction(2), Fraction(3)):
-        h2, R2, _ = l5.certify_h(J, subw, E, z2)
-        import math
-        th = math.log(float(R2)) / math.log(float(z2))
-        if best is None or th < best[0]:
-            best = (th, z2, R2)
-    th, z2, R2 = best
-    # smallest simple rational theta above th
-    from math import ceil
-    theta2 = Fraction(ceil(th * 64) + 1, 64)
-    ok2 = l5.exact_gap_check(R2, z2, theta2)
-    out['uniform'] = {'J': J, 'z': str(z2), 'theta': str(theta2),
-                      'R': str(R2), 'R_float': float(R2),
-                      'theta_req_float': th,
-                      'gap_check_R_z^-theta<1': bool(ok2)}
+    assert l5.exact_gap_check(R, z, theta), (name, 'gap check failed')
+    ix = {q: i for i, q in enumerate(S)}
+    edges = []
+    for pi, pc in enumerate(pieces):
+        wk = {'T': pc['w_T'], 'B2': pc['w_B2'], 'B8': pc['w_B8']}
+        for (src, tgt, kind) in am.edges(J):
+            edges.append({'piece': pi, 'src': src, 'tgt': tgt, 'kind': kind,
+                          'b': 1 if tgt in Eset else 0, 'w': wk[kind]})
+    return {'name': name, 'J': J, 'modulus': 3 ** J,
+            'lambda_lo': _frac(lam_lo), 'lambda_hi': _frac(lam_hi),
+            'z': _frac(z), 'theta': _frac(theta), 'R': _frac(R),
+            'R_float': float(R), 'E': E,
+            'states': [{'q': q, 'exc': 1 if q in Eset else 0,
+                        'h': _frac(h[ix[q]])} for q in S],
+            'pieces': pieces, 'edges': edges}
+
+
+def run_exact_instance():
+    """Portable, self-contained (2.9)+(2.10) certificates (format v2):
+    lambda=2 (J=6, z=5/4, theta=1/8) and uniform [lam18,2] (J=6, z=3/2,
+    theta=1/4, 8 pieces).  Independently re-checkable from the JSON alone
+    by verify_lemma5_cert.py."""
+    import hashlib
+    payload = {
+        'format': 'pressure-cert/lemma5-portable-v2',
+        'predicate': PREDICATE,
+        'state_encoding': STATE_ENCODING,
+        'alpha_upper': {'P': 24727, 'Q': 15601,
+                        'certifies': 'P/Q > log2(3) via 2^P > 3^Q'},
+        'certificates': [
+            _build_portable('lam2', 6, Fraction(5, 4), Fraction(1, 8),
+                            TWO, TWO, 1),
+            _build_portable('uniform_lam18_2', 6, Fraction(3, 2),
+                            Fraction(1, 4), LAM18, TWO, 8),
+        ],
+    }
+    canon = json.dumps(payload, sort_keys=True, separators=(',', ':'))
+    payload['sha256_payload'] = hashlib.sha256(canon.encode()).hexdigest()
     with open(f'{HERE}/lemma5_exact_cert.json', 'w') as f:
-        json.dump(out, f, indent=1)
-    print('wrote lemma5_exact_cert.json:',
-          {k: v['gap_check_R_z^-theta<1'] for k, v in out.items()})
-    return out
+        json.dump(payload, f, indent=1)
+    print('wrote lemma5_exact_cert.json;',
+          'certs:', [c['name'] for c in payload['certificates']],
+          'edges:', [len(c['edges']) for c in payload['certificates']],
+          'sha256:', payload['sha256_payload'][:16], '...')
+    return payload
 
 
 def run_validation(deep=False):

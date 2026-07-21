@@ -2,7 +2,14 @@
 
 2026-07-20. Code: `experiments/pressure-cert/` (`pressure_cert.py`, modules
 `exact_weights.py`, `automaton.py`, `lemma3.py`, `lemma5.py`, `validate.py`;
-CSV outputs alongside). Targets: sol-pressure.md Lemma 3 (finite-block
+CSV outputs alongside). The exact Lemma-5 certificates are shipped as a
+self-contained portable artifact `lemma5_exact_cert.json` (format
+`pressure-cert/lemma5-portable-v2`: full rational potential h, per-piece
+edge lists with exact rational weight upper bounds, z/theta/R rationals,
+sha256-pinned payload; spec in docs/FOR_CLEAN_LEAN.md sec. 1b) and are
+re-verified from disk by the generator-independent, stdlib-only
+`verify_lemma5_cert.py` (negative-controlled: corrupting h, weights, R,
+edges, b-flags, sha, or the alpha bound each makes it fail). Targets: sol-pressure.md Lemma 3 (finite-block
 Birkhoff contraction) and Lemma 5 (restricted-pressure gap, certificate form
 (2.9)-(2.10)). All load-bearing arithmetic exact (integer/Fraction); floats
 only propose candidates that are then verified exactly.
