@@ -264,17 +264,18 @@ This discharges the first combinatorial hypothesis of the exact oscillation
 identity. -/
 theorem fiber_partition (k : ℕ) (hk : 2 ≤ k) (c : State k → ℝ) :
     ∑ r, (system k).fiberSum c r = (system k).totalMass c := by
-  change (∑ r : Coarse k, c (fiber k r 0) + c (fiber k r 1) +
-    c (fiber k r 2)) = ∑ s : State k, c s
-  calc
-    (∑ r : Coarse k, c (fiber k r 0) + c (fiber k r 1) + c (fiber k r 2)) =
-        ∑ r : Coarse k, ∑ j : Fin 3, c (fiber k r j) := by
-      apply Finset.sum_congr rfl
-      intro r _
-      rw [Fin.sum_univ_three]
-    _ = ∑ p : Coarse k × Fin 3, c (fiber k p.1 p.2) := by
-      rw [Fintype.sum_prod_type]
-    _ = ∑ s, c s := (fiberEquiv k hk).sum_comp c
+  have h : (∑ r : Coarse k, (c (fiber k r 0) + c (fiber k r 1) +
+      c (fiber k r 2))) = ∑ s : State k, c s := by
+    calc
+      (∑ r : Coarse k, (c (fiber k r 0) + c (fiber k r 1) + c (fiber k r 2))) =
+          ∑ r : Coarse k, ∑ j : Fin 3, c (fiber k r j) := by
+        apply Finset.sum_congr rfl
+        intro r _
+        rw [Fin.sum_univ_three]
+      _ = ∑ p : Coarse k × Fin 3, c (fiber k p.1 p.2) := by
+        rw [Fintype.sum_prod_type]
+      _ = ∑ s, c s := (fiberEquiv k hk).sum_comp c
+  simpa only [FiniteSystem.fiberSum, FiniteSystem.totalMass, system] using h
 
 end ResidueSystem
 
