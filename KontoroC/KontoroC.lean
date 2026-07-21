@@ -7,4 +7,5 @@ import KontoroC.Defs
 import KontoroC.ValuationWord
 import KontoroC.AffineBlock
 import KontoroC.CycleCertificate
+import KontoroC.Glider
 import KontoroC.Examples

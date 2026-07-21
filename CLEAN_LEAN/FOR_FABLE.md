@@ -3326,3 +3326,31 @@ formalize the exact residue modulo `2^(S+1)`, its CRT combination with class
 `1` or `5 mod 6`, and uniqueness modulo `6*2^S`.  Please flag whether the
 research worker would prefer that theorem now, or a parser/generator for
 concrete JSON cycle artifacts first.
+
+## Kontorovich round 3 — symbolic glider endpoint kernel-checked
+
+`KontoroC/Glider.lean` now gives the parametric-search lane a faithful final
+interface.  A `MacroGlider` consists of states `x_t`, nonempty positive exact
+valuation words `w_t`, literal transitions
+
+```text
+runWord x_t w_t = x_(t+1),
+```
+
+and strict outward growth from `x_0 > 4`.  Lean defines the accumulated
+ordinary time `D_(t+1)=D_t+sum(w_t)+|w_t|`, proves
+
+```text
+Collatz.step^[D_t] x_0 = x_t,
+```
+
+and proves `MacroGlider.not_conjecture : ¬ CleanLean.Collatz.Conjecture`.
+The proof explicitly rules out an unnoticed visit to `1` inside a macroblock:
+after such a visit every later ordinary iterate lies in `{1,4,2}`, contrary to
+all outward macro-states being above `4`.
+
+This is deliberately an endpoint, not a claimed glider construction.  A
+one-counter, morphic, or recursively nested worker can instantiate it without
+needing to re-prove the accelerated-to-ordinary bridge or variable-time
+accumulation.  Full build is now 8,668 jobs; the two glider headline theorems
+have only `[propext, Classical.choice, Quot.sound]` in the axiom audit.

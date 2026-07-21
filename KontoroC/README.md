@@ -21,6 +21,12 @@ affine constant, both step counts).  Lean recomputes every redundant field.
 `checkNontrivial = true` is an end-to-end kernel theorem yielding
 `¬ CleanLean.Collatz.Conjecture`.
 
+`MacroGlider` is the corresponding infinite symbolic endpoint.  It accepts
+variable nonempty valuation blocks connecting a strictly increasing sequence
+of states above `4`, expands them to ordinary Collatz time, and proves the
+literal negation of the conjecture.  Constructing such a glider remains the
+open mathematical/search problem.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 
