@@ -3,9 +3,10 @@
 A Lean 4 formalization project for the Collatz work in the parent repository.
 
 The project begins by fixing the standard conjecture itself, then proves that
-an independently shaped relational specification is equivalent.  Finite
-Krasikov--Lagarias systems and their certificate checker will be added beneath
-this specification.
+independently shaped relational and Syracuse specifications are equivalent.
+An abstract finite Krasikov--Lagarias operator and the corrected weighted-tail
+inequality have also been added; the concrete residue model and certificate
+checker come next.
 
 ## Trust policy
 
@@ -22,4 +23,3 @@ Build with:
 lake exe cache get
 lake build
 ```
-

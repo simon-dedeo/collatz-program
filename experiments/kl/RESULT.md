@@ -24,8 +24,9 @@ with the certified values
 | 16 | 18522343/10^7 = 1.8522343 | 0.8892666051…        | 14,348,907  | 5.95e-08       | ≤ 793.06       |
 | 17 | 18616883/10^7 = 1.8616883 | 0.8966115446…        | 43,046,721  | 3.90e-08       | ≤ 1207.44      |
 | 18 | 18703245/10^7 = 1.8703245 | 0.9032885984…        | 129,140,163 | 1.23e-07       | ≤ 1834.78      |
+| 19 | 18783127/10^7 = 1.8783127 | 0.9094372617…        | 387,420,489 | 1.22e-07       | ≤ 2782.62      |
 
-All seven rows are CERTIFIED (every constraint verified in exact integer arithmetic, twice:
+All rows are CERTIFIED (every constraint verified in exact integer arithmetic, twice:
 once at generation, once independently from the on-disk certificate).
 
 In the paper's own presentation style (Theorem 6.1 rounds the exponent down to absorb the

@@ -116,6 +116,8 @@ componentwise subeigenvector inequality. -/
 def Feasible (w : Weights ℝ) (c : S.State → ℝ) : Prop :=
   (∀ m, 1 ≤ c m) ∧ ∀ m, c m ≤ S.operator w c m
 
+end
+
 end FiniteSystem
 
 end CleanLean.KL

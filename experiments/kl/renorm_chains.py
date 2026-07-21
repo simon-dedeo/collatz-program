@@ -11,29 +11,41 @@ Outputs renorm_chains.csv and prints chain tables.
 import csv, math, os, sys
 from fractions import Fraction
 import numpy as np
-from renorm_common import ALPHA, HERE, load_C, lam_of, cval
+from renorm_common import ALPHA, HERE, load_C, lam_of, cval, state, c_at
 
 KS = [int(x) for x in sys.argv[1:]] or [15, 16, 17, 18, 19]
 rows = []
 
+def v3(u):
+    if u == 0:
+        return None
+    v = 0
+    while u % 3 == 0:
+        u //= 3; v += 1
+    return v
+
 def chain(C, k, lam, u0, nu0, steps, label):
     """Follow argmin children from offset u0/3^nu0; return list of dicts."""
     c1 = cval(C, k, 0, 1)
-    w8 = lam ** (ALPHA - 1)
     out = []
     u, nu = u0, nu0
     for s in range(steps):
         val = cval(C, k, u, nu)
+        # true depth of q = u/3^nu in Z(3^infty): nu(q) = nu - v3(u)
+        nuq = 0 if u == 0 else nu - v3(u)
         # children: offsets 2u + i*3^nu at depth nu+1
         kids = [((2 * u + i * 3 ** nu) % 3 ** (nu + 1)) for i in range(3)]
         kvals = [cval(C, k, w, nu + 1) for w in kids]
         imin = int(np.argmin(kvals))
         ksort = sorted(kvals)
         margin = (ksort[1] - ksort[0]) / ksort[0]
-        H = (val / c1) * lam ** ((ALPHA - 1) * nu)
-        out.append(dict(k=k, label=label, step=s, nu=nu, u=u,
+        H = (val / c1) * lam ** ((ALPHA - 1) * nuq)
+        # transport fraction at this state: lam^-2 c(4m)/c(m)
+        m = state(k, u, nu)
+        tf = lam ** -2 * c_at(C, k, 4 * m) / val
+        out.append(dict(k=k, label=label, step=s, nu=nuq, u=u,
                         val_over_c1=val / c1, H=H, argmin_digit=imin,
-                        margin=margin))
+                        margin=margin, transport_frac=tf))
         u, nu = kids[imin], nu + 1
     return out
 
