@@ -19,14 +19,16 @@ all three minimum alternatives deletion-eligible. Neither certificate refutes
 termination or Theorem 2.2. A third finite checker shows that local split
 validity plus the paper's assignment-specific invariant does not preserve that
 invariant across a split. CLEAN_LEAN independently checks both newer defects
-and proves the abstract branch-arrival compactness theorem. The leading
+and proves the abstract branch-arrival compactness theorem. Lean also checks
+the global occurrence-provenance interface and the consumer from an inhabited
+two-phase history package to the abstract retarded comparison theorem. The leading
 replacement compiles all complete occurrence-aware record-admissible policies
-into one fixed outer minimum; a bounded exact checker reproduces KL's
-`k=2,3,4` literal counts, while the all-`k` history/policy producer is not yet
-kernel-checked. Until that replacement chain is proved,
-the predecessor-counting consequence
-below is conditional on an unclosed literature-proof gap. See
-`TERMINATION_AUDIT.md`.
+into one fixed pruned tree; a bounded exact checker reproduces KL's `k=2,3,4`
+literal counts, while the all-`k` raw producer and live/common-lag assembly are
+not yet kernel-checked. A later formal step must also instantiate the abstract
+function family by predecessor counts and close the counting-transfer
+hypothesis. Until both bridges are proved, the predecessor-counting consequence
+below remains conditional. See `TERMINATION_AUDIT.md`.
 
 **Conditional on KL Theorem 2.2's advanced-term termination bridge, the
 certified feasible points below give, for every positive integer

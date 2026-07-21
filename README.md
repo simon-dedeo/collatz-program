@@ -52,10 +52,17 @@ expressions. A bounded exact checker reproduces KL's `k=2,3,4` maximum literal c
 The policy argument has survived independent audits, but the formal tree must
 index marks by occurrence, not only by `(state,shift)`; an exact `k=4` pair
 shows the same label can be bad on one history and live on another. Lean now
-checks the occurrence-indexed one-pass pruner and the exact repeat-provenance
-interface; until the finite raw-history builder carrying that provenance is
-kernel-checked, the exact `k=19` feasible point
-has no checked path to the counting bound.
+checks the occurrence-indexed one-pass pruner, a globally scoped
+repeat-provenance interface, and the full seam from any inhabited two-phase
+history package to the existing abstract retarded comparison theorem. The
+indexed raw-tree syntax and its shift, functional, coefficient, and terminal
+invariants are also checked. The remaining construction is the finite
+well-founded forest producer, root-level provenance inversion, live pruned
+outputs, and a common lag. Even after that seam closes, Lean must still
+instantiate the abstract function family by the actual predecessor counts and
+discharge the separate counting-transfer hypothesis. Until both bridges are
+checked, the exact `k=19` feasible point has no checked path to the counting
+bound.
 
 The next theorem-shaped target is the all-dimension **arctic/max-plus no-go**
 for Zantema's Collatz string-rewriting system. A successor audit replaced a
@@ -76,7 +83,7 @@ an `x^{1−ε}` lower bound would still have density zero for fixed `ε`.
 
 | Result | Status |
 |---|---|
-| Exact `k=19` KL feasible certificate at `γ=0.9094372617…`; **conditional** consequence `π_a(x)≥x^γ` for every fixed smaller `γ` | A fresh run of the reference verifier passed the SHA-pinned 2.9 GB sidecar and all 387,420,489 exact inequalities. However, exact `k=5` witnesses invalidate both the key descent inference and the claimed nonempty-minimum invariant in the published advanced-elimination construction; a separate exact semantic countermodel blocks its split-invariant induction. Lean checks all three defects, abstract compactness, occurrence-indexed one-pass pruning, and the repeat-provenance semantic interface, but not yet the finite raw-history/König builder. The certificate remains exact; its counting consequence is conditional. The sidecar is local but not in git, and a fresh clone is self-contained through k=15. See `experiments/kl/RESULT.md` and `TERMINATION_AUDIT.md`. |
+| Exact `k=19` KL feasible certificate at `γ=0.9094372617…`; **conditional** consequence `π_a(x)≥x^γ` for every fixed smaller `γ` | A fresh run of the reference verifier passed the SHA-pinned 2.9 GB sidecar and all 387,420,489 exact inequalities. However, exact `k=5` witnesses invalidate both the key descent inference and the claimed nonempty-minimum invariant in the published advanced-elimination construction; a separate exact semantic countermodel blocks its split-invariant induction. Lean checks all three defects, abstract compactness, occurrence-indexed pruning, the global repeat-provenance interface, and the two-phase-to-retarded comparison seam. The finite raw-history producer is still open, as is the later instantiation by actual predecessor counts. The certificate remains exact; its counting consequence is conditional. The sidecar is local but not in git, and a fresh clone is self-contained through k=15. See `experiments/kl/RESULT.md` and `TERMINATION_AUDIT.md`. |
 | The KL method = finite sections of an **adversarial transfer operator on ℤ₃** (base ×4 = the Iwasawa generator of 1+3ℤ₃) | `docs/notes/kl-limit-object.md`, `adversarial-operator.md` |
 | KL's own §6 positivity hypotheses (H_k) | Literature-backed research proof (odometer conjugacy → Gaubert–Gunawardena); nonlinear Perron existence is not Lean-formalized, and the exact feasible-point route bypasses it. |
 | Oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k | proved, now unconditional |
@@ -97,7 +104,7 @@ After tunneling on one line we have re-widened. This
 section is kept fresh; the **failure ledger** is deliberately explicit because
 knowing which routes are dead (and why) is most of the value.
 
-### LIVE bets (ranked after the 2026-07-20 successor audit)
+### LIVE bets (updated through the 2026-07-21 successor audit)
 
 1. **Replace KL advanced-term elimination — three exact blockers, precise target.**
    At `k=5`, the legal path
@@ -128,9 +135,20 @@ knowing which routes are dead (and why) is most of the value.
    one exact `k=4` history and a lower repeat on another, so labels alone cannot
    carry marks. CLEAN_LEAN now checks an occurrence-annotated one-pass pruner,
    exact functional equality, coefficient monotonicity, and localized
-   positivity. It also checks the exact `RepeatMarkProvenance` payload and its
-   implication to semantic mark soundness. The raw history recursion carrying
-   that payload and the König bridge remain open.
+   positivity. It also checks the globally scoped occurrence-provenance
+   interface and proves that a completed `TwoPhaseEliminationData` package feeds the existing
+   retarded comparison theorem with the correct functional and coefficient
+   orientations. The rich word-history syntax and its generic compiler
+   invariants now check, but the well-founded producer, root-level provenance
+   inversion, structural root-liveness, and common-lag assembly remain open.
+   Compactness alone does not prove
+   liveness; the safe construction uses the target positive monotone base-system
+   family at `y=2`. A separate formal step must still identify that abstract
+   family with the predecessor-count functions and satisfy `CountingTransfer`.
+   A twice-audited but not kernel-checked fallback gives an explicit finite
+   occurrence-word depth bound `D_k`; it is too large for enumeration but could
+   replace well-founded recursion by fuel if its one-sided approximation lemma
+   is formalized. `docs/notes/kl-explicit-history-bound.md`.
    `experiments/kl/TERMINATION_AUDIT.md`.
 2. **Arctic/max-plus SRS no-go — candidate proof written, formal check next.**
    The inherited proof incorrectly assigned one eventual slope to a reducible
@@ -293,8 +311,9 @@ hits the same wall.
   all complete good policies into one fixed outer minimum. A new exact checker
   reproduces KL's small-level literal counts and catches the occurrence-indexing
   requirement. The occurrence-indexed one-pass pruning theorem now compiles;
-  so does the exact repeat-provenance semantic interface. The concrete
-  raw-history/König producer does not yet.
+  so do the global repeat-provenance bridge and the consumer into the abstract
+  comparison theorem. The concrete raw-history producer and the later
+  predecessor-count instantiation do not yet.
 - The arctic/max-plus lane remains active. Two independent audits found the
   same reducible-slope gap; an elementary weighted-walk pumping candidate now
   replaces it, and the exact marked macro checker passes. The general theorem

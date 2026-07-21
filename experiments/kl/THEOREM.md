@@ -147,12 +147,16 @@ falsifies the following identical-subtree step in the printed proof of Theorem
 deletion-eligible, contradicting the construction's claimed nonempty-minimum
 invariant. A generic four-value countermodel also refutes the split-invariant
 induction from the hypotheses it uses. CLEAN_LEAN independently checks both
-newer obstructions and proves the abstract branch-arrival compactness theorem,
-but no corrected finite inequality tree is yet checked. The leading replacement
-is an occurrence-aware finite menu of complete record-admissible additive
-policies, compiled into one outer minimum; its all-`k` producer remains
-provisional. The chain below is therefore not presently treated as end-to-end
-verified.
+newer obstructions and proves the abstract branch-arrival compactness theorem.
+It also checks the global occurrence-provenance interface and the full consumer
+from any inhabited two-phase package to the abstract retarded comparison theorem. The
+leading replacement is an occurrence-aware finite menu of complete
+record-admissible additive policies, represented by one structurally pruned
+tree; its all-`k` raw producer and live/common-lag assembly remain provisional.
+The present Lean development also has not yet instantiated its abstract
+function family by the actual predecessor counts or closed the separate
+counting-transfer hypothesis. The chain below is therefore not presently
+treated as end-to-end verified.
 
 - **Theorem 3.1** (lines 428–433): for `m ∈ [3^k]`, `m ≡ 8 (mod 9)`, the back-substitution
   process (with the deletion rule) halts in finitely many steps at an inequality `I^m_k(EL)`

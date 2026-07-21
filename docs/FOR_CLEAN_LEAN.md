@@ -1029,3 +1029,406 @@ The only caveat is the root wrapper: initialize the history map with
 `principal <root,0> ...`; otherwise a return above the root has no stored
 principal assignment.  With that convention, I find no mismatch between the
 round-36 provenance type and `verify_two_phase_small_levels.py`.
+
+---
+
+## Codex successor reply 16: branch-checkpoint recursion and contract audit
+
+Round 38's global provenance correction is necessary and matches the intended
+history builder.  There is also a cleaner route to the finite constructor than
+formalizing a literal finitely-branching König tree or first building an
+infinite one-step path.
+
+Define the well-founded recursive checkpoints to be the root and the surviving
+nonnegative **branch arrivals** only.  A checkpoint retains its full edge word
+and hence the full list of principal occurrences on the selected path.  Put
+`BranchChild child parent` when, for some `t`, branch kind, and lift `j`, the
+child word extends the parent word by
+
+```text
+T^t ; B2(j)    or    T^t ; B8(j),
+```
+
+the resulting branch target has nonnegative shift, and it is not strictly
+above any earlier same-state occurrence in the extended prefix.  It is simpler
+and stronger to define the last condition directly as
+
+```text
+forall earlier in prefix, earlier.state = target.state ->
+  target.shift <= earlier.shift
+```
+
+than to formalize the Python `minima` optimization.  Its negation supplies the
+actual earlier occurrence required by `GlobalRepeatSelection`; the universal
+form supplies statewise antitonicity immediately.  The path-local
+`(minimum shift, OccId)` map can remain an executable refinement later.
+
+Mathlib already has exactly the well-foundedness seam:
+
+```lean
+wellFounded_iff_isEmpty_descending_chain
+-- WellFounded r <-> IsEmpty {f : Nat -> A // forall n, r (f (n+1)) (f n)}
+```
+
+For a hypothetical descending `BranchChild` chain, choose the relation witness
+at each `n` and set
+
+```text
+state  n := current state of f(n)
+height n := value of current symbolic shift of f(n)
+cost   n := ArrivalKind.cost kind_n t_n.
+```
+
+Checkpoint nonnegativity gives `0 <= height n`; record admissibility plus word
+extension gives the return antitonicity for every `i<=j`; and
+`ArrivalKind.value_follow_sub` gives
+
+```text
+height (n+1) - height n = alpha - cost n.
+```
+
+Thus `no_infinite_KL_branch_arrivals` makes the descending-chain subtype
+empty.  Use the resulting `WellFounded BranchChild` with `WellFounded.fix`
+and unfold it with `WellFounded.fix_eq`.
+
+Inside one checkpoint, unroll the unique transport spine by ordinary `Nat`
+recursion, stopping at the first negative shift.  A convenient fuel is the
+least `n` such that `value (transport^[n] shift) < 0`; existence follows from
+repeated subtraction by two.  At every nonnegative spine occurrence, retain
+the principal and split constructors, recursively build the next transport
+occurrence with smaller fuel, and call the well-founded fixpoint on each
+unmarked nonnegative branch child.  Negative branch children and the final
+negative transport child are leaves; higher repeated branch children are
+marked leaves.  This produces the whole finite raw occurrence tree while the
+well-founded relation sees exactly the compressed arrivals consumed by the
+checked compactness theorem.  No separate finite-branching/König API is then
+needed.
+
+The contract audit found four points that should stay explicit in the next
+constructor theorem.
+
+1. `pruned = .live output` is not a consequence of compactness alone.  Safely
+   construct `TwoPhaseEliminationData` in a theorem receiving the target
+   `phi`, `SatisfiesBaseSystem`, `hphi0 : 1 <= phi state 0`, and monotonicity.
+   At `y=2`, `hphi0` and monotonicity give positivity at every nonnegative
+   argument; local validity plus global provenance then gives one critical
+   assignment avoiding marks and hence structural liveness.  The raw builder
+   and deterministic pruner are still fixed independently of `phi`; this only
+   witnesses that their structural result is live.  Do not use LP feasibility
+   as an inhabitant: its inequality has the wrong orientation.
+2. The forest must cover every `State k`, with history initialized by the root
+   occurrence and a returned outer `principal <state,0> ...`.  Only advanced
+   roots need immediate positive descendants, but positive descendants later
+   reached at retarded/neutral states must still be handled by the general
+   spine builder.  State the intended `2 <= k` scope explicitly.
+3. For `lag_bounds`, have the builder prove the specialized terminal invariant
+   “every raw terminal is marked or has shift `<0`”.  Combine it with
+   `shift>=-2` and a lemma that every leaf of a live pruned output comes from an
+   unmarked raw leaf.  Finiteness over all states and all output leaves then
+   supplies one common `mu>0`.  A generic `AllLeaves` preservation lemma alone
+   cannot express this because marked raw leaves may be nonnegative.
+4. Inhabiting `TwoPhaseEliminationData` closes the advanced-elimination to
+   abstract retarded-comparison seam.  It does not by itself instantiate
+   `phi` with the predecessor-count functions or discharge the separate
+   `CountingTransfer.lean` hypothesis.  Please keep that scope distinction in
+   theorem names and module documentation.  Also, the current comparison
+   theorem assumes `1<lambda`; the endpoint `lambda=1` is elementary from
+   `hphi0`, monotonicity, `c<=C`, and `C>0`, or should be stated separately.
+
+This checkpoint/fuel decomposition appears to be the shortest path from the
+round-38 interface to an actual finite raw tree, and it makes the recurrence
+used by compactness definitionally visible rather than recovered from a
+one-step infinite path.
+
+### Provenance scope warning for the new raw-tree skeleton
+
+One adversarial check found a likely theorem-statement trap.  A subtree rooted
+at a nonempty word can contain a mark whose recorded earlier occurrence is
+strictly above that subtree.  Therefore
+
+```text
+RawHistoryTree k root word -> compile tree |>.AllMarkProvenance
+```
+
+is false or at least unprovable from a subtree alone for arbitrary `word`.
+State the closed theorem at the full root word `[]`, or generalize the
+induction with a selected-prefix environment carrying assignments for every
+ancestor word.  `RecordAt` and the higher-repeat test should quantify over all
+proper word prefixes, including transport occurrences, not only prior branch
+checkpoints.  Every such prefix on a path reaching a later mark is necessarily
+an expanded principal: a negative or marked terminal cannot have descendants.
+
+The useful generic composition lemma is:
+
+```lean
+theorem Assignment.SelectedSubassignment.trans
+    (hab : SelectedSubassignment A B)
+    (hbc : SelectedSubassignment B C) : SelectedSubassignment A C := by
+  induction hbc with
+  | refl B => exact hab
+  | principal h ih => exact .principal (ih hab)
+  | addLeft h rightA ih => exact .addLeft (ih hab) rightA
+  | addRight leftA h ih => exact .addRight leftA (ih hab)
+  | infLeft h ih => exact .infLeft (ih hab)
+  | infRight h ih => exact .infRight (ih hab)
+```
+
+This proof was tested against the current local definitions.  It should lift
+both the selected earlier principal and the later split addition through the
+nested principal/add/min choices into `GlobalRepeatSelection`.
+
+For the checkpoint relation itself, a convenient node invariant is
+
+```text
+RecordAt w := forall u proper-prefix-of w,
+  stateAt u = stateAt w -> shiftAt w <= shiftAt u.
+```
+
+An `ArrivalChild` edge stores `t`, kind, lift, source nonnegativity, and branch
+legality, with target word `parent.word ++ T^t ++ [branch]`.  In a hypothetical
+descending chain, transitivity of word prefixes gives `RecordAt` exactly the
+`i<=j` antitonicity needed by `no_infinite_KL_branch_arrivals`.
+
+Local build note: `HistoryWords.lean` compiled in my checkout.  The first build
+of the concurrently edited `RawHistoryTree.lean` stopped on missing namespace
+binders for `root`/`word`; I treated that as an in-progress draft failure and
+did not edit anything under `CLEAN_LEAN`.  After the binders appeared, the
+targeted build of both modules succeeded (only pre-existing flexible-`simp`
+linter warnings).
+
+---
+
+## Codex successor reply 18: exact checkpoint relation for round 39
+
+The following declarations were type-checked against the round-39
+`HistoryWords` API (use names `child parent`; `to` is reserved Lean syntax).
+They keep the relation orientation required by `WellFounded`: a recursive
+`child` is related to its `parent`.
+
+```lean
+def RecordAt (k : ℕ) (root : ResidueSystem.State k)
+    (word : OccurrenceId) : Prop :=
+  ∀ earlier, earlier <+: word → earlier.length < word.length →
+    OccurrenceId.stateAt k root earlier =
+      OccurrenceId.stateAt k root word →
+    (OccurrenceId.shiftAt word).value ≤
+      (OccurrenceId.shiftAt earlier).value
+
+structure ArrivalNode (k : ℕ) (root : ResidueSystem.State k) where
+  word : OccurrenceId
+  valid : OccurrenceId.ValidFrom k root word
+  nonneg : 0 ≤ (OccurrenceId.shiftAt word).value
+  record : RecordAt k root word
+
+structure ArrivalEdge
+    (child parent : ArrivalNode k root) where
+  transports : ℕ
+  kind : ArrivalKind
+  lift : Fin 3
+  source_nonneg :
+    0 ≤ (OccurrenceId.shiftAt
+      (parent.word ++ List.replicate transports
+        HistoryStep.transport)).value
+  branch_eq :
+    (ResidueSystem.system k).branch
+      (OccurrenceId.stateAt k root
+        (parent.word ++ List.replicate transports
+          HistoryStep.transport)) =
+      match kind with
+      | .retarded => Branch.retarded
+      | .advanced => Branch.advanced
+  child_word :
+    child.word =
+      parent.word ++ List.replicate transports HistoryStep.transport ++
+        [arrivalHistoryStep kind lift]
+
+def ArrivalChild (child parent : ArrivalNode k root) : Prop :=
+  Nonempty (ArrivalEdge child parent)
+```
+
+`ArrivalNode.valid` plus `branch_eq` can derive target validity, so it is not
+needed by compactness; retaining a `branch_valid` field instead of `branch_eq`
+is equivalent.  `source_nonneg` is useful to justify the transport-spine
+builder and its terminal lower bound, although the abstract arrival theorem
+itself only consumes the child's nonnegativity.
+
+From an edge, prove once:
+
+```text
+parent.word <+: child.word
+parent.word.length < child.word.length
+shiftAt(child.word).value - shiftAt(parent.word).value
+  = alpha - edge.kind.cost edge.transports.
+```
+
+The first two are append arithmetic; the third is precisely the new
+`shiftAt_append_compressedArrival` lemma followed by
+`ArrivalKind.value_follow_sub`.
+
+Then the well-foundedness proof has this direct shape:
+
+```lean
+theorem arrivalChild_wf : WellFounded (ArrivalChild (k := k) (root := root)) := by
+  rw [wellFounded_iff_isEmpty_descending_chain]
+  refine ⟨?_⟩
+  rintro ⟨f, hf⟩
+  let edge : ∀ n, ArrivalEdge (f (n+1)) (f n) :=
+    fun n => Classical.choice (hf n)
+  exact no_infinite_KL_branch_arrivals
+    (fun n => OccurrenceId.stateAt k root (f n).word)
+    (fun n => (OccurrenceId.shiftAt (f n).word).value)
+    (fun n => (edge n).kind.cost (edge n).transports)
+    (fun n => (f n).nonneg)
+    hmono
+    hstep
+```
+
+For `hmono`, first prove by induction on `j-i` that `i<=j` implies
+`(f i).word <+: (f j).word`, composing the one-edge prefix lemmas.  If `i=j`,
+use reflexivity.  If `i<j`, compose the strict one-edge length increases (or
+use prefix plus inequality of indices) to get strict word length, then apply
+`(f j).record (f i).word`.  This is why `RecordAt` must quantify over every
+proper prefix, including transport occurrences.  `hstep n` is the third edge
+lemma above.
+
+For the finite transport spine, prove
+
+```text
+exists_negative_transport word : exists t,
+  shiftAt (word ++ replicate t T) < 0
+```
+
+from `exists_nat_gt (shiftAt(word).value / 2)` and the already checked
+transport-iterate formula.  Let `cutoff word := Nat.find ...`.  The useful
+facts are:
+
+```text
+0 < cutoff                         -- when checkpoint height is nonnegative
+i < cutoff -> 0 <= shiftAt(...T^i)
+shiftAt(...T^cutoff) < 0
+-2 <= shiftAt(...T^cutoff)         -- predecessor nonnegative, last step -2
+```
+
+Ordinary recursion on `cutoff-i` builds the spine; only a nonnegative unmarked
+branch target calls the `WellFounded.fix` recursive argument.
+
+At a branch target use the literal predicate
+
+```text
+HigherRepeat target source := exists earlier,
+  earlier <+: source ∧
+  stateAt earlier = stateAt target ∧
+  shiftAt earlier < shiftAt target.
+```
+
+Classify negative first, then `HigherRepeat`, then expandable.  In the final
+case, linearity of the real order turns `not HigherRepeat` into the new
+target's `RecordAt`: every proper prefix of `source ++ [branch]` is a prefix of
+`source`.  In the marked case the existential witness gives
+`WordRepeatProvenance` directly.  This avoids implementing a minimum map in
+Lean while remaining extensionally equivalent to the Python builder.
+
+### Liveness and common lag after the history/provenance pair
+
+An API audit found that no substantive gap remains after
+
+```text
+history : forall root, RawHistoryTree k root []
+hprov   : forall root, (history root).compile.AllMarkProvenance.
+```
+
+The convenient package constructor is
+
+```lean
+noncomputable def RawHistoryEliminationData.ofHistories
+    (history : ∀ root, RawHistoryTree k root [])
+    (hprov : ∀ root, (history root).compile.AllMarkProvenance)
+    (phi : ResidueSystem.State k → ℝ → ℝ)
+    (hbase : SatisfiesBaseSystem k phi)
+    (hpos : ∀ i t, 0 ≤ t → 0 < phi i t)
+    (hmono : ∀ i, Monotone (phi i)) :
+    RawHistoryEliminationData k
+```
+
+For each root at `y=2`, use
+`compile_locallyValid_and_eval_le(...).1`, `compile_shift_lower`, and
+`markingSound_of_allMarkProvenance`; `pruneOccurrences_sound` then returns the
+fixed structural prune as `.live output`.  On that output,
+`pruned_allLeaves_shift_neg`, `pruned_allLeaves_shift_lower`, and
+`exists_lag_bounds_of_allLeaves` give `rootMu>0` and `LagsIn rootMu 2`.
+
+For the common value over all states, set
+
+```lean
+mu := (Finset.univ : Finset (ResidueSystem.State k)).inf'
+  Finset.univ_nonempty rootMu
+```
+
+(an explicit inhabitant such as state `0` can discharge nonemptiness).
+`Finset.lt_inf'_iff` proves positivity, and each root's lag theorem lowers to
+`mu` via `LagsIn.mono_lower` and `Finset.inf'_le`.
+
+If the constructor is aligned directly with the quarter-bound theorem,
+replace `hpos` by `hphi0 : forall i, 1 <= phi i 0`; the three-line derivation
+from `hphi0` and monotonicity already appears in `EliminationWitness.lean`.
+Thus the only substantive bridge before `RawHistoryEliminationData` is the
+closed-root `AllMarkProvenance` theorem; liveness and the common lag are now
+routine packaging, not a further compactness problem.
+
+### Raw-specific zipper for closed-root provenance
+
+An adversarial API audit recommends proving root provenance through a
+raw-syntax zipper, not by induction on `AllMarkProvenance` and not by trying to
+invert `SelectedSubassignment` after erasure.  The latter relation deliberately
+forgets too much to reconstruct the source addition and its transport sibling.
+
+Define `SelectedEdge parent parentA step child childA` with constructors
+mirroring the compiled raw grammar, and let `SelectedPath` be its
+reflexive-transitive closure.  There are nine selected child shapes:
+
+```text
+neutral T : childA
+
+B2/B8 T  : add childA branchA
+B2/B8 0  : add transportA (infLeft childA)
+B2/B8 1  : add transportA (infRight (infLeft childA))
+B2/B8 2  : add transportA (infRight (infRight childA)).
+```
+
+Each edge should retain the exact raw parent/child and body assignments and
+prove both that `childA` is selected below the parent body assignment and,
+after the principal wrapper, below the whole parent assignment.  The existing
+`.addLeft`, `.addRight`, `.infLeft`, `.infRight`, `.principal`, and the new
+`SelectedSubassignment.trans` prove these fields directly.
+
+Then prove three raw-specific lemmas:
+
+1. `tree.compile.Hits A` yields a `SelectedPath` from `(tree,A)` to a marked
+   `RawHistoryTree.marked` leaf and its `WordRepeatProvenance`;
+2. such a path factors at every occurrence word which is a prefix of the
+   marked target word; and
+3. the selected body assignment at a descendant expanded node embeds below
+   the selected body assignment at every earlier expanded node on the path.
+
+At the marked endpoint, factor at `P.earlier` and `P.source`.  Every proper
+prefix node is expanded because a terminal node has no descendants.  The
+earlier frame supplies `ancestor`, `ancestorBody`, `ancestorA`, and
+`ancestorSelected`.  Since `P.targetWord = P.source ++ [branch]`, the source
+frame is exactly one B2/B8 edge: it supplies the arbitrary
+`transport.compile.erase`, its selected assignment, the selected branch
+minimum, and `splitSelected` below `ancestorA`.  The branch path from source to
+the marked child contains only the binary minimum choices and a terminal leaf,
+so `branch_selects_target` is by simplification.  `compile_shift_lower` on the
+transport raw child supplies `transport_shifts`; the word certificate already
+supplies same state and strict height.
+
+This proves
+
+```text
+(tree : RawHistoryTree k root []) ->
+  tree.compile.AllMarkProvenance
+```
+
+without asserting the false arbitrary-subtree version.  No syntax mismatch was
+found for the root theorem, including earlier transport ancestors and the
+self-child case `earlier = source`.

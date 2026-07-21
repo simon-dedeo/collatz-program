@@ -24,10 +24,13 @@ paper's split-time critical-invariant induction. CLEAN_LEAN independently
 checks both newer defects and proves the abstract branch-arrival compactness
 theorem. The leading repair compiles every complete occurrence-aware
 record-admissible additive policy into one fixed outer minimum. It has survived
-independent audits and reproduces KL's small-level literal counts exactly, but
-the all-`k` raw-history/König producer carrying checked mark provenance is not yet
-kernel-checked; the counting consequence remains conditional until that chain
-exists. Around
+independent audits and reproduces KL's small-level literal counts exactly.
+Lean now checks the global occurrence-provenance interface and the seam from
+any inhabited two-phase package to its abstract retarded comparison theorem,
+but the all-`k`
+raw-history producer, live-output/common-lag assembly, and the later
+predecessor-count instantiation are not yet kernel-checked; the counting
+consequence remains conditional until both bridges exist. Around
 it sits a cluster of proved structure theorems and — equally important — a
 growing **failure ledger** of proof routes that are now provably dead. A
 separate GPT instance runs an independent Lean formalization in `CLEAN_LEAN/`
@@ -84,7 +87,11 @@ and the two collaboration channels current.
   fiber minimum. `verify_two_phase_small_levels.py` reproduces the published
   `k=2,3,4` literal maxima and exhibits why marks must be occurrence-indexed:
   the identical `74@(-7+5*alpha)` label is bad on one exact path and live on
-  another. The all-`k` history/policy producer remains open in Lean. Separately, the analytic-
+  another. The all-`k` history/policy producer remains open in Lean. A
+  preferred well-founded implementation recurses only at surviving branch
+  arrivals and unrolls deterministic transport spines with finite fuel; a
+  twice-audited, non-kernel-checked fallback gives an explicit all-`k` word-depth
+  bound in `docs/notes/kl-explicit-history-bound.md`. Separately, the analytic-
   combinatorics scout is **not** a proved reformulation. Its ordinary-resolvent
   identification conflates the nonlinear KL min operator with a linear
   backward-tree matrix; no `C x^{γ_k}`, no-log, or true-count pole-confluence
@@ -190,10 +197,16 @@ branch-arrival compactness theorem (including irrationality of `log 3/log 2`),
 the all-three-deletion obstruction, the split-invariant countermodel, and the
 fixed retarded-witness consumer. It has also proved occurrence-indexed one-pass
 pruning with exact functional semantics and prepared symbolic `Z²` shifts and
-a generic finite-rank checker. The exact repeat-provenance payload and its
-semantic soundness are also checked. The active KL frontier is the
-provenance-carrying raw-history recursion and König bridge described in
-`docs/FOR_CLEAN_LEAN.md` replies 13--15. On the separate pressure lane, generated rows, S1--S4
+a generic finite-rank checker. The global repeat-provenance interface,
+localized mark soundness, and the conversion from `TwoPhaseEliminationData` to the abstract
+comparison theorem are checked. Commit `2f17afe` also checks the indexed
+history-word syntax, rich finite raw-tree type, and its shift, terminal,
+functional, local-validity, and coefficient invariants. The active KL frontier
+is the concrete well-founded raw-history producer, root-level provenance,
+root-liveness/common-lag assembly, and the
+later predecessor-count transfer. The preferred branch-checkpoint recursion
+and a provenance-scope warning are in `docs/FOR_CLEAN_LEAN.md` replies 16--17.
+On the separate pressure lane, generated rows, S1--S4
 finite graph/interval semantics, and all-length bounds are checked; general
 all-level ball-mass domination and the high-oscillation localization implication
 remain open, so the pressure half is not a limit proof.

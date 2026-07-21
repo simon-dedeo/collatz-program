@@ -129,10 +129,12 @@ silently assumes the same invariant.
 The `k=19` feasible point and its 387,420,489 inequalities remain exactly
 verified. The inference from that feasible point to the predecessor-counting
 bound uses KL Theorem 2.2, whose published supporting chain invokes Theorem
-3.1. Until termination is repaired (or an alternative retarded-elimination
-witness is constructed), the numerical certificate is exact but the headline
-exponent is conditional on an unclosed literature-proof gap. This is a trust-
-chain correction, not evidence that the bound or Theorem 3.1 is false.
+3.1. The formal trust chain now has two separately visible gaps: construct the
+corrected retarded-elimination witness, then instantiate the abstract function
+family by the actual predecessor counts and discharge the counting-transfer
+hypothesis. Until both are checked, the numerical certificate is exact but the
+headline exponent is conditional. This is a trust-chain correction, not
+evidence that the bound or Theorem 3.1 is false.
 
 ## Repair frontier
 
@@ -202,22 +204,46 @@ shifts are positive and every preceding branch destination survives.
 occurrence-sensitive policy compiler for every advanced root at `k=2,3,4`; it
 reproduces KL Table 1's maximum literal counts `8,84,12829` exactly.
 
-The precise remaining proof chain is:
+The remaining proof chain is now more sharply factored:
 
-1. define occurrence-indexed histories, marks, and complete policies;
-2. connect an infinite forest path to `no_infinite_KL_branch_arrivals` and
-   apply König;
-3. extract the finite nonempty policy menu and common `mu_k` (nonemptiness may
-   use that the intended positive monotone KL function class is inhabited);
-4. prove the raw-minimizer functional induction and the choice-independent
-   coefficient induction; and
-5. package the compiled outer minimum as `RetardedEliminationWitness`.
+1. construct the full word-indexed raw forest by well-founded recursion at
+   surviving branch-arrival checkpoints, using ordinary finite recursion along
+   each deterministic transport spine;
+2. prove that every selected marked hit realizes its recorded earlier prefix
+   and later split, yielding the already checked global occurrence-provenance
+   interface;
+3. prove the deterministic pruner is live using one target positive monotone
+   base-system family at `y=2`, and combine surviving shifts in `[-2,0)` into
+   one common `mu_k` over all root states;
+4. assemble `TwoPhaseEliminationData`, whose checked consumer already produces
+   the abstract retarded comparison with the correct functional and coefficient
+   directions; and
+5. separately instantiate the abstract `phi` by the predecessor-count family
+   and close the `CountingTransfer` hypothesis.
+
+The preferred termination implementation uses
+`wellFounded_iff_isEmpty_descending_chain` directly on compressed branch
+checkpoints, so no literal König API is needed. A twice-audited but not
+kernel-checked alternative supplies the explicit occurrence-word bound
+
+```text
+N = 3^(k-1),  M = N(N-1),
+D_k = M^2 3^M ceil((N-1)/2).
+```
+
+Its fractional-part proof is in
+`docs/notes/kl-explicit-history-bound.md`. The bound is proof fuel, not a
+practical enumeration limit.
 
 This proposal has survived independent audits of ties, transport returns,
 all-three events, off-path additive children, uniformity in `phi,y`, and the
 opposite functional/coefficient orientations. CLEAN_LEAN already checks the
 occurrence-indexed one-pass pruner, exact functional semantics, coefficient
-monotonicity, localized positivity, and the exact repeat-provenance semantic
-interface. The raw finite-history recursion and König bridge remain
-provisional. Pointwise adaptive
-comparison is a viable fallback if fixed-menu compilation becomes awkward.
+monotonicity, localized positivity, the global repeat-provenance interface, and
+the complete two-phase-to-retarded consumer. CLEAN_LEAN commit `2f17afe` also checks the rich
+word syntax and raw-tree shift, local-validity, functional, coefficient, and
+negative-terminal invariants. The actual
+well-founded producer, root-level provenance inversion, live/common-lag
+assembly, and predecessor-count transfer remain provisional. Pointwise
+adaptive comparison is a viable fallback if fixed compilation becomes
+awkward.
