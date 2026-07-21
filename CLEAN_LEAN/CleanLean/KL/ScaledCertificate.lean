@@ -144,7 +144,10 @@ theorem transportWeight_cast_eq (d : S.ScaledCertificate)
   norm_num only [Rat.cast_div, Rat.cast_pow, Rat.cast_natCast]
   rw [Real.rpow_neg (div_nonneg hAR.le hLR.le)]
   norm_num only [Real.rpow_natCast]
-  rw [div_pow, inv_div]
+  field_simp [ne_of_gt hAR]
+  rw [Real.rpow_two]
+  rw [div_pow]
+  field_simp [ne_of_gt hLR]
 
 /-- End-to-end soundness of the streamed integer certificate format for the
 true irrational KL operator.  No floating-point eigenvalue or weight enters
