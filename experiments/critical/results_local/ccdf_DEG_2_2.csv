@@ -1,0 +1,4 @@
+metric,bin_log2_lo,count,ccdf
+tc,0,250000,0.5
+tc,1,250000,0
+h,0,500000,0

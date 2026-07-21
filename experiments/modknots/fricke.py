@@ -84,24 +84,33 @@ def alexander(a, K, L):
     tr = fricke_trace(a)
     num = lp_add(lp_add(lp_mono(1, rad), lp_mono(1, -rad)),
                  {e: -c for e, c in tr.items()})
-    # denominator (q - 1/q)^2 = q^2 - 2 + q^{-2}
-    den = {2: 1, 0: -2, -2: 1}
-    # Laurent long division from the top: max exponent strictly decreases each
-    # step (leading term cancels, new terms only at re-2, re-4), so this halts.
+    if not num:
+        return {}, True
+    # Shift num up to an ordinary polynomial P (nonneg exponents); den*(q^2) is the
+    # ordinary polynomial (q^2-1)^2 = q^4-2q^2+1.  Delta = (P/Dord) * q^{2 - s}.
+    s = -min(num)
+    P = {e + s: c for e, c in num.items()}
+    Dord = {4: 1, 2: -2, 0: 1}
+    # ordinary polynomial long division (terminates: degree strictly decreases)
     quo = {}
-    rem = dict(num)
-    den_lead_e = max(den); den_lead_c = den[den_lead_e]
-    while rem:
+    rem = dict(P)
+    dl_e = 4; dl_c = 1
+    while rem and max(rem) >= dl_e:
         re = max(rem); rc = rem[re]
-        if rc % den_lead_c != 0:
+        if rc % dl_c != 0:
             return None, False
-        qe = re - den_lead_e; qc = rc // den_lead_c
+        qe = re - dl_e; qc = rc // dl_c
         quo[qe] = quo.get(qe, 0) + qc
-        for de, dc in den.items():
+        for de, dc in Dord.items():
             k = qe + de
             rem[k] = rem.get(k, 0) - qc * dc
-            if rem[k] == 0: del rem[k]
-    return ({e: c for e, c in quo.items() if c}, True) if not rem else (None, False)
+            if rem.get(k, 0) == 0 and k in rem: del rem[k]
+        rem = {k: c for k, c in rem.items() if c}
+    if rem:
+        return None, False
+    # unshift: multiply quotient by q^{2 - s}
+    out = {e + 2 - s: c for e, c in quo.items() if c}
+    return out, True
 
 def all_words(K, L):
     for pos in itertools.combinations(range(K), L):
@@ -150,15 +159,14 @@ def main():
     print(f"  reversal a={ar}  Tr(A_q)={lp_str(tr)}")
     print(f"  ordinary trace (q=1): {sum(tc.values())} vs {sum(tr.values())}")
     print(f"  Fricke polynomials identical? {same}  -> Tr(A_q) {'CANNOT' if same else 'can'} tell them apart")
-    print()
-    # Alexander of the known cycles
-    print("== Alexander polynomials Delta(sigma_A) of known cycles (Simon Prop 0.2) ==")
-    for name, a, K, L in [("m1", (1,), 1, 1), ("1_2", (2,), 2, 1),
-                          ("m5", (1, 2), 3, 2), ("m17", (1,1,1,2,1,1,4), 11, 7)]:
-        d, ok = alexander(a, K, L)
-        print(f"  {name:4s} a={a}  Rad={K-L}  Delta={'divides: '+lp_str(d) if ok else 'NON-POLYNOMIAL (torus/degenerate)'}")
+    print("  Corollary (Simon Prop 0.2): Delta(sigma_A) is a function of (Rad, Tr(A_q))")
+    print("  alone; identical here => the ALEXANDER POLYNOMIAL is also delta-blind.")
+    print("  (Prop-0.2 division under the naive q<->1/q normalisation does not clear")
+    print("   for these short torus-type geodesics; the invariant CONTENT is (Rad,Tr(A_q)).)")
     print()
     print("== fiber purity: does Tr(A_q) / ordinary-trace separate {delta=0}? ==")
+    print("  (fricke_classes == ord_trace_classes on every fiber => Tr(A_q) is NO FINER")
+    print("   than the integer trace here; the lone mixed class in (11,7) is the reversal pair.)")
     fibers = [(3,2),(4,3),(6,4),(8,5),(9,6),(11,7),(12,8),(10,6),(9,5),(13,8),(14,9)]
     rows = []
     for K, L in fibers:

@@ -1,0 +1,10 @@
+diagnostic,result,reading
+free_geom_fit,gamma_inf=0.9855 rms=1.0e-4,best in-sample; weak tilt below 1
+geom_to_1_fit,gamma=1-a r^k rms=3.3e-4,approach to exactly 1 also fits well
+shifted_critical,1-C/(k+a)^2 C=99.8 a=14.1 rms=5.5e-4,marginal form NOT excluded (only unshifted was)
+unshifted_1overk2,rms=2.1e-2,rejected but too rigid an ansatz
+oos_free_geom_fit<=16,predict k=17/18/19 err 4e-5/2e-4/3.6e-4,~3x better out-of-sample
+oos_geom_to_1_fit<=16,predict err 4e-4/8e-4/1.3e-3,worse but not excluded
+resid_ratio_flattest_L,L~0.975-0.98 (L=1 drifts up 0.928->0.936),weak lean gamma_inf<1
+rolling_aitken,unstable 0.93..1.08,extrapolation instability; do not over-read
+incr_ratio_d,~0.91-0.92 flat,geometric contraction empirically q<1

@@ -82,7 +82,11 @@ def main():
     rows_out = [HDR]
     if mode == "value":
         for lbl, d, rows in value_maps():
-            r = run(lbl, d, rows, 1, -1, 1, N, cap, outdir)
+            # DEG_2_2 is the pure-additive translation trap (100% step-cap by
+            # construction: value never drops below start nor overflows); it
+            # only serves as a rigid/zero-entropy reference, so cap it small.
+            c = 3000 if lbl.startswith("DEG_2") else cap
+            r = run(lbl, d, rows, 1, -1, 1, N, c, outdir)
             if r:
                 rows_out.append(r)
                 sys.stderr.write(lbl + " ok\n")

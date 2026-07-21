@@ -45,17 +45,31 @@ and the two collaboration channels current.
   regular divergence certificates (exhausted ≤8 states base 2, ≤5 base 3);
   spectral-gap descent; tropical-geometry-proper; Bourgain–Kontorovich; the
   solenoid→hidden-RH hope.
-- **LIVE bets (ranked in README):** (1) analytic-combinatorics reframing of the
-  counting side (γ_k = dominant pole; λ_∞=2 = confluence of singularities);
-  (2) the unsigned solenoid zeta's natural boundary / Pólya–Carlson (connects
-  Bell–Lagarias); (3) mixed-radix anti-concentration (DOWNGRADED — has 3 proof
-  gaps, being re-tested at the correct scale); (4) arctic/max-plus SRS no-go
-  (cheap, closes a stated Yolcu–Aaronson–Heule problem); (5) adelic descent /
-  quantum-channel reframing.
-- **Was running at handoff** (check for results, don't assume): a ganesha
-  family-census sweep; a mixed-radix agent re-testing scale; resumed
-  arctic/modular-knots/critical-drift scouts. Where results land is written in
-  each `docs/notes/*.md` and `experiments/*/`.
+- **LIVE bets (ranked in README) — your forward agenda:** (1) analytic-
+  combinatorics reframing of the counting side (γ_k = dominant pole of an
+  explicit multitype Dirichlet GF; λ_∞=2 = confluence of singularities; the
+  cleanest next step is writing M(s) explicitly and connecting to BRW
+  derivative-martingale theory); (2) the unsigned solenoid zeta's natural
+  boundary at |u|=1/4 / Pólya–Carlson dichotomy (connects Bell–Lagarias — two
+  independent threads meeting); (3) mixed-radix anti-concentration — flattening
+  is numerically TRUE at k≈3 log p and reduces exactly to a conditioned
+  two-multiplier Chung–Diaconis–Graham walk (publishable framing); the one hard
+  open piece is a rank-two matrix-product contraction (Prop P) no cited theorem
+  supplies; (4) arctic no-go — Theorem B proved, Theorem A provable-looking;
+  essentially done (closes the YAH problem for arctic); (5) adelic descent /
+  quantum-channel reframing (the no-go = the KL channel's peripheral spectrum).
+- **All background lanes were STOPPED at handoff** (killed mid-flight by user
+  request). Partial state is recorded in each note; nothing is silently lost:
+  - `docs/notes/mixed-radix-flattening.md` — COMPLETE (numerical-evidence +
+    proof-program; 3 open gaps).
+  - `docs/notes/arctic-nogo.md` — COMPLETE (Theorem B proved).
+  - `docs/notes/modular-knots.md` — PARTIAL (linear Rademacher invariant
+    collapses to Baker, confirmed; quadratic linking invariant shows nonzero
+    separation but analysis UNFINISHED — resume from `experiments/modknots/`).
+  - critical-drift scout — produced nothing before it was stopped (no artifacts).
+  - ganesha family-census sweep — grid2 pass done (`results/`), critical-line +
+    grid3 passes NOT finished (optional side-thread; low value — grid2 gives the
+    main phase-diagram picture).
 
 ## 3. Working practices (the "how" — this is the real transfer)
 
@@ -137,11 +151,14 @@ in the autonomous class, so they stand unused on that path but are correct.
 
 1. Read `README.md` top-to-failure-ledger.
 2. Poll `CLEAN_LEAN/FOR_FABLE.md` for anything addressed to the driver.
-3. Check the "Was running at handoff" jobs (§2) for landed results; fold any
-   into the record.
-4. Test which infrastructure in §4 you can actually reach; note it.
-5. Pick the top LIVE bet you can make progress on; if you close or advance it,
-   update README (living map) + commit + push, and tell the Lean side via
+3. All background lanes are already stopped (§2) — nothing is mid-flight to
+   monitor; the partial state of each is in its note. Start fresh.
+4. Sanity-check infrastructure (§4) with one `ssh`/`squeue`; it carries over.
+5. Pick the top LIVE bet you can advance (the AC reframing and the natural-
+   boundary lead are the two freshest; arctic is nearly closeable; mixed-radix
+   is a real research program with one hard named gap). If you close or advance
+   it, update README (living map) + commit + push, and tell the Lean side via
    `docs/FOR_CLEAN_LEAN.md` if it affects a formalization target.
 
 Welcome. Keep it honest; the failure ledger is as valuable as the theorems.
+This handoff is FINAL as of 2026-07-20 — the record is settled, not mid-flight.

@@ -23,44 +23,37 @@ def find(w, pat):
     return -1
 
 def step(w):
-    """One deterministic macro-Collatz step on w = ['h']+['1']*k+['B'] -> h1^{C(k)}B.
-       Returns (new_word, counts_dict). Uses the priority order that realizes the sweep."""
+    """One deterministic macro-Collatz step on w = ['h']+['1']*k+['B'] -> canonical form
+       with count_ones = C(k). Returns (new_word, counts). Realizes the TM sweep:
+       (1) EXHAUST R1 (sweep head h fully right), THEN (2) branch on parity."""
     counts = {name:0 for (name,_,_) in RULES}
-    # priority: move head right (R1) until it can't; then decide even (R2) or odd (R5);
-    # then sweep back (R3/R6); then turn around (R4/R7). One full macro step.
+    # phase 1: exhaust R1 (h11->1h) -- head sweeps right, halving the ones to its right
     while True:
-        # try R1 (h11->1h): sweep h right
         i = find(w, ['h','1','1'])
-        if i != -1:
-            w = w[:i] + ['1','h'] + w[i+3:]; counts["R1"] += 1; continue
-        # now h is followed by at most one 1.  Even: '...11h' pattern? R2 (11h->11s)
-        i = find(w, ['1','1','h'])
-        if i != -1:
-            w = w[:i] + ['1','1','s'] + w[i+3:]; counts["R2"] += 1
-            # sweep s left: R3 (1s->s1) until s at far left, then R4 (s->h)
-            while True:
-                j = find(w, ['1','s'])
-                if j != -1:
-                    w = w[:j] + ['s','1'] + w[j+2:]; counts["R3"] += 1; continue
-                break
-            j = find(w, ['s'])
-            w = w[:j] + ['h'] + w[j+1:]; counts["R4"] += 1
-            return w, counts
-        # Odd: h followed by exactly one 1 then B  -> R5 (h1->t11)
-        i = find(w, ['h','1'])
-        if i != -1:
-            w = w[:i] + ['t','1','1'] + w[i+2:]; counts["R5"] += 1
-            # sweep t left: R6 (1t->t111), then R7 (t->h)
-            while True:
-                j = find(w, ['1','t'])
-                if j != -1:
-                    w = w[:j] + ['t','1','1','1'] + w[j+2:]; counts["R6"] += 1; continue
-                break
-            j = find(w, ['t'])
-            w = w[:j] + ['h'] + w[j+1:]; counts["R7"] += 1
-            return w, counts
-        # h alone (k==0): h B -> ... R5 needs h1; nothing applies; halt.
+        if i == -1: break
+        w = w[:i] + ['1','h'] + w[i+3:]; counts["R1"] += 1
+    # after phase 1 head h has 0 (even) or 1 (odd) ones immediately to its right, then B
+    i = find(w, ['1','1','h'])          # even: '...11hB'  (m>=2 ones on left, 0 on right)
+    if i != -1 and (i+3 >= len(w) or w[i+3] == 'B'):
+        w = w[:i] + ['1','1','s'] + w[i+3:]; counts["R2"] += 1
+        while True:
+            j = find(w, ['1','s'])
+            if j == -1: break
+            w = w[:j] + ['s','1'] + w[j+2:]; counts["R3"] += 1
+        j = find(w, ['s'])
+        w = w[:j] + ['h'] + w[j+1:]; counts["R4"] += 1
         return w, counts
+    i = find(w, ['h','1'])              # odd: '...h1B'
+    if i != -1:
+        w = w[:i] + ['t','1','1'] + w[i+2:]; counts["R5"] += 1
+        while True:
+            j = find(w, ['1','t'])
+            if j == -1: break
+            w = w[:j] + ['t','1','1','1'] + w[j+2:]; counts["R6"] += 1
+        j = find(w, ['t'])
+        w = w[:j] + ['h'] + w[j+1:]; counts["R7"] += 1
+        return w, counts
+    return w, counts                    # degenerate (k<=2): normal form '1 h B' etc.
 
 def count_ones(w):
     return sum(1 for c in w if c == '1')

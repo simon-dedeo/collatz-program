@@ -1,7 +1,10 @@
 # Analytic combinatorics of the Collatz counting statistics: the KL exponent as a dominant singularity, and the BRW-front reading of λ∞→2
 
-2026-07-20. Status: **scout report + reformulation proofs + one structural correction**.
-Companion to `kl-limit-object.md` [LIM], `adversarial-operator.md`, and
+2026-07-20 (rev b). Status: **scout report + reformulation proofs + structural corrections**.
+Rev b adds §8 (finite-size scaling of γ_k, `experiments/ac/`) and §9 (Terras first-descent
+kernel-method GF; γ_k as a dynamical-zeta zero); §8's numerical inferences were tightened and
+one overclaim retracted after independent recheck with gpt-5.6-sol (`experiments/ac/sol_reply.txt`).
+Companion to `kl-limit-object.md` [LIM], `adversarial-operator.md`, `solenoid-zeta.md`, and
 `docs/smell/Branching-random-walks--additive-martingales.json` [BRW-smell].
 Tags: [PROVED] proof/standard-cite; [PROVABLE] route clear; [SPEC] speculative;
 [HEUR] a heuristic that AC *recovers but cannot prove* (the independence is the conjecture).
@@ -45,18 +48,20 @@ weight*, hence live natively in the analytic-combinatorics (AC) frame. Findings:
    the **Lundberg root θ\* = 1** plus a record-over-N extreme-value count (§5). The forward
    Lundberg root θ\*=1 and the backward annealed pole δ=1 are the *same* "exponent-1"
    critical tilt — a single free-energy zero governs all three statistics (§5.3).
-5. **[SPEC, data-backed — NEW 2026-07-20b]** The AC/BRW frame turns the open dichotomy into
-   a **finite-size-scaling** question that the certified data can already be run against: the
-   *rate* at which γ_k → γ_∞ is a cutoff diagnostic. A **spectral gap** (off-critical, λ∞<2)
-   forces **exponential-in-k** convergence; a **critical/marginal** front (λ∞=2) forces the
-   **algebraic Brunet–Derrida** law γ_∞−γ_k ≍ 1/(log N_k)² = 1/k² (N_k=3^{k−1}). Fitting the
-   nine certified points k=11–19: geometric wins (γ_∞≈0.975–0.98, rms 1·10⁻⁴), the 1/k² form
-   is **rejected** (30–200× worse), and the within-window signature is decisive — the
-   increment ratios are **flat at ~0.92** (geometric) whereas a true 1/k² law would show them
-   **rising 0.78→0.85** across this window. **Current evidence therefore points to λ∞ < 2, an
-   intrinsic KL ceiling γ_∞ ≈ 0.975** (§8) — the first data-driven attack on [LIM] Problem 3.5.
-   Caveat honestly flagged: a Brunet–Derrida crossover to critical scaling is notoriously
-   delayed, so a clean geometric window can in principle be pre-asymptotic (§8.3).
+5. **[DATA + PROVABLE target — NEW 2026-07-20b, corrected]** The AC/BRW frame turns the open
+   dichotomy into a **finite-size-scaling** question the certified data can be run against. On
+   k=11–19 the certified γ_k converge in a **geometric (spectral-gap) shape, not** the
+   **unshifted-marginal** 1/k² Brunet–Derrida shape (increment ratios flat ~0.92, not rising
+   0.78→0.85; free-geom rms 1·10⁻⁴). **But — correcting an earlier draft claim (verified with
+   gpt-5.6-sol) — geometric convergence does *not* decide λ∞: γ_k = 1 − a·r^k approaches
+   exactly 1 and fits equally well (rms 3·10⁻⁴), so λ∞ = 2 stays fully compatible; nine
+   deterministic points cannot separate γ_∞ = 1 from < 1** (only a mild, non-decisive tilt to
+   ≈0.985 from out-of-sample prediction; Aitken unstable). The durable payoff is a **clean
+   proof target**: λ∞ < 2 ⟺ increments d_k = γ_k−γ_{k−1} summable below the deficit; a
+   *proved eventual contraction* d_{k+1} ≤ q·d_k (q<1) with γ_K + d_{K+1}/(1−q) < 1 — plausibly
+   from a spectral gap of the level-tower refinement — **certifies λ∞ < 2**, while d_{k+1}/d_k
+   → 1 gives λ∞ = 2. This converts [LIM] Problem 3.5 into "bound the tower's contraction ratio"
+   (§8); pre-registered discriminator at k=20–22.
 
 ---
 
@@ -263,39 +268,56 @@ theory then gives a sharp dichotomy for the finite-size correction:
   the **Brunet–Derrida cutoff** γ_∞ − γ_k ≍ π²|ψ″|/(2 (log N_k)²). With log N_k = (k−1)log3
   this is an **algebraic 1/k²** law (up to a possible Bramson log(k)/k refinement).
 
-### 8.1 The fits (`experiments/ac/`, 9 certified points k=11–19)
-| model | γ_∞ | rms | verdict |
-|---|---|---|---|
-| geometric γ_∞−a·r^k (r=0.920) | 0.981 | 1.0·10⁻⁴ | best clean fit |
-| repeated Aitken Δ² (model-free) | 0.974 | — | stable over 3 passes |
-| force γ_∞=1, geometric | 1 | 3.4·10⁻⁴ | 3× worse |
-| 1/k² (Brunet–Derrida) | 0.939 | 3.0·10⁻³ | 30× worse |
-| force γ_∞=1, 1/k² | 1 | 2.1·10⁻² | **catastrophic (200×)** |
+*Caveat carried throughout (flagged by gpt-5.6-sol, independently rechecked):* identifying
+N_k = 3^{k−1} with a genuine BRW particle-cutoff needs a theorem, and "adversarial min" is
+worst-case/min-plus control, not literally quenched disorder — so this is an analogy that
+*organizes the data*, not a derivation. The results below are all `experiments/ac/`.
 
-Data in `gamma_finite_size.csv`, fits in `fits_summary.csv`. The geometric law and the
-algebraic law are cleanly separated: the geometric fit is 30–200× tighter.
+### 8.1 What the data robustly show [data]
+The certified γ_k (k=11–19, `gamma_finite_size.csv`) converge in a **geometric / spectral-
+gap shape, not** the **unshifted-marginal** 1/k² Brunet–Derrida shape. Two independent tells:
+- **Fit quality.** Free geometric γ_∞−a·r^k: rms 1·10⁻⁴, and out-of-sample (fit k≤16, predict
+  17–19) error only 4·10⁻⁵…4·10⁻⁴. Unshifted 1/k² forced to γ_∞=1: rms 2·10⁻² (excluded).
+- **Increment ratios** d_k/d_{k−1} = (γ_k−γ_{k−1})/(γ_{k−1}−γ_{k−2}) are **flat at ~0.92**
+  (0.93,0.91,0.92,0.91,0.91,0.92). A pure **unshifted** 1/k² law forces them to **rise**
+  0.78→0.85 across this window; they do not. This is the robust content: the convergence is
+  geometric-looking, and if criticality holds it has **not yet** entered its 1/k² regime
+  (consistent with log N_k ≈ 20 being far from asymptotic).
 
-### 8.2 The sharp within-window signature (does not need far extrapolation)
-The consecutive **increment ratios** (γ_k−γ_{k−1})/(γ_{k−1}−γ_{k−2}) are the diagnostic that
-avoids trusting the extrapolated intercept. A pure 1/k² law forces them to **rise**
-monotonically: ((k−1)/k)³ climbs 0.78 → 0.85 across k=11→19. A geometric law forces them
-**flat** at r. Observed (past the k=12 transient): **0.93, 0.91, 0.92, 0.91, 0.91, 0.92 —
-flat at ~0.92, no rising trend.** This is the signature of a **gap**, not of criticality.
+### 8.2 What the data do NOT decide [correction of an earlier overclaim, verified w/ sol]
+**Geometric convergence does *not* imply λ∞ < 2.** The sequence γ_k = 1 − a·r^k approaches
+*exactly* 1 while being perfectly geometric; it fits the window at rms 3.3·10⁻⁴, and its
+residuals e_k = 1−γ_k have flat ratios 0.928→0.936 — i.e. **λ∞ = 2 is fully compatible.** A
+*shifted* critical law 1 − C/(k+a)² (a≈14) fits at rms 5.5·10⁻⁴ — also not excluded (only the
+rigid unshifted form was). Nine deterministic points with 2–3 parameters **cannot separate
+γ_∞ = 1 from γ_∞ < 1**; comparing rms without a noise model is not a statistical rejection.
+This **retracts** the earlier draft's "λ∞ < 2, ceiling ≈0.975": that conclusion is not
+supported. (No theorem gives exponential-in-k ⇒ λ∞ < 2; counterexample γ_k=1−cr^k.)
 
-### 8.3 Reading and the honest caveat
-Within k ≤ 19 the KL exponent behaves like an **off-critical, gapped** front converging to
-**γ_∞ ≈ 0.975 < 1 ⇒ λ∞ < 2** — a concrete prediction that the KL difference-inequality
-method has an **intrinsic ceiling** around x^{0.975}, *not* x^{1−ε}. This is the AC/BRW
-instantiation of §4.3's "the gap is disorder" and of [LIM]'s corrector-non-flattening branch
-(B). **Caveat [SPEC]:** Brunet–Derrida corrections are notoriously invisible until N is
-astronomically large, so a clean geometric window (here N_k ≤ 3^18 ≈ 4·10⁸) *can* be a
-pre-asymptotic transient that later crosses over to critical 1/k². What makes the reading
-more than a curve-fit is §8.2: at true criticality the increment ratios must already be
-**drifting upward** at these k, and they are not. **Pre-registered test:** k=20–22 (files
-present, deprioritized). Off-critical predicts ratio stays ≈0.92 and γ_20≈0.9152,
-γ_21≈0.9204, γ_22≈0.9251 (geometric fit); a *rise* in the ratio toward ~0.86 would be the
-first fingerprint of a Brunet–Derrida crossover and would resurrect λ∞ = 2. This is a cheap,
-decisive discriminator on data we already hold.
+The only honest *tilt* is mild and non-decisive: (i) the free-limit fit predicts out-of-sample
+~3× better than the forced-to-1 fit (γ_∞≈0.985); (ii) forced-limit residual ratios q_k(L) =
+(L−γ_k)/(L−γ_{k−1}) are flattest near L≈0.975–0.98 and drift *upward* for L=1. Against this,
+rolling 3-point Aitken estimates are **unstable** (0.93…1.08), which by itself warns against
+reading any single extrapolated limit. Net: a whisker below 1, but inside the noise.
+
+### 8.3 The payoff: the dichotomy = an increment-contraction certificate [PROVABLE target]
+The value of the AC framing is not a numerical verdict but a **clean finite proof target**.
+Since γ_k ↑ and γ_∞ = γ_K + Σ_{k>K} d_k, we have the exact equivalences
+- **λ∞ < 2** ⟺ the increments d_k are summable with γ_K + Σ_{k>K} d_k < 1. A **sufficient
+  certificate**: an eventual geometric contraction d_{k+1} ≤ q·d_k with q<1 for all k ≥ K,
+  together with γ_K + d_{K+1}/(1−q) < 1. Empirically d_{k+1}/d_k ≈ 0.91–0.92 < 1 already, so
+  *a proved uniform ratio bound q<1* — plausibly from a **spectral gap of the level-tower
+  refinement operator** π_{k+1,k} (the AC pole moving under one refinement) — would settle
+  λ∞ < 2. This is a concrete, finite, checkable object, unlike "compute the limit."
+- **λ∞ = 2** ⟺ the increments are **not** summable below the deficit, i.e. d_{k+1}/d_k → 1
+  (the marginal/critical case). The pre-registered test on data we already hold (k=20–22):
+  geometric behavior predicts the ratio **stays ≈0.92** (γ_20≈0.915, γ_21≈0.920, γ_22≈0.925);
+  a ratio **drifting up toward 1** would be the first fingerprint of a Brunet–Derrida crossover
+  and would favor λ∞ = 2. So the AC contribution is to convert [LIM] Problem 3.5 into
+  "**bound (or lower-bound) the tower's increment-contraction ratio**." (Sufficiency/necessity
+  of the contraction certificate independently rechecked with gpt-5.6-sol; no general theorem
+  substitutes for a model-specific gap bound — Bérard–Gouéré '10 is the closest, and it is a
+  *positive* 1/(log N)² result under selection, not a gap theorem.)
 
 ---
 
@@ -341,18 +363,20 @@ coincidence).
 poles.
 **[SPEC / precise conjecture]** §4.3 λ∞=2 ⟺ weak disorder ⟺ UI of the true-tree additive
 martingale W^true(1); the disorder-transition identity with `adversarial-operator.md` Conj 4.3.
-**[SPEC, data-backed]** §8 finite-size scaling: geometric (gapped) fit ⇒ γ_∞≈0.975<1 ⇒ λ∞<2;
-flat increment ratios ~0.92 reject the 1/k² Brunet–Derrida critical form; caveat = possible
-delayed crossover, pre-registered k=20–22 test in §8.3.
+**[DATA + PROVABLE target]** §8 finite-size scaling: convergence is geometric-shaped, not
+unshifted-1/k²; but this does NOT decide λ∞ (γ_k=1−a r^k fits too — verified w/ sol; earlier
+"ceiling 0.975" retracted). Payoff = the equivalence λ∞<2 ⟺ proved increment contraction
+d_{k+1}≤q d_k with γ_K+d_{K+1}/(1−q)<1 (plausibly a level-tower spectral gap); k=20–22 test.
 **[PROVABLE / structural]** §9.1 Terras first-descent distribution = kernel-method excursion
 GF (Banderier–Flajolet); §9.2 γ_k = lowest zero of the unsigned truncated dynamical zeta
 det(I−M_k(s)), a signed-vs-unsigned bridge to `solenoid-zeta.md`.
 **[HEUR]** §5 constants for the true (deterministic, correlated) dynamics.
 
-**Sharpest new items.** (1) **Finite-size scaling discriminates the dichotomy on data we
-already hold** (§8): the certified γ_k(k=11–19) converge *geometrically* (gap ⇒ λ∞<2, ceiling
-γ_∞≈0.975), and the increment-ratio test (flat ~0.92, not rising 0.78→0.85) is a within-window
-signature that does not rely on far extrapolation — pre-registered k=20–22 discriminator.
+**Sharpest new items.** (1) **The dichotomy is an increment-contraction certificate** (§8):
+certified γ_k(k=11–19) converge *geometrically* (flat ratio ~0.92, not the rising 0.78→0.85 of
+unshifted 1/k²), but that shape does NOT decide λ∞ (γ_k=1−a r^k fits too) — so the payoff is
+the equivalence **λ∞<2 ⟺ a proved eventual contraction d_{k+1}≤q d_k with γ_K+d_{K+1}/(1−q)<1**,
+plausibly a level-tower spectral gap; k=20–22 pre-registered discriminator.
 (2) **Derivative martingales are irrelevant to the predecessor exponent** (transverse root,
 §4.2) — a correction to [BRW-smell]'s Seneta–Heyde hope; the right object is the additive
 martingale W^true(1). (3) **One free-energy zero (2^α=3) yields all three exponents** (§5.3).
@@ -368,4 +392,9 @@ BRW-smell]. J. Biggins, *Spreading speeds in reducible multitype BRW*, AAP 22 (2
 arXiv:1003.4716 [`papers/biggins2012_reducible_multitype_spreading_speeds.pdf`]. Grama–
 Mentemeier–Xiao, arXiv:2507.09737 [`papers/grama_mentemeier_xiao2025_matrix_BRW_spinal_derivative_martingale.pdf`]
 (derivative martingale / Seneta–Heyde — shown here *not* to apply). Krasikov–Lagarias, Acta
-Arith. 109 (2003). [LIM] `docs/notes/kl-limit-object.md`; solver `kl_perron_solver.py`.
+Arith. 109 (2003). C. Banderier, P. Flajolet, *Basic analytic combinatorics of directed
+lattice paths*, TCS 281 (2002) [kernel method, §9.1]. J. Bérard, J.-B. Gouéré, *Brunet–Derrida
+behavior of branching-selection particle systems on the line*, CMP 298 (2010) [the 1/(log N)²
+law, §8]. R. Terras, *A stopping time problem on the positive integers*, Acta Arith. 30 (1976)
+[first-descent distribution, §9.1]. [LIM] `docs/notes/kl-limit-object.md`; solver
+`kl_perron_solver.py`; §8/§9 data `experiments/ac/*.csv`.
