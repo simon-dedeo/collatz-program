@@ -176,6 +176,8 @@ specification theorems during a build.
 #print axioms CleanLean.KL.EliminationTree.OccurrenceTree.exists_live_prune_of_noCriticalHits
 #print axioms CleanLean.KL.EliminationTree.OccurrenceTree.eval_pruneOccurrences
 #print axioms CleanLean.KL.EliminationTree.OccurrenceTree.pruneOccurrences_sound
+#print axioms
+  CleanLean.KL.EliminationTree.OccurrenceTree.markingSound_principal_of_repeatProvenance
 #print axioms CleanLean.KL.EliminationTree.OccurrenceTree.allLeaves_of_pruneOccurrences_live
 #print axioms CleanLean.KL.ConcreteElimination.coeffEval_le_of_pruneOccurrences_live
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds

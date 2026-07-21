@@ -368,6 +368,144 @@ def MarkingSound (tree : OccurrenceTree ι)
   ∀ A : Assignment tree.erase,
     A.RespectsPrincipalBounds φ y → tree.Hits A → False
 
+/-- A completely unmarked copy of a labelled elimination tree. -/
+def unmarked : EliminationTree ι → OccurrenceTree ι
+  | .leaf label => .leaf label false
+  | .principal label body => .principal label (unmarked body)
+  | .add left right => .add (unmarked left) (unmarked right)
+  | .inf left right => .inf (unmarked left) (unmarked right)
+
+@[simp] theorem erase_unmarked (tree : EliminationTree ι) :
+    (unmarked tree).erase = tree := by
+  induction tree <;> simp [unmarked, erase, *]
+
+theorem not_hits_unmarked (tree : EliminationTree ι)
+    (A : Assignment (unmarked tree).erase) : ¬(unmarked tree).Hits A := by
+  induction tree with
+  | leaf label => cases A; simp [unmarked, Hits]
+  | principal label body ih =>
+      cases A with
+      | principalNode child => exact ih child
+  | add left right ihLeft ihRight =>
+      cases A with
+      | add leftA rightA =>
+          simp only [unmarked, Hits, not_or]
+          exact ⟨ihLeft leftA, ihRight rightA⟩
+  | inf left right ihLeft ihRight =>
+      cases A with
+      | infLeft leftA => exact ihLeft leftA
+      | infRight rightA => exact ihRight rightA
+
+theorem markingSound_unmarked (tree : EliminationTree ι)
+    (φ : ι → ℝ → ℝ) (y : ℝ) : (unmarked tree).MarkingSound φ y := by
+  intro A hrespect
+  exact not_hits_unmarked tree A
+
+/-- Sound mark certificates compose through an addition. -/
+theorem MarkingSound.add {left right : OccurrenceTree ι}
+    {φ : ι → ℝ → ℝ} {y : ℝ}
+    (hleft : left.MarkingSound φ y) (hright : right.MarkingSound φ y) :
+    (OccurrenceTree.add left right).MarkingSound φ y := by
+  intro A hrespect hhit
+  cases A with
+  | add leftA rightA =>
+      exact hhit.elim (hleft leftA hrespect.1) (hright rightA hrespect.2)
+
+/-- Sound mark certificates compose through a minimum. -/
+theorem MarkingSound.inf {left right : OccurrenceTree ι}
+    {φ : ι → ℝ → ℝ} {y : ℝ}
+    (hleft : left.MarkingSound φ y) (hright : right.MarkingSound φ y) :
+    (OccurrenceTree.inf left right).MarkingSound φ y := by
+  intro A hrespect hhit
+  cases A with
+  | infLeft leftA => exact hleft leftA hrespect hhit
+  | infRight rightA => exact hright rightA hrespect hhit
+
+/-- Sound mark certificates compose through a principal node when the body
+certificate already uses only descendant principal bounds. -/
+theorem MarkingSound.principal {body : OccurrenceTree ι}
+    (label : PrincipalLabel ι) {φ : ι → ℝ → ℝ} {y : ℝ}
+    (hbody : body.MarkingSound φ y) :
+    (OccurrenceTree.principal label body).MarkingSound φ y := by
+  intro A hrespect hhit
+  cases A with
+  | principalNode child => exact hbody child hrespect.2 hhit
+
+/-- Interface for sealing marks whose contradiction specifically uses the
+bound at this principal occurrence.  The forthcoming Phase-A provenance
+proof must supply `hbody` by extracting the marked branch occurrence and its
+positive transport sibling. -/
+theorem markingSound_principal_of_bound_contradiction
+    (ancestor : PrincipalLabel ι) (body : OccurrenceTree ι)
+    (φ : ι → ℝ → ℝ) (y : ℝ)
+    (hbody : ∀ A : Assignment body.erase,
+      A.RespectsPrincipalBounds φ y →
+      A.selectedEval φ y ≤ ancestor.value φ y →
+      body.Hits A → False) :
+    (OccurrenceTree.principal ancestor body).MarkingSound φ y := by
+  intro A hrespect hhit
+  cases A with
+  | principalNode child => exact hbody child hrespect.2 hrespect.1 hhit
+
+/-- The exact occurrence-level payload needed for one selected marked repeat.
+It identifies the later target, the enclosing split addition, and the
+arbitrarily expanded transport sibling.  `branch_selects_target` is syntactic:
+in the concrete history tree the marked target remains a terminal leaf below
+the selected branch-minimum path. -/
+structure RepeatSelection
+    (ancestor : PrincipalLabel ι) (body : OccurrenceTree ι)
+    (A : Assignment body.erase) where
+  target : PrincipalLabel ι
+  transport : EliminationTree ι
+  branch : EliminationTree ι
+  transportA : Assignment transport
+  branchA : Assignment branch
+  selectedBelow : Assignment.SelectedSubassignment
+    (Assignment.add transportA branchA) A
+  branch_selects_target : ∀ (ψ : ι → ℝ → ℝ) (z : ℝ),
+    branchA.selectedEval ψ z = target.value ψ z
+  same_state : ancestor.state = target.state
+  strictly_higher : ancestor.shift < target.shift
+  transport_shifts : transport.AllLeaves fun label => -2 ≤ label.shift
+
+/-- A Phase-A occurrence marking has repeat provenance when every assignment
+which hits a mark yields the concrete selected-repeat payload above.  Unlike a
+label-keyed predicate, this distinguishes identical labels reached along
+different histories. -/
+def RepeatMarkProvenance
+    (ancestor : PrincipalLabel ι) (body : OccurrenceTree ι) : Prop :=
+  ∀ A : Assignment body.erase, body.Hits A →
+    Nonempty (RepeatSelection ancestor body A)
+
+/-- Repeat provenance discharges `MarkingSound` at its recorded ancestor.
+This is the semantic endpoint required from the concrete Phase-A history
+builder. -/
+theorem markingSound_principal_of_repeatProvenance
+    (ancestor : PrincipalLabel ι) (body : OccurrenceTree ι)
+    (φ : ι → ℝ → ℝ) (y : ℝ)
+    (hprovenance : RepeatMarkProvenance ancestor body)
+    (hbodyShifts : body.erase.AllLeaves fun label => -2 ≤ label.shift)
+    (hy : 2 ≤ y)
+    (hφ : ∀ i t, 0 ≤ t → 0 < φ i t)
+    (hmono : ∀ i, Monotone (φ i)) :
+    (OccurrenceTree.principal ancestor body).MarkingSound φ y := by
+  intro wholeA hrespect hhit
+  cases wholeA with
+  | principalNode child =>
+      obtain ⟨W⟩ := hprovenance child hhit
+      have hbodyArgs : body.erase.AllLeaves fun label => 0 ≤ y + label.shift :=
+        allLeaves_nonnegative_arguments_of_shift_lower_bound
+          y 2 hbodyShifts hy
+      have htransportArgs :
+          W.transport.AllLeaves fun label => 0 ≤ y + label.shift :=
+        allLeaves_nonnegative_arguments_of_shift_lower_bound
+          y 2 W.transport_shifts hy
+      exact Assignment.repeated_branch_leaf_not_selected_of_nonnegative_arguments
+        ancestor W.target child W.transportA W.branchA φ y hrespect
+        W.selectedBelow hbodyArgs htransportArgs hφ W.same_state
+        W.strictly_higher (hmono ancestor.state)
+        (W.branch_selects_target φ y)
+
 /-- The complete one-pass Phase-B theorem at a fixed evaluation point.
 Local validity supplies principal bounds for critical assignments; a sound
 occurrence marking then proves root liveness and exact functional equality. -/

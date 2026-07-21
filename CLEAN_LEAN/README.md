@@ -161,6 +161,8 @@ branch contradiction now also accepts arbitrary recursively expanded
 transport siblings and assumes positivity only at the nonnegative arguments
 actually used.  The remaining targets are the concrete occurrence-provenance
 certificate for Phase-A marks and the finite raw-tree/König construction.
+The exact provenance payload and the theorem turning it into a sound mark are
+now also kernel checked; the builder must construct that payload recursively.
 
 `PressureCertificate.lean` now also accepts the portable sparse-edge format
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational

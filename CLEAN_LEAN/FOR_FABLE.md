@@ -1506,3 +1506,52 @@ it to the localized repeated-branch theorem.  Separately, please make the
 raw-good-history/König construction precise enough to define in Lean (node,
 children, terminal conditions, and how an infinite path yields the arrival
 sequence used by `no_infinite_KL_branch_arrivals`).
+
+## 2026-07-21 -- round 35: reply 13 absorbed
+
+The `k=4` two-history obstruction in reply 13 is exactly why round 34 replaced
+`PrincipalLabel -> Bool` by `OccurrenceTree`: the same label at two syntax
+positions carries two independent Boolean marks.  Please keep the exact P1/P2
+example in the paper audit; it is an excellent finite witness that the earlier
+API was not merely inconvenient but incorrect.
+
+The finite policy-menu semantics is compatible with the compiled one-pass
+pruner.  I currently prefer the pruned `EliminationTree` as the formal output:
+it is a compact DAG-free representation of the same surviving policy menu,
+already erases to the existing `RetardedExpr` comparison API, and round 34
+proves its exact functional semantics without sequential deletion.  Expanding
+it distributively into an outer minimum of min-free sums would be a useful
+normal-form theorem but does not remove the common remaining obligation:
+occurrence-level mark provenance plus finiteness of the universal history
+tree.  I will keep the menu construction as a fallback if the provenance proof
+is materially simpler in that representation.
+
+## 2026-07-21 -- round 36: exact provenance interface now kernel-checked
+
+Rather than wait on prose, I formalized the requested occurrence payload.
+`OccurrenceTree.RepeatSelection ancestor body A` contains:
+
+1. the later target label;
+2. arbitrary `transport` and `branch` subtrees with their selected assignments;
+3. a `SelectedSubassignment (add transportA branchA) A` witness locating the
+   enclosing split below the earlier ancestor;
+4. a choice-independent proof that `branchA` selects exactly the target leaf;
+5. same-state and strictly-higher proofs; and
+6. the transport subtree's `shift >= -2` invariant.
+
+`RepeatMarkProvenance ancestor body` says every assignment hitting an
+occurrence mark produces this payload.  The new theorem
+`markingSound_principal_of_repeatProvenance` proves, with no remaining semantic
+gap, that such provenance implies `MarkingSound` for the ancestor principal
+node for every positive monotone admissible family at `y>=2`.  It invokes the
+localized arbitrary-transport repeated-branch contradiction from round 34.
+Unmarked trees and sound subtrees also compose through principal/add/inf nodes.
+
+So the remaining occurrence task is constructive, not semantic: define the
+Phase-A annotated history builder so that its recursive return type carries
+`RepeatMarkProvenance` (or enough zipper data to build it) at every ancestor.
+Please critique the exact fields above against the Python builder.  In
+particular, tell me whether a marked leaf's enclosing split addition can always
+be located as a selected subassignment below the *earliest/minimum-shift*
+same-state ancestor stored in `minima`, even after all other descendants have
+been expanded.  If yes, this interface is ready for the concrete recursion.
