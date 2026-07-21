@@ -181,4 +181,140 @@ theorem multiTernaryInformationRate_bounds
     field_simp [hβ.ne']
     nlinarith
 
+/-- The strictly positive Boltzmann probability of one ternary coordinate. -/
+noncomputable def ternaryBoltzmannProbability
+    (β : ℝ) (v : Fin 3 → ℝ) (i : Fin 3) : ℝ :=
+  Real.exp (-β * v i) / ternaryBoltzmannSum β v
+
+theorem ternaryBoltzmannProbability_pos
+    (β : ℝ) (v : Fin 3 → ℝ) (i : Fin 3) :
+    0 < ternaryBoltzmannProbability β v i := by
+  unfold ternaryBoltzmannProbability
+  exact div_pos (Real.exp_pos _) (ternaryBoltzmannSum_pos β v)
+
+theorem log_ternaryBoltzmannProbability
+    (β : ℝ) (v : Fin 3 → ℝ) (i : Fin 3) :
+    Real.log (ternaryBoltzmannProbability β v i) =
+      -β * v i - Real.log (ternaryBoltzmannSum β v) := by
+  unfold ternaryBoltzmannProbability
+  rw [Real.log_div (Real.exp_ne_zero _) (ternaryBoltzmannSum_pos β v).ne',
+    Real.log_exp]
+
+/-- Multiway overlap of positive Boltzmann laws, written in log coordinates.
+For positive probabilities this is exactly
+`sum_i product_j P_j(i) ^ theta_j`. -/
+noncomputable def multiTernaryOverlap
+    {ι : Type*} [Fintype ι]
+    (θ : ι → ℝ) (β : ℝ) (x : ι → Fin 3 → ℝ) : ℝ :=
+  ∑ i, Real.exp
+    (∑ j, θ j * Real.log (ternaryBoltzmannProbability β (x j) i))
+
+/-- The same overlap in the literal weighted-geometric-mean notation used in
+equation (4.8). -/
+noncomputable def multiTernaryGeometricOverlap
+    {ι : Type*} [Fintype ι]
+    (θ : ι → ℝ) (β : ℝ) (x : ι → Fin 3 → ℝ) : ℝ :=
+  ∑ i, ∏ j, (ternaryBoltzmannProbability β (x j) i) ^ (θ j)
+
+theorem multiTernaryGeometricOverlap_eq_overlap
+    {ι : Type*} [Fintype ι]
+    (θ : ι → ℝ) (β : ℝ) (x : ι → Fin 3 → ℝ) :
+    multiTernaryGeometricOverlap θ β x = multiTernaryOverlap θ β x := by
+  classical
+  unfold multiTernaryGeometricOverlap multiTernaryOverlap
+  apply Finset.sum_congr rfl
+  intro i hi
+  simp_rw [Real.rpow_def_of_pos
+    (ternaryBoltzmannProbability_pos β (x _) i)]
+  rw [Real.exp_sum]
+  apply Finset.prod_congr rfl
+  intro j hj
+  congr 1
+  ring
+
+theorem multiTernaryOverlap_eq
+    {ι : Type*} [Fintype ι]
+    (θ : ι → ℝ) (β : ℝ) (x : ι → Fin 3 → ℝ) :
+    let c := fun i => ∑ j, θ j * x j i
+    multiTernaryOverlap θ β x =
+      Real.exp (-(∑ j, θ j * Real.log (ternaryBoltzmannSum β (x j)))) *
+        ternaryBoltzmannSum β c := by
+  classical
+  dsimp only
+  let c : Fin 3 → ℝ := fun i => ∑ j, θ j * x j i
+  let L : ℝ := ∑ j, θ j * Real.log (ternaryBoltzmannSum β (x j))
+  have hexponent (i : Fin 3) :
+      (∑ j, θ j * Real.log (ternaryBoltzmannProbability β (x j) i)) =
+        -L + -β * c i := by
+    simp_rw [log_ternaryBoltzmannProbability]
+    change (∑ j, θ j * (-β * x j i -
+      Real.log (ternaryBoltzmannSum β (x j)))) = -L + -β * c i
+    dsimp only [L, c]
+    rw [Finset.sum_congr rfl (fun j _ => by
+      show θ j * (-β * x j i - Real.log (ternaryBoltzmannSum β (x j))) =
+        -β * (θ j * x j i) -
+          θ j * Real.log (ternaryBoltzmannSum β (x j))
+      ring), Finset.sum_sub_distrib, ← Finset.mul_sum]
+    ring
+  unfold multiTernaryOverlap ternaryBoltzmannSum
+  simp_rw [hexponent, Real.exp_add]
+  rw [← Finset.mul_sum]
+  dsimp only [L, c]
+  simp only [ternaryBoltzmannSum]
+
+theorem multiTernaryOverlap_pos
+    {ι : Type*} [Fintype ι]
+    (θ : ι → ℝ) (β : ℝ) (x : ι → Fin 3 → ℝ) :
+    0 < multiTernaryOverlap θ β x := by
+  unfold multiTernaryOverlap
+  positivity
+
+/-- Exact bridge from the literal overlap in (4.8) to the logarithmic rate
+used above. -/
+theorem neg_log_multiTernaryOverlap_div
+    {ι : Type*} [Fintype ι]
+    (θ : ι → ℝ) {β : ℝ} (x : ι → Fin 3 → ℝ)
+    (hβ : β ≠ 0) :
+    -Real.log (multiTernaryOverlap θ β x) / β =
+      multiTernaryInformationRate θ β x := by
+  classical
+  let c : Fin 3 → ℝ := fun i => ∑ j, θ j * x j i
+  rw [multiTernaryOverlap_eq θ β x]
+  rw [Real.log_mul (Real.exp_ne_zero _)
+    (ternaryBoltzmannSum_pos β c).ne', Real.log_exp]
+  unfold multiTernaryInformationRate
+  dsimp only
+  field_simp [hβ]
+  ring
+
+/-- Equation (4.8) itself: the literal multiway Boltzmann overlap has a
+uniform cold-limit error `log 3 / beta`, independent of the finite number of
+profiles. -/
+theorem multiTernaryOverlap_cold_bound
+    {ι : Type*} [Fintype ι]
+    (θ : ι → ℝ) {β : ℝ} (x : ι → Fin 3 → ℝ)
+    (hθ : ∀ j, 0 ≤ θ j) (hθsum : ∑ j, θ j = 1) (hβ : 0 < β)
+    (hmin : ∀ j, ternaryMin (x j) = 0) :
+    let c := fun i => ∑ j, θ j * x j i
+    |(-Real.log (multiTernaryOverlap θ β x) / β) - ternaryMin c| ≤
+      Real.log 3 / β := by
+  dsimp only
+  rw [neg_log_multiTernaryOverlap_div θ x hβ.ne']
+  obtain ⟨hlower, hupper⟩ :=
+    multiTernaryInformationRate_bounds θ x hθ hθsum hβ hmin
+  rw [abs_le]
+  constructor <;> linarith
+
+/-- Literal weighted-geometric-mean form of equation (4.8). -/
+theorem multiTernaryGeometricOverlap_cold_bound
+    {ι : Type*} [Fintype ι]
+    (θ : ι → ℝ) {β : ℝ} (x : ι → Fin 3 → ℝ)
+    (hθ : ∀ j, 0 ≤ θ j) (hθsum : ∑ j, θ j = 1) (hβ : 0 < β)
+    (hmin : ∀ j, ternaryMin (x j) = 0) :
+    let c := fun i => ∑ j, θ j * x j i
+    |(-Real.log (multiTernaryGeometricOverlap θ β x) / β) -
+        ternaryMin c| ≤ Real.log 3 / β := by
+  rw [multiTernaryGeometricOverlap_eq_overlap]
+  exact multiTernaryOverlap_cold_bound θ x hθ hθsum hβ hmin
+
 end CleanLean.KL

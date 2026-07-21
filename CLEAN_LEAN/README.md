@@ -170,8 +170,11 @@ profiles with minimum zero, mixing parameter `0<theta<1`, and coldness
 minimum of the mixed profile.  The constant is uniform in both profiles.  The
 same estimate is proved for an arbitrary finite family with nonnegative
 weights summing to one; in particular, the error does not grow with the number
-of competitors.  These theorems justify the local zero-temperature passage;
-they do not supply the open all-row aggregate lower bound.
+of competitors.  Lean also proves that the logarithmic expression is exactly
+the literal weighted-geometric overlap of the positive Boltzmann laws, so the
+final absolute-value theorem is equation (4.8) itself rather than only a
+surrogate definition.  These theorems justify the local zero-temperature
+passage; they do not supply the open all-row aggregate lower bound.
 
 `RetardedComparison.lean` formalizes the analytic core of KL Theorem 5.1.
 For any finite nested sum/min difference system whose leaves all have positive

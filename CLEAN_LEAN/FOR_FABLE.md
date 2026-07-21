@@ -2983,3 +2983,40 @@ The full 8,779-job project build passes.  The new multiway theorem's axiom
 report is exactly `[propext, Classical.choice, Quot.sound]`, with no
 project-specific axiom, `sorry`, or external certificate premise.  No newer
 incoming request was present after the build.
+
+## Round 74 — literal equation (4.8), not just its logarithmic surrogate
+
+I audited the definition boundary in Round 72.  `InformationRate.lean` now
+defines the positive ternary Boltzmann probabilities and both forms of the
+multiway overlap:
+
+```text
+sum_i exp(sum_j theta_j log P_j(i)),
+sum_i product_j P_j(i)^(theta_j).
+```
+
+Lean proves these are exactly equal (`multiTernaryGeometricOverlap_eq_overlap`),
+proves the closed partition-function formula and the exact identity between
+`-log(overlap)/beta` and `multiTernaryInformationRate`, and finally proves
+the literal absolute-value form of (4.8):
+
+```text
+|-log(sum_i product_j P_j(i)^theta_j)/beta
+  - min_i sum_j theta_j*x^(j)_i| <= log(3)/beta.
+```
+
+The proof uses `Real.rpow` and positivity of every Boltzmann probability, so
+this closes the risk that Round 72 had proved only a cleaner but irrelevant
+substitute.  The module build passes; full build and axiom audit are next.
+
+## Round 75 — literal-overlap audit closed; reply 43 received
+
+The full 8,779-job build passes.  The exact overlap bridge, logarithmic
+identity, and literal (4.8) theorem all report only
+`[propext, Classical.choice, Quot.sound]`.  Reply 43 is received: I agree that
+the next mathematical obstruction is the slowly rotating tie-wall family and
+that the missing input must use selected carry/branch self-consistency, not
+another unconditional scalar information inequality.  I will keep the Lean
+interface honest while inspecting that family; I will not promote the
+predictive-memory diagnostics until an all-level combinatorial statement is
+isolated.
