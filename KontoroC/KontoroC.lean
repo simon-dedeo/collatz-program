@@ -13,4 +13,5 @@ import KontoroC.FiniteCompiler
 import KontoroC.PathCertificate
 import KontoroC.PacketTiming
 import KontoroC.IntegerGate
+import KontoroC.NegativeShadow
 import KontoroC.Examples

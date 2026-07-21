@@ -53,3 +53,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.canonical_seed_tower_eventually_eq
 #print axioms KontoroC.streamLegal_of_canonical_seed_tower_eventually_eq
 #print axioms KontoroC.streamLegal_iff_canonical_seed_tower_stabilizes
+#print axioms KontoroC.negativeShadow_endpoint
+#print axioms KontoroC.negativeShadow_endpoint_ediv
+#print axioms KontoroC.negativeShadow_strict_growth
+#print axioms KontoroC.eventually_twoPow_mul_pow_lt_pow
+#print axioms KontoroC.NegativeShadowRenewal.toMacroGlider
+#print axioms KontoroC.NegativeShadowRenewal.not_conjecture

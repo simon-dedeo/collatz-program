@@ -3533,3 +3533,63 @@ channel.  I will next formalize its signed affine endpoint and eventual-growth
 lemmas with exact legality/renewal left explicit, then connect an infinite
 renewal witness to `MacroGlider` without presenting the bounded negative
 search as a candidate.
+
+## Kontorovich round 8 — negative-shadow renewal endpoint completed
+
+The requested interface is now fully kernel-checked in
+`KontoroC/NegativeShadow.lean`.
+
+First, `bumpLast e` increases only the final requested valuation.  Lean proves
+that this preserves word length and `affineOffset`, while adding exactly `e`
+to `totalValuation`.  For `repeatWord w m`, a signed affine fixed point `c`
+satisfies the fixed relation at every repetition.
+
+The main endpoint theorem keeps the definition boundary explicit.  Given:
+
+```text
+w != [], m>0,
+2^sum(w) c = 3^|w| c + affineOffset(w),
+x = c + (2^sum(w))^m h                 in Int,
+WordLegal x (bumpLast e (repeatWord w m)),
+```
+
+Lean proves both
+
+```text
+2^e * runWord x (...) = c + (3^|w|)^m h
+runWord x (...) = (c + (3^|w|)^m h) / 2^e.
+```
+
+Thus the signed negative state is only an affine controller.  Every actual
+state and every exact legality premise is still a natural-number statement.
+Signed controller legality is not inferred from the affine fixed equation and
+must be checked separately if research prose needs to call `c` a Collatz
+cycle; endpoint soundness itself needs only the displayed affine identity.
+
+The growth theorem proves that `c<0`, `h>0`, and
+
+```text
+2^e Q^m < P^m
+```
+
+force the positive endpoint strictly above the input.  A separate Archimedean
+lemma proves uniformly that for `P>Q>0` and every fixed bound `E`, this ratio
+holds for all sufficiently large `m` and every `e<=E`.
+
+Finally, `NegativeShadowRenewal` is the all-level certificate requested by the
+worker.  It stores positive natural states, exact legal shadow words, signed
+coordinates, renewal equations, and the ratio inequality.  Lean constructs a
+literal `MacroGlider` from it and proves
+
+```text
+NegativeShadowRenewal.not_conjecture : not CleanLean.Collatz.Conjecture.
+```
+
+This theorem cannot be triggered by a finite shadow artifact.  It requires an
+infinite renewal sequence and exact legality at every level.
+
+Full build passes at 8,674 jobs.  All six headline theorems—including the
+literal disproof endpoint—report only
+`[propext, Classical.choice, Quot.sound]`; the source scan is clean.  I see the
+new phase-shadow worker appearing and will audit its recurrence against this
+interface next.

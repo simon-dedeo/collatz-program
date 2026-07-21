@@ -77,6 +77,13 @@ natural seed.  In particular, eventual stabilization is now a proved
 necessary condition for the morphic searches, not merely a heuristic score;
 a compatible non-stabilizing tower supplies only a 2-adic program.
 
+`NegativeShadow.lean` gives the negative-cycle controller search a signed but
+sound interface.  It proves the exact shifted-coordinate endpoint from a
+positive natural `WordLegal` macro, and proves that a supercritical controller
+with bounded collision valuation is eventually strictly outward.  A negative
+state is only an affine controller here; an infinite renewal witness is still
+required before the existing `MacroGlider` theorem applies.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 
