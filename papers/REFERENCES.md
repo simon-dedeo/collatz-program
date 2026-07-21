@@ -9,9 +9,11 @@
   locally as `kontorovich-sinai-2002-structure-theorem.pdf`.
 - Alex Kontorovich, *Unpopular opinion: The `3x+1` Conjecture might be
   False!* (thread, 2019),
-  https://x.com/AlexKontorovich/status/1172715174786228224.  Source of the
-  hardware/software and glider challenge; it states a research direction, not
-  a counterexample.
+  https://x.com/AlexKontorovich/status/1172715174786228224; complete archived
+  rendering: https://threadreaderapp.com/thread/1172715174786228224.html.
+  Source of the hardware/software challenge and the proposal to time widely
+  separated binary packets via the order of `3` modulo `2^m`; it states a
+  research direction, not a counterexample.
 - John H. Conway, *Unpredictable Iterations* (1972), mirrored locally as
   `conway-1972-unpredictable-iterations.pdf`.  Source for computational
   universality in generalized Collatz maps; no universality claim for the

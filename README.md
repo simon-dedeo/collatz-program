@@ -67,6 +67,16 @@ so the disproof search should not sample typical seeds: it should synthesize a
 highly structured instruction stream, a Collatz “glider”, whose binary pattern
 reproduces while its scale grows.
 
+The thread also proposes a more concrete glider mechanism.  After a suitable
+prefix, its example becomes three widely separated `1`-bits.  Until a carry
+arrives from the right, an isolated high packet is acted on by multiplication
+by `3`, while the rightmost packet feels the `+1`.  For `m>=3`, the order of
+`3` modulo `2^m` is `2^(m-2)`, so distant packets can in principle be placed
+and timed to collide with a low-bit trajectory selected by the structure
+theorem.  The challenge is to make those collisions replenish a packet farther
+left forever—not merely arrange any finite sequence of spectacular-looking
+collisions.
+
 There is a crucial exact caveat.  Nested progressions for an arbitrary infinite
 `k`-word determine a 2-adic integer, not necessarily a positive ordinary
 integer.  Equivalently, if `S_j=k_1+...+k_j`, then
@@ -96,6 +106,12 @@ the first gate.
   small-DFA failures rule out only their tested regular certificate classes;
   the next targets are one-counter, morphic, and recursively nested binary
   templates with unbounded but finitely described memory.
+- **Separated-bit packet gliders.**  Treat long zero gaps as delay lines: evolve
+  each high packet under multiplication by `3`, use the exact order of `3`
+  modulo powers of `2` to schedule its first interaction with the controlled
+  low packet, and search for a symbolic collision rule that emits a fresh
+  packet at a larger scale.  Certify the whole construction through exact
+  macrosteps, including every carry at the collision boundary.
 - **Constraint-guided program synthesis.**  Compile chosen `k`-prefixes to
   their exact least positive seeds, score not only finite growth but
   *continuability*: low description complexity, recurrence of binary/carry
@@ -174,6 +190,17 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-21 19:34 EDT
+
+Recovered posts 14--17 of Kontorovich's thread and restored their concrete
+separated-bit/carry-timing proposal to the [live strategy
+map](#kc-strategy-and-failure-map).  Ganesha passed the exact worker self-test
+and is running 24 shards over nonuniform morphisms of image length at most
+seven.  PSC job `42499002` passed the same test and is running 64 shards over
+the complete length-at-most-eight class.  Next: verify and merge both complete
+shard sets, then use their best ordinary-seed stabilization motifs to seed the
+packet-collision search.
 
 ### 2026-07-21 19:15 EDT
 
@@ -569,7 +596,11 @@ existing lines of work; the closest ancestors, and what each contributes:
 - **A. Kontorovich, [2019 thread on why the evidence for Collatz may be
   weak](https://x.com/AlexKontorovich/status/1172715174786228224)** — the
   hardware/software and “glider” challenge that sets the active research
-  objective.  The thread proposes a search philosophy, not a counterexample.
+  objective, including the proposed timing of widely separated bit packets
+  using powers of `3` modulo powers of `2`.  The thread proposes a search
+  philosophy, not a counterexample; an [archived full-thread
+  rendering](https://threadreaderapp.com/thread/1172715174786228224.html)
+  preserves posts 14--17 omitted from the prompt excerpt.
 - **J. H. Conway, “Unpredictable Iterations” (1972)** — generalized
   Collatz-type maps can encode computation.  This motivates looking for
   structured programs while not transferring universality to the specific
