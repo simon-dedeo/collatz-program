@@ -20,6 +20,10 @@ Last checked: 2026-07-20 with Lean `v4.33.0-rc1` and the matching mathlib tag.
 - The abstract finite KL fiber minimum and operator are monotone.
 - A passing exact-rational finite KL certificate casts to a real feasible
   point; the executable checker is proved sound.
+- The integer-scaled row format used by the GPU certificates is checked
+  exactly and proved to decode to a rational KL feasible point.  Bounds from
+  the stored branch numerators to the true irrational weights remain a
+  separate analytic obligation.
 - The corrected finite eigenvector-mass tail inequality holds.
 - The full abstract weighted-tail reduction R' holds for varying finite levels.
 - A geometric restricted-pressure estimate forces the required tail decay.

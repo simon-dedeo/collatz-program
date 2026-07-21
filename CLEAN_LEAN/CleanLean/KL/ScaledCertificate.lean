@@ -95,7 +95,6 @@ theorem valuesRat_eq_rowLhs_div (d : S.ScaledCertificate) (m : S.State)
     d.valuesRat m = (d.rowLhs m : ℚ) / d.commonDenom := by
   simp [valuesRat, rowLhs, commonDenom]
   field_simp
-  ring
 
 theorem operatorRat_eq_rowRhs_div (d : S.ScaledCertificate) (m : S.State)
     (hA : 0 < d.lambdaNum) (hW : 0 < d.weightScale) :
@@ -105,7 +104,7 @@ theorem operatorRat_eq_rowRhs_div (d : S.ScaledCertificate) (m : S.State)
   rw [fiberMin_valuesRat]
   cases hb : S.branch m <;>
     simp [weightsRat, valuesRat, rowRhs, commonDenom, hb] <;>
-    field_simp <;> ring
+    field_simp
 
 /-- Soundness of the exact integer row format.  Bounds proving that the two
 branch numerators lie below the true irrational KL weights are a separate
@@ -122,7 +121,7 @@ theorem feasibleRat_of_valid (d : S.ScaledCertificate) (hd : d.Valid) :
     rw [valuesRat_eq_rowLhs_div d m hA hW,
       operatorRat_eq_rowRhs_div d m hA hW]
     have hden : 0 ≤ d.commonDenom := by
-      simp [commonDenom]
+      unfold commonDenom
       positivity
     apply div_le_div_of_nonneg_right _ hden
     exact_mod_cast hrows m

@@ -24,6 +24,9 @@ It is deliberately defined before any proposed proof machinery.
 | Abstract exact-rational KL feasibility checker and soundness | Kernel checked |
 | Streaming checker for the large GPU certificate format | Planned |
 | Integer-scaled GPU row format and rational soundness | Kernel checked |
+| Integer proof `2^P < 3^Q` implies `P/Q < log₂ 3` | Kernel checked |
+| Integer branch-weight lower-bound checker | Kernel checked |
+| Integer branch-weight checks imply true `Real.rpow` bounds | In progress |
 | SHA-256/NPY streaming front end | Planned |
 | KL difference-inequality transfer theorem | Planned |
 | Finite weighted-tail inequality in R' | Kernel checked |

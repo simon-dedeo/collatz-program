@@ -22,7 +22,7 @@ Fund. Proofs and Reasons — https://proofsandreasons.io
 | Diaconis–Fulman multiplication-carries spectrum (their open question) | proved, exact-verified: `carries-spectrum.md` |
 | Berg–Meinardus ⟺ aₙ = a_{T(n)}; **bi-(2,3)-Mahler divergence certificates impossible** | proved: `mahler-cartier-lemma0.md`, `two-bases.md` |
 | Antihydra rarity theorems (θ(C) → H(1/3); population-φ exact) | proved: `antihydra-rarity.md` |
-| No regular divergence certificate: ≤7 states (base 2, q=8 finishing), ≤5 (base 3) | exhaustive, cross-machine, logs in-repo |
+| No regular divergence certificate: **≤8 states (base 2: 3.24T DFAs), ≤5 (base 3)** | exhaustive, cross-machine, logs in-repo |
 | Weighted (drift) certificates: 191 regular domains retired incl. the all-ones ray | `experiments/wfar/` |
 | Tree-product Collapse Lemma (spectral-gap route provably blind); solenoid **Traceless Theorem** (q=3 unique) | `tree-products.md`, `deninger-solenoid.md` |
 
@@ -90,7 +90,7 @@ fate argument must couple 2-adic structure to the Archimedean place.
   critical path (Lemma 5 already certified in `pressure-cert/`)
 - k=19, k=20 exact certifications (9.3 GB eigenvector via PSC DTN)
 - Eigenvector geometry ρ₁₉ finish; k=20 pre-registered drift test on arrival
-- Base-2 q=8 exhaustion on akdeniz (~3.20T of ~3.2T DFAs)
+- akdeniz free (32 cores + 4090): reserved for the scaled combined-automaton run
 - Family phase-diagram critical-line sweep on ganesha
 - CLEAN_LEAN: independent Lean formalization by GPT (tracked read-only;
   handoff of formats/statements in `docs/FOR_CLEAN_LEAN.md`)
