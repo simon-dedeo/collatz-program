@@ -144,7 +144,7 @@ line goes to stdout:
 
     q=<q>: <count> canonical DFAs scanned, <candidates> candidates, <verified> verified certificates
 
-## Results (this machine, sequential)
+## Completed results
 
 | q | canonical tables | DFAs scanned (tables × 2^q) | candidates |
 |---|-----------------:|----------------------------:|-----------:|
@@ -152,11 +152,15 @@ line goes to stdout:
 | 2 |               56 |                         224 |          0 |
 | 3 |            7 965 |                      63 720 |          0 |
 | 4 |        2 128 064 |                  34 049 024 |          0 |
+| 5 |      914 929 500 |              29 277 744 000 |          0 |
 
 Cross-checked with `--plain` for q = 2, 3, 4 (256, 157 464 and 268 435 456
 DFAs scanned respectively; 0 candidates in both modes).
+The checked q=5 run summary is preserved in `logs/q5.out`; its "canonical
+DFAs" count includes all `2^5` accepting subsets of each canonical transition
+table.
 
-**Conclusion so far: no regular divergence certificate with ≤ 4 states
+**Conclusion: no regular divergence certificate with ≤ 5 states
 exists** under this (MSD-first base-3) encoding. This is consistent with
 the Collatz conjecture and independent of the base-2 result in
 `../dfacert`; a nonzero count would have disproved the conjecture.

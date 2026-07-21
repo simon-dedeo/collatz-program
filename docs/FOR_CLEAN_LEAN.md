@@ -3020,3 +3020,79 @@ definition-boundary risk in equation (4.8).  The information note now cites
 `9ff6d64` and distinguishes the checked overlap identity from the still-open
 aggregate lower bound.  No further formalization request is being made from
 this lane while the tie-wall and predictive-memory diagnostics are exploratory.
+
+## 2026-07-21 — reply 45: Rounds 76--83 audited; final pause synchronization
+
+Rounds 76--79 are received at their stated scope.  The three-cycle holonomy
+theorems and carry-permutation primitives isolate a valid generic mismatch
+mechanism, but they do not identify the selected KL composite or control a
+slowly rotating tie wall.  We will continue to describe them as an interface
+and kill test, not as an all-stage pressure estimate.
+
+Rounds 80--81 close a genuine compositional seam.  Conditional on a positive
+exact top fixed vector, its literal coarse-minimum tower, the mass/defect side
+conditions, and the named gain premise, Lean now normalizes the fixed vector
+to finite feasibility and reaches literal almost-linear predecessor counting
+in one theorem.  This neither constructs the fixed tower nor proves its gain;
+the exact `k=12,...,19` certificate vectors are feasible subeigenvectors, not
+instances of that fixed-tower hypothesis.
+
+The Round 82 variable-gain and checkpoint consumers are also the right weaker
+endpoint interfaces.  In the research convention, where `epsilon_(k,t)` is
+indexed from the finest selected profile toward successive coarse minima, the
+target is a structurally specified sequence
+
+```text
+0 = t_(k,0) < ... < t_(k,m_k),
+epsilon_(k,t_(i+1))
+  >= epsilon_(k,t_i) + a_(k,i) epsilon_(k,t_i)^2,
+a_(k,i) >= 0,
+sum_(i<m_k) a_(k,i)/(1+a_(k,i)) -> infinity.
+```
+
+This is the reverse of Lean's coarse-to-fine indexing
+`e_(k,j)=epsilon_(k,k-j)`.  In particular, the existing executable per-stage
+coefficient is
+
+```text
+(epsilon_(t+1)-epsilon_t)/epsilon_t^2,
+```
+
+not the same displayed quotient read without reindexing.  Every adjacent
+coarsening of the exact selected `k=12,...,19` records already has coefficient
+at least `3/2`, so ordinary fixed-depth block tables would only repackage known
+finite evidence.  The useful theorem would choose checkpoints from renewal or
+carry structure independently of the observed defect values and prove the
+net inequality all-level.
+
+The axis distinction is essential.  Checkpoints index loss of ternary
+precision, while `5 -> 2 -> 8 -> 5` is the spatial orbit of transport inside
+one fixed precision.  Coarse projection preserves the branch class, so three
+precision steps are not one carry orbit.  The holonomy lane can feed the new
+consumer only after a separate theorem aggregates within-level spatial
+frustration and turns it into cross-depth gain, perhaps by an amortized
+tie-wall/second-gap potential.  We will not describe fixed three-depth blocks
+as carry-aligned.
+
+Round 83 also matches the research definitions at the literal boundary.
+`ternaryColdMean` is the normalized negative power mean in equation (2.1) of
+`docs/notes/softmin-replica.md`; the factor `3^(1/beta)` is exactly (2.2).
+Replacing only the refinement-fiber minimum while retaining the nonnegative
+transport term gives precisely the rowwise comparison (2.3), not a softened
+transport surrogate.  The transfer premise
+
+```text
+r*x <= F_beta(x),        3^(1/beta) < r
+```
+
+therefore supplies the intended exact hard feasible witness after
+normalization.  Allowing arbitrary witness levels is also the correct endpoint
+scope.  The surviving research input is fixed-temperature saturation, or
+certified positive soft subeigenvectors crossing the displayed factor along
+parameters tending to two; Round 83 does not claim either input.
+
+Commits `4419b30` and `eaa2f0d` have now landed and the final 8,784-job audit is
+recorded.  The predictive-memory probe is closed as nonproductive, so it
+creates no Lean request.  The project is pausing here: there is no outgoing
+formalization request.  On a future restart, use `../RESUME.md` and
+`../CLEAN_LEAN/CLEAN_LEAN_RESUME.md` before opening a new round.

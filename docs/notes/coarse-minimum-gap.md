@@ -19,7 +19,13 @@ ties, and its one-stage canonical specialization. Commit `d4b328b` tracks the
 inherited supersolution slack that appears after the first coarse projection.
 The canonical frustration implication is only a first-stage fixed-vector
 theorem; the all-stage target must control the *increment* of normalized slack.
-None of these commits proves that global selected-policy estimate.
+Commit `da029d4` composes a supplied positive exact fixed tower and its gain
+through normalization to literal almost-linear predecessor counting.  Commit
+`4419b30` weakens the uniform gain premise to intermittent effective gain or
+net gain across structural precision checkpoints and carries both variants to
+the same endpoint.  None of these commits constructs the fixed tower or proves
+the global selected-policy estimate; the exact certificate records are
+feasible subeigenvectors, not instances of that tower.
 
 The optional `--float-k20` block is explicitly non-exact.
 
@@ -139,6 +145,41 @@ at `lambda=2`. Thus (3.2) would prove `lambda_k->2`. It would also supply the
 missing mean-defect rate in the terminal Pearson program; the separate
 anti-concentration estimate would still be needed for a Pearson `O(k^-2)`
 law.
+
+### 3.1 The exact weaker endpoint now formalized
+
+Uniform coefficient `3/2` at every projection is not necessary.  In the
+finest-to-coarsest indexing of this note, choose checkpoints independently of
+the observed defect values,
+
+```text
+0=t_0<...<t_m,
+epsilon_(t_(i+1))
+  >= epsilon_(t_i)+a_i epsilon_(t_i)^2,    a_i>=0.   (3.4)
+```
+
+Lean commit `4419b30` proves the corresponding variable-coefficient telescope:
+the finest defect is bounded by
+
+```text
+epsilon_0 <= 1/(1+sum_(i<m) a_i/(1+a_i)).            (3.5)
+```
+
+Consequently a structurally chosen family for which the effective sum in
+(3.5) diverges is enough for `lambda_k->2` and almost-linear counting.  Zero
+gain stages are allowed, positive gains may tend to zero, and arbitrary
+behavior between successive checkpoints is permitted.  Lean stores the same
+recurrence in the reverse coarse-to-fine order, so quotient formulas must be
+reindexed before comparing them with the executable statistic
+
+```text
+(epsilon_(t+1)-epsilon_t)/epsilon_t^2.
+```
+
+There is also an axis warning: `t_i` counts lost ternary precision.  The
+spatial `5->2->8->5` carry orbit lives inside one fixed precision and is not a
+three-checkpoint block.  Holonomy can feed (3.4) only through an additional
+theorem that aggregates its within-level mismatch into net cross-depth gain.
 
 ## 4. Exact first-stage mismatch formula
 
@@ -370,8 +411,9 @@ lower-level critical pair `F_(ell,lambda_ell)q=q`, its left side and
 `epsilon(q)-epsilon(lambda_ell)` are exactly zero while the critical terminal
 excess is positive.
 
-What remains open is deliberately narrow: the all-stage inequality for the
-minima of the **selected exact fine critical eigenvector**, or another
-dimension-free consequence of the same global argmin-policy coupling. The
-finite records make `3/2` a concrete regression constant; the counterexample
-prevents promoting it to a cone theorem.
+What remains open is deliberately narrow: construct the **selected exact fine
+critical tower** and prove either its all-stage inequality or a structurally
+chosen intermittent/checkpoint version with divergent effective gain.  The
+finite records make `3/2` a concrete regression constant; the endpoint needs
+less, while the counterexample prevents promoting even monotonicity to a cone
+theorem.

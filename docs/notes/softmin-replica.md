@@ -1,9 +1,10 @@
 # Soft minima, replica susceptibility, and the zero-temperature seam
 
 2026-07-21. Status: **all-level research proof of the finite-temperature
-monotonicity/rigidity reduction + bounded exact-rational structural gates +
-floating diagnostic on SHA-pinned exact inputs + open uniform theorem
-target**.  This note does not prove the KL endpoint.  The diagnostic is
+monotonicity/rigidity reduction + Lean-checked literal soft-to-hard endpoint
+bridge + bounded exact-rational structural gates + floating diagnostic on
+SHA-pinned exact inputs + open saturation theorem**.  This note does not prove
+the KL endpoint.  The diagnostic is
 
 ```bash
 python3 experiments/kl/diagnose_softmin_replica.py
@@ -386,6 +387,13 @@ selectors.  They do **not** prove noncommutation.  In contrast, the value
 bound (2.2) is uniform, so there is no analogous ambiguity for raw operator
 values.
 
+Lean commit `4419b30` checks the definition boundary: the normalized cold mean
+in (2.1), the inequalities (2.2), the literal KL operator obtained by replacing
+only the refinement-fiber minimum, and the rowwise comparison (2.3) with the
+transport term retained.  It also provides the exact certificate consumer
+described in Section 6.  It does not prove saturation or construct the needed
+soft subeigenvectors.
+
 ## 6. The primary theorem target and kill conditions
 
 The most direct finite-temperature target is a value theorem, not an
@@ -418,6 +426,18 @@ The positive Perron eigenvector then gives strict-min feasibility at
 `lambda_k->2`.  Crucially, this argument needs neither convergence of the
 soft eigenvectors nor a projective resolvent bound; it needs only the scalar
 limit (6.1).
+
+The formal consumer is slightly weaker and more certificate-friendly.  A
+positive vector satisfying
+
+```text
+r*x <= F_(lambda,-beta)(x),       3^(1/beta)<r        (6.2a)
+```
+
+already normalizes to exact hard feasibility.  Along arbitrary finite witness
+levels, parameters tending to two and inequalities (6.2a) imply literal
+almost-linear predecessor counting.  Thus an exact soft eigenvector and
+consecutive levels are unnecessary; certified subeigenvectors suffice.
 
 The following bounded floating diagnostic is favorable:
 
@@ -759,6 +779,7 @@ can work.  The input class must retain critical renewal-min self-consistency.
   Gibbs selectors as temperature vanishes.
 
 The imported ideas organize the seam but do not solve it.  The primary new
-burden is the scalar fixed-temperature annealing limit (6.1); the constrained,
+burden is the scalar fixed-temperature annealing limit (6.1), or directly a
+cofinal family of certified subeigenvectors satisfying (6.2a); the constrained,
 level-uniform replica lower bound (6.17) for the renewal-min selected family is
 the more local alternative.

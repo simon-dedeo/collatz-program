@@ -4,8 +4,12 @@ Maps a parity necklace of shape `(K,L)` to a conjugacy class in `PSL(2,Z)`
 (closed modular geodesic / Lorenz knot) and computes the Rademacher function,
 Dedekind sum, trace/length, and the Böhm–Sontacchi weight `W`/defect `δ`.
 Question: does any modular-knot invariant constrain cycle existence beyond the
-archimedean Baker bound (which uses only `K,L`)? Verdict: **no — it collapses to
-`(K,L)`**. See `docs/notes/modular-knots.md`.
+archimedean Baker bound (which uses only `K,L`)?  On the 4,083 tested words
+with `K<=11`, the checked linear Rademacher/Dedekind invariant collapses to
+`K-L`, but the quadratic linking
+probe was stopped before a proof or no-go was obtained.  Its small-data
+separation is therefore unresolved, not a cycle obstruction. See
+`docs/notes/modular-knots.md`.
 
 - `modknots.py` — core library. `M(a)=∏ R^{a_i}L`, Rademacher via Dedekind-sum
   formula (fast O(log) Euclidean Dedekind sum), `W`, `δ`, trace, hyperbolic length.

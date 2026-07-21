@@ -1,11 +1,14 @@
 # HANDOFF — taking over the Collatz program
 
-You (a Codex/GPT instance) are taking over as **research driver** of this
-program from the previous driver (Fable, a Claude instance). This file is the
-first thing to read. It is written for a *different* agent system, so it is
-explicit about things a same-model continuation could assume.
+This was the original takeover handoff from Fable to the Codex/GPT research
+driver.  It preserves historical detail and is written for a different agent
+system.  On a future restart, read `RESUME.md` first and use this as context.
 
 ## 0. Current executive situation (2026-07-21)
+
+This is now a historical handoff.  Work paused after the synchronized Lean
+checkpoint `4419b30`; a new driver should begin with [`RESUME.md`](RESUME.md)
+and [`CLEAN_LEAN/CLEAN_LEAN_RESUME.md`](CLEAN_LEAN/CLEAN_LEAN_RESUME.md).
 
 The project now keeps two targets separate.  The quantitative KL endpoint is
 `lambda_infinity=2`, which would give every fixed predecessor exponent below
@@ -16,11 +19,16 @@ KL endpoint would not by itself do either.
 The finite counting foundation is complete under the documented mixed trust
 policy: the exact local `k=19` record gives every exponent below
 `0.9094372617`, the portable `k=12` record is Lean-native, and the corrected
-termination/counting transfer is kernel-checked.  The leading endpoint hinge
-is still a dimension-free all-stage selected coarse-minimum gain.  Lean now
-accepts any uniformly positive stage-dependent quadratic coefficient and
-connects the literal coarse-minimum tower to `lambda_k -> 2`; the mathematical
-lower bound is not proved.
+termination/counting transfer is kernel-checked.  The hard-min endpoint hinge
+is an amortized selected coarse-minimum gain.  Lean commit `4419b30` accepts
+nonnegative intermittent coefficients whose effective sum
+`sum a_j/(1+a_j)` diverges, including structurally chosen cross-precision
+checkpoints, and connects the literal tower through to almost-linear counting.
+The mathematical gain and the positive exact fixed tower are not constructed.
+The same commit checks an orthogonal route: a positive subeigenvector for the
+literal branch-softened operator transfers to exact hard feasibility whenever
+its factor exceeds `3^(1/beta)`.  Fixed-temperature saturation or certificates
+crossing that factor remain open.
 
 The newest information-geometric formulation is exact but calibrated.  For
 each carry-aligned transport/branch fiber pair, direct `D_KL`, Jeffreys,
@@ -560,16 +568,20 @@ neither is proved all-level. Exact tightened feasibility
 also refutes depth monotonicity on the full feasible cone. Any surviving
 entropy theorem is selection-specific, and the pressure/KL bridge remains open.
 
-Since that snapshot, the Lean side has closed three additional interfaces.
-Commits through `877411b` connect the literal precision-indexed
-coarse-minimum tower to `lambda_k -> 2` under any uniformly positive
-stage-dependent quadratic gain, with the factor-three terminal-excess
-normalization corrected.  Commits `b47aa31`/`3577b8f` prove and fully audit
+Since that snapshot, the Lean side has closed several additional interfaces.
+Commits through `4419b30` connect the literal precision-indexed
+coarse-minimum tower to `lambda_k -> 2` and almost-linear counting under
+uniform or divergent effective intermittent/checkpoint gain, with the
+factor-three terminal-excess normalization corrected.  The same commit checks
+the literal normalized ternary cold mean, branch-only soft KL operator,
+`3^(1/beta)` soft-to-hard transfer, sparse witness levels, and final counting
+consumer.  Commits `b47aa31`/`3577b8f` prove and fully audit
 the side-spine packing and its normalized KL capacity form.  Commits beginning
 at `8c3e1df` and `cc19c54` prove the ternary two-copy and arbitrary-finite-
 replica `log(3)/beta` cold information-rate bounds; these are local value
 limits, not aggregate coercivity.  Poll the latest rounds in
-`CLEAN_LEAN/FOR_FABLE.md` for any later literal-overlap wrapper or audit commit.
+`CLEAN_LEAN/FOR_FABLE.md` and `CLEAN_LEAN/CLEAN_LEAN_RESUME.md` for the exact
+stopping boundary.
 
 ## 6. The user (Simon) — how to work with him
 
@@ -586,62 +598,19 @@ limits, not aggregate coercivity.  Poll the latest rounds in
 - Do not spend his attention on harness security-flags for the authorized
   API-key pattern.
 
-## 7. First 15 minutes on pickup
+## 7. First 15 minutes on a future restart
 
-1. Read `README.md` top-to-failure-ledger.
+1. Read `RESUME.md`, then `README.md` top-to-failure-ledger.
 2. Poll `CLEAN_LEAN/FOR_FABLE.md` for anything addressed to the driver.
-3. No inherited research-side background job is running; the partial state of
-   each stopped lane is in its note. The independent Lean side completed the
-   `k=12` import at `659dc81`; poll its handoff for any higher-record work before
-   touching related files.
-4. Sanity-check infrastructure (§4) with one `ssh`/`squeue`; it carries over.
-5. Pick the top LIVE bet you can advance. The immediate mathematical target is
-   a cofinal exact feasible sequence with `λ→2`, or the pressure/localization
-   mechanism that supplies one. The sharpest current theorem target is the
-   selected iterated-minimum law
-   `epsilon_(j+1)>=epsilon_j+(3/2)epsilon_j^2`; its first-stage reduction is a
-   weighted global argmin-frustration inequality, and its information-theory
-   form is a renewal-min-constrained Doeblin curve. The exact finite audit,
-   cone-wide counterexample, and sharp generic Doeblin no-go are in
-   `docs/notes/coarse-minimum-gap.md` and
-   `docs/notes/doeblin-renewal-bridge.md`. The homogeneous power-mean probe in
-   `docs/notes/softmin-replica.md` gives uniform zero-temperature convergence
-   of operator values, a drifting near-tie boundary layer for selectors, and
-   an exact projection proof that each fixed-temperature spectral tower is
-   increasing and bounded. Its strongest surviving target is identifying that
-   limit through
-   `rho_(k,lambda,-beta)->s(lambda)`, which would imply the endpoint after
-   choosing `beta>log(3)/log(s(lambda))`. The aggregate two-copy curvature
-   lower bound with explicit cold-limit error is the local alternative. The
-   same-policy defect graph has real recurrent split/merge dynamics, but its
-   natural finite quotient fails; do not present it as a bounded automaton.
-   The policy-circuit audit rules out only the named restricted finite models,
-   not unrestricted succinct coordinate circuits.
-   A parallel localization seam is
-   a terminal mean-defect rate plus level-uniform anti-concentration consistent
-   with the exact finite `chi<=6/j^2` candidate and the selected-record bounds
-   `delta<0.21/k`, `E[a^2]<1.533 delta^2`, or regularity for the audited
-   research-side nonlinear renewal-min system of selected critical or
-   normalized-slack-vanishing densities. The induced
-   annealed code and its exact limitations are in
-   `docs/notes/annealed-critical-coding.md`. Do not promote either the fitted
-   terminal constants (`K` rises throughout `k=12,...,19`; consult
-   `docs/notes/terminal-defect-statistics.md`) or the geometric martingale and
-   entropy constants: the audited annealed-floor
-   argument refutes both as endpoint laws in `1<lambda_k<=2`. The scalar
-   slack/terminal endpoint bridge and full weighted Pearson chain are
-   kernel-checked in `9cdcfaf`/`764b815`; `f0e96a5` checks trace and the
-   explicit endpoint vectors/floor, while `2bdb286` closes Perron uniqueness
-   and endpoint identification.
-   Feasibility-only entropy monotonicity is also refuted, so
-   any weaker entropy endpoint needs an explicit selection hypothesis. The expanding-window cone with
-   terminal-offset defect/immigration decay is the fallback and is described in
-   `docs/notes/multiscale-genealogy.md`. Kernel/adversarial review of the repaired
-   arctic proof is the bounded side target; mixed-radix has three named gaps.
-   Do not
-   revive the retracted AC resolvent or first-circle zeta boundary. If you advance
-   it, update README (living map) + commit + push, and tell the Lean side via
-   `docs/FOR_CLEAN_LEAN.md` if it affects a formalization target.
+3. Read `CLEAN_LEAN/CLEAN_LEAN_RESUME.md`.  No inherited research or compute
+   job should be assumed to be running; verify external state before reuse.
+4. Inspect `git status` and preserve every unrelated or untracked artifact.
+5. Choose from the ranked `README.md` Future directions.  For the KL endpoint,
+   the exact downstream choices are now amortized hard-min checkpoint gain or
+   positive cold subeigenvectors crossing `3^(1/beta)`; do not rebuild those
+   consumers.  For full Collatz, prioritize no-escape capacity or a genuinely
+   new cycle obstruction.  Respect the README's closed-lane list, and update
+   the handoff, commit, and push only after a substantive audited checkpoint.
 
 Welcome. Keep it honest; the failure ledger is as valuable as the theorems.
-This handoff is a living successor record, updated through 2026-07-21.
+This historical handoff is synchronized through the 2026-07-21 pause.

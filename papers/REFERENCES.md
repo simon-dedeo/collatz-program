@@ -36,6 +36,25 @@
 - Borja Balle, Prakash Panangaden, and Doina Precup, *A Canonical Form for
   Weighted Automata and Applications to Approximate Minimization*,
   https://arxiv.org/abs/1501.06841.
+- Sébastien Gouëzel, *Correlation Asymptotics from Large Deviations in
+  Dynamical Systems with Infinite Measure*,
+  https://www.impan.pl/shop/publication/transaction/download/product/87253.
+  Source for operator-valued renewal large deviations and the one-large-
+  excursion estimate under regularly varying return tails.
+- Ian Melbourne and Dalia Terhesiu, *Operator Renewal Theory and Mixing Rates
+  for Dynamical Systems with Infinite Measure*,
+  https://arxiv.org/abs/1008.4113.  Source for the induced first-return
+  operators, renewal resolvent, and aperiodicity/spectral hypotheses.
+- Sabrina Kombrink, *Renewal Theorems for a Class of Processes with Dependent
+  Interarrival Times and Applications in Geometry*,
+  https://arxiv.org/abs/1512.08351.  Allows interarrival costs with
+  exponentially fading dependence on an entire symbolic past; it does not
+  cover arbitrary hard-selector memory.
+- Marc Kesseböhmer and Sabrina Kombrink, *A Complex
+  Ruelle--Perron--Frobenius Theorem for Infinite Markov Shifts with
+  Applications to Renewal Theory*, https://arxiv.org/abs/1604.08252.  Supplies
+  a countable-symbol, summable-potential framework and a peripheral-spectrum
+  coboundary test relevant to carry-holonomy twists.
 
 These papers provide language, neighboring theorems, warnings, or algorithms;
 none by itself proves a KL endpoint statement. Per-claim use and limitations

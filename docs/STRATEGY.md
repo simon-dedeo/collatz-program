@@ -4,6 +4,11 @@ v2, 2026-07-20 (v1 same day; [verify] tags resolved against the literature
 sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 `landscape/`). Everything in §4 is backed by artifacts in this repo.
 
+> **Pause notice (2026-07-21):** this file is now a chronological research
+> record, not the restart queue. Begin with `../README.md` and `../RESUME.md`.
+> Lean commit `4419b30` closes the downstream intermittent hard-min and literal
+> soft-to-hard endpoint interfaces; their structural inputs remain open.
+
 > **Successor-audit notice (updated 2026-07-21):** this v2 memo preserves the
 > historical program that generated the repo, so several “running” lines below
 > are no longer current. Use `README.md` as the live state map. In particular:

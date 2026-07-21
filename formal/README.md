@@ -1,13 +1,23 @@
 # formal
 
-## GitHub configuration
+This is the small original Lean 4 scaffold for the project.  It defines the
+unaccelerated Collatz map, the conjecture, an exact strong-induction descent
+reduction, basic cycle/counterexample-shape lemmas, and a fueled checker proving
+that every positive `n <= 10000` reaches one.
 
-To set up your new GitHub repository, follow these steps:
+The bounded theorem `reachesOne_of_le_10000` uses `native_decide`, so it trusts
+Lean's compiler in addition to the kernel.  The remaining declarations in
+`Formal/Collatz.lean` are sorry-free ordinary Lean proofs.
 
-* Under your repository name, click **Settings**.
-* In the **Actions** section of the sidebar, click "General".
-* Check the box **Allow GitHub Actions to create and approve pull requests**.
-* Click the **Pages** section of the settings sidebar.
-* In the **Source** dropdown menu, select "GitHub Actions".
+This directory is not the main Krasikov--Lagarias formalization.  The active,
+audited proof development, its trust ledger, and build instructions are in
+[`../CLEAN_LEAN/README.md`](../CLEAN_LEAN/README.md).
 
-After following the steps above, you can remove this section from the README file.
+## Build
+
+```bash
+lake build
+```
+
+The project pins `leanprover/lean4:v4.33.0-rc1` and the matching mathlib
+revision through `lean-toolchain` and `lake-manifest.json`.

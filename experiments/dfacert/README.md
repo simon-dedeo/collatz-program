@@ -119,7 +119,7 @@ line goes to stdout:
 
     q=<q>: <count> canonical DFAs scanned, <candidates> candidates, <verified> verified certificates
 
-## Results (this machine, sequential)
+## Completed results
 
 | q | canonical tables | DFAs scanned (tables × 2^q) | candidates |
 |---|-----------------:|----------------------------:|-----------:|
@@ -127,9 +127,16 @@ line goes to stdout:
 | 2 |               12 |                          48 |          0 |
 | 3 |              216 |                       1 728 |          0 |
 | 4 |            5 248 |                      83 968 |          0 |
+| 5 |          160 675 |                   5 141 600 |          0 |
+| 6 |        5 931 540 |                 379 618 560 |          0 |
+| 7 |      256 182 290 |              32 791 333 120 |          0 |
+| 8 |   12 665 445 248 |           3 242 353 983 488 |          0 |
 
 Cross-checked with `--plain` for q = 2, 3, 4 (0 candidates in both modes).
+The checked q=5--8 run summaries are preserved under `logs/`; their
+"canonical DFAs" count includes all `2^q` accepting subsets of each canonical
+transition table.
 
-**Conclusion so far: no regular divergence certificate with ≤ 4 states
+**Conclusion: no regular divergence certificate with ≤ 8 states
 exists** under this (LSB-first) encoding. This is consistent with the
 Collatz conjecture; a nonzero result would have disproved it.
