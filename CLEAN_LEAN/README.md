@@ -350,6 +350,17 @@ target.  Consequently, any exact feasible sequence tending to two proves
 almost-linear predecessor counting with no separate literature-transfer
 hypothesis.
 
+`SideBush.lean` formalizes the deterministic packing construction along any
+injective Syracuse orbit.  At every odd orbit index, the side target
+`6*n_j+2` is `2 mod 3`, reaches the next spine point in two steps, is off the
+spine and nonperiodic, and has a predecessor finset disjoint from every other
+odd-index side target.  Hence the sum of their predecessor counts below `X`
+is at most `X`.  `CountingTransfer.lean` now exposes its pre-asymptotic
+targetwise lower bound for every `X >= a`, retaining the exact feasible-vector
+coordinate.  `SideBushCapacity.lean` combines the two into the finite
+KL-weighted side-spine capacity inequality.  This is an exact necessary
+condition on an injective orbit, not a contradiction or a proof of Collatz.
+
 `PressureCertificate.lean` now also accepts the portable sparse-edge format
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational
 kernel and proves that a successful Boolean row check yields the real pressure

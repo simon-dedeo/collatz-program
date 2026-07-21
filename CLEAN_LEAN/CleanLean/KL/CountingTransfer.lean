@@ -61,31 +61,24 @@ theorem klCutoff_logb_div
   rw [hmul]
   exact Nat.floor_natCast X
 
-/-- Exact finite feasibility supplies the KL exponent for every eligible
-target in its concrete residue state. -/
-theorem hasPredecessorExponent_klTarget_of_feasible
+/-- The explicit targetwise inequality inside the KL counting transfer.
+Unlike the asymptotic wrapper below, this holds at every cutoff `X ≥ a.val`
+and retains the concrete state weight of the target. -/
+theorem predecessorCount_lower_bound_klTarget_of_feasible
     {k : ℕ} (hk : 2 ≤ k) {lam C : ℝ}
     (hlam1 : 1 < lam) (hlam2 : lam ≤ 2)
     (c : ResidueSystem.State k → ℝ)
     (hC : 0 < C) (hcC : ∀ state, c state ≤ C)
     (hfeasible : (ResidueSystem.system k).Feasible (klWeights lam) c)
-    {state : ResidueSystem.State k} (a : KLTarget k state) :
-    HasPredecessorExponent a.val (klExponent lam) := by
+    {state : ResidueSystem.State k} (a : KLTarget k state)
+    (X : ℕ) (hXa : a.val ≤ X) :
+    ((1 / (4 * C)) * c state) *
+        ((X : ℝ) / a.val) ^ (klExponent lam) ≤
+      (predecessorCount a.val X : ℝ) := by
   let gamma := klExponent lam
   let K : ℝ := (1 / (4 * C)) * c state
-  let D : ℝ := K / (a.val : ℝ) ^ gamma
   have hlam0 : 0 < lam := lt_trans zero_lt_one hlam1
   have haR : (0 : ℝ) < a.val := by exact_mod_cast a.property.1
-  have hcpos : 0 < c state :=
-    lt_of_lt_of_le zero_lt_one (hfeasible.1 state)
-  have hK : 0 < K := by
-    dsimp [K]
-    positivity
-  have hD : 0 < D := by
-    dsimp [D]
-    positivity
-  refine ⟨D, hD, ?_⟩
-  filter_upwards [eventually_ge_atTop a.val] with X hXa
   have hXpos : 0 < X := a.property.1.trans_le hXa
   let z : ℝ := (X : ℝ) / a.val
   let y : ℝ := Real.logb 2 z
@@ -119,15 +112,46 @@ theorem hasPredecessorExponent_klTarget_of_feasible
   have hswap : lam ^ y = z ^ gamma := by
     dsimp [y, gamma]
     exact rpow_logb_swap hlam0 hz
-  have hdiv : z ^ gamma = (X : ℝ) ^ gamma / (a.val : ℝ) ^ gamma := by
-    dsimp [z]
-    exact Real.div_rpow (by positivity) (by positivity) gamma
-  have hrearrange : D * (X : ℝ) ^ gamma = K * lam ^ y := by
-    rw [hswap, hdiv]
+  change K * z ^ gamma ≤ _
+  rw [← hswap]
+  exact hchain
+
+/-- Exact finite feasibility supplies the KL exponent for every eligible
+target in its concrete residue state. -/
+theorem hasPredecessorExponent_klTarget_of_feasible
+    {k : ℕ} (hk : 2 ≤ k) {lam C : ℝ}
+    (hlam1 : 1 < lam) (hlam2 : lam ≤ 2)
+    (c : ResidueSystem.State k → ℝ)
+    (hC : 0 < C) (hcC : ∀ state, c state ≤ C)
+    (hfeasible : (ResidueSystem.system k).Feasible (klWeights lam) c)
+    {state : ResidueSystem.State k} (a : KLTarget k state) :
+    HasPredecessorExponent a.val (klExponent lam) := by
+  let gamma := klExponent lam
+  let K : ℝ := (1 / (4 * C)) * c state
+  let D : ℝ := K / (a.val : ℝ) ^ gamma
+  have haR : (0 : ℝ) < a.val := by exact_mod_cast a.property.1
+  have hcpos : 0 < c state :=
+    lt_of_lt_of_le zero_lt_one (hfeasible.1 state)
+  have hK : 0 < K := by
+    dsimp [K]
+    positivity
+  have hD : 0 < D := by
+    dsimp [D]
+    positivity
+  refine ⟨D, hD, ?_⟩
+  filter_upwards [eventually_ge_atTop a.val] with X hXa
+  have hcore := predecessorCount_lower_bound_klTarget_of_feasible
+    hk hlam1 hlam2 c hC hcC hfeasible a X hXa
+  have hdiv : ((X : ℝ) / a.val) ^ gamma =
+      (X : ℝ) ^ gamma / (a.val : ℝ) ^ gamma :=
+    Real.div_rpow (by positivity) haR.le gamma
+  have hrearrange : D * (X : ℝ) ^ gamma =
+      K * ((X : ℝ) / a.val) ^ gamma := by
+    rw [hdiv]
     dsimp [D]
     field_simp [ne_of_gt (Real.rpow_pos_of_pos haR gamma)]
   rw [hrearrange]
-  exact hchain
+  exact hcore
 
 /-- Exact level feasibility supplies the KL exponent for every eligible
 target.  The auxiliary uniform bound on the feasible vector is discharged by

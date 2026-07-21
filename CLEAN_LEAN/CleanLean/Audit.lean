@@ -5,6 +5,7 @@ Authors: Simon DeDeo, OpenAI Codex
 -/
 import CleanLean.Collatz.Relational
 import CleanLean.Collatz.Syracuse
+import CleanLean.Collatz.SideBush
 import CleanLean.KL.FiniteSystem
 import CleanLean.KL.ResidueSystem
 import CleanLean.KL.ExactCertificate
@@ -62,6 +63,7 @@ import CleanLean.KL.MarginalObstruction
 import CleanLean.KL.OrbitHitting
 import CleanLean.KL.NonlinearPerron
 import CleanLean.KL.CountingTransfer
+import CleanLean.KL.SideBushCapacity
 import CleanLean.KL.FiniteRecordK12
 
 /-!
@@ -344,6 +346,7 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.exists_positive_eigenpair_of_normalized_fixed
 #print axioms CleanLean.KL.rpow_logb_swap
 #print axioms CleanLean.KL.klCutoff_logb_div
+#print axioms CleanLean.KL.predecessorCount_lower_bound_klTarget_of_feasible
 #print axioms CleanLean.KL.hasPredecessorExponent_klTarget_of_feasible
 #print axioms CleanLean.KL.hasPredecessorExponent_klTarget_of_levelFeasible
 #print axioms CleanLean.KL.exists_nonperiodic_two_even_pow_mul
@@ -435,6 +438,15 @@ specification theorems during a build.
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_uniform_reverse_quadratic_terminalExcess_growth
 #print axioms CleanLean.KL.ResidueSystem.IsCoarseMinimumTower
 #print axioms CleanLean.KL.ResidueSystem.klLambda_tendsto_two_of_coarseMinimumTower
+#print axioms CleanLean.Collatz.syracuseStep_sideTarget
+#print axioms CleanLean.Collatz.iterate_two_sideTarget_of_odd
+#print axioms CleanLean.Collatz.sidePredecessor_not_on_injective_orbit
+#print axioms CleanLean.Collatz.sideTarget_not_periodic_raw
+#print axioms CleanLean.Collatz.predecessorFinset_sideTargets_disjoint
+#print axioms CleanLean.Collatz.sum_predecessorCount_sideTargets_le
+#print axioms CleanLean.KL.sideTarget_nonperiodic
+#print axioms CleanLean.KL.sideKLTarget
+#print axioms CleanLean.KL.sideSpine_capacity_of_feasible
 #print axioms CleanLean.KL.exists_strict_feasible_ladder_from_k12
 #print axioms CleanLean.KL.exists_later_feasible_gt_k12
 #print axioms CleanLean.KL.exists_predecessorExponent_gt_k12

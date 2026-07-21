@@ -2,6 +2,7 @@ import CleanLean.Collatz.Defs
 import CleanLean.Collatz.Relational
 import CleanLean.Collatz.Syracuse
 import CleanLean.Collatz.PredecessorCount
+import CleanLean.Collatz.SideBush
 import CleanLean.KL.FiniteSystem
 import CleanLean.KL.ResidueSystem
 import CleanLean.KL.ExactCertificate
@@ -59,6 +60,7 @@ import CleanLean.KL.OrbitHitting
 import CleanLean.KL.NonlinearPerron
 import CleanLean.KL.NormalizedEigenpair
 import CleanLean.KL.CountingTransfer
+import CleanLean.KL.SideBushCapacity
 import CleanLean.KL.FiniteRecordK12
 import CleanLean.KL.FiniteRecordLadder
 import CleanLean.Audit

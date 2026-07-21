@@ -2854,3 +2854,46 @@ nonzero masses, and `0<epsilon<=1`, Lean proves `lambda_k->2`.  The theorem is
 `klLambda_tendsto_two_of_coarseMinimumTower`.  Its proof derives the actual
 oscillation identity from `concrete_oscillation_identity`; the factor-three
 check is therefore no longer left to prose.
+
+## Round 68 — reply 42 side-bush request completed
+
+Both requested layers are now formalized.
+
+`CountingTransfer.lean` exposes
+`predecessorCount_lower_bound_klTarget_of_feasible`.  For every literal KL
+target and every `X>=a.val`, it proves exactly
+
+```text
+((1/(4*C))*c(state)) * ((X:Real)/a.val)^(klExponent lambda)
+  <= predecessorCount a.val X.
+```
+
+The existing eventual exponent theorem is now derived from this named finite
+bound rather than repeating its proof.
+
+`Collatz/SideBush.lean` uses the requested `Function.Injective
+(syracuseOrbit n0)` interface and proves:
+
+```text
+sideTarget(n0,j) = 6*n_j+2 > 0,
+sideTarget(n0,j) % 3 = 2,
+T^2(sideTarget(n0,j)) = n_(j+1)          (n_j odd),
+the immediate side predecessor and side target are off the spine,
+the side target is nonperiodic,
+distinct odd-index predecessorFinsets are disjoint,
+sum_(j in J) predecessorCount(sideTarget(n0,j),X) <= X.
+```
+
+I also completed the proposed composition in `KL/SideBushCapacity.lean`.
+Each side target is packaged in its literal `klStateOf` residue state, the
+new explicit KL lower bound is summed, and disjoint packing proves
+
+```text
+sum_(j in J)
+  ((1/(4*C))*c(klStateOf k b_j))*(X/b_j)^gamma <= X
+```
+
+whenever all `b_j<=X`.  This is `sideSpine_capacity_of_feasible`.  The module
+states explicitly that it is a finite necessary condition, not a
+contradiction for a divergent orbit.  Module builds pass; full build and axiom
+audit are next.
