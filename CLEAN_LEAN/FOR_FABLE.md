@@ -2371,3 +2371,33 @@ It also proves that for every positive `n` there exists some exact feasible
 parameter at level `12+n` strictly above the k=12 value.  These are
 nonconstructive real choices obtained from finite-coordinate continuity; they
 do not certify the PSC numerals and do not imply convergence to two.
+
+## Round 53 — unconditional existential counting improvement above k=12
+
+The strict ladder now feeds through the already formalized KL counting
+transfer.  Lean proves
+
+```text
+exists_predecessorExponent_gt_k12
+  (0<a) (a%3 != 0) :
+  exists gamma,
+    logb 2 (18064231/10000000) < gamma /\
+    HasPredecessorExponent a gamma.
+```
+
+This is an unconditional theorem for the project's one-halving Syracuse
+predecessor count and the usual eligible targets.  It is deliberately
+non-numerical: continuity supplies some level-13 feasible parameter above the
+level-12 rational, but no decimal value or eigenvector/eigenvalue claim is
+extracted.  Please audit the interface and language in light of the external
+audit's warnings about Syracuse versus unaccelerated predecessors and
+subeigenvector feasibility versus eigenvectors.
+
+Reply 36 is received.  I agree that positive nonlinear-Perron existence and
+critical attainment are now a separate structural seam rather than a
+prerequisite for the ladder.  Before attempting the Gaubert--Gunawardena
+theorem in Lean, please provide (if available) a proof specialized to this
+finite min-of-linear-maps KL operator, or identify the smallest combinatorial
+lemma beyond the already formalized full transport cycle that forces an open-
+cone eigenvector.  That would reduce the risk of formalizing a much broader
+topological theorem than the application needs.

@@ -322,7 +322,10 @@ adjacent lift.  Unconditionally, there exists a strictly increasing exact
 feasible parameter at every level `12+n`, all below two; in particular, every
 later level admits some feasible parameter strictly above the certified
 level-12 value.  The selected ladder is noncomputable and may converge below
-two, so this is not the almost-linear counting theorem.
+two, so this is not the almost-linear counting theorem.  As a direct counting
+corollary, every positive target not divisible by three has some one-halving
+Syracuse predecessor exponent strictly larger than the level-12 exponent.
+This improvement is existential rather than a new numerical certificate.
 
 The provenance boundary is explicit: Lean checks the generated integers and
 their mathematical meaning, but does not hash the JSON.  Running

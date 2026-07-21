@@ -42,4 +42,22 @@ theorem exists_later_feasible_gt_k12 (n : ℕ) (hn : 0 < n) :
   rw [← hzero]
   exact (strictMono_nat_of_lt_succ hmono) hn
 
+/-- Non-numerical but unconditional strict improvement of the level-12
+predecessor exponent.  The theorem asserts existence of a larger real
+exponent; it does not provide a decimal certificate for that exponent. -/
+theorem exists_predecessorExponent_gt_k12
+    {a : ℕ} (ha : 0 < a) (ha3 : a % 3 ≠ 0) :
+    ∃ gamma : ℝ,
+      klExponent (18064231 / 10000000 : ℝ) < gamma ∧
+      HasPredecessorExponent a gamma := by
+  obtain ⟨lam, hlam, hlam2, hfeas⟩ :=
+    exists_later_feasible_gt_k12 1 (by norm_num)
+  refine ⟨klExponent lam, ?_, ?_⟩
+  · unfold klExponent
+    exact (Real.strictMonoOn_logb (b := (2 : ℝ)) (by norm_num))
+      (by norm_num) (lt_trans (by norm_num) hlam) hlam
+  · exact hasPredecessorExponent_of_levelFeasible
+      (k := 13) (by norm_num) (lt_trans (by norm_num) hlam) hlam2.le
+        (by simpa using hfeas) ha ha3
+
 end CleanLean.KL
