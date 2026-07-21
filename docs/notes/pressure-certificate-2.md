@@ -95,8 +95,11 @@ renormalization analysis already identified. Any viable localization must make
 oscillation persistence itself the charged quantity (a genuine top-window /
 depth-memory charge that Lemma 5's tilt does not currently price), or replace
 the finite-gap goal by a slower-than-exponential (renewal / boundary-rate)
-decay theorem — consistent with the observed transient drift nu_k{osc>t}
--> ~0.81 < 1 (`renormalization-at-minus-one.md` §6.4).
+decay theorem. The finite tail ratio reached about `0.810` at `k=19`; a later
+floating-only `k=20` scan gives about `0.824`, outside the preregistered
+transient range. Absolute tails still decrease, but the finite ratios no
+longer justify a geometric-limit extrapolation (`renormalization-at-minus-one.md`
+§6.4).
 
 ---
 
@@ -160,11 +163,32 @@ leak; only the charged-pressure route (option (b)) does, conditionally.
 
 - (H1) u-split pricing U(sigma): M(q,De) <= sigma M(q,D). The annealed
   automaton is a true domination only at sigma = 1/4. This is precisely
-  sol-Q1's "separate pathwise comparison" that Lemma 5 does not supply —
-  here made quantitative and measured on certified vectors: sigma_max =
-  0.419 (k=15), 0.343 (k=16, decreasing); mass-weighted 0.2514, 0.2505.
-  Pointwise closure at (3,6) needs sigma <= 1/(4 R_unc) = 0.273: FAILS
-  today; at (3,9) needs ~0.36-0.42: already satisfied by measured sigma_max.
+  sol-Q1's "separate pathwise comparison" that Lemma 5 does not supply.
+  The original measurements were only for depth `6 -> 7`: sigma_max =
+  0.419 (k=15), 0.343 (k=16), with mass-weighted values 0.2514, 0.2505.
+  Extrapolating those numbers to the proposed depth `9 -> 10` was invalid.
+  The exact streamed audit `split_ratio_audit.py` gives unrestricted maxima
+  0.9847, 0.9502, 0.8172, 0.6855, 0.5514 for `k=15..19`. Even after restricting
+  to source-uncovered and transport-successor-uncovered cylinders, the `k=19`
+  maximum is
+
+      1892575973641960 / 3487969866821777 = 0.5426010103...,
+
+  at `q=26`, `D=001232200_4`, child digit zero (41 coordinates out of 164).
+  It exceeds `21/50=0.42` by exact cross multiplication. Only 233 of
+  3,918,396 relevant transitions violate `0.42`; their child mass is about
+  `2.3525e-4` of total eligible-child mass, so the failure is rare but
+  genuine. This
+  refutes the proposed uniform `U(21/50)` bound (and every smaller sigma) on
+  the class containing this exact feasible subeigenvector; it does not refute
+  scalar H1 with a larger, non-closing constant or an eventual theorem
+  specialized to selected exact critical eigenvectors. The surviving
+  pressure-closing shape is a state-dependent/vector conditional cone, not one
+  global sigma. Full exact rows and source hashes:
+  `experiments/pressure-cert2/csv/split_ratio_audit.csv`.
+  The earlier depth-six sequence continues downward through k=19
+  (0.4190, 0.3430, 0.2868, 0.2722, 0.2594), which is useful finite-scale evidence
+  but not an all-level estimate. The earlier mass diagnostics remain:
   nu_k(aligned) = 0.015652/0.015633 vs Haar 0.015625 (0.2%); nu_k(unc) =
   0.9004/0.9008 vs annealed 0.90625 (0.7%).
 - (H2) product cone / sibling independence: the tau of II.2(1) treats the
@@ -180,18 +204,24 @@ leak; only the charged-pressure route (option (b)) does, conditionally.
 - With the window charge: quadruple EXISTS exactly at (3,6) and the leak
   closes in-model — but pricing that charge is itself hypothesis H1, and the
   in-model localization is hypothesis H2. So the marginal wall is relocated
-  into (H1)+(H2), both finite, testable, and measured favorably (H1 with
-  decreasing-in-k slack), neither proved.
+  into (H1)+(H2), both finite and testable but neither proved. The exact
+  depth-nine audit above now falsifies the proposed uniform `U(21/50)` form on
+  the tested feasible subeigenvectors; only a vector/state-dependent
+  pressure-closing replacement remains empirically plausible.
 - Chain: [quadruple (exact)] + (H1) + (H2) + (H3: lambda-uniform rows)
   + CLEAN_LEAN's formal terminal-potential/Chernoff => C1' => delta_k -> 0
   => lambda_k -> 2; with kernel-checked R', lambda_inf = 2.
-- Scaled run PREPARED, NOT launched (`scale_akdeniz.py`): (3,9) = 2.36M
-  states is the first point where phase 8 covers (0.377) and measured
-  sigma_max already meets the worst-case H1 threshold; (6,10) = 255M for
-  akdeniz if the E-side budget must couple to theta*(J) ~ 2^-J.
-- Nothing found estimates lambda_inf < 2: the exceptional component is
-  strictly subcritical (R_unc < 1), and the only non-contracting mode is the
-  known eigenvalue-1 renormalization mode.
+- Scaled run BLOCKED, NOT launched (`scale_akdeniz.py`): `(3,9)` = 2.36M
+  states is the first point where phase 8 covers (0.377), but the exact
+  depth-nine audit above invalidates the claimed measured H1 margin. Computing
+  another annealed pressure row certificate before replacing scalar H1 and
+  product-envelope H2 would certify only the surrogate model. The proposed
+  `(6,10)` = 255M run is likewise not authorized on the current architecture.
+- Nothing found estimates lambda_inf < 2. Within the autonomous annealed
+  surrogate, the exceptional component is strictly subcritical
+  (`R_unc < 1`) and the only non-contracting mode found is the known
+  eigenvalue-one renormalization mode; neither statement controls the actual
+  all-level KL mass without the missing semantic/localization theorems.
 
 External audit of Part II (gpt-5.6-sol, authorized): `sol_audit_answer.md`
 (SSL fixed via certifi); adopted claims re-verified before use.

@@ -1,4 +1,4 @@
-"""m4_data.py -- GROUND TRUTH from certified eigenvectors k=15,16.
+"""m4_data.py -- exact diagnostics from certified feasible subeigenvectors k=15,16.
 
 Question: does normalized fiber oscillation PERSIST on balls that avoid the
 exceptional set E_3 (zero charge), or does it decay?  If off-E balls carry

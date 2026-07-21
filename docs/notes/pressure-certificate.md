@@ -60,7 +60,7 @@ alpha-sandwich 50508/31867 < alpha < 24727/15601 (verified by 2^p vs 3^q
 integer comparisons) and exact cross-multiplied power comparisons; per-weight
 monotonicity (p, q2 down, q8 up in lambda) reduces intervals to endpoints.
 
-## 2. Validation against certified eigenvector data (all PASS)
+## 2. Validation against certified feasible-subeigenvector data (all PASS)
 
 - V1 (k=7,8, brute force integers): sol-contraction Lemma 1 exactly —
   transport label action j -> h+j, R2: j -> h'+j, R8: j -> h'+2j, plus two
@@ -149,7 +149,7 @@ integer comparison. Results (`lemma5_theta.csv`, `lemma5_scaling.csv`,
   chain: subdivide [lambda_K, 2] with a per-piece h — legitimate since
   lambda_k is monotone, so only finitely many h-switches occur along the
   tower (audit point (3b)); the asymptotic rate is set by the lambda->2 piece.
-- Empirical check (sol 4.4D): nu_k(E_J) from certified eigenvectors k=15..19
+- Empirical check (sol 4.4D): nu_k(E_J) from certified feasible subeigenvectors k=15..19
   tracks pi(E_J) from below with per-digit ratio 0.46-0.52 (annealed: 0.50);
   at fixed J it rises with k but with shrinking increments (J=8: +3.6%,
   +3.2%, +2.9%, +2.7% per level) — consistent with lambda_k -> 2, not with a

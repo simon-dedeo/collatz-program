@@ -1,5 +1,14 @@
 # KL extremal eigenvectors k = 12…19: oscillation, the geometry of the high-oscillation set, and the dichotomy
 
+**Calibration update (2026-07-21).** This is a finite floating-point analysis,
+not an asymptotic result. Statements below that a mass “goes to zero,” that a
+dimension or closed limiting set exists, or that `λ∞=2` is decided are now
+read only as hypotheses suggested by `k≤19`. A local floating k20 scan has
+absolute tails still decreasing but ratios near `0.824`, above the
+preregistered slow-decay discriminator. The exact certified arrays are
+feasible subeigenvectors rather than exact critical eigenvectors; see
+`docs/notes/fiber-geometry.md` for the current status.
+
 2026-07-20. Data: `eigvecs/eigvec_k{12..19}.npy` (Bridges2 GPU runs, `kl_gpu.py`; all files
 validated: length 3^{k−1}, strictly positive, max = 1). Indexing: with
 `ms = arange(2, 3^k, 3)`, the depth-d fiber of the level-(k−d) parent with index p is

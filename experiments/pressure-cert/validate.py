@@ -4,7 +4,7 @@ V1  Brute-force verification of sol-contraction Lemma 1 index arithmetic at
     small k (pure integers): transport label shift, R2/R8 lift alignment,
     the exact facts floor((4r-2)/3^N)=floor(4r/3^N), floor((2r-1)/3^N)=
     floor(2r/3^N), and the u-cell shift rules used by lemma3.py.
-V2  EXACT ball-mass domination on certified eigenvectors (int64 C arrays,
+V2  EXACT ball-mass domination on certified feasible subeigenvectors (int64 C arrays,
     k=15,16):  M(xi) <= p M(4xi) + q_e * S_e(xi)  and  S_e <= (1/3) sum M(fine)
     -- Fractions, no floats.  Failure would falsify the automaton.
 V3  Empirical exceptional-neighborhood masses nu_k(E_J) for k=15..19 (float,

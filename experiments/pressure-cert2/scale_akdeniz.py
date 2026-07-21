@@ -1,15 +1,22 @@
-"""scale_akdeniz.py -- scaled combined certificate (PREPARED, NOT LAUNCHED).
+"""scale_akdeniz.py -- obsolete scaled prototype (BLOCKED, NOT LAUNCHED).
 
 Target: (J, L_w) with phase-8 coverage nonempty and worst-case u-split
 closure: L_w >= 9.  Sizes: (3,9)=2.36M states (local overnight or 1 hr on
 32 cores); (3,10)=9.4M; (6,10)=255M (akdeniz, sparse int-key edges, ~50 GB
 if streamed by source-chunk; use L_w=10 only if (3,9) margins are thin).
 
-Estimate from (3,6) data + dfa_counts.csv (exact uncovered fractions at L=9:
-phase2 0.469, phase5 0.488, phase8 0.623): pi(unc) ~ 0.53, R_unc ~ 0.6-0.7,
-worst-case closure needs sigma_max <= 1/(4*R_unc) ~ 0.36-0.42; measured
-sigma_max = 0.343 at k=16 and decreasing => (3,9) should close the U-leak
-in worst-case form.  Phase-8 tau at L=9 from pressure-cert: 0.99999 (K=2).
+The original launch estimate extrapolated a depth-6 split ratio to depth 9.
+`split_ratio_audit.py` now checks the actual depth `9 -> 10` split on the
+SHA-pinned feasible records.  Even on source-uncovered to T-successor-
+uncovered transitions, k=19 has exact sigma_max = 0.5426010103..., above the
+proposed 0.36--0.42 budget.  The pressure-closing scalar H1 premise therefore
+lacks both proof and the claimed finite-scale evidence.  (A larger, non-closing
+scalar bound is not at issue.)  H2 (the single-profile product-envelope
+domination) also remains open.
+
+Do not launch this pressure build as currently formulated.  A replacement
+must retain the sibling mass vector or a state-dependent conditional cone;
+otherwise another row certificate proves only the annealed surrogate.
 
 Run (on akdeniz):  python3 scale_akdeniz.py J LW NPROC
 Phases: 1) float Perron (numpy, sparse edge arrays, ~min)  2) h rounding
@@ -75,7 +82,10 @@ def main(J, LW, nproc, mode='restricted', zs=None):
     print(f'(J,LW)=({J},{LW}) states={n}')
     # --- float Perron on the (restricted) automaton, chunked matvec
     # (memory: edges regenerated per sweep; for n>1e7 use src-chunk streaming)
-    raise SystemExit('PREPARED ONLY: remove this line to launch on akdeniz')
+    raise SystemExit(
+        'BLOCKED: required U(21/50) fails the exact depth-nine audit; '
+        'replace the model'
+    )
 
 
 if __name__ == '__main__':

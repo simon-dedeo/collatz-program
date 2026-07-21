@@ -260,7 +260,15 @@ The completed branch-checkpoint design and provenance-scope warning are in
 On the separate pressure lane, generated rows, S1--S4
 finite graph/interval semantics, and all-length bounds are checked; general
 all-level ball-mass domination and the high-oscillation localization implication
-remain open, so the pressure half is not a limit proof.
+remain open, so the pressure half is not a limit proof. The exact streamed
+`split_ratio_audit.py` now also blocks the prepared `(J,L_w)=(3,9)` scalar-
+split scale-up: on source-uncovered to transport-successor-uncovered states,
+the `k=19` feasible vector has `σ_max=0.542601…>0.42`. This refutes the
+proposed uniform `U(21/50)` bound (and every smaller `σ`) on the class of
+feasible subeigenvectors, not scalar H1 with an arbitrary non-closing constant
+or an eventual theorem specialized to selected critical eigenvectors. The
+rarity of the violations motivates testing a state-dependent/vector
+conditional cone; it does not prove that such a cone closes.
 
 ## 6. The user (Simon) — how to work with him
 

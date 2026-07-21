@@ -12,6 +12,12 @@ except ImportError:
 KEY = open('/Users/simon/Desktop/DANIEL/API_KEY').read().strip()
 
 BRIEF = """Audit request (Collatz KL pressure program, combined automaton).
+CURRENT CORRECTION: the old scalar depth-nine extrapolation below has since
+been tested exactly and fails. On the k=19 feasible vector, even the
+source-uncovered/T-successor-uncovered maximum is 0.542601>0.42. Treat the
+k=15,16 depth-six numbers as historical inputs only and assess a
+vector/state-dependent conditional cone instead of the failed
+pressure-closing scalar bound.
 Setup: states = (ball q mod 27) x (first 6 base-4 digits D of u=m/3^k).
 Exceptional = window-uncovered: block support classes S (tail+B2 shift adds),
 A (B8 affine adds); covered iff |S|=3 or |A|=3 (verified vs matrices).
@@ -32,9 +38,11 @@ eigenvalue-1 chain mode). (5) Localization: covered visit contracts d_H by
 tau; osc>t forces all-but-O_t(1) uncovered visits, so theta=15/16 charge
 density available; with R^b<z^a the Lean-side Chernoff chain closes IN-MODEL.
 Declared hypotheses: (H1) U(sigma) u-split: M(q,De)<=sigma M(q,D); measured
-on certified k=15,16 eigenvectors sigma_max=0.419/0.343 (decreasing),
+on certified k=15,16 feasible vectors at depth 6->7 only,
+sigma_max=0.419/0.343,
 mass-weighted 0.2505; worst-case closure at (3,6) needs sigma<=0.273 (fails
-now), at (3,9) needs ~0.36-0.42 (passes measured). (H2) product-cone C_K
+now), while the actual k=19 depth 9->10 split also fails the ~0.36-0.42
+budget. (H2) product-cone C_K
 (K=2) incl. sibling cross-fiber independence: single-profile envelope only.
 Questions: (a) any soundness hole in the charge rule or the C=1
 nonexpansiveness claim (no zero rows suffices for Hilbert-metric

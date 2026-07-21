@@ -216,6 +216,13 @@ knowing which routes are dead (and why) is most of the value.
    needs a non-autonomous global-measure or arithmetic mechanism. The finite
    bridge in item 1 is now ready to consume any exact feasible family directly;
    what is missing is an all-level construction whose parameters tend to two.
+   A new exact streamed audit also blocks the prepared `(J,L_w)=(3,9)`
+   annealed pressure scale-up as formulated. The actual depth-`9→10` split of
+   the `k=19` feasible vector has `σ_max=0.542601…` even on uncovered-to-
+   uncovered transport transitions, not the extrapolated `≤0.42`. The
+   violating transitions are rare, so a state-dependent sibling-mass cone
+   remains plausible; the required global `σ≤0.42` split already fails at k19.
+   `experiments/pressure-cert2/split_ratio_audit.py`.
 5. **Quantitative adelic descent** / **open-quantum-systems reframing** — the
    no-go = peripheral spectrum of the KL channel (`wildcard.md`, WARM); descent
    under a dynamical Fourier norm (on deck). Both risk rediscovering the marginal
@@ -331,7 +338,9 @@ kernel-check the generated payload's 2,187 row inequalities, their all-length
 mass bounds, equality with an independently defined 243-state KL graph, the
 irrational interval-weight domination, and exact interval tiling. General
 all-level aggregated ball-mass domination and especially localization remain
-open; this pressure half is not a limit proof.
+open; this pressure half is not a limit proof. The exact depth-nine split audit
+further rules out promoting its proposed `σ≤0.42` annealed scalar H1 bound to
+the five exact certified feasible points tested (`k=15,…,19`).
 
 ### Standing frame
 

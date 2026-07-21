@@ -1,6 +1,6 @@
 {
  "name": "combined-localization-certificate",
- "version": "2026-07-20.1",
+ "version": "2026-07-21.1",
  "checker": "recheck.py (independent code path, exact Fractions)",
  "state_semantics": {
   "low_window": "ball q mod 3^3, q==2 mod 3 (9 states)",
@@ -21,7 +21,7 @@
   "T": "q->4q mod 27; window shifts left, new digit e (4 edges, p/4)",
   "B2": "q==2(9): R2(q)+i*9; window shifts left (12 edges, q2/12)",
   "B8": "q==8(9): R8(q)+i*9; window x2-map e_i=2d_i mod4+[d_{i+1}>=2], last-digit carry c (6 edges, q8/6)",
-  "model": "ANNEALED U-SPLIT (hypothesis U): new-digit mass share sigma; Haar sigma=1/4 used; measured on certified k=15,16 vectors: sigma_max=0.419/0.343, mass-weighted 0.2514/0.2505; borrow (-1 cylinder) edges are k-boundary terms of Haar measure O(3^-k 4^Lw), verified exhaustively at k=9,10 (validate2.py T1)"
+  "model": "ANNEALED U-SPLIT (hypothesis U): new-digit mass share sigma; Haar sigma=1/4 used; measured on certified k=15,16 vectors only at depth 6->7: sigma_max=0.419/0.343, mass-weighted 0.2514/0.2505. Exact depth-9->10 audit on k=19 gives restricted sigma_max=0.542601>0.42, refuting the proposed universal scalar scale-up; see split_ratio_audit.py. Borrow (-1 cylinder) edges are k-boundary terms of Haar measure O(3^-k 4^Lw), verified exhaustively at k=9,10 (validate2.py T1)"
  },
  "localization": {
   "good_block_contraction": {
@@ -79,7 +79,7 @@
   "aligned_leak": "face cone (option a): 2x2 face contracts (tau_face <= 0.539/0.539/0.963 by phase, clean-face half); pinned-scale multiplier interval [0.600,1.667] CONTAINS 1: marginal mode, cannot close alone. Charge treatment (option b): CLOSES in-model: R_unc = 52435/57248 < 1 and R^64 < z^60 with theta=15/16 < 1 available from localization.",
   "unconditional": false,
   "remaining_hypotheses": [
-   "U(sigma): u-digit mass split; worst-case measured 0.343-0.419 (need <= 0.273 for pointwise closure R_unc*4sigma<1 at (3,6); mass-weighted 0.2505 closes with margin 0.918)",
+   "U(sigma): no pressure-closing uniform scalar u-digit bound is proved, and the proposed depth-nine <=0.42 form is refuted by the exact k=19 feasible vector (restricted sigma_max 0.542601); a vector/state-dependent conditional cone is the current replacement candidate, not a proved necessity",
    "C_K product-cone invariance (K=2), incl. sibling cross-fiber independence -- single-profile envelope not yet dominated",
    "uniform lambda in [lam18,2] version (only lambda=2 emitted here; tau uniform data present in blocks_tau.csv)"
   ]

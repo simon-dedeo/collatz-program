@@ -1,3 +1,10 @@
+> **Superseded local interpretation (2026-07-21).** This external analysis
+> correctly identifies the marginal family and lack of local selection, but a
+> later exact finite-level calculation determines the *minimum* lift:
+> `a_k=λ^(1−α)−λ^(−1−α)/σ_k`, tending to `λ^(1−α)` if `σ_k→∞`. The apparent
+> period two is a doubling relabeling. The maximum lift/global pinning remains
+> open; see `renormalization-at-minus-one.md`.
+
 ## Conclusion
 
 The exact finite-level equations can be written down, but the proposed local limit does **not** determine \(a\). After transport is discarded, the renormalization is just the permutation

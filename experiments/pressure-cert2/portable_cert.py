@@ -19,7 +19,7 @@ def main():
               if r['tag'] == 'lam2' and r['K'] == '2'}
     cert = {
         'name': 'combined-localization-certificate',
-        'version': '2026-07-20.1',
+        'version': '2026-07-21.1',
         'checker': 'recheck.py (independent code path, exact Fractions)',
         'state_semantics': {
             'low_window': 'ball q mod 3^3, q==2 mod 3 (9 states)',
@@ -46,8 +46,12 @@ def main():
                   ' last-digit carry c (6 edges, q8/6)',
             'model': 'ANNEALED U-SPLIT (hypothesis U): new-digit mass share '
                      'sigma; Haar sigma=1/4 used; measured on certified '
-                     'k=15,16 vectors: sigma_max=0.419/0.343, mass-weighted '
-                     '0.2514/0.2505; borrow (-1 cylinder) edges are '
+                     'k=15,16 vectors only at depth 6->7: sigma_max='
+                     '0.419/0.343, mass-weighted 0.2514/0.2505. Exact '
+                     'depth-9->10 audit on k=19 gives restricted sigma_max='
+                     '0.542601>0.42, refuting the proposed universal scalar '
+                     'scale-up; see split_ratio_audit.py. Borrow (-1 '
+                     'cylinder) edges are '
                      'k-boundary terms of Haar measure O(3^-k 4^Lw), verified '
                      'exhaustively at k=9,10 (validate2.py T1)',
         },
@@ -107,9 +111,12 @@ def main():
                 'localization.',
             'unconditional': False,
             'remaining_hypotheses': [
-                'U(sigma): u-digit mass split; worst-case measured 0.343-0.419 '
-                '(need <= 0.273 for pointwise closure R_unc*4sigma<1 at (3,6); '
-                'mass-weighted 0.2505 closes with margin 0.918)',
+                'U(sigma): no pressure-closing uniform scalar u-digit bound '
+                'is proved, and the proposed depth-nine <=0.42 form is '
+                'refuted by the '
+                'exact k=19 feasible vector (restricted sigma_max 0.542601); '
+                'a vector/state-dependent conditional cone is the current '
+                'replacement candidate, not a proved necessity',
                 'C_K product-cone invariance (K=2), incl. sibling cross-fiber '
                 'independence -- single-profile envelope not yet dominated',
                 'uniform lambda in [lam18,2] version (only lambda=2 emitted '

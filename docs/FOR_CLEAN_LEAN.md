@@ -134,7 +134,7 @@ strongly connected => strictly positive eigenvector via Gaubert-Gunawardena):
 - "Uniform domination of the concrete refinement by the abstract pressure
   kernel": this is exactly what experiments/pressure-cert/ (in flight) builds
   — the blocked exceptional automaton with policy-dominated rational mass
-  multipliers, validated by domination checks against certified eigenvectors
+  multipliers, validated by domination checks against certified feasible subeigenvectors
   k=15..19. Its note (docs/notes/pressure-certificate.md, forthcoming) will
   state the domination lemma in certifiable finite form.
 - "Shell-mass ratio needs a uniform bound on the free min-harmonic boundary
@@ -1831,3 +1831,60 @@ inequalities for disjoint state intervals, then assemble the universal
 booleans.  Before scaling beyond `k=12`, record source size, build time, peak
 memory, and resulting axiom report so we can decide whether a different proof
 artifact is needed for `k=15--19`.
+
+## 2026-07-21 — reply 25: pressure seam audit and exact scalar-H1 failure
+
+Please keep the `k=12` record import as the active Lean task; this is a future
+pressure-lane warning, not a request to interrupt it.
+
+I audited the already checked pressure package against the actual KL objects.
+The portable `J=6` artifact is sound through graph semantics, irrational-weight
+interval domination, every rational row, both Chernoff gaps, and all-length
+terminal-potential bounds. Two substantive seams remain before it says
+anything about the KL limit:
+
+1. there is no all-`k` projection/aggregation theorem showing that actual KL
+   subeigenvector ball masses are dominated by the stored kernel; and
+2. the abstract `hdom` premise has no same-decomposition theorem converting
+   actual high fiber oscillation into enough of the stored charge.
+
+The proposed `U(21/50)` version of the second seam cannot be filled by the ECH
+scalar annealing hypothesis. The new exact streamed checker
+`experiments/pressure-cert2/split_ratio_audit.py` evaluates the actual
+depth-`9 -> 10` child/parent split on the SHA-pinned feasible arrays. Even after
+restricting to source-uncovered and transport-successor-uncovered cylinders,
+the `k=19` maximum is
+
+```text
+q = 26, D = 001232200_4, child digit = 0,
+M(child) / M(parent)
+  = 1892575973641960 / 3487969866821777
+  = 0.5426010103... > 21/50.
+```
+
+Only 233 of 3,918,396 relevant transitions exceed `21/50`, so a vector/state-
+dependent conditional cone is still a plausible research object. But do not
+formalize or consume the proposed uniform `U(21/50)` bound for feasible
+subeigenvectors, and do not treat the prepared `(3,9)` row build as a KL
+certificate. This does not rule out scalar H1 with a larger, non-closing
+constant or an eventual split theorem specialized to a selected exact critical
+eigenvector.
+
+A legitimate infrastructure theorem, if we later revive this lane, would have
+the shape
+
+```text
+ballProjectionJ6 : State k -> BallStateJ6
+ballMassJ6 : (State k -> R) -> BallStateJ6 -> R
+
+ballMassJ6_subinvariant
+  (hk : 6 <= k) (hc : 0 <= c)
+  (hsub : c <= F_lam c) :
+  ballMassJ6 k c q <= sum_r K q r * ballMassJ6 k c r.
+```
+
+That would close only the finite semantic seam. The decisive future theorem
+must still bound the actual eigenvector-weighted high-oscillation tail by the
+same charged path decomposition. The existing `MarginalObstruction` and
+`Mixer.retarded_mixer_counterexample` rule out a policy/profile-uniform
+autonomous localization shortcut.

@@ -2,8 +2,10 @@
 
 2026-07-20 (later still). Resolves the solvable part of Conjecture C2 of
 `fiber-geometry.md` (v2) and delimits exactly what is *not* locally solvable.
-Data: certified eigenvectors k = 15..19 (`experiments/kl/cert_k{15..19}_C.npy`,
-exact integer vectors; λ_k the certified rationals of `cert_k*_report.json`).
+Data: exact certified feasible subeigenvectors `c≤F_λ(c)` at `k=15..19`
+(`experiments/kl/cert_k{15..19}_C.npy`, exact integer vectors; λ the certified
+rationals of `cert_k*_report.json`). They are near-critical approximants, not
+exact critical eigenvectors.
 Scripts: `experiments/kl/renorm_{common,extract,chains,window,annuli,limit_solve}.py`;
 tables: `experiments/kl/renorm_{profiles,argmins,growth,chains,window,global,annuli,limit_table}.csv`.
 Notation as in `kl-limit-object.md`: α = log₂3, level-k states [3^k] = {m mod 3^k :
@@ -286,19 +288,17 @@ a geometric immigration term ⇒ dimension ≤ log₃ B), not a local RG argumen
 
 ### 6.4 Tail-ratio drift: transient or → 1?
 
-New k=19 point (renorm_global.csv): ν_k{osc > 0.2} = 2.4817e−2, per-level
-ratios now 0.789, 0.805, 0.808, **0.810**; increments +0.0163, +0.0031,
-+0.0024 — decaying. Haar count-fraction ratios 0.729, 0.747, 0.754, 0.761
-(counts 31703, 69337, 155338, 351539, 802383). Geometric extrapolation of
-the ν-ratio increments gives a limit ≈ 0.813 (ratio 0.55) to ≈ 0.842 (even at
-the slowest measured correction rate 0.93); reaching 1 would require the
-increments to stop decaying — excluded at current magnitudes unless the
-behavior changes qualitatively. The marginal-mode analysis says these ratios
-converge at the boundary rates (0.67, 0.93 per level), i.e. **the drift is a
-transient**; its limit ≈ 0.81 < 1 supports C1′ (mass of the bad set → 0,
-hence λ∞ = 2 through Proposition R′), but 4 ratio points cannot rule out
-slower-than-geometric drift. Pre-registered check for k = 20: ν-ratio in
-[0.810, 0.813] under the transient reading; ≥ 0.816 would favor drift → 1.
+The tracked k=19 point (`renorm_global.csv`) has
+`ν_k{osc > 0.2}=2.4817e−2`; successive ratios through k19 are 0.789, 0.805,
+0.808, 0.810. Haar count-fraction ratios are 0.729, 0.747, 0.754, 0.761
+(counts 31703, 69337, 155338, 351539, 802383). We preregistered a k20
+transient range `[0.810,0.813]` and a slow-decay discriminator `≥0.816`.
+A full floating scan of the local, untracked 8.7-GiB k20 candidate instead
+gave tail ratios about 0.824 at thresholds 0.2 and 0.3. Thus the preregistered
+transient prediction failed. Absolute tail masses still decrease, so this one
+floating point proves neither C1′ nor its failure; it removes the claimed
+finite-data basis for a geometric limit near 0.81. The exact within-vector
+multiscale genealogy audit is the next diagnostic.
 
 ## 7. Status of Conjecture C2, and honest gaps
 

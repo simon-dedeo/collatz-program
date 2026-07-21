@@ -1,9 +1,10 @@
 """Shared helpers for the renormalization-at--1 analysis (renorm_*.py).
 
 State space at level k: [3^k] = {m mod 3^k : m ≡ 2 (mod 3)}, indexed by
-i = (m-2)/3.  Certified eigenvectors cert_k{K}_C.npy are exact int64 vectors
-c ≥ 1 satisfying c ≤ F_λ(c) with relative slack ~1e-7 (see cert_k*_report.json);
-we treat them as eigenfunctions up to that margin.
+i = (m-2)/3.  Certified feasible subeigenvectors cert_k{K}_C.npy are exact
+int64 vectors c ≥ 1 satisfying c ≤ F_λ(c) with relative slack ~1e-7 (see
+cert_k*_report.json); numerical eigenfunction language below is approximate
+up to that margin.
 
 Local coordinates at -1: the depth-ν ball around -1 at level k is
   B_ν = { -1 + u·3^{k-ν} mod 3^k : u mod 3^ν },
@@ -17,7 +18,7 @@ ALPHA = math.log(3, 2)
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 def load_C(k, mmap=True):
-    """Certified eigenvector as int64 array (exact integers)."""
+    """Certified feasible subeigenvector as an exact int64 array."""
     return np.load(os.path.join(HERE, f"cert_k{k}_C.npy"),
                    mmap_mode="r" if mmap else None)
 

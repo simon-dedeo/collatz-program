@@ -21,7 +21,8 @@ adds); |support| = 3|S|+3|A|-|S||A|; full (=9) iff |S|=3 or |A|=3.
 
 Mass-automaton transitions (annealed u-split model; per-edge weights are
 certified upper bounds; the u-split hypothesis U(sigma) is measured in
-validate2.py, NOT proved):
+validate2.py and split_ratio_audit.py, NOT proved; its proposed universal
+depth-nine `sigma <= 21/50` form is refuted by the exact k=19 feasible vector):
   T : (q,D) -> (4q, D[1:]+(e,))            e in 0..3, weight p/4
   B2: (q,D) -> (R2(q)+i*3^(J-1), D[1:]+(e,)) i,e -> weight (q2/3)/4
   B8: (q,D) -> (R8(q)+i*3^(J-1), x2(D,c))  i in 0..2, c in 0,1, w (q8/3)/2

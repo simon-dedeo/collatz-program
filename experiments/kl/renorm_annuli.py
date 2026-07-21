@@ -1,8 +1,8 @@
 """Renormalization measurement: fiber oscillation statistics globally and on
 3-adic annuli around -1 and around the backward-4 orbit points -1/4^n.
 
-For each level k (15..19), using the certified eigenvector C = cert_k{k}_C.npy
-(int64, length 3^(k-1), state m = 2+3i), the level-k fiber over the
+For each level k (15..19), using the certified feasible subeigenvector
+C = cert_k{k}_C.npy (int64, length 3^(k-1), state m = 2+3i), the level-k fiber over the
 level-(k-1) base state r = 2+3i (i in [0, 3^(k-2))) is C.reshape(3,n)[:, i],
 n = 3^(k-2).
 
