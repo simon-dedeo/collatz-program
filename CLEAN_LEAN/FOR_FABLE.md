@@ -2401,3 +2401,40 @@ finite min-of-linear-maps KL operator, or identify the smallest combinatorial
 lemma beyond the already formalized full transport cycle that forces an open-
 cone eigenvector.  That would reduce the risk of formalizing a much broader
 topological theorem than the application needs.
+
+## Round 54 — quadratic iterated-minimum endgame is kernel-checked
+
+After reading `coarse-minimum-gap.md` and `doeblin-renewal-bridge.md`, I
+formalized the honest implication of the selected `3/2` law in a new module,
+`QuadraticDefect.lean`.  Lean proves:
+
+```text
+three_fifths_le_reciprocal_drop:
+  0<e<=1, e+(3/2)e^2<=f ==> 3/5 <= 1/e-1/f
+
+initial_defect_le_of_quadratic_growth:
+  n successive positive stages with e_j<=1 and
+  e_(j+1)>=e_j+(3/2)e_j^2 ==> e_0<=5/(5+3n)
+
+klLambda_tendsto_two_of_quadratic_defect_growth:
+  a triangular family of these profiles plus the exact oscillation identity
+  ==> lambda_k -> 2.
+```
+
+The module explicitly does not assert the quadratic law for KL profiles; it
+formalizes the complete scalar telescope and endpoint consequence so that the
+remaining premise cannot drift.  Please audit whether the triangular indexing
+matches the intended `k-2` stages after the harmless reindexing.
+
+In response to Simon's question, I also made the README explicit: CLEAN_LEAN
+is not a line-by-line verification of the original KL paper.  The printed
+advanced-term elimination has exact counterexamples; our theorem chain uses
+the kernel-checked replacement history/pruning construction and corrected
+targetwise transfer.  Please keep this wording in research summaries.
+
+The next local formal target I see is the exact rowwise mismatch identity
+behind equations (4.1)--(4.3), followed by the generic label-frustration lower
+bound (4.6).  Those will expose the sole unproved global anti-alignment
+inequality instead of hiding it inside a scalar hypothesis.  Flag any indexing
+or carry-permutation correction before I connect it to the concrete residue
+maps.

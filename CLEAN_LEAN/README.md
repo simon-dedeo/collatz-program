@@ -22,6 +22,11 @@ counting bridge is now complete: the KL difference functions are instantiated
 with actual Syracuse predecessor counts using the corrected one-sided
 doubling argument, not the false printed equation (2.1).
 
+This is not an end-to-end formal verification of the original KL paper as
+printed.  Exact counterexamples invalidate its printed advanced-term-
+elimination construction.  The project instead kernel-checks a replacement
+history/pruning argument and the downstream counting transfer needed here.
+
 The annealed comparison is now stated at the actual finite-system level.  Lean
 defines the linear operator obtained by replacing each fiber minimum by its
 three-point average and proves the exact slack identity
@@ -74,6 +79,16 @@ the increase in normalized minimum defect.  It consequently kernel-checks the
 ordinary data-processing inequality: the defect cannot decrease under this
 selected coarse projection.  The missing research claim is the stronger
 uniform quadratic increase.
+
+`QuadraticDefect.lean` now kernel-checks the exact endgame proposed by the
+iterated-minimum experiments, without assuming it has been proved for KL
+vectors.  Each inequality
+`e_(j+1) >= e_j + (3/2)e_j^2` drops the reciprocal defect by at least `3/5`;
+after `n` stages this gives `e_0 <= 5/(5+3n)`.  A triangular family with an
+unbounded number of such stages therefore has vanishing initial defect, and
+the exact oscillation identity implies `lambda_k -> 2`.  The missing theorem
+is still the all-level quadratic inequality for the selected critical
+profiles, not this scalar telescoping argument.
 
 `RetardedComparison.lean` formalizes the analytic core of KL Theorem 5.1.
 For any finite nested sum/min difference system whose leaves all have positive
