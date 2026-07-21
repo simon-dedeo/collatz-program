@@ -8,8 +8,16 @@ explicit about things a same-model continuation could assume.
 ## 0. The one-paragraph situation
 
 This repo is an ad-hoc, honest attempt at progress on the Collatz conjecture.
-The concrete achievement is a **certified improvement of a 23-year-old record**
-(π_a(x) ≥ x^0.9033, exact-arithmetic certificates, `experiments/kl/`). Around
+Its largest exact artifact is a `k=19` KL feasible certificate whose intended
+consequence improves a 23-year-old predecessor-counting exponent to every fixed
+`γ<0.9094372617` (`experiments/kl/`). A fresh run of the reference verifier passed the `k=19`
+sidecar hash and every exact constraint in this worktree, but the 2.9 GB
+sidecar is not tracked by git; a fresh clone is
+self-contained through `k=15`. A successor audit has now found an exact legal
+`k=5` path invalidating the derivation of equation (3.2) and directly
+falsifying the identical-subtree step in the published proof of KL Theorem
+3.1. This does not disprove termination, but makes
+the counting consequence conditional until that bridge is repaired. Around
 it sits a cluster of proved structure theorems and — equally important — a
 growing **failure ledger** of proof routes that are now provably dead. A
 separate GPT instance runs an independent Lean formalization in `CLEAN_LEAN/`
@@ -31,8 +39,13 @@ and the two collaboration channels current.
 
 ## 2. Current state (snapshot at handoff — trust README over this if they differ)
 
-- **Certified:** π_a(x) ≥ x^γ for all γ < 0.9032885984 (a ≢ 0 mod 3). k≤14
-  chain externally reviewed; k≤18 certified. `experiments/kl/RESULT.md`.
+- **Locally exact-verified certificate:** the `k=19` feasible point intended to
+  yield `π_a(x)≥x^γ` for all fixed `γ<0.9094372617` (`a not≡0 mod 3`);
+  all 387,420,489 inequalities and the sidecar hash pass. The transfer to the
+  counting statement is conditional on repairing KL Theorem 3.1's termination
+  proof. The full large sidecars `k=16..19`
+  are not in git, so portable clone verification currently stops at `k=15`.
+  `experiments/kl/RESULT.md`.
 - **Proved structure theorems:** KL method = adversarial min-plus transfer
   operator on ℤ₃ (base ×4 = 3-adic odometer); Diaconis–Fulman carries spectrum
   (their open question); Antihydra population-rarity; local renormalization at
@@ -41,35 +54,52 @@ and the two collaboration channels current.
   verification.
 - **Closed lanes (do NOT retry — see README failure ledger for reasons):**
   λ_∞=2 via any autonomous projective-contraction certificate (structural
-  no-go, all J); cycle exclusion via finite places (collapses to Baker);
+  no-go, every admissible `J≥3`); cycle exclusion via finite places (collapses to Baker);
   regular divergence certificates (exhausted ≤8 states base 2, ≤5 base 3);
   spectral-gap descent; tropical-geometry-proper; Bourgain–Kontorovich; the
   solenoid→hidden-RH hope.
-- **LIVE bets (ranked in README) — your forward agenda:** (1) analytic-
-  combinatorics reframing of the counting side (γ_k = dominant pole of an
-  explicit multitype Dirichlet GF; λ_∞=2 = confluence of singularities; the
-  cleanest next step is writing M(s) explicitly and connecting to BRW
-  derivative-martingale theory); (2) the unsigned solenoid zeta's natural
-  boundary at |u|=1/4 / Pólya–Carlson dichotomy (connects Bell–Lagarias — two
-  independent threads meeting); (3) mixed-radix anti-concentration — flattening
-  is numerically TRUE at k≈3 log p and reduces exactly to a conditioned
-  two-multiplier Chung–Diaconis–Graham walk (publishable framing); the one hard
-  open piece is a rank-two matrix-product contraction (Prop P) no cited theorem
-  supplies; (4) arctic no-go — Theorem B proved, Theorem A provable-looking;
-  essentially done (closes the YAH problem for arctic); (5) adelic descent /
-  quantum-channel reframing (the no-go = the KL channel's peripheral spectrum).
+- **Successor audit correction to the forward agenda:** first repair the KL
+  advanced-term termination bridge. `verify_termination_obstruction.py` exactly
+  checks a legal positive-shift transport return that invalidates the paper's
+  derivation of strict descent (3.2); it is not a repeatable lasso or a disproof of
+  termination. The next target is a fixed terminating schedule or explicit
+  retarded-elimination witness with history-correct invariants. Separately, the analytic-
+  combinatorics scout is **not** a proved reformulation. Its ordinary-resolvent
+  identification conflates the nonlinear KL min operator with a linear
+  backward-tree matrix; no `C x^{γ_k}`, no-log, or true-count pole-confluence
+  conclusion should be used without a new sandwich/counting theorem. The exact
+  annealed calculation and finite-size diagnostics survive. The unsigned
+  solenoid zeta has radius `1/4`; a second successor audit gives an independently
+  reviewed handwritten argument that its first circle is **not** a natural
+  boundary: the zeta is a double pole times a holomorphic nonzero factor on a
+  larger disk. The finite identities and gap bounds are exactly checked, while
+  the general analytic theorem still awaits formalization. Mixed-radix
+  exact DP supports flattening near `k≈3 log p` on specified finite test sets,
+  not uniformly for every prime `p≤10⁶`; its exact conditioned-CDG reduction and
+  three named proof gaps survive. A successor audit fixed a reversed matrix
+  shift in its Fourier checker and a missing fixed-slice normalization in the
+  note; the DP tables themselves are unchanged. The inherited arctic proof also had a
+  reducible-matrix slope gap. An elementary all-dimension weighted-walk pumping
+  candidate replaces it, but remains provisional until Lean. The calibrated
+  live agenda is now: (1) repair KL termination; (2) kernelize and adversarially
+  check the arctic Theorems A/B; (3) mixed-radix anti-concentration; (4) non-
+  autonomous/global-measure mechanisms for the KL limit; (5) adelic/quantum-
+  channel reframing; (6) any nonlinear-pressure
+  salvage only after an exact counting bridge.
 - **All background lanes were STOPPED at handoff** (killed mid-flight by user
   request). Partial state is recorded in each note; nothing is silently lost:
   - `docs/notes/mixed-radix-flattening.md` — COMPLETE (numerical-evidence +
     proof-program; 3 open gaps).
-  - `docs/notes/arctic-nogo.md` — COMPLETE (Theorem B proved).
+  - `docs/notes/arctic-nogo.md` — candidate proof for Theorems A/B after the
+    successor repair; exact bounded checks pass, Lean formalization pending.
   - `docs/notes/modular-knots.md` — PARTIAL (linear Rademacher invariant
     collapses to Baker, confirmed; quadratic linking invariant shows nonzero
     separation but analysis UNFINISHED — resume from `experiments/modknots/`).
-  - critical-drift scout — produced nothing before it was stopped (no artifacts).
-  - ganesha family-census sweep — grid2 pass done (`results/`), critical-line +
-    grid3 passes NOT finished (optional side-thread; low value — grid2 gives the
-    main phase-diagram picture).
+  - critical-drift scout — left partial local CSVs but no consolidated summary
+    or conclusion before it was stopped.
+  - ganesha family-census sweep — the claimed full grid2 pass is not landed in
+    this checkout; only a smaller validation is present. Critical-line + grid3
+    passes were not finished (optional side-thread; low value).
 
 ## 3. Working practices (the "how" — this is the real transfer)
 
@@ -128,9 +158,18 @@ A separate GPT instance formalizes results in `CLEAN_LEAN/` (sorry-free Lean 4
   "Fable" was the previous driver; treat it as "notes to/from the research
   driver.")
 The Lean side has kernel-checked the oscillation identity, the R′ reduction,
-the terminal-potential/Chernoff chain, and the pressure rows — these are
-*conditional consumers* of a localization certificate we proved doesn't exist
-in the autonomous class, so they stand unused on that path but are correct.
+the terminal-potential/Chernoff chain, the pressure-row checker, the generated
+payload's 2,187 inequalities and all-length mass bounds, equality of its edge
+tables with an independently defined finite KL graph, exact Chernoff gaps, exact backward-orbit
+hitting formula, labelled critical-assignment path contradiction, concrete
+split arithmetic, global value-preserving deletion, and the final
+retarded-witness consumer. It has also prepared symbolic `Z²` shifts and a
+generic finite-rank checker. The active KL frontier is the missing semantic
+termination bridge: finite control or a fixed schedule that handles ancestor
+history, transport descendants, new ties, and deletion order. The autonomous
+localization consumers stand unused but remain correct. Irrational interval-
+weight domination, interval tiling, and the high-oscillation localization
+implication remain open; the completed finite pressure half is not a limit proof.
 
 ## 6. The user (Simon) — how to work with him
 
@@ -154,9 +193,10 @@ in the autonomous class, so they stand unused on that path but are correct.
 3. All background lanes are already stopped (§2) — nothing is mid-flight to
    monitor; the partial state of each is in its note. Start fresh.
 4. Sanity-check infrastructure (§4) with one `ssh`/`squeue`; it carries over.
-5. Pick the top LIVE bet you can advance (the AC reframing and the natural-
-   boundary lead are the two freshest; arctic is nearly closeable; mixed-radix
-   is a real research program with one hard named gap). If you close or advance
+5. Pick the top LIVE bet you can advance. The current immediate target is
+   kernel/adversarial review of the repaired arctic proof; mixed-radix has three
+   named gaps; the KL limit needs a genuinely non-autonomous mechanism. Do not
+   revive the retracted AC resolvent or first-circle zeta boundary. If you advance
    it, update README (living map) + commit + push, and tell the Lean side via
    `docs/FOR_CLEAN_LEAN.md` if it affects a formalization target.
 

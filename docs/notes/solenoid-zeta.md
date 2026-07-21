@@ -1,7 +1,10 @@
 # The Collatz solenoid zeta: functional equation, confluence at q=3, and why it is hollow
 
-**Date:** 2026-07-20 · **Status:** proved computations + literature audit + blunt verdict.
-**Tags:** **[P]** proved here · **[PL]** provable-looking · **[L]** literature · **[C]** conjectural (= open arithmetic) · **[S]** speculative.
+**Date:** 2026-07-20 · **Status:** exact computations + literature audit +
+audited handwritten arguments; universal analytic claims await formalization.
+**Tags:** **[P]** machine-checked or elementary proof already accepted in the
+repo · **[PL]** written proof pending formal check · **[L]** literature ·
+**[C]** conjectural (= open arithmetic) · **[S]** speculative.
 **Parents:** `deninger-solenoid.md` (Traceless Theorem, Linearization Lemma, arithmetic dictionary), `cycle-finite-places.md` (exp-sum `S_{K,L}`, Q2 equidistribution). Consulted gpt-5.6-sol (verified/corrected the framing; corrections folded in below).
 
 ---
@@ -15,7 +18,15 @@ Pushing the Traceless Theorem to a zeta produces **three genuine, provable state
 3. **[P] Weil positivity is vacuous here.** `Z_3≡1` has **empty** zero/pole distribution, so the Weil–Guinand positivity mechanism has nothing to act on. No constant-coefficient positivity/vanishing can express "no positive cycle."
 4. **[C/S] The real object is the twisted zeta** at *moving* coefficients — and it **relocates the Baker/exp-sum wall**, it does not break it (with a correction to the naive statement: class-0 detection is *additive-character orthogonality over all frequencies*, not a single trivial character).
 
-**One genuinely-new open lead (§6):** the signed zeta is *rational* (`≡1`) while the unsigned zeta has a *natural boundary* at `|u|=1/4`. This places Collatz exactly on the two sides of the **Pólya–Carlson dichotomy** of Fel'shtyn–Bondarewicz–Ziętek — a well-defined, active, and unexploited framing: **the cycle arithmetic lives in the natural boundary of the unsigned Reidemeister-type solenoid zeta.**
+**Successor-audit candidate theorem (§6, [PL] + exact finite checks):** the
+proposed natural boundary at `|u|=1/4` is **false** for the unsigned zeta defined
+here. Its fixed-point coefficients are `2·4^K` minus a positive exponentially
+smaller term, so the zeta factors as a double pole at `u=1/4` times a
+holomorphic nonzero function on a strictly larger disk. The written argument
+also makes the residual non-rational and singular at a larger positive radius;
+whether its whole circle is a natural boundary is open. Under the repository's
+verification rule these general conclusions remain provisional until
+formalized; the checker covers the exact finite scope stated below.
 
 ---
 
@@ -54,11 +65,19 @@ So: **`3x+1` is the unique `qx+1` at which a zero–pole pair of the graded sole
 
 ---
 
-## 4. Ruelle/dynamical zeta and its two faces **[P]**
+## 4. Ruelle/dynamical zeta and its two faces **[P/PL]**
 
 - **Signed (cohomological).** `Z_3(u) ≡ 1`: the signed dynamical zeta of the correspondence is the constant `1`. Rational, entire, no zeros/poles. This is the exact statement "the Collatz solenoid correspondence is cohomologically acyclic (Fredholm-determinant `1`)."
-- **Unsigned.** `ζ_S(u) = exp Σ_K (u^K/K) a_K`, `a_K = Σ_v (\text{prime-to-6 part of }|2^K−3^L|)`. Numerically `a_K^{1/K}→4` (so **radius of convergence `=1/4`**), with a slowly growing sub-exponential factor `a_K/4^K` (`0.5→1.63` over `K≤25`); the prime-to-6 correction is negligible (`b_K/a_K≈1`). Data: `experiments/solenoid_zeta_growth.csv`; full sweep `scratchpad/zeta.py §5`. **[P]**
-- Why `1/4`: `Σ_v(2^K−3^L)=0` (Traceless), so `a_K = 2Σ_{3^L<2^K}C(K,L)(2^K−3^L) ~ c·4^K`. The *fluctuating* arithmetic of `|2^K−3^L|` about this mean is exactly the CEW/Everest–Ward regime that produces natural boundaries (§6).
+- **Unsigned.** `ζ_S(u) = exp Σ_K (u^K/K) a_K`, where `a_K` sums the
+  prime-to-6 parts of `|2^K−3^L|` over words. The exact asymptotic is
+  `a_K=2·4^K−Θ(R^K/√K)`, with
+  `R=2 exp(h(log_3 2))≈3.863626<4`; hence the radius is `1/4`. Data:
+  `experiments/solenoid_zeta_growth.csv`; exact checker:
+  `experiments/solenoid_zeta_leading_pole.py`. **[PL + exact finite checks]**
+- More strongly (§6),
+  `ζ_S(u)=(1−4u)^{-2} exp(G(u))`, where `G` is holomorphic for
+  `|u|<1/R>1/4`. Thus the first circle contains one double pole, not a
+  natural boundary.
 
 **Interpretation.** The signed zeta is the trivial object (`≡1`); *all* of the "size" `~4^K` of the correspondence's fixed-point set is invisible to it (perfect `+`/`−` cancellation across the `2^K>3^L` vs `2^K<3^L` sectors). The unsigned zeta keeps that size but discards the cycle-selecting torsion class — it counts the full pseudo-cycle group `Z/|m_v|` per necklace, blind to *which* class is arithmetic (`deninger-solenoid.md §2.2`).
 
@@ -76,29 +95,96 @@ To see cycles one must restore the moving coefficients (isogeny tower `×m : S�
 
 ---
 
-## 6. The one new lead: the Pólya–Carlson dichotomy placement **[C, worth pursuing]**
+## 6. Candidate leading-pole theorem: the proposed first natural boundary is absent **[PL + exact finite checks]**
 
-Fel'shtyn–Bondarewicz–Ziętek (`arXiv:2202.09776`, *Towards a dichotomy for the Reidemeister zeta function*) prove a **Pólya–Carlson dichotomy** — *rational* vs *natural boundary* on the circle of convergence — for Reidemeister/dynamical zetas of endomorphisms of `p`-adic groups and torsion abelian groups; R. Miles gives necessary-and-sufficient rationality conditions for solenoid-endomorphism zetas. The Collatz solenoid lands on **both sides simultaneously**:
+Let `β=log_3 2`, `r_K=floor(βK)`, and first omit the prime-to-6
+correction:
 
-| zeta | analytic type | side of dichotomy | sees cycles? |
-|---|---|---|---|
-| signed `Z_3(u)` | `≡1` (rational, trivial) | rational | no (hollow) |
-| unsigned `ζ_S(u)` | radius `1/4`, expected **natural boundary** on `|u|=1/4` | wild | in the boundary |
+`A_K = Σ_{L=0}^K binom(K,L)|2^K−3^L|`.
 
-**Claim/conjecture [C]:** `ζ_S` has `|u|=1/4` as a natural boundary (CEW/Everest–Ward mechanism for `S`-integer zetas with two ramified places), and *the Collatz cycle/divergence arithmetic is precisely the boundary behaviour there* — inaccessible to any rational (constant-coefficient) zeta by construction. This is well-posed, connects to an active program, and is unexploited. It reframes "why has no zeta ever decided Collatz" as a **theorem-shaped statement**: the deciding zeta is provably non-rational, and its natural boundary is the singular locus where `L/K→log_2 3` convergent statistics live.
+The signed binomial sum is exactly zero. Since `2^K=3^L` has no positive
+solutions,
+
+`A_K = 2 Σ_{L≤r_K} binom(K,L)(2^K−3^L)`.
+
+Writing
+
+`T_K=2^K Σ_{L>r_K}binom(K,L)` and
+`U_K=Σ_{L≤r_K}binom(K,L)3^L`
+
+gives `A_K=2·4^K−2(T_K+U_K)`. For `L≥1`, `|2^K−3^L|`
+is already prime to `6`; only the all-even word changes. If
+
+`D_K=(2^K−1)−(2^K−1)/3^{v_3(2^K−1)}`,
+
+then the actual coefficient is
+
+`a_K=2·4^K−e_K`,  with  `e_K=2(T_K+U_K)+D_K`.
+
+Standard boundary-term estimates (or Stirling plus geometric tail ratios) give
+
+`T_K,U_K = Θ(R^K/√K)`,  `R=2 exp(h(β))≈3.8636262129<4`,
+
+where `h(x)=−x log x−(1−x)log(1−x)` is binary entropy with natural logarithms,
+
+while `D_K=O(2^K)`. An elementary gap proof needs no asymptotic machinery:
+`3/5<β<2/3` follows from `3^3<2^5` and `2^3<3^2`; exponential tilting
+then bounds the two tails by bases
+
+`ρ_T=5(2/3)^{3/5}<4`,  `ρ_U=3(3/2)^{2/3}<4`,
+
+with the strict inequalities certified after taking fifth and third powers.
+Consequently
+
+`log ζ_S(u) = −2 log(1−4u) + G(u)`,
+
+where `G(u)=−Σ_{K≥1}e_Ku^K/K` has exact radius `1/R`. Therefore
+
+`ζ_S(u)=(1−4u)^{-2}exp(G(u))`
+
+extends meromorphically to `|u|<1/R≈0.258824`, and its only singularity on
+`|u|=1/4` is the double pole at `u=1/4`. This disproves the inherited
+natural-boundary conjecture at the first circle, conditional only on the
+written all-`K` tail argument being accepted.
+
+The same `Θ(R^K/√K)` asymptotic proves `ζ_S` is non-rational: rationality
+would make `uζ'_S/ζ_S=Σa_Ku^K` rational, hence make `(e_K)` an eventual
+constant-coefficient recurrence sequence, whose dominant terms are
+polynomials in `K` times exponentials and cannot have a `K^{-1/2}` factor.
+At `u=1/R`, `G` converges but `G'` diverges, so the residual factor has a
+genuine positive-real singularity there. A natural boundary on the *larger*
+circle `|u|=1/R` remains open; the previous claim that cycle arithmetic lives
+on `|u|=1/4` is retracted.
+
+**Verification scope.** `experiments/solenoid_zeta_leading_pole.py` checks the
+coefficient decomposition exactly through a requested finite `K` (80 in the
+documented run), brute-enumerates words through `K=16`, verifies the zeta-series
+factorization through degree 80, and checks the powered rational inequalities
+for `ρ_T,ρ_U`. It does not prove the all-`K` boundary-tail estimates, the
+`Θ(R^K/√K)` asymptotic, exact residual radius, non-rationality, or analytic
+continuation. Those are independently audited handwritten arguments awaiting
+a proof-assistant trust path.
 
 ---
 
 ## 7. Next steps (ranked)
 
-1. **[PL, weeks]** Prove the natural boundary of `ζ_S` on `|u|=1/4` via Everest–Ward / Bell–Lagarias technology (`papers/bell-lagarias-natural-boundaries-1408.6884.pdf`); locate the `log_2 3`-convergent singularities. First rigorous non-rationality statement for the Collatz solenoid; genuinely new, publishable, Collatz-agnostic to the hard conjecture.
-2. **[PL, weeks]** Reidemeister/Nielsen twisted-zeta computation for `g_v` on `S` (classes `= Z/m_v`); check whether Fel'shtyn rationality survives *word-mixing* — likely a proved no-go that *is* the natural-boundary phenomenon of (1).
-3. **[days]** Write §2 (functional equation + confluence) as a clean lemma appended to `deninger-solenoid.md`'s Theorem A — labelled as repackaging, not rigidity.
-4. **Do not pursue** a constant-coefficient Weil-positivity route: §3, §5(Q3) show it is provably empty.
+1. **[OPEN, low priority]** Determine the singular set of the residual factor on
+   `|u|=1/R`. The written proof gives a positive-real singularity; a full
+   natural boundary is open, and the claim is provisional under repo policy.
+   Do not present it as a Collatz cycle engine without a new bridge.
+2. **[OPEN]** Reidemeister/Nielsen twisted-zeta computation for `g_v` on `S`
+   (classes `=Z/m_v`). This restores the cycle-selecting class but also restores
+   the original exponential-sum/Baker wall.
+3. **[days]** Append §2's functional-equation/confluence lemma to
+   `deninger-solenoid.md`, explicitly labelled as repackaging rather than rigidity.
+4. **Do not pursue** the former `|u|=1/4` natural-boundary program or a
+   constant-coefficient Weil-positivity route; both are now closed.
 
 ---
 
 ## Files
 - `experiments/solenoid_zeta_growth.csv` — unsigned-count growth (radius `1/4`).
-- `scratchpad/zeta.py` — functional equation, confluence, CEW check, growth sweep (all reproducible).
+- `experiments/solenoid_zeta_leading_pole.py` — exact identities, word-level
+  cross-checks, zeta-coefficient recurrence, and rational exponential-gap checks.
 - Literature: `papers/deninger-2005-arithmetic-foliated-aws.pdf`, `chothi-everest-ward-1997-sinteger-periodic-points.pdf`, `bell-lagarias-natural-boundaries-1408.6884.pdf`; Fel'shtyn–Bondarewicz–Ziętek `arXiv:2202.09776`; Morishita `arXiv:2508.15971`; Bost–Connes / Connes–Consani (semilocal partition function).

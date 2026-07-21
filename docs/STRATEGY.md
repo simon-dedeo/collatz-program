@@ -4,6 +4,22 @@ v2, 2026-07-20 (v1 same day; [verify] tags resolved against the literature
 sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 `landscape/`). Everything in §4 is backed by artifacts in this repo.
 
+> **Successor-audit notice (2026-07-20, late):** this v2 memo preserves the
+> historical program that generated the repo, so several “running” lines below
+> are no longer current. Use `README.md` as the live state map. In particular:
+> all inherited background jobs are stopped; `k=19` has now passed a fresh
+> exact 387,420,489-constraint run of the reference verifier (large sidecar local, not in
+> git), but its counting consequence is conditional while an exact obstruction
+> to the printed KL Theorem 3.1 termination proof is repaired; the analytic-
+> combinatorics ordinary-pole identification is retracted;
+> the unsigned-zeta natural boundary at `|u|=1/4` has a candidate refutation
+> by a handwritten leading-pole factorization plus exact finite checks (formal
+> check pending);
+> and a candidate arctic all-dimension repair uses a weighted-walk pumping
+> lemma after the original reducible-slope argument failed. Do not restart a
+> lane from this memo without checking
+> the README failure ledger and its note.
+
 ## 0. Ground rules
 
 Ambition in action, calibration in claims. Every mathematical claim we advance
@@ -125,11 +141,11 @@ exactly the unbounded closure: is Pred(1) 2-automatic? does a sparse,
 non-semilinear 2-automatic T-invariant set avoiding {1,2} exist? (Infinite
 semilinear: dead by Monks 2006. Finite: the cycles problem.)
 
-**Program result (2026-07-20):** no regular divergence certificate with ≤ 7
+**Historical session snapshot (superseded by README):** no regular divergence certificate with ≤ 7
 DFA states exists (LSB-first binary; exhaustive canonical enumeration: q≤4
 83,968 / q=5 5.1M / q=6 379.6M / q=7 32.79B DFAs; verified searcher with
 property-tested transducer and positive/negative controls; q=5,6 reproduced
-independently on a second machine; q=8, ~3.2T DFAs, running). Base-3
+independently on a second machine; the later q=8 run completed negative). Base-3
 (MSD-first, independent channel per notes/two-bases.md): none with ≤ 5 states
 (29.3B DFAs at q=5; searcher mutation-tested and OEIS-cross-validated). Next rungs, straight
 from bbchallenge's arsenal (see LANDSCAPE.md §3.3 table): SAT-searched NFA
@@ -245,8 +261,8 @@ as unexplored territory where new structure may be visible.
 - **DFA certificate search** (`experiments/dfacert/`): verified searcher
   (transducer property-tested against __int128 arithmetic; closure checker
   validated on controls; enumeration cross-checked against published ICDFA
-  counts). Result: no certificate, q ≤ 6. q=7 running on akdeniz; ganesha
-  cross-checking q=5,6.
+  counts). Current result: no certificate through q=8; the old q=7 and q=8
+  jobs are complete and no DFA writer is running.
 
 ## 5. Lean roadmap
 
@@ -281,8 +297,11 @@ Top-5 play-out queue with first moves (full detail in CRACKS.md §2):
    computation against the 2⁷¹ frontier; Galois track via
    Dreyfus–Hardouin–Roques. Jackpot: "no 2-Mahler certificate" ⟹ subsumes
    all DFA exhaustions at once.
-2. **Termination-order barrier ladder**: arctic (max-plus) no-go closes
-   Yolcu–Aaronson–Heule's stated open problem; self-embedding rung is free.
+2. **Termination-order barrier ladder**: a provisional arctic (max-plus)
+   unary-`Z` no-go candidate survives after replacing a false reducible-slope
+   argument with weighted-walk pumping. It is an analogue of YAH's unary-`Z`
+   natural-matrix results, not closure of their explicit mixed-base-`T`
+   challenge; self-embedding rung is free.
 3. **Exponential sums at the cycle modulus**: ⟨2⟩-orbit symmetry lemma +
    32-core transfer-matrix atlas of |S_{K,L}(ξ)|; the reduction theorem
    "square-root cancellation ⇒ cycle finiteness" is the only known
@@ -355,13 +374,20 @@ Strategic consequences adopted:
    re-coordinatization (rational-base 3/2 numeration) before concluding
    trans-regular rank — queue an AFS-numeration DFA search.
 
-## 6e. Results ledger (2026-07-20, session 1)
+## 6e. Results ledger (2026-07-20, session 1; historical snapshot)
 
-1. **THEOREM (certified; k≤14 chain externally reviewed): π_a(x) ≥ x^γ,
-   ∀γ < 0.9032885984**, a ≢ 0 mod 3, x ≥ x₀(a) — improves the 2003 KL record
-   0.84. Certified levels k=12..18 (exact integer arithmetic, falsification
-   controls, sha256-pinned certificates; experiments/kl/RESULT.md). Numerics:
-   γ₁₉ = 0.9094376 (certification dispatched); k=20 job running on PSC H100.
+**Status warning.** This section records the first-session ledger. The current
+state is in `README.md`; in particular all jobs named below are stopped, and
+the k=19 exact certificate supersedes the k=18 headline.
+
+1. **EXACT FINITE CERTIFICATE; COUNTING CONSEQUENCE CONDITIONAL:** the k=19
+   feasible point is intended to give `π_a(x) ≥ x^γ` for every fixed
+   `γ < 0.9094372617`, `a ≢ 0 mod 3`, `x ≥ x₀(a)`, improving the 2003 KL record
+   0.84. Levels k=12..19 pass exact integer verification, falsification
+   controls, and SHA-256-pinned checks (`experiments/kl/RESULT.md`), but the
+   successor audit invalidates the published advanced-term termination bridge.
+   Therefore the displayed counting bound is conditional until that bridge is
+   repaired. The k=19 sidecar is local and ignored by git; k=20 never became a certificate.
    Pre-registered dichotomy fits (notes/kl-limit-object.md): data favor
    γ_∞ near 1 (branch A ⟹ x^{1−ε} counting), γ_∞ ≤ 0.95 disfavored ~9–30×;
    exact oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k proved (Thm 3.2).
@@ -375,18 +401,20 @@ Strategic consequences adopted:
    components (analytic upgrade of the two-bases note).
    notes/mahler-cartier-lemma0.md.
 4. **Negative results (exhaustive, cross-validated): no regular divergence
-   certificate ≤ 7 states (base 2; q=8 in flight ~84%), ≤ 5 states (base 3).**
+   certificate ≤ 8 states (base 2), ≤ 5 states (base 3).**
 5. Census + atlas data: fate census 3×10^10; expsum K≤22 (sqrt cancellation
    typical, 3-power major arcs extremal); family phase diagram (ganesha,
-   grid2 done, critical/grid3 running).
+   only the landed partial state is retained; critical/grid3 was stopped).
 6. Strategy corpus: LANDSCAPE, CRACKS (17), SMELL (93 finds + errata),
    REVERSE-MINING (34 translations), CRYPTIDS; arctic no-go pre-think
    (notes/arctic-prethink-gpt.md, strategy positive).
 
-## 7. Standing experiment queue
+## 7. Historical experiment queue (do not execute as a live queue)
 
-1. dfacert q=7 (running); q=8 feasibility on akdeniz; write up q ≤ 7 negative
-   result properly (statement, method, external validations).
+This was the first-session queue. It is preserved for provenance, not current
+authorization or status; consult the README living map before reviving any item.
+
+1. dfacert q=7/q=8 (now complete negative); preserve the exact artifacts.
 2. FAR/SAT-searched NFA certificates on the YAH alphabet (§3.3).
 2b. Base-3 (MSD-first) DFA certificate search — provably independent channel
    (`notes/two-bases.md`); then base 6.

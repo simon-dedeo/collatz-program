@@ -1,12 +1,15 @@
-# Analytic combinatorics of the Collatz counting statistics: the KL exponent as a dominant singularity, and the BRW-front reading of λ∞→2
+# Analytic-combinatorics scout for the Collatz counting statistics (corrected)
 
-2026-07-20 (rev b). Status: **scout report + reformulation proofs + structural corrections**.
-Rev b adds §8 (finite-size scaling of γ_k, `experiments/ac/`) and §9 (Terras first-descent
-kernel-method GF; γ_k as a dynamical-zeta zero); §8's numerical inferences were tightened and
-one overclaim retracted after independent recheck with gpt-5.6-sol (`experiments/ac/sol_reply.txt`).
+2026-07-20 (rev c). Status: **scout report with a load-bearing retraction**.
+Rev c records the successor/Lean audit: the former §§1–2, §4.1 and §9.2
+incorrectly identified the nonlinear KL min-over-fibers threshold with the pole
+of a fixed linear backward-tree matrix. The claimed true-count asymptotic,
+no-log conclusion, ordinary pole confluence, and dynamical-zeta zero at `γ_k`
+are retracted. The annealed-model calculations, forward-walk heuristics,
+finite-size data, and elementary increment-contraction criterion survive.
 Companion to `kl-limit-object.md` [LIM], `adversarial-operator.md`, `solenoid-zeta.md`, and
 `docs/smell/Branching-random-walks--additive-martingales.json` [BRW-smell].
-Tags: [PROVED] proof/standard-cite; [PROVABLE] route clear; [SPEC] speculative;
+Tags: [PROVED] proof/standard-cite; [RETRACTED] false as stated; [PROVABLE] route clear; [SPEC] speculative;
 [HEUR] a heuristic that AC *recovers but cannot prove* (the independence is the conjecture).
 
 α := log₂3 = 1.5849625…; value(v) := log₂(v as integer); λ = 2^δ.
@@ -20,28 +23,26 @@ yet all three headline statistics — predecessor exponent, total-stopping mean,
 excursion — are *combinatorial parameters of trees/walks with a real-valued additive
 weight*, hence live natively in the analytic-combinatorics (AC) frame. Findings:
 
-1. **[PROVED, reformulation]** Our certified KL exponent γ_k *is* a singularity exponent:
-   it is the **abscissa of convergence** of an explicit multitype Dirichlet generating
-   function D(s) = (I − M(s))⁻¹𝟙 for the backward tree, equivalently the location of the
-   **dominant singularity, which is a simple pole** of that resolvent. The Flajolet–Odlyzko
-   transfer theorem then gives π_a(x) ~ C_k·x^{γ_k} **with no logarithmic factor** (the
-   nonlattice condition log2/log3 ∉ ℚ), turning KL's difference-inequality exponent into a
-   clean AC power law (§1). AC does **not** improve γ_k at fixed k — it is an exact
-   reformulation; the improvement to 0.9033 came from more k, not from AC.
-2. **[PROVED, reformulation]** The dichotomy λ∞ = 2 vs < 2 is a **confluence-of-singularities**
-   statement: the quenched pole s = γ_k must migrate to the annealed pole s = 1 as k→∞
-   (§2). The annealed pole sits at δ=1 for **all** k (the k-independent Perron root
-   s(λ), [LIM] Lemma 1.3); the limit object is the resolvent of a transfer operator on
-   C(ℤ₃), quenched = a *nonlinear* (min-type) resolvent.
-3. **[PROVED, correction of BRW-smell]** γ_k is the **adversarial Biggins front / Legendre
-   transform** (§4), and the annealed front is exactly the exponent-1 tilt. But the tilt
-   δ=1 is a **transverse root** of the pressure (φ′(1) = 2·s′(2) ≈ −0.311 ≠ 0), i.e.
+1. **[RETRACTED]** The certified KL exponent `γ_k` is *not established* as
+   the abscissa/simple pole of the ordinary resolvent
+   `D(s)=(I−M(s))⁻¹𝟙`. The KL solver applies a nonlinear minimum over three
+   lifts in each fiber; the literal backward-tree series sums children with a
+   fixed linear matrix. A locally selected policy matrix is not an exact
+   counting recursion without a separate sandwich theorem. Consequently this
+   note does not prove `π_a(x) ~ C_k x^{γ_k}` or a no-log conclusion (§1).
+2. **[RETRACTED as an ordinary-pole statement]** `λ_∞=2` is equivalent to
+   `γ_k→1`, but calling this confluence of a nonlinear "quenched pole" with
+   the annealed linear pole is only an analogy until a nonlinear abscissa or an
+   exact counting bridge is defined and proved (§2).
+3. **[PROVED only for the annealed model; OPEN for nonlinear KL]** The
+   annealed exponent-1 tilt is a **transverse root** of its pressure
+   (φ′(1) = 2·s′(2) ≈ −0.311 ≠ 0), i.e.
    *subcritical* — so the additive (Biggins) martingale is UI and the annealed count is a
-   clean linear x with **no Seneta–Heyde / derivative-martingale polylog**. **Derivative
-   martingales cannot move, and are not even relevant to, the predecessor exponent.** The
-   genuine 0.9033→1 gap is a **quenched-vs-annealed (min-vs-mean) disorder** effect (a
-   directed-polymer weak/strong-disorder question), not a front-correction effect. This
-   downgrades the "hot-speculative" Seneta–Heyde hope in [BRW-smell].
+   clean linear x with **no Seneta–Heyde / derivative-martingale polylog**.
+   This excludes such a correction for the annealed model only; it does not
+   identify the nonlinear KL exponent or true predecessor asymptotic. The
+   min-vs-mean gap remains a possible disorder analogy, not a proved directed-
+   polymer equivalence.
 4. **[PROVED for the walk model / HEUR for Collatz]** The forward mean-stopping constant
    6.952 and the maximum-excursion exponent 2 are recovered from the **same** two-step
    Syracuse walk {−1 w.p. ½, α−1 w.p. ½}: the mean is a LLN (1/|drift|), the excursion-2 is
@@ -57,15 +58,20 @@ weight*, hence live natively in the analytic-combinatorics (AC) frame. Findings:
    exactly 1 and fits equally well (rms 3·10⁻⁴), so λ∞ = 2 stays fully compatible; nine
    deterministic points cannot separate γ_∞ = 1 from < 1** (only a mild, non-decisive tilt to
    ≈0.985 from out-of-sample prediction; Aitken unstable). The durable payoff is a **clean
-   proof target**: λ∞ < 2 ⟺ increments d_k = γ_k−γ_{k−1} summable below the deficit; a
-   *proved eventual contraction* d_{k+1} ≤ q·d_k (q<1) with γ_K + d_{K+1}/(1−q) < 1 — plausibly
-   from a spectral gap of the level-tower refinement — **certifies λ∞ < 2**, while d_{k+1}/d_k
-   → 1 gives λ∞ = 2. This converts [LIM] Problem 3.5 into "bound the tower's contraction ratio"
-   (§8); pre-registered discriminator at k=20–22.
+   proof target**: since `γ_∞=γ_K+Σ_{j>K}d_j`, a *proved eventual contraction*
+   `d_{k+1}≤q d_k` (`q<1`) together with
+   `γ_K+d_{K+1}/(1−q)<1` is a sufficient certificate for `λ_∞<2`, plausibly
+   obtainable from a spectral gap of the level-tower refinement. It is not an
+   equivalence, and increment ratios alone do not decide the limit (§8).
 
 ---
 
-## 1. The predecessor generating function and its dominant singularity [PROVED]
+## 1. The predecessor generating function and its dominant singularity [RETRACTED identification]
+
+> **Audit correction.** A fixed linear matrix can encode a linear tree model,
+> but it is not the nonlinear `kl_perron_solver.py` operator and its spectral
+> root is not thereby `γ_k`. The former proposition and corollary in this section
+> were invalid and are replaced by the distinction below.
 
 Fix precision k; work on the type set Y_k = {m≡2 (3) mod 3^k} of [LIM] §1. On the
 backward tree rooted at a type m, each vertex carries value(v) = cumulative log₂-displacement
@@ -84,64 +90,40 @@ linear functional equation
 
   **D(s) = 𝟙 + M(s)ᵀ D(s),  M(s)[m,m′] = Σ_{edges m→m′} 2^{−s·d}**,   ⇒  D(s) = (I − M(s)ᵀ)⁻¹𝟙.
 
-M(s) is exactly the tilted matrix of [BRW-smell] and `kl_perron_solver.py` at δ = s:
-entries λ^{−2}, λ^{α−2}, λ^{α−1} with λ = 2^s. Hence:
+The sentence in rev. b claiming that `M(s)` is exactly
+`kl_perron_solver.py` was false. The code uses
 
-**Proposition 1.1 (γ_k is a singularity exponent).** The abscissa of convergence of D(s)
-is s_c = γ_k, the unique s with ρ(M(s)) = 1; at s_c the resolvent (I − M(s))⁻¹ has a
-**simple pole** (simple dominant Perron eigenvalue of the primitive core, [LIM] Lemma 1.3
-bijections ⇒ primitivity on the coprime-to-3 core). *Proof.* ρ(M(s)) is continuous and
-strictly decreasing in s (each entry 2^{−s·d} with the dominant mass on d>0 edges); the
-Neumann series Σ M(s)ⁿ converges iff ρ<1 iff s>γ_k; Perron simplicity gives the simple
-pole. ∎
+`min(c[ref[:,0]], c[ref[:,1]], c[ref[:,2]])`,
 
-**Corollary 1.2 (transfer theorem: no log correction).** For the mod-3^k approximant,
-N_m(x) := #{v : value(v) ≤ log₂x} satisfies N_m(x) ~ C_k(m)·x^{γ_k}. The pole being simple
-and the potential **nonlattice** (log2/log3 irrational ⇒ the displacement group is not
-c·ℤ) rules out a lattice of poles on Re s = γ_k, hence **no oscillatory factor and no log
-power**: a pure power law. [PROVED — this is the Flajolet–Odlyzko rational-singularity
-transfer theorem, = Lalley's nonlattice renewal theorem [BRW-smell, Lalley 1989], with the
-eventual-positivity hypothesis supplied by "no two consecutive ÷3 edges" ([BRW-smell]).]
-
-This is the AC packaging of KL: **their λ_k is a Perron root = pole of a resolvent; their
-spread C^max_k is the pole's eigenvector; their difference inequalities are the recursion
-D = 𝟙 + M(s)ᵀD.** Contentless as new mathematics at fixed k, but it fixes vocabulary and
-imports the transfer machinery.
+so its map is nonlinear. Replacing that minimum by the sum/mean of all three
+children gives the annealed linear relaxation; freezing minimizers gives a
+policy matrix depending on the eigenvector. Neither operation proves an exact
+recursion for the true predecessor count at exponent `γ_k`. A simple-pole and
+nonlattice transfer theorem may apply to a separately defined irreducible
+linear model after its hypotheses are checked, but no such theorem currently
+transfers the KL lower-bound exponent to `π_a(x)`.
 
 ---
 
-## 2. λ∞ = 2 as confluence of singularities / radius of convergence of the limit GF
+## 2. λ∞ = 2 and the annealed/nonlinear distinction [corrected]
 
-The finite GFs D_k(s) are rational (finite matrices) with dominant pole at γ_k. As k→∞
-the object is the resolvent of the **transfer operator on C(Y), Y = 2+3ℤ₃** ([LIM] §1.4):
-
-  (L_s c)(x) = 2^{−2s}c(4x) + 1_{Y₂}2^{(α−2)s}c(R₂x) + 1_{Y₈}2^{(α−1)s}c(R₈x),
-
-  D_∞(s) "=" (I − L_s)⁻¹𝟙,  abscissa of convergence δ_∞ = {s : spec.radius L_s = 1}.
-
-- **Annealed** (Haar-averaged lost digit) L_s is linear with k-independent Perron root
-  s(λ)=λ^{−2}+(λ^{α−2}+λ^{α−1})/3; its pole is at **δ=1 for every k** ([LIM] Lemma 1.3,
-  s(2)=1). So the annealed GF has radius of convergence exactly 1 at all precisions.
-- **Quenched** (adversarial min over the lost 3-adic digit) the resolvent is **nonlinear**
-  (min-of-linear), pole at γ_k < 1; the operator is the min-plus/topical F_λ^{(k)} of
-  `adversarial-operator.md`.
-
-**Reformulation of the dichotomy (AC form).** λ∞ = 2 ⟺ **the quenched dominant singularity
-δ_k migrates up to the annealed one, δ_k ↑ 1** ⟺ the two GFs D^quench and D^ann acquire a
-common radius of convergence in the limit. This is [LIM] Problem 3.5 verbatim, now phrased
-as a **confluence of the quenched pole with the annealed pole** — the AC template for a
-phase transition. The oscillation law s(λ_k)−1 = (λ_k^{α−2}+λ_k^{α−1})·δ_k ([LIM] Thm 3.2)
-is exactly "distance of the quenched pole to the annealed pole = mean eigenvector
-oscillation." No new leverage, but the target is now a standard AC quantity.
+The established facts are: the annealed linear calculation has the
+`k`-independent root `s(2)=1`; the nonlinear KL thresholds satisfy
+`γ_k=log₂ λ_k<1`; and `λ_∞=2` is equivalent to `γ_k→1`. It is
+reasonable to seek a nonlinear-pressure or abscissa language for the
+min-type operator, but this note has not defined one with an exact counting
+interpretation. "Quenched pole," "common radius," and "pole confluence" are
+therefore heuristic metaphors here, not reformulations or transfer theorems.
 
 ---
 
-## 3. Lattice vs nonlattice: where the Collatz "wobble" would come from [PROVABLE]
+## 3. Lattice vs nonlattice: where a model "wobble" would come from [SPEC]
 
 Collatz sits on **two arithmetics at once**: the ×4/÷2 (base-2) part is *lattice*
 (displacements in log2·ℤ), the ÷3 part is *nonlattice* relative to it (log3/log2 irrational).
-For the full predecessor count the combined displacement group log2·ℤ + log3·ℤ is dense ⇒
-**nonlattice ⇒ pure power law x^{γ}** (Cor 1.2). But any **sub-statistic that sees only the
+For a correctly specified irreducible linear renewal model, the combined displacement group
+log2·ℤ + log3·ℤ is dense, which would give a nonlattice pure-power transfer law. No such
+law has been proved here for the true predecessor count. A **sub-statistic that sees only the
 2-adic structure** (e.g. counts filtered by a fixed 2-adic pattern / a Terras stopping-time
 class) has displacements in log2·ℤ ⇒ **lattice ⇒ x^{γ} × (log₂x-periodic bounded function)**:
 the Mellin poles line up on a vertical lattice Re s = γ + (2πi/log2)ℤ and the transfer
@@ -155,13 +137,13 @@ via Wiener–Ikehara/Delange with the lattice term retained.]
 
 ## 4. The BRW front, and why derivative martingales are the wrong tool here
 
-### 4.1 γ_k is the adversarial Biggins front [PROVED, = BRW-smell]
-Define the pressure φ(δ) := log₂ ρ(M(δ)). The number of depth-n vertices with value ≈ nθ
-grows like 2^{n·φ\*(θ)} (φ\* = concave conjugate); the count-below-V exponent is the Biggins
-spreading-speed / level-set front, and solving φ(δ)=0 gives δ = γ_k. The **annealed** front
-is the δ=1 root of φ_ann(δ)=log₂ s(2^δ). So:
-
-  **γ_k = adversarial (min-type) Biggins front;  γ_∞ ≤ 1 = annealed Biggins front.**
+### 4.1 Nonlinear-pressure analogy [OPEN]
+The annealed matrix has the ordinary Biggins pressure
+`φ_ann(δ)=log₂ s(2^δ)` and root `δ=1`. The nonlinear KL map has a
+well-defined cone spectral radius, but rev. b did not prove that its threshold
+is a Biggins front or the Legendre transform of a counting process. Any such
+statement needs nonlinear thermodynamic formalism plus an exact interpretation;
+it cannot be obtained by silently substituting a policy matrix for the min map.
 
 ### 4.2 The transverse-root correction: no Seneta–Heyde polylog [PROVED for the annealed model]
 Is δ=1 the **critical/boundary tilt** (where derivative martingales and the (3/2)log n or
@@ -178,10 +160,9 @@ annealed multitype BRW; HEUR for the true tree]:
 - Hence the annealed predecessor count is a **clean N(x) ~ c·W_∞·x**, positive density,
   **no polylog factor** — matching the classical density heuristic π_a(x) ≍ x.
 - **Derivative martingales / Aïdékon–Shi / Seneta–Heyde corrections are therefore
-  irrelevant to predecessor counting**: they only act at the critical tilt, which δ=1 is
-  not. This *corrects* the "hot-speculative" prediction in [BRW-smell] (that (A) would give
-  x/(log x)^{3/2}); the honest prediction under (A) is π_a(x) = x^{1−o(1)} with the o(1)
-  governed by the *disorder* rate, not by a universal ^{3/2} log power.
+  irrelevant to this annealed model**: they act at a critical tilt, which its
+  `δ=1` root is not. Nothing here transfers that conclusion to the nonlinear
+  KL threshold or proves the shape of the true predecessor count.
 
 ### 4.3 The real gap is disorder, not correction [SPEC — precise conjecture]
 The min-over-lost-digit is a **zero-temperature quenched** relaxation; min ≤ mean gives
@@ -235,20 +216,22 @@ mean-6.95, and the predecessor-1 exponents are three readings of one free-energy
 
 ## 6. Does AC improve the constants? [Honest answer]
 
-- **Predecessor exponent:** No improvement at fixed k (exact reformulation, §1). The value
-  0.9033 is from computing k=18, unchanged by AC. AC's contribution is the transfer theorem
-  (clean x^γ, no log), the confluence framing of λ∞ (§2), the lattice/nonlattice wobble
-  prediction (§3), and the transverse-root correction that kills the derivative-martingale
-  route and reframes the gap as disorder (§4).
+- **Predecessor exponent:** No improvement. The current certified value
+  `0.9094372617` is from the KL difference inequalities at k=19, independently
+  of this AC note. Rev. b's claimed exact AC reformulation and
+  transfer theorem were wrong; the valid contribution is presently limited to
+  annealed-model calculations, finite-size diagnostics, and possible nonlinear-
+  pressure questions that still need an exact interpretation.
 - **Mean-stopping 6.95 and excursion-2:** Recovered exactly as LLN / Lundberg constants
   (§5); **not improved and not provable by AC** — the arithmetic increments are not
   independent, and that independence is precisely the open conjecture. AC gives the *shape*
   (why 6.95, why 2, why they share the exponent-1 zero), not a proof.
 
-**Net:** AC does not crack anything, but it (i) certifies the endgame under (A) is a clean
-linear law (no polylog), (ii) shows derivative-martingale theory is a dead end for the
-exponent, redirecting effort to the quenched/annealed disorder martingale W^true(1), and
-(iii) unifies the three folklore constants through 2^α = 3.
+**Net after audit:** AC does not currently yield a theorem about the true
+predecessor count. It gives a correct transverse-root calculation for an
+annealed model, useful finite-size plots, and heuristic connections among
+folklore constants through `2^α=3`. A genuine advance requires a nonlinear
+pressure theorem or a proved bridge to an exact linear counting object.
 
 ---
 
@@ -300,24 +283,22 @@ The only honest *tilt* is mild and non-decisive: (i) the free-limit fit predicts
 rolling 3-point Aitken estimates are **unstable** (0.93…1.08), which by itself warns against
 reading any single extrapolated limit. Net: a whisker below 1, but inside the noise.
 
-### 8.3 The payoff: the dichotomy = an increment-contraction certificate [PROVABLE target]
-The value of the AC framing is not a numerical verdict but a **clean finite proof target**.
-Since γ_k ↑ and γ_∞ = γ_K + Σ_{k>K} d_k, we have the exact equivalences
-- **λ∞ < 2** ⟺ the increments d_k are summable with γ_K + Σ_{k>K} d_k < 1. A **sufficient
-  certificate**: an eventual geometric contraction d_{k+1} ≤ q·d_k with q<1 for all k ≥ K,
-  together with γ_K + d_{K+1}/(1−q) < 1. Empirically d_{k+1}/d_k ≈ 0.91–0.92 < 1 already, so
-  *a proved uniform ratio bound q<1* — plausibly from a **spectral gap of the level-tower
-  refinement operator** π_{k+1,k} (the AC pole moving under one refinement) — would settle
-  λ∞ < 2. This is a concrete, finite, checkable object, unlike "compute the limit."
-- **λ∞ = 2** ⟺ the increments are **not** summable below the deficit, i.e. d_{k+1}/d_k → 1
-  (the marginal/critical case). The pre-registered test on data we already hold (k=20–22):
-  geometric behavior predicts the ratio **stays ≈0.92** (γ_20≈0.915, γ_21≈0.920, γ_22≈0.925);
-  a ratio **drifting up toward 1** would be the first fingerprint of a Brunet–Derrida crossover
-  and would favor λ∞ = 2. So the AC contribution is to convert [LIM] Problem 3.5 into
-  "**bound (or lower-bound) the tower's increment-contraction ratio**." (Sufficiency/necessity
-  of the contraction certificate independently rechecked with gpt-5.6-sol; no general theorem
-  substitutes for a model-specific gap bound — Bérard–Gouéré '10 is the closest, and it is a
-  *positive* 1/(log N)² result under selection, not a gap theorem.)
+### 8.3 A sufficient increment-contraction certificate [PROVABLE target]
+The value of this finite-size calculation is not a numerical verdict but a
+clean sufficient proof target. Since `γ_k` is increasing and
+
+`γ_∞ = γ_K + Σ_{j>K} d_j`,  where `d_j=γ_j−γ_{j−1}`,
+
+an eventual bound `d_{k+1}≤q d_k` with `q<1`, together with
+`γ_K+d_{K+1}/(1−q)<1`, would prove `λ_∞<2`. A spectral gap for the
+level-tower refinement is one possible source of such a bound.
+
+This certificate is **sufficient, not equivalent** to `λ_∞<2`, and its ratio
+has no converse interpretation. For example, `γ_k=1−2^{-k}` has ratio `1/2`
+but limit `1`, while `γ_k=L−1/k` with `L<1` has ratio tending to `1` but limit
+below `1`. Thus the k=20–22 ratios can diagnose the local shape of the sequence,
+but cannot by themselves favor either `λ_∞=2` or `λ_∞<2`. No general theorem
+substitutes for a model-specific tail bound.
 
 ---
 
@@ -338,51 +319,49 @@ reduction to a lattice-path first-passage is structural/provable; the incommensu
 {−1, α−1} put the *height* off-lattice, so the constant C, ρ come from a nonlattice
 kernel/renewal variant — the same lattice/nonlattice split as §3.]
 
-### 9.2 γ_k as the lowest zero of a truncated dynamical zeta [structural]
-Prop 1.1's "ρ(M(s))=1" is literally **det(I − M(s)) = 0**: γ_k is the *largest real zero* of
-the truncated **dynamical (Fredholm) determinant** d_k(s) = det(I − M_k(s)), and D_k(s) =
-(I−Mᵀ)⁻¹𝟙 has its dominant pole there. So the AC dominant singularity **is** a dynamical-zeta
-zero, and γ_∞ = lim (lowest zero of d_k). Note this is the **unsigned** transfer determinant
-of the *predecessor* (backward, contracting) dynamics — a different object from
-`solenoid-zeta.md`'s *signed cohomological* zeta Z_3 ≡ 1 (which is the traceless correspondence
-statement). The two live on the same solenoid but carry opposite signs of the ÷3 branches:
-the unsigned one *has* a zero (γ_∞), the signed one is identically 1. Reconciling them —
-the unsigned lowest zero as a "temperature-0 limit" of the signed acyclicity — is the clean
-bridge between this note and the zeta program.
+### 9.2 Truncated dynamical-zeta identification [RETRACTED]
+The determinant identity belongs to a fixed linear matrix. The certified
+`γ_k` belongs to the nonlinear min operator, so rev. b's equation
+`det(I−M_k(γ_k))=0` was not established. No unsigned dynamical-zeta zero at
+`γ_k`, nor a bridge from such a zero to the signed solenoid zeta, follows from
+the present work.
 
 ---
 
 ## 7. Ledger and pointers
 
-**[PROVED, reformulation]** §1 (γ_k = abscissa/simple pole of D(s)=(I−Mᵀ)⁻¹𝟙; transfer
-theorem ⇒ x^{γ_k}, nonlattice ⇒ no log); §2 (λ∞ as pole confluence); §4.1 (Biggins front);
-§4.2 transverse-root computation φ_ann′(1)=3(α−2)/4≠0 and its UI/no-polylog consequence for
+**[RETRACTED]** §1 (`γ_k` as an ordinary resolvent pole and the resulting
+true-count/no-log transfer); §2 (ordinary pole confluence); §4.1 (nonlinear KL
+threshold as a proved Biggins front); §9.2 (dynamical-zeta zero at `γ_k`).
+**[PROVED for the annealed model]** §4.2 transverse-root computation φ_ann′(1)=3(α−2)/4≠0 and its UI/no-polylog consequence for
 the annealed model; §5.1–5.3 for the walk models (Lundberg θ\*=1, mean 6.95, exponent-1
 coincidence).
-**[PROVABLE]** §3 lattice-term/wobble via Wiener–Ikehara–Delange with retained oscillatory
-poles.
+**[SPEC / model target]** §3 lattice-term/wobble after a valid linear
+counting model and renewal hypotheses are supplied.
 **[SPEC / precise conjecture]** §4.3 λ∞=2 ⟺ weak disorder ⟺ UI of the true-tree additive
 martingale W^true(1); the disorder-transition identity with `adversarial-operator.md` Conj 4.3.
 **[DATA + PROVABLE target]** §8 finite-size scaling: convergence is geometric-shaped, not
 unshifted-1/k²; but this does NOT decide λ∞ (γ_k=1−a r^k fits too — verified w/ sol; earlier
-"ceiling 0.975" retracted). Payoff = the equivalence λ∞<2 ⟺ proved increment contraction
-d_{k+1}≤q d_k with γ_K+d_{K+1}/(1−q)<1 (plausibly a level-tower spectral gap); k=20–22 test.
+"ceiling 0.975" retracted). An eventual increment contraction plus the displayed
+strict tail bound is a **sufficient** certificate for `λ∞<2`, not an equivalence.
 **[PROVABLE / structural]** §9.1 Terras first-descent distribution = kernel-method excursion
-GF (Banderier–Flajolet); §9.2 γ_k = lowest zero of the unsigned truncated dynamical zeta
-det(I−M_k(s)), a signed-vs-unsigned bridge to `solenoid-zeta.md`.
+GF (Banderier–Flajolet), subject to its stated off-lattice qualification.
 **[HEUR]** §5 constants for the true (deterministic, correlated) dynamics.
 
-**Sharpest new items.** (1) **The dichotomy is an increment-contraction certificate** (§8):
+**Sharpest new items.** (1) **A sufficient increment-contraction certificate** (§8):
 certified γ_k(k=11–19) converge *geometrically* (flat ratio ~0.92, not the rising 0.78→0.85 of
 unshifted 1/k²), but that shape does NOT decide λ∞ (γ_k=1−a r^k fits too) — so the payoff is
-the equivalence **λ∞<2 ⟺ a proved eventual contraction d_{k+1}≤q d_k with γ_K+d_{K+1}/(1−q)<1**,
-plausibly a level-tower spectral gap; k=20–22 pre-registered discriminator.
-(2) **Derivative martingales are irrelevant to the predecessor exponent** (transverse root,
-§4.2) — a correction to [BRW-smell]'s Seneta–Heyde hope; the right object is the additive
-martingale W^true(1). (3) **One free-energy zero (2^α=3) yields all three exponents** (§5.3).
-(4) **Terras first-descent distribution is a kernel-method excursion GF** (§9.1) and **γ_k is
-a dynamical-zeta zero** (§9.2). (5) **Lattice/nonlattice wobble test** (§3): 2-adically
-stratified counts should oscillate log₂-periodically; the full count should not.
+that **a proved eventual contraction d_{k+1}≤q d_k with
+γ_K+d_{K+1}/(1−q)<1 implies λ∞<2**. The converse is false; k=20–22 ratios
+are shape diagnostics only.
+(2) The **annealed** exponent-1 root is transverse (§4.2), so derivative-
+martingale corrections do not apply to that model; no corresponding theorem for
+the nonlinear KL threshold or true count is claimed. (3) The identity `2^α=3`
+produces the same exponent-1 root in the stated heuristic walk models (§5.3).
+(4) Terras first-descent has a kernel-method excursion formulation target
+(§9.1). The former dynamical-zeta claim at `γ_k` is retracted (§9.2).
+(5) The lattice/nonlattice wobble is a model prediction pending an exact
+counting bridge (§3), not a proved property of the full predecessor count.
 
 **References.** P. Flajolet, R. Sedgewick, *Analytic Combinatorics*, CUP 2009 (Ch. IV–VIII,
 singularity analysis, transfer theorems, saddle point). A. Odlyzko, *Asymptotic enumeration

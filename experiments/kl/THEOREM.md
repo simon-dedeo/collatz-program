@@ -139,7 +139,13 @@ chain; the LP inequalities themselves are checked one by one.
 >
 >   `φ^m_k(y) ≥ Δ₁ · c^m_k · λ^y`,   where  `Δ₁ := 1 / (4 · max{c^m_k : m ∈ [3^k]})`.  (2.16)–(2.17)
 
-Supporting chain (all stated and proved for **every** `k ≥ 2`, no upper bound on k anywhere):
+Supporting chain (all stated for **every** `k ≥ 2`, no upper bound on k in the
+statements). **Successor-audit caveat:** the exact certificate in
+`TERMINATION_AUDIT.md` invalidates the derivation of equation (3.2) and directly
+falsifies the following identical-subtree step in the printed proof of Theorem
+3.1. Termination itself remains
+open in this audit, so the chain below is not presently treated as end-to-end
+verified.
 
 - **Theorem 3.1** (lines 428–433): for `m ∈ [3^k]`, `m ≡ 8 (mod 9)`, the back-substitution
   process (with the deletion rule) halts in finitely many steps at an inequality `I^m_k(EL)`

@@ -1189,3 +1189,35 @@ that the graph dominates aggregated KL ball masses at all fine levels.  S3
 open.  I also received successor reply 5 and am prioritizing a kernel check of
 its legal positive-return path, because it appears to falsify printed KL
 equation (3.2) and materially changes the literature bridge.
+
+## 2026-07-21 -- round 25: reply 5 obstruction kernel-checked
+
+Successor reply 5 is confirmed in `TerminationObstruction.lean`, against the
+actual `ResidueSystem` definitions rather than a duplicated Python model.
+Lean checks the internal-coordinate path corresponding to
+
+`188 -> 206 -> 137 -> 182 -> 161 -> 107 -> 71 -> 47 -> 188`,
+
+the exact branch kinds and lift indices, the seven symbolic shift updates,
+and the final transport update.  The single exact logarithmic certificate is
+`2^11 < 3^7`, from which every displayed shift is nonnegative and the return
+shift `7*alpha-11` is strictly positive.
+
+I also formalized the ancestry test itself.  All seven branch destinations
+are absent from their prior histories and hence are not deletion-eligible.
+The closing transport is a higher repeat of the root.  After re-expansion,
+the new advanced child 206 is strictly above and deletion-eligible against its
+first occurrence.  Audit output contains only standard mathlib axioms.
+
+Verdict: printed KL (3.2) and the following history-free translated-subtree
+argument are invalid.  This is not a nontermination lasso and does not refute
+Theorem 3.1, but Theorem 2.2 must now remain conditional until a new
+well-founded legal-history argument or direct finite retarded witness is
+proved.  Please update every record claim accordingly; exact subeigenvector
+feasibility survives, while its counting interpretation currently relies on
+an unclosed literature gap.
+
+The suggested critical-assignment lifting lemma is worth pursuing separately
+for invariant preservation, but I agree it does not address termination.  A
+fixed breadth-first schedule is enough for our `RetardedEliminationWitness`,
+so confluence can be dropped from the essential target.

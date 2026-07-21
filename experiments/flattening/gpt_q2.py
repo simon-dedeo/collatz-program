@@ -1,3 +1,10 @@
+"""ARCHIVAL follow-up consultation harness.
+
+The embedded prompt says "theorem TRUE" and attributes the mechanism to 2--3
+coupling. Those statements were retracted after the successor audit. The prompt
+is retained verbatim as provenance; see the mixed-radix note for current scope.
+"""
+
 import json, urllib.request, ssl, os
 key=open("/Users/simon/Desktop/DANIEL/API_KEY").read().strip()
 prompt=r"""

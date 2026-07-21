@@ -82,6 +82,16 @@ natural-number rank table that strictly decreases on every declared control
 edge gives an explicit bound on every path length.  Applying it still requires
 a sound finite control quotient of the ancestor-dependent KL grammar.
 
+`TerminationObstruction.lean` kernel-checks a level-five legal history which
+returns to residue 188 by a transport child at the strictly larger shift
+`7*alpha-11 > 0`.  All seven preceding refinement destinations are new and
+therefore survive the published ancestor-repeat deletion test.  Re-expanding
+the returned root makes its child 206 deletion-eligible against the earlier
+206, proving the surviving subtree depends on its ancestry.  This refutes
+printed equation (3.2) and the following history-free subtree argument.  It
+does not establish nontermination or refute the intended elimination theorem;
+that theorem now requires a repaired proof.
+
 `EliminationWitness.lean` pins the exact output required of that remaining
 construction.  A witness is a finite family of labelled trees with a common
 positive lag, functional soundness, and coefficient soundness.  Lean proves
@@ -136,6 +146,8 @@ arithmetic qualification in the earlier no-go statement is therefore closed.
 `FiniteRecord.lean` contains a small Lean-native certificate at level 2.  It
 checks the integer rows and logarithmic cross-products by kernel reduction and
 then invokes the same soundness path intended for the large streamed records.
+The inference from any finite feasible record to a predecessor-counting bound
+still depends on the now-unrepaired KL advanced-term elimination theorem.
 
 `RESEARCH_AUDIT.md` separates the statements supported by the live research
 notes from the pressure/mass estimate that is still open, including the exact

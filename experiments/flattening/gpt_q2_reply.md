@@ -1,3 +1,7 @@
+> **ARCHIVAL WARNING:** the prompt behind this response says the theorem and
+> mechanism were established; those claims are retracted. See
+> `ARCHIVAL_WARNING.md` and the current mixed-radix note.
+
 1. **Unconditioned walk: the missing input is a rank-two observability estimate, not a \(2\)-orbit bound.**  
 Let \(t=\operatorname{ord}_p(3)\), \(P f(s)=f(s+1)\) on \(\ell^2(\mathbf Z/t\mathbf Z)\), and, up to harmless indexing,
 \[

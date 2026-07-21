@@ -3,7 +3,7 @@
 An ad hoc and playful investigation of the Collatz (3x+1) conjecture:
 experiments, theory, and formalization, with every claim backed by a
 machine-checkable artifact. Started 2026-07-20 (Claude Fable 5 + 
-GPT-5.6-sol as external prover/reviewer; PSC Bridges-2 grant mth260010p).
+GPT-5.6-sol; PSC Bridges-2 grant mth260010p).
 
 Made possible by the support of Grant 63750, "Explaining Universal Truths",
 from the John Templeton Foundation. Additional support from research funds
@@ -24,83 +24,47 @@ I chose the Collatz Conjecture for three reasons:
 2. A bit like Fermat's Last Theorem, everyone and their grandmother has worked on it, and any progress towards a proof is unlikely to harm an early-career researcher carving out a new niche.
 3. There have been some lovely quanta articles about Collatz and the related Busy Beaver numbers recently, so it was a nice way to learn more https://www.quantamagazine.org/busy-beaver-hunters-reach-numbers-that-overwhelm-ordinary-math-20250822/ I had an idea that there was wisdom hiding in the Busy Beaver community that was partially orthogonal to what "regular" mathematicians know.
 
-Everything below this line, and everything else in this repo, has been automatically generated. Fable is doing numerics and running agents. I got annoyed at it and said it should be more creative, like Grothendieck and Weil, so it created a Grothendieck-Weil agent. GPT is trying to formalize things in Lean, in CLEAN_LEAN; it was told to make something that would not annoy Kevin Buzzard. If you want the inter-company drama, visit https://github.com/simon-dedeo/collatz-program/blob/main/CLEAN_LEAN/FOR_FABLE.md
+Everything below this line, and everything else in this repo, has been automatically generated. Claude Fable 5 drove the initial numerics and research program; a Codex/GPT instance is now the research driver. A separate GPT instance is formalizing the work in Lean in `CLEAN_LEAN`; it was told to make something that would not annoy Kevin Buzzard. If you want the inter-company drama, visit https://github.com/simon-dedeo/collatz-program/blob/main/CLEAN_LEAN/FOR_FABLE.md
 
-## What we are trying to prove right now
+## What we are trying to prove now
 
-**Target: λ_∞ = 2**, i.e. the Krasikov–Lagarias predecessor-counting exponent
-γ_k = log₂λ_k → 1, which by KL's own theorem gives **π_a(x) ≥ x^{1−ε}** for
-every ε > 0 (a ≢ 0 mod 3): the count of integers below x whose Collatz orbit
-reaches a is at least x^{1−ε}.
+The long-range quantitative target remains `λ_∞=2` for the Krasikov–Lagarias
+predecessor-counting systems. It would imply `π_a(x)≥x^{1−ε}` for every
+`ε>0`, but it is open, and the autonomous charged/projective-contraction route
+is now closed for every admissible precision `J≥3`. That no-go is about a proof
+method, not evidence that `λ_∞<2`.
 
-**STATUS CORRECTION (2026-07-20, late).** An earlier version of this section
-said we were "one finite certificate away." That framing is now **falsified**
-for the certificate class we had in hand. The Charged spine-face Lyapunov
-certificate (CL) was tested at (J=3, L_w=6) and **cannot exist** — proved by
-an exact witness (`experiments/pressure-cert2/`, independently re-checked):
-on the oscillation-carrying "spine face" the block multiplier is **exactly 1**
-(a marginal eigenvalue, matching the {0,1} transversal spectrum), and there is
-a **zero-charge oscillation-carrying cycle** decoupled from the priceable
-charge — so no tilted-pressure Lyapunov certificate closes. Crucially this is
-*marginal* (growth = 1, not > 1): it does **not** imply λ_∞ < 2, and the
-empirical decay ν_k{osc>t} → ~0.81 continues. So **λ_∞ = 2 remains open, and
-we have lost this proof route** (likely for the whole charged-Lyapunov class —
-under adjudication). The downstream Lean scaffolding (oscillation identity,
-terminal-potential/Chernoff chain, pressure rows) stands; what's missing is a
-localization mechanism that prices *oscillation persistence itself*, or a
-sub-exponential decay argument. (A parallel agent's "ECH2 feasible" file in
-the same folder is **circular** — charge-by-fiat under an unproven annealing
-hypothesis — and is flagged invalid in the verdict note; do not trust it.)
+The immediate research target is now repair or replacement of the finite
+advanced-term termination theorem used in the Krasikov–Lagarias transfer. An
+exact `k=5` legal path invalidates the derivation of equation (3.2) in the
+printed proof and shows
+that its supposedly translated subtrees retain ancestor history. This does
+**not** disprove termination, but until a fixed terminating schedule or explicit
+retarded-elimination witness is constructed, the exact `k=19` feasible point
+does not yet have an end-to-end checked path to the headline counting bound.
 
-**RESOLVED (2026-07-20, later still) — structural no-go, all J.** The kill-tests
-(`docs/notes/cl-killtests.md`, `experiments/cl-killtests/`) settled the
-"under adjudication" question decisively, and against us: the −1 co-spine mode
-(2,−1,−1) is a **marginal invariant** of the KL face dynamics at *every* J
-(Test 1: the obstruction persists at J=4,5 because ×4 is a single cycle on
-Q_J, so zero-charge cycles always survive with holonomy = {id,swap} =
-stabilizer of the co-spine ray; re-verified). Worse, the *nonlinear* rescue
-is dead too: the spine is a genuine calibrated neutral cycle where the true
-min keeps the neutral lift strictly minimizing while oscillation stays exactly
-constant (Test 2), and **no** finite forcing word contracts it (Test 3, η=0
-for all words |W|≤8, non-circularly, since the all-0 top window is
-forward-invariant and independent of the residue). **Conclusion: no autonomous
-projective-contraction certificate — linear charged-Lyapunov, nonlinear
-min-selection, or forcing-word — can prove λ_∞ = 2.** This is a no-go on a
-*class of proof methods*, not evidence about λ_∞ itself (the mode is exactly
-marginal). λ_∞ = 2 stays empirically supported and formally out of reach by
-these means; a proof would need a non-autonomous/global-measure or arithmetic
-argument. **Main effort has accordingly pivoted to the cycle side.**
+The next theorem-shaped target is the all-dimension **arctic/max-plus no-go**
+for Zantema's Collatz string-rewriting system. A successor audit replaced a
+false reducible-matrix cyclicity argument with an elementary weighted-walk
+pumping candidate. Exact word macros and bounded witnesses are checked, but the
+general argument remains provisional until Lean review. Longer-horizon bets are
+mixed-radix `2–3` anti-concentration and genuinely non-autonomous/arithmetic
+mechanisms for the KL limit.
+An audited handwritten argument also overturns the former unsigned-zeta
+natural-boundary bet at its claimed first circle; its exact finite checker is
+in-repo, while formalization of the general analytic step remains open.
 
-**Why it matters.** (1) It settles how far the difference-inequality method —
-the source of the 2003 record — can go: to the exponent-1 boundary, or a
-stall (in which case the stall value is a new invariant of the (2,3) pair).
-(2) It would be the best lower bound on Collatz predecessor sets, improving a
-result that stood 23 years — and *formally verified*. (3) The structure built
-to reach it (an adversarial transfer operator on ℤ₃, its −1 spine, the
-charged-Lyapunov certificate) also organizes the cycle side and the
-Antihydra/Busy-Beaver-cryptid side.
+None of these statements settles Collatz, positive density, divergence, or
+nontrivial cycles. The predecessor result counts preimages of a fixed `a`; even
+an `x^{1−ε}` lower bound would still have density zero for fixed `ε`.
 
-**Honest "amaze level" of a clean Lean proof** — scale: 10 = Collatz itself
-settled; 8–9 = positive density / no-divergence / no-cycles settled; 1 =
-routine exercise.
-
-> **≈ 6 / 10.** A genuinely publishable, formally-verified improvement of a
-> 23-year-old record, a structural theorem about the method's ceiling, and a
-> new named object. Calibrated down honestly: x^{1−ε} bounds a *sparse* set
-> (x^{1−ε}/x → 0); it is *predecessor* counting (preimages of a fixed a), not
-> forward orbits of all n; and it is **not** Collatz, not positive density,
-> not the divergence or cycle problem. A strong specialized paper plus a
-> notable formal-methods artifact — not a resolution of the conjecture. The
-> larger bet is that this structure eventually cracks something bigger; that
-> bet is unproven.
-
-## Headline results (all certified/proved today)
+## Headline results (with verification scope)
 
 | Result | Status |
 |---|---|
-| **π_a(x) ≥ x^γ for all γ < 0.9032885984**, a ≢ 0 (3) — was 0.84 since 2003 | certified k=12..18 (exact integer arithmetic); k≤14 chain adversarially reviewed; γ₁₉ = 0.9094, γ₂₀ = 0.9151 in certification |
+| Exact `k=19` KL feasible certificate at `γ=0.9094372617…`; **conditional** consequence `π_a(x)≥x^γ` for every fixed smaller `γ` | A fresh run of the reference verifier passed the SHA-pinned 2.9 GB sidecar and all 387,420,489 exact inequalities. However, an exact `k=5` path invalidates the key descent inference in the published proof of KL Theorem 3.1. The certificate remains exact; the counting consequence is conditional until that termination bridge is repaired. The sidecar is local but not in git; a fresh clone is self-contained through k=15. See `experiments/kl/RESULT.md` and `TERMINATION_AUDIT.md`. |
 | The KL method = finite sections of an **adversarial transfer operator on ℤ₃** (base ×4 = the Iwasawa generator of 1+3ℤ₃) | `docs/notes/kl-limit-object.md`, `adversarial-operator.md` |
-| KL's own §6 positivity hypotheses (H_k) | **proved** (odometer conjugacy → Gaubert–Gunawardena) |
+| KL's own §6 positivity hypotheses (H_k) | Literature-backed research proof (odometer conjugacy → Gaubert–Gunawardena); nonlinear Perron existence is not Lean-formalized, and the exact feasible-point route bypasses it. |
 | Oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k | proved, now unconditional |
 | Local renormalization at −1 solved: **a = λ^{1−α}** (= 2/3 at λ=2); "period-2" = the u↦2u relabeling; spine sheds mass at λ^{α−1}/3 | `renormalization-at-minus-one.md`, sol cross-confirmed |
 | Diaconis–Fulman multiplication-carries spectrum (their open question) | proved, exact-verified: `carries-spectrum.md` |
@@ -112,56 +76,86 @@ routine exercise.
 
 ## Current proof strategy (living map — updated as lanes open/close)
 
-The certified record (x^0.9033) stands on its own. Everything below is about
-reaching *further*, and after tunneling on one line we have re-widened. This
+The locally rerun `k=19` feasible certificate stands on its own; the counting
+consequence now carries the termination-audit caveat in the headline table.
+Everything below is about repairing that trust chain and reaching *further*.
+After tunneling on one line we have re-widened. This
 section is kept fresh; the **failure ledger** is deliberately explicit because
 knowing which routes are dead (and why) is most of the value.
 
-### LIVE bets (ranked, as of 2026-07-20 late)
+### LIVE bets (ranked after the 2026-07-20 successor audit)
 
-1. **Analytic-combinatorics reframing of the counting side** (scout: PROVED
-   reformulation, `docs/notes/analytic-combinatorics.md`). Our certified KL
-   exponent γ_k *is* the abscissa of convergence / dominant simple pole of an
-   explicit multitype Dirichlet GF D(s)=(I−M(s))⁻¹𝟙 for the backward tree, so
-   Flajolet–Odlyzko gives π_a(x) ~ C·x^{γ_k} with **no log factor** (nonlattice);
-   and λ_∞=2 becomes a precise **confluence-of-singularities** statement (quenched
-   pole → annealed pole at s=1). Doesn't improve γ_k, but it is the right language
-   and connects λ_∞ to BRW derivative-martingale theory (the live analytic route).
-2. **Unsigned solenoid zeta's natural boundary / Pólya–Carlson** (new lead from
-   the solenoid scout, `docs/notes/solenoid-zeta.md §6`). The *signed* zeta is
-   rational (Z₃≡1) but the *unsigned* Artin–Mazur zeta has a **natural boundary
-   at |u|=1/4** — placing Collatz on the two sides of the Pólya–Carlson dichotomy
-   (Fel'shtyn et al.). Cycle arithmetic lives in that natural boundary — and this
-   *connects to Bell–Lagarias* (natural boundaries of Collatz generating functions,
-   already in the landscape). Unexploited; worth developing.
-3. **Mixed-radix anti-concentration** (gpt's top pick; numerical-evidence +
-   proof-program). Re-tested at the correct scale: B(w)=Σ3^{m−r}2^{i_r}
-   **does flatten mod p at k ≈ 3 log p** (uniform over p ≤ 10⁶, strong e^{−ck}
-   rate, no exceptional prime — the claimed-scale statement is *likely true*).
-   But the easy proof mechanism is dead: single-generator short-orbit sums
-   Σ_{j<k} e_p(c2^j) do **not** decay, so flattening is driven by the genuine
-   **2–3 coupling** — a proof needs a coupled-transfer gap (hard, open), plus a
-   bivariate fixed-weight conditioning estimate. Clean anchor: the normalized
-   object reduces *exactly* to a **conditioned two-multiplier Chung–Diaconis–Graham
-   walk** (X ↦ X/2 | (3X+1)/2) — publishable framing independent of Collatz; the
-   one substantive missing theorem is a rank-two matrix-product contraction no
-   cited result (Eberhard–Varjú, Bourgain–Gamburd) supplies.
+1. **Repair KL advanced-term termination — exact blocker, precise target.**
+   At `k=5`, the legal path
+   `188→206→137→182→161→107→71→47→188` returns through a transport
+   edge at symbolic shift `7 log₂3−11>0`. The deletion rule never tests that
+   closing transport child, so the deletion-rule inference used to derive paper
+   equation (3.2) is invalid. Re-expansion then deletes a child that survived below the first root,
+   refuting the history-free identical-subtree step. The exact checker is
+   `experiments/kl/verify_termination_obstruction.py`. This is not a
+   nontermination lasso: the open target is absence of any infinite legal
+   history, preferably via a fixed breadth-first schedule and a recursive
+   critical-assignment invariant. `experiments/kl/TERMINATION_AUDIT.md`.
+2. **Arctic/max-plus SRS no-go — candidate proof written, formal check next.**
+   The inherited proof incorrectly assigned one eventual slope to a reducible
+   max-plus sequence. The repair is elementary: a long maximizing walk with
+   nonnegative output contains a nonnegative simple cycle, which can be pumped
+   by a common multiple of all cycle lengths; the exact strict macro compares
+   lengths differing by precisely such a multiple. If kernelized, this gives the
+   calibrated Theorems A/B in every dimension, provided both dependency-pair
+   rules are weak and the selected one is strict. Exact macro counts and all
+   dimension-one witnesses pass independent checkers; CLEAN_LEAN has been asked
+   to check the general argument. `docs/notes/arctic-nogo.md`.
+3. **Mixed-radix anti-concentration — numerical evidence + proof program.**
+   Exact DP supports logarithmic-scale near-flatness on specified finite test
+   sets: the 93 primes `5≤p≤499`, `p∤6`, at central weight; seven scale-test primes
+   `101 ≤ p ≤ 6553` across `0.3k ≤ m ≤ 0.7k`; and fourteen capped-small-
+   subgroup candidates drawn from a scan of primes `p ≤ 10⁶`. This was **not**
+   a uniform flattening sweep over every prime below `10⁶`, so "no exceptional
+   prime below `10⁶`" and a `p`-uniform `e^{−ck}` rate remain conjectural. The
+   robust findings are the algebraic reduction to a conditioned two-multiplier
+   CDG-type affine walk, failure of the proposed complete-subgroup/tested-prefix
+   mechanism, and three open gaps: coupled matrix-product contraction,
+   bivariate fixed-weight extraction, and running-vector propagation.
+   The successor audit also corrected a reversed cyclic shift in the Fourier
+   checker and a missing `binom(k,m)^{-1}` in one displayed extraction formula;
+   neither changes the exact-DP tables, but the former claimed matrix check is
+   withdrawn and replaced by a componentwise product/Fourier assertion.
    `docs/notes/mixed-radix-flattening.md`.
-4. **Arctic/max-plus SRS no-go — largely DONE.** Theorem B **proved**, Theorem A
-   provable-looking (one std cite), closing Yolcu–Aaronson–Heule's stated open
-   problem for arctic interpretations. Honest nuance: the naive blanket claim is
-   *false* (dim-1 witnesses); the true statement is a sharp two-part theorem
-   mirroring YAH's Thms 3.8/3.10. z3 + independent checker certified.
-   `docs/notes/arctic-nogo.md`.
+4. **KL limit beyond autonomous contraction.** `λ_∞=2` remains the central
+   quantitative question, but the marginal co-spine closes every admissible
+   `J≥3` certificate in the charged/projective class. Any serious revival now
+   needs a non-autonomous global-measure or arithmetic mechanism. In parallel,
+   any new finite feasible family can be consumed honestly only after the
+   advanced-term termination bridge in item 1 is repaired.
 5. **Quantitative adelic descent** / **open-quantum-systems reframing** — the
    no-go = peripheral spectrum of the KL channel (`wildcard.md`, WARM); descent
    under a dynamical Fourier norm (on deck). Both risk rediscovering the marginal
    mode.
+6. **Analytic-combinatorics / nonlinear-pressure salvage — under adjudication.**
+   The inherited scout does **not** establish that the certified nonlinear KL
+   exponent is the pole of an ordinary linear backward-tree resolvent. The literal
+   linear mean matrix is an annealed relaxation; a policy matrix is not an exact
+   counting recursion without a separate sandwich theorem. Thus the asserted
+   `π_a(x) ~ C_k x^{γ_k}`, no-log conclusion, and ordinary pole confluence for
+   the true predecessor count are unsupported. Surviving content includes the
+   annealed exponent-1 calculation, finite-size data, and the sufficient
+   increment-contraction criterion. Any revival must first distinguish the
+   linear, annealed, policy, and nonlinear objects and prove a counting bridge.
+   `docs/notes/analytic-combinatorics.md`; audit in `CLEAN_LEAN/FOR_FABLE.md`
+   rounds 13–14.
 
 ### FAILURE LEDGER — what didn't work, and why (do not retry)
 
+- **The printed proof of KL Theorem 3.1 — INVALID STEP; theorem still open in
+  this audit.** The exact `k=5` path above invalidates the derivation of (3.2),
+  and its re-expansion falsifies the claimed history-free subtree translation. Changing the sign of
+  `δ` is not a repair. Do not reuse the published descent/self-similarity
+  argument; termination itself is neither proved nor disproved by this
+  certificate. Because Theorem 2.2 uses this bridge, the `k=19` counting
+  consequence is presently conditional. `experiments/kl/TERMINATION_AUDIT.md`.
 - **λ_∞ = 2 via any autonomous projective-contraction certificate — CLOSED
-  (structural no-go, all J).** The −1 co-spine mode (2,−1,−1) is a marginal
+  (structural no-go, every admissible J≥3).** The −1 co-spine mode (2,−1,−1) is a marginal
   invariant: charged-Lyapunov (persists J=4,5), nonlinear min-selection
   (calibrated neutral cycle), and forcing-word (η=0) all fail. Not evidence
   λ_∞<2; just no proof in this class. `cl-killtests.md`, `pressure-certificate-2.md`.
@@ -185,22 +179,47 @@ knowing which routes are dead (and why) is most of the value.
   the cycle-length bound, Positivity, and Zaremba all reduce to effective
   equidistribution of one Gauss-map orbit, capped by Baker. Explains why nothing
   beats Baker; beats nothing. `bourgain-kontorovich.md`.
-- **Solenoid → hidden RH / Weil positivity — CLOSED-NEGATIVE (but see live #2).**
-  The signed zeta trivialises (Z₃≡1), so Weil positivity is vacuous and any
-  constant-coefficient Connes/Bost–Connes zeta is blind to the +1. The Traceless
-  Theorem is real but *shallow* (repackages first-moment criticality). The live
-  residue is the *unsigned* zeta's natural boundary (live bet #2). `solenoid-zeta.md`.
+- **Solenoid → hidden RH / Weil positivity / first-circle natural boundary —
+  CLOSED-NEGATIVE at research-proof level; formal check pending.** The signed
+  zeta trivialises (`Z₃≡1`), so Weil positivity is vacuous and constant-
+  coefficient constructions are blind to the `+1`. An independently audited
+  handwritten binomial-tail argument gives
+  `ζ_S=(1−4u)^{-2}exp(G(u))` with `G` analytic past `|u|=1/4`, so that circle
+  has one double pole and is not a natural boundary. The exact checker verifies
+  the coefficient identities and rational gap bounds over stated finite ranges;
+  the all-`K` asymptotic and analytic consequences are not yet kernel-checked.
+  No cycle-arithmetic bridge is known. `solenoid-zeta.md §6`.
+- **Ordinary linear-resolvent identification of the KL exponent — RETRACTED.**
+  The KL threshold is defined by a nonlinear min-over-fibers operator, whereas
+  the literal tree resolvent uses a fixed linear sum/mean matrix. No exact
+  counting bridge was supplied, so the claimed pole at `γ_k`, true-count
+  asymptotic, and no-log conclusion do not follow. A nonlinear-pressure
+  language may still be useful, but this specific "proved reformulation" is
+  closed. `analytic-combinatorics.md` rev. c.
+- **One global eventual slope for reducible max-plus interpretations —
+  RETRACTED.** Different residue classes can have different slopes, so the
+  inherited arctic proof was invalid. A candidate weighted-walk pumping repair
+  is in `arctic-nogo.md` and awaits Lean; do not reuse the old slope extraction.
 - **"One certificate away" framing (earlier README) — RETRACTED.** It was
   wrong; the certificate provably doesn't exist in its class.
 
 ### What CLEAN_LEAN (GPT) has kernel-checked and standing
 
-The oscillation identity, the portable Lemma-5 pressure rows, and the
-terminal-potential/Chernoff chain are all formal — they are *conditional
-consumers* of a localization certificate we've now proved doesn't exist in the
-autonomous class, so they wait unused on that path; they remain correct and
-reusable. The CL structural no-go is itself offered to GPT as a clean
-formalization target.
+The oscillation identity, Lemma-5 row checker and exact Chernoff gaps,
+terminal-potential / Chernoff chain, exact backward-orbit hitting formula,
+labelled critical-
+assignment contradiction, concrete split arithmetic, global value-preserving
+deletion, and the final retarded-witness consumer are kernel-checked. Lean also
+has symbolic `Z²` shift updates and a generic finite-rank termination checker.
+What is missing is the semantic bridge: a genuinely finite `Control_k` (or a
+fixed terminating schedule) that handles ancestor history, transport
+descendants, newly tied critical assignments, and deletion order. The active
+research-side formalization request is the provisional arctic weighted-walk
+argument. Rounds 22–24 kernel-check the generated payload's 2,187 row
+inequalities, their all-length mass bounds, and equality of the imported edge
+tables with an independently defined 243-state KL graph. Irrational interval-
+weight domination, interval tiling, and especially localization remain open;
+this pressure half is not a limit proof.
 
 ### Standing frame
 
@@ -212,21 +231,42 @@ no-go proves any orbit-fate argument must couple 2-adic structure to the
 Archimedean place — which is why every purely-local lane above eventually
 hits the same wall.
 
-## Running right now
+## Current activity
 
-- **Mixed-radix flattening lemma** (LIVE bet #1) — exact-DP numerics + proof
-  attempt (`experiments/flattening/`, `docs/notes/mixed-radix-flattening.md`)
-- **Re-widen fan-out** (8 agents): arctic no-go, modular-knots, solenoid-zeta,
-  tropical geometry, analytic combinatorics, Bourgain–Kontorovich, critical-drift
-  experiment, wildcard
-- Family phase-diagram critical-line + grid3 sweep on ganesha (restarted)
-- CLEAN_LEAN: independent Lean formalization by GPT (tracked read-only;
-  handoff in `docs/FOR_CLEAN_LEAN.md`, return channel `CLEAN_LEAN/FOR_FABLE.md`)
-- Idle capacity (akdeniz 32c+4090, PSC): available; nothing needs scale until a
-  live bet validates a mechanism
+- The new Codex research driver is active. Its first audit stopped five orphaned
+  arctic writers left after the final handoff, preserved their completed CSV
+  rows, reran the k=19 reference verifier, and corrected inherited status and
+  artifact-portability errors.
+- The top theorem lane is now KL termination. An exact integer checker pins a
+  legal `k=5` path that invalidates the printed proof's descent and identical-
+  subtree claims without forming a repeatable nontermination lasso. CLEAN_LEAN
+  has been sent the certificate and the precise fixed-schedule/history target.
+- The arctic/max-plus lane remains active. Two independent audits found the
+  same reducible-slope gap; an elementary weighted-walk pumping candidate now
+  replaces it, and the exact marked macro checker passes. The general theorem
+  is explicitly provisional until Lean checks it. No brute-force scale job is
+  running.
+- A second audit produced a research-level correction to the unsigned-zeta
+  lead: the proposed natural boundary at `|u|=1/4` is false if the written
+  all-`K` tail argument is accepted. The exact finite identities and gap bounds
+  have an independent integer checker; the analytic theorem awaits formalization.
+- No background research lane inherited from Fable is now running. The
+  mixed-radix attempt, eight-agent re-widening fan-out, and ganesha
+  critical/grid3 passes were stopped; their complete or partial states are in
+  `HANDOFF.md` and the corresponding notes.
+- CLEAN_LEAN continues independently. It has reduced the KL literature bridge
+  to construction of an explicit retarded-elimination witness and supplied the
+  symbolic-shift and generic rank-checking infrastructure. The paper's sign
+  error is corrected, but sign repair is not termination: finite-control,
+  history/new-tie invariants, and a fixed schedule or confluence proof remain
+  load-bearing. The research driver communicates through
+  `docs/FOR_CLEAN_LEAN.md` and does not edit `CLEAN_LEAN/`.
+- Remote compute is currently uncommitted. Any new diagnostic job will be
+  listed here with its exact scope; bounded z3 searches are evidence only, not
+  all-dimension proofs.
 
-(Deprioritized: k=19/20 KL certification is a *record* nicety, not on any live
-proof path — the certified k≤18 already gives x^0.9033.)
+(Deprioritized: further finite-k KL records are useful artifacts but are not
+presently on a limit proof path.)
 
 ## Verification discipline
 

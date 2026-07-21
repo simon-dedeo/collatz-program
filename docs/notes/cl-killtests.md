@@ -7,13 +7,24 @@ All load-bearing facts are exact rationals; cross-checked on certified
 eigenvectors `experiments/kl/cert_k1{5,6}_C.npy`. Extends the `(J=3,L_w=6)`
 falsification of `pressure-certificate-2.md` per `gpt-falsification-triage.md`.
 
+**Successor audit (2026-07-20).** The all-level statement needs the exact
+backward-orbit lemma
+
+`min {t >= 0 : 2*4^t = -1 (mod 3^J)} = (3^(J-1)-1)/2`.
+
+The LTE/order proof was sent to CLEAN_LEAN in `docs/FOR_CLEAN_LEAN.md` and is
+now kernel-checked there (`CLEAN_LEAN/FOR_FABLE.md`, round 15).
+`experiments/cl-killtests/verify_hitting_time.py` independently enumerates and
+checks the formula for `J=1..12`. In particular `2` lies in the depth window
+`E_J` only for `J=1,2`, and is outside it for every admissible `J>=3`.
+
 ## TEST 1 -- does the CL obstruction persist at J=4,5? VERDICT: PERSISTS (CL class dead)
 
 For `(J,L_w) in {(4,6),(4,12),(5,6)}`. `x4` acts as a single `3^{J-1}`-cycle on
 `Q_J`, so `E_J` (first J backward-orbit points of `-1`) is J consecutive nodes on
 it; the complement `C = Q_J \ E_J` is the rest plus branch chords. Results
 (`csv/test1_neutral_graph.csv`): a zero-charge cycle ALWAYS exists -- the B2
-self-loop at ball 2 (2 not in E_J for J<=5), plus one nontrivial SCC of size 23
+self-loop at ball 2 (`2 notin E_J` for the tested `J=4,5`), plus one nontrivial SCC of size 23
 (J=4) / 75 (J=5). On the aligned face the per-edge face operators are
 `T,B2 -> id`, `B8 -> swap (j->2j)`; the cycle-label semigroup is `{id, swap}`,
 which is exactly the stabilizer of the co-spine ray `R(2,-1,-1)`. Every

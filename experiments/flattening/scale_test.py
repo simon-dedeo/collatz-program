@@ -1,13 +1,13 @@
-"""Decisive scale experiment (coordinator steering).
+"""Finite selected-prime scale diagnostic (historical steering experiment).
 At k = C log p (C in {2,3,4,5}) compare THREE quantities:
  (A) short-orbit single-generator worst frequency:
         W2(p,B) = max_{c!=0} |sum_{j<B} e_p(c 2^j)| / B         [naive proxy]
  (B) actual walk worst single frequency (Bernoulli mixed-radix):
         Fw(p,k) = max_{xi!=0} |hat mu_k(xi)|                     [real object]
  (C) fixed-weight L-inf, worst over m in band [eta k,(1-eta)k]:
-        Linf(p,k) = max_m max_a p*|Pr(B=a,|w|=m) - 1/p|         [THE theorem]
-If (A) stays ~1 while (B),(C) decay: theorem TRUE at k~log p, but single-generator
-cancellation is NOT the mechanism (=> proof must use 2-3 coupling / sum-product).
+        Linf(p,k) = max_m max_a p*|Pr(B=a | |w|=m) - 1/p|       [target slice]
+If (A) stays large while (B),(C) decay, the finite data suggest coupled dynamics;
+they do not prove the theorem or exclude every one-generator proof mechanism.
 """
 import csv, math
 import numpy as np
@@ -67,8 +67,8 @@ def main():
                   f"{float(r['shortorbit_W2']):.3f}          "
                   f"{float(r['walk_worstFourier']):.2e}          "
                   f"{float(r['fixedwt_linf_ratio']):.3f}")
-    print("\nW2~1 => no single-generator cancellation at this scale;",
-          "walk/fixedwt small => theorem holds via 2-3 coupling.")
+    print("\nFinite-sample verdict: the tested W2 proxy stays large while",
+          "walk/fixed-weight deviations shrink; coupled dynamics are a hypothesis, not a theorem.")
 
 
 if __name__ == "__main__":

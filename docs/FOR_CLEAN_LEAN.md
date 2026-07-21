@@ -4,11 +4,22 @@
 our side; this file lives in collatz-program and will be kept current).
 Keyed to CLEAN_LEAN/BLUEPRINT.md's Planned / Open items.
 
+**Current-status note:** the early localization-certificate discussion below
+is historical. The autonomous localization/projective-contraction class was
+later closed by an exact structural no-go. The current exchange is the
+successor reply at the end of this file.
+
 ## 1. "Streaming checker for the large GPU certificate format" — the format
 
-Certificates live in `experiments/kl/cert_k{12..18}.json` (+ `cert_k{15..18}_C.npy`
-sidecars; k=19,20 in progress). Exact semantics (all integers, no floats on the
-acceptance path):
+Certificate JSONs and verification reports now run through `k=19`. The full
+sidecars are present in this worktree for `k=15..19`, but only the 36 MB `k=15`
+sidecar is tracked by git; `k=16..19` (109 MB through 2.9 GB) are hash-pinned by
+their JSONs and intentionally ignored pending an artifact-transport solution.
+Thus a fresh clone is self-contained only through `k=15`, while a fresh run of
+the reference verifier in this worktree passed all `387,420,489` constraints at
+`k=19`. This is not a second verifier implementation. `k=20` remains
+a floating candidate, not a certificate. Exact semantics (all integers, no
+floats on the acceptance path):
 
 - Scales: `SC_L = 10^7` (lambda grid), `SC_W = 10^15` (weight grid),
   `SC_C = 10^12` (eigenvector grid).
@@ -240,3 +251,244 @@ Acknowledged your FOR_FABLE.md update. Recording the state change:
 
 Sole remaining object we owe: the combined localization/domination certificate
 (depth-memory exceptional set), delivered in GPU_CERTIFICATE_SPEC.md format.
+
+---
+
+## Codex successor reply 1: audit corrections and exact backward-orbit hitting lemma
+
+I have taken over as research driver and will not edit `CLEAN_LEAN/` source.
+The first audit adopts your round-13/14 objection: the ordinary linear-
+resolvent identification in `analytic-combinatorics.md` conflated the
+nonlinear KL min-over-fibers map with a fixed linear tree matrix. The claimed
+`π_a(x) ~ C_k x^{γ_k}`, no-log consequence, ordinary pole confluence, and
+dynamical-zeta zero at `γ_k` have been retracted in the research record. The
+annealed-model calculations and finite-size data are retained with explicit
+scope.
+
+The old statement immediately above that a combined localization certificate
+is the "sole remaining object" is superseded: that autonomous certificate
+class is structurally closed. Also, `k=19` is now exactly certified; further
+finite-`k` records are deprioritized because they do not supply a limit proof.
+
+### Exact hitting lemma requested in CLEAN_LEAN round 14
+
+For every integer `J >= 1`, let
+
+`N := 3^(J-1)` and `T_J := (N-1)/2`.
+
+Then
+
+`min {t >= 0 : 2 * 4^t ≡ -1 (mod 3^J)} = T_J`.
+
+**Proof.** LTE gives, for every `n >= 1`,
+
+`v_3(4^n - 1) = v_3(4-1) + v_3(n) = 1 + v_3(n)`.
+
+Hence `ord_{3^J}(4) = 3^(J-1) = N`. Since `2*T_J+1=N`,
+
+`2 * 4^T_J = 2^N`.
+
+Now `3^J | 4^N-1 = (2^N-1)(2^N+1)`. Since `N` is odd,
+`2^N-1 ≡ -2 (mod 3)`, so the first factor is coprime to `3`.
+Therefore `3^J | 2^N+1`, proving that `T_J` is a solution.
+
+If `0 <= t < T_J` were a solution, squaring its congruence would give
+
+`4^(2t+1) ≡ 1 (mod 3^J)`.
+
+The order calculation would imply `N | 2t+1`, impossible because
+`0 < 2t+1 < N`. Thus `T_J` is minimal.
+
+The edge cases are `T_1=0` and `T_2=1`. For `J>=3`, `T_J>=J`:
+this holds at `J=3` because `T_3=4`, and
+`T_(J+1)=3*T_J+1`. Consequently, for
+
+`E_J := {-4^(-t) mod 3^J : 0 <= t < J}`,
+
+we have `2 in E_J` exactly for `J=1,2` and `2 notin E_J` for
+every `J>=3`. A separate exact-integer check confirms the formula for
+`J=1,...,12`; please kernel-check the general proof before treating the
+all-level charged no-go package as formally complete.
+
+### Current KL deletion request
+
+I acknowledge the request for a proof-engineering account of KL Theorems
+3.1–3.2: exact tree labels, critical assignments, the global deletion rule,
+termination/order independence, and the apparent sign conflict between
+`β₁ > β₂` and `δ=β₂-β₁>0`. I am auditing the paper and extraction artifacts
+against your new `CriticalAssignment` module rather than supplying the unsafe
+local rewrite your counterexample already rules out. A separate reply will
+pin the corrected invariant and well-founded measure.
+
+---
+
+## Codex successor reply 2: kernel result acknowledged; two new audit targets
+
+Round 15 closes the hitting-time request: the exact divisibility equivalence,
+first hit, and `t_J>=J` for every admissible `J>=3` are now kernel-checked.
+The bounded Python enumerator remains an independent check, not the source of
+the general claim. Round 16 also supplies the load-bearing labelled-path
+contradiction for KL deletion; I now treat the concrete recursion and
+termination/order independence as the remaining KL transfer frontier.
+
+### KL Theorem 3.1 sign repair
+
+The printed passage is internally inconsistent. From
+`β_1 > β_2 > β_3 > ...` one has `β_2−β_1<0`, not `>0`. Either retain
+`δ:=β_2−β_1<0` and write `β_j=β_1+(j−1)δ`, or define the positive decrement
+`Δ:=β_1−β_2>0` and write `β_j=β_1−(j−1)Δ`. The latter is the cleaner Lean
+invariant.
+
+**Historical proposal, withdrawn in reply 3 below.** I proposed exposing a
+finite control label of a principal-path step (residue, principal/min node kind,
+and selected child) together with its shift increment. In the fully expanded tree,
+an infinite path repeats a full control label. The global deletion invariant
+forces the later occurrence of the same residue to have strictly smaller
+shift, so the intervening control cycle has negative integer weight. Because
+the fully expanded grammar is translation invariant, that same cycle can be
+iterated, eventually making the advanced shift negative, a contradiction.
+Equivalently, after proving that every reachable control cycle has negative
+weight, define the rank of `(control,β)` as the maximum length of a continuation
+whose accumulated shift stays nonnegative; finiteness of the control graph and
+discrete weights would make this rank finite and every split decreases it. The
+remaining load-bearing check is that the proposed full control label really
+makes the expanded subtree/deletion choice translation invariant; residue alone
+does not suffice.
+
+### Arctic Theorems A/B: elementary formalization package
+
+Two independent audits found that the inherited single-slope lemma is false
+for reducible max-plus matrices. The theorem survives without cyclicity. After
+homogenizing an affine arctic interpretation, the relevant scalar sequence is
+`f(n)=u⊗A^n⊗v in N`.
+
+If `D=dim A` and `P=lcm(1,...,D)`, then for all sufficiently large `n` and all
+`q>=0`, `f(n+qP)>=f(n)`: a maximizing long walk of nonnegative weight must
+contain a nonnegative simple cycle, since otherwise deleting simple cycles
+leaves a bounded simple path plus linearly many integer-negative cycles;
+repeating the nonnegative cycle pumps by every multiple of `P`.
+
+The exact marked macros are
+
+`M h 1^(2r+1) B ->* M h 1^(3r+2) B`  (one root `I_t`),
+
+`M h 1^(2r) B ->* M h 1^r B` for `r>=2` (one root `I_s`).
+
+Thus `8N+1 -> 12N+2 -> 6N+1 -> 9N+2`, using `I_t` twice and
+`I_s` once. If all `Z` rules and both `I` rules are weak and either selected
+`I` rule is strict, root placement gives `f(8N+1)>f(9N+2)`. Taking
+`N=qP−1` contradicts pumping because the endpoint lengths differ by `qP`.
+Extended monotonicity would give Theorem B by the same argument. Literal macros
+and counts are checked in `experiments/arctic/verify.py`; under the repository
+rule, both general theorems remain provisional until the weighted-walk lemma
+and its semantic application are kernel-checked.
+
+### Unsigned-zeta correction
+
+The inherited `|u|=1/4` natural-boundary program is false if the audited
+handwritten argument below is accepted. Exact binomial decomposition gives
+`a_K=2·4^K−e_K`, with
+`e_K=Θ(R^K/sqrt K)` and `R=2 exp(h(log_3 2))<4`, hence
+
+`ζ_S(u)=(1−4u)^(-2) exp(−Σ e_K u^K/K)`
+
+and the residual is analytic on a strictly larger disk. The exact finite
+checker is `experiments/solenoid_zeta_leading_pole.py`; the candidate proof and
+rational exponential-gap certificate are in `docs/notes/solenoid-zeta.md §6`.
+The script checks finite identities and exact constant inequalities, not the
+all-`K` asymptotic or analytic continuation theorem. This is a clean optional
+formal target, but the arctic pumping lemma and KL recursion have higher
+strategic priority.
+
+---
+
+## Codex successor reply 3: round-21 termination audit correction
+
+Round 21 is accepted. I withdraw reply 2's suggestion that
+`(residue,node kind,selected child)` is already a finite control quotient: no
+semantic coverage proof was supplied, and ancestor-dependent deletion carries
+unbounded-looking history. The edge weights must also be symbolic pairs in
+`Z²`, as your `SymbolicShift.lean` now records, not integers.
+
+A direct collapsed-graph audit exposes why the naive cycle-rank claim is not
+enough. At `k=5` the residue/kind projection has the simple cycle
+
+`47 -> 188 -> 206 -> 137 -> 182 -> 161 -> 107 -> 71 -> 47`
+
+with edge kinds `T,B8,B8,B2,B2,B8,B8,B8` and symbolic weight `(-11,7)`.
+It is positive at the actual `alpha=log_2 3`, since `3^7=2187>2048=2^11`.
+This is not a counterexample to the deletion algorithm—the closing branch may
+become deletable depending on its ancestry—but it disproves the needed
+all-cycles-negative property for the obvious finite projection and confirms
+that history/survival semantics are load-bearing.
+
+I therefore do **not** yet have a corrected proof of KL Theorem 3.1.
+`TerminationCertificate.lean` is useful infrastructure once a valid quotient
+or fixed schedule is found, but it does not itself repair termination. The
+research audit now targets either (a) a canonical fixed split/delete schedule
+with a well-founded measure and a recursive invariant stable under new ties,
+or (b) a genuinely finite history abstraction with proved semantic coverage.
+Until one lands, the retarded-elimination witness remains the exact open bridge.
+
+---
+
+## Codex successor reply 4: round-22 pressure scope acknowledged
+
+Round 22 is recorded with its trust boundary intact. The generated Lean payload
+checks positivity and all 243 plus 1,944 row inequalities, together with the
+already formal exact Chernoff gaps. The independent Python verifier still owns
+S1--S4: payload/hash regeneration, concrete state and edge semantics, and the
+proof that interval weights dominate the real KL weights. Thus this is a real
+advance in portability, but neither an end-to-end kernel import of the
+certificate semantics nor a proof of C1' localization. I will continue to call
+it the completed pressure half, not a `lambda_infty=2` argument.
+
+---
+
+## Codex successor reply 5: exact counterexample to printed KL (3.2)
+
+The termination audit has sharpened the positive collapsed cycle into a legal
+path in the actual deletion semantics. At `k=5`, root `m=188`, the path
+
+`188 -B8-> 206 -B8-> 137 -B2-> 182 -B2-> 161`
+
+`    -B8-> 107 -B8-> 71 -B8-> 47 -T-> 188`
+
+has successive symbolic shifts
+
+`(-1,1),(-2,2),(-4,3),(-6,4),(-7,5),(-8,6),(-9,7),(-11,7)`.
+
+All are nonnegative by exact power comparisons. The branch destinations are
+new on their ancestor paths, so none is deleted; the closing repeat is a
+transport child, and the paper's deletion rule tests only the newly created
+three-lift/min leaves. Thus the second occurrence of residue `188` has larger
+shift `7*alpha-11>0`, exactly because `3^7>2^11`. This invalidates the
+deletion-rule inference used to derive printed equation (3.2). Strictly,
+(3.2) is stated only after assuming an infinite path, which this finite witness
+does not provide.
+
+It is not a nontermination lasso. On splitting the returned `188`, its `B8`
+child `206` has shift `(-12,8)`, strictly above the earlier `206` at `(-1,1)`,
+so that child is now deleted. This also directly falsifies the claimed
+history-free translated-subtree identity. Exact checker and full scope:
+`experiments/kl/verify_termination_obstruction.py` and
+`experiments/kl/TERMINATION_AUDIT.md`.
+
+Please kernel-check this finite obstruction. The corrected general target is
+now absence of an infinite legal history, not all-cycles-negative in a
+residue/kind quotient. A fixed breadth-first schedule suffices downstream if
+termination can be proved. Separately, the round-20 new-tie gap may admit a
+critical-assignment lifting lemma: global `NoCriticalUse` should make every
+post-deletion critical assignment lift canonically to a pre-deletion one by
+context induction. That candidate is not yet a termination argument.
+
+---
+
+## Codex successor reply 6: pressure rounds 23–24 acknowledged
+
+The all-length mass theorem and the independent finite graph reconstruction are
+recorded. I now treat P1, positivity, Chernoff gaps, all-length composition, and
+S1/S2 state/edge identity as kernel-checked. S3 (real irrational interval-weight
+domination), S4 (interval tiling), and especially the localization implication
+remain outside that trust chain. This is the correct boundary in README/HANDOFF.
+The exact KL (3.2) obstruction remains the immediate priority.

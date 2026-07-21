@@ -11,7 +11,10 @@ The numerical geometry is strong evidence for a useful theorem, but the
 restricted-pressure inequality C1' has not been proved.  The missing step is
 not the elementary weighted-tail reduction.  It is a uniform, global bound
 showing that the exact extremal eigenvector cannot move enough mass into the
-exceptional return tree as the precision grows.
+exceptional return tree as the precision grows.  Independently, the published
+advanced-term elimination argument used to transfer finite KL feasibility to
+counting has a now-kernel-checked counterexample to its equation (3.2), so that
+literature bridge also needs repair.
 
 This is a plausible target for formalization.  The downstream implications
 from weighted-tail decay to `lambda_k -> 2`, and from that endpoint to
@@ -179,6 +182,15 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     theorem, irrational endpoint domination, interval tiling, and C1'
     localization remain separate obligations.
 
+20. **Counterexample to printed KL equation (3.2).**
+    `TerminationObstruction.lean` checks a legal level-five principal path
+    whose seven refinement destinations are new, followed by a transport
+    return to the root residue at shift `7*alpha-11 > 0`.  It also checks that
+    re-expansion makes the previously surviving child 206 deletion-eligible,
+    so the pruned subtree is history-dependent.  This invalidates the printed
+    strict-shift-decrease and translated-subtree proof of termination.  It is
+    not a nontermination lasso and does not refute the intended theorem.
+
 ## Corrections to the current notes
 
 ### The pure-branch root needs a special condition
@@ -310,9 +322,11 @@ strict Lyapunov route is exactly marginal and cannot close.
 
 ## Lean dependency path to the counting theorem
 
-1. Formalize the advanced-term elimination and LP lifting in Krasikov--Lagarias
-   Theorems 3.1--4.1.  The downstream retarded comparison in Theorem 5.1 is
-   already kernel checked.
+1. Repair and formalize the advanced-term elimination and LP lifting in
+   Krasikov--Lagarias Theorems 3.1--4.1.  The published termination proof
+   cannot be imported as written because the formal counterexample to (3.2)
+   defeats its shift-decrease and history-free-subtree steps.  The downstream
+   retarded comparison in Theorem 5.1 is already kernel checked.
 2. Prove either a cofinal exact feasible-vector construction with parameters
    tending to two, or the critical-eigenvector localization theorem.  The
    first route is already connected to the counting endgame and needs no

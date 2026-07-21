@@ -52,25 +52,39 @@ def main():
         # matrix-contraction diagnostic: max over xi!=0 of |hatmu_k(xi)|
         worst = float(np.max(np.abs(h[1:])))
         print(f"  k={kk:2d}: sum_{{xi!=0}}|hat|^2={l2f:.3e}  max_xi|hat|={worst:.3e} "
-              f"(e^-ck decay)")
+              f"(finite-p diagnostic)")
 
-    # confirm per-orbit matrix product norm bounds worst frequency
+    # confirm the per-orbit matrix product reproduces the Fourier vector
     print("\nmatrix-contraction check (orbit of xi=1 under mult-by-3):")
     t3 = 1; x = 3 % p
     while x != 1:
         x = (x * 3) % p; t3 += 1
     orbit = [(pow(3, i, p)) % p for i in range(t3)]
     print(f"  ord_p(3)={t3}, orbit size {len(orbit)}")
-    P = np.roll(np.eye(t3), 1, axis=0)  # cyclic shift
+    # With v_i = hatmu(3^i xi), the recursion reads
+    # v'_i = (v_i + phase_i v_{i+1})/2, so P_{i,i+1}=1.
+    P = np.roll(np.eye(t3), -1, axis=0)
     Mprod = np.eye(t3, dtype=complex)
     for j in range(k):
         c = pow(2, j, p)
         D = np.diag([ep(orbit[i] * c) for i in range(t3)])
         Mj = 0.5 * (np.eye(t3) + D @ P)
         Mprod = Mj @ Mprod
-    # top singular value = worst-case amplification along this orbit
+    vprod = Mprod @ np.ones(t3, dtype=complex)
+    h = fourier(series[k], p)
+    vtarget = h[orbit]
+    vecerr = float(np.max(np.abs(vprod - vtarget)))
+    energyerr = abs(float(np.vdot(vprod, vprod).real) -
+                    float(np.sum(np.abs(vtarget) ** 2)))
+    print(f"  max |product*1 - Fourier orbit| = {vecerr:.2e}")
+    print(f"  orbit-energy residual = {energyerr:.2e}")
+    assert vecerr < 1e-12
+    assert energyerr < 1e-12
+
+    # The top singular value is only a worst-case operator-norm diagnostic;
+    # it is not asserted to equal the trajectory from the all-ones vector.
     sv = np.linalg.svd(Mprod, compute_uv=False)[0]
-    print(f"  ||prod M_j|| (top singular value, k={k}) = {sv:.3e}  (contraction<1 => flattening)")
+    print(f"  ||prod M_j|| (top singular value, k={k}) = {sv:.3e}")
 
 
 if __name__ == "__main__":

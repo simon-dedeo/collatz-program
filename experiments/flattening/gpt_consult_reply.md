@@ -1,3 +1,6 @@
+> **ARCHIVAL WARNING:** the prompt behind this response contains retracted
+> empirical claims. See `ARCHIVAL_WARNING.md` and the current mixed-radix note.
+
 1. **Matrix contraction: sufficient, but the operator-norm formulation is too strong and the stated hypothesis does not give the required short-block gap.**
 
    With

@@ -1,4 +1,12 @@
-Short answer up front: yes, the “max-plus/cyclicity” route can be made to work. One can pin the growth slope for the 1-blocks to zero using only weak compatibility of Z’s rules, and then force an unbounded strict drop along suitably pumped derivation families if any single rule is made strict—contradicting the boundedness implied by slope 0 and ultimate periodicity. The reducible case and the “strict-only-for-removed-rule” regime can be handled uniformly, provided you adopt the standard Koprowski–Waldmann arctic side-conditions that make strictness context-closed (so a fixed integer gap δ ≥ 1 propagates through all contexts).
+# HISTORICAL / OBSOLETE ARCTIC PRE-THINK
+
+> **Do not use this file as a result or proof source.** It analyzes the wrong
+> blank-free rewrite system, overclaims context closure, and uses a false
+> single-eventual-slope assertion for reducible max-plus matrices. The current
+> calibrated statement, counterexamples, exact system, and provisional
+> weighted-walk repair are in `docs/notes/arctic-nogo.md`.
+
+Short answer up front (retracted): yes, the “max-plus/cyclicity” route can be made to work. One can pin the growth slope for the 1-blocks to zero using only weak compatibility of Z’s rules, and then force an unbounded strict drop along suitably pumped derivation families if any single rule is made strict—contradicting the boundedness implied by slope 0 and ultimate periodicity. The reducible case and the “strict-only-for-removed-rule” regime can be handled uniformly, provided you adopt the standard Koprowski–Waldmann arctic side-conditions that make strictness context-closed (so a fixed integer gap δ ≥ 1 propagates through all contexts).
 
 Details below.
 

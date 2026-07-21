@@ -1,3 +1,10 @@
+"""ARCHIVAL consultation harness.
+
+The embedded prompt contains subsequently retracted claims, including "all
+primes up to 1e6" and machine-uniformity near 4 log p. It is preserved for
+provenance only; use docs/notes/mixed-radix-flattening.md for current scope.
+"""
+
 import json, urllib.request
 
 key = open("/Users/simon/Desktop/DANIEL/API_KEY").read().strip()
