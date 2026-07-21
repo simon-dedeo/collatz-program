@@ -55,6 +55,16 @@ def LagsIn (e : RetardedExpr ι) (mu nu : ℝ) : Prop :=
   | .add a b => a.LagsIn mu nu ∧ b.LagsIn mu nu
   | .inf a b => a.LagsIn mu nu ∧ b.LagsIn mu nu
 
+/-- Lowering the common lower lag bound preserves `LagsIn`. -/
+theorem LagsIn.mono_lower {e : RetardedExpr ι} {mu mu' nu : ℝ}
+    (h : e.LagsIn mu nu) (hle : mu' ≤ mu) : e.LagsIn mu' nu := by
+  induction e with
+  | leaf state lag => exact ⟨hle.trans h.1, h.2⟩
+  | add left right ihLeft ihRight =>
+      exact ⟨ihLeft h.1, ihRight h.2⟩
+  | inf left right ihLeft ihRight =>
+      exact ⟨ihLeft h.1, ihRight h.2⟩
+
 /-- Addition and minimum preserve a common nonnegative factor in lower-bound
 comparisons. -/
 theorem factor_coeffEval_le_eval

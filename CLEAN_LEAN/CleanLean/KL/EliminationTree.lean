@@ -81,6 +81,53 @@ def LocallyValid (tree : EliminationTree ι) (φ : ι → ℝ → ℝ) (y : ℝ)
   | .add left right => left.LocallyValid φ y ∧ right.LocallyValid φ y
   | .inf left right => left.LocallyValid φ y ∧ right.LocallyValid φ y
 
+/-- A predicate holds at every unsplit principal leaf. -/
+def AllLeaves (tree : EliminationTree ι) (P : PrincipalLabel ι → Prop) : Prop :=
+  match tree with
+  | .leaf label => P label
+  | .principal _ body => body.AllLeaves P
+  | .add left right => left.AllLeaves P ∧ right.AllLeaves P
+  | .inf left right => left.AllLeaves P ∧ right.AllLeaves P
+
+/-- A one-hole context for a labelled elimination tree. -/
+inductive Context (ι : Type) where
+  | hole
+  | principal (label : PrincipalLabel ι) (ctx : Context ι)
+  | addLeft (ctx : Context ι) (right : EliminationTree ι)
+  | addRight (left : EliminationTree ι) (ctx : Context ι)
+  | infLeft (ctx : Context ι) (right : EliminationTree ι)
+  | infRight (left : EliminationTree ι) (ctx : Context ι)
+
+namespace Context
+
+/-- Fill the unique context hole. -/
+def fill (K : Context ι) (tree : EliminationTree ι) : EliminationTree ι :=
+  match K with
+  | .hole => tree
+  | .principal label K => .principal label (K.fill tree)
+  | .addLeft K right => .add (K.fill tree) right
+  | .addRight left K => .add left (K.fill tree)
+  | .infLeft K right => .inf (K.fill tree) right
+  | .infRight left K => .inf left (K.fill tree)
+
+/-- Expanded evaluation is monotone in the context hole. -/
+theorem eval_fill_mono (K : Context ι) (a b : EliminationTree ι)
+    (φ : ι → ℝ → ℝ) (y : ℝ) (h : a.eval φ y ≤ b.eval φ y) :
+    (K.fill a).eval φ y ≤ (K.fill b).eval φ y := by
+  induction K with
+  | hole => exact h
+  | principal label K ih => simpa [fill, eval] using ih
+  | addLeft K right ih =>
+      simpa [fill, eval] using add_le_add_right ih (right.eval φ y)
+  | addRight left K ih =>
+      simpa [fill, eval] using add_le_add_left ih (left.eval φ y)
+  | infLeft K right ih =>
+      simpa [fill, eval] using min_le_min ih (le_refl (right.eval φ y))
+  | infRight left K ih =>
+      simpa [fill, eval] using min_le_min (le_refl (left.eval φ y)) ih
+
+end Context
+
 /-- A syntactic assignment through a labelled tree. -/
 inductive Assignment : (tree : EliminationTree ι) → Type
   | principalLeaf (label : PrincipalLabel ι) :

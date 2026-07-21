@@ -108,6 +108,19 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     splitter produces exactly this shape and carries the invariant after each
     deletion; termination/order-independence are also still open.
 
+13. **Concrete KL split and coefficient identity.**
+    `ConcreteElimination.lean` constructs the exact residue-system split with
+    transport shift `beta-2` and retarded/advanced three-lift shifts
+    `beta+alpha-2` and `beta+alpha-1`.  The translated functional rule follows
+    from the unshifted base inequalities, every permitted split keeps all new
+    shifts at least `-2`, and erasure to `RetardedExpr` preserves evaluation.
+    Lean also proves that the unshifted erased coefficient expression is
+    exactly `ResidueSystem.system.operator (klWeights lambda)`.  Hence a
+    feasible KL vector makes every split increase the coefficient right-hand
+    side, even inside an arbitrary labelled tree context, while decreasing
+    the functional right-hand side.  This is the concrete splitting half of
+    KL Theorems 3.2 and 4.1; recursive deletion and termination remain.
+
 ## Corrections to the current notes
 
 ### The pure-branch root needs a special condition

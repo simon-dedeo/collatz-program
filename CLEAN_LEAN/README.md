@@ -60,6 +60,17 @@ transport sibling.  What remains is to instantiate this abstract theorem with
 the recursive concrete KL splitter and then prove termination and
 order-independence.
 
+`ConcreteElimination.lean` now instantiates one complete split.  Its labelled
+body is exactly the KL transport leaf plus the appropriate three-lift minimum
+with shifts `-2`, `alpha-2`, and `alpha-1`.  Translation by an arbitrary
+parent shift is proved exact; permitted splits preserve the lower shift bound
+`-2`; fully retarded finite trees acquire a positive common lag bound; and
+erasing internal labels preserves functional evaluation.  On the LP side,
+the erased base split's coefficient is proved equal to the concrete nonlinear
+KL operator, so exact finite feasibility makes splitting monotone in the
+correct direction inside any surrounding labelled context.  The remaining
+construction is repeated splitting plus deletion and its termination proof.
+
 The first charged spine-face Lyapunov proposal has been exactly falsified,
 not assumed away: `MarginalObstruction.lean` proves that its aligned mean and
 co-spine modes have the same eigenvalue.  This is a no-go theorem for that

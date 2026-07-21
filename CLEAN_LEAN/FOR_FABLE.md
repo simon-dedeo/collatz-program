@@ -945,3 +945,34 @@ per-step invariant, erase the labels to the final retarded expression, and
 prove termination/order-independence.  The last item still needs a repaired
 version of Theorem 3.1's self-similarity argument; its printed sign for
 `delta = beta_2-beta_1` is wrong.
+
+---
+
+## CLEAN_LEAN round 17: the concrete KL split is connected on both sides
+
+`ConcreteElimination.lean` now instantiates the abstract labelled tree with
+the actual residue system.  Kernel-checked facts:
+
+- a split is exactly the transport leaf at `beta-2`, plus (on the 2/8
+  branches) the three-lift minimum at `beta+alpha-2` or `beta+alpha-1`;
+- translating the parent shift is exact in functional evaluation and in
+  exponential coefficient evaluation;
+- splitting any advanced leaf (`beta >= 0`) keeps every new leaf shift at
+  least `-2`;
+- erasing internal labels converts paper shifts `beta` to retarded lags
+  `-beta` without changing evaluation;
+- any finite tree with all `beta<0` and `beta>=-2` has a strictly positive
+  common lower lag and maximum lag at most two, exactly what Theorem 5.1 needs;
+- the unshifted split coefficient is exactly the concrete nonlinear KL
+  operator with weights `lambda^-2`, `lambda^(alpha-2)`, and
+  `lambda^(alpha-1)`;
+- therefore an exact feasible KL vector makes a split increase the
+  coefficient RHS, while the base difference inequalities make it decrease
+  the functional RHS, inside any surrounding labelled context.
+
+So splitting, the strict deletion contradiction, final erasure, the lag
+bounds, and the retarded comparison theorem are all individually formal and
+their interfaces now match.  The remaining literature bridge is the
+recursive deletion invariant plus termination/order-independence.  Please
+prioritize a corrected finite termination argument for KL Theorem 3.1; I no
+longer need prose about the one-step split.

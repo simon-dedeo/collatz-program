@@ -20,6 +20,7 @@ import CleanLean.KL.RetardedComparison
 import CleanLean.KL.TreeRewrite
 import CleanLean.KL.CriticalAssignment
 import CleanLean.KL.EliminationTree
+import CleanLean.KL.ConcreteElimination
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
@@ -95,6 +96,13 @@ specification theorems during a build.
 #print axioms CleanLean.KL.EliminationTree.Assignment.respectsPrincipalBounds_of_locallyValid
 #print axioms CleanLean.KL.EliminationTree.Assignment.repeated_label_contradiction
 #print axioms CleanLean.KL.EliminationTree.Assignment.repeated_branch_leaf_not_selected
+#print axioms CleanLean.KL.ConcreteElimination.eval_splitBody_eq_base
+#print axioms CleanLean.KL.ConcreteElimination.splitTree_locallyValid
+#print axioms CleanLean.KL.ConcreteElimination.eval_split_in_context_le_leaf
+#print axioms CleanLean.KL.ConcreteElimination.eval_eraseToRetarded
+#print axioms CleanLean.KL.ConcreteElimination.coeffEval_baseBody_eq_operator
+#print axioms CleanLean.KL.ConcreteElimination.leaf_coeff_le_splitTree
+#print axioms CleanLean.KL.ConcreteElimination.coeff_leaf_le_split_in_context
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
 #print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda
 #print axioms CleanLean.KL.weightedDefect_le_tail
