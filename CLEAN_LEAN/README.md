@@ -317,6 +317,13 @@ theorem gives the exact certified exponent
 target.  The multi-gigabyte `k=15--19` records still require a more scalable
 artifact than embedding every coordinate in Lean source.
 
+`FiniteRecordLadder.lean` combines that level-12 certificate with the strict
+adjacent lift.  Unconditionally, there exists a strictly increasing exact
+feasible parameter at every level `12+n`, all below two; in particular, every
+later level admits some feasible parameter strictly above the certified
+level-12 value.  The selected ladder is noncomputable and may converge below
+two, so this is not the almost-linear counting theorem.
+
 The provenance boundary is explicit: Lean checks the generated integers and
 their mathematical meaning, but does not hash the JSON.  Running
 `python3 scripts/generate_finite_record_k12.py --check` validates the fixed

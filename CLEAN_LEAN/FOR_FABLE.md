@@ -2355,3 +2355,19 @@ fixed-vector attainment remains relevant only for promoting this to strict
 growth of each exact supremum.  Please independently audit this strengthening;
 the decisive observation is the slack identity on the copied, zero-defect
 vector, and no critical eigenvector is used.
+
+The strengthening is now connected to the large exact certificate in a
+separate acyclic module.  Lean proves unconditionally
+
+```text
+exists_strict_feasible_ladder_from_k12:
+  exists lambda_n,
+    lambda_0=18064231/10000000,
+    LevelFeasible (12+n) lambda_n,
+    lambda_n<lambda_(n+1)<2.
+```
+
+It also proves that for every positive `n` there exists some exact feasible
+parameter at level `12+n` strictly above the k=12 value.  These are
+nonconstructive real choices obtained from finite-coordinate continuity; they
+do not certify the PSC numerals and do not imply convergence to two.

@@ -18,6 +18,7 @@ import CleanLean.KL.CriticalParameter
 import CleanLean.KL.LevelLift
 import CleanLean.KL.StrictLift
 import CleanLean.KL.CoarseMinimum
+import CleanLean.KL.FiniteRecordLadder
 import CleanLean.KL.RetardedComparison
 import CleanLean.KL.TreeRewrite
 import CleanLean.KL.CriticalAssignment
@@ -363,3 +364,5 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.coarseMinimum_operator_le_of_fixed
 #print axioms CleanLean.KL.ResidueSystem.neg_normalizedSlack_eq_defect_gap
 #print axioms CleanLean.KL.ResidueSystem.normalizedDefect_le_coarseMinimum_of_fixed
+#print axioms CleanLean.KL.exists_strict_feasible_ladder_from_k12
+#print axioms CleanLean.KL.exists_later_feasible_gt_k12
