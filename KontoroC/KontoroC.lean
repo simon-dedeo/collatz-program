@@ -9,4 +9,6 @@ import KontoroC.AffineBlock
 import KontoroC.CycleCertificate
 import KontoroC.Glider
 import KontoroC.PeriodicItinerary
+import KontoroC.FiniteCompiler
+import KontoroC.PathCertificate
 import KontoroC.Examples

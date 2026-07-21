@@ -41,6 +41,27 @@ The package also exposes the arbitrary-state periodic-tail form and proves
 that an infinitely repeatable positive block necessarily has
 `3^length < 2^totalValuation`; the opposite sign is impossible.
 
+The finite compiler lane now has an exact intermediate target:
+`AffineOddFactor x w` says that the final affine numerator is `2^sum(w)`
+times an odd endpoint.  For a positive valuation word, Lean proves this
+equivalent to literal legality of every instruction plus an odd replay
+endpoint.  This prevents a final-congruence compiler from silently accepting
+a word with an incorrect intermediate valuation.
+It also proves this factorization equivalent to the worker's exact congruence
+`3^N*x+A_N = 2^S (mod 2^(S+1))`; hence that single congruence is now proved
+necessary and sufficient for full finite-word legality.
+Using invertibility in `ZMod` and mathlib's Chinese remainder theorem, Lean
+then proves that every positive finite word has a legal positive seed in each
+class `1` and `5 mod 6`.  The power-of-two solution is unique modulo
+`2^(S+1)`; combining it with the class modulo three gives the worker's
+progression modulus `3*2^(S+1)=6*2^S`.
+
+`PathArtifact` mirrors every mathematical field of the worker's
+`collatz-k-path-v1` payload.  Its executable checker recomputes the affine
+constant, lengths, endpoint, seed modulus, and endpoint stride.  Checked
+theorems prove that its seed is the unique canonical representative and that
+all lifts have endpoint stride `6*3^N`.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 

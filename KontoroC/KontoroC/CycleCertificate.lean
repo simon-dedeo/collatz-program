@@ -137,7 +137,7 @@ def CycleCertificate.Valid (c : CycleCertificate) : Prop :=
   c.word ≠ [] ∧ WordLegal c.seed c.word ∧
     runWord c.seed c.word = c.seed ∧ c.seed ≠ 1
 
-instance (c : CycleCertificate) : Decidable c.Valid := by
+instance CycleCertificate.instDecidableValid (c : CycleCertificate) : Decidable c.Valid := by
   unfold CycleCertificate.Valid
   infer_instance
 
@@ -192,7 +192,7 @@ def CycleArtifact.Valid (c : CycleArtifact) : Prop :=
   c.acceleratedSteps = c.word.length ∧
   c.ordinarySteps = ordinaryDuration c.word
 
-instance (c : CycleArtifact) : Decidable c.Valid := by
+instance CycleArtifact.instDecidableValid (c : CycleArtifact) : Decidable c.Valid := by
   unfold CycleArtifact.Valid
   infer_instance
 

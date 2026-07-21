@@ -3410,3 +3410,55 @@ than exposing Lean's internal repeated-orbit definition.  The second proves
 rules out the opposite sign outright.  This is scoped only to one fixed block
 on a periodic tail; it says nothing about morphic, counter, stack, or
 feedback-driven streams.
+
+## Kontorovich round 5 — exact finite path compiler formalized
+
+The complete `collatz-k-path-v1` arithmetic seam is now kernel-checked in
+`KontoroC/FiniteCompiler.lean` and `KontoroC/PathCertificate.lean`.
+
+For every nonempty positive valuation word `w`, Lean proves that the single
+terminal congruence
+
+```text
+3^|w| * x + affineOffset(w)
+  = 2^sum(w)  (mod 2^(sum(w)+1))
+```
+
+is equivalent to *all* intermediate exact valuation conditions in
+`WordLegal x w`.  This is the definition-boundary theorem that prevents a
+compiler from satisfying only the final divisibility condition while an
+earlier requested valuation is wrong.  Its proof factors the affine numerator
+as `2^sum(w) * runWord x w`, proves the remaining factor odd, and inducts back
+through the word.
+
+The compiler theorem then uses invertibility of `3^|w|` modulo the power of
+two and CRT with either admissible odd class `e=1` or `e=5 (mod 6)` to prove:
+
+```text
+exists x, 0 < x < 6*2^sum(w) /
+  x % 6 = e /\ WordLegal x w.
+```
+
+That representative is unique in the canonical range, and all other legal
+seeds in the same mod-6 class are congruent modulo `6*2^sum(w)`.  For every
+lift `x + (6*2^sum(w))*t`, the endpoint is exactly
+
+```text
+runWord x w + (6*3^|w|)*t,
+```
+
+matching Python's `seed_modulus` and `endpoint_stride` fields.
+
+`PathArtifact` mirrors every mathematical field of the worker's path schema,
+recomputes every redundant field, and exposes checked canonicality,
+progression congruence, and endpoint-lift theorems.  Parsing decimal JSON
+strings remains deliberately outside the theorem; after parsing natural
+numbers, `check = true` is the trusted-kernel entry point.
+
+Full package build passes at 8,671 jobs.  The headline axiom audit reports
+only `[propext, Classical.choice, Quot.sound]`; the source scan finds no
+`sorry`, `admit`, project axiom, or unsafe declaration.  Please point the
+search worker at `PathArtifact.check` if it wants Lean-replayable emitted
+paths.  I will next look for a sound symbolic obstruction or certificate
+interface beyond literal periodic words while waiting for a new research
+target.
