@@ -39,9 +39,23 @@ advanced-term termination theorem used in the Krasikov–Lagarias transfer. An
 exact `k=5` legal path, now independently kernel-checked in Lean, invalidates
 the derivation of equation (3.2) in the printed proof and shows
 that its supposedly translated subtrees retain ancestor history. This does
-**not** disprove termination, but until a fixed terminating schedule or explicit
-retarded-elimination witness is constructed, the exact `k=19` feasible point
-does not yet have an end-to-end checked path to the headline counting bound.
+**not** disprove termination. A second exact `k=5` witness shows that the
+literal rule can make all three leaves of a new minimum deletion-eligible,
+contrary to another assertion in the paper. A four-value semantic countermodel
+also shows that the paper's assignment-specific invariant is not preserved by
+a locally valid split. Lean now proves the abstract branch-arrival compactness
+theorem and independently checks both newer obstructions. The leading repair is
+now a fixed **policy-menu compilation**: build the finite tree of
+record-admissible histories, discard complete policies containing a marked
+higher repeat, and take the outer minimum of the surviving add-only retarded
+expressions. A bounded exact checker reproduces KL's `k=2,3,4` maximum literal counts.
+The policy argument has survived independent audits, but the formal tree must
+index marks by occurrence, not only by `(state,shift)`; an exact `k=4` pair
+shows the same label can be bad on one history and live on another. Lean now
+checks the occurrence-indexed one-pass pruner and the exact repeat-provenance
+interface; until the finite raw-history builder carrying that provenance is
+kernel-checked, the exact `k=19` feasible point
+has no checked path to the counting bound.
 
 The next theorem-shaped target is the all-dimension **arctic/max-plus no-go**
 for Zantema's Collatz string-rewriting system. A successor audit replaced a
@@ -62,7 +76,7 @@ an `x^{1−ε}` lower bound would still have density zero for fixed `ε`.
 
 | Result | Status |
 |---|---|
-| Exact `k=19` KL feasible certificate at `γ=0.9094372617…`; **conditional** consequence `π_a(x)≥x^γ` for every fixed smaller `γ` | A fresh run of the reference verifier passed the SHA-pinned 2.9 GB sidecar and all 387,420,489 exact inequalities. However, an exact, independently Lean-checked `k=5` path invalidates the key descent inference in the published proof of KL Theorem 3.1. The certificate remains exact; the counting consequence is conditional until that termination bridge is repaired. The sidecar is local but not in git; a fresh clone is self-contained through k=15. See `experiments/kl/RESULT.md` and `TERMINATION_AUDIT.md`. |
+| Exact `k=19` KL feasible certificate at `γ=0.9094372617…`; **conditional** consequence `π_a(x)≥x^γ` for every fixed smaller `γ` | A fresh run of the reference verifier passed the SHA-pinned 2.9 GB sidecar and all 387,420,489 exact inequalities. However, exact `k=5` witnesses invalidate both the key descent inference and the claimed nonempty-minimum invariant in the published advanced-elimination construction; a separate exact semantic countermodel blocks its split-invariant induction. Lean checks all three defects, abstract compactness, occurrence-indexed one-pass pruning, and the repeat-provenance semantic interface, but not yet the finite raw-history/König builder. The certificate remains exact; its counting consequence is conditional. The sidecar is local but not in git, and a fresh clone is self-contained through k=15. See `experiments/kl/RESULT.md` and `TERMINATION_AUDIT.md`. |
 | The KL method = finite sections of an **adversarial transfer operator on ℤ₃** (base ×4 = the Iwasawa generator of 1+3ℤ₃) | `docs/notes/kl-limit-object.md`, `adversarial-operator.md` |
 | KL's own §6 positivity hypotheses (H_k) | Literature-backed research proof (odometer conjugacy → Gaubert–Gunawardena); nonlinear Perron existence is not Lean-formalized, and the exact feasible-point route bypasses it. |
 | Oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k | proved, now unconditional |
@@ -85,7 +99,7 @@ knowing which routes are dead (and why) is most of the value.
 
 ### LIVE bets (ranked after the 2026-07-20 successor audit)
 
-1. **Repair KL advanced-term termination — exact blocker, precise target.**
+1. **Replace KL advanced-term elimination — three exact blockers, precise target.**
    At `k=5`, the legal path
    `188→206→137→182→161→107→71→47→188` returns through a transport
    edge at symbolic shift `7 log₂3−11>0`. The deletion rule never tests that
@@ -93,11 +107,31 @@ knowing which routes are dead (and why) is most of the value.
    equation (3.2) is invalid. Re-expansion then deletes a child that survived below the first root,
    refuting the history-free identical-subtree step. The exact checker is
    `experiments/kl/verify_termination_obstruction.py`. This is not a
-   nontermination lasso: the open target is absence of any infinite legal
-   history, preferably via a fixed breadth-first schedule and a recursive
-   critical-assignment invariant. Both the Python certificate and the Lean
+   nontermination lasso. Both the Python certificate and the Lean
    reconstruction in `CLEAN_LEAN/CleanLean/KL/TerminationObstruction.lean`
-   check the obstruction. `experiments/kl/TERMINATION_AUDIT.md`.
+   check the obstruction. A second 11-edge history reaches a split at residue
+   `242` whose targets `80,161,242` are all deletion-eligible; the exhaustive
+   exact checker is `experiments/kl/verify_all_three_deletion.py`. Thus the
+   literal rule can form an empty minimum. Lean now proves the abstract theorem
+   ruling out infinite statewise-record branch-arrival histories. But the exact four-value checker
+   `verify_split_invariant_counterexample.py` shows that a locally valid split
+   can activate a formerly unselected outer-min alternative and violate (3.4).
+   Therefore the proposed interleaved backjump lacks the split-stable invariant
+   it needs. The new primary route compiles the finite universal history tree
+   into the minimum of all complete record-admissible add-only policies. Every
+   policy is coefficient-sound because the fiber coefficient minimum is at most
+   every chosen lift; for each admissible `phi,y`, choosing actual raw minima
+   supplies a functionally sound policy. Compactness gives finiteness and a
+   uniform retarded lag. `verify_two_phase_small_levels.py` exactly reproduces
+   the Table-1 maxima `8,84,12829` at `k=2,3,4`. The current formal hazard is
+   occurrence identity: the same label `74@(-7+5 log₂3)` is a higher repeat on
+   one exact `k=4` history and a lower repeat on another, so labels alone cannot
+   carry marks. CLEAN_LEAN now checks an occurrence-annotated one-pass pruner,
+   exact functional equality, coefficient monotonicity, and localized
+   positivity. It also checks the exact `RepeatMarkProvenance` payload and its
+   implication to semantic mark soundness. The raw history recursion carrying
+   that payload and the König bridge remain open.
+   `experiments/kl/TERMINATION_AUDIT.md`.
 2. **Arctic/max-plus SRS no-go — candidate proof written, formal check next.**
    The inherited proof incorrectly assigned one eventual slope to a reducible
    max-plus sequence. The repair is elementary: a long maximizing walk with
@@ -149,13 +183,18 @@ knowing which routes are dead (and why) is most of the value.
 
 ### FAILURE LEDGER — what didn't work, and why (do not retry)
 
-- **The printed proof of KL Theorem 3.1 — INVALID STEP; theorem still open in
-  this audit.** The exact `k=5` path above invalidates the derivation of (3.2),
-  and its re-expansion falsifies the claimed history-free subtree translation. Changing the sign of
-  `δ` is not a repair. Do not reuse the published descent/self-similarity
-  argument; termination itself is neither proved nor disproved by this
-  certificate. Because Theorem 2.2 uses this bridge, the `k=19` counting
-  consequence is presently conditional. `experiments/kl/TERMINATION_AUDIT.md`.
+- **The printed KL advanced-elimination construction — INVALID AS STATED;
+  replacement witness still open.** One exact `k=5` path invalidates the
+  derivation of (3.2) and directly falsifies history-free subtree translation;
+  another makes all three leaves of a new minimum deletion-eligible. Changing
+  the sign of `δ` or arbitrarily retaining one leaf is not a repair—the latter
+  can retain a positive self-loop. A generic exact countermodel also refutes
+  the claimed split-time preservation of the critical-assignment invariant.
+  Do not reuse the published descent, self-similarity, nonempty-minimum,
+  split-induction, or assignment-backjump assertions. These certificates neither
+  prove nor disprove termination, but Theorem 2.2's `k=19` counting consequence
+  is conditional until a corrected retarded witness is constructed.
+  `experiments/kl/TERMINATION_AUDIT.md`.
 - **λ_∞ = 2 via any autonomous projective-contraction certificate — CLOSED
   (structural no-go, every admissible J≥3).** The −1 co-spine mode (2,−1,−1) is a marginal
   invariant: charged-Lyapunov (persists J=4,5), nonlinear min-selection
@@ -211,18 +250,20 @@ The oscillation identity, Lemma-5 row checker and exact Chernoff gaps,
 terminal-potential / Chernoff chain, exact backward-orbit hitting formula,
 labelled critical-
 assignment contradiction, concrete split arithmetic, global value-preserving
-deletion, the finite `k=5` termination-proof obstruction, and the final
-retarded-witness consumer are kernel-checked. Lean also
-has symbolic `Z²` shift updates and a generic finite-rank termination checker.
-What is missing is the semantic bridge: a genuinely finite `Control_k` (or a
-fixed terminating schedule) that handles ancestor history, transport
-descendants, newly tied critical assignments, and deletion order. The active
-research-side formalization request is the provisional arctic weighted-walk
-argument. Rounds 22–24 also kernel-check the generated payload's 2,187 row
-inequalities, their all-length mass bounds, and equality of the imported edge
-tables with an independently defined 243-state KL graph. Irrational interval-
-weight domination, interval tiling, and especially localization remain open;
-this pressure half is not a limit proof.
+deletion, symmetric critical-assignment lifting across globally safe deletion,
+all three finite KL obstructions, abstract branch-arrival compactness, the
+occurrence-indexed split-all-then-prune semantics, and the final retarded-witness consumer
+are kernel-checked. Lean also has symbolic `Z²` shift updates and a generic
+finite-rank termination checker. What is missing is the occurrence-annotated
+finite history/policy construction connecting compactness to a fixed retarded
+witness. The pruner now distinguishes equal labels at different occurrences;
+the repeat certificate is specified, and what remains is to generate the finite
+annotated tree carrying it. Rounds 22–29 also
+kernel-check the generated payload's 2,187 row inequalities, their all-length
+mass bounds, equality with an independently defined 243-state KL graph, the
+irrational interval-weight domination, and exact interval tiling. General
+all-level aggregated ball-mass domination and especially localization remain
+open; this pressure half is not a limit proof.
 
 ### Standing frame
 
@@ -244,8 +285,16 @@ hits the same wall.
   legal `k=5` path that invalidates the printed proof's descent and identical-
   subtree claims without forming a repeatable nontermination lasso. CLEAN_LEAN
   independently reconstructed and kernel-checked the path, ancestry tests,
-  symbolic shifts, and re-expansion deletion. The fixed-schedule/history repair
-  remains open.
+  symbolic shifts, and re-expansion deletion. A second exact checker now pins
+  the first all-three-deletion event at depth eleven, and a third finite checker
+  exposes the split-invariant gap. CLEAN_LEAN now independently checks both
+  certificates and proves the abstract branch-arrival compactness theorem,
+  including irrationality of `log 3 / log 2`. The leading repair now compiles
+  all complete good policies into one fixed outer minimum. A new exact checker
+  reproduces KL's small-level literal counts and catches the occurrence-indexing
+  requirement. The occurrence-indexed one-pass pruning theorem now compiles;
+  so does the exact repeat-provenance semantic interface. The concrete
+  raw-history/König producer does not yet.
 - The arctic/max-plus lane remains active. Two independent audits found the
   same reducible-slope gap; an elementary weighted-walk pumping candidate now
   replaces it, and the exact marked macro checker passes. The general theorem
@@ -260,11 +309,10 @@ hits the same wall.
   critical/grid3 passes were stopped; their complete or partial states are in
   `HANDOFF.md` and the corresponding notes.
 - CLEAN_LEAN continues independently. It has reduced the KL literature bridge
-  to construction of an explicit retarded-elimination witness and supplied the
-  symbolic-shift and generic rank-checking infrastructure. The paper's sign
-  error is corrected, but sign repair is not termination: finite-control,
-  history/new-tie invariants, and a fixed schedule or confluence proof remain
-  load-bearing. The research driver communicates through
+  to an occurrence-aware finite policy compiler and supplied the symbolic-shift,
+  compactness, obstruction, pruning, and generic rank-checking infrastructure.
+  The remaining bridge is concrete, not hidden behind the paper's invalid
+  self-similarity argument. The research driver communicates through
   `docs/FOR_CLEAN_LEAN.md` and does not edit `CLEAN_LEAN/`.
 - Remote compute is currently uncommitted. Any new diagnostic job will be
   listed here with its exact scope; bounded z3 searches are evidence only, not

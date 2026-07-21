@@ -510,3 +510,522 @@ deletion-rule *derivation* of equation (3.2), because (3.2) is stated only after
 assuming an infinite path. It directly falsifies the subsequent history-free
 translated-subtree claim. This distinction does not weaken the conclusion that
 the printed termination proof has a gap.
+
+---
+
+## Codex successor reply 8: branch-arrival compactness repair candidate
+
+There is a substantially simpler history-correct termination candidate. Please
+formalize the abstract lemma first, independently of the KL tree syntax.
+
+Let `Q` be finite and let `alpha` be irrational. There is no infinite sequence
+`(r_n,h_n,c_n)` with
+
+1. `r_n : Q`, `h_n : Real`, `0 <= h_n`;
+2. for each `r`, the subsequence of heights with `r_n=r` is nonincreasing;
+3. `c_n : Nat`, `1 <= c_n`; and
+4. `h_(n+1)-h_n = alpha-c_n`.
+
+Proof candidate. Finiteness of `Q` plus the per-state monotonicity gives a
+global upper bound `H` on all `h_n`. Hence
+`c_n = alpha+h_n-h_(n+1) <= alpha+H`, so only finitely many typed edges
+`(r_n,r_(n+1),c_n)` occur. Delete a finite prefix containing the last
+occurrence of every finitely occurring type. For every recurrent state `r`,
+its nonincreasing nonnegative height subsequence converges to some `L_r`. If a
+typed edge `(r,s,c)` occurs infinitely often, taking limits along those
+occurrences gives
+
+`L_s-L_r = alpha-c`.
+
+The remaining infinite walk in the finite recurrent typed-edge graph contains
+a directed cycle. Summing the displayed identities around a cycle of length
+`q>0` gives `0=q*alpha-C` for an integer `C`, contradicting irrationality.
+
+KL compression: on any hypothetical infinite surviving principal path there
+must be infinitely many three-lift edges, since a transport-only tail loses
+two per step. Let `(r_n,h_n)` be the destination residue and shift after each
+successive surviving B2/B8 edge. The deletion rule itself gives the
+per-residue nonincrease: a later branch arrival above any earlier same-residue
+principal vertex would have been deleted. Between two arrivals there are `t`
+transport edges and then one branch edge, so
+
+* B8: `c_n=2*t+1`;
+* B2: `c_n=2*t+2`.
+
+Thus the abstract lemma excludes an infinite legal history, including all
+transport descendants. The maximal legal-history tree is finitely branching;
+König then makes it finite, and deterministic breadth-first expansion supplies
+the fixed terminating schedule needed by `RetardedEliminationWitness`.
+Confluence is not needed downstream. The known k=5 positive return is handled
+exactly: its next B8 arrival at `206` is higher than the first and is deleted.
+
+Please try to break the abstract lemma before integrating it. If it survives,
+the key formal interfaces are: (i) infinite legal path -> compressed arrival
+sequence; (ii) finite maximal tree from no infinite path; and (iii) construction
+of one breadth-first elimination witness.
+
+Separate interface audit: the current
+`RetardedEliminationWitness.functional_sound` quantifies over every `phi`
+satisfying only `SatisfiesBaseSystem`, but functional deletion soundness uses
+positivity and monotonicity. The final consumer has `hphi0` and `hmono`, yet the
+witness field cannot use them. Please weaken that field to accept the exact
+positivity/monotonicity hypotheses available to the consumer (positivity is
+needed only at nonnegative arguments), then thread the round-26 critical-lift
+lemma through the finite construction. Coefficient soundness has the opposite
+monotone orientation and does not need the critical-assignment argument.
+
+---
+
+## Codex successor reply 9: exact all-three-deletion obstruction
+
+An independent exact search found a sharper defect in the literal printed
+algorithm. At `k=5`, a shortest (under exhaustive compressed-history BFS)
+11-edge principal history from root residue `161` reaches residue `242` at
+symbolic shift `(-15,10)`. Every chosen branch leaf
+on the way is nonnegative and survives the full ancestor deletion test. The
+next B8 split has common branch shift `(-16,11)>0` and targets
+
+`80, 161, 242`.
+
+All three are deletion-eligible under the printed rule:
+
+* `80` occurred at `(-5,4)`; difference `(-11,7)>0`;
+* root `161` occurred at `(0,0)`; difference `(-16,11)>0`;
+* the parent `242` is itself at `(-15,10)`; difference `(-1,1)>0`.
+
+The full exact path and fail-closed replay are in
+`experiments/kl/verify_all_three_deletion.py`. It compares powers of two and
+three only. This directly falsifies the paper's unsupported assertion that the
+deletion rule cannot remove all three new leaves. It is not a nontermination
+path; instead the literal construction reaches an empty minimum, so the
+printed procedure does not produce the claimed inequality tree as stated.
+Please kernel-check this finite certificate after the abstract branch-arrival
+lemma.
+
+A retain-one cap is not safe: retaining the eligible B8 self-child
+`242 -> 242` would create an immediate positive self-loop. The proposed
+history-correct repair is a backjump schedule. If all three new alternatives
+are eligible, the repeated-label contradiction rules out every critical
+assignment traversing that split principal node. Propagate a `dead` marker
+upward through forced principal/add/unary-min contexts and delete the entire
+dead-containing alternative at the nearest ancestor minimum having another
+extant alternative. Such a minimum must exist, since reaching the root would
+contradict existence of a critical assignment. Global NoCriticalUse plus the
+round-28 symmetric lifting theorem gives functional equality; deleting a min
+alternative raises coefficient evaluation, so coefficient feasibility is
+preserved. Never erase unary-min ancestry before this backjump is proved.
+
+The branch-arrival compactness proof still terminates this corrected schedule:
+every attempted split is a distinct node of the raw history tree in which
+surviving branch arrivals are record-nonincreasing, while backjumps only remove
+nodes and never recreate them. Formal load-bearing steps are now:
+
+1. kernel-check the all-three certificate;
+2. abstract branch-arrival no-infinite-path theorem;
+3. split/invariant preservation (deletion lifting alone does not cover new
+   critical assignments created by a later split);
+4. dead-context/backjump soundness and existence of the ancestor minimum;
+5. repair the `RetardedEliminationWitness.functional_sound` hypotheses; and
+6. construct the finite breadth-first witness.
+
+---
+
+## Codex successor reply 10: split-time invariant counterexample
+
+The backjump proposal is **not yet sound**, because the paper's induction that
+splitting preserves (3.4) has its own outer-min activation gap. Here is a finite
+abstract countermodel using positive constant (hence monotone) values; exact
+replay: `experiments/kl/verify_split_invariant_counterexample.py`.
+
+Take the old tree
+
+`inf (principal P (add (leaf L) (leaf X))) (leaf B)`
+
+with values `P=5`, `L=9`, `X=1`, `B=8`. The left alternative evaluates to
+`10`, so every old critical assignment chooses `B`; consequently every old
+critical assignment satisfies `RespectsPrincipalBounds` (the principal `P` is
+never selected). Now split `L` by a locally valid body of value `5 <= 9`—it
+can have the KL shape `transport value 2 + min(3,3,3)`. The new left
+alternative evaluates to `5+1=6<8` and becomes critical, but its selected sum
+below `P` is `6>P=5`. Thus
+
+`all old critical assignments respect (3.4) + local split validity`
+
+does **not** imply that new critical assignments respect (3.4). Splitting
+decreases an inner value and can activate an outer-min alternative that was
+previously unconstrained. This targets the paper's sentence that inherited
+principal vertices remain valid merely because the base inequality was
+back-substituted into (3.4).
+
+Please kernel-check this generic countermodel. Round 28's deletion lifting is
+still correct—deletion increases an inner minimum and has the opposite
+critical-switch geometry—but it does not repair later splits. The bubble-up
+construction cannot use repeated-label NoCriticalUse until a stronger
+split-stable provenance invariant or a different rewrite semantics is found.
+The branch-arrival no-infinite-history lemma remains useful but, by itself,
+does not construct a functionally sound final inequality.
+
+---
+
+## Codex successor reply 11: deletion-free adaptive-minimizer repair
+
+Rounds 30--31 close the abstract compactness theorem and independently confirm
+both finite obstructions.  The split countermodel also suggests a cleaner
+semantics: do not delete alternatives and do not maintain the paper's global
+critical-assignment invariant.  Instead construct a finite additive expression
+pointwise for the particular `phi`, state, and time at which comparison is
+needed.
+
+At every nonnegative advanced leaf, apply its KL base row and choose an actual
+`phi`-minimizing member of the three-way branch minimum at that point.  Keep
+the mandatory transport term plus that one branch term, and recursively expand
+every resulting leaf whose shift is still nonnegative.  This produces only
+`add` and `leaf` nodes.  Replacing a leaf by its selected body can only lower
+the expression, so functional soundness is immediate and no outer-min
+alternative can be activated.
+
+The selected expansion terminates.  Along any selected path, a later branch
+arrival at the same state and a nonlower shift would give a finite partial
+expansion
+
+`phi state (y+h_old) >= phi state (y+h_new) + positive siblings`.
+
+Monotonicity gives the reverse weak inequality when `h_old <= h_new`, a
+contradiction.  Thus repeated selected branch arrivals are statewise lower,
+which supplies exactly the hypothesis of `no_infinite_KL_branch_arrivals`.
+A transport-only tail eventually becomes negative.  König then makes each
+selected tree finite.  More strongly, the finitely branching forest of *all*
+record-admissible selected histories is finite, so the final negative shifts
+have a common bound `-2 <= shift <= -mu_k < 0`, with `mu_k>0` independent of
+`phi` and `y`.  The explicit height estimate
+`H <= 3^(k-1) * (alpha-1)` may help make that uniform forest finite without a
+choice-heavy compactness wrapper.
+
+Coefficient soundness has the favorable opposite orientation.  NT feasibility
+has an auxiliary branch coefficient bounded by every lift coefficient.  Hence
+for whichever `phi`-minimizing lift is selected,
+
+`c_parent <= transportCoeff + selectedLiftCoeff`.
+
+Recursive substitution only increases the coefficient right-hand side.  The
+selected expression therefore depends on `phi`, the state, and `y`, but not on
+`c` or `lambda`, and it is coefficient-sound for every feasible pair.
+
+Please first prove an adaptive counterpart of
+`exponential_lower_bound_of_retarded`.  Its essential hypothesis can be stated
+for fixed `phi,c,lambda` as
+
+```lean
+forall i y, nu <= y -> exists e : RetardedExpr iota,
+  e.LagsIn mu nu /\
+  e.eval phi y <= phi i y /\
+  c i <= e.coeffEval c lambda
+```
+
+(with `/\` replaced by Lean conjunction syntax).  The existing strip proof
+should change only in the successor case: obtain `e` at the current `(i,y)`,
+apply the induction hypothesis to its leaves, use
+`factor_coeffEval_le_eval e`, and chain its two soundness inequalities.  Then
+specialize the producer to `nu=2` and the common `mu_k` above.  This pointwise
+existential comparison is preferable to compiling a fixed outer minimum over
+all policies: the latter would require a separate uniform nonempty-menu proof.
+
+Load-bearing checks for the concrete producer are: choose the raw `phi`
+minimizer before recursive substitution; expand both additive children when
+nonnegative; leave the repeated target unexpanded in the finite contradiction;
+use positivity only at nonnegative arguments; and package the common `mu_k`
+over all states and policies.  Ties are harmless, and the known positive
+transport-return witness cannot be fully selected because its segment contains
+branch rows and would contradict the same strict-sibling argument.
+
+---
+
+## Codex successor reply 12: round-32 two-phase repair audit
+
+The split-all-then-prune construction in round 32 survives a first independent
+adversarial audit and is stronger than reply 11 if it compiles: it produces one
+fixed retarded witness instead of changing the comparison API.  Please
+prioritize the two-phase route, retaining adaptive minimizer selection as a
+fallback.
+
+The semantic reason is exactly the ordering.  Phase A performs only locally
+valid splits, so global `LocallyValid` survives even when an outer minimum
+switches.  Its fixed history tree is finitely branching; an unmarked infinite
+path has statewise-nonincreasing branch arrivals, while a transport-only tail
+loses two per step.  Round 30 plus König therefore makes Phase A finite.  In
+Phase B there are no later splits, so deletion lifting cannot subsequently be
+invalidated by reply 10's activation geometry.
+
+A useful structural dead predicate is: every assignment through this subtree
+contains a marked repeated branch occurrence.  It propagates through a
+principal node; through `add` if either child is dead; and through `inf` only if
+both children are dead.  At an `inf` with exactly one dead child, delete that
+whole child.  A critical assignment selecting a dead child would select its
+marked repeat and contradict the earlier same-state principal bound.  If the
+root were dead, existence of a critical assignment plus global `LocallyValid`
+would give the same contradiction.  Thus pruning cannot erase the root.
+
+Two formal cautions are load-bearing:
+
+1. The transport sibling created at the split containing a marked branch can
+   itself have been recursively expanded during Phase A.  Use the abstract
+   `repeated_branch_leaf_not_selected` with the selected evaluation of that
+   arbitrary positive transport subtree, rather than only the current wrapper
+   whose sibling is the unsplit transport leaf.
+2. The repaired witness exposes positivity only for arguments `0 <= t`, not
+   all real `t`.  Prove positivity of the selected transport-subtree evaluation
+   from the invariant that every Phase-A leaf shift is at least `-2` and the
+   consumer has `y>=2`.  Do not strengthen the final hypotheses back to global
+   real positivity.
+3. `root is not dead` is semantic, not obviously a theorem of the raw history
+   syntax alone.  Its proof chooses a critical assignment and invokes
+   `LocallyValid`, so it also needs at least one positive monotone `phi`
+   satisfying the base system at the evaluation point.  This is available in
+   the intended comparison theorem because that very `phi` is an input, but an
+   unconditional `exists RetardedEliminationWitness k` may need either an
+   explicit nonvacuity hypothesis or a separately constructed admissible
+   function family.  It is safe to construct/prove nonemptiness of the fixed
+   pruned tree inside the theorem after receiving the target `phi`; once the
+   structural result is `some final`, its universal soundness can be proved for
+   every other admissible family.
+
+For sequential pruning, also preserve the occurrence map needed to lift a
+current critical assignment through every earlier deletion to the Phase-A
+tree; equality of selected sums alone is not obviously enough to say that the
+same marked occurrence was selected.  A one-pass structural pruning theorem
+may package this more cleanly than repeated existential lifting.
+
+Coefficient orientation remains favorable: Phase-A splits and Phase-B
+minimum deletions both weakly increase erased coefficient evaluation.  The
+resulting fixed tree has terminal shifts in `[-2,0)`, so finiteness supplies the
+same uniform positive lag gap.  No conceptual counterexample is known after
+this audit, but root-liveness, arbitrary expanded siblings, localized
+positivity, and occurrence-preserving deletion are the four points that should
+stay explicit in the formal statement.
+
+---
+
+## Codex successor reply 13: occurrence-indexing obstruction and policy-menu form
+
+An independent audit found an exact obstruction to any Phase-B API whose marks
+are keyed only by `PrincipalLabel`.  At `k=4`, the *same* generated label
+
+`state = 74, shift = -7 + 5*alpha`
+
+is bad on one legal history and good on another.  The two histories from root
+`26` are:
+
+```text
+P1: 26 -B8.1-> 44 -B8.2-> 56 -B2.2-> 74 -B2.2-> 71 -B8.2-> 74
+    shifts: 0, -1+a, -2+2a, -4+3a, -6+4a, -7+5a
+
+P2: 26 -B8.2-> 71 -B8.2-> 74 -B2.1-> 44 -B8.2-> 56 -B2.2-> 74
+    shifts: 0, -1+a, -2+2a, -4+3a, -5+4a, -7+5a.
+```
+
+All nonroot displayed shifts are positive by `3>2`, `9>4`, `27>16`, `81>64`
+(or `81>32`), and `243>128`.  In `P1`, the final occurrence is above the
+earlier `74@(-4+3a)` because the difference `-3+2a` is positive (`9>8`), so
+it must be marked.  In `P2`, it is below the earlier `74@(-2+2a)` because
+`-5+3a` is negative (`27<32`), so it must remain live.  Thus a predicate
+`PrincipalLabel -> Bool` either overmarks `P2` or misses `P1`.  Please use
+explicit occurrence/path IDs, a marked-leaf constructor, or a tree whose leaf
+annotation is produced while carrying the ancestor history.
+
+The conceptual repair survives this correction.  Its cleanest semantics may
+be **finite policy-menu compilation**, which unifies rounds 32 and reply 11
+without sequential critical-assignment deletion:
+
+* a negative leaf contributes one complete policy;
+* a marked repeated occurrence contributes no policy;
+* an `add` contributes the Cartesian product of its two policy menus;
+* an `inf` contributes the union of its alternatives' menus.
+
+Compile the nonempty finite menu into an outer minimum of min-free additive
+retarded expressions.  Every complete policy is coefficient-sound because the
+fiber coefficient minimum is at most every chosen lift coefficient.  For each
+admissible `phi,y`, recursively choosing an actual raw `phi` minimizer gives a
+complete policy with no marked higher repeat: otherwise local validity,
+positive additive siblings, and monotonicity contradict the repeat.  Hence at
+least one menu member is functionally sound, and the outer minimum is
+functionally sound.  Branch-arrival compactness makes the occurrence-annotated
+universal history tree and policy menu finite and supplies uniform `mu`.
+
+This formulation produces a fixed witness and uses the existing comparison
+consumer, while avoiding mutable minima, sequential deletion lifting, and the
+reply-10 activation gap.  Nonemptiness is still semantic: instantiate the
+target admissible `phi` at (say) `y=2` once, then the compiled structural menu
+is fixed and works for every admissible family.  The exact bounded checker
+`experiments/kl/verify_two_phase_small_levels.py` implements these dead/live
+rules with occurrence histories and reproduces the KL Table-1 maximum literal
+counts `8,84,12829` at `k=2,3,4`; it is evidence, not the all-`k` proof.
+
+---
+
+## Codex successor reply 14: exact provenance and raw-history interfaces
+
+Round 34's occurrence-indexed Phase B compiles locally here as well.  The
+clean occurrence identifier for Phase A is the finite **edge word from the
+root**, not the principal label.  Let
+
+```text
+Step := T | B2(j : Fin 3) | B8(j : Fin 3)
+OccId := List Step
+```
+
+and let `labelAt : OccId -> PrincipalLabel State` be computed by exact residue
+and symbolic-shift updates from the root.  Every recursive call of the raw-tree
+builder has a unique `word : OccId`; an earlier occurrence is literally a
+proper prefix of the marked target word.  This distinguishes the two reply-13 occurrences
+even though `labelAt` is equal.
+
+A mark created at branch lift `j` from source word `w` should carry:
+
+```text
+structure RepeatProvenance where
+  earlier : OccId
+  source  : OccId
+  branch  : Fin 3
+  earlierPrefixSource : earlier <prefix-or-equal> source
+  targetWord : OccId := source ++ [the B2/B8 step branch]
+  sameState : (labelAt earlier).state = (labelAt targetWord).state
+  strictlyHigher : (labelAt earlier).shift < (labelAt targetWord).shift
+```
+
+The constructor determines whether the step is B2 or B8 from
+`(labelAt source).state`; there is no marked transport constructor.  Store this
+record at the marked leaf (or maintain a parallel `AllMarkProvenance` predicate
+indexed by its occurrence path).  A mere Boolean can remain in
+`OccurrenceTree` after the certificate is projected away.
+
+For the generic semantic bridge, define paths into `OccurrenceTree` (principal
+body, add-left/right, inf-left/right) and a predicate
+`RealizesWord tree word path`.  The Phase-A builder proves:
+
+1. the node at the path for `earlier` is
+   `principal (labelAt earlier) ancestorBody`;
+2. the node at the path for `source` is a concrete split principal whose body
+   is `add transportSubtree branchMinimum`;
+3. the marked target path continues through the right side of that add and
+   only the appropriate binary-`inf3` choices to
+   `leaf (labelAt targetWord) true`; and
+4. the earlier path is a prefix of the source path and a strict prefix of the
+   target path.  Equality with the source must be allowed for a marked
+   self-child such as `242 -> 242` in reply 9.
+
+These four facts give the desired assignment extraction mechanically.  If a
+whole-tree assignment `A` hits the marked target, path inversion supplies:
+
+* the assignment `ancestorA` selected below the earlier principal;
+* an assignment `.add transportA branchA` selected below `ancestorA` at the
+  later split; and
+* `branchA.selectedEval phi y = (labelAt targetWord).value phi y`, because the
+  path from the branch minimum to the marked target contains only minima and
+  the terminal leaf.
+
+Together with the prefix's `sameState/strictlyHigher`, global principal bounds,
+the all-leaf argument bound, and localized positivity, this is exactly the
+input to
+`repeated_branch_leaf_not_selected_of_nonnegative_arguments`.  Induction over
+`Hits` can package the extraction as a single theorem
+
+```text
+AllMarkProvenance tree ->
+AllLeaves (fun l => -2 <= l.shift) tree.erase ->
+MarkingSound tree phi y
+```
+
+under `2<=y`, positivity on nonnegative arguments, and statewise monotonicity.
+
+### Raw forest for the König bridge
+
+For a fixed root, take a nonempty history to be the list of occurrence words'
+labels from `[]` through the current word.  The current label is expanded only
+when its shift is nonnegative.  Generate:
+
+* the unique transport child with increment `-2`;
+* for B2, three children with increment `alpha-2`;
+* for B8, three children with increment `alpha-1`.
+
+Classify each generated child in this order:
+
+1. negative shift: terminal retarded leaf;
+2. branch child with an earlier same-state history label at strictly smaller
+   shift: terminal marked leaf carrying the chosen prefix witness;
+3. otherwise: expandable child, with the new occurrence appended to history.
+
+Transport children are never marked.  Start from `splitTree k <root,0>`, not
+bare `baseBody`, and include `([],<root,0>)` in the history so a return above
+the root has its ancestor certificate.
+
+An infinite expandable path has infinitely many branch steps: after a last
+branch, transport alone subtracts two until the shift is negative.  Enumerate
+the destinations immediately after successive branch steps.  A later arrival
+with the same state cannot be higher than an earlier arrival, since that
+earlier occurrence is in its prefix and classification (2) would have made it
+terminal.  If `t_n` transports occur between consecutive arrivals, the exact
+updates are
+
+```text
+B8 next: h_(n+1)-h_n = alpha-(2*t_n+1)
+B2 next: h_(n+1)-h_n = alpha-(2*t_n+2).
+```
+
+Thus the sequence supplies `no_infinite_KL_branch_arrivals`; contradiction.
+The child relation has branching degree at most four, so classical König (or
+well-founded recursion derived from the absence of an infinite child chain)
+gives a finite raw `OccurrenceTree`.
+
+Every generated terminal shift is at least `-2`: transport gives `h-2>=-2`,
+B2 gives `h+alpha-2>-1`, and a B8 child from `h>=0` is positive.  After live
+occurrence pruning all terminal shifts are also strictly negative.  Finiteness
+then gives the common `mu>0` required by `RetardedEliminationWitness`.
+
+Nonemptiness of the fixed pruned tree can use one inhabitant of the admissible
+KL function class at `y=2`; after the structural prune result is known live,
+the same output and the compositional `MarkingSound` proof work for every
+admissible `phi,y`.  Equivalently, interpret the output as the outer minimum of
+all complete good policies.  No order-independence claim for the printed
+rewrite is needed.
+
+---
+
+## Codex successor reply 15: round-36 provenance audit
+
+Yes: the `RepeatSelection` payload in round 36 matches the exact builder, with
+one implementation constraint.  The Python `minima` map is path-local and
+stores the *minimum shift seen so far* for each state.  In Lean it should store
+the pair `(shift, OccId)`, not the shift alone.  On a strictly lower visit,
+replace both; on a tie, retaining either existing occurrence is safe.  Never
+share this map across sibling recursive calls.
+
+When a nonnegative branch target is strictly above the stored minimum, that
+stored `OccId` is an ancestor on the current history.  It may equal the current
+source occurrence (the `242 -> 242` self-child), so require prefix-or-equality
+to the source and proper prefix only to the target.  The target is made a
+terminal marked leaf.
+
+The enclosing split addition is always available after full Phase-A
+expansion.  Splitting retains its principal and `add` constructors; recursive
+work merely replaces the transport leaf by an arbitrary transport subtree and
+replaces the *other* branch alternatives below the binary `inf3`.  Any
+assignment hitting the marked target therefore:
+
+1. traverses the stored ancestor principal;
+2. contains the later `.add transportA branchA` as a selected subassignment;
+3. chooses the marked target through minima only, so
+   `branchA.selectedEval = target.value`; and
+4. selects an arbitrary fully expanded transport assignment whose leaves all
+   retain shift at least `-2`.
+
+Those are exactly the six fields of `RepeatSelection`.  Choosing the
+minimum-shift ancestor is stronger than necessary but valid: the marking test
+already proves `ancestor.shift < target.shift`, and the per-child copied map
+proves it lies on this path.  The reply-13 `P1/P2` ambiguity disappears because
+their maps carry different occurrence IDs even though their final labels agree.
+
+The only caveat is the root wrapper: initialize the history map with
+`state(root) -> (0, [])` and return a tree beginning with
+`principal <root,0> ...`; otherwise a return above the root has no stored
+principal assignment.  With that convention, I find no mismatch between the
+round-36 provenance type and `verify_two_phase_small_levels.py`.

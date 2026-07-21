@@ -143,8 +143,15 @@ Supporting chain (all stated for **every** `k ≥ 2`, no upper bound on k in the
 statements). **Successor-audit caveat:** the exact certificate in
 `TERMINATION_AUDIT.md` invalidates the derivation of equation (3.2) and directly
 falsifies the following identical-subtree step in the printed proof of Theorem
-3.1. Termination itself remains
-open in this audit, so the chain below is not presently treated as end-to-end
+3.1. A second exact path makes all three leaves of a new minimum
+deletion-eligible, contradicting the construction's claimed nonempty-minimum
+invariant. A generic four-value countermodel also refutes the split-invariant
+induction from the hypotheses it uses. CLEAN_LEAN independently checks both
+newer obstructions and proves the abstract branch-arrival compactness theorem,
+but no corrected finite inequality tree is yet checked. The leading replacement
+is an occurrence-aware finite menu of complete record-admissible additive
+policies, compiled into one outer minimum; its all-`k` producer remains
+provisional. The chain below is therefore not presently treated as end-to-end
 verified.
 
 - **Theorem 3.1** (lines 428–433): for `m ∈ [3^k]`, `m ≡ 8 (mod 9)`, the back-substitution

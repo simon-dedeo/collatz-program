@@ -11,7 +11,15 @@ sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 > exact 387,420,489-constraint run of the reference verifier (large sidecar local, not in
 > git), but its counting consequence is conditional because an exact obstruction
 > invalidates the printed KL Theorem 3.1 termination proof; that obstruction is
-> now independently kernel-checked in Lean, and the termination gap remains open;
+> now independently kernel-checked in Lean. A second exact witness makes all
+> three leaves of a new minimum deletion-eligible, contradicting another
+> invariant asserted by the printed construction; a finite semantic countermodel
+> also blocks its split-invariant induction. CLEAN_LEAN independently checks
+> both newer obstructions and proves the abstract branch-arrival compactness
+> theorem. The leading repair now compiles all complete occurrence-aware
+> record-admissible additive policies into one fixed outer minimum. A bounded
+> checker reproduces the published small-level literal counts, but the all-`k`
+> history/policy producer is not yet kernel-checked;
 > the analytic-
 > combinatorics ordinary-pole identification is retracted;
 > the unsigned-zeta natural boundary at `|u|=1/4` has a candidate refutation

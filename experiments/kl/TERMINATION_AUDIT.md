@@ -1,14 +1,21 @@
 # Audit of the KL advanced-term termination proof
 
-**Status (2026-07-21): exact obstruction to the published proof, independently
-reconstructed and kernel-checked in Lean; termination itself remains open in
-this audit.** Run:
+**Status (2026-07-21): three exact defects in the published construction.** The
+positive-return history, all-three-deletion history, and split-invariant
+countermodel are all independently reconstructed and kernel-checked in Lean.
+Lean also proves the abstract branch-arrival compactness theorem. The printed
+construction remains invalid; occurrence-aware finite policy compilation is
+now the leading, but not yet end-to-end checked, replacement. Run:
 
 ```sh
 python3 verify_termination_obstruction.py
+python3 verify_all_three_deletion.py
+python3 verify_split_invariant_counterexample.py
+python3 verify_two_phase_small_levels.py
 ```
 
-The checker uses integer arithmetic only. It verifies a legal `k=5` path in
+The checkers use exact integer arithmetic for every symbolic shift. The first
+verifies a legal `k=5` path in
 the Krasikov--Lagarias back-substitution tree:
 
 ```text
@@ -55,6 +62,68 @@ every `k>=2` and every advanced root. A fixed breadth-first schedule would
 suffice downstream; a proof of confluence for arbitrary schedules is not
 needed for existence of the final retarded witness.
 
+## A second obstruction: the rule can delete all three leaves
+
+The paper states, without a separate combinatorial proof, that its deletion
+rule cannot remove all three alternatives of a newly created minimum. The
+second checker falsifies that assertion at `k=5`. From root residue `161`, the
+following 11-edge legal history reaches residue `242`:
+
+```text
+161 -B8.1-> 107 -B8.1-> 152 -B8.2-> 182 -B2.0-> 80
+    -B8.1-> 134 -B8.1-> 89 -B8.0-> 59 -T-> 236
+    -B2.1-> 152 -B8.2-> 182 -B2.2-> 242.
+```
+
+The successive shifts are
+
+```text
+(-1,1), (-2,2), (-3,3), (-5,4), (-6,5), (-7,6),
+(-8,7), (-10,7), (-12,8), (-13,9), (-15,10).
+```
+
+They are all positive, and every followed branch leaf survives the complete
+ancestor test. Splitting the final `242` creates the three targets
+`80,161,242`, all at the positive shift `(-16,11)`. Each has a strictly lower
+same-residue ancestor:
+
+```text
+80  at (-5,4),    difference (-11,7) > 0;
+161 at (0,0),     difference (-16,11) > 0;
+242 at (-15,10),  difference (-1,1) > 0.
+```
+
+Thus the literal rule makes all three alternatives deletion-eligible and
+produces the empty-minimum case the paper says cannot occur. The checker also
+exhausts `k=2,3,4` and all `k=5` histories of depth at most ten, so depth eleven
+is the first such event under these exact path semantics. This does not prove
+nontermination; it shows that the printed recursive construction is not a
+well-defined inequality-tree construction as stated. Arbitrarily retaining one
+eligible alternative is not harmless: here the eligible `242 -> 242` branch is
+an immediate positive self-loop.
+
+## A third gap: splitting can activate an unconstrained outer minimum
+
+The paper's deletion proof maintains (3.4) only for critical assignments. Its
+split induction says inherited principal bounds survive because the base
+inequality is substituted at the split leaf. This inference is false at the
+abstract tree level. `verify_split_invariant_counterexample.py` checks the
+four-value countermodel
+
+```text
+old tree = min(P[L+X], B),   P=5, L=9, X=1, B=8.
+```
+
+Initially the left alternative has value `10`, so the unique critical
+assignment chooses `B` and the bound at `P` is vacuous. Replace `L=9` by a
+locally valid KL-shaped split body `2+min(3,3,3)=5`. The left alternative now
+has value `6<8` and becomes critical, but its selected sum violates the
+principal bound `6>5`. Thus old assignment-specific (3.4) plus local split
+validity is not a split-stable invariant. This is a generic semantic
+countermodel, not yet a claim that these four values arise from one concrete KL
+function family; it blocks the published induction and any backjump repair that
+silently assumes the same invariant.
+
 ## Consequence for the record certificate
 
 The `k=19` feasible point and its 387,420,489 inequalities remain exactly
@@ -65,11 +134,90 @@ witness is constructed), the numerical certificate is exact but the headline
 exponent is conditional on an unclosed literature-proof gap. This is a trust-
 chain correction, not evidence that the bound or Theorem 3.1 is false.
 
-## Adjacent repair target
+## Repair frontier
 
-The deletion-invariant gap may be separable from termination. A promising
-candidate is a critical-assignment lifting lemma: under global `NoCriticalUse`,
-every critical assignment after deleting an alternative canonically lifts to
-one before deletion. A context induction through sums and minima appears to
-prevent newly tied critical assignments from escaping the maintained bound.
-This candidate is not yet kernel-checked and does not solve termination.
+The global deletion-lifting lemma is now kernel-checked in both left and right
+orientations: under occurrence-specific whole-tree `NoCriticalUse`, every
+post-deletion critical assignment has a pre-deletion lift with the same selected
+sum and the same principal-bound status. This closes the new-tie problem for a
+*soundly justified* deletion, but does not prove that every syntactically
+eligible KL leaf satisfies `NoCriticalUse`, nor that the principal-bound
+invariant survives a later split after earlier deletions.
+
+A separately reviewed and now kernel-checked termination theorem compresses a
+hypothetical infinite record-admissible path to its B2/B8 arrivals `(r_n,h_n)`.
+Same-residue arrival heights are nonincreasing, while consecutive heights obey
+`h_(n+1)-h_n=log_2(3)-c_n` for positive integers `c_n`. Finite states bound the
+heights and hence the typed edges `(r_n,r_(n+1),c_n)`. On recurrent edge types,
+statewise limits would telescope around a directed cycle to
+`q log_2(3)=C`, contradicting irrationality. CLEAN_LEAN proves the abstract
+theorem, the exact B2/B8 compression formulas, and irrationality of
+`log 3 / log 2`. This is a termination component, not by itself a sound rewrite.
+
+The earlier backjump idea would handle an all-three event by deleting an entire
+unused containing alternative at an ancestor minimum. The split countermodel
+blocks its present justification: later splits can activate an alternative for
+which the assignment-specific principal bounds were never established. It is
+therefore deprioritized unless a materially stronger provenance invariant is
+found.
+
+The leading replacement is **finite policy-menu compilation**. Build the
+universal occurrence-annotated history forest by expanding every nonnegative
+leaf, retaining all transport and branch children but marking a branch child
+which is strictly above an earlier same-state occurrence on *that path*.
+Complete policies expand both children of every addition, choose one child of
+every minimum, end only at negative leaves, and contain no mark. Compile their
+finite menu into one outer minimum of min-free additive retarded expressions.
+
+For fixed positive monotone `phi`, state, and time, recursively choosing an
+actual raw `phi` minimizer supplies a complete policy. It cannot contain a
+marked higher repeat: the finite segment from the earlier occurrence would
+bound its value below by the later value plus positive additive siblings, while
+monotonicity gives the reverse weak inequality. Thus at least one menu member
+is functionally sound, and the outer minimum is functionally sound. Every menu
+member is coefficient-sound because the NT fiber coefficient minimum is at
+most every chosen lift coefficient; taking their minimum preserves the common
+lower bound. The checked compactness theorem makes the universal forest finite,
+and its finitely many terminal shifts give one common `0<mu_k<=2`.
+
+The construction must be occurrence-aware. At `k=4`, two exact legal histories
+from root `26` reach the identical label `74@(-7+5*alpha)`, but it is a higher
+repeat on one path (`2*alpha-3>0`) and a lower repeat on the other
+(`3*alpha-5<0`). Therefore a mark keyed only by `PrincipalLabel` is unsound.
+
+```text
+bad occurrence:
+26 -B8.1-> 44 -B8.2-> 56 -B2.2-> 74 -B2.2-> 71 -B8.2-> 74
+shifts 0, (-1,1), (-2,2), (-4,3), (-6,4), (-7,5)
+
+live occurrence:
+26 -B8.2-> 71 -B8.2-> 74 -B2.1-> 44 -B8.2-> 56 -B2.2-> 74
+shifts 0, (-1,1), (-2,2), (-4,3), (-5,4), (-7,5).
+```
+
+In the first path the final-minus-earlier difference is `(-3,2)>0` because
+`3^2>2^3`; in the second it is `(-5,3)<0` because `3^3<2^5`. All nonroot
+shifts are positive and every preceding branch destination survives.
+`verify_two_phase_small_levels.py` checks this ambiguity and implements the
+occurrence-sensitive policy compiler for every advanced root at `k=2,3,4`; it
+reproduces KL Table 1's maximum literal counts `8,84,12829` exactly.
+
+The precise remaining proof chain is:
+
+1. define occurrence-indexed histories, marks, and complete policies;
+2. connect an infinite forest path to `no_infinite_KL_branch_arrivals` and
+   apply König;
+3. extract the finite nonempty policy menu and common `mu_k` (nonemptiness may
+   use that the intended positive monotone KL function class is inhabited);
+4. prove the raw-minimizer functional induction and the choice-independent
+   coefficient induction; and
+5. package the compiled outer minimum as `RetardedEliminationWitness`.
+
+This proposal has survived independent audits of ties, transport returns,
+all-three events, off-path additive children, uniformity in `phi,y`, and the
+opposite functional/coefficient orientations. CLEAN_LEAN already checks the
+occurrence-indexed one-pass pruner, exact functional semantics, coefficient
+monotonicity, localized positivity, and the exact repeat-provenance semantic
+interface. The raw finite-history recursion and König bridge remain
+provisional. Pointwise adaptive
+comparison is a viable fallback if fixed-menu compilation becomes awkward.

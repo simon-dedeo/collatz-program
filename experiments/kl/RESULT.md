@@ -13,9 +13,18 @@ However, `verify_termination_obstruction.py` checks a legal `k=5` path that
 invalidates the derivation of equation (3.2) and directly falsifies the
 history-free subtree step in the published proof of KL Theorem 3.1. The path
 and deletion tests are also independently kernel-checked in
-`CLEAN_LEAN/CleanLean/KL/TerminationObstruction.lean`. This does not refute
-termination or Theorem 2.2, but
-until the termination bridge is repaired, the predecessor-counting consequence
+`CLEAN_LEAN/CleanLean/KL/TerminationObstruction.lean`. A second exact checker,
+`verify_all_three_deletion.py`, reaches a split at which the literal rule makes
+all three minimum alternatives deletion-eligible. Neither certificate refutes
+termination or Theorem 2.2. A third finite checker shows that local split
+validity plus the paper's assignment-specific invariant does not preserve that
+invariant across a split. CLEAN_LEAN independently checks both newer defects
+and proves the abstract branch-arrival compactness theorem. The leading
+replacement compiles all complete occurrence-aware record-admissible policies
+into one fixed outer minimum; a bounded exact checker reproduces KL's
+`k=2,3,4` literal counts, while the all-`k` history/policy producer is not yet
+kernel-checked. Until that replacement chain is proved,
+the predecessor-counting consequence
 below is conditional on an unclosed literature-proof gap. See
 `TERMINATION_AUDIT.md`.
 

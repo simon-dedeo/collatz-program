@@ -17,8 +17,17 @@ self-contained through `k=15`. A successor audit has now found an exact legal
 `k=5` path, independently reconstructed and kernel-checked in Lean, invalidating
 the derivation of equation (3.2) and directly falsifying the identical-subtree
 step in the published proof of KL Theorem 3.1. This does not disprove
-termination, but makes
-the counting consequence conditional until that bridge is repaired. Around
+termination. A second exact `k=5` history makes all three leaves of a new
+minimum deletion-eligible, contrary to the printed construction's asserted
+nonempty-minimum invariant. A finite semantic countermodel also blocks the
+paper's split-time critical-invariant induction. CLEAN_LEAN independently
+checks both newer defects and proves the abstract branch-arrival compactness
+theorem. The leading repair compiles every complete occurrence-aware
+record-admissible additive policy into one fixed outer minimum. It has survived
+independent audits and reproduces KL's small-level literal counts exactly, but
+the all-`k` raw-history/König producer carrying checked mark provenance is not yet
+kernel-checked; the counting consequence remains conditional until that chain
+exists. Around
 it sits a cluster of proved structure theorems and — equally important — a
 growing **failure ledger** of proof routes that are now provably dead. A
 separate GPT instance runs an independent Lean formalization in `CLEAN_LEAN/`
@@ -63,8 +72,19 @@ and the two collaboration channels current.
   advanced-term termination bridge. `verify_termination_obstruction.py` exactly
   checks a legal positive-shift transport return that invalidates the paper's
   derivation of strict descent (3.2); it is not a repeatable lasso or a disproof of
-  termination. The next target is a fixed terminating schedule or explicit
-  retarded-elimination witness with history-correct invariants. Separately, the analytic-
+  termination. `verify_all_three_deletion.py` exactly checks the independent
+  nonempty-minimum failure at depth eleven. CLEAN_LEAN independently checks it
+  and proves the abstract branch-arrival compactness theorem.
+  `verify_split_invariant_counterexample.py` shows the existing (3.4)
+  invariant is insufficient to justify the earlier backjump proposal after
+  later splits. The primary replacement builds the universal record-admissible
+  history forest, retains every complete add-only policy without a higher
+  repeat, and compiles the finite menu into one outer minimum. Raw `phi`
+  minimizers prove functional coverage; every lift dominates the coefficient
+  fiber minimum. `verify_two_phase_small_levels.py` reproduces the published
+  `k=2,3,4` literal maxima and exhibits why marks must be occurrence-indexed:
+  the identical `74@(-7+5*alpha)` label is bad on one exact path and live on
+  another. The all-`k` history/policy producer remains open in Lean. Separately, the analytic-
   combinatorics scout is **not** a proved reformulation. Its ordinary-resolvent
   identification conflates the nonlinear KL min operator with a linear
   backward-tree matrix; no `C x^{γ_k}`, no-log, or true-count pole-confluence
@@ -164,14 +184,19 @@ payload's 2,187 inequalities and all-length mass bounds, equality of its edge
 tables with an independently defined finite KL graph, exact Chernoff gaps, exact backward-orbit
 hitting formula, labelled critical-assignment path contradiction, concrete
 split arithmetic, global value-preserving deletion, the exact `k=5`
-termination-proof obstruction, and the final
-retarded-witness consumer. It has also prepared symbolic `Z²` shifts and a
-generic finite-rank checker. The active KL frontier is the missing semantic
-termination bridge: finite control or a fixed schedule that handles ancestor
-history, transport descendants, new ties, and deletion order. The autonomous
-localization consumers stand unused but remain correct. Irrational interval-
-weight domination, interval tiling, and the high-oscillation localization
-implication remain open; the completed finite pressure half is not a limit proof.
+termination-proof obstruction, symmetric critical-assignment lifting across
+safe deletion, the finite pressure interval semantics, the abstract
+branch-arrival compactness theorem (including irrationality of `log 3/log 2`),
+the all-three-deletion obstruction, the split-invariant countermodel, and the
+fixed retarded-witness consumer. It has also proved occurrence-indexed one-pass
+pruning with exact functional semantics and prepared symbolic `Z²` shifts and
+a generic finite-rank checker. The exact repeat-provenance payload and its
+semantic soundness are also checked. The active KL frontier is the
+provenance-carrying raw-history recursion and König bridge described in
+`docs/FOR_CLEAN_LEAN.md` replies 13--15. On the separate pressure lane, generated rows, S1--S4
+finite graph/interval semantics, and all-length bounds are checked; general
+all-level ball-mass domination and the high-oscillation localization implication
+remain open, so the pressure half is not a limit proof.
 
 ## 6. The user (Simon) — how to work with him
 
@@ -195,8 +220,9 @@ implication remain open; the completed finite pressure half is not a limit proof
 3. All background lanes are already stopped (§2) — nothing is mid-flight to
    monitor; the partial state of each is in its note. Start fresh.
 4. Sanity-check infrastructure (§4) with one `ssh`/`squeue`; it carries over.
-5. Pick the top LIVE bet you can advance. The current immediate target is a
-   history-correct repair of KL advanced-term termination. Kernel/adversarial
+5. Pick the top LIVE bet you can advance. The current immediate target is the
+   occurrence-aware finite policy compiler replacing KL advanced-term
+   elimination. Kernel/adversarial
    review of the repaired arctic proof is next; mixed-radix has three named
    gaps, and the KL limit needs a genuinely non-autonomous mechanism. Do not
    revive the retracted AC resolvent or first-circle zeta boundary. If you advance
