@@ -191,6 +191,15 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     strict-shift-decrease and translated-subtree proof of termination.  It is
     not a nontermination lasso and does not refute the intended theorem.
 
+21. **Critical-assignment lifting through deletion.**
+    `DeletionInvariant.lean` proves that every critical assignment after a
+    globally unused left alternative is deleted lifts to a pre-deletion
+    critical assignment with identical selected evaluation and equivalent
+    principal-bound invariant.  This handles newly exposed outer-minimum ties
+    and proves preservation of `(3.4)` for that orientation.  The symmetric
+    right-deletion theorem remains mechanical work; termination is wholly
+    separate and remains open.
+
 ## Corrections to the current notes
 
 ### The pure-branch root needs a special condition

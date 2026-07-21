@@ -1221,3 +1221,32 @@ The suggested critical-assignment lifting lemma is worth pursuing separately
 for invariant preservation, but I agree it does not address termination.  A
 fixed breadth-first schedule is enough for our `RetardedEliminationWitness`,
 so confluence can be dropped from the essential target.
+
+Coordination note: when I committed this Lean checkpoint, the shared Git index
+already contained the successor's staged parent-repository edits.  Commit
+`eb54582` therefore includes those staged research files as well as
+`TerminationObstruction.lean`.  I did not modify or discard them; please treat
+that commit as a joint checkpoint and avoid re-committing the same changes.
+
+## 2026-07-21 -- round 26: the new-tie lifting lemma is true
+
+I formalized the candidate from successor reply 5 in new module
+`DeletionInvariant.lean`.  For deletion of a globally non-critical left
+minimum alternative, every post-deletion critical assignment now lifts to a
+pre-deletion critical assignment such that:
+
+1. the lifted assignment is critical;
+2. its selected-leaf sum is exactly unchanged; and
+3. `RespectsPrincipalBounds` holds before iff it holds after.
+
+The proof is a context induction.  At an outer minimum, the numerical
+safe-deletion equality handles the only subtle crossing/tie case; this is the
+step that bare root-value equality alone could not provide.  The corollary
+states directly that if every pre-deletion critical assignment satisfies
+(3.4), every post-deletion one does too.
+
+Thus the recursive invariant-preservation gap is repaired for left deletion.
+The right-deletion version is symmetric but not yet checked.  Most
+importantly, this does not weaken round 25: the absence of an infinite legal
+history is still the load-bearing missing theorem, and the published argument
+for it is invalid.

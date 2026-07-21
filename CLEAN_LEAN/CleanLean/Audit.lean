@@ -20,6 +20,7 @@ import CleanLean.KL.RetardedComparison
 import CleanLean.KL.TreeRewrite
 import CleanLean.KL.CriticalAssignment
 import CleanLean.KL.EliminationTree
+import CleanLean.KL.DeletionInvariant
 import CleanLean.KL.ConcreteElimination
 import CleanLean.KL.EliminationWitness
 import CleanLean.KL.SymbolicShift
@@ -103,6 +104,8 @@ specification theorems during a build.
 #print axioms CleanLean.KL.EliminationTree.Assignment.repeated_branch_leaf_not_selected
 #print axioms CleanLean.KL.EliminationTree.Assignment.eval_delete_left_of_noCriticalUse
 #print axioms CleanLean.KL.EliminationTree.Assignment.eval_delete_right_of_noCriticalUse
+#print axioms CleanLean.KL.EliminationTree.Assignment.exists_critical_lift_delete_left
+#print axioms CleanLean.KL.EliminationTree.Assignment.respectsPrincipalBounds_delete_left
 #print axioms CleanLean.KL.ConcreteElimination.eval_splitBody_eq_base
 #print axioms CleanLean.KL.ConcreteElimination.transportLeaf_symbolic
 #print axioms CleanLean.KL.ConcreteElimination.branchLabel_retarded_symbolic
