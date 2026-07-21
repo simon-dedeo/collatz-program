@@ -435,13 +435,13 @@ theorem totalMass_liftValue_pos (k : ℕ) (c : State k → ℝ)
     (system (k + 1)).normalizedDefect (liftValue k c) = 0 := by
   simp [FiniteSystem.normalizedDefect]
 
-/-- An exact positive coarse fixed vector below the annealed endpoint creates
-a nonzero nonnegative slack vector after copying it to the next level. -/
-theorem lifted_gain_nonnegative_nonzero
+/-- A positive coarse subeigenvector below the annealed endpoint creates a
+nonzero nonnegative slack vector after copying it to the next level. -/
+theorem lifted_gain_nonnegative_nonzero_of_subeigen
     (k : ℕ) (hk : 2 ≤ k) (lam : ℝ)
     (hlam1 : 1 < lam) (hlam2 : lam < 2)
     (c : State k → ℝ) (hc : ∀ q, 0 < c q)
-    (hfixed : ∀ q, c q = (system k).operator (klWeights lam) c q) :
+    (hsub : ∀ q, c q ≤ (system k).operator (klWeights lam) c q) :
     let x := liftValue k c
     let d := fun q => (system (k + 1)).operator (klWeights lam) x q - x q
     (∀ q, 0 ≤ d q) ∧ ∃ q, 0 < d q := by
@@ -458,10 +458,10 @@ theorem lifted_gain_nonnegative_nonzero
     apply sub_nonneg.mpr
     have hlift := operator_liftValue_ge k hk w c hret hadv q'
     dsimp only [x, liftValue]
-    have hfixq : c (parent k q') =
+    have hsubq : c (parent k q') ≤
         (system k).operator w c (parent k q') := by
-      simpa only [w] using hfixed (parent k q')
-    simpa only [q'] using hfixq.le.trans hlift
+      simpa only [w] using hsub (parent k q')
+    simpa only [q'] using hsubq.trans hlift
   refine ⟨hd, ?_⟩
   have hmass : 0 < (system (k + 1)).totalMass x :=
     totalMass_liftValue_pos k c hc
@@ -491,18 +491,30 @@ theorem lifted_gain_nonnegative_nonzero
     (Finset.sum_pos_iff_of_nonneg fun q _ => hd q).mp hsum
   exact ⟨q, hq⟩
 
-/-- Qualitative adjacent strict lift.  An exact strictly positive fixed vector
-at level `k` and a parameter strictly between `1` and `2` yields exact
-subeigenvector feasibility at level `k+1` for some strictly larger parameter.
-
-This theorem does **not** manufacture the fixed-vector hypothesis at every
-level and therefore does not by itself prove that the critical parameters
-converge to `2`. -/
-theorem levelFeasible_succ_strict_of_positive_fixed
+/-- Fixed-vector specialization of the lifted-gain theorem. -/
+theorem lifted_gain_nonnegative_nonzero
     (k : ℕ) (hk : 2 ≤ k) (lam : ℝ)
     (hlam1 : 1 < lam) (hlam2 : lam < 2)
     (c : State k → ℝ) (hc : ∀ q, 0 < c q)
     (hfixed : ∀ q, c q = (system k).operator (klWeights lam) c q) :
+    let x := liftValue k c
+    let d := fun q => (system (k + 1)).operator (klWeights lam) x q - x q
+    (∀ q, 0 ≤ d q) ∧ ∃ q, 0 < d q := by
+  apply lifted_gain_nonnegative_nonzero_of_subeigen k hk lam hlam1 hlam2 c hc
+  intro q
+  exact (hfixed q).le
+
+/-- Qualitative adjacent strict lift.  A strictly positive subeigenvector at
+level `k` and a parameter strictly between `1` and `2` yields exact feasibility
+at level `k+1` for some strictly larger parameter.
+
+The theorem gives no uniform lower bound on the parameter increase and does
+not by itself prove convergence to `2`. -/
+theorem levelFeasible_succ_strict_of_positive_subeigen
+    (k : ℕ) (hk : 2 ≤ k) (lam : ℝ)
+    (hlam1 : 1 < lam) (hlam2 : lam < 2)
+    (c : State k → ℝ) (hc : ∀ q, 0 < c q)
+    (hsub : ∀ q, c q ≤ (system k).operator (klWeights lam) c q) :
     ∃ mu : ℝ, lam < mu ∧ mu < 2 ∧ LevelFeasible (k + 1) mu := by
   let w := klWeights lam
   let x := liftValue k c
@@ -516,7 +528,8 @@ theorem levelFeasible_succ_strict_of_positive_fixed
     exact Real.rpow_pos_of_pos hlamPos _
   have hret : 0 ≤ w.retarded := Real.rpow_nonneg hlam0 _
   have hadv : 0 ≤ w.advanced := Real.rpow_nonneg hlam0 _
-  have hgain := lifted_gain_nonnegative_nonzero k hk lam hlam1 hlam2 c hc hfixed
+  have hgain := lifted_gain_nonnegative_nonzero_of_subeigen
+    k hk lam hlam1 hlam2 c hc hsub
   dsimp only [x, d, w] at hgain
   have hd : ∀ q, 0 ≤ d q := by
     intro q
@@ -555,6 +568,76 @@ theorem levelFeasible_succ_strict_of_positive_fixed
   obtain ⟨z, hz⟩ := (system (k + 1)).feasible_of_positive_strict
     (klWeights mu) y hy hstrictMu
   exact ⟨mu, hlamMu, hmu2, ⟨z, hz⟩⟩
+
+/-- Every exact feasible certificate below the endpoint can be improved at
+the next residue level. -/
+theorem levelFeasible_succ_strict
+    (k : ℕ) (hk : 2 ≤ k) (lam : ℝ)
+    (hlam1 : 1 < lam) (hlam2 : lam < 2)
+    (hfeas : LevelFeasible k lam) :
+    ∃ mu : ℝ, lam < mu ∧ mu < 2 ∧ LevelFeasible (k + 1) mu := by
+  obtain ⟨c, hc⟩ := hfeas
+  apply levelFeasible_succ_strict_of_positive_subeigen
+    k hk lam hlam1 hlam2 c
+  · intro q
+    exact lt_of_lt_of_le (by norm_num) (hc.1 q)
+  · exact hc.2
+
+/-- Starting from any exact feasible parameter strictly between `1` and `2`,
+one can choose an infinite strictly increasing ladder of exact feasible
+parameters, one at each successive residue level.  The theorem does not say
+that the ladder tends to `2`; its increasing limit may be smaller. -/
+theorem exists_strict_feasible_ladder
+    (k0 : ℕ) (hk0 : 2 ≤ k0) (lam0 : ℝ)
+    (hlam1 : 1 < lam0) (hlam2 : lam0 < 2)
+    (hfeas0 : LevelFeasible k0 lam0) :
+    ∃ lam : ℕ → ℝ,
+      lam 0 = lam0 ∧
+      (∀ n, LevelFeasible (k0 + n) (lam n)) ∧
+      (∀ n, lam n < lam (n + 1)) ∧
+      ∀ n, lam n < 2 := by
+  let Good (n : ℕ) := {lam : ℝ //
+    LevelFeasible (k0 + n) lam ∧ 1 < lam ∧ lam < 2}
+  let start : Good 0 := ⟨lam0, by simpa using ⟨hfeas0, hlam1, hlam2⟩⟩
+  have himprove : ∀ n (g : Good n),
+      ∃ h : Good (n + 1), g.val < h.val := by
+    intro n g
+    obtain ⟨mu, hlt, hmu2, hmuFeas⟩ :=
+      levelFeasible_succ_strict (k0 + n) (by omega) g.val
+        g.property.2.1 g.property.2.2 g.property.1
+    let h : Good (n + 1) :=
+      ⟨mu, by
+        refine ⟨?_, lt_trans g.property.2.1 hlt, hmu2⟩
+        simpa [add_assoc] using hmuFeas⟩
+    exact ⟨h, hlt⟩
+  let next : ∀ n, Good n → Good (n + 1) :=
+    fun n g => Classical.choose (himprove n g)
+  let seqGood : ∀ n, Good n :=
+    fun n => Nat.rec start (fun m g => next m g) n
+  refine ⟨fun n => (seqGood n).val, ?_, ?_, ?_, ?_⟩
+  · simp [seqGood, start]
+  · intro n
+    exact (seqGood n).property.1
+  · intro n
+    have hnext := Classical.choose_spec (himprove n (seqGood n))
+    change (seqGood n).val < (seqGood (n + 1)).val
+    rw [show seqGood (n + 1) = next n (seqGood n) by
+      simp only [seqGood]]
+    exact hnext
+  · intro n
+    exact (seqGood n).property.2.2
+
+/-- Fixed-vector specialization retained as a convenient public interface. -/
+theorem levelFeasible_succ_strict_of_positive_fixed
+    (k : ℕ) (hk : 2 ≤ k) (lam : ℝ)
+    (hlam1 : 1 < lam) (hlam2 : lam < 2)
+    (c : State k → ℝ) (hc : ∀ q, 0 < c q)
+    (hfixed : ∀ q, c q = (system k).operator (klWeights lam) c q) :
+    ∃ mu : ℝ, lam < mu ∧ mu < 2 ∧ LevelFeasible (k + 1) mu := by
+  apply levelFeasible_succ_strict_of_positive_subeigen
+    k hk lam hlam1 hlam2 c hc
+  intro q
+  exact (hfixed q).le
 
 /-- Exact effect on the feasibility suprema, conditional on attainment by a
 positive fixed vector.  The attainment premise remains a separate nonlinear

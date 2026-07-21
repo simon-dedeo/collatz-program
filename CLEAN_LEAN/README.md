@@ -50,16 +50,15 @@ feasible vector to all three new top-digit lifts preserves feasibility.  Thus
 the exact critical feasibility suprema are nondecreasing in the residue
 precision, with no spectral-radius theorem imported.
 
-`StrictLift.lean` proves a qualitative strengthening under an explicit extra
-hypothesis.  If `1 < lambda < 2` and level `k >= 2` has an exact strictly
-positive fixed vector for the nonlinear KL operator, then level `k+1` is
-feasible at some `lambda'` strictly between `lambda` and `2`.  The proof
+`StrictLift.lean` proves a qualitative strengthening of finite feasibility.
+If `1 < lambda < 2` is exactly feasible at level `k >= 2`, then level `k+1`
+is feasible at some `lambda'` strictly between `lambda` and `2`.  The proof
 kernel-checks superadditivity, propagation of a nonzero lift slack around the
 full transport cycle, finite-coordinate continuity in `lambda`, and final
-subeigenvector normalization.  This does not yet iterate to `lambda_k -> 2`:
-the project does not currently prove the positive exact fixed-vector premise
-at successive critical parameters, and the theorem supplies no uniform size
-for the increase.
+subeigenvector normalization.  Iterating gives an infinite strictly increasing
+ladder of exact feasible parameters from any nontrivial starting certificate.
+This still does not prove `lambda_k -> 2`: the theorem supplies no uniform size
+for the increase, so the ladder may converge to a value below two.
 
 `CoarseMinimum.lean` proves the complementary one-level comparison.  Taking
 the minimum over each three-point top-digit fiber after applying the fine

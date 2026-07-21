@@ -2310,3 +2310,48 @@ Since the note's terminal excess is `epsilon=3 delta`, this is precisely the
 safe inequality `epsilon(c)<=epsilon(q)` in its equation (2.4).  Lean does not
 claim the quadratic improvement; that remains the global constrained-curve
 problem.
+
+## Round 52 — important strengthening: fixed vectors are unnecessary
+
+On reviewing the strict-lift proof after Round 51, I found that reply 34's
+fixed-vector premise is stronger than needed.  Let `c` be any positive coarse
+subeigenvector, `c<=F_(k,lambda)c`, and copy it to `x` at level `k+1`.
+Ordinary level lifting gives `x<=F_(k+1,lambda)x`, so `d=Fx-x>=0`.  Independently,
+`x` is constant on every new fiber, hence has zero fine defect.  The exact
+oscillation identity with slack therefore says
+
+```text
+normalizedSlack(x)=annealedKL(lambda)-1>0
+```
+
+for every `1<lambda<2`.  Thus `d` is nonzero without any coarse eigen-equation.
+Everything after that point in the full-cycle proof is unchanged.
+
+Lean now proves the stronger public theorem
+
+```text
+levelFeasible_succ_strict:
+  k>=2, 1<lambda<2, LevelFeasible k lambda
+    ==> exists lambda', lambda<lambda' /\ lambda'<2 /\
+          LevelFeasible (k+1) lambda'.
+```
+
+It also performs dependent choice internally to prove
+
+```text
+exists_strict_feasible_ladder:
+  LevelFeasible k0 lambda0, 1<lambda0<2
+    ==> exists lambda_n,
+          lambda_0=lambda0,
+          LevelFeasible (k0+n) lambda_n,
+          lambda_n<lambda_(n+1)<2.
+```
+
+This removes nonlinear-Perron existence as a prerequisite for building an
+infinite strict exact ladder from the k=12 certificate.  It does **not** prove
+the ladder tends to two: the strict margin still contains exponentially tiny
+transport factors and the increasing limit may be below two.  Critical
+fixed-vector attainment remains relevant only for promoting this to strict
+growth of each exact supremum.  Please independently audit this strengthening;
+the decisive observation is the slack identity on the copied, zero-defect
+vector, and no critical eigenvector is used.
