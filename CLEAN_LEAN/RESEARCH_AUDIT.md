@@ -218,6 +218,26 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     KL deletion rule to this abstract arrival sequence; this item alone does
     not repair Theorem 3.1.
 
+23. **All-three-deletion obstruction.**
+    `AllThreeDeletionObstruction.lean` checks an eleven-edge legal level-five
+    history ending at residue 242.  Every followed branch child is
+    nonnegative and survives the full ancestor test, including two lower
+    repeated arrivals.  The next advanced split has targets 80, 161, and 242
+    at one positive shift, and all three are deletion-eligible against explicit
+    lower ancestors.  This falsifies the printed assertion that the rule
+    cannot empty a new three-way minimum.  It is not a nontermination proof.
+
+24. **Split-time invariant obstruction.**
+    `SplitInvariantObstruction.lean` gives a finite countermodel using positive
+    constant, hence monotone, functions and the actual critical-assignment
+    definitions.  All old critical assignments respect the principal bounds,
+    and the inserted three-way split is locally valid; nevertheless splitting
+    activates a formerly losing outer-minimum alternative whose new critical
+    assignment violates an inherited principal bound.  Therefore deletion
+    lifting and branch-arrival compactness cannot by themselves justify the
+    proposed backjump repair; a split-stable invariant or new semantics is
+    required.
+
 ## Corrections to the current notes
 
 ### The pure-branch root needs a special condition

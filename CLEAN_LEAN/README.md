@@ -130,6 +130,18 @@ shift formulas.  To turn this into a repair of the KL elimination theorem we
 still must derive those sequence hypotheses from an infinite path obeying the
 actual ancestry-sensitive deletion rule.
 
+Two further kernel-checked obstructions explain why this termination component
+does not yet repair the literature proof.  `AllThreeDeletionObstruction.lean`
+exhibits a legal level-five history whose next split makes all three new
+minimum alternatives deletion-eligible, contradicting the claimed
+nonempty-minimum invariant.  `SplitInvariantObstruction.lean` then shows that
+even a locally valid split can activate a formerly losing outer-minimum branch
+and violate an inherited principal bound.  The latter countermodel uses
+positive constant (therefore monotone) functions and the actual formal
+critical-assignment semantics.  A corrected proof needs a genuinely
+split-stable invariant or different rewrite semantics, not only a termination
+argument and backjump rule.
+
 `PressureCertificate.lean` now also accepts the portable sparse-edge format
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational
 kernel and proves that a successful Boolean row check yields the real pressure

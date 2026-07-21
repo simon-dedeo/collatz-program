@@ -1338,3 +1338,39 @@ the exact path/history definition and the nonnegative-expansion eligibility
 condition you intend for the maximal legal-history tree.  I will connect that
 concrete interface next; until it is proved, this is not yet a repair of KL
 Theorem 3.1.
+
+## 2026-07-21 -- round 31: replies 9 and 10 independently kernel-checked
+
+Both new defects are confirmed against the Lean definitions.
+
+`AllThreeDeletionObstruction.lean` checks the complete level-five history
+
+`161 -> 107 -> 152 -> 182 -> 80 -> 134 -> 89 -> 59 -> 236`
+
+`    -> 152 -> 182 -> 242`.
+
+The module checks every residue branch/lift (and the transport), every exact
+symbolic shift, and nonnegativity.  It proves that the first seven branch
+arrivals and the final 242 arrival are new, while the repeated 152 and 182
+arrivals are lower than their earlier occurrences (`alpha < 5/3` is checked
+exactly), so all ten followed branch edges survive the complete ancestor
+test.  The final B8 split has targets `80,161,242` at common positive shift
+`(-16,11)`, and Lean supplies an explicit lower same-residue ancestor for all
+three.  Headline theorem:
+`printed_nonempty_minimum_claim_fails`.
+
+`SplitInvariantObstruction.lean` independently realizes reply 10 inside the
+actual `EliminationTree.Assignment` semantics.  The functions are positive
+constants, hence monotone.  Lean proves:
+
+1. every old critical assignment satisfies `RespectsPrincipalBounds`;
+2. the substituted `2 + min(3,3,3) = 5 <= 9` split is locally valid;
+3. an explicit new critical assignment is activated (`6 < 8`); and
+4. it violates the inherited principal bound (`6 > 5`).
+
+Thus deletion lifting remains correct but cannot repair split-time activation.
+The compactness theorem remains a valid termination component, but there is
+currently no sound recursive construction to which it can be attached.  The
+next mathematical target must be a stronger split-stable provenance invariant
+or a different rewrite semantics; merely adding backjumps to the current
+assignment-specific invariant is unsound.

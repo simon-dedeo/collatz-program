@@ -27,6 +27,8 @@ import CleanLean.KL.SymbolicShift
 import CleanLean.KL.TerminationCertificate
 import CleanLean.KL.TerminationObstruction
 import CleanLean.KL.BranchArrivalTermination
+import CleanLean.KL.AllThreeDeletionObstruction
+import CleanLean.KL.SplitInvariantObstruction
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
@@ -142,6 +144,15 @@ specification theorems during a build.
 #print axioms CleanLean.KL.no_infinite_branch_arrivals
 #print axioms CleanLean.KL.no_infinite_KL_branch_arrivals
 #print axioms CleanLean.KL.ArrivalKind.value_follow_sub
+#print axioms CleanLean.KL.AllThreeDeletionObstruction.state_chain
+#print axioms CleanLean.KL.AllThreeDeletionObstruction.all_followed_branch_steps_survive
+#print axioms CleanLean.KL.AllThreeDeletionObstruction.all_three_final_children_deletionEligible
+#print axioms CleanLean.KL.AllThreeDeletionObstruction.printed_nonempty_minimum_claim_fails
+#print axioms CleanLean.KL.SplitInvariantObstruction.every_old_critical_respects
+#print axioms CleanLean.KL.SplitInvariantObstruction.splitL_locallyValid
+#print axioms CleanLean.KL.SplitInvariantObstruction.newAssignment_critical
+#print axioms CleanLean.KL.SplitInvariantObstruction.newAssignment_violates_principal_bound
+#print axioms CleanLean.KL.SplitInvariantObstruction.split_time_invariant_preservation_fails
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
 #print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda
 #print axioms CleanLean.KL.weightedDefect_le_tail
