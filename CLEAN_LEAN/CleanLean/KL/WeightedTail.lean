@@ -90,7 +90,7 @@ theorem tendsto_zero_of_weighted_tail
 hypothesis in `tendsto_zero_of_weighted_tail`. -/
 theorem tail_tendsto_zero_of_geometric_bound
     (tail : ℕ → ℝ) (C q : ℝ)
-    (hC : 0 ≤ C) (hq0 : 0 ≤ q) (hq1 : q < 1)
+    (hq0 : 0 ≤ q) (hq1 : q < 1)
     (htail0 : ∀ k, 0 ≤ tail k)
     (htail : ∀ k, tail k ≤ C * q ^ k) :
     Filter.Tendsto tail Filter.atTop (nhds 0) := by
@@ -99,6 +99,23 @@ theorem tail_tendsto_zero_of_geometric_bound
     by simpa using (tendsto_pow_atTop_nhds_zero_of_lt_one hq0 hq1).const_mul C
   exact squeeze_zero' (Filter.Eventually.of_forall htail0)
     (Filter.Eventually.of_forall htail) hgeom
+
+/-- Complete abstract pressure-to-defect interface: a separate geometric bound
+may be supplied for each fixed positive threshold.  The concrete KL work is to
+derive these hypotheses from a uniform product-cone/pressure certificate. -/
+theorem tendsto_zero_of_geometric_weighted_tails
+    (δ : ℕ → ℝ) (tail : ℕ → ℝ → ℝ)
+    (hδ : ∀ k, 0 ≤ δ k)
+    (hbound : ∀ k t, 0 ≤ t → δ k ≤ (t + tail k t) / 3)
+    (htail0 : ∀ k t, 0 ≤ tail k t)
+    (hgeo : ∀ t, 0 < t → ∃ C q : ℝ,
+      0 ≤ q ∧ q < 1 ∧ ∀ k, tail k t ≤ C * q ^ k) :
+    Filter.Tendsto δ Filter.atTop (nhds 0) := by
+  apply tendsto_zero_of_weighted_tail δ tail hδ hbound
+  intro t ht
+  obtain ⟨C, q, hq0, hq1, htail⟩ := hgeo t ht
+  exact tail_tendsto_zero_of_geometric_bound
+    (fun k => tail k t) C q hq0 hq1 (fun k => htail0 k t) htail
 
 end WeightedTail
 

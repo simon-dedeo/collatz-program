@@ -1,0 +1,6 @@
+== scaling ==
+wrote lemma5_scaling.csv (8 rows)
+== exact instance ==
+wrote lemma5_exact_cert.json: {'lam2': True, 'uniform': True}
+== validation ==
+wrote validation.csv (38 rows)

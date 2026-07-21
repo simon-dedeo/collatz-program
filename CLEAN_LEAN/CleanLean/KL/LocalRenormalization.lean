@@ -6,11 +6,13 @@ Authors: Simon DeDeo, OpenAI Codex
 import Mathlib
 
 /-!
-# Three-fiber profiles and the transport-free local map
+# Three-fiber profiles and the depth-one relabeling
 
-The transport-free renormalization proposed near the `-1` spine merely swaps
-the two off-spine lift labels.  Its square is the identity, so it cannot select
-the observed numerical value `a ≈ 0.6925` or provide a contraction rate.
+At depth one, multiplication by two swaps the two off-spine lift labels.  This
+is a relabeling, not the whole pure-branch min system on the Prüfer group.  Its
+square is the identity, so this relabeling alone cannot select the free part of
+the fiber profile or provide a contraction rate.  The separate root equation
+that *does* determine the minimum is formalized in `RootLaw`.
 -/
 
 namespace CleanLean.KL
@@ -88,7 +90,7 @@ theorem oscillation3_swapOff (x : Triple) :
     oscillation3 (swapOff x) = oscillation3 x := by
   simp only [oscillation3, min3_swapOff, max3_swapOff, mean3_swapOff]
 
-/-- The mean-one local family observed at the advanced fixed spine. -/
+/-- The mean-one depth-one family used to parameterize the numerical profile. -/
 def localProfile (a : ℝ) : Triple := ![1, a, 2 - a]
 
 theorem mean3_localProfile (a : ℝ) : mean3 (localProfile a) = 1 := by
@@ -100,14 +102,14 @@ theorem localProfile_pos {a : ℝ} (ha0 : 0 < a) (ha2 : a < 2) :
   intro i
   fin_cases i <;> simp [localProfile] <;> linarith
 
-/-- One transport-free renormalization step changes `a` to `2-a`. -/
+/-- One depth-one doubling relabeling changes `a` to `2-a`. -/
 theorem swapOff_localProfile (a : ℝ) :
     swapOff (localProfile a) = localProfile (2 - a) := by
   funext i
   fin_cases i <;> simp [swapOff, localProfile]
 
-/-- Every member of the local family is a two-step fixed point.  Hence the
-transport-free model has no mechanism selecting one value of `a`. -/
+/-- Every member of the local family is fixed after two relabelings.  Hence
+the label swap by itself has no mechanism selecting one value of `a`. -/
 theorem localProfile_two_step (a : ℝ) :
     swapOff (swapOff (localProfile a)) = localProfile a :=
   swapOff_involutive _

@@ -2,8 +2,12 @@ import CleanLean.Collatz.Defs
 import CleanLean.Collatz.Relational
 import CleanLean.Collatz.Syracuse
 import CleanLean.KL.FiniteSystem
+import CleanLean.KL.ResidueSystem
+import CleanLean.KL.ExactCertificate
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
+import CleanLean.KL.RootLaw
 import CleanLean.KL.Mixer
 import CleanLean.KL.TransportResolvent
+import CleanLean.KL.PressureCertificate
 import CleanLean.Audit

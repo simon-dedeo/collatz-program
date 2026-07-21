@@ -1,64 +1,96 @@
-# COLLATZ
+# collatz-program
 
-**Headline result (2026-07-20): π_a(x) ≥ x^0.9032 — the number of integers
-below x whose Collatz orbit reaches any fixed a ≢ 0 (mod 3) — improving the
-2003 Krasikov–Lagarias record x^0.84.** Exact-arithmetic certified at levels
-k = 12..18 (`experiments/kl/RESULT.md`); k ≤ 14 chain adversarially reviewed;
-γ₁₉ = 0.9094 in certification; the level-k systems are finite sections of an
-adversarial transfer operator on ℤ₃ whose limit invariant the data currently
-place near 1 (see `docs/notes/kl-limit-object.md`).
+A research program on the Collatz (3x+1) conjecture: experiments, theory,
+and formalization, with every claim backed by a machine-checkable artifact.
+Started 2026-07-20 (Simon DeDeo + Claude Fable 5 + GPT-5.6-sol as external
+prover/reviewer; PSC Bridges-2 grant mth260010p).
 
-A research program on the Collatz (3x+1) conjecture: experiments, proof-strategy
-analysis, and Lean 4 formalization. Goal: genuine progress in either direction,
-with every claim backed by a machine-checkable artifact (a Lean proof or a
-finitely-verifiable certificate).
+## Headline results (all certified/proved today)
 
-## Layout
+| Result | Status |
+|---|---|
+| **π_a(x) ≥ x^γ for all γ < 0.9032885984**, a ≢ 0 (3) — was 0.84 since 2003 | certified k=12..18 (exact integer arithmetic); k≤14 chain adversarially reviewed; γ₁₉ = 0.9094, γ₂₀ = 0.9151 in certification |
+| The KL method = finite sections of an **adversarial transfer operator on ℤ₃** (base ×4 = the Iwasawa generator of 1+3ℤ₃) | `docs/notes/kl-limit-object.md`, `adversarial-operator.md` |
+| KL's own §6 positivity hypotheses (H_k) | **proved** (odometer conjugacy → Gaubert–Gunawardena) |
+| Oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k | proved, now unconditional |
+| Local renormalization at −1 solved: **a = λ^{1−α}** (= 2/3 at λ=2); "period-2" = the u↦2u relabeling; spine sheds mass at λ^{α−1}/3 | `renormalization-at-minus-one.md`, sol cross-confirmed |
+| Diaconis–Fulman multiplication-carries spectrum (their open question) | proved, exact-verified: `carries-spectrum.md` |
+| Berg–Meinardus ⟺ aₙ = a_{T(n)}; **bi-(2,3)-Mahler divergence certificates impossible** | proved: `mahler-cartier-lemma0.md`, `two-bases.md` |
+| Antihydra rarity theorems (θ(C) → H(1/3); population-φ exact) | proved: `antihydra-rarity.md` |
+| No regular divergence certificate: ≤7 states (base 2, q=8 finishing), ≤5 (base 3) | exhaustive, cross-machine, logs in-repo |
+| Weighted (drift) certificates: 191 regular domains retired incl. the all-ones ray | `experiments/wfar/` |
+| Tree-product Collapse Lemma (spectral-gap route provably blind); solenoid **Traceless Theorem** (q=3 unique) | `tree-products.md`, `deninger-solenoid.md` |
 
-- `formal/` — Lean 4 + mathlib project. `Formal/Collatz.lean` has the conjecture
-  statement and first sorry-free lemmas (descent reduction, verified ranges via
-  `native_decide`, only-trivial-cycle-through-verified-numbers). Build:
-  `cd formal && lake exe cache get && lake build`.
-- `experiments/` — code for experiments.
-  - `fate.c` — orbit-fate census for maps (x/2, Ax+B): classifies every n ≤ N as
-    reaching a cycle (Brent detection, cycles auto-discovered and logged),
-    overflowing 2^120 (presumed divergent), or hitting a step cap. Any new cycle
-    or any non-c1 fate for 3x+1 would be disproof-grade and lands in
-    `results/discoveries_*.log`.
-  - `dfacert/` — BB-decider-inspired exhaustive search for a "regular divergence
-    certificate": a DFA-recognizable set L ∌ 1, nonempty, with T(L) ⊆ L. Finding
-    one disproves Collatz; exhausting size k proves "no k-state certificate".
-- `results/` — TSVs and logs from experiment runs (synced from remotes).
-- `docs/` — strategy memo and literature landscape.
-- `papers/` — downloaded references.
+## Current proof strategy
 
-## Remote machines
+**Counting half (the active critical path).** The chain, each link proved
+except the last:
 
-- `akdeniz.lan.cmu.edu` — 32 cores, 124 GB (fast). Experiments live in `~/collatz/`,
-  long runs in tmux session `census`.
-- `ganesha.lan.cmu.edu` — 32 cores, 62 GB (slow Opterons). For embarrassingly
-  parallel sweeps.
+> pressure certificate (Lemmas 3+5 of `sol-pressure.md`)
+> ⟹ C1′ (eigenvector mass of the high-oscillation set → 0)
+> ⟹ δ_k → 0 ⟹ λ_∞ = 2 ⟹ **π_a(x) ≥ x^{1−ε}** (KL's own theorem).
 
-## Empirical sandwich (census to 10^10, akdeniz)
+The obstruction set is fully identified: a thin 3-adic neighborhood of the
+backward ⟨4⟩-orbit of −1 (the shadow of the negative Collatz cycle; the
+unique fixed point of the advanced branch). Its local theory is solved
+(a = λ^{1−α}); its bare mass multiplier is λ^{α−1}/3 ≈ 0.48 (subcritical);
+the enemy is "return clouds" (measured effective ratio ≈ 0.81, drifting —
+drift currently reads as transient with a pre-registered k=20 test).
+Both remaining lemmas have **finite certificate forms** being searched by
+machine (`experiments/pressure-cert/`, in flight).
 
-| map  | fate |
-|------|------|
-| 3x−1 (below) | 0% divergence; 3 cycles (mins 1, 5, 17), basins ≈ 32.7/32.5/34.8% |
-| 3x+1 | 100.000000% reach 1 (re-verified to 10^10 here; literature: 2^71, Barina 2025) |
-| 5x+1 (above) | 99.94% presumed divergent; 3 known cycles (mins 1, 13, 17) |
+**Cycle half.** Cycles = monodromy identities in Aff(ℤ/(2^K−3^L));
+four of five known cycles forced by the unit stratum |2^K−3^L| = 1.
+Finding: the entire exclusion literature is archimedean-only — the sporadic
+primes p | 2^K−3^L are untouched (`dynamical-hasse.md`). Empirics: typical-ξ
+square-root cancellation; obstruction confined to 3-power major arcs
+(`experiments/expsum/`, Tao's regime).
 
-The drift heuristic (odd step multiplies by A/4 on average) puts 3x+1 strictly
-inside the subcritical region. The open gap is worst-case vs almost-all — hence
-the certificate/automata experiments, which are worst-case-shaped.
+**Honest framing.** x^{1−ε} counting is a milestone, not Collatz. The full
+conjecture also needs the divergence side (no orbit escapes) and the cycle
+side closed. The invariant-rank ledger (`invariant-rank.md`) tracks what
+certificate classes are provably insufficient (Conway's unsettleability =
+rank ∞ conjecture, made precise). The descent ±sign no-go proves any orbit-
+fate argument must couple 2-adic structure to the Archimedean place.
 
-## First certificate result (2026-07-20)
+## Blockers (open mathematics, precisely stated)
 
-**No regular divergence certificate with ≤ 7 DFA states exists** (LSB-first
-binary encoding): exhaustive, verified search over 83,968 (q≤4) + 5.1M (q=5) +
-379.6M (q=6) + 32.79B (q=7) canonical DFAs; q=5,6 independently reproduced on
-a second machine; q=8 running. **Base-3 (MSD-first): none with ≤ 5 states**
-(34M at q≤4 + 29.28B at q=5) — a provably independent channel (see
-`docs/notes/two-bases.md`: a certificate in both bases would itself be a
-nontrivial-cycle witness). The infinite-semilinear case was already dead
-(Monks 2006); the 2-automatic case is open in the literature. See
-`docs/STRATEGY.md` §3.3 and `experiments/dfacert/README.md`.
+1. **C1′ / Lemma 5 pressure gap** — the tilted mass-transfer certificate
+   (h, z, R) with Rz^{−θ} < 1 over λ ∈ [λ₁₈, 2]. Finite search running; if
+   it certifies, λ_∞ = 2 is proved. If it fails, the margin estimates λ_∞.
+2. **Boundary-data bound** — the co-spine pinning b = 2−a is a *global*
+   selection fact (provably not local); both our note and CLEAN_LEAN's audit
+   flag the same missing uniform bound on min-harmonic boundary data.
+3. **Ratio-drift falsification test** — k=20 ν-tail ratio ≥ 0.816 would
+   flip the "drift is transient" reading (pre-registered).
+4. **Concrete oscillation identity in Lean** — conventions pinned in
+   `docs/FOR_CLEAN_LEAN.md` §3.
+5. Everything else in `docs/STRATEGY.md` §7 and the notes' honesty sections.
+
+## Running right now
+
+- `experiments/pressure-cert/` — the Lemma 3+5 certificate search (critical path)
+- k=19, k=20 exact certifications (9.3 GB eigenvector via PSC DTN)
+- Eigenvector geometry ρ₁₉ finish; k=20 pre-registered drift test on arrival
+- Base-2 q=8 exhaustion on akdeniz (~3.20T of ~3.2T DFAs)
+- Family phase-diagram critical-line sweep on ganesha
+- CLEAN_LEAN: independent Lean formalization by GPT (tracked read-only;
+  handoff of formats/statements in `docs/FOR_CLEAN_LEAN.md`)
+
+## Verification discipline
+
+Nothing is a result until: exact arithmetic or kernel-checked proof, plus
+independent re-derivation (agent vs sol vs data) where feasible, plus
+adversarial external review for anything load-bearing. The errata are public:
+`SMELL.md` header, `fiber-geometry.md` v2. Corrections to date have come
+from both directions (external review killed our Prop R; we killed a stale
+preprint alarm and two prescribed-claim errors were corrected by our own
+agents' proofs).
+
+## Map
+
+`docs/` STRATEGY (master), LANDSCAPE, CRACKS, SMELL, REVERSE-MINING,
+CRYPTIDS, notes/ (all theorems + sol briefs) · `experiments/` kl (record +
+certificates), pressure-cert, wfar, dfacert{,3}, expsum, family, carries,
+gpu, fate · `formal/` Lean base (sorry-free) · `papers/` ~130 mirrored
+references · `results/` data · `DATA.md` large-artifact pointers.
