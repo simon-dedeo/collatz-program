@@ -1575,3 +1575,94 @@ This means the full remaining KL repair is now concentrated in constructing
 `TwoPhaseEliminationData k` from the concrete history recursion.  Once that
 structure is inhabited for every `k`, the theorem chain to the counting
 comparison closes automatically.
+
+## 2026-07-21 -- round 38: reply 14 global provenance bridge compiles
+
+Reply 14 exposed a scope issue in my first payload: one subtree can contain
+marks referring to several different earlier ancestors.  I fixed this by
+adding `GlobalRepeatSelection tree A`.  For each selected marked hit it stores
+its own earlier principal assignment and a `SelectedSubassignment` witness
+from that principal into the whole assignment, followed by the local split
+payload from round 36.
+
+Two generic restriction lemmas now compile: `AllLeaves` and
+`RespectsPrincipalBounds` descend along any `SelectedSubassignment`.  Therefore
+`markingSound_of_allMarkProvenance` proves exactly reply 14's requested bridge:
+
+```text
+AllMarkProvenance tree
++ tree.erase.AllLeaves (shift >= -2)
++ y >= 2 + local positivity + monotonicity
+=> MarkingSound tree phi y.
+```
+
+I also strengthened `TwoPhaseEliminationData`: it no longer accepts semantic
+`MarkingSound` as a builder field.  It requires the syntactic
+`AllMarkProvenance` and raw `shift>=-2` proofs, and derives mark soundness via
+the theorem above.  This prevents the concrete recursion from hiding its main
+obligation behind a semantic assumption.
+
+The edge-word/prefix design in reply 14 should now target
+`GlobalRepeatSelection` directly.  Its `ancestorSelected` and `splitSelected`
+fields are the assignment-path inversions that `RealizesWord` must produce.
+
+## 2026-07-21 -- round 39: exact indexed raw-history skeleton compiles
+
+I implemented reply 14/16's concrete edge alphabet in `HistoryWords.lean`:
+`T`, `B2(j)`, and `B8(j)` words compute their exact residue state and symbolic
+shift, carry a source-validity predicate, and support `WordRepeatProvenance`.
+The earlier word may equal the branch source but is a proper prefix of the
+marked target, exactly handling the `242 -> 242` self-child.
+
+New `RawHistoryTree.lean` is indexed by `(k, root, word)`.  Its constructors
+are only the five intended builder outcomes: a negative terminal, a marked
+nonnegative repeat with word provenance, or a neutral/retarded/advanced
+nonnegative expansion with the exact transport and three branch children.
+The compiler to `OccurrenceTree` is now strict-project checked (the word index
+is genuinely polymorphic across recursive children).
+
+Four consequential properties are no longer obligations of the future
+well-founded builder; Lean derives them by induction on any finite raw tree:
+
+1. every raw leaf has shift at least `-2`;
+2. every unmarked raw terminal has negative shift, and both invariants survive
+   a live prune;
+3. for every admissible KL family and `y>=2`, the compiled tree is globally
+   `LocallyValid` and its evaluation is at most the principal value at its root
+   occurrence; and
+4. for every feasible coefficient vector, recursive expansion increases the
+   erased coefficient evaluation in exactly the direction needed downstream.
+
+`RawHistoryEliminationData.toTwoPhaseEliminationData` now kernel-checks the
+end-to-end reduction.  The concrete constructor contract has shrunk to:
+
+```text
+history : forall root, RawHistoryTree k root []
+markProvenance : forall root, history(root).compile.AllMarkProvenance
+output/pruned : deterministic prune is live
+mu>0 and common output lag bounds
+```
+
+All functional and LP comparison fields are derived.  I also added the tested
+transitivity theorem for `SelectedSubassignment`, which should be the main
+composition tool for extracting `GlobalRepeatSelection` through nested path
+contexts.
+
+Reply 16's warning is recorded: `AllMarkProvenance` cannot in general be
+proved for an arbitrary subtree without an ancestor environment.  The target
+theorem should be closed at word `[]`, or its induction hypothesis should carry
+selected assignments for all proper-prefix principals.
+
+The next load-bearing construction is the checkpoint relation.  Please send,
+if available, the most exact definitions/proof sketch for:
+
+- checkpoint data and `BranchChild` orientation suitable for
+  `wellFounded_iff_isEmpty_descending_chain`;
+- extracting the `ArrivalKind`, transport count, state, height, and exact cost
+  equation from each relation witness; and
+- a clean `RecordAt` formulation strong enough to derive the all-`i<=j`
+  statewise antitonicity required by `no_infinite_KL_branch_arrivals`.
+
+Separately, any tested path-inversion API which turns a compiled raw-tree
+assignment plus a selected target word into the two nested
+`SelectedSubassignment` witnesses of `GlobalRepeatSelection` would save time.

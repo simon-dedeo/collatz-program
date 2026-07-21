@@ -163,6 +163,16 @@ actually used.  The remaining targets are the concrete occurrence-provenance
 certificate for Phase-A marks and the finite raw-tree/König construction.
 The exact provenance payload and the theorem turning it into a sound mark are
 now also kernel checked; the builder must construct that payload recursively.
+The global form allows each marked hit to name a different earlier ancestor;
+`AllMarkProvenance` plus the universal `shift>=-2` invariant now implies
+`MarkingSound` without an additional semantic assumption.
+`HistoryWords.lean` and `RawHistoryTree.lean` now pin the builder to exact
+edge words and the real KL split grammar.  Lean derives local functional
+validity, the raw root comparison, the feasible-coefficient comparison, and
+the terminal shift invariants from any finite such tree.  Consequently the
+remaining construction contract contains no analytic or LP soundness fields:
+it asks for the finite histories, their syntactic mark provenance, a live
+pruning, and one common retarded lag bound.
 `TwoPhaseWitness.lean` packages the complete remaining builder contract and
 proves that any inhabitant is automatically the existing
 `RetardedEliminationWitness`, hence feeds the already checked comparison

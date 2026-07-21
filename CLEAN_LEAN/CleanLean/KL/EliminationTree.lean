@@ -270,6 +270,57 @@ inductive SelectedSubassignment :
       (h : SelectedSubassignment smallA rightA) :
       SelectedSubassignment smallA (.infRight (left := left) rightA)
 
+/-- Selected occurrence containment is transitive.  This is the path
+composition operation used when a marked branch is located below an earlier
+principal and both are then lifted through the rest of the raw history tree. -/
+theorem SelectedSubassignment.trans
+    {small middle big : EliminationTree ι}
+    {smallA : Assignment small} {middleA : Assignment middle}
+    {bigA : Assignment big}
+    (hsmall : SelectedSubassignment smallA middleA)
+    (hbig : SelectedSubassignment middleA bigA) :
+    SelectedSubassignment smallA bigA := by
+  induction hbig with
+  | refl A => exact hsmall
+  | principal h ih => exact .principal (ih hsmall)
+  | addLeft h rightA ih => exact .addLeft (ih hsmall) rightA
+  | addRight leftA h ih => exact .addRight leftA (ih hsmall)
+  | infLeft h ih => exact .infLeft (ih hsmall)
+  | infRight h ih => exact .infRight (ih hsmall)
+
+/-- A leaf predicate on the enclosing tree restricts to every selected
+subassignment. -/
+theorem allLeaves_of_selectedSubassignment
+    {small big : EliminationTree ι}
+    {smallA : Assignment small} {bigA : Assignment big}
+    (hsub : SelectedSubassignment smallA bigA)
+    {P : PrincipalLabel ι → Prop} (hbig : big.AllLeaves P) :
+    small.AllLeaves P := by
+  induction hsub with
+  | refl A => exact hbig
+  | principal h ih => exact ih hbig
+  | addLeft h rightA ih => exact ih hbig.1
+  | addRight leftA h ih => exact ih hbig.2
+  | infLeft h ih => exact ih hbig.1
+  | infRight h ih => exact ih hbig.2
+
+/-- Principal-bound validity also restricts to every selected
+subassignment. -/
+theorem respectsPrincipalBounds_of_selectedSubassignment
+    {small big : EliminationTree ι}
+    {smallA : Assignment small} {bigA : Assignment big}
+    (hsub : SelectedSubassignment smallA bigA)
+    (φ : ι → ℝ → ℝ) (y : ℝ)
+    (hbig : bigA.RespectsPrincipalBounds φ y) :
+    smallA.RespectsPrincipalBounds φ y := by
+  induction hsub with
+  | refl A => exact hbig
+  | principal h ih => exact ih hbig.2
+  | addLeft h rightA ih => exact ih hbig.1
+  | addRight leftA h ih => exact ih hbig.2
+  | infLeft h ih => exact ih hbig
+  | infRight h ih => exact ih hbig
+
 /-- Every finite labelled tree has a critical assignment. -/
 theorem exists_isCritical (tree : EliminationTree ι)
     (φ : ι → ℝ → ℝ) (y : ℝ) :

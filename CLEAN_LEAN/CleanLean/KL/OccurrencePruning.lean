@@ -506,6 +506,68 @@ theorem markingSound_principal_of_repeatProvenance
         W.strictly_higher (hmono ancestor.state)
         (W.branch_selects_target φ y)
 
+/-- Occurrence payload for a marked hit whose earlier principal can be
+anywhere on the selected root-to-target path.  This is the form produced by
+edge-word/prefix provenance in the concrete universal history tree. -/
+structure GlobalRepeatSelection
+    (tree : OccurrenceTree ι) (A : Assignment tree.erase) where
+  ancestor : PrincipalLabel ι
+  target : PrincipalLabel ι
+  ancestorBody : EliminationTree ι
+  ancestorA : Assignment ancestorBody
+  ancestorSelected : Assignment.SelectedSubassignment
+    (Assignment.principalNode (label := ancestor) ancestorA) A
+  transport : EliminationTree ι
+  branch : EliminationTree ι
+  transportA : Assignment transport
+  branchA : Assignment branch
+  splitSelected : Assignment.SelectedSubassignment
+    (Assignment.add transportA branchA) ancestorA
+  branch_selects_target : ∀ (ψ : ι → ℝ → ℝ) (z : ℝ),
+    branchA.selectedEval ψ z = target.value ψ z
+  same_state : ancestor.state = target.state
+  strictly_higher : ancestor.shift < target.shift
+  transport_shifts : transport.AllLeaves fun label => -2 ≤ label.shift
+
+/-- Every marked hit in the whole occurrence tree carries a prefix-derived
+repeat payload, possibly with a different earlier ancestor. -/
+def AllMarkProvenance (tree : OccurrenceTree ι) : Prop :=
+  ∀ A : Assignment tree.erase, tree.Hits A →
+    Nonempty (GlobalRepeatSelection tree A)
+
+/-- Exact semantic bridge requested by the raw-history construction: global
+edge-word provenance for every mark implies universal mark soundness. -/
+theorem markingSound_of_allMarkProvenance
+    (tree : OccurrenceTree ι) (φ : ι → ℝ → ℝ) (y : ℝ)
+    (hprovenance : tree.AllMarkProvenance)
+    (htreeShifts : tree.erase.AllLeaves fun label => -2 ≤ label.shift)
+    (hy : 2 ≤ y)
+    (hφ : ∀ i t, 0 ≤ t → 0 < φ i t)
+    (hmono : ∀ i, Monotone (φ i)) :
+    tree.MarkingSound φ y := by
+  intro A hrespect hhit
+  obtain ⟨W⟩ := hprovenance A hhit
+  have hancestorRespect :=
+    Assignment.respectsPrincipalBounds_of_selectedSubassignment
+      W.ancestorSelected φ y hrespect
+  have hancestorShifts :
+      W.ancestorBody.AllLeaves fun label => -2 ≤ label.shift :=
+    Assignment.allLeaves_of_selectedSubassignment
+      W.ancestorSelected htreeShifts
+  have hancestorArgs :
+      W.ancestorBody.AllLeaves fun label => 0 ≤ y + label.shift :=
+    allLeaves_nonnegative_arguments_of_shift_lower_bound
+      y 2 hancestorShifts hy
+  have htransportArgs :
+      W.transport.AllLeaves fun label => 0 ≤ y + label.shift :=
+    allLeaves_nonnegative_arguments_of_shift_lower_bound
+      y 2 W.transport_shifts hy
+  exact Assignment.repeated_branch_leaf_not_selected_of_nonnegative_arguments
+    W.ancestor W.target W.ancestorA W.transportA W.branchA φ y
+    hancestorRespect W.splitSelected hancestorArgs htransportArgs hφ
+    W.same_state W.strictly_higher (hmono W.ancestor.state)
+    (W.branch_selects_target φ y)
+
 /-- The complete one-pass Phase-B theorem at a fixed evaluation point.
 Local validity supplies principal bounds for critical assignments; a sound
 occurrence marking then proves root liveness and exact functional equality. -/
@@ -536,6 +598,74 @@ theorem allLeaves_of_pruneOccurrences_live
       cases marked <;> simp [pruneOccurrences] at hprune
       subst output
       exact hall
+  | principal label body ih =>
+      generalize hb : body.pruneOccurrences = bodyResult
+      cases bodyResult with
+      | dead => simp [pruneOccurrences, hb] at hprune
+      | live body' =>
+          simp [pruneOccurrences, hb] at hprune
+          subst output
+          exact ih body' hb hall
+  | add left right ihLeft ihRight =>
+      generalize hl : left.pruneOccurrences = leftResult
+      generalize hr : right.pruneOccurrences = rightResult
+      cases leftResult with
+      | dead => simp [pruneOccurrences, hl, hr] at hprune
+      | live left' =>
+          cases rightResult with
+          | dead => simp [pruneOccurrences, hl, hr] at hprune
+          | live right' =>
+              simp [pruneOccurrences, hl, hr] at hprune
+              subst output
+              exact ⟨ihLeft left' hl hall.1, ihRight right' hr hall.2⟩
+  | inf left right ihLeft ihRight =>
+      generalize hl : left.pruneOccurrences = leftResult
+      generalize hr : right.pruneOccurrences = rightResult
+      cases leftResult with
+      | dead =>
+          cases rightResult with
+          | dead => simp [pruneOccurrences, hl, hr] at hprune
+          | live right' =>
+              simp [pruneOccurrences, hl, hr] at hprune
+              subst output
+              exact ihRight right' hr hall.2
+      | live left' =>
+          cases rightResult with
+          | dead =>
+              simp [pruneOccurrences, hl, hr] at hprune
+              subst output
+              exact ihLeft left' hl hall.1
+          | live right' =>
+              simp [pruneOccurrences, hl, hr] at hprune
+              subst output
+              exact ⟨ihLeft left' hl hall.1, ihRight right' hr hall.2⟩
+
+/-- A leaf predicate is required only of unmarked occurrences.  Marked leaves
+are removed before the final retarded expression is formed. -/
+def UnmarkedLeavesSatisfy (P : PrincipalLabel ι → Prop) :
+    OccurrenceTree ι → Prop
+  | .leaf label marked => marked = true ∨ P label
+  | .principal _ body => body.UnmarkedLeavesSatisfy P
+  | .add left right =>
+      left.UnmarkedLeavesSatisfy P ∧ right.UnmarkedLeavesSatisfy P
+  | .inf left right =>
+      left.UnmarkedLeavesSatisfy P ∧ right.UnmarkedLeavesSatisfy P
+
+/-- After occurrence pruning, every surviving leaf satisfies any predicate
+which held on all unmarked raw leaves. -/
+theorem allLeaves_of_unmarkedLeavesSatisfy
+    (tree : OccurrenceTree ι) (output : EliminationTree ι)
+    (hprune : tree.pruneOccurrences = .live output)
+    (P : PrincipalLabel ι → Prop)
+    (hall : tree.UnmarkedLeavesSatisfy P) : output.AllLeaves P := by
+  induction tree generalizing output with
+  | leaf label marked =>
+      cases marked with
+      | false =>
+          simp [pruneOccurrences] at hprune
+          subst output
+          exact hall.resolve_left (by simp)
+      | true => simp [pruneOccurrences] at hprune
   | principal label body ih =>
       generalize hb : body.pruneOccurrences = bodyResult
       cases bodyResult with

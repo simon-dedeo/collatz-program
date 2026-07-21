@@ -264,6 +264,19 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     `TwoPhaseEliminationData` and proves that satisfying them produces exactly
     the previously audited retarded-elimination witness and quarter-factor
     comparison theorem.
+    The contract requires occurrence-specific `AllMarkProvenance` rather than
+    assuming semantic mark soundness; a kernel-checked global extraction
+    theorem converts this provenance, leaf bounds, positivity, and monotonicity
+    into the exact Phase-B hypothesis.
+    `HistoryWords.lean` identifies occurrences by exact transport/retarded/
+    advanced edge words.  `RawHistoryTree.lean` is an indexed finite syntax
+    whose constructors are exactly the legal KL cases; its compiler is proved
+    locally valid and below the root functionally, above the root in feasible
+    coefficient evaluation, bounded below by shift `-2`, and strictly negative
+    at every unmarked terminal.  `RawHistoryEliminationData` therefore reduces
+    the remaining theorem to constructing this finite forest, extracting
+    prefix provenance for its marks, proving structural liveness, and choosing
+    a common lag for its finitely many pruned leaves.
 
 ## Corrections to the current notes
 

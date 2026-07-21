@@ -173,16 +173,28 @@ specification theorems during a build.
 #print axioms CleanLean.KL.EliminationTree.Assignment.selectedEval_pos_of_nonnegative_arguments
 #print axioms
   CleanLean.KL.EliminationTree.Assignment.repeated_branch_leaf_not_selected_of_nonnegative_arguments
+#print axioms
+  CleanLean.KL.EliminationTree.Assignment.respectsPrincipalBounds_of_selectedSubassignment
+#print axioms
+  CleanLean.KL.EliminationTree.Assignment.SelectedSubassignment.trans
 #print axioms CleanLean.KL.EliminationTree.OccurrenceTree.structurallyDead_iff_forall_hits
 #print axioms CleanLean.KL.EliminationTree.OccurrenceTree.exists_live_prune_of_noCriticalHits
 #print axioms CleanLean.KL.EliminationTree.OccurrenceTree.eval_pruneOccurrences
 #print axioms CleanLean.KL.EliminationTree.OccurrenceTree.pruneOccurrences_sound
 #print axioms
   CleanLean.KL.EliminationTree.OccurrenceTree.markingSound_principal_of_repeatProvenance
+#print axioms
+  CleanLean.KL.EliminationTree.OccurrenceTree.markingSound_of_allMarkProvenance
 #print axioms CleanLean.KL.EliminationTree.OccurrenceTree.allLeaves_of_pruneOccurrences_live
 #print axioms CleanLean.KL.ConcreteElimination.coeffEval_le_of_pruneOccurrences_live
 #print axioms
   CleanLean.KL.ConcreteElimination.TwoPhaseEliminationData.toRetardedEliminationWitness
+#print axioms
+  CleanLean.KL.ConcreteElimination.RawHistoryTree.compile_locallyValid_and_eval_le
+#print axioms
+  CleanLean.KL.ConcreteElimination.RawHistoryTree.leaf_coeff_le_compile
+#print axioms
+  CleanLean.KL.ConcreteElimination.RawHistoryEliminationData.toTwoPhaseEliminationData
 #print axioms CleanLean.KL.ConcreteElimination.quarter_lower_bound_of_twoPhaseElimination
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
 #print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda

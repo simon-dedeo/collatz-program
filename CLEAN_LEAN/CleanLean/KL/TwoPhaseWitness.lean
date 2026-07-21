@@ -5,6 +5,7 @@ Authors: Simon DeDeo, OpenAI Codex
 -/
 import CleanLean.KL.EliminationWitness
 import CleanLean.KL.OccurrencePruning
+import CleanLean.KL.RawHistoryTree
 
 /-!
 # From a two-phase history forest to the KL elimination witness
@@ -40,10 +41,9 @@ structure TwoPhaseEliminationData (k : ℕ) where
   locallyValid : ∀ (phi : ResidueSystem.State k → ℝ → ℝ),
     SatisfiesBaseSystem k phi →
     ∀ state y, 2 ≤ y → (raw state).erase.LocallyValid phi y
-  markingSound : ∀ (phi : ResidueSystem.State k → ℝ → ℝ),
-    (∀ state t, 0 ≤ t → 0 < phi state t) →
-    (∀ state, Monotone (phi state)) →
-    ∀ state y, 2 ≤ y → (raw state).MarkingSound phi y
+  raw_shift_lower : ∀ state,
+    (raw state).erase.AllLeaves fun label => -2 ≤ label.shift
+  markProvenance : ∀ state, (raw state).AllMarkProvenance
   functionalRaw : ∀ (phi : ResidueSystem.State k → ℝ → ℝ),
     SatisfiesBaseSystem k phi →
     ∀ state y, 2 ≤ y → (raw state).erase.eval phi y ≤ phi state y
@@ -52,6 +52,47 @@ structure TwoPhaseEliminationData (k : ℕ) where
     (ResidueSystem.system k).Feasible (klWeights lam) c →
     ∀ state, c state ≤
       (eraseToRetarded (raw state).erase).coeffEval c lam
+
+/-- The substantially smaller contract now required from the concrete
+well-founded builder.  Functional and coefficient soundness are not fields:
+they are derived from the indexed raw-history grammar. -/
+structure RawHistoryEliminationData (k : ℕ) where
+  history : ∀ root : ResidueSystem.State k, RawHistoryTree k root []
+  markProvenance : ∀ root, (history root).compile.AllMarkProvenance
+  output : ResidueSystem.State k → EliminationTree (ResidueSystem.State k)
+  pruned : ∀ root,
+    (history root).compile.pruneOccurrences = .live (output root)
+  mu : ℝ
+  mu_pos : 0 < mu
+  lag_bounds : ∀ state, (eraseToRetarded (output state)).LagsIn mu 2
+
+/-- A finite indexed raw forest automatically supplies all analytic and LP
+fields of `TwoPhaseEliminationData`. -/
+noncomputable def RawHistoryEliminationData.toTwoPhaseEliminationData
+    (D : RawHistoryEliminationData k) : TwoPhaseEliminationData k where
+  raw := fun state => (D.history state).compile
+  output := D.output
+  mu := D.mu
+  mu_pos := D.mu_pos
+  pruned := D.pruned
+  lag_bounds := D.lag_bounds
+  locallyValid := by
+    intro phi hbase state y hy
+    exact (RawHistoryTree.compile_locallyValid_and_eval_le
+      (D.history state) phi y hbase hy).1
+  raw_shift_lower := fun state => (D.history state).compile_shift_lower
+  markProvenance := D.markProvenance
+  functionalRaw := by
+    intro phi hbase state y hy
+    have hsound := (RawHistoryTree.compile_locallyValid_and_eval_le
+      (D.history state) phi y hbase hy).2
+    simpa [OccurrenceId.labelAt, symbolicLabel, PrincipalLabel.value] using hsound
+  coefficientRaw := by
+    intro c lam hlam hfeasible state
+    have hcoeff := RawHistoryTree.leaf_coeff_le_compile
+      (D.history state) c lam hlam hfeasible
+    simpa [OccurrenceId.labelAt, symbolicLabel, eraseToRetarded,
+      RetardedExpr.coeffEval] using hcoeff
 
 /-- The two-phase contract produces exactly the elimination witness consumed
 by the retarded comparison theorem. -/
@@ -64,7 +105,9 @@ noncomputable def TwoPhaseEliminationData.toRetardedEliminationWitness
   functional_sound := by
     intro phi hbase hpos hmono state y hy
     have hvalid := D.locallyValid phi hbase state y hy
-    have hmarks := D.markingSound phi hpos hmono state y hy
+    have hmarks := markingSound_of_allMarkProvenance
+      (D.raw state) phi y (D.markProvenance state)
+        (D.raw_shift_lower state) hy hpos hmono
     have havoid : ∀ A : Assignment (D.raw state).erase,
         A.IsCritical phi y → ¬(D.raw state).Hits A := by
       intro A hcritical hhit
