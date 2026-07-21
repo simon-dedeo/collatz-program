@@ -1827,3 +1827,58 @@ especially (i) the two-subtree disjointness proof and (ii) the residue
 cancellation/fiber witnesses.  If you have a preferred exact statement for
 turning the real-`y` bound at `X=floor(2^y a)` into an eventual bound for every
 natural `X`, send it next; that is now the main analytic seam.
+
+## Round 44 — finite feasibility now reaches the public counting theorem
+
+I read reply 23 and completed the wrapper.  `CountingTransfer.lean` now
+kernel-checks the following load-bearing theorem:
+
+```text
+hasPredecessorExponent_of_levelFeasible
+  (hk : 2 <= k) (hlam1 : 1 < lam) (hlam2 : lam <= 2)
+  (hlevel : LevelFeasible k lam)
+  (ha : 0 < a) (ha3 : a % 3 != 0) :
+  HasPredecessorExponent a (logb 2 lam).
+```
+
+The proof includes the exact `X`-cutoff calculation from reply 23, bounds the
+finite feasible vector by its coordinate sum, and closes the arbitrary-target
+escape.  For the latter I chose an even exponent `2n` above the displayed
+cycle sum, so multiplication by that power preserves the residue mod 3; if
+the input is class 1, one extra initial doubling makes it class 2.  The
+resulting nonperiodic target is inserted at `klStateOf`, and the ordinary
+count transfers back along its halving path.
+
+The all-level endpoint now has no abstract transfer seam:
+
+```text
+almostLinearPredecessorCounting_of_feasible_sequence_concrete
+  (hmu : mu --> 2)
+  (hmuUpper : forall k, mu k <= 2)
+  (hfeasible : forall k >= 2, LevelFeasible k (mu k)) :
+  AlmostLinearPredecessorCounting.
+```
+
+Convergence itself supplies `1 < mu k` on a tail, so this statement shifts
+past both that threshold and `k=2`.  This is exactly the conditional
+`lambda_k -> 2` to `x^(1-epsilon)` result we wanted; the only remaining
+limit-side mathematics is constructing the feasible sequence tending to two
+(or C1'/pressure localization that implies it).
+
+As an end-to-end regression test, the tiny checked level-2 certificate now
+proves `hasPredecessorExponent_four_thirds` for every positive target not
+divisible by three.  The focused build and full audit pass; all new headline
+theorems report only mathlib's standard `propext`, `Classical.choice`, and
+`Quot.sound`.
+
+I also found the actual `cert_k12` through `cert_k19` artifacts in
+`experiments/kl`.  The next engineering target is a formal import of at least
+`k=12` (177,147 coordinates, 2.6 MB inline JSON) through
+`ScaledCertificate`, followed by a scalable streamed/chunked frontend for the
+multi-gigabyte sidecars.  Please review the completed arbitrary-target proof
+and tell me whether you prefer (a) a first Lean-native `k=12` array checked by
+`native_decide`, accepting mathlib's standard native reduction trust boundary,
+or (b) a chunked generated proof whose arithmetic is reduced by the kernel.
+For `k=15--19`, a raw embedded array is not realistic; we need either a
+smaller certificate/proof artifact or a carefully documented native/streamed
+checker architecture.

@@ -17,10 +17,10 @@ finite feasible parameters tending to two implies the same counting result
 directly, without choosing critical eigenvectors.  The central missing
 theorem remains either a uniform localization/domination argument forcing the
 weighted oscillation defect to vanish, or a cofinal construction of exact
-feasible vectors below every fixed parameter less than two.  A separate
-remaining bridge must instantiate the KL difference functions with the actual
-Syracuse predecessor counts; it must use the corrected one-sided doubling
-argument, not the false printed equation (2.1).
+feasible vectors below every fixed parameter less than two.  The finite-level
+counting bridge is now complete: the KL difference functions are instantiated
+with actual Syracuse predecessor counts using the corrected one-sided
+doubling argument, not the false printed equation (2.1).
 
 `LevelLift.lean` formalizes the paper's level monotonicity argument: copying a
 feasible vector to all three new top-digit lifts preserves feasibility.  Thus
@@ -188,7 +188,7 @@ minimum of the positive output lags, and constructs the full witness.  Its
 directly from finite KL feasibility, with no remaining elimination or
 provenance assumption.
 
-`PredecessorTransfer.lean` begins the remaining concrete counting seam.  It
+`PredecessorTransfer.lean` begins the concrete counting construction.  It
 defines the literal path-bounded predecessor set using the actual Syracuse
 iterate and kernel-checks the corrected replacement for the false printed
 equation (2.1): for a positive nonperiodic `a = 1 (mod 3)` and `2a <= X`,
@@ -204,8 +204,15 @@ for a nonperiodic target, checks all real `log_2(3)` cutoff identities, maps
 the transformed targets into the exact transport/refinement residue fibers,
 and proves `predecessorPhi_satisfiesBaseSystem` for every `k>=2`.  Thus the
 abstract elimination theorem is now instantiated by the literal predecessor
-functions; the remaining finite-level seam is packaging its exponential
-bound as `HasPredecessorExponent` for arbitrary targets.
+functions.  `CountingTransfer.lean` completes the finite-level seam: exact
+feasibility at `k>=2` and `1<lambda<=2` implies
+`HasPredecessorExponent a (logb 2 lambda)` for every positive `a` not divisible
+by three.  It proves the exact real cutoff identity, bounds a feasible vector
+by its finite coordinate sum, escapes arbitrary finite cycles by a sufficiently
+large power-of-two multiple, and transfers the count back to the original
+target.  Consequently, any exact feasible sequence tending to two proves
+almost-linear predecessor counting with no separate literature-transfer
+hypothesis.
 
 `PressureCertificate.lean` now also accepts the portable sparse-edge format
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational
@@ -245,9 +252,10 @@ arithmetic qualification in the earlier no-go statement is therefore closed.
 `FiniteRecord.lean` contains a small Lean-native certificate at level 2.  It
 checks the integer rows and logarithmic cross-products by kernel reduction and
 then invokes the same soundness path intended for the large streamed records.
-The repaired elimination theorem and literal predecessor base system are now
-both kernel-checked; connecting a finite feasible record to the public
-ordinary-predecessor exponent statement is the next wrapper theorem.
+`hasPredecessorExponent_four_thirds` now carries that certificate through the
+entire chain to an unconditional ordinary-predecessor exponent theorem for
+every eligible target.  The same path accepts large streamed records once
+their data are converted to the checked certificate format.
 
 `RESEARCH_AUDIT.md` separates the statements supported by the live research
 notes from the pressure/mass estimate that is still open, including the exact

@@ -291,8 +291,17 @@ specification theorems during a build.
 #print axioms CleanLean.KL.no_orbitHit_before_precision
 #print axioms CleanLean.KL.positiveEigenvalue_unique
 #print axioms CleanLean.KL.one_le_positiveEigenvalue_of_subeigenvector
+#print axioms CleanLean.KL.rpow_logb_swap
+#print axioms CleanLean.KL.klCutoff_logb_div
+#print axioms CleanLean.KL.hasPredecessorExponent_klTarget_of_feasible
+#print axioms CleanLean.KL.hasPredecessorExponent_klTarget_of_levelFeasible
+#print axioms CleanLean.KL.exists_nonperiodic_two_even_pow_mul
+#print axioms CleanLean.KL.exists_nonperiodic_class_two_pow_mul
+#print axioms CleanLean.KL.hasPredecessorExponent_of_levelFeasible
+#print axioms CleanLean.KL.hasPredecessorExponent_four_thirds
 #print axioms CleanLean.KL.eventually_rpow_le_of_constant_mul_rpow_le
 #print axioms CleanLean.KL.klExponent_tendsto_one
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_klLambda
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_feasible_sequence
+#print axioms CleanLean.KL.almostLinearPredecessorCounting_of_feasible_sequence_concrete
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_klDefect
