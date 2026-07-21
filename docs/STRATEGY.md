@@ -397,9 +397,11 @@ the k=19 exact certificate supersedes the k=18 headline.
    `γ < 0.9094372617`, `a ≢ 0 mod 3`, `x ≥ x₀(a)`, improving the 2003 KL record
    0.84. Levels k=12..19 pass exact integer verification, falsification
    controls, and SHA-256-pinned checks (`experiments/kl/RESULT.md`), but the
-   successor audit invalidates the published advanced-term termination bridge.
-   Therefore the displayed counting bound is conditional until that bridge is
-   repaired. The k=19 sidecar is local and ignored by git; k=20 never became a certificate.
+   successor audit invalidates the published advanced-term termination bridge,
+   and a later exact `k=2` audit refutes printed equation (2.1). The useful
+   one-sided transfer survives, but the displayed counting bound is conditional
+   until both the retarded witness and actual predecessor-count instantiation
+   are formalized. The k=19 sidecar is local and ignored by git; k=20 never became a certificate.
    Pre-registered dichotomy fits (notes/kl-limit-object.md): data favor
    γ_∞ near 1 (branch A ⟹ x^{1−ε} counting), γ_∞ ≤ 0.95 disfavored ~9–30×;
    exact oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k proved (Thm 3.2).

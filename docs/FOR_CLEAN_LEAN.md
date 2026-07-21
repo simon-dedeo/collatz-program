@@ -110,10 +110,11 @@ your formalization needs: hypothesis 1 <= lambda <= 2 and k >= 2 only ("NT" =
 no truncation; no hidden N, T parameters — verified against every occurrence);
 conclusion phi^m_k(y) >= Delta_1 * c^m * lambda^y with Delta_1 = 1/(4 max c^m)
 (the retarded-shift bound nu <= 2 enters here, paper Sec. 3); transfer to
-pi_a(x) for a = 2 mod 3 via phi's definition, then all a != 0 mod 3 via one
-backward step (factor lambda^(-1)), cycle elements via pi_1 >= pi_8 etc.
-(paper Sec. 6; our gpt_review_result.md section 4 spells the chain out and
-was adversarially reviewed). Certified (A, gamma) table: RESULT.md.
+   pi_a(x) for a = 2 mod 3 via phi's definition, then all a != 0 mod 3 via a
+   doubling predecessor (factor lambda^(-1)).  **Correction:** printed equation
+   (2.1) is false, and `gpt_review_result.md` is superseded on this point; use
+   the one-sided inclusion and arbitrary-cycle argument in reply 19 below.
+   Certified (A, gamma) table: RESULT.md.
 
 ## 3. "Concrete KL oscillation identity" — conventions pinned
 
@@ -1432,3 +1433,57 @@ This proves
 without asserting the false arbitrary-subtree version.  No syntax mismatch was
 found for the root theorem, including earlier transport ancestors and the
 self-child case `earlier = source`.
+
+## 2026-07-21 — reply 19: counting-transfer erratum; do not encode (2.1)
+
+An exact audit of the later predecessor-count bridge found a separate printed
+error.  KL equation (2.1)
+
+```text
+phi k m y = phi k (2*m) (y-1),  m = 1 (mod 3)
+```
+
+is false under the literal definitions.  At `k=2,m=7,y=1`, exact parametric
+lower bounds plus two finite enumeration algorithms give
+
+```text
+phi 2 7 1 = 3
+phi 2 14 0 = phi 2 5 0 = 2.
+```
+
+The checker is `experiments/kl/verify_equation_2_1_obstruction.py`.  It proves
+the two infima by showing every `a=9q+7` has the bounded predecessors
+`a,2a,(4a-1)/3`, every `b=9q+5` has `b,(2b-1)/3`, and the nonperiodic targets
+`7` and `14` attain the respective bounds.  Independent forward-orbit and
+reverse-tree searches agree on the finite witness sets `{7,9,14}` and
+`{9,14}`.
+
+The elementary all-`k` correction, audited but not yet kernel-checked, is this.
+Write `Pstar a x` for the set counted by `piStar a x`.  If `a` is nonperiodic,
+`a = 1 (mod 3)`, and `2*a <= x`, then
+
+```text
+Pstar a x = {a} disjoint-union Pstar (2*a) x.
+```
+
+Indeed, `2*a` is the only positive immediate predecessor of `a`; any different
+path ending at `a` must first hit `2*a`, and `a` itself cannot reach `2*a`
+without closing a cycle.  Doubling maps eligible targets in class `m` into
+only a subset of the eligible targets in class `2*m`, so infimizing gives only
+
+```text
+phi k m y >= 1 + phi k (2*m) (y-1),  y >= 1,
+```
+
+not equality.  This direction is enough for the same exponent with the usual
+`lambda^(-1)` constant.  The final all-target transfer can avoid (2.1)
+entirely: for any fixed `a`, choose a sufficiently large `b=2^r*a` with
+`b=2 (mod 3)` and `b` nonperiodic.  A finite cycle contains only finitely many
+of the distinct powers `2^r*a`, and `T^[r] b = a`, hence
+`predecessorCount b X <= predecessorCount a X`.
+
+Please keep the current history/provenance constructor as the priority.  When
+the actual predecessor family is instantiated, use the corrected inclusion
+lemma (and arbitrary-cycle doubling argument), never the printed equality.
+This removes a paper erratum from the open `CountingTransfer` seam but does not
+by itself instantiate that seam.

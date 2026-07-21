@@ -450,7 +450,8 @@ The oscillation law therefore implies
 \[
 \lambda_k\longrightarrow2.
 \]
-KL’s theorem then yields the predecessor-counting exponent \(1-\varepsilon\).
+Conditional on the repaired KL elimination/counting trust chain, this would
+yield the predecessor-counting exponent \(1-\varepsilon\).
 
 ---
 

@@ -12,10 +12,11 @@ python3 verify_termination_obstruction.py
 python3 verify_all_three_deletion.py
 python3 verify_split_invariant_counterexample.py
 python3 verify_two_phase_small_levels.py
+python3 verify_equation_2_1_obstruction.py
 ```
 
-The checkers use exact integer arithmetic for every symbolic shift. The first
-verifies a legal `k=5` path in
+The checkers use exact integer or affine arithmetic throughout; the finite
+tree traversals do not use floating point. The first verifies a legal `k=5` path in
 the Krasikov--Lagarias back-substitution tree:
 
 ```text
@@ -124,15 +125,54 @@ countermodel, not yet a claim that these four values arise from one concrete KL
 function family; it blocks the published induction and any backjump repair that
 silently assumes the same invariant.
 
+## Adjacent counting-transfer erratum: equation (2.1)
+
+A separate audit of the later predecessor-count instantiation found that the
+paper's printed equality
+
+```text
+φ^m_k(y) = φ^{2m}_k(y−1),  m ≡ 1 (mod 3)
+```
+
+is false under its literal definitions. At `k=2, m=7, y=1`, every target
+`a=9q+7` has the three bounded predecessors
+`a`, `2a`, and `(4a−1)/3`, while `a=7` has exactly `{7,9,14}` below `14`.
+Thus `φ^7_2(1)=3`. Every target `b=9q+5` has `b` and `(2b−1)/3`, while
+`b=14` has exactly `{9,14}` below `14`, so
+`φ^{14}_2(0)=φ^5_2(0)=2`. Both witnesses are nonperiodic points.
+`verify_equation_2_1_obstruction.py` checks the parametric lower bounds in
+exact affine arithmetic and the witness sets with independent forward-orbit
+and reverse-tree enumerators.
+
+Writing `P*_a(x)` for the set counted by `π*_a(x)`, the correct targetwise
+statement for nonperiodic `a ≡ 1 (mod 3)` and `x ≥ 2a` is
+
+```text
+P*_a(x) = {a} ⊔ P*_{2a}(x).
+```
+
+This elementary all-`k` identity has been independently audited but is not yet
+kernel-checked. After taking infima, doubled targets are only a subset of the
+class `2m`, so the valid statement is
+
+```text
+φ^m_k(y) ≥ 1 + φ^{2m}_k(y−1),  y ≥ 1.
+```
+
+This is a genuine printed error but not an additional fatal gap: the useful
+lower-bound direction survives (even with `+1`) and yields the same exponent
+with the usual factor `λ^{-1}`. The formal counting bridge must use this
+inequality or the direct inclusion `π_a(x) ≥ π_{2a}(x)`, not the equality.
+
 ## Consequence for the record certificate
 
 The `k=19` feasible point and its 387,420,489 inequalities remain exactly
 verified. The inference from that feasible point to the predecessor-counting
 bound uses KL Theorem 2.2, whose published supporting chain invokes Theorem
-3.1. The formal trust chain now has two separately visible gaps: construct the
+3.1. The formal trust chain has two separately visible construction gaps: construct the
 corrected retarded-elimination witness, then instantiate the abstract function
 family by the actual predecessor counts and discharge the counting-transfer
-hypothesis. Until both are checked, the numerical certificate is exact but the
+hypothesis using the corrected transfer above. Until both are checked, the numerical certificate is exact but the
 headline exponent is conditional. This is a trust-chain correction, not
 evidence that the bound or Theorem 3.1 is false.
 

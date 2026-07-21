@@ -43,8 +43,8 @@ We rewrite the eigenproblem as a zero-sum ergodic control problem (§2) and prov
   s(λ_k) − 1 = (λ_k^{α−2} + λ_k^{α−1}) · δ_k,   δ_k = mean fiber oscillation,
 
 an exact identity, so that **λ_k → 2 if and only if the extremal eigenvectors flatten over
-3-adic fibers in mean**. The dichotomy (Problem 3.5): (A) λ∞ = 2, giving π_a(x) ≥ x^{1−ε}
-by KL's own conditional statement (§3.1, quoted verbatim); or (B) λ∞ < 2, in which case λ∞
+3-adic fibers in mean**. The dichotomy (Problem 3.5): (A) λ∞ = 2, conditionally
+giving π_a(x) ≥ x^{1−ε} through the repaired KL trust chain (§3.1); or (B) λ∞ < 2, in which case λ∞
 is a new invariant — the asymptotic value of adversarial digit control on ℤ₃ — and the
 entire KL difference-inequality method has the intrinsic ceiling γ∞ = log₂ λ∞ < 1.
 §4 pre-registers what γ_15–γ_18 should look like under (A) vs (B).
@@ -375,18 +375,22 @@ Quoting kl_paper.txt (lines 1019–1023 and 1042–1044; "ǫ" rendered ε):
 > π_a(x) ≥ x^{1−ε} holds for each positive ε, for each a ≢ 0 (mod 3) and all sufficiently
 > large x ≥ x₀(a)."
 
-The sufficiency direction is unconditional given their Theorem 2.2 (quoted in full in
-THEOREM.md §3), and we record it precisely:
+The sufficiency direction is conditional on a corrected proof of their Theorem
+2.2 and the actual predecessor-count instantiation (current audit in
+`experiments/kl/TERMINATION_AUDIT.md`), and we record the intended statement
+precisely:
 
-**Proposition 3.1 (sufficiency).** If λ_k → 2, then for every ε > 0 and every positive
+**Proposition 3.1 (conditional sufficiency).** If λ_k → 2 and the repaired KL
+trust chain holds, then for every ε > 0 and every positive
 a ≢ 0 (mod 3): π_a(x) ≥ x^{1−ε} for all x ≥ x₀(a, ε).
 
 *Proof.* Given ε, pick k with λ_k > 2^{1−ε/2}, then (definition of the supremum) a
 feasible λ ∈ (2^{1−ε/2}, λ_k] with solution {c^m}. KL Theorem 2.2 gives
-φ^m_k(y) ≥ Δ₁ c^m λ^y (all y ≥ 0, Δ₁ = 1/(4 max c)); the transfer chain of KL Theorem 6.1
-(spelled out with constants in THEOREM.md §4) gives π_a(x) ≥ Δ₁ a^{−γ} x^{γ} with
-γ = log₂ λ > 1 − ε/2, for all x ≥ a (non-cycle a ≡ 2 mod 3; the other classes reduce as in
-THEOREM.md §4). For x large, Δ₁ a^{−γ} x^{γ} ≥ x^{1−ε}. ∎
+φ^m_k(y) ≥ Δ₁ c^m λ^y (all y ≥ 0, Δ₁ = 1/(4 max c)); the corrected transfer
+chain in `THEOREM.md` §4 gives π_a(x) ≥ C(a) x^{γ}, with `C(a)>0` and
+γ = log₂ λ > 1 − ε/2, for all sufficiently large x (for a direct non-cycle
+target in class 2 this starts at x≥a; doubled targets start at their chosen
+predecessor). For x large, C(a) x^{γ} ≥ x^{1−ε}. ∎
 
 On the *necessity* direction of the first quote: as stated it is exactly true **within the
 method** — the set of exponents certifiable by the family {L^NT_k(λ)} is
@@ -489,8 +493,9 @@ difference" — weak structural evidence for (A).
 λ∞ = lim λ_k ∈ (1.8307, 2]:
 
 **(A) λ∞ = 2** ("the adversary's ergodic value vanishes at fine precision").
-Equivalent, under (H_k), to δ_k → 0 (Theorem 3.2(iii)). Consequence (Proposition 3.1 +
-KL Theorem 2.2): π_a(x) ≥ x^{1−ε} for every ε > 0 and every a ≢ 0 (mod 3), x ≥ x₀(a,ε) —
+Equivalent, under (H_k), to δ_k → 0 (Theorem 3.2(iii)). Conditional consequence
+through Proposition 3.1 and the repaired KL trust chain:
+π_a(x) ≥ x^{1−ε} for every ε > 0 and every a ≢ 0 (mod 3), x ≥ x₀(a,ε) —
 the full heuristic exponent, up to ε.
 
 **(B) λ∞ < 2** ("adversarial digit control retains positive value at all scales").
@@ -600,7 +605,8 @@ contradicts Proposition 1.4; both would indicate computation error, not mathemat
 - Lemma 2.2 (continuity of ρ_k in λ; ρ_k(λ_k) = 1 under positivity when λ_k < 2).
 - Proposition 2.3 (β_k = value of zero-sum ergodic pressure game; adversarial Bowen
   equation form), given (H_k) and the standard Perron-root/pressure identity.
-- Proposition 3.1 (λ_k → 2 ⟹ π_a(x) ≥ x^{1−ε}), given KL Theorems 2.2/6.1.
+- Proposition 3.1 (λ_k → 2 ⟹ π_a(x) ≥ x^{1−ε}), conditional on the
+  repaired KL Theorem 2.2/counting trust chain.
 - Theorem 3.2 (oscillation law: exact identity, two-sided comparison, equivalence
   λ_k → 2 ⟺ δ_k → 0, sup-oscillation sufficiency), under (H_k).
 - Corollaries 3.3 (unconditional inequality version), 3.4 (persistent oscillation under (B)).

@@ -82,8 +82,10 @@ Zaremba/BK, the Collatz cycle side, and Ouaknine–Worrell all reduce to **one
 Gauss-map orbit's effective equidistribution**. The Gauss map is the
 **archimedean transfer operator** — the real-place twin of the repo's proven
 ℤ₃-odometer min-plus transfer operator (`adversarial-operator.md`) driving
-predecessor density. Predecessor side: profinite transfer operator, spectral gap
-⇒ `π_a(x) ≥ x^{0.9033}`. Cycle side: archimedean transfer operator, whose
+predecessor density. Predecessor side: a profinite transfer operator gives an
+exact finite feasible point; the advertised `π_a(x) ≥ x^{0.9033}` consequence
+is conditional on the repaired KL elimination/counting bridge. Cycle side: an
+archimedean transfer operator, whose
 **spectral gap answers ensemble questions (BK's density-one) but is blind to the
 single orbit `{a_n(log₂3)}`** — that single orbit is the Diophantine type, i.e.
 Baker. Same wall as OW at order 6. Collatz's "two multiplicatively independent

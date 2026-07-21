@@ -22,8 +22,29 @@ All line references below are to `kl_paper.txt`.
   - (P1) Positivity: `φ^m_k(y) ≥ 1` for all `y ≥ 0`.
   - (P2) Monotonicity: `φ^m_k(y)` nondecreasing in `y`.
   - (P3) Minimization: `φ^m_{k-1}(y) = min[φ^m_k(y), φ^{m+3^{k-1}}_k(y), φ^{m+2·3^{k-1}}_k(y)]`.
-- By `φ^m_k(y) = φ^{2m}_k(y−1)` for `m ≡ 1 (mod 3)` (eq. (2.1), line 129), it suffices to work
-  with classes `m ≡ 2 (mod 3)`. Notation (eq. (2.2), line 134):
+- **Audit correction to printed equation (2.1).** The claimed equality
+  `φ^m_k(y) = φ^{2m}_k(y−1)` for `m ≡ 1 (mod 3)` is false under the
+  definitions above. Writing `P*_a(x)` for the bounded-predecessor set counted
+  by `π*_a(x)`, each nonperiodic target `a ≡ 1 (mod 3)` and `x ≥ 2a`
+  satisfies the exact targetwise identity
+
+      `P*_a(x) = {a} ⊔ P*_{2a}(x)`,
+
+  because `2a` is the only positive immediate predecessor of `a`. This
+  elementary all-`k` identity has been independently audited but is not yet
+  kernel-checked. Taking
+  infima over residue classes loses equality—the doubled targets form only a
+  subset of the targets in class `2m`—but gives the valid and stronger useful
+  direction
+
+      `φ^m_k(y) ≥ 1 + φ^{2m}_k(y−1)` for `y ≥ 1`.
+
+  The exact `k=2, m=7, y=1` obstruction is
+  `φ^7_2(1)=3` versus `φ^{14}_2(0)=φ^5_2(0)=2`; it is checked by independent
+  forward and reverse enumeration algorithms in
+  `verify_equation_2_1_obstruction.py`. Thus it still suffices
+  to work with classes `m ≡ 2 (mod 3)` for lower-bound transfer, but not by
+  the printed equality. Notation (eq. (2.2), line 134):
   `[3^k] := {m (mod 3^k) : m ≡ 2 (mod 3)}` — exactly `3^{k-1}` classes.
 - `α := log₂ 3 ≈ 1.585` (Proposition 2.1, line 136). This is where the irrational exponent
   enters: it comes from the odd step `n → (3n+1)/2`, which multiplies size by `3/2`, i.e.
@@ -188,13 +209,18 @@ treated as end-to-end verified.
 Transfer mechanism (making the constants explicit): if `a ≡ m (mod 3^k)`, `m ≡ 2 (mod 3)`, and
 `a` is not in a cycle, then for `x = 2^y a`, `y ≥ 0`:
 `π_a(x) ≥ π*_a(2^y a) ≥ φ^m_k(y) ≥ Δ₁ c^m_k λ^y ≥ Δ₁ (x/a)^{γ}` with `γ = log₂ λ`,
-i.e. `π_a(x) ≥ (Δ₁ a^{−γ}) · x^{γ}` for all `x ≥ a`. Classes `a ≡ 1 (mod 3)` reduce to this via
-(2.1) (`φ^m_k(y) = φ^{2m}_k(y−1)`) at the cost of a factor `λ^{−1}`; the finitely many `a` in a
-cycle (`{1,2}` for the known positive cycle of T) are handled by bounding `π_a` below by
-`π_{a′}` for a non-cycle predecessor `a′` of `a` (e.g. `π₁(x) ≥ π₈(x)`). Because of the
+i.e. `π_a(x) ≥ (Δ₁ a^{−γ}) · x^{γ}` for all `x ≥ a`. If
+`a ≡ 1 (mod 3)` is nonperiodic, apply the same bound to `2a ≡ 2 (mod 3)`
+and use `π_a(x) ≥ π_{2a}(x)`; equivalently, use the corrected one-sided
+version of (2.1) above. This costs the same factor `λ^{−1}`. If `a` lies in
+an arbitrary positive cycle, choose a sufficiently large `b=2^r a` with
+`b ≡ 2 (mod 3)`. Only finitely many such distinct powers can lie in that
+cycle, so `b` can be chosen nonperiodic, while `T^[r](b)=a` gives
+`π_a(x) ≥ π_b(x)`. No classification of positive cycles is needed. Because of the
 `a`-dependent constant, the clean stated form rounds the exponent *down* (0.84175… → 0.84) and
 holds "for all sufficiently large x ≥ x₀(a)". The bound is **asymptotic, not effective in a
-uniform sense**: x₀(a) depends on a (through the constant `Δ₁ a^{−γ}` and the cycle caveat),
+uniform sense**: x₀(a) depends on the chosen doubled predecessor `b` and its
+residue coefficient (the direct class-2 constant is `Δ₁ c^m_k b^{−γ}`),
 but for fixed a it is effective — the constant `Δ₁ = 1/(4 max c^m_k)` is explicit from the
 certificate, e.g. `π_a(x) ≥ Δ₁ (x/a)^γ` for every non-cycle `a ≡ 2 (mod 3)` and all `x ≥ a`.
 

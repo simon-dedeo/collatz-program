@@ -30,7 +30,12 @@ any inhabited two-phase package to its abstract retarded comparison theorem,
 but the all-`k`
 raw-history producer, live-output/common-lag assembly, and the later
 predecessor-count instantiation are not yet kernel-checked; the counting
-consequence remains conditional until both bridges exist. Around
+consequence remains conditional until both bridges exist. An adjacent exact
+audit found that the paper's printed equation (2.1) is false as an equality:
+`φ^7_2(1)=3` while `φ^{14}_2(0)=2`. The audited, not-yet-kernel-checked inequality
+`φ^m_k(y)≥1+φ^{2m}_k(y−1)` has the needed direction, so the all-target exponent
+transfer survives, but the formal counting bridge must use the correction.
+Around
 it sits a cluster of proved structure theorems and — equally important — a
 growing **failure ledger** of proof routes that are now provably dead. A
 separate GPT instance runs an independent Lean formalization in `CLEAN_LEAN/`
@@ -55,8 +60,8 @@ and the two collaboration channels current.
 - **Locally exact-verified certificate:** the `k=19` feasible point intended to
   yield `π_a(x)≥x^γ` for all fixed `γ<0.9094372617` (`a not≡0 mod 3`);
   all 387,420,489 inequalities and the sidecar hash pass. The transfer to the
-  counting statement is conditional on repairing KL Theorem 3.1's termination
-  proof. The full large sidecars `k=16..19`
+  counting statement is conditional on both a corrected retarded-elimination
+  witness and formal instantiation by the actual predecessor-count family. The full large sidecars `k=16..19`
   are not in git, so portable clone verification currently stops at `k=15`.
   `experiments/kl/RESULT.md`.
 - **Proved structure theorems:** KL method = adversarial min-plus transfer
@@ -91,7 +96,13 @@ and the two collaboration channels current.
   preferred well-founded implementation recurses only at surviving branch
   arrivals and unrolls deterministic transport spines with finite fuel; a
   twice-audited, non-kernel-checked fallback gives an explicit all-`k` word-depth
-  bound in `docs/notes/kl-explicit-history-bound.md`. Separately, the analytic-
+  bound in `docs/notes/kl-explicit-history-bound.md`. The later counting audit
+  also exactly refutes printed equation (2.1) at `k=2,m=7,y=1`; run
+  `verify_equation_2_1_obstruction.py`. Its audited, not-yet-kernel-checked
+  one-sided `+1` inequality preserves the lower-bound transfer. For arbitrary
+  possible cycle targets, transfer through a sufficiently large nonperiodic
+  `2^r a ≡ 2 (mod 3)` rather than assuming the known cycle is unique.
+  Separately, the analytic-
   combinatorics scout is **not** a proved reformulation. Its ordinary-resolvent
   identification conflates the nonlinear KL min operator with a linear
   backward-tree matrix; no `C x^{γ_k}`, no-log, or true-count pole-confluence

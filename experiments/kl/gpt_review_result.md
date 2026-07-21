@@ -1,4 +1,15 @@
-VERDICT: CONFIRMED
+> **SUPERSEDED AUDIT (2026-07-21).** This file preserves an earlier external
+> review as historical evidence, but its end-to-end verdict is no longer
+> current. Exact successor checks found three defects in the published
+> advanced-elimination construction (`TERMINATION_AUDIT.md`) and the exact
+> `k=2` counterexample `φ^7_2(1)=3≠2=φ^{14}_2(0)` to printed equation (2.1)
+> (`verify_equation_2_1_obstruction.py`). The finite LP certificates remain
+> exact. The equality error has an audited one-sided repair that preserves the
+> exponent transfer, but the corrected retarded witness and actual
+> predecessor-count instantiation are not yet both kernel-checked. Read
+> `RESULT.md` and `THEOREM.md` for current status.
+
+VERDICT: CONFIRMED (historical; superseded as an end-to-end verdict)
 
 1) THEOREM FIDELITY
 - Match to paper:
@@ -32,8 +43,8 @@ VERDICT: CONFIRMED
     which is algebraically equivalent to c ≤ λ^(−2) c(4m) + W·min₃ c.
 - No off-by-one or sign inversions are present in exponent handling. The “seed then decrement” logic only affects speed; the final acceptance uses exact integer comparisons.
 
-4) CONCLUSION TRANSFER TO πa(x)
-- Theorem 2.2 gives φk m(y) ≥ Δ1 c^m_k λ^y for all y ≥ 0. Since by definition φk m(y) = inf over a ≡ m (mod 3^k), a not in a cycle, of π∗a(2^y a), one has for any fixed such a: π∗a(2^y a) ≥ φk m(y), hence πa(x) ≥ Δ1 c^m_k (x/a)^γ with γ = log₂ λ, for all x ≥ a. Equation (2.1) transfers m ≡ 1 (mod 3) to m′ ≡ 2 (mod 3) at the cost of a factor λ^(−1) in Δ; and for cycle elements (1, 2) one uses π1 ≥ π8, π2 ≥ π8. This is exactly the implicit step behind Theorem 6.1. Therefore “for every fixed γ < log₂(λ_cert)” one can absorb constants and state πa(x) ≥ x^γ for all sufficiently large x ≥ x0(a), for each a ≢ 0 (mod 3), as in the claim.
+4) CONCLUSION TRANSFER TO πa(x) (SUPERSEDED; retained verbatim below)
+- [SUPERSEDED CLAIM] Theorem 2.2 gives φk m(y) ≥ Δ1 c^m_k λ^y for all y ≥ 0. Since by definition φk m(y) = inf over a ≡ m (mod 3^k), a not in a cycle, of π∗a(2^y a), one has for any fixed such a: π∗a(2^y a) ≥ φk m(y), hence πa(x) ≥ Δ1 c^m_k (x/a)^γ with γ = log₂ λ, for all x ≥ a. Equation (2.1) transfers m ≡ 1 (mod 3) to m′ ≡ 2 (mod 3) at the cost of a factor λ^(−1) in Δ; and for cycle elements (1, 2) one uses π1 ≥ π8, π2 ≥ π8. This is exactly the implicit step behind Theorem 6.1. Therefore “for every fixed γ < log₂(λ_cert)” one can absorb constants and state πa(x) ≥ x^γ for all sufficiently large x ≥ x0(a), for each a ≢ 0 (mod 3), as in the claim.
 
 5) ANY OTHER GAP
 - Normalizations and domains:

@@ -58,9 +58,10 @@ the standard Iwasawa setting at p = 3:
   γ∞ ≈ 0.974 ± 0.01** — while a sub-geometric approach to 1 remains unexcluded (§4).
 - Main-conjecture format (§5): analytic side = the annealed L-function s(β) with its zero
   at β = 1; algebraic side = the tropical spectral limit λ∞. One divisibility is a
-  theorem (λ∞ ≤ 2, [LO] Prop. 1.4). Equality is the tropical main conjecture — literally
-  equivalent (by KL's own Theorem 2.2 chain) to the predecessor-count bound
-  π_a(x) ≥ x^{1−ε}.
+  theorem (λ∞ ≤ 2, [LO] Prop. 1.4). Equality is the tropical main conjecture;
+  conditional on the repaired KL Theorem 2.2/counting chain, it would imply the
+  predecessor-count bound π_a(x) ≥ x^{1−ε}. The converse is only an equivalence
+  within the difference-inequality method.
 - Literature (§6, searched 2026-07-20): **"tropical Iwasawa theory" does not exist** in
   the literature; the nearest developed neighbor is the Iwasawa theory of ℤ_ℓ-towers of
   graphs (Vallières et al.), whose growth law and zeta factorization our Theorem 2.1
@@ -461,7 +462,8 @@ norm, summed against the exact left-eigenmeasure of the resolved annealed tower.
 
 **Conjecture 5.1 (tropical main conjecture, TMC). [CONJECTURAL]** λ∞ = 2: the tropical
 algebraic invariant equals the central zero of the annealed L-function. Equivalently
-(under (H_k), [LO] Thm 3.2(iii)) δ_k → 0; by KL's Theorem 2.2 chain it implies
+(under (H_k), [LO] Thm 3.2(iii)) δ_k → 0; conditional on the repaired KL
+Theorem 2.2/counting chain it implies
 π_a(x) ≥ x^{1−ε} for all ε > 0, a ≢ 0 (3), x ≥ x₀(a, ε) — and conversely within the
 method ([LO] §3.1). *Status: the §4 data now mildly disfavor TMC* (fitted γ∞ ≈ 0.974);
 if TMC fails, λ∞ itself is the new invariant and log₂(2/λ∞) ≈ 0.026 is the "tropical

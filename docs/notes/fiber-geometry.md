@@ -110,7 +110,8 @@ maximizing measure), so dimension alone proves nothing here.
 
 **Proposition R′ (corrected reduction).** If ν_k{r : o_r > t} → 0 for every
 t > 0, then δ_k → 0; hence (under KL's hypotheses (H_k) along the tower)
-λ_∞ = 2 and π_a(x) ≥ x^{1−ε}.
+λ_∞ = 2 and, conditional on the repaired KL Theorem 2.2/counting chain,
+π_a(x) ≥ x^{1−ε}.
 
 *Proof.* u_r ≤ min(o_r, 1), so δ_k ≤ (1/3)(t + ν_k{o_r > t}); let k → ∞,
 then t → 0. The rest as before via the oscillation law and KL §6. ∎

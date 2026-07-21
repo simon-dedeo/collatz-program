@@ -1,5 +1,15 @@
 # Smell-Search Synthesis: Keyword-Blind Mathematics Bearing the Collatz Signature
 
+> **CURRENT STATUS OVERRIDE (2026-07-21).** This document is a historical
+> research snapshot. Its claim below that the KL predecessor exponent is
+> unconditional or end-to-end externally confirmed is superseded. The finite
+> feasible certificates remain exact, but the published advanced-elimination
+> proof has three checked defects and its equation (2.1) has the exact
+> counterexample `φ^7_2(1)=3≠2=φ^{14}_2(0)`. An audited one-sided correction
+> preserves the counting transfer; the corrected retarded witness and actual
+> predecessor-count instantiation are still being formalized. See `README.md`,
+> `experiments/kl/RESULT.md`, and `experiments/kl/TERMINATION_AUDIT.md`.
+
 > **ERRATA & external verification (2026-07-20, from independent GPT review +
 > our follow-up checks — see gpt_sol_feedback.txt):**
 >
@@ -20,13 +30,16 @@
 >    structural similarity, not survivor-set equivalence. The first move
 >    (cylinder-residue bijection) was externally validated — reviewer sketched
 >    the proof via invertibility of 3 mod 2^k.
-> 1b. **#1 (KL record): CERTIFIED + EXTERNALLY CONFIRMED (2026-07-20 evening).**
+> 1b. **#1 (KL record): HISTORICAL CLAIM, SUPERSEDED AS END-TO-END
+>    CONFIRMATION (2026-07-20 evening).**
 >    Exact-rational feasible points at k = 12, 13, 14 verified in pure integer
 >    arithmetic against KL Thm 2.2 (experiments/kl/cert_k*.json; THEOREM.md,
 >    RESULT.md); gpt-5-pro adversarial review of the full chain returned
->    VERDICT: CONFIRMED (gpt_review_result.md). Certified statement:
->    π_a(x) ≥ x^γ for every fixed γ < log₂(18307718/10⁷) = 0.8724519…,
->    all a ≢ 0 (mod 3), x ≥ x₀(a). Improves the 2003 record 0.84.
+>    VERDICT: CONFIRMED (gpt_review_result.md); that verdict is now superseded. The exact
+>    finite statement is LP feasibility at the displayed λ; the then-claimed
+>    consequence `π_a(x) ≥ x^γ` for every fixed
+>    `γ < log₂(18307718/10⁷) = 0.8724519…` remains conditional on the repaired
+>    trust chain described in the status override above.
 > 1c. **Crack 3 empirical sharpening** (expsum atlas, K ≤ 22 exhaustive): the
 >    brief's ⟨2⟩-orbit symmetry claim |S(2ξ)|=|S(ξ)| is FALSE (the true
 >    relation is the intertwining S(2ξ) = S₀(ξ) + S₁(3ξ); only conjugation
@@ -54,14 +67,21 @@ Ranking metric: **(collatz-blindness) × (tightness of hypothesis-match) × (con
 
 ## 1. Ranked Shortlist (Top 8)
 
-### #1. Nonlinear Perron roots ARE the Krasikov–Lagarias exponents — record already broken **[cold; highest payoff on the board]**
+### #1. Nonlinear Perron roots and the Krasikov–Lagarias finite systems — exact thresholds, counting transfer conditional **[warm; highest payoff on the board]**
 **Refs:** Gaubert–Gunawardena, *Perron–Frobenius for homogeneous monotone functions*, TAMS 2004 — https://www.ams.org/journals/tran/2004-356-12/S0002-9947-04-03470-1/ ; Biggins, *Spreading speeds in reducible multitype BRW* — https://arxiv.org/abs/1003.4716 ; Biggins–Sani 2005 — https://www.cambridge.org/core/journals/advances-in-applied-probability/article/convergence-results-on-multitype-multivariate-branching-random-walks/1387982E5A820FA5D1F2376CA25F97C4
 
 **Theorem.** For monotone, homogeneous-degree-1 maps F (any min/max of nonnegative linear maps), a nonlinear spectral radius exists with the Collatz–Wielandt formula r(F) = inf_{x>0} max_i F(x)_i/x_i, computable by power/policy iteration with certified two-sided bounds. (The "Collatz" here is Lothar Collatz 1942 — the man himself, in a blind paper.) Biggins supplies the multitype-BRW front formula: count exponents are Legendre transforms of log Perron roots of tilted mean matrices.
 
 **Match & gaps.** KL's "sup λ with L_k(λ) positively feasible" is *exactly* r(F_λ) ≤ 1 for the min-type (adversarial lost-3-adic-digit) tilted system on residues mod 3^k. **Verified computationally**: reproduces KL's entire table k=2..11 to 1e-6, and extends it — **γ_12 = 0.8531363, γ_13 = 0.8630058, γ_14 = 0.8724524** vs the 20-year record γ_11 = 0.8417566. Annealed (mean-refinement) value is exactly 2 at every k: the whole 0.84-vs-1 gap is quantified as adversarial-vs-average 3-adic refinement. Gap: new γ values are eigenvalue computations, not yet theorems — feasibility in KL's retarded LP (their Thm 2.2) must be certified.
 
-**Transfer.** (i) Interval-verified feasibility ⇒ **unconditional theorem π_a(x) ≥ x^0.8724**, the best lower bound on Collatz predecessor counts in 20+ years, by general-purpose blind machinery. (ii) The k→∞ increments empirically decide λ_k→2 (⇔ x^{1−ε} counting) vs stall — either is a structural theorem about the limit of the entire difference-inequality method; the limit object (min-type transfer operator on Z_3 driven by the ergodic isometry x↦2x, annealed value exactly 2) is a new attack surface.
+**Transfer.** (i) Exact feasibility would imply `π_a(x) ≥ x^0.8724`
+through the repaired KL trust chain; that counting conclusion is currently
+conditional, while the finite certificate is exact. (ii) The k→∞ increments
+empirically decide λ_k→2 (⇔ x^{1−ε} counting, again conditional on that chain)
+vs stall — either is a structural theorem about the limit of the entire
+difference-inequality method; the limit object (min-type transfer operator on
+Z_3 driven by the ergodic isometry x↦2x, annealed value exactly 2) is a new
+attack surface.
 
 **First move.** Interval arithmetic on the k=12..14 eigenvectors against KL's conditions (1),(2) — which held for all k≤11, so feasibility is expected. Solver in hand: `/Users/simon/Desktop/COLLATZ/kl_perron_solver.py`.
 

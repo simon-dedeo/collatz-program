@@ -60,7 +60,11 @@ invariants are also checked. The remaining construction is the finite
 well-founded forest producer, root-level provenance inversion, live pruned
 outputs, and a common lag. Even after that seam closes, Lean must still
 instantiate the abstract function family by the actual predecessor counts and
-discharge the separate counting-transfer hypothesis. Until both bridges are
+discharge the separate counting-transfer hypothesis. An exact `k=2` audit also
+refutes the paper's printed counting identity (2.1):
+`φ^7_2(1)=3 ≠ 2=φ^{14}_2(0)`. An elementary audited correction (not yet kernel-checked) is
+stronger in the useful direction and preserves the exponent transfer, so this
+is a genuine erratum rather than a new conjectural obstruction. Until both bridges are
 checked, the exact `k=19` feasible point has no checked path to the counting
 bound.
 
@@ -83,7 +87,7 @@ an `x^{1−ε}` lower bound would still have density zero for fixed `ε`.
 
 | Result | Status |
 |---|---|
-| Exact `k=19` KL feasible certificate at `γ=0.9094372617…`; **conditional** consequence `π_a(x)≥x^γ` for every fixed smaller `γ` | A fresh run of the reference verifier passed the SHA-pinned 2.9 GB sidecar and all 387,420,489 exact inequalities. However, exact `k=5` witnesses invalidate both the key descent inference and the claimed nonempty-minimum invariant in the published advanced-elimination construction; a separate exact semantic countermodel blocks its split-invariant induction. Lean checks all three defects, abstract compactness, occurrence-indexed pruning, the global repeat-provenance interface, and the two-phase-to-retarded comparison seam. The finite raw-history producer is still open, as is the later instantiation by actual predecessor counts. The certificate remains exact; its counting consequence is conditional. The sidecar is local but not in git, and a fresh clone is self-contained through k=15. See `experiments/kl/RESULT.md` and `TERMINATION_AUDIT.md`. |
+| Exact `k=19` KL feasible certificate at `γ=0.9094372617…`; **conditional** consequence `π_a(x)≥x^γ` for every fixed smaller `γ` | A fresh run of the reference verifier passed the SHA-pinned 2.9 GB sidecar and all 387,420,489 exact inequalities. However, exact `k=5` witnesses invalidate both the key descent inference and the claimed nonempty-minimum invariant in the published advanced-elimination construction; a separate exact semantic countermodel blocks its split-invariant induction. Lean checks all three defects, abstract compactness, occurrence-indexed pruning, the global repeat-provenance interface, and the two-phase-to-retarded comparison seam. The finite raw-history producer is still open, as is the later instantiation by actual predecessor counts. A separate exact `k=2` checker refutes printed equation (2.1), but its corrected one-sided inequality preserves the needed transfer. The certificate remains exact; its counting consequence is conditional. The sidecar is local but not in git, and a fresh clone is self-contained through k=15. See `experiments/kl/RESULT.md` and `TERMINATION_AUDIT.md`. |
 | The KL method = finite sections of an **adversarial transfer operator on ℤ₃** (base ×4 = the Iwasawa generator of 1+3ℤ₃) | `docs/notes/kl-limit-object.md`, `adversarial-operator.md` |
 | KL's own §6 positivity hypotheses (H_k) | Literature-backed research proof (odometer conjugacy → Gaubert–Gunawardena); nonlinear Perron existence is not Lean-formalized, and the exact feasible-point route bypasses it. |
 | Oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k | proved, now unconditional |
@@ -98,7 +102,7 @@ an `x^{1−ε}` lower bound would still have density zero for fixed `ε`.
 ## Current proof strategy (living map — updated as lanes open/close)
 
 The locally rerun `k=19` feasible certificate stands on its own; the counting
-consequence now carries the termination-audit caveat in the headline table.
+consequence carries the two-bridge trust-chain caveat in the headline table.
 Everything below is about repairing that trust chain and reaching *further*.
 After tunneling on one line we have re-widened. This
 section is kept fresh; the **failure ledger** is deliberately explicit because
@@ -145,6 +149,14 @@ knowing which routes are dead (and why) is most of the value.
    liveness; the safe construction uses the target positive monotone base-system
    family at `y=2`. A separate formal step must still identify that abstract
    family with the predecessor-count functions and satisfy `CountingTransfer`.
+   That final bridge must not import the paper's false equation (2.1). The exact
+   checker `verify_equation_2_1_obstruction.py` gives
+   `φ^7_2(1)=3≠2=φ^{14}_2(0)`. The independently audited, not-yet-kernel-checked
+   targetwise decomposition yields
+   `φ^m_k(y)≥1+φ^{2m}_k(y−1)` for `y≥1`, so the lower-bound direction and
+   exponent survive. For arbitrary cycle targets, a sufficiently large doubled
+   predecessor gives the transfer without assuming that `{1,2}` is the only
+   positive cycle.
    A twice-audited but not kernel-checked fallback gives an explicit finite
    occurrence-word depth bound `D_k`; it is too large for enumeration but could
    replace well-founded recursion by fuel if its one-sided approximation lemma
@@ -211,8 +223,18 @@ knowing which routes are dead (and why) is most of the value.
   Do not reuse the published descent, self-similarity, nonempty-minimum,
   split-induction, or assignment-backjump assertions. These certificates neither
   prove nor disprove termination, but Theorem 2.2's `k=19` counting consequence
-  is conditional until a corrected retarded witness is constructed.
+  is conditional until both a corrected retarded witness and the actual
+  predecessor-count bridge are constructed.
   `experiments/kl/TERMINATION_AUDIT.md`.
+- **Printed KL equation (2.1) — FALSE AS AN EQUALITY; one-sided repair identified.** At
+  `k=2,m=7,y=1`, exact affine lower bounds and two independent finite
+  enumerators give `φ^7_2(1)=3` but `φ^{14}_2(0)=2`. Infimizing the exact
+  targetwise identity `P*_a(x)={a}⊔P*_{2a}(x)` (audited but not yet
+  kernel-checked) over different target pools
+  yields only `φ^m_k(y)≥1+φ^{2m}_k(y−1)`, not equality. Do not reuse (2.1)
+  literally. The surviving direction gives the same exponent with the usual
+  `λ^{-1}` constant, so this erratum does not invalidate the LP certificate or
+  create a new conjectural gap. `experiments/kl/verify_equation_2_1_obstruction.py`.
 - **λ_∞ = 2 via any autonomous projective-contraction certificate — CLOSED
   (structural no-go, every admissible J≥3).** The −1 co-spine mode (2,−1,−1) is a marginal
   invariant: charged-Lyapunov (persists J=4,5), nonlinear min-selection
