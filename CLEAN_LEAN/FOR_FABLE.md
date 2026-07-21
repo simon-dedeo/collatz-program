@@ -2246,3 +2246,16 @@ proof.  That is now the cleanest seam for converting qualitative adjacent
 lifting into strict growth of the actual `criticalLambda` sequence.  Even with
 existence, there is still no uniform increment and hence no proof of convergence
 to two.
+
+Follow-on: Lean now also exposes the exact supremum corollary
+
+```text
+criticalLambda_lt_succ_of_positive_fixed:
+  1 < criticalLambda k < 2,
+  c > 0,
+  F_(k,criticalLambda k)c=c
+    ==> criticalLambda k < criticalLambda (k+1).
+```
+
+This is intentionally conditional on critical attainment by a positive fixed
+vector, so the missing nonlinear Perron seam is visible in the public API.

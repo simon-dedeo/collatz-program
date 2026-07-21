@@ -556,6 +556,27 @@ theorem levelFeasible_succ_strict_of_positive_fixed
     (klWeights mu) y hy hstrictMu
   exact ⟨mu, hlamMu, hmu2, ⟨z, hz⟩⟩
 
+/-- Exact effect on the feasibility suprema, conditional on attainment by a
+positive fixed vector.  The attainment premise remains a separate nonlinear
+Perron obligation. -/
+theorem criticalLambda_lt_succ_of_positive_fixed
+    (k : ℕ) (hk : 2 ≤ k)
+    (hcrit1 : 1 < criticalLambda k)
+    (hcrit2 : criticalLambda k < 2)
+    (c : State k → ℝ) (hc : ∀ q, 0 < c q)
+    (hfixed : ∀ q, c q =
+      (system k).operator (klWeights (criticalLambda k)) c q) :
+    criticalLambda k < criticalLambda (k + 1) := by
+  obtain ⟨mu, hlt, hmu2, hfeas⟩ :=
+    levelFeasible_succ_strict_of_positive_fixed k hk (criticalLambda k)
+      hcrit1 hcrit2 c hc hfixed
+  have hmuMem : mu ∈ Set.Icc (1 : ℝ) 2 :=
+    ⟨le_trans hcrit1.le hlt.le, hmu2.le⟩
+  have hmuCrit : mu ≤ criticalLambda (k + 1) := by
+    apply le_csSup (criticalSet_bddAbove (k + 1))
+    exact ⟨hmuMem, hfeas⟩
+  exact hlt.trans_le hmuCrit
+
 end
 
 end ResidueSystem

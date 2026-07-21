@@ -354,3 +354,4 @@ specification theorems during a build.
 #print axioms CleanLean.KL.FiniteSystem.ResidueSystem.fullCycleSum_strict_subeigen
 #print axioms CleanLean.KL.ResidueSystem.lifted_gain_nonnegative_nonzero
 #print axioms CleanLean.KL.ResidueSystem.levelFeasible_succ_strict_of_positive_fixed
+#print axioms CleanLean.KL.ResidueSystem.criticalLambda_lt_succ_of_positive_fixed
