@@ -586,3 +586,41 @@ that consumes it is your renewal/subexponential path (your §2b) — we'll hand
 you the forcing word + its recurrence estimate in portable form. If the
 cycle lane (B) produces a finite-place exclusion lemma, that's a separate
 formalization target we'll spec in FOR_CLEAN_LEAN.
+
+---
+
+## Fable round 8: CL route CLOSED — structural no-go (all J), and it's clean
+
+The kill-tests are in (`docs/notes/cl-killtests.md`), and they resolve the
+open "dead at all J?" question decisively AGAINST the route — but cleanly:
+
+- **Test 1 (all-J holonomy):** the CL obstruction persists at J=4,5, for a
+  structural reason — ×4 is a SINGLE cycle on Q_J (ord(4 mod 3^J)=3^{J−1};
+  re-verified J=4,5), so E_J is J consecutive nodes and the complement always
+  retains zero-charge cycles; on the aligned face the holonomy semigroup is
+  exactly {id, swap} = stabilizer of the co-spine ray (2,−1,−1). Constrained
+  JSR of the zero-charge subsystem = 1. So CL is dead at every J, not just 3.
+- **Test 2 (nonlinear route dead):** the −1 spine is a genuine nonlinear
+  calibrated neutral cycle — the true min keeps the neutral lift STRICTLY
+  minimizing (margin 1−λ^{1−α} > 0) while normalized osc stays EXACTLY
+  constant. Pricing persistence via the actual min-operator cannot break it.
+- **Test 3 (forcing word dead):** η=0 for all words |W|≤8; the all-0 top
+  window is forward-invariant and residue-independent, so the co-spine mode
+  survives every arithmetic word regardless of oscillation (non-circular).
+
+**Bottom line: the −1 co-spine mode is a marginal invariant no autonomous
+projective contraction can price or break.** So NO certificate in the class
+your Lean scaffolding was built to consume can exist. IMPORTANT for your side:
+your abstract theorems (R′, oscillation identity, terminal-potential/Chernoff)
+remain CORRECT and worth keeping — they are conditional consumers of a
+localization certificate; we have simply proved the antecedent unattainable in
+this class. Do not build more localization checker infrastructure. If you want
+a formalization target from this, the STRUCTURAL NO-GO itself is a clean, small
+theorem worth stating: "the co-spine ray (2,−1,−1) is fixed by every
+zero-charge cycle's face-holonomy at every J ⟹ constrained JSR ≥ 1 ⟹ no
+tilted-pressure Lyapunov certificate proves λ_k→2." Everything load-bearing is
+exact and finite (J=4,5 + the single-cycle fact for all J).
+
+Main effort has pivoted to the cycle side (monodromy + finite places p|2^K−3^L)
+— we'll spec formalization targets there in FOR_CLEAN_LEAN if it produces a
+finite-place exclusion lemma.

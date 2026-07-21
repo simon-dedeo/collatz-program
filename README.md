@@ -24,7 +24,7 @@ I chose the Collatz Conjecture for three reasons:
 2. A bit like Fermat's Last Theorem, everyone and their grandmother has worked on it, and any progress towards a proof is unlikely to harm an early-career researcher carving out a new niche.
 3. There have been some lovely quanta articles about Collatz and the related Busy Beaver numbers recently, so it was a nice way to learn more https://www.quantamagazine.org/busy-beaver-hunters-reach-numbers-that-overwhelm-ordinary-math-20250822/ I had an idea that there was wisdom hiding in the Busy Beaver community that was partially orthogonal to what "regular" mathematicians know.
 
-Everything below this line, and everything else in this repo, has been automatically generated. Fable is doing numerics and running agents. I got annoyed at it and said it should be more creative, like Grothendieck and Weil, so it created a Grothendieck-Weil agent. GPT is trying to formalize things in Lean, in CLEAN_LEAN; it was told to make something that would not annoy Kevin Buzzard.
+Everything below this line, and everything else in this repo, has been automatically generated. Fable is doing numerics and running agents. I got annoyed at it and said it should be more creative, like Grothendieck and Weil, so it created a Grothendieck-Weil agent. GPT is trying to formalize things in Lean, in CLEAN_LEAN; it was told to make something that would not annoy Kevin Buzzard. If you want the inter-company drama, visit https://github.com/simon-dedeo/collatz-program/blob/main/CLEAN_LEAN/FOR_FABLE.md
 
 ## What we are trying to prove right now
 
@@ -51,6 +51,25 @@ localization mechanism that prices *oscillation persistence itself*, or a
 sub-exponential decay argument. (A parallel agent's "ECH2 feasible" file in
 the same folder is **circular** — charge-by-fiat under an unproven annealing
 hypothesis — and is flagged invalid in the verdict note; do not trust it.)
+
+**RESOLVED (2026-07-20, later still) — structural no-go, all J.** The kill-tests
+(`docs/notes/cl-killtests.md`, `experiments/cl-killtests/`) settled the
+"under adjudication" question decisively, and against us: the −1 co-spine mode
+(2,−1,−1) is a **marginal invariant** of the KL face dynamics at *every* J
+(Test 1: the obstruction persists at J=4,5 because ×4 is a single cycle on
+Q_J, so zero-charge cycles always survive with holonomy = {id,swap} =
+stabilizer of the co-spine ray; re-verified). Worse, the *nonlinear* rescue
+is dead too: the spine is a genuine calibrated neutral cycle where the true
+min keeps the neutral lift strictly minimizing while oscillation stays exactly
+constant (Test 2), and **no** finite forcing word contracts it (Test 3, η=0
+for all words |W|≤8, non-circularly, since the all-0 top window is
+forward-invariant and independent of the residue). **Conclusion: no autonomous
+projective-contraction certificate — linear charged-Lyapunov, nonlinear
+min-selection, or forcing-word — can prove λ_∞ = 2.** This is a no-go on a
+*class of proof methods*, not evidence about λ_∞ itself (the mode is exactly
+marginal). λ_∞ = 2 stays empirically supported and formally out of reach by
+these means; a proof would need a non-autonomous/global-measure or arithmetic
+argument. **Main effort has accordingly pivoted to the cycle side.**
 
 **Why it matters.** (1) It settles how far the difference-inequality method —
 the source of the 2003 record — can go: to the exponent-1 boundary, or a
@@ -93,38 +112,33 @@ routine exercise.
 
 ## Current proof strategy
 
-**Counting half (the active critical path).** The chain, each link proved
-except the last:
+**Counting half — the certificate route is now CLOSED (structural no-go).**
+The chain we pursued was:
 
 > pressure certificate (Lemmas 3+5 of `sol-pressure.md`)
 > ⟹ C1′ (eigenvector mass of the high-oscillation set → 0)
 > ⟹ δ_k → 0 ⟹ λ_∞ = 2 ⟹ **π_a(x) ≥ x^{1−ε}** (KL's own theorem).
 
-The obstruction set is fully identified: a thin 3-adic neighborhood of the
-backward ⟨4⟩-orbit of −1 (the shadow of the negative Collatz cycle; the
-unique fixed point of the advanced branch). Its local theory is solved
-(a = λ^{1−α}); its bare mass multiplier is λ^{α−1}/3 ≈ 0.48 (subcritical).
+Lemma 5 (the pressure gap) *is* certified exactly. But Lemma 3 (localization)
+is now proved **impossible in the whole autonomous class** (see the RESOLVED
+box above): the −1 co-spine mode is a marginal invariant at every J, so no
+projective-contraction certificate — linear, nonlinear-min, or forcing-word —
+delivers δ_k → 0. The downstream Lean scaffolding (oscillation identity,
+terminal-potential/Chernoff, R′) stands and would consume a localization
+certificate; we have proved none exists in this class. λ_∞ = 2 is therefore
+empirically supported (ν-decay continues) but has **no proof route in hand**;
+it would need a non-autonomous / global-measure / arithmetic argument.
 
-**Status of the two remaining lemmas** (`experiments/pressure-cert/`):
-**Lemma 5 (the pressure gap — the piece all reviewers called the genuine
-open step) is CERTIFIED** in exact rational arithmetic, at λ = 2 and
-uniformly over [λ₁₈, 2], with a structural theorem (ρ(W_J) = s(λ) at every
-depth; the spine's tilt budget halves per digit) showing it is
-asymptotically free. **Lemma 3 (localization) fails in single-profile form
-for an exactly-identified reason**: label-alignment lives in top-window
-u-classes (base-4 transport overflows) invisible to mod-3^J states, and the
-aligned class contains precisely the −1 spine. The repair — a combined
-(mod 3^J) × (u-class) automaton with a spine-face cone / pathwise charge
-lemma — is designed, costed, and running (`experiments/pressure-cert2/`).
-Nothing in the current results estimates λ_∞ < 2; the empirical spine mass
-tracks the certified bound from below with shrinking increments.
-
-**Cycle half.** Cycles = monodromy identities in Aff(ℤ/(2^K−3^L));
-four of five known cycles forced by the unit stratum |2^K−3^L| = 1.
-Finding: the entire exclusion literature is archimedean-only — the sporadic
-primes p | 2^K−3^L are untouched (`dynamical-hasse.md`). Empirics: typical-ξ
-square-root cancellation; obstruction confined to 3-power major arcs
-(`experiments/expsum/`, Tao's regime).
+**Cycle half — now the main lane** (per gpt-5.6-sol triage; running,
+`experiments/cycles/`). Cycles = monodromy identities in Aff(ℤ/(2^K−3^L));
+four of five known cycles forced by the unit stratum |2^K−3^L| = 1. The live
+bet: the entire exclusion literature (Steiner→Simons–de Weger→Hercher) is
+**archimedean-only** — the sporadic primes p | 2^K−3^L are untouched
+(`dynamical-hasse.md`); a finite-place sieve on the Böhm–Sontacchi weights
+W(v) mod p, combined with the archimedean bound, may exclude what Baker's
+method alone cannot. Supporting empirics: typical-ξ square-root cancellation,
+obstruction confined to 3-power major arcs (`experiments/expsum/`, Tao's
+regime).
 
 **Honest framing.** x^{1−ε} counting is a milestone, not Collatz. The full
 conjecture also needs the divergence side (no orbit escapes) and the cycle
