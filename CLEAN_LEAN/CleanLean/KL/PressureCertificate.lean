@@ -294,4 +294,85 @@ theorem lemma5_uniform_chernoff_gap :
 
 end SparsePressure
 
+section AdjacencyPressure
+
+variable {Q : Type} [Fintype Q] [DecidableEq Q]
+
+/-- Dense row entry compiled from one short outgoing adjacency list. -/
+def listKernelRat : List (Q × ℚ) → Q → ℚ
+  | [], _ => 0
+  | (target, weight) :: edges, r =>
+      (if target = r then weight else 0) + listKernelRat edges r
+
+/-- Direct evaluation of one short adjacency-list row. -/
+def adjacencyPressureRowRat (edges : Q → List (Q × ℚ))
+    (h : Q → ℚ) (q : Q) : ℚ :=
+  ((edges q).map fun edge => edge.2 * h edge.1).sum
+
+/-- Linear-time checker for the portable row-grouped certificate data. -/
+def checkAdjacencyPressureCertificateRat
+    (edges : Q → List (Q × ℚ)) (h : Q → ℚ) (R : ℚ) : Bool :=
+  decide ((∀ q edge, edge ∈ edges q → 0 ≤ edge.2) ∧
+    ∀ q, adjacencyPressureRowRat edges h q ≤ R * h q)
+
+omit [DecidableEq Q] in
+theorem checkAdjacencyPressureCertificateRat_eq_true_iff
+    (edges : Q → List (Q × ℚ)) (h : Q → ℚ) (R : ℚ) :
+    checkAdjacencyPressureCertificateRat edges h R = true ↔
+      ((∀ q edge, edge ∈ edges q → 0 ≤ edge.2) ∧
+        ∀ q, adjacencyPressureRowRat edges h q ≤ R * h q) := by
+  simp [checkAdjacencyPressureCertificateRat]
+
+/-- Partitioning a short outgoing list by target preserves its row sum. -/
+theorem sum_listKernelRat_mul (edges : List (Q × ℚ)) (h : Q → ℚ) :
+    (∑ r, listKernelRat edges r * h r) =
+      (edges.map fun edge => edge.2 * h edge.1).sum := by
+  induction edges with
+  | nil => simp [listKernelRat]
+  | cons edge edges ih =>
+      rcases edge with ⟨target, weight⟩
+      simp only [listKernelRat, List.map_cons, List.sum_cons, add_mul,
+        Finset.sum_add_distrib, ih]
+      simp
+
+/- Nonnegative adjacency weights compile to nonnegative kernel entries. -/
+omit [Fintype Q] in
+theorem listKernelRat_nonneg (edges : List (Q × ℚ))
+    (hweight : ∀ edge, edge ∈ edges → 0 ≤ edge.2) (r : Q) :
+    0 ≤ listKernelRat edges r := by
+  induction edges with
+  | nil => simp [listKernelRat]
+  | cons edge edges ih =>
+      rcases edge with ⟨target, weight⟩
+      have hw : 0 ≤ weight := hweight (target, weight) (by simp)
+      have hrest : ∀ edge, edge ∈ edges → 0 ≤ edge.2 := by
+        intro edge hedge
+        exact hweight edge (by simp [hedge])
+      simp only [listKernelRat]
+      split
+      · exact add_nonneg hw (ih hrest)
+      · simpa using ih hrest
+
+/-- A successful grouped-edge check supplies the real dense-kernel rows and
+nonnegativity needed by the pressure iteration theorem. -/
+theorem real_pressureCertificate_of_checkAdjacencyRat
+    (edges : Q → List (Q × ℚ)) (h : Q → ℚ) (R : ℚ)
+    (hcheck : checkAdjacencyPressureCertificateRat edges h R = true) :
+    (∀ q r, 0 ≤ (listKernelRat (edges q) r : ℝ)) ∧
+      ∀ q, (∑ r, (listKernelRat (edges q) r : ℝ) * (h r : ℝ)) ≤
+        (R : ℝ) * (h q : ℝ) := by
+  have hcert :=
+    (checkAdjacencyPressureCertificateRat_eq_true_iff edges h R).1 hcheck
+  constructor
+  · intro q r
+    exact_mod_cast listKernelRat_nonneg (edges q) (hcert.1 q) r
+  · intro q
+    have hrow :
+        (∑ r, listKernelRat (edges q) r * h r) ≤ R * h q := by
+      rw [sum_listKernelRat_mul]
+      exact hcert.2 q
+    exact_mod_cast hrow
+
+end AdjacencyPressure
+
 end CleanLean.KL

@@ -146,9 +146,12 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
 16. **Portable sparse pressure rows.** `PressureCertificate.lean` now has an
     executable exact-rational checker matching a finite source/target/weight
     edge table and proves its cast to the real pressure inequalities.  The two
-    Chernoff gaps in the portable Lemma-5 artifact are kernel-checked.  The
-    large row data have not yet been compiled into Lean, and the certificate's
-    scope remains the ball automaton rather than C1' localization.
+    Chernoff gaps in the portable Lemma-5 artifact are kernel-checked.
+    `PortablePressureData.lean`, generated from the payload hash, also checks
+    positivity and all 2,187 concrete tilted rows using `decide +kernel`.
+    The certificate's scope remains the ball automaton rather than C1'
+    localization; endpoint weight domination and JSON semantic regeneration
+    are still checked by the independent external verifier.
 
 17. **Exact symbolic elimination shifts.** `SymbolicShift.lean` represents
     every splitter increment in `Z + Z*alpha` and proves exact evaluation and

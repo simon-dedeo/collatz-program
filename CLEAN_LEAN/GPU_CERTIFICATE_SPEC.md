@@ -75,9 +75,10 @@ The final artifact must provide all of the following.
 The regenerated `lemma5_exact_cert.json` now uses
 `pressure-cert/lemma5-portable-v2` and contains the potential, complete sparse
 edge table, exact interval weights, and payload hash.  The independent Python
-checker passes all 2,187 rows.  The corresponding Lean sparse-edge checker is
-now in `PressureCertificate.lean`; compiling the JSON payload into Lean data
-remains to be done.  A portable certificate contains:
+checker passes all 2,187 rows.  The corresponding Lean adjacency-edge checker
+and generated payload are now in `PressureCertificate.lean` and
+`PortablePressureData.lean`; Lean kernel-checks positivity and all 2,187
+tilted rows.  A portable certificate contains:
 
 - every entry of `h` as numerator/denominator;
 - every edge multiplier bound as numerator/denominator, or exact parameters

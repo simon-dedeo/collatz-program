@@ -106,10 +106,11 @@ feasibility side of deletion needs no additional analytic hypothesis.
 `PressureCertificate.lean` now also accepts the portable sparse-edge format
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational
 kernel and proves that a successful Boolean row check yields the real pressure
-inequalities.  The two published Chernoff gaps are checked by kernel-reduced
-exact rational arithmetic.  The 2,187 concrete rows still need to be imported
-as Lean data; more importantly, this ball-automaton certificate is not the
-missing localization theorem.
+inequalities. `PortablePressureData.lean` is generated from the hashed JSON and
+kernel-checks positivity and all 2,187 tilted rows: the `lambda=2` instance and
+all eight pieces covering `[lambda_18,2]`.  The two Chernoff gaps are likewise
+checked by exact rational arithmetic.  More importantly, this ball-automaton
+certificate is not the missing localization theorem.
 
 The first charged spine-face Lyapunov proposal has been exactly falsified,
 not assumed away: `MarginalObstruction.lean` proves that its aligned mean and

@@ -31,6 +31,7 @@ import CleanLean.KL.RootLaw
 import CleanLean.KL.Mixer
 import CleanLean.KL.TransportResolvent
 import CleanLean.KL.PressureCertificate
+import CleanLean.KL.PortablePressureData
 import CleanLean.KL.ChargedLyapunov
 import CleanLean.KL.MarginalObstruction
 import CleanLean.KL.OrbitHitting
@@ -145,8 +146,14 @@ specification theorems during a build.
 #print axioms CleanLean.KL.blockTail_le_geometric_of_pressure
 #print axioms CleanLean.KL.blockTail_tendsto_zero_of_pressure
 #print axioms CleanLean.KL.real_pressureCertificate_of_checkSparseRat
+#print axioms CleanLean.KL.real_pressureCertificate_of_checkAdjacencyRat
 #print axioms CleanLean.KL.lemma5_lamTwo_chernoff_gap
 #print axioms CleanLean.KL.lemma5_uniform_chernoff_gap
+#print axioms CleanLean.KL.PortablePressureData.lam2_h_pos
+#print axioms CleanLean.KL.PortablePressureData.lam2_piece0_rows
+#print axioms CleanLean.KL.PortablePressureData.uniformLam182_h_pos
+#print axioms CleanLean.KL.PortablePressureData.uniformLam182_piece0_rows
+#print axioms CleanLean.KL.PortablePressureData.uniformLam182_piece7_rows
 #print axioms CleanLean.KL.relativeCarrier_step
 #print axioms CleanLean.KL.chargedCarrier_iterate
 #print axioms CleanLean.KL.badMass_le_of_chargedCarrier_and_pressure

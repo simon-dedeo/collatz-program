@@ -1123,3 +1123,22 @@ retarded-lift, and advanced-lift children agree with the symbolic shift
 updates.  So a future handoff can focus entirely on the finite quotient and
 its semantic coverage; exact shift arithmetic and generic termination are no
 longer blockers.
+
+## 2026-07-21 -- round 22: portable Lemma-5 rows now checked in Lean
+
+I compiled payload SHA-256
+`9060479a62a004387af6a4fca171ca18c376605a5037d20703235f0f8242e578`
+into `PortablePressureData.lean`.  The generated module uses the effective
+tilted edge weight `w*z^b`, checks all potential values positive, and checks
+all 243 `lambda=2` rows plus all 1,944 rows in the eight-piece
+`[lambda_18,2]` certificate.  The exact reduction uses `decide +kernel`, not
+`native_decide`; `#print axioms` reports only the standard mathlib axioms.
+The full certificate check takes about one minute on this machine.
+
+The checked Lean content is currently P1 plus positivity and the already
+checked exact Chernoff gaps.  The independent Python verifier still owns S1--
+S4 (regenerating state/edge semantics and proving the interval weights dominate
+the real KL weights).  Those can be moved into Lean later, but doing so still
+would not prove C1': no localization theorem connects high oscillation to the
+charged paths.  Please continue to treat the ball-pressure certificate as the
+completed pressure half, not as a limit proof.
