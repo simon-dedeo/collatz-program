@@ -364,10 +364,15 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.criticalLambda_lt_succ_of_positive_fixed
 #print axioms CleanLean.KL.ResidueSystem.operator_coarseMinimum_le
 #print axioms CleanLean.KL.ResidueSystem.coarseMinimum_operator_le_of_fixed
+#print axioms CleanLean.KL.ResidueSystem.coarseMinimum_operator_le_of_supersolution
+#print axioms CleanLean.KL.ResidueSystem.normalizedSlack_sub_eq_defect_gap
 #print axioms CleanLean.KL.ResidueSystem.neg_normalizedSlack_eq_defect_gap
 #print axioms CleanLean.KL.ResidueSystem.normalizedDefect_le_coarseMinimum_of_fixed
 #print axioms CleanLean.KL.weighted_argmin_mismatch_le_ternaryMin
 #print axioms CleanLean.KL.sum_localFrustration_le_jointMinimum
+#print axioms CleanLean.KL.ResidueSystem.fineSuperSlack_nonneg_of_supersolution
+#print axioms CleanLean.KL.ResidueSystem.fineCoarseResidual_add_fineSuperSlack
+#print axioms CleanLean.KL.ResidueSystem.coarseSlack_eq_fiberMin_residual_add_superSlack
 #print axioms CleanLean.KL.ResidueSystem.coarseSlack_eq_fiberMin_fineCoarseResidual
 #print axioms CleanLean.KL.ResidueSystem.fineCoarseResidual_eq_retarded
 #print axioms CleanLean.KL.ResidueSystem.fineCoarseResidual_eq_advanced

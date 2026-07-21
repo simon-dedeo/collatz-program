@@ -10,9 +10,11 @@ import CleanLean.KL.CoarseMinimum
 
 This file exposes the exact local quantity whose global lower bound is the
 open quadratic-defect problem.  First, the slack created by taking a coarse
-fiber minimum of an exact fine fixed vector is written as the minimum of the
-three fine-versus-coarse operator residuals.  The branch residuals are then
-split into transport and refinement excesses.
+fiber minimum of an arbitrary fine profile is written as the minimum of three
+sums: a fine-versus-coarse operator residual and the inherited fine
+supersolution slack.  For an exact fine fixed vector the inherited term
+vanishes.  The branch residuals are then split into transport and refinement
+excesses.
 
 The final lemma is the abstract three-label frustration bound: if the chosen
 minimizing labels of two nonnegative residual triples disagree across a label
@@ -148,6 +150,52 @@ def fineCoarseResidual (k : ℕ) (w : Weights ℝ)
     (x : State (k + 1) → ℝ) (s : State (k + 1)) : ℝ :=
   (system (k + 1)).operator w x s -
     (system k).operator w (coarseMinimum k x) (parent k s)
+
+/-- Pointwise fine supersolution slack.  It vanishes for an exact fixed
+vector and is nonnegative when the fine operator lies below the profile. -/
+def fineSuperSlack (k : ℕ) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ) (s : State (k + 1)) : ℝ :=
+  x s - (system (k + 1)).operator w x s
+
+theorem fineSuperSlack_nonneg_of_supersolution
+    (k : ℕ) (w : Weights ℝ) (x : State (k + 1) → ℝ)
+    (hsuper : ∀ s, (system (k + 1)).operator w x s ≤ x s)
+    (s : State (k + 1)) : 0 ≤ fineSuperSlack k w x s := by
+  exact sub_nonneg.mpr (hsuper s)
+
+/-- The total residual seen by a coarse row splits exactly into newly created
+fine/coarse mismatch plus inherited fine supersolution slack. -/
+theorem fineCoarseResidual_add_fineSuperSlack
+    (k : ℕ) (w : Weights ℝ) (x : State (k + 1) → ℝ)
+    (s : State (k + 1)) :
+    fineCoarseResidual k w x s + fineSuperSlack k w x s =
+      x s - (system k).operator w (coarseMinimum k x) (parent k s) := by
+  unfold fineCoarseResidual fineSuperSlack
+  ring
+
+/-- General coarse-slack identity.  Unlike the fixed-vector specialization
+below, this records the fine supersolution slack explicitly and is therefore
+safe to iterate through successive coarse minima. -/
+theorem coarseSlack_eq_fiberMin_residual_add_superSlack
+    (k : ℕ) (w : Weights ℝ) (x : State (k + 1) → ℝ)
+    (r : State k) :
+    coarseMinimum k x r -
+        (system k).operator w (coarseMinimum k x) r =
+      (system (k + 1)).fiberMin
+        (fun s => fineCoarseResidual k w x s + fineSuperSlack k w x s) r := by
+  have hrow (d : Fin 3) :
+      fineCoarseResidual k w x (fiber (k + 1) r d) +
+          fineSuperSlack k w x (fiber (k + 1) r d) =
+        x (fiber (k + 1) r d) -
+          (system k).operator w (coarseMinimum k x) r := by
+    rw [fineCoarseResidual_add_fineSuperSlack]
+    simp only [parent_fiber]
+  simp only [coarseMinimum, FiniteSystem.fiberMin, system]
+  rw [hrow 0, hrow 1, hrow 2, min_sub_sub_right]
+  exact (min_sub_sub_right
+    (x (fiber (k + 1) r 0))
+    (min (x (fiber (k + 1) r 1)) (x (fiber (k + 1) r 2)))
+    ((system k).operator w (coarseMinimum k x) r)).symm
 
 /-- The slack of a coarse fiber-minimum row is exactly the minimum of the
 three fine-versus-coarse row residuals. -/

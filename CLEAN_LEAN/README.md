@@ -68,17 +68,20 @@ for the increase, so the ladder may converge to a value below two.
 `CoarseMinimum.lean` proves the complementary one-level comparison.  Taking
 the minimum over each three-point top-digit fiber after applying the fine
 operator dominates applying the coarse operator to the fiber minima.  Hence
-the coarse minimum of an exact fine fixed vector is a coarse supersolution.
+the coarse minimum of an exact fine fixed vector is a coarse supersolution,
+and coarse minimization preserves supersolutions at every later stage.
 This is only an order statement: it does not prove the conjectural quadratic
 growth of iterated terminal excess, which the research notes correctly
 restrict to selected critical fixed vectors and explicitly falsify for generic
 feasible vectors.
-For a positive exact fine fixed vector, the same module subtracts the two
-finite oscillation identities to identify normalized coarse super-slack with
-the increase in normalized minimum defect.  It consequently kernel-checks the
-ordinary data-processing inequality: the defect cannot decrease under this
-selected coarse projection.  The missing research claim is the stronger
-uniform quadratic increase.
+The module also subtracts the two finite oscillation identities for arbitrary
+nonzero profiles.  The resulting exact balance shows that later stages retain
+an inherited normalized-slack term.  For the first projection of a positive
+exact fine fixed vector that term vanishes, identifying normalized coarse
+super-slack with the increase in normalized minimum defect and proving the
+ordinary data-processing inequality.  At later stages it cannot be discarded.
+The missing research claim is therefore an inherited-slack quantitative
+increase, not merely repeated use of the first-stage fixed-vector theorem.
 
 `QuadraticDefect.lean` now kernel-checks the exact endgame proposed by the
 iterated-minimum experiments, without assuming it has been proved for KL
@@ -91,8 +94,10 @@ is still the all-level quadratic inequality for the selected critical
 profiles, not this scalar telescoping argument.
 
 `ArgminFrustration.lean` kernel-checks the local algebra behind that missing
-inequality.  For an exact fine fixed vector, every coarse slack row is exactly
-the minimum of its three fine-versus-coarse residuals.  Retarded and advanced
+inequality.  For an arbitrary fine profile, every coarse slack row is exactly
+the minimum of three sums: a fine-versus-coarse residual plus the inherited
+fine supersolution slack.  For an exact fine fixed vector the inherited term
+vanishes.  Retarded and advanced
 residuals split as the weighted sum of nonnegative transport and refinement
 excesses.  A generic three-label lemma proves that mismatched minimizing
 labels pay at least the smaller weighted second-gap, and sums this bound over
@@ -104,7 +109,10 @@ canonical ternary argmins.  It proves that the canonical frustration mass is
 bounded above by the exact total coarse slack and that
 `HasQuadraticFrustration` implies one step of the `3/2` terminal-excess law.
 Thus the local algebra, the global reduction, and the reciprocal telescope are
-checked; only the selected-critical frustration lower bound itself is open.
+checked for the first exact-fixed-vector projection.  Two linked ingredients
+remain open for the all-stage conclusion: the selected-critical frustration
+lower bound and its inherited-slack extension for the subsequent
+supersolution profiles.
 
 `RetardedComparison.lean` formalizes the analytic core of KL Theorem 5.1.
 For any finite nested sum/min difference system whose leaves all have positive

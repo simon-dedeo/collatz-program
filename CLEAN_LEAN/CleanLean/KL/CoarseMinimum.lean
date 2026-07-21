@@ -113,6 +113,39 @@ theorem coarseMinimum_operator_le_of_fixed (k : ℕ) (hk : 2 ≤ k)
   rw [hop] at h
   exact h
 
+/-- Coarse minimum preserves supersolutions.  This is the form needed after
+the first coarse projection: later profiles need not remain exact fixed
+vectors, but their operator is still pointwise below them. -/
+theorem coarseMinimum_operator_le_of_supersolution
+    (k : ℕ) (hk : 2 ≤ k)
+    (w : Weights ℝ) (x : State (k + 1) → ℝ)
+    (hwt : 0 ≤ w.transport) (hret : 0 ≤ w.retarded)
+    (hadv : 0 ≤ w.advanced)
+    (hsuper : ∀ s, (system (k + 1)).operator w x s ≤ x s)
+    (r : State k) :
+    (system k).operator w (coarseMinimum k x) r ≤ coarseMinimum k x r := by
+  exact (operator_coarseMinimum_le k hk w x hwt hret hadv r).trans
+    ((system (k + 1)).fiberMin_mono hsuper r)
+
+/-- Exact normalized slack/defect balance between arbitrary nonzero profiles
+at consecutive precisions.  No fixed-vector or supersolution hypothesis is
+used.  In particular, the fine normalized slack is the inherited term that
+must be retained when the coarse-minimum construction is iterated. -/
+theorem normalizedSlack_sub_eq_defect_gap
+    (k : ℕ) (hk : 2 ≤ k) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ) (g : State k → ℝ)
+    (hxmass : (system (k + 1)).totalMass x ≠ 0)
+    (hgmass : (system k).totalMass g ≠ 0) :
+    (system (k + 1)).normalizedSlack w x -
+        (system k).normalizedSlack w g =
+      (w.retarded + w.advanced) *
+        ((system k).normalizedDefect g -
+          (system (k + 1)).normalizedDefect x) := by
+  have hfine := concrete_oscillation_identity_with_slack
+    (k + 1) (by omega) w x hxmass
+  have hcoarse := concrete_oscillation_identity_with_slack k hk w g hgmass
+  linarith
+
 /-- Exact normalized mass-gap identity.  Comparing the fine fixed-vector
 oscillation law with the coarse law including slack shows that the coarse
 super-slack is precisely the increase in normalized minimum defect. -/
@@ -126,10 +159,11 @@ theorem neg_normalizedSlack_eq_defect_gap
       (w.retarded + w.advanced) *
         ((system k).normalizedDefect g -
           (system (k + 1)).normalizedDefect x) := by
-  have hfine := concrete_oscillation_identity (k + 1) (by omega)
-    w x hfixed hxmass
-  have hcoarse := concrete_oscillation_identity_with_slack k hk w g hgmass
-  linarith
+  have hbalance := normalizedSlack_sub_eq_defect_gap
+    k hk w x g hxmass hgmass
+  have hfine := (system (k + 1)).normalizedSlack_eq_zero w x hfixed
+  rw [hfine, zero_sub] at hbalance
+  exact hbalance
 
 /-- Ordinary data processing for the terminal minimum defect.  The coarse
 minimum of a positive exact fine fixed vector has at least the fine normalized

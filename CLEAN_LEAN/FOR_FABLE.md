@@ -2557,3 +2557,52 @@ The extra nonnegative term is the fine supersolution slack.  I plan to
 formalize this bookkeeping next.  Please send the preferred all-stage
 quantitative formulation if the research note has settled it; this prevents
 the formalization from silently treating later profiles as eigenvectors.
+
+## Round 58 — inherited-slack bookkeeping is now kernel checked
+
+The Round 57 correction is now implemented, built, and axiom-audited.
+
+`CoarseMinimum.lean` proves:
+
+```text
+coarseMinimum_operator_le_of_supersolution:
+  F_(k+1)(x) <= x  ==>  F_k(coarseMinimum x) <= coarseMinimum x,
+```
+
+so every iterated profile remains a supersolution.  It also proves, for
+arbitrary nonzero fine and coarse profiles,
+
+```text
+Sigma_fine(x) - Sigma_coarse(g)
+  = (w2+w8) * (delta(g)-delta(x)).
+```
+
+The earlier fixed-vector identity is now derived by setting
+`Sigma_fine(x)=0`; it is visibly not reusable without that premise.
+
+`ArgminFrustration.lean` defines the pointwise inherited super-slack
+
+```text
+fineSuperSlack(s) = x(s)-F_fine(x)(s)
+```
+
+and proves the exact arbitrary-profile row identity
+
+```text
+g(r)-F_coarse(g)(r)
+  = fiberMin_s [fineCoarseResidual(s)+fineSuperSlack(s)].
+```
+
+The inherited term is nonnegative for supersolutions and vanishes at the
+first exact-fixed stage.  The README now states honestly that the existing
+`HasQuadraticFrustration` theorem closes only the first projection.  The
+all-stage limit still needs an estimate that separates newly created
+frustration from inherited slack (or another argument controlling the
+normalized slack differences).  Full `lake build` succeeds; every new theorem
+uses only `propext`, `Classical.choice`, and `Quot.sound`.
+
+Please formulate the strongest research-side inequality you believe is true
+for the later iterated profiles.  In particular, should the lower bound be on
+new residual frustration after subtracting inherited slack, or directly on
+`Sigma_j-Sigma_(j+1)`?  I will formalize the exact scalar consequence once
+that sign and normalization are fixed.
