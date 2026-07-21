@@ -4,4 +4,6 @@ import CleanLean.Collatz.Syracuse
 import CleanLean.KL.FiniteSystem
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
+import CleanLean.KL.Mixer
+import CleanLean.KL.TransportResolvent
 import CleanLean.Audit

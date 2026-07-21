@@ -21,6 +21,8 @@ It is deliberately defined before any proposed proof machinery.
 | Full abstract asymptotic R' | Kernel checked |
 | Geometric pressure-gap implies tail decay | Kernel checked |
 | Transport-free local family is neutrally two-periodic | Kernel checked |
+| Branch-mixer range inequality and C3 counterexample | Kernel checked |
+| Exact finite-cycle transport resolvent | Kernel checked |
 | Concrete KL oscillation identity | Planned |
 | Restricted-pressure theorem C1' | Open mathematics |
 | Collatz conjecture | Open mathematics |

@@ -8,6 +8,8 @@ import CleanLean.Collatz.Syracuse
 import CleanLean.KL.FiniteSystem
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
+import CleanLean.KL.Mixer
+import CleanLean.KL.TransportResolvent
 
 /-!
 # Trust-boundary audit
@@ -25,3 +27,6 @@ specification theorems during a build.
 #print axioms CleanLean.KL.tail_tendsto_zero_of_geometric_bound
 #print axioms CleanLean.KL.oscillation3_scale
 #print axioms CleanLean.KL.localProfile_two_step
+#print axioms CleanLean.KL.range_mix3_le
+#print axioms CleanLean.KL.retarded_mixer_counterexample
+#print axioms CleanLean.KL.transport_cycle_resolvent

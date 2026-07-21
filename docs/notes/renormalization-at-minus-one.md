@@ -18,8 +18,9 @@ k-asymptotics assume (H_k) along the tower, as elsewhere in this program.
 
 Provenance: §§1–5 derived here and verified against the certified data; the
 chain recursion (5) below was independently derived by the external model
-gpt-5.6-sol from our brief, as were the two extremal constructions in §7.2;
-sol's independent solution of the limit system agrees with ours on every
+gpt-5.6-sol from our brief (`renorm_sol_brief.txt`, reply
+`renorm_sol_answer.md`), as were the two extremal constructions cited in
+§6.3; sol's independent solution of the limit system agrees with ours on every
 overlapping claim (min-constraint exact and unique; no pure-branch pinning;
 transversal marginality). The heavy annulus/mass measurements were run by a
 subagent (`renorm_annuli.py`); everything else run directly.
@@ -136,3 +137,217 @@ exact recursion (in H_n := Aⁿ·c(x_n)/c(−1); derived independently by sol)
 so H is constant along chains up to the accumulated transport forcing; the
 measured H-drift per step equals the measured transport fraction to all
 digits shown (renorm_chains.csv).
+
+## 4. The closed limit system and its complete solution
+
+**The system.** Dropping transport (Corollary above) and letting k → ∞ at
+fixed λ, (W) becomes a min-plus eigenproblem on the Prüfer group:
+
+  (P)  Π(q) = A · min{ Π(y) : 3y = 2q },  Π(0) = 1,  Π > 0,  q ∈ ℤ(3^∞).
+
+This is the exact "pure-branch limit system" of C2. It closes over the value
+towers {c(−1+u·3^{k−ν})}_k indexed by (which fiber, which lift) = the tree of
+child-triples below the root; the finite-k fiber of −1 references, per C2's
+structure, the fibers over the level-(k−1) fiber of −1 (children offsets
+2j/3 → sibling fibers {2j+3i}/9) plus the ×4 transport to the −4 tower.
+
+**Theorem 2 (solution of (P)).** Write Π(q) = A^{−ν(q)}·H(q). Then:
+(a) (P) holds iff H(q) = min{H(y) : 3y = 2q} for all q ("min-harmonic on the
+child tree") and H(0) = 1;
+(b) every positive solution satisfies **min(Π(1/3), Π(2/3)) = A^{−1} =
+λ^{1−α}** — the fiber of −1 has small lift exactly a* = λ^{1−α}, and this is
+the ONLY constraint (P) places on the root fiber;
+(c) the solution set is infinite-dimensional: for any C ≥ 1 there is a
+solution with root profile (1, a*, b), b = A^{−1}C; in particular b is NOT
+determined by (P). Existence: set H ≡ 1 on the subtree of one root child and
+H ≡ C on the other, constant on each remaining subtree (min-harmonic by
+construction).
+
+*Proof.* (a) All three children of q ≠ 0 have depth ν(q)+1; substitute. At
+q = 0 the self-loop gives 1 = A·min(1, Π(1/3), Π(2/3)) — since A > 1, the min
+must be A^{−1} < 1, attained by a child of depth 1, i.e. (b). (c) The upward
+constraints are exactly min-harmonicity; values off the argmin chains are
+free above their parents' values. ∎
+
+(b) is the theorem behind the empirical a: combined with Theorem 1 and
+Lemma 2, **the small lift of the fiber of −1 converges to λ^{1−α}, = 2/3
+exactly at λ = 2**, with finite-k correction −λ^{−1−α}/σ_k, verified to 1e−6.
+The candidate closed forms floated in C2 (2 − 2^{2−α} etc.) are superseded:
+the correct closed form is a = λ^{1−α}, whose numerical value at the
+*certified finite-k* λ's (0.691–0.699) happens to sit near 0.6925, while its
+λ→2 limit is 2/3 — the drift of a_k with k is real and tracks λ_k.
+
+**The period-2 cycle is a relabeling, not a dynamical oscillation.**
+R₈ doubles offsets (Lemma 1(b)): the level-k lift j of −1 min-references the
+sibling fiber over offset 2j/3. Across levels the measured profiles satisfy
+
+  p_{k+1}(u at depth ν) = p_k(2u mod 3^ν at depth ν) · (1 + O(0.005)),
+
+verified for all offsets of depth ≤ 3 (≤ 4) for k = 15→16..18→19: mean
+deviation 0.3–0.5% (max 1.2–2.3%), decreasing in k (renorm_extract.py §check).
+The invariant object is a single function Π on ℤ(3^∞) modulo the ×2-action;
+since ord(2 mod 3) = 2, the depth-1 shadow is the observed period-2 swap
+(a, b) ↔ (b, a) with −1 fixed; at depth ν the labeled period is 2·3^{ν−1}
+(verified at depth 2 through the 5 available levels). This answers the
+review's point (2): the correct invariant statement is the unordered profile
+{1, a, b} plus the exact doubling action on labels.
+
+**Stability.** In log coordinates the cascade map T of (W) is
+sup-norm-nonexpansive (a min of coordinate selections composed with the
+common shift log A + transport); its linearization at any solution of (P) is
+the argmin-selection operator: eigenvalue 0 in every direction that perturbs
+only non-argmin children (strict margins: measured 0.44, 0.21, 0.06, 0.02,
+0.05, 0.15, … along the spine — renorm_chains.csv), and eigenvalue exactly 1
+along each chain-scale direction (one per chain family). So the labeled
+2-cycle is stable but only *marginally* so in the co-spine direction; the
+top-anchored (spine) components are asymptotically stable with the transport
+lift: by (5), a perturbation of the spine scale is re-pinned to H = 1 at rate
+1 − t/σ_k per level, while the co-spine scale C relaxes only through the
+boundary. This is exactly the observed phenomenology: a_k converges cleanly
+(identity-fast), b_k and the pinning factor wobble at ±0.4% with parity
+structure and no monotone convergence through k = 19.
+
+## 5. What is NOT determined locally: the pinning b = 2 − a
+
+Empirically b_k ≈ 2 − a_k (equivalently c(−1) = fiber mean, "pinned at the
+mean", profile (a, 2−a, 1)): measured b − (2−a) = −0.011, −0.000, +0.004,
++0.001, +0.008 (k = 15..19) — supported at the 1% level but with a
+non-decaying parity wobble. Both our analysis and sol's independent solution
+of (P) conclude: **no pure-branch mechanism forces b = 2 − a.** The co-spine
+constant C = A·b is anchored at the deep boundary of the window (absolute
+states: the co-spine chain passes through fixed absolute anchors, e.g. offset
+54755·3^6, reached at every k ≥ 16 — renorm_chains.csv), i.e. inherited from
+the global eigenvector; the transport feedback (the 2-branch states above
+−1/4 reference the depth-2 ball of −1 with weight λ^{α−2}) selects C in the
+full system but lies outside (P). Global mass balance (the oscillation law)
+constrains only Σ_r min-fiber(r), not this fiber's mean. If pinning holds in
+the limit, C → 2A − 1 (= 2 at λ = 2, profile (1, 2/3, 4/3)); measured
+C_k = 1.845, 1.869, 1.884, 1.887, 1.904 vs 2A−1 = 1.859, 1.868, 1.877, 1.885,
+1.892 — consistent to 1% but not settled. **Open**, and now precisely
+located: pinning is a statement about the global selection of one
+min-harmonic solution of (P), not about the local system.
+
+## 6. Transversal analysis
+
+### 6.1 Spectrum of the linearized renormalization
+
+At the fixed structure of §4 the linearization of the cascade (log
+coordinates) is the argmin-selection operator: **spectrum {0} ∪ {1}** — 0 on
+all directions off the argmin chains, 1 (marginal) on the chain-scale
+directions, one per chain family; there is no eigenvalue strictly between.
+Strict argmin margins protect the selection pattern (top margins 0.44, 0.21,
+0.06; but margins as small as 0.000–0.008 occur at steps ~10 deep —
+renorm_chains.csv — so deep selections can switch between levels). Transport
+lifts the marginal modes by O(t·Aⁿ·c(4x_n)/c(−1)) via (5). Consequently the
+local theory has no autonomous transversal decay rate: transversal
+observables converge only as fast as the boundary (global eigenvector)
+converges, at the measured rates {λ^{1−α} ≈ 0.67 (transport), ≈ 0.93
+(λ_k-drift/increment ratio)} per level.
+
+### 6.2 What IS derivable: the mass profile around the spine
+
+Since Π(q) ≍ A^{−ν(q)} (Theorem 2, H = O(1)), a fiber at 3-adic distance
+3^{−j} from −1 has mean value ≍ c(−1)·A^{−(k−1−j)}·H, while the number of
+such fibers is 2·3^{k−2−j}. Hence the eigenvector mass of the annulus
+A_j = {r : |r−(−1)|₃ = 3^{−j}} decays, going inward (j → j+1), by
+
+  **mass ratio per shell = λ^{α−1}/3**  (= 0.4808 at λ₁₈; = 1/2 exactly at λ = 2).
+
+Measured (renorm_annuli.csv, k=18, j = 1..8): 0.516, 0.484, 0.475, 0.472,
+0.466, 0.463, 0.460, 0.457 — matching to 1–5% with the residual drift
+carrying the H-profile and boundary corrections. Total mass within distance
+3^{−J} of −1 therefore vanishes like (λ^{α−1}/3)^J: **the spine itself
+carries no Θ(1) eigenvector mass** — localization at −1 does not by itself
+obstruct C1′ (mass of the bad set → 0). Mass enhancement over Haar per shell:
+3·(λ^{α−1}/3) = λ^{α−1} ≈ 1.44/shell (measured 1.38–1.40).
+
+### 6.3 Oscillation vs distance from the spine, and the local dimension
+
+osc(fiber over q) equals the relative spread of H over the child-triple, so
+the oscillation field is the H-spread field. Measured over the window shells
+S_j (bases at distance 3^{−(k−1−j)}, j = 1 nearest — renorm_window.csv):
+mean osc decays smoothly by ≈ 0.89/shell moving away from −1 (0.446, 0.277,
+0.201, 0.174, 0.149, 0.139, 0.120, 0.108, 0.096 at k=18, j=1..9*, matching
+the global per-level mean-osc ratio 0.91); the count of osc > 0.2 fibers
+grows per shell by 2.0–2.2: local multiplier m = 2.12–2.15, **local dimension
+log₃ m = 0.68–0.70** vs the global finite-scale exponent d* ≈ 0.726 (M3) —
+the bad set near −1 reproduces the global exponent, consistent with C3's
+picture that the global bad set is the closure of the spine's backward orbit
+structure. (*shell 1 includes the base −1 itself.)
+
+However — and this is the honest core of the transversal story — **the
+multiplier is not derivable from (P)**: min-harmonicity permits both an
+all-flat window (multiplier 0) and an all-oscillating window (multiplier 3,
+dimension 1); constructions in renorm_sol_answer.md §Q2, matching our
+boundary-inheritance analysis. The 2.1–2.2 is a property of the globally
+selected solution. A proof of C1/C1′ therefore needs a *global* branching or
+energy bound (e.g.: every high-osc fiber has ≤ B < 3 high-osc children up to
+a geometric immigration term ⇒ dimension ≤ log₃ B), not a local RG argument.
+
+### 6.4 Tail-ratio drift: transient or → 1?
+
+New k=19 point (renorm_global.csv): ν_k{osc > 0.2} = 2.4817e−2, per-level
+ratios now 0.789, 0.805, 0.808, **0.810**; increments +0.0163, +0.0031,
++0.0024 — decaying. Haar count-fraction ratios 0.729, 0.747, 0.754, 0.761
+(counts 31703, 69337, 155338, 351539, 802383). Geometric extrapolation of
+the ν-ratio increments gives a limit ≈ 0.813 (ratio 0.55) to ≈ 0.842 (even at
+the slowest measured correction rate 0.93); reaching 1 would require the
+increments to stop decaying — excluded at current magnitudes unless the
+behavior changes qualitatively. The marginal-mode analysis says these ratios
+converge at the boundary rates (0.67, 0.93 per level), i.e. **the drift is a
+transient**; its limit ≈ 0.81 < 1 supports C1′ (mass of the bad set → 0,
+hence λ∞ = 2 through Proposition R′), but 4 ratio points cannot rule out
+slower-than-geometric drift. Pre-registered check for k = 20: ν-ratio in
+[0.810, 0.813] under the transient reading; ≥ 0.816 would favor drift → 1.
+
+## 7. Status of Conjecture C2, and honest gaps
+
+Proved here (under (E), and (H_k) where k-limits are taken):
+- Theorem 1: exact fiber-min law; a_k = λ^{1−α} − λ^{−1−α}/σ_k, exact.
+- Lemma 2: two-sided spike growth at rate λ^{α−1} per level; transport
+  suppression at rate λ^{1−α} per level (measured 0.66–0.69); checked against
+  σ_k = 194.8 … 947.4.
+- Theorem 2: complete solution of the pure-branch limit system (P): the small
+  lift is a* = λ^{1−α} for EVERY positive solution (= 2/3 at λ = 2; 0.6933 at
+  λ₁₈, matching the measured min-normalized 0.6930 and, through the pinning
+  factor, the mean-normalized 0.6927); the rest of the profile is a free
+  min-harmonic datum.
+- The "period-2 cycle" is exactly the offset-doubling relabeling (order 2 at
+  depth 1, 2·3^{ν−1} at depth ν); invariant object = Π mod ⟨×2⟩; verified at
+  0.3–0.5% across k = 15..19.
+- Transversal spectrum {0, 1}: marginal, no autonomous decay; mass law
+  λ^{α−1}/3 per shell around the spine (verified 1–5%).
+
+Not proved / corrected / open:
+- **Pinning b = 2 − a is not a local theorem** (Theorem 2(c); sol concurs);
+  measured to hold at ±1% with parity wobble. C2's "(a, 2−a, 1)" should be
+  restated: min-lift = λ^{1−α} (proved-level), max-lift = boundary-selected,
+  empirically ≈ 2 − a. Any proof must go through the global selection
+  (transport feedback through the −1/4 tower; no standard vanishing-
+  perturbation selection theorem applies as t = λ^{−2} does not vanish).
+- The local dimension 0.68–0.70 (vs global 0.726) is measured, not derived;
+  (P) alone permits [0, 1]. C1/C1′ need a global branching/energy estimate.
+- σ_k → ∞ (spike divergence) is proved only relative to min c (Lemma 2(i));
+  the step to c(−4) = O(global scale) is empirical (σ_k ≈ 0.5·c(−1)/min c).
+- Certified vectors satisfy the equation with ≤ 1.3e−7 slack, not equality;
+  all identities verified to that margin. (H_k) beyond k = 12 unproved.
+- The relabeling covariance p_{k+1} = p_k∘(×2) + O(0.5%) is a measured
+  regularity of the eigenvector tower, mechanism identified (chains anchored
+  at absolute states; one cascade step inserted per level) but not proved.
+
+## 8. Reproduction
+
+- `python3 experiments/kl/renorm_extract.py` — profiles, argmins, growth
+  (renorm_profiles/argmins/growth.csv; M6 check).
+- `python3 experiments/kl/renorm_chains.py` — spine/co-spine chains, H,
+  margins, transport fractions (renorm_chains.csv).
+- `python3 experiments/kl/renorm_window.py` — window osc field, shell counts,
+  identity residuals (renorm_window.csv).
+- `python3 experiments/kl/renorm_annuli.py` — full-array global tails and
+  annulus mass/osc, self-tested AP enumeration (renorm_global.csv,
+  renorm_annuli.csv; reproduces M7 exactly; k = 19 new).
+- `python3 experiments/kl/renorm_limit_solve.py` — sympy exact values, the
+  verification table (renorm_limit_table.csv), mass-law and dimension checks.
+- External consult: `experiments/kl/renorm_sol_brief.txt` and
+  `experiments/kl/renorm_sol_answer.md`; all adopted claims re-verified
+  against the certified data above.
