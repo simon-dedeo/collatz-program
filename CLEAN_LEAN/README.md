@@ -87,10 +87,11 @@ returns to residue 188 by a transport child at the strictly larger shift
 `7*alpha-11 > 0`.  All seven preceding refinement destinations are new and
 therefore survive the published ancestor-repeat deletion test.  Re-expanding
 the returned root makes its child 206 deletion-eligible against the earlier
-206, proving the surviving subtree depends on its ancestry.  This refutes
-printed equation (3.2) and the following history-free subtree argument.  It
-does not establish nontermination or refute the intended elimination theorem;
-that theorem now requires a repaired proof.
+206, proving the surviving subtree depends on its ancestry.  This invalidates
+the finite-step inference used to derive printed equation (3.2), which itself
+assumes an infinite path, and directly refutes the following history-free
+subtree argument.  It does not establish nontermination or refute the intended
+elimination theorem; that theorem now requires a repaired proof.
 
 `EliminationWitness.lean` pins the exact output required of that remaining
 construction.  A witness is a finite family of labelled trees with a common

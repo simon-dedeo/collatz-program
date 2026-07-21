@@ -11,10 +11,11 @@ import CleanLean.KL.ConcreteElimination
 At level five there is a legal principal path which returns to its initial
 residue at a strictly *larger* time shift.  The branch children before the
 closing transport step are all new on their ancestor path, so the deletion
-test described in Krasikov--Lagarias does not remove them.  This refutes the
-strict-decrease assertion in their printed equation (3.2) and the following
-history-free subtree-identification argument.  It does not prove that the
-elimination procedure itself fails to terminate.
+test described in Krasikov--Lagarias does not remove them.  This invalidates
+the finite-step inference used to derive their printed equation (3.2), which
+is itself stated under an additional infinite-path hypothesis, and directly
+refutes the following history-free subtree-identification argument.  It does
+not prove that the elimination procedure itself fails to terminate.
 -/
 
 namespace CleanLean.KL
@@ -196,8 +197,8 @@ theorem shifts_nonnegative :
   · linarith
 
 /-- The closing occurrence of residue 188 has strictly larger shift than the
-root.  This is the direct counterexample to the decrease asserted in printed
-equation (3.2). -/
+root.  This obstructs the finite-step decrease inference used in the printed
+derivation of equation (3.2). -/
 theorem returned_root_shift_increases : zero.value < shift188Return.value := by
   have h := eleven_sevenths_lt_alpha
   simp only [SymbolicShift.value, SymbolicShift.zero, shift188Return]
@@ -250,7 +251,7 @@ theorem returned_child_is_deletionEligible :
 /-- Compact headline: a legal first-pass path, with no repeated branch
 destination, returns by transport to the same state at a larger nonnegative
 shift. -/
-theorem printed_equation_3_2_counterexample :
+theorem printed_equation_3_2_derivation_obstruction :
     (ResidueSystem.system 5).transport state47 = state188 ∧
       state188 ∉ [state206, state137, state182, state161, state107, state71,
         state47] ∧

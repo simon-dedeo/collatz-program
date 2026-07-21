@@ -131,7 +131,7 @@ specification theorems during a build.
 #print axioms CleanLean.KL.TerminationObstruction.branch_steps_survive_deletion_test
 #print axioms CleanLean.KL.TerminationObstruction.returned_root_shift_increases
 #print axioms CleanLean.KL.TerminationObstruction.returned_child_is_deletionEligible
-#print axioms CleanLean.KL.TerminationObstruction.printed_equation_3_2_counterexample
+#print axioms CleanLean.KL.TerminationObstruction.printed_equation_3_2_derivation_obstruction
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
 #print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda
 #print axioms CleanLean.KL.weightedDefect_le_tail

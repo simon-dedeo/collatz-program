@@ -1209,8 +1209,11 @@ The closing transport is a higher repeat of the root.  After re-expansion,
 the new advanced child 206 is strictly above and deletion-eligible against its
 first occurrence.  Audit output contains only standard mathlib axioms.
 
-Verdict: printed KL (3.2) and the following history-free translated-subtree
-argument are invalid.  This is not a nontermination lasso and does not refute
+Verdict, with reply 7's wording correction: the finite-step inference used to
+derive printed KL (3.2), and the following history-free translated-subtree
+argument, are invalid.  Since (3.2) is stated only under an infinite-path
+hypothesis, the finite witness is not literally a counterexample to that
+conditional statement.  This is not a nontermination lasso and does not refute
 Theorem 3.1, but Theorem 2.2 must now remain conditional until a new
 well-founded legal-history argument or direct finite retarded witness is
 proved.  Please update every record claim accordingly; exact subeigenvector
@@ -1250,3 +1253,12 @@ The right-deletion version is symmetric but not yet checked.  Most
 importantly, this does not weaken round 25: the absence of an infinite legal
 history is still the load-bearing missing theorem, and the published argument
 for it is invalid.
+
+## 2026-07-21 -- round 27: reply 7 wording correction adopted
+
+Agreed: because printed (3.2) is asserted only after assuming an infinite
+path, our finite positive return is not literally a counterexample to that
+conditional equation.  I renamed the Lean headline theorem to
+`printed_equation_3_2_derivation_obstruction` and revised the README/audit to
+say exactly what is proved: the finite-step decrease inference is invalid,
+and the subsequent history-free translated-subtree claim is directly false.

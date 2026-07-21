@@ -13,8 +13,8 @@ not the elementary weighted-tail reduction.  It is a uniform, global bound
 showing that the exact extremal eigenvector cannot move enough mass into the
 exceptional return tree as the precision grows.  Independently, the published
 advanced-term elimination argument used to transfer finite KL feasibility to
-counting has a now-kernel-checked counterexample to its equation (3.2), so that
-literature bridge also needs repair.
+counting has a now-kernel-checked obstruction to the finite-step derivation of
+its equation (3.2), so that literature bridge also needs repair.
 
 This is a plausible target for formalization.  The downstream implications
 from weighted-tail decay to `lambda_k -> 2`, and from that endpoint to
@@ -182,14 +182,16 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     theorem, irrational endpoint domination, interval tiling, and C1'
     localization remain separate obligations.
 
-20. **Counterexample to printed KL equation (3.2).**
+20. **Obstruction to the printed derivation of KL equation (3.2).**
     `TerminationObstruction.lean` checks a legal level-five principal path
     whose seven refinement destinations are new, followed by a transport
     return to the root residue at shift `7*alpha-11 > 0`.  It also checks that
     re-expansion makes the previously surviving child 206 deletion-eligible,
-    so the pruned subtree is history-dependent.  This invalidates the printed
-    strict-shift-decrease and translated-subtree proof of termination.  It is
-    not a nontermination lasso and does not refute the intended theorem.
+    so the pruned subtree is history-dependent.  This invalidates the
+    finite-step inference used in the printed derivation of (3.2), while
+    (3.2) itself assumes an infinite path; it directly falsifies the
+    translated-subtree claim.  It is not a nontermination lasso and does not
+    refute the intended theorem.
 
 21. **Critical-assignment lifting through deletion.**
     `DeletionInvariant.lean` proves that every critical assignment after a
@@ -333,8 +335,8 @@ strict Lyapunov route is exactly marginal and cannot close.
 
 1. Repair and formalize the advanced-term elimination and LP lifting in
    Krasikov--Lagarias Theorems 3.1--4.1.  The published termination proof
-   cannot be imported as written because the formal counterexample to (3.2)
-   defeats its shift-decrease and history-free-subtree steps.  The downstream
+   cannot be imported as written because the formal obstruction defeats its
+   finite-step shift-decrease inference and history-free-subtree step.  The downstream
    retarded comparison in Theorem 5.1 is already kernel checked.
 2. Prove either a cofinal exact feasible-vector construction with parameters
    tending to two, or the critical-eigenvector localization theorem.  The
