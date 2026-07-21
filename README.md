@@ -1,9 +1,14 @@
 # collatz-program
 
-A research program on the Collatz (3x+1) conjecture: experiments, theory,
-and formalization, with every claim backed by a machine-checkable artifact.
-Started 2026-07-20 (Simon DeDeo + Claude Fable 5 + GPT-5.6-sol as external
-prover/reviewer; PSC Bridges-2 grant mth260010p).
+An ad hoc and playful investigation of the Collatz (3x+1) conjecture:
+experiments, theory, and formalization, with every claim backed by a
+machine-checkable artifact. Started 2026-07-20 (Simon DeDeo + Claude Fable 5
++ GPT-5.6-sol as external prover/reviewer; PSC Bridges-2 grant mth260010p).
+
+Made possible by the support of Grant 63750, "Explaining Universal Truths",
+from the John Templeton Foundation. Additional support from research funds
+of the Laboratory for Social Minds and from the Survival and Flourishing
+Fund. Proofs and Reasons — https://proofsandreasons.io
 
 ## Headline results (all certified/proved today)
 
@@ -33,11 +38,21 @@ except the last:
 The obstruction set is fully identified: a thin 3-adic neighborhood of the
 backward ⟨4⟩-orbit of −1 (the shadow of the negative Collatz cycle; the
 unique fixed point of the advanced branch). Its local theory is solved
-(a = λ^{1−α}); its bare mass multiplier is λ^{α−1}/3 ≈ 0.48 (subcritical);
-the enemy is "return clouds" (measured effective ratio ≈ 0.81, drifting —
-drift currently reads as transient with a pre-registered k=20 test).
-Both remaining lemmas have **finite certificate forms** being searched by
-machine (`experiments/pressure-cert/`, in flight).
+(a = λ^{1−α}); its bare mass multiplier is λ^{α−1}/3 ≈ 0.48 (subcritical).
+
+**Status of the two remaining lemmas** (`experiments/pressure-cert/`):
+**Lemma 5 (the pressure gap — the piece all reviewers called the genuine
+open step) is CERTIFIED** in exact rational arithmetic, at λ = 2 and
+uniformly over [λ₁₈, 2], with a structural theorem (ρ(W_J) = s(λ) at every
+depth; the spine's tilt budget halves per digit) showing it is
+asymptotically free. **Lemma 3 (localization) fails in single-profile form
+for an exactly-identified reason**: label-alignment lives in top-window
+u-classes (base-4 transport overflows) invisible to mod-3^J states, and the
+aligned class contains precisely the −1 spine. The repair — a combined
+(mod 3^J) × (u-class) automaton with a spine-face cone / pathwise charge
+lemma — is designed, costed, and running (`experiments/pressure-cert2/`).
+Nothing in the current results estimates λ_∞ < 2; the empirical spine mass
+tracks the certified bound from below with shrinking increments.
 
 **Cycle half.** Cycles = monodromy identities in Aff(ℤ/(2^K−3^L));
 four of five known cycles forced by the unit stratum |2^K−3^L| = 1.
@@ -55,9 +70,11 @@ fate argument must couple 2-adic structure to the Archimedean place.
 
 ## Blockers (open mathematics, precisely stated)
 
-1. **C1′ / Lemma 5 pressure gap** — the tilted mass-transfer certificate
-   (h, z, R) with Rz^{−θ} < 1 over λ ∈ [λ₁₈, 2]. Finite search running; if
-   it certifies, λ_∞ = 2 is proved. If it fails, the margin estimates λ_∞.
+1. **C1′ / Lemma 3 localization** — now the sole analytic blocker on the
+   counting path (Lemma 5 is certified). Needs the combined-automaton
+   contraction: block contraction off the aligned u-class plus a spine-face
+   cone or pathwise charge argument on it. Prototype (J=3, L_w=6) running;
+   scaled version (J=6, L_w=10, ~2.5×10⁸ states) costed for akdeniz/PSC.
 2. **Boundary-data bound** — the co-spine pinning b = 2−a is a *global*
    selection fact (provably not local); both our note and CLEAN_LEAN's audit
    flag the same missing uniform bound on min-harmonic boundary data.
@@ -69,7 +86,8 @@ fate argument must couple 2-adic structure to the Archimedean place.
 
 ## Running right now
 
-- `experiments/pressure-cert/` — the Lemma 3+5 certificate search (critical path)
+- `experiments/pressure-cert2/` — combined localization automaton, the
+  critical path (Lemma 5 already certified in `pressure-cert/`)
 - k=19, k=20 exact certifications (9.3 GB eigenvector via PSC DTN)
 - Eigenvector geometry ρ₁₉ finish; k=20 pre-registered drift test on arrival
 - Base-2 q=8 exhaustion on akdeniz (~3.20T of ~3.2T DFAs)
