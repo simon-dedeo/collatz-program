@@ -1,9 +1,9 @@
 # Kontorovich program synthesis: exact finite words and the integer gate
 
 Status (2026-07-21): **exact compiler and bounded exact searches; cycle
-soundness kernel-checked; no counterexample found**.  The all-level periodic-
-itinerary obstruction in Section 4 is a research derivation sent to the
-independent Lean formalizer, not yet a certified theorem at this checkpoint.
+soundness and the all-level periodic-itinerary obstruction kernel-checked; no
+counterexample found**.  Lean commits `92b01ff`/`2f93df7` prove Section 4 and
+its eventual-tail and sign corollaries.
 
 ## 1. The challenge in exact form
 
@@ -91,7 +91,7 @@ The Python and Lean interfaces deliberately keep the disproof gate separate
 from validity: the repeated word `(2,...,2)` validly encodes seed `1`, but is
 the trivial cycle.
 
-## 4. Why a literal periodic glider should fail
+## 4. Why a literal periodic glider fails
 
 This is the first structural lesson from the hardware view.  Suppose the same
 nonempty word `w` is legal for every consecutive block of a positive orbit.
@@ -124,9 +124,11 @@ negative because `A>0`, so no positive seed has that infinite itinerary.
 Thus an eventually periodic valuation stream cannot be a positive growing
 glider.  A genuine divergent “program” must have unbounded symbolic memory:
 a nonperiodic substitution, counter, stack, or arithmetic feedback that keeps
-renewing exact divisibility.  This derivation is elementary, but under the
-project's discipline it remains labeled research-side until the requested
-Lean theorem lands.
+renewing exact divisibility.  `KontoroC/PeriodicItinerary.lean` proves the
+coprime recurrence, the repeated-block fixed-point theorem, the arbitrary
+eventually periodic tail corollary, and the strict sign obstruction.  The
+axiom audit reports only the standard mathlib axioms documented by the
+package.
 
 ## 5. First bounded searches
 
@@ -177,7 +179,9 @@ uniform morphisms unless a new arithmetic constraint is added.
 
 - Search **one-counter substitutions** whose emitted block depends on a
   growing counter and can replenish, not merely spend, the 2-adic precision
-  budget.
+  budget.  The first distributed step is the exact non-uniform binary
+  morphism worker `search_nonuniform.py`; unequal image lengths already create
+  growing gaps, while remaining a finitely enumerable ansatz class.
 - Search **macrostep identities on parametric binary templates** and require
   symbolic closure `T^ell(x_t)=x_(t+1)` plus a monotone height theorem.
 - Use the exact compiler inside **SMT/modular branch-and-bound**, scoring

@@ -88,3 +88,42 @@ expensive CRT seed-stabilization test has its separately reported
 `--max-seed-word-length` bound.  A negative result excludes only this finite
 template class.  It does not improve the global computational verification
 frontier.
+
+## Distributed non-uniform morphic search
+
+`search_nonuniform.py` expands the template class to every nonempty binary
+morphism
+
+```text
+0 -> u,  1 -> v,
+```
+
+where `u` begins in `0` (so the fixed point is nested) and `u,v` have bounded,
+not necessarily equal lengths.  Non-uniform images create growing gaps and
+simple one-counter-like geometry unavailable to the uniform sweep.  The
+worker carries compressed exact `(3^N,2^S,A_N)` blocks and is deterministically
+sharded by morphism index.  Each shard still expands and literally replays
+every closure or seed-stabilization hit.
+
+`merge_nonuniform.py` requires every shard exactly once, checks common source
+hashes and bounds, proves complete morphism-index coverage, and independently
+replays any nontrivial cycle artifact.  A small two-shard regression is part
+of `search_nonuniform.py --selftest`.
+
+```bash
+python3 search_nonuniform.py --selftest
+
+# Example shard
+python3 search_nonuniform.py \
+  --max-image-length 6 --max-k 4 --max-depth 12 \
+  --max-word-length 4096 --max-seed-word-length 512 \
+  --shard-index 0 --shards 32 --output shard-000.json
+
+# Merge only succeeds when all 32 consistent shards are present.
+python3 merge_nonuniform.py --expect-shards 32 \
+  --output nonuniform_results.json shard-*.json
+```
+
+`psc_nonuniform.sbatch` is the current Bridges-2 64-way launch prescription.
+Its bounds are part of every shard artifact; changing the launch file creates
+a different finite search and must not be silently merged with an earlier run.

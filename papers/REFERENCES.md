@@ -1,5 +1,22 @@
 # References (mirrored PDFs removed from the public repo)
 
+## Primary sources used in the active Kontorovich challenge
+
+- Alex V. Kontorovich and Yakov G. Sinai, *Structure Theorem for
+  `(d,g,h)`-Maps*, Bulletin of the Brazilian Mathematical Society 33 (2002),
+  213–224, https://arxiv.org/abs/math/0601622.  Source of the exact finite
+  valuation-word progressions and the density-level Brownian limit; mirrored
+  locally as `kontorovich-sinai-2002-structure-theorem.pdf`.
+- Alex Kontorovich, *Unpopular opinion: The `3x+1` Conjecture might be
+  False!* (thread, 2019),
+  https://x.com/AlexKontorovich/status/1172715174786228224.  Source of the
+  hardware/software and glider challenge; it states a research direction, not
+  a counterexample.
+- John H. Conway, *Unpredictable Iterations* (1972), mirrored locally as
+  `conway-1972-unpredictable-iterations.pdf`.  Source for computational
+  universality in generalized Collatz maps; no universality claim for the
+  specific `3x+1` map is imported.
+
 ## Primary sources used in the active endpoint work
 
 - Lothar Collatz, *Einschließungssatz für die charakteristischen Zahlen von

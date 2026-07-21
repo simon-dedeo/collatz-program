@@ -81,7 +81,9 @@ valuation legality, an ordinary positive seed rather than only a 2-adic one,
 and certified nontermination.  Finite-prefix realizability alone passes only
 the first gate.
 
-### Disproof programs
+### KC Strategy and failure map
+
+#### Live disproof programs
 
 - **Exact cycle synthesis.**  Search valuation words and cyclic compositions
   for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
@@ -112,13 +114,32 @@ the first gate.
   treated as a distributional filter, never as evidence against rare
   software.
 
+#### KC failure ledger
+
+| Ansatz or route | Calibrated verdict | Exact record |
+|---|---|---|
+| Treat a prescribed finite `k`-word as an infinite program | Invalid: the nested progressions generally select a 2-adic integer, not a positive ordinary seed. Ordinary-seed stabilization is a separate gate. | [Program-synthesis note](docs/notes/kontorovich-program-synthesis.md) |
+| Literal periodic valuation glider | Closed: Lean commits `92b01ff`/`2f93df7` prove that an infinitely repeatable positive block has `3^N<2^S` and closes as a cycle. This does not touch morphic, counter, stack, or feedback streams. | [Section 4](docs/notes/kontorovich-program-synthesis.md#4-why-a-literal-periodic-glider-fails) |
+| Small positive cycle words | Exhaustively negative through total halving count `S<=22`: `3,447,691` positive-denominator compositions, with only repeated encodings of seed `1`. This is a bounded ansatz exclusion, not a new verification frontier. | [`search_results.json`](experiments/kontorovich/search_results.json) |
+| Fixed-width binary uniform morphisms | Exhaustively negative for nontrivial cycles at widths `2..4`, codings `1..4`, and expanded length at most `16,384`. The best `1`-avoiding seed-stabilization event dies at its next morphic extension. | [`search_results.json`](experiments/kontorovich/search_results.json) |
+| Small regular invariant sets | Previously closed only in the stated exhaustive classes: no base-2 DFA divergence certificate through eight states and no base-3 certificate through five. One-counter and genuinely morphic single-orbit certificates remain open. | [Base 2](experiments/dfacert/README.md), [base 3](experiments/dfacert3/README.md) |
+
 The first work product will be an exact `k`-word compiler and cycle/glider
 search harness with replayable certificates.  New lanes and closed ansatz
 classes will be recorded here with explicit bounds, just as in the proof
 strategy's failure ledger.  Nothing will be called a disproof unless the
 positive integer and its claimed behavior are machine-checked.
 
-### First exact checkpoint
+### KC Headline results (with verification scope)
+
+| Result | Status |
+|---|---|
+| Exact finite `k`-word compiler | Python arbitrary-precision compiler and literal replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. |
+| Kernel cycle-disproof seam | `KontoroC.CycleArtifact.checkNontrivial=true` implies the literal negation of the ordinary Collatz conjecture. The package build and axiom audit pass; no nontrivial artifact is known. |
+| Bounded composition search | All `3,447,691` positive-denominator compositions with `S<=22` were checked exactly. The only closure hits encode the trivial seed `1`; no nontrivial cycle was found within the bound. |
+| Bounded morphic-program search | All `168` binary uniform prolongable morphisms of widths `2..4`, all `16` codings into `{1,2,3,4}`, and `20,224` bounded depth instances were checked exactly. No nontrivial cycle was found. |
+| Parametric glider endpoint | Lean commit `2fc4459` proves that any supplied exact outward `MacroGlider` refutes Collatz, including the no-hidden-visit-to-`1` bridge. It supplies the checker endpoint, not a glider. |
+| Periodic-itinerary obstruction | Lean commits `92b01ff`/`2f93df7` prove by an all-level coprime-divisibility argument that a positive eventually periodic valuation program is a cycle and that a supercritical repeated block cannot occur forever. |
 
 The first compiler and certificate seam is now live.  The dependency-free
 [`path_compiler.py`](experiments/kontorovich/path_compiler.py) reproduces the
@@ -141,16 +162,32 @@ exact continuation sends to `1` after `36` accelerated steps.  These are exact
 bounded exclusions of small program classes, not a new global verification
 bound and not evidence of convergence.
 
-A short research derivation also closes the most literal glider: if one fixed
+A kernel-checked theorem also closes the most literal glider: if one fixed
 nonempty `k`-block repeats forever on a positive orbit, divisibility by
 arbitrarily high powers of `2^sum(k)` forces the block endpoint to equal its
 start.  Thus an eventually periodic valuation program is a cycle, not a
 growing glider; a supercritical repeated block has only a negative 2-adic
-seed.  This statement has been sent to the independent Lean agent and remains
-labeled a research derivation until its kernel proof lands.  The active search
-therefore moves to aperiodic one-counter and recursively nested templates.
+seed.  Lean commits `92b01ff`/`2f93df7` prove the all-level statement and its
+eventual-tail and sign corollaries.  The active search therefore moves to
+aperiodic one-counter and recursively nested templates.
 See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-program-synthesis.md)
 for the exact algebra, bounds, result digest, and next attacks.
+
+## Diary
+
+### 2026-07-21 19:15 EDT
+
+Pivoted the project to the Kontorovich challenge and pushed the first exact
+checkpoint.  The finite-word compiler, Python replay verifier, kernel Lean
+cycle-disproof seam, parametric-glider endpoint, and all-level periodic-word
+obstruction all pass.  Bounded
+composition and uniform-morphism searches found no nontrivial cycle; the
+small uniform morphism ansatz is now in the [KC failure
+ledger](#kc-failure-ledger), with scopes in [KC headline
+results](#kc-headline-results-with-verification-scope).  PSC, Akdeniz, and
+Ganesha are reachable; next is a distributed search over non-uniform morphic
+and one-counter-adjacent templates, while Lean checks the periodic-word
+obstruction.
 
 ## Project guides
 
@@ -521,6 +558,22 @@ by [`DATA.md`](DATA.md), and literature by
 with apologies for the imperfect attribution below. Anything of value here is
 their idea; the errors are ours.* Our approach is, honestly, an assembly of
 existing lines of work; the closest ancestors, and what each contributes:
+
+**The Kontorovich challenge and disproof frame.**
+- **A. V. Kontorovich & Ya. G. Sinai, [“Structure Theorem for
+  `(d,g,h)`-Maps”](https://arxiv.org/abs/math/0601622), Bull. Braz. Math. Soc.
+  33 (2002), 213–224** — the exact arithmetic-progressions theorem for every
+  finite valuation word and the density-level Brownian limit with drift
+  `log(3/4)`.  The present compiler is a constructive specialization of their
+  finite-word structure.
+- **A. Kontorovich, [2019 thread on why the evidence for Collatz may be
+  weak](https://x.com/AlexKontorovich/status/1172715174786228224)** — the
+  hardware/software and “glider” challenge that sets the active research
+  objective.  The thread proposes a search philosophy, not a counterexample.
+- **J. H. Conway, “Unpredictable Iterations” (1972)** — generalized
+  Collatz-type maps can encode computation.  This motivates looking for
+  structured programs while not transferring universality to the specific
+  `3x+1` map.
 
 **The direct spine of the counting result.**
 - **I. Krasikov & J. C. Lagarias, "Bounds for the 3x+1 problem using
