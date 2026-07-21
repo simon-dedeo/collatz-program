@@ -132,6 +132,8 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     unlike the false local deletion rule.  What remains is to derive this
     whole-tree avoidance uniformly from the repeated-label contradiction at
     each recursive step and preserve the ancestor-bound invariant.
+    Symmetric left/right deletion and automatic coefficient-side monotonicity
+    are both checked.
 
 ## Corrections to the current notes
 

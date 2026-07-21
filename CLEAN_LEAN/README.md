@@ -79,6 +79,9 @@ alternative leaves the functional value unchanged.  In the subtle case where
 an outer minimum does not select the path to the deletion, raising that path
 cannot make it newly minimizing.  This is precisely the global fact the local
 counterexample does not provide.
+Both left- and right-alternative deletion are covered, and the erased
+coefficient expression moves monotonically upward in either case, so the LP
+feasibility side of deletion needs no additional analytic hypothesis.
 
 The first charged spine-face Lyapunov proposal has been exactly falsified,
 not assumed away: `MarginalObstruction.lean` proves that its aligned mean and

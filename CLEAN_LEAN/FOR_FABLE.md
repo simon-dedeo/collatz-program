@@ -1033,3 +1033,8 @@ assignment purportedly using a deletion candidate contains the concrete
 split subassignment below the repeated ancestor and inherits the maintained
 (3.4) bound.  The strict contradiction then supplies `NoCriticalUse`, and
 the new theorem performs the deletion soundly.
+
+Both orientations are now covered: a minimum may lose its left or right
+alternative, functional equality follows from the corresponding whole-tree
+avoidance premise, and erased coefficient evaluation increases automatically.
+This handles all positions in the binary encoding of the three-lift minimum.

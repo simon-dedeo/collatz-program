@@ -339,6 +339,27 @@ theorem coeffEval_erase_fill_mono
       simpa [EliminationTree.Context.fill, eraseToRetarded, RetardedExpr.coeffEval] using
         min_le_min (le_refl ((eraseToRetarded left).coeffEval c lam)) ih
 
+/-- Deleting the left side of a minimum increases the erased coefficient
+expression, so LP feasibility is automatically preserved. -/
+theorem coeff_delete_left_le
+    (K : EliminationTree.Context ι) (left right : EliminationTree ι)
+    (c : ι → ℝ) (lam : ℝ) :
+    (eraseToRetarded (K.fill (.inf left right))).coeffEval c lam ≤
+      (eraseToRetarded (K.fill right)).coeffEval c lam := by
+  apply coeffEval_erase_fill_mono
+  simp only [eraseToRetarded, RetardedExpr.coeffEval]
+  exact min_le_right _ _
+
+/-- Symmetric coefficient monotonicity for deleting the right side. -/
+theorem coeff_delete_right_le
+    (K : EliminationTree.Context ι) (left right : EliminationTree ι)
+    (c : ι → ℝ) (lam : ℝ) :
+    (eraseToRetarded (K.fill (.inf left right))).coeffEval c lam ≤
+      (eraseToRetarded (K.fill left)).coeffEval c lam := by
+  apply coeffEval_erase_fill_mono
+  simp only [eraseToRetarded, RetardedExpr.coeffEval]
+  exact min_le_left _ _
+
 /-- Thus exact KL feasibility makes a concrete split increase the coefficient
 right-hand side inside every surrounding labelled context. -/
 theorem coeff_leaf_le_split_in_context
