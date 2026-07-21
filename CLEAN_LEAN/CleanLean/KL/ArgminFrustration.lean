@@ -197,6 +197,82 @@ theorem coarseSlack_eq_fiberMin_residual_add_superSlack
     (min (x (fiber (k + 1) r 1)) (x (fiber (k + 1) r 2)))
     ((system k).operator w (coarseMinimum k x) r)).symm
 
+/-- Total inherited fine supersolution slack. -/
+def fineSuperSlackMass (k : ℕ) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ) : ℝ :=
+  ∑ s, fineSuperSlack k w x s
+
+/-- Total supersolution slack after one coarse minimum. -/
+def coarseMinimumSuperSlackMass (k : ℕ) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ) : ℝ :=
+  ∑ r, (coarseMinimum k x r -
+    (system k).operator w (coarseMinimum k x) r)
+
+theorem fineSuperSlackMass_eq_neg_slackMass
+    (k : ℕ) (w : Weights ℝ) (x : State (k + 1) → ℝ) :
+    fineSuperSlackMass k w x =
+      -(system (k + 1)).slackMass w x := by
+  unfold fineSuperSlackMass fineSuperSlack FiniteSystem.slackMass
+  rw [← Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro s hs
+  ring
+
+theorem coarseMinimumSuperSlackMass_eq_neg_slackMass
+    (k : ℕ) (w : Weights ℝ) (x : State (k + 1) → ℝ) :
+    coarseMinimumSuperSlackMass k w x =
+      -(system k).slackMass w (coarseMinimum k x) := by
+  unfold coarseMinimumSuperSlackMass FiniteSystem.slackMass
+  rw [← Finset.sum_neg_distrib]
+  apply Finset.sum_congr rfl
+  intro r hr
+  ring
+
+/-- Summing the arbitrary-profile row identity writes the new coarse
+super-slack as the total minimum of residual plus inherited slack. -/
+theorem coarseMinimumSuperSlackMass_eq_sum_fiberMin
+    (k : ℕ) (w : Weights ℝ) (x : State (k + 1) → ℝ) :
+    coarseMinimumSuperSlackMass k w x =
+      ∑ r, (system (k + 1)).fiberMin
+        (fun s => fineCoarseResidual k w x s + fineSuperSlack k w x s) r := by
+  unfold coarseMinimumSuperSlackMass
+  apply Finset.sum_congr rfl
+  intro r hr
+  exact coarseSlack_eq_fiberMin_residual_add_superSlack k w x r
+
+/-- Exact normalized form of research equation (40.4): normalized slack gain
+is new coarse super-slack per coarse mass minus inherited fine super-slack per
+fine mass. -/
+theorem normalizedSlackGain_eq_superSlackDifference
+    (k : ℕ) (w : Weights ℝ) (x : State (k + 1) → ℝ) :
+    (system (k + 1)).normalizedSlack w x -
+        (system k).normalizedSlack w (coarseMinimum k x) =
+      coarseMinimumSuperSlackMass k w x /
+          (system k).totalMass (coarseMinimum k x) -
+        fineSuperSlackMass k w x /
+          (system (k + 1)).totalMass x := by
+  rw [fineSuperSlackMass_eq_neg_slackMass,
+    coarseMinimumSuperSlackMass_eq_neg_slackMass]
+  unfold FiniteSystem.normalizedSlack
+  ring
+
+/-- The all-stage quadratic premise written exactly in the rowwise form of
+research equation (40.4).  This is an equivalence, not a proof of either
+side. -/
+theorem hasQuadraticCoarseSlackGain_iff_rowwise
+    (k : ℕ) (w : Weights ℝ) (x : State (k + 1) → ℝ) :
+    HasQuadraticCoarseSlackGain k w x ↔
+      ((w.retarded + w.advanced) / 2) *
+          (3 * (system (k + 1)).normalizedDefect x) ^ 2 ≤
+        (∑ r, (system (k + 1)).fiberMin
+            (fun s => fineCoarseResidual k w x s + fineSuperSlack k w x s) r) /
+              (system k).totalMass (coarseMinimum k x) -
+          fineSuperSlackMass k w x /
+            (system (k + 1)).totalMass x := by
+  unfold HasQuadraticCoarseSlackGain HasQuadraticSlackGain
+  rw [normalizedSlackGain_eq_superSlackDifference,
+    coarseMinimumSuperSlackMass_eq_sum_fiberMin]
+
 /-- The slack of a coarse fiber-minimum row is exactly the minimum of the
 three fine-versus-coarse row residuals. -/
 theorem coarseSlack_eq_fiberMin_fineCoarseResidual

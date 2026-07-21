@@ -377,6 +377,11 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.fineSuperSlack_nonneg_of_supersolution
 #print axioms CleanLean.KL.ResidueSystem.fineCoarseResidual_add_fineSuperSlack
 #print axioms CleanLean.KL.ResidueSystem.coarseSlack_eq_fiberMin_residual_add_superSlack
+#print axioms CleanLean.KL.ResidueSystem.fineSuperSlackMass_eq_neg_slackMass
+#print axioms CleanLean.KL.ResidueSystem.coarseMinimumSuperSlackMass_eq_neg_slackMass
+#print axioms CleanLean.KL.ResidueSystem.coarseMinimumSuperSlackMass_eq_sum_fiberMin
+#print axioms CleanLean.KL.ResidueSystem.normalizedSlackGain_eq_superSlackDifference
+#print axioms CleanLean.KL.ResidueSystem.hasQuadraticCoarseSlackGain_iff_rowwise
 #print axioms CleanLean.KL.ResidueSystem.coarseSlack_eq_fiberMin_fineCoarseResidual
 #print axioms CleanLean.KL.ResidueSystem.fineCoarseResidual_eq_retarded
 #print axioms CleanLean.KL.ResidueSystem.fineCoarseResidual_eq_advanced

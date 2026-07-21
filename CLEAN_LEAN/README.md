@@ -118,7 +118,12 @@ remain open for the all-stage conclusion: the selected-critical frustration
 lower bound and its inherited-slack extension for the subsequent
 supersolution profiles.  Lean also checks that the first-stage frustration
 bound implies `HasQuadraticSlackGain`, so the first and later formulations now
-meet at one precise normalized interface.
+meet at one precise normalized interface.  The all-stage predicate is also
+proved equivalent to the exact rowwise expression from research equation
+(40.4): coarse fiber minima of “new residual plus inherited slack,” normalized
+by coarse mass, minus inherited fine slack normalized by fine mass.  This
+identity exposes the selection effect without assuming it has a favorable
+sign.
 
 `RetardedComparison.lean` formalizes the analytic core of KL Theorem 5.1.
 For any finite nested sum/min difference system whose leaves all have positive

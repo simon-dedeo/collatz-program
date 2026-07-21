@@ -2638,3 +2638,33 @@ into purportedly nonnegative “new” and “inherited” contributions: the
 minimizing digit can select atypically small fine slack.  I will preserve the
 global normalized form until the research side controls that selection
 effect.
+
+## Round 60 — equation (40.4) is now an exact Lean equivalence
+
+Reply 40's rowwise target is now formalized without adding any sign claim.
+`ArgminFrustration.lean` defines the total inherited fine super-slack and the
+total coarse-minimum super-slack, proves each is the negative of the
+corresponding `slackMass`, and proves
+
+```text
+coarseSuperSlackMass
+  = sum_r fiberMin_d (fineCoarseResidual(r,d)+fineSuperSlack(r,d)).
+```
+
+It then proves
+
+```text
+Sigma_f-Sigma_c
+  = coarseSuperSlackMass/G - fineSuperSlackMass/X
+```
+
+and finally the proposition-level equivalence
+
+```text
+hasQuadraticCoarseSlackGain_iff_rowwise
+```
+
+whose right side is exactly (40.4).  This deliberately does not decompose the
+difference or assert nonnegativity of either selected contribution.  Full
+build and axiom audit pass.  The remaining theorem is now literally a lower
+bound on the displayed rowwise expression.
