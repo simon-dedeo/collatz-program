@@ -76,4 +76,38 @@ theorem sideSpine_capacity_of_feasible
       norm_cast
     _ ≤ (X : ℝ) := hpackReal
 
+/-- Probability-profile form of the same capacity inequality.  With
+`μ(state)=c(state)/C`, the total normalized KL load of the disjoint side
+bushes is at most `4X`, exactly as in equation (3.3) of the research note. -/
+theorem normalized_sideSpine_capacity_of_feasible
+    {k : ℕ} (hk : 2 ≤ k) {lam C : ℝ}
+    (hlam1 : 1 < lam) (hlam2 : lam ≤ 2)
+    (c : ResidueSystem.State k → ℝ)
+    (hC : 0 < C) (hcC : ∀ state, c state ≤ C)
+    (hfeasible : (ResidueSystem.system k).Feasible (klWeights lam) c)
+    {n₀ X : ℕ} (J : Finset ℕ)
+    (hinj : Function.Injective (syracuseOrbit n₀))
+    (hodd : ∀ j ∈ J, syracuseOrbit n₀ j % 2 = 1)
+    (hX : ∀ j ∈ J, sideTarget n₀ j ≤ X) :
+    ∑ j ∈ J,
+        (c (klStateOf k (sideTarget n₀ j)) / C) *
+          ((X : ℝ) / sideTarget n₀ j) ^ (klExponent lam) ≤
+      4 * X := by
+  have hcapacity := sideSpine_capacity_of_feasible
+    hk hlam1 hlam2 c hC hcC hfeasible J hinj hodd hX
+  have hscale :
+      (∑ j ∈ J,
+          (c (klStateOf k (sideTarget n₀ j)) / C) *
+            ((X : ℝ) / sideTarget n₀ j) ^ (klExponent lam)) =
+        4 *
+          (∑ j ∈ J,
+            ((1 / (4 * C)) * c (klStateOf k (sideTarget n₀ j))) *
+              ((X : ℝ) / sideTarget n₀ j) ^ (klExponent lam)) := by
+    rw [Finset.mul_sum]
+    apply Finset.sum_congr rfl
+    intro j hj
+    field_simp [hC.ne']
+  rw [hscale]
+  exact mul_le_mul_of_nonneg_left hcapacity (by norm_num)
+
 end CleanLean.KL

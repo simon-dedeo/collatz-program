@@ -360,6 +360,10 @@ targetwise lower bound for every `X >= a`, retaining the exact feasible-vector
 coordinate.  `SideBushCapacity.lean` combines the two into the finite
 KL-weighted side-spine capacity inequality.  This is an exact necessary
 condition on an injective orbit, not a contradiction or a proof of Collatz.
+The probability-profile form is checked separately: with
+`mu(state)=c(state)/C`, the sum of
+`mu(state_k(b_j))*(X/b_j)^gamma` is at most `4X`, exactly matching equation
+(3.3) in the research note.
 
 `PressureCertificate.lean` now also accepts the portable sparse-edge format
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational

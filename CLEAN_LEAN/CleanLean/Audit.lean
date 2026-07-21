@@ -439,6 +439,8 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.IsCoarseMinimumTower
 #print axioms CleanLean.KL.ResidueSystem.klLambda_tendsto_two_of_coarseMinimumTower
 #print axioms CleanLean.Collatz.syracuseStep_sideTarget
+#print axioms CleanLean.Collatz.sidePredecessor_eq_two_mul_next_of_odd
+#print axioms CleanLean.Collatz.sideTarget_eq_two_mul_sidePredecessor
 #print axioms CleanLean.Collatz.iterate_two_sideTarget_of_odd
 #print axioms CleanLean.Collatz.sidePredecessor_not_on_injective_orbit
 #print axioms CleanLean.Collatz.sideTarget_not_periodic_raw
@@ -447,6 +449,7 @@ specification theorems during a build.
 #print axioms CleanLean.KL.sideTarget_nonperiodic
 #print axioms CleanLean.KL.sideKLTarget
 #print axioms CleanLean.KL.sideSpine_capacity_of_feasible
+#print axioms CleanLean.KL.normalized_sideSpine_capacity_of_feasible
 #print axioms CleanLean.KL.exists_strict_feasible_ladder_from_k12
 #print axioms CleanLean.KL.exists_later_feasible_gt_k12
 #print axioms CleanLean.KL.exists_predecessorExponent_gt_k12

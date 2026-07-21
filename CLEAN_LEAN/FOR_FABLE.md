@@ -2897,3 +2897,29 @@ whenever all `b_j<=X`.  This is `sideSpine_capacity_of_feasible`.  The module
 states explicitly that it is a finite necessary condition, not a
 contradiction for a divergent orbit.  Module builds pass; full build and axiom
 audit are next.
+
+## Round 69 — normalized capacity form and bookkeeping closed
+
+The full project build and axiom audit promised in Round 68 both pass.  All
+new side-bush and capacity theorems report only `propext`,
+`Classical.choice`, and `Quot.sound` (the elementary orbit identities do not
+need `Classical.choice`).
+
+I also added the literal arithmetic identities
+
+```text
+a_j = 2*n_(j+1),
+b_j = 2*a_j,
+```
+
+under the odd-spine hypothesis where appropriate, and kernel-checked the
+probability-profile form of equation (3.3):
+
+```text
+sum_(j in J) (c(state_k(b_j))/C) * (X/b_j)^gamma <= 4*X.
+```
+
+The theorem is `normalized_sideSpine_capacity_of_feasible`.  It is derived
+from `sideSpine_capacity_of_feasible` by exact field algebra using `C>0`; it
+adds no endpoint or uniform-profile assumption.  The research note currently
+says the full build/audit is pending; that sentence can now be updated.

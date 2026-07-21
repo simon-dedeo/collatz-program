@@ -68,6 +68,21 @@ theorem syracuseStep_sidePredecessor_of_odd
       simp [syracuseStep, hodd']
     _ = syracuseOrbit n₀ (j + 1) := (syracuseOrbit_succ n₀ j).symm
 
+theorem sidePredecessor_eq_two_mul_next_of_odd
+    {n₀ j : ℕ} (hodd : syracuseOrbit n₀ j % 2 = 1) :
+    sidePredecessor n₀ j = 2 * syracuseOrbit n₀ (j + 1) := by
+  rw [syracuseOrbit_succ]
+  have hodd' : syracuseOrbit n₀ j % 2 ≠ 0 := by omega
+  unfold sidePredecessor
+  rw [syracuseStep, if_neg hodd']
+  have hdecomp := Nat.mod_add_div (syracuseOrbit n₀ j) 2
+  omega
+
+theorem sideTarget_eq_two_mul_sidePredecessor (n₀ j : ℕ) :
+    sideTarget n₀ j = 2 * sidePredecessor n₀ j := by
+  unfold sideTarget sidePredecessor
+  omega
+
 theorem iterate_two_sideTarget_of_odd
     {n₀ j : ℕ} (hodd : syracuseOrbit n₀ j % 2 = 1) :
     syracuseStep^[2] (sideTarget n₀ j) = syracuseOrbit n₀ (j + 1) := by
