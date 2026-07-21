@@ -11,9 +11,10 @@ from the John Templeton Foundation. Additional support from research funds
 of the Laboratory for Social Minds and from the Survival and Flourishing
 Fund. Proofs and Reasons — https://proofsandreasons.io
 
-Final synchronized research checkpoint: 2026-07-21.  Active work is paused.
-Start with [`RESUME.md`](RESUME.md); the ranked restart queue is under
-[Future directions](#future-directions).
+The proof-directed phase reached a synchronized checkpoint on 2026-07-21.
+Active work has now resumed with the deliberately opposite objective described
+in [The Kontorovich Challenge](#the-kontorovich-challenge): try to construct and
+certify a counterexample.
 
 ## A note from the human
 
@@ -28,6 +29,93 @@ I chose the Collatz Conjecture for three reasons:
 3. There have been some lovely quanta articles about Collatz and the related Busy Beaver numbers recently, so it was a nice way to learn more https://www.quantamagazine.org/busy-beaver-hunters-reach-numbers-that-overwhelm-ordinary-math-20250822/ I had an idea that there was wisdom hiding in the Busy Beaver community that was partially orthogonal to what "regular" mathematicians know.
 
 Everything below this line, and everything else in this repo, has been automatically generated. Claude Fable 5 drove the initial numerics and research program; a Codex/GPT instance then served as the successor research driver. A separate GPT instance formalized the work in Lean in `CLEAN_LEAN`; it was told to make something that would not annoy Kevin Buzzard. If you want the inter-company drama, visit https://github.com/simon-dedeo/collatz-program/blob/main/CLEAN_LEAN/FOR_FABLE.md
+
+## The Kontorovich Challenge
+
+The active goal is now to **try to disprove the Collatz conjecture**.  A
+disproof means an exact positive-integer certificate: either a nontrivial
+cycle, or a seed whose forward orbit is infinite and never reaches `1`.
+Large excursions, floating-point evidence, and long prescribed prefixes are
+search clues, not counterexamples.
+
+The challenge comes from [Alex Kontorovich's 2019
+thread](https://x.com/AlexKontorovich/status/1172715174786228224) and the
+[Kontorovich--Sinai structure
+theorem](https://arxiv.org/abs/math/0601622).  For the accelerated odd map
+
+```text
+T(x) = (3x+1)/2^k,   k = v_2(3x+1),
+```
+
+the structure theorem says, in particular, that every prescribed finite
+`k`-word `(k_1,...,k_N)` occurs: for either admissible class modulo `6`, the
+seeds realizing that prefix form one arithmetic progression modulo
+`6*2^(k_1+...+k_N)`.  On each such progression the endpoint is another affine
+arithmetic progression, with scale changed from `2^(sum k_i)` to `3^N`.
+Consequently the finite path statistics are exactly those of independent
+geometric `k_i`, and normalized logarithmic trajectories converge in density
+to Brownian motion with drift `log(3)-2 log(2)=log(3/4)<0`.  This explains why
+typical seeds descend; it does not control a sufficiently sparse exceptional
+orbit.
+
+Kontorovich's proposed reversal is to regard the map as fixed **hardware** and
+the initial integer as **software**.  Verification through `b` bits has tested
+all programs only through that input length.  The structure theorem lets us
+compile any finite instruction word into an arithmetic progression of seeds,
+so the disproof search should not sample typical seeds: it should synthesize a
+highly structured instruction stream, a Collatz “glider”, whose binary pattern
+reproduces while its scale grows.
+
+There is a crucial exact caveat.  Nested progressions for an arbitrary infinite
+`k`-word determine a 2-adic integer, not necessarily a positive ordinary
+integer.  Equivalently, if `S_j=k_1+...+k_j`, then
+
+```text
+T^N(x) = (3^N*x + A_N)/2^S_N,
+A_N = sum_(j=0)^(N-1) 3^(N-1-j) 2^S_j.
+```
+
+Every proposed glider must therefore pass three gates simultaneously: exact
+valuation legality, an ordinary positive seed rather than only a 2-adic one,
+and certified nontermination.  Finite-prefix realizability alone passes only
+the first gate.
+
+### Disproof programs
+
+- **Exact cycle synthesis.**  Search valuation words and cyclic compositions
+  for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
+  seed whose valuations and closure can be checked directly.  Use modular
+  meet-in-the-middle, lattice, and branch-and-bound searches aimed at long,
+  low-description words rather than another undirected small-seed sweep.
+- **Parametric gliders.**  Search for a finite symbolic transducer, substitution,
+  or arithmetic family `x_t` with a machine-checkable macrostep
+  `T^(ell(t))(x_t)=x_(t+1)` and `x_(t+1)>x_t`.  The existing exhaustive
+  small-DFA failures rule out only their tested regular certificate classes;
+  the next targets are one-counter, morphic, and recursively nested binary
+  templates with unbounded but finitely described memory.
+- **Constraint-guided program synthesis.**  Compile chosen `k`-prefixes to
+  their exact least positive seeds, score not only finite growth but
+  *continuability*: low description complexity, recurrence of binary/carry
+  motifs, and small changes under prefix extension.  SAT/SMT, modular dynamic
+  programming, and evolutionary search may propose candidates, but every
+  survivor is replayed with exact integers.
+- **Backward invariant rays.**  Build with inverse steps
+  `y -> (2^k*y-1)/3` and search for a sparse, explicitly parameterized set that
+  maps into itself while moving outward.  This attacks the ordinary-integer
+  gate directly and can reuse the project's side-bush disjointness, rational
+  base-`3/2` coordinate, and affine product-of-places diagnostics.
+- **Exceptional-orbit obstructions in reverse.**  Re-read the proof program's
+  exact capacity and carry constraints as a specification of what a
+  counterexample must look like, then search on the thin boundary where those
+  constraints are nearly sharp.  Negative-drift or density-one evidence is
+  treated as a distributional filter, never as evidence against rare
+  software.
+
+The first work product will be an exact `k`-word compiler and cycle/glider
+search harness with replayable certificates.  New lanes and closed ansatz
+classes will be recorded here with explicit bounds, just as in the proof
+strategy's failure ledger.  Nothing will be called a disproof unless the
+positive integer and its claimed behavior are machine-checked.
 
 ## Project guides
 
