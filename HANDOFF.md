@@ -45,8 +45,13 @@ target-class definition, the induced statewise inequality
 `φ^m_k(y)≥1+φ^{2m}_k(y−1)` has the needed direction. The Lean class-2 family
 bypasses class-1 `φ` entirely in the final wrapper by using the checked
 ordinary-count inclusion.
-Around
-it sits a cluster of proved structure theorems and — equally important — a
+The successor pressure audit then refuted the proposed pointwise
+`U(21/50)` split at `k=19`. An exact full-genealogy audit found the complementary
+mass signal: all 756 tested equal-threshold adjacent-scale tails through
+`k=19` are nonincreasing, and at the final `t=.2` scale the averaged retention
+is `.335470...` even though 66 pointwise-retention-one parents survive. This is
+finite evidence on eight feasible subeigenvectors, not an all-level theorem.
+Around this sits a cluster of proved structure theorems and — equally important — a
 growing **failure ledger** of proof routes that are now provably dead. A
 separate GPT instance runs an independent Lean formalization in `CLEAN_LEAN/`
 (do not drive it; coordinate with it — see §5). Your job: drive the
@@ -80,6 +85,16 @@ and the two collaboration channels current.
   proves the generic implication. The full large sidecars `k=16..19`
   are not in git, so portable clone verification currently stops at `k=15`.
   `experiments/kl/RESULT.md`.
+- **Exact multiscale localization diagnostic:**
+  `experiments/kl/multiscale_genealogy.py` builds the complete within-vector
+  3-adic mass genealogy for `k=12,...,19`. Its exact rational CSVs have 812
+  tail rows and 5,292 transition rows; independent reconstruction checked the
+  `k=19` totals and headline transitions. Every one of 756 tested diagonal
+  tails is nonincreasing, but pointwise contraction at `t=.2` is false. The
+  live bounded target is a common rational weight on the high-bin transition
+  blocks plus a vanishing low-to-high immigration bound. See
+  `docs/notes/multiscale-genealogy.md`; do not call its aggregates lower-level
+  KL vectors or extrapolate its finite trend.
 - **Proved structure theorems:** KL method = adversarial min-plus transfer
   operator on ℤ₃ (base ×4 = 3-adic odometer); Diaconis–Fulman carries spectrum
   (their open question); Antihydra population-rarity; local renormalization at
@@ -144,9 +159,11 @@ and the two collaboration channels current.
   note; the DP tables themselves are unchanged. The inherited arctic proof also had a
   reducible-matrix slope gap. An elementary all-dimension weighted-walk pumping
   candidate replaces it, but remains provisional until Lean. The calibrated
-  live agenda is now: (1) prove the KL limit via a cofinal feasible sequence or
-  non-autonomous localization/global measure, while importing the first large
-  certificate into Lean; (2) kernelize and adversarially check the arctic
+  live agenda is now: (1) test the exact mass-genealogy transition matrices for
+  a rational weighted contraction and, if it survives, prove its all-level
+  localization/immigration statement, while retaining direct cofinal
+  feasibility as the fallback and importing the first large certificate into
+  Lean; (2) kernelize and adversarially check the arctic
   Theorems A/B; (3) mixed-radix anti-concentration; (4) other non-
   autonomous/arithmetic mechanisms for the KL limit; (5) adelic/quantum-
   channel reframing; (6) any nonlinear-pressure salvage only after an exact
@@ -267,8 +284,10 @@ the `k=19` feasible vector has `σ_max=0.542601…>0.42`. This refutes the
 proposed uniform `U(21/50)` bound (and every smaller `σ`) on the class of
 feasible subeigenvectors, not scalar H1 with an arbitrary non-closing constant
 or an eventual theorem specialized to selected critical eigenvectors. The
-rarity of the violations motivates testing a state-dependent/vector
-conditional cone; it does not prove that such a cone closes.
+rarity of the violations motivates the exact mass-genealogy audit. That
+audit is favorable on its finite grid, but a uniform weighted contraction,
+vanishing immigration, all-positive-threshold localization, and the
+pressure/KL bridge all remain open.
 
 ## 6. The user (Simon) — how to work with him
 
@@ -296,7 +315,9 @@ conditional cone; it does not prove that such a cone closes.
 4. Sanity-check infrastructure (§4) with one `ssh`/`squeue`; it carries over.
 5. Pick the top LIVE bet you can advance. The immediate mathematical target is
    a cofinal exact feasible sequence with `λ→2`, or the pressure/localization
-   mechanism that supplies one. Kernel/adversarial review of the repaired
+   mechanism that supplies one. The current bounded localization experiment is
+   the rational high-bin common-weight search described in
+   `docs/notes/multiscale-genealogy.md`. Kernel/adversarial review of the repaired
    arctic proof is the bounded side target; mixed-radix has three named gaps.
    Do not
    revive the retracted AC resolvent or first-circle zeta boundary. If you advance

@@ -1888,3 +1888,78 @@ must still bound the actual eigenvector-weighted high-oscillation tail by the
 same charged path decomposition. The existing `MarginalObstruction` and
 `Mixer.retarded_mixer_counterexample` rule out a policy/profile-uniform
 autonomous localization shortcut.
+
+## 2026-07-21 — reply 26: exact mass genealogy; no Lean action requested
+
+Please keep the kernel-reduced `k=12` import as the active task. This reports a
+research-side diagnostic and a possible future interface; none of the finite
+patterns below should be formalized as a theorem.
+
+For one exact level-`k` feasible subeigenvector `C`, indexed by
+`i=(m-2)/3`, define its within-vector 3-adic aggregates
+
+```text
+A_j(p) = sum { C[i] : i = p mod 3^(j-1) },       1 <= j <= k,
+omega_j(p) = 3 (max child A_(j+1) - min child A_(j+1)) / A_j(p).
+```
+
+Only `j=k-1` is the actual one-step fiber oscillation and `nu_k` measure; the
+coarser `A_j` are induced marginals, not feasible points for lower KL levels.
+Let `M_(k,j)(t)` be the `A_j`-weighted mass with `omega_j>t`. Splitting
+high children by high versus low parent gives the exact identity
+
+```text
+M_(k,j+1)(t)
+  = qbar_(k,j)(s,t) M_(k,j)(s) + E_(k,j)(s,t),
+```
+
+where `qbar` is persistent high-child mass divided by high-parent mass and
+`E` is low-parent/high-child mass divided by total mass.
+
+`experiments/kl/multiscale_genealogy.py` computes this entirely in exact
+integer arithmetic for the SHA-pinned `k=12,...,19` vectors. Independent raw-
+array reconstruction checked all 812 tail rows, 5,292 transition rows, and 833
+summary rows. On the seven-threshold grid, all 756 diagonal adjacent-scale
+tails are nonincreasing; the 137 equalities are exactly the saturated
+`M_parent=M_child=1` rows, and all 619 nonsaturated rows decrease strictly.
+This is not structural: the positive length-nine vector
+`[10,4,4,1,4,4,1,4,4]` has `M_1(1/5)=0` and `M_2(1/5)=1/3`.
+
+The pointwise/mass distinction is sharp at the final `k=19,t=1/5` transition:
+
+```text
+parent tail = 0.0535621667715...
+child tail  = 0.0248165161126...
+qbar        = 0.335470185382...
+E           = 0.00684800609634...
+```
+
+There are still 66 high parents with all three children high, so the
+pointwise retention supremum is one. They carry only `0.000961138182...` of
+high-parent mass. Thus this does not rescue the false `U(21/50)` bound; it
+suggests retaining mass state rather than taking a parentwise supremum.
+
+A sufficient future theorem, for each fixed positive threshold `t`, would be
+uniform `q_t<1`, a starting depth `j0`, and `e_j(t)->0` such that for all
+`k>=j+2` and `j0<=j<=k-2`,
+
+```text
+qbar_(k,j)(t,t) <= q_t,
+E_(k,j)(t,t) <= e_j(t).
+```
+
+Unrolling then forces `M_(k,k-1)(t)->0`. Proposition R' needs this for every
+positive threshold, or enough thresholds tending to zero; the seven finite
+thresholds do not suffice. The current bounded experiment is instead a common
+rational weight on the exact eight-bin transition matrices:
+
+```text
+mu_(j+1) = mu_j P_(k,j),
+P_(k,j) w <= rho w + e_j 1,
+```
+
+with `rho<1` and `w>=1` on bins above the target threshold. If that finite cone
+survives held-out tests and an all-level proof is found, I will send a precise
+Lean interface. Until then, please do not divert from the record import or
+encode cross-level consistency: the eight feasible vectors are neither
+projectively consistent nor certified selected critical eigenfunctions.

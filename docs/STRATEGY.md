@@ -34,6 +34,14 @@ sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 > lemma after the original reducible-slope argument failed. Do not restart a
 > lane from this memo without checking
 > the README failure ledger and its note.
+>
+> The later pressure audit also refutes the proposed pointwise `U(21/50)`
+> split on the exact `k=19` feasible point: the maximum tested restricted ratio
+> is `0.542601...`, not `<=0.42`. A separate exact multiscale genealogy audit
+> is favorable in mass—zero increases among 756 tested diagonal tail rows—but
+> is finite evidence on `k=12,...,19`, not a localization theorem. The current
+> bounded successor is a rational common-weight search on its exact bin
+> transition matrices; see `docs/notes/multiscale-genealogy.md`.
 
 ## 0. Ground rules
 
@@ -349,6 +357,12 @@ all published values `k=2..11`; exact-rational certificates now pass through
 kernel-checked generically, while the `k=19` rows remain externally exact-
 verified rather than Lean-ingested. The theorem-grade open step is the limit
 `λ_k→2`, not another fixed-level feasibility check.
+The newest exact diagnostic separates pointwise and mass contraction: the
+prepared uniform `U(21/50)` split fails, while all 756 tested within-vector
+genealogy tails are nonincreasing. The live finite test is now a common
+rational weight for the oscillation-bin transition matrices with controlled
+low-to-high immigration; success would still require an all-level proof for
+thresholds tending to zero.
 Also top-ranked (SMELL.md §1): Mahler 1968 Z-numbers ↔ Antihydra rarity
 theorem (golden-ratio counting via no-11 subshift); Antihydra as a robust-
 queueing/discrepancy problem, with the former unconditioned finite-computation

@@ -2,7 +2,7 @@
 
 An ad hoc and playful investigation of the Collatz (3x+1) conjecture:
 experiments, theory, and formalization, with every claim backed by a
-machine-checkable artifact. Started 2026-07-20 (Claude Fable 5 + 
+machine-checkable artifact. Started 2026-07-20 (Claude Fable 5 +
 GPT-5.6-sol; PSC Bridges-2 grant mth260010p).
 
 Made possible by the support of Grant 63750, "Explaining Universal Truths",
@@ -14,7 +14,7 @@ Continually updated until we hit usage limits.
 
 ## A note from the human
 
-I (Simon) am a cognitive scientist, not a mathematician; http://santafe.edu/~simon/cv.pdf 
+I (Simon) am a cognitive scientist, not a mathematician; http://santafe.edu/~simon/cv.pdf
 
 This is a purely experimental project to see what these systems do, and how they reason. There are *many* problems with using AI for mathematics, some of which my colleagues and I have written about---see, e.g., https://arxiv.org/pdf/2603.13680 (*A correspondence problem for mathematical proof*, Eamon Duede and I). One of the things I'm most aware about is the fact that these machines are leveraging insights from real mathematicians, but are unable to properly credit their insights. Anything here should be credited to "the human mathematics community, with apologies." Our colleague, and Proofs and Reasons board member, Michael Harris has written eloquently about the core issues in a recent Boston Review article, https://www.bostonreview.net/articles/knowledge-collapse/
 
@@ -41,6 +41,13 @@ three. The immediate mathematical target is therefore the limit again: build
 a cofinal feasible sequence with `λ→2`, or prove the pressure/localization
 statement that supplies one. In parallel, the first larger streamed record is
 being imported into Lean to make the mixed Python/Lean trust chain portable.
+An exact within-vector genealogy audit has now isolated a sharper candidate
+for the localization half: the required pointwise depth-nine split fails, but
+mass-weighted high-oscillation tails are nonincreasing at every one of 756
+tested adjacent-scale rows through `k=19` (strictly decreasing in all 619
+nonsaturated rows). This is finite evidence, not an all-level
+recurrence; the next bounded test is a rational weighted-bin contraction with
+a vanishing immigration term.
 The preceding advanced-term elimination gap is repaired by a replacement,
 not by validating the printed construction.
 The printed proof still has three exact, kernel-checked defects—its descent
@@ -95,6 +102,7 @@ an `x^{1−ε}` lower bound would still have density zero for fixed `ε`.
 | The KL method = finite sections of an **adversarial transfer operator on ℤ₃** (base ×4 = the Iwasawa generator of 1+3ℤ₃) | `docs/notes/kl-limit-object.md`, `adversarial-operator.md` |
 | KL's own §6 positivity hypotheses (H_k) | Literature-backed research proof (odometer conjugacy → Gaubert–Gunawardena); nonlinear Perron existence is not Lean-formalized, and the exact feasible-point route bypasses it. |
 | Oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k | proved, now unconditional |
+| Exact multiscale genealogy of the `k=12,...,19` feasible vectors: all 756 tested equal-threshold tail transitions are nonincreasing; at `k=19,t=.2`, mass retention is `.335470...` despite pointwise-retention-one witnesses | Exact finite diagnostic with SHA-pinned sources, bigint/radix checks, generated rational CSVs, and an independent reconstruction; not a limit theorem or an eigenfunction theorem. See `docs/notes/multiscale-genealogy.md`. |
 | Local renormalization at −1 solved: **a = λ^{1−α}** (= 2/3 at λ=2); "period-2" = the u↦2u relabeling; spine sheds mass at λ^{α−1}/3 | `renormalization-at-minus-one.md`, sol cross-confirmed |
 | Diaconis–Fulman multiplication-carries spectrum (their open question) | proved, exact-verified: `carries-spectrum.md` |
 | Berg–Meinardus ⟺ aₙ = a_{T(n)}; **bi-(2,3)-Mahler divergence certificates impossible** | proved: `mahler-cartier-lemma0.md`, `two-bases.md` |
@@ -113,7 +121,7 @@ After tunneling on one line we have re-widened. This
 section is kept fresh; the **failure ledger** is deliberately explicit because
 knowing which routes are dead (and why) is most of the value.
 
-### LIVE bets (updated through the 2026-07-21 successor audit)
+### LIVE bets (updated through the 2026-07-21 exact genealogy audit)
 
 1. **KL finite bridge complete — prove the limit; import the large records.**
    At `k=5`, the legal path
@@ -220,9 +228,17 @@ knowing which routes are dead (and why) is most of the value.
    annealed pressure scale-up as formulated. The actual depth-`9→10` split of
    the `k=19` feasible vector has `σ_max=0.542601…` even on uncovered-to-
    uncovered transport transitions, not the extrapolated `≤0.42`. The
-   violating transitions are rare, so a state-dependent sibling-mass cone
-   remains plausible; the required global `σ≤0.42` split already fails at k19.
-   `experiments/pressure-cert2/split_ratio_audit.py`.
+   violating transitions are rare, and the new exact within-vector genealogy
+   explains why that matters: at the final `k=19,t=.2` scale, 66 parents have
+   pointwise retention one, but they carry only `.000961...` of high-parent
+   mass; the mass-averaged retention is `.335470...`, immigration is
+   `.006848...` of total mass, and the child tail is `.0248165...`. Across
+   `k=12,...,19`, all 756 tested equal-threshold adjacent-scale tails are
+   nonincreasing. This makes a weighted bin-transition cone the next bounded
+   experiment. It is finite evidence on particular feasible subeigenvectors,
+   not an all-level localization theorem or evidence about selected exact
+   critical eigenfunctions. `experiments/pressure-cert2/split_ratio_audit.py`;
+   `docs/notes/multiscale-genealogy.md`.
 5. **Quantitative adelic descent** / **open-quantum-systems reframing** — the
    no-go = peripheral spectrum of the KL channel (`wildcard.md`, WARM); descent
    under a dynamical Fourier norm (on deck). Both risk rediscovering the marginal
@@ -272,6 +288,15 @@ knowing which routes are dead (and why) is most of the value.
   invariant: charged-Lyapunov (persists J=4,5), nonlinear min-selection
   (calibrated neutral cycle), and forcing-word (η=0) all fail. Not evidence
   λ_∞<2; just no proof in this class. `cl-killtests.md`, `pressure-certificate-2.md`.
+- **The proposed uniform pressure split `U(21/50)` — REFUTED on the tested
+  exact feasible class.** At depth `9 -> 10`, an uncovered-to-uncovered
+  `k=19` transition has exact child/parent ratio
+  `1892575973641960/3487969866821777 = 0.542601... > 0.42`. This refutes that
+  required closing constant, not every parameterized scalar H1, an eventual
+  theorem after `k=19`, or an eigenfunction-specific statement. The violations
+  are rare, which motivates the distinct mass-genealogy lane rather than
+  rescuing the false pointwise bound. `pressure-certificate-2.md`;
+  `experiments/pressure-cert2/split_ratio_audit.py`.
 - **Cycle exclusion via finite places p | 2^K−3^L — CLOSED (collapses to
   Baker).** "Infeasible where new, redundant where feasible"; the Steiner
   stratum *is* the Baker bound. One falsifiable Poisson-model survivor only.
@@ -356,8 +381,9 @@ hits the same wall.
 
 - The new Codex research driver is active. Its first audit stopped five orphaned
   arctic writers left after the final handoff, preserved their completed CSV
-  rows, reran the k=19 reference verifier, and corrected inherited status and
-  artifact-portability errors.
+  rows, reran the k=19 reference verifier, corrected inherited status and
+  artifact-portability errors, and has now completed exact split-pressure and
+  multiscale-genealogy audits.
 - The finite KL predecessor-count bridge has just closed. An exact integer checker pins a
   legal `k=5` path that invalidates the printed proof's descent and identical-
   subtree claims without forming a repeatable nontermination lasso. CLEAN_LEAN
@@ -377,6 +403,13 @@ hits the same wall.
   transfer and the feasible-sequence-to-almost-linear endpoint. The top KL
   theorem lane is now the open limit `λ_∞=2`; the immediate integration task is
   a portable Lean-native import of the first large record.
+- The pointwise pressure lane is calibrated more sharply. The proposed
+  `U(21/50)` split fails exactly at `k=19`, but only a small fraction of mass
+  causes the failure. A separate exact audit coarsened each feasible vector
+  through its full 3-adic genealogy and found no increase among 756 tested
+  diagonal tail transitions. The live bounded follow-up is a rational common-
+  weight search on the exact oscillation-bin transition matrices; an all-level
+  contraction and immigration bound remain entirely open.
 - The arctic/max-plus lane remains active. Two independent audits found the
   same reducible-slope gap; an elementary weighted-walk pumping candidate now
   replaces it, and the exact marked macro checker passes. The general theorem
