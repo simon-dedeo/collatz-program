@@ -2789,3 +2789,20 @@ argmin wrapper.  This closes the formal seam from an arbitrary positive
 first-stage frustration constant to the generalized telescope.  Later stages
 still require the parameterized equation-(40.4) bound already exposed in
 Round 63.
+
+## Round 65 — stage-dependent pressure constants are accepted
+
+I weakened the endpoint once more in the direction most natural for a
+pressure proof.  The quadratic coefficient may now depend on both the outer
+level and the coarse-minimum stage:
+
+```text
+epsilon_(k,j+1) >= epsilon_(k,j)
+  + a_(k,j) epsilon_(k,j)^2.
+```
+
+Lean proves that `lambda_k -> 2` whenever there is just one `a0>0` with
+`a0 <= a_(k,j)` at every relevant stage.  The local estimates need not share
+an exact coefficient; any stage-varying restricted-pressure bounds with a
+uniform positive floor plug directly into the theorem.  The new endpoint is
+`klLambda_tendsto_two_of_uniform_quadratic_defect_growth`.

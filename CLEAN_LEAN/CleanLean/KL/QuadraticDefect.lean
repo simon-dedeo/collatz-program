@@ -261,6 +261,24 @@ theorem initial_defect_tendsto_zero_of_quadratic_growth_with
   · exact Filter.Eventually.of_forall hbound
   · exact hupper
 
+/-- Stage-dependent quadratic gains are sufficient when they have a single
+positive lower bound.  This is the natural interface for a pressure estimate
+whose local constant varies with the level and coarse-minimum stage. -/
+theorem initial_defect_tendsto_zero_of_uniform_quadratic_growth
+    (a₀ : ℝ) (a : ℕ → ℕ → ℝ) (e : ℕ → ℕ → ℝ) (ha₀ : 0 < a₀)
+    (hpos : ∀ k j, j ≤ k → 0 < e k j)
+    (hone : ∀ k j, j ≤ k → e k j ≤ 1)
+    (hcoeff : ∀ k j, j < k → a₀ ≤ a k j)
+    (hstep : ∀ k j, j < k →
+      e k j + a k j * (e k j) ^ 2 ≤ e k (j + 1)) :
+    Filter.Tendsto (fun k => e k 0) Filter.atTop (nhds 0) := by
+  apply initial_defect_tendsto_zero_of_quadratic_growth_with
+    a₀ e ha₀ hpos hone
+  intro k j hj
+  have hmul : a₀ * (e k j) ^ 2 ≤ a k j * (e k j) ^ 2 :=
+    mul_le_mul_of_nonneg_right (hcoeff k j hj) (sq_nonneg (e k j))
+  nlinarith [hstep k j hj]
+
 /-- The selected iterated-minimum conjecture, expressed only through its
 scalar defects, is sufficient for `lambda_k -> 2`.  The hypothesis `hidentity`
 is the exact fixed-vector oscillation identity already proved elsewhere. -/
@@ -299,6 +317,28 @@ theorem klLambda_tendsto_two_of_quadratic_defect_growth_with
     exact (hpos k 0 (Nat.zero_le k)).le
   · exact initial_defect_tendsto_zero_of_quadratic_growth_with
       a e ha hpos hone hstep
+  · exact hidentity
+
+/-- The KL endpoint also accepts stage-dependent gains.  Only a uniform
+positive lower bound on their coefficients is required. -/
+theorem klLambda_tendsto_two_of_uniform_quadratic_defect_growth
+    (a₀ : ℝ) (a : ℕ → ℕ → ℝ)
+    (lam : ℕ → ℝ) (e : ℕ → ℕ → ℝ) (ha₀ : 0 < a₀)
+    (hlam : ∀ k, lam k ∈ Set.Icc (1 : ℝ) 2)
+    (hpos : ∀ k j, j ≤ k → 0 < e k j)
+    (hone : ∀ k j, j ≤ k → e k j ≤ 1)
+    (hcoeff : ∀ k j, j < k → a₀ ≤ a k j)
+    (hstep : ∀ k j, j < k →
+      e k j + a k j * (e k j) ^ 2 ≤ e k (j + 1))
+    (hidentity : ∀ k, annealedKL (lam k) - 1 =
+      ((klWeights (lam k)).retarded +
+        (klWeights (lam k)).advanced) * e k 0) :
+    Filter.Tendsto lam Filter.atTop (nhds 2) := by
+  apply klLambda_tendsto_two_of_defect lam (fun k => e k 0) hlam
+  · intro k
+    exact (hpos k 0 (Nat.zero_le k)).le
+  · exact initial_defect_tendsto_zero_of_uniform_quadratic_growth
+      a₀ a e ha₀ hpos hone hcoeff hstep
   · exact hidentity
 
 end CleanLean.KL

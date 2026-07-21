@@ -116,6 +116,10 @@ pressure proof need not recover the empirically sharp constant `3/2`.
 The canonical first-stage frustration premise has the same parameterized
 interface: a lower bound with coefficient `(a/3)` feeds the arbitrary-`a`
 slack theorem directly.
+The coefficient may also vary with both the outer level and the successive
+coarse-minimum stage.  Lean only asks for one uniform positive lower bound on
+those coefficients, so a pressure proof may lose constants at different
+stages without first making them exactly equal.
 
 `ArgminFrustration.lean` kernel-checks the local algebra behind that missing
 inequality.  For an arbitrary fine profile, every coarse slack row is exactly
