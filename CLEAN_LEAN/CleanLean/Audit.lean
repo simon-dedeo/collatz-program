@@ -406,8 +406,12 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.transportArgmin_isArgmin
 #print axioms CleanLean.KL.ResidueSystem.refinementArgmin_isArgmin
 #print axioms CleanLean.KL.ResidueSystem.pulledFrustrationMass_le_coarseSlackSum
+#print axioms CleanLean.KL.ResidueSystem.HasQuadraticFrustrationWith
 #print axioms CleanLean.KL.ResidueSystem.quadraticCoarseSlackGain_of_frustration
 #print axioms CleanLean.KL.ResidueSystem.quadraticCoarseSlackGain_of_canonicalFrustration
+#print axioms CleanLean.KL.ResidueSystem.quadraticCoarseSlackGainWith_of_frustration
+#print axioms CleanLean.KL.ResidueSystem.quadraticCoarseSlackGainWith_of_canonicalFrustration
+#print axioms CleanLean.KL.ResidueSystem.terminalExcess_quadratic_growth_of_canonicalFrustrationWith
 #print axioms CleanLean.KL.ResidueSystem.terminalExcess_quadratic_growth_of_frustration
 #print axioms CleanLean.KL.ResidueSystem.terminalExcess_quadratic_growth_of_canonicalFrustration
 #print axioms CleanLean.KL.three_fifths_le_reciprocal_drop

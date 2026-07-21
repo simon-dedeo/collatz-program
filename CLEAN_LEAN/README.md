@@ -113,6 +113,9 @@ more flexible statement with any fixed coefficient `a > 0`: growth
 `e_0 <= 1/(1+(a/(1+a))*n)` and still forces `lambda_k -> 2`.  The all-stage
 slack premise and its exact rowwise form are parameterized accordingly, so a
 pressure proof need not recover the empirically sharp constant `3/2`.
+The canonical first-stage frustration premise has the same parameterized
+interface: a lower bound with coefficient `(a/3)` feeds the arbitrary-`a`
+slack theorem directly.
 
 `ArgminFrustration.lean` kernel-checks the local algebra behind that missing
 inequality.  For an arbitrary fine profile, every coarse slack row is exactly

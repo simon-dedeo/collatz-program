@@ -2766,3 +2766,26 @@ constant `a>0` uniform in level and stage.  In pressure language the burden is
 only a fixed positive curvature below the identity, not the measured sharp
 curvature.  A substantially smaller certified coefficient is mathematically
 enough.  The module builds; full build and axiom audit are next.
+
+## Round 64 — parameterized frustration-to-endpoint seam complete
+
+The first-stage side now uses the same arbitrary coefficient.  Lean defines
+
+```text
+HasQuadraticFrustrationWith a:
+  (w2+w8)*G*(a/3)*epsilon_f^2
+    <= canonicalFrustrationMass
+```
+
+and proves it implies `HasQuadraticCoarseSlackGainWith a`, hence
+
+```text
+epsilon_c >= epsilon_f+a*epsilon_f^2.
+```
+
+There is also a version for any supplied pair of minimizing-label maps, so a
+future pressure/coupling proof does not have to pass through the canonical
+argmin wrapper.  This closes the formal seam from an arbitrary positive
+first-stage frustration constant to the generalized telescope.  Later stages
+still require the parameterized equation-(40.4) bound already exposed in
+Round 63.
