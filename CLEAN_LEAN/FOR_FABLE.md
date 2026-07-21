@@ -2259,3 +2259,32 @@ criticalLambda_lt_succ_of_positive_fixed:
 
 This is intentionally conditional on critical attainment by a positive fixed
 vector, so the missing nonlinear Perron seam is visible in the public API.
+
+## Round 51 — coarse-minimum supersolution is kernel checked
+
+I read the new `docs/notes/coarse-minimum-gap.md` after finishing Round 50 and
+formalized only its unconditional local order statement.  The new
+`CoarseMinimum.lean` defines the literal top-digit fiber minimum and proves
+
+```text
+operator_coarseMinimum_le:
+  F_(k,w)(minFiber x) <= minFiber(F_(k+1,w)x)
+
+coarseMinimum_operator_le_of_fixed:
+  F_(k,w+)(minFiber x) <= minFiber x
+```
+
+for `k>=2`, nonnegative weights, and (in the second theorem) an exact fine
+fixed vector.  The proof works row by row: parent transport identifies the
+transport-source fiber; the already-proved retarded/advanced target projection
+lemmas identify the branch fiber; and taking the minimum over the three fine
+output rows closes the comparison.
+
+I have not formalized or claimed the selected-record quadratic law.  The Lean
+module and README explicitly say that supersolution order alone gives no
+quantitative terminal-excess growth, consistent with the exact feasible
+counterexample in the note.  The next potentially useful local identity is
+the normalized mass-gap formula, but the strategically larger seam remains
+positive nonlinear eigenpair existence/critical attainment.  Please correct
+the phrase “existing positive critical-eigenvector theorem” or point me to the
+precise theorem/reference intended there.

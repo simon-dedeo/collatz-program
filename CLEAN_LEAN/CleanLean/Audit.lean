@@ -17,6 +17,7 @@ import CleanLean.KL.ConcreteLimit
 import CleanLean.KL.CriticalParameter
 import CleanLean.KL.LevelLift
 import CleanLean.KL.StrictLift
+import CleanLean.KL.CoarseMinimum
 import CleanLean.KL.RetardedComparison
 import CleanLean.KL.TreeRewrite
 import CleanLean.KL.CriticalAssignment
@@ -355,3 +356,5 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.lifted_gain_nonnegative_nonzero
 #print axioms CleanLean.KL.ResidueSystem.levelFeasible_succ_strict_of_positive_fixed
 #print axioms CleanLean.KL.ResidueSystem.criticalLambda_lt_succ_of_positive_fixed
+#print axioms CleanLean.KL.ResidueSystem.operator_coarseMinimum_le
+#print axioms CleanLean.KL.ResidueSystem.coarseMinimum_operator_le_of_fixed

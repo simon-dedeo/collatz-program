@@ -61,6 +61,15 @@ the project does not currently prove the positive exact fixed-vector premise
 at successive critical parameters, and the theorem supplies no uniform size
 for the increase.
 
+`CoarseMinimum.lean` proves the complementary one-level comparison.  Taking
+the minimum over each three-point top-digit fiber after applying the fine
+operator dominates applying the coarse operator to the fiber minima.  Hence
+the coarse minimum of an exact fine fixed vector is a coarse supersolution.
+This is only an order statement: it does not prove the conjectural quadratic
+growth of iterated terminal excess, which the research notes correctly
+restrict to selected critical fixed vectors and explicitly falsify for generic
+feasible vectors.
+
 `RetardedComparison.lean` formalizes the analytic core of KL Theorem 5.1.
 For any finite nested sum/min difference system whose leaves all have positive
 backward shifts, LP feasibility propagates an exponential lower bound from an

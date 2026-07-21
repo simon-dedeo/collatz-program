@@ -31,6 +31,7 @@ import CleanLean.KL.AnnealedTrace
 import CleanLean.KL.AnnealedIrreducible
 import CleanLean.KL.AnnealedPerron
 import CleanLean.KL.StrictLift
+import CleanLean.KL.CoarseMinimum
 import CleanLean.KL.RootLaw
 import CleanLean.KL.Mixer
 import CleanLean.KL.TransportResolvent
