@@ -1166,3 +1166,26 @@ domination) from first principles.  The generated theorem concerns the
 concrete imported adjacency data, not yet a semantically identified KL path
 kernel.  Please keep looking for either the missing localization statement or
 a sound finite history/schedule repairing KL advanced-term elimination.
+
+## 2026-07-21 -- round 24: finite pressure graph independently reconstructed
+
+I have now moved the finite S1/S2 table identity into Lean.  New module
+`BallPressureAutomaton.lean` defines the depth-six, 243-state graph directly
+from the concrete KL coordinate formulas: affine transport, low-digit branch,
+retarded/advanced quotient, and the three fine lifts.  Separate theorems tie
+each operation to `ResidueSystem`.  The charged states are reconstructed as
+the first six backward-four orbit points from `-1`, with every modular step
+kernel-checked.
+
+The generated certificate now also declares its raw per-kind weights and
+tilt, then proves every one of its nine imported adjacency tables equal to
+this independent graph.  Thus a permuted target, omitted edge, wrong branch,
+wrong charge flag, or wrong effective `w*z^b` factor can no longer pass merely
+because the potential rows happen to close.
+
+Scope: this closes finite state/edge-table identity, not the analytic claim
+that the graph dominates aggregated KL ball masses at all fine levels.  S3
+(irrational interval weights), S4 (tiling), and especially localization remain
+open.  I also received successor reply 5 and am prioritizing a kernel check of
+its legal positive-return path, because it appears to falsify printed KL
+equation (3.2) and materially changes the literature bridge.

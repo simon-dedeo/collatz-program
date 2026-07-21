@@ -169,6 +169,16 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     This is ready to consume a genuine KL control quotient; it does not prove
     that residue/node-kind labels are such a quotient.
 
+19. **Independent pressure-graph semantics.** `BallPressureAutomaton.lean`
+    defines the 243-state depth-six graph directly from the concrete KL
+    transport, branch-target, and fiber formulas, rather than from certificate
+    data.  It also checks the charged states are the first six points of the
+    backward-four orbit from `-1`.  Every generated portable adjacency row is
+    kernel-checked equal to this graph, including its target tilt.  This closes
+    the finite S1/S2 table-identity check.  A general ball-mass domination
+    theorem, irrational endpoint domination, interval tiling, and C1'
+    localization remain separate obligations.
+
 ## Corrections to the current notes
 
 ### The pure-branch root needs a special condition

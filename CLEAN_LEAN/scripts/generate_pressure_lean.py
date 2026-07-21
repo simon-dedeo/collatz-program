@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Compile the portable Lemma-5 JSON into Lean adjacency-list data.
 
-The generated theorem checks only positivity and the exact tilted pressure
-rows.  State/edge semantics and irrational endpoint domination remain separate
-soundness obligations, just as documented in the JSON predicate.
+The generated theorems check positivity, the exact tilted pressure rows, and
+equality with the independently defined level-six ball automaton.  Irrational
+endpoint domination remains a separate soundness obligation, just as
+documented in the JSON predicate.
 """
 
 from __future__ import annotations
@@ -42,15 +43,26 @@ def compile_certificate(cert: dict) -> str:
     index = {q: i for i, q in enumerate(residues)}
     if len(index) != len(residues):
         raise ValueError(f"duplicate state in {cert['name']}")
+    if cert["J"] != 6 or len(states) != 243:
+        raise ValueError("the Lean ball-automaton semantics currently cover only J=6")
 
     h_values = [lean_rat(rat(state["h"])) for state in states]
     output = [lean_vector(f"{prefix}H", "ℚ", h_values)]
     output.append(lean_vector(f"{prefix}Residue", "ℕ", [str(q) for q in residues]))
 
     z = rat(cert["z"])
+    output.append(f"def {prefix}Z : ℚ := {lean_rat(z)}\n")
     pieces = cert["pieces"]
     edges = cert["edges"]
     for piece_number in range(len(pieces)):
+        piece = pieces[piece_number]
+        weights_name = f"{prefix}Piece{piece_number}Weights"
+        output.append(
+            f"def {weights_name} : BallEdgeWeights where\n"
+            f"  transport := {lean_rat(rat(piece['w_T']))}\n"
+            f"  retarded := {lean_rat(rat(piece['w_B2']))}\n"
+            f"  advanced := {lean_rat(rat(piece['w_B8']))}\n"
+        )
         grouped: dict[int, list[tuple[int, Fraction]]] = {q: [] for q in residues}
         for edge in edges:
             if int(edge["piece"]) != piece_number:
@@ -83,8 +95,22 @@ def compile_certificate(cert: dict) -> str:
         f"set_option maxRecDepth 100000 in\n"
         f"theorem {prefix}_one_le_h : ∀ q, 1 ≤ {prefix}H q := by decide +kernel\n"
     )
+    output.append(
+        f"theorem {prefix}_residue_semantics :\n"
+        f"    ∀ q, {prefix}Residue q = ballRawResidueJ6 q := by\n"
+        f"  decide +kernel\n"
+    )
     for piece_number in range(len(pieces)):
         edge_name = f"{prefix}Edges{piece_number}"
+        weights_name = f"{prefix}Piece{piece_number}Weights"
+        output.append(
+            f"set_option maxHeartbeats 0 in\n"
+            f"-- Kernel reduction unfolds all 243 independently generated rows.\n"
+            f"set_option maxRecDepth 100000 in\n"
+            f"theorem {prefix}_piece{piece_number}_edge_semantics :\n"
+            f"    ∀ q, {edge_name} q = ballEdgesJ6 {weights_name} {prefix}Z q := by\n"
+            f"  decide +kernel\n"
+        )
         output.append(
             "set_option maxHeartbeats 0 in\n"
             "-- Exact reduction of the portable rational row table.\n"
@@ -138,7 +164,7 @@ Copyright (c) 2026 Simon DeDeo. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
-import CleanLean.KL.PressureCertificate
+import CleanLean.KL.BallPressureAutomaton
 
 /-!
 # Portable Lemma-5 pressure-certificate data

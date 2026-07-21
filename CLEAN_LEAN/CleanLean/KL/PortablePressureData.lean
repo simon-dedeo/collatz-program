@@ -3,7 +3,7 @@ Copyright (c) 2026 Simon DeDeo. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
-import CleanLean.KL.PressureCertificate
+import CleanLean.KL.BallPressureAutomaton
 
 /-!
 # Portable Lemma-5 pressure-certificate data
@@ -507,6 +507,13 @@ def lam2Residue : Fin 243 → ℕ :=
     725,
     728]
 
+def lam2Z : ℚ := (5 / 4 : ℚ)
+
+def lam2Piece0Weights : BallEdgeWeights where
+  transport := (1 / 4 : ℚ)
+  retarded := (498673948642 / 1994695790247 : ℚ)
+  advanced := (1385808094259 / 2771616182514 : ℚ)
+
 def lam2Edges0 : Fin 243 → List (Fin 243 × ℚ) :=
   ![[(2, (1 / 4 : ℚ)), (0, (498673948642 / 1994695790247 : ℚ)), (81, (498673948642 / 1994695790247 : ℚ)), (162, (498673948642 / 1994695790247 : ℚ))],
     [(6, (1 / 4 : ℚ))],
@@ -759,6 +766,17 @@ theorem lam2_h_pos : ∀ q, 0 < lam2H q := by decide +kernel
 
 set_option maxRecDepth 100000 in
 theorem lam2_one_le_h : ∀ q, 1 ≤ lam2H q := by decide +kernel
+
+theorem lam2_residue_semantics :
+    ∀ q, lam2Residue q = ballRawResidueJ6 q := by
+  decide +kernel
+
+set_option maxHeartbeats 0 in
+-- Kernel reduction unfolds all 243 independently generated rows.
+set_option maxRecDepth 100000 in
+theorem lam2_piece0_edge_semantics :
+    ∀ q, lam2Edges0 q = ballEdgesJ6 lam2Piece0Weights lam2Z q := by
+  decide +kernel
 
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
@@ -1274,6 +1292,13 @@ def uniformLam182Residue : Fin 243 → ℕ :=
     725,
     728]
 
+def uniformLam182Z : ℚ := (3 / 2 : ℚ)
+
+def uniformLam182Piece0Weights : BallEdgeWeights where
+  transport := (4000000000000 / 13992454941201 : ℚ)
+  retarded := (683833032643 / 2660278262136 : ℚ)
+  advanced := (762735752212 / 1578490203321 : ℚ)
+
 def uniformLam182Edges0 : Fin 243 → List (Fin 243 × ℚ) :=
   ![[(2, (4000000000000 / 13992454941201 : ℚ)), (0, (683833032643 / 2660278262136 : ℚ)), (81, (683833032643 / 2660278262136 : ℚ)), (162, (683833032643 / 2660278262136 : ℚ))],
     [(6, (4000000000000 / 13992454941201 : ℚ))],
@@ -1518,6 +1543,11 @@ def uniformLam182Edges0 : Fin 243 → List (Fin 243 × ℚ) :=
     [(233, (4000000000000 / 13992454941201 : ℚ)), (77, (683833032643 / 2660278262136 : ℚ)), (158, (683833032643 / 2660278262136 : ℚ)), (239, (683833032643 / 2660278262136 : ℚ))],
     [(237, (4000000000000 / 13992454941201 : ℚ))],
     [(241, (4000000000000 / 13992454941201 : ℚ)), (80, (762735752212 / 1578490203321 : ℚ)), (161, (762735752212 / 1578490203321 : ℚ)), (242, (381367876106 / 526163401107 : ℚ))]]
+
+def uniformLam182Piece1Weights : BallEdgeWeights where
+  transport := (256000000000000 / 911106636118849 : ℚ)
+  retarded := (709104879667 / 2768489516193 : ℚ)
+  advanced := (1056830727749 / 2176204653414 : ℚ)
 
 def uniformLam182Edges1 : Fin 243 → List (Fin 243 × ℚ) :=
   ![[(2, (256000000000000 / 911106636118849 : ℚ)), (0, (709104879667 / 2768489516193 : ℚ)), (81, (709104879667 / 2768489516193 : ℚ)), (162, (709104879667 / 2768489516193 : ℚ))],
@@ -1764,6 +1794,11 @@ def uniformLam182Edges1 : Fin 243 → List (Fin 243 × ℚ) :=
     [(237, (256000000000000 / 911106636118849 : ℚ))],
     [(241, (256000000000000 / 911106636118849 : ℚ)), (80, (1056830727749 / 2176204653414 : ℚ)), (161, (1056830727749 / 2176204653414 : ℚ)), (242, (1056830727749 / 1450803102276 : ℚ))]]
 
+def uniformLam182Piece2Weights : BallEdgeWeights where
+  transport := (64000000000000 / 231707670470809 : ℚ)
+  retarded := (415725265345 / 1628849430066 : ℚ)
+  advanced := (428707836867 / 878416891099 : ℚ)
+
 def uniformLam182Edges2 : Fin 243 → List (Fin 243 × ℚ) :=
   ![[(2, (64000000000000 / 231707670470809 : ℚ)), (0, (415725265345 / 1628849430066 : ℚ)), (81, (415725265345 / 1628849430066 : ℚ)), (162, (415725265345 / 1628849430066 : ℚ))],
     [(6, (64000000000000 / 231707670470809 : ℚ))],
@@ -2008,6 +2043,11 @@ def uniformLam182Edges2 : Fin 243 → List (Fin 243 × ℚ) :=
     [(233, (64000000000000 / 231707670470809 : ℚ)), (77, (415725265345 / 1628849430066 : ℚ)), (158, (415725265345 / 1628849430066 : ℚ)), (239, (415725265345 / 1628849430066 : ℚ))],
     [(237, (64000000000000 / 231707670470809 : ℚ))],
     [(241, (64000000000000 / 231707670470809 : ℚ)), (80, (428707836867 / 878416891099 : ℚ)), (161, (428707836867 / 878416891099 : ℚ)), (242, (1286123510601 / 1756833782198 : ℚ))]]
+
+def uniformLam182Piece3Weights : BallEdgeWeights where
+  transport := (10240000000000 / 37707570141201 : ℚ)
+  retarded := (66139467526 / 260054423403 : ℚ)
+  advanced := (432805334677 / 882459822103 : ℚ)
 
 def uniformLam182Edges3 : Fin 243 → List (Fin 243 × ℚ) :=
   ![[(2, (10240000000000 / 37707570141201 : ℚ)), (0, (66139467526 / 260054423403 : ℚ)), (81, (66139467526 / 260054423403 : ℚ)), (162, (66139467526 / 260054423403 : ℚ))],
@@ -2254,6 +2294,11 @@ def uniformLam182Edges3 : Fin 243 → List (Fin 243 × ℚ) :=
     [(237, (10240000000000 / 37707570141201 : ℚ))],
     [(241, (10240000000000 / 37707570141201 : ℚ)), (80, (432805334677 / 882459822103 : ℚ)), (161, (432805334677 / 882459822103 : ℚ)), (242, (1298416004031 / 1764919644206 : ℚ))]]
 
+def uniformLam182Piece4Weights : BallEdgeWeights where
+  transport := (16000000000000 / 59917646941201 : ℚ)
+  retarded := (451302496277 / 1780686455688 : ℚ)
+  advanced := (9539891869 / 19356493845 : ℚ)
+
 def uniformLam182Edges4 : Fin 243 → List (Fin 243 × ℚ) :=
   ![[(2, (16000000000000 / 59917646941201 : ℚ)), (0, (451302496277 / 1780686455688 : ℚ)), (81, (451302496277 / 1780686455688 : ℚ)), (162, (451302496277 / 1780686455688 : ℚ))],
     [(6, (16000000000000 / 59917646941201 : ℚ))],
@@ -2498,6 +2543,11 @@ def uniformLam182Edges4 : Fin 243 → List (Fin 243 × ℚ) :=
     [(233, (16000000000000 / 59917646941201 : ℚ)), (77, (451302496277 / 1780686455688 : ℚ)), (158, (451302496277 / 1780686455688 : ℚ)), (239, (451302496277 / 1780686455688 : ℚ))],
     [(237, (16000000000000 / 59917646941201 : ℚ))],
     [(241, (16000000000000 / 59917646941201 : ℚ)), (80, (9539891869 / 19356493845 : ℚ)), (161, (9539891869 / 19356493845 : ℚ)), (242, (9539891869 / 12904329230 : ℚ))]]
+
+def uniformLam182Piece5Weights : BallEdgeWeights where
+  transport := (256000000000000 / 974809974470809 : ℚ)
+  retarded := (86844564445 / 343847509048 : ℚ)
+  advanced := (894735302344 / 1806659255055 : ℚ)
 
 def uniformLam182Edges5 : Fin 243 → List (Fin 243 × ℚ) :=
   ![[(2, (256000000000000 / 974809974470809 : ℚ)), (0, (86844564445 / 343847509048 : ℚ)), (81, (86844564445 / 343847509048 : ℚ)), (162, (86844564445 / 343847509048 : ℚ))],
@@ -2744,6 +2794,11 @@ def uniformLam182Edges5 : Fin 243 → List (Fin 243 × ℚ) :=
     [(237, (256000000000000 / 974809974470809 : ℚ))],
     [(241, (256000000000000 / 974809974470809 : ℚ)), (80, (894735302344 / 1806659255055 : ℚ)), (161, (894735302344 / 1806659255055 : ℚ)), (242, (447367651172 / 602219751685 : ℚ))]]
 
+def uniformLam182Piece6Weights : BallEdgeWeights where
+  transport := (64000000000000 / 247768030941201 : ℚ)
+  retarded := (203195790448 / 807288993513 : ℚ)
+  advanced := (1613158034 / 3241710819 : ℚ)
+
 def uniformLam182Edges6 : Fin 243 → List (Fin 243 × ℚ) :=
   ![[(2, (64000000000000 / 247768030941201 : ℚ)), (0, (203195790448 / 807288993513 : ℚ)), (81, (203195790448 / 807288993513 : ℚ)), (162, (203195790448 / 807288993513 : ℚ))],
     [(6, (64000000000000 / 247768030941201 : ℚ))],
@@ -2988,6 +3043,11 @@ def uniformLam182Edges6 : Fin 243 → List (Fin 243 × ℚ) :=
     [(233, (64000000000000 / 247768030941201 : ℚ)), (77, (203195790448 / 807288993513 : ℚ)), (158, (203195790448 / 807288993513 : ℚ)), (239, (203195790448 / 807288993513 : ℚ))],
     [(237, (64000000000000 / 247768030941201 : ℚ))],
     [(241, (64000000000000 / 247768030941201 : ℚ)), (80, (1613158034 / 3241710819 : ℚ)), (161, (1613158034 / 3241710819 : ℚ)), (242, (806579017 / 1080570273 : ℚ))]]
+
+def uniformLam182Piece7Weights : BallEdgeWeights where
+  transport := (256000000000000 / 1007468798941201 : ℚ)
+  retarded := (485740347791 / 1936410167580 : ℚ)
+  advanced := (1385808094259 / 2771616182514 : ℚ)
 
 def uniformLam182Edges7 : Fin 243 → List (Fin 243 × ℚ) :=
   ![[(2, (256000000000000 / 1007468798941201 : ℚ)), (0, (485740347791 / 1936410167580 : ℚ)), (81, (485740347791 / 1936410167580 : ℚ)), (162, (485740347791 / 1936410167580 : ℚ))],
@@ -3242,6 +3302,17 @@ theorem uniformLam182_h_pos : ∀ q, 0 < uniformLam182H q := by decide +kernel
 set_option maxRecDepth 100000 in
 theorem uniformLam182_one_le_h : ∀ q, 1 ≤ uniformLam182H q := by decide +kernel
 
+theorem uniformLam182_residue_semantics :
+    ∀ q, uniformLam182Residue q = ballRawResidueJ6 q := by
+  decide +kernel
+
+set_option maxHeartbeats 0 in
+-- Kernel reduction unfolds all 243 independently generated rows.
+set_option maxRecDepth 100000 in
+theorem uniformLam182_piece0_edge_semantics :
+    ∀ q, uniformLam182Edges0 q = ballEdgesJ6 uniformLam182Piece0Weights uniformLam182Z q := by
+  decide +kernel
+
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
 set_option maxRecDepth 100000 in
@@ -3264,6 +3335,13 @@ theorem uniformLam182_piece0_pressureMass_le :
     uniformLam182H uniformLam182R uniformLam182_piece0_rows
     uniformLam182_one_le_h
   norm_num [uniformLam182R]
+
+set_option maxHeartbeats 0 in
+-- Kernel reduction unfolds all 243 independently generated rows.
+set_option maxRecDepth 100000 in
+theorem uniformLam182_piece1_edge_semantics :
+    ∀ q, uniformLam182Edges1 q = ballEdgesJ6 uniformLam182Piece1Weights uniformLam182Z q := by
+  decide +kernel
 
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
@@ -3289,6 +3367,13 @@ theorem uniformLam182_piece1_pressureMass_le :
   norm_num [uniformLam182R]
 
 set_option maxHeartbeats 0 in
+-- Kernel reduction unfolds all 243 independently generated rows.
+set_option maxRecDepth 100000 in
+theorem uniformLam182_piece2_edge_semantics :
+    ∀ q, uniformLam182Edges2 q = ballEdgesJ6 uniformLam182Piece2Weights uniformLam182Z q := by
+  decide +kernel
+
+set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
 set_option maxRecDepth 100000 in
 theorem uniformLam182_piece2_rows :
@@ -3310,6 +3395,13 @@ theorem uniformLam182_piece2_pressureMass_le :
     uniformLam182H uniformLam182R uniformLam182_piece2_rows
     uniformLam182_one_le_h
   norm_num [uniformLam182R]
+
+set_option maxHeartbeats 0 in
+-- Kernel reduction unfolds all 243 independently generated rows.
+set_option maxRecDepth 100000 in
+theorem uniformLam182_piece3_edge_semantics :
+    ∀ q, uniformLam182Edges3 q = ballEdgesJ6 uniformLam182Piece3Weights uniformLam182Z q := by
+  decide +kernel
 
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
@@ -3335,6 +3427,13 @@ theorem uniformLam182_piece3_pressureMass_le :
   norm_num [uniformLam182R]
 
 set_option maxHeartbeats 0 in
+-- Kernel reduction unfolds all 243 independently generated rows.
+set_option maxRecDepth 100000 in
+theorem uniformLam182_piece4_edge_semantics :
+    ∀ q, uniformLam182Edges4 q = ballEdgesJ6 uniformLam182Piece4Weights uniformLam182Z q := by
+  decide +kernel
+
+set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
 set_option maxRecDepth 100000 in
 theorem uniformLam182_piece4_rows :
@@ -3356,6 +3455,13 @@ theorem uniformLam182_piece4_pressureMass_le :
     uniformLam182H uniformLam182R uniformLam182_piece4_rows
     uniformLam182_one_le_h
   norm_num [uniformLam182R]
+
+set_option maxHeartbeats 0 in
+-- Kernel reduction unfolds all 243 independently generated rows.
+set_option maxRecDepth 100000 in
+theorem uniformLam182_piece5_edge_semantics :
+    ∀ q, uniformLam182Edges5 q = ballEdgesJ6 uniformLam182Piece5Weights uniformLam182Z q := by
+  decide +kernel
 
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
@@ -3381,6 +3487,13 @@ theorem uniformLam182_piece5_pressureMass_le :
   norm_num [uniformLam182R]
 
 set_option maxHeartbeats 0 in
+-- Kernel reduction unfolds all 243 independently generated rows.
+set_option maxRecDepth 100000 in
+theorem uniformLam182_piece6_edge_semantics :
+    ∀ q, uniformLam182Edges6 q = ballEdgesJ6 uniformLam182Piece6Weights uniformLam182Z q := by
+  decide +kernel
+
+set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
 set_option maxRecDepth 100000 in
 theorem uniformLam182_piece6_rows :
@@ -3402,6 +3515,13 @@ theorem uniformLam182_piece6_pressureMass_le :
     uniformLam182H uniformLam182R uniformLam182_piece6_rows
     uniformLam182_one_le_h
   norm_num [uniformLam182R]
+
+set_option maxHeartbeats 0 in
+-- Kernel reduction unfolds all 243 independently generated rows.
+set_option maxRecDepth 100000 in
+theorem uniformLam182_piece7_edge_semantics :
+    ∀ q, uniformLam182Edges7 q = ballEdgesJ6 uniformLam182Piece7Weights uniformLam182Z q := by
+  decide +kernel
 
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.

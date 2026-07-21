@@ -114,6 +114,15 @@ the terminal-potential theorem to give an all-length real bound
 by exact rational arithmetic.  More importantly, this ball-automaton
 certificate is not the missing localization theorem.
 
+`BallPressureAutomaton.lean` independently reconstructs the 243-state graph
+at window depth six from the concrete KL residue formulas.  Lean proves that
+its transport, branch targets, and three lifts agree with `ResidueSystem`, and
+that the six charged states form the advertised initial backward-four orbit
+of `-1`.  The generator checks every imported adjacency list equal to this
+independent graph, including the target-dependent tilt.  This closes the
+finite state/edge-table identity, but not yet the all-level ball-mass
+domination or the irrational interval-weight bounds.
+
 The first charged spine-face Lyapunov proposal has been exactly falsified,
 not assumed away: `MarginalObstruction.lean` proves that its aligned mean and
 co-spine modes have the same eigenvalue.  This is a no-go theorem for that
