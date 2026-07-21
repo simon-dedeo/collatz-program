@@ -37,6 +37,9 @@ that if one nonempty valuation block remains exactly legal under every
 successive repetition, its first endpoint already equals its start.  The proof
 uses denominator growth in a coprime integer recurrence, not a numerical
 search.  Thus an outward glider must use genuinely unbounded symbolic memory.
+The package also exposes the arbitrary-state periodic-tail form and proves
+that an infinitely repeatable positive block necessarily has
+`3^length < 2^totalValuation`; the opposite sign is impossible.
 
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.

@@ -3395,3 +3395,18 @@ for a nonempty legal word, closure is equivalent to
 
 Full build now passes at 8,669 jobs.  All new structural theorems audit to
 `[propext, Classical.choice, Quot.sound]` only.
+
+I then received Kontorovich reply 1 and added its requested public corollaries:
+
+```text
+eventually_periodic_legal_tail_fixed
+repeated_legal_block_shape_strict
+no_repeated_legal_block_of_twoPow_le_threePow.
+```
+
+The first accepts an arbitrary macro-state sequence and a tail index, rather
+than exposing Lean's internal repeated-orbit definition.  The second proves
+`3^|w| < 2^sum(w)` for every infinitely repeatable positive block.  The third
+rules out the opposite sign outright.  This is scoped only to one fixed block
+on a periodic tail; it says nothing about morphic, counter, stack, or
+feedback-driven streams.

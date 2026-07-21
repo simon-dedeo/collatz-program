@@ -118,6 +118,60 @@ theorem repeated_legal_block_fixed {x : ℕ} {w : List ℕ}
   apply Nat.eq_of_mul_eq_mul_left (Nat.zero_lt_of_lt hQ)
   rw [hone, hfixedNat]
 
+/-- Interface for an arbitrary macro-state sequence carrying the same legal
+block at every step. -/
+theorem legal_block_chain_first_fixed
+    (state : ℕ → ℕ) {w : List ℕ} (hw : w ≠ [])
+    (hlegal : ∀ t, WordLegal (state t) w)
+    (htransition : ∀ t, runWord (state t) w = state (t + 1)) :
+    state 1 = state 0 := by
+  have horbit : ∀ t, state t = repeatedBlockOrbit (state 0) w t := by
+    intro t
+    induction t with
+    | zero => rfl
+    | succ t ih =>
+        rw [repeatedBlockOrbit_succ, ← ih, htransition]
+  have hlegal' : ∀ t, WordLegal (repeatedBlockOrbit (state 0) w t) w := by
+    intro t
+    rw [← horbit t]
+    exact hlegal t
+  have hfixed := repeated_legal_block_fixed hw hlegal'
+  calc
+    state 1 = runWord (state 0) w := (htransition 0).symm
+    _ = state 0 := hfixed
+
+/-- Explicit eventually-periodic-tail form: once the same block repeats
+legally forever, the first transition of that tail is fixed. -/
+theorem eventually_periodic_legal_tail_fixed
+    (state : ℕ → ℕ) (t₀ : ℕ) {w : List ℕ} (hw : w ≠ [])
+    (hlegal : ∀ t, WordLegal (state (t₀ + t)) w)
+    (htransition : ∀ t,
+      runWord (state (t₀ + t)) w = state (t₀ + (t + 1))) :
+    state (t₀ + 1) = state t₀ := by
+  let tail : ℕ → ℕ := fun t => state (t₀ + t)
+  have htail := legal_block_chain_first_fixed tail hw hlegal htransition
+  simpa [tail] using htail
+
+/-- Sign corollary: an infinitely repeatable positive block must satisfy the
+strict positive-cycle shape `3^N < 2^S`. -/
+theorem repeated_legal_block_shape_strict {x : ℕ} {w : List ℕ}
+    (hw : w ≠ [])
+    (hlegal : ∀ t, WordLegal (repeatedBlockOrbit x w t) w) :
+    3 ^ w.length < 2 ^ totalValuation w := by
+  have h0 : WordLegal x w := by simpa using hlegal 0
+  have hx : 0 < x := by
+    cases w with
+    | nil => exact (hw rfl).elim
+    | cons k ks => exact h0.1.1
+  exact cycle_shape_strict hx hw h0 (repeated_legal_block_fixed hw hlegal)
+
+theorem no_repeated_legal_block_of_twoPow_le_threePow {x : ℕ} {w : List ℕ}
+    (hw : w ≠ [])
+    (hshape : 2 ^ totalValuation w ≤ 3 ^ w.length) :
+    ¬∀ t, WordLegal (repeatedBlockOrbit x w t) w := by
+  intro hlegal
+  exact (Nat.not_lt_of_ge hshape) (repeated_legal_block_shape_strict hw hlegal)
+
 /-- Consequently, a fixed positive block cannot drive strict growth forever. -/
 theorem not_repeated_legal_block_strictly_growing {x : ℕ} {w : List ℕ}
     (hw : w ≠ [])

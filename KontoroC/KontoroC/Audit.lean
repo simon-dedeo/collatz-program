@@ -27,4 +27,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.MacroGlider.not_conjecture
 #print axioms KontoroC.coprime_recurrence_fixed
 #print axioms KontoroC.repeated_legal_block_fixed
+#print axioms KontoroC.legal_block_chain_first_fixed
+#print axioms KontoroC.eventually_periodic_legal_tail_fixed
+#print axioms KontoroC.repeated_legal_block_shape_strict
+#print axioms KontoroC.no_repeated_legal_block_of_twoPow_le_threePow
 #print axioms KontoroC.not_repeated_legal_block_strictly_growing
