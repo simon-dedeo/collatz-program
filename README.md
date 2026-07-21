@@ -14,7 +14,15 @@ Fund. Proofs and Reasons — https://proofsandreasons.io
 
 I (Simon) am a cognitive scientist, not a mathematician; http://santafe.edu/~simon/cv.pdf 
 
-This is a purely experimental project to see what these systems do, and how they reason. There are *many* problems with using AI for mathematics, some of which my colleagues and I have written about---see, e.g., https://arxiv.org/pdf/2603.13680 
+This is a purely experimental project to see what these systems do, and how they reason. There are *many* problems with using AI for mathematics, some of which my colleagues and I have written about---see, e.g., https://arxiv.org/pdf/2603.13680 (A correspondence problem for mathematical proof, Eamon Duede and I). One of the things I'm most aware about is the fact that these machines are leveraging insights from real mathematicians, but are unable to properly credit their insights. Our colleague, and Proofs and Reasons board member, has written eloquently about the core issues in a recent Boston Review article, https://www.bostonreview.net/articles/knowledge-collapse/
+
+I chose the Collatz Conjecture for three reasons:
+
+1. I understand the theorem!
+2. A bit like Fermat's Last Theorem, everyone and their grandmother has worked on it, and any progress towards a proof is unlikely to harm an early-career researcher.
+3. There have been some lovely quanta articles about Collatz and the related Busy Beaver numbers recently, so it was a nice way to learn more https://www.quantamagazine.org/busy-beaver-hunters-reach-numbers-that-overwhelm-ordinary-math-20250822/ I had an idea that there was wisdom hiding in the Busy Beaver community that was partially orthogonal to what "regular" mathematicians know.
+
+Everything below this line, and everything else in this repo, has been automatically generated. Fable is doing numerics and running agents. I got annoyed at it and said it should be more creative, like Grothendieck and Weil, so it created a Grothendieck-Weil agent. GPT is trying to formalize things in Lean, in CLEAN_LEAN; it was told to make something that would not annoy Kevin Buzzard.
 
 ## Headline results (all certified/proved today)
 

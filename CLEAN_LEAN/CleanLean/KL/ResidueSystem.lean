@@ -3,7 +3,7 @@ Copyright (c) 2026 Simon DeDeo. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
-import CleanLean.KL.FiniteSystem
+import CleanLean.KL.OscillationIdentity
 
 /-!
 # Concrete coordinates for the finite KL residue system
@@ -212,6 +212,43 @@ theorem fiber_injective (k : ℕ) (hk : 2 ≤ k) (r : Coarse k) :
   apply Fin.ext
   nlinarith
 
+/-- Taken together, the coarse coordinate and the lift digit identify a fine
+state uniquely.  This is stronger than injectivity within one fiber and is
+the fact needed by the oscillation identity. -/
+theorem fiberPair_injective (k : ℕ) (hk : 2 ≤ k) :
+    Function.Injective (fun p : Coarse k × Fin 3 => fiber k p.1 p.2) := by
+  rintro ⟨r, i⟩ ⟨s, j⟩ hij
+  have hv := congrArg ZMod.val hij
+  rw [fiber_val k hk r i, fiber_val k hk s j] at hv
+  have hr : r.val < 3 ^ (k - 2) := ZMod.val_lt r
+  have hs : s.val < 3 ^ (k - 2) := ZMod.val_lt s
+  have hp : 0 < 3 ^ (k - 2) := pow_pos (by norm_num) _
+  have hrsVal : r.val = s.val := by
+    calc
+      r.val = (r.val + i.val * 3 ^ (k - 2)) % 3 ^ (k - 2) := by
+        rw [Nat.add_mul_mod_self_right, Nat.mod_eq_of_lt hr]
+      _ = (s.val + j.val * 3 ^ (k - 2)) % 3 ^ (k - 2) := by rw [hv]
+      _ = s.val := by
+        rw [Nat.add_mul_mod_self_right, Nat.mod_eq_of_lt hs]
+  have hmul : i.val * 3 ^ (k - 2) = j.val * 3 ^ (k - 2) := by
+    omega
+  have hijVal : i.val = j.val := Nat.mul_right_cancel hp hmul
+  have hrs : r = s := ZMod.val_injective _ hrsVal
+  have hij' : i = j := Fin.ext hijVal
+  simp [hrs, hij']
+
+theorem card_coarse_prod_three (k : ℕ) (hk : 2 ≤ k) :
+    Fintype.card (Coarse k × Fin 3) = Fintype.card (State k) := by
+  rw [Fintype.card_prod, card_coarse, Fintype.card_fin, card_state]
+  rw [three_pow_level k hk]
+  ring
+
+/-- The top-digit fiber decomposition as an actual finite equivalence. -/
+noncomputable def fiberEquiv (k : ℕ) (hk : 2 ≤ k) : Coarse k × Fin 3 ≃ State k :=
+  Equiv.ofBijective (fun p => fiber k p.1 p.2)
+    ((Fintype.bijective_iff_injective_and_card _).2
+      ⟨fiberPair_injective k hk, card_coarse_prod_three k hk⟩)
+
 /-- Concrete finite-system data in `m = 2+3s` coordinates.  For `k < 2` the
 types are harmless degenerate quotients; all KL theorems will assume `2 <= k`. -/
 def system (k : ℕ) : FiniteSystem where
@@ -221,6 +258,23 @@ def system (k : ℕ) : FiniteSystem where
   branch := branch k
   refinementTarget := refinementTarget k
   fiber := fiber k
+
+/-- The three refinement fibers partition the concrete fine state space.
+This discharges the first combinatorial hypothesis of the exact oscillation
+identity. -/
+theorem fiber_partition (k : ℕ) (hk : 2 ≤ k) (c : State k → ℝ) :
+    ∑ r, (system k).fiberSum c r = (system k).totalMass c := by
+  change (∑ r : Coarse k, c (fiber k r 0) + c (fiber k r 1) +
+    c (fiber k r 2)) = ∑ s : State k, c s
+  calc
+    (∑ r : Coarse k, c (fiber k r 0) + c (fiber k r 1) + c (fiber k r 2)) =
+        ∑ r : Coarse k, ∑ j : Fin 3, c (fiber k r j) := by
+      apply Finset.sum_congr rfl
+      intro r _
+      rw [Fin.sum_univ_three]
+    _ = ∑ p : Coarse k × Fin 3, c (fiber k p.1 p.2) := by
+      rw [Fintype.sum_prod_type]
+    _ = ∑ s, c s := (fiberEquiv k hk).sum_comp c
 
 end ResidueSystem
 

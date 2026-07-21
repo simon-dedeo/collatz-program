@@ -10,6 +10,7 @@ import CleanLean.KL.ResidueSystem
 import CleanLean.KL.ExactCertificate
 import CleanLean.KL.ScaledCertificate
 import CleanLean.KL.IrrationalWeights
+import CleanLean.KL.OscillationIdentity
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
 import CleanLean.KL.RootLaw
@@ -40,6 +41,7 @@ specification theorems during a build.
 #print axioms CleanLean.KL.FiniteSystem.ScaledCertificate.feasibleRat_of_check
 #print axioms CleanLean.KL.div_lt_alpha_of_check
 #print axioms CleanLean.KL.checkBranchWeightLowerData_eq_true_iff
+#print axioms CleanLean.KL.FiniteSystem.annealedValue_sub_one_eq_branchWeight_mul_normalizedDefect
 #print axioms CleanLean.KL.weightedDefect_le_tail
 #print axioms CleanLean.KL.tendsto_zero_of_weighted_tail
 #print axioms CleanLean.KL.tail_tendsto_zero_of_geometric_bound

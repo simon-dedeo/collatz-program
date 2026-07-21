@@ -6,6 +6,7 @@ import CleanLean.KL.ResidueSystem
 import CleanLean.KL.ExactCertificate
 import CleanLean.KL.ScaledCertificate
 import CleanLean.KL.IrrationalWeights
+import CleanLean.KL.OscillationIdentity
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
 import CleanLean.KL.RootLaw
