@@ -1,6 +1,6 @@
 # Trust and build audit
 
-Last checked: 2026-07-20 with Lean `v4.33.0-rc1` and the matching mathlib tag.
+Last checked: 2026-07-21 with Lean `v4.33.0-rc1` and the matching mathlib tag.
 
 ## Mechanical checks
 
@@ -21,9 +21,10 @@ Last checked: 2026-07-20 with Lean `v4.33.0-rc1` and the matching mathlib tag.
 - A passing exact-rational finite KL certificate casts to a real feasible
   point; the executable checker is proved sound.
 - The integer-scaled row format used by the GPU certificates is checked
-  exactly and proved to decode to a rational KL feasible point.  Bounds from
-  the stored branch numerators to the true irrational weights remain a
-  separate analytic obligation.
+  exactly and proved, together with the integer alpha and branch-weight
+  checks, to decode to feasibility for the true irrational KL weights.
+- The exact level-12, 177,147-coordinate scaled certificate is checked in
+  Lean and supplies its fixed predecessor-counting exponent.
 - The corrected finite eigenvector-mass tail inequality holds.
 - The full abstract weighted-tail reduction R' holds for varying finite levels.
 - A geometric restricted-pressure estimate forces the required tail decay.
@@ -36,14 +37,24 @@ Last checked: 2026-07-20 with Lean `v4.33.0-rc1` and the matching mathlib tag.
   a concrete counterexample to the weaker claimed equivalence is checked.
 - The valid two-input mixer range bound and a counterexample to the stronger
   one-sided oscillation claim are checked.
+- The concrete KL oscillation identity is checked.
+- The repaired history/pruning construction and literal predecessor base
+  system turn every exact finite feasible certificate into an explicit
+  one-halving Syracuse predecessor-count lower bound.
+- A cofinal feasible sequence tending to two implies `X^(1-epsilon)`
+  predecessor counting for every positive target not divisible by three.
+- The literal coarse-minimum tower plus a uniform positive all-stage
+  quadratic slack gain implies the same counting conclusion directly.
 
 ## Explicitly not proved
 
 - The Collatz conjecture.
-- A Krasikov--Lagarias predecessor-count lower bound.
-- The KL oscillation identity in the concrete residue system.
 - The asymptotic weighted-tail conjecture C1'.
-- Any of the large numerical KL certificates.
+- The all-stage quadratic normalized-slack gain for selected KL profiles.
+- Unconditional convergence `lambda_k -> 2`.
+- GPU certificates beyond the checked-in level-12 artifact.
+- General positive nonlinear eigenvector existence at every finite level;
+  the direct-feasibility route does not require it.
 - A uniform domination of the concrete KL refinement by the abstract pressure
   kernel.
 - The shell-mass ratio without an additional uniform bound on the free

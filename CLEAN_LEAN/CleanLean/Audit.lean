@@ -65,6 +65,7 @@ import CleanLean.KL.MarginalObstruction
 import CleanLean.KL.OrbitHitting
 import CleanLean.KL.NonlinearPerron
 import CleanLean.KL.CountingTransfer
+import CleanLean.KL.CoarseTowerCounting
 import CleanLean.KL.SideBushCapacity
 import CleanLean.KL.FiniteRecordK12
 
@@ -361,6 +362,8 @@ specification theorems during a build.
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_feasible_sequence
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_feasible_sequence_concrete
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_klDefect
+#print axioms CleanLean.KL.FiniteSystem.feasible_of_positive_subeigen
+#print axioms CleanLean.KL.ResidueSystem.almostLinearPredecessorCounting_of_coarseMinimumTower
 #print axioms CleanLean.KL.FiniteRecordK12.transport_val_eq_direct
 #print axioms CleanLean.KL.FiniteRecordK12.refinementTarget_val_eq_direct
 #print axioms CleanLean.KL.FiniteRecordK12.fiberMinValue_eq_direct

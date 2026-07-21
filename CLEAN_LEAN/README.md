@@ -135,6 +135,14 @@ feeds `epsilon/3` to the limit bridge.  Explicitly named terminal-excess
 endpoints preserve that factor, and the older abstract defect endpoints remain
 valid only with the identity stated in their own hypotheses.
 
+`CoarseTowerCounting.lean` closes the final compositional seam.  A positive
+exact fixed vector can be rescaled into an ordinary finite KL feasibility
+witness.  Therefore the literal coarse-minimum tower, together with the same
+uniform positive all-stage quadratic slack-gain premise used above, now
+implies the `X^(1-epsilon)` predecessor-counting conclusion directly.  There
+is no intervening eigenvector-to-feasibility or literature-transfer
+assumption.  The all-stage slack-gain premise remains open mathematics.
+
 `ArgminFrustration.lean` kernel-checks the local algebra behind that missing
 inequality.  For an arbitrary fine profile, every coarse slack row is exactly
 the minimum of three sums: a fine-versus-coarse residual plus the inherited

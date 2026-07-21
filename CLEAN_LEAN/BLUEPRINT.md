@@ -57,6 +57,7 @@ It is deliberately defined before any proposed proof machinery.
 | Concrete KL oscillation identity | Kernel checked |
 | Concrete annealed root: strict decrease and `s(2)=1` | Kernel checked |
 | Vanishing defect implies `lambda_k -> 2` | Kernel checked |
+| Literal coarse-minimum tower plus uniform quadratic gain implies `X^(1-epsilon)` counting | Kernel checked conditionally on the named gain premise |
 | `lambda_k -> 2` via exact feasible levels implies `X^(1-epsilon)` counting | Kernel checked |
 | Exact feasible sequence tending to `2` implies the same counting conclusion | Kernel checked |
 | Feasible lower sequence tending to `2` squeezes exact critical suprema to `2` | Kernel checked |
@@ -65,6 +66,7 @@ It is deliberately defined before any proposed proof machinery.
 | Critical nonlinear eigenfunction existence/selection | Planned; unnecessary for direct-feasibility route |
 | Portable pressure JSON independently verified | External exact check; Lean ingestion planned |
 | Restricted-pressure theorem C1' | Open mathematics |
+| Uniform all-stage normalized slack gain on selected coarse-minimum towers | Open mathematics; current load-bearing endpoint premise |
 | Original charged spine-face Lyapunov route | Falsified at its algebraic marginal mode |
 | Collatz conjecture | Open mathematics |
 

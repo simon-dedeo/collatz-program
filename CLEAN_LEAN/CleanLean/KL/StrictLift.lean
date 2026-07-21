@@ -372,13 +372,13 @@ theorem exists_larger_parameter_of_strict
   apply hball
   simpa [Metric.mem_ball, Real.dist_eq, abs_of_nonneg hdelta.le] using hdelta_eps
 
-/-- A positive strict subeigenvector can be rescaled to meet the KL
-normalization `1 ≤ c q`; this is still a subeigenvector certificate, not an
-eigenvector assertion. -/
-theorem feasible_of_positive_strict [Nonempty S.State]
+/-- A positive subeigenvector can be rescaled to meet the KL normalization
+`1 ≤ c q`.  In particular, every positive exact fixed vector supplies an
+ordinary finite feasibility witness. -/
+theorem feasible_of_positive_subeigen [Nonempty S.State]
     (w : Weights ℝ) (y : S.State → ℝ)
     (hy : ∀ q, 0 < y q)
-    (hstrict : ∀ q, y q < S.operator w y q) :
+    (hsub : ∀ q, y q ≤ S.operator w y q) :
     ∃ z, S.Feasible w z := by
   obtain ⟨A, hA0, i, hdom, htight⟩ :=
     exists_tight_domination y (fun _ => 1) hy (fun _ => zero_le_one)
@@ -392,11 +392,20 @@ theorem feasible_of_positive_strict [Nonempty S.State]
   · intro q
     simpa only [z, Pi.smul_apply, smul_eq_mul] using hdom q
   · intro q
-    have hscaled := mul_lt_mul_of_pos_left (hstrict q) hApos
+    have hscaled := mul_le_mul_of_nonneg_left (hsub q) hA0
     have hhom := congrFun (S.operator_smul_nonneg w A hA0 y) q
     dsimp only [z]
     rw [hhom]
-    simpa only [Pi.smul_apply, smul_eq_mul] using hscaled.le
+    simpa only [Pi.smul_apply, smul_eq_mul] using hscaled
+
+/-- Strict specialization retained for the adjacent-parameter improvement
+argument. -/
+theorem feasible_of_positive_strict [Nonempty S.State]
+    (w : Weights ℝ) (y : S.State → ℝ)
+    (hy : ∀ q, 0 < y q)
+    (hstrict : ∀ q, y q < S.operator w y q) :
+    ∃ z, S.Feasible w z :=
+  S.feasible_of_positive_subeigen w y hy fun q => (hstrict q).le
 
 end
 

@@ -3071,3 +3071,36 @@ The full 8,780-job build passes.  Both carry-relabeling theorems report only
 `ArgminFrustration.lean`, so the carry module does not acquire a spurious
 exponential-analysis dependency.  No newer incoming handoff was present
 after the build.
+
+## Round 80 — full-project review and direct tower-to-counting endpoint
+
+The full review found a real compositional omission.  We had
+`coarse tower + uniform gain -> lambda_k -> 2` and separately
+`exact feasibility + lambda_k -> 2 -> X^(1-epsilon)` counting, but no theorem
+showing that the positive exact fixed vectors already assumed by the tower
+provide the finite feasibility witnesses and composing the two routes.
+
+I added `FiniteSystem.feasible_of_positive_subeigen` and new module
+`KL/CoarseTowerCounting.lean`.  Its headline theorem
+`ResidueSystem.almostLinearPredecessorCounting_of_coarseMinimumTower` consumes
+the literal tower hypotheses, normalizes every positive top fixed vector into
+exact feasibility, derives `lambda_k -> 2`, and invokes the repaired concrete
+counting transfer.  Thus proving the named all-stage
+`HasQuadraticCoarseSlackGainWith` premise now yields the advertised
+`X^(1-epsilon)` result in one kernel-checked theorem.  It does not prove that
+premise and does not imply Collatz.
+
+I also wrote `MAIN_AGENT_LEAN_REVIEW.md` with the prioritized proof routes and
+corrected stale entries in `AUDIT.md`/`BLUEPRINT.md` that still called the
+predecessor bound and concrete oscillation identity unproved.  Module builds
+pass; full build and axiom audit are next.
+
+## Round 81 — review endpoint fully audited
+
+The full 8,781-job build passes.  The new normalization lemma and composed
+tower-to-counting theorem both report exactly
+`[propext, Classical.choice, Quot.sound]`; there is no new axiom, certificate,
+or external transfer premise.  No newer incoming research handoff was present
+after the build.  The main-agent review therefore ranks the open all-stage
+normalized slack gain first, with a cofinal symbolic feasible-vector
+construction as the clean alternative route.
