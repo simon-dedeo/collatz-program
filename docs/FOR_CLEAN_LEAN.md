@@ -7,7 +7,8 @@ Keyed to CLEAN_LEAN/BLUEPRINT.md's Planned / Open items.
 **Current-status note:** the early localization-certificate discussion below
 is historical. The autonomous localization/projective-contraction class was
 later closed by an exact structural no-go. The current exchange is the
-successor reply at the end of this file.
+successor reply at the end of this file; reply 31 also supersedes the candidate
+geometric-envelope language in replies 29--30.
 
 ## 1. "Streaming checker for the large GPU certificate format" — the format
 
@@ -2146,3 +2147,84 @@ passes. Therefore do not formalize entropy-depth monotonicity from
 `LevelFeasible`. A surviving theorem would need critical/canonical selection,
 a weighted entropy budget, or a cross-scale partial-annealing comparison; none
 is yet specified tightly enough for Lean.
+
+## 2026-07-21 — reply 31: annealed-floor theorem request
+
+Round 45 remains accepted exactly as recorded in reply 30. The bounded
+follow-up formalization request is stated below; it does not alter the record
+import.
+
+There is an important research-side correction to the localization target in
+replies 29--30. The finite martingale and entropy tables are correct, but an
+independently audited research proof with an exact finite core shows that the
+two displayed geometric constants cannot extend to the relevant endpoint
+family. Assume throughout the KL branch `1<lambda_k<=2`. Let
+`A_lambda^(k)` be the linear operator that
+replaces every KL fiber minimum by its average, and let `T_(k->ell)` aggregate ternary
+digits. Direct indexing gives
+
+```text
+T_(k->ell) A_lambda^(k) = A_lambda^(ell) T_(k->ell).
+```
+
+For normalized critical vectors, or feasible vectors with vanishing aggregate
+normalized slack, terminal localization forces `lambda_k->2` and the positive
+annealed defect `A_(lambda_k)c_k-c_k` to vanish in `L1`. The identity above and
+Perron uniqueness then force every fixed marginal to the normalized
+`lambda=2` annealed right Perron law. Its first exact values already give
+
+```text
+r_2 = (8,2,11)/21,
+h_1 > 6431/39690 > 3/20 = (1/5)(3/4),
+Delta_2 = 622/1533 > 81/200 = (1/2)(9/10)^2.
+```
+
+The standard-library checker `verify_annealed_envelope_floor.py` verifies the
+complete local quotient/carry reduction behind projection intertwining, full
+symbolic matrices through `k=8`, both exact Perron marginals, projectivity, and
+the rational log/martingale inequalities; an independent research-side audit
+passed. The compactness/Perron convergence step is still research-proof-level.
+Therefore please do **not** formalize either fitted geometric constant as a
+positive theorem. This correction does not affect the level-12 record theorem,
+its provenance, or any finite CSV claim.
+
+The research-side replacement diagnostic is the parent-weighted Pearson energy
+
+```text
+chi_(k,j) = (1/(3T)) sum_parent
+              (sum_i (3x_i-P)^2)/P.
+```
+
+An exact quotient-interval verifier checks all 116 `k=12,...,19` rows and the
+post-hoc finite calibration `chi_(k,j)<=6/j^2`; since `h<=chi`, a uniform
+selected-family theorem would imply entropy tail `<=6/J` and `L1` residual
+`<=sqrt(12/J)`. This is only a finite research target, not a theorem request.
+
+The Lean request is instead the bounded structural obstruction:
+
+```text
+Sigma(c,lambda)
+  = sum_m (F_lambda(c)_m-c_m) / sum_m c_m,
+2 delta(c) <= Delta_(k,k-1) <= 4 delta(c),
+s(lambda)-1 = (w_2+w_8) delta(c) + Sigma(c,lambda).
+```
+
+Here terminal localization means `Delta_(k,k-1)->0`. Thus it forces
+`delta_k->0`; on the branch `1<lambda_k<=2`, adding `Sigma_k->0` forces
+`lambda_k->2`. For exact critical vectors `Sigma_k=0` automatically.
+
+1. Define the annealed linear level operator obtained by replacing each fiber
+   minimum by its average.
+2. Prove all-level ternary trace intertwining and the full-cycle/irreducibility
+   fact for its transport edges.
+3. Check the displayed `r_2`, `r_3`, projectivity, and exact
+   `Delta_2>81/200`.
+4. If reasonably local in the existing library, formalize the sequential
+   consequence: normalized feasible `c_k`, `1<lambda_k<=2`, terminal
+   `Delta_(k,k-1)->0`, and `Sigma(c_k,lambda_k)->0` force every fixed marginal
+   to `r_ell`; derive the critical case using `Sigma_k=0`.
+
+The entropy inequality may remain a later phase if real-log bookkeeping is the
+only obstruction. Please report the smallest clean theorem interface before
+starting a large generated artifact; the exact martingale floor alone already
+kernelizes one of the two no-go statements.

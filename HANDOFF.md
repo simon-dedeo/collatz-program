@@ -63,14 +63,21 @@ rises at offsets one through four for the smallest threshold `.05`.
 The sharper direct audit computes all 116 exact density-martingale increments:
 from depth two onward they fit the post-hoc summable envelope
 `Delta_(k,j)<=(1/2)(9/10)^j`, and the floating `k=20` calibration does too. A
-uniform all-level envelope would imply relative `L1` compactness and terminal
-localization without the bin cones; proving it for an appropriate selected
-family is now the live localization target. A companion floating-log audit on
-the exact integer masses finds decreasing selected entropy profiles and the
+companion floating-log audit finds decreasing selected entropy profiles and the
 post-hoc envelope `h_(k,j)<=(1/5)(3/4)^j` through exact `k=19` and floating
-`k=20`. An exact positive `k=3` feasible vector with `h_2>h_1` proves that
-feasibility alone cannot imply the observed monotonicity. Any entropy proof
-must use critical/canonical selection or a different weighted endpoint bound.
+`k=20`. These finite fits remain valid, but an independently audited annealed-
+floor research argument, backed by an exact generic-carry/low-level checker,
+closes both displayed constants for `1<lambda_k<=2` all-level critical or
+aggregate-slack-vanishing laws: the forced Perron floors already have
+`h_1>6431/39690>3/20` and `Delta_2=622/1533>81/200`. An exact positive `k=3`
+feasible vector with `h_2>h_1` separately proves that feasibility alone cannot
+imply entropy monotonicity. The replacement audit gives 116 certified integer
+intervals for the parent-weighted Pearson energy; all fit the finite,
+polynomial calibration `chi_(k,j)<=6/j^2`. Since `h<=chi`, a uniform
+version would give entropy tail `<=6/J` and `L1` residual `<=sqrt(12/J)`.
+Polynomial energy/entropy control or direct selected-family compactness is now
+the live localization target; the bin cones remain the fallback. Lean
+formalization of the all-level projection/Perron implication has been requested.
 Around this sits a cluster of proved structure theorems and — equally important — a
 growing **failure ledger** of proof routes that are now provably dead. A
 separate GPT instance runs an independent Lean formalization in `CLEAN_LEAN/`
@@ -127,10 +134,17 @@ and the two collaboration channels current.
   floating-log increments on the exact integer inputs and 19 on the
   uncertified floating candidate; all fit `(1/5)(3/4)^j`. These selected
   profiles decrease with depth, but an exact `k=3` feasible-cone counterexample
-  has `h_2>h_1`. The live theorem target is therefore a uniform martingale or
-  weighted-entropy envelope, or a weaker endpoint theorem for a genuinely
-  selected critical/aggregate-slack-vanishing family. The cone route remains a
-  fallback, with rising `.05` immigration as its exposed negative signal. See
+  has `h_2>h_1`. More decisively, the independently audited annealed-floor
+  research proof for `1<lambda_k<=2` has
+  `h_1>6431/39690>3/20` and `Delta_2=622/1533>81/200`, so the two fitted
+  geometric constants cannot extend to a localizing critical family, or a
+  feasible family whose aggregate normalized slack vanishes. The exact
+  Pearson audit adds 116 certified intervals, all below the post-hoc
+  `6/j^2` calibration; its uniform analogue would imply relative compactness.
+  The live theorem target is polynomial energy/entropy control consistent with
+  the annealed floor, or direct compactness for a genuinely selected critical/aggregate-
+  slack-vanishing family. The cone route remains a fallback, with rising `.05`
+  immigration as its exposed negative signal. See
   `docs/notes/multiscale-genealogy.md`; do not call its aggregates lower-level
   KL vectors or extrapolate its finite trend.
 - **Proved structure theorems:** KL method = adversarial min-plus transfer
@@ -197,9 +211,8 @@ and the two collaboration channels current.
   note; the DP tables themselves are unchanged. The inherited arctic proof also had a
   reducible-matrix slope gap. An elementary all-dimension weighted-walk pumping
   candidate replaces it, but remains provisional until Lean. The calibrated
-  live agenda is now: (1) turn the exact finite martingale/entropy profiles into
-  a selected-family compactness or endpoint theorem—or falsify that
-  possibility—while
+  live agenda is now: (1) prove polynomial Pearson/entropy control consistent
+  with the annealed floor, or direct selected-family compactness—or falsify that possibility—while
   retaining the expanding-window cone and direct cofinal
   feasibility as the fallback and scaling the completed `k=12` Lean import to
   higher records; (2) kernelize and adversarially check the arctic
@@ -328,14 +341,14 @@ rarity of the violations motivates the exact mass-genealogy audit. That
 audit is favorable on its exact finite grid, but its first floating `k=20`
 candidate breaks every fitted contraction margin. All seven same-start worst-row maxima
 remain below one, and the tracked `t=.2,.3` terminal-offset immigration values
-continue to fall, while the `.05` offsets rise. The direct martingale envelope
-is now the cleaner target: if its finite summable profile held uniformly, it
-would force `L1` compactness and all-positive-threshold localization. No
-all-level envelope, coherent critical selection, or normalized-slack theorem
-is known. The floating-log entropy profile supplies a parallel geometric
-target, but exact tightened feasibility already refutes depth monotonicity on
-the full feasible cone. Any surviving entropy theorem is selection-specific,
-and the pressure/KL bridge remains open.
+continue to fall, while the `.05` offsets rise. The direct martingale and
+floating-log entropy fits are valid finite diagnostics, but the audited
+annealed-floor research proof now shows that both displayed geometric constants fail for every
+localizing critical or aggregate-slack-vanishing endpoint family. The live
+replacement is the exact finite Pearson calibration `chi<=6/j^2`, or a direct
+compactness theorem; neither is proved all-level. Exact tightened feasibility
+also refutes depth monotonicity on the full feasible cone. Any surviving
+entropy theorem is selection-specific, and the pressure/KL bridge remains open.
 
 ## 6. The user (Simon) — how to work with him
 
@@ -363,11 +376,14 @@ and the pressure/KL bridge remains open.
 4. Sanity-check infrastructure (§4) with one `ssh`/`squeue`; it carries over.
 5. Pick the top LIVE bet you can advance. The immediate mathematical target is
    a cofinal exact feasible sequence with `λ→2`, or the pressure/localization
-   mechanism that supplies one. The current localization seam is a uniform
-   summable `L1` martingale-increment or weighted-entropy envelope for selected
-   critical or normalized-slack-vanishing densities. Feasibility-only entropy
-   monotonicity is refuted, so any weaker entropy endpoint needs an explicit
-   selection hypothesis. The expanding-window cone with
+   mechanism that supplies one. The current localization seam is
+   polynomial Pearson/entropy control consistent with the annealed floor (the
+   exact finite candidate is `chi<=6/j^2`) or direct relative compactness for selected
+   critical or normalized-slack-vanishing densities. Do not promote the fitted
+   geometric martingale or entropy constants: the audited annealed-floor
+   argument refutes both as endpoint laws in `1<lambda_k<=2`, with Lean
+   formalization pending. Feasibility-only entropy monotonicity is also refuted, so
+   any weaker entropy endpoint needs an explicit selection hypothesis. The expanding-window cone with
    terminal-offset defect/immigration decay is the fallback. Both are described in
    `docs/notes/multiscale-genealogy.md`. Kernel/adversarial review of the repaired
    arctic proof is the bounded side target; mixed-radix has three named gaps.

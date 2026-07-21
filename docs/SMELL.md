@@ -24,11 +24,17 @@
 > exceeds every fitted margin but no qualitative cone or minimal start. The
 > `.2,.3` immigration signal is favorable but the `.05` offsets rise. All 116
 > exact density-martingale increments fit a post-hoc summable depth envelope
-> from `j=2`, and floating `k=20` does too. Proving an all-level envelope is the
-> live question. The selected entropy profiles fit a parallel post-hoc
+> from `j=2`, and floating `k=20` does too. The selected entropy profiles fit a parallel post-hoc
 > geometric envelope, but an exact `k=3` counterexample refutes entropy-depth
 > monotonicity from feasibility alone; any surviving entropy theorem must use
-> additional selected-family structure. Expanding-window contraction plus terminal-offset
+> additional selected-family structure. An independently audited annealed
+> projection/Perron research proof now closes both displayed geometric constants
+> for `1<lambda_k<=2` all-level critical or
+> vanishing-slack laws (`h_1>6431/39690>3/20` and
+> `Delta_2=622/1533>81/200`). The exact replacement audit certifies the finite
+> polynomial calibration `chi_(k,j)<=6/j^2` on all 116 selected rows.
+> Polynomial energy/entropy control or direct selected-family compactness is the
+> live question. Expanding-window contraction plus terminal-offset
 > immigration/defect decay is the fallback, not
 > another assertion of the false pointwise bound. See
 > `docs/notes/multiscale-genealogy.md`.
@@ -107,8 +113,11 @@ attack surface.
 
 **First move.** Prove a cofinal exact feasible sequence tending to two, or the
 non-autonomous pressure/localization statement that yields one. In parallel,
-import the `k=12` record as a chunked kernel-reduced Lean certificate before
-attempting the multi-gigabyte `k=15–19` sidecars.
+scale the completed chunked, kernel-reduced `k=12` Lean certificate architecture
+toward the larger `k=15–19` sidecars, culminating in 2.9 GB at `k=19`. On localization, pursue
+polynomial Pearson/entropy control consistent with the annealed floor, or direct compactness;
+the two fitted geometric constants are now closed at research-proof level,
+with Lean formalization requested.
 
 ---
 
@@ -228,8 +237,8 @@ discrepancy directly.
    generic finite-feasibility implication, while exact Python checks the large
    concrete records. This proves every fixed exponent below `γ₀`; it is not
    yet one Lean-native `k=19` artifact.
-3. **Portability target.** A chunked kernel-reduced import of `k=12` is in
-   progress before attempting the multi-gigabyte records.
+3. **Portability target.** The chunked kernel-reduced import of `k=12` is
+   complete; scaling that architecture to the larger sidecar-backed records remains open.
 4. **Mathematical target.** Prove a cofinal feasible sequence with `λ→2`, which
    would imply almost-linear predecessor counting. Finite increment fits are
    evidence, not a decision of the limit. Critical branching/spine methods are
@@ -241,10 +250,13 @@ discrepancy directly.
    floating `k=20` vector exceeds every fitted margin but keeps every same-start
    maximum below one. Its `.05` immigration trend is adverse. The cleaner
    direct audit computes 116 exact density-martingale increments and puts all
-   108 at `j>=2`, plus 18 floating rows, inside `(1/2)(9/10)^j`.
-   Proposition R' would follow from any uniform summable envelope for an
-   appropriate selected all-level family; no such theorem or selection is
-   known. The cone/immigration route remains the fallback.
+   108 at `j>=2`, plus 18 floating rows, inside `(1/2)(9/10)^j`; the entropy
+   profile has a parallel finite fit. The audited annealed-floor argument shows that both
+   displayed geometric constants fail as endpoint laws. The replacement exact
+   Pearson audit gives 116 certified intervals, all below `6/j^2`; a uniform
+   selected-family theorem would imply entropy tail `<=6/J` and `L1` residual
+   `<=sqrt(12/J)`. No such theorem or coherent selection is known. The
+   cone/immigration route remains the fallback.
 
 ### PQ-2. Antihydra rarity + discrepancy theorem (fuse #2 and #3) — *computation + proof sketch*
 1. **Lottery ticket withdrawn.** The unconditioned maximum is exactly `m_k=k`;

@@ -404,6 +404,11 @@ Thus `(C,q)=(1/2,.9)` is a readable interior point, not an optimized law.
 It was chosen after the floating vector had already been inspected; only a
 future level can test it out of sample.
 
+The annealed-floor argument below gives a stronger retrospective warning:
+although every stated finite comparison is correct, this particular geometric
+law cannot extend to a localizing critical or aggregate-slack-vanishing family.
+The exact limiting floor already exceeds it at depth two.
+
 The triangular trend is qualitatively compatible with a limiting density.
 At every fixed depth `j=1,...,11`, `Delta_(k,j)` strictly increases through
 the exact levels, but at each fixed terminal offset zero through four it
@@ -416,7 +421,8 @@ k=20 float: .0228944, .0273694, .0343411, .0416812, .0489149.
 ```
 
 Any all-level estimate `Delta_(k,j)<=a_j` with `sum_j a_j<infinity` would be
-decisive. Martingale telescoping gives, uniformly in `k`,
+decisive. (The displayed geometric choice is now known not to be such an
+estimate.) Martingale telescoping gives, uniformly in `k`,
 
 ```text
 ||f_k - E[f_k | F_J]||_1 <= sum_(j>J) a_j.
@@ -473,6 +479,10 @@ fixed rate `.75`, the tight scale fitted through exact `k=19` is about
 round scale `.2` merely leaves a readable finite margin; future exact levels
 are the first genuine tests.
 
+As with the martingale fit, the annealed-floor argument below shows that this
+specific geometric constant cannot be the all-level endpoint law. The table
+remains an honest floating-log diagnostic of the finite exact inputs.
+
 The finite triangular pattern is strong but selection-specific. Within every
 observed level, `h_(k,j)` strictly decreases with depth. Every shared fixed
 depth `j=1,...,11` increases across levels, while all eleven shared fixed
@@ -484,8 +494,8 @@ k=19 exact:  .444583263
 k=20 float:  .459210510.
 ```
 
-These numbers do not establish bounded or sublinear entropy. If the displayed
-geometric envelope held uniformly, however, then
+These numbers do not establish bounded or sublinear entropy. Counterfactually,
+if the displayed geometric envelope held uniformly, then
 
 ```text
 D(f_k || f_(k,J)) = sum_(j>J) h_(k,j)
@@ -543,9 +553,13 @@ digit masses are `(303,300,300)`, while its only nonuniform terminal fiber is
 h_1 < 2/90601 < 50/2709 < h_2.
 ```
 
-This refutes entropy-depth monotonicity on the full feasible cone. It does not
-refute monotonicity, an endpoint-Cesaro estimate, or a geometric envelope for
-critical eigenvectors or another canonical near-critical selection.
+This refutes entropy-depth monotonicity on the full feasible cone. By itself it
+does not refute monotonicity or an endpoint-Cesaro estimate for a canonical
+selection. The separate annealed-floor argument below does refute the displayed
+geometric constant for critical and aggregate-slack-vanishing localizing
+families.
+
+#### Partial-annealing identity and limitation
 
 One possible route to such a selection theorem is a partial-annealing
 deformation. For child masses `x=(x_0,x_1,x_2)`, set
@@ -625,6 +639,157 @@ critical eigenvectors (`Sigma=0`), or for a selected near-critical feasible
 family if `Sigma_k->0`. The present integer certificates are merely selected
 finite feasible points; neither the all-level envelope nor vanishing
 normalized slack has been proved.
+
+#### Annealed floor and a polynomial Pearson-energy replacement
+
+For endpoint sequences in the KL range `1<lambda_k<=2`, the two fitted
+geometric constants can now be ruled out at independently audited
+research-proof level, without disputing any finite row above. Let
+`A_lambda^(k)` be the linear KL
+operator obtained by replacing every three-fiber minimum by its arithmetic
+mean. If `T_(k->ell)` aggregates the highest ternary digits, direct residue
+indexing gives the exact intertwining identity
+
+```text
+T_(k->ell) A_lambda^(k) = A_lambda^(ell) T_(k->ell).
+```
+
+For a normalized critical or feasible vector, put
+
+```text
+d_k = A_(lambda_k)^(k) c_k - c_k >= 0.
+```
+
+The annealed column sum is `s(lambda_k)`, so
+`||d_k||_1=s(lambda_k)-1`. For critical vectors the normalized nonlinear
+slack is zero; for a feasible family assume it tends to zero. Terminal
+localization and the exact identity
+`s-1=(w_2+w_8)delta+Sigma` then force `lambda_k->2` and
+`||d_k||_1->0`. At any fixed level `ell`, intertwining yields
+
+```text
+A_(lambda_k)^(ell) T_(k->ell)c_k - T_(k->ell)c_k
+  = T_(k->ell)d_k -> 0.
+```
+
+Compactness of the fixed simplex and continuity therefore make every limit
+point a normalized fixed vector of `A_2^(ell)`. Its transport edges form one
+full cycle, so the nonnegative stochastic matrix is irreducible and its
+normalized right Perron vector `r_ell` is unique. Consequently every fixed
+marginal converges to this projectively consistent **annealed floor**.
+
+The first two floor values already contradict the displayed fits. In state
+order `[2,5,8]`,
+
+```text
+r_2 = (8,2,11)/21.
+```
+
+For `h_1=sum_i r_2(i) log(3r_2(i))`, rational bounds from the atanh series give
+
+```text
+h_1 > 6431/39690 > 3/20 = (1/5)(3/4),
+```
+
+with certified margin greater than `191/15876`. At the next level, in state
+order `[2,5,...,26]`, the common denominator is `87381` and the numerators are
+
+```text
+(9632,4316,5240,6392,2408,17246,17264,1598,23285).
+```
+
+This vector projects to `r_2`, and its exact second martingale increment is
+
+```text
+Delta_2 = 622/1533 > 81/200 = (1/2)(9/10)^2,
+```
+
+with margin `227/306600`. Run the finite-core checker with
+
+```bash
+python3 experiments/kl/verify_annealed_envelope_floor.py
+```
+
+It checks the complete local quotient/carry reduction behind the general
+intertwining identity, full symbolic-weight matrices through `k=8`, the exact
+low-level Perron vectors and projectivity, and both rational inequalities. The
+all-level convergence implication is the index/compactness/Perron argument
+above and has received an independent research-side audit; Lean formalization
+has been requested but is not yet complete. The conclusion is precisely scoped:
+the two displayed
+constants fail for a critical localizing family, or for a feasible localizing
+family whose aggregate normalized slack vanishes. This does **not** refute
+relative `L1` compactness, a looser summable law, polynomial entropy control,
+or a direct selected-family endpoint argument.
+
+A replacement diagnostic avoids logarithms and matches the slower scale seen
+in exploratory annealed profiles. For one parent with children
+`x_0,x_1,x_2`, put
+
+```text
+P = x_0+x_1+x_2,
+N = sum_i (3x_i-P)^2,
+chi_(k,j) = (1/(3T)) sum_parent N/P,       T=sum_i C[i].
+```
+
+This is the parent-mass average of `chi^2(p_children || uniform_3)`, and the
+elementary inequality `log u<=u-1` gives `h_(k,j)<=chi_(k,j)`. To certify it
+without a gigantic rational common denominator, write `N=qP+r` at every
+parent. Then
+
+```text
+sum q/(3T) <= chi_(k,j)
+             <= sum(q + 1_(r!=0))/(3T).
+```
+
+The endpoints and every decision are exact integers. Run
+
+```bash
+python3 experiments/kl/verify_chi_square_envelope.py
+```
+
+or, in a fresh clone without the larger local sidecars,
+
+```bash
+python3 experiments/kl/verify_chi_square_envelope.py \
+  --levels 12 13 14 15 --output /tmp/chi-square-intervals.csv
+```
+
+The full SHA-pinned `k=12,...,19` audit writes the 116-row
+`analysis_cache/chi_square_intervals_exact.csv`, SHA-256
+`907c847e69cc6b0f...`. A tracked C++ helper uses
+unsigned 128-bit arithmetic only while the proved bound `N<=6P^2` is safe,
+then hands the short coarse tail to Python big integers. Synthetic cases,
+including the dynamic safety stop, and the complete `k=12` record are
+cross-checked against a plain Python-bigint implementation.
+
+Every interval lies below the post-hoc selected-data fit `2/j^2`; its worst
+certified upper ratio is `.850145269956` at `(k,j)=(19,8)`. This is explicitly
+a finite fit and is not promoted to the theorem target. The deliberately
+looser replacement calibration is
+
+```text
+chi_(k,j) <= 6/j^2,                         (finite calibration)
+```
+
+whose worst certified upper-bound ratio is `.283381756652` at the same row. It was
+also screened against exploratory annealed profiles, but remains finite
+evidence rather than an all-level theorem or a proved asymptotic constant. The
+certified intervals separate all three observed trends: they decrease within
+every level, rise at every shared fixed depth, and fall at every shared fixed
+terminal offset.
+
+If the constant-six law held uniformly for a suitable selected all-level
+family, then `h<=chi` and `sum_(j>J)j^-2<=1/J` would give
+
+```text
+sum_(j>J) h_(k,j) <= 6/J,
+||f_k-E[f_k|F_J]||_1 <= sqrt(12/J).
+```
+
+This is the current theorem target, alongside direct relative compactness. Its
+polynomial rate is intentionally weaker than the structurally impossible
+geometric fits.
 
 ### 4.2 Weighted-bin fallback
 
@@ -871,7 +1036,9 @@ any fitted finite constant.
 
 - The favorable result concerns eight particular exact feasible points, not
   all feasible subeigenvectors and not selected exact critical eigenfunctions.
-- Within-vector aggregation does not commute with changing KL level.
+- Within-vector aggregation does not turn an arbitrary nonlinear feasible
+  vector into a lower-level feasible vector. It does, however, exactly
+  intertwine the annealed linear operators, which produces the floor above.
 - The eight vectors at successive levels are not known to be projectively
   consistent.
 - The 756 monotone rows are finite observations.  There is no proof that tail
@@ -886,16 +1053,15 @@ any fitted finite constant.
 - The floating audit provisionally exceeds every fitted exact-data margin but
   not one qualitative cone or minimal burn-in. An exact `k=20` vector is still
   needed to decide those rows.
-- The sharper live target is now a uniform summable martingale-increment
-  envelope for a selected exact critical, or normalized-slack-vanishing,
-  family. The post-hoc `(1/2)(9/10)^j` finite calibration passes 108 exact
-  rows and 18 floating rows at `j>=2`; it is not an all-level theorem.
-- A proof may instead establish relative `L1` compactness directly, or a
-  scale-weighted entropy/energy bound. The selected entropy profiles fit the
-  post-hoc `(1/5)(3/4)^j` calibration on 116 exact-input and 19 floating rows,
-  but the logarithms are floating and future exact levels have not tested the
-  fit out of sample. Bounded entropy or unweighted entropy/energy bounds do not
-  suffice.
+- The fitted `(1/2)(9/10)^j` martingale and `(1/5)(3/4)^j` entropy constants
+  pass the reported finite rows, but the independently audited annealed-floor
+  research proof closes both as all-level critical/vanishing-slack laws in
+  `1<lambda_k<=2`. Lean formalization is pending; do not promote them again.
+- The sharper live target is now the polynomial Pearson calibration
+  `chi<=6/j^2` for a selected exact critical or normalized-slack-vanishing
+  family, or relative `L1` compactness directly. The exact interval audit passes
+  all 116 finite rows; this is not an all-level theorem. Bounded entropy or
+  unweighted entropy/energy bounds do not suffice.
 - Depthwise entropy monotonicity is not a property of the full feasible cone:
   the exact positive `k=3` counterexample above has `h_2>h_1`. A surviving
   entropy theorem must exploit critical/canonical selection, a weighted

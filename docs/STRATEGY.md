@@ -48,12 +48,19 @@ sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 > rises at `.05`. A direct exact audit now computes 116 density-martingale
 > increments; all 108 at `j>=2` fit the post-hoc summable envelope
 > `(1/2)(9/10)^j` from depth two, as does floating `k=20`. A uniform version
-> would force `L1` compactness and localization. A companion floating-log
+> would force `L1` compactness and localization, but an independently audited
+> annealed projection/Perron research proof shows that this particular fit
+> cannot be uniform for `1<lambda_k<=2`: the
+> forced endpoint law has `Delta_2=622/1533>81/200`. A companion floating-log
 > entropy audit finds decreasing selected profiles and the post-hoc envelope
 > `(1/5)(3/4)^j`, but an exact positive `k=3` feasible vector with `h_2>h_1`
-> refutes monotonicity on the full feasible cone. Uniform martingale/weighted-
-> entropy control or a genuinely selection-specific endpoint is the live seam; the
-> expanding-window immigration/defect recurrence is the fallback. See
+> refutes monotonicity on the full feasible cone, while the annealed floor
+> `h_1>6431/39690>3/20` also closes the displayed entropy fit as an endpoint
+> law. The replacement exact audit puts all 116 selected Pearson-energy rows
+> below the finite calibration `chi_(k,j)<=6/j^2`. Polynomial energy/entropy
+> control consistent with the annealed floor, or direct selected-family
+> compactness, is the live seam; the expanding-window immigration/defect
+> recurrence is the fallback. See
 > `docs/notes/multiscale-genealogy.md`.
 
 ## 0. Ground rules
@@ -381,10 +388,14 @@ continue downward, while offsets one through four rise at `t=.05`. The sharper
 martingale diagnostic has 116 exact increments, with all 108 at `j>=2` inside
 a simple post-hoc summable depth envelope; floating `k=20` remains inside it.
 The selected entropy profiles also fit a post-hoc geometric envelope, but
-feasibility-only depth monotonicity is exactly refuted at `k=3`. The live
-problem is to prove martingale or weighted-entropy control for an all-level
-selected critical or normalized-slack-vanishing family. The cone/immigration theorem is now the
-fallback, not another finite fit.
+feasibility-only depth monotonicity is exactly refuted at `k=3`. An audited
+annealed-floor research proof additionally shows that neither fitted geometric constant can be
+the all-level critical/vanishing-slack law. The exact replacement diagnostic
+certifies `chi<=6/j^2` on all 116 selected rows; the live problem is to prove
+polynomial energy/entropy control consistent with the annealed floor, or direct
+compactness for an all-level selected critical or normalized-slack-vanishing
+family. The cone/immigration theorem is now the fallback, not another finite
+fit.
 Also top-ranked (SMELL.md §1): Mahler 1968 Z-numbers ↔ Antihydra rarity
 theorem (golden-ratio counting via no-11 subshift); Antihydra as a robust-
 queueing/discrepancy problem, with the former unconditioned finite-computation
