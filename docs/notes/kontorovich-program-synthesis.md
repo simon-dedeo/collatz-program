@@ -67,7 +67,10 @@ seed progression.  The canonical least positive representative either changes
 by a multiple of the old modulus, or stays fixed because that ordinary seed
 really follows the longer prefix.  An infinite prescribed word represents a
 fixed ordinary positive seed only if these representatives eventually
-stabilize.  A generic compatible tower represents only a 2-adic integer.
+stabilize.  Lean commit `ad36f08` proves the converse as well: in a fixed
+admissible mod-6 class, eventual stabilization at `x` is equivalent to the
+entire stream being legal for the ordinary positive integer `x`.  A generic
+compatible non-stabilizing tower represents only a 2-adic integer.
 
 ## 3. Replayable cycle artifacts
 
@@ -184,6 +187,9 @@ uniform morphisms unless a new arithmetic constraint is added.
   growing gaps, while remaining a finitely enumerable ansatz class.
 - Search **macrostep identities on parametric binary templates** and require
   symbolic closure `T^ell(x_t)=x_(t+1)` plus a monotone height theorem.
+  Lean commit `121cb13` has already kernel-checked the proposed packet clock,
+  `ord_(2^(n+3))(3)=2^(n+1)` and its exact scheduling corollaries; the missing
+  component is a carry collision that emits a renewed packet.
 - Use the exact compiler inside **SMT/modular branch-and-bound**, scoring
   extensions by ordinary-seed stability and recurrent carry motifs rather
   than finite growth alone.
@@ -194,3 +200,44 @@ uniform morphisms unless a new arithmetic constraint is added.
 Any candidate from these lanes must pass the existing Python replay and the
 kernel `CycleArtifact` checker when finite.  A divergent candidate needs a
 separate inductive certificate; no finite prefix can supply one.
+
+## 7. Supercritical negative-cycle shadows
+
+A useful source of finite glider-like motion is a negative accelerated cycle.
+Let its fixed phase be `c<0`, its legal word have affine multiplier `P/Q`, and
+assume `P>Q`.  If
+
+```text
+x_M=c+Q^M h_M > 0,   h_M odd,
+```
+
+then the positive trajectory shadows the negative controller for `M` copies.
+At the last valuation the parity necessarily changes.  If the valuation gains
+`e_M` extra powers of two, direct affine algebra gives
+
+```text
+x_(M+1)=(c+P^M h_M)/2^e_M.                          (7.1)
+```
+
+The one-counter renewal condition is
+
+```text
+x_(M+1)=c+Q^(M+1) h_(M+1),   h_(M+1) odd and positive. (7.2)
+```
+
+If (7.1)--(7.2) hold indefinitely with bounded `e_M`, then after finitely many
+levels every macrostep is strictly outward, since
+`P^M>2^e_M Q^M`; the remaining finite prefix can be checked directly.  This
+would provide exactly the variable-word state sequence required by Lean's
+`MacroGlider` interface.  The ordinary-integer gate has merely moved: every
+finite collision program can be compiled, while an infinite compatible tower
+usually denotes only a 2-adic seed.
+
+`search_shadow.py` implements (7.1) with literal valuation replay.  Its first
+artifact checks the supercritical controllers `c=-5`, `w=(1,2)` and `c=-17`,
+`w=(1,1,1,2,1,1,4)`, start levels through six, collision extras through eight,
+and every extra word of length at most four in both mod-6 classes.  All
+`112,320` compiled paths replay, but none stabilizes its ordinary seed or
+renews the terminal precision.  This is a small ansatz failure, not an
+obstruction theorem; phase-changing and substitution-driven collisions remain
+open.

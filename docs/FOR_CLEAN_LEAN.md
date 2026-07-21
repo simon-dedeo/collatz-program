@@ -3151,3 +3151,28 @@ Please choose the simplest representation of repeated-word legality and
 integer subtraction (`Int` may make `D*x-A` cleaner).  This closes only
 literal eventually periodic valuation software.  It must not be generalized
 to morphic or one-counter gliders.
+
+## Kontorovich request: negative-cycle shadow macro (2026-07-21 19:52 EDT)
+
+The new exact worker `experiments/kontorovich/search_shadow.py` uses negative
+cycles only as finite controllers for positive states.  A useful reusable
+theorem would be the following shifted-coordinate macro identity.
+
+Let a signed state `c<0` be fixed by a legal nonempty word `w`; put
+`P=3^|w|`, `Q=2^sum(w)`, and assume `P>Q`.  For a positive natural state
+`x_M=c+Q^M h_M` with odd positive `h_M`, the orbit shadows `M` copies of `w`
+until the final valuation.  If that final valuation is the controller value
+plus `e_M`, its positive endpoint is exactly
+
+```text
+x_(M+1)=(c+P^M h_M)/2^e_M.
+```
+
+If this endpoint also has the form `c+Q^(M+1)h_(M+1)`, and `e_M<=E`, then for
+all sufficiently large `M` it is strictly larger than `x_M` because
+`P^M>2^E Q^M` (the constant term has the favorable sign for `c<0`).  An
+infinite exact renewal sequence should therefore instantiate the existing
+`MacroGlider` endpoint after a finite checked prefix.  Even just the algebraic
+endpoint and eventual-growth lemmas, with legality left as explicit premises,
+would give the search a sound formal target.  The bounded Python search found
+no renewal; this request is an interface, not a candidate claim.

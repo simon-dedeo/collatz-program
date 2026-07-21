@@ -68,7 +68,10 @@ The second family is a deliberately low-description “glider” ansatz.  Beside
 cycle closure, the search asks whether the least ordinary seed stabilizes as
 nested morphic prefixes grow.  Stabilization is necessary for an infinite
 prescribed 2-adic program to become one fixed ordinary positive seed.  Finite
-stabilization remains only a prefix event.
+stabilization remains only a prefix event.  Lean commit `ad36f08` proves the
+infinite statement exactly: in a fixed admissible mod-6 class, a stream is
+legal for an ordinary positive seed if and only if its canonical prefix seeds
+eventually stabilize at that seed.
 
 ```bash
 python3 search_programs.py --selftest
@@ -127,3 +130,43 @@ python3 merge_nonuniform.py --expect-shards 32 \
 `psc_nonuniform.sbatch` is the current Bridges-2 64-way launch prescription.
 Its bounds are part of every shard artifact; changing the launch file creates
 a different finite search and must not be silently merged with an earlier run.
+
+## One-counter shadows of negative cycles
+
+`search_shadow.py` turns a supercritical negative cycle into a finite carry
+controller.  This does **not** use a negative integer as a counterexample.  For
+the controller state `c<0`, valuation word `w`, and
+
+```text
+P=3^|w| > Q=2^sum(w),
+```
+
+a positive state `x=c+Q^M h` with odd `h` shadows `w` for `M` repetitions.
+If the last valuation gains exactly `e` further powers of two, exact replay
+gives the collision endpoint
+
+```text
+x'=(c+P^M h)/2^e.
+```
+
+The one-counter ansatz asks that `x'=c+Q^(M+1)h'`, replenishing the precision
+spent by the collision.  With bounded `e`, sufficiently large successful
+macrosteps grow because `(P/Q)^M/2^e>1`.  An infinite exact renewal would be a
+candidate for the Lean `MacroGlider` endpoint; any finite chain is only a
+prefix event.
+
+```bash
+python3 search_shadow.py --selftest
+python3 search_shadow.py \
+  --max-start-level 6 --max-extra 8 --max-program-depth 4 \
+  --output shadow_results.json
+```
+
+The committed artifact exhausts the negative cycles at `-5` with word
+`(1,2)` and `-17` with word `(1,1,1,2,1,1,4)`, every start level `1..6`, all
+extra-valuation words over `{1,...,8}` of length at most four, and both
+admissible classes modulo `6`.  All `112,320` compiled paths pass literal
+valuation and shifted-coordinate replay.  There are zero ordinary-seed
+stabilization events and zero terminal next-level renewals in this stated
+class.  Source digest:
+`dc33070c7d14db452aafe19c59ce097e301e895c593e2c0ec2d89424b2d72696`.

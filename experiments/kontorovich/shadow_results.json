@@ -1,0 +1,22 @@
+{
+  "arithmetic": "exact_python_integers",
+  "best_one_avoiding_seed_stabilization": null,
+  "best_seed_stabilization": null,
+  "best_terminal_renewal": null,
+  "bounds": {
+    "controllers": [
+      "minus5",
+      "minus17"
+    ],
+    "max_extra": 8,
+    "max_program_depth": 4,
+    "max_start_level": 6
+  },
+  "compiled_paths": 112320,
+  "one_avoiding_seed_stabilization_events": 0,
+  "program_prefixes": 56160,
+  "schema": "collatz-negative-shadow-search-v1",
+  "seed_stabilization_events": 0,
+  "source_sha256": "dc33070c7d14db452aafe19c59ce097e301e895c593e2c0ec2d89424b2d72696",
+  "terminal_renewal_events": 0
+}

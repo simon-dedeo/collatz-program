@@ -89,7 +89,10 @@ A_N = sum_(j=0)^(N-1) 3^(N-1-j) 2^S_j.
 Every proposed glider must therefore pass three gates simultaneously: exact
 valuation legality, an ordinary positive seed rather than only a 2-adic one,
 and certified nontermination.  Finite-prefix realizability alone passes only
-the first gate.
+the first gate.  Lean commit `ad36f08` makes the middle gate exact: for a fixed
+mod-6 class, an infinite positive valuation stream belongs to an ordinary
+integer `x` if and only if its canonical finite-prefix seeds are eventually
+identically `x`.
 
 ### KC Strategy and failure map
 
@@ -111,7 +114,15 @@ the first gate.
   modulo powers of `2` to schedule its first interaction with the controlled
   low packet, and search for a symbolic collision rule that emits a fresh
   packet at a larger scale.  Certify the whole construction through exact
-  macrosteps, including every carry at the collision boundary.
+  macrosteps, including every carry at the collision boundary.  Lean commit
+  `121cb13` now supplies the exact order and scheduling theorem; packet renewal
+  remains open.
+- **Negative-cycle shadow controllers.**  A positive state congruent to a
+  negative periodic point modulo a high power of two shadows its supercritical
+  valuation block while a high packet grows.  Search one-counter programs in
+  which the terminal carry collision raises, rather than consumes, the shadow
+  precision.  The negative orbit is only a finite controller; the sought seed
+  and every certified macro-state remain positive.
 - **Constraint-guided program synthesis.**  Compile chosen `k`-prefixes to
   their exact least positive seeds, score not only finite growth but
   *continuability*: low description complexity, recurrence of binary/carry
@@ -134,10 +145,11 @@ the first gate.
 
 | Ansatz or route | Calibrated verdict | Exact record |
 |---|---|---|
-| Treat a prescribed finite `k`-word as an infinite program | Invalid: the nested progressions generally select a 2-adic integer, not a positive ordinary seed. Ordinary-seed stabilization is a separate gate. | [Program-synthesis note](docs/notes/kontorovich-program-synthesis.md) |
+| Treat a prescribed finite `k`-word as an infinite program | Invalid: the nested progressions generally select a 2-adic integer, not a positive ordinary seed. Lean commit `ad36f08` proves that eventual canonical-seed stabilization is exactly the ordinary-integer gate. | [Program-synthesis note](docs/notes/kontorovich-program-synthesis.md) |
 | Literal periodic valuation glider | Closed: Lean commits `92b01ff`/`2f93df7` prove that an infinitely repeatable positive block has `3^N<2^S` and closes as a cycle. This does not touch morphic, counter, stack, or feedback streams. | [Section 4](docs/notes/kontorovich-program-synthesis.md#4-why-a-literal-periodic-glider-fails) |
 | Small positive cycle words | Exhaustively negative through total halving count `S<=22`: `3,447,691` positive-denominator compositions, with only repeated encodings of seed `1`. This is a bounded ansatz exclusion, not a new verification frontier. | [`search_results.json`](experiments/kontorovich/search_results.json) |
 | Fixed-width binary uniform morphisms | Exhaustively negative for nontrivial cycles at widths `2..4`, codings `1..4`, and expanded length at most `16,384`. The best `1`-avoiding seed-stabilization event dies at its next morphic extension. | [`search_results.json`](experiments/kontorovich/search_results.json) |
+| Small negative-cycle shadow programs | Exhaustively negative for ordinary-seed stabilization or terminal precision renewal using controllers `-5` and `-17`, start levels `1..6`, collision extras `1..8`, and extra programs of depth at most four: `112,320` compiled paths in both mod-6 classes. This closes only the stated one-counter pilot. | [`shadow_results.json`](experiments/kontorovich/shadow_results.json) |
 | Small regular invariant sets | Previously closed only in the stated exhaustive classes: no base-2 DFA divergence certificate through eight states and no base-3 certificate through five. One-counter and genuinely morphic single-orbit certificates remain open. | [Base 2](experiments/dfacert/README.md), [base 3](experiments/dfacert3/README.md) |
 
 The first work product will be an exact `k`-word compiler and cycle/glider
@@ -150,20 +162,26 @@ positive integer and its claimed behavior are machine-checked.
 
 | Result | Status |
 |---|---|
-| Exact finite `k`-word compiler | Python arbitrary-precision compiler and literal replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. |
+| Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
 | Kernel cycle-disproof seam | `KontoroC.CycleArtifact.checkNontrivial=true` implies the literal negation of the ordinary Collatz conjecture. The package build and axiom audit pass; no nontrivial artifact is known. |
 | Bounded composition search | All `3,447,691` positive-denominator compositions with `S<=22` were checked exactly. The only closure hits encode the trivial seed `1`; no nontrivial cycle was found within the bound. |
 | Bounded morphic-program search | All `168` binary uniform prolongable morphisms of widths `2..4`, all `16` codings into `{1,2,3,4}`, and `20,224` bounded depth instances were checked exactly. No nontrivial cycle was found. |
 | Parametric glider endpoint | Lean commit `2fc4459` proves that any supplied exact outward `MacroGlider` refutes Collatz, including the no-hidden-visit-to-`1` bridge. It supplies the checker endpoint, not a glider. |
 | Periodic-itinerary obstruction | Lean commits `92b01ff`/`2f93df7` prove by an all-level coprime-divisibility argument that a positive eventually periodic valuation program is a cycle and that a supercritical repeated block cannot occur forever. |
+| Ordinary-integer gate | Lean commit `ad36f08` proves `StreamLegal x k` iff the exact canonical prefix seeds eventually stabilize at `x` (in the fixed admissible mod-6 class). This validates the worker's stabilization diagnostic at the infinite level. |
+| Separated-packet clock | Lean commit `121cb13` proves `ord_(2^(n+3))(3)=2^(n+1)` and exact residue scheduling corollaries. This certifies the delay-line clock, not a collision-renewal rule. |
+| Negative-cycle shadow pilot | Exact Python checked `112,320` compiled paths for the `-5` and `-17` supercritical controllers through the bounds above. Every macrostep passed literal replay; no seed stabilization or next-level shadow renewal occurred. |
 
-The first compiler and certificate seam is now live.  The dependency-free
+The compiler and certificate seam is now live.  The dependency-free
 [`path_compiler.py`](experiments/kontorovich/path_compiler.py) reproduces the
 thread's `(1,1,2,2) -> 199` example, compiles both Kontorovich--Sinai seed
 progressions, and replays every valuation with arbitrary-precision integers.
-The independent [`KontoroC/`](KontoroC/README.md) Lean package checks the same
-affine identity and proves that a valid nontrivial cycle artifact refutes the
-literal ordinary Collatz conjecture.  No such artifact has been found.
+Lean commit `63c3b3d` independently proves that the compiler's final
+congruence is equivalent to every intermediate exact valuation and proves the
+canonical representative, progression uniqueness, and endpoint stride.  The
+[`KontoroC/`](KontoroC/README.md) package also proves that a valid nontrivial
+cycle artifact refutes the literal ordinary Collatz conjecture.  No such
+artifact has been found.
 
 The first bounded adversarial sweep tested all `3,447,691` positive-
 denominator valuation compositions with total halving count at most `22`.
@@ -195,12 +213,23 @@ for the exact algebra, bounds, result digest, and next attacks.
 
 Recovered posts 14--17 of Kontorovich's thread and restored their concrete
 separated-bit/carry-timing proposal to the [live strategy
-map](#kc-strategy-and-failure-map).  Ganesha passed the exact worker self-test
+map](#kc-strategy-and-failure-map).  Lean commit `63c3b3d` now kernel-checks
+the full finite compiler specification; `121cb13` proves the packet clock, and
+`ad36f08` proves canonical-seed stabilization equivalent to the ordinary-
+integer gate.  Ganesha passed the exact worker self-test
 and is running 24 shards over nonuniform morphisms of image length at most
 seven.  PSC job `42499002` passed the same test and is running 64 shards over
 the complete length-at-most-eight class.  Next: verify and merge both complete
 shard sets, then use their best ordinary-seed stabilization motifs to seed the
 packet-collision search.
+
+The first packet-collision sublane is also complete: a positive state can
+shadow a supercritical negative cycle while a high packet grows, but the carry
+must replenish one more level of 2-adic precision.  Exact search of `112,320`
+bounded `-5`/`-17` controller programs found no such renewal and no ordinary-
+seed stabilization; the scoped failure is now in the [KC failure
+ledger](#kc-failure-ledger).  The next version will vary the collision grammar
+and controller phase rather than enlarging this same rectangular box.
 
 ### 2026-07-21 19:15 EDT
 
