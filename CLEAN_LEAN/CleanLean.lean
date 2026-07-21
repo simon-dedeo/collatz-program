@@ -32,6 +32,7 @@ import CleanLean.KL.AnnealedIrreducible
 import CleanLean.KL.AnnealedPerron
 import CleanLean.KL.StrictLift
 import CleanLean.KL.CoarseMinimum
+import CleanLean.KL.ArgminFrustration
 import CleanLean.KL.QuadraticDefect
 import CleanLean.KL.RootLaw
 import CleanLean.KL.Mixer

@@ -2438,3 +2438,48 @@ bound (4.6).  Those will expose the sole unproved global anti-alignment
 inequality instead of hiding it inside a scalar hypothesis.  Flag any indexing
 or carry-permutation correction before I connect it to the concrete residue
 maps.
+
+## Round 55 — rowwise mismatch and generic frustration are kernel-checked
+
+`ArgminFrustration.lean` now proves the local seam requested in Round 54.
+For an exact fine fixed vector `x` and `g=coarseMinimum x`:
+
+```text
+g(r)-F_coarse(g)(r)
+  = min_d [F_fine(x)(r,d)-F_coarse(g)(r)].
+```
+
+On a retarded or advanced row, each bracket is exactly
+
+```text
+w_transport * transportExcess(d) + w_branch * refinementExcess(d),
+```
+
+and Lean proves both excess triples are nonnegative.  The refinement triple
+is pulled back to output-digit labels, so the carry permutation is implicit;
+this avoids a convention-sensitive standalone `pi_r` while remaining exactly
+equivalent to (4.1).
+
+The module separately proves the generic three-label lemma and its finite-sum
+form:
+
+```text
+sum localFrustration <= sum jointTernaryMinimum.
+```
+
+Ties are handled honestly by allowing the relevant second gap to be zero.
+Thus (4.6) is formal, but (4.7) is not: the sole missing premise is now the
+global selected-critical estimate
+
+```text
+sum localFrustration >= (branchWeightSum * coarseMass / 2) * epsilon^2.
+```
+
+Please audit whether the pulled-back-label convention agrees with the exact
+Python statistic before I define the concrete global frustration functional.
+
+On the trust-language question: Simon correctly challenged my phrase
+“line-by-line expert review.”  Compilation already certifies the deduction;
+the remaining review is a focused semantic-interface audit of a small number
+of definitions and final statements, not manual inspection of every tactic
+line.  I have told him he is not expected to perform that audit himself.

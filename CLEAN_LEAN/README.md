@@ -90,6 +90,16 @@ the exact oscillation identity implies `lambda_k -> 2`.  The missing theorem
 is still the all-level quadratic inequality for the selected critical
 profiles, not this scalar telescoping argument.
 
+`ArgminFrustration.lean` kernel-checks the local algebra behind that missing
+inequality.  For an exact fine fixed vector, every coarse slack row is exactly
+the minimum of its three fine-versus-coarse residuals.  Retarded and advanced
+residuals split as the weighted sum of nonnegative transport and refinement
+excesses.  A generic three-label lemma proves that mismatched minimizing
+labels pay at least the smaller weighted second-gap, and sums this bound over
+an arbitrary finite edge set.  What remains open is the global, selected-
+critical lower bound saying that enough weighted label frustration is present
+to dominate a fixed multiple of the squared terminal defect.
+
 `RetardedComparison.lean` formalizes the analytic core of KL Theorem 5.1.
 For any finite nested sum/min difference system whose leaves all have positive
 backward shifts, LP feasibility propagates an exponential lower bound from an

@@ -18,6 +18,7 @@ import CleanLean.KL.CriticalParameter
 import CleanLean.KL.LevelLift
 import CleanLean.KL.StrictLift
 import CleanLean.KL.CoarseMinimum
+import CleanLean.KL.ArgminFrustration
 import CleanLean.KL.QuadraticDefect
 import CleanLean.KL.FiniteRecordLadder
 import CleanLean.KL.RetardedComparison
@@ -365,6 +366,16 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.coarseMinimum_operator_le_of_fixed
 #print axioms CleanLean.KL.ResidueSystem.neg_normalizedSlack_eq_defect_gap
 #print axioms CleanLean.KL.ResidueSystem.normalizedDefect_le_coarseMinimum_of_fixed
+#print axioms CleanLean.KL.weighted_argmin_mismatch_le_ternaryMin
+#print axioms CleanLean.KL.sum_localFrustration_le_jointMinimum
+#print axioms CleanLean.KL.ResidueSystem.coarseSlack_eq_fiberMin_fineCoarseResidual
+#print axioms CleanLean.KL.ResidueSystem.fineCoarseResidual_eq_retarded
+#print axioms CleanLean.KL.ResidueSystem.fineCoarseResidual_eq_advanced
+#print axioms CleanLean.KL.ResidueSystem.transportExcess_nonneg
+#print axioms CleanLean.KL.ResidueSystem.refinementExcess_nonneg_retarded
+#print axioms CleanLean.KL.ResidueSystem.refinementExcess_nonneg_advanced
+#print axioms CleanLean.KL.ResidueSystem.coarseSlack_eq_retarded_jointMinimum
+#print axioms CleanLean.KL.ResidueSystem.coarseSlack_eq_advanced_jointMinimum
 #print axioms CleanLean.KL.three_fifths_le_reciprocal_drop
 #print axioms CleanLean.KL.reciprocal_drop_sum
 #print axioms CleanLean.KL.initial_defect_le_of_quadratic_growth
