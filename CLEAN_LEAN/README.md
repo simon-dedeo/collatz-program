@@ -71,6 +71,15 @@ KL operator, so exact finite feasibility makes splitting monotone in the
 correct direction inside any surrounding labelled context.  The remaining
 construction is repeated splitting plus deletion and its termination proof.
 
+`EliminationWitness.lean` pins the exact output required of that remaining
+construction.  A witness is a finite family of labelled trees with a common
+positive lag, functional soundness, and coefficient soundness.  Lean proves
+that any such witness immediately gives KL's exact `1/(4*C)` exponential
+lower bound.  It also proves that the original retarded and neutral rows are
+already fully retarded, so only the advanced rows require recursion.  This
+turns Theorems 3.1--4.1 from an informal literature citation into one explicit
+construction obligation.
+
 The global safe-deletion theorem is now also formal.  “Totally
 non-critical” is defined at the whole-tree level using selected
 subassignments, not as a local inequality.  Lean proves by induction through
@@ -82,6 +91,14 @@ counterexample does not provide.
 Both left- and right-alternative deletion are covered, and the erased
 coefficient expression moves monotonically upward in either case, so the LP
 feasibility side of deletion needs no additional analytic hypothesis.
+
+`PressureCertificate.lean` now also accepts the portable sparse-edge format
+used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational
+kernel and proves that a successful Boolean row check yields the real pressure
+inequalities.  The two published Chernoff gaps are checked by kernel-reduced
+exact rational arithmetic.  The 2,187 concrete rows still need to be imported
+as Lean data; more importantly, this ball-automaton certificate is not the
+missing localization theorem.
 
 The first charged spine-face Lyapunov proposal has been exactly falsified,
 not assumed away: `MarginalObstruction.lean` proves that its aligned mean and

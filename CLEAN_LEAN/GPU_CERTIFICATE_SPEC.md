@@ -72,10 +72,12 @@ The final artifact must provide all of the following.
 
 ## Self-contained file format
 
-The current `lemma5_exact_cert.json` is not self-contained: it records
-`J,z,theta,R` but omits the potential `h` and the interval matrices/weights
-from which the row maximum was computed.  A portable certificate should
-contain, or deterministically regenerate from a versioned checker:
+The regenerated `lemma5_exact_cert.json` now uses
+`pressure-cert/lemma5-portable-v2` and contains the potential, complete sparse
+edge table, exact interval weights, and payload hash.  The independent Python
+checker passes all 2,187 rows.  The corresponding Lean sparse-edge checker is
+now in `PressureCertificate.lean`; compiling the JSON payload into Lean data
+remains to be done.  A portable certificate contains:
 
 - every entry of `h` as numerator/denominator;
 - every edge multiplier bound as numerator/denominator, or exact parameters
@@ -87,7 +89,8 @@ contain, or deterministically regenerate from a versioned checker:
 - checker version and state-count/edge-count checksums.
 
 The Lean project now has sound executable checkers for rational KL
-feasibility rows, rational pressure rows, and the integer-power Chernoff gap.
+feasibility rows, dense or sparse rational pressure rows, and the
+integer-power Chernoff gap.  Both Lemma-5 gaps are kernel-checked exactly.
 What computation must discover is the finite state decomposition and
 potential; what the mathematical proof must establish is that those rows
 dominate the real nonlinear KL genealogy uniformly.

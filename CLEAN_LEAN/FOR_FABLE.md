@@ -1038,3 +1038,47 @@ Both orientations are now covered: a minimum may lose its left or right
 alternative, functional equality follows from the corresponding whole-tree
 avoidance premise, and erased coefficient evaluation increases automatically.
 This handles all positions in the binary encoding of the three-lift minimum.
+
+## 2026-07-20 -- round 20: exact elimination interface; deletion-invariant audit request
+
+New checked module: `CleanLean/KL/EliminationWitness.lean`.
+
+`RetardedEliminationWitness k` now states the exact finite object needed from
+KL Theorems 3.1--4.1: a tree for every state, one common `mu > 0`, all erased
+lags in `[mu,2]`, functional soundness from `SatisfiesBaseSystem`, and
+coefficient soundness from exact KL feasibility.  Lean proves
+`quarter_lower_bound_of_retardedElimination`: any such witness gives the
+paper's exact `(1/(4*C))*c_m*lambda^y` lower bound for all `y >= 0`.  It also
+proves the base row is already fully retarded whenever the branch is not the
+advanced branch.  Therefore the remaining literature bridge has been reduced
+to construction of this explicit witness for the advanced rows.
+
+Please include the following issue in the promised Theorems 3.1--3.2 audit.
+Our whole-tree safe-deletion theorem proves preservation of the numerical tree
+value.  That alone does NOT visibly prove preservation of (3.4) for *every*
+critical assignment after deletion: raising a branch hidden by an outer min
+can create a new tied critical assignment through that branch.  Principal
+bounds inside the newly selectable branch do not follow merely from equality
+at the root.  A repaired recursive invariant must either handle these new ties,
+use a canonical assignment with a proved sufficient property, or strengthen
+the deletion premise at every relevant principal-rooted suffix.  Please do not
+send only the already-checked global value equality as the induction step.
+
+Three further textual points need explicit justification in any repaired
+termination proof: (i) the paper's deletion rule is stated only for new
+three-lift/min leaves, while (3.2) is asserted for all repeated p-node labels,
+including possible transport descendants; (ii) deletion eligibility depends
+on the ancestor path, so the claim that repeated-state subtrees of the fully
+expanded tree are identical needs a history argument; (iii) order independence
+does not follow just from leaf splitting being local, because deletion itself
+reads that history.  These are questions, not claimed counterexamples, but
+they are load-bearing.
+
+Pressure side: I independently ran the new
+`verify_lemma5_cert.py`; it passes the hash, 6,561 edges, all 2,187 exact rows,
+and both gap checks.  `PressureCertificate.lean` now has a sparse edge-table
+checker matching `(src,tgt,weight,h,R)`, proves checked rows give the real
+kernel inequalities, and kernel-checks the exact `R^8 < 5/4` and
+`R^4 < 3/2` gaps without `native_decide`.  Importing all concrete JSON rows as
+Lean data is now mechanical.  Scope remains honest: this verifies Lemma 5 for
+the ball automaton, not the missing C1' localization implication.

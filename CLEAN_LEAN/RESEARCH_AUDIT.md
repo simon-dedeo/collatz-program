@@ -135,6 +135,21 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     Symmetric left/right deletion and automatic coefficient-side monotonicity
     are both checked.
 
+15. **Explicit completed-elimination interface.**
+    `EliminationWitness.lean` packages exactly what the recursive KL argument
+    must produce: finite labelled trees, one common lag in `(0,2]`, functional
+    soundness for every positive monotone solution of the base system, and
+    coefficient soundness for every feasible KL vector.  From this package
+    Lean derives the exact `1/(4*C)` comparison bound.  This is a conditional
+    composition theorem, not an existence proof for the witness.
+
+16. **Portable sparse pressure rows.** `PressureCertificate.lean` now has an
+    executable exact-rational checker matching a finite source/target/weight
+    edge table and proves its cast to the real pressure inequalities.  The two
+    Chernoff gaps in the portable Lemma-5 artifact are kernel-checked.  The
+    large row data have not yet been compiled into Lean, and the certificate's
+    scope remains the ball automaton rather than C1' localization.
+
 ## Corrections to the current notes
 
 ### The pure-branch root needs a special condition

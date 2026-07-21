@@ -18,6 +18,7 @@ import CleanLean.KL.TreeRewrite
 import CleanLean.KL.CriticalAssignment
 import CleanLean.KL.EliminationTree
 import CleanLean.KL.ConcreteElimination
+import CleanLean.KL.EliminationWitness
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization

@@ -215,4 +215,83 @@ theorem pressureIter_tendsto_zero
 
 end Pressure
 
+section SparsePressure
+
+variable {Q E : Type} [Fintype Q] [DecidableEq Q] [Fintype E]
+
+/-- A sparse rational kernel compiled from a finite edge table.  This is the
+shape emitted by the portable pressure-certificate generator: edge identifiers
+carry a source, target, and exact rational weight. -/
+def sparseKernelRat (src tgt : E → Q) (weight : E → ℚ) (q r : Q) : ℚ :=
+  ∑ e, if src e = q ∧ tgt e = r then weight e else 0
+
+/-- Direct sparse evaluation of one certificate row. -/
+def sparsePressureRowRat (src tgt : E → Q) (weight : E → ℚ)
+    (h : Q → ℚ) (q : Q) : ℚ :=
+  ∑ e, if src e = q then weight e * h (tgt e) else 0
+
+/-- The executable predicate checked on a portable sparse edge table. -/
+def checkSparsePressureCertificateRat
+    (src tgt : E → Q) (weight : E → ℚ) (h : Q → ℚ) (R : ℚ) : Bool :=
+  decide ((∀ e, 0 ≤ weight e) ∧
+    ∀ q, sparsePressureRowRat src tgt weight h q ≤ R * h q)
+
+theorem checkSparsePressureCertificateRat_eq_true_iff
+    (src tgt : E → Q) (weight : E → ℚ) (h : Q → ℚ) (R : ℚ) :
+    checkSparsePressureCertificateRat src tgt weight h R = true ↔
+      ((∀ e, 0 ≤ weight e) ∧
+        ∀ q, sparsePressureRowRat src tgt weight h q ≤ R * h q) := by
+  simp [checkSparsePressureCertificateRat]
+
+/-- Summing the dense kernel obtained from the sparse table gives exactly the
+direct sparse row expression. -/
+theorem sum_sparseKernelRat_mul
+    (src tgt : E → Q) (weight : E → ℚ) (h : Q → ℚ) (q : Q) :
+    (∑ r, sparseKernelRat src tgt weight q r * h r) =
+      sparsePressureRowRat src tgt weight h q := by
+  classical
+  simp only [sparseKernelRat, sparsePressureRowRat, Finset.sum_mul]
+  rw [Finset.sum_comm]
+  apply Finset.sum_congr rfl
+  intro e _
+  by_cases hs : src e = q
+  · simp [hs]
+  · simp [hs]
+
+/-- A successful sparse Boolean check supplies both nonnegativity of the
+compiled real kernel and its real row inequalities. -/
+theorem real_pressureCertificate_of_checkSparseRat
+    (src tgt : E → Q) (weight : E → ℚ) (h : Q → ℚ) (R : ℚ)
+    (hcheck : checkSparsePressureCertificateRat src tgt weight h R = true) :
+    (∀ q r, 0 ≤ (sparseKernelRat src tgt weight q r : ℝ)) ∧
+      ∀ q, (∑ r, (sparseKernelRat src tgt weight q r : ℝ) * (h r : ℝ)) ≤
+        (R : ℝ) * (h q : ℝ) := by
+  have hcert :=
+    (checkSparsePressureCertificateRat_eq_true_iff src tgt weight h R).1 hcheck
+  constructor
+  · intro q r
+    exact_mod_cast Finset.sum_nonneg (fun e _ => by
+      split <;> simp_all)
+  · intro q
+    have hrow :
+        (∑ r, sparseKernelRat src tgt weight q r * h r) ≤ R * h q := by
+      rw [sum_sparseKernelRat_mul]
+      exact hcert.2 q
+    exact_mod_cast hrow
+
+/-- Exact `R^8 < z` gap for the portable `lambda = 2` Lemma-5 pressure
+certificate (`z = 5/4`, charge density `1/8`). -/
+theorem lemma5_lamTwo_chernoff_gap :
+    checkChernoffGapRat (2021589 / 1975507) (5 / 4) 1 8 = true := by
+  norm_num [checkChernoffGapRat]
+
+/-- Exact `R^4 < z` gap for the portable certificate uniform on the eight
+parameter pieces from `lambda_18` to `2` (`z = 3/2`, density `1/4`). -/
+theorem lemma5_uniform_chernoff_gap :
+    checkChernoffGapRat
+      (906732000000000000 / 826747309635292463) (3 / 2) 1 4 = true := by
+  norm_num [checkChernoffGapRat]
+
+end SparsePressure
+
 end CleanLean.KL

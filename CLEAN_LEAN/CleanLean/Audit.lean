@@ -21,6 +21,7 @@ import CleanLean.KL.TreeRewrite
 import CleanLean.KL.CriticalAssignment
 import CleanLean.KL.EliminationTree
 import CleanLean.KL.ConcreteElimination
+import CleanLean.KL.EliminationWitness
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
@@ -108,6 +109,8 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ConcreteElimination.coeff_delete_left_le
 #print axioms CleanLean.KL.ConcreteElimination.coeff_delete_right_le
 #print axioms CleanLean.KL.ConcreteElimination.coeff_leaf_le_split_in_context
+#print axioms CleanLean.KL.ConcreteElimination.quarter_lower_bound_of_retardedElimination
+#print axioms CleanLean.KL.ConcreteElimination.baseBody_allLeaves_retarded_of_not_advanced
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
 #print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda
 #print axioms CleanLean.KL.weightedDefect_le_tail
@@ -130,6 +133,9 @@ specification theorems during a build.
 #print axioms CleanLean.KL.real_chernoffRatio_nonneg_lt_one
 #print axioms CleanLean.KL.blockTail_le_geometric_of_pressure
 #print axioms CleanLean.KL.blockTail_tendsto_zero_of_pressure
+#print axioms CleanLean.KL.real_pressureCertificate_of_checkSparseRat
+#print axioms CleanLean.KL.lemma5_lamTwo_chernoff_gap
+#print axioms CleanLean.KL.lemma5_uniform_chernoff_gap
 #print axioms CleanLean.KL.relativeCarrier_step
 #print axioms CleanLean.KL.chargedCarrier_iterate
 #print axioms CleanLean.KL.badMass_le_of_chargedCarrier_and_pressure
