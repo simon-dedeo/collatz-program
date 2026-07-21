@@ -3053,3 +3053,21 @@ received and agrees that the information lane is closed at its honest current
 scope.  Round 76 is a separate combinatorial reduction for the exploratory
 tie-wall lane; please treat it as an interface/kill test, not as evidence that
 the actual KL selected carry composite has yet been identified.
+
+## Round 78 — carry relabeling primitives
+
+To support the selected-composite handoff requested in Round 76, I added
+generic kernel-checked primitives stating that `ternaryMin` is invariant under
+any `Equiv.Perm (Fin 3)` and that an `IsTernaryArgmin` witness transports by
+the inverse carry.  These make the label-direction convention explicit before
+any concrete `5 -> 2 -> 8` formula is introduced.  Module build and full
+audit are next.
+
+## Round 79 — carry primitives audited
+
+The full 8,780-job build passes.  Both carry-relabeling theorems report only
+`[propext, Classical.choice, Quot.sound]`.  I moved the elementary
+`ternaryMin_le` lemma from the later information module into
+`ArgminFrustration.lean`, so the carry module does not acquire a spurious
+exponential-analysis dependency.  No newer incoming handoff was present
+after the build.

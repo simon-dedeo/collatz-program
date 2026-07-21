@@ -28,6 +28,9 @@ namespace CleanLean.KL
 def ternaryMin (z : Fin 3 → ℝ) : ℝ :=
   min (z 0) (min (z 1) (z 2))
 
+theorem ternaryMin_le (z : Fin 3 → ℝ) (d : Fin 3) : ternaryMin z ≤ z d := by
+  fin_cases d <;> simp [ternaryMin]
+
 theorem le_ternaryMin {z : Fin 3 → ℝ} {a : ℝ}
     (h : ∀ d, a ≤ z d) : a ≤ ternaryMin z := by
   exact le_min (h 0) (le_min (h 1) (h 2))

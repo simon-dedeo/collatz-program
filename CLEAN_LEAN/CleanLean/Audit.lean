@@ -448,6 +448,8 @@ specification theorems during a build.
 #print axioms CleanLean.KL.multiTernaryGeometricOverlap_eq_overlap
 #print axioms CleanLean.KL.neg_log_multiTernaryOverlap_div
 #print axioms CleanLean.KL.multiTernaryGeometricOverlap_cold_bound
+#print axioms CleanLean.KL.ternaryMin_comp_perm
+#print axioms CleanLean.KL.isTernaryArgmin_comp_perm
 #print axioms CleanLean.KL.three_cycle_argmin_mismatch_of_holonomy
 #print axioms CleanLean.KL.min_edgeCost_le_three_cycle_localFrustration
 #print axioms CleanLean.KL.rotatingTieWall_counterexample

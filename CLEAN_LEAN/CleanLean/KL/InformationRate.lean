@@ -18,9 +18,6 @@ namespace CleanLean.KL
 
 open scoped BigOperators
 
-theorem ternaryMin_le (z : Fin 3 → ℝ) (d : Fin 3) : ternaryMin z ≤ z d := by
-  fin_cases d <;> simp [ternaryMin]
-
 /-- Three-term Boltzmann partition sum. -/
 noncomputable def ternaryBoltzmannSum (β : ℝ) (v : Fin 3 → ℝ) : ℝ :=
   ∑ i, Real.exp (-β * v i)

@@ -17,6 +17,27 @@ as in the slowly rotating tie-wall counterexample.
 
 namespace CleanLean.KL
 
+/-- Relabeling the three coordinates by a carry permutation does not change
+their minimum. -/
+theorem ternaryMin_comp_perm (z : Fin 3 → ℝ) (pi : Equiv.Perm (Fin 3)) :
+    ternaryMin (z ∘ pi) = ternaryMin z := by
+  apply le_antisymm
+  · apply le_ternaryMin
+    intro d
+    simpa using ternaryMin_le (z ∘ pi) (pi.symm d)
+  · apply le_ternaryMin
+    intro d
+    exact ternaryMin_le z (pi d)
+
+/-- A selected minimizing label is transported by the inverse carry under
+coordinate relabeling. -/
+theorem isTernaryArgmin_comp_perm
+    (z : Fin 3 → ℝ) (sigma : Fin 3) (pi : Equiv.Perm (Fin 3))
+    (h : IsTernaryArgmin z sigma) :
+    IsTernaryArgmin (z ∘ pi) (pi.symm sigma) := by
+  intro d
+  simpa using h (pi d)
+
 /-- If the composite carry moves the initial label, the three edgewise label
 matching equations cannot all hold. -/
 theorem three_cycle_argmin_mismatch_of_holonomy
