@@ -14,3 +14,7 @@ experiments/dfacert3/dfacert3
 experiments/family/family
 experiments/expsum/expsum
 experiments/smoke/
+papers/*
+!papers/REFERENCES.md
+CLEAN_LEAN/.lake/
+CLEAN_LEAN/.DS_Store

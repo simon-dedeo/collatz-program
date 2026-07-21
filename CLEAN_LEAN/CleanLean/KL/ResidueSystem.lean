@@ -249,6 +249,113 @@ noncomputable def fiberEquiv (k : ℕ) (hk : 2 ≤ k) : Coarse k × Fin 3 ≃ St
     ((Fintype.bijective_iff_injective_and_card _).2
       ⟨fiberPair_injective k hk, card_coarse_prod_three k hk⟩)
 
+/-- The alternative decomposition by the *low* base-three digit.  It is used
+to count the retarded/neutral/advanced branch classes. -/
+def lowDigit (k : ℕ) (r : Coarse k) (j : Fin 3) : State k :=
+  (3 * r.val + j.val : ℕ)
+
+theorem lowDigit_val (k : ℕ) (hk : 2 ≤ k) (r : Coarse k) (j : Fin 3) :
+    (lowDigit k r j).val = 3 * r.val + j.val := by
+  have hr : r.val < 3 ^ (k - 2) := ZMod.val_lt r
+  have hp : 0 < 3 ^ (k - 2) := pow_pos (by norm_num) _
+  have hlevel := three_pow_level k hk
+  apply ZMod.val_natCast_of_lt
+  rw [hlevel]
+  have hj : j.val < 3 := j.isLt
+  omega
+
+theorem lowDigitPair_injective (k : ℕ) (hk : 2 ≤ k) :
+    Function.Injective (fun p : Coarse k × Fin 3 => lowDigit k p.1 p.2) := by
+  rintro ⟨r, i⟩ ⟨s, j⟩ hij
+  have hv := congrArg ZMod.val hij
+  rw [lowDigit_val k hk r i, lowDigit_val k hk s j] at hv
+  have hi : i.val < 3 := i.isLt
+  have hj : j.val < 3 := j.isLt
+  have hrsVal : r.val = s.val := by omega
+  have hijVal : i.val = j.val := by omega
+  have hrs : r = s := ZMod.val_injective _ hrsVal
+  have hij' : i = j := Fin.ext hijVal
+  simp [hrs, hij']
+
+/-- Branch classes really are the three low-digit slices. -/
+theorem branch_lowDigit (k : ℕ) (hk : 2 ≤ k) (r : Coarse k) (j : Fin 3) :
+    branch k (lowDigit k r j) =
+      match j.val with
+      | 0 => .retarded
+      | 1 => .neutral
+      | _ => .advanced := by
+  rw [branch]
+  rw [lowDigit_val k hk]
+  fin_cases j <;> simp
+
+@[simp] theorem branch_lowDigit_zero (k : ℕ) (hk : 2 ≤ k) (r : Coarse k) :
+    branch k (lowDigit k r 0) = .retarded := by
+  simpa using branch_lowDigit k hk r 0
+
+@[simp] theorem branch_lowDigit_one (k : ℕ) (hk : 2 ≤ k) (r : Coarse k) :
+    branch k (lowDigit k r 1) = .neutral := by
+  simpa using branch_lowDigit k hk r 1
+
+@[simp] theorem branch_lowDigit_two (k : ℕ) (hk : 2 ≤ k) (r : Coarse k) :
+    branch k (lowDigit k r 2) = .advanced := by
+  simpa using branch_lowDigit k hk r 2
+
+noncomputable def lowDigitEquiv (k : ℕ) (hk : 2 ≤ k) :
+    Coarse k × Fin 3 ≃ State k :=
+  Equiv.ofBijective (fun p => lowDigit k p.1 p.2)
+    ((Fintype.bijective_iff_injective_and_card _).2
+      ⟨lowDigitPair_injective k hk, card_coarse_prod_three k hk⟩)
+
+/-- Multiplication by four on the coarse quotient. -/
+def coarseMulFour (k : ℕ) : Coarse k ≃ Coarse k := by
+  let u : (ZMod (3 ^ (k - 2)))ˣ :=
+    ZMod.unitOfCoprime 4 (four_coprime_three_pow (k - 2))
+  exact
+    { toFun := fun r => (u : ZMod (3 ^ (k - 2))) * r
+      invFun := fun r => (↑(u⁻¹) : ZMod (3 ^ (k - 2))) * r
+      left_inv := by intro r; simp
+      right_inv := by intro r; simp }
+
+@[simp] theorem coarseMulFour_apply (k : ℕ) (r : Coarse k) :
+    coarseMulFour k r = 4 * r := by
+  simp [coarseMulFour, ZMod.coe_unitOfCoprime]
+
+theorem two_coprime_three_pow (n : ℕ) : Nat.Coprime 2 (3 ^ n) := by
+  exact (by norm_num : Nat.Coprime 2 3).pow_right n
+
+/-- The advanced target map `r ↦ 1+2r` is also a coarse permutation. -/
+def coarseAffineTwo (k : ℕ) : Coarse k ≃ Coarse k := by
+  let u : (ZMod (3 ^ (k - 2)))ˣ :=
+    ZMod.unitOfCoprime 2 (two_coprime_three_pow (k - 2))
+  exact
+    { toFun := fun r => 1 + (u : ZMod (3 ^ (k - 2))) * r
+      invFun := fun r => (↑(u⁻¹) : ZMod (3 ^ (k - 2))) * (r - 1)
+      left_inv := by intro r; simp
+      right_inv := by intro r; simp }
+
+@[simp] theorem coarseAffineTwo_apply (k : ℕ) (r : Coarse k) :
+    coarseAffineTwo k r = 1 + 2 * r := by
+  simp [coarseAffineTwo, ZMod.coe_unitOfCoprime]
+
+theorem refinementTarget_lowDigit_zero (k : ℕ) (hk : 2 ≤ k) (r : Coarse k) :
+    refinementTarget k (lowDigit k r 0) = coarseMulFour k r := by
+  simp only [refinementTarget, branch_lowDigit k hk r 0, retardedTarget,
+    lowDigit_val k hk r 0, Fin.val_zero, add_zero]
+  rw [coarseMulFour_apply]
+  rw [← ZMod.natCast_zmod_val r]
+  norm_num
+
+theorem refinementTarget_lowDigit_two (k : ℕ) (hk : 2 ≤ k) (r : Coarse k) :
+    refinementTarget k (lowDigit k r 2) = coarseAffineTwo k r := by
+  have hdiv : (3 * r.val + 2) / 3 = r.val := by
+    rw [Nat.mul_add_div (by norm_num : 0 < 3)]
+    norm_num
+  simp only [refinementTarget, branch_lowDigit k hk r 2, advancedTarget,
+    lowDigit_val k hk r 2, Fin.val_two, hdiv]
+  rw [coarseAffineTwo_apply]
+  rw [← ZMod.natCast_zmod_val r]
+  norm_num
+
 /-- Concrete finite-system data in `m = 2+3s` coordinates.  For `k < 2` the
 types are harmless degenerate quotients; all KL theorems will assume `2 <= k`. -/
 def system (k : ℕ) : FiniteSystem where
@@ -278,6 +385,61 @@ theorem fiber_partition (k : ℕ) (hk : 2 ≤ k) (c : State k → ℝ) :
         rw [Fintype.sum_prod_type]
       _ = ∑ s, c s := (fiberEquiv k hk).sum_comp c
   simpa only [FiniteSystem.fiberSum, FiniteSystem.totalMass, system] using h
+
+/-- The retarded and advanced low-digit slices each map bijectively onto the
+coarse targets.  Consequently their summed minimum contributions are one
+copy apiece of the total minimum mass.  This discharges the second concrete
+combinatorial hypothesis of the exact oscillation identity. -/
+theorem branch_balance (k : ℕ) (hk : 2 ≤ k)
+    (w : Weights ℝ) (c : State k → ℝ) :
+    ∑ m, (system k).branchTerm w c m =
+      (w.retarded + w.advanced) * (system k).minimumMass c := by
+  letI : Fintype (State k) := (system k).stateFintype
+  letI : Fintype (Coarse k) := (system k).coarseFintype
+  let f : Coarse k → ℝ := fun r => (system k).fiberMin c r
+  calc
+    (∑ m, (system k).branchTerm w c m) =
+        ∑ p : Coarse k × Fin 3,
+          (system k).branchTerm w c (lowDigit k p.1 p.2) :=
+      ((lowDigitEquiv k hk).sum_comp
+        (fun m => (system k).branchTerm w c m)).symm
+    _ = ∑ r : Coarse k,
+        ((system k).branchTerm w c (lowDigit k r 0) +
+          (system k).branchTerm w c (lowDigit k r 1) +
+          (system k).branchTerm w c (lowDigit k r 2)) := by
+      rw [Fintype.sum_prod_type]
+      apply Finset.sum_congr rfl
+      intro r _
+      rw [Fin.sum_univ_three]
+    _ = ∑ r : Coarse k,
+        (w.retarded * f (coarseMulFour k r) +
+          w.advanced * f (coarseAffineTwo k r)) := by
+      apply Finset.sum_congr rfl
+      intro r _
+      simp only [FiniteSystem.branchTerm, system, branch_lowDigit_zero k hk r,
+        branch_lowDigit_one k hk r, branch_lowDigit_two k hk r,
+        refinementTarget_lowDigit_zero k hk r,
+        refinementTarget_lowDigit_two k hk r]
+      simp [f, system]
+    _ = w.retarded * (∑ r : Coarse k, f (coarseMulFour k r)) +
+        w.advanced * (∑ r : Coarse k, f (coarseAffineTwo k r)) := by
+      rw [Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum]
+    _ = w.retarded * (∑ r : Coarse k, f r) +
+        w.advanced * (∑ r : Coarse k, f r) := by
+      rw [(coarseMulFour k).sum_comp f, (coarseAffineTwo k).sum_comp f]
+    _ = (w.retarded + w.advanced) * (∑ r : Coarse k, f r) := by ring
+    _ = (w.retarded + w.advanced) * (system k).minimumMass c := by
+      rfl
+
+/-- Fully concrete finite oscillation identity for the residue system. -/
+theorem concrete_oscillation_identity (k : ℕ) (hk : 2 ≤ k)
+    (w : Weights ℝ) (c : State k → ℝ)
+    (hEigen : ∀ m, c m = (system k).operator w c m)
+    (hmass : (system k).totalMass c ≠ 0) :
+    FiniteSystem.annealedValue w - 1 =
+      (w.retarded + w.advanced) * (system k).normalizedDefect c := by
+  exact (system k).annealedValue_sub_one_eq_branchWeight_mul_normalizedDefect
+    w c hEigen (fiber_partition k hk c) (branch_balance k hk w c) hmass
 
 end ResidueSystem
 

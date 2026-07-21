@@ -103,6 +103,103 @@ theorem pressureIter_le_of_certificate
           mul_le_mul_of_nonneg_left (hcert q) (pow_nonneg hR n)
         _ = R ^ (n + 1) * h q := by rw [pow_succ]; ring
 
+/-- Total path mass obtained by putting terminal value one at every state. -/
+noncomputable def pressureMass (K : Q → Q → ℝ) (n : ℕ) (q : Q) : ℝ :=
+  pressureIter K (fun _ => 1) n q
+
+/-- The explicit terminal-potential comparison missing from a bare row
+certificate.  A positive lower bound on `h` costs exactly the condition-number
+factor `h(q)/hmin`; no empirical eigenvector normalization is used. -/
+theorem pressureMass_le_of_certificate
+    (K : Q → Q → ℝ) (h : Q → ℝ) (R hmin : ℝ)
+    (hK : ∀ q r, 0 ≤ K q r) (hR : 0 ≤ R) (hhmin : 0 < hmin)
+    (hh : ∀ q, hmin ≤ h q)
+    (hcert : ∀ q, (∑ r, K q r * h r) ≤ R * h q) :
+    ∀ n q, pressureMass K n q ≤ R ^ n * h q / hmin := by
+  intro n
+  induction n with
+  | zero =>
+      intro q
+      rw [pressureMass, pressureIter_zero, pow_zero, one_mul]
+      exact (le_div_iff₀ hhmin).2 (by simpa using hh q)
+  | succ n ih =>
+      intro q
+      rw [pressureMass, pressureIter_succ]
+      calc
+        (∑ r, K q r * pressureIter K (fun _ => 1) n r) ≤
+            ∑ r, K q r * (R ^ n * h r / hmin) :=
+          Finset.sum_le_sum fun r _ => mul_le_mul_of_nonneg_left (ih r) (hK q r)
+        _ = (R ^ n / hmin) * ∑ r, K q r * h r := by
+          rw [Finset.mul_sum]
+          apply Finset.sum_congr rfl
+          intro r _
+          ring
+        _ ≤ (R ^ n / hmin) * (R * h q) :=
+          mul_le_mul_of_nonneg_left (hcert q) (div_nonneg (pow_nonneg hR n) hhmin.le)
+        _ = R ^ (n + 1) * h q / hmin := by
+          rw [pow_succ]
+          ring
+
+/-- The exact integer-power Chernoff gap produces a genuine geometric ratio.
+This is the analytic meaning of the Boolean check `R^b < z^a`. -/
+theorem chernoffRatio_nonneg_lt_one
+    (R z : ℝ) (a b : ℕ) (hR : 0 ≤ R) (hz : 0 < z)
+    (hgap : R ^ b < z ^ a) :
+    0 ≤ R ^ b / z ^ a ∧ R ^ b / z ^ a < 1 := by
+  constructor
+  · exact div_nonneg (pow_nonneg hR b) (pow_pos hz a).le
+  · exact (div_lt_one (pow_pos hz a)).2 hgap
+
+/-- Soundness of a checked rational Chernoff gap after casting to the reals. -/
+theorem real_chernoffRatio_nonneg_lt_one
+    (R z : ℚ) (a b : ℕ) (hR : 0 ≤ R) (hz : 0 < z)
+    (hcheck : checkChernoffGapRat R z a b = true) :
+    0 ≤ (R : ℝ) ^ b / (z : ℝ) ^ a ∧
+      (R : ℝ) ^ b / (z : ℝ) ^ a < 1 := by
+  have hgapQ := (checkChernoffGapRat_eq_true_iff R z a b).1 hcheck
+  have hgapR : (R : ℝ) ^ b < (z : ℝ) ^ a := by exact_mod_cast hgapQ
+  exact chernoffRatio_nonneg_lt_one (R : ℝ) (z : ℝ) a b
+    (by exact_mod_cast hR) (by exact_mod_cast hz) hgapR
+
+/-- Abstract block-Chernoff conclusion.  The sole application-specific input
+`hdom` says that paths with at least `a*m` charged visits in `b*m` moves are
+dominated by the tilted path mass divided by `z^(a*m)`.  A portable pressure
+certificate supplies every other hypothesis. -/
+theorem blockTail_le_geometric_of_pressure
+    (K : Q → Q → ℝ) (h : Q → ℝ) (R z hmin : ℝ)
+    (a b : ℕ) (q₀ : Q) (tail : ℕ → ℝ)
+    (hK : ∀ q r, 0 ≤ K q r) (hR : 0 ≤ R) (hz : 0 < z)
+    (hhmin : 0 < hmin) (hh : ∀ q, hmin ≤ h q)
+    (hcert : ∀ q, (∑ r, K q r * h r) ≤ R * h q)
+    (hdom : ∀ m, tail m ≤ pressureMass K (b * m) q₀ / z ^ (a * m)) :
+    ∀ m, tail m ≤ (h q₀ / hmin) * (R ^ b / z ^ a) ^ m := by
+  intro m
+  have hmass := pressureMass_le_of_certificate K h R hmin hK hR hhmin hh hcert
+    (b * m) q₀
+  calc
+    tail m ≤ pressureMass K (b * m) q₀ / z ^ (a * m) := hdom m
+    _ ≤ (R ^ (b * m) * h q₀ / hmin) / z ^ (a * m) :=
+      div_le_div_of_nonneg_right hmass (pow_nonneg hz.le _)
+    _ = (h q₀ / hmin) * (R ^ b / z ^ a) ^ m := by
+      rw [pow_mul R b m, pow_mul z a m, div_pow]
+      field_simp [ne_of_gt hhmin, ne_of_gt hz]
+
+/-- With the checked strict gap, the block tail tends to zero. -/
+theorem blockTail_tendsto_zero_of_pressure
+    (K : Q → Q → ℝ) (h : Q → ℝ) (R z hmin : ℝ)
+    (a b : ℕ) (q₀ : Q) (tail : ℕ → ℝ)
+    (hK : ∀ q r, 0 ≤ K q r) (hR : 0 ≤ R) (hz : 0 < z)
+    (hhmin : 0 < hmin) (hh : ∀ q, hmin ≤ h q)
+    (hcert : ∀ q, (∑ r, K q r * h r) ≤ R * h q)
+    (hdom : ∀ m, tail m ≤ pressureMass K (b * m) q₀ / z ^ (a * m))
+    (htail0 : ∀ m, 0 ≤ tail m) (hgap : R ^ b < z ^ a) :
+    Filter.Tendsto tail Filter.atTop (nhds 0) := by
+  obtain ⟨hq0, hq1⟩ := chernoffRatio_nonneg_lt_one R z a b hR hz hgap
+  apply tail_tendsto_zero_of_geometric_bound tail (h q₀ / hmin)
+    (R ^ b / z ^ a) hq0 hq1 htail0
+  exact blockTail_le_geometric_of_pressure K h R z hmin a b q₀ tail
+    hK hR hz hhmin hh hcert hdom
+
 /-- A strict certified pressure bound forces the restricted iterates to vanish. -/
 theorem pressureIter_tendsto_zero
     (K : Q → Q → ℝ) (h : Q → ℝ) (R : ℝ)
