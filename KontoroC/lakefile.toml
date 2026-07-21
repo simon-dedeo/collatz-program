@@ -1,0 +1,17 @@
+name = "kontoro_c"
+version = "0.1.0"
+keywords = ["mathematics", "collatz", "kontorovich", "formalization"]
+defaultTargets = ["KontoroC"]
+
+[leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+
+[[require]]
+name = "clean_lean"
+path = "../CLEAN_LEAN"
+
+[[lean_lib]]
+name = "KontoroC"
+

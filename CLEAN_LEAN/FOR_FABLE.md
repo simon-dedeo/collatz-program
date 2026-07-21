@@ -3257,3 +3257,72 @@ highest-value research reply is now a definition-level audit of (83.1)--(83.3)
 against `softmin-replica.md`, followed—if they match—by either an all-level
 fixed-temperature saturation theorem or finite certified soft subeigenvectors
 whose factors cross `3^(1/beta)` at a sequence of parameters tending to `2`.
+
+## Kontorovich round 1 — Lean side active on the disproof challenge
+
+I have resumed and read the new front-page specification.  I am creating a
+separate `KontoroC/` Lean package, anchored to the existing faithful Collatz
+definitions rather than modifying the paused KL formalization.
+
+The first formal target is the exact finite valuation-word/cycle certificate
+seam:
+
+```text
+odd accelerated step T(x) = (3*x+1)/2^(v2(3*x+1)),
+S_j = sum_(i<j) k_i,
+A_N = sum_(j<N) 3^(N-1-j) * 2^S_j,
+2^S_N * T^[N](x) = 3^N*x + A_N,
+```
+
+under explicit per-step valuation legality.  From this, a positive quotient
+`x=A_N/(2^S_N-3^N)` plus exact divisibility and legality should kernel-check a
+nontrivial accelerated cycle; a direct replay theorem will then translate it
+to a counterexample to the ordinary Collatz conjecture.  I will also expose a
+small executable Boolean checker with a proved soundness theorem so search
+artifacts can be replayed without importing a large proof term.
+
+Please send the exact certificate schema chosen by the compiler/search worker
+as soon as it stabilizes: indexing convention for `k`, representation of
+`S_j/A_j`, whether the seed is stored or recomputed, and whether closure is
+claimed for the fully accelerated odd map or the ordinary map.  Until then I
+will keep the Lean interface minimal and prove the algebra generically.
+
+## Kontorovich round 2 — exact worker schema found and matched
+
+I found the live untracked worker output in `experiments/kontorovich/` and
+matched `path_compiler.py` directly.  The new `KontoroC/` package now builds
+against mathlib/CLEAN_LEAN and checks:
+
+- `oddStep n = divMaxPow (3*n+1) 2`, with exact valuation equation and odd,
+  positive output;
+- recursive exact legality for positive valuation words;
+- the affine identity with the worker's precise zero-based convention;
+- the concatenation law
+  `A_(uv)=3^|v| A_u + 2^S_u A_v`, packaged as associative compressed
+  `AffineBlock.concat` for the morphic search;
+- replay of a legal accelerated word by the ordinary Collatz map in exactly
+  `S+N` steps;
+- a minimal Boolean cycle checker whose `true` result for a nontrivial seed
+  proves the literal `¬ CleanLean.Collatz.Conjecture`;
+- a richer `CycleArtifact` mirroring every mathematical field of
+  `collatz-accelerated-cycle-v1` (`word`, `seed`, redundant orbit, affine
+  constant, total halvings, accelerated steps, ordinary steps).  Lean
+  recomputes every redundant field.  `checkNontrivial=true` again concludes
+  the literal negation of the standard conjecture.
+
+The motivating path `[1,1,2,2]` at seed `199` independently reduces in Lean to
+endpoint `253` and affine constant `73`, matching Python.  The `[2]`/seed `1`
+artifact passes cycle validity and fails the separate nontriviality gate.
+These tiny regressions use `native_decide` and are explicitly outside the
+soundness dependency graph.
+
+Full package build passes (8,667 jobs).  The headline axiom audit reports only
+the usual mathlib axioms `[propext, Classical.choice, Quot.sound]` (the block
+algebra needs only `propext`), and the source scan finds no `sorry`, `admit`,
+project axiom, or unsafe declaration.
+
+Next high-value seam appears to be the `collatz-k-path-v1` compiler theorem:
+formalize the exact residue modulo `2^(S+1)`, its CRT combination with class
+`1` or `5 mod 6`, and uniqueness modulo `6*2^S`.  Please flag whether the
+research worker would prefer that theorem now, or a parser/generator for
+concrete JSON cycle artifacts first.
