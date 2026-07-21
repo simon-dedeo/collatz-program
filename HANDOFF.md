@@ -5,7 +5,75 @@ program from the previous driver (Fable, a Claude instance). This file is the
 first thing to read. It is written for a *different* agent system, so it is
 explicit about things a same-model continuation could assume.
 
-## 0. The one-paragraph situation
+## 0. Current executive situation (2026-07-21)
+
+The project now keeps two targets separate.  The quantitative KL endpoint is
+`lambda_infinity=2`, which would give every fixed predecessor exponent below
+one.  The ambitious target is full Collatz: separately exclude a nontrivial
+positive cycle and an injective positive orbit escaping to infinity.  Even the
+KL endpoint would not by itself do either.
+
+The finite counting foundation is complete under the documented mixed trust
+policy: the exact local `k=19` record gives every exponent below
+`0.9094372617`, the portable `k=12` record is Lean-native, and the corrected
+termination/counting transfer is kernel-checked.  The leading endpoint hinge
+is still a dimension-free all-stage selected coarse-minimum gain.  Lean now
+accepts any uniformly positive stage-dependent quadratic coefficient and
+connects the literal coarse-minimum tower to `lambda_k -> 2`; the mathematical
+lower bound is not proved.
+
+The newest information-geometric formulation is exact but calibrated.  For
+each carry-aligned transport/branch fiber pair, direct `D_KL`, Jeffreys,
+Jensen--Shannon, and Hellinger have the wrong zero set.  Forward `D_KL`
+projection to the union of common-minimizer order cones has the right zero set
+and obeys `(3/4)J^2 <= I <= log(3)J`, but it is only about three percent of the
+quadratic target on portable `k=12,...,14`.  The hard mismatch itself is the
+zero-temperature order-`theta` Renyi separation rate of residual-cost Gibbs
+escorts, uniformly within `log(3)/beta`.  Lean commits beginning at `8c3e1df`
+check the two-copy and multiway cold-limit algebra.  An exact slowly rotating
+family has macroscopic terminal defect but vanishing production, so the live
+theorem must use selected renewal-min self-consistency and carry/branch
+holonomy to exclude that family.  See
+`docs/notes/information-geometric-defect.md`.
+
+The two-copy pair-carry probe also produced a useful no-go.  On code,
+`Delta_(n+1)/Delta_n=kappa+eta theta_n` with `kappa(lambda)<1`; however the
+amenable affine carry action has almost-invariant high-shell modes, and an
+exact rational detail mode expands.  Generic unweighted shell-`L2`
+contraction is closed.  Selected signed cancellation `theta_n -> 0` remains
+open.  See `docs/notes/softmin-pair-carry.md`.
+
+There are now two exact forward-orbit capacity interfaces.  Lean commits
+`b47aa31`/`3577b8f` prove the side-target identities, disjoint predecessor
+bushes along an injective Syracuse spine, the explicit all-`X` KL target
+bound, and the combined normalized side-spine capacity inequality.  The
+bounded numerical load is tiny, so a separate divergent-charge theorem is
+still necessary.  Independently, the critical base-`3/2` span is the cell
+length of a bounded-displacement coordinate `H` with
+`H(ceil(3n/2))=(3/2)H(n)`.  It has bounded interval discrepancy, a stable even
+cell gap, and favorable inverse-capacity inequalities.  Explicit small spans,
+degenerate even corrections, and a telescoping cycle Jacobian kill scalar
+Lyapunov/hyperbolicity proofs.  The surviving hinge is long-range arithmetic
+anti-correlation.  See `docs/notes/side-bush-capacity.md` and
+`docs/notes/rational-span-cocycle.md`.
+
+The outward, Collatz-keyword-blind search is in
+`docs/notes/thin-connection-atlas.md`.  It retains six specific junction
+objects.  The highest concrete one has passed its exact gate: the annealed KL
+refinement is a sheet-permutation transport plus rank-one branch resets, not
+an ordinary weighted voltage lift.  The soft/hard character Schur estimate is
+open.  The highest-risk full-orbit object remains the product-of-places
+Poisson boundary of rational affine products; its missing arrow is a support
+theorem for one feedback-selected integer ray, not another almost-everywhere
+statement.
+
+The README is the living state map and should win over the historical detail
+below.  Every substantive research checkpoint must update it, record failures,
+communicate formalizable seams through `docs/FOR_CLEAN_LEAN.md`, commit with
+the project trailer, and push.  Never edit or stage `CLEAN_LEAN/*`; read
+`CLEAN_LEAN/FOR_FABLE.md` for the independent formalizer's current report.
+
+## 0A. Historical detailed situation at the original pickup
 
 This repo is an ad-hoc, honest attempt at progress on the Collatz conjecture.
 Its largest exact artifact is a `k=19` KL feasible certificate whose checked
@@ -491,6 +559,17 @@ the audited research-side nonlinear renewal-min system;
 neither is proved all-level. Exact tightened feasibility
 also refutes depth monotonicity on the full feasible cone. Any surviving
 entropy theorem is selection-specific, and the pressure/KL bridge remains open.
+
+Since that snapshot, the Lean side has closed three additional interfaces.
+Commits through `877411b` connect the literal precision-indexed
+coarse-minimum tower to `lambda_k -> 2` under any uniformly positive
+stage-dependent quadratic gain, with the factor-three terminal-excess
+normalization corrected.  Commits `b47aa31`/`3577b8f` prove and fully audit
+the side-spine packing and its normalized KL capacity form.  Commits beginning
+at `8c3e1df` and `cc19c54` prove the ternary two-copy and arbitrary-finite-
+replica `log(3)/beta` cold information-rate bounds; these are local value
+limits, not aggregate coercivity.  Poll the latest rounds in
+`CLEAN_LEAN/FOR_FABLE.md` for any later literal-overlap wrapper or audit commit.
 
 ## 6. The user (Simon) — how to work with him
 

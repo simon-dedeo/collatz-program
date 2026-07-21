@@ -41,6 +41,67 @@ These papers provide language, neighboring theorems, warnings, or algorithms;
 none by itself proves a KL endpoint statement. Per-claim use and limitations
 are recorded in the relevant notes.
 
+## Primary sources used in the full-proof thin-connection probes
+
+- Russell Lyons, Robin Pemantle, and Yuval Peres, *Conceptual Proofs of
+  `L log L` Criteria for Mean Behavior of Branching Processes*,
+  https://arxiv.org/abs/math/0404083; DOI
+  https://doi.org/10.1214/aop/1176988176.  Source of the size-biased-spine
+  decomposition pattern; the side-bush argument in this repo is deterministic.
+- Sara Brofferio, *The Poisson Boundary of Random Rational Affinities*,
+  https://arxiv.org/abs/math/0403198.  Product-of-local-fields boundary for
+  rational affine random products; no single-orbit theorem is imported.
+- Shigeki Akiyama, Victor Marsault, and Jacques Sakarovitch, *On Subtrees of
+  the Representation Tree in Rational Base Numeration Systems*,
+  https://arxiv.org/abs/1706.08266; DOI
+  https://doi.org/10.23638/DMTCS-20-1-10.
+- Shigeki Akiyama, Christiane Frougny, and Jacques Sakarovitch, *Powers of
+  Rationals Modulo 1 and Rational Base Number Systems*, DOI
+  https://doi.org/10.1007/s11856-008-1056-4.  This supplies the original
+  rational-base tree and endpoint/Josephus coordinate used in the span probe.
+- Andrew M. Odlyzko and Herbert S. Wilf, *Functional Iteration and the
+  Josephus Problem*, DOI https://doi.org/10.1017/S0017089500008272.
+- Shalom Eliahou and Jean-Louis Verger-Gaugry, *The Number System in Rational
+  Base `3/2` and the `3x+1` Problem*, https://arxiv.org/abs/2504.13716.  This
+  is used only for the already-published direct digit-appending bridge; the
+  span-capacity object was reached through the non-Collatz sources above.
+- Johannes Morgenbesser, Wolfgang Steiner, and Jörg Thuswaldner, *Patterns in
+  Rational Base Number Systems*, https://arxiv.org/abs/1203.4919; DOI
+  https://doi.org/10.1007/s00041-012-9246-1.
+- Wolfgang Steiner and Jörg Thuswaldner, *Rational Self-Affine Tiles*,
+  https://arxiv.org/abs/1203.0758.
+- Shiping Liu, Norbert Peyerimhoff, and Alina Vdovina, *Signatures, Lifts, and
+  Eigenvalues of Graphs*, https://arxiv.org/abs/1412.6841; and Cristina Dalfó,
+  Miquel Àngel Fiol, Mária Pavlíková, and Jozef Širáň, *Combined Voltage
+  Assignments, Factored Lifts, and Their Spectra*,
+  https://arxiv.org/abs/2409.02463.  These motivate the character-block audit
+  of the ramified KL refinement; ordinary-cover axioms are not assumed.
+- Benjamin Bond and Lionel Levine, *Abelian Networks I: Foundations and
+  Examples*, https://arxiv.org/abs/1309.3445; and *Abelian Networks II:
+  Halting on All Inputs*, https://arxiv.org/abs/1409.0169.
+- Alexandre Danilenko and Mariusz Lemańczyk, *K-property for Maharam
+  Extensions of Nonsingular Bernoulli and Markov Shifts*,
+  https://arxiv.org/abs/1611.05173.
+- Klaus Schmidt, *Amenability, Kazhdan's Property T, Strong Ergodicity and
+  Invariant Means for Ergodic Group-actions*, DOI
+  https://doi.org/10.1017/S014338570000924X.  Used for the almost-invariant-
+  shell obstruction in the fixed-temperature pair-carry audit.
+- Imre Csiszár, *I-Divergence Geometry of Probability Distributions and
+  Minimization Problems*, DOI
+  https://doi.org/10.1214/aop/1176996454.  Background for the order-cone
+  information projection; the three-point pooling formula used here is
+  derived directly.
+- Jean-François Bercher, *A Simple Probabilistic Construction Yielding
+  Generalized Entropies and Divergences, Escort Distributions and
+  q-Gaussians*, https://arxiv.org/abs/1206.0561.  Background for the
+  escort/Rényi dictionary; it does not supply the KL-specific coercivity.
+
+The searches for this section were run outward from these neighboring
+literatures.  The retained primary PDFs had no lexical Collatz/`3x+1`/
+Syracuse hits in the bounded audit recorded in
+`docs/notes/thin-connection-atlas.md`; that is evidence of bibliographic
+separation, not a priority claim.
+
 ## Legacy local PDF inventory
 
 The `papers/` directory held roughly 130 mirrored PDFs used during the

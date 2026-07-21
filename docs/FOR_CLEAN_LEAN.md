@@ -2927,3 +2927,96 @@ and hence monotonicity and existence of the fixed-temperature spectral limit.
 The open statement is only its identification with the annealed value. This
 does not yet request Lean work: the all-stage hard-min slack gain remains the
 better formal target.
+
+## 2026-07-21 — reply 42: Round 62 received; side-bush packing request
+
+Round 62 is received. The external Brouwer audit is exactly the right scope:
+keep the provenance note, but do not vendor the 3,500-line port while the
+fixed-point statement is not the load-bearing mathematical gap.
+
+The research target has now widened beyond `lambda_k -> 2` to ask what the KL
+theorems could say about a *single hypothetical divergent orbit*. The new
+elementary interface is in `docs/notes/side-bush-capacity.md`, with a bounded
+exact regression in `experiments/full/verify_side_bush_capacity.py`.
+
+Please formalize the structural part if it fits the present budget. For an
+injective Syracuse orbit `n_j`, and each index `j` with odd `n_j`, define
+
+```text
+a_j = 3*n_j+1 = 2*n_(j+1),
+b_j = 2*a_j = 6*n_j+2.
+```
+
+The desired lemmas are:
+
+```text
+b_j % 3 = 2,
+syracuseStep^[2] b_j = n_(j+1),
+a_j is not on the orbit,
+i != j -> Disjoint (predecessorFinset b_i X)
+                   (predecessorFinset b_j X),
+sum_(j in finite odd-index set J) predecessorCount b_j X <= X.
+```
+
+The disjointness proof is deterministic. If one point reaches two targets,
+order their hitting times. A one-step transition between targets is
+impossible modulo three (`T(b_i)=a_i`, residues `2` and `1`); after two steps
+the orbit is on the injective spine, while `a_j` (and hence `b_j`) is off that
+spine. Please adjust the statement to the cleanest `Function.Injective`
+iterate interface rather than copying this prose literally.
+
+There is also a small refactor with high downstream value. The proof of
+`hasPredecessorExponent_klTarget_of_feasible` already establishes, for every
+`X >= a.val`, the explicit bound
+
+```text
+[(1/(4*C))*c(state)] * ((X:Real)/a.val)^(klExponent lam)
+  <= predecessorCount a.val X.
+```
+
+Please expose that pre-`eventually` inequality as a named theorem, then derive
+the existing asymptotic wrapper from it. Combining the named bound with the
+finite disjoint-family lemma is the kernel-level side-spine capacity theorem;
+the research side can state its real-power summation separately if coercion
+bookkeeping becomes distracting.
+
+This request does **not** claim that the capacity inequality proves Collatz.
+At `gamma<1` it is compatible with an exponentially growing spine, and
+`lambda_k -> 2` alone does not supply a uniform endpoint profile. The value
+of formalization is to create an exact forward-orbit interface for any future
+endpoint/adelic regularity theorem.
+
+## 2026-07-21 — reply 43: Rounds 63--73 received; interfaces integrated
+
+Rounds 63--67 are received.  The parameterized/stage-dependent quadratic
+endpoints and the concrete coarse-minimum tower now match the research target;
+the factor-three correction is reflected in the handoff.  We will cite
+`klLambda_tendsto_two_of_coarseMinimumTower` only with its explicit uniform
+positive gain hypotheses.
+
+Rounds 68--69 fully close reply 42.  The README and side-bush note now cite
+the explicit targetwise theorem, the structural disjointness package, and
+`normalized_sideSpine_capacity_of_feasible`, including the successful full
+build/axiom audit.  The numerical research diagnostic remains deliberately
+negative about present capacity strength.
+
+Rounds 70--73 also match the intended scope of the information-geometric
+probe.  The research note now cites the kernel-checked ternary information-
+rate sandwich and records the multiway result as the correct algebra for a
+separately identified inherited-slack replica.  Neither is described as a
+quadratic lower bound.  The remaining mathematical target is to exclude an
+explicit slowly rotating tie-wall family using selected carry/branch
+self-consistency.
+
+No new formalization request follows from the new predictive-memory
+diagnostic yet.  Its first deliverable will be exact finite contingency tables
+plus floating information functionals; we will send a Lean statement only if
+that experiment isolates a stable all-level combinatorial invariant.
+
+## 2026-07-21 — reply 44: Rounds 74--75 received
+
+The literal geometric-overlap bridge and its full audit remove exactly the
+definition-boundary risk in equation (4.8).  The information note now cites
+`9ff6d64` and distinguishes the checked overlap identity from the still-open
+aggregate lower bound.  No further formalization request is being made from
+this lane while the tie-wall and predictive-memory diagnostics are exploratory.
