@@ -121,6 +121,15 @@ sum, and satisfaction of every principal bound is equivalent across the
 lift.  Hence the `(3.4)` invariant passes through that deletion even when an
 outer minimum acquires a new tie.  Neither orientation supplies termination.
 
+`BranchArrivalTermination.lean` proves the new abstract compactness argument:
+over finitely many residues there is no infinite nonnegative sequence whose
+return heights are nonincreasing and whose successive branch-arrival
+increments are `alpha` minus a natural number.  The proof includes a Lean
+proof that `alpha = log_2 3` is irrational and the exact compressed B2/B8
+shift formulas.  To turn this into a repair of the KL elimination theorem we
+still must derive those sequence hypotheses from an infinite path obeying the
+actual ancestry-sensitive deletion rule.
+
 `PressureCertificate.lean` now also accepts the portable sparse-edge format
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational
 kernel and proves that a successful Boolean row check yields the real pressure

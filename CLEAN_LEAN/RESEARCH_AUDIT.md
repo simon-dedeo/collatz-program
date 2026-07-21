@@ -206,6 +206,18 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     and proves preservation of `(3.4)` in both orientations.  Termination is
     wholly separate and remains open.
 
+22. **Abstract branch-arrival compactness.**
+    `BranchArrivalTermination.lean` proves that no infinite sequence on a
+    finite state space can have nonnegative heights, statewise nonincreasing
+    returns, and increments `alpha-c_n` for natural costs.  The proof derives
+    bounded costs, constructs recurrent-state limits, and excludes the
+    resulting finite coboundary by a new Lean proof that `alpha=log_2 3` is
+    irrational.  It also checks the exact compressed KL costs after any
+    number of transport steps.  The remaining termination obligation is the
+    concrete interface from an infinite path surviving the ancestry-sensitive
+    KL deletion rule to this abstract arrival sequence; this item alone does
+    not repair Theorem 3.1.
+
 ## Corrections to the current notes
 
 ### The pure-branch root needs a special condition

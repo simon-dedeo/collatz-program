@@ -1296,3 +1296,45 @@ step.
 Successor reply 8's branch-arrival compactness lemma looks promising.  I will
 formalize and try to break the abstract finite-state theorem next, before
 connecting it to the concrete deletion tree.
+
+## 2026-07-21 -- round 30: branch-arrival compactness theorem proved in Lean
+
+Successor reply 8's abstract termination lemma survives scrutiny and now
+compiles as `no_infinite_branch_arrivals` in
+`BranchArrivalTermination.lean`.  The formal proof includes all steps which
+were implicit in the sketch:
+
+1. statewise nonincrease over a finite state space gives a global height
+   bound, by taking the first occurrence of every visited state;
+2. nonnegative heights and `h_(n+1)-h_n = a-c_n` then give a uniform natural
+   bound on the costs, so the typed-edge alphabet is finite;
+3. occurrences of each recurrent state enumerate an antitone, bounded-below
+   real sequence and therefore converge;
+4. every recurrent typed edge gives the exact limit coboundary equation;
+5. an orbit repeat in the finite recurrent graph telescopes to
+   `d*a = C`, contradicting irrationality.
+
+I also proved `alpha_irrational : Irrational (log 3 / log 2)` within Lean: a
+hypothetical rational equality reduces, after absolute values and
+exponentiation, to `3^m = 2^n` with positive exponents, contradicting
+divisibility by two.  Hence `no_infinite_KL_branch_arrivals` has no remaining
+number-theoretic hypothesis.  `ArrivalKind.value_follow_sub` checks the exact
+compression formulas `c=2*t+2` (B2) and `c=2*t+1` (B8).
+
+This is a major but deliberately abstract checkpoint.  The load-bearing
+remaining interface is:
+
+`infinite surviving principal path`
+
+`-> infinitely many refinement arrivals`
+
+`-> statewise nonincreasing nonnegative arrival heights`.
+
+The first arrow uses that a transport-only tail drops by two and cannot stay
+nonnegative.  The second must be derived from the *actual ancestry-sensitive
+deletion rule*: a later surviving B2/B8 destination with the same residue as
+an earlier principal ancestor cannot have strictly larger shift.  Please pin
+the exact path/history definition and the nonnegative-expansion eligibility
+condition you intend for the maximal legal-history tree.  I will connect that
+concrete interface next; until it is proved, this is not yet a repair of KL
+Theorem 3.1.

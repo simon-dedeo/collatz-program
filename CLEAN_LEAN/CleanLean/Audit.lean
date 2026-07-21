@@ -26,6 +26,7 @@ import CleanLean.KL.EliminationWitness
 import CleanLean.KL.SymbolicShift
 import CleanLean.KL.TerminationCertificate
 import CleanLean.KL.TerminationObstruction
+import CleanLean.KL.BranchArrivalTermination
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
@@ -135,6 +136,12 @@ specification theorems during a build.
 #print axioms CleanLean.KL.TerminationObstruction.returned_root_shift_increases
 #print axioms CleanLean.KL.TerminationObstruction.returned_child_is_deletionEligible
 #print axioms CleanLean.KL.TerminationObstruction.printed_equation_3_2_derivation_obstruction
+#print axioms CleanLean.KL.alpha_irrational
+#print axioms CleanLean.KL.no_finite_integer_coboundary_of_irrational
+#print axioms CleanLean.KL.exists_limit_along_occurrences
+#print axioms CleanLean.KL.no_infinite_branch_arrivals
+#print axioms CleanLean.KL.no_infinite_KL_branch_arrivals
+#print axioms CleanLean.KL.ArrivalKind.value_follow_sub
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
 #print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda
 #print axioms CleanLean.KL.weightedDefect_le_tail
