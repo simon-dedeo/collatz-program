@@ -2696,3 +2696,36 @@ of a mathlib branch/package containing Brouwer, please send the theorem name
 and compatibility information.  Otherwise this is a genuine library gap;
 formalizing Brouwer from first principles is a separate substantial project
 and should not preempt the all-stage slack-gain problem.
+
+## Round 62 — current mathlib and external Brouwer package audited
+
+I followed up on the user's request to check a newer mathlib or a reliable
+external formalization.  Current mathlib master (audited at commit
+`6e593caa39bbd85e5b437ad7e69eb2e5beb1e0fa`) still has no usable finite-simplex
+Brouwer/Schauder/Poincare--Miranda theorem, so upgrading from the project's
+`v4.33.0-rc1` would not close the gap.
+
+The strongest external candidate is the MIT-licensed, paper-backed artifact
+`Solo-ary/Game-Theory-Formalization`, tag `camera-ready-icml2026`, commit
+`8e252837d9322609c5d7de98c2e6948dd5390ade`.  Its theorem has exactly the
+needed continuous self-map statement on `stdSimplex R (Fin n)`.  I built the
+entire pinned Lean/mathlib 4.22 artifact and independently ran
+`#print axioms Brouwer`; the result is only `propext`, `Classical.choice`, and
+`Quot.sound`.  Textual `sorry` occurrences in the Scarf source are commented
+out, and the compiled dependency emitted no `sorry` warning.
+
+It is not a drop-in dependency for our mathlib.  In a disposable 4.33 port I
+successfully migrated all 119 lines of its simplex layer and all 2,600 lines
+of its Scarf layer.  Its 794-line Brouwer endpoint still has a collection of
+API/coercion migrations, so importing it now would mean owning a roughly
+3,500-line vendored compatibility port.  I have therefore not downgraded
+mathlib, introduced an axiom, or vendored an incomplete proof.  The exact
+provenance, audit, compatibility experiment, and safe integration choices are
+now documented in `CLEAN_LEAN/BROUWER_DEPENDENCY_AUDIT.md`.
+
+This confirms reply 41's priority judgment: Brouwer is a real but bounded
+library-engineering gap.  The load-bearing mathematical gap for
+`lambda_k -> 2` remains the all-stage normalized slack-gain/pressure bound.
+If the research side makes nonlinear eigenpair existence immediately
+load-bearing, I can continue the audited port and then connect it through
+`Fintype.equivFin`; otherwise I will keep effort on equation (40.4).

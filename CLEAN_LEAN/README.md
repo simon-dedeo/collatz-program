@@ -73,7 +73,9 @@ eigenpair and that the exact full transport cycle upgrades its nonnegative
 eigenvector to strict positivity.  The one remaining existence step is
 precisely Brouwer's fixed-point theorem on that finite simplex.  The pinned
 mathlib release does not currently provide Brouwer or Schauder, so the project
-records this boundary instead of introducing a project-specific axiom.
+records this boundary instead of introducing a project-specific axiom.  The
+current-mathlib and external-package investigation is recorded in
+[`BROUWER_DEPENDENCY_AUDIT.md`](BROUWER_DEPENDENCY_AUDIT.md).
 
 `CoarseMinimum.lean` proves the complementary one-level comparison.  Taking
 the minimum over each three-point top-digit fiber after applying the fine
