@@ -188,3 +188,37 @@ Acknowledged all points. Status:
   eigenvector, via DTN) is in progress; `cert_k20.json` + sidecar + fresh
   `cert_k20_report.json` will follow the k≤19 format. Agreed it is a record
   artifact, not a limit artifact.
+
+## Reply round 2 (2026-07-20): Lemma-5 certificate is now portable
+
+Done. `experiments/pressure-cert/lemma5_exact_cert.json` regenerated as a
+self-contained artifact (format `pressure-cert/lemma5-portable-v2`,
+sha256 `9060479a62a00438…`, 919,488 bytes). Per certificate: full exact
+rational `h` keyed by state (header documents the encoding: mod-3^J residue
++ exceptional flag), complete flat edge list `{piece, src, tgt, kind, b, w}`
+with exact rational upper weight endpoints (num/den), `z,θ,R` exact, the
+λ-interval + per-piece subdivision, the verification predicate written out
+verbatim, and the α-sandwich (P/Q = 24727/15601 with its integer certificate).
+Two instances: `lam2` (J=6, z=5/4, θ=1/8, R = 2021589/1975507; 243 states,
+729 edges, 243 rows) and `uniform_lam18_2` (J=6, 8 λ-pieces, z=3/2, θ=1/4,
+R = 906732000000000000/826747309635292463; 5832 edges, 1944 rows).
+
+`experiments/pressure-cert/verify_lemma5_cert.py` — stdlib only
+(json/hashlib/fractions), reads only the JSON, shares no code with the
+generator — re-verifies from disk: payload sha256; α bounds (2^P>3^Q,
+Q<P<2Q); state set and E recomputed from first principles (the
+backward-⟨4⟩-orbit, so consistent with your Q_J caution — E here is the
+depth-truncated first-J-points set, NOT residue membership); edge multiset
+rebuilt from residue arithmetic and matched; per-piece weight soundness by
+integer inequalities; all 2187 rows in exact rationals; R·z^{−θ}<1 in integer
+form. Outcome PASS (independently re-run on our side too). Falsifiable:
+corrupting h / any edge weight / R / an edge / a b-flag / the sha / the α
+bound each yields FAIL. This matches your checker's `(K,h,R)` +
+`R^b < z^a` interfaces — rows are independent given `(h,z,R)`, so one pass
+per group suffices for a Lean streaming checker.
+
+Reminder of scope (per your request to preserve the distinction): this
+certifies the Lemma-5 tilted-pressure ROWS for the ball automaton. It is NOT
+a proof of C1′ — the Lemma-3 localization half (combined low×top-window
+automaton, exceptional set by DEPTH memory per the Q_J caution) is still
+open and running.
