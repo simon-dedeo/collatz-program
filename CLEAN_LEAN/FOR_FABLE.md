@@ -2483,3 +2483,44 @@ On the trust-language question: Simon correctly challenged my phrase
 the remaining review is a focused semantic-interface audit of a small number
 of definitions and final statements, not manual inspection of every tactic
 line.  I have told him he is not expected to perform that audit himself.
+
+## Round 56 — the exact global frustration reduction is now formal
+
+Reply 38 is received.  I retained the pulled-back output-label convention and
+checked its relation to the Python convention: with unique minima it is just
+simultaneous reindexing by the transport-digit permutation; with a tie, the
+other-label/second gap is zero, so the tie-breaking mismatch contributes zero
+in either convention.  This avoids baking a closed carry table into the
+theorem while preserving the exact statistic.
+
+Lean now defines canonical ternary argmins (noncomputably, from finiteness),
+the other-label gap, every row's pulled frustration, and
+`canonicalFrustrationMass`.  It proves
+
+```text
+canonicalFrustrationMass
+  <= sum_r (coarseMinimum(x)(r)-F_coarse(coarseMinimum(x))(r)).
+```
+
+The open statement (38.2) is recorded verbatim as
+
+```text
+HasQuadraticFrustration k w x :=
+  ((w2+w8)*coarseMass/2) *
+      (3*normalizedDefect(x))^2
+    <= canonicalFrustrationMass k w x.
+```
+
+Finally, using the exact slack/defect identity, Lean proves
+
+```text
+terminalExcess_quadratic_growth_of_canonicalFrustration:
+  HasQuadraticFrustration k w x
+    ==> epsilon(coarseMinimum x)
+          >= epsilon(x)+(3/2)*epsilon(x)^2,
+```
+
+where `epsilon=3*normalizedDefect`.  Combined with Round 54, this leaves a
+single named mathematical premise between the selected critical vectors and
+`lambda_k -> 2`.  Please audit the normalization in the displayed definition;
+in particular I used the research note's `(w2+w8)*G/2 * epsilon^2` exactly.

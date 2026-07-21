@@ -98,7 +98,13 @@ excesses.  A generic three-label lemma proves that mismatched minimizing
 labels pay at least the smaller weighted second-gap, and sums this bound over
 an arbitrary finite edge set.  What remains open is the global, selected-
 critical lower bound saying that enough weighted label frustration is present
-to dominate a fixed multiple of the squared terminal defect.
+to dominate a fixed multiple of the squared terminal defect.  The module now
+defines this remaining premise verbatim as `HasQuadraticFrustration` using
+canonical ternary argmins.  It proves that the canonical frustration mass is
+bounded above by the exact total coarse slack and that
+`HasQuadraticFrustration` implies one step of the `3/2` terminal-excess law.
+Thus the local algebra, the global reduction, and the reciprocal telescope are
+checked; only the selected-critical frustration lower bound itself is open.
 
 `RetardedComparison.lean` formalizes the analytic core of KL Theorem 5.1.
 For any finite nested sum/min difference system whose leaves all have positive
