@@ -1,0 +1,70 @@
+You are advising on a finite-state Lyapunov certificate for a Collatz-adjacent
+problem (KL threshold eigenvector oscillation, C1'). Context you can assume:
+
+- Level-k states m=2 mod 3 in [3^k]. Fiber over level-(k-1) state r = 3-vector
+  x=(x0,x1,x2) of lifts r+j*3^(k-1). osc(x)=(max-min)/mean.
+- Weights p=lam^-2, q2=lam^(a-2)<1, q8=lam^(a-1)>1, a=log2 3, lam in [lam18,2].
+- Exact block unrolling (verified) over L_w=6 transport moves r_t=4^t r, phases
+  mod 9 cycle 2->8->5->2->8->5 (2 B2 events, 2 B8 events, tail p^6):
+    x(r) = p^6 * PermTail * x(4^6 r)
+         + sum_{B2 events t} p^t q2 * Perm_t * D_t * b^(t)
+         + sum_{B8 events t} p^t q8 * Perm_t * D_t * b^(t)
+  where b^(t) are min-vectors of coarse branch-source fibers (independent
+  positive 3-vectors), D_t=diag entries in [3/(2K+1),1] (min-vs-mean, policy).
+  Label perms (exact index arithmetic): transport j->h+j, B2 j->h'+j,
+  B8 j->h'+2j; h,h' are floor(4u),floor(2u) of top fraction u=r/3^(k-1),
+  u_{t+1}=frac(4u_t) (base-4 shift). "Aligned class": all base-4 digits of u in
+  {0,3} => all shifts 0 => all perms align (coverage stalls at 5 of 9 cells);
+  this class contains the -1 spine (u->1) and is reachable at every low-window
+  ball state mod 3^J. Renormalization at -1 shows the transversal spectrum of
+  the aligned-class profile map is exactly {0,1}: one killed direction, one
+  MARGINAL (eigenvalue exactly 1) co-spine oscillation direction, no autonomous
+  decay.
+- Lemma 5 (certified, exact): a tilted-pressure gap on the LOW-window ball
+  automaton (states mod 3^J, edges T:q->4q, B2,B8; charge b(e)=1 iff edge
+  TARGET ball in E_J = balls of backward <4>-orbit {-1,-1/4,-1/16} mod 3^J).
+  At J=3, E_3={5,20,26}, theta*(J=3)=pi(E_3)=0.513: paths visiting E_3 with
+  density > 0.513 are exponentially suppressed by tilt z.
+- The <4>-orbit of -1 FILLS Q_J, so "near -1" is NOT a static ball residue;
+  hence a DEPTH-MEMORY top-window (bounded counter on base-4 digits of u).
+
+TARGET: the "Charged spine-face Lyapunov lemma (CL)" at (J=3, L_w=6): find
+positive rational g(s), homogeneous polyhedral osc-carrier Phi_s (detection:
+osc(x)>t => Phi_s(x)>=c_t*mean(x)), rational rho>0 with
+  (CL) g(s') Phi_{s'}(T_{g,s} x) <= rho * z^{e(g)} * g(s) Phi_s(x)  on all
+       extreme rays x of the profile-policy cone, all states s, blocks g, policy;
+  (SG) R6 * rho < 1  (R6 = normalized 6-step tilted row bound).
+FALSIFICATION MODE: find a zero-charge (e=0) cycle in the augmented automaton
+carrying nonzero spine-face oscillation with eigenvalue >= 1; then (CL) is
+impossible and the cycle's growth rate estimates the gap.
+
+MY QUESTIONS (be precise and brief; I will verify everything independently):
+
+Q1. What is the EXACT intended definition of the depth-memory charge e(gamma)?
+Is it (a) the count of LOW-window ball visits to E_J along the block (the only
+quantity Lemma 5's tilt z prices), or (b) a TOP-window quantity (time spent in
+the aligned/spine-face class)? If (b), how is z^{e} legitimately bounded by the
+Lemma-5 certificate, which prices E_J ball visits, not aligned-class time?
+
+Q2. The decoupling problem: the aligned (osc-preserving) class is a TOP-window
+condition; the E_J charge is a LOW-window condition; for large k they are
+independent coordinates of the same r. So an adversary can stay aligned
+(preserve osc) while steering the ball to avoid E_J. Does this not immediately
+produce a zero-charge osc-carrying cycle (falsification)? Is there any
+mechanism by which staying in the aligned class FORCES E_J ball visits at
+density >= theta*(J)? If yes, state it precisely; if no, confirm falsification.
+
+Q3. Given the renormalization result (aligned-class transversal spectrum {0,1},
+marginal eigenvalue exactly 1), what eigenvalue do you predict for the
+zero-charge osc cycle: exactly 1 (marginal, gap=0, architecture fails to close
+but does NOT imply lam_inf<2), or > 1 (which WOULD imply lam_inf<2)? What
+distinguishes these in the finite computation?
+
+Q4. Define precisely the "profile-policy cone" and its extreme rays for the CL
+check: inputs are tail x(4^6 r) plus 4 branch-source min-vectors b^(t), each in
+cone C_K={v>0: max/min<=K}; policy D_t diag in [3/(2K+1),1]. Are the extreme
+rays the products (extreme rays of C_K^5) x (vertices of the D-box)? Any subtlety
+about the carrier Phi being applied to the OUTPUT vs INPUT?
+
+Keep the answer under 700 words. Bullet points fine. State clearly whether you
+expect CERTIFICATION or FALSIFICATION at (J=3,L_w=6) and why.

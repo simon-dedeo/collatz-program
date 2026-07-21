@@ -95,4 +95,120 @@ theorem checkBranchWeightLowerData_eq_true_iff
         B8 ^ Q * scaleL ^ (P - Q) ≤ A ^ (P - Q) * scaleW ^ Q := by
   simp [checkBranchWeightLowerData]
 
+/-- Taking a positive `Q`-th root converts the retarded branch's rational
+power comparison into its fractional-exponent form. -/
+theorem le_rpow_div_sub_two_of_pow_le
+    {x lam : ℝ} {P Q : ℕ}
+    (hx : 0 ≤ x) (hlam : 0 ≤ lam) (hQ : 0 < Q)
+    (hpow : x ^ Q ≤ lam ^ ((P : ℝ) - 2 * Q)) :
+    x ≤ lam ^ ((P : ℝ) / Q - 2) := by
+  have hQR : (0 : ℝ) < Q := by exact_mod_cast hQ
+  apply (Real.rpow_le_rpow_iff hx (Real.rpow_nonneg hlam _) hQR).mp
+  rw [Real.rpow_natCast]
+  rw [← Real.rpow_mul hlam]
+  convert hpow using 1
+  field_simp
+
+/-- The analogous positive-root lemma for the advanced branch. -/
+theorem le_rpow_div_sub_one_of_pow_le
+    {x lam : ℝ} {P Q : ℕ}
+    (hx : 0 ≤ x) (hlam : 0 ≤ lam) (hQ : 0 < Q)
+    (hpow : x ^ Q ≤ lam ^ ((P : ℝ) - Q)) :
+    x ≤ lam ^ ((P : ℝ) / Q - 1) := by
+  have hQR : (0 : ℝ) < Q := by exact_mod_cast hQ
+  apply (Real.rpow_le_rpow_iff hx (Real.rpow_nonneg hlam _) hQR).mp
+  rw [Real.rpow_natCast]
+  rw [← Real.rpow_mul hlam]
+  convert hpow using 1
+  field_simp
+
+/-- Soundness of the exact cross-multiplied retarded-weight comparison before
+the final replacement of `P/Q` by `alpha`. -/
+theorem div_le_rpow_div_sub_two_of_crossmul
+    {A scaleL B scaleW P Q : ℕ}
+    (hA : 0 < A) (hL : 0 < scaleL) (hW : 0 < scaleW) (hQ : 0 < Q)
+    (hP : P ≤ 2 * Q)
+    (hcross : B ^ Q * A ^ (2 * Q - P) ≤
+      scaleW ^ Q * scaleL ^ (2 * Q - P)) :
+    (B : ℝ) / scaleW ≤
+      ((A : ℝ) / scaleL) ^ ((P : ℝ) / Q - 2) := by
+  apply le_rpow_div_sub_two_of_pow_le
+    (div_nonneg (Nat.cast_nonneg _) (Nat.cast_nonneg _))
+    (div_nonneg (Nat.cast_nonneg _) (Nat.cast_nonneg _)) hQ
+  have hcrossR :
+      (B : ℝ) ^ Q * (A : ℝ) ^ (2 * Q - P) ≤
+        (scaleW : ℝ) ^ Q * (scaleL : ℝ) ^ (2 * Q - P) := by
+    exact_mod_cast hcross
+  have hApos : (0 : ℝ) < A := by exact_mod_cast hA
+  have hLpos : (0 : ℝ) < scaleL := by exact_mod_cast hL
+  have hWpos : (0 : ℝ) < scaleW := by exact_mod_cast hW
+  have hE : ((2 * Q - P : ℕ) : ℝ) = 2 * (Q : ℝ) - P := by
+    rw [Nat.cast_sub hP]
+    norm_num
+  rw [div_pow]
+  rw [show (P : ℝ) - 2 * Q = -((2 * Q - P : ℕ) : ℝ) by
+    rw [hE]; ring]
+  rw [Real.rpow_neg (div_nonneg hApos.le hLpos.le)]
+  rw [Real.rpow_natCast, div_pow, inv_div]
+  rw [div_le_div_iff₀ (pow_pos hWpos Q) (pow_pos hApos (2 * Q - P))]
+  simpa [mul_comm] using hcrossR
+
+/-- Soundness of the exact cross-multiplied advanced-weight comparison before
+the final replacement of `P/Q` by `alpha`. -/
+theorem div_le_rpow_div_sub_one_of_crossmul
+    {A scaleL B scaleW P Q : ℕ}
+    (hA : 0 < A) (hL : 0 < scaleL) (hW : 0 < scaleW) (hQ : 0 < Q)
+    (hP : Q ≤ P)
+    (hcross : B ^ Q * scaleL ^ (P - Q) ≤
+      A ^ (P - Q) * scaleW ^ Q) :
+    (B : ℝ) / scaleW ≤
+      ((A : ℝ) / scaleL) ^ ((P : ℝ) / Q - 1) := by
+  apply le_rpow_div_sub_one_of_pow_le
+    (div_nonneg (Nat.cast_nonneg _) (Nat.cast_nonneg _))
+    (div_nonneg (Nat.cast_nonneg _) (Nat.cast_nonneg _)) hQ
+  have hcrossR :
+      (B : ℝ) ^ Q * (scaleL : ℝ) ^ (P - Q) ≤
+        (A : ℝ) ^ (P - Q) * (scaleW : ℝ) ^ Q := by
+    exact_mod_cast hcross
+  have hLpos : (0 : ℝ) < scaleL := by exact_mod_cast hL
+  have hWpos : (0 : ℝ) < scaleW := by exact_mod_cast hW
+  have hE : ((P - Q : ℕ) : ℝ) = (P : ℝ) - Q := by
+    rw [Nat.cast_sub hP]
+  rw [div_pow]
+  rw [show (P : ℝ) - Q = ((P - Q : ℕ) : ℝ) by rw [hE]]
+  rw [Real.rpow_natCast, div_pow]
+  rw [div_le_div_iff₀ (pow_pos hWpos Q) (pow_pos hLpos (P - Q))]
+  simpa [mul_comm] using hcrossR
+
+/-- End-to-end soundness of the two stored branch-weight lower bounds.  This
+is the analytic bridge from the certificate's Boolean integer checks to the
+true irrational KL coefficients. -/
+theorem branchWeightLower_of_checks
+    {A scaleL B2 B8 scaleW P Q : ℕ}
+    (hL : 0 < scaleL) (hW : 0 < scaleW) (hQ : 0 < Q)
+    (hlam : scaleL < A)
+    (halpha : checkAlphaLower P Q = true)
+    (hdata : checkBranchWeightLowerData
+      A scaleL B2 B8 scaleW P Q = true) :
+    (B2 : ℝ) / scaleW ≤
+        ((A : ℝ) / scaleL) ^ (alpha - 2) ∧
+      (B8 : ℝ) / scaleW ≤
+        ((A : ℝ) / scaleL) ^ (alpha - 1) := by
+  rcases (checkBranchWeightLowerData_eq_true_iff
+    A scaleL B2 B8 scaleW P Q).1 hdata with
+    ⟨hQP, hP2, hcross2, hcross8⟩
+  have hA : 0 < A := lt_trans hL hlam
+  have hlamR : (1 : ℝ) < (A : ℝ) / scaleL := by
+    rw [one_lt_div (by exact_mod_cast hL : (0 : ℝ) < scaleL)]
+    exact_mod_cast hlam
+  have hpa : (P : ℝ) / Q < alpha :=
+    div_lt_alpha_of_check hQ halpha
+  constructor
+  · exact (div_le_rpow_div_sub_two_of_crossmul
+      hA hL hW hQ hP2 hcross2).trans
+      (Real.rpow_le_rpow_of_exponent_le hlamR.le (by linarith))
+  · exact (div_le_rpow_div_sub_one_of_crossmul
+      hA hL hW hQ hQP hcross8).trans
+      (Real.rpow_le_rpow_of_exponent_le hlamR.le (by linarith))
+
 end CleanLean.KL

@@ -1,0 +1,5 @@
+lam,subgraph,rho_mass,rho_range,normalized_osc_growth
+lam=2,full,1.0,1.347843,1.347843
+lam=2,C_zero_charge,0.639285,0.657852,1.029042
+lam18,full,1.023694,1.287586,1.257784
+lam18,C_zero_charge,0.6787,0.686695,1.01178

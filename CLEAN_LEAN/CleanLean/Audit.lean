@@ -20,6 +20,9 @@ import CleanLean.KL.RootLaw
 import CleanLean.KL.Mixer
 import CleanLean.KL.TransportResolvent
 import CleanLean.KL.PressureCertificate
+import CleanLean.KL.ChargedLyapunov
+import CleanLean.KL.NonlinearPerron
+import CleanLean.KL.CountingTransfer
 
 /-!
 # Trust-boundary audit
@@ -75,3 +78,12 @@ specification theorems during a build.
 #print axioms CleanLean.KL.real_chernoffRatio_nonneg_lt_one
 #print axioms CleanLean.KL.blockTail_le_geometric_of_pressure
 #print axioms CleanLean.KL.blockTail_tendsto_zero_of_pressure
+#print axioms CleanLean.KL.relativeCarrier_step
+#print axioms CleanLean.KL.chargedCarrier_iterate
+#print axioms CleanLean.KL.badMass_le_of_chargedCarrier_and_pressure
+#print axioms CleanLean.KL.positiveEigenvalue_unique
+#print axioms CleanLean.KL.one_le_positiveEigenvalue_of_subeigenvector
+#print axioms CleanLean.KL.eventually_rpow_le_of_constant_mul_rpow_le
+#print axioms CleanLean.KL.klExponent_tendsto_one
+#print axioms CleanLean.KL.almostLinearPredecessorCounting_of_klLambda
+#print axioms CleanLean.KL.almostLinearPredecessorCounting_of_klDefect

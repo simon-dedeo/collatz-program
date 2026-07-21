@@ -1,0 +1,22 @@
+{
+ "ECH1": {
+  "R_unc": "52435/57248",
+  "R_unc_float": 0.9159271939631078,
+  "subcritical": true,
+  "h_file": "ech1_h.json"
+ },
+ "ECH2": {
+  "feasible": true,
+  "z": "21/20",
+  "R": "553647/529600",
+  "R_float": 1.0454059667673716,
+  "theta_req_float": 0.9101280079051237,
+  "a": 60,
+  "b": 64,
+  "gap_ok": true,
+  "h_file": "ech2_h.json"
+ },
+ "pi_unc_float": 0.9062500000000028,
+ "rho_full_float": 0.9999999999998579,
+ "model": "annealed u-split at lambda=2; exact weights 1/4,3/4,3/2"
+}

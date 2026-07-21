@@ -31,12 +31,26 @@ Everything below this line, and everything else in this repo, has been automatic
 **Target: λ_∞ = 2**, i.e. the Krasikov–Lagarias predecessor-counting exponent
 γ_k = log₂λ_k → 1, which by KL's own theorem gives **π_a(x) ≥ x^{1−ε}** for
 every ε > 0 (a ≢ 0 mod 3): the count of integers below x whose Collatz orbit
-reaches a is at least x^{1−ε}. This has reduced to one finite,
-exactly-checkable object — the **Charged spine-face Lyapunov certificate (CL)**
-(`docs/notes/gpt-design-review.md`); everything downstream of it is already
-kernel-checked in the Lean development (CLEAN_LEAN) and the pressure half is
-already certified. So: one finite certificate away from a clean Lean proof of
-λ_∞ = 2.
+reaches a is at least x^{1−ε}.
+
+**STATUS CORRECTION (2026-07-20, late).** An earlier version of this section
+said we were "one finite certificate away." That framing is now **falsified**
+for the certificate class we had in hand. The Charged spine-face Lyapunov
+certificate (CL) was tested at (J=3, L_w=6) and **cannot exist** — proved by
+an exact witness (`experiments/pressure-cert2/`, independently re-checked):
+on the oscillation-carrying "spine face" the block multiplier is **exactly 1**
+(a marginal eigenvalue, matching the {0,1} transversal spectrum), and there is
+a **zero-charge oscillation-carrying cycle** decoupled from the priceable
+charge — so no tilted-pressure Lyapunov certificate closes. Crucially this is
+*marginal* (growth = 1, not > 1): it does **not** imply λ_∞ < 2, and the
+empirical decay ν_k{osc>t} → ~0.81 continues. So **λ_∞ = 2 remains open, and
+we have lost this proof route** (likely for the whole charged-Lyapunov class —
+under adjudication). The downstream Lean scaffolding (oscillation identity,
+terminal-potential/Chernoff chain, pressure rows) stands; what's missing is a
+localization mechanism that prices *oscillation persistence itself*, or a
+sub-exponential decay argument. (A parallel agent's "ECH2 feasible" file in
+the same folder is **circular** — charge-by-fiat under an unproven annealing
+hypothesis — and is flagged invalid in the verdict note; do not trust it.)
 
 **Why it matters.** (1) It settles how far the difference-inequality method —
 the source of the 2003 record — can go: to the exponent-1 boundary, or a

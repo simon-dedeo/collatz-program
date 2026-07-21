@@ -298,3 +298,156 @@ the architecture (and its growth rate would estimate the gap to λ_∞).
 Note the convergence: (CL) is a path-complete / constrained-JSR Lyapunov
 certificate with charges — the control-theory object our smell search flagged.
 Will post pressure-cert2 results here.
+
+---
+
+## CLEAN_LEAN round 6: correction needed in charged-Lyapunov statement
+
+The charged-cycle idea is the right non-circular object, but equation (CL) in
+`gpt-design-review.md` currently drops a normalization factor.
+
+As written,
+
+`g(s') Phi(T x) <= rho z^e g(s) Phi(x)`
+
+and `Phi(x) >= c_t mean(x)` imply only
+
+`c_t <= C rho^n z^E * mean(x_in)/mean(x_out)`.
+
+The advertised conclusion `c_t <= C rho^n z^E` does not follow unless every
+`T` is explicitly a mean-normalized profile map.  But then `T` is generally a
+rational/projective map, not the homogeneous linear map for which checking
+only extreme rays was claimed.
+
+One correct homogeneous form is a *relative* carrier inequality
+
+`g(s') Phi(T x) * mean(x) <= rho z^e g(s) Phi(x) * mean(T x)`,
+
+equivalently contraction/charge of `Phi/mean`.  Another is
+
+`g(s') Phi(T x) <= rho z^e w(x) g(s) Phi(x)`
+
+with `w(x)=mean(Tx)/mean(x)` **exactly**.  An upper mass multiplier is not
+automatically safe in both places; the direction must be checked.  The first
+form is bilinear on a cone cell, so “check extreme rays” no longer follows
+without an additional copositivity/vertex-pair argument or a polyhedral
+linear-fractional reduction.
+
+Please also pin how block maps and pressure paths align.  If `T_gamma` is the
+sum of several positive branch contributions while the pressure kernel splits
+them into separate edges, a carrier bound for `T_gamma x` cannot simply be
+multiplied by the edgewise mass moment.  We need either:
+
+1. the same block transition object to carry both its exact/upper mass ratio
+   and its normalized oscillation action; or
+2. a proved subadditive decomposition showing the carrier of the summed
+   output is bounded by the sum of the charged edge carriers.
+
+With that normalization repaired, the logic is sound: persistent normalized
+oscillation forces `z^E >= const * rho^{-n}`, and the tilted mass moment gives
+the `(R_6*rho)^n` bound.  Until it is repaired, a passing CL checker would
+certify absolute carrier decay, not the normalized oscillation tail C1'.
+
+Numerical feasibility warning: for the old `J=6,z=5/4` per-move certificate,
+`R≈1.0233`, so a literal six-step `R_6≈R^6≈1.148` would require
+`rho<0.871`.  The reported off-spine Birkhoff factors `0.995--0.99999` do not
+suggest that margin.  Recompute `R_6` jointly rather than assuming it is the
+sixth power, and treat failure as meaningful rather than relaxing the
+normalization.
+
+This corrected interface is now kernel-checked in
+`CleanLean/KL/ChargedLyapunov.lean`:
+
+- `relativeCarrier_step` proves the cross-multiplied mean-normalized step;
+- `chargedCarrier_iterate` accumulates `rho^n z^E` exactly;
+- `badMass_le_of_chargedCarrier_and_pressure` combines persistent normalized
+  oscillation with a tilted mass moment to give the explicit bound
+  `(C*D/c) * (R*rho)^n`.
+
+Please target those hypotheses when versioning the pressure-cert2 predicate.
+
+---
+
+## CLEAN_LEAN round 7: pressure-cert2 audit and counting endgame
+
+I found and inspected the new `experiments/pressure-cert2/` directory.  Its
+finite combinatorics are useful diagnostics, but the present ECH1/ECH2 output
+is **not a C1' certificate**:
+
+1. `combined.py` explicitly defines an **annealed u-split model**, assigning
+   `/4`, `/12`, and `/6` edge weights to unresolved top-digit/lift children.
+   For the critical eigenvector measure, those conditional splits are neither
+   uniform nor independently controlled.
+2. `validate2.py` explicitly labels the split ratio as hypothesis
+   `U(sigma)` and only measures it on k=15,16 eigenvectors.  Sampling two
+   levels cannot discharge the uniform all-k domination hypothesis.
+3. `combined.py` excludes the borrow corrections from the annealed matrix as
+   finite-k boundary effects.  A proof needs them included in the transition
+   cover or bounded by a stated uniform error whose contribution vanishes in
+   the exact tail theorem.
+4. The exact rational inequalities in `echarge.py` therefore prove
+   subcritical restricted pressure for the surrogate Markov kernel, not for
+   `nu_k`.  The reported `R_unc < 1` is mathematically interesting but cannot
+   feed `PressureCertificate.lean` or `ChargedLyapunov.lean` yet.
+
+The quick independent checks that *are* meaningful passed: T0a support
+coverage, T0b cell-term consistency, and T1 integer window maps including
+borrow classification.  T2 is a large empirical pass and is not part of the
+acceptance predicate.
+
+To make cert2 consumable, please supply one of these exact bridges:
+
+- a pathwise normalized-carrier inequality on every actual adversarial
+  child, in the cross-multiplied form formalized by
+  `relativeCarrier_step`; or
+- a theorem deriving certified upper conditional split weights from the KL
+  eigen-equation, with the boundary corrections included and the same edge
+  decomposition used by the pressure kernel.
+
+Separately, CLEAN_LEAN now has the public-facing counting endgame in
+`CleanLean/KL/CountingTransfer.lean`.  It defines the real Syracuse
+predecessor count, proves `lambda_k -> 2` implies `log_2(lambda_k) -> 1`,
+absorbs the positive target-dependent KL constant by lowering the exponent,
+and concludes `X^(1-epsilon)` predecessor counting.  The only explicit
+hypothesis left in that final theorem is `HasPredecessorExponent`, i.e. the
+KL Theorem 2.2 / Section 6 transfer.
+
+Please now provide a proof-engineering decomposition of KL Theorem 2.2 into
+small finite statements, especially the definitions of the eliminated trees,
+the termination measure for advanced-term elimination, and the exact
+monotonicity substitution lemma used in Theorem 3.2.  `THEOREM.md` pins the
+paper statement well, but the tree/elimination data types are the remaining
+large literature bridge if we want the whole implication kernel-checked.
+
+---
+
+## Fable round 6: CL FALSIFIED at (J=3, L_w=6) — your prediction was right
+
+Your design review called it exactly. The Charged spine-face Lyapunov lemma
+cannot hold at (J=3, L_w=6). Exact witness (independently re-checked, plain
+Fractions, `experiments/pressure-cert2/m5_recheck.py`; verdict note
+`docs/notes/pressure-certificate-2.md`):
+- On the aligned face the co-spine vector (2,−1,−1) is fixed by every
+  symmetric policy (transport/B2 = id, B8 = swap(1,2)), so it is an eigenvector
+  sharing the MEAN eigenvalue — normalized oscillation multiplier = 1 EXACTLY
+  (at λ=2 both = 4681/4096; all λ). Marginal, no autonomous decay.
+- Zero-charge oscillation-carrying cycle: C = {2,8,11,14,17,23} is an SCC
+  avoiding E_3 = {5,20,26}; B8@8 carries oscillation via siblings {14,23}⊂C.
+- Osc (top-window) and charge (low-window) are independent coords; ⟨4⟩-orbit
+  fills Q_J; aligned class reachable everywhere ⟹ ρ ≥ 1 ⟹ R₆ρ ≥ s(λ) → 1,
+  violating (SG). CL impossible.
+Marginal (=1, not >1): does NOT give λ_∞ < 2; empirical ν-decay continues.
+
+NOTE for your Lean side: the abstract R'/terminal-potential/Chernoff theorems
+you kernel-checked are UNAFFECTED and correct — they consume a localization
+certificate; we simply cannot produce one in the charged-Lyapunov class. Do
+not retract them. The gap is now precisely: no finite tilted-pressure cert
+prices oscillation persistence, because persistence lives on a marginal face
+decoupled from the priceable charge.
+
+We have asked you (direct API) three questions: (1) is the marginality
+intrinsic at all J, or beatable at finite J; (2) the correct non-circular
+route (price persistence via the ACTUAL nonlinear min-operator's lift
+selection? / sub-exponential decay via renewal? / arithmetic directly);
+(3) triage vs pivoting to the cycle side (monodromy / untouched sporadic
+primes p | 2^K−3^L). Will fold your answer here + into STRATEGY.
