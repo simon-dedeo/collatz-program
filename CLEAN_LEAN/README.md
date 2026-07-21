@@ -176,6 +176,15 @@ final absolute-value theorem is equation (4.8) itself rather than only a
 surrogate definition.  These theorems justify the local zero-temperature
 passage; they do not supply the open all-row aggregate lower bound.
 
+`TieWallHolonomy.lean` isolates the discrete part of the remaining exception.
+A fixed-point-free composite carry around a three-edge cycle forces at least
+one selected-label mismatch, and the exact local-frustration sum pays at least
+the smallest weighted second-gap on those edges.  A matching exact
+counterexample exhibits three nonconstant profiles with zero total hard
+production because consecutive profiles share tied minima.  Thus holonomy
+reduces the problem to quantitative control of tie-wall gaps but cannot alone
+prove the endpoint.
+
 `RetardedComparison.lean` formalizes the analytic core of KL Theorem 5.1.
 For any finite nested sum/min difference system whose leaves all have positive
 backward shifts, LP feasibility propagates an exponential lower bound from an

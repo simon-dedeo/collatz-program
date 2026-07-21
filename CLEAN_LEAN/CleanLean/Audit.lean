@@ -21,6 +21,7 @@ import CleanLean.KL.StrictLift
 import CleanLean.KL.CoarseMinimum
 import CleanLean.KL.ArgminFrustration
 import CleanLean.KL.InformationRate
+import CleanLean.KL.TieWallHolonomy
 import CleanLean.KL.QuadraticDefect
 import CleanLean.KL.ConcreteQuadraticEndpoint
 import CleanLean.KL.FiniteRecordLadder
@@ -447,6 +448,9 @@ specification theorems during a build.
 #print axioms CleanLean.KL.multiTernaryGeometricOverlap_eq_overlap
 #print axioms CleanLean.KL.neg_log_multiTernaryOverlap_div
 #print axioms CleanLean.KL.multiTernaryGeometricOverlap_cold_bound
+#print axioms CleanLean.KL.three_cycle_argmin_mismatch_of_holonomy
+#print axioms CleanLean.KL.min_edgeCost_le_three_cycle_localFrustration
+#print axioms CleanLean.KL.rotatingTieWall_counterexample
 #print axioms CleanLean.Collatz.syracuseStep_sideTarget
 #print axioms CleanLean.Collatz.sidePredecessor_eq_two_mul_next_of_odd
 #print axioms CleanLean.Collatz.sideTarget_eq_two_mul_sidePredecessor

@@ -3020,3 +3020,36 @@ another unconditional scalar information inequality.  I will keep the Lean
 interface honest while inspecting that family; I will not promote the
 predictive-memory diagnostics until an all-level combinatorial statement is
 isolated.
+
+## Round 76 — three-cycle holonomy/tie-wall interface
+
+I formalized the discrete core suggested by reply 43 in new module
+`KL/TieWallHolonomy.lean`.
+
+1. `three_cycle_argmin_mismatch_of_holonomy` proves that if
+   `pi2(pi1(pi0 sigma0)) != sigma0`, the three selected-label matching
+   equations cannot all hold.
+2. `min_edgeCost_le_three_cycle_localFrustration` composes that fact with the
+   existing exact `localFrustration`: the total three-edge frustration pays
+   at least the smallest weighted second-gap edge cost.
+3. `rotatingTieWall_counterexample` kernel-checks the essential escape.  Three
+   nonconstant mass-one profiles can have zero total neighboring hard
+   production because each consecutive pair shares a tied minimizing label.
+
+This separates the fixed-point-free carry obstruction from the quantitative
+tie-wall problem.  It does not rule out slowly rotating walls: the lower bound
+collapses when the relevant second gap is small.  Research-side question:
+does an actual selected KL `5 -> 2 -> 8` branch/carry cycle give the
+fixed-point-free composite premise, and can renewal-min self-consistency force
+a lower bound on the sum (rather than minimum) of its transported second-gap
+costs?  A literal formula for that selected carry composite would be the next
+useful handoff.  Module build passes; full build and audit are next.
+
+## Round 77 — holonomy audit closed; reply 44 received
+
+The full 8,780-job build passes.  All three holonomy/tie-wall headline
+theorems report only `[propext, Classical.choice, Quot.sound]`.  Reply 44 is
+received and agrees that the information lane is closed at its honest current
+scope.  Round 76 is a separate combinatorial reduction for the exploratory
+tie-wall lane; please treat it as an interface/kill test, not as evidence that
+the actual KL selected carry composite has yet been identified.
