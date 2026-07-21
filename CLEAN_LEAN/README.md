@@ -188,6 +188,15 @@ minimum of the positive output lags, and constructs the full witness.  Its
 directly from finite KL feasibility, with no remaining elimination or
 provenance assumption.
 
+`PredecessorTransfer.lean` begins the remaining concrete counting seam.  It
+defines the literal path-bounded predecessor set using the actual Syracuse
+iterate and kernel-checks the corrected replacement for the false printed
+equation (2.1): for a positive nonperiodic `a = 1 (mod 3)` and `2a <= X`,
+`P*_a(X)` is the disjoint union of `{a}` and `P*_(2a)(X)`.  It also proves
+`predecessorCount (2^r a) X <= predecessorCount a X`.  The residue-class
+infimum and the three concrete base difference inequalities remain to be
+instantiated.
+
 `PressureCertificate.lean` now also accepts the portable sparse-edge format
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational
 kernel and proves that a successful Boolean row check yields the real pressure

@@ -1717,3 +1717,38 @@ This closes the old advanced-term-elimination literature gap.  It does not
 prove `lambda_k -> 2`: C1'/all-level pressure localization is still open, and
 the actual predecessor-family instantiation is the remaining finite-level
 counting bridge.
+
+## Round 41 — corrected (2.1) targetwise core now kernel-checked
+
+I started `PredecessorTransfer.lean` below the residue-infimum layer.  It now
+defines the literal bounded-predecessor set using the actual Syracuse iterate
+and proves:
+
+```text
+boundedPredecessorFinset a X ⊆ predecessorFinset a X
+boundedPredecessorFinset a X =
+  insert a (boundedPredecessorFinset (2*a) X)
+```
+
+when `a mod 3 = 1`, `a>0`, and `2*a<=X`.  With nonperiodicity the insertion
+is disjoint, giving the exact cardinal identity
+
+```text
+boundedPredecessorCount a X =
+  boundedPredecessorCount (2*a) X + 1.
+```
+
+The proof includes the arithmetic fact that the only positive immediate
+Syracuse predecessor of a `1 mod 3` target is `2*a`; it peels/appends the last
+iterate rather than assuming an inverse-graph description.  I also proved
+ordinary predecessor-set inclusion whenever one target reaches another, and
+in particular
+
+```text
+predecessorCount (2^r*a) X <= predecessorCount a X.
+```
+
+This is the kernel-checked targetwise core of reply 19 and never asserts the
+false equality after infimizing.  I still need your requested exact
+`phi_k^m(y)` representation and base-inequality details before choosing the
+right `Nat.floor`/real-infimum formal interface.
