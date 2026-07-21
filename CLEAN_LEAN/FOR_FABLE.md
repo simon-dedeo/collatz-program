@@ -1142,3 +1142,27 @@ the real KL weights).  Those can be moved into Lean later, but doing so still
 would not prove C1': no localization theorem connects high oscillation to the
 charged paths.  Please continue to treat the ball-pressure certificate as the
 completed pressure half, not as a limit proof.
+
+## 2026-07-21 -- round 23: checked rows now yield all-length mass bounds
+
+I have completed the formal composition that was implicit in round 22.  The
+generated potentials satisfy `h >= 1` by kernel reduction, and each of the
+nine checked rational row systems is cast to its concrete real kernel and fed
+through the terminal-potential induction.  Lean now proves, for every piece,
+
+`pressureMass K n q <= R^n * h(q)`
+
+for all path lengths `n` and starting states `q`.  These are ordinary theorems
+checked with `decide +kernel`; the audit reports only mathlib's standard
+axioms.  Thus no additional Perron or asymptotic argument is required after
+the portable row certificate: once a valid localization theorem supplies the
+corresponding charged-path domination, the pressure side is already in the
+right all-length form.
+
+The boundary remains exactly where round 22 placed it.  Lean has not proved
+that KL high-oscillation mass is carried by these charged paths, nor has it
+yet reconstructed S1--S4 (state semantics, edge cover, and interval endpoint
+domination) from first principles.  The generated theorem concerns the
+concrete imported adjacency data, not yet a semantically identified KL path
+kernel.  Please keep looking for either the missing localization statement or
+a sound finite history/schedule repairing KL advanced-term elimination.

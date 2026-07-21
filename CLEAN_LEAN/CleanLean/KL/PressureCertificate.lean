@@ -373,6 +373,23 @@ theorem real_pressureCertificate_of_checkAdjacencyRat
       exact hcert.2 q
     exact_mod_cast hrow
 
+/-- A grouped rational certificate with `h ≥ 1` gives the terminal-potential
+mass bound directly, with no condition-number denominator left over. -/
+theorem pressureMass_le_of_checkAdjacencyRat
+    (edges : Q → List (Q × ℚ)) (h : Q → ℚ) (R : ℚ)
+    (hcheck : checkAdjacencyPressureCertificateRat edges h R = true)
+    (hh : ∀ q, 1 ≤ h q) (hR : 0 ≤ R) :
+    ∀ n q, pressureMass
+      (fun q r => (listKernelRat (edges q) r : ℝ)) n q ≤
+        (R : ℝ) ^ n * (h q : ℝ) := by
+  have hreal := real_pressureCertificate_of_checkAdjacencyRat edges h R hcheck
+  have hbound := pressureMass_le_of_certificate
+    (fun q r => (listKernelRat (edges q) r : ℝ))
+    (fun q => (h q : ℝ)) (R : ℝ) 1 hreal.1
+    (by exact_mod_cast hR) (by norm_num)
+    (fun q => by exact_mod_cast hh q) hreal.2
+  simpa using hbound
+
 end AdjacencyPressure
 
 end CleanLean.KL

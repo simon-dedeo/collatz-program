@@ -757,12 +757,31 @@ def lam2R : ℚ := (2021589 / 1975507 : ℚ)
 set_option maxRecDepth 100000 in
 theorem lam2_h_pos : ∀ q, 0 < lam2H q := by decide +kernel
 
+set_option maxRecDepth 100000 in
+theorem lam2_one_le_h : ∀ q, 1 ≤ lam2H q := by decide +kernel
+
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
 set_option maxRecDepth 100000 in
 theorem lam2_piece0_rows :
     checkAdjacencyPressureCertificateRat lam2Edges0 lam2H lam2R = true := by
   decide +kernel
+
+theorem lam2_piece0_real_rows :
+    (∀ q r, 0 ≤ (listKernelRat (lam2Edges0 q) r : ℝ)) ∧
+      ∀ q, (∑ r, (listKernelRat (lam2Edges0 q) r : ℝ) *
+        (lam2H r : ℝ)) ≤ (lam2R : ℝ) * (lam2H q : ℝ) :=
+  real_pressureCertificate_of_checkAdjacencyRat lam2Edges0
+    lam2H lam2R lam2_piece0_rows
+
+theorem lam2_piece0_pressureMass_le :
+    ∀ n q, pressureMass
+      (fun q r => (listKernelRat (lam2Edges0 q) r : ℝ)) n q ≤
+        (lam2R : ℝ) ^ n * (lam2H q : ℝ) := by
+  apply pressureMass_le_of_checkAdjacencyRat lam2Edges0
+    lam2H lam2R lam2_piece0_rows
+    lam2_one_le_h
+  norm_num [lam2R]
 
 
 def uniformLam182H : Fin 243 → ℚ :=
@@ -3220,12 +3239,31 @@ def uniformLam182R : ℚ := (906732000000000000 / 826747309635292463 : ℚ)
 set_option maxRecDepth 100000 in
 theorem uniformLam182_h_pos : ∀ q, 0 < uniformLam182H q := by decide +kernel
 
+set_option maxRecDepth 100000 in
+theorem uniformLam182_one_le_h : ∀ q, 1 ≤ uniformLam182H q := by decide +kernel
+
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
 set_option maxRecDepth 100000 in
 theorem uniformLam182_piece0_rows :
     checkAdjacencyPressureCertificateRat uniformLam182Edges0 uniformLam182H uniformLam182R = true := by
   decide +kernel
+
+theorem uniformLam182_piece0_real_rows :
+    (∀ q r, 0 ≤ (listKernelRat (uniformLam182Edges0 q) r : ℝ)) ∧
+      ∀ q, (∑ r, (listKernelRat (uniformLam182Edges0 q) r : ℝ) *
+        (uniformLam182H r : ℝ)) ≤ (uniformLam182R : ℝ) * (uniformLam182H q : ℝ) :=
+  real_pressureCertificate_of_checkAdjacencyRat uniformLam182Edges0
+    uniformLam182H uniformLam182R uniformLam182_piece0_rows
+
+theorem uniformLam182_piece0_pressureMass_le :
+    ∀ n q, pressureMass
+      (fun q r => (listKernelRat (uniformLam182Edges0 q) r : ℝ)) n q ≤
+        (uniformLam182R : ℝ) ^ n * (uniformLam182H q : ℝ) := by
+  apply pressureMass_le_of_checkAdjacencyRat uniformLam182Edges0
+    uniformLam182H uniformLam182R uniformLam182_piece0_rows
+    uniformLam182_one_le_h
+  norm_num [uniformLam182R]
 
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
@@ -3234,12 +3272,44 @@ theorem uniformLam182_piece1_rows :
     checkAdjacencyPressureCertificateRat uniformLam182Edges1 uniformLam182H uniformLam182R = true := by
   decide +kernel
 
+theorem uniformLam182_piece1_real_rows :
+    (∀ q r, 0 ≤ (listKernelRat (uniformLam182Edges1 q) r : ℝ)) ∧
+      ∀ q, (∑ r, (listKernelRat (uniformLam182Edges1 q) r : ℝ) *
+        (uniformLam182H r : ℝ)) ≤ (uniformLam182R : ℝ) * (uniformLam182H q : ℝ) :=
+  real_pressureCertificate_of_checkAdjacencyRat uniformLam182Edges1
+    uniformLam182H uniformLam182R uniformLam182_piece1_rows
+
+theorem uniformLam182_piece1_pressureMass_le :
+    ∀ n q, pressureMass
+      (fun q r => (listKernelRat (uniformLam182Edges1 q) r : ℝ)) n q ≤
+        (uniformLam182R : ℝ) ^ n * (uniformLam182H q : ℝ) := by
+  apply pressureMass_le_of_checkAdjacencyRat uniformLam182Edges1
+    uniformLam182H uniformLam182R uniformLam182_piece1_rows
+    uniformLam182_one_le_h
+  norm_num [uniformLam182R]
+
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
 set_option maxRecDepth 100000 in
 theorem uniformLam182_piece2_rows :
     checkAdjacencyPressureCertificateRat uniformLam182Edges2 uniformLam182H uniformLam182R = true := by
   decide +kernel
+
+theorem uniformLam182_piece2_real_rows :
+    (∀ q r, 0 ≤ (listKernelRat (uniformLam182Edges2 q) r : ℝ)) ∧
+      ∀ q, (∑ r, (listKernelRat (uniformLam182Edges2 q) r : ℝ) *
+        (uniformLam182H r : ℝ)) ≤ (uniformLam182R : ℝ) * (uniformLam182H q : ℝ) :=
+  real_pressureCertificate_of_checkAdjacencyRat uniformLam182Edges2
+    uniformLam182H uniformLam182R uniformLam182_piece2_rows
+
+theorem uniformLam182_piece2_pressureMass_le :
+    ∀ n q, pressureMass
+      (fun q r => (listKernelRat (uniformLam182Edges2 q) r : ℝ)) n q ≤
+        (uniformLam182R : ℝ) ^ n * (uniformLam182H q : ℝ) := by
+  apply pressureMass_le_of_checkAdjacencyRat uniformLam182Edges2
+    uniformLam182H uniformLam182R uniformLam182_piece2_rows
+    uniformLam182_one_le_h
+  norm_num [uniformLam182R]
 
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
@@ -3248,12 +3318,44 @@ theorem uniformLam182_piece3_rows :
     checkAdjacencyPressureCertificateRat uniformLam182Edges3 uniformLam182H uniformLam182R = true := by
   decide +kernel
 
+theorem uniformLam182_piece3_real_rows :
+    (∀ q r, 0 ≤ (listKernelRat (uniformLam182Edges3 q) r : ℝ)) ∧
+      ∀ q, (∑ r, (listKernelRat (uniformLam182Edges3 q) r : ℝ) *
+        (uniformLam182H r : ℝ)) ≤ (uniformLam182R : ℝ) * (uniformLam182H q : ℝ) :=
+  real_pressureCertificate_of_checkAdjacencyRat uniformLam182Edges3
+    uniformLam182H uniformLam182R uniformLam182_piece3_rows
+
+theorem uniformLam182_piece3_pressureMass_le :
+    ∀ n q, pressureMass
+      (fun q r => (listKernelRat (uniformLam182Edges3 q) r : ℝ)) n q ≤
+        (uniformLam182R : ℝ) ^ n * (uniformLam182H q : ℝ) := by
+  apply pressureMass_le_of_checkAdjacencyRat uniformLam182Edges3
+    uniformLam182H uniformLam182R uniformLam182_piece3_rows
+    uniformLam182_one_le_h
+  norm_num [uniformLam182R]
+
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
 set_option maxRecDepth 100000 in
 theorem uniformLam182_piece4_rows :
     checkAdjacencyPressureCertificateRat uniformLam182Edges4 uniformLam182H uniformLam182R = true := by
   decide +kernel
+
+theorem uniformLam182_piece4_real_rows :
+    (∀ q r, 0 ≤ (listKernelRat (uniformLam182Edges4 q) r : ℝ)) ∧
+      ∀ q, (∑ r, (listKernelRat (uniformLam182Edges4 q) r : ℝ) *
+        (uniformLam182H r : ℝ)) ≤ (uniformLam182R : ℝ) * (uniformLam182H q : ℝ) :=
+  real_pressureCertificate_of_checkAdjacencyRat uniformLam182Edges4
+    uniformLam182H uniformLam182R uniformLam182_piece4_rows
+
+theorem uniformLam182_piece4_pressureMass_le :
+    ∀ n q, pressureMass
+      (fun q r => (listKernelRat (uniformLam182Edges4 q) r : ℝ)) n q ≤
+        (uniformLam182R : ℝ) ^ n * (uniformLam182H q : ℝ) := by
+  apply pressureMass_le_of_checkAdjacencyRat uniformLam182Edges4
+    uniformLam182H uniformLam182R uniformLam182_piece4_rows
+    uniformLam182_one_le_h
+  norm_num [uniformLam182R]
 
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
@@ -3262,6 +3364,22 @@ theorem uniformLam182_piece5_rows :
     checkAdjacencyPressureCertificateRat uniformLam182Edges5 uniformLam182H uniformLam182R = true := by
   decide +kernel
 
+theorem uniformLam182_piece5_real_rows :
+    (∀ q r, 0 ≤ (listKernelRat (uniformLam182Edges5 q) r : ℝ)) ∧
+      ∀ q, (∑ r, (listKernelRat (uniformLam182Edges5 q) r : ℝ) *
+        (uniformLam182H r : ℝ)) ≤ (uniformLam182R : ℝ) * (uniformLam182H q : ℝ) :=
+  real_pressureCertificate_of_checkAdjacencyRat uniformLam182Edges5
+    uniformLam182H uniformLam182R uniformLam182_piece5_rows
+
+theorem uniformLam182_piece5_pressureMass_le :
+    ∀ n q, pressureMass
+      (fun q r => (listKernelRat (uniformLam182Edges5 q) r : ℝ)) n q ≤
+        (uniformLam182R : ℝ) ^ n * (uniformLam182H q : ℝ) := by
+  apply pressureMass_le_of_checkAdjacencyRat uniformLam182Edges5
+    uniformLam182H uniformLam182R uniformLam182_piece5_rows
+    uniformLam182_one_le_h
+  norm_num [uniformLam182R]
+
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
 set_option maxRecDepth 100000 in
@@ -3269,12 +3387,44 @@ theorem uniformLam182_piece6_rows :
     checkAdjacencyPressureCertificateRat uniformLam182Edges6 uniformLam182H uniformLam182R = true := by
   decide +kernel
 
+theorem uniformLam182_piece6_real_rows :
+    (∀ q r, 0 ≤ (listKernelRat (uniformLam182Edges6 q) r : ℝ)) ∧
+      ∀ q, (∑ r, (listKernelRat (uniformLam182Edges6 q) r : ℝ) *
+        (uniformLam182H r : ℝ)) ≤ (uniformLam182R : ℝ) * (uniformLam182H q : ℝ) :=
+  real_pressureCertificate_of_checkAdjacencyRat uniformLam182Edges6
+    uniformLam182H uniformLam182R uniformLam182_piece6_rows
+
+theorem uniformLam182_piece6_pressureMass_le :
+    ∀ n q, pressureMass
+      (fun q r => (listKernelRat (uniformLam182Edges6 q) r : ℝ)) n q ≤
+        (uniformLam182R : ℝ) ^ n * (uniformLam182H q : ℝ) := by
+  apply pressureMass_le_of_checkAdjacencyRat uniformLam182Edges6
+    uniformLam182H uniformLam182R uniformLam182_piece6_rows
+    uniformLam182_one_le_h
+  norm_num [uniformLam182R]
+
 set_option maxHeartbeats 0 in
 -- Exact reduction of the portable rational row table.
 set_option maxRecDepth 100000 in
 theorem uniformLam182_piece7_rows :
     checkAdjacencyPressureCertificateRat uniformLam182Edges7 uniformLam182H uniformLam182R = true := by
   decide +kernel
+
+theorem uniformLam182_piece7_real_rows :
+    (∀ q r, 0 ≤ (listKernelRat (uniformLam182Edges7 q) r : ℝ)) ∧
+      ∀ q, (∑ r, (listKernelRat (uniformLam182Edges7 q) r : ℝ) *
+        (uniformLam182H r : ℝ)) ≤ (uniformLam182R : ℝ) * (uniformLam182H q : ℝ) :=
+  real_pressureCertificate_of_checkAdjacencyRat uniformLam182Edges7
+    uniformLam182H uniformLam182R uniformLam182_piece7_rows
+
+theorem uniformLam182_piece7_pressureMass_le :
+    ∀ n q, pressureMass
+      (fun q r => (listKernelRat (uniformLam182Edges7 q) r : ℝ)) n q ≤
+        (uniformLam182R : ℝ) ^ n * (uniformLam182H q : ℝ) := by
+  apply pressureMass_le_of_checkAdjacencyRat uniformLam182Edges7
+    uniformLam182H uniformLam182R uniformLam182_piece7_rows
+    uniformLam182_one_le_h
+  norm_num [uniformLam182R]
 
 
 end CleanLean.KL.PortablePressureData

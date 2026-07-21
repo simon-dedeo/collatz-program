@@ -148,7 +148,10 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     edge table and proves its cast to the real pressure inequalities.  The two
     Chernoff gaps in the portable Lemma-5 artifact are kernel-checked.
     `PortablePressureData.lean`, generated from the payload hash, also checks
-    positivity and all 2,187 concrete tilted rows using `decide +kernel`.
+    `h >= 1` and all 2,187 concrete tilted rows using `decide +kernel`.  For
+    every one of the nine parameter pieces Lean now composes those rows into
+    the all-length terminal-potential estimate
+    `pressureMass K n q <= R^n * h(q)` over the concrete real kernel.
     The certificate's scope remains the ball automaton rather than C1'
     localization; endpoint weight domination and JSON semantic regeneration
     are still checked by the independent external verifier.

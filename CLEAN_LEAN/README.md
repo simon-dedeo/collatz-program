@@ -107,9 +107,11 @@ feasibility side of deletion needs no additional analytic hypothesis.
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational
 kernel and proves that a successful Boolean row check yields the real pressure
 inequalities. `PortablePressureData.lean` is generated from the hashed JSON and
-kernel-checks positivity and all 2,187 tilted rows: the `lambda=2` instance and
-all eight pieces covering `[lambda_18,2]`.  The two Chernoff gaps are likewise
-checked by exact rational arithmetic.  More importantly, this ball-automaton
+kernel-checks `h >= 1` and all 2,187 tilted rows: the `lambda=2` instance and all
+eight pieces covering `[lambda_18,2]`.  Each checked piece is then composed with
+the terminal-potential theorem to give an all-length real bound
+`pressureMass K n q <= R^n * h(q)`.  The two Chernoff gaps are likewise checked
+by exact rational arithmetic.  More importantly, this ball-automaton
 certificate is not the missing localization theorem.
 
 The first charged spine-face Lyapunov proposal has been exactly falsified,

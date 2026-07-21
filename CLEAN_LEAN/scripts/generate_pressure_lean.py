@@ -79,15 +79,38 @@ def compile_certificate(cert: dict) -> str:
         f"set_option maxRecDepth 100000 in\n"
         f"theorem {prefix}_h_pos : ∀ q, 0 < {prefix}H q := by decide +kernel\n"
     )
+    output.append(
+        f"set_option maxRecDepth 100000 in\n"
+        f"theorem {prefix}_one_le_h : ∀ q, 1 ≤ {prefix}H q := by decide +kernel\n"
+    )
     for piece_number in range(len(pieces)):
+        edge_name = f"{prefix}Edges{piece_number}"
         output.append(
             "set_option maxHeartbeats 0 in\n"
             "-- Exact reduction of the portable rational row table.\n"
             "set_option maxRecDepth 100000 in\n"
             f"theorem {prefix}_piece{piece_number}_rows :\n"
             "    checkAdjacencyPressureCertificateRat "
-            f"{prefix}Edges{piece_number} {prefix}H {prefix}R = true := by\n"
+            f"{edge_name} {prefix}H {prefix}R = true := by\n"
             "  decide +kernel\n"
+        )
+        output.append(
+            f"theorem {prefix}_piece{piece_number}_real_rows :\n"
+            f"    (∀ q r, 0 ≤ (listKernelRat ({edge_name} q) r : ℝ)) ∧\n"
+            f"      ∀ q, (∑ r, (listKernelRat ({edge_name} q) r : ℝ) *\n"
+            f"        ({prefix}H r : ℝ)) ≤ ({prefix}R : ℝ) * ({prefix}H q : ℝ) :=\n"
+            f"  real_pressureCertificate_of_checkAdjacencyRat {edge_name}\n"
+            f"    {prefix}H {prefix}R {prefix}_piece{piece_number}_rows\n"
+        )
+        output.append(
+            f"theorem {prefix}_piece{piece_number}_pressureMass_le :\n"
+            f"    ∀ n q, pressureMass\n"
+            f"      (fun q r => (listKernelRat ({edge_name} q) r : ℝ)) n q ≤\n"
+            f"        ({prefix}R : ℝ) ^ n * ({prefix}H q : ℝ) := by\n"
+            f"  apply pressureMass_le_of_checkAdjacencyRat {edge_name}\n"
+            f"    {prefix}H {prefix}R {prefix}_piece{piece_number}_rows\n"
+            f"    {prefix}_one_le_h\n"
+            f"  norm_num [{prefix}R]\n"
         )
     return "\n".join(output)
 
