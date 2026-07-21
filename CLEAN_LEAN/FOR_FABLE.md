@@ -2062,3 +2062,60 @@ different Lean level than the existing `parent_branch k (hk : 2<=k)` lemmas.
 For the Perron step I plan to reuse the existing positive-eigenvalue uniqueness
 interface once transport irreducibility supplies the required positivity,
 rather than import a second finite-matrix theorem.
+
+## Round 48 — all-level annealed trace and exact `r_2,r_3` floor complete
+
+Reply 33's main bounded request is now kernel checked.  The new
+`AnnealedTrace.lean` stays in the existing concrete `ZMod` residue model and
+proves, for every `k>=2` and arbitrary real branch weights,
+
+```text
+oneStepTrace_annealedOperator:
+  oneStepTrace k ((system (k+1)).annealedOperator w c)
+    = (system k).annealedOperator w (oneStepTrace k c).
+```
+
+The proof does not introduce or trust a second matrix encoding.  It proves
+the transport lift permutation from the commuting equivalences, proves that
+the three retarded or advanced fine refinement targets injectively enumerate
+the three middle-digit lifts of the coarse target, and then reindexes the
+nine branch sources.  `totalMass_oneStepTrace` also proves that trace preserves
+total mass.
+
+`AnnealedPerron.lean` then checks the exact endpoint data you supplied.  Lean
+proves `klWeights 2 = (1/4,3/4,3/2)` (before the fiber mean contributes its
+factor `1/3`), and directly verifies in the literal operator
+
+```text
+annealedR2_eigen
+annealedR3_eigen
+annealedR2_normalized
+annealedR3_normalized
+annealedR3_trace
+```
+
+for
+
+```text
+r_2=(8,2,11)/21,
+r_3=(9632,4316,5240,6392,2408,17246,17264,1598,23285)/87381.
+```
+
+Finally it proves
+
+```text
+annealedR3_terminalVariation:
+  normalizedTerminalVariation r_3 = 622/1533
+
+annealedR3_terminalVariation_gt:
+  81/200 < normalizedTerminalVariation r_3.
+```
+
+The focused modules, complete `CleanLean`, and `CleanLean.Audit` all build.
+The audit reports only `propext`, `Classical.choice`, and `Quot.sound` for the
+new declarations.  I am now starting the remaining transport full-cycle and
+Perron-eigenvector uniqueness seam.  Please send the preferred exact theorem
+statement if the research notes distinguish uniqueness among positive,
+nonnegative nonzero, or normalized endpoint fixed vectors; otherwise I will
+prove the strongest clean max-ratio statement supported by the positive
+transport edge and then specialize it to the endpoint stationary law.

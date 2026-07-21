@@ -31,7 +31,11 @@ their parent-mass-weighted Jensen corollary, and the resulting sequential
 bridge: terminal localization together with vanishing aggregate normalized
 slack forces `lambda -> 2`.  This kernelizes the algebra around the current
 research gap without asserting the missing uniform pressure/localization
-estimate.
+estimate.  The annealed endpoint now also has an all-level, concrete `ZMod`
+trace theorem: summing the three new top-digit lifts commutes with the literal
+annealed KL operator.  At levels two and three Lean checks the exact normalized
+stationary laws, their trace compatibility, and the exact terminal-variation
+floor `622/1533 > 81/200` directly by rational arithmetic.
 
 `LevelLift.lean` formalizes the paper's level monotonicity argument: copying a
 feasible vector to all three new top-digit lifts preserves feasibility.  Thus

@@ -41,6 +41,8 @@ import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
 import CleanLean.KL.TerminalPearson
+import CleanLean.KL.AnnealedTrace
+import CleanLean.KL.AnnealedPerron
 import CleanLean.KL.RootLaw
 import CleanLean.KL.Mixer
 import CleanLean.KL.TransportResolvent
@@ -241,6 +243,13 @@ specification theorems during a build.
 #print axioms CleanLean.KL.tendsto_zero_of_weighted_tail
 #print axioms CleanLean.KL.tail_tendsto_zero_of_geometric_bound
 #print axioms CleanLean.KL.tendsto_zero_of_geometric_weighted_tails
+#print axioms CleanLean.KL.ResidueSystem.oneStepTrace_annealedOperator
+#print axioms CleanLean.KL.ResidueSystem.klWeights_two_eq_annealedEndpointWeights
+#print axioms CleanLean.KL.ResidueSystem.annealedR2_eigen
+#print axioms CleanLean.KL.ResidueSystem.annealedR3_eigen
+#print axioms CleanLean.KL.ResidueSystem.annealedR3_trace
+#print axioms CleanLean.KL.ResidueSystem.annealedR3_terminalVariation
+#print axioms CleanLean.KL.ResidueSystem.annealedR3_terminalVariation_gt
 #print axioms CleanLean.KL.oscillation3_scale
 #print axioms CleanLean.KL.localProfile_two_step
 #print axioms CleanLean.KL.advanced_fiber_min_law

@@ -27,6 +27,8 @@ import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
 import CleanLean.KL.TerminalPearson
+import CleanLean.KL.AnnealedTrace
+import CleanLean.KL.AnnealedPerron
 import CleanLean.KL.RootLaw
 import CleanLean.KL.Mixer
 import CleanLean.KL.TransportResolvent
