@@ -273,6 +273,23 @@ theorem hasQuadraticCoarseSlackGain_iff_rowwise
   rw [normalizedSlackGain_eq_superSlackDifference,
     coarseMinimumSuperSlackMass_eq_sum_fiberMin]
 
+/-- Parameterized rowwise form.  This exposes the weaker target needed for
+any fixed coefficient `a > 0`, rather than only the empirical `a = 3/2`. -/
+theorem hasQuadraticCoarseSlackGainWith_iff_rowwise
+    (a : ℝ) (k : ℕ) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ) :
+    HasQuadraticCoarseSlackGainWith a k w x ↔
+      (w.retarded + w.advanced) * (a / 3) *
+          (3 * (system (k + 1)).normalizedDefect x) ^ 2 ≤
+        (∑ r, (system (k + 1)).fiberMin
+            (fun s => fineCoarseResidual k w x s + fineSuperSlack k w x s) r) /
+              (system k).totalMass (coarseMinimum k x) -
+          fineSuperSlackMass k w x /
+            (system (k + 1)).totalMass x := by
+  unfold HasQuadraticCoarseSlackGainWith HasQuadraticSlackGainWith
+  rw [normalizedSlackGain_eq_superSlackDifference,
+    coarseMinimumSuperSlackMass_eq_sum_fiberMin]
+
 /-- The slack of a coarse fiber-minimum row is exactly the minimum of the
 three fine-versus-coarse row residuals. -/
 theorem coarseSlack_eq_fiberMin_fineCoarseResidual

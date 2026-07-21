@@ -376,8 +376,12 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.normalizedSlack_sub_eq_defect_gap
 #print axioms CleanLean.KL.ResidueSystem.HasQuadraticSlackGain
 #print axioms CleanLean.KL.ResidueSystem.terminalExcess_quadratic_growth_of_slackGain
+#print axioms CleanLean.KL.ResidueSystem.HasQuadraticSlackGainWith
+#print axioms CleanLean.KL.ResidueSystem.terminalExcess_quadratic_growth_of_slackGainWith
 #print axioms CleanLean.KL.ResidueSystem.HasQuadraticCoarseSlackGain
 #print axioms CleanLean.KL.ResidueSystem.terminalExcess_quadratic_growth_of_coarseSlackGain
+#print axioms CleanLean.KL.ResidueSystem.HasQuadraticCoarseSlackGainWith
+#print axioms CleanLean.KL.ResidueSystem.terminalExcess_quadratic_growth_of_coarseSlackGainWith
 #print axioms CleanLean.KL.ResidueSystem.neg_normalizedSlack_eq_defect_gap
 #print axioms CleanLean.KL.ResidueSystem.normalizedDefect_le_coarseMinimum_of_fixed
 #print axioms CleanLean.KL.weighted_argmin_mismatch_le_ternaryMin
@@ -390,6 +394,7 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.coarseMinimumSuperSlackMass_eq_sum_fiberMin
 #print axioms CleanLean.KL.ResidueSystem.normalizedSlackGain_eq_superSlackDifference
 #print axioms CleanLean.KL.ResidueSystem.hasQuadraticCoarseSlackGain_iff_rowwise
+#print axioms CleanLean.KL.ResidueSystem.hasQuadraticCoarseSlackGainWith_iff_rowwise
 #print axioms CleanLean.KL.ResidueSystem.coarseSlack_eq_fiberMin_fineCoarseResidual
 #print axioms CleanLean.KL.ResidueSystem.fineCoarseResidual_eq_retarded
 #print axioms CleanLean.KL.ResidueSystem.fineCoarseResidual_eq_advanced
@@ -406,10 +411,15 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.terminalExcess_quadratic_growth_of_frustration
 #print axioms CleanLean.KL.ResidueSystem.terminalExcess_quadratic_growth_of_canonicalFrustration
 #print axioms CleanLean.KL.three_fifths_le_reciprocal_drop
+#print axioms CleanLean.KL.coefficient_div_one_add_le_reciprocal_drop
 #print axioms CleanLean.KL.reciprocal_drop_sum
+#print axioms CleanLean.KL.reciprocal_drop_sum_with
 #print axioms CleanLean.KL.initial_defect_le_of_quadratic_growth
+#print axioms CleanLean.KL.initial_defect_le_of_quadratic_growth_with
 #print axioms CleanLean.KL.initial_defect_tendsto_zero_of_quadratic_growth
+#print axioms CleanLean.KL.initial_defect_tendsto_zero_of_quadratic_growth_with
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_quadratic_defect_growth
+#print axioms CleanLean.KL.klLambda_tendsto_two_of_quadratic_defect_growth_with
 #print axioms CleanLean.KL.exists_strict_feasible_ladder_from_k12
 #print axioms CleanLean.KL.exists_later_feasible_gt_k12
 #print axioms CleanLean.KL.exists_predecessorExponent_gt_k12

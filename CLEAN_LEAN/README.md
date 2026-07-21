@@ -107,7 +107,12 @@ after `n` stages this gives `e_0 <= 5/(5+3n)`.  A triangular family with an
 unbounded number of such stages therefore has vanishing initial defect, and
 the exact oscillation identity implies `lambda_k -> 2`.  The missing theorem
 is still the all-level quadratic inequality for the selected critical
-profiles, not this scalar telescoping argument.
+profiles, not this scalar telescoping argument.  The file also proves the
+more flexible statement with any fixed coefficient `a > 0`: growth
+`e_(j+1) >= e_j + a*e_j^2` gives
+`e_0 <= 1/(1+(a/(1+a))*n)` and still forces `lambda_k -> 2`.  The all-stage
+slack premise and its exact rowwise form are parameterized accordingly, so a
+pressure proof need not recover the empirically sharp constant `3/2`.
 
 `ArgminFrustration.lean` kernel-checks the local algebra behind that missing
 inequality.  For an arbitrary fine profile, every coarse slack row is exactly

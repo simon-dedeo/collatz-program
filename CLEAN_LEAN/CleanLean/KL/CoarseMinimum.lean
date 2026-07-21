@@ -159,6 +159,44 @@ def HasQuadraticSlackGain
     (system (k + 1)).normalizedSlack w x -
       (system k).normalizedSlack w g
 
+/-- Parameterized all-stage premise.  A pressure argument need only supply
+some fixed `a > 0`: normalized slack gain `(branchWeight * a / 3) * ε²`
+forces terminal-excess growth `ε ↦ ε + a ε²`.  The original conjectural
+constant is the specialization `a = 3/2`. -/
+def HasQuadraticSlackGainWith
+    (a : ℝ) (k : ℕ) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ) (g : State k → ℝ) : Prop :=
+  (w.retarded + w.advanced) * (a / 3) *
+      (3 * (system (k + 1)).normalizedDefect x) ^ 2 ≤
+    (system (k + 1)).normalizedSlack w x -
+      (system k).normalizedSlack w g
+
+/-- Exact scalar reduction for an arbitrary quadratic coefficient. -/
+theorem terminalExcess_quadratic_growth_of_slackGainWith
+    (a : ℝ) (k : ℕ) (hk : 2 ≤ k) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ) (g : State k → ℝ)
+    (hbranch : 0 < w.retarded + w.advanced)
+    (hxmass : (system (k + 1)).totalMass x ≠ 0)
+    (hgmass : (system k).totalMass g ≠ 0)
+    (hgain : HasQuadraticSlackGainWith a k w x g) :
+    3 * (system (k + 1)).normalizedDefect x +
+        a * (3 * (system (k + 1)).normalizedDefect x) ^ 2 ≤
+      3 * (system k).normalizedDefect g := by
+  have hbalance := normalizedSlack_sub_eq_defect_gap
+    k hk w x g hxmass hgmass
+  unfold HasQuadraticSlackGainWith at hgain
+  rw [hbalance] at hgain
+  have hfactored :
+      (w.retarded + w.advanced) *
+          ((a / 3) *
+            (3 * (system (k + 1)).normalizedDefect x) ^ 2) ≤
+        (w.retarded + w.advanced) *
+          ((system k).normalizedDefect g -
+            (system (k + 1)).normalizedDefect x) := by
+    nlinarith
+  have hcancel := le_of_mul_le_mul_left hfactored hbranch
+  nlinarith
+
 /-- Exact all-stage scalar reduction.  Once the normalized slack gain pays
 half the branch weight times the squared fine terminal excess, the terminal
 excess grows by the conjectural factor `3/2` at this coarse step. -/
@@ -192,6 +230,25 @@ theorem terminalExcess_quadratic_growth_of_slackGain
 def HasQuadraticCoarseSlackGain
     (k : ℕ) (w : Weights ℝ) (x : State (k + 1) → ℝ) : Prop :=
   HasQuadraticSlackGain k w x (coarseMinimum k x)
+
+/-- Parameterized premise along the actual coarse-minimum chain. -/
+def HasQuadraticCoarseSlackGainWith
+    (a : ℝ) (k : ℕ) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ) : Prop :=
+  HasQuadraticSlackGainWith a k w x (coarseMinimum k x)
+
+theorem terminalExcess_quadratic_growth_of_coarseSlackGainWith
+    (a : ℝ) (k : ℕ) (hk : 2 ≤ k) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ)
+    (hbranch : 0 < w.retarded + w.advanced)
+    (hxmass : (system (k + 1)).totalMass x ≠ 0)
+    (hgmass : (system k).totalMass (coarseMinimum k x) ≠ 0)
+    (hgain : HasQuadraticCoarseSlackGainWith a k w x) :
+    3 * (system (k + 1)).normalizedDefect x +
+        a * (3 * (system (k + 1)).normalizedDefect x) ^ 2 ≤
+      3 * (system k).normalizedDefect (coarseMinimum k x) := by
+  exact terminalExcess_quadratic_growth_of_slackGainWith
+    a k hk w x (coarseMinimum k x) hbranch hxmass hgmass hgain
 
 theorem terminalExcess_quadratic_growth_of_coarseSlackGain
     (k : ℕ) (hk : 2 ≤ k) (w : Weights ℝ)

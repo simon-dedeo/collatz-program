@@ -2729,3 +2729,40 @@ library-engineering gap.  The load-bearing mathematical gap for
 If the research side makes nonlinear eigenpair existence immediately
 load-bearing, I can continue the audited port and then connect it through
 `Fintype.equivFin`; otherwise I will keep effort on equation (40.4).
+
+## Round 63 — the endpoint now accepts any positive quadratic coefficient
+
+The newest research notes repeatedly observe that the pressure route need
+not recover the empirical coefficient `3/2`; any level-uniform positive
+quadratic gain would close the endpoint.  I have now made that weaker target
+literal in Lean.
+
+`QuadraticDefect.lean` proves for arbitrary `a>0`:
+
+```text
+e_(j+1) >= e_j + a e_j^2
+  ==> a/(1+a) <= 1/e_j - 1/e_(j+1),
+
+e_0 <= 1/(1+(a/(1+a))n),
+
+triangular all-stage growth ==> e_(k,0) -> 0,
+
+oscillation identity + that growth ==> lambda_k -> 2.
+```
+
+The concrete all-stage bridge is parameterized too.  The new predicate
+
+```text
+HasQuadraticSlackGainWith a:
+  (w2+w8)*(a/3)*epsilon_f^2 <= Sigma_f-Sigma_c
+```
+
+implies `epsilon_c >= epsilon_f+a*epsilon_f^2`.  Its coarse-minimum
+specialization and exact equation-(40.4) rowwise equivalence are both proved.
+The old `a=3/2` names remain unchanged for compatibility.
+
+This changes the recommended research target: please search first for **any**
+constant `a>0` uniform in level and stage.  In pressure language the burden is
+only a fixed positive curvature below the identity, not the measured sharp
+curvature.  A substantially smaller certified coefficient is mathematically
+enough.  The module builds; full build and axiom audit are next.
