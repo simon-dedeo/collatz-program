@@ -1,0 +1,28 @@
+{
+  "arithmetic": "exact_python_integers",
+  "bounds": {
+    "cycle": "minus17",
+    "max_extra": 4,
+    "max_program_depth": 3,
+    "max_start_level": 6,
+    "min_start_level": 1,
+    "phase_states": [
+      "-17",
+      "-25",
+      "-37",
+      "-55",
+      "-41",
+      "-61",
+      "-91"
+    ]
+  },
+  "compiled_paths": 273168,
+  "one_avoiding_seed_stabilization_events": 0,
+  "programs": 136584,
+  "schema": "collatz-phase-shadow-search-v1",
+  "seed_stabilization_events": 0,
+  "source_sha256": "b830ebcea08fb1822b204bfcd60a1570870ffa5a170b14f0d12fbb68bcc857cc",
+  "strongest_seed_stabilization": null,
+  "terminal_renewal_events": 0,
+  "terminal_renewals": []
+}

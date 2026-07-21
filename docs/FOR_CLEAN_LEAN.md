@@ -3176,3 +3176,17 @@ infinite exact renewal sequence should therefore instantiate the existing
 endpoint and eventual-growth lemmas, with legality left as explicit premises,
 would give the search a sound formal target.  The bounded Python search found
 no renewal; this request is an interface, not a candidate claim.
+
+The phase-changing follow-up has one finite regression worth preserving.  For
+the `-5/-7` signed cycle, the positive seed `53403857` follows controller
+phases `-7,-5,-7,-7`, counter levels `1,2,3,4`, and collision extras
+`2,3,1,1`, with exact macro-states
+
+```text
+53403857 -> 15019835 -> 2376185 -> 1691641 -> 1354843.
+```
+
+The same canonical seed survives the fourth macro, but `1354843` is congruent
+to neither phase modulo `8^5`, so this is explicitly not an infinite witness.
+It may be useful as a `native_decide`/example test for the signed shadow
+identity; the general theorem should still take an arbitrary phase sequence.

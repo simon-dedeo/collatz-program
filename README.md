@@ -150,6 +150,7 @@ identically `x`.
 | Small positive cycle words | Exhaustively negative through total halving count `S<=22`: `3,447,691` positive-denominator compositions, with only repeated encodings of seed `1`. This is a bounded ansatz exclusion, not a new verification frontier. | [`search_results.json`](experiments/kontorovich/search_results.json) |
 | Fixed-width binary uniform morphisms | Exhaustively negative for nontrivial cycles at widths `2..4`, codings `1..4`, and expanded length at most `16,384`. The best `1`-avoiding seed-stabilization event dies at its next morphic extension. | [`search_results.json`](experiments/kontorovich/search_results.json) |
 | Small negative-cycle shadow programs | Exhaustively negative for ordinary-seed stabilization or terminal precision renewal using controllers `-5` and `-17`, start levels `1..6`, collision extras `1..8`, and extra programs of depth at most four: `112,320` compiled paths in both mod-6 classes. This closes only the stated one-counter pilot. | [`shadow_results.json`](experiments/kontorovich/shadow_results.json) |
+| Bounded phase-changing shadow grammar | `1,950,864` positive paths checked exactly. The `-5/-7` phases yield 15 terminal renewals and 10 one-extension seed stabilizations, all starting at level 1 or 2; every renewed path loses alignment on its next collision and none grows. All seven `-17` phases yield zero events within their separately stated bounds. | [Phase-shadow artifacts](experiments/kontorovich/README.md#phase-changing-shadow-collisions) |
 | Small regular invariant sets | Previously closed only in the stated exhaustive classes: no base-2 DFA divergence certificate through eight states and no base-3 certificate through five. One-counter and genuinely morphic single-orbit certificates remain open. | [Base 2](experiments/dfacert/README.md), [base 3](experiments/dfacert3/README.md) |
 
 The first work product will be an exact `k`-word compiler and cycle/glider
@@ -171,6 +172,8 @@ positive integer and its claimed behavior are machine-checked.
 | Ordinary-integer gate | Lean commit `ad36f08` proves `StreamLegal x k` iff the exact canonical prefix seeds eventually stabilize at `x` (in the fixed admissible mod-6 class). This validates the worker's stabilization diagnostic at the infinite level. |
 | Separated-packet clock | Lean commit `121cb13` proves `ord_(2^(n+3))(3)=2^(n+1)` and exact residue scheduling corollaries. This certifies the delay-line clock, not a collision-renewal rule. |
 | Negative-cycle shadow pilot | Exact Python checked `112,320` compiled paths for the `-5` and `-17` supercritical controllers through the bounds above. Every macrostep passed literal replay; no seed stabilization or next-level shadow renewal occurred. |
+| Finite phase-changing carry renewal | Exact search found positive seed `53,403,857` with macro-states `53,403,857 -> 15,019,835 -> 2,376,185 -> 1,691,641 -> 1,354,843`, following `-7,-5,-7,-7` controller phases at levels `1..4`. Its canonical seed survives the fourth macro, but the endpoint misses every level-5 phase class. This verifies one finite renewal mechanism, not nontermination. |
+| Kernel phase-shadow disproof seam | Lean commits `3d9cedc`/`93cafe1` prove the exact shifted-coordinate macro, eventual outward growth for bounded collision extras, and `PhaseShadowRenewal.not_conjecture` from an infinite exact renewal sequence. Commits `edcee1a`/`0d8c3d2` kernel-check the signed `-5`, `-17`, and every rotated phase. No infinite renewal witness is known. |
 
 The compiler and certificate seam is now live.  The dependency-free
 [`path_compiler.py`](experiments/kontorovich/path_compiler.py) reproduces the
@@ -208,6 +211,25 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-21 19:54 EDT
+
+Allowed carry collisions to change phase around the same negative cycle.  This
+unlocked 15 exact `-5/-7` precision renewals and 10 one-extension ordinary-seed
+stabilizations, including seed `53,403,857`; every event is finite, shrinking,
+and fails on the next collision.  The complete bounded phase grammar checked
+`1,950,864` positive paths; all seven phases of the `-17` controller were
+negative.  Counts, bounds, and replayable events are in the [KC headline
+table](#kc-headline-results-with-verification-scope) and [experiment
+guide](experiments/kontorovich/README.md#phase-changing-shadow-collisions).
+PSC/Ganesha morphic shards continue in parallel.  Next: extract a collision
+grammar that renews at start level at least seven, where bounded-extra shadow
+macros can become outward, rather than widening the now-failing low-level box.
+Lean commits `3d9cedc` through `0d8c3d2` simultaneously checked the signed
+controllers, all rotated phases, macro endpoint, eventual-growth inequality,
+and the implication from an infinite phase renewal to literal Collatz
+failure.  The research gap is therefore the renewal sequence itself, not a
+missing bridge from such a sequence to the conjecture.
 
 ### 2026-07-21 19:34 EDT
 

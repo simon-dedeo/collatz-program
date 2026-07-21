@@ -170,3 +170,56 @@ valuation and shifted-coordinate replay.  There are zero ordinary-seed
 stabilization events and zero terminal next-level renewals in this stated
 class.  Source digest:
 `dc33070c7d14db452aafe19c59ce097e301e895c593e2c0ec2d89424b2d72696`.
+
+## Phase-changing shadow collisions
+
+`search_phase_shadow.py` allows a carry collision to land near a different
+phase of the same negative cycle.  At level `M`, a symbol `(i,e)` means: start
+near negative phase `c_i`, run `M` copies of the valuation word rotated to
+that phase, and add `e` powers of two at the terminal collision.  The next
+symbol must start near its selected phase modulo `Q^(M+1)`.  The worker checks
+the shifted-coordinate formula and literally replays every positive path.
+
+Two committed runs use different bounds because the cycles have two and seven
+phases:
+
+```bash
+python3 search_phase_shadow.py --selftest
+python3 search_phase_shadow.py --cycle minus5 \
+  --min-start-level 1 --max-start-level 12 \
+  --max-extra 8 --max-program-depth 4 \
+  --output phase_minus5_results.json
+python3 search_phase_shadow.py --cycle minus17 \
+  --min-start-level 1 --max-start-level 6 \
+  --max-extra 4 --max-program-depth 3 \
+  --output phase_minus17_results.json
+```
+
+The `-5/-7` artifact exhausts `838,848` phase/extra programs and `1,677,696`
+compiled paths in the two mod-6 classes.  It finds 15 terminal next-level
+renewals and 10 one-extension canonical-seed stabilizations.  All renewals
+start at level one or two, every next macro shrinks, and every event loses
+alignment immediately after that added macro.  A compact regression is
+
+```text
+phase/extra:  (-7,2), (-5,3), (-7,1), (-7,1)
+levels:       1,      2,      3,      4
+macro states: 53403857 -> 15019835 -> 2376185 -> 1691641 -> 1354843.
+```
+
+The same ordinary seed is canonical before and after the fourth macro, but
+`1354843` is in neither negative phase class at precision level five.  This is
+an exact finite carry-renewal example, not a divergent orbit.
+
+The seven-phase `-17` artifact exhausts `136,584` programs and `273,168`
+compiled paths; it finds no stabilization or renewal.  Together the artifacts
+check `1,950,864` paths.  Their common source digest is
+`b830ebcea08fb1822b204bfcd60a1570870ffa5a170b14f0d12fbb68bcc857cc`.
+
+The soundness endpoint is kernel-checked.  Lean commits `3d9cedc`/`93cafe1`
+prove the shifted-coordinate identity, eventual strict growth when collision
+extras are uniformly bounded, and the literal negation of Collatz from an
+infinite exact phase-renewal witness.  Commits `edcee1a`/`0d8c3d2` check the
+signed `-5` and `-17` cycles and prove that every rotated phase supplies the
+required affine controller.  The finite artifacts above do not instantiate
+the infinite witness type.

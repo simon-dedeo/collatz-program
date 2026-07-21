@@ -241,3 +241,41 @@ and every extra word of length at most four in both mod-6 classes.  All
 renews the terminal precision.  This is a small ansatz failure, not an
 obstruction theorem; phase-changing and substitution-driven collisions remain
 open.
+
+Allowing a collision to change phase within the same negative cycle does
+produce finite renewals.  For the two-cycle `-5 -> -7 -> -5`, write phase zero
+for `(-5;(1,2))` and phase one for `(-7;(2,1))`.  The exact program
+
+```text
+(phase,extra) = (1,2), (0,3), (1,1), (1,1)
+counter level = 1,     2,     3,     4
+```
+
+has the ordinary positive seed and macro-states
+
+```text
+53403857 -> 15019835 -> 2376185 -> 1691641 -> 1354843.
+```
+
+The fourth macro is a genuine canonical-seed stabilization: the same seed was
+already the least representative for the first three macros.  Nevertheless,
+the last state is not congruent to either negative phase modulo `8^5`, so the
+renewal stops immediately; all four macrosteps also shrink at these low
+levels.
+
+`search_phase_shadow.py` exhausts this grammar for both negative cycles.  The
+`-5/-7` run checks `1,677,696` compiled paths (start levels through 12, extras
+through eight, depth through four) and finds 15 terminal renewals, all at
+start level one or two; none survives the next collision.  The seven-phase
+`-17` run checks `273,168` paths (start levels through six, extras through
+four, depth through three) and finds none.  Thus phase change is a real finite
+carry mechanism, but the bounded grammar does not reach the outward regime.
+
+The full implication is no longer informal.  Lean commits `3d9cedc` and
+`93cafe1` prove (7.1), the eventual strict-growth inequality for uniformly
+bounded extras, and that an infinite exact (possibly phase-changing) renewal
+constructs a `MacroGlider` and refutes the literal ordinary Collatz
+conjecture.  Commits `edcee1a` and `0d8c3d2` check the two signed controller
+cycles and derive every rotated phase from the base certificate.  What remains
+is exactly the infinite positive renewal witness; the bounded events here do
+not provide it.

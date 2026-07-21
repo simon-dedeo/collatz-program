@@ -1,0 +1,729 @@
+{
+  "arithmetic": "exact_python_integers",
+  "bounds": {
+    "cycle": "minus5",
+    "max_extra": 8,
+    "max_program_depth": 4,
+    "max_start_level": 12,
+    "min_start_level": 1,
+    "phase_states": [
+      "-5",
+      "-7"
+    ]
+  },
+  "compiled_paths": 1677696,
+  "one_avoiding_seed_stabilization_events": 10,
+  "programs": 838848,
+  "schema": "collatz-phase-shadow-search-v1",
+  "seed_stabilization_events": 10,
+  "source_sha256": "b830ebcea08fb1822b204bfcd60a1570870ffa5a170b14f0d12fbb68bcc857cc",
+  "strongest_seed_stabilization": {
+    "cycle": "minus5",
+    "endpoint": "1354843",
+    "first_one_step": null,
+    "macro_states": [
+      "53403857",
+      "15019835",
+      "2376185",
+      "1691641",
+      "1354843"
+    ],
+    "program": [
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "program_depth": 4,
+    "residue_mod_6": 5,
+    "seed": "53403857",
+    "stable_extensions": 1,
+    "start_level": 1,
+    "terminal_compatible_phases": []
+  },
+  "terminal_renewal_events": 15,
+  "terminal_renewals": [
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "361",
+          "extra": 1,
+          "grows": false,
+          "level": 3,
+          "phase": 1,
+          "state": "505",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "505",
+      "first_one_step": null,
+      "macro_states": [
+        "181475",
+        "1595",
+        "505"
+      ],
+      "program": [
+        [
+          0,
+          7
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "program_depth": 2,
+      "residue_mod_6": 5,
+      "seed": "181475",
+      "stable_extensions": 0,
+      "start_level": 1,
+      "terminal_compatible_phases": [
+        1
+      ]
+    },
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "361",
+          "extra": 1,
+          "grows": false,
+          "level": 3,
+          "phase": 1,
+          "state": "505",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "505",
+      "first_one_step": null,
+      "macro_states": [
+        "90737",
+        "1595",
+        "505"
+      ],
+      "program": [
+        [
+          1,
+          6
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "program_depth": 2,
+      "residue_mod_6": 5,
+      "seed": "90737",
+      "stable_extensions": 0,
+      "start_level": 1,
+      "terminal_compatible_phases": [
+        1
+      ]
+    },
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "710227",
+          "extra": 2,
+          "grows": false,
+          "level": 4,
+          "phase": 0,
+          "state": "1773563",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "1773563",
+      "first_one_step": null,
+      "macro_states": [
+        "114667781107",
+        "64500626873",
+        "318881273",
+        "1773563"
+      ],
+      "program": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          8
+        ]
+      ],
+      "program_depth": 3,
+      "residue_mod_6": 1,
+      "seed": "114667781107",
+      "stable_extensions": 0,
+      "start_level": 1,
+      "terminal_compatible_phases": [
+        0
+      ]
+    },
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "1354843",
+          "extra": 1,
+          "grows": false,
+          "level": 4,
+          "phase": 1,
+          "state": "1691641",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "1691641",
+      "first_one_step": null,
+      "macro_states": [
+        "106807715",
+        "15019835",
+        "2376185",
+        "1691641"
+      ],
+      "program": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "program_depth": 3,
+      "residue_mod_6": 5,
+      "seed": "106807715",
+      "stable_extensions": 0,
+      "start_level": 1,
+      "terminal_compatible_phases": [
+        1
+      ]
+    },
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "265717",
+          "extra": 1,
+          "grows": false,
+          "level": 4,
+          "phase": 1,
+          "state": "331769",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "331769",
+      "first_one_step": null,
+      "macro_states": [
+        "42900323555",
+        "377053625",
+        "29825531",
+        "331769"
+      ],
+      "program": [
+        [
+          0,
+          7
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          0,
+          7
+        ]
+      ],
+      "program_depth": 3,
+      "residue_mod_6": 5,
+      "seed": "42900323555",
+      "stable_extensions": 0,
+      "start_level": 1,
+      "terminal_compatible_phases": [
+        1
+      ]
+    },
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "1354843",
+          "extra": 1,
+          "grows": false,
+          "level": 4,
+          "phase": 1,
+          "state": "1691641",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "1691641",
+      "first_one_step": null,
+      "macro_states": [
+        "53403857",
+        "15019835",
+        "2376185",
+        "1691641"
+      ],
+      "program": [
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "program_depth": 3,
+      "residue_mod_6": 5,
+      "seed": "53403857",
+      "stable_extensions": 0,
+      "start_level": 1,
+      "terminal_compatible_phases": [
+        1
+      ]
+    },
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "265717",
+          "extra": 1,
+          "grows": false,
+          "level": 4,
+          "phase": 1,
+          "state": "331769",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "331769",
+      "first_one_step": null,
+      "macro_states": [
+        "21450161777",
+        "377053625",
+        "29825531",
+        "331769"
+      ],
+      "program": [
+        [
+          1,
+          6
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          0,
+          7
+        ]
+      ],
+      "program_depth": 3,
+      "residue_mod_6": 5,
+      "seed": "21450161777",
+      "stable_extensions": 0,
+      "start_level": 1,
+      "terminal_compatible_phases": [
+        1
+      ]
+    },
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "710227",
+          "extra": 2,
+          "grows": false,
+          "level": 4,
+          "phase": 0,
+          "state": "1773563",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "1773563",
+      "first_one_step": null,
+      "macro_states": [
+        "3669368995441",
+        "64500626873",
+        "318881273",
+        "1773563"
+      ],
+      "program": [
+        [
+          1,
+          6
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          1,
+          8
+        ]
+      ],
+      "program_depth": 3,
+      "residue_mod_6": 1,
+      "seed": "3669368995441",
+      "stable_extensions": 0,
+      "start_level": 1,
+      "terminal_compatible_phases": [
+        0
+      ]
+    },
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "9105031027",
+          "extra": 1,
+          "grows": false,
+          "level": 5,
+          "phase": 1,
+          "state": "10105290745",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "10105290745",
+      "first_one_step": null,
+      "macro_states": [
+        "6526096597515491",
+        "57358270876601",
+        "9074257697275",
+        "50469466105",
+        "10105290745"
+      ],
+      "program": [
+        [
+          0,
+          7
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "program_depth": 4,
+      "residue_mod_6": 5,
+      "seed": "6526096597515491",
+      "stable_extensions": 0,
+      "start_level": 1,
+      "terminal_compatible_phases": [
+        1
+      ]
+    },
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "18569065",
+          "extra": 5,
+          "grows": false,
+          "level": 5,
+          "phase": 1,
+          "state": "329744377",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "329744377",
+      "first_one_step": null,
+      "macro_states": [
+        "851808703463651",
+        "3743299966393",
+        "37012609531",
+        "823431163",
+        "329744377"
+      ],
+      "program": [
+        [
+          0,
+          8
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "program_depth": 4,
+      "residue_mod_6": 5,
+      "seed": "851808703463651",
+      "stable_extensions": 0,
+      "start_level": 1,
+      "terminal_compatible_phases": [
+        1
+      ]
+    },
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "18569065",
+          "extra": 5,
+          "grows": false,
+          "level": 5,
+          "phase": 1,
+          "state": "329744377",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "329744377",
+      "first_one_step": null,
+      "macro_states": [
+        "6654755495809",
+        "3743299966393",
+        "37012609531",
+        "823431163",
+        "329744377"
+      ],
+      "program": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "program_depth": 4,
+      "residue_mod_6": 1,
+      "seed": "6654755495809",
+      "stable_extensions": 0,
+      "start_level": 1,
+      "terminal_compatible_phases": [
+        1
+      ]
+    },
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "9105031027",
+          "extra": 1,
+          "grows": false,
+          "level": 5,
+          "phase": 1,
+          "state": "10105290745",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "10105290745",
+      "first_one_step": null,
+      "macro_states": [
+        "3263048298757745",
+        "57358270876601",
+        "9074257697275",
+        "50469466105",
+        "10105290745"
+      ],
+      "program": [
+        [
+          1,
+          6
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "program_depth": 4,
+      "residue_mod_6": 5,
+      "seed": "3263048298757745",
+      "stable_extensions": 0,
+      "start_level": 1,
+      "terminal_compatible_phases": [
+        1
+      ]
+    },
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "18569065",
+          "extra": 5,
+          "grows": false,
+          "level": 5,
+          "phase": 1,
+          "state": "329744377",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "329744377",
+      "first_one_step": null,
+      "macro_states": [
+        "425904351731825",
+        "3743299966393",
+        "37012609531",
+        "823431163",
+        "329744377"
+      ],
+      "program": [
+        [
+          1,
+          7
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "program_depth": 4,
+      "residue_mod_6": 5,
+      "seed": "425904351731825",
+      "stable_extensions": 0,
+      "start_level": 1,
+      "terminal_compatible_phases": [
+        1
+      ]
+    },
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "265717",
+          "extra": 1,
+          "grows": false,
+          "level": 4,
+          "phase": 1,
+          "state": "331769",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "331769",
+      "first_one_step": null,
+      "macro_states": [
+        "377053625",
+        "29825531",
+        "331769"
+      ],
+      "program": [
+        [
+          1,
+          4
+        ],
+        [
+          0,
+          7
+        ]
+      ],
+      "program_depth": 2,
+      "residue_mod_6": 5,
+      "seed": "377053625",
+      "stable_extensions": 0,
+      "start_level": 2,
+      "terminal_compatible_phases": [
+        1
+      ]
+    },
+    {
+      "automatic_continuation": [
+        {
+          "endpoint": "18569065",
+          "extra": 5,
+          "grows": false,
+          "level": 5,
+          "phase": 1,
+          "state": "329744377",
+          "target_phases": []
+        }
+      ],
+      "cycle": "minus5",
+      "endpoint": "329744377",
+      "first_one_step": null,
+      "macro_states": [
+        "3743299966393",
+        "37012609531",
+        "823431163",
+        "329744377"
+      ],
+      "program": [
+        [
+          1,
+          7
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "program_depth": 3,
+      "residue_mod_6": 1,
+      "seed": "3743299966393",
+      "stable_extensions": 0,
+      "start_level": 2,
+      "terminal_compatible_phases": [
+        1
+      ]
+    }
+  ]
+}
