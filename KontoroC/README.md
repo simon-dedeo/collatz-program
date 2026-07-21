@@ -85,6 +85,10 @@ state is only an affine controller here; an infinite renewal witness is still
 required before the existing `MacroGlider` theorem applies.
 The `PhaseShadowRenewal` variant permits a different signed controller phase
 and rotated word at each level, matching the phase-changing exact worker.
+`SignedController.lean` independently checks that the worker's `-5` and `-17`
+controllers are literal signed accelerated cycles and derives the affine fixed
+equation consumed by the shadow endpoint.  These negative cycles remain
+controllers only, never positive counterexamples.
 
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.

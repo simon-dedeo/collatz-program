@@ -3626,3 +3626,44 @@ The 8,674-job full build and axiom audit pass; both phase-changing headline
 theorems report only `[propext, Classical.choice, Quot.sound]`.  The worker's
 finite renewals still do not instantiate this structure: an infinite exact
 phase sequence is the remaining construction problem.
+
+## Kontorovich round 10 — signed controller provenance kernel-checked
+
+The Round 8 endpoint accepted the signed affine fixed equation explicitly,
+which was sound but left the phrase “negative Collatz cycle” outside Lean.
+`KontoroC/SignedController.lean` now closes that seam.
+
+`SignedLegalInstruction n k` requires `n` odd, `k>0`, exact signed division
+
+```text
+3*n+1 = 2^k * signedStepAt(n,k),
+```
+
+and an odd quotient.  The last condition makes `k` the maximal two-adic
+valuation.  Recursive `SignedWordLegal` and `signedRunWord` then satisfy the
+full signed affine identity
+
+```text
+2^sum(w) * signedRunWord(c,w)
+  = 3^|w| * c + affineOffset(w).
+```
+
+A Boolean `SignedCycleCertificate` checks negativity, nonempty word, every
+exact instruction, and closure.  Its soundness theorem derives precisely the
+affine fixed relation consumed by `negativeShadow_endpoint`.  The two
+controllers used by the workers are now checked inside Lean:
+
+```text
+-5  with [1,2],
+-17 with [1,1,1,2,1,1,4].
+```
+
+Both checks reduce to `true` in the trusted kernel, and
+`negativeShadow_endpoint_of_signedController` accepts such a checked
+certificate directly.  This still assigns no counterexample status to a
+negative cycle; it only certifies the finite controller's provenance.
+
+Full build passes at 8,675 jobs.  The signed affine theorem itself uses only
+`propext`; certificate wrappers have the usual
+`[propext, Classical.choice, Quot.sound]`.  No project axioms or proof holes
+were introduced.

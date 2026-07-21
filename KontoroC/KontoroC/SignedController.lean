@@ -1,0 +1,152 @@
+/-
+Copyright (c) 2026 Simon DeDeo. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Simon DeDeo, OpenAI Codex
+-/
+import KontoroC.NegativeShadow
+
+/-!
+# Exact signed controllers
+
+Negative cycles are not counterexamples to the positive Collatz conjecture.
+They can, however, be checked exactly as finite controllers.  This module
+closes the provenance gap between a signed accelerated cycle and the affine
+fixed equation consumed by `NegativeShadow`.
+-/
+
+namespace KontoroC
+
+/-- Execute one signed accelerated instruction with a claimed valuation. -/
+def signedStepAt (n : ℤ) (k : ℕ) : ℤ :=
+  (3 * n + 1) / 2 ^ k
+
+/-- Exact signed instruction: positive valuation, exact division, and odd
+states on both sides.  Oddness of the quotient makes the valuation maximal. -/
+def SignedLegalInstruction (n : ℤ) (k : ℕ) : Prop :=
+  Odd n ∧ 0 < k ∧
+    3 * n + 1 = (2 ^ k : ℤ) * signedStepAt n k ∧
+    Odd (signedStepAt n k)
+
+instance (n : ℤ) (k : ℕ) : Decidable (SignedLegalInstruction n k) := by
+  unfold SignedLegalInstruction
+  infer_instance
+
+def signedRunWord : ℤ → List ℕ → ℤ
+  | n, [] => n
+  | n, k :: ks => signedRunWord (signedStepAt n k) ks
+
+def SignedWordLegal : ℤ → List ℕ → Prop
+  | _, [] => True
+  | n, k :: ks => SignedLegalInstruction n k ∧
+      SignedWordLegal (signedStepAt n k) ks
+
+instance signedWordLegalDecidable : ∀ n ks, Decidable (SignedWordLegal n ks)
+  | _, [] => inferInstanceAs (Decidable True)
+  | n, k :: ks =>
+      @instDecidableAnd (SignedLegalInstruction n k)
+        (SignedWordLegal (signedStepAt n k) ks)
+        (inferInstanceAs (Decidable (SignedLegalInstruction n k)))
+        (signedWordLegalDecidable (signedStepAt n k) ks)
+
+@[simp] theorem signedRunWord_nil (n : ℤ) : signedRunWord n [] = n := rfl
+
+@[simp] theorem signedRunWord_cons (n : ℤ) (k : ℕ) (ks : List ℕ) :
+    signedRunWord n (k :: ks) = signedRunWord (signedStepAt n k) ks := rfl
+
+/-- Signed analogue of the finite valuation-word affine identity. -/
+theorem signedValuationWord_affine_identity {x : ℤ} {ks : List ℕ}
+    (h : SignedWordLegal x ks) :
+    (2 ^ totalValuation ks : ℤ) * signedRunWord x ks =
+      (3 ^ ks.length : ℤ) * x + affineOffset ks := by
+  induction ks generalizing x with
+  | nil => simp
+  | cons k ks ih =>
+      have hstep : (2 ^ k : ℤ) * signedStepAt x k = 3 * x + 1 :=
+        h.1.2.2.1.symm
+      have htail := ih h.2
+      rw [totalValuation_cons, pow_add, signedRunWord_cons,
+        affineOffset_cons, List.length_cons, pow_succ]
+      push_cast
+      calc
+        ((2 : ℤ) ^ k * (2 : ℤ) ^ totalValuation ks) *
+            signedRunWord (signedStepAt x k) ks =
+            (2 : ℤ) ^ k *
+              ((2 : ℤ) ^ totalValuation ks *
+                signedRunWord (signedStepAt x k) ks) := by ring
+        _ = (2 : ℤ) ^ k *
+              ((3 : ℤ) ^ ks.length * signedStepAt x k + affineOffset ks) := by
+                rw [htail]
+        _ = (3 : ℤ) ^ ks.length *
+              ((2 : ℤ) ^ k * signedStepAt x k) +
+              (2 : ℤ) ^ k * affineOffset ks := by ring
+        _ = (3 : ℤ) ^ ks.length * (3 * x + 1) +
+              (2 : ℤ) ^ k * affineOffset ks := by rw [hstep]
+        _ = ((3 : ℤ) ^ ks.length * 3) * x +
+              ((3 : ℤ) ^ ks.length + (2 : ℤ) ^ k * affineOffset ks) := by ring
+
+theorem signedCycle_affine_fixed {c : ℤ} {w : List ℕ}
+    (hlegal : SignedWordLegal c w) (hclose : signedRunWord c w = c) :
+    (2 ^ totalValuation w : ℤ) * c =
+      (3 ^ w.length : ℤ) * c + affineOffset w := by
+  simpa [hclose] using signedValuationWord_affine_identity hlegal
+
+/-- Portable exact negative-controller certificate. -/
+structure SignedCycleCertificate where
+  seed : ℤ
+  word : List ℕ
+deriving Repr, DecidableEq
+
+def SignedCycleCertificate.Valid (c : SignedCycleCertificate) : Prop :=
+  c.seed < 0 ∧ c.word ≠ [] ∧
+    SignedWordLegal c.seed c.word ∧ signedRunWord c.seed c.word = c.seed
+
+instance SignedCycleCertificate.instDecidableValid
+    (c : SignedCycleCertificate) : Decidable c.Valid := by
+  unfold SignedCycleCertificate.Valid
+  infer_instance
+
+def SignedCycleCertificate.check (c : SignedCycleCertificate) : Bool :=
+  decide c.Valid
+
+theorem SignedCycleCertificate.valid_of_check {c : SignedCycleCertificate}
+    (h : c.check = true) : c.Valid := by
+  simpa [SignedCycleCertificate.check] using h
+
+theorem SignedCycleCertificate.affine_fixed {c : SignedCycleCertificate}
+    (h : c.check = true) :
+    (2 ^ totalValuation c.word : ℤ) * c.seed =
+      (3 ^ c.word.length : ℤ) * c.seed + affineOffset c.word := by
+  have hv := c.valid_of_check h
+  exact signedCycle_affine_fixed hv.2.2.1 hv.2.2.2
+
+/-- The `-5` controller used by the shadow workers. -/
+def minusFiveController : SignedCycleCertificate := ⟨-5, [1, 2]⟩
+
+/-- The `-17` controller used by the shadow workers. -/
+def minusSeventeenController : SignedCycleCertificate :=
+  ⟨-17, [1, 1, 1, 2, 1, 1, 4]⟩
+
+theorem minusFiveController_check : minusFiveController.check = true := by
+  norm_num [minusFiveController, SignedCycleCertificate.check,
+    SignedCycleCertificate.Valid, SignedWordLegal, SignedLegalInstruction,
+    signedRunWord, signedStepAt] <;> simp
+
+theorem minusSeventeenController_check :
+    minusSeventeenController.check = true := by
+  norm_num [minusSeventeenController, SignedCycleCertificate.check,
+    SignedCycleCertificate.Valid, SignedWordLegal, SignedLegalInstruction,
+    signedRunWord, signedStepAt] <;> simp
+
+/-- The shadow endpoint can consume a checked signed controller directly. -/
+theorem negativeShadow_endpoint_of_signedController
+    {cert : SignedCycleCertificate} {h : ℤ} {x m e : ℕ}
+    (hcert : cert.check = true) (hm : 0 < m)
+    (hx : (x : ℤ) = cert.seed +
+      (2 ^ totalValuation cert.word : ℤ) ^ m * h)
+    (hlegal : WordLegal x (shadowMacroWord cert.word m e)) :
+    (2 ^ e : ℤ) * runWord x (shadowMacroWord cert.word m e) =
+      cert.seed + (3 ^ cert.word.length : ℤ) ^ m * h := by
+  have hv := cert.valid_of_check hcert
+  exact negativeShadow_endpoint hv.2.1 hm (cert.affine_fixed hcert) hx hlegal
+
+end KontoroC
