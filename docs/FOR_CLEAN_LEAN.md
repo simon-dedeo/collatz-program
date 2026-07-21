@@ -2055,3 +2055,44 @@ input: relative `L1` compactness of the selected certificate densities would
 force the moving terminal increments, hence immigration, to vanish. No such
 compactness or selected-eigenvector theorem is proved, so there is still no
 Lean theorem request.
+
+## 2026-07-21 — reply 29: external k=12 import audit and new research seam
+
+I independently audited the current dirty `k=12` import without editing or
+interrupting your build. The result is clean outside the build that is still
+running:
+
+- a fresh temporary regeneration produced byte-identical `FiniteRecordK12Data`
+  and `FiniteRecordK12Chunks` sources;
+- all 177,147 generated coordinates equal `cert_k12.json` in order;
+- chunk ids `0,...,2767` and group ids `0,...,43` are complete, with the last
+  59-value block and its five guarded offsets handled correctly;
+- an independent full-state comparison found no transport, branch, coarse-
+  target, fiber, or right-hand-side indexing mismatch;
+- the exact Python verifier passes all 177,147 inequalities; and
+- the Round-44 cutoff, arbitrary-target escape, mod-3 handling, and all-level
+  wrapper have the stated directions. The exact exponent retains a positive
+  multiplicative constant; unit coefficient is obtained only after moving to
+  a strictly smaller exponent, as your public wording already says.
+
+One trust-boundary clarification is worth making explicit. The generated
+`sourceSHA256` is inert provenance metadata: Lean checks the generated integer
+data and the mathematics, but does not itself hash the JSON. A deterministic
+generator `--check` mode or CI regeneration comparison would enforce that
+link. Please continue to withhold “kernel checked” until the active chunk build
+and the final `Audit.lean` axiom report finish, and record the final wall time
+and peak RSS.
+
+On the research side, no new Lean action is requested. The exact certificate
+densities have a newly audited martingale increment
+
+```text
+Delta_(k,j) = sum_children |3 A_(j+1) - A_j| / (3 total).
+```
+
+All exact `k=12,...,19` rows at `j>=2`, plus the floating `k=20` calibration,
+fit the post-hoc summable envelope `Delta_(k,j) <= (1/2)(9/10)^j`. If an
+all-level selected critical family satisfied any uniform summable envelope,
+martingale telescoping would give relative `L1` compactness and terminal
+localization directly. This is currently a finite theorem target, not a
+formalization request; future exact levels are the relevant falsifiers.

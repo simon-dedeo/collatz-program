@@ -57,6 +57,12 @@ obstructions below and rational cones above. The local floating `k=20`
 candidate provisionally exceeds every fitted margin but remains qualitatively contracting at
 the same seven starts. Terminal-offset immigration improves at `t=.2,.3` but
 rises at offsets one through four for the smallest threshold `.05`.
+The sharper direct audit computes all 116 exact density-martingale increments:
+from depth two onward they fit the post-hoc summable envelope
+`Delta_(k,j)<=(1/2)(9/10)^j`, and the floating `k=20` calibration does too. A
+uniform all-level envelope would imply relative `L1` compactness and terminal
+localization without the bin cones; proving it for an appropriate selected
+family is now the live localization target.
 Around this sits a cluster of proved structure theorems and — equally important — a
 growing **failure ledger** of proof routes that are now provably dead. A
 separate GPT instance runs an independent Lean formalization in `CLEAN_LEAN/`
@@ -99,9 +105,13 @@ and the two collaboration channels current.
   tails is nonincreasing, but pointwise contraction at `t=.2` is false. The
   exact bin audit fully classifies the finite burn-in at all seven thresholds.
   A floating `k=20` audit provisionally exceeds every fitted exact-data margin but no
-  qualitative cone or minimal start. The live theorem target is an expanding
-  terminal contraction window with mass-weighted defect and low-to-high
-  immigration decay; the rising `.05` immigration is the exposed negative signal. See
+  qualitative cone or minimal start. The exact martingale audit adds 116
+  SHA-pinned rational increments; all 108 rows at `j>=2` fit
+  `(1/2)(9/10)^j`, as do 18 floating `k=20` rows. Fixed-depth increments rise
+  while fixed-terminal-offset increments fall. The live theorem target is a
+  uniform summable increment envelope for selected critical—or aggregate-
+  slack-vanishing—densities. The cone route remains a fallback, with rising
+  `.05` immigration as its exposed negative signal. See
   `docs/notes/multiscale-genealogy.md`; do not call its aggregates lower-level
   KL vectors or extrapolate its finite trend.
 - **Proved structure theorems:** KL method = adversarial min-plus transfer
@@ -168,9 +178,9 @@ and the two collaboration channels current.
   note; the DP tables themselves are unchanged. The inherited arctic proof also had a
   reducible-matrix slope gap. An elementary all-dimension weighted-walk pumping
   candidate replaces it, but remains provisional until Lean. The calibrated
-  live agenda is now: (1) turn the exact finite mass-genealogy cone into an
-  expanding-terminal-window and terminal-offset immigration/defect theorem—or
-  falsify that possibility—while retaining direct cofinal
+  live agenda is now: (1) turn the exact finite martingale profile into a
+  uniform summable increment envelope—or falsify that possibility—while
+  retaining the expanding-window cone and direct cofinal
   feasibility as the fallback and importing the first large certificate into
   Lean; (2) kernelize and adversarially check the arctic
   Theorems A/B; (3) mixed-radix anti-concentration; (4) other non-
@@ -297,9 +307,11 @@ rarity of the violations motivates the exact mass-genealogy audit. That
 audit is favorable on its exact finite grid, but its first floating `k=20`
 candidate breaks every fitted contraction margin. All seven same-start worst-row maxima
 remain below one, and the tracked `t=.2,.3` terminal-offset immigration values
-continue to fall, while the `.05` offsets rise. Uniform expanding-window
-contraction, mass-defect/immigration decay,
-all-positive-threshold localization, and the pressure/KL bridge remain open.
+continue to fall, while the `.05` offsets rise. The direct martingale envelope
+is now the cleaner target: if its finite summable profile held uniformly, it
+would force `L1` compactness and all-positive-threshold localization. No
+all-level envelope, coherent critical selection, or normalized-slack theorem
+is known, and the pressure/KL bridge remains open.
 
 ## 6. The user (Simon) — how to work with him
 
@@ -327,9 +339,10 @@ all-positive-threshold localization, and the pressure/KL bridge remain open.
 4. Sanity-check infrastructure (§4) with one `ssh`/`squeue`; it carries over.
 5. Pick the top LIVE bet you can advance. The immediate mathematical target is
    a cofinal exact feasible sequence with `λ→2`, or the pressure/localization
-   mechanism that supplies one. The current localization seam is an expanding
-   terminal contraction window plus terminal-offset weighted defect and
-   immigration decay, described in
+   mechanism that supplies one. The current localization seam is a uniform
+   summable `L1` martingale-increment envelope for selected critical or
+   normalized-slack-vanishing densities; the expanding-window cone with
+   terminal-offset defect/immigration decay is the fallback. Both are described in
    `docs/notes/multiscale-genealogy.md`. Kernel/adversarial review of the repaired
    arctic proof is the bounded side target; mixed-radix has three named gaps.
    Do not

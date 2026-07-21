@@ -12,7 +12,10 @@ but it cannot certify or confirm an exact k=20 statement.
 The source SHA-256 is pinned.  Coarsening follows the same three-block 3-adic
 indexing as ``multiscale_genealogy.py``.  Float64 is used throughout; threshold
 gaps and mass-conservation errors are recorded, and floating point appears in
-every substantive output column.  The default run peaks near 23 GB RSS.
+every substantive output column.  The same pass also records the 19
+conditional-expectation increments and audits the post-hoc summable envelope
+from ``verify_martingale_increment_envelope.py``.  The default run peaks near
+23 GB RSS.
 """
 
 from __future__ import annotations
@@ -35,12 +38,18 @@ DEFAULT_CONE_OUTPUT = (
 DEFAULT_RECURRENCE_OUTPUT = (
     HERE / "analysis_cache" / "float_k20_weighted_recurrence.csv"
 )
+DEFAULT_MARTINGALE_OUTPUT = (
+    HERE / "analysis_cache" / "float_k20_martingale_increments.csv"
+)
 EXPECTED_SHA256 = (
     "35fa2453500ce4dec5d8a504e7dc29acd8d4088d4d3ebdc366b2f8796fb91681"
 )
 K = 20
 EXPECTED_SIZE = 3 ** (K - 1)
 FLOAT_SPECS = exact.CONE_SPECS + exact.PREREGISTERED_CONE_SPECS
+MARTINGALE_FIRST_ENVELOPE_DEPTH = 2
+MARTINGALE_ENVELOPE_SCALE = 0.5
+MARTINGALE_ENVELOPE_RATIO = 0.9
 
 
 def sha256_file(path: Path, chunk_bytes: int = 8 << 20) -> str:
@@ -118,6 +127,62 @@ def transition_cells(
                 codes, weights=child_masses[child_slice], minlength=64
             )
     return cells.reshape(8, 8)
+
+
+def analyze_martingale_increment(
+    parent_depth: int,
+    children: np.ndarray,
+    parents: np.ndarray,
+    total_mass: float,
+    chunk_size: int,
+    source_name: str,
+    source_sha256: str,
+    source_sha256_verified: bool,
+) -> dict[str, object]:
+    """Measure one floating conditional-expectation increment."""
+
+    parent_count = len(parents)
+    if len(children) != 3 * parent_count:
+        raise ValueError("each martingale parent must have three children")
+    deviation_sum = 0.0
+    for digit in range(3):
+        child_start = digit * parent_count
+        for start in range(0, parent_count, chunk_size):
+            end = min(parent_count, start + chunk_size)
+            child_slice = slice(child_start + start, child_start + end)
+            deviations = np.abs(
+                3.0 * children[child_slice] - parents[start:end]
+            )
+            deviation_sum += float(np.sum(deviations, dtype=np.float64))
+
+    increment = deviation_sum / (3.0 * total_mass)
+    envelope = (
+        MARTINGALE_ENVELOPE_SCALE
+        * MARTINGALE_ENVELOPE_RATIO**parent_depth
+    )
+    parent_mass_error = abs(float(parents.sum()) - total_mass) / total_mass
+    return {
+        "k": K,
+        "parent_depth": parent_depth,
+        "child_depth": parent_depth + 1,
+        "terminal_offset": K - 1 - parent_depth,
+        "parent_node_count": len(parents),
+        "child_node_count": len(children),
+        **float_fields("martingale_increment", increment),
+        **float_fields("envelope", envelope),
+        **float_fields("increment_over_envelope", increment / envelope),
+        **float_fields("envelope_slack", envelope - increment),
+        "envelope_applies": (
+            parent_depth >= MARTINGALE_FIRST_ENVELOPE_DEPTH
+        ),
+        "passes_envelope": increment <= envelope,
+        **float_fields("mass_relative_error", parent_mass_error),
+        "envelope_scope": "post_hoc_k12_through_float_k20",
+        "source_kind": "uncertified_float_candidate",
+        "source": source_name,
+        "source_sha256": source_sha256,
+        "source_sha256_verified": source_sha256_verified,
+    }
 
 
 def analyze_transition(
@@ -379,12 +444,83 @@ def check_expected_immigration_summary(
     print("PASS: floating fixed-offset immigration trend regressions")
 
 
+def check_expected_martingale_summary(
+    rows: list[dict[str, object]],
+) -> None:
+    if len(rows) != K - 1:
+        raise AssertionError("floating martingale row count changed")
+    applicable = [row for row in rows if bool(row["envelope_applies"])]
+    violations = [row for row in applicable if not bool(row["passes_envelope"])]
+    worst = max(applicable, key=lambda row: float(row["increment_over_envelope"]))
+    observed = (
+        len(applicable),
+        len(violations),
+        int(worst["parent_depth"]),
+        float(worst["martingale_increment"]),
+        float(worst["increment_over_envelope"]),
+    )
+    expected = (
+        18,
+        0,
+        2,
+        0.35991082047620221,
+        0.88866869253383249,
+    )
+    if observed[:3] != expected[:3] or any(
+        abs(left - right) > 1e-12
+        for left, right in zip(observed[3:], expected[3:])
+    ):
+        raise AssertionError(
+            f"floating martingale summary changed: {observed} != {expected}"
+        )
+
+    terminal_expected = (
+        0.02289443230308842,
+        0.027369408247035598,
+        0.03434109981926821,
+        0.04168116258690618,
+        0.04891487149522316,
+    )
+    exact_k19 = (
+        0.0246960756466,
+        0.0296746403136,
+        0.0374004435523,
+        0.0454960167012,
+        0.053472001667,
+    )
+    terminal_rows = sorted(
+        (row for row in rows if int(row["terminal_offset"]) < 5),
+        key=lambda row: int(row["terminal_offset"]),
+    )
+    terminal_observed = tuple(
+        float(row["martingale_increment"]) for row in terminal_rows
+    )
+    if len(terminal_observed) != 5 or any(
+        abs(left - right) > 1e-12
+        for left, right in zip(terminal_observed, terminal_expected)
+    ):
+        raise AssertionError("floating terminal martingale increments changed")
+    if not all(
+        observed < previous
+        for previous, observed in zip(exact_k19, terminal_observed)
+    ):
+        raise AssertionError("floating terminal martingale trend changed")
+    print(
+        "PASS: floating martingale envelope, "
+        f"{len(applicable)} rows, zero violations, worst ratio="
+        f"{observed[4]:.12g} at depth={observed[2]}"
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("--cone-output", type=Path, default=DEFAULT_CONE_OUTPUT)
     parser.add_argument(
         "--recurrence-output", type=Path, default=DEFAULT_RECURRENCE_OUTPUT
+    )
+    parser.add_argument(
+        "--martingale-output", type=Path, default=DEFAULT_MARTINGALE_OUTPUT
     )
     parser.add_argument("--chunk-size", type=int, default=1_000_000)
     parser.add_argument("--skip-sha", action="store_true")
@@ -416,6 +552,7 @@ def main() -> None:
 
     all_cone_rows: list[dict[str, object]] = []
     all_recurrence_rows: list[dict[str, object]] = []
+    martingale_rows: list[dict[str, object]] = []
     finer_masses: np.ndarray | None = None
     finer_categories: np.ndarray | None = None
     finer_gap: float | None = None
@@ -425,6 +562,16 @@ def main() -> None:
         node_masses, categories, gap = coarsen_and_classify(
             children, args.chunk_size
         )
+        martingale_rows.append(analyze_martingale_increment(
+            depth,
+            children,
+            node_masses,
+            total_mass,
+            args.chunk_size,
+            args.input.name,
+            digest,
+            not args.skip_sha,
+        ))
         if finer_masses is not None:
             assert finer_categories is not None and finer_gap is not None
             cells = transition_cells(
@@ -453,6 +600,7 @@ def main() -> None:
     print(f"root relative mass error={root_relative_error:.3g}")
     check_expected_summary(all_cone_rows)
     check_expected_immigration_summary(all_recurrence_rows)
+    check_expected_martingale_summary(martingale_rows)
     all_cone_rows.sort(
         key=lambda row: (
             tuple(spec.name for spec in FLOAT_SPECS).index(row["spec_name"]),
@@ -466,8 +614,10 @@ def main() -> None:
             int(row["parent_depth"]),
         )
     )
+    martingale_rows.sort(key=lambda row: int(row["parent_depth"]))
     write_rows(args.cone_output, all_cone_rows)
     write_rows(args.recurrence_output, all_recurrence_rows)
+    write_rows(args.martingale_output, martingale_rows)
 
 
 if __name__ == "__main__":

@@ -43,8 +43,11 @@ sweep — full landscape with sources in `LANDSCAPE.md`, raw briefs in
 > common-weight search exactly classifies the finite burn-in at all seven
 > thresholds. The floating `k=20` audit breaks every fitted margin but
 > no qualitative cone or minimal start. Immigration improves at `t=.2,.3` but
-> rises at `.05`. The live seam is an expanding terminal contraction window
-> plus terminal-offset immigration/defect decay; see
+> rises at `.05`. A direct exact audit now computes 116 density-martingale
+> increments; all 108 at `j>=2` fit the post-hoc summable envelope
+> `(1/2)(9/10)^j` from depth two, as does floating `k=20`. A uniform version
+> would force `L1` compactness and localization. This is the live seam; the
+> expanding-window immigration/defect recurrence is the fallback. See
 > `docs/notes/multiscale-genealogy.md`.
 
 ## 0. Ground rules
@@ -367,9 +370,12 @@ genealogy tails are nonincreasing. Exact rational cones classify the observed
 high-bin matrices at all seven thresholds. The floating `k=20` candidate
 exceeds every fitted margin while remaining below one at every same-start
 maximum; the tracked `t=.2,.3` terminal-offset immigration values also
-continue downward, while offsets one through four rise at `t=.05`. Any success
-now requires an expanding-window immigration/defect theorem for thresholds
-tending to zero, not another finite cone fit.
+continue downward, while offsets one through four rise at `t=.05`. The sharper
+martingale diagnostic has 116 exact increments, with all 108 at `j>=2` inside
+a simple post-hoc summable depth envelope; floating `k=20` remains inside it. The live
+problem is to prove such an envelope for an all-level selected critical or
+normalized-slack-vanishing family. The cone/immigration theorem is now the
+fallback, not another finite fit.
 Also top-ranked (SMELL.md §1): Mahler 1968 Z-numbers ↔ Antihydra rarity
 theorem (golden-ratio counting via no-11 subshift); Antihydra as a robust-
 queueing/discrepancy problem, with the former unconditioned finite-computation

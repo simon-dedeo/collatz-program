@@ -296,6 +296,8 @@ dominated-convergence argument gives terminal localization. This formulation
 can ignore rare bad rows through their actual mass-weighted excess; it does not
 require worst-row contraction.
 
+### 4.1 A summable martingale-increment target
+
 There is an exact martingale restatement of the immigration seam. Work on one
 common copy of `Z_3` with Haar probability `H`, extend each normalized finite
 certificate density `f_k=d mu_k/dH` as a cylinder function, and let `F_j` be
@@ -327,6 +329,124 @@ digit has perfectly flat earlier marginals and a permanent terminal defect.
 With natural logarithms and `Ent_H(f)=integral f log(f) dH`, an entropy variant
 sets `h_(k,j)=Ent_H(f_(k,j))-Ent_H(f_(k,j-1))` and gives
 `M_(k,j)(t) <= 18 h_(k,j)/t^2`.
+
+There is now an exact finite audit of the increments themselves. Since the
+atoms of `F_j` carry the masses `A_(j+1)`, integer arithmetic gives
+
+```text
+Delta_(k,j)
+  = sum_children |3 A_(j+1) - A_j| / (3 sum_i C[i]).
+```
+
+Run:
+
+```bash
+python3 experiments/kl/verify_martingale_increment_envelope.py
+```
+
+A fresh clone can run the tracked prefix without replacing the full artifact:
+
+```bash
+python3 experiments/kl/verify_martingale_increment_envelope.py \
+  --levels 12 13 14 15 --output /tmp/martingale-increments.csv
+```
+
+The verifier records the tracked inline-manifest hashes, verifies every
+sidecar against its manifest SHA, checks all 116 exact increments for
+`k=12,...,19`, and writes
+`analysis_cache/martingale_increments_exact.csv`. The floating `k=20` audit in
+`audit_float_k20_weighted_cone.py` writes the separate 19-row
+`float_k20_martingale_increments.csv` table. An independent base-`2^32` limb
+implementation reproduced every fraction, index, and source hash; the two
+output SHA-256 values are `069dcf1623b04bc...` and `f3959866949c5fdd...`.
+Every exact row at `j>=2`, and
+every corresponding floating row, fits the deliberately simple post-hoc
+envelope
+
+```text
+Delta_(k,j) <= (1/2) (9/10)^j.                 (finite calibration)
+```
+
+The worst exact ratio to this envelope is `.880784634` at `(k,j)=(19,2)`;
+the floating `k=20` ratio is `.888668693`, again at `j=2`. Depth one is not in
+the calibrated scope: its floating ratio is already `.994226449`, and coarse
+depth is irrelevant to the terminal conclusion. The exponent `.9` is not
+canonical. The finite scale/rate Pareto comparison is:
+
+| `q` | exact `C_2(q)=max Delta/q^j` | active exact depth | floating `k=20` `C_2(q)` |
+|---:|---:|---:|---:|
+| `.85` | `.520822` | 15 | `.561354` |
+| `.86` | `.482312` | 2 | `.486629` |
+| `.88` | `.460638` | 2 | `.464761` |
+| `.90` | `.440392` | 2 | `.444334` |
+| `.92` | `.421453` | 2 | `.425225` |
+
+Thus `(C,q)=(1/2,.9)` is a readable interior point, not an optimized law.
+It was chosen after the floating vector had already been inspected; only a
+future level can test it out of sample.
+
+The triangular trend is qualitatively compatible with a limiting density.
+At every fixed depth `j=1,...,11`, `Delta_(k,j)` strictly increases through
+the exact levels, but at each fixed terminal offset zero through four it
+strictly decreases. At offsets zero through four the rows are
+
+```text
+k=12 exact: .0442916, .0558902, .0736882, .0916196, .109586
+k=19 exact: .0246961, .0296746, .0374004, .0454960, .0534720
+k=20 float: .0228944, .0273694, .0343411, .0416812, .0489149.
+```
+
+Any all-level estimate `Delta_(k,j)<=a_j` with `sum_j a_j<infinity` would be
+decisive. Martingale telescoping gives, uniformly in `k`,
+
+```text
+||f_k - E[f_k | F_J]||_1 <= sum_(j>J) a_j.
+```
+
+The right side tends to zero, while the conditional expectations live in a
+fixed finite-dimensional space. Hence the densities are relatively compact
+in `L1`, all moving increments vanish, and the tail and immigration bounds
+above close. For the displayed envelope the residual is at most
+`5(9/10)^(J+1)` for `J>=1`. Equivalently, on the compact group `Z_3`, relative
+`L1` compactness is uniform approximation by these conditional expectations,
+or uniform translation continuity under `3^J Z_3`.
+
+This summable-increment condition is sufficient, not necessary: a compact
+family can have nonsummable `L1` martingale differences. Uniform integrability,
+bounded entropy, fixed-depth convergence, and weak convergence are weaker and
+do not control a newest-digit defect. A useful alternative would be a weighted
+entropy bound `sup_k sum_j b_j h_(k,j)<infinity` for some `b_j->infinity`; by
+Pinsker it also forces the conditional-expectation tails to vanish. No such
+bound is proved.
+
+Finally, the increment connects directly to the KL endpoint. On one terminal
+fiber, if `p_i` are the three conditional probabilities, put
+`a=1/3-min_i p_i` and `d=sum_i |p_i-1/3|`. The sharp elementary inequalities
+`2a<=d<=4a` give
+
+```text
+2 delta(c) <= Delta_(k,k-1) <= 4 delta(c).
+```
+
+For a feasible pair define its aggregate normalized slack
+
+```text
+Sigma(c,lambda) = sum_m (F_lambda(c)_m-c_m) / sum_m c_m.
+```
+
+Column-sum bookkeeping gives the exact bridge
+
+```text
+s(lambda)-1 = (w_2+w_8) delta(c) + Sigma(c,lambda).
+```
+
+Thus an all-level summable increment envelope closes `lambda_k->2` for exact
+critical eigenvectors (`Sigma=0`), or for a selected near-critical feasible
+family if `Sigma_k->0`. The present integer certificates are merely selected
+finite feasible points; neither the all-level envelope nor vanishing
+normalized slack has been proved.
+
+### 4.2 Weighted-bin fallback
 
 The scalar diagonal recurrence may be too crude.  The generated transition
 table already provides the exact mass matrix between the eight oscillation
@@ -562,10 +682,10 @@ The correct conclusion is mixed but sharper than the first two-threshold
 audit suggested. The nearly optimal exact-data fits overfit every quantitative
 margin, while the minimal observed burn-ins and qualitative contraction
 survived at all seven thresholds. The thinnest provisional margin is only
-about `2.41e-4` at `t=1/10`, so future failure remains plausible. The live
-mathematical content is an expanding terminal contraction window, controlled
-mass-weighted defects, and terminal-offset immigration—not any fitted finite
-constant.
+about `2.41e-4` at `t=1/10`, so future failure remains plausible. For the cone
+route, the live mathematical content is an expanding terminal contraction
+window, controlled mass-weighted defects, and terminal-offset immigration—not
+any fitted finite constant.
 
 ## 6. Calibration and next decision
 
@@ -581,12 +701,18 @@ constant.
   carry more state.
 - The rational common-weight search succeeded finitely after the minimal
   observed burn-in, while an earlier-start cone has an exact obstruction. The
-  next mathematical target is a growing terminal window with summable
-  contraction products and terminal-offset immigration/defect decay, followed
-  by thresholds tending to zero.
+  cone route remains a fallback because smallest-threshold immigration is
+  currently adverse.
 - The floating audit provisionally exceeds every fitted exact-data margin but
   not one qualitative cone or minimal burn-in. An exact `k=20` vector is still
   needed to decide those rows.
+- The sharper live target is now a uniform summable martingale-increment
+  envelope for a selected exact critical, or normalized-slack-vanishing,
+  family. The post-hoc `(1/2)(9/10)^j` finite calibration passes 108 exact
+  rows and 18 floating rows at `j>=2`; it is not an all-level theorem.
+- A proof may instead establish relative `L1` compactness directly, or a
+  scale-weighted entropy/energy bound. Bounded entropy or unweighted
+  entropy/energy bounds do not suffice.
 - If both scalar and low-dimensional weighted recurrences fail, return to a
   direct primal construction of a cofinal feasible family rather than
   continuing to enlarge the annealed pressure surrogate.

@@ -20,9 +20,11 @@
 > strict nonsaturated decreases. Rational weighted-bin cones close exactly
 > after exactly classified finite burn-ins; the floating `k=20` audit then
 > exceeds every fitted margin but no qualitative cone or minimal start. The
-> `.2,.3` immigration signal is favorable but the `.05` offsets rise. The live
-> question is expanding-window contraction plus terminal-offset
-> immigration/defect decay, not
+> `.2,.3` immigration signal is favorable but the `.05` offsets rise. All 116
+> exact density-martingale increments fit a post-hoc summable depth envelope
+> from `j=2`, and floating `k=20` does too. Proving an all-level envelope is the
+> live question; expanding-window contraction plus terminal-offset
+> immigration/defect decay is the fallback, not
 > another assertion of the false pointwise bound. See
 > `docs/notes/multiscale-genealogy.md`.
 
@@ -232,10 +234,12 @@ discrepancy directly.
    mass-averaged behavior on the finite `k=12,...,19` grid. Its exact eight-bin
    matrices admit rational cones after exactly classified finite burn-ins. The
    floating `k=20` vector exceeds every fitted margin but keeps every same-start
-   maximum below one. Its `.05` immigration trend is adverse. Proposition R'
-   still needs an expanding terminal window and terminal-offset
-   immigration/defect decay for thresholds tending to zero and an appropriate
-   family of KL vectors.
+   maximum below one. Its `.05` immigration trend is adverse. The cleaner
+   direct audit computes 116 exact density-martingale increments and puts all
+   108 at `j>=2`, plus 18 floating rows, inside `(1/2)(9/10)^j`.
+   Proposition R' would follow from any uniform summable envelope for an
+   appropriate selected all-level family; no such theorem or selection is
+   known. The cone/immigration route remains the fallback.
 
 ### PQ-2. Antihydra rarity + discrepancy theorem (fuse #2 and #3) — *computation + proof sketch*
 1. **Lottery ticket withdrawn.** The unconditioned maximum is exactly `m_k=k`;

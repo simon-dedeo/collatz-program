@@ -50,11 +50,16 @@ recurrence. A rational bin cone then closes exactly on all tested rows after a
 threshold-dependent burn-in. The seven minimal observed starts are now exactly
 classified as `(6,3,3,3,3,2,2)`. The floating `k=20` audit exceeds every
 fitted contraction margin, but all seven worst-row maxima remain below one at
-the same starts. Immigration improves at the tested `t=.2,.3` terminal offsets but
-rises sharply at offsets one through four for `t=.05`; threshold refinement is
-therefore the exposed negative signal. The live theorem target is an expanding
-terminal contraction window with vanishing mass-weighted defects and
-immigration at every fixed terminal offset.
+the same starts. Immigration improves at the tested `t=.2,.3` terminal offsets
+but rises sharply at offsets one through four for `t=.05`; threshold refinement
+is therefore the exposed negative signal for the cone route. A sharper exact
+audit now computes all 116 `L1` martingale increments of the normalized
+certificate densities. Every row at depth at least two fits the post-hoc
+summable envelope `Delta_(k,j) <= (1/2)(9/10)^j`, as do all 18 corresponding
+rows of the floating `k=20` calibration. A uniform all-level version would
+force relative `L1` compactness and terminal localization directly. Proving
+such an envelope for selected critical—or normalized-slack-vanishing—densities
+is now the live theorem target; the bin cones are the fallback.
 The preceding advanced-term elimination gap is repaired by a replacement,
 not by validating the printed construction.
 The printed proof still has three exact, kernel-checked defects—its descent
@@ -109,7 +114,7 @@ an `x^{1−ε}` lower bound would still have density zero for fixed `ε`.
 | The KL method = finite sections of an **adversarial transfer operator on ℤ₃** (base ×4 = the Iwasawa generator of 1+3ℤ₃) | `docs/notes/kl-limit-object.md`, `adversarial-operator.md` |
 | KL's own §6 positivity hypotheses (H_k) | Literature-backed research proof (odometer conjugacy → Gaubert–Gunawardena); nonlinear Perron existence is not Lean-formalized, and the exact feasible-point route bypasses it. |
 | Oscillation law s(λ_k)−1 = (λ^{α−2}+λ^{α−1})δ_k | proved, now unconditional |
-| Exact multiscale genealogy of the `k=12,...,19` feasible vectors: all 756 tested equal-threshold tail transitions are nonincreasing; all seven tracked thresholds have exactly classified finite burn-ins and rational cones | SHA-pinned bigint/rational diagnostics and independent reconstruction. The untracked floating `k=20` candidate exceeds every exact-data margin but preserves qualitative contraction at the same seven burn-ins. Terminal immigration declines at `t=.2,.3` but rises at the smallest threshold `.05`; neither side is a limit/eigenfunction theorem. See `docs/notes/multiscale-genealogy.md`. |
+| Exact multiscale genealogy of the `k=12,...,19` feasible vectors: all 756 tested equal-threshold tails are nonincreasing; all seven thresholds have classified finite burn-ins; 116 exact density-martingale increments are computed and all 108 at `j>=2` fit a simple summable envelope | SHA-pinned bigint/rational diagnostics and independent reconstruction. The post-hoc increment envelope is `(1/2)(9/10)^j`; floating `k=20` also fits, with worst in-scope ratio `.888669`. A uniform all-level envelope would imply `L1` compactness and localization, but the vectors are only selected finite feasible points. The cone audit remains mixed: `k=20` exceeds every fitted margin, and `.05` immigration rises. See `docs/notes/multiscale-genealogy.md`. |
 | Local renormalization at −1 solved: **a = λ^{1−α}** (= 2/3 at λ=2); "period-2" = the u↦2u relabeling; spine sheds mass at λ^{α−1}/3 | `renormalization-at-minus-one.md`, sol cross-confirmed |
 | Diaconis–Fulman multiplication-carries spectrum (their open question) | proved, exact-verified: `carries-spectrum.md` |
 | Berg–Meinardus ⟺ aₙ = a_{T(n)}; **bi-(2,3)-Mahler divergence certificates impossible** | proved: `mahler-cartier-lemma0.md`, `two-bases.md` |
@@ -254,9 +259,20 @@ knowing which routes are dead (and why) is most of the value.
    candidate. This is the sharpest current obstacle to threshold refinement. A
    corrected sufficient theorem needs only an expanding terminal window, not
    a fixed absolute burn-in, and can absorb rare bad rows through their
-   mass-weighted defect. The remaining hard input is terminal-offset
-   immigration/defect decay for one selected vector family and thresholds
-   tending to zero. `experiments/pressure-cert2/split_ratio_audit.py`;
+   mass-weighted defect.
+   More promisingly, the exact density martingale has 116 exact-checked
+   increments. All 108 at depths `j>=2` obey the post-hoc envelope
+   `Delta_(k,j)<=(1/2)(9/10)^j`; the 18 floating `k=20` rows do too. Fixed-depth
+   increments rise across levels while every tracked fixed-terminal-offset
+   increment falls, from terminal `.044292` at `k=12` to exact `.024696` at
+   `k=19` and floating `.022894` at `k=20`. Any uniform summable envelope would
+   give relative `L1` compactness by martingale telescoping, hence localization
+   without binning. The exact bridge `2 delta <= Delta_terminal <= 4 delta`
+   reduces the KL endpoint to this bound for critical eigenfunctions; a
+   feasible near-critical family additionally needs vanishing aggregate
+   normalized slack. This is a finite calibration, not a limit theorem, and
+   future exact levels are the first genuine falsifiers.
+   `experiments/pressure-cert2/split_ratio_audit.py`;
    `docs/notes/multiscale-genealogy.md`.
 5. **Quantitative adelic descent** / **open-quantum-systems reframing** — the
    no-go = peripheral spectrum of the KL channel (`wildcard.md`, WARM); descent
@@ -430,11 +446,12 @@ hits the same wall.
   exactly classifies the finite burn-in at all seven thresholds. Its first
   floating `k=20` candidate breaks every fitted margin but no qualitative cone
   or minimal start. Terminal immigration remains favorable at `t=.2,.3` but
-  worsens at `.05`. A new martingale reduction shows that cross-level `L1`
-  compactness would force the required terminal increments to vanish, but no
-  such compactness or selected-eigenvector theorem is known. Expanding-window
-  contraction, immigration and defect decay, and threshold refinement remain
-  entirely open.
+  worsens at `.05`. The direct exact martingale audit is cleaner: it computes
+  116 increments, and all 108 at `j>=2` fit a post-hoc summable depth envelope;
+  floating `k=20` preserves it. An all-level envelope would force the required `L1`
+  compactness and terminal localization, but no such bound, coherent selected
+  family, or normalized-slack theorem is known. The cone/immigration route is
+  retained as a fallback.
 - The arctic/max-plus lane remains active. Two independent audits found the
   same reducible-slope gap; an elementary weighted-walk pumping candidate now
   replaces it, and the exact marked macro checker passes. The general theorem
