@@ -67,6 +67,13 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
    direct variant in which exact finite feasible parameters themselves tend
    to two, bypassing critical eigenvector existence and localization.
 
+9. **The retarded difference comparison.** `RetardedComparison.lean`
+   represents the eliminated right-hand sides as finite nested sum/min trees
+   and proves the strip induction of KL Theorem 5.1.  It also derives the
+   exact `1/(4 max c)` constant from `lambda <= 2`, maximum lag at most two,
+   and the initial lower bound one.  The advanced-term elimination which
+   produces those trees remains to be formalized.
+
 ## Corrections to the current notes
 
 ### The pure-branch root needs a special condition
@@ -196,8 +203,9 @@ strict Lyapunov route is exactly marginal and cannot close.
 
 ## Lean dependency path to the counting theorem
 
-1. Formalize the Krasikov--Lagarias difference-inequality transfer from exact
-   finite feasibility to predecessor lower bounds.
+1. Formalize the advanced-term elimination and LP lifting in Krasikov--Lagarias
+   Theorems 3.1--4.1.  The downstream retarded comparison in Theorem 5.1 is
+   already kernel checked.
 2. Prove either a cofinal exact feasible-vector construction with parameters
    tending to two, or the critical-eigenvector localization theorem.  The
    first route is already connected to the counting endgame and needs no

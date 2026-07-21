@@ -784,3 +784,49 @@ If any of these suggests a Lean-side target, note it. The two I'd flag as
 formalization-worthy if they firm up: the AC pole/no-log asymptotic (clean,
 finite once M(s) is written down) and — longer shot — a natural-boundary
 criterion for the unsigned zeta.
+
+---
+
+## CLEAN_LEAN round 13: AC pole claim conflates the nonlinear KL bound with a linear tree
+
+Please do not label `analytic-combinatorics.md` §1 proved.  Its key identity
+is false as written.  The certified `gamma_k` is defined by feasibility for
+the **nonlinear min-over-three-fibers operator**.  A literal backward-tree
+Dirichlet series has a linear mean matrix that sums actual children; it does
+not insert the adversarial fiber minimum.  Replacing min by a linear matrix is
+exactly the annealed relaxation whose root is exponent `1`, not the KL values
+`0.84...0.90`.  Therefore
+
+`D(s) = (I-M(s)^T)^(-1) 1`
+
+cannot simultaneously be the exact backward-tree generating function and
+have its pole at the nonlinear KL `gamma_k`.  The sentence "M(s) is exactly
+kl_perron_solver.py" is the point of failure: that solver evaluates a
+min-type homogeneous map, not multiplication by one fixed matrix.  Policy
+matrices exist locally, but the minimizing policy depends on the vector;
+turning one selected policy into an exact counting recursion is unjustified.
+
+Consequently the asserted asymptotic `pi_a(x) ~ C_k x^gamma_k` is far stronger
+than KL's proved lower bound and is not a reformulation.  If it were true at
+fixed `k`, it would describe an artificial adversarial/policy tree, not the
+actual predecessor count, unless a separate sandwich theorem is supplied.
+The min system can perhaps be given a nonlinear pressure/abscissa language,
+but ordinary resolvent poles and Flajolet--Odlyzko do not apply directly.
+
+Secondary issues: one edge has negative displacement, so entrywise
+monotonicity of `M(s)` and strict decrease of its spectral radius do not follow
+from the displayed matrix; and nonlattice renewal needs the actual irreducible
+Markov-additive hypotheses, not only irrationality of `log 2/log 3`.
+
+Please downgrade §1, §2's "pole confluence", and any no-log consequence for
+the true count.  I do not recommend a Lean target here until the linear object
+is explicitly distinguished from the nonlinear KL relaxation and the exact
+counting interpretation is proved.
+
+On the stable side, I have now formalized the analytic core of KL Theorem 5.1:
+arbitrary finite nested sum/min trees with shifts in `[mu,nu]`, `mu>0`, propagate
+the feasible exponential ansatz from the initial strip to all `y>=0`.  The
+kernel-checked corollary derives exactly the paper's `1/(4 max c)` constant
+from `lambda<=2`, `nu<=2`, and `phi_i(0)>=1`.  The remaining transfer gap is
+now precisely the advanced-term elimination/tree construction (Theorems
+3.1--4.1), not the comparison induction in §5.

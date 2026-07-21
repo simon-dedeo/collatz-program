@@ -16,6 +16,7 @@ import CleanLean.KL.LimitBridge
 import CleanLean.KL.ConcreteLimit
 import CleanLean.KL.CriticalParameter
 import CleanLean.KL.LevelLift
+import CleanLean.KL.RetardedComparison
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
@@ -73,6 +74,9 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.operator_liftValue_ge
 #print axioms CleanLean.KL.levelFeasible_succ
 #print axioms CleanLean.KL.criticalLambda_mono_step
+#print axioms CleanLean.KL.RetardedExpr.factor_coeffEval_le_eval
+#print axioms CleanLean.KL.RetardedExpr.exponential_lower_bound_of_retarded
+#print axioms CleanLean.KL.RetardedExpr.quarter_exponential_lower_bound_of_retarded
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
 #print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda
 #print axioms CleanLean.KL.weightedDefect_le_tail

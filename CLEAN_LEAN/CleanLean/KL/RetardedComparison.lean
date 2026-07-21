@@ -27,7 +27,7 @@ time lag. -/
 inductive RetardedExpr (ι : Type) where
   | leaf (state : ι) (lag : ℝ)
   | add (left right : RetardedExpr ι)
-  | min (left right : RetardedExpr ι)
+  | inf (left right : RetardedExpr ι)
 
 namespace RetardedExpr
 
@@ -38,7 +38,7 @@ def eval (e : RetardedExpr ι) (φ : ι → ℝ → ℝ) (y : ℝ) : ℝ :=
   match e with
   | .leaf i lag => φ i (y - lag)
   | .add a b => a.eval φ y + b.eval φ y
-  | .min a b => _root_.min (a.eval φ y) (b.eval φ y)
+  | .inf a b => min (a.eval φ y) (b.eval φ y)
 
 /-- Substitute the exponential ansatz `c_i * lambda^t` and remove the common
 factor `lambda^y`. -/
@@ -46,14 +46,14 @@ noncomputable def coeffEval (e : RetardedExpr ι) (c : ι → ℝ) (lam : ℝ) :
   match e with
   | .leaf i lag => c i * lam ^ (-lag)
   | .add a b => a.coeffEval c lam + b.coeffEval c lam
-  | .min a b => _root_.min (a.coeffEval c lam) (b.coeffEval c lam)
+  | .inf a b => min (a.coeffEval c lam) (b.coeffEval c lam)
 
 /-- Every leaf lag lies in the closed interval `[mu, nu]`. -/
 def LagsIn (e : RetardedExpr ι) (mu nu : ℝ) : Prop :=
   match e with
   | .leaf _ lag => mu ≤ lag ∧ lag ≤ nu
   | .add a b => a.LagsIn mu nu ∧ b.LagsIn mu nu
-  | .min a b => a.LagsIn mu nu ∧ b.LagsIn mu nu
+  | .inf a b => a.LagsIn mu nu ∧ b.LagsIn mu nu
 
 /-- Addition and minimum preserve a common nonnegative factor in lower-bound
 comparisons. -/
@@ -69,7 +69,7 @@ theorem factor_coeffEval_le_eval
   | add a b iha ihb =>
       rw [coeffEval, eval, mul_add]
       exact add_le_add (iha hlags.1) (ihb hlags.2)
-  | min a b iha ihb =>
+  | inf a b iha ihb =>
       rw [coeffEval, eval, mul_min_of_nonneg _ _ hA]
       exact min_le_min (iha hlags.1) (ihb hlags.2)
 
@@ -106,8 +106,9 @@ theorem exponential_lower_bound_of_retarded
         · exact ih i y hy0 hold
         · have hyold : nu + (n : ℝ) * mu < y := lt_of_not_ge hold
           have hyν : nu ≤ y := by
-            have : nu ≤ nu + (n : ℝ) * mu := by positivity
-            exact this.trans hyold.le
+            have hnonneg : 0 ≤ (n : ℝ) * mu :=
+              mul_nonneg (Nat.cast_nonneg n) hmu.le
+            exact (le_add_of_nonneg_right hnonneg).trans hyold.le
           let A := Δ * lam ^ y
           have hA : 0 ≤ A := mul_nonneg hΔ (Real.rpow_nonneg hlam.le _)
           have hleaf : ∀ state lag, mu ≤ lag → lag ≤ nu →
@@ -139,6 +140,115 @@ theorem exponential_lower_bound_of_retarded
   have hyn : y < (n : ℝ) * mu := (div_lt_iff₀ hmu).mp hn
   apply hstrips n i y hy0
   linarith
+
+/-- KL-style specialization: monotonicity and uniform lower/upper constants
+produce the initial strip automatically.  Taking `p0 = min_i φ_i(0)` and
+`C = max_i c_i` gives exactly the constant in Theorem 5.1. -/
+theorem exponential_lower_bound_of_retarded_with_constants
+    (tree : ι → RetardedExpr ι)
+    (φ : ι → ℝ → ℝ) (c : ι → ℝ)
+    (lam mu nu p0 C : ℝ)
+    (hlam : 1 < lam) (hmu : 0 < mu) (hnu : 0 ≤ nu)
+    (hp0 : 0 ≤ p0) (hC : 0 < C)
+    (hc0 : ∀ i, 0 ≤ c i) (hcC : ∀ i, c i ≤ C)
+    (hφ0 : ∀ i, p0 ≤ φ i 0) (hmono : ∀ i, Monotone (φ i))
+    (hlags : ∀ i, (tree i).LagsIn mu nu)
+    (hdiff : ∀ i y, nu ≤ y → (tree i).eval φ y ≤ φ i y)
+    (hlp : ∀ i, c i ≤ (tree i).coeffEval c lam) :
+    ∀ i y, 0 ≤ y →
+      (lam ^ (-nu) * p0 / C) * c i * lam ^ y ≤ φ i y := by
+  have hlam0 : 0 < lam := zero_lt_one.trans hlam
+  have hΔ : 0 ≤ lam ^ (-nu) * p0 / C :=
+    div_nonneg (mul_nonneg (Real.rpow_nonneg hlam0.le _) hp0) hC.le
+  apply exponential_lower_bound_of_retarded tree φ c lam
+    (lam ^ (-nu) * p0 / C) mu nu hlam0 hΔ hmu hnu hlags hdiff hlp
+  intro i y hy0 hyν
+  have hpow : lam ^ y ≤ lam ^ nu :=
+    Real.rpow_le_rpow_of_exponent_le hlam.le hyν
+  have hneg : 0 ≤ lam ^ (-nu) := Real.rpow_nonneg hlam0.le _
+  have hratio0 : 0 ≤ c i / C := div_nonneg (hc0 i) hC.le
+  have hratio1 : c i / C ≤ 1 := (div_le_one hC).2 (hcC i)
+  have hshift : lam ^ (-nu) * lam ^ y ≤ lam ^ (-nu) * lam ^ nu :=
+    mul_le_mul_of_nonneg_left hpow hneg
+  have hcombined :
+      (c i / C) * (lam ^ (-nu) * lam ^ y) ≤
+        1 * (lam ^ (-nu) * lam ^ nu) :=
+    mul_le_mul hratio1 hshift
+      (mul_nonneg hneg (Real.rpow_nonneg hlam0.le _)) zero_le_one
+  have hone : lam ^ (-nu) * lam ^ nu = 1 := by
+    rw [← Real.rpow_add hlam0, neg_add_cancel, Real.rpow_zero]
+  calc
+    (lam ^ (-nu) * p0 / C) * c i * lam ^ y =
+        p0 * ((c i / C) * (lam ^ (-nu) * lam ^ y)) := by ring
+    _ ≤ p0 * (1 * (lam ^ (-nu) * lam ^ nu)) :=
+      mul_le_mul_of_nonneg_left hcombined hp0
+    _ = p0 := by rw [hone]; ring
+    _ ≤ φ i 0 := hφ0 i
+    _ ≤ φ i y := hmono i hy0
+
+/-- The numerical simplification used in KL Theorem 2.2: if
+`1 < lambda ≤ 2`, `nu ≤ 2`, and the initial minimum is at least one, then the
+comparison constant is at least `1 / (4*C)`. -/
+theorem quarter_div_le_retarded_constant
+    {lam nu p0 C : ℝ} (hlam1 : 1 < lam) (hlam2 : lam ≤ 2)
+    (hnu2 : nu ≤ 2) (hp0 : 1 ≤ p0) (hC : 0 < C) :
+    1 / (4 * C) ≤ lam ^ (-nu) * p0 / C := by
+  have hlam0 : 0 < lam := zero_lt_one.trans hlam1
+  have hpowExp : lam ^ nu ≤ lam ^ (2 : ℝ) :=
+    Real.rpow_le_rpow_of_exponent_le hlam1.le hnu2
+  have hpowBase : lam ^ (2 : ℝ) ≤ (2 : ℝ) ^ (2 : ℝ) :=
+    Real.rpow_le_rpow hlam0.le hlam2 (by norm_num)
+  have hpow : lam ^ nu ≤ 4 := by
+    calc
+      lam ^ nu ≤ lam ^ (2 : ℝ) := hpowExp
+      _ ≤ (2 : ℝ) ^ (2 : ℝ) := hpowBase
+      _ = 4 := by norm_num [Real.rpow_two]
+  have hpowPos : 0 < lam ^ nu := Real.rpow_pos_of_pos hlam0 _
+  have hinv : (1 : ℝ) / 4 ≤ (lam ^ nu)⁻¹ := by
+    rw [inv_eq_one_div]
+    apply (le_div_iff₀ hpowPos).2
+    nlinarith
+  have hneg : lam ^ (-nu) = (lam ^ nu)⁻¹ := Real.rpow_neg hlam0.le nu
+  have hquarter : (1 : ℝ) / 4 ≤ lam ^ (-nu) := by simpa [hneg] using hinv
+  have hretNonneg : 0 ≤ lam ^ (-nu) := Real.rpow_nonneg hlam0.le _
+  have hp : lam ^ (-nu) ≤ lam ^ (-nu) * p0 := by
+    nlinarith [mul_le_mul_of_nonneg_left hp0 hretNonneg]
+  have hconst : (1 : ℝ) / 4 ≤ lam ^ (-nu) * p0 := hquarter.trans hp
+  have hdiv := div_le_div_of_nonneg_right hconst hC.le
+  have heq : (1 : ℝ) / (4 * C) = ((1 : ℝ) / 4) / C := by
+    field_simp [hC.ne']
+  rw [heq]
+  exact hdiv
+
+/-- Theorem-5.1 comparison with the exact coarse constant used by KL
+Theorem 2.2.  What remains outside this theorem is the construction of the
+retarded trees and proof that their LP is feasible. -/
+theorem quarter_exponential_lower_bound_of_retarded
+    (tree : ι → RetardedExpr ι)
+    (φ : ι → ℝ → ℝ) (c : ι → ℝ)
+    (lam mu nu p0 C : ℝ)
+    (hlam1 : 1 < lam) (hlam2 : lam ≤ 2)
+    (hmu : 0 < mu) (hnu0 : 0 ≤ nu) (hnu2 : nu ≤ 2)
+    (hp0 : 1 ≤ p0) (hC : 0 < C)
+    (hc0 : ∀ i, 0 ≤ c i) (hcC : ∀ i, c i ≤ C)
+    (hφ0 : ∀ i, p0 ≤ φ i 0) (hmono : ∀ i, Monotone (φ i))
+    (hlags : ∀ i, (tree i).LagsIn mu nu)
+    (hdiff : ∀ i y, nu ≤ y → (tree i).eval φ y ≤ φ i y)
+    (hlp : ∀ i, c i ≤ (tree i).coeffEval c lam) :
+    ∀ i y, 0 ≤ y → (1 / (4 * C)) * c i * lam ^ y ≤ φ i y := by
+  have hstrong := exponential_lower_bound_of_retarded_with_constants
+    tree φ c lam mu nu p0 C hlam1 hmu hnu0 (zero_le_one.trans hp0) hC
+    hc0 hcC hφ0 hmono hlags hdiff hlp
+  have hconst := quarter_div_le_retarded_constant hlam1 hlam2 hnu2 hp0 hC
+  intro i y hy
+  have hfactor : 0 ≤ c i * lam ^ y :=
+    mul_nonneg (hc0 i) (Real.rpow_nonneg (zero_lt_one.trans hlam1).le _)
+  have hscaled := mul_le_mul_of_nonneg_right hconst hfactor
+  calc
+    (1 / (4 * C)) * c i * lam ^ y = (1 / (4 * C)) * (c i * lam ^ y) := by ring
+    _ ≤ (lam ^ (-nu) * p0 / C) * (c i * lam ^ y) := hscaled
+    _ = (lam ^ (-nu) * p0 / C) * c i * lam ^ y := by ring
+    _ ≤ φ i y := hstrong i y hy
 
 end RetardedExpr
 

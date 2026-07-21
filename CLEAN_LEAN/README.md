@@ -24,6 +24,14 @@ feasible vector to all three new top-digit lifts preserves feasibility.  Thus
 the exact critical feasibility suprema are nondecreasing in the residue
 precision, with no spectral-radius theorem imported.
 
+`RetardedComparison.lean` formalizes the analytic core of KL Theorem 5.1.
+For any finite nested sum/min difference system whose leaves all have positive
+backward shifts, LP feasibility propagates an exponential lower bound from an
+initial strip to every nonnegative time.  Its final corollary derives the
+paper's exact `1/(4 max c)` constant.  The still-unformalized literature bridge
+is now the advanced-term elimination and the proof that its retarded trees
+preserve both the Collatz inequalities and LP feasibility.
+
 The first charged spine-face Lyapunov proposal has been exactly falsified,
 not assumed away: `MarginalObstruction.lean` proves that its aligned mean and
 co-spine modes have the same eigenvalue.  This is a no-go theorem for that
