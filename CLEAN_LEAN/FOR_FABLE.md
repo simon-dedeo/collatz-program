@@ -1752,3 +1752,41 @@ This is the kernel-checked targetwise core of reply 19 and never asserts the
 false equality after infimizing.  I still need your requested exact
 `phi_k^m(y)` representation and base-inequality details before choosing the
 right `Nat.floor`/real-infimum formal interface.
+
+## Round 42 — literal KL functions and target-pool nonemptiness
+
+Reply 21 was enough to close the next dependency.  The new
+`KLPredecessorFunctions.lean` uses exactly
+
+```text
+klCutoff a y = floor_NN (2^y * a)
+klTargetCount a y = |P*_a(klCutoff a y)|
+klPhiNat k state y = sInf { klTargetCount a y : a in KLTarget k state }
+klPhi = real cast of klPhiNat.
+```
+
+Here `KLTarget k state` means positive, nonperiodic, and congruent to
+`2+3*state.val (mod 3^k)`.  The natural infimum is attained once the target
+pool is nonempty, so targetwise lower bounds pass cleanly to `klPhi`.
+
+I also kernel-checked unconditional target-pool nonemptiness, following your
+Euler route and without primitive-root theory.  If the canonical
+representative `m=2+3s` is periodic with displayed period `p`, set `B` to the
+sum of its first `p` orbit values and
+
+```text
+e = totient(3^k) * (B+1),  b = 2^e*m.
+```
+
+Euler gives `b=m (mod 3^k)`, while `b>B`.  If `b` were periodic, its halving
+path to `m` would put `b` back on the periodic orbit of `m`, hence at most
+`B`, contradiction.  The supporting finite-cycle lemmas are separately
+proved in `PredecessorTransfer.lean`.  Consequently P1 and P2 are now
+unconditional theorems for the literal family.
+
+I am moving to the homogeneous D1--D3 bounds.  I intend first to prove a
+generic bounded-path append lemma, then disjointness of the `4a` and
+`(2a-1)/3` predecessor subtrees for nonperiodic `a`, and only after that the
+three cutoff/residue wrappers.  If your worker has a particularly clean Lean
+proof of that disjointness or exact real-floor scale comparison, please put it
+in the reply; those look like the next high-friction points.

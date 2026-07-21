@@ -88,6 +88,29 @@ theorem boundedPredecessorCount_mono {a X Y : ℕ} (hXY : X ≤ Y) :
 def IsSyracusePeriodic (a : ℕ) : Prop :=
   ∃ j : ℕ, 0 < j ∧ syracuseStep^[j] a = a
 
+/-- Every forward iterate of a periodic point is periodic. -/
+theorem periodic_iterate {b : ℕ} (hb : IsSyracusePeriodic b) (r : ℕ) :
+    IsSyracusePeriodic (syracuseStep^[r] b) := by
+  obtain ⟨p, hp, hperiod⟩ := hb
+  refine ⟨p, hp, ?_⟩
+  calc
+    syracuseStep^[p] (syracuseStep^[r] b) =
+        syracuseStep^[p + r] b := by
+          rw [Function.iterate_add_apply]
+    _ = syracuseStep^[r + p] b := by rw [Nat.add_comm]
+    _ = syracuseStep^[r] (syracuseStep^[p] b) := by
+          rw [Function.iterate_add_apply]
+    _ = syracuseStep^[r] b := by rw [hperiod]
+
+/-- A periodic target cannot reach a nonperiodic target. -/
+theorem nonperiodic_of_target_reaches
+    {a b : ℕ} (ha : ¬ IsSyracusePeriodic a)
+    (hba : IsSyracusePredecessor a b) :
+    ¬ IsSyracusePeriodic b := by
+  intro hb
+  obtain ⟨r, hr⟩ := hba
+  exact ha (hr ▸ periodic_iterate hb r)
+
 /-- If `a = 1 (mod 3)`, its only positive immediate Syracuse predecessor is
 `2a`.  The odd inverse branch exists only for targets `2 (mod 3)`. -/
 theorem syracuseStep_eq_target_mod_three_one
@@ -233,5 +256,44 @@ theorem predecessorCount_two_pow_mul_le (a r X : ℕ) :
     predecessorCount (2 ^ r * a) X ≤ predecessorCount a X := by
   apply predecessorCount_mono_of_target_reaches
   exact ⟨r, iterate_syracuse_two_pow_mul a r⟩
+
+theorem nonperiodic_two_pow_mul {a : ℕ}
+    (ha : ¬ IsSyracusePeriodic a) (r : ℕ) :
+    ¬ IsSyracusePeriodic (2 ^ r * a) := by
+  apply nonperiodic_of_target_reaches ha
+  exact ⟨r, iterate_syracuse_two_pow_mul a r⟩
+
+/-- If a periodic point `b` reaches `a`, then `b` occurs on the forward orbit
+of `a`.  This is the elementary finite-cycle fact used to manufacture
+nonperiodic representatives in every KL residue class. -/
+theorem periodic_predecessor_is_target_iterate
+    {a b r : ℕ} (hreach : syracuseStep^[r] b = a)
+    (hb : IsSyracusePeriodic b) :
+    ∃ q : ℕ, syracuseStep^[q] a = b := by
+  obtain ⟨p, hp, hperiod⟩ := hb
+  have hperiodPt : Function.IsPeriodicPt syracuseStep p b := hperiod
+  have hreduce : syracuseStep^[r % p] b = a := by
+    rw [hperiodPt.iterate_mod_apply]
+    exact hreach
+  refine ⟨p - r % p, ?_⟩
+  rw [← hreduce, ← Function.iterate_add_apply]
+  have hmodlt : r % p < p := Nat.mod_lt _ hp
+  rw [Nat.sub_add_cancel hmodlt.le, hperiod]
+
+/-- Every iterate of a positive-period point is bounded by the sum of one
+displayed period.  We use a sum rather than a maximum because it has a very
+small `Finset` proof footprint. -/
+theorem periodic_iterate_le_orbitSum
+    {a p n : ℕ} (hp : 0 < p)
+    (ha : syracuseStep^[p] a = a) :
+    syracuseStep^[n] a ≤
+      ∑ i ∈ Finset.range p, syracuseStep^[i] a := by
+  have hperiodPt : Function.IsPeriodicPt syracuseStep p a := ha
+  rw [← hperiodPt.iterate_mod_apply n]
+  exact Finset.single_le_sum
+    (s := Finset.range p)
+    (f := fun i => syracuseStep^[i] a)
+    (fun _ _ => Nat.zero_le _)
+    (Finset.mem_range.mpr (Nat.mod_lt n hp))
 
 end CleanLean.KL

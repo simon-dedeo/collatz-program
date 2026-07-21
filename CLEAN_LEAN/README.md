@@ -193,8 +193,13 @@ defines the literal path-bounded predecessor set using the actual Syracuse
 iterate and kernel-checks the corrected replacement for the false printed
 equation (2.1): for a positive nonperiodic `a = 1 (mod 3)` and `2a <= X`,
 `P*_a(X)` is the disjoint union of `{a}` and `P*_(2a)(X)`.  It also proves
-`predecessorCount (2^r a) X <= predecessorCount a X`.  The residue-class
-infimum and the three concrete base difference inequalities remain to be
+`predecessorCount (2^r a) X <= predecessorCount a X` and the finite-cycle
+lemmas needed to manufacture nonperiodic targets.  `KLPredecessorFunctions.lean`
+now defines the literal floor cutoff, path-bounded target count, and natural
+infimum in every concrete residue state.  It proves every target pool
+nonempty by Euler multiplication above a finite periodic orbit, and therefore
+proves positivity and monotonicity of the infimum functions without additional
+hypotheses.  The three concrete base difference inequalities remain to be
 instantiated.
 
 `PressureCertificate.lean` now also accepts the portable sparse-edge format

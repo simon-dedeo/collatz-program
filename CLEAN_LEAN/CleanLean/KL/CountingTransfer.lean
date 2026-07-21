@@ -6,6 +6,7 @@ Authors: Simon DeDeo, OpenAI Codex
 import CleanLean.Collatz.PredecessorCount
 import CleanLean.KL.ConcreteLimit
 import CleanLean.KL.CriticalParameter
+import CleanLean.KL.PredecessorTransfer
 
 /-!
 # From KL exponents to almost-linear predecessor counting
@@ -72,6 +73,31 @@ theorem hasPredecessorExponent_mono {a : ℕ} {gamma' gamma : ℝ}
       (X : ℝ) ^ gamma' ≤ (predecessorCount a X : ℝ) := by
   obtain ⟨C, hC, hbound⟩ := h
   exact eventually_rpow_le_of_constant_mul_rpow_le hC hgamma hbound
+
+/-- A predecessor exponent transfers backward along any finite target orbit.
+This is the exact ordinary-count inclusion used after choosing a suitable
+doubled target in the corrected all-target argument. -/
+theorem hasPredecessorExponent_of_target_reaches
+    {a b : ℕ} {gamma : ℝ}
+    (hba : IsSyracusePredecessor a b)
+    (hbound : HasPredecessorExponent b gamma) :
+    HasPredecessorExponent a gamma := by
+  obtain ⟨C, hC, hbound⟩ := hbound
+  refine ⟨C, hC, ?_⟩
+  filter_upwards [hbound] with X hX
+  exact hX.trans (by
+    exact_mod_cast predecessorCount_mono_of_target_reaches
+      (X := X) hba)
+
+/-- Specialization to the target `2^r*a`. -/
+theorem hasPredecessorExponent_of_two_pow_mul
+    {a : ℕ} {gamma : ℝ} (r : ℕ)
+    (hbound : HasPredecessorExponent (2 ^ r * a) gamma) :
+    HasPredecessorExponent a gamma := by
+  apply hasPredecessorExponent_of_target_reaches
+    (b := 2 ^ r * a)
+  · exact ⟨r, iterate_syracuse_two_pow_mul a r⟩
+  · exact hbound
 
 /-- `lambda_k → 2` gives convergence of the corresponding base-two
 counting exponents to one. -/
