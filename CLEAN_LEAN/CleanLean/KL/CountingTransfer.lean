@@ -424,6 +424,30 @@ theorem almostLinearPredecessorCounting_of_feasible_sequence_concrete
     (hN (n + offset) hkN) (hmuUpper (n + offset))
     (hfeasible (n + offset) hk) ha ha3
 
+/-- Sparse/cofinal form of the concrete feasibility endpoint.  The witness
+level `level n` need not equal `n` or be consecutive: one exact feasible
+system for each parameter in any sequence tending to two is enough.  This is
+the natural interface for a fixed-temperature argument whose required finite
+precision depends on the chosen parameter and temperature. -/
+theorem almostLinearPredecessorCounting_of_sparse_feasible_sequence
+    (mu : ℕ → ℝ) (level : ℕ → ℕ)
+    (hmu : Tendsto mu atTop (nhds 2))
+    (hmuLower : ∀ k, 1 < mu k)
+    (hmuUpper : ∀ k, mu k ≤ 2)
+    (hlevel : ∀ k, 2 ≤ level k)
+    (hfeasible : ∀ k, LevelFeasible (level k) (mu k)) :
+    AlmostLinearPredecessorCounting := by
+  have hgamma : Tendsto (fun k => klExponent (mu k)) atTop (nhds 1) :=
+    klExponent_tendsto_one mu hmu
+  intro a ha ha3 ε hε
+  have hnear : ∀ᶠ k : ℕ in atTop,
+      1 - ε < klExponent (mu k) :=
+    hgamma.eventually (Ioi_mem_nhds (by linarith))
+  obtain ⟨k, hk⟩ := hnear.exists
+  have hcount := hasPredecessorExponent_of_levelFeasible
+    (hlevel k) (hmuLower k) (hmuUpper k) (hfeasible k) ha ha3
+  exact hasPredecessorExponent_mono hk hcount
+
 /-- A convenience composition with the already formalized concrete
 defect-to-endpoint theorem. -/
 theorem almostLinearPredecessorCounting_of_klDefect

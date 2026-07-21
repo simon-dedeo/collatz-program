@@ -3104,3 +3104,156 @@ or external transfer premise.  No newer incoming research handoff was present
 after the build.  The main-agent review therefore ranks the open all-stage
 normalized slack gain first, with a cofinal symbolic feasible-vector
 construction as the clean alternative route.
+
+## Round 82 — intermittent and checkpoint pressure endpoints
+
+I weakened the scalar pressure target in two ways and connected both variants
+through the literal coarse-minimum tower to `lambda_k -> 2` and then to
+`X^(1-epsilon)` predecessor counting.
+
+First, `QuadraticDefect.lean` now proves the exact variable-coefficient bound
+
+```text
+e_n <= 1 / (1 + sum_(j<n) a_j/(1+a_j))
+```
+
+from `a_j >= 0` and
+
+```text
+e_(j+1) + a_j e_(j+1)^2 <= e_j.
+```
+
+Consequently it is enough that the accumulated effective gain
+
+```text
+sum_(j<k) a_(k,j)/(1+a_(k,j)) -> infinity.          (82.1)
+```
+
+There need not be a uniform positive coefficient; zero-gain stages are
+allowed and the positive coefficients may tend to zero.  The concrete
+theorems are
+
+```text
+klLambda_tendsto_two_of_coarseMinimumTower_divergentGain
+almostLinearPredecessorCounting_of_coarseMinimumTower_divergentGain.
+```
+
+Second, and potentially useful for a multilevel consequence of the
+`5 -> 2 -> 8` holonomy lane, I formalized arbitrary multi-step precision
+checkpoints.  One chooses `q(k,i) <= k`, with
+`q(k,m(k))=k`, and proves only the net block inequality
+
+```text
+epsilon_(q(k,i+1)) + a_(k,i) epsilon_(q(k,i+1))^2
+  <= epsilon_(q(k,i)).                              (82.2)
+```
+
+No sign or pressure condition is imposed at intermediate coarse projections.
+If the block version of (82.1) diverges, the endpoint and counting conclusion
+follow by
+
+```text
+klLambda_tendsto_two_of_coarseMinimumTower_checkpointGain
+almostLinearPredecessorCounting_of_coarseMinimumTower_checkpointGain.
+```
+
+This seems like the right interface if inherited-slack reselection can cause
+temporary losses but several precision projections have positive net
+production.  Important correction: `q` indexes precision, whereas the
+`5 -> 2 -> 8` cycle is internal state dynamics at fixed precision.  A
+three-precision block is not literally a carry cycle.  Holonomy can feed this
+endpoint only after one proves that its internal mismatch aggregates into a
+net bound across precision checkpoints.
+
+Research-side diagnostic request: on every available iterated-minimum tower,
+please compute
+
+```text
+a_stage(j) = (epsilon_j-epsilon_(j+1))/epsilon_(j+1)^2
+a_block(i) = (epsilon_(q_i)-epsilon_(q_(i+1)))/epsilon_(q_(i+1))^2
+```
+
+for (a) every stage, (b) fixed multi-precision blocks of several candidate
+lengths, and (c) adaptive precision blocks suggested by renewal diagnostics.  Please
+record whether any coefficients are negative and how the partial sums of
+the nonnegative `a/(1+a)` scale with precision.  A proof need no longer
+control every stage if one of the block families has divergent cumulative
+gain.  This is still a conditional reduction, not a proof of the pressure
+bound.
+
+The full 8,781-job build and axiom audit pass.  Every new endpoint theorem
+reports exactly `[propext, Classical.choice, Quot.sound]`; there are no
+project axioms, `sorry`, or certificate premises hidden in the reduction.
+
+## Round 83 — fixed-temperature soft route connected exactly to counting
+
+I followed the independent endpoint lane in `docs/notes/softmin-replica.md`
+and formalized its finite comparison and transfer steps at the literal
+definition boundary.
+
+New `KL/TernaryColdMean.lean` defines
+
+```text
+M_(-beta)(z) = ((z_0^(-beta)+z_1^(-beta)+z_2^(-beta))/3)^(-1/beta)
+```
+
+and proves for `beta>0` and positive inputs
+
+```text
+min z <= M_(-beta)(z) <= 3^(1/beta) min z.           (83.1)
+```
+
+New `KL/SoftKLOperator.lean` replaces the literal refinement-fiber minimum
+in the actual finite KL operator by exactly this mean and proves row by row
+
+```text
+F_hard(x) <= F_beta(x) <= 3^(1/beta) F_hard(x).      (83.2)
+```
+
+The transport term is retained unchanged; the upper bound explicitly uses
+its nonnegativity and `1 <= 3^(1/beta)`.  Thus this is the operator in the
+research note, not a cleaner surrogate.
+
+New `KL/SoftHardTransfer.lean` proves the certificate-friendly finite bridge:
+if `x>0`,
+
+```text
+r*x <= F_beta(x),        3^(1/beta) < r,              (83.3)
+```
+
+then `x` normalizes to an exact `LevelFeasible k lambda` witness for the hard
+KL operator.  Exact soft eigenvector existence is unnecessary; a certified
+soft subeigenvector is enough.
+
+Finally, `almostLinearPredecessorCounting_of_sparse_feasible_sequence` allows
+the witness levels to be an arbitrary function `level(n)`, not consecutive.
+The fully composed theorem
+
+```text
+almostLinearPredecessorCounting_of_coldSubeigen_sequence
+```
+
+consumes parameters `mu(n)->2`, arbitrary levels `>=2`, positive cold
+subeigenvectors satisfying (83.3), and returns the literal
+`X^(1-epsilon)` one-halving Syracuse predecessor-counting statement.
+
+This leaves the research gap exactly where your note puts it: prove enough
+fixed-temperature saturation to obtain, for each chosen `mu<2`, some finite
+level with soft factor `r>3^(1/beta)`, choosing beta so that
+`annealedKL(mu)>3^(1/beta)`.  The Lean route no longer needs a soft spectral
+radius definition, Brouwer, convergence of eigenvectors, consecutive witness
+levels, or a hard-min quadratic pressure estimate.  A rational/interval soft
+subeigen certificate can instantiate it directly.
+
+Please review especially that the `ternaryColdMean` normalization and the
+branch-only replacement agree with equations (2.1)--(2.3) of
+`softmin-replica.md`.  I checked the normalization carefully after initially
+catching a parenthesization hazard during the Lean proof.
+
+The full 8,784-job build and axiom audit pass.  Every new headline theorem
+reports exactly `[propext, Classical.choice, Quot.sound]`; there are no
+project axioms, `sorry`, or `admit`.  This is a clean stopping point.  The
+highest-value research reply is now a definition-level audit of (83.1)--(83.3)
+against `softmin-replica.md`, followed—if they match—by either an all-level
+fixed-temperature saturation theorem or finite certified soft subeigenvectors
+whose factors cross `3^(1/beta)` at a sequence of parameters tending to `2`.

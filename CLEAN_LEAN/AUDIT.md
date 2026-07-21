@@ -45,12 +45,23 @@ Last checked: 2026-07-21 with Lean `v4.33.0-rc1` and the matching mathlib tag.
   predecessor counting for every positive target not divisible by three.
 - The literal coarse-minimum tower plus a uniform positive all-stage
   quadratic slack gain implies the same counting conclusion directly.
+- More weakly, divergent accumulated effective gain suffices; gain may be
+  checked only across selected multi-step blocks, with no condition at the
+  intermediate projections.
+- The literal ternary cold power mean satisfies the hard/soft factor
+  `3^(1/beta)` sandwich.  A positive soft subeigenvalue above that factor is
+  converted into hard KL feasibility and, along sparse levels tending to two,
+  into almost-linear predecessor counting.
 
 ## Explicitly not proved
 
 - The Collatz conjecture.
 - The asymptotic weighted-tail conjecture C1'.
-- The all-stage quadratic normalized-slack gain for selected KL profiles.
+- Any divergent all-stage or checkpoint-block normalized-slack gain for
+  selected KL profiles.
+- Fixed-temperature saturation of the softened KL spectral values at the
+  annealed value; the finite soft-to-hard comparison is proved, not this
+  all-level limit.
 - Unconditional convergence `lambda_k -> 2`.
 - GPU certificates beyond the checked-in level-12 artifact.
 - General positive nonlinear eigenvector existence at every finite level;

@@ -120,6 +120,14 @@ The coefficient may also vary with both the outer level and the successive
 coarse-minimum stage.  Lean only asks for one uniform positive lower bound on
 those coefficients, so a pressure proof may lose constants at different
 stages without first making them exactly equal.
+An even weaker endpoint is now checked: coefficients may be zero or tend to
+zero provided the accumulated effective gain
+`sum a_(k,j)/(1+a_(k,j))` diverges.  A checkpoint form imposes the quadratic
+inequality only across selected multi-step blocks and makes no demand on the
+intermediate defects.  A fixed-precision `5 -> 2 -> 8` holonomy or renewal
+argument can use this interface after it has been aggregated into a net bound
+across several precision projections, where inherited-slack reselection may
+cause temporary losses.
 Both orientations are kernel-checked: the original stage indexing starts at
 the finest profile, while the precision-indexed form stores the finest profile
 at the terminal index and takes coarse minima toward index zero.  The latter
@@ -141,7 +149,9 @@ witness.  Therefore the literal coarse-minimum tower, together with the same
 uniform positive all-stage quadratic slack-gain premise used above, now
 implies the `X^(1-epsilon)` predecessor-counting conclusion directly.  There
 is no intervening eigenvector-to-feasibility or literature-transfer
-assumption.  The all-stage slack-gain premise remains open mathematics.
+assumption.  The divergent-gain and multi-step-checkpoint variants imply the
+same conclusion.  Proving any one of those pressure premises remains open
+mathematics.
 
 `ArgminFrustration.lean` kernel-checks the local algebra behind that missing
 inequality.  For an arbitrary fine profile, every coarse slack row is exactly
@@ -183,6 +193,19 @@ the literal weighted-geometric overlap of the positive Boltzmann laws, so the
 final absolute-value theorem is equation (4.8) itself rather than only a
 surrogate definition.  These theorems justify the local zero-temperature
 passage; they do not supply the open all-row aggregate lower bound.
+
+`TernaryColdMean.lean`, `SoftKLOperator.lean`, and `SoftHardTransfer.lean`
+kernel-check the separate fixed-temperature route at its exact definition
+boundary.  For `beta>0`, the ternary power mean of order `-beta` lies between
+the minimum and `3^(1/beta)` times the minimum.  Replacing every KL branch
+minimum by this mean therefore gives the literal operator sandwich
+`F_hard <= F_beta <= 3^(1/beta) F_hard`.  Any positive soft subeigenvector
+with factor `r>3^(1/beta)` normalizes to an exact hard-min feasibility witness.
+Witness levels may be sparse, and the composed theorem sends a parameter
+sequence tending to two directly to `X^(1-epsilon)` counting.  What remains
+open is the analytic fixed-temperature saturation statement that produces
+such subeigenvalues; no soft eigenvector existence or spectral limit is
+assumed by these finite comparison theorems.
 
 `TieWallHolonomy.lean` isolates the discrete part of the remaining exception.
 A fixed-point-free composite carry around a three-edge cycle forces at least

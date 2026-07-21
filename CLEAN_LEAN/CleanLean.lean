@@ -62,6 +62,9 @@ import CleanLean.KL.OrbitHitting
 import CleanLean.KL.NonlinearPerron
 import CleanLean.KL.NormalizedEigenpair
 import CleanLean.KL.CountingTransfer
+import CleanLean.KL.SoftHardTransfer
+import CleanLean.KL.TernaryColdMean
+import CleanLean.KL.SoftKLOperator
 import CleanLean.KL.CoarseTowerCounting
 import CleanLean.KL.SideBushCapacity
 import CleanLean.KL.FiniteRecordK12

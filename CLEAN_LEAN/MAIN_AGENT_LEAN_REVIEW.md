@@ -25,7 +25,7 @@ open.  It is also not the Collatz conjecture even if that premise is proved.
 
 ## The actual load-bearing mathematical target
 
-The most direct current endpoint obligation is precisely
+The strongest convenient current endpoint obligation is precisely
 
 ```text
 HasQuadraticCoarseSlackGainWith (a k j) (j+2)
@@ -38,6 +38,15 @@ equation (40.4), already kernel-checked in `ArgminFrustration.lean`.  This
 quantity is the increment of normalized super-slack; a bound on total new
 slack alone is insufficient because inherited slack can change the selected
 minimum.
+
+Lean now accepts two strictly weaker targets.  The coefficients may be merely
+nonnegative if `sum a_(k,j)/(1+a_(k,j)) -> infinity`.  More importantly for
+the carry-cycle lane, the inequality may be imposed only across selected
+multi-step checkpoints.  Intermediate projections need satisfy no sign
+condition.  Thus an internal carry/renewal analysis need only produce a net
+bound across an unbounded family of precision blocks; an all-stage
+inherited-slack inequality is no longer logically necessary.  Precision
+blocks and the fixed-level `5 -> 2 -> 8` state cycle are distinct objects.
 
 The reciprocal telescope, factor-three normalization, oscillation identity,
 `lambda -> 2` limit, finite feasibility, repaired KL comparison, and counting
@@ -56,12 +65,28 @@ almostLinearPredecessorCounting_of_feasible_sequence_concrete
 already consumes exactly such a sequence.  A stable symbolic ansatz for those
 vectors would therefore be at least as valuable as a pressure proof.
 
+There is now a second exact alternative in `SoftKLOperator.lean`.  The literal
+order-`-beta` ternary mean and softened KL operator satisfy
+
+```text
+F_hard x <= F_beta x <= 3^(1/beta) F_hard x.
+```
+
+Hence a positive soft subeigenvector with factor greater than
+`3^(1/beta)` is automatically a hard feasibility witness.  The theorem
+`almostLinearPredecessorCounting_of_coldSubeigen_sequence` permits arbitrary
+sparse witness levels and composes these finite witnesses all the way to
+counting.  The remaining research theorem is fixed-temperature saturation of
+the soft values at `annealedKL(lambda)`; neither that limit nor soft Perron
+existence has been smuggled into the Lean statement.
+
 ## Lean work that becomes directly useful when research supplies data
 
-1. Formalize a selected carry/renewal self-consistency lemma only after its
-   exact all-level statement is isolated.  Generic holonomy forces a label
+1. Isolate a selected carry/renewal theorem that aggregates to net quadratic
+   gain on an unbounded sequence of precision checkpoints.  Generic holonomy forces a label
    mismatch but cannot bound near-tie second gaps; the checked rotating
-   tie-wall counterexample proves that this distinction is essential.
+   tie-wall counterexample proves that this distinction is essential.  The
+   checkpoint endpoint already consumes the desired block inequality.
 2. Ingest higher-level GPU certificates only when the integer vectors and all
    scaling/branch-bound metadata are available.  The generic scaled checker
    is already sound; the remaining work is generated data plus a reproducible

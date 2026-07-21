@@ -26,6 +26,8 @@ that may not recover the empirically sharp constant.
 
 namespace CleanLean.KL
 
+open scoped BigOperators
+
 /-- One quadratic-growth step drops the reciprocal by at least `3/5`.
 The upper bound is needed only for the earlier defect. -/
 theorem three_fifths_le_reciprocal_drop
@@ -85,6 +87,21 @@ theorem coefficient_div_one_add_le_reciprocal_drop
   rw [show 1 / e - 1 / f = (f - e) / (e * f) by
     field_simp [he0.ne', hf0.ne']]
   exact (le_div_iff₀ (mul_pos he0 hf0)).2 (by simpa [mul_assoc] using hcross)
+
+/-- The reciprocal-drop estimate also permits a zero coefficient.  This
+degenerate case records mere monotonicity and contributes zero to the
+telescoping sum. -/
+theorem coefficient_div_one_add_le_reciprocal_drop_of_nonneg
+    {a e f : ℝ} (ha : 0 ≤ a) (he0 : 0 < e) (he1 : e ≤ 1)
+    (hstep : e + a * e ^ 2 ≤ f) :
+    a / (1 + a) ≤ 1 / e - 1 / f := by
+  rcases ha.eq_or_lt with rfl | ha
+  · have hmono : e ≤ f := by simpa using hstep
+    have hf0 : 0 < f := lt_of_lt_of_le he0 hmono
+    have hrecip : 1 / f ≤ 1 / e := one_div_le_one_div_of_le he0 hmono
+    simp only [zero_div]
+    linarith
+  · exact coefficient_div_one_add_le_reciprocal_drop ha he0 he1 hstep
 
 /-- Reciprocal telescoping with an arbitrary positive quadratic
 coefficient. -/
@@ -311,6 +328,145 @@ theorem reverse_reciprocal_drop_sum_with
             (1 / e (n + 1) - 1 / e n) := add_le_add ih' hlast
         _ = 1 / e (n + 1) - 1 / e 0 := by ring
 
+/-- Reciprocal telescoping with stage-dependent, possibly zero, gains.  The
+quantity `a/(1+a)` is the effective reciprocal gain contributed by a stage.
+This is the exact scalar interface needed for intermittent pressure bounds. -/
+theorem reverse_reciprocal_drop_sum_variable
+    (a e : ℕ → ℝ) (n : ℕ)
+    (hcoeff : ∀ j < n, 0 ≤ a j)
+    (hpos : ∀ j ≤ n, 0 < e j)
+    (hone : ∀ j ≤ n, e j ≤ 1)
+    (hstep : ∀ j < n,
+      e (j + 1) + a j * (e (j + 1)) ^ 2 ≤ e j) :
+    (∑ j ∈ Finset.range n, a j / (1 + a j)) ≤
+      1 / e n - 1 / e 0 := by
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      have ih' : (∑ j ∈ Finset.range n, a j / (1 + a j)) ≤
+          1 / e n - 1 / e 0 := by
+        apply ih
+        · intro j hj
+          exact hcoeff j (by omega)
+        · intro j hj
+          exact hpos j (by omega)
+        · intro j hj
+          exact hone j (by omega)
+        · intro j hj
+          exact hstep j (by omega)
+      have hlast : a n / (1 + a n) ≤
+          1 / e (n + 1) - 1 / e n :=
+        coefficient_div_one_add_le_reciprocal_drop_of_nonneg
+          (hcoeff n (by omega)) (hpos (n + 1) (by omega))
+          (hone (n + 1) (by omega)) (hstep n (by omega))
+      rw [Finset.sum_range_succ]
+      calc
+        (∑ j ∈ Finset.range n, a j / (1 + a j)) + a n / (1 + a n) ≤
+            (1 / e n - 1 / e 0) +
+              (1 / e (n + 1) - 1 / e n) := add_le_add ih' hlast
+        _ = 1 / e (n + 1) - 1 / e 0 := by ring
+
+/-- Finite endpoint bound with intermittent gains.  Zero-gain stages are
+allowed; only the accumulated effective gain appears in the denominator. -/
+theorem terminal_defect_le_of_reverse_quadratic_growth_variable
+    (a e : ℕ → ℝ) (n : ℕ)
+    (hcoeff : ∀ j < n, 0 ≤ a j)
+    (hpos : ∀ j ≤ n, 0 < e j)
+    (hone : ∀ j ≤ n, e j ≤ 1)
+    (hstep : ∀ j < n,
+      e (j + 1) + a j * (e (j + 1)) ^ 2 ≤ e j) :
+    e n ≤ 1 / (1 + ∑ j ∈ Finset.range n, a j / (1 + a j)) := by
+  have htel := reverse_reciprocal_drop_sum_variable a e n
+    hcoeff hpos hone hstep
+  have hcoarse : (1 : ℝ) ≤ 1 / e 0 := by
+    rw [le_div_iff₀ (hpos 0 (Nat.zero_le n))]
+    simpa using hone 0 (Nat.zero_le n)
+  have hrecip : 1 + (∑ j ∈ Finset.range n, a j / (1 + a j)) ≤
+      1 / e n := by
+    linarith
+  have hsum0 : 0 ≤ ∑ j ∈ Finset.range n, a j / (1 + a j) := by
+    apply Finset.sum_nonneg
+    intro j hj
+    have haj : 0 ≤ a j := hcoeff j (Finset.mem_range.mp hj)
+    exact div_nonneg haj (by linarith)
+  have hden : 0 < 1 + ∑ j ∈ Finset.range n, a j / (1 + a j) := by
+    linarith
+  have hen := hpos n le_rfl
+  apply (le_div_iff₀ hden).2
+  have hmul := mul_le_mul_of_nonneg_left hrecip hen.le
+  have hcancel : e n * (1 / e n) = 1 := by
+    field_simp [hen.ne']
+  nlinarith
+
+/-- Divergent accumulated effective gain is sufficient for vanishing finest
+defect.  In particular, neither a positive gain at every stage nor a uniform
+lower bound on the nonzero gains is required. -/
+theorem terminal_defect_tendsto_zero_of_divergent_reverse_quadratic_growth
+    (a e : ℕ → ℕ → ℝ)
+    (hpos : ∀ k j, j ≤ k → 0 < e k j)
+    (hone : ∀ k j, j ≤ k → e k j ≤ 1)
+    (hcoeff : ∀ k j, j < k → 0 ≤ a k j)
+    (hstep : ∀ k j, j < k →
+      e k (j + 1) + a k j * (e k (j + 1)) ^ 2 ≤ e k j)
+    (hdiv : Filter.Tendsto
+      (fun k => ∑ j ∈ Finset.range k, a k j / (1 + a k j))
+      Filter.atTop Filter.atTop) :
+    Filter.Tendsto (fun k => e k k) Filter.atTop (nhds 0) := by
+  let A : ℕ → ℝ := fun k =>
+    ∑ j ∈ Finset.range k, a k j / (1 + a k j)
+  have hbound : ∀ k, e k k ≤ 1 / (1 + A k) := by
+    intro k
+    exact terminal_defect_le_of_reverse_quadratic_growth_variable
+      (a k) (e k) k (hcoeff k) (hpos k) (hone k) (hstep k)
+  have hden : Filter.Tendsto (fun k => (1 : ℝ) + A k)
+      Filter.atTop Filter.atTop := by
+    simpa [A, add_comm] using
+      Filter.tendsto_atTop_add_const_right Filter.atTop (1 : ℝ) hdiv
+  have hupper : Filter.Tendsto (fun k => 1 / (1 + A k))
+      Filter.atTop (nhds 0) := by
+    have honeT : Filter.Tendsto (fun _ : ℕ => (1 : ℝ))
+        Filter.atTop (nhds 1) := tendsto_const_nhds
+    simpa [one_div] using honeT.div_atTop hden
+  apply squeeze_zero'
+  · exact Filter.Eventually.of_forall fun k => (hpos k k le_rfl).le
+  · exact Filter.Eventually.of_forall hbound
+  · exact hupper
+
+/-- Checkpoint version of the divergent-gain telescope.  The number of
+checked blocks may depend on the outer precision.  Nothing is required of
+the scalar defect between checkpoints, so a multi-step pressure argument can
+absorb temporary losses caused by inherited-slack reselection. -/
+theorem terminal_defect_tendsto_zero_of_divergent_reverse_quadratic_growth_on
+    (m : ℕ → ℕ) (a e : ℕ → ℕ → ℝ)
+    (hpos : ∀ k j, j ≤ m k → 0 < e k j)
+    (hone : ∀ k j, j ≤ m k → e k j ≤ 1)
+    (hcoeff : ∀ k j, j < m k → 0 ≤ a k j)
+    (hstep : ∀ k j, j < m k →
+      e k (j + 1) + a k j * (e k (j + 1)) ^ 2 ≤ e k j)
+    (hdiv : Filter.Tendsto
+      (fun k => ∑ j ∈ Finset.range (m k), a k j / (1 + a k j))
+      Filter.atTop Filter.atTop) :
+    Filter.Tendsto (fun k => e k (m k)) Filter.atTop (nhds 0) := by
+  let A : ℕ → ℝ := fun k =>
+    ∑ j ∈ Finset.range (m k), a k j / (1 + a k j)
+  have hbound : ∀ k, e k (m k) ≤ 1 / (1 + A k) := by
+    intro k
+    exact terminal_defect_le_of_reverse_quadratic_growth_variable
+      (a k) (e k) (m k) (hcoeff k) (hpos k) (hone k) (hstep k)
+  have hden : Filter.Tendsto (fun k => (1 : ℝ) + A k)
+      Filter.atTop Filter.atTop := by
+    simpa [A, add_comm] using
+      Filter.tendsto_atTop_add_const_right Filter.atTop (1 : ℝ) hdiv
+  have hupper : Filter.Tendsto (fun k => 1 / (1 + A k))
+      Filter.atTop (nhds 0) := by
+    have honeT : Filter.Tendsto (fun _ : ℕ => (1 : ℝ))
+        Filter.atTop (nhds 1) := tendsto_const_nhds
+    simpa [one_div] using honeT.div_atTop hden
+  apply squeeze_zero'
+  · exact Filter.Eventually.of_forall fun k => (hpos k (m k) le_rfl).le
+  · exact Filter.Eventually.of_forall hbound
+  · exact hupper
+
 /-- Finite bound in the natural precision indexing: the finest defect is at
 index `n`, and repeated coarse-minimum gains force it to be `O(1/n)`. -/
 theorem terminal_defect_le_of_reverse_quadratic_growth_with
@@ -504,6 +660,61 @@ theorem klLambda_tendsto_two_of_uniform_reverse_quadratic_terminalExcess_growth
     exact div_nonneg (hpos k k le_rfl).le (by norm_num)
   · have he := terminal_defect_tendsto_zero_of_uniform_reverse_quadratic_growth
       a₀ a e ha₀ hpos hone hcoeff hstep
+    simpa using he.div_const (3 : ℝ)
+  · exact hidentity
+
+/-- Precision-indexed endpoint from divergent accumulated effective gain.
+This is strictly weaker than a level-uniform positive coefficient: individual
+stages may have zero gain, and positive coefficients may tend to zero. -/
+theorem klLambda_tendsto_two_of_divergent_reverse_quadratic_terminalExcess_growth
+    (a : ℕ → ℕ → ℝ) (lam : ℕ → ℝ) (e : ℕ → ℕ → ℝ)
+    (hlam : ∀ k, lam k ∈ Set.Icc (1 : ℝ) 2)
+    (hpos : ∀ k j, j ≤ k → 0 < e k j)
+    (hone : ∀ k j, j ≤ k → e k j ≤ 1)
+    (hcoeff : ∀ k j, j < k → 0 ≤ a k j)
+    (hstep : ∀ k j, j < k →
+      e k (j + 1) + a k j * (e k (j + 1)) ^ 2 ≤ e k j)
+    (hdiv : Filter.Tendsto
+      (fun k => ∑ j ∈ Finset.range k, a k j / (1 + a k j))
+      Filter.atTop Filter.atTop)
+    (hidentity : ∀ k, annealedKL (lam k) - 1 =
+      ((klWeights (lam k)).retarded +
+        (klWeights (lam k)).advanced) * (e k k / 3)) :
+    Filter.Tendsto lam Filter.atTop (nhds 2) := by
+  apply klLambda_tendsto_two_of_defect lam (fun k => e k k / 3) hlam
+  · intro k
+    exact div_nonneg (hpos k k le_rfl).le (by norm_num)
+  · have he :=
+      terminal_defect_tendsto_zero_of_divergent_reverse_quadratic_growth
+        a e hpos hone hcoeff hstep hdiv
+    simpa using he.div_const (3 : ℝ)
+  · exact hidentity
+
+/-- Endpoint from a precision-dependent sequence of multi-step checkpoints.
+The recurrent scalar need not be monotone, or satisfy any pressure inequality,
+between the chosen checkpoints. -/
+theorem klLambda_tendsto_two_of_checkpoint_quadratic_terminalExcess_growth
+    (m : ℕ → ℕ) (a : ℕ → ℕ → ℝ)
+    (lam : ℕ → ℝ) (e : ℕ → ℕ → ℝ)
+    (hlam : ∀ k, lam k ∈ Set.Icc (1 : ℝ) 2)
+    (hpos : ∀ k j, j ≤ m k → 0 < e k j)
+    (hone : ∀ k j, j ≤ m k → e k j ≤ 1)
+    (hcoeff : ∀ k j, j < m k → 0 ≤ a k j)
+    (hstep : ∀ k j, j < m k →
+      e k (j + 1) + a k j * (e k (j + 1)) ^ 2 ≤ e k j)
+    (hdiv : Filter.Tendsto
+      (fun k => ∑ j ∈ Finset.range (m k), a k j / (1 + a k j))
+      Filter.atTop Filter.atTop)
+    (hidentity : ∀ k, annealedKL (lam k) - 1 =
+      ((klWeights (lam k)).retarded +
+        (klWeights (lam k)).advanced) * (e k (m k) / 3)) :
+    Filter.Tendsto lam Filter.atTop (nhds 2) := by
+  apply klLambda_tendsto_two_of_defect lam (fun k => e k (m k) / 3) hlam
+  · intro k
+    exact div_nonneg (hpos k (m k) le_rfl).le (by norm_num)
+  · have he :=
+      terminal_defect_tendsto_zero_of_divergent_reverse_quadratic_growth_on
+        m a e hpos hone hcoeff hstep hdiv
     simpa using he.div_const (3 : ℝ)
   · exact hidentity
 

@@ -65,6 +65,9 @@ import CleanLean.KL.MarginalObstruction
 import CleanLean.KL.OrbitHitting
 import CleanLean.KL.NonlinearPerron
 import CleanLean.KL.CountingTransfer
+import CleanLean.KL.SoftHardTransfer
+import CleanLean.KL.TernaryColdMean
+import CleanLean.KL.SoftKLOperator
 import CleanLean.KL.CoarseTowerCounting
 import CleanLean.KL.SideBushCapacity
 import CleanLean.KL.FiniteRecordK12
@@ -361,6 +364,16 @@ specification theorems during a build.
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_klLambda
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_feasible_sequence
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_feasible_sequence_concrete
+#print axioms CleanLean.KL.almostLinearPredecessorCounting_of_sparse_feasible_sequence
+#print axioms CleanLean.KL.ResidueSystem.levelFeasible_of_softSubeigen_domination
+#print axioms
+  CleanLean.KL.ResidueSystem.almostLinearPredecessorCounting_of_softSubeigen_bridges
+#print axioms CleanLean.KL.ternaryColdMean_bounds
+#print axioms CleanLean.KL.FiniteSystem.operator_le_coldOperator
+#print axioms CleanLean.KL.FiniteSystem.coldOperator_le_factor_mul_operator
+#print axioms CleanLean.KL.ResidueSystem.levelFeasible_of_coldSubeigen
+#print axioms
+  CleanLean.KL.ResidueSystem.almostLinearPredecessorCounting_of_coldSubeigen_sequence
 #print axioms CleanLean.KL.almostLinearPredecessorCounting_of_klDefect
 #print axioms CleanLean.KL.FiniteSystem.feasible_of_positive_subeigen
 #print axioms CleanLean.KL.ResidueSystem.almostLinearPredecessorCounting_of_coarseMinimumTower
@@ -435,14 +448,31 @@ specification theorems during a build.
 #print axioms CleanLean.KL.reverse_reciprocal_drop_sum_with
 #print axioms CleanLean.KL.terminal_defect_le_of_reverse_quadratic_growth_with
 #print axioms CleanLean.KL.terminal_defect_tendsto_zero_of_uniform_reverse_quadratic_growth
+#print axioms CleanLean.KL.reverse_reciprocal_drop_sum_variable
+#print axioms CleanLean.KL.terminal_defect_le_of_reverse_quadratic_growth_variable
+#print axioms CleanLean.KL.terminal_defect_tendsto_zero_of_divergent_reverse_quadratic_growth
+#print axioms
+  CleanLean.KL.terminal_defect_tendsto_zero_of_divergent_reverse_quadratic_growth_on
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_quadratic_defect_growth
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_quadratic_defect_growth_with
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_uniform_quadratic_defect_growth
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_uniform_quadratic_terminalExcess_growth
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_uniform_reverse_quadratic_defect_growth
 #print axioms CleanLean.KL.klLambda_tendsto_two_of_uniform_reverse_quadratic_terminalExcess_growth
+#print axioms
+  CleanLean.KL.klLambda_tendsto_two_of_divergent_reverse_quadratic_terminalExcess_growth
+#print axioms
+  CleanLean.KL.klLambda_tendsto_two_of_checkpoint_quadratic_terminalExcess_growth
 #print axioms CleanLean.KL.ResidueSystem.IsCoarseMinimumTower
 #print axioms CleanLean.KL.ResidueSystem.klLambda_tendsto_two_of_coarseMinimumTower
+#print axioms
+  CleanLean.KL.ResidueSystem.klLambda_tendsto_two_of_coarseMinimumTower_divergentGain
+#print axioms
+  CleanLean.KL.ResidueSystem.klLambda_tendsto_two_of_coarseMinimumTower_checkpointGain
+#print axioms
+  CleanLean.KL.ResidueSystem.almostLinearPredecessorCounting_of_coarseMinimumTower_divergentGain
+#print axioms
+  CleanLean.KL.ResidueSystem.almostLinearPredecessorCounting_of_coarseMinimumTower_checkpointGain
 #print axioms CleanLean.KL.ternaryMin_le
 #print axioms CleanLean.KL.ternaryBoltzmannSum_bounds
 #print axioms CleanLean.KL.log_ternaryBoltzmannSum_bounds
