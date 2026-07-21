@@ -264,6 +264,8 @@ This discharges the first combinatorial hypothesis of the exact oscillation
 identity. -/
 theorem fiber_partition (k : ℕ) (hk : 2 ≤ k) (c : State k → ℝ) :
     ∑ r, (system k).fiberSum c r = (system k).totalMass c := by
+  letI : Fintype (State k) := (system k).stateFintype
+  letI : Fintype (Coarse k) := (system k).coarseFintype
   have h : (∑ r : Coarse k, (c (fiber k r 0) + c (fiber k r 1) +
       c (fiber k r 2))) = ∑ s : State k, c s := by
     calc
