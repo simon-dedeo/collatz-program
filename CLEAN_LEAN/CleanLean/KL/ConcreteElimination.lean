@@ -234,6 +234,20 @@ theorem eval_split_in_context_le_leaf
   apply K.eval_fill_mono
   exact (splitTree_locallyValid k label φ y hbase htime).1
 
+/-- A permitted split preserves global local validity when it is performed
+before any invariant-weakening deletion.  This is the formal Phase-A
+invariant for the split-all-then-prune repair architecture. -/
+theorem locallyValid_split_in_context
+    (K : EliminationTree.Context (ResidueSystem.State k))
+    (label : PrincipalLabel (ResidueSystem.State k))
+    (φ : ResidueSystem.State k → ℝ → ℝ) (y : ℝ)
+    (hwhole : (K.fill (.leaf label)).LocallyValid φ y)
+    (hbase : SatisfiesBaseSystem k φ) (htime : 2 ≤ y + label.shift) :
+    (K.fill (splitTree k label)).LocallyValid φ y := by
+  apply K.locallyValid_fill_replace (.leaf label) (splitTree k label) φ y
+    hwhole (splitTree_locallyValid k label φ y hbase htime)
+  exact (splitTree_locallyValid k label φ y hbase htime).1
+
 /-- Forget internal principal labels and translate paper shifts `beta` into
 positive backward lags `-beta` for the final retarded comparison tree. -/
 def eraseToRetarded : EliminationTree ι → RetardedExpr ι

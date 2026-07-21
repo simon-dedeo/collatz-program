@@ -29,6 +29,8 @@ import CleanLean.KL.TerminationObstruction
 import CleanLean.KL.BranchArrivalTermination
 import CleanLean.KL.AllThreeDeletionObstruction
 import CleanLean.KL.SplitInvariantObstruction
+import CleanLean.KL.TwoPhasePruning
+import CleanLean.KL.MarkedPruning
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
@@ -104,6 +106,7 @@ specification theorems during a build.
 #print axioms CleanLean.KL.EliminationTree.Assignment.exists_isCritical
 #print axioms CleanLean.KL.EliminationTree.Assignment.selectedEval_eq_eval
 #print axioms CleanLean.KL.EliminationTree.Assignment.respectsPrincipalBounds_of_locallyValid
+#print axioms CleanLean.KL.EliminationTree.Context.locallyValid_fill_replace
 #print axioms CleanLean.KL.EliminationTree.Assignment.repeated_label_contradiction
 #print axioms CleanLean.KL.EliminationTree.Assignment.repeated_branch_leaf_not_selected
 #print axioms CleanLean.KL.EliminationTree.Assignment.eval_delete_left_of_noCriticalUse
@@ -119,6 +122,7 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ConcreteElimination.repeated_concrete_branch_not_selected
 #print axioms CleanLean.KL.ConcreteElimination.splitTree_locallyValid
 #print axioms CleanLean.KL.ConcreteElimination.eval_split_in_context_le_leaf
+#print axioms CleanLean.KL.ConcreteElimination.locallyValid_split_in_context
 #print axioms CleanLean.KL.ConcreteElimination.eval_eraseToRetarded
 #print axioms CleanLean.KL.ConcreteElimination.coeffEval_baseBody_eq_operator
 #print axioms CleanLean.KL.ConcreteElimination.leaf_coeff_le_splitTree
@@ -153,6 +157,17 @@ specification theorems during a build.
 #print axioms CleanLean.KL.SplitInvariantObstruction.newAssignment_critical
 #print axioms CleanLean.KL.SplitInvariantObstruction.newAssignment_violates_principal_bound
 #print axioms CleanLean.KL.SplitInvariantObstruction.split_time_invariant_preservation_fails
+#print axioms CleanLean.KL.EliminationTree.allCriticalRespect_of_locallyValid
+#print axioms CleanLean.KL.EliminationTree.exists_critical_respecting
+#print axioms CleanLean.KL.EliminationTree.prune_dead_left
+#print axioms CleanLean.KL.EliminationTree.prune_dead_right
+#print axioms CleanLean.KL.ConcreteElimination.prune_dead_left_coeff
+#print axioms CleanLean.KL.ConcreteElimination.prune_dead_right_coeff
+#print axioms CleanLean.KL.EliminationTree.structurallyDead_iff_forall_hits
+#print axioms CleanLean.KL.EliminationTree.pruneMarked_eq_dead_iff
+#print axioms CleanLean.KL.EliminationTree.exists_live_prune_of_assignment_not_hits
+#print axioms CleanLean.KL.EliminationTree.allLeaves_unmarked_of_pruneMarked_live
+#print axioms CleanLean.KL.ConcreteElimination.coeffEval_le_of_pruneMarked_live
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
 #print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda
 #print axioms CleanLean.KL.weightedDefect_le_tail

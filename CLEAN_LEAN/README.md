@@ -142,6 +142,19 @@ critical-assignment semantics.  A corrected proof needs a genuinely
 split-stable invariant or different rewrite semantics, not only a termination
 argument and backjump rule.
 
+A current repair candidate separates the operations into two phases.  First,
+build the entire finite good-history expansion using splits only, marking
+higher repeated branch leaves as terminal; compactness supplies finiteness and
+global local validity survives every split.  Second, with no later splits,
+propagate marked/dead occurrences upward and delete them only at minima with a
+live sibling.  This architecture is designed to handle the all-three case
+without an empty minimum while avoiding the split-after-deletion activation
+counterexample.  `MarkedPruning.lean` now checks the structural dead recursion,
+live-root criterion, mark-free output, and coefficient monotonicity;
+`TwoPhasePruning.lean` checks pointwise functional deletion and invariant
+preservation.  The occurrence-indexed one-pass functional theorem and concrete
+finite raw-tree construction are not yet formalized.
+
 `PressureCertificate.lean` now also accepts the portable sparse-edge format
 used by `lemma5_exact_cert.json`: it compiles a finite edge table to a rational
 kernel and proves that a successful Boolean row check yields the real pressure

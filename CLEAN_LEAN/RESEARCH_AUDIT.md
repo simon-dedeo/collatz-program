@@ -238,6 +238,22 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     proposed backjump repair; a split-stable invariant or new semantics is
     required.
 
+25. **Two-phase repair target.**
+    The current candidate constructs the finite raw good-history tree using
+    splits only, marks higher repeated branch leaves instead of deleting them,
+    and performs all dead-context pruning afterward.  Branch-arrival
+    compactness is intended to prove Phase-A finiteness; split-only expansion
+    preserves global local validity, avoiding item 24.  Phase B would propagate
+    an all-dead three-way minimum upward and delete it only at a live ancestor
+    minimum, avoiding item 23.  This is presently a proof architecture, not a
+    theorem.  The generic local-validity replacement theorem now proves the
+    Phase-A invariant, and `MarkedPruning.lean` checks the structural dead
+    recursion, live-root criterion, absence of marks from live output, and
+    coefficient monotonicity.  `TwoPhasePruning.lean` checks one sound
+    pointwise dead-alternative deletion and invariant preservation.  The
+    occurrence-indexed functional soundness of the one-pass pruner and the
+    concrete finite raw-tree/König construction remain open.
+
 ## Corrections to the current notes
 
 ### The pure-branch root needs a special condition

@@ -126,6 +126,26 @@ theorem eval_fill_mono (K : Context ι) (a b : EliminationTree ι)
   | infRight left K ih =>
       simpa [fill, eval] using min_le_min (le_refl (left.eval φ y)) ih
 
+/-- Replacing a context hole by a locally valid tree of no larger evaluation
+preserves local validity of the whole filled tree.  At an enclosing principal
+node, the replacement only strengthens its numerical body inequality. -/
+theorem locallyValid_fill_replace (K : Context ι) (old new : EliminationTree ι)
+    (φ : ι → ℝ → ℝ) (y : ℝ)
+    (hold : (K.fill old).LocallyValid φ y)
+    (hnew : new.LocallyValid φ y)
+    (heval : new.eval φ y ≤ old.eval φ y) :
+    (K.fill new).LocallyValid φ y := by
+  induction K with
+  | hole => exact hnew
+  | principal label K ih =>
+      constructor
+      · exact (K.eval_fill_mono new old φ y heval).trans hold.1
+      · exact ih hold.2
+  | addLeft K right ih => exact ⟨ih hold.1, hold.2⟩
+  | addRight left K ih => exact ⟨hold.1, ih hold.2⟩
+  | infLeft K right ih => exact ⟨ih hold.1, hold.2⟩
+  | infRight left K ih => exact ⟨hold.1, ih hold.2⟩
+
 end Context
 
 /-- A syntactic assignment through a labelled tree. -/

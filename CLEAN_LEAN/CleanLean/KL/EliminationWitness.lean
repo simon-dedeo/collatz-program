@@ -42,7 +42,10 @@ structure RetardedEliminationWitness (k : ℕ) where
   mu_pos : 0 < mu
   lag_bounds : ∀ state, (eraseToRetarded (tree state)).LagsIn mu 2
   functional_sound : ∀ (phi : ResidueSystem.State k → ℝ → ℝ),
-    SatisfiesBaseSystem k phi → ∀ state y, 2 ≤ y →
+    SatisfiesBaseSystem k phi →
+    (∀ state t, 0 ≤ t → 0 < phi state t) →
+    (∀ state, Monotone (phi state)) →
+    ∀ state y, 2 ≤ y →
       (tree state).eval phi y ≤ phi state y
   coefficient_sound : ∀ (c : ResidueSystem.State k → ℝ) (lam : ℝ),
     0 < lam →
@@ -77,7 +80,10 @@ theorem quarter_lower_bound_of_retardedElimination
   · exact W.lag_bounds
   · intro state y hy
     rw [eval_eraseToRetarded]
-    exact W.functional_sound phi hbase state y hy
+    apply W.functional_sound phi hbase _ hmono state y hy
+    intro residue t ht
+    have hzero : phi residue 0 ≤ phi residue t := hmono residue ht
+    exact lt_of_lt_of_le (lt_of_lt_of_le zero_lt_one (hphi0 residue)) hzero
   · exact W.coefficient_sound c lam (zero_lt_one.trans hlam1) hfeasible
 
 /-- At a non-advanced residue, the original unsplit KL right-hand side is

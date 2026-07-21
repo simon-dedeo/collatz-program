@@ -1374,3 +1374,92 @@ currently no sound recursive construction to which it can be attached.  The
 next mathematical target must be a stronger split-stable provenance invariant
 or a different rewrite semantics; merely adding backjumps to the current
 assignment-specific invariant is unsound.
+
+## 2026-07-21 -- round 32: two-phase repair candidate
+
+Replies 9 and 10 suggest a repair which avoids the split-after-deletion flaw:
+**perform every split before performing any deletion**.
+
+Phase A constructs the raw finite tree of good histories.  Expand every
+eligible nonnegative principal leaf.  A newly created branch leaf which is a
+strictly higher same-residue repeat is not deleted; mark it terminal/bad.
+Negative leaves are terminal/retarded.  Transport children continue normally.
+An infinite unmarked path would have infinitely many branch arrivals,
+statewise nonincreasing heights, and exact increments `alpha-c_n`, so
+`no_infinite_KL_branch_arrivals` excludes it.  König then makes this finitely
+branching raw tree finite.  Crucially, Phase A uses splitting only, so
+`LocallyValid` is preserved globally.  Reply 10's outer-min activation cannot
+break the invariant because the stronger local-validity theorem applies after
+all splits.
+
+Phase B prunes the already finite tree, with **no later splitting**.  A marked
+repeat leaf cannot occur in any critical assignment traversing its recorded
+ancestor, by `repeated_concrete_branch_not_selected` plus the global local
+validity obtained in Phase A.  Propagate a dead occurrence upward through
+principal and add contexts.  At a minimum:
+
+- if one child is dead, delete that whole alternative;
+- if both are dead, propagate dead upward;
+- in the binary encoding of a three-way minimum, an all-three event therefore
+  propagates out of the branch minimum rather than creating an empty minimum.
+
+At the nearest minimum with a live sibling, global `NoCriticalUse` justifies
+deletion.  Since Phase B never splits again, the round-28 critical-assignment
+lifting theorem preserves the principal-bound invariant for all remaining
+deletions.  Coefficient evaluation moves in the required direction.  The root
+cannot remain dead: the finite Phase-A tree has a critical assignment, and
+`LocallyValid` makes every such assignment respect principal bounds, which
+contradicts the repeated-label proof attached to a dead selected path.
+
+If this checks, it simultaneously handles termination, all-three deletion,
+and split-time activation.  Please attack especially the claim that every
+Phase-A split preserves global `LocallyValid` under the exact eligibility
+threshold `2 <= y+shift`, and the root-not-dead induction.  I will formalize
+an abstract marked/dead-context pruning theorem next.
+
+Also completed the requested interface repair:
+`RetardedEliminationWitness.functional_sound` now explicitly accepts the base
+system, positivity on nonnegative arguments, and monotonicity; the final
+comparison theorem derives them from its existing hypotheses.
+
+## 2026-07-21 -- round 33: Phase-A and structural Phase-B lemmas compile
+
+Two more pieces of the two-phase architecture are now kernel-checked.
+
+First, `EliminationTree.Context.locallyValid_fill_replace` proves generically
+that replacing a context hole by a locally valid tree of no larger evaluation
+preserves `LocallyValid` for the entire filled tree.  The concrete corollary
+`locallyValid_split_in_context` applies this to every permitted KL split.
+Thus the key Phase-A claim is now a theorem: an arbitrary finite sequence of
+splits, with no intervening deletion, preserves global local validity.
+
+Second, new `MarkedPruning.lean` formalizes the structural dead predicate and
+pruner suggested in reply 12:
+
+- leaf dead iff marked;
+- principal dead iff its body is dead;
+- add dead iff either child is dead;
+- inf dead iff both children are dead.
+
+`structurallyDead_iff_forall_hits` proves this is exactly “every assignment
+through the subtree hits a mark.”  `pruneMarked` propagates deadness and drops
+a dead minimum child only when the sibling is live.  Lean proves a live output
+contains no marked leaves, any assignment avoiding marks forces the root
+output to be live, and erased coefficient evaluation weakly increases from
+the raw tree to every live output.  Therefore the all-three event has the
+desired structural behavior: its branch minimum becomes dead and propagates,
+rather than becoming an empty minimum.
+
+`TwoPhasePruning.lean` packages the pointwise semantic deletion induction:
+global deadness conditional on principal bounds plus `AllCriticalRespect`
+implies exact functional equality after deleting the dead alternative, and
+the round-28 lift preserves `AllCriticalRespect`; coefficient monotonicity is
+also packaged.  Root non-deadness from existence of a respecting critical
+assignment is checked.
+
+Reply 12's remaining caution is real: structural pruning alone does not yet
+prove one-shot functional equality, because each mark must carry its concrete
+ancestor/split occurrence through the arbitrary expanded transport sibling,
+and a current critical assignment must map to that occurrence in the Phase-A
+tree.  This occurrence-indexed semantic theorem, followed by the finite raw
+good-history construction/König bridge, is now the load-bearing gap.
