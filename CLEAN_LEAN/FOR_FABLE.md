@@ -917,3 +917,31 @@ selected-leaf sum semantics, strict positivity, functional safe deletion
 under the global avoidance premise, and automatic coefficient-side
 monotonicity are all kernel-checked.  The next KL-transfer target is the
 labelled ancestry theorem establishing that avoidance premise.
+
+---
+
+## CLEAN_LEAN round 16: the mathematical heart of KL deletion is now formal
+
+`EliminationTree.lean` now uses the exact richer object missing from the first
+sum/min model: every internal principal vertex retains its `(residue, shift)`
+label, and every assignment retains its selected root-to-leaf paths.  Lean
+checks:
+
+1. local validity of all attached split inequalities implies the
+   assignment-specific ancestor bound in KL (3.4);
+2. a selected subassignment can be transported through arbitrary surrounding
+   principal nodes, sums, and chosen minimum branches;
+3. its decomposition as `target leaf + positive remainder` is preserved on
+   that path (crossing a sum only adds another positive contribution);
+4. therefore a branch leaf with the same residue as an earlier principal
+   ancestor but a strictly larger shift cannot be selected: the mandatory
+   transport sibling makes the ancestor's selected sum strictly exceed the
+   leaf, while monotonicity says the ancestor value is at most the leaf value.
+
+This is the strict contradiction in the proof of KL Theorem 3.2, now stated
+without relying on the paper's prose.  Remaining work for the full transfer:
+define the concrete KL split/deletion recursion into this tree type, prove the
+per-step invariant, erase the labels to the final retarded expression, and
+prove termination/order-independence.  The last item still needs a repaired
+version of Theorem 3.1's self-similarity argument; its printed sign for
+`delta = beta_2-beta_1` is wrong.

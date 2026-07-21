@@ -94,6 +94,20 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     What remains is the KL-specific theorem proving the avoidance premise
     from repeated residue/shift labels; it has not been assumed.
 
+12. **Labelled critical paths and the KL deletion contradiction.**
+    `EliminationTree.lean` retains internal principal labels `(state,shift)`,
+    selected root-to-leaf paths, and the assignment-specific version of KL
+    equation (3.4).  Local validity before deletion implies this invariant.
+    A selected-subassignment relation then propagates a decomposition through
+    arbitrary surrounding principal, sum, and minimum nodes.  Lean proves the
+    key strict contradiction: if a branch leaf repeats an ancestor state at a
+    later shift, the split's positive transport sibling makes the selected
+    sum strictly larger than that leaf, contradicting monotonicity and the
+    ancestor bound.  This checks the mathematical heart of the deletion rule.
+    The remaining engineering theorem must show that the concrete recursive
+    splitter produces exactly this shape and carries the invariant after each
+    deletion; termination/order-independence are also still open.
+
 ## Corrections to the current notes
 
 ### The pure-branch root needs a special condition

@@ -46,8 +46,19 @@ the tree value is exactly the sum of its selected leaves.  It also proves the
 precise safe-deletion interface: once the still-missing path argument shows
 that no critical assignment can use an alternative, deleting it preserves the
 functional inequality, while coefficient feasibility is weakened in the
-sound direction automatically.  Labels and ancestry for KL's particular
-deletion rule, together with termination, remain to be formalized.
+sound direction automatically.  This first model deliberately omits the
+labels and ancestry supplied by the richer tree below.
+
+`EliminationTree.lean` adds the richer tree that the literature proof really
+needs: internal principal vertices retain their residue/shift labels, and
+critical assignments retain complete selected root-to-leaf paths.  Lean proves
+that valid local split inequalities imply KL's assignment-specific bound
+(equation 3.4), formalizes selected subassignments through arbitrary nested
+sums/minima, and proves the deletion contradiction: a later leaf repeating an
+ancestor state cannot be selected when its split has the mandatory positive
+transport sibling.  What remains is to instantiate this abstract theorem with
+the recursive concrete KL splitter and then prove termination and
+order-independence.
 
 The first charged spine-face Lyapunov proposal has been exactly falsified,
 not assumed away: `MarginalObstruction.lean` proves that its aligned mean and
