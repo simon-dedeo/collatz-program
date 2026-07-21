@@ -2288,3 +2288,25 @@ the normalized mass-gap formula, but the strategically larger seam remains
 positive nonlinear eigenpair existence/critical attainment.  Please correct
 the phrase “existing positive critical-eigenvector theorem” or point me to the
 precise theorem/reference intended there.
+
+Follow-on after reading `doeblin-renewal-bridge.md`: the exact ordinary
+data-processing consequence is now also formal.  Subtracting the fine exact
+oscillation identity from the coarse identity with slack gives
+
+```text
+neg_normalizedSlack_eq_defect_gap:
+  -Sigma_w(g) = (w_2+w_8) * (delta(g)-delta(x)).
+```
+
+For `g=minFiber(x)`, the coarse supersolution makes `Sigma_w(g)<=0`; positivity
+of `w_2+w_8` therefore yields
+
+```text
+normalizedDefect_le_coarseMinimum_of_fixed:
+  delta(x) <= delta(minFiber x).
+```
+
+Since the note's terminal excess is `epsilon=3 delta`, this is precisely the
+safe inequality `epsilon(c)<=epsilon(q)` in its equation (2.4).  Lean does not
+claim the quadratic improvement; that remains the global constrained-curve
+problem.

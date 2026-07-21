@@ -358,3 +358,5 @@ specification theorems during a build.
 #print axioms CleanLean.KL.ResidueSystem.criticalLambda_lt_succ_of_positive_fixed
 #print axioms CleanLean.KL.ResidueSystem.operator_coarseMinimum_le
 #print axioms CleanLean.KL.ResidueSystem.coarseMinimum_operator_le_of_fixed
+#print axioms CleanLean.KL.ResidueSystem.neg_normalizedSlack_eq_defect_gap
+#print axioms CleanLean.KL.ResidueSystem.normalizedDefect_le_coarseMinimum_of_fixed

@@ -113,6 +113,65 @@ theorem coarseMinimum_operator_le_of_fixed (k : ℕ) (hk : 2 ≤ k)
   rw [hop] at h
   exact h
 
+/-- Exact normalized mass-gap identity.  Comparing the fine fixed-vector
+oscillation law with the coarse law including slack shows that the coarse
+super-slack is precisely the increase in normalized minimum defect. -/
+theorem neg_normalizedSlack_eq_defect_gap
+    (k : ℕ) (hk : 2 ≤ k) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ) (g : State k → ℝ)
+    (hfixed : ∀ s, x s = (system (k + 1)).operator w x s)
+    (hxmass : (system (k + 1)).totalMass x ≠ 0)
+    (hgmass : (system k).totalMass g ≠ 0) :
+    -(system k).normalizedSlack w g =
+      (w.retarded + w.advanced) *
+        ((system k).normalizedDefect g -
+          (system (k + 1)).normalizedDefect x) := by
+  have hfine := concrete_oscillation_identity (k + 1) (by omega)
+    w x hfixed hxmass
+  have hcoarse := concrete_oscillation_identity_with_slack k hk w g hgmass
+  linarith
+
+/-- Ordinary data processing for the terminal minimum defect.  The coarse
+minimum of a positive exact fine fixed vector has at least the fine normalized
+defect.  No quadratic improvement is claimed. -/
+theorem normalizedDefect_le_coarseMinimum_of_fixed
+    (k : ℕ) (hk : 2 ≤ k) (w : Weights ℝ)
+    (x : State (k + 1) → ℝ)
+    (hwt : 0 ≤ w.transport) (hret : 0 ≤ w.retarded)
+    (hadv : 0 ≤ w.advanced) (hbranch : 0 < w.retarded + w.advanced)
+    (hx : ∀ s, 0 < x s)
+    (hfixed : ∀ s, x s = (system (k + 1)).operator w x s) :
+    (system (k + 1)).normalizedDefect x ≤
+      (system k).normalizedDefect (coarseMinimum k x) := by
+  let g := coarseMinimum k x
+  have hg : ∀ r, 0 < g r := by
+    intro r
+    simp only [g, coarseMinimum, FiniteSystem.fiberMin]
+    exact lt_min (hx _) (lt_min (hx _) (hx _))
+  have hxmass : 0 < (system (k + 1)).totalMass x := by
+    apply Finset.sum_pos
+    · intro s hs
+      exact hx s
+    · exact ⟨(0 : State (k + 1)), Finset.mem_univ _⟩
+  have hgmass : 0 < (system k).totalMass g := by
+    apply Finset.sum_pos
+    · intro r hr
+      exact hg r
+    · exact ⟨(0 : State k), Finset.mem_univ _⟩
+  have hsuper : ∀ r, (system k).operator w g r ≤ g r :=
+    coarseMinimum_operator_le_of_fixed k hk w x hwt hret hadv hfixed
+  have hslackMass : (system k).slackMass w g ≤ 0 := by
+    unfold FiniteSystem.slackMass
+    apply Finset.sum_nonpos
+    intro r hr
+    exact sub_nonpos.mpr (hsuper r)
+  have hslack : (system k).normalizedSlack w g ≤ 0 := by
+    unfold FiniteSystem.normalizedSlack
+    exact div_nonpos_iff.mpr (Or.inr ⟨hslackMass, hgmass.le⟩)
+  have hgap := neg_normalizedSlack_eq_defect_gap k hk w x g hfixed
+    hxmass.ne' hgmass.ne'
+  nlinarith
+
 end
 
 end ResidueSystem

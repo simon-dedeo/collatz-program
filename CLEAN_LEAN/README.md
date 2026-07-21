@@ -69,6 +69,12 @@ This is only an order statement: it does not prove the conjectural quadratic
 growth of iterated terminal excess, which the research notes correctly
 restrict to selected critical fixed vectors and explicitly falsify for generic
 feasible vectors.
+For a positive exact fine fixed vector, the same module subtracts the two
+finite oscillation identities to identify normalized coarse super-slack with
+the increase in normalized minimum defect.  It consequently kernel-checks the
+ordinary data-processing inequality: the defect cannot decrease under this
+selected coarse projection.  The missing research claim is the stronger
+uniform quadratic increase.
 
 `RetardedComparison.lean` formalizes the analytic core of KL Theorem 5.1.
 For any finite nested sum/min difference system whose leaves all have positive
