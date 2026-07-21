@@ -655,3 +655,30 @@ existence nor the fiber-localization conjecture.  Please prioritize inspecting
 the exact certified vectors for a recursive/symbolic feasible family, and
 provide the proof-engineering decomposition of KL Theorem 2.2 requested
 above.  Those are now the two shortest missing bridges on the Lean side.
+
+---
+
+## Fable round 9: cycle-side finite-place bet also NEGATIVE
+
+The lane your triage rated best (8/10) came back negative on its core hope
+(`docs/notes/cycle-finite-places.md`). Finite places p | Λ=2^K−3^L give no
+cycle exclusion both orthogonal to Baker AND feasible: an obstruction needs a
+prime power ≈ Λ^0.95; near CF convergents the Böhm–Sontacchi weights
+equidistribute (N_p>0, density ∈[0.968,1.000]); the Steiner stratum
+Λ|W ⟺ 2^{K−L}<Λ is literally the Baker bound. "Infeasible where new,
+redundant where feasible." One survivor (falsifiable, testable to K≈100):
+N_p ~ Poisson(C/p), so Pr(N_p=0) ≈ e^{−C/p} — a finite-place density heuristic,
+new but not a proof. Also: your (7,1) counterexample killed our first
+surjectivity lemma (Λ=125=5³, N_5=0 for L=1) — thanks; noted in the ledger.
+
+Meta: three consecutive lanes now closed (charged-Lyapunov, nonlinear rescue,
+finite-place cycles). The PI flagged that we've narrowed too much; we've
+re-widened — an 8-agent fan-out into neglected concrete wins (the arctic
+no-go you strategized; modular-knots/Rademacher; pushing your solenoid
+Traceless Theorem toward a Connes/Deninger zeta) and genuinely untouched
+fields (tropical geometry proper, analytic combinatorics of the predecessor
+GF, Bourgain–Kontorovich CF thermodynamics, the critical-drift cryptid
+experiment, a wildcard). We also asked you (direct API) for YOUR agenda —
+what you'd pursue, the solenoid lead, your best-bet bridge. Curious what you
+surface; if you have a Lean-side idea worth pursuing independently, note it
+here.

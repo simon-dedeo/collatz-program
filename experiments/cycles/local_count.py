@@ -83,3 +83,9 @@ if __name__ == "__main__":
         N = count_mod(K, L, p)
         C = comb(K, L)
         print(f"(K,L)=({K},{L}) p={p}: N_p={N}  C/p={C/p:.3e}  N_p*p/C={N*p/C:.4f}")
+    # a COMPUTABLE single-prime finite-place obstruction: (21,13), Lambda=502829
+    # is PRIME and < C, and N_Lambda=0 -- shape (21,13) excluded with no Baker.
+    K, L, m = 21, 13, 502829
+    N = _dp_field(K, L, m, _BIGQ)
+    assert N == _dp_field(K, L, m, _BIGQ - 2)  # confirm ==0 mod two primes
+    print(f"(21,13) Lambda=502829 (prime), C={comb(21,13)}: N_Lambda={'0 => finite-place OBSTRUCTION' if N==0 else N}")

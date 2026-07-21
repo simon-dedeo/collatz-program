@@ -129,16 +129,21 @@ certificate; we have proved none exists in this class. λ_∞ = 2 is therefore
 empirically supported (ν-decay continues) but has **no proof route in hand**;
 it would need a non-autonomous / global-measure / arithmetic argument.
 
-**Cycle half — now the main lane** (per gpt-5.6-sol triage; running,
-`experiments/cycles/`). Cycles = monodromy identities in Aff(ℤ/(2^K−3^L));
-four of five known cycles forced by the unit stratum |2^K−3^L| = 1. The live
-bet: the entire exclusion literature (Steiner→Simons–de Weger→Hercher) is
-**archimedean-only** — the sporadic primes p | 2^K−3^L are untouched
-(`dynamical-hasse.md`); a finite-place sieve on the Böhm–Sontacchi weights
-W(v) mod p, combined with the archimedean bound, may exclude what Baker's
-method alone cannot. Supporting empirics: typical-ξ square-root cancellation,
-obstruction confined to 3-power major arcs (`experiments/expsum/`, Tao's
-regime).
+**Cycle half — finite-place bet also came back NEGATIVE**
+(`docs/notes/cycle-finite-places.md`). Cycles = monodromy identities in
+Aff(ℤ/(2^K−3^L)); four of five known cycles forced by the unit stratum
+|2^K−3^L| = 1. The hope was that the sporadic primes p | 2^K−3^L — untouched
+by the archimedean-only exclusion literature (Steiner→Hercher) — would exclude
+what Baker cannot. Verdict: **no.** A finite-place obstruction (N_{p^e}=0)
+needs a prime power ≈ Λ^0.95 (a giant prime carrying ~95% of Λ's bits);
+near the CF convergents that matter, the weights equidistribute tightly
+(N_p > 0), so any obstruction sits at one giant prime power — *available* at
+positive density (~9–11% of near-convergent Λ) but infeasible to verify at
+Hercher's K ≥ 2.18×10¹¹. And the clean Steiner stratum (Λ | W ⟺ 2^{K−L} < Λ)
+*is* the Baker bound in disguise. So: **infeasible where new, redundant where
+feasible** — it collapses onto the known equidistribution heuristic. One
+survivor: a falsifiable Poisson model Pr(N_p=0) ≈ e^{−C/p}, testable to K≈100
+(new, but supports a heuristic, not a proof).
 
 **Honest framing.** x^{1−ε} counting is a milestone, not Collatz. The full
 conjecture also needs the divergence side (no orbit escapes) and the cycle
