@@ -82,6 +82,18 @@ is not presently a proof of `lambda_k -> 2`, the counting result, or Collatz.
     critical-assignment argument in KL Theorem 3.2 cannot be replaced by a
     generic local monotonicity lemma.
 
+11. **Critical-assignment semantics and the exact deletion interface.**
+    `CriticalAssignment.lean` defines the finite choices made at sum and
+    minimum vertices, proves existence at every evaluation point, and proves
+    that a critical assignment's selected-leaf sum equals the nested tree
+    value.  If the global labelled-path argument establishes that no critical
+    assignment uses a proposed minimum alternative, Lean now proves that the
+    alternative can be deleted inside an arbitrary surrounding context and
+    the root functional inequality survives.  On the LP coefficient side,
+    the same deletion is automatically monotone in the feasible direction.
+    What remains is the KL-specific theorem proving the avoidance premise
+    from repeated residue/shift labels; it has not been assumed.
+
 ## Corrections to the current notes
 
 ### The pure-branch root needs a special condition

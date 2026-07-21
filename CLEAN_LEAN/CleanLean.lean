@@ -15,6 +15,7 @@ import CleanLean.KL.CriticalParameter
 import CleanLean.KL.LevelLift
 import CleanLean.KL.RetardedComparison
 import CleanLean.KL.TreeRewrite
+import CleanLean.KL.CriticalAssignment
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization

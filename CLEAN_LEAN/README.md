@@ -39,6 +39,16 @@ direction.  It also kernel-checks a counterexample showing that deleting a
 minimum alternative is not a local consequence of positivity and monotonicity;
 the paper's global critical-path argument is genuinely required.
 
+`CriticalAssignment.lean` now formalizes the algebraic core of that global
+argument.  A critical assignment keeps both sides of every sum and one
+minimizing side of every minimum; Lean proves that one always exists and that
+the tree value is exactly the sum of its selected leaves.  It also proves the
+precise safe-deletion interface: once the still-missing path argument shows
+that no critical assignment can use an alternative, deleting it preserves the
+functional inequality, while coefficient feasibility is weakened in the
+sound direction automatically.  Labels and ancestry for KL's particular
+deletion rule, together with termination, remain to be formalized.
+
 The first charged spine-face Lyapunov proposal has been exactly falsified,
 not assumed away: `MarginalObstruction.lean` proves that its aligned mean and
 co-spine modes have the same eigenvalue.  This is a no-go theorem for that

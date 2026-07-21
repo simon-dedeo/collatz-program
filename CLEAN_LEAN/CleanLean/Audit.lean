@@ -18,6 +18,7 @@ import CleanLean.KL.CriticalParameter
 import CleanLean.KL.LevelLift
 import CleanLean.KL.RetardedComparison
 import CleanLean.KL.TreeRewrite
+import CleanLean.KL.CriticalAssignment
 import CleanLean.KL.FiniteRecord
 import CleanLean.KL.WeightedTail
 import CleanLean.KL.LocalRenormalization
@@ -81,6 +82,12 @@ specification theorems during a build.
 #print axioms CleanLean.KL.RetardedExpr.eval_split_le_original
 #print axioms CleanLean.KL.RetardedExpr.original_coeff_le_split
 #print axioms CleanLean.KL.RetardedExpr.local_min_deletion_not_sound
+#print axioms CleanLean.KL.RetardedExpr.Assignment.exists_isCritical
+#print axioms CleanLean.KL.RetardedExpr.Assignment.selectedEval_eq_eval
+#print axioms CleanLean.KL.RetardedExpr.Assignment.selectedEval_pos
+#print axioms CleanLean.KL.RetardedExpr.Assignment.eval_inf_eq_right_of_no_critical_left
+#print axioms CleanLean.KL.RetardedExpr.Assignment.root_inequality_of_delete_left
+#print axioms CleanLean.KL.RetardedExpr.Assignment.root_coeff_le_of_delete_left
 #print axioms CleanLean.KL.FiniteRecord.levelFeasible_four_thirds
 #print axioms CleanLean.KL.FiniteRecord.four_thirds_le_criticalLambda
 #print axioms CleanLean.KL.weightedDefect_le_tail
