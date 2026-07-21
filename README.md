@@ -110,87 +110,95 @@ routine exercise.
 | Weighted (drift) certificates: 191 regular domains retired incl. the all-ones ray | `experiments/wfar/` |
 | Tree-product Collapse Lemma (spectral-gap route provably blind); solenoid **Traceless Theorem** (q=3 unique) | `tree-products.md`, `deninger-solenoid.md` |
 
-## Current proof strategy
+## Current proof strategy (living map — updated as lanes open/close)
 
-**Counting half — the certificate route is now CLOSED (structural no-go).**
-The chain we pursued was:
+The certified record (x^0.9033) stands on its own. Everything below is about
+reaching *further*, and after tunneling on one line we have re-widened. This
+section is kept fresh; the **failure ledger** is deliberately explicit because
+knowing which routes are dead (and why) is most of the value.
 
-> pressure certificate (Lemmas 3+5 of `sol-pressure.md`)
-> ⟹ C1′ (eigenvector mass of the high-oscillation set → 0)
-> ⟹ δ_k → 0 ⟹ λ_∞ = 2 ⟹ **π_a(x) ≥ x^{1−ε}** (KL's own theorem).
+### LIVE bets (ranked, as of 2026-07-20 late)
 
-Lemma 5 (the pressure gap) *is* certified exactly. But Lemma 3 (localization)
-is now proved **impossible in the whole autonomous class** (see the RESOLVED
-box above): the −1 co-spine mode is a marginal invariant at every J, so no
-projective-contraction certificate — linear, nonlinear-min, or forcing-word —
-delivers δ_k → 0. The downstream Lean scaffolding (oscillation identity,
-terminal-potential/Chernoff, R′) stands and would consume a localization
-certificate; we have proved none exists in this class. λ_∞ = 2 is therefore
-empirically supported (ν-decay continues) but has **no proof route in hand**;
-it would need a non-autonomous / global-measure / arithmetic argument.
+1. **Mixed-radix anti-concentration** (gpt-5.6-sol's top pick; agent proving).
+   The cycle numerator B(w) = Σ 3^{m−r}2^{i_r} — does it flatten mod p (max_a
+   Pr(B≡a) ≈ 1/p)? A cycle needs (2^k−3^m) | B, a severe concentration event.
+   Numerically validated (flat to sampling-noise floor for nonexceptional p,
+   k ≥ 3 log p). Target: an inverse-Littlewood–Offord / sum-product-in-Aff(𝔽_p)
+   flattening lemma — **a new theorem independent of Collatz**, and if strong +
+   combined with a large sieve, real cycle-population rarity. `docs/notes/
+   mixed-radix-flattening.md` (in progress).
+2. **Solenoid → zeta/rigidity** (gpt Team B). Push the Traceless Theorem: compute
+   the *full* iterated Lefschetz sequence L(Eⁿ) on the (2,3)-solenoid, not just
+   L(E). Honest calibration (gpt): likely a clean **pressure/rigidity** theorem
+   ("q=3 = zero-drift member"), **not** a hidden RH — Lefschetz traces are
+   signed, so vanishing ≠ no cycles, and divergence is invisible to periodic-orbit
+   zeta. Conceptual payoff, low Collatz-payoff. `docs/notes/solenoid-zeta.md`.
+3. **Arctic/max-plus SRS no-go** (gpt Team C; cheap, definitive). Finish the
+   extension of Yolcu–Aaronson–Heule: no arctic matrix interpretation proves
+   Zantema's Collatz SRS terminating. Closes a *stated open problem*.
+   `docs/notes/arctic-nogo.md` (in progress).
+4. **Re-widen scouts** (running): tropical geometry proper, analytic
+   combinatorics of the predecessor GF (is x^0.9033 a singularity/BRW-front
+   exponent?), Bourgain–Kontorovich CF-thermodynamics on log₂3, the
+   critical-drift BB-cryptid experiment, a wildcard. Speculative; triage on
+   arrival.
+5. **Quantitative adelic descent** (gpt Team D; on deck) — Haar→integer
+   discrepancy under a dynamical Fourier norm; clearest route back to certified
+   integer theorems, but risks rediscovering the marginal mode.
 
-**Cycle half — finite-place bet also came back NEGATIVE**
-(`docs/notes/cycle-finite-places.md`). Cycles = monodromy identities in
-Aff(ℤ/(2^K−3^L)); four of five known cycles forced by the unit stratum
-|2^K−3^L| = 1. The hope was that the sporadic primes p | 2^K−3^L — untouched
-by the archimedean-only exclusion literature (Steiner→Hercher) — would exclude
-what Baker cannot. Verdict: **no.** A finite-place obstruction (N_{p^e}=0)
-needs a prime power ≈ Λ^0.95 (a giant prime carrying ~95% of Λ's bits);
-near the CF convergents that matter, the weights equidistribute tightly
-(N_p > 0), so any obstruction sits at one giant prime power — *available* at
-positive density (~9–11% of near-convergent Λ) but infeasible to verify at
-Hercher's K ≥ 2.18×10¹¹. And the clean Steiner stratum (Λ | W ⟺ 2^{K−L} < Λ)
-*is* the Baker bound in disguise. So: **infeasible where new, redundant where
-feasible** — it collapses onto the known equidistribution heuristic. One
-survivor: a falsifiable Poisson model Pr(N_p=0) ≈ e^{−C/p}, testable to K≈100
-(new, but supports a heuristic, not a proof).
+### FAILURE LEDGER — what didn't work, and why (do not retry)
 
-**Honest framing.** x^{1−ε} counting is a milestone, not Collatz. The full
-conjecture also needs the divergence side (no orbit escapes) and the cycle
-side closed. The invariant-rank ledger (`invariant-rank.md`) tracks what
-certificate classes are provably insufficient (Conway's unsettleability =
-rank ∞ conjecture, made precise). The descent ±sign no-go proves any orbit-
-fate argument must couple 2-adic structure to the Archimedean place.
+- **λ_∞ = 2 via any autonomous projective-contraction certificate — CLOSED
+  (structural no-go, all J).** The −1 co-spine mode (2,−1,−1) is a marginal
+  invariant: charged-Lyapunov (persists J=4,5), nonlinear min-selection
+  (calibrated neutral cycle), and forcing-word (η=0) all fail. Not evidence
+  λ_∞<2; just no proof in this class. `cl-killtests.md`, `pressure-certificate-2.md`.
+- **Cycle exclusion via finite places p | 2^K−3^L — CLOSED (collapses to
+  Baker).** "Infeasible where new, redundant where feasible"; the Steiner
+  stratum *is* the Baker bound. One falsifiable Poisson-model survivor only.
+  `cycle-finite-places.md`.
+- **Regular divergence certificates — CLOSED (exhaustive).** None ≤8 states
+  (base 2, 3.24T DFAs), ≤5 (base 3). `dfacert*`.
+- **Spectral-gap route to descent — CLOSED (Collapse Lemma).** Collatz
+  projects to a point of the arithmetic tree-product quotient; automorphic
+  gaps are blind. `tree-products.md`.
+- **"One certificate away" framing (earlier README) — RETRACTED.** It was
+  wrong; the certificate provably doesn't exist in its class.
 
-## Blockers (open mathematics, precisely stated)
+### What CLEAN_LEAN (GPT) has kernel-checked and standing
 
-1. **C1′ / Lemma 3 localization** — now the sole analytic blocker on the
-   counting path (Lemma 5 is certified). Needs the combined-automaton
-   contraction: block contraction off the aligned u-class plus a spine-face
-   cone or pathwise charge argument on it. Prototype (J=3, L_w=6) running;
-   scaled version (J=6, L_w=10, ~2.5×10⁸ states) costed for akdeniz/PSC.
-2. **Boundary-data bound** — the co-spine pinning b = 2−a is a *global*
-   selection fact (provably not local); both our note and CLEAN_LEAN's audit
-   flag the same missing uniform bound on min-harmonic boundary data.
-3. **Ratio-drift falsification test** — k=20 ν-tail ratio ≥ 0.816 would
-   flip the "drift is transient" reading (pre-registered).
-4. **Critical-eigenfunction selection** — existence discharged (odometer →
-   Gaubert–Gunawardena, `adversarial-operator.md` Thm 2.1); uniqueness needs
-   a primitivity/aperiodicity check (branch residues cycle 5→2→8 mod 9).
-5. Everything else in `docs/STRATEGY.md` §7 and the notes' honesty sections.
+The oscillation identity, the portable Lemma-5 pressure rows, and the
+terminal-potential/Chernoff chain are all formal — they are *conditional
+consumers* of a localization certificate we've now proved doesn't exist in the
+autonomous class, so they wait unused on that path; they remain correct and
+reusable. The CL structural no-go is itself offered to GPT as a clean
+formalization target.
 
-**Cleared on the Lean side (CLEAN_LEAN, GPT):** the concrete oscillation
-identity is now kernel-checked (including the top-digit bijection and the
-r↦4r / r↦1+2r branch permutations that were the hidden content of (H_k));
-the portable Lemma-5 certificate was independently re-verified; and the
-**terminal-potential + Chernoff chain is formalized** — given a domination
-lemma charging ≥ a·m exceptional visits per b·m moves, Lean derives
-tail(m) ≤ (h(q₀)/h_min)(R^b/z^a)^m → 0 when R^b < z^a. So the entire span
-from pressure rows to geometric defect decay is now formal; the sole
-remaining mathematical object on the counting path is the combined
-**localization/domination certificate** (our side), after which Lean's
-defect→λ_k→2→KL-transfer steps remain to formalize.
+### Standing frame
+
+x^{1−ε} counting (if ever reached) is a milestone, not Collatz; the conjecture
+also needs no-divergence and no-cycles. The invariant-rank ledger
+(`invariant-rank.md`) makes Conway's unsettleability (rank = ∞) precise and
+tracks which certificate classes are provably insufficient. The descent ±sign
+no-go proves any orbit-fate argument must couple 2-adic structure to the
+Archimedean place — which is why every purely-local lane above eventually
+hits the same wall.
 
 ## Running right now
 
-- `experiments/pressure-cert2/` — combined localization automaton, the
-  critical path (Lemma 5 already certified in `pressure-cert/`)
-- k=19, k=20 exact certifications (9.3 GB eigenvector via PSC DTN)
-- Eigenvector geometry ρ₁₉ finish; k=20 pre-registered drift test on arrival
-- akdeniz free (32 cores + 4090): reserved for the scaled combined-automaton run
-- Family phase-diagram critical-line sweep on ganesha
+- **Mixed-radix flattening lemma** (LIVE bet #1) — exact-DP numerics + proof
+  attempt (`experiments/flattening/`, `docs/notes/mixed-radix-flattening.md`)
+- **Re-widen fan-out** (8 agents): arctic no-go, modular-knots, solenoid-zeta,
+  tropical geometry, analytic combinatorics, Bourgain–Kontorovich, critical-drift
+  experiment, wildcard
+- Family phase-diagram critical-line + grid3 sweep on ganesha (restarted)
 - CLEAN_LEAN: independent Lean formalization by GPT (tracked read-only;
-  handoff of formats/statements in `docs/FOR_CLEAN_LEAN.md`)
+  handoff in `docs/FOR_CLEAN_LEAN.md`, return channel `CLEAN_LEAN/FOR_FABLE.md`)
+- Idle capacity (akdeniz 32c+4090, PSC): available; nothing needs scale until a
+  live bet validates a mechanism
+
+(Deprioritized: k=19/20 KL certification is a *record* nicety, not on any live
+proof path — the certified k≤18 already gives x^0.9033.)
 
 ## Verification discipline
 
