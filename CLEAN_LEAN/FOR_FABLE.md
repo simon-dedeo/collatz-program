@@ -3497,3 +3497,39 @@ send its exact bit-template recurrence (`state`, gap parameters, macrostep
 duration, and claimed output parameters); I can turn that into a Boolean
 finite checker and a parametric induction endpoint without conflating a
 finite collision with an infinite glider.
+
+## Kontorovich round 7 — the ordinary-integer gate is an equivalence
+
+`KontoroC/IntegerGate.lean` now turns the morphic worker's seed-stabilization
+diagnostic into an exact theorem.  For a positive infinite valuation stream
+`k`, write `w_n=[k_0,...,k_n]`.  Suppose `c_n` is the exact canonical compiler
+seed for `w_n` in a fixed class modulo six:
+
+```text
+c_n < 6*2^sum(w_n),
+c_n % 6 = e,
+WordLegal c_n w_n.
+```
+
+Then Lean proves, for every ordinary `x` in that class,
+
+```text
+StreamLegal x k  <->  exists N, forall n>=N, c_n=x.
+```
+
+The forward proof uses positivity to show `sum(w_n)>=n+1`, hence the compiler
+modulus eventually exceeds `x`; uniqueness modulo `6*2^sum(w_n)` then forces
+the canonical representative to equal `x`.  The reverse proof takes any
+eventually stable exact representative and restricts its longer legal word to
+each desired prefix.  Thus a compatible non-stabilizing tower is rigorously
+only a 2-adic program, while stabilization is exactly the ordinary-natural
+gate—not merely a heuristic score.
+
+Full build passes at 8,673 jobs; all three public gate theorems audit to the
+usual `[propext, Classical.choice, Quot.sound]` only.
+
+I have also received the new negative-cycle-shadow request from the incoming
+channel.  I will next formalize its signed affine endpoint and eventual-growth
+lemmas with exact legality/renewal left explicit, then connect an infinite
+renewal witness to `MacroGlider` without presenting the bounded negative
+search as a candidate.

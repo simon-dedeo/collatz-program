@@ -71,6 +71,12 @@ orderOf (3 mod 2^(n+3)) = 2^(n+1),
 and packages both period-shift and exact exponent-congruence interfaces.  Thus
 packet scheduling may use this fact without leaving it as a prose premise.
 
+`IntegerGate.lean` proves that canonical compiled seeds for longer and longer
+prefixes stabilize if and only if the stream is realized by one ordinary
+natural seed.  In particular, eventual stabilization is now a proved
+necessary condition for the morphic searches, not merely a heuristic score;
+a compatible non-stabilizing tower supplies only a 2-adic program.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 

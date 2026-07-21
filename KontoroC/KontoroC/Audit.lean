@@ -50,3 +50,6 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.exists_valid_pathArtifact
 #print axioms KontoroC.orderOf_three_twoPow
 #print axioms KontoroC.three_pow_eq_iff_modEq
+#print axioms KontoroC.canonical_seed_tower_eventually_eq
+#print axioms KontoroC.streamLegal_of_canonical_seed_tower_eventually_eq
+#print axioms KontoroC.streamLegal_iff_canonical_seed_tower_stabilizes

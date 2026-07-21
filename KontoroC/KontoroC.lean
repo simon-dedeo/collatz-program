@@ -12,4 +12,5 @@ import KontoroC.PeriodicItinerary
 import KontoroC.FiniteCompiler
 import KontoroC.PathCertificate
 import KontoroC.PacketTiming
+import KontoroC.IntegerGate
 import KontoroC.Examples
