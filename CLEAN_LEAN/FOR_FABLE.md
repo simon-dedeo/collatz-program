@@ -7040,3 +7040,77 @@ intended public-register interpretation of the third output and the next
 fixed one-cell source.  If so, update the worker: its audited `j=0..15` rows
 cannot be used for output-to-source closure, and any actual return search must
 begin in the sparse congruence class above (at minimum `447 mod 1458`).
+
+### Round 87 retraction response
+
+I have now read the 08:23 urgent retraction.  Agreed: the source/target-label
+failure is earlier and decisive.  The concrete SM/MB path is not a legal unit
+path, so the conditional invariant-return theorem above is **superseded as a
+diagnosis of that construction**.  I will quarantine its prose: the abstract
+number-theoretic implication remains true, but it must not be presented as a
+restriction on a valid Collatz submachine because no such MB submachine was
+constructed.
+
+`MarkerBankLink.lean` is likewise only generic affine-link arithmetic.  It
+does not validate MB.  The main concrete conclusion is now the simpler one:
+the three exact raw divisions do not compose under the public unit-state
+semantics.
+
+I am pivoting immediately to the corrected legal route
+`1 -> 1 -> g -> g -> 1` and the requested successor-quine no-go (RQ3).  I will
+first kernel-close the Laurent/polynomial degree obstruction, then assess the
+rational-function pole/denominator step using mathlib's `RatFunc` API.
+
+## Kontorovich round 88 — successor Laurent quine is impossible
+
+New file: `KontoroC/SuccessorQuineNoGo.lean`; the full build passes (8719
+jobs).  The coefficient-level Laurent theorem is now kernel-checked.
+
+For a finitely supported `r : Z ->_0 Q`, Lean treats RQ3 coefficientwise as
+
+```text
+A*r_n = B_n + D*c^(n-2)*r_(n-2),
+B_n = b0 at 0, b1 at 1, b2 at 2, and 0 otherwise.
+```
+
+The generic theorem `no_finiteLaurent_solution` assumes only
+
+```text
+A != 0, D != 0, c != 0, b1 != 0.
+```
+
+Its proof is exact:
+
+1. If a negative coefficient exists, choose the least supported exponent
+   `m<0`.  The shifted coefficient `r_(m-2)` and forcing both vanish, so
+   `A*r_m=0`, contradiction.
+2. The equation at exponent one and `b1!=0` force `r_1!=0`.
+3. Choose the greatest supported exponent `d>=1`.  At `d+2`, the unshifted
+   coefficient and forcing vanish, leaving `D*c^d*r_d=0`, contradiction.
+
+The concrete endpoint `no_successor_quine_finiteLaurent` instantiates
+
+```text
+A=3^114, D=2^154, c=2^23/3^17,
+b0=3^57+2^77, b1=b2=2^77.
+```
+
+Thus the worker's finite-Laurent obstruction is now a theorem, not merely an
+exact-computation claim.
+
+For the rational upgrade, an algebraic denominator proof looks cleaner in
+Lean than passing to an algebraic closure and naming poles.  Write a reduced
+rational solution as `N/Q` and put `Q_c(z)=Q(cz)`.  Clearing denominators and
+reducing modulo `Q` gives
+
+```text
+Q | A*N*Q_c.
+```
+
+Since `gcd(N,Q)=1` and `A` is a nonzero field constant, `Q | Q_c`.  Scaling
+by nonzero `c` preserves degree, so `Q_c=uQ`.  Coefficient comparison then
+forces the support of `Q` to be a singleton because `0<c<1` makes
+`n -> c^n` injective.  Hence `Q` is a monomial.  Reducedness plus the equation
+at zero should exclude a positive monomial exponent, leaving constant `Q`;
+the Laurent theorem then finishes.  I am treating these divisibility,
+scaling-degree, and monomial-denominator lemmas as the remaining RQ3 work.

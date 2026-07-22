@@ -6,13 +6,17 @@ Authors: Simon DeDeo, OpenAI Codex
 import KontoroC.MarkerBankLink
 
 /-!
-# Invariant-register obstruction to marker-bank return
+# Quarantined invariant-register obstruction for a hypothetical marker bank
 
-The synthesized-marker turnaround starts in the fixed one-cell public input
-class, but opcode `j` exits a unit branch with a much larger visible binary
-exponent.  If the resulting odd core is to be reused as the source of another
-fixed one-cell marker instruction, it must satisfy both invariant-register
-congruences.
+**Retraction notice.**  The concrete synthesized-marker route which motivated
+this file was subsequently found not to compose under the public unit-state
+semantics: its third raw division uses an exponent belonging to a different
+source label.  Nothing in this file validates that retracted route.
+
+The theorems below remain valid conditional number theory.  They describe
+what would follow *if* a legal path had the two displayed invariant-register
+presentations.  They are retained as a reusable boundary lemma, not as a
+theorem about an existing Collatz dispatcher.
 
 Because the public register offset is a unit modulo its stride, those two
 congruences force the difference of the visible binary exponents to be a
@@ -25,10 +29,9 @@ Using only the slightly deeper factor `3^7 = 2187` strengthens this to
 
 `j = 447 (mod 1458)`.
 
-In particular, no opcode below `447`—and hence none of the audited opcodes
-`0,...,15`—can return to the fixed one-cell source class.  This does not
-eliminate the entire infinite bank: it leaves one sparse arithmetic
-progression of possible opcodes.
+For that hypothetical architecture, no opcode below `447` could return to
+the fixed one-cell source class.  The retracted concrete audit did not supply
+the hypotheses of this statement.
 -/
 
 namespace KontoroC
@@ -217,8 +220,9 @@ theorem no_opcode_below_447_return {j y : ℕ} (hj : j < 447) :
   rintro ⟨hOut, hNext⟩
   exact (not_le_of_gt hj) (opcode_ge_447_of_return hOut hNext)
 
-/-- None of the sixteen opcodes materialized in the present public audit can
-return to the fixed one-cell source class. -/
+/-- Conditional legacy endpoint: none of `0,...,15` can satisfy both
+invariant presentations.  The retracted MB audit did not establish those
+presentations along a legal linked unit path. -/
 theorem no_audited_opcode_return {j y : ℕ} (hj : j ≤ 15) :
     ¬ (
       2 ^ (turnaroundP j - 51) * y ≡

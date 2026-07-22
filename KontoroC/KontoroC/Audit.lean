@@ -61,6 +61,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.MarkerBankInvariantReturn.opcode_mod_1458_of_return
 #print axioms KontoroC.MarkerBankInvariantReturn.no_opcode_below_447_return
 #print axioms KontoroC.MarkerBankInvariantReturn.no_audited_opcode_return
+#print axioms KontoroC.SuccessorQuineNoGo.negative_coefficient_eq_zero
+#print axioms KontoroC.SuccessorQuineNoGo.no_finiteLaurent_solution
+#print axioms KontoroC.SuccessorQuineNoGo.no_successor_quine_finiteLaurent
 #print axioms KontoroC.AutonomousFiniteController.phase_future_eq
 #print axioms KontoroC.AutonomousFiniteController.impossible
 #print axioms KontoroC.AutonomousFiniteController.no_controller
