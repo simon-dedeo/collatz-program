@@ -1040,6 +1040,50 @@ artifact SHA-256  2e498bfd6f0dec384ebfc9255233c5a5769980d98ffba7f5c9e4ab397e61c7
 verifier SHA-256  2867d3a79d19c002a588927e1564c1850a50a03a107fbe4497b7773017585b75
 ```
 
+## Nonlocal sacrificial gap amplifier
+
+`splash_gap_amplifier.py` turns Simon's proposed collision cleanup into an
+exact linked-tail identity.  The fixed dispatcher `(q,j,q')=(1,1,1)` writes
+with stride `3^5=243` and has a previously certified complete five-trit word
+alphabet.  For each `1<=L<=7`, select the concrete word
+
+```text
+b=3^5-2^L
+```
+
+and the residual packet `v=K*2^L-1`.  Then
+
+```text
+b+3^5*v = 2^L*(3^5*K-1).
+```
+
+The low run of `L` one-bits is sacrificial: its carry against the written word
+becomes a run of zero-bits.  For every `D>=1`, the unique odd class
+
+```text
+3^5*K = 1+2^D  (mod 2^(D+1))
+```
+
+makes that output gap exactly `L+D`.  The condition reaches across the remote
+packet `K`; it is not a local fixed-width cleanup rule.
+
+```bash
+python3 splash_gap_amplifier.py selftest
+python3 splash_gap_amplifier.py build splash_gap_amplifier_audit.json
+python3 splash_gap_amplifier.py verify splash_gap_amplifier_audit.json
+```
+
+The artifact uses all seven actual writer witnesses and checks `D=1..32`, or
+224 exact linked members and 448 literal gate macros.  The displayed identity
+is universal elementary arithmetic; the artifact is a bounded regression of
+the constructors and executable replays.  It does not expose the internal
+tail gap as a returning public delay and makes no infinite-orbit claim.
+
+```text
+artifact SHA-256  2ddec88f152c7a0bbad8cd8e886ef711b715a104964bd0984abec2fce253c261
+verifier SHA-256  8cba957c423700af3dd2bf4b9eeae8369584ae9b41c54654b6369ab30e19b386
+```
+
 ## Canonical tail-zero delay graph
 
 `search_delay_base_graph.py` asks whether the ordinary-tail gate can be met in

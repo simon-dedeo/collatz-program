@@ -162,6 +162,12 @@ identically `x`.
   links exist and none has a second link.  The live controller must therefore
   transform a nonzero evolved payload or use a genuinely nonlinear packet
   encoding; a chain of canonical least representatives is not enough.
+  One such nonzero mechanism is now exact: the five-trit word
+  `b=3^5-2^L` maps a residual packet `K*2^L-1` to
+  `2^L(3^5*K-1)`.  Hence remote low bits of `K` can amplify an inherited
+  length-`L` bit boundary by any prescribed finite extra valuation `D`.
+  The live turnaround problem is to expose this nested amplified gap as the
+  next active delay and make its surviving packet reproduce the construction.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -352,6 +358,7 @@ positive integer and its claimed behavior are machine-checked.
 | Break-off instruction compiler | In the coordinate `y=8k-1`, one router instruction factors `k=2^j u` and executes `8k'=3^(j+2)u+1`.  For each `j`, legality is one exact `u`-class modulo `72`, and the unbounded tail map is `u=u_j+72t -> k'=b_j+3^(j+4)t`.  Lean commit `0b12d44` proves that any infinite proof-carrying break-off orbit stays `8 mod 9`, strictly grows, and refutes Collatz; commit `a1a5fd0` proves its opcode stream cannot be eventually periodic.  Commit `7293975` implements the executable `v_2`/odd-part partial map, proves it equivalent to the factorization interface, and derives `¬Collatz` from any infinite successful executable orbit.  The artifact lists opcodes `0..64` and literally replays 4,160 members through the canonical decoder.  No infinite orbit is supplied. |
 | Regenerative three-bit delay gate | Simon's gap-splash suggestion has an exact spatial realization.  The state `9*2^(3q)c-1` performs `q` opcode-zero ticks before a chosen collision emits a fresh clean gap `9*2^(3q')c'-1`; Lean commit `eac55d3` proves the universal compressed run, collision renewal, and strict outwardness.  Commit `1711620` proves that the collision factorization plus one subtraction-free affine balance suffices to reconstruct renewal.  The artifact constructs 1,088 gate families and performs 8,704 literal macro replays.  The example `935 -> 1052 -> 2663` regenerates one delay cell but later reaches `1`. |
 | Affine mixed-radix writer and ordinary-tail gate | Exact coefficient linking reads `m` low binary bits and appends `A` ternary digits: `t=t_0+2^m v -> s=s_0+3^A v`.  Lean commit `54e506f` proves every supplied affine gate family, coefficient link, composed run, and outwardness for all `v`.  Commit `5254194` connects its `2^m` address cylinders to the ordinary/2-adic boundary.  The artifact audits 4,608 linked pairs (18,432 macros) and shows one fixed dispatcher realizes every one of the 243 five-trit write words within stated bounds.  Finite instruction routing is solved; a returning aperiodic dispatcher with one eventually stabilized natural address is not. |
+| Nonlocal sacrificial gap amplifier | In the five-trit writer choose `b=3^5-2^L` and residual `v=K*2^L-1`.  Exact arithmetic gives `b+3^5v=2^L(3^5K-1)`: trailing one-bits collide with the selected word to become zero-bits, while the remote congruence `3^5K=1+2^D (mod 2^(D+1))` supplies exactly `D` more.  All seven words `L=1..7` exist in the certified alphabet; the artifact replays 224 linked members for `D=1..32` through 448 literal gate macros.  This produces an internal tail gap, not yet a returning infinite controller. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
 | Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
@@ -408,6 +415,42 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 01:41 EDT
+
+Simon's proposal that other bits could “eat” the collision debris and
+regenerate the gap has produced an exact nonlocal instruction.  In the
+five-trit dispatcher, select one of the seven words
+
+```text
+b=3^5-2^L,       1<=L<=7,
+```
+
+and feed it a residual packet `v=K*2^L-1`.  The native tail write then
+satisfies
+
+```text
+b+3^5v = 2^L(3^5K-1).
+```
+
+Thus the collision sacrifices the input's `L` trailing one-bits to create
+`L` zero-bits.  More importantly, choosing the *remote* packet by
+`3^5K=1+2^D (mod 2^(D+1))` creates exactly `L+D` zeros.  This is the
+nonlocality we were looking for: widely distributed bits of `K`, rather than
+a neighboring cleanup symbol, determine how far the regenerated gap extends.
+The new [amplifier artifact](experiments/kontorovich/splash_gap_amplifier_audit.json)
+checks all seven concrete writer links and `D=1..32`, performing 224 exact
+linked-member checks and 448 literal gate-macro replays.  The identity and
+the odd residue class for `K` are algebraic for every `D`; Lean formalization
+has been requested.
+
+This is not a counterexample.  The amplified zero run is nested in the
+residual tail rather than yet installed as the next public delay.  The next
+attack is a two-stroke turnaround: expose that internal run at a later
+collision while retaining enough of its odd part to recreate another
+Mersenne packet.  The [strategy/failure map](#kc-strategy-and-failure-map)
+now treats this payload-generated repair as the live escape from the negative
+tail-zero base graph.
 
 ### 2026-07-22 01:19 EDT
 

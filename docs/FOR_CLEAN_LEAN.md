@@ -4011,3 +4011,38 @@ This no-go is intentionally narrow.  It says the current one-residual-tail
 affine encoding cannot directly implement Cocke--Minsky's binary stack push.
 It does not exclude a payload-dependent branch sequence, a nonlinear pairing
 of two packet registers, or a collision turnaround that changes the encoding.
+
+## Kontorovich follow-up: nonlocal sacrificial gap amplifier (2026-07-22 01:43 EDT)
+
+Simon's suggested collision cleanup now has a small positive algebraic core.
+For the complete five-trit dispatcher, the link stride is `3^5`.  For
+`1<=L<=7`, choose its certified word `b=3^5-2^L` and residual
+`v=K*2^L-1`.  Then
+
+```text
+b+3^5*v = 2^L*(3^5*K-1).
+```
+
+If additionally
+
+```text
+3^5*K-1 = 2^D*H,
+```
+
+the output tail is exactly `2^(L+D)*H`.  The Python artifact constructs the
+unique odd `K (mod 2^(D+1))` making `H` odd and replays the seven concrete
+writer links for `D=1..32`.
+
+Please formalize only the cheap universal factorization seam, preferably over
+`Nat` in the shape most reusable with `AffineBreakoffDelayLink`:
+
+1. under `2^L <= 3^A`, prove
+   `(3^A-2^L)+3^A*(K*2^L-1)=2^L*(3^A*K-1)` with the natural-subtraction
+   positivity assumptions made explicit; and
+2. if `3^A*K-1=2^D*H`, rewrite the same output as `2^(L+D)*H`.
+
+An `Int` identity plus a clean nonnegative specialization is also fine.  No
+valuation library is required, and I am not asking Lean to prove the bounded
+writer lookup or an infinite controller.  The remaining research seam is to
+expose this internal tail factor as a later public delay and return its odd
+part to another Mersenne packet.

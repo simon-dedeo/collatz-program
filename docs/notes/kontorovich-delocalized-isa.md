@@ -928,6 +928,57 @@ cannot be represented by the current *single affine residual parameter* with
 one fixed instruction.  The live escape is precisely a nonlinear two-packet
 encoding or a payload-selected collision turnaround.
 
+### 5.13 A remote packet can amplify a sacrificial gap
+
+There is now an exact positive form of Simon's proposal that bits distributed
+across the word might eat a collision's dirty part and regenerate its gap.
+Use the complete five-trit dispatcher, whose link instruction has write
+stride `3^5`, and select the word
+
+```text
+b_L=3^5-2^L,             1<=L<=7.                    (25)
+```
+
+Every `b_L` lies in its certified 243-word alphabet.  Give the instruction a
+residual packet with a low Mersenne boundary,
+
+```text
+v=K*2^L-1.                                             (26)
+```
+
+The native mixed-radix write (21) becomes
+
+```text
+b_L+3^5v = 2^L(3^5K-1).                              (27)
+```
+
+This is a literal sacrificial carry.  The `L` terminal one-bits in (26)
+collide with the complement word (25) and emerge as `L` zero-bits.  The
+regenerated gap is controlled nonlocally: for any `D>=1`, choose the unique
+odd class
+
+```text
+3^5K = 1+2^D  (mod 2^(D+1)).                         (28)
+```
+
+Then `v_2(3^5K-1)=D`, so (27) has exactly `L+D` trailing zero-bits.  Bits of
+the remote packet `K`, not just symbols adjacent to the collision, determine
+the extra gap length.
+
+`splash_gap_amplifier.py` selects the actual certified target gate for every
+word (25), reconstructs its link, and checks (27)--(28).  Its artifact covers
+all seven `L` and `D=1..32`: 224 linked members and 448 literal gate macros.
+The formulas themselves are unbounded; formalization of their factorization
+form has been requested.
+
+This does not yet regenerate the *public* delay coordinate `q`.  The zeros in
+(27) are nested inside the residual tail, behind the target gate's fixed
+address.  The new architectural target is therefore a two-stroke turnaround:
+a later instruction must expose this nested gap, retain the odd part of
+`3^5K-1`, and rewrite it into another packet of form (26).  Achieving that
+would turn a finite carry amplifier into a gap bouncer; no such returning
+family is presently known.
+
 ## 6. Ranked attack and kill tests
 
 1. Implement the mixed-base rules and mine structured, formula-generated
@@ -945,7 +996,10 @@ encoding or a payload-selected collision turnaround.
    primitives `N -> floor(N/2)` and `M -> 2M+b` into two separated packets;
    reject a writer that lacks remote-end queue semantics.  The tail-zero base
    graph is now closed through (23), so require nonzero state produced by
-   earlier instructions or a nonlinear packet pairing.  Compare survivors
+   earlier instructions or a nonlinear packet pairing.  Identity (27) is the
+   first exact payload-generated gap amplifier; search for a turnaround that
+   promotes its internal `2^(L+D)` factor to the next delay and reconstructs
+   (26).  Compare survivors
    with the run-length-accelerated three-symbol tag system and translate them
    back to a canonical positive integer before treating them as Collatz
    evidence.
