@@ -200,6 +200,15 @@ existing `MacroGlider` and hence the literal negation of Collatz.  A finite
 The payload size is computationally harmless; proving infinite linkage from
 one ordinary seed is the substantive problem.
 
+`TwoRailChain.lean` provides the finite artifact format.  It composes a list
+of gates using only sparse endpoint linkage, proves the exact iterate of the
+ordinary Collatz map for the flattened program, and proves strict net growth
+when every gate is outward.  If such a nonempty chain instead closes at a
+seed other than `1`, the existing cycle theorem immediately yields
+`¬ Collatz.Conjecture`.  This is the appropriate verifier for a large finite
+cycle: its work scales with the compact gate list and affine balances, not
+with the seed's decimal length or a flat elementary orbit.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 

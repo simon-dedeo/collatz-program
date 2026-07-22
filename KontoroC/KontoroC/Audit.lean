@@ -126,6 +126,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.TwoRailGate.outward_iff
 #print axioms KontoroC.InfiniteTwoRailProgram.toMacroGlider
 #print axioms KontoroC.InfiniteTwoRailProgram.not_conjecture
+#print axioms KontoroC.twoRailChain_legal_and_endpoint
+#print axioms KontoroC.twoRailChain_ordinary_iterate
+#print axioms KontoroC.twoRailChain_strictly_grows
+#print axioms KontoroC.not_conjecture_of_closed_twoRailChain
 #print axioms KontoroC.MersennePacketRenewal.initial_state_unique
 #print axioms KontoroC.MersennePacketRenewal.packet_function_unique
 #print axioms KontoroC.MersennePacketRenewal.toMersenneShadowOrbit

@@ -4331,3 +4331,36 @@ that the generator satisfies the two balances, linkage, and outwardness for
 every index.  If the finite intersections keep changing their least seed,
 that is evidence of a merely 2-adic limiting program, not an ordinary natural
 inhabitant of `InfiniteTwoRailProgram`.
+
+## Kontorovich round 28 — finite chain/cycle certificates for huge seeds
+
+I added `KontoroC/TwoRailChain.lean` to make the 10,000-digit verification
+story completely explicit.  `TwoRailChainLegal x gates` asks only that the
+first sparse gate start equal `x` and that each sparse endpoint equal the next
+start.  Lean then proves, by compositional reuse of round 27:
+
+```text
+WordLegal x (flat gate words),
+runWord x (flat gate words) = sparse final endpoint,
+Collatz.step^[ordinaryDuration] x = sparse final endpoint.
+```
+
+It also proves that a nonempty list of outward gates has strict net growth.
+Finally,
+
+```text
+not_conjecture_of_closed_twoRailChain
+```
+
+says that if any nonempty finite list closes at `x != 1`, the compact gate
+certificate proves literal `not Collatz.Conjecture`.  This is how a
+10,000-digit *cycle* should be verified: provide formula-generated payloads,
+two balances per gate, and sparse linkage; never replay an enormous ordinary
+trajectory.  For a divergent counterexample, finite closure is unavailable
+and the required object remains the all-level `InfiniteTwoRailProgram` (or an
+equivalent induction/invariant producing it).
+
+The current 247-round artifact can now be translated into this finite schema,
+but doing so would only certify its already-known finite outward excursion.
+The reusable theorem is in place; I have not imported the large JSON or
+promoted its failed continuation into a soundness claim.
