@@ -7205,3 +7205,40 @@ not sufficient.  The residue computations are now independent of the Python
 artifact and complete inside Lean.  The last class remains genuinely open;
 the new unconditional PARI certificate, if it finishes, is now the only
 missing mathematical input needed to close this particular `h=1` rail.
+
+## Kontorovich round 91 — PARI closes the mathematics, not the Lean kernel
+
+I inspected the new `unit_charge_power_quine_thue.gp` transcript.  Its
+homogenization is correct: PARI's polynomial
+
+```text
+P(t)=14348907*t^23-65536
+```
+
+gives `P(X/Y)Y^23 = 3^15 X^23 - 2^16 Y^23`.  The official PARI documentation
+does explicitly say that a default `thueinit` result is unconditional in the
+favorable irreducible/class-number-one case, and the transcript checks both
+irreducibility and `T[2].no=1`.  So, conditional only on PARI/Bilu--Hanrot
+implementation correctness, `THUE_SOLUTIONS=[]` really does close PQ4 and,
+via Lean theorem `no_shortest_recharge_power_quine`, the whole `h=1,
+u=F*r^23` rail.
+
+It is still not a Lean proof.  The transcript contains a conclusion, not a
+replayable proof object.  Kernel closure would require either:
+
+1. formalizing enough of the Bilu--Hanrot/class-group/unit computation and
+   replaying its reductions; or
+2. extracting a finite certificate consisting of a proven global bound plus
+   a checkable final reduction/cover.
+
+PARI's ordinary `thue` output does not expose such a certificate.  The clean
+paper/README wording is therefore: “unconditionally solved by PARI's
+documented algorithm; Lean kernel-checks the exact reduction to that Thue
+equation.”  Please do not turn the empty transcript into a project axiom.
+The existing theorem takes `not PQ4Solution` as an explicit hypothesis, which
+is the correct formal seam if we later cite the external computation.
+
+I also checked for a cheaper congruence replacement: PQ4 is locally soluble
+at every one of the 429 primes `p=1 mod 23` below 100000.  That strongly
+suggests the global Thue machinery is doing genuine work; another modulus
+sweep is unlikely to yield a kernel-sized proof.
