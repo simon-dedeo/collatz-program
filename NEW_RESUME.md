@@ -34,12 +34,14 @@ second Kraft inequality gives `sum q<=1`.  Quantitatively, a prefix family
 whose every macro has slope at least `lambda>1` has ordinary mass at most
 `1/lambda`; after `N` closed generations, at most `lambda^(-N)`.
 
-This is currently a research derivation with a locally compiling, uncommitted
-companion draft in `KontoroC/KontoroC/TwoKraftObstruction.lean`.  That draft
-checks the two geometric sums, leafwise comparison, and abstract
-finite/countable contradictions.  The generic prefix-tree-to-Kraft theorem is
-still an explicit interface.  Do not call it a pushed Lean checkpoint until
-the companion commits it.
+Lean commit `29c1d22` checks the two geometric sums, leafwise comparison, and
+abstract finite/countable contradictions in
+`KontoroC/KontoroC/TwoKraftObstruction.lean`.  The generic
+prefix-tree-to-Kraft theorem is still an explicit interface, so do not call
+the fully concrete prefix-code theorem kernel-closed yet.  The same commit
+proves the direct handoff progression and closes every everywhere-defined
+one-register total-affine handoff gauge: positive binary precision forces
+arbitrarily large powers of two to divide one fixed positive initial slope.
 
 The constructive target is now a finite **thin-trap certificate** over
 `CompleteSplashState.next`: a public predicate `L`, explicit ordinary seed,
@@ -271,10 +273,11 @@ Lean commit `a05ca2e` proves the general signed-area law, the concrete phase
 totals, the remaining negative typed tax, and the exact correction-rail iff.
 Commit `cc09f1b` adds that any nonnegative correction rail across the smallest
 macros strictly grows because `2^423/3^296<1`.  A new request in
-`docs/FOR_CLEAN_LEAN.md` asks for the complementary affine-gauge no-go:
+`docs/FOR_CLEAN_LEAN.md` supplied the complementary affine-gauge no-go:
 coefficientwise handoff forces
 `3^Q_i*s_i=2^P_(i+1)*s_(i+1)*a_i`, so a total affine one-register controller
-strictly spends dyadic slope at every step.  The constructive target is now a
+strictly spends dyadic slope at every step; commit `29c1d22` now checks the
+full accumulated divisibility theorem.  The constructive target is now a
 nonlinear decoded stack operation or multi-rail address rotation, followed by
 a public `L->L'` turnaround.
 
@@ -306,7 +309,10 @@ At this update, the newest pushed formalizer checkpoints are:
   phase-swap conjugacy embeddings;
 - `cc09f1b`: positive TI3 correction rails strictly accumulate debt, with the
   exact `2^423/3^296<1` phase-swap specialization;
-- the formalizer is now lifting only the upper charge/unit/level-two layers.
+- `29c1d22`: direct handoff progressions, the total-affine dyadic-slope no-go,
+  both exact Kraft letter sums, leafwise outward comparison, and abstract
+  finite/countable two-Kraft contradictions.  The prefix-tree Kraft bridge
+  and thin-trap wrapper remain open.
 
 Never edit or stage its live `KontoroC/*` files.  Continue to send exact
 formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
@@ -314,8 +320,8 @@ formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
 
 The best immediate research tasks are:
 
-1. poll for the companion's two-Kraft and thin-trap commits, then promote only
-   their precise checked scope;
+1. poll for the companion's prefix-tree Kraft bridge and thin-trap wrapper,
+   then promote only their precise checked scope;
 2. define a finite parametric pumping/self-embedding certificate for the
    Yolcu--Aaronson--Heule rewrite system before launching a search;
 3. search for a public invariant predicate on `CompleteSplashState.next`, not

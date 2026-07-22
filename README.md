@@ -51,15 +51,21 @@ the second Kraft bound.  Thus a complete valuation ISA cannot make every
 instruction grow.  This is the negative-drift heuristic converted into an
 exact coding law, with no optional-stopping assumption.
 
-The verification scope is deliberately narrow.  A locally compiling companion
-Lean draft checks both geometric sums, the leafwise comparison, and abstract
-finite and countable two-Kraft contradictions.  The generic theorem deriving
-both mass bounds from prefix-freeness remains an explicit interface, and the
-draft is not yet a pushed companion checkpoint.  The research derivation and
+The verification scope is deliberately narrow.  Lean commit `29c1d22` checks
+both geometric sums, the leafwise comparison, and abstract finite and
+countable two-Kraft contradictions.  The generic theorem deriving both mass
+bounds from prefix-freeness remains an explicit interface.  The research derivation and
 quantitative consequence are recorded in the [closure
 doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa):
 if every accepted macro expands by at least `lambda>1`, the surviving ordinary
 address mass after `N` closed generations is at most `lambda^(-N)`.
+
+The same commit independently closes the total-affine opcode-chain model.  It
+kernel-checks the direct handoff progression and proves that a length-`N`
+everywhere-defined affine gauge forces the initial slope to absorb every
+successive power of two.  With positive binary precision at each step, no
+fixed positive natural slope can persist indefinitely.  Nonlinear cylinder
+restriction or multiple address rails are genuine escapes from that theorem.
 
 This reverses the constructive target.  We now want a **thin-trap
 certificate**: one explicit ordinary canonical-splash state, a public
@@ -3312,7 +3318,7 @@ identically `x`.
 
 | Ansatz or route | Calibrated verdict | Exact record |
 |---|---|---|
-| Prefix-complete uniformly outward valuation ISA | Closed by the two-Kraft calculation.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, both prefix-code masses are at most one, while every outward leaf has `q(w)>p(w)`.  Completeness gives `sum p=1`, hence all leaves cannot be outward.  A locally compiling companion draft checks the two geometric sums, the leafwise inequality, and abstract finite/countable contradictions; the generic prefix-tree Kraft interface and pushed companion checkpoint remain pending.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |
+| Prefix-complete uniformly outward valuation ISA | Reduced exactly to the two-Kraft interface.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, every outward leaf has `q(w)>p(w)`; `p`-completeness and the `q`-Kraft bound are therefore inconsistent.  Lean commit `29c1d22` checks both geometric letter laws, the leafwise inequality, and abstract finite/countable contradictions.  The generic prefix-tree derivation of both Kraft bounds remains pending in Lean, so the fully concrete prefix-code theorem is not yet called kernel-closed.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |
 | Treat a prescribed finite `k`-word as an infinite program | Invalid: the nested progressions generally select a 2-adic integer, not a positive ordinary seed. Lean commit `ad36f08` proves that eventual canonical-seed stabilization is exactly the ordinary-integer gate. | [Program-synthesis note](docs/notes/kontorovich-program-synthesis.md) |
 | Literal periodic valuation glider | Closed: Lean commits `92b01ff`/`2f93df7` prove that an infinitely repeatable positive block has `3^N<2^S` and closes as a cycle. This does not touch morphic, counter, stack, or feedback streams. | [Section 4](docs/notes/kontorovich-program-synthesis.md#4-why-a-literal-periodic-glider-fails) |
 | Small positive cycle words | Exhaustively negative through total halving count `S<=22`: `3,447,691` positive-denominator compositions, with only repeated encodings of seed `1`. This is a bounded ansatz exclusion, not a new verification frontier. | [`search_results.json`](experiments/kontorovich/search_results.json) |
@@ -3374,7 +3380,7 @@ positive integer and its claimed behavior are machine-checked.
 
 | Result | Status |
 |---|---|
-| Two-Kraft architecture bound | Every valuation word has ordinary weight `p=2^-S` and tilted weight `q=3^n/4^S`; both arise from probability letter weights.  Outward slope means `q>p`, so no prefix-complete code can be uniformly outward.  The same identity bounds the ordinary mass of `N` successive macros with gain at least `lambda` by `lambda^-N`.  A local Lean draft checks the exact series and the abstract finite/countable contradiction; deriving the Kraft bounds from a concrete prefix tree is still an interface, and no pushed formalizer commit or counterexample is claimed.  The positive target is now a proper invariant thin language, not a total growing decoder. |
+| Two-Kraft architecture bound | Every valuation word has ordinary weight `p=2^-S` and tilted weight `q=3^n/4^S`; both arise from probability letter weights.  Outward slope means `q>p`, so `p`-completeness is inconsistent with the `q`-Kraft bound.  The same identity bounds the ordinary mass of `N` successive macros with gain at least `lambda` by `lambda^-N`.  Lean commit `29c1d22` checks the exact series, leafwise comparison, and abstract finite/countable contradiction; deriving both Kraft bounds from a concrete prefix tree is still an interface.  The positive target is a proper invariant thin language, not a total growing decoder; no counterexample is claimed. |
 | Program-scale calibration | Barina's published exhaustive check through `2^71` excludes every ordinary seed below that bound. Colussi's exact order-10 repetend has 39,366 padded bits and an 11,846-digit integer value, giving a literature-backed, formula-generated background at the scale Simon proposed. This is target calibration, not evidence of divergence. |
 | Delocalized instruction-set audit | Exact published encodings expose four complementary units: valuation congruences, mixed binary--ternary boundary rewrites, De Mol's three-symbol tag rules, and Colussi's rotated repetend grammar. They motivate a nonlocal bouncer search but do not prove computational universality or nontermination. |
 | Exact dyadic--triadic packet gate | Lean commit `f1cb0e2` proves universally that each supplied base collision generates exactly the affine family `h=r+2^(m+e+2)q`, `h'=s+2*3^m q`, with unique payload, literal valuation `e`, and the triadic next-packet scheduler. The Python checker passes 8,192 family members and an exhaustive converse over all 16,316 renewals found for odd `h<2^16` at levels `1..8`. No closed all-level gate controller is known. |
