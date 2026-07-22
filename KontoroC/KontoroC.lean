@@ -19,4 +19,5 @@ import KontoroC.SignedController
 import KontoroC.MersenneShadow
 import KontoroC.PacketGate
 import KontoroC.PadicMersenne
+import KontoroC.DelayLine
 import KontoroC.Examples

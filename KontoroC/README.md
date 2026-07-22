@@ -155,6 +155,21 @@ derives the exact two-adic valuation and triadic next-packet scheduler.  Thus a
 10,000-digit packet is handled as an arbitrary payload in one theorem, not by
 replaying or trusting a bounded sweep.
 
+`DelayLine.lean` proves the spatial wire family itself.  For odd positive `p`
+and `2*n+2 ≤ J`, the compressed word of `n` valuation-two instructions sends
+
+```text
+1 + p*2^J  ↦  1 + 3^n*p*2^(J-2*n).
+```
+
+The order-ten Colussi seed `(4^19683-1)/3^10` is then checked end to end.  Lean
+kernel reduction proves its 19-bit header address and one large affine
+balance; the final-congruence theorem supplies all ten exact header
+valuations; the parametric wire theorem supplies all 19,673 delay ticks and
+the endpoint `1+4*3^19673`.  No decimal expansion, flat trajectory, or
+`native_decide` proof is used.  The subsequent collision and eventual descent
+of this particular seed are not soundness claims in this module.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 

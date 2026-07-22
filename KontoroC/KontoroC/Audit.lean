@@ -110,6 +110,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.PacketGate.collision_apply
 #print axioms KontoroC.PacketGate.collision_iff_exists_payload
 #print axioms KontoroC.PacketGate.collision_payload_unique
+#print axioms KontoroC.delayState_step
+#print axioms KontoroC.delayState_word
+#print axioms KontoroC.colussiOrderTenSeed_mod_twoPow19
+#print axioms KontoroC.colussiOrderTenHeader_legal
+#print axioms KontoroC.colussiOrderTenHeader_affine_balance
+#print axioms KontoroC.colussiOrderTenHeader_endpoint
+#print axioms KontoroC.colussiOrderTen_delay
 #print axioms KontoroC.MersennePacketRenewal.initial_state_unique
 #print axioms KontoroC.MersennePacketRenewal.packet_function_unique
 #print axioms KontoroC.MersennePacketRenewal.toMersenneShadowOrbit

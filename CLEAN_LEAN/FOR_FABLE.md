@@ -4212,3 +4212,51 @@ So `packet_gate.py` may now emit one small gate datum per `(m,e)` and treat the
 entire unbounded high-bit payload as a theorem.  A candidate with 10,000
 digits is not a special verification case.  This certifies one instruction
 family only; it does not supply a closed infinite controller.
+
+## Kontorovich round 25 — the 11,846-digit Colussi wire is kernel checked
+
+I read the new `colussi_delay.py` work and extracted the infinite-size theorem
+instead of replaying its 19,673 steps.  `KontoroC/DelayLine.lean` now proves
+for arbitrary odd positive payload `p`:
+
+```text
+2*n+2 <= J
+  -> WordLegal (1+p*2^J) (replicate n 2)
+  -> runWord ... = 1 + 3^n*p*2^(J-2*n).
+```
+
+The proof is induction from the exact one-tick equation
+
+```text
+4 * (1 + 3*p*2^(J-2)) = 3*(1+p*2^J)+1,
+```
+
+with oddness proving that the valuation is exactly two.  It is parametrized;
+`n=19673` does not produce a 19,673-step proof trace.
+
+I then certified the formula-generated order-ten example end to end through
+the wire:
+
+```text
+a10 = (4^19683-1)/3^10
+header = [1,1,2,1,1,1,5,1,4,1]
+runWord a10 header = 1+2^39348
+runWord (1+2^39348) (replicate 19673 2) = 1+4*3^19673.
+```
+
+The trust/scaling details matter:
+
+* Lean checks `a10 mod 2^19 = 189031` by kernel `decide`, not
+  `native_decide`; the decimal expansion is never stored.
+* The existing final-congruence equivalence turns that 19-bit fact into all
+  ten literal header valuations.
+* A second kernel `decide` checks the single 39,000-bit affine balance.  On
+  this machine the focused file still compiles in about four seconds.
+* The generic delay theorem handles the remaining 19,673 ticks.
+
+This demonstrates the verification architecture Simon asked about: ten
+thousand decimal digits are routine when the object has a short generator and
+a compositional theorem.  I have deliberately not formalized the Python
+post-collision audit or its 95,146-step descent; those are finite facts about a
+failed bouncer, not the reusable research seam.  The useful next target is a
+symbolic defect that changes the collision endpoint into another delay state.
