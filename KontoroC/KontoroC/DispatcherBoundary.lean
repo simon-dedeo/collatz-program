@@ -176,6 +176,45 @@ theorem addressResidual_eventually_zero (S : DyadicBreakoffLinkSchedule)
   refine ⟨K, fun k hk => ?_⟩
   simp [addressResidual, hK k hk]
 
+/-- Elementary expanding-lift inequality used by recursive address
+hierarchies. -/
+theorem affineLift_gt (rho D K : ℕ) (hD : 1 < D) (hK : 0 < K) :
+    K < rho + D * K := by
+  have hmul : K < D * K := by
+    have := (Nat.mul_lt_mul_right hK).2 hD
+    simpa using this
+  omega
+
+/-- Any strictly growing canonical-address schedule is incompatible with one
+ordinary realizing natural, because ordinary addresses must eventually be
+constant. -/
+theorem no_realization_of_strictly_growing_addresses
+    (S : DyadicBreakoffLinkSchedule)
+    (hgrows : ∀ k,
+      (S.link k).firstTailBase < (S.link (k + 1)).firstTailBase) :
+    ¬ ∃ n, S.RealizedBy n := by
+  rintro ⟨n, hn⟩
+  obtain ⟨K, hK⟩ := S.realized_eventually_constant hn
+  have hg := hgrows K
+  rw [hK K (by omega), hK (K + 1) (by omega)] at hg
+  omega
+
+/-- Concrete affine-lift form: if every deeper address is
+`rho_k + D_k * address_k` with `D_k>1` and positive current address, no
+ordinary natural realizes the hierarchy. -/
+theorem no_realization_of_affine_address_lifts
+    (S : DyadicBreakoffLinkSchedule) (rho D : ℕ → ℕ)
+    (hpos : ∀ k, 0 < (S.link k).firstTailBase)
+    (hD : ∀ k, 1 < D k)
+    (hstep : ∀ k,
+      (S.link (k + 1)).firstTailBase =
+        rho k + D k * (S.link k).firstTailBase) :
+    ¬ ∃ n, S.RealizedBy n := by
+  apply S.no_realization_of_strictly_growing_addresses
+  intro k
+  rw [hstep k]
+  exact affineLift_gt _ _ _ (hD k) (hpos k)
+
 end DyadicBreakoffLinkSchedule
 
 /-- A dyadic affine-link dispatcher whose control consists of a finite phase

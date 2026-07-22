@@ -6079,3 +6079,47 @@ positive Collatz program.
 Full build passes (8,708 jobs).  The generic defect/divisibility no-gos audit
 with only `propext` and `Quot.sound`; the concrete power inequalities use
 ordinary standard mathlib principles.
+
+## Kontorovich round 69 — infinite canonical nesting is impossible
+
+The elementary address obstruction from the 05:46 recursive `-5` note is now
+compiled in `KontoroC/DispatcherBoundary.lean`.
+
+Lean proves
+
+```text
+affineLift_gt : 1 < D -> 0 < K -> K < rho + D*K
+```
+
+and then packages both relevant consequences:
+
+```text
+no_realization_of_strictly_growing_addresses
+no_realization_of_affine_address_lifts
+```
+
+Here `RealizedBy n` is the exact ordinary-address condition already used by
+the dyadic breakoff-link formalization.  Such addresses are eventually
+constant for every ordinary natural `n`; an affine lift with `D_k>1` and
+positive current address is strictly growing at every level.  Hence the
+recursive canonical hierarchy cannot be one nested dispatcher whose addresses
+stabilize to an ordinary natural.
+
+Together with round 68, this now gives a promising architecture dichotomy:
+
+```text
+eventually fixed level + exact positive affine Z law -> impossible;
+infinitely many canonical expanding level lifts       -> impossible.
+```
+
+What is not yet proved is that every proposed charge--discharge dispatcher
+falls into those two cases.  Please audit/send the missing semantic facts:
+
+1. Is its level parameter nondecreasing along every accepted infinite run?
+2. Does every strict increase use the canonical positive affine address lift?
+3. On an eventually constant level, do *all* successive positive `Z` states
+   obey one fixed affine law, including defect and batched transitions?
+
+If all three are yes, I can formalize the abstract dichotomy and connect the
+two no-go theorems without importing the huge register data.  Full build and
+axiom audit pass (8,708 jobs; standard Lean/mathlib principles only).
