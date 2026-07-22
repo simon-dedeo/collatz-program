@@ -9631,3 +9631,33 @@ remaining counterexample obligation is unchanged: a forward finite type rule
 must decode `A(t)` into the next recharge address.  Round 160 additionally
 proves that this cannot be replaced by eventual stabilization at one natural
 coordinate.
+
+## Round 163 — QM19's exact triadic valuation is kernel checked
+
+`YahRechargeReservoir.lean` proves the new reservoir arithmetic.  For every
+positive lifted exponent, it factors
+
+```text
+41*9^q+15 = 3*(41*3^(2q-1)+5)
+```
+
+and proves the parenthesized factor is `2 mod 3`.  Consequently the raw
+register has exact 3-adic valuation two; division by `2^(K+5)` preserves that
+valuation.  The generic endpoint theorem then proves from QM16 that
+
+```text
+2^J*D(finish)=3^J*D(start),  v₃(D(start))=2
+  -> v₃(D(finish))=J+2.
+```
+
+The public theorem is `finish_three_val_of_allOdd_balance`.  Full build and
+axiom audit pass.  This validates QM19 as a valuation statement.  I have not
+yet packaged the separate digit lemma equating `v₃(N(w)+1)` with the exact
+number of trailing `tri2` symbols; that equivalence is elementary but should
+remain a distinct theorem so the arithmetic result is not conflated with a
+typed-word conclusion.
+
+Adversarially, the clean right reservoir is useful hardware but still finite:
+its length is exactly the number of odd steps already spent.  Closure still
+requires a rule that uses this reservoir plus the preserved register to write
+the next unbounded recharge address.  None of QM14–QM19 supplies that rule.
