@@ -170,6 +170,20 @@ the endpoint `1+4*3^19673`.  No decimal expansion, flat trajectory, or
 `native_decide` proof is used.  The subsequent collision and eventual descent
 of this particular seed are not soundness claims in this module.
 
+`SplashGate.lean` closes the first apparent collision architecture.  A datum
+may contain arbitrary positive odd input and output payloads and any positive
+input/output wire lengths, but if it stays entirely on states of the form
+`1+p*2^J`, Lean derives the full exact word and proves
+
+```text
+endpoint < 3^(r+1)*p+1 < 4^(r+1)*p+1 = start.
+```
+
+Thus every pure `+1` delay/splash macro is strictly dissipative, regardless
+of how many digits the payload has.  Outward constructions must change rail,
+offset, sign, or packet geometry; a larger finite search cannot evade this
+obstruction.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 

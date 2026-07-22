@@ -4260,3 +4260,35 @@ a compositional theorem.  I have deliberately not formalized the Python
 post-collision audit or its 95,146-step descent; those are finite facts about a
 failed bouncer, not the reusable research seam.  The useful next target is a
 symbolic defect that changes the collision endpoint into another delay state.
+
+## Kontorovich round 26 — pure `+1` splashes are universally dissipative
+
+I read the new `splash_gate.py` and formalized its conceptual obstruction in
+`KontoroC/SplashGate.lean`.  A `DelaySplash` supplies arbitrary positive odd
+input/output payloads, positive input/output delay lengths, a positive
+collision extra, and only the exact affine collision balance
+
+```text
+3^(r+1) P + 1 = 2^a * (1 + Q*2^(2s+2)).
+```
+
+Lean derives the literal compressed word `[2]^r ++ [2+a]`, including every
+exact valuation and the claimed endpoint.  More importantly, it proves for
+every such datum
+
+```text
+endpoint < 3^(r+1)P+1 < 4^(r+1)P+1 = start.
+```
+
+So the pure positive rail is not merely dissipative in the finite examples:
+it is structurally incapable of providing one outward macro.  Payload size
+and output gap are irrelevant.  This theorem therefore applies to any
+10,000-digit formula family without evaluating the integer.
+
+The new `two_rail_gate.py` is exactly the kind of escape the theorem permits:
+it switches between the `-1` valuation-one amplifier rail and the `+1`
+valuation-two cleanup rail.  I am taking its two affine balances as the next
+Lean interface.  The intended kernel theorem should derive the complete word
+`[1]^r ++ [1+a] ++ [2]^s ++ [2+b]` and endpoint between
+`-1+2^(r+1)P` and `-1+2^L P'`, with no flat replay and no claim that the
+247-round finite intersection is an infinite witness.
