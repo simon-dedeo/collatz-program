@@ -3763,3 +3763,154 @@ H_n = A / 2^v_2(A),                    provided v_2(A)>=3.
 
 Formalizing the recurrence-to-gate direction is the priority; the valuation
 normal form is optional if `padicValNat` bookkeeping would slow the seam.
+
+## Kontorovich follow-up: one-register radix swap (2026-07-22 00:18 EDT)
+
+Commit `e9f791b` completely answers the priority request.  The recurrence has
+an exact one-register quotient which may be a useful next theorem, but it is
+secondary to the endpoint already proved.
+
+For every recurrence output, (R) modulo three gives `3 | P'`.  Past the first
+step put `P_n=3H_n` and
+
+```text
+y_n = 3^(r_n+2) H_n.
+```
+
+Then
+
+```text
+2^(r_(n+1)+3) H_(n+1) = y_n+1,
+e_n := v_2(y_n+1) = r_(n+1)+3,
+y_(n+1) = 3^(e_n-1) * (y_n+1)/2^e_n.           (F)
+```
+
+Moreover `3 ∤ H_(n+1)` because `y_n+1=1 (mod 3)`, so
+`v_3(y_(n+1))=e_n-1` and `r_(n+1)` is recoverable from `y_(n+1)`.
+The natural domain is
+
+```text
+9 | y,       y % 8 = 7.
+```
+
+It gives `e>=3`; (F) remains divisible by nine and is strictly larger than
+`y` since `3^(e-1)/2^e >= 9/8`.  Survival is exactly the additional condition
+`F(y)%8=7`.
+
+If inexpensive, please package either:
+
+1. the divisibility/core recurrence theorems `3|P'` and the equation for
+   `H,H'`; or
+2. a `RouterRadixOrbit` using proof-carrying exponents/factorizations rather
+   than fighting executable `v_2`, with a conversion to
+   `InfiniteRouterPayloadRecurrence`.
+
+There is also a clean word-level check: `router_word_eq` expands under the
+shortcut map to `1^(r+1) ++ [0,1]`; concatenated streams avoid `00` and `010`.
+This identifies the pure-router counterexample class with a sparse
+finite-type parity language.  It does not conflict with the autonomous
+finite-state no-go: a finite automaton accepts many aperiodic words, while a
+payload-independent finite-state generator emits only an eventually periodic
+one.
+
+## Kontorovich follow-up: minimal break-off counter (2026-07-22 00:22 EDT)
+
+Commit `c10e5b5` proves exactly the requested valuation normal form.  A final
+change of coordinate makes the search object unusually small.  Put
+
+```text
+y = 8k-1.
+```
+
+Then `9|y` is equivalent to `k=8 (mod 9)`.  Factor
+
+```text
+k = 2^j u,         u odd.
+```
+
+The radix swap is legal precisely when
+
+```text
+8 k' = 3^(j+2) u + 1.                            (B)
+```
+
+When (B) holds, three useful facts are elementary:
+
+1. `k'=8 (mod 9)` automatically, because `j+2>=2` and
+   `8k'=1 (mod 9)`;
+2. `k'>k`, by the already-proved inequality
+   `3^(j+2)>2^(j+3)`;
+3. with `y'=8k'-1`, one has `y'=3^(j+2)u`, so the next router registers are
+   exactly `r'=j,H'=u`.
+
+Conversely, for current `k=8 (mod 9)`, factor
+`8k-1=3^(r+2)H` with `3∤H`; set `P=3H`.  Then (B) is exactly
+
+```text
+2^(j+3) * (3u) = 3^(r+2) * (3H) + 3,
+```
+
+the public router recurrence from `e9f791b`.
+
+If cheap, please expose a proof-carrying `BreakoffCounterOrbit` with sequences
+`k,j,u,r,H` and these two exact factorizations, then compile it to
+`InfiniteRouterPayloadRecurrence`.  The executable one-register presentation
+
+```text
+B(k) = (3^(v_2(k)+2) * oddPart(k) + 1)/8
+```
+
+is the research target, but the formal structure need not fight valuations:
+the factorization witnesses are acceptable.  The theorem should say that any
+infinite positive orbit of (B), starting in `k=8 (mod 9)`, refutes Collatz.
+No such orbit is currently supplied.
+
+## Kontorovich follow-up: regenerative three-bit delay gate (2026-07-22 00:40 EDT)
+
+Commits `a1a5fd0` and `7293975` exactly close periodic opcode programs and
+the executable-map seam.  Simon's spatial “splash the gap” idea has now
+produced a universal finite instruction inside the break-off map.  For
+naturals `q>=1`, `q'>=1`, `j>=0`, start from
+
+```text
+k = 9 * 2^(3*q) * c - 1.
+```
+
+The opcode-zero branch has the exact delay identity
+
+```text
+B(9*2^(3*q)*c-1) = 9*2^(3*(q-1))*(9*c)-1.
+```
+
+After `q` such steps the collision is `3^(2*q+2)c-1`.  Supply odd `u,c'`
+with
+
+```text
+3^(2*q+2)c - 1 = 2^j u,
+3^j u + 1 = 2^(3*(q'+1)) c'.
+```
+
+Then one more break-off instruction lands exactly at
+
+```text
+k' = 9*2^(3*q')c' - 1.
+```
+
+Eliminating `u` gives the compact balance
+
+```text
+2^(j+3*q'+3)c' = 3^(j+2*q+2)c + 2^j - 3^j.
+```
+
+The Python checker `experiments/kontorovich/breakoff_delay_gate.py` constructs
+the unique residue of `c modulo 2^(j+3*q'+4)` that makes the two valuations
+exact; its bounded audit passes 8,704 literal macro replays.
+
+If this fits the current executable-breakoff work cheaply, please formalize a
+proof-carrying `BreakoffDelayGate` (the two displayed factorizations are fine)
+and prove the `q`-tick delay identity plus the collision-to-clean-delay
+endpoint.  A universal existence theorem for the residue class is optional;
+the most useful seam is that supplied exact factorizations compile into a
+finite `BreakoffCounterOrbit` segment.  This is deliberately not an infinite
+orbit claim—the open problem is linking the outgoing `c'` into the next input
+cylinder along a genuinely aperiodic sequence.

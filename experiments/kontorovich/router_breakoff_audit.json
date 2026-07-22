@@ -1,0 +1,607 @@
+{
+  "bounds": {
+    "opcodes": [
+      0,
+      64
+    ],
+    "tails_per_opcode": 64
+  },
+  "branches": [
+    {
+      "input_base": 71,
+      "input_stride": 72,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 71,
+      "opcode": 0,
+      "output_base": 80,
+      "output_stride": 81
+    },
+    {
+      "input_base": 26,
+      "input_stride": 144,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 13,
+      "opcode": 1,
+      "output_base": 44,
+      "output_stride": 243
+    },
+    {
+      "input_base": 188,
+      "input_stride": 288,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 47,
+      "opcode": 2,
+      "output_base": 476,
+      "output_stride": 729
+    },
+    {
+      "input_base": 296,
+      "input_stride": 576,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 37,
+      "opcode": 3,
+      "output_base": 1124,
+      "output_stride": 2187
+    },
+    {
+      "input_base": 368,
+      "input_stride": 1152,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 23,
+      "opcode": 4,
+      "output_base": 2096,
+      "output_stride": 6561
+    },
+    {
+      "input_base": 1952,
+      "input_stride": 2304,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 61,
+      "opcode": 5,
+      "output_base": 16676,
+      "output_stride": 19683
+    },
+    {
+      "input_base": 4544,
+      "input_stride": 4608,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 71,
+      "opcode": 6,
+      "output_base": 58229,
+      "output_stride": 59049
+    },
+    {
+      "input_base": 1664,
+      "input_stride": 9216,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 13,
+      "opcode": 7,
+      "output_base": 31985,
+      "output_stride": 177147
+    },
+    {
+      "input_base": 12032,
+      "input_stride": 18432,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 47,
+      "opcode": 8,
+      "output_base": 346913,
+      "output_stride": 531441
+    },
+    {
+      "input_base": 18944,
+      "input_stride": 36864,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 37,
+      "opcode": 9,
+      "output_base": 819305,
+      "output_stride": 1594323
+    },
+    {
+      "input_base": 23552,
+      "input_stride": 73728,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 23,
+      "opcode": 10,
+      "output_base": 1527893,
+      "output_stride": 4782969
+    },
+    {
+      "input_base": 124928,
+      "input_stride": 147456,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 61,
+      "opcode": 11,
+      "output_base": 12156713,
+      "output_stride": 14348907
+    },
+    {
+      "input_base": 290816,
+      "input_stride": 294912,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 71,
+      "opcode": 12,
+      "output_base": 42448850,
+      "output_stride": 43046721
+    },
+    {
+      "input_base": 106496,
+      "input_stride": 589824,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 13,
+      "opcode": 13,
+      "output_base": 23316974,
+      "output_stride": 129140163
+    },
+    {
+      "input_base": 770048,
+      "input_stride": 1179648,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 47,
+      "opcode": 14,
+      "output_base": 252899486,
+      "output_stride": 387420489
+    },
+    {
+      "input_base": 1212416,
+      "input_stride": 2359296,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 37,
+      "opcode": 15,
+      "output_base": 597273254,
+      "output_stride": 1162261467
+    },
+    {
+      "input_base": 1507328,
+      "input_stride": 4718592,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 23,
+      "opcode": 16,
+      "output_base": 1113833906,
+      "output_stride": 3486784401
+    },
+    {
+      "input_base": 7995392,
+      "input_stride": 9437184,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 61,
+      "opcode": 17,
+      "output_base": 8862243686,
+      "output_stride": 10460353203
+    },
+    {
+      "input_base": 18612224,
+      "input_stride": 18874368,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 71,
+      "opcode": 18,
+      "output_base": 30945211559,
+      "output_stride": 31381059609
+    },
+    {
+      "input_base": 6815744,
+      "input_stride": 37748736,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 13,
+      "opcode": 19,
+      "output_base": 16998073955,
+      "output_stride": 94143178827
+    },
+    {
+      "input_base": 49283072,
+      "input_stride": 75497472,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 47,
+      "opcode": 20,
+      "output_base": 184363725203,
+      "output_stride": 282429536481
+    },
+    {
+      "input_base": 77594624,
+      "input_stride": 150994944,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 37,
+      "opcode": 21,
+      "output_base": 435412202075,
+      "output_stride": 847288609443
+    },
+    {
+      "input_base": 96468992,
+      "input_stride": 301989888,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 23,
+      "opcode": 22,
+      "output_base": 811984917383,
+      "output_stride": 2541865828329
+    },
+    {
+      "input_base": 511705088,
+      "input_stride": 603979776,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 61,
+      "opcode": 23,
+      "output_base": 6460575647003,
+      "output_stride": 7625597484987
+    },
+    {
+      "input_base": 1191182336,
+      "input_stride": 1207959552,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 71,
+      "opcode": 24,
+      "output_base": 22559059226420,
+      "output_stride": 22876792454961
+    },
+    {
+      "input_base": 436207616,
+      "input_stride": 2415919104,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 13,
+      "opcode": 25,
+      "output_base": 12391595913104,
+      "output_stride": 68630377364883
+    },
+    {
+      "input_base": 3154116608,
+      "input_stride": 4831838208,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 47,
+      "opcode": 26,
+      "output_base": 134401155672896,
+      "output_stride": 205891132094649
+    },
+    {
+      "input_base": 4966055936,
+      "input_stride": 9663676416,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 37,
+      "opcode": 27,
+      "output_base": 317415495312584,
+      "output_stride": 617673396283947
+    },
+    {
+      "input_base": 6174015488,
+      "input_stride": 19327352832,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 23,
+      "opcode": 28,
+      "output_base": 591937004772116,
+      "output_stride": 1853020188851841
+    },
+    {
+      "input_base": 32749125632,
+      "input_stride": 38654705664,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 61,
+      "opcode": 29,
+      "output_base": 4709759646665096,
+      "output_stride": 5559060566555523
+    },
+    {
+      "input_base": 76235669504,
+      "input_stride": 77309411328,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 71,
+      "opcode": 30,
+      "output_base": 16445554176060089,
+      "output_stride": 16677181699666569
+    },
+    {
+      "input_base": 27917287424,
+      "input_stride": 154618822656,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 13,
+      "opcode": 31,
+      "output_base": 9033473420652725,
+      "output_stride": 50031545098999707
+    },
+    {
+      "input_base": 201863462912,
+      "input_stride": 309237645312,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 47,
+      "opcode": 32,
+      "output_base": 97978442485541093,
+      "output_stride": 150094635296999121
+    },
+    {
+      "input_base": 317827579904,
+      "input_stride": 618475290624,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 37,
+      "opcode": 33,
+      "output_base": 231395896082873645,
+      "output_stride": 450283905890997363
+    },
+    {
+      "input_base": 395136991232,
+      "input_stride": 1236950581248,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 23,
+      "opcode": 34,
+      "output_base": 431522076478872473,
+      "output_stride": 1350851717672992089
+    },
+    {
+      "input_base": 2095944040448,
+      "input_stride": 2473901162496,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 61,
+      "opcode": 35,
+      "output_base": 3433414782418854893,
+      "output_stride": 4052555153018976267
+    },
+    {
+      "input_base": 4879082848256,
+      "input_stride": 4947802324992,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 71,
+      "opcode": 36,
+      "output_base": 11988808994347804790,
+      "output_stride": 12157665459056928801
+    },
+    {
+      "input_base": 1786706395136,
+      "input_stride": 9895604649984,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 13,
+      "opcode": 37,
+      "output_base": 6585402123655836434,
+      "output_stride": 36472996377170786403
+    },
+    {
+      "input_base": 12919261626368,
+      "input_stride": 19791209299968,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 47,
+      "opcode": 38,
+      "output_base": 71426284571959456706,
+      "output_stride": 109418989131512359209
+    },
+    {
+      "input_base": 20340965113856,
+      "input_stride": 39582418599936,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 37,
+      "opcode": 39,
+      "output_base": 168687608244414887114,
+      "output_stride": 328256967394537077627
+    },
+    {
+      "input_base": 25288767438848,
+      "input_stride": 79164837199872,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 23,
+      "opcode": 40,
+      "output_base": 314579593753098032726,
+      "output_stride": 984770902183611232881
+    },
+    {
+      "input_base": 134140418588672,
+      "input_stride": 158329674399744,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 61,
+      "opcode": 41,
+      "output_base": 2502959376383345216906,
+      "output_stride": 2954312706550833698643
+    },
+    {
+      "input_base": 312261302288384,
+      "input_stride": 316659348799488,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 71,
+      "opcode": 42,
+      "output_base": 8739841756879549691819,
+      "output_stride": 8862938119652501095929
+    },
+    {
+      "input_base": 114349209288704,
+      "input_stride": 633318697598976,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 13,
+      "opcode": 43,
+      "output_base": 4800758148145104760295,
+      "output_stride": 26588814358957503287787
+    },
+    {
+      "input_base": 826832744087552,
+      "input_stride": 1266637395197952,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 47,
+      "opcode": 44,
+      "output_base": 52069761452958443938583,
+      "output_stride": 79766443076872509863361
+    },
+    {
+      "input_base": 1301821767286784,
+      "input_stride": 2533274790395904,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 37,
+      "opcode": 45,
+      "output_base": 122973266410178452706015,
+      "output_stride": 239299329230617529590083
+    },
+    {
+      "input_base": 1618481116086272,
+      "input_stride": 5066549580791808,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 23,
+      "opcode": 46,
+      "output_base": 229328523846008465857163,
+      "output_stride": 717897987691852588770249
+    },
+    {
+      "input_base": 8584986789675008,
+      "input_stride": 10133099161583616,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 61,
+      "opcode": 47,
+      "output_base": 1824657385383458663124383,
+      "output_stride": 2153693963075557766310747
+    },
+    {
+      "input_base": 19984723346456576,
+      "input_stride": 20266198323167232,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 71,
+      "opcode": 48,
+      "output_base": 6371344640765191725335960,
+      "output_stride": 6461081889226673298932241
+    },
+    {
+      "input_base": 7318349394477056,
+      "input_stride": 40532396646334464,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 13,
+      "opcode": 49,
+      "output_base": 3499752689997781370254964,
+      "output_stride": 19383245667680019896796723
+    },
+    {
+      "input_base": 52917295621603328,
+      "input_stride": 81064793292668928,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 47,
+      "opcode": 50,
+      "output_base": 37958856099206705631226916,
+      "output_stride": 58149737003040059690390169
+    },
+    {
+      "input_base": 83316593106354176,
+      "input_stride": 162129586585337856,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 37,
+      "opcode": 51,
+      "output_base": 89647511213020092022684844,
+      "output_stride": 174449211009120179071170507
+    },
+    {
+      "input_base": 103582791429521408,
+      "input_stride": 324259173170675712,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 23,
+      "opcode": 52,
+      "output_base": 167180493883740171609871736,
+      "output_stride": 523347633027360537213511521
+    },
+    {
+      "input_base": 549439154539200512,
+      "input_stride": 648518346341351424,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 61,
+      "opcode": 53,
+      "output_base": 1330175233944541365417675116,
+      "output_stride": 1570042899082081611640534563
+    },
+    {
+      "input_base": 1279022294173220864,
+      "input_stride": 1297036692682702848,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 71,
+      "opcode": 54,
+      "output_base": 4644710243117824767769914749,
+      "output_stride": 4710128697246244834921603689
+    },
+    {
+      "input_base": 468374361246531584,
+      "input_stride": 2594073385365405696,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 13,
+      "opcode": 55,
+      "output_base": 2551319711008382618915868665,
+      "output_stride": 14130386091738734504764811067
+    },
+    {
+      "input_base": 3386706919782612992,
+      "input_stride": 5188146770730811392,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 47,
+      "opcode": 56,
+      "output_base": 27672006096321688405164421673,
+      "output_stride": 42391158275216203514294433201
+    },
+    {
+      "input_base": 5332261958806667264,
+      "input_stride": 10376293541461622784,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 37,
+      "opcode": 57,
+      "output_base": 65353035674291647084537251185,
+      "output_stride": 127173474825648610542883299603
+    },
+    {
+      "input_base": 6629298651489370112,
+      "input_stride": 20752587082923245568,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 23,
+      "opcode": 58,
+      "output_base": 121874580041246585103596495453,
+      "output_stride": 381520424476945831628649898809
+    },
+    {
+      "input_base": 35164105890508832768,
+      "input_stride": 41505174165846491136,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 61,
+      "opcode": 59,
+      "output_base": 969697745545570655389485159473,
+      "output_stride": 1144561273430837494885949696427
+    },
+    {
+      "input_base": 81857426827086135296,
+      "input_stride": 83010348331692982272,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 71,
+      "opcode": 60,
+      "output_base": 3385993767232894255704267851930,
+      "output_stride": 3433683820292512484657849089281
+    },
+    {
+      "input_base": 29975959119778021376,
+      "input_stride": 166020696663385964544,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 13,
+      "opcode": 61,
+      "output_base": 1859912069325110929189668256694,
+      "output_stride": 10301051460877537453973547267843
+    },
+    {
+      "input_base": 216749242866087231488,
+      "input_stride": 332041393326771929088,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 47,
+      "opcode": 62,
+      "output_base": 20172892444218510847364863399526,
+      "output_stride": 30903154382632612361920641803529
+    },
+    {
+      "input_base": 341264765363626704896,
+      "input_stride": 664082786653543858176,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 37,
+      "opcode": 63,
+      "output_base": 47642363006558610724627656113774,
+      "output_stride": 92709463147897837085761925410587
+    },
+    {
+      "input_base": 424275113695319687168,
+      "input_stride": 1328165573307087716352,
+      "odd_payload_modulus": 72,
+      "odd_payload_residue": 23,
+      "opcode": 64,
+      "output_base": 88846568850068760540521845185146,
+      "output_stride": 278128389443693511257285776231761
+    }
+  ],
+  "claim_scope": "complete symbolic branch formula for each listed opcode; literal exact Collatz replay only for tails in the stated bound; no infinite ordinary orbit claim",
+  "literal_replays": 4160,
+  "schema": "collatz-router-breakoff-v1",
+  "universal_formula": {
+    "affine_tail": "u=u_j+72*t; k'=b_j+3^(j+4)*t",
+    "input": "k=2^j*u, u odd, k=8 mod 9",
+    "legal_u_mod_8": "7 if j even; 5 if j odd",
+    "output": "k'=8 mod 9 and k'>k",
+    "transition": "8*k'=3^(j+2)*u+1"
+  },
+  "verifier_sha256": "2b0d7a00e5921c4342f6ab8b9ebcb1f002d6de35ae62ba4d3b8286785382304d"
+}

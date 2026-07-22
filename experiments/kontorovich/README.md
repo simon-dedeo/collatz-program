@@ -872,6 +872,23 @@ cylinders of unbounded precision, their canonical residues must eventually
 be that natural literally.  Thus finite graph completeness cannot by itself
 hide the ordinary-seed obligation.
 
+Lean commit `e9f791b` then eliminates the externally supplied gate object for
+the router-only machine.  Positive odd public payloads satisfying
+
+```text
+2^(r'+3) P' = 3^(r+2) P + 3
+```
+
+construct the unique canonical `(r,0,1,r'+1)` catcher and automatically prove
+both linkage and growth.  Any infinite solution above state `4` refutes
+Collatz.  This is the current minimal certificate interface; it remains
+conditional because no infinite ordinary solution is known.
+
+Lean commit `c10e5b5` proves the advertised normal form rather than merely
+testing it: every recurrence output is divisible by three, and after removing
+that factor the next rail length and payload are exactly the maximal power of
+two and odd part of `3^(r+2)H+1`.
+
 ```bash
 python3 complete_u_router.py selftest
 python3 complete_u_router.py build complete_u_router_audit.json
@@ -883,6 +900,105 @@ one-relay artifact SHA-256  2ccca3f4f334a04c7cd55d404a1a9913a859a490ad348effc95c
 one-relay verifier SHA-256  54e354c23788b9df4d74b3664d4c3c98816f3099f17543a4752f41d26a2e0cc2
 router artifact SHA-256     e64bd5f3a98f352d8211e9104b40f8ee2d118240650a11401764be8a97016e3f
 router verifier SHA-256     e2889b9d96f1a83044ecf03b69a657d0f84c48a2efd2a0ac1de84dbf688a4606
+```
+
+## Autonomous router break-off counter
+
+`router_breakoff.py` removes all compiler-node bookkeeping from the universal
+router.  In the ordinary coordinate `y=8k-1`, factor `k=2^j u` with `u` odd.
+One legal outward router is exactly
+
+```text
+8k' = 3^(j+2)u + 1,                 k=8 (mod 9).
+```
+
+Integrality automatically gives `k'=8 (mod 9)` and `k'>k`.  For each opcode
+`j`, the mod-8 legality test and mod-9 invariant select one odd residue
+`u_j (mod 72)`, so the complete instruction family is
+
+```text
+k  = 2^j (u_j+72t),
+k' = b_j + 3^(j+4)t.
+```
+
+The six repeating residues are `71,13,47,37,23,61`.  The checker reconstructs
+the current and next sparse Collatz states, invokes the canonical
+parity-complete decoder, and literally replays the router word.  The artifact
+lists opcodes `0..64` and checks 64 tails apiece, or 4,160 exact replays.  This
+is a bounded audit of the listed branches; the coefficient formula is the
+symbolic construction, and Lean commits `e9f791b`/`c10e5b5` prove the public
+recurrence and valuation normal form.  Lean commit `0b12d44` goes the final
+step: proof-carrying binary/ternary factorizations of an infinite `k`-orbit
+imply the mod-9 invariant, strict growth, and `¬Collatz`; it also proves the
+necessary mod-24 interior payload classes.  No infinite ordinary orbit is
+known.  Commit `7293975` defines the executable `v2`/odd-part partial map,
+proves successful evaluation equivalent to the factorization equation, and
+derives the same endpoint from an infinite successful executable orbit.
+
+```bash
+python3 router_breakoff.py selftest
+python3 router_breakoff.py build router_breakoff_audit.json
+python3 router_breakoff.py verify router_breakoff_audit.json
+```
+
+```text
+artifact SHA-256  05e70ac426e7a6b9a7241a5732522755812a1527ff37b4a2c6ed9ab50e2f9476
+verifier SHA-256  2b0d7a00e5921c4342f6ab8b9ebcb1f002d6de35ae62ba4d3b8286785382304d
+```
+
+Lean commit `a1a5fd0` proves an additional necessary condition for an infinite
+break-off orbit: its exact macro-word is `[1]^r ++ [2,1]`, and neither its
+rail lengths nor its opcodes `j=v2(k)` can be eventually periodic.  The six
+repeating opcode residue classes are a finite decoder table, not a possible
+cyclic generator.
+
+## Regenerative break-off delay gates
+
+`breakoff_delay_gate.py` gives Simon's collision-and-cleanup picture an exact
+spatial form.  Begin with
+
+```text
+k = 9*2^(3q)c-1,                  q>=1.
+```
+
+An opcode-zero break-off step sends `(q,c)` to `(q-1,9c)`: it consumes exactly
+three powers of two.  After `q` steps, prescribe collision opcode `j` and a
+new positive delay `q'` by
+
+```text
+3^(2q+2)c-1 = 2^j u,
+3^j u+1 = 2^(3(q'+1))c'.
+```
+
+The collision then lands at `9*2^(3q')c'-1`, a new clean delay-line state.
+For every `q,q'>=1,j>=0`, the script constructs the unique coefficient class
+modulo `2^(j+3q'+4)` that makes both valuations exact.  Every affine member is
+replayed through `router_breakoff.literal_step`, hence through the canonical
+Collatz splash decoder, at each delay tick and at the collision.
+
+```bash
+python3 breakoff_delay_gate.py selftest
+python3 breakoff_delay_gate.py build breakoff_delay_gate_audit.json
+python3 breakoff_delay_gate.py verify breakoff_delay_gate_audit.json
+```
+
+The committed audit covers `q,q'=1..8`, `j=0..16`, all 1,088 resulting
+families, and eight affine tails per family: 8,704 exact macro replays.  The
+small regression `(q,j,q')=(1,2,1)` is
+
+```text
+c=13, u=263, c'=37,
+935 -> 1052 -> 2663.
+```
+
+It regenerates one three-bit delay cell, but exact continuation reaches `1`.
+The artifact therefore certifies a universal finite instruction pattern only;
+it neither links infinitely many coefficient cylinders nor supplies an
+ordinary divergent seed.
+
+```text
+artifact SHA-256  74a8ea8ac3681ba390e51f7c719517b0be7263455837e33440340b4fe9e62883
+verifier SHA-256  7a4465ea0af7c94ae8cbb74c97404270d9a4a818b662cb8621207ba587742e0d
 ```
 
 ## A seven-step base-`3/2` compiler bridge

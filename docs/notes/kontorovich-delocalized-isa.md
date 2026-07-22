@@ -580,19 +580,213 @@ collapse exactly to
 Conversely, positivity and oddness together with (7) give the exact powers of
 two required by the router word `[1]^r ++ [2,1]`.  Equation (7) forces every
 output payload to be divisible by three.  Hence, after the first gate, write
-`P_n=3H_(n-1)` and obtain the autonomous partial map
+`P_n=3H_n` and obtain
 
 ```text
-A         = 3^(r_n+2) H_(n-1) + 1,
-r_(n+1) = v_2(A)-3,
-H_n       = A / 2^v_2(A),                    v_2(A)>=3.   (8)
+2^(r_(n+1)+3) H_(n+1) = 3^(r_n+2) H_n + 1.   (8)
 ```
 
-This is the smallest current “hardware as software” model: one unbounded
-delay register and one odd nonlocal payload register, with no exogenous node
-word.  Every defined step compiles to a universally outward Collatz splash.
-The disproof target is an infinite positive orbit of (8); finite traces or a
-2-adic choice of its initial register do not suffice.
+Lean commit `e9f791b` proves the converse and the all-level endpoint: positive
+odd public payloads satisfying (7) construct the unique canonical router,
+force strict endpoint growth, and refute Collatz if supplied forever.  No
+hidden gate witness or extra outwardness assumption remains.  Commit
+`c10e5b5` proves from (7) that `3|P_(n+1)` and kernel-identifies the next
+`r,H` with the maximal power of two and odd part of the displayed numerator.
+
+The two registers reduce to one.  Set
+
+```text
+y_n = 3^(r_n+2) H_n,
+e_n = v_2(y_n+1).
+```
+
+Because `H_(n+1)` is odd, (8) makes `e_n=r_(n+1)+3`; because
+`y_n+1` is nonzero modulo three, `3` does not divide `H_(n+1)`.  Therefore
+
+```text
+F(y) = 3^(e-1) * (y+1)/2^e,       e=v_2(y+1),      (9)
+```
+
+and `r_(n+1)=v_3(F(y_n))-2`.  The invariant window is
+
+```text
+9 | y,                    y = 7 (mod 8).
+```
+
+It guarantees `e>=3`, the output is automatically divisible by nine, and
+`F(y)>y` since `3^(e-1)/2^e >= 9/8`.  A step survives precisely when
+`F(y)=7 (mod 8)` again.  Thus the smallest current “hardware as software”
+model is a one-register partial radix swap: remove the complete binary-zero
+suffix of `y+1`, then install one fewer ternary zeros.  An infinite positive
+orbit in this window is exactly the target; finite traces and 2-adic limit
+points are not.
+
+There is an equivalent symbolic description.  Expanding an accelerated
+valuation `k` into shortcut parity bits `1 0^(k-1)`, the router word
+`[1]^r ++ [2,1]` becomes
+
+```text
+1^(r+1) 0 1.
+```
+
+Across consecutive blocks, every two zeros are separated by at least two
+ones; equivalently the parity stream avoids `00` and `010`.  This is a regular
+constraint language, not a finite-state controller: its aperiodic choice must
+still be made forever by the changing ordinary payload.  It gives the
+Stérin--Woods spatial grid and mixed binary/ternary rewriting a sharply
+defined diagonal-defect target.
+
+Mahler's 1968 break-off algorithm is a close but nonidentical warning sign.
+For odd `G`, it forms `H=(3G+1)/2`, puts `a=v_2(H)`, and replaces `G` by
+`3^a H/2^a`; indefinite continuation is a necessary condition for a
+Mahler `Z`-number, and none is known.  In our coordinate `z=y/3`, the Mahler
+output is exactly `F(y)`, while the next router coordinate is
+`z'=F(y)/3`.  Thus the router is a stricter, factor-three-reserving cousin of
+Mahler's algorithm, not a reduction to or from the `Z`-number problem.  The
+analogy says that raw long-survivor search is likely to hit the same
+individual-orbit wall; the new opportunity is the additional invariant
+`z=0 (mod 3)` and the exact Collatz spatial interpretation.
+
+One last affine coordinate removes even the explicit invariant window.  Put
+`y=8k-1`.  Then `9|y` is simply `k=8 (mod 9)`.  Write `k=2^j u` with `u` odd;
+the next value is determined by
+
+```text
+B(k) = (3^(j+2)u+1)/8.                           (10)
+```
+
+If the division is integral, `B(k)=8 (mod 9)` automatically and
+`B(k)>k`; moreover `8B(k)-1=3^(j+2)u`, so the next delay and payload are
+literally `j` and `u`.  The legality test is only
+
+```text
+u=7 (mod 8) when j is even,
+u=5 (mod 8) when j is odd.
+```
+
+Thus the pure-router disproof problem has become: find one ordinary
+`k=8 (mod 9)` whose partial orbit under (10) never fails this three-bit test.
+This statement is equivalent only to the router subclass, not to the whole
+Collatz conjecture, but every surviving transition is already an outward
+Collatz macro.
+
+Lean commit `0b12d44` proves the all-level version in this coordinate.  Its
+`BreakoffCounterOrbit` asks only for the binary and ternary factorizations
+`k=2^j u`, `8k=3^(r+2)H+1` and the handoff `(r',H')=(j,u)`.  Lean derives
+`k=8 (mod 9)`, strict growth, the public router recurrence, and finally
+`¬Collatz`.  The same commit proves the necessary interior filter
+`H=23 (mod 24)` for even `r` and `H=13 (mod 24)` for odd `r`.  The theorem is
+conditional: it supplies the checker, not an infinite `k`.
+
+Lean commit `7293975` closes the executable seam as well.  It defines the
+partial map using the actual maximal binary valuation and odd part of `k`,
+proves `breakoffNext k = some k'` equivalent to (10), reconstructs all
+proof-carrying registers from an executable orbit, and obtains `¬Collatz`
+from an infinite successful orbit.  Thus a formula-generated 10,000-digit
+candidate need not ship hidden gate metadata; the remaining obligation is a
+generic proof that its ordinary `k_t` formula survives the executable map for
+every `t`.
+
+For a fixed opcode `j`, the simultaneous mod-8 and mod-9 tests select one odd
+residue `u_j (mod 72)`.  Writing `u=u_j+72t` turns (10) into the exact affine
+tag instruction
+
+```text
+k = 2^j(u_j+72t),
+B(k) = b_j + 3^(j+4)t.
+```
+
+The residues repeat with period six,
+`u_j=71,13,47,37,23,61 (mod 72)`, because powers of two modulo nine do.  The
+[exact checker](../../experiments/kontorovich/router_breakoff.py) constructs
+these complete branches and translates literal members back through the
+canonical splash decoder.  Its committed artifact lists `j=0..64` and
+replays 64 tails per opcode.  Those 4,160 replays are bounded regressions; the
+displayed coefficient identities and Lean router theorems carry the universal
+semantics.
+
+### 5.10 A collision can consume and regenerate a spatial gap
+
+Simon's “splash the gap” question has a literal answer in the `k` coordinate.
+For `q>=1`, define a clean delay-line state
+
+```text
+k = 9*2^(3q)c-1.                                      (11)
+```
+
+It is odd and is a legal opcode-zero state.  One application of (10) gives
+
+```text
+9*2^(3q)c-1  ->  9*2^(3(q-1))(9c)-1.                 (12)
+```
+
+Thus one instruction consumes exactly three clean binary gap bits while the
+nonlocal coefficient is multiplied by nine.  After `q` ticks, the low packet
+meets the coefficient at the collision state
+
+```text
+3^(2q+2)c-1 = 2^j u,          u odd.                  (13)
+```
+
+The dirty odd part `u` is not merely debris.  If it is aligned so that
+
+```text
+3^j u+1 = 2^(3(q'+1)) c',     c' odd, q'>=1,          (14)
+```
+
+then the collision instruction emits
+
+```text
+9*2^(3q')c'-1,                                        (15)
+```
+
+another clean delay line.  This is precisely the proposed sacrificial
+cleanup: the collision's distributed odd bits absorb the carry and install a
+new all-zero region farther across the binary word.
+
+The construction is complete at the level of one finite gate.  Eliminating
+`u` from (13)--(14) gives
+
+```text
+2^(j+3q'+3)c' = 3^(j+2q+2)c + 2^j - 3^j.             (16)
+```
+
+For every `q,q'>=1` and `j>=0`, exactness of the output valuation selects the
+unique class
+
+```text
+c = 3^(-(j+2q+2))
+      * (3^j-2^j+2^(j+3q'+3))
+      (mod 2^(j+3q'+4)).                              (17)
+```
+
+All powers of three are invertible modulo the displayed power of two.  If
+`c=c_0+2^(j+3q'+4)t`, the corresponding `u` and `c'` are affine with strides
+
+```text
+2^(3q'+4) 3^(2q+2),        2*3^(j+2q+2),              (18)
+```
+
+respectively.  The smallest useful regression at `(q,j,q')=(1,2,1)` has
+`c=13,u=263,c'=37` and
+
+```text
+935 -> 1052 -> 2663.
+```
+
+The first step consumes its one delay cell; the second performs the collision
+and restores one.  The ordinary seed nevertheless later reaches `1`.
+
+[`breakoff_delay_gate.py`](../../experiments/kontorovich/breakoff_delay_gate.py)
+constructs these affine classes and replays each delay tick and collision
+through the canonical Collatz router.  Its audit covers all 1,088 triples
+`q,q' in 1..8`, `j in 0..16`, with eight tails each (8,704 literal macro
+replays).  This establishes a finite regenerative instruction family, not an
+infinite orbit.  The unresolved seam is global and nonlocal: the outgoing
+coefficient `c'` of every gate must itself lie in the input cylinder of the
+next gate for one fixed ordinary integer.  Lean commit `a1a5fd0` proves that
+the resulting collision-opcode sequence cannot even become periodic; a
+successful “program” must continually generate fresh arithmetic information.
 
 ## 6. Ranked attack and kill tests
 
