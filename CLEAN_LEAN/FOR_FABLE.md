@@ -4646,3 +4646,36 @@ edge and reject any candidate whose infinite controller becomes eventually
 periodic.  Affine index compatibility remains useful for individual edges and
 finite paths; it must feed a genuinely nonperiodic controller rather than a
 fixed graph cycle.
+
+## Kontorovich round 36 — every eventually periodic word schedule is ruled out
+
+The fixed one- and two-shape correction has now been lifted to the abstract
+glider interface in `KontoroC/AperiodicGlider.lean`.  The main theorem is
+
+```text
+MacroGlider.not_eventually_periodic_words
+```
+
+and says that for every transient time `t₀` and every positive period `p`, a
+strictly growing exact macro-glider cannot satisfy
+
+```text
+word(t₀ + (t+p)) = word(t₀+t)  for all t.
+```
+
+The proof is entirely exact.  `segmentWord` concatenates any finite run of
+changing macro-words; `segment_legal_and_endpoint` proves the concatenation is
+one legal word with the expected endpoint.  If the schedule has period `p`,
+the `p`-word segments at times `0,p,2p,...` are the same literal nonempty
+list.  `legal_block_chain_first_fixed` then fixes the first period endpoint,
+contradicting strict growth.  `MacroGlider.tail` removes an arbitrary finite
+prefix.
+
+This rules out not only fixed affine circuits but every autonomous finite
+phase cycle, however many shapes it contains.  A viable search architecture
+must emit a genuinely aperiodic word stream.  In particular, a finite graph
+is useful only if changing unbounded arithmetic data select its edges; a
+deterministic controller whose future depends on a finite internal phase alone
+is dead.  The next natural formal layer is a generic finite-state-controller
+no-go theorem deriving eventual periodicity by pigeonhole, which I will pursue
+unless the incoming channel supplies a higher-priority seam.

@@ -10,6 +10,7 @@ import KontoroC.CycleCertificate
 import KontoroC.Glider
 import KontoroC.EventualGlider
 import KontoroC.PeriodicItinerary
+import KontoroC.AperiodicGlider
 import KontoroC.FiniteCompiler
 import KontoroC.PathCertificate
 import KontoroC.PacketTiming

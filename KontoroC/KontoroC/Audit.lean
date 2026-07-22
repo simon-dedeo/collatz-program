@@ -35,6 +35,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.repeated_legal_block_shape_strict
 #print axioms KontoroC.no_repeated_legal_block_of_twoPow_le_threePow
 #print axioms KontoroC.not_repeated_legal_block_strictly_growing
+#print axioms KontoroC.MacroGlider.segment_legal_and_endpoint
+#print axioms KontoroC.MacroGlider.not_periodic_words
+#print axioms KontoroC.MacroGlider.not_eventually_periodic_words
 #print axioms KontoroC.affineOddFactor_iff_wordLegal
 #print axioms KontoroC.affineOddFactor_iff_finalCongruence
 #print axioms KontoroC.finalCongruence_iff_wordLegal
