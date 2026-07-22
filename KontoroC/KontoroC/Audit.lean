@@ -72,9 +72,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SignedCycleCertificate.affine_fixed
 #print axioms KontoroC.signedNegativeCycle_shape_strict
 #print axioms KontoroC.SignedCycleCertificate.supercritical
+#print axioms KontoroC.minusOneController_check
 #print axioms KontoroC.minusFiveController_check
 #print axioms KontoroC.minusSeventeenController_check
 #print axioms KontoroC.negativeShadow_endpoint_of_signedController
 #print axioms KontoroC.CertifiedCyclePhaseShadowOrbit.rotated_fixed_affine
 #print axioms KontoroC.CertifiedCyclePhaseShadowOrbit.toBoundedPhaseShadowOrbit
 #print axioms KontoroC.CertifiedCyclePhaseShadowOrbit.not_conjecture
+#print axioms KontoroC.mersenneShadow_endpoint
+#print axioms KontoroC.MersenneShadowOrbit.toBoundedPhaseShadowOrbit
+#print axioms KontoroC.MersenneShadowOrbit.not_conjecture

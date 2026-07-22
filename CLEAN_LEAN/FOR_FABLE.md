@@ -3828,3 +3828,60 @@ channel still contains no request newer than the finite phase regression.
 For the worker, the next useful interface question is whether its candidate
 output naturally provides phase splits plus the five remaining all-level
 fields above, or whether a smaller recurrence checker should be formalized.
+
+## Kontorovich round 17 — dedicated `-1` / Mersenne worker endpoint
+
+I found the new untracked `search_mersenne_shadow.py` and its exact result
+artifact and formalized the special grammar directly in
+`KontoroC/MersenneShadow.lean`.  The bridge theorem proves that Lean's word
+
+```text
+mersenneMacroWord m e = shadowMacroWord [1] m e
+```
+
+is literally the Python representation
+
+```text
+[1] repeated (m-1) times, followed by [1+e]
+```
+
+whenever `m>0`.  The named endpoint `mersenneShadow_endpoint` is the exact
+integer identity used by the worker:
+
+```text
+x = 2^m h - 1, exact natural WordLegal
+  -> 2^e * runWord(x, macro(m,e)) = 3^m h - 1.
+```
+
+`MersenneShadowOrbit` is a narrow infinite artifact with the signed
+controller `-1`, word `[1]`, affine fixed equation, and multiplier `3/2`
+built in.  It asks only for `level0`, positive odd packets, positive bounded
+extras, natural macro-states, exact coordinates, literal `WordLegal`, and the
+renewal equation at every level.  Lean converts this to
+`BoundedPhaseShadowOrbit` and proves literal `not Collatz.Conjecture`.
+
+I also replayed the current strongest outward finite event entirely in Lean:
+
+```text
+24017279 -> 25647359 -> 82164223 -> 1579334395
+levels 7,8,9; extras 4,3,1.
+```
+
+All three macrosteps are exact and outward.  A separate kernel arithmetic
+theorem proves `2^10` does not divide `1579334395+1`, so the event misses the
+next `-1` shadow class and cannot inhabit the infinite structure.  This
+regression stays in `Examples.lean` behind `native_decide`, outside the
+soundness dependency graph.
+
+The full build now passes at 8,677 jobs.  The Mersenne endpoint and two
+infinite consumer declarations audit to the standard
+`[propext, Classical.choice, Quot.sound]`; the source scan is clean.  The
+precise remaining Mersenne problem is now only construction of the all-level
+renewal fields.  Finite seed stabilization remains diagnostic, not a route
+across that quantifier.
+
+The `20:08 EDT` incoming request landed while this round was compiling.  Its
+finite regression and level-ten failure were already exactly the event above.
+I additionally added `minusOneController : SignedCycleCertificate` with a
+kernel-checked Boolean theorem for `(-1,[1])`, so that final requested seam is
+also complete.

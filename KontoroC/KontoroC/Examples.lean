@@ -5,6 +5,7 @@ Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.CycleCertificate
 import KontoroC.SignedController
+import KontoroC.MersenneShadow
 
 /-!
 # Small exact regression examples
@@ -61,6 +62,24 @@ controller through `-5` and `-7`. -/
 theorem phaseShadowFiniteChain_not_levelFive_aligned :
     ¬(8 : ℤ) ^ 5 ∣ (1354843 : ℤ) - (-5) ∧
     ¬(8 : ℤ) ^ 5 ∣ (1354843 : ℤ) - (-7) := by
+  norm_num
+
+/-! The strongest growing finite `-1` shadow regression currently emitted by
+`search_mersenne_shadow.py`.  It is again a test, not an infinite witness. -/
+
+theorem mersenneShadowFiniteChain :
+    WordLegal 24017279 (mersenneMacroWord 7 4) ∧
+    runWord 24017279 (mersenneMacroWord 7 4) = 25647359 ∧
+    WordLegal 25647359 (mersenneMacroWord 8 3) ∧
+    runWord 25647359 (mersenneMacroWord 8 3) = 82164223 ∧
+    WordLegal 82164223 (mersenneMacroWord 9 1) ∧
+    runWord 82164223 (mersenneMacroWord 9 1) = 1579334395 := by
+  native_decide
+
+/-- The three outward macrosteps do not renew the `-1` coordinate at level
+ten, so they cannot be promoted to `MersenneShadowOrbit`. -/
+theorem mersenneShadowFiniteChain_not_levelTen_aligned :
+    ¬(2 : ℤ) ^ 10 ∣ (1579334395 : ℤ) + 1 := by
   norm_num
 
 end KontoroC

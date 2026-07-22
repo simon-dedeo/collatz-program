@@ -92,8 +92,8 @@ and rotated word at each level, matching the phase-changing exact worker.
 common supercritical multiplier and a uniform bound on collision extras imply
 eventual strict growth, automatically produce a large outward tail, and reach
 the literal disproof endpoint.
-`SignedController.lean` independently checks that the worker's `-5` and `-17`
-controllers are literal signed accelerated cycles and derives the affine fixed
+`SignedController.lean` independently checks that the worker's `-1`, `-5`,
+and `-17` controllers are literal signed accelerated cycles and derives the affine fixed
 equation consumed by the shadow endpoint.  These negative cycles remain
 controllers only, never positive counterexamples.
 Every cyclic rotation is also proved legal and closing at its corresponding
@@ -104,6 +104,14 @@ supercritical (`2^S < 3^N`); this no longer needs a separate search premise.
 from one checked controller and per-level cyclic splits it derives every
 rotated fixed equation, common multiplier, and bounded-renewal premise before
 reaching the literal disproof theorem.
+For the special `-1` controller, `MersenneShadowOrbit` is a smaller exact
+endpoint matching `search_mersenne_shadow.py`: the controller, word `[1]`,
+multiplier `3/2`, and affine fixed equation are no longer artifact fields.
+Only the infinite positive coordinate/legality/renewal data and a uniform
+collision bound remain for the worker to supply.
+The worker's current three-macro outward chain from `24017279` is replayed in
+`Examples.lean`; Lean also verifies that its endpoint misses the required
+level-ten `-1` residue class, so it is explicitly not an infinite artifact.
 
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.

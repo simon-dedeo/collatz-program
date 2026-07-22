@@ -182,12 +182,20 @@ theorem SignedCycleCertificate.supercritical {c : SignedCycleCertificate}
   have hv := c.valid_of_check h
   exact signedNegativeCycle_shape_strict hv.1 hv.2.1 hv.2.2.1 hv.2.2.2
 
+/-- The negative fixed point used by the Mersenne-shadow worker. -/
+def minusOneController : SignedCycleCertificate := ⟨-1, [1]⟩
+
 /-- The `-5` controller used by the shadow workers. -/
 def minusFiveController : SignedCycleCertificate := ⟨-5, [1, 2]⟩
 
 /-- The `-17` controller used by the shadow workers. -/
 def minusSeventeenController : SignedCycleCertificate :=
   ⟨-17, [1, 1, 1, 2, 1, 1, 4]⟩
+
+theorem minusOneController_check : minusOneController.check = true := by
+  norm_num [minusOneController, SignedCycleCertificate.check,
+    SignedCycleCertificate.Valid, SignedWordLegal, SignedLegalInstruction,
+    signedRunWord, signedStepAt]
 
 theorem minusFiveController_check : minusFiveController.check = true := by
   norm_num [minusFiveController, SignedCycleCertificate.check,
