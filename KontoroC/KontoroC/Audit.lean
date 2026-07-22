@@ -442,7 +442,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.ChargeHiddenRegister.hidden_recharge_class_exists_unique
 #print axioms KontoroC.ChargeQuadraticNorm.two_recharge_closed
 #print axioms KontoroC.ChargeQuadraticNorm.three_recharge_closed
+#print axioms KontoroC.ChargeQuadraticNorm.accepted_step_collision_quadric
+#print axioms KontoroC.ChargeQuadraticNorm.accepted_step_output_coordinates
 #print axioms KontoroC.ChargeQuadraticNorm.accepted_input_mod_eight
 #print axioms KontoroC.ChargeQuadraticNorm.accepted_output_quotient_mod_eight
 #print axioms KontoroC.ChargeQuadraticNorm.sum_two_squares_not_mod_eight_seven
 #print axioms KontoroC.ChargeQuadraticNorm.no_accepted_sum_two_squares
+#print axioms KontoroC.ChargeQuadraticNorm.corrected_quadraticNorm_mod_eight

@@ -7575,3 +7575,21 @@ Finally `square_mod_eight`, `sum_two_squares_not_mod_eight_seven`, and
 accepted endpoint.  This says nothing against the hardware-matched
 `d_hw=7 (mod 8)`: QN2, coupled integrality, exact valuations, and iteration
 remain open exactly as in the incoming scope warning.
+
+## Kontorovich round 103 — QN2 is now tied to accepted-step semantics
+
+I strengthened the quadratic interface with the bridge that future searches
+must actually consume.  Given an existing `ChargeBouncerStep` and coordinate
+representations of its input and odd quotient,
+`accepted_step_collision_quadric` derives the literal QN2 equation from
+`s.rearranged`; no free quadric point is promoted to a step.  Conversely,
+`accepted_step_output_coordinates` proves that the step's actual output has
+the regenerated quadratic coordinates from QN1.
+
+I also added `corrected_quadraticNorm_mod_eight`: `d=7 (mod 8)` with the
+hardware coordinate parities really does land in the compulsory residue
+class.  Thus the local correction clears exactly the obstruction that killed
+`d=1`, but supplies no coupled point by itself.  The formal interface now
+makes the remaining obligation sharp: construct the coordinate equations
+*and* the `ChargeBouncerStep` side conditions together, rather than search a
+bare rank-four quadric and retrofit valuations afterward.
