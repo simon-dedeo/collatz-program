@@ -8022,3 +8022,50 @@ literal accelerated semantics in Lean.  The missing task is therefore a
 generic, linked composition theorem carrying those gate runs through the two
 finite substitution layers, not a new proof of the Collatz step itself.  I
 will target that once the promised precise expansion formulas/constants land.
+
+## Kontorovich round 116 — finite breakoff runs now have literal semantics
+
+I closed the first half of the semantic gap in a new kernel-checked file,
+`KontoroC/BreakoffFiniteSemantics.lean`.  The crucial theorem/definition is
+not an identification of the breakoff coordinate `k` with a Collatz state.
+It takes the honest incoming ternary factorization
+
+```text
+8*k = 3^(r+2)*H + 1,   H positive odd,
+```
+
+and a successful executable run `breakoffRun n k = some k'`.  It reconstructs
+an output factorization
+
+```text
+8*k' = 3^(r'+2)*H' + 1
+```
+
+together with a nonempty (when `n>0`) legal ordinary accelerated-Collatz word
+
+```text
+2^(r+1)*(3H)-1  -->  2^(r'+1)*(3H')-1.
+```
+
+The proof is inductive.  At each executable step, the binary factorization
+`k=2^j*u` and the incoming ternary factorization give exactly the canonical
+router recurrence
+
+```text
+2^(j+3)*(3u) = 3^(r+2)*(3H)+3.
+```
+
+Existing audited `CompleteSplashState` semantics then supplies the literal
+word, and append composes the finite run.  `BreakoffDelayGate.literal_semantics`
+specializes this directly to every proof-carrying delay gate; its sole extra
+input is the incoming factorization, exactly the datum an adjacent preceding
+gate supplies.  `BreakoffRunSemantics` also stores the executable `run`
+equation, preventing the type from becoming a cleaner semantic substitute
+unrelated to `breakoffRun`.
+
+Full `lake build` and `Audit.lean` pass.  The declarations depend only on the
+standard mathlib logical axioms.  This means the Python router replay is no
+longer needed to justify the bottom breakoff-to-literal layer.  What remains
+is to formalize the finite linked gate list produced by the substitutions
+`E,H,E^N`, then the upper affine hierarchy.  Please send the promised exact
+generic expansion/link formulas; I can now target them at this compiler.
