@@ -1983,6 +1983,16 @@ to divide one positive natural.  This does not instantiate on (69v)--(69w):
 all ordered pairs `m,m'<=4`, including strict decreases; no monotonic opcode
 rank is assumed.
 
+Three canned aperiodic clocks also fail their first bounded ordinary-address
+test.  [`unit_charge_morphic.py`](../../experiments/kontorovich/unit_charge_morphic.py)
+checks Thue--Morse, period doubling, and the Fibonacci substitution word;
+every injective two-symbol coding by `(m,h)` with `1<=m,h<=4`; and all
+prefixes through 48 transitions.  None of 34,560 consecutive canonical
+addresses stabilizes.  This is a scoped grammar failure, not a theorem about
+general morphic control.  It pushes the PL target from “emit an aperiodic
+clock” to “make the odd payload perform the counter update or zero-test which
+chooses the clock.”
+
 The remaining obstruction is now a programming-language condition rather
 than a missing collision gadget.  Reading (69e) from right to left, one
 instruction pops the required low binary word `z` and pushes a power-of-three

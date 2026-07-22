@@ -307,6 +307,12 @@ identically `x`.
   decrement/zero-test, and finite control operations inside the accepted
   arithmetic classes.  This valuation
   bouncer—not a further nested address—is now the primary synthesis target.
+  The first low-description clocks do not solve it: an exact audit of
+  Thue--Morse, period-doubling, and Fibonacci words, all 240 injective
+  two-symbol codings by `(m,h)` in `{1,...,4}^2`, and every prefix through 48
+  transitions finds no canonical-address stabilization.  Search should now
+  target an arithmetic payload-generated counter law, not merely paste a
+  familiar aperiodic word over two fixed opcodes.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -472,6 +478,7 @@ identically `x`.
 | Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
 | Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
 | Fixed defect opcode in the charge bouncer | Closed by Lean commit `5633c44`.  For a fixed affine gain law `B*Z_(t+1)=A*Z_t+C` with coprime `A,B`, `1<B`, and `A>B`, the fixed-point defect obeys `B*delta_(t+1)=A*delta_t`; hence every `B^n` divides one positive `delta_0`, impossible.  The concrete theorem applies to every fixed `m`.  It does not apply to the live bouncer, where `m` may decrease or oscillate and each block switches from its `m`-defect law to `h-1` homogeneous backgrounds. | [`AffineQuotientNoGo.lean`](KontoroC/KontoroC/AffineQuotientNoGo.lean) |
+| Three named aperiodic two-opcode bouncer clocks | No canonical ordinary address stabilizes in the exact finite grammar: Thue--Morse, period-doubling, and Fibonacci control words; every injective coding of `0,1` by the 16 pairs `(m,h)` with `1<=m,h<=4`; all 34,560 prefixes through depth 48.  The closest pair shares 33,128 low bits but changes from a 33,386-bit address to a 34,092-bit address.  This closes only these named clocks and bounds, not payload-generated, larger-alphabet, or general morphic bouncers. | [`unit_charge_morphic_audit.json`](experiments/kontorovich/unit_charge_morphic_audit.json) |
 | Standard two-rail schedule `[1]^r[2,2,3]` | Closed at all levels.  Exact affine-family intersection compiles 247 outward rounds from a 10,040-digit seed, but depth 248 changes the seed and exact continuation reaches `1`.  Lean reduces every infinite realization to `2^(r+8)P'=3^(r+3)P+69` and its sole 2-adic Tschakaloff candidate.  Väänänen--Wallisser's 1989 theorem applies at `q=3/2,p=2,alpha=4096/6561` and proves that candidate irrational, so it cannot be an ordinary payload.  This does not close branching or other aperiodic splash programs. | [Finite certificate](experiments/kontorovich/two_rail_chain_247.json), [theorem audit](docs/notes/standard-two-rail-theta.md) |
 | Fixed affine or autonomous finite-state return | Closed as an outward bouncer.  Lean commits `b741a14`/`26f3584` prove fixed affine circuits and every eventually periodic macro-word schedule impossible; `560fcc5` proves an autonomous controller with any finite effective state eventually enters that obstruction.  Coefficientwise, a repeated word would require natural slope `m=3^N/2^S` with `S>0`.  Payload-dependent branching and unbounded shape counters remain open. | [Delocalized tag-ISA note](docs/notes/kontorovich-delocalized-isa.md) |
 | Canonical zero-preload two-rail graph | Exactly checked 128,000 gate shapes in the stated box (`r<=40`, `s<=4`, collision extras `<=4`, output gap `<=41`): 98,760 canonical members are outward, 25 canonical links exist, and the longest linked chain has two gates. Its seed `45247` reaches `1`; a wider targeted audit finds no third canonical gate for that endpoint. This rejects only index-zero links, not branching affine-tail controllers. | [`two_rail_transducer_audit.json`](experiments/kontorovich/two_rail_transducer_audit.json) |
@@ -577,6 +584,53 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 06:45 EDT
+
+The obvious way to add aperiodicity to the reversible bouncer does not pass
+the ordinary-address gate.  I audited three standard low-description binary
+clocks:
+
+```text
+Thue--Morse,
+period doubling,
+Fibonacci substitution 0 -> 01, 1 -> 0.
+```
+
+Each symbol was mapped injectively to every ordered pair of distinct opcodes
+from
+
+```text
+(m,h) in {1,2,3,4}^2.
+```
+
+For all 240 codings and every prefix through 48 bouncer transitions, the
+[exact worker](experiments/kontorovich/unit_charge_morphic.py) compiles the
+complete charge-macro word, links it to the next defect, and reconstructs the
+least positive fixed-form `y`.  None of the 34,560 successive prefixes leaves
+that canonical address unchanged.  The closest nonstabilizing event is the
+period-doubling coding
+
+```text
+0 -> (4,4),     1 -> (3,4),     depth 48,
+```
+
+whose consecutive addresses share 33,128 low bits but have respectively
+33,386 and 34,092 bits.  That is a vivid 2-adic approximation, not one
+ordinary program.
+
+Artifact SHA-256:
+`6beff79aa6fe363f4bbe7cd84a42d7cd69c232bbb13ac1d610201dd4927c52dc`.
+Verifier file SHA-256:
+`c823867bccbc2001c4a3d3c58d4dbd32741f362eced027ed16a5fb7cbf7893b3`.
+
+This failure is deliberately narrow.  It does not touch general morphic
+words, larger opcodes, or—most importantly—the bouncer's evolving odd payload.
+Morita's reversible-counter result also makes clear why a canned aperiodic
+clock is the wrong compiler target: actual universality needs conditional
+counter operations.  The next search will use the payload to implement a
+counter update or zero-test, with the determinant-four resonance as the
+candidate transfer gadget.
 
 ### 2026-07-22 06:16 EDT
 
