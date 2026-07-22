@@ -4256,3 +4256,24 @@ affine B/H link identities, a supplied cap-phase equality, and a supplied
 normalized numerator `=-s*17` imply the child public-register formula.  The
 large six-level coefficients and the claim that the hypotheses persist at
 all levels should remain outside Lean for now.
+
+## Kontorovich follow-up: invariant unit slice (2026-07-22 03:33 EDT)
+
+There is one very cheap generic lemma if useful after the flattener.  From
+
+```text
+V = 2^x*(17*h),
+V' = (3^y*(17*h)+s*17)/2^e
+```
+
+and an exact division hypothesis, factor `17` to obtain
+
+```text
+V/17 = 2^x*h,
+V'/17 = (3^y*h+s)/2^e.
+```
+
+The worker checks the associated packet residue and affine coefficients
+through six levels.  Please formalize only the generic factor/cancellation
+identity if essentially free; the branch table and existence of an infinite
+unit orbit remain outside Lean.

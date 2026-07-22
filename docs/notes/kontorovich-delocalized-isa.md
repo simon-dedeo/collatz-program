@@ -1417,6 +1417,58 @@ ordinary packet eventually literal—most plausibly a finite quine, a
 state-dependent high-level tail, or a branch recurrence whose address stops
 changing even though its decoded macro word remains aperiodic.
 
+### 5.19 An invariant unit-debris sublanguage
+
+The magnitude `17` can be removed on an invariant finite-index slice.  At any
+certified level write its primitive register as
+
+```text
+V=r+mK,                                               (66)
+```
+
+where `m` is odd and, for the six constructed levels, coprime to `17`.  There
+is exactly one class
+
+```text
+K=k_0=-r*m^(-1) (mod 17)                              (67)
+```
+
+with `17|V`.  Put `V=17H`.  If an executable branch has
+`V=2^(an+b)g`, then `g=17h`, and the public law divides identically by `17`:
+
+```text
+H=2^(an+b)h -> H'=(3^(cn+d)h+s)/2^e,  s=+1 or -1.   (68)
+```
+
+In particular `17|V'`, so (67) is preserved without another address filter.
+The nonlocal collision has reduced its residual from `±17` to the indivisible
+unit `±1`.  This is algebraically adjacent to the repository's Mersenne and
+negative-cycle-shadow coordinates, but (68) has different branch exponents;
+no equivalence of their orbit problems is claimed.
+
+`breakoff_unit_slice.py` constructs (68) independently and intersects every
+parent affine branch with (67).  For the six-level hierarchy and `n=1..32`,
+all 192 input/output coefficient pairs agree; four members per branch give
+768 public-map checks.  At level one, 32 members expand through 336 lower
+links and 672 literal gate macros.  The successive packet residues are
+
+```text
+k_0 = 3,16,0,2,6,8  (mod 17).                        (69)
+```
+
+A static odd-payload quine is closed immediately.  If one branch sent
+`h` to the same `h` at another branch, then
+
+```text
+h*(2^B-3^A)=s.                                       (70)
+```
+
+Thus `h=1` and two nontrivial powers would differ by one; the hierarchy's
+large exponent pairs are not the exceptional small solutions.  Periodic
+payload/branch schedules were already closed more generally.  The live unit
+problem is an evolving odd packet whose exact valuation-selected branch word
+is aperiodic.
+
 ## 6. Ranked attack and kill tests
 
 1. Implement the mixed-base rules and mine structured, formula-generated

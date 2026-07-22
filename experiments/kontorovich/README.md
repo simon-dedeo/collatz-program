@@ -1040,6 +1040,45 @@ artifact SHA-256  2e498bfd6f0dec384ebfc9255233c5a5769980d98ffba7f5c9e4ab397e61c7
 verifier SHA-256  2867d3a79d19c002a588927e1564c1850a50a03a107fbe4497b7773017585b75
 ```
 
+## Invariant unit-debris register slice
+
+`breakoff_unit_slice.py` restricts each primitive hierarchy register
+`V=r+mK` to its unique packet class modulo `17` for which `17|V`.  Writing
+`V=17H` reduces
+
+```text
+V=2^(an+b)g -> V'=(3^(cn+d)g+s*17)/2^e
+```
+
+to the invariant public map
+
+```text
+H=2^(an+b)h -> H'=(3^(cn+d)h+s)/2^e.
+```
+
+For every level and cell count, the unit branch is constructed by CRT with
+collision constant `s=+1` or `-1`.  Independently, the parent `±17` affine
+branch is intersected with its packet residue modulo `17`; both input and
+output coefficients must agree after division by `17`.
+
+```bash
+python3 breakoff_unit_slice.py selftest
+python3 breakoff_unit_slice.py build breakoff_unit_slice_audit.json
+python3 breakoff_unit_slice.py verify breakoff_unit_slice_audit.json
+```
+
+The artifact checks six hierarchy levels, `n=1..32`, and four tails per
+branch: 192 coefficient comparisons and 768 exact public-map members.  It
+also literally replays two members for every level-one `n=1..16`, totaling
+336 lower links and 672 gate macros.  The parent packet residues modulo `17`
+are `3,16,0,2,6,8`.  This certifies the invariant unit slice, not an infinite
+orbit.
+
+```text
+artifact SHA-256  5c7efdffbfa9f6bb2d16595efbc2f94d8b3930f83c7f6203cdf63334949bec8c
+verifier SHA-256  734a82740d6814132787ae43160d6abef8c0491bb2acfcab6e6156ebd013e5b0
+```
+
 ## Sign-alternating capped-splash hierarchy
 
 `breakoff_renormalization.py` iterates the super-ether construction as exact
