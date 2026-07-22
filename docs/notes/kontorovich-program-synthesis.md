@@ -379,3 +379,8 @@ A nested wider census checks all `2^38` odd packets `h<2^39`, again with zero
 overflows and arbitrary-precision replay.  It finds 14 length-seven chains and
 no length-eight chain.  The finite dataset grows, but the maximum renewal
 depth does not.
+
+The outer nested run checks all `2^41` odd packets `h<2^42`.  Its exact
+overflow counter remains zero, and it finds no chain completing eight
+renewals.  This closes only the stated start-level-one, eight-step box; it is
+not a global Collatz verification bound.

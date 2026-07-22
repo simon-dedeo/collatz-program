@@ -1,0 +1,12 @@
+{
+  "schema": "collatz-mersenne-packet-gpu-search-v1",
+  "arithmetic": "exact_uint64_with_overflow_counter",
+  "device": "NVIDIA GeForce RTX 4090",
+  "bounds": {"start_level": 1, "odd_h_less_than": "4398046511104", "h_bits": 42, "max_steps": 8, "threshold": 8},
+  "odd_packets_checked": "2199023255552",
+  "overflow_count": "0",
+  "maximum_renewals": 7,
+  "hits_at_or_above_threshold": "0",
+  "hits": [
+  ]
+}

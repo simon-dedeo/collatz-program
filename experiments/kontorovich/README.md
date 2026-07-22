@@ -389,3 +389,11 @@ packet completes the eighth renewal.  Artifact SHA-256:
 `676eb8a8c8f5c8c1987a505fe71c08bffe30f613c5348f1fb5852199972b8fe5`.
 The narrower artifact remains useful because it records length-six chains
 that the wider run intentionally omits.
+
+The current outer run raises the bound to `h<2^42`, records only completed
+eight-renewal chains, and exhausts `2,199,023,255,552=2^41` odd packets.  It
+has zero overflows, maximum renewal length seven, and zero stored hits.  The
+Python verifier passes.  Artifact SHA-256:
+`c724370e0db7550965cbec141b8a7efbe171df26e52408012c01f5620b73a8b2`.
+This is the bounded start-level-one packet frontier; it does not constrain
+larger packets, other start levels, or other controller families.
