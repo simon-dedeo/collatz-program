@@ -125,6 +125,25 @@ theorem completeSplashState_outward_of_router_recurrence
   simpa [CompleteSplashState.start, OddCatcherGate.start,
     OddCatcherGate.endpoint, hgr, hgL, hgP, hgP'] using hgrows
 
+/-- The canonical decoder emits the literal universal-router word whenever
+the public states satisfy the router recurrence. -/
+theorem completeSplashState_word_eq_of_router_recurrence
+    (x y : CompleteSplashState)
+    (hrec : 2 ^ (y.railLength + 3) * y.payload =
+      3 ^ (x.railLength + 2) * x.payload + 3) :
+    x.word = List.replicate x.railLength 1 ++ [2, 1] := by
+  obtain ⟨g, hgr, hgs, hga, hgL, hgP, hgP'⟩ :=
+    exists_routerGate_of_payload_recurrence
+      x.railLength y.railLength x.payload y.payload
+      x.payload_pos x.payload_odd y.payload_pos y.payload_odd hrec
+  let ox : CompleteSplashOutcome x.railLength x.payload :=
+    .odd g hgr hgP
+  have hdecoded : x.outcome = ox :=
+    CompleteSplashOutcome.decoded_eq x.payload_pos x.payload_odd ox
+  rw [CompleteSplashState.word, hdecoded]
+  change g.word = List.replicate x.railLength 1 ++ [2, 1]
+  simpa [hgr] using g.router_word_eq hgs hga
+
 /-- Every next payload in the router recurrence is divisible by three. -/
 theorem three_dvd_nextPayload_of_router_recurrence
     (r r' P P' : ℕ)

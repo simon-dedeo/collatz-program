@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.RouterRecurrence
+import KontoroC.AperiodicGlider
 
 /-!
 # The minimal break-off counter recurrence
@@ -101,6 +102,47 @@ def toInfiniteRouterPayloadRecurrence (g : BreakoffCounterOrbit) :
         rw [g.ternary_factor t]
       _ = 3 ^ (g.r t + 2) * (3 * g.H t) + 3 := by ring
   start_large := g.start_large
+
+/-- The exact Collatz macro-word emitted at counter time `t`. -/
+theorem macro_word_eq (g : BreakoffCounterOrbit) (t : ℕ) :
+    (InfiniteCanonicalSplashOrbit.toMacroGlider
+      (InfiniteRouterPayloadRecurrence.toInfiniteCanonicalSplashOrbit
+        g.toInfiniteRouterPayloadRecurrence)).word t =
+      List.replicate (g.r t) 1 ++ [2, 1] := by
+  let q := g.toInfiniteRouterPayloadRecurrence
+  change (q.state t).word = List.replicate (g.r t) 1 ++ [2, 1]
+  have h := completeSplashState_word_eq_of_router_recurrence
+    (q.state t) (q.state (t + 1)) (q.recurrence t)
+  simpa [q, InfiniteRouterPayloadRecurrence.state,
+    toInfiniteRouterPayloadRecurrence] using h
+
+/-- No infinite break-off orbit can have an eventually periodic rail-length
+schedule. -/
+theorem r_not_eventually_periodic (g : BreakoffCounterOrbit) (t₀ : ℕ)
+    {p : ℕ} (hp : 0 < p)
+    (hperiod : ∀ t, g.r (t₀ + (t + p)) = g.r (t₀ + t)) : False := by
+  let glider := g.toInfiniteRouterPayloadRecurrence
+    |>.toInfiniteCanonicalSplashOrbit |>.toMacroGlider
+  apply glider.not_eventually_periodic_words t₀ hp
+  intro t
+  rw [show glider.word (t₀ + (t + p)) =
+      List.replicate (g.r (t₀ + (t + p))) 1 ++ [2, 1] by
+        exact g.macro_word_eq _,
+    show glider.word (t₀ + t) =
+      List.replicate (g.r (t₀ + t)) 1 ++ [2, 1] by
+        exact g.macro_word_eq _,
+    hperiod t]
+
+/-- In particular, the binary opcode `j_t=v₂(k_t)` must itself be genuinely
+aperiodic; a finite periodic opcode loop cannot be a counterexample. -/
+theorem j_not_eventually_periodic (g : BreakoffCounterOrbit) (t₀ : ℕ)
+    {p : ℕ} (hp : 0 < p)
+    (hperiod : ∀ t, g.j (t₀ + (t + p)) = g.j (t₀ + t)) : False := by
+  apply g.r_not_eventually_periodic (t₀ + 1) hp
+  intro t
+  rw [show t₀ + 1 + (t + p) = (t₀ + (t + p)) + 1 by omega,
+    show t₀ + 1 + t = (t₀ + t) + 1 by omega,
+    g.next_r, g.next_r, hperiod t]
 
 /-- Main endpoint: any infinite positive proof-carrying break-off orbit
 refutes the literal standard Collatz conjecture. -/
