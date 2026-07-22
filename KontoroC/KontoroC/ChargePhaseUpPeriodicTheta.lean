@@ -23,6 +23,108 @@ open MersennePacketRenewal
 
 namespace PeriodicPhaseUp
 
+/-! ## Exact range of the 1989 size hypothesis -/
+
+noncomputable def gamma : ℝ :=
+  1 - (23 : ℝ) * Real.log 2 / (17 * Real.log 3)
+
+noncomputable def threshold (L : ℕ) : ℝ :=
+  (2 * L + 1 - √(1 + 4 * (L : ℝ) ^ 2)) / (2 * L)
+
+theorem gamma_lt_one_sixth : gamma < (1 : ℝ) / 6 := by
+  have hratio : (5 : ℝ) / 8 < Real.log 2 / Real.log 3 := by
+    have h :=
+      NormalizedStandardPayloadStream.log_size_parameter_lt_three_eighths
+    linarith
+  have hscaled : (5 : ℝ) / 6 <
+      ((23 : ℝ) / 17) * (Real.log 2 / Real.log 3) := by
+    nlinarith
+  rw [gamma]
+  have hlog3 : Real.log 3 ≠ 0 := ne_of_gt (Real.log_pos (by norm_num))
+  rw [show (23 : ℝ) * Real.log 2 / (17 * Real.log 3) =
+      ((23 : ℝ) / 17) * (Real.log 2 / Real.log 3) by
+    field_simp]
+  linarith
+
+theorem one_sixth_lt_threshold_two :
+    (1 : ℝ) / 6 < threshold 2 := by
+  have hsqrt_nonneg : 0 ≤ √(17 : ℝ) := Real.sqrt_nonneg _
+  have hsqrt_sq : (√(17 : ℝ)) ^ 2 = 17 := by norm_num
+  have hsqrt_lt : √(17 : ℝ) < 13 / 3 := by nlinarith
+  norm_num [threshold]
+  nlinarith
+
+theorem gamma_lt_threshold_two : gamma < threshold 2 :=
+  gamma_lt_one_sixth.trans one_sixth_lt_threshold_two
+
+theorem three_pow_29_lt_two_pow_46 : 3 ^ 29 < 2 ^ 46 := by
+  norm_num
+
+theorem gamma_lt_three_twentieths : gamma < (3 : ℝ) / 20 := by
+  have hlog3 : 0 < Real.log 3 := Real.log_pos (by norm_num)
+  have hpow : (3 : ℝ) ^ 29 < (2 : ℝ) ^ 46 := by norm_num
+  have hlogpow : Real.log ((3 : ℝ) ^ 29) < Real.log ((2 : ℝ) ^ 46) :=
+    Real.strictMonoOn_log
+      (show 0 < (3 : ℝ) ^ 29 by positivity)
+      (show 0 < (2 : ℝ) ^ 46 by positivity) hpow
+  rw [Real.log_pow, Real.log_pow] at hlogpow
+  have hratio : (29 : ℝ) / 46 < Real.log 2 / Real.log 3 := by
+    apply (div_lt_div_iff₀ (by norm_num : (0 : ℝ) < 46) hlog3).2
+    simpa [mul_comm] using hlogpow
+  have hscaled : (17 : ℝ) / 20 <
+      ((23 : ℝ) / 17) * (Real.log 2 / Real.log 3) := by
+    nlinarith
+  rw [gamma]
+  rw [show (23 : ℝ) * Real.log 2 / (17 * Real.log 3) =
+      ((23 : ℝ) / 17) * (Real.log 2 / Real.log 3) by
+    field_simp]
+  linarith
+
+theorem three_twentieths_lt_threshold_three :
+    (3 : ℝ) / 20 < threshold 3 := by
+  have hsqrt_nonneg : 0 ≤ √(37 : ℝ) := Real.sqrt_nonneg _
+  have hsqrt_sq : (√(37 : ℝ)) ^ 2 = 37 := by norm_num
+  have hsqrt_lt : √(37 : ℝ) < 61 / 10 := by nlinarith
+  norm_num [threshold]
+  nlinarith
+
+theorem gamma_lt_threshold_three : gamma < threshold 3 :=
+  gamma_lt_three_twentieths.trans three_twentieths_lt_threshold_three
+
+theorem two_pow_184_lt_three_pow_119 : 2 ^ 184 < 3 ^ 119 := by
+  norm_num
+
+/-- The first failure of this particular sufficient criterion: the actual
+gamma lies strictly above `1/8`. -/
+theorem one_eighth_lt_gamma : (1 : ℝ) / 8 < gamma := by
+  have hlog3 : 0 < Real.log 3 := Real.log_pos (by norm_num)
+  have hpow : (2 : ℝ) ^ 184 < (3 : ℝ) ^ 119 := by norm_num
+  have hlogpow : Real.log ((2 : ℝ) ^ 184) < Real.log ((3 : ℝ) ^ 119) :=
+    Real.strictMonoOn_log
+      (show 0 < (2 : ℝ) ^ 184 by positivity)
+      (show 0 < (3 : ℝ) ^ 119 by positivity) hpow
+  rw [Real.log_pow, Real.log_pow] at hlogpow
+  have hratio : Real.log 2 / Real.log 3 < (119 : ℝ) / 184 := by
+    apply (div_lt_div_iff₀ hlog3 (by norm_num : (0 : ℝ) < 184)).2
+    simpa [mul_comm] using hlogpow
+  have hscaled : ((23 : ℝ) / 17) * (Real.log 2 / Real.log 3) < 7 / 8 := by
+    nlinarith
+  rw [gamma]
+  rw [show (23 : ℝ) * Real.log 2 / (17 * Real.log 3) =
+      ((23 : ℝ) / 17) * (Real.log 2 / Real.log 3) by
+    field_simp]
+  linarith
+
+theorem threshold_four_lt_one_eighth : threshold 4 < (1 : ℝ) / 8 := by
+  have hsqrt_nonneg : 0 ≤ √(65 : ℝ) := Real.sqrt_nonneg _
+  have hsqrt_sq : (√(65 : ℝ)) ^ 2 = 65 := by norm_num
+  have hsqrt_gt : 8 < √(65 : ℝ) := by nlinarith
+  norm_num [threshold]
+  linarith
+
+theorem threshold_four_lt_gamma : threshold 4 < gamma :=
+  threshold_four_lt_one_eighth.trans one_eighth_lt_gamma
+
 /-- One nonempty finite word of positive jump sizes. -/
 structure JumpWord where
   period : ℕ

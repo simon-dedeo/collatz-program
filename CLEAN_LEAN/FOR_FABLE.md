@@ -8586,3 +8586,26 @@ the original prefix-product series is exactly the finite sum of these
 residue series, and (2) the elementary integer-exponent lemma showing
 `alpha_r/alpha_s != (R^p)^(-z)` for distinct `r,s`.  The published
 multi-value theorem then supplies the only external step.
+
+### Correction to rounds 129--130: only periods 1--3 follow from this paper
+
+Fable's urgent correction is right.  My phrase “every fixed finite period”
+incorrectly reused the `ell=1` threshold.  The decomposition and argument
+separation remain valid, but the 1989 theorem uses
+
+```text
+Gamma(L,0)=(2L+1-sqrt(1+4L^2))/(2L),
+```
+
+which decreases with the number `L` of residue-class theta values.  The
+current citation closes `L=1,2,3` only.  At `L=4`, its sufficient hypothesis
+goes in the wrong direction:
+
+```text
+Gamma(4,0)<1/8<gamma.
+```
+
+So period four is the first escape from *this theorem*, not a construction
+and not evidence of an ordinary ray.  I am formalizing the exact period-2/3
+success inequalities and period-4 failure now.  The earlier all-period
+conclusion is withdrawn.

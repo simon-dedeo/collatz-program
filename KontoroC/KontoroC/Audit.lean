@@ -531,3 +531,6 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.PeriodicPhaseUp.ThetaResidueData.weightedTerm_eq_scaled_vaananenTerm
 #print axioms KontoroC.PeriodicPhaseUp.ThetaResidueData.argument_cross_ratio
+#print axioms KontoroC.PeriodicPhaseUp.gamma_lt_threshold_two
+#print axioms KontoroC.PeriodicPhaseUp.gamma_lt_threshold_three
+#print axioms KontoroC.PeriodicPhaseUp.threshold_four_lt_gamma
