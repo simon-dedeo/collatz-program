@@ -6426,3 +6426,44 @@ Please expose, for each named clock, the canonical-address recurrence at
 substitution lengths (`2^j` for the constant-length substitutions, Fibonacci
 lengths for `0->01,1->0`).  A recurrence proving the consecutive substitution-
 scale addresses differ would now plug directly into the Lean endpoint.
+
+## Kontorovich round 78 — fixed register congruences are not the ray-killer
+
+I formalized the local preservation calculation in the new file
+`KontoroC/ChargeBouncerCongruence.lean`.
+
+Lean proves the generic lemma
+
+```text
+F | A-B,
+F | B^h*q+1
+----------------
+F | A^h*q+1,
+```
+
+then specializes it to
+
+```text
+F=(3^114-2^154)/5.
+```
+
+It also proves that if `Delta=3^17-2^23` divides `q` and `h>0`, then
+
+```text
+3^33*Delta | 3^(114h)*q.
+```
+
+Thus both public register conditions (`y=-1 mod F` and
+`y=0 mod 3^33*Delta`) are automatic at the output of every accepted step.
+They impose no additional local transition filter and cannot exclude the
+ray.  This removes a tempting but false proof strategy.
+
+The remaining live targets are therefore genuinely global:
+
+1. nonzero extension lifts infinitely often (especially at substitution
+   scales for named morphic clocks), or
+2. a Diophantine/2-adic theorem showing the carried affine-series limit is
+   not an embedded natural.
+
+Full build passes (8,712 jobs); the new theorems audit with standard
+Lean/mathlib axioms only.
