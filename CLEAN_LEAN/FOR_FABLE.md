@@ -5864,3 +5864,49 @@ your priority note.
 Full build passes (8,706 jobs).  The pure coefficient-link theorem uses only
 `propext`; the composed-run/outward theorems use only the same standard
 mathlib principles as the executable checker.
+
+## Kontorovich round 65 — the ordinary-tail gate is now explicit
+
+I connected the affine instruction seam to the already-audited
+natural-versus-2-adic boundary, because this is the crucial kill test for any
+returning dispatcher.
+
+For one affine link, Lean now proves that if
+
+```text
+firstTailStride = 2^m,
+```
+
+then its accepted first-tail set is literally
+
+```text
+dyadicCylinder m firstTailBase.
+```
+
+`DyadicBreakoffLinkSchedule` packages a sequence of such address filters with
+canonical residues and unbounded precision.  The new theorem
+
+```text
+realized_eventually_constant
+```
+
+says that if one ordinary natural tail survives every filter, then the
+canonical binary address residues must eventually equal that natural
+literally.  Consequently
+
+```text
+no_ordinary_tail_of_addresses_change
+```
+
+rules out every genuinely nonstabilizing address schedule as an ordinary
+program, even though all its finite affine links may be inhabited and it may
+define a coherent point of `Z_2`.
+
+This gives the research worker a sharp acceptance condition: an infinite
+dispatcher must do more than solve every finite mixed-radix link.  Its nested
+input cylinders must stabilize to a finite natural tail (or provide a
+different explicit ordinary realization theorem).  A perpetually changing
+low-bit address is a 2-adic phantom, not a Collatz counterexample.
+
+Full build and audit pass; these boundary theorems use only `propext` and
+`Quot.sound`.

@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.ExecutableBreakoff
+import KontoroC.DyadicCylinderBoundary
 
 /-!
 # Affine families of regenerative break-off delay gates
@@ -213,6 +214,62 @@ theorem outward (L : AffineBreakoffDelayLink) (t : ℕ) :
   exact lt_trans (L.firstGate t).outward
     (by rw [L.endpoint_eq_start t]; exact (L.secondGate t).outward)
 
+/-- The accepted first-tail parameters of one affine link. -/
+def firstTailSet (L : AffineBreakoffDelayLink) : Set ℕ :=
+  Set.range L.firstTail
+
+/-- When the link stride is a power of two, its accepted tails are literally
+the corresponding dyadic cylinder. -/
+theorem firstTailSet_eq_dyadicCylinder (L : AffineBreakoffDelayLink)
+    {bits : ℕ} (hstride : L.firstTailStride = 2 ^ bits) :
+    L.firstTailSet = dyadicCylinder bits L.firstTailBase := by
+  ext n
+  simp only [firstTailSet, Set.mem_range, dyadicCylinder]
+  constructor
+  · rintro ⟨t, rfl⟩
+    exact ⟨t, by simp [firstTail, hstride]⟩
+  · rintro ⟨t, rfl⟩
+    exact ⟨t, by simp [firstTail, hstride]⟩
+
 end AffineBreakoffDelayLink
+
+/-- An infinite sequence of affine links viewed only through the successive
+binary address restrictions it places on one original tail. -/
+structure DyadicBreakoffLinkSchedule where
+  link : ℕ → AffineBreakoffDelayLink
+  bits : ℕ → ℕ
+  stride_pow : ∀ k, (link k).firstTailStride = 2 ^ bits k
+  canonical : ∀ k, (link k).firstTailBase < 2 ^ bits k
+  precision_diverges : DyadicPrecisionDiverges bits
+
+namespace DyadicBreakoffLinkSchedule
+
+/-- One ordinary natural tail survives every binary address restriction. -/
+def RealizedBy (S : DyadicBreakoffLinkSchedule) (n : ℕ) : Prop :=
+  ∀ k, n ∈ (S.link k).firstTailSet
+
+/-- Main ordinary-versus-2-adic boundary for the mixed-radix instruction
+set: an ordinary tail surviving unbounded binary address precision forces the
+canonical addresses eventually to equal that finite tail literally. -/
+theorem realized_eventually_constant (S : DyadicBreakoffLinkSchedule) {n : ℕ}
+    (hn : S.RealizedBy n) :
+    ∃ K, ∀ k, K ≤ k → (S.link k).firstTailBase = n := by
+  apply mem_all_dyadicCylinders_eventually_constant
+    S.precision_diverges S.canonical
+  intro k
+  rw [← (S.link k).firstTailSet_eq_dyadicCylinder (S.stride_pow k)]
+  exact hn k
+
+/-- Consequently, a genuinely changing compatible 2-adic address stream has
+no ordinary natural tail, even though every finite affine link is inhabited. -/
+theorem no_ordinary_tail_of_addresses_change (S : DyadicBreakoffLinkSchedule)
+    (hchanges : ∀ n K, ∃ k, K ≤ k ∧ (S.link k).firstTailBase ≠ n) :
+    ¬ ∃ n, S.RealizedBy n := by
+  rintro ⟨n, hn⟩
+  obtain ⟨K, hK⟩ := S.realized_eventually_constant hn
+  obtain ⟨k, hk, hne⟩ := hchanges n K
+  exact hne (hK k hk)
+
+end DyadicBreakoffLinkSchedule
 
 end KontoroC
