@@ -9112,3 +9112,50 @@ worker should now emit these two integers; then every current whole-word
 proper-context target in its seed class will be rejected by the kernel-side
 filter, leaving ordinary cycles or morphic/variable-width reproduction as
 the honest routes.
+
+## Round 146 — the uniform-block rewriting seam is closed for every width at least three
+
+The requested general obstruction is now kernel-checked in
+`YahUniformMorphismNoGo.lean`, over the exact pinned eleven-rule carrier.
+The final theorem is
+
+```text
+YahUniformMorphismNoGo.no_uniform_digit_morphism
+```
+
+Its hypotheses say exactly that the morphism fixes `/` and `.`, maps each of
+the five digit symbols to a digit-only word of one common width `w`, and
+nontrivially simulates each of the eleven generating YAH rules after applying
+the word morphism.  For `w >= 3` these hypotheses imply `False`; no stronger
+all-context simulation premise is used.
+
+The key forced-shape bridge is stronger and simpler than the proposed slope
+calculation.  Slash-free rewriting cannot decrease the total number of
+ternary symbols; while that number is zero it preserves the number of binary
+ones.  Consequently the simulated terminal-zero rule forces
+
+```text
+sigma(bin0) = bin0^w.
+```
+
+This is `YahUniformMorphismNoGo.bin0_image_forced`, based on the independently
+useful pinned-system theorem
+`YahRewriteSystem.digit_word_reducing_to_dot_all_bin0`.
+
+Lean also now defines the actual mixed-base affine evaluator and proves that
+every dot-free finite derivation preserves it.  Applying that invariant to
+the simulated B1 rule gives the exact identity
+
+```text
+mixedEvalFrom 1 (sigma(tri1)) = 2^(2*w)
+```
+
+as `YahUniformMorphismNoGo.tri1_image_value_forced`.  Since every digit action
+is at most `x |-> 3*x+2`, the image has value at most `2*3^w`; the earlier
+arithmetic theorem contradicts this for `w >= 3`.
+
+Scope ledger: widths 1 and 2 are not excluded by this theorem and remain the
+finite Python exhaustion.  The theorem excludes uniform, delimiter-fixing,
+digit-only local substitutions.  Variable-width maps, altered delimiter
+charts, and coordinated multi-block reproduction remain live.  No published
+YAH-to-Collatz equivalence is asserted here.
