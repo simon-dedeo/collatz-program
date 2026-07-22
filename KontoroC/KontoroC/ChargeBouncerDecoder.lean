@@ -126,6 +126,76 @@ theorem input_readback (s : ChargeBouncerStep) :
   rw [← s.rearranged]
   simp
 
+/-- Eliminating the decoded odd quotient gives one ordinary affine-gain
+equation for the complete defect--recharge block. -/
+theorem affine_balance (s : ChargeBouncerStep) :
+    2 ^ (23 * s.defectOpcode + 154 * s.rechargeCount) * s.output =
+      3 ^ (17 * s.defectOpcode + 114 * s.rechargeCount) * s.input +
+        3 ^ (114 * s.rechargeCount) *
+          (3 ^ (17 * s.defectOpcode) - 2 ^ (23 * s.defectOpcode)) := by
+  have hbase : 2 ^ 23 < 3 ^ 17 := by norm_num
+  have hpow : 2 ^ (23 * s.defectOpcode) ≤
+      3 ^ (17 * s.defectOpcode) := by
+    rw [pow_mul, pow_mul]
+    exact Nat.pow_le_pow_left (Nat.le_of_lt hbase) s.defectOpcode
+  have hadded :
+    2 ^ (23 * s.defectOpcode + 154 * s.rechargeCount) * s.output +
+        3 ^ (114 * s.rechargeCount) *
+          2 ^ (23 * s.defectOpcode) =
+      (3 ^ (17 * s.defectOpcode + 114 * s.rechargeCount) * s.input +
+        3 ^ (114 * s.rechargeCount) *
+          (3 ^ (17 * s.defectOpcode) - 2 ^ (23 * s.defectOpcode))) +
+        3 ^ (114 * s.rechargeCount) *
+          2 ^ (23 * s.defectOpcode) := by
+    calc
+      2 ^ (23 * s.defectOpcode + 154 * s.rechargeCount) * s.output +
+          3 ^ (114 * s.rechargeCount) *
+            2 ^ (23 * s.defectOpcode) =
+      3 ^ (114 * s.rechargeCount) *
+        (2 ^ (23 * s.defectOpcode) *
+          (1 + 2 ^ (154 * s.rechargeCount) * s.oddPart)) := by
+            rw [s.output_eq]
+            simp only [pow_add]
+            ring
+    _ = 3 ^ (114 * s.rechargeCount) *
+        (3 ^ (17 * s.defectOpcode) * (s.input + 1)) := by
+          rw [s.rearranged]
+    _ =
+      (3 ^ (17 * s.defectOpcode + 114 * s.rechargeCount) * s.input +
+        3 ^ (114 * s.rechargeCount) *
+          (3 ^ (17 * s.defectOpcode) - 2 ^ (23 * s.defectOpcode))) +
+        3 ^ (114 * s.rechargeCount) *
+          2 ^ (23 * s.defectOpcode) := by
+            have hsplit :
+                (3 ^ (17 * s.defectOpcode) - 2 ^ (23 * s.defectOpcode)) +
+                    2 ^ (23 * s.defectOpcode) =
+                  3 ^ (17 * s.defectOpcode) :=
+              Nat.sub_add_cancel hpow
+            simp only [pow_add]
+            calc
+              3 ^ (114 * s.rechargeCount) *
+                  (3 ^ (17 * s.defectOpcode) * (s.input + 1)) =
+                3 ^ (114 * s.rechargeCount) *
+                    3 ^ (17 * s.defectOpcode) * s.input +
+                  3 ^ (114 * s.rechargeCount) *
+                    3 ^ (17 * s.defectOpcode) := by ring
+              _ =
+                3 ^ (17 * s.defectOpcode) *
+                    3 ^ (114 * s.rechargeCount) * s.input +
+                  3 ^ (114 * s.rechargeCount) *
+                    ((3 ^ (17 * s.defectOpcode) -
+                      2 ^ (23 * s.defectOpcode)) +
+                        2 ^ (23 * s.defectOpcode)) := by rw [hsplit]; ring
+              _ =
+                (3 ^ (17 * s.defectOpcode) *
+                    3 ^ (114 * s.rechargeCount) * s.input +
+                  3 ^ (114 * s.rechargeCount) *
+                    (3 ^ (17 * s.defectOpcode) -
+                      2 ^ (23 * s.defectOpcode))) +
+                    3 ^ (114 * s.rechargeCount) *
+                      2 ^ (23 * s.defectOpcode) := by ring
+  exact Nat.add_right_cancel hadded
+
 /-- Every accepted fixed-form transition is strictly outward.  This follows
 directly from `2^23 < 3^17` and `2^154 < 3^114`; no macro replay is needed. -/
 theorem strictly_outward (s : ChargeBouncerStep) : s.input < s.output := by

@@ -262,6 +262,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.ChargeBouncerStep.input_opcode_readback
 #print axioms KontoroC.ChargeBouncerStep.opcode_readback
 #print axioms KontoroC.ChargeBouncerStep.input_readback
+#print axioms KontoroC.ChargeBouncerStep.affine_balance
 #print axioms KontoroC.ChargeBouncerStep.strictly_outward
 #print axioms KontoroC.ChargeBouncerStep.data_eq_of_output_eq
 #print axioms KontoroC.ChargeBouncerStep.data_eq_of_input_eq
@@ -271,6 +272,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.fixedFormCongruence_preserved
 #print axioms KontoroC.chargeFixedCongruence_preserved
 #print axioms KontoroC.chargeRegisterModulus_dvd_output
+#print axioms KontoroC.ChargeBouncerOpcodeSchedule.padicDefectTerm_summable
+#print axioms KontoroC.InfiniteChargeBouncerRay.padicCandidate_eq_initial
+#print axioms
+  KontoroC.InfiniteChargeBouncerRay.no_ray_of_candidate_avoids_positiveNaturals
 #print axioms KontoroC.InfiniteRouterPayloadRecurrence.toInfiniteCanonicalSplashOrbit
 #print axioms KontoroC.InfiniteRouterPayloadRecurrence.not_conjecture
 #print axioms KontoroC.twoPow_mul_odd_unique

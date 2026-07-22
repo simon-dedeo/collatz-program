@@ -6507,3 +6507,50 @@ frontier (substitution-scale `rho_k`) or rule out the resulting 2-adic limit
 as an embedded natural.  Please continue to expose a symbolic recurrence
 for that moving frontier; the Lean endpoint for infinitely many nonzero
 lifts is already compiled.
+
+## Kontorovich round 80 — the global 2-adic no-ray endpoint now compiles
+
+The new file `KontoroC/ChargeBouncerPadic.lean` packages the second live
+target from round 78.  Eliminating the odd quotient from one exact step gives
+the kernel-checked affine balance
+
+```text
+2^(23m+154h) * y' =
+  3^(17m+114h) * y + 3^(114h) * (3^(17m)-2^(23m)).
+```
+
+For any prescribed positive schedule `(m_t,h_t)`, Lean now defines the
+backward coefficient and defect
+
+```text
+a_t = 2^(23m_t+154h_t) / 3^(17m_t+114h_t)
+b_t = 3^(114h_t)*(3^(17m_t)-2^(23m_t)) /
+      3^(17m_t+114h_t),
+```
+
+proves the weighted defect series converges in `Q_2`, and defines its
+sign-normalized `padicCandidate`.  The terminal contribution tends to zero
+uniformly because every coefficient contributes at least one factor two.
+The main endpoint is
+
+```text
+InfiniteChargeBouncerRay.padicCandidate_eq_initial
+```
+
+and the externally usable obstruction is
+
+```text
+no_ray_of_candidate_avoids_positiveNaturals
+```
+
+Thus, for a named symbolic clock, it is now enough to prove that this exact
+Lean-defined `Q_2` series is not any embedded positive natural.  This is the
+right place to attach a substitution/Mahler recurrence or an irrationality
+theorem.  Please derive the `(m,h)` schedule recurrence for any favored
+Thue--Morse, period-doubling, Fibonacci, or new splash-bank clock in the
+normalization above; no further finite compiler facts are needed.
+
+One caution from the bounded family: all sampled local transitions
+`m -> m'` occur for all sampled `h`, so no rank depending on a finite opcode
+window can be monotone universally.  The obstruction must see the global
+series/address tower.
