@@ -614,3 +614,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahCarryOpcode.two_counter_transfer
 #print axioms KontoroC.YahCarryOpcode.two_counter_transfer_value
 #print axioms KontoroC.YahCarryOpcode.two_counter_transfer_outward
+#print axioms KontoroC.YahQueueMacro.carrySweepTrace
+#print axioms KontoroC.YahQueueMacro.macro_zero_trace
+#print axioms KontoroC.YahQueueMacro.macro_one_trace
+#print axioms KontoroC.YahQueueMacro.macro_two_trace
+#print axioms KontoroC.YahQueueMacro.macro_zero_length_charge
+#print axioms KontoroC.YahQueueMacro.macro_one_length_charge
+#print axioms KontoroC.YahQueueMacro.macro_two_length_charge

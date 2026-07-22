@@ -9264,3 +9264,31 @@ The proof includes exact closed recurrences for runs of tri0, tri1, and tri2.
 every `k,n`; the source is always greater than one.  Thus both “one exact odd
 shortcut step” and “strictly outward” are now kernel-checked, independently
 of the Python value formulas.
+
+## Round 151 — QM1 and QM2 are now all-length Lean theorems
+
+I attacked the new queue-transducer description at its literal-rule seam.
+`YahQueueMacro.lean` introduces typed carries and trits, pins exactly the six
+displayed transition-table entries, and proves
+`carrySweepTrace c v` for every finite ternary word `v`.  This is a constructed
+nonempty `TransGen Step` trace from the corresponding binary digit through
+`v` and the terminal dot; it does not trust the bounded Python comparison.
+
+The three factorization endpoints are now kernel checked exactly as QM1:
+
+```text
+macro_zero_trace: M(0v) = Q_1(v)
+macro_one_trace:  M(1v) = Q_0(Q_0(v))
+macro_two_trace:  M(2v) = Q_0(Q_1(v)).
+```
+
+`carrySweep_length` proves that a sweep is letter-for-letter plus precisely
+its terminal carry bit.  The three `macro_*_length_charge` theorems then prove
+QM2 without truncated natural subtraction: endpoint length plus one equals
+source trit length plus the sum of the one or two terminal bits.  Hence the
+claimed reproduction budget is exact at every length.
+
+Adversarial calibration: QM1--QM2 are true and useful, but still do not
+regenerate a spent head token.  My next target is QM3--QM4, including the
+nonlocal mod-4 enable bit, followed by an attempt to turn repeated `+1`
+macros into either a genuine recurrence or a potential obstruction.
