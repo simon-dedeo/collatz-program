@@ -1,6 +1,6 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-22, about 15:05 EDT
+Updated: 2026-07-22, about 15:31 EDT
 
 Repository: `/Users/simon/Desktop/COLLATZ`
 
@@ -85,6 +85,36 @@ the boundary no-go, discharging marker counts internally and accepting the two
 flank equalities as certificate data.  Do not widen the literal search.
 The live YAH target is a variable-width, delimiter-changing, or multi-block
 *internal* template/morphism inside fixed outer boundaries.
+
+The first such internal opcode is now exact.  Digit complement
+`bin0<->bin1`, `tri0<->tri2` fixes `tri1` and permutes the six A-rules.  For a
+digit buffer with affine pair `(s,t)`, the complement's terminal defect is
+`s-t>=1`; saturated buffers attain one and execute
+
+```text
+bin1 tri2^n . ->+ tri2^(n+1) .
+/ tri0^k tri2^n . ->+ / tri1^(k-1) tri2^(n+1) .
+```
+
+The worker/artifact are
+
+```text
+experiments/kontorovich/yah_carry_opcode.py
+experiments/kontorovich/yah_carry_opcode_audit.json
+```
+
+They check 488,281 buffers through length eight and literally replay 1,443 run
+macros; all 1,056 transfer cases with `1<=k<=32,0<=n<=32` have one dynamic
+step, satisfy `2*y=3*x+1`, and grow.  Worker hash:
+`bcf2549d767db12be3e769eca9d9e7f3fa2a89768367cbd5a78c2e2f675f675c`;
+artifact hash:
+`2f1fa472db827f5eeec746d31c993dd1806a7ea9510b4ad4055c5850ad11d9b8`.
+
+This is not closure.  It spends one left `tri0` token and phase-changes the
+rest.  The exact constructive target is a contextual recharge from the
+`tri1` phase back to a nonexhausted `tri0` block, with the branch selected by
+the incremented right counter.  Do not replace this equation by a wider word
+or seed search.
 
 ### Canonical arithmetic compiler, with corrected scope
 
@@ -351,7 +381,11 @@ At this update, the newest pushed formalizer checkpoints are:
 - `b733caa`: exact YAH symbols/rules, context closure, marker-count
   preservation, and concrete-carrier specializations of both glider endpoints;
 - `442826d`: actual YAH traces feed the boundary-collapse theorem once the
-  certificate supplies the two flank equalities.
+  certificate supplies the two flank equalities;
+- `2d50381`: the forced-shape/value proof closes every uniform marker-fixed
+  digit morphism of width at least three; exact Python covers widths one/two;
+- `9ca4360`: canonical start/end words make every proper whole-word outer
+  context collapse without separately supplied flank data.
 
 Never edit or stage its live `KontoroC/*` files.  Continue to send exact
 formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
@@ -359,10 +393,10 @@ formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
 
 The best immediate research tasks are:
 
-1. poll for the companion's concrete YAH boundary bridge and forced-shape
-   lemma; the generic morphic pumping theorem is complete;
-2. derive a variable-width or multi-block internal YAH template whose closure
-   is symbolic before launching any larger search;
+1. poll the in-progress all-width marker-fixed affine-rigidity theorem; keep
+   its variable-width scope distinct from `2d50381`'s uniform theorem;
+2. derive a contextual recharge for the exact YAH carry opcode, mapping the
+   `tri1` phase back to a nonexhausted `tri0` block from the right counter;
 3. search for a public invariant predicate on `CompleteSplashState.next`, not
    a deeper finite orbit or another direct CRT handoff;
 4. treat nonlinear stack rewriting or multi-rail address rotation as the
@@ -843,12 +877,11 @@ Diary entry.
 
 1. Poll the detached R23 service, but do not block creative work on it; leave
    the incomplete Ganesha morphic batch stopped.
-2. Poll the companion's concrete YAH rule-invariant bridge and uniform
-   forced-shape lemma.  The finite two-Kraft, thin-trap, and generic morphic
-   pumping endpoints are already closed.
-3. Use the exact YAH checker to seek a variable-width, delimiter-changing, or
-   multi-block *internal* morphic certificate; do not resume whole-word
-   context-loop or larger literal-word searches.
+2. Poll the companion's all-variable-width marker-fixed rigidity theorem.
+   Uniform maps and canonical whole-word context growth are already closed.
+3. Attack the carry machine's missing recharge: regenerate a left `tri0`
+   token block from the incremented right `tri2` counter through a typed
+   contextual macro.  Do not resume whole-word or larger literal searches.
 4. Seek a symbolic invariant `L` for the canonical splash map whose successor
    writes its own next address; do not promote long finite traces.
 5. Keep Simon's spatial metaphor: the invariant should explain how a payload

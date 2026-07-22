@@ -886,6 +886,69 @@ rewrite-theoretic forced-shape implication remains explicit.  The stated
 width-one/two classifications, bounded loop searches, and boundary
 diagnostics are independently machine-replayed in the Python artifact.
 
+### 5.5 The carry defect is the first internal opcode
+
+The auxiliary six-rule base-conversion subsystem has an exact involution:
+
+    bin0 <-> bin1,       tri0 <-> tri2,       tri1 <-> tri1.    (CP27)
+
+It permutes the A-rules in three pairs.  The dynamic boundaries break this
+symmetry, but in a particularly informative way.  If a marker-free digit word
+`V` acts by `x |-> s*x+t`, the complemented image of
+`bin0 dot -> dot` would need `bin1 V` to behave like `V bin0`.  Their slopes
+are equal and their intercept defect is
+
+    delta(V)=s-t.                                             (CP28)
+
+Every finite mixed-base digit word has `0<=t<s`; moreover `delta=1` exactly
+when every digit is maximal in its own base.  Thus no passive right buffer can
+repair the complement symmetry.  The obstruction is not an unstructured
+carry cloud, however: saturation compresses it to one unit.
+
+That unit is an executable unary-counter increment.  Direct rule induction
+gives
+
+    bin1 tri2^n dot  ->+  tri2^(n+1) dot,                    (CP29)
+    bin0 tri0^n dot  ->+  tri0^n dot.                        (CP30)
+
+The left boundary supplies a two-block transfer instruction:
+
+    slash tri0^k tri2^n dot
+      ->+ slash tri1^(k-1) tri2^(n+1) dot,    k>=1.          (CP31)
+
+It consists of `B_0`, `k-1` copies of `A_t0`, `n` copies of `A_t2`, and one
+`DT_t`.  In represented integers,
+
+    N_0(k,n)=3^(k+n)+3^n-1,
+    N_1(k-1,n+1)=(3^(n+1)(3^k+1))/2-1,
+
+and `2*N_1=3*N_0+1`; CP31 is one exact odd shortcut step and is strictly
+outward.  It increments the right counter by spending one left token and
+phase-changing the remaining left block.
+
+The exact [yah_carry_opcode.py](../../experiments/kontorovich/yah_carry_opcode.py)
+artifact checks the CP27 permutation, exhausts all 488,281 digit buffers of
+length at most eight for CP28 and the saturation equality case, and literally
+replays 1,443 bounded instances of CP29--CP31 and a related two-dynamic
+alternating-block identity.  The all-length statements remain induction
+schemas until their Lean replay lands.
+
+This changes the programming model.  A global independent-letter morphism
+must simulate each boundary rule in isolation, so it cannot transport CP28's
+carry between the two ends.  A viable glider should instead be a **typed
+contextual macro**: a left token/correction block and a right max-trit counter
+evolve together across the whole canonical word.  Its missing opcode is now
+precise:
+
+    recharge tri1^(k-1) ... tri2^(n+1)
+      back to tri0^k' ... tri2^n',                           (CP32)
+
+with `k'` not exhausted and with the generated instruction determined by the
+public blocks.  CP32 is allowed to be nonlocal; indeed the positive defect
+shows that a passive local adapter cannot work.  This is Simon's “splash the
+gap” in the mixed-base language: the bad carry is a one-unit instruction
+which must be caught by a second block and rewritten into the next token.
+
 ## 6. Closure should be an identity before it is a search hit
 
 The preferred order of work is now:

@@ -7022,3 +7022,103 @@ outer-flank preservation needed by `YahBoundaryNoGo`.
 Commit `442826d` now connects actual pinned-system traces and internally
 discharges marker counts; I will treat the two flank equalities exactly as its
 remaining certificate inputs.
+
+## All-width marker-fixed morphism rigidity (2026-07-22 15:20 EDT)
+
+There is a stronger all-width theorem behind the uniform-block calculation.
+It appears to close *every* nonerasing digit-word morphism fixing `/` and `.`,
+without a common image length.  Here is the exact algebra.
+
+Assume `sigma slash=[slash]`, `sigma dot=[dot]`, every digit image is a
+nonempty digit-only word, and every one of the eleven rule images has a
+nonempty `TransGen Step` simulation.  (The digit-only condition should also
+follow from delimiter-count preservation, but it is fine to assume it in the
+first theorem.)
+
+First use the image of `bin0 dot -> dot`.  In a slash-free trace ternary count
+cannot decrease.  Since the endpoint has no ternary symbol, the source image
+has none.  With ternary count zero, bin-one count is preserved; hence the
+source has no `bin1` either.  Nonemptiness gives
+
+    sigma(bin0) = bin0^m,       m>=1.                    (MR1)
+
+For a digit word `w`, write its affine action as `x |-> s(w)x+t(w)`.  Every
+simulation of an A-rule contains only A-rules, so it preserves `(s,t)`.  Put
+
+    A=sigma(bin0)=(alpha,0),    B=sigma(bin1)=(beta,b),
+    E=sigma(tri0)=(epsilon,e),  F=sigma(tri1)=(phi,f),
+    G=sigma(tri2)=(gamma,g).
+
+The six A-rule images give, by coefficient comparison,
+
+    e=0,
+    alpha*phi=beta*epsilon,   f=b,
+    gamma=phi,                g=alpha*b,
+    epsilon=phi,              b*epsilon=b*(beta+1),
+    beta=alpha,               b*(phi+1)=b*alpha^2,
+    b*(phi+alpha)=b*(alpha^2+1).                    (MR2)
+
+If `b>0`, MR2 gives `phi=alpha+1` and `phi+1=alpha^2`, hence
+`alpha=2`, `phi=3`.  A digit word of slope two is one binary symbol and one
+of slope three is one ternary symbol.  The intercepts then force
+
+    sigma(bin0)=bin0, sigma(bin1)=bin1,
+    sigma(tri0)=tri0, sigma(tri1)=tri1, sigma(tri2)=tri2.
+
+If `b=0`, MR2 makes every digit-image intercept zero, with `B` having the
+same slope `2^m` as `A`.  Thus `sigma(bin1)=bin0^m`.  The image of
+`bin1 dot -> tri2 dot` starts at `bin0^m dot`; its only possible rewrites are
+terminal `bin0` deletions.  Therefore `sigma(tri2)=bin0^r` for some `r<m`.
+MR2 then forces the tri0 and tri1 images to have the same slope and zero
+intercept, so both are also `bin0^r`.  But the image of
+`bin0 tri0 -> tri0 bin0` is then the identical irreducible word
+`bin0^(m+r)` on both sides, contradicting the required nonempty simulation.
+
+Therefore identity is the unique productive marker-fixed digit-word
+morphism at *all variable widths*.  This is stronger than the current
+width-one/two search plus uniform `w>=3` endpoint and removes the remaining
+forced-shape seam for this marker-fixed class.  Please kernel-check this if
+the affine word evaluator is manageable.
+
+The constructive lesson is important.  A glider must change a delimiter
+image or use a context-dependent/multi-block substitution; merely assigning
+variable-length codewords independently to the five digits cannot work.
+
+### The carry defect becomes a one-counter opcode (2026-07-22 15:25 EDT)
+
+The failed digit-complement symmetry contains a constructive instruction.
+For a digit word `V` with affine pair `(s,t)`, the complemented image of
+`bin0 dot -> dot` would need `bin1 V` to convert to `V bin0`.  Their slopes
+agree, but their intercept difference is exactly
+
+    (s+t) - 2t = s-t >= 1.                              (CR1)
+
+The inequality is sharp: `t=s-1` exactly when every digit of `V` is maximal
+in its own base.  Thus the obstruction is a one-unit carry, not diffuse
+noise.  On the saturated ternary buffer it becomes the exact run opcode
+
+    bin1 tri2^n dot  ->+  tri2^(n+1) dot.               (CR2)
+
+The trace is `n` copies of `A_t2`, followed by `DT_t`, so CR2 should be a
+one-line induction.  Dually,
+
+    bin0 tri0^n dot  ->+  tri0^n dot.                   (CR3)
+
+Combining the left boundary conversion with CR2 gives a two-counter transfer:
+
+    slash tri0^k tri2^n dot
+      ->+ slash tri1^(k-1) tri2^(n+1) dot,   k>=1.      (CR4)
+
+It uses `B_0`, then `k-1` copies of `A_t0`, `n` copies of `A_t2`, and one
+`DT_t`.  CR4 has exactly one genuine dynamic step and is strictly outward: it
+spends one left zero token, phase-changes the other left tokens, and increments
+the right max-trit counter.
+
+The new exact `yah_carry_opcode.py` literally replays CR2--CR4 (and the
+two-dynamic identity `/ 1 2^n . -> / (0 2)^ceil(n/2) .`) on 1,443 bounded
+instances.  Please kernel-check CR1--CR4 after the all-width morphism theorem
+if convenient.  They do not form a glider.  They identify its missing
+instruction precisely: regenerate the spent left token from the incremented
+right counter.  This is a concrete two-block version of Simon's proposed
+carry splash, and it cannot be expressed by the marker-fixed independent
+digit morphisms closed above.

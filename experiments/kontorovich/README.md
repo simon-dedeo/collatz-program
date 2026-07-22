@@ -3479,3 +3479,47 @@ the relevant image to have exactly that block shape.
 
     artifact SHA-256  6056acc0571af5199aebbe98fff34fe43ec512a5a71b00c4ed087e816c2aac2b
     worker SHA-256    fd3bb7aff3922d4c5f8a927166deed462c557d2216302ac66e0d52efc04c89ab
+
+## YAH carry defect and two-block counter opcode
+
+`yah_carry_opcode.py` isolates a near-symmetry hidden by the first loop audit.
+Complementing both binary digits and the outer ternary digits, while fixing
+ternary one, permutes the six auxiliary A-rules exactly.  At the terminal
+boundary the complemented even rule would require
+
+    bin1 V  ->  V bin0.
+
+If `V` has affine pair `(s,t)`, the two sides have the same slope but intercept
+difference `s-t`.  Every finite digit word satisfies `s-t>=1`; equality holds
+exactly for a word of maximal digits.  The default artifact exhausts all
+488,281 words of length at most eight and checks both facts exactly.  The
+general inequality is an elementary induction, not inferred from that bound.
+
+For a saturated ternary buffer, the one-unit defect becomes a literal counter
+instruction:
+
+    bin1 tri2^n . ->+ tri2^(n+1) .
+
+Together with the left boundary it gives
+
+    / tri0^k tri2^n . ->+ / tri1^(k-1) tri2^(n+1) .
+
+for `k>=1`.  The second macro uses exactly one dynamic step, implements
+`2*y=3*x+1`, and is strictly outward.  The artifact replays every run through
+128 and every `1<=k<=32, 0<=n<=32`, along with the zero-run pass and the
+two-dynamic identity
+
+    / tri1 tri2^n . ->+ / (tri0 tri2)^ceil(n/2) .
+
+There are 1,443 exact bounded macro cases.  These are executable instructions,
+not closure: the increment spends a left `tri0` token and phase-changes the
+remaining block.  A counterexample still needs a contextual recharge which
+regenerates that token from the incremented right counter.
+
+    python3 yah_carry_opcode.py selftest
+    python3 yah_carry_opcode.py build yah_carry_opcode_audit.json \
+      --max-affine-length 8 --max-run 128 --max-transfer 32
+    python3 yah_carry_opcode.py verify yah_carry_opcode_audit.json
+
+    artifact SHA-256  2f1fa472db827f5eeec746d31c993dd1806a7ea9510b4ad4055c5850ad11d9b8
+    worker SHA-256    bcf2549d767db12be3e769eca9d9e7f3fa2a89768367cbd5a78c2e2f675f675c

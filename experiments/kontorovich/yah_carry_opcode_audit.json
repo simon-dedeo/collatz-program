@@ -1,0 +1,227 @@
+{
+  "affine_boundary_defect": {
+    "by_length": {
+      "0": {
+        "maximum_defect": 1,
+        "minimum_defect": 1,
+        "saturated_defect_one_words": 1,
+        "words": 1
+      },
+      "1": {
+        "maximum_defect": 3,
+        "minimum_defect": 1,
+        "saturated_defect_one_words": 2,
+        "words": 5
+      },
+      "2": {
+        "maximum_defect": 9,
+        "minimum_defect": 1,
+        "saturated_defect_one_words": 4,
+        "words": 25
+      },
+      "3": {
+        "maximum_defect": 27,
+        "minimum_defect": 1,
+        "saturated_defect_one_words": 8,
+        "words": 125
+      },
+      "4": {
+        "maximum_defect": 81,
+        "minimum_defect": 1,
+        "saturated_defect_one_words": 16,
+        "words": 625
+      },
+      "5": {
+        "maximum_defect": 243,
+        "minimum_defect": 1,
+        "saturated_defect_one_words": 32,
+        "words": 3125
+      },
+      "6": {
+        "maximum_defect": 729,
+        "minimum_defect": 1,
+        "saturated_defect_one_words": 64,
+        "words": 15625
+      },
+      "7": {
+        "maximum_defect": 2187,
+        "minimum_defect": 1,
+        "saturated_defect_one_words": 128,
+        "words": 78125
+      },
+      "8": {
+        "maximum_defect": 6561,
+        "minimum_defect": 1,
+        "saturated_defect_one_words": 256,
+        "words": 390625
+      }
+    },
+    "identity": "pair(bin1 ++ V).intercept - pair(V ++ bin0).intercept = slope(V)-intercept(V) >= 1",
+    "max_digit_word_length": 8,
+    "symbolic_scope": "the displayed identity is algebraic for every finite digit word; the artifact exhausts only the stated length bound",
+    "words_checked": 488281
+  },
+  "artifact_sha256": "2f1fa472db827f5eeec746d31c993dd1806a7ea9510b4ad4055c5850ad11d9b8",
+  "auxiliary_complement": {
+    "digit_map": {
+      "a": "b",
+      "b": "a",
+      "e": "g",
+      "f": "f",
+      "g": "e"
+    },
+    "rule_permutation": {
+      "A_f0": "A_t2",
+      "A_f1": "A_t1",
+      "A_f2": "A_t0",
+      "A_t0": "A_f2",
+      "A_t1": "A_f1",
+      "A_t2": "A_f0"
+    },
+    "verdict": "digit complement is an involutive automorphism of subsystem A"
+  },
+  "closure_status": {
+    "candidate": null,
+    "missing_instruction": "the max-trit counter increments only by consuming a binary-one or a left tri0 token; no rule here regenerates that token"
+  },
+  "complement": {
+    "a": "b",
+    "b": "a",
+    "e": "g",
+    "f": "f",
+    "g": "e"
+  },
+  "generated_at_utc": "2026-07-22T19:29:42.213002+00:00",
+  "rule_table_sha256": "beffceb27d77a04e02becd823bc39017e8a2e1b936e7a3cd76732040b226a617",
+  "run_macro_replay": {
+    "formulae": [
+      "bin0 tri0^n . ->+ tri0^n .",
+      "bin1 tri2^n . ->+ tri2^(n+1) .",
+      "/ tri0^k tri2^n . ->+ / tri1^(k-1) tri2^(n+1) .",
+      "/ tri1 tri2^n . ->+ / (tri0 tri2)^ceil(n/2) ."
+    ],
+    "left_transfer_cases": 1056,
+    "left_transfer_outward_cases": 1056,
+    "left_transfer_total_replayed_steps": 35376,
+    "max_run_increment_cases": 129,
+    "max_single_run": 128,
+    "max_transfer_coordinate": 32,
+    "samples": {
+      "left_transfer": {
+        "1,0": {
+          "canonical_endpoint_value": 5,
+          "canonical_start_value": 3,
+          "endpoint": "cgd",
+          "maximum_word_length": 3,
+          "start": "ced",
+          "step_count": 2,
+          "trace_sha256": "72815c4fdc691915ed340c66a6d271154257817907c530a3c62d320602ecc3ae"
+        },
+        "1,32": {
+          "canonical_endpoint_value": 11118121133111045,
+          "canonical_start_value": 7412080755407363,
+          "endpoint": "cgggggggggggggggggggggggggggggggggd",
+          "maximum_word_length": 35,
+          "start": "ceggggggggggggggggggggggggggggggggd",
+          "step_count": 34,
+          "trace_sha256": "28439416b7425570fe41bc286e1bdcb954646c5691170f622ffbd0226b23e83d"
+        },
+        "32,32": {
+          "canonical_endpoint_value": 5150525730438771506517056911682,
+          "canonical_start_value": 3433683820292514337678037941121,
+          "endpoint": "cfffffffffffffffffffffffffffffffgggggggggggggggggggggggggggggggggd",
+          "maximum_word_length": 66,
+          "start": "ceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeggggggggggggggggggggggggggggggggd",
+          "step_count": 65,
+          "trace_sha256": "df39e980fe7df455c9ffd429eab249a099654b57aaa403ef2112f129ebdb5933"
+        }
+      },
+      "max_run_increment": {
+        "0": {
+          "endpoint": "gd",
+          "maximum_word_length": 2,
+          "start": "bd",
+          "step_count": 1,
+          "trace_sha256": "62e2cfd8d7bfcccdca7105ca9c076daea340d5cede6a4e2fde21a4633418fd6a"
+        },
+        "1": {
+          "endpoint": "ggd",
+          "maximum_word_length": 3,
+          "start": "bgd",
+          "step_count": 2,
+          "trace_sha256": "208f5badbf19420ff2f31b9ce88eb9103b05d1d613d067bd526a774aaa6f5ecc"
+        },
+        "128": {
+          "endpoint": "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggd",
+          "maximum_word_length": 130,
+          "start": "bggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggd",
+          "step_count": 129,
+          "trace_sha256": "91c3a8e63980ea0447e8fa5063f0dccd638bbad50da572346163fd46a6a255f3"
+        }
+      },
+      "tri1_max_halving": {
+        "0": {
+          "endpoint": "cd",
+          "maximum_word_length": 4,
+          "start": "cfd",
+          "step_count": 3,
+          "trace_sha256": "680bc7511d760a158705db6ea09e32886313e54a752b69bcd85d12439f42c035"
+        },
+        "1": {
+          "endpoint": "cegd",
+          "maximum_word_length": 5,
+          "start": "cfgd",
+          "step_count": 5,
+          "trace_sha256": "e4c01af8e8e19e1affe12a8957d02f9b29affbdfc4be357be6d1b1d19cb41b4b"
+        },
+        "128": {
+          "endpoint": "cegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegegd",
+          "maximum_word_length": 132,
+          "start": "cfggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggd",
+          "step_count": 259,
+          "trace_sha256": "87d4c026661326421391e9b3c63015093d5c7b9f56f369f1b6a10b307f3cec9b"
+        },
+        "2": {
+          "endpoint": "cegd",
+          "maximum_word_length": 6,
+          "start": "cfggd",
+          "step_count": 7,
+          "trace_sha256": "2e530f1c764c090eae0e26915652b316b1ee235dab1a1f26eadc2a1f59380136"
+        }
+      },
+      "zero_run_pass": {
+        "0": {
+          "endpoint": "d",
+          "maximum_word_length": 2,
+          "start": "ad",
+          "step_count": 1,
+          "trace_sha256": "39e0ce212d49fcd985f408247e7db907d965df905d5c3236db63e6f44350b9a1"
+        },
+        "1": {
+          "endpoint": "ed",
+          "maximum_word_length": 3,
+          "start": "aed",
+          "step_count": 2,
+          "trace_sha256": "cf13143da7f9f0189945353f86ac7c76591d40b78011edd6ccff22c8c3e3beb4"
+        },
+        "128": {
+          "endpoint": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeed",
+          "maximum_word_length": 130,
+          "start": "aeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeed",
+          "step_count": 129,
+          "trace_sha256": "02385b9a78007457d7ed82fdddf010092f8728c450650f340e6d7b6f4e570af3"
+        }
+      }
+    },
+    "scope": "every listed bounded instance is literally replayed; the all-n,k formulae are research-side induction schemas pending Lean replay",
+    "tri1_max_halving_cases": 129,
+    "zero_run_pass_cases": 129
+  },
+  "schema": "yah_carry_opcode_audit_v1",
+  "upstream": {
+    "authors_repository_commit": "8a4dfda60f97a6d33ff0a24fdfa7a172d4bec340",
+    "paper": "https://arxiv.org/abs/2105.14697"
+  },
+  "worker_sha256": "bcf2549d767db12be3e769eca9d9e7f3fa2a89768367cbd5a78c2e2f675f675c",
+  "yah_worker_sha256": "fd3bb7aff3922d4c5f8a927166deed462c557d2216302ac66e0d52efc04c89ab"
+}
