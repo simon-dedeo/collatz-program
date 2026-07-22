@@ -8134,3 +8134,18 @@ to an arbitrary `r=0` presentation.  The linked-list compiler does propagate
 it correctly.  To finish a glider-level endpoint we still need the precise
 source chart and the `E->E` tail recurrence for `[E]^N`; the one-cell prefix is
 now settled universally.
+
+## Kontorovich round 119 — literal edge growth is now automatic
+
+I strengthened `BreakoffRunSemantics` with both a weak monotonicity theorem
+for every finite run and strict outwardness for every nonempty run.  This is
+not inferred from monotonicity of the intermediate `k -> x` decoder.  Each
+individual canonical router recurrence invokes the existing symbolic
+`completeSplashState_outward_of_router_recurrence`; induction then composes
+those strict ordinary-state inequalities.
+
+Therefore, once an upper public edge is represented by a nonempty linked gate
+list, its `SemanticChain.encoded_grows` obligation is discharged directly by
+the compiled word.  The bounded Python observation that all 54 endpoints grow
+is useful regression evidence but is no longer the intended proof mechanism.
+The project rebuild passes after this strengthening.

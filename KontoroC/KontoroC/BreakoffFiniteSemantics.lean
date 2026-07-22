@@ -39,6 +39,12 @@ structure BreakoffRunSemantics (n k k' r H : ℕ) where
   endpoint :
     runWord (minusOneState (3 * H) (r + 1)) word =
       minusOneState (3 * outputPayload) (outputRail + 1)
+  monotone :
+    minusOneState (3 * H) (r + 1) ≤
+      minusOneState (3 * outputPayload) (outputRail + 1)
+  outward : 0 < n →
+    minusOneState (3 * H) (r + 1) <
+      minusOneState (3 * outputPayload) (outputRail + 1)
 
 /-- One executable break-off step is exactly one canonical ordinary Collatz
 router word. -/
@@ -82,6 +88,7 @@ noncomputable def breakoffStep_literal_semantics {k k' r H : ℕ}
   have hnext : x.next = some y :=
     completeSplashState_next_of_router_recurrence x y hrec
   have hsem := x.legal_and_endpoint
+  have hout := completeSplashState_outward_of_router_recurrence x y hrec
   refine {
     run := by simp [breakoffRun, hstep]
     outputRail := j
@@ -93,6 +100,8 @@ noncomputable def breakoffStep_literal_semantics {k k' r H : ℕ}
     word_nonempty := ?_
     legal := ?_
     endpoint := ?_
+    monotone := ?_
+    outward := ?_
   }
   · intro _
     exact x.word_nonempty
@@ -102,6 +111,9 @@ noncomputable def breakoffStep_literal_semantics {k k' r H : ℕ}
         simpa [x, CompleteSplashState.start] using hsem.2
       _ = y.start := x.endpoint_eq_next_start hnext
       _ = minusOneState (3 * u) (j + 1) := rfl
+  · exact le_of_lt (by simpa [x, y, CompleteSplashState.start] using hout)
+  · intro _
+    simpa [x, y, CompleteSplashState.start] using hout
 
 /-- Every successful finite execution of the one-register break-off map has
 an exact literal accelerated-Collatz interpretation. -/
@@ -125,6 +137,8 @@ noncomputable def breakoffRun_literal_semantics {n k k' r H : ℕ}
         word_nonempty := by omega
         legal := by simp [WordLegal]
         endpoint := by simp
+        monotone := le_rfl
+        outward := by omega
       }
   | succ n ih =>
       simp only [breakoffRun] at hrun
@@ -151,6 +165,8 @@ noncomputable def breakoffRun_literal_semantics {n k k' r H : ℕ}
             word_nonempty := ?_
             legal := ?_
             endpoint := ?_
+            monotone := ?_
+            outward := ?_
           }
           · intro _
             exact List.append_ne_nil_of_left_ne_nil
@@ -158,6 +174,9 @@ noncomputable def breakoffRun_literal_semantics {n k k' r H : ℕ}
           · rw [wordLegal_append_iff]
             exact ⟨first.legal, by simpa [first.endpoint] using rest.legal⟩
           · rw [runWord_append, first.endpoint, rest.endpoint]
+          · exact first.monotone.trans rest.monotone
+          · intro _
+            exact first.outward (by omega) |>.trans_le rest.monotone
 
 /-- A proof-carrying regenerative gate inherits literal Collatz semantics as
 soon as its source break-off coordinate is supplied with the canonical
@@ -243,6 +262,8 @@ noncomputable def breakoffGateChain_literal_semantics
         word_nonempty := ?_
         legal := ?_
         endpoint := ?_
+        monotone := ?_
+        outward := ?_
       }
       · simp only [breakoffGateChainDuration, breakoffGateChainEndpoint]
         rw [breakoffRun_add, g.run]
@@ -253,6 +274,9 @@ noncomputable def breakoffGateChain_literal_semantics
       · rw [wordLegal_append_iff]
         exact ⟨first.legal, by simpa [first.endpoint] using rest.legal⟩
       · rw [runWord_append, first.endpoint, rest.endpoint]
+      · exact first.monotone.trans rest.monotone
+      · intro _
+        exact first.outward (by omega) |>.trans_le rest.monotone
 
 /-- Proposition-valued wrapper for the finite linked gate compiler. -/
 theorem breakoffGateChain_has_literal_semantics
