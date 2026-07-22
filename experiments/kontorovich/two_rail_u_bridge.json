@@ -1,0 +1,187 @@
+{
+  "schema": "collatz-two-rail-u-bridge-v1",
+  "claim_scope": "exact U^7 compiler primitive on an unbounded affine family, plus a bounded shape search; not an infinite Collatz program",
+  "base_3_over_2_map": {
+    "definition": "U(n)=(3n+1)/2 odd; (3n+2)/2 even",
+    "rational_base_action": "append digit 1 or 2",
+    "U_is_divergent": true
+  },
+  "source_gate": {
+    "amp_ticks": 5,
+    "clean_ticks": 0,
+    "to_plus_extra": 2,
+    "to_minus_extra": 1,
+    "input_gap": 6,
+    "plus_gap": 2,
+    "output_gap": 2,
+    "input_payload_base": 253,
+    "input_payload_stride": 256,
+    "plus_payload_base": 11527,
+    "plus_payload_stride": 11664,
+    "output_payload_base": 4323,
+    "output_payload_stride": 4374
+  },
+  "target_gate": {
+    "amp_ticks": 1,
+    "clean_ticks": 0,
+    "to_plus_extra": 2,
+    "to_minus_extra": 1,
+    "input_gap": 2,
+    "plus_gap": 2,
+    "output_gap": 2,
+    "input_payload_base": 13,
+    "input_payload_stride": 256,
+    "plus_payload_base": 7,
+    "plus_payload_stride": 144,
+    "output_payload_base": 3,
+    "output_payload_stride": 54
+  },
+  "instruction": {
+    "source": {
+      "amp_ticks": 5,
+      "clean_ticks": 0,
+      "to_plus_extra": 2,
+      "to_minus_extra": 1,
+      "output_gap": 2
+    },
+    "target": {
+      "amp_ticks": 1,
+      "clean_ticks": 0,
+      "to_plus_extra": 2,
+      "to_minus_extra": 1,
+      "output_gap": 2
+    },
+    "address_bits": 7,
+    "source_index_base": 95,
+    "source_index_stride": 128,
+    "target_index_base": 1640,
+    "target_index_stride": 2187
+  },
+  "universal_index_identity": {
+    "formula": "U^7(95+128*t)=1640+2187*t for every t>=0",
+    "U_digits_little_time_order": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      1
+    ],
+    "tails_replayed": 64,
+    "source_family_universally_outward": true
+  },
+  "saturated_orbit_witness": {
+    "source_U_time": 41,
+    "source_index": 26906975,
+    "target_U_time": 48,
+    "target_index": 459730910,
+    "collatz_source_state": 440843894591,
+    "collatz_target_state": 470764451891,
+    "linked_target_gate_endpoint": 99301876571,
+    "next_two_rail_renewal_exists": false,
+    "ordinary_continuation": {
+      "limit": 100000,
+      "reached_one": true,
+      "accelerated_steps": 72,
+      "total_halvings": 153,
+      "ordinary_steps": 225,
+      "peak": 3347658324557,
+      "peak_at_accelerated_step": 5
+    }
+  },
+  "bounded_shape_search": {
+    "candidate_links_checked": 67500,
+    "exact_U_macro_links": 3,
+    "outward_source_links": 1,
+    "hits": [
+      {
+        "source_shape": {
+          "amp_ticks": 3,
+          "clean_ticks": 2,
+          "to_plus_extra": 1,
+          "to_minus_extra": 3,
+          "output_gap": 4
+        },
+        "target_shape": {
+          "amp_ticks": 3,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "to_minus_extra": 1,
+          "output_gap": 3
+        },
+        "address_bits": 7,
+        "source_index_base": 63,
+        "target_index_base": 1093,
+        "U_digits": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2
+        ],
+        "source_family_outward": false
+      },
+      {
+        "source_shape": {
+          "amp_ticks": 4,
+          "clean_ticks": 1,
+          "to_plus_extra": 3,
+          "to_minus_extra": 3,
+          "output_gap": 4
+        },
+        "target_shape": {
+          "amp_ticks": 3,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "to_minus_extra": 1,
+          "output_gap": 3
+        },
+        "address_bits": 7,
+        "source_index_base": 63,
+        "target_index_base": 1093,
+        "U_digits": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2
+        ],
+        "source_family_outward": false
+      },
+      {
+        "source_shape": {
+          "amp_ticks": 5,
+          "clean_ticks": 0,
+          "to_plus_extra": 2,
+          "to_minus_extra": 1,
+          "output_gap": 2
+        },
+        "target_shape": {
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 2,
+          "to_minus_extra": 1,
+          "output_gap": 2
+        },
+        "address_bits": 7,
+        "source_index_base": 95,
+        "target_index_base": 1640,
+        "U_digits": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          1
+        ],
+        "source_family_outward": true
+      }
+    ]
+  }
+}

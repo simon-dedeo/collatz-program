@@ -412,11 +412,25 @@ translated back to a canonical positive integer.
 Eliahou and Verger-Gaugry's rational-base-`3/2` presentation supplies a second
 tape.  Shortcut Collatz appends a rightmost digit `1`; on saturated words over
 digits `{1,2}`, their auxiliary map appends `1` or `2` and is divergent.  This
-does not transfer divergence to Collatz.  It gives a concrete compiler target:
-implement the missing “append `2`” operation as a bounded exact two-rail or
-mixed-base macro, then seek a self-generating saturated word.  This attack
-preserves Kontorovich's spatial delay-line intuition while allowing Simon's
-instruction to be a global boundary/carry condition.
+does not transfer divergence to Collatz.  It gives a concrete compiler target,
+and the first block now exists.  The two-rail shapes
+
+```text
+(5,0,2,1,2) -> (1,0,2,1,2)
+```
+
+link their family indices by
+
+```text
+95+128t -> 1640+2187t = U^7(95+128t),
+```
+
+executing the append block `[1,1,1,1,1,2,1]` for every `t>=0`.  The saturated
+orbit reaches this cylinder at time 41.  The linked target then shrinks and
+does not renew, so this is one instruction compiler, not a simulation of the
+whole divergent `U` orbit.  The attack now seeks a payload-selected chain of
+such blocks.  This preserves Kontorovich's spatial delay-line intuition while
+allowing Simon's instruction to be a global boundary/carry condition.
 
 ## 6. Ranked attack and kill tests
 
@@ -437,9 +451,9 @@ instruction to be a global boundary/carry condition.
    reject fixed return routes because their valuation words are periodic.
    Search for an invariant natural tape orbit with a genuinely aperiodic shape
    sequence or an unbounded rail-length counter.
-6. Compile the rational-base saturated-map instruction “append `2`” into the
-   mixed-base or two-rail ISA, and search the Stérin--Woods spacetime for a
-   diagonal defect that implements the same return.
+6. Extend the exact seven-append rational-base bridge into a payload-selected
+   block compiler, and search the Stérin--Woods spacetime for a diagonal defect
+   implementing the same binary-address/ternary-write transitions.
 
 Every candidate is rejected unless all of the following are explicit:
 

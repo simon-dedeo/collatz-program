@@ -651,6 +651,65 @@ artifact SHA-256  cc4c30ad51a942e584c89c518a4adb5b1f231d049843216ad3c16be431d8d6
 verifier SHA-256  e534fb609813af1f826e9d654507f1a0ca917952e37e07afe52eafd35c095c84
 ```
 
+## A seven-step base-`3/2` compiler bridge
+
+Eliahou--Verger-Gaugry's saturated-word map
+
+```text
+U(n)=(3n+1)/2 for odd n,  (3n+2)/2 for even n
+```
+
+is divergent and appends digit `1` or `2` to the rational-base-`3/2`
+representation at every step.  On a fixed `D`-bit binary address, `U^D` is an
+affine map with slope `3^D/2^D`.  This exactly matches a two-rail index
+instruction when its source write exponent `R` equals its target address
+length `D`.
+
+`two_rail_u_bridge.py` finds and verifies one outward match.  The source and
+target gate shapes are
+
+```text
+(r,s,a,b,L) = (5,0,2,1,2) -> (1,0,2,1,2),
+```
+
+and their complete index handoff is
+
+```text
+z = 95+128*t  ->  w = 1640+2187*t = U^7(z),   t>=0.
+```
+
+The seven appended digits are `[1,1,1,1,1,2,1]`.  Because the residue fixes
+all seven parities, the equality is universal on the entire affine family,
+not a finite orbit coincidence.  The saturated orbit itself enters the
+cylinder at `U^41(0)=26906975` and leaves at
+`U^48(0)=459730910`; the corresponding exact Collatz gate is
+
+```text
+440843894591 -> 470764451891.
+```
+
+The next linked gate shrinks to `99301876571`, fails to renew the two-rail
+section, and the original ordinary seed reaches `1` after 72 accelerated
+steps.  So the bridge compiles one block of the divergent program but does not
+yet keep executing it.
+
+```bash
+python3 two_rail_u_bridge.py selftest
+python3 two_rail_u_bridge.py build two_rail_u_bridge.json
+python3 two_rail_u_bridge.py verify two_rail_u_bridge.json
+```
+
+The bounded shape audit checks 67,500 links with source `r<=10`, `s<=4`,
+collision extras at most three, output gap at most 11, and the corresponding
+target parameters.  It finds three exact `U^D` bridges with `R=D=7`, only one
+with a universally outward source family.  These are shape bounds, not a seed
+range and not an exclusion beyond them.
+
+```text
+artifact SHA-256  f00bbe835305612dcc3c78bcd33caa3789bdbeae375ed8655778d19559d249d3
+verifier SHA-256  6501d3ed30ba1be27780c10ee7f9e65606a0ca9badd4b88141c3b5a6d31cbfe0
+```
+
 ## The standard schedule as a 2-adic partial theta value
 
 Lean commit `db0971c` eliminates the intermediate cleanup payload from every

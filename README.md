@@ -150,9 +150,11 @@ identically `x`.
   columns perform base conversion; search for a diagonal defect or boundary
   signal with a formula return.  In Eliahou--Verger-Gaugry's base-`3/2`
   picture, try to compile the divergent saturated-map instruction “append
-  `2`” from bounded exact Collatz/two-rail macros.  Neither presentation
-  transfers divergence by itself; both offer a spatial tape on which to hunt
-  for Kontorovich's glider.
+  `2`” from bounded exact Collatz/two-rail macros.  One outward splash link now
+  compiles seven consecutive saturated-map appends exactly on an unbounded
+  index family; its target does not renew, so the live task is to chain
+  payload-selected blocks rather than infer divergence from one bridge.
+  Neither presentation transfers divergence by itself.
 - **Two-rail splash bouncers.**  Implement Simon's collision idea with a
   `-1`/valuation-one Mersenne rail, which amplifies a separated packet by
   `3/2` per tick, and a `+1`/valuation-two Colussi rail, which supplies timing
@@ -271,7 +273,8 @@ positive integer and its claimed behavior are machine-checked.
 | Exact finite carry-splash families | For every positive `r,r',a`, research-side exact algebra constructs an arithmetic progression of odd payload pairs such that an `r`-tick `+1` delay line collides with valuation `2+a` and emits an `r'`-tick gap. The checker literally replays 15,360 members in the bounded regression `r<=8,r'<=10,a<=6`; e.g. `2961 -> 2221 -> 833` grows the gap from four to six bits. Every member shrinks, so a splash needs an amplifying phase. |
 | Formula-generated 10,040-digit two-rail program | Exact congruence solving and affine-family intersection construct one seed with 33,351 significant bits, without storing its decimal literal. It executes 247 strict outward rounds of the schedule `[1]^(4+i) ++ [2,2,3]`, grows its clean gap from 5 to 252 bits, and reaches a 15,397-digit endpoint after 32,110 accelerated steps. Literal replay passes; Lean commits `39a3aba`/`5d3e0e3` certify the generic gate and finite-chain seams. Full exact continuation reaches `1`, and the 248-round canonical seed is different. This is a large finite Collatz program, not a counterexample. |
 | Exact affine tag-transducer and branching target | Every affine two-rail handoff reads one dyadic residue of a nonlocal family index, deletes that address block, and maps the residual tail by a power of three plus an offset. Lean commits `4789a80`/`1076954` prove universal one- and two-instruction linkage.  Commits `b741a14`--`560fcc5` rule out fixed affine returns, every eventually periodic macro-word stream, and every payload-independent finite-state controller.  The live target must branch on unbounded tail data or carry an unbounded counter. |
-| LSB-first splash instruction grammar | For fixed amplifier length, each positive gate shape `(s,a,b,L)` is one odd payload residue modulo `2^(a+b+2s+L+3)`.  Successive exact valuations uniquely recover all four parameters, so these binary codewords are prefix-free; their exact Kraft mass among odd 2-adic payloads is `1/6`.  The artifact checks 902,496 codeword pairs per `r=1..16` through 20 bits and independently decodes 21,504 bases.  This identifies a sparse mixed-base tag language, not an infinite survivor. |
+| LSB-first splash instruction grammar | For fixed amplifier length, each positive gate shape `(s,a,b,L)` is one odd payload residue modulo `2^(a+b+2s+L+3)`.  Lean commit `1b7df1f` proves universal parameter decoding, the complete cylinder strides, and pairwise disjointness; the exact Kraft mass among odd 2-adic payloads is `1/6`.  The artifact checks 902,496 codeword pairs per `r=1..16` through 20 bits and independently decodes 21,504 bases.  This identifies a sparse mixed-base tag language, not an infinite survivor. |
+| Exact base-`3/2` compiler bridge | The outward two-rail link `(5,0,2,1,2)->(1,0,2,1,2)` maps family indices by `95+128t -> 1640+2187t`, exactly `U^7` for every natural `t`, where divergent `U` appends digits `[1,1,1,1,1,2,1]` in rational base `3/2`.  The saturated orbit realizes `440843894591 -> 470764451891` through this gate, but the linked target shrinks, fails the next renewal, and the seed reaches `1`.  This is one universal compiler primitive, not transferred divergence. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
 | Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
 | Kernel cycle-disproof seam | `KontoroC.CycleArtifact.checkNontrivial=true` implies the literal negation of the ordinary Collatz conjecture. The package build and axiom audit pass; no nontrivial artifact is known. |
@@ -327,6 +330,23 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-21 23:04 EDT
+
+The rational-base lane has crossed from analogy to compilation.  A universally
+outward splash gate maps its nonlocal family index by
+`95+128t -> 1640+2187t`, and exact algebra identifies this with seven steps of
+Eliahou--Verger-Gaugry's divergent saturated-word map `U` for every `t>=0`.
+Equivalently, one Collatz gate executes the base-`3/2` append block
+`[1,1,1,1,1,2,1]` on an unbounded tape family.  The saturated orbit itself
+enters at `U^41(0)=26906975`, producing the literal Collatz step-block
+`440843894591 -> 470764451891`.  The result is also sharply scoped: the target
+gate shrinks, its endpoint does not renew, and the ordinary seed reaches `1`.
+The [certificate](experiments/kontorovich/two_rail_u_bridge.json) also audits
+67,500 bounded shape links, finding three exact `U` blocks and only this one
+outward source.  Next: search compositions whose choice of `U` block is read
+from the changing payload, so the compiler follows the aperiodic saturated
+word instead of stopping after one instruction.
 
 ### 2026-07-21 22:56 EDT
 

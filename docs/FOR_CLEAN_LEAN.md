@@ -3469,3 +3469,50 @@ decoded `(s,a,b,L)` from two exact gates with the same `r,P`, hence dyadic-
 cylinder disjointness/prefix-freeness.  Formalizing the infinite geometric sum
 is optional; the more important interface is a payload-dependent decoder that
 can emit a genuinely aperiodic `MacroGlider.word` stream.
+
+## Kontorovich request: exact saturated-map compiler bridge (2026-07-21 23:04 EDT)
+
+The prefix transducer contains a literal block of Eliahou--Verger-Gaugry's
+divergent saturated-word map
+
+```text
+U(n)=(3n+1)/2 if n odd,  (3n+2)/2 if n even.
+```
+
+Take the source gate shape `(r,s,a,b,L)=(5,0,2,1,2)` and target shape
+`(1,0,2,1,2)`.  Their complete affine link is
+
+```text
+source family index z =   95 +  128*t,
+target family index w = 1640 + 2187*t.
+```
+
+On this seven-bit address, the `U` digits are `[1,1,1,1,1,2,1]`, and exact
+iteration gives the universal identity
+
+```text
+U^7(95+128*t)=1640+2187*t.                    (U7)
+```
+
+Thus one outward Collatz splash gate compiles seven append-`1/2` operations in
+rational base `3/2` on its unbounded nonlocal family index.  The saturated
+orbit itself enters at
+
+```text
+U^41(0)=26906975=95 mod 128,
+U^48(0)=459730910,
+440843894591 -> 470764451891
+```
+
+through this gate.  The linked target gate then shrinks and its endpoint does
+not decode another two-rail renewal; the ordinary source reaches `1`.  This is
+one compiler primitive, not a glider.
+
+The worker is `experiments/kontorovich/two_rail_u_bridge.py`.  In a bounded
+shape audit it checks 67,500 coefficient-compatible links, finds three exact
+`U^D` links with `R=D`, and only the displayed source family is outward.  If
+useful, please instantiate the two affine families/link and prove (U7) for all
+`t`; their composition would kernel-check the first exact bridge from the
+published rational-base program into the Collatz splash ISA.  The next
+research target is a payload-dependent sequence of such blocks, not repetition
+of this fixed edge.
