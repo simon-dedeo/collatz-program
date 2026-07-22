@@ -1269,6 +1269,63 @@ artifact SHA-256  3337b99b291894f6338716a1a2d1e459f3ae414086c239bca693258052212f
 verifier SHA-256  c737953183b760a9411ad5d2d6e57cad7eb3560578353c78166e2afe8381772a
 ```
 
+## Formula-compressed regenerative carry rail
+
+`unit_carry_repetend.py` specializes the preceding arbitrary carry cleanup so
+the same collision carry reappears beyond the regenerated gap.  From (UG1),
+let `r=v3(B)` and put
+
+```text
+e=q-r,
+D=ord_(3^e)(2)=2*3^(e-1),
+z=B*(2^D-1)/3^q.
+```
+
+The canonical isolated carries satisfy `0<B<3^q`, so `z` is a positive
+ordinary `D`-bit word.  Exact divisibility follows from `2^D=1 (mod 3^e)`,
+and the catcher identity is
+
+```text
+B+3^q*z=2^D*B.                                     (UCR1)
+```
+
+Substitution into (UG3) gives the formula-compressed glider cell
+
+```text
+A+2^(p+L)*(z+2^D*u)
+  -> C+2^(L+D)*(B+3^q*u).                           (UCR2)
+```
+
+The dirty carry disappears at the collision and the identical carry appears
+on the remote side of `D` clean zero bits.  The verifier checks the exact
+order of two, the isolated-carry identity, and source, target, and following
+unit-register phases without constructing `2^D` or `z`.
+
+```bash
+python3 unit_carry_repetend.py selftest
+python3 unit_carry_repetend.py build unit_carry_repetend_audit.json
+python3 unit_carry_repetend.py verify unit_carry_repetend_audit.json
+```
+
+For the canonical branch triple `(1,1,1)` at the six compiled levels:
+
+```text
+level:                    1    2    3     4      5       6
+q:                       17   57  188   621   2051    6774
+v3(B):                    1    0    0     0      0       2
+decimal digits of D:      8   28   90   297    979    3231
+```
+
+This is a genuine finite spatial glider cell.  It is not a self-writing end
+cap: finitely many catcher blocks give finitely many translations, while an
+infinite preloaded rail is a 2-adic tape rather than an ordinary natural.
+
+```text
+artifact SHA-256      57328afb5c10edbbedfb3e14881e0d1b53925bb2bc67ecd57e5f32f187c97c83
+verifier file SHA-256 3f9690acf60481d560c2eddc7056da3b186e0679e1f1c9fae077cdccb6ee96f2
+combined source SHA   ed12b495d4bee423466694e9550f12ed303aa2fc4a8e880b0905de1b2fc1ccd7
+```
+
 ## Formula-generated repetend splashes
 
 `unit_repetend_splash.py` compresses the sacrificial word into one rational

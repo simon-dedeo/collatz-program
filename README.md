@@ -234,6 +234,17 @@ identically `x`.
   before an affinely surviving high packet.  The remaining quine problem is
   sharp: that high packet must generate its own future correction words.  An
   externally preloaded infinite stack would again be only a 2-adic program.
+  Simon's proposed catcher can be made regenerative in one exact sense.  If
+  the isolated carry is `B`, put `r=v3(B)`,
+  `D=ord_(3^(q-r))(2)`, and use the formula-compressed word
+  `z=B(2^D-1)/3^q`.  Then `B+3^qz=2^D B`: the collision swallows `B`, opens a
+  `D`-bit gap, and recreates the *same* carry beyond it.  The canonical
+  one-cell header embeds this carry translator in the true invariant register
+  at all six compiled levels; the respective `D` values have
+  `8,28,90,297,979,3231` decimal digits.  This is a literal finite glider cell
+  in Kontorovich's spatial sense.  It still needs a self-writing ordinary end
+  cap; preloading infinitely many catcher blocks would only hide a 2-adic
+  tape.
   A much more compressed special case now uses the rational repetend
   `R=(2^T C-s)/3^q`.  Choosing `T` simultaneously in a discrete-log class
   modulo `2*3^(q-1)` and in the affine unit exponent class makes
@@ -541,6 +552,7 @@ positive integer and its claimed behavior are machine-checked.
 | Six-level sign-alternating splash hierarchy | The capped construction renormalizes five more times without changing the magnitude `17`: public collision signs are `+,-,+,-,+,-` and binary cell widths are `8,23,77,254,839,2771`.  At every checked step exact phase arithmetic returns to the defect and normalization flips only the sign.  The artifact checks 40 child branches independently by CRT and parent-macro composition, replays 80 members through 520 parent blocks, and expands the canonical tail-zero programs through six levels to literal first-scale gliders.  It additionally checks all 64 level-one choices `B=M_j,H=M_(j+1)`, three nonconstant four-step meta-words, and every depth-three meta-word over `j=1..8`.  Beyond those bounds, the exact positive-tail identity proves universally that no infinite chain of these adjacent-defect nestings can stabilize its canonical ordinary address.  The depth-six canonical member is a generated 6,708-digit ordinary start executing 360 linked glider macros.  This is a finite compiler and a source of fixed-level ISAs—not an ordinary infinite orbit or an induction that the phase identities persist at all levels. |
 | Invariant unit-debris register and signed radix swap | At every one of the six certified hierarchy levels, exactly one packet class modulo `17` makes the primitive `±17` register divisible by `17`; the class is preserved by every successful branch.  Dividing gives `H=2^(an+b)h -> H'=(3^(cn+d)h+s)/2^e`, `s=±1`.  With `W=2^eH`, every instruction is exactly `W=2^p h -> W'=3^q h+s`: it preserves the complete core `h`, swaps an exact binary delay for a ternary delay, and writes one signed unit.  Against the signed router it trims `d=p-1-q`, with the six formulas `2n+3,6n+13,20n+45,66n+151,218n+501,720n+1657`.  The artifact compares all 192 branches, checks this form on 768 members, and literally replays 32 level-one members through 336 lower links and 672 gates.  This identifies the factor a second rail must bank; no such rail or infinite unit orbit is supplied. |
 | Two-layer unit gap regenerator | Simon's “splash the gap” question has an exact answer in the smallest surviving ISA.  Given any three positive branch lengths and `D>=1`, choose `A,B,z,B_2,C` so `3^qA+s=2^pC+2^(p+L)B` and `B+3^qz=2^D B_2`.  Then `h=A+2^(p+L)(z+2^D u)` maps to `h'=C+2^(L+D)(B_2+3^q u)`: `A` emits the complete valuation-exact next instruction `C`, the sacrificial `D`-bit word `z` eats the carry `B`, and the remote tail survives affinely beyond a regenerated `D`-bit zero gap.  The exact artifact reconstructs 486 families across six compiled levels and replays 972 linked two-branch unit members for cell lengths `1..3` and gaps `1,4,12`.  This is a universal finite compiler identity plus bounded macro regression, not a self-supplying infinite stack or counterexample. | [`unit_gap_regenerator_audit.json`](experiments/kontorovich/unit_gap_regenerator_audit.json) |
+| Formula-compressed regenerative carry glider | For the carry `B` isolated by a unit splash, set `r=v3(B)`, `D=ord_(3^(q-r))(2)`, and `z=B(2^D-1)/3^q`.  Exact arithmetic gives `B+3^qz=2^D B`, so the sacrificial word consumes the dirty carry, creates `D` clean bits, and reproduces the identical carry remotely.  The verifier embeds the canonical `(1,1,1)` header family in the true invariant register at all six compiled levels, proves the concrete multiplicative orders and three register phases without expanding `2^D`, and obtains gap-length integers with `8,28,90,297,979,3231` decimal digits.  This is a finite spatial glider cell, not an infinite rail or self-writing end cap. | [`unit_carry_repetend_audit.json`](experiments/kontorovich/unit_carry_repetend_audit.json) |
 | Formula-generated nonlinear repetend splash | If `2^T C=s (mod 3^q)`, the ordinary repetend `R=(2^T C-s)/3^q` gives `R+2^(T+D)K -> C+2^D 3^qK` under the unit collision.  Intersecting the discrete-log class of `T` with `T=p(n')` produces a genuine enormous target length.  Exact modular certificates construct this at all six finite levels from source length one and gaps `D=1,64`; they verify the order `ord_(3^q)(2)=2*3^(q-1)`, exponent CRT, repetend integrality, and both register phases without expanding `2^T`.  Level one uses `C=5`, `T=105,734,623`, and `n'=13,216,826`; its low rail alone is about 31.8 million decimal digits.  Across levels the target exponents have `9,29,91,299,980,3235` decimal digits.  This is a short generator for one vast nonlinear splash, not renewal or nontermination. | [`unit_repetend_splash_audit.json`](experiments/kontorovich/unit_repetend_splash_audit.json) |
 | Two consecutive sign-negative repetend splashes | At level two, put `c_m=(2^(3^(m-1))+1)/3^m`.  Exact cubing gives `c_(m+1)=c_m-3^m c_m^2+3^(2m-1)c_m^3`, so `c_m` stabilizes modulo every fixed `3^P`.  At precision `P=q_0+v_3(M)=90`, a 45-digit odd `k` makes `T_1=3^(q_1-1)k` both retain the first ternary bank and lie in the affine target-exponent class.  This yields the exact unbounded family `h_0 -> R_1+2^(T_1+D)3^q0 L -> 1+2^D3^(q0+q1)L`, with both enormous valuations exact.  The audit checks 89 quotient recurrences, bridge integrality, exponent congruence, and all three unit-register phases for `D=1,64`, without materializing `T_1`; `T_1` itself has about `7.57*10^27` decimal digits.  This is genuine one-time renewal, not a third splash or infinite ordinary orbit. | [`unit_double_repetend_audit.json`](experiments/kontorovich/unit_double_repetend_audit.json) |
 | Repetend energy separator | The same exact construction closes its own naive infinite continuation.  Every sign-negative marker-one exponent is an odd multiple of `3^(q-1)`.  For `q>=3`, elementary integer inequalities give `2^T>2*3^q`, so each such collision more than halves the positive odd core.  No fixed positive core supports infinitely many consecutive events.  The artifact audits the actual exponent classes at finite levels `2,4,6`; the general proof is symbolic.  A viable delay-line program must recharge between giant erasures, not stack them back-to-back. | [`unit_repetend_energy_audit.json`](experiments/kontorovich/unit_repetend_energy_audit.json) |
@@ -639,7 +651,40 @@ islands so one splash strikes, a second eats the unwanted carry/debris, and a
 third reseeds the next large gap.  I am translating that spatial
 strike--scrub--reseed picture into a vector affine macro whose regeneration
 condition is an exact CRT identity, with the zero-lift criterion as its kill
-test.  No counterexample is known.
+test.
+
+That translation has already produced one exact glider cell.  If the first
+correction leaves carry `B` after multiplying by `3^q`, let
+
+```text
+r=v3(B),
+D=ord_(3^(q-r))(2),
+z=B*(2^D-1)/3^q.
+```
+
+Then the catcher word obeys
+
+```text
+B+3^q*z=2^D*B.
+```
+
+So `B` is not just erased: it reappears unchanged beyond `D` clean zero bits.
+The [formula-compressed verifier](experiments/kontorovich/unit_carry_repetend.py)
+embeds this identity in the genuine unit register at all six compiled levels.
+For the canonical one-cell header, `q=17,57,188,621,2051,6774`; the resulting
+gap-length integers `D` have `8,28,90,297,979,3231` decimal digits.  Neither
+`2^D` nor the `D`-bit catcher word is expanded.
+
+Artifact SHA-256:
+`57328afb5c10edbbedfb3e14881e0d1b53925bb2bc67ecd57e5f32f187c97c83`.
+Verifier file SHA-256:
+`3f9690acf60481d560c2eddc7056da3b186e0679e1f1c9fae077cdccb6ee96f2`.
+
+This validates the metaphor but does not yet falsify Collatz.  A finite train
+of these blocks is a long ether with a carry glider; an infinite preloaded
+train is only a 2-adic tape.  The next target is an ordinary end cap whose
+surviving payload writes another catcher block ahead of the glider—the
+reseed phase.  No counterexample is known.
 
 ### 2026-07-22 06:45 EDT
 

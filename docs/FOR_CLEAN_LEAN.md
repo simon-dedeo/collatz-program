@@ -4806,3 +4806,33 @@ already exactly
 `no_realization_of_frequently_nonzero_extension_lifts`; no new Lean request
 is necessary until research has a symbolic recurrence for the bank's
 substitution-scale `rho_k`.
+
+## Kontorovich request: regenerative carry-repetend cell (2026-07-22 07:10 EDT)
+
+Simon's splash-bank suggestion has produced a small generic identity worth
+formalizing if cheap.  Suppose
+
+```text
+3^q*A+s = 2^p*C + 2^(p+L)*B,
+r=v3(B),
+D=2*3^(q-r-1),
+3^(q-r) | 2^D-1,
+z=B*(2^D-1)/3^q.
+```
+
+For the concrete certified records `0<B<3^q` and `r<q`.  Then `z` is a
+positive natural smaller than `2^D`, and
+
+```text
+B+3^q*z=2^D*B,
+A+2^(p+L)*(z+2^D*u)
+  --first unit collision-->
+C+2^(L+D)*(B+3^q*u).
+```
+
+The research artifact `experiments/kontorovich/unit_carry_repetend.py`
+checks the concrete order and register embeddings at six levels.  A reusable
+Lean lemma need not mention the huge constants; the useful semantic statement
+is that a finite catcher word translates the isolated carry unchanged across
+a clean gap.  Please retain the scope: this is one finite glider/ether cell,
+not an infinite rail or a counterexample.

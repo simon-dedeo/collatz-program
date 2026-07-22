@@ -1655,6 +1655,37 @@ levels, triples `n,m,l=1..3`, gaps `D=1,4,12`, and two tail members, for 972
 linked two-branch replays.  The construction itself is symbolic for arbitrary
 positive lengths and `D`; those numbers scope only the executable regression.
 
+The sacrificial word can itself be chosen to regenerate the collision carry.
+Assume the canonical carry in (69d) is positive and smaller than `3^q`, put
+
+```text
+r=v_3(B),   e=q-r,   D=ord_(3^e)(2),
+z=B(2^D-1)/3^q.                                    (69e+)
+```
+
+Then `z` is a positive finite `D`-bit word and
+
+```text
+B+3^qz=2^D B.                                      (69e++)
+```
+
+Thus (69e) becomes a literal carry translator: the low copy of `B` is eaten,
+`D` zero bits open, and the identical `B` is deposited at the far boundary.
+[`unit_carry_repetend.py`](../../experiments/kontorovich/unit_carry_repetend.py)
+checks the concrete multiplicative orders and embeds the canonical one-cell
+header in all three true register phases at six compiled levels.  The six
+gap-length integers have `8,28,90,297,979,3231` decimal digits, while the
+verifier never expands `2^D`.
+
+This is Kontorovich's glider picture in a precise but finite form: `B` travels
+unchanged through a rational-repetend ether cell.  Concatenating finitely many
+catcher blocks gives an arbitrarily long finite delay line.  Preloading
+infinitely many blocks is only a 2-adic tape, so the open **reseed** problem is
+to make a finite ordinary end cap append the next catcher from the surviving
+payload.  The likely architecture is two-ended: one rail pops a catcher at
+the active low boundary while a charge phase pushes its formula description
+onto the remote end.
+
 There is a formula-compressed specialization which restores Kontorovich's
 very long spatial wire.  Let an odd marker `C` and exponent `T` satisfy
 
