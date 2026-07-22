@@ -1356,6 +1356,21 @@ through four renormalizations, with signs `+,-,+,-,+`.  Hence the spatial
 hierarchy has a bounded verified meta-alphabet, not merely one substitution.
 No all-`j`, all-level induction is claimed.
 
+A first finite-quine test uses this alphabet directly.  For a meta-word
+`(j_1,...,j_L)`, compile the length-`j_L` top branch with zero remaining tail
+and expand it to the first-scale packet.  The construction makes the
+depth-`L` macro word a prefix of the depth-`L+1` word.  Equality of consecutive
+first-scale packets would therefore be an ordinary canonical-seed
+stabilization, not merely a linked affine family.
+
+The complete tree `1<=j_i<=8`, `L<=3` has `8+64+512=584` nodes.  Exact
+arithmetic finds zero stabilizations and zero decreases: all 576 extensions
+strictly increase.  The closest extensions are `(1,1)` and `(1,1,1)`, with
+23 and 155 shared low bits, so variable syntax has not escaped the same 2-adic
+address phenomenon at this bound.  This closes only the zero-top-tail quine
+ansatz.  A serious next candidate must use a nonzero *evolved* child tail or
+an autonomous register relation, rather than another canonical CRT base.
+
 Exact arithmetic passes five such renormalizations:
 
 ```text

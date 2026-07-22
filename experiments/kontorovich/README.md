@@ -1083,6 +1083,13 @@ three nonconstant four-step meta-words:
 All three have collision signs `+,-,+,-,+`.  This is a bounded audit of the
 variable meta-alphabet, not a universal theorem for every choice word.
 
+The same artifact performs a canonical quine audit over the complete tree
+`j=1..8`, depth at most three.  Its `8+64+512=584` nodes contain zero
+canonical packet stabilizations and zero decreases: every extension strictly
+increases the first-scale packet.  The closest words `(1,1)` and `(1,1,1)`
+share 23 and 155 low bits with their parents.  This rejects the least-CRT-tail
+quine only in the stated tree; it does not test nonzero evolved meta-tails.
+
 For every renormalization and `N=1..8`, a child branch is built twice: once
 by CRT from its public register and once directly by composing the parent
 `B -> M_2 -> B`, `N` background self-links, and the capped boundary return.
@@ -1109,8 +1116,8 @@ loading them.  The scope is six finite levels, not an induction to all levels
 and not an infinite Collatz orbit.
 
 ```text
-artifact SHA-256  37f64b0bf7f45ba163023325e440707d096aac85c96198337377e562addb26c1
-verifier SHA-256  cb7da0801b8249886909219724d1c581a516486bfcffea21e03286e1c6fbfcf2
+artifact SHA-256  25b7c0b76a577fcb0fd4c4a191cabe5224d26bbb006a073e0d50feb44e1737fa
+verifier SHA-256  d4836bd974fdef6ee3a595044d16289d0de1a326a595a67795c536da1a327fba
 ```
 
 ## Three-bit-capped recursive super-ether

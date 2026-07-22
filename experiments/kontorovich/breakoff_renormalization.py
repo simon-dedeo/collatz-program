@@ -487,6 +487,90 @@ def alternative_choice_words() -> list[dict[str, object]]:
     return records
 
 
+def canonical_meta_quine_search(
+    choice_bound: int, max_depth: int
+) -> dict[str, object]:
+    """Search a bounded meta-word tree for exact canonical-seed stabilization."""
+    if min(choice_bound, max_depth) < 1:
+        raise ValueError("meta-quine bounds must be positive")
+    nodes_by_depth = [0] * (max_depth + 1)
+    stabilizations: list[list[int]] = []
+    decreases: list[list[int]] = []
+    closest: dict[int, dict[str, object]] = {}
+
+    def visit(
+        isa: RegisterISA,
+        embedding_base: int,
+        embedding_exponent: int,
+        previous_packet: int | None,
+        prefix: tuple[int, ...],
+        depth: int,
+    ) -> None:
+        if depth > max_depth:
+            return
+        for background_cells in range(1, choice_bound + 1):
+            packet = embedding_base + (
+                (1 << embedding_exponent)
+                * affine_macro(isa, background_cells).input_packet_base
+            )
+            word = prefix + (background_cells,)
+            nodes_by_depth[depth] += 1
+            if previous_packet is not None:
+                difference = packet - previous_packet
+                if difference == 0:
+                    stabilizations.append(list(word))
+                elif difference < 0:
+                    decreases.append(list(word))
+                else:
+                    record = {
+                        "word": list(word),
+                        "previous_packet_bits": previous_packet.bit_length(),
+                        "extended_packet_bits": packet.bit_length(),
+                        "difference_bits": difference.bit_length(),
+                        "shared_low_bits": v2(difference),
+                    }
+                    prior = closest.get(depth)
+                    if prior is None or (
+                        int(record["difference_bits"]), record["word"]
+                    ) < (int(prior["difference_bits"]), prior["word"]):
+                        closest[depth] = record
+
+            step = renormalize(isa, background_cells)
+            background = step.background
+            local_base = background.input_packet_base + (
+                (1 << background.input_packet_stride_exponent)
+                * step.defect_input_constant
+            )
+            local_exponent = (
+                background.input_packet_stride_exponent
+                + step.defect_input_exponent
+            )
+            visit(
+                step.child,
+                embedding_base + (1 << embedding_exponent) * local_base,
+                embedding_exponent + local_exponent,
+                packet,
+                word,
+                depth + 1,
+            )
+
+    visit(level_one_isa(), 0, 0, None, (), 1)
+    return {
+        "choice_alphabet": [1, choice_bound],
+        "max_depth": max_depth,
+        "nodes_by_depth": nodes_by_depth[1:],
+        "nodes_checked": sum(nodes_by_depth),
+        "canonical_stabilizations": stabilizations,
+        "canonical_decreases": decreases,
+        "all_extensions_strictly_increase": (
+            not stabilizations and not decreases
+        ),
+        "closest_strict_extension_by_depth": [
+            closest[depth] for depth in range(2, max_depth + 1)
+        ],
+    }
+
+
 def expand_to_level_one(
     steps: list[RenormalizationStep], level: int, cells: int, tail: int
 ) -> list[tuple[int, int]]:
@@ -623,6 +707,8 @@ def build_certificate(
     max_branch_cells: int,
     tails_per_branch: int,
     max_background_alphabet: int,
+    meta_quine_choice_bound: int,
+    meta_quine_depth: int,
 ) -> dict[str, object]:
     if min(levels - 1, max_branch_cells, tails_per_branch) < 1:
         raise ValueError("invalid hierarchy or replay bounds")
@@ -630,6 +716,9 @@ def build_certificate(
     canonical = canonical_depth_audit(hierarchy, steps)
     alphabet = adjacent_background_alphabet(max_background_alphabet)
     alternative_words = alternative_choice_words()
+    meta_quine = canonical_meta_quine_search(
+        meta_quine_choice_bound, meta_quine_depth
+    )
     direct_checks = 0
     replays: list[AbstractReplay] = []
     branch_samples: list[dict[str, object]] = []
@@ -660,6 +749,8 @@ def build_certificate(
             "branch_cells_per_step": [1, max_branch_cells],
             "tails_per_branch": tails_per_branch,
             "level_one_background_alphabet": [1, max_background_alphabet],
+            "meta_quine_choice_alphabet": [1, meta_quine_choice_bound],
+            "meta_quine_depth": meta_quine_depth,
         },
         "level_count": len(hierarchy),
         "renormalization_step_count": len(steps),
@@ -691,6 +782,7 @@ def build_certificate(
         "canonical_tail_zero_audit": [asdict(audit) for audit in canonical],
         "adjacent_background_alphabet": alphabet,
         "alternative_choice_words": alternative_words,
+        "canonical_meta_quine_search": meta_quine,
     }
 
 
@@ -705,6 +797,9 @@ def selftest() -> None:
         candidate = direct_nested_macro(step, 1)
         replay_parent_member(step, candidate, 0)
     canonical_depth_audit(hierarchy, steps)
+    tiny_quines = canonical_meta_quine_search(2, 2)
+    if tiny_quines["nodes_checked"] != 6:
+        raise AssertionError("tiny meta-quine tree size changed")
 
 
 def render(certificate: dict[str, object]) -> str:
@@ -726,6 +821,8 @@ def main() -> None:
     build.add_argument("--max-branch-cells", type=int, default=8)
     build.add_argument("--tails-per-branch", type=int, default=2)
     build.add_argument("--max-background-alphabet", type=int, default=64)
+    build.add_argument("--meta-quine-choice-bound", type=int, default=8)
+    build.add_argument("--meta-quine-depth", type=int, default=3)
     verify = subparsers.add_parser("verify")
     verify.add_argument("artifact", type=Path)
     args = parser.parse_args()
@@ -739,6 +836,8 @@ def main() -> None:
             args.max_branch_cells,
             args.tails_per_branch,
             args.max_background_alphabet,
+            args.meta_quine_choice_bound,
+            args.meta_quine_depth,
         )
         args.output.write_text(render(certificate))
         print(f"wrote {args.output}")
@@ -752,6 +851,8 @@ def main() -> None:
             int(bounds["branch_cells_per_step"][1]),
             int(bounds["tails_per_branch"]),
             int(bounds["level_one_background_alphabet"][1]),
+            int(bounds["meta_quine_choice_alphabet"][1]),
+            int(bounds["meta_quine_depth"]),
         )
         if actual != expected:
             raise AssertionError("artifact differs from exact recomputation")
