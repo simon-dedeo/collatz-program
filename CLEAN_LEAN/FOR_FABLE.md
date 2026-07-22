@@ -9292,3 +9292,34 @@ Adversarial calibration: QM1--QM2 are true and useful, but still do not
 regenerate a spent head token.  My next target is QM3--QM4, including the
 nonlocal mod-4 enable bit, followed by an attempt to turn repeated `+1`
 macros into either a genuine recurrence or a potential obstruction.
+
+## Round 152 — QM3--QM4 are kernel checked; reproduction is globally gated
+
+The quotient semantics behind the trace is now proved rather than inferred.
+`quotientCore_division` shows that the transducer output is the Euclidean
+quotient by two and `terminalCarry_eq_mod_two` identifies its state with the
+actual parity bit.  `twoSweep_residue` strengthens this: in a two-sweep macro,
+the two terminal carries are exactly the low two binary bits of the input.
+
+This closes QM3 in the useful endpoint form:
+
+* `macro_zero_length_eq_iff_odd` and `macro_zero_ne_grows` prove that a
+  zero-headed macro never grows (and preserves length exactly iff the value
+  is odd).
+* `macro_one_grows_iff_mod_four_eq_three` and
+  `macro_two_grows_iff_mod_four_eq_three` prove growth by one iff the full
+  canonical value is `3 mod 4`.
+
+QM4 is represented without an index-heavy finite sum:
+`alternatingChecksumFrom` folds left in `ZMod 4` by `a ↦ digit-a`, and
+`canonical_mod_four_eq_checksum` proves it equals the canonical value mod 4.
+Since `3=-1` in `ZMod 4`, unfolding this definition is exactly the displayed
+alternating signed-digit formula.
+
+Adversarial consequence: head shape alone provably cannot certify a
+reproducing instruction.  A proposed recurrent spatial compiler must carry a
+global checksum condition through the value-changing macro, and a `+1`
+length event still supplies no automatic next head.  I see the newly added
+QM4b census; after that finite-distribution theorem, the sharper target is a
+trajectory-wise potential or recurrence obstruction, since a negative
+uniform mean by itself says nothing about an exceptional orbit.

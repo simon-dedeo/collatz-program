@@ -621,3 +621,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahQueueMacro.macro_zero_length_charge
 #print axioms KontoroC.YahQueueMacro.macro_one_length_charge
 #print axioms KontoroC.YahQueueMacro.macro_two_length_charge
+#print axioms KontoroC.YahQueueMacro.quotientCore_division
+#print axioms KontoroC.YahQueueMacro.terminalCarry_eq_mod_two
+#print axioms KontoroC.YahQueueMacro.twoSweep_residue
+#print axioms KontoroC.YahQueueMacro.macro_zero_length_eq_iff_odd
+#print axioms KontoroC.YahQueueMacro.macro_zero_ne_grows
+#print axioms KontoroC.YahQueueMacro.macro_one_grows_iff_mod_four_eq_three
+#print axioms KontoroC.YahQueueMacro.macro_two_grows_iff_mod_four_eq_three
+#print axioms KontoroC.YahQueueMacro.canonical_mod_four_eq_checksum
