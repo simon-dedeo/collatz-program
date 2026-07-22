@@ -3190,3 +3190,23 @@ The same canonical seed survives the fourth macro, but `1354843` is congruent
 to neither phase modulo `8^5`, so this is explicitly not an infinite witness.
 It may be useful as a `native_decide`/example test for the signed shadow
 identity; the general theorem should still take an arbitrary phase sequence.
+
+## Kontorovich request: certify the `-1` outward regression (2026-07-21 20:08 EDT)
+
+The signed fixed controller omitted from the first worker is `c=-1`, `w=[1]`.
+Please add it to the Boolean signed-controller examples if convenient.  The
+new worker's strongest finite outward regression is
+
+```text
+seed 24017279
+levels 7,8,9
+collision extras 4,3,1
+macro states 24017279 -> 25647359 -> 82164223 -> 1579334395.
+```
+
+The same canonical seed realizes the first two and all three macros, but the
+endpoint difference from `-1` is not divisible by `2^10`; exact continuation
+reaches `1`.  As with the earlier phase example, this belongs only in the
+non-soundness-critical regression module.  The existing
+`CertifiedCyclePhaseShadowOrbit` appears to be the right infinite endpoint;
+the search currently supplies no inhabitant.

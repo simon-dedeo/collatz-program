@@ -1,0 +1,110 @@
+{
+  "arithmetic": "exact_python_integers",
+  "bounds": {
+    "continuation_steps": 100000,
+    "max_extra": 12,
+    "max_program_depth": 3,
+    "max_start_level": 100,
+    "min_start_level": 1
+  },
+  "compiled_paths": 376800,
+  "growing_seed_stabilization_events": 3,
+  "highest_start_level_terminal_renewal": {
+    "all_macrosteps_grow": false,
+    "automatic_continuation": [
+      {
+        "endpoint": "509858400321904295",
+        "extra": 2,
+        "grows": true,
+        "level": 13,
+        "next_level_aligned": false,
+        "state": "10479081128321023"
+      }
+    ],
+    "controller_state": "-1",
+    "controller_word": [
+      1
+    ],
+    "endpoint": "10479081128321023",
+    "extras": [
+      1,
+      8,
+      5
+    ],
+    "first_one_step": null,
+    "macro_states": [
+      "265296544373759",
+      "7649167797229567",
+      "2584509139587071",
+      "10479081128321023"
+    ],
+    "program_depth": 3,
+    "residue_mod_6": 5,
+    "seed": "265296544373759",
+    "stable_extensions": 0,
+    "start_level": 10,
+    "terminal_level_aligned": true
+  },
+  "programs": 188400,
+  "schema": "collatz-mersenne-shadow-search-v1",
+  "seed_stabilization_events": 80,
+  "source_sha256": "9e0be5ec96ed81eebe55c7b7f2281309eef13f7ca0da10638604afd2c1d4ac8f",
+  "strongest_growing_seed_stabilization": {
+    "all_macrosteps_grow": true,
+    "continuation": {
+      "accelerated_steps": 108,
+      "peak": "8538035597",
+      "status": "reaches_one"
+    },
+    "controller_state": "-1",
+    "controller_word": [
+      1
+    ],
+    "endpoint": "1579334395",
+    "extras": [
+      4,
+      3,
+      1
+    ],
+    "first_one_step": null,
+    "macro_states": [
+      "24017279",
+      "25647359",
+      "82164223",
+      "1579334395"
+    ],
+    "program_depth": 3,
+    "residue_mod_6": 5,
+    "seed": "24017279",
+    "stable_extensions": 1,
+    "start_level": 7,
+    "terminal_level_aligned": false
+  },
+  "strongest_seed_stabilization": {
+    "all_macrosteps_grow": true,
+    "controller_state": "-1",
+    "controller_word": [
+      1
+    ],
+    "endpoint": "1579334395",
+    "extras": [
+      4,
+      3,
+      1
+    ],
+    "first_one_step": null,
+    "macro_states": [
+      "24017279",
+      "25647359",
+      "82164223",
+      "1579334395"
+    ],
+    "program_depth": 3,
+    "residue_mod_6": 5,
+    "seed": "24017279",
+    "stable_extensions": 1,
+    "start_level": 7,
+    "terminal_level_aligned": false
+  },
+  "terminal_renewal_events": 522
+}

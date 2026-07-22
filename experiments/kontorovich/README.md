@@ -223,3 +223,46 @@ infinite exact phase-renewal witness.  Commits `edcee1a`/`0d8c3d2` check the
 signed `-5` and `-17` cycles and prove that every rotated phase supplies the
 required affine controller.  The finite artifacts above do not instantiate
 the infinite witness type.
+
+## Mersenne shadows of the signed fixed point `-1`
+
+`search_mersenne_shadow.py` treats `c=-1`, `w=(1)` as a one-counter
+controller.  A positive state `x=2^M h-1` with odd `h` has `M-1` exact
+valuation-one steps before its collision; if the last valuation is `1+e`, the
+endpoint is exactly
+
+```text
+x'=(3^M h-1)/2^e.
+```
+
+The next level requires `x'=2^(M+1)h'-1`.  This is the simplest realization
+of a high Mersenne-like packet feeding the low `+1` boundary, and its nominal
+multiplier `3/2` is strongly outward when collision extras remain bounded.
+
+```bash
+python3 search_mersenne_shadow.py --selftest
+python3 search_mersenne_shadow.py \
+  --min-start-level 1 --max-start-level 100 \
+  --max-extra 12 --max-program-depth 3 \
+  --continuation-steps 100000 \
+  --output mersenne_shadow_results.json
+```
+
+The artifact exhausts `188,400` extra programs and `376,800` compiled paths
+in both admissible mod-6 classes.  It records 522 terminal next-level
+renewals, 80 canonical-seed stabilizations, and three stabilizations for which
+every macrostep is strictly outward.  The strongest is
+
+```text
+start level:  7
+extras:       4, 3, 1
+macro states: 24017279 -> 25647359 -> 82164223 -> 1579334395.
+```
+
+The seed is already canonical before the third macro, but the last state is
+not `-1` modulo `2^10`.  Exact continuation reaches `1` after 108 accelerated
+steps, with peak `8,538,035,597`.  The highest terminal renewal in the search
+starts at level 10 and its added level-13 macro grows, but alignment then
+fails.  Thus this artifact verifies finite outward packet behavior while
+closing only its stated depth-three grammar.  Source digest:
+`9e0be5ec96ed81eebe55c7b7f2281309eef13f7ca0da10638604afd2c1d4ac8f`.

@@ -151,6 +151,7 @@ identically `x`.
 | Fixed-width binary uniform morphisms | Exhaustively negative for nontrivial cycles at widths `2..4`, codings `1..4`, and expanded length at most `16,384`. The best `1`-avoiding seed-stabilization event dies at its next morphic extension. | [`search_results.json`](experiments/kontorovich/search_results.json) |
 | Small negative-cycle shadow programs | Exhaustively negative for ordinary-seed stabilization or terminal precision renewal using controllers `-5` and `-17`, start levels `1..6`, collision extras `1..8`, and extra programs of depth at most four: `112,320` compiled paths in both mod-6 classes. This closes only the stated one-counter pilot. | [`shadow_results.json`](experiments/kontorovich/shadow_results.json) |
 | Bounded phase-changing shadow grammar | `1,950,864` positive paths checked exactly. The `-5/-7` phases yield 15 terminal renewals and 10 one-extension seed stabilizations, all starting at level 1 or 2; every renewed path loses alignment on its next collision and none grows. All seven `-17` phases yield zero events within their separately stated bounds. | [Phase-shadow artifacts](experiments/kontorovich/README.md#phase-changing-shadow-collisions) |
+| Bounded `-1`/Mersenne shadow grammar | `376,800` positive paths checked exactly for start levels `1..100`, extras `1..12`, and depth at most three. There are 522 terminal renewals, 80 seed stabilizations, and three all-outward stabilization events; none supplies a second stabilized extension. The best finite run reaches `1` on exact continuation. | [`mersenne_shadow_results.json`](experiments/kontorovich/mersenne_shadow_results.json) |
 | Small regular invariant sets | Previously closed only in the stated exhaustive classes: no base-2 DFA divergence certificate through eight states and no base-3 certificate through five. One-counter and genuinely morphic single-orbit certificates remain open. | [Base 2](experiments/dfacert/README.md), [base 3](experiments/dfacert3/README.md) |
 
 The first work product will be an exact `k`-word compiler and cycle/glider
@@ -173,7 +174,8 @@ positive integer and its claimed behavior are machine-checked.
 | Separated-packet clock | Lean commit `121cb13` proves `ord_(2^(n+3))(3)=2^(n+1)` and exact residue scheduling corollaries. This certifies the delay-line clock, not a collision-renewal rule. |
 | Negative-cycle shadow pilot | Exact Python checked `112,320` compiled paths for the `-5` and `-17` supercritical controllers through the bounds above. Every macrostep passed literal replay; no seed stabilization or next-level shadow renewal occurred. |
 | Finite phase-changing carry renewal | Exact search found positive seed `53,403,857` with macro-states `53,403,857 -> 15,019,835 -> 2,376,185 -> 1,691,641 -> 1,354,843`, following `-7,-5,-7,-7` controller phases at levels `1..4`. Its canonical seed survives the fourth macro, but the endpoint misses every level-5 phase class. This verifies one finite renewal mechanism, not nontermination. |
-| Kernel phase-shadow disproof seam | Lean commits `3d9cedc`/`93cafe1` prove the exact shifted-coordinate macro, eventual outward growth for bounded collision extras, and `PhaseShadowRenewal.not_conjecture` from an infinite exact renewal sequence. Commits `edcee1a`/`0d8c3d2` kernel-check the signed `-5`, `-17`, and every rotated phase. No infinite renewal witness is known. |
+| Finite outward Mersenne shadow | Exact seed `24,017,279` follows the signed `-1` controller at levels `7,8,9` with collision extras `(4,3,1)`, giving three strict macro increases `24,017,279 -> 25,647,359 -> 82,164,223 -> 1,579,334,395`. Its canonical seed stabilizes once, then misses level 10; exact continuation reaches `1` after 108 accelerated steps. |
+| Kernel phase-shadow disproof seam | Lean commits `3d9cedc` through `d6fb8b2` prove the exact shifted-coordinate macro and the literal Collatz negation from any infinite bounded-extra renewal after an arbitrary finite prefix. Signed cycles automatically supply supercriticality and all rotated phases. No infinite renewal witness is known. |
 
 The compiler and certificate seam is now live.  The dependency-free
 [`path_compiler.py`](experiments/kontorovich/path_compiler.py) reproduces the
@@ -211,6 +213,21 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-21 20:08 EDT
+
+Added the previously omitted signed fixed controller `-1`, which encodes long
+Mersenne-like runs of valuation one.  Its exact `376,800`-path sweep found
+three finite all-outward seed-stabilization events.  The best seed,
+`24,017,279`, grows at all three controller macros through `1,579,334,395`,
+then misses the next precision class and reaches `1` after 108 accelerated
+steps.  This is the closest bounded glider motif so far, but it is explicitly
+not a counterexample.  Lean commits `843387b`--`d6fb8b2` now remove all finite-
+prefix, growth, sign, and rotated-phase proof burdens from a future witness:
+the sole missing object is an infinite exact bounded-extra renewal stream.
+Next: search arithmetic feedback rules for the `-1` collision extras rather
+than enumerate another fixed-depth rectangle; PSC/Ganesha morphic jobs remain
+active.
 
 ### 2026-07-21 19:54 EDT
 
