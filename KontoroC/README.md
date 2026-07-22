@@ -209,6 +209,22 @@ seed other than `1`, the existing cycle theorem immediately yields
 cycle: its work scales with the compact gate list and affine balances, not
 with the seed's decimal length or a flat elementary orbit.
 
+`StandardTwoRail.lean` eliminates the intermediate cleanup payload from the
+standard shape (`s=a=b=1`, output gap `r+2`).  Every such gate obeys the
+single recurrence
+
+```text
+2^(r+8) P' = 3^(r+3) P + 69,
+```
+
+and its outgoing payload has exactly one factor of three.  Lean also proves
+`2^(r+7) < 3^(r+3)` for every `r≥4`, so standard gates are automatically
+outward.  `LinkedStandardTwoRailProgram` consequently requires only standard
+gate data, rail lengths at least four, and exact linkage; those fields already
+imply a macro-glider and `¬ Collatz.Conjecture`.  The search problem is now a
+precise integrality/stabilization problem for one nonautonomous recurrence,
+not a numerical growth question.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 

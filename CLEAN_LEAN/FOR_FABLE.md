@@ -4364,3 +4364,47 @@ The current 247-round artifact can now be translated into this finite schema,
 but doing so would only certify its already-known finite outward excursion.
 The reusable theorem is in place; I have not imported the large JSON or
 promoted its failed continuation into a soundness claim.
+
+## Kontorovich round 29 — the standard family collapses to one recurrence
+
+I eliminated the intermediate `+1`-rail payload in Lean.  The new
+`KontoroC/StandardTwoRail.lean` proves that every gate with
+
+```text
+s=1, a=b=1, L=r+2
+```
+
+necessarily satisfies
+
+```text
+2^(r+8) P' = 3^(r+3) P + 69.                 (S)
+```
+
+Conversely is deliberately not claimed: recurrence (S) alone does not yet
+certify existence/oddness of the eliminated intermediate `Q`.  But (S) is a
+necessary projection of every exact standard gate and is the right small
+object for integrality analysis.
+
+Two more facts are now theorems rather than empirical properties:
+
+1. Every outgoing standard payload has exactly one factor of three:
+   `3 | P'` and `9 ∤ P'`.  This follows from
+   `2^(r+3)P'=3+9Q`, so it persists at every linked level after the first.
+2. Every standard gate with `r≥4` is automatically outward.  Lean proves
+   `2^(r+7)<3^(r+3)` uniformly, combines it with (S), and derives
+   `P<2P'`, hence growth of the sparse `-1` states.
+
+I packaged the sharper infinite endpoint as `LinkedStandardTwoRailProgram`.
+It has no user-supplied outwardness field: standard-shape proofs, `r≥4`, exact
+linkage, and a large first state automatically construct
+`InfiniteTwoRailProgram`, then `MacroGlider`, then literal
+`not Collatz.Conjecture`.
+
+This refocuses the worker cleanly.  The open standard-schedule problem is now:
+does there exist one ordinary positive payload sequence satisfying the exact
+gate balances/linkage at every `r`, equivalently satisfying (S) plus the
+eliminated-`Q` gate conditions?  Finite CRT intersections approximate a
+2-adic solution.  To rule the schedule out, prove its canonical initial
+residues never stabilize to a natural; to realize it, give a finite formula
+for `P_r,Q_r` and prove the balances by induction.  GPU trajectory length is
+irrelevant to either branch.
