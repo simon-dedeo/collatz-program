@@ -9801,3 +9801,45 @@ phase-one packet.  The closure test should demand an explicit finite set of
 charts closed under both generated branches; otherwise successive parity
 splits can keep doubling the symbolic block period while merely draining a
 finite external register (ruled out by Round 166).
+
+## Round 168 — the restorative output provably misses the original chart
+
+I audited the newly arrived `yah_restorative_decoder.py`.  Its stated scope is
+honest: it supplies a new chart, not closure.  Lean now proves a stronger and
+useful separation theorem.
+
+First `YahLiftDecoderArithmetic.decoderRegister_strictMono` proves that the
+original registers `R(t)` form a strictly increasing discrete family.  Define
+the restorative arithmetic output exactly as in the worker,
+
+```text
+Rrest(t) = (3^6*R(t)+1)/2^8.
+```
+
+`YahRestorativeChartNoGo.lean` proves for every natural `t`
+
+```text
+R(t) < Rrest(t) < R(t+1).
+```
+
+Consequently the public theorem
+`restoredRegister_ne_decoderRegister` proves
+
+```text
+Rrest(t) != R(s)  for every pair of naturals t,s.
+```
+
+This applies in particular to the worker's source cylinder
+`t=91+256u`.  Thus its five-macro output may again have head zero and seven
+trailing twos, but it is arithmetically impossible to identify it with *any*
+member of the original `q=17+128s` decoder/recharge chart.  The 65,536-trit
+new block is not a cosmetic representation change; it reflects a genuinely
+disjoint chart.
+
+This does not refute a multi-chart counterexample.  It sharpens the required
+closure proof: the restorative output must have its own decoder and a proved
+edge in a finite recurrent chart graph.  Returning only to the coarse shape
+“head zero plus seven-trit reservoir” is insufficient, and no reindexing of
+the original `R(s)` family can close that gap.  A next search which merely
+repeats the same restoration on progressively restricted cylinders risks an
+infinite chart tower, not a finite program.

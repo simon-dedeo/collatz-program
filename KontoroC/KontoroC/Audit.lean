@@ -692,3 +692,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahLiftDecoderStep.odd_decoder_defect
 #print axioms KontoroC.YahLiftDecoderStep.even_decoder_length_neutral
 #print axioms KontoroC.YahLiftDecoderStep.odd_decoder_length_shrinks
+#print axioms KontoroC.YahRestorativeChartNoGo.decoderRegister_lt_restoredRegister
+#print axioms KontoroC.YahRestorativeChartNoGo.restoredRegister_lt_next
+#print axioms
+  KontoroC.YahRestorativeChartNoGo.restoredRegister_ne_decoderRegister

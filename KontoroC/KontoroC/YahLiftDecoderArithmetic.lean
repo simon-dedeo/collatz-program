@@ -126,5 +126,25 @@ theorem decoderRegister_parity (t : ℕ) :
   have hparity := normalizedRegister_parity t
   omega
 
+theorem decoderRegister_pos (t : ℕ) : 0 < decoderRegister t := by
+  have hvalue := decoderRegister_value t
+  have hrhs : 0 < 41 * 9 ^ decoderExponent t + 15 := by positivity
+  norm_num only [Nat.reducePow] at hvalue
+  omega
+
+/-- The original decoder registers form a strictly increasing discrete
+chart. -/
+theorem decoderRegister_strictMono : StrictMono decoderRegister := by
+  intro s t hst
+  have hexp : decoderExponent s < decoderExponent t := by
+    simp only [decoderExponent]
+    omega
+  have hpow : 9 ^ decoderExponent s < 9 ^ decoderExponent t :=
+    Nat.pow_lt_pow_right (by omega) hexp
+  have hs := decoderRegister_value s
+  have ht := decoderRegister_value t
+  norm_num only [Nat.reducePow] at hs ht
+  omega
+
 end YahLiftDecoderArithmetic
 end KontoroC
