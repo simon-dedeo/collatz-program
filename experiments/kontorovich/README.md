@@ -754,9 +754,10 @@ It contains 25,600 source shapes, of which 11,312 complete families are
 universally outward.  Their complete coefficient-compatible target lists
 give 2,751,680 exact link tests and 18 saturated-map bridges.  Four have even
 sources and 14 use the new odd catcher; 11 have universally outward linked
-target subfamilies.  For each of those 11 target shapes, the worker then checks its complete list of 718
-possible second edges.  None renews as another saturated bridge.  This is a
-sharp depth-two failure for these first-edge hits, not an all-shape theorem.
+target subfamilies.  For each of those 11 target shapes, the worker then
+checks its complete list of 718 possible second edges.  None renews as another
+saturated bridge.  This is a sharp depth-two failure for these first-edge
+hits, not an all-shape theorem.
 
 The smallest new bridge is particularly clean:
 
@@ -795,6 +796,93 @@ compiler path.
 ```text
 artifact SHA-256  dcf10371f5a5c8991c3eae958d8efb31f1dba3a7e6b059d0c31ff028d9b5264c
 verifier SHA-256  3ec925a23145af3c08065da658d45d19670d35b491b9b76b5230d236fb3b030d
+```
+
+## Ordinary splash relays and the universal router
+
+The direct compiler graph stops because a saturated block is too rigid, not
+because the complete splash hardware cannot connect its endpoints.  The
+first relaxation in `complete_u_relay_graph.py` allows exactly one ordinary
+splash between saturated edges.  Exact affine intersections give 22
+universally outward four-gate relays among the 11 two-outward compiler nodes.
+Their directed graph has just one cycle, the node-3 self-loop.  Its least
+member is
+
+```text
+16334827 -> 20673767 -> 52330475 -> 66230759 -> 167646611,
+```
+
+and it reaches `1`.  Every infinite path in this one-relay graph is eventually
+that fixed shape loop, hence repeats one valuation block and is already
+excluded by the periodic-word theorem.  This is an exact failure of one
+ordinary relay in the stated node set, not of longer catcher circuits.
+
+```bash
+python3 complete_u_relay_graph.py selftest
+python3 complete_u_relay_graph.py build complete_u_relay_graph_audit.json
+python3 complete_u_relay_graph.py verify complete_u_relay_graph_audit.json
+```
+
+The failure exposes a universal second relay.  For every incoming rail length
+`r>=0` and desired outgoing gap `L>=1`, take
+
+```text
+R_(r,L) = odd_catcher(r,0,1,L),
+word(R)  = [1]^r ++ [2,1].
+```
+
+It has `r+2` odd steps and `r+3` halvings.  Since
+
+```text
+3^(r+2) > 2^(r+3)          (base case 9>8),
+```
+
+every member is outward, while `L` can be chosen arbitrarily.  Therefore one
+router can change the spatial gap from any outward compiler target to the
+input gap of any next compiler source.
+
+`complete_u_router.py` constructs the full consequence: all `11*11=121`
+five-gate transitions
+
+```text
+A --U block--> B --ordinary--> R_(r,L)
+  --ordinary--> C --U block--> D
+```
+
+exist as unbounded affine families and every gate is outward.  Thus the
+two-relay compiler graph is the complete directed graph and supports arbitrary
+finite node words at the shape level.  The least transition is
+
+```text
+71675 -> 120953 -> 136073 -> 153083
+      -> 258329 -> 290621,
+```
+
+and reaches `1`.  Completeness of the finite shape graph is not an infinite
+ordinary program: an infinite aperiodic node word still selects nested dyadic
+cylinders whose limit is generally only a 2-adic tail.  The positive result is
+that spatial routing and finite branching are no longer the bottleneck; the
+ordinary-integer/self-reproduction gate is.
+
+Lean commit `fedb5ca` checks both sides of that conclusion.  Its universal
+router theorem proves every exact `(r,0,1,L)` catcher outward for all
+parameters and payloads, without enumerating the shapes used here.  Its
+dyadic-boundary theorem proves that if one ordinary natural belongs to nested
+cylinders of unbounded precision, their canonical residues must eventually
+be that natural literally.  Thus finite graph completeness cannot by itself
+hide the ordinary-seed obligation.
+
+```bash
+python3 complete_u_router.py selftest
+python3 complete_u_router.py build complete_u_router_audit.json
+python3 complete_u_router.py verify complete_u_router_audit.json
+```
+
+```text
+one-relay artifact SHA-256  2ccca3f4f334a04c7cd55d404a1a9913a859a490ad348effc95cde2dc4f08865
+one-relay verifier SHA-256  54e354c23788b9df4d74b3664d4c3c98816f3099f17543a4752f41d26a2e0cc2
+router artifact SHA-256     e64bd5f3a98f352d8211e9104b40f8ee2d118240650a11401764be8a97016e3f
+router verifier SHA-256     e2889b9d96f1a83044ecf03b69a657d0f84c48a2efd2a0ac1de84dbf688a4606
 ```
 
 ## A seven-step base-`3/2` compiler bridge

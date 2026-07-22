@@ -3650,3 +3650,116 @@ All three gates are outward for every `u`.  At `u=0`:
 The seed reaches `1`; this is a useful finite generalized-link regression,
 not a requested all-level theorem unless it falls out cheaply from the new
 interface.
+
+## Kontorovich request: universal outward splash router (2026-07-21 23:50 EDT)
+
+Round 51's odd compiler edge and round 52's deterministic ISA reveal a simple
+all-parameter routing theorem.  For arbitrary `r>=0,L>=1`, consider an odd
+catcher with
+
+```text
+cleanTicks=0, toPlusExtra=1, outputGap=L.
+```
+
+Its word is
+
+```text
+[1]^r ++ [2,1],
+```
+
+so it has `N=r+2` odd steps and `S=r+3` total halvings.  Since
+
+```text
+3^(r+2)>2^(r+3)
+```
+
+for every `r` (base `9>8`, then multiply by `3>2`), every legal member is
+outward: the positive affine offset only strengthens the leading-multiplier
+inequality.  The output gap `L` is arbitrary, so this family routes any
+incoming rail length to any desired next rail length.
+
+If convenient, please prove a theorem of the form
+
+```text
+OddCatcherGate.cleanTicks=0 ->
+OddCatcherGate.toPlusExtra=1 ->
+gate.start < gate.endpoint
+```
+
+without enumerating `r,L`.  A canonical base-gate constructor for every
+`r,L` would be stronger and would match the worker's complete affine family,
+but the universal outward lemma is the key seam.
+
+The research-side consequence is now exact.  Among the 11 two-outward
+saturated nodes in `complete_u_bridge_graph_audit.json`, one ordinary relay
+produces 22 transitions but only a fixed periodic self-loop.  With the router
+inserted between two ordinary affine links, every ordered pair compiles:
+
+```text
+A --saturated--> B --ordinary--> R_(r,L)
+  --ordinary--> C --saturated--> D.
+```
+
+`complete_u_router.py` constructs and literally replays all `11^2=121`
+five-gate affine families; every gate is outward.  The least node-0-to-node-0
+member is
+
+```text
+71675 -> 120953 -> 136073 -> 153083 -> 258329 -> 290621.
+```
+
+This proves complete *finite* control flow in the current compiler alphabet,
+not an infinite ordinary program.  An infinite aperiodic node word still
+selects nested dyadic cylinders whose limit need not be a natural.  Round
+52's `InfiniteCompleteSplashProgram` is therefore exactly the right endpoint:
+the next research object must be a public `(railLength,payload)` recurrence,
+not another proof-carrying gate type.
+
+## Kontorovich request: autonomous router recurrence (2026-07-22 00:08 EDT)
+
+Commit `fedb5ca` closes the universal-growth request.  Eliminating the
+exogenous node schedule exposes a smaller public recurrence.  If consecutive
+router gates have amplifier lengths `r,r'`, input/output payloads `P,P'`, and
+the first gate's output gap is `r'+1`, its two balance equations imply
+
+```text
+2^(r'+3) * P' = 3^(r+2) * P + 3.                 (R)
+```
+
+Conversely, for natural `r,r'` and positive odd `P,P'`, (R) should construct
+the exact router gate `(r,0,1,r'+1)`: it forces
+`v_2(3^(r+1)P+1)=r'+3`, and
+
+```text
+Q = (3^(r+1)P-3)/4
+```
+
+is positive odd and satisfies both gate balances.  Could you package this as
+a proof-carrying `RouterPayloadStep` or an equivalent theorem, with exact
+linkage to `CompleteSplashState.next`?  The desired all-level seam is:
+
+```text
+r P : Nat -> Nat
+positive/odd payloads
+forall n, 2^(r(n+1)+3)*P(n+1)=3^(r(n)+2)*P(n)+3
+initial sparse state > 4
+--------------------------------------------------
+not Collatz.Conjecture
+```
+
+`fedb5ca` supplies outwardness, so the recurrence should discharge both
+canonical decoding and linkage rather than ask for another outwardness field.
+It is not merely an externally prescribed dyadic address sequence: each next
+gap is certified by the current ordinary payload equation.
+
+There is also a useful autonomous normal form.  (R) forces `3 | P'`; after the
+first step write `P_n=3H_(n-1)`.  Then
+
+```text
+A = 3^(r_n+2) H_(n-1) + 1,
+r_(n+1) = v_2(A)-3,
+H_n = A / 2^v_2(A),                    provided v_2(A)>=3.
+```
+
+Formalizing the recurrence-to-gate direction is the priority; the valuation
+normal form is optional if `padicValNat` bookkeeping would slow the seam.

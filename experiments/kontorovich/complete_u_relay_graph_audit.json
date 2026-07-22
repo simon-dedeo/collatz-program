@@ -1,0 +1,3070 @@
+{
+  "schema": "collatz-complete-u-relay-graph-v1",
+  "claim_scope": "exact one-ordinary-gate relay graph on the 11 two-outward saturated edges from the stated upstream bounded source search; not an all-shape or multi-relay exclusion",
+  "upstream": {
+    "artifact": "complete_u_bridge_graph_audit.json",
+    "sha256": "dcf10371f5a5c8991c3eae958d8efb31f1dba3a7e6b059d0c31ff028d9b5264c",
+    "two_outward_nodes": 11
+  },
+  "nodes": [
+    {
+      "node": 0,
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 1,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 0,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "address_bits": 3,
+      "source_index_base": 7,
+      "target_index_base": 26
+    },
+    {
+      "node": 1,
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 1,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 7
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 6,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "address_bits": 3,
+      "source_index_base": 3,
+      "target_index_base": 13
+    },
+    {
+      "node": 2,
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 1,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 13
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 12,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "address_bits": 3,
+      "source_index_base": 7,
+      "target_index_base": 26
+    },
+    {
+      "node": 3,
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 1,
+        "clean_ticks": 1,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 3
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 2,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 2
+      },
+      "address_bits": 4,
+      "source_index_base": 15,
+      "target_index_base": 80
+    },
+    {
+      "node": 4,
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 2,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 7
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 6,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 2
+      },
+      "address_bits": 4,
+      "source_index_base": 7,
+      "target_index_base": 40
+    },
+    {
+      "node": 5,
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 2,
+        "clean_ticks": 0,
+        "to_plus_extra": 2,
+        "terminal_extra": null,
+        "output_gap": 6
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 5,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 2
+      },
+      "address_bits": 4,
+      "source_index_base": 7,
+      "target_index_base": 40
+    },
+    {
+      "node": 6,
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 3,
+        "clean_ticks": 0,
+        "to_plus_extra": 2,
+        "terminal_extra": null,
+        "output_gap": 6
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 5,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 3
+      },
+      "address_bits": 5,
+      "source_index_base": 31,
+      "target_index_base": 242
+    },
+    {
+      "node": 7,
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 5,
+        "clean_ticks": 0,
+        "to_plus_extra": 2,
+        "terminal_extra": null,
+        "output_gap": 8
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 7,
+        "clean_ticks": 0,
+        "to_plus_extra": 5,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "address_bits": 7,
+      "source_index_base": 127,
+      "target_index_base": 2186
+    },
+    {
+      "node": 8,
+      "source_shape": {
+        "branch": "even_cleanup",
+        "amp_ticks": 5,
+        "clean_ticks": 0,
+        "to_plus_extra": 2,
+        "terminal_extra": 1,
+        "output_gap": 12
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 11,
+        "clean_ticks": 0,
+        "to_plus_extra": 5,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "address_bits": 7,
+      "source_index_base": 63,
+      "target_index_base": 1093
+    },
+    {
+      "node": 9,
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 6,
+        "clean_ticks": 4,
+        "to_plus_extra": 3,
+        "terminal_extra": null,
+        "output_gap": 10
+      },
+      "target_shape": {
+        "branch": "even_cleanup",
+        "amp_ticks": 9,
+        "clean_ticks": 2,
+        "to_plus_extra": 2,
+        "terminal_extra": 2,
+        "output_gap": 2
+      },
+      "address_bits": 12,
+      "source_index_base": 4095,
+      "target_index_base": 531440
+    },
+    {
+      "node": 10,
+      "source_shape": {
+        "branch": "even_cleanup",
+        "amp_ticks": 10,
+        "clean_ticks": 0,
+        "to_plus_extra": 4,
+        "terminal_extra": 2,
+        "output_gap": 11
+      },
+      "target_shape": {
+        "branch": "even_cleanup",
+        "amp_ticks": 10,
+        "clean_ticks": 2,
+        "to_plus_extra": 1,
+        "terminal_extra": 3,
+        "output_gap": 2
+      },
+      "address_bits": 12,
+      "source_index_base": 1023,
+      "target_index_base": 132860
+    }
+  ],
+  "adjacency": {
+    "0": [],
+    "1": [],
+    "2": [],
+    "3": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "4": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "5": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "6": [
+      4,
+      5
+    ],
+    "7": [],
+    "8": [],
+    "9": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "10": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "relay_edges": 22,
+  "transitions": [
+    {
+      "from_node": 3,
+      "to_node": 0,
+      "ordinary_link": {
+        "address_bits": 3,
+        "source_index_base": 6,
+        "source_index_stride": 8,
+        "target_index_base": 69,
+        "target_index_stride": 81
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 623,
+          "stride": 1024
+        },
+        "B_index": {
+          "base": 3158,
+          "stride": 5184
+        },
+        "C_index": {
+          "base": 31983,
+          "stride": 52488
+        },
+        "D_index": {
+          "base": 107945,
+          "stride": 177147
+        },
+        "ordinary_relay_tail": {
+          "base": 394,
+          "stride": 648
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 638955,
+          "stride": 1048576
+        },
+        "after_A": {
+          "base": 808679,
+          "stride": 1327104
+        },
+        "after_B": {
+          "base": 2046971,
+          "stride": 3359232
+        },
+        "after_C": {
+          "base": 3454265,
+          "stride": 5668704
+        },
+        "after_D": {
+          "base": 3886049,
+          "stride": 6377292
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 1,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 3
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 0,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 3,
+      "to_node": 1,
+      "ordinary_link": {
+        "address_bits": 9,
+        "source_index_base": 378,
+        "source_index_stride": 512,
+        "target_index_base": 59,
+        "target_index_stride": 81
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 57519,
+          "stride": 65536
+        },
+        "B_index": {
+          "base": 291194,
+          "stride": 331776
+        },
+        "C_index": {
+          "base": 46067,
+          "stride": 52488
+        },
+        "D_index": {
+          "base": 155479,
+          "stride": 177147
+        },
+        "ordinary_relay_tail": {
+          "base": 568,
+          "stride": 648
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 58900459,
+          "stride": 67108864
+        },
+        "after_A": {
+          "base": 74545895,
+          "stride": 84934656
+        },
+        "after_B": {
+          "base": 188694299,
+          "stride": 214990848
+        },
+        "after_C": {
+          "base": 318421631,
+          "stride": 362797056
+        },
+        "after_D": {
+          "base": 4080399077,
+          "stride": 4649045868
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 1,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 3
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 7
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 6,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 3,
+      "to_node": 2,
+      "ordinary_link": {
+        "address_bits": 15,
+        "source_index_base": 12922,
+        "source_index_stride": 32768,
+        "target_index_base": 31,
+        "target_index_stride": 81
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 520367,
+          "stride": 4194304
+        },
+        "B_index": {
+          "base": 2634362,
+          "stride": 21233664
+        },
+        "C_index": {
+          "base": 6511,
+          "stride": 52488
+        },
+        "D_index": {
+          "base": 21977,
+          "stride": 177147
+        },
+        "ordinary_relay_tail": {
+          "base": 80,
+          "stride": 648
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 532856811,
+          "stride": 4294967296
+        },
+        "after_A": {
+          "base": 674396903,
+          "stride": 5435817984
+        },
+        "after_B": {
+          "base": 1707067163,
+          "stride": 13759414272
+        },
+        "after_C": {
+          "base": 2880675839,
+          "stride": 23219011584
+        },
+        "after_D": {
+          "base": 420476783501,
+          "stride": 3389154437772
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 1,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 3
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 13
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 12,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 3,
+      "to_node": 3,
+      "ordinary_link": {
+        "address_bits": 7,
+        "source_index_base": 116,
+        "source_index_stride": 128,
+        "target_index_base": 73,
+        "target_index_stride": 81
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 15951,
+          "stride": 32768
+        },
+        "B_index": {
+          "base": 80756,
+          "stride": 165888
+        },
+        "C_index": {
+          "base": 51103,
+          "stride": 104976
+        },
+        "D_index": {
+          "base": 258713,
+          "stride": 531441
+        },
+        "ordinary_relay_tail": {
+          "base": 630,
+          "stride": 1296
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 16334827,
+          "stride": 33554432
+        },
+        "after_A": {
+          "base": 20673767,
+          "stride": 42467328
+        },
+        "after_B": {
+          "base": 52330475,
+          "stride": 107495424
+        },
+        "after_C": {
+          "base": 66230759,
+          "stride": 136048896
+        },
+        "after_D": {
+          "base": 167646611,
+          "stride": 344373768
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 1,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 3
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 1,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 3
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        }
+      ],
+      "valuation_word": [
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 4,
+      "to_node": 0,
+      "ordinary_link": {
+        "address_bits": 3,
+        "source_index_base": 6,
+        "source_index_stride": 8,
+        "target_index_base": 5253,
+        "target_index_stride": 6561
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 231,
+          "stride": 1024
+        },
+        "B_index": {
+          "base": 1174,
+          "stride": 5184
+        },
+        "C_index": {
+          "base": 963159,
+          "stride": 4251528
+        },
+        "D_index": {
+          "base": 3250664,
+          "stride": 14348907
+        },
+        "ordinary_relay_tail": {
+          "base": 146,
+          "stride": 648
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 1900391,
+          "stride": 8388608
+        },
+        "after_A": {
+          "base": 4810367,
+          "stride": 21233664
+        },
+        "after_B": {
+          "base": 61642235,
+          "stride": 272097792
+        },
+        "after_C": {
+          "base": 104021273,
+          "stride": 459165024
+        },
+        "after_D": {
+          "base": 117023933,
+          "stride": 516560652
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 7
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 6,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 0,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 4,
+      "to_node": 1,
+      "ordinary_link": {
+        "address_bits": 9,
+        "source_index_base": 314,
+        "source_index_stride": 512,
+        "target_index_base": 4028,
+        "target_index_stride": 6561
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 46887,
+          "stride": 65536
+        },
+        "B_index": {
+          "base": 237370,
+          "stride": 331776
+        },
+        "C_index": {
+          "base": 3041771,
+          "stride": 4251528
+        },
+        "D_index": {
+          "base": 10265980,
+          "stride": 14348907
+        },
+        "ordinary_relay_tail": {
+          "base": 463,
+          "stride": 648
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 384106343,
+          "stride": 536870912
+        },
+        "after_A": {
+          "base": 972269183,
+          "stride": 1358954496
+        },
+        "after_B": {
+          "base": 12459097883,
+          "stride": 17414258688
+        },
+        "after_C": {
+          "base": 21024727679,
+          "stride": 29386561536
+        },
+        "after_D": {
+          "base": 269420387321,
+          "stride": 376572715308
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 7
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 6,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 7
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 6,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 4,
+      "to_node": 2,
+      "ordinary_link": {
+        "address_bits": 15,
+        "source_index_base": 8250,
+        "source_index_stride": 32768,
+        "target_index_base": 1651,
+        "target_index_stride": 6561
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 3393319,
+          "stride": 4194304
+        },
+        "B_index": {
+          "base": 17178682,
+          "stride": 21233664
+        },
+        "C_index": {
+          "base": 3439615,
+          "stride": 4251528
+        },
+        "D_index": {
+          "base": 11608703,
+          "stride": 14348907
+        },
+        "ordinary_relay_tail": {
+          "base": 524,
+          "stride": 648
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 27798077287,
+          "stride": 34359738368
+        },
+        "after_A": {
+          "base": 70363883135,
+          "stride": 86973087744
+        },
+        "after_B": {
+          "base": 901674682139,
+          "stride": 1114512556032
+        },
+        "after_C": {
+          "base": 1521576026111,
+          "stride": 1880739938304
+        },
+        "after_D": {
+          "base": 222096281861477,
+          "stride": 274521509459532
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 7
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 6,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 13
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 12,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 4,
+      "to_node": 3,
+      "ordinary_link": {
+        "address_bits": 7,
+        "source_index_base": 20,
+        "source_index_stride": 128,
+        "target_index_base": 1045,
+        "target_index_stride": 6561
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 29383,
+          "stride": 32768
+        },
+        "B_index": {
+          "base": 148756,
+          "stride": 165888
+        },
+        "C_index": {
+          "base": 7624927,
+          "stride": 8503056
+        },
+        "D_index": {
+          "base": 38601197,
+          "stride": 43046721
+        },
+        "ordinary_relay_tail": {
+          "base": 1162,
+          "stride": 1296
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 240713575,
+          "stride": 268435456
+        },
+        "after_A": {
+          "base": 609306239,
+          "stride": 679477248
+        },
+        "after_B": {
+          "base": 7807926251,
+          "stride": 8707129344
+        },
+        "after_C": {
+          "base": 9881906663,
+          "stride": 11019960576
+        },
+        "after_D": {
+          "base": 25013576243,
+          "stride": 27894275208
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 7
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 6,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 1,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 3
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 5,
+      "to_node": 0,
+      "ordinary_link": {
+        "address_bits": 3,
+        "source_index_base": 3,
+        "source_index_stride": 8,
+        "target_index_base": 879,
+        "target_index_stride": 2187
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 695,
+          "stride": 1024
+        },
+        "B_index": {
+          "base": 3523,
+          "stride": 5184
+        },
+        "C_index": {
+          "base": 963159,
+          "stride": 1417176
+        },
+        "D_index": {
+          "base": 3250664,
+          "stride": 4782969
+        },
+        "ordinary_relay_tail": {
+          "base": 440,
+          "stride": 648
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 5701175,
+          "stride": 8388608
+        },
+        "after_A": {
+          "base": 7215551,
+          "stride": 10616832
+        },
+        "after_B": {
+          "base": 61642235,
+          "stride": 90699264
+        },
+        "after_C": {
+          "base": 104021273,
+          "stride": 153055008
+        },
+        "after_D": {
+          "base": 117023933,
+          "stride": 172186884
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 2,
+          "terminal_extra": null,
+          "output_gap": 6
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 5,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 0,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 5,
+      "to_node": 1,
+      "ordinary_link": {
+        "address_bits": 9,
+        "source_index_base": 431,
+        "source_index_stride": 512,
+        "target_index_base": 1841,
+        "target_index_stride": 2187
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 9591,
+          "stride": 65536
+        },
+        "B_index": {
+          "base": 48559,
+          "stride": 331776
+        },
+        "C_index": {
+          "base": 207419,
+          "stride": 1417176
+        },
+        "D_index": {
+          "base": 700042,
+          "stride": 4782969
+        },
+        "ordinary_relay_tail": {
+          "base": 94,
+          "stride": 648
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 78577207,
+          "stride": 536870912
+        },
+        "after_A": {
+          "base": 99449279,
+          "stride": 679477248
+        },
+        "after_B": {
+          "base": 849592091,
+          "stride": 5804752896
+        },
+        "after_C": {
+          "base": 1433686655,
+          "stride": 9795520512
+        },
+        "after_D": {
+          "base": 18371910449,
+          "stride": 125524238436
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 2,
+          "terminal_extra": null,
+          "output_gap": 6
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 5,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 7
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 6,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 5,
+      "to_node": 2,
+      "ordinary_link": {
+        "address_bits": 15,
+        "source_index_base": 24751,
+        "source_index_stride": 32768,
+        "target_index_base": 1651,
+        "target_index_stride": 2187
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 1791351,
+          "stride": 4194304
+        },
+        "B_index": {
+          "base": 9068719,
+          "stride": 21233664
+        },
+        "C_index": {
+          "base": 605263,
+          "stride": 1417176
+        },
+        "D_index": {
+          "base": 2042765,
+          "stride": 4782969
+        },
+        "ordinary_relay_tail": {
+          "base": 276,
+          "stride": 648
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 14674755127,
+          "stride": 34359738368
+        },
+        "after_A": {
+          "base": 18572736959,
+          "stride": 43486543872
+        },
+        "after_B": {
+          "base": 158666311451,
+          "stride": 371504185344
+        },
+        "after_C": {
+          "base": 267749400575,
+          "stride": 626913312768
+        },
+        "after_D": {
+          "base": 39081942221789,
+          "stride": 91507169819844
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 2,
+          "terminal_extra": null,
+          "output_gap": 6
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 5,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 13
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 12,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 5,
+      "to_node": 3,
+      "ordinary_link": {
+        "address_bits": 7,
+        "source_index_base": 61,
+        "source_index_stride": 128,
+        "target_index_base": 1045,
+        "target_index_stride": 2187
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 22615,
+          "stride": 32768
+        },
+        "B_index": {
+          "base": 114493,
+          "stride": 165888
+        },
+        "C_index": {
+          "base": 1956223,
+          "stride": 2834352
+        },
+        "D_index": {
+          "base": 9903383,
+          "stride": 14348907
+        },
+        "ordinary_relay_tail": {
+          "base": 894,
+          "stride": 1296
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 185269815,
+          "stride": 268435456
+        },
+        "after_A": {
+          "base": 234482111,
+          "stride": 339738624
+        },
+        "after_B": {
+          "base": 2003173355,
+          "stride": 2902376448
+        },
+        "after_C": {
+          "base": 2535266279,
+          "stride": 3673320192
+        },
+        "after_D": {
+          "base": 6417392771,
+          "stride": 9298091736
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 2,
+          "terminal_extra": null,
+          "output_gap": 6
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 5,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 1,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 3
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 6,
+      "to_node": 4,
+      "ordinary_link": {
+        "address_bits": 9,
+        "source_index_base": 189,
+        "source_index_stride": 512,
+        "target_index_base": 810,
+        "target_index_stride": 2187
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 178495,
+          "stride": 262144
+        },
+        "B_index": {
+          "base": 1355453,
+          "stride": 1990656
+        },
+        "C_index": {
+          "base": 5789799,
+          "stride": 8503056
+        },
+        "D_index": {
+          "base": 29310862,
+          "stride": 43046721
+        },
+        "ordinary_relay_tail": {
+          "base": 2647,
+          "stride": 3888
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 2924478159,
+          "stride": 4294967296
+        },
+        "after_A": {
+          "base": 5551939007,
+          "stride": 8153726976
+        },
+        "after_B": {
+          "base": 47430041447,
+          "stride": 69657034752
+        },
+        "after_C": {
+          "base": 120057292415,
+          "stride": 176319369216
+        },
+        "after_D": {
+          "base": 1538468545979,
+          "stride": 2259436291848
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 3,
+          "clean_ticks": 0,
+          "to_plus_extra": 2,
+          "terminal_extra": null,
+          "output_gap": 6
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 5,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 3
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 7
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 6,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        1,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 6,
+      "to_node": 5,
+      "ordinary_link": {
+        "address_bits": 9,
+        "source_index_base": 292,
+        "source_index_stride": 512,
+        "target_index_base": 1250,
+        "target_index_stride": 2187
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 45279,
+          "stride": 262144
+        },
+        "B_index": {
+          "base": 343844,
+          "stride": 1990656
+        },
+        "C_index": {
+          "base": 1468727,
+          "stride": 8503056
+        },
+        "D_index": {
+          "base": 7435435,
+          "stride": 43046721
+        },
+        "ordinary_relay_tail": {
+          "base": 671,
+          "stride": 3888
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 741867215,
+          "stride": 4294967296
+        },
+        "after_A": {
+          "base": 1408388543,
+          "stride": 8153726976
+        },
+        "after_B": {
+          "base": 12031819319,
+          "stride": 69657034752
+        },
+        "after_C": {
+          "base": 15227771327,
+          "stride": 88159684608
+        },
+        "after_D": {
+          "base": 130090374587,
+          "stride": 753145430616
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 3,
+          "clean_ticks": 0,
+          "to_plus_extra": 2,
+          "terminal_extra": null,
+          "output_gap": 6
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 5,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 3
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 2,
+          "terminal_extra": null,
+          "output_gap": 6
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 5,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        1,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        3,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 9,
+      "to_node": 0,
+      "ordinary_link": {
+        "address_bits": 3,
+        "source_index_base": 0,
+        "source_index_stride": 8,
+        "target_index_base": 180533,
+        "target_index_stride": 1594323
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 4095,
+          "stride": 262144
+        },
+        "B_index": {
+          "base": 531440,
+          "stride": 34012224
+        },
+        "C_index": {
+          "base": 105911057423,
+          "stride": 6778308875544
+        },
+        "D_index": {
+          "base": 357449818805,
+          "stride": 22876792454961
+        },
+        "ordinary_relay_tail": {
+          "base": 66430,
+          "stride": 4251528
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 4398045732223,
+          "stride": 281474976710656
+        },
+        "after_A": {
+          "base": 4458049434623,
+          "stride": 285315214344192
+        },
+        "after_B": {
+          "base": 6778307675131,
+          "stride": 433811768034816
+        },
+        "after_C": {
+          "base": 11438394201785,
+          "stride": 732057358558752
+        },
+        "after_D": {
+          "base": 12868193477009,
+          "stride": 823564528378596
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 6,
+          "clean_ticks": 4,
+          "to_plus_extra": 3,
+          "terminal_extra": null,
+          "output_gap": 10
+        },
+        {
+          "branch": "even_cleanup",
+          "amp_ticks": 9,
+          "clean_ticks": 2,
+          "to_plus_extra": 2,
+          "terminal_extra": 2,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 0,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        4,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        2,
+        2,
+        4,
+        1,
+        2,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 9,
+      "to_node": 1,
+      "ordinary_link": {
+        "address_bits": 9,
+        "source_index_base": 124,
+        "source_index_stride": 512,
+        "target_index_base": 388945,
+        "target_index_stride": 1594323
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 5558271,
+          "stride": 16777216
+        },
+        "B_index": {
+          "base": 721165436,
+          "stride": 2176782336
+        },
+        "C_index": {
+          "base": 2245645786843,
+          "stride": 6778308875544
+        },
+        "D_index": {
+          "base": 7579054530598,
+          "stride": 22876792454961
+        },
+        "ordinary_relay_tail": {
+          "base": 1408526,
+          "stride": 4251528
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 5968149114789247,
+          "stride": 18014398509481984
+        },
+        "after_A": {
+          "base": 6049574153352191,
+          "stride": 18260173718028288
+        },
+        "after_B": {
+          "base": 9198165142912795,
+          "stride": 27763953154228224
+        },
+        "after_C": {
+          "base": 15521903678665343,
+          "stride": 46851670947760128
+        },
+        "after_D": {
+          "base": 198904707101022113,
+          "stride": 600378541187996484
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 6,
+          "clean_ticks": 4,
+          "to_plus_extra": 3,
+          "terminal_extra": null,
+          "output_gap": 10
+        },
+        {
+          "branch": "even_cleanup",
+          "amp_ticks": 9,
+          "clean_ticks": 2,
+          "to_plus_extra": 2,
+          "terminal_extra": 2,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 7
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 6,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        4,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        2,
+        2,
+        4,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 9,
+      "to_node": 2,
+      "ordinary_link": {
+        "address_bits": 15,
+        "source_index_base": 14204,
+        "source_index_stride": 32768,
+        "target_index_base": 691137,
+        "target_index_stride": 1594323
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 486854655,
+          "stride": 1073741824
+        },
+        "B_index": {
+          "base": 63167608700,
+          "stride": 139314069504
+        },
+        "C_index": {
+          "base": 3073412213343,
+          "stride": 6778308875544
+        },
+        "D_index": {
+          "base": 10372766220035,
+          "stride": 22876792454961
+        },
+        "ordinary_relay_tail": {
+          "base": 1927722,
+          "stride": 4251528
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 522756206355553663,
+          "stride": 1152921504606846976
+        },
+        "after_A": {
+          "base": 529888307689288703,
+          "stride": 1168651117953810432
+        },
+        "after_B": {
+          "base": 805676571254834971,
+          "stride": 1776893001870606336
+        },
+        "after_C": {
+          "base": 1359579213992534015,
+          "stride": 2998506940656648192
+        },
+        "after_D": {
+          "base": 198450477098713880309,
+          "stride": 437675956526049436836
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 6,
+          "clean_ticks": 4,
+          "to_plus_extra": 3,
+          "terminal_extra": null,
+          "output_gap": 10
+        },
+        {
+          "branch": "even_cleanup",
+          "amp_ticks": 9,
+          "clean_ticks": 2,
+          "to_plus_extra": 2,
+          "terminal_extra": 2,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 13
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 12,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        4,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        2,
+        2,
+        4,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 9,
+      "to_node": 3,
+      "ordinary_link": {
+        "address_bits": 7,
+        "source_index_base": 58,
+        "source_index_stride": 128,
+        "target_index_base": 733710,
+        "target_index_stride": 1594323
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 438271,
+          "stride": 8388608
+        },
+        "B_index": {
+          "base": 56864186,
+          "stride": 1088391168
+        },
+        "C_index": {
+          "base": 708280320783,
+          "stride": 13556617751088
+        },
+        "D_index": {
+          "base": 3585669123968,
+          "stride": 68630377364883
+        },
+        "ordinary_relay_tail": {
+          "base": 444251,
+          "stride": 8503056
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 470590975909247,
+          "stride": 9007199254740992
+        },
+        "after_A": {
+          "base": 477011373192191,
+          "stride": 9130086859014144
+        },
+        "after_B": {
+          "base": 725279048482795,
+          "stride": 13881976577114112
+        },
+        "after_C": {
+          "base": 917931295736039,
+          "stride": 17569376605410048
+        },
+        "after_D": {
+          "base": 2323513592331851,
+          "stride": 44472484532444184
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 6,
+          "clean_ticks": 4,
+          "to_plus_extra": 3,
+          "terminal_extra": null,
+          "output_gap": 10
+        },
+        {
+          "branch": "even_cleanup",
+          "amp_ticks": 9,
+          "clean_ticks": 2,
+          "to_plus_extra": 2,
+          "terminal_extra": 2,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 1,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 3
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        4,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        3,
+        2,
+        2,
+        4,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 10,
+      "to_node": 0,
+      "ordinary_link": {
+        "address_bits": 3,
+        "source_index_base": 0,
+        "source_index_stride": 8,
+        "target_index_base": 95241,
+        "target_index_stride": 4782969
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 214015,
+          "stride": 262144
+        },
+        "B_index": {
+          "base": 27767792,
+          "stride": 34012224
+        },
+        "C_index": {
+          "base": 16601561137047,
+          "stride": 20334926626632
+        },
+        "D_index": {
+          "base": 56030268837536,
+          "stride": 68630377364883
+        },
+        "ordinary_relay_tail": {
+          "base": 3470974,
+          "stride": 4251528
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 459595858909183,
+          "stride": 562949953421312
+        },
+        "after_A": {
+          "base": 465866246899711,
+          "stride": 570630428688384
+        },
+        "after_B": {
+          "base": 1062499912771067,
+          "stride": 1301435304104448
+        },
+        "after_C": {
+          "base": 1792968602801177,
+          "stride": 2196172075676256
+        },
+        "after_D": {
+          "base": 2017089678151325,
+          "stride": 2470693585135788
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "even_cleanup",
+          "amp_ticks": 10,
+          "clean_ticks": 0,
+          "to_plus_extra": 4,
+          "terminal_extra": 2,
+          "output_gap": 11
+        },
+        {
+          "branch": "even_cleanup",
+          "amp_ticks": 10,
+          "clean_ticks": 2,
+          "to_plus_extra": 1,
+          "terminal_extra": 3,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 0,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        5,
+        4,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        5,
+        1,
+        2,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 10,
+      "to_node": 1,
+      "ordinary_link": {
+        "address_bits": 9,
+        "source_index_base": 308,
+        "source_index_stride": 512,
+        "target_index_base": 2878742,
+        "target_index_stride": 4782969
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 16483327,
+          "stride": 16777216
+        },
+        "B_index": {
+          "base": 2138651444,
+          "stride": 2176782336
+        },
+        "C_index": {
+          "base": 19978717889099,
+          "stride": 20334926626632
+        },
+        "D_index": {
+          "base": 67428172875712,
+          "stride": 68630377364883
+        },
+        "ordinary_relay_tail": {
+          "base": 4177053,
+          "stride": 4251528
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 35397677343119359,
+          "stride": 36028797018963968
+        },
+        "after_A": {
+          "base": 35880617227372543,
+          "stride": 36520347436056576
+        },
+        "after_B": {
+          "base": 81832828473753371,
+          "stride": 83291859462684672
+        },
+        "after_C": {
+          "base": 138092898049458815,
+          "stride": 140555012843280384
+        },
+        "after_D": {
+          "base": 1769584968950193929,
+          "stride": 1801135623563989452
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "even_cleanup",
+          "amp_ticks": 10,
+          "clean_ticks": 0,
+          "to_plus_extra": 4,
+          "terminal_extra": 2,
+          "output_gap": 11
+        },
+        {
+          "branch": "even_cleanup",
+          "amp_ticks": 10,
+          "clean_ticks": 2,
+          "to_plus_extra": 1,
+          "terminal_extra": 3,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 7
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 6,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        5,
+        4,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        5,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 10,
+      "to_node": 2,
+      "ordinary_link": {
+        "address_bits": 15,
+        "source_index_base": 25652,
+        "source_index_stride": 32768,
+        "target_index_base": 3744307,
+        "target_index_stride": 4782969
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 210469887,
+          "stride": 1073741824
+        },
+        "B_index": {
+          "base": 27307697204,
+          "stride": 139314069504
+        },
+        "C_index": {
+          "base": 3985957922023,
+          "stride": 20334926626632
+        },
+        "D_index": {
+          "base": 13452607986830,
+          "stride": 68630377364883
+        },
+        "ordinary_relay_tail": {
+          "base": 833364,
+          "stride": 4251528
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 451980642874890239,
+          "stride": 2305843009213693952
+        },
+        "after_A": {
+          "base": 458147134456776703,
+          "stride": 2337302235907620864
+        },
+        "after_B": {
+          "base": 1044894953511044891,
+          "stride": 5330679005611819008
+        },
+        "after_C": {
+          "base": 1763260234049888255,
+          "stride": 8995520821969944576
+        },
+        "after_D": {
+          "base": 257373627880656737729,
+          "stride": 1313027869578148310508
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "even_cleanup",
+          "amp_ticks": 10,
+          "clean_ticks": 0,
+          "to_plus_extra": 4,
+          "terminal_extra": 2,
+          "output_gap": 11
+        },
+        {
+          "branch": "even_cleanup",
+          "amp_ticks": 10,
+          "clean_ticks": 2,
+          "to_plus_extra": 1,
+          "terminal_extra": 3,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 13
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 12,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 1
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        5,
+        4,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        5,
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "from_node": 10,
+      "to_node": 3,
+      "ordinary_link": {
+        "address_bits": 7,
+        "source_index_base": 30,
+        "source_index_stride": 128,
+        "target_index_base": 1126960,
+        "target_index_stride": 4782969
+      },
+      "selected_index_progressions": {
+        "A_index": {
+          "base": 795647,
+          "stride": 8388608
+        },
+        "B_index": {
+          "base": 103232414,
+          "stride": 1088391168
+        },
+        "C_index": {
+          "base": 3857479974367,
+          "stride": 40669853253264
+        },
+        "D_index": {
+          "base": 19528492370237,
+          "stride": 205891132094649
+        },
+        "ordinary_relay_tail": {
+          "base": 806503,
+          "stride": 8503056
+        }
+      },
+      "state_affine_formulas": {
+        "start_A": {
+          "base": 1708641068062719,
+          "stride": 18014398509481984
+        },
+        "after_A": {
+          "base": 1731952510552063,
+          "stride": 18260173718028288
+        },
+        "after_B": {
+          "base": 3950059493752811,
+          "stride": 41645929731342336
+        },
+        "after_C": {
+          "base": 4999294046780903,
+          "stride": 52708129816230144
+        },
+        "after_D": {
+          "base": 12654463055914163,
+          "stride": 133417453597332552
+        }
+      },
+      "all_four_gates_universally_outward": true,
+      "shape_word": [
+        {
+          "branch": "even_cleanup",
+          "amp_ticks": 10,
+          "clean_ticks": 0,
+          "to_plus_extra": 4,
+          "terminal_extra": 2,
+          "output_gap": 11
+        },
+        {
+          "branch": "even_cleanup",
+          "amp_ticks": 10,
+          "clean_ticks": 2,
+          "to_plus_extra": 1,
+          "terminal_extra": 3,
+          "output_gap": 2
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 1,
+          "clean_ticks": 1,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 3
+        },
+        {
+          "branch": "odd_catcher",
+          "amp_ticks": 2,
+          "clean_ticks": 0,
+          "to_plus_extra": 1,
+          "terminal_extra": null,
+          "output_gap": 2
+        }
+      ],
+      "valuation_word": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        5,
+        4,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        5,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1
+      ]
+    }
+  ],
+  "strongly_connected_components": [
+    [
+      0
+    ],
+    [
+      1
+    ],
+    [
+      2
+    ],
+    [
+      3
+    ],
+    [
+      4
+    ],
+    [
+      5
+    ],
+    [
+      6
+    ],
+    [
+      7
+    ],
+    [
+      8
+    ],
+    [
+      9
+    ],
+    [
+      10
+    ]
+  ],
+  "cyclic_components": [
+    [
+      3
+    ]
+  ],
+  "only_infinite_shape_path": "eventually node 3 self-loop; hence an eventually periodic valuation-word schedule",
+  "node_3_self_loop": {
+    "from_node": 3,
+    "to_node": 3,
+    "ordinary_link": {
+      "address_bits": 7,
+      "source_index_base": 116,
+      "source_index_stride": 128,
+      "target_index_base": 73,
+      "target_index_stride": 81
+    },
+    "selected_index_progressions": {
+      "A_index": {
+        "base": 15951,
+        "stride": 32768
+      },
+      "B_index": {
+        "base": 80756,
+        "stride": 165888
+      },
+      "C_index": {
+        "base": 51103,
+        "stride": 104976
+      },
+      "D_index": {
+        "base": 258713,
+        "stride": 531441
+      },
+      "ordinary_relay_tail": {
+        "base": 630,
+        "stride": 1296
+      }
+    },
+    "state_affine_formulas": {
+      "start_A": {
+        "base": 16334827,
+        "stride": 33554432
+      },
+      "after_A": {
+        "base": 20673767,
+        "stride": 42467328
+      },
+      "after_B": {
+        "base": 52330475,
+        "stride": 107495424
+      },
+      "after_C": {
+        "base": 66230759,
+        "stride": 136048896
+      },
+      "after_D": {
+        "base": 167646611,
+        "stride": 344373768
+      }
+    },
+    "all_four_gates_universally_outward": true,
+    "shape_word": [
+      {
+        "branch": "odd_catcher",
+        "amp_ticks": 1,
+        "clean_ticks": 1,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 3
+      },
+      {
+        "branch": "odd_catcher",
+        "amp_ticks": 2,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 2
+      },
+      {
+        "branch": "odd_catcher",
+        "amp_ticks": 1,
+        "clean_ticks": 1,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 3
+      },
+      {
+        "branch": "odd_catcher",
+        "amp_ticks": 2,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 2
+      }
+    ],
+    "valuation_word": [
+      1,
+      2,
+      2,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      2,
+      2,
+      1,
+      1,
+      1,
+      2,
+      1
+    ],
+    "canonical_continuation": {
+      "limit": 100000,
+      "reached_one": true,
+      "accelerated_steps": 39,
+      "total_halvings": 86,
+      "ordinary_steps": 125,
+      "peak": 251469917,
+      "peak_at_accelerated_step": 17
+    }
+  },
+  "least_canonical_relay": {
+    "from_node": 3,
+    "to_node": 0,
+    "states": [
+      638955,
+      808679,
+      2046971,
+      3454265,
+      3886049
+    ]
+  }
+}

@@ -382,6 +382,12 @@ odd payload has a certified halt, generalized even-cleanup, or odd-catcher
 outcome.  Commit `92f237c` proves that proof-carrying outcome unique.  The
 parity-complete decoder semantics are now kernel-closed.
 
+Lean commits `88e2577`/`b023700` turn those semantics into the canonical
+partial map on public states `(r,P)`: halt maps to `none`, while either splash
+maps to its unique outgoing `(L-1,P')`.  A surviving strictly outward orbit of
+that map kernel-compiles to `¬Collatz`.  Hence the mathematical target no
+longer includes hidden gate certificates—only a public payload recurrence.
+
 The splash must therefore regenerate a **rewritten instruction tape**, not the
 same schedule.  The live target is a finite controller which branches on the
 changing residual tail and thereby emits a genuinely aperiodic gate sequence,
@@ -516,6 +522,78 @@ It reaches `1` after 133 accelerated steps.  This is exactly Simon's aligned
 renewing instruction or evidence that a finite refinement stabilizes to an
 ordinary infinite program.
 
+Allowing ordinary splash gates between saturated blocks separates two
+different obstructions.  With exactly one ordinary relay, the 11 two-outward
+compiler nodes have 22 exact affine transitions but only one directed cycle,
+a fixed self-loop.  Every infinite shape path in that restricted graph is
+eventually periodic and is therefore closed by the existing valuation-word
+theorem.
+
+With two ordinary links, however, there is a universal spatial router.  For
+arbitrary `r>=0,L>=1`, take the odd catcher
+
+```text
+R_(r,L)=(r,0,1,L),       word=[1]^r ++ [2,1].
+```
+
+It uses `r+2` odd steps and `r+3` halvings.  The exact inequality
+
+```text
+3^(r+2)>2^(r+3)
+```
+
+follows from `9>8` and induction, so every legal member is outward.  Its
+outgoing gap `L` is arbitrary.  Given compiler edge `A->B` and desired next
+edge `C->D`, choose `r=B.outputGap-1` and `L=C.inputGap`; coprime affine
+intersection then compiles
+
+```text
+A -> B -> R_(r,L) -> C -> D.
+```
+
+[`complete_u_router.py`](../../experiments/kontorovich/complete_u_router.py)
+checks all 121 ordered pairs of the current 11 nodes.  Every five-gate family
+is universally outward, so the two-relay node graph is complete and can emit
+arbitrary finite branching words.  This is a genuine programming-language
+advance: finite control flow and spatial routing are solved in this ISA.  It
+does not solve self-reference.  An infinite chosen node word still specifies
+nested dyadic cylinders and usually only a 2-adic initial tail; the next object
+must make that tail an ordinary positive integer by a public payload
+recurrence, not by compiling longer prefixes.
+
+Lean commit `fedb5ca` makes the two qualifications kernel-level.  It proves
+the router outward for arbitrary `r,L` and every legal payload, and proves that
+an ordinary natural realizing dyadic cylinders of unbounded precision forces
+their canonical residues eventually to stabilize at that natural.  A changing
+infinite address stream therefore needs genuine payload feedback; compactness
+of the corresponding 2-adic cylinders is not enough.
+
+There is a particularly small feedback core.  If every selected gate is a
+router, put `r_n` for its amplifier length, `P_n` for its input payload, and
+choose its outgoing gap as `L_n=r_(n+1)+1`.  The two router balance equations
+collapse exactly to
+
+```text
+2^(r_(n+1)+3) P_(n+1) = 3^(r_n+2) P_n + 3.       (7)
+```
+
+Conversely, positivity and oddness together with (7) give the exact powers of
+two required by the router word `[1]^r ++ [2,1]`.  Equation (7) forces every
+output payload to be divisible by three.  Hence, after the first gate, write
+`P_n=3H_(n-1)` and obtain the autonomous partial map
+
+```text
+A         = 3^(r_n+2) H_(n-1) + 1,
+r_(n+1) = v_2(A)-3,
+H_n       = A / 2^v_2(A),                    v_2(A)>=3.   (8)
+```
+
+This is the smallest current “hardware as software” model: one unbounded
+delay register and one odd nonlocal payload register, with no exogenous node
+word.  Every defined step compiles to a universally outward Collatz splash.
+The disproof target is an infinite positive orbit of (8); finite traces or a
+2-adic choice of its initial register do not suffice.
+
 ## 6. Ranked attack and kill tests
 
 1. Implement the mixed-base rules and mine structured, formula-generated
@@ -535,12 +613,11 @@ ordinary infinite program.
    map with genuinely aperiodic branch sequence and positive long-run drift;
    reject fixed return routes because their valuation words are periodic.
 6. Extend the exact seven- and twelve-append rational-base bridges into a
-   payload-selected block compiler.  A tail subcylinder now supplies three
-   outward gates, while the bounded complete graph shows that all 11
-   two-outward saturated edges found there are compiler dead ends.  Enlarge
-   source parameters strategically or admit a bounded non-saturated catcher
-   cascade between compiler edges; do not simply repeat the same gate, since
-   periodic-word obstruction applies.  In parallel, search the Stérin--Woods
+   payload-selected block compiler.  Two ordinary catcher links now route
+   every current compiler node to every other, so stop enlarging the finite
+   graph as a primary tactic.  Search instead for a self-describing payload
+   recurrence whose decoded node word is aperiodic and whose nested cylinders
+   stabilize to one ordinary integer.  In parallel, search the Stérin--Woods
    spacetime for a diagonal defect implementing the same
    binary-address/ternary-write transitions.
 
