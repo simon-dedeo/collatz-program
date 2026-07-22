@@ -157,6 +157,64 @@ theorem outward_iff (g : EvenCleanupGate) :
   simp only [start, endpoint, minusOneState]
   omega
 
+/-- At fixed amplifier length and input payload, the generalized even branch
+is uniquely decoded.  This includes the formerly missing zero-amplifier and
+unit-output-gap boundary cases. -/
+theorem eq_of_ampTicks_inputPayload (g h : EvenCleanupGate)
+    (hr : g.ampTicks = h.ampTicks)
+    (hP : g.inputPayload = h.inputPayload) : g = h := by
+  have hfirst := twoPow_mul_odd_unique
+    (delayState_odd (by omega : 0 < 2 * g.cleanTicks + 2))
+    (delayState_odd (by omega : 0 < 2 * h.cleanTicks + 2))
+    (show 2 ^ g.toPlusExtra * g.plusState =
+        2 ^ h.toPlusExtra * h.plusState by
+      calc
+        2 ^ g.toPlusExtra * g.plusState =
+            3 ^ (g.ampTicks + 1) * g.inputPayload - 1 := g.toPlus_balance
+        _ = 3 ^ (h.ampTicks + 1) * h.inputPayload - 1 := by rw [hr, hP]
+        _ = 2 ^ h.toPlusExtra * h.plusState := h.toPlus_balance.symm)
+  have hplus := TwoRailGate.delayState_unique g.plusPayload_odd
+    h.plusPayload_odd hfirst.2
+  have hs : g.cleanTicks = h.cleanTicks := by omega
+  have hsecond := twoPow_mul_odd_unique
+    (minusOneState_pos_odd g.outputPayload_pos g.outputGap_pos).2
+    (minusOneState_pos_odd h.outputPayload_pos h.outputGap_pos).2
+    (show 2 ^ g.toMinusExtra * g.endpoint =
+        2 ^ h.toMinusExtra * h.endpoint by
+      calc
+        2 ^ g.toMinusExtra * g.endpoint =
+            1 + 3 ^ (g.cleanTicks + 1) * g.plusPayload :=
+              g.toMinus_balance
+        _ = 1 + 3 ^ (h.cleanTicks + 1) * h.plusPayload := by
+              rw [hs, hplus.2]
+        _ = 2 ^ h.toMinusExtra * h.endpoint := h.toMinus_balance.symm)
+  have hout := TwoRailGate.minusOneState_unique g.outputPayload_pos
+    h.outputPayload_pos g.outputGap_pos h.outputGap_pos
+    g.outputPayload_odd h.outputPayload_odd hsecond.2
+  cases g
+  cases h
+  simp_all [plusState, endpoint]
+
+/-- Odd-gap and generalized even-gap decoders cannot accept the same fixed
+amplifier/payload pair. -/
+theorem disjoint_odd_of_same_ampTicks_inputPayload
+    (g : EvenCleanupGate) (h : OddCatcherGate)
+    (hr : g.ampTicks = h.ampTicks)
+    (hP : g.inputPayload = h.inputPayload) : False := by
+  have hfactor := twoPow_mul_odd_unique
+    (delayState_odd (by omega : 0 < 2 * g.cleanTicks + 2))
+    (delayState_odd (by omega : 0 < 2 * h.cleanTicks + 1))
+    (show 2 ^ g.toPlusExtra * g.plusState =
+        2 ^ h.toPlusExtra * h.plusState by
+      calc
+        2 ^ g.toPlusExtra * g.plusState =
+            3 ^ (g.ampTicks + 1) * g.inputPayload - 1 := g.toPlus_balance
+        _ = 3 ^ (h.ampTicks + 1) * h.inputPayload - 1 := by rw [hr, hP]
+        _ = 2 ^ h.toPlusExtra * h.plusState := h.toPlus_balance.symm)
+  have hgap := TwoRailGate.delayState_unique g.plusPayload_odd
+    h.plusPayload_odd hfactor.2
+  omega
+
 /-- Stable old API embeds into the generalized even branch. -/
 def ofTwoRailGate (g : TwoRailGate) : EvenCleanupGate where
   ampTicks := g.ampTicks
@@ -199,6 +257,49 @@ theorem legal_and_endpoint {r P : ℕ} (h : SplashHalt r P)
   exact mersenneMacro_legal_of_packet_equation
     (by omega) hP (by norm_num) (by simpa using h.balance)
 
+theorem eq (h k : SplashHalt r P) : h = k := by
+  have hu := twoPow_mul_odd_unique (by norm_num : Odd 1)
+    (by norm_num : Odd 1)
+    (show 2 ^ h.collisionExtra * 1 = 2 ^ k.collisionExtra * 1 by
+      simpa [h.balance, k.balance])
+  cases h
+  cases k
+  simp_all
+
+theorem disjoint_even (h : SplashHalt r P) (g : EvenCleanupGate)
+    (hr : g.ampTicks = r) (hP : g.inputPayload = P) : False := by
+  have hfactor := twoPow_mul_odd_unique (by norm_num : Odd 1)
+    (delayState_odd (by omega : 0 < 2 * g.cleanTicks + 2))
+    (show 2 ^ h.collisionExtra * 1 =
+        2 ^ g.toPlusExtra * g.plusState by
+      calc
+        2 ^ h.collisionExtra * 1 = 3 ^ (r + 1) * P - 1 := by
+          simpa using h.balance
+        _ = 3 ^ (g.ampTicks + 1) * g.inputPayload - 1 := by rw [hr, hP]
+        _ = 2 ^ g.toPlusExtra * g.plusState := g.toPlus_balance.symm)
+  have hpos : 0 < g.plusPayload * 2 ^ (2 * g.cleanTicks + 2) :=
+    Nat.mul_pos g.plusPayload_pos (Nat.pow_pos (by omega))
+  have hone : 1 = g.plusState := hfactor.2
+  simp only [EvenCleanupGate.plusState, delayState] at hone
+  omega
+
+theorem disjoint_odd (h : SplashHalt r P) (g : OddCatcherGate)
+    (hr : g.ampTicks = r) (hP : g.inputPayload = P) : False := by
+  have hfactor := twoPow_mul_odd_unique (by norm_num : Odd 1)
+    (delayState_odd (by omega : 0 < 2 * g.cleanTicks + 1))
+    (show 2 ^ h.collisionExtra * 1 =
+        2 ^ g.toPlusExtra * g.plusState by
+      calc
+        2 ^ h.collisionExtra * 1 = 3 ^ (r + 1) * P - 1 := by
+          simpa using h.balance
+        _ = 3 ^ (g.ampTicks + 1) * g.inputPayload - 1 := by rw [hr, hP]
+        _ = 2 ^ g.toPlusExtra * g.plusState := g.toPlus_balance.symm)
+  have hpos : 0 < g.plusPayload * 2 ^ (2 * g.cleanTicks + 1) :=
+    Nat.mul_pos g.plusPayload_pos (Nat.pow_pos (by omega))
+  have hone : 1 = g.plusState := hfactor.2
+  simp only [OddCatcherGate.plusState, delayState] at hone
+  omega
+
 end SplashHalt
 
 /-- Output of the parity-complete decoder at fixed amplifier length and
@@ -209,6 +310,39 @@ inductive CompleteSplashOutcome (r P : ℕ) : Type
       (hr : g.ampTicks = r) (hP : g.inputPayload = P)
   | odd (g : OddCatcherGate)
       (hr : g.ampTicks = r) (hP : g.inputPayload = P)
+
+/-- The complete decoder is literal: at fixed `(r,P)` there is at most one
+proof-carrying semantic outcome, not merely one branch label. -/
+instance (r P : ℕ) : Subsingleton (CompleteSplashOutcome r P) where
+  allEq x y := by
+    cases x with
+    | halt h =>
+        cases y with
+        | halt k => rw [h.eq k]
+        | even g hr hP => exact (h.disjoint_even g hr hP).elim
+        | odd g hr hP => exact (h.disjoint_odd g hr hP).elim
+    | even g gr gP =>
+        cases y with
+        | halt h => exact (h.disjoint_even g gr gP).elim
+        | even k kr kP =>
+            have hgk := g.eq_of_ampTicks_inputPayload k
+              (gr.trans kr.symm) (gP.trans kP.symm)
+            subst k
+            rfl
+        | odd h hr hP =>
+            exact (g.disjoint_odd_of_same_ampTicks_inputPayload h
+              (gr.trans hr.symm) (gP.trans hP.symm)).elim
+    | odd g gr gP =>
+        cases y with
+        | halt h => exact (h.disjoint_odd g gr gP).elim
+        | even h hr hP =>
+            exact (h.disjoint_odd_of_same_ampTicks_inputPayload g
+              (hr.trans gr.symm) (hP.trans gP.symm)).elim
+        | odd h hr hP =>
+            have hgh := g.eq_of_ampTicks_inputPayload h
+              (gr.trans hr.symm) (gP.trans hP.symm)
+            subst h
+            rfl
 
 /-- Every positive odd payload either hits `1` at its first collision or
 constructs one exact parity splash. -/
@@ -354,5 +488,11 @@ theorem exists_completeSplashOutcome (r P : ℕ) (hPpos : 0 < P)
           rw [hEstate]
       }
       exact ⟨CompleteSplashOutcome.odd g rfl rfl⟩
+
+/-- Every positive odd payload has exactly one complete semantic outcome. -/
+theorem existsUnique_completeSplashOutcome (r P : ℕ) (hPpos : 0 < P)
+    (hPodd : Odd P) : ∃! x : CompleteSplashOutcome r P, True := by
+  obtain ⟨x⟩ := exists_completeSplashOutcome r P hPpos hPodd
+  exact ⟨x, trivial, fun y _ => Subsingleton.elim y x⟩
 
 end KontoroC

@@ -5175,3 +5175,53 @@ between odd and old-even cylinders.  The remaining hygiene task for literal
 "exactly one outcome" is to lift those uniqueness proofs to the generalized
 `EvenCleanupGate` at `r=0` and prove the halt constructor disjoint from both
 gate constructors.  No existence gap remains.
+
+## Kontorovich round 50 — the complete splash decoder is literally unique
+
+The final hygiene gap from round 49 now compiles in
+`KontoroC/CompleteSplash.lean`.
+
+For the generalized even branch, Lean proves
+
+```text
+EvenCleanupGate.eq_of_ampTicks_inputPayload
+```
+
+including `ampTicks=0` and `outputGap=1`.  The proof applies uniqueness of a
+`2^k * odd` factorization at the first collision to recover `(a,s,Q)`, then
+applies it at the second collision to recover `(b,L,P')`.  The generalized
+even and odd branches are disjoint because the recovered delay gaps are
+respectively `2s+2` and `2s+1`.
+
+`SplashHalt.eq` proves the halt witness is unique.  The new
+`SplashHalt.disjoint_even` and `.disjoint_odd` theorems rule out a halt and a
+splash at the same `(r,P)`: uniqueness of the first collision factorization
+would force the positive delay state `1 + Q*2^G` to equal `1`.
+
+Consequently:
+
+```text
+instance : Subsingleton (CompleteSplashOutcome r P)
+
+existsUnique_completeSplashOutcome (r P) (0<P) (Odd P) :
+  ∃! x : CompleteSplashOutcome r P, True
+```
+
+Together with round 49 this is the exact total decoder: every positive odd
+payload has one and only one proof-carrying semantic result—halt, generalized
+even cleanup, or odd catcher.  Full `lake build` passes, and the axiom audit
+reports only `propext`, `Classical.choice`, and `Quot.sound`.
+
+I also inspected `complete_u_bridge_graph_audit.json`.  Calibration: the 18
+edges and zero renewing second edges are exhaustive only for the stated
+bounded source-shape box (with complete immediate candidate lists for the 11
+outward targets).  They neither prove nor suggest a global no-renewal theorem
+without a parameter reduction.  The `U^12` three-gate subcylinder is a useful
+finite generalized-ISA regression and all three outward inequalities are
+universal, but the canonical seed terminates.  Conceptually, this says the
+rigid fixed-shape saturated blocks are behaving like compiler test cases, not
+yet like a renewal mechanism.  A next search/theorem should seek either (i) a
+normal-form reduction bounding all possible successor shapes, which would
+turn bounded exhaustion into mathematics, or (ii) a renormalizing family in
+which the shape parameters themselves evolve; merely enlarging this box is
+unlikely to resolve the infinite-chain question.

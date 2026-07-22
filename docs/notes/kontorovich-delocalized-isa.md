@@ -375,9 +375,11 @@ payload decodes into exactly one parity-complete splash instruction.  The
 both affine families, literally replays their words, and audits the combined
 prefix tree.  The remaining challenge is no longer instruction coverage; it
 is to find one ordinary decoded tape avoiding the explicit halt with positive
-long-run drift.  Lean commit `afb86a5` certifies the odd catcher's exact word
-and endpoint for arbitrary payloads, including `r=0,L=1`; the combined
-total-decoder theorem remains research-side at this checkpoint.
+long-run drift.  Lean commits `afb86a5`/`f7ac880` certify the odd catcher's
+exact word, endpoint, affine cylinders, and cross-branch disjointness,
+including `r=0,L=1`.  Commit `78d1048` proves total existence: every positive
+odd payload has a certified halt, generalized even-cleanup, or odd-catcher
+outcome.  Generalized uniqueness remains formal hygiene; existence is closed.
 
 The splash must therefore regenerate a **rewritten instruction tape**, not the
 same schedule.  The live target is a finite controller which branches on the
@@ -482,6 +484,37 @@ total decoder gives 290 exact macros, 101 outward, and then the explicit
 halting collision `5->1`.  So “splash the splash” repairs the syntax but has
 not yet repaired the energy budget.
 
+The first complete bridge-graph audit now quantifies what the odd catcher
+buys.  In the source box `r<=15,s<=4,a,b<=4,L<=16`, 11,312 of 25,600
+parity-complete source families are universally outward.  Exhausting all
+2,751,680 coefficient-compatible target shapes yields 18 exact saturated
+bridges—14 with odd-catcher sources and four with even-cleanup sources.  Eleven
+linked target subfamilies remain universally outward.  The simplest new compiler instruction is
+
+```text
+U^3(7+8t)=26+27t,
+odd (1,0,1,1) -> odd (0,0,1,1),
+```
+
+with both selected sides outward.  But every one of those 11 target shapes is a dead end:
+its complete next-target list, 718 candidates in total, contains no second
+saturated bridge.  This closes depth two only for the 18 first edges found in
+the stated source box.
+
+There is nevertheless a universal three-gate outward *Collatz* cascade.  In
+the `U^12` bridge, impose the nonlocal tail address `t=0 mod 16`.  The two
+compiler gates then feed the outward odd catcher `(1,0,1,2)` for every
+remaining natural tail.  The least member is
+
+```text
+2199021754367 -> 2229023590399 -> 5083728186203 -> 8578791314219.
+```
+
+It reaches `1` after 133 accelerated steps.  This is exactly Simon's aligned
+“splash the splash,” now with net gain through three gates; it is not yet a
+renewing instruction or evidence that a finite refinement stabilizes to an
+ordinary infinite program.
+
 ## 6. Ranked attack and kill tests
 
 1. Implement the mixed-base rules and mine structured, formula-generated
@@ -501,11 +534,14 @@ not yet repaired the energy budget.
    map with genuinely aperiodic branch sequence and positive long-run drift;
    reject fixed return routes because their valuation words are periodic.
 6. Extend the exact seven- and twelve-append rational-base bridges into a
-   payload-selected block compiler.  The twelve-step bridge supplies two
-   outward gates before its catcher shrinks; search for a saturated cylinder
-   whose catcher is also outward, or a bounded catcher cascade with net gain.
-   In parallel, search the Stérin--Woods spacetime for a diagonal defect
-   implementing the same binary-address/ternary-write transitions.
+   payload-selected block compiler.  A tail subcylinder now supplies three
+   outward gates, while the bounded complete graph shows that all 11
+   two-outward saturated edges found there are compiler dead ends.  Enlarge
+   source parameters strategically or admit a bounded non-saturated catcher
+   cascade between compiler edges; do not simply repeat the same gate, since
+   periodic-word obstruction applies.  In parallel, search the Stérin--Woods
+   spacetime for a diagonal defect implementing the same
+   binary-address/ternary-write transitions.
 
 Every candidate is rejected unless all of the following are explicit:
 

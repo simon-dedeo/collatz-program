@@ -1,0 +1,690 @@
+{
+  "schema": "collatz-complete-u-bridge-graph-v1",
+  "claim_scope": "exact exhaustive source-shape search within stated bounds, with complete coefficient-compatible target lists and complete one-step renewal audits for every outward hit target; not a seed range search or an all-shape exclusion",
+  "bounds": {
+    "source_amp_ticks": "0..15",
+    "source_clean_ticks": "0..4",
+    "source_to_plus_extra": "1..4",
+    "source_even_terminal_extra": "1..4",
+    "source_output_gap": "1..16",
+    "source_branches": [
+      "odd_catcher",
+      "even_cleanup"
+    ],
+    "target_shapes": "all positive-parameter shapes with target input gap equal to the source output gap and target prefix address length equal to the source odd-step count"
+  },
+  "counts": {
+    "source_shapes": 25600,
+    "outward_source_shapes": 11312,
+    "candidate_links_checked": 2751680,
+    "exact_saturated_bridges": 18,
+    "source_branch_hits": {
+      "odd_catcher_sources": 14,
+      "even_cleanup_sources": 4
+    }
+  },
+  "hits": [
+    {
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 1,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 0,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "address_bits": 3,
+      "source_index_base": 7,
+      "source_index_stride": 8,
+      "target_index_base": 26,
+      "target_index_stride": 27,
+      "U_digits": [
+        1,
+        1,
+        1
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": true
+    },
+    {
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 1,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 7
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 6,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "address_bits": 3,
+      "source_index_base": 3,
+      "source_index_stride": 8,
+      "target_index_base": 13,
+      "target_index_stride": 27,
+      "U_digits": [
+        1,
+        1,
+        2
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": true
+    },
+    {
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 1,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 13
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 12,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "address_bits": 3,
+      "source_index_base": 7,
+      "source_index_stride": 8,
+      "target_index_base": 26,
+      "target_index_stride": 27,
+      "U_digits": [
+        1,
+        1,
+        1
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": true
+    },
+    {
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 1,
+        "clean_ticks": 1,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 3
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 2,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 2
+      },
+      "address_bits": 4,
+      "source_index_base": 15,
+      "source_index_stride": 16,
+      "target_index_base": 80,
+      "target_index_stride": 81,
+      "U_digits": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": true
+    },
+    {
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 2,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 7
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 6,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 2
+      },
+      "address_bits": 4,
+      "source_index_base": 7,
+      "source_index_stride": 16,
+      "target_index_base": 40,
+      "target_index_stride": 81,
+      "U_digits": [
+        1,
+        1,
+        1,
+        2
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": true
+    },
+    {
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 2,
+        "clean_ticks": 0,
+        "to_plus_extra": 2,
+        "terminal_extra": null,
+        "output_gap": 6
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 5,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 2
+      },
+      "address_bits": 4,
+      "source_index_base": 7,
+      "source_index_stride": 16,
+      "target_index_base": 40,
+      "target_index_stride": 81,
+      "U_digits": [
+        1,
+        1,
+        1,
+        2
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": true
+    },
+    {
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 2,
+        "clean_ticks": 2,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "target_shape": {
+        "branch": "even_cleanup",
+        "amp_ticks": 0,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": 2,
+        "output_gap": 1
+      },
+      "address_bits": 6,
+      "source_index_base": 63,
+      "source_index_stride": 64,
+      "target_index_base": 728,
+      "target_index_stride": 729,
+      "U_digits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": false
+    },
+    {
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 3,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 2
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 1,
+        "clean_ticks": 0,
+        "to_plus_extra": 3,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "address_bits": 5,
+      "source_index_base": 15,
+      "source_index_stride": 32,
+      "target_index_base": 121,
+      "target_index_stride": 243,
+      "U_digits": [
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": false
+    },
+    {
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 3,
+        "clean_ticks": 0,
+        "to_plus_extra": 2,
+        "terminal_extra": null,
+        "output_gap": 6
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 5,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": null,
+        "output_gap": 3
+      },
+      "address_bits": 5,
+      "source_index_base": 31,
+      "source_index_stride": 32,
+      "target_index_base": 242,
+      "target_index_stride": 243,
+      "U_digits": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": true
+    },
+    {
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 3,
+        "clean_ticks": 2,
+        "to_plus_extra": 2,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "target_shape": {
+        "branch": "even_cleanup",
+        "amp_ticks": 0,
+        "clean_ticks": 0,
+        "to_plus_extra": 3,
+        "terminal_extra": 1,
+        "output_gap": 1
+      },
+      "address_bits": 7,
+      "source_index_base": 63,
+      "source_index_stride": 128,
+      "target_index_base": 1093,
+      "target_index_stride": 2187,
+      "U_digits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": false
+    },
+    {
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 4,
+        "clean_ticks": 0,
+        "to_plus_extra": 2,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 0,
+        "clean_ticks": 0,
+        "to_plus_extra": 3,
+        "terminal_extra": null,
+        "output_gap": 2
+      },
+      "address_bits": 6,
+      "source_index_base": 31,
+      "source_index_stride": 64,
+      "target_index_base": 364,
+      "target_index_stride": 729,
+      "U_digits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": false
+    },
+    {
+      "source_shape": {
+        "branch": "even_cleanup",
+        "amp_ticks": 5,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "terminal_extra": 1,
+        "output_gap": 4
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 3,
+        "clean_ticks": 0,
+        "to_plus_extra": 5,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "address_bits": 7,
+      "source_index_base": 63,
+      "source_index_stride": 128,
+      "target_index_base": 1093,
+      "target_index_stride": 2187,
+      "U_digits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": false
+    },
+    {
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 5,
+        "clean_ticks": 0,
+        "to_plus_extra": 2,
+        "terminal_extra": null,
+        "output_gap": 8
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 7,
+        "clean_ticks": 0,
+        "to_plus_extra": 5,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "address_bits": 7,
+      "source_index_base": 127,
+      "source_index_stride": 128,
+      "target_index_base": 2186,
+      "target_index_stride": 2187,
+      "U_digits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": true
+    },
+    {
+      "source_shape": {
+        "branch": "even_cleanup",
+        "amp_ticks": 5,
+        "clean_ticks": 0,
+        "to_plus_extra": 2,
+        "terminal_extra": 1,
+        "output_gap": 2
+      },
+      "target_shape": {
+        "branch": "even_cleanup",
+        "amp_ticks": 1,
+        "clean_ticks": 0,
+        "to_plus_extra": 2,
+        "terminal_extra": 1,
+        "output_gap": 2
+      },
+      "address_bits": 7,
+      "source_index_base": 95,
+      "source_index_stride": 128,
+      "target_index_base": 1640,
+      "target_index_stride": 2187,
+      "U_digits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": false
+    },
+    {
+      "source_shape": {
+        "branch": "even_cleanup",
+        "amp_ticks": 5,
+        "clean_ticks": 0,
+        "to_plus_extra": 2,
+        "terminal_extra": 1,
+        "output_gap": 12
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 11,
+        "clean_ticks": 0,
+        "to_plus_extra": 5,
+        "terminal_extra": null,
+        "output_gap": 1
+      },
+      "address_bits": 7,
+      "source_index_base": 63,
+      "source_index_stride": 128,
+      "target_index_base": 1093,
+      "target_index_stride": 2187,
+      "U_digits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": true
+    },
+    {
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 6,
+        "clean_ticks": 0,
+        "to_plus_extra": 4,
+        "terminal_extra": null,
+        "output_gap": 3
+      },
+      "target_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 2,
+        "clean_ticks": 0,
+        "to_plus_extra": 5,
+        "terminal_extra": null,
+        "output_gap": 2
+      },
+      "address_bits": 8,
+      "source_index_base": 255,
+      "source_index_stride": 256,
+      "target_index_base": 6560,
+      "target_index_stride": 6561,
+      "U_digits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": false
+    },
+    {
+      "source_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 6,
+        "clean_ticks": 4,
+        "to_plus_extra": 3,
+        "terminal_extra": null,
+        "output_gap": 10
+      },
+      "target_shape": {
+        "branch": "even_cleanup",
+        "amp_ticks": 9,
+        "clean_ticks": 2,
+        "to_plus_extra": 2,
+        "terminal_extra": 2,
+        "output_gap": 2
+      },
+      "address_bits": 12,
+      "source_index_base": 4095,
+      "source_index_stride": 4096,
+      "target_index_base": 531440,
+      "target_index_stride": 531441,
+      "U_digits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": true
+    },
+    {
+      "source_shape": {
+        "branch": "even_cleanup",
+        "amp_ticks": 10,
+        "clean_ticks": 0,
+        "to_plus_extra": 4,
+        "terminal_extra": 2,
+        "output_gap": 11
+      },
+      "target_shape": {
+        "branch": "even_cleanup",
+        "amp_ticks": 10,
+        "clean_ticks": 2,
+        "to_plus_extra": 1,
+        "terminal_extra": 3,
+        "output_gap": 2
+      },
+      "address_bits": 12,
+      "source_index_base": 1023,
+      "source_index_stride": 4096,
+      "target_index_base": 132860,
+      "target_index_stride": 531441,
+      "U_digits": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1
+      ],
+      "source_selected_family_universally_outward": true,
+      "target_selected_family_universally_outward": true
+    }
+  ],
+  "renewal_audit": {
+    "outward_first_edges": 11,
+    "distinct_outward_first_targets": 11,
+    "complete_second_edge_candidates_checked": 718,
+    "renewing_second_edges": 0,
+    "continuations": []
+  },
+  "three_gate_U12_cascade": {
+    "scope": "universal three-gate outward affine family; finite prefix only",
+    "saturated_tail": "t=16*u",
+    "source_shape": {
+      "branch": "even_cleanup",
+      "amp_ticks": 10,
+      "clean_ticks": 0,
+      "to_plus_extra": 4,
+      "terminal_extra": 2,
+      "output_gap": 11
+    },
+    "target_shape": {
+      "branch": "even_cleanup",
+      "amp_ticks": 10,
+      "clean_ticks": 2,
+      "to_plus_extra": 1,
+      "terminal_extra": 3,
+      "output_gap": 2
+    },
+    "catcher_shape": {
+      "branch": "odd_catcher",
+      "amp_ticks": 1,
+      "clean_ticks": 0,
+      "to_plus_extra": 1,
+      "terminal_extra": null,
+      "output_gap": 2
+    },
+    "source_index": "1023+65536*u",
+    "target_index": "132860+8503056*u",
+    "catcher_index": "39716626454+2541865828329*u",
+    "state_affine_formulas": {
+      "source_start": {
+        "base": 2199021754367,
+        "stride": 140737488355328
+      },
+      "after_source": {
+        "base": 2229023590399,
+        "stride": 142657607172096
+      },
+      "after_target": {
+        "base": 5083728186203,
+        "stride": 325358826026112
+      },
+      "after_catcher": {
+        "base": 8578791314219,
+        "stride": 549043018919064
+      }
+    },
+    "all_three_gates_universally_outward": true,
+    "canonical_u0_continuation": {
+      "limit": 100000,
+      "reached_one": true,
+      "accelerated_steps": 133,
+      "total_halvings": 252,
+      "ordinary_steps": 385,
+      "peak": 128536732411649,
+      "peak_at_accelerated_step": 22
+    }
+  }
+}

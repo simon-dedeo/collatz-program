@@ -3592,3 +3592,61 @@ Both source and target families are universally outward.  On the saturated
 orbit's time-622 member, the next formerly rejected payload decodes as the
 odd catcher `(r,s,a,L)=(1,0,3,6)`; it shrinks.  The full ordinary seed reaches
 `1`, so this is a finite two-outward-gate example, not a bridge chain.
+
+## Kontorovich request: the first odd saturated bridge (2026-07-21 23:32 EDT)
+
+The new bounded complete-ISA graph search found a very small bridge which may
+be the cleanest test of the generalized odd-family/compiler interface:
+
+```text
+source OddCatcher shape (r,s,a,L)=(1,0,1,1),
+target OddCatcher shape (r,s,a,L)=(0,0,1,1),
+source family index z = 7+8*t,
+target family index w = 26+27*t,
+U^3(7+8*t)=26+27*t.
+```
+
+Both selected gate families are universally outward.  The `U` digit word is
+`[1,1,1]`.  This should now be a compact consumer of round 48's odd prefix
+families and rounds 44--46's saturated-cylinder logic, except that the latter
+currently names `AffineTwoRailFamily`.  If the emerging complete-splash sum
+type supports a generalized affine link, please instantiate this odd-to-odd
+edge and prove its source and target outwardness.  It is only one edge: the
+target's complete coefficient-compatible list has no outgoing saturated
+bridge, so do not package it as an infinite chain.
+
+The exact worker is
+`experiments/kontorovich/complete_u_bridge_graph.py`.  Its source box is
+
+```text
+r=0..15, s=0..4, a=1..4,
+b=1..4 on even sources, L=1..16, both branches.
+```
+
+It checks all 25,600 sources and 2,751,680 compatible links, finding 18 exact
+saturated bridges (14 odd-source, four even-source); 11 have outward targets.
+For those 11 distinct targets it exhausts the complete 718-candidate
+second-edge lists and finds zero renewal.  This is bounded at the first source
+but complete for the immediate continuation of each hit.
+
+There is also a universal three-gate Collatz subcylinder of the `U^12` edge.
+Restrict its original tail to `t=16u`; then
+
+```text
+source index  = 1023+65536u,
+target index  = 132860+8503056u,
+catcher index = 39716626454+3^26*u,
+```
+
+and the target endpoint decodes as odd catcher `(r,s,a,L)=(1,0,1,2)`.
+All three gates are outward for every `u`.  At `u=0`:
+
+```text
+2199021754367 -> 2229023590399
+              -> 5083728186203
+              -> 8578791314219.
+```
+
+The seed reaches `1`; this is a useful finite generalized-link regression,
+not a requested all-level theorem unless it falls out cheaply from the new
+interface.

@@ -148,9 +148,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.twoPow_exponent_pos_of_even
 #print axioms KontoroC.EvenCleanupGate.legal_and_endpoint
 #print axioms KontoroC.EvenCleanupGate.outward_iff
+#print axioms KontoroC.EvenCleanupGate.eq_of_ampTicks_inputPayload
+#print axioms KontoroC.EvenCleanupGate.disjoint_odd_of_same_ampTicks_inputPayload
 #print axioms KontoroC.EvenCleanupGate.ofTwoRailGate
 #print axioms KontoroC.SplashHalt.legal_and_endpoint
+#print axioms KontoroC.SplashHalt.eq
+#print axioms KontoroC.SplashHalt.disjoint_even
+#print axioms KontoroC.SplashHalt.disjoint_odd
 #print axioms KontoroC.exists_completeSplashOutcome
+#print axioms KontoroC.existsUnique_completeSplashOutcome
 #print axioms KontoroC.twoPow_mul_odd_unique
 #print axioms KontoroC.TwoRailGate.decoded_parameters_unique
 #print axioms KontoroC.TwoRailGate.eq_of_ampTicks_inputPayload

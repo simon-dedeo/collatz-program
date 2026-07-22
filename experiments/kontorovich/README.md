@@ -685,9 +685,11 @@ that every positive odd payload selects exactly one of these gates unless
 the current macro reaches `1`.  This removes “failure to decode” as a
 hardware obstruction; the disproof problem becomes finding an ordinary
 payload orbit whose decoded gates avoid the explicit halt and supply enough
-long-run outward growth.  Lean commit `afb86a5` independently certifies the
-odd catcher's exact word and endpoint for arbitrary payloads, including
-`r=0,L=1`; the combined total-decoder theorem is not yet kernel-checked.
+long-run outward growth.  Lean commits `afb86a5`/`f7ac880` independently
+certify the odd catcher's exact word, affine cylinders, and cross-branch
+disjointness, including `r=0,L=1`.  Commit `78d1048` further constructs a
+certified halt, generalized even cleanup, or odd catcher for every positive
+odd payload.  Generalized uniqueness remains the only formal decoder hygiene.
 
 ```bash
 python3 complete_splash_isa.py selftest
@@ -720,6 +722,78 @@ transferred divergence.
 ```text
 artifact SHA-256  d0c32f2d6c82ab142adf97a528046ef18d836f7db9b162150394aefe87dc269f
 verifier SHA-256  7cd2e65d5dcf2ef3f44c4567941657a95c0a2d31a3489563858242cc7748d8c3
+```
+
+## The complete saturated-bridge graph in a bounded source box
+
+`complete_u_bridge_graph.py` searches compiler *shapes*, not ordinary seeds.
+A source splash with `N=r+s+2` accelerated odd steps can agree with `U^N`
+only when its target prefix consumes exactly `N` address bits.  Once the
+source is fixed, that equation gives a finite complete list of positive target
+shapes; every link is then checked coefficientwise on its entire affine tail
+cylinder.
+
+```bash
+python3 complete_u_bridge_graph.py selftest
+python3 complete_u_bridge_graph.py \
+  build complete_u_bridge_graph_audit.json
+python3 complete_u_bridge_graph.py \
+  verify complete_u_bridge_graph_audit.json
+```
+
+The committed source box is
+
+```text
+0<=r<=15, 0<=s<=4, 1<=a<=4,
+1<=b<=4 on the even branch, 1<=L<=16,
+both even-cleanup and odd-catcher sources.
+```
+
+It contains 25,600 source shapes, of which 11,312 complete families are
+universally outward.  Their complete coefficient-compatible target lists
+give 2,751,680 exact link tests and 18 saturated-map bridges.  Four have even
+sources and 14 use the new odd catcher; 11 have universally outward linked
+target subfamilies.  For each of those 11 target shapes, the worker then checks its complete list of 718
+possible second edges.  None renews as another saturated bridge.  This is a
+sharp depth-two failure for these first-edge hits, not an all-shape theorem.
+
+The smallest new bridge is particularly clean:
+
+```text
+odd catcher (r,s,a,L)=(1,0,1,1)
+  -> odd catcher (0,0,1,1),
+U^3(7+8t)=26+27t,
+```
+
+and both selected families are universally outward.  It is one compiler edge,
+not a loop; its target has no compatible outgoing saturated edge.
+
+The same audit extracts a universal three-gate outward subcylinder from the
+`U^12` bridge.  Restrict its saturated tail to `t=16u`; the indices become
+
+```text
+source   1023 + 65536u,
+target   132860 + 8503056u,
+catcher  39716626454 + 3^26 u.
+```
+
+The two even gates are followed by the odd catcher `(1,0,1,2)`, and all three
+states increase for every `u>=0`.  At `u=0` the exact chain is
+
+```text
+2199021754367 -> 2229023590399
+              -> 5083728186203
+              -> 8578791314219.
+```
+
+That seed reaches `1` after 133 accelerated steps.  Finite tail refinement
+can compile more outward gates, but an eventually periodic refinement is
+already ruled out; the open target remains an ordinary aperiodic renewing
+compiler path.
+
+```text
+artifact SHA-256  dcf10371f5a5c8991c3eae958d8efb31f1dba3a7e6b059d0c31ff028d9b5264c
+verifier SHA-256  3ec925a23145af3c08065da658d45d19670d35b491b9b76b5230d236fb3b030d
 ```
 
 ## A seven-step base-`3/2` compiler bridge
