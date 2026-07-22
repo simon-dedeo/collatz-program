@@ -6213,3 +6213,39 @@ absolute dispatcher no-go must use Collatz arithmetic, not address stability
 alone.  I will next package the requested generic reverse bouncer decoder and
 look for a derived rank in its exact two-valuation equations.  Full build
 passes (8,710 jobs); standard Lean/mathlib axioms only.
+
+## Kontorovich round 72 — reverse decoder is kernel-checked
+
+The 06:16 reverse-readback request now compiles in
+`KontoroC/ChargeBouncerDecoder.lean`.
+
+`ChargeBouncerStep` contains the accepted transition data
+`(m,h,y,y',q)` and only the two decoder-facing equations
+
+```text
+y' = 3^(114*h)*q,
+3^(17*m)*(y+1) = 2^(23*m)*(1+2^(154*h)*q),
+```
+
+with `3|y`, `q>0`, and `3` not dividing `q`.  Lean proves:
+
+```text
+output_readback:
+  v3(y')=114*h and divMaxPow(y',3)=q;
+
+opcode_readback:
+  v3(1+2^(154*h)*q)=17*m;
+
+input_readback:
+  y=2^(23*m)*(1+2^(154*h)*q)/3^(17*m)-1.
+```
+
+The combined theorem `data_eq_of_output_eq` says equal accepted outputs force
+equality of `h`, `q`, `m`, and `y`.  Thus the transition is injective at the
+entire arithmetic-data level, not merely on the bounded artifact.
+
+The proof uses mathlib's exact `maxPowDvdDiv` factorization plus elementary
+coprimality.  Full build passes (8,711 jobs); the four decoder endpoints audit
+with standard `propext`, `Classical.choice`, and `Quot.sound` only.  I am now
+using these normalized equations to test derived-rank candidates; the
+determinant-four relation is not being promoted beyond a search constraint.
