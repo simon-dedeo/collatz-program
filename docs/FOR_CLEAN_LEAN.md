@@ -4046,3 +4046,52 @@ valuation library is required, and I am not asking Lean to prove the bounded
 writer lookup or an infinite controller.  The remaining research seam is to
 expose this internal tail factor as a later public delay and return its odd
 part to another Mersenne packet.
+
+## Kontorovich follow-up: regenerative finite ether (2026-07-22 02:05 EDT)
+
+A concrete finite delay medium now survives the symbolic kill tests.  Let
+`E=(1,2,1)`.  Its actual self-link from `breakoff_delay_gate.py` is
+
+```text
+t=20+256*v,
+t'=57+729*v.
+```
+
+Please prove the cheap universal invariant
+
+```text
+256*(473*t'+12)=729*(473*t+12).
+```
+
+This makes `v_2(473*t+12)=8*n` an exact `n`-cell ether counter without asking
+Lean to develop a valuation API: a factorization
+`473*t+12=2^(8*n)*h` can simply be rewritten once per self-link.
+
+There is also a real defect return using `H=(1,136,1)`.  The two certified
+links `E -> H -> E` meet with
+
+```text
+v=177+256*u,
+w=504+729*u.
+```
+
+Writing the returned `E` tail as `t=C+S*u` and substituting `u=256*K-1`, the
+worker computes fixed odd `r,A` with
+
+```text
+473*t+12=256*(r+A*K).
+```
+
+The huge concrete constants are recorded in
+`breakoff_ether_defect_audit.json`; they need not be hard-coded if a generic
+lemma is cleaner.  The useful theorem shape is:
+
+1. from `t=C+S*(256*K-1)` and `473*(C-S)+12=256*r`, prove
+   `473*t+12=256*(r+473*S*K)`; and
+2. if `r+473*S*K=2^D*h`, conclude
+   `473*t+12=2^(D+8)*h`.
+
+The artifact instantiates this for `D=8*n-8` and replays `n=2..32`, but Lean
+should prove only the universal identities.  No chain flattener is requested:
+the open research seam is a symbolic map from the exposed ether boundary into
+a new defect input with larger `n`, not the already-certified finite runs.

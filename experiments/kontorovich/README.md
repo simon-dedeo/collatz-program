@@ -1040,6 +1040,60 @@ artifact SHA-256  2e498bfd6f0dec384ebfc9255233c5a5769980d98ffba7f5c9e4ab397e61c7
 verifier SHA-256  2867d3a79d19c002a588927e1564c1850a50a03a107fbe4497b7773017585b75
 ```
 
+## Regenerative finite ether defect
+
+`breakoff_ether_defect.py` turns the spatial delay-line metaphor into an exact
+affine ether.  For `E=(q,j,q')=(1,2,1)`, the self-link is
+
+```text
+t=20+2^8*v  ->  t'=57+3^6*v,
+```
+
+and hence
+
+```text
+2^8*(473*t'+12)=3^6*(473*t+12).
+```
+
+The 2-adic fixed tail is `-12/473`.  If an ordinary `E` tail has
+`v2(473*t+12)=8n`, the self-link consumes exactly one eight-bit cell at each
+gate and exposes the defect after exactly `n` cells.
+
+The gate `H=(1,136,1)` gives a concrete `E -> H -> E` return.  The two exact
+links reduce to residual coordinates `v=177+2^8*u`, `w=504+3^6*u`.  On the
+Mersenne packet `u=2^8*K-1`, the returned `E` tail satisfies
+
+```text
+473*t+12=2^8*(r+A*K),
+```
+
+where the artifact records the fixed odd `r` and `A`.  For every `D>=1`, the
+unique odd class
+
+```text
+r+A*K = 2^D  (mod 2^(D+1))
+```
+
+gives exact ether depth `8+D`.  Taking `D=8n-8` constructs an `n`-cell finite
+ether for every `n>=2`.
+
+```bash
+python3 breakoff_ether_defect.py selftest
+python3 breakoff_ether_defect.py build breakoff_ether_defect_audit.json
+python3 breakoff_ether_defect.py verify breakoff_ether_defect_audit.json
+```
+
+The artifact replays `n=2..32`: 31 ordinary starts, 589 linked members, and
+1,178 literal gate macros.  The affine identities and residue constructor are
+unbounded; the table is a bounded executable regression.  No claim is made
+that the exposed boundary returns to another defect or that any orbit is
+infinite.
+
+```text
+artifact SHA-256  0440872a822089819d4f69818574e59d87b198a7829218c0420257c7037e0c4a
+verifier SHA-256  9ec1527e31c54b5b3da3055a0bf6f68469bc178dd9de5eba5d3cc99606ad39ce
+```
+
 ## Nonlocal sacrificial gap amplifier
 
 `splash_gap_amplifier.py` turns Simon's proposed collision cleanup into an

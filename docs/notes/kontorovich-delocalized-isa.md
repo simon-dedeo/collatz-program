@@ -979,6 +979,72 @@ a later instruction must expose this nested gap, retain the odd part of
 would turn a finite carry amplifier into a gap bouncer; no such returning
 family is presently known.
 
+### 5.14 A regenerative finite ether and a defect
+
+The gap amplifier can be centered at a periodic 2-adic background rather than
+at zero.  Let `E` be the delay gate `(q,j,q')=(1,2,1)`.  Its exact self-link
+in tail coordinates is
+
+```text
+t=20+2^8v  ->  t'=57+3^6v.                           (29)
+```
+
+The affine fixed point of (29) is `tau=-12/473`, and eliminating `v` gives
+
+```text
+2^8(473t'+12)=3^6(473t+12).                          (30)
+```
+
+Because the odd factor `3^6` changes no binary valuation, a positive ordinary
+tail with
+
+```text
+v_2(473t+12)=8n                                      (31)
+```
+
+executes exactly `n` self-links, losing eight bits of ether precision at each
+one, and then exposes its boundary.  An infinite repetition of `E` is the
+already-forbidden periodic 2-adic program.  Formula (31) instead describes an
+arbitrarily long *finite* periodic background on which a defect can travel.
+
+There is an exact defect writer.  Put `H=(1,136,1)`.  The links `E -> H` and
+`H -> E` meet after the residual substitution
+
+```text
+v=177+2^8u,       w=504+3^6u.                        (32)
+```
+
+For the Mersenne-coded packet `u=2^8K-1`, their returned `E` tail has the
+factorization
+
+```text
+473t+12=2^8(r+AK),                                   (33)
+```
+
+where the fixed `r` and `A` recorded by the artifact are both odd.  Therefore
+for every `D>=1` there is one odd class of `K` modulo `2^(D+1)` satisfying
+
+```text
+r+AK = 2^D  (mod 2^(D+1)),                           (34)
+```
+
+and its returned tail has exact ether precision `8+D`.  Setting `D=8n-8`
+constructs any prescribed finite `n`-cell ether.  This is the desired spatial
+picture: a two-gate defect emits a periodic delay medium whose length is
+selected by an unbounded, nonlocal packet.
+
+`breakoff_ether_defect.py` reconstructs both defect links, checks (29)--(34),
+and literally replays every ether cell.  Its artifact covers `n=2..32`, 589
+linked members, and 1,178 gate macros.  Formalization of the two universal
+factorizations has been requested.
+
+The missing glider return is now narrow.  After the `n` ether cells, the
+boundary tail must enter a fresh defect cylinder and the surviving quotient
+must select a strictly larger `n'`, all from one ordinary payload.  Merely
+choosing a new congruence for each finite `n` recreates the rejected 2-adic
+tape.  A disproof needs a symbolic boundary map `(n,K)->(n',K')` which
+regenerates (32)--(34) and grows `n` without fresh initial-address bits.
+
 ## 6. Ranked attack and kill tests
 
 1. Implement the mixed-base rules and mine structured, formula-generated
@@ -999,7 +1065,9 @@ family is presently known.
    earlier instructions or a nonlinear packet pairing.  Identity (27) is the
    first exact payload-generated gap amplifier; search for a turnaround that
    promotes its internal `2^(L+D)` factor to the next delay and reconstructs
-   (26).  Compare survivors
+   (26).  The `E/H` construction (29)--(34) now supplies arbitrary finite
+   ether; prioritize a formula return of its exposed boundary to a longer
+   ether over enlarging the finite replay bound.  Compare survivors
    with the run-length-accelerated three-symbol tag system and translate them
    back to a canonical positive integer before treating them as Collatz
    evidence.
