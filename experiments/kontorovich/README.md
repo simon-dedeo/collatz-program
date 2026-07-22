@@ -1424,6 +1424,63 @@ artifact SHA-256  76ce98689eef74589937e05b3c3295844f49620ab8e2e9fb0a4889b5749a61
 verifier SHA-256  05dfc41a661089c68fa57cebbb850cc5109bec24803efda227c16825ede0453c
 ```
 
+## Why consecutive full repetends cannot continue forever
+
+`unit_repetend_energy.py` closes the naive infinite continuation of the
+preceding construction.  For a sign-negative marker-one repetend,
+
+```text
+2^T=-1 (mod 3^q)
+```
+
+forces
+
+```text
+T=(2j+1)*3^(q-1).
+```
+
+For `q>=3`, exact induction gives `3^(q-1)>=2q+1`; hence
+
+```text
+2^T >= 2^(2q+1)=2*4^q > 2*3^q.                  (UE1)
+```
+
+In the unit recurrence
+
+```text
+2^T*h_next=3^q*h-1,
+```
+
+both cores are positive, so (UE1) implies
+
+```text
+h>2*h_next.                                      (UE2)
+```
+
+After `N` consecutive full-order splashes,
+`h_0>2^N*h_N>=2^N`.  No fixed positive integer `h_0` can satisfy this for all
+`N`.  The obstruction applies even if a future controller could synthesize
+each correction word autonomously; it is a real core-energy obstruction, not
+the 2-adic address problem.
+
+```bash
+python3 unit_repetend_energy.py selftest
+python3 unit_repetend_energy.py build unit_repetend_energy_audit.json
+python3 unit_repetend_energy.py verify unit_repetend_energy_audit.json
+```
+
+The artifact checks the concrete source-length-one exponent classes at all
+three sign-negative finite hierarchy levels `2,4,6`, in addition to the
+generic integer separators.  It does not exclude other markers or giant
+splashes separated by amplifying instructions.  The surviving engineering
+target is a charge--discharge cycle: ordinary outward macros must replenish
+more than the core factor spent by each rare repetend erasure.
+
+```text
+artifact SHA-256  33ed88a031967a3012c5609add1959ea5bb6afda84479267c6c58fc2bfe61efa
+verifier SHA-256  9bcf9d11dc867f95d44d80203d7d0ee5c4d01edcd3531bb066617de010767853
+```
+
 ## Sign-alternating capped-splash hierarchy
 
 `breakoff_renormalization.py` iterates the super-ether construction as exact

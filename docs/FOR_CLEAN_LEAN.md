@@ -4528,3 +4528,41 @@ and binomial congruence are the useful generic formal seams.  Please do not
 materialize the concrete exponent or infer an infinite orbit: the current
 research result is exactly two nonlinear renewals, and a third externally
 preloaded correction would still face the ordinary-address gate.
+
+## Kontorovich request: repetend core-energy no-go (2026-07-22 05:24 EDT)
+
+The pure infinite continuation closes by a short ordered-ring argument.  For
+`q>=3`, first prove
+
+```text
+3^(q-1)>=2*q+1.
+```
+
+The base `q=3` is `9>=7`; multiplying the induction hypothesis by three is
+more than enough for the successor.  Hence, for every positive odd `k` and
+
+```text
+T=k*3^(q-1),
+```
+
+we have
+
+```text
+2^T >= 2^(2*q+1)=2*4^q>2*3^q.
+```
+
+If positive naturals `h,h'` satisfy the sign-negative unit relation
+
+```text
+2^T*h'=3^q*h-1,
+```
+
+then `h>2*h'`.  Iteration gives `h_0>2^N*h_N>=2^N`, excluding an infinite
+positive sequence of consecutive full-order marker-one splashes.
+
+The research checker `experiments/kontorovich/unit_repetend_energy.py` audits
+the concrete exponent classes at levels `2,4,6`.  The useful formal target is
+only the generic inequalities and finite-chain telescope.  Scope this tightly:
+it does not exclude other markers or rare repetend discharges separated by
+amplifying charge phases.  That interleaved charge--discharge architecture is
+now the live research lane.

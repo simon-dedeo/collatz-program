@@ -245,7 +245,12 @@ identically `x`.
   `c_m=(2^(3^(m-1))+1)/3^m` let the first ternary bank be absorbed into a
   second repetend, producing two consecutive formula-sized nonlinear jumps.
   The remaining target is a third/self-writing renewal from one fixed
-  ordinary packet, not an externally nested tower.
+  ordinary packet, not an externally nested tower.  But the pure staircase
+  is now closed even before the ordinary-address gate: every sign-negative
+  full-order splash more than halves its odd core.  The live hardware design
+  must therefore alternate an amplifying **charge phase** with a sparse giant
+  **discharge splash**.  The charge phase must rebuild both real core energy
+  and the next nonlocal correction word from the surviving packet.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -406,6 +411,7 @@ identically `x`.
 | Canonical tail-zero splash hierarchy | The most direct recursive program chooses the length-one branch and zero remaining tail at every new scale.  Exact expansion through depths `1..6` gives first-scale packet sizes `7,46,177,606,2021,6698` decimal digits and ordinary starts through 6,708 digits.  Consecutive packets agree in increasingly many low bits but are strictly larger and unequal at every checked depth (`v2` of the differences `23,155,589,2013,6715`).  It is therefore a growing sequence of finite 2-adic prefixes, not one stabilized ordinary seed.  This bounded diagnostic is now subsumed by the universal positive-tail row below. | [`breakoff_renormalization_audit.json`](experiments/kontorovich/breakoff_renormalization_audit.json) |
 | Bounded canonical meta-quine tree | Exact recursive compilation checks all 584 meta-words of depths `1..3` over background choices `j=1..8`.  On every one of the 576 extensions, the canonical first-scale packet is strictly larger than its parent; there are zero stabilizations and zero decreases.  The closest paths are `(1,1)` and `(1,1,1)`, sharing 23 and 155 low bits respectively—the fixed tower already audited.  This bounded diagnostic is now subsumed by the universal positive-tail row below; another defect grammar or a fixed-level autonomous register orbit remains open. | [`breakoff_renormalization_audit.json`](experiments/kontorovich/breakoff_renormalization_audit.json) |
 | Infinite capped-renormalization tower as one ordinary program | Closed for every successfully constructed adjacent-defect extension, independently of branch length or child payload.  With `q_raw>0`, combined parent exponent `E`, inherited valuation `r>=0`, and positive child packet `K`, exact substitution gives `q=q_raw+2^E(2^rK-1)>0`.  Every new nesting therefore has a strictly noncanonical parent tail, so the canonical dyadic addresses never eventually stabilize to one natural.  This subsumes the two bounded rows above as diagnostics.  It does not exclude an autonomous orbit in the unit register at a fixed finite level, or a different compiler grammar. | [`breakoff_renormalization.py`](experiments/kontorovich/breakoff_renormalization.py) |
+| Infinite consecutive sign-negative full-order repetend splashes | Closed by exact core energy, including any hypothetical self-writing realization of this pure instruction.  Marker `C=1` forces `T=(2j+1)3^(q-1)`.  For `q>=3`, `3^(q-1)>=2q+1`, hence `2^T>2*3^q`; the recurrence `2^T h'=3^q h-1` gives `h>2h'`.  After `N` consecutive splashes a positive initial core would exceed `2^N`, impossible for fixed `h`.  The audit checks the concrete full-order exponent classes at sign-negative levels `2,4,6`.  This does not exclude sparse giant splashes separated by sufficiently amplifying charge phases. | [`unit_repetend_energy_audit.json`](experiments/kontorovich/unit_repetend_energy_audit.json) |
 | Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
 | Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
 | Standard two-rail schedule `[1]^r[2,2,3]` | Closed at all levels.  Exact affine-family intersection compiles 247 outward rounds from a 10,040-digit seed, but depth 248 changes the seed and exact continuation reaches `1`.  Lean reduces every infinite realization to `2^(r+8)P'=3^(r+3)P+69` and its sole 2-adic Tschakaloff candidate.  Väänänen--Wallisser's 1989 theorem applies at `q=3/2,p=2,alpha=4096/6561` and proves that candidate irrational, so it cannot be an ordinary payload.  This does not close branching or other aperiodic splash programs. | [Finite certificate](experiments/kontorovich/two_rail_chain_247.json), [theorem audit](docs/notes/standard-two-rail-theta.md) |
@@ -452,6 +458,7 @@ positive integer and its claimed behavior are machine-checked.
 | Two-layer unit gap regenerator | Simon's “splash the gap” question has an exact answer in the smallest surviving ISA.  Given any three positive branch lengths and `D>=1`, choose `A,B,z,B_2,C` so `3^qA+s=2^pC+2^(p+L)B` and `B+3^qz=2^D B_2`.  Then `h=A+2^(p+L)(z+2^D u)` maps to `h'=C+2^(L+D)(B_2+3^q u)`: `A` emits the complete valuation-exact next instruction `C`, the sacrificial `D`-bit word `z` eats the carry `B`, and the remote tail survives affinely beyond a regenerated `D`-bit zero gap.  The exact artifact reconstructs 486 families across six compiled levels and replays 972 linked two-branch unit members for cell lengths `1..3` and gaps `1,4,12`.  This is a universal finite compiler identity plus bounded macro regression, not a self-supplying infinite stack or counterexample. | [`unit_gap_regenerator_audit.json`](experiments/kontorovich/unit_gap_regenerator_audit.json) |
 | Formula-generated nonlinear repetend splash | If `2^T C=s (mod 3^q)`, the ordinary repetend `R=(2^T C-s)/3^q` gives `R+2^(T+D)K -> C+2^D 3^qK` under the unit collision.  Intersecting the discrete-log class of `T` with `T=p(n')` produces a genuine enormous target length.  Exact modular certificates construct this at all six finite levels from source length one and gaps `D=1,64`; they verify the order `ord_(3^q)(2)=2*3^(q-1)`, exponent CRT, repetend integrality, and both register phases without expanding `2^T`.  Level one uses `C=5`, `T=105,734,623`, and `n'=13,216,826`; its low rail alone is about 31.8 million decimal digits.  Across levels the target exponents have `9,29,91,299,980,3235` decimal digits.  This is a short generator for one vast nonlinear splash, not renewal or nontermination. | [`unit_repetend_splash_audit.json`](experiments/kontorovich/unit_repetend_splash_audit.json) |
 | Two consecutive sign-negative repetend splashes | At level two, put `c_m=(2^(3^(m-1))+1)/3^m`.  Exact cubing gives `c_(m+1)=c_m-3^m c_m^2+3^(2m-1)c_m^3`, so `c_m` stabilizes modulo every fixed `3^P`.  At precision `P=q_0+v_3(M)=90`, a 45-digit odd `k` makes `T_1=3^(q_1-1)k` both retain the first ternary bank and lie in the affine target-exponent class.  This yields the exact unbounded family `h_0 -> R_1+2^(T_1+D)3^q0 L -> 1+2^D3^(q0+q1)L`, with both enormous valuations exact.  The audit checks 89 quotient recurrences, bridge integrality, exponent congruence, and all three unit-register phases for `D=1,64`, without materializing `T_1`; `T_1` itself has about `7.57*10^27` decimal digits.  This is genuine one-time renewal, not a third splash or infinite ordinary orbit. | [`unit_double_repetend_audit.json`](experiments/kontorovich/unit_double_repetend_audit.json) |
+| Repetend energy separator | The same exact construction closes its own naive infinite continuation.  Every sign-negative marker-one exponent is an odd multiple of `3^(q-1)`.  For `q>=3`, elementary integer inequalities give `2^T>2*3^q`, so each such collision more than halves the positive odd core.  No fixed positive core supports infinitely many consecutive events.  The artifact audits the actual exponent classes at finite levels `2,4,6`; the general proof is symbolic.  A viable delay-line program must recharge between giant erasures, not stack them back-to-back. | [`unit_repetend_energy_audit.json`](experiments/kontorovich/unit_repetend_energy_audit.json) |
 | Constant-rate unit-counter schedules | For any of the six certified unit levels, every `n_0>=1`, and every fixed integer `k>=1`, the schedule `n_t=n_0+kt` has the unique 2-adic initial core `-s*3^(-q(n_0)) F(2^(ak)/3^(ck),2^(p(n_0+k))/3^(q(n_0+k)))`.  Converting to Väänänen--Wallisser's `f_(3^(ck)/2^(ak))` is coefficientwise exact, and its argument simplifies to `alpha=2^(p(n_0))/3^(q(n_0))`.  Their 1989 theorem applies with `ell=1,sigma=0,p=2`; its size ratio is the same as for `k=1`, while `|3^(ck)/2^(ak)|_2=2^(ak)>1`.  The value is irrational in `Q_2`, so it cannot be an ordinary integer core.  The artifact's six linked eight-transition branch replays remain a finite `k=1` regression; the all-`k` conclusion is symbolic and theorem-dependent.  This closes every fixed positive step size, not nonlinear or packet-branching schedules. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
@@ -509,6 +516,49 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 05:24 EDT
+
+The exact second splash also reveals why a pure repetend tower cannot be the
+counterexample.  At a sign-negative marker-one splash, integrality forces
+
+```text
+T=(2j+1)*3^(q-1).
+```
+
+For every `q>=3`, an elementary induction gives
+`3^(q-1)>=2q+1`.  Therefore
+
+```text
+2^T >= 2^(2q+1)=2*4^q > 2*3^q.
+```
+
+The exact unit recurrence is
+
+```text
+2^T*h_next=3^q*h-1,
+```
+
+so `h>2*h_next`: a giant repetend splash consumes more than half of its odd
+core.  After `N` consecutive splashes one would have
+`h_0>2^N h_N>=2^N`, impossible for one fixed positive integer `h_0` as `N`
+grows.  This closes even a hypothetical self-writing implementation of the
+pure consecutive instruction, not merely the externally preloaded nesting.
+
+The [energy audit](experiments/kontorovich/unit_repetend_energy.py) checks the
+generic integer separators and the actual marker-one exponent classes at all
+three sign-negative finite levels `2,4,6`.  Artifact SHA-256:
+`33ed88a031967a3012c5609add1959ea5bb6afda84479267c6c58fc2bfe61efa`.
+Verifier SHA-256:
+`9bcf9d11dc867f95d44d80203d7d0ee5c4d01edcd3531bb066617de010767853`.
+
+This does not undo the two-splash construction; it explains its energy bill.
+The initial core can pay for two enormous erasures but no finite core pays
+forever.  The live architecture must alternate phases: many outward
+small/medium instructions charge real core magnitude and ternary bank, then
+one repetend splash spends that stored resource to relocate and clean the
+gap.  I am moving from a pure splash staircase to this charge--discharge
+controller; bounded seed simulation would not expose the required balance.
 
 ### 2026-07-22 05:16 EDT
 

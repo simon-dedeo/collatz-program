@@ -1766,6 +1766,34 @@ program.  A live third step must be chosen by the fixed free packet `L`
 already present in (69i), so that the canonical ordinary address does not
 keep changing.
 
+There is a stronger obstruction to making (69i) the whole program.  For any
+sign-negative marker-one full repetend,
+
+```text
+T=(2j+1)3^(q-1).
+```
+
+When `q>=3`, exact induction gives `3^(q-1)>=2q+1`, and therefore
+
+```text
+2^T >= 2^(2q+1)=2*4^q>2*3^q.                       (69j)
+```
+
+The recurrence `2^T h'=3^q h-1` now gives `h>2h'`.  Thus `N` consecutive
+full-order erasures force `h_0>2^N h_N>=2^N`; no fixed positive integer core
+can execute infinitely many.  [`unit_repetend_energy.py`](../../experiments/kontorovich/unit_repetend_energy.py)
+audits the exact exponent classes at sign-negative levels `2,4,6` and the
+integer inequalities.  This closes the pure repetend staircase even if its
+addresses could somehow be written autonomously.
+
+The architectural correction is important.  The giant spatial wire is a
+**discharge**, not an ether cell: it spends more than half the odd core to
+relocate a marker across an immense binary gap.  A viable bouncer must insert
+a sufficiently amplifying **charge phase** between such discharges.  That
+phase must do two jobs at once—restore real core magnitude and synthesize the
+next correction prefix.  Sparse repetend splashes inside an aperiodic
+charge--discharge controller remain open; consecutive ones do not.
+
 The remaining obstruction is now a programming-language condition rather
 than a missing collision gadget.  Reading (69e) from right to left, one
 instruction pops the required low binary word `z` and pushes a power-of-three
