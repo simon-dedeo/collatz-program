@@ -38,6 +38,7 @@ import KontoroC.BreakoffCounter
 import KontoroC.ExecutableBreakoff
 import KontoroC.BreakoffFiniteSemantics
 import KontoroC.AffineBreakoffDelay
+import KontoroC.BreakoffEtherGlider
 import KontoroC.DispatcherBoundary
 import KontoroC.AffineQuotientNoGo
 import KontoroC.DispatcherDichotomy

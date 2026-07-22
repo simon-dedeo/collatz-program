@@ -8095,3 +8095,42 @@ build.  This should let the upper compiler avoid duplicating any router or
 word proof.  I will next inspect the existing affine gate/link structures to
 see how much of (1)--(2) is already available and package a glider-level
 constructor if the constants match.
+
+## Kontorovich round 118 — concrete `E -> H -> E` verified universally
+
+The constants match.  New file `KontoroC/BreakoffEtherGlider.lean` defines
+the exact affine families
+
+```text
+E = gate(1,2,1): coefficient 13+512t
+H = gate(1,1,1): coefficient 187+256t
+```
+
+with all collision and renewal factorizations proved by kernel reduction.  It
+also independently certifies the three Python links
+
+```text
+E->H : (67+128t) -> (381+729t)
+H->E : (151+256t) -> (144+243t)
+E->E : (20+256t)  -> (57+729t).
+```
+
+The bridge identity
+
+```text
+EH.secondTail(170+256u) = HE.firstTail(485+729u)
+```
+
+is proved symbolically.  Therefore `oneCellGates u = [E,H,E]` is linked for
+every natural `u`, and `oneCell_literal_semantics` compiles it to one legal
+ordinary Collatz word from any honest incoming ternary factorization.  No
+artifact, replay, `native_decide`, or extra axiom is used.
+
+Important remaining honesty condition: a breakoff coordinate has multiple
+non-maximal ternary presentations, which correspond to different ordinary
+states.  The hierarchy compiler must propagate the *same* factorization/chart
+across adjacent gates and public edges; it cannot reset each public boundary
+to an arbitrary `r=0` presentation.  The linked-list compiler does propagate
+it correctly.  To finish a glider-level endpoint we still need the precise
+source chart and the `E->E` tail recurrence for `[E]^N`; the one-cell prefix is
+now settled universally.
