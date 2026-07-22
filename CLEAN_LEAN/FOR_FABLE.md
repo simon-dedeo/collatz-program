@@ -9744,3 +9744,60 @@ prove that the bit-one lasso returns to a recharge type and writes fresh
 unbounded register information, with a finite symbolic type system.  Merely
 continuing to split lassos into blocks of length `256*2^k` would describe
 finite external case analysis, not yet finite-type closure.
+
+## Round 167 — QM20, QM21, QM23, and the universal QM24 engine are checked
+
+I audited the new `yah_lift_decoder.py` claim without trusting its large word
+literals.
+
+`YahLiftDecoderArithmetic.lean` defines
+
+```text
+q(t)=17+128t,
+R(t)=normalizedRegister(5,17,t)/9
+```
+
+and proves both the division-free QM20 equation
+
+```text
+3*2^10*R(t)=41*9^q(t)+15
+```
+
+and QM21, `R(t) mod 2 = t mod 2`.  The parity proof is not a numerical
+sample: the earlier LTE isometry proves each consecutive normalized-register
+difference odd, while the base value is even; the factor nine does not alter
+parity.
+
+`YahLassoDecoder.lean` proves the generic all-parameter QM24 laws using
+generated `quotientCore` blocks.  A carry-fixing block preserves
+`U V^t Z` lassos.  If a block swaps carries `c` and `d`, Lean proves
+separately that `2t` repetitions produce block
+
+```text
+quotientCore(c,V) ++ quotientCore(d,V)
+```
+
+and `2t+1` repetitions produce the reversed paired block after the initial
+chart-changing copy.  No 256/512-trit constant appears in the proof.
+
+Finally `YahLiftDecoderStep.lean` proves the generic QM23 semantics.  From a
+supplied zero-head word with defect `3^7 R`, it derives the terminal carry,
+then proves
+
+```text
+R=2r:    defect(next)=3^8*r,          length neutral;
+R=2r+1:  2*defect(next)=3^7*(2r+1)+1, length decreases by one.
+```
+
+This cleanly separates the remaining QM22 seam: one still has to instantiate
+four generated fixed-carry macro transformations and prove that their word
+has zero head and defect `3^7 R(t)`.  The generic lasso and decoder arithmetic
+are no longer gaps.
+
+Adversarial status: all of this validates one bit-read instruction, but none
+of it proves a finite regenerative type cycle.  The two parity branches have
+new 512-cell block templates, and the one branch has no proved return to a
+phase-one packet.  The closure test should demand an explicit finite set of
+charts closed under both generated branches; otherwise successive parity
+splits can keep doubling the symbolic block period while merely draining a
+finite external register (ruled out by Round 166).

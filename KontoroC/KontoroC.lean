@@ -93,6 +93,9 @@ import KontoroC.YahRechargeRegister
 import KontoroC.YahRechargeReservoir
 import KontoroC.YahQueueCausalityNoGo
 import KontoroC.YahRegisterDrainNoGo
+import KontoroC.YahLiftDecoderArithmetic
+import KontoroC.YahLassoDecoder
+import KontoroC.YahLiftDecoderStep
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail

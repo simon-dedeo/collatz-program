@@ -45,6 +45,16 @@ theorem quotientCore_length (c : Carry) (u : List Trit) :
       simp only [quotientCore, List.length_cons]
       rw [ih]
 
+/-- The open quotient output also factors causally across concatenation. -/
+theorem quotientCore_append (c : Carry) (u v : List Trit) :
+    quotientCore c (u ++ v) =
+      quotientCore c u ++ quotientCore (terminalCarry c u) v := by
+  induction u generalizing c with
+  | nil => rfl
+  | cons t u ih =>
+      simp only [List.cons_append, quotientCore, terminalCarry]
+      rw [ih]
+
 /-- Exact causal factorization of a quotient sweep.  The output before the
 suffix is `quotientCore c u` and is entirely independent of `v`; only the
 one-bit terminal carry of `u` crosses the boundary. -/

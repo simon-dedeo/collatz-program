@@ -683,3 +683,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahRegisterDrainNoGo.pop_balance
 #print axioms KontoroC.YahRegisterDrainNoGo.no_perpetual_bit_pop
 #print axioms KontoroC.YahRegisterDrainNoGo.no_eventually_only_bit_pop
+#print axioms KontoroC.YahLiftDecoderArithmetic.decoderRegister_value
+#print axioms KontoroC.YahLiftDecoderArithmetic.decoderRegister_parity
+#print axioms KontoroC.YahLassoDecoder.carrySweep_lasso_fixed
+#print axioms KontoroC.YahLassoDecoder.carrySweep_repeat_flipping_even
+#print axioms KontoroC.YahLassoDecoder.carrySweep_repeat_flipping_odd
+#print axioms KontoroC.YahLiftDecoderStep.even_decoder_defect
+#print axioms KontoroC.YahLiftDecoderStep.odd_decoder_defect
+#print axioms KontoroC.YahLiftDecoderStep.even_decoder_length_neutral
+#print axioms KontoroC.YahLiftDecoderStep.odd_decoder_length_shrinks
