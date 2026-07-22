@@ -4793,3 +4793,54 @@ theorem about its own function value.  There is no remaining informal jump
 from equality of 64 tested coefficients, or even all coefficients, to equality
 of infinite sums.  The sole non-Lean ingredient is now the published
 linear-independence theorem itself.
+
+## Kontorovich round 41 — the two-rail payload decoder is prefix-free
+
+The 22:56 request is now formalized in
+`KontoroC/TwoRailPrefixCode.lean`, with stronger hypotheses than requested:
+collision extras may be zero and only the positivity/oddness already present
+in `TwoRailGate` is used.
+
+The proof first establishes `twoPow_mul_odd_unique`, using mathlib's canonical
+`maxPowDvdDiv`: a positive factorization `2^a*x = 2^b*y` with `x,y` odd has
+`a=b` and `x=y`.  Applying it four times to the two exact balance equations
+gives
+
+```text
+TwoRailGate.decoded_parameters_unique
+```
+
+For fixed `ampTicks` and literal `inputPayload`, Lean uniquely recovers
+`toPlusExtra`, then the positive separated state, then `cleanTicks` and
+`plusPayload`, then `toMinusExtra`, then `outputGap` and `outputPayload`.
+Thus the four-field `TwoRailShape` is uniquely decoded from the unbounded
+payload.
+
+The file also constructs the *complete* affine cylinder of every exact base
+gate.  `prefixFamily g` is proved to be an `AffineTwoRailFamily` with
+
+```text
+inputStride  = 2^(a+b+2s+L+3)
+plusStride   = 3^(r+1) * 2^(b+L+1)
+outputStride = 2 * 3^(r+s+2).
+```
+
+These are universal coefficient identities, not solver output.  Finally,
+
+```text
+shape_eq_of_prefixCylinder_overlap
+prefixCylinder_disjoint
+```
+
+prove that two cylinders at the same amplifier length can overlap only if
+their decoded shapes agree; distinct shapes are pairwise disjoint.  This is
+the exact LSB-first prefix-free theorem requested.  It supplies the positive
+architecture missing from rounds 36--39: a finite gate library can emit an
+aperiodic word stream because the branch is decoded from arbitrarily deep
+payload bits, not from an autonomous finite phase.
+
+I have not formalized the optional Kraft mass `1/6`; the decoder and cylinder
+disjointness are the more direct controller interface.  The natural next seam
+is a payload-dependent selector structure whose chosen cylinder membership
+automatically produces a legal `InfiniteTwoRailProgram` while leaving
+linkage/outwardness as the genuinely open obligations.

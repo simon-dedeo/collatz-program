@@ -27,6 +27,7 @@ import KontoroC.TwoRailGate
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
+import KontoroC.TwoRailPrefixCode
 import KontoroC.AffineTwoRailCycle
 import KontoroC.StandardTwoRailTheta
 import KontoroC.VaananenWallisserAudit
