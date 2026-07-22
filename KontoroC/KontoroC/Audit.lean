@@ -164,8 +164,17 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.ChargeTypedInterface.finite_typed_unroll
 #print axioms KontoroC.ChargeTypedInterface.PublicWord.typed_unroll
 #print axioms KontoroC.ChargeTypedInterface.PublicWord.no_clean_chart_adapter
+#print axioms KontoroC.ChargeTypedInterface.delta_eq_normalized_opcodeDebris
+#print axioms KontoroC.ChargeTypedInterface.Step.corrected_interface_iff
+#print axioms KontoroC.ChargeTypedInterface.correction_next_lower_bound
 #print axioms KontoroC.ChargeResonantSeparationNoGo.pow_dvd_initial_of_chart_links
 #print axioms KontoroC.ChargeResonantSeparationNoGo.no_positive_infinite_chain
+#print axioms KontoroC.ChargePhaseSwap.ternaryTotal_phaseSwap
+#print axioms KontoroC.ChargePhaseSwap.binaryTotal_phaseSwap
+#print axioms KontoroC.ChargePhaseSwap.boundary_difference
+#print axioms KontoroC.ChargePhaseSwap.signed_area_law
+#print axioms KontoroC.ChargePhaseSwap.signed_area_law_of_equal_word_totals
+#print axioms KontoroC.ChargePhaseSwap.two_step_public_tax_neg
 #print axioms KontoroC.PeriodicPhaseUp.JumpWord.flat_prefix_at
 #print axioms KontoroC.PeriodicPhaseUp.JumpWord.flatWeightedTerm_eq_scaled_vaananenTerm
 #print axioms KontoroC.PeriodicPhaseUp.JumpWord.theta_arguments_separated

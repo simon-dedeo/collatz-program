@@ -142,6 +142,67 @@ theorem delta_neg {m : ℕ} (hm : 0 < m) : delta m < 0 := by
       norm_num [publicD]) hpq
   simpa [delta, tau, beta] using sub_neg.mpr hrecip
 
+/-- Exact bridge to the previously formalized opcode-debris semigroup.
+`opcodeDebris m` is the integral quotient
+`(C^m-D^m)/(C-D)`, so the interface tax is its negative normalization. -/
+theorem delta_eq_normalized_opcodeDebris (m : ℕ) :
+    delta m =
+      -(((ChargeNormOpcode.registerOdd * ChargeNormOpcode.opcodeDebris m : ℤ) : ℚ)) /
+        ((publicC : ℚ) ^ m * (publicD : ℚ) ^ m) := by
+  have hf := congrArg (fun z : ℤ => (z : ℚ))
+    (ChargeNormOpcode.opcodeDebris_factor m)
+  have hC : ((ChargePowerQuine.C : ℤ) : ℚ) = (publicC : ℚ) := by
+    norm_num [ChargePowerQuine.C, publicC]
+  have hD : ((ChargePowerQuine.D : ℤ) : ℚ) = (publicD : ℚ) := by
+    norm_num [ChargePowerQuine.D, publicD]
+  simp only [Int.cast_mul, Int.cast_sub, Int.cast_pow] at hf
+  rw [hC, hD] at hf
+  simp only [delta, tau, beta, Int.cast_mul]
+  have hc : (publicC : ℚ) ^ m ≠ 0 := by norm_num [publicC]
+  have hd : (publicD : ℚ) ^ m ≠ 0 := by norm_num [publicD]
+  field_simp
+  nlinarith [hf]
+
+/-! ## The correction-rail equation -/
+
+/-- TI3 is not an analogy: it is exactly equivalent to transporting a
+shifted source potential to a shifted target potential. -/
+theorem corrected_transport_iff
+    (w w' tau₀ tau₁ beta₁ a e₀ e₁ : ℚ)
+    (hstep : w - tau₀ = a * (w' - beta₁)) :
+    w - (tau₀ + e₀) = a * (w' - (tau₁ + e₁)) ↔
+      e₀ = a * (e₁ + (tau₁ - beta₁)) := by
+  constructor <;> intro h
+  · linear_combination hstep - h
+  · linear_combination hstep - h
+
+/-- TI3 specialized to one exact public step. -/
+theorem Step.corrected_interface_iff (s : ChargePublicCofactor.Step)
+    (e₀ e₁ : ℚ) :
+    (s.source.cofactor : ℚ) - (tau s.source.opcode + e₀) =
+        coefficient s.source.opcode s.recharge s.target.opcode *
+          ((s.target.cofactor : ℚ) - (tau s.target.opcode + e₁)) ↔
+      e₀ = coefficient s.source.opcode s.recharge s.target.opcode *
+        (e₁ + delta s.target.opcode) := by
+  exact corrected_transport_iff _ _ _ _ _ _ _ _
+    (ChargeTypedInterface.Step.typed_interface s)
+
+/-- A nonnegative correction before a positive-coefficient step forces the
+next correction to cover at least the entire negative chart tax. -/
+theorem correction_next_lower_bound {a d e₀ e₁ : ℚ}
+    (ha : 0 < a) (he₀ : 0 ≤ e₀) (hrec : e₀ = a * (e₁ + d)) :
+    -d ≤ e₁ := by
+  have hmul : 0 ≤ a * (e₁ + d) := by rw [← hrec]; exact he₀
+  have hadd : 0 ≤ e₁ + d := (mul_nonneg_iff_of_pos_left ha).mp hmul
+  linarith
+
+/-- In particular a correction rail normalized to zero at its target has a
+strictly negative predecessor whenever the target opcode is positive. -/
+theorem correction_before_zero_neg {a d e₀ : ℚ}
+    (ha : 0 < a) (hd : d < 0) (hrec : e₀ = a * (0 + d)) : e₀ < 0 := by
+  rw [hrec]
+  exact mul_neg_of_pos_of_neg ha (by simpa using hd)
+
 /-- The accumulated interface tax of any positive-opcode public word with
 at least two steps is nonzero (indeed negative). -/
 theorem no_zero_internal_tax (m h m' : ℕ → ℕ) (n : ℕ) (hn : 2 ≤ n)

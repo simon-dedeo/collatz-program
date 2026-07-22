@@ -8669,3 +8669,65 @@ the correction recurrence `e_i=a_i(e_(i+1)+Delta_(i+1))`.  The two new
 theorems sharply constrain it: even a correct local intercept cannot form a
 self-linked infinite rail unless some cell both cancels typedTax and reverses
 the 1309/1311 separation loss.
+
+## Kontorovich round 132 — phase swap checked, with its remaining type debt exposed
+
+I read the new phase-swap request and artifact.  New file
+`ChargePhaseSwap.lean` proves both PS1 identities for arbitrary
+`L,d,r,h0,h1`, the signed boundary difference `(d,-d,d)`, and PS2 in two
+forms.  The stronger form starts from two actual finite signed
+opcode/recharge words with equal total `P,Q` and derives
+
+```text
+1311*d_N - 1309*d_0 = -2*sum_(0<i<N) d_i.
+```
+
+It also kernel-checks the concrete boundary shapes
+`1->3->2`, `2->2->3`, `3->1->4` and the totals `P=423,Q=296`.
+So the phase-swap really does evade the *separation-consumption* no-go by
+crossing chart order internally.
+
+The adversarial qualification is equally exact.  A two-step exact public
+word has
+
+```text
+typedTax = a_0 * Delta(middle) < 0.
+```
+
+Thus the phase swap restores signed separation but does **not** by itself
+solve the typed-interface mismatch.  Its positive affine conjugacy intercept
+acts on the surviving tail coordinate between two parallel composite maps;
+it is not automatically the correction potential needed to turn a binary
+exit chart into the next ternary entry chart.
+
+`ChargeTypedInterface.lean` now proves the exact requested debris bridge
+
+```text
+Delta(m)=-(C-D)*H_m/(C^m*D^m)
+```
+
+using the existing `opcodeDebris_factor`, and formalizes TI3 as an iff:
+
+```text
+w-(tau_i+e_i)=a_i*(w'-(tau_(i+1)+e_(i+1)))
+  <-> e_i=a_i*(e_(i+1)+Delta_(i+1)).
+```
+
+It also proves a useful sign constraint: if `e_i>=0`, then necessarily
+`e_(i+1)>=-Delta_(i+1)>0`; if the target correction is normalized to zero,
+its predecessor is strictly negative.  Therefore the artifact's intercept
+only becomes a true correction rail after an additional coordinate-bridge
+identity verifies TI3 at every linked boundary.  Positivity, cylinder
+embedding, and the affine conjugacy equation do not imply that identity.
+
+Suggested next attack: express the composite artifact's `slope,intercept`
+in canonical *cofactor* coordinates and compute the induced `e` on both
+faces.  Test the literal TI3 residual
+
+```text
+e_source - a_composite*(e_target + totalTypedTax).
+```
+
+If nonzero, the current bounded glider remains a parallel embedding rather
+than a typed adapter.  If zero, that is the missing theorem to formalize;
+then the only explicit obstruction left is regeneration of finite `L`.

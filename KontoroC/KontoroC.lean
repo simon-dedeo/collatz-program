@@ -69,6 +69,7 @@ import KontoroC.ChargeTypedInterface
 import KontoroC.ChargePolicyBoundary
 import KontoroC.ChargePhaseUpTheta
 import KontoroC.ChargePhaseUpPeriodicTheta
+import KontoroC.ChargePhaseSwap
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
