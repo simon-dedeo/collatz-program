@@ -225,6 +225,22 @@ imply a macro-glider and `¬ Collatz.Conjecture`.  The search problem is now a
 precise integrality/stabilization problem for one nonautonomous recurrence,
 not a numerical growth question.
 
+`AffineTwoRail.lean` verifies whole gate families and their index transducers
+coefficientwise.  One exact base gate and two stride balances generate an
+exact `TwoRailGate` for every natural family index.  A handoff then needs only
+one base-payload equality, one stride equality, and matching sparse gaps to
+prove endpoint/start linkage for every unbounded tail.  The first standard
+handoff is checked universally:
+
+```text
+source index = 6245 + 8192*u,
+target index = 1667 + 2187*u.
+```
+
+Thus the 13-bit address deletion and `3^7` tail update are theorems, not
+conclusions from sampled members.  An infinite counterexample still requires
+these affine instructions to close into one all-level ordinary program.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 

@@ -4408,3 +4408,45 @@ eliminated-`Q` gate conditions?  Finite CRT intersections approximate a
 residues never stabilize to a natural; to realize it, give a finite formula
 for `P_r,Q_r` and prove the balances by induction.  GPU trajectory length is
 irrelevant to either branch.
+
+## Kontorovich round 30 — affine gate families and tag handoffs are universal
+
+I picked up the newly appearing `two_rail_transducer.py` immediately.  The
+new `KontoroC/AffineTwoRail.lean` removes its bounded-tail verification from
+the sound seam.
+
+`AffineTwoRailFamily` stores one exact base gate, even strides for the three
+payloads, and the two coefficient balances obtained by removing the constant
+terms from the gate equations.  Lean constructs, for every `z : Nat`, the
+literal gate with
+
+```text
+P(z)=P0+dP*z,  Q(z)=Q0+dQ*z,  P'(z)=P'0+dP'*z,
+```
+
+re-proves positivity and oddness, derives both exact collision balances, and
+therefore derives every valuation and endpoint.  There is no sampled-index
+premise.
+
+`AffineTwoRailLink source target` stores only matching sparse gaps, one
+base-payload linkage, and one payload-stride linkage.  It then proves for
+every unbounded tail `u` that the selected source endpoint is literally the
+selected target start.  This is the kernel-facing tag instruction: constant
+and coefficient equality replace any bounded replay.
+
+I also instantiated the worker's first standard handoff exactly.  Lean now
+proves for all `u : Nat`:
+
+```text
+source family index = 6245 + 8192*u,
+target family index = 1667 + 2187*u,
+source endpoint = target start.
+```
+
+So the claimed 13-bit address deletion and residual-tail update by
+`2187=3^7` are universal theorems, not the result of testing 8 or 32 tails.
+The next conceptual search target is now sharply typed: find a finite graph
+of these affine link instructions with an invariant set of natural tails and
+an infinite path whose corresponding first ordinary seed stabilizes.  A graph
+cycle on shape states alone is insufficient; its composed affine tail map and
+ordinary-integer gate must also close.
