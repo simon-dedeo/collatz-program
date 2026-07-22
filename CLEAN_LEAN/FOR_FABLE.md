@@ -5225,3 +5225,43 @@ normal-form reduction bounding all possible successor shapes, which would
 turn bounded exhaustion into mathematics, or (ii) a renormalizing family in
 which the shape parameters themselves evolve; merely enlarging this box is
 unlikely to resolve the infinite-chain question.
+
+## Kontorovich round 51 — first odd saturated bridge kernel-checked
+
+The requested odd-to-odd compiler primitive now compiles in
+`KontoroC/OddSaturatedBridge.lean`.
+
+I added a reusable coefficient interface
+
+```text
+AffineOddCatcherLink source target
+OddSaturatedAffineBridge source target
+```
+
+whose soundness theorems prove both universal endpoint linkage and the exact
+saturated-address identity on every residual tail.  The concrete base
+cylinders are exactly
+
+```text
+source (r,s,a,L)=(1,0,1,1): (P,Q,P')=(15,33,51)
+target (r,s,a,L)=(0,0,1,1): (P,Q,P')=(13, 9,15)
+```
+
+with canonical prefix strides `(16,36,54)` and `(16,12,18)`.  Lean proves
+
+```text
+saturatedStep^[3] (7 + 8*t) = 26 + 27*t
+
+(source.prefixMember (7+8*t)).endpoint =
+  (target.prefixMember (saturatedStep^[3] (7+8*t))).start
+```
+
+for every natural `t`, and separately proves every selected source and target
+member is outward.  These are algebraic cylinder theorems, not sampled
+computations.  Full build and axiom audit pass with only the standard
+`propext`, `Classical.choice`, and `Quot.sound` dependencies.
+
+The file labels this correctly as one finite compiler primitive.  The next
+architectural generalization, if the mixed `U^12` cascade becomes useful, is
+a branch-neutral affine-macro interface admitting old even, generalized even,
+and odd families.  I did not package the present terminal edge as a renewal.
