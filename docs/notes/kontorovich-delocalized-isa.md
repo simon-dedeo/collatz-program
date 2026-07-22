@@ -433,6 +433,23 @@ be small.  The search target is a run-length bouncer whose one-period crossing
 can be lifted by induction.  The small rule set is not claimed to be
 universal.
 
+Cocke and Minsky prove universality for the *class* of deletion-two tag
+systems, not for every small member and not for De Mol's three-rule system.
+Their construction makes the missing operation precise: the simulated Turing
+tape is a state plus two binary stacks `(Q,M,N)`; a head move pops the low bit
+of one stack (`N -> floor(N/2)`) and pushes a bit onto the other
+(`M -> 2M+b`), then changes `Q`.  A tag word realizes this by deleting at one
+end and appending at the remote other end.
+
+The delay link (21) has a complete bounded ternary write alphabet, but it does
+not yet implement that queue geometry: it divides a binary address and then
+multiplies the surviving *same integer* by a power of three.  Mixed-radix
+reinterpretation can create nonlocal carries, but “all 243 output words” is
+not a universality result.  A sharper spatial compiler target is therefore a
+pair of separated packet registers with exact pop/push and state-transition
+macros.  Regeneration must move the collision boundary between those packets
+without consuming an infinite preloaded address.
+
 ### Dyadic--triadic arithmetic gates
 
 Equation (2) is already a formula configuration.  Instead of enumerating
@@ -871,9 +888,12 @@ completeness falls short of a counterexample.
    relation over a large bounded domain.
 4. Treat (21) as the native mixed-radix tag instruction.  Search for a
    returning dispatcher or one-counter bouncer which uses the complete
-   five-trit writer, and compare it with the run-length-accelerated
-   three-symbol tag system.  Translate any survivor back to a canonical
-   positive integer before treating it as Collatz evidence.
+   five-trit writer.  More stringently, compile Cocke--Minsky's two-stack
+   primitives `N -> floor(N/2)` and `M -> 2M+b` into two separated packets;
+   reject a writer that lacks remote-end queue semantics.  Compare survivors
+   with the run-length-accelerated three-symbol tag system and translate them
+   back to a canonical positive integer before treating them as Collatz
+   evidence.
 5. Use the parity-complete splash decoder as a deterministic variable-length
    machine.  Search for a finite symbolic invariant of its natural payload
    map with genuinely aperiodic branch sequence and positive long-run drift;
@@ -912,6 +932,8 @@ Every candidate is rejected unless all of the following are explicit:
   repository copy](https://www.research.unipd.it/retrieve/e14fb267-5e97-3de1-e053-1705fe0ac030/TCS8412.pdf).
 - L. De Mol, [*Tag systems and Collatz-like
   functions*](https://biblio.ugent.be/publication/436211), 2008.
+- J. Cocke and M. Minsky, [*Universality of Tag Systems with
+  `P=2`*](https://doi.org/10.1145/321203.321206), 1964.
 - E. Yolcu, S. Aaronson, and M. J. H. Heule, [*An Automated Approach to the
   Collatz Conjecture*](https://arxiv.org/abs/2105.14697), 2023.
 - T. Stérin and D. Woods, [*The Collatz process embeds a base conversion
