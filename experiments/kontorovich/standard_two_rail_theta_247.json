@@ -13,7 +13,7 @@
     "q": "2/3",
     "z": "8192/19683",
     "scale": "-23/6561",
-    "irrationality_status": "open in this project pending a line-by-line hypothesis audit of p-adic Tschakaloff theorems"
+    "irrationality_status": "proved by applying Vaananen--Wallisser (1989); see the separate exact hypothesis audit"
   },
   "finite_check": {
     "rounds": 247,

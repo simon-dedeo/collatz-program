@@ -2,11 +2,11 @@
 
 ## Scope
 
-This note isolates the ordinary-integer gate for the standard splash schedule.
-It does **not** prove irrationality and does not disprove or prove Collatz.
-Its exact contribution is to identify one familiar special function whose
-2-adic rationality decides whether this particular infinite gate schedule can
-come from an ordinary positive seed.
+This note isolates and closes the ordinary-integer gate for the standard
+splash schedule.  Lean and exact arithmetic identify one familiar 2-adic
+special value; a published Väänänen--Wallisser linear-independence theorem,
+with every application hypothesis audited below, proves it irrational.  This
+rules out one infinite gate schedule.  It does not prove or disprove Collatz.
 
 ## 1. Kernel-checked recurrence
 
@@ -92,40 +92,78 @@ equation (3) is
 U_5 = -(23/3^8) F(2/3, 2^13/3^9).             (5)
 ```
 
-Thus any theorem proving this 2-adic value irrational would rule out an
-ordinary standard schedule immediately: a positive ordinary payload `U_5`
-would be a rational integer.
+Any theorem proving this 2-adic value irrational rules out an ordinary
+standard schedule immediately: a positive ordinary payload `U_5` would be a
+rational integer.  A full-source theorem does apply.
 
-The literature audit is promising but deliberately incomplete.
+Väänänen and Wallisser's 1989 paper, [*Zu einem Satz von Skolem über lineare
+Unabhängigkeit von Werten gewisser
+Thetareihen*](https://gdz.sub.uni-goettingen.de/download/pdf/PPN365956996_0065/LOG_0016.pdf),
+studies
 
-- Väänänen and Wallisser's 1991 paper, [*A linear independence measure for
-  certain p-adic numbers*](https://doi.org/10.1016/0022-314X(91)90045-D),
-  studies exactly `F(q,z)` for rational `q` with `0<|q|_p<1`.  Our parameters
-  have `p=2`, `q=2/3`, so they pass the condition visible in the abstract.
-  The full theorem says “certain values”; its remaining height, orbit, and
-  exceptional-point hypotheses have not yet been checked line by line.  The
-  abstract is not treated as a certificate.
-- Zudilin's [real/complex irrationality
+```text
+f_q(x) = sum_(n>=0) q^(-n(n+1)/2) x^n,
+f_q(qx) = x f_q(x) + 1.
+```
+
+Our value is exactly
+
+```text
+F(2/3, 2^13/3^9) = f_(3/2)(2^12/3^8).       (6)
+```
+
+Use their theorem with `ell=1`, derivative order `sigma=0`, `q=3/2`,
+`alpha=4096/6561`, and `p=2`.  The nonzero-rational and reduced-`q`
+hypotheses are immediate, and the distinct-argument ratio condition is
+vacuous for one argument.  Their only delicate size condition becomes
+
+```text
+gamma = 1 - log(2)/log(3) < (3-sqrt(5))/2 = Gamma.
+```
+
+This needs no floating-point estimate.  The rational separator `3/8` works:
+
+```text
+2^8=256 > 243=3^5       => gamma < 3/8,
+5*4^2=80 < 81=9^2       => 3/8 < Gamma.
+```
+
+The theorem therefore makes `1` and the value in (6) linearly independent
+over the rationals in `Q_2`; in particular, (6) is irrational.  Consequently
+the candidate in (5) is irrational and cannot equal the positive integer
+`U_5`.  The complete standard schedule has no ordinary positive payload
+stream.
+
+Lean commit `3fc63a6` proves the function substitution for every coefficient,
+the logarithmic and square-root inequalities, and the final implication from
+irrationality of the explicit `Q_2` value to nonexistence of the normalized
+payload stream.  The Väänänen--Wallisser linear-independence theorem remains a
+cited external theorem rather than a new axiom or a reproof inside Lean.
+
+[`standard_two_rail_irrationality.py`](../../experiments/kontorovich/standard_two_rail_irrationality.py)
+checks the function substitution coefficientwise with exact fractions and
+checks both strict inequalities as integer comparisons.  Its certificate is
+an exact hypothesis/application audit of the cited theorem, not a reproof of
+Väänänen--Wallisser.
+
+For calibration, Väänänen and Wallisser's later 1991 paper, [*A linear
+independence measure for certain p-adic
+numbers*](https://doi.org/10.1016/0022-314X(91)90045-D), studies the same
+function in the reciprocal notation, but the 1989 open full text is already
+sufficient.  Zudilin's [real/complex irrationality
   theorem](https://arxiv.org/abs/math/0506086) uses the equivalent notation
   `T_q(z)=sum z^n q^(-n(n-1)/2)`.  Our value has `q=3/2`, but his displayed
   hypothesis requires
   `log|q_2|/log|q_1| < (3-sqrt(5))/2`; here
   `log(2)/log(3)≈0.63093>0.38197`.  That theorem does not apply.
 
-Until the 1991 hypotheses are recovered and checked—or the one-value case is
-reproved—(5) is a target, not a no-go theorem.
-
 ## 4. Why this is the right next attack
 
-The recurrence has already absorbed all 10,040 digits and all 247 finite
-gates into one special value.  More range search is irrelevant.  There are
-now two crisp outcomes:
-
-1. prove the value in (5) is irrational in `Q_2`, closing the complete
-   standard schedule; or
-2. if it is rational, compute and audit the rational value, then test the
-   positivity, oddness, and eliminated-`Q` gate conditions required to turn it
-   into an actual infinite program.
-
-Either outcome is a theorem about an all-level controller rather than a long
-trajectory.
+The recurrence absorbed all 10,040 digits and all 247 finite gates into one
+special value; the published irrationality theorem then closes the all-level
+standard controller without any larger trajectory search.  This is a useful
+pattern for the disproof program even though the outcome here is negative:
+reduce each low-description schedule to its `Q_2` value, then either prove the
+value nonrational or exploit a rational exception as a candidate ordinary
+program.  The remaining two-rail search must vary or branch its gate shapes;
+the rigid `[1]^r ++ [2,2,3]` schedule is closed.

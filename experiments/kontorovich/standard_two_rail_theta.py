@@ -12,9 +12,9 @@ after the first gate gives
 
 Its unique 2-adic initial candidate is a rational multiple of the
 Tschakaloff/partial-theta function.  This script checks every finite identity
-against the exact gate compiler.  It does not assert the candidate is
-irrational; the applicability of published p-adic irrationality theorems is a
-separate literature/theorem-hypothesis audit.
+against the exact gate compiler.  Irrationality follows separately from the
+Väänänen--Wallisser theorem and the exact hypothesis audit in
+``standard_two_rail_irrationality.py``; it is not reproved here.
 """
 
 from __future__ import annotations
@@ -164,8 +164,8 @@ def build_certificate(rounds: int = DEFAULT_ROUNDS) -> dict[str, object]:
             "z": "8192/19683",
             "scale": "-23/6561",
             "irrationality_status": (
-                "open in this project pending a line-by-line hypothesis audit "
-                "of p-adic Tschakaloff theorems"
+                "proved by applying Vaananen--Wallisser (1989); see the "
+                "separate exact hypothesis audit"
             ),
         },
         "finite_check": checked,

@@ -310,19 +310,30 @@ the residual tape obeys `w=w0+3^R u`.  This is a literal variable-length tag
 instruction whose address and data are spread across the full payload rather
 than stored in adjacent binary cells.  Lean commits `4789a80` and `1076954`
 prove whole affine links and compatible two-instruction handoffs for every
-natural residual tail.  Commit `2f2e24e` supplies the decisive endpoint: a
-self-link or finite return circuit may revisit its gate family while the tail
-grows by `u -> c+m*u`; no fixed point is required.  With outward gates, such a
-natural affine loop would be a counterexample.
+natural residual tail.  Commit `2f2e24e` supplies a sound conditional endpoint
+for an affine self-link—but the older periodic-word theorem makes every
+outward instance impossible.  Repeating one fixed gate route repeats one fixed
+nonempty valuation word.  On affine coefficients a word with `N` odd steps
+and total valuation `S>0` would force the return slope to be
+`3^N/2^S`, which cannot be a natural integer.
 
-The live target is therefore a recursive payload **return map**, not merely an
-arbitrarily long list of compatible finite splashes.  The standard schedule's
-necessary recurrence further reduces its ordinary-integer gate to the 2-adic
-Tschakaloff value derived in
-[`standard-two-rail-theta.md`](standard-two-rail-theta.md).  Proving that value
-irrational would close this one schedule; constructing an affine return in a
-less rigid gate graph would realize the regenerative controller Simon asked
-for.
+Lean commits `b741a14` and `26f3584` prove this for fixed affine circuits and,
+more generally, for every eventually periodic stream of macro-words.  Commit
+`560fcc5` adds the finite-memory consequence: a payload-independent controller
+with any finite effective state eventually becomes periodic and is therefore
+impossible.
+
+The splash must therefore regenerate a **rewritten instruction tape**, not the
+same schedule.  The live target is a finite controller which branches on the
+changing residual tail and thereby emits a genuinely aperiodic gate sequence,
+or an unbounded shape parameter such as an increasing rail length.  This is
+closer to a true tag system than to an oscillator.
+
+The standard increasing-length schedule's necessary recurrence reduces its
+ordinary-integer gate to the 2-adic Tschakaloff value derived in
+[`standard-two-rail-theta.md`](standard-two-rail-theta.md).  The full-source
+Väänänen--Wallisser theorem audited there proves that value irrational, so
+this rigid schedule is now closed.  A branching schedule remains open.
 
 ## 5. Three exact machines to mine for a bouncer
 
@@ -399,10 +410,11 @@ instruction to be a global boundary/carry condition.
 4. Run-length accelerate the three-symbol tag system and look for a
    head--tail bouncer.  Translate any survivor back to a canonical positive
    integer before treating it as Collatz evidence.
-5. Search affine two-rail link circuits coefficientwise.  Rank self-links and
-   finite return maps `u -> c+m*u` that preserve natural tails; do not require
-   fixed points and do not mistake a cycle of shape labels for payload
-   compatibility.
+5. Build a branching affine two-rail transducer.  Each instruction consumes a
+   low-bit address and must choose the next gate shape from the residual tape;
+   reject fixed return routes because their valuation words are periodic.
+   Search for an invariant natural tape orbit with a genuinely aperiodic shape
+   sequence or an unbounded rail-length counter.
 6. Compile the rational-base saturated-map instruction “append `2`” into the
    mixed-base or two-rail ISA, and search the Stérin--Woods spacetime for a
    diagonal defect that implements the same return.
@@ -438,10 +450,11 @@ Every candidate is rejected unless all of the following are explicit:
   algorithm*](https://arxiv.org/abs/2007.06979), 2020.
 - S. Eliahou and J.-L. Verger-Gaugry, [*The number system in rational base
   `3/2` and the `3x+1` problem*](https://arxiv.org/abs/2504.13716), 2025.
-- K. Väänänen and R. Wallisser, [*A linear independence measure for certain
-  p-adic numbers*](https://doi.org/10.1016/0022-314X(91)90045-D), 1991; the
-  exact Tschakaloff series is relevant, but its full hypotheses have not yet
-  been audited for the standard two-rail value.
+- K. Väänänen and R. Wallisser, [*Zu einem Satz von Skolem über lineare
+  Unabhängigkeit von Werten gewisser
+  Thetareihen*](https://gdz.sub.uni-goettingen.de/download/pdf/PPN365956996_0065/LOG_0016.pdf),
+  1989; its p-adic linear-independence theorem applies exactly to the standard
+  two-rail Tschakaloff value after the audited parameter substitution.
 - [Reverse-mined Busy Beaver bouncer certificate
   semantics](../REVERSE-MINING.md#2b4-bouncers-formula-tapes--verified-shift-rules),
   with the distinction between a finite experiment and a universally checked

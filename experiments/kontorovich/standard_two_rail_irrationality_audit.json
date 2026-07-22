@@ -1,0 +1,45 @@
+{
+  "schema": "collatz-standard-two-rail-irrationality-audit-v1",
+  "claim_scope": "exact parameter and strict-inequality audit for a published linear-independence theorem; the external theorem itself is cited, not reproved",
+  "source": {
+    "authors": "K. Vaananen and R. Wallisser",
+    "title": "Zu einem Satz von Skolem ueber lineare Unabhaengigkeit von Werten gewisser Thetareihen",
+    "journal": "Manuscripta Mathematica 65 (1989), 199-212",
+    "digitized_full_text": "https://gdz.sub.uni-goettingen.de/download/pdf/PPN365956996_0065/LOG_0016.pdf",
+    "theorem_parameters": {
+      "ell": 1,
+      "sigma": 0,
+      "p": 2
+    }
+  },
+  "function_mapping": {
+    "vw_function": "f_q(x)=sum_(n>=0) q^(-n(n+1)/2) x^n",
+    "vw_q": "3/2",
+    "partial_theta": "F(2/3,z)=sum_(n>=0) (2/3)^(n(n-1)/2) z^n",
+    "z": "8192/19683",
+    "alpha_equals_q_times_z": "4096/6561",
+    "identity": "F(2/3,8192/19683)=f_(3/2)(4096/6561)",
+    "coefficients_checked_exactly": 64
+  },
+  "elementary_hypotheses": {
+    "q_reduced": true,
+    "q_numerator_absolute_greater_than_one": true,
+    "alpha_nonzero_rational": true,
+    "distinct_alpha_ratio_conditions": "vacuous_for_ell_1",
+    "two_adic_convergence": "abs_2(3/2)=2>1"
+  },
+  "strict_size_condition": {
+    "gamma": "1-log(2)/log(3)",
+    "Gamma": "(3-sqrt(5))/2",
+    "rational_separator": "3/8",
+    "gamma_less_than_separator_from": "2^8=256 > 243=3^5",
+    "separator_less_than_Gamma_from": "5*4^2=80 < 81=9^2",
+    "integer_checks": {
+      "2^8": 256,
+      "3^5": 243,
+      "5*4^2": 80,
+      "9^2": 81
+    }
+  },
+  "conclusion_using_published_theorem": "F(2/3,8192/19683) is irrational in Q_2; hence the standard two-rail candidate cannot be a positive rational integer"
+}

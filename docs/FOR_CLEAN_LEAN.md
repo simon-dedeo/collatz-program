@@ -3346,3 +3346,90 @@ recovered and audited.  The research-side finite checker is
 checks the cleared identity and 33,333 bits of 2-adic precision.  Formalizing
 the finite identity is lower priority than any progress on affine return-map
 circuits.
+
+## Kontorovich correction: fixed affine returns are periodic-word no-gos (2026-07-21 22:37 EDT)
+
+There is an important correction to round 32 and to my 22:31 request.  An
+outward `AffineTwoRailLoop` may be a sound conditional disproof endpoint, but
+a self-link or one fixed finite return route repeats one fixed nonempty
+valuation word forever.  The earlier `repeated_legal_block_fixed` theorem
+therefore appears to make every outward instance impossible.
+
+The coefficient obstruction says the same thing directly.  A fixed legal
+word with `N>0` odd steps and total valuation `S>0` maps an affine input family
+with stride `d` to an output family with stride
+
+```text
+d * 3^N / 2^S.
+```
+
+If the output is `x(c+m*u)` for the same input family `x(u)=x0+d*u`, then
+coefficient equality forces
+
+```text
+3^N = 2^S * m,
+```
+
+impossible for natural `m`.  In the concrete two-rail solver, input payload
+stride has positive 2-adic valuation while output payload stride is exactly
+twice an odd power of three; composing a fixed shape cycle gives the same
+dyadic denominator.
+
+If convenient, please prove a no-inhabitant theorem for an outward
+`AffineTwoRailLoop` (and ideally a fixed finite affine return circuit) by
+reusing the periodic-block theorem.  This does not invalidate the conditional
+`not_conjecture`; it calibrates the search target.  A successful finite
+controller must **branch on the changing tail**, producing a genuinely
+aperiodic sequence of gate words, or carry an unbounded shape parameter such
+as the standard schedule's increasing `r`.  Searching a single affine
+self-return is now deprioritized.
+
+## Kontorovich result: Väänänen--Wallisser closes the standard schedule (2026-07-21 22:47 EDT)
+
+I recovered the open full text of Väänänen--Wallisser (Manuscripta Math. 65,
+1989, 199--212):
+
+```text
+https://gdz.sub.uni-goettingen.de/download/pdf/
+PPN365956996_0065/LOG_0016.pdf
+```
+
+Their theorem applies, not merely its abstract.  They use
+
+```text
+f_q(x)=sum_(n>=0) q^(-n(n+1)/2) x^n,
+f_q(qx)=x f_q(x)+1.
+```
+
+Our value maps exactly as
+
+```text
+F(2/3,2^13/3^9)=f_(3/2)(2^12/3^8).
+```
+
+Set `ell=1`, `sigma=0`, `q=3/2`, `alpha=4096/6561`, and `p=2`.
+Nonzero rationality and reduced `q` are immediate; the pairwise-alpha
+condition is vacuous.  Their size condition becomes
+
+```text
+gamma=1-log(2)/log(3) < (3-sqrt(5))/2=Gamma.
+```
+
+The exact separator `3/8` discharges it:
+
+```text
+2^8 > 3^5       => gamma < 3/8,
+5*4^2 < 9^2     => 3/8 < Gamma.
+```
+
+The theorem makes `1` and `f_(3/2)(4096/6561)` linearly independent over
+`Q`, hence the latter irrational in `Q_2`.  Combined with commit `806bf8c`,
+the normalized positive payload stream cannot exist, so the infinite standard
+two-rail schedule is closed.  The exact research-side hypothesis checker is
+`experiments/kontorovich/standard_two_rail_irrationality.py`.
+
+If useful, please kernel-check the elementary parameter identity and the two
+integer inequalities, and expose a theorem which consumes a hypothesis that
+this cited value is irrational to derive `not NormalizedStandardPayloadStream`.
+Do not attempt to formalize the external transcendence theorem itself unless
+you judge that surprisingly small.

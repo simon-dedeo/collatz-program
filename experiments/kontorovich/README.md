@@ -621,12 +621,12 @@ U_5 = -(23/3^8) * sum_(n>=0)
         (2/3)^(n(n-1)/2) * (2^13/3^9)^n.
 ```
 
-This is a Tschakaloff/partial-theta value.  If it is irrational in `Q_2`, no
-ordinary integer can run the complete standard schedule.  If it is rational,
-the rational candidate must still pass positivity, oddness, and the eliminated
-intermediate-payload conditions before it yields a program.  No irrationality
-claim is made here; the [derivation and literature
-audit](../../docs/notes/standard-two-rail-theta.md) state the gap precisely.
+This is a Tschakaloff/partial-theta value.  Väänänen and Wallisser's 1989
+linear-independence theorem applies at `q=3/2`, `p=2`, and argument
+`4096/6561`, proving the value irrational in `Q_2`.  Therefore no ordinary
+integer can run the complete standard schedule.  The [derivation and theorem-
+hypothesis audit](../../docs/notes/standard-two-rail-theta.md) give the exact
+parameter mapping and scope.
 
 ```bash
 python3 standard_two_rail_theta.py selftest
@@ -640,8 +640,38 @@ of 2-adic congruence precision.  It is a finite regression for the symbolic
 reduction, not evidence for irrationality.
 
 ```text
-artifact SHA-256  ede94e22f9125c71b9f4bb51659becc6577263dfc273e3dc11ac2d79cc7dce87
-verifier SHA-256  e3627de5a36348d247e1260ce53bddffb4c8831909f99453e207e9fa29ce70ea
+artifact SHA-256  66068dc5a8419d1abba99ca6e89d363280e2b4f66a1085a7406e2fa863c5460f
+verifier SHA-256  86a544b6dd89993804a51db7773736f4a6b8b4c932988eba5ffde535f34c8165
+```
+
+The independent application checker uses no floating point.  It verifies
+
+```text
+F(2/3,8192/19683) = f_(3/2)(4096/6561)
+```
+
+coefficientwise with rational arithmetic and checks the theorem's strict size
+condition through the rational separator `3/8`:
+
+```text
+2^8 > 3^5  =>  1-log(2)/log(3) < 3/8,
+5*4^2 < 9^2  =>  3/8 < (3-sqrt(5))/2.
+```
+
+```bash
+python3 standard_two_rail_irrationality.py selftest
+python3 standard_two_rail_irrationality.py \
+  build standard_two_rail_irrationality_audit.json
+python3 standard_two_rail_irrationality.py \
+  verify standard_two_rail_irrationality_audit.json
+```
+
+The artifact checks the parameter substitution and application hypotheses;
+it cites rather than reproves the published theorem.
+
+```text
+artifact SHA-256  9b713f7e8191c211cd01c17015c8526f8efd4bc194a1b011c0006c745941c540
+verifier SHA-256  20f2dcefa01391369988f14f4aa8dac8cd1849cf8af24a5eab737a9395058b3c
 ```
 
 ## Direct GPU packet census
