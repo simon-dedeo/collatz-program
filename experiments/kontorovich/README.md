@@ -689,7 +689,8 @@ long-run outward growth.  Lean commits `afb86a5`/`f7ac880` independently
 certify the odd catcher's exact word, affine cylinders, and cross-branch
 disjointness, including `r=0,L=1`.  Commit `78d1048` further constructs a
 certified halt, generalized even cleanup, or odd catcher for every positive
-odd payload.  Generalized uniqueness remains the only formal decoder hygiene.
+odd payload; `92f237c` proves the proof-carrying outcome unique.  The complete
+decoder semantics are therefore kernel-checked.
 
 ```bash
 python3 complete_splash_isa.py selftest

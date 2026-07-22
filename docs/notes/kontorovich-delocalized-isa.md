@@ -379,7 +379,8 @@ long-run drift.  Lean commits `afb86a5`/`f7ac880` certify the odd catcher's
 exact word, endpoint, affine cylinders, and cross-branch disjointness,
 including `r=0,L=1`.  Commit `78d1048` proves total existence: every positive
 odd payload has a certified halt, generalized even-cleanup, or odd-catcher
-outcome.  Generalized uniqueness remains formal hygiene; existence is closed.
+outcome.  Commit `92f237c` proves that proof-carrying outcome unique.  The
+parity-complete decoder semantics are now kernel-closed.
 
 The splash must therefore regenerate a **rewritten instruction tape**, not the
 same schedule.  The live target is a finite controller which branches on the

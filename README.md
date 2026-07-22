@@ -193,8 +193,8 @@ identically `x`.
   `f7ac880` certify the new odd catcher, its affine cylinders, and
   cross-branch prefix disjointness, including `r=0,L=1`; `78d1048` proves in
   Lean that every positive odd payload has an exact halt, even-cleanup, or
-  odd-catcher outcome.  Generalized uniqueness is the remaining formal
-  hygiene, not decoder existence.
+  odd-catcher outcome, and `92f237c` proves that outcome unique.  The
+  parity-complete hardware semantics are now kernel-closed.
 - **Exact cycle synthesis.**  Search valuation words and cyclic compositions
   for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
   seed whose valuations and closure can be checked directly.  Use modular
@@ -295,7 +295,7 @@ positive integer and its claimed behavior are machine-checked.
 | Formula-generated 10,040-digit two-rail program | Exact congruence solving and affine-family intersection construct one seed with 33,351 significant bits, without storing its decimal literal. It executes 247 strict outward rounds of the schedule `[1]^(4+i) ++ [2,2,3]`, grows its clean gap from 5 to 252 bits, and reaches a 15,397-digit endpoint after 32,110 accelerated steps. Literal replay passes; Lean commits `39a3aba`/`5d3e0e3` certify the generic gate and finite-chain seams. Full exact continuation reaches `1`, and the 248-round canonical seed is different. This is a large finite Collatz program, not a counterexample. |
 | Exact affine tag-transducer and branching target | Every affine two-rail handoff reads one dyadic residue of a nonlocal family index, deletes that address block, and maps the residual tail by a power of three plus an offset. Lean commits `4789a80`/`1076954` prove universal one- and two-instruction linkage.  Commits `b741a14`--`560fcc5` rule out fixed affine returns, every eventually periodic macro-word stream, and every payload-independent finite-state controller.  The live target must branch on unbounded tail data or carry an unbounded counter. |
 | LSB-first splash instruction grammar | For fixed amplifier length, each positive gate shape `(s,a,b,L)` is one odd payload residue modulo `2^(a+b+2s+L+3)`.  Lean commit `1b7df1f` proves universal parameter decoding, the complete cylinder strides, and pairwise disjointness; the exact Kraft mass among odd 2-adic payloads is `1/6`.  The artifact checks 902,496 codeword pairs per `r=1..16` through 20 bits and independently decodes 21,504 bases.  This identifies a sparse mixed-base tag language, not an infinite survivor. |
-| Parity-complete splash ISA | Simon's proposed sacrificial alignment supplies the missing odd-gap catcher `2+3^(s+1)Q=-1+2^L P'`; admitting `L=1` supplies a zero-delay next rail.  Lean commits `afb86a5`/`f7ac880` certify that branch, its affine cylinders, and cross-branch disjointness; `78d1048` constructs a certified halt, generalized even cleanup, or odd catcher for every `r>=0` and positive odd payload.  Research-side decoding is unique and the Kraft masses are `1/3+2/3=1`; generalized uniqueness is still being lifted in Lean. |
+| Parity-complete splash ISA | Simon's proposed sacrificial alignment supplies the missing odd-gap catcher `2+3^(s+1)Q=-1+2^L P'`; admitting `L=1` supplies a zero-delay next rail.  Lean commits `afb86a5`/`f7ac880` certify that branch, its affine cylinders, and cross-branch disjointness; `78d1048` constructs a certified halt, generalized even cleanup, or odd catcher for every `r>=0` and positive odd payload, and `92f237c` proves the outcome unique.  The exact Kraft split is `1/3+2/3=1`. |
 | Exact base-`3/2` compiler bridge | The outward two-rail link `(5,0,2,1,2)->(1,0,2,1,2)` maps family indices by `95+128t -> 1640+2187t`, exactly `U^7` for every natural `t`, where divergent `U` appends digits `[1,1,1,1,1,2,1]` in rational base `3/2`.  Lean commits `401d494`/`6ab99fc` prove the universal dyadic-cylinder law and reusable compiler certificate; `dbe0e5a` proves the conditional variable-chain endpoint to `¬Collatz`.  The concrete target shrinks and the seed reaches `1`, so no infinite chain is supplied. |
 | Two-outward-gate `U^12` bridge | Exact coefficient algebra gives `U^12(1023+4096t)=132860+531441t` with digits `[1]^10[2,1]`.  It links shapes `(10,0,4,2,11)->(10,2,1,3,2)`, and both complete families are universally outward.  The saturated orbit enters at time 622; the parity-complete decoder catches the next formerly rejected payload, but that catcher shrinks.  The resulting 120-digit seed parses into 290 exact splash gates, 101 outward, and reaches `1` after 1,016 accelerated steps.  This is a finite compiler cascade, not transferred divergence. |
 | Universal three-gate outward `U^12` subcylinder | Restricting the `U^12` tail to `t=16u` makes the next decoded catcher `(1,0,1,2)` outward for every `u>=0`.  Exact affine formulas give `2199021754367 -> 2229023590399 -> 5083728186203 -> 8578791314219` at `u=0`, with nondecreasing state strides preserving all three inequalities universally.  The least seed reaches `1` after 133 accelerated steps.  This certifies Simon's “splash the splash” with net gain through three gates, not infinite renewal. |
@@ -371,7 +371,8 @@ to `t=16u` gives three universally outward gates and the least chain
 That seed still reaches `1`.  Lean commits `afb86a5`/`f7ac880` certify the
 odd instruction, its complete affine cylinders, and cross-branch
 prefix-freeness; `78d1048` proves total existence of a certified halt/even/odd
-outcome for every positive odd payload.  Next: search strategically beyond the closed first-edge box
+outcome for every positive odd payload, and `92f237c` proves it unique.  Next:
+search strategically beyond the closed first-edge box
 and, more promisingly, allow a bounded ordinary catcher cascade between
 saturated compiler edges while forcing the overall decoded schedule to remain
 aperiodic.
