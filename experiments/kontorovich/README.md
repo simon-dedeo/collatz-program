@@ -330,3 +330,28 @@ From positive odd packets and uniformly bounded extras satisfying this
 recurrence, Lean derives the macro legality, eventual packet growth, and the
 literal Collatz refutation.  It also proves the unique necessary residue class
 for `h_(t+1)` modulo `3^(M+t)`.  That scheduler is the next search filter.
+
+## Direct GPU packet census
+
+`mersenne_packet_gpu.cu` enumerates the state-dependent recurrence directly,
+rather than choosing an extra template.  The current launch checks every odd
+packet `h<2^36` at start level one, follows up to eight exact renewal steps,
+and stores every chain of length at least six.  All arithmetic is unsigned
+64-bit integer arithmetic; a nonzero overflow counter makes the run fail.
+
+`verify_mersenne_packet_gpu.py` recomputes every stored hit with Python
+arbitrary-precision integers, including its collision extras.  Exhaustiveness
+comes from the CUDA launch's complete index range and successful kernel status;
+the Python pass independently checks candidate soundness.
+
+```bash
+nvcc -O3 -std=c++17 mersenne_packet_gpu.cu -o mersenne_packet_gpu
+./mersenne_packet_gpu \
+  --h-bits 36 --max-steps 8 --threshold 6 \
+  --output mersenne_packet_gpu_results.json
+python3 verify_mersenne_packet_gpu.py mersenne_packet_gpu_results.json
+```
+
+`psc_mersenne_packet.sbatch` is the H100 launch prescription.  This section
+describes a running search, not a result; bounds and counts will move to the
+headline table only after a complete artifact passes replay.

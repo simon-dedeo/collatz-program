@@ -251,6 +251,13 @@ extension event, and `(4,3,1)` remains the best outward event.  Lean commits
 provide a modulo-`3^m` scheduler; state-dependent arithmetic feedback is now
 the active Mersenne lane.
 
+An exact direct packet census is now running on Akdeniz and queued as PSC H100
+job `42500602`.  It covers every odd `h<2^36` from start level one, tests up to
+eight renewals with checked unsigned arithmetic and an explicit overflow
+counter, and records every chain of length at least six for independent Python
+big-integer replay.  No result will enter the headline table until the full
+range completes and the replay verifier passes.
+
 ### 2026-07-21 19:54 EDT
 
 Allowed carry collisions to change phase around the same negative cycle.  This
