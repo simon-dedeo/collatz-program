@@ -1550,38 +1550,41 @@ literal gate macros.  The successive packet residues are
 k_0 = 3,16,0,2,6,8  (mod 17).                        (69)
 ```
 
-The first bank clock fails at the ordinary-integer gate.  Suppose at one
-fixed level that
+Every constant-rate bank clock fails at the ordinary-integer gate.  Suppose
+at one fixed level that
 
 ```text
 p(n)=an+b+e,   q(n)=cn+d,
-n_t=n_0+t.
+n_t=n_0+kt,                 k>=1 fixed.
 ```
 
 Backward unrolling of (68a) gives the unique 2-adic core
 
 ```text
 h_0=-s/3^(q(n_0)) *
-    F(2^a/3^c, 2^(p(n_0+1))/3^(q(n_0+1))),          (69a)
+    F(2^(ak)/3^(ck), 2^(p(n_0+k))/3^(q(n_0+k))),    (69a)
 F(r,z)=sum_(j>=0) r^(j(j-1)/2)z^j.
 ```
 
 Coefficientwise,
 
 ```text
-F(2^a/3^c,z)=f_(3^c/2^a)((3^c/2^a)z),               (69b)
+F(2^(ak)/3^(ck),z)
+ =f_(3^(ck)/2^(ak))((3^(ck)/2^(ak))z),               (69b)
 ```
 
 where `f_q` is exactly the Väänänen--Wallisser theta function used to close
 the earlier standard two-rail schedule.  Their 1989 theorem applies for every
-`n_0>=1` with `ell=1`, `sigma=0`, `p=2`, and
+`n_0>=1`, every fixed integer `k>=1`, with `ell=1`, `sigma=0`, `p=2`, theorem
+parameter `3^(ck)/2^(ak)`, and
 
 ```text
 alpha=2^(p(n_0))/3^(q(n_0)).
 ```
 
-The argument is nonzero rational and the multi-argument ratio condition is
-vacuous.  Its only delicate uniform size condition follows exactly from
+The argument is nonzero rational, is independent of `k`, and the
+multi-argument ratio condition is vacuous.  Its only delicate uniform size
+condition follows exactly from
 
 ```text
 2^8>3^5,   3a>=4c,   45<64.
@@ -1589,19 +1592,24 @@ vacuous.  Its only delicate uniform size condition follows exactly from
 
 Indeed these give `a log(2)/(c log(3))>5/6` and hence
 `1-a log(2)/(c log(3))<1/6<(3-sqrt(5))/2`.  Also
-`3^c>2^a>1` and the 2-adic norm of `3^c/2^a` is `2^a>1` at all six levels.
-The published theorem therefore makes (69b), and hence (69a), irrational in
-`Q_2`.  No linear `n_t=n_0+t` unit schedule can have an ordinary integer
-initial core.
+`3^c>2^a>1`; taking the `k`th powers preserves the inequalities, the
+logarithmic ratio is unchanged because `k` cancels, and the 2-adic norm of
+`3^(ck)/2^(ak)` is `2^(ak)>1`.  The published theorem therefore makes (69b),
+and hence (69a), irrational in `Q_2`.  No constant-rate `n_t=n_0+kt` unit
+schedule can have an ordinary integer initial core.
 
 `unit_linear_theta.py` verifies finite unrolling against eight linked unit
-transitions at each level, checks the function conversion coefficients and
-all elementary theorem hypotheses, and reaches 172,972 bits of terminal
-2-adic precision at level six.  The irrationality step remains a cited
-external theorem, not a reproof.  This no-go matters architecturally: because
-`delta(n+1)-delta(n)=a-c`, the tempting constant-rate Mersenne bank is exactly
-the unary clock just excluded.  A viable factor bank must let its unbounded
-ordinary contents select a nonlinear, aperiodic length change.
+transitions at each level for the step-one regression, checks the generalized
+function conversion coefficients and all elementary theorem hypotheses, and
+reaches 172,972 bits of terminal 2-adic precision at level six.  The
+irrationality step remains a cited external theorem, not a reproof.  This
+no-go matters architecturally: because
+`delta(n+k)-delta(n)=(a-c)k`, every fixed-rate Mersenne bank is exactly a clock
+just excluded.  A viable factor bank must let its unbounded ordinary contents
+select a nonlinear, aperiodic length change.  In Simon's spatial formulation,
+the second rail must be sacrificial and regenerative at once: its distributed
+bits cancel the dirty collision suffix, but the surviving packet must select
+and recreate the next clean gap.  A fixed periodic placement cannot do this.
 
 A static odd-payload quine is closed immediately.  If one branch sent
 `h` to the same `h` at another branch, then
@@ -1641,7 +1649,7 @@ is aperiodic.
    recurrence in this macro ISA over enlarging either replay bound.  Use the
    autonomous registers (48) and (55) as the primary search and proof
    interfaces.  Infinite recursive renormalization is now closed by (63b),
-   and the unary fixed-level clock is closed by (69a)--(69b); search a
+   and every constant-rate fixed-level clock is closed by (69a)--(69b); search a
    packet-selected nonlinear bank for the signed radix swap instead of
    widening either replay bound.
    Compare

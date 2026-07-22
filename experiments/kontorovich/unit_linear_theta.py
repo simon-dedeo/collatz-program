@@ -4,15 +4,16 @@
 At one fixed hierarchy level write
 
     p(n)=a*n+b+e,  q(n)=c*n+d,
-    2^(p(n+1)) h_(t+1) = 3^(q(n)) h_t + s.
+    2^(p(n_(t+1))) h_(t+1) = 3^(q(n_t)) h_t + s.
 
-For the unary schedule ``n_t=n0+t``, finite backward unrolling identifies the
-unique 2-adic initial core with a Tschakaloff/partial-theta value.  This worker
-checks the finite identity against exact linked unit branches at all six
-compiled hierarchy levels and audits the elementary hypotheses of the
+For every arithmetic schedule ``n_t=n0+k*t`` with ``k>=1``, finite backward
+unrolling identifies the unique 2-adic initial core with a
+Tschakaloff/partial-theta value.  This worker checks the step-one finite
+identity against exact linked unit branches at all six compiled hierarchy
+levels and audits the symbolic all-``k`` hypotheses of the
 Vaananen--Wallisser (1989) irrationality theorem.  The external theorem is
-cited, not reproved here.  The result closes only linear ``n -> n+1`` unit
-schedules, not nonlinear packet feedback or Collatz.
+cited, not reproved here.  The result closes constant-rate unit schedules,
+not nonlinear packet feedback or Collatz.
 """
 
 from __future__ import annotations
@@ -218,34 +219,39 @@ def theorem_parameters(parent: RegisterISA) -> dict[str, object]:
         raise AssertionError("1/6 versus golden-ratio separator failed")
     p_offset = unit.binary_offset + unit.division_exponent
     coefficient_checks = 0
-    for start_cells in range(1, 5):
-        for index in range(64):
-            # F(2^a/3^c,z) and f_(3^c/2^a)(alpha) have the same
-            # numerator/denominator exponents when alpha=(3^c/2^a)z.
-            f_two = (
-                a * index * (index + 1) // 2
-                + (a * start_cells + p_offset) * index
-            )
-            F_two = (
-                a * index * (index - 1) // 2
-                + (a * (start_cells + 1) + p_offset) * index
-            )
-            f_three = (
-                c * index * (index + 1) // 2
-                + (c * start_cells + unit.ternary_offset) * index
-            )
-            F_three = (
-                c * index * (index - 1) // 2
-                + (c * (start_cells + 1) + unit.ternary_offset) * index
-            )
-            if (f_two, f_three) != (F_two, F_three):
-                raise AssertionError("partial-theta function conversion failed")
-            coefficient_checks += 1
+    for cell_step in range(1, 5):
+        for start_cells in range(1, 5):
+            for index in range(64):
+                # F(2^(ak)/3^(ck),z) and f_(3^(ck)/2^(ak))(alpha)
+                # have the same exponent pair when alpha is q*z.
+                f_two = (
+                    a * cell_step * index * (index + 1) // 2
+                    + (a * start_cells + p_offset) * index
+                )
+                F_two = (
+                    a * cell_step * index * (index - 1) // 2
+                    + (a * (start_cells + cell_step) + p_offset) * index
+                )
+                f_three = (
+                    c * cell_step * index * (index + 1) // 2
+                    + (c * start_cells + unit.ternary_offset) * index
+                )
+                F_three = (
+                    c * cell_step * index * (index - 1) // 2
+                    + (
+                        c * (start_cells + cell_step)
+                        + unit.ternary_offset
+                    )
+                    * index
+                )
+                if (f_two, f_three) != (F_two, F_three):
+                    raise AssertionError(
+                        "partial-theta function conversion failed"
+                    )
+                coefficient_checks += 1
     return {
         "level": parent.level,
-        "q": f"3^{c}/2^{a}",
-        "q_numerator": str(pow(3, c)),
-        "q_denominator": str(1 << a),
+        "q_for_step_k": f"3^({c}*k)/2^({a}*k)",
         "prime": 2,
         "alpha_for_start_n0": (
             f"2^({a}*n0+{p_offset})/"
@@ -261,15 +267,15 @@ def theorem_parameters(parent: RegisterISA) -> dict[str, object]:
             "45<64 gives 1/6<(3-sqrt(5))/2"
         ),
         "external_conclusion": (
-            "Vaananen--Wallisser (1989) makes 1 and f_q(alpha) "
-            "Q-linearly independent in Q_2"
+            "for every k>=1, Vaananen--Wallisser (1989) makes 1 "
+            "and f_q(alpha) Q-linearly independent in Q_2"
         ),
         "elementary_hypotheses": {
-            "q_reduced": True,
-            "q_numerator_absolute_greater_than_one": True,
+            "q_reduced_for_every_k_at_least_1": True,
+            "q_numerator_absolute_greater_than_one_for_every_k": True,
             "alpha_nonzero_rational_for_every_n0_at_least_1": True,
             "distinct_alpha_ratio_conditions": "vacuous_for_ell_1",
-            "two_adic_convergence": f"abs_2(q)=2^{a}>1",
+            "two_adic_convergence": f"abs_2(q)=2^({a}*k)>1",
             "function_conversion_coefficients_checked": coefficient_checks,
         },
     }
@@ -300,8 +306,9 @@ def build_certificate(
         "claim_scope": (
             "exact finite partial-theta identities for one n->n+1 schedule "
             "at each of six compiled unit levels, plus an exact application-"
-            "hypothesis audit of Vaananen--Wallisser (1989); the external "
-            "irrationality theorem is cited, not reproved"
+            "hypothesis audit of Vaananen--Wallisser (1989) for every "
+            "arithmetic schedule n_t=n0+k*t, k>=1; the external irrationality "
+            "theorem is cited, not reproved"
         ),
         "external_source": {
             "authors": "K. Vaananen and R. Wallisser",
@@ -316,13 +323,14 @@ def build_certificate(
             ),
             "theorem_parameters": {"ell": 1, "sigma": 0, "p": 2},
         },
-        "linear_schedule": "n_t=n0+t for arbitrary n0>=1",
+        "linear_schedule": "n_t=n0+k*t for arbitrary n0>=1 and k>=1",
         "candidate_formula": (
-            "h0=-s/3^(q(n0)) * F(2^a/3^c, "
-            "2^(p(n0+1))/3^(q(n0+1)))"
+            "h0=-s/3^(q(n0)) * F(2^(a*k)/3^(c*k), "
+            "2^(p(n0+k))/3^(q(n0+k)))"
         ),
         "function_conversion": (
-            "F(2^a/3^c,z)=f_(3^c/2^a)((3^c/2^a)z)"
+            "F(2^(a*k)/3^(c*k),z)="
+            "f_(3^(c*k)/2^(a*k))((3^(c*k)/2^(a*k))z)"
         ),
         "ordinary_program_conclusion": (
             "the cited theorem makes every linear-schedule candidate "

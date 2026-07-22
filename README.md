@@ -219,10 +219,15 @@ identically `x`.
   `W=2^p h -> W'=3^q h+s`.  Relative to the signed radix router, every level
   then trims the positive ternary factor `3^(p-1-q)`.  The new two-rail target
   is to bank that factor in a separated packet and feed it back, rather than
-  losing it or adding another hierarchy level.  The simplest unary clock is
-  already closed: `n_t=n_0+t` makes the unique 2-adic core a partial-theta
-  value which is irrational by the cited Väänänen--Wallisser theorem at all
-  six levels.  Any bank must branch nonlinearly on its packet contents.
+  losing it or adding another hierarchy level.  Every constant-rate clock is
+  already closed: `n_t=n_0+kt`, for arbitrary fixed `k>=1`, makes the unique
+  2-adic core a partial-theta value which is irrational by the cited
+  Väänänen--Wallisser theorem at all six levels.  Any bank must branch
+  nonlinearly on its packet contents.  In Simon's spatial language, the live
+  architecture is a two-rail regenerator: a payload rail survives the
+  collision while a delocalized sacrificial rail absorbs the dirty carry
+  suffix and recreates the next clean gap.  The distance to that next gap
+  must itself be packet-selected, not a fixed-rate delay.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -383,7 +388,7 @@ identically `x`.
 | Canonical tail-zero splash hierarchy | The most direct recursive program chooses the length-one branch and zero remaining tail at every new scale.  Exact expansion through depths `1..6` gives first-scale packet sizes `7,46,177,606,2021,6698` decimal digits and ordinary starts through 6,708 digits.  Consecutive packets agree in increasingly many low bits but are strictly larger and unequal at every checked depth (`v2` of the differences `23,155,589,2013,6715`).  It is therefore a growing sequence of finite 2-adic prefixes, not one stabilized ordinary seed.  This bounded diagnostic is now subsumed by the universal positive-tail row below. | [`breakoff_renormalization_audit.json`](experiments/kontorovich/breakoff_renormalization_audit.json) |
 | Bounded canonical meta-quine tree | Exact recursive compilation checks all 584 meta-words of depths `1..3` over background choices `j=1..8`.  On every one of the 576 extensions, the canonical first-scale packet is strictly larger than its parent; there are zero stabilizations and zero decreases.  The closest paths are `(1,1)` and `(1,1,1)`, sharing 23 and 155 low bits respectively—the fixed tower already audited.  This bounded diagnostic is now subsumed by the universal positive-tail row below; another defect grammar or a fixed-level autonomous register orbit remains open. | [`breakoff_renormalization_audit.json`](experiments/kontorovich/breakoff_renormalization_audit.json) |
 | Infinite capped-renormalization tower as one ordinary program | Closed for every successfully constructed adjacent-defect extension, independently of branch length or child payload.  With `q_raw>0`, combined parent exponent `E`, inherited valuation `r>=0`, and positive child packet `K`, exact substitution gives `q=q_raw+2^E(2^rK-1)>0`.  Every new nesting therefore has a strictly noncanonical parent tail, so the canonical dyadic addresses never eventually stabilize to one natural.  This subsumes the two bounded rows above as diagnostics.  It does not exclude an autonomous orbit in the unit register at a fixed finite level, or a different compiler grammar. | [`breakoff_renormalization.py`](experiments/kontorovich/breakoff_renormalization.py) |
-| Unary fixed-level unit bank `n_t=n_0+t` | Closed at all six compiled levels for every `n_0>=1`.  Exact unrolling gives a Tschakaloff value with `q=3^c/2^a` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks function conversion and the uniform strict size bound.  Six linked eight-transition regressions verify the finite recurrence but are not the source of the all-level conclusion.  A factor bank must use nonlinear packet feedback, not a unary counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
+| Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
 | Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
 | Standard two-rail schedule `[1]^r[2,2,3]` | Closed at all levels.  Exact affine-family intersection compiles 247 outward rounds from a 10,040-digit seed, but depth 248 changes the seed and exact continuation reaches `1`.  Lean reduces every infinite realization to `2^(r+8)P'=3^(r+3)P+69` and its sole 2-adic Tschakaloff candidate.  Väänänen--Wallisser's 1989 theorem applies at `q=3/2,p=2,alpha=4096/6561` and proves that candidate irrational, so it cannot be an ordinary payload.  This does not close branching or other aperiodic splash programs. | [Finite certificate](experiments/kontorovich/two_rail_chain_247.json), [theorem audit](docs/notes/standard-two-rail-theta.md) |
 | Fixed affine or autonomous finite-state return | Closed as an outward bouncer.  Lean commits `b741a14`/`26f3584` prove fixed affine circuits and every eventually periodic macro-word schedule impossible; `560fcc5` proves an autonomous controller with any finite effective state eventually enters that obstruction.  Coefficientwise, a repeated word would require natural slope `m=3^N/2^S` with `S>0`.  Payload-dependent branching and unbounded shape counters remain open. | [Delocalized tag-ISA note](docs/notes/kontorovich-delocalized-isa.md) |
@@ -426,7 +431,7 @@ positive integer and its claimed behavior are machine-checked.
 | Three-bit-capped recursive super-ether | Regard the one-cell returning glider as a 23-bit background cell and the two-cell glider as its defect.  Exact parity kills a fully exhausted second-scale gap, but retaining three low bits makes the boundary re-enter the same defect cylinder.  After removing a common `3^7`, the public register is `V=-8744697538656344367967+671265207750760396088265K` and its length-`N` branch is `V=2^(23N+3)g -> V'=(3^(17N+40)g-17)/2^51`.  The affine super-macro is `K=R_N+2^(23N+54)t -> K'=S_N+3^(17N+40)t`.  The artifact checks 64 branches and 256 members, and literally replays 32 members through 336 glider macros, 1,040 lower links, and 2,080 gate macros.  This is a finite two-scale constructor, not an infinite orbit. |
 | Six-level sign-alternating splash hierarchy | The capped construction renormalizes five more times without changing the magnitude `17`: public collision signs are `+,-,+,-,+,-` and binary cell widths are `8,23,77,254,839,2771`.  At every checked step exact phase arithmetic returns to the defect and normalization flips only the sign.  The artifact checks 40 child branches independently by CRT and parent-macro composition, replays 80 members through 520 parent blocks, and expands the canonical tail-zero programs through six levels to literal first-scale gliders.  It additionally checks all 64 level-one choices `B=M_j,H=M_(j+1)`, three nonconstant four-step meta-words, and every depth-three meta-word over `j=1..8`.  Beyond those bounds, the exact positive-tail identity proves universally that no infinite chain of these adjacent-defect nestings can stabilize its canonical ordinary address.  The depth-six canonical member is a generated 6,708-digit ordinary start executing 360 linked glider macros.  This is a finite compiler and a source of fixed-level ISAs—not an ordinary infinite orbit or an induction that the phase identities persist at all levels. |
 | Invariant unit-debris register and signed radix swap | At every one of the six certified hierarchy levels, exactly one packet class modulo `17` makes the primitive `±17` register divisible by `17`; the class is preserved by every successful branch.  Dividing gives `H=2^(an+b)h -> H'=(3^(cn+d)h+s)/2^e`, `s=±1`.  With `W=2^eH`, every instruction is exactly `W=2^p h -> W'=3^q h+s`: it preserves the complete core `h`, swaps an exact binary delay for a ternary delay, and writes one signed unit.  Against the signed router it trims `d=p-1-q`, with the six formulas `2n+3,6n+13,20n+45,66n+151,218n+501,720n+1657`.  The artifact compares all 192 branches, checks this form on 768 members, and literally replays 32 level-one members through 336 lower links and 672 gates.  This identifies the factor a second rail must bank; no such rail or infinite unit orbit is supplied. |
-| Linear unit-counter schedules | For any of the six certified unit levels and every `n_0>=1`, the schedule `n_t=n_0+t` has the unique 2-adic initial core `-s*3^(-q(n_0)) F(2^a/3^c,2^(p(n_0+1))/3^(q(n_0+1)))`.  Converting to Väänänen--Wallisser's `f_(3^c/2^a)` is coefficientwise exact.  Their 1989 theorem applies with `ell=1,sigma=0,p=2`: `3^c>2^a`, `3a>=4c`, `2^8>3^5`, and `45<64` give its strict size condition.  The value is irrational in `Q_2`, so it cannot be an ordinary integer core.  The artifact also compiles and checks eight finite transitions at every level, through 172,972 bits of terminal 2-adic precision at level six.  This closes only the unary `n -> n+1` clock, not nonlinear or packet-branching schedules. |
+| Constant-rate unit-counter schedules | For any of the six certified unit levels, every `n_0>=1`, and every fixed integer `k>=1`, the schedule `n_t=n_0+kt` has the unique 2-adic initial core `-s*3^(-q(n_0)) F(2^(ak)/3^(ck),2^(p(n_0+k))/3^(q(n_0+k)))`.  Converting to Väänänen--Wallisser's `f_(3^(ck)/2^(ak))` is coefficientwise exact, and its argument simplifies to `alpha=2^(p(n_0))/3^(q(n_0))`.  Their 1989 theorem applies with `ell=1,sigma=0,p=2`; its size ratio is the same as for `k=1`, while `|3^(ck)/2^(ak)|_2=2^(ak)>1`.  The value is irrational in `Q_2`, so it cannot be an ordinary integer core.  The artifact's six linked eight-transition branch replays remain a finite `k=1` regression; the all-`k` conclusion is symbolic and theorem-dependent.  This closes every fixed positive step size, not nonlinear or packet-branching schedules. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
 | Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
@@ -483,6 +488,38 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 04:29 EDT
+
+The unary factor-bank obstruction extends to every positive constant rate.
+For `n_t=n_0+kt`, exact backward unrolling gives
+
+```text
+h_0=-s/3^(q(n_0)) *
+    F(2^(ak)/3^(ck), 2^(p(n_0+k))/3^(q(n_0+k))).
+```
+
+Coefficientwise conversion uses theorem parameter
+`3^(ck)/2^(ak)`, but the rational argument simplifies to
+`2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The theorem's logarithmic size
+ratio is also unchanged because `k` cancels.  Thus the cited full-source
+Väänänen--Wallisser theorem excludes an ordinary integer core for every
+`n_0>=1` and fixed integer `k>=1` at all six compiled unit levels.
+
+The rebuilt [exact artifact](experiments/kontorovich/unit_linear_theta_audit.json)
+checks the generalized symbolic coefficient law and elementary hypotheses;
+its literal linked branch replay remains explicitly scoped to the finite
+step-one schedules `1,...,9`.  Artifact SHA-256:
+`682d5636c66f1ea2a8f2cad7e58027da1e821513f248726175c839907bad312a`.
+Verifier SHA-256:
+`944eeaa73a8b860d36531b90e866941ab282633b0ebd2736839fd00b8d870e28`.
+The irrationality is still an external published-theorem application.
+
+This sharpens Simon's “splash the gap” proposal.  A viable cleanup rail
+cannot merely fire every fixed number of cells.  Its sacrificial bits must
+both absorb the collision debris and use unbounded packet state to choose
+where the regenerated clean gap appears.  The next target is therefore a
+two-rail, packet-controlled return equation, not a longer constant delay.
 
 ### 2026-07-22 04:17 EDT
 
@@ -1920,7 +1957,7 @@ existing lines of work; the closest ancestors, and what each contributes:
   **W. Zudilin, [“An elementary proof of the irrationality of Tschakaloff
   series”](https://arxiv.org/abs/math/0506086)
   (2005)** — the closest arithmetic literature for the exact partial-theta
-  values forced by the standard two-rail schedule and by every linear
+  values forced by the standard two-rail schedule and by every constant-rate
   fixed-level unit clock.  The full-source p-adic Väänänen--Wallisser theorem
   applies and rules out both ansatz classes after their exact hypothesis
   audits; Zudilin's displayed real/complex hypothesis fails for the original
