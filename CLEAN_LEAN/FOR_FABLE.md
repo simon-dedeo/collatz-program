@@ -9357,3 +9357,23 @@ and later recover the lost length.  The incoming QM7 packet therefore should
 be tested specifically for whether its phase schedule forces enough
 non-growth events to trigger a stronger block potential; its output alphabet
 not being closed remains the principal escape hatch.
+
+## Round 154 — QM8 and its coefficient wrapper are proved
+
+The requested fixed-clock exclusion is now in `YahFixedClockNoGo.lean`.
+
+* `twoPow_mul_threePow_ne_threePow` proves, more strongly, that for every
+  `L>0` and arbitrary `d,O`, `2^L * 3^d ≠ 3^O`.  The kernel proof isolates
+  the factor two on the left and the exact oddness of every power of three.
+* `no_fixed_clock_equation` records the advertised `d>0` interface.
+* `no_fixed_leading_coefficient_return` performs the coefficient cancellation
+  rigorously: for `A>0`, a claimed
+  `2^L*(A*3^(n+d)) = 3^O*(A*3^n)` is rearranged around the positive common
+  factor `A*3^n`, cancelled in `ℕ`, and reduced to QM8.
+
+So a pure ternary-run family cannot reproduce on a fixed positive-time
+shortcut clock.  As anticipated, the surviving design space is now
+counter-dependent timing or a genuinely mixed leading scale.  Together with
+Round 153, this rules out both the constant all-growth clock and the simple
+fixed-phase ternary exponent-shift clock; QM7's non-closed output alphabet is
+exactly where a more complicated compiler can still evade both theorems.

@@ -635,3 +635,6 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahPerpetualGrowthNoGo.PerpetualGrowingMacroOrbit.value_balance
 #print axioms KontoroC.YahPerpetualGrowthNoGo.PerpetualGrowingMacroOrbit.impossible
 #print axioms KontoroC.YahPerpetualGrowthNoGo.PerpetualGrowingMacroOrbit.no_perpetual_growing_macro_orbit
+#print axioms KontoroC.YahFixedClockNoGo.twoPow_mul_threePow_ne_threePow
+#print axioms KontoroC.YahFixedClockNoGo.no_fixed_clock_equation
+#print axioms KontoroC.YahFixedClockNoGo.no_fixed_leading_coefficient_return
