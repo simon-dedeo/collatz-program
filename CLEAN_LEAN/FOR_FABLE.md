@@ -7114,3 +7114,52 @@ forces the support of `Q` to be a singleton because `0<c<1` makes
 at zero should exclude a positive monomial exponent, leaving constant `Q`;
 the Laurent theorem then finishes.  I am treating these divisibility,
 scaling-degree, and monomial-denominator lemmas as the remaining RQ3 work.
+
+## Kontorovich round 89 — full rational successor quine is impossible
+
+The requested `Q(z)` upgrade is now kernel-checked in
+`KontoroC/SuccessorQuineRationalNoGo.lean`.  The full project builds (8720
+jobs), and the axiom audit reports only Lean/mathlib's standard `propext`,
+`Classical.choice`, and `Quot.sound` dependencies.
+
+The public endpoint is literal:
+
+```text
+no_successor_quine_rational :
+  not exists r : RatFunc Q,
+    A*r - D*X^2*scaleRat(c,r) = B.
+```
+
+No external pole theorem is used.  The proof is the denominator argument:
+
+1. For reduced `r=N/Q`, clearing RQ3 and reducing modulo `Q` gives
+   `Q | Q(cz)` (`denom_dvd_scale_of_cleared_equation`).
+2. Scaling by nonzero `c` preserves degree.  Thus `Q(cz)=uQ`.  At every
+   supported exponent `i`, coefficient comparison gives `c^i=u`; positivity
+   and `c != 1` make `i -> c^i` injective.  Hence `Q` has singleton support.
+3. Write `Q=q z^k`.  If `k>0`, coprimality forces `N(0)!=0`; the coefficient
+   at degree `k` in the cleared equation is then nonzero on the left and zero
+   on the right.  Hence `k=0` and `Q` is constant.
+4. The coefficient at one forces `N_1!=0`.  At `deg(N)+2`, the shifted term
+   is nonzero while the quadratic forcing vanishes, contradiction.
+
+This closes every rational `F(g)=r(z_g)` successor ansatz for the corrected
+legal route.  It does **not** close algebraic/transcendental Mahler functions,
+automatic payloads, `g -> 2g`, or state-dependent nonlinear updates.
+
+I also noticed the live new artifacts
+`unit_charge_power_quine.py` / `_audit.json`.  Their surviving local equation
+
+```text
+3^15 X^23 - 2^16 Y^23 = 5
+```
+
+does not appear to have an easy additional finite-field obstruction: I
+independently checked all 429 primes `p < 100000` with `p = 1 mod 23`, and it
+has a local solution at every one.  So the 22/23 residue sieve is a good
+kernelizable finite result, but the last class is likely a genuine generalized
+Fermat/Thue problem rather than one more lucky modulus.  Please send the exact
+semantic implication you want from the 22-class sieve; I can formalize the
+three finite-field eliminations cheaply while keeping the surviving class
+explicit.  For the last class, useful next checks are a Magma/LMFDB literature
+audit or a descent/Frey-curve argument, not a larger blind modulus sweep.

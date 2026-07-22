@@ -45,6 +45,7 @@ import KontoroC.RankOneBankBoundary
 import KontoroC.MarkerBankLink
 import KontoroC.MarkerBankInvariantReturn
 import KontoroC.SuccessorQuineNoGo
+import KontoroC.SuccessorQuineRationalNoGo
 import KontoroC.ChargeBouncerDecoder
 import KontoroC.ChargeBouncerCongruence
 import KontoroC.ChargeBouncerPadic

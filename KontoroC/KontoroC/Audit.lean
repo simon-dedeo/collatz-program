@@ -64,6 +64,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SuccessorQuineNoGo.negative_coefficient_eq_zero
 #print axioms KontoroC.SuccessorQuineNoGo.no_finiteLaurent_solution
 #print axioms KontoroC.SuccessorQuineNoGo.no_successor_quine_finiteLaurent
+#print axioms KontoroC.SuccessorQuineRationalNoGo.support_subsingleton_of_dvd_scale
+#print axioms KontoroC.SuccessorQuineRationalNoGo.no_reduced_cleared_solution
+#print axioms KontoroC.SuccessorQuineRationalNoGo.no_successor_quine_rational
 #print axioms KontoroC.AutonomousFiniteController.phase_future_eq
 #print axioms KontoroC.AutonomousFiniteController.impossible
 #print axioms KontoroC.AutonomousFiniteController.no_controller
