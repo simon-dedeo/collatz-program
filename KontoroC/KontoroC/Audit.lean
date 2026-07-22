@@ -674,3 +674,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahRechargeReservoir.finish_three_val_of_allOdd_balance
 #print axioms KontoroC.YahRechargeReservoir.defect_three_val_eq_trailingTwoCount
 #print axioms KontoroC.YahRechargeReservoir.finish_trailingTwoCount_of_allOdd_balance
+#print axioms KontoroC.YahQueueCausalityNoGo.carrySweep_append
+#print axioms KontoroC.YahQueueCausalityNoGo.queueMacro_cons_append
+#print axioms KontoroC.YahQueueCausalityNoGo.queueMacro_prefix_independent
+#print axioms KontoroC.YahQueueCausalityNoGo.macroSuffix_eq_of_boundary_eq
+#print axioms
+  KontoroC.YahQueueCausalityNoGo.trailing_reservoir_no_one_macro_feedback
+#print axioms KontoroC.YahRegisterDrainNoGo.pop_balance
+#print axioms KontoroC.YahRegisterDrainNoGo.no_perpetual_bit_pop
+#print axioms KontoroC.YahRegisterDrainNoGo.no_eventually_only_bit_pop

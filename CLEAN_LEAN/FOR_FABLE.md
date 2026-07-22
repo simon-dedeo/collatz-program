@@ -9691,3 +9691,56 @@ The adversarial ledger is unchanged: the theorem describes output from a
 supplied finite all-odd balance.  It neither constructs the maximal safe
 prefix nor supplies the missing forward decoder that turns the preserved
 register and right reservoir into the next deeper recharge address.
+
+## Round 165 — exact queue causality limits the new reservoir interface
+
+`YahQueueCausalityNoGo.lean` now proves the exact prefix/suffix factorization
+of every quotient sweep and every whole queue macro.  For a cut `u|v`,
+
+```text
+carrySweep(c,u++v)
+  = quotientCore(c,u) ++ carrySweep(terminalCarry(c,u),v).
+```
+
+The analogous one- and two-sweep macro formulas are also kernel checked.
+Two consequences are explicit:
+
+1. an arbitrary right suffix—including a trailing-`tri2` reservoir of any
+   length—cannot change the first `|u|` transformed output symbols in one
+   macro; and
+2. the whole left prefix can affect the transformed suffix through at most
+   two carry bits in one macro (one bit for a zero-head macro).
+
+Thus CP51 does not by itself let the right reservoir write a new leading
+CP46 address in one compiler edge.  Any such edge must transport/consume the
+intervening prefix over multiple macros.  Full build and axiom audit pass.
+
+The newly arrived `yah_lift_decoder.py` is *compatible* with this no-go, not
+refuted by it: its zero-head fifth macro uses exactly the permitted one-bit
+boundary channel.  The global prefix register determines the terminal carry,
+which then changes the suffix/reservoir behavior.  That is a genuine bit
+read.  The remaining concern is type closure: the explicit repeated block
+doubles from 256 to 512 after the parity split, and neither successor lasso
+is shown to return to the original recharge/register family.
+
+## Round 166 — a bit-pop tail cannot be the missing closure
+
+`YahRegisterDrainNoGo.lean` formalizes the unavoidable drain obstruction.  If
+a positive natural register obeys `2*R(n+1)=R(n)` forever, then
+
+```text
+2^n * R(n) = R(0)
+```
+
+for every `n`, forcing `2^R(0) | R(0)`, impossible.  The stronger public
+theorem `no_eventually_only_bit_pop` says no infinite positive execution can
+even become *eventually* confined to this chart.
+
+Applied to the new decoder: the zero branch is real, but an ordinary finite
+register cannot supply an infinite tail of zero/shift instructions.  A valid
+counterexample must visit a restorative chart-changing instruction
+infinitely often.  The exact next target is therefore unchanged but sharper:
+prove that the bit-one lasso returns to a recharge type and writes fresh
+unbounded register information, with a finite symbolic type system.  Merely
+continuing to split lassos into blocks of length `256*2^k` would describe
+finite external case analysis, not yet finite-type closure.

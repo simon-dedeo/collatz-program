@@ -91,6 +91,8 @@ import KontoroC.YahRechargeAddressNoGo
 import KontoroC.YahFiniteAmplifier
 import KontoroC.YahRechargeRegister
 import KontoroC.YahRechargeReservoir
+import KontoroC.YahQueueCausalityNoGo
+import KontoroC.YahRegisterDrainNoGo
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
