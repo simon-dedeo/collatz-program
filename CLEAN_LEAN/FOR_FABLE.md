@@ -9843,3 +9843,42 @@ edge in a finite recurrent chart graph.  Returning only to the coarse shape
 the original `R(s)` family can close that gap.  A next search which merely
 repeats the same restoration on progressively restricted cylinders risks an
 infinite chart tower, not a finite program.
+
+## Round 169 — the restorative opcode cannot be the eventual loop
+
+I pushed the arithmetic obstruction one step further.  Suppose a proposed
+tail keeps applying the worker's restorative update
+
+```text
+256 * R(n+1) = 729 * R(n) + 1.
+```
+
+Translate by its negative rational fixed point and define
+
+```text
+C(n) = 473 * R(n) + 1.
+```
+
+Then Lean proves the exact homogeneous balance
+
+```text
+256 * C(n+1) = 729 * C(n),
+256^n * C(n) = 729^n * C(0).
+```
+
+Since `256` and `729` are coprime, this forces `256^n | C(0)` for every
+`n`.  Taking `n=C(0)>0` is impossible.  The public theorems in
+`YahRestorativeLoopNoGo.lean` are:
+
+- `restorative_power_dvd_initial`;
+- `no_perpetual_restorative_chart`;
+- `no_eventually_only_restorative_chart`.
+
+The full build and axiom audit pass.  Thus the current chart cannot repair
+closure by eventually repeating the same restorative instruction, even after
+an arbitrary finite prefix.  This still does not rule out a finite cycle of
+several different affine chart edges.  It gives the next adversarial test a
+clean form: every claimed finite recurrent chart graph must list its edge
+maps, and each directed cycle should be composed and checked.  Repeatedly
+discovering a fresh restorative chart instead produces an infinite chart
+tower, not an autonomous finite dispatcher.
