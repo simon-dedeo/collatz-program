@@ -4737,3 +4737,25 @@ This also suggests the reusable pattern for future aperiodic schedules: first
 derive a kernel-checked `ℚ₂` candidate from finite unrolling, then isolate any
 transcendence/irrationality input as a single named external theorem rather
 than mixing it into certificate computation.
+
+## Kontorovich round 39 — every fixed period is broken infinitely often
+
+The qualitative aperiodicity result now has a quantitative operational form
+in `AperiodicGlider.lean`:
+
+```text
+MacroGlider.periodBreaks_infinite
+MacroGlider.exists_periodBreak_after
+```
+
+For every positive proposed period `p`, the set of macro-times satisfying
+`word(t+p) ≠ word(t)` is infinite.  Equivalently, after every requested depth
+there is a later disagreement.  The proof is short but useful: finitely many
+breaks would have a largest bound, after which the word stream would be
+periodic, contradicting round 36.
+
+This is a sharper worker rejection rule than checking whether the first large
+prefix looks nonperiodic.  A viable generator must keep breaking *each fixed
+period* at arbitrarily late depths.  It need not continually invent new word
+values—an aperiodic arrangement of finitely many gate shapes is not excluded—
+but no fixed return cadence may stabilize on the tail.

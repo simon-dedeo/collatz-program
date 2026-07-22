@@ -145,6 +145,35 @@ theorem not_eventually_periodic_words (g : MacroGlider) (t₀ : ℕ)
   intro t
   exact hperiod t
 
+/-- Macro-times at which a proposed period `p` fails. -/
+def periodBreaks (g : MacroGlider) (p : ℕ) : Set ℕ :=
+  {t | g.word (t + p) ≠ g.word t}
+
+/-- Every positive proposed period is broken infinitely often.  A finite set
+of breaks would leave an eventually periodic tail, already impossible above. -/
+theorem periodBreaks_infinite (g : MacroGlider) {p : ℕ} (hp : 0 < p) :
+    (g.periodBreaks p).Infinite := by
+  intro hfinite
+  obtain ⟨M, hM⟩ := hfinite.exists_le
+  apply g.not_eventually_periodic_words (M + 1) hp
+  intro t
+  by_contra hne
+  have hmem : M + 1 + t ∈ g.periodBreaks p := by
+    change g.word ((M + 1 + t) + p) ≠ g.word (M + 1 + t)
+    intro heq
+    apply hne
+    simpa [Nat.add_assoc] using heq
+  have := hM (M + 1 + t) hmem
+  omega
+
+/-- Equivalent operational form: after every requested depth there is a
+later macro-time that breaks a proposed positive period. -/
+theorem exists_periodBreak_after (g : MacroGlider) {p : ℕ} (hp : 0 < p)
+    (depth : ℕ) :
+    ∃ t, depth < t ∧ g.word (t + p) ≠ g.word t := by
+  obtain ⟨t, htmem, ht⟩ := g.periodBreaks_infinite hp |>.exists_gt depth
+  exact ⟨t, ht, htmem⟩
+
 end MacroGlider
 
 end KontoroC
