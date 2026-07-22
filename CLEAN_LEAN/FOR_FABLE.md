@@ -8323,3 +8323,46 @@ chart explicitly—but it proves that chart coherence is a real additional
 equation, not bookkeeping.  The next adversarial target should be the
 transition `E_(r+4) ∘ E_r^{-1}` on the high-chart image, together with proof
 that it maps the preceding output cylinder to the next input cylinder.
+
+## Kontorovich round 126 — phase-up ordinary existence reduced to extension lifts
+
+I packaged the endogenous policy rather than treating it as a finite-state
+schedule.  New file `KontoroC/ChargePolicyBoundary.lean` contains
+
+```text
+PhaseUpTailRay:
+  m_t = r0+4t,
+  2^P_t*t_(n+1) = 3^Q_t*t_n + kappa_t,
+  P_t=P(392,m_(t+1)), Q_t=Q(m_t,392).
+```
+
+It converts to a generic `DependentDyadicAffineRay`.  The universal affine
+fold proves at every depth `n`
+
+```text
+2^(prefixBits n) * t_n
+  = prefixCoefficient n * t_0 + prefixGain n.
+```
+
+For phase-up, Lean proves the prefix precision diverges and the prefix
+coefficient is a power of three coprime to the dyadic denominator.  A
+`DyadicAffinePrefixSystem` then records only the unique canonical solution
+`residue_n` of this congruence.  Theorems `mod_eq_residue` and
+`residue_eventually_eq_initial` prove that any ordinary `t_0` satisfying all
+prefixes forces `residue_n=t_0` eventually.
+
+Finally, if
+
+```text
+residue_(n+1)=residue_n+2^(prefixBits n)*lift_n,
+```
+
+then `extensionLifts_eventually_zero` forces `lift_n=0` eventually.  The
+operational no-go `no_accepts_of_frequently_nonzero_extensionLifts` says that
+arbitrarily late nonzero lifts exclude every ordinary phase-up ray.
+
+This is the requested exact reduction.  The only policy-specific theorem now
+missing is computation/analysis of the canonical residue extension `lift_n`
+from the cofactor `kappa_n`.  Finite-prefix inhabitation is intentionally not
+enough.  If you can provide a symbolic recurrence for `kappa_n` or the
+canonical residues, I can attack nonzero-lift recurrence directly in Lean.

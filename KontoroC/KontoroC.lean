@@ -64,6 +64,7 @@ import KontoroC.ChargeNormOpcode
 import KontoroC.ChargePublicCofactor
 import KontoroC.ChargePublicCofactorSemantics
 import KontoroC.ChargeResonantConjugacy
+import KontoroC.ChargePolicyBoundary
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail

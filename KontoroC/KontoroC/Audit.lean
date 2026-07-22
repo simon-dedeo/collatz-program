@@ -506,3 +506,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.ChargeResonantConjugacy.ParallelTailConjugacy.maps_balance
 #print axioms KontoroC.ChargeResonantConjugacy.ParallelTailConjugacy.maps_sourceCylinder
 #print axioms KontoroC.ChargeResonantConjugacy.ParallelTailConjugacy.kappaB_eq_of_agree_two
+#print axioms KontoroC.DyadicAffinePrefixSystem.mod_eq_residue
+#print axioms KontoroC.DyadicAffinePrefixSystem.extensionLifts_eventually_zero
+#print axioms KontoroC.DyadicAffinePrefixSystem.no_accepts_of_frequently_nonzero_extensionLifts
+#print axioms KontoroC.DependentDyadicAffineRay.prefix_balance
+#print axioms KontoroC.PhaseUpTailRay.prefixPrecision_diverges
+#print axioms KontoroC.PhaseUpTailRay.prefixCoefficient_coprime
