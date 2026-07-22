@@ -2211,6 +2211,47 @@ one radix cancels exactly and the other leaves only a fourth power.  The
 remaining affine seam is essential; (69y) alone is not a transition or an
 orbit.
 
+The first direct reproduction ansatz uses the bouncer's binary cell width
+rather than prescribing an opcode clock.  Write the odd payloads as
+
+```text
+y+1=2^(23m)u,       y'+1=2^(23m')u',
+u=F r^23,           u'=F r'^23.                    (69y1)
+```
+
+The same type appears on both sides, and `v_2(r')` writes whole next defect
+cells automatically.  Combining (69v)--(69x) with (69y1) and eliminating the
+odd collision quotient gives the necessary quine equation
+
+```text
+A^h C^m r^23-B^h D^m' r'^23=(A^h-B^h)/F,           (69y2)
+C=3^17, D=2^23.
+```
+
+For `h=1`, absorb all complete 23rd powers to obtain
+
+```text
+3^e X^23-2^16Y^23=5,
+e=(114+17m) mod 23.                                 (69y3)
+```
+
+[`unit_charge_power_quine.py`](../../experiments/kontorovich/unit_charge_power_quine.py)
+enumerates exact power-residue sets.  Modulo `47`, only
+`e in {4,6,15}` survive; modulo `139`, only `{6,15}`; modulo `461`, only
+`{15}`.  Thus shortest-recharge reproduction reduces to
+
+```text
+m=5 (mod 23),       3^15X^23-2^16Y^23=5.            (69y4)
+```
+
+The last equation is locally soluble at every tested prime of the useful
+form, so larger blind sieves are not the live attack.  A fast PARI Thue
+diagnostic is negative but may assume GRH; unconditional certification is in
+progress.  Even a solution of (69y4) would still need the exact register and
+valuation conditions, since (69y2) is necessary rather than sufficient.
+This is nevertheless the first bouncer ansatz whose *data type itself*
+reproduces; it attacks the quine seam rather than finite routing.
+
 Lean commit `5633c44` closes the frozen-opcode specialization.  For any fixed
 `m`, the positive affine-gain recurrence has a fixed-point defect satisfying
 `B delta'=A delta`; coprimality would force arbitrarily large powers of `B`

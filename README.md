@@ -33,6 +33,54 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-22 09:03 EDT
+
+The search is now attacking reproduction inside the already autonomous charge
+bouncer.  At one accepted transition write
+
+```text
+C^m u=1+B^h q,       D^m' u'=1+A^h q,
+A=3^114, B=2^154, C=3^17, D=2^23.
+```
+
+The fixed register forces `F | u,u'` for `F=(A-B)/5`.  The encoding
+
+```text
+u=F*r^23,        u'=F*r'^23
+```
+
+is therefore a literal reproduction candidate: because `D=2^23`, the same
+23rd-power payload form writes an integral number of next defect cells.  It is
+not a fresh CRT word at each generation.  Eliminating the collision quotient
+gives the exact closure equation
+
+```text
+A^h C^m r^23-B^h D^m' r'^23=(A^h-B^h)/F.
+```
+
+For the shortest recharge `h=1`, this becomes 23 generalized Fermat equations.
+Complete 23rd-power residue enumeration modulo `47`, `139`, and `461` kills
+22 exponent classes.  The sole survivor is
+
+```text
+m=5 (mod 23),       3^15 X^23-2^16 Y^23=5.
+```
+
+This is both progress and a failure: the first genuinely self-similar payload
+has been reduced to one hard Diophantine equation, but it has not reproduced
+yet.  The independent Lean agent checked that the last class is locally
+soluble at all 429 primes `p<100000`, `p=1 (mod 23)`, so more blind modulus
+sweeps are not the next move.  PARI/GP's fast Thue solver reports no integer
+solutions but may use GRH; its unconditional certification mode is still
+running on Akdeniz.  Next: certify or replace that computation, kernel-check
+the semantic reduction, and if the rail is closed, vary the payload exponent
+or recharge phase while preserving the same address-regeneration principle.
+
+Artifact SHA-256:
+`c60741d605a1c669bd89fe3a0b4d06d1dd883ec0a03792d3e44aab5331d474eb`.
+Verifier file SHA-256:
+`da18a787a4dd3e1fd1f56ae9eadb1fa7010594b9ba8e1764d7c9d395529496b2`.
+
 ### 2026-07-22 08:23 EDT
 
 Simon correctly challenged the search for optimizing finite gadgets instead
@@ -2194,6 +2242,22 @@ identically `x`.
   decrement/zero-test, and finite control operations inside the accepted
   arithmetic classes.  This valuation
   bouncer—not a further nested address—is now the primary synthesis target.
+  The first closure ansatz now uses the bouncer's own cell width.  Write the
+  odd payload as `u=F*r^23`; if the output has the same form
+  `u'=F*r'^23`, then `D=2^23` makes `v2(r')` generate the next defect address
+  in whole cells.  This is genuine type reproduction, not a finite writer.
+  Exact elimination gives
+
+  ```text
+  A^h C^m r^23-B^h D^m' r'^23=(A^h-B^h)/F.
+  ```
+
+  At the shortest recharge `h=1`, three complete finite-field tests eliminate
+  22 of 23 exponent classes.  The survivor is the generalized Fermat/Thue
+  equation `3^15 X^23-2^16 Y^23=5`, corresponding to `m=5 (mod 23)`.
+  This one equation is now the live reproduction gate.  A fast PARI diagnostic
+  is negative but not yet unconditional verification; the exact artifact stops
+  honestly at the surviving class.
   The first low-description clocks do not solve it: an exact audit of
   Thue--Morse, period-doubling, and Fibonacci words, all 240 injective
   two-symbol codings by `(m,h)` in `{1,...,4}^2`, and every prefix through 48
@@ -2495,6 +2559,7 @@ positive integer and its claimed behavior are machine-checked.
 | Autonomous `-5` charge--discharge register | Pairing a length-`N` sign-negative level-two unit instruction with the one-cell instruction gives fixed debris `3^57+2^77=5D`.  The divisor `D=314038802961906688057474567` is coprime to the register stride, so one exact packet class can be divided by `D` and is preserved.  The quotient ISA is `G=2^(23N+3)g -> (3^(17N+97)g-5)/2^128`; every branch is strictly outward because `3^(17N+97)>2^(23N+131)`.  The artifact constructs branches `N=1..32` twice—directly by CRT and by restricted composition—and checks 128 members through 256 actual unit-macro replays.  An infinite successful positive orbit would refute Collatz; none is supplied. | [`unit_charge_discharge_audit.json`](experiments/kontorovich/unit_charge_discharge_audit.json) |
 | All-depth self-regenerating `-5` splash | Composing any depth-`j` charge branch with its one-cell branch, then quotienting by `D_j=3^(114*2^j)+2^(154*2^j)`, reproduces collision constant `-5` with offsets `d_(j+1)=2d_j+17`, `e_(j+1)=2e_j+26`.  Coprimality with the fixed 80-bit stride holds for every `j`: a failed prime would require `2^(j+1)<M`, so only `j=0..78` can fail, and all 79 exact gcds are one.  The artifact materializes eight levels, compares 64 direct/composed branches, checks 128 members, and recursively expands canonical members through 510 original unit macros.  Infinite nesting is not a seed because every positive child lift strictly enlarges its ancestor packet; fixed-level autonomous orbits remain open. | [`unit_charge_hierarchy_audit.json`](experiments/kontorovich/unit_charge_hierarchy_audit.json) |
 | Autonomous reversible fixed-form valuation bouncer | The rational one-cell fixed point clears integrally: with `F=(3^114-2^154)/5` and `Z=F*G-2^26`, one background cell is exactly `2^154 Z'=3^114 Z`.  At a defect boundary `Z=2^26y`, the state reads `m=v2(y+1)/23` and `h=(v2(3^(17m)(y+1)-2^(23m))-23m)/154`, then returns `y'=3^(114h)*oddpart(3^(17m)(y+1)-2^(23m))`.  The output recovers `h=v3(y')/114`, then `m=v3(1+2^(154h)q)/17` and the unique predecessor; the opcode matrix has determinant four.  The artifact checks all 64 `(m,h,m')` families with `m,m'<=4,h<=4`, 128 forward/reverse members, 320 charge macros, and 640 original unit macros.  Any infinite accepted positive `y`-orbit refutes Collatz; none is supplied. | [`unit_charge_bouncer_audit.json`](experiments/kontorovich/unit_charge_bouncer_audit.json) |
+| Perfect-23rd-power reproduction rail | Encoding the bouncer payload as `u=F*r^23` makes the output address self-similar because its binary cell base is `D=2^23`.  Exact elimination gives the necessary quine equation `A^h C^m r^23-B^h D^m' r'^23=(A^h-B^h)/F`.  For `h=1`, exhaustive 23rd-power residue sets modulo `47`, `139`, and `461` exclude 22 of 23 exponent classes; only `m=5 (mod 23)` and `3^15X^23-2^16Y^23=5` remain.  This is a direct reproduction reduction, not an orbit.  The final Thue equation and the public register/valuation sufficiency conditions remain open in the exact artifact. | [`unit_charge_power_quine_audit.json`](experiments/kontorovich/unit_charge_power_quine_audit.json) |
 | Ordinary-ray extension-lift criterion | Lean commits `af1a934`/`ba121d9` prove that if nested dyadic compiler cylinders are realized by one ordinary natural, their extension residues are eventually zero.  Therefore nonzero residues at arbitrarily late scales exclude an ordinary realization.  This is a no-ray criterion for a proposed schedule, not a counterexample and not yet a theorem that the bouncer's residues are frequently nonzero. | [`DispatcherBoundary.lean`](KontoroC/KontoroC/DispatcherBoundary.lean) |
 | Constant-rate unit-counter schedules | For any of the six certified unit levels, every `n_0>=1`, and every fixed integer `k>=1`, the schedule `n_t=n_0+kt` has the unique 2-adic initial core `-s*3^(-q(n_0)) F(2^(ak)/3^(ck),2^(p(n_0+k))/3^(q(n_0+k)))`.  Converting to Väänänen--Wallisser's `f_(3^(ck)/2^(ak))` is coefficientwise exact, and its argument simplifies to `alpha=2^(p(n_0))/3^(q(n_0))`.  Their 1989 theorem applies with `ell=1,sigma=0,p=2`; its size ratio is the same as for `k=1`, while `|3^(ck)/2^(ak)|_2=2^(ak)>1`.  The value is irrational in `Q_2`, so it cannot be an ordinary integer core.  The artifact's six linked eight-transition branch replays remain a finite `k=1` regression; the all-`k` conclusion is symbolic and theorem-dependent.  This closes every fixed positive step size, not nonlinear or packet-branching schedules. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
@@ -3028,6 +3093,12 @@ existing lines of work; the closest ancestors, and what each contributes:
   nonvanishing hypotheses have not yet been recovered and audited, so it is
   bibliography and a theorem-search lead, not a closure of the Thue--Morse
   bouncer lane.
+- **Y. Bilu & G. Hanrot, [“Solving Thue Equations of High
+  Degree”](https://doi.org/10.1006/jnth.1996.0129) (1996)** — the algorithmic
+  source behind PARI/GP's attack on the degree-23 power-quine survivor
+  `3^15X^23-2^16Y^23=5`.  PARI's fast run currently reports no solutions but
+  may assume GRH; the unconditional `thueinit(...,1)` certification is still
+  running and is not yet a project result.
 - **D. Barina, “Improved verification limit for the convergence of the
   Collatz conjecture” (2025)** — the `2^71` exhaustive frontier used to
   calibrate why another ordinary seed sweep is not the active attack.

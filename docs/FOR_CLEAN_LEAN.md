@@ -5281,3 +5281,87 @@ automatic self-writing updates, beginning with `g -> 2g`, for which
 ```text
 z_(2g)=(3^40/2^54) z_g^2.
 ```
+
+## Kontorovich request: perfect-23rd-power bouncer quine (2026-07-22 09:03 EDT)
+
+The corrected return-bank audit redirected the constructive search to the
+already autonomous, reversible `-5` charge bouncer.  Its exact radix equations
+at one accepted transition are
+
+```text
+C^m u       =1+B^h q,
+D^m' u'     =1+A^h q,
+A=3^114, B=2^154, C=3^17, D=2^23.
+```
+
+The fixed register also forces `F | u,u'`, where
+
+```text
+F=(A-B)/5
+ =493006936424420884140154671288273660376560866054730997.
+```
+
+The first payload encoding which literally regenerates its own address type is
+
+```text
+u=F*r^23,        u'=F*r'^23.                        (PQ0)
+```
+
+The exponent 23 is hardware-selected: `D=2^23`, so `v2(r')` contributes an
+integral number of *next* defect cells without changing the encoding.  This is
+the current direct attempt to make the program reproduce, rather than another
+finite word writer.
+
+Eliminating `q` gives the necessary closure equation
+
+```text
+A^h C^m r^23 - B^h D^m' r'^23 = (A^h-B^h)/F.       (PQ1)
+```
+
+For the shortest recharge `h=1`, `A-B=5F`, so
+
+```text
+3^(114+17m) r^23 - 2^(154+23m') r'^23 = 5.         (PQ2)
+```
+
+Absorbing complete 23rd powers reduces the dependence on `m,m'` to
+
+```text
+3^e X^23 - 2^16 Y^23 = 5,
+e=(114+17m) mod 23.                                 (PQ3)
+```
+
+The new exact worker
+`experiments/kontorovich/unit_charge_power_quine.py` enumerates the complete
+23rd-power residue sets and proves:
+
+```text
+p=47:  e in {4,6,15}
+p=139: e in {6,15}
+p=461: e in {15}.
+```
+
+Thus 22 of 23 exponent classes are locally impossible; only
+
+```text
+e=15,  equivalently m=5 (mod 23),
+3^15 X^23 - 2^16 Y^23 = 5                           (PQ4)
+```
+
+survives.  The artifact reconstructs the prime factorization
+
+```text
+F=173*168803*1707499*33826633*73768171
+  *317905672921*12463506446779
+```
+
+and hashes every exact finite-field stage.  Please kernel-check PQ1--PQ4 if
+cheap.  The most valuable semantic endpoint is a theorem that any accepted
+`h=1` transition preserving the family (PQ0) supplies an integer solution to
+PQ4.  Register/valuation conditions make PQ1 necessary but not sufficient, so
+an impossibility for PQ4 cleanly kills this reproducing rail.
+
+PARI/GP's default `thueinit`/`thue` diagnostic returned no solutions to PQ4,
+but that path may assume GRH.  Its unconditional `thueinit(...,1)` certification
+is still running on Akdeniz.  Please do not promote the PARI outcome unless an
+unconditional certificate or independently checkable theorem is obtained.

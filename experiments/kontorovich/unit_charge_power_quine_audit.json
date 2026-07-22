@@ -1,0 +1,118 @@
+{
+  "bouncer_radix_equations": [
+    "C^m*u=1+B^h*q",
+    "D^m_next*u_next=1+A^h*q"
+  ],
+  "checks": {
+    "F_factorization_reconstructed": true,
+    "finite_field_residue_sets_enumerated_exactly": true,
+    "fixed_divisor_A_minus_B_equals_5F": true,
+    "one_exponent_class_remains": true,
+    "power_quine_elimination_identity": true,
+    "twenty_two_exponent_classes_excluded": true
+  },
+  "claim_scope": "exact derivation data for the invariant u=F*r^23 charge-bouncer closure ansatz; exact finite-field elimination of 22 of 23 short-recharge exponent classes; the surviving generalized Fermat equation is not settled and no orbit is claimed",
+  "constants": {
+    "A": 2465034704958067503996131453373943813074726512397600969,
+    "B": 22835963083295358096932575511191922182123945984,
+    "C": 129140163,
+    "D": 8388608,
+    "F": 493006936424420884140154671288273660376560866054730997,
+    "F_prime_factorization": {
+      "12463506446779": 1,
+      "168803": 1,
+      "1707499": 1,
+      "173": 1,
+      "317905672921": 1,
+      "33826633": 1,
+      "73768171": 1
+    }
+  },
+  "invariant_payload_ansatz": "u=F*r^23, u_next=F*r_next^23",
+  "necessary_reproduction_equation": "A^h*C^m*r^23-B^h*D^m_next*r_next^23=(A^h-B^h)/F",
+  "negative_sanity_tuple": {
+    "h": 1,
+    "left": 318334983407379803022827459963344625579523065039105319672667675,
+    "m": 1,
+    "next_m": 1,
+    "next_r": 1,
+    "power_quine_equation_holds": false,
+    "r": 1,
+    "right": 5
+  },
+  "schema": "collatz-unit-charge-power-quine-v1",
+  "shortest_recharge_h_one": {
+    "e_definition": "e=(114+17m) mod 23",
+    "equation_before_absorbing_powers": "3^(114+17m)*r^23-2^(154+23m_next)*r_next^23=5",
+    "finite_field_sieve": [
+      {
+        "candidate_exponents_after": [
+          4,
+          6,
+          15
+        ],
+        "candidate_exponents_before": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "power_residue_count_including_zero": 3,
+        "prime": 47,
+        "prime_is_one_mod_23": true
+      },
+      {
+        "candidate_exponents_after": [
+          6,
+          15
+        ],
+        "candidate_exponents_before": [
+          4,
+          6,
+          15
+        ],
+        "power_residue_count_including_zero": 7,
+        "prime": 139,
+        "prime_is_one_mod_23": true
+      },
+      {
+        "candidate_exponents_after": [
+          15
+        ],
+        "candidate_exponents_before": [
+          6,
+          15
+        ],
+        "power_residue_count_including_zero": 21,
+        "prime": 461,
+        "prime_is_one_mod_23": true
+      }
+    ],
+    "reduced_equations": "3^e*X^23-2^16*Y^23=5",
+    "status": "open in this exact artifact; a separate PARI diagnostic is not verification evidence",
+    "surviving_e_mod_23": 15,
+    "surviving_equation": "3^15*X^23-2^16*Y^23=5",
+    "surviving_m_mod_23": 5
+  },
+  "verifier_sha256": "a5e432dd3215cac7eb945abf745b86243ae401e96aa609581bc748d5cc16050f",
+  "why_exponent_23": "D=2^23, so multiplying v2(r_next) by 23 writes exactly the next defect-cell count while preserving the fixed factor F"
+}

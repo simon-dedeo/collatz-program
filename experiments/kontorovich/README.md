@@ -2116,6 +2116,75 @@ verifier file SHA-256 c434c7ddf57b15f271b7c22be66d6614199a76f41cc7ba36346ca53f7a
 combined source SHA   7e21ee2fdb570e0ac5e2325c957bbf6ad5a96ecdc13a6ed3f795cbba00ccd16d
 ```
 
+## Perfect-23rd-power reproduction rail
+
+`unit_charge_power_quine.py` attacks closure inside the autonomous bouncer,
+instead of compiling another prescribed clock.  Write one accepted transition
+in radix form:
+
+```text
+C^m*u=1+B^h*q,
+D^m_next*u_next=1+A^h*q,
+A=3^114, B=2^154, C=3^17, D=2^23.
+```
+
+Because the fixed register requires `F | u`, the encoding
+
+```text
+u=F*r^23,       u_next=F*r_next^23
+```
+
+is the first simple payload type that can reproduce its own address.  The
+23rd power turns `v2(r_next)` into exactly one integral number of next defect
+cells because `D=2^23`.  Eliminating the collision quotient gives the necessary
+quine equation
+
+```text
+A^h*C^m*r^23-B^h*D^m_next*r_next^23=(A^h-B^h)/F.   (UCPQ1)
+```
+
+For the shortest recharge `h=1`, use `A-B=5F` and absorb all complete 23rd
+powers.  Every closure would solve one of
+
+```text
+3^e*X^23-2^16*Y^23=5,
+e=(114+17m) mod 23.                                 (UCPQ2)
+```
+
+Complete finite-field enumeration is very sharp:
+
+```text
+mod 47:  e in {4,6,15}
+mod 139: e in {6,15}
+mod 461: e in {15}.
+```
+
+Thus only `e=15`, equivalently `m=5 (mod 23)`, survives, leaving the single
+Thue equation
+
+```text
+3^15*X^23-2^16*Y^23=5.                              (UCPQ3)
+```
+
+The artifact exactly reconstructs the bouncer constants, the squarefree prime
+factorization of `F`, all 23rd-power residue sets, and every survivor set.  A
+PARI/GP diagnostic found no solution of (UCPQ3), but its fast run may assume
+GRH and its unconditional certification is still running; neither is part of
+the artifact.  Equation (UCPQ1) is necessary rather than sufficient, so a
+solution would still need the public valuation and register checks.  No
+infinite orbit is claimed.
+
+```bash
+PYTHONPATH=. python3 unit_charge_power_quine.py selftest
+PYTHONPATH=. python3 unit_charge_power_quine.py build unit_charge_power_quine_audit.json
+PYTHONPATH=. python3 unit_charge_power_quine.py verify unit_charge_power_quine_audit.json
+```
+
+```text
+artifact SHA-256      c60741d605a1c669bd89fe3a0b4d06d1dd883ec0a03792d3e44aab5331d474eb
+verifier file SHA-256 da18a787a4dd3e1fd1f56ae9eadb1fa7010594b9ba8e1764d7c9d395529496b2
+```
+
 ## Three low-description aperiodic bouncer clocks
 
 `unit_charge_morphic.py` tests whether merely replacing a fixed opcode by a
