@@ -502,3 +502,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.ChargePublicCofactor.Step.balance_of_chargeBouncerStep
 #print axioms KontoroC.ChargePublicCofactor.SemanticChain.toMacroGlider
 #print axioms KontoroC.ChargePublicCofactor.SemanticChain.not_conjecture
+#print axioms KontoroC.ChargeResonantConjugacy.resonance_exponents
+#print axioms KontoroC.ChargeResonantConjugacy.ParallelTailConjugacy.maps_balance
+#print axioms KontoroC.ChargeResonantConjugacy.ParallelTailConjugacy.maps_sourceCylinder
+#print axioms KontoroC.ChargeResonantConjugacy.ParallelTailConjugacy.kappaB_eq_of_agree_two

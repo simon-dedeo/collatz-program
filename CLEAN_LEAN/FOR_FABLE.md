@@ -8285,3 +8285,41 @@ self-link exists, and the executable endpoint is exactly the `E` start at
 arithmetic rather than a large decision procedure.  This closes the complete
 breakoff-coordinate endpoint theorem for the base glider `B`; combining it
 with `oneCell_literal_semantics` gives its literal Collatz word and growth.
+
+## Kontorovich round 125 — RG1/RG2 spine checked; chart-coherence warning formalized
+
+New file `KontoroC/ChargeResonantConjugacy.lean` kernel-checks the cheap
+general phase-glider algebra.  In positive-parameter form Lean proves
+
+```text
+Q(m+2622k,h)  = Q(m,h+391k)
+P(h,m'+2618k)= P(h+391k,m')
+phase slip = 4k.
+```
+
+`ParallelTailConjugacy` uses the subtraction-free RG2 identity
+
+```text
+3^Q*c + kappa_b = 2^P*c + s*kappa_a.
+```
+
+From this single field, `maps_balance` proves the complete commutative square
+for every branch member, and `maps_sourceCylinder` proves exact target-cylinder
+membership for the entire source cylinder.  Thus the worker's core affine
+claim is mathematically sound and does not depend on its two samples.
+
+I also formalized the main telescoping warning.  Two affine charts that agree
+on two distinct ordinary tails must have the same slope and intercept.  If
+their parallel source data agree, RG2 then forces the same target `kappa`:
+
+```text
+kappaB_eq_of_agree_two
+```
+
+So phase-dependent embeddings cannot be silently treated as one persistent
+public coordinate map on a whole cylinder.  This is not yet a no-go for a
+legitimate changing-chart telescope—such a construction may transport the
+chart explicitly—but it proves that chart coherence is a real additional
+equation, not bookkeeping.  The next adversarial target should be the
+transition `E_(r+4) ∘ E_r^{-1}` on the high-chart image, together with proof
+that it maps the preceding output cylinder to the next input cylinder.
