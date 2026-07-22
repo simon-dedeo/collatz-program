@@ -6854,3 +6854,189 @@ unboundedly, the existing Lean theorem gives the requested impossibility
 proof immediately.  Without such a Collatz-specific bridge, a proof that the
 surviving unbounded-opcode line must fail would be false at the advertised
 level of abstraction.
+
+### Round 86 follow-up — actively pursuing the exact no-ray theorem
+
+Simon has asked me to keep trying to disprove the surviving marker-bank ray.
+I am now treating output-to-next-source closure, not coefficient growth, as
+the primary object.  Expanding the three-collision algebra gives the constants
+that the current worker leaves schematic:
+
+```text
+X_j = A0 + 2^154 t_j + 2^155 z + 2^(D+155) u_j,
+r_j = (1+3^57 u_j)/2^(P_j-D),
+Y_j = (3^q_j(h3+3^114 t_j)-1)/2^P_j
+      + 2*3^(q_j+57) r_j.
+```
+
+Here `t_j` is the canonical marker solution modulo `2^(P_j+1)`, and `u_j`
+must be the corrected canonical remote/register solution.  Substituting the
+coupled lifts recovers MB1 exactly.  A link from opcode `j` to opcode `k`
+therefore has the Diophantine form
+
+```text
+X_k + 2^(P_k+155) M v'
+  = Y_j + 2 M 3^Q_j v.                            (LINK)
+```
+
+After the common factor is justified, (LINK) fixes a dyadic residue class of
+`v` modulo roughly `2^(P_k+154)`.  Pulling those classes back along a proposed
+opcode path is the concrete way to compute the extension lifts `rho_t` needed
+by the existing no-natural theorem.
+
+Please expose in the worker:
+
+1. the exact public definition of the canonical `u_j`, including its residue
+   modulo `M` (the small surrogate's hard-coded register residue `1` is not a
+   sufficient public definition);
+2. assertions for the displayed `X_j,Y_j` formulas;
+3. the divisibility condition and canonical solution for (LINK), preferably
+   as a formula modulo `2^(P_k+154)`;
+4. any actual selector rule `k=k(v)` being considered.
+
+I will use those to test whether an unbounded sequence of opcode changes
+forces infinitely many nonzero pullback extensions.  That would be a genuine
+impossibility theorem for this bank, rather than an invalid architecture-level
+claim.
+
+### Round 86 link arithmetic now kernel-checked
+
+New file: `KontoroC/MarkerBankLink.lean`; full build passes (8717 jobs).
+The exact reusable endpoints are:
+
+```text
+coefficient_gcd:
+  gcd(2^(P+155) M, 2 M 3^Q) = 2 M
+
+base_modEq_of_link:
+  X + 2^(P+155) M v' = Y + 2 M 3^Q v
+  -> X = Y (mod 2M)
+```
+
+When `Y=X+2Mc`, Lean cancels the common factor and proves
+
+```text
+2^(P+154) v' = c + 3^Q v,
+c + 3^Q v = 0 (mod 2^(P+154)).
+```
+
+The reverse ordering `X=Y+2Mc` is covered too:
+
+```text
+c + 2^(P+154) v' = 3^Q v,
+3^Q v = c (mod 2^(P+154)).
+```
+
+Finally `linked_registers_modEq` proves that any two current registers which
+link the same opcode pair are congruent modulo `2^(P+154)`; this uses exact
+coprime cancellation of `3^Q`.  Thus each proposed `j -> k` edge really does
+consume one canonical low-bit cylinder at the next source precision.
+
+I also reconstructed the missing canonical-remote CRT.  If `R` is the unit
+register offset, `E=26` is the fixed one-cell public binary exponent, and
+
+```text
+raw_j = A0 + 2^154 t_j + 2^155 z,
+```
+
+then the source invariant requires
+
+```text
+u_j = (R*2^(-E) - raw_j) * 2^(-(D+155))  (mod M),
+```
+
+while third-division exactness requires
+
+```text
+u_j = -3^(-57)  (mod 2^(P_j-D)).
+```
+
+The moduli are coprime.  Their canonical CRT intersection is the public
+definition the worker currently omits.  Increasing
+`t_j` by `2^(P_j+1)s` changes the required `u_j` by
+`-2^(P_j-D)s (mod M)`, which explains exactly—and independently checks—the
+corrected `(M-1)s` coupling.
+
+The immediate attempted kill is now mechanical: compute or symbolically
+characterize `X_k-Y_j (mod 2M)`.  If a `j` has no compatible `k`, it has no
+outgoing bank edge.  If compatible edges survive, use the two normalized
+equations above to pull their dyadic cylinders back and test whether every
+unbounded opcode path has infinitely many nonzero extension lifts.
+
+## Kontorovich round 87 — invariant return kills every opcode below 447
+
+There is a stronger obstruction before the `X_k-Y_j` calculation.  A
+turnaround opcode `j` has full division
+
+```text
+P_j=D+2+23j.
+```
+
+The unit map divides its fixed collision exponent `51` and therefore leaves
+the output odd core `y` with visible public binary exponent `P_j-51`.  To use
+the same `y` as the source of the next fixed one-cell marker instruction, it
+must also carry the one-cell public exponent `23+3=26`.  Thus return requires
+
+```text
+2^(P_j-51) y = R  (mod M),
+2^26 y       = R  (mod M),                         (IR1)
+```
+
+where the public level-two unit constants are
+
+```text
+R=631264625086677058414369,
+M=671265207750760396088265,
+gcd(R,M)=1.
+```
+
+Lean now proves generically that two such invariant presentations force
+
+```text
+2^(P_j-77)=1 (mod M).                              (IR2)
+```
+
+This is in the new `KontoroC/MarkerBankInvariantReturn.lean`.  Reducing only
+to the tiny divisor `3^7=2187 | M`, Lean proves from first principles that
+`ord_2187(2)=1458`, hence
+
+```text
+1458 | (D-75+23j),
+j = 447 (mod 1458).                                (IR3)
+```
+
+All arithmetic, including the order computation, is kernel-checked with
+ordinary `decide`, not `native_decide`.  Consequences now proved:
+
+```text
+opcode_mod_1458_of_return
+opcode_ge_447_of_return
+no_opcode_below_447_return
+no_audited_opcode_return
+```
+
+Therefore **none of the public materialized opcodes `0..15`, and in fact no
+opcode below `447`, can feed back into the advertised fixed one-cell source
+class**.  The currently audited bank rows are finite outward instructions,
+but not candidate returning instructions.
+
+This still does not kill the infinite bank: the arithmetic progression
+`j=447 mod 1458` survives this small factor.  Using the full factorization
+
+```text
+M=3^33 * 5 * 19 * 1271069
+```
+
+the experimental exact period is
+
+```text
+ord_M(2)=2355314665403531836188,
+j=900136460908468084407 (mod ord_M(2)).
+```
+
+I have deliberately not called that last line a theorem yet; the small-factor
+restriction is the kernel theorem.  Please verify that (IR1) is indeed the
+intended public-register interpretation of the third output and the next
+fixed one-cell source.  If so, update the worker: its audited `j=0..15` rows
+cannot be used for output-to-source closure, and any actual return search must
+begin in the sparse congruence class above (at minimum `447 mod 1458`).
