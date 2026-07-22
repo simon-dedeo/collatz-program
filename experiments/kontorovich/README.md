@@ -1404,7 +1404,14 @@ verifier file SHA-256 114c1ce6bb53fc396f5c06902ae12d55aef59f7a450080b3ab6440f529
 combined source SHA   1eb852eb1ddecb6505e95281b50cd889434a437677ab15701f2c262aa8d7ea66
 ```
 
-## Same-scale expanding marker turnaround
+## RETRACTED: same-scale expanding marker turnaround
+
+**Semantic audit failure (2026-07-22 08:23 EDT).**  The construction below is
+retained only as a record of the error.  Its three raw divisions do not form a
+linked unit-ISA path: after the second transition the source state is `1`, so
+the third transition must use `q(1)=57`, whereas the worker used `q(g)`.  The
+worker and artifact have been removed.  None of UMT1--UMT3 is evidence for a
+Collatz macro when combined with the advertised state labels.
 
 `unit_marker_turnaround.py` removes the uncontrolled preceding-length class
 from the fixed-marker construction.  It keeps the second instruction at one
@@ -1490,7 +1497,13 @@ verifier file SHA-256 809c95233c79c495ac2222127bd58d70f14d719e0ffbe13bb6d29b28d0
 combined source SHA   14803034960b7c074134b7c126a750c2c408d7fc45e2344a65d2ec875c42b084
 ```
 
-## All-opcode synthesized-marker bank
+## RETRACTED: all-opcode synthesized-marker bank
+
+**Semantic audit failure (2026-07-22 08:23 EDT).**  This bank inherits the
+same source/target mismatch as the preceding section.  Its rank-one algebra
+describes raw affine divisions, not composable public unit instructions.  The
+worker and artifact have been removed, and UMB1--UMB5 must not be cited as a
+Collatz return bank.
 
 `unit_marker_bank.py` allows every later legal third division after the same
 carry translation.  Index the bank by `j>=0`:
@@ -1571,6 +1584,56 @@ law, infinite orbit, or counterexample is claimed.
 artifact SHA-256      8a3bd0fc4ee0788541ed5b6974286ff86e58496404a7fcf2979c5a460c3da1af
 verifier file SHA-256 8d9b01da1c7c786117725dd24fc87a625abff495b49def2075ff7474c1ca8971
 combined source SHA   5230047c12e4f679ad0278710bbcdd13e70b2cdef8a97dd1b994cb3548016ed8
+```
+
+## Legal return macro and reproduction equation
+
+`unit_return_quine.py` replaces the retracted three-collision route by the
+source/target-compatible path
+
+```text
+1 -> 1 -> g -> g -> 1.
+```
+
+For `P=23g+54`, `Q=17g+40`, `R=114+2Q`, and `S=154+2P`, its exact composition
+is
+
+```text
+3^R*h-C_g=2^S*h',
+C_g=3^(2Q+57)+2^77*3^(2Q)+2^(77+P)*3^Q+2^(77+2P).
+```
+
+The verifier constructs the unique canonical source modulo `2^(S+1)` and
+literally replays all four exact valuations for `g=1..16`.  Its real purpose
+is to expose the closure gate
+
+```text
+3^R(g)*F(g)-C_g=2^S(g)*F(f(g)).
+```
+
+One fixed finite rule `F,f` must supply positive odd states and the same four
+legal transitions forever.  Choosing a new CRT residue at every generation
+does not pass this gate.  For `f(g)=g+1`, put
+`z=2^(23g+54)/3^(17g+40)`.  Exact normalization gives
+
+```text
+3^114*f(z)-[(3^57+2^77)+2^77*z+2^77*z^2]
+  =2^154*z^2*f((2^23/3^17)*z).
+```
+
+The artifact checks a general degree argument excluding every finite Laurent
+polynomial.  A rational-function upgrade by pole propagation is documented as
+a research derivation pending Lean review.  No infinite solution is known.
+
+```bash
+PYTHONPATH=. python3 unit_return_quine.py selftest
+PYTHONPATH=. python3 unit_return_quine.py build unit_return_quine_audit.json
+PYTHONPATH=. python3 unit_return_quine.py verify unit_return_quine_audit.json
+```
+
+```text
+artifact SHA-256      fbc46c761aec4319407dc091f2b089f3fba0e4f89e288601f9b2d83cf9ad6ce2
+verifier file SHA-256 6b18d52e67904212d8d91f0549b26362d4baa0fe550cb1641792948ff471bdb4
 ```
 
 ## Formula-generated repetend splashes

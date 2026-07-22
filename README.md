@@ -31,635 +31,60 @@ I chose the Collatz Conjecture for three reasons:
 
 Everything below this line, and everything else in this repo, has been automatically generated. Claude Fable 5 drove the initial numerics and research program; a Codex/GPT instance then served as the successor research driver. A separate GPT instance formalized the work in Lean in `CLEAN_LEAN`; it was told to make something that would not annoy Kevin Buzzard. If you want the inter-company drama, visit https://github.com/simon-dedeo/collatz-program/blob/main/CLEAN_LEAN/FOR_FABLE.md
 
-## The Kontorovich Challenge
-
-The active goal is now to **try to disprove the Collatz conjecture**.  A
-disproof means an exact positive-integer certificate: either a nontrivial
-cycle, or a seed whose forward orbit is infinite and never reaches `1`.
-Large excursions, floating-point evidence, and long prescribed prefixes are
-search clues, not counterexamples.
-
-The challenge comes from [Alex Kontorovich's 2019
-thread](https://x.com/AlexKontorovich/status/1172715174786228224) and the
-[Kontorovich--Sinai structure
-theorem](https://arxiv.org/abs/math/0601622).  For the accelerated odd map
-
-```text
-T(x) = (3x+1)/2^k,   k = v_2(3x+1),
-```
-
-the structure theorem says, in particular, that every prescribed finite
-`k`-word `(k_1,...,k_N)` occurs: for either admissible class modulo `6`, the
-seeds realizing that prefix form one arithmetic progression modulo
-`6*2^(k_1+...+k_N)`.  On each such progression the endpoint is another affine
-arithmetic progression, with scale changed from `2^(sum k_i)` to `3^N`.
-Consequently the finite path statistics are exactly those of independent
-geometric `k_i`, and normalized logarithmic trajectories converge in density
-to Brownian motion with drift `log(3)-2 log(2)=log(3/4)<0`.  This explains why
-typical seeds descend; it does not control a sufficiently sparse exceptional
-orbit.
-
-Kontorovich's proposed reversal is to regard the map as fixed **hardware** and
-the initial integer as **software**.  Verification through `b` bits has tested
-all programs only through that input length.  The structure theorem lets us
-compile any finite instruction word into an arithmetic progression of seeds,
-so the disproof search should not sample typical seeds: it should synthesize a
-highly structured instruction stream, a Collatz “glider”, whose binary pattern
-reproduces while its scale grows.
-
-Simon Dedeo suggested two refinements which now govern the KC strategy.  First,
-mine ultra-simple programming languages—Brainfuck, tag systems, and FRACTRAN—
-for macro, loop, counter, and nonhalting-certificate ideas, without assuming
-that `3x+1` is universal.  Second, and more importantly, do **not** assume that
-a Collatz instruction is spatially local.  Its natural unit may be a
-congruence, a carry phase between remote packets, or a mixed-base relation
-spread across the whole digit span.  The active instruction set therefore
-includes formula configurations and dyadic--triadic bridge gates, not only
-contiguous repeated bit blocks.  See the [delocalized-ISA
-map](docs/notes/kontorovich-delocalized-isa.md).
-
-Nonlocality does not replace Kontorovich's spatial picture.  Long zero gaps
-remain literal delay lines and separated packets remain signals; the new
-working architecture is **spatial wires joined by delocalized collision
-gates**.  Simon further suggested a “gap splash”: align sacrificial packets so
-their collision carries eat a dirty suffix and emit a new empty gap.  Exact
-splash gates below show that the mechanism is real, while also exposing the
-need for an amplifying rail.  The first exact large wire is now in the
-headline table below.
-
-The scale reinforces this choice.  Barina's current published verification
-covers every seed below `2^71`, already about 21 decimal digits.  A putative
-10,000-digit program is not a larger interval-search target: it must be emitted
-by a short generator and proved nonhalting by a finite symbolic certificate.
-
-The thread also proposes a more concrete glider mechanism.  After a suitable
-prefix, its example becomes three widely separated `1`-bits.  Until a carry
-arrives from the right, an isolated high packet is acted on by multiplication
-by `3`, while the rightmost packet feels the `+1`.  For `m>=3`, the order of
-`3` modulo `2^m` is `2^(m-2)`, so distant packets can in principle be placed
-and timed to collide with a low-bit trajectory selected by the structure
-theorem.  The challenge is to make those collisions replenish a packet farther
-left forever—not merely arrange any finite sequence of spectacular-looking
-collisions.
-
-There is a crucial exact caveat.  Nested progressions for an arbitrary infinite
-`k`-word determine a 2-adic integer, not necessarily a positive ordinary
-integer.  Equivalently, if `S_j=k_1+...+k_j`, then
-
-```text
-T^N(x) = (3^N*x + A_N)/2^S_N,
-A_N = sum_(j=0)^(N-1) 3^(N-1-j) 2^S_j.
-```
-
-Every proposed glider must therefore pass three gates simultaneously: exact
-valuation legality, an ordinary positive seed rather than only a 2-adic one,
-and certified nontermination.  Finite-prefix realizability alone passes only
-the first gate.  Lean commit `ad36f08` makes the middle gate exact: for a fixed
-mod-6 class, an infinite positive valuation stream belongs to an ordinary
-integer `x` if and only if its canonical finite-prefix seeds are eventually
-identically `x`.
-
-### KC Strategy and failure map
-
-#### Live disproof programs
-
-- **Delocalized instruction synthesis.**  Represent an instruction as an
-  arithmetic relation across the entire state: a dyadic address, triadic
-  phase, carry boundary, and affine high payload.  Search for formula
-  configurations `C(n)` with a bounded exact return rule
-  `C(n) ->+ C(f(n))`, where the rule lifts to every `n` by induction.  This is
-  the Collatz analogue of a Busy Beaver bouncer and directly implements
-  Simon's nonlocality proposal.
-- **Colussi repetend-defect bouncers.**  Use the exact periodic grammar of the
-  halting classes as a structured background, then search for a finite or
-  congruential defect which reproduces from order `h` to order `h+1`.  The
-  order-10 background has 39,366 padded bits and an 11,846-decimal-digit
-  integer value, so this route reaches the proposed program scale by formula,
-  not enumeration.  Its unmodified background has now been decoded into an
-  exact 19,673-tick spatial delay line; because the ensuing collision does not
-  renew the gap, the live variable is a distributed defect in the header or
-  packet phase.
-- **Mixed-base and tag-system bouncers.**  Mine the exact Yolcu--Aaronson--Heule
-  binary/ternary rewrite system and De Mol's three-symbol deletion-2 tag
-  system for formula-tape or run-length returns.  These presentations make
-  whole-word carry, moving-base-boundary, and head--tail nonlocality explicit.
-  The regenerative delay linker now supplies a native Collatz instruction of
-  exactly this kind: on an affine tail it reads a low binary address and maps
-  the residual `v` by `v -> s_0+3^A v`, appending `A` ternary digits.  One
-  fixed dispatcher has a bounded exact realization of all 243 five-trit
-  output words.  Lean commits `54e506f`/`5254194` prove the affine link
-  semantics and its ordinary-tail acceptance test.  The next PL task is to
-  arrange a returning dispatcher or counter loop whose changing instruction
-  stream is genuinely aperiodic while its nested binary addresses eventually
-  stabilize to one natural tail.  Cocke--Minsky's universality proof supplies
-  a precise kill test: a real tag compiler must pop the front of one binary
-  stack and push onto the remote end of another.  A complete local write
-  alphabet is not enough.  The spatial target is therefore two separated
-  packet registers implementing those push/pop moves at a regenerating
-  collision boundary.  The strongest immediate ordinary-address specialization
-  has now been exhausted through delay/opcode/output-delay 100: among
-  1,010,000 canonical-family base shapes, only three normalized tail-zero
-  links exist and none has a second link.  The live controller must therefore
-  transform a nonzero evolved payload or use a genuinely nonlinear packet
-  encoding; a chain of canonical least representatives is not enough.
-  One such nonzero mechanism is now exact: the five-trit word
-  `b=3^5-2^L` maps a residual packet `K*2^L-1` to
-  `2^L(3^5*K-1)`.  Hence remote low bits of `K` can amplify an inherited
-  length-`L` bit boundary by any prescribed finite extra valuation `D`.
-  The live turnaround problem is to expose this nested amplified gap as the
-  next active delay and make its surviving packet reproduce the construction.
-  A returning finite glider now exists.  The ether gate `(1,2,1)` has fixed
-  2-adic tail `-12/473`; the unique parity-compatible immediate defect
-  `(1,1,1)` writes any prescribed finite number `n` of eight-bit cells and
-  returns the exposed boundary to its own defect family.  The complete macro
-  is `K=R_n+2^(8n+15)q -> K'=S_n+3^(6n+11)q`.  The next target is one ordinary
-  payload whose changing `q` generates an infinite aperiodic sequence of
-  lengths, not another externally prescribed list of finite ethers.
-  In the affine register `Y=83790531K-874281`, the whole ISA is the autonomous
-  partial map `Y=2^(8n-5)h -> (3^(6n+11)h+51)/2^20`.  This small map, not the
-  original huge defect constants, is now the primary synthesis target.  A
-  second spatial scale is also exact.  Repeating the one-cell glider as a
-  23-bit super-ether fails if its gap is completely exhausted, but Simon's
-  proposed collision overhang has a canonical realization: retain exactly
-  three low bits.  The two-cell glider then acts as a returning defect and
-  the primitive super-register obeys
-  `V=2^(23N+3)g -> (3^(17N+40)g-17)/2^51`.  Thus one capped splash changes the
-  first-scale `+17` law into the same law with sign `-17`.  The next target is
-  to iterate this renormalization symbolically and pass the ordinary-integer
-  gate, not merely construct deeper finite address cylinders.  Exact
-  renormalization now reaches six levels with alternating signs and cell
-  widths `8,23,77,254,839,2771`.  The canonical tail-zero tower already
-  illustrates the danger: at depth six it compiles a linked 6,708-digit
-  finite program, but its first-scale packet has changed at every depth.
-  Search now targets a finite self-describing address or an ordinary-tail
-  theorem for a different recursive branch, not a seventh certificate made
-  by extending the same changing tower.  The meta-language is not unary:
-  choosing any background branch `j` and the adjacent defect `j+1` gives the
-  same exact sign flip after retaining the background valuation.  This has
-  been checked for `j=1..64` at level one and along three nonconstant
-  four-step choice words.  A universal positive-tail identity now closes the
-  whole infinite-nesting interpretation, not just that bounded tree.  If
-  `E` is the combined parent input exponent, `r` the inherited valuation,
-  `q_raw>0` the least raw input, and `K>=1` a child packet, then its parent
-  tail is
-
-  ```text
-  q=q_raw+2^E*(2^r*K-1)>0.
-  ```
-
-  Thus every recursive extension lies strictly above the canonical parent
-  base; its nested ordinary addresses can never eventually stabilize.  The
-  hierarchy is a finite compiler, not one infinitely nested ordinary program.
-  This does **not** exclude an autonomous orbit at any fixed finite hierarchy
-  level.  There is also an invariant one-in-seventeen packet slice:
-  when the primitive register is divisible by `17`, division gives the unit
-  law `H=2^(an+b)h -> (3^(cn+d)h+s)/2^e`.  All collision debris has then been
-  reduced to `s=+1` or `-1`; this unit machine is now the smallest autonomous
-  search interface.  Scaling by `2^e` exposes its exact instruction:
-  `W=2^p h -> W'=3^q h+s`.  Relative to the signed radix router, every level
-  then trims the positive ternary factor `3^(p-1-q)`.  The new two-rail target
-  is to bank that factor in a separated packet and feed it back, rather than
-  losing it or adding another hierarchy level.  Every constant-rate clock is
-  already closed: `n_t=n_0+kt`, for arbitrary fixed `k>=1`, makes the unique
-  2-adic core a partial-theta value which is irrational by the cited
-  Väänänen--Wallisser theorem at all six levels.  Any bank must branch
-  nonlinearly on its packet contents.  In Simon's spatial language, the live
-  architecture is a two-rail regenerator: a payload rail survives the
-  collision while a delocalized sacrificial rail absorbs the dirty carry
-  suffix and recreates the next clean gap.  The distance to that next gap
-  must itself be packet-selected, not a fixed-rate delay.  This mechanism is
-  now exact in the unit ISA.  For any three successive branch lengths and any
-  desired `D>=1`, one correction block emits the complete next instruction;
-  a second `D`-bit word cancels its carry and leaves `D` literal zero bits
-  before an affinely surviving high packet.  The remaining quine problem is
-  sharp: that high packet must generate its own future correction words.  An
-  externally preloaded infinite stack would again be only a 2-adic program.
-  Simon's proposed catcher can be made regenerative in one exact sense.  If
-  the isolated carry is `B`, put `r=v3(B)`,
-  `D=ord_(3^(q-r))(2)`, and use the formula-compressed word
-  `z=B(2^D-1)/3^q`.  Then `B+3^qz=2^D B`: the collision swallows `B`, opens a
-  `D`-bit gap, and recreates the *same* carry beyond it.  The canonical
-  one-cell header embeds this carry translator in the true invariant register
-  at all six compiled levels; the respective `D` values have
-  `8,28,90,297,979,3231` decimal digits.  This is a literal finite glider cell
-  in Kontorovich's spatial sense.  It still needs a self-writing ordinary end
-  cap; preloading infinitely many catcher blocks would only hide a 2-adic
-  tape.
-  A much more compressed special case now uses the rational repetend
-  `R=(2^T C-s)/3^q`.  Choosing `T` simultaneously in a discrete-log class
-  modulo `2*3^(q-1)` and in the affine unit exponent class makes
-  `R+2^(T+D)K -> C+2^D*3^qK`.  This gives formula-generated, enormously
-  nonlinear gap splashes at all six levels; the live question is still
-  renewal of the emitted marker rather than production of one spectacular
-  jump.  At the sign-negative second level that marker now renews once
-  exactly.  The stable quotients
-  `c_m=(2^(3^(m-1))+1)/3^m` let the first ternary bank be absorbed into a
-  second repetend, producing two consecutive formula-sized nonlinear jumps.
-  The remaining target is a third/self-writing renewal from one fixed
-  ordinary packet, not an externally nested tower.  But the pure staircase
-  is now closed even before the ordinary-address gate: every sign-negative
-  full-order splash more than halves its odd core.  The live hardware design
-  must therefore alternate an amplifying **charge phase** with a sparse giant
-  **discharge splash**.  The charge phase must rebuild both real core energy
-  and the next nonlocal correction word from the surviving packet.
-  The first exact charge--discharge compiler is now autonomous.  At the
-  sign-negative level-two unit register, execute a length-`N` instruction and
-  then the one-cell instruction.  The fixed collision debris factors as
-  `3^57+2^77=5D`, where
-  `D=314038802961906688057474567` is coprime to the register stride.  On the
-  unique packet class divisible by `D`, quotienting gives the new ISA
-
-  ```text
-  G=2^(23N+3)g -> (3^(17N+97)g-5)/2^128.
-  ```
-
-  Every complete branch of this machine is strictly outward, and each is
-  literally two legal unit macros.  Thus any infinite successful positive
-  orbit of this much smaller `-5` machine would already refute Collatz.  No
-  such orbit is known.  This is distinct from the earlier bounded search near
-  the signed cycle `-5 -> -7 -> -5`: the same small debris appears in a new
-  positive quotient register with different exponents.  The live task is to
-  make its packet select infinitely many legal lengths.  Its own one-cell
-  discharge now provably regenerates the same `-5` interface at every finite
-  recursive depth: at depth `j` the offsets are
-  `d_j=114*2^j-17`, `e_j=154*2^j-26`, and the removed divisor is
-  `3^(114*2^j)+2^(154*2^j)`.  An exact multiplicative-order argument reduces
-  coprimality at all depths to 79 gcd checks against the 80-bit register
-  stride; all pass.  This is a true self-similar splash compiler, but not an
-  infinite natural: every positive child packet lifts to
-  `rho_j+D_j*K>K`, so nesting forever changes its ancestor address.  Search
-  must use an autonomous orbit at one fixed finite level, not confuse the
-  infinite hierarchy with a seed.
-  A fixed-form change of coordinate now exposes exactly such a level-two
-  bouncer.  Put `A=3^114`, `B=2^154`,
-  `F=(A-B)/5`, and `Z=F*G-2^26`.  The one-cell instruction is the pure delay
-  wire `B*Z'=A*Z`.  At defect boundaries write `Z=2^26*y`.  The ordinary odd
-  state `y` then reads its own two opcodes
-
-  ```text
-  m=v2(y+1)/23,
-  E=3^(17m)*(y+1)-2^(23m),
-  h=(v2(E)-23m)/154,
-  y'=3^(114h)*oddpart(E).
-  ```
-
-  When `m,h>=1` are integral and `y'` has another defect phase, this executes
-  one length-`m+1` defect followed by `h-1` recharge cells.  The fixed register
-  is simply `y=0 (mod M)`, `y=-1 (mod F)`.  An infinite accepted positive
-  `y`-orbit would be an outward Collatz counterexample.  Accepted transitions
-  are reversible without stored history: `v3(y')=114h`, and after removing
-  that power, `v3(1+2^(154h)q)=17m` recovers the predecessor opcode and state.
-  The exponent matrix has determinant
-  `114*23-154*17=4`, leaving exact resonance identities with only `2^4` or
-  `3^4` imbalance.  Morita's reversible two-counter universality result makes
-  this a legitimate compiler analogy, while Dudenhefner's certified
-  instruction-set-sensitive results supply the kill test: reversibility and
-  two valuations are not enough.  We must compile actual increment,
-  decrement/zero-test, and finite control operations inside the accepted
-  arithmetic classes.  This valuation
-  bouncer—not a further nested address—is now the primary synthesis target.
-  The first low-description clocks do not solve it: an exact audit of
-  Thue--Morse, period-doubling, and Fibonacci words, all 240 injective
-  two-symbol codings by `(m,h)` in `{1,...,4}^2`, and every prefix through 48
-  transitions finds no canonical-address stabilization.  Search should now
-  target an arithmetic payload-generated counter law, not merely paste a
-  familiar aperiodic word over two fixed opcodes.
-  The ordinary-ray seam is sharper than that finite test: Lean commits
-  `af1a934`/`ba121d9` prove that a realizing natural would force the canonical
-  extension lift `rho_k` to vanish eventually.  Thus it is enough to prove
-  `rho_k!=0` infinitely often; universal positivity is unnecessary.  An exact
-  bounded audit finds no zero lift among 1,118,464 extensions of all words of
-  depth at most four over the 16 opcodes `(m,h)` with `1<=m,h<=4`.  This is
-  evidence about the compiler seam, not an all-depth theorem.
-  A survivor must start at a canonical positive integer and contain infinitely
-  many genuine Collatz steps; a loop on a malformed representation is rejected.
-- **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
-  quasi-cellular automaton, Collatz iterates are binary rows while ternary
-  columns perform base conversion; search for a diagonal defect or boundary
-  signal with a formula return.  In Eliahou--Verger-Gaugry's base-`3/2`
-  picture, try to compile the divergent saturated-map instruction “append
-  `2`” from bounded exact Collatz/two-rail macros.  Seven- and twelve-append
-  blocks now compile exactly on unbounded index families; in the latter both
-  linked gates are universally outward.  Restricting its nonlocal tail modulo
-  `16` makes the next odd catcher outward too, giving an unbounded three-gate
-  growing family.  A complete bounded source-shape graph finds 18 saturated
-  bridges, 11 with outward linked targets, but all 11 target shapes have no
-  second compiler edge.  One ordinary relay leaves only a forbidden periodic
-  self-loop, but a second relay changes the picture: the universal outward
-  catcher `(r,0,1,L)` chooses any next spatial gap, making the 11-node compiler
-  graph complete.  The live task is therefore no longer finite spatial
-  routing; it is an ordinary payload recurrence realizing an aperiodic
-  infinite path.
-  Lean commits
-  `401d494`/`6ab99fc` prove the universal saturated-cylinder law and package a
-  reusable affine-bridge certificate; `64bf677` kernel-checks the first
-  odd-to-odd bridge, and `dbe0e5a` proves that any supplied
-  outward renewing variable bridge chain refutes Collatz.  Commit `fedb5ca`
-  proves every router shape outward uniformly and proves that dyadic-cylinder
-  addresses of any ordinary natural must eventually equal that natural
-  literally.  No infinite chain is known, and neither presentation transfers
-  divergence by itself.
-- **Two-rail splash bouncers.**  Implement Simon's collision idea with a
-  `-1`/valuation-one Mersenne rail, which amplifies a separated packet by
-  `3/2` per tick, and a `+1`/valuation-two Colussi rail, which supplies timing
-  and carry cleanup.  Exact `+1` splash gates can emit an arbitrarily longer
-  empty gap but always decrease the integer.  The phase switch now exists:
-  `94751 -> 101183` is the smallest standard regression, and symbolic affine-
-  family intersection compiles 247 consecutive outward rounds into a
-  10,040-digit seed.  That seed nevertheless reaches `1`, and its canonical
-  value changes when a 248th constraint is imposed.  Each affine handoff is
-  now an exact tag instruction: it consumes a low binary address block from a
-  nonlocal payload index and maps the surviving tail affinely by a power of
-  three.  A fixed affine return is now ruled out: it would repeat one valuation
-  word forever, and its putative natural tail slope would be `3^N/2^S` with
-  `S>0`.  Lean commits `b741a14`/`26f3584`/`560fcc5` strengthen this to every
-  eventually periodic word schedule and every autonomous finite-state
-  controller.  The live splash target is a tag controller whose changing
-  unbounded tail selects a genuinely aperiodic gate sequence, or an unbounded
-  shape counter—not a fixed route through gate shapes.  Exact valuation
-  decoding makes the gate shapes an LSB-first prefix code of Kraft mass `1/6`
-  among odd 2-adic payloads: a valid tape is necessarily sparse, but its
-  unbounded arithmetic contents can supply the required nonautonomous state.
-  Simon's “splash the gap” suggestion also repairs the apparent missing
-  collision mechanism in a more ambitious form.  Treat a long zero gap as a
-  delay line and place several nonlocal bit islands across the full digit span:
-  the first island triggers the main collision, later islands arrive as timed
-  carry catchers which absorb its debris, and a surviving island writes the
-  spacing and residues of the next catcher bank.  This is a three-phase
-  **strike--scrub--reseed splash code**, not a single local rewrite.  Because a
-  fixed finite valuation word is affine, any proposed code can be synthesized
-  by simultaneous dyadic congruences and then checked exactly.  The hard
-  obligation is regeneration: the post-collision catcher vector must lie in
-  the same parameterized family with a larger delay, while retaining an
-  ordinary positive tail.  This explicitly combines Simon's programming-
-  language/nonlocality idea with Kontorovich's spatial delay-line picture.
-  The finite strike--scrub--reseed path is now complete at level two.  Take
-  carry `B=1`, turnaround marker `H=17`, and
-  `D=ord_(3^57)(2)=2*3^56`.  An explicit base-two discrete logarithm modulo
-  `3^114` selects one even class of following lengths; the class making
-  `3^(17l+40)*17=1+2^(D+2) (mod 2^(D+3))` is also even, so CRT supplies a
-  finite ordinary `l`.  Three collisions then return the surviving tail as
-  `R+2*M*3^(q(l)+114)w`.  The coefficient after the factor two is odd, so it
-  can write any prescribed finite odd binary catcher/header word.  This
-  solves finite turnaround and reseeding without expanding the roughly
-  `10^27`-bit gap.  The live problem is now exactly the global one: make the
-  successive words payload-generated so the nested tail is one ordinary
-  natural, rather than an externally prescribed 2-adic stack.
-  A stronger version makes the nonlocal marker, rather than the preceding
-  instruction length, absorb the far-end congruence.  Fix that instruction at
-  one cell and choose `H=h_3+3^114*t`, where `h_3` is the exact ternary class
-  which keeps `B=1` and odd-coefficient inversion chooses `t mod 2^(D+3)` to
-  turn around.  This bounds the marker by `D+185` bits and changes the tail
-  coefficient from `2^(D+157)M` on input to
-  `2M*3^773644327083924272402582364` on output.  The latter is strictly
-  larger: pairing powers gives an exact lower gain of
-  `113771224571165334176850348` bits from `9>8`.  Thus the splash can now be
-  finite, same-scale, and outward.  It still lacks the crucial invariant
-  cylinder which would feed that larger tail back as the next legal program.
-  The entire later-turnaround bank is now explicit.  For opcode `j>=0`, take
-  `P_j=D+2+23j` and `q_j=q_0+17j`.  Exact third-division alignment forces the
-  remote catcher to gain the same `23j` binary positions as the marker lift;
-  register invariance further couples it as
-  `u=u_j+2^(P_j-D)((M-1)s+Mw)`.  The apparent two tails therefore collapse
-  to one register `v=s+w`:
-  `x_j=X_j+2^(P_j+155)Mv -> y_j=Y_j+2M*3^(q_j+114)v`.  Every opcode remains
-  coefficient-expanding, because increasing `j` multiplies the gain by
-  `3^17/2^23>1`.  This closes the naive two-independent-islands model but
-  leaves a cleaner unbounded variable-length tag language.  The next target
-  is a payload-selected, non-eventually-periodic opcode sequence in this
-  rank-one bank.
-  instructions: an odd intermediate gap has a parity-dual terminal collision,
-  and a one-bit outgoing gap is a legal zero-delay rail.  The even cleanup and
-  odd catcher families have exact Kraft masses `1/3` and `2/3`, so every
-  positive odd payload uniquely decodes unless that macro explicitly reaches
-  `1`.  Hardware jamming is therefore gone; the target is an ordinary decoded
-  tape with aperiodic positive long-run drift.  Lean commits `afb86a5` and
-  `f7ac880` certify the new odd catcher, its affine cylinders, and
-  cross-branch prefix disjointness, including `r=0,L=1`; `78d1048` proves in
-  Lean that every positive odd payload has an exact halt, even-cleanup, or
-  odd-catcher outcome, and `92f237c` proves that outcome unique.  The
-  parity-complete hardware semantics are now kernel-closed.  Commit `88e2577`
-  exposes the unique decoder as a deterministic macro transition and reduces
-  a disproof to linked public payloads whose decoded macros are all outward;
-  `b023700` packages the actual canonical partial state map and proves that any
-  infinite surviving outward orbit of it refutes Collatz.  Commit `e9f791b`
-  removes the last hidden gate data for the universal-router submachine: an
-  infinite positive-odd solution of
-  `2^(r_(n+1)+3)P_(n+1)=3^(r_n+2)P_n+3` alone refutes Collatz.  Simon's
-  spatial “splash the gap” picture is now literal in the minimal break-off
-  coordinate: `9*2^(3q)c-1` executes `q` three-bit delay ticks, collides with
-  chosen opcode `j`, and can emit a fresh state `9*2^(3q')c'-1`.  For every
-  `q,q'>=1,j>=0` one residue class of `c` gives this exact finite
-  delay-to-delay gate.  The live target is to link such gates through one
-  ordinary coefficient with a genuinely aperiodic, unbounded collision
-  schedule; Lean commit `a1a5fd0` proves eventual periodicity of the opcodes
-  impossible for any infinite break-off orbit.
-- **Exact cycle synthesis.**  Search valuation words and cyclic compositions
-  for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
-  seed whose valuations and closure can be checked directly.  Use modular
-  meet-in-the-middle, lattice, and branch-and-bound searches aimed at long,
-  low-description words rather than another undirected small-seed sweep.
-- **Parametric gliders.**  Search for a finite symbolic transducer, substitution,
-  or arithmetic family `x_t` with a machine-checkable macrostep
-  `T^(ell(t))(x_t)=x_(t+1)` and `x_(t+1)>x_t`.  The existing exhaustive
-  small-DFA failures rule out only their tested regular certificate classes;
-  the next targets are one-counter, morphic, and recursively nested binary
-  templates with unbounded but finitely described memory.
-- **Separated-bit packet gliders.**  Treat long zero gaps as delay lines: evolve
-  each high packet under multiplication by `3`, use the exact order of `3`
-  modulo powers of `2` to schedule its first interaction with the controlled
-  low packet, and search for a symbolic collision rule that emits a fresh
-  packet at a larger scale.  Certify the whole construction through exact
-  macrosteps, including every carry at the collision boundary.  Lean commit
-  `121cb13` now supplies the exact order and scheduling theorem; packet renewal
-  remains open.
-- **Negative-cycle shadow controllers.**  A positive state congruent to a
-  negative periodic point modulo a high power of two shadows its supercritical
-  valuation block while a high packet grows.  Search one-counter programs in
-  which the terminal carry collision raises, rather than consumes, the shadow
-  precision.  The negative orbit is only a finite controller; the sought seed
-  and every certified macro-state remain positive.
-- **2-adic rationality sieve.**  For a fixed infinite extra stream, Lean commit
-  `7370489` proves that there is at most one ordinary packet realization and
-  unrolls every finite prefix as an exact backward affine series.  Commit
-  `b205e40` proves the corresponding series converges in `Q_2` for every
-  schedule and that any ordinary renewal must equal its negative 2-adic
-  candidate.  For periodic or morphic controllers, the remaining arithmetic
-  task is to prove that candidate is not a negative ordinary integer.  This
-  can eliminate an infinite program family without enumerating any seeds.
-- **Partial-theta integrality sieves.**  The standard two-rail schedule reduces
-  to the sole 2-adic initial value
-  `-(23/3^8) F(2/3,2^13/3^9)`.  Väänänen--Wallisser's full-source 1989 theorem
-  applies and proves it irrational, closing this schedule.  Repeat the method
-  for branching or morphic controllers: reduce a symbolic schedule to its
-  `Q_2` special value, then prove nonrationality to reject it or exploit a
-  rational exception as a possible ordinary program.
-- **Constraint-guided falsification.**  SAT/SMT, modular dynamic programming,
-  evolutionary search, CPUs, and GPUs may propose or aggressively reject a
-  symbolic macro.  They no longer rank raw seeds by excursion length.  A
-  survivor advances only when its low-description recurrence is replayed with
-  exact integers and promoted to a universal algebraic certificate.
-- **Backward invariant rays.**  Build with inverse steps
-  `y -> (2^k*y-1)/3` and search for a sparse, explicitly parameterized set that
-  maps into itself while moving outward.  This attacks the ordinary-integer
-  gate directly and can reuse the project's side-bush disjointness, rational
-  base-`3/2` coordinate, and affine product-of-places diagnostics.
-- **Exceptional-orbit obstructions in reverse.**  Re-read the proof program's
-  exact capacity and carry constraints as a specification of what a
-  counterexample must look like, then search on the thin boundary where those
-  constraints are nearly sharp.  Negative-drift or density-one evidence is
-  treated as a distributional filter, never as evidence against rare
-  software.
-
-#### KC failure ledger
-
-| Ansatz or route | Calibrated verdict | Exact record |
-|---|---|---|
-| Treat a prescribed finite `k`-word as an infinite program | Invalid: the nested progressions generally select a 2-adic integer, not a positive ordinary seed. Lean commit `ad36f08` proves that eventual canonical-seed stabilization is exactly the ordinary-integer gate. | [Program-synthesis note](docs/notes/kontorovich-program-synthesis.md) |
-| Literal periodic valuation glider | Closed: Lean commits `92b01ff`/`2f93df7` prove that an infinitely repeatable positive block has `3^N<2^S` and closes as a cycle. This does not touch morphic, counter, stack, or feedback streams. | [Section 4](docs/notes/kontorovich-program-synthesis.md#4-why-a-literal-periodic-glider-fails) |
-| Small positive cycle words | Exhaustively negative through total halving count `S<=22`: `3,447,691` positive-denominator compositions, with only repeated encodings of seed `1`. This is a bounded ansatz exclusion, not a new verification frontier. | [`search_results.json`](experiments/kontorovich/search_results.json) |
-| Fixed-width binary uniform morphisms | Exhaustively negative for nontrivial cycles at widths `2..4`, codings `1..4`, and expanded length at most `16,384`. The best `1`-avoiding seed-stabilization event dies at its next morphic extension. | [`search_results.json`](experiments/kontorovich/search_results.json) |
-| Small negative-cycle shadow programs | Exhaustively negative for ordinary-seed stabilization or terminal precision renewal using controllers `-5` and `-17`, start levels `1..6`, collision extras `1..8`, and extra programs of depth at most four: `112,320` compiled paths in both mod-6 classes. This closes only the stated one-counter pilot. | [`shadow_results.json`](experiments/kontorovich/shadow_results.json) |
-| Bounded phase-changing shadow grammar | `1,950,864` positive paths checked exactly. The `-5/-7` phases yield 15 terminal renewals and 10 one-extension seed stabilizations, all starting at level 1 or 2; every renewed path loses alignment on its next collision and none grows. All seven `-17` phases yield zero events within their separately stated bounds. | [Phase-shadow artifacts](experiments/kontorovich/README.md#phase-changing-shadow-collisions) |
-| Bounded `-1`/Mersenne shadow grammar | `376,800` positive paths checked exactly for start levels `1..100`, extras `1..12`, and depth at most three. There are 522 terminal renewals, 80 seed stabilizations, and three all-outward stabilization events; none supplies a second stabilized extension. The best finite run reaches `1` on exact continuation. | [`mersenne_shadow_results.json`](experiments/kontorovich/mersenne_shadow_results.json) |
-| Constant-extra Mersenne feedback | All `51,200` compiled paths for start levels `1..20`, constant extras `1..32`, depths `1..40`, and both mod-6 classes were checked. The unique two-extension event is seed `121` for extra `1`; its fifth macro fails and exact continuation reaches `1`. | [`mersenne_constant_results.json`](experiments/kontorovich/mersenne_constant_results.json) |
-| Short-period Mersenne feedback | All `2,726,400` prefixes from 568 primitive extra templates of period at most three over `{1,...,8}`, start levels `1..30`, depths `1..80`, and both mod-6 classes were checked in compressed exact arithmetic; every hit was literally replayed. No template improves the constant-`1` two-extension event or the `(4,3,1)` outward event. | [`mersenne_periodic_results.json`](experiments/kontorovich/mersenne_periodic_results.json) |
-| Direct state-dependent packet census | CUDA exhaustively checked all `2^41=2,199,023,255,552` odd packets `h<2^42` from start level one through an eight-renewal horizon, with zero arithmetic overflows and no length-eight chain. Nested replayed artifacts retain the 14 length-seven hits below `2^39` and 243 length-six-or-more hits below `2^36`; independent RTX 4090 and H100 runs reproduce all 243 inner hit triples exactly. | [`h<2^42` artifact](experiments/kontorovich/mersenne_packet_gpu_akdeniz_h42.json), [H100 replication](experiments/kontorovich/mersenne_packet_gpu_psc.json) |
-| Unstructured range widening as the main attack | Deprioritized: published ordinary-seed verification already reaches `2^71`, while the contemplated software may have roughly 10,000 decimal digits. Bounded compute remains useful only as a falsifier or independent checker of a proposed symbolic relation. | [Delocalized-ISA scale calibration](docs/notes/kontorovich-delocalized-isa.md#1-scale-changes-the-object-we-should-search-for) |
-| Unmodified order-10 Colussi wire | It is an exact, spectacularly long delay line but not a bouncer. After its certified collision, an exact 1,024-step audit finds no regenerated empty gap wider than 10 bits, versus the incoming 39,348-bit gap; full exact continuation reaches `1` after 95,146 accelerated steps. The next lane must alter the header/collision with a distributed defect. | [`colussi_delay_h10.json`](experiments/kontorovich/colussi_delay_h10.json) |
-| Pure `+1` gap-splash bouncer | Closed as an outward macro: the exact gate can turn a gap of `2r+2` bits into any chosen `2r'+2`-bit gap by a congruential payload, but the whole macro has dissipative multiplier `3^(r+1)/2^(2r+2+a)<1` and in fact strictly decreases every positive member. It remains useful as the cleanup rail of a multi-phase program. | [`splash_gate.py`](experiments/kontorovich/splash_gate.py) |
-| Even-gap-only splash decoder | Superseded as an obstruction.  Rejecting odd intermediate gaps or `L=1` outgoing gaps created artificial “renewal failures.”  The odd-gap collision `1+2*3^sQ -> 2+3^(s+1)Q=-1+2^LP'` and zero-delay rail make the decoder total away from explicit halting collisions.  This repairs syntax, not growth: the saturated `U^12` witness still reaches `1`. | [`complete_splash_isa.py`](experiments/kontorovich/complete_splash_isa.py) |
-| First parity-complete saturated bridge graph | In the exact source box `r<=15,s<=4,a,b<=4,L<=16`, all 25,600 shapes and 2,751,680 coefficient-compatible links were checked.  Eighteen saturated bridges exist and 11 have outward linked target subfamilies.  Exhausting all 718 possible second edges from those target shapes finds zero renewal.  This closes only depth two for those 18 first edges; larger sources and non-saturated catcher cascades remain open. | [`complete_u_bridge_graph_audit.json`](experiments/kontorovich/complete_u_bridge_graph_audit.json) |
-| One ordinary relay between compiler blocks | The 11 two-outward saturated nodes admit 22 universally outward four-gate relay families, but their graph has exactly one directed cycle: a fixed node-3 self-loop.  Every infinite path would therefore repeat one valuation block and is closed by the eventually-periodic theorem.  This excludes one-relay routing only on this node set. | [`complete_u_relay_graph_audit.json`](experiments/kontorovich/complete_u_relay_graph_audit.json) |
-| Finite regenerative delay routing | Solved but insufficient.  Two delay gates with a shared gap always link when the second collision opcode is positive: both coefficient bases are odd, so one binary congruence gives the affine tail handoff `t=t_0+2^m v -> s=s_0+3^A v`.  Lean commit `54e506f` proves supplied affine families and links for every tail.  Commit `5254194` proves that an ordinary natural surviving unbounded nested address filters forces their canonical residues eventually to equal that natural; a perpetually changing address program is only 2-adic. | [`breakoff_delay_gate_audit.json`](experiments/kontorovich/breakoff_delay_gate_audit.json) |
-| Canonical tail-zero delay dispatcher | Exhaustively negative at depth two in the symbolic box `q,j,q'<=100` (with `j` including zero): 1,010,000 gate shapes split into 992,129 with no next clean delay, 17,861 whose next gate needs positive tail, three canonical base-to-base links, and seven factor-of-eight coordinate aliases.  Every canonical link fails renewal after its target gate; their 59- and 85-digit ordinary seeds reach `1` in 1,272, 1,277, and 330 exact ordinary steps.  This closes only immediate stabilization at the canonical least coefficient, not evolved nonzero-tail or nonlinear two-packet programs. | [`delay_base_graph_audit.json`](experiments/kontorovich/delay_base_graph_audit.json) |
-| Exhausted-tail ether staircase | The returning ether macros link every scheduled pair `n -> n+1`, but after setting the remaining higher macro tail to zero, the generated `(n+1)` tail misses the `n+2` input cylinder for every `n=1..128`; maximum linked depth is two macros.  This closes only the least-tail staircase controller.  Nonzero generated macro tails, branching length schedules, and other payload recurrences remain open. | [`breakoff_ether_glider_audit.json`](experiments/kontorovich/breakoff_ether_glider_audit.json) |
-| Fully exhausted recursive glider ether | Closed for every immediate defect in the current returning-glider alphabet.  Every glider input packet is odd.  At the endpoint of a fully exhausted background macro-ether, its fixed form is odd, forcing the background-tail parity opposite the source cylinder of every possible next glider.  The obstruction is sharp rather than fatal: retaining the exact three-bit cap changes the phase modulo `16` and yields the certified returning super-ether. | [`breakoff_superether_audit.json`](experiments/kontorovich/breakoff_superether_audit.json) |
-| Canonical tail-zero splash hierarchy | The most direct recursive program chooses the length-one branch and zero remaining tail at every new scale.  Exact expansion through depths `1..6` gives first-scale packet sizes `7,46,177,606,2021,6698` decimal digits and ordinary starts through 6,708 digits.  Consecutive packets agree in increasingly many low bits but are strictly larger and unequal at every checked depth (`v2` of the differences `23,155,589,2013,6715`).  It is therefore a growing sequence of finite 2-adic prefixes, not one stabilized ordinary seed.  This bounded diagnostic is now subsumed by the universal positive-tail row below. | [`breakoff_renormalization_audit.json`](experiments/kontorovich/breakoff_renormalization_audit.json) |
-| Bounded canonical meta-quine tree | Exact recursive compilation checks all 584 meta-words of depths `1..3` over background choices `j=1..8`.  On every one of the 576 extensions, the canonical first-scale packet is strictly larger than its parent; there are zero stabilizations and zero decreases.  The closest paths are `(1,1)` and `(1,1,1)`, sharing 23 and 155 low bits respectively—the fixed tower already audited.  This bounded diagnostic is now subsumed by the universal positive-tail row below; another defect grammar or a fixed-level autonomous register orbit remains open. | [`breakoff_renormalization_audit.json`](experiments/kontorovich/breakoff_renormalization_audit.json) |
-| Infinite capped-renormalization tower as one ordinary program | Closed for every successfully constructed adjacent-defect extension, independently of branch length or child payload.  With `q_raw>0`, combined parent exponent `E`, inherited valuation `r>=0`, and positive child packet `K`, exact substitution gives `q=q_raw+2^E(2^rK-1)>0`.  Every new nesting therefore has a strictly noncanonical parent tail, so the canonical dyadic addresses never eventually stabilize to one natural.  This subsumes the two bounded rows above as diagnostics.  It does not exclude an autonomous orbit in the unit register at a fixed finite level, or a different compiler grammar. | [`breakoff_renormalization.py`](experiments/kontorovich/breakoff_renormalization.py) |
-| Infinite recursive `-5` charge hierarchy as one ordinary program | Closed, despite exact self-regeneration at every finite depth.  The depth-`j` quotient removes `D_j=3^(114*2^j)+2^(154*2^j)>1` and lifts a positive child packet as `K_j=rho_j+D_j*K_(j+1)>K_(j+1)`.  Iterated lifts make the root packet strictly grow, so the canonical addresses cannot stabilize to one natural.  This does not exclude an infinite autonomous orbit inside any fixed finite `-5` level; that is now the live target. | [`unit_charge_hierarchy.py`](experiments/kontorovich/unit_charge_hierarchy.py) |
-| Infinite consecutive sign-negative full-order repetend splashes | Closed by exact core energy, including any hypothetical self-writing realization of this pure instruction.  Marker `C=1` forces `T=(2j+1)3^(q-1)`.  For `q>=3`, `3^(q-1)>=2q+1`, hence `2^T>2*3^q`; the recurrence `2^T h'=3^q h-1` gives `h>2h'`.  After `N` consecutive splashes a positive initial core would exceed `2^N`, impossible for fixed `h`.  The audit checks the concrete full-order exponent classes at sign-negative levels `2,4,6`.  This does not exclude sparse giant splashes separated by sufficiently amplifying charge phases. | [`unit_repetend_energy_audit.json`](experiments/kontorovich/unit_repetend_energy_audit.json) |
-| Infinite externally preloaded carry-catcher rail | Invalid as an ordinary program.  Each finite catcher and the new turnaround can be linked by another dyadic tail congruence, but prescribing infinitely many such words generally defines a 2-adic stack.  Lean commits `5254194`/`ba121d9` show an ordinary realizing tail would force its canonical extension residues eventually to vanish.  The new finite writer therefore shifts the live target to an autonomous payload law; it does not license an infinite preloaded ether. | [`unit_carry_turnaround_audit.json`](experiments/kontorovich/unit_carry_turnaround_audit.json) |
-| Freezing a small turnaround marker | Architecturally superseded, not arithmetically impossible.  The choice `H=17` leaves the preceding length in a class modulo `2^(D+1)` with no useful ordinary-size control.  Moving that congruence into a synthesized marker permits a fixed one-cell preceding instruction, an explicit `D+O(1)` marker bound, and an expanding tail coefficient.  The remaining failure is invariance/autonomy, not collision cleanup. | [`unit_marker_turnaround_audit.json`](experiments/kontorovich/unit_marker_turnaround_audit.json) |
-| Treating marker lift and remote catcher as independent stacks | Closed for the whole synthesized-marker bank.  At legal turnaround `P_j=D+2+23j`, marker freedom enters the source at `154+(P_j+1)=P_j+155`.  Exactness gives the same exponent to the remote freedom, while register invariance forces its marker coefficient to be `M-1`: `u=u_j+2^(P_j-D)((M-1)s+Mw)`.  Both source and output therefore contain only `M(s+w)`.  The spatial islands are distinct, but algebraically rank one.  A counterexample must use the unbounded opcode as state or introduce a genuinely different collision channel. | [`unit_marker_bank_audit.json`](experiments/kontorovich/unit_marker_bank_audit.json) |
-| Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
-| Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
-| Fixed defect opcode in the charge bouncer | Closed by Lean commit `5633c44`.  For a fixed affine gain law `B*Z_(t+1)=A*Z_t+C` with coprime `A,B`, `1<B`, and `A>B`, the fixed-point defect obeys `B*delta_(t+1)=A*delta_t`; hence every `B^n` divides one positive `delta_0`, impossible.  The concrete theorem applies to every fixed `m`.  It does not apply to the live bouncer, where `m` may decrease or oscillate and each block switches from its `m`-defect law to `h-1` homogeneous backgrounds. | [`AffineQuotientNoGo.lean`](KontoroC/KontoroC/AffineQuotientNoGo.lean) |
-| Three named aperiodic two-opcode bouncer clocks | No canonical ordinary address stabilizes in the exact finite grammar: Thue--Morse, period-doubling, and Fibonacci control words; every injective coding of `0,1` by the 16 pairs `(m,h)` with `1<=m,h<=4`; all 34,560 prefixes through depth 48.  The closest pair shares 33,128 low bits but changes from a 33,386-bit address to a 34,092-bit address.  This closes only these named clocks and bounds, not payload-generated, larger-alphabet, or general morphic bouncers. | [`unit_charge_morphic_audit.json`](experiments/kontorovich/unit_charge_morphic_audit.json) |
-| Bounded zero-extension charge-bouncer tree | Every word of depths `1..4` over the 16 opcodes `(m,h)` with `1<=m,h<=4`, followed by every one of the 16 possible next blocks, was compiled exactly: 69,904 prefixes and 1,118,464 extensions.  Zero canonical lifts found: none.  The closest nonlift agrees in only 16 of 177 required low bits, while the maximum terminal public valuations by depth are `3,9,13,16`; this does not imply a fixed-modulus obstruction or an all-depth theorem. | [`unit_charge_zero_lift_audit.json`](experiments/kontorovich/unit_charge_zero_lift_audit.json) |
-| Standard two-rail schedule `[1]^r[2,2,3]` | Closed at all levels.  Exact affine-family intersection compiles 247 outward rounds from a 10,040-digit seed, but depth 248 changes the seed and exact continuation reaches `1`.  Lean reduces every infinite realization to `2^(r+8)P'=3^(r+3)P+69` and its sole 2-adic Tschakaloff candidate.  Väänänen--Wallisser's 1989 theorem applies at `q=3/2,p=2,alpha=4096/6561` and proves that candidate irrational, so it cannot be an ordinary payload.  This does not close branching or other aperiodic splash programs. | [Finite certificate](experiments/kontorovich/two_rail_chain_247.json), [theorem audit](docs/notes/standard-two-rail-theta.md) |
-| Fixed affine or autonomous finite-state return | Closed as an outward bouncer.  Lean commits `b741a14`/`26f3584` prove fixed affine circuits and every eventually periodic macro-word schedule impossible; `560fcc5` proves an autonomous controller with any finite effective state eventually enters that obstruction.  Coefficientwise, a repeated word would require natural slope `m=3^N/2^S` with `S>0`.  Payload-dependent branching and unbounded shape counters remain open. | [Delocalized tag-ISA note](docs/notes/kontorovich-delocalized-isa.md) |
-| Canonical zero-preload two-rail graph | Exactly checked 128,000 gate shapes in the stated box (`r<=40`, `s<=4`, collision extras `<=4`, output gap `<=41`): 98,760 canonical members are outward, 25 canonical links exist, and the longest linked chain has two gates. Its seed `45247` reaches `1`; a wider targeted audit finds no third canonical gate for that endpoint. This rejects only index-zero links, not branching affine-tail controllers. | [`two_rail_transducer_audit.json`](experiments/kontorovich/two_rail_transducer_audit.json) |
-| Small regular invariant sets | Previously closed only in the stated exhaustive classes: no base-2 DFA divergence certificate through eight states and no base-3 certificate through five. One-counter and genuinely morphic single-orbit certificates remain open. | [Base 2](experiments/dfacert/README.md), [base 3](experiments/dfacert3/README.md) |
-
-The first work product will be an exact `k`-word compiler and cycle/glider
-search harness with replayable certificates.  New lanes and closed ansatz
-classes will be recorded here with explicit bounds, just as in the proof
-strategy's failure ledger.  Nothing will be called a disproof unless the
-positive integer and its claimed behavior are machine-checked.
-
-### KC Headline results (with verification scope)
-
-| Result | Status |
-|---|---|
-| Program-scale calibration | Barina's published exhaustive check through `2^71` excludes every ordinary seed below that bound. Colussi's exact order-10 repetend has 39,366 padded bits and an 11,846-digit integer value, giving a literature-backed, formula-generated background at the scale Simon proposed. This is target calibration, not evidence of divergence. |
-| Delocalized instruction-set audit | Exact published encodings expose four complementary units: valuation congruences, mixed binary--ternary boundary rewrites, De Mol's three-symbol tag rules, and Colussi's rotated repetend grammar. They motivate a nonlocal bouncer search but do not prove computational universality or nontermination. |
-| Exact dyadic--triadic packet gate | Lean commit `f1cb0e2` proves universally that each supplied base collision generates exactly the affine family `h=r+2^(m+e+2)q`, `h'=s+2*3^m q`, with unique payload, literal valuation `e`, and the triadic next-packet scheduler. The Python checker passes 8,192 family members and an exhaustive converse over all 16,316 renewals found for odd `h<2^16` at levels `1..8`. No closed all-level gate controller is known. |
-| Kernel stream uniqueness and 2-adic candidate | Lean commit `7370489` proves that a fixed positive valuation stream has at most one ordinary seed and kernel-checks every finite backward-series truncation. Commit `b205e40` proves convergence of the canonical series in `Q_2`, vanishing of the terminal term for an ordinary renewal, and the exact reduction: if the candidate avoids embedded negative naturals, that schedule has no positive renewal. Candidate nonintegrality for a useful controller class remains open. |
-| Formula-generated 11,846-digit spatial wire | Colussi's order-10 value `(4^19683-1)/3^10` is reconstructed, not stored as a decimal literal. The exact header `(1,1,2,1,1,1,5,1,4,1)` sends it to `1+2^39348`; then 19,673 exact valuation-two steps obey `x_t=1+3^t 2^(39348-2t)` before a valuation-three collision. Lean commit `6229e7a` proves the general delay formula and kernel-checks this generated header and endpoint. Exact continuation reaches `1` after 95,146 accelerated steps, so this certifies a wire and its failed natural renewal, not nontermination. |
-| Exact finite carry-splash families | For every positive `r,r',a`, research-side exact algebra constructs an arithmetic progression of odd payload pairs such that an `r`-tick `+1` delay line collides with valuation `2+a` and emits an `r'`-tick gap. The checker literally replays 15,360 members in the bounded regression `r<=8,r'<=10,a<=6`; e.g. `2961 -> 2221 -> 833` grows the gap from four to six bits. Every member shrinks, so a splash needs an amplifying phase. |
-| Formula-generated 10,040-digit two-rail program | Exact congruence solving and affine-family intersection construct one seed with 33,351 significant bits, without storing its decimal literal. It executes 247 strict outward rounds of the schedule `[1]^(4+i) ++ [2,2,3]`, grows its clean gap from 5 to 252 bits, and reaches a 15,397-digit endpoint after 32,110 accelerated steps. Literal replay passes; Lean commits `39a3aba`/`5d3e0e3` certify the generic gate and finite-chain seams. Full exact continuation reaches `1`, and the 248-round canonical seed is different. This is a large finite Collatz program, not a counterexample. |
-| Exact affine tag-transducer and branching target | Every affine two-rail handoff reads one dyadic residue of a nonlocal family index, deletes that address block, and maps the residual tail by a power of three plus an offset. Lean commits `4789a80`/`1076954` prove universal one- and two-instruction linkage.  Commits `b741a14`--`560fcc5` rule out fixed affine returns, every eventually periodic macro-word stream, and every payload-independent finite-state controller.  The live target must branch on unbounded tail data or carry an unbounded counter. |
-| LSB-first splash instruction grammar | For fixed amplifier length, each positive gate shape `(s,a,b,L)` is one odd payload residue modulo `2^(a+b+2s+L+3)`.  Lean commit `1b7df1f` proves universal parameter decoding, the complete cylinder strides, and pairwise disjointness; the exact Kraft mass among odd 2-adic payloads is `1/6`.  The artifact checks 902,496 codeword pairs per `r=1..16` through 20 bits and independently decodes 21,504 bases.  This identifies a sparse mixed-base tag language, not an infinite survivor. |
-| Parity-complete splash ISA | Simon's proposed sacrificial alignment supplies the missing odd-gap catcher `2+3^(s+1)Q=-1+2^L P'`; admitting `L=1` supplies a zero-delay next rail.  Lean commits `afb86a5`--`92f237c` certify the two branches and unique total decoding.  Commits `88e2577`/`b023700` expose the decoded macro and canonical partial next-state map and prove that any surviving outward public-state orbit refutes Collatz.  The exact Kraft split is `1/3+2/3=1`; no infinite orbit is supplied. |
-| Exact base-`3/2` compiler bridge | The outward two-rail link `(5,0,2,1,2)->(1,0,2,1,2)` maps family indices by `95+128t -> 1640+2187t`, exactly `U^7` for every natural `t`, where divergent `U` appends digits `[1,1,1,1,1,2,1]` in rational base `3/2`.  Lean commits `401d494`/`6ab99fc` prove the universal dyadic-cylinder law and reusable compiler certificate; `dbe0e5a` proves the conditional variable-chain endpoint to `¬Collatz`.  The concrete target shrinks and the seed reaches `1`, so no infinite chain is supplied. |
-| Two-outward-gate `U^12` bridge | Exact coefficient algebra gives `U^12(1023+4096t)=132860+531441t` with digits `[1]^10[2,1]`.  It links shapes `(10,0,4,2,11)->(10,2,1,3,2)`, and both complete families are universally outward.  The saturated orbit enters at time 622; the parity-complete decoder catches the next formerly rejected payload, but that catcher shrinks.  The resulting 120-digit seed parses into 290 exact splash gates, 101 outward, and reaches `1` after 1,016 accelerated steps.  This is a finite compiler cascade, not transferred divergence. |
-| Universal three-gate outward `U^12` subcylinder | Restricting the `U^12` tail to `t=16u` makes the next decoded catcher `(1,0,1,2)` outward for every `u>=0`.  Exact affine formulas give `2199021754367 -> 2229023590399 -> 5083728186203 -> 8578791314219` at `u=0`, with nondecreasing state strides preserving all three inequalities universally.  The least seed reaches `1` after 133 accelerated steps.  This certifies Simon's “splash the splash” with net gain through three gates, not infinite renewal. |
-| Bounded parity-complete saturated bridge graph | The exact shape search checks 25,600 sources and all 2,751,680 coefficient-compatible targets in its stated box, finding 18 universal `U^D` bridges—14 odd-source and four even-source.  Eleven linked target subfamilies are also universally outward.  The complete 718-candidate outgoing audit of those target shapes finds no second saturated edge.  This is a scoped compiler-graph dead end, not an exclusion beyond the source bounds or of intervening ordinary splash gates. |
-| Universal outward splash router | For every `r>=0,L>=1`, the odd catcher `(r,0,1,L)` has word `[1]^r[2,1]`, arbitrary outgoing gap `L`, and multiplier `3^(r+2)/2^(r+3)>1`; hence every member is outward.  Exact affine composition uses it to connect every ordered pair of the 11 two-outward compiler nodes.  All 121 five-gate transition families replay exactly, making the two-relay shape graph complete.  Lean commit `fedb5ca` proves the all-parameter growth inequality and formalizes the natural-versus-2-adic boundary.  This supports arbitrary finite branching words, but an infinite word still generally selects only a 2-adic tail. |
-| Autonomous router recurrence | Lean commit `e9f791b` proves that positive odd payloads satisfying `2^(r'+3)P'=3^(r+2)P+3` construct the canonical router `(r,0,1,r'+1)`, with exact linkage and strict growth.  Any infinite solution above initial state `4` therefore refutes Collatz.  Commit `c10e5b5` proves `3|P'` and the exact maximal-power-of-two/odd-part update.  The equivalent radix-swap candidate forms `e=v_2(y+1)` and `F(y)=3^(e-1)(y+1)/2^e` inside `9|y`, `y=7 (mod 8)`.  No infinite ordinary orbit is supplied. |
-| Break-off instruction compiler | In the coordinate `y=8k-1`, one router instruction factors `k=2^j u` and executes `8k'=3^(j+2)u+1`.  For each `j`, legality is one exact `u`-class modulo `72`, and the unbounded tail map is `u=u_j+72t -> k'=b_j+3^(j+4)t`.  Lean commit `0b12d44` proves that any infinite proof-carrying break-off orbit stays `8 mod 9`, strictly grows, and refutes Collatz; commit `a1a5fd0` proves its opcode stream cannot be eventually periodic.  Commit `7293975` implements the executable `v_2`/odd-part partial map, proves it equivalent to the factorization interface, and derives `¬Collatz` from any infinite successful executable orbit.  The artifact lists opcodes `0..64` and literally replays 4,160 members through the canonical decoder.  No infinite orbit is supplied. |
-| Regenerative three-bit delay gate | Simon's gap-splash suggestion has an exact spatial realization.  The state `9*2^(3q)c-1` performs `q` opcode-zero ticks before a chosen collision emits a fresh clean gap `9*2^(3q')c'-1`; Lean commit `eac55d3` proves the universal compressed run, collision renewal, and strict outwardness.  Commit `1711620` proves that the collision factorization plus one subtraction-free affine balance suffices to reconstruct renewal.  The artifact constructs 1,088 gate families and performs 8,704 literal macro replays.  The example `935 -> 1052 -> 2663` regenerates one delay cell but later reaches `1`. |
-| Affine mixed-radix writer and ordinary-tail gate | Exact coefficient linking reads `m` low binary bits and appends `A` ternary digits: `t=t_0+2^m v -> s=s_0+3^A v`.  Lean commit `54e506f` proves every supplied affine gate family, coefficient link, composed run, and outwardness for all `v`.  Commit `5254194` connects its `2^m` address cylinders to the ordinary/2-adic boundary.  The artifact audits 4,608 linked pairs (18,432 macros) and shows one fixed dispatcher realizes every one of the 243 five-trit write words within stated bounds.  Finite instruction routing is solved; a returning aperiodic dispatcher with one eventually stabilized natural address is not. |
-| Nonlocal sacrificial gap amplifier | In the five-trit writer choose `b=3^5-2^L` and residual `v=K*2^L-1`.  Exact arithmetic gives `b+3^5v=2^L(3^5K-1)`: trailing one-bits collide with the selected word to become zero-bits, while the remote congruence `3^5K=1+2^D (mod 2^(D+1))` supplies exactly `D` more.  All seven words `L=1..7` exist in the certified alphabet; the artifact replays 224 linked members for `D=1..32` through 448 literal gate macros.  This produces an internal tail gap, not yet a returning infinite controller. |
-| Regenerative finite ether defect | The gate `E=(1,2,1)` self-links by `t=20+2^8v -> 57+3^6v` and satisfies `2^8(473t'+12)=3^6(473t+12)`, so exact divisibility of `473t+12` by `2^(8n)` is an `n`-cell spatial delay.  The defect `H=(1,136,1)` gives an exact `E -> H -> E` return whose Mersenne residual has `473t+12=2^8(r+AK)` with fixed odd `r,A`; one odd class of the remote packet therefore writes any prescribed finite ether depth.  The artifact constructs `n=2..32`, replaying 589 linked members and 1,178 literal gate macros.  It does not return the exposed boundary to another defect. |
-| Returning finite ether glider ISA | Exact parity shows an exhausted ether boundary is odd and therefore cannot re-enter the `j=136` defect; among immediate `E -> H_j -> E` defects, `j=1` is the parity-compatible receiver.  Its small identities give defect input `X(K)=2^20K-10941`, return factor `473t+12=2^5(83790531K-874281)`, and for every `n>=1` a complete outward macro `K=R_n+2^(8n+15)q -> K'=S_n+3^(6n+11)q` which writes `n` ether cells and returns to the same defect family.  The artifact replays 64 macro members through 1,184 links and 2,368 gate macros.  No infinite linked macro orbit is supplied. |
-| Autonomous ether-counter normal form | Put `Y=83790531K-874281`.  The length-`n` returning glider branch is exactly `Y=2^(8n-5)h -> Y'=(3^(6n+11)h+51)/2^20`, with `h` in one CRT class modulo `83790531*2^20`; the enormous defect constants cancel to `51`.  Every branch is strictly outward, and its packet coefficients agree identically with the compiled glider macro.  The artifact checks `n=1..128`, four tails each, and repeats the executable macro replays through `n=32`.  An infinite successful autonomous orbit would be a counterexample, but none is supplied. |
-| Three-bit-capped recursive super-ether | Regard the one-cell returning glider as a 23-bit background cell and the two-cell glider as its defect.  Exact parity kills a fully exhausted second-scale gap, but retaining three low bits makes the boundary re-enter the same defect cylinder.  After removing a common `3^7`, the public register is `V=-8744697538656344367967+671265207750760396088265K` and its length-`N` branch is `V=2^(23N+3)g -> V'=(3^(17N+40)g-17)/2^51`.  The affine super-macro is `K=R_N+2^(23N+54)t -> K'=S_N+3^(17N+40)t`.  The artifact checks 64 branches and 256 members, and literally replays 32 members through 336 glider macros, 1,040 lower links, and 2,080 gate macros.  This is a finite two-scale constructor, not an infinite orbit. |
-| Six-level sign-alternating splash hierarchy | The capped construction renormalizes five more times without changing the magnitude `17`: public collision signs are `+,-,+,-,+,-` and binary cell widths are `8,23,77,254,839,2771`.  At every checked step exact phase arithmetic returns to the defect and normalization flips only the sign.  The artifact checks 40 child branches independently by CRT and parent-macro composition, replays 80 members through 520 parent blocks, and expands the canonical tail-zero programs through six levels to literal first-scale gliders.  It additionally checks all 64 level-one choices `B=M_j,H=M_(j+1)`, three nonconstant four-step meta-words, and every depth-three meta-word over `j=1..8`.  Beyond those bounds, the exact positive-tail identity proves universally that no infinite chain of these adjacent-defect nestings can stabilize its canonical ordinary address.  The depth-six canonical member is a generated 6,708-digit ordinary start executing 360 linked glider macros.  This is a finite compiler and a source of fixed-level ISAs—not an ordinary infinite orbit or an induction that the phase identities persist at all levels. |
-| Invariant unit-debris register and signed radix swap | At every one of the six certified hierarchy levels, exactly one packet class modulo `17` makes the primitive `±17` register divisible by `17`; the class is preserved by every successful branch.  Dividing gives `H=2^(an+b)h -> H'=(3^(cn+d)h+s)/2^e`, `s=±1`.  With `W=2^eH`, every instruction is exactly `W=2^p h -> W'=3^q h+s`: it preserves the complete core `h`, swaps an exact binary delay for a ternary delay, and writes one signed unit.  Against the signed router it trims `d=p-1-q`, with the six formulas `2n+3,6n+13,20n+45,66n+151,218n+501,720n+1657`.  The artifact compares all 192 branches, checks this form on 768 members, and literally replays 32 level-one members through 336 lower links and 672 gates.  This identifies the factor a second rail must bank; no such rail or infinite unit orbit is supplied. |
-| Two-layer unit gap regenerator | Simon's “splash the gap” question has an exact answer in the smallest surviving ISA.  Given any three positive branch lengths and `D>=1`, choose `A,B,z,B_2,C` so `3^qA+s=2^pC+2^(p+L)B` and `B+3^qz=2^D B_2`.  Then `h=A+2^(p+L)(z+2^D u)` maps to `h'=C+2^(L+D)(B_2+3^q u)`: `A` emits the complete valuation-exact next instruction `C`, the sacrificial `D`-bit word `z` eats the carry `B`, and the remote tail survives affinely beyond a regenerated `D`-bit zero gap.  The exact artifact reconstructs 486 families across six compiled levels and replays 972 linked two-branch unit members for cell lengths `1..3` and gaps `1,4,12`.  This is a universal finite compiler identity plus bounded macro regression, not a self-supplying infinite stack or counterexample. | [`unit_gap_regenerator_audit.json`](experiments/kontorovich/unit_gap_regenerator_audit.json) |
-| Formula-compressed regenerative carry glider | For the carry `B` isolated by a unit splash, set `r=v3(B)`, `D=ord_(3^(q-r))(2)`, and `z=B(2^D-1)/3^q`.  Exact arithmetic gives `B+3^qz=2^D B`, so the sacrificial word consumes the dirty carry, creates `D` clean bits, and reproduces the identical carry remotely.  The verifier embeds the canonical `(1,1,1)` header family in the true invariant register at all six compiled levels, proves the concrete multiplicative orders and three register phases without expanding `2^D`, and obtains gap-length integers with `8,28,90,297,979,3231` decimal digits.  This is a finite spatial glider cell, not an infinite rail or self-writing end cap. | [`unit_carry_repetend_audit.json`](experiments/kontorovich/unit_carry_repetend_audit.json) |
-| Formula-compressed strike--scrub--turnaround | In the sign-negative level-two unit ISA, `B=1`, `H=17`, and `D=2*3^56` make the next legal division `P=D+2`.  Exact ternary lifting computes an even following-length class modulo `2*3^113`; `H=1 (mod 8)` puts the formula-compressed power-of-three turnaround in an even class modulo `2^(P-1)`, so parity-compatible CRT gives a finite ordinary length.  The third collision returns `h_out=R+2*M*3^(q(l)+114)w`, an exact writer for every prescribed finite odd dyadic word.  The artifact checks the explicit discrete log, exponent classes, register/CRT conditions, and writer algebra without expanding the giant length.  This is a universal finite reseed interface, not an autonomous infinite tail or counterexample. | [`unit_carry_turnaround_audit.json`](experiments/kontorovich/unit_carry_turnaround_audit.json) |
-| Same-scale expanding synthesized-marker turnaround | Keep the preceding instruction at one level-two cell and determine `H=h_3+3^114t`: the explicit `h_3 mod 3^114` makes the first two collisions emit `B=1`, while odd-coefficient inversion modulo `2^(D+3)` makes the third collision divide exactly by `P=D+2`.  A positive marker exists with at most `D+185` bits.  After the source-register CRT, the input and output tail coefficients are `2^(D+157)M` and `2M*3^Q`, `Q=773644327083924272402582364`; because `Q` is even and `3Q/2-(D+156)=113771224571165334176850348`, `9>8` proves strict outward coefficient growth.  The artifact reconstructs all residue algebra and fully replays a small surrogate; Lean commit `d085050` kernel-checks the generic power comparison.  This is a finite outward family, not an invariant family or counterexample. | [`unit_marker_turnaround_audit.json`](experiments/kontorovich/unit_marker_turnaround_audit.json) |
-| All-opcode rank-one turnaround bank | Every later legal third division `P_j=D+2+23j`, `q_j=q_0+17j` has the exact normal form `x_j=X_j+2^(P_j+155)Mv -> y_j=Y_j+2M*3^(q_j+114)v`, where `v=s+w` after the remote tail compensates the marker lift modulo `M`.  The corrected artifact checks the public exponent identities through `j=15`, the register-preserving coefficient, and six fully materialized small analogues.  Opcode zero is expanding by the previous `9>8` result, and each increment multiplies its coefficient ratio by `3^17/2^23=129140163/8388608>1`; hence every nonnegative opcode has positive drift.  This is an unbounded variable-length tag ISA, not a second stack or an autonomous orbit. | [`unit_marker_bank_audit.json`](experiments/kontorovich/unit_marker_bank_audit.json) |
-| Formula-generated nonlinear repetend splash | If `2^T C=s (mod 3^q)`, the ordinary repetend `R=(2^T C-s)/3^q` gives `R+2^(T+D)K -> C+2^D 3^qK` under the unit collision.  Intersecting the discrete-log class of `T` with `T=p(n')` produces a genuine enormous target length.  Exact modular certificates construct this at all six finite levels from source length one and gaps `D=1,64`; they verify the order `ord_(3^q)(2)=2*3^(q-1)`, exponent CRT, repetend integrality, and both register phases without expanding `2^T`.  Level one uses `C=5`, `T=105,734,623`, and `n'=13,216,826`; its low rail alone is about 31.8 million decimal digits.  Across levels the target exponents have `9,29,91,299,980,3235` decimal digits.  This is a short generator for one vast nonlinear splash, not renewal or nontermination. | [`unit_repetend_splash_audit.json`](experiments/kontorovich/unit_repetend_splash_audit.json) |
-| Two consecutive sign-negative repetend splashes | At level two, put `c_m=(2^(3^(m-1))+1)/3^m`.  Exact cubing gives `c_(m+1)=c_m-3^m c_m^2+3^(2m-1)c_m^3`, so `c_m` stabilizes modulo every fixed `3^P`.  At precision `P=q_0+v_3(M)=90`, a 45-digit odd `k` makes `T_1=3^(q_1-1)k` both retain the first ternary bank and lie in the affine target-exponent class.  This yields the exact unbounded family `h_0 -> R_1+2^(T_1+D)3^q0 L -> 1+2^D3^(q0+q1)L`, with both enormous valuations exact.  The audit checks 89 quotient recurrences, bridge integrality, exponent congruence, and all three unit-register phases for `D=1,64`, without materializing `T_1`; `T_1` itself has about `7.57*10^27` decimal digits.  This is genuine one-time renewal, not a third splash or infinite ordinary orbit. | [`unit_double_repetend_audit.json`](experiments/kontorovich/unit_double_repetend_audit.json) |
-| Repetend energy separator | The same exact construction closes its own naive infinite continuation.  Every sign-negative marker-one exponent is an odd multiple of `3^(q-1)`.  For `q>=3`, elementary integer inequalities give `2^T>2*3^q`, so each such collision more than halves the positive odd core.  No fixed positive core supports infinitely many consecutive events.  The artifact audits the actual exponent classes at finite levels `2,4,6`; the general proof is symbolic.  A viable delay-line program must recharge between giant erasures, not stack them back-to-back. | [`unit_repetend_energy_audit.json`](experiments/kontorovich/unit_repetend_energy_audit.json) |
-| Autonomous `-5` charge--discharge register | Pairing a length-`N` sign-negative level-two unit instruction with the one-cell instruction gives fixed debris `3^57+2^77=5D`.  The divisor `D=314038802961906688057474567` is coprime to the register stride, so one exact packet class can be divided by `D` and is preserved.  The quotient ISA is `G=2^(23N+3)g -> (3^(17N+97)g-5)/2^128`; every branch is strictly outward because `3^(17N+97)>2^(23N+131)`.  The artifact constructs branches `N=1..32` twice—directly by CRT and by restricted composition—and checks 128 members through 256 actual unit-macro replays.  An infinite successful positive orbit would refute Collatz; none is supplied. | [`unit_charge_discharge_audit.json`](experiments/kontorovich/unit_charge_discharge_audit.json) |
-| All-depth self-regenerating `-5` splash | Composing any depth-`j` charge branch with its one-cell branch, then quotienting by `D_j=3^(114*2^j)+2^(154*2^j)`, reproduces collision constant `-5` with offsets `d_(j+1)=2d_j+17`, `e_(j+1)=2e_j+26`.  Coprimality with the fixed 80-bit stride holds for every `j`: a failed prime would require `2^(j+1)<M`, so only `j=0..78` can fail, and all 79 exact gcds are one.  The artifact materializes eight levels, compares 64 direct/composed branches, checks 128 members, and recursively expands canonical members through 510 original unit macros.  Infinite nesting is not a seed because every positive child lift strictly enlarges its ancestor packet; fixed-level autonomous orbits remain open. | [`unit_charge_hierarchy_audit.json`](experiments/kontorovich/unit_charge_hierarchy_audit.json) |
-| Autonomous reversible fixed-form valuation bouncer | The rational one-cell fixed point clears integrally: with `F=(3^114-2^154)/5` and `Z=F*G-2^26`, one background cell is exactly `2^154 Z'=3^114 Z`.  At a defect boundary `Z=2^26y`, the state reads `m=v2(y+1)/23` and `h=(v2(3^(17m)(y+1)-2^(23m))-23m)/154`, then returns `y'=3^(114h)*oddpart(3^(17m)(y+1)-2^(23m))`.  The output recovers `h=v3(y')/114`, then `m=v3(1+2^(154h)q)/17` and the unique predecessor; the opcode matrix has determinant four.  The artifact checks all 64 `(m,h,m')` families with `m,m'<=4,h<=4`, 128 forward/reverse members, 320 charge macros, and 640 original unit macros.  Any infinite accepted positive `y`-orbit refutes Collatz; none is supplied. | [`unit_charge_bouncer_audit.json`](experiments/kontorovich/unit_charge_bouncer_audit.json) |
-| Ordinary-ray extension-lift criterion | Lean commits `af1a934`/`ba121d9` prove that if nested dyadic compiler cylinders are realized by one ordinary natural, their extension residues are eventually zero.  Therefore nonzero residues at arbitrarily late scales exclude an ordinary realization.  This is a no-ray criterion for a proposed schedule, not a counterexample and not yet a theorem that the bouncer's residues are frequently nonzero. | [`DispatcherBoundary.lean`](KontoroC/KontoroC/DispatcherBoundary.lean) |
-| Constant-rate unit-counter schedules | For any of the six certified unit levels, every `n_0>=1`, and every fixed integer `k>=1`, the schedule `n_t=n_0+kt` has the unique 2-adic initial core `-s*3^(-q(n_0)) F(2^(ak)/3^(ck),2^(p(n_0+k))/3^(q(n_0+k)))`.  Converting to Väänänen--Wallisser's `f_(3^(ck)/2^(ak))` is coefficientwise exact, and its argument simplifies to `alpha=2^(p(n_0))/3^(q(n_0))`.  Their 1989 theorem applies with `ell=1,sigma=0,p=2`; its size ratio is the same as for `k=1`, while `|3^(ck)/2^(ak)|_2=2^(ak)>1`.  The value is irrational in `Q_2`, so it cannot be an ordinary integer core.  The artifact's six linked eight-transition branch replays remain a finite `k=1` regression; the all-`k` conclusion is symbolic and theorem-dependent.  This closes every fixed positive step size, not nonlinear or packet-branching schedules. |
-| Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
-| Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
-| Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
-| Kernel cycle-disproof seam | `KontoroC.CycleArtifact.checkNontrivial=true` implies the literal negation of the ordinary Collatz conjecture. The package build and axiom audit pass; no nontrivial artifact is known. |
-| Bounded composition search | All `3,447,691` positive-denominator compositions with `S<=22` were checked exactly. The only closure hits encode the trivial seed `1`; no nontrivial cycle was found within the bound. |
-| Bounded morphic-program search | All `168` binary uniform prolongable morphisms of widths `2..4`, all `16` codings into `{1,2,3,4}`, and `20,224` bounded depth instances were checked exactly. No nontrivial cycle was found. |
-| Parametric glider endpoint | Lean commit `2fc4459` proves that any supplied exact outward `MacroGlider` refutes Collatz, including the no-hidden-visit-to-`1` bridge. It supplies the checker endpoint, not a glider. |
-| Periodic-itinerary obstruction | Lean commits `92b01ff`/`2f93df7` prove by an all-level coprime-divisibility argument that a positive eventually periodic valuation program is a cycle and that a supercritical repeated block cannot occur forever. |
-| Ordinary-integer gate | Lean commit `ad36f08` proves `StreamLegal x k` iff the exact canonical prefix seeds eventually stabilize at `x` (in the fixed admissible mod-6 class). This validates the worker's stabilization diagnostic at the infinite level. |
-| Separated-packet clock | Lean commit `121cb13` proves `ord_(2^(n+3))(3)=2^(n+1)` and exact residue scheduling corollaries. This certifies the delay-line clock, not a collision-renewal rule. |
-| Negative-cycle shadow pilot | Exact Python checked `112,320` compiled paths for the `-5` and `-17` supercritical controllers through the bounds above. Every macrostep passed literal replay; no seed stabilization or next-level shadow renewal occurred. |
-| Finite phase-changing carry renewal | Exact search found positive seed `53,403,857` with macro-states `53,403,857 -> 15,019,835 -> 2,376,185 -> 1,691,641 -> 1,354,843`, following `-7,-5,-7,-7` controller phases at levels `1..4`. Its canonical seed survives the fourth macro, but the endpoint misses every level-5 phase class. This verifies one finite renewal mechanism, not nontermination. |
-| Finite outward Mersenne shadow | Exact seed `24,017,279` follows the signed `-1` controller at levels `7,8,9` with collision extras `(4,3,1)`, giving three strict macro increases `24,017,279 -> 25,647,359 -> 82,164,223 -> 1,579,334,395`. Its canonical seed stabilizes once, then misses level 10; exact continuation reaches `1` after 108 accelerated steps. |
-| Two-extension constant-feedback event | For the constant rule `e_M=1`, exact seed `121` is canonical for depths two, three, and four, with macro-states `121 -> 91 -> 103 -> 175 -> 445`. Level five fails and the seed reaches `1` after 34 accelerated steps. This is the longest ordinary-seed stabilization found, but remains finite. |
-| Kernel phase-shadow disproof seam | Lean commits `3d9cedc` through `d6fb8b2` prove the exact shifted-coordinate macro and the literal Collatz negation from any infinite bounded-extra renewal after an arbitrary finite prefix. Signed cycles automatically supply supercriticality and all rotated phases. No infinite renewal witness is known. |
-| Kernel Mersenne-shadow seam | Lean commit `768f4d0` checks the signed `(-1,[1])` controller, proves the worker's exact Mersenne macro identity, and proves `MersenneShadowOrbit.not_conjecture` from infinite renewal data. It also kernel-replays the `24,017,279` event and its level-10 failure. |
-| Pure packet-recurrence endpoint | Lean commits `32a0896`--`a2652f2` reduce a Mersenne disproof to positive odd packets and bounded extras satisfying `2^e(2^(m+1)h'-1)=3^m h-1` at every level. Lean derives exact legality, transitions, eventual packet growth, the unique necessary class of `h' mod 3^m`, and the literal Collatz refutation. |
-| Seven-renewal state-dependent motif | Exact seed `30,603,607,965` has extras `(2,1,3,2,2,2,1)` and seven renewed Mersenne packet levels; its final four macrosteps grow and end at `318,374,253,823`. The eighth renewal fails, and exact continuation reaches `1` after 152 accelerated steps. |
-| Independent packet-census replication | PSC H100 job `42500602` independently re-enumerated all `2^35` odd packets `h<2^36`. It reproduced the RTX 4090 run's zero-overflow counter, maximum renewal length seven, and all 243 stored `(initial h, length, extras)` triples exactly; both artifacts pass the Python big-integer verifier. This corroborates the inner census but does not enlarge its bound. |
-
-The compiler and certificate seam is now live.  The dependency-free
-[`path_compiler.py`](experiments/kontorovich/path_compiler.py) reproduces the
-thread's `(1,1,2,2) -> 199` example, compiles both Kontorovich--Sinai seed
-progressions, and replays every valuation with arbitrary-precision integers.
-Lean commit `63c3b3d` independently proves that the compiler's final
-congruence is equivalent to every intermediate exact valuation and proves the
-canonical representative, progression uniqueness, and endpoint stride.  The
-[`KontoroC/`](KontoroC/README.md) package also proves that a valid nontrivial
-cycle artifact refutes the literal ordinary Collatz conjecture.  No such
-artifact has been found.
-
-The first bounded adversarial sweep tested all `3,447,691` positive-
-denominator valuation compositions with total halving count at most `22`.
-Only the eleven bounded repetitions of the seed-`1` trivial cycle closed.  A
-separate low-description sweep tested `168` binary uniform morphisms of widths
-two through four, all `16` codings by valuations in `{1,2,3,4}`, and `20,224`
-depth instances through expanded length `16,384`.  Its `1,960` closure hits
-are again all seed `1`; there is no nontrivial cycle in this stated template
-class.  Seed stabilization was checked separately through length `512`.  Its
-longest `1`-avoiding event is the length-nine prefix of seed `107`, which
-exact continuation sends to `1` after `36` accelerated steps.  These are exact
-bounded exclusions of small program classes, not a new global verification
-bound and not evidence of convergence.
-
-A kernel-checked theorem also closes the most literal glider: if one fixed
-nonempty `k`-block repeats forever on a positive orbit, divisibility by
-arbitrarily high powers of `2^sum(k)` forces the block endpoint to equal its
-start.  Thus an eventually periodic valuation program is a cycle, not a
-growing glider; a supercritical repeated block has only a negative 2-adic
-seed.  Lean commits `92b01ff`/`2f93df7` prove the all-level statement and its
-eventual-tail and sign corollaries.  The active search therefore moves to
-aperiodic one-counter and recursively nested templates.
-See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-program-synthesis.md)
-for the exact algebra, bounds, result digest, and next attacks.
-
 ## Diary
 
-### 2026-07-22 08:10 EDT
+### 2026-07-22 08:23 EDT
+
+Simon correctly challenged the search for optimizing finite gadgets instead
+of making the program reproduce.  A source/target audit then found a decisive
+semantic error in the 07:44--08:10 synthesized-marker work.  The unit law is
+
+```text
+n -> m: 3^q(n)h-1=2^p(m)h'.
+```
+
+The claimed three-step route reached state `1` after its second transition but
+then used `q(g)` from state `g`.  The exact raw divisions and coefficient
+comparisons therefore did not compose in the public unit ISA.  I retracted the
+two headline claims, removed both workers and artifacts (recoverable in git),
+and told the Lean agent not to formalize their concrete semantics.
+
+The replacement begins with the legal return
+
+```text
+1 -> 1 -> g -> g -> 1.
+```
+
+It has the exact composition
+
+```text
+3^(114+2Q)h-C_g=2^(154+2P)h',
+P=23g+54, Q=17g+40,
+C_g=3^(2Q+57)+2^77*3^(2Q)+2^(77+P)*3^Q+2^(77+2P).
+```
+
+The new verifier literally replays all four compatible valuations for
+`g=1..16`.  More importantly, it makes **closure** the entry ticket:
+
+```text
+3^R(g)F(g)-C_g=2^S(g)F(f(g)).
+```
+
+A fresh CRT solution at every generation is now classified as preloaded
+2-adic software, not progress toward reproduction.  For `f(g)=g+1`, exact
+normalization gives a mixed-base Mahler equation.  No finite Laurent
+polynomial solves it; a short pole-propagation proof appears to rule out every
+rational function and has been sent to the independent Lean agent.  The next
+constructive attack is a nonlinear/automatic self-writer, beginning with the
+base-squaring opcode `g -> 2g`, while using the impossibility work to identify
+which address mechanisms cannot represent one ordinary integer.
+
+Artifact SHA-256:
+`fbc46c761aec4319407dc091f2b089f3fba0e4f89e288601f9b2d83cf9ad6ce2`.
+Verifier file SHA-256:
+`6b18d52e67904212d8d91f0549b26362d4baa0fe550cb1641792948ff471bdb4`.
+
+### 2026-07-22 08:10 EDT — RETRACTED at 08:23
 
 **Correction to 08:00.**  The first bank artifact varied the marker lift `s`
 while holding the remote register phase fixed.  Its three raw Collatz
@@ -692,7 +117,7 @@ Corrected artifact SHA-256:
 Corrected verifier file SHA-256:
 `8d9b01da1c7c786117725dd24fc87a625abff495b49def2075ff7474c1ca8971`.
 
-### 2026-07-22 08:00 EDT
+### 2026-07-22 08:00 EDT — RETRACTED at 08:23
 
 The stronger turnaround seemed to expose two free nonlocal registers: the
 lift `s` of the synthesized marker and the remote catcher tail `w`.  Exact
@@ -754,7 +179,7 @@ Artifact SHA-256:
 Verifier file SHA-256:
 `8d9b01da1c7c786117725dd24fc87a625abff495b49def2075ff7474c1ca8971`.
 
-### 2026-07-22 07:44 EDT
+### 2026-07-22 07:44 EDT — RETRACTED at 08:23
 
 Simon's “other bits lined up” idea improves the fixed-marker turnaround more
 than expected.  Fixing `H=17` made the preceding instruction an uncontrolled
@@ -2480,6 +1905,651 @@ results](#kc-headline-results-with-verification-scope).  PSC, Akdeniz, and
 Ganesha are reachable; next is a distributed search over non-uniform morphic
 and one-counter-adjacent templates, while Lean checks the periodic-word
 obstruction.
+
+## The Kontorovich Challenge
+
+The active goal is now to **try to disprove the Collatz conjecture**.  A
+disproof means an exact positive-integer certificate: either a nontrivial
+cycle, or a seed whose forward orbit is infinite and never reaches `1`.
+Large excursions, floating-point evidence, and long prescribed prefixes are
+search clues, not counterexamples.
+
+The challenge comes from [Alex Kontorovich's 2019
+thread](https://x.com/AlexKontorovich/status/1172715174786228224) and the
+[Kontorovich--Sinai structure
+theorem](https://arxiv.org/abs/math/0601622).  For the accelerated odd map
+
+```text
+T(x) = (3x+1)/2^k,   k = v_2(3x+1),
+```
+
+the structure theorem says, in particular, that every prescribed finite
+`k`-word `(k_1,...,k_N)` occurs: for either admissible class modulo `6`, the
+seeds realizing that prefix form one arithmetic progression modulo
+`6*2^(k_1+...+k_N)`.  On each such progression the endpoint is another affine
+arithmetic progression, with scale changed from `2^(sum k_i)` to `3^N`.
+Consequently the finite path statistics are exactly those of independent
+geometric `k_i`, and normalized logarithmic trajectories converge in density
+to Brownian motion with drift `log(3)-2 log(2)=log(3/4)<0`.  This explains why
+typical seeds descend; it does not control a sufficiently sparse exceptional
+orbit.
+
+Kontorovich's proposed reversal is to regard the map as fixed **hardware** and
+the initial integer as **software**.  Verification through `b` bits has tested
+all programs only through that input length.  The structure theorem lets us
+compile any finite instruction word into an arithmetic progression of seeds,
+so the disproof search should not sample typical seeds: it should synthesize a
+highly structured instruction stream, a Collatz “glider”, whose binary pattern
+reproduces while its scale grows.
+
+Simon Dedeo suggested two refinements which now govern the KC strategy.  First,
+mine ultra-simple programming languages—Brainfuck, tag systems, and FRACTRAN—
+for macro, loop, counter, and nonhalting-certificate ideas, without assuming
+that `3x+1` is universal.  Second, and more importantly, do **not** assume that
+a Collatz instruction is spatially local.  Its natural unit may be a
+congruence, a carry phase between remote packets, or a mixed-base relation
+spread across the whole digit span.  The active instruction set therefore
+includes formula configurations and dyadic--triadic bridge gates, not only
+contiguous repeated bit blocks.  See the [delocalized-ISA
+map](docs/notes/kontorovich-delocalized-isa.md).
+
+Nonlocality does not replace Kontorovich's spatial picture.  Long zero gaps
+remain literal delay lines and separated packets remain signals; the new
+working architecture is **spatial wires joined by delocalized collision
+gates**.  Simon further suggested a “gap splash”: align sacrificial packets so
+their collision carries eat a dirty suffix and emit a new empty gap.  Exact
+splash gates below show that the mechanism is real, while also exposing the
+need for an amplifying rail.  The first exact large wire is now in the
+headline table below.
+
+The scale reinforces this choice.  Barina's current published verification
+covers every seed below `2^71`, already about 21 decimal digits.  A putative
+10,000-digit program is not a larger interval-search target: it must be emitted
+by a short generator and proved nonhalting by a finite symbolic certificate.
+
+The thread also proposes a more concrete glider mechanism.  After a suitable
+prefix, its example becomes three widely separated `1`-bits.  Until a carry
+arrives from the right, an isolated high packet is acted on by multiplication
+by `3`, while the rightmost packet feels the `+1`.  For `m>=3`, the order of
+`3` modulo `2^m` is `2^(m-2)`, so distant packets can in principle be placed
+and timed to collide with a low-bit trajectory selected by the structure
+theorem.  The challenge is to make those collisions replenish a packet farther
+left forever—not merely arrange any finite sequence of spectacular-looking
+collisions.
+
+There is a crucial exact caveat.  Nested progressions for an arbitrary infinite
+`k`-word determine a 2-adic integer, not necessarily a positive ordinary
+integer.  Equivalently, if `S_j=k_1+...+k_j`, then
+
+```text
+T^N(x) = (3^N*x + A_N)/2^S_N,
+A_N = sum_(j=0)^(N-1) 3^(N-1-j) 2^S_j.
+```
+
+Every proposed glider must therefore pass three gates simultaneously: exact
+valuation legality, an ordinary positive seed rather than only a 2-adic one,
+and certified nontermination.  Finite-prefix realizability alone passes only
+the first gate.  Lean commit `ad36f08` makes the middle gate exact: for a fixed
+mod-6 class, an infinite positive valuation stream belongs to an ordinary
+integer `x` if and only if its canonical finite-prefix seeds are eventually
+identically `x`.
+
+### KC Strategy and failure map
+
+#### Live disproof programs
+
+- **Delocalized instruction synthesis.**  Represent an instruction as an
+  arithmetic relation across the entire state: a dyadic address, triadic
+  phase, carry boundary, and affine high payload.  Search for formula
+  configurations `C(n)` with a bounded exact return rule
+  `C(n) ->+ C(f(n))`, where the rule lifts to every `n` by induction.  This is
+  the Collatz analogue of a Busy Beaver bouncer and directly implements
+  Simon's nonlocality proposal.
+- **Colussi repetend-defect bouncers.**  Use the exact periodic grammar of the
+  halting classes as a structured background, then search for a finite or
+  congruential defect which reproduces from order `h` to order `h+1`.  The
+  order-10 background has 39,366 padded bits and an 11,846-decimal-digit
+  integer value, so this route reaches the proposed program scale by formula,
+  not enumeration.  Its unmodified background has now been decoded into an
+  exact 19,673-tick spatial delay line; because the ensuing collision does not
+  renew the gap, the live variable is a distributed defect in the header or
+  packet phase.
+- **Mixed-base and tag-system bouncers.**  Mine the exact Yolcu--Aaronson--Heule
+  binary/ternary rewrite system and De Mol's three-symbol deletion-2 tag
+  system for formula-tape or run-length returns.  These presentations make
+  whole-word carry, moving-base-boundary, and head--tail nonlocality explicit.
+  The regenerative delay linker now supplies a native Collatz instruction of
+  exactly this kind: on an affine tail it reads a low binary address and maps
+  the residual `v` by `v -> s_0+3^A v`, appending `A` ternary digits.  One
+  fixed dispatcher has a bounded exact realization of all 243 five-trit
+  output words.  Lean commits `54e506f`/`5254194` prove the affine link
+  semantics and its ordinary-tail acceptance test.  The next PL task is to
+  arrange a returning dispatcher or counter loop whose changing instruction
+  stream is genuinely aperiodic while its nested binary addresses eventually
+  stabilize to one natural tail.  Cocke--Minsky's universality proof supplies
+  a precise kill test: a real tag compiler must pop the front of one binary
+  stack and push onto the remote end of another.  A complete local write
+  alphabet is not enough.  The spatial target is therefore two separated
+  packet registers implementing those push/pop moves at a regenerating
+  collision boundary.  The strongest immediate ordinary-address specialization
+  has now been exhausted through delay/opcode/output-delay 100: among
+  1,010,000 canonical-family base shapes, only three normalized tail-zero
+  links exist and none has a second link.  The live controller must therefore
+  transform a nonzero evolved payload or use a genuinely nonlinear packet
+  encoding; a chain of canonical least representatives is not enough.
+  One such nonzero mechanism is now exact: the five-trit word
+  `b=3^5-2^L` maps a residual packet `K*2^L-1` to
+  `2^L(3^5*K-1)`.  Hence remote low bits of `K` can amplify an inherited
+  length-`L` bit boundary by any prescribed finite extra valuation `D`.
+  The live turnaround problem is to expose this nested amplified gap as the
+  next active delay and make its surviving packet reproduce the construction.
+  A returning finite glider now exists.  The ether gate `(1,2,1)` has fixed
+  2-adic tail `-12/473`; the unique parity-compatible immediate defect
+  `(1,1,1)` writes any prescribed finite number `n` of eight-bit cells and
+  returns the exposed boundary to its own defect family.  The complete macro
+  is `K=R_n+2^(8n+15)q -> K'=S_n+3^(6n+11)q`.  The next target is one ordinary
+  payload whose changing `q` generates an infinite aperiodic sequence of
+  lengths, not another externally prescribed list of finite ethers.
+  In the affine register `Y=83790531K-874281`, the whole ISA is the autonomous
+  partial map `Y=2^(8n-5)h -> (3^(6n+11)h+51)/2^20`.  This small map, not the
+  original huge defect constants, is now the primary synthesis target.  A
+  second spatial scale is also exact.  Repeating the one-cell glider as a
+  23-bit super-ether fails if its gap is completely exhausted, but Simon's
+  proposed collision overhang has a canonical realization: retain exactly
+  three low bits.  The two-cell glider then acts as a returning defect and
+  the primitive super-register obeys
+  `V=2^(23N+3)g -> (3^(17N+40)g-17)/2^51`.  Thus one capped splash changes the
+  first-scale `+17` law into the same law with sign `-17`.  The next target is
+  to iterate this renormalization symbolically and pass the ordinary-integer
+  gate, not merely construct deeper finite address cylinders.  Exact
+  renormalization now reaches six levels with alternating signs and cell
+  widths `8,23,77,254,839,2771`.  The canonical tail-zero tower already
+  illustrates the danger: at depth six it compiles a linked 6,708-digit
+  finite program, but its first-scale packet has changed at every depth.
+  Search now targets a finite self-describing address or an ordinary-tail
+  theorem for a different recursive branch, not a seventh certificate made
+  by extending the same changing tower.  The meta-language is not unary:
+  choosing any background branch `j` and the adjacent defect `j+1` gives the
+  same exact sign flip after retaining the background valuation.  This has
+  been checked for `j=1..64` at level one and along three nonconstant
+  four-step choice words.  A universal positive-tail identity now closes the
+  whole infinite-nesting interpretation, not just that bounded tree.  If
+  `E` is the combined parent input exponent, `r` the inherited valuation,
+  `q_raw>0` the least raw input, and `K>=1` a child packet, then its parent
+  tail is
+
+  ```text
+  q=q_raw+2^E*(2^r*K-1)>0.
+  ```
+
+  Thus every recursive extension lies strictly above the canonical parent
+  base; its nested ordinary addresses can never eventually stabilize.  The
+  hierarchy is a finite compiler, not one infinitely nested ordinary program.
+  This does **not** exclude an autonomous orbit at any fixed finite hierarchy
+  level.  There is also an invariant one-in-seventeen packet slice:
+  when the primitive register is divisible by `17`, division gives the unit
+  law `H=2^(an+b)h -> (3^(cn+d)h+s)/2^e`.  All collision debris has then been
+  reduced to `s=+1` or `-1`; this unit machine is now the smallest autonomous
+  search interface.  Scaling by `2^e` exposes its exact instruction:
+  `W=2^p h -> W'=3^q h+s`.  Relative to the signed radix router, every level
+  then trims the positive ternary factor `3^(p-1-q)`.  The new two-rail target
+  is to bank that factor in a separated packet and feed it back, rather than
+  losing it or adding another hierarchy level.  Every constant-rate clock is
+  already closed: `n_t=n_0+kt`, for arbitrary fixed `k>=1`, makes the unique
+  2-adic core a partial-theta value which is irrational by the cited
+  Väänänen--Wallisser theorem at all six levels.  Any bank must branch
+  nonlinearly on its packet contents.  In Simon's spatial language, the live
+  architecture is a two-rail regenerator: a payload rail survives the
+  collision while a delocalized sacrificial rail absorbs the dirty carry
+  suffix and recreates the next clean gap.  The distance to that next gap
+  must itself be packet-selected, not a fixed-rate delay.  This mechanism is
+  now exact in the unit ISA.  For any three successive branch lengths and any
+  desired `D>=1`, one correction block emits the complete next instruction;
+  a second `D`-bit word cancels its carry and leaves `D` literal zero bits
+  before an affinely surviving high packet.  The remaining quine problem is
+  sharp: that high packet must generate its own future correction words.  An
+  externally preloaded infinite stack would again be only a 2-adic program.
+  Simon's proposed catcher can be made regenerative in one exact sense.  If
+  the isolated carry is `B`, put `r=v3(B)`,
+  `D=ord_(3^(q-r))(2)`, and use the formula-compressed word
+  `z=B(2^D-1)/3^q`.  Then `B+3^qz=2^D B`: the collision swallows `B`, opens a
+  `D`-bit gap, and recreates the *same* carry beyond it.  The canonical
+  one-cell header embeds this carry translator in the true invariant register
+  at all six compiled levels; the respective `D` values have
+  `8,28,90,297,979,3231` decimal digits.  This is a literal finite glider cell
+  in Kontorovich's spatial sense.  It still needs a self-writing ordinary end
+  cap; preloading infinitely many catcher blocks would only hide a 2-adic
+  tape.
+  A much more compressed special case now uses the rational repetend
+  `R=(2^T C-s)/3^q`.  Choosing `T` simultaneously in a discrete-log class
+  modulo `2*3^(q-1)` and in the affine unit exponent class makes
+  `R+2^(T+D)K -> C+2^D*3^qK`.  This gives formula-generated, enormously
+  nonlinear gap splashes at all six levels; the live question is still
+  renewal of the emitted marker rather than production of one spectacular
+  jump.  At the sign-negative second level that marker now renews once
+  exactly.  The stable quotients
+  `c_m=(2^(3^(m-1))+1)/3^m` let the first ternary bank be absorbed into a
+  second repetend, producing two consecutive formula-sized nonlinear jumps.
+  The remaining target is a third/self-writing renewal from one fixed
+  ordinary packet, not an externally nested tower.  But the pure staircase
+  is now closed even before the ordinary-address gate: every sign-negative
+  full-order splash more than halves its odd core.  The live hardware design
+  must therefore alternate an amplifying **charge phase** with a sparse giant
+  **discharge splash**.  The charge phase must rebuild both real core energy
+  and the next nonlocal correction word from the surviving packet.
+  The first exact charge--discharge compiler is now autonomous.  At the
+  sign-negative level-two unit register, execute a length-`N` instruction and
+  then the one-cell instruction.  The fixed collision debris factors as
+  `3^57+2^77=5D`, where
+  `D=314038802961906688057474567` is coprime to the register stride.  On the
+  unique packet class divisible by `D`, quotienting gives the new ISA
+
+  ```text
+  G=2^(23N+3)g -> (3^(17N+97)g-5)/2^128.
+  ```
+
+  Every complete branch of this machine is strictly outward, and each is
+  literally two legal unit macros.  Thus any infinite successful positive
+  orbit of this much smaller `-5` machine would already refute Collatz.  No
+  such orbit is known.  This is distinct from the earlier bounded search near
+  the signed cycle `-5 -> -7 -> -5`: the same small debris appears in a new
+  positive quotient register with different exponents.  The live task is to
+  make its packet select infinitely many legal lengths.  Its own one-cell
+  discharge now provably regenerates the same `-5` interface at every finite
+  recursive depth: at depth `j` the offsets are
+  `d_j=114*2^j-17`, `e_j=154*2^j-26`, and the removed divisor is
+  `3^(114*2^j)+2^(154*2^j)`.  An exact multiplicative-order argument reduces
+  coprimality at all depths to 79 gcd checks against the 80-bit register
+  stride; all pass.  This is a true self-similar splash compiler, but not an
+  infinite natural: every positive child packet lifts to
+  `rho_j+D_j*K>K`, so nesting forever changes its ancestor address.  Search
+  must use an autonomous orbit at one fixed finite level, not confuse the
+  infinite hierarchy with a seed.
+  A fixed-form change of coordinate now exposes exactly such a level-two
+  bouncer.  Put `A=3^114`, `B=2^154`,
+  `F=(A-B)/5`, and `Z=F*G-2^26`.  The one-cell instruction is the pure delay
+  wire `B*Z'=A*Z`.  At defect boundaries write `Z=2^26*y`.  The ordinary odd
+  state `y` then reads its own two opcodes
+
+  ```text
+  m=v2(y+1)/23,
+  E=3^(17m)*(y+1)-2^(23m),
+  h=(v2(E)-23m)/154,
+  y'=3^(114h)*oddpart(E).
+  ```
+
+  When `m,h>=1` are integral and `y'` has another defect phase, this executes
+  one length-`m+1` defect followed by `h-1` recharge cells.  The fixed register
+  is simply `y=0 (mod M)`, `y=-1 (mod F)`.  An infinite accepted positive
+  `y`-orbit would be an outward Collatz counterexample.  Accepted transitions
+  are reversible without stored history: `v3(y')=114h`, and after removing
+  that power, `v3(1+2^(154h)q)=17m` recovers the predecessor opcode and state.
+  The exponent matrix has determinant
+  `114*23-154*17=4`, leaving exact resonance identities with only `2^4` or
+  `3^4` imbalance.  Morita's reversible two-counter universality result makes
+  this a legitimate compiler analogy, while Dudenhefner's certified
+  instruction-set-sensitive results supply the kill test: reversibility and
+  two valuations are not enough.  We must compile actual increment,
+  decrement/zero-test, and finite control operations inside the accepted
+  arithmetic classes.  This valuation
+  bouncer—not a further nested address—is now the primary synthesis target.
+  The first low-description clocks do not solve it: an exact audit of
+  Thue--Morse, period-doubling, and Fibonacci words, all 240 injective
+  two-symbol codings by `(m,h)` in `{1,...,4}^2`, and every prefix through 48
+  transitions finds no canonical-address stabilization.  Search should now
+  target an arithmetic payload-generated counter law, not merely paste a
+  familiar aperiodic word over two fixed opcodes.
+  The ordinary-ray seam is sharper than that finite test: Lean commits
+  `af1a934`/`ba121d9` prove that a realizing natural would force the canonical
+  extension lift `rho_k` to vanish eventually.  Thus it is enough to prove
+  `rho_k!=0` infinitely often; universal positivity is unnecessary.  An exact
+  bounded audit finds no zero lift among 1,118,464 extensions of all words of
+  depth at most four over the 16 opcodes `(m,h)` with `1<=m,h<=4`.  This is
+  evidence about the compiler seam, not an all-depth theorem.
+  A survivor must start at a canonical positive integer and contain infinitely
+  many genuine Collatz steps; a loop on a malformed representation is rejected.
+- **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
+  quasi-cellular automaton, Collatz iterates are binary rows while ternary
+  columns perform base conversion; search for a diagonal defect or boundary
+  signal with a formula return.  In Eliahou--Verger-Gaugry's base-`3/2`
+  picture, try to compile the divergent saturated-map instruction “append
+  `2`” from bounded exact Collatz/two-rail macros.  Seven- and twelve-append
+  blocks now compile exactly on unbounded index families; in the latter both
+  linked gates are universally outward.  Restricting its nonlocal tail modulo
+  `16` makes the next odd catcher outward too, giving an unbounded three-gate
+  growing family.  A complete bounded source-shape graph finds 18 saturated
+  bridges, 11 with outward linked targets, but all 11 target shapes have no
+  second compiler edge.  One ordinary relay leaves only a forbidden periodic
+  self-loop, but a second relay changes the picture: the universal outward
+  catcher `(r,0,1,L)` chooses any next spatial gap, making the 11-node compiler
+  graph complete.  The live task is therefore no longer finite spatial
+  routing; it is an ordinary payload recurrence realizing an aperiodic
+  infinite path.
+  Lean commits
+  `401d494`/`6ab99fc` prove the universal saturated-cylinder law and package a
+  reusable affine-bridge certificate; `64bf677` kernel-checks the first
+  odd-to-odd bridge, and `dbe0e5a` proves that any supplied
+  outward renewing variable bridge chain refutes Collatz.  Commit `fedb5ca`
+  proves every router shape outward uniformly and proves that dyadic-cylinder
+  addresses of any ordinary natural must eventually equal that natural
+  literally.  No infinite chain is known, and neither presentation transfers
+  divergence by itself.
+- **Two-rail splash bouncers.**  Implement Simon's collision idea with a
+  `-1`/valuation-one Mersenne rail, which amplifies a separated packet by
+  `3/2` per tick, and a `+1`/valuation-two Colussi rail, which supplies timing
+  and carry cleanup.  Exact `+1` splash gates can emit an arbitrarily longer
+  empty gap but always decrease the integer.  The phase switch now exists:
+  `94751 -> 101183` is the smallest standard regression, and symbolic affine-
+  family intersection compiles 247 consecutive outward rounds into a
+  10,040-digit seed.  That seed nevertheless reaches `1`, and its canonical
+  value changes when a 248th constraint is imposed.  Each affine handoff is
+  now an exact tag instruction: it consumes a low binary address block from a
+  nonlocal payload index and maps the surviving tail affinely by a power of
+  three.  A fixed affine return is now ruled out: it would repeat one valuation
+  word forever, and its putative natural tail slope would be `3^N/2^S` with
+  `S>0`.  Lean commits `b741a14`/`26f3584`/`560fcc5` strengthen this to every
+  eventually periodic word schedule and every autonomous finite-state
+  controller.  The live splash target is a tag controller whose changing
+  unbounded tail selects a genuinely aperiodic gate sequence, or an unbounded
+  shape counter—not a fixed route through gate shapes.  Exact valuation
+  decoding makes the gate shapes an LSB-first prefix code of Kraft mass `1/6`
+  among odd 2-adic payloads: a valid tape is necessarily sparse, but its
+  unbounded arithmetic contents can supply the required nonautonomous state.
+  Simon's “splash the gap” suggestion also repairs the apparent missing
+  collision mechanism in a more ambitious form.  Treat a long zero gap as a
+  delay line and place several nonlocal bit islands across the full digit span:
+  the first island triggers the main collision, later islands arrive as timed
+  carry catchers which absorb its debris, and a surviving island writes the
+  spacing and residues of the next catcher bank.  This is a three-phase
+  **strike--scrub--reseed splash code**, not a single local rewrite.  Because a
+  fixed finite valuation word is affine, any proposed code can be synthesized
+  by simultaneous dyadic congruences and then checked exactly.  The hard
+  obligation is regeneration: the post-collision catcher vector must lie in
+  the same parameterized family with a larger delay, while retaining an
+  ordinary positive tail.  This explicitly combines Simon's programming-
+  language/nonlocality idea with Kontorovich's spatial delay-line picture.
+  The finite strike--scrub--reseed path is now complete at level two.  Take
+  carry `B=1`, turnaround marker `H=17`, and
+  `D=ord_(3^57)(2)=2*3^56`.  An explicit base-two discrete logarithm modulo
+  `3^114` selects one even class of following lengths; the class making
+  `3^(17l+40)*17=1+2^(D+2) (mod 2^(D+3))` is also even, so CRT supplies a
+  finite ordinary `l`.  Three collisions then return the surviving tail as
+  `R+2*M*3^(q(l)+114)w`.  The coefficient after the factor two is odd, so it
+  can write any prescribed finite odd binary catcher/header word.  This
+  solves finite turnaround and reseeding without expanding the roughly
+  `10^27`-bit gap.  The live problem is now exactly the global one: make the
+  successive words payload-generated so the nested tail is one ordinary
+  natural, rather than an externally prescribed 2-adic stack.
+  **Retraction (08:23 EDT).**  The proposed three-collision synthesized-marker
+  turnaround and its rank-one bank were not legal linked unit paths.  The unit
+  transition `n -> m` uses `q(n)` from its source and `p(m)` from its target.
+  After the claimed second transition reached state `1`, the third calculation
+  incorrectly used `q(g)` as though the source were `g`.  Its raw divisions
+  and coefficient algebra were exact, but they described incompatible state
+  labels.  The two workers and their artifacts have been removed; their Lean
+  boundary theorem was only an abstract warning and does not validate the
+  bank.
+
+  The corrected return skeleton is the four-transition route
+
+  ```text
+  1 -> 1 -> g -> g -> 1.
+  ```
+
+  Put `P=23g+54`, `Q=17g+40`, `R=114+2Q`, and `S=154+2P`.  Exact composition
+  gives
+
+  ```text
+  3^R h-C_g=2^S h',
+  C_g=3^(2Q+57)+2^77*3^(2Q)+2^(77+P)*3^Q+2^(77+2P).
+  ```
+
+  For every fixed `g` this again gives an outward affine return family, but
+  that fact is deliberately not the target.  Promotion now requires a single
+  finite description `F,f` satisfying the **reproduction equation**
+
+  ```text
+  3^R(g) F(g)-C_g=2^S(g) F(f(g))
+  ```
+
+  with all four valuations exact and every `F(g)` positive odd.  Fresh CRT
+  choices at successive generations are preloaded software, not closure.  For
+  the simplest `f(g)=g+1`, writing
+  `z_g=2^(23g+54)/3^(17g+40)` turns this into a first-order mixed-base Mahler
+  equation.  The exact worker proves that no finite Laurent-polynomial
+  `F(g)=f(z_g)` can solve it; a pole-propagation argument appears to exclude
+  rational `f` as well and has been sent for independent formalization.  The
+  live constructive target is therefore a genuinely self-generating
+  nonlinear/automatic payload, especially the base-squaring update `g -> 2g`,
+  not another finite catcher bank.
+  instructions: an odd intermediate gap has a parity-dual terminal collision,
+  and a one-bit outgoing gap is a legal zero-delay rail.  The even cleanup and
+  odd catcher families have exact Kraft masses `1/3` and `2/3`, so every
+  positive odd payload uniquely decodes unless that macro explicitly reaches
+  `1`.  Hardware jamming is therefore gone; the target is an ordinary decoded
+  tape with aperiodic positive long-run drift.  Lean commits `afb86a5` and
+  `f7ac880` certify the new odd catcher, its affine cylinders, and
+  cross-branch prefix disjointness, including `r=0,L=1`; `78d1048` proves in
+  Lean that every positive odd payload has an exact halt, even-cleanup, or
+  odd-catcher outcome, and `92f237c` proves that outcome unique.  The
+  parity-complete hardware semantics are now kernel-closed.  Commit `88e2577`
+  exposes the unique decoder as a deterministic macro transition and reduces
+  a disproof to linked public payloads whose decoded macros are all outward;
+  `b023700` packages the actual canonical partial state map and proves that any
+  infinite surviving outward orbit of it refutes Collatz.  Commit `e9f791b`
+  removes the last hidden gate data for the universal-router submachine: an
+  infinite positive-odd solution of
+  `2^(r_(n+1)+3)P_(n+1)=3^(r_n+2)P_n+3` alone refutes Collatz.  Simon's
+  spatial “splash the gap” picture is now literal in the minimal break-off
+  coordinate: `9*2^(3q)c-1` executes `q` three-bit delay ticks, collides with
+  chosen opcode `j`, and can emit a fresh state `9*2^(3q')c'-1`.  For every
+  `q,q'>=1,j>=0` one residue class of `c` gives this exact finite
+  delay-to-delay gate.  The live target is to link such gates through one
+  ordinary coefficient with a genuinely aperiodic, unbounded collision
+  schedule; Lean commit `a1a5fd0` proves eventual periodicity of the opcodes
+  impossible for any infinite break-off orbit.
+- **Exact cycle synthesis.**  Search valuation words and cyclic compositions
+  for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
+  seed whose valuations and closure can be checked directly.  Use modular
+  meet-in-the-middle, lattice, and branch-and-bound searches aimed at long,
+  low-description words rather than another undirected small-seed sweep.
+- **Parametric gliders.**  Search for a finite symbolic transducer, substitution,
+  or arithmetic family `x_t` with a machine-checkable macrostep
+  `T^(ell(t))(x_t)=x_(t+1)` and `x_(t+1)>x_t`.  The existing exhaustive
+  small-DFA failures rule out only their tested regular certificate classes;
+  the next targets are one-counter, morphic, and recursively nested binary
+  templates with unbounded but finitely described memory.
+- **Separated-bit packet gliders.**  Treat long zero gaps as delay lines: evolve
+  each high packet under multiplication by `3`, use the exact order of `3`
+  modulo powers of `2` to schedule its first interaction with the controlled
+  low packet, and search for a symbolic collision rule that emits a fresh
+  packet at a larger scale.  Certify the whole construction through exact
+  macrosteps, including every carry at the collision boundary.  Lean commit
+  `121cb13` now supplies the exact order and scheduling theorem; packet renewal
+  remains open.
+- **Negative-cycle shadow controllers.**  A positive state congruent to a
+  negative periodic point modulo a high power of two shadows its supercritical
+  valuation block while a high packet grows.  Search one-counter programs in
+  which the terminal carry collision raises, rather than consumes, the shadow
+  precision.  The negative orbit is only a finite controller; the sought seed
+  and every certified macro-state remain positive.
+- **2-adic rationality sieve.**  For a fixed infinite extra stream, Lean commit
+  `7370489` proves that there is at most one ordinary packet realization and
+  unrolls every finite prefix as an exact backward affine series.  Commit
+  `b205e40` proves the corresponding series converges in `Q_2` for every
+  schedule and that any ordinary renewal must equal its negative 2-adic
+  candidate.  For periodic or morphic controllers, the remaining arithmetic
+  task is to prove that candidate is not a negative ordinary integer.  This
+  can eliminate an infinite program family without enumerating any seeds.
+- **Partial-theta integrality sieves.**  The standard two-rail schedule reduces
+  to the sole 2-adic initial value
+  `-(23/3^8) F(2/3,2^13/3^9)`.  Väänänen--Wallisser's full-source 1989 theorem
+  applies and proves it irrational, closing this schedule.  Repeat the method
+  for branching or morphic controllers: reduce a symbolic schedule to its
+  `Q_2` special value, then prove nonrationality to reject it or exploit a
+  rational exception as a possible ordinary program.
+- **Constraint-guided falsification.**  SAT/SMT, modular dynamic programming,
+  evolutionary search, CPUs, and GPUs may propose or aggressively reject a
+  symbolic macro.  They no longer rank raw seeds by excursion length.  A
+  survivor advances only when its low-description recurrence is replayed with
+  exact integers and promoted to a universal algebraic certificate.
+- **Backward invariant rays.**  Build with inverse steps
+  `y -> (2^k*y-1)/3` and search for a sparse, explicitly parameterized set that
+  maps into itself while moving outward.  This attacks the ordinary-integer
+  gate directly and can reuse the project's side-bush disjointness, rational
+  base-`3/2` coordinate, and affine product-of-places diagnostics.
+- **Exceptional-orbit obstructions in reverse.**  Re-read the proof program's
+  exact capacity and carry constraints as a specification of what a
+  counterexample must look like, then search on the thin boundary where those
+  constraints are nearly sharp.  Negative-drift or density-one evidence is
+  treated as a distributional filter, never as evidence against rare
+  software.
+
+#### KC failure ledger
+
+| Ansatz or route | Calibrated verdict | Exact record |
+|---|---|---|
+| Treat a prescribed finite `k`-word as an infinite program | Invalid: the nested progressions generally select a 2-adic integer, not a positive ordinary seed. Lean commit `ad36f08` proves that eventual canonical-seed stabilization is exactly the ordinary-integer gate. | [Program-synthesis note](docs/notes/kontorovich-program-synthesis.md) |
+| Literal periodic valuation glider | Closed: Lean commits `92b01ff`/`2f93df7` prove that an infinitely repeatable positive block has `3^N<2^S` and closes as a cycle. This does not touch morphic, counter, stack, or feedback streams. | [Section 4](docs/notes/kontorovich-program-synthesis.md#4-why-a-literal-periodic-glider-fails) |
+| Small positive cycle words | Exhaustively negative through total halving count `S<=22`: `3,447,691` positive-denominator compositions, with only repeated encodings of seed `1`. This is a bounded ansatz exclusion, not a new verification frontier. | [`search_results.json`](experiments/kontorovich/search_results.json) |
+| Fixed-width binary uniform morphisms | Exhaustively negative for nontrivial cycles at widths `2..4`, codings `1..4`, and expanded length at most `16,384`. The best `1`-avoiding seed-stabilization event dies at its next morphic extension. | [`search_results.json`](experiments/kontorovich/search_results.json) |
+| Small negative-cycle shadow programs | Exhaustively negative for ordinary-seed stabilization or terminal precision renewal using controllers `-5` and `-17`, start levels `1..6`, collision extras `1..8`, and extra programs of depth at most four: `112,320` compiled paths in both mod-6 classes. This closes only the stated one-counter pilot. | [`shadow_results.json`](experiments/kontorovich/shadow_results.json) |
+| Bounded phase-changing shadow grammar | `1,950,864` positive paths checked exactly. The `-5/-7` phases yield 15 terminal renewals and 10 one-extension seed stabilizations, all starting at level 1 or 2; every renewed path loses alignment on its next collision and none grows. All seven `-17` phases yield zero events within their separately stated bounds. | [Phase-shadow artifacts](experiments/kontorovich/README.md#phase-changing-shadow-collisions) |
+| Bounded `-1`/Mersenne shadow grammar | `376,800` positive paths checked exactly for start levels `1..100`, extras `1..12`, and depth at most three. There are 522 terminal renewals, 80 seed stabilizations, and three all-outward stabilization events; none supplies a second stabilized extension. The best finite run reaches `1` on exact continuation. | [`mersenne_shadow_results.json`](experiments/kontorovich/mersenne_shadow_results.json) |
+| Constant-extra Mersenne feedback | All `51,200` compiled paths for start levels `1..20`, constant extras `1..32`, depths `1..40`, and both mod-6 classes were checked. The unique two-extension event is seed `121` for extra `1`; its fifth macro fails and exact continuation reaches `1`. | [`mersenne_constant_results.json`](experiments/kontorovich/mersenne_constant_results.json) |
+| Short-period Mersenne feedback | All `2,726,400` prefixes from 568 primitive extra templates of period at most three over `{1,...,8}`, start levels `1..30`, depths `1..80`, and both mod-6 classes were checked in compressed exact arithmetic; every hit was literally replayed. No template improves the constant-`1` two-extension event or the `(4,3,1)` outward event. | [`mersenne_periodic_results.json`](experiments/kontorovich/mersenne_periodic_results.json) |
+| Direct state-dependent packet census | CUDA exhaustively checked all `2^41=2,199,023,255,552` odd packets `h<2^42` from start level one through an eight-renewal horizon, with zero arithmetic overflows and no length-eight chain. Nested replayed artifacts retain the 14 length-seven hits below `2^39` and 243 length-six-or-more hits below `2^36`; independent RTX 4090 and H100 runs reproduce all 243 inner hit triples exactly. | [`h<2^42` artifact](experiments/kontorovich/mersenne_packet_gpu_akdeniz_h42.json), [H100 replication](experiments/kontorovich/mersenne_packet_gpu_psc.json) |
+| Unstructured range widening as the main attack | Deprioritized: published ordinary-seed verification already reaches `2^71`, while the contemplated software may have roughly 10,000 decimal digits. Bounded compute remains useful only as a falsifier or independent checker of a proposed symbolic relation. | [Delocalized-ISA scale calibration](docs/notes/kontorovich-delocalized-isa.md#1-scale-changes-the-object-we-should-search-for) |
+| Unmodified order-10 Colussi wire | It is an exact, spectacularly long delay line but not a bouncer. After its certified collision, an exact 1,024-step audit finds no regenerated empty gap wider than 10 bits, versus the incoming 39,348-bit gap; full exact continuation reaches `1` after 95,146 accelerated steps. The next lane must alter the header/collision with a distributed defect. | [`colussi_delay_h10.json`](experiments/kontorovich/colussi_delay_h10.json) |
+| Pure `+1` gap-splash bouncer | Closed as an outward macro: the exact gate can turn a gap of `2r+2` bits into any chosen `2r'+2`-bit gap by a congruential payload, but the whole macro has dissipative multiplier `3^(r+1)/2^(2r+2+a)<1` and in fact strictly decreases every positive member. It remains useful as the cleanup rail of a multi-phase program. | [`splash_gate.py`](experiments/kontorovich/splash_gate.py) |
+| Even-gap-only splash decoder | Superseded as an obstruction.  Rejecting odd intermediate gaps or `L=1` outgoing gaps created artificial “renewal failures.”  The odd-gap collision `1+2*3^sQ -> 2+3^(s+1)Q=-1+2^LP'` and zero-delay rail make the decoder total away from explicit halting collisions.  This repairs syntax, not growth: the saturated `U^12` witness still reaches `1`. | [`complete_splash_isa.py`](experiments/kontorovich/complete_splash_isa.py) |
+| First parity-complete saturated bridge graph | In the exact source box `r<=15,s<=4,a,b<=4,L<=16`, all 25,600 shapes and 2,751,680 coefficient-compatible links were checked.  Eighteen saturated bridges exist and 11 have outward linked target subfamilies.  Exhausting all 718 possible second edges from those target shapes finds zero renewal.  This closes only depth two for those 18 first edges; larger sources and non-saturated catcher cascades remain open. | [`complete_u_bridge_graph_audit.json`](experiments/kontorovich/complete_u_bridge_graph_audit.json) |
+| One ordinary relay between compiler blocks | The 11 two-outward saturated nodes admit 22 universally outward four-gate relay families, but their graph has exactly one directed cycle: a fixed node-3 self-loop.  Every infinite path would therefore repeat one valuation block and is closed by the eventually-periodic theorem.  This excludes one-relay routing only on this node set. | [`complete_u_relay_graph_audit.json`](experiments/kontorovich/complete_u_relay_graph_audit.json) |
+| Finite regenerative delay routing | Solved but insufficient.  Two delay gates with a shared gap always link when the second collision opcode is positive: both coefficient bases are odd, so one binary congruence gives the affine tail handoff `t=t_0+2^m v -> s=s_0+3^A v`.  Lean commit `54e506f` proves supplied affine families and links for every tail.  Commit `5254194` proves that an ordinary natural surviving unbounded nested address filters forces their canonical residues eventually to equal that natural; a perpetually changing address program is only 2-adic. | [`breakoff_delay_gate_audit.json`](experiments/kontorovich/breakoff_delay_gate_audit.json) |
+| Canonical tail-zero delay dispatcher | Exhaustively negative at depth two in the symbolic box `q,j,q'<=100` (with `j` including zero): 1,010,000 gate shapes split into 992,129 with no next clean delay, 17,861 whose next gate needs positive tail, three canonical base-to-base links, and seven factor-of-eight coordinate aliases.  Every canonical link fails renewal after its target gate; their 59- and 85-digit ordinary seeds reach `1` in 1,272, 1,277, and 330 exact ordinary steps.  This closes only immediate stabilization at the canonical least coefficient, not evolved nonzero-tail or nonlinear two-packet programs. | [`delay_base_graph_audit.json`](experiments/kontorovich/delay_base_graph_audit.json) |
+| Exhausted-tail ether staircase | The returning ether macros link every scheduled pair `n -> n+1`, but after setting the remaining higher macro tail to zero, the generated `(n+1)` tail misses the `n+2` input cylinder for every `n=1..128`; maximum linked depth is two macros.  This closes only the least-tail staircase controller.  Nonzero generated macro tails, branching length schedules, and other payload recurrences remain open. | [`breakoff_ether_glider_audit.json`](experiments/kontorovich/breakoff_ether_glider_audit.json) |
+| Fully exhausted recursive glider ether | Closed for every immediate defect in the current returning-glider alphabet.  Every glider input packet is odd.  At the endpoint of a fully exhausted background macro-ether, its fixed form is odd, forcing the background-tail parity opposite the source cylinder of every possible next glider.  The obstruction is sharp rather than fatal: retaining the exact three-bit cap changes the phase modulo `16` and yields the certified returning super-ether. | [`breakoff_superether_audit.json`](experiments/kontorovich/breakoff_superether_audit.json) |
+| Canonical tail-zero splash hierarchy | The most direct recursive program chooses the length-one branch and zero remaining tail at every new scale.  Exact expansion through depths `1..6` gives first-scale packet sizes `7,46,177,606,2021,6698` decimal digits and ordinary starts through 6,708 digits.  Consecutive packets agree in increasingly many low bits but are strictly larger and unequal at every checked depth (`v2` of the differences `23,155,589,2013,6715`).  It is therefore a growing sequence of finite 2-adic prefixes, not one stabilized ordinary seed.  This bounded diagnostic is now subsumed by the universal positive-tail row below. | [`breakoff_renormalization_audit.json`](experiments/kontorovich/breakoff_renormalization_audit.json) |
+| Bounded canonical meta-quine tree | Exact recursive compilation checks all 584 meta-words of depths `1..3` over background choices `j=1..8`.  On every one of the 576 extensions, the canonical first-scale packet is strictly larger than its parent; there are zero stabilizations and zero decreases.  The closest paths are `(1,1)` and `(1,1,1)`, sharing 23 and 155 low bits respectively—the fixed tower already audited.  This bounded diagnostic is now subsumed by the universal positive-tail row below; another defect grammar or a fixed-level autonomous register orbit remains open. | [`breakoff_renormalization_audit.json`](experiments/kontorovich/breakoff_renormalization_audit.json) |
+| Infinite capped-renormalization tower as one ordinary program | Closed for every successfully constructed adjacent-defect extension, independently of branch length or child payload.  With `q_raw>0`, combined parent exponent `E`, inherited valuation `r>=0`, and positive child packet `K`, exact substitution gives `q=q_raw+2^E(2^rK-1)>0`.  Every new nesting therefore has a strictly noncanonical parent tail, so the canonical dyadic addresses never eventually stabilize to one natural.  This subsumes the two bounded rows above as diagnostics.  It does not exclude an autonomous orbit in the unit register at a fixed finite level, or a different compiler grammar. | [`breakoff_renormalization.py`](experiments/kontorovich/breakoff_renormalization.py) |
+| Infinite recursive `-5` charge hierarchy as one ordinary program | Closed, despite exact self-regeneration at every finite depth.  The depth-`j` quotient removes `D_j=3^(114*2^j)+2^(154*2^j)>1` and lifts a positive child packet as `K_j=rho_j+D_j*K_(j+1)>K_(j+1)`.  Iterated lifts make the root packet strictly grow, so the canonical addresses cannot stabilize to one natural.  This does not exclude an infinite autonomous orbit inside any fixed finite `-5` level; that is now the live target. | [`unit_charge_hierarchy.py`](experiments/kontorovich/unit_charge_hierarchy.py) |
+| Infinite consecutive sign-negative full-order repetend splashes | Closed by exact core energy, including any hypothetical self-writing realization of this pure instruction.  Marker `C=1` forces `T=(2j+1)3^(q-1)`.  For `q>=3`, `3^(q-1)>=2q+1`, hence `2^T>2*3^q`; the recurrence `2^T h'=3^q h-1` gives `h>2h'`.  After `N` consecutive splashes a positive initial core would exceed `2^N`, impossible for fixed `h`.  The audit checks the concrete full-order exponent classes at sign-negative levels `2,4,6`.  This does not exclude sparse giant splashes separated by sufficiently amplifying charge phases. | [`unit_repetend_energy_audit.json`](experiments/kontorovich/unit_repetend_energy_audit.json) |
+| Infinite externally preloaded carry-catcher rail | Invalid as an ordinary program.  Each finite catcher and the new turnaround can be linked by another dyadic tail congruence, but prescribing infinitely many such words generally defines a 2-adic stack.  Lean commits `5254194`/`ba121d9` show an ordinary realizing tail would force its canonical extension residues eventually to vanish.  The new finite writer therefore shifts the live target to an autonomous payload law; it does not license an infinite preloaded ether. | [`unit_carry_turnaround_audit.json`](experiments/kontorovich/unit_carry_turnaround_audit.json) |
+| Three-collision synthesized-marker turnaround | **Retracted.**  The raw divisions used `q`-sequence `(57,57,q(g))`, but their state labels were `1 -> 1 -> 1` after the second transition.  A legal unit transition uses the source exponent, so the third step had to use `q(1)=57`, not `q(g)`.  Exact congruences and outward coefficients cannot repair this semantic mismatch.  The replacement audit uses `1 -> 1 -> g -> g -> 1`. | [`unit_return_quine_audit.json`](experiments/kontorovich/unit_return_quine_audit.json) |
+| Outward affine banks without output-to-source closure | Closed as a promotion criterion, not as an architecture.  A bank of exact growing finite branches does not provide a trajectory.  It must exhibit `y_g(v)=x_f(g)(v')` under one autonomous finite rule, with one ordinary initial payload supplying all future addresses.  Fresh CRT extension at each generation is an externally preloaded 2-adic stack.  The corrected reproduction equation makes this missing link explicit. | [`unit_return_quine.py`](experiments/kontorovich/unit_return_quine.py) |
+| Rational successor quine on the legal return bank | The exact normalized equation for `g -> g+1` has no finite Laurent-polynomial solution: a negative least exponent cannot cancel the two-degree shift, positive degree produces an unmatched top term, and degree zero misses the nonzero linear forcing.  A research pole-propagation proof upgrades this to rational functions; independent Lean verification is pending.  This does not exclude Mahler/automatic payloads or nonlinear opcode updates. | [`unit_return_quine_audit.json`](experiments/kontorovich/unit_return_quine_audit.json) |
+| Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
+| Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
+| Fixed defect opcode in the charge bouncer | Closed by Lean commit `5633c44`.  For a fixed affine gain law `B*Z_(t+1)=A*Z_t+C` with coprime `A,B`, `1<B`, and `A>B`, the fixed-point defect obeys `B*delta_(t+1)=A*delta_t`; hence every `B^n` divides one positive `delta_0`, impossible.  The concrete theorem applies to every fixed `m`.  It does not apply to the live bouncer, where `m` may decrease or oscillate and each block switches from its `m`-defect law to `h-1` homogeneous backgrounds. | [`AffineQuotientNoGo.lean`](KontoroC/KontoroC/AffineQuotientNoGo.lean) |
+| Three named aperiodic two-opcode bouncer clocks | No canonical ordinary address stabilizes in the exact finite grammar: Thue--Morse, period-doubling, and Fibonacci control words; every injective coding of `0,1` by the 16 pairs `(m,h)` with `1<=m,h<=4`; all 34,560 prefixes through depth 48.  The closest pair shares 33,128 low bits but changes from a 33,386-bit address to a 34,092-bit address.  This closes only these named clocks and bounds, not payload-generated, larger-alphabet, or general morphic bouncers. | [`unit_charge_morphic_audit.json`](experiments/kontorovich/unit_charge_morphic_audit.json) |
+| Bounded zero-extension charge-bouncer tree | Every word of depths `1..4` over the 16 opcodes `(m,h)` with `1<=m,h<=4`, followed by every one of the 16 possible next blocks, was compiled exactly: 69,904 prefixes and 1,118,464 extensions.  Zero canonical lifts found: none.  The closest nonlift agrees in only 16 of 177 required low bits, while the maximum terminal public valuations by depth are `3,9,13,16`; this does not imply a fixed-modulus obstruction or an all-depth theorem. | [`unit_charge_zero_lift_audit.json`](experiments/kontorovich/unit_charge_zero_lift_audit.json) |
+| Standard two-rail schedule `[1]^r[2,2,3]` | Closed at all levels.  Exact affine-family intersection compiles 247 outward rounds from a 10,040-digit seed, but depth 248 changes the seed and exact continuation reaches `1`.  Lean reduces every infinite realization to `2^(r+8)P'=3^(r+3)P+69` and its sole 2-adic Tschakaloff candidate.  Väänänen--Wallisser's 1989 theorem applies at `q=3/2,p=2,alpha=4096/6561` and proves that candidate irrational, so it cannot be an ordinary payload.  This does not close branching or other aperiodic splash programs. | [Finite certificate](experiments/kontorovich/two_rail_chain_247.json), [theorem audit](docs/notes/standard-two-rail-theta.md) |
+| Fixed affine or autonomous finite-state return | Closed as an outward bouncer.  Lean commits `b741a14`/`26f3584` prove fixed affine circuits and every eventually periodic macro-word schedule impossible; `560fcc5` proves an autonomous controller with any finite effective state eventually enters that obstruction.  Coefficientwise, a repeated word would require natural slope `m=3^N/2^S` with `S>0`.  Payload-dependent branching and unbounded shape counters remain open. | [Delocalized tag-ISA note](docs/notes/kontorovich-delocalized-isa.md) |
+| Canonical zero-preload two-rail graph | Exactly checked 128,000 gate shapes in the stated box (`r<=40`, `s<=4`, collision extras `<=4`, output gap `<=41`): 98,760 canonical members are outward, 25 canonical links exist, and the longest linked chain has two gates. Its seed `45247` reaches `1`; a wider targeted audit finds no third canonical gate for that endpoint. This rejects only index-zero links, not branching affine-tail controllers. | [`two_rail_transducer_audit.json`](experiments/kontorovich/two_rail_transducer_audit.json) |
+| Small regular invariant sets | Previously closed only in the stated exhaustive classes: no base-2 DFA divergence certificate through eight states and no base-3 certificate through five. One-counter and genuinely morphic single-orbit certificates remain open. | [Base 2](experiments/dfacert/README.md), [base 3](experiments/dfacert3/README.md) |
+
+The first work product will be an exact `k`-word compiler and cycle/glider
+search harness with replayable certificates.  New lanes and closed ansatz
+classes will be recorded here with explicit bounds, just as in the proof
+strategy's failure ledger.  Nothing will be called a disproof unless the
+positive integer and its claimed behavior are machine-checked.
+
+### KC Headline results (with verification scope)
+
+| Result | Status |
+|---|---|
+| Program-scale calibration | Barina's published exhaustive check through `2^71` excludes every ordinary seed below that bound. Colussi's exact order-10 repetend has 39,366 padded bits and an 11,846-digit integer value, giving a literature-backed, formula-generated background at the scale Simon proposed. This is target calibration, not evidence of divergence. |
+| Delocalized instruction-set audit | Exact published encodings expose four complementary units: valuation congruences, mixed binary--ternary boundary rewrites, De Mol's three-symbol tag rules, and Colussi's rotated repetend grammar. They motivate a nonlocal bouncer search but do not prove computational universality or nontermination. |
+| Exact dyadic--triadic packet gate | Lean commit `f1cb0e2` proves universally that each supplied base collision generates exactly the affine family `h=r+2^(m+e+2)q`, `h'=s+2*3^m q`, with unique payload, literal valuation `e`, and the triadic next-packet scheduler. The Python checker passes 8,192 family members and an exhaustive converse over all 16,316 renewals found for odd `h<2^16` at levels `1..8`. No closed all-level gate controller is known. |
+| Kernel stream uniqueness and 2-adic candidate | Lean commit `7370489` proves that a fixed positive valuation stream has at most one ordinary seed and kernel-checks every finite backward-series truncation. Commit `b205e40` proves convergence of the canonical series in `Q_2`, vanishing of the terminal term for an ordinary renewal, and the exact reduction: if the candidate avoids embedded negative naturals, that schedule has no positive renewal. Candidate nonintegrality for a useful controller class remains open. |
+| Formula-generated 11,846-digit spatial wire | Colussi's order-10 value `(4^19683-1)/3^10` is reconstructed, not stored as a decimal literal. The exact header `(1,1,2,1,1,1,5,1,4,1)` sends it to `1+2^39348`; then 19,673 exact valuation-two steps obey `x_t=1+3^t 2^(39348-2t)` before a valuation-three collision. Lean commit `6229e7a` proves the general delay formula and kernel-checks this generated header and endpoint. Exact continuation reaches `1` after 95,146 accelerated steps, so this certifies a wire and its failed natural renewal, not nontermination. |
+| Exact finite carry-splash families | For every positive `r,r',a`, research-side exact algebra constructs an arithmetic progression of odd payload pairs such that an `r`-tick `+1` delay line collides with valuation `2+a` and emits an `r'`-tick gap. The checker literally replays 15,360 members in the bounded regression `r<=8,r'<=10,a<=6`; e.g. `2961 -> 2221 -> 833` grows the gap from four to six bits. Every member shrinks, so a splash needs an amplifying phase. |
+| Formula-generated 10,040-digit two-rail program | Exact congruence solving and affine-family intersection construct one seed with 33,351 significant bits, without storing its decimal literal. It executes 247 strict outward rounds of the schedule `[1]^(4+i) ++ [2,2,3]`, grows its clean gap from 5 to 252 bits, and reaches a 15,397-digit endpoint after 32,110 accelerated steps. Literal replay passes; Lean commits `39a3aba`/`5d3e0e3` certify the generic gate and finite-chain seams. Full exact continuation reaches `1`, and the 248-round canonical seed is different. This is a large finite Collatz program, not a counterexample. |
+| Exact affine tag-transducer and branching target | Every affine two-rail handoff reads one dyadic residue of a nonlocal family index, deletes that address block, and maps the residual tail by a power of three plus an offset. Lean commits `4789a80`/`1076954` prove universal one- and two-instruction linkage.  Commits `b741a14`--`560fcc5` rule out fixed affine returns, every eventually periodic macro-word stream, and every payload-independent finite-state controller.  The live target must branch on unbounded tail data or carry an unbounded counter. |
+| LSB-first splash instruction grammar | For fixed amplifier length, each positive gate shape `(s,a,b,L)` is one odd payload residue modulo `2^(a+b+2s+L+3)`.  Lean commit `1b7df1f` proves universal parameter decoding, the complete cylinder strides, and pairwise disjointness; the exact Kraft mass among odd 2-adic payloads is `1/6`.  The artifact checks 902,496 codeword pairs per `r=1..16` through 20 bits and independently decodes 21,504 bases.  This identifies a sparse mixed-base tag language, not an infinite survivor. |
+| Parity-complete splash ISA | Simon's proposed sacrificial alignment supplies the missing odd-gap catcher `2+3^(s+1)Q=-1+2^L P'`; admitting `L=1` supplies a zero-delay next rail.  Lean commits `afb86a5`--`92f237c` certify the two branches and unique total decoding.  Commits `88e2577`/`b023700` expose the decoded macro and canonical partial next-state map and prove that any surviving outward public-state orbit refutes Collatz.  The exact Kraft split is `1/3+2/3=1`; no infinite orbit is supplied. |
+| Exact base-`3/2` compiler bridge | The outward two-rail link `(5,0,2,1,2)->(1,0,2,1,2)` maps family indices by `95+128t -> 1640+2187t`, exactly `U^7` for every natural `t`, where divergent `U` appends digits `[1,1,1,1,1,2,1]` in rational base `3/2`.  Lean commits `401d494`/`6ab99fc` prove the universal dyadic-cylinder law and reusable compiler certificate; `dbe0e5a` proves the conditional variable-chain endpoint to `¬Collatz`.  The concrete target shrinks and the seed reaches `1`, so no infinite chain is supplied. |
+| Two-outward-gate `U^12` bridge | Exact coefficient algebra gives `U^12(1023+4096t)=132860+531441t` with digits `[1]^10[2,1]`.  It links shapes `(10,0,4,2,11)->(10,2,1,3,2)`, and both complete families are universally outward.  The saturated orbit enters at time 622; the parity-complete decoder catches the next formerly rejected payload, but that catcher shrinks.  The resulting 120-digit seed parses into 290 exact splash gates, 101 outward, and reaches `1` after 1,016 accelerated steps.  This is a finite compiler cascade, not transferred divergence. |
+| Universal three-gate outward `U^12` subcylinder | Restricting the `U^12` tail to `t=16u` makes the next decoded catcher `(1,0,1,2)` outward for every `u>=0`.  Exact affine formulas give `2199021754367 -> 2229023590399 -> 5083728186203 -> 8578791314219` at `u=0`, with nondecreasing state strides preserving all three inequalities universally.  The least seed reaches `1` after 133 accelerated steps.  This certifies Simon's “splash the splash” with net gain through three gates, not infinite renewal. |
+| Bounded parity-complete saturated bridge graph | The exact shape search checks 25,600 sources and all 2,751,680 coefficient-compatible targets in its stated box, finding 18 universal `U^D` bridges—14 odd-source and four even-source.  Eleven linked target subfamilies are also universally outward.  The complete 718-candidate outgoing audit of those target shapes finds no second saturated edge.  This is a scoped compiler-graph dead end, not an exclusion beyond the source bounds or of intervening ordinary splash gates. |
+| Universal outward splash router | For every `r>=0,L>=1`, the odd catcher `(r,0,1,L)` has word `[1]^r[2,1]`, arbitrary outgoing gap `L`, and multiplier `3^(r+2)/2^(r+3)>1`; hence every member is outward.  Exact affine composition uses it to connect every ordered pair of the 11 two-outward compiler nodes.  All 121 five-gate transition families replay exactly, making the two-relay shape graph complete.  Lean commit `fedb5ca` proves the all-parameter growth inequality and formalizes the natural-versus-2-adic boundary.  This supports arbitrary finite branching words, but an infinite word still generally selects only a 2-adic tail. |
+| Autonomous router recurrence | Lean commit `e9f791b` proves that positive odd payloads satisfying `2^(r'+3)P'=3^(r+2)P+3` construct the canonical router `(r,0,1,r'+1)`, with exact linkage and strict growth.  Any infinite solution above initial state `4` therefore refutes Collatz.  Commit `c10e5b5` proves `3|P'` and the exact maximal-power-of-two/odd-part update.  The equivalent radix-swap candidate forms `e=v_2(y+1)` and `F(y)=3^(e-1)(y+1)/2^e` inside `9|y`, `y=7 (mod 8)`.  No infinite ordinary orbit is supplied. |
+| Break-off instruction compiler | In the coordinate `y=8k-1`, one router instruction factors `k=2^j u` and executes `8k'=3^(j+2)u+1`.  For each `j`, legality is one exact `u`-class modulo `72`, and the unbounded tail map is `u=u_j+72t -> k'=b_j+3^(j+4)t`.  Lean commit `0b12d44` proves that any infinite proof-carrying break-off orbit stays `8 mod 9`, strictly grows, and refutes Collatz; commit `a1a5fd0` proves its opcode stream cannot be eventually periodic.  Commit `7293975` implements the executable `v_2`/odd-part partial map, proves it equivalent to the factorization interface, and derives `¬Collatz` from any infinite successful executable orbit.  The artifact lists opcodes `0..64` and literally replays 4,160 members through the canonical decoder.  No infinite orbit is supplied. |
+| Regenerative three-bit delay gate | Simon's gap-splash suggestion has an exact spatial realization.  The state `9*2^(3q)c-1` performs `q` opcode-zero ticks before a chosen collision emits a fresh clean gap `9*2^(3q')c'-1`; Lean commit `eac55d3` proves the universal compressed run, collision renewal, and strict outwardness.  Commit `1711620` proves that the collision factorization plus one subtraction-free affine balance suffices to reconstruct renewal.  The artifact constructs 1,088 gate families and performs 8,704 literal macro replays.  The example `935 -> 1052 -> 2663` regenerates one delay cell but later reaches `1`. |
+| Affine mixed-radix writer and ordinary-tail gate | Exact coefficient linking reads `m` low binary bits and appends `A` ternary digits: `t=t_0+2^m v -> s=s_0+3^A v`.  Lean commit `54e506f` proves every supplied affine gate family, coefficient link, composed run, and outwardness for all `v`.  Commit `5254194` connects its `2^m` address cylinders to the ordinary/2-adic boundary.  The artifact audits 4,608 linked pairs (18,432 macros) and shows one fixed dispatcher realizes every one of the 243 five-trit write words within stated bounds.  Finite instruction routing is solved; a returning aperiodic dispatcher with one eventually stabilized natural address is not. |
+| Nonlocal sacrificial gap amplifier | In the five-trit writer choose `b=3^5-2^L` and residual `v=K*2^L-1`.  Exact arithmetic gives `b+3^5v=2^L(3^5K-1)`: trailing one-bits collide with the selected word to become zero-bits, while the remote congruence `3^5K=1+2^D (mod 2^(D+1))` supplies exactly `D` more.  All seven words `L=1..7` exist in the certified alphabet; the artifact replays 224 linked members for `D=1..32` through 448 literal gate macros.  This produces an internal tail gap, not yet a returning infinite controller. |
+| Regenerative finite ether defect | The gate `E=(1,2,1)` self-links by `t=20+2^8v -> 57+3^6v` and satisfies `2^8(473t'+12)=3^6(473t+12)`, so exact divisibility of `473t+12` by `2^(8n)` is an `n`-cell spatial delay.  The defect `H=(1,136,1)` gives an exact `E -> H -> E` return whose Mersenne residual has `473t+12=2^8(r+AK)` with fixed odd `r,A`; one odd class of the remote packet therefore writes any prescribed finite ether depth.  The artifact constructs `n=2..32`, replaying 589 linked members and 1,178 literal gate macros.  It does not return the exposed boundary to another defect. |
+| Returning finite ether glider ISA | Exact parity shows an exhausted ether boundary is odd and therefore cannot re-enter the `j=136` defect; among immediate `E -> H_j -> E` defects, `j=1` is the parity-compatible receiver.  Its small identities give defect input `X(K)=2^20K-10941`, return factor `473t+12=2^5(83790531K-874281)`, and for every `n>=1` a complete outward macro `K=R_n+2^(8n+15)q -> K'=S_n+3^(6n+11)q` which writes `n` ether cells and returns to the same defect family.  The artifact replays 64 macro members through 1,184 links and 2,368 gate macros.  No infinite linked macro orbit is supplied. |
+| Autonomous ether-counter normal form | Put `Y=83790531K-874281`.  The length-`n` returning glider branch is exactly `Y=2^(8n-5)h -> Y'=(3^(6n+11)h+51)/2^20`, with `h` in one CRT class modulo `83790531*2^20`; the enormous defect constants cancel to `51`.  Every branch is strictly outward, and its packet coefficients agree identically with the compiled glider macro.  The artifact checks `n=1..128`, four tails each, and repeats the executable macro replays through `n=32`.  An infinite successful autonomous orbit would be a counterexample, but none is supplied. |
+| Three-bit-capped recursive super-ether | Regard the one-cell returning glider as a 23-bit background cell and the two-cell glider as its defect.  Exact parity kills a fully exhausted second-scale gap, but retaining three low bits makes the boundary re-enter the same defect cylinder.  After removing a common `3^7`, the public register is `V=-8744697538656344367967+671265207750760396088265K` and its length-`N` branch is `V=2^(23N+3)g -> V'=(3^(17N+40)g-17)/2^51`.  The affine super-macro is `K=R_N+2^(23N+54)t -> K'=S_N+3^(17N+40)t`.  The artifact checks 64 branches and 256 members, and literally replays 32 members through 336 glider macros, 1,040 lower links, and 2,080 gate macros.  This is a finite two-scale constructor, not an infinite orbit. |
+| Six-level sign-alternating splash hierarchy | The capped construction renormalizes five more times without changing the magnitude `17`: public collision signs are `+,-,+,-,+,-` and binary cell widths are `8,23,77,254,839,2771`.  At every checked step exact phase arithmetic returns to the defect and normalization flips only the sign.  The artifact checks 40 child branches independently by CRT and parent-macro composition, replays 80 members through 520 parent blocks, and expands the canonical tail-zero programs through six levels to literal first-scale gliders.  It additionally checks all 64 level-one choices `B=M_j,H=M_(j+1)`, three nonconstant four-step meta-words, and every depth-three meta-word over `j=1..8`.  Beyond those bounds, the exact positive-tail identity proves universally that no infinite chain of these adjacent-defect nestings can stabilize its canonical ordinary address.  The depth-six canonical member is a generated 6,708-digit ordinary start executing 360 linked glider macros.  This is a finite compiler and a source of fixed-level ISAs—not an ordinary infinite orbit or an induction that the phase identities persist at all levels. |
+| Invariant unit-debris register and signed radix swap | At every one of the six certified hierarchy levels, exactly one packet class modulo `17` makes the primitive `±17` register divisible by `17`; the class is preserved by every successful branch.  Dividing gives `H=2^(an+b)h -> H'=(3^(cn+d)h+s)/2^e`, `s=±1`.  With `W=2^eH`, every instruction is exactly `W=2^p h -> W'=3^q h+s`: it preserves the complete core `h`, swaps an exact binary delay for a ternary delay, and writes one signed unit.  Against the signed router it trims `d=p-1-q`, with the six formulas `2n+3,6n+13,20n+45,66n+151,218n+501,720n+1657`.  The artifact compares all 192 branches, checks this form on 768 members, and literally replays 32 level-one members through 336 lower links and 672 gates.  This identifies the factor a second rail must bank; no such rail or infinite unit orbit is supplied. |
+| Two-layer unit gap regenerator | Simon's “splash the gap” question has an exact answer in the smallest surviving ISA.  Given any three positive branch lengths and `D>=1`, choose `A,B,z,B_2,C` so `3^qA+s=2^pC+2^(p+L)B` and `B+3^qz=2^D B_2`.  Then `h=A+2^(p+L)(z+2^D u)` maps to `h'=C+2^(L+D)(B_2+3^q u)`: `A` emits the complete valuation-exact next instruction `C`, the sacrificial `D`-bit word `z` eats the carry `B`, and the remote tail survives affinely beyond a regenerated `D`-bit zero gap.  The exact artifact reconstructs 486 families across six compiled levels and replays 972 linked two-branch unit members for cell lengths `1..3` and gaps `1,4,12`.  This is a universal finite compiler identity plus bounded macro regression, not a self-supplying infinite stack or counterexample. | [`unit_gap_regenerator_audit.json`](experiments/kontorovich/unit_gap_regenerator_audit.json) |
+| Formula-compressed regenerative carry glider | For the carry `B` isolated by a unit splash, set `r=v3(B)`, `D=ord_(3^(q-r))(2)`, and `z=B(2^D-1)/3^q`.  Exact arithmetic gives `B+3^qz=2^D B`, so the sacrificial word consumes the dirty carry, creates `D` clean bits, and reproduces the identical carry remotely.  The verifier embeds the canonical `(1,1,1)` header family in the true invariant register at all six compiled levels, proves the concrete multiplicative orders and three register phases without expanding `2^D`, and obtains gap-length integers with `8,28,90,297,979,3231` decimal digits.  This is a finite spatial glider cell, not an infinite rail or self-writing end cap. | [`unit_carry_repetend_audit.json`](experiments/kontorovich/unit_carry_repetend_audit.json) |
+| Formula-compressed strike--scrub--turnaround | In the sign-negative level-two unit ISA, `B=1`, `H=17`, and `D=2*3^56` make the next legal division `P=D+2`.  Exact ternary lifting computes an even following-length class modulo `2*3^113`; `H=1 (mod 8)` puts the formula-compressed power-of-three turnaround in an even class modulo `2^(P-1)`, so parity-compatible CRT gives a finite ordinary length.  The third collision returns `h_out=R+2*M*3^(q(l)+114)w`, an exact writer for every prescribed finite odd dyadic word.  The artifact checks the explicit discrete log, exponent classes, register/CRT conditions, and writer algebra without expanding the giant length.  This is a universal finite reseed interface, not an autonomous infinite tail or counterexample. | [`unit_carry_turnaround_audit.json`](experiments/kontorovich/unit_carry_turnaround_audit.json) |
+| Legal returning macro and quine equation | The corrected level-two route is `1 -> 1 -> g -> g -> 1`.  With `P=23g+54`, `Q=17g+40`, it composes exactly to `3^(114+2Q)h-C_g=2^(154+2P)h'`, with the four-term mixed-base constant displayed in the strategy map.  The verifier literally checks all four source/target-compatible valuations and the outward affine lift for `g=1..16`, then exposes the actual autonomous gate `3^R(g)F(g)-C_g=2^S(g)F(f(g))`.  It also gives an exact all-degree Laurent-polynomial obstruction for the successor ansatz.  This is a reproduction interface and a narrowed failure, not a solution or counterexample. | [`unit_return_quine_audit.json`](experiments/kontorovich/unit_return_quine_audit.json) |
+| Formula-generated nonlinear repetend splash | If `2^T C=s (mod 3^q)`, the ordinary repetend `R=(2^T C-s)/3^q` gives `R+2^(T+D)K -> C+2^D 3^qK` under the unit collision.  Intersecting the discrete-log class of `T` with `T=p(n')` produces a genuine enormous target length.  Exact modular certificates construct this at all six finite levels from source length one and gaps `D=1,64`; they verify the order `ord_(3^q)(2)=2*3^(q-1)`, exponent CRT, repetend integrality, and both register phases without expanding `2^T`.  Level one uses `C=5`, `T=105,734,623`, and `n'=13,216,826`; its low rail alone is about 31.8 million decimal digits.  Across levels the target exponents have `9,29,91,299,980,3235` decimal digits.  This is a short generator for one vast nonlinear splash, not renewal or nontermination. | [`unit_repetend_splash_audit.json`](experiments/kontorovich/unit_repetend_splash_audit.json) |
+| Two consecutive sign-negative repetend splashes | At level two, put `c_m=(2^(3^(m-1))+1)/3^m`.  Exact cubing gives `c_(m+1)=c_m-3^m c_m^2+3^(2m-1)c_m^3`, so `c_m` stabilizes modulo every fixed `3^P`.  At precision `P=q_0+v_3(M)=90`, a 45-digit odd `k` makes `T_1=3^(q_1-1)k` both retain the first ternary bank and lie in the affine target-exponent class.  This yields the exact unbounded family `h_0 -> R_1+2^(T_1+D)3^q0 L -> 1+2^D3^(q0+q1)L`, with both enormous valuations exact.  The audit checks 89 quotient recurrences, bridge integrality, exponent congruence, and all three unit-register phases for `D=1,64`, without materializing `T_1`; `T_1` itself has about `7.57*10^27` decimal digits.  This is genuine one-time renewal, not a third splash or infinite ordinary orbit. | [`unit_double_repetend_audit.json`](experiments/kontorovich/unit_double_repetend_audit.json) |
+| Repetend energy separator | The same exact construction closes its own naive infinite continuation.  Every sign-negative marker-one exponent is an odd multiple of `3^(q-1)`.  For `q>=3`, elementary integer inequalities give `2^T>2*3^q`, so each such collision more than halves the positive odd core.  No fixed positive core supports infinitely many consecutive events.  The artifact audits the actual exponent classes at finite levels `2,4,6`; the general proof is symbolic.  A viable delay-line program must recharge between giant erasures, not stack them back-to-back. | [`unit_repetend_energy_audit.json`](experiments/kontorovich/unit_repetend_energy_audit.json) |
+| Autonomous `-5` charge--discharge register | Pairing a length-`N` sign-negative level-two unit instruction with the one-cell instruction gives fixed debris `3^57+2^77=5D`.  The divisor `D=314038802961906688057474567` is coprime to the register stride, so one exact packet class can be divided by `D` and is preserved.  The quotient ISA is `G=2^(23N+3)g -> (3^(17N+97)g-5)/2^128`; every branch is strictly outward because `3^(17N+97)>2^(23N+131)`.  The artifact constructs branches `N=1..32` twice—directly by CRT and by restricted composition—and checks 128 members through 256 actual unit-macro replays.  An infinite successful positive orbit would refute Collatz; none is supplied. | [`unit_charge_discharge_audit.json`](experiments/kontorovich/unit_charge_discharge_audit.json) |
+| All-depth self-regenerating `-5` splash | Composing any depth-`j` charge branch with its one-cell branch, then quotienting by `D_j=3^(114*2^j)+2^(154*2^j)`, reproduces collision constant `-5` with offsets `d_(j+1)=2d_j+17`, `e_(j+1)=2e_j+26`.  Coprimality with the fixed 80-bit stride holds for every `j`: a failed prime would require `2^(j+1)<M`, so only `j=0..78` can fail, and all 79 exact gcds are one.  The artifact materializes eight levels, compares 64 direct/composed branches, checks 128 members, and recursively expands canonical members through 510 original unit macros.  Infinite nesting is not a seed because every positive child lift strictly enlarges its ancestor packet; fixed-level autonomous orbits remain open. | [`unit_charge_hierarchy_audit.json`](experiments/kontorovich/unit_charge_hierarchy_audit.json) |
+| Autonomous reversible fixed-form valuation bouncer | The rational one-cell fixed point clears integrally: with `F=(3^114-2^154)/5` and `Z=F*G-2^26`, one background cell is exactly `2^154 Z'=3^114 Z`.  At a defect boundary `Z=2^26y`, the state reads `m=v2(y+1)/23` and `h=(v2(3^(17m)(y+1)-2^(23m))-23m)/154`, then returns `y'=3^(114h)*oddpart(3^(17m)(y+1)-2^(23m))`.  The output recovers `h=v3(y')/114`, then `m=v3(1+2^(154h)q)/17` and the unique predecessor; the opcode matrix has determinant four.  The artifact checks all 64 `(m,h,m')` families with `m,m'<=4,h<=4`, 128 forward/reverse members, 320 charge macros, and 640 original unit macros.  Any infinite accepted positive `y`-orbit refutes Collatz; none is supplied. | [`unit_charge_bouncer_audit.json`](experiments/kontorovich/unit_charge_bouncer_audit.json) |
+| Ordinary-ray extension-lift criterion | Lean commits `af1a934`/`ba121d9` prove that if nested dyadic compiler cylinders are realized by one ordinary natural, their extension residues are eventually zero.  Therefore nonzero residues at arbitrarily late scales exclude an ordinary realization.  This is a no-ray criterion for a proposed schedule, not a counterexample and not yet a theorem that the bouncer's residues are frequently nonzero. | [`DispatcherBoundary.lean`](KontoroC/KontoroC/DispatcherBoundary.lean) |
+| Constant-rate unit-counter schedules | For any of the six certified unit levels, every `n_0>=1`, and every fixed integer `k>=1`, the schedule `n_t=n_0+kt` has the unique 2-adic initial core `-s*3^(-q(n_0)) F(2^(ak)/3^(ck),2^(p(n_0+k))/3^(q(n_0+k)))`.  Converting to Väänänen--Wallisser's `f_(3^(ck)/2^(ak))` is coefficientwise exact, and its argument simplifies to `alpha=2^(p(n_0))/3^(q(n_0))`.  Their 1989 theorem applies with `ell=1,sigma=0,p=2`; its size ratio is the same as for `k=1`, while `|3^(ck)/2^(ak)|_2=2^(ak)>1`.  The value is irrational in `Q_2`, so it cannot be an ordinary integer core.  The artifact's six linked eight-transition branch replays remain a finite `k=1` regression; the all-`k` conclusion is symbolic and theorem-dependent.  This closes every fixed positive step size, not nonlinear or packet-branching schedules. |
+| Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
+| Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
+| Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
+| Kernel cycle-disproof seam | `KontoroC.CycleArtifact.checkNontrivial=true` implies the literal negation of the ordinary Collatz conjecture. The package build and axiom audit pass; no nontrivial artifact is known. |
+| Bounded composition search | All `3,447,691` positive-denominator compositions with `S<=22` were checked exactly. The only closure hits encode the trivial seed `1`; no nontrivial cycle was found within the bound. |
+| Bounded morphic-program search | All `168` binary uniform prolongable morphisms of widths `2..4`, all `16` codings into `{1,2,3,4}`, and `20,224` bounded depth instances were checked exactly. No nontrivial cycle was found. |
+| Parametric glider endpoint | Lean commit `2fc4459` proves that any supplied exact outward `MacroGlider` refutes Collatz, including the no-hidden-visit-to-`1` bridge. It supplies the checker endpoint, not a glider. |
+| Periodic-itinerary obstruction | Lean commits `92b01ff`/`2f93df7` prove by an all-level coprime-divisibility argument that a positive eventually periodic valuation program is a cycle and that a supercritical repeated block cannot occur forever. |
+| Ordinary-integer gate | Lean commit `ad36f08` proves `StreamLegal x k` iff the exact canonical prefix seeds eventually stabilize at `x` (in the fixed admissible mod-6 class). This validates the worker's stabilization diagnostic at the infinite level. |
+| Separated-packet clock | Lean commit `121cb13` proves `ord_(2^(n+3))(3)=2^(n+1)` and exact residue scheduling corollaries. This certifies the delay-line clock, not a collision-renewal rule. |
+| Negative-cycle shadow pilot | Exact Python checked `112,320` compiled paths for the `-5` and `-17` supercritical controllers through the bounds above. Every macrostep passed literal replay; no seed stabilization or next-level shadow renewal occurred. |
+| Finite phase-changing carry renewal | Exact search found positive seed `53,403,857` with macro-states `53,403,857 -> 15,019,835 -> 2,376,185 -> 1,691,641 -> 1,354,843`, following `-7,-5,-7,-7` controller phases at levels `1..4`. Its canonical seed survives the fourth macro, but the endpoint misses every level-5 phase class. This verifies one finite renewal mechanism, not nontermination. |
+| Finite outward Mersenne shadow | Exact seed `24,017,279` follows the signed `-1` controller at levels `7,8,9` with collision extras `(4,3,1)`, giving three strict macro increases `24,017,279 -> 25,647,359 -> 82,164,223 -> 1,579,334,395`. Its canonical seed stabilizes once, then misses level 10; exact continuation reaches `1` after 108 accelerated steps. |
+| Two-extension constant-feedback event | For the constant rule `e_M=1`, exact seed `121` is canonical for depths two, three, and four, with macro-states `121 -> 91 -> 103 -> 175 -> 445`. Level five fails and the seed reaches `1` after 34 accelerated steps. This is the longest ordinary-seed stabilization found, but remains finite. |
+| Kernel phase-shadow disproof seam | Lean commits `3d9cedc` through `d6fb8b2` prove the exact shifted-coordinate macro and the literal Collatz negation from any infinite bounded-extra renewal after an arbitrary finite prefix. Signed cycles automatically supply supercriticality and all rotated phases. No infinite renewal witness is known. |
+| Kernel Mersenne-shadow seam | Lean commit `768f4d0` checks the signed `(-1,[1])` controller, proves the worker's exact Mersenne macro identity, and proves `MersenneShadowOrbit.not_conjecture` from infinite renewal data. It also kernel-replays the `24,017,279` event and its level-10 failure. |
+| Pure packet-recurrence endpoint | Lean commits `32a0896`--`a2652f2` reduce a Mersenne disproof to positive odd packets and bounded extras satisfying `2^e(2^(m+1)h'-1)=3^m h-1` at every level. Lean derives exact legality, transitions, eventual packet growth, the unique necessary class of `h' mod 3^m`, and the literal Collatz refutation. |
+| Seven-renewal state-dependent motif | Exact seed `30,603,607,965` has extras `(2,1,3,2,2,2,1)` and seven renewed Mersenne packet levels; its final four macrosteps grow and end at `318,374,253,823`. The eighth renewal fails, and exact continuation reaches `1` after 152 accelerated steps. |
+| Independent packet-census replication | PSC H100 job `42500602` independently re-enumerated all `2^35` odd packets `h<2^36`. It reproduced the RTX 4090 run's zero-overflow counter, maximum renewal length seven, and all 243 stored `(initial h, length, extras)` triples exactly; both artifacts pass the Python big-integer verifier. This corroborates the inner census but does not enlarge its bound. |
+
+The compiler and certificate seam is now live.  The dependency-free
+[`path_compiler.py`](experiments/kontorovich/path_compiler.py) reproduces the
+thread's `(1,1,2,2) -> 199` example, compiles both Kontorovich--Sinai seed
+progressions, and replays every valuation with arbitrary-precision integers.
+Lean commit `63c3b3d` independently proves that the compiler's final
+congruence is equivalent to every intermediate exact valuation and proves the
+canonical representative, progression uniqueness, and endpoint stride.  The
+[`KontoroC/`](KontoroC/README.md) package also proves that a valid nontrivial
+cycle artifact refutes the literal ordinary Collatz conjecture.  No such
+artifact has been found.
+
+The first bounded adversarial sweep tested all `3,447,691` positive-
+denominator valuation compositions with total halving count at most `22`.
+Only the eleven bounded repetitions of the seed-`1` trivial cycle closed.  A
+separate low-description sweep tested `168` binary uniform morphisms of widths
+two through four, all `16` codings by valuations in `{1,2,3,4}`, and `20,224`
+depth instances through expanded length `16,384`.  Its `1,960` closure hits
+are again all seed `1`; there is no nontrivial cycle in this stated template
+class.  Seed stabilization was checked separately through length `512`.  Its
+longest `1`-avoiding event is the length-nine prefix of seed `107`, which
+exact continuation sends to `1` after `36` accelerated steps.  These are exact
+bounded exclusions of small program classes, not a new global verification
+bound and not evidence of convergence.
+
+A kernel-checked theorem also closes the most literal glider: if one fixed
+nonempty `k`-block repeats forever on a positive orbit, divisibility by
+arbitrarily high powers of `2^sum(k)` forces the block endpoint to equal its
+start.  Thus an eventually periodic valuation program is a cycle, not a
+growing glider; a supercritical repeated block has only a negative 2-adic
+seed.  Lean commits `92b01ff`/`2f93df7` prove the all-level statement and its
+eventual-tail and sign corollaries.  The active search therefore moves to
+aperiodic one-counter and recursively nested templates.
+See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-program-synthesis.md)
+for the exact algebra, bounds, result digest, and next attacks.
 
 ## Project guides
 

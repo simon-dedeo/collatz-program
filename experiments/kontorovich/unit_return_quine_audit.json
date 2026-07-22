@@ -1,0 +1,97 @@
+{
+  "all_g_composition": {
+    "C_g": "3^(2*Q_g+57)+2^77*3^(2*Q_g)+2^(77+P_g)*3^Q_g+2^(77+2*P_g)",
+    "R_g": "114+2*(17*g+40)",
+    "S_g": "154+2*(23*g+54)",
+    "family": "h=a_g+2^(S_g+1)*v -> h'=b_g+2*3^R_g*v",
+    "macro": "3^R_g*h-C_g=2^S_g*h'"
+  },
+  "audited_row_count": 16,
+  "audited_rows_sha256": "2a8926fc4b282b4a1dca7e636ff247a3615712100ed80c256455302207c22b31",
+  "autonomous_reproduction_gate": {
+    "equation": "3^R_g*F(g)-C_g=2^S_g*F(f(g))",
+    "fresh_crt_per_generation_is_not_closure": true,
+    "required_semantics": "F(g) and all four intermediate cores are positive odd, and the same finite rule F,f supplies every generation"
+  },
+  "checks": {
+    "all_degree_laurent_polynomial_obstruction": true,
+    "composition_identity": true,
+    "four_literal_exact_transitions_per_row": true,
+    "mixed_base_constant_identity": true,
+    "return_family_stride": true,
+    "source_and_target_state_labels_match": true,
+    "strict_coefficient_growth_on_public_rows": true,
+    "successor_z_update": true
+  },
+  "claim_scope": "exact legal four-transition returning families for public opcodes g=1..16, the symbolic all-g composition and quine equation, and an exact all-degree Laurent-polynomial obstruction for the successor ansatz; no infinite orbit or counterexample is claimed",
+  "doubling_hint": {
+    "interpretation": "a genuine base-squaring Mahler equation; it is a more faithful self-similar target than another finite bank",
+    "opcode_schedule": "g -> 2*g",
+    "z_update": "z_(2g)=(3^40/2^54)*z_g^2"
+  },
+  "first_audited_row": {
+    "canonical_output": 2588988701501709765087867228125968687330228876151832114684532772164110539869401488015488956540379633976534899,
+    "canonical_source": 222189096811703911991389322722493615446550627562119541108859405828416444610306297608410917259,
+    "coefficient_expanding": true,
+    "composition_constant_C": 3870582775879834296716950575929772192469176686423162791764867532277314236469221755,
+    "composition_three_exponent_R": 228,
+    "composition_two_exponent_S": 308,
+    "intermediate_bit_lengths": [
+      307,
+      321,
+      334,
+      347,
+      361
+    ],
+    "internal_binary_exponent_P": 77,
+    "internal_opcode_g": 1,
+    "internal_ternary_exponent_Q": 57,
+    "output_stride_three_exponent": 228,
+    "source_stride_two_exponent": 309
+  },
+  "last_audited_row": {
+    "canonical_output": 24351803025367104241457873213289328579662591854483934104155287456568255555578506157019851148617877505287516396351223019200431946005245433163655419706073389852520977804183086667779956395002924229102833691540154941091725075308010945150632353107894029426191242077163697007820094056755174983504012790712537472579765431106891434182685044142788554499968719967,
+    "canonical_source": 5000124426679760600772343671695106345925804980499092571331724279322762201836400304045824503371373995820031844534684328606924117612441427952254038628249886810800430616841111331317053621127314617259908603995416734693182271114992029317807120375962843944345152485672253350427887630193100985210215080814987,
+    "coefficient_expanding": true,
+    "composition_constant_C": 8310291593364742309551155761005430682006919565626568844390065784184770105333392379084066623102550688638927775407027343967215726811587419271819605432339988633770742813661564135239876509064560554850562849848010418755309000747142444404682381729304307111960493655966480842790901697773703249878610438333674889477838562345542852195,
+    "composition_three_exponent_R": 738,
+    "composition_two_exponent_S": 998,
+    "intermediate_bit_lengths": [
+      999,
+      1013,
+      681,
+      754,
+      1171
+    ],
+    "internal_binary_exponent_P": 422,
+    "internal_opcode_g": 16,
+    "internal_ternary_exponent_Q": 312,
+    "output_stride_three_exponent": 738,
+    "source_stride_two_exponent": 999
+  },
+  "legal_return_route": "1->1->g->g->1",
+  "p_of_n": "23*n+54",
+  "q_of_n": "17*n+40",
+  "schema": "collatz-unit-return-quine-v1",
+  "successor_quine": {
+    "c_denominator": 129140163,
+    "c_numerator": 8388608,
+    "laurent_polynomial_obstruction": {
+      "checked_exactly": true,
+      "degree_zero_killed_by_nonzero_linear_forcing": 151115727451828646838272,
+      "negative_minimum_exponent_impossible": true,
+      "positive_degree_top_exponent_shift": 2,
+      "scope": "all finite Laurent polynomials over Q"
+    },
+    "normalized_equation": "3^114*f(z)-[(3^57+2^77)+2^77*z+2^77*z^2]=2^154*z^2*f((2^23/3^17)*z)",
+    "opcode_schedule": "g -> g+1",
+    "rational_function_upgrade": {
+      "idea": "a nonzero finite pole alpha forces c*alpha, c^2*alpha, ... to be poles; c is not a root of unity.  A pole at zero cannot cancel the two-degree shift.  Hence a rational solution would be Laurent polynomial.",
+      "status": "research derivation sent for independent formalization"
+    },
+    "z_definition": "z_g=2^(23*g+54)/3^(17*g+40)",
+    "z_update": "z_(g+1)=(2^23/3^17)*z_g"
+  },
+  "unit_transition": "n->m: 3^q(n)*h-1=2^p(m)*h'",
+  "verifier_sha256": "6b18d52e67904212d8d91f0549b26362d4baa0fe550cb1641792948ff471bdb4"
+}

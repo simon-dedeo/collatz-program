@@ -1758,6 +1758,13 @@ infinite nested dyadic cylinder, usually a non-natural 2-adic integer.  The
 new sharp target is a payload law which computes its own next word and for
 which those canonical extension residues eventually vanish.
 
+**Retraction (2026-07-22 08:23 EDT).**  The synthesized-marker discussion from
+this point through (69e16) is retained only to make the failure auditable.  It
+does not describe a linked unit path.  In `n -> m`, the numerator exponent is
+`q(n)` and the denominator exponent is `p(m)`; after the proposed second step
+targeted state `1`, its third step illegally used `q(g)`.  The old worker and
+artifact have been removed.
+
 The fixed marker is not the best allocation of the nonlocal code.  Instead,
 freeze the preceding instruction at one cell and let the marker absorb both
 the ternary carry constraint and the dyadic turnaround constraint.  Define
@@ -1803,9 +1810,9 @@ Here `Q` is even and
 3Q/2-(D+156)=113771224571165334176850348>0,
 ```
 
-so `9>8` proves the second coefficient strictly larger.  The exact worker
-[`unit_marker_turnaround.py`](../../experiments/kontorovich/unit_marker_turnaround.py)
-reconstructs (69e9)--(69e12), and its small surrogate literally replays the
+so `9>8` proves the second coefficient strictly larger.  The removed worker
+`unit_marker_turnaround.py` reconstructed (69e9)--(69e12), and its small
+surrogate literally replayed the
 three divisions.  This is the first same-scale outward turnaround family,
 but still only one finite family: no invariant marker cylinder or autonomous
 next instruction has been found.
@@ -1847,14 +1854,43 @@ and each increment multiplies it by
 3^17/2^23=129140163/8388608>1.                       (69e16)
 ```
 
-[`unit_marker_bank.py`](../../experiments/kontorovich/unit_marker_bank.py)
-checks the public coefficient algebra through sixteen opcodes and replays six
+The removed worker `unit_marker_bank.py` checked the public coefficient
+algebra through sixteen opcodes and replayed six
 fully materialized small analogues, including preservation of their odd
 register class.  The first artifact omitted the `M-1` compensation and was
 corrected before being used downstream.  A fixed opcode is closed by the
 periodic word theorem; the surviving PL problem is to let the natural `v`
 decode an unbounded, aperiodic opcode sequence and remain in the union of the
-source cylinders.
+source cylinders.  **This conclusion is retracted with (69e9)--(69e16).**
+
+The source/target-compatible replacement is
+
+```text
+1 -> 1 -> g -> g -> 1.
+```
+
+For `P=23g+54`, `Q=17g+40`, it composes to
+
+```text
+3^(114+2Q)h-C_g=2^(154+2P)h',
+C_g=3^(2Q+57)+2^77*3^(2Q)+2^(77+P)*3^Q+2^(77+2P). (69e17)
+```
+
+This identity shifts attention from finite branch synthesis to the exact
+reproduction equation
+
+```text
+3^R(g)F(g)-C_g=2^S(g)F(f(g)).                       (69e18)
+```
+
+[`unit_return_quine.py`](../../experiments/kontorovich/unit_return_quine.py)
+replays the four legal valuations for `g=1..16` and checks the all-`g`
+composition algebra.  For `f(g)=g+1`, normalization by
+`z_g=2^(23g+54)/3^(17g+40)` gives a mixed-base Mahler equation with no finite
+Laurent-polynomial solution.  A rational-function exclusion is a short
+pole-propagation research derivation pending Lean audit.  The constructive
+lane now seeks an automatic or nonlinear `F,f` which actually emits its next
+address; branch-by-branch CRT extension is explicitly disallowed as closure.
 
 There is a formula-compressed specialization which restores Kontorovich's
 very long spatial wire.  Let an odd marker `C` and exponent `T` satisfy

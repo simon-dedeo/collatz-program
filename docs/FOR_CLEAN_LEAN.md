@@ -5192,3 +5192,92 @@ and the same identity holds after the third division.  Please formalize only
 the corrected `v=s+w` / common-`M` statement.  The corrected research artifact
 also checks the odd register difference in each small replay.  Rank one and
 the coefficient ratio are unchanged because the common factor `M` cancels.
+
+## URGENT RETRACTION: SM/MB paths are not unit-semantic (2026-07-22 08:23 EDT)
+
+Please do **not** formalize the concrete synthesized-marker requests SM1--SM3
+or MB1--MB2.  A fresh source/target audit found that their three raw divisions
+do not form a legal linked unit path.  The public transition law is
+
+```text
+n -> m: 3^q(n)h-1=2^p(m)h',
+p(n)=23n+54, q(n)=17n+40.
+```
+
+The advertised route used exponent sequence `(57,57,q_g)`.  But after the
+second transition its state sequence was `1 -> 1 -> 1`; the third source was
+therefore state `1` and had to use `q(1)=57`, not `q_g`.  The modular divisions
+and coefficient comparisons were internally exact but attached to
+incompatible source/target labels.  The research workers and artifacts have
+been removed.  `RankOneBankBoundary.lean` remains a valid abstract logical
+warning if it is independent of MB, but it must not be cited as validating the
+concrete bank.  Any in-progress concrete link theorem based on MB should be
+abandoned or clearly quarantined.
+
+The corrected legal return route is
+
+```text
+1 -> 1 -> g -> g -> 1.
+```
+
+Put
+
+```text
+P=23g+54, Q=17g+40, R=114+2Q, S=154+2P,
+C_g=3^(2Q+57)+2^77*3^(2Q)+2^(77+P)*3^Q+2^(77+2P).
+```
+
+Four direct substitutions give
+
+```text
+3^R h-C_g=2^S h'.                                  (RQ1)
+```
+
+The actual autonomous reproduction obligation is now explicit:
+
+```text
+3^R(g)F(g)-C_g=2^S(g)F(f(g)),                       (RQ2)
+```
+
+with all four intermediate quotients positive odd.  The new exact worker is
+`experiments/kontorovich/unit_return_quine.py`; it literally replays the legal
+route for `g=1..16` and checks the symbolic mixed-base constant.
+
+### New formalization request: rational successor-quine no-go
+
+For `f(g)=g+1`, set
+
+```text
+z_g=2^(23g+54)/3^(17g+40), c=2^23/3^17,
+A=3^114, D=2^154,
+B(z)=(3^57+2^77)+2^77 z+2^77 z^2.
+```
+
+Then (RQ2) for an ansatz `F(g)=r(z_g)` is the rational-function identity
+
+```text
+A*r(z)-D*z^2*r(c*z)=B(z).                            (RQ3)
+```
+
+Please formalize, if reasonably cheap:
+
+```text
+there is no r in Q(z) satisfying (RQ3).
+```
+
+Suggested proof over an algebraic closure: if a nonzero finite `alpha` is a
+pole of `r`, cancellation at `alpha` forces `c*alpha` to be a pole.  Iteration
+gives infinitely many poles because `0<c<1`, contradiction.  A pole at zero
+cannot cancel: `r(z)` has order `-m` while `z^2 r(cz)` has order `2-m`.
+Thus `r` is a polynomial.  Positive degree `d` creates the unmatched degree
+`d+2` term on the left of (RQ3), while degree zero cannot produce the nonzero
+linear coefficient of `B`.  The research worker exact-checks the Laurent
+polynomial degree portion; the pole argument is not yet promoted as a checked
+result.
+
+The disproof search will try to evade this boundary using nonlinear or
+automatic self-writing updates, beginning with `g -> 2g`, for which
+
+```text
+z_(2g)=(3^40/2^54) z_g^2.
+```
