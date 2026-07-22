@@ -1,0 +1,232 @@
+{
+  "bounds": {
+    "collision_opcode": [
+      0,
+      100
+    ],
+    "delay": [
+      1,
+      100
+    ],
+    "next_delay": [
+      1,
+      100
+    ]
+  },
+  "canonical_base_edges": [
+    {
+      "canonical_source": true,
+      "linked_coefficient": 329,
+      "ordinary_peak": 19973064548195777010390717729529303758917245314004809452870196337628109682266049871872,
+      "ordinary_start": 2958972525658633631168995219189526482802554861334045844869658716685645878854229610647,
+      "ordinary_steps_to_one": 330,
+      "source": {
+        "collision_opcode": 1,
+        "delay": 1,
+        "next_delay": 90
+      },
+      "source_coefficient": 41096840634147689321791600266521201150035484185195081178745259953967303872975411259,
+      "target": {
+        "collision_opcode": 5,
+        "delay": 90,
+        "next_delay": 1
+      },
+      "target_output_coefficient": 26763356444338830183175177128281479901050246279031054263888563764408590982651933894031919,
+      "target_terminal_reason": "output valuation below one clean delay cell"
+    },
+    {
+      "canonical_source": true,
+      "linked_coefficient": 577,
+      "ordinary_peak": 169775985999286631284371117055819852598018394911988183465988,
+      "ordinary_start": 22357331489617992597118830229572984704265796860837950086055,
+      "ordinary_steps_to_one": 1272,
+      "source": {
+        "collision_opcode": 2,
+        "delay": 1,
+        "next_delay": 61
+      },
+      "source_coefficient": 310518492911361008293317086521847009781469400844971528973,
+      "target": {
+        "collision_opcode": 4,
+        "delay": 61,
+        "next_delay": 1
+      },
+      "target_output_coefficient": 6643492677104650869108929336948264912203445399163242499950143,
+      "target_terminal_reason": "output valuation below one clean delay cell"
+    },
+    {
+      "canonical_source": true,
+      "linked_coefficient": 577,
+      "ordinary_peak": 452735962664764350091656312148852940261382386431968489242632,
+      "ordinary_start": 19873183546327104530772293537398208626014041654078177854271,
+      "ordinary_steps_to_one": 1277,
+      "source": {
+        "collision_opcode": 2,
+        "delay": 2,
+        "next_delay": 61
+      },
+      "source_coefficient": 34502054767929000921479676280205223309052155649441280997,
+      "target": {
+        "collision_opcode": 4,
+        "delay": 61,
+        "next_delay": 1
+      },
+      "target_output_coefficient": 6643492677104650869108929336948264912203445399163242499950143,
+      "target_terminal_reason": "output valuation below one clean delay cell"
+    }
+  ],
+  "claim_scope": "exhaustive canonical-tail-zero classification of every delay gate shape in the stated source box; every retained edge and its target gate are literally replayed; no claim outside the source bounds and no infinite orbit claim",
+  "counts": {
+    "canonical_base_edges": 3,
+    "no_clean_successor": 992129,
+    "noncanonical_base_aliases": 7,
+    "positive_tail_successor": 17861,
+    "shapes": 1010000
+  },
+  "depth_two_base_edges": [],
+  "maximum_canonical_base_edge_chain": 1,
+  "noncanonical_base_aliases": [
+    {
+      "canonical_source": false,
+      "linked_coefficient": 81,
+      "ordinary_peak": 15018933029959449607893431916515092,
+      "ordinary_start": 5312662293228350865407,
+      "ordinary_steps_to_one": 928,
+      "source": {
+        "collision_opcode": 0,
+        "delay": 1,
+        "next_delay": 21
+      },
+      "source_coefficient": 73786976294838206464,
+      "target": {
+        "collision_opcode": 6,
+        "delay": 21,
+        "next_delay": 1
+      },
+      "target_output_coefficient": 14196713135507827072849,
+      "target_terminal_reason": "output valuation is not a multiple of three"
+    },
+    {
+      "canonical_source": false,
+      "linked_coefficient": 81,
+      "ordinary_peak": 7913525166985776064915451001758683559636830780236143128,
+      "ordinary_start": 23365335863406724328387233481490431,
+      "ordinary_steps_to_one": 1642,
+      "source": {
+        "collision_opcode": 0,
+        "delay": 1,
+        "next_delay": 35
+      },
+      "source_coefficient": 324518553658426726783156020576256,
+      "target": {
+        "collision_opcode": 4,
+        "delay": 35,
+        "next_delay": 1
+      },
+      "target_output_coefficient": 144344559974947190738362509967171189,
+      "target_terminal_reason": "output valuation below one clean delay cell"
+    },
+    {
+      "canonical_source": false,
+      "linked_coefficient": 81,
+      "ordinary_peak": 146182453467349989400893565373353099130203174967096178497620691260445799232026601811836450616451032625050688218548736802555250169218055009265568,
+      "ordinary_start": 2291665473376296847052001399460550431182901942874178281965658005523678962233753794456322047,
+      "ordinary_steps_to_one": 4881,
+      "source": {
+        "collision_opcode": 0,
+        "delay": 1,
+        "next_delay": 97
+      },
+      "source_coefficient": 31828687130226345097944463881396533766429193651030253916189694521162207808802136034115584,
+      "target": {
+        "collision_opcode": 5,
+        "delay": 97,
+        "next_delay": 1
+      },
+      "target_output_coefficient": 31515722312908969213537041628268774081788930173229913340733259620409900043465053939275137630709,
+      "target_terminal_reason": "output valuation below one clean delay cell"
+    },
+    {
+      "canonical_source": false,
+      "linked_coefficient": 729,
+      "ordinary_peak": 15018933029959449607893431916515092,
+      "ordinary_start": 5312662293228350865407,
+      "ordinary_steps_to_one": 928,
+      "source": {
+        "collision_opcode": 0,
+        "delay": 2,
+        "next_delay": 20
+      },
+      "source_coefficient": 9223372036854775808,
+      "target": {
+        "collision_opcode": 6,
+        "delay": 20,
+        "next_delay": 1
+      },
+      "target_output_coefficient": 14196713135507827072849,
+      "target_terminal_reason": "output valuation is not a multiple of three"
+    },
+    {
+      "canonical_source": false,
+      "linked_coefficient": 729,
+      "ordinary_peak": 7913525166985776064915451001758683559636830780236143128,
+      "ordinary_start": 23365335863406724328387233481490431,
+      "ordinary_steps_to_one": 1642,
+      "source": {
+        "collision_opcode": 0,
+        "delay": 2,
+        "next_delay": 34
+      },
+      "source_coefficient": 40564819207303340847894502572032,
+      "target": {
+        "collision_opcode": 4,
+        "delay": 34,
+        "next_delay": 1
+      },
+      "target_output_coefficient": 144344559974947190738362509967171189,
+      "target_terminal_reason": "output valuation below one clean delay cell"
+    },
+    {
+      "canonical_source": false,
+      "linked_coefficient": 729,
+      "ordinary_peak": 146182453467349989400893565373353099130203174967096178497620691260445799232026601811836450616451032625050688218548736802555250169218055009265568,
+      "ordinary_start": 2291665473376296847052001399460550431182901942874178281965658005523678962233753794456322047,
+      "ordinary_steps_to_one": 4881,
+      "source": {
+        "collision_opcode": 0,
+        "delay": 2,
+        "next_delay": 96
+      },
+      "source_coefficient": 3978585891278293137243057985174566720803649206378781739523711815145275976100267004264448,
+      "target": {
+        "collision_opcode": 5,
+        "delay": 96,
+        "next_delay": 1
+      },
+      "target_output_coefficient": 31515722312908969213537041628268774081788930173229913340733259620409900043465053939275137630709,
+      "target_terminal_reason": "output valuation below one clean delay cell"
+    },
+    {
+      "canonical_source": false,
+      "linked_coefficient": 6561,
+      "ordinary_peak": 15018933029959449607893431916515092,
+      "ordinary_start": 5312662293228350865407,
+      "ordinary_steps_to_one": 928,
+      "source": {
+        "collision_opcode": 0,
+        "delay": 3,
+        "next_delay": 19
+      },
+      "source_coefficient": 1152921504606846976,
+      "target": {
+        "collision_opcode": 6,
+        "delay": 19,
+        "next_delay": 1
+      },
+      "target_output_coefficient": 14196713135507827072849,
+      "target_terminal_reason": "output valuation is not a multiple of three"
+    }
+  ],
+  "schema": "collatz-breakoff-base-graph-v2",
+  "verifier_sha256": "bc0fc70026f314466285da28f385894503f64a5a6ccebac967ce03c6da66a3ff"
+}

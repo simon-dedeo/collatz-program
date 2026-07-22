@@ -1040,6 +1040,68 @@ artifact SHA-256  2e498bfd6f0dec384ebfc9255233c5a5769980d98ffba7f5c9e4ab397e61c7
 verifier SHA-256  2867d3a79d19c002a588927e1564c1850a50a03a107fbe4497b7773017585b75
 ```
 
+## Canonical tail-zero delay graph
+
+`search_delay_base_graph.py` asks whether the ordinary-tail gate can be met in
+the strongest possible way: use the least coefficient (`tail=0`) of one delay
+family and require its output to be literally the least coefficient of the
+next decoded family.  Such a link consumes no additional bits of an initial
+2-adic address.
+
+There is a necessary representation check.  In
+
+```text
+k=9*2^(3q)c-1,
+```
+
+a coefficient divisible by eight contains another whole delay cell, so the
+displayed `q` is not maximal.  The worker records such hits separately as
+coordinate aliases and calls a source canonical only when `8` does not divide
+`c`.
+
+```bash
+python3 search_delay_base_graph.py selftest
+python3 search_delay_base_graph.py build delay_base_graph_audit.json
+python3 search_delay_base_graph.py verify delay_base_graph_audit.json
+```
+
+The artifact exhausts every shape
+
+```text
+q=1..100, j=0..100, q'=1..100,
+```
+
+or 1,010,000 symbolic gates.  The exact partition is:
+
+```text
+no next clean delay          992,129
+next gate needs tail > 0      17,861
+canonical tail-zero links          3
+nonmaximal-delay aliases            7
+```
+
+Every retained source and target is reconstructed with
+`breakoff_delay_gate.gate` and literally replayed through every executable
+delay tick and collision.  The three canonical shape links are
+
+```text
+(1,1,90) -> (90,5,1)
+(1,2,61) -> (61,4,1)
+(2,2,61) -> (61,4,1).
+```
+
+Every target fails to emit another clean delay, so the maximum canonical
+base-edge chain is one.  Exact ordinary continuation sends their 85-, 59-,
+and 59-digit starts to `1` in 330, 1,272, and 1,277 Collatz steps.  This is a
+bounded failure of immediate least-representative stabilization.  It does not
+exclude a program whose nonzero tail is produced by earlier hardware, a
+nonlinear two-packet encoding, or shapes outside the source box.
+
+```text
+artifact SHA-256  3a35c71beda163b21e71a3ebaeaf672b24dc37078858ee21410e09510aefa536
+verifier SHA-256  bc0fc70026f314466285da28f385894503f64a5a6ccebac967ce03c6da66a3ff
+```
+
 ## A seven-step base-`3/2` compiler bridge
 
 Eliahou--Verger-Gaugry's saturated-word map

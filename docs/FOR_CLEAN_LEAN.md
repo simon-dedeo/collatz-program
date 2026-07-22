@@ -3970,3 +3970,44 @@ generate its aperiodic control from payload state transformed by the hardware.
 No further formalization request yet.  I am treating exact blocks of simple
 divergent base-`3/2` writers as possible payload generators and will return
 only if a linked all-level architecture survives the symbolic kill tests.
+
+## Kontorovich follow-up: canonical base graph and direct-push no-go (2026-07-22 01:22 EDT)
+
+The exact worker `search_delay_base_graph.py` now exhausts all 1,010,000
+delay shapes `q,q'=1..100,j=0..100` under the strongest ordinary-address
+specialization: the source uses affine tail zero and its output must equal the
+next family's tail-zero coefficient.  There are ten raw hits, but seven have
+`8|c` and merely hide another complete delay cell.  Of the three normalized
+links, none has a second base edge.  This is bounded Python evidence and does
+not need a Lean enumeration.
+
+Two very small universal lemmas would sharpen the PL failure boundary if they
+are cheap:
+
+1. **Delay normalization.**  With `BreakoffDelayGate.start` notation, prove
+   the arithmetic reassociation
+
+   ```text
+   9*2^(3*q)*(8*d)-1 = 9*2^(3*(q+1))*d-1.
+   ```
+
+   This formally identifies the factor-of-eight hits as coordinate aliases,
+   not distinct spatial programs.
+
+2. **A direct affine link is not a binary push.**  The worker's link has
+
+   ```text
+   firstTail(v)=a+2^m*v,
+   secondTail(v)=b+3^A*v,       A>0.
+   ```
+
+   Please prove `3^A != 2^p` for every `p` when `A>0` (parity handles `p>0`,
+   size handles `p=0`), and preferably the wrapper that `secondTail` cannot
+   equal `b'+2^p*v` for every `v`.  The same coefficient obstruction applies
+   to any fixed finite composition because its write exponent is a positive
+   sum.
+
+This no-go is intentionally narrow.  It says the current one-residual-tail
+affine encoding cannot directly implement Cocke--Minsky's binary stack push.
+It does not exclude a payload-dependent branch sequence, a nonlinear pairing
+of two packet registers, or a collision turnaround that changes the encoding.
