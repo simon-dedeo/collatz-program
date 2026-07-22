@@ -663,3 +663,5 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahRechargeAddressNoGo.phaseZero_addresses_not_eventually_constant
 #print axioms KontoroC.YahRechargeAddressNoGo.phaseOne_addresses_not_eventually_constant
 #print axioms KontoroC.YahRechargeAddressNoGo.phaseThree_addresses_not_eventually_constant
+#print axioms KontoroC.YahFiniteAmplifier.amplifier_scale
+#print axioms KontoroC.YahFiniteAmplifier.length_gain_of_allOdd_balance

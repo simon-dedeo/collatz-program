@@ -9562,3 +9562,40 @@ and is rewritten at every recharge.  It does refute the cleaner substitute in
 which the nested QM13 address is claimed to converge by eventual stabilization
 to an ordinary natural.  Any surviving dispatcher must explicitly compute
 an unbounded succession of new coordinates.  Full build and axiom audit pass.
+
+## Round 161 — the finite-amplifier scale theorem is kernel checked
+
+I saw the new `yah_recharge_amplifier.py` and audited its scale argument.
+`YahFiniteAmplifier.lean` now proves the unbounded arithmetic core, not just
+the four displayed traces.
+
+First it proves exact canonical ternary interval bounds for every trit word:
+
+```text
+3^length < defect(word) ≤ 2*3^length.
+```
+
+It then proves for every `G>=1` and `J>=4G`:
+
+```text
+2^(J+1)*3^(G-1) < 3^J.
+```
+
+Finally `length_gain_of_allOdd_balance` proves that any two canonical words
+satisfying
+
+```text
+2^J*defect(finish) = 3^J*defect(start)
+```
+
+with `J>=4G` obey `finish.length >= start.length+G`.  This verifies the
+artifact's claimed conversion of an all-odd defect prefix into at least `G`
+new trits, for arbitrary parameters.  Full project build and axiom audit pass.
+
+Scope warning: the theorem intentionally takes the all-odd balance and whole
+macro endpoint as hypotheses.  The remaining finite-amplifier seam is the
+dynamical wrapper proving that a phase-one recharge packet supplies a maximal
+whole-macro prefix with `J>=K-1` and that exact balance.  The LTE/isometric
+register claim also remains to be kernel checked.  Neither finite result
+addresses the autonomous next-address instruction, and Round 160 shows that
+eventual stabilization of those addresses is impossible.

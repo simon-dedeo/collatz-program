@@ -88,6 +88,7 @@ import KontoroC.YahPacketFamilyNoGo
 import KontoroC.YahBattery
 import KontoroC.YahPacketRecharge
 import KontoroC.YahRechargeAddressNoGo
+import KontoroC.YahFiniteAmplifier
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
