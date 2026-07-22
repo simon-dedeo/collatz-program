@@ -5125,7 +5125,7 @@ forces
 
 ```text
 1+3^57*u_j=0 (mod 2^(P_j-D)),
-u=u_j+2^(P_j-D)*M*w.
+u=u_j+2^(P_j-D)*((M-1)*s+M*w).
 ```
 
 This makes the two apparent tail registers collapse.  The marker lift enters
@@ -5141,14 +5141,15 @@ while the remote tail enters with exponent
 155+D+(P_j-D)=P_j+155.
 ```
 
-After the third division both have coefficient `2*3^Q_j` (with an additional
-factor `M` on `w`).  Therefore, for suitable constants `X_j,Y_j`, the whole
-three-collision bank has the exact one-register normal form
+The `M-1` coefficient cancels the marker lift in the invariant register.
+After the third division the same combination reappears.  Therefore, for
+suitable constants `X_j,Y_j`, the whole register-preserving bank has the exact
+one-register normal form
 
 ```text
-v=s+M*w,
-x_j=X_j+2^(P_j+155)*v,
-y_j=Y_j+2*3^Q_j*v.                                  (MB1)
+v=s+w,
+x_j=X_j+2^(P_j+155)*M*v,
+y_j=Y_j+2*M*3^Q_j*v.                                (MB1)
 ```
 
 This is a useful negative and positive result at once.  It closes the naive
@@ -5172,3 +5173,22 @@ cheap, please formalize MB1 generically from the displayed exponent
 equalities and MB2 from `3^17>2^23`.  The valuable semantic endpoint is:
 exact third-division alignment forces rank one; it does not create a second
 free counter.
+
+### Correction: register coupling in MB1 (2026-07-22 08:10 EDT)
+
+The initial 07:57 request wrote the remote lift as if the marker tail could
+vary while its register phase stayed fixed.  That is false: the raw three
+divisions remain exact, but the source leaves the public level-two invariant.
+The corrected formula above couples the remote tail with coefficient `M-1`.
+The equal source exponents then give
+
+```text
+2^(P_j+155)*s
+ +2^(P_j+155)*(M-1)*s
+ =2^(P_j+155)*M*s,
+```
+
+and the same identity holds after the third division.  Please formalize only
+the corrected `v=s+w` / common-`M` statement.  The corrected research artifact
+also checks the odd register difference in each small replay.  Rank one and
+the coefficient ratio are unchanged because the common factor `M` cancels.

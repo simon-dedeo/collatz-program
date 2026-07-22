@@ -1514,23 +1514,24 @@ it to be invisible through the exact `P_j` division, choose
 
 ```text
 1+3^57*u_j=0 (mod 2^(P_j-D)),
-u=u_j+2^(P_j-D)*M*w.                               (UMB2)
+u=u_j+2^(P_j-D)*((M-1)*s+M*w).                     (UMB2)
 ```
 
-Its source exponent is then
+Its raw source exponent is then
 
 ```text
 155+D+(P_j-D)=P_j+155.                             (UMB3)
 ```
 
-After the third division the marker and remote free coefficients are
-respectively `2*3^Q_j` and `2*M*3^Q_j`.  Hence they are not independent
-stacks.  With `v=s+Mw`, the complete three-collision family has rank-one
-normal form
+The `M-1` coefficient is forced by the public invariant register: because the
+marker and remote source exponents agree, it cancels the marker lift modulo
+the odd stride `M`.  After the third division the same addition occurs.
+Hence the two islands are not independent stacks.  With `v=s+w`, the
+register-preserving three-collision family has rank-one normal form
 
 ```text
-x_j=X_j+2^(P_j+155)*v,
-y_j=Y_j+2*3^Q_j*v.                                 (UMB4)
+x_j=X_j+2^(P_j+155)*M*v,
+y_j=Y_j+2*M*3^Q_j*v.                               (UMB4)
 ```
 
 The spatial islands remain distinct pieces of the finite integer, but exact
@@ -1559,15 +1560,17 @@ PYTHONPATH=. python3 unit_marker_bank.py verify unit_marker_bank_audit.json
 The verifier reconstructs the public exponent and coefficient rows for
 `j=0..15`, retaining a digest of all sixteen and the endpoint rows.  It also
 fully materializes a small analogue at opcodes `0..5`; each analogue replays
-all three exact divisions and checks both rank-one differences.  The all-`j`
-claim is the symbolic algebra (UMB1)--(UMB5); the listed ranges scope only the
-materialized regressions.  No payload-selected opcode law, infinite orbit, or
-counterexample is claimed.
+all three exact divisions, both rank-one differences, and preservation of
+the small odd register class under the coupled lift.  The first public
+artifact omitted that coupling; the corrected version is the one hashed
+below.  The all-`j` claim is the symbolic algebra (UMB1)--(UMB5); the listed
+ranges scope only the materialized regressions.  No payload-selected opcode
+law, infinite orbit, or counterexample is claimed.
 
 ```text
-artifact SHA-256      aeece50df9b0b648a665d173ad9b07aa30f644841c108142b8761b71000faef8
-verifier file SHA-256 095d85a7c684df436e2dd1a1f9d036abedb31cb68ca490dd835f34195f6327f4
-combined source SHA   b5118a9e47e84998fa6e090395a2701ea4b3123ff81e1ed16f2b1d35656e09ff
+artifact SHA-256      8a3bd0fc4ee0788541ed5b6974286ff86e58496404a7fcf2979c5a460c3da1af
+verifier file SHA-256 8d9b01da1c7c786117725dd24fc87a625abff495b49def2075ff7474c1ca8971
+combined source SHA   5230047c12e4f679ad0278710bbcdd13e70b2cdef8a97dd1b994cb3548016ed8
 ```
 
 ## Formula-generated repetend splashes

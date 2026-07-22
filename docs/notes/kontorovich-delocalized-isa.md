@@ -1822,16 +1822,18 @@ The marker tail `t=t_j+2^(P_j+1)s` enters the original source with coefficient
 
 ```text
 1+3^57u_j=0 (mod 2^(P_j-D)),
-u=u_j+2^(P_j-D)Mw.                                  (69e14)
+u=u_j+2^(P_j-D)((M-1)s+Mw).                         (69e14)
 ```
 
 The remote tail therefore enters the source with the *same* binary
-coefficient, and the two output coefficients agree up to `M`.  Thus
+coefficient.  The `M-1` term is necessary: it cancels the marker lift in the
+odd invariant register.  The two output coefficients combine in the same
+way.  Thus
 
 ```text
-v=s+Mw,
-x_j=X_j+2^(P_j+155)v
-  -> y_j=Y_j+2*3^(q_j+114)v.                         (69e15)
+v=s+w,
+x_j=X_j+2^(P_j+155)Mv
+  -> y_j=Y_j+2M 3^(q_j+114)v.                        (69e15)
 ```
 
 The spatially separated marker and catcher do not supply independent stacks:
@@ -1847,10 +1849,12 @@ and each increment multiplies it by
 
 [`unit_marker_bank.py`](../../experiments/kontorovich/unit_marker_bank.py)
 checks the public coefficient algebra through sixteen opcodes and replays six
-fully materialized small analogues.  A fixed opcode is closed by the periodic
-word theorem; the surviving PL problem is to let the natural `v` decode an
-unbounded, aperiodic opcode sequence and remain in the union of the source
-cylinders.
+fully materialized small analogues, including preservation of their odd
+register class.  The first artifact omitted the `M-1` compensation and was
+corrected before being used downstream.  A fixed opcode is closed by the
+periodic word theorem; the surviving PL problem is to let the natural `v`
+decode an unbounded, aperiodic opcode sequence and remain in the union of the
+source cylinders.
 
 There is a formula-compressed specialization which restores Kontorovich's
 very long spatial wire.  Let an odd marker `C` and exponent `T` satisfy

@@ -7,11 +7,13 @@ The expanding marker turnaround admits every later legal division
 
 At first sight its marker lift and remote packet look like two independent
 tails.  Exactness of the third division forces the remote catcher to acquire
-the same extra ``23*j`` dyadic alignment as the marker.  Consequently both
-tails enter through one combined natural register ``v=s+M*w``:
+the same extra ``23*j`` dyadic alignment as the marker, while register
+invariance forces the remote lift to cancel the marker modulo the odd stride
+``M``.  Consequently both tails enter through one combined natural register
+``v=s+w`` with a common factor ``M``:
 
-    x_j = X_j + 2^(P_j+155) * v,
-    y_j = Y_j + 2 * 3^(q_j+114) * v.
+    x_j = X_j + 2^(P_j+155) * M * v,
+    y_j = Y_j + 2 * M * 3^(q_j+114) * v.
 
 This worker checks the public exponent algebra, the all-j coefficient-growth
 factor, and fully materializes a small surrogate for several opcodes.  The
@@ -100,7 +102,8 @@ def small_surrogate_record(opcode: int) -> dict[str, int | bool]:
 
     # Exactness of the remote contribution through P_j requires
     # 1+3^q*u=0 mod 2^(P_j-D).  Intersect this with a small odd register
-    # modulus to reproduce the public u=u_j+2^(P_j-D)M*w shape.
+    # modulus.  When the marker lift changes by s, use (M-1)*s in
+    # the remote lift: its equal dyadic coefficient cancels s modulo M.
     remote_exponent = turnaround_p - gap
     remote_modulus = 1 << remote_exponent
     remote_residue = (
@@ -121,7 +124,10 @@ def small_surrogate_record(opcode: int) -> dict[str, int | bool]:
         marker = marker_h + pow(3, precision) * t
         prefix = prefix_c + pow(2, p) * pow(3, q) * t
         correction = correction_a + pow(2, 2 * p) * t
-        u = remote_base + remote_modulus * register_modulus * remote_tail
+        u = remote_base + remote_modulus * (
+            (register_modulus - 1) * marker_tail
+            + register_modulus * remote_tail
+        )
         source = correction + pow(2, p + width) * (
             z + pow(2, gap) * u
         )
@@ -143,12 +149,15 @@ def small_surrogate_record(opcode: int) -> dict[str, int | bool]:
     marker_tail = 2
     remote_tail = 3
     source, output = replay(marker_tail, remote_tail)
-    combined = marker_tail + register_modulus * remote_tail
+    combined = marker_tail + remote_tail
     expected_source_delta = pow(
         2, turnaround_p + 2 * p + 1
-    ) * combined
+    ) * register_modulus * combined
     expected_output_delta = (
-        2 * pow(3, turnaround_q + precision) * combined
+        2
+        * register_modulus
+        * pow(3, turnaround_q + precision)
+        * combined
     )
     if source - source_zero != expected_source_delta:
         raise AssertionError("small source did not collapse to one register")
@@ -171,6 +180,9 @@ def small_surrogate_record(opcode: int) -> dict[str, int | bool]:
         "three_exact_divisions_checked": True,
         "rank_one_source_delta_checked": True,
         "rank_one_output_delta_checked": True,
+        "source_register_delta_checked": (
+            (source - source_zero) % register_modulus == 0
+        ),
     }
 
 
@@ -234,10 +246,10 @@ def build_record(opcodes: int = 16) -> dict[str, object]:
                 "source_combined_two_exponent": source_combined_exponent,
                 "output_combined_three_exponent": output_three_exponent,
                 "source_normal_form": (
-                    f"X_{opcode}+2^{source_combined_exponent}*(s+M*w)"
+                    f"X_{opcode}+2^{source_combined_exponent}*M*(s+w)"
                 ),
                 "output_normal_form": (
-                    f"Y_{opcode}+2*3^{output_three_exponent}*(s+M*w)"
+                    f"Y_{opcode}+2*M*3^{output_three_exponent}*(s+w)"
                 ),
                 "rank_one_collapse_checked": True,
             }
@@ -272,12 +284,13 @@ def build_record(opcodes: int = 16) -> dict[str, object]:
             "q_j": "q_0+17*j",
             "marker_tail": "t=t_j+2^(P_j+1)*s",
             "remote_tail": (
-                "u=u_j+2^(P_j-D)*M*w; the residue u_j makes "
-                "1+3^57*u_j=0 mod 2^(P_j-D)"
+                "u=u_j+2^(P_j-D)*((M-1)*s+M*w); u_j makes "
+                "1+3^57*u_j=0 mod 2^(P_j-D), and M-1 cancels "
+                "the marker lift in the invariant register"
             ),
-            "combined_register": "v=s+M*w",
-            "source": "x_j=X_j+2^(P_j+155)*v",
-            "output": "y_j=Y_j+2*3^(q_j+114)*v",
+            "combined_register": "v=s+w",
+            "source": "x_j=X_j+2^(P_j+155)*M*v",
+            "output": "y_j=Y_j+2*M*3^(q_j+114)*v",
         },
         "rank_one_identity": {
             "marker_source_exponent": "154+(P_j+1)=P_j+155",
@@ -285,9 +298,11 @@ def build_record(opcodes: int = 16) -> dict[str, object]:
                 "155+D+(P_j-D)=P_j+155"
             ),
             "conclusion": (
-                "exact third-division alignment collapses the marker lift "
-                "and remote packet to v=s+M*w"
+                "exact third-division alignment plus register invariance "
+                "collapses the marker lift and remote packet to v=s+w, "
+                "with a common factor M"
             ),
+            "register_compensation": "remote marker coefficient is M-1",
         },
         "positive_drift": {
             "base_nine_over_eight_bit_margin": base_gain,
@@ -335,8 +350,9 @@ def build_certificate() -> dict[str, object]:
             "formula-compressed all-nonnegative-opcode exponent and "
             "coefficient identities for the level-two synthesized-marker "
             "bank, plus exact materialized three-collision replays for six "
-            "small surrogate opcodes; exact alignment forces the apparent "
-            "marker and remote tails into one combined register, and every "
+            "small surrogate opcodes; exact alignment plus invariant-register "
+            "coupling forces the apparent marker and remote tails into one "
+            "combined register, and every "
             "bank opcode has positive coefficient drift; no payload-selected "
             "opcode law, infinite ordinary orbit, or Collatz counterexample "
             "is claimed"
@@ -360,6 +376,10 @@ def selftest() -> None:
     record = build_record()
     assert record["audited_public_opcode_count"] == 16
     assert len(record["small_materialized_replays"]) == 6
+    assert all(
+        row["source_register_delta_checked"]
+        for row in record["small_materialized_replays"]
+    )
     assert record["positive_drift"]["per_opcode_factor_gt_one"]
 
 
