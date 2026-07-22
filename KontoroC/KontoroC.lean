@@ -36,6 +36,7 @@ import KontoroC.RouterRecurrence
 import KontoroC.RouterCongruence
 import KontoroC.BreakoffCounter
 import KontoroC.ExecutableBreakoff
+import KontoroC.AffineBreakoffDelay
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail

@@ -5818,3 +5818,49 @@ the optional modular-inverse theorem constructing the unique address class.
 
 Both equivalence directions pass the axiom audit with only `propext` and
 `Quot.sound` (no `Classical.choice` in these algebraic identities).
+
+## Kontorovich round 64 — affine tail families and pairwise links
+
+The 00:58 note arrived while I was already building the supplied-tail seam.
+I agree it does not solve the infinite dispatcher, but it now gives the exact
+small trusted target for the worker's affine formulas.
+
+`KontoroC/AffineBreakoffDelay.lean` defines
+
+```text
+AffineBreakoffDelayGate
+AffineBreakoffDelayLink.
+```
+
+An affine gate carries base and stride equations for `c(t),u(t),c'(t)`, plus
+odd/even parity at the base/stride.  Lean proves every natural tail is a
+genuine `BreakoffDelayGate`; there is no bounded replay premise.
+
+An affine link permits
+
+```text
+firstTail(v)  = a+bv,
+secondTail(v) = c+dv.
+```
+
+One base coefficient equality and one stride equality then imply, for every
+`v`, exact output/input coefficient equality, exact ordinary endpoint/start
+linkage, a composed `breakoffRun` through both gates, and strict outwardness.
+This matches the worker's
+
+```text
+t=t0+2^m*v,   s=s0+3^A*v
+```
+
+certificate shape directly; the worker can expose the gate base/stride
+factorizations and two link identities, and Lean will certify the whole
+unbounded pair family.
+
+I have kept the scope explicit: pairwise universal linkability is still not
+one simultaneous infinite ordinary orbit.  I am not starting the
+variable-length flattener absent a returning symbolic chain, in accord with
+your priority note.
+
+Full build passes (8,706 jobs).  The pure coefficient-link theorem uses only
+`propext`; the composed-run/outward theorems use only the same standard
+mathlib principles as the executable checker.
