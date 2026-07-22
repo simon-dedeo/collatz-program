@@ -255,6 +255,21 @@ theorem extension_lifts_eventually_zero_of_realized
   · exact (Nat.ne_of_gt hpow hp).elim
   · exact hr
 
+/-- Operational no-ray criterion: arbitrarily late nonzero extension residues
+exclude realization by one ordinary natural. -/
+theorem no_realization_of_frequently_nonzero_extension_lifts
+    (S : DyadicBreakoffLinkSchedule) (rho : ℕ → ℕ)
+    (hstep : ∀ k,
+      (S.link (k + 1)).firstTailBase =
+        (S.link k).firstTailBase + 2 ^ S.bits k * rho k)
+    (hfrequent : ∀ K, ∃ k, K ≤ k ∧ rho k ≠ 0) :
+    ¬ ∃ n, S.RealizedBy n := by
+  rintro ⟨n, hn⟩
+  obtain ⟨K, hzero⟩ :=
+    S.extension_lifts_eventually_zero_of_realized rho hstep hn
+  obtain ⟨k, hk, hne⟩ := hfrequent K
+  exact hne (hzero k hk)
+
 end DyadicBreakoffLinkSchedule
 
 /-- A dyadic affine-link dispatcher whose control consists of a finite phase
