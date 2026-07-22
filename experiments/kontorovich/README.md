@@ -380,7 +380,21 @@ CUDA      f5e9bb3054dbf0b29247154a5ac3f90c614880e41ff58a71e3643d49e6c668a5
 verifier  de52aab1c97921484d8e547d1cb4609c29a2ef735a8f60fa2dbe66b9a2eaf919
 ```
 
-PSC H100 job `42500602` is retained as an independent device rerun.
+PSC H100 job `42500602` completed the same `h<2^36` census independently on
+an NVIDIA H100 80GB HBM3.  It has the same zero-overflow counter, maximum
+renewal length seven, and 243 stored hits.  After sorting by initial packet,
+renewal length, and collision extras, every hit agrees exactly with the RTX
+4090 artifact; the Python arbitrary-precision verifier also passes directly
+on the H100 output.  The files deliberately remain separate so the device
+provenance is visible:
+
+```text
+H100 artifact  26d093ba1e79ddde4e9a452e557d8367530ea9916d396579b99571349abd7222
+RTX artifact   2769cce1866927c863b02626e561a6876b6289a6171ce7096e0045ea37e189bf
+```
+
+This is independent-hardware corroboration of candidate generation, not a
+larger search bound and not an independent implementation of the CUDA kernel.
 
 A nested wider run raises the packet bound to `h<2^39`, sets the recording
 threshold to seven, and checks all `274,877,906,944=2^38` odd packets.  Its

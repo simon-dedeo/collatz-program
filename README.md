@@ -154,7 +154,7 @@ identically `x`.
 | Bounded `-1`/Mersenne shadow grammar | `376,800` positive paths checked exactly for start levels `1..100`, extras `1..12`, and depth at most three. There are 522 terminal renewals, 80 seed stabilizations, and three all-outward stabilization events; none supplies a second stabilized extension. The best finite run reaches `1` on exact continuation. | [`mersenne_shadow_results.json`](experiments/kontorovich/mersenne_shadow_results.json) |
 | Constant-extra Mersenne feedback | All `51,200` compiled paths for start levels `1..20`, constant extras `1..32`, depths `1..40`, and both mod-6 classes were checked. The unique two-extension event is seed `121` for extra `1`; its fifth macro fails and exact continuation reaches `1`. | [`mersenne_constant_results.json`](experiments/kontorovich/mersenne_constant_results.json) |
 | Short-period Mersenne feedback | All `2,726,400` prefixes from 568 primitive extra templates of period at most three over `{1,...,8}`, start levels `1..30`, depths `1..80`, and both mod-6 classes were checked in compressed exact arithmetic; every hit was literally replayed. No template improves the constant-`1` two-extension event or the `(4,3,1)` outward event. | [`mersenne_periodic_results.json`](experiments/kontorovich/mersenne_periodic_results.json) |
-| Direct state-dependent packet census | CUDA exhaustively checked all `2^41=2,199,023,255,552` odd packets `h<2^42` from start level one through an eight-renewal horizon, with zero arithmetic overflows and no length-eight chain. Nested replayed artifacts retain the 14 length-seven hits below `2^39` and 243 length-six-or-more hits below `2^36`. | [`h<2^42` artifact](experiments/kontorovich/mersenne_packet_gpu_akdeniz_h42.json) |
+| Direct state-dependent packet census | CUDA exhaustively checked all `2^41=2,199,023,255,552` odd packets `h<2^42` from start level one through an eight-renewal horizon, with zero arithmetic overflows and no length-eight chain. Nested replayed artifacts retain the 14 length-seven hits below `2^39` and 243 length-six-or-more hits below `2^36`; independent RTX 4090 and H100 runs reproduce all 243 inner hit triples exactly. | [`h<2^42` artifact](experiments/kontorovich/mersenne_packet_gpu_akdeniz_h42.json), [H100 replication](experiments/kontorovich/mersenne_packet_gpu_psc.json) |
 | Small regular invariant sets | Previously closed only in the stated exhaustive classes: no base-2 DFA divergence certificate through eight states and no base-3 certificate through five. One-counter and genuinely morphic single-orbit certificates remain open. | [Base 2](experiments/dfacert/README.md), [base 3](experiments/dfacert3/README.md) |
 
 The first work product will be an exact `k`-word compiler and cycle/glider
@@ -183,6 +183,7 @@ positive integer and its claimed behavior are machine-checked.
 | Kernel Mersenne-shadow seam | Lean commit `768f4d0` checks the signed `(-1,[1])` controller, proves the worker's exact Mersenne macro identity, and proves `MersenneShadowOrbit.not_conjecture` from infinite renewal data. It also kernel-replays the `24,017,279` event and its level-10 failure. |
 | Pure packet-recurrence endpoint | Lean commits `32a0896`--`a2652f2` reduce a Mersenne disproof to positive odd packets and bounded extras satisfying `2^e(2^(m+1)h'-1)=3^m h-1` at every level. Lean derives exact legality, transitions, eventual packet growth, the unique necessary class of `h' mod 3^m`, and the literal Collatz refutation. |
 | Seven-renewal state-dependent motif | Exact seed `30,603,607,965` has extras `(2,1,3,2,2,2,1)` and seven renewed Mersenne packet levels; its final four macrosteps grow and end at `318,374,253,823`. The eighth renewal fails, and exact continuation reaches `1` after 152 accelerated steps. |
+| Independent packet-census replication | PSC H100 job `42500602` independently re-enumerated all `2^35` odd packets `h<2^36`. It reproduced the RTX 4090 run's zero-overflow counter, maximum renewal length seven, and all 243 stored `(initial h, length, extras)` triples exactly; both artifacts pass the Python big-integer verifier. This corroborates the inner census but does not enlarge its bound. |
 
 The compiler and certificate seam is now live.  The dependency-free
 [`path_compiler.py`](experiments/kontorovich/path_compiler.py) reproduces the
@@ -220,6 +221,20 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-21 21:05 EDT
+
+PSC H100 job `42500602` completed the independent `h<2^36` packet census in
+eight seconds.  Its exact counters and all 243 stored hit triples agree with
+the RTX 4090 artifact, and arbitrary-precision Python replay passes.  The
+separate artifacts and hashes are in the [experiment
+guide](experiments/kontorovich/README.md#direct-gpu-packet-census).  This
+corroborates the inner run without extending the `h<2^42` frontier.  The
+Ganesha length-seven nonuniform-morphism workers remain healthy; the PSC
+length-eight search is producing partial shards but is approaching its first
+walltime.  Next: preserve or cleanly relaunch that finite census as needed,
+and scan packet starts above level one rather than spend more compute only on
+larger level-one packets.
 
 ### 2026-07-21 20:51 EDT
 
