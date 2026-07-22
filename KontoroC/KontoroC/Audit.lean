@@ -85,6 +85,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.MersenneShadowOrbit.toBoundedPhaseShadowOrbit
 #print axioms KontoroC.MersenneShadowOrbit.not_conjecture
 #print axioms KontoroC.MersennePacketRenewal.legal_and_endpoint
+#print axioms KontoroC.MersennePacketRenewal.collision_balance
+#print axioms KontoroC.MersennePacketRenewal.next_packet_mod_threePow
+#print axioms KontoroC.MersennePacketRenewal.next_packet_unique_mod_threePow
 #print axioms KontoroC.MersennePacketRenewal.toMersenneShadowOrbit
 #print axioms KontoroC.MersennePacketRenewal.not_conjecture
 #print axioms KontoroC.MersennePacketRenewal.not_conjecture_of_constant_extra

@@ -3937,3 +3937,33 @@ theorem audits to `[propext, Classical.choice, Quot.sound]`; the source scan
 is clean.  This is now the narrowest honest target I know for the `-1` lane:
 produce positive odd `h_t` satisfying the displayed recurrence for every
 `t`, with bounded `e_t`.
+
+## Kontorovich round 19 — exact modulo-`3^m` packet scheduler
+
+The pure collision recurrence now exposes a search-side congruence.  At
+counter level `m=M+t`, Lean proves
+
+```text
+2^e_t * (2^(m+1) * h_(t+1))
+  ≡ 2^e_t - 1                  (mod 3^m).
+```
+
+This comes from the exact addition-only balance
+
+```text
+2^e_t * 2^(m+1) * h_(t+1) + 1
+  = 3^m * h_t + 2^e_t.
+```
+
+Because the coefficient on the next packet is a power of two and hence
+coprime to `3^m`, `next_packet_unique_mod_threePow` also proves that any two
+solutions occupy the same residue class modulo `3^m`.  Thus for each chosen
+level and collision extra there is at most one next-packet congruence class;
+a searcher can compute that class before testing positivity, oddness, or
+ordinary-seed compatibility.  This is a necessary scheduler, not an
+existence theorem and not an all-level packet construction.
+
+Both scheduler theorems compile and have been added to the axiom audit.  The
+periodic-extra worker requires no distinct soundness endpoint: periodicity
+only supplies the already-required uniform bound, while the all-level packet
+recurrence remains the mathematical gate.

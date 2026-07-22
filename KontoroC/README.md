@@ -116,6 +116,8 @@ level-ten `-1` residue class, so it is explicitly not an infinite artifact.
 Diophantine recurrence between positive odd packets automatically generates
 the natural states, every exact valuation word, and every macro endpoint.
 Its constant-extra corollary directly matches `search_mersenne_constants.py`.
+The recurrence also forces an explicit next-packet congruence modulo `3^m`,
+available as `next_packet_mod_threePow` for modular search pruning.
 
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.

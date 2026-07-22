@@ -281,6 +281,59 @@ theorem legal_and_endpoint (g : MersennePacketRenewal) (t : ℕ) :
         (g.packet_pos (t + 1))).2
   · simpa [state, Nat.add_assoc] using g.collision t
 
+/-- Addition-only form of the packet collision. -/
+theorem collision_balance (g : MersennePacketRenewal) (t : ℕ) :
+    2 ^ g.extra t *
+          (2 ^ (g.level0 + t + 1) * g.packet (t + 1)) + 1 =
+      3 ^ (g.level0 + t) * g.packet t + 2 ^ g.extra t := by
+  let C := 2 ^ g.extra t
+  let A := 2 ^ (g.level0 + t + 1) * g.packet (t + 1)
+  let B := 3 ^ (g.level0 + t) * g.packet t
+  have hc := g.collision t
+  have ha : 0 < A :=
+    Nat.mul_pos (Nat.pow_pos (by omega)) (g.packet_pos (t + 1))
+  have hb : 0 < B :=
+    Nat.mul_pos (Nat.pow_pos (by omega)) (g.packet_pos t)
+  have hC : 0 < C := Nat.pow_pos (by omega)
+  change C * (A - 1) = B - 1 at hc
+  have hdist : C * (A - 1) = C * A - C := by
+    simpa using Nat.mul_sub_left_distrib C A 1
+  change C * A + 1 = B + C
+  rw [hdist] at hc
+  have hCA : C ≤ C * A := Nat.le_mul_of_pos_right C ha
+  calc
+    C * A + 1 = (C * A - C) + C + 1 := by
+      rw [Nat.sub_add_cancel hCA]
+    _ = (B - 1) + C + 1 := by rw [hc]
+    _ = (B - 1) + 1 + C := by omega
+    _ = B + C := by rw [Nat.sub_add_cancel hb]
+
+/-- Exact modular scheduler for the next packet.  At level `m`, the collision
+forces `2^e * 2^(m+1) * h_next` to equal `2^e-1` modulo `3^m`. -/
+theorem next_packet_mod_threePow (g : MersennePacketRenewal) (t : ℕ) :
+    2 ^ g.extra t * (2 ^ (g.level0 + t + 1) * g.packet (t + 1)) ≡
+      2 ^ g.extra t - 1 [MOD 3 ^ (g.level0 + t)] := by
+  have hbalance := g.collision_balance t
+  have hpow : 0 < 2 ^ g.extra t := Nat.pow_pos (by omega)
+  have heq :
+      2 ^ g.extra t * (2 ^ (g.level0 + t + 1) * g.packet (t + 1)) =
+        3 ^ (g.level0 + t) * g.packet t + (2 ^ g.extra t - 1) := by
+    omega
+  simp [Nat.ModEq, heq]
+
+/-- The modular scheduler selects at most one next-packet class modulo
+`3^m`, because its power-of-two coefficient is invertible there. -/
+theorem next_packet_unique_mod_threePow {m e u v r : ℕ}
+    (hu : 2 ^ e * (2 ^ (m + 1) * u) ≡ r [MOD 3 ^ m])
+    (hv : 2 ^ e * (2 ^ (m + 1) * v) ≡ r [MOD 3 ^ m]) :
+    u ≡ v [MOD 3 ^ m] := by
+  have hprod := hu.trans hv.symm
+  have hcop : (3 ^ m).Coprime (2 ^ e * 2 ^ (m + 1)) := by
+    have hp := (by norm_num : Nat.Coprime 3 2).pow m (e + (m + 1))
+    simpa [pow_add] using hp
+  apply Nat.ModEq.cancel_left_of_coprime hcop.gcd_eq_one
+  simpa [mul_assoc] using hprod
+
 /-- Compile the pure recurrence into the earlier all-level orbit artifact. -/
 def toMersenneShadowOrbit (g : MersennePacketRenewal) :
     MersenneShadowOrbit where
