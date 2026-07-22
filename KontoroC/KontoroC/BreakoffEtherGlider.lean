@@ -191,5 +191,96 @@ theorem impossible (g : InfiniteEtherTailPath) : False := by
 
 end InfiniteEtherTailPath
 
+/-! ## Arbitrary finite ether strings -/
+
+/-- Two consecutive ether tails are one certified `E -> E` affine link. -/
+def EtherTailStep (t t' : ℕ) : Prop :=
+  ∃ z, t = etherToEther.firstTail z ∧ t' = etherToEther.secondTail z
+
+/-- Proof-carrying adjacency for a finite list of ether tails. -/
+def EtherTailChain : List ℕ → Prop
+  | [] => True
+  | [_] => True
+  | t :: t' :: ts => EtherTailStep t t' ∧ EtherTailChain (t' :: ts)
+
+def etherGates (ts : List ℕ) : List BreakoffDelayGate :=
+  ts.map ether.member
+
+/-- Every finite proof-carrying ether-tail string becomes a linked gate
+program. -/
+theorem etherGates_linked (t : ℕ) (ts : List ℕ)
+    (hchain : EtherTailChain (t :: ts)) :
+    BreakoffGateChainLinked (ether.member t).start
+      (etherGates (t :: ts)) := by
+  induction ts generalizing t with
+  | nil => simp [etherGates, BreakoffGateChainLinked]
+  | cons t' ts ih =>
+      have hstep : EtherTailStep t t' := hchain.1
+      obtain ⟨z, ht, ht'⟩ := hstep
+      have hlink := etherToEther.endpoint_eq_start z
+      have hlinked : (ether.member t).endpoint = (ether.member t').start := by
+        rw [ht, ht']
+        exact hlink
+      change (ether.member t).start = (ether.member t).start ∧
+        BreakoffGateChainLinked (ether.member t).endpoint
+          (etherGates (t' :: ts))
+      refine ⟨rfl, ?_⟩
+      change (ether.member t).endpoint = (ether.member t').start ∧
+        BreakoffGateChainLinked (ether.member t').endpoint (etherGates ts)
+      exact ⟨hlinked, (ih t' hchain.2).2⟩
+
+def returnedEtherTail (u : ℕ) : ℕ :=
+  defectToEther.secondTail (485 + 729 * u)
+
+/-- The complete gate list of a finite glider: its defect prefix followed by
+one or more ether gates. -/
+def gliderGates (u : ℕ) (moreEtherTails : List ℕ) :
+    List BreakoffDelayGate :=
+  let v := 170 + 256 * u
+  [etherToDefect.firstGate v, etherToDefect.secondGate v] ++
+    etherGates (returnedEtherTail u :: moreEtherTails)
+
+/-- The `E,H` prefix and any finite certified `E` tail string compose to one
+linked break-off gate program. -/
+theorem gliderGates_linked (u : ℕ) (moreEtherTails : List ℕ)
+    (hchain : EtherTailChain (returnedEtherTail u :: moreEtherTails)) :
+    BreakoffGateChainLinked (etherToDefect.firstGate (170 + 256 * u)).start
+      (gliderGates u moreEtherTails) := by
+  let v := 170 + 256 * u
+  let w := 485 + 729 * u
+  have hfirst := etherToDefect.endpoint_eq_start v
+  have hbridge : etherToDefect.secondGate v = defectToEther.firstGate w := by
+    change defect.member (etherToDefect.secondTail v) =
+      defect.member (defectToEther.firstTail w)
+    exact congrArg defect.member (defect_bridge_tail u)
+  have hsecond := defectToEther.endpoint_eq_start w
+  have hether := etherGates_linked (returnedEtherTail u) moreEtherTails hchain
+  dsimp [gliderGates, v, w, BreakoffGateChainLinked]
+  refine ⟨rfl, hfirst, ?_⟩
+  constructor
+  · rw [hbridge]
+    exact hsecond
+  exact hether.2
+
+/-- Literal semantics for any finite glider once its finite ether tail list
+and the honest incoming chart are supplied. -/
+noncomputable def glider_literal_semantics (u : ℕ)
+    (moreEtherTails : List ℕ)
+    (hchain : EtherTailChain (returnedEtherTail u :: moreEtherTails))
+    {r H : ℕ}
+    (hstart : 0 < (etherToDefect.firstGate (170 + 256 * u)).start)
+    (hHpos : 0 < H) (hHodd : Odd H)
+    (hfactor :
+      8 * (etherToDefect.firstGate (170 + 256 * u)).start =
+        3 ^ (r + 2) * H + 1) :
+    BreakoffRunSemantics
+      (breakoffGateChainDuration (gliderGates u moreEtherTails))
+      (etherToDefect.firstGate (170 + 256 * u)).start
+      (breakoffGateChainEndpoint
+        (etherToDefect.firstGate (170 + 256 * u)).start
+        (gliderGates u moreEtherTails)) r H :=
+  breakoffGateChain_literal_semantics (gliderGates u moreEtherTails)
+    hstart hHpos hHodd hfactor (gliderGates_linked u moreEtherTails hchain)
+
 end BreakoffEtherGlider
 end KontoroC

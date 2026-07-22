@@ -8205,3 +8205,27 @@ This does not obstruct any finite `E^N` glider, but it rules out treating the
 ether background itself as an infinite ordinary ray.  The arbitrarily long
 finite gliders necessarily consume increasingly restrictive dyadic address
 conditions—the same ordinary-versus-2-adic boundary seen elsewhere.
+
+## Kontorovich round 122 — arbitrary finite `E,H,E^N` programs compile
+
+I generalized the concrete one-cell result to the full finite substitution.
+`EtherTailStep t t'` is the exact existential `E->E` affine link, and
+`EtherTailChain` is its finite list closure.  Lean now proves
+
+```text
+etherGates_linked
+gliderGates_linked
+glider_literal_semantics
+```
+
+for `[E,H] ++ [E]^N` with arbitrary finite `N>=1`, provided the displayed
+tail list satisfies the exact self-link equations.  The `E->H` and `H->E`
+prefix bridge is internal to the theorem; consumers only supply the finite
+ether-tail chain and the honest incoming ternary chart.  The result is a
+single `BreakoffRunSemantics`, hence includes the combined executable run,
+legal ordinary Collatz word, endpoint factorization, and strict literal
+outwardness.
+
+This isolates the next upper-layer obligation sharply: prove that the
+closed-form glider packet congruence generates an `EtherTailChain`.  No word,
+router, or gate semantics remains at that layer.  Full build and audit pass.
