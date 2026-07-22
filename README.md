@@ -145,6 +145,14 @@ identically `x`.
   whole-word carry, moving-base-boundary, and head--tail nonlocality explicit.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
+- **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
+  quasi-cellular automaton, Collatz iterates are binary rows while ternary
+  columns perform base conversion; search for a diagonal defect or boundary
+  signal with a formula return.  In Eliahou--Verger-Gaugry's base-`3/2`
+  picture, try to compile the divergent saturated-map instruction “append
+  `2`” from bounded exact Collatz/two-rail macros.  Neither presentation
+  transfers divergence by itself; both offer a spatial tape on which to hunt
+  for Kontorovich's glider.
 - **Two-rail splash bouncers.**  Implement Simon's collision idea with a
   `-1`/valuation-one Mersenne rail, which amplifies a separated packet by
   `3/2` per tick, and a `+1`/valuation-two Colussi rail, which supplies timing
@@ -153,9 +161,12 @@ identically `x`.
   `94751 -> 101183` is the smallest standard regression, and symbolic affine-
   family intersection compiles 247 consecutive outward rounds into a
   10,040-digit seed.  That seed nevertheless reaches `1`, and its canonical
-  value changes when a 248th constraint is imposed.  The live target is no
-  longer a finite collision gate; it is a self-referential payload law whose
-  finite truncations stabilize to one ordinary positive seed.
+  value changes when a 248th constraint is imposed.  Each affine handoff is
+  now an exact tag instruction: it consumes a low binary address block from a
+  nonlocal payload index and maps the surviving tail affinely by a power of
+  three.  Lean commit `2f2e24e` proves that a self-link or finite return circuit
+  with a natural expanding tail map `u -> c+m*u` would refute Collatz; no
+  fixed point is needed.  Finding that affine return is the live splash target.
 - **Exact cycle synthesis.**  Search valuation words and cyclic compositions
   for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
   seed whose valuations and closure can be checked directly.  Use modular
@@ -189,6 +200,13 @@ identically `x`.
   candidate.  For periodic or morphic controllers, the remaining arithmetic
   task is to prove that candidate is not a negative ordinary integer.  This
   can eliminate an infinite program family without enumerating any seeds.
+- **Partial-theta integrality sieve.**  The standard two-rail schedule reduces
+  to one necessary nonautonomous recurrence, whose only 2-adic initial value
+  is `-(23/3^8) F(2/3,2^13/3^9)` for the Tschakaloff partial-theta function.
+  Prove this value irrational in `Q_2` to close the complete standard schedule,
+  or compute it if rational and audit the eliminated gate conditions.  The
+  relevant Väänänen--Wallisser theorem has not yet passed a line-by-line
+  hypothesis audit; no irrationality claim is currently made.
 - **Constraint-guided falsification.**  SAT/SMT, modular dynamic programming,
   evolutionary search, CPUs, and GPUs may propose or aggressively reject a
   symbolic macro.  They no longer rank raw seeds by excursion length.  A
@@ -223,7 +241,8 @@ identically `x`.
 | Unstructured range widening as the main attack | Deprioritized: published ordinary-seed verification already reaches `2^71`, while the contemplated software may have roughly 10,000 decimal digits. Bounded compute remains useful only as a falsifier or independent checker of a proposed symbolic relation. | [Delocalized-ISA scale calibration](docs/notes/kontorovich-delocalized-isa.md#1-scale-changes-the-object-we-should-search-for) |
 | Unmodified order-10 Colussi wire | It is an exact, spectacularly long delay line but not a bouncer. After its certified collision, an exact 1,024-step audit finds no regenerated empty gap wider than 10 bits, versus the incoming 39,348-bit gap; full exact continuation reaches `1` after 95,146 accelerated steps. The next lane must alter the header/collision with a distributed defect. | [`colussi_delay_h10.json`](experiments/kontorovich/colussi_delay_h10.json) |
 | Pure `+1` gap-splash bouncer | Closed as an outward macro: the exact gate can turn a gap of `2r+2` bits into any chosen `2r'+2`-bit gap by a congruential payload, but the whole macro has dissipative multiplier `3^(r+1)/2^(2r+2+a)<1` and in fact strictly decreases every positive member. It remains useful as the cleanup rail of a multi-phase program. | [`splash_gate.py`](experiments/kontorovich/splash_gate.py) |
-| Standard two-rail schedule `[1]^r[2,2,3]` | Exact affine-family intersection compiles 247 outward rounds, growing the dyadic gap from 5 to 252 bits, from a formula-generated 10,040-digit seed. Every designed step replays, but the least canonical seed changes at depth 248 and full exact continuation reaches `1` after 155,190 accelerated steps. This closes only this finite canonical compilation, not two-rail or self-similar splash programs. | [`two_rail_chain_247.json`](experiments/kontorovich/two_rail_chain_247.json) |
+| Standard two-rail schedule `[1]^r[2,2,3]` | Exact affine-family intersection compiles 247 outward rounds, growing the dyadic gap from 5 to 252 bits, from a formula-generated 10,040-digit seed. Every designed step replays, but the least canonical seed changes at depth 248 and full exact continuation reaches `1` after 155,190 accelerated steps. Lean reduces every all-level realization to `2^(r+8)P'=3^(r+3)P+69`; exact unrolling identifies one 2-adic Tschakaloff value whose rationality is still open here. This closes only the finite canonical compilation, not the infinite standard schedule or other splash programs. | [Finite certificate](experiments/kontorovich/two_rail_chain_247.json), [partial-theta reduction](docs/notes/standard-two-rail-theta.md) |
+| Canonical zero-preload two-rail graph | Exactly checked 128,000 gate shapes in the stated box (`r<=40`, `s<=4`, collision extras `<=4`, output gap `<=41`): 98,760 canonical members are outward, 25 canonical links exist, and the longest linked chain has two gates. Its seed `45247` reaches `1`; a wider targeted audit finds no third canonical gate for that endpoint. This rejects only index-zero links, not affine tail handoffs or expanding return circuits. | [`two_rail_transducer_audit.json`](experiments/kontorovich/two_rail_transducer_audit.json) |
 | Small regular invariant sets | Previously closed only in the stated exhaustive classes: no base-2 DFA divergence certificate through eight states and no base-3 certificate through five. One-counter and genuinely morphic single-orbit certificates remain open. | [Base 2](experiments/dfacert/README.md), [base 3](experiments/dfacert3/README.md) |
 
 The first work product will be an exact `k`-word compiler and cycle/glider
@@ -242,7 +261,9 @@ positive integer and its claimed behavior are machine-checked.
 | Kernel stream uniqueness and 2-adic candidate | Lean commit `7370489` proves that a fixed positive valuation stream has at most one ordinary seed and kernel-checks every finite backward-series truncation. Commit `b205e40` proves convergence of the canonical series in `Q_2`, vanishing of the terminal term for an ordinary renewal, and the exact reduction: if the candidate avoids embedded negative naturals, that schedule has no positive renewal. Candidate nonintegrality for a useful controller class remains open. |
 | Formula-generated 11,846-digit spatial wire | Colussi's order-10 value `(4^19683-1)/3^10` is reconstructed, not stored as a decimal literal. The exact header `(1,1,2,1,1,1,5,1,4,1)` sends it to `1+2^39348`; then 19,673 exact valuation-two steps obey `x_t=1+3^t 2^(39348-2t)` before a valuation-three collision. Lean commit `6229e7a` proves the general delay formula and kernel-checks this generated header and endpoint. Exact continuation reaches `1` after 95,146 accelerated steps, so this certifies a wire and its failed natural renewal, not nontermination. |
 | Exact finite carry-splash families | For every positive `r,r',a`, research-side exact algebra constructs an arithmetic progression of odd payload pairs such that an `r`-tick `+1` delay line collides with valuation `2+a` and emits an `r'`-tick gap. The checker literally replays 15,360 members in the bounded regression `r<=8,r'<=10,a<=6`; e.g. `2961 -> 2221 -> 833` grows the gap from four to six bits. Every member shrinks, so a splash needs an amplifying phase. |
-| Formula-generated 10,040-digit two-rail program | Exact congruence solving and affine-family intersection construct one seed with 33,351 significant bits, without storing its decimal literal. It executes 247 strict outward rounds of the schedule `[1]^(4+i) ++ [2,2,3]`, grows its clean gap from 5 to 252 bits, and reaches a 15,397-digit endpoint after 32,110 accelerated steps. Literal replay passes, but full exact continuation reaches `1`; the 248-round canonical seed is different. This is a large finite Collatz program and an exact ordinary-seed-gate failure, not a counterexample. |
+| Formula-generated 10,040-digit two-rail program | Exact congruence solving and affine-family intersection construct one seed with 33,351 significant bits, without storing its decimal literal. It executes 247 strict outward rounds of the schedule `[1]^(4+i) ++ [2,2,3]`, grows its clean gap from 5 to 252 bits, and reaches a 15,397-digit endpoint after 32,110 accelerated steps. Literal replay passes; Lean commits `39a3aba`/`5d3e0e3` certify the generic gate and finite-chain seams. Full exact continuation reaches `1`, and the 248-round canonical seed is different. This is a large finite Collatz program, not a counterexample. |
+| Exact affine tag-transducer and disproof seam | Every affine two-rail handoff reads one dyadic residue of a nonlocal family index, deletes that address block, and maps the residual tail by a power of three plus an offset. Lean commits `4789a80`/`1076954` prove universal one- and two-instruction linkage; `2f2e24e` proves that an outward affine self-link with any natural return `u -> c+m*u` constructs an infinite ordinary Collatz program and refutes the conjecture. No such loop has been found. |
+| Standard schedule partial-theta reduction | Lean commit `db0971c` proves the necessary recurrence `2^(r+8)P_(r+1)=3^(r+3)P_r+69`, exact `v3(P_(r+1))=1`, and automatic outwardness. Exact unrolling gives the sole 2-adic candidate `U_5=-(23/3^8)F(2/3,2^13/3^9)`; the 247-round artifact checks 246 recurrences and 33,333 bits of 2-adic precision. Irrationality of this value is not proved, so the infinite schedule remains open. |
 | Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
 | Kernel cycle-disproof seam | `KontoroC.CycleArtifact.checkNontrivial=true` implies the literal negation of the ordinary Collatz conjecture. The package build and axiom audit pass; no nontrivial artifact is known. |
 | Bounded composition search | All `3,447,691` positive-denominator compositions with `S<=22` were checked exactly. The only closure hits encode the trivial seed `1`; no nontrivial cycle was found within the bound. |
@@ -297,6 +318,26 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-21 22:31 EDT
+
+The splash now has exact programming semantics.  A two-rail collision reads a
+dyadic address from a nonlocal payload index, deletes those low bits, maps the
+remaining tail by a power of three, and appends an offset.  Lean commits
+`4789a80`/`1076954` certify affine instructions and their composition for all
+natural tails; `2f2e24e` proves that an outward affine return
+`u -> c+m*u`—expanding is allowed—would literally disprove Collatz.  A bounded
+canonical-member audit checked 128,000 gate shapes, found only 25 links and a
+two-gate maximum; its witness `45247 -> 48319 -> 103199` reaches `1`.  This is
+a scoped zero-preload failure, not evidence against affine loops.  Separately,
+the rigid standard schedule reduces to one 2-adic Tschakaloff value; its exact
+247-round truncation reaches 33,333 bits of precision, but no applicable
+irrationality theorem has yet been verified.  The [headline](#kc-headline-results-with-verification-scope),
+[failure map](#kc-failure-ledger), and [special-function
+note](docs/notes/standard-two-rail-theta.md) record the scope.  Next: search
+coefficientwise for affine self/return circuits, audit the p-adic theorem, and
+try to compile the base-`3/2` “append `2`” instruction or a Stérin--Woods
+diagonal defect into the exact gate ISA.
 
 ### 2026-07-21 22:02 EDT
 
@@ -901,6 +942,24 @@ existing lines of work; the closest ancestors, and what each contributes:
   Conjecture” (2023)** — respectively the three-symbol tag and 11-rule mixed-
   base presentations now being mined for formula bouncers.  These are exact
   encodings, not claims that the Collatz map itself is universal.
+- **T. Stérin & D. Woods, [“The Collatz process embeds a base conversion
+  algorithm”](https://arxiv.org/abs/2007.06979) (2020)** — the exact
+  quasi-cellular automaton with binary rows, ternary columns, and a nonlocal
+  least-significant-bit bootstrap.  It supplies a spatial grid on which a
+  diagonal defect or boundary glider can be posed exactly.
+- **S. Eliahou & J.-L. Verger-Gaugry, [“The number system in rational base
+  `3/2` and the `3x+1` problem”](https://arxiv.org/abs/2504.13716) (2025)** —
+  the rational-base tape where shortcut Collatz appends digit `1`, and a
+  related saturated-word map appending `1` or `2` diverges.  We treat its
+  missing “append `2`” as a compiler target, not as transferred divergence.
+- **K. Väänänen & R. Wallisser, [“A linear independence measure for certain
+  p-adic numbers”](https://doi.org/10.1016/0022-314X(91)90045-D) (1991)** and
+  **W. Zudilin, [“An elementary proof of the irrationality of Tschakaloff
+  series”](https://arxiv.org/abs/math/0506086)
+  (2005)** — the closest arithmetic literature for the exact partial-theta
+  value forced by the standard two-rail schedule.  Väänänen--Wallisser's full
+  hypotheses remain unaudited here; Zudilin's displayed real/complex
+  hypothesis fails for our parameters.  Neither is currently a certificate.
 - **D. Barina, “Improved verification limit for the convergence of the
   Collatz conjecture” (2025)** — the `2^71` exhaustive frontier used to
   calibrate why another ordinary seed sweep is not the active attack.

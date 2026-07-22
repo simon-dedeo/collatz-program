@@ -297,10 +297,32 @@ accelerated steps.
 This separates the two hard parts cleanly.  The finite hardware has genuine
 wires, amplification, carry cleanup, and regeneration.  What it lacks is one
 ordinary program: adding the 248th gate changes the least canonical seed.
-The live target is therefore a recursive or self-similar payload constraint
-whose nested affine families stabilize to a positive ordinary integer (or an
-equivalent closed formula macrostate), not merely an arbitrarily long list of
-compatible finite splashes.
+The affine-family index gives the missing instruction semantics.  If a source
+output family is `c+2*3^R z` and a target input family is `a+2^D w`, exact
+linkage reads
+
+```text
+3^R z + (c-a)/2 = 2^(D-1)w.
+```
+
+There is one accepted low-bit address `z=rho mod 2^(D-1)`; after deleting it,
+the residual tape obeys `w=w0+3^R u`.  This is a literal variable-length tag
+instruction whose address and data are spread across the full payload rather
+than stored in adjacent binary cells.  Lean commits `4789a80` and `1076954`
+prove whole affine links and compatible two-instruction handoffs for every
+natural residual tail.  Commit `2f2e24e` supplies the decisive endpoint: a
+self-link or finite return circuit may revisit its gate family while the tail
+grows by `u -> c+m*u`; no fixed point is required.  With outward gates, such a
+natural affine loop would be a counterexample.
+
+The live target is therefore a recursive payload **return map**, not merely an
+arbitrarily long list of compatible finite splashes.  The standard schedule's
+necessary recurrence further reduces its ordinary-integer gate to the 2-adic
+Tschakaloff value derived in
+[`standard-two-rail-theta.md`](standard-two-rail-theta.md).  Proving that value
+irrational would close this one schedule; constructing an affine return in a
+less rigid gate graph would realize the regenerative controller Simon asked
+for.
 
 ## 5. Three exact machines to mine for a bouncer
 
@@ -344,6 +366,25 @@ may inspect residues at both `2` and `3`; it need not be a local or periodic
 function of `e`.  Proposed relations are falsified on exact integers before a
 universal algebraic proof is attempted.
 
+### Rational-base tapes and the spatial grid
+
+Two exact presentations make the spatial metaphor less speculative.  Stérin
+and Woods' quasi-cellular automaton draws Collatz iterates as binary rows while
+ternary columns simultaneously perform base conversion.  The least-
+significant-bit bootstrap is nonlocal, but the interior update is a finite
+two-dimensional transducer.  A glider could therefore be a repeating diagonal
+defect or boundary signal in this binary/ternary spacetime, provided it is
+translated back to a canonical positive integer.
+
+Eliahou and Verger-Gaugry's rational-base-`3/2` presentation supplies a second
+tape.  Shortcut Collatz appends a rightmost digit `1`; on saturated words over
+digits `{1,2}`, their auxiliary map appends `1` or `2` and is divergent.  This
+does not transfer divergence to Collatz.  It gives a concrete compiler target:
+implement the missing “append `2`” operation as a bounded exact two-rail or
+mixed-base macro, then seek a self-generating saturated word.  This attack
+preserves Kontorovich's spatial delay-line intuition while allowing Simon's
+instruction to be a global boundary/carry condition.
+
 ## 6. Ranked attack and kill tests
 
 1. Implement the mixed-base rules and mine structured, formula-generated
@@ -358,6 +399,13 @@ universal algebraic proof is attempted.
 4. Run-length accelerate the three-symbol tag system and look for a
    head--tail bouncer.  Translate any survivor back to a canonical positive
    integer before treating it as Collatz evidence.
+5. Search affine two-rail link circuits coefficientwise.  Rank self-links and
+   finite return maps `u -> c+m*u` that preserve natural tails; do not require
+   fixed points and do not mistake a cycle of shape labels for payload
+   compatibility.
+6. Compile the rational-base saturated-map instruction “append `2`” into the
+   mixed-base or two-rail ISA, and search the Stérin--Woods spacetime for a
+   diagonal defect that implements the same return.
 
 Every candidate is rejected unless all of the following are explicit:
 
@@ -386,6 +434,14 @@ Every candidate is rejected unless all of the following are explicit:
   functions*](https://biblio.ugent.be/publication/436211), 2008.
 - E. Yolcu, S. Aaronson, and M. J. H. Heule, [*An Automated Approach to the
   Collatz Conjecture*](https://arxiv.org/abs/2105.14697), 2023.
+- T. Stérin and D. Woods, [*The Collatz process embeds a base conversion
+  algorithm*](https://arxiv.org/abs/2007.06979), 2020.
+- S. Eliahou and J.-L. Verger-Gaugry, [*The number system in rational base
+  `3/2` and the `3x+1` problem*](https://arxiv.org/abs/2504.13716), 2025.
+- K. Väänänen and R. Wallisser, [*A linear independence measure for certain
+  p-adic numbers*](https://doi.org/10.1016/0022-314X(91)90045-D), 1991; the
+  exact Tschakaloff series is relevant, but its full hypotheses have not yet
+  been audited for the standard two-rail value.
 - [Reverse-mined Busy Beaver bouncer certificate
   semantics](../REVERSE-MINING.md#2b4-bouncers-formula-tapes--verified-shift-rules),
   with the distinction between a finite experiment and a universally checked

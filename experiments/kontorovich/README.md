@@ -533,6 +533,117 @@ artifact SHA-256  42599de911e74bbb5a5af4ec7da630878d59fe41d2d6d0000fffc83b84a943
 verifier SHA-256  e1006e7bfc4df2ae3fa21467265130c1d2526808f37cf4a2767b8d23b81500bd
 ```
 
+## Payload-index tag transducers
+
+`two_rail_transducer.py` exposes the programming-language operation hidden in
+the complete affine gate families.  Write a source gate's output payload and a
+target gate's input payload as
+
+```text
+P_out(z) = c + 2*3^R z,
+P_in(w)  = a + 2^D w.
+```
+
+Exact linkage is the single address equation
+
+```text
+3^R z + (c-a)/2 = 2^(D-1) w.
+```
+
+It selects one residue `z=rho mod 2^(D-1)`.  Writing
+`z=rho+2^(D-1)u` leaves
+
+```text
+w = w0 + 3^R u.
+```
+
+Thus a splash gate is an exact variable-length tag instruction on a nonlocal
+payload tape: it reads and deletes a low binary address block, multiplies the
+remaining tail by a power of three, and appends a fixed offset.  The first
+standard handoff deletes 13 address bits and maps
+
+```text
+source index = 6245 + 8192*u,
+target index = 1667 + 2187*u.
+```
+
+Lean commits `4789a80`, `1076954`, and `2f2e24e` lift this from sampled
+arithmetic to universal gate-family, two-instruction composition, and affine
+loop theorems.  In particular, an exact self-link (or finite return circuit)
+whose natural residual tail evolves by `u -> c+m*u` is enough for a literal
+Collatz disproof when its gates are outward.  The tail may grow; it need not
+be a fixed point.  This is the precise regenerative version of Simon's
+“splash the gap” idea.
+
+```bash
+python3 two_rail_transducer.py selftest
+python3 two_rail_transducer.py describe-standard --amp-ticks 4
+python3 two_rail_transducer.py build-audit two_rail_transducer_audit.json
+python3 two_rail_transducer.py verify two_rail_transducer_audit.json
+```
+
+The bounded audit covers 128,000 gate shapes with amplifier length at most
+40, cleanup length at most four, collision extras at most four, and output gap
+at most 41.  It finds 98,760 outward canonical gates and 25 links between
+their zero-index members; the longest such canonical chain has two gates:
+
+```text
+45247 -> 48319 -> 103199,
+valuations [1,1,1,1,1,2,4, 1,1,1,1,1,2,3].
+```
+
+Exact continuation reaches `1` after 86 accelerated steps.  A separately
+stated next-gate audit finds no zero-index continuation of its endpoint with
+cleanup/extras at most 20 and output gap at most 300.  This closes only the
+canonical zero-preload slice; it says nothing against the unbounded affine
+tail links certified in Lean.  The live search target is an affine return map,
+not another longer canonical chain.
+
+```text
+artifact SHA-256  d961269507a35fbbcc154e8131c2d1062539d12d70566d4caad02e121851a9ba
+verifier SHA-256  c8781d45b2ac7dbe371b6ba71c881f16439806561ffe6a757a0a970d6e046c18
+```
+
+## The standard schedule as a 2-adic partial theta value
+
+Lean commit `db0971c` eliminates the intermediate cleanup payload from every
+standard gate and proves the necessary recurrence
+
+```text
+2^(r+8) P_(r+1) = 3^(r+3) P_r + 69.
+```
+
+Every outgoing payload has exactly one factor of three.  With `P_r=3U_r`,
+exact backward unrolling identifies the only 2-adic initial candidate as
+
+```text
+U_5 = -(23/3^8) * sum_(n>=0)
+        (2/3)^(n(n-1)/2) * (2^13/3^9)^n.
+```
+
+This is a Tschakaloff/partial-theta value.  If it is irrational in `Q_2`, no
+ordinary integer can run the complete standard schedule.  If it is rational,
+the rational candidate must still pass positivity, oddness, and the eliminated
+intermediate-payload conditions before it yields a program.  No irrationality
+claim is made here; the [derivation and literature
+audit](../../docs/notes/standard-two-rail-theta.md) state the gap precisely.
+
+```bash
+python3 standard_two_rail_theta.py selftest
+python3 standard_two_rail_theta.py build standard_two_rail_theta_247.json
+python3 standard_two_rail_theta.py verify standard_two_rail_theta_247.json
+```
+
+The depth-247 artifact reconstructs all compiled payloads and checks 246
+normalized recurrences, the exact finite rational identity, and 33,333 bits
+of 2-adic congruence precision.  It is a finite regression for the symbolic
+reduction, not evidence for irrationality.
+
+```text
+artifact SHA-256  ede94e22f9125c71b9f4bb51659becc6577263dfc273e3dc11ac2d79cc7dce87
+verifier SHA-256  e3627de5a36348d247e1260ce53bddffb4c8831909f99453e207e9fa29ce70ea
+```
+
 ## Direct GPU packet census
 
 `mersenne_packet_gpu.cu` enumerates the state-dependent recurrence directly,

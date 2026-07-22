@@ -1,0 +1,81 @@
+{
+  "schema": "collatz-two-rail-transducer-audit-v1",
+  "claim_scope": "exact bounded audit of canonical zero-preload links between two-rail gate shapes; not a seed-range verification",
+  "bounds": {
+    "max_amp_ticks": 40,
+    "max_clean_ticks": 4,
+    "max_collision_extra": 4,
+    "max_output_gap": 41
+  },
+  "gate_shapes_checked": 128000,
+  "outward_canonical_gates": 98760,
+  "outward_canonical_links": 25,
+  "maximum_linked_gate_count": 2,
+  "witness": {
+    "gate_shapes": [
+      {
+        "amp_ticks": 5,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "to_minus_extra": 2,
+        "output_gap": 6
+      },
+      {
+        "amp_ticks": 5,
+        "clean_ticks": 0,
+        "to_plus_extra": 1,
+        "to_minus_extra": 1,
+        "output_gap": 5
+      }
+    ],
+    "payloads": [
+      {
+        "input": 707,
+        "plus": 64425,
+        "output": 755
+      },
+      {
+        "input": 755,
+        "plus": 68799,
+        "output": 3225
+      }
+    ],
+    "seed": 45247,
+    "middle": 48319,
+    "endpoint": 103199,
+    "valuations": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      4,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      3
+    ],
+    "all_gates_outward": true,
+    "continuation": {
+      "limit": 100000,
+      "reached_one": true,
+      "accelerated_steps": 86,
+      "total_halvings": 152,
+      "ordinary_steps": 238,
+      "peak": 522449,
+      "peak_at_accelerated_step": 18
+    }
+  },
+  "next_target_audit": {
+    "target_amp_ticks": 4,
+    "target_input_payload": 3225,
+    "max_clean_ticks": 20,
+    "max_collision_extra": 20,
+    "max_output_gap": 300,
+    "matching_canonical_gates": 0
+  }
+}

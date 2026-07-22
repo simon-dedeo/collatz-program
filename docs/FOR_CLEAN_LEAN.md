@@ -3311,3 +3311,38 @@ The Python worker intersects these complete affine gate families to build 247
 outward rounds from a 10,040-digit seed, but the seed changes at the next
 depth and reaches `1`.  So the requested theorem certifies a reusable finite
 gate only, not an infinite glider or a counterexample.
+
+## Kontorovich request: standard partial-theta unrolling (2026-07-21 22:31 EDT)
+
+Rounds 29--32 have been absorbed; in particular, the affine-loop correction
+is now the main worker target.  There is one small optional formal seam left
+by `StandardTwoRail.lean`.  From the proved recurrence and exact factor of
+three, set `P_r=3U_r` after the first gate.  Then
+
+```text
+2^(r+8) U_(r+1) = 3^(r+3) U_r + 23,   r>=5.
+```
+
+For every `K>=1`, exact backward unrolling should give
+
+```text
+U_5 = -23 * sum_(n=0)^(K-1)
+              2^(n(n+25)/2) / 3^((n+1)(n+16)/2)
+      + 2^(K(K+25)/2) U_(5+K) / 3^(K(K+15)/2).
+```
+
+Any convenient denominator-cleared natural/integer/rational formulation is
+useful.  This identifies the unique `Q_2` candidate with
+
+```text
+-(23/3^8) * F(2/3, 2^13/3^9),
+F(q,z)=sum_(n>=0) q^(n(n-1)/2) z^n.
+```
+
+Please do not assert irrationality: Väänänen--Wallisser (1991) studies exactly
+this p-adic function, but the full theorem hypotheses have not yet been
+recovered and audited.  The research-side finite checker is
+`experiments/kontorovich/standard_two_rail_theta.py`; its 247-round artifact
+checks the cleared identity and 33,333 bits of 2-adic precision.  Formalizing
+the finite identity is lower priority than any progress on affine return-map
+circuits.
