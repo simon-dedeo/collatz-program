@@ -1,6 +1,6 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-22, about 14:37 EDT
+Updated: 2026-07-22, about 15:05 EDT
 
 Repository: `/Users/simon/Desktop/COLLATZ`
 
@@ -34,30 +34,57 @@ second Kraft inequality gives `sum q<=1`.  Quantitatively, a prefix family
 whose every macro has slope at least `lambda>1` has ordinary mass at most
 `1/lambda`; after `N` closed generations, at most `lambda^(-N)`.
 
-Lean commit `29c1d22` checks the two geometric sums, leafwise comparison, and
-abstract finite/countable contradictions in
-`KontoroC/KontoroC/TwoKraftObstruction.lean`.  The generic
-prefix-tree-to-Kraft theorem is still an explicit interface, so do not call
-the fully concrete prefix-code theorem kernel-closed yet.  The same commit
-proves the direct handoff progression and closes every everywhere-defined
-one-register total-affine handoff gauge: positive binary precision forces
-arbitrarily large powers of two to divide one fixed positive initial slope.
+Lean commit `da9fa59` constructs explicit self-delimiting binary and
+four-letter compilers, derives both Kraft inequalities from finite
+prefix-freeness, and proves the full finite contradiction and quantitative
+mass bound.  The countably infinite prefix-free bridge still uses an abstract
+`tsum` interface.  Earlier commit `29c1d22` also proves the direct handoff
+progression and closes every everywhere-defined one-register total-affine
+handoff gauge: positive binary precision forces arbitrarily large powers of
+two to divide one fixed positive initial slope.
 
 The constructive target is now a finite **thin-trap certificate** over
 `CompleteSplashState.next`: a public predicate `L`, explicit ordinary seed,
-and public successor which preserves `L` and is strictly outward.  A precise
-wrapper request is at the tail of `docs/FOR_CLEAN_LEAN.md`.  This would produce
-an `InfiniteCanonicalSplashOrbit` by iteration and hence use the existing
-literal refutation theorem without preloading an infinite itinerary.
+and public successor which preserves `L` and is strictly outward.  Commit
+`298f5a3` now kernel-checks the complete wrapper: it iterates the proof-carrying
+subtype, constructs `InfiniteCanonicalSplashOrbit`, and concludes false
+Collatz.  The endpoint is therefore ready; the missing object is the explicit
+seed and closed predicate.
 
 The most principled parallel presentation is the 11-rule mixed-base string
 system of Yolcu--Aaronson--Heule.  Their Theorem 3.17 says global termination
-is equivalent to Collatz.  A finite contextual self-embedding or cyclic
-template rewrite would therefore be a genuine reproduction certificate.  Do
-not search blindly yet: first specify a small exact checker for a parametric
-rewrite/pumping certificate, and distinguish it from De Mol's tag encoding,
-where an arbitrary nonhalting word need not be reachable from unary Collatz
-input.
+is equivalent to Collatz.  The new exact worker/artifact are
+
+```text
+experiments/kontorovich/yah_context_loop.py
+experiments/kontorovich/yah_context_loop_audit.json
+```
+
+They check literal and morphic pumping certificates, replay the published
+`12 -> ... -> 1` trace, classify all 3,125 letter maps and all 9,765,625
+uniform width-two maps, and exhaust the 513,916-state induced graph through
+length eight.  It is acyclic across 694,458 edges but contains a 299-rewrite
+delay `834 -> 1079`; no reproduction certificate is present.  Worker hash:
+`fd3bb7aff3922d4c5f8a927166deed462c557d2216302ac66e0d52efc04c89ab`;
+artifact hash:
+`6056acc0571af5199aebbe98fff34fe43ec512a5a71b00c4ed087e816c2aac2b`.
+
+Commit `ef1b888` proves the generic boundary filter: preserved marker counts
+and outer flanks collapse a proper whole-word context embedding to a cycle.
+The artifact checks those diagnostics on all 825,708 raw bounded rule
+applications; the universal concrete rule bridge remains pending.  Commit
+`b4a48a6` checks the `w>=3` uniform-block arithmetic obstruction, while the
+forced-shape rewrite lemma remains pending.  Commit `1b3459d` kernel-checks
+the generic literal and productive morphic pumping constructions through to
+nonempty rewrite chunks at every scale; only the concrete certificate and
+external YAH-to-Collatz theorem remain.  Commit `b733caa` pins the exact
+seven-symbol, 11-rule carrier, context closure, marker-count preservation, and
+both specialized glider consumers.  The concrete outer-flank bridge remains
+pending.  Commit `442826d` connects any actual trace over the pinned rules to
+the boundary no-go, discharging marker counts internally and accepting the two
+flank equalities as certificate data.  Do not widen the literal search.
+The live YAH target is a variable-width, delimiter-changing, or multi-block
+*internal* template/morphism inside fixed outer boundaries.
 
 ### Canonical arithmetic compiler, with corrected scope
 
@@ -310,9 +337,21 @@ At this update, the newest pushed formalizer checkpoints are:
 - `cc09f1b`: positive TI3 correction rails strictly accumulate debt, with the
   exact `2^423/3^296<1` phase-swap specialization;
 - `29c1d22`: direct handoff progressions, the total-affine dyadic-slope no-go,
-  both exact Kraft letter sums, leafwise outward comparison, and abstract
-  finite/countable two-Kraft contradictions.  The prefix-tree Kraft bridge
-  and thin-trap wrapper remain open.
+  both exact Kraft letter sums, and the abstract two-Kraft core;
+- `da9fa59`: both finite Kraft bounds derived from prefix-freeness and the
+  complete finite outward-code contradiction;
+- `298f5a3`: complete canonical thin-trap iteration and literal Collatz
+  refutation endpoint;
+- `ef1b888`: generic marker/flank boundary collapse for proper outer context
+  loops; the concrete per-rule YAH bridge remains open;
+- `b4a48a6`: the `w>=3` uniform-block value/size endpoint; the rewriting
+  forced-shape bridge remains open;
+- `1b3459d`: generic literal-context and full productive morphic-context
+  gliders construct infinite chunked rewrite derivations;
+- `b733caa`: exact YAH symbols/rules, context closure, marker-count
+  preservation, and concrete-carrier specializations of both glider endpoints;
+- `442826d`: actual YAH traces feed the boundary-collapse theorem once the
+  certificate supplies the two flank equalities.
 
 Never edit or stage its live `KontoroC/*` files.  Continue to send exact
 formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
@@ -320,10 +359,10 @@ formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
 
 The best immediate research tasks are:
 
-1. poll for the companion's prefix-tree Kraft bridge and thin-trap wrapper,
-   then promote only their precise checked scope;
-2. define a finite parametric pumping/self-embedding certificate for the
-   Yolcu--Aaronson--Heule rewrite system before launching a search;
+1. poll for the companion's concrete YAH boundary bridge and forced-shape
+   lemma; the generic morphic pumping theorem is complete;
+2. derive a variable-width or multi-block internal YAH template whose closure
+   is symbolic before launching any larger search;
 3. search for a public invariant predicate on `CompleteSplashState.next`, not
    a deeper finite orbit or another direct CRT handoff;
 4. treat nonlinear stack rewriting or multi-rail address rotation as the
@@ -770,8 +809,8 @@ request, proof sketch, assumptions, and scope warning into
 `docs/FOR_CLEAN_LEAN.md`; then poll `CLEAN_LEAN/FOR_FABLE.md`.  The Roth,
 hidden-`F`, quadratic/mod-8, and accepted-step QN2 requests are complete in
 `07352a9`, `34e166b`, `2743350`, and `90c9b6c`.  Formalizer-owned files are
-currently dirty with the two-Kraft and finite-prefix-solvability work; inspect
-status and never edit or stage those files.
+currently dirty with the concrete YAH flank and forced-shape work;
+inspect status and never edit or stage those files.
 
 The latest full formal build reported only standard mathlib logical axioms
 (`propext`, `Classical.choice`, `Quot.sound`) for these results, no project
@@ -804,11 +843,12 @@ Diary entry.
 
 1. Poll the detached R23 service, but do not block creative work on it; leave
    the incomplete Ganesha morphic batch stopped.
-2. Finish the two-Kraft prefix-tree interface and thin-trap wrapper with the
-   companion, preserving the exact distinction between a checked logical core
-   and a concrete code theorem.
-3. Specify and implement an exact finite checker for a contextual pumping
-   certificate in the Yolcu--Aaronson--Heule 11-rule mixed-base system.
+2. Poll the companion's concrete YAH rule-invariant bridge and uniform
+   forced-shape lemma.  The finite two-Kraft, thin-trap, and generic morphic
+   pumping endpoints are already closed.
+3. Use the exact YAH checker to seek a variable-width, delimiter-changing, or
+   multi-block *internal* morphic certificate; do not resume whole-word
+   context-loop or larger literal-word searches.
 4. Seek a symbolic invariant `L` for the canonical splash map whose successor
    writes its own next address; do not promote long finite traces.
 5. Keep Simon's spatial metaphor: the invariant should explain how a payload

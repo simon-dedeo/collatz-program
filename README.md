@@ -33,6 +33,63 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-22 15:05 EDT
+
+The first mixed-base closure audit is complete, and it has changed the target
+rather than produced a counterexample.  The new exact
+[`yah_context_loop.py`](experiments/kontorovich/yah_context_loop.py) checker
+pins Yolcu--Aaronson--Heule's 11 rules, replays their `12 -> ... -> 1`
+example, and checks finite literal and morphic pumping certificates.  Its
+bounded structural audit covers all 513,916 words of length at most eight
+with one ordered delimiter pair.  The 694,458-edge induced graph is acyclic;
+all 825,708 raw rule applications preserve both marker counts and the two
+outer-flank diagnostics; and no whole-word context loop occurs from any of
+10,791 cores of length at most six within 20 rewrites.  The same finite graph
+does contain a 299-rewrite delay from the canonical word for 834 to the word
+for 1079, including 52 genuine Collatz updates.  This is exact evidence for
+spatial motion, but also a clean demonstration that motion is not
+reproduction.
+
+Two companion results make that distinction structural.  Commit `ef1b888`
+kernel-checks that a proper embedding `endpoint=left++start++right` collapses
+to `left=right=[]` whenever marker counts and outer flanks are preserved.
+The small universal bridge from each concrete YAH rule to those invariants is
+still being formalized, but the worker now emits the four diagnostics and
+checks them on every raw application in the stated finite graph.  A proper
+whole-word splash is therefore retired as the primary construction target;
+the live spatial object is an **internal, scale-changing template** whose
+active block rewrites or moves inside fixed outer boundaries.
+
+Uniform scale changes are also sharply constrained.  Exact search finds the
+identity as the only delimiter-fixing letter morphism among all 3,125 maps
+and no rule simulation among all 9,765,625 uniform width-two block maps.
+Commit `b4a48a6` kernel-checks the all-width arithmetic endpoint
+`eval_3(block)<=2*3^w<4^w=2^(2w)` for `w>=3`; the rule-simulation-to-block
+shape implication remains explicit.  The next constructive lane is therefore
+variable-width, delimiter-changing, or multi-block morphic closure—closer to
+a self-interpreter or a nonlocal stack than to a cellular-automaton tile.
+
+The formal proof boundary also advanced.  Commit `da9fa59` derives both Kraft
+bounds from finite prefix-freeness and closes the complete finite
+two-Kraft obstruction; only the countable prefix-free version remains behind
+an abstract interface.  Commit `298f5a3` kernel-checks that one explicit
+canonical splash seed plus a locally closed, strictly outward predicate
+really constructs an infinite Collatz orbit and refutes the conjecture.  So
+the endpoint is ready.  Commit `1b3459d` also kernel-checks both generic YAH
+closure consumers: a literal context loop and the full productive morphic
+certificate `u ->+ L sigma(u) R` with nonempty simulations of every generating
+rule each construct nonempty rewrite chunks at every scale.  Commit `b733caa`
+pins the exact seven-symbol, 11-rule carrier in Lean, proves context closure
+and marker-count preservation, and specializes both glider consumers to it.
+Commit `442826d` further connects an actual trace over those rules to the
+boundary-collapse theorem: marker counts are discharged internally, while
+the two flank equalities remain certificate inputs.
+What is missing is exactly the thin invariant or a concrete morphic glider.
+Akdeniz's
+detached Thue solve remains active after 4 hours 49 minutes of CPU with no
+`R23_DONE` line; it remains secondary.  Ganesha and PSC remain idle.  No
+counterexample or infinite orbit is known.
+
 ### 2026-07-22 14:37 EDT
 
 A fundamental coding obstruction now tells us what kind of closure **not** to
@@ -2709,6 +2766,19 @@ identically `x`.
   must become exponentially thin in dyadic address measure, so algebraic
   self-writing predicates, pushdown stacks, and multi-rail rotations are more
   plausible than finite-width complete routers.
+- **Internal-template and morphic closure.**  In the YAH mixed-base rewrite
+  language, fixed outer boundaries cannot host a proper whole-word context
+  splash when their marker/flank invariants are preserved.  Treat those
+  boundaries as a stationary tape frame and make an *interior* active block
+  reproduce, translate, or change scale.  A finite certificate has the form
+  `u ->+ L sigma(u) R` plus nonempty simulations of every rewritten rule under
+  `sigma`; commit `1b3459d` kernel-checks that this finite data constructs an
+  infinite chunked derivation.  Exact width-one/two classifications and the
+  width-at-least-three size obstruction force `sigma` beyond a
+  delimiter-fixing uniform block code.  The live PL architectures are
+  variable-length self-delimiting
+  opcodes, delimiter-changing phases, or several coupled blocks whose global
+  invariant is nonlocal.
 - **Delocalized instruction synthesis.**  Represent an instruction as an
   arithmetic relation across the entire state: a dyadic address, triadic
   phase, carry boundary, and affine high payload.  Search for formula
@@ -3318,7 +3388,9 @@ identically `x`.
 
 | Ansatz or route | Calibrated verdict | Exact record |
 |---|---|---|
-| Prefix-complete uniformly outward valuation ISA | Reduced exactly to the two-Kraft interface.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, every outward leaf has `q(w)>p(w)`; `p`-completeness and the `q`-Kraft bound are therefore inconsistent.  Lean commit `29c1d22` checks both geometric letter laws, the leafwise inequality, and abstract finite/countable contradictions.  The generic prefix-tree derivation of both Kraft bounds remains pending in Lean, so the fully concrete prefix-code theorem is not yet called kernel-closed.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |
+| Prefix-complete uniformly outward valuation ISA | Closed for finite positive prefix-free codes.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, every outward leaf has `q(w)>p(w)`; `p`-completeness and the `q`-Kraft bound are inconsistent.  Commit `da9fa59` constructs explicit binary and four-letter compilers, derives both Kraft inequalities from prefix-freeness, and proves the full finite contradiction and quantitative mass bound in Lean.  The countably infinite prefix-free theorem still uses an abstract `tsum` interface.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |
+| Proper whole-word YAH context splash with one ordered delimiter pair | Structurally retired.  Commit `ef1b888` proves that preserved marker counts, left-of-slash offset, and right-of-dot suffix force both added outer contexts to be empty; `442826d` specializes this to an actual trace over the pinned 11 rules and discharges both marker counts internally.  The two flank equalities remain certificate inputs.  The exact worker checks all four diagnostics on 825,708 raw rule applications in its complete length-at-most-eight graph and finds no violation; it also finds no bounded context loop from 10,791 short cores.  This is not full YAH termination.  Internal/morphic templates remain live. | [`yah_context_loop_audit.json`](experiments/kontorovich/yah_context_loop_audit.json), [`YahBoundaryNoGo.lean`](KontoroC/KontoroC/YahBoundaryNoGo.lean) |
+| Delimiter-fixing uniform YAH block morphism | Width one and two are exactly classified: identity is the only one-letter rule simulation, and none of all 9,765,625 width-two maps simulates the 11 rules.  For every `w>=3`, commit `b4a48a6` kernel-checks that a width-`w` ternary block has value at most `2*3^w<4^w=2^(2w)`.  The preceding forced-shape implication from rule simulation remains a stated seam.  Variable-width, delimiter-changing, and multi-block morphisms are not excluded. | [`yah_context_loop_audit.json`](experiments/kontorovich/yah_context_loop_audit.json), [`YahUniformBlockNoGo.lean`](KontoroC/KontoroC/YahUniformBlockNoGo.lean) |
 | Treat a prescribed finite `k`-word as an infinite program | Invalid: the nested progressions generally select a 2-adic integer, not a positive ordinary seed. Lean commit `ad36f08` proves that eventual canonical-seed stabilization is exactly the ordinary-integer gate. | [Program-synthesis note](docs/notes/kontorovich-program-synthesis.md) |
 | Literal periodic valuation glider | Closed: Lean commits `92b01ff`/`2f93df7` prove that an infinitely repeatable positive block has `3^N<2^S` and closes as a cycle. This does not touch morphic, counter, stack, or feedback streams. | [Section 4](docs/notes/kontorovich-program-synthesis.md#4-why-a-literal-periodic-glider-fails) |
 | Small positive cycle words | Exhaustively negative through total halving count `S<=22`: `3,447,691` positive-denominator compositions, with only repeated encodings of seed `1`. This is a bounded ansatz exclusion, not a new verification frontier. | [`search_results.json`](experiments/kontorovich/search_results.json) |
@@ -3380,7 +3452,9 @@ positive integer and its claimed behavior are machine-checked.
 
 | Result | Status |
 |---|---|
-| Two-Kraft architecture bound | Every valuation word has ordinary weight `p=2^-S` and tilted weight `q=3^n/4^S`; both arise from probability letter weights.  Outward slope means `q>p`, so `p`-completeness is inconsistent with the `q`-Kraft bound.  The same identity bounds the ordinary mass of `N` successive macros with gain at least `lambda` by `lambda^-N`.  Lean commit `29c1d22` checks the exact series, leafwise comparison, and abstract finite/countable contradiction; deriving both Kraft bounds from a concrete prefix tree is still an interface.  The positive target is a proper invariant thin language, not a total growing decoder; no counterexample is claimed. |
+| Two-Kraft architecture bound | Every valuation word has ordinary weight `p=2^-S` and tilted weight `q=3^n/4^S`; outward slope means `q>p`.  Commit `da9fa59` derives both Kraft inequalities from finite prefix-freeness via explicit self-delimiting compilers and proves that a positive nonempty, prefix-free, `p`-complete code cannot have every leaf outward.  It also proves the finite quantitative mass bound; the countable prefix-free bridge remains abstract.  The positive target is a proper invariant thin language, not a total growing decoder; no counterexample is claimed. |
+| Kernel thin-trap endpoint | Commit `298f5a3` iterates any explicit canonical-splash predicate closed under its public successor, proves exact `next` linkage and strict outwardness, constructs `InfiniteCanonicalSplashOrbit`, and concludes `not Collatz`.  This is a fully checked certificate consumer, not a witness: no qualifying seed or invariant predicate is known. |
+| YAH mixed-base closure audit | The exact artifact pins all 11 rules, replays the published `12 -> ... -> 1` example, classifies all letter and width-two uniform morphisms, proves its 513,916-state length-at-most-eight induced graph acyclic, and finds a longest 299-rewrite delay `834 -> 1079` but no pumping certificate.  Lean commits `ef1b888`/`b4a48a6` check respectively the boundary-collapse filter and the all-width arithmetic size endpoint; `1b3459d` proves that either a literal context loop or a productive morphic certificate constructs nonempty rewrite chunks forever; `b733caa` pins the exact 11-rule carrier; `442826d` connects its traces to the boundary filter given flank equalities.  The universal flank-preservation theorem, uniform forced-shape bridge, external YAH-to-Collatz seam, and any glider remain open. |
 | Program-scale calibration | Barina's published exhaustive check through `2^71` excludes every ordinary seed below that bound. Colussi's exact order-10 repetend has 39,366 padded bits and an 11,846-digit integer value, giving a literature-backed, formula-generated background at the scale Simon proposed. This is target calibration, not evidence of divergence. |
 | Delocalized instruction-set audit | Exact published encodings expose four complementary units: valuation congruences, mixed binary--ternary boundary rewrites, De Mol's three-symbol tag rules, and Colussi's rotated repetend grammar. They motivate a nonlocal bouncer search but do not prove computational universality or nontermination. |
 | Exact dyadic--triadic packet gate | Lean commit `f1cb0e2` proves universally that each supplied base collision generates exactly the affine family `h=r+2^(m+e+2)q`, `h'=s+2*3^m q`, with unique payload, literal valuation `e`, and the triadic next-packet scheduler. The Python checker passes 8,192 family members and an exhaustive converse over all 16,316 renewals found for odd `h<2^16` at levels `1..8`. No closed all-level gate controller is known. |

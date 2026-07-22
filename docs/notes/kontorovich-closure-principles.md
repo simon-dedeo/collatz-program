@@ -789,6 +789,103 @@ finite-width invariant should be viewed suspiciously.  CP23 does not forbid
 one explicit ordinary seed in the intersection.  It says that the seed must
 be produced by a self-writing invariant, not found by typicality.
 
+### 5.4 Mixed-base reproduction certificates and a uniform-block no-go
+
+Yolcu--Aaronson--Heule's 11-rule mixed binary/ternary string system gives a
+second exact closure interface.  A literal **context loop**
+
+    u ->+ left ++ u ++ right                             (CP24)
+
+is already a finite nontermination certificate: the same derivation can be
+replayed inside its reproduced occurrence of u forever.  Their Theorem 3.17
+then converts nontermination of this particular rewriting system into failure
+of Collatz; that published equivalence is an explicit external seam.
+
+For the natural one-`/`, one-later-`.` configuration language, however, a
+*proper outer* context is the wrong spatial target.  The rules preserve the
+number of boundary markers and act only on the interior side of each marker;
+their two outer flank lengths therefore do not change.  Lean commit
+`ef1b888` proves the generic consequence: if
+`endpoint=left++start++right` preserves the marker counts and both flank
+lengths, then `left=right=[]`.  The Python artifact checks those four
+diagnostics on all 825,708 raw rule applications in its complete bounded
+graph and finds no violation.  The universal per-rule YAH bridge is still a
+formalization seam.  Constructively, CP24 should now be read as a certificate
+interface and cycle detector, not the primary glider ansatz.  The spatially
+live object is an *internal* active template moving or reproducing inside a
+fixed boundary frame.
+
+The genuinely scale-changing version uses a nonerasing word morphism sigma.
+If every one of the 11 rules has a nonempty checked simulation
+
+    sigma(lhs) ->+ sigma(rhs),                          (CP25)
+
+and one seed derivation satisfies
+
+    u ->+ left ++ sigma(u) ++ right,                    (CP26)
+
+then applying sigma to CP26 and replacing each image rule by CP25 produces
+the next nonempty derivation at every scale.  CP25--CP26 are a finite morphic
+glider certificate: they formalize reproduction rather than an orbit prefix.
+Commit `1b3459d` kernel-checks this generic relation-theoretic construction,
+including accumulated contexts and a nonempty rewrite chunk at every scale.
+The concrete 11-rule certificate and the published YAH-to-Collatz implication
+remain separate.  Commit `b733caa` pins that concrete seven-symbol, 11-rule
+carrier in Lean, proves context closure and marker-count preservation, and
+specializes both certificate consumers to it; certificate replay and the
+external equivalence remain separate.
+Commit `442826d` connects any actual trace on that carrier to the boundary
+filter, deriving both marker-count equalities and taking only the two flank
+equalities as certificate inputs.
+
+The exact [yah_context_loop.py](../../experiments/kontorovich/yah_context_loop.py)
+worker now checks both certificate forms one literal rule application at a
+time.  It pins the authors' ASCII rule table, replays their 12-to-1 example
+with auxiliary-value preservation and all eight dynamic values, and performs
+three scoped classifications:
+
+- all 5^5=3,125 delimiter-fixing letter morphisms are checked; the identity
+  is the only rule-simulating morphism;
+- all 25^5=9,765,625 delimiter-fixing uniform two-symbol block morphisms are
+  exhausted by exact constraint propagation; none simulates all 11 rules;
+- the entire induced rewrite graph on 513,916 words of length at most eight
+  with one ordered delimiter pair is acyclic (694,458 exact edges), and no
+  literal context loop occurs from the 10,791 cores of length at most six in
+  at most 20 steps with intermediate length at most 14.
+
+These are instruction-class exclusions, not seed verification.  The acyclic
+graph still contains a 299-rewrite spatial delay from the canonical word for
+834 to one for 1079, including 52 genuine dynamic steps.  Long motion is
+therefore easy even in this tiny language; the missing event is reproduction.
+
+There is also a general obstruction to every *uniform* digit-block morphism,
+not just width two.  Suppose sigma fixes the two delimiters, maps every
+ordinary symbol to a word of common length w, and simulates all rules.  From
+the image of the binary-zero dynamic rule, track the multiplicative slope of
+the digit functions.  An auxiliary swap preserves the slope, deleting a
+binary zero divides it by two, and consuming a binary one multiplies it by
+3/2.  A path from sigma(binary-zero) followed by the end delimiter to the end
+delimiter can finish only if sigma(binary-zero) is the all-zero binary word
+of length w: it has no ternary symbol, no binary-one dynamic step, and every
+binary digit is deletable.
+
+Now apply the image of the left-boundary digit-one rule.  Its two sides contain
+no end delimiter, so every step preserves the represented integer.  The right
+side has value 2^(2w), whereas any length-w digit block starting from the left
+delimiter has value at most
+
+    2*3^w-1.
+
+For every w>=3, 4^w>2*3^w, a contradiction.  Width two is the finite exact
+classification above; width one has only the identity.  Thus the first
+plausible scale compiler must be **variable-width, delimiter-changing, or
+multi-block**.  A local fixed-width substitution cannot be the glider.  The
+arithmetic endpoint of the all-`w>=3` argument is kernel-checked in commit
+`b4a48a6`: a ternary block has value at most `2*3^w<4^w=2^(2w)`.  The preceding
+rewrite-theoretic forced-shape implication remains explicit.  The stated
+width-one/two classifications, bounded loop searches, and boundary
+diagnostics are independently machine-replayed in the Python artifact.
+
 ## 6. Closure should be an identity before it is a search hit
 
 The preferred order of work is now:

@@ -1,0 +1,1549 @@
+{
+  "artifact_sha256": "6056acc0571af5199aebbe98fff34fe43ec512a5a71b00c4ed087e816c2aac2b",
+  "bounded_context_loop_search": {
+    "context_loop_certificate": null,
+    "max_intermediate_word_length": 14,
+    "max_rewrite_steps": 20,
+    "max_seed_length": 6,
+    "maximum_reached_word_length": 9,
+    "seed_class": "exactly one c=/ and one later d=.; all other symbols in abefg",
+    "seed_count": 10791,
+    "seeds_completed": 10791,
+    "total_distinct_reached_states_across_seeds": 193279,
+    "total_expanded_states_across_seeds": 193279,
+    "transitions_considered": 283094,
+    "transitions_pruned_above_length_bound": 0,
+    "verdict": "no literal context loop in the stated bounded path class"
+  },
+  "certificate_contract": {
+    "candidate": null,
+    "forms": [
+      "u ->+ left_context ++ u ++ right_context",
+      "u ->+ left_context ++ sigma(u) ++ right_context, where every sigma(rule) has a nonempty replayed simulation"
+    ],
+    "soundness": "context closure iterates a literal loop; a productive rule-simulating morphism iterates a morphic loop at successively larger scales; Yolcu--Aaronson--Heule Theorem 3.17 is the external seam from nontermination of T to failure of Collatz"
+  },
+  "generated_at_utc": "2026-07-22T19:04:44.383378+00:00",
+  "induced_cycle_search": {
+    "applications_pruned_above_length_bound": 131250,
+    "boundary_diagnostic_rule_checks": 825708,
+    "boundary_diagnostic_violation_count": 0,
+    "class": "exactly one c=/ and one later d=.; all other symbols in abefg",
+    "context_loop_certificate": null,
+    "cycle_core_states": 0,
+    "first_boundary_diagnostic_violation": null,
+    "longest_induced_path_edges": 299,
+    "longest_induced_path_witness": {
+      "edge_count": 299,
+      "endpoint": "cffegggd",
+      "endpoint_boundary_diagnostics": {
+        "dot_count": 1,
+        "first_slash_offset": 0,
+        "last_dot_suffix_length": 0,
+        "slash_count": 1
+      },
+      "maximum_word_length": 8,
+      "rule_family_counts": {
+        "A": 214,
+        "B": 33,
+        "DT": 52
+      },
+      "start": "cefegged",
+      "start_boundary_diagnostics": {
+        "dot_count": 1,
+        "first_slash_offset": 0,
+        "last_dot_suffix_length": 0,
+        "slash_count": 1
+      },
+      "steps": [
+        {
+          "position": 0,
+          "rule": "B_0"
+        },
+        {
+          "position": 1,
+          "rule": "A_t1"
+        },
+        {
+          "position": 2,
+          "rule": "A_f0"
+        },
+        {
+          "position": 3,
+          "rule": "A_f2"
+        },
+        {
+          "position": 4,
+          "rule": "A_f2"
+        },
+        {
+          "position": 5,
+          "rule": "A_f0"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_2"
+        },
+        {
+          "position": 2,
+          "rule": "A_t0"
+        },
+        {
+          "position": 1,
+          "rule": "A_f1"
+        },
+        {
+          "position": 0,
+          "rule": "B_0"
+        },
+        {
+          "position": 3,
+          "rule": "A_t1"
+        },
+        {
+          "position": 2,
+          "rule": "A_t2"
+        },
+        {
+          "position": 1,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_f1"
+        },
+        {
+          "position": 5,
+          "rule": "A_t0"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 3,
+          "rule": "A_t0"
+        },
+        {
+          "position": 4,
+          "rule": "A_t1"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_2"
+        },
+        {
+          "position": 3,
+          "rule": "A_t1"
+        },
+        {
+          "position": 2,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_f2"
+        },
+        {
+          "position": 3,
+          "rule": "A_t1"
+        },
+        {
+          "position": 5,
+          "rule": "A_f1"
+        },
+        {
+          "position": 4,
+          "rule": "A_f0"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 1,
+          "rule": "A_f2"
+        },
+        {
+          "position": 0,
+          "rule": "B_1"
+        },
+        {
+          "position": 3,
+          "rule": "A_f2"
+        },
+        {
+          "position": 2,
+          "rule": "A_f1"
+        },
+        {
+          "position": 1,
+          "rule": "A_f0"
+        },
+        {
+          "position": 0,
+          "rule": "B_0"
+        },
+        {
+          "position": 4,
+          "rule": "A_f0"
+        },
+        {
+          "position": 3,
+          "rule": "A_t0"
+        },
+        {
+          "position": 2,
+          "rule": "A_f1"
+        },
+        {
+          "position": 1,
+          "rule": "A_t0"
+        },
+        {
+          "position": 5,
+          "rule": "A_f1"
+        },
+        {
+          "position": 4,
+          "rule": "A_t0"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 3,
+          "rule": "A_t1"
+        },
+        {
+          "position": 4,
+          "rule": "A_f2"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_1"
+        },
+        {
+          "position": 3,
+          "rule": "A_t2"
+        },
+        {
+          "position": 2,
+          "rule": "A_f2"
+        },
+        {
+          "position": 1,
+          "rule": "A_f1"
+        },
+        {
+          "position": 0,
+          "rule": "B_0"
+        },
+        {
+          "position": 4,
+          "rule": "A_t1"
+        },
+        {
+          "position": 3,
+          "rule": "A_f2"
+        },
+        {
+          "position": 2,
+          "rule": "A_t1"
+        },
+        {
+          "position": 1,
+          "rule": "A_t2"
+        },
+        {
+          "position": 5,
+          "rule": "A_f1"
+        },
+        {
+          "position": 4,
+          "rule": "A_f0"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_2"
+        },
+        {
+          "position": 4,
+          "rule": "A_f0"
+        },
+        {
+          "position": 3,
+          "rule": "A_t0"
+        },
+        {
+          "position": 2,
+          "rule": "A_t1"
+        },
+        {
+          "position": 5,
+          "rule": "A_f1"
+        },
+        {
+          "position": 4,
+          "rule": "A_t0"
+        },
+        {
+          "position": 3,
+          "rule": "A_f1"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_t2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 1,
+          "rule": "A_f2"
+        },
+        {
+          "position": 2,
+          "rule": "A_f0"
+        },
+        {
+          "position": 3,
+          "rule": "A_f2"
+        },
+        {
+          "position": 4,
+          "rule": "A_f2"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_1"
+        },
+        {
+          "position": 2,
+          "rule": "A_f0"
+        },
+        {
+          "position": 1,
+          "rule": "A_f0"
+        },
+        {
+          "position": 0,
+          "rule": "B_0"
+        },
+        {
+          "position": 3,
+          "rule": "A_f1"
+        },
+        {
+          "position": 2,
+          "rule": "A_f0"
+        },
+        {
+          "position": 1,
+          "rule": "A_t0"
+        },
+        {
+          "position": 4,
+          "rule": "A_t1"
+        },
+        {
+          "position": 5,
+          "rule": "A_f1"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 3,
+          "rule": "A_f2"
+        },
+        {
+          "position": 4,
+          "rule": "A_f0"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_1"
+        },
+        {
+          "position": 3,
+          "rule": "A_t1"
+        },
+        {
+          "position": 2,
+          "rule": "A_f2"
+        },
+        {
+          "position": 1,
+          "rule": "A_f1"
+        },
+        {
+          "position": 0,
+          "rule": "B_0"
+        },
+        {
+          "position": 4,
+          "rule": "A_f0"
+        },
+        {
+          "position": 3,
+          "rule": "A_f0"
+        },
+        {
+          "position": 2,
+          "rule": "A_t0"
+        },
+        {
+          "position": 1,
+          "rule": "A_t1"
+        },
+        {
+          "position": 5,
+          "rule": "A_f1"
+        },
+        {
+          "position": 4,
+          "rule": "A_f0"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_2"
+        },
+        {
+          "position": 4,
+          "rule": "A_t0"
+        },
+        {
+          "position": 3,
+          "rule": "A_f1"
+        },
+        {
+          "position": 2,
+          "rule": "A_t0"
+        },
+        {
+          "position": 1,
+          "rule": "A_f1"
+        },
+        {
+          "position": 0,
+          "rule": "B_0"
+        },
+        {
+          "position": 5,
+          "rule": "A_t1"
+        },
+        {
+          "position": 4,
+          "rule": "A_t2"
+        },
+        {
+          "position": 3,
+          "rule": "A_t2"
+        },
+        {
+          "position": 2,
+          "rule": "A_t2"
+        },
+        {
+          "position": 1,
+          "rule": "A_t2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_t2"
+        },
+        {
+          "position": 3,
+          "rule": "A_t2"
+        },
+        {
+          "position": 2,
+          "rule": "A_t2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_t2"
+        },
+        {
+          "position": 3,
+          "rule": "A_t2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_t2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 1,
+          "rule": "A_f2"
+        },
+        {
+          "position": 2,
+          "rule": "A_f2"
+        },
+        {
+          "position": 3,
+          "rule": "A_f2"
+        },
+        {
+          "position": 4,
+          "rule": "A_f2"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_1"
+        },
+        {
+          "position": 2,
+          "rule": "A_f1"
+        },
+        {
+          "position": 1,
+          "rule": "A_f0"
+        },
+        {
+          "position": 0,
+          "rule": "B_0"
+        },
+        {
+          "position": 3,
+          "rule": "A_t1"
+        },
+        {
+          "position": 2,
+          "rule": "A_f2"
+        },
+        {
+          "position": 1,
+          "rule": "A_t1"
+        },
+        {
+          "position": 4,
+          "rule": "A_f1"
+        },
+        {
+          "position": 5,
+          "rule": "A_t1"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_2"
+        },
+        {
+          "position": 4,
+          "rule": "A_f0"
+        },
+        {
+          "position": 3,
+          "rule": "A_f0"
+        },
+        {
+          "position": 2,
+          "rule": "A_t0"
+        },
+        {
+          "position": 1,
+          "rule": "A_f1"
+        },
+        {
+          "position": 0,
+          "rule": "B_0"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 4,
+          "rule": "A_f1"
+        },
+        {
+          "position": 3,
+          "rule": "A_t0"
+        },
+        {
+          "position": 2,
+          "rule": "A_t1"
+        },
+        {
+          "position": 1,
+          "rule": "A_t2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_f2"
+        },
+        {
+          "position": 3,
+          "rule": "A_t1"
+        },
+        {
+          "position": 2,
+          "rule": "A_t2"
+        },
+        {
+          "position": 1,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_1"
+        },
+        {
+          "position": 5,
+          "rule": "A_f1"
+        },
+        {
+          "position": 4,
+          "rule": "A_t0"
+        },
+        {
+          "position": 3,
+          "rule": "A_f1"
+        },
+        {
+          "position": 2,
+          "rule": "A_f0"
+        },
+        {
+          "position": 1,
+          "rule": "A_f0"
+        },
+        {
+          "position": 0,
+          "rule": "B_0"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_t2"
+        },
+        {
+          "position": 3,
+          "rule": "A_f2"
+        },
+        {
+          "position": 2,
+          "rule": "A_f1"
+        },
+        {
+          "position": 1,
+          "rule": "A_t0"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_1"
+        },
+        {
+          "position": 4,
+          "rule": "A_t1"
+        },
+        {
+          "position": 3,
+          "rule": "A_t2"
+        },
+        {
+          "position": 2,
+          "rule": "A_f2"
+        },
+        {
+          "position": 1,
+          "rule": "A_f1"
+        },
+        {
+          "position": 0,
+          "rule": "B_0"
+        },
+        {
+          "position": 5,
+          "rule": "A_f1"
+        },
+        {
+          "position": 4,
+          "rule": "A_t0"
+        },
+        {
+          "position": 3,
+          "rule": "A_f1"
+        },
+        {
+          "position": 2,
+          "rule": "A_t0"
+        },
+        {
+          "position": 1,
+          "rule": "A_t1"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_t2"
+        },
+        {
+          "position": 3,
+          "rule": "A_t2"
+        },
+        {
+          "position": 2,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_t2"
+        },
+        {
+          "position": 3,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_2"
+        },
+        {
+          "position": 2,
+          "rule": "A_t1"
+        },
+        {
+          "position": 3,
+          "rule": "A_f1"
+        },
+        {
+          "position": 4,
+          "rule": "A_t1"
+        },
+        {
+          "position": 5,
+          "rule": "A_f1"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 1,
+          "rule": "A_f2"
+        },
+        {
+          "position": 2,
+          "rule": "A_f0"
+        },
+        {
+          "position": 3,
+          "rule": "A_f2"
+        },
+        {
+          "position": 4,
+          "rule": "A_f0"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_1"
+        },
+        {
+          "position": 2,
+          "rule": "A_f0"
+        },
+        {
+          "position": 1,
+          "rule": "A_f0"
+        },
+        {
+          "position": 0,
+          "rule": "B_0"
+        },
+        {
+          "position": 3,
+          "rule": "A_f1"
+        },
+        {
+          "position": 2,
+          "rule": "A_f0"
+        },
+        {
+          "position": 1,
+          "rule": "A_t0"
+        },
+        {
+          "position": 4,
+          "rule": "A_t0"
+        },
+        {
+          "position": 5,
+          "rule": "A_t1"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_1"
+        },
+        {
+          "position": 4,
+          "rule": "A_f1"
+        },
+        {
+          "position": 3,
+          "rule": "A_t0"
+        },
+        {
+          "position": 2,
+          "rule": "A_f1"
+        },
+        {
+          "position": 1,
+          "rule": "A_f0"
+        },
+        {
+          "position": 0,
+          "rule": "B_0"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_t2"
+        },
+        {
+          "position": 3,
+          "rule": "A_t2"
+        },
+        {
+          "position": 2,
+          "rule": "A_f2"
+        },
+        {
+          "position": 1,
+          "rule": "A_t1"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_t2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 3,
+          "rule": "A_f2"
+        },
+        {
+          "position": 4,
+          "rule": "A_f2"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_2"
+        },
+        {
+          "position": 3,
+          "rule": "A_f1"
+        },
+        {
+          "position": 2,
+          "rule": "A_t0"
+        },
+        {
+          "position": 1,
+          "rule": "A_f1"
+        },
+        {
+          "position": 0,
+          "rule": "B_0"
+        },
+        {
+          "position": 4,
+          "rule": "A_t1"
+        },
+        {
+          "position": 3,
+          "rule": "A_t2"
+        },
+        {
+          "position": 2,
+          "rule": "A_t2"
+        },
+        {
+          "position": 1,
+          "rule": "A_t2"
+        },
+        {
+          "position": 5,
+          "rule": "A_f1"
+        },
+        {
+          "position": 4,
+          "rule": "A_t0"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 3,
+          "rule": "A_t1"
+        },
+        {
+          "position": 4,
+          "rule": "A_f2"
+        },
+        {
+          "position": 5,
+          "rule": "A_f2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_f"
+        },
+        {
+          "position": 0,
+          "rule": "B_2"
+        },
+        {
+          "position": 3,
+          "rule": "A_t2"
+        },
+        {
+          "position": 2,
+          "rule": "A_t2"
+        },
+        {
+          "position": 4,
+          "rule": "A_t1"
+        },
+        {
+          "position": 3,
+          "rule": "A_t2"
+        },
+        {
+          "position": 5,
+          "rule": "A_f1"
+        },
+        {
+          "position": 4,
+          "rule": "A_t0"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        },
+        {
+          "position": 1,
+          "rule": "A_f2"
+        },
+        {
+          "position": 2,
+          "rule": "A_f2"
+        },
+        {
+          "position": 3,
+          "rule": "A_f1"
+        },
+        {
+          "position": 4,
+          "rule": "A_t2"
+        },
+        {
+          "position": 5,
+          "rule": "A_t2"
+        },
+        {
+          "position": 6,
+          "rule": "DT_t"
+        }
+      ],
+      "trace_sha256": "358f171b84e874475070bc06d6fee4658ce6c7c4e62c7ec974aa5276df03cee1"
+    },
+    "max_word_length": 8,
+    "raw_rule_applications": 825708,
+    "rule_family_application_counts": {
+      "A": 443628,
+      "B": 229248,
+      "DT": 152832
+    },
+    "state_count": 513916,
+    "topologically_removed_states": 513916,
+    "unique_induced_edges": 694458,
+    "verdict": "no literal rewrite cycle in the stated induced finite graph"
+  },
+  "letter_endomorphism_search": {
+    "class": "nonerasing letter-to-letter morphisms fixing c=/ and d=. and mapping each of abefg into abefg",
+    "distinct_finite_reachability_queries": 95,
+    "finite_reachability_states_expanded": 120,
+    "length_cap_completeness": "A images preserve length; DT images cannot grow; B images cannot shrink, so no successful path can leave its source/target length cap",
+    "morphisms_checked": 3125,
+    "nontrivial_simulation_count": 0,
+    "productive_simulation_count": 1,
+    "rule_obligations_considered_after_short_circuit": 3981,
+    "successful_simulation_count": 1,
+    "successful_simulations": [
+      {
+        "morphism": {
+          "a": "a",
+          "b": "b",
+          "c": "c",
+          "d": "d",
+          "e": "e",
+          "f": "f",
+          "g": "g"
+        },
+        "productive": true,
+        "rule_simulations": {
+          "A_f0": [
+            {
+              "position": 0,
+              "rule": "A_f0"
+            }
+          ],
+          "A_f1": [
+            {
+              "position": 0,
+              "rule": "A_f1"
+            }
+          ],
+          "A_f2": [
+            {
+              "position": 0,
+              "rule": "A_f2"
+            }
+          ],
+          "A_t0": [
+            {
+              "position": 0,
+              "rule": "A_t0"
+            }
+          ],
+          "A_t1": [
+            {
+              "position": 0,
+              "rule": "A_t1"
+            }
+          ],
+          "A_t2": [
+            {
+              "position": 0,
+              "rule": "A_t2"
+            }
+          ],
+          "B_0": [
+            {
+              "position": 0,
+              "rule": "B_0"
+            }
+          ],
+          "B_1": [
+            {
+              "position": 0,
+              "rule": "B_1"
+            }
+          ],
+          "B_2": [
+            {
+              "position": 0,
+              "rule": "B_2"
+            }
+          ],
+          "DT_f": [
+            {
+              "position": 0,
+              "rule": "DT_f"
+            }
+          ],
+          "DT_t": [
+            {
+              "position": 0,
+              "rule": "DT_t"
+            }
+          ]
+        }
+      }
+    ],
+    "verdict": "identity is the unique letter-to-letter rule-simulating morphism"
+  },
+  "paper_example_12_to_1": {
+    "dynamic_values": [
+      12,
+      6,
+      3,
+      5,
+      8,
+      4,
+      2,
+      1
+    ],
+    "endpoint": "cd",
+    "endpoint_value": 1,
+    "rewrite_steps": 13,
+    "start": "caaed",
+    "start_value": 12,
+    "trace": [
+      {
+        "position": 2,
+        "rule": "A_f0"
+      },
+      {
+        "position": 3,
+        "rule": "DT_f"
+      },
+      {
+        "position": 1,
+        "rule": "A_f0"
+      },
+      {
+        "position": 2,
+        "rule": "DT_f"
+      },
+      {
+        "position": 0,
+        "rule": "B_0"
+      },
+      {
+        "position": 1,
+        "rule": "DT_t"
+      },
+      {
+        "position": 0,
+        "rule": "B_2"
+      },
+      {
+        "position": 2,
+        "rule": "DT_t"
+      },
+      {
+        "position": 1,
+        "rule": "A_f2"
+      },
+      {
+        "position": 0,
+        "rule": "B_1"
+      },
+      {
+        "position": 3,
+        "rule": "DT_f"
+      },
+      {
+        "position": 2,
+        "rule": "DT_f"
+      },
+      {
+        "position": 1,
+        "rule": "DT_f"
+      }
+    ]
+  },
+  "rule_table_sha256": "beffceb27d77a04e02becd823bc39017e8a2e1b936e7a3cd76732040b226a617",
+  "rules": [
+    {
+      "family": "DT",
+      "lhs": "ad",
+      "name": "DT_f",
+      "paper": "f. -> .",
+      "rhs": "d"
+    },
+    {
+      "family": "DT",
+      "lhs": "bd",
+      "name": "DT_t",
+      "paper": "t. -> 2.",
+      "rhs": "gd"
+    },
+    {
+      "family": "A",
+      "lhs": "ae",
+      "name": "A_f0",
+      "paper": "f0 -> 0f",
+      "rhs": "ea"
+    },
+    {
+      "family": "A",
+      "lhs": "af",
+      "name": "A_f1",
+      "paper": "f1 -> 0t",
+      "rhs": "eb"
+    },
+    {
+      "family": "A",
+      "lhs": "ag",
+      "name": "A_f2",
+      "paper": "f2 -> 1f",
+      "rhs": "fa"
+    },
+    {
+      "family": "A",
+      "lhs": "be",
+      "name": "A_t0",
+      "paper": "t0 -> 1t",
+      "rhs": "fb"
+    },
+    {
+      "family": "A",
+      "lhs": "bf",
+      "name": "A_t1",
+      "paper": "t1 -> 2f",
+      "rhs": "ga"
+    },
+    {
+      "family": "A",
+      "lhs": "bg",
+      "name": "A_t2",
+      "paper": "t2 -> 2t",
+      "rhs": "gb"
+    },
+    {
+      "family": "B",
+      "lhs": "ce",
+      "name": "B_0",
+      "paper": "/0 -> /t",
+      "rhs": "cb"
+    },
+    {
+      "family": "B",
+      "lhs": "cf",
+      "name": "B_1",
+      "paper": "/1 -> /ff",
+      "rhs": "caa"
+    },
+    {
+      "family": "B",
+      "lhs": "cg",
+      "name": "B_2",
+      "paper": "/2 -> /ft",
+      "rhs": "cab"
+    }
+  ],
+  "schema": "yah_context_loop_audit_v1",
+  "uniform_two_block_endomorphism_search": {
+    "block_width": 2,
+    "class": "uniform nonerasing digit-block morphisms of width 2, fixing c=/ and d=.",
+    "constraint_search_nodes": 36,
+    "distinct_finite_reachability_queries": 382,
+    "dt_f_accepted_a_images": [
+      "aa"
+    ],
+    "finite_reachability_states_expanded": 1262,
+    "image_domain_size": 25,
+    "length_cap_completeness": "A images preserve length; DT images contain no slash and cannot grow; B images contain no dot and cannot shrink",
+    "morphisms_covered": 9765625,
+    "productive_simulation_count": 0,
+    "rule_obligations_considered": 985,
+    "successful_simulation_count": 0,
+    "successful_simulations": [],
+    "verdict": "no rule-simulating morphism in the stated uniform block class"
+  },
+  "upstream": {
+    "ascii_symbol_map": {
+      "a": "f",
+      "b": "t",
+      "c": "/",
+      "d": ".",
+      "e": "0",
+      "f": "1",
+      "g": "2"
+    },
+    "authors_repository_commit": "8a4dfda60f97a6d33ff0a24fdfa7a172d4bec340",
+    "paper": "https://arxiv.org/abs/2105.14697",
+    "rules_url": "https://github.com/emreyolcu/rewriting-collatz/blob/8a4dfda60f97a6d33ff0a24fdfa7a172d4bec340/rules/collatz-T.srs"
+  },
+  "worker_sha256": "fd3bb7aff3922d4c5f8a927166deed462c557d2216302ac66e0d52efc04c89ab"
+}

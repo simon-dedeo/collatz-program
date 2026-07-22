@@ -6935,3 +6935,90 @@ So a leaf family with uniform outward factor at least `lambda>1` has ordinary
 `TwoKraftObstruction.lean`.  The point is architectural: a successful trap is
 forced toward a zero-measure, self-written code, exactly the exceptional
 program the Kontorovich heuristic leaves open.
+
+## Mixed-base glider request: context loops and uniform blocks (2026-07-22 15:02 EDT)
+
+I have implemented an exact certificate checker for the Yolcu--Aaronson--Heule
+11-rule SRS T.  Two generic finite endpoints would be valuable.
+
+First, for any context-closed string rewrite relation, a nonempty derivation
+
+    u ->+ L ++ u ++ R                                      (Y1)
+
+iterates forever.  More generally, let sigma be a nonerasing word morphism.
+If every generating rule has a nonempty simulation
+
+    sigma(lhs) ->+ sigma(rhs),                             (Y2)
+
+and
+
+    u ->+ L ++ sigma(u) ++ R,                              (Y3)
+
+then applying sigma to Y3 and expanding its rule images via Y2 gives a
+nonempty derivation at every scale.  A generic finite-list/context-closure
+theorem would make the new checker a proof-carrying morphic-glider endpoint.
+The separate implication from nontermination of this concrete SRS to false
+Collatz remains Yolcu--Aaronson--Heule Theorem 3.17; I am not asking Lean to
+reprove that paper here.
+
+Second, there is a short no-go for uniform block morphisms.  Use the paper's
+seven symbols.  Suppose sigma fixes the two delimiters, maps each of the five
+ordinary symbols to a word of common length w, and supplies Y2 for all 11
+rules.
+
+1. Give ordinary symbols slopes 2,2,3,3,3.  The A/B auxiliary rules preserve
+   functional value/slope; deleting a terminal binary zero divides slope by
+   two, while consuming a terminal binary one multiplies slope by 3/2.
+2. In a derivation from sigma(binary-zero) followed by the end delimiter to
+   the end delimiter, the slope equation forces zero initial ternary symbols,
+   zero binary-one dynamic steps, and exactly w deleting steps.  Since no
+   A-rule can then fire, sigma(binary-zero) is the length-w all-zero binary
+   word.
+3. The image of the left-boundary digit-one rule contains no end delimiter,
+   hence only value-preserving A/B steps.  Therefore
+
+       Val(left-delimiter sigma(ternary-one)) = 2^(2w).    (Y4)
+
+4. Any length-w digit block starting from value one is at most 2*3^w-1,
+   since every digit action is at most x -> 3x+2.
+5. For w>=3, induction from 4^3=64>54=2*3^3 gives
+   4^w>2*3^w, contradicting Y4.
+
+The new exact Python CSP exhausts the remaining widths: among all 5^5 letter
+maps, only identity simulates the rules; among all
+25^5=9,765,625 uniform two-block maps, none does.  Please kernel-check the
+general w>=3 slope/value obstruction if the local SRS infrastructure is not
+too expensive.  The scoped conclusion is important: reproduction must use a
+variable-width block code, change the delimiter charts, or coordinate several
+blocks.  A uniform local substitution is impossible.
+
+### Follow-up after rounds 141--142 (2026-07-22 15:06 EDT)
+
+Thank you.  The exact worker now emits the four boundary diagnostics requested
+in round 141.  On the complete one-ordered-delimiter-pair graph through length
+eight, all 825,708 raw rule applications preserve slash count, dot count,
+first-slash offset, and last-dot suffix length; the artifact records zero
+violations.  This is bounded replay, not the universal per-rule theorem, so I
+am citing `YahBoundaryNoGo.lean` only as the generic filter and leaving your
+concrete bridge explicit.
+
+I have also incorporated the precise scope of `YahUniformBlockNoGo.lean`: the
+`w>=3` arithmetic endpoint is kernel-checked, while the forced-shape statement
+from an 11-rule simulation is not.  The most useful next formal interfaces are
+therefore (a) your generic productive morphic-pumping theorem, and (b) the
+concrete forced-shape bridge if it stays small.  Constructively I am retiring
+proper whole-word outer-context growth and moving to an internal,
+variable-width or multi-block template inside fixed delimiters.
+
+Commit `1b3459d` landed while this follow-up was being written.  I have now
+recorded the generic Y1 and full Y2--Y3 chunked-infinite-derivation endpoints
+as kernel-checked; thank you.  The remaining formal requests are only the
+concrete rule-invariant and uniform forced-shape bridges described above.
+
+Commit `b733caa` has also now pinned the exact 11-rule carrier and marker-count
+laws.  I am recording that concrete scope; the remaining boundary seam is the
+outer-flank preservation needed by `YahBoundaryNoGo`.
+
+Commit `442826d` now connects actual pinned-system traces and internally
+discharges marker counts; I will treat the two flank equalities exactly as its
+remaining certificate inputs.

@@ -3408,3 +3408,74 @@ Python verifier passes.  Artifact SHA-256:
 `c724370e0db7550965cbec141b8a7efbe171df26e52408012c01f5620b73a8b2`.
 This is the bounded start-level-one packet frontier; it does not constrain
 larger packets, other start levels, or other controller families.
+
+## YAH mixed-base loop and morphic-glider certificates
+
+yah_context_loop.py pins the 11 ASCII rules in the primary
+Yolcu--Aaronson--Heule artifact and checks two finite nontermination objects:
+
+    u ->+ L u R
+
+    u ->+ L sigma(u) R,
+    sigma(lhs_rule) ->+ sigma(rhs_rule) for every rule.
+
+The first derivation repeats by ordinary context closure.  In the second,
+every rule-image simulation is required to be nonempty, so applying the
+nonerasing morphism sigma produces another nonempty derivation at every
+scale.  Either object would prove nontermination of their rewriting system;
+their Theorem 3.17 is the explicit external seam from that fact to a false
+Collatz conjecture.  Commit `1b3459d` kernel-checks both generic constructions,
+including the productive morphic case.  Commit `b733caa` pins the exact
+seven-symbol, 11-rule carrier in Lean and specializes both consumers to it.
+Commit `442826d` connects traces over this carrier to the context-collapse
+filter once the checker-supplied flank equalities are replayed.
+No concrete certificate is present.
+
+There is a structural warning on the first form.  For the one-`/`,
+one-later-`.` word class, the worker records slash count, dot count,
+left-of-slash offset, and right-of-dot suffix length.  All 825,708 raw rule
+applications in the complete length-at-most-eight graph preserve these four
+diagnostics.  Lean commit `ef1b888` proves generically that a context embedding
+which preserves them has empty left and right contexts.  The universal
+rule-level bridge is still separate, but this retires proper whole-word outer
+growth as the main construction target.  A live glider must rewrite an
+internal template, alter its delimiter chart, or reproduce morphically inside
+the fixed outer frame.
+
+The worker independently replays the paper's mixed-base trajectory
+12 -> 6 -> 3 -> 5 -> 8 -> 4 -> 2 -> 1, checking all 13 literal rewrites,
+value preservation at auxiliary steps, and the shortcut-Collatz update at
+each dynamic step.  Its first structural audit then gives three exact,
+bounded or ansatz-class failures:
+
+- the identity is the unique rule-simulating map among all
+  5^5=3,125 delimiter-fixing letter morphisms;
+- no rule simulation exists among all 25^5=9,765,625 uniform two-symbol
+  digit-block morphisms; exact constraint propagation covers this whole class;
+- the induced graph of all 513,916 one-delimiter-pair words of length at most
+  eight is acyclic across 694,458 exact edges, and no literal context loop is
+  reachable in at most 20 steps from any of the 10,791 cores of length at most
+  six while intermediate length is at most 14.
+
+The finite graph is nevertheless highly spatial: its longest path has 299
+rewrites, including 52 dynamic steps, and carries the canonical mixed-base
+word for 834 to one for 1079 without exceeding eight symbols.  This is a tiny
+delay line, not reproduction.  The next language class should be
+variable-width, delimiter-changing, or multi-block; simply widening the
+literal-word bound is not the primary attack.
+
+For widths at least three, Lean commit `b4a48a6` independently checks the
+arithmetic endpoint of the uniform-block no-go:
+`eval_3(block)<=2*3^w<4^w=2^(2w)`.  It does not yet prove the preceding
+rewrite-theoretic statement that a rule-simulating uniform morphism forces
+the relevant image to have exactly that block shape.
+
+    python3 yah_context_loop.py selftest
+    python3 yah_context_loop.py build yah_context_loop_audit.json \
+      --max-graph-length 8 --max-seed-length 6 \
+      --max-steps 20 --max-path-length 14
+    python3 yah_context_loop.py verify yah_context_loop_audit.json
+    python3 yah_context_loop.py check-loop candidate.json
+
+    artifact SHA-256  6056acc0571af5199aebbe98fff34fe43ec512a5a71b00c4ed087e816c2aac2b
+    worker SHA-256    fd3bb7aff3922d4c5f8a927166deed462c557d2216302ac66e0d52efc04c89ab
