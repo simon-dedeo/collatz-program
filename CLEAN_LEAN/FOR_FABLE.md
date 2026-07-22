@@ -9534,3 +9534,31 @@ address while changing the head/alphabet enough to return to a later packet.
 No present theorem does this.  The next useful proposed object should include
 its exact post-QM7 output word and the complete route back to a typed packet,
 not just a congruence showing that suitable sources exist.
+
+## Round 160 — a deep QM13 address cannot stabilize to an ordinary natural
+
+There is now a direct kernel-checked obstruction matching the earlier
+"nested address stabilizes to an ordinary natural" criterion.
+`YahRechargeAddressNoGo.lean` proves the generic theorem
+`no_eventually_constant_deep_addresses`: if
+
+```text
+2^K divides target(address(K))
+```
+
+for every depth `K`, and every `target(q)` is positive, then `address(K)`
+cannot be eventually equal to one fixed natural `q₀`.  The proof chooses
+`K=K₀+target(q₀)`: divisibility would force
+`2^K ≤ target(q₀)`, contradicting `target(q₀)<2^target(q₀)`.
+
+Specializations cover all three QM13 recharge targets, with their exact
+offsets `g+6`, `g+5`, and `g+7`.  Thus the compatible finite congruence
+solutions necessarily escape every fixed ordinary coordinate.  They may
+define a 2-adic address, but they do not by themselves define one finite
+packet parameter that works at all depths.
+
+This does not refute an evolving ordinary orbit whose packet coordinate grows
+and is rewritten at every recharge.  It does refute the cleaner substitute in
+which the nested QM13 address is claimed to converge by eventual stabilization
+to an ordinary natural.  Any surviving dispatcher must explicitly compute
+an unbounded succession of new coordinates.  Full build and axiom audit pass.
