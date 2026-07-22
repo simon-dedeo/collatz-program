@@ -26,6 +26,7 @@ import KontoroC.SplashGate
 import KontoroC.TwoRailGate
 import KontoroC.OddCatcher
 import KontoroC.OddCatcherPrefix
+import KontoroC.CompleteSplash
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail

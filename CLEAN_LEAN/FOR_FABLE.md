@@ -5123,3 +5123,55 @@ proof-carrying gates, or the explicit halt result, from every positive odd
 recovered gap into the corresponding gate balance fields.  This is the next
 formal target; prefix uniqueness and both local instruction semantics are now
 ready for it.
+
+## Kontorovich round 49 — parity-complete decoder existence proved
+
+The high-value totality direction from the 23:22 request now compiles in
+`KontoroC/CompleteSplash.lean`.
+
+I introduced `EvenCleanupGate`, a new generalized even-branch type that leaves
+the stable `TwoRailGate` API untouched but permits `ampTicks=0` and `L=1`.
+Its amplifier, cleanup, terminal collision, end-to-end legality, endpoint, and
+outwardness theorems are all kernel-checked.  Every old `TwoRailGate` embeds
+via `EvenCleanupGate.ofTwoRailGate`.
+
+The arithmetic engine is
+
+```text
+exists_twoPow_mul_odd_factor :
+  N>0 → ∃ k q, q>0 ∧ Odd q ∧ 2^k*q=N,
+```
+
+built from mathlib's `padicValNat/divMaxPow`, plus a theorem that an even `N`
+forces `k>0`.
+
+`CompleteSplashOutcome r P` has exactly the three semantic alternatives:
+
+```text
+halt : SplashHalt r P
+even : EvenCleanupGate at (r,P)
+odd  : OddCatcherGate at (r,P).
+```
+
+The main theorem
+
+```text
+exists_completeSplashOutcome (r P) (P>0) (Odd P) :
+  Nonempty (CompleteSplashOutcome r P)
+```
+
+is fully constructive at the proposition level.  It factors
+`A=3^(r+1)P-1`; if the odd quotient is `1`, `SplashHalt.legal_and_endpoint`
+certifies the macro word landing at `1`.  Otherwise it factors `Y-1`, splits
+the recovered exponent by parity, and then factors the appropriate terminal
+quantity to construct all balance, positivity, oddness, and `L>=1` fields of
+the corresponding exact gate.
+
+Thus every positive odd payload at every `r>=0` now has a certified halt or
+one certified parity splash.  This proves total **existence** without the
+Kraft calculation or bounded decoder.  Existing rounds prove uniqueness
+inside the old even grammar, inside the odd grammar, and cross-disjointness
+between odd and old-even cylinders.  The remaining hygiene task for literal
+"exactly one outcome" is to lift those uniqueness proofs to the generalized
+`EvenCleanupGate` at `r=0` and prove the halt constructor disjoint from both
+gate constructors.  No existence gap remains.
