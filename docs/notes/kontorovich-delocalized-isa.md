@@ -1279,6 +1279,108 @@ the collision debris while preserving the collision constant, changing only
 the sign-flipped ISA nests again and, if it does, whether the nested addresses
 can describe one ordinary natural rather than a nonterminating 2-adic word.
 
+### 5.18 Finite sign-alternating renormalization hierarchy
+
+The sign-flipped ISA does nest again.  The calculation is uniform enough to
+state as a finite renormalization scheme.  Suppose one certified level is
+
+```text
+V=r+mK,
+V=2^(an+b)g -> V'=(3^(cn+d)g+s*17)/2^e.              (58)
+```
+
+Its complete branch has input width `an+b+e` and output stride `3^(cn+d)`.
+Let branch one be `B`, branch two be `H`, and write
+
+```text
+B: K=R+2^Aq -> K'=S+3^Cq,
+F(q)=(3^C-2^A)q+(S-R).                               (59)
+```
+
+Compose `B -> H -> B`, factor the returned `F` by its exact inherited power
+of two and common power of three, and retain
+
+```text
+cap=a+b                                                     (60)
+```
+
+bits after the background traversal.  Two finite identities are the kill
+tests.  First, the boundary phase computed from
+
+```text
+q_boundary=((2^cap)-(S-R))/(3^C-2^A) mod 2^(cap+1)   (61)
+```
+
+must equal the defect-input phase.  Second, after division by `2^cap`, the
+normalized collision numerator must be exactly
+
+```text
+-s*17.                                                (62)
+```
+
+When both pass, direct defect composition constructs every child branch and
+agrees coefficientwise with CRT applied to a new register of the form (58).
+The parameter update visible without the large affine offsets is
+
+```text
+a_new=a+b+e,
+b_new=a+b-r0,
+c_new=c+d,
+d_new=3c+2d,
+e_new=2a+b+2e+r0,
+s_new=-s,                                             (63)
+```
+
+where `r0` is the exact inherited binary valuation of the shifted defect
+return.  The offset and odd stride are the primitive coefficients remaining
+after the common ternary factor is removed.
+
+Exact arithmetic passes five such renormalizations:
+
+```text
+level       1      2       3        4         5          6
+s           +      -       +        -         +          -
+a           8     23      77      254       839       2771
+b          -5      3      24      100       354       1192
+c           6     17      57      188       621       2051
+d          11     40     131      433      1430       4723
+e          20     51     153      485      1578       5189
+r0          0      2       1        0         1       --
+cap         3     26     101      354      1193       --
+```
+
+The double construction is important: for every step and child length
+`N=1..8`, `breakoff_renormalization.py` independently computes the public CRT
+branch and the branch obtained by `B -> H -> B`, `N` background cells, and
+the capped boundary.  All 40 coefficient pairs agree; 80 members expand
+through 520 parent blocks.  This is a bounded six-level certificate, not a
+proof that (61)--(62) continue forever.
+
+There is now a concrete morphic program to reject.  Choosing length one and
+zero remaining tail at every level expands by
+
+```text
+sigma(n)=1,2,1^n.                                    (64)
+```
+
+The depth-six word has 360 first-scale glider macros.  Exact expansion gives
+a 6,708-digit ordinary start and replays 1,189 lower links and 2,378 gate
+macros.  But the first-scale packet does not stabilize.  Its decimal lengths
+at depths one through six are
+
+```text
+7, 46, 177, 606, 2021, 6698,                         (65)
+```
+
+and consecutive differences have exact binary valuations
+`23,155,589,2013,6715`.  The low bits converge while the natural values grow:
+the canonical tower is behaving exactly like a 2-adic program, not one
+ordinary seed.  This is the central lesson of the hierarchy.  Further depth
+alone is not an attack.  A useful next construction must make the lower
+ordinary packet eventually literal—most plausibly a finite quine, a
+state-dependent high-level tail, or a branch recurrence whose address stops
+changing even though its decoded macro word remains aperiodic.
+
 ## 6. Ranked attack and kill tests
 
 1. Implement the mixed-base rules and mine structured, formula-generated

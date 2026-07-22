@@ -186,7 +186,14 @@ identically `x`.
   `V=2^(23N+3)g -> (3^(17N+40)g-17)/2^51`.  Thus one capped splash changes the
   first-scale `+17` law into the same law with sign `-17`.  The next target is
   to iterate this renormalization symbolically and pass the ordinary-integer
-  gate, not merely construct deeper finite address cylinders.
+  gate, not merely construct deeper finite address cylinders.  Exact
+  renormalization now reaches six levels with alternating signs and cell
+  widths `8,23,77,254,839,2771`.  The canonical tail-zero tower already
+  illustrates the danger: at depth six it compiles a linked 6,708-digit
+  finite program, but its first-scale packet has changed at every depth.
+  Search now targets a finite self-describing address or an ordinary-tail
+  theorem for a different recursive branch, not a seventh certificate made
+  by extending the same changing tower.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -344,6 +351,7 @@ identically `x`.
 | Canonical tail-zero delay dispatcher | Exhaustively negative at depth two in the symbolic box `q,j,q'<=100` (with `j` including zero): 1,010,000 gate shapes split into 992,129 with no next clean delay, 17,861 whose next gate needs positive tail, three canonical base-to-base links, and seven factor-of-eight coordinate aliases.  Every canonical link fails renewal after its target gate; their 59- and 85-digit ordinary seeds reach `1` in 1,272, 1,277, and 330 exact ordinary steps.  This closes only immediate stabilization at the canonical least coefficient, not evolved nonzero-tail or nonlinear two-packet programs. | [`delay_base_graph_audit.json`](experiments/kontorovich/delay_base_graph_audit.json) |
 | Exhausted-tail ether staircase | The returning ether macros link every scheduled pair `n -> n+1`, but after setting the remaining higher macro tail to zero, the generated `(n+1)` tail misses the `n+2` input cylinder for every `n=1..128`; maximum linked depth is two macros.  This closes only the least-tail staircase controller.  Nonzero generated macro tails, branching length schedules, and other payload recurrences remain open. | [`breakoff_ether_glider_audit.json`](experiments/kontorovich/breakoff_ether_glider_audit.json) |
 | Fully exhausted recursive glider ether | Closed for every immediate defect in the current returning-glider alphabet.  Every glider input packet is odd.  At the endpoint of a fully exhausted background macro-ether, its fixed form is odd, forcing the background-tail parity opposite the source cylinder of every possible next glider.  The obstruction is sharp rather than fatal: retaining the exact three-bit cap changes the phase modulo `16` and yields the certified returning super-ether. | [`breakoff_superether_audit.json`](experiments/kontorovich/breakoff_superether_audit.json) |
+| Canonical tail-zero splash hierarchy | The most direct recursive program chooses the length-one branch and zero remaining tail at every new scale.  Exact expansion through depths `1..6` gives first-scale packet sizes `7,46,177,606,2021,6698` decimal digits and ordinary starts through 6,708 digits.  Consecutive packets agree in increasingly many low bits but are strictly larger and unequal at every checked depth (`v2` of the differences `23,155,589,2013,6715`).  It is therefore a growing sequence of finite 2-adic prefixes, not one stabilized ordinary seed within the checked hierarchy.  This closes only the canonical zero-tail choice, not state-dependent high-level tails or a finite quine. | [`breakoff_renormalization_audit.json`](experiments/kontorovich/breakoff_renormalization_audit.json) |
 | Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
 | Standard two-rail schedule `[1]^r[2,2,3]` | Closed at all levels.  Exact affine-family intersection compiles 247 outward rounds from a 10,040-digit seed, but depth 248 changes the seed and exact continuation reaches `1`.  Lean reduces every infinite realization to `2^(r+8)P'=3^(r+3)P+69` and its sole 2-adic Tschakaloff candidate.  Väänänen--Wallisser's 1989 theorem applies at `q=3/2,p=2,alpha=4096/6561` and proves that candidate irrational, so it cannot be an ordinary payload.  This does not close branching or other aperiodic splash programs. | [Finite certificate](experiments/kontorovich/two_rail_chain_247.json), [theorem audit](docs/notes/standard-two-rail-theta.md) |
 | Fixed affine or autonomous finite-state return | Closed as an outward bouncer.  Lean commits `b741a14`/`26f3584` prove fixed affine circuits and every eventually periodic macro-word schedule impossible; `560fcc5` proves an autonomous controller with any finite effective state eventually enters that obstruction.  Coefficientwise, a repeated word would require natural slope `m=3^N/2^S` with `S>0`.  Payload-dependent branching and unbounded shape counters remain open. | [Delocalized tag-ISA note](docs/notes/kontorovich-delocalized-isa.md) |
@@ -384,6 +392,7 @@ positive integer and its claimed behavior are machine-checked.
 | Returning finite ether glider ISA | Exact parity shows an exhausted ether boundary is odd and therefore cannot re-enter the `j=136` defect; among immediate `E -> H_j -> E` defects, `j=1` is the parity-compatible receiver.  Its small identities give defect input `X(K)=2^20K-10941`, return factor `473t+12=2^5(83790531K-874281)`, and for every `n>=1` a complete outward macro `K=R_n+2^(8n+15)q -> K'=S_n+3^(6n+11)q` which writes `n` ether cells and returns to the same defect family.  The artifact replays 64 macro members through 1,184 links and 2,368 gate macros.  No infinite linked macro orbit is supplied. |
 | Autonomous ether-counter normal form | Put `Y=83790531K-874281`.  The length-`n` returning glider branch is exactly `Y=2^(8n-5)h -> Y'=(3^(6n+11)h+51)/2^20`, with `h` in one CRT class modulo `83790531*2^20`; the enormous defect constants cancel to `51`.  Every branch is strictly outward, and its packet coefficients agree identically with the compiled glider macro.  The artifact checks `n=1..128`, four tails each, and repeats the executable macro replays through `n=32`.  An infinite successful autonomous orbit would be a counterexample, but none is supplied. |
 | Three-bit-capped recursive super-ether | Regard the one-cell returning glider as a 23-bit background cell and the two-cell glider as its defect.  Exact parity kills a fully exhausted second-scale gap, but retaining three low bits makes the boundary re-enter the same defect cylinder.  After removing a common `3^7`, the public register is `V=-8744697538656344367967+671265207750760396088265K` and its length-`N` branch is `V=2^(23N+3)g -> V'=(3^(17N+40)g-17)/2^51`.  The affine super-macro is `K=R_N+2^(23N+54)t -> K'=S_N+3^(17N+40)t`.  The artifact checks 64 branches and 256 members, and literally replays 32 members through 336 glider macros, 1,040 lower links, and 2,080 gate macros.  This is a finite two-scale constructor, not an infinite orbit. |
+| Six-level sign-alternating splash hierarchy | The capped construction renormalizes five more times without changing the magnitude `17`: public collision signs are `+,-,+,-,+,-` and binary cell widths are `8,23,77,254,839,2771`.  At every checked step the retained cap is the parent branch-one valuation; exact phase arithmetic returns to the defect, and normalization flips only the sign.  The artifact checks 40 child branches independently by CRT and parent-macro composition, replays 80 members through 520 parent blocks, and expands the canonical tail-zero programs through six levels to literal first-scale gliders.  The depth-six member is a generated 6,708-digit ordinary start executing 360 linked glider macros.  Its packet differs from every shallower depth, so this is deep finite software—not an ordinary infinite orbit or an induction to all levels. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
 | Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
@@ -440,6 +449,51 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 02:57 EDT
+
+The capped splash renormalizes repeatedly.  A level has primitive register
+
+```text
+V=r+mK,
+V=2^(an+b)g -> V'=(3^(cn+d)g+s*17)/2^e.
+```
+
+Use branch one as background, branch two as defect, and retain the background
+branch-one valuation instead of exhausting the gap.  At each of the five
+checked renormalizations the cap phase returns to the defect and the normalized
+collision is exactly `-s*17`.  The certified parameter table is
+
+```text
+level       1      2       3        4         5          6
+sign        +      -       +        -         +          -
+cell a      8     23      77      254       839       2771
+offset b   -5      3      24      100       354       1192
+divide e   20     51     153      485      1578       5189
+```
+
+The new [renormalization artifact](experiments/kontorovich/breakoff_renormalization_audit.json)
+checks six levels and five sign flips.  For each step it builds child branches
+`N=1..8` independently by public-register CRT and by direct parent defect/ether
+composition: 40 coefficient comparisons, 80 replayed members, and 520 parent
+macro blocks.  Its verifier hash is recorded in the experiment guide.
+
+I also expanded the most tempting infinite-program candidate: choose branch
+one and top tail zero at every depth.  The induced substitution is
+`n -> 1,2,1^n`.  Depth six expands to 360 linked first-scale glider macros,
+1,189 lower links, and 2,378 literal gate macros.  Its generated ordinary
+start has 22,284 bits (6,708 decimal digits), close to Simon's proposed
+program scale.  But this is precisely the ordinary/2-adic trap: first-scale
+packet sizes at depths `1..6` are `7,46,177,606,2021,6698` digits, and each
+packet is strictly larger than the preceding one.  Their exact shared-low-bit
+counts are `23,155,589,2013,6715`; the address converges 2-adically while the
+ordinary integer never stabilizes in the checked tower.
+
+So the result is a genuine recursive hardware language and a large finite
+program, not a counterexample and not an all-level theorem.  Extending the
+same zero-tail tower is no longer the priority.  The next attack is a finite
+quine or state-dependent high-level tail that makes the *ordinary* lower
+packet stabilize while the macro word remains aperiodic.
 
 ### 2026-07-22 02:45 EDT
 

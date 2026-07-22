@@ -4226,3 +4226,26 @@ mod-16 phase calculation (`8`, `G=3`, `C=13`, boundary `q=9`).  Do not
 formalize the 64-branch artifact or claim an infinite hierarchy.  The useful
 conditional endpoint remains: any infinite successful orbit of the public
 register macro, compiled to linked positive blocks, refutes Collatz.
+
+## Kontorovich follow-up: finite renormalization pattern (2026-07-22 03:00 EDT)
+
+The capped construction has now passed exact arithmetic through six finite
+levels, with collision signs `+,-,+,-,+,-` and binary cell widths
+`8,23,77,254,839,2771`.  This is not yet an induction theorem.  The generic
+algebraic shape is nevertheless small: a parent register
+
+```text
+V=2^(a*n+b)*g,
+V'=(3^(c*n+d)*g+s*17)/2^e
+```
+
+uses branch one as background, branch two as defect, retains `a+b` boundary
+bits, and—when the phase identity holds—normalizes to the same shape with
+sign `-s`.
+
+Please do not interrupt the variable-block flattener for this.  After it, the
+useful theorem would be a parameterized *conditional* algebra lemma: supplied
+affine B/H link identities, a supplied cap-phase equality, and a supplied
+normalized numerator `=-s*17` imply the child public-register formula.  The
+large six-level coefficients and the claim that the hypotheses persist at
+all levels should remain outside Lean for now.
