@@ -1196,6 +1196,79 @@ artifact SHA-256  682d5636c66f1ea2a8f2cad7e58027da1e821513f248726175c839907bad31
 verifier SHA-256  944eeaa73a8b860d36531b90e866941ab282633b0ebd2736839fd00b8d870e28
 ```
 
+## Two-layer unit gap regeneration
+
+`unit_gap_regenerator.py` makes the surviving unit ISA implement Simon's
+“splash the gap” proposal directly.  For one current branch, write
+
+```text
+2^p h'=3^q h+s.
+```
+
+Let `C` be the low `L=p_next+1` bits which make `h'` execute a specified next
+branch, including the bit which makes its next valuation exact.  Since
+`3^q` is odd, there is a unique first correction `A` modulo `2^(p+L)` and an
+integer carry `B` with
+
+```text
+3^q A+s=2^p C+2^(p+L)B.                         (UG1)
+```
+
+For any desired gap length `D>=1`, there is then a unique sacrificial word
+`z mod 2^D` and an integer `B_2` with
+
+```text
+B+3^q z=2^D B_2.                                 (UG2)
+```
+
+Consequently every natural residual tail `u` satisfies the exact identity
+
+```text
+h =A+2^(p+L)(z+2^D u)
+h'=C+2^(L+D)(B_2+3^q u).                          (UG3)
+```
+
+Thus the first layer emits a complete next instruction.  The next `D` bits
+of the high packet are consumed in cancelling its carry, and the output has
+exactly those `D` bit positions cleared before the untouched tail resumes.
+The surviving tail update is affine, with multiplier `3^q`.
+
+The worker additionally restricts `u` to the unique class modulo the odd
+unit-register stride.  This makes every family member an actual pair of
+linked compiled unit macros, not just a congruence between cores.  It checks
+exact valuations, register invariance, coprimality to six, the emitted prefix,
+the regenerated gap, and both macro endpoints.
+
+```bash
+python3 unit_gap_regenerator.py selftest
+python3 unit_gap_regenerator.py build unit_gap_regenerator_audit.json
+python3 unit_gap_regenerator.py verify unit_gap_regenerator_audit.json
+```
+
+The default artifact reconstructs all 486 families at six hierarchy levels,
+all triples of cell counts `1..3`, gaps `1,4,12`, and two residual-tail
+members.  It performs 972 linked two-branch unit replays.  At level one, the
+case `(n_0,n_1,n_2,D)=(1,2,3,12)` gives the exact core path
+
+```text
+96640062369165269810946648141077
+ -> 5811505674703125430887858069149
+ -> 995193873655264956279801575123.
+```
+
+The middle core contains its complete 40-bit next instruction, twelve zero
+bits, and then the residual packet.  This construction works algebraically
+for arbitrary positive cell counts and `D`; the listed bounds scope the
+machine replay.  It does not provide a self-supplying infinite program.  An
+infinite preloaded sequence of `z` words is merely a 2-adic stack.  The live
+task is to make the affine residual packet write the next required `z` from
+its own state, with packet-dependent instruction lengths.
+
+```text
+artifact SHA-256  3337b99b291894f6338716a1a2d1e459f3ae414086c239bca693258052212f3d
+verifier SHA-256  c737953183b760a9411ad5d2d6e57cad7eb3560578353c78166e2afe8381772a
+```
+
 ## Sign-alternating capped-splash hierarchy
 
 `breakoff_renormalization.py` iterates the super-ether construction as exact

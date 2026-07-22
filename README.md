@@ -227,7 +227,13 @@ identically `x`.
   architecture is a two-rail regenerator: a payload rail survives the
   collision while a delocalized sacrificial rail absorbs the dirty carry
   suffix and recreates the next clean gap.  The distance to that next gap
-  must itself be packet-selected, not a fixed-rate delay.
+  must itself be packet-selected, not a fixed-rate delay.  This mechanism is
+  now exact in the unit ISA.  For any three successive branch lengths and any
+  desired `D>=1`, one correction block emits the complete next instruction;
+  a second `D`-bit word cancels its carry and leaves `D` literal zero bits
+  before an affinely surviving high packet.  The remaining quine problem is
+  sharp: that high packet must generate its own future correction words.  An
+  externally preloaded infinite stack would again be only a 2-adic program.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -431,6 +437,7 @@ positive integer and its claimed behavior are machine-checked.
 | Three-bit-capped recursive super-ether | Regard the one-cell returning glider as a 23-bit background cell and the two-cell glider as its defect.  Exact parity kills a fully exhausted second-scale gap, but retaining three low bits makes the boundary re-enter the same defect cylinder.  After removing a common `3^7`, the public register is `V=-8744697538656344367967+671265207750760396088265K` and its length-`N` branch is `V=2^(23N+3)g -> V'=(3^(17N+40)g-17)/2^51`.  The affine super-macro is `K=R_N+2^(23N+54)t -> K'=S_N+3^(17N+40)t`.  The artifact checks 64 branches and 256 members, and literally replays 32 members through 336 glider macros, 1,040 lower links, and 2,080 gate macros.  This is a finite two-scale constructor, not an infinite orbit. |
 | Six-level sign-alternating splash hierarchy | The capped construction renormalizes five more times without changing the magnitude `17`: public collision signs are `+,-,+,-,+,-` and binary cell widths are `8,23,77,254,839,2771`.  At every checked step exact phase arithmetic returns to the defect and normalization flips only the sign.  The artifact checks 40 child branches independently by CRT and parent-macro composition, replays 80 members through 520 parent blocks, and expands the canonical tail-zero programs through six levels to literal first-scale gliders.  It additionally checks all 64 level-one choices `B=M_j,H=M_(j+1)`, three nonconstant four-step meta-words, and every depth-three meta-word over `j=1..8`.  Beyond those bounds, the exact positive-tail identity proves universally that no infinite chain of these adjacent-defect nestings can stabilize its canonical ordinary address.  The depth-six canonical member is a generated 6,708-digit ordinary start executing 360 linked glider macros.  This is a finite compiler and a source of fixed-level ISAs—not an ordinary infinite orbit or an induction that the phase identities persist at all levels. |
 | Invariant unit-debris register and signed radix swap | At every one of the six certified hierarchy levels, exactly one packet class modulo `17` makes the primitive `±17` register divisible by `17`; the class is preserved by every successful branch.  Dividing gives `H=2^(an+b)h -> H'=(3^(cn+d)h+s)/2^e`, `s=±1`.  With `W=2^eH`, every instruction is exactly `W=2^p h -> W'=3^q h+s`: it preserves the complete core `h`, swaps an exact binary delay for a ternary delay, and writes one signed unit.  Against the signed router it trims `d=p-1-q`, with the six formulas `2n+3,6n+13,20n+45,66n+151,218n+501,720n+1657`.  The artifact compares all 192 branches, checks this form on 768 members, and literally replays 32 level-one members through 336 lower links and 672 gates.  This identifies the factor a second rail must bank; no such rail or infinite unit orbit is supplied. |
+| Two-layer unit gap regenerator | Simon's “splash the gap” question has an exact answer in the smallest surviving ISA.  Given any three positive branch lengths and `D>=1`, choose `A,B,z,B_2,C` so `3^qA+s=2^pC+2^(p+L)B` and `B+3^qz=2^D B_2`.  Then `h=A+2^(p+L)(z+2^D u)` maps to `h'=C+2^(L+D)(B_2+3^q u)`: `A` emits the complete valuation-exact next instruction `C`, the sacrificial `D`-bit word `z` eats the carry `B`, and the remote tail survives affinely beyond a regenerated `D`-bit zero gap.  The exact artifact reconstructs 486 families across six compiled levels and replays 972 linked two-branch unit members for cell lengths `1..3` and gaps `1,4,12`.  This is a universal finite compiler identity plus bounded macro regression, not a self-supplying infinite stack or counterexample. | [`unit_gap_regenerator_audit.json`](experiments/kontorovich/unit_gap_regenerator_audit.json) |
 | Constant-rate unit-counter schedules | For any of the six certified unit levels, every `n_0>=1`, and every fixed integer `k>=1`, the schedule `n_t=n_0+kt` has the unique 2-adic initial core `-s*3^(-q(n_0)) F(2^(ak)/3^(ck),2^(p(n_0+k))/3^(q(n_0+k)))`.  Converting to Väänänen--Wallisser's `f_(3^(ck)/2^(ak))` is coefficientwise exact, and its argument simplifies to `alpha=2^(p(n_0))/3^(q(n_0))`.  Their 1989 theorem applies with `ell=1,sigma=0,p=2`; its size ratio is the same as for `k=1`, while `|3^(ck)/2^(ak)|_2=2^(ak)>1`.  The value is irrational in `Q_2`, so it cannot be an ordinary integer core.  The artifact's six linked eight-transition branch replays remain a finite `k=1` regression; the all-`k` conclusion is symbolic and theorem-dependent.  This closes every fixed positive step size, not nonlinear or packet-branching schedules. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
@@ -488,6 +495,68 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 04:49 EDT
+
+Simon's proposed collision cleanup is now an exact two-layer instruction in
+the invariant unit register.  Write the current unit recurrence as
+
+```text
+2^p h' = 3^q h+s.
+```
+
+Choose `C` to be the complete low binary prefix which makes `h'` execute the
+next desired branch, including the extra bit certifying that its valuation is
+exact.  Modular inversion constructs
+
+```text
+3^q A+s = 2^p C+2^(p+L)B.
+```
+
+The first correction `A` therefore emits `C` but leaves carry `B`.  Now use
+exactly `D` low bits of the remote packet to solve
+
+```text
+B+3^q z=2^D B_2.
+```
+
+For every remaining natural tail `u`, the two equations combine to
+
+```text
+h=A+2^(p+L)(z+2^D u)
+  -> h'=C+2^(L+D)(B_2+3^q u).
+```
+
+This is the literal “other bits eat the bad parts and regenerate the gap”
+mechanism: `z` disappears into the collision carry, `D` clean zeros appear
+above the next instruction, and the untouched high packet survives under an
+affine power-of-three update.
+
+The [exact worker](experiments/kontorovich/unit_gap_regenerator.py) also
+intersects this family with the odd invariant register and checks two actual
+compiled unit branches.  Its artifact reconstructs 486 families at all six
+finite hierarchy levels—every triple of lengths `1..3`, gaps `1,4,12`, and
+two tail members—for 972 linked two-branch replays.  The level-one worked
+case `(1,2,3,D=12)` is
+
+```text
+96640062369165269810946648141077
+ -> 5811505674703125430887858069149
+ -> 995193873655264956279801575123,
+```
+
+with the middle 103-bit core containing the complete 40-bit next instruction,
+then twelve zero bits, then its residual packet.  Artifact SHA-256:
+`3337b99b291894f6338716a1a2d1e459f3ae414086c239bca693258052212f3d`.
+Verifier SHA-256:
+`c737953183b760a9411ad5d2d6e57cad7eb3560578353c78166e2afe8381772a`.
+
+This is a finite compiler identity, not an infinite orbit.  It locates the
+remaining problem exactly: after each splash the surviving affine packet must
+produce the next sacrificial word from its own state.  Preloading infinitely
+many such words merely reconstructs a nonordinary 2-adic stack.  I am now
+treating the residual update as a mixed-base pop/push language and searching
+for a self-writing, packet-selected word rule.
 
 ### 2026-07-22 04:29 EDT
 
@@ -1916,8 +1985,9 @@ existing lines of work; the closest ancestors, and what each contributes:
   suffix and regenerate a delay line, then asked whether leaving a controlled
   overhang could absorb collision debris and renew the gap.  The exact
   three-bit-capped super-ether is the first recursive realization of that
-  refinement.  Those proposals are the basis of the active dyadic--triadic,
-  mixed-base, and two-rail bouncer searches.
+  refinement, and the two-layer unit regenerator now isolates the general
+  correction-word/carry identity.  Those proposals are the basis of the
+  active dyadic--triadic, mixed-base, and two-rail bouncer searches.
 - **L. Colussi, “The convergence classes of Collatz function” (2011)** — the
   exact rotated-repetend grammar for all finite stopping classes.  Its
   recursively generated order-10 background supplies an 11,846-digit

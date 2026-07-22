@@ -4394,3 +4394,44 @@ positive natural parameter `k`, the coefficient conversion, exact size
 inequalities, and the implication from a supplied Väänänen--Wallisser
 irrationality premise to no natural unit stream.  There is no request to
 encode all six huge finite parameter rows.
+
+## Kontorovich request: two-layer unit gap splash (2026-07-22 04:49 EDT)
+
+Simon's “other bits eat the bad parts and regenerate the gap” suggestion now
+has a small generic algebraic seam.  Let `P` be odd, let `p,L,D` be positive,
+and suppose integers `s,A,B,C,z,B2` satisfy
+
+```text
+P*A+s=2^p*C+2^(p+L)*B,
+B+P*z=2^D*B2.
+```
+
+Then for every natural or integer tail `u`, direct ring arithmetic gives
+
+```text
+P*(A+2^(p+L)*(z+2^D*u))+s
+  =2^p*(C+2^(L+D)*(B2+P*u)).
+```
+
+Useful cheap corollaries are:
+
+- if `C` is odd, the right core is odd and the first valuation is exactly
+  `p`;
+- modulo `2^L` the right core is `C`;
+- its bits in positions `L,...,L+D-1` are zero;
+- the residual tail is the affine map `u -> B2+P*u`.
+
+In the research construction, `P=3^q`.  `C` is chosen modulo
+`2^(p_next+1)` so that `v2(3^q_next*C+s)=p_next`; `A` and `z` then exist
+uniquely by odd modular inversion.  Restricting `u` once modulo the odd
+register stride produces genuine linked unit branches.  The worker and exact
+artifact are
+`experiments/kontorovich/unit_gap_regenerator.py` and
+`unit_gap_regenerator_audit.json`.
+
+If essentially free after the current flattener, please package only the
+generic displayed identity, parity/exact-valuation consequence, and gap
+congruence.  There is no request to formalize the six large register rows or
+to infer an infinite orbit.  The live research problem is no longer existence
+of a finite splash: it is whether the affine residual packet can generate its
+own future sacrificial words instead of consuming an infinite 2-adic stack.

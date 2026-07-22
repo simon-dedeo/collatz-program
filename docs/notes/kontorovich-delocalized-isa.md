@@ -1611,6 +1611,60 @@ the second rail must be sacrificial and regenerative at once: its distributed
 bits cancel the dirty collision suffix, but the surviving packet must select
 and recreate the next clean gap.  A fixed periodic placement cannot do this.
 
+That sacrificial mechanism is now exact at the unit level.  Fix three
+successive positive branch lengths `n,m,l`.  Put `p=p(m)`, `q=q(n)`, and let
+`C` be the unique low `L=p(l)+1`-bit word for which
+
+```text
+v_2(3^(q(m))*C+s)=p(l).                              (69c)
+```
+
+The extra bit in `L` records exactness, rather than divisibility alone.
+Because `3^q` is invertible modulo every power of two, there are a unique
+correction `A mod 2^(p+L)` and an integer carry `B` such that
+
+```text
+3^q A+s=2^p C+2^(p+L)B.                             (69d)
+```
+
+Now prescribe any `D>=1`.  A second inversion gives the unique sacrificial
+word `z mod 2^D` and integer `B_2` satisfying
+
+```text
+B+3^q z=2^D B_2.
+```
+
+Hence, identically for every remaining tail `u`,
+
+```text
+A+2^(p+L)(z+2^D u)
+  -> C+2^(L+D)(B_2+3^q u).                          (69e)
+```
+
+This is Simon's “other bits eat the bad parts” picture without metaphor.
+`A` is the low collision circuit which emits the complete next instruction
+`C`; `z` is a `D`-bit disposable packet which cancels its carry; the output
+has a literal `D`-bit zero interval above `C`; and the untouched nonlocal
+packet survives as `B_2+3^q u`.  Restricting `u` once modulo the odd register
+stride makes (69e) an unbounded affine family of genuine linked unit macros.
+
+[`unit_gap_regenerator.py`](../../experiments/kontorovich/unit_gap_regenerator.py)
+checks (69c)--(69e), register invariance, exact valuations, and two compiled
+unit branches.  The artifact reconstructs 486 families across all six finite
+levels, triples `n,m,l=1..3`, gaps `D=1,4,12`, and two tail members, for 972
+linked two-branch replays.  The construction itself is symbolic for arbitrary
+positive lengths and `D`; those numbers scope only the executable regression.
+
+The remaining obstruction is now a programming-language condition rather
+than a missing collision gadget.  Reading (69e) from right to left, one
+instruction pops the required low binary word `z` and pushes a power-of-three
+affine carry onto the residual packet.  Repeating with externally prescribed
+`z` words compiles any finite program but selects a 2-adic stack in the
+infinite limit.  A counterexample needs a quine-like residual update: the
+surviving ordinary packet must write the next sacrificial word before it is
+needed, and its own low bits must select the next branch length.  This is the
+precise mixed-base pop/push target for the next search.
+
 A static odd-payload quine is closed immediately.  If one branch sent
 `h` to the same `h` at another branch, then
 
