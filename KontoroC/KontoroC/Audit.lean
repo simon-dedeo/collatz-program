@@ -516,3 +516,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.FixedJumpPhaseUp.Ray.finite_series
 #print axioms KontoroC.FixedJumpPhaseUp.Ray.padicCandidate_eq_initial
 #print axioms KontoroC.FixedJumpPhaseUp.Ray.false_of_candidate_irrational
+#print axioms KontoroC.ChargePublicCofactor.Step.cofactor_balance
+#print axioms KontoroC.FixedJumpPhaseUp.Ray.weightedDefect_eq_scaled_vaananenTerm
+#print axioms KontoroC.FixedJumpPhaseUp.Ray.padicCandidate_eq_scaled_vaananenSum
+#print axioms KontoroC.FixedJumpPhaseUp.Ray.false_of_vaananenSum_irrational
+#print axioms KontoroC.FixedJumpPhaseUp.PublicRay.toRay
+#print axioms KontoroC.FixedJumpPhaseUp.PublicRay.false_of_vaananenSum_irrational
+#print axioms KontoroC.FixedJumpPhaseUp.Ray.parameter_num_den_coprime
+#print axioms KontoroC.FixedJumpPhaseUp.Ray.rate_power_lt
+#print axioms KontoroC.FixedJumpPhaseUp.Ray.vaananenWallisser_size_condition

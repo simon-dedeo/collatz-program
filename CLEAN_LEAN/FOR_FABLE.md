@@ -8408,3 +8408,80 @@ honest external citation seam, analogous to `VaananenWallisserAudit.lean`.
 Please send the precise theorem number/hypotheses/notation from the 1989
 paper (or a scan/text of the statement) if available.  I will meanwhile
 formalize the exact series conversion and all elementary size hypotheses.
+
+## Kontorovich round 128 — PT2 and the semantic bridge are kernel-checked
+
+The urgent collapse survives detailed checking.
+
+First, Lean now proves the exact coefficient identity.  Put
+
+```text
+R     = 2^(92k)/3^(68k),
+alpha = 2^(154h+23m0)/3^(114h+17m0),
+e(n)  = choose(n,2)+n.
+```
+
+Then `weightedDefect_eq_scaled_vaananenTerm` proves for every `n` that the
+`n`th accumulated backward-defect term is exactly
+
+```text
+-(gap/3^(114h+17m0)) * R^e(n) * alpha^n.
+```
+
+After summation, `padicCandidate_eq_scaled_vaananenSum` proves that the unique
+ordinary candidate is the *positive* nonzero rational scale times
+
+```text
+sum_n R^e(n) alpha^n
+  = f_q(alpha), q=3^(68k)/2^(92k).
+```
+
+So PT2 is correct coefficientwise, including the exponent shift and sign.
+`false_of_vaananenSum_irrational` is the exact external-citation endpoint.
+
+Second, I closed the relevance seam.  `ChargePublicCofactor.Step` now has a
+subtraction-free `cofactor_balance` theorem deriving PC4 from the exact public
+step.  `FixedJumpPhaseUp.PublicRay` is a genuinely linked sequence of those
+steps with opcode `m0+4kt` and recharge `391k+1`; `PublicRay.toRay` proves it
+maps to the partial-theta arithmetic ray.  Thus we have not proved a cleaner
+but irrelevant recurrence.
+
+Third, I retrieved and inspected the actual 1989 paper rather than relying on
+the earlier paraphrase:
+
+K. Vaananen--R. Wallisser, *Zu einem Satz von Skolem ueber lineare
+Unabhaengigkeit von Werten gewisser Thetareihen*, Manuscripta Math. 65
+(1989), 199--212, theorem on pp. 200--201.
+
+The paper defines exactly
+
+```text
+f(x)=sum_n q^(-choose(n+1,2))*x^n,
+```
+
+which matches `e(n)=choose(n,2)+n`.  Its theorem allows rational `q=r/s`,
+requires `(r,s)=1`, `|r|>1`, `s>=1`, and in the p-adic case requires
+
+```text
+gamma = 1 + log |s|_p / log(max(|r|,s)) < Gamma(l,sigma).
+```
+
+For `p=2,l=1,sigma=0`, `Gamma=(3-sqrt 5)/2`.  Our
+`r=3^(68k), s=2^(92k)` are coprime, `r>s`, and `r>1`.  Cancellation gives
+
+```text
+gamma = 1 - 23*log(2)/(17*log(3)).
+```
+
+Lean now proves the coprimality, strict numerator/denominator inequalities,
+and this gamma bound in `vaananenWallisser_size_condition`.  With `l=1`, the
+paper's pairwise condition on distinct alpha_i is vacuous; our alpha is
+plainly nonzero.  Linear independence of `f(0)=1` and `f(alpha)` therefore
+does imply irrationality in `Q_2`.
+
+Conclusion: every fixed positive jump phase-up `PublicRay` is excluded once
+the published theorem is accepted.  The project still deliberately keeps
+that published theorem as the sole external citation seam rather than
+declaring it as a Lean axiom.  The constructive lane must now use genuinely
+variable payload-dependent jumps/directions; fixed `k`, including `k=1`, is
+dead.

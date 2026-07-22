@@ -291,6 +291,33 @@ theorem balance_of_chargeBouncerStep
   simp only [Nat.add_sub_cancel_left]
   ring
 
+/-- Subtraction-free form of PC4.  Keeping the positive gap on the left is
+important over `Nat`; the signed constant `B^h-A^h` is negative. -/
+theorem cofactor_balance (s : Step) :
+    publicB ^ s.recharge *
+          (publicD ^ s.target.opcode * s.target.cofactor) +
+        (publicA ^ s.recharge - publicB ^ s.recharge) =
+      publicA ^ s.recharge *
+        (publicC ^ s.source.opcode * s.source.cofactor) := by
+  have hABbase : publicB < publicA := by
+    norm_num [publicA, publicB]
+  have hAB : publicB ^ s.recharge < publicA ^ s.recharge :=
+    Nat.pow_lt_pow_left hABbase (Nat.ne_of_gt s.recharge_pos)
+  have hsourcePos :
+      1 ≤ publicC ^ s.source.opcode * s.source.cofactor := by
+    exact (Nat.mul_pos (pow_pos (by norm_num [publicC]) _)
+      s.source.cofactor_pos)
+  have htarget :
+      publicD ^ s.target.opcode * s.target.cofactor =
+        s.target.value + 1 := s.target.value_add_one.symm
+  have hsource :
+      publicC ^ s.source.opcode * s.source.cofactor =
+        (publicC ^ s.source.opcode * s.source.cofactor - 1) + 1 :=
+    (Nat.sub_add_cancel hsourcePos).symm
+  rw [htarget, hsource, mul_add, mul_add, mul_one, mul_one]
+  rw [← s.balance]
+  omega
+
 end Step
 
 end ChargePublicCofactor
