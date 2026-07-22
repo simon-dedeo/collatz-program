@@ -131,9 +131,15 @@ The shifted recurrence around `-1` is now also exposed as an exact finite
 backward series over `ℚ`: after any number of blocks, the initial state plus
 one equals the product of the backward coefficients times the terminal state
 plus one, minus the accumulated weighted defects.  This is a size-independent
-reduction, not a bounded search.  Passing it to `ℚ₂` and proving that the
-resulting candidate is not an ordinary nonnegative integer for a useful class
-of extra streams remains open.
+reduction, not a bounded search.
+`PadicMersenne.lean` completes the convergence step in mathlib.  For every
+positive starting level and arbitrary symbolic extra stream, the weighted
+defect terms are summable in `ℚ₂`; their canonical sum is
+`prescribedPadicCandidate`.  Any ordinary packet renewal forces this candidate
+to equal `-(x₀+1)`.  Therefore proving that the candidate misses all negative
+ordinary integers rules out the entire infinite schedule, independently of
+whether a hypothetical seed has ten digits or ten thousand.  Establishing
+that arithmetic avoidance for useful schedule classes remains open.
 
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.

@@ -4108,3 +4108,69 @@ irrational” slogan is not enough because the coefficients contain changing
 either (a) a precise p-adic gap/automaticity theorem whose hypotheses match
 the series, or (b) a finite-state argument showing that eventual periodicity
 of ordinary binary digits is incompatible with the periodic-extra recurrence.
+
+## Kontorovich round 23 — the 2-adic limit now exists in Lean
+
+Mathlib had enough nonarchimedean analysis to close step 2 from round 22.
+The new `KontoroC/PadicMersenne.lean` proves the following without any bound
+on packet size.
+
+For a positive starting level `M` and an arbitrary prescribed extra stream
+`e_t`, define the rational coefficients `a_t,b_t` from round 22 and the
+weighted 2-adic terms
+
+```text
+d_t = (product_{j<t} a_j) b_t  in ℚ₂.
+```
+
+Lean proves
+
+```text
+‖a_t‖₂ ≤ 1/2,
+‖b_t‖₂ ≤ 1,
+‖d_t‖₂ ≤ 2^(-t).
+```
+
+Since `ℚ₂` is complete and nonarchimedean, `d_t → 0` is enough for
+summability.  Thus every schedule has a canonical, independently defined
+
+```text
+C(M,e) = sum_(t≥0) d_t ∈ ℚ₂.
+```
+
+The terminal term in the finite identity has norm at most `2^(-n)` even if
+`x_n` has ten thousand digits (every ordinary integer has 2-adic norm at most
+one), so it vanishes.  Combining the two independently obtained limits gives
+the new necessary condition
+
+```text
+ordinary Mersenne packet renewal with initial state x₀
+  -> C(M,e) = -(x₀+1) in ℚ₂.
+```
+
+The theorem
+`no_renewal_of_padicCandidate_avoids_negativeNaturals` packages the exact
+remaining seam:
+
+```text
+[for every natural x, C(M,e) ≠ -(x+1)]
+  -> no positive odd packet recurrence realizes (M,e).
+```
+
+This is the desired scale-free replacement for bounded census.  The
+convergence and reduction are no longer open; the only new arithmetic input
+is proving that `C(M,e)` avoids the embedded negative ordinary integers for a
+useful schedule class (constant, eventually periodic, automatic, etc.).
+
+Please focus any theory worker on that exact statement.  A particularly
+concrete route is: rational/ordinary 2-adic integers have eventually periodic
+binary expansions, so derive enough self-similarity of `C(M,e)` for periodic
+`e` to contradict eventual periodicity.  The complication remains the moving
+odd units `3^{-L_t}`; any proposed gap theorem must explicitly control their
+low binary digits and carries.
+
+Separately, Simon flagged that a counterexample seed could have 10,000 digits.
+The present theorem is insensitive to this.  For any future finite-cycle
+artifact, I propose a balanced affine-block certificate: kernel-check small
+leaves and combine them with the existing associative `AffineBlock.concat`,
+instead of replaying an enormous flat orbit or trusting `native_decide`.

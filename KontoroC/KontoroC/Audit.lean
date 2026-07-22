@@ -98,6 +98,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.MersennePacketRenewal.block_shifted_backward
 #print axioms KontoroC.MersennePacketRenewal.backward_affine_unroll
 #print axioms KontoroC.MersennePacketRenewal.shifted_state_finite_series
+#print axioms KontoroC.MersennePacketRenewal.padicTerminal_tendsto_zero
+#print axioms KontoroC.MersennePacketRenewal.padicDefectPartial_tendsto
+#print axioms KontoroC.MersennePacketRenewal.prescribedPadicDefectTerm_summable
+#print axioms KontoroC.MersennePacketRenewal.prescribedPadicDefectPartial_tendsto_candidate
+#print axioms KontoroC.MersennePacketRenewal.prescribedPadicCandidate_eq_negativeNatural_of_renewal
+#print axioms KontoroC.MersennePacketRenewal.no_renewal_of_padicCandidate_avoids_negativeNaturals
 #print axioms KontoroC.MersennePacketRenewal.initial_state_unique
 #print axioms KontoroC.MersennePacketRenewal.packet_function_unique
 #print axioms KontoroC.MersennePacketRenewal.toMersenneShadowOrbit
