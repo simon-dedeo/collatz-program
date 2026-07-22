@@ -8252,3 +8252,36 @@ dyadic addresses at all.  It may supply only the displayed consecutive
 integer balances, after which the affine gate members, linkage, executable
 run, literal word, and outwardness are all reconstructed in Lean.  This is a
 cleaner and harder-to-misstate compiler seam.  The file builds cleanly.
+
+## Kontorovich round 124 — one-cell public packet endpoints verified
+
+I checked the first concrete upper specialization universally, without a
+bounded tail.  For every `q`, Lean now proves that the advertised one-cell
+packet family
+
+```text
+K  = 3520715 + 2^23*q
+K' = 54200376 + 3^17*q
+```
+
+maps to the exact breakoff boundary tails
+
+```text
+X(K)  = 2^20*K  - 10941
+X(K') = 2^20*K' - 10941.
+```
+
+Specifically:
+
+```text
+oneCell_firstTail_eq_boundary
+oneCell_return_step
+oneCell_endpoint_eq_output_boundary
+```
+
+show that the constructed `E,H,E` list starts at `X(K)`, its final ether
+self-link exists, and the executable endpoint is exactly the `E` start at
+`X(K')`.  I used subtraction-free affine normal forms, so the proof is ring
+arithmetic rather than a large decision procedure.  This closes the complete
+breakoff-coordinate endpoint theorem for the base glider `B`; combining it
+with `oneCell_literal_semantics` gives its literal Collatz word and growth.

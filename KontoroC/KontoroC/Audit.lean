@@ -289,6 +289,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.BreakoffEtherGlider.etherTailChain_iff_balanceChain
 #print axioms KontoroC.BreakoffEtherGlider.gliderGates_linked
 #print axioms KontoroC.BreakoffEtherGlider.glider_literal_semantics
+#print axioms KontoroC.BreakoffEtherGlider.oneCell_firstTail_eq_boundary
+#print axioms KontoroC.BreakoffEtherGlider.oneCell_return_step
+#print axioms KontoroC.BreakoffEtherGlider.oneCell_endpoint_eq_output_boundary
 #print axioms KontoroC.AffineBreakoffDelayLink.firstTailSet_eq_dyadicCylinder
 #print axioms KontoroC.DyadicBreakoffLinkSchedule.realized_eventually_constant
 #print axioms KontoroC.DyadicBreakoffLinkSchedule.no_ordinary_tail_of_addresses_change
