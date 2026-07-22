@@ -143,6 +143,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.PayloadDecodedTwoRailProgram.toInfiniteTwoRailProgram
 #print axioms KontoroC.PayloadDecodedTwoRailProgram.not_conjecture
 #print axioms KontoroC.saturatedStep_iterate_seven
+#print axioms KontoroC.saturatedStep_add_two_mul
+#print axioms KontoroC.saturatedStep_iterate_dyadic_cylinder
 #print axioms KontoroC.saturatedBridgeLink
 #print axioms KontoroC.saturatedBridgeSource_outward
 #print axioms KontoroC.saturatedBridge_endpoint

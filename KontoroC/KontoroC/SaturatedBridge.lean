@@ -24,6 +24,46 @@ namespace KontoroC
 def saturatedStep (n : ℕ) : ℕ :=
   if n % 2 = 1 then (3 * n + 1) / 2 else (3 * n + 2) / 2
 
+/-- One saturated step preserves a low parity address and changes the
+residual affine multiplier from `2` to `3`. -/
+theorem saturatedStep_add_two_mul (n t : ℕ) :
+    saturatedStep (n + 2 * t) = saturatedStep n + 3 * t := by
+  have hmod : (n + 2 * t) % 2 = n % 2 := by omega
+  simp only [saturatedStep, hmod]
+  by_cases hodd : n % 2 = 1
+  · rw [if_pos hodd, if_pos hodd]
+    omega
+  · rw [if_neg hodd, if_neg hodd]
+    omega
+
+/-- General saturated-cylinder compiler law.  A fixed `D`-bit LSB address
+fixes the first `D` branches, while the unbounded tail multiplier changes
+from `2^D` to `3^D`. -/
+theorem saturatedStep_iterate_dyadic_cylinder (D n t : ℕ) :
+    saturatedStep^[D] (n + 2 ^ D * t) =
+      saturatedStep^[D] n + 3 ^ D * t := by
+  induction D generalizing n t with
+  | zero => simp
+  | succ D ih =>
+      calc
+        saturatedStep^[D + 1] (n + 2 ^ (D + 1) * t) =
+            saturatedStep^[D]
+              (saturatedStep (n + 2 ^ (D + 1) * t)) := by
+          rw [show D + 1 = D.succ by omega,
+            Function.iterate_succ_apply]
+        _ = saturatedStep^[D]
+              (saturatedStep n + 2 ^ D * (3 * t)) := by
+          congr 1
+          rw [show 2 ^ (D + 1) * t = 2 * (2 ^ D * t) by
+            rw [pow_succ]; ring, saturatedStep_add_two_mul]
+          ring
+        _ = saturatedStep^[D] (saturatedStep n) +
+              3 ^ D * (3 * t) := ih (saturatedStep n) (3 * t)
+        _ = saturatedStep^[D + 1] n + 3 ^ (D + 1) * t := by
+          rw [show D + 1 = D.succ by omega,
+            Function.iterate_succ_apply, pow_succ]
+          ring
+
 theorem saturatedStep_95 (t : ℕ) :
     saturatedStep (95 + 128 * t) = 143 + 192 * t := by
   simp only [saturatedStep]

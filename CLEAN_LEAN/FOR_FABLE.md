@@ -4933,3 +4933,35 @@ infinite program or Collatz conclusion is asserted.  The large `U^41(0)`
 witness was not needed in the universal proof.  The next live mathematical
 problem is finding a family of such address blocks whose target payload
 decodes again forever and whose chosen source edge is outward at each stage.
+
+## Kontorovich round 44 — universal saturated-cylinder compiler law
+
+The concrete `U^7` bridge exposed the general theorem, now proved in the same
+module:
+
+```text
+saturatedStep_add_two_mul :
+  U(n + 2*t) = U(n) + 3*t
+
+saturatedStep_iterate_dyadic_cylinder :
+  U^[D](n + 2^D*t) = U^[D](n) + 3^D*t.
+```
+
+The second statement is by induction on `D`, with the first theorem proving
+that the low parity address is unchanged by adding `2*t`.  This formalizes the
+compiler principle behind every bounded saturated block: once a worker gives
+only the base address `n` and its length `D`, Lean supplies the universal
+all-tail affine identity automatically.  The slope `3^D/2^D` is therefore a
+theorem of the saturated map, not something that needs to be inferred from
+two sampled tails.
+
+For future bridge certificates, the worker should now provide:
+
+1. source and target exact gate shapes (or their decoded base members),
+2. the source address `n mod 2^D`,
+3. the base equality `U^[D](n) = targetIndexBase`, and
+4. the two affine link coefficient equalities.
+
+The generic cylinder law fills in every residual tail.  This should materially
+shrink certificates for a payload-dependent sequence of `U` blocks and makes
+the formal interface independent of the special seven-digit example.
