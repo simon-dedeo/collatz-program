@@ -992,13 +992,52 @@ c=13, u=263, c'=37,
 ```
 
 It regenerates one three-bit delay cell, but exact continuation reaches `1`.
-The artifact therefore certifies a universal finite instruction pattern only;
-it neither links infinitely many coefficient cylinders nor supplies an
-ordinary divergent seed.
+Lean commit `eac55d3` proves the general compressed delay, collision renewal,
+whole-gate execution, and strict outwardness in the executable break-off map.
+Commit `1711620` proves that the collision factorization plus the single
+subtraction-free affine balance suffices to reconstruct renewal.  The Python
+artifact remains the exact audit of the coefficient constructor; the
+universal Lean theorem consumes these small displayed identities.
+
+The same script now links finite gates.  The output family of the first and
+input cylinder of the second are
 
 ```text
-artifact SHA-256  74a8ea8ac3681ba390e51f7c719517b0be7263455837e33440340b4fe9e62883
-verifier SHA-256  7a4465ea0af7c94ae8cbb74c97404270d9a4a818b662cb8621207ba587742e0d
+c_out=o+2*3^A*t,       c_in=r+2^(m+1)*s.
+```
+
+For a positive second collision opcode, both bases are odd.  Dividing their
+difference by two leaves an invertible power of three modulo `2^m`, hence the
+complete link family is
+
+```text
+t=t_0+2^m*v,
+s=s_0+3^A*v,           0<=s_0<3^A.
+```
+
+It reads `m` low binary bits and appends the `A`-trit word `s_0`.  The link
+audit covers all 4,608 shapes with delays at most four, first opcode at most
+eight, and positive second opcode at most eight.  Two affine members per link
+are checked through both gates, totaling 18,432 literal macro replays.  The
+canonical digest of all link records is
+`6fad9c93608cac35c24bf59b53e8650c1641b172c9d7cc87f32ce0cb940c8d52`.
+Lean commit `54e506f` independently proves that supplied affine base/stride
+identities give this coefficient link, exact two-gate execution, and strict
+outwardness for every common tail.
+
+One bounded alphabet result is complete: fixing the first gate to
+`(q,j,q')=(1,1,1)` gives `A=5`.  Searching next opcodes `1..34` and next
+delays `1..44` records an exact address for every `s_0=0..242`, all 243
+five-trit write words.  This compiles a rich finite mixed-radix instruction
+set, not a returning dispatcher, infinitely linked coefficient sequence, or
+ordinary divergent seed.  Lean commit `5254194` makes the last caveat exact:
+an ordinary natural lying in nested link-address cylinders of unbounded
+precision forces their canonical residues eventually to equal that natural.
+Perpetually changing initial-tail addresses describe only a 2-adic program.
+
+```text
+artifact SHA-256  2e498bfd6f0dec384ebfc9255233c5a5769980d98ffba7f5c9e4ab397e61c7e5
+verifier SHA-256  2867d3a79d19c002a588927e1564c1850a50a03a107fbe4497b7773017585b75
 ```
 
 ## A seven-step base-`3/2` compiler bridge

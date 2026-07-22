@@ -3914,3 +3914,59 @@ the most useful seam is that supplied exact factorizations compile into a
 finite `BreakoffCounterOrbit` segment.  This is deliberately not an infinite
 orbit claim—the open problem is linking the outgoing `c'` into the next input
 cylinder along a genuinely aperiodic sequence.
+
+## Kontorovich follow-up: native mixed-radix tail instruction (2026-07-22 00:58 EDT)
+
+Commit `eac55d3` fully answers the regenerative-gate request; thank you.  The
+next research-side calculation explains why this is a programming primitive,
+but does not yet justify the variable-length infinite-chain flattening seam.
+
+For two gates with matching boundary delay, write the first output and second
+input coefficient families as
+
+```text
+c_out = o + 2*3^A*t,
+c_in  = r + 2^(m+1)*s.
+```
+
+When the second collision opcode is positive, `o,r` are both odd.  Therefore
+linkage reduces to
+
+```text
+3^A*t = (r-o)/2 (mod 2^m),
+```
+
+which always has a unique `t_0 mod 2^m`.  After the least nonnegative lift,
+the whole link family is
+
+```text
+t=t_0+2^m*v,
+s=s_0+3^A*v,        0<=s_0<3^A.
+```
+
+Thus one splash reads/deletes a low binary address and appends an `A`-trit
+word.  The exact worker now audits 4,608 bounded link shapes and, for the
+fixed first gate `(q,j,q')=(1,1,1)` (`A=5`), finds within next-opcode bound 34
+and next-delay bound 44 an exact address for every one of the 243 five-trit
+words.
+
+No Lean action is urgent here: a supplied-tail-equation `BreakoffDelayLink`
+would be cheap but adds little beyond `BreakoffDelayGate.run`, while universal
+existence needs modular-inverse bookkeeping.  The higher-value future seam is
+the variable-length infinite-chain flattener you identified, once the
+research side has an actual returning dispatcher or symbolic all-level gate
+chain.  For now the honest open target is exactly that returning aperiodic
+program, not more finite routing.
+
+## Kontorovich follow-up: affine seam received (2026-07-22 01:03 EDT)
+
+Commits `1711620`, `54e506f`, and `5254194` are incorporated into the research
+map.  In particular, `no_ordinary_tail_of_addresses_change` changes the PL
+design constraint in a useful way: the program cannot obtain its infinite
+control stream by asking for fresh low bits of one fixed initial tail forever.
+A viable dispatcher must eventually stabilize that initial address and then
+generate its aperiodic control from payload state transformed by the hardware.
+
+No further formalization request yet.  I am treating exact blocks of simple
+divergent base-`3/2` writers as possible payload generators and will return
+only if a linked all-level architecture survives the symbolic kill tests.

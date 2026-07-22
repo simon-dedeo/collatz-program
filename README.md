@@ -143,6 +143,15 @@ identically `x`.
   binary/ternary rewrite system and De Mol's three-symbol deletion-2 tag
   system for formula-tape or run-length returns.  These presentations make
   whole-word carry, moving-base-boundary, and head--tail nonlocality explicit.
+  The regenerative delay linker now supplies a native Collatz instruction of
+  exactly this kind: on an affine tail it reads a low binary address and maps
+  the residual `v` by `v -> s_0+3^A v`, appending `A` ternary digits.  One
+  fixed dispatcher has a bounded exact realization of all 243 five-trit
+  output words.  Lean commits `54e506f`/`5254194` prove the affine link
+  semantics and its ordinary-tail acceptance test.  The next PL task is to
+  arrange a returning dispatcher or counter loop whose changing instruction
+  stream is genuinely aperiodic while its nested binary addresses eventually
+  stabilize to one natural tail.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -296,6 +305,7 @@ identically `x`.
 | Even-gap-only splash decoder | Superseded as an obstruction.  Rejecting odd intermediate gaps or `L=1` outgoing gaps created artificial “renewal failures.”  The odd-gap collision `1+2*3^sQ -> 2+3^(s+1)Q=-1+2^LP'` and zero-delay rail make the decoder total away from explicit halting collisions.  This repairs syntax, not growth: the saturated `U^12` witness still reaches `1`. | [`complete_splash_isa.py`](experiments/kontorovich/complete_splash_isa.py) |
 | First parity-complete saturated bridge graph | In the exact source box `r<=15,s<=4,a,b<=4,L<=16`, all 25,600 shapes and 2,751,680 coefficient-compatible links were checked.  Eighteen saturated bridges exist and 11 have outward linked target subfamilies.  Exhausting all 718 possible second edges from those target shapes finds zero renewal.  This closes only depth two for those 18 first edges; larger sources and non-saturated catcher cascades remain open. | [`complete_u_bridge_graph_audit.json`](experiments/kontorovich/complete_u_bridge_graph_audit.json) |
 | One ordinary relay between compiler blocks | The 11 two-outward saturated nodes admit 22 universally outward four-gate relay families, but their graph has exactly one directed cycle: a fixed node-3 self-loop.  Every infinite path would therefore repeat one valuation block and is closed by the eventually-periodic theorem.  This excludes one-relay routing only on this node set. | [`complete_u_relay_graph_audit.json`](experiments/kontorovich/complete_u_relay_graph_audit.json) |
+| Finite regenerative delay routing | Solved but insufficient.  Two delay gates with a shared gap always link when the second collision opcode is positive: both coefficient bases are odd, so one binary congruence gives the affine tail handoff `t=t_0+2^m v -> s=s_0+3^A v`.  Lean commit `54e506f` proves supplied affine families and links for every tail.  Commit `5254194` proves that an ordinary natural surviving unbounded nested address filters forces their canonical residues eventually to equal that natural; a perpetually changing address program is only 2-adic. | [`breakoff_delay_gate_audit.json`](experiments/kontorovich/breakoff_delay_gate_audit.json) |
 | Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
 | Standard two-rail schedule `[1]^r[2,2,3]` | Closed at all levels.  Exact affine-family intersection compiles 247 outward rounds from a 10,040-digit seed, but depth 248 changes the seed and exact continuation reaches `1`.  Lean reduces every infinite realization to `2^(r+8)P'=3^(r+3)P+69` and its sole 2-adic Tschakaloff candidate.  Väänänen--Wallisser's 1989 theorem applies at `q=3/2,p=2,alpha=4096/6561` and proves that candidate irrational, so it cannot be an ordinary payload.  This does not close branching or other aperiodic splash programs. | [Finite certificate](experiments/kontorovich/two_rail_chain_247.json), [theorem audit](docs/notes/standard-two-rail-theta.md) |
 | Fixed affine or autonomous finite-state return | Closed as an outward bouncer.  Lean commits `b741a14`/`26f3584` prove fixed affine circuits and every eventually periodic macro-word schedule impossible; `560fcc5` proves an autonomous controller with any finite effective state eventually enters that obstruction.  Coefficientwise, a repeated word would require natural slope `m=3^N/2^S` with `S>0`.  Payload-dependent branching and unbounded shape counters remain open. | [Delocalized tag-ISA note](docs/notes/kontorovich-delocalized-isa.md) |
@@ -329,7 +339,8 @@ positive integer and its claimed behavior are machine-checked.
 | Universal outward splash router | For every `r>=0,L>=1`, the odd catcher `(r,0,1,L)` has word `[1]^r[2,1]`, arbitrary outgoing gap `L`, and multiplier `3^(r+2)/2^(r+3)>1`; hence every member is outward.  Exact affine composition uses it to connect every ordered pair of the 11 two-outward compiler nodes.  All 121 five-gate transition families replay exactly, making the two-relay shape graph complete.  Lean commit `fedb5ca` proves the all-parameter growth inequality and formalizes the natural-versus-2-adic boundary.  This supports arbitrary finite branching words, but an infinite word still generally selects only a 2-adic tail. |
 | Autonomous router recurrence | Lean commit `e9f791b` proves that positive odd payloads satisfying `2^(r'+3)P'=3^(r+2)P+3` construct the canonical router `(r,0,1,r'+1)`, with exact linkage and strict growth.  Any infinite solution above initial state `4` therefore refutes Collatz.  Commit `c10e5b5` proves `3|P'` and the exact maximal-power-of-two/odd-part update.  The equivalent radix-swap candidate forms `e=v_2(y+1)` and `F(y)=3^(e-1)(y+1)/2^e` inside `9|y`, `y=7 (mod 8)`.  No infinite ordinary orbit is supplied. |
 | Break-off instruction compiler | In the coordinate `y=8k-1`, one router instruction factors `k=2^j u` and executes `8k'=3^(j+2)u+1`.  For each `j`, legality is one exact `u`-class modulo `72`, and the unbounded tail map is `u=u_j+72t -> k'=b_j+3^(j+4)t`.  Lean commit `0b12d44` proves that any infinite proof-carrying break-off orbit stays `8 mod 9`, strictly grows, and refutes Collatz; commit `a1a5fd0` proves its opcode stream cannot be eventually periodic.  Commit `7293975` implements the executable `v_2`/odd-part partial map, proves it equivalent to the factorization interface, and derives `¬Collatz` from any infinite successful executable orbit.  The artifact lists opcodes `0..64` and literally replays 4,160 members through the canonical decoder.  No infinite orbit is supplied. |
-| Regenerative three-bit delay gate | Simon's gap-splash suggestion has an exact spatial realization.  The state `9*2^(3q)c-1` performs `q` opcode-zero ticks, consuming three gap bits per tick, before the collision `3^(2q+2)c-1=2^j u`.  Prescribing any `q,q'>=1,j>=0` selects one affine class `c (mod 2^(j+3q'+4))` for which `3^j u+1=2^(3(q'+1))c'`, so the collision emits a fresh clean gap `9*2^(3q')c'-1`.  The artifact constructs 1,088 such families for `q,q'<=8,j<=16` and literally replays eight tails each (8,704 exact Collatz macros).  The example `935 -> 1052 -> 2663` regenerates one delay cell but later reaches `1`.  This compiles every finite splash shape, not an infinite linked orbit. |
+| Regenerative three-bit delay gate | Simon's gap-splash suggestion has an exact spatial realization.  The state `9*2^(3q)c-1` performs `q` opcode-zero ticks before a chosen collision emits a fresh clean gap `9*2^(3q')c'-1`; Lean commit `eac55d3` proves the universal compressed run, collision renewal, and strict outwardness.  Commit `1711620` proves that the collision factorization plus one subtraction-free affine balance suffices to reconstruct renewal.  The artifact constructs 1,088 gate families and performs 8,704 literal macro replays.  The example `935 -> 1052 -> 2663` regenerates one delay cell but later reaches `1`. |
+| Affine mixed-radix writer and ordinary-tail gate | Exact coefficient linking reads `m` low binary bits and appends `A` ternary digits: `t=t_0+2^m v -> s=s_0+3^A v`.  Lean commit `54e506f` proves every supplied affine gate family, coefficient link, composed run, and outwardness for all `v`.  Commit `5254194` connects its `2^m` address cylinders to the ordinary/2-adic boundary.  The artifact audits 4,608 linked pairs (18,432 macros) and shows one fixed dispatcher realizes every one of the 243 five-trit write words within stated bounds.  Finite instruction routing is solved; a returning aperiodic dispatcher with one eventually stabilized natural address is not. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
 | Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
 | Kernel cycle-disproof seam | `KontoroC.CycleArtifact.checkNontrivial=true` implies the literal negation of the ordinary Collatz conjecture. The package build and axiom audit pass; no nontrivial artifact is known. |
@@ -385,6 +396,66 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 01:01 EDT
+
+The mixed-radix linker and its central failure test are now kernel-checked.
+Commit `1711620` shows that a collision factorization plus the single
+subtraction-free balance
+
+```text
+2^(j+3(q'+1))c' + 3^j = 3^(j+2q+2)c + 2^j
+```
+
+reconstructs the renewal factorization.  Commit `54e506f` packages the
+research worker's affine gate and link families: two base identities and two
+stride identities prove coefficient linkage, exact two-gate execution, and
+strict outwardness for every common tail.  Commit `5254194` then applies the
+ordinary/2-adic kill test at precisely this layer.  If one natural tail lies
+in nested link-address cylinders of unbounded binary precision, their
+canonical residues must eventually equal that natural literally; if the
+addresses keep changing, the apparent program is only a coherent 2-adic
+phantom.  This sharpens the returning-dispatcher target: it must use the
+binary-read/ternary-write instructions to generate an aperiodic execution,
+yet its constraints on the one initial ordinary tape must eventually stop
+requesting new low bits.  Next: look for a counter architecture where later
+instructions are generated by evolved payload state rather than by an
+ever-growing exogenous address.
+
+### 2026-07-22 00:55 EDT
+
+The regenerative splash is now kernel-checked and has exposed a native
+mixed-radix programming instruction.  Lean commit `eac55d3` proves the full
+`q`-cell delay in one theorem, reconstructs the collision opcode from the
+factorization, proves exact landing in the new gap, and proves every such
+nonempty run strictly outward.  At the affine-tail level, any gate links to
+any next positive-opcode gate with the same boundary gap.  If the first output
+and second input cylinders are
+
+```text
+c_out=o+2*3^A t,       c_in=r+2^(m+1)s,
+```
+
+their odd bases make the link congruence automatically soluble, and its whole
+family is
+
+```text
+t=t_0+2^m v  ->  s=s_0+3^A v,       0<=s_0<3^A.
+```
+
+This literally deletes a low binary address and appends an `A`-trit word to
+the surviving nonlocal tail.  The rebuilt [delay
+artifact](experiments/kontorovich/breakoff_delay_gate_audit.json) checks all
+4,608 linked shapes with delays at most four and opcodes at most eight, two
+tails each (18,432 gate-macro replays), in addition to the earlier 8,704 gate
+replays.  More strikingly, the fixed dispatcher `(q,j,q')=(1,1,1)` has
+`A=5`; exact enumeration of next gates `j<=34,q'<=44` finds a certified
+address for every one of the 243 possible five-trit output words.  This is the
+nonlocal binary-read/ternary-write PL primitive Simon anticipated.  It still
+does not solve the ordinary-integer boundary: arbitrary finite words compile,
+while an infinite nested tape may be merely 2-adic.  Next: build a returning
+dispatcher/counter architecture from these writers and demand an aperiodic
+all-level coefficient formula.
 
 ### 2026-07-22 00:38 EDT
 
