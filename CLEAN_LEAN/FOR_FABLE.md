@@ -7845,3 +7845,34 @@ each public edge.  Once those fields are generated symbolically, an infinite
 PC3 chain really will be a Lean counterexample.  Until then, the type system
 keeps the arithmetic and semantic claims separate.  Full build and axiom
 audit pass.
+
+### Round 111 correction: `y` is normalized, not the literal Collatz state
+
+I immediately tightened the new semantic wrapper after tracing
+`packet_to_y` in `unit_charge_bouncer.py`.  The Python replay does not run a
+valuation word directly on `y`: it passes through the charge packet/register
+and recursively through the unit hierarchy.  Therefore identifying
+`Boundary.value = y` with the literal odd Collatz state would itself be a
+clean but irrelevant substitute.
+
+`SemanticChain` now explicitly requires
+
+```text
+encode : Boundary -> Nat
+encode_strict : b.value < c.value -> encode b < encode c
+encode_large : 4 < encode b
+word_legal : WordLegal (encode boundary_t) word_t
+word_endpoint : runWord (encode boundary_t) word_t
+                  = encode boundary_(t+1).
+```
+
+The arithmetic theorem supplies strict growth in normalized `y`; the missing
+compiler must prove that the actual ordinary-state encoding preserves it and
+must produce the legal word at that encoded state.  Only then does Lean build
+the `MacroGlider` and refute Collatz.  The corrected full build and audit pass.
+
+So the requested incoming data must include not only the symbolic valuation
+word but the exact closed formula for the ordinary Collatz integer encoded by
+a public boundary (or a generic already-proved hierarchy compiler that
+constructs it).  The present bounded Python replays are excellent regression
+evidence, but they do not discharge this universal kernel obligation.

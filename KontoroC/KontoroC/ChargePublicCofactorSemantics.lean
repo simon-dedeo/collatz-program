@@ -10,10 +10,11 @@ import KontoroC.Glider
 # The missing semantic endpoint for public-cofactor chains
 
 `ChargePublicCofactor.Step` is an exact arithmetic presentation of the
-charge-bouncer equations.  Those equations alone are not a Lean proof that an
-underlying accelerated Collatz valuation word is legal.  This file records the
-honest remaining interface: a public chain becomes a `MacroGlider` once every
-edge additionally supplies its nonempty legal word and endpoint theorem.
+charge-bouncer equations in the normalized coordinate `y`.  That coordinate
+is not silently identified with the underlying odd Collatz integer.  This file
+records the honest remaining interface: a public chain becomes a
+`MacroGlider` once it supplies an ordinary-state encoding and every edge
+supplies its nonempty legal word and endpoint theorem.
 
 No construction of those words is assumed or hidden here.  A future generic
 charge-to-unit compiler should discharge the final two fields of
@@ -34,11 +35,17 @@ structure SemanticChain where
     publicA ^ recharge t *
         (publicC ^ (boundary t).opcode * (boundary t).cofactor - 1) =
       publicB ^ recharge t * (boundary (t + 1)).value
+  /-- Decode a normalized public boundary to the literal odd Collatz state. -/
+  encode : Boundary → ℕ
+  /-- The public encoding preserves the strict outward order proved in `y`. -/
+  encode_strict : ∀ {b c : Boundary}, b.value < c.value → encode b < encode c
+  /-- The encoded states lie above the small `1-2-4` cycle. -/
+  encode_large : ∀ b, 4 < encode b
   word : ℕ → List ℕ
   word_nonempty : ∀ t, word t ≠ []
-  word_legal : ∀ t, WordLegal (boundary t).value (word t)
+  word_legal : ∀ t, WordLegal (encode (boundary t)) (word t)
   word_endpoint : ∀ t,
-    runWord (boundary t).value (word t) = (boundary (t + 1)).value
+    runWord (encode (boundary t)) (word t) = encode (boundary (t + 1))
 
 namespace SemanticChain
 
@@ -49,28 +56,25 @@ def arithmeticStep (g : SemanticChain) (t : ℕ) : Step where
   recharge_pos := g.recharge_pos t
   balance := g.balance t
 
-theorem grows (g : SemanticChain) (t : ℕ) :
+theorem value_grows (g : SemanticChain) (t : ℕ) :
     (g.boundary t).value < (g.boundary (t + 1)).value := by
   exact (g.arithmeticStep t).toChargeBouncerStep.strictly_outward
 
-theorem start_large (g : SemanticChain) : 4 < (g.boundary 0).value := by
-  have hle : chargeRegisterModulus ≤ (g.boundary 0).value :=
-    Nat.le_of_dvd (g.boundary 0).value_pos (g.boundary 0).register
-  have hlarge : 4 < chargeRegisterModulus := by
-    norm_num [chargeRegisterModulus, chargeDifference]
-  exact hlarge.trans_le hle
+theorem encoded_grows (g : SemanticChain) (t : ℕ) :
+    g.encode (g.boundary t) < g.encode (g.boundary (t + 1)) :=
+  g.encode_strict (g.value_grows t)
 
 /-- This is the precise end-to-end theorem that a symbolic charge/unit
 compiler must target.  The public equations provide growth; the explicit
 legal words provide actual Collatz semantics. -/
 def toMacroGlider (g : SemanticChain) : MacroGlider where
-  state t := (g.boundary t).value
+  state t := g.encode (g.boundary t)
   word := g.word
-  start_large := g.start_large
+  start_large := g.encode_large (g.boundary 0)
   word_nonempty := g.word_nonempty
   legal := g.word_legal
   transition := g.word_endpoint
-  grows := g.grows
+  grows := g.encoded_grows
 
 theorem not_conjecture (g : SemanticChain) : ¬CleanLean.Collatz.Conjecture :=
   g.toMacroGlider.not_conjecture
