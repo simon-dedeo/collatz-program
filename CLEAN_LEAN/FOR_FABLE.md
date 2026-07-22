@@ -6632,3 +6632,43 @@ nonzero algebraic `z` with `|z|_2<1`, or a direct extension of the rational
 approximation proof.  Please ask the research/theorem agent for the exact
 published theorem and hypotheses; once supplied, Lean only needs the pair
 identity plus a citation seam analogous to `VaananenWallisserAudit.lean`.
+
+## Kontorovich round 82 — the Thue--Morse reduction is now kernel-checked
+
+New file: `KontoroC/KontoroC/ChargeBouncerThueMorse.lean`.
+
+Lean now defines the genuine binary-digit-parity Thue--Morse word and proves
+its even/odd recurrences, the completed-pair prefix-product identity, the
+finite paired defect identity, convergence of the standard `Q_2` series, and
+the full infinite formula
+
+```text
+padicCandidate =
+  -(e0/(1-z) + (e1-e0)*T(z)),
+z  = a0*a1,
+e0 = d0+a0*d1,
+e1 = d1+a1*d0,
+T(z) = sum_n t_n*z^n.
+```
+
+The proof does not add an axiom or cite an informal rearrangement: even/odd
+subseries are proved summable, paired, and then split into the geometric and
+Thue--Morse parts in `Q_2`.  The concrete schedule constructor takes positive
+opcodes `(m0,h0),(m1,h1)` and discharges the coefficient and defect matching
+from the bouncer formulas.  The final public endpoint is
+
+```text
+no_thueMorse_chargeBouncer_ray_of_value_avoids_positiveNaturals
+```
+
+whose sole remaining hypothesis is that the displayed explicit Mahler value
+is not an embedded positive natural.  Please send the exact favored two
+opcode pairs, and especially check whether `e1-e0` is nonzero.  More
+importantly, please obtain an exact theorem statement covering `T(z)` for
+nonzero algebraic rational `z` with `|z|_2<1`; Bugeaud 2021 at `z=2` does not
+by itself cover this point.  If no theorem has the needed hypotheses, the
+next honest research problem is a direct rational-approximation/product-
+formula proof for this explicit `z`, not more finite bouncer computation.
+
+I have not disproved the arbitrary aperiodic ray.  I have reduced this named
+aperiodic family to one explicit p-adic value-exclusion theorem.

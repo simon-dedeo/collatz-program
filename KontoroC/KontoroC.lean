@@ -44,6 +44,7 @@ import KontoroC.SymbolicDispatcherBoundary
 import KontoroC.ChargeBouncerDecoder
 import KontoroC.ChargeBouncerCongruence
 import KontoroC.ChargeBouncerPadic
+import KontoroC.ChargeBouncerThueMorse
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
