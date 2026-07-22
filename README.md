@@ -33,6 +33,153 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-22 13:09 EDT
+
+The opcode-chain question now has a fundamental answer rather than a larger
+word search.  Lean's all-period no-go implies that any autonomous controller
+with only finite effective state is impossible here: its opcode stream would
+eventually repeat.  A viable Collatz program must therefore carry an
+**unbounded, publicly decoded register**.  The [closure
+doctrine](docs/notes/kontorovich-closure-principles.md) now grades every chain
+through seven gates—affine, typed, cylinder-compatible, causally decoded,
+ordinary-realizable, literal-semantic, and finally nonhalting—so an algebraic
+matrix product cannot be mistaken for reproduction.
+
+The resonant phase glider supplies the first concrete escape from that lower
+bound.  With `k=1`, the rule
+
+```text
+U(m)=(m,392,m+4)
+```
+
+is an autonomous one-counter policy, not an externally pasted aperiodic word:
+`m=v2(y+1)/23` is public, and the next instruction increments it by four.
+This solves causal opcode selection.  It does **not** solve the harder address
+problem: the affine tail must lie in every successive source cylinder, and
+the resulting inverse-limit address may still be a nonordinary 2-adic
+integer.  The next attack is therefore symbolic stabilization or obstruction
+for this exact counter policy, plus telescoping of its phase-dependent tail
+embeddings—not a broad simulation.
+
+Independent Lean commit `6619b49` has meanwhile verified the complete public
+packet endpoints for the universal one-cell `E,H,E` glider.  Combined with
+the prior gate semantics, its bottom layer now has an exact executable
+Collatz word, endpoint, and strict growth for every free tail `q`; only the
+upper unit/charge compositions remain.  The three new exact research
+artifacts have been rebuilt and pass their verifiers.  No counterexample or
+infinite orbit is known.
+
+### 2026-07-22 12:59 EDT
+
+Opcode chaining has produced its first nontrivial exact conjugacy rather than
+an equal-matrix collision.  The determinant-four identities
+
+```text
+114*391=17*2622,       154*391=23*2618
+```
+
+make the shift `(m,h,m')->(m+2622k,h-391k,m'+2618k)` preserve the complete
+public-tail gain `(P,Q)` while slipping the defect boundary by `4k` cells.
+For parallel branches `F_i(t)=(3^Q t+kappa_i)/2^P`, the exact affine
+conjugacy condition is
+
+```text
+(3^Q-2^P)c=s*kappa_a-kappa_b.
+```
+
+The new [resonant-conjugacy
+artifact](experiments/kontorovich/unit_charge_resonant_conjugacy_audit.json)
+constructs both directions of the first phase motion.  The pair
+`(1,392,1) -> (2623,1,2619)` becomes a four-cell phase-down glider; the pair
+`(1,392,5) -> (2623,1,2623)` is the phase-up chart.  Both integral public-tail
+embeddings have 21,330-digit slopes and intercepts.  The verifier checks the
+conjugacy and both cylinder faces coefficientwise and replays two members of
+all four branches through the exact arithmetic bouncer.
+
+This is the first structure at Simon's proposed program scale which literally
+moves a boundary while preserving a remote affine tail.  It is still not
+reproduction.  Down cells make only a finite delay line; up cells give an
+infinite *prescribed* phase schedule whose ordinary-tail realization is
+unknown; and the embeddings change with phase.  A fixed periodic bounce is
+already obstructed.  The new [phase-glider
+note](docs/notes/kontorovich-resonant-phase-glider.md) therefore makes the
+closure targets explicit: telescope successive embeddings, let the payload
+choose the jump/direction, or prove that the phase-up schedule has one
+ordinary positive address.  No large search has been launched.
+
+The semantic audit is advancing in parallel.  Lean commits `faf4df1` and
+`21bed2c` now kernel-check the concrete `E->H->E` glider prefix and strict
+literal growth for every nonempty finite breakoff run.  The upper
+charge/unit/level-two link remains the semantic seam.  No counterexample or
+infinite orbit is known.
+
+During this update the adversarial side also completed two general closures.
+Commit `e8585c4` rules out every fixed finite bouncer-opcode period, including
+after a transient.  Commits `cda9bd3`/`a458267`/`904c1de` compile arbitrary
+finite `E,H,E^N` gliders to legal growing Collatz words and eliminate their
+hidden dyadic witnesses; the upper charge/unit/level-two link is now the only
+semantic layer left.
+
+### 2026-07-22 12:39 EDT
+
+The adversarial audit found—and the research side has now repaired—a crucial
+semantic layer error.  The public cofactor equation PC3 compiles exactly to an
+*arithmetic* `ChargeBouncerStep`, but normalized `y` is not the odd Collatz
+integer.  Even the hierarchy field formerly called `ordinary_start` is still
+the breakoff coordinate `k`; the literal state appears only after the router
+decode `literal_step(k).collatz_start`.  Lean round 115 has accordingly
+replaced the false global monotonic-encoding premise by the honest edgewise
+growth obligation.
+
+The new exact [semantic compiler
+artifact](experiments/kontorovich/unit_charge_semantic_compiler_audit.json)
+now descends the whole bounded chain
+
+```text
+y -> charge packet -> unit packet -> level-two packet
+  -> level-one glider -> breakoff k -> odd Collatz state.
+```
+
+It expands the fixed substitutions `charge(N)->unit[N,1]`,
+`unit(N)->glider[1,2,1^N]`, and `glider(N)->gate[E,H,E^N]`, then obtains the
+actual valuation words from the router.  A complete rebuild checks all 54
+members with `m,h,m'<=3`: 756 glider macros, 4,968 breakoff macros, and 14,057
+accelerated instructions, each independently replayed by direct exact
+`3x+1` arithmetic.  Every tested literal endpoint agrees with the encoded
+target and grows.  This is a bounded semantic regression, not the universal
+composition theorem or an infinite orbit.
+
+The [closure doctrine](docs/notes/kontorovich-closure-principles.md) now begins
+with five fundamental conservation laws: semantics, public state,
+synchronization, endomorphism, and control rather than scale.  They answer the
+main concern about blind search: no large computation is now licensed unless
+a hit would supply a public self-map, a finite semantic rewrite, or a whole
+ansatz-class obstruction.  Opcode chaining remains live only at that level;
+equal one- and two-letter matrices are closed, while a decoder-compatible
+conjugacy or substitution is meaningful.
+
+The adversarial agent has also kernel-closed constant and genuinely
+alternating period-two `(m,h)` schedules (commits `737e8de` and `f1ba1c8`) at
+the arithmetic bouncer level.  The natural universal extension is a
+compressed no-go for every fixed periodic opcode word.  Constructively, the
+next target is still nonperiodic public feedback: a mixed binary/ternary
+tail rule that regenerates its own delimiter and whose three finite compiler
+layers compose universally to `WordLegal`.  No counterexample or infinite
+orbit is known.
+
+Lean rounds 116--117 have already consumed the first part of that compiler:
+commit `2be4a95` derives legal ordinary valuation words from every successful
+finite breakoff run, and `76d60d8` composes arbitrary linked gate lists.  The
+remaining semantic seam is now only the two upper affine substitutions
+`charge -> unit -> level-two -> glider`; their exact link-tail formulas have
+been sent to the companion agent.
+
+The detached jobs remain secondary.  Akdeniz's exact 1,198-digit Thue solve
+is still active after roughly 2 hours 25 minutes of CPU, with class number one
+and no completion line.  Ganesha still has the 22 unfinished nonuniform
+morphism workers; only shards 4 and 12 have completed.  They remain scoped
+falsifiers and are not steering the closure program.
+
 ### 2026-07-22 12:12 EDT
 
 The closure doctrine has produced a more fundamental public programming
@@ -90,10 +237,12 @@ This restores Kontorovich's spatial picture at the algebraic level.  A true
 “splash and regenerate” is now a renormalization of the entire adjacent
 square, not a fresh representation of one corner.
 
-Independent Lean commit `5a9324b` now kernel-checks both directions of this
-public compiler: the coordinates are unique, PC3 constructs a literal
-accepted bouncer step, and every accepted step in public coordinates satisfies
-PC3.  The same commit proves that two-letter opcode products with fixed
+Independent Lean commit `5a9324b` kernel-checks both directions of the
+*arithmetic* public compiler: the coordinates are unique, PC3 constructs a
+`ChargeBouncerStep` surrogate, and every such step in public coordinates
+satisfies PC3.  It does not itself construct a legal Collatz valuation word;
+the 12:39 update records that corrected semantic scope.  The same commit
+proves that two-letter opcode products with fixed
 start/end recharge phases are injective: the diagonal
 exponents recover total defect and middle recharge, while the debris is
 strictly increasing in the split point.  Together with single-letter
@@ -2514,8 +2663,8 @@ identically `x`.
   A fixed-form change of coordinate now exposes exactly such a level-two
   bouncer.  Put `A=3^114`, `B=2^154`,
   `F=(A-B)/5`, and `Z=F*G-2^26`.  The one-cell instruction is the pure delay
-  wire `B*Z'=A*Z`.  At defect boundaries write `Z=2^26*y`.  The ordinary odd
-  state `y` then reads its own two opcodes
+  wire `B*Z'=A*Z`.  At defect boundaries write `Z=2^26*y`.  The normalized
+  odd coordinate `y` then reads its own two opcodes
 
   ```text
   m=v2(y+1)/23,
@@ -2526,8 +2675,11 @@ identically `x`.
 
   When `m,h>=1` are integral and `y'` has another defect phase, this executes
   one length-`m+1` defect followed by `h-1` recharge cells.  The fixed register
-  is simply `y=0 (mod M)`, `y=-1 (mod F)`.  An infinite accepted positive
-  `y`-orbit would be an outward Collatz counterexample.  Accepted transitions
+  is simply `y=0 (mod M)`, `y=-1 (mod F)`.  Research-side finite hierarchy
+  expansion shows how accepted members descend to Collatz words; the
+  universal descent is still being formalized.  Only after that bridge does
+  an infinite accepted positive `y`-orbit become a certified outward Collatz
+  counterexample.  Accepted normalized transitions
   are reversible without stored history: `v3(y')=114h`, and after removing
   that power, `v3(1+2^(154h)q)=17m` recovers the predecessor opcode and state.
   The exponent matrix has determinant
@@ -2542,7 +2694,8 @@ identically `x`.
   The first closure ansatz now uses the bouncer's own cell width.  Write the
   odd payload as `u=F*r^23`; if the output has the same form
   `u'=F*r'^23`, then `D=2^23` makes `v2(r')` generate the next defect address
-  in whole cells.  This is genuine type reproduction, not a finite writer.
+  in whole cells.  This is genuine type reproduction inside the arithmetic
+  surrogate, not yet a Collatz counterexample compiler.
   Exact elimination gives
 
   ```text
@@ -2627,6 +2780,20 @@ identically `x`.
   boundary cylinders.  Searches for those relations, mixed-radix
   binary-reader/ternary-writer feedback, and public debris recurrences replace
   blind norm-point enumeration.
+  The determinant-four resonance now supplies the first surviving relation.
+  Shifting opcodes by `(2622k,-391k,2618k)` preserves the full affine gain but
+  translates the defect phase by `4k`.  Whenever the two branch constants
+  pass one gcd condition, an exact integral affine map conjugates their
+  canonical public tails and automatically maps the source cylinder.  The
+  first up/down examples have 21,330-digit embedding coefficients.  This is a
+  spatial phase-glider cell, not closure: successive embeddings still need to
+  telescope.  For fixed `k=1`, however, the up family already gives the
+  autonomous public one-counter policy `U(m)=(m,392,m+4)`; it is not an
+  externally pasted word.  It evades the all-period no-go through unbounded
+  public phase, while leaving the ordinary-tail/address-regeneration problem
+  open.  Variable jump and direction would require additional payload
+  control.  See the [resonant phase-glider
+  note](docs/notes/kontorovich-resonant-phase-glider.md).
   The resulting primary interface removes auxiliary coordinates entirely.
   Every legal state is uniquely
 
@@ -2642,13 +2809,17 @@ identically `x`.
   ```
 
   The fixed-register base `w_m`, opcode `m`, and tail `t` are canonical
-  functions of the public integer.  Odd endpoint cofactors turn the equation
-  back into the exact collision valuation and actual output, so this is the
-  first proposed programming language with no hidden metadata.  Its exact
-  artifact replays all 27 branches with `m,h,m'<=3`; no invariant tail
+  functions of the normalized public integer.  Odd endpoint cofactors turn
+  the equation back into the exact normalized collision valuation and output,
+  so this arithmetic language has no hidden representation metadata.  Its
+  cofactor artifact checks all 27 branches with `m,h,m'<=3`; no invariant tail
   language is supplied.  Lean commit `5a9324b` proves uniqueness of the
-  public coordinates and both directions between this recurrence and a
-  literal accepted bouncer step.  The same commit closes single-letter and
+  public coordinates and both directions between this recurrence and the
+  arithmetic `ChargeBouncerStep` surrogate—not yet `WordLegal`.  The new
+  semantic-compiler artifact separately descends 54 bounded members through
+  14,057 literal accelerated instructions and independently replays them.
+  A universal linked-composition theorem remains open.  The same commit
+  closes single-letter and
   fixed-boundary two-letter product collisions, so the constructive target is
   a conjugacy or self-synchronizing invariant language for this transducer,
   not equality of short matrices.
@@ -2904,6 +3075,7 @@ identically `x`.
 | Norm representability without next-boundary synchronization | Closed as a promotion criterion.  One exact 184-digit `N_31` input has an `N_31` quotient and 193-digit `N_31` output, but the next collision valuation is `153`, leaving recharge remainder `130 (mod 154)`.  More isolated represented points—even a finite chain—do not supply a public self-map.  A new norm search must first exhibit a depth-independent update which regenerates `v2(A^g(C-D)r+1)=23m`. | [`unit_charge_norm_opcode_audit.json`](experiments/kontorovich/unit_charge_norm_opcode_audit.json), [closure doctrine](docs/notes/kontorovich-closure-principles.md) |
 | Defect-only opcode chains as a dispatcher | Universally closed.  With `H_m=(C^m-D^m)/(C-D)` and `J_m=[[C^m,H_m],[0,D^m]]`, exact arithmetic gives `H_(m+n)=C^nH_m+D^mH_n` and `J_nJ_m=J_(m+n)`.  Such a chain remembers only total defect length.  Any programming power must come from recharge decorations and their public dyadic boundary, not from rearranging defect opcodes alone. | [`unit_charge_norm_opcode_audit.json`](experiments/kontorovich/unit_charge_norm_opcode_audit.json), [`ChargeNormOpcode.lean`](KontoroC/KontoroC/ChargeNormOpcode.lean) |
 | Equal one- or two-letter decorated opcode products | Universally closed in the stated fixed-boundary class by Lean commits `90bdf21`/`5a9324b`.  Single decorated signatures are injective.  For two letters with fixed initial/final recharge phases, the two diagonal exponent equations recover total defect length and the middle recharge; the off-diagonal debris increases by the positive monomial `(A^h-B^h)C^eD^i` when the split moves one cell.  It therefore recovers both defect lengths.  This kills short matrix collisions, not conjugacies, renormalizations, longer relations, or invariant public tail languages. | [`ChargeNormOpcode.lean`](KontoroC/KontoroC/ChargeNormOpcode.lean) |
+| Every fixed finite charge-bouncer period | Kernel-closed at the arithmetic-surrogate level by commit `e8585c4`, including arbitrary finite transients.  A generic nonempty list fold compresses one period to a single expanding coprime affine gain law; arbitrarily large denominator divisibility contradicts a fixed positive initial state.  This subsumes the earlier constant and alternating results.  Payload-driven genuinely aperiodic schedules and phase conjugacies remain live. | [`ChargeBouncerPeriodicNoGo.lean`](KontoroC/KontoroC/ChargeBouncerPeriodicNoGo.lean) |
 | Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
 | Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
 | Fixed defect opcode in the charge bouncer | Closed by Lean commit `5633c44`.  For a fixed affine gain law `B*Z_(t+1)=A*Z_t+C` with coprime `A,B`, `1<B`, and `A>B`, the fixed-point defect obeys `B*delta_(t+1)=A*delta_t`; hence every `B^n` divides one positive `delta_0`, impossible.  The concrete theorem applies to every fixed `m`.  It does not apply to the live bouncer, where `m` may decrease or oscillate and each block switches from its `m`-defect law to `h-1` homogeneous backgrounds. | [`AffineQuotientNoGo.lean`](KontoroC/KontoroC/AffineQuotientNoGo.lean) |
@@ -2959,8 +3131,10 @@ positive integer and its claimed behavior are machine-checked.
 | Repetend energy separator | The same exact construction closes its own naive infinite continuation.  Every sign-negative marker-one exponent is an odd multiple of `3^(q-1)`.  For `q>=3`, elementary integer inequalities give `2^T>2*3^q`, so each such collision more than halves the positive odd core.  No fixed positive core supports infinitely many consecutive events.  The artifact audits the actual exponent classes at finite levels `2,4,6`; the general proof is symbolic.  A viable delay-line program must recharge between giant erasures, not stack them back-to-back. | [`unit_repetend_energy_audit.json`](experiments/kontorovich/unit_repetend_energy_audit.json) |
 | Autonomous `-5` charge--discharge register | Pairing a length-`N` sign-negative level-two unit instruction with the one-cell instruction gives fixed debris `3^57+2^77=5D`.  The divisor `D=314038802961906688057474567` is coprime to the register stride, so one exact packet class can be divided by `D` and is preserved.  The quotient ISA is `G=2^(23N+3)g -> (3^(17N+97)g-5)/2^128`; every branch is strictly outward because `3^(17N+97)>2^(23N+131)`.  The artifact constructs branches `N=1..32` twice—directly by CRT and by restricted composition—and checks 128 members through 256 actual unit-macro replays.  An infinite successful positive orbit would refute Collatz; none is supplied. | [`unit_charge_discharge_audit.json`](experiments/kontorovich/unit_charge_discharge_audit.json) |
 | All-depth self-regenerating `-5` splash | Composing any depth-`j` charge branch with its one-cell branch, then quotienting by `D_j=3^(114*2^j)+2^(154*2^j)`, reproduces collision constant `-5` with offsets `d_(j+1)=2d_j+17`, `e_(j+1)=2e_j+26`.  Coprimality with the fixed 80-bit stride holds for every `j`: a failed prime would require `2^(j+1)<M`, so only `j=0..78` can fail, and all 79 exact gcds are one.  The artifact materializes eight levels, compares 64 direct/composed branches, checks 128 members, and recursively expands canonical members through 510 original unit macros.  Infinite nesting is not a seed because every positive child lift strictly enlarges its ancestor packet; fixed-level autonomous orbits remain open. | [`unit_charge_hierarchy_audit.json`](experiments/kontorovich/unit_charge_hierarchy_audit.json) |
-| Autonomous reversible fixed-form valuation bouncer | The rational one-cell fixed point clears integrally: with `F=(3^114-2^154)/5` and `Z=F*G-2^26`, one background cell is exactly `2^154 Z'=3^114 Z`.  At a defect boundary `Z=2^26y`, the state reads `m=v2(y+1)/23` and `h=(v2(3^(17m)(y+1)-2^(23m))-23m)/154`, then returns `y'=3^(114h)*oddpart(3^(17m)(y+1)-2^(23m))`.  The output recovers `h=v3(y')/114`, then `m=v3(1+2^(154h)q)/17` and the unique predecessor; the opcode matrix has determinant four.  The artifact checks all 64 `(m,h,m')` families with `m,m'<=4,h<=4`, 128 forward/reverse members, 320 charge macros, and 640 original unit macros.  Any infinite accepted positive `y`-orbit refutes Collatz; none is supplied. | [`unit_charge_bouncer_audit.json`](experiments/kontorovich/unit_charge_bouncer_audit.json) |
-| Canonical public-cofactor transducer | Every fixed-register state has unique public coordinates `y=D^m(w_m+S*t)-1`, `S=2FM`.  Eliminating the collision quotient gives the exact branch `2^(154h+23m')t'=3^(114h+17m)t+kappa`, hence `t=rho+2^P u -> t'=sigma+3^Q u`.  Odd endpoint cofactors recover the exact collision valuation and actual output, so this interface has no hidden representation metadata.  Lean commit `5a9324b` proves coordinate uniqueness, constructs a literal accepted bouncer step from PC3, and proves the converse.  The artifact reconstructs all 27 branches with `m,h,m'<=3` and performs 54 literal forward/reverse replays.  It supplies no invariant tail language; the live target is a finite mixed-radix feedback which makes the written ternary-scaled tail decode its own next binary instruction. | [`ChargePublicCofactor.lean`](KontoroC/KontoroC/ChargePublicCofactor.lean), [`unit_charge_public_cofactor_audit.json`](experiments/kontorovich/unit_charge_public_cofactor_audit.json), [closure doctrine](docs/notes/kontorovich-closure-principles.md) |
+| Autonomous reversible fixed-form valuation bouncer | The rational one-cell fixed point clears integrally: with `F=(3^114-2^154)/5` and `Z=F*G-2^26`, one background cell is exactly `2^154 Z'=3^114 Z`.  At a defect boundary `Z=2^26y`, the normalized coordinate reads `m=v2(y+1)/23` and `h=(v2(3^(17m)(y+1)-2^(23m))-23m)/154`, then returns `y'=3^(114h)*oddpart(3^(17m)(y+1)-2^(23m))`.  The output recovers `h=v3(y')/114`, then `m=v3(1+2^(154h)q)/17` and the unique predecessor; the opcode matrix has determinant four.  The arithmetic artifact checks all 64 `(m,h,m')` families with `m,m'<=4,h<=4`, 128 forward/reverse members, 320 charge macros, and 640 unit-macro replays.  `y` is not itself the odd Collatz state; an infinite accepted ray refutes Collatz only through the separate semantic compiler.  None is supplied. | [`unit_charge_bouncer_audit.json`](experiments/kontorovich/unit_charge_bouncer_audit.json) |
+| Canonical public-cofactor transducer | Every fixed-register state has unique normalized coordinates `y=D^m(w_m+S*t)-1`, `S=2FM`.  Eliminating the collision quotient gives the exact branch `2^(154h+23m')t'=3^(114h+17m)t+kappa`, hence `t=rho+2^P u -> t'=sigma+3^Q u`.  Odd endpoint cofactors recover the exact normalized collision valuation and output, so this arithmetic interface has no hidden representation metadata.  Lean commit `5a9324b` proves coordinate uniqueness and equivalence with the arithmetic `ChargeBouncerStep` surrogate; commits `36d6633`/`afecb2c` expose the still-separate ordinary-state/`WordLegal` obligation.  The arithmetic artifact reconstructs all 27 branches with `m,h,m'<=3` and performs 54 forward/reverse formula replays.  It supplies no invariant tail language; the live target is a finite mixed-radix feedback which makes the written ternary-scaled tail decode its own next binary instruction. | [`ChargePublicCofactor.lean`](KontoroC/KontoroC/ChargePublicCofactor.lean), [`ChargePublicCofactorSemantics.lean`](KontoroC/KontoroC/ChargePublicCofactorSemantics.lean), [`unit_charge_public_cofactor_audit.json`](experiments/kontorovich/unit_charge_public_cofactor_audit.json), [closure doctrine](docs/notes/kontorovich-closure-principles.md) |
+| Determinant-four resonant phase glider | The opcode shift `(m,h,m')->(m+2622k,h-391k,m'+2618k)` preserves both public-tail exponents `P,Q` while displacing the defect boundary by `4k`.  Parallel branches admit an integral public-tail conjugacy `E(t)=s*t+c` whenever `gcd(kappa_a,3^Q-2^P)|kappa_b`; the same equation automatically embeds the exact source cylinder.  The artifact reconstructs the first phase-down and phase-up cells, each with 21,330-digit coefficients, checks the conjugacy/cylinders coefficientwise, and performs eight arithmetic bouncer replays.  At `k=1`, `U(m)=(m,392,m+4)` is a causally decoded public one-counter policy; ordinary-tail realization, telescoping, universal literal semantics, and an infinite orbit remain unproved. | [`unit_charge_resonant_conjugacy_audit.json`](experiments/kontorovich/unit_charge_resonant_conjugacy_audit.json), [phase-glider note](docs/notes/kontorovich-resonant-phase-glider.md) |
+| Bounded literal bouncer semantic compiler | The normalized coordinate descends canonically through charge packet, unit packet, level-two packet, level-one glider, and breakoff `k`; the final router conversion, not `k`, produces the literal odd Collatz state.  The fixed substitution grammar is `charge(N)->unit[N,1]`, `unit(N)->glider[1,2,1^N]`, `glider(N)->gate[E,H,E^N]`.  The exact artifact rebuilds all 54 members with `m,h,m'<=3`, expands 756 gliders and 4,968 breakoff macros, emits 14,057 accelerated instructions, and independently replays every valuation and endpoint by direct arithmetic; all tested literal endpoints grow.  This repairs the bounded semantic regression but is not the universal Lean composition theorem or an infinite ray. | [`unit_charge_semantic_compiler.py`](experiments/kontorovich/unit_charge_semantic_compiler.py), [`unit_charge_semantic_compiler_audit.json`](experiments/kontorovich/unit_charge_semantic_compiler_audit.json) |
 | Perfect-23rd-power reproduction rail | Encoding the bouncer payload as `u=F*r^23` makes the output address self-similar because its binary cell base is `D=2^23`.  Lean commit `5fbacf5` kernel-checks the exact elimination and proves every accepted `h=1` transition would solve `3^15X^23-2^16Y^23=5`.  PARI/GP 2.15.4 checks the degree-23 polynomial irreducible, reports attached class number one, and returns the complete empty solution list; PARI documents that class-number-one fast results are unconditional.  Therefore the shortest-recharge rail is closed, with the final no-solution step trusted to PARI rather than Lean.  Higher recharge, corrected payloads, and the bouncer remain open. | [`ChargePowerQuine.lean`](KontoroC/KontoroC/ChargePowerQuine.lean), [`unit_charge_power_quine_thue.gp`](experiments/kontorovich/unit_charge_power_quine_thue.gp) |
 | Recharge-23 determinant-four resonance | At `h=23`, exact arithmetic gives `A^23=3^4C^154` and `B^23=D^154`; the forcing is the 1,198-digit integer `G23=5 Phi_23(A,B)`.  Although the original three primes leave all classes, Lean's complete checks at `277,599,829,1151` reduce every uncorrected single perfect-power transition to `e=15`, `m=9 (mod 23)`, and `3^15X^23-Y^23=G23`.  The remaining global Thue equation is explicit and is running as detached Akdeniz service `kc-r23`; a multi-rail correction can change it and remains open. | [`ChargePowerResonance.lean`](KontoroC/KontoroC/ChargePowerResonance.lean), [`unit_charge_power_resonance_thue.gp`](experiments/kontorovich/unit_charge_power_resonance_thue.gp) |
 | Public-state 23rd-power quine and hidden register | Encoding `y=s^23` makes every type-preserving recharge `h=23*ell` return the literal power `(A^ell*t)^23`.  Lean commit `4c56925` proves the `m=0 (mod 23)` no-go at `ell=1`; arbitrary positive `ell` is the same theorem after substituting `t'=B^(ell-1)t`.  Commit `f61f569` reduces every other class to a scaled norm equation, and `9f00894` retains exact valuation quotients in `w Q(s)=v Q(z)`, proves same-side cofactor gcd can contain no prime except 23, and exposes a residual congruence modulo `F`.  Commit `07352a9` checks the full elementary Roth bound and exponent-11 conversion; only the external finiteness theorem and sequence consumer remain. | [`ChargeStatePowerQuine.lean`](KontoroC/KontoroC/ChargeStatePowerQuine.lean), [`ChargeStatePowerRoth.lean`](KontoroC/KontoroC/ChargeStatePowerRoth.lean) |
@@ -3030,6 +3204,9 @@ entry points, grouped by role:
 
 | Guide | Scope |
 |---|---|
+| [`NEW_RESUME.md`](NEW_RESUME.md) | Current Kontorovich handoff: semantic compiler, live theorem seams, remote jobs, and safe continuation order. |
+| [`docs/notes/kontorovich-closure-principles.md`](docs/notes/kontorovich-closure-principles.md) | Fundamental closure laws, public-cofactor language, opcode algebra, semantic descent, and theorem-shaped search criteria. |
+| [`docs/notes/kontorovich-resonant-phase-glider.md`](docs/notes/kontorovich-resonant-phase-glider.md) | Determinant-four opcode conjugacies, exact phase-up/down cells, and the remaining telescoping/ordinary-address closure tests. |
 | [`experiments/kontorovich/README.md`](experiments/kontorovich/README.md) | Exact finite `k`-word compiler, replayable cycle artifacts, and bounded morphic-glider searches. |
 | [`docs/notes/kontorovich-delocalized-isa.md`](docs/notes/kontorovich-delocalized-isa.md) | Simon's nonlocal-instruction hypothesis, exact packet gates, ultra-small-language encodings, and the formula-bouncer attack. |
 | [`KontoroC/README.md`](KontoroC/README.md) | Independent Lean checker connecting a nontrivial accelerated cycle artifact to the ordinary Collatz conjecture. |

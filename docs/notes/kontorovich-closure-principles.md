@@ -11,6 +11,44 @@ exact below are replayed by
 `experiments/kontorovich/unit_charge_norm_opcode.py`; the proposed search
 rules are research strategy.
 
+## 0. Five conservation laws for closure
+
+These are the fundamental filters to apply before any large search.
+
+1. **Semantic conservation.**  Every abstraction layer must sit in a
+   commuting diagram with the literal accelerated Collatz map.  An affine
+   state called “ordinary” is not enough: its encoder, valuation word, and
+   literal endpoint must be explicit.
+2. **State conservation.**  The future may depend only on information
+   canonically recoverable from the current integer.  A fresh norm
+   representation, CRT lift, or external clock is an illicit second tape.
+3. **Synchronization conservation.**  Consuming an exact `2`-adic delimiter
+   spends address information.  A closed program must regenerate the next
+   delimiter, including its phase, from its surviving public payload.
+4. **Endomorphism before orbit.**  Reproduction is an exact self-map or
+   semiconjugacy on a public type.  More isolated represented points—even
+   consecutive ones—do not approach that objective unless they expose the
+   depth-independent update.
+5. **Control, not merely scale.**  Outward drift and a favorable bit budget
+   show capacity, not programmability.  The surplus must write the *specific*
+   next opcode.  This is the distinction between a growing amplifier and a
+   reproducing glider.
+
+Opcode chaining is judged by the same laws.  A matrix relation is useful only
+when its source cylinder, public decoder, and literal Collatz word also
+compose.  The search target is therefore a semantic monoid action, not just a
+semigroup collision.
+
+There is already one rigorous lower bound on the architecture.  Lean commit
+`e8585c4` excludes every eventually periodic arithmetic bouncer schedule.
+Consequently a controller whose future opcode depends only on an autonomous
+finite control state cannot work: after a transient its state, hence its
+opcode stream, would cycle.  Any surviving program must expose at least one
+**unbounded public register** which continues to affect control.  This is the
+right lesson to import from tiny counter and tape languages.  Universality is
+not required to refute Collatz, but finite control alone is provably too weak
+for this bouncer.
+
 ## 1. The target is a public self-map, not a sequence of witnesses
 
 Let `T` be the accelerated odd Collatz map, or let `P` be one of the exact
@@ -136,7 +174,8 @@ or
 B^h D^m' w'=A^h C^m w-(A^h-B^h).                 (PC4)
 ```
 
-This is not merely another necessary Diophantine equation.  For positive
+Inside the normalized charge arithmetic, this is not merely another
+necessary Diophantine equation.  For positive
 `m,h,m'`, odd positive `w,w'`, and PC2 at both endpoints, coprimality of
 `A` and `B` makes
 
@@ -144,26 +183,73 @@ This is not merely another necessary Diophantine equation.  For positive
 q=(C^m w-1)/B^h=(D^m' w'-1)/A^h
 ```
 
-an odd integer.  The actual collision is then
+an odd integer.  The normalized charge collision is then
 
 ```text
 D^m(C^m w-1)=D^m B^h q,
 ```
 
-so its valuation is exactly `23m+154h`, and its actual output is
+so its valuation is exactly `23m+154h`, and its normalized output is
 `A^h q=D^m'w'-1`.  Lean commit `5a9324b` proves that PC1--PC3 are an exact
-public-coordinate presentation of one bouncer step.  It proves coordinate
-uniqueness, builds the positive odd quotient by coprime divisibility,
-reconstructs a literal accepted `ChargeBouncerStep`, and proves the forward
-balance for every accepted step presented in these coordinates.
+public-coordinate presentation of the arithmetic `ChargeBouncerStep`
+surrogate.  It proves coordinate uniqueness, builds the positive odd quotient
+by coprime divisibility, reconstructs that arithmetic structure, and proves
+the forward balance for every such step presented in these coordinates.  It
+does **not** by itself produce a `WordLegal` Collatz execution.
 
 This should now be the primary compiler language.  A closure ansatz is one
 finite formula for positive odd `W(s)` and opcode updates
 `(m,h,s)->(m',f(s))` satisfying PC2--PC3 identically.  Norms and class forms
 may certify candidate values of `w`; their noncanonical coordinates no longer
 pretend to be state.  An infinite forward solution of this recurrence starts
-from the one ordinary integer `D^m w-1`, so the ordinary-versus-2-adic gate is
-visible rather than deferred.
+from one normalized integer `D^m w-1`, so the ordinary-versus-2-adic gate is
+visible rather than deferred; a separate finite-level encoder must still turn
+that normalized state into the literal odd Collatz state.
+
+### 3.1.1 The semantic descent is one more programming layer
+
+The normalized value `y` is not the Collatz integer, and neither is the
+quantity historically named `ordinary_start` in the glider worker.  The
+complete research-side coordinate chain is
+
+```text
+public y -> charge packet -> unit packet -> level-two packet
+ -> level-one glider packet -> breakoff k -> literal odd Collatz x.
+```
+
+The level-two packet `K` maps affinely to the intermediate breakoff state
+
+```text
+k = 5841333965851681082096808370372608*K
+    -76096151213931339145826796194905.             (PC5)
+```
+
+The final router conversion is not affine.  With
+
+```text
+r=v3(8k-1)-2,
+x=-1+2^(r+1)*(8k-1)/3^(r+1),                      (PC6)
+```
+
+the rail length `r` varies.  Consequently monotonicity of `y` or `k` is not a
+global monotonicity theorem for arbitrary encoded Collatz states; literal
+growth must be proved edge by edge or on the eventual incoming-link type.
+
+The exact symbolic word grammar is nevertheless finite:
+
+```text
+charge cell N      -> unit cells [N,1]
+level-two cell N   -> level-one gliders [1,2,1^N]
+level-one glider N -> breakoff gates [E,H,E^N]
+```
+
+The final gates emit their literal valuation words through the already exact
+router.  The bounded
+[`unit_charge_semantic_compiler.py`](../../experiments/kontorovich/unit_charge_semantic_compiler.py)
+artifact reconstructs all 54 members with `m,h,m'<=3`, emits 14,057
+accelerated instructions, and independently replays every word by direct
+`3x+1` arithmetic.  This repairs the regression seam but remains bounded;
+the universal composition theorem is now the formal target.
 
 ### 3.2 Two canonical charts form an `S`-unit ladder
 
@@ -288,6 +374,31 @@ therefore look for exact relations in this *decorated* semigroup, or prove it
 free/contracting in a relevant class.  Enumerating words without exploiting
 CP4--CP5 is too blind.
 
+### 4.1 Seven gates for a useful opcode chain
+
+“The matrices multiply” is only the first of seven increasingly strong
+claims.  Every proposed chain should be classified at the first gate it
+fails:
+
+1. **Affine composition:** CP4 holds for the word.
+2. **Type composition:** every target phase is the next source phase.
+3. **Cylinder composition:** the output family lies in the next exact dyadic
+   source cylinder; divisibility is not reselected by CRT.
+4. **Causal decoding:** the next word or opcode is a function of public state,
+   not an externally supplied clock.
+5. **Ordinary realization:** the nested cylinders contain one nonnegative
+   ordinary integer, equivalently their canonical residues eventually
+   stabilize rather than merely converging 2-adically.
+6. **Semantic composition:** the full hierarchy expands to one legal literal
+   accelerated-Collatz word with the advertised endpoint.
+7. **Nonhalting closure:** a finite invariant proves that the process can
+   continue forever and never reach `1`.
+
+This ladder separates two different uses of chaining.  Equal products or
+conjugacies are algebraic rewrite rules at gates 1--2.  A counterexample is a
+self-interpreter passing all seven.  Computation is most valuable when it
+tests one named gate for an entire parametric family.
+
 ## 5. A finite program must pay its address bill
 
 An accepted block consumes an exact dyadic cylinder of width
@@ -387,7 +498,10 @@ The next fundamental attacks are:
 - **Decorated-semigroup relations.**  Classify short relations or
   conjugacies among the `M(m,g,h)`, after quotienting the exact CP5 defect
   backbone.  A survivor must include the CP2 boundary cylinders, not merely
-  matrix equality.
+  matrix equality.  Lean commit `e8585c4` closes every fixed nonempty finite
+  opcode period, even after a transient, by compressing the period to one
+  expanding coprime affine gain law.  The constructive lane must therefore
+  use payload-driven genuinely aperiodic substitutions or conjugacies.
 - **Debris endogenization.**  Use
   `H_(m+n)=C^nH_m+D^mH_n` to make collision debris part of the next opcode
   state rather than an error corrected by a fresh CRT word.

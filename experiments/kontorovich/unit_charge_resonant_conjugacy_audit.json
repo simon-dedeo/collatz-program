@@ -1,0 +1,135 @@
+{
+  "claim_scope": "two exact arithmetic public-tail conjugacies at the first determinant-four resonance, including canonical source-cylinder and bounded bouncer-formula replays; no literal Collatz semantic compiler, invariant language, infinite orbit, or counterexample",
+  "conjugacy_criterion": "gcd(kappa_a,3^Q-2^P)|kappa_b implies an integral affine E(t)=s*t+c with E after F_a = F_b after E",
+  "records": [
+    {
+      "P": 60391,
+      "Q": 44705,
+      "affine_conjugacy_identity_checked": true,
+      "embedding_intercept_bits": 70854,
+      "embedding_intercept_decimal_digits": 21330,
+      "embedding_intercept_decimal_sha256": "6cd0f8f632e32cbd8f937be54a011f1282866ebe3fcabfc80d0477fc4d19046f",
+      "embedding_slope_bits": 70855,
+      "embedding_slope_decimal_digits": 21330,
+      "embedding_slope_decimal_sha256": "d8aef2c1e69438e12ed0b5e43a198f6ddc04566fe44669b4efb8964f99eb9d5f",
+      "gain_gap_positive": true,
+      "kappa_gcd_with_gain_gap": 1,
+      "name": "phase_down",
+      "samples": [
+        {
+          "arithmetic_bouncer_replays_checked": 2,
+          "source_and_target_tail_embedding_checked": true,
+          "source_input_y_bits": 60671,
+          "source_output_y_bits": 71136,
+          "source_surviving_tail": 0,
+          "target_input_y_bits": 191831,
+          "target_input_y_decimal_sha256": "59af1fbbb538ff0e9d6ee4b6753e730913dd8fc483e7080b5ef98640ab59f855",
+          "target_output_y_bits": 202204,
+          "target_output_y_decimal_sha256": "a4b646f58fa9417f37db1e16a60535dc8c5e975d8639ceccc209c27c13daac93",
+          "target_surviving_tail_bits": 70853,
+          "target_surviving_tail_decimal_sha256": "2754d0e180497c26d8a46e50bd241fa258a8d728b98206692248e843da8056f1"
+        },
+        {
+          "arithmetic_bouncer_replays_checked": 2,
+          "source_and_target_tail_embedding_checked": true,
+          "source_input_y_bits": 60673,
+          "source_output_y_bits": 71138,
+          "source_surviving_tail": 1,
+          "target_input_y_bits": 191833,
+          "target_input_y_decimal_sha256": "ff73743c1a49e012e786dfa9ca777f226c4e1914456b4edbb15321c481d4d39a",
+          "target_output_y_bits": 202206,
+          "target_output_y_decimal_sha256": "ffd74c5f0a2e52f1d0974c9044080bfd02dce177a5374aa96f72c8b9b45c31b2",
+          "target_surviving_tail_bits": 70855,
+          "target_surviving_tail_decimal_sha256": "f4a7fdecf5b5e70f297eb23a4c87ba392f02174ebc472475d170bc26d16d7b56"
+        }
+      ],
+      "source_cylinder_embedding_checked": true,
+      "source_opcode": {
+        "h": 392,
+        "m": 1,
+        "next_m": 1
+      },
+      "source_phase_change": 0,
+      "surviving_tail_base_bits": 70853,
+      "surviving_tail_base_decimal_sha256": "2754d0e180497c26d8a46e50bd241fa258a8d728b98206692248e843da8056f1",
+      "target_opcode": {
+        "h": 1,
+        "m": 2623,
+        "next_m": 2619
+      },
+      "target_phase_change": -4,
+      "target_tail_embedding_checked": true
+    },
+    {
+      "P": 60483,
+      "Q": 44705,
+      "affine_conjugacy_identity_checked": true,
+      "embedding_intercept_bits": 70855,
+      "embedding_intercept_decimal_digits": 21330,
+      "embedding_intercept_decimal_sha256": "bda86631dba52b1e52040e1cd686ac926f9947494162fdad8aedcb7683624134",
+      "embedding_slope_bits": 70856,
+      "embedding_slope_decimal_digits": 21330,
+      "embedding_slope_decimal_sha256": "a86afe8c385a80b29683affec0da339aaaa0ac91132e4fd3d0c67eb5dd3c3276",
+      "gain_gap_positive": true,
+      "kappa_gcd_with_gain_gap": 1,
+      "name": "phase_up",
+      "samples": [
+        {
+          "arithmetic_bouncer_replays_checked": 2,
+          "source_and_target_tail_embedding_checked": true,
+          "source_input_y_bits": 60762,
+          "source_output_y_bits": 71227,
+          "source_surviving_tail": 0,
+          "target_input_y_bits": 191923,
+          "target_input_y_decimal_sha256": "df4e86c03df11f9e8b8d68e595b54f8988e623c8b404d1114670052317090e1b",
+          "target_output_y_bits": 202296,
+          "target_output_y_decimal_sha256": "3a4c3ffc64e16342223d5e1a6140bf4c27685e16865f32cef8ca40ed1ef08651",
+          "target_surviving_tail_bits": 70853,
+          "target_surviving_tail_decimal_sha256": "f35cda675f7edac07790454514634108117b080fc44eeb9a608a0e8022a71819"
+        },
+        {
+          "arithmetic_bouncer_replays_checked": 2,
+          "source_and_target_tail_embedding_checked": true,
+          "source_input_y_bits": 60765,
+          "source_output_y_bits": 71230,
+          "source_surviving_tail": 1,
+          "target_input_y_bits": 191926,
+          "target_input_y_decimal_sha256": "0944bbba2ef3a1118308f1674a0fe92b207bd9fc766e830e231f1a1ac77dc14e",
+          "target_output_y_bits": 202299,
+          "target_output_y_decimal_sha256": "a1b59b90da18d93b0ad707d23a510c7148378440a3e9b664c1678e5aca0aa2b1",
+          "target_surviving_tail_bits": 70856,
+          "target_surviving_tail_decimal_sha256": "dfc062f7ee4cbdb3eaf6384ac2ae9bbd074b985c9da79f5f3279d9bb9ce1d92f"
+        }
+      ],
+      "source_cylinder_embedding_checked": true,
+      "source_opcode": {
+        "h": 392,
+        "m": 1,
+        "next_m": 5
+      },
+      "source_phase_change": 4,
+      "surviving_tail_base_bits": 70853,
+      "surviving_tail_base_decimal_sha256": "f35cda675f7edac07790454514634108117b080fc44eeb9a608a0e8022a71819",
+      "target_opcode": {
+        "h": 1,
+        "m": 2623,
+        "next_m": 2623
+      },
+      "target_phase_change": 0,
+      "target_tail_embedding_checked": true
+    }
+  ],
+  "resonance": {
+    "P_invariance": "154*391=23*2618",
+    "Q_invariance": "114*391=17*2622",
+    "opcode_shift": [
+      2622,
+      -391,
+      2618
+    ],
+    "phase_slip": 4
+  },
+  "schema": "collatz-unit-charge-resonant-conjugacy-v1",
+  "strategic_scope": "the resonance produces exact phase-up and phase-down glider cells; closure still requires payload-driven direction/jump renewal because every fixed periodic bounce is obstructed",
+  "verifier_sha256": "fdc99eddad088820aa79e946aeca404c3af2bddedf271413e3df0bb1894d2e66"
+}

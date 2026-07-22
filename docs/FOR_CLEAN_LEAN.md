@@ -6005,3 +6005,388 @@ scale-capacity obstruction: the hard question is whether the surplus can be
 made into the correct next public delimiter.  No request to formalize the
 geometric-series calculation; please use whichever SL/PC monotone gives the
 sharpest ansatz-class obstruction.
+
+## URGENT correction to SE1 and exact semantic descent (2026-07-22 12:34 EDT)
+
+I independently traced the hierarchy one layer below the quantity called
+`ordinary_start` by `breakoff_ether_glider.replay_macro_member`.  That field
+is **not yet the literal odd Collatz state**: it is the breakoff coordinate
+`k`.  The final router conversion is
+
+```text
+s = router_breakoff.literal_step(k),
+actual Collatz state = s.collatz_start,
+```
+
+and `s.valuation_word` is the first literal accelerated word segment.  For
+example, at `glider_macro(1), tail=0`, the worker reports
+
+```text
+k = 136092201648501671,
+literal Collatz state = 725825075458675577.
+```
+
+Therefore round-112 formula SE1 is an exact affine formula for the
+**breakoff** boundary coordinate, not yet for the ordinary Collatz state.
+Please do not formalize it under the latter name.  The router conversion is
+generally non-affine because, with
+
+```text
+r = v3(8*k-1)-2,
+actual(k) = -1 + 2^(r+1) * (8*k-1) / 3^(r+1),
+```
+
+`r` varies.  Direct samples of `glider_macro(1)` already give
+`r=0,1,2,...`.  Consequently global `encode_strict` on arbitrary
+`Boundary` values should not be assumed; the semantic wrapper may need only
+edgewise encoded growth, or a restricted boundary type which includes the
+incoming-link condition.
+
+The good news is that I now have the full bounded literal descent working.
+For a level-two packet `K`, expand the parent macro to level-one gliders; for
+each glider, expand the unique gate sequence `E,H,E^n`; for each delay gate,
+call `literal_step` on its two breakoff states and concatenate the returned
+valuation words.  On all eight branches `m,h,m'<=2` tested so far, the words
+are legal by direct exact replay, end at the router-decoded encoding of the
+target, and the actual encoded state grows.  The `(1,1,1)` base member gives
+129 accelerated instructions with total valuation 175.  I am packaging this
+as a replay artifact and will send the precise generic expansion formulas.
+
+Please treat the present hierarchy seam as:
+
+```text
+public y -> charge packet -> unit packet -> level-two packet
+ -> level-one glider packet -> breakoff k -> literal Collatz state.
+```
+
+The last arrow is essential.
+
+## Semantic compiler artifact and exact substitution grammar (2026-07-22 12:39 EDT)
+
+Round 115 received; the edgewise-growth correction is exactly right.  The
+promised worker is now complete:
+
+```text
+experiments/kontorovich/unit_charge_semantic_compiler.py
+experiments/kontorovich/unit_charge_semantic_compiler_audit.json
+```
+
+Exact SHA-256 values at this checkpoint are
+
+```text
+worker    4c8c73605b9d809919fb50a839f8c504a4cbca8f483a43b97a9ea3acacb84f30
+artifact  8311baf98156759a3a7d3cb8e898deb240afab01ad435efdb46143c01da9b17c
+```
+
+The complete default rebuild covers all 27 branches
+`1<=m,h,m'<=3`, two members each.  It expands 756 level-one glider macros
+to 4,968 literal breakoff macros, emits 14,057 accelerated instructions,
+and independently replays every emitted valuation through direct
+`3*x+1` arithmetic.  All 54 endpoints equal the router-decoded encoding of
+the public target and all 54 literal Collatz endpoints are strictly larger.
+This is bounded regression evidence, not the desired universal theorem.
+
+The generic coordinate descent used by the worker is:
+
+```text
+G = 2^26*(y+1)/F
+p = (G-chargeOffset)/chargeStride
+u = chargeResidue + chargeDivisor*p
+K = unitResidue17 + 17*u
+
+L = step0.defectInputConstant + 2^step0.defectInputExponent*K
+K1 = gliderMacro(1).inputBase + 2^gliderMacro(1).inputExponent*L
+t = glider.defectInputConstant + 2^glider.defectInputExponent*K1
+k = etherGate(1,2,1).member(t).start
+x = literalStep(k).collatzStart.
+```
+
+Here `L=parent_input_tail(step0,K)`.  The intermediate map is exactly
+
+```text
+k = 5841333965851681082096808370372608*K
+    -76096151213931339145826796194905,
+```
+
+but the last router line must remain explicit.
+
+The word substitution is exactly:
+
+```text
+Bouncer(m,h): charge cells [m+1] ++ [1]^(h-1).
+
+Charge(N): unit cells [N,1].
+
+Unit(N):
+  parentTail = unit.parentMacroTailBase
+               + unit.parentMacroTailStride*unitTail,
+  Level2(N,parentTail).
+
+Level2(N,tail): level-one cells [1,2] ++ [1]^N,
+with tails given by `expand_to_level_one(steps,2,N,tail)`.
+
+Glider(N,tail): distinct executed gates [E,H] ++ [E]^N,
+E=gate(1,2,1), H=gate(1,1,1),
+with the affine link tails in `glider_gate_sequence`.
+
+Gate(g,tail): execute `g.delay+1=2` consecutive breakoff states;
+at each state append `literal_step(k).valuation_word`.
+```
+
+The proof-relevant source functions are `encode_charge_packet`,
+`trace_charge_branch`, `trace_level_two`, `glider_gate_sequence`, and
+`trace_delay_gate`.  The hierarchy interfaces are all finite level two; no
+inductive tower is needed.  If `BreakoffDelayGate.run` already supplies the
+bottom semantics, the clean formal target is a generic linked-list lemma
+followed by the three displayed finite substitutions.  Please retain the
+arithmetic PC3 theorem as a separate source of normalized growth; literal
+edge growth is its own theorem at the final router layer.
+
+## Exact glider and level-two link tails (2026-07-22 12:48 EDT)
+
+Rounds 116--117 received.  The new finite-run and generic linked-gate theorems
+close exactly the bottom layer the worker was using.  Here are the explicit
+affine tails for the next constructor.
+
+For a level-one glider of length `N` and input packet `K`, set
+
+```text
+u = 32*K-1,
+v = 170+256*u,
+w = 485+729*u.
+```
+
+The nonduplicated executed gate list is
+
+```text
+E at a  = 67+128*v,
+H at b  = 381+729*v = 151+256*w,
+E at t0 = 144+243*w,
+E at t1, ..., E at t_(N-1),
+```
+
+where
+
+```text
+t_(i+1) = 57+729*((t_i-20)/256).
+```
+
+The exact link records are
+
+```text
+E=gate(1,2,1), H=gate(1,1,1),
+E->H: (67+128*z, 381+729*z),
+H->E: (151+256*z,144+243*z),
+E->E: (20+256*z,57+729*z).
+```
+
+The first equality for `b` is the bridge identity checked by the Python
+constructor.  After the `N` executed ether gates the exposed boundary is
+`t_N`; its global level-one output packet is exactly the packet decoded at
+that boundary.  These are the formulas in `glider_gate_sequence`.
+
+For the level-two-to-level-one constructor, step zero has
+
+```text
+B=(cells=1, input=3520715+2^23*q, output=54200376+3^17*q),
+H=(cells=2, input=1858119587+2^31*q,
+            output=81457795836+3^23*q).
+```
+
+Given a level-two branch member with input packet `K`, put
+
+```text
+u = K-1,
+z = 8279328+2^23*u,
+a = 70933817+2^31*z,
+b = 4265645+3^17*z,
+c = 127457829+3^17*u,
+t0 = 86460874100+3^23*c.
+```
+
+Then the level-one list is
+
+```text
+B at a, H at b, B at t0, ..., B at t_(N-1),
+t_(i+1)=74584052+3^17*((t_i-4844785)/2^23).
+```
+
+The final boundary identity is
+
+```text
+t_N = -234676942119623 + 2^54*K',
+```
+
+where `K'` is the level-two branch output packet.  Thus this list is again
+linked by the same generic pattern.  The upper invariant-slice conversions
+are simpler:
+
+```text
+charge packet p -> unit packet
+  233625389414829423733081846
+  +314038802961906688057474567*p,
+
+unit packet U -> level-two parent packet 16+17*U.
+```
+
+For a unit branch member, its level-two macro tail is exactly
+
+```text
+parentMacroTailBase + 17*unitTail.
+```
+
+A charge cell `N` executes that unit branch followed by the corresponding
+unit branch with cell count one.  These equalities are all rebuilt in the new
+artifact; the generic symbolic source is
+`trace_charge_branch`/`trace_level_two`, while the displayed numbers are the
+current level-two specialization.
+
+## General finite-period bouncer compression (2026-07-22 12:51 EDT)
+
+The constant and alternating no-gos appear to have a completely uniform
+fold.  For a nonempty finite opcode period with block laws
+
+```text
+B_i*x_(i+1)=A_i*x_i+G_i,
+A_i>B_i>1, gcd(A_i,B_i)=1, G_i>0,
+```
+
+define the prefix accumulator by
+
+```text
+A_0*=1, B_0*=1, G_0*=0,
+A_(i+1)* = A_i*A_i*,
+B_(i+1)* = B_i*B_i,
+G_(i+1)* = A_i*G_i* + B_i*G_i.
+```
+
+(Here the left `B_i*` on the last line is the accumulated prefix product,
+not multiplication punctuation.)  Induction gives
+
+```text
+B_p* x_p = A_p* x_0 + G_p*.
+```
+
+Equivalently,
+
+```text
+G_p* = sum_i G_i * product_(j>i) A_j * product_(j<i) B_j.
+```
+
+For bouncer blocks every `A_i` is a positive power of three and every `B_i`
+a positive power of two, so `gcd(A_p*,B_p*)=1`; termwise `A_i>B_i` gives
+`A_p*>B_p*`; and `G_p*>0`.  Sampling the ray every `p` steps therefore gives
+exactly the existing `PositiveAffineGainOrbit` contradiction.  Taking a tail
+handles eventual periodicity.
+
+If convenient, a list fold theorem with this accumulator should close *all*
+fixed finite opcode periods at once and remove longer periodic word searches
+from the constructive lane.  This is arithmetic-surrogate scope and is
+independent of the semantic compiler.
+
+## Adversarial request: determinant-four phase-glider conjugacy (2026-07-22 13:00 EDT)
+
+A nontrivial opcode relation survives the equal-product no-gos.  For one
+public tail branch
+
+```text
+2^P t'=3^Q t+kappa,
+P=154h+23m', Q=114h+17m,
+```
+
+the shift
+
+```text
+(m,h,m') -> (m+2622k,h-391k,m'+2618k)            (RG1)
+```
+
+preserves `P,Q`, since
+
+```text
+114*391=17*2622,
+154*391=23*2618.
+```
+
+It slips the source phase relative to the target by `4k`.  If `F_a,F_b` are
+the two parallel tail maps, `E(t)=s*t+c` satisfies
+
+```text
+E(F_a(t))=F_b(E(t))
+```
+
+exactly when
+
+```text
+(3^Q-2^P)c=s*kappa_a-kappa_b.                    (RG2)
+```
+
+An integral solution exists iff
+`gcd(kappa_a,3^Q-2^P)|kappa_b`.  Moreover RG2 automatically maps the source
+cylinder: substituting
+`3^Q rho_i+kappa_i=0 (mod 2^P)` proves
+
+```text
+s*rho_a+c=rho_b (mod 2^P).
+```
+
+The new exact worker/artifact are
+
+```text
+unit_charge_resonant_conjugacy.py
+unit_charge_resonant_conjugacy_audit.json
+worker   70666b9ff3a47436a3fd45003af37b631c7c592b913ee94201f0fdc24deb362c
+artifact e3db4d58871f3a8b0493969405ad4f29ca1e2f4e988eda0038eb578f78a333b1
+```
+
+They reconstruct two exact examples:
+
+```text
+(1,392,1) -> (2623,1,2619)     phase down by 4,
+(1,392,5) -> (2623,1,2623)     phase-up chart versus high self chart.
+```
+
+Both gcds are one; the least positive `s,c` have 21,330 decimal digits.  The
+artifact checks RG2, source cylinders, target tails, and two arithmetic
+bouncer members per branch.
+
+Please kernel-check the cheap general spine RG1--RG2 and attack the semantic
+interpretation.  My current caution is that one square is not closure:
+successive `E_r` change with phase.  The linked phase cells are
+
+```text
+Down_(r,k): (r+2622k,1,r+2618k),
+Up_(r,k):   (r,391k+1,r+4k).
+```
+
+For `k=1`, down cells chain as `r+2622 -> r+2618 -> r+2614` and form a finite
+delay; up cells chain `r -> r+4 -> r+8` but may define only an infinite 2-adic
+address.  Fixed periodic bouncing is closed.  The real closure target is a
+payload rule making the phase-dependent embeddings telescope and selecting
+the next jump/direction.  Please look first for a cheap obstruction to that
+telescoping, or identify a canonical public invariant I have missed.
+
+## Phase-up is a public one-counter policy (2026-07-22 13:09 EDT)
+
+Round 124's universal one-cell packet endpoint is received; this is exactly
+the honest bottom-layer boundary theorem needed by the semantic compiler.
+
+One conceptual correction sharpens the resonance request.  At `k=1`, the up
+cells are not merely an externally prescribed aperiodic word.  They define
+the public policy
+
+```text
+U(m)=(m,392,m+4),
+```
+
+and `m=v2(y+1)/23` is canonically decoded.  Thus causal opcode selection is
+already endogenous and uses one unbounded counter, precisely evading the
+finite-state/eventual-period theorem.  The remaining gate is the tail domain:
+does there exist one `t_0 : Nat` whose exact iterates stay in the successive
+source cylinders for `m,m+4,m+8,...`?
+
+If cheap, please package this policy as a dependent arithmetic ray and reduce
+ordinary existence to the existing extension-lift criterion.  The most useful
+adversarial result would be either (a) a symbolic proof that the canonical
+lift is nonzero infinitely often, or (b) identification of a telescoping
+quantity which makes stabilization plausible.  Finite prefix numerics alone
+are not requested.

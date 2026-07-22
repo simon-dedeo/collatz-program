@@ -2472,10 +2472,11 @@ instruction
 t=rho+2^P*u  ->  t'=sigma+3^Q*u.
 ```
 
-The state `(m,t)` is uniquely decoded from the ordinary integer; it is not a
-chosen certificate coordinate.  Positive odd endpoint cofactors make the
-collision quotient odd, so the equality recovers the exact valuation and
-actual bouncer output.  The bounded artifact reconstructs every branch with
+The state `(m,t)` is uniquely decoded from the normalized public integer
+`y`; it is not a chosen certificate coordinate.  Positive odd endpoint
+cofactors make the collision quotient odd, so the equality recovers the exact
+normalized valuation and bouncer output.  The bounded arithmetic artifact
+reconstructs every branch with
 `1<=m,h,m'<=3`, replays two members per branch through the public bouncer and
 its reverse decoder, and checks 54 exact transitions.  At each tested control
 state it also checks all 36 pairs of source cylinders disjoint.  The complete
@@ -2505,8 +2506,10 @@ The cofactor recurrence and normalized payload recurrence are therefore two
 projections of one exact square; a future renormalization must return the
 whole square, not merely preserve one arithmetic representation.
 Lean commit `5a9324b` independently proves coordinate uniqueness, the
-converse from the public balance to a literal `ChargeBouncerStep`, and the
-forward balance from every accepted step in these coordinates.
+converse from the public balance to the arithmetic `ChargeBouncerStep`
+surrogate, and the forward balance from every such step in these coordinates.
+It does not alone connect the normalized state to `WordLegal` Collatz
+semantics; the separate compiler below audits that descent on bounded members.
 
 ```bash
 PYTHONPATH=. python3 unit_charge_public_cofactor.py selftest
@@ -2515,8 +2518,86 @@ PYTHONPATH=. python3 unit_charge_public_cofactor.py verify unit_charge_public_co
 ```
 
 ```text
-artifact SHA-256      95b5c6164a4c5f681f27b8fc98c59b7e3286c8f0e1b21ec1d473b52fef0e6f0a
-verifier file SHA-256 5a723c9e29b15ee3d6b8c37aca8e54b444a0acd9e0a0b115bff34d8deca6c9bf
+artifact SHA-256      2a12e1d9c3493e5cfbdb0fe903f3d5aec445e7c2b99b52edfbd44f1fb422e2d7
+verifier file SHA-256 89030b15382b3ad469869b69dc3aeff7859898ef3b0631140e501464a2bcd32b
+```
+
+## Bounded literal charge-bouncer semantic compiler
+
+`unit_charge_semantic_compiler.py` repairs the final semantic seam.  The
+normalized `y` is not itself the Collatz state, and the glider worker's
+historical `ordinary_start` field is still the intermediate breakoff state
+`k`.  The complete coordinate chain is
+
+```text
+y -> charge packet -> unit packet -> level-two packet
+  -> level-one packet -> breakoff k -> literal odd Collatz state.
+```
+
+The finite substitution grammar is
+
+```text
+charge cell N      -> unit cells [N,1]
+level-two cell N   -> level-one gliders [1,2,1^N]
+level-one glider N -> breakoff gates [E,H,E^N].
+```
+
+The final gate layer calls `router_breakoff.literal_step` and concatenates
+its valuation words.  A separate direct accelerated replay recomputes every
+`v2(3*x+1)` and endpoint without trusting the hierarchy labels.  The default
+artifact covers all 27 branches with `1<=m,h,m'<=3`, two members each: 756
+glider macros, 4,968 breakoff macros, and 14,057 accelerated instructions.
+All 54 literal endpoints equal the router-decoded target and are strictly
+larger.  This is bounded exact regression, not a universal Lean composition
+theorem or an infinite orbit.
+
+```bash
+PYTHONPATH=. python3 unit_charge_semantic_compiler.py selftest
+PYTHONPATH=. python3 unit_charge_semantic_compiler.py build unit_charge_semantic_compiler_audit.json
+PYTHONPATH=. python3 unit_charge_semantic_compiler.py verify unit_charge_semantic_compiler_audit.json
+```
+
+```text
+artifact SHA-256      8311baf98156759a3a7d3cb8e898deb240afab01ad435efdb46143c01da9b17c
+verifier file SHA-256 4c8c73605b9d809919fb50a839f8c504a4cbca8f483a43b97a9ea3acacb84f30
+```
+
+## Determinant-four resonant phase conjugacies
+
+`unit_charge_resonant_conjugacy.py` uses the exact exponent resonance
+
+```text
+(m,h,m') -> (m+2622k,h-391k,m'+2618k).
+```
+
+It preserves the public-tail exponents `P,Q` but displaces source and target
+defect phases by `4k`.  Parallel branches
+`F_i(t)=(3^Q*t+kappa_i)/2^P` admit an integral affine conjugacy
+`E(t)=s*t+c` whenever
+
+```text
+gcd(kappa_a,3^Q-2^P) | kappa_b.
+```
+
+The artifact exactly constructs the first phase-down pair
+`(1,392,1) -> (2623,1,2619)` and phase-up pair
+`(1,392,5) -> (2623,1,2623)`.  Their embeddings have 21,330-digit slopes and
+intercepts.  It checks the conjugacy identity, source-cylinder and output-tail
+embeddings coefficientwise, then replays two members of all four branches
+through the arithmetic bouncer formula.  This is a genuine public-tail
+glider cell, not a telescoping self-map, literal semantic theorem, or infinite
+orbit.  Fixed periodic bouncing is already obstructed; the open problem is a
+payload-generated direction/jump rule.
+
+```bash
+PYTHONPATH=. python3 unit_charge_resonant_conjugacy.py selftest
+PYTHONPATH=. python3 unit_charge_resonant_conjugacy.py build unit_charge_resonant_conjugacy_audit.json
+PYTHONPATH=. python3 unit_charge_resonant_conjugacy.py verify unit_charge_resonant_conjugacy_audit.json
+```
+
+```text
+artifact SHA-256      e3db4d58871f3a8b0493969405ad4f29ca1e2f4e988eda0038eb578f78a333b1
+verifier file SHA-256 70666b9ff3a47436a3fd45003af37b631c7c592b913ee94201f0fdc24deb362c
 ```
 
 ## Three low-description aperiodic bouncer clocks

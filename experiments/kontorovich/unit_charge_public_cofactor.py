@@ -31,8 +31,9 @@ tail:
 
 Unlike quadratic-form coordinates, ``(m,t)`` is uniquely recoverable from the
 public integer.  This worker reconstructs the bases and branch constants and
-literally replays a bounded complete family through ``bouncer_step``.  The
-artifact is an exact interface audit, not an infinite orbit or counterexample.
+replays a bounded complete family through the arithmetic ``bouncer_step``
+surrogate.  The artifact is an exact arithmetic interface audit, not a
+literal Collatz-word compiler, infinite orbit, or counterexample.
 """
 
 from __future__ import annotations
@@ -55,7 +56,7 @@ from unit_charge_bouncer import (
 )
 
 
-SCHEMA = "collatz-unit-charge-public-cofactor-v1"
+SCHEMA = "collatz-unit-charge-public-cofactor-v2"
 REGISTER_MODULUS = int(constants()["M"])
 COFACTOR_STRIDE = 2 * F * REGISTER_MODULUS
 REGISTER_ODD_PART = C - D
@@ -196,14 +197,14 @@ def replay_branch_member(
     ):
         raise AssertionError("S-unit ladder next-state square failed")
 
-    literal = bouncer_step(y)
+    arithmetic = bouncer_step(y)
     if (
-        literal.output_y != output_y
-        or literal.input_defect_cells != m + 1
-        or literal.background_cells != h - 1
-        or literal.output_defect_cells != next_m + 1
+        arithmetic.output_y != output_y
+        or arithmetic.input_defect_cells != m + 1
+        or arithmetic.background_cells != h - 1
+        or arithmetic.output_defect_cells != next_m + 1
     ):
-        raise AssertionError("canonical public recurrence missed bouncer semantics")
+        raise AssertionError("canonical public recurrence missed bouncer arithmetic")
     reverse = reverse_bouncer_step(output_y)
     if reverse.input_y != y:
         raise AssertionError("canonical public recurrence lost reverse readback")
@@ -223,7 +224,7 @@ def replay_branch_member(
         "next_ternary_rail": next_ternary_rail,
         "S_unit_ladder_square": True,
         "public_recurrence_exact": True,
-        "literal_bouncer_replay": True,
+        "arithmetic_bouncer_replay": True,
         "reverse_readback": True,
         "canonical_decode": True,
     }
@@ -329,8 +330,9 @@ def build_record(bound: int = 3, members: int = 2) -> dict[str, object]:
         "verifier_sha256": source_sha256(),
         "claim_scope": (
             "exact canonical public-cofactor bases and affine tail branch "
-            "formulas; bounded complete literal bouncer and reverse replay; "
-            "no invariant language, infinite orbit, or counterexample"
+            "formulas; bounded complete arithmetic bouncer and reverse replay; "
+            "no literal Collatz-word compiler, invariant language, infinite "
+            "orbit, or counterexample"
         ),
         "constants": {
             "A": A,
@@ -349,7 +351,7 @@ def build_record(bound: int = 3, members: int = 2) -> dict[str, object]:
             "opcode_bound": bound,
             "members_per_branch": members,
             "branches": len(branch_rows),
-            "literal_replays": len(branch_rows) * members,
+            "arithmetic_replays": len(branch_rows) * members,
         },
         "canonical_bases": base_rows,
         "branches": branch_rows,
@@ -376,7 +378,7 @@ def build_record(bound: int = 3, members: int = 2) -> dict[str, object]:
             "branch_kappa_integral": True,
             "affine_binary_to_ternary_tail_map": True,
             "bounded_instruction_cylinders_prefix_free": True,
-            "literal_bouncer_replay": True,
+            "arithmetic_bouncer_replay": True,
             "reverse_readback": True,
             "S_unit_ladder_squares": True,
             "counterexample_not_claimed": True,

@@ -1,8 +1,169 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Paused: 2026-07-22, about 11:25 EDT
+Updated: 2026-07-22, about 13:09 EDT
 
 Repository: `/Users/simon/Desktop/COLLATZ`
+
+## CURRENT OVERRIDE — read this before the older detail below
+
+The old 11:25 snapshot remains useful history, but the research target has
+moved decisively from isolated quadratic/Thue transitions to **semantic
+closure**.  Start with `git log --oneline -10`, the top README Diary entry,
+and `docs/notes/kontorovich-closure-principles.md`.
+
+The five current design laws are: conserve literal Collatz semantics across
+every abstraction; allow only public/canonical state; regenerate every spent
+delimiter; construct an endomorphism before collecting points; and demand
+control of the next opcode rather than mere outward scale.  Opcode chaining
+is useful only as a decoder-compatible semantic action, not a naked matrix
+collision.
+
+### Canonical arithmetic compiler, with corrected scope
+
+For a normalized boundary,
+
+```text
+y=D^m w-1,
+A^h(C^m w-1)=B^h(D^m' w'-1),
+```
+
+Lean commit `5a9324b` proves unique public coordinates and exact equivalence
+with the **arithmetic** `ChargeBouncerStep` surrogate.  Commits
+`36d6633`/`afecb2c` expose the separate semantic obligation.  Do not call PC3
+alone a Collatz compiler.
+
+The crucial correction is that neither normalized `y` nor the hierarchy
+field named `ordinary_start` is the odd Collatz state.  The latter is the
+breakoff coordinate `k`; the true state is
+`router_breakoff.literal_step(k).collatz_start`.  Lean round 115 therefore
+uses edgewise encoded growth, not a false global monotone encoder.
+
+### New exact semantic regression
+
+The complete bounded descent is now in
+
+```text
+experiments/kontorovich/unit_charge_semantic_compiler.py
+experiments/kontorovich/unit_charge_semantic_compiler_audit.json
+```
+
+It composes
+
+```text
+charge(N) -> unit[N,1]
+unit(N)   -> glider[1,2,1^N]
+glider(N) -> breakoff gates [E,H,E^N]
+```
+
+and takes the literal valuation words from the final router.  The default
+artifact covers all 54 members with `m,h,m'<=3`, expands 756 gliders and 4,968
+breakoff macros, emits 14,057 accelerated instructions, and independently
+replays every `v2(3*x+1)` and endpoint.  All tested literal endpoints agree
+and grow.  Worker SHA-256:
+`4c8c73605b9d809919fb50a839f8c504a4cbca8f483a43b97a9ea3acacb84f30`;
+artifact SHA-256:
+`8311baf98156759a3a7d3cb8e898deb240afab01ad435efdb46143c01da9b17c`.
+This is bounded regression, not the universal theorem or an infinite ray.
+
+The intermediate level-two packet encoding is exactly
+
+```text
+k=5841333965851681082096808370372608*K
+  -76096151213931339145826796194905,
+```
+
+but this is the breakoff `k`, not the Collatz state; the final router rail
+length varies.
+
+### First exact opcode conjugacy: resonant phase gliders
+
+The determinant-four identities expose a nontrivial relation which survives
+the equal-short-product no-gos:
+
+```text
+(m,h,m') -> (m+2622k,h-391k,m'+2618k).
+```
+
+This preserves public-tail `P,Q` but slips the source/target phase by `4k`.
+For two parallel branches, an affine public-tail conjugacy `E(t)=s*t+c`
+exists when
+
+```text
+gcd(kappa_a,3^Q-2^P) | kappa_b.
+```
+
+The exact worker/artifact are
+
+```text
+experiments/kontorovich/unit_charge_resonant_conjugacy.py
+experiments/kontorovich/unit_charge_resonant_conjugacy_audit.json
+```
+
+They construct the first phase-down pair
+`(1,392,1)->(2623,1,2619)` and phase-up pair
+`(1,392,5)->(2623,1,2623)`, with 21,330-digit integral slopes/intercepts,
+coefficientwise cylinder checks, and eight arithmetic bouncer replays.
+Worker hash:
+`70666b9ff3a47436a3fd45003af37b631c7c592b913ee94201f0fdc24deb362c`;
+artifact hash:
+`e3db4d58871f3a8b0493969405ad4f29ca1e2f4e988eda0038eb578f78a333b1`.
+
+This is an exact glider *cell*, not closure.  Successive phase-dependent
+embeddings do not yet telescope; an infinite phase-up word may still define
+only a 2-adic address; and a fixed periodic bounce is obstructed.  Read
+`docs/notes/kontorovich-resonant-phase-glider.md`.  The next constructive
+question is whether the surviving tail can choose and regenerate its own
+jump size/direction.
+
+The fixed-`k=1` up family is more endogenous than “prescribed word” suggests:
+
+```text
+U(m)=(m,392,m+4).
+```
+
+Since `m=v2(y+1)/23` is public, this is an autonomous one-counter policy.  It
+already passes the causal-decoder gate and evades the finite-state/periodic
+no-go by using unbounded public phase.  Its exact remaining closure question
+is whether the nested tail cylinders have one ordinary natural realization;
+do not replace that question by deeper prefix simulation.
+
+### Companion Lean state and next tasks
+
+At this update, the newest pushed formalizer checkpoints are:
+
+- `737e8de`: constant `(m,h)` schedules impossible, including after a finite
+  transient;
+- `f1ba1c8`: genuinely alternating period-two schedules impossible;
+- `2be4a95`: finite breakoff runs compile to literal legal Collatz words;
+- `76d60d8`: arbitrary linked breakoff-gate lists compose semantically;
+- `e8585c4`: every fixed finite bouncer-opcode period is impossible, including
+  after a transient;
+- `cda9bd3`/`a458267`/`904c1de`: arbitrary finite `E,H,E^N` gliders compile
+  to literal growing words and their dyadic witnesses are eliminated;
+- `6619b49`: the one-cell packet family has exact universal breakoff input
+  and output boundaries, completing that base glider's endpoint theorem;
+- the formalizer is now lifting only the upper charge/unit/level-two layers.
+
+Never edit or stage its live `KontoroC/*` files.  Continue to send exact
+formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
+`CLEAN_LEAN/FOR_FABLE.md`.
+
+The best immediate research tasks are:
+
+1. help the formalizer finish the generic three-layer linked composition;
+2. attack the genuinely aperiodic phase-up/conjugacy schedule now that every
+   fixed finite opcode period is closed;
+3. construct a genuinely payload-driven mixed-radix feedback or conjugacy
+   which turns the ternary-scaled tail into its next binary delimiter;
+4. reject new searches unless success would give a public self-map, a finite
+   semantic rewrite, or a whole ansatz-class obstruction.
+
+The detached Akdeniz 1,198-digit Thue solve remains active with class number
+one and no completion line.  Ganesha still has 22 nonuniform-morphism workers;
+only shards 4 and 12 are complete.  These are scoped falsifiers, not the main
+closure strategy.  PSC is idle.
+
+No counterexample or infinite orbit is known.
 
 Start from the latest `origin/main`; do not trust the hash printed in an old
 handoff.  At this handoff the newest independent Lean checkpoints are
