@@ -1686,6 +1686,78 @@ payload.  The likely architecture is two-ended: one rail pops a catcher at
 the active low boundary while a charge phase pushes its formula description
 onto the remote end.
 
+One level-two specialization supplies exactly such a *finite* end cap.  Use
+the sign-negative unit law, one-cell source and target, carry `B=1`, marker
+`H=17`, and
+
+```text
+q_s=q_t=57,   p_t=77,
+D=ord_(3^57)(2)=2*3^56,
+P=D+2.                                                   (69e3)
+```
+
+The three-event splash starts from
+
+```text
+3^57 A-1=2^77 C+2^(77+L)B,
+B+3^57z=2^D B,
+3^57 C-1=2^p(ell)H.                                    (69e4)
+```
+
+Eliminating `A,C` and imposing `B=1,H=17` asks for
+
+```text
+2^p(ell)=-(2^77+3^57)/(2^77(17+2*3^57)) (mod 3^114).
+                                                               (69e5)
+```
+
+Exact ternary digit lifting gives
+
+```text
+ell=985704136832889032287826201378021826095996227497733368
+    (mod 2*3^113).                                      (69e6)
+```
+
+This class is even.  At the remote boundary require the formula-compressed
+turnaround
+
+```text
+3^(17ell+40)*17=1+2^P (mod 2^(P+1)).                  (69e7)
+```
+
+Since `17=1 (mod 8)`, the target belongs to the even-power subgroup generated
+by three.  The kernel-checked formula for the order of three modulo powers of
+two makes (69e7) one even class modulo `2^(P-1)`.  Its only overlap condition
+with (69e6) is parity, so CRT gives an ordinary finite `ell`.  Here
+
+```text
+D=1046695266054721074427023042,
+(P-54)/23=45508489828466133670740130.
+```
+
+After the third collision, choose the surviving tail in its source-register
+class and additionally `u=1 (mod 4)`.  Writing the combined restriction as
+`u=u0+4Mw` gives the exact output
+
+```text
+h_out=R+2*M*3^(q(ell)+114)w.                          (69e8)
+```
+
+The coefficient after two is odd.  Consequently (69e8) writes every chosen
+finite odd binary word, uniquely modulo its width, while retaining an affine
+tail.  This realizes Simon's strike--scrub--reseed metaphor as a genuine
+nonlocal macro: a launch island, a `D`-bit delay/scrub rail, and a writable
+turnaround island whose timing constraint spans the entire integer.
+[`unit_carry_turnaround.py`](../../experiments/kontorovich/unit_carry_turnaround.py)
+reconstructs the exact discrete logarithm and all finite algebra; the
+power-of-three subgroup order is the cited Lean dependency.
+
+This removes the finite collision-gadget obstruction, not the ordinary-tail
+obstruction.  An externally specified sequence of output words is still an
+infinite nested dyadic cylinder, usually a non-natural 2-adic integer.  The
+new sharp target is a payload law which computes its own next word and for
+which those canonical extension residues eventually vanish.
+
 There is a formula-compressed specialization which restores Kontorovich's
 very long spatial wire.  Let an odd marker `C` and exponent `T` satisfy
 
@@ -2159,6 +2231,20 @@ Every candidate is rejected unless all of the following are explicit:
   Thetareihen*](https://gdz.sub.uni-goettingen.de/download/pdf/PPN365956996_0065/LOG_0016.pdf),
   1989; its p-adic linear-independence theorem applies exactly to the standard
   two-rail Tschakaloff value after the audited parameter substitution.
+- K. Väänänen, [*Algebraic independence of certain Mahler
+  numbers*](https://arxiv.org/abs/1507.02510), 2015; its algebraic-point
+  result is for the ordinary complex open unit disk, not automatically the
+  bouncer's `Q_2` Thue--Morse value.
+- Y. Bugeaud, [*On the rational approximation to p-adic Thue--Morse
+  numbers*](https://arxiv.org/abs/2110.01855), 2021; its standard signed
+  Thue--Morse value is evaluated at the prime `p`, whereas the bouncer has an
+  arbitrary nonzero rational `z` with `|z|_2<1`.
+- T. Q. Wang, [*p-adic Transcendence and p-adic Transcendence Measures for
+  the Values of Mahler Type
+  Functions*](https://doi.org/10.1007/s10114-005-0534-4), 2006; this is a
+  possible general-value theorem lead, but its precise hypotheses have not
+  yet been audited against the bouncer reduction and no application is
+  claimed.
 - [Reverse-mined Busy Beaver bouncer certificate
   semantics](../REVERSE-MINING.md#2b4-bouncers-formula-tapes--verified-shift-rules),
   with the distinction between a finite experiment and a universally checked

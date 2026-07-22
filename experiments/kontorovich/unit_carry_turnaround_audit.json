@@ -1,0 +1,58 @@
+{
+  "claim_scope": "formula-compressed exact existence of one level-two finite strike-scrub-turnaround family and a universal finite dyadic reseed interface; the 2-adic subgroup order is kernel-checked in KontoroC.orderOf_three_twoPow; no explicit expansion of the giant following length, infinite ordinary orbit, or Collatz counterexample is claimed",
+  "kernel_dependency": "KontoroC.orderOf_three_twoPow: orderOf 3 modulo 2^(n+3) is 2^(n+1)",
+  "record": {
+    "carry_B": 1,
+    "catcher_gap_D": 1046695266054721074427023042,
+    "catcher_gap_decimal_digits": 28,
+    "checks": {
+      "exact_order_two_mod_3q": true,
+      "explicit_discrete_log_mod_3pow114": true,
+      "legal_giant_division_class": true,
+      "length_crt_parity_compatibility": true,
+      "level_two_constants": true,
+      "marker_and_carry_alignment": true,
+      "ordinary_tail_crt_mod_4_and_odd_register": true,
+      "two_adic_subgroup_membership_from_H_mod_8": true,
+      "universal_odd_dyadic_output_writer": true
+    },
+    "collision_sign": -1,
+    "crt_compatibility_gcd": 2,
+    "following_length_modulus": 1643356469972045002664087635582629208716484341598400646,
+    "following_length_residue": 985704136832889032287826201378021826095996227497733368,
+    "following_length_residue_parity": 0,
+    "giant_target_cells": 45508489828466133670740130,
+    "giant_target_cells_decimal_digits": 26,
+    "level": 2,
+    "output_writer": {
+      "affine_form": "h_out=R+2*M*3^(q(ell)+114)*w",
+      "tail_restriction": "choose u=u0+4*M*w with u0=1 mod 4 and the unique source register phase mod M",
+      "universality": "for every E>=1 and odd target T there is a unique w mod 2^(E-1) with h_out=T mod 2^E"
+    },
+    "register_stride": 671265207750760396088265,
+    "register_stride_bits": 80,
+    "source_cells": 1,
+    "source_ternary_exponent": 57,
+    "target_cells": 1,
+    "target_division_exponent": 77,
+    "target_ternary_exponent": 57,
+    "ternary_alignment_discrete_log": 1307561037519862707986863369120322286893616791668659120,
+    "ternary_alignment_power_target": 332165143337574499575829887880254876771929215640773114,
+    "ternary_alignment_precision": 114,
+    "turnaround_division_P": 1046695266054721074427023044,
+    "turnaround_extra_division_bits": 1,
+    "turnaround_marker_H": 17,
+    "two_adic_length_class": "ell=(beta-40)/17 mod 2^(P-1), where beta is the unique even class with 3^beta*17=1+2^P mod 2^(P+1)",
+    "two_adic_length_modulus_exponent": 1046695266054721074427023043
+  },
+  "schema": "collatz-unit-carry-turnaround-v1",
+  "symbolic_chain": [
+    "3^57*A-1=2^77*C+2^(77+L)*B",
+    "B+3^57*z=2^D*B",
+    "3^57*C-1=2^p(ell)*H",
+    "h2=H+2^(D+1)*3^57*(B+3^57*u)",
+    "3^q(ell)*H=1+2^P mod 2^(P+1)",
+    "u=u0+4*M*w -> h3=R+2*M*3^(q(ell)+114)*w"
+  ],
+  "verifier_sha256": "1eb852eb1ddecb6505e95281b50cd889434a437677ab15701f2c262aa8d7ea66"
+}
