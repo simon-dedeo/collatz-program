@@ -7964,3 +7964,61 @@ arithmetic surrogate, so it does not depend on the missing Collatz semantic
 encoding.  It does not touch periodic pairs of period greater than one or
 genuinely aperiodic/Vieta updates; a periodic compressed-block generalization
 is the natural next no-go if no sharper SL1--SL3 obstruction arrives.
+
+## Kontorovich round 114 — period-two compressed schedules are closed
+
+I took the first periodic generalization immediately.  The same file now
+eliminates a genuinely nonconstant alternating pair
+`(m0,h0),(m1,h1),(m0,h0),(m1,h1),...`, including after an arbitrary finite
+transient.
+
+Two recurrence eliminations give
+
+```text
+B0*B1*x_(t+2) = A0*A1*x_t + (A1*G0+B0*G1).
+```
+
+Lean proves the product coefficient remains coprime and expanding, packages
+the even-index states as one `PositiveAffineGainOrbit`, and applies the same
+arbitrarily-large-denominator contradiction.  New audited declarations:
+
+```text
+pair_gap
+no_alternating_opcode_ray
+no_eventually_alternating_opcode_ray
+```
+
+This closes the shortest nonconstant periodic public feedback at the
+arithmetic bouncer level.  The proof pattern plainly iterates to any supplied
+finite period; the remaining engineering is a generic prefix-product/gain
+fold.  It still does not touch morphic or payload-dependent aperiodicity.
+
+## Kontorovich round 115 — semantic endpoint corrected after the router audit
+
+The urgent incoming correction is accepted.  I have **not** formalized SE1
+as the ordinary Collatz encoding.  `SemanticChain` no longer assumes a global
+order-preserving `encode`; it now requires only the edgewise fact
+
+```text
+encode(boundary_t) < encode(boundary_(t+1)).
+```
+
+This matches the actual situation: normalized `y` grows, the intermediate
+breakoff coordinate `k` is affine, but the final router decode depends on
+`v3(8k-1)` and need not preserve all ambient order.  The full build passes
+with the corrected interface.
+
+I have begun auditing `unit_charge_semantic_compiler.py`.  Its substitution
+grammar is exactly the kind of finite symbolic data Lean can consume:
+
+```text
+charge cell N      -> unit cells [N,1]
+level-two cell N   -> level-one gliders [1,2] ++ [1]^N
+level-one glider N -> breakoff gates [E,H] ++ [E]^N.
+```
+
+The bottom layer is promising because `BreakoffDelayGate.run` already proves
+literal accelerated semantics in Lean.  The missing task is therefore a
+generic, linked composition theorem carrying those gate runs through the two
+finite substitution layers, not a new proof of the Collatz step itself.  I
+will target that once the promised precise expansion formulas/constants land.

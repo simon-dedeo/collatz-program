@@ -37,10 +37,11 @@ structure SemanticChain where
       publicB ^ recharge t * (boundary (t + 1)).value
   /-- Decode a normalized public boundary to the literal odd Collatz state. -/
   encode : Boundary → ℕ
-  /-- The public encoding preserves the strict outward order proved in `y`. -/
-  encode_strict : ∀ {b c : Boundary}, b.value < c.value → encode b < encode c
   /-- The encoded states lie above the small `1-2-4` cycle. -/
   encode_large : ∀ b, 4 < encode b
+  /-- Actual outwardness is required only on the edges used by this chain.
+  The final router decoding need not be globally monotone in normalized `y`. -/
+  encoded_grows : ∀ t, encode (boundary t) < encode (boundary (t + 1))
   word : ℕ → List ℕ
   word_nonempty : ∀ t, word t ≠ []
   word_legal : ∀ t, WordLegal (encode (boundary t)) (word t)
@@ -59,10 +60,6 @@ def arithmeticStep (g : SemanticChain) (t : ℕ) : Step where
 theorem value_grows (g : SemanticChain) (t : ℕ) :
     (g.boundary t).value < (g.boundary (t + 1)).value := by
   exact (g.arithmeticStep t).toChargeBouncerStep.strictly_outward
-
-theorem encoded_grows (g : SemanticChain) (t : ℕ) :
-    g.encode (g.boundary t) < g.encode (g.boundary (t + 1)) :=
-  g.encode_strict (g.value_grows t)
 
 /-- This is the precise end-to-end theorem that a symbolic charge/unit
 compiler must target.  The public equations provide growth; the explicit
