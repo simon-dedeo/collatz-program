@@ -232,6 +232,29 @@ theorem no_realization_of_positive_extension_lifts
   exact Nat.lt_add_of_pos_right
     (Nat.mul_pos (Nat.pow_pos (by omega)) (hrho k))
 
+/-- Necessary form of the same obstruction: if the nested prefixes really do
+come from one ordinary natural, then every sufficiently late extension must
+use zero source residue.  Thus proving merely that nonzero lifts occur
+infinitely often is enough to exclude an ordinary ray. -/
+theorem extension_lifts_eventually_zero_of_realized
+    (S : DyadicBreakoffLinkSchedule) (rho : ℕ → ℕ)
+    (hstep : ∀ k,
+      (S.link (k + 1)).firstTailBase =
+        (S.link k).firstTailBase + 2 ^ S.bits k * rho k)
+    {n : ℕ} (hn : S.RealizedBy n) :
+    ∃ K, ∀ k, K ≤ k → rho k = 0 := by
+  obtain ⟨K, hstable⟩ := S.realized_eventually_constant hn
+  refine ⟨K, fun k hk ↦ ?_⟩
+  have heq := hstep k
+  rw [hstable k hk, hstable (k + 1) (by omega)] at heq
+  have hpow : 0 < 2 ^ S.bits k := Nat.pow_pos (by omega)
+  have hprod : 2 ^ S.bits k * rho k = 0 := by
+    apply Nat.add_left_cancel (n := n)
+    simpa using heq.symm
+  rcases Nat.mul_eq_zero.mp hprod with hp | hr
+  · exact (Nat.ne_of_gt hpow hp).elim
+  · exact hr
+
 end DyadicBreakoffLinkSchedule
 
 /-- A dyadic affine-link dispatcher whose control consists of a finite phase

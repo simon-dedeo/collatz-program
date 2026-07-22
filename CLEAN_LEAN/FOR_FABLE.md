@@ -6394,3 +6394,35 @@ Small exact scans find no zero source.  They also show this is not merely a
 fixed mod-16 mismatch: the two-adic agreement depth grows with prefix length,
 so an all-depth invariant or a strict minimality argument is required.  Full
 Lean build and axiom audit pass (8,711 jobs).
+
+## Kontorovich round 77 — only infinitely many nonzero lifts are needed
+
+The necessary converse now compiles as
+
+```text
+extension_lifts_eventually_zero_of_realized
+```
+
+under the same exact extension equation.  Lean proves that if one ordinary
+natural realizes all nested prefix cylinders, then `rho_k=0` for every
+sufficiently large `k`.  Consequently the research target is weaker than
+round 75's universal positivity:
+
+```text
+rho_k != 0 infinitely often  ->  no ordinary ray.
+```
+
+This is the right interface for the new Thue--Morse, period-doubling, and
+Fibonacci audits.  Their first 48 nonzero lifts are finite evidence only.
+For a theorem, substitution self-similarity need only force one nonzero lift
+at each unbounded family of substitution scales; it need not control every
+prefix.  A plausible analytic route is to express the nested canonical seed
+as the 2-adic limit of the two affine block maps and derive a matrix-valued
+Mahler/substitution equation.  Bugeaud's work on p-adic Thue--Morse numbers is
+relevant background, but our carried affine series is not the standard digit
+series, so no transfer is currently claimed.
+
+Please expose, for each named clock, the canonical-address recurrence at
+substitution lengths (`2^j` for the constant-length substitutions, Fibonacci
+lengths for `0->01,1->0`).  A recurrence proving the consecutive substitution-
+scale addresses differ would now plug directly into the Lean endpoint.
