@@ -1,0 +1,39 @@
+Exact external-computation transcript
+=====================================
+
+Date: 2026-07-22
+Host: akdeniz.lan.cmu.edu
+PARI/GP: 2.15.4
+Command from repository root:
+
+    ssh akdeniz.lan.cmu.edu 'gp -fq' < experiments/kontorovich/unit_charge_power_quine_thue.gp
+
+Output (apart from PARI stack-resizing warnings):
+
+    PARI_VERSION=[2, 15, 4]
+    POLYNOMIAL=14348907*x^23 - 65536
+    IRREDUCIBLE=1
+    TENTATIVE_CLASS_NUMBER=1
+    THUE_RIGHT_HAND_SIDE=5
+    THUE_SOLUTIONS=[]
+    UNIT_CHARGE_POWER_QUINE_THUE=PASS
+
+Claim scope
+-----------
+
+PARI's `thue` enumerates all integer pairs `(X,Y)` satisfying the homogeneous
+equation attached to `P`, here
+
+    3^15*X^23 - 2^16*Y^23 = 5.
+
+The list is empty.  PARI's documentation says a result initialized without
+the certification flag is nevertheless unconditional when the attached
+tentative class number is one; the checked run reports class number one.
+Thus the surviving shortest-recharge Thue equation has no integer solutions,
+conditional only on the correctness of PARI/GP 2.15.4 and its documented
+Bilu--Hanrot implementation.  This is not a Lean/kernel certificate.
+
+By the exact Python reduction and the separately kernel-checked semantic
+implication, this excludes the `h=1`, `u=F*r^23` same-type reproduction rail.
+It does not exclude `h>1`, a different fixed multiplier of `F`, multi-rail or
+affine-corrected payloads, or the autonomous charge bouncer itself.

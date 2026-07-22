@@ -5365,3 +5365,34 @@ PARI/GP's default `thueinit`/`thue` diagnostic returned no solutions to PQ4,
 but that path may assume GRH.  Its unconditional `thueinit(...,1)` certification
 is still running on Akdeniz.  Please do not promote the PARI outcome unless an
 unconditional certificate or independently checkable theorem is obtained.
+
+### Resolution of the external PQ4 seam (2026-07-22 09:25 EDT)
+
+The default PARI computation is already unconditional by PARI's documented
+criterion.  On Akdeniz, PARI/GP 2.15.4 checked
+
+```text
+P(x)=3^15*x^23-2^16
+polisirreducible(P)=1
+T=thueinit(P), T[2].no=1
+thue(T,5)=[]
+```
+
+The current PARI `thue` documentation states that, although flag-zero
+initialization can generally depend on GRH, the result is unconditional when
+the attached tentative class number is one.  The exact executable is
+`experiments/kontorovich/unit_charge_power_quine_thue.gp`, SHA-256
+`c4541ea4c0cdcac65d2738bef9fffd378ae0fe4c7495409b46be08cd80d76e48`.
+This remains an external-PARI theorem seam, not something Lean should import
+as an axiom.  Your conditional theorem
+`no_shortest_recharge_power_quine (hPQ4 : ¬ PQ4Solution)` is exactly the right
+kernel boundary; the research README now combines it with the scoped external
+enumeration.
+
+The constructive search is moving to `h=23`, where
+`A^23=3^4*C^154` and `B^23=D^154`.  Both coefficients are complete 23rd powers
+and the three local sieves leave all exponent classes.  The exact artifact is
+`experiments/kontorovich/unit_charge_power_resonance_audit.json`, SHA-256
+`db7e620c936bcb9b126a70e183f33ad0880159942329e5c04476c7035fdcfe9c`.
+No new Lean request is made yet; the next obligation is to derive an actual
+multi-rail correction identity, not merely another necessary equation.

@@ -2245,12 +2245,34 @@ m=5 (mod 23),       3^15X^23-2^16Y^23=5.            (69y4)
 ```
 
 The last equation is locally soluble at every tested prime of the useful
-form, so larger blind sieves are not the live attack.  A fast PARI Thue
-diagnostic is negative but may assume GRH; unconditional certification is in
-progress.  Even a solution of (69y4) would still need the exact register and
-valuation conditions, since (69y2) is necessary rather than sufficient.
-This is nevertheless the first bouncer ansatz whose *data type itself*
-reproduces; it attacks the quine seam rather than finite routing.
+form, so larger blind sieves are not the live attack.  Lean commit `5fbacf5`
+proves that every accepted transition in this family supplies a solution of
+(69y4).  The executable PARI/GP 2.15.4 audit then reports irreducibility,
+attached class number one, and complete Thue solution list `[]`.  PARI's own
+documentation makes that class-number-one computation unconditional.  Thus
+the `h=1` instance of the first bouncer data type which literally reproduces
+is closed (external-PARI scope, not kernel scope).  Higher recharge and
+corrected/multi-rail encodings are not touched.
+
+The first exact resonance is `h=23`.  Then `A^23` and `B^23` are themselves
+23rd powers, while
+
+```text
+A^23=3^4*C^154,             B^23=D^154.             (69y5)
+```
+
+The three finite-field sieves above leave all 23 coefficient classes at this
+resonance.  The exact
+[`unit_charge_power_resonance.py`](../../experiments/kontorovich/unit_charge_power_resonance.py)
+audit also checks that the forcing is `5 Phi_23(A,B)`, a 1,198-digit integer,
+and `gcd(F,Phi_23(A,B))=1`.  The constructive lane is to represent the
+residual `3^4` and the fixed divisor `F` by a second, remote correction rail:
+the main 23rd-power
+packet transports the address, while the correction packet must eat the
+collision debris and reproduce its own end cap.  This is the algebraic form
+of Simon's “splash the gap” suggestion.  Merely solving another isolated
+Thue equation would still not give an infinite orbit; closure of the end cap
+is the promotion gate.
 
 Lean commit `5633c44` closes the frozen-opcode specialization.  For any fixed
 `m`, the positive affine-gain recurrence has a fixed-point defect satisfying

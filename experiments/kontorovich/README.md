@@ -2167,22 +2167,54 @@ Thue equation
 ```
 
 The artifact exactly reconstructs the bouncer constants, the squarefree prime
-factorization of `F`, all 23rd-power residue sets, and every survivor set.  A
-PARI/GP diagnostic found no solution of (UCPQ3), but its fast run may assume
-GRH and its unconditional certification is still running; neither is part of
-the artifact.  Equation (UCPQ1) is necessary rather than sufficient, so a
-solution would still need the public valuation and register checks.  No
-infinite orbit is claimed.
+factorization of `F`, all 23rd-power residue sets, and every survivor set.  Lean
+commit `5fbacf5` independently proves the reduction and that any accepted
+shortest-recharge transition supplies a solution of (UCPQ3).  PARI/GP 2.15.4
+then closes (UCPQ3): the checked script reports irreducibility, attached
+tentative class number one, and complete Thue solution list `[]`.  PARI's
+documentation says that the class-number-one flag-zero case is unconditional.
+This last claim trusts PARI's Bilu--Hanrot implementation; it is not a kernel
+proof.  Therefore the `h=1`, `u=F*r^23` rail is impossible.  Higher recharge
+and other payload types remain open, and no infinite orbit is claimed.
 
 ```bash
 PYTHONPATH=. python3 unit_charge_power_quine.py selftest
 PYTHONPATH=. python3 unit_charge_power_quine.py build unit_charge_power_quine_audit.json
 PYTHONPATH=. python3 unit_charge_power_quine.py verify unit_charge_power_quine_audit.json
+ssh akdeniz.lan.cmu.edu 'gp -fq' < unit_charge_power_quine_thue.gp
 ```
 
 ```text
 artifact SHA-256      c60741d605a1c669bd89fe3a0b4d06d1dd883ec0a03792d3e44aab5331d474eb
 verifier file SHA-256 da18a787a4dd3e1fd1f56ae9eadb1fa7010594b9ba8e1764d7c9d395529496b2
+GP audit SHA-256       c4541ea4c0cdcac65d2738bef9fffd378ae0fe4c7495409b46be08cd80d76e48
+```
+
+## Recharge-23 determinant-four resonance
+
+`unit_charge_power_resonance.py` checks the first higher-recharge case where
+the hardware itself aligns with the 23rd-power payload.  At `h=23`,
+
+```text
+A^23=3^4*C^154,       B^23=D^154,
+(A^23-B^23)/F=5*Phi_23(A,B).
+```
+
+The fixed divisor `F` is coprime to `Phi_23(A,B)`.  Complete residue
+enumeration modulo `47`, `139`, and `461` leaves all 23 coefficient classes,
+in sharp contrast to `h=1`.  The 1,198-digit forcing and the residual `3^4`
+are therefore the live inputs for a correction rail.  These identities do not
+construct that rail or even one accepted transition.
+
+```bash
+PYTHONPATH=. python3 unit_charge_power_resonance.py selftest
+PYTHONPATH=. python3 unit_charge_power_resonance.py build unit_charge_power_resonance_audit.json
+PYTHONPATH=. python3 unit_charge_power_resonance.py verify unit_charge_power_resonance_audit.json
+```
+
+```text
+artifact SHA-256      db7e620c936bcb9b126a70e183f33ad0880159942329e5c04476c7035fdcfe9c
+verifier file SHA-256 7ae1c74962306fa89ce4cc98f4520548c1185a10b9f3fd48fe143adc83a5b8b5
 ```
 
 ## Three low-description aperiodic bouncer clocks
