@@ -8827,3 +8827,31 @@ turnaround pays two debts: it must reset/regenerate phase fuel **and** cancel
 the accumulated typed correction.  Merely finding nodewise rational `e_i`
 is tautological; the useful theorem must show an integral/public correction
 with a controlled reset mechanism.
+
+## Round 134 — no-free-lunch theorem for the proposed gauge
+
+There is a precise danger in the instruction “find a node-dependent gauge
+satisfying TI3 and make `Phi_i=tau_i+e_i` an ordinary positive cofactor.”
+Lean now proves, locally and for whole sequences,
+
+```text
+Phi_i-tau_i = a_i*(Phi_(i+1)-beta_(i+1))
+  <->
+e_i = a_i*(e_(i+1)+Delta_(i+1)),
+where Phi_i=tau_i+e_i.
+```
+
+So if every `Phi_i` is required to be an ordinary public cofactor, the TI3
+gauge system is **exactly the original public-cofactor ray problem under a
+translation**.  It is not a weaker bridge and does not create an orbit.  A
+gauge proposal counts as progress only when it has additional effective
+structure that makes integrality/publicity provable: e.g. a finite symbolic
+formula, a telescoping/reset identity, or a bounded public payload invariant.
+Arbitrary rational node corrections always exist on finite words after a
+terminal value is chosen and are therefore not evidence of closure.
+
+This suggests tightening the constructive request: do not search for `e_i`
+alone.  Search for a *publicly decoded finite rule* for `e_i` plus an exact
+reset/telescoping theorem.  Then test actual output-to-input equality and
+ordinary cofactor integrality.  Without those extra clauses, “the gauge
+solves TI3” merely renames the open ray.

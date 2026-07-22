@@ -166,6 +166,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.ChargeTypedInterface.PublicWord.no_clean_chart_adapter
 #print axioms KontoroC.ChargeTypedInterface.delta_eq_normalized_opcodeDebris
 #print axioms KontoroC.ChargeTypedInterface.Step.corrected_interface_iff
+#print axioms KontoroC.ChargeTypedInterface.potential_chain_iff_correction
 #print axioms KontoroC.ChargeTypedInterface.correction_next_lower_bound
 #print axioms KontoroC.ChargeTypedInterface.correction_linear_growth
 #print axioms KontoroC.ChargeResonantSeparationNoGo.pow_dvd_initial_of_chart_links

@@ -176,6 +176,34 @@ theorem corrected_transport_iff
   · linear_combination hstep - h
   · linear_combination hstep - h
 
+/-- The potential represented by a correction rail. -/
+def potential (tau₀ e : ℚ) : ℚ := tau₀ + e
+
+/-- No-free-lunch form of TI3: asking the corrected potential itself to obey
+the typed public recurrence is exactly asking its correction to obey TI3. -/
+theorem potential_step_iff_correction
+    (tau₀ tau₁ beta₁ a e₀ e₁ : ℚ) :
+    potential tau₀ e₀ - tau₀ =
+        a * (potential tau₁ e₁ - beta₁) ↔
+      e₀ = a * (e₁ + (tau₁ - beta₁)) := by
+  simp only [potential]
+  constructor <;> intro h <;> linear_combination h
+
+/-- Sequence version.  If every `potential (tau i) (e i)` is required to be
+an ordinary public cofactor, this right-hand TI3 system is the original
+cofactor-ray problem in translated coordinates, not an easier existence
+condition. -/
+theorem potential_chain_iff_correction
+    (tau' beta' a e : ℕ → ℚ) :
+    (∀ i, potential (tau' i) (e i) - tau' i =
+      a i * (potential (tau' (i + 1)) (e (i + 1)) - beta' (i + 1))) ↔
+    (∀ i, e i = a i * (e (i + 1) + (tau' (i + 1) - beta' (i + 1)))) := by
+  constructor
+  · intro h i
+    exact (potential_step_iff_correction _ _ _ _ _ _).mp (h i)
+  · intro h i
+    exact (potential_step_iff_correction _ _ _ _ _ _).mpr (h i)
+
 /-- TI3 specialized to one exact public step. -/
 theorem Step.corrected_interface_iff (s : ChargePublicCofactor.Step)
     (e₀ e₁ : ℚ) :
