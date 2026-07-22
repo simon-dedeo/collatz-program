@@ -1889,6 +1889,62 @@ finite compiler, not the desired infinity.  Its useful outputs are the
 outward autonomous machines at each fixed finite level; a packet-selected
 aperiodic orbit inside one of those levels remains live.
 
+The rational fixed form of the base charge level turns that live problem into
+a compact valuation bouncer.  Put
+
+```text
+A=3^114,              B=2^154,
+F=(A-B)/5,
+Z=FG-2^26.                                             (69r)
+```
+
+The register identity `Fr=2^26 (mod M)` makes `Z` integral on the whole
+public register.  The one-cell branch is exactly homogeneous:
+
+```text
+B Z'=A Z.                                              (69s)
+```
+
+For a defect length `N=m+1`, the difference-of-powers term is exposed:
+
+```text
+2^(154+23m) Z'
+ =3^(114+17m)Z
+  +2^26 A(3^(17m)-2^(23m)).                           (69t)
+```
+
+Every defect boundary has `Z=2^26y`, where `y` is positive odd and
+
+```text
+y=0 (mod M),             y=-1 (mod F).                (69u)
+```
+
+The state reads its defect opcode and recharge count by
+
+```text
+m=v_2(y+1)/23,
+E=3^(17m)(y+1)-2^(23m),
+h=(v_2(E)-23m)/154.                                   (69v)
+```
+
+When `m,h>=1` are integers, (69t) followed by `h-1` copies of (69s) returns
+
+```text
+y'=3^(114h) E/2^(23m+154h).                           (69w)
+```
+
+The block renews precisely when `v_2(y'+1)` is another positive multiple of
+23; literal register execution preserves (69u).  This is an autonomous
+one-register language with two unbounded state-read opcodes, not an external
+schedule.  Every accepted block is strictly outward, so an infinite positive
+orbit of (69u)--(69w) is already an ordinary Collatz counterexample.
+[`unit_charge_bouncer.py`](../../experiments/kontorovich/unit_charge_bouncer.py)
+checks 64 complete `(m,h,m')` transition families in the box
+`m,m'<=4,h<=4`, two members each, through 320 charge macros and 640 original
+unit macros.  No infinite accepted orbit is supplied.  The fixed-form
+bouncer, rather than a ninth nested charge level, is now the primary
+formula-family target.
+
 The remaining obstruction is now a programming-language condition rather
 than a missing collision gadget.  Reading (69e) from right to left, one
 instruction pops the required low binary word `z` and pushes a power-of-three

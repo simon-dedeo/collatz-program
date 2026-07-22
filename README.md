@@ -279,6 +279,24 @@ identically `x`.
   `rho_j+D_j*K>K`, so nesting forever changes its ancestor address.  Search
   must use an autonomous orbit at one fixed finite level, not confuse the
   infinite hierarchy with a seed.
+  A fixed-form change of coordinate now exposes exactly such a level-two
+  bouncer.  Put `A=3^114`, `B=2^154`,
+  `F=(A-B)/5`, and `Z=F*G-2^26`.  The one-cell instruction is the pure delay
+  wire `B*Z'=A*Z`.  At defect boundaries write `Z=2^26*y`.  The ordinary odd
+  state `y` then reads its own two opcodes
+
+  ```text
+  m=v2(y+1)/23,
+  E=3^(17m)*(y+1)-2^(23m),
+  h=(v2(E)-23m)/154,
+  y'=3^(114h)*oddpart(E).
+  ```
+
+  When `m,h>=1` are integral and `y'` has another defect phase, this executes
+  one length-`m+1` defect followed by `h-1` recharge cells.  The fixed register
+  is simply `y=0 (mod M)`, `y=-1 (mod F)`.  An infinite accepted positive
+  `y`-orbit would be an outward Collatz counterexample.  This valuation
+  bouncer—not a further nested address—is now the primary synthesis target.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -490,6 +508,7 @@ positive integer and its claimed behavior are machine-checked.
 | Repetend energy separator | The same exact construction closes its own naive infinite continuation.  Every sign-negative marker-one exponent is an odd multiple of `3^(q-1)`.  For `q>=3`, elementary integer inequalities give `2^T>2*3^q`, so each such collision more than halves the positive odd core.  No fixed positive core supports infinitely many consecutive events.  The artifact audits the actual exponent classes at finite levels `2,4,6`; the general proof is symbolic.  A viable delay-line program must recharge between giant erasures, not stack them back-to-back. | [`unit_repetend_energy_audit.json`](experiments/kontorovich/unit_repetend_energy_audit.json) |
 | Autonomous `-5` charge--discharge register | Pairing a length-`N` sign-negative level-two unit instruction with the one-cell instruction gives fixed debris `3^57+2^77=5D`.  The divisor `D=314038802961906688057474567` is coprime to the register stride, so one exact packet class can be divided by `D` and is preserved.  The quotient ISA is `G=2^(23N+3)g -> (3^(17N+97)g-5)/2^128`; every branch is strictly outward because `3^(17N+97)>2^(23N+131)`.  The artifact constructs branches `N=1..32` twice—directly by CRT and by restricted composition—and checks 128 members through 256 actual unit-macro replays.  An infinite successful positive orbit would refute Collatz; none is supplied. | [`unit_charge_discharge_audit.json`](experiments/kontorovich/unit_charge_discharge_audit.json) |
 | All-depth self-regenerating `-5` splash | Composing any depth-`j` charge branch with its one-cell branch, then quotienting by `D_j=3^(114*2^j)+2^(154*2^j)`, reproduces collision constant `-5` with offsets `d_(j+1)=2d_j+17`, `e_(j+1)=2e_j+26`.  Coprimality with the fixed 80-bit stride holds for every `j`: a failed prime would require `2^(j+1)<M`, so only `j=0..78` can fail, and all 79 exact gcds are one.  The artifact materializes eight levels, compares 64 direct/composed branches, checks 128 members, and recursively expands canonical members through 510 original unit macros.  Infinite nesting is not a seed because every positive child lift strictly enlarges its ancestor packet; fixed-level autonomous orbits remain open. | [`unit_charge_hierarchy_audit.json`](experiments/kontorovich/unit_charge_hierarchy_audit.json) |
+| Autonomous fixed-form valuation bouncer | The rational one-cell fixed point clears integrally: with `F=(3^114-2^154)/5` and `Z=F*G-2^26`, one background cell is exactly `2^154 Z'=3^114 Z`.  At a defect boundary `Z=2^26y`, the state reads `m=v2(y+1)/23` and `h=(v2(3^(17m)(y+1)-2^(23m))-23m)/154`, then returns `y'=3^(114h)*oddpart(3^(17m)(y+1)-2^(23m))`.  Integral positive `m,h` execute defect `m+1` followed by `h-1` background cells; another defect phase renews.  The artifact checks all 64 `(m,h,m')` families with `m,m'<=4,h<=4`, 128 members, 320 charge macros, and 640 original unit macros.  Any infinite accepted positive `y`-orbit refutes Collatz; none is supplied. | [`unit_charge_bouncer_audit.json`](experiments/kontorovich/unit_charge_bouncer_audit.json) |
 | Constant-rate unit-counter schedules | For any of the six certified unit levels, every `n_0>=1`, and every fixed integer `k>=1`, the schedule `n_t=n_0+kt` has the unique 2-adic initial core `-s*3^(-q(n_0)) F(2^(ak)/3^(ck),2^(p(n_0+k))/3^(q(n_0+k)))`.  Converting to Väänänen--Wallisser's `f_(3^(ck)/2^(ak))` is coefficientwise exact, and its argument simplifies to `alpha=2^(p(n_0))/3^(q(n_0))`.  Their 1989 theorem applies with `ell=1,sigma=0,p=2`; its size ratio is the same as for `k=1`, while `|3^(ck)/2^(ak)|_2=2^(ak)>1`.  The value is irrational in `Q_2`, so it cannot be an ordinary integer core.  The artifact's six linked eight-transition branch replays remain a finite `k=1` regression; the all-`k` conclusion is symbolic and theorem-dependent.  This closes every fixed positive step size, not nonlinear or packet-branching schedules. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
@@ -547,6 +566,81 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 06:05 EDT
+
+The recursive splash has yielded a fixed-level autonomous bouncer rather than
+another nested address.  Let
+
+```text
+A=3^114,      B=2^154,
+F=(A-B)/5
+ =493006936424420884140154671288273660376560866054730997.
+```
+
+The factor is integral because the background's difference is exactly the
+collision constant times `F`.  In the level-two charge register define
+
+```text
+Z=F*G-2^26.
+```
+
+The offset was not fitted: `F*register_offset-2^26` is exactly divisible by
+the register stride.  In this coordinate, the complete one-cell instruction
+loses every affine constant:
+
+```text
+2^154*Z'=3^114*Z.                            (KC-BG)
+```
+
+This is a literal homogeneous delay wire.  A length-`N=m+1` defect injects
+the exact difference-of-powers carry
+
+```text
+2^(154+23m)*Z'
+ =3^(114+17m)*Z
+  +2^26*3^114*(3^(17m)-2^(23m)).             (KC-DF)
+```
+
+At a defect boundary `Z=2^26*y`, where `y` is positive odd and lies in the
+two fixed classes `y=0 (mod M)`, `y=-1 (mod F)`.  The state itself selects
+
+```text
+m=v2(y+1)/23,
+E=3^(17m)*(y+1)-2^(23m),
+h=(v2(E)-23m)/154.
+```
+
+If `m,h>=1` are integers, the defect followed by `h-1` background cells
+returns
+
+```text
+y'=3^(114h)*E/2^(23m+154h).
+```
+
+Continuation asks only that `v2(y'+1)` be another positive multiple of 23;
+the two fixed congruences are preserved by the literal register execution.
+This is the first genuinely state-dependent, fixed-level programming
+language found here: `y` reads a defect length, its collision reads a recharge
+length, and the odd remainder becomes the next program state.  Every accepted
+transition is outward.  Hence an infinite accepted positive `y`-orbit is an
+ordinary Collatz counterexample.
+
+The [exact bouncer worker](experiments/kontorovich/unit_charge_bouncer.py)
+constructs all complete linked families with input/output defect extras
+`m,m'=1..4` and `h=1..4`.  It checks 64 families and two members each,
+comparing the displayed valuation map with literal execution through 320
+charge macros and 640 original unit macros.  Artifact SHA-256:
+`3564e7eac742375cc84603ad50dd7a3ed32e2f1bfc7ebbc58176ca3b08fdae0d`.
+Verifier file SHA-256:
+`f6689388b26836f6ae60a16a214f8045c54d5aa4a706ec88e113e3532efbca40`.
+
+No infinite orbit is supplied.  The next work is now focused and
+non-simulative: derive an invariant formula family for this two-valuation map,
+or prove a proposed family impossible.  In programming-language terms, the
+map is a one-register machine with two unbounded, state-read opcodes; in
+Simon's spatial terms, `(KC-BG)` is the delay line and `(KC-DF)` is the splash
+that must reproduce its own next timing word.
 
 ### 2026-07-22 05:46 EDT
 

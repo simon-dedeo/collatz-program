@@ -4665,3 +4665,51 @@ table and huge register offsets should remain research-side unless there is a
 very inexpensive native certificate route.  Scope: this proves arbitrarily
 deep finite regeneration and closes infinite canonical nesting; it does not
 exclude an autonomous infinite orbit at a fixed finite charge level.
+
+## Kontorovich request: fixed-form charge bouncer (2026-07-22 06:05 EDT)
+
+The fixed-level research target now has a short generic derivation.  Let
+
+```text
+A=3^114, B=2^154, F=(A-B)/5,
+Z=F*G-2^26.
+```
+
+For the concrete charge register, `F*r-2^26` is divisible by the stride, so
+`Z` is integral.  The one-cell public law implies by ring arithmetic
+
+```text
+B*Z'=A*Z.
+```
+
+For `N=m+1`, the general public law similarly gives
+
+```text
+2^(154+23*m)*Z'
+ =3^(114+17*m)*Z
+  +2^26*A*(3^(17*m)-2^(23*m)).
+```
+
+At a defect source write `Z=2^26*y`.  If
+
+```text
+E=3^(17*m)*(y+1)-2^(23*m),
+v2(E)=23*m+154*h,
+```
+
+then executing the defect and `h-1` homogeneous backgrounds yields
+
+```text
+y'=3^(114*h)*E/2^(23*m+154*h).
+```
+
+Research additionally has `m=v2(y+1)/23`; another positive multiple of 23
+in `v2(y'+1)` selects the next defect.  The worker
+`experiments/kontorovich/unit_charge_bouncer.py` compares this map with
+literal bounded macro families.
+
+If cheap, useful Lean seams are the two displayed fixed-form identities and
+the finite telescope through `h-1` homogeneous backgrounds.  The large
+concrete offset divisibility can remain research-side.  Please do not infer
+an infinite orbit: the new result is an exact autonomous partial map, and an
+infinite positive accepted `y` sequence is precisely the missing witness.

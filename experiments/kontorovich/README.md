@@ -1635,6 +1635,89 @@ verifier file SHA-256 71f9d2014225ec4a937bc8e489c11307139121b7a2a01cca1c59266b62
 combined source SHA   fca4daa41545e459e2e3df26439c3423a29d1f83d0a5a01b15957b447633dcc5
 ```
 
+## Fixed-form two-valuation charge bouncer
+
+`unit_charge_bouncer.py` clears the rational fixed point of the one-cell
+charge instruction.  Define
+
+```text
+A=3^114,
+B=2^154,
+F=(A-B)/5
+ =493006936424420884140154671288273660376560866054730997,
+Z=F*G-2^26.
+```
+
+The charge-register offset satisfies `F*r=2^26 (mod M)`, so `Z` is an
+integer multiple of `M` on every public register state.  The one-cell branch
+becomes exactly homogeneous:
+
+```text
+B*Z'=A*Z.                                           (UCB1)
+```
+
+For a defect of length `N=m+1`, direct substitution gives
+
+```text
+2^(154+23m)*Z'
+ =3^(114+17m)*Z
+  +2^26*A*(3^(17m)-2^(23m)).                        (UCB2)
+```
+
+At every defect source, `Z=2^26*y` with `y` positive and odd.  Conversely a
+defect-phase bouncer state is characterized by
+
+```text
+y=0 (mod M),
+y=-1 (mod F),
+v2(y+1)=23m,       m>=1.
+```
+
+Put
+
+```text
+E=3^(17m)*(y+1)-2^(23m).
+```
+
+If
+
+```text
+v2(E)=23m+154h,    h>=1,
+```
+
+then (UCB2) executes the defect and (UCB1) executes exactly `h-1` further
+background cells.  The next defect-boundary state is
+
+```text
+y'=3^(114h)*E/2^(23m+154h).                         (UCB3)
+```
+
+It continues precisely when `v2(y'+1)` is another positive multiple of 23;
+literal execution preserves the two fixed register congruences.  Equations
+(UCB1)--(UCB3) are an autonomous two-valuation programming language: `y`
+chooses `m`, the defect collision chooses `h`, and its odd part becomes the
+next state.  Every successful underlying charge instruction is strictly
+outward, so an infinite accepted positive `y`-orbit would refute Collatz.
+
+```bash
+python3 unit_charge_bouncer.py selftest
+python3 unit_charge_bouncer.py build unit_charge_bouncer_audit.json
+python3 unit_charge_bouncer.py verify unit_charge_bouncer_audit.json
+```
+
+For `m,m'=1..4` and `h=1..4`, the artifact builds the complete affine family
+which executes defect `m+1`, then `h-1` backgrounds, and enters defect
+`m'+1`.  Its 64 families and two members each are checked by the fixed-form
+map and literally replayed through 320 charge macros and 640 original unit
+macros.  This bounded family audit validates the compiler seam; it is not an
+infinite orbit or an exhaustive search over bouncer states.
+
+```text
+artifact SHA-256      3564e7eac742375cc84603ad50dd7a3ed32e2f1bfc7ebbc58176ca3b08fdae0d
+verifier file SHA-256 f6689388b26836f6ae60a16a214f8045c54d5aa4a706ec88e113e3532efbca40
+combined source SHA   ad72a3142ab9659ce3e8496e84df9748023ceb81723c7b49b8501108358a88df
+```
+
 ## Sign-alternating capped-splash hierarchy
 
 `breakoff_renormalization.py` iterates the super-ether construction as exact
