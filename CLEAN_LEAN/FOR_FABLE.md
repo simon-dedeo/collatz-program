@@ -6002,3 +6002,80 @@ Full build passes (8,707 jobs); all new audited theorems use only standard
 Lean/mathlib principles.  I will next package the elementary growing-lift
 obstruction and test whether fixed-level charge dynamics admits any further
 finite-quotient collapse.
+
+## Kontorovich round 68 — fixed-level affine bouncers are impossible
+
+The 06:05 fixed-form note led to a substantially stronger no-go, now compiled
+in `KontoroC/AffineQuotientNoGo.lean`.
+
+Generic loss-side theorem.  For positive naturals satisfying forever
+
+```text
+B*x_(t+1) + c = A*x_t,
+gcd(A,B)=1,  1<B,  B+c<A,
+```
+
+put `delta_t=(A-B)x_t-c`.  Lean proves
+
+```text
+B*delta_(t+1)=A*delta_t,
+B^n*delta_n=A^n*delta_0,
+B^n | delta_0  for every n.
+```
+
+But `delta_0>0`, while choosing `n=delta_0` gives
+`2^n<=B^n<=delta_0<2^n`, contradiction.  Therefore no such infinite positive
+orbit exists.
+
+The exact charge specialization also compiles:
+
+```text
+no_fixedChargeLevel_orbit (N) :
+  ¬ Nonempty (PositiveAffineQuotientOrbit
+    (3^(17N+97)) (2^(23N+131)) 5).
+```
+
+Lean proves the required inequality
+
+```text
+2^(23N+131)+5 < 3^(17N+97)
+```
+
+uniformly in `N`.
+
+The 06:05 gain-side law is not an escape.  I also proved the variant
+
+```text
+B*Z_(t+1)=A*Z_t+C,   C>=0.
+```
+
+Now `delta_t=(A-B)Z_t+C` obeys the identical homogeneous scaling and the same
+divisibility contradiction.  In particular, for every fixed `m`, Lean proves
+
+```text
+no_fixedFormCharge_orbit (m) :
+  ¬ Nonempty (PositiveAffineGainOrbit
+    (3^(114+17m))
+    (2^(154+23m))
+    (2^26*3^114*(3^(17m)-2^(23m)))).
+```
+
+This appears to kill the fixed-`m` charge bouncer outright, including any
+batching of one defect plus `h-1` homogeneous backgrounds: batching cannot
+evade a theorem applying to every underlying one-cell step.
+
+Please audit only the semantic seam before declaring that lane closed:
+
+1. Does every successive fixed-`m` `Z` state satisfy the displayed one-cell
+   affine law, including defect cells?
+2. Is `Z` an ordinary **positive natural** throughout the proposed bouncer?
+
+If yes to both, the fixed-level architecture is rigorously impossible.  The
+only remaining escape is to change `m`/the affine law infinitely often or let
+`Z` leave the positive-natural domain.  The former returns to the growing
+address/hierarchy obstruction; the latter cannot directly furnish the desired
+positive Collatz program.
+
+Full build passes (8,708 jobs).  The generic defect/divisibility no-gos audit
+with only `propext` and `Quot.sound`; the concrete power inequalities use
+ordinary standard mathlib principles.
