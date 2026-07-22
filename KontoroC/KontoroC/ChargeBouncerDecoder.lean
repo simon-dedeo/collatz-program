@@ -27,6 +27,8 @@ structure ChargeBouncerStep where
   input : ℕ
   output : ℕ
   oddPart : ℕ
+  defectOpcode_pos : 0 < defectOpcode
+  rechargeCount_pos : 0 < rechargeCount
   input_pos : 0 < input
   oddPart_pos : 0 < oddPart
   input_three : 3 ∣ input
@@ -90,6 +92,43 @@ theorem input_readback (s : ChargeBouncerStep) :
   rw [← s.rearranged]
   simp
 
+/-- Every accepted fixed-form transition is strictly outward.  This follows
+directly from `2^23 < 3^17` and `2^154 < 3^114`; no macro replay is needed. -/
+theorem strictly_outward (s : ChargeBouncerStep) : s.input < s.output := by
+  let Cpow := 3 ^ (17 * s.defectOpcode)
+  let Dpow := 2 ^ (23 * s.defectOpcode)
+  let Apow := 3 ^ (114 * s.rechargeCount)
+  let Bpow := 2 ^ (154 * s.rechargeCount)
+  let bracket := 1 + Bpow * s.oddPart
+  have hCDbase : 2 ^ 23 < 3 ^ 17 := by norm_num
+  have hABbase : 2 ^ 154 < 3 ^ 114 := by norm_num
+  have hCD : Dpow < Cpow := by
+    dsimp [Cpow, Dpow]
+    rw [pow_mul, pow_mul]
+    exact (Nat.pow_lt_pow_iff_left s.defectOpcode_pos.ne').2 hCDbase
+  have hAB : Bpow < Apow := by
+    dsimp [Apow, Bpow]
+    rw [pow_mul, pow_mul]
+    exact (Nat.pow_lt_pow_iff_left s.rechargeCount_pos.ne').2 hABbase
+  have hbracket : 0 < bracket := by dsimp [bracket]; omega
+  have hsmall : s.input + 1 < bracket := by
+    by_contra hnot
+    have hle : bracket ≤ s.input + 1 := by omega
+    have hstrict : Dpow * bracket < Cpow * bracket :=
+      (Nat.mul_lt_mul_right hbracket).2 hCD
+    have hlarge : Cpow * bracket ≤ Cpow * (s.input + 1) :=
+      Nat.mul_le_mul_left Cpow hle
+    have heq : Cpow * (s.input + 1) = Dpow * bracket := by
+      simpa [Cpow, Dpow, Bpow, bracket] using s.rearranged
+    omega
+  have hinput_B : s.input < Bpow * s.oddPart := by
+    dsimp [bracket] at hsmall
+    omega
+  have hBA : Bpow * s.oddPart < Apow * s.oddPart :=
+    (Nat.mul_lt_mul_right s.oddPart_pos).2 hAB
+  rw [s.output_eq]
+  simpa [Apow] using hinput_B.trans hBA
+
 /-- An accepted output uniquely determines both opcodes, the odd quotient,
 and the input. -/
 theorem data_eq_of_output_eq (s t : ChargeBouncerStep)
@@ -118,5 +157,21 @@ theorem data_eq_of_output_eq (s t : ChargeBouncerStep)
   exact ⟨hh, hq, hm, hinput⟩
 
 end ChargeBouncerStep
+
+/-- Directed edge relation of the accepted fixed-form bouncer. -/
+def ChargeBouncerPrecedes (input output : ℕ) : Prop :=
+  ∃ s : ChargeBouncerStep, s.input = input ∧ s.output = output
+
+theorem chargeBouncerPrecedes_lt {input output : ℕ}
+    (h : ChargeBouncerPrecedes input output) : input < output := by
+  obtain ⟨s, rfl, rfl⟩ := h
+  exact s.strictly_outward
+
+/-- The accepted graph is well-founded in the reverse direction.  Thus it has
+no cycle or bi-infinite trajectory; a counterexample witness would have to be
+a genuinely one-sided infinite outward ray. -/
+theorem chargeBouncerPrecedes_wellFounded :
+    WellFounded ChargeBouncerPrecedes :=
+  Subrelation.wf chargeBouncerPrecedes_lt Nat.lt_wfRel.wf
 
 end KontoroC

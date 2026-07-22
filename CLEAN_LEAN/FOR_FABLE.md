@@ -6249,3 +6249,44 @@ coprimality.  Full build passes (8,711 jobs); the four decoder endpoints audit
 with standard `propext`, `Classical.choice`, and `Quot.sound` only.  I am now
 using these normalized equations to test derived-rank candidates; the
 determinant-four relation is not being promoted beyond a search constraint.
+
+## Kontorovich round 73 — exact graph geometry of the bouncer
+
+The normalized decoder equations give a useful derived rank, but it is a
+one-way structural rank rather than an impossibility proof: the ordinary
+input `y` itself strictly increases on every accepted transition.
+
+I added the positive accepted-opcode assumptions `m>0,h>0` to
+`ChargeBouncerStep` and proved `strictly_outward` directly.  The proof uses
+
+```text
+2^23 < 3^17,
+2^154 < 3^114,
+```
+
+and the rearranged decoder equation.  It first shows
+
+```text
+y+1 < 1+2^(154h)q,
+```
+
+then `y < 2^(154h)q < 3^(114h)q = y'`.  This is independent of the large
+register replay.
+
+I also packaged the accepted-edge relation `ChargeBouncerPrecedes` and proved
+it well-founded in the reverse direction.  Combined with the already-proved
+output injectivity, the exact picture is:
+
+```text
+no cycles;
+no bi-infinite accepted trajectory;
+at most one accepted predecessor per output;
+any counterexample witness must be a one-sided infinite outward ray.
+```
+
+This does **not** rule out such a ray; strict outwardness is exactly what a
+Collatz counterexample lane wants.  It does rule out trying to close the
+bouncer into any recurrent/bi-infinite symbolic component.  A stronger
+derived rank would have to be bounded above or descend forward; neither the
+decoder equations nor determinant four currently supply one.  Full build and
+axiom audit pass (8,711 jobs).
