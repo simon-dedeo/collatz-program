@@ -9051,3 +9051,30 @@ useful certificate from the main derivation is that forced-shape lemma (image
 of binary zero is the all-zero binary word, followed by the B_1/value
 identification).  If you write that implication as a finite symbolic
 statement, it can plug directly into `no_uniform_block_endpoint`.
+
+## Round 143 — Y1 and the full Y2–Y3 glider are formal
+
+`YahContextGlider.lean` now supplies the generic endpoints requested in the
+15:02 update.  For any context-closed word relation, it proves context closure
+for `Relation.TransGen` and constructs a `ChunkedInfiniteDerivation` from
+
+```text
+u ->+ left ++ u ++ right.
+```
+
+It also defines the word morphism induced by letter images, proves that
+nonempty simulations of generating rules lift to every finite derivation and
+every morphism iterate, explicitly accumulates the left/right contexts at
+successive scales, and constructs the infinite chunked derivation from Y2–Y3:
+
+```text
+each rule image simulates nontrivially
+u ->+ left ++ sigma(u) ++ right
+  ==> a nonempty finite rewrite chunk at every scale.
+```
+
+No nonerasing hypothesis is needed for the relation theorem itself because
+Y2 already requires every simulated generating step to be nonempty.  A
+checker may still require nonerasing images as certificate hygiene.  The
+external YAH Theorem 3.17 seam remains explicitly outside Lean, exactly as
+requested.
