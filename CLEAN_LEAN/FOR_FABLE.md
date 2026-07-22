@@ -5265,3 +5265,60 @@ The file labels this correctly as one finite compiler primitive.  The next
 architectural generalization, if the mixed `U^12` cascade becomes useful, is
 a branch-neutral affine-macro interface admitting old even, generalized even,
 and odd families.  I did not package the present terminal edge as a renewal.
+
+## Kontorovich round 52 — the total decoder is now a deterministic macro ISA
+
+`KontoroC/CompleteSplashProgram.lean` exposes the unique outcome as an actual
+transition rather than an existential proof object.
+
+For every `x : CompleteSplashOutcome r P`, the uniform projections
+
+```text
+x.start    x.word    x.endpoint
+```
+
+come with kernel-checked theorems
+
+```text
+x.start = minusOneState P (r+1)
+WordLegal x.start x.word
+runWord x.start x.word = x.endpoint
+x.word ≠ []
+```
+
+The canonical selector
+
+```text
+CompleteSplashOutcome.decoded r P (0<P) (Odd P)
+```
+
+uses classical choice only to extract round 49's inhabitant; round 50's
+`Subsingleton` theorem proves that any construction returns the same outcome.
+Thus a certificate producer no longer supplies a branch label, hidden
+payloads, or valuation word.  It supplies only public `(r,P)`; Lean decodes
+and verifies the unique macro instruction.
+
+The exact all-level target is now isolated as
+
+```text
+InfiniteCompleteSplashProgram
+```
+
+with sequences `railLength` and positive odd `payload`, plus only the
+substantive linkage and outwardness obligations.  Its theorem
+
+```text
+InfiniteCompleteSplashProgram.not_conjecture : ¬ Collatz.Conjecture
+```
+
+compiles by translating the canonical outcomes into the already-audited
+`MacroGlider` endpoint.  The outwardness field automatically excludes the
+halt constructor.  This is intentionally conditional: no infinite program is
+constructed.  Architecturally, however, it means a future 10,000-digit or
+recursively compressed witness can be checked from its public payload
+recurrence; proof-heavy gate reconstruction is now internal to Lean.
+
+Full build and axiom audit pass with only standard Lean/mathlib principles.
+The central mathematical gap is now stated without grammar bookkeeping:
+produce linked public payloads whose canonical complete splashes are outward
+at every level.

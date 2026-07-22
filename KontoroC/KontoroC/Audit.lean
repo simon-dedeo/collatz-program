@@ -157,6 +157,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SplashHalt.disjoint_odd
 #print axioms KontoroC.exists_completeSplashOutcome
 #print axioms KontoroC.existsUnique_completeSplashOutcome
+#print axioms KontoroC.CompleteSplashOutcome.legal_and_endpoint
+#print axioms KontoroC.CompleteSplashOutcome.decoded
+#print axioms KontoroC.CompleteSplashOutcome.decoded_start
+#print axioms KontoroC.InfiniteCompleteSplashProgram.toMacroGlider
+#print axioms KontoroC.InfiniteCompleteSplashProgram.not_conjecture
 #print axioms KontoroC.AffineOddCatcherLink.endpoint_link
 #print axioms KontoroC.OddSaturatedAffineBridge.targetIndex_eq_iterate
 #print axioms KontoroC.OddSaturatedAffineBridge.endpoint_eq_iterate_start
