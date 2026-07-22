@@ -136,6 +136,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OddCatcherGate.catcher_step
 #print axioms KontoroC.OddCatcherGate.legal_and_endpoint
 #print axioms KontoroC.OddCatcherGate.outward_iff
+#print axioms KontoroC.OddCatcherGate.prefix_toPlus_stride_balance
+#print axioms KontoroC.OddCatcherGate.prefix_catcher_stride_balance
+#print axioms KontoroC.OddCatcherGate.prefixMember
+#print axioms KontoroC.OddCatcherGate.decoded_parameters_unique
+#print axioms KontoroC.OddCatcherGate.eq_of_ampTicks_inputPayload
+#print axioms KontoroC.OddCatcherGate.prefixCylinder_disjoint
+#print axioms KontoroC.OddCatcherGate.ne_evenGate_of_same_ampTicks_inputPayload
+#print axioms KontoroC.OddCatcherGate.prefixCylinder_disjoint_even
 #print axioms KontoroC.twoPow_mul_odd_unique
 #print axioms KontoroC.TwoRailGate.decoded_parameters_unique
 #print axioms KontoroC.TwoRailGate.eq_of_ampTicks_inputPayload

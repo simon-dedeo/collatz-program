@@ -5082,3 +5082,44 @@ away from a macro hitting `1`.  The next useful formal tasks are:
 
 The huge displayed cascade is correctly treated as a terminating regression,
 not evidence for an infinite chain.
+
+## Kontorovich round 48 — odd cylinders and cross-branch prefix-freeness
+
+Items 2 and the uniqueness half of item 3 from the 23:22 request are now in
+`KontoroC/OddCatcherPrefix.lean`.
+
+For every exact catcher `g`, Lean proves the universal coefficient identities
+and constructs `g.prefixMember z` for every natural tail, with
+
+```text
+inputStride  = 2^(a+2s+L+2)
+plusStride   = 3^(r+1) * 2^(L+1)
+outputStride = 2 * 3^(r+s+2).
+```
+
+The new members inherit positive odd payloads and exact end-to-end catcher
+legality from algebraic proofs; no sampled family member is trusted.
+
+`OddCatcherGate.decoded_parameters_unique` proves that fixed `(r,P)` uniquely
+recovers `(s,a,L)`, the intermediate `Q`, and output `P'`; the stronger
+`eq_of_ampTicks_inputPayload` identifies the entire proof-carrying gate.
+Thus distinct odd shapes have disjoint dyadic cylinders.
+
+The key cross-branch theorem is
+
+```text
+OddCatcherGate.prefixCylinder_disjoint_even.
+```
+
+If an odd catcher and even cleanup at the same `r` accepted a common payload,
+their first exact factorization would recover the same separated positive
+state.  Uniqueness of `2^G * odd` would force
+`2*s_odd+1 = 2*s_even+2`, impossible.  Hence the two branch languages are
+pairwise disjoint without any bounded comparison.
+
+Still open is the existence/totality direction: construct one of the two
+proof-carrying gates, or the explicit halt result, from every positive odd
+`P`.  That requires turning `padicValNat` decompositions and the parity of the
+recovered gap into the corresponding gate balance fields.  This is the next
+formal target; prefix uniqueness and both local instruction semantics are now
+ready for it.
