@@ -125,10 +125,12 @@ theorem mersenneMacro_legal_of_packet_equation {m e h y : ℕ}
           have ha : 0 < a := by positivity
           have hxcoord : x = 2 * a - 1 := by
             dsimp [x, a]
+            congr 1
             rw [show n + 2 = (n + 1) + 1 by omega, pow_succ]
             ring
           have hzcoord : z = 3 * a - 1 := by
             dsimp [z, a]
+            congr 1
             ring
           have hstepEq : 2 * z = 3 * x + 1 := by
             rw [hxcoord, hzcoord]
@@ -142,6 +144,7 @@ theorem mersenneMacro_legal_of_packet_equation {m e h y : ℕ}
             calc
               2 ^ e * y = 3 ^ (n + 2) * h - 1 := hcollision
               _ = 3 ^ (n + 1) * (3 * h) - 1 := by
+                congr 1
                 rw [show n + 2 = (n + 1) + 1 by omega, pow_succ]
                 ring
           have htail := ih (h := 3 * h)
@@ -333,6 +336,46 @@ theorem next_packet_unique_mod_threePow {m e u v r : ℕ}
     simpa [pow_add] using hp
   apply Nat.ModEq.cancel_left_of_coprime hcop.gcd_eq_one
   simpa [mul_assoc] using hprod
+
+/-- Uniformly bounded collision extras force the positive packet sequence to
+be strictly increasing from some point onward. -/
+theorem eventually_packet_grows (g : MersennePacketRenewal) :
+    ∃ T, ∀ t, T ≤ t → g.packet t < g.packet (t + 1) := by
+  obtain ⟨N, hN⟩ := eventually_twoPow_mul_pow_lt_pow
+    (P := 3) (Q := 2) (E := g.extraBound + 1) (by omega) (by omega)
+  refine ⟨N, fun t ht => ?_⟩
+  let m := g.level0 + t
+  let e := g.extra t
+  have hm : N ≤ m := by
+    dsimp [m]
+    omega
+  have he : e + 1 ≤ g.extraBound + 1 := Nat.succ_le_succ (g.extra_le t)
+  have hratio0 := hN m hm (e + 1) he
+  have hratio : 2 ^ e * 2 ^ (m + 1) < 3 ^ m := by
+    calc
+      2 ^ e * 2 ^ (m + 1) = 2 ^ (e + 1) * 2 ^ m := by
+        rw [pow_succ, pow_succ]
+        ring
+      _ < 3 ^ m := hratio0
+  have hbalance := g.collision_balance t
+  change 2 ^ e * (2 ^ (m + 1) * g.packet (t + 1)) + 1 =
+      3 ^ m * g.packet t + 2 ^ e at hbalance
+  have hepow : 2 ≤ 2 ^ e := by
+    have := Nat.one_lt_pow (Nat.ne_of_gt (g.extra_pos t)) (by omega : 1 < 2)
+    change 1 < 2 ^ e at this
+    omega
+  have hlower : 3 ^ m * g.packet t <
+      (2 ^ e * 2 ^ (m + 1)) * g.packet (t + 1) := by
+    have hlower' : 3 ^ m * g.packet t <
+        2 ^ e * (2 ^ (m + 1) * g.packet (t + 1)) := by omega
+    simpa [mul_assoc] using hlower'
+  by_contra hnot
+  have hpacket : g.packet (t + 1) ≤ g.packet t := by omega
+  have hupper : (2 ^ e * 2 ^ (m + 1)) * g.packet (t + 1) <
+      3 ^ m * g.packet t :=
+    (Nat.mul_le_mul_left _ hpacket).trans_lt
+      ((Nat.mul_lt_mul_right (g.packet_pos t)).2 hratio)
+  omega
 
 /-- Compile the pure recurrence into the earlier all-level orbit artifact. -/
 def toMersenneShadowOrbit (g : MersennePacketRenewal) :

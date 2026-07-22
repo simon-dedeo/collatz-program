@@ -118,6 +118,8 @@ the natural states, every exact valuation word, and every macro endpoint.
 Its constant-extra corollary directly matches `search_mersenne_constants.py`.
 The recurrence also forces an explicit next-packet congruence modulo `3^m`,
 available as `next_packet_mod_threePow` for modular search pruning.
+With uniformly bounded extras, the packet sequence itself is proved to become
+strictly increasing after a finite level.
 
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.

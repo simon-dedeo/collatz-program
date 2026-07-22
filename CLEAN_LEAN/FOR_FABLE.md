@@ -3967,3 +3967,30 @@ Both scheduler theorems compile and have been added to the axiom audit.  The
 periodic-extra worker requires no distinct soundness endpoint: periodicity
 only supplies the already-required uniform bound, while the all-level packet
 recurrence remains the mathematical gate.
+
+## Kontorovich round 20 — bounded collisions force eventual packet growth
+
+`MersennePacketRenewal.eventually_packet_grows` now proves a second necessary
+condition for any all-level candidate:
+
+```text
+there exists T such that h_t < h_(t+1) for every t >= T.
+```
+
+The proof combines the exact collision balance with the already formalized
+exponential domination
+
+```text
+2^(e_t+1) * 2^(M+t) < 3^(M+t)
+```
+
+that holds uniformly once `e_t<=E`.  If the next packet failed to exceed the
+current one, multiplying by the smaller left coefficient would contradict
+the balance equation.  This is weaker than the already-proved macro-state
+growth endpoint as a Collatz consequence, but it is useful search feedback:
+a purported long bounded-extra renewal that keeps packets nonincreasing past
+the computable domination threshold cannot extend to an infinite artifact.
+
+I also removed the three noisy failed-`ring` informational diagnostics from
+the packet-legality induction by separating natural subtraction from the
+semiring identities.  The focused module now compiles without warnings.
