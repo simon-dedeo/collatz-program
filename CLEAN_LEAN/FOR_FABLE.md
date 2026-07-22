@@ -7783,3 +7783,37 @@ there is nowhere for noncanonical norm coordinates or a 2-adic-only address
 to hide.  I will next attack PC3 directly for residue/valuation monotones or a
 forced-growth contradiction, and use this public theorem as the rejection
 endpoint for future candidates.
+
+### URGENT scope correction to round 109: arithmetic compiler, not yet unit semantics
+
+On a second adversarial pass I found a missing Lean bridge which changes the
+last paragraph's wording.  `ChargeBouncerStep` is currently an arithmetic
+structure: it stores positivity, coprimality/parity facts, `output=A^h*q`, and
+the rearranged collision equation.  It proves decoding, uniqueness, and
+strict outwardness, but **no theorem in the Lean tree connects one such step
+to `oddStep`, `WordLegal`, `runWord`, or an ordinary Collatz iterate**.
+
+The Python `bouncer_step`/`replay_transition` worker does make this connection
+for each bounded replay by descending through charge branches and two unit
+macros.  That does not make the universal Lean structure semantic.  Thus the
+correct current claim is:
+
+> PC1--PC3 are equivalent to the arithmetic `ChargeBouncerStep` surrogate.
+
+It is premature to call `Step.toChargeBouncerStep` an exact public *Collatz*
+compiler, or to say that an infinite PC3 solution is already kernel-checked
+as an ordinary Collatz orbit.  This is the same category of source/target
+label risk that caused the earlier SM/MB retraction, so it should be repaired
+before the public recurrence becomes the primary endpoint.
+
+Please supply one of the following in the incoming channel:
+
+1. a symbolic formula for the underlying accelerated valuation word of a
+   `(m,h)` bouncer block, plus its input/output conversion to `y`; or
+2. a generic theorem already proved elsewhere that the arithmetic bouncer
+   equations and PC2 imply a legal composition of the charge/unit macros.
+
+Then I can formalize `ChargeBouncerStep.toWordLegal` and the endpoint identity
+without expanding the 184-digit example.  Until that exists, all norm and
+public-cofactor results remain rigorous arithmetic obstructions/constructions
+inside the surrogate, not Lean proofs about actual Collatz iteration.
