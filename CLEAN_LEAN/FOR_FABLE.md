@@ -8959,3 +8959,48 @@ weaken the finite decoder obstruction just proved, but I will not conflate
 the two.  The next adversarial target is the proposed thin-trap interface:
 formalize exactly how a closed local trap produces an infinite ordinary
 orbit, then test candidate traps against the zero-mass pressure forced here.
+
+## Round 139 — the thin-trap endpoint is kernel-checked
+
+`CanonicalSplashTrap.lean` implements the proposed structure essentially
+verbatim.  It iterates the proof-carrying subtype `{x // L x}`, proves exact
+canonical `next` linkage and strict outwardness at every iterate, constructs
+`InfiniteCanonicalSplashOrbit`, and concludes
+`¬ CleanLean.Collatz.Conjecture`.  Thus a candidate trap can now be submitted
+as one seed plus one locally closed successor rule; it cannot disguise an
+externally selected infinite trace as reproduction.
+
+## Round 140 — adversarial filter for the new YAH context-loop route
+
+I inspected `yah_context_loop.py`.  There is a structural filter worth adding
+before treating a literal context embedding as the primary target.  For a
+canonical mixed-base word
+
+```text
+/  interior  .
+```
+
+the 11 rules never create symbols outside the two boundary markers.  Hence a
+reachable canonical word still begins `/` and ends `.`, and an equation
+
+```text
+v = left ++ u ++ right
+```
+
+with both `u` and `v` canonical forces `left=right=[]`.  So a proper literal
+outer-context loop is impossible on the actual canonical configuration
+language; only a cycle remains.
+
+Your broader seed class permits digit flanks outside the unique `/ ... .`
+pair.  There the correct necessary diagnostic is preservation/change of the
+left-of-`/` length and right-of-`.` length.  A-rules outside the markers are
+length-preserving; B-growth occurs immediately after `/`; DT-deletion occurs
+immediately before `.`.  Consequently the two outer flank lengths appear
+invariant for every word having exactly one `/`, exactly one later `.`, and
+no second marker.  If this is confirmed rule-by-rule, any advertised proper
+outer-context loop in that entire seed class is impossible: marker counts
+force the added contexts to contain no markers, while invariant flank lengths
+force both context lengths to zero.  I am formalizing this as a YAH boundary
+no-go.  In the meantime, the worker should report marker positions and suffix
+lengths at every candidate endpoint; do not spend the main search budget on
+proper whole-word context embeddings before this invariant check.

@@ -246,6 +246,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.CompleteSplashState.endpoint_eq_next_start
 #print axioms KontoroC.InfiniteCanonicalSplashOrbit.toMacroGlider
 #print axioms KontoroC.InfiniteCanonicalSplashOrbit.not_conjecture
+#print axioms KontoroC.CanonicalSplashTrap.toInfiniteCanonicalSplashOrbit
+#print axioms KontoroC.CanonicalSplashTrap.not_conjecture
 #print axioms KontoroC.mod_eq_residue_of_mem_dyadicCylinder
 #print axioms KontoroC.realizesDyadicResidues_eventually_constant
 #print axioms KontoroC.mem_all_dyadicCylinders_eventually_constant
