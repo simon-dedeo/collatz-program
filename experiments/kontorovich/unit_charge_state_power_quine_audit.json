@@ -1,0 +1,355 @@
+{
+  "checks": {
+    "all_class_no_infinite_run_claim_depends_on_external_Roth": true,
+    "public_output_type_reproduces_algebraically": true,
+    "register_root_mod_F_is_unique": true,
+    "taxicab_normalization_exact": true,
+    "valuation_growth_separator_exact": true
+  },
+  "claim_scope": "exact public-state 23rd-power reproduction reduction for every h=23*ell; Lean proves the m-divisible-by-23 one-step no-go; the a proposed all-class no-infinite-run conclusion would use Roth's theorem externally after an elementary approximation bridge which is still awaiting Lean",
+  "collision_quotient_type": "q=t^23",
+  "constants": {
+    "A": 2465034704958067503996131453373943813074726512397600969,
+    "B": 22835963083295358096932575511191922182123945984,
+    "C": 129140163,
+    "D": 8388608,
+    "F": 493006936424420884140154671288273660376560866054730997,
+    "M": 671265207750760396088265
+  },
+  "forced_input_root_mod_F": "s=-1 mod F",
+  "forced_output_t_mod_F_samples": [
+    {
+      "ell": 1,
+      "forced_t_mod_F": 417200541844496251545180066033131693187789827722091922
+    },
+    {
+      "ell": 2,
+      "forced_t_mod_F": 80841683498900004202754531378035781800473838057509128
+    },
+    {
+      "ell": 23,
+      "forced_t_mod_F": 314963185718617580205816503388618263099076656899821448
+    },
+    {
+      "ell": 146,
+      "forced_t_mod_F": 217796974979621215029659598370547491677941255130057842
+    }
+  ],
+  "m_multiple_23": {
+    "normalization_rows": [
+      {
+        "C^m_equals_U^23": true,
+        "D^m_equals_Z^23": true,
+        "input_divisibility_exponent": 529,
+        "input_divisibility_exponent_equals_529k": true,
+        "k": 1,
+        "m": 23
+      },
+      {
+        "C^m_equals_U^23": true,
+        "D^m_equals_Z^23": true,
+        "input_divisibility_exponent": 1058,
+        "input_divisibility_exponent_equals_529k": true,
+        "k": 2,
+        "m": 46
+      },
+      {
+        "C^m_equals_U^23": true,
+        "D^m_equals_Z^23": true,
+        "input_divisibility_exponent": 12167,
+        "input_divisibility_exponent_equals_529k": true,
+        "k": 23,
+        "m": 529
+      },
+      {
+        "C^m_equals_U^23": true,
+        "D^m_equals_Z^23": true,
+        "input_divisibility_exponent": 77234,
+        "input_divisibility_exponent_equals_529k": true,
+        "k": 146,
+        "m": 3358
+      }
+    ],
+    "proof_schema": [
+      "taxicab equality and C>D force 0<Y^23-X^23<U^23",
+      "integrality forces Y^23-X^23>=X^22, hence s^22<U",
+      "2^(529k)|(s+1) forces s>2^(528k)",
+      "U=3^(17k)<2^(34k), but s^22>2^(11616k)>2^(34k)"
+    ],
+    "status": "elementary universal no-go kernel-checked in Lean commit 4c56925",
+    "taxicab_equation": "(3^(17k)*s)^23+(3^(17k))^23=(2^(23k+154)*t)^23+(2^(23k))^23"
+  },
+  "necessary_and_semantically_sufficient_equation_with_side_conditions": "C^m*(s^23+1)=D^m*(1+(B^ell*t)^23), v2(s+1)=23m, t odd, and input/output register conditions",
+  "negative_sanity_tuple": {
+    "ell": 1,
+    "input_public_state": 1,
+    "input_v2_s_plus_one": 1,
+    "literal_bouncer_replay_attempted": false,
+    "m": 1,
+    "recharge_h": 23,
+    "s": 1,
+    "state_power_equation_holds": false,
+    "t": 1
+  },
+  "nonzero_coefficient_classes": {
+    "denominator_bound": "for reduced p/q=Y/X, q<=X=U*s<s^2, hence eventually 0<p/q-alpha<q^-11",
+    "exact_approximation": "for alpha=3^(e/23), 0<Y/X-alpha<alpha/s^23",
+    "growth": "B^ell*t>s and A^ell*t>B^ell*t, so the next root exceeds s",
+    "normalization_rows": [
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 0,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 17,
+        "m": 1,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 1,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 11,
+        "m": 2,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 2,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 5,
+        "m": 3,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 2,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 22,
+        "m": 4,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 3,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 16,
+        "m": 5,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 4,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 10,
+        "m": 6,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 5,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 4,
+        "m": 7,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 5,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 21,
+        "m": 8,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 6,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 15,
+        "m": 9,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 7,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 9,
+        "m": 10,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 8,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 3,
+        "m": 11,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 8,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 20,
+        "m": 12,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 9,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 14,
+        "m": 13,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 10,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 8,
+        "m": 14,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 11,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 2,
+        "m": 15,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 11,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 19,
+        "m": 16,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 12,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 13,
+        "m": 17,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 13,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 7,
+        "m": 18,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 14,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 1,
+        "m": 19,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 14,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 18,
+        "m": 20,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 15,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 12,
+        "m": 21,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 16,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 6,
+        "m": 22,
+        "nonzero_class": true
+      },
+      {
+        "U_lt_minimum_positive_s": true,
+        "a": 17,
+        "binary_reconstruction_ell_1": true,
+        "coefficient_reconstruction": true,
+        "e": 0,
+        "m": 23,
+        "nonzero_class": false
+      }
+    ],
+    "status": "if the elementary bridge is kernel-checked, Roth would imply finitely many transitions per class and no infinite pure-state run; external theorem, bridge sent to Lean"
+  },
+  "odd_exponent_lte": [
+    "v2(s^23+1)=v2(s+1) for odd s",
+    "v3((B*t)^23+1)=v3(B*t+1) when 3 divides B*t+1"
+  ],
+  "public_state_type": "y=s^23",
+  "recharge_type": "h=23*ell, ell>=1",
+  "register_23rd_root_audit": [
+    {
+      "gcd_23_prime_minus_one": 1,
+      "prime": 173,
+      "prime_mod_23": 12
+    },
+    {
+      "gcd_23_prime_minus_one": 1,
+      "prime": 168803,
+      "prime_mod_23": 6
+    },
+    {
+      "gcd_23_prime_minus_one": 1,
+      "prime": 1707499,
+      "prime_mod_23": 2
+    },
+    {
+      "gcd_23_prime_minus_one": 1,
+      "prime": 33826633,
+      "prime_mod_23": 4
+    },
+    {
+      "gcd_23_prime_minus_one": 1,
+      "prime": 73768171,
+      "prime_mod_23": 18
+    },
+    {
+      "gcd_23_prime_minus_one": 1,
+      "prime": 317905672921,
+      "prime_mod_23": 4
+    },
+    {
+      "gcd_23_prime_minus_one": 1,
+      "prime": 12463506446779,
+      "prime_mod_23": 13
+    }
+  ],
+  "reproduced_output": "y'=A^(23*ell)*t^23=(A^ell*t)^23",
+  "schema": "collatz-unit-charge-state-power-quine-v1",
+  "verifier_sha256": "3596bff8de4d27bde0d88703fd7a97f80a26e86dd9090c28ff3d6263877feff5"
+}

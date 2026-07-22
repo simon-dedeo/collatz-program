@@ -5396,3 +5396,155 @@ and the three local sieves leave all exponent classes.  The exact artifact is
 `db7e620c936bcb9b126a70e183f33ad0880159942329e5c04476c7035fdcfe9c`.
 No new Lean request is made yet; the next obligation is to derive an actual
 multi-rail correction identity, not merely another necessary equation.
+
+## Kontorovich request: public-state 23rd-power quine (2026-07-22 09:47 EDT)
+
+A stronger reproduction type is available at the same resonance.  Encode the
+*public bouncer state* as
+
+```text
+y=s^23.
+```
+
+If an accepted step has recharge `h=23` and odd collision quotient `q=t^23`,
+then its output is automatically
+
+```text
+y'=A^23*t^23=(A*t)^23.
+```
+
+Thus the public data type literally reproduces; no output-to-input payload
+identification remains.  The exact transition condition is
+
+```text
+C^m*(s^23+1)=D^m*(1+(B*t)^23),                    (SPQ1)
+v2(s+1)=23m,                                      (SPQ2)
+```
+
+where the second equality uses odd-exponent LTE
+`v2(s^23+1)=v2(s+1)`.  The first equation also forces the symmetric condition
+`v3(1+B*t)=17m` when the valuations are exact.  Register congruences remain
+separate: `s^23=0 (mod M)`, `s^23=-1 (mod F)`, and the analogous conditions
+for `A*t`.
+
+The pure coefficient subclass `m=23k` is impossible by a very short size
+argument.  SPQ1 becomes
+
+```text
+(3^(17k)*s)^23 + (3^(17k))^23
+  = (2^(23k+154)*t)^23 + (2^(23k))^23.            (SPQ3)
+```
+
+Please kernel-check the following endpoint if cheap:
+
+```text
+theorem no_state_power_quine_of_m_multiple_23
+    (k s t : Nat) (hk : 0 < k) (hs : 0 < s) (ht : 0 < t)
+    (hval : 2^(529*k) ∣ s+1)
+    (heq : SPQ3 k s t) : False
+```
+
+Proof: put `U=3^(17k)`, `Z=2^(23k)`, `X=U*s`,
+`Y=2^(23k+154)*t`.  Since `U>Z`, SPQ3 gives
+
+```text
+0 < Y^23-X^23 = U^23-Z^23 < U^23.
+```
+
+Integral `Y>X` implies `Y^23-X^23 >= X^22`, so
+`(U*s)^22<U^23`, hence `s^22<U`.  But `hval` gives
+`s >= 2^(529k)-1 > 2^(528k)`, while
+`U=3^(17k)<2^(34k)`.  Therefore
+
+```text
+s^22 > 2^(11616k) > 2^(34k) > U,
+```
+
+a contradiction.  This closes only `m=0 (mod 23)`.  The 22 residual defect
+classes remain the live public-state quine lane and reduce to genuinely
+scaled degree-23 equations; please do not generalize the no-go beyond the
+stated hypothesis.
+
+## Kontorovich request: Roth bridge closes infinite pure-state runs (2026-07-22 10:14 EDT)
+
+There is a much stronger endpoint, and it covers **every** recharge which can
+preserve the public-state type.  If an accepted bouncer transition starts and
+ends at 23rd powers, exact ternary readback gives `23 | h` because
+`v3(y')=114h` and `gcd(114,23)=1`.  Write `h=23*ell`; then the collision odd
+part is itself `t^23`, and the transition equation is
+
+```text
+C^m*(s^23+1)=D^m*(1+(B^ell*t)^23),                (GSPQ)
+y=s^23,                 y'=(A^ell*t)^23,
+m,ell,s,t > 0.
+```
+
+Thus this is the entire pure public-23rd-power data type, not merely `h=23`.
+For
+
+```text
+a=(17m)/23,       e=(17m)%23,
+U=3^a,            X=U*s,
+Y=2^m*B^ell*t,    Z=2^m,
+```
+
+GSPQ becomes the exact gap equation
+
+```text
+Y^23-3^e X^23 = C^m-D^m > 0.                     (RB1)
+```
+
+When `e != 0`, let the positive real `alpha` satisfy
+`alpha^23=3^e`.  Factoring the difference of powers and using
+`C^m-D^m<C^m=alpha^23 U^23` gives
+
+```text
+0 < Y/X-alpha < alpha/s^23.                       (RB2)
+```
+
+The valuation condition `2^(23m) | s+1` makes `s >= 2^(23m)-1`.
+The deliberately crude comparison `U<s` therefore holds for every `m>0`
+(e.g. `U^23<=3^(17m)<2^(34m)`, while `s>2^(2m)`).  Hence, if `p/q=Y/X` is
+reduced,
+
+```text
+q <= X=U*s < s^2,
+```
+
+so RB2 is eventually stronger than
+
+```text
+0 < p/q-alpha < 1/q^11.                           (RB3)
+```
+
+Roth's theorem (used externally, not requested as a Lean axiom) says that an
+algebraic irrational `alpha` admits only finitely many reduced rational
+approximants with exponent greater than two.  There are only 22 nonzero
+coefficient classes.  The missing `e=0` class is already killed by
+`no_state_power_quine_of_m_multiple_23`.
+
+Finally, GSPQ itself gives strict state growth.  Put `z=B^ell*t`.  Since
+`C>D`, it forces `z^23+1>s^23+1`, hence `z>s`; and `A>B` gives
+
+```text
+A^ell*t > B^ell*t > s.
+```
+
+Consequently an infinite pure-state run would have strictly increasing roots
+and, by pigeonhole, infinitely many increasingly accurate approximants to one
+fixed `alpha`, contradicting Roth.  This does **not** prove that individual
+transitions in the remaining 22 classes are absent.  It proves that no
+infinite Collatz counterexample can live wholly in the public 23rd-power type.
+Corrected/multi-rail encodings remain open.
+
+Please kernel-check the elementary bridge if reasonably cheap, preferably as
+separate theorems:
+
+1. GSPQ normalizes to RB1 for arbitrary `ell`;
+2. GSPQ implies `B^ell*t>s` and therefore `A^ell*t>s`;
+3. `2^(23m) | s+1`, `m>0` imply `U<s` and `X<s^2`;
+4. over `ℝ`, RB1 plus `alpha>0`, `alpha^23=3^e` implies RB2.
+
+Keep the final Roth finiteness implication explicitly external unless Mathlib
+already has an appropriate theorem.  The exact executable companion is
+`experiments/kontorovich/unit_charge_state_power_quine.py`.

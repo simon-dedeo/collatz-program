@@ -2221,6 +2221,57 @@ artifact SHA-256      db7e620c936bcb9b126a70e183f33ad0880159942329e5c04476c7035f
 verifier file SHA-256 7ae1c74962306fa89ce4cc98f4520548c1185a10b9f3fd48fe143adc83a5b8b5
 ```
 
+The exact global survivor can be launched with
+`unit_charge_power_resonance_thue.gp`.  It solves
+
+```text
+3^15 X^23-Y^23=5 Phi_23(A,B)
+```
+
+using PARI's complete degree-23 Thue routine and prints the irreducibility and
+class-number gates before the solution list.  The 1,198-digit right-hand side
+makes this a long-running external-PARI computation, not a Lean proof.
+
+## Public-state 23rd-power reproduction
+
+`unit_charge_state_power_quine.py` checks the stronger public-state type
+
+```text
+y=s^23,  h=23*ell,  q=t^23,
+y'=(A^ell*t)^23.
+```
+
+It reconstructs the exact transition equation, all 23 coefficient
+normalizations, the fixed-register 23rd-root conditions, and the integer
+inequalities used by the pure coefficient no-go.  Lean commit `4c56925`
+proves the `m=0 (mod 23)` class impossible; commits `f61f569` and `9f00894`
+kernel-check the scaled norm equation, the valuation-preserving cyclotomic
+cofactor balance, its gcd-at-23 constraint, and the additional hidden register
+modulo `F`.
+
+For a nonzero coefficient `e`, the worker also records the exact bridge
+
+```text
+0 < Y/X-3^(e/23) < 3^(e/23)/s^23,    q_reduced < s^2.
+```
+
+This would give exponent 11 and, by Roth's theorem, exclude an infinite run
+wholly inside the pure public-power type.  The real inequality and finiteness
+consumer are not yet kernel-checked, so this is an explicitly provisional
+strategy; it does not exclude isolated transitions or corrected/multi-rail
+encodings.
+
+```bash
+PYTHONPATH=. python3 unit_charge_state_power_quine.py selftest
+PYTHONPATH=. python3 unit_charge_state_power_quine.py build unit_charge_state_power_quine_audit.json
+PYTHONPATH=. python3 unit_charge_state_power_quine.py verify unit_charge_state_power_quine_audit.json
+```
+
+```text
+artifact SHA-256      8a297e55a7691a8c611ecb1daba7abc0e841b405050fbc90fe9f91c7c3e90a08
+verifier file SHA-256 aa4749e1b3a51cb04b080a9b1ed79226e5abcbbf33c77004eba273f8ae020d9d
+```
+
 ## Three low-description aperiodic bouncer clocks
 
 `unit_charge_morphic.py` tests whether merely replacing a fixed opcode by a

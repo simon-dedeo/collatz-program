@@ -33,6 +33,52 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-22 10:20 EDT
+
+The first literal public-state reproduction type is now sharply understood,
+but it has not produced a counterexample.  Writing the autonomous bouncer
+state as `y=s^23`, every transition which preserves that type must have
+recharge `h=23*ell` and collision quotient `t^23`, hence
+
+```text
+C^m*(s^23+1)=D^m*(1+(B^ell*t)^23),
+y'=(A^ell*t)^23.
+```
+
+Lean commits `4c56925`, `f61f569`, and `9f00894` check the exact 23-class
+normalization, rule out the complete-power class `m=0 (mod 23)`, retain the
+valuation data in a cyclotomic cofactor balance, and expose a second hidden
+register modulo the fixed divisor `F`.  A plain prime sieve which forgets
+those registers has no traction.  The other 22 classes may contain isolated
+transitions; no such transition or orbit is claimed.
+
+There is a stronger proposed global obstruction.  In every nonzero class a
+transition gives a rational approximation to `alpha=3^(e/23)` satisfying
+
+```text
+0 < p/q-alpha < alpha/s^23,       q < s^2,
+```
+
+and the next root is strictly larger than `s`.  This is eventually an
+exponent-11 approximation, so Roth's theorem would allow only finitely many
+of them in each class and would exclude an infinite run wholly inside the
+pure 23rd-power type.  The exact normalization is in the new
+[state-power audit](experiments/kontorovich/unit_charge_state_power_quine_audit.json),
+but the universal elementary bridge still awaits Lean; the conclusion is
+therefore recorded in the [strategy map](#kc-strategy-and-failure-map), not
+promoted as a machine-checked result.  Corrected and multi-rail encodings are
+the constructive escape: they must reproduce while evading this one-number
+algebraic approximation trap.
+
+The uncorrected `h=23` payload rail has independently collapsed to one exact
+1,198-digit Thue equation, `3^15 X^23-Y^23=5 Phi_23(A,B)`.  Its global PARI
+solve is now a detached, file-logged Akdeniz service.  Older bounded Akdeniz
+batches were stopped because they no longer attack the live closure seam.
+Ganesha's exact 24-shard non-uniform morphic-program search remains detached;
+two shards have finished with no nontrivial cycle and 22 continue.  PSC has
+only a GPU allocation and is idle until a genuinely CUDA-shaped symbolic
+search appears.  No counterexample or infinite orbit is known.
+
 ### 2026-07-22 09:25 EDT
 
 The shortest perfect-power rail is now closed, but the bouncer is not.  Lean
@@ -2302,6 +2348,28 @@ identically `x`.
   (external-PARI scope, not kernel scope).  The first resonant escape is
   `h=23`, where both hardware coefficients are complete 23rd powers and the
   determinant leaves only a `3^4` carry for a corrected or multi-rail payload.
+  Lean's four-prime sieve reduces the uncorrected single rail further to
+  `m=9 (mod 23)` and one global equation
+  `3^15X^23-Y^23=5 Phi_23(A,B)`; its detached Akdeniz solve remains live.
+  A more literal closure ansatz encodes the *public* state as `y=s^23`.
+  Every type-preserving recharge has `h=23*ell`, and the next state is
+  `(A^ell*t)^23`, so the data type really reproduces without a fresh CRT word.
+  Lean kills the coefficient class `m=0 (mod 23)` and kernel-checks the
+  valuation-preserving cofactor law
+
+  ```text
+  w Q(s)=v Q(B^ell*t),       Q(x)=(x^23+1)/(x+1),
+  ```
+
+  together with a hidden residual register modulo `F`.  For the other 22
+  classes the proposed Roth bridge turns each transition into an exponent-11
+  approximation to one of 22 algebraic numbers; if its elementary inequalities
+  are kernel-checked, the external theorem excludes an infinite run in this
+  pure type without excluding isolated transitions.  This is a useful
+  failure specification: a viable “splash the gap” construction now needs a
+  corrected sum of packets, a switching algebraic type, or another multi-rail
+  mechanism which changes the approximated target instead of remaining in one
+  fixed binomial field.
   The first low-description clocks do not solve it: an exact audit of
   Thue--Morse, period-doubling, and Fibonacci words, all 240 injective
   two-symbol codings by `(m,h)` in `{1,...,4}^2`, and every prefix through 48
@@ -2548,6 +2616,7 @@ identically `x`.
 | Outward affine banks without output-to-source closure | Closed as a promotion criterion, not as an architecture.  A bank of exact growing finite branches does not provide a trajectory.  It must exhibit `y_g(v)=x_f(g)(v')` under one autonomous finite rule, with one ordinary initial payload supplying all future addresses.  Fresh CRT extension at each generation is an externally preloaded 2-adic stack.  The corrected reproduction equation makes this missing link explicit. | [`unit_return_quine.py`](experiments/kontorovich/unit_return_quine.py) |
 | Rational successor quine on the legal return bank | Closed in Lean for all rational functions.  Clearing a reduced numerator/denominator pair forces `Q(z) | Q(cz)`; equal degree and `0<c<1` make `Q` a monomial, coprimality plus the lowest coefficient makes it constant, and the nonzero linear forcing followed by the unmatched top-degree term gives a contradiction.  This does not exclude Mahler/automatic payloads or nonlinear opcode updates. | [`SuccessorQuineRationalNoGo.lean`](KontoroC/KontoroC/SuccessorQuineRationalNoGo.lean) |
 | Shortest-recharge perfect-23rd-power bouncer quine | Closed.  Lean commit `5fbacf5` proves every accepted `h=1`, `u=F*r^23` reproduction transition supplies an integer solution of `3^15X^23-2^16Y^23=5`.  PARI/GP 2.15.4 checks the associated degree-23 polynomial irreducible, reports attached class number one, and returns the complete empty Thue solution list.  PARI documents this class-number-one fast case as unconditional; that final no-solution step is external-PARI scope, not kernel scope.  Higher recharge and multi-rail/corrected payloads remain open. | [`ChargePowerQuine.lean`](KontoroC/KontoroC/ChargePowerQuine.lean), [`unit_charge_power_quine_thue_audit.txt`](experiments/kontorovich/unit_charge_power_quine_thue_audit.txt) |
+| Pure public-state 23rd-power rail, `m=0 (mod 23)` | Closed for every positive transition in this coefficient class.  Lean commit `4c56925` converts the transition to equal sums of two 23rd powers; exact input valuation makes `s` too large for the discrete gap.  Commits `f61f569`/`9f00894` reduce the remaining classes to scaled norm/cofactor equations and a hidden register.  The proposed Roth argument may exclude an *infinite* run through all 22 remaining classes, but its elementary bridge is not yet kernel-checked; individual transitions, corrected types, and multi-rail packets remain open. | [`ChargeStatePowerQuine.lean`](KontoroC/KontoroC/ChargeStatePowerQuine.lean), [`unit_charge_state_power_quine.py`](experiments/kontorovich/unit_charge_state_power_quine.py) |
 | Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
 | Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
 | Fixed defect opcode in the charge bouncer | Closed by Lean commit `5633c44`.  For a fixed affine gain law `B*Z_(t+1)=A*Z_t+C` with coprime `A,B`, `1<B`, and `A>B`, the fixed-point defect obeys `B*delta_(t+1)=A*delta_t`; hence every `B^n` divides one positive `delta_0`, impossible.  The concrete theorem applies to every fixed `m`.  It does not apply to the live bouncer, where `m` may decrease or oscillate and each block switches from its `m`-defect law to `h-1` homogeneous backgrounds. | [`AffineQuotientNoGo.lean`](KontoroC/KontoroC/AffineQuotientNoGo.lean) |
@@ -2605,8 +2674,8 @@ positive integer and its claimed behavior are machine-checked.
 | All-depth self-regenerating `-5` splash | Composing any depth-`j` charge branch with its one-cell branch, then quotienting by `D_j=3^(114*2^j)+2^(154*2^j)`, reproduces collision constant `-5` with offsets `d_(j+1)=2d_j+17`, `e_(j+1)=2e_j+26`.  Coprimality with the fixed 80-bit stride holds for every `j`: a failed prime would require `2^(j+1)<M`, so only `j=0..78` can fail, and all 79 exact gcds are one.  The artifact materializes eight levels, compares 64 direct/composed branches, checks 128 members, and recursively expands canonical members through 510 original unit macros.  Infinite nesting is not a seed because every positive child lift strictly enlarges its ancestor packet; fixed-level autonomous orbits remain open. | [`unit_charge_hierarchy_audit.json`](experiments/kontorovich/unit_charge_hierarchy_audit.json) |
 | Autonomous reversible fixed-form valuation bouncer | The rational one-cell fixed point clears integrally: with `F=(3^114-2^154)/5` and `Z=F*G-2^26`, one background cell is exactly `2^154 Z'=3^114 Z`.  At a defect boundary `Z=2^26y`, the state reads `m=v2(y+1)/23` and `h=(v2(3^(17m)(y+1)-2^(23m))-23m)/154`, then returns `y'=3^(114h)*oddpart(3^(17m)(y+1)-2^(23m))`.  The output recovers `h=v3(y')/114`, then `m=v3(1+2^(154h)q)/17` and the unique predecessor; the opcode matrix has determinant four.  The artifact checks all 64 `(m,h,m')` families with `m,m'<=4,h<=4`, 128 forward/reverse members, 320 charge macros, and 640 original unit macros.  Any infinite accepted positive `y`-orbit refutes Collatz; none is supplied. | [`unit_charge_bouncer_audit.json`](experiments/kontorovich/unit_charge_bouncer_audit.json) |
 | Perfect-23rd-power reproduction rail | Encoding the bouncer payload as `u=F*r^23` makes the output address self-similar because its binary cell base is `D=2^23`.  Lean commit `5fbacf5` kernel-checks the exact elimination and proves every accepted `h=1` transition would solve `3^15X^23-2^16Y^23=5`.  PARI/GP 2.15.4 checks the degree-23 polynomial irreducible, reports attached class number one, and returns the complete empty solution list; PARI documents that class-number-one fast results are unconditional.  Therefore the shortest-recharge rail is closed, with the final no-solution step trusted to PARI rather than Lean.  Higher recharge, corrected payloads, and the bouncer remain open. | [`ChargePowerQuine.lean`](KontoroC/KontoroC/ChargePowerQuine.lean), [`unit_charge_power_quine_thue.gp`](experiments/kontorovich/unit_charge_power_quine_thue.gp) |
-| Recharge-23 determinant-four resonance | At `h=23`, exact arithmetic gives `A^23=3^4C^154` and `B^23=D^154`; the forcing is the 1,198-digit integer `G23=5 Phi_23(A,B)`.  Although the original three primes leave all classes, Lean's complete checks at `277,599,829,1151` reduce every uncorrected single perfect-power transition to `e=15`, `m=9 (mod 23)`, and `3^15X^23-Y^23=G23`.  The remaining global Thue equation is explicit; a multi-rail correction can change it and remains open. | [`ChargePowerResonance.lean`](KontoroC/KontoroC/ChargePowerResonance.lean), [`unit_charge_power_resonance_audit.json`](experiments/kontorovich/unit_charge_power_resonance_audit.json) |
-| Public-state 23rd-power quine, pure coefficient class | Encoding `y=s^23` and collision quotient `q=t^23` makes an `h=23` output another literal 23rd power.  Lean proves that the resulting transition equation and divisibility condition cannot simultaneously hold when `m=23k` with `k>0`: the 2-adic condition makes `s` too large for the gap between the two 23rd-power packets.  This closes only `m=0 (mod 23)`; the other 22 scaled equations remain open. | [`ChargeStatePowerQuine.lean`](KontoroC/KontoroC/ChargeStatePowerQuine.lean), [`unit_charge_state_power_quine.py`](experiments/kontorovich/unit_charge_state_power_quine.py) |
+| Recharge-23 determinant-four resonance | At `h=23`, exact arithmetic gives `A^23=3^4C^154` and `B^23=D^154`; the forcing is the 1,198-digit integer `G23=5 Phi_23(A,B)`.  Although the original three primes leave all classes, Lean's complete checks at `277,599,829,1151` reduce every uncorrected single perfect-power transition to `e=15`, `m=9 (mod 23)`, and `3^15X^23-Y^23=G23`.  The remaining global Thue equation is explicit and is running as detached Akdeniz service `kc-r23`; a multi-rail correction can change it and remains open. | [`ChargePowerResonance.lean`](KontoroC/KontoroC/ChargePowerResonance.lean), [`unit_charge_power_resonance_thue.gp`](experiments/kontorovich/unit_charge_power_resonance_thue.gp) |
+| Public-state 23rd-power quine and hidden register | Encoding `y=s^23` makes every type-preserving recharge `h=23*ell` return the literal power `(A^ell*t)^23`.  Lean commit `4c56925` proves the `m=0 (mod 23)` no-go at `ell=1`; arbitrary positive `ell` is the same theorem after substituting `t'=B^(ell-1)t`.  Commit `f61f569` reduces every other class to a scaled norm equation, and `9f00894` retains exact valuation quotients in `w Q(s)=v Q(z)`, proves same-side cofactor gcd can contain no prime except 23, and exposes a residual congruence modulo `F`.  The other 22 classes, the proposed external-Roth infinite-run obstruction, and corrected packet types remain open. | [`ChargeStatePowerQuine.lean`](KontoroC/KontoroC/ChargeStatePowerQuine.lean), [`unit_charge_state_power_quine_audit.json`](experiments/kontorovich/unit_charge_state_power_quine_audit.json) |
 | Ordinary-ray extension-lift criterion | Lean commits `af1a934`/`ba121d9` prove that if nested dyadic compiler cylinders are realized by one ordinary natural, their extension residues are eventually zero.  Therefore nonzero residues at arbitrarily late scales exclude an ordinary realization.  This is a no-ray criterion for a proposed schedule, not a counterexample and not yet a theorem that the bouncer's residues are frequently nonzero. | [`DispatcherBoundary.lean`](KontoroC/KontoroC/DispatcherBoundary.lean) |
 | Constant-rate unit-counter schedules | For any of the six certified unit levels, every `n_0>=1`, and every fixed integer `k>=1`, the schedule `n_t=n_0+kt` has the unique 2-adic initial core `-s*3^(-q(n_0)) F(2^(ak)/3^(ck),2^(p(n_0+k))/3^(q(n_0+k)))`.  Converting to Väänänen--Wallisser's `f_(3^(ck)/2^(ak))` is coefficientwise exact, and its argument simplifies to `alpha=2^(p(n_0))/3^(q(n_0))`.  Their 1989 theorem applies with `ell=1,sigma=0,p=2`; its size ratio is the same as for `k=1`, while `|3^(ck)/2^(ak)|_2=2^(ak)>1`.  The value is irrational in `Q_2`, so it cannot be an ordinary integer core.  The artifact's six linked eight-transition branch replays remain a finite `k=1` regression; the all-`k` conclusion is symbolic and theorem-dependent.  This closes every fixed positive step size, not nonlinear or packet-branching schedules. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
@@ -3151,6 +3220,13 @@ existing lines of work; the closest ancestors, and what each contributes:
   form and that a flag-zero computation is unconditional when the attached
   tentative class number is one.  This is the explicit trust seam used to
   close the shortest perfect-power rail; it is not a Lean theorem.
+- **K. F. Roth, [“Rational approximations to algebraic
+  numbers”](https://doi.org/10.1112/S0025579300000644) (1955)** — proves that
+  an irrational algebraic number has only finitely many reduced rational
+  approximants at any fixed exponent greater than two.  The public-state
+  23rd-power equation appears to force exponent 11 in each nonzero coefficient
+  class.  Roth is the external finiteness endpoint; the elementary bridge is
+  still awaiting Lean and is therefore a strategy, not yet a promoted result.
 - **D. Barina, “Improved verification limit for the convergence of the
   Collatz conjecture” (2025)** — the `2^71` exhaustive frontier used to
   calibrate why another ordinary seed sweep is not the active attack.
