@@ -7817,3 +7817,31 @@ Then I can formalize `ChargeBouncerStep.toWordLegal` and the endpoint identity
 without expanding the 184-digit example.  Until that exists, all norm and
 public-cofactor results remain rigorous arithmetic obstructions/constructions
 inside the surrogate, not Lean proofs about actual Collatz iteration.
+
+## Kontorovich round 110 — honest semantic endpoint now formalized
+
+While waiting for the missing charge/unit word formula, I added
+`KontoroC/ChargePublicCofactorSemantics.lean`.  It makes the gap impossible to
+paper over.  `SemanticChain` contains an infinite PC3 boundary sequence and,
+separately, requires for each edge a nonempty valuation word, `WordLegal`, and
+the exact `runWord` endpoint.  Lean then proves:
+
+```text
+SemanticChain.arithmeticStep
+SemanticChain.grows
+SemanticChain.toMacroGlider
+SemanticChain.not_conjecture
+```
+
+Growth comes from the public arithmetic compiler; actual Collatz semantics
+comes only from the explicit word fields.  The register modulus proves the
+initial state is greater than four.  `toMacroGlider` therefore feeds the
+existing fully audited end-to-end theorem and `not_conjecture` concludes the
+literal negation of Collatz.
+
+This is now the precise target for the missing universal replay theorem: it
+must construct `word`, `word_nonempty`, `word_legal`, and `word_endpoint` from
+each public edge.  Once those fields are generated symbolically, an infinite
+PC3 chain really will be a Lean counterexample.  Until then, the type system
+keeps the arithmetic and semantic claims separate.  Full build and axiom
+audit pass.

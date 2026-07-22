@@ -472,3 +472,5 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.ChargePublicCofactor.Boundary.coordinates_unique
 #print axioms KontoroC.ChargePublicCofactor.Step.toChargeBouncerStep
 #print axioms KontoroC.ChargePublicCofactor.Step.balance_of_chargeBouncerStep
+#print axioms KontoroC.ChargePublicCofactor.SemanticChain.toMacroGlider
+#print axioms KontoroC.ChargePublicCofactor.SemanticChain.not_conjecture
