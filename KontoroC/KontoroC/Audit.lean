@@ -525,3 +525,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.FixedJumpPhaseUp.Ray.parameter_num_den_coprime
 #print axioms KontoroC.FixedJumpPhaseUp.Ray.rate_power_lt
 #print axioms KontoroC.FixedJumpPhaseUp.Ray.vaananenWallisser_size_condition
+#print axioms KontoroC.PeriodicPhaseUp.JumpWord.backwardCoeff_cycle_shift
+#print axioms KontoroC.PeriodicPhaseUp.JumpWord.backwardDefect_cycle_shift
+#print axioms KontoroC.PeriodicPhaseUp.JumpWord.cycleCoeff_closed
+#print axioms
+  KontoroC.PeriodicPhaseUp.ThetaResidueData.weightedTerm_eq_scaled_vaananenTerm
+#print axioms KontoroC.PeriodicPhaseUp.ThetaResidueData.argument_cross_ratio

@@ -8485,3 +8485,104 @@ that published theorem as the sole external citation seam rather than
 declaring it as a Lean axiom.  The constructive lane must now use genuinely
 variable payload-dependent jumps/directions; fixed `k`, including `k=1`, is
 dead.
+
+## Kontorovich round 129 — likely stronger: every periodic jump word is dead
+
+There is a direct multi-value use of the *same* 1989 theorem which appears to
+exclude every fixed finite period of positive phase-up jump sizes, not just
+period one.
+
+Let `k_i` have period `p>0`, let `K=sum_(r<p) k_r`, and put
+
+```text
+Delta=4K,
+R=2^(23Delta)/3^(17Delta)=2^(92K)/3^(68K).
+```
+
+For the backward PC4 coefficients `a_i` and signed defects `b_i`, shifting by
+one whole jump period gives exactly
+
+```text
+a_(i+p)=R*a_i,
+b_(i+p)=b_i/3^(68K).
+```
+
+Let `A=product_(r<p) a_r` and `A_r=product_(u<r) a_u`.  Splitting the forced
+candidate series by `i=p*n+r` gives the exact shape
+
+```text
+sum_(r<p) A_r*b_r *
+  sum_(n>=0)
+    (R^p)^choose(n,2) *
+    (A*R^r/3^(68K))^n.
+```
+
+In the paper's normalization this inner sum is
+
+```text
+f_q(alpha_r),
+q=(R^p)^(-1)=3^(68Kp)/2^(92Kp),
+alpha_r=A*R^(r-p)/3^(68K).
+```
+
+Every outer coefficient `A_r*b_r` is nonzero.  Moreover
+
+```text
+alpha_r/alpha_s = R^(r-s).
+```
+
+This can equal `q^n=R^(-pn)` only if `r-s=-pn`.  For
+`0<=r,s<p`, that forces `r=s` (and `n=0`).  Thus the paper's pairwise argument
+condition holds automatically.  Its gamma is still
+`1-23 log(2)/(17 log(3))`, independent of both `K` and `p`.  Linear
+independence of `1,f_q(alpha_0),...,f_q(alpha_(p-1))` makes their nontrivial
+rational combination irrational, excluding the ordinary cofactor.
+
+Taking a tail should close eventual periodicity as well.  If this derivation
+checks, the surviving constructive lane must have a jump-size word that is
+genuinely aperiodic, not merely variable.  I am now kernel-checking the finite
+geometric decomposition; please independently check the `alpha_r` exponent
+and the pairwise-ratio condition before building on it.
+
+## Kontorovich round 130 — periodic-word cycle algebra checked in Lean
+
+New file `KontoroC/ChargePhaseUpPeriodicTheta.lean` formalizes the first
+nontrivial half of round 129 for an arbitrary nonempty finite word of positive
+jumps.
+
+For the exact PC4 backward coefficient/defect at cycle number `n` and period
+position `r`, Lean proves
+
+```text
+a(n+1,r) = R*a(n,r),
+b(n+1,r) = D*b(n,r),
+R=2^(92K)/3^(68K), D=1/3^(68K).
+```
+
+It also proves the closed forms, nonvanishing, and whole-cycle product law
+
+```text
+a(n,r)=R^n*a(0,r),
+b(n,r)=D^n*b(0,r),
+product_r a(n,r)=R^(n*p)*product_r a(0,r).
+```
+
+The pure residue-class algebra is separately packaged as
+`ThetaResidueData`.  Its theorem
+`weightedTerm_eq_scaled_vaananenTerm` proves coefficientwise that
+
+```text
+scale_r*(R^p)^choose(n,2)*(A*R^r*D)^n
+ = scale_r*(R^p)^(choose(n,2)+n)*alpha_r^n,
+alpha_r=(A*R^r*D)/(R^p).
+```
+
+`argument_cross_ratio` proves the exact relation
+`alpha_r*R^s=alpha_s*R^r`; all relevant factors are proved nonzero.
+
+This confirms the proposed `alpha_r` exponent and common parameter.  The
+remaining Lean work is (1) flattening cycle/position indices to prove that
+the original prefix-product series is exactly the finite sum of these
+residue series, and (2) the elementary integer-exponent lemma showing
+`alpha_r/alpha_s != (R^p)^(-z)` for distinct `r,s`.  The published
+multi-value theorem then supplies the only external step.

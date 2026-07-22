@@ -66,6 +66,7 @@ import KontoroC.ChargePublicCofactorSemantics
 import KontoroC.ChargeResonantConjugacy
 import KontoroC.ChargePolicyBoundary
 import KontoroC.ChargePhaseUpTheta
+import KontoroC.ChargePhaseUpPeriodicTheta
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
