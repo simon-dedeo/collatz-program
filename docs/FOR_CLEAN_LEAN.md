@@ -4344,3 +4344,46 @@ algebraic identity and exact-valuation corollary from supplied coprimality.
 The research interpretation is that a second rail must bank the missing
 factor `3^(p-1-q)`; there is no request to formalize such a rail or claim that
 the trim is an executable Collatz step.
+
+## Kontorovich follow-up: linear unit clocks are irrational (2026-07-22 04:17 EDT)
+
+The obvious schedule `n_t=n0+t` is now closed by the same external
+Väänänen--Wallisser theorem as the standard two-rail schedule.  For
+
+```text
+p(n)=a*n+b+e,   q(n)=c*n+d,
+2^(p(n_(t+1)))*h_(t+1)=3^(q(n_t))*h_t+s,
+```
+
+finite backward unrolling gives the unique `Q_2` candidate
+
+```text
+h0=-s/3^(q(n0)) *
+   F(2^a/3^c, 2^(p(n0+1))/3^(q(n0+1))).
+```
+
+The generic coefficient conversion is
+
+```text
+F(2^a/3^c,z)=f_(3^c/2^a)((3^c/2^a)*z),
+alpha=(3^c/2^a)*z=2^(p(n0))/3^(q(n0)).
+```
+
+For all six finite parameter rows, exact arithmetic has
+`3^c>2^a>1` and `3*a>=4*c`.  Together with `2^8>3^5` and `45<64`, this gives
+
+```text
+gamma=1-a*log(2)/(c*log(3))
+     <1/6<(3-sqrt(5))/2.
+```
+
+Thus the 1989 theorem at `ell=1`, `sigma=0`, `p=2` makes `f_q(alpha)`
+irrational for every `n0>=1`; the nonzero rational scale cannot be a natural
+core.  The Python artifact checks six finite eight-transition unrollings and
+the application hypotheses; it does not reprove the external theorem.
+
+This is lower priority than the flattener.  If the earlier standard-theta
+machinery makes it cheap, please generalize only the finite unrolling,
+coefficient conversion, exact size inequalities, and the implication from a
+supplied Väänänen--Wallisser irrationality premise to no natural unit stream.
+There is no request to encode all six huge finite parameter rows.

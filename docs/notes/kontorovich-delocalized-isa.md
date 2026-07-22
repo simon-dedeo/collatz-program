@@ -1550,6 +1550,59 @@ literal gate macros.  The successive packet residues are
 k_0 = 3,16,0,2,6,8  (mod 17).                        (69)
 ```
 
+The first bank clock fails at the ordinary-integer gate.  Suppose at one
+fixed level that
+
+```text
+p(n)=an+b+e,   q(n)=cn+d,
+n_t=n_0+t.
+```
+
+Backward unrolling of (68a) gives the unique 2-adic core
+
+```text
+h_0=-s/3^(q(n_0)) *
+    F(2^a/3^c, 2^(p(n_0+1))/3^(q(n_0+1))),          (69a)
+F(r,z)=sum_(j>=0) r^(j(j-1)/2)z^j.
+```
+
+Coefficientwise,
+
+```text
+F(2^a/3^c,z)=f_(3^c/2^a)((3^c/2^a)z),               (69b)
+```
+
+where `f_q` is exactly the Väänänen--Wallisser theta function used to close
+the earlier standard two-rail schedule.  Their 1989 theorem applies for every
+`n_0>=1` with `ell=1`, `sigma=0`, `p=2`, and
+
+```text
+alpha=2^(p(n_0))/3^(q(n_0)).
+```
+
+The argument is nonzero rational and the multi-argument ratio condition is
+vacuous.  Its only delicate uniform size condition follows exactly from
+
+```text
+2^8>3^5,   3a>=4c,   45<64.
+```
+
+Indeed these give `a log(2)/(c log(3))>5/6` and hence
+`1-a log(2)/(c log(3))<1/6<(3-sqrt(5))/2`.  Also
+`3^c>2^a>1` and the 2-adic norm of `3^c/2^a` is `2^a>1` at all six levels.
+The published theorem therefore makes (69b), and hence (69a), irrational in
+`Q_2`.  No linear `n_t=n_0+t` unit schedule can have an ordinary integer
+initial core.
+
+`unit_linear_theta.py` verifies finite unrolling against eight linked unit
+transitions at each level, checks the function conversion coefficients and
+all elementary theorem hypotheses, and reaches 172,972 bits of terminal
+2-adic precision at level six.  The irrationality step remains a cited
+external theorem, not a reproof.  This no-go matters architecturally: because
+`delta(n+1)-delta(n)=a-c`, the tempting constant-rate Mersenne bank is exactly
+the unary clock just excluded.  A viable factor bank must let its unbounded
+ordinary contents select a nonlinear, aperiodic length change.
+
 A static odd-payload quine is closed immediately.  If one branch sent
 `h` to the same `h` at another branch, then
 
@@ -1587,8 +1640,10 @@ is aperiodic.
    exposure, and defect return.  Prioritize an autonomous nonzero-tail
    recurrence in this macro ISA over enlarging either replay bound.  Use the
    autonomous registers (48) and (55) as the primary search and proof
-   interfaces; test recursive renormalization before widening finite replay
-   bounds.
+   interfaces.  Infinite recursive renormalization is now closed by (63b),
+   and the unary fixed-level clock is closed by (69a)--(69b); search a
+   packet-selected nonlinear bank for the signed radix swap instead of
+   widening either replay bound.
    Compare
    survivors
    with the run-length-accelerated three-symbol tag system and translate them

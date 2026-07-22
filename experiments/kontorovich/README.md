@@ -1124,6 +1124,71 @@ artifact SHA-256  459bd3feb5a30d931caf43c601db8713354696d9ae072e223e3603d77838b7
 verifier SHA-256  4057b56485ea1570d0b5abd2f50415f909e8afbc4b8f04f0c04baaf73ce265ff
 ```
 
+## Linear unit schedules are partial-theta values
+
+`unit_linear_theta.py` closes the most direct unit-counter clock.  At one
+fixed level put
+
+```text
+p(n)=a*n+b+e,   q(n)=c*n+d,
+2^(p(n_(t+1)))*h_(t+1)=3^(q(n_t))*h_t+s.
+```
+
+For `n_t=n_0+t`, exact finite backward unrolling and 2-adic convergence give
+the unique initial candidate
+
+```text
+h_0=-s/3^(q(n_0)) *
+    F(2^a/3^c, 2^(p(n_0+1))/3^(q(n_0+1))),
+F(r,z)=sum_(j>=0) r^(j*(j-1)/2) z^j.
+```
+
+The coefficient identity
+
+```text
+F(2^a/3^c,z)=f_(3^c/2^a)((3^c/2^a)z)
+```
+
+puts the candidate in the full-source Väänänen--Wallisser 1989 theorem
+already used for the standard two-rail schedule.  Use `ell=1`, `sigma=0`,
+and `p=2`.  The rational argument is
+
+```text
+alpha=2^(p(n_0))/3^(q(n_0)),
+```
+
+so it is nonzero, and the distinct-argument condition is vacuous.  The exact
+uniform size audit is
+
+```text
+2^8>3^5                         => log(2)/log(3)>5/8,
+3*a>=4*c                        => a*log(2)/(c*log(3))>5/6,
+45<64                           => 1/6<(3-sqrt(5))/2.
+```
+
+Also `3^c>2^a>1` at all six levels and `|3^c/2^a|_2=2^a>1`.  The cited
+theorem therefore makes `f_(3^c/2^a)(alpha)` irrational in `Q_2`; multiplying
+by the nonzero rational scale cannot give an ordinary integer `h_0`.
+
+```bash
+python3 unit_linear_theta.py selftest
+python3 unit_linear_theta.py build unit_linear_theta_audit.json
+python3 unit_linear_theta.py verify unit_linear_theta_audit.json
+```
+
+The artifact independently compiles the branch schedules
+`1,2,...,9` at all six unit levels and checks eight exact recurrences, their
+finite rational unrollings, and the terminal 2-adic residues.  The terminal
+precision ranges from 472 bits at level one to 172,972 bits at level six.
+Those finite checks calibrate the algebra; the all-`n_0`, infinite conclusion
+uses the cited external theorem.  This closes only the unary counter, not a
+nonlinear or packet-branching length schedule.
+
+```text
+artifact SHA-256  fa6a00ae1e91e901440fff05cbda7ba5648049351924b88ad1a154f1136f43cf
+verifier SHA-256  62f282afbd3472eb514bec34b36a499d7863ddb0bcef345b263cab2b6b4569fa
+```
+
 ## Sign-alternating capped-splash hierarchy
 
 `breakoff_renormalization.py` iterates the super-ether construction as exact
