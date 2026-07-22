@@ -357,3 +357,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.MersennePacketRenewal.toMersenneShadowOrbit
 #print axioms KontoroC.MersennePacketRenewal.not_conjecture
 #print axioms KontoroC.MersennePacketRenewal.not_conjecture_of_constant_extra
+#print axioms KontoroC.thueMorse_padic_defect_tsum
+#print axioms KontoroC.no_thueMorse_chargeBouncer_ray_of_value_avoids_positiveNaturals
+#print axioms KontoroC.exists_oddCoefficient_solution_mod_twoPow
+#print axioms KontoroC.exists_parityCompatible_threePow_twoPow_crt
+#print axioms KontoroC.exists_oddCoefficient_dyadicWriter
