@@ -3660,3 +3660,110 @@ the artifact's machine-checked scope.
 
     artifact SHA-256  3969fab7fc0b5ed38972afc7b3ed6a9cabfcb4ae1447b27db4093afb8aa54c3d
     worker SHA-256    6100b2c33f35f26e0fc7874c7981829f9733a234c60576739e1fc6fa41637a75
+
+## YAH lift-register bit decoder
+
+`yah_lift_decoder.py` resolves the first post-amplifier decoder instruction
+at the smallest nontrivial address depth.  Set
+
+    q=17+128*t,
+    P_t=2(01)^q.
+
+Exact composition of the two-state quotient transducer gives
+
+    M^4(P_t)=U V^t Z,
+
+where the generated lasso has prefix/block/suffix lengths `31,256,6`.  The
+block length is not accidental: `ord_(2^10)(3)=256`.  Each of the four
+symbolic macro compositions checks that its repeated block fixes the entering
+carry, which is a finite-state certificate of the identity for every natural
+`t`.
+
+The endpoint defect is
+
+    D(M^4(P_t))=3^7 R(t),
+    R(t)=(41*9^(17+128*t)+15)/(3*2^10).
+
+The register isometry makes `R(t)=t mod 2`.  The fifth macro has head zero and
+is therefore an exact LSB-first branch:
+
+    R=2r:    3^7 R-1 -> 3^8 r-1,
+    R=2r+1:  3^7 R-1 -> (3^7 R-1)/2.
+
+On zero, the terminal carry is one, the length is neutral, and the clean
+right reservoir grows from seven to eight twos while the register shifts.
+On one, the terminal carry is zero, one cell is lost, and the reservoir is
+consumed in a chart-changing collision.  The repeated 256-trit block flips
+the sweep carry, so the worker constructs the exact parity split
+
+    t=2s   -> U_0 V_0^s Z_0,   lengths 30,512,7,
+    t=2s+1 -> U_1 V_1^s Z_1,   lengths 286,512,6.
+
+The default artifact independently materializes and checks every parameter
+`0<=t<=64`: 33 zero branches and 32 one branches, including exact integer
+values, carries, length charges, trailing-reservoir sizes, and word hashes.
+The finite-state block identities are all-parameter proof schemas; Lean replay
+has been requested.  A thin bit-one cylinder is routed back to recharge by the
+restorative worker below, but the full branch and recurrent type graph remain
+open; this is an instruction decoder rather than a counterexample.
+
+    python3 yah_lift_decoder.py selftest
+    python3 yah_lift_decoder.py build yah_lift_decoder_audit.json \
+      --max-parameter 64
+    python3 yah_lift_decoder.py verify yah_lift_decoder_audit.json
+
+    artifact SHA-256  7ca77895ea65644857c920835fecbba5b35520416867b04960b2e4ff0d1b01a5
+    worker SHA-256    db4b19a53c40e7d7c5b250b71e938741ed9b1ee68d3a11248f416b17c9f8ca10
+
+## YAH restorative bit-one opcode
+
+`yah_restorative_decoder.py` continues the decoder's bit-one branch on the
+exact source cylinder
+
+    t=91+256*u,
+    s=45+128*u,
+    q=11665+32768*u.
+
+Here the incoming stripped register satisfies `R=151 (mod 256)`.  Since
+`3^6*151+1=0 (mod 256)`, the bit-one collision is followed by a neutral
+recharge with returned register
+
+    R_next=(3^6*R+1)/2^8.
+
+The recharge state has defect `9*2^5*R_next`.  Three subsequent safe queue
+macros use five odd shortcut steps and return with defect `3^7*R_next`.
+Relative to the incoming decoder state, the complete five-macro instruction
+gains exactly one ternary cell, returns to head zero, and rebuilds exactly
+seven trailing `tri2` symbols.  The macro terminal carries are
+
+    [0], [0,1], [1], [1,1], [1,1].
+
+The worker constructs every stage as an all-parameter finite-state lasso.
+Their prefix/block/suffix lengths are
+
+    incoming       23327,65536,6
+    bit-one        23326,65536,6
+    recharge       23325,65536,7
+    safe-1         23324,65536,8
+    safe-3         23323,65536,10
+    returned       23322,65536,12
+
+The 65,536-trit block at the return is not the incoming block.  Thus this is
+an exact regenerative instruction, but not a recurrent type cycle.  Companion
+commit `f96e621` goes further: it kernel-checks that the returned register lies
+strictly between two consecutive registers of the original decoder chart, so
+no reindexing can identify the two families.
+
+The default artifact independently materializes and verifies `u=0,...,4`,
+including exact integer values, carries, defects, word lengths, seven-trit
+reservoirs, and hashes.  Its all-parameter component is the generated lasso
+certificate plus the modular source-cylinder identities; a finite recurrent
+chart graph and an infinite ordinary Collatz orbit remain open.
+
+    python3 yah_restorative_decoder.py selftest
+    python3 yah_restorative_decoder.py build yah_restorative_decoder_audit.json \
+      --max-parameter 4
+    python3 yah_restorative_decoder.py verify yah_restorative_decoder_audit.json
+
+    artifact SHA-256  2346f0b87c15d8a7c336be2b7f5dbcb2003c58bc2435d88344715ff27054638a
+    worker SHA-256    2f8e835e100a5041b17a07db8fd86b92aa0e5a549fa06f08d7963ddcce5d54ba

@@ -1256,6 +1256,131 @@ completely abstract: route that prefix/reservoir word through CP38's carry and
 comb compilers and test whether it regenerates the alternating packet whose
 block count satisfies CP46.
 
+At the first useful charge this routing problem already exposes a literal
+programming instruction.  Take `K=5`; the least CP46 address is `q_0=17` and
+all lifts are
+
+```text
+q=17+128t.
+```
+
+After the neutral packet macro and five safe odd steps, define the stripped
+register
+
+```text
+R(t)=(41*9^(17+128t)+15)/(3*2^10).                 (CP52)
+```
+
+The resulting state has the exact form
+
+```text
+N(M^4(2(01)^(17+128t))) = 3^7*R(t)-1              (CP53)
+```
+
+at the integer level.  At the word level it is a lasso `U V^t Z` with
+generated lengths `31,256,6`; the last digit of `U` and the six-digit `Z`
+together form the seven-trit reservoir.  The stride `|V|=256` is
+`ord_(2^10)(3)`, the base-three repetend of the normalized dyadic register.
+The exact worker obtains this identity by four finite-state lasso
+compositions, each of whose block maps fixes the entering carry.
+
+The lift isometry specializes to a bit identity.  The difference
+`R(t+1)-R(t)` is odd, while `R(0)` is even, so
+
+```text
+R(t)=t mod 2.                                       (CP54)
+```
+
+The word in CP53 always has head zero.  Its next macro therefore reads this
+least significant bit exactly:
+
+```text
+R=2r:    3^7*R-1 -> 3^8*r-1,
+R=2r+1:  3^7*R-1 -> (3^7*(2r+1)-1)/2.              (CP55)
+```
+
+The zero branch is one odd shortcut step: it emits a terminal carry, shifts
+the register, and extends the trailing-two reservoir from seven to eight.
+The one branch is one even step: it emits no carry, loses one cell, destroys
+the clean reservoir, and enters a new chart.  The 256-trit repeated block
+flips the sweep carry, giving an exact lasso-level parity split
+
+```text
+t=2s:    U_0 V_0^s Z_0,   (|U_0|,|V_0|,|Z_0|)=(30,512,7),
+t=2s+1:  U_1 V_1^s Z_1,   (|U_1|,|V_1|,|Z_1|)=(286,512,6). (CP56)
+```
+
+This is the first genuine LSB-first queue opcode: a nonlocal register bit
+selects between extending a spatial delay line and colliding with it.  The
+missing closure instruction is now the bit-one branch's return from its new
+chart to a CP46 packet with a newly written unbounded register.
+
+That return can be built on a thinner cylinder.  Restrict the bit-one chart to
+
+```text
+t=91+256u,  s=45+128u,  q=11665+32768u.             (CP57)
+```
+
+The q-stride is 32,768 and `v2(9^32768-1)=18`.  The incoming CP52 register
+obeys `R=151 (mod 256)`, so
+
+```text
+2^8 | 3^6R+1,  R'=(3^6R+1)/2^8.                    (CP58)
+```
+
+After CP55's bit-one collision, the next head-one queue macro is a neutral
+recharge.  Its defect and the eventual return defect are
+
+```text
+D_recharge=9*2^5R',
+D_return=3^7R'.                                     (CP59)
+```
+
+The intervening head schedule `0,2,1` spends five odd shortcut steps.  In
+total the five macro carries are
+
+```text
+[0], [0,1], [1], [1,1], [1,1],
+```
+
+and the word returns to head zero with exactly seven trailing twos.  From the
+incoming CP53 decoder word to this returned word, the length increases by
+exactly one.  This is therefore a parameterized
+
+```text
+read -> collide -> recharge -> reproduce             (CP60)
+```
+
+instruction, not merely a long transient.
+
+The complete word identity is finite-state.  Restricting the CP56 lassos and
+composing their fixed-carry block maps gives prefix/block/suffix lengths
+
+```text
+incoming     (23327,65536,6)   recharge  (23325,65536,7)
+bit-one      (23326,65536,6)   safe-1    (23324,65536,8)
+safe-3       (23323,65536,10)  returned  (23322,65536,12). (CP61)
+```
+
+The final suffix length is a lasso-decomposition artifact; the literal word
+has exactly seven trailing twos.  The returned block has the same length as
+the incoming block but different contents.  Moreover `R'` remains a 2-adic
+isometry in `u` and satisfies `R'(u)=u+1 (mod 2)`.                 (CP62)
+
+This is the first actual reproduction edge, but the type graph is still open.
+Companion commit `f96e621` proves the stronger separation
+
+```text
+R(t) < (3^6R(t)+1)/2^8 < R(t+1),                   (CP63)
+```
+
+so no returned register equals any member of the original decoder family.
+Repeatedly selecting deeper restorative cylinders may therefore create an
+infinite tower of one-use charts rather than a finite program.  The next win
+condition is a finite set of chart languages closed under these generated
+edges, containing one forward ordinary state and at least one recurrent
+space-positive component.
+
 The exact
 [yah_queue_macro.py](../../experiments/kontorovich/yah_queue_macro.py)
 artifact independently implements CP33 and literal rule replay.  It compares
@@ -1272,6 +1397,17 @@ schemas.  Commit `67eabe3` kernel-checks the generic CP48 scale consequence:
 canonical endpoints with `J>=4G` and the exact all-odd defect balance gain at
 least `G` cells.  The packet/maximal-prefix wrapper, CP50, and CP51 remain
 pending kernel replay.
+The exact
+[`yah_lift_decoder.py`](../../experiments/kontorovich/yah_lift_decoder.py)
+artifact constructs the CP53/CP56 finite-state blocks and independently
+replays CP52--CP56 for all 65 parameters through `t=64`.  The all-parameter
+lasso induction and bit opcode have been sent for kernel replay.
+The exact
+[`yah_restorative_decoder.py`](../../experiments/kontorovich/yah_restorative_decoder.py)
+artifact constructs CP57--CP62 and independently replays `u=0,...,4` through
+all five macros.  Commit `24b2dd5` kernel-checks the generic decoder arithmetic
+and fixed/flipping-lasso engine; commit `f96e621` kernel-checks CP63.  The
+all-stage word instantiation and any finite recurrent chart graph remain open.
 
 ## 6. Closure should be an identity before it is a search hit
 

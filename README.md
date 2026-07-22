@@ -33,6 +33,90 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-22 17:08 EDT
+
+The bit-one collision now has an exact **restorative opcode**.  Restrict the
+decoder to the arithmetic cylinder
+
+```text
+t=91+256u,  q=11665+32768u.
+```
+
+If `R` is the incoming stripped register, its residue is `R=151 (mod 256)`,
+so the collision is followed by a neutral recharge and writes
+
+```text
+R'=(3^6 R+1)/2^8.
+```
+
+Three more safe queue macros spend five odd steps and return to a head-zero
+word with an exact seven-trit reservoir.  Across the five-macro instruction
+the word gains one cell.  The artifact constructs all six lasso stages by
+finite-state carry composition, proves the repeated block remains 65,536
+trits, and independently materializes `u=0,...,4` with exact integer values,
+carries, defects, reservoirs, lengths, and hashes.  This is the first complete
+`read -> collide -> recharge -> reproduce` instruction in the project.
+
+It is not closure.  The returned lasso is a genuinely new type, and companion
+commit `f96e621` proves its register lies strictly between consecutive members
+of the original decoder family; no reindexing sends it back to that chart.
+Commit `24b2dd5` separately kernel-checks the register-bit arithmetic and the
+generic fixed/flipping-lasso engine.  The winning next step is therefore a
+finite recurrent **chart graph**, not more depth in one congruence tower: give
+the new type its own decoder and find a cycle whose forward edges keep writing
+fresh register information.  No infinite execution or Collatz counterexample
+is claimed.
+
+### 2026-07-22 16:49 EDT
+
+The amplifier now has its first exact decoder opcode.  At the smallest useful
+charge, every phase-one address is
+
+```text
+q=17+128t.
+```
+
+Four queue macros turn `2(01)^q` into a regular lasso word `U V^t Z`, with
+block length 256.  This is not a fitted pattern: the new
+`yah_lift_decoder.py` constructs it by composing the two-state quotient
+transducer and checks that the repeated block fixes the carry at every one of
+the four stages.  The number 256 is exactly `ord_(2^10)(3)`, so the surviving
+lift register is a base-three repetend stored across the entire digit span.
+
+Strip the endpoint's seven trailing twos and call the remaining defect
+
+```text
+R(t)=(41*9^(17+128t)+15)/(3*2^10).
+```
+
+Then `R(t)=t (mod 2)`.  The next macro has head zero and reads that least
+significant register bit exactly:
+
+```text
+R=2r:    3^7 R-1 -> 3^8 r-1,
+R=2r+1:  3^7 R-1 -> (3^7 R-1)/2.
+```
+
+Thus bit zero shifts the register and extends the clean reservoir from seven
+to eight twos; bit one removes the reservoir and enters a different chart.
+At word level, the 256-trit block splits into two explicit 512-trit lasso
+blocks for `t=2s` and `t=2s+1`.  This is an actual LSB-first branch
+instruction of the sort suggested by Brainfuck/tag-machine thinking, and its
+branch bit is globally encoded rather than locally adjacent to the head.
+
+The artifact constructs the all-parameter finite-state certificate and
+independently replays all 65 parameters `0<=t<=64`: 33 zero branches and 32
+one branches, with exact values, carries, space charges, and word hashes.
+The remaining closure problem is now concentrated in one opcode: make the
+bit-one collision restore a recharge packet and write a new unbounded
+register.  No counterexample or infinite execution is claimed.
+
+Meanwhile commits `1a69d5b`, `6b5e34c`, and `0b8179a` kernel-check the
+all-parameter lift-register isometry, its exact triadic reservoir valuation,
+and the word theorem equating that valuation with the number of trailing
+twos.  The new bit decoder has been sent to the companion as the next formal
+target.
+
 ### 2026-07-22 16:26 EDT
 
 The highest-leverage closure step is now explicit: combine a space amplifier
@@ -3018,7 +3102,14 @@ identically `x`.
   guarantees `G` later cells, and its free lift is a 2-adic isometric register.
   Its safe endpoint ends in an exact run of `J+2` twos.  Search for a finite
   grammar that makes the surviving prefix register and this emitted reservoir
-  write their own next recharge address.  Fixed-time returns on a
+  write their own next recharge address.  At `K=5` the first such decoder is
+  exact: it reads one lift-register bit, with zero extending the reservoir and
+  one changing chart.  On `t=91+256u`, the bit-one chart now recharges, writes
+  `R'=(3^6R+1)/2^8`, returns to head zero with seven reservoir trits, and gains
+  one cell.  Its output is a new chart provably disjoint from the original
+  register family.  The live edge is to close a finite graph of such chart
+  transitions rather than generate an infinite tower of one-use types.
+  Fixed-time returns on a
   simple ternary exponential family are multiplicatively impossible, so the
   type cycle must carry an unbounded clock or mixed dyadic--triadic scale.
 - **Delocalized instruction synthesis.**  Represent an instruction as an
@@ -3634,8 +3725,11 @@ identically `x`.
 | Proper whole-word YAH context splash with canonical endpoints | Universally closed.  Commit `9ca4360` proves over the pinned 11 rules that if a nonempty derivation starts and ends at canonical `/digits.` words and claims `endpoint=left++start++right`, then both contexts are empty.  The earlier generic/flank theorem and the worker's 825,708 bounded rule checks remain diagnostics for noncanonical charts.  This is not YAH termination; internal/morphic templates remain live. | [`yah_context_loop_audit.json`](experiments/kontorovich/yah_context_loop_audit.json), [`YahRewriteSystem.lean`](KontoroC/KontoroC/YahRewriteSystem.lean) |
 | Delimiter-fixing independent YAH digit morphism | Closed completely in the stated productive/nonerasing class.  The exact worker finds identity as the unique width-one simulation and none among all 9,765,625 width-two maps; commit `2d50381` excludes every uniform width `w>=3`.  Commit `bfe12f0` removes the common-width premise: over the pinned 11 rules, any marker-fixed morphism with nonempty digit-only images and nonempty simulations of all rules is literally identity.  Delimiter-changing and context-dependent/coordinated multi-block maps are not excluded. | [`yah_context_loop_audit.json`](experiments/kontorovich/yah_context_loop_audit.json), [`YahVariableMorphismRigidity.lean`](KontoroC/KontoroC/YahVariableMorphismRigidity.lean) |
 | Perpetual one-cell YAH macro reproduction | Universally closed for ordinary natural seeds.  Commit `64bccb8` proves that every `+1` queue macro has `4*(N_next+1)=9*(N+1)`; an infinite all-growing macro orbit would force every power of four to divide one fixed positive `N+1`.  Commit `db13d82` gives the finite form: an `r`-macro growth burst forces `4^r | N+1`.  This does not close intermittent growth: a survivor must include neutral/shrinking collision phases which recharge enough dyadic battery to fund later cells. | [`YahPerpetualGrowthNoGo.lean`](KontoroC/KontoroC/YahPerpetualGrowthNoGo.lean), [closure doctrine](docs/notes/kontorovich-closure-principles.md#56-macro-space-conservation-exposes-the-nonlocal-instruction-bit) |
+| One-macro backwrite from a right reservoir | Universally closed for the quotient/queue macro interface.  Commit `d801643` proves exact prefix/suffix factorization: an arbitrary suffix cannot alter the transformed prefix in one macro, while the prefix reaches the suffix through at most two carry bits.  The decoder's global bit read is compatible with this bound, but autonomous address regeneration must transport information over multiple macros. | [`YahQueueCausalityNoGo.lean`](KontoroC/KontoroC/YahQueueCausalityNoGo.lean) |
+| Eventually only zero/bit-pop decoder steps | Universally closed for a positive ordinary register.  Commit `d801643` proves that an eventual tail `2R(n+1)=R(n)` would force arbitrarily high powers of two to divide one fixed positive `R`.  A survivor must revisit restorative chart-changing instructions infinitely often. | [`YahRegisterDrainNoGo.lean`](KontoroC/KontoroC/YahRegisterDrainNoGo.lean) |
 | Fixed-clock ternary-run YAH glider | Closed in the stated phase-cycle class.  Commit `99d3405` proves that a fixed shortcut block with positive dynamic length cannot return a family with leading scale `A*3^n` to the same phase while shifting `n` by a fixed `d>0`: coefficient comparison would require `2^L*3^d=3^O`.  A live scale compiler needs counter-dependent time or a mixed dyadic--triadic/nonlinear scale. | [`YahFixedClockNoGo.lean`](KontoroC/KontoroC/YahFixedClockNoGo.lean), [closure doctrine](docs/notes/kontorovich-closure-principles.md#56-macro-space-conservation-exposes-the-nonlocal-instruction-bit) |
 | Direct self-link of the first four-phase YAH packet | Universally closed.  Commit `b794b2f` proves `queueMacro(2(0012)^s(01)^q)` is never `2(0012)^s'(01)^q'`: the endpoint starts with `1` when the tail is empty and `0` otherwise, while every target starts with `2`.  The packet remains a routed opcode but requires at least one additional type to restore the head. | [`YahPacketFamilyNoGo.lean`](KontoroC/KontoroC/YahPacketFamilyNoGo.lean), [`yah_queue_macro_audit.json`](experiments/kontorovich/yah_queue_macro_audit.json) |
+| Reindexing the restorative output into the original decoder chart | Universally closed.  Commit `f96e621` proves the output register `Rrest(t)=(3^6R(t)+1)/2^8` lies strictly between `R(t)` and `R(t+1)`, hence differs from every original decoder register.  The restorative opcode is a genuinely new chart; closure requires a finite multi-chart cycle, not a relabeling. | [`YahRestorativeChartNoGo.lean`](KontoroC/KontoroC/YahRestorativeChartNoGo.lean) |
 | Stabilizing one fixed coordinate through ever-deeper YAH recharge addresses | Universally closed.  Commit `8bed065` proves that if `2^K` divides a positive target at every depth, its address cannot eventually equal one fixed natural.  The three packet recharge targets are exact specializations.  This rejects an ordinary program obtained by stabilizing nested congruence representatives; it does not reject an evolving dispatcher which computes a new unbounded coordinate after every burst. | [`YahRechargeAddressNoGo.lean`](KontoroC/KontoroC/YahRechargeAddressNoGo.lean) |
 | Treat a prescribed finite `k`-word as an infinite program | Invalid: the nested progressions generally select a 2-adic integer, not a positive ordinary seed. Lean commit `ad36f08` proves that eventual canonical-seed stabilization is exactly the ordinary-integer gate. | [Program-synthesis note](docs/notes/kontorovich-program-synthesis.md) |
 | Literal periodic valuation glider | Closed: Lean commits `92b01ff`/`2f93df7` prove that an infinitely repeatable positive block has `3^N<2^S` and closes as a cycle. This does not touch morphic, counter, stack, or feedback streams. | [Section 4](docs/notes/kontorovich-program-synthesis.md#4-why-a-literal-periodic-glider-fails) |
@@ -3703,7 +3797,9 @@ positive integer and its claimed behavior are machine-checked.
 | YAH mixed-base closure audit | The exact artifact pins all 11 rules, replays the published `12 -> ... -> 1` example, classifies all letter and width-two uniform morphisms, proves its 513,916-state length-at-most-eight induced graph acyclic, and finds a longest 299-rewrite delay `834 -> 1079` but no pumping certificate.  Commit `1b3459d` makes literal/morphic pumping a kernel certificate consumer; `9ca4360` closes proper canonical outer growth; `bfe12f0` proves identity is the only productive nonerasing marker-fixed independent digit-word morphism at arbitrary widths.  Context-dependent/multi-block templates, the external YAH-to-Collatz seam, and any glider remain open. |
 | YAH internal carry opcode | The auxiliary digit complement is exact, while its terminal affine defect is `s-t>=1` and equals one exactly on saturated buffers.  The exact artifact checks 488,281 bounded buffers and replays 1,443 run macros.  Commit `0365c72` independently kernel-checks the defect and the all-length zero/max-run and two-counter transfer opcodes; `f81ff21` proves the transfer's exact odd-step semantics and strict outwardness.  It spends one left `tri0` token to increment a right `tri2` counter and phase-changes the remaining block; it supplies a real instruction but no closure. |
 | YAH queue macro and nonlocal type | A complete left-boundary opcode factors into one or two sweeps of a two-state ternary quotient transducer.  Commits `1a88c3e`/`b1dd87a` kernel-check the factorization, exact space charge, mod-four growth table, and global alternating checksum.  At length `m`, exactly `(3^(m-1)-1)/2` of `3^m` programs grow, giving asymptotic density `1/6` and mean space drift tending to `-1/6`.  Commits `64bccb8`/`db13d82` prove perpetual `+1` growth impossible and force `4^r | N+1` for an `r`-burst.  Commits `288fb09`/`e293f7d` prove battery conservation on growth and the complete nongrowing recharge ledger; `22ce54d` proves the packet value and four phase-recharge formulas.  The independent worker agrees with literal rules on all 88,572 words through length ten and replays 16,769 chained run/comb/packet cases through coordinate 64.  It exhibits a four-phase packet compiler; commit `b794b2f` proves that packet is not directly self-linked, so no battery-recharging multi-type cycle or infinite orbit is known. |
-| YAH recharge amplifier and preserved register | For target gain `G`, the research-side construction takes `K=4G+1` and the unique phase-one packet address `41*9^q+15=0 (mod 2^(K+5))`.  Its neutral macro writes at least `K` dyadic-charge units; commit `67eabe3` kernel-checks the all-parameter theorem that `J>=4G` all-odd defect steps force at least `G` new ternary cells.  The free lift survives research-side as a normalized register satisfying the LTE schema `v2(A_K(t)-A_K(u))=v2(t-u)`, while exact `v3=2` makes the endpoint end in a contiguous run of `J+2` twos after `J` safe odd steps.  The artifact checks 32 symbolic targets, all 1,024 ten-bit register values for each of four targets, and exact queue traces through a 369,187-trit packet.  The dynamical prefix wrapper, LTE, and reservoir schemas await Lean replay.  This proves neither autonomous address regeneration nor an infinite orbit. |
+| YAH recharge amplifier and preserved register | For target gain `G`, the construction takes `K=4G+1` and the unique phase-one packet address `41*9^q+15=0 (mod 2^(K+5))`.  Its neutral macro writes at least `K` dyadic-charge units; commit `67eabe3` proves that `J>=4G` all-odd defect steps force at least `G` new ternary cells.  Commit `1a69d5b` kernel-checks the lift-register isometry `v2(A_K(t)-A_K(u))=v2(t-u)`; commits `6b5e34c`/`0b8179a` prove exact `v3=2` and the resulting run of `J+2` trailing twos.  The artifact checks 32 symbolic targets, all 1,024 ten-bit register values for four targets, and exact queue traces through a 369,187-trit packet.  The dynamical maximal-prefix wrapper remains to be packaged.  This proves neither autonomous address regeneration nor an infinite orbit. |
+| YAH lift-register bit decoder | At charge `K=5`, all addresses are `q=17+128t`.  Four queue macros map the packet to an exact lasso `U V^t Z` with `|V|=256=ord_(2^10)(3)` and defect `3^7R(t)`.  The next zero-head macro reads `R(t) mod 2=t mod 2`: zero maps `3^7(2r)-1` to `3^8r-1`, extending the trailing-two reservoir, while one maps `3^7(2r+1)-1` to its half and changes chart.  The finite-state artifact constructs explicit 512-trit successor blocks and replays 65 parameters exactly.  This is a genuine LSB-first opcode, not closure; the restorative row records the first return from a thin bit-one cylinder. |
+| YAH restorative bit-one opcode | On the exact cylinder `t=91+256u`, `q=11665+32768u`, the bit-one collision is followed by a neutral recharge because `2^8 | 3^6R+1`.  Five macros return to head zero with seven trailing twos, write `R'=(3^6R+1)/2^8`, and gain one cell relative to the incoming decoder state.  The all-parameter certificate consists of six generated lasso identities with a 65,536-trit block; the exact artifact independently replays `u=0,...,4`.  Companion commit `f96e621` proves `R(t)<R'(t)<R(t+1)`, so the returned family is disjoint from the original chart.  This is regeneration but not closure: no finite recurrent chart graph or infinite ordinary orbit is known. |
 | Program-scale calibration | Barina's published exhaustive check through `2^71` excludes every ordinary seed below that bound. Colussi's exact order-10 repetend has 39,366 padded bits and an 11,846-digit integer value, giving a literature-backed, formula-generated background at the scale Simon proposed. This is target calibration, not evidence of divergence. |
 | Delocalized instruction-set audit | Exact published encodings expose four complementary units: valuation congruences, mixed binary--ternary boundary rewrites, De Mol's three-symbol tag rules, and Colussi's rotated repetend grammar. They motivate a nonlocal bouncer search but do not prove computational universality or nontermination. |
 | Exact dyadic--triadic packet gate | Lean commit `f1cb0e2` proves universally that each supplied base collision generates exactly the affine family `h=r+2^(m+e+2)q`, `h'=s+2*3^m q`, with unique payload, literal valuation `e`, and the triadic next-packet scheduler. The Python checker passes 8,192 family members and an exhaustive converse over all 16,316 renewals found for odd `h<2^16` at levels `1..8`. No closed all-level gate controller is known. |

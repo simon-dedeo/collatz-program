@@ -1,6 +1,6 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-22, about 16:26 EDT
+Updated: 2026-07-22, about 17:08 EDT
 
 Repository: `/Users/simon/Desktop/COLLATZ`
 
@@ -214,10 +214,89 @@ artifact hash:
 The all-parameter scale, LTE, and reservoir schemas are in
 `docs/FOR_CLEAN_LEAN.md` as QM14--QM19.  Commit `67eabe3` already
 kernel-checks the generic scale core: `J>=4G` plus the exact all-odd defect
-balance forces at least `G` new cells.  The dynamic maximal-prefix wrapper,
-LTE isometry, and reservoir theorem remain open formal seams.  The remaining
-closure obligation is exact: a forward finite type must decode `A_K(t)` into
-the next packet address without an external lift.
+balance forces at least `G` new cells.  The dynamic maximal-prefix wrapper
+remains open; commits `1a69d5b`, `6b5e34c`, and `0b8179a` now kernel-check
+the LTE isometry, exact triadic valuation, and literal trailing-reservoir
+theorem.  The remaining closure obligation is exact: a forward finite type
+must decode `A_K(t)` into the next packet address without an external lift.
+
+The first decoder instruction is exact at `K=5`.  Write
+
+```text
+q=17+128t,
+R(t)=(41*9^q+15)/(3*2^10).
+```
+
+Four queue macros map `2(01)^q` to an exact lasso `U V^t Z` with generated
+lengths `(31,256,6)` and defect `3^7R(t)`.  The block size is
+`256=ord_(2^10)(3)`.  The next head-zero macro reads the least significant
+register bit, since `R(t)=t mod 2`:
+
+```text
+R=2r:    3^7R-1 -> 3^8r-1,
+R=2r+1:  3^7R-1 -> (3^7(2r+1)-1)/2.
+```
+
+Thus zero shifts the register and extends the clean reservoir from seven to
+eight twos; one consumes the reservoir and changes chart.  At word level the
+256-trit block flips carry and splits into exact 512-trit successor blocks for
+`t=2s` and `t=2s+1`.  The worker/artifact are
+
+```text
+experiments/kontorovich/yah_lift_decoder.py
+experiments/kontorovich/yah_lift_decoder_audit.json
+```
+
+They construct the all-parameter finite-state lasso certificate and replay
+all 65 parameters through `t=64`.  Worker hash:
+`db4b19a53c40e7d7c5b250b71e938741ed9b1ee68d3a11248f416b17c9f8ca10`;
+artifact hash:
+`7ca77895ea65644857c920835fecbba5b35520416867b04960b2e4ff0d1b01a5`.
+The all-length request is QM20--QM25 in `docs/FOR_CLEAN_LEAN.md`.  The next
+edge investigated was the bit-one chart's return to recharge with a newly
+written unbounded register.
+
+That edge now exists on the exact cylinder
+
+```text
+t=91+256u,  q=11665+32768u.
+```
+
+The incoming register is `R=151 (mod 256)`, so the bit-one collision is
+followed by a neutral recharge and writes
+
+```text
+Rnext=(3^6R+1)/2^8.
+```
+
+Three more safe macros spend five odd shortcut steps and return to head zero
+with exactly seven trailing twos.  Across the five-macro restorative opcode,
+the word gains one cell.  The six all-parameter lassos all have a 65,536-trit
+repeated block, with shapes
+
+```text
+(23327,65536,6), (23326,65536,6), (23325,65536,7),
+(23324,65536,8), (23323,65536,10), (23322,65536,12).
+```
+
+The worker/artifact are
+
+```text
+experiments/kontorovich/yah_restorative_decoder.py
+experiments/kontorovich/yah_restorative_decoder_audit.json
+```
+
+They construct the all-parameter finite-state stages and independently replay
+`u=0,...,4`.  Worker hash:
+`2f8e835e100a5041b17a07db8fd86b92aa0e5a549fa06f08d7963ddcce5d54ba`;
+artifact hash:
+`2346f0b87c15d8a7c336be2b7f5dbcb2003c58bc2435d88344715ff27054638a`.
+The exact request is QM26--QM30.  This is the first complete
+`read -> collide -> recharge -> reproduce` edge, but not closure.  The return
+block is new, and companion commit `f96e621` proves its register lies strictly
+between consecutive original decoder registers.  Therefore it cannot be
+reindexed into the old chart.  The live goal is now a **finite recurrent chart
+graph**, not deeper restriction down an infinite externally selected tower.
 
 ### Canonical arithmetic compiler, with corrected scope
 
@@ -516,6 +595,17 @@ At this update, the newest pushed formalizer checkpoints are:
   ordinary packet coordinate.
 - `67eabe3`: any canonical all-odd defect segment of `J>=4G` steps gains at
   least `G` ternary cells; the packet-to-segment wrapper remains separate.
+- `1a69d5b`: the normalized lift register is a kernel-checked 2-adic isometry.
+- `6b5e34c`: its exact triadic reservoir valuation is kernel-checked.
+- `0b8179a`: triadic defect valuation equals the literal trailing-two count,
+  giving the typed reservoir theorem.
+- `d801643`: queue prefix/suffix causality limits one-macro backwrite to the
+  carry channel, and a positive register cannot eventually only bit-pop.
+- `24b2dd5`: QM20/QM21/QM23 and the generic fixed/flipping-lasso induction
+  engine are kernel-checked; the concrete four-stage QM22 instantiation is
+  still separate.
+- `f96e621`: the restorative output register lies strictly between consecutive
+  original decoder registers and is therefore a genuinely disjoint chart.
 
 Never edit or stage its live `KontoroC/*` files.  Continue to send exact
 formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
@@ -523,12 +613,10 @@ formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
 
 The best immediate research tasks are:
 
-1. poll the companion's QM14--QM19 response; the generic amplifier scale core,
-   QM1--QM4, QM9--QM12, the
-   all-width morphism, and carry-opcode theorems are complete;
-2. synthesize the decoder that maps the preserved `A_K(t)` register to the
-   next unique phase-one recharge address; this must be a forward multi-type
-   rule, not a fresh congruence choice;
+1. poll the companion's QM26--QM30 restorative response; decoder arithmetic,
+   generic lasso induction, and original-chart separation are complete;
+2. give the returned 65,536-trit chart its own symbolic decoder and test
+   whether finitely many generated chart types close to a recurrent component;
 3. search for a public invariant predicate on `CompleteSplashState.next`, not
    a deeper finite orbit or another direct CRT handoff;
 4. treat nonlinear stack rewriting or multi-rail address rotation as the
@@ -1009,13 +1097,12 @@ Diary entry.
 
 1. Poll the detached R23 service, but do not block creative work on it; leave
    the incomplete Ganesha morphic batch stopped.
-2. Poll the companion's QM14--QM19 amplifier/register response.  QM1--QM4,
-   QM9--QM12, marker-fixed maps, and carry opcodes are complete; perpetual
-   all-growing macros and stable deep addresses are closed.
-3. Build a symbolic **multi-type** decoder which turns the preserved
-   `A_K(t)` register into the next unique phase-one packet address.  It must
-   restore the packet head and use a counter-dependent clock; do not resume
-   literal searches.
+2. Poll the companion's QM26--QM30 restorative response.  QM20/QM21/QM23 and
+   the generic lasso engine are complete; the concrete all-stage word theorem
+   remains a separate seam.
+3. Decode the returned **new 65,536-trit chart** symbolically and seek a finite
+   recurrent chart graph.  Do not keep selecting deeper source cylinders
+   unless a chart invariant proves that only finitely many block types arise.
 4. Seek a symbolic invariant `L` for the canonical splash map whose successor
    writes its own next address; do not promote long finite traces.
 5. Keep Simon's spatial metaphor: the invariant should explain how a payload

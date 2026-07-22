@@ -7435,3 +7435,179 @@ checks 32 symbolic addresses, all 1,024 ten-bit lifts for each of four targets,
 and queue-transducer traces for target gains one through four (largest packet
 369,187 trits), including the exact QM19 trailing-reservoir count.  The bounded
 worker is regression evidence; QM14--QM19 are the requested universal claims.
+
+## Kontorovich request: first lift-register bit decoder (2026-07-22 16:49 EDT)
+
+Rounds 162--164 are received: QM18, the triadic QM19 valuation, and its exact
+trailing-`tri2` word interpretation are now complete.  The emitted register
+and reservoir have produced a concrete next opcode.
+
+Specialize to `K=5`.  The least phase-one address is `q0=17`, its period is
+`2^(K+2)=128`, and put
+
+```text
+q(t)=17+128*t,
+R(t)=(41*9^q(t)+15)/(3*2^10).                       (QM20)
+```
+
+The division-free interface is
+
+```text
+3*2^10*R(t)=41*9^q(t)+15.
+```
+
+The existing lift-register isometry should make the following specialization
+cheap: `R(0)` is even and every consecutive difference is odd, hence
+
+```text
+R(t) mod 2 = t mod 2.                               (QM21)
+```
+
+The packet and five safe odd steps give, after four whole queue macros,
+
+```text
+defect(M^4(2(01)^q(t))) = 3^7*R(t).                (QM22)
+```
+
+The endpoint begins with `tri0` and has seven trailing `tri2`s.  Its next
+queue macro is therefore exactly the one-sweep LSB decoder
+
+```text
+R=2r:    3^7*R-1 -> 3^8*r-1,
+R=2r+1:  3^7*R-1 -> (3^7*(2r+1)-1)/2.              (QM23)
+```
+
+In the zero branch the terminal carry is one, length is neutral, and the
+trailing-two count becomes eight.  In the one branch the terminal carry is
+zero, length decreases by one, and the trailing-two count becomes zero.
+The arithmetic proof of QM23 is elementary; the useful seam is tying it to
+the exact queue word/head supplied by QM22.
+
+There is a reusable finite-state formulation which avoids entering enormous
+word literals.  For lasso words `U V^t Z`:
+
+1. if the open quotient sweep sends carry `c` across `V` back to `c`, prove
+   `Q_c(U V^t Z)=U' (V')^t Z'` by induction on `t`;
+2. if `V` swaps carries zero and one, split `t=2s`/`2s+1` and prove the two
+   successor lassos with blocks `V'_0 V'_1` and `V'_1 V'_0`.             (QM24)
+
+Four applications of the fixed-carry lemma to the initial family
+
+```text
+U=2(01)^17,  V=(01)^128,  Z=empty
+```
+
+produce QM22's word lasso with generated lengths `(31,256,6)`.  The fifth
+macro's repeated block swaps carries, producing
+
+```text
+t=2s:    lengths (30,512,7),
+t=2s+1:  lengths (286,512,6).                       (QM25)
+```
+
+Please define the generated blocks by the existing `carrySweep` operations
+rather than pasting the 256/512-trit constants.  The critical theorem is the
+all-`t` lasso induction and branch semantics, not definitional reduction of a
+large numeral.  Commit `121cb13` already supplies
+`ord_(2^10)(3)=256`, explaining the block size if that connection is cheap.
+
+Research interpretation: QM23 is a literal LSB-first programming instruction.
+Zero pops a register bit and extends the spatial reservoir; one collides with
+the reservoir and changes chart.  It is not closure.  The next constructive
+obligation is to route the bit-one chart back to a phase-one recharge packet
+while writing a new unbounded register.
+
+The exact worker is `experiments/kontorovich/yah_lift_decoder.py`.  Its
+finite-state constructor generates the fixed/flipping lasso blocks, and its
+default artifact independently materializes all 65 parameters `0<=t<=64`,
+checking values, carries, lengths, reservoirs, and word hashes.  Artifact
+self-hash `7ca77895ea65644857c920835fecbba5b35520416867b04960b2e4ff0d1b01a5`;
+worker hash `db4b19a53c40e7d7c5b250b71e938741ed9b1ee68d3a11248f416b17c9f8ca10`.
+
+## Kontorovich request: restorative bit-one chart (2026-07-22 17:08 EDT)
+
+Rounds 165--168 are received.  In particular, the queue-causality and
+eventual-bit-pop no-gos sharpen the target correctly; QM20, QM21, QM23, and
+the generic QM24 lasso engine are checked; and commit `f96e621` proves that
+the restorative output cannot be reindexed into the original decoder chart.
+The latter is accepted as a genuine chart separation, not treated as failure
+of the multi-chart lane.
+
+Here is the exact positive restorative edge for arithmetic/word replay.
+Restrict QM20 to
+
+```text
+t(u)=91+256*u,
+q(u)=17+128*t(u)=11665+32768*u.                    (QM26)
+```
+
+For `R(u)=decoderRegister(t(u))`, the source address has
+
+```text
+R(u) mod 2^8 = 151,
+2^8 | 3^6*R(u)+1.                                  (QM27)
+```
+
+A useful proof route is `v2(9^32768-1)=18` plus the base residue.  Define
+
+```text
+Rnext(u)=(3^6*R(u)+1)/2^8.
+```
+
+Starting at QM22's incoming word, five whole queue macros have terminal-carry
+lists
+
+```text
+[0], [0,1], [1], [1,1], [1,1].
+```
+
+The first is QM23's bit-one collision.  The second is a neutral head-one
+recharge.  Its defect and the final defect are
+
+```text
+D(after_recharge)=9*2^5*Rnext(u),
+D(returned)=3^7*Rnext(u).                           (QM28)
+```
+
+The final three macros have head schedule `0,2,1`, spend five odd shortcut
+steps, and return to head zero with exactly seven trailing `tri2` symbols.
+The returned word has length exactly one greater than the incoming QM22 word.
+Please prioritize this arithmetic/typed statement over large generated word
+constants.
+
+For the all-word identity, repeated applications of the already checked QM24
+fixed-block engine give generated prefix/block/suffix shapes
+
+```text
+incoming       (23327,65536,6)
+after bit one  (23326,65536,6)
+after recharge (23325,65536,7)
+after safe 1   (23324,65536,8)
+after safe 3   (23323,65536,10)
+returned       (23322,65536,12).                   (QM29)
+```
+
+The final lasso suffix is twelve symbols although the literal trailing-two
+count is seven.  Define blocks by restricting/composing the generated QM24
+blocks rather than pasting 65,536-trit numerals.
+
+Finally, restriction of the earlier register isometry and QM27 gives
+
+```text
+v2(Rnext(u)-Rnext(v))=v2(u-v),
+Rnext(u) mod 2=(u+1) mod 2.                         (QM30)
+```
+
+The research-side worker is
+`experiments/kontorovich/yah_restorative_decoder.py`; its default artifact
+replays `u=0,...,4` exactly.  Artifact self-hash
+`2346f0b87c15d8a7c336be2b7f5dbcb2003c58bc2435d88344715ff27054638a`;
+worker hash
+`2f8e835e100a5041b17a07db8fd86b92aa0e5a549fa06f08d7963ddcce5d54ba`.
+
+Research interpretation: QM26--QM30 are a real
+`read -> collide -> recharge -> reproduce` edge with net space gain.  They do
+not provide a counterexample.  Since Round 168 proves the returned chart is
+new, the next adversarial question is whether any finite generated chart set
+can be recurrent, or whether each restorative restriction necessarily raises
+a chart invariant and creates an infinite external tower.
