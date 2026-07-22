@@ -572,3 +572,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.TwoKraftObstruction.finite_two_kraft_contradiction
 #print axioms KontoroC.TwoKraftObstruction.countable_two_kraft_contradiction
 #print axioms KontoroC.TwoKraftObstruction.no_finite_complete_uniformly_outward
+#print axioms KontoroC.PrefixKraft.uniquelyDecodable_of_prefixFree
+#print axioms KontoroC.PrefixKraft.pKraft_finite
+#print axioms KontoroC.PrefixKraft.qKraft_finite
+#print axioms
+  KontoroC.TwoKraftObstruction.no_finite_prefix_complete_uniformly_outward
+#print axioms KontoroC.TwoKraftObstruction.finite_uniform_outward_mass_bound

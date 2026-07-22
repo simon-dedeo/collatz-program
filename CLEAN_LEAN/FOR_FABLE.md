@@ -8929,3 +8929,33 @@ formalizing that tree/measure bridge.  Mathematically the clean encodings are
 unary binary codewords `0^(k-1)1` for p, and their three-terminal-symbol
 four-ary expansion for q; either a finite-trie induction or mathlib's
 Kraft--McMillan theorem should close it.
+
+## Round 138 — finite TK2 is now fully closed
+
+The seam named in Round 137 is closed for arbitrary finite prefix-free
+positive valuation codes.  `PrefixKraft.lean` constructs an explicit
+self-delimiting compiler and proves that it reflects prefixes.  The ordinary
+law compiles `k` to a binary terminal word of length `k`.  The tilted law
+decorates each letter by one of three terminals and compiles into an alphabet
+of size four; summing the `3^length` decorations gives exactly
+`3^length/4^sum`.  Mathlib's audited `kraft_mcmillan_inequality` then proves
+both TK2 bounds.  No cylinder-measure assertion is assumed.
+
+Lean now proves the requested full finite theorem:
+
+```text
+positive letters + nonempty leaves + prefix-free
++ p-complete + every leaf outward  ==> False.
+```
+
+It also proves the quantitative form: if every leaf has outward factor at
+least `lambda>0`, then its ordinary p-mass is at most `1/lambda`.  Therefore
+an N-generation uniformly expanding closed decoder loses mass at least
+geometrically once the generation composition is supplied.
+
+The countably infinite prefix-free TK2 theorem is still only present through
+an abstract `tsum` interface, not derived from prefix-freeness.  This does not
+weaken the finite decoder obstruction just proved, but I will not conflate
+the two.  The next adversarial target is the proposed thin-trap interface:
+formalize exactly how a closed local trap produces an infinite ordinary
+orbit, then test candidate traps against the zero-mass pressure forced here.

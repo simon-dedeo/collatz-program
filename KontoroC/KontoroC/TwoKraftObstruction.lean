@@ -5,6 +5,7 @@ Authors: Simon DeDeo, OpenAI Codex
 -/
 import Mathlib.Analysis.SpecificLimits.Normed
 import Mathlib.Topology.Algebra.InfiniteSum.ENNReal
+import KontoroC.PrefixKraft
 
 /-!
 # The two-Kraft obstruction to a complete outward valuation ISA
@@ -16,9 +17,9 @@ slope, the second weight strictly dominates the first leaf by leaf and
 violates its own Kraft bound.
 
 This file checks the two exact geometric distributions, the leafwise
-outwardness comparison, and finite/countable abstract two-Kraft
-contradictions.  The tree-theoretic fact that a particular code has both
-Kraft bounds remains a separate reusable interface.
+outwardness comparison, finite/countable abstract two-Kraft contradictions,
+and the full finite prefix-code theorem.  The two Kraft bounds are obtained
+from self-delimiting uniform encodings in `PrefixKraft`.
 -/
 
 namespace KontoroC
@@ -128,6 +129,73 @@ theorem no_finite_complete_uniformly_outward
     (hout : ∀ w ∈ C, 2 ^ w.sum < 3 ^ w.length) : False := by
   exact finite_two_kraft_contradiction C pWeight qWeight hcomplete hqKraft
     (fun w hw => pWeight_lt_qWeight_of_outward w (hout w hw)) hne
+
+/-- TK2 for the ordinary valuation-cylinder law, derived from prefix-freeness
+rather than assumed as an interface. -/
+theorem finite_prefix_pKraft (C : Finset (List ℕ))
+    (hpos : ∀ w ∈ C, ∀ k ∈ w, 0 < k)
+    (hne : ∀ w ∈ C, w ≠ [])
+    (hpf : PrefixKraft.PrefixFree (C : Set (List ℕ))) :
+    ∑ w ∈ C, pWeight w ≤ 1 := by
+  simpa [pWeight, one_div, inv_pow] using
+    PrefixKraft.pKraft_finite C hpos hne hpf
+
+/-- TK2 for the tilted valuation-cylinder law.  Each valuation letter is
+expanded into three possible terminals in a four-symbol self-delimiting
+code, giving exactly `3^length / 4^sum`. -/
+theorem finite_prefix_qKraft (C : Finset (List ℕ))
+    (hpos : ∀ w ∈ C, ∀ k ∈ w, 0 < k)
+    (hne : ∀ w ∈ C, w ≠ [])
+    (hpf : PrefixKraft.PrefixFree (C : Set (List ℕ))) :
+    ∑ w ∈ C, qWeight w ≤ 1 := by
+  simpa [qWeight] using PrefixKraft.qKraft_finite C hpos hne hpf
+
+/-- Full finite two-Kraft obstruction: no nonempty prefix-free positive
+valuation code can simultaneously be complete for ordinary cylinders and
+outward at every leaf. -/
+theorem no_finite_prefix_complete_uniformly_outward
+    (C : Finset (List ℕ)) (hC : C.Nonempty)
+    (hpos : ∀ w ∈ C, ∀ k ∈ w, 0 < k)
+    (hne : ∀ w ∈ C, w ≠ [])
+    (hpf : PrefixKraft.PrefixFree (C : Set (List ℕ)))
+    (hcomplete : ∑ w ∈ C, pWeight w = 1)
+    (hout : ∀ w ∈ C, 2 ^ w.sum < 3 ^ w.length) : False := by
+  exact no_finite_complete_uniformly_outward C hC hcomplete
+    (finite_prefix_qKraft C hpos hne hpf) hout
+
+/-- Multiplicative outward factor of a valuation word. -/
+noncomputable def outwardFactor (w : List ℕ) : ℝ :=
+  (3 : ℝ) ^ w.length / (2 : ℝ) ^ w.sum
+
+theorem qWeight_eq_pWeight_mul_outwardFactor (w : List ℕ) :
+    qWeight w = pWeight w * outwardFactor w := by
+  simp only [qWeight, pWeight, outwardFactor]
+  rw [show (4 : ℝ) = 2 * 2 by norm_num, mul_pow]
+  field_simp
+
+/-- Quantitative two-Kraft bound.  If every leaf expands by at least
+`lambda > 0`, its ordinary cylinder mass is at most `1 / lambda`. -/
+theorem finite_uniform_outward_mass_bound
+    (C : Finset (List ℕ))
+    (hpos : ∀ w ∈ C, ∀ k ∈ w, 0 < k)
+    (hne : ∀ w ∈ C, w ≠ [])
+    (hpf : PrefixKraft.PrefixFree (C : Set (List ℕ)))
+    (lambda : ℝ) (hlambda : 0 < lambda)
+    (hout : ∀ w ∈ C, lambda ≤ outwardFactor w) :
+    ∑ w ∈ C, pWeight w ≤ 1 / lambda := by
+  have hpoint : ∀ w ∈ C, lambda * pWeight w ≤ qWeight w := by
+    intro w hw
+    rw [qWeight_eq_pWeight_mul_outwardFactor, mul_comm lambda]
+    exact mul_le_mul_of_nonneg_left (hout w hw) (by
+      simp only [pWeight]
+      positivity)
+  have hsum : ∑ w ∈ C, lambda * pWeight w ≤ ∑ w ∈ C, qWeight w :=
+    Finset.sum_le_sum fun w hw => hpoint w hw
+  have hq := finite_prefix_qKraft C hpos hne hpf
+  have hmass : lambda * (∑ w ∈ C, pWeight w) ≤ 1 := by
+    rw [Finset.mul_sum]
+    exact hsum.trans hq
+  exact (le_div_iff₀ hlambda).2 (by simpa [mul_comm] using hmass)
 
 end TwoKraftObstruction
 end KontoroC
