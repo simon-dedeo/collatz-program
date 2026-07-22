@@ -33,6 +33,31 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-22 17:18 EDT — shutdown checkpoint
+
+The first search from the returned 65,536-trit chart has been stopped cleanly
+for restart tonight.  A generic exact lasso brancher—not yet promoted to a
+committed certificate—found two nested all-odd spatial bursts:
+
+```text
+u=3  (mod 8):   heads 0,1;   carries [1],[1,1];       net +1 cell;
+u=27 (mod 64):  heads 0,1,0,2; carries [1],[1,1],[1],[1,1]; net +2 cells.
+```
+
+The first returns to head zero with ten trailing twos and transforms the
+defect by `D -> 27D/8`; the second returns to head zero with thirteen trailing
+twos and transforms it by `D -> 729D/64`.  These are exact finite-state lasso
+observations at block lengths 524,288 and 4,194,304, respectively, but they
+are not yet artifact-backed headline results.  They look like a nested delay
+line which converts stored dyadic charge into space.  They do not supply
+closure: commit `64bccb8` already forbids an infinite all-growing tail.
+
+The next restart task is to replace the memory-heavy explicit blocks with a
+compressed carry-transducer/straight-line certificate, derive the general
+residue and reservoir law, and ask whether a collision between these bursts
+and the restorative edge yields a second, genuinely different recharge map.
+The companion's in-progress QM26--QM30 Lean files were left untouched.
+
 ### 2026-07-22 17:08 EDT
 
 The bit-one collision now has an exact **restorative opcode**.  Restrict the

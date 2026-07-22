@@ -1,6 +1,6 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-22, about 17:08 EDT
+Updated: 2026-07-22, about 17:18 EDT
 
 Repository: `/Users/simon/Desktop/COLLATZ`
 
@@ -301,6 +301,30 @@ Companion commit `0da1058` additionally closes an eventual tail consisting
 only of this same update.  With `C=473R+1`, the recurrence becomes
 `256C'=729C`, forcing `256^n | C(0)` for every `n`.  A recurrent component
 must therefore contain at least two genuinely different chart edge maps.
+
+Immediately before shutdown, an in-memory generic lasso brancher explored
+the returned chart exactly through four macros.  It found:
+
+```text
+u=3 mod 8:
+  heads 0,1; carries [1],[1,1]; net +1;
+  return head 0, trailing-two reservoir 10, D' = 27D/8;
+
+u=27 mod 64:
+  heads 0,1,0,2; carries [1],[1,1],[1],[1,1]; net +2;
+  return head 0, trailing-two reservoir 13, D' = 729D/64.
+```
+
+The generated lasso blocks had lengths 524,288 and 4,194,304.  The search was
+interrupted at depth four before explicit strings exploded further.  These
+are exact observations from finite-state composition, but there is not yet a
+worker/artifact, so keep them out of the headline table until certified.  They
+are nested all-odd charge-spending bursts, not closure; `64bccb8` forbids an
+infinite all-growing tail.  The next implementation should use compressed
+straight-line blocks or just their two-state transition algebra to derive the
+general residue/reservoir law without materializing `2^k*65536` trits.  Then
+seek a collision with the restorative opcode that creates a *different*
+recharge affine map.
 
 ### Canonical arithmetic compiler, with corrected scope
 
@@ -1109,6 +1133,8 @@ Diary entry.
 3. Decode the returned **new 65,536-trit chart** symbolically and seek a finite
    recurrent chart graph.  Do not keep selecting deeper source cylinders
    unless a chart invariant proves that only finitely many block types arise.
+   Begin by certifying the `u=3 mod 8` and `u=27 mod 64` all-odd burst pattern
+   with compressed blocks; do not resume the explicit multi-million-trit BFS.
 4. Seek a symbolic invariant `L` for the canonical splash map whose successor
    writes its own next address; do not promote long finite traces.
 5. Keep Simon's spatial metaphor: the invariant should explain how a payload
