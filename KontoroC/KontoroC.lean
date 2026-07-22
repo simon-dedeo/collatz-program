@@ -40,6 +40,7 @@ import KontoroC.AffineBreakoffDelay
 import KontoroC.DispatcherBoundary
 import KontoroC.AffineQuotientNoGo
 import KontoroC.DispatcherDichotomy
+import KontoroC.SymbolicDispatcherBoundary
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail

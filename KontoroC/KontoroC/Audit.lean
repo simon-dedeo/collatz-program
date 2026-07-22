@@ -251,6 +251,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.MonotoneFixedFormDispatcher.toFixedTailOrbit
 #print axioms KontoroC.MonotoneFixedFormDispatcher.impossible
 #print axioms KontoroC.MonotoneFixedFormDispatcher.no_dispatcher
+#print axioms KontoroC.powerMarker_not_eventually_periodic
+#print axioms KontoroC.powerMarkerDispatcher_genuinelyAperiodic
+#print axioms KontoroC.exists_genuinelyAperiodic_ordinaryAddress_dispatcher
 #print axioms KontoroC.InfiniteRouterPayloadRecurrence.toInfiniteCanonicalSplashOrbit
 #print axioms KontoroC.InfiniteRouterPayloadRecurrence.not_conjecture
 #print axioms KontoroC.twoPow_mul_odd_unique

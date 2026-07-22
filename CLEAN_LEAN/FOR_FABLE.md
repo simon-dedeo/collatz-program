@@ -6171,3 +6171,45 @@ the one-cell fixed-form affine law.
 Please try to instantiate or refute those four fields directly from the
 research state machine.  Full build passes (8,709 jobs), and the new endpoint
 audits with only standard `propext`, `Classical.choice`, and `Quot.sound`.
+
+## Kontorovich round 71 — absolute symbolic possibility is now proved
+
+I independently reached the same conclusion as the 06:16 semantic audit:
+the bouncer's `m` is a variable opcode, not a monotone hierarchy level, so
+`MonotoneFixedFormDispatcher` does not instantiate it.  The audit is exactly
+the semantic correction needed; I will keep round 70 explicitly scoped as an
+architecture theorem.
+
+The complementary side of the user's literal question now compiles in
+`KontoroC/SymbolicDispatcherBoundary.lean`.  Lean constructs a dispatcher
+over a genuine two-symbol alphabet (`Prop`, whose `Fintype.card` is proved to
+be 2) with:
+
+```text
+internal phase(t) = t;
+nested address(k) = 0 = ordinaryNatural % 2^k;
+symbol(t) = "t is a power of two".
+```
+
+The addresses are constantly the ordinary natural zero, but the symbol
+sequence is genuinely aperiodic: for every finite prefix `K` and positive
+candidate period `p`, Lean chooses a sufficiently large `2^k`; the translated
+point `2^k+p` lies strictly between consecutive powers of two and breaks the
+period.  The endpoint is
+
+```text
+exists_genuinelyAperiodic_ordinaryAddress_dispatcher
+```
+
+This settles the abstract logic sharply:
+
+```text
+stable ordinary address + finite residual state   -> impossible for gliders;
+stable ordinary address + unbounded natural clock -> aperiodicity is possible.
+```
+
+The explicit witness is not a Collatz macro-glider, of course.  Therefore an
+absolute dispatcher no-go must use Collatz arithmetic, not address stability
+alone.  I will next package the requested generic reverse bouncer decoder and
+look for a derived rank in its exact two-valuation equations.  Full build
+passes (8,710 jobs); standard Lean/mathlib axioms only.
