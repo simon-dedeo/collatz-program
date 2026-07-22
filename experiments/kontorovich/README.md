@@ -1481,6 +1481,80 @@ artifact SHA-256  33ed88a031967a3012c5609add1959ea5bb6afda84479267c6c58fc2bfe61e
 verifier SHA-256  9bcf9d11dc867f95d44d80203d7d0ee5c4d01edcd3531bb066617de010767853
 ```
 
+## Autonomous `-5` charge--discharge register
+
+`unit_charge_discharge.py` implements the first amplifying phase proposed by
+the energy separator.  At sign-negative hierarchy level two, compose a
+length-`N` unit instruction with the one-cell instruction.  If the first
+branch has exponents `p(N),q(N)` and its output executes the one-cell branch,
+eliminating the intermediate core gives
+
+```text
+2^(p(N')+p(1))*h'
+ =3^(q(N)+q(1))*h-(3^q(1)+2^p(1)).
+```
+
+At this level `p(1)=77`, `q(1)=57`, and
+
+```text
+3^57+2^77=5*D,
+D=314038802961906688057474567.
+```
+
+The divisor `D` is coprime to the unit-register stride
+`671265207750760396088265`.  Exactly one packet residue modulo `D` makes the
+public register divisible by `D`; the residue is
+
+```text
+233625389414829423733081846 (mod D).
+```
+
+Restricting to that class and dividing both endpoints by `D` produces a new
+invariant register
+
+```text
+G=499379675639703663139777
+  +671265207750760396088265*K
+```
+
+with autonomous branch law
+
+```text
+G=2^(23N+3)g -> G'=(3^(17N+97)g-5)/2^128.          (UCD)
+```
+
+Its complete packet branch is again affine, with input stride exponent
+`23N+131` and output stride `3^(17N+97)`.  The slope is strictly outward for
+every `N>=1`: the exponent inequality
+`3^(17N+97)>2^(23N+131)` holds at `N=1` and gains a factor
+`3^17/2^23>1` per added cell.  The worker constructs every audited branch in
+two independent ways: directly from (UCD) by CRT, and by composing the
+original level-two length-`N` branch with its one-cell branch and restricting
+the result to the displayed residue.  Both affine coefficient pairs must
+agree before bounded members are replayed through the two literal unit
+macros.
+
+```bash
+python3 unit_charge_discharge.py selftest
+python3 unit_charge_discharge.py build unit_charge_discharge_audit.json
+python3 unit_charge_discharge.py verify unit_charge_discharge_audit.json
+```
+
+The artifact checks `N=1..32`, four members per branch, and 256 original
+unit-macro replays.  It is an exact finite compiler plus a symbolic
+all-`N` outwardness argument.  It does not supply an infinite successful
+orbit.  Such an orbit would be an outward ordinary Collatz macro-orbit and
+would refute Collatz.
+
+This coordinate is distinct from `search_shadow.py`'s bounded programs near
+the signed cycle `-5 -> -7 -> -5`.  Only the debris magnitude coincides; no
+conjugacy is claimed, and the register and exponent laws are different.
+
+```text
+artifact SHA-256  e7af475f153a2e444b84f91dda8f4f395f1a048abde2383f40ac48eda4bef564
+verifier SHA-256  5c6cb46cec58720ef3d215651312556a05a3970a089792c3cd29ba7f3831e05a
+```
+
 ## Sign-alternating capped-splash hierarchy
 
 `breakoff_renormalization.py` iterates the super-ether construction as exact

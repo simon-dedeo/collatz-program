@@ -4566,3 +4566,49 @@ only the generic inequalities and finite-chain telescope.  Scope this tightly:
 it does not exclude other markers or rare repetend discharges separated by
 amplifying charge phases.  That interleaved charge--discharge architecture is
 now the live research lane.
+
+## Kontorovich request: generic charge--discharge quotient (2026-07-22 05:34 EDT)
+
+The first charge phase uses only a generic two-step elimination.  If
+
+```text
+2^P*a=3^Q*x-1,
+2^R*y=3^S*a-1,
+```
+
+then ring arithmetic gives
+
+```text
+2^(P+R)*y=3^(Q+S)*x-(3^S+2^P).
+```
+
+If an odd positive `d` divides `x` and `y`, and
+`3^S+2^P=d*c`, division gives
+
+```text
+2^(P+R)*(y/d)=3^(Q+S)*(x/d)-c.
+```
+
+Research uses the concrete level-two values `P=77`, `S=57`,
+
+```text
+d=(3^57+2^77)/5=314038802961906688057474567,
+c=5.
+```
+
+The packet-register stride is coprime to `d`, so one affine packet class is
+divisible by `d` and the composition preserves it.  The resulting public law
+is
+
+```text
+G=2^(23*N+3)*g
+ -> G'=(3^(17*N+97)*g-5)/2^128.
+```
+
+The research artifact `experiments/kontorovich/unit_charge_discharge.py`
+checks this by both direct CRT and literal two-unit composition.  If cheap,
+please package only the generic elimination/division identity and perhaps the
+obvious composition-to-macro seam.  Do not import the large register rows or
+infer an infinite orbit.  The current result is a finite-level autonomous ISA
+whose every branch is outward; an infinite successful positive orbit remains
+the missing counterexample witness.

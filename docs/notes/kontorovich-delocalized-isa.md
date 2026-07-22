@@ -1794,6 +1794,49 @@ phase must do two jobs at once—restore real core magnitude and synthesize the
 next correction prefix.  Sparse repetend splashes inside an aperiodic
 charge--discharge controller remain open; consecutive ones do not.
 
+The finite unit ISA itself supplies an exact charge--discharge primitive.
+At sign-negative level two, compose a length-`N` instruction with the
+one-cell instruction.  Eliminating the intermediate core gives
+
+```text
+2^(p(N')+p(1)) h'
+ =3^(q(N)+q(1))h-(3^q(1)+2^p(1)).                  (69k)
+```
+
+Here `p(1)=77`, `q(1)=57`, and
+
+```text
+3^57+2^77=5D,
+D=314038802961906688057474567.                     (69l)
+```
+
+Because `gcd(D,M)=1` for the level-two register stride `M`, there is a unique
+packet class on which the register is divisible by `D`; (69k) preserves that
+class.  Dividing both endpoints produces
+
+```text
+G=499379675639703663139777
+  +671265207750760396088265K,
+G=2^(23N+3)g -> G'=(3^(17N+97)g-5)/2^128.          (69m)
+```
+
+The complete branches of (69m) have dyadic stride exponent `23N+131` and
+triadic stride `3^(17N+97)`.  Since
+`3^(17N+97)>2^(23N+131)` for every `N>=1`, each successful branch is strictly
+outward.  [`unit_charge_discharge.py`](../../experiments/kontorovich/unit_charge_discharge.py)
+constructs the branches both directly from (69m) and by restricting the
+literal two-unit composition; its artifact compares `N=1..32` and replays
+four members of each.
+
+Equation (69m) is a notably smaller disproof target than the original unit
+machine: any infinite successful positive orbit is already an outward
+ordinary Collatz macro-orbit.  It is not such an orbit.  Its `-5` should also
+not be conflated with the old signed-cycle shadow grammar: the latter shadows
+negative periodic states, whereas (69m) is a positive quotient register
+derived from two exact finite-level unit instructions.  The live regenerative
+test is whether another one-cell discharge lets (69m) quotient its own fixed
+debris and reproduce the same `-5` law at a larger scale.
+
 The remaining obstruction is now a programming-language condition rather
 than a missing collision gadget.  Reading (69e) from right to left, one
 instruction pops the required low binary word `z` and pushes a power-of-three

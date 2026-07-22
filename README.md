@@ -251,6 +251,25 @@ identically `x`.
   must therefore alternate an amplifying **charge phase** with a sparse giant
   **discharge splash**.  The charge phase must rebuild both real core energy
   and the next nonlocal correction word from the surviving packet.
+  The first exact charge--discharge compiler is now autonomous.  At the
+  sign-negative level-two unit register, execute a length-`N` instruction and
+  then the one-cell instruction.  The fixed collision debris factors as
+  `3^57+2^77=5D`, where
+  `D=314038802961906688057474567` is coprime to the register stride.  On the
+  unique packet class divisible by `D`, quotienting gives the new ISA
+
+  ```text
+  G=2^(23N+3)g -> (3^(17N+97)g-5)/2^128.
+  ```
+
+  Every complete branch of this machine is strictly outward, and each is
+  literally two legal unit macros.  Thus any infinite successful positive
+  orbit of this much smaller `-5` machine would already refute Collatz.  No
+  such orbit is known.  This is distinct from the earlier bounded search near
+  the signed cycle `-5 -> -7 -> -5`: the same small debris appears in a new
+  positive quotient register with different exponents.  The live task is to
+  make its packet select infinitely many legal lengths, or to prove that its
+  own one-cell discharge recursively regenerates the same `-5` interface.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -459,6 +478,7 @@ positive integer and its claimed behavior are machine-checked.
 | Formula-generated nonlinear repetend splash | If `2^T C=s (mod 3^q)`, the ordinary repetend `R=(2^T C-s)/3^q` gives `R+2^(T+D)K -> C+2^D 3^qK` under the unit collision.  Intersecting the discrete-log class of `T` with `T=p(n')` produces a genuine enormous target length.  Exact modular certificates construct this at all six finite levels from source length one and gaps `D=1,64`; they verify the order `ord_(3^q)(2)=2*3^(q-1)`, exponent CRT, repetend integrality, and both register phases without expanding `2^T`.  Level one uses `C=5`, `T=105,734,623`, and `n'=13,216,826`; its low rail alone is about 31.8 million decimal digits.  Across levels the target exponents have `9,29,91,299,980,3235` decimal digits.  This is a short generator for one vast nonlinear splash, not renewal or nontermination. | [`unit_repetend_splash_audit.json`](experiments/kontorovich/unit_repetend_splash_audit.json) |
 | Two consecutive sign-negative repetend splashes | At level two, put `c_m=(2^(3^(m-1))+1)/3^m`.  Exact cubing gives `c_(m+1)=c_m-3^m c_m^2+3^(2m-1)c_m^3`, so `c_m` stabilizes modulo every fixed `3^P`.  At precision `P=q_0+v_3(M)=90`, a 45-digit odd `k` makes `T_1=3^(q_1-1)k` both retain the first ternary bank and lie in the affine target-exponent class.  This yields the exact unbounded family `h_0 -> R_1+2^(T_1+D)3^q0 L -> 1+2^D3^(q0+q1)L`, with both enormous valuations exact.  The audit checks 89 quotient recurrences, bridge integrality, exponent congruence, and all three unit-register phases for `D=1,64`, without materializing `T_1`; `T_1` itself has about `7.57*10^27` decimal digits.  This is genuine one-time renewal, not a third splash or infinite ordinary orbit. | [`unit_double_repetend_audit.json`](experiments/kontorovich/unit_double_repetend_audit.json) |
 | Repetend energy separator | The same exact construction closes its own naive infinite continuation.  Every sign-negative marker-one exponent is an odd multiple of `3^(q-1)`.  For `q>=3`, elementary integer inequalities give `2^T>2*3^q`, so each such collision more than halves the positive odd core.  No fixed positive core supports infinitely many consecutive events.  The artifact audits the actual exponent classes at finite levels `2,4,6`; the general proof is symbolic.  A viable delay-line program must recharge between giant erasures, not stack them back-to-back. | [`unit_repetend_energy_audit.json`](experiments/kontorovich/unit_repetend_energy_audit.json) |
+| Autonomous `-5` charge--discharge register | Pairing a length-`N` sign-negative level-two unit instruction with the one-cell instruction gives fixed debris `3^57+2^77=5D`.  The divisor `D=314038802961906688057474567` is coprime to the register stride, so one exact packet class can be divided by `D` and is preserved.  The quotient ISA is `G=2^(23N+3)g -> (3^(17N+97)g-5)/2^128`; every branch is strictly outward because `3^(17N+97)>2^(23N+131)`.  The artifact constructs branches `N=1..32` twice—directly by CRT and by restricted composition—and checks 128 members through 256 actual unit-macro replays.  An infinite successful positive orbit would refute Collatz; none is supplied. | [`unit_charge_discharge_audit.json`](experiments/kontorovich/unit_charge_discharge_audit.json) |
 | Constant-rate unit-counter schedules | For any of the six certified unit levels, every `n_0>=1`, and every fixed integer `k>=1`, the schedule `n_t=n_0+kt` has the unique 2-adic initial core `-s*3^(-q(n_0)) F(2^(ak)/3^(ck),2^(p(n_0+k))/3^(q(n_0+k)))`.  Converting to Väänänen--Wallisser's `f_(3^(ck)/2^(ak))` is coefficientwise exact, and its argument simplifies to `alpha=2^(p(n_0))/3^(q(n_0))`.  Their 1989 theorem applies with `ell=1,sigma=0,p=2`; its size ratio is the same as for `k=1`, while `|3^(ck)/2^(ak)|_2=2^(ak)>1`.  The value is irrational in `Q_2`, so it cannot be an ordinary integer core.  The artifact's six linked eight-transition branch replays remain a finite `k=1` regression; the all-`k` conclusion is symbolic and theorem-dependent.  This closes every fixed positive step size, not nonlinear or packet-branching schedules. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
@@ -516,6 +536,60 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 05:34 EDT
+
+The requested charge phase has collapsed to a small exact instruction set.
+At sign-negative hierarchy level two, compose one unit instruction of length
+`N` with the one-cell instruction.  Eliminating the intermediate core gives
+
+```text
+2^(p(N')+p(1))*h'
+  =3^(q(N)+q(1))*h-(3^q(1)+2^p(1)).
+```
+
+Here `p(1)=77`, `q(1)=57`, and the collision debris has the useful
+factorization
+
+```text
+3^57+2^77
+ =5*314038802961906688057474567.
+```
+
+The large factor `D=314038802961906688057474567` is coprime to the odd
+register stride.  There is therefore one exact packet class on which both
+ends are divisible by `D`.  After quotienting, the whole two-instruction
+composition is the autonomous public map
+
+```text
+G=2^(23N+3)g
+  -> G'=(3^(17N+97)g-5)/2^128.               (KC-CD)
+```
+
+This is the first literal charge--discharge interface: the long instruction
+amplifies the packet, the one-cell instruction eats almost all fixed collision
+debris, and division leaves only `-5`.  Moreover every successful branch is
+strictly outward for every `N>=1`, since already at `N=1`
+`3^(17N+97)>2^(23N+131)` and the exponent gap increases thereafter.  An
+infinite successful positive orbit of (KC-CD) would consequently be an
+outward ordinary Collatz macro-orbit and a counterexample.  We do not yet
+have that orbit.
+
+The [exact worker](experiments/kontorovich/unit_charge_discharge.py) builds
+each complete branch independently by CRT and by composing the two original
+unit branches, then compares both affine coefficients.  The artifact checks
+`N=1..32`, four members per branch, and 256 literal unit-macro replays.
+Artifact SHA-256:
+`e7af475f153a2e444b84f91dda8f4f395f1a048abde2383f40ac48eda4bef564`.
+Verifier SHA-256:
+`5c6cb46cec58720ef3d215651312556a05a3970a089792c3cd29ba7f3831e05a`.
+
+This `-5` is not being inferred from the old signed-cycle pilot: it is a new
+positive quotient register with exponents `(23N+3,17N+97,128)`.  The next
+test is exactly Simon's regenerative metaphor at one scale higher: compose
+this machine with its own one-cell discharge, quotient the new debris, and
+ask whether the same `-5` instruction reappears rather than accumulating
+damage.
 
 ### 2026-07-22 05:24 EDT
 
