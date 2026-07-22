@@ -6745,3 +6745,24 @@ Together with the CRT and writer lemmas, all three abstract arithmetic seams
 from the 07:25 request are now kernel-checked.  Instantiating the concrete
 target still requires packaging it as a unit and proving its reduction is
 one modulo eight, which should be elementary from `17=1 mod 8` and `P>=3`.
+
+## Kontorovich round 84 — favored Thue--Morse coding is nonexceptional
+
+The concrete reply `(m0,h0)=(1,1)`, `(m1,h1)=(2,1)` is now checked in
+`ChargeBouncerThueMorse.lean`.  Lean proves
+
+```text
+favoredThueMorse_mahlerArgument:
+  a0*a1 = r^3*s^2
+
+favoredThueMorse_mahlerCoefficient:
+  e1-e0 = (r-r^2)*(1-s)
+
+favoredThueMorse_mahlerCoefficient_ne_zero:
+  e1-e0 != 0.
+```
+
+The nonvanishing proof is exact rational arithmetic (`0<r<1`, `s<1`), not
+a numerical approximation.  Thus the test instance cannot collapse to its
+rational geometric part.  The honest remaining no-ray step is precisely the
+arbitrary-rational-argument `Q_2` Thue--Morse value exclusion already noted.

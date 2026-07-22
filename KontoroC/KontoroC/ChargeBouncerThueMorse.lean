@@ -324,6 +324,12 @@ def chargeBouncerSymbolCoeff (m h : ℕ) : ℚ :=
 def chargeBouncerSymbolDefect (m : ℕ) : ℚ :=
   1 - ((2 : ℚ) ^ 23 / (3 : ℚ) ^ 17) ^ m
 
+/-- The two basic rational weights, named for concrete substitution
+calculations. -/
+def chargeBouncerR : ℚ := (2 : ℚ) ^ 23 / (3 : ℚ) ^ 17
+
+def chargeBouncerS : ℚ := (2 : ℚ) ^ 154 / (3 : ℚ) ^ 114
+
 /-- The charge-bouncer schedule obtained by assigning one positive opcode to
 each of the two Thue--Morse symbols. -/
 def thueMorseChargeBouncerSchedule
@@ -364,6 +370,49 @@ theorem thueMorseChargeBouncerSchedule_backwardDefect
   rcases thueMorseBit_eq_zero_or_one n with h | h <;>
     simp [thueMorseChargeBouncerSchedule, thueMorseWord,
       chargeBouncerSymbolDefect, h]
+
+/-- For the favored coding `(1,1),(2,1)`, the Mahler argument is the single
+explicit rational `r^3*s^2`. -/
+theorem favoredThueMorse_mahlerArgument :
+    chargeBouncerSymbolCoeff 1 1 * chargeBouncerSymbolCoeff 2 1 =
+      chargeBouncerR ^ 3 * chargeBouncerS ^ 2 := by
+  simp only [chargeBouncerSymbolCoeff, chargeBouncerR, chargeBouncerS,
+    pow_succ]
+  ring
+
+/-- Exact factorization of the coefficient multiplying the nonrational
+Thue--Morse series in the favored coding. -/
+theorem favoredThueMorse_mahlerCoefficient :
+    let a₀ := chargeBouncerSymbolCoeff 1 1
+    let a₁ := chargeBouncerSymbolCoeff 2 1
+    let d₀ := chargeBouncerSymbolDefect 1
+    let d₁ := chargeBouncerSymbolDefect 2
+    (d₁ + a₁ * d₀) - (d₀ + a₀ * d₁) =
+      (chargeBouncerR - chargeBouncerR ^ 2) * (1 - chargeBouncerS) := by
+  dsimp only
+  simp only [chargeBouncerSymbolCoeff, chargeBouncerSymbolDefect,
+    chargeBouncerR, chargeBouncerS, pow_one]
+  ring
+
+/-- The favored coding is genuinely Mahler-dependent: its affine coefficient
+does not vanish. -/
+theorem favoredThueMorse_mahlerCoefficient_ne_zero :
+    let a₀ := chargeBouncerSymbolCoeff 1 1
+    let a₁ := chargeBouncerSymbolCoeff 2 1
+    let d₀ := chargeBouncerSymbolDefect 1
+    let d₁ := chargeBouncerSymbolDefect 2
+    (d₁ + a₁ * d₀) - (d₀ + a₀ * d₁) ≠ 0 := by
+  dsimp only
+  rw [favoredThueMorse_mahlerCoefficient]
+  apply mul_ne_zero
+  · have hrpos : 0 < chargeBouncerR := by
+      norm_num [chargeBouncerR]
+    have hrlt : chargeBouncerR < 1 := by
+      norm_num [chargeBouncerR]
+    nlinarith
+  · have hslt : chargeBouncerS < 1 := by
+      norm_num [chargeBouncerS]
+    nlinarith
 
 /-- Fully explicit value of the 2-adic candidate selected by a two-opcode
 Thue--Morse dispatcher. -/
