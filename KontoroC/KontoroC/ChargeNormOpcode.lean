@@ -186,6 +186,122 @@ theorem decoratedSignature_injective
     Int.pow_right_injective (by norm_num [A] : 1 < A.natAbs) hA,
     Int.pow_right_injective (by norm_num [B] : 1 < B.natAbs) hB⟩
 
+/-- Off-diagonal entry of two consecutive normalized opcode matrices. -/
+def twoLetterDebris (i j h : ℕ) : ℤ :=
+  A ^ h * C ^ j * opcodeDebris i +
+    B ^ h * D ^ i * opcodeDebris j
+
+/-- TL1: separate the undecorated total debris from the recharge correction. -/
+theorem twoLetterDebris_normal_form (i j h : ℕ) :
+    twoLetterDebris i j h =
+      B ^ h * opcodeDebris (i + j) +
+        (A ^ h - B ^ h) * C ^ j * opcodeDebris i := by
+  rw [opcodeDebris_add]
+  dsimp [twoLetterDebris]
+  ring
+
+/-- The unscaled first-difference identity underneath TL2. -/
+theorem scaledDebris_first_difference (e i : ℕ) :
+    C ^ e * opcodeDebris (i + 1) - C ^ (e + 1) * opcodeDebris i =
+      C ^ e * D ^ i := by
+  simp only [opcodeDebris]
+  have hi := opcodeDebris_factor i
+  dsimp [registerOdd] at hi
+  ring_nf at hi ⊢
+  linear_combination -(C ^ e) * hi
+
+/-- TL2 in split coordinates: moving one defect cell from the second letter
+to the first has a single positive monomial difference. -/
+theorem twoLetterDebris_adjacent (i e h : ℕ) :
+    twoLetterDebris (i + 1) e h - twoLetterDebris i (e + 1) h =
+      (A ^ h - B ^ h) * C ^ e * D ^ i := by
+  have hfirst := scaledDebris_first_difference e i
+  simp only [twoLetterDebris, opcodeDebris, pow_succ]
+  simp only [opcodeDebris, pow_succ] at hfirst
+  linear_combination (A ^ h) * hfirst
+
+theorem twoLetterDebris_adjacent_pos
+    (i e h : ℕ) (hh : 0 < h) :
+    twoLetterDebris i (e + 1) h < twoLetterDebris (i + 1) e h := by
+  have hAB : B < A := by norm_num [A, B]
+  have hBnonneg : (0 : ℤ) ≤ B := by norm_num [B]
+  have hpowers : B ^ h < A ^ h :=
+    pow_lt_pow_left₀ hAB hBnonneg hh.ne'
+  have hC : (0 : ℤ) < C ^ e := pow_pos (by norm_num [C]) e
+  have hD : (0 : ℤ) < D ^ i := pow_pos (by norm_num [D]) i
+  have hdiff := twoLetterDebris_adjacent i e h
+  nlinarith [mul_pos (mul_pos (sub_pos.mpr hpowers) hC) hD]
+
+/-- Two-letter debris at fixed total defect length. -/
+def splitDebris (M h i : ℕ) : ℤ :=
+  twoLetterDebris i (M - i) h
+
+theorem splitDebris_lt_succ
+    {M h i : ℕ} (hh : 0 < h) (hi : i < M) :
+    splitDebris M h i < splitDebris M h (i + 1) := by
+  have hsub : M - i = (M - (i + 1)) + 1 := by omega
+  rw [splitDebris, splitDebris, hsub]
+  exact twoLetterDebris_adjacent_pos i (M - (i + 1)) h hh
+
+theorem splitDebris_strictMonoOn
+    {M h : ℕ} (hM : 0 < M) (hh : 0 < h) :
+    StrictMonoOn (splitDebris M h) (Set.Iic (M - 1)) := by
+  apply strictMonoOn_Iic_of_lt_succ
+  intro i hi
+  simpa only [Order.succ_eq_add_one] using
+    splitDebris_lt_succ hh (by omega : i < M)
+
+/-- The actual entries of a two-letter product with fixed initial recharge
+phase `g`, intermediate recharge `h`, and final recharge `k`. -/
+def twoLetterSignature (g k i j h : ℕ) : DecoratedSignature where
+  left := (3 : ℤ) ^ (17 * (i + j) + 114 * (g + h))
+  debris := twoLetterDebris i j h
+  right := (2 : ℤ) ^ (23 * (i + j) + 154 * (h + k))
+
+/-- Two positive two-letter words with the same public start/end recharge
+phases have equal matrix products only when their internal opcodes agree. -/
+theorem twoLetterSignature_injective_fixedBoundary
+    {g k i j h i' j' h' : ℕ}
+    (hj : 0 < j) (hh : 0 < h)
+    (hj' : 0 < j') (hh' : 0 < h')
+    (hsig : twoLetterSignature g k i j h =
+      twoLetterSignature g k i' j' h') :
+    i = i' ∧ j = j' ∧ h = h' := by
+  have hleft := congrArg DecoratedSignature.left hsig
+  have hright := congrArg DecoratedSignature.right hsig
+  have hdebris := congrArg DecoratedSignature.debris hsig
+  dsimp [twoLetterSignature] at hleft hright hdebris
+  have hleftExp : 17 * (i + j) + 114 * (g + h) =
+      17 * (i' + j') + 114 * (g + h') :=
+    Int.pow_right_injective (by norm_num : 1 < (3 : ℤ).natAbs) hleft
+  have hrightExp : 23 * (i + j) + 154 * (h + k) =
+      23 * (i' + j') + 154 * (h' + k) :=
+    Int.pow_right_injective (by norm_num : 1 < (2 : ℤ).natAbs) hright
+  have htotal : i + j = i' + j' := by omega
+  have hphase : h = h' := by omega
+  subst h'
+  let M := i + j
+  have hM : 0 < M := by dsimp [M]; omega
+  have hii : i ∈ Set.Iic (M - 1) := by
+    change i ≤ i + j - 1
+    omega
+  have hii' : i' ∈ Set.Iic (M - 1) := by
+    change i' ≤ i + j - 1
+    rw [htotal]
+    omega
+  have hsplit : splitDebris M h i = splitDebris M h i' := by
+    dsimp [splitDebris, M]
+    rw [Nat.add_sub_cancel_left]
+    have hsub' : i + j - i' = j' := by
+      rw [htotal]
+      exact Nat.add_sub_cancel_left i' j'
+    rw [hsub']
+    exact hdebris
+  have hiEq : i = i' :=
+    (splitDebris_strictMonoOn hM hh).injOn hii hii' hsplit
+  subst i'
+  exact ⟨rfl, by omega, rfl⟩
+
 /-- If both payload sides vanish modulo `n`, the collision forces the two
 opcode coefficients to agree modulo `n`. -/
 theorem collision_forces_coefficient_modEq

@@ -461,7 +461,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.ChargeNormOpcode.opcodeDebris_add
 #print axioms KontoroC.ChargeNormOpcode.opcodeDebris_strictMono
 #print axioms KontoroC.ChargeNormOpcode.decoratedSignature_injective
+#print axioms KontoroC.ChargeNormOpcode.twoLetterDebris_normal_form
+#print axioms KontoroC.ChargeNormOpcode.twoLetterDebris_adjacent
+#print axioms KontoroC.ChargeNormOpcode.splitDebris_strictMonoOn
+#print axioms KontoroC.ChargeNormOpcode.twoLetterSignature_injective_fixedBoundary
 #print axioms KontoroC.ChargeNormOpcode.normalized_payload_recurrence
 #print axioms KontoroC.ChargeNormOpcode.normalized_payload_recurrence_powers
 #print axioms KontoroC.ChargeNormOpcode.accepted_step_normalized_payload_recurrence
 #print axioms KontoroC.ChargeNormOpcode.no_positive_defect_recharge_at_153
+#print axioms KontoroC.ChargePublicCofactor.Boundary.coordinates_unique
+#print axioms KontoroC.ChargePublicCofactor.Step.toChargeBouncerStep
+#print axioms KontoroC.ChargePublicCofactor.Step.balance_of_chargeBouncerStep

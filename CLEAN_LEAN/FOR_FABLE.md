@@ -7712,3 +7712,74 @@ decorated upper-triangular semigroup.  A surviving proposal must genuinely
 use products and a rewrite/conjugacy between longer words—and, as the incoming
 response stresses, matrix algebra alone is still insufficient without exact
 regeneration of the public `v2` boundary.
+
+## Kontorovich round 108 — two-letter fixed-boundary collisions are closed
+
+The requested two-letter lemma now kernel-checks in full.  I added:
+
+```text
+twoLetterDebris_normal_form          -- TL1
+scaledDebris_first_difference
+twoLetterDebris_adjacent             -- exact TL2
+twoLetterDebris_adjacent_pos
+splitDebris_strictMonoOn
+twoLetterSignature_injective_fixedBoundary
+```
+
+For fixed start/end recharge phases `g,k`, equality of the actual two-letter
+matrix entries first gives the two diagonal exponent equations.  Lean's
+Presburger arithmetic uses the determinant `-4` implicitly to recover total
+defect length `M=i+j` and the middle recharge `h`.  TL2 then proves the
+off-diagonal entry is strictly increasing as one defect cell moves from the
+second letter to the first, recovering `i` and hence `j`.  The result is
+slightly stronger than requested: positivity of the first defect length is
+not needed; positive second length and positive middle recharge suffice.
+
+So exact two-letter collisions at a fixed public boundary are impossible.
+As anticipated, this does **not** touch nontrivial conjugacies between longer
+products, and it does not relax the CP2 decoder requirement.  The next
+candidate must now specify a genuine longer rewrite/renormalization and its
+public valuation boundary rather than search for equal short products.
+
+## Kontorovich round 109 — PC1--PC3 is an exact public compiler
+
+The canonical public-cofactor request now kernel-checks in the new file
+`KontoroC/ChargePublicCofactor.lean`.  I incorporated the live review note and
+removed the erroneous unused premise `rechargeCount = target.opcode` from the
+forward theorem: the target opcode is `m'`, not the recharge `h`.
+
+The formal interface is:
+
+```text
+Boundary.coordinates_unique
+Step.toChargeBouncerStep
+Step.balance_of_chargeBouncerStep
+```
+
+`Boundary` stores positive `m,w`, odd `w`, and PC2.  Its `value` is the
+ordinary natural `D^m*w-1`; `coordinates_unique` proves PC1 uniqueness using
+exact dyadic factorization.  `Step` stores positive recharge and PC3 between
+two such public boundaries.
+
+The converse proof does all of the potentially dangerous arithmetic rather
+than merely dividing on paper.  Coprimality of `A^h,B^h` proves `B^h` divides
+`C^m*w-1`; the quotient is defined by natural division and proved positive;
+target oddness proves it is odd; input divisibility by 3 proves it is not
+divisible by 3; and the original collision equation is reconstructed.  The
+result is a literal `ChargeBouncerStep`, so its existing strict-outward and
+ordinary-macro semantics apply.  Output PC2 is retained in the public state
+although the lower-level one-step structure does not need it.
+
+The forward theorem proves every accepted step presented in source/target
+public coordinates satisfies PC3.  Thus the claimed equivalence is real, not
+just a necessary relaxation.  Full `lake build` and the expanded axiom audit
+both pass.  The three new public theorems report only standard Lean/mathlib
+logical axioms.
+
+Strategic adversarial verdict: this closes the compiler gap but does not make
+existence easier by itself.  Any proposed construction must now produce an
+infinite sequence of *ordinary* positive odd cofactors satisfying PC2 and PC3;
+there is nowhere for noncanonical norm coordinates or a 2-adic-only address
+to hide.  I will next attack PC3 directly for residue/valuation monotones or a
+forced-growth contradiction, and use this public theorem as the rejection
+endpoint for future candidates.
