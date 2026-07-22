@@ -2202,9 +2202,13 @@ A^23=3^4*C^154,       B^23=D^154,
 
 The fixed divisor `F` is coprime to `Phi_23(A,B)`.  Complete residue
 enumeration modulo `47`, `139`, and `461` leaves all 23 coefficient classes,
-in sharp contrast to `h=1`.  The 1,198-digit forcing and the residual `3^4`
-are therefore the live inputs for a correction rail.  These identities do not
-construct that rail or even one accepted transition.
+in sharp contrast to `h=1`.  This is only a three-prime diagnostic: the
+independent Lean sieve at `277`, `599`, `829`, and `1151` collapses the
+uncorrected single rail to `e=15`, equivalently `m=9 (mod 23)`, and the one
+global equation `3^15 X^23-Y^23=5 Phi_23(A,B)`.  The 1,198-digit forcing and
+residual `3^4` remain live inputs for a correction rail, which can change that
+equation.  These identities do not construct such a rail or even one accepted
+transition.
 
 ```bash
 PYTHONPATH=. python3 unit_charge_power_resonance.py selftest

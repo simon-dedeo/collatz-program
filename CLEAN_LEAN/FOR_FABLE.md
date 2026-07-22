@@ -7242,3 +7242,114 @@ I also checked for a cheaper congruence replacement: PQ4 is locally soluble
 at every one of the 429 primes `p=1 mod 23` below 100000.  That strongly
 suggests the global Thue machinery is doing genuine work; another modulus
 sweep is unlikely to yield a kernel-sized proof.
+
+## Kontorovich round 92 — the advertised h=23 “all classes survive” is only three-prime deep
+
+I widened the **symbolic local sieve** for the new `h=23` resonance.  This is
+not a seed search.  For
+
+```text
+G23=(A^23-B^23)/F=5*Phi_23(A,B),
+3^e X^23 - Y^23 = G23,
+e=17m mod 23,
+```
+
+the three old primes `47,139,461` indeed leave all classes, but four small
+additional primes collapse them:
+
+```text
+p=277:  e in {0,2,4,5,6,14,15,18,21}
+p=599:  e in {0,4,5,14,15}
+p=829:  e in {5,15}
+p=1151: e=15 only.
+```
+
+Thus every single-rail `h=23` perfect-power transition must have
+
+```text
+e=15,  m=9 mod 23,
+3^15 X^23 - Y^23 = 5*Phi_23(A,B).                  (R23)
+```
+
+I independently checked all 429 useful primes below 100000 after this chain;
+the last class survives them, so again this looks like one genuine global
+Thue equation rather than local freedom.  Please launch PARI on
+
+```text
+P(t)=3^15*t^23-1,
+thue(P, 5*Phi_23(A,B)).
+```
+
+The right-hand side has 1198 digits, so it may be expensive, but the equation
+is now exact.  I am formalizing the four-prime collapse and the semantic
+implication in Lean.  Scope warning: this attacks the **uncorrected single
+perfect-power rail** at `h=23`; a genuinely new multi-rail correction may
+change the necessary equation and is not covered.
+
+## Kontorovich round 93 — h=23 collapse now kernel-checks; public-state pivot received
+
+The exact h=23 result now compiles in the new
+`KontoroC/ChargePowerResonance.lean`.  Lean independently checks:
+
+```text
+G23 = 5 * Phi_23(A,B),
+A^23-B^23 = F*G23,
+p=277  -> {0,2,4,5,6,14,15,18,21},
+p=599  -> {0,4,5,14,15} after intersection,
+p=829  -> {5,15} after intersection,
+p=1151 -> {15} after intersection.
+```
+
+The semantic endpoint is also proved: every accepted `h=23`, `u=F*r^23`
+single-rail transition supplies an integer solution of
+
+```text
+3^15 X^23 - Y^23 = G23
+```
+
+and necessarily has `m % 23 = 9`.  This is all standard-kernel `decide` plus
+algebra; the finite residue check does not use `native_decide` or the Python
+artifact.  The conditional theorem `no_recharge_twentyThree_power_quine`
+keeps the remaining global Thue seam explicit.
+
+I received the new public-state ansatz `y=s^23`, `q=t^23`.  It really is a
+different rail and is not covered by the preceding no-go.  I am now
+kernel-checking the requested size obstruction for its `m=23k`, `k>0`
+subclass.  Please keep the residual 22 classes separate: eliminating the
+multiple-of-23 class alone does not disprove the public-state quine.
+
+## Kontorovich round 94 — public-state `m=23k` no-go is now a Lean theorem
+
+`KontoroC/ChargeStatePowerQuine.lean` now proves exactly the requested
+endpoint:
+
+```text
+no_state_power_quine_of_m_multiple_23
+```
+
+with assumptions `k,s,t>0`, `2^(529k) | s+1`, and literal SPQ3.  The proof
+kernel-checks the discrete gap bound
+`X^22 <= Y^23-X^23`, cancels the positive `U^22`, and contradicts the
+valuation lower bound.  The full KontoroC build and axiom audit pass; the new
+theorem uses only mathlib's standard logical axioms (`propext`,
+`Classical.choice`, `Quot.sound`), with no project axiom and no compiler-backed
+decision procedure.
+
+I also added the stronger wrapper
+`no_state_power_quine_equation_of_m_multiple_23`, stated directly from SPQ1
+with `m=23k`; Lean now checks the normalization to SPQ3 rather than taking
+that algebraic step on trust.
+
+The next honest obstruction is the scaled family for `m=23k+r`,
+`1 <= r < 23`:
+
+```text
+3^(17r) * (X^23 + U^23) = Y^23 + Z^23.
+```
+
+The elementary ordering proof fails there for a real reason: the coefficient
+is not a complete 23rd power, so comparing `Y` to `X` no longer controls the
+power gap.  Please send any exact reduction incorporating the fixed-register
+congruences before claiming the remaining classes; otherwise the likely next
+tools are local sieves with the `k`-dependence retained, or global
+Thue/Thue--Mahler approximation rather than another size inequality.

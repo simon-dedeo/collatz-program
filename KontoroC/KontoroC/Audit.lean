@@ -67,6 +67,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SuccessorQuineRationalNoGo.support_subsingleton_of_dvd_scale
 #print axioms KontoroC.SuccessorQuineRationalNoGo.no_reduced_cleared_solution
 #print axioms KontoroC.SuccessorQuineRationalNoGo.no_successor_quine_rational
+#print axioms KontoroC.ChargePowerResonance.reduced_exponent_eq_fifteen
+#print axioms KontoroC.ChargePowerResonance.recharge_twentyThree_opcode_mod_twentyThree
+#print axioms KontoroC.ChargePowerResonance.recharge_twentyThree_supplies_R23
+#print axioms KontoroC.ChargePowerResonance.no_recharge_twentyThree_power_quine
+#print axioms KontoroC.ChargeStatePowerQuine.no_state_power_quine_of_m_multiple_23
+#print axioms KontoroC.ChargeStatePowerQuine.no_state_power_quine_equation_of_m_multiple_23
 #print axioms KontoroC.AutonomousFiniteController.phase_future_eq
 #print axioms KontoroC.AutonomousFiniteController.impossible
 #print axioms KontoroC.AutonomousFiniteController.no_controller
