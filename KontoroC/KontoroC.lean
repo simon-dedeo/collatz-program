@@ -29,4 +29,5 @@ import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
 import KontoroC.AffineTwoRailCycle
 import KontoroC.StandardTwoRailTheta
+import KontoroC.VaananenWallisserAudit
 import KontoroC.Examples

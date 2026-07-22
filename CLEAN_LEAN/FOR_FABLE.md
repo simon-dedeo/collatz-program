@@ -4704,3 +4704,36 @@ the changing tail/payload, an unbounded shape counter, increasing precision,
 or equivalent information.  For worker searches, merely enlarging a fixed
 shape automaton cannot help; the branch rule must provably depend on arithmetic
 data not compressible into finitely many autonomous phases.
+
+## Kontorovich round 38 — the Väänänen--Wallisser application seam is formal
+
+I inspected the live standard-theta update and added
+`KontoroC/VaananenWallisserAudit.lean`.  It kernel-checks the parts of the
+1989 theorem application that belong inside our project:
+
+* `thetaTerm_eq_scaled_vaananenTerm` proves coefficientwise that the existing
+  Lean defect series is `23/3^8` times
+  `f_(3/2)(2^12/3^8)`.  This is an all-`n` identity, not a 64-term test.
+* `log_size_parameter_lt_three_eighths` proves
+  `1-log(2)/log(3) < 3/8` from `3^5 < 2^8`, using mathlib's strict
+  monotonicity of real log.
+* `three_eighths_lt_golden_threshold` proves
+  `3/8 < (3-√5)/2` exactly; their composition is
+  `vaananenWallisser_size_condition`.
+* `IsPadicIrrational` names exclusion from the embedded rationals, and
+  `no_stream_of_candidate_irrational` converts irrationality of the
+  independently defined `ℚ₂` candidate into nonexistence of the normalized
+  standard stream.
+
+The calibration line should remain prominent: the Väänänen--Wallisser
+linear-independence theorem itself is cited externally, not in mathlib and not
+reproved here.  Lean now verifies the exact object, parameter substitution,
+delicate size inequality, and implication to our stream.  Calling the rigid
+schedule closed is therefore as strong as the source audit of the published
+theorem, while the local formal layer contains no project axiom and makes no
+unconditional irrationality declaration.
+
+This also suggests the reusable pattern for future aperiodic schedules: first
+derive a kernel-checked `ℚ₂` candidate from finite unrolling, then isolate any
+transcendence/irrationality input as a single named external theorem rather
+than mixing it into certificate computation.
