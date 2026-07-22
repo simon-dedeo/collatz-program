@@ -3994,3 +3994,117 @@ the computable domination threshold cannot extend to an infinite artifact.
 I also removed the three noisy failed-`ring` informational diagnostics from
 the packet-legality induction by separating natural subtraction from the
 semiring identities.  The focused module now compiles without warnings.
+
+## Kontorovich round 21 — symbolic-stream rigidity and a non-search route
+
+I read the seven-renewal census and the nested `h<2^42` no-eight-renewal
+result.  I did not encode the seven large states: the current all-level
+endpoint already checks the relevant recurrence, and another finite replay
+would not narrow the theorem.
+
+Two conceptual facts are now formalized instead.
+
+First, the Python compressed Mersenne block is proved exactly in Lean.  For
+every `m>0`, the word `[1,...,1,1+e]` has
+
+```text
+steps       = m
+halvings    = m+e
+affine term = 3^m-2^m.
+```
+
+In particular, the collision extra changes only the denominator; this is no
+longer a trusted correspondence with `macro_block` in the worker.
+
+Second, there is a new rigidity theorem.  `StreamLegal.unique` proves that
+any positive infinite valuation stream has at most one ordinary natural seed,
+without a mod-3 or mod-6 assumption.  The proof uses longer exact prefixes:
+two realizations are congruent modulo `2^(S_n+1)` for every `n`, and these
+moduli exceed both fixed naturals.  Applying the same argument to concatenated
+Mersenne macros gives
+
+```text
+fixed level M + fixed infinite extra stream (e_t)
+  -> at most one ordinary initial state
+  -> at most one entire positive packet sequence (h_t).
+```
+
+Lean proves the last implication as
+`MersennePacketRenewal.packet_function_unique`.  So periodic-extra failure is
+not merely failure to find one branch among many: every complete symbolic
+extra controller selects at most one ordinary realization.
+
+This suggests a non-enumerative attack on constant/eventually-periodic extras.
+Writing `m_t=M+t`, `L_t=sum_(j<t)m_j`, and
+`E_t=sum_(j<t)e_j`, backward iteration around the fixed point `-1` formally
+suggests the unique 2-adic candidate
+
+```text
+x_0 + 1 = - sum_(t>=0)
+  2^(L_t + E_t + m_t) * (2^e_t - 1) / 3^(L_t + m_t).
+```
+
+For bounded periodic `e_t`, the displayed 2-adic valuations grow
+quadratically because `L_t=t*M+t(t-1)/2`.  The ordinary-integer question is
+therefore a concrete lacunary 2-adic rationality problem: prove this unique
+series is not a nonnegative rational integer.  This would rule out an entire
+infinite template class at once, unlike any bounded census.  I have not used
+or claimed a p-adic gap theorem here—the next research task is to verify the
+series formula carefully and identify a theorem strong enough to exclude
+rationality despite possible carries from earlier `3^{-L}` units.
+
+The Lean side is prepared for that attack: finite schedule prefixes, their
+exact legality/endpoints, unbounded modulus growth, and uniqueness are all
+kernel checked.  The remaining new input would be the 2-adic convergence and
+nonrationality theorem, not Collatz orbit bookkeeping.
+
+## Kontorovich round 22 — exact finite backward series, independent of seed size
+
+The seven-renewal census is useful as a worker regression, but I have kept it
+out of the soundness layer.  A counterexample may have ten thousand digits or
+far more, so the Lean target should eliminate infinite symbolic families
+rather than extrapolate from seed bounds.
+
+The recurrence has now been normalized and unrolled in Lean.  If
+`m_t = level0+t`, then every realized block satisfies exactly
+
+```text
+2^(m_t+e_t) (x_(t+1)+1)
+  = 3^m_t (x_t+1) + 2^m_t (2^e_t-1).
+```
+
+The rational backward coefficient and defect are therefore
+
+```text
+a_t = 2^(m_t+e_t) / 3^m_t,
+b_t = 2^m_t (2^e_t-1) / 3^m_t,
+```
+
+and the new theorem `shifted_state_finite_series` proves, for every finite
+`n`,
+
+```text
+x_0+1 = (product_{t<n} a_t) (x_n+1)
+        - sum_{t<n} (product_{j<t} a_j) b_t.
+```
+
+This was derived from the exact `WordLegal` affine identity, not taken from
+the Python packet formula.  `backward_affine_unroll` separately proves the
+generic finite algebra.  Both are included in the axiom audit.
+
+The proposed non-search route is now sharply separated into checked and open
+parts:
+
+1. Lean checks finite recurrence, exact block semantics, every finite
+   truncation identity, and uniqueness of an ordinary realization.
+2. We still need a 2-adic convergence theorem making the terminal product
+   vanish for bounded extras.
+3. The real arithmetic theorem is then nonrationality/nonintegrality of the
+   lacunary defect series for a specified class such as periodic extras.
+
+Please look for an actual theorem capable of step 3.  A naive “large gaps imply
+irrational” slogan is not enough because the coefficients contain changing
+3-adic-unit denominators and 2-adic carries.  A useful response would identify
+either (a) a precise p-adic gap/automaticity theorem whose hypotheses match
+the series, or (b) a finite-state argument showing that eventual periodicity
+of ordinary binary digits is incompatible with the periodic-extra recurrence.

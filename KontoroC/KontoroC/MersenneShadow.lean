@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.NegativeShadow
+import KontoroC.AffineBlock
+import KontoroC.IntegerGate
 
 /-!
 # The `-1` (Mersenne) shadow grammar
@@ -67,6 +69,49 @@ theorem mersenneMacroWord_succ (m e : ℕ) (hm : 0 < m) :
   rw [mersenneMacroWord_eq _ _ (by omega), mersenneMacroWord_eq _ _ hm]
   obtain ⟨n, rfl⟩ := Nat.exists_eq_succ_of_ne_zero (by omega : m ≠ 0)
   simp [List.replicate_succ]
+
+@[simp] theorem mersenneMacroWord_length (m e : ℕ) (hm : 0 < m) :
+    (mersenneMacroWord m e).length = m := by
+  rw [mersenneMacroWord_eq m e hm]
+  simp
+  omega
+
+@[simp] theorem mersenneMacroWord_totalValuation (m e : ℕ) (hm : 0 < m) :
+    totalValuation (mersenneMacroWord m e) = m + e := by
+  rw [mersenneMacroWord_eq m e hm]
+  simp [totalValuation]
+  omega
+
+theorem repeatOne_affineOffset_balance (m : ℕ) :
+    affineOffset (repeatWord [1] m) + 2 ^ m = 3 ^ m := by
+  induction m with
+  | zero => simp
+  | succ m ih =>
+      rw [repeatWord_succ, affineOffset_append,
+        repeatWord_totalValuation]
+      rw [repeatWord_singleton] at ih
+      simp only [List.length_cons, List.length_nil, zero_add, pow_one,
+        repeatWord_singleton, totalValuation_cons, totalValuation_nil,
+        add_zero, mul_one, affineOffset_cons, pow_zero, affineOffset_nil,
+        mul_zero]
+      rw [pow_succ, pow_succ]
+      nlinarith
+
+/-- The collision extra changes only the denominator.  The affine constant
+of a level-`m` Mersenne block is exactly `3^m-2^m`. -/
+@[simp] theorem mersenneMacroWord_affineOffset (m e : ℕ) (hm : 0 < m) :
+    affineOffset (mersenneMacroWord m e) = 3 ^ m - 2 ^ m := by
+  rw [mersenneMacroWord, shadowMacroWord,
+    bumpLast_affineOffset (repeatWord_ne_nil (by simp) hm)]
+  have hbalance := repeatOne_affineOffset_balance m
+  omega
+
+/-- Kernel-checked counterpart of the Python worker's compressed
+`macro_block(level, extra)`. -/
+theorem affineBlock_mersenneMacroWord (m e : ℕ) (hm : 0 < m) :
+    AffineBlock.ofWord (mersenneMacroWord m e) =
+      ⟨m, m + e, 3 ^ m - 2 ^ m⟩ := by
+  ext <;> simp [AffineBlock.ofWord, hm]
 
 theorem twoPow_mul_sub_one_pos_odd {m h : ℕ} (hm : 0 < m) (hh : 0 < h) :
     0 < 2 ^ m * h - 1 ∧ (2 ^ m * h - 1) % 2 = 1 := by
@@ -376,6 +421,250 @@ theorem eventually_packet_grows (g : MersennePacketRenewal) :
     (Nat.mul_le_mul_left _ hpacket).trans_lt
       ((Nat.mul_lt_mul_right (g.packet_pos t)).2 hratio)
   omega
+
+/-- Concatenate `n` successive Mersenne macros from a prescribed collision
+stream, beginning at schedule time `t`. -/
+def mersenneScheduleWord (level0 : ℕ) (extra : ℕ → ℕ) (t : ℕ) :
+    ℕ → List ℕ
+  | 0 => []
+  | n + 1 => mersenneMacroWord (level0 + t) (extra t) ++
+      mersenneScheduleWord level0 extra (t + 1) n
+
+@[simp] theorem mersenneScheduleWord_zero
+    (level0 : ℕ) (extra : ℕ → ℕ) (t : ℕ) :
+    mersenneScheduleWord level0 extra t 0 = [] := rfl
+
+@[simp] theorem mersenneScheduleWord_succ
+    (level0 : ℕ) (extra : ℕ → ℕ) (t n : ℕ) :
+    mersenneScheduleWord level0 extra t (n + 1) =
+      mersenneMacroWord (level0 + t) (extra t) ++
+        mersenneScheduleWord level0 extra (t + 1) n := rfl
+
+/-- The pure packet recurrence realizes every finite concatenated schedule
+prefix, not just each macro in isolation. -/
+theorem schedule_legal_and_endpoint (g : MersennePacketRenewal) (t n : ℕ) :
+    WordLegal (g.state t)
+        (mersenneScheduleWord g.level0 g.extra t n) ∧
+      runWord (g.state t) (mersenneScheduleWord g.level0 g.extra t n) =
+        g.state (t + n) := by
+  induction n generalizing t with
+  | zero =>
+      constructor
+      · trivial
+      · rfl
+  | succ n ih =>
+      rw [mersenneScheduleWord_succ, wordLegal_append_iff, runWord_append]
+      have hfirst := g.legal_and_endpoint t
+      have htail := ih (t + 1)
+      constructor
+      · refine ⟨hfirst.1, ?_⟩
+        rw [hfirst.2]
+        exact htail.1
+      · rw [hfirst.2, htail.2]
+        congr 1
+        omega
+
+theorem schedule_totalValuation_ge (g : MersennePacketRenewal) (t n : ℕ) :
+    n ≤ totalValuation (mersenneScheduleWord g.level0 g.extra t n) := by
+  induction n generalizing t with
+  | zero => simp
+  | succ n ih =>
+      rw [mersenneScheduleWord_succ, totalValuation_append,
+        mersenneMacroWord_totalValuation _ _
+          (Nat.add_pos_left g.level0_pos t)]
+      have htail := ih (t + 1)
+      have hfirst : 0 < g.level0 + t + g.extra t :=
+        Nat.add_pos_left (Nat.add_pos_left g.level0_pos t) (g.extra t)
+      omega
+
+/-- Exact compressed affine equation for one realized packet macro. -/
+theorem block_affine_equation (g : MersennePacketRenewal) (t : ℕ) :
+    2 ^ (g.level0 + t + g.extra t) * g.state (t + 1) =
+      3 ^ (g.level0 + t) * g.state t +
+        (3 ^ (g.level0 + t) - 2 ^ (g.level0 + t)) := by
+  have h := valuationWord_affine_identity (g.legal_and_endpoint t).1
+  rw [(g.legal_and_endpoint t).2,
+    mersenneMacroWord_totalValuation _ _
+      (Nat.add_pos_left g.level0_pos t),
+    mersenneMacroWord_length _ _ (Nat.add_pos_left g.level0_pos t),
+    mersenneMacroWord_affineOffset _ _
+      (Nat.add_pos_left g.level0_pos t)] at h
+  exact h
+
+/-- Shifted-coordinate form around the fixed point `-1`.  This is the exact
+finite identity whose backward iteration yields the lacunary 2-adic series. -/
+theorem block_shifted_balance (g : MersennePacketRenewal) (t : ℕ) :
+    2 ^ (g.level0 + t + g.extra t) * (g.state (t + 1) + 1) =
+      3 ^ (g.level0 + t) * (g.state t + 1) +
+        2 ^ (g.level0 + t) * (2 ^ g.extra t - 1) := by
+  have haff := g.block_affine_equation t
+  have hthree : 2 ^ (g.level0 + t) ≤ 3 ^ (g.level0 + t) :=
+    Nat.pow_le_pow_left (by omega) _
+  have hthree_cancel :
+      3 ^ (g.level0 + t) - 2 ^ (g.level0 + t) +
+          2 ^ (g.level0 + t) = 3 ^ (g.level0 + t) :=
+    Nat.sub_add_cancel hthree
+  have hextra_cancel :
+      2 ^ (g.level0 + t) * (2 ^ g.extra t - 1) +
+          2 ^ (g.level0 + t) =
+        2 ^ (g.level0 + t) * 2 ^ g.extra t := by
+    rw [Nat.mul_sub_left_distrib, mul_one, Nat.sub_add_cancel]
+    exact Nat.le_mul_of_pos_right _ (by positivity)
+  rw [pow_add] at haff ⊢
+  calc
+    (2 ^ (g.level0 + t) * 2 ^ g.extra t) *
+          (g.state (t + 1) + 1) =
+        (2 ^ (g.level0 + t) * 2 ^ g.extra t) *
+            g.state (t + 1) +
+          2 ^ (g.level0 + t) * 2 ^ g.extra t := by ring
+    _ = (3 ^ (g.level0 + t) * g.state t +
+          (3 ^ (g.level0 + t) - 2 ^ (g.level0 + t))) +
+        2 ^ (g.level0 + t) * 2 ^ g.extra t := by rw [haff]
+    _ = 3 ^ (g.level0 + t) * (g.state t + 1) +
+        2 ^ (g.level0 + t) * (2 ^ g.extra t - 1) := by
+      rw [mul_add, mul_one]
+      omega
+
+def backwardCoeff (g : MersennePacketRenewal) (t : ℕ) : ℚ :=
+  (2 : ℚ) ^ (g.level0 + t + g.extra t) /
+    (3 : ℚ) ^ (g.level0 + t)
+
+def backwardDefect (g : MersennePacketRenewal) (t : ℕ) : ℚ :=
+  ((2 : ℚ) ^ (g.level0 + t) *
+      ((2 ^ g.extra t - 1 : ℕ) : ℚ)) /
+    (3 : ℚ) ^ (g.level0 + t)
+
+/-- Division form of `block_shifted_balance`, suitable for finite backward
+iteration in `ℚ` and later passage to `ℚ₂`. -/
+theorem block_shifted_backward (g : MersennePacketRenewal) (t : ℕ) :
+    (g.state t : ℚ) + 1 =
+      g.backwardCoeff t * ((g.state (t + 1) : ℚ) + 1) -
+        g.backwardDefect t := by
+  have h :
+      (2 : ℚ) ^ (g.level0 + t + g.extra t) *
+          ((g.state (t + 1) : ℚ) + 1) =
+        (3 : ℚ) ^ (g.level0 + t) * ((g.state t : ℚ) + 1) +
+          (2 : ℚ) ^ (g.level0 + t) *
+            ((2 ^ g.extra t - 1 : ℕ) : ℚ) := by
+    exact_mod_cast g.block_shifted_balance t
+  dsimp [backwardCoeff, backwardDefect]
+  have hthree : (3 : ℚ) ^ (g.level0 + t) ≠ 0 := by positivity
+  field_simp
+  nlinarith
+
+/-- Product of the first `n` coefficients in a backward affine recurrence. -/
+def backwardPrefixProduct (a : ℕ → ℚ) : ℕ → ℚ
+  | 0 => 1
+  | n + 1 => backwardPrefixProduct a n * a n
+
+/-- The defect accumulated while unrolling a backward affine recurrence. -/
+def backwardPrefixDefect (a b : ℕ → ℚ) : ℕ → ℚ
+  | 0 => 0
+  | n + 1 =>
+      backwardPrefixDefect a b n + backwardPrefixProduct a n * b n
+
+/-- Pure finite algebra behind the proposed 2-adic reduction.  No convergence
+or infinitary assumption occurs here. -/
+theorem backward_affine_unroll {y a b : ℕ → ℚ}
+    (hstep : ∀ t, y t = a t * y (t + 1) - b t) (n : ℕ) :
+    y 0 = backwardPrefixProduct a n * y n -
+      backwardPrefixDefect a b n := by
+  induction n with
+  | zero => simp [backwardPrefixProduct, backwardPrefixDefect]
+  | succ n ih =>
+      calc
+        y 0 = backwardPrefixProduct a n * y n -
+            backwardPrefixDefect a b n := ih
+        _ = backwardPrefixProduct a n *
+              (a n * y (n + 1) - b n) -
+            backwardPrefixDefect a b n := by rw [← hstep n]
+        _ = backwardPrefixProduct a (n + 1) * y (n + 1) -
+            backwardPrefixDefect a b (n + 1) := by
+          simp only [backwardPrefixProduct, backwardPrefixDefect]
+          ring
+
+/-- Exact finite truncation formula for the unique Mersenne packet candidate.
+The unresolved research step is to pass this identity to `ℚ₂` and exclude an
+ordinary nonnegative integer for a chosen infinite extra stream. -/
+theorem shifted_state_finite_series (g : MersennePacketRenewal) (n : ℕ) :
+    (g.state 0 : ℚ) + 1 =
+      backwardPrefixProduct g.backwardCoeff n * ((g.state n : ℚ) + 1) -
+        backwardPrefixDefect g.backwardCoeff g.backwardDefect n := by
+  exact backward_affine_unroll
+    (y := fun t => (g.state t : ℚ) + 1)
+    (a := g.backwardCoeff) (b := g.backwardDefect)
+    (fun t => g.block_shifted_backward t) n
+
+/-- Fixing the entire collision-extra stream leaves room for at most one
+ordinary initial state satisfying the infinite Mersenne packet recurrence. -/
+theorem initial_state_unique (g h : MersennePacketRenewal)
+    (hlevel : g.level0 = h.level0) (hextra : g.extra = h.extra) :
+    g.state 0 = h.state 0 := by
+  obtain ⟨N, hN⟩ := pow_unbounded_of_one_lt (max (g.state 0) (h.state 0))
+    (by norm_num : 1 < (2 : ℕ))
+  let w := mersenneScheduleWord g.level0 g.extra 0 (N + 1)
+  have hgw : WordLegal (g.state 0) w :=
+    (g.schedule_legal_and_endpoint 0 (N + 1)).1
+  have hhw : WordLegal (h.state 0) w := by
+    have hh := (h.schedule_legal_and_endpoint 0 (N + 1)).1
+    rw [← hlevel, ← hextra] at hh
+    exact hh
+  have hsum : N + 1 ≤ totalValuation w := by
+    exact g.schedule_totalValuation_ge 0 (N + 1)
+  have hw : w ≠ [] := by
+    intro hw
+    simp [hw] at hsum
+  have hpositive : PositiveWord w := wordLegal_positive_entries hgw
+  have hgcong := finalCongruence_of_wordLegal hw hpositive hgw
+  have hhcong := finalCongruence_of_wordLegal hw hpositive hhw
+  have hmod := finalCongruence_unique_mod w hgcong hhcong
+  have hpow : 2 ^ N ≤ 2 ^ (totalValuation w + 1) :=
+    Nat.pow_le_pow_right (by omega) (by omega)
+  have hglt : g.state 0 < 2 ^ (totalValuation w + 1) :=
+    (le_max_left _ _).trans_lt hN |>.trans_le hpow
+  have hhlt : h.state 0 < 2 ^ (totalValuation w + 1) :=
+    (le_max_right _ _).trans_lt hN |>.trans_le hpow
+  exact hmod.eq_of_lt_of_lt hglt hhlt
+
+/-- Consequently the initial odd packet itself is unique for a fixed level
+and infinite extra stream. -/
+theorem initial_packet_unique (g h : MersennePacketRenewal)
+    (hlevel : g.level0 = h.level0) (hextra : g.extra = h.extra) :
+    g.packet 0 = h.packet 0 := by
+  have hs := g.initial_state_unique h hlevel hextra
+  simp only [state, Nat.add_zero] at hs
+  rw [hlevel] at hs
+  have hgpos : 0 < 2 ^ h.level0 * g.packet 0 :=
+    Nat.mul_pos (Nat.pow_pos (by omega)) (g.packet_pos 0)
+  have hhpos : 0 < 2 ^ h.level0 * h.packet 0 :=
+    Nat.mul_pos (Nat.pow_pos (by omega)) (h.packet_pos 0)
+  have hprod : 2 ^ h.level0 * g.packet 0 =
+      2 ^ h.level0 * h.packet 0 := by omega
+  exact Nat.eq_of_mul_eq_mul_left (Nat.pow_pos (by omega)) hprod
+
+/-- In fact the entire positive packet sequence is determined by the level
+and infinite collision-extra stream, whenever an ordinary solution exists. -/
+theorem packet_function_unique (g h : MersennePacketRenewal)
+    (hlevel : g.level0 = h.level0) (hextra : g.extra = h.extra) :
+    g.packet = h.packet := by
+  funext t
+  let w := mersenneScheduleWord g.level0 g.extra 0 t
+  have hgendpoint := (g.schedule_legal_and_endpoint 0 t).2
+  have hhendpoint := (h.schedule_legal_and_endpoint 0 t).2
+  rw [← hlevel, ← hextra] at hhendpoint
+  simp only [zero_add] at hgendpoint hhendpoint
+  have hstate0 := g.initial_state_unique h hlevel hextra
+  have hstate : g.state t = h.state t := by
+    simpa [w] using hgendpoint.symm.trans (hstate0 ▸ hhendpoint)
+  simp only [state] at hstate
+  rw [hlevel] at hstate
+  have hgpos : 0 < 2 ^ (h.level0 + t) * g.packet t :=
+    Nat.mul_pos (Nat.pow_pos (by omega)) (g.packet_pos t)
+  have hhpos : 0 < 2 ^ (h.level0 + t) * h.packet t :=
+    Nat.mul_pos (Nat.pow_pos (by omega)) (h.packet_pos t)
+  have hprod : 2 ^ (h.level0 + t) * g.packet t =
+      2 ^ (h.level0 + t) * h.packet t := by omega
+  exact Nat.eq_of_mul_eq_mul_left (Nat.pow_pos (by omega)) hprod
 
 /-- Compile the pure recurrence into the earlier all-level orbit artifact. -/
 def toMersenneShadowOrbit (g : MersennePacketRenewal) :

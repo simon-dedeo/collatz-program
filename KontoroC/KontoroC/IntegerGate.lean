@@ -56,6 +56,36 @@ when every finite prefix is legal at that same seed. -/
 def StreamLegal (x : ℕ) (k : ℕ → ℕ) : Prop :=
   ∀ n, WordLegal x (valuationPrefix k n)
 
+/-- A positive infinite valuation stream has at most one ordinary natural
+seed.  No residue modulo three is needed: increasingly long exact prefixes
+place any two realizations in the same class modulo an unbounded power of
+two. -/
+theorem StreamLegal.unique {x y : ℕ} {k : ℕ → ℕ}
+    (hk : ∀ i, 0 < k i) (hx : StreamLegal x k) (hy : StreamLegal y k) :
+    x = y := by
+  obtain ⟨N, hN⟩ := pow_unbounded_of_one_lt (max x y)
+    (by norm_num : 1 < (2 : ℕ))
+  let w := valuationPrefix k (N + 1)
+  have hw : w ≠ [] := by
+    intro hnil
+    have hlen := congrArg List.length hnil
+    simp [w] at hlen
+  have hpositive : PositiveWord w := valuationPrefix_positive hk _
+  have hxw : WordLegal x w := hx (N + 1)
+  have hyw : WordLegal y w := hy (N + 1)
+  have hxcong := finalCongruence_of_wordLegal hw hpositive hxw
+  have hycong := finalCongruence_of_wordLegal hw hpositive hyw
+  have hmod := finalCongruence_unique_mod w hxcong hycong
+  have hsum : N ≤ totalValuation w := by
+    exact (Nat.le_succ N).trans (valuationPrefix_totalValuation_ge hk _)
+  have hpow : 2 ^ N ≤ 2 ^ (totalValuation w + 1) :=
+    Nat.pow_le_pow_right (by omega) (hsum.trans (Nat.le_succ _))
+  have hxlt : x < 2 ^ (totalValuation w + 1) :=
+    (le_max_left x y).trans_lt hN |>.trans_le hpow
+  have hylt : y < 2 ^ (totalValuation w + 1) :=
+    (le_max_right x y).trans_lt hN |>.trans_le hpow
+  exact hmod.eq_of_lt_of_lt hxlt hylt
+
 /-- **Necessary integer gate.**  If one ordinary integer realizes every
 prefix, then any canonical compiler representatives for those prefixes
 eventually stabilize to that integer. -/

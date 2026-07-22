@@ -109,6 +109,9 @@ endpoint matching `search_mersenne_shadow.py`: the controller, word `[1]`,
 multiplier `3/2`, and affine fixed equation are no longer artifact fields.
 Only the infinite positive coordinate/legality/renewal data and a uniform
 collision bound remain for the worker to supply.
+The compressed block used by the Python search is also proved rather than
+trusted: a level-`m`, extra-`e` macro has affine data
+`(steps, halvings, constant) = (m, m+e, 3^m-2^m)`.
 The worker's current three-macro outward chain from `24017279` is replayed in
 `Examples.lean`; Lean also verifies that its endpoint misses the required
 level-ten `-1` residue class, so it is explicitly not an infinite artifact.
@@ -120,6 +123,17 @@ The recurrence also forces an explicit next-packet congruence modulo `3^m`,
 available as `next_packet_mod_threePow` for modular search pruning.
 With uniformly bounded extras, the packet sequence itself is proved to become
 strictly increasing after a finite level.
+Fixing the complete extra stream is even more rigid: there is at most one
+ordinary initial state, and hence at most one entire positive packet sequence,
+that can realize it.  This is the unbounded-power-of-two integer gate for the
+state-dependent grammar.
+The shifted recurrence around `-1` is now also exposed as an exact finite
+backward series over `ℚ`: after any number of blocks, the initial state plus
+one equals the product of the backward coefficients times the terminal state
+plus one, minus the accumulated weighted defects.  This is a size-independent
+reduction, not a bounded search.  Passing it to `ℚ₂` and proving that the
+resulting candidate is not an ordinary nonnegative integer for a useful class
+of extra streams remains open.
 
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.

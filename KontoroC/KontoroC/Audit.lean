@@ -56,6 +56,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.canonical_seed_tower_eventually_eq
 #print axioms KontoroC.streamLegal_of_canonical_seed_tower_eventually_eq
 #print axioms KontoroC.streamLegal_iff_canonical_seed_tower_stabilizes
+#print axioms KontoroC.StreamLegal.unique
 #print axioms KontoroC.negativeShadow_endpoint
 #print axioms KontoroC.negativeShadow_endpoint_ediv
 #print axioms KontoroC.negativeShadow_strict_growth
@@ -81,6 +82,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.CertifiedCyclePhaseShadowOrbit.toBoundedPhaseShadowOrbit
 #print axioms KontoroC.CertifiedCyclePhaseShadowOrbit.not_conjecture
 #print axioms KontoroC.mersenneShadow_endpoint
+#print axioms KontoroC.mersenneMacroWord_affineOffset
+#print axioms KontoroC.affineBlock_mersenneMacroWord
 #print axioms KontoroC.mersenneMacro_legal_of_packet_equation
 #print axioms KontoroC.MersenneShadowOrbit.toBoundedPhaseShadowOrbit
 #print axioms KontoroC.MersenneShadowOrbit.not_conjecture
@@ -89,6 +92,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.MersennePacketRenewal.next_packet_mod_threePow
 #print axioms KontoroC.MersennePacketRenewal.next_packet_unique_mod_threePow
 #print axioms KontoroC.MersennePacketRenewal.eventually_packet_grows
+#print axioms KontoroC.MersennePacketRenewal.schedule_legal_and_endpoint
+#print axioms KontoroC.MersennePacketRenewal.block_affine_equation
+#print axioms KontoroC.MersennePacketRenewal.block_shifted_balance
+#print axioms KontoroC.MersennePacketRenewal.block_shifted_backward
+#print axioms KontoroC.MersennePacketRenewal.backward_affine_unroll
+#print axioms KontoroC.MersennePacketRenewal.shifted_state_finite_series
+#print axioms KontoroC.MersennePacketRenewal.initial_state_unique
+#print axioms KontoroC.MersennePacketRenewal.packet_function_unique
 #print axioms KontoroC.MersennePacketRenewal.toMersenneShadowOrbit
 #print axioms KontoroC.MersennePacketRenewal.not_conjecture
 #print axioms KontoroC.MersennePacketRenewal.not_conjecture_of_constant_extra
