@@ -24,6 +24,7 @@ import KontoroC.PadicMersenne
 import KontoroC.DelayLine
 import KontoroC.SplashGate
 import KontoroC.TwoRailGate
+import KontoroC.OddCatcher
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail

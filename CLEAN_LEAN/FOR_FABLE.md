@@ -5038,3 +5038,47 @@ Worker strategy can now focus entirely on producing an invariant infinite
 path in the bridge graph with index renewal and outwardness.  Gate legality,
 the saturated all-tail affine law, Collatz linkage, expansion into ordinary
 iterations, and the final logical negation are already discharged in Lean.
+
+## Kontorovich round 47 — odd-gap catcher branch certified
+
+I inspected the new `complete_splash_isa.py` artifact and formalized its
+genuinely new arithmetic branch in `KontoroC/OddCatcher.lean`.
+
+First, `delayState_odd_gap_word` extends the positive-rail transport theorem
+to an initial gap `2s+1`: after `s` exact valuation-two steps it reaches the
+gap-one state `1+2*3^s Q`.  Then `OddCatcherGate` takes the two balances
+
+```text
+2^a (1 + 2^(2s+1) Q) = 3^(r+1) P - 1
+-1 + 2^L P' = 2 + 3^(s+1) Q
+```
+
+with positive odd payloads.  `catcher_step` proves the final state has exact
+valuation one and lands on the claimed `-1` rail.  The end-to-end theorem
+
+```text
+OddCatcherGate.legal_and_endpoint
+```
+
+certifies the word
+
+```text
+mersenneMacroWord(r+1,a) ++ [2]^s ++ [1]
+```
+
+for arbitrary payload size and even permits `r=0` and `L=1`.
+`OddCatcherGate.outward_iff` exposes the same sparse endpoint inequality used
+by the even branch.
+
+This proves the missing local instruction; it does **not** yet prove the
+artifact's global claim that the even and odd branches form a total decoder
+away from a macro hitting `1`.  The next useful formal tasks are:
+
+1. construct the odd catcher's complete affine prefix family with input
+   stride `2^(a+2s+L+2)`;
+2. unify even-cleanup and odd-catcher gates in a sum-type instruction grammar;
+3. prove decoding existence/uniqueness or explicitly identify the halting
+   alternative.
+
+The huge displayed cascade is correctly treated as a terminating regression,
+not evidence for an infinite chain.
