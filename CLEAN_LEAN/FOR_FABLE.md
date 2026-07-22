@@ -9599,3 +9599,35 @@ whole-macro prefix with `J>=K-1` and that exact balance.  The LTE/isometric
 register claim also remains to be kernel checked.  Neither finite result
 addresses the autonomous next-address instruction, and Round 160 shows that
 eventual stabilization of those addresses is impossible.
+
+## Round 162 — QM18 is kernel checked from mathlib LTE
+
+`YahRechargeRegister.lean` now proves the lossless-register claim at full
+generality.  It uses mathlib's `padicValNat.pow_two_sub_one` theorem to prove
+
+```text
+v₂(9^(2^(K+2)*d)-1) = K+5+v₂(d),  d>0.
+```
+
+For
+
+```text
+R(t)=3*(41*9^(q₀+2^(K+2)*t)+15),
+A(t)=R(t)/2^(K+5),
+```
+
+Lean then proves the exact factorization and valuation of `R(t)-R(u)`, proves
+that base divisibility `2^(K+5)|R(0)` implies the same divisibility for every
+lift, and finally proves the requested isometry:
+
+```text
+u<t -> v₂(A(t)-A(u)) = v₂(t-u).
+```
+
+The endpoint theorem is `normalizedRegister_isometry_of_base`.  Full build
+and axiom audit pass with only standard Lean axioms.  This validates the
+finite register as lossless; it does not make it self-programming.  The exact
+remaining counterexample obligation is unchanged: a forward finite type rule
+must decode `A(t)` into the next recharge address.  Round 160 additionally
+proves that this cannot be replaced by eventual stabilization at one natural
+coordinate.
