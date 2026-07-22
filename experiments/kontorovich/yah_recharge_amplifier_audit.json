@@ -1,0 +1,387 @@
+{
+  "artifact_sha256": "3969fab7fc0b5ed38972afc7b3ed6a9cabfcb4ae1447b27db4093afb8aa54c3d",
+  "bounded_traces": {
+    "max_growth_cells": 4,
+    "scope": "exact queue-transducer replay at every displayed word; the all-length queue factorization is independently kernel-checked",
+    "traces": [
+      {
+        "actual_length_gain": 2,
+        "charge_K": 5,
+        "final_word_sha256": "0369cbf2bbbd750dc4e002083cd92e512df332d6273c4ebda0bf8edf8688b7f7",
+        "growth_cells": 1,
+        "head_schedule": "021",
+        "initial_packet_sha256": "2dc0bb00f6a8d9777124c241165875828352f5966e013c77b4d33751501bf247",
+        "least_q": 17,
+        "modulus_exponent": 10,
+        "packet_trit_length": 35,
+        "post_recharge_sha256": "df9715edd115f06bc64748c4160a7ee70414b212b288b3b0d2a9c27214048fb4",
+        "q_period": 128,
+        "safe_macro_count": 3,
+        "safe_odd_steps": 5,
+        "scale_lower_bound": 2,
+        "trace_sha256": "2fe1eb418d48dc1acfa92e522798c8382be46e1fd5696e72eb162af27ba6adb3",
+        "trailing_max_trits": 7
+      },
+      {
+        "actual_length_gain": 3,
+        "charge_K": 9,
+        "final_word_sha256": "43a6868523dbcaf3b69d922bb602a5437086597417acd02050168b3b9e774170",
+        "growth_cells": 2,
+        "head_schedule": "021010",
+        "initial_packet_sha256": "56c2b29009183fb96e4e35a6fb16c16b22c5c9a2fe8bdbf204c418296860b3a9",
+        "least_q": 273,
+        "modulus_exponent": 14,
+        "packet_trit_length": 547,
+        "post_recharge_sha256": "08716c9f5a4a4edf545f5b5797f2ce52752633883dfcda18752e85b3b1565922",
+        "q_period": 2048,
+        "safe_macro_count": 6,
+        "safe_odd_steps": 9,
+        "scale_lower_bound": 3,
+        "trace_sha256": "04ce4e5df0536165a22463b21ca286e0316672883bb940dcbf06da83864b9b27",
+        "trailing_max_trits": 11
+      },
+      {
+        "actual_length_gain": 5,
+        "charge_K": 13,
+        "final_word_sha256": "e61b9fe1de23bef7fc0c56ddbfacbdbfafa18a0f44ba86960f66e6eab10c73db",
+        "growth_cells": 3,
+        "head_schedule": "02101021",
+        "initial_packet_sha256": "83798ce95d53bd951171af536ba3dfbe796a3c366e6be65b0d6f0f0aad6c83f3",
+        "least_q": 20753,
+        "modulus_exponent": 18,
+        "packet_trit_length": 41507,
+        "post_recharge_sha256": "02c08c3b5ca598e7e2255a8d69c1d62f835f9a321478d7356213dc6bc94124aa",
+        "q_period": 32768,
+        "safe_macro_count": 8,
+        "safe_odd_steps": 13,
+        "scale_lower_bound": 5,
+        "trace_sha256": "b767e08f8d2d6437404a4e6c325bc4ce94f0921c1d69f19f19a81d2c04ed717a",
+        "trailing_max_trits": 15
+      },
+      {
+        "actual_length_gain": 6,
+        "charge_K": 17,
+        "final_word_sha256": "1e98f56397400ff35050e4b54051259bfb5addce57776563984e2a3b5c50eef2",
+        "growth_cells": 4,
+        "head_schedule": "02101021010",
+        "initial_packet_sha256": "06572d7bc152535c82c5fa253e7262abf82a490b7938634b99620ac3a416663a",
+        "least_q": 184593,
+        "modulus_exponent": 22,
+        "packet_trit_length": 369187,
+        "post_recharge_sha256": "1241b506206aa3ff2565dd12ebb60ec807bee2f271f10e2126862ef8ec21e8da",
+        "q_period": 524288,
+        "safe_macro_count": 11,
+        "safe_odd_steps": 17,
+        "scale_lower_bound": 6,
+        "trace_sha256": "f1360280c9fa1a4e8a43d043537e615c0072bdf667b08d54bfff5b5ae495557a",
+        "trailing_max_trits": 19
+      }
+    ]
+  },
+  "closure_status": {
+    "achieved_instruction": "arbitrarily large finite space amplification with a lossless 2-adic lift register",
+    "counterexample": null,
+    "missing_instruction": "the exhausted register must autonomously write the next packet recharge address"
+  },
+  "generated_at_utc": "2026-07-22T20:33:11.212870+00:00",
+  "queue_worker_sha256": "dd31ba052f11102ad0b9cc6dc13278c0254c8366ddb39f5b01c96a519b305745",
+  "register_audit": {
+    "cases": [
+      {
+        "charge_K": 5,
+        "growth_cells": 1,
+        "lifts_checked": 1024,
+        "output_digest_sha256": "348ee67ca1decd8216bdafd90a7f5a1f23dce98747c615e30936ee6894727bcb",
+        "register_bits": 10
+      },
+      {
+        "charge_K": 9,
+        "growth_cells": 2,
+        "lifts_checked": 1024,
+        "output_digest_sha256": "5a1b3627ca608e4542bb697ba93ceb54e6c188150364b0a917d64bf8dd92859f",
+        "register_bits": 10
+      },
+      {
+        "charge_K": 13,
+        "growth_cells": 3,
+        "lifts_checked": 1024,
+        "output_digest_sha256": "bf0ab272dc217a7058285651f168c984a83583390cbff187064d2b1c24b2134a",
+        "register_bits": 10
+      },
+      {
+        "charge_K": 17,
+        "growth_cells": 4,
+        "lifts_checked": 1024,
+        "output_digest_sha256": "f656e6a11f18f576c86bd70b3896b2df7e453548ef694a136ab4edfc0e90b23d",
+        "register_bits": 10
+      }
+    ],
+    "isometry_schema": "for A_K(t)=3*(41*9^(q0+2^(K+2)t)+15)/2^(K+5), LTE gives v2(A_K(t)-A_K(u))=v2(t-u); hence every finite binary address is transmitted bijectively",
+    "scope": "the displayed LTE identity is an all-length proof schema; the artifact exhausts all lift residues at the stated bit width"
+  },
+  "schema": "yah_recharge_amplifier_v1",
+  "symbolic_addresses": {
+    "addresses": [
+      {
+        "charge_K": 5,
+        "growth_cells": 1,
+        "least_q": 17,
+        "modulus_exponent": 10,
+        "packet_trit_length": 35,
+        "q_period": 128
+      },
+      {
+        "charge_K": 9,
+        "growth_cells": 2,
+        "least_q": 273,
+        "modulus_exponent": 14,
+        "packet_trit_length": 547,
+        "q_period": 2048
+      },
+      {
+        "charge_K": 13,
+        "growth_cells": 3,
+        "least_q": 20753,
+        "modulus_exponent": 18,
+        "packet_trit_length": 41507,
+        "q_period": 32768
+      },
+      {
+        "charge_K": 17,
+        "growth_cells": 4,
+        "least_q": 184593,
+        "modulus_exponent": 22,
+        "packet_trit_length": 369187,
+        "q_period": 524288
+      },
+      {
+        "charge_K": 21,
+        "growth_cells": 5,
+        "least_q": 2806033,
+        "modulus_exponent": 26,
+        "packet_trit_length": 5612067,
+        "q_period": 8388608
+      },
+      {
+        "charge_K": 25,
+        "growth_cells": 6,
+        "least_q": 95080721,
+        "modulus_exponent": 30,
+        "packet_trit_length": 190161443,
+        "q_period": 134217728
+      },
+      {
+        "charge_K": 29,
+        "growth_cells": 7,
+        "least_q": 1437258001,
+        "modulus_exponent": 34,
+        "packet_trit_length": 2874516003,
+        "q_period": 2147483648
+      },
+      {
+        "charge_K": 33,
+        "growth_cells": 8,
+        "least_q": 14322159889,
+        "modulus_exponent": 38,
+        "packet_trit_length": 28644319779,
+        "q_period": 34359738368
+      },
+      {
+        "charge_K": 37,
+        "growth_cells": 9,
+        "least_q": 83041636625,
+        "modulus_exponent": 42,
+        "packet_trit_length": 166083273251,
+        "q_period": 549755813888
+      },
+      {
+        "charge_K": 41,
+        "growth_cells": 10,
+        "least_q": 1182553264401,
+        "modulus_exponent": 46,
+        "packet_trit_length": 2365106528803,
+        "q_period": 8796093022208
+      },
+      {
+        "charge_K": 45,
+        "growth_cells": 11,
+        "least_q": 36366925353233,
+        "modulus_exponent": 50,
+        "packet_trit_length": 72733850706467,
+        "q_period": 140737488355328
+      },
+      {
+        "charge_K": 49,
+        "growth_cells": 12,
+        "least_q": 740054367129873,
+        "modulus_exponent": 54,
+        "packet_trit_length": 1480108734259747,
+        "q_period": 2251799813685248
+      },
+      {
+        "charge_K": 53,
+        "growth_cells": 13,
+        "least_q": 18754452876611857,
+        "modulus_exponent": 58,
+        "packet_trit_length": 37508905753223715,
+        "q_period": 36028797018963968
+      },
+      {
+        "charge_K": 57,
+        "growth_cells": 14,
+        "least_q": 198898437971431697,
+        "modulus_exponent": 62,
+        "packet_trit_length": 397796875942863395,
+        "q_period": 576460752303423488
+      },
+      {
+        "charge_K": 61,
+        "growth_cells": 15,
+        "least_q": 2504741447185125649,
+        "modulus_exponent": 66,
+        "packet_trit_length": 5009482894370251299,
+        "q_period": 9223372036854775808
+      },
+      {
+        "charge_K": 65,
+        "growth_cells": 16,
+        "least_q": 122408577926297211153,
+        "modulus_exponent": 70,
+        "packet_trit_length": 244817155852594422307,
+        "q_period": 147573952589676412928
+      },
+      {
+        "charge_K": 69,
+        "growth_cells": 17,
+        "least_q": 1303000198643708514577,
+        "modulus_exponent": 74,
+        "packet_trit_length": 2606000397287417029155,
+        "q_period": 2361183241434822606848
+      },
+      {
+        "charge_K": 73,
+        "growth_cells": 18,
+        "least_q": 29637199095861579796753,
+        "modulus_exponent": 78,
+        "packet_trit_length": 59274398191723159593507,
+        "q_period": 37778931862957161709568
+      },
+      {
+        "charge_K": 77,
+        "growth_cells": 19,
+        "least_q": 105195062821775903215889,
+        "modulus_exponent": 82,
+        "packet_trit_length": 210390125643551806431779,
+        "q_period": 604462909807314587353088
+      },
+      {
+        "charge_K": 81,
+        "growth_cells": 20,
+        "least_q": 4940898341280292602040593,
+        "modulus_exponent": 86,
+        "packet_trit_length": 9881796682560585204081187,
+        "q_period": 9671406556917033397649408
+      },
+      {
+        "charge_K": 85,
+        "growth_cells": 21,
+        "least_q": 33955118012031392794988817,
+        "modulus_exponent": 90,
+        "packet_trit_length": 67910236024062785589977635,
+        "q_period": 154742504910672534362390528
+      },
+      {
+        "charge_K": 89,
+        "growth_cells": 22,
+        "least_q": 1736122672029429270781284625,
+        "modulus_exponent": 94,
+        "packet_trit_length": 3472245344058858541562569251,
+        "q_period": 2475880078570760549798248448
+      },
+      {
+        "charge_K": 93,
+        "growth_cells": 23,
+        "least_q": 36398443772020076967956762897,
+        "modulus_exponent": 98,
+        "packet_trit_length": 72796887544040153935913525795,
+        "q_period": 39614081257132168796771975168
+      },
+      {
+        "charge_K": 97,
+        "growth_cells": 24,
+        "least_q": 155240687543416583358272688401,
+        "modulus_exponent": 102,
+        "packet_trit_length": 310481375086833166716545376803,
+        "q_period": 633825300114114700748351602688
+      },
+      {
+        "charge_K": 101,
+        "growth_cells": 25,
+        "least_q": 9028794889141022393835195126033,
+        "modulus_exponent": 106,
+        "packet_trit_length": 18057589778282044787670390252067,
+        "q_period": 10141204801825835211973625643008
+      },
+      {
+        "charge_K": 105,
+        "growth_cells": 26,
+        "least_q": 59734818898270198453703323341073,
+        "modulus_exponent": 110,
+        "packet_trit_length": 119469637796540396907406646682147,
+        "q_period": 162259276829213363391578010288128
+      },
+      {
+        "charge_K": 109,
+        "growth_cells": 27,
+        "least_q": 2493623971336470649327373477662993,
+        "modulus_exponent": 114,
+        "packet_trit_length": 4987247942672941298654746955325987,
+        "q_period": 2596148429267413814265248164610048
+      },
+      {
+        "charge_K": 113,
+        "growth_cells": 28,
+        "least_q": 28455108264010608791979855123763473,
+        "modulus_exponent": 118,
+        "packet_trit_length": 56910216528021217583959710247526947,
+        "q_period": 41538374868278621028243970633760768
+      },
+      {
+        "charge_K": 117,
+        "growth_cells": 29,
+        "least_q": 69993483132289229820223825757524241,
+        "modulus_exponent": 122,
+        "packet_trit_length": 139986966264578459640447651515048483,
+        "q_period": 664613997892457936451903530140172288
+      },
+      {
+        "charge_K": 121,
+        "growth_cells": 30,
+        "least_q": 8045361457841784467243066187439591697,
+        "modulus_exponent": 126,
+        "packet_trit_length": 16090722915683568934486132374879183395,
+        "q_period": 10633823966279326983230456482242756608
+      },
+      {
+        "charge_K": 125,
+        "growth_cells": 31,
+        "least_q": 114383601120635054299547631009867157777,
+        "modulus_exponent": 130,
+        "packet_trit_length": 228767202241270108599095262019734315555,
+        "q_period": 170141183460469231731687303715884105728
+      },
+      {
+        "charge_K": 129,
+        "growth_cells": 32,
+        "least_q": 2156077802646265835079795275600476426513,
+        "modulus_exponent": 134,
+        "packet_trit_length": 4312155605292531670159590551200952853027,
+        "q_period": 2722258935367507707706996859454145691648
+      }
+    ],
+    "all_growth_schema": "for G>=1 take K=4G+1 and q=q0 mod 2^(K+2), where 41*9^q+15=0 mod 2^(K+5); the neutral packet macro writes v2(N+1)>=K, and a safe all-odd macro prefix contains J>=K-1 odd steps and gains at least G trits",
+    "max_growth_cells": 32,
+    "scale_inequality": "if the gain were at most G-1 after J>=4G odd steps, canonical ternary scale would force 3^(4G)<2^(4G+1)*3^(G-1), but 2*16^G<=3*27^G"
+  },
+  "worker_sha256": "6100b2c33f35f26e0fc7874c7981829f9733a234c60576739e1fc6fa41637a75"
+}

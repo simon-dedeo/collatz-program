@@ -33,6 +33,68 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-22 16:26 EDT
+
+The highest-leverage closure step is now explicit: combine a space amplifier
+with a register that survives amplification.  The phase-one packet
+
+```text
+P(q)=2(01)^q
+```
+
+has a unique recharge address `q=q_0 (mod 2^(K+2))` determined by
+`41*9^q+15=0 (mod 2^(K+5))`; automatically `q=1 (mod 4)`.  Its first queue
+macro is length-neutral and writes at least `K` units of `v2(N+1)`.  A maximal
+subsequent prefix containing only odd shortcut steps reaches a pure-ternary
+macro boundary after at least `K-1` such steps.  If `K=4G+1`, exact scale
+comparison forces at least `G` new ternary cells.  Thus this hardware can
+perform arbitrarily large **finite** reproduction, rather than merely grow one
+cell in a lucky packet.  This is still not nontermination.
+
+The free lift is more important for closure.  Put `L=2^(K+2)` and
+
+```text
+A_K(t)=3*(41*9^(q_0+L*t)+15)/2^(K+5).
+```
+
+The lifting-the-exponent identity gives
+`v2(A_K(t)-A_K(u))=v2(t-u)`.  Consequently the parameter left over after
+recharge is a lossless 2-adic register: modulo every `2^h`, it can transmit
+any `h`-bit address bijectively.  Recharge therefore supplies both unbounded
+finite workspace and an unbounded nonlocal state channel.  The one remaining
+win condition is brutally precise: make the exhausted register write the
+next `q_0` recharge address by a forward finite type rule, instead of choosing
+that address externally.
+
+The exhausted state is also spatially typed.  The normalized defect has
+exact `v3=2`, so after `J` safe odd steps the pure-ternary endpoint ends in
+exactly `J+2` copies of `2`.  The amplifier therefore emits a contiguous
+right-hand reservoir while its arbitrary prefix retains the register.  The
+next decoder test is whether the established carry/comb opcodes can make that
+prefix and reservoir regenerate the alternating phase-one packet.
+
+The new exact `yah_recharge_amplifier.py` artifact checks 32 symbolic recharge
+targets, exhausts all 1,024 ten-bit lift residues for each of the first four,
+and replays the exact queue transducer for guaranteed gains one through four.
+Those concrete packets have 35, 547, 41,507, and 369,187 trits and actually
+gain 2, 3, 5, and 6 cells in their conservative all-odd prefixes.  The
+all-`G` scale and LTE arguments are research-side proof schemas sent to the
+Lean companion; no infinite orbit or counterexample is claimed.  The prior
+queue/battery checkpoint was pushed as `54adf02`.
+
+The adversarial companion has independently closed the surrounding algebra.
+Commits `e293f7d` and `22ce54d` kernel-check the complete six-case battery
+ledger, the packet value formula, and all four phase-dependent recharge
+formulas.  Commit `8bed065` proves that ever-deeper recharge addresses cannot
+stabilize to one fixed ordinary packet coordinate.  This does not touch the
+live amplifier, whose coordinate evolves and whose lift register is meant to
+write the next one; it prevents us from mistaking a compatible nested 2-adic
+address for an ordinary program.
+Commit `67eabe3` also kernel-checks the all-parameter scale theorem: any two
+canonical ternary words joined by `J>=4G` all-odd defect steps gain at least
+`G` cells.  The remaining formal seams are the packet-to-maximal-safe-prefix
+wrapper, the LTE register isometry, and the exact trailing-reservoir theorem.
+
 ### 2026-07-22 16:12 EDT
 
 The carry lane now has a fundamental instruction architecture rather than a
@@ -2951,8 +3013,12 @@ identically `x`.
   packets.  Perpetual `+1` macros are kernel-impossible.  Use the exact battery
   `B=2*length+v2(N+1)`: growth converts two valuation units into one cell, so
   a viable grammar must use a neutral/shrinking collision to raise `B` before
-  spending it again.  Search for a finite grammar of these *types* with positive net
-  space charge and a checksum-preserving successor.  Fixed-time returns on a
+  spending it again.  The phase-one packet now gives an explicit amplifier:
+  a unique `q mod 2^(K+2)` writes `K` dyadic charge units, `K=4G+1`
+  guarantees `G` later cells, and its free lift is a 2-adic isometric register.
+  Its safe endpoint ends in an exact run of `J+2` twos.  Search for a finite
+  grammar that makes the surviving prefix register and this emitted reservoir
+  write their own next recharge address.  Fixed-time returns on a
   simple ternary exponential family are multiplicatively impossible, so the
   type cycle must carry an unbounded clock or mixed dyadic--triadic scale.
 - **Delocalized instruction synthesis.**  Represent an instruction as an
@@ -3570,6 +3636,7 @@ identically `x`.
 | Perpetual one-cell YAH macro reproduction | Universally closed for ordinary natural seeds.  Commit `64bccb8` proves that every `+1` queue macro has `4*(N_next+1)=9*(N+1)`; an infinite all-growing macro orbit would force every power of four to divide one fixed positive `N+1`.  Commit `db13d82` gives the finite form: an `r`-macro growth burst forces `4^r | N+1`.  This does not close intermittent growth: a survivor must include neutral/shrinking collision phases which recharge enough dyadic battery to fund later cells. | [`YahPerpetualGrowthNoGo.lean`](KontoroC/KontoroC/YahPerpetualGrowthNoGo.lean), [closure doctrine](docs/notes/kontorovich-closure-principles.md#56-macro-space-conservation-exposes-the-nonlocal-instruction-bit) |
 | Fixed-clock ternary-run YAH glider | Closed in the stated phase-cycle class.  Commit `99d3405` proves that a fixed shortcut block with positive dynamic length cannot return a family with leading scale `A*3^n` to the same phase while shifting `n` by a fixed `d>0`: coefficient comparison would require `2^L*3^d=3^O`.  A live scale compiler needs counter-dependent time or a mixed dyadic--triadic/nonlinear scale. | [`YahFixedClockNoGo.lean`](KontoroC/KontoroC/YahFixedClockNoGo.lean), [closure doctrine](docs/notes/kontorovich-closure-principles.md#56-macro-space-conservation-exposes-the-nonlocal-instruction-bit) |
 | Direct self-link of the first four-phase YAH packet | Universally closed.  Commit `b794b2f` proves `queueMacro(2(0012)^s(01)^q)` is never `2(0012)^s'(01)^q'`: the endpoint starts with `1` when the tail is empty and `0` otherwise, while every target starts with `2`.  The packet remains a routed opcode but requires at least one additional type to restore the head. | [`YahPacketFamilyNoGo.lean`](KontoroC/KontoroC/YahPacketFamilyNoGo.lean), [`yah_queue_macro_audit.json`](experiments/kontorovich/yah_queue_macro_audit.json) |
+| Stabilizing one fixed coordinate through ever-deeper YAH recharge addresses | Universally closed.  Commit `8bed065` proves that if `2^K` divides a positive target at every depth, its address cannot eventually equal one fixed natural.  The three packet recharge targets are exact specializations.  This rejects an ordinary program obtained by stabilizing nested congruence representatives; it does not reject an evolving dispatcher which computes a new unbounded coordinate after every burst. | [`YahRechargeAddressNoGo.lean`](KontoroC/KontoroC/YahRechargeAddressNoGo.lean) |
 | Treat a prescribed finite `k`-word as an infinite program | Invalid: the nested progressions generally select a 2-adic integer, not a positive ordinary seed. Lean commit `ad36f08` proves that eventual canonical-seed stabilization is exactly the ordinary-integer gate. | [Program-synthesis note](docs/notes/kontorovich-program-synthesis.md) |
 | Literal periodic valuation glider | Closed: Lean commits `92b01ff`/`2f93df7` prove that an infinitely repeatable positive block has `3^N<2^S` and closes as a cycle. This does not touch morphic, counter, stack, or feedback streams. | [Section 4](docs/notes/kontorovich-program-synthesis.md#4-why-a-literal-periodic-glider-fails) |
 | Small positive cycle words | Exhaustively negative through total halving count `S<=22`: `3,447,691` positive-denominator compositions, with only repeated encodings of seed `1`. This is a bounded ansatz exclusion, not a new verification frontier. | [`search_results.json`](experiments/kontorovich/search_results.json) |
@@ -3635,7 +3702,8 @@ positive integer and its claimed behavior are machine-checked.
 | Kernel thin-trap endpoint | Commit `298f5a3` iterates any explicit canonical-splash predicate closed under its public successor, proves exact `next` linkage and strict outwardness, constructs `InfiniteCanonicalSplashOrbit`, and concludes `not Collatz`.  This is a fully checked certificate consumer, not a witness: no qualifying seed or invariant predicate is known. |
 | YAH mixed-base closure audit | The exact artifact pins all 11 rules, replays the published `12 -> ... -> 1` example, classifies all letter and width-two uniform morphisms, proves its 513,916-state length-at-most-eight induced graph acyclic, and finds a longest 299-rewrite delay `834 -> 1079` but no pumping certificate.  Commit `1b3459d` makes literal/morphic pumping a kernel certificate consumer; `9ca4360` closes proper canonical outer growth; `bfe12f0` proves identity is the only productive nonerasing marker-fixed independent digit-word morphism at arbitrary widths.  Context-dependent/multi-block templates, the external YAH-to-Collatz seam, and any glider remain open. |
 | YAH internal carry opcode | The auxiliary digit complement is exact, while its terminal affine defect is `s-t>=1` and equals one exactly on saturated buffers.  The exact artifact checks 488,281 bounded buffers and replays 1,443 run macros.  Commit `0365c72` independently kernel-checks the defect and the all-length zero/max-run and two-counter transfer opcodes; `f81ff21` proves the transfer's exact odd-step semantics and strict outwardness.  It spends one left `tri0` token to increment a right `tri2` counter and phase-changes the remaining block; it supplies a real instruction but no closure. |
-| YAH queue macro and nonlocal type | A complete left-boundary opcode factors into one or two sweeps of a two-state ternary quotient transducer.  Commits `1a88c3e`/`b1dd87a` kernel-check the factorization, exact space charge, mod-four growth table, and global alternating checksum.  At length `m`, exactly `(3^(m-1)-1)/2` of `3^m` programs grow, giving asymptotic density `1/6` and mean space drift tending to `-1/6`.  Commits `64bccb8`/`db13d82` prove perpetual `+1` growth impossible and force `4^r | N+1` for an `r`-burst; each growing macro conserves the dyadic battery `2*length+v2(N+1)`.  The independent worker agrees with literal rules on all 88,572 words through length ten, checks the battery ledger, and replays 16,769 chained run/comb/packet cases through coordinate 64.  It exhibits a four-phase packet compiler; commit `b794b2f` proves that packet is not directly self-linked, so no battery-recharging multi-type cycle or infinite orbit is known. |
+| YAH queue macro and nonlocal type | A complete left-boundary opcode factors into one or two sweeps of a two-state ternary quotient transducer.  Commits `1a88c3e`/`b1dd87a` kernel-check the factorization, exact space charge, mod-four growth table, and global alternating checksum.  At length `m`, exactly `(3^(m-1)-1)/2` of `3^m` programs grow, giving asymptotic density `1/6` and mean space drift tending to `-1/6`.  Commits `64bccb8`/`db13d82` prove perpetual `+1` growth impossible and force `4^r | N+1` for an `r`-burst.  Commits `288fb09`/`e293f7d` prove battery conservation on growth and the complete nongrowing recharge ledger; `22ce54d` proves the packet value and four phase-recharge formulas.  The independent worker agrees with literal rules on all 88,572 words through length ten and replays 16,769 chained run/comb/packet cases through coordinate 64.  It exhibits a four-phase packet compiler; commit `b794b2f` proves that packet is not directly self-linked, so no battery-recharging multi-type cycle or infinite orbit is known. |
+| YAH recharge amplifier and preserved register | For target gain `G`, the research-side construction takes `K=4G+1` and the unique phase-one packet address `41*9^q+15=0 (mod 2^(K+5))`.  Its neutral macro writes at least `K` dyadic-charge units; commit `67eabe3` kernel-checks the all-parameter theorem that `J>=4G` all-odd defect steps force at least `G` new ternary cells.  The free lift survives research-side as a normalized register satisfying the LTE schema `v2(A_K(t)-A_K(u))=v2(t-u)`, while exact `v3=2` makes the endpoint end in a contiguous run of `J+2` twos after `J` safe odd steps.  The artifact checks 32 symbolic targets, all 1,024 ten-bit register values for each of four targets, and exact queue traces through a 369,187-trit packet.  The dynamical prefix wrapper, LTE, and reservoir schemas await Lean replay.  This proves neither autonomous address regeneration nor an infinite orbit. |
 | Program-scale calibration | Barina's published exhaustive check through `2^71` excludes every ordinary seed below that bound. Colussi's exact order-10 repetend has 39,366 padded bits and an 11,846-digit integer value, giving a literature-backed, formula-generated background at the scale Simon proposed. This is target calibration, not evidence of divergence. |
 | Delocalized instruction-set audit | Exact published encodings expose four complementary units: valuation congruences, mixed binary--ternary boundary rewrites, De Mol's three-symbol tag rules, and Colussi's rotated repetend grammar. They motivate a nonlocal bouncer search but do not prove computational universality or nontermination. |
 | Exact dyadic--triadic packet gate | Lean commit `f1cb0e2` proves universally that each supplied base collision generates exactly the affine family `h=r+2^(m+e+2)q`, `h'=s+2*3^m q`, with unique payload, literal valuation `e`, and the triadic next-packet scheduler. The Python checker passes 8,192 family members and an exhaustive converse over all 16,316 renewals found for odd `h<2^16` at levels `1..8`. No closed all-level gate controller is known. |

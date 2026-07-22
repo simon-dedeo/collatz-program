@@ -1,6 +1,6 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-22, about 16:12 EDT
+Updated: 2026-07-22, about 16:26 EDT
 
 Repository: `/Users/simon/Desktop/COLLATZ`
 
@@ -174,8 +174,50 @@ Every growing macro conserves it: one new cell spends exactly two valuation
 units.  Neutral/shrinking macros are the only recharge sites.  The worker now
 checks their exact battery changes at every bounded word; the possible gains
 are `v2(D+1)-3`, `v2(D+3)-4`, `v2(3D+2)-3`, or `v2(D+1)-2` in the four
-nontrivial head/residue cases.  Seek a type cycle whose collision gains more
-battery than its length loss and feeds phase two of the packet compiler.
+nontrivial head/residue cases.  Commits `e293f7d` and `22ce54d` independently
+kernel-check the complete ledger, packet value, and all four phase-recharge
+formulas.  Commit `8bed065` proves that deeper recharge addresses cannot
+eventually stabilize to one fixed ordinary packet coordinate.
+
+There is now a stronger constructive primitive.  For target gain `G>=1`, put
+`K=4G+1` and choose the unique phase-one address
+
+```text
+41*9^q+15=0 mod 2^(K+5),      q mod 2^(K+2).
+```
+
+The neutral packet `2(01)^q` writes `v2(N+1)>=K`.  A maximal subsequent
+all-odd macro prefix contains at least `K-1` shortcut steps; canonical ternary
+scale forces it to gain at least `G` cells.  The free lift survives as
+
+```text
+A_K(t)=3*(41*9^(q0+2^(K+2)t)+15)/2^(K+5),
+v2(A_K(t)-A_K(u))=v2(t-u).
+```
+
+Thus recharge supplies arbitrarily large finite workspace and a lossless
+2-adic address register.  It also emits a spatial resource: the normalized
+defect has exact `v3=2`, so after `J` safe odd steps the endpoint word has
+exactly `J+2` trailing `2` trits.  The exact worker/artifact are
+
+```text
+experiments/kontorovich/yah_recharge_amplifier.py
+experiments/kontorovich/yah_recharge_amplifier_audit.json
+```
+
+They construct 32 symbolic targets, exhaust all 1,024 ten-bit lift values for
+four targets, and queue-replay guaranteed gains one through four through a
+369,187-trit packet.  Worker hash:
+`6100b2c33f35f26e0fc7874c7981829f9733a234c60576739e1fc6fa41637a75`;
+artifact hash:
+`3969fab7fc0b5ed38972afc7b3ed6a9cabfcb4ae1447b27db4093afb8aa54c3d`.
+The all-parameter scale, LTE, and reservoir schemas are in
+`docs/FOR_CLEAN_LEAN.md` as QM14--QM19.  Commit `67eabe3` already
+kernel-checks the generic scale core: `J>=4G` plus the exact all-odd defect
+balance forces at least `G` new cells.  The dynamic maximal-prefix wrapper,
+LTE isometry, and reservoir theorem remain open formal seams.  The remaining
+closure obligation is exact: a forward finite type must decode `A_K(t)` into
+the next packet address without an external lift.
 
 ### Canonical arithmetic compiler, with corrected scope
 
@@ -467,6 +509,13 @@ At this update, the newest pushed formalizer checkpoints are:
   packet of that family; a second type must restore the head.
 - `288fb09`: the dyadic battery `2*length+v2(N+1)` is exactly conserved by
   every growing queue macro at arbitrary word length.
+- `e293f7d`: all six head/residue battery laws and the packet value backbone
+  are kernel-checked.
+- `22ce54d`: the complete four-phase packet recharge table is kernel-checked.
+- `8bed065`: ever-deeper recharge addresses cannot stabilize to one fixed
+  ordinary packet coordinate.
+- `67eabe3`: any canonical all-odd defect segment of `J>=4G` steps gains at
+  least `G` ternary cells; the packet-to-segment wrapper remains separate.
 
 Never edit or stage its live `KontoroC/*` files.  Continue to send exact
 formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
@@ -474,13 +523,12 @@ formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
 
 The best immediate research tasks are:
 
-1. poll the companion's follow-up on the nongrowing recharge formulas; the
-   growing-macro dyadic-battery law, QM1--QM4, the all-width morphism, and
-   carry-opcode theorems are complete;
-2. synthesize a genuinely multi-type contextual cycle among the exact
-   reservoir, comb, and packet grammars whose collision raises
-   `2*length+v2(N+1)`, restores the packet head, and spends that charge in a
-   later phase-two reproduction;
+1. poll the companion's QM14--QM19 response; the generic amplifier scale core,
+   QM1--QM4, QM9--QM12, the
+   all-width morphism, and carry-opcode theorems are complete;
+2. synthesize the decoder that maps the preserved `A_K(t)` register to the
+   next unique phase-one recharge address; this must be a forward multi-type
+   rule, not a fresh congruence choice;
 3. search for a public invariant predicate on `CompleteSplashState.next`, not
    a deeper finite orbit or another direct CRT handoff;
 4. treat nonlinear stack rewriting or multi-rail address rotation as the
@@ -961,13 +1009,13 @@ Diary entry.
 
 1. Poll the detached R23 service, but do not block creative work on it; leave
    the incomplete Ganesha morphic batch stopped.
-2. Poll the companion's nongrowing battery/recharge follow-up.  Growing-macro
-   conservation, QM1--QM4, marker-fixed maps, and carry opcodes are complete;
-   perpetual all-growing macros are closed.
-3. Build a symbolic **multi-type** comb/packet grammar whose collision gains
-   dyadic battery, restores head one/two plus checksum three, and funds net
-   positive space; the first packet has no direct self-link.
-   Its clock must be counter-dependent; do not resume literal searches.
+2. Poll the companion's QM14--QM19 amplifier/register response.  QM1--QM4,
+   QM9--QM12, marker-fixed maps, and carry opcodes are complete; perpetual
+   all-growing macros and stable deep addresses are closed.
+3. Build a symbolic **multi-type** decoder which turns the preserved
+   `A_K(t)` register into the next unique phase-one packet address.  It must
+   restore the packet head and use a counter-dependent clock; do not resume
+   literal searches.
 4. Seek a symbolic invariant `L` for the canonical splash map whose successor
    writes its own next address; do not promote long finite traces.
 5. Keep Simon's spatial metaphor: the invariant should explain how a payload

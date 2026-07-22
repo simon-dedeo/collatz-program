@@ -7330,3 +7330,108 @@ all 88,572 nonempty ternary words through length ten and literally replays
 claimed.  If convenient, please formalize QM1--QM4 first; they are the
 fundamental interface.  (Round 151 has since completed QM1--QM2, so QM3--QM4
 are the live part of that request.)  QM5--QM7 are lower priority inductions.
+
+## Kontorovich request: finite recharge amplifier and preserved register (2026-07-22 16:26 EDT)
+
+Round 157's proof of QM9 is received.  The constructive use of that battery
+now has a clean all-parameter schema.  Please audit the following after the
+nongrowing QM10 ledger; the first two lemmas plus LTE would certify that the
+queue hardware has unbounded finite workspace *and* preserves an unbounded
+address register.
+
+Specialize the phase-one packet to
+
+```text
+P(q)=2(01)^q.
+```
+
+Its canonical value and its queue endpoint defect should simplify to
+
+```text
+N(P(q))=(41*9^q-1)/8,
+D(queueMacro(P(q)))=3*(41*9^q+15)/32.              (QM14)
+```
+
+Here `q=1 mod 4`, so the macro has length change zero.  Given `G>=1`, put
+`K=4G+1`.  The standard power-of-nine group fact supplies a unique class
+
+```text
+q=q0 mod 2^(K+2),
+41*9^q+15=0 mod 2^(K+5),                            (QM15)
+```
+
+and reduction modulo 32 should prove `q0=1 mod 4`.  Therefore QM14's endpoint
+has `v2(D)>=K`.
+
+There is a useful generic lemma independent of this packet.  Start at any
+pure ternary word with `v2(D)>=K`.  Follow the maximal prefix of whole queue
+macros all of whose underlying shortcut steps are odd.  A head-zero macro
+uses one odd step and a head-one/two macro uses two.  Consequently the prefix
+contains `J>=K-1` odd steps and
+
+```text
+2^J*D(endpoint)=3^J*D(start).                       (QM16)
+```
+
+If `m,m'` are the two trit lengths, canonical scale gives
+
+```text
+2^(J+1)*3^(m'-m) > 3^J.                            (QM17)
+```
+
+For `K=4G+1`, if `m'-m<=G-1`, QM17 contradicts
+`2^(4G+1)*3^(G-1)<=3^(4G)`; the latter reduces to
+`2*16^G<=3*27^G`.  Thus the packet produces at least `G` new trits after a
+finite safe macro prefix.  The maximal-prefix packaging may be awkward; a
+weaker theorem accepting a supplied finite list of safe macros and then a
+separate existence/counting lemma is fine.
+
+The free lift is the key closure interface.  Let `L=2^(K+2)` and
+
+```text
+A_K(t)=3*(41*9^(q0+L*t)+15)/2^(K+5).
+```
+
+For naturals `t!=u`, the LTE calculation is
+
+```text
+v2(A_K(t)-A_K(u))=v2(t-u).                          (QM18)
+```
+
+Indeed
+`v2(9^(L*abs(t-u))-1)=v2(9-1)+v2(9+1)+v2(L*abs(t-u))-1`
+is exactly `K+5+v2(abs(t-u))`; all remaining coefficients are odd.  Hence
+`A_K` is injective, and therefore bijective, modulo every `2^h`.  Please use
+whatever existing `padicValNat`/LTE theorem avoids rebuilding this by hand.
+
+Research interpretation: QM15--QM17 give arbitrarily large finite space
+amplification, while QM18 says recharge does not erase the free nonlocal
+address.  This is not a counterexample.  The missing theorem/construction is
+a finite type rule which makes the surviving `A_K(t)` select the next QM15
+address autonomously.
+
+There is one additional spatial endpoint which should be cheap once QM16 is
+available.  Since `q>=1`,
+
+```text
+v3(41*9^q+15)=1
+```
+
+by factoring one three and reducing `41*3^(2q-1)+5` modulo three.  Therefore
+`v3(A_K(t))=2`; after `J` safe odd steps QM16 gives
+
+```text
+v3(D(endpoint))=J+2.                                (QM19)
+```
+
+Equivalently, the pure ternary endpoint word has exactly `J+2` trailing
+`tri2` symbols.  So the amplifier emits a clean right reservoir in addition
+to its preserved prefix register.  This is the most useful typed output for
+the next constructive edge into the already formalized carry/comb opcodes.
+
+The exact worker is
+`experiments/kontorovich/yah_recharge_amplifier.py`.  Its default artifact
+checks 32 symbolic addresses, all 1,024 ten-bit lifts for each of four targets,
+and queue-transducer traces for target gains one through four (largest packet
+369,187 trits), including the exact QM19 trailing-reservoir count.  The bounded
+worker is regression evidence; QM14--QM19 are the requested universal claims.

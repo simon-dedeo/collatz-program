@@ -1162,6 +1162,100 @@ glider analogies while preserving Kontorovich's deeper program analogy.
 Commit `99d3405` kernel-checks the prime-power obstruction and its fixed-phase
 coefficient wrapper.
 
+The packet recharge can nevertheless be turned into an arbitrarily large
+finite space amplifier.  Specialize CP43 to
+
+```text
+P(q)=P(0,q)=2(01)^q,       C_0=41.
+```
+
+Given a target `G>=1`, put `K=4G+1`.  Powers of nine generate
+`1+8 Z/2^(K+5) Z`, so there is a unique class
+
+```text
+q=q_0 mod 2^(K+2),
+41*9^q+15=0 mod 2^(K+5).                           (CP46)
+```
+
+Reduction modulo 32 also gives `q_0=1 mod 4`.  The packet is therefore in
+phase one, its first macro is length-neutral, and direct shortcut evaluation
+gives
+
+```text
+D(M(P(q)))=3*(41*9^q+15)/32.                       (CP47)
+```
+
+Thus CP46 writes at least `K` units of `v2(D)` into the endpoint.  Starting
+there, take the maximal prefix of *whole queue macros* all of whose shortcut
+steps are odd.  If `J` is its number of odd shortcut steps, then `J>=K-1`:
+a zero-head macro consumes one unit and a nonzero-head macro consumes two, so
+the first macro which would cross the valuation boundary can strand at most
+one unit.  At every safe macro boundary,
+
+```text
+D_J=3^J*D_0/2^J.                                   (CP48)
+```
+
+Both endpoints are canonical pure-ternary words.  If their length difference
+is `delta`, their canonical scale intervals and CP48 imply
+
+```text
+2^(J+1)*3^delta > 3^J.
+```
+
+Were `delta<=G-1`, using `J>=4G` would contradict
+
+```text
+2^(4G+1)*3^(G-1) <= 3^(4G),
+```
+
+which is just `2*16^G<=3*27^G`.  Therefore `delta>=G`.  This proves a
+research-side all-`G` finite amplification schema: closure does not fail for
+lack of workspace, but only because the next recharge call has not yet been
+generated internally.
+
+Crucially, the address survives that call.  Put `L=2^(K+2)` and normalize the
+forced charge:
+
+```text
+A_K(t)=3*(41*9^(q_0+L*t)+15)/2^(K+5).              (CP49)
+```
+
+For `t!=u`, LTE gives
+
+```text
+v2(A_K(t)-A_K(u))
+ = v2(9^(L*(t-u))-1)-(K+5)
+ = v2(t-u).                                        (CP50)
+```
+
+Thus the free lift `t` is transmitted isometrically through recharge; modulo
+every `2^h`, CP49 is a permutation.  This is the first exact combination of
+an unbounded finite space amplifier and a lossless unbounded address channel
+inside the queue language.  It is not closure: a forward finite type rule
+must still decode `A_K(t)` into the next CP46 address without an external
+choice of `t`.
+
+The safe endpoint has an equally useful spatial type.  For `q>=1`,
+
+```text
+v3(41*9^q+15)=1,
+```
+
+because division by three leaves `41*3^(2q-1)+5`, which is nonzero modulo
+three.  Hence `v3(A_K(t))=2`.  After `J` safe odd steps, CP48 gives
+
+```text
+v3(D_J)=J+2.                                        (CP51)
+```
+
+The endpoint integer `N_J=D_J-1` therefore has exactly `J+2` trailing maximal
+ternary digits.  Recharge emits a clean right-hand reservoir as well as the
+arbitrary prefix register.  A plausible next type edge is no longer
+completely abstract: route that prefix/reservoir word through CP38's carry and
+comb compilers and test whether it regenerates the alternating packet whose
+block count satisfies CP46.
+
 The exact
 [yah_queue_macro.py](../../experiments/kontorovich/yah_queue_macro.py)
 artifact independently implements CP33 and literal rule replay.  It compares
@@ -1169,6 +1263,15 @@ them on every one of the 88,572 nonempty ternary words of length at most ten,
 checks CP34--CP37, and replays 16,769 bounded CP38/comb/packet identities through
 coordinate 64.  The bounded audit is not the proof of the all-length laws;
 their induction statements have been sent to the companion formalizer.
+The companion
+[`yah_recharge_amplifier.py`](../../experiments/kontorovich/yah_recharge_amplifier.py)
+artifact checks 32 CP46 addresses, exhaustive ten-bit CP50 permutations for
+four targets, and exact queue traces through a 369,187-trit packet, including
+the CP51 reservoir length.  CP46--CP51 are all-length research-side proof
+schemas.  Commit `67eabe3` kernel-checks the generic CP48 scale consequence:
+canonical endpoints with `J>=4G` and the exact all-odd defect balance gain at
+least `G` cells.  The packet/maximal-prefix wrapper, CP50, and CP51 remain
+pending kernel replay.
 
 ## 6. Closure should be an identity before it is a search hit
 
