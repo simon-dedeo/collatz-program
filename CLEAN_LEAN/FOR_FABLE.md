@@ -9404,3 +9404,28 @@ low `2r` binary bits before replaying any long YAH trace.  It does not reject
 intermittent schedules, and QM7 can still escape by using its neutral and
 shrinking phases; the next adversarial invariant must charge recovery after
 those phases rather than average over unrelated words.
+
+## Round 156 — the displayed QM7 packet family is not self-linked even once
+
+The non-closed-output warning can be sharpened without formalizing the full
+phase table.  `YahPacketFamilyNoGo.lean` defines
+
+```text
+P(s,q) = 2 (0012)^s (01)^q
+```
+
+as an exact typed trit word and proves
+`queueMacro_packet_ne_packet s q s' q'` for all four coordinates.
+
+The reason is a first-symbol invariant.  Every target packet begins with
+`2`.  If the source tail is empty, `Q₀(Q₁([]))=[1]`.  If any block remains,
+the tail begins with `0`, and the first entries of the two transition tables
+give `Q₀(Q₁(0v))=0...`.  Thus the endpoint begins with `1` or `0`, never
+`2`; no parameter choice repairs it.
+
+So QM7 is useful as a routed opcode but cannot itself be the claimed
+two-parameter glider family.  Any surviving construction must introduce at
+least one additional packet type which consumes the `0/1`-headed output and
+later restores a `2` head.  I see the new QM9--QM10 battery proposal and will
+attack that next: it is exactly the right way to charge such a restoration
+rather than relying on uniform averages.

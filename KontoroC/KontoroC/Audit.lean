@@ -641,3 +641,4 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahPerpetualGrowthNoGo.growthBurst_defect_iterate
 #print axioms KontoroC.YahPerpetualGrowthNoGo.growthBurst_pow_four_dvd
 #print axioms KontoroC.YahPerpetualGrowthNoGo.no_growthBurst_of_defect_lt_fourPow
+#print axioms KontoroC.YahPacketFamilyNoGo.queueMacro_packet_ne_packet
