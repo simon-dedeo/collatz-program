@@ -67,6 +67,22 @@ so the disproof search should not sample typical seeds: it should synthesize a
 highly structured instruction stream, a Collatz “glider”, whose binary pattern
 reproduces while its scale grows.
 
+Simon Dedeo suggested two refinements which now govern the KC strategy.  First,
+mine ultra-simple programming languages—Brainfuck, tag systems, and FRACTRAN—
+for macro, loop, counter, and nonhalting-certificate ideas, without assuming
+that `3x+1` is universal.  Second, and more importantly, do **not** assume that
+a Collatz instruction is spatially local.  Its natural unit may be a
+congruence, a carry phase between remote packets, or a mixed-base relation
+spread across the whole digit span.  The active instruction set therefore
+includes formula configurations and dyadic--triadic bridge gates, not only
+contiguous repeated bit blocks.  See the [delocalized-ISA
+map](docs/notes/kontorovich-delocalized-isa.md).
+
+The scale reinforces this choice.  Barina's current published verification
+covers every seed below `2^71`, already about 21 decimal digits.  A putative
+10,000-digit program is not a larger interval-search target: it must be emitted
+by a short generator and proved nonhalting by a finite symbolic certificate.
+
 The thread also proposes a more concrete glider mechanism.  After a suitable
 prefix, its example becomes three widely separated `1`-bits.  Until a carry
 arrives from the right, an isolated high packet is acted on by multiplication
@@ -98,6 +114,25 @@ identically `x`.
 
 #### Live disproof programs
 
+- **Delocalized instruction synthesis.**  Represent an instruction as an
+  arithmetic relation across the entire state: a dyadic address, triadic
+  phase, carry boundary, and affine high payload.  Search for formula
+  configurations `C(n)` with a bounded exact return rule
+  `C(n) ->+ C(f(n))`, where the rule lifts to every `n` by induction.  This is
+  the Collatz analogue of a Busy Beaver bouncer and directly implements
+  Simon's nonlocality proposal.
+- **Colussi repetend-defect bouncers.**  Use the exact periodic grammar of the
+  halting classes as a structured background, then search for a finite or
+  congruential defect which reproduces from order `h` to order `h+1`.  The
+  order-10 background has 39,366 padded bits and an 11,846-decimal-digit
+  integer value, so this route reaches the proposed program scale by formula,
+  not enumeration.
+- **Mixed-base and tag-system bouncers.**  Mine the exact Yolcu--Aaronson--Heule
+  binary/ternary rewrite system and De Mol's three-symbol deletion-2 tag
+  system for formula-tape or run-length returns.  These presentations make
+  whole-word carry, moving-base-boundary, and head--tail nonlocality explicit.
+  A survivor must start at a canonical positive integer and contain infinitely
+  many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Exact cycle synthesis.**  Search valuation words and cyclic compositions
   for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
   seed whose valuations and closure can be checked directly.  Use modular
@@ -123,12 +158,18 @@ identically `x`.
   which the terminal carry collision raises, rather than consumes, the shadow
   precision.  The negative orbit is only a finite controller; the sought seed
   and every certified macro-state remain positive.
-- **Constraint-guided program synthesis.**  Compile chosen `k`-prefixes to
-  their exact least positive seeds, score not only finite growth but
-  *continuability*: low description complexity, recurrence of binary/carry
-  motifs, and small changes under prefix extension.  SAT/SMT, modular dynamic
-  programming, and evolutionary search may propose candidates, but every
-  survivor is replayed with exact integers.
+- **2-adic rationality sieve.**  For a fixed infinite extra stream, Lean commit
+  `7370489` proves that there is at most one ordinary packet realization and
+  unrolls every finite prefix as an exact backward affine series.  For
+  periodic or morphic controllers, attack that unique candidate by proving the
+  resulting lacunary 2-adic series is not a nonnegative integer.  This can
+  eliminate an infinite program family without enumerating any seeds; the
+  convergence and nonrationality theorem are still open.
+- **Constraint-guided falsification.**  SAT/SMT, modular dynamic programming,
+  evolutionary search, CPUs, and GPUs may propose or aggressively reject a
+  symbolic macro.  They no longer rank raw seeds by excursion length.  A
+  survivor advances only when its low-description recurrence is replayed with
+  exact integers and promoted to a universal algebraic certificate.
 - **Backward invariant rays.**  Build with inverse steps
   `y -> (2^k*y-1)/3` and search for a sparse, explicitly parameterized set that
   maps into itself while moving outward.  This attacks the ordinary-integer
@@ -155,6 +196,7 @@ identically `x`.
 | Constant-extra Mersenne feedback | All `51,200` compiled paths for start levels `1..20`, constant extras `1..32`, depths `1..40`, and both mod-6 classes were checked. The unique two-extension event is seed `121` for extra `1`; its fifth macro fails and exact continuation reaches `1`. | [`mersenne_constant_results.json`](experiments/kontorovich/mersenne_constant_results.json) |
 | Short-period Mersenne feedback | All `2,726,400` prefixes from 568 primitive extra templates of period at most three over `{1,...,8}`, start levels `1..30`, depths `1..80`, and both mod-6 classes were checked in compressed exact arithmetic; every hit was literally replayed. No template improves the constant-`1` two-extension event or the `(4,3,1)` outward event. | [`mersenne_periodic_results.json`](experiments/kontorovich/mersenne_periodic_results.json) |
 | Direct state-dependent packet census | CUDA exhaustively checked all `2^41=2,199,023,255,552` odd packets `h<2^42` from start level one through an eight-renewal horizon, with zero arithmetic overflows and no length-eight chain. Nested replayed artifacts retain the 14 length-seven hits below `2^39` and 243 length-six-or-more hits below `2^36`; independent RTX 4090 and H100 runs reproduce all 243 inner hit triples exactly. | [`h<2^42` artifact](experiments/kontorovich/mersenne_packet_gpu_akdeniz_h42.json), [H100 replication](experiments/kontorovich/mersenne_packet_gpu_psc.json) |
+| Unstructured range widening as the main attack | Deprioritized: published ordinary-seed verification already reaches `2^71`, while the contemplated software may have roughly 10,000 decimal digits. Bounded compute remains useful only as a falsifier or independent checker of a proposed symbolic relation. | [Delocalized-ISA scale calibration](docs/notes/kontorovich-delocalized-isa.md#1-scale-changes-the-object-we-should-search-for) |
 | Small regular invariant sets | Previously closed only in the stated exhaustive classes: no base-2 DFA divergence certificate through eight states and no base-3 certificate through five. One-counter and genuinely morphic single-orbit certificates remain open. | [Base 2](experiments/dfacert/README.md), [base 3](experiments/dfacert3/README.md) |
 
 The first work product will be an exact `k`-word compiler and cycle/glider
@@ -167,6 +209,10 @@ positive integer and its claimed behavior are machine-checked.
 
 | Result | Status |
 |---|---|
+| Program-scale calibration | Barina's published exhaustive check through `2^71` excludes every ordinary seed below that bound. Colussi's exact order-10 repetend has 39,366 padded bits and an 11,846-digit integer value, giving a literature-backed, formula-generated background at the scale Simon proposed. This is target calibration, not evidence of divergence. |
+| Delocalized instruction-set audit | Exact published encodings expose four complementary units: valuation congruences, mixed binary--ternary boundary rewrites, De Mol's three-symbol tag rules, and Colussi's rotated repetend grammar. They motivate a nonlocal bouncer search but do not prove computational universality or nontermination. |
+| Exact dyadic--triadic packet gate | Research-side exact algebra rewrites each fixed level/extra Mersenne renewal as `h=r+2^(m+e+2)q`, `h'=s+2*3^m q`, while fixing `h' mod 3^m`. The Python checker passes 8,192 family members and an exhaustive converse over all 16,316 renewals found for odd `h<2^16` at levels `1..8`. Lean formalization has been requested; no closed all-level gate controller is known. |
+| Kernel stream uniqueness and backward series | Lean commit `7370489` proves that a fixed positive valuation stream has at most one ordinary seed; a fixed Mersenne extra stream likewise has at most one positive packet realization. It also kernel-checks the exact finite backward affine-series identity for every truncation. Passing to an infinite 2-adic sum and proving nonintegrality for a controller class remain open. |
 | Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
 | Kernel cycle-disproof seam | `KontoroC.CycleArtifact.checkNontrivial=true` implies the literal negation of the ordinary Collatz conjecture. The package build and axiom audit pass; no nontrivial artifact is known. |
 | Bounded composition search | All `3,447,691` positive-denominator compositions with `S<=22` were checked exactly. The only closure hits encode the trivial seed `1`; no nontrivial cycle was found within the bound. |
@@ -221,6 +267,28 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-21 21:28 EDT
+
+At Simon's direction, pivoted from widening packet ranges to reverse-
+engineering a possibly nonlocal programming language.  The new
+[instruction-set map](docs/notes/kontorovich-delocalized-isa.md) audits the
+mixed-base rewrite, three-symbol tag, Colussi repetend, and Busy Beaver
+bouncer presentations; it explicitly credits Simon's PL and whole-digit-span
+hypotheses.  The first exact decoder is a dyadic--triadic packet gate: a fixed
+low address transforms an arbitrary high payload affinely and schedules the
+next packet modulo `3^m`.  Its dependency-free checker passes 8,192 direct
+family cases and an exhaustive small converse audit.  No new GPU range sweep
+was launched; the drafted level-array launch was discarded.  PSC job
+`42499002` then timed out at two hours with only 7 of 64 length-eight
+nonuniform-morphism shards complete, so it proves nothing and will not be
+relaunched in the same form.  The 24 Ganesha length-seven workers remain
+healthy in the background.  In parallel, Lean commit `7370489` proved
+uniqueness of the ordinary realization of a fixed symbolic stream and the
+exact finite backward series for Mersenne controllers, opening a non-search
+2-adic nonintegrality sieve.  Next: mine formula defects on Colussi's order-`h`
+background in the mixed-base rewrite system and test whether a precise p-adic
+gap/automaticity theorem can eliminate periodic controllers wholesale.
 
 ### 2026-07-21 21:05 EDT
 
@@ -352,6 +420,7 @@ entry points, grouped by role:
 | Guide | Scope |
 |---|---|
 | [`experiments/kontorovich/README.md`](experiments/kontorovich/README.md) | Exact finite `k`-word compiler, replayable cycle artifacts, and bounded morphic-glider searches. |
+| [`docs/notes/kontorovich-delocalized-isa.md`](docs/notes/kontorovich-delocalized-isa.md) | Simon's nonlocal-instruction hypothesis, exact packet gates, ultra-small-language encodings, and the formula-bouncer attack. |
 | [`KontoroC/README.md`](KontoroC/README.md) | Independent Lean checker connecting a nontrivial accelerated cycle artifact to the ordinary Collatz conjecture. |
 | [`CLEAN_LEAN/README.md`](CLEAN_LEAN/README.md) | Main Lean 4 formalization, build instructions, theorem inventory, and trust boundary. |
 | [`formal/README.md`](formal/README.md) | Small original Lean scaffold: definitions, descent reduction, and a bounded `native_decide` check. |
@@ -733,6 +802,23 @@ existing lines of work; the closest ancestors, and what each contributes:
   Collatz-type maps can encode computation.  This motivates looking for
   structured programs while not transferring universality to the specific
   `3x+1` map.
+- **Simon Dedeo** — suggested importing macro ideas from ultra-simple
+  programming languages, targeting a possible 10,000-digit program, and—most
+  importantly—not assuming spatial locality: a Collatz instruction may be a
+  relation spread across the entire digit span.  That proposal is the basis
+  of the active dyadic--triadic and mixed-base bouncer search.
+- **L. Colussi, “The convergence classes of Collatz function” (2011)** — the
+  exact rotated-repetend grammar for all finite stopping classes.  Its
+  recursively generated order-10 background supplies an 11,846-digit
+  structured test bed for a scale-changing defect.
+- **L. De Mol, “Tag systems and Collatz-like functions” (2008)** and **E.
+  Yolcu, S. Aaronson & M. J. H. Heule, “An Automated Approach to the Collatz
+  Conjecture” (2023)** — respectively the three-symbol tag and 11-rule mixed-
+  base presentations now being mined for formula bouncers.  These are exact
+  encodings, not claims that the Collatz map itself is universal.
+- **D. Barina, “Improved verification limit for the convergence of the
+  Collatz conjecture” (2025)** — the `2^71` exhaustive frontier used to
+  calibrate why another ordinary seed sweep is not the active attack.
 
 **The direct spine of the counting result.**
 - **I. Krasikov & J. C. Lagarias, "Bounds for the 3x+1 problem using

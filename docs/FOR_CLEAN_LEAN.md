@@ -3238,3 +3238,43 @@ states 30603607965 -> 11476352987 -> 12910897111 -> 5446784719
 The eighth renewal fails, and exact continuation reaches `1`.  This need not
 be added to Lean unless it is useful as a recurrence/scheduler regression;
 the existing all-level endpoint already has the right shape.
+
+## Kontorovich request: dyadic--triadic packet gate (2026-07-21 21:28 EDT)
+
+Simon's warning that a Collatz instruction may span the whole integer led to
+a forward decoder for the existing packet recurrence.  Fix positive `m,e`
+and put
+
+```text
+M = 2^(m+e+2),
+r = least residue modulo M satisfying
+    3^m r = 1 - 2^e + 2^(m+e+1)  (mod M),
+s = (3^m r + 2^e - 1)/2^(m+e+1).
+```
+
+Because `3^m` is odd, `r` exists uniquely modulo `M`; the extra congruence bit
+should make both `r` and `s` positive odd.  The useful theorem is the affine
+gate equivalence for positive odd packets:
+
+```text
+2^e (2^(m+1) h' - 1) = 3^m h - 1
+  <-> exists q : Nat,
+        h  = r + 2^(m+e+2) q /\
+        h' = s + 2*3^m q.
+```
+
+The forward direction also proves the literal valuation of `3^m h-1` is
+exactly `e`, since `2^(m+1)h'-1` is odd.  The same gate has the triadic
+scheduler already present in the module:
+
+```text
+2^(m+e+1) h' = 2^e-1  (mod 3^m).
+```
+
+Please choose whatever modular-inverse or parameterized-residue formulation
+is least painful in Lean; an equivalent theorem assuming the defining range,
+congruence, and quotient equation for `r,s` would still be valuable.  The
+research-side checker is `experiments/kontorovich/packet_gate.py`; its finite
+tests pass, but the universal algebra is the requested seam.  This theorem
+would certify one delocalized instruction family, not a closed controller and
+not a counterexample.

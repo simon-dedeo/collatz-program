@@ -14,6 +14,29 @@
   Source of the hardware/software challenge and the proposal to time widely
   separated binary packets via the order of `3` modulo `2^m`; it states a
   research direction, not a counterexample.
+- David Barina, *Improved verification limit for the convergence of the
+  Collatz conjecture*, Journal of Supercomputing 81 (2025), article 810,
+  https://doi.org/10.1007/s11227-025-07337-0.  Source for the exhaustive
+  verification frontier `n<2^71`; mirrored locally as
+  `barina-2025-improved-verification-limit.pdf`.
+- Livio Colussi, *The convergence classes of Collatz function*, Theoretical
+  Computer Science 412 (2011), 5409--5419,
+  https://doi.org/10.1016/j.tcs.2011.05.056; [author's repository
+  copy](https://www.research.unipd.it/retrieve/e14fb267-5e97-3de1-e053-1705fe0ac030/TCS8412.pdf).
+  Source for the exact rotated-repetend grammar of every finite convergence
+  class and its order-`h` binary seeds of length `2*3^(h-1)`.
+- Liesbeth De Mol, *Tag systems and Collatz-like functions*, Theoretical
+  Computer Science 390 (2008), 92--101,
+  https://biblio.ugent.be/publication/436211.  Source for the deletion-2,
+  three-symbol tag encoding `0->12`, `1->0`, `2->000`; the small encoding is
+  not by itself a universality result.
+- Emre Yolcu, Scott Aaronson, and Marijn J. H. Heule, *An Automated Approach
+  to the Collatz Conjecture*, Journal of Automated Reasoning 67 (2023),
+  article 15, https://doi.org/10.1007/s10817-022-09658-8,
+  https://arxiv.org/abs/2105.14697.  Source for the exact 11-rule mixed
+  binary--ternary rewriting system, its equivalence with Collatz termination,
+  and the residue-coverage obligations used as bouncer kill tests; mirrored
+  locally under the `yolcu-aaronson-heule-*` filenames.
 - John H. Conway, *Unpredictable Iterations* (1972), mirrored locally as
   `conway-1972-unpredictable-iterations.pdf`.  Source for computational
   universality in generalized Collatz maps; no universality claim for the

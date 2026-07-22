@@ -127,9 +127,15 @@ python3 merge_nonuniform.py --expect-shards 32 \
   --output nonuniform_results.json shard-*.json
 ```
 
-`psc_nonuniform.sbatch` is the current Bridges-2 64-way launch prescription.
-Its bounds are part of every shard artifact; changing the launch file creates
-a different finite search and must not be silently merged with an earlier run.
+`psc_nonuniform.sbatch` is the Bridges-2 64-way launch prescription.  Its
+bounds are part of every shard artifact; changing the launch file creates a
+different finite search and must not be silently merged with an earlier run.
+The first length-eight job, `42499002`, timed out after two hours with only 7
+of 64 shards complete.  `merge_nonuniform.py` therefore correctly has no
+complete input set, and the run supports no exhaustive mathematical claim.
+It is not being relaunched unchanged after the strategy pivot to symbolic
+bouncers.  A separate 24-way Ganesha length-seven run remains in progress as
+background bounded evidence.
 
 ## One-counter shadows of negative cycles
 
@@ -330,6 +336,39 @@ From positive odd packets and uniformly bounded extras satisfying this
 recurrence, Lean derives the macro legality, eventual packet growth, and the
 literal Collatz refutation.  It also proves the unique necessary residue class
 for `h_(t+1)` modulo `3^(M+t)`.  That scheduler is the next search filter.
+
+## Symbolic dyadic--triadic packet gates
+
+`packet_gate.py` decodes one recurrence step as a whole-payload instruction
+rather than enumerating packets.  For fixed positive level `m` and collision
+extra `e`, it computes exact odd constants `r,s` such that all renewals in
+that branch, and only those renewals, have
+
+```text
+h  = r + 2^(m+e+2) q
+h' = s + 2*3^m q,              q>=0.
+```
+
+The low `m+e+2` bits of `h` are therefore an instruction address, while the
+arbitrarily large high quotient `q` is its payload.  The same gate computes
+the required residue of `h'` modulo `3^m`, making the instruction a bridge
+between dyadic and triadic phases.  This implements the deliberately nonlocal
+ISA described in the [research
+note](../../docs/notes/kontorovich-delocalized-isa.md).
+
+```bash
+python3 packet_gate.py selftest
+python3 packet_gate.py describe 7 4
+python3 packet_gate.py audit --max-level 8 --max-extra 8 \
+  --payloads 128 --converse-limit 65536
+```
+
+The self-test checks 8,192 gate/payload pairs and then exhaustively recovers
+all 16,316 literal renewal events for odd packets below `2^16` at levels
+`1..8`.  These finite loops are implementation tests of the displayed exact
+algebra, not a search frontier.  The next task is to close a family of these
+affine gates on a symbolic payload relation; no such all-level controller is
+known.
 
 ## Direct GPU packet census
 
