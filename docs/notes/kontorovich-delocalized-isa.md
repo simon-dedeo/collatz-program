@@ -1111,6 +1111,89 @@ finite payload itself—for example by a Mersenne/carry relation on `q_i`, a
 branching finite-state transducer whose data register is unbounded, or a
 second nested ether level.
 
+### 5.16 The glider ISA collapses to one autonomous register
+
+The macro bases in (39) look enormous because they encode two affine changes
+of coordinates and a finite ether traversal.  They disappear in the register
+
+```text
+Y=83790531K-874281.                                  (40)
+```
+
+For an executable length-`n` macro,
+
+```text
+Y=2^(8n-5)h,       h odd,                            (41)
+```
+
+and the exposed-boundary congruence is simply
+
+```text
+3^(6n+11)h+51 = 0  (mod 2^20).                       (42)
+```
+
+The next register is
+
+```text
+Y'=(3^(6n+11)h+51)/2^20.                             (43)
+```
+
+The small constant is not fitted numerically.  The defect calculation has
+
+```text
+2^20*(-874281)-3^11*(-5175081)=51,                   (44)
+```
+
+which converts the boundary quotient directly into (43).
+
+In Simon's spatial language this is a rigorous "splash the gap" rule: the
+collision leaves the finite debris `51`, and the pre-positioned, nonlocal
+bits selected by (42) absorb that debris into twenty zero bits, exposing the
+next clean interface.  The central problem is now whether that regenerated
+interface can contain the instructions for its own next regeneration.
+
+Moreover
+
+```text
+Y=-874281  (mod 83790531),                            (45)
+```
+
+is preserved.  The modulus is `83790531=473*3^11`; its factors encode the
+ether fixed point and the defect's ternary stride.
+
+For fixed `n`, (45) selects `h` modulo `83790531` because powers of two are
+invertible there, while (42) selects `h` modulo `2^20` because powers of three
+are invertible there.  CRT therefore gives one odd class
+
+```text
+h=h_n + 83790531*2^20*q.                              (46)
+```
+
+Substituting (46) into (41)--(43) yields exactly (39), including both bases
+and strides.  The input cylinders are disjoint because their exact valuations
+`8n-5` differ.  Their total dyadic mass is
+
+```text
+sum_(n>=1) 2^-(8n+15)=1/(255*2^15).                  (47)
+```
+
+This is a direct quantitative version of Kontorovich's sparse-software
+warning: the returning instruction language occupies about one part in 8.36
+million of its packet address space even before asking for a second macro.
+
+`breakoff_ether_counter.py` implements (40)--(43) as a public executable
+partial map.  Its artifact checks `n=1..128`, four tails per CRT branch, and
+proves by exact coefficient comparison that every branch equals the compiled
+returning macro.  Literal macro replay is repeated through `n=32`.
+
+An infinite successful orbit of (43), subject to (41)--(42) and (45), would
+compile through (39) to an infinite outward Collatz glider.  No orbit is
+supplied.  The new synthesis target is nevertheless much smaller than the
+original map: a one-register valuation machine with exponent class
+`3 mod 8`, fixed division exponent `20`, constant `51`, and a preserved odd
+congruence.  Search should now emphasize symbolic invariant families for
+(43), not raw Collatz stopping times.
+
 ## 6. Ranked attack and kill tests
 
 1. Implement the mixed-base rules and mine structured, formula-generated
@@ -1133,7 +1216,9 @@ second nested ether level.
    promotes its internal `2^(L+D)` factor to the next delay and reconstructs
    (26).  The returning macros (35)--(39) now solve finite ether, boundary
    exposure, and defect return.  Prioritize an autonomous nonzero-tail
-   recurrence in this macro ISA over enlarging either replay bound.  Compare
+   recurrence in this macro ISA over enlarging either replay bound.  Use the
+   autonomous register (40)--(45) as the primary search and proof interface.
+   Compare
    survivors
    with the run-length-accelerated three-symbol tag system and translate them
    back to a canonical positive integer before treating them as Collatz

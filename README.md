@@ -175,6 +175,9 @@ identically `x`.
   is `K=R_n+2^(8n+15)q -> K'=S_n+3^(6n+11)q`.  The next target is one ordinary
   payload whose changing `q` generates an infinite aperiodic sequence of
   lengths, not another externally prescribed list of finite ethers.
+  In the affine register `Y=83790531K-874281`, the whole ISA is the autonomous
+  partial map `Y=2^(8n-5)h -> (3^(6n+11)h+51)/2^20`.  This small map, not the
+  original huge defect constants, is now the primary synthesis target.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -369,6 +372,7 @@ positive integer and its claimed behavior are machine-checked.
 | Nonlocal sacrificial gap amplifier | In the five-trit writer choose `b=3^5-2^L` and residual `v=K*2^L-1`.  Exact arithmetic gives `b+3^5v=2^L(3^5K-1)`: trailing one-bits collide with the selected word to become zero-bits, while the remote congruence `3^5K=1+2^D (mod 2^(D+1))` supplies exactly `D` more.  All seven words `L=1..7` exist in the certified alphabet; the artifact replays 224 linked members for `D=1..32` through 448 literal gate macros.  This produces an internal tail gap, not yet a returning infinite controller. |
 | Regenerative finite ether defect | The gate `E=(1,2,1)` self-links by `t=20+2^8v -> 57+3^6v` and satisfies `2^8(473t'+12)=3^6(473t+12)`, so exact divisibility of `473t+12` by `2^(8n)` is an `n`-cell spatial delay.  The defect `H=(1,136,1)` gives an exact `E -> H -> E` return whose Mersenne residual has `473t+12=2^8(r+AK)` with fixed odd `r,A`; one odd class of the remote packet therefore writes any prescribed finite ether depth.  The artifact constructs `n=2..32`, replaying 589 linked members and 1,178 literal gate macros.  It does not return the exposed boundary to another defect. |
 | Returning finite ether glider ISA | Exact parity shows an exhausted ether boundary is odd and therefore cannot re-enter the `j=136` defect; among immediate `E -> H_j -> E` defects, `j=1` is the parity-compatible receiver.  Its small identities give defect input `X(K)=2^20K-10941`, return factor `473t+12=2^5(83790531K-874281)`, and for every `n>=1` a complete outward macro `K=R_n+2^(8n+15)q -> K'=S_n+3^(6n+11)q` which writes `n` ether cells and returns to the same defect family.  The artifact replays 64 macro members through 1,184 links and 2,368 gate macros.  No infinite linked macro orbit is supplied. |
+| Autonomous ether-counter normal form | Put `Y=83790531K-874281`.  The length-`n` returning glider branch is exactly `Y=2^(8n-5)h -> Y'=(3^(6n+11)h+51)/2^20`, with `h` in one CRT class modulo `83790531*2^20`; the enormous defect constants cancel to `51`.  Every branch is strictly outward, and its packet coefficients agree identically with the compiled glider macro.  The artifact checks `n=1..128`, four tails each, and repeats the executable macro replays through `n=32`.  An infinite successful autonomous orbit would be a counterexample, but none is supplied. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
 | Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
@@ -425,6 +429,55 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 02:24 EDT
+
+The returning glider ISA has an unexpectedly small autonomous normal form.
+Define
+
+```text
+Y=83790531*K-874281.
+```
+
+For a length-`n` macro, write `Y=2^(8n-5)h` with `h` odd.  Boundary return is
+one congruence `3^(6n+11)h+51=0 (mod 2^20)`, and the transformed register is
+
+```text
+Y'=(3^(6n+11)h+51)/2^20.                            (**)
+```
+
+The constant `51` is exact: the large defect terms cancel through
+`2^20*(-874281)-3^11*(-5175081)=51`.  The persistent packet invariant is
+`Y=-874281 (mod 83790531)`.  For each `n`, that odd-modulus condition and the
+binary boundary condition have one CRT solution for `h` modulo
+`83790531*2^20`.  Translating the resulting affine branch back to `K` gives
+*exactly*, coefficient for coefficient, the returning macro `R_n,S_n` from
+the previous diary entry.
+
+This is the precise version of Simon's "splash the gap" picture: the collision
+debris is the residual `+51`, while the nonlocal CRT-selected bits absorb it
+and regenerate the next clean packet boundary.
+
+The new [ether-counter artifact](experiments/kontorovich/breakoff_ether_counter_audit.json)
+checks all 128 branches `n=1..128` at four tails each and verifies the public
+partial map, invariant, strict growth, and equality with the compiled glider
+macro.  It also repeats the literal executable checks through `n=32`: 64
+macro members, 1,184 links, and 2,368 gate macros.  The disjoint input
+cylinders have total dyadic mass
+
+```text
+sum_(n>=1) 2^-(8n+15) = 1/(255*2^15),
+```
+
+so this software language is extraordinarily sparse, as Kontorovich's
+argument predicts.
+
+No infinite orbit of `(**)` is known.  The advantage is conceptual and
+practical: the counterexample search has been reduced from 10,000-digit
+Collatz seeds to one exact public register with a valuation-selected exponent,
+a fixed division by `2^20`, and constant `51`.  The next attack is a
+self-generated aperiodic valuation orbit of this map, including nested-ether
+and Mersenne/carry ansätze; raw seed simulation remains secondary.
 
 ### 2026-07-22 02:14 EDT
 

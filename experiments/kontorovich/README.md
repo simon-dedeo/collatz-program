@@ -1040,6 +1040,57 @@ artifact SHA-256  2e498bfd6f0dec384ebfc9255233c5a5769980d98ffba7f5c9e4ab397e61c7
 verifier SHA-256  2867d3a79d19c002a588927e1564c1850a50a03a107fbe4497b7773017585b75
 ```
 
+## Autonomous ether-counter normal form
+
+`breakoff_ether_counter.py` removes all hidden gate metadata from the returning
+glider.  Put
+
+```text
+Y=83790531*K-874281.
+```
+
+For a positive invariant register, compute `e=v2(Y)` and `h=Y/2^e`.  The
+public partial map accepts exactly when
+
+```text
+e=8n-5,  n>=1,
+3^(6n+11)*h+51 = 0  (mod 2^20),
+```
+
+and returns
+
+```text
+Y'=(3^(6n+11)*h+51)/2^20.
+```
+
+The register remains `-874281 (mod 83790531)` and grows strictly.  For each
+`n`, the odd invariant fixes `h` modulo `83790531`, the binary execution test
+fixes it modulo `2^20`, and CRT gives one complete class modulo
+`83790531*2^20`.  Its affine input/output packet coefficients are identically
+
+```text
+K=R_n+2^(8n+15)*q -> K'=S_n+3^(6n+11)*q,
+```
+
+the returning glider macro from `breakoff_ether_glider.py`.
+
+```bash
+python3 breakoff_ether_counter.py selftest
+python3 breakoff_ether_counter.py build breakoff_ether_counter_audit.json
+python3 breakoff_ether_counter.py verify breakoff_ether_counter_audit.json
+```
+
+The artifact constructs `n=1..128`, checks four affine members of every
+branch, and independently compares both coefficients with all 128 glider
+macros.  It also literally replays two macro members for `n=1..32`, totaling
+1,184 linked members and 2,368 gate macros.  This verifies the autonomous
+coordinate and its bounded executable seam, not an infinite orbit.
+
+```text
+artifact SHA-256  1bd14809686ed19e599f95d624c81732daa984a681e28b82fdda868abfedfff0
+verifier SHA-256  ac560b6b088d62c685fa7382af7cc5e75a8f0039d9ea55558a00a237214f9dfe
+```
+
 ## Returning finite ether glider macros
 
 `breakoff_ether_glider.py` closes the finite boundary return left open by the

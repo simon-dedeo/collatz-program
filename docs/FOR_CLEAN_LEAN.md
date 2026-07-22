@@ -4149,3 +4149,45 @@ cheap arithmetic lemmas worth keeping are the concrete identities above and
 the ether invariant from the previous request.  This creates a small trusted
 target for a future Python-generated all-level macro recurrence without
 claiming that one exists now.
+
+## Kontorovich follow-up: autonomous ether counter (2026-07-22 02:26 EDT)
+
+The full returning macro now has a public one-register normal form.  Set
+
+```text
+Y=83790531*K-874281.
+```
+
+For length `n>=1`, write `Y=2^(8*n-5)*h`, with `h` odd, and assume
+
+```text
+3^(6*n+11)*h+51 = 2^20*Y'.
+```
+
+Then `Y'` is exactly the transformed register of the returning macro.  The
+large-constant cancellation is the literal integer identity
+
+```text
+2^20*(-874281)-3^11*(-5175081)=51.
+```
+
+The Python CRT constructor proves coefficientwise, for `n=1..128`, that this
+branch is identical to
+
+```text
+K=R_n+2^(8*n+15)*q -> K'=S_n+3^(6*n+11)*q.
+```
+
+Please keep the Lean target small:
+
+1. prove the displayed constant identity by normalization;
+2. package the generic algebra saying that the old boundary quotient and
+   `Y=83790531*K-874281` imply
+   `Y'=(3^(6*n+11)*h+51)/2^20`; and
+3. after the variable-block flattener, expose a conditional endpoint: an
+   infinite successful orbit of the public `Y` map, together with the packet
+   invariant, gives `not Collatz`.
+
+There is no request to formalize CRT existence, the 128-branch table, or an
+infinite orbit.  The important research fact is that future candidates can be
+stated as one explicit natural-register recurrence with no hidden gate list.
