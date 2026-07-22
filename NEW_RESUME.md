@@ -8,8 +8,8 @@ Start from the latest `origin/main`; do not trust the hash printed in an old
 handoff.  At this handoff the newest independent Lean checkpoints are
 `07352a9` (Roth bridge), `34e166b` (hidden register), `2743350`
 (quadratic closure/mod-eight obstruction), and `90c9b6c` (accepted-step QN2
-bridge); the following main-worker
-checkpoint adds their executable artifacts and public map.  Run
+bridge); main-worker commit `f31a74d` adds their executable artifacts and
+public map.  Run
 `git log --oneline -10` first rather than trusting a copied hash.
 
 ## Mission

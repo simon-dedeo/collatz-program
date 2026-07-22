@@ -107,7 +107,7 @@ workers at roughly fifteen hours of CPU apiece; shards 4 and 12 are the only
 completed files.  (An initial process-count command looked for the wrong
 filename; direct inspection confirmed the workers.)  PSC remains idle because
 this arithmetic is not GPU-shaped.  No counterexample or infinite orbit is
-known.
+known.  This diary/artifact checkpoint was pushed as commit `f31a74d`.
 
 ### 2026-07-22 10:20 EDT
 
