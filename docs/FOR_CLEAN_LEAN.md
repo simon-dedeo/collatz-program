@@ -5548,3 +5548,164 @@ separate theorems:
 Keep the final Roth finiteness implication explicitly external unless Mathlib
 already has an appropriate theorem.  The exact executable companion is
 `experiments/kontorovich/unit_charge_state_power_quine.py`.
+
+## Kontorovich request: hidden-`F` register is a writable nonlinear ISA (2026-07-22 10:39 EDT)
+
+The cofactor register from round 98 does **not** automatically lift to a
+second factor of `F`.  Instead it carries a genuine nonlocal instruction.
+This is constructive information, so please keep it separate from the Roth
+no-go.
+
+For arbitrary recharge `h=23*ell`, put
+
+```text
+z=B^ell*t,                    s'=A^ell*t,
+s+1 = D^m F w,                z+1 = C^m F v,
+s'+1 = D^m' F w'.
+```
+
+The public-state equation gives
+
+```text
+w Q(s)=v Q(z),                Q(x)=(x^23+1)/(x+1).       (HF1)
+```
+
+The exact expansion at the register root is
+
+```text
+Q(-1+u)=23-253u+1771u^2-... .                            (HF2)
+```
+
+Since `gcd(23,F)=1`, HF1 has one collision lift `v` modulo each
+`F^n` for every input `w`.  The first nonlinear carry is
+
+```text
+v = w + 11 F (C^m-D^m) w^2                  (mod F^2).  (HF3)
+```
+
+The output relation is exact.  With
+
+```text
+S_ell=(A^ell-B^ell)/(A-B),
+```
+
+one has
+
+```text
+D^m' w' = C^m v + 5 S_ell t.                           (HF4)
+```
+
+Because `A=B (mod F)` and `B^ell*t=z=-1 (mod F)`, this reduces to the
+first-digit instruction
+
+```text
+B D^m' w' = B C^m w - 5 ell                  (mod F).  (HF5)
+```
+
+All of `5,B,C,D` are units modulo `F`.  Consequently, for every input
+residue `r`, desired output residue `r'`, and positive defect opcodes `m,m'`,
+there is a unique recharge class
+
+```text
+ell = B*5^(-1)*(C^m r-D^m' r')                (mod F)   (HF6)
+```
+
+which writes `r'`.  The least positive representatives in the audit have up
+to 54 decimal digits.  This is precisely Simon's anticipated nonlocal
+instruction: a recharge length spread across the whole number addresses an
+arbitrary next value of a 179-bit hidden register.
+
+At the next precision the instruction is already nonlinear.  If `r=w mod F`,
+then modulo `F^2` the exact audit checks
+
+```text
+D^m' w' = C^m w - 5 ell B^(-1)
+  + F*(11 C^m(C^m-D^m)r^2
+       +5 ell B^(-1) C^m r
+       -25 binom(ell,2) B^(-2)).                         (HF7)
+```
+
+The executable
+`experiments/kontorovich/unit_charge_hidden_register.py` reconstructs the
+cofactor Taylor polynomial, Hensel-lifts HF1 uniquely through `F^3`, checks
+HF3 and HF7, and synthesizes exact first-digit writes to five unrelated
+targets.  It also uses CRT to construct visible-register roots with arbitrary
+nonzero `w mod F`, exact `v2(s+1)=23m`, and `F^2` not dividing `s+1`.
+Therefore the *visible register side conditions alone* do not force a second
+`F`; no transition is claimed by those CRT rows.
+
+Please kernel-check the inexpensive universal spine, preferably without
+formalizing the executable digit-lifter yet:
+
+1. `F^2 | Q(-1+F*d*w)-(23-253*F*d*w)`;
+2. HF1 plus `v=w+F*delta` implies
+   `F | delta-11*(C^m-D^m)*w^2`;
+3. the geometric identity defining `S_ell` and HF4;
+4. for `ell>0`, `F | S_ell-ell*B^(ell-1)`;
+5. HF5, stated without inverses as the divisibility
+   `F | B*D^m'*w'-(B*C^m*w-5*ell)`;
+6. if cheap, the modular existence/uniqueness corollary HF6 from the already
+   checked coprimalities.
+
+Scope warning: HF5/HF6 are a **necessary F-adic register transducer**.  They
+do not prove that the selected `ell` is the actual exact 2-adic collision
+valuation, that its lift is an ordinary positive integer, or that the
+transducer has an infinite Collatz realization.  The constructive next task
+is to couple this writable register to the valuation decoder, not to promote
+an F-adic program as a counterexample.
+
+## Kontorovich request: quadratic two-rail type and the mod-8 correction (2026-07-22 11:10 EDT)
+
+The degree-23 public type is too rigid.  A lower-degree homogeneous two-rail
+type reproduces automatically because both recharge coefficients are squares.
+For
+
+```text
+N_d(x,u)=x^2+d*u^2,
+A=3^114=(3^57)^2,       B=2^154=(2^77)^2,
+```
+
+one has, for every `h>0`,
+
+```text
+B^h N_d(t,v)=N_d(2^(77h)t,2^(77h)v),
+A^h N_d(t,v)=N_d(3^(57h)t,3^(57h)v).              (QN1)
+```
+
+This makes the exact reproduction equation a rank-four quadric rather than a
+degree-23 Thue equation:
+
+```text
+C^m*(N_d(x,u)+1)=D^m*(1+B^h*N_d(t,v)).             (QN2)
+```
+
+There is one useful universal failure.  Every accepted input has
+`2^23 | y+1`, hence `y=7 (mod 8)`.  Every accepted output has the same residue;
+since `A^h=1 (mod 8)`, its odd collision quotient `q` is also `7 (mod 8)`.
+But a sum of two squares is never `3 (mod 4)`.  Therefore the tempting `d=1`
+type contains no accepted transition at all.
+
+The correction is to take `d=7 (mod 8)`.  The executable uses the
+hardware-matched
+
+```text
+d_hw=13*(C-D)=5*13*19*1271069=1569770215=7 (mod 8),
+```
+
+which ramifies every non-ternary prime forced by the public register.  Exact
+CRT witnesses independently inhabit the input and output endpoint types, and
+an exact rational point shows that the homogenized QN2 at `m=h=1` is rationally
+soluble.  These facts do **not** yet provide one coupled integral transition.
+
+Please kernel-check only the cheap universal spine if useful:
+
+1. QN1 for arbitrary natural `d,h,t,v`;
+2. an accepted bouncer input satisfies `y % 8 = 7`;
+3. an accepted output `A^h*q` satisfies `q % 8 = 7`;
+4. `x^2+u^2` cannot be `7 (mod 8)`.
+
+The executable certificate is
+`experiments/kontorovich/unit_charge_quadratic_norm.py`.  Scope warning: QN1
+is a data-type closure identity, and the CRT rows inhabit its endpoints only
+separately.  Until QN2, exact valuations, positivity, and output-to-input
+iteration are coupled, there is no ordinary transition or counterexample.

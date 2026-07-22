@@ -2256,10 +2256,11 @@ For a nonzero coefficient `e`, the worker also records the exact bridge
 ```
 
 This would give exponent 11 and, by Roth's theorem, exclude an infinite run
-wholly inside the pure public-power type.  The real inequality and finiteness
-consumer are not yet kernel-checked, so this is an explicitly provisional
-strategy; it does not exclude isolated transitions or corrected/multi-rail
-encodings.
+wholly inside the pure public-power type.  Lean commit `07352a9` now
+kernel-checks the real inequality, growth, residual-class bookkeeping, and
+exponent-11 conversion.  Roth remains external, and the sequence-level
+reduced-rational/finiteness consumer is not yet checked; the route therefore
+does not exclude isolated transitions or corrected/multi-rail encodings.
 
 ```bash
 PYTHONPATH=. python3 unit_charge_state_power_quine.py selftest
@@ -2270,6 +2271,112 @@ PYTHONPATH=. python3 unit_charge_state_power_quine.py verify unit_charge_state_p
 ```text
 artifact SHA-256      8a297e55a7691a8c611ecb1daba7abc0e841b405050fbc90fe9f91c7c3e90a08
 verifier file SHA-256 aa4749e1b3a51cb04b080a9b1ed79226e5abcbbf33c77004eba273f8ae020d9d
+```
+
+## Writable hidden-`F` register
+
+`unit_charge_hidden_register.py` continues the public-power cofactor law at
+the fixed divisor `F`.  If
+
+```text
+s+1=D^m F w,       B^ell*t+1=C^m F v,
+```
+
+then the exact collision lift is unique through every `F`-adic precision and
+starts
+
+```text
+v=w+11F(C^m-D^m)w^2                    (mod F^2).
+```
+
+The output quotient `w'` has the first-digit instruction
+
+```text
+B D^m' w'=B C^m w-5ell                 (mod F).
+```
+
+Because all displayed coefficients are units modulo `F`, the recharge length
+`ell` can write an arbitrary next value of this 179-bit register.  The audit
+Hensel-lifts the collision through `F^3`, checks the nonlinear second digit,
+and synthesizes five unrelated target writes whose least positive recharge
+lengths have up to 54 decimal digits.  Separate CRT rows prove that the public
+register does not force a second factor of `F`.
+
+This is an exact necessary-state transducer, not an accepted bouncer
+transition.  The still-missing compiler obligation is to make the chosen
+`ell` equal the exact 2-adic collision valuation in a positive integer.  Lean
+commit `34e166b` independently proves the universal Taylor/carry spine,
+geometric output law, first-digit divisibility, and unique recharge class
+modulo `F`.
+
+```bash
+PYTHONPATH=. python3 unit_charge_hidden_register.py selftest
+PYTHONPATH=. python3 unit_charge_hidden_register.py build unit_charge_hidden_register_audit.json
+PYTHONPATH=. python3 unit_charge_hidden_register.py verify unit_charge_hidden_register_audit.json
+```
+
+```text
+artifact SHA-256      e04f1c829e28fe4621507755cc7f0b6dfbf59f920f02baf961e87f042ddc7f08
+verifier file SHA-256 58c35526dfdba88268f1821b9a439db54bb2f3242ba3674e1603e35c8494ba19
+```
+
+## Hardware-matched quadratic norm type
+
+`unit_charge_quadratic_norm.py` replaces the rigid one-coordinate power by a
+literal two-rail type
+
+```text
+N_d(x,u)=x^2+d*u^2.
+```
+
+It reproduces for every recharge, because
+
+```text
+B^h N_d(t,v)=N_d(2^(77h)t,2^(77h)v),
+A^h N_d(t,v)=N_d(3^(57h)t,3^(57h)v).
+```
+
+The obvious `d=1` choice is universally impossible: every accepted public
+state and collision quotient is `7 (mod 8)`, while a sum of two squares is
+never `3 (mod 4)`.  The corrected audit uses
+
+```text
+d_hw=13*(C-D)=5*13*19*1271069=7 (mod 8).
+```
+
+This discriminant ramifies every non-ternary prime forced by the public
+register.  Exact CRT witnesses show, separately, that `N_d` contains legal
+inputs with `m=1,2,5` and collision quotients whose scaled outputs have next
+opcodes `m'=1,3,5`.  A PARI-discovered vector is replayed by integer arithmetic
+as a nonzero-last-coordinate rational point on the `m=h=1` homogenized
+collision quadric.  Thus the endpoint syntax and rational core have no
+obstruction in this type.
+
+The endpoints have not been coupled.  The remaining equation is the integral
+rank-four quadric
+
+```text
+C^m*(x^2+d*u^2+1)=D^m*(1+B^h*(t^2+d*v^2)),
+```
+
+together with the public-register congruences.  Solving that equation in a
+way which maps one coordinate pair to the next forever is the live closure
+problem; no transition or orbit is claimed here.  Lean commit `2743350`
+independently proves the universal recharge identities and the complete
+accepted-semantics mod-8 obstruction for `d=1`.  Commit `90c9b6c` proves that
+an already accepted typed step satisfies the displayed quadric and regenerates
+the displayed output coordinates; the converse compiler obligation remains
+open.
+
+```bash
+PYTHONPATH=. python3 unit_charge_quadratic_norm.py selftest
+PYTHONPATH=. python3 unit_charge_quadratic_norm.py build unit_charge_quadratic_norm_audit.json
+PYTHONPATH=. python3 unit_charge_quadratic_norm.py verify unit_charge_quadratic_norm_audit.json
+```
+
+```text
+artifact SHA-256      bb04d5fb5d05ce6c5e22765d00029430e626aabaf7c5970b12867ebca465c9b5
+verifier file SHA-256 8dddae25c33895e948bff98b94361e32fb0586abf1263797a98184b4c0340e57
 ```
 
 ## Three low-description aperiodic bouncer clocks

@@ -1,13 +1,16 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Paused: 2026-07-22, about 10:25 EDT
+Paused: 2026-07-22, about 11:25 EDT
 
 Repository: `/Users/simon/Desktop/COLLATZ`
 
 Start from the latest `origin/main`; do not trust the hash printed in an old
-handoff.  At this handoff the newest independent Lean checkpoint is
-`9f00894` (`Expose the public-state cofactor register`), followed by the main
-worker's README/artifact checkpoint.  Run `git log --oneline -10` first.
+handoff.  At this handoff the newest independent Lean checkpoints are
+`07352a9` (Roth bridge), `34e166b` (hidden register), `2743350`
+(quadratic closure/mod-eight obstruction), and `90c9b6c` (accepted-step QN2
+bridge); the following main-worker
+checkpoint adds their executable artifacts and public map.  Run
+`git log --oneline -10` first rather than trusting a copied hash.
 
 ## Mission
 
@@ -51,7 +54,8 @@ Kontorovich pivot; the living README and this file take precedence.
   ```
 
 - Never edit or stage `CLEAN_LEAN/*`.  The independent formalizer also owns
-  its current `KontoroC/*` work.  Send requests only through
+  its current `KontoroC/*` work, including the untracked
+  `KontoroC/KontoroC/ChargeStatePowerRoth.lean`.  Send requests only through
   `docs/FOR_CLEAN_LEAN.md`; read replies in `CLEAN_LEAN/FOR_FABLE.md`.
 - This is a shared dirty worktree.  Inspect `git status` before every stage.
   In particular, do **not** stage
@@ -148,9 +152,9 @@ w Q(s)=v Q(B^ell*t).
 
 Lean proves `gcd(x+1,Q(x))` has no prime divisor except 23.  After cancelling
 the forced fixed-register factor `F` from both valuation quotients, their
-residual quotients agree modulo `F`.  This is a new hidden, nonlocal register;
-determine whether it forces a second factor of `F`, stops after one lift, or
-can carry the correction packet.
+residual quotients agree modulo `F`.  The new exact audit below shows that the
+lift stops being equality after the first digit and becomes a writable,
+nonlinear instruction register.
 
 Exact companion:
 
@@ -167,7 +171,108 @@ At handoff the verifier SHA-256 is
 the artifact SHA-256 is
 `8a297e55a7691a8c611ecb1daba7abc0e841b405050fbc90fe9f91c7c3e90a08`.
 
-### 4. The Roth route is strong but not yet promoted
+### 4. The hidden `F`-register is writable, not a second obstruction
+
+With exact quotients
+
+```text
+s+1=D^m F w,                  B^ell*t+1=C^m F v,
+s'+1=D^m' F w',              s'=A^ell*t,
+```
+
+Taylor expansion of `Q(-1+u)` and exact Hensel lifting give
+
+```text
+v=w+11F(C^m-D^m)w^2                         (mod F^2),
+B D^m' w'=B C^m w-5ell                      (mod F).
+```
+
+All coefficients are units modulo `F`.  Therefore, for every input digit,
+desired output digit, and positive `m,m'`, one recharge class `ell (mod F)`
+writes that target.  The least positive representative can have 54 decimal
+digits.  The second output digit is an explicit nonlinear quadratic in the
+input digit and `ell`.
+
+`unit_charge_hidden_register.py` reconstructs the cofactor Taylor polynomial,
+lifts collision balance uniquely through `F^3`, checks the first and second
+closed formulas, synthesizes five unrelated writes, and uses CRT to prove that
+the visible register alone does not force `F^2`.  This is exact but only a
+necessary `F`-adic transducer.  The selected `ell` has not yet been coupled to
+the exact 2-adic collision valuation of a positive transition.
+Lean commit `34e166b` independently proves the universal carry, geometric
+output, first-digit divisibility, and unique recharge-class theorems.
+
+```bash
+PYTHONPATH=experiments/kontorovich \
+  python3 experiments/kontorovich/unit_charge_hidden_register.py selftest
+PYTHONPATH=experiments/kontorovich \
+  python3 experiments/kontorovich/unit_charge_hidden_register.py verify \
+  experiments/kontorovich/unit_charge_hidden_register_audit.json
+```
+
+Verifier SHA-256:
+`58c35526dfdba88268f1821b9a439db54bb2f3242ba3674e1603e35c8494ba19`.
+Artifact SHA-256:
+`e04f1c829e28fe4621507755cc7f0b6dfbf59f920f02baf961e87f042ddc7f08`.
+
+### 5. A quadratic two-rail type reproduces automatically
+
+The first corrected lower-degree type is
+
+```text
+N_d(x,u)=x^2+d*u^2.
+```
+
+It is closed under every recharge because
+
+```text
+B^h N_d(t,v)=N_d(2^(77h)t,2^(77h)v),
+A^h N_d(t,v)=N_d(3^(57h)t,3^(57h)v).
+```
+
+The naive `d=1` sum-of-two-squares type is universally impossible: accepted
+states and collision quotients are `7 (mod 8)`.  The exact worker instead uses
+
+```text
+d_hw=13(C-D)=5*13*19*1271069=1569770215=7 (mod 8).
+```
+
+This ramifies every non-ternary prime forced by the public register.  CRT
+constructs independent legal inputs for `m=1,2,5` and independent norm
+quotients whose scaled outputs have `m'=1,3,5`.  A PARI-discovered homogeneous
+integer vector, replayed exactly by Python, has nonzero last coordinate and
+therefore supplies a rational point on the `m=h=1` affine collision quadric.
+
+The live coupling equation is
+
+```text
+C^m*(x^2+d*u^2+1)=D^m*(1+B^h*(t^2+d*v^2)).
+```
+
+No paired integral solution or transition is claimed.  A one-dimensional ray
+specialization reduced to a generalized Pell equation; its smallest PARI
+solve did not finish promptly and was stopped.  Use the full three-parameter
+quadric and hidden register rather than sinking compute into that ray.
+Lean commit `2743350` independently proves automatic recharge closure and the
+complete accepted-semantics obstruction for `d=1`.
+Commit `90c9b6c` proves the exact forward bridge from an already accepted
+typed step to QN2 and its regenerated output coordinates; it deliberately does
+not turn a free quadric point into a bouncer step.
+
+```bash
+PYTHONPATH=experiments/kontorovich \
+  python3 experiments/kontorovich/unit_charge_quadratic_norm.py selftest
+PYTHONPATH=experiments/kontorovich \
+  python3 experiments/kontorovich/unit_charge_quadratic_norm.py verify \
+  experiments/kontorovich/unit_charge_quadratic_norm_audit.json
+```
+
+Verifier SHA-256:
+`8dddae25c33895e948bff98b94361e32fb0586abf1263797a98184b4c0340e57`.
+Artifact SHA-256:
+`bb04d5fb5d05ce6c5e22765d00029430e626aabaf7c5970b12867ebca465c9b5`.
+
+### 6. The Roth route is strong but not yet promoted
 
 For `a=floor(17m/23)`, `e=17m mod 23`, `U=3^a`,
 `X=Us`, and `Y=2^m B^ell t`, GSPQ gives
@@ -190,13 +295,14 @@ numbers.  The output root is strictly larger than `s`.  Roth's theorem would
 therefore imply only finitely many transitions in each class and no infinite
 run wholly inside this pure type.
 
-This is **not yet a promoted result**.  The exact integer normalizations are in
-the Python artifact, but the real inequality, reduced-rational finiteness
-consumer, and infinite-run bridge still await Lean.  The formalizer's complete
-specification is in `NEW_RESUME_LEAN.md`; Roth must remain an external theorem,
-never a project axiom.
+This is **not yet a promoted global result**.  Lean commit `07352a9`
+kernel-checks the exact normalization, real inequality, strict root growth,
+residual-class bookkeeping, and exponent-11 conversion past `alpha<s`.  The
+remaining seams are the reduced-rational sequence consumer, infinitely many
+distinct approximants in one nonzero class, and Roth's external finiteness
+theorem.  Roth must remain external, never a project axiom.
 
-### 5. Constructive lesson and next escape
+### 7. Constructive lesson and next escape
 
 The pure 23rd-power type is probably too rigid precisely because it keeps
 approximating one member of a finite algebraic target set.  A counterexample
@@ -206,7 +312,8 @@ compiler should now try one of:
   regenerates (Simon's “splash the gap”);
 - a type-switching rail with genuinely unbounded algebraic state, not a finite
   set that pigeonhole reduces to Roth;
-- an iterated hidden-`F` register in the cofactor balance;
+- the hardware-matched quadratic norm rail, coupled integrally to the writable
+  hidden-`F` register and the 2-adic opcode;
 - a fixed-level autonomous bouncer program compiled from valuation quotients,
   rather than another infinitely nested 2-adic address.
 
@@ -311,8 +418,8 @@ CUDA-parallel exact subproblem.  File transfers must use
 
 ## Lean collaboration
 
-The formalizer paused with `NEW_RESUME_LEAN.md`.  Its current package is
-`KontoroC`, not a new edit inside `CLEAN_LEAN`:
+The formalizer resumed from `NEW_RESUME_LEAN.md` and pushed rounds 100--103.
+Its current package is `KontoroC`, not a new edit inside `CLEAN_LEAN`:
 
 ```bash
 cd KontoroC
@@ -322,10 +429,10 @@ lake env lean KontoroC/Audit.lean
 
 The main research driver must not edit its files.  Put a complete theorem
 request, proof sketch, assumptions, and scope warning into
-`docs/FOR_CLEAN_LEAN.md`; then poll `CLEAN_LEAN/FOR_FABLE.md`.  The immediate
-request is the four-part GSPQ/Roth bridge already at the tail of the outgoing
-channel.  When the formalizer resumes, let it own
-`ChargeStatePowerRoth.lean` and any audit imports.
+`docs/FOR_CLEAN_LEAN.md`; then poll `CLEAN_LEAN/FOR_FABLE.md`.  The Roth,
+hidden-`F`, quadratic/mod-8, and accepted-step QN2 requests are complete in
+`07352a9`, `34e166b`, `2743350`, and `90c9b6c`.  No formalizer-owned file is
+dirty at this handoff; still inspect status and never stage its future edits.
 
 The latest full formal build reported only standard mathlib logical axioms
 (`propext`, `Classical.choice`, `Quot.sound`) for these results, no project
@@ -339,10 +446,15 @@ Before staging:
 git status --short
 git diff --check
 PYTHONPATH=experiments/kontorovich \
-  python3 experiments/kontorovich/unit_charge_state_power_quine.py selftest
+  python3 experiments/kontorovich/unit_charge_hidden_register.py selftest
 PYTHONPATH=experiments/kontorovich \
-  python3 experiments/kontorovich/unit_charge_state_power_quine.py verify \
-  experiments/kontorovich/unit_charge_state_power_quine_audit.json
+  python3 experiments/kontorovich/unit_charge_hidden_register.py verify \
+  experiments/kontorovich/unit_charge_hidden_register_audit.json
+PYTHONPATH=experiments/kontorovich \
+  python3 experiments/kontorovich/unit_charge_quadratic_norm.py selftest
+PYTHONPATH=experiments/kontorovich \
+  python3 experiments/kontorovich/unit_charge_quadratic_norm.py verify \
+  experiments/kontorovich/unit_charge_quadratic_norm_audit.json
 ```
 
 Stage explicit paths only.  Preserve the unrelated changing morphic artifact.
@@ -353,16 +465,20 @@ Diary entry.
 
 1. Poll the detached R23 service and the Ganesha shard count; do not block
    creative work on them.
-2. Let the Lean worker kernel-check the elementary Roth bridge and conditional
-   finiteness consumer; keep the external theorem seam explicit.
-3. Test whether the hidden residual quotient congruence modulo `F` iterates to
-   `F^2,F^3,...` or instead identifies the correction variable a multi-rail
-   packet must carry.
-4. Design the smallest corrected public type, for example
-   `y=s^23+c*r^23` with a remote end-cap chosen from the determinant-four
-   residue, and require literal output-to-input closure before optimizing it.
-5. Keep Simon's spatial metaphor: a useful correction should absorb the dirty
-   collision, regenerate the gap, and carry its own next correction packet.
+2. Attack the full integral quadratic collision equation, not the timed-out
+   rank-one Pell ray.  Parameterize from the exact rational point, impose the
+   2-adic opcode and public register by CRT/strong approximation, and demand
+   literal `bouncer_step` replay for every candidate.
+3. Couple the quadratic coordinates to the writable hidden instruction:
+   recharge `ell` must simultaneously select `w' (mod F)` and be the exact
+   collision valuation.  Seek a symbolic family in which one coordinate pair
+   computes the next pair, not separately chosen endpoint witnesses.
+4. The inexpensive Lean spines are complete.  Ask for more formalization only
+   after the integral coupling attack produces a universal statement; keep
+   the Roth external theorem and sequence-consumer seams explicit.
+5. Keep Simon's spatial metaphor: interpret the two norm coordinates as the
+   payload and sacrificial/catcher rails, and require the collision to
+   regenerate both the gap and its next correction packet.
 
 The central calibration is unchanged: a spectacular finite path, a 10,000-
 digit compiled seed, or a fresh CRT word at every generation is not a
