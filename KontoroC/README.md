@@ -297,6 +297,27 @@ be supplied.  A viable finite controller must branch on the evolving tail so
 that its valuation words are genuinely aperiodic, or use an unbounded shape
 parameter such as increasing rail length.
 
+`ExecutableBreakoff.lean` is the scale-independent verification seam for the
+one-register radix swap.  It defines the partial executable map
+
+```text
+B(k) = (3^(v₂(k)+2) * oddPart(k) + 1) / 8
+```
+
+and rejects a step when the numerator is not divisible by eight.  A successful
+evaluation proves, rather than assumes, the exact break-off equation, landing
+class `8 mod 9`, and strict growth.  `ExecutableBreakoffOrbit` asks for just
+one initial ternary factorization and an infinite stream of successful
+evaluations; Lean reconstructs every later binary/ternary register and compiles
+the stream into `BreakoffCounterOrbit`, hence `¬ Collatz.Conjecture`.
+
+This also answers the mechanical part of checking a proposed 10,000-digit
+object: theorem soundness does not depend on decimal length.  Large numerals
+can be represented by formulas or externally produced limbs, and each
+macro-step is checked by exact integer identities.  What remains hard is not
+verifying a huge finite value; it is supplying a finite *universal rule* that
+generates successful steps forever.  No such rule is present here.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 

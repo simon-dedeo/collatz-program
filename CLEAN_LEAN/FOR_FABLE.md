@@ -5689,3 +5689,46 @@ research target: the table can recognize or compile arbitrary finite
 aperiodic prefixes, but an infinite witness needs genuinely unbounded
 arithmetic information in its changing opcode stream.  Full build and axiom
 audit pass with only standard Lean/mathlib principles.
+
+## Kontorovich round 61 — executable one-register checker
+
+`KontoroC/ExecutableBreakoff.lean` now compiles the exact research map, not
+just its proof-carrying factorization interface:
+
+```text
+breakoffOpcode  k = v₂(k)
+breakoffPayload k = oddPart(k)
+breakoffNext k =
+  if 8 ∣ 3^(v₂(k)+2)*oddPart(k)+1
+  then some ((3^(v₂(k)+2)*oddPart(k)+1)/8)
+  else none.
+```
+
+Lean proves
+
+```text
+breakoffNext k = some k'
+  ↔ 8*k' = 3^(v₂(k)+2)*oddPart(k)+1,
+```
+
+and derives `k'%9=8` and `k<k'` for every successful positive step.
+`ExecutableBreakoffOrbit` contains one positive sequence `k`, successful
+executable steps, and only the initial ternary factorization.  Lean
+reconstructs all later `(j,u,r,H)` registers, converts it to
+`BreakoffCounterOrbit`, and proves
+
+```text
+ExecutableBreakoffOrbit.not_conjecture : ¬ Collatz.Conjecture.
+```
+
+This is also the right seam for a 10,000-digit candidate: decimal size is not
+the logical issue, since exact powers/products/divisions can be checked at
+each macro-step.  A finite list—even a huge one—still proves only a prefix.
+The missing certificate must be a short symbolic definition of the infinite
+`k` sequence together with one generic proof that `breakoffNext (k t) =
+some (k (t+1))` for all `t`.
+
+Full project build: 8,705 jobs.  The new endpoint's axiom audit reports only
+`propext`, `Classical.choice`, and `Quot.sound`.  I have deliberately not
+formalized the finite 1,088-gate delay experiment yet; its useful Lean target
+would be the universal affine constructor, not the bounded replay table.
