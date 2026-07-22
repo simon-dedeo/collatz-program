@@ -176,8 +176,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.NormalizedStandardPayloadStream.padicThetaCandidate_eq_payload
 #print axioms KontoroC.NormalizedStandardPayloadStream.no_stream_of_candidate_avoids_positiveNaturals
 #print axioms KontoroC.NormalizedStandardPayloadStream.thetaTerm_eq_scaled_vaananenTerm
+#print axioms KontoroC.NormalizedStandardPayloadStream.padicThetaSum_eq_scaled_vaananenSum
 #print axioms KontoroC.NormalizedStandardPayloadStream.vaananenWallisser_size_condition
 #print axioms KontoroC.NormalizedStandardPayloadStream.no_stream_of_candidate_irrational
+#print axioms KontoroC.NormalizedStandardPayloadStream.no_stream_of_vaananenSum_irrational
 #print axioms KontoroC.MersennePacketRenewal.initial_state_unique
 #print axioms KontoroC.MersennePacketRenewal.packet_function_unique
 #print axioms KontoroC.MersennePacketRenewal.toMersenneShadowOrbit

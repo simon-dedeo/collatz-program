@@ -61,6 +61,62 @@ theorem thetaTerm_eq_scaled_vaananenTerm (n : ℕ) :
     show n * 13 = n + n * 12 by omega, pow_add, pow_add]
   ring
 
+/-- The rational scaling constant between the two series. -/
+def vaananenScale : ℚ := 23 / 3 ^ 8
+
+/-- The cited theta-function term embedded in `ℚ_[2]`. -/
+noncomputable def padicVaananenTerm (n : ℕ) : ℚ_[2] :=
+  (vaananenTerm n : ℚ_[2])
+
+theorem padicThetaTerm_eq_scaled_vaananenTerm (n : ℕ) :
+    padicThetaTerm n =
+      (vaananenScale : ℚ_[2]) * padicVaananenTerm n := by
+  have h := congrArg (fun q : ℚ => (q : ℚ_[2]))
+    (thetaTerm_eq_scaled_vaananenTerm n)
+  simpa [padicThetaTerm, padicVaananenTerm, vaananenScale,
+    Rat.cast_mul, Rat.cast_div, Rat.cast_pow, Rat.cast_ofNat] using h
+
+theorem padic_vaananenScale_ne_zero : (vaananenScale : ℚ_[2]) ≠ 0 := by
+  norm_num [vaananenScale]
+
+/-- Summability of the paper's series, derived from the already established
+summability of the scaled defect series. -/
+theorem padicVaananenTerm_summable : Summable padicVaananenTerm := by
+  let c : ℚ_[2] := vaananenScale
+  have hs := padicThetaTerm_summable.mul_left c⁻¹
+  refine hs.congr ?_
+  intro n
+  rw [padicThetaTerm_eq_scaled_vaananenTerm]
+  dsimp only [c]
+  rw [← mul_assoc, inv_mul_cancel₀ padic_vaananenScale_ne_zero, one_mul]
+
+/-- The exact `ℚ_[2]` value to which the external theorem applies. -/
+noncomputable def padicVaananenSum : ℚ_[2] :=
+  ∑' n, padicVaananenTerm n
+
+/-- Equality of the completed 2-adic sums, not merely of finite
+coefficients. -/
+theorem padicThetaSum_eq_scaled_vaananenSum :
+    padicThetaSum =
+      (vaananenScale : ℚ_[2]) * padicVaananenSum := by
+  have hv := padicVaananenTerm_summable.hasSum.mul_left
+    (vaananenScale : ℚ_[2])
+  have hfun :
+      (fun n => (vaananenScale : ℚ_[2]) * padicVaananenTerm n) =
+        padicThetaTerm := by
+    funext n
+    exact (padicThetaTerm_eq_scaled_vaananenTerm n).symm
+  rw [hfun] at hv
+  exact padicThetaTerm_summable.hasSum.unique hv
+
+/-- The research-note candidate is the negative rational multiple of the
+literal Väänänen--Wallisser series value. -/
+theorem padicThetaCandidate_eq_scaled_vaananenSum :
+    padicThetaCandidate =
+      -(vaananenScale : ℚ_[2]) * padicVaananenSum := by
+  rw [padicThetaCandidate, padicThetaSum_eq_scaled_vaananenSum]
+  ring
+
 /-- The first exact integer inequality behind the logarithmic separator. -/
 theorem three_pow_five_lt_two_pow_eight : 3 ^ 5 < 2 ^ 8 := by
   norm_num
@@ -106,6 +162,18 @@ theorem vaananenWallisser_size_condition :
 def IsPadicIrrational (x : ℚ_[2]) : Prop :=
   ∀ q : ℚ, x ≠ (q : ℚ_[2])
 
+/-- A nonzero rational rescaling preserves p-adic irrationality, specialized
+to the exact scale and sign occurring here. -/
+theorem padicThetaCandidate_irrational_of_vaananenSum_irrational
+    (hirr : IsPadicIrrational padicVaananenSum) :
+    IsPadicIrrational padicThetaCandidate := by
+  intro q heq
+  apply hirr (-q / vaananenScale)
+  rw [Rat.cast_div, Rat.cast_neg]
+  apply (eq_div_iff padic_vaananenScale_ne_zero).2
+  rw [padicThetaCandidate_eq_scaled_vaananenSum] at heq
+  linear_combination -heq
+
 /-- Exact endpoint for the cited external theorem: irrationality of the
 Lean-defined candidate excludes every ordinary normalized stream. -/
 theorem no_stream_of_candidate_irrational
@@ -114,6 +182,14 @@ theorem no_stream_of_candidate_irrational
   apply no_stream_of_candidate_avoids_positiveNaturals
   intro u _hu heq
   exact hirr u heq
+
+/-- Final citation seam: the published irrationality statement about its own
+theta-series value directly rules out the standard payload stream. -/
+theorem no_stream_of_vaananenSum_irrational
+    (hirr : IsPadicIrrational padicVaananenSum) :
+    ¬Nonempty NormalizedStandardPayloadStream :=
+  no_stream_of_candidate_irrational
+    (padicThetaCandidate_irrational_of_vaananenSum_irrational hirr)
 
 end NormalizedStandardPayloadStream
 

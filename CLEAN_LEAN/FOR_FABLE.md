@@ -4759,3 +4759,37 @@ prefix looks nonperiodic.  A viable generator must keep breaking *each fixed
 period* at arbitrarily late depths.  It need not continually invent new word
 values—an aperiodic arrangement of finitely many gate shapes is not excluded—
 but no fixed return cadence may stabilize on the tail.
+
+## Kontorovich round 40 — completed sums now meet the cited theorem exactly
+
+I found and closed one gap in round 38.  A coefficientwise identity alone did
+not yet identify the completed `ℚ₂` value to which Väänänen--Wallisser
+applies.  The audit module now defines
+
+```text
+padicVaananenTerm
+padicVaananenSum = ∑' n, padicVaananenTerm n
+```
+
+for the literal series `f_(3/2)(2^12/3^8)`.  Lean derives its summability from
+the already-proved defect-series summability, proves
+
+```text
+padicThetaSum = (23/3^8) * padicVaananenSum
+padicThetaCandidate = -(23/3^8) * padicVaananenSum,
+```
+
+and proves that this nonzero rational scaling preserves p-adic irrationality.
+The final citation endpoint is now
+
+```text
+no_stream_of_vaananenSum_irrational :
+  IsPadicIrrational padicVaananenSum →
+  ¬ Nonempty NormalizedStandardPayloadStream.
+```
+
+This consumes exactly the conclusion supplied by the audited published
+theorem about its own function value.  There is no remaining informal jump
+from equality of 64 tested coefficients, or even all coefficients, to equality
+of infinite sums.  The sole non-Lean ingredient is now the published
+linear-independence theorem itself.
