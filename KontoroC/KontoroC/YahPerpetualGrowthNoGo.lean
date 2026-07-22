@@ -129,5 +129,62 @@ theorem no_perpetual_growing_macro_orbit :
   exact o.impossible
 
 end PerpetualGrowingMacroOrbit
+
+/-! ## Finite burst certificate -/
+
+/-- Exact fixed-point-defect scaling across a finite burst of consecutive
+reproducing macros. -/
+theorem growthBurst_defect_iterate (value : ℕ → ℕ) (r : ℕ)
+    (hbalance : ∀ t, t < r →
+      4 * value (t + 1) = 9 * value t + 5) :
+    4 ^ r * (value r + 1) = 9 ^ r * (value 0 + 1) := by
+  induction r with
+  | zero => simp
+  | succ r ih =>
+      have hprefix : ∀ t, t < r →
+          4 * value (t + 1) = 9 * value t + 5 := by
+        intro t ht
+        exact hbalance t (by omega)
+      have hi := ih hprefix
+      have hlast := hbalance r (by omega)
+      have hlastDefect : 4 * (value (r + 1) + 1) =
+          9 * (value r + 1) := by omega
+      calc
+        4 ^ (r + 1) * (value (r + 1) + 1) =
+            4 ^ r * (4 * (value (r + 1) + 1)) := by
+              rw [pow_succ]
+              ring
+        _ = 4 ^ r * (9 * (value r + 1)) := by rw [hlastDefect]
+        _ = 9 * (4 ^ r * (value r + 1)) := by ring
+        _ = 9 * (9 ^ r * (value 0 + 1)) := by rw [hi]
+        _ = 9 ^ (r + 1) * (value 0 + 1) := by
+          rw [pow_succ]
+          ring
+
+/-- A burst of `r` consecutive `+1` macros pins the initial address to
+`-1 mod 4^r`.  The divisibility form avoids any ambiguity about truncated
+natural subtraction. -/
+theorem growthBurst_pow_four_dvd (value : ℕ → ℕ) (r : ℕ)
+    (hbalance : ∀ t, t < r →
+      4 * value (t + 1) = 9 * value t + 5) :
+    4 ^ r ∣ value 0 + 1 := by
+  have hiterate := growthBurst_defect_iterate value r hbalance
+  have hprod : 4 ^ r ∣ 9 ^ r * (value 0 + 1) :=
+    ⟨value r + 1, hiterate.symm⟩
+  have hcop : (4 ^ r).Coprime (9 ^ r) :=
+    (by norm_num : Nat.Coprime 4 9).pow r r
+  exact hcop.dvd_of_dvd_mul_left hprod
+
+/-- Consequently, an explicitly bounded ordinary seed cannot support a
+burst longer than its fixed-point defect can contain. -/
+theorem no_growthBurst_of_defect_lt_fourPow (value : ℕ → ℕ) (r : ℕ)
+    (hbalance : ∀ t, t < r →
+      4 * value (t + 1) = 9 * value t + 5)
+    (hsmall : value 0 + 1 < 4 ^ r) : False := by
+  have hdvd := growthBurst_pow_four_dvd value r hbalance
+  have hpos : 0 < value 0 + 1 := by omega
+  have hle : 4 ^ r ≤ value 0 + 1 := Nat.le_of_dvd hpos hdvd
+  omega
+
 end YahPerpetualGrowthNoGo
 end KontoroC

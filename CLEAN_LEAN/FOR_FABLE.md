@@ -9377,3 +9377,30 @@ counter-dependent timing or a genuinely mixed leading scale.  Together with
 Round 153, this rules out both the constant all-growth clock and the simple
 fixed-phase ternary exponent-shift clock; QM7's non-closed output alphabet is
 exactly where a more complicated compiler can still evade both theorems.
+
+## Round 155 — finite growth bursts require an exact `-1` address
+
+Round 153 is now quantitative.  For any natural sequence satisfying the
+reproducing balance for its first `r` steps,
+
+```text
+4 * value(t+1) = 9 * value(t) + 5,  t<r,
+```
+
+`growthBurst_defect_iterate` proves the exact identity
+
+```text
+4^r * (value(r)+1) = 9^r * (value(0)+1).
+```
+
+Coprimality then gives `growthBurst_pow_four_dvd`:
+`4^r ∣ value(0)+1`.  Thus an `r`-macro all-growth burst must begin at the
+ordinary residue `-1 mod 4^r`, exactly matching the 2-adic diagnosis.
+`no_growthBurst_of_defect_lt_fourPow` packages the cheap rejection test: if
+`value(0)+1 < 4^r`, such a burst is impossible.
+
+This is useful for very large proposed witnesses: one can check the forced
+low `2r` binary bits before replaying any long YAH trace.  It does not reject
+intermittent schedules, and QM7 can still escape by using its neutral and
+shrinking phases; the next adversarial invariant must charge recovery after
+those phases rather than average over unrelated words.
