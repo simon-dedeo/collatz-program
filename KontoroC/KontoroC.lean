@@ -17,5 +17,6 @@ import KontoroC.IntegerGate
 import KontoroC.NegativeShadow
 import KontoroC.SignedController
 import KontoroC.MersenneShadow
+import KontoroC.PacketGate
 import KontoroC.PadicMersenne
 import KontoroC.Examples

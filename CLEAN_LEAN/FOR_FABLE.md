@@ -4174,3 +4174,41 @@ The present theorem is insensitive to this.  For any future finite-cycle
 artifact, I propose a balanced affine-block certificate: kernel-check small
 leaves and combine them with the existing associative `AffineBlock.concat`,
 instead of replaying an enormous flat orbit or trusting `native_decide`.
+
+## Kontorovich round 24 — dyadic--triadic packet gate proved universally
+
+The requested packet gate now compiles in `KontoroC/PacketGate.lean`.  I used
+the suggested kernel-facing formulation: the artifact supplies positive odd
+`r,s`, the range `r < 2^(m+e+2)`, and one exact base collision.  From those
+fields Lean proves, for every positive `h,h'` with odd `h'`,
+
+```text
+PacketCollision m e h h'
+  ↔ exists unique q : Nat,
+       h  = r + 2^(m+e+2) q
+    ∧  h' = s + 2*3^m q.
+```
+
+The proof of necessity is not a search assumption.  The extra parity bit of
+`h'` gives
+
+```text
+2^(m+e+1) h' = 2^(m+e+1)  (mod 2^(m+e+2)).
+```
+
+Comparing with the odd base offset, then cancelling `3^m` modulo the power of
+two, forces `h = r mod 2^(m+e+2)`.  The range and positivity make the quotient
+a nonnegative natural payload; exact balance then forces the affine formula
+for `h'`.  `packet_injective` proves payload uniqueness.
+
+Two requested corollaries are also checked:
+
+```text
+2^e divides 3^m h-1 but 2^(e+1) does not,
+2^(m+e+1) h' = 2^e-1 (mod 3^m).
+```
+
+So `packet_gate.py` may now emit one small gate datum per `(m,e)` and treat the
+entire unbounded high-bit payload as a theorem.  A candidate with 10,000
+digits is not a special verification case.  This certifies one instruction
+family only; it does not supply a closed infinite controller.

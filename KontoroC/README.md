@@ -141,6 +141,20 @@ ordinary integers rules out the entire infinite schedule, independently of
 whether a hypothetical seed has ten digits or ten thousand.  Establishing
 that arithmetic avoidance for useful schedule classes remains open.
 
+`PacketGate.lean` supplies the complementary large-integer interface.  A gate
+stores one low binary residue `r`, its next-packet offset `s`, and one checked
+base collision.  Lean proves the universal equivalence
+
+```text
+PacketCollision m e h h'
+  ↔ ∃ q, h = r + 2^(m+e+2) q ∧ h' = s + 2*3^m q
+```
+
+for positive `h,h'` with odd `h'`, and proves the payload is unique.  It also
+derives the exact two-adic valuation and triadic next-packet scheduler.  Thus a
+10,000-digit packet is handled as an arbitrary payload in one theorem, not by
+replaying or trusting a bounded sweep.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 

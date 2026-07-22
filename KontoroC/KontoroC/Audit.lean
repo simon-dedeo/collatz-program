@@ -104,6 +104,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.MersennePacketRenewal.prescribedPadicDefectPartial_tendsto_candidate
 #print axioms KontoroC.MersennePacketRenewal.prescribedPadicCandidate_eq_negativeNatural_of_renewal
 #print axioms KontoroC.MersennePacketRenewal.no_renewal_of_padicCandidate_avoids_negativeNaturals
+#print axioms KontoroC.packetCollision_iff_balance
+#print axioms KontoroC.packetCollision_exact_twoAdic
+#print axioms KontoroC.packetCollision_next_mod_threePow
+#print axioms KontoroC.PacketGate.collision_apply
+#print axioms KontoroC.PacketGate.collision_iff_exists_payload
+#print axioms KontoroC.PacketGate.collision_payload_unique
 #print axioms KontoroC.MersennePacketRenewal.initial_state_unique
 #print axioms KontoroC.MersennePacketRenewal.packet_function_unique
 #print axioms KontoroC.MersennePacketRenewal.toMersenneShadowOrbit
