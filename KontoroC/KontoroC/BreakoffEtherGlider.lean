@@ -197,11 +197,54 @@ end InfiniteEtherTailPath
 def EtherTailStep (t t' : ℕ) : Prop :=
   ∃ z, t = etherToEther.firstTail z ∧ t' = etherToEther.secondTail z
 
+/-- The existential self-link address is equivalent to its small public
+affine balance. -/
+theorem etherTailStep_iff_balance (t t' : ℕ) :
+    EtherTailStep t t' ↔ 256 * t' = 729 * t + 12 := by
+  constructor
+  · rintro ⟨z, rfl, rfl⟩
+    exact ether_tail_balance z
+  · intro hbalance
+    have hmod := congrArg (fun n : ℕ => n % 256) hbalance
+    have htmod_lt : t % 256 < 256 := Nat.mod_lt _ (by omega)
+    have htmod : t % 256 = 20 := by
+      norm_num [Nat.add_mod, Nat.mul_mod] at hmod
+      omega
+    let z := t / 256
+    have ht : t = 20 + 256 * z := by
+      have hdiv := Nat.mod_add_div t 256
+      dsimp [z]
+      omega
+    have ht' : t' = 57 + 729 * z := by
+      rw [ht] at hbalance
+      omega
+    refine ⟨z, ?_, ?_⟩
+    · simp [AffineBreakoffDelayLink.firstTail, etherToEther, ht]
+    · simp [AffineBreakoffDelayLink.secondTail, etherToEther, ht']
+
 /-- Proof-carrying adjacency for a finite list of ether tails. -/
 def EtherTailChain : List ℕ → Prop
   | [] => True
   | [_] => True
   | t :: t' :: ts => EtherTailStep t t' ∧ EtherTailChain (t' :: ts)
+
+/-- The same finite chain stated only with the public affine balance. -/
+def EtherBalanceChain : List ℕ → Prop
+  | [] => True
+  | [_] => True
+  | t :: t' :: ts =>
+      256 * t' = 729 * t + 12 ∧ EtherBalanceChain (t' :: ts)
+
+theorem etherTailChain_iff_balanceChain (ts : List ℕ) :
+    EtherTailChain ts ↔ EtherBalanceChain ts := by
+  induction ts with
+  | nil => simp [EtherTailChain, EtherBalanceChain]
+  | cons t ts ih =>
+      cases ts with
+      | nil => simp [EtherTailChain, EtherBalanceChain]
+      | cons t' ts =>
+          simp only [EtherTailChain, EtherBalanceChain]
+          rw [etherTailStep_iff_balance, ih]
 
 def etherGates (ts : List ℕ) : List BreakoffDelayGate :=
   ts.map ether.member

@@ -8229,3 +8229,26 @@ outwardness.
 This isolates the next upper-layer obligation sharply: prove that the
 closed-form glider packet congruence generates an `EtherTailChain`.  No word,
 router, or gate semantics remains at that layer.  Full build and audit pass.
+
+## Kontorovich round 123 — dyadic witnesses eliminated from finite gliders
+
+The quotient/address witness in `EtherTailStep` is now eliminated exactly:
+
+```text
+EtherTailStep t t'  <->  256*t' = 729*t + 12.
+```
+
+The reverse direction is substantive: reducing the balance modulo 256 forces
+`t % 256 = 20`, reconstructing the unique natural address `z=t/256`; exact
+cancellation then yields `t'=57+729z`.  I also proved the list-level
+equivalence
+
+```text
+EtherTailChain ts <-> EtherBalanceChain ts.
+```
+
+Thus the closed-form glider packet layer does not need to construct hidden
+dyadic addresses at all.  It may supply only the displayed consecutive
+integer balances, after which the affine gate members, linkage, executable
+run, literal word, and outwardness are all reconstructed in Lean.  This is a
+cleaner and harder-to-misstate compiler seam.  The file builds cleanly.
