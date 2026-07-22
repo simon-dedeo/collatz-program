@@ -323,6 +323,28 @@ more generally, for every eventually periodic stream of macro-words.  Commit
 with any finite effective state eventually becomes periodic and is therefore
 impossible.
 
+The branch is nevertheless deterministic once the unbounded payload is
+included.  For fixed amplifier length `r`, a shape `(s,a,b,L)` accepts one odd
+payload residue modulo
+
+```text
+2^E,  E=a+b+2s+L+3.
+```
+
+The accepted residues form an LSB-first prefix code: the literal payload
+uniquely reveals `a`, then `s`, then `b`, then `L` through successive exact
+2-adic valuations.  Its Kraft mass among odd 2-adic payloads is
+
+```text
+sum_(a,b>=1,s>=0,L>=2) 2^(-(E-1)) = 1/6.
+```
+
+Thus one-sixth of the 2-adic tape cylinders encode a complete next splash,
+while the handoff writes the surviving tail by a power of three plus an
+offset.  The instruction is literally “sparse binary prefix read, global
+ternary write.”  [`two_rail_prefix_code.py`](../../experiments/kontorovich/two_rail_prefix_code.py)
+audits the bounded prefix tree and literal decoder.
+
 The splash must therefore regenerate a **rewritten instruction tape**, not the
 same schedule.  The live target is a finite controller which branches on the
 changing residual tail and thereby emits a genuinely aperiodic gate sequence,

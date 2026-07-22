@@ -604,6 +604,53 @@ artifact SHA-256  d961269507a35fbbcc154e8131c2d1062539d12d70566d4caad02e121851a9
 verifier SHA-256  c8781d45b2ac7dbe371b6ba71c881f16439806561ffe6a757a0a970d6e046c18
 ```
 
+## The LSB-first splash instruction code
+
+`two_rail_prefix_code.py` turns payload-dependent branching into a literal
+instruction decoder.  For fixed amplifier length `r`, a gate with cleanup
+length `s`, positive collision extras `a,b`, and output gap `L>=2` accepts one
+odd input-payload residue modulo
+
+```text
+2^E,  E=a+b+2s+L+3.
+```
+
+These residues are least-significant-bit-first binary codewords.  The code is
+prefix-free: from a literal accepted payload one recovers `a`, then `s`, then
+`b`, then `L` as four successive exact 2-adic valuations.  Thus no payload can
+select two different next gate shapes.  After the `E-1` nontrivial address
+bits are removed, the affine handoff multiplies the residual tape by a power
+of three.  The two-rail language is therefore a deterministic mixed-base tag
+machine: binary prefix read, global ternary write.
+
+The exact Kraft mass among odd 2-adic payloads is
+
+```text
+sum_(a,b>=1,s>=0,L>=2) 2^(-(E-1)) = 1/6.
+```
+
+This does not say an exceptional ordinary tape cannot survive forever.  It
+quantifies why such a tape is sparse and why a total finite-state controller
+is the wrong target.
+
+```bash
+python3 two_rail_prefix_code.py selftest
+python3 two_rail_prefix_code.py build two_rail_prefix_code_audit.json
+python3 two_rail_prefix_code.py verify two_rail_prefix_code_audit.json
+```
+
+The artifact checks all 1,344 codewords of length at most 20 for each
+`r=1,...,16`: 902,496 pairwise prefix comparisons per `r`, 21,504 independent
+literal base-payload decodes, and bounded covered mass
+`5433/32768 < 1/6`.  Those are bounded regressions.  Prefix uniqueness and the
+`1/6` limit follow from the displayed valuation decoder and exact geometric
+series, respectively; the requested Lean seam is recorded separately.
+
+```text
+artifact SHA-256  cc4c30ad51a942e584c89c518a4adb5b1f231d049843216ad3c16be431d8d6ae
+verifier SHA-256  e534fb609813af1f826e9d654507f1a0ca917952e37e07afe52eafd35c095c84
+```
+
 ## The standard schedule as a 2-adic partial theta value
 
 Lean commit `db0971c` eliminates the intermediate cleanup payload from every

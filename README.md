@@ -170,7 +170,10 @@ identically `x`.
   eventually periodic word schedule and every autonomous finite-state
   controller.  The live splash target is a tag controller whose changing
   unbounded tail selects a genuinely aperiodic gate sequence, or an unbounded
-  shape counter—not a fixed route through gate shapes.
+  shape counter—not a fixed route through gate shapes.  Exact valuation
+  decoding makes the gate shapes an LSB-first prefix code of Kraft mass `1/6`
+  among odd 2-adic payloads: a valid tape is necessarily sparse, but its
+  unbounded arithmetic contents can supply the required nonautonomous state.
 - **Exact cycle synthesis.**  Search valuation words and cyclic compositions
   for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
   seed whose valuations and closure can be checked directly.  Use modular
@@ -268,7 +271,8 @@ positive integer and its claimed behavior are machine-checked.
 | Exact finite carry-splash families | For every positive `r,r',a`, research-side exact algebra constructs an arithmetic progression of odd payload pairs such that an `r`-tick `+1` delay line collides with valuation `2+a` and emits an `r'`-tick gap. The checker literally replays 15,360 members in the bounded regression `r<=8,r'<=10,a<=6`; e.g. `2961 -> 2221 -> 833` grows the gap from four to six bits. Every member shrinks, so a splash needs an amplifying phase. |
 | Formula-generated 10,040-digit two-rail program | Exact congruence solving and affine-family intersection construct one seed with 33,351 significant bits, without storing its decimal literal. It executes 247 strict outward rounds of the schedule `[1]^(4+i) ++ [2,2,3]`, grows its clean gap from 5 to 252 bits, and reaches a 15,397-digit endpoint after 32,110 accelerated steps. Literal replay passes; Lean commits `39a3aba`/`5d3e0e3` certify the generic gate and finite-chain seams. Full exact continuation reaches `1`, and the 248-round canonical seed is different. This is a large finite Collatz program, not a counterexample. |
 | Exact affine tag-transducer and branching target | Every affine two-rail handoff reads one dyadic residue of a nonlocal family index, deletes that address block, and maps the residual tail by a power of three plus an offset. Lean commits `4789a80`/`1076954` prove universal one- and two-instruction linkage.  Commits `b741a14`--`560fcc5` rule out fixed affine returns, every eventually periodic macro-word stream, and every payload-independent finite-state controller.  The live target must branch on unbounded tail data or carry an unbounded counter. |
-| Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commit `3fc63a6` proves the all-coefficient substitution `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, and the implication from irrationality to no payload stream.  Their 1989 linear-independence theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
+| LSB-first splash instruction grammar | For fixed amplifier length, each positive gate shape `(s,a,b,L)` is one odd payload residue modulo `2^(a+b+2s+L+3)`.  Successive exact valuations uniquely recover all four parameters, so these binary codewords are prefix-free; their exact Kraft mass among odd 2-adic payloads is `1/6`.  The artifact checks 902,496 codeword pairs per `r=1..16` through 20 bits and independently decodes 21,504 bases.  This identifies a sparse mixed-base tag language, not an infinite survivor. |
+| Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
 | Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
 | Kernel cycle-disproof seam | `KontoroC.CycleArtifact.checkNontrivial=true` implies the literal negation of the ordinary Collatz conjecture. The package build and axiom audit pass; no nontrivial artifact is known. |
 | Bounded composition search | All `3,447,691` positive-denominator compositions with `S<=22` were checked exactly. The only closure hits encode the trivial seed `1`; no nontrivial cycle was found within the bound. |
@@ -323,6 +327,24 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-21 22:56 EDT
+
+The payload-dependent controller now has an exact instruction grammar.  For a
+fixed rail length, every splash shape is one LSB-first binary prefix; four
+successive valuations uniquely decode `(a,s,b,L)`, so the prefixes are
+disjoint.  Their exact Kraft mass among odd 2-adic payloads is `1/6`.  After
+that sparse binary address is consumed, the affine handoff writes globally by
+multiplying the residual tape by a power of three.  This is a concrete
+binary-read/ternary-write tag machine, not just a PL analogy.  The new
+[artifact](experiments/kontorovich/two_rail_prefix_code_audit.json) checks
+1,344 codewords and 902,496 pairs for each `r=1..16` through 20 bits, plus
+21,504 independent literal decodes; the [headline](#kc-headline-results-with-verification-scope)
+states the universal derivation separately from those bounds.  Lean commit
+`96f2357` meanwhile proves every fixed proposed word-period must be broken
+infinitely often.  Next: represent the unique decoder as a payload-driven
+transition system and search for a formula tape whose binary prefixes keep
+selecting gates while the ternary writes force every fixed period to break.
 
 ### 2026-07-21 22:47 EDT
 

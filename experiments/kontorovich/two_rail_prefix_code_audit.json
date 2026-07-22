@@ -1,0 +1,112 @@
+{
+  "schema": "collatz-two-rail-prefix-code-audit-v1",
+  "claim_scope": "exact bounded prefix-free and literal-decoder audit; the 1/6 infinite Kraft mass is an exact geometric-series derivation",
+  "bounds": {
+    "amp_ticks": "1..16",
+    "maximum_code_bits_including_forced_odd_bit": 20,
+    "positive_collision_extras": true,
+    "minimum_output_gap": 2
+  },
+  "per_amp_tick": {
+    "codewords": 1344,
+    "pairwise_prefix_comparisons": 902496,
+    "covered_odd_residues_mod_2^B": 86928,
+    "all_odd_residues_mod_2^B": 524288,
+    "covered_fraction": "5433/32768"
+  },
+  "total_gate_bases_decoded": 21504,
+  "all_bounded_codes_prefix_free": true,
+  "infinite_kraft_mass_among_odd_payloads": "1/6",
+  "kraft_factorization": "(sum_a>=1 2^-a)(sum_b>=1 2^-b)(sum_s>=0 2^-2s)(sum_L>=2 2^-L)/4",
+  "interpretation": "a gate reads a sparse LSB-first binary prefix; affine linkage then multiplies the residual tape by a power of three",
+  "sample_decodes": [
+    {
+      "amp_ticks": 1,
+      "clean_ticks": 0,
+      "to_plus_extra": 1,
+      "to_minus_extra": 1,
+      "output_gap": 2,
+      "input_payload": 35,
+      "plus_payload": 39,
+      "output_payload": 15,
+      "family_index": 0
+    },
+    {
+      "amp_ticks": 1,
+      "clean_ticks": 0,
+      "to_plus_extra": 1,
+      "to_minus_extra": 1,
+      "output_gap": 3,
+      "input_payload": 99,
+      "plus_payload": 111,
+      "output_payload": 21,
+      "family_index": 0
+    },
+    {
+      "amp_ticks": 1,
+      "clean_ticks": 0,
+      "to_plus_extra": 1,
+      "to_minus_extra": 1,
+      "output_gap": 4,
+      "input_payload": 483,
+      "plus_payload": 543,
+      "output_payload": 51,
+      "family_index": 0
+    },
+    {
+      "amp_ticks": 1,
+      "clean_ticks": 0,
+      "to_plus_extra": 1,
+      "to_minus_extra": 1,
+      "output_gap": 5,
+      "input_payload": 739,
+      "plus_payload": 831,
+      "output_payload": 39,
+      "family_index": 0
+    },
+    {
+      "amp_ticks": 1,
+      "clean_ticks": 0,
+      "to_plus_extra": 1,
+      "to_minus_extra": 1,
+      "output_gap": 6,
+      "input_payload": 1251,
+      "plus_payload": 1407,
+      "output_payload": 33,
+      "family_index": 0
+    },
+    {
+      "amp_ticks": 1,
+      "clean_ticks": 0,
+      "to_plus_extra": 1,
+      "to_minus_extra": 1,
+      "output_gap": 7,
+      "input_payload": 227,
+      "plus_payload": 255,
+      "output_payload": 3,
+      "family_index": 0
+    },
+    {
+      "amp_ticks": 1,
+      "clean_ticks": 0,
+      "to_plus_extra": 1,
+      "to_minus_extra": 1,
+      "output_gap": 8,
+      "input_payload": 2275,
+      "plus_payload": 2559,
+      "output_payload": 15,
+      "family_index": 0
+    },
+    {
+      "amp_ticks": 1,
+      "clean_ticks": 0,
+      "to_plus_extra": 1,
+      "to_minus_extra": 1,
+      "output_gap": 9,
+      "input_payload": 6371,
+      "plus_payload": 7167,
+      "output_payload": 21,
+      "family_index": 0
+    }
+  ]
+}

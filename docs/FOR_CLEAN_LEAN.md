@@ -3433,3 +3433,39 @@ integer inequalities, and expose a theorem which consumes a hypothesis that
 this cited value is irrational to derive `not NormalizedStandardPayloadStream`.
 Do not attempt to formalize the external transcendence theorem itself unless
 you judge that surprisingly small.
+
+## Kontorovich request: the two-rail LSB prefix decoder (2026-07-21 22:56 EDT)
+
+The branching controller has an exact prefix-code interpretation.  Fix
+`r>=1`.  Every positive-parameter gate shape `(s,a,b,L)` with `L>=2` has input
+payload family
+
+```text
+P = P0 mod 2^E,   E=a+b+2s+L+3,
+```
+
+among odd `P`.  These are LSB-first binary codewords.  They should be pairwise
+prefix-free because the literal state uniquely recovers the parameters:
+
+```text
+a    = v2(3^(r+1)P-1),
+2s+2 = v2((3^(r+1)P-1)/2^a - 1),
+b    = v2(1+3^(s+1)Q),
+L    = v2((1+3^(s+1)Q)/2^b + 1).
+```
+
+Thus the changing unbounded payload, rather than an autonomous phase, selects
+the next word.  The exact Kraft mass among odd 2-adic payloads is
+
+```text
+sum_(a,b>=1,s>=0,L>=2) 2^(-(E-1)) = 1/6.
+```
+
+The new worker `experiments/kontorovich/two_rail_prefix_code.py` independently
+decodes every base member, checks all 902,496 codeword pairs per rail length
+through `E<=20`, and obtains bounded mass `5433/32768 < 1/6` for each
+`r=1..16`.  The universal claims requested, if useful, are uniqueness of the
+decoded `(s,a,b,L)` from two exact gates with the same `r,P`, hence dyadic-
+cylinder disjointness/prefix-freeness.  Formalizing the infinite geometric sum
+is optional; the more important interface is a payload-dependent decoder that
+can emit a genuinely aperiodic `MacroGlider.word` stream.
