@@ -98,6 +98,7 @@ import KontoroC.YahLassoDecoder
 import KontoroC.YahLiftDecoderStep
 import KontoroC.YahRestorativeChartNoGo
 import KontoroC.YahRestorativeLoopNoGo
+import KontoroC.YahRestorativeDecoderArithmetic
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail

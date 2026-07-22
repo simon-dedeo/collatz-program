@@ -146,5 +146,25 @@ theorem decoderRegister_strictMono : StrictMono decoderRegister := by
   norm_num only [Nat.reducePow] at hs ht
   omega
 
+/-- The stripped decoder register retains the full two-adic isometry of the
+normalized recharge register. -/
+theorem decoderRegister_sub_val (u t : ℕ) (hut : u < t) :
+    padicValNat 2 (decoderRegister t - decoderRegister u) =
+      padicValNat 2 (t - u) := by
+  have hv := normalizedRegister_isometry_of_base 5 17 u t hut
+    decoder_base_dvd
+  have hu := normalized_eq_nine_mul_decoderRegister u
+  have ht := normalized_eq_nine_mul_decoderRegister t
+  have hmono := decoderRegister_strictMono hut
+  have hsub : normalizedRegister 5 17 t - normalizedRegister 5 17 u =
+      9 * (decoderRegister t - decoderRegister u) := by
+    rw [hu, ht]
+    omega
+  have hdiff : decoderRegister t - decoderRegister u ≠ 0 :=
+    Nat.sub_ne_zero_of_lt hmono
+  rw [hsub, padicValNat.mul (by norm_num) hdiff,
+    padicValNat.eq_zero_of_not_dvd (by norm_num), zero_add] at hv
+  exact hv
+
 end YahLiftDecoderArithmetic
 end KontoroC

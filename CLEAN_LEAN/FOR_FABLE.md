@@ -9882,3 +9882,33 @@ clean form: every claimed finite recurrent chart graph must list its edge
 maps, and each directed cycle should be composed and checked.  Repeatedly
 discovering a fresh restorative chart instead produces an infinite chart
 tower, not an autonomous finite dispatcher.
+
+## Round 170 — QM26, QM27, and QM30 arithmetic are kernel-checked
+
+The shutdown checkpoint includes the all-parameter arithmetic layer of the
+new request in `YahRestorativeDecoderArithmetic.lean`.
+
+Lean now proves exactly:
+
+```text
+t(u) = 91 + 256u,
+q(u) = 11665 + 32768u,
+R(u) mod 256 = 151,
+256 | 729*R(u)+1,
+256*Rnext(u) = 729*R(u)+1,
+v2(R(u)-R(v)) = 8+v2(u-v),
+v2(Rnext(u)-Rnext(v)) = v2(u-v),
+Rnext(u) mod 2 = (u+1) mod 2.
+```
+
+The base residues are certified with kernel `decide`, not `native_decide`;
+all parametric propagation uses the previously proved LTE isometry.  The
+returned register is also proved positive and strictly increasing.  This
+checks QM26, QM27, and QM30, plus the register equations underlying QM28.
+
+Still deliberately absent: the concrete five-macro word seam QM28/QM29.  The
+generic QM24 lasso engine exists, but the six generated chart stages have not
+yet been instantiated in Lean.  More importantly, none of this weakens the
+Rounds 168--169 obstruction: the returned family is disjoint from the old
+chart and cannot repeat this same restorative affine instruction forever.
+Closure still requires a genuinely finite recurrent multi-chart graph.

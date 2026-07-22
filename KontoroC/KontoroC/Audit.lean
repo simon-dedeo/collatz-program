@@ -700,3 +700,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahRestorativeLoopNoGo.no_perpetual_restorative_chart
 #print axioms
   KontoroC.YahRestorativeLoopNoGo.no_eventually_only_restorative_chart
+#print axioms KontoroC.YahLiftDecoderArithmetic.decoderRegister_sub_val
+#print axioms
+  KontoroC.YahRestorativeDecoderArithmetic.incomingRegister_sub_val
+#print axioms KontoroC.YahRestorativeDecoderArithmetic.incomingRegister_mod
+#print axioms
+  KontoroC.YahRestorativeDecoderArithmetic.restorative_numerator_dvd
+#print axioms
+  KontoroC.YahRestorativeDecoderArithmetic.returnedRegister_balance
+#print axioms
+  KontoroC.YahRestorativeDecoderArithmetic.returnedRegister_sub_val
+#print axioms
+  KontoroC.YahRestorativeDecoderArithmetic.returnedRegister_parity
