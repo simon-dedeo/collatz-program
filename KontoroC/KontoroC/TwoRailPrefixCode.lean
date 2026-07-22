@@ -130,6 +130,50 @@ theorem decoded_parameters_unique (g h : TwoRailGate)
     rw [hcleanup.1, hfirst.1, hsecond.1, hout.1]
   · exact ⟨hcleanup.2, hout.2⟩
 
+/-- Strong form: the fixed rail length and literal input payload determine
+the entire proof-carrying gate, not only its shape. -/
+theorem eq_of_ampTicks_inputPayload (g h : TwoRailGate)
+    (hr : g.ampTicks = h.ampTicks)
+    (hP : g.inputPayload = h.inputPayload) : g = h := by
+  have hd := g.decoded_parameters_unique h hr hP
+  cases g
+  cases h
+  simp only [shape, TwoRailShape.mk.injEq] at hd
+  simp_all
+
+/-- Type of exact gates decoded by one rail length and one literal payload. -/
+def GateAt (r P : ℕ) :=
+  {g : TwoRailGate // g.ampTicks = r ∧ g.inputPayload = P}
+
+instance gateAt_subsingleton (r P : ℕ) : Subsingleton (GateAt r P) where
+  allEq g h := by
+    apply Subtype.ext
+    exact g.1.eq_of_ampTicks_inputPayload h.1
+      (g.2.1.trans h.2.1.symm) (g.2.2.trans h.2.2.symm)
+
+/-- Existence predicate for the partial LSB decoder.  Uniqueness is supplied
+globally by `gateAt_subsingleton`. -/
+def Decodable (r P : ℕ) : Prop := Nonempty (GateAt r P)
+
+/-- The exact gate selected by a decodable unbounded payload. -/
+noncomputable def decodedGate {r P : ℕ} (h : Decodable r P) : TwoRailGate :=
+  (Classical.choice h).1
+
+@[simp] theorem decodedGate_ampTicks {r P : ℕ} (h : Decodable r P) :
+    (decodedGate h).ampTicks = r := (Classical.choice h).2.1
+
+@[simp] theorem decodedGate_inputPayload {r P : ℕ} (h : Decodable r P) :
+    (decodedGate h).inputPayload = P := (Classical.choice h).2.2
+
+/-- Any independently supplied gate at `(r,P)` is definitionally the same
+mathematical gate as the decoder's choice. -/
+theorem eq_decodedGate {r P : ℕ} (h : Decodable r P) (g : TwoRailGate)
+    (hr : g.ampTicks = r) (hP : g.inputPayload = P) :
+    g = decodedGate h :=
+  g.eq_of_ampTicks_inputPayload (decodedGate h)
+    (hr.trans (decodedGate_ampTicks h).symm)
+    (hP.trans (decodedGate_inputPayload h).symm)
+
 /-- Number of low payload bits fixed by a complete gate shape. -/
 def codeExponent (g : TwoRailGate) : ℕ :=
   g.toPlusExtra + g.toMinusExtra + 2 * g.cleanTicks + g.outputGap + 3
@@ -224,5 +268,51 @@ theorem prefixCylinder_disjoint (g h : TwoRailGate)
   exact hshape (shape_eq_of_prefixCylinder_overlap g h hr hg hh)
 
 end TwoRailGate
+
+/-- A controller specified only by its changing rail lengths and unbounded
+input payloads.  `decodable` lets the prefix decoder select the unique gate;
+linkage and outwardness remain the substantive all-level obligations. -/
+structure PayloadDecodedTwoRailProgram where
+  railLength : ℕ → ℕ
+  payload : ℕ → ℕ
+  decodable : ∀ t, TwoRailGate.Decodable (railLength t) (payload t)
+  start_large :
+    4 < (TwoRailGate.decodedGate (decodable 0)).start
+  linked : ∀ t,
+    (TwoRailGate.decodedGate (decodable t)).endpoint =
+      (TwoRailGate.decodedGate (decodable (t + 1))).start
+  outward : ∀ t,
+    (TwoRailGate.decodedGate (decodable t)).start <
+      (TwoRailGate.decodedGate (decodable t)).endpoint
+
+namespace PayloadDecodedTwoRailProgram
+
+/-- The unique decoded gate at macro-time `t`. -/
+noncomputable def gate (g : PayloadDecodedTwoRailProgram) (t : ℕ) :
+    TwoRailGate :=
+  TwoRailGate.decodedGate (g.decodable t)
+
+@[simp] theorem gate_ampTicks (g : PayloadDecodedTwoRailProgram) (t : ℕ) :
+    (g.gate t).ampTicks = g.railLength t :=
+  TwoRailGate.decodedGate_ampTicks _
+
+@[simp] theorem gate_inputPayload (g : PayloadDecodedTwoRailProgram) (t : ℕ) :
+    (g.gate t).inputPayload = g.payload t :=
+  TwoRailGate.decodedGate_inputPayload _
+
+/-- The payload-decoded interface compiles directly to the existing sound
+infinite-program endpoint. -/
+noncomputable def toInfiniteTwoRailProgram
+    (g : PayloadDecodedTwoRailProgram) : InfiniteTwoRailProgram where
+  gate := g.gate
+  start_large := g.start_large
+  linked := g.linked
+  outward := g.outward
+
+theorem not_conjecture (g : PayloadDecodedTwoRailProgram) :
+    ¬CleanLean.Collatz.Conjecture :=
+  g.toInfiniteTwoRailProgram.not_conjecture
+
+end PayloadDecodedTwoRailProgram
 
 end KontoroC

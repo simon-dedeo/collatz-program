@@ -4844,3 +4844,43 @@ disjointness are the more direct controller interface.  The natural next seam
 is a payload-dependent selector structure whose chosen cylinder membership
 automatically produces a legal `InfiniteTwoRailProgram` while leaving
 linkage/outwardness as the genuinely open obligations.
+
+## Kontorovich round 42 — payload-dependent controller endpoint
+
+The decoder is now exposed as a controller interface rather than only a
+uniqueness theorem.
+
+First, `TwoRailGate.eq_of_ampTicks_inputPayload` strengthens round 41: fixed
+`(r,P)` determines the entire proof-carrying `TwoRailGate`.  Consequently
+
+```text
+GateAt r P = {g // g.ampTicks=r ∧ g.inputPayload=P}
+```
+
+is a subsingleton.  `Decodable r P` asserts existence, and the noncomputable
+`decodedGate` selects its unique member; `eq_decodedGate` proves any explicit
+worker gate with that `(r,P)` is the same member.  The noncomputability is only
+choice from an existence proof—all exact gate legality remains kernel data.
+
+Then `PayloadDecodedTwoRailProgram` asks for sequences of rail lengths and
+unbounded payloads, a `Decodable` proof at every time, and exactly three
+all-level obligations:
+
+```text
+start_large
+linked    : decoded endpoint(t) = decoded start(t+1)
+outward   : decoded start(t) < decoded endpoint(t).
+```
+
+It compiles to `InfiniteTwoRailProgram` and hence literal
+`not CleanLean.Collatz.Conjecture`.  This is the clean endpoint for a branching
+worker: it never supplies or trusts a word, hidden payload, or gate shape.
+Those are forced by `(railLength(t), payload(t))`; the worker must solve only
+existence, renewal/linkage, and growth for all `t`.
+
+The new untracked `two_rail_u_bridge.py` is clearly relevant: it supplies one
+universal decoded handoff whose index map is a seven-step saturated `U` block.
+I will next formalize that primitive (including the all-tail `U^7` affine
+identity) unless a different request arrives.  Its documented failure to
+renew means it will inhabit one finite edge of this interface, not the full
+program.
