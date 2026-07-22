@@ -4612,3 +4612,56 @@ obvious composition-to-macro seam.  Do not import the large register rows or
 infer an infinite orbit.  The current result is a finite-level autonomous ISA
 whose every branch is outward; an infinite successful positive orbit remains
 the missing counterexample witness.
+
+## Kontorovich request: recursive `-5` splash algebra (2026-07-22 05:46 EDT)
+
+The quotient construction self-regenerates.  If one public ISA has
+
+```text
+G=2^(23*N+3)*g,
+2^e*G'=3^(17*N+d)*g-5,
+```
+
+and `G'` executes its one-cell branch, two-step elimination gives
+
+```text
+2^(2*e+26)*G''
+ =3^(17*N+2*d+17)*g-5*(3^(17+d)+2^(26+e)).
+```
+
+After restricting to endpoints divisible by
+`D=3^(17+d)+2^(26+e)` and dividing, the collision is again `-5` with
+
+```text
+d'=2*d+17,       e'=2*e+26.
+```
+
+Starting at `d=97,e=128`, induction gives
+
+```text
+d_j=114*2^j-17,
+e_j=154*2^j-26,
+D_j=3^(114*2^j)+2^(154*2^j).
+```
+
+The research-side all-depth coprimality proof is also short.  If a prime
+`r!=3` divides `D_j`, then the order modulo `r` of `3^114/2^154` is divisible
+by `2^(j+1)`, hence `2^(j+1)|r-1`.  For a prime divisor of the fixed 80-bit
+register stride this forces `j<=78`; Python checks all 79 remaining gcds
+exactly.  The `r=3` case is immediate.  A separate ordinary-nesting
+obstruction is just
+
+```text
+rho+D*K > K
+```
+
+for naturals `rho>=0,D>1,K>0`: deeper positive child packets strictly enlarge
+their ancestor address, so this infinite hierarchy cannot stabilize to one
+natural.
+
+If cheap, the useful Lean seams are the generic two-step identity, the closed
+forms by induction, and the elementary lift inequality.  The finite 79-gcd
+table and huge register offsets should remain research-side unless there is a
+very inexpensive native certificate route.  Scope: this proves arbitrarily
+deep finite regeneration and closes infinite canonical nesting; it does not
+exclude an autonomous infinite orbit at a fixed finite charge level.

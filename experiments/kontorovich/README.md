@@ -1555,6 +1555,86 @@ artifact SHA-256  e7af475f153a2e444b84f91dda8f4f395f1a048abde2383f40ac48eda4bef5
 verifier SHA-256  5c6cb46cec58720ef3d215651312556a05a3970a089792c3cd29ba7f3831e05a
 ```
 
+## All-depth self-regenerating `-5` hierarchy
+
+`unit_charge_hierarchy.py` applies the charge--discharge quotient to itself.
+Suppose a level has
+
+```text
+G=2^(23N+3)g -> G'=(3^(17N+d)g-5)/2^e.             (UCH1)
+```
+
+Composing its length-`N` branch with its one-cell branch gives
+
+```text
+2^(2e+26)G''
+ =3^(17N+d+17+d)g-5*(3^(17+d)+2^(26+e)).           (UCH2)
+```
+
+Put `D=3^(17+d)+2^(26+e)`.  When `D` is coprime to the odd register
+stride, there is one packet residue for which both public endpoints in
+(UCH2) are divisible by `D`.  Division reproduces (UCH1), still with
+collision constant `-5`, and updates
+
+```text
+d'=2d+17,              e'=2e+26.
+```
+
+Starting from `d_0=97,e_0=128`, the closed forms are
+
+```text
+d_j=114*2^j-17,
+e_j=154*2^j-26,
+D_j=3^(114*2^j)+2^(154*2^j).
+```
+
+The required coprimality with
+`M=671265207750760396088265` holds at every depth by a finite exact
+certificate.  If a prime `r!=3` divided both `M` and `D_j`, division by
+`2^(154*2^j)` modulo `r` would give
+
+```text
+(3^114/2^154)^(2^j)=-1 (mod r).
+```
+
+The multiplicative order is then divisible by `2^(j+1)`, so
+`2^(j+1)<=r-1<M`.  Since `M` has 80 bits, only `j=0..78` need be tested.
+All 79 exact modular gcds are one.  The omitted prime `r=3` cannot divide
+`D_j` because the power of two is nonzero modulo three.  This proves
+transversality for every recursive depth without factoring `M`.
+
+```bash
+python3 unit_charge_hierarchy.py selftest
+python3 unit_charge_hierarchy.py build unit_charge_hierarchy_audit.json
+python3 unit_charge_hierarchy.py verify unit_charge_hierarchy_audit.json
+```
+
+The artifact materializes eight levels.  For `N=1..8` it independently
+constructs every level branch by direct CRT and by composing two parent
+branches, restricting to the `D_j` slice, and dividing; all 64 coefficient
+pairs agree.  It checks two members per branch and recursively expands one
+member per level through a total of 510 original unit macros.  The deepest
+materialized level has `d=14575`, `e=19686`; its selected input packet has
+19,868 bits and its full lower-level expansion reaches 46,258 packet bits.
+
+The all-depth constructor does not evade the ordinary-integer gate.  Every
+positive child packet lifts as
+
+```text
+K_j=rho_j+D_j*K_(j+1)>K_(j+1).
+```
+
+Thus deeper canonical nestings strictly enlarge the root packet and cannot
+eventually stabilize to one natural.  The hierarchy proves that the splash
+mechanism self-regenerates at arbitrary finite scale; a counterexample still
+requires an infinite autonomous orbit at one fixed finite level.
+
+```text
+artifact SHA-256      6ae387f7cc5db514a5314378121986540bda0f1741e8b97a566c7510cb643981
+verifier file SHA-256 71f9d2014225ec4a937bc8e489c11307139121b7a2a01cca1c59266b62adb1b9
+combined source SHA   fca4daa41545e459e2e3df26439c3423a29d1f83d0a5a01b15957b447633dcc5
+```
+
 ## Sign-alternating capped-splash hierarchy
 
 `breakoff_renormalization.py` iterates the super-ether construction as exact

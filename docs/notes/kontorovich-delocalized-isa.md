@@ -1833,9 +1833,61 @@ machine: any infinite successful positive orbit is already an outward
 ordinary Collatz macro-orbit.  It is not such an orbit.  Its `-5` should also
 not be conflated with the old signed-cycle shadow grammar: the latter shadows
 negative periodic states, whereas (69m) is a positive quotient register
-derived from two exact finite-level unit instructions.  The live regenerative
-test is whether another one-cell discharge lets (69m) quotient its own fixed
-debris and reproduce the same `-5` law at a larger scale.
+derived from two exact finite-level unit instructions.
+
+That regenerative test succeeds uniformly.  At a recursive level with
+ternary offset `d` and division exponent `e`, composing a length-`N` branch
+with the one-cell branch produces fixed debris
+
+```text
+5D,             D=3^(17+d)+2^(26+e).               (69n)
+```
+
+On the unique packet class divisible by `D`, quotienting reproduces (69m)
+with
+
+```text
+d'=2d+17,                 e'=2e+26.                 (69o)
+```
+
+Starting from `d_0=97,e_0=128`, this gives
+
+```text
+d_j=114*2^j-17,
+e_j=154*2^j-26,
+D_j=3^(114*2^j)+2^(154*2^j).                       (69p)
+```
+
+These divisors are coprime to the fixed stride
+`M=671265207750760396088265` at every depth.  The proof needs only 79 exact
+gcds.  If a prime `r!=3` divided `M` and `D_j`, then
+
+```text
+(3^114/2^154)^(2^j)=-1 (mod r),
+```
+
+so the order of the ratio would be divisible by `2^(j+1)`.  Therefore
+`2^(j+1)<=r-1<M`.  Since `M` has 80 bits, only `j=0,...,78` can fail; all
+those gcds are one.  The prime three is excluded directly by (69p).
+[`unit_charge_hierarchy.py`](../../experiments/kontorovich/unit_charge_hierarchy.py)
+performs this all-depth certificate, materializes eight levels, compares 64
+direct/composed branches, checks 128 members, and expands selected members
+through 510 original unit macros.
+
+This is the strongest form yet of Simon's splash metaphor: the collision
+debris is eaten and the same `-5` interface is regenerated at arbitrarily
+large finite spatial scales.  It also supplies its own ordinary-address kill
+test.  A positive child packet lifts as
+
+```text
+K_j=rho_j+D_j K_(j+1)>K_(j+1).                     (69q)
+```
+
+Thus deeper canonical nestings strictly enlarge the root packet and cannot
+stabilize to one natural.  The recursive hierarchy is a formula-generated
+finite compiler, not the desired infinity.  Its useful outputs are the
+outward autonomous machines at each fixed finite level; a packet-selected
+aperiodic orbit inside one of those levels remains live.
 
 The remaining obstruction is now a programming-language condition rather
 than a missing collision gadget.  Reading (69e) from right to left, one

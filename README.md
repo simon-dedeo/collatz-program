@@ -268,8 +268,17 @@ identically `x`.
   such orbit is known.  This is distinct from the earlier bounded search near
   the signed cycle `-5 -> -7 -> -5`: the same small debris appears in a new
   positive quotient register with different exponents.  The live task is to
-  make its packet select infinitely many legal lengths, or to prove that its
-  own one-cell discharge recursively regenerates the same `-5` interface.
+  make its packet select infinitely many legal lengths.  Its own one-cell
+  discharge now provably regenerates the same `-5` interface at every finite
+  recursive depth: at depth `j` the offsets are
+  `d_j=114*2^j-17`, `e_j=154*2^j-26`, and the removed divisor is
+  `3^(114*2^j)+2^(154*2^j)`.  An exact multiplicative-order argument reduces
+  coprimality at all depths to 79 gcd checks against the 80-bit register
+  stride; all pass.  This is a true self-similar splash compiler, but not an
+  infinite natural: every positive child packet lifts to
+  `rho_j+D_j*K>K`, so nesting forever changes its ancestor address.  Search
+  must use an autonomous orbit at one fixed finite level, not confuse the
+  infinite hierarchy with a seed.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -430,6 +439,7 @@ identically `x`.
 | Canonical tail-zero splash hierarchy | The most direct recursive program chooses the length-one branch and zero remaining tail at every new scale.  Exact expansion through depths `1..6` gives first-scale packet sizes `7,46,177,606,2021,6698` decimal digits and ordinary starts through 6,708 digits.  Consecutive packets agree in increasingly many low bits but are strictly larger and unequal at every checked depth (`v2` of the differences `23,155,589,2013,6715`).  It is therefore a growing sequence of finite 2-adic prefixes, not one stabilized ordinary seed.  This bounded diagnostic is now subsumed by the universal positive-tail row below. | [`breakoff_renormalization_audit.json`](experiments/kontorovich/breakoff_renormalization_audit.json) |
 | Bounded canonical meta-quine tree | Exact recursive compilation checks all 584 meta-words of depths `1..3` over background choices `j=1..8`.  On every one of the 576 extensions, the canonical first-scale packet is strictly larger than its parent; there are zero stabilizations and zero decreases.  The closest paths are `(1,1)` and `(1,1,1)`, sharing 23 and 155 low bits respectively—the fixed tower already audited.  This bounded diagnostic is now subsumed by the universal positive-tail row below; another defect grammar or a fixed-level autonomous register orbit remains open. | [`breakoff_renormalization_audit.json`](experiments/kontorovich/breakoff_renormalization_audit.json) |
 | Infinite capped-renormalization tower as one ordinary program | Closed for every successfully constructed adjacent-defect extension, independently of branch length or child payload.  With `q_raw>0`, combined parent exponent `E`, inherited valuation `r>=0`, and positive child packet `K`, exact substitution gives `q=q_raw+2^E(2^rK-1)>0`.  Every new nesting therefore has a strictly noncanonical parent tail, so the canonical dyadic addresses never eventually stabilize to one natural.  This subsumes the two bounded rows above as diagnostics.  It does not exclude an autonomous orbit in the unit register at a fixed finite level, or a different compiler grammar. | [`breakoff_renormalization.py`](experiments/kontorovich/breakoff_renormalization.py) |
+| Infinite recursive `-5` charge hierarchy as one ordinary program | Closed, despite exact self-regeneration at every finite depth.  The depth-`j` quotient removes `D_j=3^(114*2^j)+2^(154*2^j)>1` and lifts a positive child packet as `K_j=rho_j+D_j*K_(j+1)>K_(j+1)`.  Iterated lifts make the root packet strictly grow, so the canonical addresses cannot stabilize to one natural.  This does not exclude an infinite autonomous orbit inside any fixed finite `-5` level; that is now the live target. | [`unit_charge_hierarchy.py`](experiments/kontorovich/unit_charge_hierarchy.py) |
 | Infinite consecutive sign-negative full-order repetend splashes | Closed by exact core energy, including any hypothetical self-writing realization of this pure instruction.  Marker `C=1` forces `T=(2j+1)3^(q-1)`.  For `q>=3`, `3^(q-1)>=2q+1`, hence `2^T>2*3^q`; the recurrence `2^T h'=3^q h-1` gives `h>2h'`.  After `N` consecutive splashes a positive initial core would exceed `2^N`, impossible for fixed `h`.  The audit checks the concrete full-order exponent classes at sign-negative levels `2,4,6`.  This does not exclude sparse giant splashes separated by sufficiently amplifying charge phases. | [`unit_repetend_energy_audit.json`](experiments/kontorovich/unit_repetend_energy_audit.json) |
 | Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
 | Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
@@ -479,6 +489,7 @@ positive integer and its claimed behavior are machine-checked.
 | Two consecutive sign-negative repetend splashes | At level two, put `c_m=(2^(3^(m-1))+1)/3^m`.  Exact cubing gives `c_(m+1)=c_m-3^m c_m^2+3^(2m-1)c_m^3`, so `c_m` stabilizes modulo every fixed `3^P`.  At precision `P=q_0+v_3(M)=90`, a 45-digit odd `k` makes `T_1=3^(q_1-1)k` both retain the first ternary bank and lie in the affine target-exponent class.  This yields the exact unbounded family `h_0 -> R_1+2^(T_1+D)3^q0 L -> 1+2^D3^(q0+q1)L`, with both enormous valuations exact.  The audit checks 89 quotient recurrences, bridge integrality, exponent congruence, and all three unit-register phases for `D=1,64`, without materializing `T_1`; `T_1` itself has about `7.57*10^27` decimal digits.  This is genuine one-time renewal, not a third splash or infinite ordinary orbit. | [`unit_double_repetend_audit.json`](experiments/kontorovich/unit_double_repetend_audit.json) |
 | Repetend energy separator | The same exact construction closes its own naive infinite continuation.  Every sign-negative marker-one exponent is an odd multiple of `3^(q-1)`.  For `q>=3`, elementary integer inequalities give `2^T>2*3^q`, so each such collision more than halves the positive odd core.  No fixed positive core supports infinitely many consecutive events.  The artifact audits the actual exponent classes at finite levels `2,4,6`; the general proof is symbolic.  A viable delay-line program must recharge between giant erasures, not stack them back-to-back. | [`unit_repetend_energy_audit.json`](experiments/kontorovich/unit_repetend_energy_audit.json) |
 | Autonomous `-5` charge--discharge register | Pairing a length-`N` sign-negative level-two unit instruction with the one-cell instruction gives fixed debris `3^57+2^77=5D`.  The divisor `D=314038802961906688057474567` is coprime to the register stride, so one exact packet class can be divided by `D` and is preserved.  The quotient ISA is `G=2^(23N+3)g -> (3^(17N+97)g-5)/2^128`; every branch is strictly outward because `3^(17N+97)>2^(23N+131)`.  The artifact constructs branches `N=1..32` twice—directly by CRT and by restricted composition—and checks 128 members through 256 actual unit-macro replays.  An infinite successful positive orbit would refute Collatz; none is supplied. | [`unit_charge_discharge_audit.json`](experiments/kontorovich/unit_charge_discharge_audit.json) |
+| All-depth self-regenerating `-5` splash | Composing any depth-`j` charge branch with its one-cell branch, then quotienting by `D_j=3^(114*2^j)+2^(154*2^j)`, reproduces collision constant `-5` with offsets `d_(j+1)=2d_j+17`, `e_(j+1)=2e_j+26`.  Coprimality with the fixed 80-bit stride holds for every `j`: a failed prime would require `2^(j+1)<M`, so only `j=0..78` can fail, and all 79 exact gcds are one.  The artifact materializes eight levels, compares 64 direct/composed branches, checks 128 members, and recursively expands canonical members through 510 original unit macros.  Infinite nesting is not a seed because every positive child lift strictly enlarges its ancestor packet; fixed-level autonomous orbits remain open. | [`unit_charge_hierarchy_audit.json`](experiments/kontorovich/unit_charge_hierarchy_audit.json) |
 | Constant-rate unit-counter schedules | For any of the six certified unit levels, every `n_0>=1`, and every fixed integer `k>=1`, the schedule `n_t=n_0+kt` has the unique 2-adic initial core `-s*3^(-q(n_0)) F(2^(ak)/3^(ck),2^(p(n_0+k))/3^(q(n_0+k)))`.  Converting to Väänänen--Wallisser's `f_(3^(ck)/2^(ak))` is coefficientwise exact, and its argument simplifies to `alpha=2^(p(n_0))/3^(q(n_0))`.  Their 1989 theorem applies with `ell=1,sigma=0,p=2`; its size ratio is the same as for `k=1`, while `|3^(ck)/2^(ak)|_2=2^(ak)>1`.  The value is irrational in `Q_2`, so it cannot be an ordinary integer core.  The artifact's six linked eight-transition branch replays remain a finite `k=1` regression; the all-`k` conclusion is symbolic and theorem-dependent.  This closes every fixed positive step size, not nonlinear or packet-branching schedules. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
@@ -536,6 +547,64 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 05:46 EDT
+
+The `-5` charge--discharge machine really does splash away its own next
+collision, at every finite recursive depth.  Suppose one level has
+
+```text
+G=2^(23N+3)g -> (3^(17N+d)g-5)/2^e.
+```
+
+Following its length-`N` branch by its one-cell branch creates debris
+
+```text
+5*(3^(17+d)+2^(26+e)).
+```
+
+Restricting to the unique register class divisible by the parenthesized
+factor and quotienting leaves `-5` again.  The offsets obey
+
+```text
+d_(j+1)=2*d_j+17,      d_j=114*2^j-17,
+e_(j+1)=2*e_j+26,      e_j=154*2^j-26,
+D_j=3^(114*2^j)+2^(154*2^j).
+```
+
+The key coprimality is now proved for all depths, not inferred from a finite
+pattern.  Let `M=671265207750760396088265`, the fixed 80-bit register stride.
+If a prime `r!=3` divided both `M` and `D_j`, then
+`(3^114/2^154)^(2^j)=-1 (mod r)`.  Its multiplicative order would be divisible
+by `2^(j+1)`, forcing `2^(j+1)<=r-1<M`.  Therefore only `j=0..78` can possibly
+fail.  The verifier checks those 79 exact modular gcds; every one is `1`.
+The prime `3` cannot divide `D_j` because its second summand is nonzero
+modulo `3`.
+
+The [hierarchy worker](experiments/kontorovich/unit_charge_hierarchy.py)
+materializes eight exact levels.  At each level `N=1..8`, its direct CRT
+branch agrees coefficient-for-coefficient with the restricted composition of
+two parent branches.  It checks 64 branches and 128 members, then recursively
+expands one varying-length member at each depth through 510 original unit
+macros.  Artifact SHA-256:
+`6ae387f7cc5db514a5314378121986540bda0f1741e8b97a566c7510cb643981`.
+Verifier file SHA-256:
+`71f9d2014225ec4a937bc8e489c11307139121b7a2a01cca1c59266b62adb1b9`.
+
+This is a real regenerative splash, but the naive infinity is still the
+wrong one.  A positive child packet lifts to its parent as
+
+```text
+K_j=rho_j+D_j*K_(j+1)>K_(j+1).
+```
+
+Consequently deeper canonical nestings make the root packet strictly larger;
+they cannot stabilize to one ordinary natural.  The hierarchy is an
+arbitrarily deep finite compiler, not a counterexample.  The useful residue
+is its family of exact outward fixed-level machines.  The next attack is to
+derive a packet-selected length law *inside one fixed level*, so that the
+ordinary state evolves forward rather than being rewritten backward at ever
+deeper addresses.
 
 ### 2026-07-22 05:34 EDT
 
