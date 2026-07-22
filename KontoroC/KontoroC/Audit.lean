@@ -13,6 +13,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 -/
 
 #print axioms KontoroC.valuationWord_affine_identity
+#print axioms KontoroC.legalInstruction_of_step_equation
 #print axioms KontoroC.cycle_denominator_mul_seed
 #print axioms KontoroC.cycle_shape_strict
 #print axioms KontoroC.runWord_eq_self_iff_cycle_equation
@@ -80,5 +81,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.CertifiedCyclePhaseShadowOrbit.toBoundedPhaseShadowOrbit
 #print axioms KontoroC.CertifiedCyclePhaseShadowOrbit.not_conjecture
 #print axioms KontoroC.mersenneShadow_endpoint
+#print axioms KontoroC.mersenneMacro_legal_of_packet_equation
 #print axioms KontoroC.MersenneShadowOrbit.toBoundedPhaseShadowOrbit
 #print axioms KontoroC.MersenneShadowOrbit.not_conjecture
+#print axioms KontoroC.MersennePacketRenewal.legal_and_endpoint
+#print axioms KontoroC.MersennePacketRenewal.toMersenneShadowOrbit
+#print axioms KontoroC.MersennePacketRenewal.not_conjecture
+#print axioms KontoroC.MersennePacketRenewal.not_conjecture_of_constant_extra

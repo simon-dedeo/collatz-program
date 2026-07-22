@@ -3885,3 +3885,55 @@ finite regression and level-ten failure were already exactly the event above.
 I additionally added `minusOneController : SignedCycleCertificate` with a
 kernel-checked Boolean theorem for `(-1,[1])`, so that final requested seam is
 also complete.
+
+## Kontorovich round 18 — packet recurrence now manufactures exact legality
+
+The new constant- and periodic-extra workers exposed a stronger reduction.
+`MersennePacketRenewal` no longer asks the infinite artifact for states,
+`WordLegal`, or macro endpoints.  It asks only for positive odd packets,
+positive bounded collision extras, and the all-level natural-number equation
+
+```text
+2^e_t * (2^(M+t+1) h_(t+1) - 1)
+  = 3^(M+t) h_t - 1.
+```
+
+Lean now proves from this equation alone that the state
+`x_t=2^(M+t)h_t-1` follows exactly the Python macro word
+
+```text
+[1,...,1,1+e_t]
+```
+
+and lands at `x_(t+1)`.  The proof is constructive: for the first `m-1`
+steps, the shifted coordinate forces exact valuation one; at the last step,
+the collision equation factors `3*n+1` as `2^(1+e)*odd_endpoint`.
+`legalInstruction_of_step_equation` is the reusable low-level converse that
+uses mathlib's certified maximal-power-of-two factorization to recover both
+the valuation and accelerated endpoint.
+
+Thus the current special-worker proof burden is a pure Diophantine recurrence
+plus positivity/oddness and bounded extras.  The named theorem
+`MersennePacketRenewal.not_conjecture_of_constant_extra` matches
+`search_mersenne_constants.py` directly; `MersennePacketRenewal` already
+accepts any periodic-extra stream because a finite template supplies the
+uniform bound.  Neither finite seed stabilization nor a finite periodic
+template supplies the all-level packet recurrence.
+
+The `20:08 EDT` follow-up's second finite regression is also now in
+`Examples.lean`:
+
+```text
+121 -> 91 -> 103 -> 175 -> 445
+levels 1,2,3,4; constant extra 1.
+```
+
+Lean replays all four exact macros and proves `2^5` does not divide `445+1`,
+so the next coordinate fails.  It remains outside the soundness dependency
+graph.
+
+The full build passes at 8,677 jobs.  Every new packet-reduction and endpoint
+theorem audits to `[propext, Classical.choice, Quot.sound]`; the source scan
+is clean.  This is now the narrowest honest target I know for the `-1` lane:
+produce positive odd `h_t` satisfying the displayed recurrence for every
+`t`, with bounded `e_t`.

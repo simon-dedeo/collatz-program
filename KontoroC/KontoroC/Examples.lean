@@ -82,4 +82,22 @@ theorem mersenneShadowFiniteChain_not_levelTen_aligned :
     ¬(2 : ℤ) ^ 10 ∣ (1579334395 : ℤ) + 1 := by
   norm_num
 
+/-! Constant-extra seed-stability regression requested by the worker. -/
+
+theorem mersenneConstantExtraFiniteChain :
+    WordLegal 121 (mersenneMacroWord 1 1) ∧
+    runWord 121 (mersenneMacroWord 1 1) = 91 ∧
+    WordLegal 91 (mersenneMacroWord 2 1) ∧
+    runWord 91 (mersenneMacroWord 2 1) = 103 ∧
+    WordLegal 103 (mersenneMacroWord 3 1) ∧
+    runWord 103 (mersenneMacroWord 3 1) = 175 ∧
+    WordLegal 175 (mersenneMacroWord 4 1) ∧
+    runWord 175 (mersenneMacroWord 4 1) = 445 := by
+  native_decide
+
+/-- Constant extra `e=1` also fails its next required shadow coordinate. -/
+theorem mersenneConstantExtraFiniteChain_not_levelFive_aligned :
+    ¬(2 : ℤ) ^ 5 ∣ (445 : ℤ) + 1 := by
+  norm_num
+
 end KontoroC

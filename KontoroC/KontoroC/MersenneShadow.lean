@@ -62,6 +62,98 @@ theorem mersenneMacroWord_eq (m e : ℕ) (hm : 0 < m) :
   rw [hr, bumpLast_append_singleton]
   simp
 
+theorem mersenneMacroWord_succ (m e : ℕ) (hm : 0 < m) :
+    mersenneMacroWord (m + 1) e = 1 :: mersenneMacroWord m e := by
+  rw [mersenneMacroWord_eq _ _ (by omega), mersenneMacroWord_eq _ _ hm]
+  obtain ⟨n, rfl⟩ := Nat.exists_eq_succ_of_ne_zero (by omega : m ≠ 0)
+  simp [List.replicate_succ]
+
+theorem twoPow_mul_sub_one_pos_odd {m h : ℕ} (hm : 0 < m) (hh : 0 < h) :
+    0 < 2 ^ m * h - 1 ∧ (2 ^ m * h - 1) % 2 = 1 := by
+  obtain ⟨n, rfl⟩ := Nat.exists_eq_succ_of_ne_zero (by omega : m ≠ 0)
+  let a := 2 ^ n * h
+  have ha : 0 < a := by positivity
+  have hbase : 2 ^ (n + 1) * h = 2 * a := by
+    dsimp [a]
+    rw [pow_succ]
+    ring
+  have hcoord : 2 ^ (n + 1) * h - 1 = 2 * (a - 1) + 1 := by
+    rw [hbase]
+    omega
+  rw [hcoord]
+  constructor
+  · omega
+  · simp
+
+/-- The special grammar needs no independent legality oracle.  An exact
+packet collision equation forces every nominal valuation to be one and the
+last valuation to be `1+e`. -/
+theorem mersenneMacro_legal_of_packet_equation {m e h y : ℕ}
+    (hm : 0 < m) (hh : 0 < h) (hyodd : y % 2 = 1)
+    (hcollision : 2 ^ e * y = 3 ^ m * h - 1) :
+    WordLegal (2 ^ m * h - 1) (mersenneMacroWord m e) ∧
+      runWord (2 ^ m * h - 1) (mersenneMacroWord m e) = y := by
+  induction m generalizing h with
+  | zero => omega
+  | succ m ih =>
+      cases m with
+      | zero =>
+          have hx := twoPow_mul_sub_one_pos_odd (m := 1) (h := h) (by omega) hh
+          have hc : 2 ^ e * y = 3 * h - 1 := by
+            simpa using hcollision
+          have hstepEq : 2 ^ (1 + e) * y = 3 * (2 ^ 1 * h - 1) + 1 := by
+            calc
+              2 ^ (1 + e) * y = 2 * (2 ^ e * y) := by
+                rw [pow_add]
+                ring
+              _ = 2 * (3 * h - 1) := by rw [hc]
+              _ = 3 * (2 ^ 1 * h - 1) + 1 := by
+                norm_num
+                omega
+          have hstep := legalInstruction_of_step_equation
+            hx.1 hx.2 hyodd hstepEq
+          simpa [mersenneMacroWord_eq 1 e (by omega), WordLegal, hstep.2]
+            using hstep
+      | succ n =>
+          let x := 2 ^ (n + 2) * h - 1
+          let z := 2 ^ (n + 1) * (3 * h) - 1
+          have hx := twoPow_mul_sub_one_pos_odd
+            (m := n + 2) (h := h) (by omega) hh
+          have hz := twoPow_mul_sub_one_pos_odd
+            (m := n + 1) (h := 3 * h) (by omega) (by positivity)
+          let a := 2 ^ (n + 1) * h
+          have ha : 0 < a := by positivity
+          have hxcoord : x = 2 * a - 1 := by
+            dsimp [x, a]
+            rw [show n + 2 = (n + 1) + 1 by omega, pow_succ]
+            ring
+          have hzcoord : z = 3 * a - 1 := by
+            dsimp [z, a]
+            ring
+          have hstepEq : 2 * z = 3 * x + 1 := by
+            rw [hxcoord, hzcoord]
+            omega
+          have hstep : LegalInstruction x 1 ∧ oddStep x = z :=
+            legalInstruction_of_step_equation
+              (by simpa [x] using hx.1) (by simpa [x] using hx.2)
+              (by simpa [z] using hz.2) hstepEq
+          have htailCollision :
+              2 ^ e * y = 3 ^ (n + 1) * (3 * h) - 1 := by
+            calc
+              2 ^ e * y = 3 ^ (n + 2) * h - 1 := hcollision
+              _ = 3 ^ (n + 1) * (3 * h) - 1 := by
+                rw [show n + 2 = (n + 1) + 1 by omega, pow_succ]
+                ring
+          have htail := ih (h := 3 * h)
+            (by omega) (by positivity) htailCollision
+          rw [mersenneMacroWord_succ (n + 1) e (by omega)]
+          rw [show n + 1 + 1 = n + 2 by omega]
+          change (LegalInstruction x 1 ∧ WordLegal (oddStep x)
+              (mersenneMacroWord (n + 1) e)) ∧
+            runWord (oddStep x) (mersenneMacroWord (n + 1) e) = y
+          rw [hstep.2]
+          exact ⟨⟨hstep.1, htail.1⟩, htail.2⟩
+
 /-- Exact special case used by the Mersenne worker:
 `x = 2^m h - 1` is sent to `(3^m h - 1) / 2^e`. -/
 theorem mersenneShadow_endpoint {h x m e : ℕ} (hm : 0 < m)
@@ -139,5 +231,110 @@ theorem not_conjecture (g : MersenneShadowOrbit) :
   g.toBoundedPhaseShadowOrbit.not_conjecture
 
 end MersenneShadowOrbit
+
+/-- Pure Diophantine form of the Mersenne renewal.  Unlike
+`MersenneShadowOrbit`, this artifact does not carry states, word legality, or
+macro endpoints: all three are derived from the odd packet recurrence. -/
+structure MersennePacketRenewal where
+  level0 : ℕ
+  extra : ℕ → ℕ
+  packet : ℕ → ℕ
+  extraBound : ℕ
+  level0_pos : 0 < level0
+  extra_pos : ∀ t, 0 < extra t
+  packet_pos : ∀ t, 0 < packet t
+  packet_odd : ∀ t, Odd (packet t)
+  extra_le : ∀ t, extra t ≤ extraBound
+  collision : ∀ t,
+    2 ^ extra t * (2 ^ (level0 + t + 1) * packet (t + 1) - 1) =
+      3 ^ (level0 + t) * packet t - 1
+
+namespace MersennePacketRenewal
+
+/-- The positive natural state encoded by a packet. -/
+def state (g : MersennePacketRenewal) (t : ℕ) : ℕ :=
+  2 ^ (g.level0 + t) * g.packet t - 1
+
+theorem state_coordinate (g : MersennePacketRenewal) (t : ℕ) :
+    (g.state t : ℤ) =
+      -1 + (2 : ℤ) ^ (g.level0 + t) * g.packet t := by
+  have hp : 0 < 2 ^ (g.level0 + t) * g.packet t :=
+    Nat.mul_pos (Nat.pow_pos (by omega)) (g.packet_pos t)
+  rw [state, Nat.cast_sub (by omega)]
+  push_cast
+  ring
+
+/-- The packet collision alone synthesizes the exact natural valuation word
+and its endpoint. -/
+theorem legal_and_endpoint (g : MersennePacketRenewal) (t : ℕ) :
+    WordLegal (g.state t)
+        (mersenneMacroWord (g.level0 + t) (g.extra t)) ∧
+      runWord (g.state t)
+        (mersenneMacroWord (g.level0 + t) (g.extra t)) = g.state (t + 1) := by
+  apply mersenneMacro_legal_of_packet_equation
+  · exact Nat.add_pos_left g.level0_pos t
+  · exact g.packet_pos t
+  · simpa [state, Nat.add_assoc] using
+      (twoPow_mul_sub_one_pos_odd
+        (m := g.level0 + t + 1) (h := g.packet (t + 1))
+        (Nat.add_pos_right (g.level0 + t) Nat.zero_lt_one)
+        (g.packet_pos (t + 1))).2
+  · simpa [state, Nat.add_assoc] using g.collision t
+
+/-- Compile the pure recurrence into the earlier all-level orbit artifact. -/
+def toMersenneShadowOrbit (g : MersennePacketRenewal) :
+    MersenneShadowOrbit where
+  level0 := g.level0
+  extra := g.extra
+  packet := g.packet
+  state := g.state
+  extraBound := g.extraBound
+  level0_pos := g.level0_pos
+  extra_pos := g.extra_pos
+  packet_pos := g.packet_pos
+  packet_odd := g.packet_odd
+  extra_le := g.extra_le
+  coordinate := g.state_coordinate
+  legal := fun t => (g.legal_and_endpoint t).1
+  renewal := by
+    intro t
+    have hendpoint := mersenneShadow_endpoint
+      (m := g.level0 + t) (e := g.extra t) (h := g.packet t)
+      (x := g.state t) (Nat.add_pos_left g.level0_pos t) (g.state_coordinate t)
+      (g.legal_and_endpoint t).1
+    rw [(g.legal_and_endpoint t).2] at hendpoint
+    exact hendpoint
+
+/-- A positive odd packet recurrence with uniformly bounded collision extras
+is already a literal disproof certificate. -/
+theorem not_conjecture (g : MersennePacketRenewal) :
+    ¬CleanLean.Collatz.Conjecture :=
+  g.toMersenneShadowOrbit.not_conjecture
+
+/-- Direct endpoint for `search_mersenne_constants.py`.  A single positive
+collision extra is repeated at every increasing counter level. -/
+theorem not_conjecture_of_constant_extra
+    {level0 e : ℕ} {packet : ℕ → ℕ}
+    (hlevel0 : 0 < level0) (he : 0 < e)
+    (hpacket_pos : ∀ t, 0 < packet t)
+    (hpacket_odd : ∀ t, Odd (packet t))
+    (hcollision : ∀ t,
+      2 ^ e * (2 ^ (level0 + t + 1) * packet (t + 1) - 1) =
+        3 ^ (level0 + t) * packet t - 1) :
+    ¬CleanLean.Collatz.Conjecture := by
+  let g : MersennePacketRenewal :=
+    { level0 := level0
+      extra := fun _ => e
+      packet := packet
+      extraBound := e
+      level0_pos := hlevel0
+      extra_pos := fun _ => he
+      packet_pos := hpacket_pos
+      packet_odd := hpacket_odd
+      extra_le := by simp
+      collision := hcollision }
+  exact g.not_conjecture
+
+end MersennePacketRenewal
 
 end KontoroC

@@ -71,4 +71,24 @@ theorem legalInstruction_step_equation {n k : ℕ}
   rw [h.2.2]
   exact pow_oddValuation_mul_oddStep n
 
+/-- Converse exact-step constructor.  Factoring `3*n+1` as a power of two
+times an odd natural determines both the requested valuation and the fully
+accelerated endpoint. -/
+theorem legalInstruction_of_step_equation {n k y : ℕ}
+    (hn : 0 < n) (hnodd : n % 2 = 1) (hyodd : y % 2 = 1)
+    (heq : 2 ^ k * y = 3 * n + 1) :
+    LegalInstruction n k ∧ oddStep n = y := by
+  have hsource : 3 * n + 1 ≠ 0 := by omega
+  have hynot : ¬2 ∣ y := by
+    rw [Nat.dvd_iff_mod_eq_zero]
+    omega
+  have hmax := Nat.maxPowDvdDiv_of_pow_mul_eq hsource heq hynot
+  have hvaluation : oddValuation n = k := by
+    change (Nat.maxPowDvdDiv 2 (3 * n + 1)).1 = k
+    exact congrArg Prod.fst hmax
+  have hstep : oddStep n = y := by
+    change (Nat.maxPowDvdDiv 2 (3 * n + 1)).2 = y
+    exact congrArg Prod.snd hmax
+  exact ⟨⟨hn, hnodd, hvaluation.symm⟩, hstep⟩
+
 end KontoroC

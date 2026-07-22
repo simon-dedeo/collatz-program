@@ -112,6 +112,10 @@ collision bound remain for the worker to supply.
 The worker's current three-macro outward chain from `24017279` is replayed in
 `Examples.lean`; Lean also verifies that its endpoint misses the required
 level-ten `-1` residue class, so it is explicitly not an infinite artifact.
+`MersennePacketRenewal` reduces the infinite interface further: a pure
+Diophantine recurrence between positive odd packets automatically generates
+the natural states, every exact valuation word, and every macro endpoint.
+Its constant-extra corollary directly matches `search_mersenne_constants.py`.
 
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
