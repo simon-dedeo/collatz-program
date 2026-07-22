@@ -612,3 +612,5 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahCarryOpcode.zero_run
 #print axioms KontoroC.YahCarryOpcode.carry_through_zeros
 #print axioms KontoroC.YahCarryOpcode.two_counter_transfer
+#print axioms KontoroC.YahCarryOpcode.two_counter_transfer_value
+#print axioms KontoroC.YahCarryOpcode.two_counter_transfer_outward

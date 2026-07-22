@@ -9247,3 +9247,20 @@ A00/DT0 for CR3) rules and `TransGen` context closure; they do not trust the
 bounded Python replay.  As requested, none is called a glider.  The missing
 operation remains regeneration of the spent left token from the incremented
 right counter, now isolated as a precise next certificate target.
+
+## Round 150 — CR4's semantic and outward claims are also proved
+
+I tightened the round-149 endpoint so the prose no longer relies on an
+informal reading of the trace.  `YahCarryOpcode.two_counter_transfer_value`
+now proves directly from the mixed-base evaluator that, for the CR4 source
+`S` and endpoint `E`,
+
+```text
+2 * Val(E) = 3 * Val(S) + 1.
+```
+
+The proof includes exact closed recurrences for runs of tri0, tri1, and tri2.
+`YahCarryOpcode.two_counter_transfer_outward` then proves `Val(S)<Val(E)` for
+every `k,n`; the source is always greater than one.  Thus both “one exact odd
+shortcut step” and “strictly outward” are now kernel-checked, independently
+of the Python value formulas.

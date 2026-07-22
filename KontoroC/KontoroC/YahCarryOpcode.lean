@@ -146,5 +146,136 @@ theorem two_counter_transfer (k n : ℕ) :
   exact Relation.TransGen.head hfirst (by
     simpa [List.append_assoc] using htail)
 
+theorem eval_tri0_run (x k : ℕ) :
+    mixedEvalFrom x (List.replicate k tri0) = 3 ^ k * x := by
+  induction k generalizing x with
+  | zero => simp [mixedEvalFrom]
+  | succ k ih =>
+      rw [List.replicate_succ, mixedEvalFrom]
+      change mixedEvalFrom (3 * x) (List.replicate k tri0) = _
+      rw [ih, pow_succ]
+      ring
+
+theorem eval_tri1_run (x k : ℕ) :
+    2 * mixedEvalFrom x (List.replicate k tri1) + 1 =
+      3 ^ k * (2 * x + 1) := by
+  induction k generalizing x with
+  | zero => simp [mixedEvalFrom]
+  | succ k ih =>
+      rw [List.replicate_succ, mixedEvalFrom]
+      change 2 * mixedEvalFrom (3 * x + 1) (List.replicate k tri1) + 1 = _
+      rw [ih, pow_succ]
+      ring
+
+theorem eval_tri2_run (x n : ℕ) :
+    mixedEvalFrom x (List.replicate n tri2) + 1 =
+      3 ^ n * (x + 1) := by
+  induction n generalizing x with
+  | zero => simp [mixedEvalFrom]
+  | succ n ih =>
+      rw [List.replicate_succ, mixedEvalFrom]
+      change mixedEvalFrom (3 * x + 2) (List.replicate n tri2) + 1 = _
+      rw [ih, pow_succ]
+      ring
+
+theorem mixedEval_canonical (digits : Word) :
+    mixedEval ([slash] ++ digits ++ [dot]) = mixedEvalFrom 1 digits := by
+  simp [mixedEval, mixedEvalFrom, symbolAction, List.foldl_append]
+
+theorem mixedEvalFrom_append (x : ℕ) (u v : Word) :
+    mixedEvalFrom x (u ++ v) = mixedEvalFrom (mixedEvalFrom x u) v := by
+  simp [mixedEvalFrom, List.foldl_append]
+
+/-- The CR4 endpoint is exactly one odd shortcut step from its source. -/
+theorem two_counter_transfer_value (k n : ℕ) :
+    let source := [slash] ++ List.replicate (k + 1) tri0 ++
+      List.replicate n tri2 ++ [dot]
+    let endpoint := [slash] ++ List.replicate k tri1 ++
+      List.replicate (n + 1) tri2 ++ [dot]
+    2 * mixedEval endpoint = 3 * mixedEval source + 1 := by
+  dsimp
+  change 2 * mixedEval
+      ([slash] ++ (List.replicate k tri1 ++
+        List.replicate (n + 1) tri2) ++ [dot]) =
+    3 * mixedEval
+      ([slash] ++ (List.replicate (k + 1) tri0 ++
+        List.replicate n tri2) ++ [dot]) + 1
+  rw [mixedEval_canonical, mixedEval_canonical]
+  rw [show mixedEvalFrom 1
+        (List.replicate k tri1 ++ List.replicate (n + 1) tri2) =
+      mixedEvalFrom (mixedEvalFrom 1 (List.replicate k tri1))
+        (List.replicate (n + 1) tri2) by
+    simp [mixedEvalFrom, List.foldl_append]]
+  rw [show mixedEvalFrom 1
+        (List.replicate (k + 1) tri0 ++ List.replicate n tri2) =
+      mixedEvalFrom (mixedEvalFrom 1 (List.replicate (k + 1) tri0))
+        (List.replicate n tri2) by
+    simp [mixedEvalFrom, List.foldl_append]]
+  have h0 := eval_tri0_run 1 (k + 1)
+  have h1 := eval_tri1_run 1 k
+  have h2s := eval_tri2_run (3 ^ (k + 1)) n
+  have h2e := eval_tri2_run
+    (mixedEvalFrom 1 (List.replicate k tri1)) (n + 1)
+  rw [h0]
+  simp only [Nat.mul_one]
+  have hpk : 3 ^ (k + 1) = 3 ^ k * 3 := by rw [pow_succ]
+  have hpn : 3 ^ (n + 1) = 3 ^ n * 3 := by rw [pow_succ]
+  have hA : 2 * (mixedEvalFrom 1 (List.replicate k tri1) + 1) =
+      3 ^ (k + 1) + 1 := by
+    nlinarith
+  have hES : 2 *
+        (mixedEvalFrom (mixedEvalFrom 1 (List.replicate k tri1))
+          (List.replicate (n + 1) tri2) + 1) =
+      3 * (mixedEvalFrom (3 ^ (k + 1))
+        (List.replicate n tri2) + 1) := by
+    calc
+      _ = 2 * (3 ^ (n + 1) *
+          (mixedEvalFrom 1 (List.replicate k tri1) + 1)) := by rw [h2e]
+      _ = 3 * 3 ^ n *
+          (2 * (mixedEvalFrom 1 (List.replicate k tri1) + 1)) := by
+            rw [hpn]
+            ring
+      _ = 3 * 3 ^ n * (3 ^ (k + 1) + 1) := by rw [hA]
+      _ = 3 * (mixedEvalFrom (3 ^ (k + 1))
+          (List.replicate n tri2) + 1) := by
+            rw [h2s]
+            ring
+  nlinarith
+
+/-- Therefore every CR4 instruction is strictly outward in represented
+ordinary-integer value. -/
+theorem two_counter_transfer_outward (k n : ℕ) :
+    mixedEval
+        ([slash] ++ List.replicate (k + 1) tri0 ++
+          List.replicate n tri2 ++ [dot]) <
+      mixedEval
+        ([slash] ++ List.replicate k tri1 ++
+          List.replicate (n + 1) tri2 ++ [dot]) := by
+  have hrel := two_counter_transfer_value k n
+  dsimp at hrel
+  have hsource : 1 < mixedEval
+      ([slash] ++ List.replicate (k + 1) tri0 ++
+        List.replicate n tri2 ++ [dot]) := by
+    change 1 < mixedEval
+      ([slash] ++ (List.replicate (k + 1) tri0 ++
+        List.replicate n tri2) ++ [dot])
+    rw [mixedEval_canonical]
+    rw [mixedEvalFrom_append, eval_tri0_run]
+    simp only [Nat.mul_one]
+    have hpow : 1 < 3 ^ (k + 1) := by
+      exact one_lt_pow₀ (by omega) (by omega)
+    have h2 := eval_tri2_run (3 ^ (k + 1)) n
+    have hnpos : 0 < 3 ^ n := by positivity
+    have hn : 1 ≤ 3 ^ n := by omega
+    nlinarith
+  have hrel' : 2 * mixedEval
+        ([slash] ++ List.replicate k tri1 ++
+          List.replicate (n + 1) tri2 ++ [dot]) =
+      3 * mixedEval
+        ([slash] ++ List.replicate (k + 1) tri0 ++
+          List.replicate n tri2 ++ [dot]) + 1 := by
+    simpa using hrel
+  omega
+
 end YahCarryOpcode
 end KontoroC
