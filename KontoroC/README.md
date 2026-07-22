@@ -263,6 +263,22 @@ fixed tail: an expanding natural tail is valid and is often the intended
 mechanism.  Fixed points are relevant only when certifying a closed finite
 cycle.
 
+`StandardTwoRailTheta.lean` independently checks the special-function
+reduction.  For a normalized stream satisfying
+
+```text
+2^(t+13) U(t+1) = 3^(t+8) U(t) + 23,
+```
+
+it proves the exact finite partial-theta identity with the terminal term
+retained.  In `ℚ₂`, the terminal term tends to zero regardless of the
+Archimedean growth of `U`; the defect terms are summable; and the resulting
+canonical 2-adic candidate must equal the positive integer `U(0)`.  Therefore
+showing this candidate is not an embedded positive natural rules out the
+entire normalized standard schedule.  Irrationality of the particular
+partial-theta value would suffice, but no external irrationality theorem is
+assumed here.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 

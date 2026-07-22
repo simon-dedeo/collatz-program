@@ -149,6 +149,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.AffineTwoRailLoop.index_loop
 #print axioms KontoroC.AffineTwoRailLoop.toInfiniteTwoRailProgram
 #print axioms KontoroC.AffineTwoRailLoop.not_conjecture
+#print axioms KontoroC.NormalizedStandardPayloadStream.step_backward
+#print axioms KontoroC.NormalizedStandardPayloadStream.backwardPrefixProduct_eq
+#print axioms KontoroC.NormalizedStandardPayloadStream.backwardPrefixDefect_eq
+#print axioms KontoroC.NormalizedStandardPayloadStream.finite_theta_identity
+#print axioms KontoroC.NormalizedStandardPayloadStream.padicThetaTerm_summable
+#print axioms KontoroC.NormalizedStandardPayloadStream.padicTerminal_tendsto_zero
+#print axioms KontoroC.NormalizedStandardPayloadStream.padicThetaCandidate_eq_payload
+#print axioms KontoroC.NormalizedStandardPayloadStream.no_stream_of_candidate_avoids_positiveNaturals
 #print axioms KontoroC.MersennePacketRenewal.initial_state_unique
 #print axioms KontoroC.MersennePacketRenewal.packet_function_unique
 #print axioms KontoroC.MersennePacketRenewal.toMersenneShadowOrbit

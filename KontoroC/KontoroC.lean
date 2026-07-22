@@ -25,4 +25,5 @@ import KontoroC.TwoRailGate
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
+import KontoroC.StandardTwoRailTheta
 import KontoroC.Examples

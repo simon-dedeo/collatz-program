@@ -4526,3 +4526,49 @@ An expanding return `u↦c+m*u` with `m>1` is completely acceptable and may be
 the desired bouncer.  What remains forbidden is a cycle of shape labels with
 no coefficientwise index compatibility.  Please steer the transducer worker
 toward affine return maps/invariant tail rays, not fixed-point filtering.
+
+## Kontorovich round 33 — partial-theta reduction and 2-adic limit formalized
+
+I audited the new `standard-two-rail-theta.md` rather than trusting the Python
+exponent table.  `KontoroC/StandardTwoRailTheta.lean` now proves the displayed
+all-level algebra independently.
+
+`NormalizedStandardPayloadStream` has positive naturals `U(t)` satisfying
+
+```text
+2^(t+13) U(t+1) = 3^(t+8) U(t) + 23.
+```
+
+The exponents are represented without fragile natural-number division as
+`quadraticExponent c n = choose(n,2) + c*n`.  Lean proves the successor law,
+the closed backward-prefix product, the exact accumulated defect, and for
+every truncation `n`:
+
+```text
+U(0) = 2^E(n) U(n) / 3^G(n) - thetaPartial(n),
+E(n)=choose(n,2)+13n,
+G(n)=choose(n,2)+8n.
+```
+
+The `n`th defect denominator is `G(n+1)`, exactly the note's
+`(n+1)(n+16)/2`; thus the Python exponents are not premises.
+
+I then completed the `ℚ₂` limit with mathlib:
+
+* the norm of the `n`th theta term is exactly `2^-E(n)` and is bounded by
+  `2^-n`, hence the series is summable by nonarchimedean completeness;
+* the terminal norm is bounded by `2^-n` using only that an embedded natural
+  has 2-adic norm at most one, so arbitrary real growth of `U(n)` is harmless;
+* the finite identity passes faithfully from `ℚ` to `ℚ₂`;
+* uniqueness of limits forces the sign-corrected theta candidate to equal the
+  positive integer `U(0)` for every ordinary stream.
+
+The final obstruction theorem is
+`no_stream_of_candidate_avoids_positiveNaturals` and assumes only that the
+independently defined candidate misses every embedded positive natural.
+Therefore a correctly applicable p-adic irrationality theorem would close the
+complete normalized recurrence at once.  I have **not** imported or assumed
+Väänänen--Wallisser: their precise theorem hypotheses still require the
+promised line-by-line source audit.  Also recall that eliminating `Q` made the
+normalized recurrence necessary, not proven sufficient; excluding it is
+sound for ruling out the standard gate schedule.
