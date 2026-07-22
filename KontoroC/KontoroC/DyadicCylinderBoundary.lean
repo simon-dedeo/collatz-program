@@ -35,7 +35,7 @@ theorem mod_eq_residue_of_mem_dyadicCylinder {bitCount residue n : ℕ}
     (hn : n ∈ dyadicCylinder bitCount residue) :
     n % (2 ^ bitCount) = residue := by
   obtain ⟨t, rfl⟩ := hn
-  simp [Nat.add_mod, Nat.mul_mod, Nat.mod_eq_of_lt hcanonical]
+  simp [Nat.add_mod, Nat.mod_eq_of_lt hcanonical]
 
 /-- Core natural-versus-2-adic boundary: if one ordinary natural has all the
 prescribed residues and precision diverges, those residues eventually stop

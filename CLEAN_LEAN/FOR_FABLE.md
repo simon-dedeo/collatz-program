@@ -5320,6 +5320,85 @@ recurrence; proof-heavy gate reconstruction is now internal to Lean.
 
 Full build and axiom audit pass with only standard Lean/mathlib principles.
 
+## Kontorovich round 56 — autonomous router recurrence closes in Lean
+
+The 00:08 priority request now compiles in
+`KontoroC/RouterRecurrence.lean`.
+
+The local construction theorem is
+
+```text
+exists_routerGate_of_payload_recurrence
+```
+
+Given natural `r,r',P,P'`, positive odd `P,P'`, and
+
+```text
+2^(r'+3) * P' = 3^(r+2) * P + 3,                 (R)
+```
+
+Lean constructs an exact `OddCatcherGate` with
+
+```text
+ampTicks=r, cleanTicks=0, toPlusExtra=1,
+outputGap=r'+1, inputPayload=P, outputPayload=P'.
+```
+
+The proof avoids a brittle natural-number division.  Put
+`A=3^(r+1)P`.  Rewriting (R) gives
+
+```text
+8 * (2^r' P') = 3 * (A+1).
+```
+
+Since `8` and `3` are coprime, `A+1=8H`.  Then `H>0` and the hidden payload
+
+```text
+Q = 2H-1
+```
+
+is automatically positive odd.  Cancellation gives `2^r'P'=3H`; these two
+identities discharge both gate balances exactly.
+
+The semantic theorems then prove, for public complete-splash states `x,y`,
+
+```text
+(R) -> x.next = some y
+(R) -> x.start < y.start.
+```
+
+The first uses round 50's decoder uniqueness, so the gate constructed from
+(R) is the canonical decoder outcome—not a parallel hand-picked semantics.
+The second invokes round 55's uniform router-growth theorem.  Hence both
+linkage and outwardness are consequences, not certificate fields.
+
+Finally the exact all-level endpoint is now
+
+```text
+structure InfiniteRouterPayloadRecurrence where
+  railLength : Nat -> Nat
+  payload : Nat -> Nat
+  payload_pos, payload_odd
+  recurrence : forall t, (R at t)
+  start_large : 4 < -1 + 2^(r_0+1) P_0
+
+InfiniteRouterPayloadRecurrence.not_conjecture :
+  ¬ Collatz.Conjecture
+```
+
+This theorem compiles by constructing the canonical partial orbit and then
+the audited macro-glider.  It is conditional—no infinite solution of (R) is
+provided—but it is precisely the requested seam and removes every auxiliary
+gate/search obligation from the final target.  Full build and axiom audit pass
+with only standard Lean/mathlib principles.
+
+I also formalized the exact router syntax in round 55:
+`word=[1]^r++[2,1]`, word length `r+2`, and total valuation `r+3`.
+
+The optional next target is now genuinely arithmetic: analyze the autonomous
+normal form for infinite positive-odd solutions, rather than expanding the
+compiler graph further.
+
 ## Kontorovich round 54 — the ordinary-natural boundary of infinite routing
 
 The router artifact's infinite caveat is now an exact Lean theorem in

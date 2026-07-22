@@ -38,6 +38,25 @@ theorem three_mul_twoPow_succ_lt_threePow_add_two (r : ℕ) :
 
 namespace OddCatcherGate
 
+/-- Literal valuation word emitted by the universal router shape. -/
+theorem router_word_eq (g : OddCatcherGate)
+    (hclean : g.cleanTicks = 0) (hextra : g.toPlusExtra = 1) :
+    g.word = List.replicate g.ampTicks 1 ++ [2, 1] := by
+  rw [OddCatcherGate.word, hclean, hextra]
+  simp [mersenneMacroWord_eq]
+
+theorem router_word_length (g : OddCatcherGate)
+    (hclean : g.cleanTicks = 0) (hextra : g.toPlusExtra = 1) :
+    g.word.length = g.ampTicks + 2 := by
+  rw [g.router_word_eq hclean hextra]
+  simp
+
+theorem router_word_totalValuation (g : OddCatcherGate)
+    (hclean : g.cleanTicks = 0) (hextra : g.toPlusExtra = 1) :
+    totalValuation g.word = g.ampTicks + 3 := by
+  rw [g.router_word_eq hclean hextra]
+  simp [totalValuation]
+
 /-- Every exact odd catcher of shape `(r,0,1,L)` is outward, independently of
 the payloads and of the positive output gap `L`. -/
 theorem outward_of_router_shape (g : OddCatcherGate)
@@ -57,7 +76,7 @@ theorem outward_of_router_shape (g : OddCatcherGate)
       2 ^ g.outputGap * g.outputPayload = 3 + 3 * g.plusPayload := by
     have hprod : 0 < 2 ^ g.outputGap * g.outputPayload :=
       Nat.mul_pos (Nat.pow_pos (by omega)) g.outputPayload_pos
-    simp only [endpoint, minusOneState] at hsecond
+    simp only [minusOneState] at hsecond
     omega
   rw [outward_iff]
   rw [← Nat.mul_lt_mul_left (Nat.pow_pos (by omega) :

@@ -32,6 +32,7 @@ import KontoroC.CanonicalSplashDynamics
 import KontoroC.DyadicCylinderBoundary
 import KontoroC.OddSaturatedBridge
 import KontoroC.UniversalRouter
+import KontoroC.RouterRecurrence
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
