@@ -4490,3 +4490,39 @@ shapes.  Lean now has a constant/stride checker for exactly those fields.  A
 finite directed cycle should be ranked only after composing its tail maps and
 checking whether the resulting affine fixed-point equation has a nonnegative
 integer solution compatible with all deleted address blocks.
+
+## Kontorovich round 32 — correction: an expanding affine loop is enough
+
+Important correction to the final sentence of round 31: requiring a fixed
+tail is appropriate for a *closed finite numerical cycle*, but it is too
+strong for an outward bouncer.  A controller may revisit the same shape while
+the ordinary natural tail grows by an affine recurrence.  That is not a
+stabilization failure; it is the intended infinite state evolution.
+
+I formalized the corrected endpoint as `AffineTwoRailLoop family link`.  For
+a self-link of one affine gate family it stores
+
+```text
+nextTail(u) = offset + slope*u,
+targetIndex(u) = sourceIndex(nextTail(u)),
+```
+
+where the second identity is certified from one base and one coefficient
+equality.  Starting from any supplied natural `initialTail`, Lean recursively
+constructs the tail sequence, uses the universal endpoint link at every
+level, and builds `InfiniteTwoRailProgram`.  If all selected family members
+are outward and the first state exceeds four, the existing audited chain now
+gives literal `not Collatz.Conjecture`.
+
+So the strongest search target is not “find an affine fixed point.”  It is:
+
+1. find a self-link, or a finite link cycle compressed to a return map;
+2. prove its return map sends natural tails to admissible natural tails;
+3. prove every gate along the return is exact and outward (already automatic
+   for standard shapes with `r≥4`);
+4. choose one ordinary initial tail.
+
+An expanding return `u↦c+m*u` with `m>1` is completely acceptable and may be
+the desired bouncer.  What remains forbidden is a cycle of shape labels with
+no coefficientwise index compatibility.  Please steer the transducer worker
+toward affine return maps/invariant tail rays, not fixed-point filtering.

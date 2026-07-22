@@ -453,4 +453,75 @@ theorem firstTwoStandardHandoff_all_tails (z : ℕ) :
           (firstTwoStandardHandoff.secondTail z))).start :=
   firstTwoStandardHandoff.two_gate_ordinary_iterate z
 
+/-- A self-sustaining affine instruction.  Unlike a finite numerical cycle,
+an outward bouncer does not require a fixed tail: the tail may evolve by an
+expanding affine map forever. -/
+structure AffineTwoRailLoop
+    (family : AffineTwoRailFamily)
+    (link : AffineTwoRailLink family family) where
+  initialTail : ℕ
+  tailOffset : ℕ
+  tailSlope : ℕ
+  index_base_loop :
+    link.targetIndexBase =
+      link.sourceIndexBase + link.sourceIndexStride * tailOffset
+  index_stride_loop :
+    link.targetIndexStride = link.sourceIndexStride * tailSlope
+  start_large :
+    4 < (family.member (link.sourceIndex initialTail)).start
+  outward : ∀ u,
+    (family.member (link.sourceIndex u)).start <
+      (family.member (link.sourceIndex u)).endpoint
+
+namespace AffineTwoRailLoop
+
+def nextTail {family : AffineTwoRailFamily}
+    {link : AffineTwoRailLink family family}
+    (g : AffineTwoRailLoop family link) (u : ℕ) : ℕ :=
+  g.tailOffset + g.tailSlope * u
+
+def tail {family : AffineTwoRailFamily}
+    {link : AffineTwoRailLink family family}
+    (g : AffineTwoRailLoop family link) : ℕ → ℕ
+  | 0 => g.initialTail
+  | t + 1 => g.nextTail (g.tail t)
+
+/-- The affine index equations make every target member exactly the next
+source member, even when the tail expands. -/
+theorem index_loop {family : AffineTwoRailFamily}
+    {link : AffineTwoRailLink family family}
+    (g : AffineTwoRailLoop family link) (u : ℕ) :
+    link.targetIndex u = link.sourceIndex (g.nextTail u) := by
+  simp only [AffineTwoRailLink.targetIndex,
+    AffineTwoRailLink.sourceIndex, nextTail]
+  rw [g.index_base_loop, g.index_stride_loop]
+  ring
+
+/-- A self-sustaining affine instruction is an actual infinite two-rail
+program on ordinary natural states. -/
+def toInfiniteTwoRailProgram {family : AffineTwoRailFamily}
+    {link : AffineTwoRailLink family family}
+    (g : AffineTwoRailLoop family link) : InfiniteTwoRailProgram where
+  gate t := family.member (link.sourceIndex (g.tail t))
+  start_large := g.start_large
+  linked t := by
+    calc
+      (family.member (link.sourceIndex (g.tail t))).endpoint =
+          (family.member (link.targetIndex (g.tail t))).start :=
+        link.endpoint_link _
+      _ = (family.member (link.sourceIndex (g.tail (t + 1)))).start := by
+        rw [g.index_loop]
+        rfl
+  outward t := g.outward (g.tail t)
+
+/-- Sound endpoint for an affine tag bouncer.  An expanding tail is permitted
+and needs no fixed point or stabilization argument. -/
+theorem not_conjecture {family : AffineTwoRailFamily}
+    {link : AffineTwoRailLink family family}
+    (g : AffineTwoRailLoop family link) :
+    ¬CleanLean.Collatz.Conjecture :=
+  g.toInfiniteTwoRailProgram.not_conjecture
+
+end AffineTwoRailLoop
+
 end KontoroC

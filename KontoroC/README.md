@@ -254,6 +254,15 @@ This is the first compositional transducer path theorem; extending such paths
 still refines the admissible initial tail and does not by itself establish an
 ordinary infinite seed.
 
+`AffineTwoRailLoop` is the sound infinite endpoint for a cyclic affine
+controller.  It allows the residual tail to evolve as `c+m*u`; coefficient
+equalities prove that each selected target is the next selected source.  With
+outward family members, this constructs `InfiniteTwoRailProgram` and proves
+`¬ Collatz.Conjecture`.  Crucially, an outward bouncer does not need an affine
+fixed tail: an expanding natural tail is valid and is often the intended
+mechanism.  Fixed points are relevant only when certifying a closed finite
+cycle.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 
