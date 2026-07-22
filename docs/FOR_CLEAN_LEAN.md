@@ -7122,3 +7122,211 @@ instruction precisely: regenerate the spent left token from the incremented
 right counter.  This is a concrete two-block version of Simon's proposed
 carry splash, and it cannot be expressed by the marker-fixed independent
 digit morphisms closed above.
+
+## YAH is an exact nonlocal queue transducer (2026-07-22 15:48 EDT)
+
+Rounds 148--149 close the independent-letter and carry-opcode seams.  The
+next constructive abstraction is both smaller and more programmatic than the
+11-rule presentation.  It should give us a reusable macro-level certificate
+interface.
+
+On pure ternary words, define a quotient sweep `Q_c`, where the state/carry
+`c` is zero or one.  Its letter transitions `(output,nextCarry)` are
+
+```text
+       input 0    input 1    input 2
+c=0     (0,0)      (0,1)      (1,0)
+c=1     (1,1)      (2,0)      (2,1).
+```
+
+After the last input letter, final carry zero emits nothing and final carry
+one appends one `tri2`.  This is ordinary long division by two in base three;
+the terminal carry is exactly the parity/DT bit.
+
+Let `M` be one complete left-delimiter macro: consume the first ternary digit
+and continue literal YAH rewriting until the word is pure ternary again.  The
+three exact factorizations are
+
+```text
+M(0 v) = Q_1(v),
+M(1 v) = Q_0(Q_0(v)),
+M(2 v) = Q_0(Q_1(v)).                              (QM1)
+```
+
+Here the first sweep in each displayed composition is the inner one.  These
+come directly from `B_0 : /0 -> /t`, `B_1 : /1 -> /ff`, and
+`B_2 : /2 -> /ft`, followed by the six A-rules and a DT rule.  A general
+`carrySweepTrace` induction should prove QM1 over the pinned carrier.
+
+Each sweep is letter-for-letter except for its terminal deposit.  Therefore
+
+```text
+length(M(hv)) - length(hv)
+  = (# terminal carries equal to one) - 1.          (QM2)
+```
+
+This is the exact reproduction budget: one head opcode is consumed; every
+odd shortcut step deposits one new maximal trit at the remote end.  It gives
+the complete type table.  If the head is zero, the macro never grows.  If the
+head is one or two, it grows by one exactly when both shortcut steps are odd,
+equivalently when the canonical value is `3 mod 4`:
+
+```text
+head=0:  delta = 0 for odd N, -1 for even N;
+head=1/2:
+  N mod 4 = 0 -> delta=-1,
+              1 or 2 -> delta=0,
+              3 -> delta=+1.                        (QM3)
+```
+
+The enable bit is intrinsically nonlocal.  For a trit word
+`v=d_0...d_(m-1)` after the slash, its canonical value is
+
+```text
+N(v)=3^m + sum_i d_i 3^(m-1-i),
+N(v) mod 4 = (-1)^m + sum_i d_i (-1)^(m-1-i).       (QM4)
+```
+
+Thus a reproducing opcode is **local head type plus a global alternating
+checksum across the whole digit span**.  This is the precise version of
+Simon's warning that a Collatz instruction need not occupy nearby cells.
+
+There is also a closed census which may be useful after QM3--QM4.  Among all
+`3^m` trit words of fixed length `m>=1`, the macro length deltas have counts
+
+```text
+delta=-1: 3^(m-1),
+delta= 0: (3^m+1)/2,
+delta=+1: (3^(m-1)-1)/2.                              (QM4b)
+```
+
+Thus the uniform mean delta is `-1/6-1/(2*3^m)`.  This should be a short
+residue-count induction once QM3 is available; it is lower priority than the
+factorization and type table.
+
+The first chained spatial identities are also clean.  Besides CR4,
+
+```text
+M(1^(2q) 2^n)   = (01)^(q-1) 0 1^(n+1),            q>=1,
+M(1^(2q+1) 2^n) = (01)^q (02)^ceil(n/2),            q,n>=0.  (QM5)
+```
+
+So the spent contiguous reservoir is not simply lost: it becomes a
+distributed alternating comb.  One further head-zero macro gives
+
+```text
+M((01)^(2s+1) (02)^q) = 2 (0012)^s (01)^q,
+M((01)^(2s+2) (02)^q) = 2 (0012)^s 00 (12)^q 2,
+M((02)^q)              = 2 (12)^(q-1) 2.            (QM6)
+```
+
+The live chained packet after QM6 has an especially small compiler.  For
+
+```text
+P(s,q)=2 (0012)^s (01)^q,
+```
+
+the head-two macro composes the carry-one and carry-zero sweeps.  Both block
+types advance the same phase `j -> j+1 mod 4`; the phase-indexed outputs are
+
+```text
+phase j       0      1      2      3
+input 0012   0210   1112   2022   0001
+input 01       02     11     21     00
+terminal         1      2     22      [].             (QM7)
+```
+
+Hence `M(P(s,q))` grows exactly when `s+q=2 mod 4`, shrinks at phase three,
+and is neutral at phases zero/one.  The artifact literally replays all 4,225
+instances with `0<=s,q<=64`.  QM7 is lower priority than QM3--QM4, but it is
+the first explicit chained opcode whose enable address is a distributed
+block-count checksum.  Its output alphabet is not yet closed.
+
+One small arithmetic no-go would also make the next synthesis scope precise.
+A fixed shortcut word with `L>0` steps and `O` odd steps acts as
+`2^L*N'=3^O*N+C`.  If a fixed phase cycle returned a family
+`N_n=A*3^n+B`, `A>0`, to the same leading coefficient with exponent shift
+`n -> n+d`, `d>0`, coefficient comparison gives
+
+```text
+2^L * 3^d = 3^O.                                    (QM8)
+```
+
+This is impossible for positive `L,d`, by the prime/coprime separation of two
+and three.  A standalone theorem excluding QM8 (or the coefficient wrapper if
+easy) would certify that a simple ternary-run glider cannot have a fixed
+reproduction clock.  The live compiler must use counter-dependent time or a
+mixed scale.  This is lower priority than QM3--QM4.  (Commit `99d3405` has
+since completed this request, and `db13d82` proved the exact finite-burst
+divisibility law.)
+
+Round 153's perpetual-growth no-go suggests the right potential for the
+intermittent escape hatch.  For a pure ternary word `w`, let
+
+```text
+D(w)=canonicalValue(w)+1,
+Battery(w)=2*w.length+v2(D(w)).                       (QM9)
+```
+
+The round-153 identity `4*D'=9*D` immediately makes QM9 invariant on every
+growing macro: one new cell spends exactly two units of dyadic valuation.
+For the other residue/head types, direct substitution into one/two shortcut
+steps gives
+
+```text
+head 0, N even:       Delta Battery = v2(D+1)-3,
+head 0, N odd:        Delta Battery = -1,
+head 1/2, N=0 mod 4:  Delta Battery = v2(D+3)-4,
+head 1/2, N=1 mod 4:  Delta Battery = v2(3D+2)-3,
+head 1/2, N=2 mod 4:  Delta Battery = v2(D+1)-2,
+head 1/2, N=3 mod 4:  Delta Battery = 0.              (QM10)
+```
+
+The updated worker checks QM9--QM10 on all 88,572 bounded words.  If these
+are convenient to formalize from the existing `carrySweep_value` and length
+theorems, they provide the exact target for the next obstruction/construction:
+a useful collision must make one of the three displayed numerators unusually
+2-divisible, and its battery gain must fund more later `+1` cells than its
+length loss.  This is now the algebraic definition of recharge.
+
+The first packet makes that recharge address explicit.  For
+`P(s,q)=2 (0012)^s (01)^q`, put `C_s=(81^(s+1)+1)/2`.  Direct block evaluation
+gives
+
+```text
+C_s odd, C_s=1 mod 8,
+N(P(s,q))=(9^q*C_s-1)/8.                             (QM11)
+```
+
+Using the QM10 table and `r=s+q mod 4`, the battery changes reduce to
+
+```text
+r=0: v2(3*9^q*C_s+37)-6,
+r=1: v2(  9^q*C_s+15)-5,
+r=2: 0,
+r=3: v2(  9^q*C_s+31)-7.                            (QM12)
+```
+
+Thus any requested one-shot gain `g>=1` is a discrete-log address:
+
+```text
+r=0: 9^q = -37/(3*C_s) mod 2^(g+6),
+r=1: 9^q = -15/C_s     mod 2^(g+5),
+r=3: 9^q = -31/C_s     mod 2^(g+7).                 (QM13)
+```
+
+Each right side is `1 mod 8`; the standard fact that `9` generates
+`1+8 Z / 2^K Z` gives one `q` class modulo `2^(K-3)`, whose low bits also
+select the stated phase.  This would prove that arbitrarily deep recharge is
+available syntactically, while round 156 correctly shows it is not a
+self-link: a second packet type must write the next QM13 address.  Please
+audit QM11--QM13 if the `9`-power group lemma is convenient; QM9--QM10 are the
+more fundamental priority.
+
+The exact `yah_queue_macro.py` worker independently implements the quotient
+transducer and literal rule traces.  Its default artifact compares them on
+all 88,572 nonempty ternary words through length ten and literally replays
+16,769 bounded QM5--QM7 family members through coordinate 64.  No closure is
+claimed.  If convenient, please formalize QM1--QM4 first; they are the
+fundamental interface.  (Round 151 has since completed QM1--QM2, so QM3--QM4
+are the live part of that request.)  QM5--QM7 are lower priority inductions.

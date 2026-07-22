@@ -1,0 +1,903 @@
+{
+  "artifact_sha256": "865cf4fffcc00fbfbf722dae309a32056b2d140da31e77f78751c12c652f3f09",
+  "closure_status": {
+    "candidate": null,
+    "missing_instruction": "a typed macro chain must repeatedly restore a nonzero head and global checksum 3 mod 4 while preserving positive net charge"
+  },
+  "generated_at_utc": "2026-07-22T20:04:43.231810+00:00",
+  "macro_exhaustion": {
+    "all_length_factorization": [
+      "M(0v)=Q_1(v)",
+      "M(1v)=Q_0(Q_0(v))",
+      "M(2v)=Q_0(Q_1(v))"
+    ],
+    "by_length": {
+      "1": {
+        "dyadic_battery_delta_counts": {
+          "-1": 3
+        },
+        "dyadic_recharge_events": 0,
+        "head_counts": {
+          "0": 1,
+          "1": 1,
+          "2": 1
+        },
+        "length_delta_counts": {
+          "-1": 1,
+          "0": 2
+        },
+        "reproducing_macros": 0,
+        "value_mod_4_counts": {
+          "0": 1,
+          "1": 1,
+          "3": 1
+        },
+        "words": 3
+      },
+      "10": {
+        "dyadic_battery_delta_counts": {
+          "-1": 19684,
+          "-2": 9841,
+          "0": 19683,
+          "1": 4920,
+          "10": 10,
+          "11": 4,
+          "12": 2,
+          "13": 3,
+          "2": 2461,
+          "3": 1229,
+          "4": 616,
+          "5": 307,
+          "6": 155,
+          "7": 76,
+          "8": 38,
+          "9": 20
+        },
+        "dyadic_recharge_events": 9841,
+        "head_counts": {
+          "0": 19683,
+          "1": 19683,
+          "2": 19683
+        },
+        "length_delta_counts": {
+          "-1": 19683,
+          "0": 29525,
+          "1": 9841
+        },
+        "reproducing_macros": 9841,
+        "value_mod_4_counts": {
+          "0": 14762,
+          "1": 14763,
+          "2": 14762,
+          "3": 14762
+        },
+        "words": 59049
+      },
+      "2": {
+        "dyadic_battery_delta_counts": {
+          "-1": 4,
+          "-2": 1,
+          "0": 3,
+          "2": 1
+        },
+        "dyadic_recharge_events": 1,
+        "head_counts": {
+          "0": 3,
+          "1": 3,
+          "2": 3
+        },
+        "length_delta_counts": {
+          "-1": 3,
+          "0": 5,
+          "1": 1
+        },
+        "reproducing_macros": 1,
+        "value_mod_4_counts": {
+          "0": 2,
+          "1": 3,
+          "2": 2,
+          "3": 2
+        },
+        "words": 9
+      },
+      "3": {
+        "dyadic_battery_delta_counts": {
+          "-1": 11,
+          "-2": 4,
+          "0": 8,
+          "1": 1,
+          "2": 2,
+          "4": 1
+        },
+        "dyadic_recharge_events": 4,
+        "head_counts": {
+          "0": 9,
+          "1": 9,
+          "2": 9
+        },
+        "length_delta_counts": {
+          "-1": 9,
+          "0": 14,
+          "1": 4
+        },
+        "reproducing_macros": 4,
+        "value_mod_4_counts": {
+          "0": 7,
+          "1": 7,
+          "2": 6,
+          "3": 7
+        },
+        "words": 27
+      },
+      "4": {
+        "dyadic_battery_delta_counts": {
+          "-1": 28,
+          "-2": 13,
+          "0": 27,
+          "1": 6,
+          "2": 4,
+          "3": 2,
+          "5": 1
+        },
+        "dyadic_recharge_events": 13,
+        "head_counts": {
+          "0": 27,
+          "1": 27,
+          "2": 27
+        },
+        "length_delta_counts": {
+          "-1": 27,
+          "0": 41,
+          "1": 13
+        },
+        "reproducing_macros": 13,
+        "value_mod_4_counts": {
+          "0": 20,
+          "1": 21,
+          "2": 20,
+          "3": 20
+        },
+        "words": 81
+      },
+      "5": {
+        "dyadic_battery_delta_counts": {
+          "-1": 83,
+          "-2": 40,
+          "0": 80,
+          "1": 20,
+          "2": 10,
+          "3": 6,
+          "4": 1,
+          "5": 3
+        },
+        "dyadic_recharge_events": 40,
+        "head_counts": {
+          "0": 81,
+          "1": 81,
+          "2": 81
+        },
+        "length_delta_counts": {
+          "-1": 81,
+          "0": 122,
+          "1": 40
+        },
+        "reproducing_macros": 40,
+        "value_mod_4_counts": {
+          "0": 61,
+          "1": 61,
+          "2": 60,
+          "3": 61
+        },
+        "words": 243
+      },
+      "6": {
+        "dyadic_battery_delta_counts": {
+          "-1": 244,
+          "-2": 121,
+          "0": 243,
+          "1": 60,
+          "2": 30,
+          "3": 16,
+          "4": 7,
+          "5": 4,
+          "6": 3,
+          "8": 1
+        },
+        "dyadic_recharge_events": 121,
+        "head_counts": {
+          "0": 243,
+          "1": 243,
+          "2": 243
+        },
+        "length_delta_counts": {
+          "-1": 243,
+          "0": 365,
+          "1": 121
+        },
+        "reproducing_macros": 121,
+        "value_mod_4_counts": {
+          "0": 182,
+          "1": 183,
+          "2": 182,
+          "3": 182
+        },
+        "words": 729
+      },
+      "7": {
+        "dyadic_battery_delta_counts": {
+          "-1": 731,
+          "-2": 364,
+          "0": 728,
+          "1": 181,
+          "10": 1,
+          "2": 92,
+          "3": 46,
+          "4": 21,
+          "5": 12,
+          "6": 7,
+          "7": 2,
+          "8": 2
+        },
+        "dyadic_recharge_events": 364,
+        "head_counts": {
+          "0": 729,
+          "1": 729,
+          "2": 729
+        },
+        "length_delta_counts": {
+          "-1": 729,
+          "0": 1094,
+          "1": 364
+        },
+        "reproducing_macros": 364,
+        "value_mod_4_counts": {
+          "0": 547,
+          "1": 547,
+          "2": 546,
+          "3": 547
+        },
+        "words": 2187
+      },
+      "8": {
+        "dyadic_battery_delta_counts": {
+          "-1": 2188,
+          "-2": 1093,
+          "0": 2187,
+          "1": 546,
+          "10": 2,
+          "12": 1,
+          "2": 274,
+          "3": 136,
+          "4": 69,
+          "5": 33,
+          "6": 18,
+          "7": 8,
+          "8": 5,
+          "9": 1
+        },
+        "dyadic_recharge_events": 1093,
+        "head_counts": {
+          "0": 2187,
+          "1": 2187,
+          "2": 2187
+        },
+        "length_delta_counts": {
+          "-1": 2187,
+          "0": 3281,
+          "1": 1093
+        },
+        "reproducing_macros": 1093,
+        "value_mod_4_counts": {
+          "0": 1640,
+          "1": 1641,
+          "2": 1640,
+          "3": 1640
+        },
+        "words": 6561
+      },
+      "9": {
+        "dyadic_battery_delta_counts": {
+          "-1": 6563,
+          "-2": 3280,
+          "0": 6560,
+          "1": 1640,
+          "10": 4,
+          "11": 2,
+          "13": 1,
+          "2": 820,
+          "3": 409,
+          "4": 206,
+          "5": 102,
+          "6": 52,
+          "7": 26,
+          "8": 12,
+          "9": 6
+        },
+        "dyadic_recharge_events": 3280,
+        "head_counts": {
+          "0": 6561,
+          "1": 6561,
+          "2": 6561
+        },
+        "length_delta_counts": {
+          "-1": 6561,
+          "0": 9842,
+          "1": 3280
+        },
+        "reproducing_macros": 3280,
+        "value_mod_4_counts": {
+          "0": 4921,
+          "1": 4921,
+          "2": 4920,
+          "3": 4921
+        },
+        "words": 19683
+      }
+    },
+    "checksum": "canonical_value modulo 4 is the alternating signed trit sum, including the implicit leading one",
+    "closed_charge_census": "at trit length m>=1: shrink=3^(m-1), neutral=(3^m+1)/2, grow=(3^(m-1)-1)/2",
+    "dyadic_battery": "B(w)=2*len(w)+v2(canonical_value(w)+1); every growing macro has B(M(w))=B(w), so fresh space spends two units of v2 charge",
+    "length_charge": "len(M(w))-len(w)=number_of_odd_sweeps-1",
+    "max_trit_length": 10,
+    "mean_length_delta": "under the uniform length-m word measure: -1/6 - 1/(2*3^m)",
+    "recharge_table": [
+      "head 0, N mod 2=0: deltaB=v2((N+1)+1)-3",
+      "head 0, N mod 2=1: deltaB=-1",
+      "head 1/2, N mod 4=0: deltaB=v2((N+1)+3)-4",
+      "head 1/2, N mod 4=1: deltaB=v2(3*(N+1)+2)-3",
+      "head 1/2, N mod 4=2: deltaB=v2((N+1)+1)-2",
+      "head 1/2, N mod 4=3: deltaB=0 and 4*(N'+1)=9*(N+1)"
+    ],
+    "reproduction_type": "head 0 never grows; head 1 or 2 grows by one exactly when canonical_value(w)=3 (mod 4)",
+    "samples": {
+      "0": {
+        "dyadic_battery_delta": -1,
+        "dynamic_steps": 1,
+        "endpoint": "2",
+        "endpoint_dyadic_battery": 3,
+        "endpoint_v2_value_plus_one": 1,
+        "endpoint_value": 5,
+        "head": "0",
+        "incoming_carries": [
+          1
+        ],
+        "length_delta": 0,
+        "literal_rewrite_steps": 2,
+        "start": "0",
+        "start_dyadic_battery": 4,
+        "start_v2_value_plus_one": 2,
+        "start_value": 3,
+        "terminal_carries": [
+          1
+        ],
+        "trace_sha256": "204dbcd49771d24f6fb2fde2b3b5195927d220343e63f58f814e2f8bb4040bf5",
+        "value_mod_4": 3
+      },
+      "0022": {
+        "dyadic_battery_delta": -1,
+        "dynamic_steps": 1,
+        "endpoint": "1222",
+        "endpoint_dyadic_battery": 8,
+        "endpoint_v2_value_plus_one": 0,
+        "endpoint_value": 134,
+        "head": "0",
+        "incoming_carries": [
+          1
+        ],
+        "length_delta": 0,
+        "literal_rewrite_steps": 5,
+        "start": "0022",
+        "start_dyadic_battery": 9,
+        "start_v2_value_plus_one": 1,
+        "start_value": 89,
+        "terminal_carries": [
+          1
+        ],
+        "trace_sha256": "9618ffd85e3de0f12309b1476f7c72405817d24a6ddaaccb7f2bb87d33a1d20a",
+        "value_mod_4": 1
+      },
+      "1": {
+        "dyadic_battery_delta": -1,
+        "dynamic_steps": 2,
+        "endpoint": "",
+        "endpoint_dyadic_battery": 1,
+        "endpoint_v2_value_plus_one": 1,
+        "endpoint_value": 1,
+        "head": "1",
+        "incoming_carries": [
+          0,
+          0
+        ],
+        "length_delta": -1,
+        "literal_rewrite_steps": 3,
+        "start": "1",
+        "start_dyadic_battery": 2,
+        "start_v2_value_plus_one": 0,
+        "start_value": 4,
+        "terminal_carries": [
+          0,
+          0
+        ],
+        "trace_sha256": "9a5b280464a7f558cf75fef6c09b82b8d1902d12e6a59a6f68b9690eb16dddcb",
+        "value_mod_4": 0
+      },
+      "1122": {
+        "dyadic_battery_delta": -1,
+        "dynamic_steps": 2,
+        "endpoint": "0111",
+        "endpoint_dyadic_battery": 8,
+        "endpoint_v2_value_plus_one": 0,
+        "endpoint_value": 94,
+        "head": "1",
+        "incoming_carries": [
+          0,
+          0
+        ],
+        "length_delta": 0,
+        "literal_rewrite_steps": 10,
+        "start": "1122",
+        "start_dyadic_battery": 9,
+        "start_v2_value_plus_one": 1,
+        "start_value": 125,
+        "terminal_carries": [
+          1,
+          0
+        ],
+        "trace_sha256": "509fcfb737d779309f9f72e4da9e0197a6d52e1f672988d6235047fe0300fd7b",
+        "value_mod_4": 1
+      },
+      "2": {
+        "dyadic_battery_delta": -1,
+        "dynamic_steps": 2,
+        "endpoint": "1",
+        "endpoint_dyadic_battery": 2,
+        "endpoint_v2_value_plus_one": 0,
+        "endpoint_value": 4,
+        "head": "2",
+        "incoming_carries": [
+          1,
+          0
+        ],
+        "length_delta": 0,
+        "literal_rewrite_steps": 4,
+        "start": "2",
+        "start_dyadic_battery": 3,
+        "start_v2_value_plus_one": 1,
+        "start_value": 5,
+        "terminal_carries": [
+          1,
+          0
+        ],
+        "trace_sha256": "4e5b23e31d8bf3436f1359d28fece565ec6ae7ab8db5fcc56722f4f57cbebb04",
+        "value_mod_4": 1
+      }
+    },
+    "scope": "factorization, charge, and checksum are all-length induction schemas; literal replay is exhaustive only through the stated bound",
+    "words_checked": 88572
+  },
+  "queue_transducer": {
+    "0,0": [
+      "0",
+      0
+    ],
+    "0,1": [
+      "0",
+      1
+    ],
+    "0,2": [
+      "1",
+      0
+    ],
+    "1,0": [
+      "1",
+      1
+    ],
+    "1,1": [
+      "2",
+      0
+    ],
+    "1,2": [
+      "2",
+      1
+    ]
+  },
+  "rule_table_sha256": "beffceb27d77a04e02becd823bc39017e8a2e1b936e7a3cd76732040b226a617",
+  "schema": "yah_queue_macro_audit_v1",
+  "structured_opcodes": {
+    "cases_checked": 16769,
+    "distributed_comb_splash_cases": 4224,
+    "formulae": [
+      "M(0^k 2^n)=1^(k-1) 2^(n+1)",
+      "M(1^(2q) 2^n)=(01)^(q-1) 0 1^(n+1)",
+      "M(1^(2q+1) 2^n)=(01)^q (02)^ceil(n/2)",
+      "M((01)^(2s+1) (02)^q)=2 (0012)^s (01)^q",
+      "M((01)^(2s+2) (02)^q)=2 (0012)^s 00 (12)^q 2",
+      "M((02)^q)=2 (12)^(q-1) 2",
+      "M(2 (0012)^s (01)^q) is the phase-mod-4 block compiler; it grows exactly when s+q=2 (mod 4)"
+    ],
+    "four_phase_compiler": {
+      "length_delta_by_final_phase": {
+        "0": 0,
+        "1": 0,
+        "2": 1,
+        "3": -1
+      },
+      "phase_long_output_for_0012": [
+        "0210",
+        "1112",
+        "2022",
+        "0001"
+      ],
+      "phase_short_output_for_01": [
+        "02",
+        "11",
+        "21",
+        "00"
+      ],
+      "phase_update_per_block": "+1 mod 4",
+      "terminal_output": [
+        "1",
+        "2",
+        "22",
+        ""
+      ]
+    },
+    "four_phase_counts": {
+      "0": 1057,
+      "1": 1056,
+      "2": 1056,
+      "3": 1056
+    },
+    "four_phase_packet_cases": 4225,
+    "interpretation": "the original contiguous zero reservoir is converted into a distributed alternating comb and then a four-phase packet; the reproducing phase is a nonlocal block-count checksum",
+    "literal_rewrite_steps": 2997572,
+    "max_coordinate": 64,
+    "one_run_comb_splash_cases": 4160,
+    "samples": {
+      "comb:0,1": {
+        "dyadic_battery_delta": -1,
+        "dynamic_steps": 1,
+        "endpoint": "22",
+        "endpoint_dyadic_battery": 5,
+        "endpoint_v2_value_plus_one": 1,
+        "endpoint_value": 17,
+        "head": "0",
+        "incoming_carries": [
+          1
+        ],
+        "length_delta": 0,
+        "literal_rewrite_steps": 3,
+        "start": "02",
+        "start_dyadic_battery": 6,
+        "start_v2_value_plus_one": 2,
+        "start_value": 11,
+        "terminal_carries": [
+          1
+        ],
+        "trace_sha256": "01b27952bed608f17100e1809846c0fb38e3ba3047897afeb8325e46f7ea0669",
+        "value_mod_4": 3
+      },
+      "comb:1,1": {
+        "dyadic_battery_delta": -2,
+        "dynamic_steps": 1,
+        "endpoint": "201",
+        "endpoint_dyadic_battery": 6,
+        "endpoint_v2_value_plus_one": 0,
+        "endpoint_value": 46,
+        "head": "0",
+        "incoming_carries": [
+          1
+        ],
+        "length_delta": -1,
+        "literal_rewrite_steps": 5,
+        "start": "0102",
+        "start_dyadic_battery": 8,
+        "start_v2_value_plus_one": 0,
+        "start_value": 92,
+        "terminal_carries": [
+          0
+        ],
+        "trace_sha256": "55eff5a4d8dad05c6644bc92e3310b47e3b7ce972a2c3a78003f09bd4d88c8af",
+        "value_mod_4": 0
+      },
+      "comb:2,2": {
+        "dyadic_battery_delta": -1,
+        "dynamic_steps": 1,
+        "endpoint": "20012122",
+        "endpoint_dyadic_battery": 20,
+        "endpoint_v2_value_plus_one": 4,
+        "endpoint_value": 11087,
+        "head": "0",
+        "incoming_carries": [
+          1
+        ],
+        "length_delta": 0,
+        "literal_rewrite_steps": 9,
+        "start": "01010202",
+        "start_dyadic_battery": 21,
+        "start_v2_value_plus_one": 5,
+        "start_value": 7391,
+        "terminal_carries": [
+          1
+        ],
+        "trace_sha256": "b1e71d218c7c659a2915cae2df704e9c7a9bd9ad1d30da38136c5e8f8de1fc4a",
+        "value_mod_4": 3
+      },
+      "comb:64,64": {
+        "dyadic_battery_delta": -1,
+        "dynamic_steps": 1,
+        "endpoint": "2001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200121212121212121212121212121212121212121212121212121212121212121212121212121212121212121212121212121212121212121212121212121212122",
+        "endpoint_dyadic_battery": 512,
+        "endpoint_v2_value_plus_one": 0,
+        "endpoint_value": 234576763386431736540835890207553449005244310739392920360833143436345480888715205310604146962407215882721859151396475753122,
+        "head": "0",
+        "incoming_carries": [
+          1
+        ],
+        "length_delta": 0,
+        "literal_rewrite_steps": 257,
+        "start": "0101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010102020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202",
+        "start_dyadic_battery": 513,
+        "start_v2_value_plus_one": 1,
+        "start_value": 156384508924287824360557260138368966003496207159595280240555428957563653925810136873736097974938143921814572767597650502081,
+        "terminal_carries": [
+          1
+        ],
+        "trace_sha256": "664855ee45012d8b1bda8b40878ba0697d0d3b7f520eee1fe1654b2af54c6f5f",
+        "value_mod_4": 1
+      },
+      "ones:1,2": {
+        "dyadic_battery_delta": 0,
+        "dynamic_steps": 2,
+        "endpoint": "02",
+        "endpoint_dyadic_battery": 6,
+        "endpoint_v2_value_plus_one": 2,
+        "endpoint_value": 11,
+        "head": "1",
+        "incoming_carries": [
+          0,
+          0
+        ],
+        "length_delta": -1,
+        "literal_rewrite_steps": 7,
+        "start": "122",
+        "start_dyadic_battery": 6,
+        "start_v2_value_plus_one": 0,
+        "start_value": 44,
+        "terminal_carries": [
+          0,
+          0
+        ],
+        "trace_sha256": "1898b4ca3ebe03df57f8fa27caedd4260d9045fac54ec0ef2265f689d6e2f2b5",
+        "value_mod_4": 0
+      },
+      "ones:2,2": {
+        "dyadic_battery_delta": -1,
+        "dynamic_steps": 2,
+        "endpoint": "0111",
+        "endpoint_dyadic_battery": 8,
+        "endpoint_v2_value_plus_one": 0,
+        "endpoint_value": 94,
+        "head": "1",
+        "incoming_carries": [
+          0,
+          0
+        ],
+        "length_delta": 0,
+        "literal_rewrite_steps": 10,
+        "start": "1122",
+        "start_dyadic_battery": 9,
+        "start_v2_value_plus_one": 1,
+        "start_value": 125,
+        "terminal_carries": [
+          1,
+          0
+        ],
+        "trace_sha256": "509fcfb737d779309f9f72e4da9e0197a6d52e1f672988d6235047fe0300fd7b",
+        "value_mod_4": 1
+      },
+      "ones:64,64": {
+        "dyadic_battery_delta": 0,
+        "dynamic_steps": 2,
+        "endpoint": "01010101010101010101010101010101010101010101010101010101010101011111111111111111111111111111111111111111111111111111111111111111",
+        "endpoint_dyadic_battery": 257,
+        "endpoint_v2_value_plus_one": 1,
+        "endpoint_value": 13263957649955906067960981969090371130320597733492067941142561,
+        "head": "1",
+        "incoming_carries": [
+          0,
+          0
+        ],
+        "length_delta": 0,
+        "literal_rewrite_steps": 258,
+        "start": "11111111111111111111111111111111111111111111111111111111111111112222222222222222222222222222222222222222222222222222222222222222",
+        "start_dyadic_battery": 257,
+        "start_v2_value_plus_one": 1,
+        "start_value": 17685276866607874757281309292120494840427463644656090588190081,
+        "terminal_carries": [
+          1,
+          0
+        ],
+        "trace_sha256": "8fdd825fee99a34f76acb4d6a22a9a7ae352aca3c4a15b0cfcead1ac3fcbd714",
+        "value_mod_4": 1
+      },
+      "phase:0,0": {
+        "dyadic_battery_delta": -1,
+        "dynamic_steps": 2,
+        "endpoint": "1",
+        "endpoint_dyadic_battery": 2,
+        "endpoint_v2_value_plus_one": 0,
+        "endpoint_value": 4,
+        "head": "2",
+        "incoming_carries": [
+          1,
+          0
+        ],
+        "length_delta": 0,
+        "literal_rewrite_steps": 4,
+        "start": "2",
+        "start_dyadic_battery": 3,
+        "start_v2_value_plus_one": 1,
+        "start_value": 5,
+        "terminal_carries": [
+          1,
+          0
+        ],
+        "trace_sha256": "4e5b23e31d8bf3436f1359d28fece565ec6ae7ab8db5fcc56722f4f57cbebb04",
+        "value_mod_4": 1
+      },
+      "phase:0,2": {
+        "dyadic_battery_delta": 0,
+        "dynamic_steps": 2,
+        "endpoint": "021122",
+        "endpoint_dyadic_battery": 15,
+        "endpoint_v2_value_plus_one": 3,
+        "endpoint_value": 935,
+        "head": "2",
+        "incoming_carries": [
+          1,
+          0
+        ],
+        "length_delta": 1,
+        "literal_rewrite_steps": 12,
+        "start": "20101",
+        "start_dyadic_battery": 15,
+        "start_v2_value_plus_one": 5,
+        "start_value": 415,
+        "terminal_carries": [
+          1,
+          1
+        ],
+        "trace_sha256": "70a8cc55c6cb4a612d66a3515cb2492638a66e6a26e483403834bac0a6b145e8",
+        "value_mod_4": 3
+      },
+      "phase:2,0": {
+        "dyadic_battery_delta": 0,
+        "dynamic_steps": 2,
+        "endpoint": "0210111222",
+        "endpoint_dyadic_battery": 24,
+        "endpoint_v2_value_plus_one": 4,
+        "endpoint_value": 74735,
+        "head": "2",
+        "incoming_carries": [
+          1,
+          0
+        ],
+        "length_delta": 1,
+        "literal_rewrite_steps": 20,
+        "start": "200120012",
+        "start_dyadic_battery": 24,
+        "start_v2_value_plus_one": 6,
+        "start_value": 33215,
+        "terminal_carries": [
+          1,
+          1
+        ],
+        "trace_sha256": "4e94a1ba1696fa06a5f1650ba9be5f60e503ea2dcb618744dfac7618bef7dfde",
+        "value_mod_4": 3
+      },
+      "phase:64,64": {
+        "dyadic_battery_delta": -1,
+        "dynamic_steps": 2,
+        "endpoint": "0210111220220001021011122022000102101112202200010210111220220001021011122022000102101112202200010210111220220001021011122022000102101112202200010210111220220001021011122022000102101112202200010210111220220001021011122022000102101112202200010210111220220001021121000211210002112100021121000211210002112100021121000211210002112100021121000211210002112100021121000211210002112100021121001",
+        "endpoint_dyadic_battery": 770,
+        "endpoint_v2_value_plus_one": 0,
+        "endpoint_value": 6222832510442715452461821218389141170231145391679237067491195801479675561784751343215248011666082243679944510669930544253760300313731916912977317273818636407747916632991167280715146084,
+        "head": "2",
+        "incoming_carries": [
+          1,
+          0
+        ],
+        "length_delta": 0,
+        "literal_rewrite_steps": 772,
+        "start": "2001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001200120012001201010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101",
+        "start_dyadic_battery": 771,
+        "start_v2_value_plus_one": 1,
+        "start_value": 8297110013923620603282428291185521560308193855572316089988261068639567415713001790953664015554776324906592680893240725671680400418309222550636423031758181876997222177321556374286861445,
+        "terminal_carries": [
+          1,
+          0
+        ],
+        "trace_sha256": "3dae9590c0d6ad5c2e2411b42f3e886eb34a2e4bda2b21d68bb5917b3a29d2a4",
+        "value_mod_4": 1
+      },
+      "transfer:1,0": {
+        "dyadic_battery_delta": -1,
+        "dynamic_steps": 1,
+        "endpoint": "2",
+        "endpoint_dyadic_battery": 3,
+        "endpoint_v2_value_plus_one": 1,
+        "endpoint_value": 5,
+        "head": "0",
+        "incoming_carries": [
+          1
+        ],
+        "length_delta": 0,
+        "literal_rewrite_steps": 2,
+        "start": "0",
+        "start_dyadic_battery": 4,
+        "start_v2_value_plus_one": 2,
+        "start_value": 3,
+        "terminal_carries": [
+          1
+        ],
+        "trace_sha256": "204dbcd49771d24f6fb2fde2b3b5195927d220343e63f58f814e2f8bb4040bf5",
+        "value_mod_4": 3
+      },
+      "transfer:2,2": {
+        "dyadic_battery_delta": -1,
+        "dynamic_steps": 1,
+        "endpoint": "1222",
+        "endpoint_dyadic_battery": 8,
+        "endpoint_v2_value_plus_one": 0,
+        "endpoint_value": 134,
+        "head": "0",
+        "incoming_carries": [
+          1
+        ],
+        "length_delta": 0,
+        "literal_rewrite_steps": 5,
+        "start": "0022",
+        "start_dyadic_battery": 9,
+        "start_v2_value_plus_one": 1,
+        "start_value": 89,
+        "terminal_carries": [
+          1
+        ],
+        "trace_sha256": "9618ffd85e3de0f12309b1476f7c72405817d24a6ddaaccb7f2bb87d33a1d20a",
+        "value_mod_4": 1
+      },
+      "transfer:64,64": {
+        "dyadic_battery_delta": -1,
+        "dynamic_steps": 1,
+        "endpoint": "11111111111111111111111111111111111111111111111111111111111111122222222222222222222222222222222222222222222222222222222222222222",
+        "endpoint_dyadic_battery": 256,
+        "endpoint_v2_value_plus_one": 0,
+        "endpoint_value": 17685276866607874757281309292123928524247756157140748437279362,
+        "head": "0",
+        "incoming_carries": [
+          1
+        ],
+        "length_delta": 0,
+        "literal_rewrite_steps": 129,
+        "start": "00000000000000000000000000000000000000000000000000000000000000002222222222222222222222222222222222222222222222222222222222222222",
+        "start_dyadic_battery": 257,
+        "start_v2_value_plus_one": 1,
+        "start_value": 11790184577738583171520872861415952349498504104760498958186241,
+        "terminal_carries": [
+          1
+        ],
+        "trace_sha256": "d940de680fd0234cba52662905b380dc2fa7e0747a64114fabce5e3f8f0d2f76",
+        "value_mod_4": 1
+      }
+    },
+    "scope": "every bounded instance is literally replayed; the displayed families are research-side transducer inductions",
+    "zero_reservoir_transfer_cases": 4160
+  },
+  "upstream": {
+    "authors_repository_commit": "8a4dfda60f97a6d33ff0a24fdfa7a172d4bec340",
+    "paper": "https://arxiv.org/abs/2105.14697"
+  },
+  "worker_sha256": "dd31ba052f11102ad0b9cc6dc13278c0254c8366ddb39f5b01c96a519b305745",
+  "yah_worker_sha256": "fd3bb7aff3922d4c5f8a927166deed462c557d2216302ac66e0d52efc04c89ab"
+}

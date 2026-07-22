@@ -33,6 +33,105 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-22 16:12 EDT
+
+The carry lane now has a fundamental instruction architecture rather than a
+single promising rewrite.  Group the YAH rules from one visit to the left
+delimiter until the word is pure ternary again.  If `Q_c` is the two-state
+base-three long-division sweep with incoming carry `c`, the three head
+opcodes factor exactly as
+
+```text
+M(0v)=Q_1(v),
+M(1v)=Q_0(Q_0(v)),
+M(2v)=Q_0(Q_1(v)).
+```
+
+Each sweep rewrites the *entire* suffix and deposits one terminal `2` exactly
+when the corresponding shortcut-Collatz step is odd.  Hence there is an exact
+space-charge law
+
+```text
+length(M(w))-length(w) = number of odd sweeps - 1.
+```
+
+One head cell is consumed; remote odd carries are the only source of fresh
+program space.  The complete reproduction type is unexpectedly sharp.  A
+zero head never grows.  A head `1` or `2` grows by one exactly when the
+canonical integer is `3 (mod 4)`.  Because `3=-1 (mod 4)`, that enable bit is
+the alternating signed checksum of **every trit in the word**, including the
+slash's implicit leading one.  This is a precise realization of Simon's PL
+and nonlocality suggestion: the opcode has a local head but its branch bit is
+spread across the entire digit span.
+
+The new exact
+[`yah_queue_macro.py`](experiments/kontorovich/yah_queue_macro.py) worker
+implements the quotient transducer independently of the literal rewrite
+engine.  Its artifact compares both semantics on all 88,572 nonempty ternary
+words through length ten, including values, parity bits, checksums, and space
+charge.  It also literally replays 16,769 structured opcode instances through
+coordinate 64.  The exact fixed-length census is equally clean: among all
+`3^m` programs, `3^(m-1)` shrink, `(3^m+1)/2` are neutral, and
+`(3^(m-1)-1)/2` grow.  Only asymptotic density `1/6` reproduces a cell, and
+the uniform mean space drift tends to `-1/6`.  This is Kontorovich's typical decay in
+literal program-space form, while leaving room for a thin exceptional
+language.  The structured cases include a genuine chained splash:
+
+```text
+M(1^(2q) 2^n)   = (01)^(q-1) 0 1^(n+1),
+M(1^(2q+1) 2^n) = (01)^q (02)^ceil(n/2).
+```
+
+The spent contiguous reservoir becomes a distributed alternating comb—it is
+not simply erased.  Its next head-`2` macro is already a four-phase block
+compiler: both `0012` and `01` advance a public phase modulo four, and phase
+two emits the two-cell terminal deposit `22`.  Thus the chained packet grows
+exactly when the two block counts sum to `2 mod 4`.  This is a real
+distributed opcode address, although the emitted block alphabet has not yet
+closed back to its input alphabet.  The closure target is now a finite cycle of comb/packet
+*types* whose checksum enables the next reproducing opcode and whose total
+space charge is positive.  A research-side coefficient argument shows why its
+clock cannot be fixed: a fixed shortcut block returning a family
+`A*3^n+B` with exponent shift `n -> n+d` would require
+`2^L*3^d=3^O`, impossible for positive `L,d`; commit `99d3405`
+kernel-checks this fixed-clock no-go.  A real glider therefore needs
+an unbounded public clock or a genuinely mixed dyadic--triadic scale.
+
+The adversarial audit also caught up completely.  Commit `bfe12f0`
+kernel-checks that identity is the only productive nonerasing marker-fixed
+digit-word morphism even at arbitrary, unequal image widths.  Commit
+`0365c72` kernel-checks the positive carry defect and all four carry/run
+opcodes for arbitrary words and run lengths; `f81ff21` also proves CR4's exact
+`2E=3S+1` semantics and strict outwardness.  Commit `1a88c3e` kernel-checks the
+all-length queue-sweep traces, all three macro factorizations, and the exact
+space-charge law.  Commit `b1dd87a` now proves the mod-four growth table and
+the global alternating checksum.  Commit `64bccb8` goes further: an ordinary
+natural orbit cannot grow by one cell at every macro, because every such step
+satisfies `4(N'+1)=9(N+1)` and would force arbitrarily large powers of four
+into one fixed positive `N+1`.  Commit `db13d82` sharpens every finite burst:
+`r` consecutive reproductions force `4^r | N+1` and satisfy
+`4^r(N_r+1)=9^r(N_0+1)`.
+
+That no-go exposes a better recharge potential.  Put
+
+```text
+B(w)=2*length(w)+v2(N(w)+1).
+```
+
+Every reproducing macro conserves `B`: its new cell spends exactly two units
+of dyadic charge.  Neutral/shrinking macros are therefore not mere failures;
+they are the only places where a collision can recharge the battery.  The
+worker now checks the exact battery transition at every one of its 88,572
+words and lists the four congruential recharge formulas.  Commit `288fb09`
+kernel-checks the all-length conservation law for every growing macro.  The live closure
+target is a comb/packet type cycle whose occasional battery gains pay for
+more later cells than its collision phases lose.  Commit `b794b2f` also proves
+that the first packet `2(0012)^s(01)^q` can never map directly to another
+packet of the same family: its endpoint starts with `0` or `1`, never `2`.
+It must therefore be one opcode in a genuinely multi-type cycle, not a
+self-loop.  No counterexample, infinite orbit, or closure certificate is
+known.
+
 ### 2026-07-22 15:31 EDT
 
 The mixed-base lane now has its first fundamental internal opcode.  The six
@@ -2827,12 +2926,11 @@ identically `x`.
   reproduce, translate, or change scale.  A finite certificate has the form
   `u ->+ L sigma(u) R` plus nonempty simulations of every rewritten rule under
   `sigma`; commit `1b3459d` kernel-checks that this finite data constructs an
-  infinite chunked derivation.  Exact width-one/two classifications and the
-  width-at-least-three size obstruction force `sigma` beyond a
-  delimiter-fixing uniform block code.  The live PL architectures are
-  variable-length self-delimiting
-  opcodes, delimiter-changing phases, or several coupled blocks whose global
-  invariant is nonlocal.
+  infinite chunked derivation.  Commit `bfe12f0` now proves that identity is
+  the only productive nonerasing delimiter-fixing independent digit-word
+  morphism, with no common-width assumption.  The live PL architectures must
+  therefore change delimiter charts or use contextual/multi-block opcodes
+  whose global invariant is nonlocal.
 - **Carry-defect two-block machine.**  Digit complement is an exact symmetry
   of the six auxiliary YAH rules.  At the terminal boundary its minimal
   defect is one unit, and a saturated `tri2` buffer turns that unit into the
@@ -2844,6 +2942,19 @@ identically `x`.
   by the incremented right counter.  A passive adapter is impossible because
   its affine defect is positive; success must coordinate both blocks across
   the entire word.
+- **Queue-macro checksum machine.**  One complete left-boundary opcode is an
+  exact two-state quotient transducer over the entire remaining ternary tape.
+  The space law is `delta length = odd terminal carries - 1`; only head
+  `1`/`2` with global value `3 mod 4` reproduces a cell.  The enable bit is the
+  alternating checksum of the whole digit span, while successive carry
+  opcodes turn a contiguous reservoir into alternating combs and period-four
+  packets.  Perpetual `+1` macros are kernel-impossible.  Use the exact battery
+  `B=2*length+v2(N+1)`: growth converts two valuation units into one cell, so
+  a viable grammar must use a neutral/shrinking collision to raise `B` before
+  spending it again.  Search for a finite grammar of these *types* with positive net
+  space charge and a checksum-preserving successor.  Fixed-time returns on a
+  simple ternary exponential family are multiplicatively impossible, so the
+  type cycle must carry an unbounded clock or mixed dyadic--triadic scale.
 - **Delocalized instruction synthesis.**  Represent an instruction as an
   arithmetic relation across the entire state: a dyadic address, triadic
   phase, carry boundary, and affine high payload.  Search for formula
@@ -3455,7 +3566,10 @@ identically `x`.
 |---|---|---|
 | Prefix-complete uniformly outward valuation ISA | Closed for finite positive prefix-free codes.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, every outward leaf has `q(w)>p(w)`; `p`-completeness and the `q`-Kraft bound are inconsistent.  Commit `da9fa59` constructs explicit binary and four-letter compilers, derives both Kraft inequalities from prefix-freeness, and proves the full finite contradiction and quantitative mass bound in Lean.  The countably infinite prefix-free theorem still uses an abstract `tsum` interface.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |
 | Proper whole-word YAH context splash with canonical endpoints | Universally closed.  Commit `9ca4360` proves over the pinned 11 rules that if a nonempty derivation starts and ends at canonical `/digits.` words and claims `endpoint=left++start++right`, then both contexts are empty.  The earlier generic/flank theorem and the worker's 825,708 bounded rule checks remain diagnostics for noncanonical charts.  This is not YAH termination; internal/morphic templates remain live. | [`yah_context_loop_audit.json`](experiments/kontorovich/yah_context_loop_audit.json), [`YahRewriteSystem.lean`](KontoroC/KontoroC/YahRewriteSystem.lean) |
-| Delimiter-fixing uniform YAH block morphism | Closed at every width.  The exact worker finds identity as the unique width-one simulation and none among all 9,765,625 width-two maps.  Commit `2d50381` pins the actual 11-rule carrier and proves that every common width `w>=3` is impossible: the terminal-zero rule forces the binary-zero image, the B1 image forces value `2^(2w)`, and the exact ternary bound is smaller.  Variable-width, delimiter-changing, and coordinated multi-block maps are not excluded. | [`yah_context_loop_audit.json`](experiments/kontorovich/yah_context_loop_audit.json), [`YahUniformMorphismNoGo.lean`](KontoroC/KontoroC/YahUniformMorphismNoGo.lean) |
+| Delimiter-fixing independent YAH digit morphism | Closed completely in the stated productive/nonerasing class.  The exact worker finds identity as the unique width-one simulation and none among all 9,765,625 width-two maps; commit `2d50381` excludes every uniform width `w>=3`.  Commit `bfe12f0` removes the common-width premise: over the pinned 11 rules, any marker-fixed morphism with nonempty digit-only images and nonempty simulations of all rules is literally identity.  Delimiter-changing and context-dependent/coordinated multi-block maps are not excluded. | [`yah_context_loop_audit.json`](experiments/kontorovich/yah_context_loop_audit.json), [`YahVariableMorphismRigidity.lean`](KontoroC/KontoroC/YahVariableMorphismRigidity.lean) |
+| Perpetual one-cell YAH macro reproduction | Universally closed for ordinary natural seeds.  Commit `64bccb8` proves that every `+1` queue macro has `4*(N_next+1)=9*(N+1)`; an infinite all-growing macro orbit would force every power of four to divide one fixed positive `N+1`.  Commit `db13d82` gives the finite form: an `r`-macro growth burst forces `4^r | N+1`.  This does not close intermittent growth: a survivor must include neutral/shrinking collision phases which recharge enough dyadic battery to fund later cells. | [`YahPerpetualGrowthNoGo.lean`](KontoroC/KontoroC/YahPerpetualGrowthNoGo.lean), [closure doctrine](docs/notes/kontorovich-closure-principles.md#56-macro-space-conservation-exposes-the-nonlocal-instruction-bit) |
+| Fixed-clock ternary-run YAH glider | Closed in the stated phase-cycle class.  Commit `99d3405` proves that a fixed shortcut block with positive dynamic length cannot return a family with leading scale `A*3^n` to the same phase while shifting `n` by a fixed `d>0`: coefficient comparison would require `2^L*3^d=3^O`.  A live scale compiler needs counter-dependent time or a mixed dyadic--triadic/nonlinear scale. | [`YahFixedClockNoGo.lean`](KontoroC/KontoroC/YahFixedClockNoGo.lean), [closure doctrine](docs/notes/kontorovich-closure-principles.md#56-macro-space-conservation-exposes-the-nonlocal-instruction-bit) |
+| Direct self-link of the first four-phase YAH packet | Universally closed.  Commit `b794b2f` proves `queueMacro(2(0012)^s(01)^q)` is never `2(0012)^s'(01)^q'`: the endpoint starts with `1` when the tail is empty and `0` otherwise, while every target starts with `2`.  The packet remains a routed opcode but requires at least one additional type to restore the head. | [`YahPacketFamilyNoGo.lean`](KontoroC/KontoroC/YahPacketFamilyNoGo.lean), [`yah_queue_macro_audit.json`](experiments/kontorovich/yah_queue_macro_audit.json) |
 | Treat a prescribed finite `k`-word as an infinite program | Invalid: the nested progressions generally select a 2-adic integer, not a positive ordinary seed. Lean commit `ad36f08` proves that eventual canonical-seed stabilization is exactly the ordinary-integer gate. | [Program-synthesis note](docs/notes/kontorovich-program-synthesis.md) |
 | Literal periodic valuation glider | Closed: Lean commits `92b01ff`/`2f93df7` prove that an infinitely repeatable positive block has `3^N<2^S` and closes as a cycle. This does not touch morphic, counter, stack, or feedback streams. | [Section 4](docs/notes/kontorovich-program-synthesis.md#4-why-a-literal-periodic-glider-fails) |
 | Small positive cycle words | Exhaustively negative through total halving count `S<=22`: `3,447,691` positive-denominator compositions, with only repeated encodings of seed `1`. This is a bounded ansatz exclusion, not a new verification frontier. | [`search_results.json`](experiments/kontorovich/search_results.json) |
@@ -3519,8 +3633,9 @@ positive integer and its claimed behavior are machine-checked.
 |---|---|
 | Two-Kraft architecture bound | Every valuation word has ordinary weight `p=2^-S` and tilted weight `q=3^n/4^S`; outward slope means `q>p`.  Commit `da9fa59` derives both Kraft inequalities from finite prefix-freeness via explicit self-delimiting compilers and proves that a positive nonempty, prefix-free, `p`-complete code cannot have every leaf outward.  It also proves the finite quantitative mass bound; the countable prefix-free bridge remains abstract.  The positive target is a proper invariant thin language, not a total growing decoder; no counterexample is claimed. |
 | Kernel thin-trap endpoint | Commit `298f5a3` iterates any explicit canonical-splash predicate closed under its public successor, proves exact `next` linkage and strict outwardness, constructs `InfiniteCanonicalSplashOrbit`, and concludes `not Collatz`.  This is a fully checked certificate consumer, not a witness: no qualifying seed or invariant predicate is known. |
-| YAH mixed-base closure audit | The exact artifact pins all 11 rules, replays the published `12 -> ... -> 1` example, classifies all letter and width-two uniform morphisms, proves its 513,916-state length-at-most-eight induced graph acyclic, and finds a longest 299-rewrite delay `834 -> 1079` but no pumping certificate.  Commit `1b3459d` proves that either a literal context loop or a productive morphic certificate constructs nonempty rewrite chunks forever; `2d50381` closes the uniform marker-fixed class at every remaining width; `9ca4360` closes proper outer growth for canonical endpoints.  Variable-width independent digit maps are under a separate affine-rigidity audit.  Context-dependent/multi-block templates, the external YAH-to-Collatz seam, and any glider remain open. |
-| YAH internal carry opcode | The auxiliary digit complement is exact, while its terminal affine defect is `s-t>=1` and equals one exactly on saturated buffers.  The exact artifact checks 488,281 bounded buffers and replays 1,443 run macros.  Its outward transfer spends one left `tri0` token to increment a right `tri2` counter and phase-changes the remaining left block.  This supplies a real two-counter instruction but no recharge, invariant language, or infinite orbit. |
+| YAH mixed-base closure audit | The exact artifact pins all 11 rules, replays the published `12 -> ... -> 1` example, classifies all letter and width-two uniform morphisms, proves its 513,916-state length-at-most-eight induced graph acyclic, and finds a longest 299-rewrite delay `834 -> 1079` but no pumping certificate.  Commit `1b3459d` makes literal/morphic pumping a kernel certificate consumer; `9ca4360` closes proper canonical outer growth; `bfe12f0` proves identity is the only productive nonerasing marker-fixed independent digit-word morphism at arbitrary widths.  Context-dependent/multi-block templates, the external YAH-to-Collatz seam, and any glider remain open. |
+| YAH internal carry opcode | The auxiliary digit complement is exact, while its terminal affine defect is `s-t>=1` and equals one exactly on saturated buffers.  The exact artifact checks 488,281 bounded buffers and replays 1,443 run macros.  Commit `0365c72` independently kernel-checks the defect and the all-length zero/max-run and two-counter transfer opcodes; `f81ff21` proves the transfer's exact odd-step semantics and strict outwardness.  It spends one left `tri0` token to increment a right `tri2` counter and phase-changes the remaining block; it supplies a real instruction but no closure. |
+| YAH queue macro and nonlocal type | A complete left-boundary opcode factors into one or two sweeps of a two-state ternary quotient transducer.  Commits `1a88c3e`/`b1dd87a` kernel-check the factorization, exact space charge, mod-four growth table, and global alternating checksum.  At length `m`, exactly `(3^(m-1)-1)/2` of `3^m` programs grow, giving asymptotic density `1/6` and mean space drift tending to `-1/6`.  Commits `64bccb8`/`db13d82` prove perpetual `+1` growth impossible and force `4^r | N+1` for an `r`-burst; each growing macro conserves the dyadic battery `2*length+v2(N+1)`.  The independent worker agrees with literal rules on all 88,572 words through length ten, checks the battery ledger, and replays 16,769 chained run/comb/packet cases through coordinate 64.  It exhibits a four-phase packet compiler; commit `b794b2f` proves that packet is not directly self-linked, so no battery-recharging multi-type cycle or infinite orbit is known. |
 | Program-scale calibration | Barina's published exhaustive check through `2^71` excludes every ordinary seed below that bound. Colussi's exact order-10 repetend has 39,366 padded bits and an 11,846-digit integer value, giving a literature-backed, formula-generated background at the scale Simon proposed. This is target calibration, not evidence of divergence. |
 | Delocalized instruction-set audit | Exact published encodings expose four complementary units: valuation congruences, mixed binary--ternary boundary rewrites, De Mol's three-symbol tag rules, and Colussi's rotated repetend grammar. They motivate a nonlocal bouncer search but do not prove computational universality or nontermination. |
 | Exact dyadic--triadic packet gate | Lean commit `f1cb0e2` proves universally that each supplied base collision generates exactly the affine family `h=r+2^(m+e+2)q`, `h'=s+2*3^m q`, with unique payload, literal valuation `e`, and the triadic next-packet scheduler. The Python checker passes 8,192 family members and an exhaustive converse over all 16,316 renewals found for odd `h<2^16` at levels `1..8`. No closed all-level gate controller is known. |
@@ -4041,6 +4156,23 @@ existing lines of work; the closest ancestors, and what each contributes:
   (2023)** — respectively the three-symbol tag and 11-rule mixed-
   base presentations now being mined for formula bouncers.  These are exact
   encodings, not claims that the Collatz map itself is universal.
+- **H. Bordihn, H. Fernau, M. Holzer, V. Manca & C. Martín-Vide,
+  [“Iterated sequential transducers as language generating
+  devices”](https://doi.org/10.1016/j.tcs.2006.07.059) (2006)** and
+  **A. Pierce, [“Decision Problems on Iterated Length-Preserving
+  Transducers”](https://www.cs.cmu.edu/afs/cs/user/mjs/ftp/thesis-program/2011/theses/pierce.pdf)
+  (2011)** — supply the closest formal-language vocabulary for the new YAH
+  macro quotient: repeated whole-word finite-state sweeps can generate rich
+  languages, and even quite restricted iterated transducers can retain
+  Turing-hard reachability.  This calibrates the hardware/software analogy;
+  it does **not** transfer universality to the specific two-state Collatz
+  quotient transducer.
+- **J. C. M. Baeten & B. Luttik, [“The Queue Automaton
+  Revisited”](https://arxiv.org/abs/2502.08345) (2025)** — revisits the
+  classical Turing expressiveness of queue machines.  The YAH macro has the
+  same head-consumption/remote-write spatial flavor but additionally rewrites
+  the whole queue by arithmetic long division, so the comparison is a design
+  guide rather than an equivalence theorem.
 - **J. Cocke & M. Minsky, [“Universality of Tag Systems with
   `P=2`”](https://doi.org/10.1145/321203.321206) (1964)** — proves that
   deletion-two tag systems can simulate a Turing machine by encoding the two

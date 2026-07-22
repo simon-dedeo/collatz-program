@@ -1,6 +1,6 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-22, about 15:31 EDT
+Updated: 2026-07-22, about 16:12 EDT
 
 Repository: `/Users/simon/Desktop/COLLATZ`
 
@@ -69,22 +69,14 @@ delay `834 -> 1079`; no reproduction certificate is present.  Worker hash:
 artifact hash:
 `6056acc0571af5199aebbe98fff34fe43ec512a5a71b00c4ed087e816c2aac2b`.
 
-Commit `ef1b888` proves the generic boundary filter: preserved marker counts
-and outer flanks collapse a proper whole-word context embedding to a cycle.
-The artifact checks those diagnostics on all 825,708 raw bounded rule
-applications; the universal concrete rule bridge remains pending.  Commit
-`b4a48a6` checks the `w>=3` uniform-block arithmetic obstruction, while the
-forced-shape rewrite lemma remains pending.  Commit `1b3459d` kernel-checks
-the generic literal and productive morphic pumping constructions through to
-nonempty rewrite chunks at every scale; only the concrete certificate and
-external YAH-to-Collatz theorem remain.  Commit `b733caa` pins the exact
-seven-symbol, 11-rule carrier, context closure, marker-count preservation, and
-both specialized glider consumers.  The concrete outer-flank bridge remains
-pending.  Commit `442826d` connects any actual trace over the pinned rules to
-the boundary no-go, discharging marker counts internally and accepting the two
-flank equalities as certificate data.  Do not widen the literal search.
-The live YAH target is a variable-width, delimiter-changing, or multi-block
-*internal* template/morphism inside fixed outer boundaries.
+Commit `1b3459d` kernel-checks the generic literal and productive morphic
+pumping constructions; `b733caa` pins the exact seven-symbol, 11-rule carrier.
+Commit `9ca4360` universally collapses proper whole-word context growth between
+canonical endpoints.  Commit `2d50381` closes every uniform marker-fixed
+digit morphism, and `bfe12f0` removes the common-width premise: identity is the
+only productive nonerasing marker-fixed independent digit-word morphism.
+Do not widen the literal or letter-morphism searches.  The live YAH target is
+a delimiter-changing or context-dependent/multi-block *internal* template.
 
 The first such internal opcode is now exact.  Digit complement
 `bin0<->bin1`, `tri0<->tri2` fixes `tri1` and permutes the six A-rules.  For a
@@ -114,7 +106,76 @@ This is not closure.  It spends one left `tri0` token and phase-changes the
 rest.  The exact constructive target is a contextual recharge from the
 `tri1` phase back to a nonexhausted `tri0` block, with the branch selected by
 the incremented right counter.  Do not replace this equation by a wider word
-or seed search.
+or seed search.  Commit `0365c72` independently kernel-checks the carry defect
+and all displayed run/transfer identities at arbitrary lengths.
+
+The more fundamental quotient is now explicit.  One complete left-boundary
+macro consumes a ternary head and applies one or two sweeps of a two-state
+base-three quotient transducer to the entire suffix:
+
+```text
+M(0v)=Q_1(v),
+M(1v)=Q_0(Q_0(v)),
+M(2v)=Q_0(Q_1(v)).
+```
+
+Every odd sweep deposits a terminal `2`, so
+
+```text
+len(M(w))-len(w)=number_of_odd_sweeps-1.
+```
+
+A head zero never grows.  A head one/two grows by one exactly when the
+canonical value is `3 mod 4`; that residue is the alternating signed checksum
+of all trits.  This is Simon's nonlocal instruction principle in exact form.
+The first chained opcodes convert a contiguous zero/one reservoir into
+alternating combs rather than merely destroying it.
+
+Commits `1a88c3e` and `b1dd87a` kernel-check this entire fundamental
+interface: literal queue-macro traces, length charge, quotient semantics,
+mod-four growth type, and alternating checksum.  Commit `64bccb8` proves an
+ordinary natural cannot execute a growing macro forever, since every such
+step has `4*(N'+1)=9*(N+1)`.
+
+The independent worker/artifact are
+
+```text
+experiments/kontorovich/yah_queue_macro.py
+experiments/kontorovich/yah_queue_macro_audit.json
+```
+
+They compare the quotient transducer with literal YAH replay on all 88,572
+nonempty ternary words through length ten and replay 16,769 structured
+run/comb cases through coordinate 64.  Worker hash:
+`dd31ba052f11102ad0b9cc6dc13278c0254c8366ddb39f5b01c96a519b305745`;
+artifact hash:
+`865cf4fffcc00fbfbf722dae309a32056b2d140da31e77f78751c12c652f3f09`.
+
+The exact target is now a finite cycle of contextual comb/packet *types* with
+positive total space charge and a checksum-enabled successor.  A fixed-time
+return on a simple family `A*3^n+B` cannot shift `n` positively, because
+coefficient comparison would require `2^L*3^d=3^O`.  The closure clock must
+therefore grow with a public counter or use a genuinely mixed scale.
+
+The newest exact type is `P(s,q)=2 (0012)^s (01)^q`.  Its head-two macro is a
+four-phase block compiler: both blocks advance phase by one modulo four;
+`0012` emits `0210,1112,2022,0001`, `01` emits `02,11,21,00`, and the terminal
+suffix is `1,2,22,empty` at phases `0,1,2,3`.  Thus it grows exactly when
+`s+q=2 mod 4`.  This is a real chained distributed opcode, but the output
+alphabet does not yet return to the packet alphabet.
+
+Use the dyadic battery
+
+```text
+B(w)=2*len(w)+v2(N(w)+1).
+```
+
+Every growing macro conserves it: one new cell spends exactly two valuation
+units.  Neutral/shrinking macros are the only recharge sites.  The worker now
+checks their exact battery changes at every bounded word; the possible gains
+are `v2(D+1)-3`, `v2(D+3)-4`, `v2(3D+2)-3`, or `v2(D+1)-2` in the four
+nontrivial head/residue cases.  Seek a type cycle whose collision gains more
+battery than its length loss and feeds phase two of the packet compiler.
 
 ### Canonical arithmetic compiler, with corrected scope
 
@@ -385,7 +446,27 @@ At this update, the newest pushed formalizer checkpoints are:
 - `2d50381`: the forced-shape/value proof closes every uniform marker-fixed
   digit morphism of width at least three; exact Python covers widths one/two;
 - `9ca4360`: canonical start/end words make every proper whole-word outer
-  context collapse without separately supplied flank data.
+  context collapse without separately supplied flank data;
+- `bfe12f0`: identity is the unique productive nonerasing marker-fixed
+  digit-word morphism, with no common image-width premise;
+- `0365c72`: the carry defect and CR2--CR4 run/two-counter traces are exact
+  all-length theorems over the pinned carrier;
+- `f81ff21`: CR4 directly satisfies `2*endpoint=3*source+1` and is strictly
+  outward for every pair of run lengths;
+- `1a88c3e`: the general two-state quotient sweep, all three QM1 macro traces,
+  and the exact QM2 space-charge laws are kernel-checked;
+- `b1dd87a`: quotient semantics, the QM3 residue/growth table, and QM4's
+  global alternating checksum are kernel-checked;
+- `64bccb8`: every perpetual all-growing queue-macro orbit on ordinary
+  naturals is impossible via `4*(N'+1)=9*(N+1)`;
+- `99d3405`: fixed-clock positive exponent shifts on a simple ternary
+  exponential family are impossible by two/three prime separation;
+- `db13d82`: an `r`-macro all-growth burst forces `4^r | N+1` and has the
+  exact iterated defect identity;
+- `b794b2f`: the first packet `2(0012)^s(01)^q` never maps directly to another
+  packet of that family; a second type must restore the head.
+- `288fb09`: the dyadic battery `2*length+v2(N+1)` is exactly conserved by
+  every growing queue macro at arbitrary word length.
 
 Never edit or stage its live `KontoroC/*` files.  Continue to send exact
 formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
@@ -393,10 +474,13 @@ formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
 
 The best immediate research tasks are:
 
-1. poll the in-progress all-width marker-fixed affine-rigidity theorem; keep
-   its variable-width scope distinct from `2d50381`'s uniform theorem;
-2. derive a contextual recharge for the exact YAH carry opcode, mapping the
-   `tri1` phase back to a nonexhausted `tri0` block from the right counter;
+1. poll the companion's follow-up on the nongrowing recharge formulas; the
+   growing-macro dyadic-battery law, QM1--QM4, the all-width morphism, and
+   carry-opcode theorems are complete;
+2. synthesize a genuinely multi-type contextual cycle among the exact
+   reservoir, comb, and packet grammars whose collision raises
+   `2*length+v2(N+1)`, restores the packet head, and spends that charge in a
+   later phase-two reproduction;
 3. search for a public invariant predicate on `CompleteSplashState.next`, not
    a deeper finite orbit or another direct CRT handoff;
 4. treat nonlinear stack rewriting or multi-rail address rotation as the
@@ -877,11 +961,13 @@ Diary entry.
 
 1. Poll the detached R23 service, but do not block creative work on it; leave
    the incomplete Ganesha morphic batch stopped.
-2. Poll the companion's all-variable-width marker-fixed rigidity theorem.
-   Uniform maps and canonical whole-word context growth are already closed.
-3. Attack the carry machine's missing recharge: regenerate a left `tri0`
-   token block from the incremented right `tri2` counter through a typed
-   contextual macro.  Do not resume whole-word or larger literal searches.
+2. Poll the companion's nongrowing battery/recharge follow-up.  Growing-macro
+   conservation, QM1--QM4, marker-fixed maps, and carry opcodes are complete;
+   perpetual all-growing macros are closed.
+3. Build a symbolic **multi-type** comb/packet grammar whose collision gains
+   dyadic battery, restores head one/two plus checksum three, and funds net
+   positive space; the first packet has no direct self-link.
+   Its clock must be counter-dependent; do not resume literal searches.
 4. Seek a symbolic invariant `L` for the canonical splash map whose successor
    writes its own next address; do not promote long finite traces.
 5. Keep Simon's spatial metaphor: the invariant should explain how a payload

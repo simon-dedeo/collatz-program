@@ -3523,3 +3523,81 @@ regenerates that token from the incremented right counter.
 
     artifact SHA-256  2f1fa472db827f5eeec746d31c993dd1806a7ea9510b4ad4055c5850ad11d9b8
     worker SHA-256    bcf2549d767db12be3e769eca9d9e7f3fa2a89768367cbd5a78c2e2f675f675c
+
+## YAH queue macros and the nonlocal reproduction type
+
+`yah_queue_macro.py` independently factors a complete left-boundary macro
+into a two-state base-three quotient transducer.  Writing `Q_c` for a sweep
+with incoming carry `c`, including the terminal `2` deposit when its outgoing
+carry is one, the three head opcodes are
+
+    M(0v)=Q_1(v),
+    M(1v)=Q_0(Q_0(v)),
+    M(2v)=Q_0(Q_1(v)).
+
+The worker implements this table directly and also constructs the same macro
+one literal B/A/DT rewrite at a time.  Its default artifact compares both
+semantics on all 88,572 nonempty ternary words of lengths one through ten.
+At every word it independently checks the represented shortcut-Collatz
+values, terminal parities, and exact space balance
+
+    len(M(w))-len(w) = number_of_odd_sweeps-1.
+
+For all `3^m` words of a fixed trit length `m>=1`, the resulting exact census
+is
+
+    shrink  = 3^(m-1),
+    neutral = (3^m+1)/2,
+    grow    = (3^(m-1)-1)/2.
+
+Thus only asymptotic density `1/6` reproduces a cell, and the uniform mean
+length change is `-1/6-1/(2*3^m)`.  The artifact checks these closed counts at
+each of its ten exhaustive lengths; the all-length formula is a residue-count
+induction rather than a statistical estimate.
+
+This yields a nonlocal instruction type.  A zero head never grows.  A head
+one or two grows by one exactly when the represented value is `3 mod 4`.
+Because `3=-1 mod 4`, that enable bit is the alternating signed checksum of
+all trits, including the slash's implicit leading one.  The opcode is therefore
+a local head combined with information spread across the entire digit span.
+
+The worker also checks the exact recharge ledger.  With
+
+    Battery(w)=2*len(w)+v2(value(w)+1),
+
+every growing macro conserves `Battery`: its new trit consumes exactly two
+units of `v2(value+1)`.  The non-growing head/residue cases have changes
+
+    v2(D+1)-3,  -1,  v2(D+3)-4,
+    v2(3D+2)-3,  or  v2(D+1)-2,
+
+with `D=value+1`, as recorded by the artifact.  Those exceptional divisibility
+events are the only literal recharge sites.  This turns “regenerate the
+reservoir” into an exact potential inequality rather than a visual metaphor.
+
+The same artifact literally replays 16,769 members, through coordinate 64,
+of the carry-transfer and chained comb identities.  In particular,
+
+    M(1^(2q) 2^n)   = (01)^(q-1) 0 1^(n+1),
+    M(1^(2q+1) 2^n) = (01)^q (02)^ceil(n/2).
+
+Thus the spent zero reservoir becomes a distributed alternating comb; it is
+not simply erased.  This is a structural opcode compiler, not closure.  A
+counterexample still needs a type cycle that repeatedly restores a nonzero
+head and checksum three with positive net space charge.
+
+One further macro is already a finite four-phase packet compiler.  On the
+family `2 (0012)^s (01)^q`, each input block advances a public phase modulo
+four.  At phases `0,1,2,3`, block `0012` emits respectively
+`0210,1112,2022,0001`, block `01` emits `02,11,21,00`, and the final carry
+suffix is `1,2,22,empty`.  The macro therefore grows exactly when
+`s+q=2 mod 4`.  This is an exact chained opcode with a distributed block-count
+address, but its output blocks do not yet close back to the input alphabet.
+
+    python3 yah_queue_macro.py selftest
+    python3 yah_queue_macro.py build yah_queue_macro_audit.json \
+      --max-length 10 --max-coordinate 64
+    python3 yah_queue_macro.py verify yah_queue_macro_audit.json
+
+    artifact SHA-256  865cf4fffcc00fbfbf722dae309a32056b2d140da31e77f78751c12c652f3f09
+    worker SHA-256    dd31ba052f11102ad0b9cc6dc13278c0254c8366ddb39f5b01c96a519b305745

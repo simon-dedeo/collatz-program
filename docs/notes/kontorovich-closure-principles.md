@@ -877,14 +877,15 @@ delimiter has value at most
     2*3^w-1.
 
 For every w>=3, 4^w>2*3^w, a contradiction.  Width two is the finite exact
-classification above; width one has only the identity.  Thus the first
-plausible scale compiler must be **variable-width, delimiter-changing, or
-multi-block**.  A local fixed-width substitution cannot be the glider.  The
-arithmetic endpoint of the all-`w>=3` argument is kernel-checked in commit
-`b4a48a6`: a ternary block has value at most `2*3^w<4^w=2^(2w)`.  The preceding
-rewrite-theoretic forced-shape implication remains explicit.  The stated
-width-one/two classifications, bounded loop searches, and boundary
-diagnostics are independently machine-replayed in the Python artifact.
+classification above; width one has only the identity.  Commit `2d50381`
+kernel-checks this entire uniform rewriting seam, not only the arithmetic
+endpoint.  Commit `bfe12f0` is stronger: without any common-width premise,
+every nonerasing marker-fixed digit-word morphism which nontrivially simulates
+the eleven rules is the identity.  Thus the first plausible scale compiler
+must be **delimiter-changing or context-dependent/multi-block**.  Assigning
+independent variable-length codewords to the five digits cannot be the glider.
+The bounded classifications and diagnostics remain independently replayed in
+the Python artifact.
 
 ### 5.5 The carry defect is the first internal opcode
 
@@ -930,8 +931,8 @@ The exact [yah_carry_opcode.py](../../experiments/kontorovich/yah_carry_opcode.p
 artifact checks the CP27 permutation, exhausts all 488,281 digit buffers of
 length at most eight for CP28 and the saturation equality case, and literally
 replays 1,443 bounded instances of CP29--CP31 and a related two-dynamic
-alternating-block identity.  The all-length statements remain induction
-schemas until their Lean replay lands.
+alternating-block identity.  Commit `0365c72` independently kernel-checks
+CP28--CP31 for arbitrary digit words/run lengths over the pinned rule system.
 
 This changes the programming model.  A global independent-letter morphism
 must simulate each boundary rule in isolation, so it cannot transport CP28's
@@ -948,6 +949,226 @@ public blocks.  CP32 is allowed to be nonlocal; indeed the positive defect
 shows that a passive local adapter cannot work.  This is Simon's “splash the
 gap” in the mixed-base language: the bad carry is a one-unit instruction
 which must be caught by a second block and rewritten into the next token.
+
+### 5.6 Macro-space conservation exposes the nonlocal instruction bit
+
+The eleven YAH rules admit an exact compiler-level quotient.  Let `Q_c` be
+long division by two on a ternary word with incoming carry `c in {0,1}`.  Its
+two-state Mealy table is
+
+```text
+       input 0    input 1    input 2
+c=0     (0,0)      (0,1)      (1,0)
+c=1     (1,1)      (2,0)      (2,1),
+```
+
+where each pair is `(output trit,next carry)`.  At the right boundary, carry
+zero emits nothing and carry one emits a final `2`.  The latter is exactly an
+odd shortcut step.  If `M` consumes one ternary head opcode after the slash
+and returns to a pure ternary word, the three opcodes factor as
+
+```text
+M(0v)=Q_1(v),
+M(1v)=Q_0(Q_0(v)),
+M(2v)=Q_0(Q_1(v)).                                  (CP33)
+```
+
+Commit `1a88c3e` constructs these traces over the pinned 11-rule carrier for
+arbitrary suffixes and proves the length law below; the quotient abstraction
+is not inferred from bounded replay.
+
+This is the hardware/software model in its smallest exact form.  The head
+chooses one or two quotient sweeps; the entire remaining program is rewritten
+by a two-state carry; and an odd sweep deposits a new maximal trit at the
+remote end.  It resembles an iterated sequential transducer or queue machine,
+but no universality is inferred from those model classes.
+
+Every sweep is letter-for-letter away from the final deposit.  Consequently
+
+```text
+|M(hv)|-|hv| = (# odd sweeps in the macro)-1.         (CP34)
+```
+
+One head cell is spent, and remote odd carries are the only source of new
+space.  CP34 is the closure budget which the earlier metaphor lacked.  Head
+zero executes one sweep and can only shrink or preserve length.  Heads one and
+two execute two sweeps; they reproduce one cell precisely when both are odd.
+For canonical value `N`, the complete type table is
+
+```text
+head 0:   delta=0 for N odd, delta=-1 for N even;
+head 1/2: delta=-1,0,0,+1 for N mod 4 = 0,1,2,3.      (CP35)
+```
+
+The reproducing instruction is therefore *not local*.  If the explicit trits
+are `d_0...d_(m-1)`, then
+
+```text
+N mod 4 = (-1)^m + sum_i d_i*(-1)^(m-1-i) mod 4.     (CP36)
+```
+
+Its opcode is “head is one/two **and** the alternating checksum of the entire
+digit span is three.”  This is the precise mathematical realization of
+Simon's suggestion that a Collatz instruction may be distributed across the
+whole program rather than stored in neighboring digits.  Commit `b1dd87a`
+kernel-checks the Euclidean-division semantics, CP35, and CP36 in `ZMod 4`.
+
+The one-step program census is closed form.  Among all `3^m` words of fixed
+trit length `m>=1`,
+
+```text
+shrink  = 3^(m-1),
+neutral = (3^m+1)/2,
+grow    = (3^(m-1)-1)/2.                            (CP37)
+```
+
+The uniform mean space change is therefore
+`-1/6-1/(2*3^m)`, and only asymptotic density `1/6` executes a reproducing
+macro.  This is a literal program-space counterpart of the negative-drift
+heuristic: typical software loses queue cells, while a counterexample must
+remain in a repeatedly selected thin checksum language.  CP37 does not say
+that the successive types are independent.
+
+The carry transfer also performs a genuine spatial splash.  A second macro
+turns a run of phase-one tokens into a distributed comb:
+
+```text
+M(1^(2q) 2^n)   = (01)^(q-1) 0 1^(n+1),
+M(1^(2q+1) 2^n) = (01)^q (02)^ceil(n/2).             (CP38)
+```
+
+The following head-zero macro maps those combs to period-four packets; the
+explicit formulas are recorded in the exact worker.  On the resulting family
+`2 (0012)^s (01)^q`, the next head-two macro is itself a finite block compiler.
+Both input block types advance one public phase modulo four.  At entry phases
+`0,1,2,3`, respectively,
+
+```text
+0012 -> 0210, 1112, 2022, 0001,
+  01 ->   02,   11,   21,   00,
+tail ->    1,    2,   22, empty.                       (CP39)
+```
+
+It therefore grows by one exactly when `s+q=2 mod 4`, shrinks when the sum is
+three, and is neutral otherwise.  This is the first chained distributed
+opcode whose branch is a public block-count checksum.  It is not closure:
+its output block alphabet differs from its input alphabet.  Commit `b794b2f`
+proves the strongest immediate version of that warning: no source packet
+`2(0012)^s(01)^q` maps to any target packet of the same family, because the
+endpoint head is always zero or one rather than two.  At least one additional
+packet type is mandatory.
+
+The simplest possible closure is now formally dead.  Commit `64bccb8` proves
+that an ordinary natural orbit cannot execute a `+1` macro forever.  Every
+such macro satisfies
+
+```text
+4*(N_next+1)=9*(N+1),                                (CP40)
+```
+
+so infinitely many consecutive reproductions would force arbitrarily high
+powers of four to divide one fixed positive `N+1`.  A real survivor must
+interleave non-growing collisions.  Commit `db13d82` proves the exact finite
+version: a burst of `r` growing macros has
+`4^r*(N_r+1)=9^r*(N_0+1)` and forces `4^r | N_0+1`.
+
+CP40 exposes the conserved resource those collisions must restore.  Define
+
+```text
+Battery(w)=2*|w|+v2(N(w)+1).                         (CP41)
+```
+
+A growing macro adds one cell and removes exactly two units of
+`v2(N+1)`, so CP41 is unchanged.  Put `D=N+1`.  Direct evaluation gives the
+complete recharge ledger:
+
+```text
+head 0, N even:       Delta Battery = v2(D+1)-3,
+head 0, N odd:        Delta Battery = -1,
+head 1/2, N=0 mod 4:  Delta Battery = v2(D+3)-4,
+head 1/2, N=1 mod 4:  Delta Battery = v2(3D+2)-3,
+head 1/2, N=2 mod 4:  Delta Battery = v2(D+1)-2,
+head 1/2, N=3 mod 4:  Delta Battery = 0.             (CP42)
+```
+
+The first worker implementation checks CP41--CP42 exactly at every word in
+its exhaustive scope; their universal algebra has been sent for Lean replay.
+This is a sharper version of “splash the gap.”  A shrink/neutral collision is
+useful only if one of the displayed numerators has excess dyadic valuation;
+that gain must then fund more future cells than the collision destroyed.  The
+constructive target is a comb/packet grammar which maps one of these recharge
+cylinders into the phase-two reproducing packet and back again.
+
+For the first packet family the recharge cylinders have a particularly clean
+research-side parametrization.  Put
+
+```text
+P(s,q)=2 (0012)^s (01)^q,
+C_s=(81^(s+1)+1)/2.
+```
+
+Then `C_s` is odd, `C_s=1 mod 8`, and direct block evaluation gives
+
+```text
+N(P(s,q))=(9^q*C_s-1)/8.                             (CP43)
+```
+
+Writing `r=s+q mod 4`, CP42 becomes
+
+```text
+r=0: Delta Battery = v2(3*9^q*C_s+37)-6,
+r=1: Delta Battery = v2(  9^q*C_s+15)-5,
+r=2: Delta Battery = 0,
+r=3: Delta Battery = v2(  9^q*C_s+31)-7.            (CP44)
+```
+
+Consequently a requested battery gain `g>=1` is a single public address:
+
+```text
+r=0: 9^q = -37/(3*C_s) mod 2^(g+6),
+r=1: 9^q = -15/C_s     mod 2^(g+5),
+r=3: 9^q = -31/C_s     mod 2^(g+7).                 (CP45)
+```
+
+Each right side is `1 mod 8`.  Since powers of nine form the cyclic group
+`1+8 Z / 2^K Z`, CP45 has one `q` class modulo `2^(K-3)` and its low bits
+select the advertised phase.  Thus arbitrarily deep one-shot battery recharge
+is syntactically available inside this packet family; it is not evidence of
+closure.  Commit `b794b2f` says the output is a different packet type, and the
+real compiler obligation is for that output type to write the *next* CP45
+address rather than choosing a fresh congruence externally.  CP43--CP45 have
+been sent for independent kernel audit.
+
+Thus the original contiguous reservoir is not merely consumed—it is spatially redistributed.
+The revised closure target is a finite **type cycle** of such comb/packet
+grammars whose total CP34 charge is positive and whose CP36 checksum enables
+the next reproducing opcode.
+
+There is one more clock constraint.  A fixed shortcut word with `L>0` dynamic
+steps and `O` odd steps acts affinely as
+
+```text
+2^L N' = 3^O N + C.
+```
+
+If a finite phase cycle sent a ternary exponential family
+`N_n=A*3^n+B` back to the same phase with a fixed positive exponent shift
+`n -> n+d`, coefficient comparison would require
+`2^L*3^d=3^O`, impossible for `L,d>0`.  Hence a true scale-reproducer cannot
+have a fixed-time phase period on a simple ternary-run family.  Its clock must
+grow with its public counter, or its state family must use a genuinely mixed
+dyadic--triadic/nonlinear scale.  This rules out another class of Life-like
+glider analogies while preserving Kontorovich's deeper program analogy.
+Commit `99d3405` kernel-checks the prime-power obstruction and its fixed-phase
+coefficient wrapper.
+
+The exact
+[yah_queue_macro.py](../../experiments/kontorovich/yah_queue_macro.py)
+artifact independently implements CP33 and literal rule replay.  It compares
+them on every one of the 88,572 nonempty ternary words of length at most ten,
+checks CP34--CP37, and replays 16,769 bounded CP38/comb/packet identities through
+coordinate 64.  The bounded audit is not the proof of the all-length laws;
+their induction statements have been sent to the companion formalizer.
 
 ## 6. Closure should be an identity before it is a search hit
 
