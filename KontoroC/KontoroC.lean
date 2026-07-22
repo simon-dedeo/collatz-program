@@ -49,6 +49,7 @@ import KontoroC.SuccessorQuineRationalNoGo
 import KontoroC.ChargeBouncerDecoder
 import KontoroC.ChargeBouncerCongruence
 import KontoroC.ChargeBouncerPadic
+import KontoroC.ChargeBouncerConstantNoGo
 import KontoroC.ChargeBouncerThueMorse
 import KontoroC.ChargePowerQuine
 import KontoroC.ChargePowerResonance

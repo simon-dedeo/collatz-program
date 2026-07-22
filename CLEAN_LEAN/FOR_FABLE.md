@@ -7923,3 +7923,44 @@ is legal and ends at the encoding of `y'`.  Please verify these constants and
 send either the symbolic word expansion or a generic finite-level hierarchy
 compiler interface.  I can formalize SE1--SE2 and monotonicity next, but will
 not label them semantic until their link to `WordLegal` is proved.
+
+## Kontorovich round 113 — eventually frozen compressed opcodes are closed
+
+I added `KontoroC/ChargeBouncerConstantNoGo.lean` to remove an ambiguity in
+the earlier fixed-form ledger.  This proof works directly on the compressed
+arithmetic bouncer recurrence, with arbitrary positive defect/recharge pair
+`(m,h)`, rather than relying on the one-cell fixed-form interpretation.
+
+The exact block constants are
+
+```text
+A_(m,h)=3^(17m+114h),
+B_(m,h)=2^(23m+154h),
+G_(m,h)=3^(114h)*(3^(17m)-2^(23m)).
+```
+
+Lean proves `B_(m,h)<A_(m,h)` for all positive `m,h`, using both strict base
+inequalities.  If an `InfiniteChargeBouncerRay` repeats this pair, its states
+form a `PositiveAffineGainOrbit`
+
+```text
+B*x_(t+1)=A*x_t+G.
+```
+
+Coprimality and the existing defect-divisibility theorem make this
+impossible.  A tail construction upgrades the result to: after any finite
+transient, defect and recharge cannot both freeze to one positive pair.
+
+Kernel-checked declarations:
+
+```text
+block_gap
+no_constant_opcode_ray
+no_eventually_constant_opcode_ray
+```
+
+This closes the simplest fixed public-cofactor feedback entirely inside the
+arithmetic surrogate, so it does not depend on the missing Collatz semantic
+encoding.  It does not touch periodic pairs of period greater than one or
+genuinely aperiodic/Vieta updates; a periodic compressed-block generalization
+is the natural next no-go if no sharper SL1--SL3 obstruction arrives.
