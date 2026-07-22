@@ -1038,12 +1038,78 @@ and literally replays every ether cell.  Its artifact covers `n=2..32`, 589
 linked members, and 1,178 gate macros.  Formalization of the two universal
 factorizations has been requested.
 
-The missing glider return is now narrow.  After the `n` ether cells, the
-boundary tail must enter a fresh defect cylinder and the surviving quotient
-must select a strictly larger `n'`, all from one ordinary payload.  Merely
-choosing a new congruence for each finite `n` recreates the rejected 2-adic
-tape.  A disproof needs a symbolic boundary map `(n,K)->(n',K')` which
-regenerates (32)--(34) and grows `n` without fresh initial-address bits.
+The `j=136` defect does not itself receive that boundary: its `E` input
+address is even, whereas (31) exposes an odd tail.  This is an all-level parity
+obstruction, not a bounded miss.  The compatible odd defect and its complete
+return are described next.
+
+### 5.15 A returning finite ether glider ISA
+
+For an immediate defect `E -> H_j -> E`, every `j>=2` forces the input
+coefficient of `H_j=(1,j,1)` to be `1 mod 4`; since `E`'s output base is also
+`1 mod 4`, the corresponding `E`-tail address is even.  The sole
+parity-compatible opcode is `j=1`.  Put `H=(1,1,1)`.  Its exact links are
+
+```text
+E -> H:  67+2^7v -> 381+3^6v,
+H -> E: 151+2^8w -> 144+3^5w.                       (35)
+```
+
+They meet under
+
+```text
+v=170+2^8u,       w=485+3^6u.                       (36)
+```
+
+Substituting the sacrificial packet `u=2^5K-1` makes the returned `E` tail
+especially small:
+
+```text
+t=5668704K-59148,
+473t+12=2^5(83790531K-874281).                       (37)
+```
+
+For every `n>=1`, one odd class of `K` modulo `2^(8n-4)` makes the second
+factor in (37) have exact valuation `8n-5`.  Hence the return emits exactly
+`n` cells of the ether (29).  After those cells, the boundary is odd.  Solving
+one more congruence places it in the next copy of the same defect family,
+whose `E` input tail is
+
+```text
+X(K')=2^20K'-10941.                                  (38)
+```
+
+Eliminating the internal packet and boundary parameters gives a complete
+affine macro for every length:
+
+```text
+K=R_n+2^(8n+15)q -> K'=S_n+3^(6n+11)q.              (39)
+```
+
+Every member of (39) executes `E -> H -> E`, crosses `n` ether self-links,
+and ends at the next state (38), ready to execute the same defect again.  This
+is a literal finite glider instruction: a defect writes a periodic medium,
+travels across it, and returns to its own instruction family.  Fixed `n`
+cannot repeat forever because that would give an eventually periodic outward
+valuation schedule, but a payload-generated aperiodic sequence of lengths is
+not covered by that obstruction.
+
+`breakoff_ether_glider.py` constructs (39), checks both affine coefficients,
+and replays `n=1..32` at two tails each: 1,184 linked members and 2,368 gate
+macros.  A separate exact audit tests the most stringent ordinary controller.
+For every `n=1..128`, link `n -> n+1` and set the remaining higher macro tail
+to zero.  The generated `(n+1)` tail misses the `n+2` cylinder in every case;
+the maximum chain is two macros.  This closes only the exhausted-tail
+staircase, not nonzero generated state.
+
+The disproof target is now the native macro language (39).  Find one natural
+sequence `(n_i,K_i,q_i)` with unbounded or otherwise aperiodic `n_i` such that
+each output packet is the next input packet.  Pairwise compilation of an
+externally specified infinite `n_i` is insufficient by the ordinary-tail
+theorem.  The sequence of lengths must be computed from the transformed
+finite payload itself—for example by a Mersenne/carry relation on `q_i`, a
+branching finite-state transducer whose data register is unbounded, or a
+second nested ether level.
 
 ## 6. Ranked attack and kill tests
 
@@ -1065,9 +1131,10 @@ regenerates (32)--(34) and grows `n` without fresh initial-address bits.
    earlier instructions or a nonlinear packet pairing.  Identity (27) is the
    first exact payload-generated gap amplifier; search for a turnaround that
    promotes its internal `2^(L+D)` factor to the next delay and reconstructs
-   (26).  The `E/H` construction (29)--(34) now supplies arbitrary finite
-   ether; prioritize a formula return of its exposed boundary to a longer
-   ether over enlarging the finite replay bound.  Compare survivors
+   (26).  The returning macros (35)--(39) now solve finite ether, boundary
+   exposure, and defect return.  Prioritize an autonomous nonzero-tail
+   recurrence in this macro ISA over enlarging either replay bound.  Compare
+   survivors
    with the run-length-accelerated three-symbol tag system and translate them
    back to a canonical positive integer before treating them as Collatz
    evidence.

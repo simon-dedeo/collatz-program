@@ -1040,6 +1040,65 @@ artifact SHA-256  2e498bfd6f0dec384ebfc9255233c5a5769980d98ffba7f5c9e4ab397e61c7
 verifier SHA-256  2867d3a79d19c002a588927e1564c1850a50a03a107fbe4497b7773017585b75
 ```
 
+## Returning finite ether glider macros
+
+`breakoff_ether_glider.py` closes the finite boundary return left open by the
+first ether defect.  An exactly exhausted ether has odd tail.  Among immediate
+`E -> H_j -> E` defects, every `j>=2` has an even `E` input address, while
+`H=(1,1,1)` has the compatible odd address.  Its links are
+
+```text
+E -> H:  67+2^7*v -> 381+3^6*v,
+H -> E: 151+2^8*w -> 144+3^5*w,
+```
+
+and meet on
+
+```text
+v=170+2^8*u,       w=485+3^6*u.
+```
+
+With `u=2^5*K-1`, the returned `E` tail obeys
+
+```text
+473*t+12=2^5*(83790531*K-874281).
+```
+
+One odd residue class of `K` therefore emits exactly `n` ether cells.  A
+second exact congruence makes the exposed boundary equal the next defect input
+
+```text
+X(K')=2^20*K'-10941.
+```
+
+After eliminating the two address residuals, the complete family is
+
+```text
+K=R_n+2^(8n+15)*q -> K'=S_n+3^(6n+11)*q,    n>=1.
+```
+
+Every macro begins at an ordinary `E` state ready for `H`, executes the two
+defect links and `n` ether self-links, and ends at another ordinary `E` state
+ready for `H`.
+
+```bash
+python3 breakoff_ether_glider.py selftest
+python3 breakoff_ether_glider.py build breakoff_ether_glider_audit.json
+python3 breakoff_ether_glider.py verify breakoff_ether_glider_audit.json
+```
+
+The artifact constructs `n=1..32` and replays tails zero and one of every
+macro: 64 members, 1,184 exact linked members, and 2,368 literal gate macros.
+Its separate exact macro audit links the staircase `n -> n+1` for
+`n=1..128`; after exhausting the remaining high tail, every generated second
+macro misses `n+2`, so maximum depth is two.  That is a bounded failure of one
+controller, not of nonzero macro tails or other aperiodic length schedules.
+
+```text
+artifact SHA-256  7621d987451ebd20d926ab49972e2bfb91b0ab67ba24b797b525297b2ef1d255
+verifier SHA-256  0f933e8330e33f0c65c3a6b51d30f0983b504492183ca39ef8a4f6c2f3d76dce
+```
+
 ## Regenerative finite ether defect
 
 `breakoff_ether_defect.py` turns the spatial delay-line metaphor into an exact

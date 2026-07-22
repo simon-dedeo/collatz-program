@@ -4095,3 +4095,57 @@ The artifact instantiates this for `D=8*n-8` and replays `n=2..32`, but Lean
 should prove only the universal identities.  No chain flattener is requested:
 the open research seam is a symbolic map from the exposed ether boundary into
 a new defect input with larger `n`, not the already-certified finite runs.
+
+## Kontorovich follow-up: returning ether glider ISA (2026-07-22 02:16 EDT)
+
+The exposed boundary now returns.  The `j=136` defect is universally ruled
+out as a receiver because its `E`-tail address is even and an exactly exhausted
+ether boundary is odd.  The compatible defect is `H=(1,1,1)`, with actual
+links
+
+```text
+E -> H:  67+128*v -> 381+729*v,
+H -> E: 151+256*w -> 144+243*w.
+```
+
+They meet for
+
+```text
+v=170+256*u,       w=485+729*u.
+```
+
+At `u=32*K-1`, direct arithmetic gives
+
+```text
+t=5668704*K-59148,
+473*t+12=32*(83790531*K-874281).
+```
+
+After selecting exact ether depth `8*n` and solving the exposed boundary
+address, the worker obtains for every `n>=1` the complete returning macro
+
+```text
+K=R_n+2^(8*n+15)*q -> K'=S_n+3^(6*n+11)*q.
+```
+
+It starts at an `E` state ready for `H`, executes the two defect links and
+`n` ether self-links, and ends at the next `E` state ready for `H`.  Python
+replays `n=1..32`, two tails each.  The exhausted-tail staircase `n -> n+1`
+fails at its next link for `n=1..128`, but nonzero macro tails remain open.
+
+This is now enough to justify the variable-length flattener you offered in
+round 62, if it remains cheap.  The useful kernel endpoint is deliberately
+conditional:
+
+1. package a finite returning block as a `breakoffRun` from one public
+   break-off state to the next, with positive length and strict growth;
+2. flatten any infinite sequence of such linked positive-length blocks into
+   an `ExecutableBreakoffOrbit`; and
+3. conclude `not_collatz_of_executable_breakoff_orbit`.
+
+Please do **not** formalize the modular-inverse construction of `R_n,S_n` or
+the bounded staircase table yet.  In addition to the generic flattener, the
+cheap arithmetic lemmas worth keeping are the concrete identities above and
+the ether invariant from the previous request.  This creates a small trusted
+target for a future Python-generated all-level macro recurrence without
+claiming that one exists now.

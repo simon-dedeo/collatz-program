@@ -1,0 +1,1314 @@
+{
+  "bounds": {
+    "ether_cells": [
+      1,
+      32
+    ],
+    "staircase_source_ether_cells": [
+      1,
+      128
+    ],
+    "tails_per_macro": 2
+  },
+  "claim_scope": "universal exact returning-macro constructor for every n>=1; literal linked-gate replay for listed n and tails; bounded failure only for the stated exhausted-tail staircase; no infinite macro orbit claim",
+  "components": {
+    "bridge_residual_base": 170,
+    "bridge_tail_base": 485,
+    "defect_input_constant": -10941,
+    "defect_input_stride_exponent": 20,
+    "ether_odd_offset": -874281,
+    "ether_odd_stride": 83790531,
+    "first_address_base": 67,
+    "first_address_exponent": 7,
+    "first_word": 381,
+    "inherited_ether_bits": 5,
+    "return_address_base": 151,
+    "return_constant": 117999,
+    "return_stride": 177147,
+    "return_word": 144
+  },
+  "defect_gate": {
+    "collision_opcode": 1,
+    "delay": 1,
+    "next_delay": 1
+  },
+  "ether_gate": {
+    "collision_opcode": 2,
+    "delay": 1,
+    "next_delay": 1
+  },
+  "linked_members_replayed": 1184,
+  "literal_gate_macros_replayed": 2368,
+  "macro_count": 32,
+  "macro_member_replays": 64,
+  "macros": [
+    {
+      "boundary_parameter_base": 220044,
+      "ether_cells": 1,
+      "input_packet_base": 3520715,
+      "input_packet_stride_exponent": 23,
+      "output_packet_base": 54200376,
+      "output_packet_stride": 129140163,
+      "remote_packet_base": 11,
+      "remote_packet_modulus": 16
+    },
+    {
+      "boundary_parameter_base": 453642,
+      "ether_cells": 2,
+      "input_packet_base": 1858119587,
+      "input_packet_stride_exponent": 31,
+      "output_packet_base": 81457795836,
+      "output_packet_stride": 94143178827,
+      "remote_packet_base": 1955,
+      "remote_packet_modulus": 4096
+    },
+    {
+      "boundary_parameter_base": 1010,
+      "ether_cells": 3,
+      "input_packet_base": 1060061091,
+      "input_packet_stride_exponent": 39,
+      "output_packet_base": 132335831412,
+      "output_packet_stride": 68630377364883,
+      "remote_packet_base": 999331,
+      "remote_packet_modulus": 1048576
+    },
+    {
+      "boundary_parameter_base": 185261,
+      "ether_cells": 4,
+      "input_packet_base": 49730680209315,
+      "input_packet_stride_exponent": 47,
+      "output_packet_base": 17679033488322738,
+      "output_packet_stride": 50031545098999707,
+      "remote_packet_base": 59195299,
+      "remote_packet_modulus": 268435456
+    },
+    {
+      "boundary_parameter_base": 324224,
+      "ether_cells": 5,
+      "input_packet_base": 22280550526435235,
+      "input_packet_stride_exponent": 55,
+      "output_packet_base": 22555247631618285486,
+      "output_packet_stride": 36472996377170786403,
+      "remote_packet_base": 46901182371,
+      "remote_packet_modulus": 68719476736
+    },
+    {
+      "boundary_parameter_base": 58739,
+      "ether_cells": 6,
+      "input_packet_base": 1033358286281719715,
+      "input_packet_stride_exponent": 63,
+      "output_packet_base": 2978929130305851515268,
+      "output_packet_stride": 26588814358957503287787,
+      "remote_packet_base": 10870218768291,
+      "remote_packet_modulus": 17592186044416
+    },
+    {
+      "boundary_parameter_base": 224914,
+      "ether_cells": 7,
+      "input_packet_base": 1012922837362952060835,
+      "input_packet_stride_exponent": 71,
+      "output_packet_base": 8315209025064375788558556,
+      "output_packet_stride": 19383245667680019896796723,
+      "remote_packet_base": 230772544323491,
+      "remote_packet_modulus": 4503599627370496
+    },
+    {
+      "boundary_parameter_base": 482301,
+      "ether_cells": 8,
+      "input_packet_base": 556055228601156652973987,
+      "input_packet_stride_exponent": 79,
+      "output_packet_base": 12998771208260007439967949771,
+      "output_packet_stride": 14130386091738734504764811067,
+      "remote_packet_base": 34007769749602211,
+      "remote_packet_modulus": 1152921504606846976
+    },
+    {
+      "boundary_parameter_base": 377721,
+      "ether_cells": 9,
+      "input_packet_base": 111483763111060652379553699,
+      "input_packet_stride_exponent": 87,
+      "output_packet_base": 7421360934555428173071268730085,
+      "output_packet_stride": 10301051460877537453973547267843,
+      "remote_packet_base": 201218810323644399523,
+      "remote_packet_modulus": 295147905179352825856
+    },
+    {
+      "boundary_parameter_base": 229484,
+      "ether_cells": 10,
+      "input_packet_base": 17339379587355711020697337763,
+      "input_packet_stride_exponent": 95,
+      "output_packet_base": 3286949646934638684191099116090395,
+      "output_packet_stride": 7509466514979724803946715958257547,
+      "remote_packet_base": 58788077988425180331939,
+      "remote_packet_modulus": 75557863725914323419136
+    },
+    {
+      "boundary_parameter_base": 353560,
+      "ether_cells": 11,
+      "input_packet_base": 6838858777067516898020730290083,
+      "input_packet_stride_exponent": 103,
+      "output_packet_base": 3691736501843345205302324502308683074,
+      "output_packet_stride": 5474401089420219382077155933569751763,
+      "remote_packet_base": 13772540344241874880905123,
+      "remote_packet_modulus": 19342813113834066795298816
+    },
+    {
+      "boundary_parameter_base": 295054,
+      "ether_cells": 12,
+      "input_packet_base": 1461040320640859782317877385183139,
+      "input_packet_stride_exponent": 111,
+      "output_packet_base": 2245933145168693105653672808666634477234,
+      "output_packet_stride": 3990838394187339929534246675572349035227,
+      "remote_packet_base": 3679235625415797532590030755,
+      "remote_packet_modulus": 4951760157141521099596496896
+    },
+    {
+      "boundary_parameter_base": 318132,
+      "ether_cells": 13,
+      "input_packet_base": 403281410377600336767050070083714979,
+      "input_packet_stride_exponent": 119,
+      "output_packet_base": 1765348241547907347225661686323716093795995,
+      "output_packet_stride": 2909321189362570808630465826492242446680483,
+      "remote_packet_base": 1189625793260810100885951037347,
+      "remote_packet_modulus": 1267650600228229401496703205376
+    },
+    {
+      "boundary_parameter_base": 288962,
+      "ether_cells": 14,
+      "input_packet_base": 93773594240576808382879804990515789731,
+      "input_packet_stride_exponent": 127,
+      "output_packet_base": 1168934862804952008676184848111228700061906342,
+      "output_packet_stride": 2120895147045314119491609587512844743630072107,
+      "remote_packet_base": 63938330504558165474972759703459,
+      "remote_packet_modulus": 324518553658426726783156020576256
+    },
+    {
+      "boundary_parameter_base": 380914,
+      "ether_cells": 15,
+      "input_packet_base": 31645157960318106760274484976703316115363,
+      "input_packet_stride_exponent": 135,
+      "output_packet_base": 1123322815718841114058880134894013181146636516799,
+      "output_packet_stride": 1546132562196033993109383389296863818106322566003,
+      "remote_packet_base": 60911167141459569437316726617751459,
+      "remote_packet_modulus": 83076749736557242056487941267521536
+    },
+    {
+      "boundary_parameter_base": 373258,
+      "ether_cells": 16,
+      "input_packet_base": 7938336366733717646842627157958943180275619,
+      "input_packet_stride_exponent": 143,
+      "output_packet_base": 802443331178170975948224912134014010143123096148649,
+      "output_packet_stride": 1127130637840908780976740490797413723399509150616187,
+      "remote_packet_base": 16634722739584629359706661009488297891,
+      "remote_packet_modulus": 21267647932558653966460912964485513216
+    },
+    {
+      "boundary_parameter_base": 256611,
+      "ether_cells": 17,
+      "input_packet_base": 1397123776822223925712413779584543092998881187,
+      "input_packet_stride_exponent": 151,
+      "output_packet_base": 402167824429896457427463141334737659299844643679055058,
+      "output_packet_stride": 821678234986022501332043817791314604358242170799200323,
+      "remote_packet_base": 601495040884947613437381767532839911331,
+      "remote_packet_modulus": 5444517870735015415413993718908291383296
+    },
+    {
+      "boundary_parameter_base": 115942,
+      "ether_cells": 18,
+      "input_packet_base": 161599652924042252279947858266240400127546572707,
+      "input_packet_stride_exponent": 159,
+      "output_packet_base": 132464780674687073948270782117748837091270673992247495476,
+      "output_packet_stride": 599003433304810403471059943169868346577158542512617035467,
+      "remote_packet_base": 90436039908012701967768278129519647735715,
+      "remote_packet_modulus": 1393796574908163946345982392040522594123776
+    },
+    {
+      "boundary_parameter_base": 149510,
+      "ether_cells": 19,
+      "input_packet_base": 53347150734361554683795086439340040404658016436131,
+      "input_packet_stride_exponent": 167,
+      "output_packet_base": 124525642971258274914432426592364498773686832411683007288002,
+      "output_packet_stride": 436673502879206784130402698570834024654748577491697818855443,
+      "remote_packet_base": 200100244539229539002616241535944511904497571,
+      "remote_packet_modulus": 356811923176489970264571492362373784095686656
+    },
+    {
+      "boundary_parameter_base": 206538,
+      "ether_cells": 20,
+      "input_packet_base": 18865980876627987751361238168910632597849091227467683,
+      "input_packet_stride_exponent": 175,
+      "output_packet_base": 125404903106909859414282189409078349570524680906020047933943025,
+      "output_packet_stride": 318334983598941745631063567258138003973311712991447709945617947,
+      "remote_packet_base": 4303437361068864197045188403703243029004894115,
+      "remote_packet_modulus": 91343852333181432387730302044767688728495783936
+    },
+    {
+      "boundary_parameter_base": 147834,
+      "ether_cells": 21,
+      "input_packet_base": 3456966875621665072034258982378787391640862759099776931,
+      "input_packet_stride_exponent": 183,
+      "output_packet_base": 65436175463505086903434612386944511633411320785546377966062399952,
+      "output_packet_stride": 232066203043628532565045340531182604896544238770765380550355483363,
+      "remote_packet_base": 12746770837839878682285422323648795820654166753187,
+      "remote_packet_modulus": 23384026197294446691258957323460528314494920687616
+    },
+    {
+      "boundary_parameter_base": 78055,
+      "ether_cells": 22,
+      "input_packet_base": 467263541045496518444435953398162280067526003733324840867,
+      "input_packet_stride_exponent": 191,
+      "output_packet_base": 25186751014758896947574501029204300932544201618550101626875999610756,
+      "output_packet_stride": 169176262018805200239918053247232118969580750063887962421209147371627,
+      "remote_packet_base": 2058849063101103964167444188126445023338959726919587,
+      "remote_packet_modulus": 5986310706507378352962293074805895248510699696029696
+    },
+    {
+      "boundary_parameter_base": 165296,
+      "ether_cells": 23,
+      "input_packet_base": 253315771098857597558209060435185019922131654219550826119075,
+      "input_packet_stride_exponent": 199,
+      "output_packet_base": 38883025067130232151430776019015170626688315095668482332884933115869381,
+      "output_packet_stride": 123329495011708990974900260817232214728824366796574324605061468433916083,
+      "remote_packet_base": 388175889632827007730235347513106688552279090120834979,
+      "remote_packet_modulus": 1532495540865888858358347027150309183618739122183602176
+    },
+    {
+      "boundary_parameter_base": 208708,
+      "ether_cells": 24,
+      "input_packet_base": 81880436407720228907984997154554681157307479059357613452378019,
+      "input_packet_stride_exponent": 207,
+      "output_packet_base": 35790315582073735862294455969090375511660404865717260315159602198144378264,
+      "output_packet_stride": 89907201863535854420702290135762284537312963394702682637089810488324824507,
+      "remote_packet_base": 352095902518354320000970878078509064329052907631257534371,
+      "remote_packet_modulus": 392318858461667547739736838950479151006397215279002157056
+    },
+    {
+      "boundary_parameter_base": 171275,
+      "ether_cells": 25,
+      "input_packet_base": 17201841153622373276229832098565436637161866850156720949289238435,
+      "input_packet_stride_exponent": 215,
+      "output_packet_base": 21411538546901379193043604965107955248700513283770084999330182833512527298136,
+      "output_packet_stride": 65542350158517637872691969508970705427701150314738255642438471845988797065603,
+      "remote_packet_base": 71557968713311014234763207147590474971990147480770149040035,
+      "remote_packet_modulus": 100433627766186892221372630771322662657637687111424552206336
+    },
+    {
+      "boundary_parameter_base": 142403,
+      "ether_cells": 26,
+      "input_packet_base": 3661327305247656860217906103763198294387218450891898480678427639715,
+      "input_packet_stride_exponent": 223,
+      "output_packet_base": 12977739715284589496575990072109634218822943532039464398593404018280355948192193,
+      "output_packet_stride": 47780373265559358009192445772039644256794138579444188363337645975725833060824587,
+      "remote_packet_base": 2532181848984889873658392661044995710084113481710671678095267,
+      "remote_packet_modulus": 25711008708143844408671393477458601640355247900524685364822016
+    },
+    {
+      "boundary_parameter_base": 373551,
+      "ether_cells": 27,
+      "input_packet_base": 2458721460991923375001110709473917040575245058633735437984047085076387,
+      "input_packet_stride_exponent": 231,
+      "output_packet_base": 24817463973909949205963056124329848666121106563811321265796558397966852706957236283,
+      "output_packet_stride": 34831892110592771988701292967816900663202927024414813316873143916304132301341123923,
+      "remote_packet_base": 1969424348021988987137019993686628021197260577871849102086979491,
+      "remote_packet_modulus": 6582018229284824168619876730229402019930943462534319453394436096
+    },
+    {
+      "boundary_parameter_base": 217957,
+      "ether_cells": 28,
+      "input_packet_base": 367257797882390896676267940146310535423698673873844486484781654853762979,
+      "input_packet_stride_exponent": 239,
+      "output_packet_base": 10556176837846259193505716454442973788285746888791324109785562835952196574720995840149,
+      "output_packet_stride": 25392449348622130779763242573538520583474933800798398908000521914985712447677679339867,
+      "remote_packet_base": 979399131396818378027188714432752827980942364764218287931160739747,
+      "remote_packet_modulus": 1684996666696914987166688442938726917102321526408785780068975640576
+    },
+    {
+      "boundary_parameter_base": 160094,
+      "ether_cells": 29,
+      "input_packet_base": 69058238839143834568482889760245421740567418230103033318542529276192178083,
+      "input_packet_stride_exponent": 247,
+      "output_packet_base": 5652475552735876953945612195177242618334486964766977535983552900814072010371814651438639,
+      "output_packet_stride": 18511095575145533338447403836109581505353226740782032803932380476024584374357028238763043,
+      "remote_packet_base": 227611450802131884151946784289691523178243187666745905707208384397219,
+      "remote_packet_modulus": 431359146674410236714672241392314090778194310760649159697657763987456
+    },
+    {
+      "boundary_parameter_base": 284973,
+      "ether_cells": 30,
+      "input_packet_base": 31469049090901916020070008200931053182714237221479496032239518943050792910755,
+      "input_packet_stride_exponent": 255,
+      "output_packet_base": 7334903036115621092424132388755488864607743966640729600475706494203784633721228077491079038,
+      "output_packet_stride": 13494588674281093803728157396523884917402502294030101914066705367021922008906273586058258347,
+      "remote_packet_base": 67303958758672923693283480320794532639187458510947690238692990684446627,
+      "remote_packet_modulus": 110427941548649020598956093796432407239217743554726184882600387580788736
+    },
+    {
+      "boundary_parameter_base": 119525,
+      "ether_cells": 31,
+      "input_packet_base": 3378943847626667914167269893083857768132881483262281570845065377434334115872675,
+      "input_packet_stride_exponent": 263,
+      "output_packet_base": 2242741889184058492617820173582026568698306194690009433756645304924546874694848860263051974611,
+      "output_packet_stride": 9837555143550917382917826742065912104786424172347944295354628212558981144492673444236470334963,
+      "remote_packet_base": 25520944485722272171752663100398464401278877347875333305678082328056250275,
+      "remote_packet_modulus": 28269553036454149273332760011886696253239742350009903329945699220681916416
+    },
+    {
+      "boundary_parameter_base": 51694,
+      "ether_cells": 32,
+      "input_packet_base": 374113254855805414244688061205709100804189084853916681429473745757803194316439459,
+      "input_packet_stride_exponent": 271,
+      "output_packet_base": 707113255706476541393552782691402256826126424754635006472783694746097673343827220890534908113264,
+      "output_packet_stride": 7171577699648618772147095694966049924389303221641651391313523966955497254335158940848386874188027,
+      "remote_packet_base": 3488541191451355558155015764556518755423147315224088491224026236861591011235,
+      "remote_packet_modulus": 7237005577332262213973186563042994240829374041602535252466099000494570602496
+    }
+  ],
+  "replay_samples": [
+    {
+      "defect_input_tail": 3691737240899,
+      "ether_cells": 1,
+      "exposed_boundary_tail": 56833213453635,
+      "input_packet": 3520715,
+      "linked_members_replayed": 3,
+      "literal_gate_macros_replayed": 6,
+      "macro_tail": 0,
+      "ordinary_endpoint": 2095099580754801575,
+      "ordinary_start": 136092201648501671,
+      "output_packet": 54200376,
+      "returned_ether_tail": 19957891144212
+    },
+    {
+      "defect_input_tail": 1464990461405140275127819991341641858284394839528771,
+      "ether_cells": 17,
+      "exposed_boundary_tail": 421703528669403107743459590888213875837993897090408836486467,
+      "input_packet": 1397123776822223925712413779584543092998881187,
+      "linked_members_replayed": 19,
+      "literal_gate_macros_replayed": 38,
+      "macro_tail": 0,
+      "ordinary_endpoint": 15545678880868876163854894358503116318891807022340831348237120423,
+      "ordinary_start": 54005408369239091102311956160818285463795931364388615079,
+      "output_packet": 402167824429896457427463141334737659299844643679055058,
+      "returned_ether_tail": 7919881142167248056581662841986017769455129780212500
+    },
+    {
+      "defect_input_tail": 4370872071601974155290096013641404346888502580218562277670303677577010218383821826413891,
+      "ether_cells": 32,
+      "exposed_boundary_tail": 8261406247202424423491199018108140578370150356899632405845175342676411602885920593531551646798358500675,
+      "input_packet": 4168388434984182505884262097970394465340139942377626683874419858529100626357862307,
+      "linked_members_replayed": 34,
+      "literal_gate_macros_replayed": 68,
+      "macro_tail": 1,
+      "ordinary_endpoint": 304548479896870173947579560603538494281037222756748049009076543832423237328786576759947119907574687768884135,
+      "ordinary_start": 161127828047535175260614099446876729843697759117177079804038074770198904690501207808921678759,
+      "output_packet": 7878690955355095313540648477657452181215429646396286397786307661701594927678986161738921782301291,
+      "returned_ether_tail": 23629360194948575307836140091813166987251512651915821893385659349723346837037319491080980
+    }
+  ],
+  "schema": "collatz-breakoff-ether-glider-v1",
+  "staircase_audit": {
+    "depth_two_continuations": 0,
+    "failures": [
+      {
+        "first_link_macro_tail": 70933817,
+        "generated_next_macro_tail": 4265645,
+        "mismatch_valuation": 3,
+        "required_next_address_bits": 39,
+        "source_ether_cells": 1
+      },
+      {
+        "first_link_macro_tail": 348562033557,
+        "generated_next_macro_tail": 59689660443,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 47,
+        "source_ether_cells": 2
+      },
+      {
+        "first_link_macro_tail": 64826860611189,
+        "generated_next_macro_tail": 31612699353378,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 55,
+        "source_ether_cells": 3
+      },
+      {
+        "first_link_macro_tail": 2731387464854115,
+        "generated_next_macro_tail": 3792953038614131,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 63,
+        "source_ether_cells": 4
+      },
+      {
+        "first_link_macro_tail": 974825331385727431,
+        "generated_next_macro_tail": 3854859224797175633,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 71,
+        "source_ether_cells": 5
+      },
+      {
+        "first_link_macro_tail": 1143570793287884891037,
+        "generated_next_macro_tail": 12877523012818088389299,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 79,
+        "source_ether_cells": 6
+      },
+      {
+        "first_link_macro_tail": 370986319310576121119005,
+        "generated_next_macro_tail": 11896377511132220693673593,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 87,
+        "source_ether_cells": 7
+      },
+      {
+        "first_link_macro_tail": 128662234166448519541700104,
+        "generated_next_macro_tail": 11748853653668794441888271680,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 95,
+        "source_ether_cells": 8
+      },
+      {
+        "first_link_macro_tail": 1993464735602468701066901226,
+        "generated_next_macro_tail": 518370795818685209222169303380,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 103,
+        "source_ether_cells": 9
+      },
+      {
+        "first_link_macro_tail": 4344346666336883984515780842392,
+        "generated_next_macro_tail": 3216947735287528071675551279803342,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 111,
+        "source_ether_cells": 10
+      },
+      {
+        "first_link_macro_tail": 2138027215790985792786019792274811,
+        "generated_next_macro_tail": 4508378021606039896029327043542219411,
+        "mismatch_valuation": 4,
+        "required_next_address_bits": 119,
+        "source_ether_cells": 11
+      },
+      {
+        "first_link_macro_tail": 267559268046981552774347358801110819,
+        "generated_next_macro_tail": 1606625504471146774046109416241647738511,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 127,
+        "source_ether_cells": 12
+      },
+      {
+        "first_link_macro_tail": 47583477033219807713581520808804186968,
+        "generated_next_macro_tail": 813651434536176771868063725317190144122111,
+        "mismatch_valuation": 3,
+        "required_next_address_bits": 135,
+        "source_ether_cells": 13
+      },
+      {
+        "first_link_macro_tail": 7655812232090443459536228105016312182135,
+        "generated_next_macro_tail": 372787255805690388688219413067830001233491743,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 143,
+        "source_ether_cells": 14
+      },
+      {
+        "first_link_macro_tail": 3815465434895333113236929010469017955534220,
+        "generated_next_macro_tail": 529059930177922549606808245117970319701976808480,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 151,
+        "source_ether_cells": 15
+      },
+      {
+        "first_link_macro_tail": 1633732904659425182261012008737983596685411022,
+        "generated_next_macro_tail": 645098401735454106838499294402268127323386959756712,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 159,
+        "source_ether_cells": 16
+      },
+      {
+        "first_link_macro_tail": 18100890428601673101390043997993718371073659227,
+        "generated_next_macro_tail": 20353186502358117708978620180052071763496251316503819,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 167,
+        "source_ether_cells": 17
+      },
+      {
+        "first_link_macro_tail": 142260110986256309852829077584062580282771211206765,
+        "generated_next_macro_tail": 455515520424741267583014367919503427703795460000337089325,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 175,
+        "source_ether_cells": 18
+      },
+      {
+        "first_link_macro_tail": 46820836676652920898844646709284175236796619358756283,
+        "generated_next_macro_tail": 426920263617126830657526918304989529113448213998749440228216,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 183,
+        "source_ether_cells": 19
+      },
+      {
+        "first_link_macro_tail": 11455714160501491055746737337257316748346197573076794166,
+        "generated_next_macro_tail": 297452299382949738308610823753277258193581153553996283844207437,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 191,
+        "source_ether_cells": 20
+      },
+      {
+        "first_link_macro_tail": 749689034464752092383346400843327356982265674872218690641,
+        "generated_next_macro_tail": 55432425672151914396022479756295658581052026696974226591570414216,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 199,
+        "source_ether_cells": 21
+      },
+      {
+        "first_link_macro_tail": 626956288766112900901055215721219717409154712618029801886749,
+        "generated_next_macro_tail": 132010218765520657410138641126745309848184922947429678534518093894858,
+        "mismatch_valuation": 5,
+        "required_next_address_bits": 207,
+        "source_ether_cells": 22
+      },
+      {
+        "first_link_macro_tail": 177837820683391548628825110326597210731917458301203228842307754,
+        "generated_next_macro_tail": 106630630811843983997395597912328024999083554941120491608854733176300398,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 215,
+        "source_ether_cells": 23
+      },
+      {
+        "first_link_macro_tail": 41933062760628409126273404273244768017823041450015345706050177009,
+        "generated_next_macro_tail": 71598182484557224527997768662857496394038653377833291167075040958451155244,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 223,
+        "source_ether_cells": 24
+      },
+      {
+        "first_link_macro_tail": 12817911706420832105217429057505497842303422483210273672218201695897,
+        "generated_next_macro_tail": 62323272945256700553563398735841173798352915484275446220506564404116253541864,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 231,
+        "source_ether_cells": 25
+      },
+      {
+        "first_link_macro_tail": 197556146388057533780525875452652525007524500122608212955494823588070,
+        "generated_next_macro_tail": 2735338547965131291679153304610093873669518132297291844880608195900259305858827,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 239,
+        "source_ether_cells": 26
+      },
+      {
+        "first_link_macro_tail": 386725265467462312197698542407989822448472445250468622834648385638475256,
+        "generated_next_macro_tail": 15247921556688422331309080303899796619498186396142851024463913500857772455616396584,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 247,
+        "source_ether_cells": 27
+      },
+      {
+        "first_link_macro_tail": 219268567239940309415253778853422876388450726919674865574292486975694564490,
+        "generated_next_macro_tail": 24619092757698474818382814382702930177383475267591061026635172710256127061775458747082,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 255,
+        "source_ether_cells": 28
+      },
+      {
+        "first_link_macro_tail": 4100638217617771638360325569679015499156509603729759990448792565152471371260,
+        "generated_next_macro_tail": 1311096577760934485813494884638054843673187539126693403228886328613087005301680333093373,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 263,
+        "source_ether_cells": 29
+      },
+      {
+        "first_link_macro_tail": 6221961825505671996350724001168435178987967802850034101808281481301864152665967,
+        "generated_next_macro_tail": 5664976779131753923150818598876792958861108986623809145304045772104557177923401670234897839,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 271,
+        "source_ether_cells": 30
+      },
+      {
+        "first_link_macro_tail": 3693384700278460443148227002467607438189911652116670014681548861366274879678799088,
+        "generated_next_macro_tail": 9575972730082085498367369638703510826641681036090855557354810858230525333140991315345132777777,
+        "mismatch_valuation": 3,
+        "required_next_address_bits": 279,
+        "source_ether_cells": 31
+      },
+      {
+        "first_link_macro_tail": 65171300573212329647976730475616690476030993134873194096408430417945887561861984809,
+        "generated_next_macro_tail": 481174169945620655860235626128285685163668861140131773205602383158145297518663729844311433791822,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 287,
+        "source_ether_cells": 32
+      },
+      {
+        "first_link_macro_tail": 172447317632258788785615240837996694991812331407965668212104224145446917457036042383123,
+        "generated_next_macro_tail": 3625683784827251387157884653733786862176867615777208303256297453273672672338915388274073866276003654,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 295,
+        "source_ether_cells": 33
+      },
+      {
+        "first_link_macro_tail": 53477589429256717365206435883005112411125402149439439045192757728006029192222920225002623,
+        "generated_next_macro_tail": 3201790166831960413413866985361710253922029723804799964157798046552924216834045671577082983948772401253,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 303,
+        "source_ether_cells": 34
+      },
+      {
+        "first_link_macro_tail": 12291046977429942724375006994303307610617033274210165505031428520155586721152057122796089116,
+        "generated_next_macro_tail": 2095547384024856007088960982151568410475539438707917006189954319409780536493029962956099940333950198283448,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 311,
+        "source_ether_cells": 35
+      },
+      {
+        "first_link_macro_tail": 594676480560326534147527389677649595028100863143304469212296592860926847752095663708423103927,
+        "generated_next_macro_tail": 288720042093290145046284366420548867357720005338997132802469348840710256441264919116407350326895445828311683,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 319,
+        "source_ether_cells": 36
+      },
+      {
+        "first_link_macro_tail": 629874089408250877816495213253965095504838548054217254680695669592063960807317608063430890242495,
+        "generated_next_macro_tail": 870838209892182684941679896958499719339294935234489181556866463388093245068175818863446887260196618035487028082,
+        "mismatch_valuation": 3,
+        "required_next_address_bits": 327,
+        "source_ether_cells": 37
+      },
+      {
+        "first_link_macro_tail": 206466959259906748741654443283526617476896927065034262235902127842470265189872104641287213393255530,
+        "generated_next_macro_tail": 812871426195814624093051415389362241512081639543154411696602555219490953248571181915885654402653053180341112659517,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 335,
+        "source_ether_cells": 38
+      },
+      {
+        "first_link_macro_tail": 20868630230228170294900840103864007960819560616972944282640774588089988312098959746112495322986568646,
+        "generated_next_macro_tail": 233966028319243848182297673188212278724615823868807970189094544189345591157664063199799007189587269974902755073304526,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 343,
+        "source_ether_cells": 39
+      },
+      {
+        "first_link_macro_tail": 17578644047665076420205254689444841965324174667800407858063054597657813326081322791619788450551529954777,
+        "generated_next_macro_tail": 561218261398930259016724344567398488035838258374092953615317163690491671634411888228160947242374493947823986129051782823,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 351,
+        "source_ether_cells": 40
+      },
+      {
+        "first_link_macro_tail": 3332930223626111647235420788111123441186197644317085795263087988484219190593519657913365470280739580436916,
+        "generated_next_macro_tail": 303012264125963388769140510661145581109303827994312779232685626209543702907050355236430512642086022234300276052152154035419,
+        "mismatch_valuation": 3,
+        "required_next_address_bits": 359,
+        "source_ether_cells": 41
+      },
+      {
+        "first_link_macro_tail": 936611320070714300497428040159859307760242426634230944252064080929208605543905810503098464084697742102592675,
+        "generated_next_macro_tail": 242482806739581703285931784344771328731158943586330531767545434006191078914490948415575066784869178111571083955515959735363264,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 367,
+        "source_ether_cells": 42
+      },
+      {
+        "first_link_macro_tail": 287930132905714169124415027639912537320370007426925724901278748760022685230440770023657840318062351507151610545,
+        "generated_next_macro_tail": 212273718939352513804248550997132159810951127871941714335413833594850088464147937509330776469422408920101305571136160585239866090,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 375,
+        "source_ether_cells": 43
+      },
+      {
+        "first_link_macro_tail": 2276198693301124613306619467461328641027486462013367469743836603753179479107418131787642832190479634952898351494,
+        "generated_next_macro_tail": 4778667833084620485181753476539064403770746704566443462010321016671333162652815222312968077855046108123745160215350745598819408493,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 383,
+        "source_ether_cells": 44
+      },
+      {
+        "first_link_macro_tail": 18607863423451710471700022677170671262598812856024817158483148394420463247184655731239598175318627516703312943672289,
+        "generated_next_macro_tail": 111245063103952085831235299731735855349194738488451339162772844029831763962985221644471296900914103524688693711428542342723730533605119,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 391,
+        "source_ether_cells": 45
+      },
+      {
+        "first_link_macro_tail": 1052918380667657150607828037889127687466134310373990878935531006525528262686914285178214662987231276655684342691271969,
+        "generated_next_macro_tail": 17925303066653988300160878020006239655636127976582745435361746268129986160480465464173200700208670936621786630758824194560857284120756680,
+        "mismatch_valuation": 3,
+        "required_next_address_bits": 399,
+        "source_ether_cells": 46
+      },
+      {
+        "first_link_macro_tail": 62059923693709337193340303807103121188655173002027202064632849602316279716762732718200546031726993859607959499986747056,
+        "generated_next_macro_tail": 3008642597998395063170646487896527399877719483807922570403761037037316422576614878662541786214670513871356310373781907077821741252232938397,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 407,
+        "source_ether_cells": 47
+      },
+      {
+        "first_link_macro_tail": 91270139205597080588181067411140341257771915193247428078120665332707494861852017723098480587594749939603985226046888899047,
+        "generated_next_macro_tail": 12600147783353360456345276768772170917200558633090522769977803394746794979542179450469101280435926627290970870393691072834601180966166418346428,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 415,
+        "source_ether_cells": 48
+      },
+      {
+        "first_link_macro_tail": 2880531524502534043005261527401681710582035296673285413966472470050247895895656298618082776491919334410543805842252803801257,
+        "generated_next_macro_tail": 1132418932191968059362311793076639549326781020542901433354232456995752756083831095397227488453257057335202985035432287153548473129725792479781892,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 423,
+        "source_ether_cells": 49
+      },
+      {
+        "first_link_macro_tail": 7970397044465630507413577704396754112049469421152267557682486918345087856574611736347436311322359573084376235462961800502315011,
+        "generated_next_macro_tail": 8922817455730264119244637807535245837140760614249892036375566800459825484828334855720162204825729579182391002035913433767367986441924741082065177603,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 431,
+        "source_ether_cells": 50
+      },
+      {
+        "first_link_macro_tail": 1095214644536127191270819464509889398322690749330236428834188020341656362280735132630670427731551655444530741320507447255524684856,
+        "generated_next_macro_tail": 3491474361106860361807589886303981193435765902451638179096112661950133703322422213463585567642129694913076911124769558263442675625696394277395972151691,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 439,
+        "source_ether_cells": 51
+      },
+      {
+        "first_link_macro_tail": 716042796066619489055210866936610985390296876442626424713876052316873946091770338417874435766945526858846661131499161930893360496693,
+        "generated_next_macro_tail": 6500341268331099342964163230147389672380599114614922877794046100541443014328922995354047710303356560514088547789468188049770128485227045531442201064457541,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 447,
+        "source_ether_cells": 52
+      },
+      {
+        "first_link_macro_tail": 50868953101214298214738529584897792956268986065399790354402478488572454599421580294309825277762569315624658781575330176220939745169119,
+        "generated_next_macro_tail": 1315035693217634623696886272903359562416538722563885731071632332853008390744539922167339321594946370228099750770530866605081015818409066409341077321117364500,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 455,
+        "source_ether_cells": 53
+      },
+      {
+        "first_link_macro_tail": 17893267945919430628545289656642594878694588713877385370591151525358171472666413194434889188945733279657739832435711732793234440154897471,
+        "generated_next_macro_tail": 1317231080180066848167249651269038061623397010012069337893149237984253828314021591936933277760193956569595340374199168122777173626163805038539993215999900896665,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 463,
+        "source_ether_cells": 54
+      },
+      {
+        "first_link_macro_tail": 4030570275553456066766747722928991243346824132499120580634998930588707630055345353873579459937004457495994661173482912819572473440645554522,
+        "generated_next_macro_tail": 844940961800509394848283250604334499174637889219574726796825270265533398875911600491624363490199344269666458805249425607990714349819445950836570713155520582502055,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 471,
+        "source_ether_cells": 55
+      },
+      {
+        "first_link_macro_tail": 4809012408625022430268115884111252583357152104560567453593152558140070973377321867176606953902981454282140640114331113431946543507992638995853,
+        "generated_next_macro_tail": 2870802578706754278971819195281188554529389927415866495640030387146740186030597873726570093955582101071994575364207972435509163917249920071549054328123869818525592632,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 479,
+        "source_ether_cells": 56
+      },
+      {
+        "first_link_macro_tail": 848965615279717540086166117541186283191169821370714773395862646118488034002313372407493935009152801619778534772726467796918215535464671009521838,
+        "generated_next_macro_tail": 1443195260099083012386989921965576345957576236106397483110190437793502629074053455295953690592659583724937061984199966888473407285600638167365146025933504399601948087555,
+        "mismatch_valuation": 3,
+        "required_next_address_bits": 487,
+        "source_ether_cells": 57
+      },
+      {
+        "first_link_macro_tail": 27202767920290861924131000142719666075658927883606689302297275664118944064799646237714915212419339163174953479234717972594298012537892559986062411,
+        "generated_next_macro_tail": 131684801176159663097069266587100636798447528940196601209915938363740611692600328359383512568126792247768010132263742478634625264593098838887226609164808568343388265606753,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 495,
+        "source_ether_cells": 58
+      },
+      {
+        "first_link_macro_tail": 23620547324450303849734934894959598925069073335408712904415395892386141748999247572143317796311766083465903674110046871621780624425276807472840033962,
+        "generated_next_macro_tail": 325611755439852015775603326296230297500036740194706682507047883451777244954491481609293433904096648974257710516181626282775840065335993417947819589651410787433938674170299128,
+        "mismatch_valuation": 3,
+        "required_next_address_bits": 503,
+        "source_ether_cells": 59
+      },
+      {
+        "first_link_macro_tail": 24744005689071268584308832037142686765863833309928478997340750252866838558318604758967729883131729077549302112574880948884789948735206292523976308571680,
+        "generated_next_macro_tail": 971331982765220862278199588738940556520574542332342042103411716824559515907850869517059350593553207574478336944300665214008995930589011599433558208308690147559028640496548045783,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 511,
+        "source_ether_cells": 60
+      },
+      {
+        "first_link_macro_tail": 1010249670243936280865497056288938765117582525801097074449826439032972556132758609816592018430634601390970079731545283073533067962834930578819619365818282,
+        "generated_next_macro_tail": 112931205050687686525937590421851126930526287659151062276049656292113830653747539505385262945763078610079805056809721967352145808088631650521445531646998137730844790680024656902139,
+        "mismatch_valuation": 3,
+        "required_next_address_bits": 519,
+        "source_ether_cells": 61
+      },
+      {
+        "first_link_macro_tail": 1626591421101459968287141836832022894471607029866861717244062792216661733590757706432426473442851475589967403418631015167611925295984305669800340413468701603,
+        "generated_next_macro_tail": 517787170476782223619231904596980087090556474443260639045002134137727662837075477192032630308732528042390356525820448232638206108823265924418186289977145987351147344244919792229389615,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 527,
+        "source_ether_cells": 62
+      },
+      {
+        "first_link_macro_tail": 15693887017401996456227300364849064294877309312818511758136212813702871708751627801292419473561126294932587601756739741157952045291647945627545006921038595739,
+        "generated_next_macro_tail": 14226264950866143543117952791448791915013150765660869299562029758908345851878162067568757188670355317389215315823563526623161328355169216439930256818773812158188687503355655393394483440,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 535,
+        "source_ether_cells": 63
+      },
+      {
+        "first_link_macro_tail": 9671631955957039257471092945411254310947152575277224486848700680460534058293628213692816747905731815304935184848067028109284304737718758499367223718701060612679,
+        "generated_next_macro_tail": 24965926957724342379568987617944135334745176026639262983439465728835526690461648591703704951541110550301530380537667293004316533760800035666513764657323652905007488493452439883686399309055,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 543,
+        "source_ether_cells": 64
+      },
+      {
+        "first_link_macro_tail": 16145794275071566814229663484195838365382925888747860725891715065282177747737109814834256820646461186020500320553124319115648047643277916350257573052186397431314781,
+        "generated_next_macro_tail": 118684747882436796025580794266749152449682124407258898143224794230320403646063581308306372280986479192315830842548287452470126428651957946870056583822227084913601698482123015654164591648337962,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 551,
+        "source_ether_cells": 65
+      },
+      {
+        "first_link_macro_tail": 1955527802521498779474825628109714793014184250450367959648825553593262807766556853223283293917229462016784746010596282531021829518140644853044506512253422991732733404,
+        "generated_next_macro_tail": 40934270480856017236446247448041210245120152370420461635802465288238114331730644279661704184199048156241025268708038418381278980292842645797857996790238944739550625692820787952414205766686297856,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 559,
+        "source_ether_cells": 66
+      },
+      {
+        "first_link_macro_tail": 684671405509739184226148968056391811136880369435114340294093224759897151833817634660763333465600233141352678270972124434943945331149384615009792171501878742528676936890,
+        "generated_next_macro_tail": 40812463809346013919061861231632276607566769290899161611085277602934067486041357305369930203085708657962131609193006872919222675291918631740713330850181303742574364499203033170959200333520505485213,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 567,
+        "source_ether_cells": 67
+      },
+      {
+        "first_link_macro_tail": 369906233533879865433980828332471715213911963701956608596679993269122060720670628882448763340127938376238961814590045864943362721963218762774396523702140740570346408150307,
+        "generated_next_macro_tail": 62789906451850791731104879786722518778312903106577533139521620211467288442004209594255388553358705973173581685962869552282658345844816452595438509761923478074874138153766436593708091892158069361471747,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 575,
+        "source_ether_cells": 68
+      },
+      {
+        "first_link_macro_tail": 92835697912020628264383590195267935361428802889622866648298840786029344670510713826939043334189151893824200287001944869723925427741842445372774218486142601771356002771337992,
+        "generated_next_macro_tail": 44874617080913303203998425341736382930434482731084741737234845527509689292602747073865269350778905327188239935428108957773933644836935175846646941488113143575413815230163138365737347336649778352587009803,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 583,
+        "source_ether_cells": 69
+      },
+      {
+        "first_link_macro_tail": 23571424116248676416797498207493144970610691152330139936012154543746399250606940123996687773423156293758880654932871497031619835879579420228407778735250273900459792179674255279,
+        "generated_next_macro_tail": 32445848365115475841167142676414591637617818467336672420269443797648030995041700499243728491061907143077213925730140449482555750748197423191425358043054792900093005947222326912417658394702622175703242105048,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 591,
+        "source_ether_cells": 70
+      },
+      {
+        "first_link_macro_tail": 4409646892418600669727185861120821552097440679668408088869322439055731237694942771235622232947604870984569859908848985202021411504714578254218622636586664674605288698165006533946,
+        "generated_next_macro_tail": 17284813156174196745977662002804596678903908441063106021649501099118452434180547011096238224017011118632374330815676675277826968597541705518460633460496524575578916509475178864102132976854204304280510132679682,
+        "mismatch_valuation": 3,
+        "required_next_address_bits": 599,
+        "source_ether_cells": 71
+      },
+      {
+        "first_link_macro_tail": 1506633662240845614713446707705363448977598571500743955466211451860626229964916275695423897285655307681384444848564763259579110312388499852726196497159064937722446610676579717209226,
+        "generated_next_macro_tail": 16817293535680500255567493152453450774868783055734342804902058881056820555279911754499279117022999034579664657552191260035029340742421176854618935532420211243776396353750141632309753755442706112426844417028473024,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 607,
+        "source_ether_cells": 72
+      },
+      {
+        "first_link_macro_tail": 453511580687952399202945781773502144058311746401817132295829009165343823445413436166785265704201649333235642680855366285229044268380901787511415162150532250723123793721182402684216428,
+        "generated_next_macro_tail": 14415323154430152161501861178946385916609190679307157971164911321714866232062680196244650821066305751084525784721923094375244399868317562617689244499834122209605302870945544785135114628315691101236276867313492762510,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 615,
+        "source_ether_cells": 73
+      },
+      {
+        "first_link_macro_tail": 125669926546519542753064287719134327462914945948197314731791943216419670318875705102251822110970654028631606506717496954548208305049683907883836548069902678319333718324638750388237253146,
+        "generated_next_macro_tail": 11375092196056234061893249254076268018286377389470686165026889253401969307533098893496550111361061731635225563093309682736139193087214185651092989856471607174298316638236841048372427882155985203203670037189981771898979,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 623,
+        "source_ether_cells": 74
+      },
+      {
+        "first_link_macro_tail": 11761762962454705134939834590212888356975730473655347846346348626212129775272918642781022800274587323147704864070671712443684969746531749029733309768466717831139642952757786796843273841154,
+        "generated_next_macro_tail": 3031681334073282507466680667219158123755809711787727428006858748350302716919946122432339878235280359288826426114531848803017974468338365287371905697832244542303224873230086999323468041136758530524671810665392661377149264,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 631,
+        "source_ether_cells": 75
+      },
+      {
+        "first_link_macro_tail": 6186883037127843636367263426336769793144022597242087614720062377987237375666940615381582404171299444656277588458807208136241877283659175994475965456333315866693560410559471945832763777464789,
+        "generated_next_macro_tail": 4541199651790099154402652800370904527943918931409963850603523407500796824024253904935880618683146463668663663365814808798761540052294613944140793151054140053559619586316315101919454383086111163221166010836638384837771701031,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 639,
+        "source_ether_cells": 76
+      },
+      {
+        "first_link_macro_tail": 1508354109499811841436618846137556906778866185698571135246914394099810236220155387428032401162344097531855306240813208299853093308447839290937404116353134001617270351484146659533908370313461563,
+        "generated_next_macro_tail": 3152750215006243407941187334380207929931316129652337396946968529170917992157523389345597890196284144970212928650089009049514872925243732963714503893265150045222494897105514494034893014623204318707070597454041203375422402178512,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 647,
+        "source_ether_cells": 77
+      },
+      {
+        "first_link_macro_tail": 434226960437963575481603368437448572373169040062943252755181714754400779162967731099853120123531961781332725881769878870896789085753540331176915938254742813643127433812705771817542925803411529651,
+        "generated_next_macro_tail": 2584583697874960431488368940197003229683698584579715053269398229140060580409416942498776321830161518680551216164504896121589052730416146946092071401220940726731142694215254855861496709437186097915532270931272320078102591330689569,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 655,
+        "source_ether_cells": 78
+      },
+      {
+        "first_link_macro_tail": 147029148295714681143642558696900006411940284373882417003489176612729560460305669060074379303529472401327141570247558704865729728020286333917983819006978725259903451009923435656723338145924294531674,
+        "generated_next_macro_tail": 2492096301229552932166109727187413849991587162080269332675585873370406555692845525743845680766182415653465883679454246106666615997731553728328160715045063793161017816929734861227271076577137458438695807757912491906024571455831245532,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 663,
+        "source_ether_cells": 79
+      },
+      {
+        "first_link_macro_tail": 27043250594014172696779243455956405856388148979279382087812807119787980185003866287711739944843979901709534638941221458972051089378293476559894159124454410891589837429455983481318735075021951993516894,
+        "generated_next_macro_tail": 1305292476044246556983522788670226550815048413993590706983910039629197307836422781550721819172844146354671789530354774904885525096670678771181237163585086104271722648563264960653112582814112678606409300343298547970434469149718425493578,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 671,
+        "source_ether_cells": 80
+      },
+      {
+        "first_link_macro_tail": 2510331203035371967105558895992928666629063758394728418437557708151080406421814173718796202221978445557595214731338625834516195167281781089992497693569876126814777877273795469828254910026905863675621024,
+        "generated_next_macro_tail": 345038478039947013340546877539525619328776269583112885986110157725792778607339587984514155556139834716800474943770186341038558163901864459525223463031017537534749621006555013781772999018083078808309409122922676984963361614569774678551484,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 679,
+        "source_ether_cells": 81
+      },
+      {
+        "first_link_macro_tail": 2285801302740614018546873230936901177986600450487113755371323086310558635903668413665049549589040316503706059533923187040152809197784486425227305699466975414732200535179523755421751175191191918090904525128,
+        "generated_next_macro_tail": 894669318496758529722367323608779020747168073415777162442659005176186150143427751015734279456336299543577047546063342204579647395676893962477489862760998242075882087995209481445014556149951154340902767394940502502148194969850442963054347287,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 687,
+        "source_ether_cells": 82
+      },
+      {
+        "first_link_macro_tail": 283446001556412552711762654158522570290933915132744194297117427880387757892229890056266572018924056367181180579579507445893883060584200344855347622775378341111956082297282198995363761007232315642830826546978,
+        "generated_next_macro_tail": 315923524722308579312547138119567633916899604174632729934182945054655557013116858671933028009999438900578319648561436778513450376949507950402247391599678350960562024372231494310532355342334212766997046936416909534002951193695335330080018301600,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 695,
+        "source_ether_cells": 83
+      },
+      {
+        "first_link_macro_tail": 62910204912982805152618407663519660534246929488894321467452954162505544843079294861289319524471488413741434046104411373567094327554866875787869949613649201970622346919755991128002263346476902047528816880799851,
+        "generated_next_macro_tail": 199673437178298005791391502347090736606727813170630995352907066819881644759245455264226970545956614250673325975004836972136458869362375553833307056058172728981056275536938173049073155895503182744849067261854213293024499300676981176857069591710973,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 703,
+        "source_ether_cells": 84
+      },
+      {
+        "first_link_macro_tail": 35568178897317703995898121253410304656554330854151937465990683938990944324017258878168362273815088785548848211057391550669366511322704836654945251777674964697378846980546394040757815422537251666379970140007539155,
+        "generated_next_macro_tail": 321475874875245590487587023618140436745323693028950952988605216489711266467954679882249307071739537320190618200042082888800068353869003202735350128395497711950973859984528211962317267318541161808945695287332130740002459986372697616231618359997135208,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 711,
+        "source_ether_cells": 85
+      },
+      {
+        "first_link_macro_tail": 2332586426610404516892626351977991124341637779366564581752132042857825105340626795197308125769043281491831354488145236666376344049292873240201590775951617022014288942836471836569445687030861097508119837190946378994,
+        "generated_next_macro_tail": 60036043595461294466447093806811442784168776133250291614378718749682477999739956185779336679907342172405443776345854804899759622287519671775528012218055931947357536240845896510568898483843768733847961236778892064240630459926906559670830476747144284530,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 719,
+        "source_ether_cells": 86
+      },
+      {
+        "first_link_macro_tail": 685801289236768967454134151214610871280007040024332325701758780102281377443355588813868461463374082389933479637247818105942524003031204041234158441686744956648307108485061825338549277354904288958815159224772309642740,
+        "generated_next_macro_tail": 50264362684335973971145356300774991387555656703503530778830594496238634321432864020548736736868753817238523196699004440443276850794777501702726551171190662393649877881391531246423425260661406325172638381730209039136153589423020293972436271610100478239059,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 727,
+        "source_ether_cells": 87
+      },
+      {
+        "first_link_macro_tail": 273959297402314613264323750192802921265405075077575267815643627210981859718095846513013795451017420645000134560927162660141879476888572633540664716079559389889224116000565465127437513112476059737094343176694297031776248,
+        "generated_next_macro_tail": 57178859676110221226544838105999343529839028016462378122496873670490869685366129199016622410979738884279968063397627054904851465346664290803157790162015951569741687850091270781007534177749260748672037484481096296504735574988225544481307845158106448754645627,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 735,
+        "source_ether_cells": 88
+      },
+      {
+        "first_link_macro_tail": 116558465597569827379919595930042564405394077435168003344763549617878660524283686076959265145110945710575118702805837511576989736146865722388718688845765284386706065220305436077964969564792419731287790284498389084125924734,
+        "generated_next_macro_tail": 69275685326203711874192728350110737053724880953290306146424657552425675585263427893416837079899083233440225850671452396988284996978453744521071409894371767298965848416004885640418006475936482034800934707581020595074820622169803716500536509376700924532877912402,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 743,
+        "source_ether_cells": 89
+      },
+      {
+        "first_link_macro_tail": 11786353545423788054571302974481467077019639172713253878025164340631578710657141613141913928871247050084110127700879027560648266128698857545049456508345824396788254115830201003894524306287074584892599120957626021851418756841,
+        "generated_next_macro_tail": 19948214814577170029974229311392257405312749305049977810834633103200148932390497146145262885988714742917410972430172352629435002097820839764205775139618458435543971594577632457399429751614893396265160976034192219439038412481005440849376724504782069064978867021662,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 751,
+        "source_ether_cells": 90
+      },
+      {
+        "first_link_macro_tail": 10567937645447758406476094922767176823206366041451418586297997266693168780474745720018945524364002264616067245892635946246148138713834957629584944615960963470140253965377485530230279822928801605235137105768995479546612369632671,
+        "generated_next_macro_tail": 50933365913944930662770012689982884886869887804721779339840019351750361031582392147844589760948148240055363487980574224211856707858109640763721154992737722281708900459606454716838296455805404469541719151923665279014330660780092437336654048544204367059632723321185103,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 759,
+        "source_ether_cells": 91
+      },
+      {
+        "first_link_macro_tail": 1559494779586007354200640500009741776214027772581171867059873544399302634057822556051034882805166481507045009699310942894322438686069890208266714883376527707097894696160825737001023545414542649809050075061559865047544323613328026,
+        "generated_next_macro_tail": 21403442165485160244604743731245999036245999260472298541733628910147158414545951505187061812514514867120208727631346711529181850687589072794339931305425555316722975849456049630400881467109201711265980284740430637631768196420833596389975560623582320672140830637703508647,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 767,
+        "source_ether_cells": 92
+      },
+      {
+        "first_link_macro_tail": 660945176776727351541456276704799262165087716644180807206193384250858237087342339336785806549649333103798348241092012016620070072595166010625399909053298947619795666095416942479935997772646225760587611614232168751402598163766054608,
+        "generated_next_macro_tail": 25831682786513071738109813535750818280604619873054604393044294141528015240111433552361003615610640172222568773007191872476047250019976261342547658099288660478054907525463422214676910658066359353445683483022894512015564034178225848799965425148336741417569867470941693784546,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 775,
+        "source_ether_cells": 93
+      },
+      {
+        "first_link_macro_tail": 184979618427673188062106261795143596449893334428116311452509992238406430568029149645438546858086033831132097563713735705248448395497106514247065726892430556063639347291605765296934176606903028711595931529552923593074355007070670108664,
+        "generated_next_macro_tail": 20587267306971495397396114874927444185438220585557425407830500441676532039667225549638216874123348596965171717391032039061017506520961204043255283899013469738064493808098802227610311421663094218180350773837984972372280419110054090825880270465643825268847113243948502583281698,
+        "mismatch_valuation": 4,
+        "required_next_address_bits": 783,
+        "source_ether_cells": 94
+      },
+      {
+        "first_link_macro_tail": 11763445083648522798929215861911250325203864415658183742031049040519591341536884230835477102948942902239925433955451889964185277437276534759091776623526523357582924591031966287848000204692841017537253670309757740448439396367552517248146,
+        "generated_next_macro_tail": 3728180379991570655574067589111928646549664352938399297269262955465179649201911425328596070799472647159185762092463260130034571724315782146026748047465117299956116292009906180870227021646081260622515939526585358516862150654064748232466742081903845740387272590600653140892428009,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 791,
+        "source_ether_cells": 95
+      },
+      {
+        "first_link_macro_tail": 6422551179828137240449675833423882697168502030476136119700060056313157363466654845059213151361295417871648552011716551699096024425352703347256248282776054518118863289724780147633670622260726947326649908027707440429247436632463420785714815,
+        "generated_next_macro_tail": 5796389004975584635700143690532626462101169902281275435871431807710091668040097861681499887579679129414722125369694668894053376141270396701262635409539461889445930721020354148589386113918306992889528621670512590891858598453154430575938715710319771882762841290909768705378109016037,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 799,
+        "source_ether_cells": 96
+      },
+      {
+        "first_link_macro_tail": 425658228181043938575948614406378740603993427872197047562454393080847020658025376204847954690854083165161009628613517760102995779672559259680053755063441660450167786647954463387886557928102128328187917734794064165373360281514202045890049911,
+        "generated_next_macro_tail": 1093952704191776868074965630203036992689927182504921225518387153631201546206562236350829028941385372357506085306272507480264552779485564112047253216335159627243206815454832067607870558119979689779521918862488010729003362367781882136069090065562629228583257379867489117757702798722270,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 807,
+        "source_ether_cells": 97
+      },
+      {
+        "first_link_macro_tail": 811205977088732472483614668713239107791369589332680602100376429312683622763885778604418770948971053233982761898225621332587418839824724630750086406303950986100438648221850727957607648887630742627670474895755219918763877273371803630127544366661,
+        "generated_next_macro_tail": 5936851940885539554265810130788228897914943355813194079487130303151794306101664584648696603402632780015143393956054493142839839897097989787059150727717151816582379422117659089839602984232067057584620971680730225690883583246365354032494704790264392303561467029204607829973410172844329268,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 815,
+        "source_ether_cells": 98
+      },
+      {
+        "first_link_macro_tail": 109186867926335148857400180733034138092652205283370094526326299815720422058370113121102456154242594351780383175382189463701967535579384848820247649364941847908520507225324758841000149674789260768610149729754814109108883016293527288463018253204845,
+        "generated_next_macro_tail": 2275532525407586384006532841862032569885669620392264289922338402297208934165931523742342066734924671645935273607111665267131171940251799870799191988143848244694510816071147758549508051400409745495172771742762769617912084040446414919682612924818494292411779429966512422476817036611091241980,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 823,
+        "source_ether_cells": 99
+      },
+      {
+        "first_link_macro_tail": 47997938059381846040719497283188168554655401067285238181305452621982018063216314884540172608719128528144287818952438130159416907320103338432187920353342161413071204656497518450166049922311609363751058034327350917147939108965478397003306857227555663,
+        "generated_next_macro_tail": 2848543022925681866535138699240095108925336552428240295642082947706583518193383246720584347337345356941398258647441395674651860479020995993916829429437004548454614371081602880233243974330414107930366769388200005733955634384873851335526121390027622283807266657870196511991739309687498877660451,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 831,
+        "source_ether_cells": 100
+      },
+      {
+        "first_link_macro_tail": 7592785457694148071934288041431050487718351095644794008460939060216591107955664764324041510696631939860434799469549558913314686440757290096603186703341662276227372972921308575947695306830707525846530487933444691324102294486829609248290365289281137746,
+        "generated_next_macro_tail": 1283183876184514847344793330180490539250269811811398825495286126086569554981598325030096973586928815533416694274683999539623065001058173594538200629565171767742593744516572643018678417671371872181324451267848949062033694340208490154922353191560934216363442108199281324137772062542844820536500599,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 839,
+        "source_ether_cells": 101
+      },
+      {
+        "first_link_macro_tail": 1886140877460324177774481799094394951986699577172519477632830634593947036963246219477476772146173069265120998940258303266316981104274445206026591163296970347609841435976356310816570429165276660851164307564487724624764254117182854990855241157632698219417,
+        "generated_next_macro_tail": 907714881866961564216653639548857754912473250485321718371475682435750208241201633775830137068609796119515377174003863529067703784654447394578479020090840387017191790039009910715210159205578242329162526119206462567912308316093989213841689754358894478925723085259258924692264875349952072280157374475,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 847,
+        "source_ether_cells": 102
+      },
+      {
+        "first_link_macro_tail": 710412543097522389718109876645090881211892048484356882858367310952252682177688445812988445439353244186981131442336730238311243938903706034319336106862189157826274090902701148565035040350449247154632948110733433396283636212541579286084407810936506715620822,
+        "generated_next_macro_tail": 973584188349664383310786694415866100768866132275927771710712060550069468111784225397615658630097753618450192173849731661646609104317526079398363774060219998246404709003324253672185338601109270324134128381889472937896241442002858257685595306677371758926246167641527316312493392356649935927882506010736,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 855,
+        "source_ether_cells": 103
+      },
+      {
+        "first_link_macro_tail": 99569664112119213434569043471864860207668762722298040971598579486022045559772901631497188964031569475149135441066931290835503029203672992230459374198400115911528315908482349329521351076420403146731747779364407305183956334565075707106383247966096536215237585,
+        "generated_next_macro_tail": 388577362700687865145898197505797309493982371807722158389778289568955914660611175965002108231822197187000334794694568898175432732270778987571557442634680571394701398429449542121893895163230860909929444768106389471771714204930718475728764538880889799890636147252848093235755260998493888723470929765689098,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 863,
+        "source_ether_cells": 104
+      },
+      {
+        "first_link_macro_tail": 8979400780824663927591596897304783205434908526748831368420417769855483852821261714995592993848536383724913962919350927980004946097517471639256268673207363967896138697425524896417473369514240142114572279172176302304562390845847551877922722760390215590713327902,
+        "generated_next_macro_tail": 99789621027405559847680577268839804507971075006246420324593664355027176232492881860332231453486406740519376356843663052740109377001566974686846118367540524381140254011193970604944800705186885948532965765670397334509719185035066950311565500888704625987138917424621766829315783788807660446843315987018001177,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 871,
+        "source_ether_cells": 105
+      },
+      {
+        "first_link_macro_tail": 9139998151452032067213290377164548975502777288070723074392297125269536045864701762952343713820898836936234468247241180566914617853185660565396756626781905820825195880103189294805155856199291414246272540532856200131554672474061274063818646822946561439699067518480,
+        "generated_next_macro_tail": 289248881462770779109220413003404237094333019473809978935756184491393897690695708100925474188954267265085954439986997585183486134367638062241920903472286640856066269715095998714230512633383455872612368094549307239292521074617127017214286986111108702722841864480567030671164264738389048541089416257219152485293,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 879,
+        "source_ether_cells": 106
+      },
+      {
+        "first_link_macro_tail": 1136090606061877506572674642056407148181341029302914696794566507720991448589761662467447963151873382600342450892270764749489897135482324595041124409250902511744273235838926953027041344869779156165833212464927423007360945366043774247535783938603869770983929428460166,
+        "generated_next_macro_tail": 102382590072499657257147375083146687213053911328842015799733105875174117785071671640499569399982788274493220457313622609187534709103457559340787663203349376243515083403501111748599961980672440155747211427429996582907401825969389621881919001538984910304497472955392258784786242280031868562830719790803846298851334,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 887,
+        "source_ether_cells": 107
+      },
+      {
+        "first_link_macro_tail": 450731859710220461605651587121223867467870404130194055915255216732456856769601108743456546140628984276118334553279548120979599327829550800009117190074836678087498338475597714483916736747184797877977784994106141503791934492330849486163630227241150518576413600597204700,
+        "generated_next_macro_tail": 115669527973009255048435178389510246925273208109984628008776446899250808105092110482483076683552178063379376486722383982067922638959377168028971078200883476609705793312956094792125733591162896694911314599901447178241851105313757001814258503810029259635302702297038408404298517613925862060268741101115168424191515017,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 895,
+        "source_ether_cells": 108
+      },
+      {
+        "first_link_macro_tail": 52854755032942419527549111130540027911441060002856031736380706810973194741668994036862212109873595346334401734691124734780242766337802563602058588553427241312395305001681566293840845657235918219067631740360956728225045157351081619747749585310061734215643106007785344404,
+        "generated_next_macro_tail": 38625341628816291225887092768619105298427794004024741432034761660760760774092908963755069254138687330192936055336769526976512220424405937051845254826548017231558488273008780922953414385311626889173920160112157803061385095289432313485026115645072410478312962763304644206229261498790654476728115930972070810233468444516,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 903,
+        "source_ether_cells": 109
+      },
+      {
+        "first_link_macro_tail": 19150854084924756299336013482888932998219825421922959243243502458949841235834340671130328173253716986492224989729167217579130148299546942740766525740034800391334212106194309196302273683229627563449926218048085431532762191804195493371556137680902119577617192488448987195246,
+        "generated_next_macro_tail": 39853271663386885260168657456047957833107666614301540952967948197299540400032747447624834157363731890885296979925447903648144948776548461580073149858221898946289103515370592953076371859091826525571866242943962643705044048145548270054272753827176694596820218322256607951940096949087992894330894617279238908166027736780543,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 911,
+        "source_ether_cells": 110
+      },
+      {
+        "first_link_macro_tail": 1733192333537801989674450848490197636075871178000168548369854655562372158485634307026857899047092434120327739211057123230434053123128173461117729385099977204642251612821825653414293405509053752801689659901606790455062981506775947774180902531141761305061041266911804408443337,
+        "generated_next_macro_tail": 10270939112427543191131871307007328153629227360288460920002407312273310692800801430654296440066393030913935287230377564849328964145130179506841277380186475218228688008448388553107539924112584857727083946303586707989577386276485302934919782891527325355147421305045161612014502205723589791863904296819228498231780451797650739,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 919,
+        "source_ether_cells": 111
+      },
+      {
+        "first_link_macro_tail": 3786390059707961839834083050077239089099286320222378212535048064805540124381775929208610453850934985433139982855716978921911758281141949503777694771764764791867756292730728569415451040063217109175859894659933993496534137535111860078266896987012335541006695680079833858314639785,
+        "generated_next_macro_tail": 63896388153044208932928843742405117476358313000184528456788077132584268521779287496855473475057155907786145676585016884338708975181067798177310016148383896787000678249251697048758323057788315094958343156290114428196730102984226369849848674416162478543321156482172359936000974640240318854907598828821128497765610570711931215426,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 927,
+        "source_ether_cells": 112
+      },
+      {
+        "first_link_macro_tail": 1125178055033987809850672107347738321868490756661978479778439396021490244879252585684077606451061877694953835772931695314670716683697256346323934184525088706323607193410367100675510713737550237816762940055719349287775362148178499396219541820380890916085463620361557425421699496775,
+        "generated_next_macro_tail": 54070423933404861258488370130252191572330858180350297918373048565670193054655762267674251178273180479623372773530978333916646169757708405742124307476292204874543301370983822621178531518958461190123976234195927593046195541660483868273623093713005543619091791273068388866854157775554975168208664608585734166827577050148925556092071,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 935,
+        "source_ether_cells": 113
+      },
+      {
+        "first_link_macro_tail": 135022006845157338109265065281532219741302300026592003419036631946142755566121334342289551163048827504448052166791171220816433594612489283897159751647634519464243902658897074163794900360111076260758463331085055709052774657966310657288054816682760585676324571270319918516236216470041,
+        "generated_next_macro_tail": 18476965291708754376085095922909355054892544061389044657947842454383683759981993796036776292539861616088384344481736843338433861952898014016132481287578486303293729860488203762557783517542609151626909672663775887262393275990002967521010654918278505381441837413489734349865391807875125607547669303611775080691551286408074931188415263,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 943,
+        "source_ether_cells": 114
+      },
+      {
+        "first_link_macro_tail": 46505004994998006838238486511778381882934901683691247034886471923940326802955542010994539480700434433218392852992360205035046901251938911675626002568421913504637288321026881114447296094908008530328337317552819284086613649525694155154903992906860415517768275709394449635353329206325443,
+        "generated_next_macro_tail": 18122301134370693040133002452389318115987386765277240628783960588828385172827675070212714605145895781902167504434086542661839169883476936938065554284369204411020349603463433193454684287100446626204079556340114565127022867346511911607249102932927876077731812352846919034156396536022227658501803866543932142696938390285722922754597294184,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 951,
+        "source_ether_cells": 115
+      },
+      {
+        "first_link_macro_tail": 12104655098061096565299362850769272073926026125393292236087649643938164068621753974250670819100243247015968634157485075761112903477854474329946031145091264409692005813395061511168028743921648769644791424683059865663033181172041893328805076906052761646000579693409368517242174072663088674,
+        "generated_next_macro_tail": 13432400425163188409903555113995534273224301463061969162315781484754758246264354288913417186623858839962078985101892197668629028316134761688129432583779948322874921392220508977378602077140516344733570294279552873006686863125535133759134242680808693233419560627110338861037343622771791193977183899600977445317565797436499386341077670164036,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 959,
+        "source_ether_cells": 116
+      },
+      {
+        "first_link_macro_tail": 4265082531703547496951790186220839673406466270721223271984223034233945295948888195383706596028489156275950508257701699124070245826923407209945686230907303341066209068870997324097238740302236150615204679093342596033432952484601669011677730843748755048824202982195529313542297947326739647259,
+        "generated_next_macro_tail": 13477713269890416023269547051067509269013132357456178957894890248882959271413028324196383590631783473704697958696381643739136089845580542765883333961860246338604590599214796464884801216825680943945190005321759193682689224314751013395810808475471364086161980739757154684347656222461769274446419823692909946129208962385086726225933095769786309,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 967,
+        "source_ether_cells": 117
+      },
+      {
+        "first_link_macro_tail": 658055927454169169070292691872030029055694817837362971001070277332370363072557360049912174322279114999127872297173482614771746826010244375165377314465808856715320227076563074198744577552587747677317392592880647870727948639332179104939124484501789079091471759535458493433836368752404445194743,
+        "generated_next_macro_tail": 5921601009158207020303710511528647292838016432795726989397088544945543032772828191097997783544779353338013168628747710872522605125434594524723193464035105112670057093921388323294359376278036408624125630932644397498204901944629698370682936984680689187223437041329382027054772501947854978581741447177735950948351998702675899041607385108134024971,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 975,
+        "source_ether_cells": 118
+      },
+      {
+        "first_link_macro_tail": 92023405687988839913080658252150913461048821077245348978941756253010314506041308530935242746856876970180369157832606629929618482734882509026193345036512214712190022919911079395007296045539564830428403585387692730821154228902640543493019803086604728663066648094569076450385820832133715418215516,
+        "generated_next_macro_tail": 2358099908179932536411668796584929323776686402322607947898842547695357901569426333494397261415110633564286294957437927212775136463714289257141429309771076581532653235617891270822966102007844813063295301018749135241093186333614581269703511586147276019293160066104249189522988920550107564526626754442739551047150912281191288405824648971563096075368,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 983,
+        "source_ether_cells": 119
+      },
+      {
+        "first_link_macro_tail": 81205931545661301977215877369276068672957563142387320008299675518216673426675288389945511209464286639331914084758786979288518091766439380551297372178633184218720975985175403613477479710115953696986107216200236143448555388597629448464169920798869668749738041362162745250663301935625555435924883927,
+        "generated_next_macro_tail": 5925693919478554527803472070253569259806771279976078671608790034645045957382101887577422267486708046063313682854982919866538453066536987131431296148051896155995764589166969377685240719873797567339377544125522115907776556668811822169905954757564166316676379479377127117832219166144505023835974741126756396014293929105961948510031274508973168332794449,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 991,
+        "source_ether_cells": 120
+      },
+      {
+        "first_link_macro_tail": 6912520651266709297921983329627268167304217999373087103906885249897529842538868733545745114786416542715627003407650063427887722065503668440660991800273965769099872110626004302704498070541485369636052404682212234259366851588189840528920726700803074855780028099901553056929686860429177341122868603360,
+        "generated_next_macro_tail": 1436400233862881442457807908103126855339322148242775683695031085912375222920915785608991099604425362277454241463786701753988435023978931193379044060808816845954091833666426801257505204557261704832596296751097526615795419564563957572453664396030650430818278889475472544516456397322888775924214578345625480408196761614210783961620867839975782035561106684,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 999,
+        "source_ether_cells": 121
+      },
+      {
+        "first_link_macro_tail": 2284240621289352576158386367418793864523693236865403054621691639477375383668409426699050306888086789444404702203441693347037970604228817749896640803500492695826233242602174859541443276436947185143696054346493085817733721455571810898245324432517168492460822316703587473431538151445132239085597084191432,
+        "generated_next_macro_tail": 1351663040845120409077061548515076028155120930569886710620172294821679008514720366361178653820564181532084937217663532596319861423382200549533549009448397624558326190056786467459165386157026537729556882476118125669821269393394940151445968528469736863367436450776286654896857384294098138420008639564916305230876817660116122204081168885459866811970611861427,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 1007,
+        "source_ether_cells": 122
+      },
+      {
+        "first_link_macro_tail": 94755312680226262964221680905663237518915337228154818139731217736387552644785583869499291223110532789199053431525809367532515795492503641027369091775335197708991762186799231893544876965716014334752165024058363691557687498647641660328224977893236327137538015115729609379419676023062833442162955090786295,
+        "generated_next_macro_tail": 159667939378301364691986983177943547765270381453169825427835857852334614479183914518783987922322203884061910075081012144809370297027029792700819920144958076340769778367385951534462178114824955944052913181658280813610993276144361353781192545407073141424710046218798547054494069865019977136061836205596949194731676462876610938478305880627649812571345705292251,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 1015,
+        "source_ether_cells": 123
+      },
+      {
+        "first_link_macro_tail": 338107145697198891325885574345984936184799503452433303645031942987875614135036275836851541150319074859563607748666978334121360550148655809322508853295310403758002073691749112583829684184425132932365646283801417076316180072790531392297006564313427437227559466737403011826714618207451059075203026253058661842,
+        "generated_next_macro_tail": 1622392999937574941498399953233996000067576113783013792454241302349068896923135034067996279387483694901891656727631247652434914472860469084501280813432652487348693628817620705105058654863838846842892959599295573396619038638343902189694369046492601940576569797236857611347178744639034581971086675302615898757391630340220362123385294428708412851041442688933559999,
+        "mismatch_valuation": 0,
+        "required_next_address_bits": 1023,
+        "source_ether_cells": 124
+      },
+      {
+        "first_link_macro_tail": 70746232527958959234771969495350173708541656191950580985912440308830139630499213231676046565528950075789928949397478921815426853165670401798848058409298339216123696736435910168382194077163080603303817805279477995555479531283019910789740569820014626084376035634014008759760790727972372172894200033361092868762,
+        "generated_next_macro_tail": 966701949909020394618497040117207235585922777330837197347488443906233041290524787320747465617221175700248597417858479417653648446186849868731197267495734229781969836975992364243178546986634118686472758143648161294479218311755303487354452667629099478584496148012517129073410719282070419103926176000822598509792492432318177404484906741423616638917133128179680462972,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 1031,
+        "source_ether_cells": 125
+      },
+      {
+        "first_link_macro_tail": 11549983110773066042774606146249932364079365177448835699332474558665598746628953971008863142788858122034098384613411172065178243529243523203476228805391401391208579957600718965784827650220249025599370400016464935535847602840393178913908195413359587197155051613708976172691540335912462126497554527572312642793502,
+        "generated_next_macro_tail": 449425996026485417827281812512411552851854243053723983606935585165085458826852517821288993325574938651055029521598927725462063772382005910672706981171145643256683311053789934406274916586752840102442487435511495340463442027761330771627615290896987764532195573083362319846108975498953472208591377464981014031921861090728380633188660878922458590090689098225625644223814,
+        "mismatch_valuation": 1,
+        "required_next_address_bits": 1039,
+        "source_ether_cells": 126
+      },
+      {
+        "first_link_macro_tail": 5847312784911948174152859681074472091837064618206316625443925845782139741189993244898032556801226046245759388743176625622976219712156450314910459909089636336310283237714843865417786047084109425084701098503120417243030903277573109455277002291485799887751179167984315295247620993369981595135439817145809082364305068,
+        "generated_next_macro_tail": 647919020182918790486842976881095927962691454977287306401044781755154387076638688629600122125052965536874635570386225325726036947286692407733924508952327169044749384014537193797730581607998723789399174615243979687751753398816313789028876208937150124364277240829596896681399687071396602729809175520627219283533755761827735711625423659500158384504173341801718521444866013,
+        "mismatch_valuation": 2,
+        "required_next_address_bits": 1047,
+        "source_ether_cells": 127
+      },
+      {
+        "first_link_macro_tail": 1318142824060936662627501285482076381365441372433896530074269705476500102289357566693768661167954167951700282667475000329036100963010311302272503817331988839769395101756732772480518401133583153627769877446576538388538719300372359610391315072942750021134898921565120765323711280077183231665729480446345719480554680665,
+        "generated_next_macro_tail": 415924435762421883573677187882234112272394858904349878946732046159747099018212746996453515693918786940305230229156181859847112499188703416178316562342506503735522251574293523576076179885477220180773421184600333161256242997437402619949891087327643756363286995877138902769734815135757921755564143433063868895443796300507124026903268118177239494303386790260132290472496474265,
+        "mismatch_valuation": 3,
+        "required_next_address_bits": 1055,
+        "source_ether_cells": 128
+      }
+    ],
+    "maximum_linked_macros": 2,
+    "schedule": "n -> n+1 with the first higher macro tail exhausted",
+    "transitions_linked": 128
+  },
+  "universal_macro": "K=R_n+2^(8n+15)*q -> K'=S_n+3^(6n+11)*q",
+  "verifier_sha256": "0f933e8330e33f0c65c3a6b51d30f0983b504492183ca39ef8a4f6c2f3d76dce"
+}

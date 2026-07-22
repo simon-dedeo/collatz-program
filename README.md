@@ -168,11 +168,13 @@ identically `x`.
   length-`L` bit boundary by any prescribed finite extra valuation `D`.
   The live turnaround problem is to expose this nested amplified gap as the
   next active delay and make its surviving packet reproduce the construction.
-  A first exact turnaround now exists at the finite level.  The ether gate
-  `(1,2,1)` has fixed 2-adic tail `-12/473`; the defect `(1,136,1)` returns to
-  it while a remote odd packet installs any prescribed finite number of
-  eight-bit ether cells.  The next target is a boundary map which sends the
-  exposed defect into another, longer member of the same ordinary family.
+  A returning finite glider now exists.  The ether gate `(1,2,1)` has fixed
+  2-adic tail `-12/473`; the unique parity-compatible immediate defect
+  `(1,1,1)` writes any prescribed finite number `n` of eight-bit cells and
+  returns the exposed boundary to its own defect family.  The complete macro
+  is `K=R_n+2^(8n+15)q -> K'=S_n+3^(6n+11)q`.  The next target is one ordinary
+  payload whose changing `q` generates an infinite aperiodic sequence of
+  lengths, not another externally prescribed list of finite ethers.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -328,6 +330,7 @@ identically `x`.
 | One ordinary relay between compiler blocks | The 11 two-outward saturated nodes admit 22 universally outward four-gate relay families, but their graph has exactly one directed cycle: a fixed node-3 self-loop.  Every infinite path would therefore repeat one valuation block and is closed by the eventually-periodic theorem.  This excludes one-relay routing only on this node set. | [`complete_u_relay_graph_audit.json`](experiments/kontorovich/complete_u_relay_graph_audit.json) |
 | Finite regenerative delay routing | Solved but insufficient.  Two delay gates with a shared gap always link when the second collision opcode is positive: both coefficient bases are odd, so one binary congruence gives the affine tail handoff `t=t_0+2^m v -> s=s_0+3^A v`.  Lean commit `54e506f` proves supplied affine families and links for every tail.  Commit `5254194` proves that an ordinary natural surviving unbounded nested address filters forces their canonical residues eventually to equal that natural; a perpetually changing address program is only 2-adic. | [`breakoff_delay_gate_audit.json`](experiments/kontorovich/breakoff_delay_gate_audit.json) |
 | Canonical tail-zero delay dispatcher | Exhaustively negative at depth two in the symbolic box `q,j,q'<=100` (with `j` including zero): 1,010,000 gate shapes split into 992,129 with no next clean delay, 17,861 whose next gate needs positive tail, three canonical base-to-base links, and seven factor-of-eight coordinate aliases.  Every canonical link fails renewal after its target gate; their 59- and 85-digit ordinary seeds reach `1` in 1,272, 1,277, and 330 exact ordinary steps.  This closes only immediate stabilization at the canonical least coefficient, not evolved nonzero-tail or nonlinear two-packet programs. | [`delay_base_graph_audit.json`](experiments/kontorovich/delay_base_graph_audit.json) |
+| Exhausted-tail ether staircase | The returning ether macros link every scheduled pair `n -> n+1`, but after setting the remaining higher macro tail to zero, the generated `(n+1)` tail misses the `n+2` input cylinder for every `n=1..128`; maximum linked depth is two macros.  This closes only the least-tail staircase controller.  Nonzero generated macro tails, branching length schedules, and other payload recurrences remain open. | [`breakoff_ether_glider_audit.json`](experiments/kontorovich/breakoff_ether_glider_audit.json) |
 | Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
 | Standard two-rail schedule `[1]^r[2,2,3]` | Closed at all levels.  Exact affine-family intersection compiles 247 outward rounds from a 10,040-digit seed, but depth 248 changes the seed and exact continuation reaches `1`.  Lean reduces every infinite realization to `2^(r+8)P'=3^(r+3)P+69` and its sole 2-adic Tschakaloff candidate.  Väänänen--Wallisser's 1989 theorem applies at `q=3/2,p=2,alpha=4096/6561` and proves that candidate irrational, so it cannot be an ordinary payload.  This does not close branching or other aperiodic splash programs. | [Finite certificate](experiments/kontorovich/two_rail_chain_247.json), [theorem audit](docs/notes/standard-two-rail-theta.md) |
 | Fixed affine or autonomous finite-state return | Closed as an outward bouncer.  Lean commits `b741a14`/`26f3584` prove fixed affine circuits and every eventually periodic macro-word schedule impossible; `560fcc5` proves an autonomous controller with any finite effective state eventually enters that obstruction.  Coefficientwise, a repeated word would require natural slope `m=3^N/2^S` with `S>0`.  Payload-dependent branching and unbounded shape counters remain open. | [Delocalized tag-ISA note](docs/notes/kontorovich-delocalized-isa.md) |
@@ -365,6 +368,7 @@ positive integer and its claimed behavior are machine-checked.
 | Affine mixed-radix writer and ordinary-tail gate | Exact coefficient linking reads `m` low binary bits and appends `A` ternary digits: `t=t_0+2^m v -> s=s_0+3^A v`.  Lean commit `54e506f` proves every supplied affine gate family, coefficient link, composed run, and outwardness for all `v`.  Commit `5254194` connects its `2^m` address cylinders to the ordinary/2-adic boundary.  The artifact audits 4,608 linked pairs (18,432 macros) and shows one fixed dispatcher realizes every one of the 243 five-trit write words within stated bounds.  Finite instruction routing is solved; a returning aperiodic dispatcher with one eventually stabilized natural address is not. |
 | Nonlocal sacrificial gap amplifier | In the five-trit writer choose `b=3^5-2^L` and residual `v=K*2^L-1`.  Exact arithmetic gives `b+3^5v=2^L(3^5K-1)`: trailing one-bits collide with the selected word to become zero-bits, while the remote congruence `3^5K=1+2^D (mod 2^(D+1))` supplies exactly `D` more.  All seven words `L=1..7` exist in the certified alphabet; the artifact replays 224 linked members for `D=1..32` through 448 literal gate macros.  This produces an internal tail gap, not yet a returning infinite controller. |
 | Regenerative finite ether defect | The gate `E=(1,2,1)` self-links by `t=20+2^8v -> 57+3^6v` and satisfies `2^8(473t'+12)=3^6(473t+12)`, so exact divisibility of `473t+12` by `2^(8n)` is an `n`-cell spatial delay.  The defect `H=(1,136,1)` gives an exact `E -> H -> E` return whose Mersenne residual has `473t+12=2^8(r+AK)` with fixed odd `r,A`; one odd class of the remote packet therefore writes any prescribed finite ether depth.  The artifact constructs `n=2..32`, replaying 589 linked members and 1,178 literal gate macros.  It does not return the exposed boundary to another defect. |
+| Returning finite ether glider ISA | Exact parity shows an exhausted ether boundary is odd and therefore cannot re-enter the `j=136` defect; among immediate `E -> H_j -> E` defects, `j=1` is the parity-compatible receiver.  Its small identities give defect input `X(K)=2^20K-10941`, return factor `473t+12=2^5(83790531K-874281)`, and for every `n>=1` a complete outward macro `K=R_n+2^(8n+15)q -> K'=S_n+3^(6n+11)q` which writes `n` ether cells and returns to the same defect family.  The artifact replays 64 macro members through 1,184 links and 2,368 gate macros.  No infinite linked macro orbit is supplied. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
 | Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
@@ -421,6 +425,52 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 02:14 EDT
+
+The exposed ether boundary now returns to a defect.  First, a useful parity
+kill: every exact finite ether ends with an odd tail.  For an immediate
+`E -> H_j -> E` defect, collision opcode `j>=2` forces the target coefficient
+to be `1 mod 4`, hence its `E`-tail address is even.  This rules out
+`H=(1,136,1)` as a self-regenerator at every depth, not just in a search box.
+The opcode-one defect `H=(1,1,1)` is the parity-compatible receiver.
+
+Its links are strikingly small:
+
+```text
+E -> H:  67+2^7*v   -> 381+3^6*v,
+H -> E: 151+2^8*w   -> 144+3^5*w,
+v=170+2^8*u,             w=485+3^6*u.
+```
+
+On `u=2^5*K-1`, the returned `E` tail satisfies
+
+```text
+473*t+12=2^5*(83790531*K-874281),
+```
+
+so one odd class of `K` writes exactly `n` ether cells for every `n>=1`.
+Solving one further binary congruence makes the exposed odd boundary equal the
+next defect input `X(K')=2^20*K'-10941`.  The whole block therefore compresses
+to the returning macro
+
+```text
+K=R_n+2^(8n+15)*q  ->  K'=S_n+3^(6n+11)*q.          (*)
+```
+
+The new [ether-glider artifact](experiments/kontorovich/breakoff_ether_glider_audit.json)
+constructs `n=1..32`, replays two ordinary members of every family, and checks
+1,184 exact links / 2,368 literal gate macros.  This is a true finite glider
+ISA: defect, periodic medium, exposed boundary, and return to the same defect
+family are all exact.  It is not yet an infinite glider.
+
+The simplest controller fails cleanly.  Every pair `n -> n+1` can be linked,
+but if the remaining higher macro tail is exhausted immediately, the generated
+`n+1` state misses the `n+2` cylinder for all `n=1..128`.  The maximum is two
+linked macros.  The [strategy/failure map](#kc-strategy-and-failure-map) now
+targets a nonzero payload recurrence for `(*)`—or a branching length rule—so
+that the hardware, not an infinite preloaded address, chooses successive
+ether lengths.
 
 ### 2026-07-22 02:03 EDT
 
