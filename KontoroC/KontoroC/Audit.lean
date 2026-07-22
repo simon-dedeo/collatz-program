@@ -449,3 +449,17 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.ChargeQuadraticNorm.sum_two_squares_not_mod_eight_seven
 #print axioms KontoroC.ChargeQuadraticNorm.no_accepted_sum_two_squares
 #print axioms KontoroC.ChargeQuadraticNorm.corrected_quadraticNorm_mod_eight
+#print axioms KontoroC.ChargeNormOpcode.quadraticNormInt_mul
+#print axioms KontoroC.ChargeNormOpcode.registerOdd_is_norm_thirtyOne
+#print axioms KontoroC.ChargeNormOpcode.five_dvd_coordinates_of_five_dvd_norm_seven
+#print axioms KontoroC.ChargeNormOpcode.nineteen_dvd_coordinates_of_nineteen_dvd_norm_seven
+#print axioms KontoroC.ChargeNormOpcode.five_dvd_opcode_of_norm_seven_collision
+#print axioms KontoroC.ChargeNormOpcode.nineteen_dvd_opcode_of_norm_seven_collision
+#print axioms
+  KontoroC.ChargeNormOpcode.ninetyFive_dvd_opcode_of_norm_seven_register_collision
+#print axioms KontoroC.ChargeNormOpcode.opcodeDebris_factor
+#print axioms KontoroC.ChargeNormOpcode.opcodeDebris_add
+#print axioms KontoroC.ChargeNormOpcode.normalized_payload_recurrence
+#print axioms KontoroC.ChargeNormOpcode.normalized_payload_recurrence_powers
+#print axioms KontoroC.ChargeNormOpcode.accepted_step_normalized_payload_recurrence
+#print axioms KontoroC.ChargeNormOpcode.no_positive_defect_recharge_at_153

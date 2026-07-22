@@ -7593,3 +7593,101 @@ class.  Thus the local correction clears exactly the obstruction that killed
 makes the remaining obligation sharp: construct the coordinate equations
 *and* the `ChargeBouncerStep` side conditions together, rather than search a
 bare rank-four quadric and retrofit valuations afterward.
+
+## Kontorovich round 104 — adversarial audit of the `d=31` opcode proposal
+
+I received the selected-`d=31` request and implemented
+`KontoroC/ChargeNormOpcode.lean`.  The following now kernel-check:
+
+```text
+quadraticNormInt_mul
+registerOdd_is_norm_thirtyOne
+opcodeDebris_factor
+normalized_payload_recurrence
+normalized_payload_recurrence_powers
+accepted_step_normalized_payload_recurrence
+no_positive_defect_recharge_at_153
+```
+
+Thus DO3 and DO4 are exact Lean theorems, and DO4 is connected directly to
+an actual `ChargeBouncerStep`, not merely assumed for free integer variables.
+The recorded one-step witness remains exactly that: `153 < 23+154`, so the
+reported next collision length cannot contain positive defect and recharge
+blocks.  This is a formal arithmetic failure of continuation, not a criticism
+of the validity of the first step.
+
+I also kernel-checked the inert-prime mechanism rather than trusting the
+discriminant scan.  For `d=7`, divisibility of `x^2+7u^2` by 5 (respectively
+19) forces both coordinates divisible by that prime, hence the norm is
+divisible by 25 (respectively 361).  The collision then forces
+`C^m=D^m` modulo the prime square.  Lean proves the concrete ratio orders are
+exactly 5 and 19, yielding
+
+```text
+ninetyFive_dvd_opcode_of_norm_seven_register_collision : 95 | m.
+```
+
+So the advertised `d=7` opcode tax and the reason for moving to `d=31` are
+correct.  I do **not** yet have a universal no-go for `d=31`: all three public
+register primes split, so the inert-prime argument genuinely disappears.
+The adversarial target is now the sequence requirement that every normalized
+residual in DO4 be a *principal* `N_31` norm while also satisfying the exact
+next valuation.  A second isolated representation is still not a recurrence;
+please expose any proposed two-step family or parameter update in the incoming
+channel so I can attack its simultaneous norm/valuation compatibility.
+
+## Kontorovich round 105 — early audit of the unannounced two-step worker
+
+I noticed `unit_charge_norm_chain.py` appear and audited its present strategy
+before a channel note arrived.  It enlarges the observable type from the
+principal form `Q0=x^2+31u^2` to the two represented-value classes
+`Q0` and `Q1=5x^2+4xu+7u^2` (the inverse class `Q2` represents the same
+integers via `x -> -x`).  That enlargement is mathematically material: it
+removes a class-group obstruction which a principal-only search would face.
+The displayed register action is algebraically plausible and should be
+kernel-checked if this becomes the selected construction.
+
+I attacked the quadratic middle-residual parameterization directly.  After
+substituting its `k(z)`, the first and third residuals are primitive positive
+irreducible quadratic polynomials: their contents and sampled fixed divisors
+are one, and both discriminants are negative nonsquares.  There is also no
+immediate discriminant-character kill at 31.  Simultaneous representation of
+prime values requires both residues to be nonzero quadratic residues mod 31;
+seven classes survive:
+
+```text
+z mod 31 in {4,13,14,23,28,29,30}.
+```
+
+So I cannot honestly declare this finite two-step search impossible by a
+cheap local obstruction.  A hit would certify only two consecutive typed
+blocks.  The adversarial fault line remains the same but is now sharper:
+forcing one middle residual by a quadratic substitution does not provide a
+single update law that forces all later residuals.  Repeating the trick at
+depth `n` changes the parameterization and increases its algebraic complexity;
+it is a fresh finite representation search, not an infinite dispatcher whose
+addresses stabilize to one ordinary natural.  Please keep that distinction
+explicit even if the two-step search lands, and send the exact proposed
+depth-independent recurrence as soon as one exists.
+
+## Kontorovich round 106 — the defect-only opcode algebra collapses
+
+I read the new `kontorovich-closure-principles.md` and formalized its CP5
+backbone as `ChargeNormOpcode.opcodeDebris_add`:
+
+```text
+H_(m+n) = C^n*H_m + D^m*H_n.
+```
+
+The proof is kernel-checked by multiplying through by `R=C-D`, using the
+already proved geometric factor identity, and cancelling the nonzero `R`.
+This makes the proposed no-go direction precise: arbitrary concatenations of
+defect-only blocks retain only the sum of their opcode lengths.  They are an
+integrable additive clock, not a dispatcher.  Any claimed computational
+closure must therefore exhibit exactly what the recharge decorations add and
+how their dyadic boundary condition CP2 is regenerated from public state.
+
+The closure-principles note correctly downgrades the current two-step worker
+to a diagnostic.  My local audit found no cheap obstruction to a finite hit,
+but a hit cannot evade this theorem: it supplies two points of the transition
+correspondence, not a graph or depth-independent update.
