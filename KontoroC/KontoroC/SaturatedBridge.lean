@@ -64,6 +64,41 @@ theorem saturatedStep_iterate_dyadic_cylinder (D n t : ℕ) :
             Function.iterate_succ_apply, pow_succ]
           ring
 
+/-- Minimal reusable certificate that an affine two-rail handoff compiles one
+fixed-length saturated-map address block. -/
+structure SaturatedAffineBridge
+    (source target : AffineTwoRailFamily) where
+  link : AffineTwoRailLink source target
+  addressBits : ℕ
+  source_stride : link.sourceIndexStride = 2 ^ addressBits
+  target_base : link.targetIndexBase =
+    saturatedStep^[addressBits] link.sourceIndexBase
+  target_stride : link.targetIndexStride = 3 ^ addressBits
+
+namespace SaturatedAffineBridge
+
+/-- The three coefficient fields imply the saturated identity on every
+unbounded residual tail. -/
+theorem targetIndex_eq_iterate {source target : AffineTwoRailFamily}
+    (g : SaturatedAffineBridge source target) (t : ℕ) :
+    g.link.targetIndex t =
+      saturatedStep^[g.addressBits] (g.link.sourceIndex t) := by
+  simp only [AffineTwoRailLink.sourceIndex, AffineTwoRailLink.targetIndex]
+  rw [g.source_stride, saturatedStep_iterate_dyadic_cylinder,
+    g.target_base, g.target_stride]
+
+/-- Compiler soundness at the Collatz-state level: the source endpoint is
+the target-family start selected by the saturated iterate. -/
+theorem endpoint_eq_iterate_start {source target : AffineTwoRailFamily}
+    (g : SaturatedAffineBridge source target) (t : ℕ) :
+    (source.member (g.link.sourceIndex t)).endpoint =
+      (target.member
+        (saturatedStep^[g.addressBits] (g.link.sourceIndex t))).start := by
+  rw [← g.targetIndex_eq_iterate t]
+  exact g.link.endpoint_link t
+
+end SaturatedAffineBridge
+
 theorem saturatedStep_95 (t : ℕ) :
     saturatedStep (95 + 128 * t) = 143 + 192 * t := by
   simp only [saturatedStep]
@@ -216,6 +251,18 @@ def saturatedBridgeLink :
       TwoRailGate.prefixFamily, TwoRailGate.prefixInputStride,
       TwoRailGate.prefixOutputStride, TwoRailGate.codeExponent]
 
+/-- The concrete link packaged in the generic saturated compiler interface. -/
+def saturatedBridgeCompiler :
+    SaturatedAffineBridge saturatedBridgeSourceFamily
+      saturatedBridgeTargetFamily where
+  link := saturatedBridgeLink
+  addressBits := 7
+  source_stride := by norm_num [saturatedBridgeLink]
+  target_base := by
+    norm_num [saturatedBridgeLink, saturatedStep,
+      Function.iterate_succ_apply]
+  target_stride := by norm_num [saturatedBridgeLink]
+
 /-- Every source-family member selected by the seven-bit address is outward. -/
 theorem saturatedBridgeSource_outward (t : ℕ) :
     (saturatedBridgeSourceFamily.member
@@ -237,5 +284,15 @@ theorem saturatedBridge_endpoint (t : ℕ) :
         (saturatedStep^[7] (95 + 128 * t))).start := by
   rw [saturatedStep_iterate_seven]
   exact saturatedBridgeLink.endpoint_link t
+
+/-- Same endpoint theorem obtained solely from the reusable compiler
+certificate. -/
+theorem saturatedBridge_endpoint_via_compiler (t : ℕ) :
+    (saturatedBridgeSourceFamily.member
+        (saturatedBridgeCompiler.link.sourceIndex t)).endpoint =
+      (saturatedBridgeTargetFamily.member
+        (saturatedStep^[saturatedBridgeCompiler.addressBits]
+          (saturatedBridgeCompiler.link.sourceIndex t))).start :=
+  saturatedBridgeCompiler.endpoint_eq_iterate_start t
 
 end KontoroC

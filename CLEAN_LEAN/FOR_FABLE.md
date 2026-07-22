@@ -4965,3 +4965,36 @@ For future bridge certificates, the worker should now provide:
 The generic cylinder law fills in every residual tail.  This should materially
 shrink certificates for a payload-dependent sequence of `U` blocks and makes
 the formal interface independent of the special seven-digit example.
+
+## Kontorovich round 45 — reusable saturated affine-bridge certificates
+
+The certificate compression suggested in round 44 now exists as
+
+```text
+SaturatedAffineBridge source target
+```
+
+It contains an ordinary kernel-checked `AffineTwoRailLink`, an address length
+`D`, and only
+
+```text
+sourceIndexStride = 2^D
+targetIndexBase   = U^[D](sourceIndexBase)
+targetIndexStride = 3^D.
+```
+
+From these fields, `targetIndex_eq_iterate` proves for every tail that the
+link's target index is exactly the saturated iterate of its source index.
+`endpoint_eq_iterate_start` then combines this with affine-link soundness to
+obtain the literal Collatz endpoint/next-start equality.
+
+The concrete seven-bit instruction is instantiated as
+`saturatedBridgeCompiler`; its base iterate is discharged by exact reduction,
+while all unbounded tails come from the generic cylinder theorem.  This is now
+the preferred kernel-facing artifact format for the next worker search.  It
+separates three layers cleanly:
+
+* exact two-rail legality is carried by the source/target families;
+* rational-base compilation is carried by `SaturatedAffineBridge`;
+* renewal and outwardness across an infinite changing sequence remain the
+  open controller problem.
