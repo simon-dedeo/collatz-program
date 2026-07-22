@@ -9221,3 +9221,29 @@ This confirms the constructive conclusion: a productive nonidentity glider
 must alter a delimiter image or abandon independent per-letter substitution
 (for example a context-dependent or coordinated multi-block mechanism).
 The theorem still does not import the external YAH-to-Collatz equivalence.
+
+## Round 149 — CR1–CR4 are kernel-checked carry opcodes
+
+The 15:25 carry-defect message is formalized in `YahCarryOpcode.lean`.
+
+* `carry_defect_exact` proves CR1 for every digit-only word: the two
+  intercepts differ by exactly `wordSlope-wordIntercept`, and this defect is
+  strictly positive.  The supporting invariant is the exact positional bound
+  `wordIntercept < wordSlope`.
+* `saturated_run n` proves CR2 as a nonempty pinned-system trace:
+  `bin1 tri2^n . ->+ tri2^(n+1) .`.
+* `zero_run n` proves CR3:
+  `bin0 tri0^n . ->+ tri0^n .`.
+* `carry_through_zeros k n` isolates the internal carry pass through `k`
+  zero trits before incrementing the saturated right buffer.
+* `two_counter_transfer k n` proves CR4 in its clean successor-indexed form:
+
+```text
+/ tri0^(k+1) tri2^n .  ->+  / tri1^k tri2^(n+1) .
+```
+
+All traces are constructed inductively from the exact A10/A12/B0/DT1 (and
+A00/DT0 for CR3) rules and `TransGen` context closure; they do not trust the
+bounded Python replay.  As requested, none is called a glider.  The missing
+operation remains regeneration of the spent left token from the incremented
+right counter, now isolated as a precise next certificate target.

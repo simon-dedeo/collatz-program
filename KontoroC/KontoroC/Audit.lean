@@ -607,3 +607,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahVariableMorphismRigidity.bin1_intercept_ne_zero
 #print axioms
   KontoroC.YahVariableMorphismRigidity.marker_fixed_digit_morphism_eq_identity
+#print axioms KontoroC.YahCarryOpcode.carry_defect_exact
+#print axioms KontoroC.YahCarryOpcode.saturated_run
+#print axioms KontoroC.YahCarryOpcode.zero_run
+#print axioms KontoroC.YahCarryOpcode.carry_through_zeros
+#print axioms KontoroC.YahCarryOpcode.two_counter_transfer
