@@ -166,6 +166,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.CompleteSplashState.endpoint_eq_next_start
 #print axioms KontoroC.InfiniteCanonicalSplashOrbit.toMacroGlider
 #print axioms KontoroC.InfiniteCanonicalSplashOrbit.not_conjecture
+#print axioms KontoroC.mod_eq_residue_of_mem_dyadicCylinder
+#print axioms KontoroC.realizesDyadicResidues_eventually_constant
+#print axioms KontoroC.mem_all_dyadicCylinders_eventually_constant
+#print axioms KontoroC.no_natural_of_residues_never_eventually_constant
+#print axioms KontoroC.no_natural_in_all_dyadicCylinders
 #print axioms KontoroC.AffineOddCatcherLink.endpoint_link
 #print axioms KontoroC.OddSaturatedAffineBridge.targetIndex_eq_iterate
 #print axioms KontoroC.OddSaturatedAffineBridge.endpoint_eq_iterate_start
@@ -173,6 +178,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.firstOddBridge_source_outward
 #print axioms KontoroC.firstOddBridge_target_outward
 #print axioms KontoroC.firstOddBridge_endpoint
+#print axioms KontoroC.twoPow_add_three_lt_threePow_add_two
+#print axioms KontoroC.three_mul_twoPow_succ_lt_threePow_add_two
+#print axioms KontoroC.OddCatcherGate.outward_of_router_shape
 #print axioms KontoroC.twoPow_mul_odd_unique
 #print axioms KontoroC.TwoRailGate.decoded_parameters_unique
 #print axioms KontoroC.TwoRailGate.eq_of_ampTicks_inputPayload

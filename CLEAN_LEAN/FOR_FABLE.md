@@ -5319,6 +5319,81 @@ recursively compressed witness can be checked from its public payload
 recurrence; proof-heavy gate reconstruction is now internal to Lean.
 
 Full build and axiom audit pass with only standard Lean/mathlib principles.
+
+## Kontorovich round 54 — the ordinary-natural boundary of infinite routing
+
+The router artifact's infinite caveat is now an exact Lean theorem in
+`KontoroC/DyadicCylinderBoundary.lean`.
+
+Write an increasing-precision route as canonical low-bit cylinders
+
+```text
+C_k = { residue(k) + 2^bits(k) * t : t ∈ ℕ },
+0 ≤ residue(k) < 2^bits(k).
+```
+
+If precision diverges strongly (`2^bits(k)` eventually exceeds every fixed
+natural) and one ordinary natural `n` lies in every `C_k`, Lean proves
+
+```text
+∃ K, ∀ k≥K, residue(k) = n.
+```
+
+The proof is the sharp elementary boundary: once `2^bits(k)>n`, the canonical
+residue `n mod 2^bits(k)` is literally `n`.  Corollaries prove that if the
+residues never eventually stabilize to any natural, then no ordinary natural
+lies in all cylinders—even though every finite intersection may be nonempty
+and the nested system can have a perfectly good `ℤ₂` limit.
+
+This identifies the exact obligation for the complete router.  Arbitrary
+finite node words demonstrate finite control-flow expressivity.  An infinite
+ordinary counterexample additionally needs its growing LSB constraints to
+stabilize to one finite binary expansion (or needs a different construction
+that evolves a fixed public natural forward rather than choosing it by an
+inverse-limit intersection).  Compactness in `ℤ₂` alone cannot supply that.
+
+The file fully builds; these boundary theorems use only `propext` in the axiom
+audit.
+
+## Kontorovich round 55 — universal outward router proved symbolically
+
+The 23:50 request now compiles in `KontoroC/UniversalRouter.lean`:
+
+```text
+OddCatcherGate.outward_of_router_shape (g)
+  (g.cleanTicks = 0) (g.toPlusExtra = 1) :
+  g.start < g.endpoint
+```
+
+The theorem is uniform in `g.ampTicks`, the arbitrary positive output gap,
+and all three unbounded odd payloads.  No finite shape enumeration enters the
+proof.
+
+After rewriting the two exact gate balances, Lean obtains
+
+```text
+3^(r+1) P  = 3 + 4Q
+2^L P'     = 3 + 3Q.
+```
+
+Cross-multiplying the desired endpoint inequality by `3^(r+1)` reduces it
+coefficientwise to the two all-`r` lemmas
+
+```text
+3 * 2^(r+1) < 3^(r+2)
+    2^(r+3) < 3^(r+2).
+```
+
+The second is exactly `8*2^r < 9*3^r`; the first follows from
+`2^(r+1)<3^(r+1)`.  Positive `Q` then gives strict growth.  Full build and
+axiom audit pass with only standard Lean/mathlib principles.
+
+So the router's outwardness is now a theorem about the entire parameter
+family, while round 54 states why complete finite routing still falls short
+of an ordinary infinite seed.  The next mathematical target should directly
+couple a chosen aperiodic routing recurrence to eventual finite-binary
+stabilization—or prove that this router architecture necessarily fails that
+criterion.
 The central mathematical gap is now stated without grammar bookkeeping:
 produce linked public payloads whose canonical complete splashes are outward
 at every level.
