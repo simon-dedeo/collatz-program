@@ -416,6 +416,16 @@ identically `x`.
   `113771224571165334176850348` bits from `9>8`.  Thus the splash can now be
   finite, same-scale, and outward.  It still lacks the crucial invariant
   cylinder which would feed that larger tail back as the next legal program.
+  The entire later-turnaround bank is now explicit.  For opcode `j>=0`, take
+  `P_j=D+2+23j` and `q_j=q_0+17j`.  Exact third-division alignment forces the
+  remote catcher to gain the same `23j` binary positions as the marker lift;
+  the apparent two tails therefore collapse to one register `v=s+Mw`:
+  `x_j=X_j+2^(P_j+155)v -> y_j=Y_j+2*3^(q_j+114)v`.  Every opcode remains
+  coefficient-expanding, because increasing `j` multiplies the gain by
+  `3^17/2^23>1`.  This closes the naive two-independent-islands model but
+  leaves a cleaner unbounded variable-length tag language.  The next target
+  is a payload-selected, non-eventually-periodic opcode sequence in this
+  rank-one bank.
   instructions: an odd intermediate gap has a parity-dual terminal collision,
   and a one-bit outgoing gap is a legal zero-delay rail.  The even cleanup and
   odd catcher families have exact Kraft masses `1/3` and `2/3`, so every
@@ -530,6 +540,7 @@ identically `x`.
 | Infinite consecutive sign-negative full-order repetend splashes | Closed by exact core energy, including any hypothetical self-writing realization of this pure instruction.  Marker `C=1` forces `T=(2j+1)3^(q-1)`.  For `q>=3`, `3^(q-1)>=2q+1`, hence `2^T>2*3^q`; the recurrence `2^T h'=3^q h-1` gives `h>2h'`.  After `N` consecutive splashes a positive initial core would exceed `2^N`, impossible for fixed `h`.  The audit checks the concrete full-order exponent classes at sign-negative levels `2,4,6`.  This does not exclude sparse giant splashes separated by sufficiently amplifying charge phases. | [`unit_repetend_energy_audit.json`](experiments/kontorovich/unit_repetend_energy_audit.json) |
 | Infinite externally preloaded carry-catcher rail | Invalid as an ordinary program.  Each finite catcher and the new turnaround can be linked by another dyadic tail congruence, but prescribing infinitely many such words generally defines a 2-adic stack.  Lean commits `5254194`/`ba121d9` show an ordinary realizing tail would force its canonical extension residues eventually to vanish.  The new finite writer therefore shifts the live target to an autonomous payload law; it does not license an infinite preloaded ether. | [`unit_carry_turnaround_audit.json`](experiments/kontorovich/unit_carry_turnaround_audit.json) |
 | Freezing a small turnaround marker | Architecturally superseded, not arithmetically impossible.  The choice `H=17` leaves the preceding length in a class modulo `2^(D+1)` with no useful ordinary-size control.  Moving that congruence into a synthesized marker permits a fixed one-cell preceding instruction, an explicit `D+O(1)` marker bound, and an expanding tail coefficient.  The remaining failure is invariance/autonomy, not collision cleanup. | [`unit_marker_turnaround_audit.json`](experiments/kontorovich/unit_marker_turnaround_audit.json) |
+| Treating marker lift and remote catcher as independent stacks | Closed for the whole synthesized-marker bank.  At legal turnaround `P_j=D+2+23j`, marker freedom enters the source at `154+(P_j+1)=P_j+155`.  Exactness forces `u=u_j+2^(P_j-D)Mw`, so remote freedom enters at `155+D+(P_j-D)=P_j+155` as well.  Both output coefficients are `2*3^(q_j+114)`, hence the tails occur only as `v=s+Mw`.  The spatial islands are distinct, but algebraically rank one.  A counterexample must use the unbounded opcode as state or introduce a genuinely different collision channel. | [`unit_marker_bank_audit.json`](experiments/kontorovich/unit_marker_bank_audit.json) |
 | Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
 | Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
 | Fixed defect opcode in the charge bouncer | Closed by Lean commit `5633c44`.  For a fixed affine gain law `B*Z_(t+1)=A*Z_t+C` with coprime `A,B`, `1<B`, and `A>B`, the fixed-point defect obeys `B*delta_(t+1)=A*delta_t`; hence every `B^n` divides one positive `delta_0`, impossible.  The concrete theorem applies to every fixed `m`.  It does not apply to the live bouncer, where `m` may decrease or oscillate and each block switches from its `m`-defect law to `h-1` homogeneous backgrounds. | [`AffineQuotientNoGo.lean`](KontoroC/KontoroC/AffineQuotientNoGo.lean) |
@@ -580,6 +591,7 @@ positive integer and its claimed behavior are machine-checked.
 | Formula-compressed regenerative carry glider | For the carry `B` isolated by a unit splash, set `r=v3(B)`, `D=ord_(3^(q-r))(2)`, and `z=B(2^D-1)/3^q`.  Exact arithmetic gives `B+3^qz=2^D B`, so the sacrificial word consumes the dirty carry, creates `D` clean bits, and reproduces the identical carry remotely.  The verifier embeds the canonical `(1,1,1)` header family in the true invariant register at all six compiled levels, proves the concrete multiplicative orders and three register phases without expanding `2^D`, and obtains gap-length integers with `8,28,90,297,979,3231` decimal digits.  This is a finite spatial glider cell, not an infinite rail or self-writing end cap. | [`unit_carry_repetend_audit.json`](experiments/kontorovich/unit_carry_repetend_audit.json) |
 | Formula-compressed strike--scrub--turnaround | In the sign-negative level-two unit ISA, `B=1`, `H=17`, and `D=2*3^56` make the next legal division `P=D+2`.  Exact ternary lifting computes an even following-length class modulo `2*3^113`; `H=1 (mod 8)` puts the formula-compressed power-of-three turnaround in an even class modulo `2^(P-1)`, so parity-compatible CRT gives a finite ordinary length.  The third collision returns `h_out=R+2*M*3^(q(l)+114)w`, an exact writer for every prescribed finite odd dyadic word.  The artifact checks the explicit discrete log, exponent classes, register/CRT conditions, and writer algebra without expanding the giant length.  This is a universal finite reseed interface, not an autonomous infinite tail or counterexample. | [`unit_carry_turnaround_audit.json`](experiments/kontorovich/unit_carry_turnaround_audit.json) |
 | Same-scale expanding synthesized-marker turnaround | Keep the preceding instruction at one level-two cell and determine `H=h_3+3^114t`: the explicit `h_3 mod 3^114` makes the first two collisions emit `B=1`, while odd-coefficient inversion modulo `2^(D+3)` makes the third collision divide exactly by `P=D+2`.  A positive marker exists with at most `D+185` bits.  After the source-register CRT, the input and output tail coefficients are `2^(D+157)M` and `2M*3^Q`, `Q=773644327083924272402582364`; because `Q` is even and `3Q/2-(D+156)=113771224571165334176850348`, `9>8` proves strict outward coefficient growth.  The artifact reconstructs all residue algebra and fully replays a small surrogate; Lean commit `d085050` kernel-checks the generic power comparison.  This is a finite outward family, not an invariant family or counterexample. | [`unit_marker_turnaround_audit.json`](experiments/kontorovich/unit_marker_turnaround_audit.json) |
+| All-opcode rank-one turnaround bank | Every later legal third division `P_j=D+2+23j`, `q_j=q_0+17j` has the exact normal form `x_j=X_j+2^(P_j+155)v -> y_j=Y_j+2*3^(q_j+114)v`, where `v=s+Mw` combines the marker lift and remote tail.  The artifact checks the public exponent identities through `j=15` and replays six fully materialized small analogues.  Opcode zero is expanding by the previous `9>8` result, and each increment multiplies its coefficient ratio by `3^17/2^23=129140163/8388608>1`; hence every nonnegative opcode has positive drift.  This is an unbounded variable-length tag ISA, not a second stack or an autonomous orbit. | [`unit_marker_bank_audit.json`](experiments/kontorovich/unit_marker_bank_audit.json) |
 | Formula-generated nonlinear repetend splash | If `2^T C=s (mod 3^q)`, the ordinary repetend `R=(2^T C-s)/3^q` gives `R+2^(T+D)K -> C+2^D 3^qK` under the unit collision.  Intersecting the discrete-log class of `T` with `T=p(n')` produces a genuine enormous target length.  Exact modular certificates construct this at all six finite levels from source length one and gaps `D=1,64`; they verify the order `ord_(3^q)(2)=2*3^(q-1)`, exponent CRT, repetend integrality, and both register phases without expanding `2^T`.  Level one uses `C=5`, `T=105,734,623`, and `n'=13,216,826`; its low rail alone is about 31.8 million decimal digits.  Across levels the target exponents have `9,29,91,299,980,3235` decimal digits.  This is a short generator for one vast nonlinear splash, not renewal or nontermination. | [`unit_repetend_splash_audit.json`](experiments/kontorovich/unit_repetend_splash_audit.json) |
 | Two consecutive sign-negative repetend splashes | At level two, put `c_m=(2^(3^(m-1))+1)/3^m`.  Exact cubing gives `c_(m+1)=c_m-3^m c_m^2+3^(2m-1)c_m^3`, so `c_m` stabilizes modulo every fixed `3^P`.  At precision `P=q_0+v_3(M)=90`, a 45-digit odd `k` makes `T_1=3^(q_1-1)k` both retain the first ternary bank and lie in the affine target-exponent class.  This yields the exact unbounded family `h_0 -> R_1+2^(T_1+D)3^q0 L -> 1+2^D3^(q0+q1)L`, with both enormous valuations exact.  The audit checks 89 quotient recurrences, bridge integrality, exponent congruence, and all three unit-register phases for `D=1,64`, without materializing `T_1`; `T_1` itself has about `7.57*10^27` decimal digits.  This is genuine one-time renewal, not a third splash or infinite ordinary orbit. | [`unit_double_repetend_audit.json`](experiments/kontorovich/unit_double_repetend_audit.json) |
 | Repetend energy separator | The same exact construction closes its own naive infinite continuation.  Every sign-negative marker-one exponent is an odd multiple of `3^(q-1)`.  For `q>=3`, elementary integer inequalities give `2^T>2*3^q`, so each such collision more than halves the positive odd core.  No fixed positive core supports infinitely many consecutive events.  The artifact audits the actual exponent classes at finite levels `2,4,6`; the general proof is symbolic.  A viable delay-line program must recharge between giant erasures, not stack them back-to-back. | [`unit_repetend_energy_audit.json`](experiments/kontorovich/unit_repetend_energy_audit.json) |
@@ -644,6 +656,68 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 08:00 EDT
+
+The stronger turnaround seemed to expose two free nonlocal registers: the
+lift `s` of the synthesized marker and the remote catcher tail `w`.  Exact
+valuation accounting shows that this is an illusion—but a useful one.
+
+Allow every later legal third division
+
+```text
+P_j=D+2+23j,       q_j=q_0+17j,       j>=0.
+```
+
+The marker lift `t=t_j+2^(P_j+1)s` enters the source at binary exponent
+
+```text
+154+(P_j+1)=P_j+155.
+```
+
+For the remote contribution not to spoil the exact `P_j` division, it must
+satisfy
+
+```text
+1+3^57u_j=0 (mod 2^(P_j-D)),
+u=u_j+2^(P_j-D)Mw.
+```
+
+That tail enters at
+
+```text
+155+D+(P_j-D)=P_j+155.
+```
+
+After the collision their output coefficients coincide as well.  Thus the
+whole bank is rank one:
+
+```text
+v=s+Mw,
+x_j=X_j+2^(P_j+155)v
+ -> y_j=Y_j+2*3^(q_j+114)v.
+```
+
+This rules out using the two spatial islands as two independent stacks.
+The surviving object is nevertheless a promising unbounded tag language:
+every opcode is outward.  Opcode zero has the previous exact gain, and each
+increment multiplies it by
+
+```text
+3^17/2^23=129140163/8388608>1.
+```
+
+The [exact artifact](experiments/kontorovich/unit_marker_bank_audit.json)
+reconstructs public opcodes `0..15` and fully materializes six small analogues,
+each with three exact collision replays and both rank-one coefficient checks.
+The live task is now to make the natural register `v` select an unbounded,
+aperiodic sequence of opcodes.  A fixed opcode would merely repeat a periodic
+valuation word and is already closed.  No counterexample is known.
+
+Artifact SHA-256:
+`aeece50df9b0b648a665d173ad9b07aa30f644841c108142b8761b71000faef8`.
+Verifier file SHA-256:
+`095d85a7c684df436e2dd1a1f9d036abedb31cb68ca490dd835f34195f6327f4`.
 
 ### 2026-07-22 07:44 EDT
 

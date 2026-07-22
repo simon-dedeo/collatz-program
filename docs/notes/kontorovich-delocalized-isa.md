@@ -1810,6 +1810,48 @@ three divisions.  This is the first same-scale outward turnaround family,
 but still only one finite family: no invariant marker cylinder or autonomous
 next instruction has been found.
 
+The same calculation for every later legal turnaround reveals a structural
+constraint on Simon's multi-island picture.  Put
+
+```text
+P_j=D+2+23j,       q_j=q_0+17j,       j>=0.          (69e13)
+```
+
+The marker tail `t=t_j+2^(P_j+1)s` enters the original source with coefficient
+`2^(P_j+155)`.  Exact division at the remote collision requires
+
+```text
+1+3^57u_j=0 (mod 2^(P_j-D)),
+u=u_j+2^(P_j-D)Mw.                                  (69e14)
+```
+
+The remote tail therefore enters the source with the *same* binary
+coefficient, and the two output coefficients agree up to `M`.  Thus
+
+```text
+v=s+Mw,
+x_j=X_j+2^(P_j+155)v
+  -> y_j=Y_j+2*3^(q_j+114)v.                         (69e15)
+```
+
+The spatially separated marker and catcher do not supply independent stacks:
+exact alignment collapses them to one arithmetic register.  This is not a
+failure of nonlocality; it identifies the actual nonlocal instruction as a
+variable-length pop/multiply/write rule.  Its unbounded opcode remains live.
+Every `j` is coefficient-expanding, since the base ratio is greater than one
+and each increment multiplies it by
+
+```text
+3^17/2^23=129140163/8388608>1.                       (69e16)
+```
+
+[`unit_marker_bank.py`](../../experiments/kontorovich/unit_marker_bank.py)
+checks the public coefficient algebra through sixteen opcodes and replays six
+fully materialized small analogues.  A fixed opcode is closed by the periodic
+word theorem; the surviving PL problem is to let the natural `v` decode an
+unbounded, aperiodic opcode sequence and remain in the union of the source
+cylinders.
+
 There is a formula-compressed specialization which restores Kontorovich's
 very long spatial wire.  Let an odd marker `C` and exponent `T` satisfy
 

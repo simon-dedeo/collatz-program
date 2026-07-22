@@ -1490,6 +1490,86 @@ verifier file SHA-256 809c95233c79c495ac2222127bd58d70f14d719e0ffbe13bb6d29b28d0
 combined source SHA   14803034960b7c074134b7c126a750c2c408d7fc45e2344a65d2ec875c42b084
 ```
 
+## All-opcode synthesized-marker bank
+
+`unit_marker_bank.py` allows every later legal third division after the same
+carry translation.  Index the bank by `j>=0`:
+
+```text
+P_j=D+2+23*j,
+g_j=g_0+j,
+q_j=q_0+17*j,
+Q_j=q_j+114.
+```
+
+Write the marker lift as `t=t_j+2^(P_j+1)s`.  Its contribution to the source
+has binary exponent
+
+```text
+154+(P_j+1)=P_j+155.                               (UMB1)
+```
+
+The remote contribution initially begins after `D+1` clean positions.  For
+it to be invisible through the exact `P_j` division, choose
+
+```text
+1+3^57*u_j=0 (mod 2^(P_j-D)),
+u=u_j+2^(P_j-D)*M*w.                               (UMB2)
+```
+
+Its source exponent is then
+
+```text
+155+D+(P_j-D)=P_j+155.                             (UMB3)
+```
+
+After the third division the marker and remote free coefficients are
+respectively `2*3^Q_j` and `2*M*3^Q_j`.  Hence they are not independent
+stacks.  With `v=s+Mw`, the complete three-collision family has rank-one
+normal form
+
+```text
+x_j=X_j+2^(P_j+155)*v,
+y_j=Y_j+2*3^Q_j*v.                                 (UMB4)
+```
+
+The spatial islands remain distinct pieces of the finite integer, but exact
+valuation alignment identifies their algebraic freedom.  This is the sharp
+failure mode for a literal two-stack interpretation of the splash.
+
+The bank still has positive coefficient drift at every opcode.  Opcode zero
+is the previous exact `9>8` comparison.  Raising `j` once multiplies the
+output/input ratio by
+
+```text
+3^17/2^23=129140163/8388608>1.                      (UMB5)
+```
+
+Thus the live machine is an unbounded variable-length tag ISA: a successful
+ordinary orbit must let its one natural register select a non-eventually-
+periodic opcode sequence.  Repeating one `j` is merely the already closed
+periodic valuation-word lane.
+
+```bash
+PYTHONPATH=. python3 unit_marker_bank.py selftest
+PYTHONPATH=. python3 unit_marker_bank.py build unit_marker_bank_audit.json
+PYTHONPATH=. python3 unit_marker_bank.py verify unit_marker_bank_audit.json
+```
+
+The verifier reconstructs the public exponent and coefficient rows for
+`j=0..15`, retaining a digest of all sixteen and the endpoint rows.  It also
+fully materializes a small analogue at opcodes `0..5`; each analogue replays
+all three exact divisions and checks both rank-one differences.  The all-`j`
+claim is the symbolic algebra (UMB1)--(UMB5); the listed ranges scope only the
+materialized regressions.  No payload-selected opcode law, infinite orbit, or
+counterexample is claimed.
+
+```text
+artifact SHA-256      aeece50df9b0b648a665d173ad9b07aa30f644841c108142b8761b71000faef8
+verifier file SHA-256 095d85a7c684df436e2dd1a1f9d036abedb31cb68ca490dd835f34195f6327f4
+combined source SHA   b5118a9e47e84998fa6e090395a2701ea4b3123ff81e1ed16f2b1d35656e09ff
+```
+
 ## Formula-generated repetend splashes
 
 `unit_repetend_splash.py` compresses the sacrificial word into one rational

@@ -5102,3 +5102,73 @@ A0=(2^77*C0+2^155+1)/3^57.
 ```
 
 Artifact: `experiments/kontorovich/unit_marker_turnaround_audit.json`.
+
+## Kontorovich request: all-opcode marker bank collapses to rank one (2026-07-22 07:57 EDT)
+
+Allow every later legal third division, indexed by `j>=0`:
+
+```text
+P_j=D+2+23*j,
+g_j=g_0+j,
+q_j=q_0+17*j,
+Q_j=q_j+114.
+```
+
+Write the marker lift as
+
+```text
+t=t_j+2^(P_j+1)*s.
+```
+
+To keep the remote contribution invisible modulo `2^(P_j+1)`, exactness
+forces
+
+```text
+1+3^57*u_j=0 (mod 2^(P_j-D)),
+u=u_j+2^(P_j-D)*M*w.
+```
+
+This makes the two apparent tail registers collapse.  The marker lift enters
+the source with exponent
+
+```text
+154+(P_j+1)=P_j+155,
+```
+
+while the remote tail enters with exponent
+
+```text
+155+D+(P_j-D)=P_j+155.
+```
+
+After the third division both have coefficient `2*3^Q_j` (with an additional
+factor `M` on `w`).  Therefore, for suitable constants `X_j,Y_j`, the whole
+three-collision bank has the exact one-register normal form
+
+```text
+v=s+M*w,
+x_j=X_j+2^(P_j+155)*v,
+y_j=Y_j+2*3^Q_j*v.                                  (MB1)
+```
+
+This is a useful negative and positive result at once.  It closes the naive
+interpretation of the marker and remote islands as two independent stacks,
+but exposes an unbounded variable-length tag instruction.  Every opcode has
+positive coefficient drift: `j=0` is the already checked `9>8` inequality,
+and each increment multiplies the ratio by
+
+```text
+3^17/2^23 =129140163/8388608 > 1.                   (MB2)
+```
+
+A fixed `j` repeated forever is in the already closed periodic valuation-word
+lane.  The live target is a payload-selected unbounded `j`, not a fixed
+self-feed.
+
+Research artifact:
+`experiments/kontorovich/unit_marker_bank.py`.  It checks the public formulas
+for `j=0..15` and fully materializes six small three-collision analogues.  If
+cheap, please formalize MB1 generically from the displayed exponent
+equalities and MB2 from `3^17>2^23`.  The valuable semantic endpoint is:
+exact third-division alignment forces rank one; it does not create a second
+free counter.
