@@ -125,6 +125,54 @@ theorem completeSplashState_outward_of_router_recurrence
   simpa [CompleteSplashState.start, OddCatcherGate.start,
     OddCatcherGate.endpoint, hgr, hgL, hgP, hgP'] using hgrows
 
+/-- Every next payload in the router recurrence is divisible by three. -/
+theorem three_dvd_nextPayload_of_router_recurrence
+    (r r' P P' : ℕ)
+    (hrec : 2 ^ (r' + 3) * P' = 3 ^ (r + 2) * P + 3) :
+    3 ∣ P' := by
+  have hright : 3 ∣ 3 ^ (r + 2) * P + 3 := by
+    refine ⟨3 ^ (r + 1) * P + 1, ?_⟩
+    rw [show r + 2 = (r + 1) + 1 by omega, pow_succ]
+    ring
+  have hprod : 3 ∣ 2 ^ (r' + 3) * P' := by
+    rw [hrec]
+    exact hright
+  have hcop : Nat.Coprime 3 (2 ^ (r' + 3)) :=
+    Nat.Coprime.pow_right _ (by norm_num)
+  exact hcop.dvd_of_dvd_mul_left hprod
+
+/-- After writing consecutive payloads as `3*Hprev` and `3*Hnext`, the
+recurrence is exactly the deterministic valuation/odd-part update advertised
+by the autonomous normal form. -/
+theorem router_recurrence_normal_form
+    (r r' Hprev Hnext : ℕ) (hHnextOdd : Odd Hnext)
+    (hrec : 2 ^ (r' + 3) * (3 * Hnext) =
+      3 ^ (r + 2) * (3 * Hprev) + 3) :
+    let A := 3 ^ (r + 2) * Hprev + 1
+    padicValNat 2 A = r' + 3 ∧ A.divMaxPow 2 = Hnext := by
+  let A := 3 ^ (r + 2) * Hprev + 1
+  have hHnextPos : 0 < Hnext := by
+    have := Nat.odd_iff.mp hHnextOdd
+    omega
+  have hAeq : 2 ^ (r' + 3) * Hnext = A := by
+    apply Nat.mul_left_cancel (by norm_num : 0 < 3)
+    calc
+      3 * (2 ^ (r' + 3) * Hnext) =
+          2 ^ (r' + 3) * (3 * Hnext) := by ring
+      _ = 3 ^ (r + 2) * (3 * Hprev) + 3 := hrec
+      _ = 3 * A := by dsimp [A]; ring
+  have hAne : A ≠ 0 := by
+    rw [← hAeq]
+    positivity
+  have hspec := Nat.maxPowDvdDiv_of_pow_mul_eq hAne hAeq
+    hHnextOdd.not_two_dvd_nat
+  dsimp only
+  constructor
+  · change (Nat.maxPowDvdDiv 2 A).1 = r' + 3
+    rw [hspec]
+  · change (Nat.maxPowDvdDiv 2 A).2 = Hnext
+    rw [hspec]
+
 /-- A public all-level solution of the autonomous router recurrence. -/
 structure InfiniteRouterPayloadRecurrence where
   railLength : ℕ → ℕ

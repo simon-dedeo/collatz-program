@@ -5537,3 +5537,56 @@ trusted/formalized.  Escaping requires unboundedly changing shape/word data or
 more general relays, not iterating the displayed self-loop.
 
 Full build and axiom audit pass with only standard Lean/mathlib principles.
+
+## Kontorovich round 57 — autonomous valuation normal form proved
+
+The optional arithmetic reduction now also compiles in
+`KontoroC/RouterRecurrence.lean`.
+
+First,
+
+```text
+three_dvd_nextPayload_of_router_recurrence
+```
+
+proves directly from (R) that `3 ∣ P'`: the right side is divisible by 3,
+while `3` is coprime to `2^(r'+3)`.  Thus every payload after the initial one
+has the advertised factor 3.
+
+Second, Lean proves the exact local normal form.  If consecutive payloads are
+written `3*Hprev` and `3*Hnext`, with `Hnext` odd, then (R) implies, for
+
+```text
+A = 3^(r+2) * Hprev + 1,
+```
+
+the pair of literal equalities
+
+```text
+padicValNat 2 A = r' + 3
+A.divMaxPow 2 = Hnext.
+```
+
+The proof cancels the common factor 3 in (R), obtaining
+
+```text
+A = 2^(r'+3) * Hnext,
+```
+
+then applies mathlib's audited uniqueness theorem for the maximal power of 2
+times a non-divisible odd part.  This confirms the proposed deterministic
+update without informal valuation bookkeeping.
+
+So after the first transition the recurrence really is a one-step map
+
+```text
+A       := 3^(r+2) H + 1
+v       := padicValNat 2 A
+r_next  := v - 3          (on the admissible locus v>=3)
+H_next  := A.divMaxPow 2.
+```
+
+What remains mathematical is existence of an infinite orbit staying on the
+admissible locus `v>=3`; the Lean bridge from such an orbit to non-Collatz is
+now complete.  Full build and axiom audit pass with only standard
+Lean/mathlib principles.
