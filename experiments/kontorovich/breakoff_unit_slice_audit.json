@@ -41,6 +41,12 @@
       "parent_packet_residue_mod_17": 3,
       "register_stride_decimal_digits": 8,
       "register_stride_decimal_sha256": "4dd810c32645760eefbeddf9a7e5d669a09c937d1367b6bf07460693af6802b3",
+      "signed_radix_swap": {
+        "collision_sign": 1,
+        "input_binary_exponent": "8*n+15",
+        "output_ternary_exponent": "6*n+11",
+        "router_trim_exponent": "2*n+3"
+      },
       "unit_register_offset_decimal_digits": 7,
       "unit_register_offset_decimal_sha256": "2526dc2b4ded3d596dd2f436da3850a4f14f7afd6feb1567788914a14deeef23"
     },
@@ -69,6 +75,12 @@
       "parent_packet_residue_mod_17": 16,
       "register_stride_decimal_digits": 24,
       "register_stride_decimal_sha256": "c4a34b91f866dcf80fe4eaa07d25379ba4e3ac251f2319efa4c7c0d5ccbcd4f3",
+      "signed_radix_swap": {
+        "collision_sign": -1,
+        "input_binary_exponent": "23*n+54",
+        "output_ternary_exponent": "17*n+40",
+        "router_trim_exponent": "6*n+13"
+      },
       "unit_register_offset_decimal_digits": 24,
       "unit_register_offset_decimal_sha256": "0ecf1f3a70ee566ace95162b9f0f7a80db8d34ab64cb2cb593e66cdfccc6336a"
     },
@@ -97,6 +109,12 @@
       "parent_packet_residue_mod_17": 0,
       "register_stride_decimal_digits": 79,
       "register_stride_decimal_sha256": "462fd2dbdaacfb2a22b8810a49464219fd428161f904b56c77dacc14accf639b",
+      "signed_radix_swap": {
+        "collision_sign": 1,
+        "input_binary_exponent": "77*n+177",
+        "output_ternary_exponent": "57*n+131",
+        "router_trim_exponent": "20*n+45"
+      },
       "unit_register_offset_decimal_digits": 76,
       "unit_register_offset_decimal_sha256": "f29a1819ec47eb6f3eec42cd56905b4237591f929df3c1b7e6bb7a4c956231c6"
     },
@@ -125,6 +143,12 @@
       "parent_packet_residue_mod_17": 2,
       "register_stride_decimal_digits": 258,
       "register_stride_decimal_sha256": "621a1d035de9c172c21ce01cc5a3c1088350ec63d04be82c43a85728533d95cb",
+      "signed_radix_swap": {
+        "collision_sign": -1,
+        "input_binary_exponent": "254*n+585",
+        "output_ternary_exponent": "188*n+433",
+        "router_trim_exponent": "66*n+151"
+      },
       "unit_register_offset_decimal_digits": 257,
       "unit_register_offset_decimal_sha256": "bf12acf608fb16799266524e576aea55faea771ffea905478f8e3b92ea093193"
     },
@@ -153,6 +177,12 @@
       "parent_packet_residue_mod_17": 6,
       "register_stride_decimal_digits": 851,
       "register_stride_decimal_sha256": "0bc200d1a28eabdf63bb6914c07d0dc26e4125a97b41e2dbb16167027419559c",
+      "signed_radix_swap": {
+        "collision_sign": 1,
+        "input_binary_exponent": "839*n+1932",
+        "output_ternary_exponent": "621*n+1430",
+        "router_trim_exponent": "218*n+501"
+      },
       "unit_register_offset_decimal_digits": 850,
       "unit_register_offset_decimal_sha256": "6fa3463df9b6b74eed7f53500bad9a34edf4bdb6f1e04ae3b524e980bdf1a67f"
     },
@@ -181,6 +211,12 @@
       "parent_packet_residue_mod_17": 8,
       "register_stride_decimal_digits": 2808,
       "register_stride_decimal_sha256": "45c6c08340fb7f6d18ad44017177a2b7662e3f0bda2765661dcc200bfa874f10",
+      "signed_radix_swap": {
+        "collision_sign": -1,
+        "input_binary_exponent": "2771*n+6381",
+        "output_ternary_exponent": "2051*n+4723",
+        "router_trim_exponent": "720*n+1657"
+      },
       "unit_register_offset_decimal_digits": 2808,
       "unit_register_offset_decimal_sha256": "889f6f549081de2cb6a7e9cb10b345eff0b0e515fac753044705f6c64cf07b4a"
     }
@@ -189,6 +225,7 @@
   "literal_level_one_members": 32,
   "literal_lower_links_replayed": 336,
   "schema": "collatz-breakoff-unit-slice-v1",
+  "signed_radix_swap_members_checked": 768,
   "unit_map": "H=2^(a*n+b)h -> H'=(3^(c*n+d)h+s)/2^e",
-  "verifier_sha256": "0ad9952eb96d1ae20a8df1e15f4ba8b3a6e5a990ae187ab1b0f6fafecaf6d495"
+  "verifier_sha256": "0e3188c2c7fdd5f6586c863e85d199b20f55518ec2f665e30e12319ccd77f174"
 }

@@ -4308,3 +4308,39 @@ program.
 Please keep this behind the flattener in priority.  It is a no-go only for
 adding infinitely many hierarchy levels.  It does not exclude an autonomous
 infinite orbit of the `+/-1` unit register at any fixed finite level.
+
+## Kontorovich follow-up: signed radix-swap normal form (2026-07-22 04:07 EDT)
+
+The fixed-level unit law has a cheap generic restatement.  From
+
+```text
+H=2^(a*n+b)*h,
+H'=(3^(c*n+d)*h+s)/2^e,
+```
+
+put `p=a*n+b+e`, `q=c*n+d`, `W=2^e*H`, and `W'=2^e*H'`.  Then
+
+```text
+W=2^p*h,
+W'=3^q*h+s.
+```
+
+For centered values `y=W-s`, `y'=W'-s`, the signed-router comparison is
+
+```text
+3^(p-1)*(y+s)/2^p = 3^(p-1-q)*y'
+```
+
+whenever `q<p`.  The worker checks this on 768 members and checks that `h` is
+coprime to six, so the binary and ternary exponents are exact.  At the six
+finite hierarchy levels, `p-1-q` is respectively
+
+```text
+2*n+3, 6*n+13, 20*n+45, 66*n+151, 218*n+501, 720*n+1657.
+```
+
+If essentially free after the flattener, please package only the generic
+algebraic identity and exact-valuation corollary from supplied coprimality.
+The research interpretation is that a second rail must bank the missing
+factor `3^(p-1-q)`; there is no request to formalize such a rail or claim that
+the trim is an executable Collatz step.

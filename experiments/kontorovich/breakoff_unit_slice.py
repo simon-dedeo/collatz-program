@@ -18,8 +18,9 @@ Thus the nonlocal splash leaves only unit debris ``+1`` or ``-1``.  This
 verifier constructs the unit ISA at six finite hierarchy levels, compares its
 complete affine branches coefficientwise with the corresponding mod-17
 subcylinders of the parent +/-17 ISA, checks bounded members through the
-public unit map, and literally replays bounded level-one members.  It supplies
-no infinite unit orbit.
+public unit map, exposes the exact signed binary-to-ternary radix swap and its
+router-trim exponent, and literally replays bounded level-one members.  It
+supplies no infinite unit orbit.
 """
 
 from __future__ import annotations
@@ -34,7 +35,7 @@ from pathlib import Path
 from breakoff_delay_gate import v2
 from breakoff_ether_glider import glider_macro, replay_macro_member
 from breakoff_renormalization import construct_hierarchy
-from breakoff_superether import AffineMacro, RegisterISA, affine_macro
+from breakoff_superether import AffineMacro, RegisterISA, affine_macro, vp
 
 
 SCHEMA = "collatz-breakoff-unit-slice-v1"
@@ -217,6 +218,45 @@ def check_member(parent: RegisterISA, candidate: UnitBranch, tail: int) -> None:
         raise AssertionError("unit member and parent subcylinder disagree")
 
 
+def check_radix_swap(
+    parent: RegisterISA, candidate: UnitBranch, tail: int
+) -> None:
+    """Check the signed binary-to-ternary core swap behind one unit member."""
+    unit = unit_isa(parent)
+    source, target = candidate.member(tail)
+    source_register = unit.register_offset + unit.register_stride * source
+    target_register = unit.register_offset + unit.register_stride * target
+    public_binary_exponent = (
+        unit.binary_cell * candidate.cells + unit.binary_offset
+    )
+    binary_exponent = public_binary_exponent + unit.division_exponent
+    ternary_exponent = (
+        unit.ternary_cell * candidate.cells + unit.ternary_offset
+    )
+    core = source_register >> public_binary_exponent
+    if core % 2 != 1 or core % 3 == 0:
+        raise AssertionError("radix-swap core is not coprime to six")
+    source_scaled = source_register << unit.division_exponent
+    target_scaled = target_register << unit.division_exponent
+    if source_scaled != (1 << binary_exponent) * core:
+        raise AssertionError("radix-swap input factorization failed")
+    if target_scaled != (
+        pow(3, ternary_exponent) * core + unit.collision_sign
+    ):
+        raise AssertionError("radix-swap output factorization failed")
+    centered_target = target_scaled - unit.collision_sign
+    if vp(centered_target, 3) != ternary_exponent:
+        raise AssertionError("radix-swap ternary valuation is not exact")
+    router_trim = binary_exponent - 1 - ternary_exponent
+    if router_trim < 1:
+        raise AssertionError("signed router has no positive ternary trim")
+    if (
+        pow(3, binary_exponent - 1) * core
+        != pow(3, router_trim) * centered_target
+    ):
+        raise AssertionError("signed-router trim identity failed")
+
+
 def decimal_sha256(value: int) -> str:
     return hashlib.sha256(str(value).encode()).hexdigest()
 
@@ -254,13 +294,25 @@ def build_certificate(
     hierarchy, _ = construct_hierarchy(levels)
     level_records: list[dict[str, object]] = []
     checks = 0
+    radix_swap_checks = 0
     for parent in hierarchy:
         unit = unit_isa(parent)
         branches = [unit_branch(parent, n) for n in range(1, max_cells + 1)]
         for branch in branches:
             for tail in range(tails_per_branch):
                 check_member(parent, branch, tail)
+                check_radix_swap(parent, branch, tail)
                 checks += 1
+                radix_swap_checks += 1
+        router_trim_cell = unit.binary_cell - unit.ternary_cell
+        router_trim_offset = (
+            unit.binary_offset
+            + unit.division_exponent
+            - 1
+            - unit.ternary_offset
+        )
+        if router_trim_cell < 1 or router_trim_offset < 1:
+            raise AssertionError("unit ISA has no positive router trim formula")
         level_records.append(
             {
                 "level": parent.level,
@@ -280,6 +332,19 @@ def build_certificate(
                 "register_stride_decimal_sha256": decimal_sha256(
                     unit.register_stride
                 ),
+                "signed_radix_swap": {
+                    "input_binary_exponent": (
+                        f"{unit.binary_cell}*n+"
+                        f"{unit.binary_offset + unit.division_exponent}"
+                    ),
+                    "output_ternary_exponent": (
+                        f"{unit.ternary_cell}*n+{unit.ternary_offset}"
+                    ),
+                    "collision_sign": unit.collision_sign,
+                    "router_trim_exponent": (
+                        f"{router_trim_cell}*n+{router_trim_offset}"
+                    ),
+                },
                 "branch_digest_sha256": branch_digest(branches),
                 "first_branch": {
                     key: str(value)
@@ -321,6 +386,7 @@ def build_certificate(
         "level_count": len(hierarchy),
         "branch_count": levels * max_cells,
         "exact_branch_members_checked": checks,
+        "signed_radix_swap_members_checked": radix_swap_checks,
         "literal_level_one_members": len(literal_replays),
         "literal_lower_links_replayed": sum(
             replay.linked_members_replayed for replay in literal_replays
@@ -341,6 +407,7 @@ def selftest() -> None:
         raise AssertionError("level-one unit register offset changed")
     candidate = unit_branch(hierarchy[0], 1)
     check_member(hierarchy[0], candidate, 0)
+    check_radix_swap(hierarchy[0], candidate, 0)
 
 
 def render(certificate: dict[str, object]) -> str:

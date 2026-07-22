@@ -215,7 +215,11 @@ identically `x`.
   when the primitive register is divisible by `17`, division gives the unit
   law `H=2^(an+b)h -> (3^(cn+d)h+s)/2^e`.  All collision debris has then been
   reduced to `s=+1` or `-1`; this unit machine is now the smallest autonomous
-  search interface.
+  search interface.  Scaling by `2^e` exposes its exact instruction:
+  `W=2^p h -> W'=3^q h+s`.  Relative to the signed radix router, every level
+  then trims the positive ternary factor `3^(p-1-q)`.  The new two-rail target
+  is to bank that factor in a separated packet and feed it back, rather than
+  losing it or adding another hierarchy level.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -417,7 +421,7 @@ positive integer and its claimed behavior are machine-checked.
 | Autonomous ether-counter normal form | Put `Y=83790531K-874281`.  The length-`n` returning glider branch is exactly `Y=2^(8n-5)h -> Y'=(3^(6n+11)h+51)/2^20`, with `h` in one CRT class modulo `83790531*2^20`; the enormous defect constants cancel to `51`.  Every branch is strictly outward, and its packet coefficients agree identically with the compiled glider macro.  The artifact checks `n=1..128`, four tails each, and repeats the executable macro replays through `n=32`.  An infinite successful autonomous orbit would be a counterexample, but none is supplied. |
 | Three-bit-capped recursive super-ether | Regard the one-cell returning glider as a 23-bit background cell and the two-cell glider as its defect.  Exact parity kills a fully exhausted second-scale gap, but retaining three low bits makes the boundary re-enter the same defect cylinder.  After removing a common `3^7`, the public register is `V=-8744697538656344367967+671265207750760396088265K` and its length-`N` branch is `V=2^(23N+3)g -> V'=(3^(17N+40)g-17)/2^51`.  The affine super-macro is `K=R_N+2^(23N+54)t -> K'=S_N+3^(17N+40)t`.  The artifact checks 64 branches and 256 members, and literally replays 32 members through 336 glider macros, 1,040 lower links, and 2,080 gate macros.  This is a finite two-scale constructor, not an infinite orbit. |
 | Six-level sign-alternating splash hierarchy | The capped construction renormalizes five more times without changing the magnitude `17`: public collision signs are `+,-,+,-,+,-` and binary cell widths are `8,23,77,254,839,2771`.  At every checked step exact phase arithmetic returns to the defect and normalization flips only the sign.  The artifact checks 40 child branches independently by CRT and parent-macro composition, replays 80 members through 520 parent blocks, and expands the canonical tail-zero programs through six levels to literal first-scale gliders.  It additionally checks all 64 level-one choices `B=M_j,H=M_(j+1)`, three nonconstant four-step meta-words, and every depth-three meta-word over `j=1..8`.  Beyond those bounds, the exact positive-tail identity proves universally that no infinite chain of these adjacent-defect nestings can stabilize its canonical ordinary address.  The depth-six canonical member is a generated 6,708-digit ordinary start executing 360 linked glider macros.  This is a finite compiler and a source of fixed-level ISAs—not an ordinary infinite orbit or an induction that the phase identities persist at all levels. |
-| Invariant unit-debris register slice | At every one of the six certified hierarchy levels, exactly one packet class modulo `17` makes the primitive `±17` register divisible by `17`; the class is preserved by every successful branch.  Dividing gives the autonomous unit law `H=2^(an+b)h -> H'=(3^(cn+d)h+s)/2^e`, `s=±1`.  The artifact compares all 192 branches (`32` per level) coefficientwise with the corresponding parent mod-17 subcylinders, checks 768 exact members, and literally replays 32 level-one members through 336 lower links and 672 gates.  This is the cleanest collision interface, but no infinite unit orbit is supplied. |
+| Invariant unit-debris register and signed radix swap | At every one of the six certified hierarchy levels, exactly one packet class modulo `17` makes the primitive `±17` register divisible by `17`; the class is preserved by every successful branch.  Dividing gives `H=2^(an+b)h -> H'=(3^(cn+d)h+s)/2^e`, `s=±1`.  With `W=2^eH`, every instruction is exactly `W=2^p h -> W'=3^q h+s`: it preserves the complete core `h`, swaps an exact binary delay for a ternary delay, and writes one signed unit.  Against the signed router it trims `d=p-1-q`, with the six formulas `2n+3,6n+13,20n+45,66n+151,218n+501,720n+1657`.  The artifact compares all 192 branches, checks this form on 768 members, and literally replays 32 level-one members through 336 lower links and 672 gates.  This identifies the factor a second rail must bank; no such rail or infinite unit orbit is supplied. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
 | Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
@@ -475,6 +479,45 @@ for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
 
+### 2026-07-22 04:07 EDT
+
+The surviving unit machine is an exact signed radix swap.  Put
+`p=an+b+e`, `q=cn+d`, and scale the public register by `W=2^eH`.  Every legal
+member has a core `h` coprime to six and obeys
+
+```text
+W =2^p*h,
+W'=3^q*h+s,              s in {+1,-1}.
+```
+
+Thus the instruction reads an exact binary zero-gap, preserves the whole
+nonlocal core, writes an exact ternary zero-gap, and changes only one signed
+unit.  If `y=W-s` and `y'=W'-s`, comparison with the signed router gives
+
+```text
+3^(p-1)*(y+s)/2^p = 3^(p-1-q)*y'.
+```
+
+The apparent collision debris is therefore not amorphous: it is the precise
+missing factor `3^d`, `d=p-1-q>0`.  Across the six compiled levels,
+
+```text
+d(n)=2n+3, 6n+13, 20n+45, 66n+151, 218n+501, 720n+1657.
+```
+
+The rebuilt exact artifact verifies the two factorizations, exact ternary
+valuation, and signed-router trim on all 768 previously checked members; the
+32 literal first-level members still expand through 336 links and 672 gates.
+Artifact SHA-256:
+`459bd3feb5a30d931caf43c601db8713354696d9ae072e223e3603d77838b753`.
+Verifier SHA-256:
+`4057b56485ea1570d0b5abd2f50415f909e8afbc4b8f04f0c04baaf73ce265ff`.
+
+This is not a counterexample.  It turns Simon's “other bits eat the bad
+parts” idea into a concrete design specification: a second separated rail
+must catch or represent `3^d` and re-inject it on the next collision.  Merely
+cleaning a binary suffix, or nesting another splash, cannot do that.
+
 ### 2026-07-22 03:41 EDT
 
 The splash hierarchy now has a universal ordinary-seed obstruction.  For one
@@ -499,10 +542,9 @@ records it in the rebuilt six-level artifact.  Its SHA-256 is
 `b568fb1b5228ced1f1198ad6375ba7f256e5f6f3dcf158dfc60d3d018dcdaf50`;
 the verifier SHA-256 is
 `a0c05f28c9e585194e64b1df755e13ea7c5e4fbbc43cc7a0346f23e8c836b1e9`.
-Rebuilding the dependent unit-slice artifact changes its SHA-256 to
-`6ec5f681970f327f9c0b9a81324b785ed75eaf48915abde149fa7231e2e02036`
-without changing that verifier script.  Next I am abandoning deeper towers
-and attacking the fixed-level unit law
+The dependent unit-slice artifact was also rebuilt; its current hash and
+scope are recorded in the experiment README and the next diary entry.  Next I
+am abandoning deeper towers and attacking the fixed-level unit law
 `2^B h'=3^A h+/-1` as an evolving, aperiodic odd-packet machine.
 
 ### 2026-07-22 03:31 EDT

@@ -1061,6 +1061,50 @@ collision constant `s=+1` or `-1`.  Independently, the parent `±17` affine
 branch is intersected with its packet residue modulo `17`; both input and
 output coefficients must agree after division by `17`.
 
+The same map has a signed radix-swap normal form.  Put
+
+```text
+p=a*n+b+e,   q=c*n+d,   W=2^e*H.
+```
+
+Every legal member has a core `h` coprime to six and satisfies
+
+```text
+W =2^p*h,
+W'=3^q*h+s.
+```
+
+Hence the instruction removes an exact binary scale, preserves the entire
+nonlocal core, installs an exact ternary scale, and writes one signed unit.
+For `y=W-s`, `y'=W'-s`, define the corresponding signed router value by
+
+```text
+R_s(y)=3^(p-1)*(y+s)/2^p.
+```
+
+Then exact cancellation gives
+
+```text
+R_s(y)=3^(p-1-q)*y'.
+```
+
+The unit ISA is therefore a signed router followed, in this coordinate
+comparison, by a positive ternary trim.  The six certified formulas are
+
+```text
+level  sign  p                 q                 p-1-q
+  1     +    8*n+15            6*n+11            2*n+3
+  2     -    23*n+54           17*n+40           6*n+13
+  3     +    77*n+177          57*n+131          20*n+45
+  4     -    254*n+585         188*n+433         66*n+151
+  5     +    839*n+1932        621*n+1430        218*n+501
+  6     -    2771*n+6381       2051*n+4723       720*n+1657
+```
+
+This does not say that division by `3^(p-1-q)` is another Collatz operation.
+It identifies exactly what a second physical rail would have to bank if it is
+to turn the unit swap into a self-regenerating router.
+
 ```bash
 python3 breakoff_unit_slice.py selftest
 python3 breakoff_unit_slice.py build breakoff_unit_slice_audit.json
@@ -1068,15 +1112,16 @@ python3 breakoff_unit_slice.py verify breakoff_unit_slice_audit.json
 ```
 
 The artifact checks six hierarchy levels, `n=1..32`, and four tails per
-branch: 192 coefficient comparisons and 768 exact public-map members.  It
+branch: 192 coefficient comparisons, 768 exact public-map members, and 768
+signed radix-swap/trim identities.  It
 also literally replays two members for every level-one `n=1..16`, totaling
 336 lower links and 672 gate macros.  The parent packet residues modulo `17`
 are `3,16,0,2,6,8`.  This certifies the invariant unit slice, not an infinite
 orbit.
 
 ```text
-artifact SHA-256  6ec5f681970f327f9c0b9a81324b785ed75eaf48915abde149fa7231e2e02036
-verifier SHA-256  734a82740d6814132787ae43160d6abef8c0491bb2acfcab6e6156ebd013e5b0
+artifact SHA-256  459bd3feb5a30d931caf43c601db8713354696d9ae072e223e3603d77838b753
+verifier SHA-256  4057b56485ea1570d0b5abd2f50415f909e8afbc4b8f04f0c04baaf73ce265ff
 ```
 
 ## Sign-alternating capped-splash hierarchy

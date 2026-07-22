@@ -1478,11 +1478,73 @@ unit `±1`.  This is algebraically adjacent to the repository's Mersenne and
 negative-cycle-shadow coordinates, but (68) has different branch exponents;
 no equivalence of their orbit problems is claimed.
 
+Scaling once exposes the actual instruction.  Put
+
+```text
+p=an+b+e,   q=cn+d,   W=2^e H.
+```
+
+Then (68) is precisely
+
+```text
+W =2^p h,
+W'=3^q h+s.                                          (68a)
+```
+
+The core `h` is coprime to six on every legal branch: oddness makes the
+binary valuation exact, and the affine register phase makes the displayed
+ternary valuation exact.  Thus (68a) is a reversible-looking FRACTRAN
+instruction with an additive write bit: read the complete dyadic scale,
+preserve the delocalized core, replace it by a triadic scale, and write `s`.
+The next collision is the nonlocal test of whether `3^q h+s` contains another
+legal binary instruction word.
+
+There is an exact comparison with the earlier router.  Center the source and
+target at the written sign,
+
+```text
+y=W-s,   y'=W'-s=3^q h,
+```
+
+and define the signed router expression
+
+```text
+R_s(y)=3^(p-1)*(y+s)/2^p=3^(p-1)h.
+```
+
+Therefore
+
+```text
+R_s(y)=3^delta y',   delta=p-1-q.                    (68b)
+```
+
+All six compiled levels have a strictly positive trim:
+
+```text
+level  s   p                 q                 delta
+  1    +   8n+15             6n+11             2n+3
+  2    -   23n+54            17n+40            6n+13
+  3    +   77n+177           57n+131           20n+45
+  4    -   254n+585          188n+433           66n+151
+  5    +   839n+1932         621n+1430          218n+501
+  6    -   2771n+6381        2051n+4723         720n+1657.
+```
+
+Equation (68b) is a coordinate comparison, not a claim that division by
+`3^delta` is itself a Collatz macro.  It identifies the exact resource lost
+relative to the router: a successful feedback architecture must bank a
+variable ternary-zero packet of length `delta(n)` and re-inject it.  This is a
+sharper two-rail target for Simon's splash metaphor than another clean binary
+gap.  The Mersenne rail is a natural first bank because each separated tick
+already transports a factor of three, but no exact bank/return composition is
+yet supplied.
+
 `breakoff_unit_slice.py` constructs (68) independently and intersects every
 parent affine branch with (67).  For the six-level hierarchy and `n=1..32`,
 all 192 input/output coefficient pairs agree; four members per branch give
-768 public-map checks.  At level one, 32 members expand through 336 lower
-links and 672 literal gate macros.  The successive packet residues are
+768 public-map checks and 768 checks of (68a)--(68b), including exact ternary
+valuation.  At level one, 32 members expand through 336 lower links and 672
+literal gate macros.  The successive packet residues are
 
 ```text
 k_0 = 3,16,0,2,6,8  (mod 17).                        (69)
