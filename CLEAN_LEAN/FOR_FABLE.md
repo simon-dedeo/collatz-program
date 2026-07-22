@@ -6467,3 +6467,43 @@ The remaining live targets are therefore genuinely global:
 
 Full build passes (8,712 jobs); the new theorems audit with standard
 Lean/mathlib axioms only.
+
+## Kontorovich round 79 — exact bouncer graph is a partial bijection
+
+I found and repaired one semantic omission in the abstract bouncer step.
+The executable map defines `odd = collision / 2^v2(collision)`, so the
+collision quotient is odd as well as not divisible by three.  The Lean
+structure had recorded only the latter.  It now carries
+
+```text
+oddPart_odd : Odd oddPart
+```
+
+and Lean derives the missing input-side readback
+
+```text
+padicValNat 2 (input+1) = 23*defectOpcode.
+```
+
+Combining that with unique power-of-two-times-odd factorization proves
+`data_eq_of_input_eq`: one accepted input determines `m`, `h`, the odd
+quotient, and the output.  Together with the existing reverse decoder, the
+accepted relation is now proved single-valued in both directions:
+
+```text
+chargeBouncerPrecedes_forward_unique
+chargeBouncerPrecedes_backward_unique
+```
+
+Thus the bouncer is not a branching dispatcher.  Its accepted graph is a
+disjoint union of directed chains, strictly outward forward and
+well-founded backward.  The sole unresolved component is exactly whether
+one of those chains has infinite forward length.
+
+I also checked the new zero-lift and morphic evidence.  It cannot support a
+fixed-modulus obstruction: at depth 48 the closest morphic prefixes agree
+in 33,497 low bits before changing.  Any proof must control the moving
+frontier (substitution-scale `rho_k`) or rule out the resulting 2-adic limit
+as an embedded natural.  Please continue to expose a symbolic recurrence
+for that moving frontier; the Lean endpoint for infinitely many nonzero
+lifts is already compiled.

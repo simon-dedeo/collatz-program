@@ -32,6 +32,7 @@ structure ChargeBouncerStep where
   input_pos : 0 < input
   oddPart_pos : 0 < oddPart
   input_three : 3 ∣ input
+  oddPart_odd : Odd oddPart
   oddPart_not_three : ¬3 ∣ oddPart
   output_eq : output = 3 ^ (114 * rechargeCount) * oddPart
   rearranged :
@@ -41,6 +42,17 @@ structure ChargeBouncerStep where
 
 namespace ChargeBouncerStep
 
+/-- The bracket exposed after the first opcode is odd.  This is the exact
+two-adic condition which makes the input opcode readable from the input. -/
+theorem bracket_odd (s : ChargeBouncerStep) :
+    Odd (1 + 2 ^ (154 * s.rechargeCount) * s.oddPart) := by
+  have hexp : 0 < 154 * s.rechargeCount :=
+    Nat.mul_pos (by omega) s.rechargeCount_pos
+  have hpow : Even (2 ^ (154 * s.rechargeCount)) := by
+    rw [even_iff_two_dvd]
+    exact dvd_pow_self 2 hexp.ne'
+  exact (hpow.mul_right s.oddPart).one_add
+
 theorem input_succ_not_three (s : ChargeBouncerStep) :
     ¬3 ∣ s.input + 1 := by
   intro hd
@@ -48,6 +60,28 @@ theorem input_succ_not_three (s : ChargeBouncerStep) :
     (Nat.dvd_add_iff_left s.input_three).mpr
       (by simpa [Nat.add_comm] using hd)
   norm_num at hone
+
+/-- The input's exact two-adic factorization reads back the defect opcode. -/
+theorem input_opcode_readback (s : ChargeBouncerStep) :
+    padicValNat 2 (s.input + 1) = 23 * s.defectOpcode := by
+  have hinput : s.input + 1 ≠ 0 := by omega
+  have hbracket :
+      1 + 2 ^ (154 * s.rechargeCount) * s.oddPart ≠ 0 := by omega
+  have htwo : 2 ^ (23 * s.defectOpcode) ≠ 0 := by positivity
+  have hthree : 3 ^ (17 * s.defectOpcode) ≠ 0 := by positivity
+  have hthree_not_two : ¬2 ∣ 3 ^ (17 * s.defectOpcode) := by
+    exact (by norm_num : Nat.Prime 2).coprime_iff_not_dvd.mp
+      (Nat.Coprime.pow_right (17 * s.defectOpcode)
+        (by norm_num : Nat.Coprime 2 3))
+  have hbracket_not_two :
+      ¬2 ∣ 1 + 2 ^ (154 * s.rechargeCount) * s.oddPart :=
+    s.bracket_odd.not_two_dvd_nat
+  have hv := congrArg (padicValNat 2) s.rearranged
+  rw [padicValNat.mul hthree hinput,
+      padicValNat.eq_zero_of_not_dvd hthree_not_two,
+      padicValNat.mul htwo hbracket, padicValNat.prime_pow,
+      padicValNat.eq_zero_of_not_dvd hbracket_not_two] at hv
+  omega
 
 /-- The output's exact three-adic factorization reads back the recharge count
 and the complete odd quotient. -/
@@ -156,6 +190,54 @@ theorem data_eq_of_output_eq (s t : ChargeBouncerStep)
     rw [s.input_readback, t.input_readback, hh, hq, hm]
   exact ⟨hh, hq, hm, hinput⟩
 
+/-- The accepted equations are deterministic in the forward direction as
+well: the input reads the first opcode, and the remaining odd factorization
+then reads the recharge count and quotient. -/
+theorem data_eq_of_input_eq (s t : ChargeBouncerStep)
+    (hin : s.input = t.input) :
+    s.defectOpcode = t.defectOpcode ∧
+      s.rechargeCount = t.rechargeCount ∧
+        s.oddPart = t.oddPart ∧ s.output = t.output := by
+  have hmscale : 23 * s.defectOpcode = 23 * t.defectOpcode := by
+    rw [← s.input_opcode_readback, ← t.input_opcode_readback, hin]
+  have hm : s.defectOpcode = t.defectOpcode := by omega
+  have hbracket :
+      1 + 2 ^ (154 * s.rechargeCount) * s.oddPart =
+        1 + 2 ^ (154 * t.rechargeCount) * t.oddPart := by
+    apply Nat.eq_of_mul_eq_mul_left
+      (Nat.pow_pos (by omega : 0 < 2) : 0 < 2 ^ (23 * s.defectOpcode))
+    calc
+      2 ^ (23 * s.defectOpcode) *
+          (1 + 2 ^ (154 * s.rechargeCount) * s.oddPart) =
+        3 ^ (17 * s.defectOpcode) * (s.input + 1) := s.rearranged.symm
+      _ = 3 ^ (17 * t.defectOpcode) * (t.input + 1) := by rw [hm, hin]
+      _ = 2 ^ (23 * t.defectOpcode) *
+          (1 + 2 ^ (154 * t.rechargeCount) * t.oddPart) := t.rearranged
+      _ = 2 ^ (23 * s.defectOpcode) *
+          (1 + 2 ^ (154 * t.rechargeCount) * t.oddPart) := by rw [hm]
+  have hfactor :
+      2 ^ (154 * s.rechargeCount) * s.oddPart =
+        2 ^ (154 * t.rechargeCount) * t.oddPart :=
+    Nat.add_left_cancel hbracket
+  have hnonzero :
+      2 ^ (154 * s.rechargeCount) * s.oddPart ≠ 0 :=
+    Nat.mul_ne_zero (pow_ne_zero _ (by omega)) s.oddPart_pos.ne'
+  have hs := Nat.maxPowDvdDiv_of_pow_mul_eq hnonzero rfl
+    s.oddPart_odd.not_two_dvd_nat
+  have ht := Nat.maxPowDvdDiv_of_pow_mul_eq hnonzero hfactor.symm
+    t.oddPart_odd.not_two_dvd_nat
+  have hpair :
+      154 * s.rechargeCount = 154 * t.rechargeCount ∧
+        s.oddPart = t.oddPart :=
+    Prod.mk.inj (hs.symm.trans ht)
+  have hhscale : 154 * s.rechargeCount = 154 * t.rechargeCount :=
+    hpair.1
+  have hh : s.rechargeCount = t.rechargeCount := by omega
+  have hq : s.oddPart = t.oddPart := hpair.2
+  have hout : s.output = t.output := by
+    rw [s.output_eq, t.output_eq, hh, hq]
+  exact ⟨hm, hh, hq, hout⟩
+
 end ChargeBouncerStep
 
 /-- Directed edge relation of the accepted fixed-form bouncer. -/
@@ -166,6 +248,24 @@ theorem chargeBouncerPrecedes_lt {input output : ℕ}
     (h : ChargeBouncerPrecedes input output) : input < output := by
   obtain ⟨s, rfl, rfl⟩ := h
   exact s.strictly_outward
+
+/-- There is at most one accepted successor of any input. -/
+theorem chargeBouncerPrecedes_forward_unique {input left right : ℕ}
+    (hleft : ChargeBouncerPrecedes input left)
+    (hright : ChargeBouncerPrecedes input right) : left = right := by
+  obtain ⟨s, hsinput, hsoutput⟩ := hleft
+  obtain ⟨t, htinput, htoutput⟩ := hright
+  have hin : s.input = t.input := hsinput.trans htinput.symm
+  exact hsoutput.symm.trans ((s.data_eq_of_input_eq t hin).2.2.2.trans htoutput)
+
+/-- There is at most one accepted predecessor of any output. -/
+theorem chargeBouncerPrecedes_backward_unique {left right output : ℕ}
+    (hleft : ChargeBouncerPrecedes left output)
+    (hright : ChargeBouncerPrecedes right output) : left = right := by
+  obtain ⟨s, hsinput, hsoutput⟩ := hleft
+  obtain ⟨t, htinput, htoutput⟩ := hright
+  have hout : s.output = t.output := hsoutput.trans htoutput.symm
+  exact hsinput.symm.trans ((s.data_eq_of_output_eq t hout).2.2.2.trans htinput)
 
 /-- The accepted graph is well-founded in the reverse direction.  Thus it has
 no cycle or bi-infinite trajectory; a counterexample witness would have to be

@@ -259,10 +259,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.powerMarkerDispatcher_genuinelyAperiodic
 #print axioms KontoroC.exists_genuinelyAperiodic_ordinaryAddress_dispatcher
 #print axioms KontoroC.ChargeBouncerStep.output_readback
+#print axioms KontoroC.ChargeBouncerStep.input_opcode_readback
 #print axioms KontoroC.ChargeBouncerStep.opcode_readback
 #print axioms KontoroC.ChargeBouncerStep.input_readback
 #print axioms KontoroC.ChargeBouncerStep.strictly_outward
 #print axioms KontoroC.ChargeBouncerStep.data_eq_of_output_eq
+#print axioms KontoroC.ChargeBouncerStep.data_eq_of_input_eq
+#print axioms KontoroC.chargeBouncerPrecedes_forward_unique
+#print axioms KontoroC.chargeBouncerPrecedes_backward_unique
 #print axioms KontoroC.chargeBouncerPrecedes_wellFounded
 #print axioms KontoroC.fixedFormCongruence_preserved
 #print axioms KontoroC.chargeFixedCongruence_preserved
