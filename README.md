@@ -300,7 +300,12 @@ identically `x`.
   that power, `v3(1+2^(154h)q)=17m` recovers the predecessor opcode and state.
   The exponent matrix has determinant
   `114*23-154*17=4`, leaving exact resonance identities with only `2^4` or
-  `3^4` imbalance.  This valuation
+  `3^4` imbalance.  Morita's reversible two-counter universality result makes
+  this a legitimate compiler analogy, while Dudenhefner's certified
+  instruction-set-sensitive results supply the kill test: reversibility and
+  two valuations are not enough.  We must compile actual increment,
+  decrement/zero-test, and finite control operations inside the accepted
+  arithmetic classes.  This valuation
   bouncer—not a further nested address—is now the primary synthesis target.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
@@ -2484,6 +2489,17 @@ existing lines of work; the closest ancestors, and what each contributes:
   three-rule Collatz tag system, or the Collatz map, is universal.  Its remote
   append and two-stack moves are concrete compiler obligations for the
   separated-packet lane.
+- **K. Morita, [“Universality of a Reversible Two-Counter
+  Machine”](https://doi.org/10.1016/S0304-3975(96)00081-3) (1996)** — proves
+  that reversibility does not prevent a two-counter machine from being
+  universal.  This makes the charge bouncer's exact forward/reverse decoder a
+  meaningful PL clue, but transfers no universality: its instruction set and
+  arithmetic acceptance classes are far more constrained.  **A. Dudenhefner,
+  [“Certified Decision Procedures for Two-Counter
+  Machines”](https://doi.org/10.4230/LIPIcs.FSCD.2022.16) (2022)** is the
+  relevant warning that decidability for reversible two-counter machines is
+  instruction-set-sensitive; the present work must compile the actual
+  increment/decrement/branch primitives, not argue from “two counters.”
 - **T. Stérin & D. Woods, [“The Collatz process embeds a base conversion
   algorithm”](https://arxiv.org/abs/2007.06979) (2020)** — the exact
   quasi-cellular automaton with binary rows, ternary columns, and a nonlocal
