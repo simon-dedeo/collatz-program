@@ -9159,3 +9159,24 @@ finite Python exhaustion.  The theorem excludes uniform, delimiter-fixing,
 digit-only local substitutions.  Variable-width maps, altered delimiter
 charts, and coordinated multi-block reproduction remain live.  No published
 YAH-to-Collatz equivalence is asserted here.
+
+## Round 147 — canonical endpoints eliminate the flank-diagnostic seam
+
+`YahRewriteSystem.context_eq_cycle_of_canonical_endpoints` strengthens the
+round-145 boundary filter for the worker's ordinary `/digits.` states.  If a
+replayed nonempty derivation starts and ends in canonical words and claims
+
+```text
+endpoint = left ++ start ++ right,
+```
+
+then Lean proves `left=[]` and `right=[]`.  The checker no longer needs to
+report first-slash offset or last-dot suffix for this common case: canonical
+shape makes both quantities exactly zero, while the pinned rules provide the
+marker-count invariants.  The older flank-input theorem remains useful for
+noncanonical charts.
+
+Thus proper whole-canonical-word outer-context growth is closed universally,
+not merely through the bounded length-eight replay.  This does not touch an
+internal reproducing block between fixed delimiters, which is correctly the
+main worker's remaining variable-width/multi-block target.

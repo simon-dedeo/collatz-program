@@ -149,6 +149,30 @@ def IsDigit : Symbol → Prop
 
 def DigitOnly (w : Word) : Prop := ∀ x ∈ w, IsDigit x
 
+/-- A canonical mixed-base word has exactly the displayed outer delimiters
+and only digit symbols in between. -/
+def Canonical (w : Word) : Prop :=
+  ∃ digits, DigitOnly digits ∧ w = [slash] ++ digits ++ [dot]
+
+theorem canonical_slash_mem {w : Word} (hw : Canonical w) : slash ∈ w := by
+  obtain ⟨digits, _, rfl⟩ := hw
+  simp
+
+theorem canonical_dot_mem {w : Word} (hw : Canonical w) : dot ∈ w := by
+  obtain ⟨digits, _, rfl⟩ := hw
+  simp
+
+theorem canonical_first_slash_offset {w : Word} (hw : Canonical w) :
+    YahBoundaryNoGo.firstMarkerOffset slash w = 0 := by
+  obtain ⟨digits, _, rfl⟩ := hw
+  simp [YahBoundaryNoGo.firstMarkerOffset]
+
+theorem canonical_last_dot_suffix {w : Word} (hw : Canonical w) :
+    YahBoundaryNoGo.lastMarkerSuffix dot w = 0 := by
+  obtain ⟨digits, _, rfl⟩ := hw
+  simp [YahBoundaryNoGo.lastMarkerSuffix,
+    YahBoundaryNoGo.firstMarkerOffset]
+
 theorem digitOnly_slash_count (w : Word) (hw : DigitOnly w) :
     w.count slash = 0 := by
   rw [List.count_eq_zero]
@@ -273,6 +297,22 @@ theorem context_eq_cycle_of_flank_invariants
   exact YahBoundaryNoGo.no_proper_context_of_counts_and_flanks
     slash dot start endpoint left right hslash hdot hendpoint
     (transGen_slash_count h).symm (transGen_dot_count h).symm hleft hright
+
+/-- A stronger whole-word filter for the usual worker output: if both the
+seed and claimed endpoint are canonical `/digits.` words, no separately
+reported flank diagnostics are needed. -/
+theorem context_eq_cycle_of_canonical_endpoints
+    (start endpoint left right : Word)
+    (h : Relation.TransGen Step start endpoint)
+    (hstart : Canonical start) (hendpointCanonical : Canonical endpoint)
+    (hendpoint : endpoint = left ++ start ++ right) :
+    left = [] ∧ right = [] := by
+  apply context_eq_cycle_of_flank_invariants start endpoint left right h
+    (canonical_slash_mem hstart) (canonical_dot_mem hstart) hendpoint
+  · rw [canonical_first_slash_offset hendpointCanonical,
+      canonical_first_slash_offset hstart]
+  · rw [canonical_last_dot_suffix hendpointCanonical,
+      canonical_last_dot_suffix hstart]
 
 /-- A literal context-loop certificate over the pinned YAH rules produces
 rewrite chunks at every scale. -/
