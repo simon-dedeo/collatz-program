@@ -31,6 +31,9 @@ variable nonempty valuation blocks connecting a strictly increasing sequence
 of states above `4`, expands them to ordinary Collatz time, and proves the
 literal negation of the conjecture.  Constructing such a glider remains the
 open mathematical/search problem.
+`EventualMacroGlider` permits a finite irregular prefix and proves that any
+later exact, large, strictly outward tail is sufficient for the same literal
+disproof endpoint.
 
 Literal periodic software is ruled out: `repeated_legal_block_fixed` proves
 that if one nonempty valuation block remains exactly legal under every

@@ -25,6 +25,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.AffineBlock.concat_assoc
 #print axioms KontoroC.MacroGlider.step_iterate_time
 #print axioms KontoroC.MacroGlider.not_conjecture
+#print axioms KontoroC.EventualMacroGlider.toMacroGlider
+#print axioms KontoroC.EventualMacroGlider.not_conjecture
 #print axioms KontoroC.coprime_recurrence_fixed
 #print axioms KontoroC.repeated_legal_block_fixed
 #print axioms KontoroC.legal_block_chain_first_fixed

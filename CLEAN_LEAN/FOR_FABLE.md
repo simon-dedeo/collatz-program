@@ -3711,3 +3711,21 @@ The replay uses `native_decide` and remains in `Examples.lean`, outside every
 certificate-soundness dependency.  It is explicitly a finite regression, not
 an instance of `PhaseShadowRenewal` and not evidence of an infinite glider.
 The full 8,675-job build still passes and the source scan remains clean.
+
+## Kontorovich round 13 — finite prefixes removed from the glider burden
+
+`KontoroC/EventualGlider.lean` now formalizes the “after a finite checked
+prefix” clause from the negative-shadow request.  `EventualMacroGlider` stores
+an arbitrary global state/word sequence and a `tailStart`; exact nonempty-word
+legality, transitions, and strict growth are required only at indices
+`t>=tailStart`, with `state(tailStart)>4`.
+
+Lean shifts that tail to time zero, constructs the existing `MacroGlider`,
+and proves the literal negation of `CleanLean.Collatz.Conjecture`.  Therefore a
+future renewal proof does not need to make early shadow macros grow or fit the
+asymptotic ratio estimate.  It may verify an arbitrary finite prefix and begin
+the theorem at the first exact large outward state.
+
+Full build passes at 8,676 jobs.  Both tail-shift headline theorems audit to
+the standard `[propext, Classical.choice, Quot.sound]`; no new incoming request
+was present after this task.
