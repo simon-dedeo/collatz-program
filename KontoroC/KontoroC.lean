@@ -33,6 +33,8 @@ import KontoroC.DyadicCylinderBoundary
 import KontoroC.OddSaturatedBridge
 import KontoroC.UniversalRouter
 import KontoroC.RouterRecurrence
+import KontoroC.RouterCongruence
+import KontoroC.BreakoffCounter
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail

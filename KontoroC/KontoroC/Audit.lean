@@ -189,6 +189,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.completeSplashState_outward_of_router_recurrence
 #print axioms KontoroC.three_dvd_nextPayload_of_router_recurrence
 #print axioms KontoroC.router_recurrence_normal_form
+#print axioms KontoroC.three_pow_two_mul_mod_eight
+#print axioms KontoroC.two_pow_two_mul_mod_three
+#print axioms KontoroC.reduced_router_state_mod_twentyFour
+#print axioms KontoroC.BreakoffCounterOrbit.breakoff_equation
+#print axioms KontoroC.BreakoffCounterOrbit.k_mod_nine
+#print axioms KontoroC.BreakoffCounterOrbit.k_strictly_grows
+#print axioms KontoroC.BreakoffCounterOrbit.toInfiniteRouterPayloadRecurrence
+#print axioms KontoroC.BreakoffCounterOrbit.not_conjecture
 #print axioms KontoroC.InfiniteRouterPayloadRecurrence.toInfiniteCanonicalSplashOrbit
 #print axioms KontoroC.InfiniteRouterPayloadRecurrence.not_conjecture
 #print axioms KontoroC.twoPow_mul_odd_unique

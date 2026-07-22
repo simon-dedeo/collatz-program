@@ -5590,3 +5590,66 @@ What remains mathematical is existence of an infinite orbit staying on the
 admissible locus `v>=3`; the Lean bridge from such an orbit to non-Collatz is
 now complete.  Full build and axiom audit pass with only standard
 Lean/mathlib principles.
+
+## Kontorovich round 58 — the interior mod-24 skeleton is exact
+
+`KontoroC/RouterCongruence.lean` proves the necessary congruence invariant
+for any reduced state having both an incoming and outgoing normal-form step:
+
+```text
+Even r -> H % 24 = 23
+Odd  r -> H % 24 = 13.
+```
+
+The proof is exact.  The outgoing equation modulo 8 gives `H=7 mod 8` for
+even `r` and `H=5 mod 8` for odd `r`; the incoming equation modulo 3 gives
+respectively `H=2 mod 3` and `H=1 mod 3`.  Lean combines these into the two
+classes modulo 24.  The supporting power-residue lemmas are also formalized.
+
+This is a necessary filter, not an infinite-orbit claim.
+
+## Kontorovich round 59 — minimal break-off counter endpoint proved
+
+The 00:22 request now compiles in `KontoroC/BreakoffCounter.lean`.
+
+`BreakoffCounterOrbit` contains only sequences `k,j,u,r,H`, positivity and
+oddness of the odd parts, the two exact factorizations
+
+```text
+k_t     = 2^j_t * u_t
+8*k_t   = 3^(r_t+2) * H_t + 1,
+```
+
+and the register handoff
+
+```text
+r_(t+1)=j_t,   H_(t+1)=u_t.
+```
+
+Lean derives rather than assumes all three advertised consequences:
+
+```text
+8*k_(t+1) = 3^(j_t+2)*u_t + 1
+k_t % 9 = 8
+k_t < k_(t+1).
+```
+
+The growth proof is coefficientwise from the already-audited inequality
+`2^(j+3)<3^(j+2)` and positivity of `u`; no sampled orbit enters.
+
+Most importantly,
+
+```text
+BreakoffCounterOrbit.toInfiniteRouterPayloadRecurrence
+BreakoffCounterOrbit.not_conjecture : ¬ Collatz.Conjecture
+```
+
+compile.  The two factorizations algebraically generate (R) with payload
+`P_t=3H_t`, so the existing canonical-router and macro-glider chain supplies
+the final soundness theorem.  No extra linkage or growth premise survives.
+
+This remains conditional: the project has not constructed an infinite
+break-off orbit.  But the formal target is now exactly the one-register radix
+swap, and a large or recursively described witness can be checked through
+these small factorization identities rather than by replaying its digits.
+Full build and axiom audit pass with only standard Lean/mathlib principles.
