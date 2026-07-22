@@ -190,5 +190,5 @@
   "literal_lower_links_replayed": 336,
   "schema": "collatz-breakoff-unit-slice-v1",
   "unit_map": "H=2^(a*n+b)h -> H'=(3^(c*n+d)h+s)/2^e",
-  "verifier_sha256": "57e6788f9f9662aa7e6738c3aad26d4bee3f25319936d3c188e033c58a3584ca"
+  "verifier_sha256": "0ad9952eb96d1ae20a8df1e15f4ba8b3a6e5a990ae187ab1b0f6fafecaf6d495"
 }

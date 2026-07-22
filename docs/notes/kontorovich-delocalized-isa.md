@@ -1368,8 +1368,40 @@ arithmetic finds zero stabilizations and zero decreases: all 576 extensions
 strictly increase.  The closest extensions are `(1,1)` and `(1,1,1)`, with
 23 and 155 shared low bits, so variable syntax has not escaped the same 2-adic
 address phenomenon at this bound.  This closes only the zero-top-tail quine
-ansatz.  A serious next candidate must use a nonzero *evolved* child tail or
-an autonomous register relation, rather than another canonical CRT base.
+ansatz by itself; the identity below subsumes it for all positive child
+payloads.  A serious next candidate must use an autonomous relation at one
+fixed compiler level or a different defect grammar.
+
+In fact the constructor itself supplies the all-payload kill test.  Let
+`E=E_B+E_H` be the sum of the parent background and defect input exponents,
+let `q_raw>0` be the raw defect input, and let `r0>=0` be the inherited binary
+valuation.  The normalized child defect has input constant
+
+```text
+X=q_raw-2^E,
+I=E+r0.
+```
+
+Consequently every positive child packet `K` enters its parent at tail
+
+```text
+q=X+2^I K
+ =q_raw+2^E(2^r0 K-1)>0.                             (63b)
+```
+
+The inequality is unconditional once the adjacent-defect step exists:
+`2^r0 K>=1`, and `q_raw` is positive by construction.  Thus no added
+hierarchy level can expand to the canonical parent packet with tail zero.
+The canonical dyadic addresses of an infinite nested tower change forever;
+the ordinary-tail theorem therefore says that such a tower describes only a
+2-adic program, never one ordinary natural.  The bounded meta-quine tree is a
+useful calibration but is now subsumed by (63b).
+
+This does not close the hierarchy's real computational residue.  At any fixed
+finite level, an evolving nonzero packet can repeatedly use the same public
+register without adding nesting depth.  Equation (63b) therefore redirects
+the search from deeper spatial towers to autonomous fixed-level packet maps,
+especially the unit-debris law in Section 5.19.
 
 Exact arithmetic passes five such renormalizations:
 
@@ -1412,10 +1444,10 @@ and consecutive differences have exact binary valuations
 `23,155,589,2013,6715`.  The low bits converge while the natural values grow:
 the canonical tower is behaving exactly like a 2-adic program, not one
 ordinary seed.  This is the central lesson of the hierarchy.  Further depth
-alone is not an attack.  A useful next construction must make the lower
-ordinary packet eventually literal—most plausibly a finite quine, a
-state-dependent high-level tail, or a branch recurrence whose address stops
-changing even though its decoded macro word remains aperiodic.
+alone is not an attack, and (63b) now rules it out as one.  A useful next
+construction must stay at a fixed finite compiler level and evolve its packet
+autonomously; adding another spatial nesting level can never make the lower
+ordinary packet literal.
 
 ### 5.19 An invariant unit-debris sublanguage
 

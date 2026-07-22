@@ -20,7 +20,11 @@ register is another ISA of the same shape, with collision sign -s.
 This verifier constructs six exact levels, checks every displayed phase and
 constant identity, independently builds child branches both by CRT and by
 literal parent-macro composition, and replays bounded members at the parent
-macro layer.  It proves no infinite hierarchy and no ordinary infinite orbit.
+macro layer.  A generic positivity identity also proves that every positive
+child packet enters its parent background at a strictly positive tail, so an
+infinite tower of these canonical extensions cannot stabilize to one ordinary
+packet.  It does not construct an infinite hierarchy or an autonomous orbit at
+a fixed level.
 """
 
 from __future__ import annotations
@@ -150,6 +154,8 @@ def renormalize(
 
     defect_binary_stride = 1 << defect.input_packet_stride_exponent
     raw_input = into_source + defect_binary_stride * residual
+    if raw_input <= 0:
+        raise AssertionError("renormalized defect has no positive raw input")
     raw_return = from_target + defect.output_packet_stride * bridge_tail
     return_stride = defect.output_packet_stride * ternary_stride
     shifted_return = raw_return - return_stride
@@ -242,6 +248,27 @@ def renormalize(
         normalized_collision_constant=normalized_collision,
         child=child,
     )
+
+
+def parent_input_tail(step: RenormalizationStep, child_packet: int) -> int:
+    """Tail at which a positive child packet enters the parent background."""
+    if child_packet < 1:
+        raise ValueError("child packet must be positive")
+    tail = step.defect_input_constant + (
+        (1 << step.defect_input_exponent) * child_packet
+    )
+    base_exponent = (
+        step.background.input_packet_stride_exponent
+        + step.defect.input_packet_stride_exponent
+    )
+    expected = step.raw_input_tail + (1 << base_exponent) * (
+        (1 << step.inherited_binary_bits) * child_packet - 1
+    )
+    if tail != expected:
+        raise AssertionError("parent-tail positivity identity failed")
+    if tail <= 0:
+        raise AssertionError("positive child packet gave a canonical parent tail")
+    return tail
 
 
 def direct_nested_macro(step: RenormalizationStep, cells: int) -> AffineMacro:
@@ -337,9 +364,7 @@ def replay_parent_member(
         raise AssertionError("child packet gives a negative defect bridge")
     residual = step.bridge_residual_base + binary_stride * u
     first_tail = step.into_defect_source + defect_stride * residual
-    if first_tail != step.defect_input_constant + (
-        1 << step.defect_input_exponent
-    ) * input_packet:
+    if first_tail != parent_input_tail(step, input_packet):
         raise AssertionError("child defect input normal form failed")
     defect_tail = step.into_defect_target + (
         background.output_packet_stride * residual
@@ -772,6 +797,11 @@ def build_certificate(
             audit.literal_gate_macros_replayed for audit in canonical
         ),
         "adjacent_background_choices_checked": len(alphabet),
+        "canonical_extension_obstruction": (
+            "for every positive child K, parent tail = raw_input + "
+            "2^(E_B+E_H)*(2^r0*K-1) > 0; recursive canonical "
+            "addresses never stabilize"
+        ),
         "levels": [asdict(isa) for isa in hierarchy],
         "steps": [asdict(step) for step in steps],
         "branch_samples": branch_samples,
@@ -796,6 +826,7 @@ def selftest() -> None:
     for step in steps:
         candidate = direct_nested_macro(step, 1)
         replay_parent_member(step, candidate, 0)
+        parent_input_tail(step, 1)
     canonical_depth_audit(hierarchy, steps)
     tiny_quines = canonical_meta_quine_search(2, 2)
     if tiny_quines["nodes_checked"] != 6:

@@ -4277,3 +4277,34 @@ The worker checks the associated packet residue and affine coefficients
 through six levels.  Please formalize only the generic factor/cancellation
 identity if essentially free; the branch table and existence of an infinite
 unit orbit remain outside Lean.
+
+## Kontorovich follow-up: infinite nesting is 2-adic only (2026-07-22 03:41 EDT)
+
+There is a second cheap generic lemma, after the variable-block flattener.
+For one adjacent-defect renormalization put
+
+```text
+E = E_B+E_H,
+X = q_raw-2^E,
+I = E+r,
+q = X+2^I*K,
+```
+
+with `q_raw>0`, `r>=0`, and positive child packet `K`.  Exact rearrangement
+gives
+
+```text
+q=q_raw+2^E*(2^r*K-1)>0.
+```
+
+If convenient, state the rearrangement over `Int` and the positivity corollary
+over `Nat`, so truncated natural subtraction does not obscure the identity.
+The semantic consequence is that every recursive child extension enters its
+parent at a strictly positive tail, hence differs from the canonical tail-zero
+parent packet.  Combined with the existing ordinary-tail theorem, canonical
+addresses from an infinite adjacent-defect nesting cannot describe one natural
+program.
+
+Please keep this behind the flattener in priority.  It is a no-go only for
+adding infinitely many hierarchy levels.  It does not exclude an autonomous
+infinite orbit of the `+/-1` unit register at any fixed finite level.

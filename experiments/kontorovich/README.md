@@ -1075,7 +1075,7 @@ are `3,16,0,2,6,8`.  This certifies the invariant unit slice, not an infinite
 orbit.
 
 ```text
-artifact SHA-256  5c7efdffbfa9f6bb2d16595efbc2f94d8b3930f83c7f6203cdf63334949bec8c
+artifact SHA-256  6ec5f681970f327f9c0b9a81324b785ed75eaf48915abde149fa7231e2e02036
 verifier SHA-256  734a82740d6814132787ae43160d6abef8c0491bb2acfcab6e6156ebd013e5b0
 ```
 
@@ -1127,7 +1127,25 @@ The same artifact performs a canonical quine audit over the complete tree
 canonical packet stabilizations and zero decreases: every extension strictly
 increases the first-scale packet.  The closest words `(1,1)` and `(1,1,1)`
 share 23 and 155 low bits with their parents.  This rejects the least-CRT-tail
-quine only in the stated tree; it does not test nonzero evolved meta-tails.
+quine in the stated tree; the identity below supplies the unbounded conclusion.
+
+There is also an unbounded algebraic obstruction for this entire recursive
+constructor.  Put `E=E_B+E_H`, where the two terms are the parent background
+and defect input exponents; let `r0>=0` be the inherited valuation and
+`q_raw>0` the raw defect input before normalization.  Every positive child
+packet `K` enters the parent background at
+
+```text
+q=(q_raw-2^E)+2^(E+r0)K
+ =q_raw+2^E(2^r0*K-1)>0.
+```
+
+Thus every nested adjacent-defect extension is strictly above the canonical
+parent base.  Its canonical dyadic address changes at every added hierarchy
+level, so the ordinary-tail theorem excludes an infinite nested tower as one
+natural program.  This statement is conditional only on a step being produced
+by the displayed constructor; it neither proves that the phase identities
+continue forever nor excludes an autonomous orbit at one fixed finite level.
 
 For every renormalization and `N=1..8`, a child branch is built twice: once
 by CRT from its public register and once directly by composing the parent
@@ -1155,8 +1173,8 @@ loading them.  The scope is six finite levels, not an induction to all levels
 and not an infinite Collatz orbit.
 
 ```text
-artifact SHA-256  25b7c0b76a577fcb0fd4c4a191cabe5224d26bbb006a073e0d50feb44e1737fa
-verifier SHA-256  d4836bd974fdef6ee3a595044d16289d0de1a326a595a67795c536da1a327fba
+artifact SHA-256  b568fb1b5228ced1f1198ad6375ba7f256e5f6f3dcf158dfc60d3d018dcdaf50
+verifier SHA-256  a0c05f28c9e585194e64b1df755e13ea7c5e4fbbc43cc7a0346f23e8c836b1e9
 ```
 
 ## Three-bit-capped recursive super-ether
