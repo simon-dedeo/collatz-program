@@ -203,6 +203,47 @@ theorem correction_before_zero_neg {a d e₀ : ℚ}
   rw [hrec]
   exact mul_neg_of_pos_of_neg ha (by simpa using hd)
 
+/-- If a backward coefficient is at most one, a nonnegative correction must
+grow forward by at least the magnitude of the negative interface tax. -/
+theorem correction_grows_by_tax {a d e₀ e₁ : ℚ}
+    (ha : 0 < a) (ha₁ : a ≤ 1) (he₀ : 0 ≤ e₀)
+    (hrec : e₀ = a * (e₁ + d)) : e₀ - d ≤ e₁ := by
+  have hmul : 0 ≤ a * (e₁ + d) := by rw [← hrec]; exact he₀
+  have hins : 0 ≤ e₁ + d := (mul_nonneg_iff_of_pos_left ha).mp hmul
+  have hle : a * (e₁ + d) ≤ 1 * (e₁ + d) :=
+    mul_le_mul_of_nonneg_right ha₁ hins
+  rw [← hrec] at hle
+  linarith
+
+theorem correction_strictly_grows {a d e₀ e₁ : ℚ}
+    (ha : 0 < a) (ha₁ : a ≤ 1) (hd : d < 0) (he₀ : 0 ≤ e₀)
+    (hrec : e₀ = a * (e₁ + d)) : e₀ < e₁ := by
+  have hgrow := correction_grows_by_tax ha ha₁ he₀ hrec
+  linarith
+
+/-- Uniformly negative taxes force at least linear growth of every
+nonnegative correction rail.  Thus a bounded positive affine gauge cannot
+hide a persistent interface mismatch. -/
+theorem correction_linear_growth (a d e : ℕ → ℚ) (delta₀ : ℚ)
+    (ha : ∀ i, 0 < a i) (ha₁ : ∀ i, a i ≤ 1)
+    (hd : ∀ i, d i ≤ -delta₀) (he : ∀ i, 0 ≤ e i)
+    (hrec : ∀ i, e i = a i * (e (i + 1) + d i)) (n : ℕ) :
+    e 0 + (n : ℚ) * delta₀ ≤ e n := by
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      have hgrow := correction_grows_by_tax (ha n) (ha₁ n) (he n) (hrec n)
+      have hstep : e n + delta₀ ≤ e (n + 1) := by
+        linarith [hd n]
+      rw [Nat.cast_succ]
+      calc
+        e 0 + ((n : ℚ) + 1) * delta₀ =
+            (e 0 + (n : ℚ) * delta₀) + delta₀ := by ring
+        _ ≤ e n + delta₀ := by
+          simpa [add_comm, add_left_comm, add_assoc] using
+            add_le_add_right ih delta₀
+        _ ≤ e (n + 1) := hstep
+
 /-- The accumulated interface tax of any positive-opcode public word with
 at least two steps is nonzero (indeed negative). -/
 theorem no_zero_internal_tax (m h m' : ℕ → ℕ) (n : ℕ) (hn : 2 ≤ n)

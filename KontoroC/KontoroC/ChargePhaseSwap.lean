@@ -152,6 +152,22 @@ theorem smallest_composite_exponents :
       binaryTotal 2 3 1 1 = 423 := by
   norm_num [ternaryTotal, binaryTotal]
 
+/-- Backward coefficient of every macro in the smallest equal-gain family. -/
+def smallestBackwardCoefficient : ℚ := (2 : ℚ) ^ 423 / (3 : ℚ) ^ 296
+
+theorem smallestBackwardCoefficient_pos : 0 < smallestBackwardCoefficient := by
+  simp only [smallestBackwardCoefficient]
+  positivity
+
+set_option exponentiation.threshold 512 in
+theorem two_pow_423_lt_three_pow_296 : 2 ^ 423 < 3 ^ 296 := by
+  norm_num
+
+theorem smallestBackwardCoefficient_lt_one : smallestBackwardCoefficient < 1 := by
+  rw [smallestBackwardCoefficient, div_lt_one]
+  · exact_mod_cast two_pow_423_lt_three_pow_296
+  · positivity
+
 /-! ## Adversarial qualification -/
 
 open ChargeTypedInterface
@@ -166,6 +182,16 @@ strictly negative typed tax. -/
 theorem two_step_public_tax_neg (g : PublicWord) (hg : g.length = 2) :
     g.typedTax < 0 := by
   exact g.typedTax_neg (by omega)
+
+/-- A nonnegative TI3 correction across one smallest phase-swap macro must
+strictly increase.  Resetting phase fuel without also paying this correction
+debt cannot produce a bounded positive gauge rail. -/
+theorem smallest_macro_correction_strictly_grows {tax e₀ e₁ : ℚ}
+    (htax : tax < 0) (he₀ : 0 ≤ e₀)
+    (hrec : e₀ = smallestBackwardCoefficient * (e₁ + tax)) :
+    e₀ < e₁ := by
+  exact correction_strictly_grows smallestBackwardCoefficient_pos
+    (le_of_lt smallestBackwardCoefficient_lt_one) htax he₀ hrec
 
 /-! ## A conjugacy square is not an orbit link -/
 

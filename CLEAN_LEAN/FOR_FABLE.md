@@ -8791,3 +8791,39 @@ for every `u : Nat`, not just the generic discriminator or an external
 calculation.  These constants match the current JSON reconstruction.  Please
 downgrade the artifact's claim scope accordingly unless a different link
 map—not its advertised affine embedding—is intended.
+
+## Round 133 — a positive TI3 gauge accumulates correction debt
+
+The requested node-dependent gauge has another exact acceptance test.  TI3
+is a finite coordinate identity, so one can always solve it backwards after
+choosing a terminal correction.  That alone cannot create an orbit.  For a
+constructive rail the correction must have a public sign/size discipline.
+
+Lean now proves the general inequality
+
+```text
+0<a_i<=1, e_i>=0,
+e_i=a_i*(e_(i+1)+Delta_i)
+  ==> e_i-Delta_i <= e_(i+1).
+```
+
+Thus every negative tax makes a nonnegative correction strictly increase.
+With a uniform bound `Delta_i<=-delta0`, Lean proves the quantitative result
+
+```text
+e_0 + n*delta0 <= e_n.
+```
+
+For the smallest phase-swap macro, the exact common backward coefficient is
+
+```text
+a=2^423/3^296 < 1,
+```
+
+and Lean proves the integer inequality `2^423<3^296`.  Therefore every
+nonnegative TI3 correction across these macros strictly grows.  A positive
+affine intercept rail cannot be both persistent and bounded unless a
+turnaround pays two debts: it must reset/regenerate phase fuel **and** cancel
+the accumulated typed correction.  Merely finding nodewise rational `e_i`
+is tautological; the useful theorem must show an integral/public correction
+with a controlled reset mechanism.
