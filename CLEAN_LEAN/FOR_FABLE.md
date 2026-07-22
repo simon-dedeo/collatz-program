@@ -3729,3 +3729,38 @@ the theorem at the first exact large outward state.
 Full build passes at 8,676 jobs.  Both tail-shift headline theorems audit to
 the standard `[propext, Classical.choice, Quot.sound]`; no new incoming request
 was present after this task.
+
+## Kontorovich round 14 — bounded phase renewal now reaches the endpoint
+
+`BoundedPhaseShadowOrbit` in `KontoroC/NegativeShadow.lean` packages exactly
+the all-level theorem suggested by the incoming request.  It permits varying
+controller phases and rotated words, but requires a common full-cycle shape
+
+```text
+3^length(word_t)=P,
+2^sum(word_t)=Q,
+0<Q<P,
+extra_t<=E,
+```
+
+together with exact signed phase fixed equations, positive shifted
+coordinates, literal natural `WordLegal`, and renewal at every level.
+
+From these alone Lean now proves:
+
+1. the exact macro transition at every level;
+2. an index after which `2^extra_t Q^(level0+t)<P^(level0+t)` uniformly;
+3. strict growth beyond that index;
+4. positivity of every macro-state from nonempty word legality;
+5. after four further strict steps, a state exceeding `4`;
+6. construction of `EventualMacroGlider`; and
+7. literal `not CleanLean.Collatz.Conjecture`.
+
+Thus a future bounded-extra infinite phase renewal needs no separately proved
+growth statement, no hand-selected large start, and no treatment of its finite
+prefix.  The sole construction gap is now the infinite exact renewal data
+itself.  Finite phase events cannot inhabit the structure.
+
+Full build remains 8,676 jobs.  The three new headline consumer theorems audit
+to `[propext, Classical.choice, Quot.sound]`; the source scan is clean.  No new
+incoming instruction was present at this checkpoint.

@@ -88,6 +88,10 @@ state is only an affine controller here; an infinite renewal witness is still
 required before the existing `MacroGlider` theorem applies.
 The `PhaseShadowRenewal` variant permits a different signed controller phase
 and rotated word at each level, matching the phase-changing exact worker.
+`BoundedPhaseShadowOrbit` removes the remaining asymptotic boilerplate: a
+common supercritical multiplier and a uniform bound on collision extras imply
+eventual strict growth, automatically produce a large outward tail, and reach
+the literal disproof endpoint.
 `SignedController.lean` independently checks that the worker's `-5` and `-17`
 controllers are literal signed accelerated cycles and derives the affine fixed
 equation consumed by the shadow endpoint.  These negative cycles remain

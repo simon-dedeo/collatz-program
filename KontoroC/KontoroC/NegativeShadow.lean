@@ -3,7 +3,7 @@ Copyright (c) 2026 Simon DeDeo. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
-import KontoroC.Glider
+import KontoroC.EventualGlider
 import Mathlib.Analysis.SpecificLimits.Basic
 
 /-!
@@ -370,5 +370,127 @@ theorem not_conjecture (g : PhaseShadowRenewal) :
   g.toMacroGlider.not_conjecture
 
 end PhaseShadowRenewal
+
+/-- Exact all-level phase-shadow data with a common supercritical multiplier
+and a uniform collision bound.  Unlike `PhaseShadowRenewal`, growth and a
+large starting state are consequences rather than fields. -/
+structure BoundedPhaseShadowOrbit where
+  controller : ℕ → ℤ
+  word : ℕ → List ℕ
+  level0 : ℕ
+  extra : ℕ → ℕ
+  packet : ℕ → ℕ
+  state : ℕ → ℕ
+  numerator : ℕ
+  denominator : ℕ
+  extraBound : ℕ
+  controller_neg : ∀ t, controller t < 0
+  word_nonempty : ∀ t, word t ≠ []
+  level0_pos : 0 < level0
+  packet_pos : ∀ t, 0 < packet t
+  denominator_pos : 0 < denominator
+  supercritical : denominator < numerator
+  common_shape : ∀ t,
+    3 ^ (word t).length = numerator ∧
+      2 ^ totalValuation (word t) = denominator
+  extra_le : ∀ t, extra t ≤ extraBound
+  fixed_affine : ∀ t,
+    (2 ^ totalValuation (word t) : ℤ) * controller t =
+      (3 ^ (word t).length : ℤ) * controller t + affineOffset (word t)
+  coordinate : ∀ t, (state t : ℤ) = controller t +
+    (2 ^ totalValuation (word t) : ℤ) ^ (level0 + t) * packet t
+  legal : ∀ t, WordLegal (state t)
+    (shadowMacroWord (word t) (level0 + t) (extra t))
+  renewal : ∀ t, (2 ^ extra t : ℤ) * state (t + 1) = controller t +
+    (3 ^ (word t).length : ℤ) ^ (level0 + t) * packet t
+
+namespace BoundedPhaseShadowOrbit
+
+theorem macroWord_nonempty (g : BoundedPhaseShadowOrbit) (t : ℕ) :
+    shadowMacroWord (g.word t) (g.level0 + t) (g.extra t) ≠ [] := by
+  apply bumpLast_ne_nil
+  exact repeatWord_ne_nil (g.word_nonempty t)
+    (Nat.add_pos_left g.level0_pos t)
+
+theorem state_pos (g : BoundedPhaseShadowOrbit) (t : ℕ) : 0 < g.state t := by
+  have hlegal := g.legal t
+  have hne := g.macroWord_nonempty t
+  generalize hw : shadowMacroWord (g.word t) (g.level0 + t) (g.extra t) = w at hlegal hne
+  cases w with
+  | nil => exact (hne rfl).elim
+  | cons k ks => exact hlegal.1.1
+
+theorem transition (g : BoundedPhaseShadowOrbit) (t : ℕ) :
+    runWord (g.state t)
+      (shadowMacroWord (g.word t) (g.level0 + t) (g.extra t)) =
+        g.state (t + 1) := by
+  have hend := negativeShadow_endpoint (g.word_nonempty t)
+    (Nat.add_pos_left g.level0_pos t)
+    (g.fixed_affine t) (g.coordinate t) (g.legal t)
+  have heq : (runWord (g.state t)
+      (shadowMacroWord (g.word t) (g.level0 + t) (g.extra t)) : ℤ) =
+      g.state (t + 1) := by
+    apply mul_left_cancel₀ (show (2 ^ g.extra t : ℤ) ≠ 0 by positivity)
+    exact hend.trans (g.renewal t).symm
+  exact_mod_cast heq
+
+/-- Beyond the Archimedean threshold, bounded collision valuations cannot
+overcome the common supercritical multiplier. -/
+theorem eventually_grows (g : BoundedPhaseShadowOrbit) :
+    ∃ N, ∀ t, N ≤ t → g.state t < g.state (t + 1) := by
+  obtain ⟨N, hN⟩ := eventually_twoPow_mul_pow_lt_pow
+    g.denominator_pos g.supercritical (E := g.extraBound)
+  refine ⟨N, fun t ht ↦ ?_⟩
+  have hratio0 := hN (g.level0 + t)
+    (ht.trans (Nat.le_add_left t g.level0)) (g.extra t) (g.extra_le t)
+  have hshape := g.common_shape t
+  have hratio :
+      2 ^ g.extra t * (2 ^ totalValuation (g.word t)) ^ (g.level0 + t) <
+        (3 ^ (g.word t).length) ^ (g.level0 + t) := by
+    simpa [hshape.1, hshape.2] using hratio0
+  exact negativeShadow_strict_growth (g.controller_neg t) (g.packet_pos t)
+    (g.coordinate t) (g.renewal t) hratio
+
+/-- Bounded exact renewal data automatically supplies an eventual glider.
+Four extra strict steps after a positive state make the shifted start exceed
+`4`. -/
+theorem exists_eventualMacroGlider (g : BoundedPhaseShadowOrbit) :
+    ∃ eg : EventualMacroGlider,
+      eg.state = g.state ∧
+      eg.word = (fun t =>
+        shadowMacroWord (g.word t) (g.level0 + t) (g.extra t)) := by
+  obtain ⟨N, hN⟩ := g.eventually_grows
+  have hg0 := hN N (Nat.le_refl N)
+  have hg1 := hN (N + 1) (by omega)
+  have hg2 := hN (N + 2) (by omega)
+  have hg3 := hN (N + 3) (by omega)
+  have hg1' : g.state (N + 1) < g.state (N + 2) := by
+    convert hg1 using 1
+  have hg2' : g.state (N + 2) < g.state (N + 3) := by
+    convert hg2 using 1
+  have hg3' : g.state (N + 3) < g.state (N + 4) := by
+    convert hg3 using 1
+  have hlarge : 4 < g.state (N + 4) := by
+    have hp := g.state_pos N
+    omega
+  let eg : EventualMacroGlider :=
+    { state := g.state
+      word := fun t => shadowMacroWord (g.word t) (g.level0 + t) (g.extra t)
+      tailStart := N + 4
+      start_large := hlarge
+      word_nonempty := fun t _ht => g.macroWord_nonempty t
+      legal := fun t _ht => g.legal t
+      transition := fun t _ht => g.transition t
+      grows := fun t ht => hN t ((by omega : N ≤ N + 4).trans ht) }
+  exact ⟨eg, rfl, rfl⟩
+
+/-- End-to-end bounded-renewal consumer.  No separate growth premise or large
+starting state is required. -/
+theorem not_conjecture (g : BoundedPhaseShadowOrbit) :
+    ¬CleanLean.Collatz.Conjecture := by
+  obtain ⟨eg, _hstate, _hword⟩ := g.exists_eventualMacroGlider
+  exact eg.not_conjecture
+
+end BoundedPhaseShadowOrbit
 
 end KontoroC
