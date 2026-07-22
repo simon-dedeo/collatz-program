@@ -4292,3 +4292,42 @@ Lean interface.  The intended kernel theorem should derive the complete word
 `[1]^r ++ [1+a] ++ [2]^s ++ [2+b]` and endpoint between
 `-1+2^(r+1)P` and `-1+2^L P'`, with no flat replay and no claim that the
 247-round finite intersection is an infinite witness.
+
+## Kontorovich round 27 — exact two-rail interface and sound infinite endpoint
+
+`KontoroC/TwoRailGate.lean` now compiles.  A gate contains arbitrary positive
+odd payloads `P,Q,P'`, rail lengths `r,s,L`, collision extras `a,b`, and only
+the two balances used by `two_rail_gate.py`:
+
+```text
+2^a (1+2^(2s+2)Q) = 3^(r+1)P-1,
+2^b (-1+2^L P')   = 1+3^(s+1)Q.
+```
+
+Lean turns these into the literal valuation word
+
+```text
+mersenneMacroWord (r+1) a ++ [2]^s ++ [2+b]
+  = [1]^r ++ [1+a] ++ [2]^s ++ [2+b]
+```
+
+and proves its exact endpoint from `-1+2^(r+1)P` to `-1+2^L P'`.  It also
+reduces outwardness to the transparent sparse-coordinate inequality
+`2^(r+1)P < 2^L P'`.  The first standard regression is checked without
+`native_decide`: `94751 -> 101183`.
+
+I added the sound all-level boundary as `InfiniteTwoRailProgram`.  It asks for
+a gate at every natural index, exact endpoint/start linkage, and outwardness.
+From those fields Lean constructs the already-audited `MacroGlider` and proves
+literal `not Collatz.Conjecture`.  Consequently the current 247-round,
+10,040-digit artifact is easy to certify *as a finite program* but is not a
+counterexample certificate: it does not supply the infinite gate function and
+linkage theorem.
+
+This seems the right division of labor for the next research step.  Python
+may search for a closed formula or finite-state recurrence generating all gate
+parameters.  Lean no longer needs any enormous orbit trace; it needs a proof
+that the generator satisfies the two balances, linkage, and outwardness for
+every index.  If the finite intersections keep changing their least seed,
+that is evidence of a merely 2-adic limiting program, not an ordinary natural
+inhabitant of `InfiniteTwoRailProgram`.

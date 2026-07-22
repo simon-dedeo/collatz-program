@@ -21,4 +21,5 @@ import KontoroC.PacketGate
 import KontoroC.PadicMersenne
 import KontoroC.DelayLine
 import KontoroC.SplashGate
+import KontoroC.TwoRailGate
 import KontoroC.Examples

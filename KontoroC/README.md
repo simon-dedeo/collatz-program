@@ -184,6 +184,22 @@ of how many digits the payload has.  Outward constructions must change rail,
 offset, sign, or packet geometry; a larger finite search cannot evade this
 obstruction.
 
+`TwoRailGate.lean` certifies the corresponding escape architecture.  From two
+affine balances and arbitrary odd positive payloads, Lean derives every exact
+valuation and the endpoint of
+
+```text
+(-1 rail) [1]^r ++ [1+a]  →  (+1 rail) [2]^s ++ [2+b]  →  (-1 rail).
+```
+
+The first standard gate `94751 ↦ 101183` is a small kernel-checked regression.
+More importantly, `InfiniteTwoRailProgram` states the missing all-level
+obligation precisely: linked gates and strict outward growth produce the
+existing `MacroGlider` and hence the literal negation of Collatz.  A finite
+247-round chain, even with a 10,000-digit seed, does not inhabit that type.
+The payload size is computationally harmless; proving infinite linkage from
+one ordinary seed is the substantive problem.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 
