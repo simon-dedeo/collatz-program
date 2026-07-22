@@ -204,6 +204,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.breakoffNext_eq_some_iff_equation
 #print axioms KontoroC.breakoffNext_mod_nine
 #print axioms KontoroC.breakoffNext_strictly_grows
+#print axioms KontoroC.breakoffRun_delay
+#print axioms KontoroC.breakoffRun_strictly_grows
+#print axioms KontoroC.BreakoffDelayGate.collision_step
+#print axioms KontoroC.BreakoffDelayGate.run
+#print axioms KontoroC.BreakoffDelayGate.outward
 #print axioms KontoroC.ExecutableBreakoffOrbit.toBreakoffCounterOrbit
 #print axioms KontoroC.ExecutableBreakoffOrbit.not_conjecture
 #print axioms KontoroC.InfiniteRouterPayloadRecurrence.toInfiniteCanonicalSplashOrbit

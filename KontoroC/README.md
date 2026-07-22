@@ -318,6 +318,22 @@ macro-step is checked by exact integer identities.  What remains hard is not
 verifying a huge finite value; it is supplying a finite *universal rule* that
 generates successful steps forever.  No such rule is present here.
 
+The same file now verifies the regenerative three-bit delay gate at arbitrary
+scale.  `breakoffRun_delay` compresses all `q` opcode-zero cells into the
+identity
+
+```text
+9*2^(3q)c-1  ->^q  3^(2q+2)c-1.
+```
+
+`BreakoffDelayGate` then asks only for the collision factorization and the
+renewal factorization.  Its `run` theorem proves that the collision emits the
+requested new clean delay, and `outward` proves the resulting endpoint is
+strictly larger than the start.  This validates each symbolic gate for every
+coefficient size without importing the bounded Python replay table.  The open
+problem is still to link infinitely many such gates through one ordinary,
+aperiodically controlled payload.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 

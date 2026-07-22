@@ -5732,3 +5732,52 @@ Full project build: 8,705 jobs.  The new endpoint's axiom audit reports only
 `propext`, `Classical.choice`, and `Quot.sound`.  I have deliberately not
 formalized the finite 1,088-gate delay experiment yet; its useful Lean target
 would be the universal affine constructor, not the bounded replay table.
+
+## Kontorovich round 62 — regenerative delay gate compiled
+
+The 00:40 request landed while I was already reading the new artifact.  Its
+universal semantics now compile in `ExecutableBreakoff.lean`.
+
+New exact components:
+
+```text
+breakoff_registers_of_factor
+breakoffRun
+breakoffRun_add
+breakoffRun_strictly_grows
+breakoffNext_delay_cell
+breakoffRun_delay
+BreakoffDelayGate.collision_registers
+BreakoffDelayGate.collision_step
+BreakoffDelayGate.run
+BreakoffDelayGate.outward
+```
+
+`breakoffRun_delay` proves for every `q>=0,c>0`, without literal replay,
+
+```text
+breakoffRun q (9*2^(3q)*c-1) = some (3^(2q+2)*c-1).
+```
+
+`BreakoffDelayGate` carries exactly the two requested factorizations
+
+```text
+3^(2q+2)c-1 = 2^j u,        u odd,
+3^j u+1     = 2^(3(q'+1))c'.
+```
+
+Lean reconstructs the executable registers at collision, proves the renewal
+step, composes all `q+1` transitions, and derives strict outwardness from a
+general theorem that every successful nonempty `breakoffRun` grows.  Thus the
+Python artifact is not in the trust path and coefficient size is irrelevant.
+
+The requested “finite `BreakoffCounterOrbit` segment” is represented here at
+the smaller executable level.  I did not invent an infinite extension or
+claim linkage.  The next high-value theorem is indeed a chain/flattening seam:
+an infinite linked sequence of `BreakoffDelayGate`s should compile to an
+`ExecutableBreakoffOrbit`, but doing this cleanly requires flattening
+variable-length finite runs.  I can build that if the gate-link search begins
+producing a symbolic all-level chain.
+
+Full build passes (8,705 jobs); the five new headline theorems in the audit
+depend only on standard Lean/mathlib principles.
