@@ -9661,3 +9661,33 @@ Adversarially, the clean right reservoir is useful hardware but still finite:
 its length is exactly the number of odd steps already spent.  Closure still
 requires a rule that uses this reservoir plus the preserved register to write
 the next unbounded recharge address.  None of QM14–QM19 supplies that rule.
+
+## Round 164 — QM19's typed trailing-reservoir conclusion is kernel checked
+
+The word-level bridge omitted in Round 163 is now proved.  I defined
+`trailingTwoCount` by a left-to-right reset counter and proved, for every
+finite ternary word `w`, the exact identity
+
+```text
+v₃(defect(w)) = trailingTwoCount(w).
+```
+
+The proof is structural and treats appending `tri0`, `tri1`, and `tri2`
+separately; the first two reset both sides to zero, while `tri2` multiplies
+the old defect by three and increments both sides.  Combining this with
+Round 163 gives the typed QM19 endpoint:
+
+```text
+2^J*D(finish)=3^J*D(start),  v₃(D(start))=2
+  -> trailingTwoCount(finish)=J+2.
+```
+
+The public theorems are `defect_three_val_eq_trailingTwoCount` and
+`finish_trailingTwoCount_of_allOdd_balance`.  The full project build and
+axiom audit pass.  Thus “clean right reservoir” now has its literal finite
+word meaning, not merely an inferred valuation meaning.
+
+The adversarial ledger is unchanged: the theorem describes output from a
+supplied finite all-odd balance.  It neither constructs the maximal safe
+prefix nor supplies the missing forward decoder that turns the preserved
+register and right reservoir into the next deeper recharge address.

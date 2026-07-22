@@ -95,5 +95,61 @@ theorem finish_three_val_of_allOdd_balance (start finish : List Trit) (J : ℕ)
   rw [h2val, zero_add, hstart] at hv
   omega
 
+/-! ## Typed trailing reservoir -/
+
+/-- Number of consecutive maximal trits at the right edge.  A left fold is
+the natural streaming implementation: a non-two digit resets the counter. -/
+def trailingTwoCount (w : List Trit) : ℕ :=
+  w.foldl (fun n t => match t with | Trit.two => n + 1 | _ => 0) 0
+
+@[simp] theorem trailingTwoCount_append (w : List Trit) (t : Trit) :
+    trailingTwoCount (w ++ [t]) =
+      match t with | Trit.two => trailingTwoCount w + 1 | _ => 0 := by
+  simp [trailingTwoCount, List.foldl_append]
+
+private theorem defect_append (w : List Trit) (t : Trit) :
+    defect (w ++ [t]) = 3 * tritEvalFrom 1 w + tritDigit t + 1 := by
+  simp [defect, tritEvalFrom_append, tritEvalFrom]
+
+/-- Exact typed bridge: the 3-adic valuation of `N(w)+1` is precisely the
+number of trailing `tri2` symbols. -/
+theorem defect_three_val_eq_trailingTwoCount (w : List Trit) :
+    padicValNat 3 (defect w) = trailingTwoCount w := by
+  induction w using List.reverseRecOn with
+  | nil =>
+      simp [defect, tritEvalFrom, trailingTwoCount,
+        padicValNat.eq_zero_of_not_dvd]
+  | append_singleton w t ih =>
+      cases t with
+      | zero =>
+          rw [trailingTwoCount_append, defect_append]
+          simp [tritDigit]
+          rw [Nat.dvd_iff_mod_eq_zero]
+          omega
+      | one =>
+          rw [trailingTwoCount_append, defect_append]
+          simp [tritDigit]
+          rw [Nat.dvd_iff_mod_eq_zero]
+          omega
+      | two =>
+          rw [trailingTwoCount_append, defect_append]
+          simp only [tritDigit]
+          have heq : 3 * tritEvalFrom 1 w + 2 + 1 = 3 * defect w := by
+            simp [defect]
+            ring
+          rw [heq, padicValNat.mul (by omega) (defect_pos w).ne',
+            padicValNat_self, ih]
+          omega
+
+/-- Typed QM19: the endpoint has exactly `J+2` maximal trits at its right
+edge. -/
+theorem finish_trailingTwoCount_of_allOdd_balance
+    (start finish : List Trit) (J : ℕ)
+    (hbalance : 2 ^ J * defect finish = 3 ^ J * defect start)
+    (hstart : padicValNat 3 (defect start) = 2) :
+    trailingTwoCount finish = J + 2 := by
+  rw [← defect_three_val_eq_trailingTwoCount]
+  exact finish_three_val_of_allOdd_balance start finish J hbalance hstart
+
 end YahRechargeReservoir
 end KontoroC
