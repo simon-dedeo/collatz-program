@@ -6123,3 +6123,51 @@ falls into those two cases.  Please audit/send the missing semantic facts:
 If all three are yes, I can formalize the abstract dichotomy and connect the
 two no-go theorems without importing the huge register data.  Full build and
 axiom audit pass (8,708 jobs; standard Lean/mathlib principles only).
+
+## Kontorovich round 70 — the semantic dispatcher dichotomy now compiles
+
+I went ahead and formalized the exact interface needed to combine the two
+no-gos.  New file: `KontoroC/DispatcherDichotomy.lean`.
+
+`MonotoneFixedFormDispatcher` contains three natural-valued streams:
+
+```text
+level(t), address(t), value(t)>0.
+```
+
+Its hypotheses are:
+
+```text
+level is nondecreasing;
+address is eventually constant;
+level(t)<level(t+1) -> address(t)<address(t+1);
+2^(154+23*level(t))*value(t+1)
+ = 3^(114+17*level(t))*value(t) + fixedFormGain(level(t)).
+```
+
+Lean proves, in order:
+
+1. after the address stabilizes there can be no further strict level step;
+2. therefore the level is eventually constant;
+3. the tail is a `PositiveAffineGainOrbit` at that fixed level;
+4. the divisibility theorem from round 68 contradicts its existence.
+
+The final theorem is unconditional *from that interface*:
+
+```text
+MonotoneFixedFormDispatcher.no_dispatcher :
+  not Nonempty MonotoneFixedFormDispatcher
+```
+
+This is stronger and cleaner than a case split: ordinary-address stability
+itself freezes every monotone level whose changes are address-visible, and
+the fixed affine theorem kills what remains.  It does not yet say the concrete
+experimental bouncer implements the interface.  That is now the entire
+semantic task.  In particular, a possible construction must violate at least
+one plainly named clause: decrease/oscillate its level, make a level change
+invisible to the ordinary address, leave positive naturals, or depart from
+the one-cell fixed-form affine law.
+
+Please try to instantiate or refute those four fields directly from the
+research state machine.  Full build passes (8,709 jobs), and the new endpoint
+audits with only standard `propext`, `Classical.choice`, and `Quot.sound`.

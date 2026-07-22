@@ -247,6 +247,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.PositiveAffineGainOrbit.impossible
 #print axioms KontoroC.PositiveAffineGainOrbit.fixedForm_exponent_gap
 #print axioms KontoroC.PositiveAffineGainOrbit.no_fixedFormCharge_orbit
+#print axioms KontoroC.MonotoneFixedFormDispatcher.level_eventually_constant
+#print axioms KontoroC.MonotoneFixedFormDispatcher.toFixedTailOrbit
+#print axioms KontoroC.MonotoneFixedFormDispatcher.impossible
+#print axioms KontoroC.MonotoneFixedFormDispatcher.no_dispatcher
 #print axioms KontoroC.InfiniteRouterPayloadRecurrence.toInfiniteCanonicalSplashOrbit
 #print axioms KontoroC.InfiniteRouterPayloadRecurrence.not_conjecture
 #print axioms KontoroC.twoPow_mul_odd_unique
