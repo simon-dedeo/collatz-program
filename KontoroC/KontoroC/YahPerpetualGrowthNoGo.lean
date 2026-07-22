@@ -45,6 +45,46 @@ theorem tritEvalFrom_pos (x : ℕ) (hx : 0 < x) (v : List Trit) :
       have hdigit : 0 ≤ tritDigit t := Nat.zero_le _
       omega
 
+/-- Local form of the reproducing value law, independent of an infinite
+orbit wrapper. -/
+theorem queueMacro_growth_balance (w : List Trit) (hnonempty : w ≠ [])
+    (hgrows : (queueMacro w).length = w.length + 1) :
+    4 * (tritEvalFrom 1 (queueMacro w) + 1) =
+      9 * (tritEvalFrom 1 w + 1) := by
+  cases w with
+  | nil => exact (hnonempty rfl).elim
+  | cons h v =>
+      cases h with
+      | zero =>
+          have hnogrow := macro_zero_ne_grows v
+          simp only [queueMacro, List.length_cons] at hgrows
+          simp only [List.length_cons] at hnogrow
+          omega
+      | one =>
+          have hmod := (macro_one_grows_iff_mod_four_eq_three v).mp (by
+            simpa [queueMacro] using hgrows)
+          have hbalance :=
+            twoSweep_mod_four_three_balance Carry.zero v (by
+              simpa [tritEvalFrom, tritDigit, carryBit] using hmod)
+          change 4 *
+              (tritEvalFrom 1
+                (carrySweep Carry.zero (carrySweep Carry.zero v)) + 1) =
+            9 * (tritEvalFrom 4 v + 1)
+          norm_num [carryBit] at hbalance
+          omega
+      | two =>
+          have hmod := (macro_two_grows_iff_mod_four_eq_three v).mp (by
+            simpa [queueMacro] using hgrows)
+          have hbalance :=
+            twoSweep_mod_four_three_balance Carry.one v (by
+              simpa [tritEvalFrom, tritDigit, carryBit] using hmod)
+          change 4 *
+              (tritEvalFrom 1
+                (carrySweep Carry.zero (carrySweep Carry.one v)) + 1) =
+            9 * (tritEvalFrom 5 v + 1)
+          norm_num [carryBit] at hbalance
+          omega
+
 /-- A proposed ordinary orbit which gains exactly one ternary digit at every
 complete queue macro. -/
 structure PerpetualGrowingMacroOrbit where

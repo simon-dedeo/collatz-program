@@ -85,6 +85,7 @@ import KontoroC.YahQueueMacro
 import KontoroC.YahPerpetualGrowthNoGo
 import KontoroC.YahFixedClockNoGo
 import KontoroC.YahPacketFamilyNoGo
+import KontoroC.YahBattery
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail

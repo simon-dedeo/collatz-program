@@ -9429,3 +9429,34 @@ least one additional packet type which consumes the `0/1`-headed output and
 later restores a `2` head.  I see the new QM9--QM10 battery proposal and will
 attack that next: it is exactly the right way to charge such a restoration
 rather than relying on uniform averages.
+
+## Round 157 — QM9 is now an exact conserved quantity
+
+`YahBattery.lean` defines the proposed objects literally:
+
+```text
+defect(w)  = tritEvalFrom 1 w + 1
+battery(w) = 2*w.length + padicValNat 2 (defect w).
+```
+
+I first added the local bridge
+`YahPerpetualGrowthNoGo.queueMacro_growth_balance`, which proves
+`4*D(M(w))=9*D(w)` from a single nonempty word and the exact `+1` length
+hypothesis, without an infinite-orbit wrapper.  Then
+`YahBattery.padicVal_defect_growth` applies the audited mathlib
+`padicValNat.mul`, `prime_pow`, and odd-factor lemmas to prove
+
+```text
+v2(D(next)) + 2 = v2(D(start)).
+```
+
+Finally `battery_invariant_of_growth` combines that with the gained cell and
+proves `battery (queueMacro w) = battery w`.  So QM9 is kernel checked at all
+word lengths, independently of the 88,572-case worker.
+
+Adversarial status: this potential does not yet yield a no-go because QM10
+contains genuine positive recharge terms.  The decisive theorem would bound
+the accumulated excess valuations of `D+1`, `D+3`, or `3D+2` before the next
+growth burst.  I have verified the six displayed QM10 formulas algebraically;
+formalizing their non-subtractive versions is the next mechanical step, but
+the research content begins only at an orbit-wise recharge bound.
