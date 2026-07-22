@@ -153,6 +153,7 @@ identically `x`.
 | Bounded phase-changing shadow grammar | `1,950,864` positive paths checked exactly. The `-5/-7` phases yield 15 terminal renewals and 10 one-extension seed stabilizations, all starting at level 1 or 2; every renewed path loses alignment on its next collision and none grows. All seven `-17` phases yield zero events within their separately stated bounds. | [Phase-shadow artifacts](experiments/kontorovich/README.md#phase-changing-shadow-collisions) |
 | Bounded `-1`/Mersenne shadow grammar | `376,800` positive paths checked exactly for start levels `1..100`, extras `1..12`, and depth at most three. There are 522 terminal renewals, 80 seed stabilizations, and three all-outward stabilization events; none supplies a second stabilized extension. The best finite run reaches `1` on exact continuation. | [`mersenne_shadow_results.json`](experiments/kontorovich/mersenne_shadow_results.json) |
 | Constant-extra Mersenne feedback | All `51,200` compiled paths for start levels `1..20`, constant extras `1..32`, depths `1..40`, and both mod-6 classes were checked. The unique two-extension event is seed `121` for extra `1`; its fifth macro fails and exact continuation reaches `1`. | [`mersenne_constant_results.json`](experiments/kontorovich/mersenne_constant_results.json) |
+| Short-period Mersenne feedback | All `2,726,400` prefixes from 568 primitive extra templates of period at most three over `{1,...,8}`, start levels `1..30`, depths `1..80`, and both mod-6 classes were checked in compressed exact arithmetic; every hit was literally replayed. No template improves the constant-`1` two-extension event or the `(4,3,1)` outward event. | [`mersenne_periodic_results.json`](experiments/kontorovich/mersenne_periodic_results.json) |
 | Small regular invariant sets | Previously closed only in the stated exhaustive classes: no base-2 DFA divergence certificate through eight states and no base-3 certificate through five. One-counter and genuinely morphic single-orbit certificates remain open. | [Base 2](experiments/dfacert/README.md), [base 3](experiments/dfacert3/README.md) |
 
 The first work product will be an exact `k`-word compiler and cycle/glider
@@ -179,6 +180,7 @@ positive integer and its claimed behavior are machine-checked.
 | Two-extension constant-feedback event | For the constant rule `e_M=1`, exact seed `121` is canonical for depths two, three, and four, with macro-states `121 -> 91 -> 103 -> 175 -> 445`. Level five fails and the seed reaches `1` after 34 accelerated steps. This is the longest ordinary-seed stabilization found, but remains finite. |
 | Kernel phase-shadow disproof seam | Lean commits `3d9cedc` through `d6fb8b2` prove the exact shifted-coordinate macro and the literal Collatz negation from any infinite bounded-extra renewal after an arbitrary finite prefix. Signed cycles automatically supply supercriticality and all rotated phases. No infinite renewal witness is known. |
 | Kernel Mersenne-shadow seam | Lean commit `768f4d0` checks the signed `(-1,[1])` controller, proves the worker's exact Mersenne macro identity, and proves `MersenneShadowOrbit.not_conjecture` from infinite renewal data. It also kernel-replays the `24,017,279` event and its level-10 failure. |
+| Pure packet-recurrence endpoint | Lean commits `32a0896`--`a2652f2` reduce a Mersenne disproof to positive odd packets and bounded extras satisfying `2^e(2^(m+1)h'-1)=3^m h-1` at every level. Lean derives exact legality, transitions, eventual packet growth, the unique necessary class of `h' mod 3^m`, and the literal Collatz refutation. |
 
 The compiler and certificate seam is now live.  The dependency-free
 [`path_compiler.py`](experiments/kontorovich/path_compiler.py) reproduces the
@@ -240,6 +242,14 @@ through depth 40 and start level 20 (`51,200` paths).  Constant `e=1` gives
 seed `121` two unchanged-prefix extensions, then fails at level five and
 reaches `1`; no other constant rule matches it.  Next moves to short periodic
 and state-dependent extra rules.
+
+The periodic sweep then checked `2,726,400` exact prefixes from every primitive
+period-at-most-three template over extras `1..8`, through start level 30 and
+depth 80.  It finds no improvement: constant `1` remains the unique two-
+extension event, and `(4,3,1)` remains the best outward event.  Lean commits
+`32a0896`--`a2652f2` reduce the next search to a pure packet recurrence and
+provide a modulo-`3^m` scheduler; state-dependent arithmetic feedback is now
+the active Mersenne lane.
 
 ### 2026-07-21 19:54 EDT
 

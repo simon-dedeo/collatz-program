@@ -297,3 +297,36 @@ The fifth macro fails, and exact continuation reaches `1` after 34 accelerated
 steps with peak `3077`.  No other constant extra through 32 produces two
 extensions within the stated bounds.  Source digest:
 `dd0ca553197fa5881a2db36ed2dde00984d7750efc1412bff4648b0b9238ed04`.
+
+`search_mersenne_periodic.py` expands the feedback class to every primitive
+periodic extra template within explicit bounds.  The macro valuation word is
+still aperiodic because its length increases; only the extra controller is
+periodic.  The worker uses the Lean-checked compressed affine macro and
+expands plus literally replays every stabilization hit.
+
+```bash
+python3 search_mersenne_periodic.py --selftest
+python3 search_mersenne_periodic.py \
+  --max-start-level 30 --max-extra 8 --max-period 3 --max-depth 80 \
+  --continuation-steps 100000 \
+  --output mersenne_periodic_results.json
+```
+
+The artifact exhausts 568 primitive templates and `2,726,400` compiled
+prefixes.  It finds 119 seed-stabilization events, three all-outward events,
+and one two-extension event.  The latter is exactly constant extra `1` at
+seed `121`; the strongest outward event is exactly period `(4,3,1)` at seed
+`24,017,279`.  Both fail as documented above and reach `1`.  Thus no short
+periodic template improves the known finite motifs.  Source digest:
+`27447b305fc295f6225aa045eaa7110d5ccc44ae66055356de9afa7d5842ba49`.
+
+Lean commits `32a0896`--`a2652f2` now expose the narrow all-level target
+
+```text
+2^e_t (2^(M+t+1) h_(t+1)-1) = 3^(M+t) h_t-1.
+```
+
+From positive odd packets and uniformly bounded extras satisfying this
+recurrence, Lean derives the macro legality, eventual packet growth, and the
+literal Collatz refutation.  It also proves the unique necessary residue class
+for `h_(t+1)` modulo `3^(M+t)`.  That scheduler is the next search filter.

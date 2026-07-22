@@ -1,0 +1,74 @@
+{
+  "arithmetic": "exact_python_integers",
+  "bounds": {
+    "continuation_steps": 100000,
+    "max_depth": 80,
+    "max_extra": 8,
+    "max_period": 3,
+    "max_start_level": 30
+  },
+  "compiled_paths": 2726400,
+  "growing_seed_stabilization_events": 3,
+  "primitive_templates": 568,
+  "schema": "collatz-mersenne-periodic-extra-search-v1",
+  "seed_stabilization_events": 119,
+  "source_sha256": "27447b305fc295f6225aa045eaa7110d5ccc44ae66055356de9afa7d5842ba49",
+  "strongest_growing_seed_stabilization": {
+    "all_macrosteps_grow": true,
+    "continuation": {
+      "accelerated_steps": 108,
+      "peak": "8538035597",
+      "status": "reaches_one"
+    },
+    "controller_state": "-1",
+    "controller_word": [
+      1
+    ],
+    "endpoint": "1579334395",
+    "macro_states": [
+      "24017279",
+      "25647359",
+      "82164223",
+      "1579334395"
+    ],
+    "primitive_extra_period": [
+      4,
+      3,
+      1
+    ],
+    "program_depth": 3,
+    "residue_mod_6": 5,
+    "seed": "24017279",
+    "stable_extensions": 1,
+    "start_level": 7
+  },
+  "strongest_seed_stabilization": {
+    "all_macrosteps_grow": false,
+    "continuation": {
+      "accelerated_steps": 34,
+      "peak": "3077",
+      "status": "reaches_one"
+    },
+    "controller_state": "-1",
+    "controller_word": [
+      1
+    ],
+    "endpoint": "445",
+    "macro_states": [
+      "121",
+      "91",
+      "103",
+      "175",
+      "445"
+    ],
+    "primitive_extra_period": [
+      1
+    ],
+    "program_depth": 4,
+    "residue_mod_6": 1,
+    "seed": "121",
+    "stable_extensions": 2,
+    "start_level": 1
+  },
+  "two_extension_stabilization_events": 1
+}

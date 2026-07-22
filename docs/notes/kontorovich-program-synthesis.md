@@ -335,3 +335,25 @@ The same seed is canonical for the depth-two, depth-three, and depth-four
 programs.  It fails the fifth renewal and reaches `1` after 34 accelerated
 steps.  Thus even the most persistent constant rule is finite; short periodic
 and state-dependent rules are the next bounded grammars.
+
+Periodic extra templates do not improve the picture at the next exact scope.
+All 568 primitive templates of period at most three over `{1,...,8}` were
+checked for start levels through 30 and depth through 80: `2,726,400`
+compressed exact prefixes, with every stabilization expanded and replayed.
+The unique two-extension event is still constant `1` at seed `121`; the best
+outward event is still `(4,3,1)` at seed `24,017,279`.
+
+Lean commits `32a0896`--`a2652f2` sharpen (8.1) into the current construction
+target.  It is enough to find positive odd packets and uniformly bounded
+extras satisfying, for every `t` and `m=M+t`,
+
+```text
+2^e_t (2^(m+1) h_(t+1)-1) = 3^m h_t-1.             (8.2)
+```
+
+Lean derives word legality, macro transitions, eventual packet and state
+growth, and the Collatz negation from (8.2).  It also proves that a chosen
+`e_t` fixes at most one class for `h_(t+1)` modulo `3^m`.  Periodic lookup has
+failed within the bounds above, so the next search should make `e_t` an
+arithmetic function of the current packet and use that modulo-`3^m` class as
+a branch filter.
