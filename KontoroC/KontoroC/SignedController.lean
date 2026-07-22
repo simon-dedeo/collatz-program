@@ -106,6 +106,20 @@ theorem signedCycle_affine_fixed {c : ℤ} {w : List ℕ}
       (3 ^ w.length : ℤ) * c + affineOffset w := by
   simpa [hclose] using signedValuationWord_affine_identity hlegal
 
+/-- Every nonempty negative signed cycle is supercritical: its affine
+multiplier satisfies `3^N > 2^S`. -/
+theorem signedNegativeCycle_shape_strict {c : ℤ} {w : List ℕ}
+    (hc : c < 0) (hw : w ≠ [])
+    (hlegal : SignedWordLegal c w) (hclose : signedRunWord c w = c) :
+    2 ^ totalValuation w < 3 ^ w.length := by
+  have hfixed := signedCycle_affine_fixed hlegal hclose
+  have hA : (0 : ℤ) < affineOffset w := by
+    exact_mod_cast affineOffset_pos_of_ne_nil hw
+  by_contra hnot
+  have hle : (3 ^ w.length : ℤ) ≤ 2 ^ totalValuation w := by
+    exact_mod_cast (Nat.le_of_not_gt hnot)
+  nlinarith
+
 /-- Every cyclic rotation of an exact signed cycle is an exact signed cycle
 at the corresponding phase state. -/
 theorem signedCycle_rotate {c : ℤ} {u v : List ℕ}
@@ -161,6 +175,12 @@ theorem SignedCycleCertificate.affine_fixed {c : SignedCycleCertificate}
       (3 ^ c.word.length : ℤ) * c.seed + affineOffset c.word := by
   have hv := c.valid_of_check h
   exact signedCycle_affine_fixed hv.2.2.1 hv.2.2.2
+
+theorem SignedCycleCertificate.supercritical {c : SignedCycleCertificate}
+    (h : c.check = true) :
+    2 ^ totalValuation c.word < 3 ^ c.word.length := by
+  have hv := c.valid_of_check h
+  exact signedNegativeCycle_shape_strict hv.1 hv.2.1 hv.2.2.1 hv.2.2.2
 
 /-- The `-5` controller used by the shadow workers. -/
 def minusFiveController : SignedCycleCertificate := ⟨-5, [1, 2]⟩

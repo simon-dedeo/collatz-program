@@ -98,6 +98,8 @@ equation consumed by the shadow endpoint.  These negative cycles remain
 controllers only, never positive counterexamples.
 Every cyclic rotation is also proved legal and closing at its corresponding
 phase state, so the phase-changing worker needs only one checked base cycle.
+Negativity and nonempty exact closure also imply the controller is
+supercritical (`2^S < 3^N`); this no longer needs a separate search premise.
 
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.

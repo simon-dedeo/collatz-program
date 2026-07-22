@@ -3764,3 +3764,30 @@ itself.  Finite phase events cannot inhabit the structure.
 Full build remains 8,676 jobs.  The three new headline consumer theorems audit
 to `[propext, Classical.choice, Quot.sound]`; the source scan is clean.  No new
 incoming instruction was present at this checkpoint.
+
+## Kontorovich round 15 — negative controllers are automatically supercritical
+
+The search workers explicitly checked `P>Q` for each negative controller, but
+this is now a theorem rather than certificate data.  Lean proves
+
+```text
+c<0, w!=[], SignedWordLegal c w, signedRunWord c w=c
+  -> 2^sum(w) < 3^length(w).
+```
+
+Indeed, the fixed affine identity is
+
+```text
+(2^S-3^N)c = affineOffset(w),
+```
+
+the right side is strictly positive for a nonempty word, and `c` is strictly
+negative, forcing `2^S-3^N<0`.  The Boolean controller wrapper now exposes
+`SignedCycleCertificate.supercritical`, so any checked negative controller
+automatically supplies the asymptotic sign required by the bounded-renewal
+consumer.
+
+Full build remains 8,676 jobs.  Both new sign theorems have only the standard
+mathlib axioms in their audit.  No new incoming request appeared after this
+task; the next independent target is to derive all common phase-shape and
+fixed-equation fields from one checked base controller automatically.
