@@ -6554,3 +6554,26 @@ One caution from the bounded family: all sampled local transitions
 `m -> m'` occur for all sampled `h`, so no rank depending on a finite opcode
 window can be monotone universally.  The obstruction must see the global
 series/address tower.
+
+### Round 80 simplification
+
+Lean also proves the candidate digits have the much smaller exact form
+
+```text
+r = 2^23/3^17
+s = 2^154/3^114
+backwardCoeff_t  = r^(m_t) * s^(h_t)
+backwardDefect_t = 1 - r^(m_t).
+```
+
+In particular, the additive digit is completely independent of `h_t`; only
+the prefix weight sees the recharge clock.  The full candidate is therefore
+
+```text
+-sum_t (product_{i<t} r^(m_i)*s^(h_i)) * (1-r^(m_t))
+```
+
+in `Q_2`.  This is the preferred form for a Mahler/substitution recurrence.
+The determinant resonance is `r^154 = 3^4*s^23`, so any block
+renormalization should keep that factor `81` visible rather than treating
+the two weights as algebraically independent.

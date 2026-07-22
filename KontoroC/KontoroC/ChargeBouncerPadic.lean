@@ -48,6 +48,39 @@ def backwardCoeff (c : ChargeBouncerOpcodeSchedule) (t : ℕ) : ℚ :=
 def backwardDefect (c : ChargeBouncerOpcodeSchedule) (t : ℕ) : ℚ :=
   c.gain t / (3 : ℚ) ^ c.ternaryExponent t
 
+/-- The multiplicative digit factors into one defect weight and one recharge
+weight.  This is the useful form for substitution recurrences. -/
+theorem backwardCoeff_factor (c : ChargeBouncerOpcodeSchedule) (t : ℕ) :
+    c.backwardCoeff t =
+      ((2 : ℚ) ^ 23 / (3 : ℚ) ^ 17) ^ c.defect t *
+        ((2 : ℚ) ^ 154 / (3 : ℚ) ^ 114) ^ c.recharge t := by
+  simp only [backwardCoeff, binaryExponent, ternaryExponent, pow_add,
+    pow_mul, div_pow]
+  ring
+
+/-- The additive digit does not depend on the recharge opcode: its entire
+`3^(114h)` factor cancels against the ternary denominator. -/
+theorem backwardDefect_eq_one_sub (c : ChargeBouncerOpcodeSchedule) (t : ℕ) :
+    c.backwardDefect t =
+      1 - ((2 : ℚ) ^ 23 / (3 : ℚ) ^ 17) ^ c.defect t := by
+  have hbase : 2 ^ 23 ≤ 3 ^ 17 := by norm_num
+  have hpow : 2 ^ (23 * c.defect t) ≤ 3 ^ (17 * c.defect t) := by
+    rw [pow_mul, pow_mul]
+    exact Nat.pow_le_pow_left hbase (c.defect t)
+  rw [backwardDefect, gain, ternaryExponent, pow_add,
+    Nat.cast_mul, Nat.cast_sub hpow, Nat.cast_pow, Nat.cast_pow,
+    Nat.cast_pow]
+  simp only [pow_mul, div_pow]
+  field_simp
+  ring
+
+/-- The two symbolic weights have the exact determinant-four resonance
+visible in the executable bouncer. -/
+theorem weight_resonance :
+    ((2 : ℚ) ^ 23 / (3 : ℚ) ^ 17) ^ 154 =
+      3 ^ 4 * ((2 : ℚ) ^ 154 / (3 : ℚ) ^ 114) ^ 23 := by
+  norm_num [div_pow]
+
 theorem binaryExponent_pos (c : ChargeBouncerOpcodeSchedule) (t : ℕ) :
     0 < c.binaryExponent t := by
   exact Nat.add_pos_left

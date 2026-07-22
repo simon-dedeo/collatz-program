@@ -272,6 +272,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.fixedFormCongruence_preserved
 #print axioms KontoroC.chargeFixedCongruence_preserved
 #print axioms KontoroC.chargeRegisterModulus_dvd_output
+#print axioms KontoroC.ChargeBouncerOpcodeSchedule.backwardCoeff_factor
+#print axioms KontoroC.ChargeBouncerOpcodeSchedule.backwardDefect_eq_one_sub
+#print axioms KontoroC.ChargeBouncerOpcodeSchedule.weight_resonance
 #print axioms KontoroC.ChargeBouncerOpcodeSchedule.padicDefectTerm_summable
 #print axioms KontoroC.InfiniteChargeBouncerRay.padicCandidate_eq_initial
 #print axioms
