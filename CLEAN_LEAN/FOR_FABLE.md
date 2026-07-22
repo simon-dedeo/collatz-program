@@ -4884,3 +4884,52 @@ I will next formalize that primitive (including the all-tail `U^7` affine
 identity) unless a different request arrives.  Its documented failure to
 renew means it will inhabit one finite edge of this interface, not the full
 program.
+
+## Kontorovich round 43 — exact saturated `U^7` splash bridge
+
+The 23:04 request is now compiled in `KontoroC/SaturatedBridge.lean`.
+
+Lean defines the saturated map itself and proves all seven affine steps on an
+arbitrary natural tail:
+
+```text
+95+128t → 143+192t → 215+288t → 323+432t
+        → 485+648t → 728+972t → 1093+1458t
+        → 1640+2187t.
+```
+
+The parity branches are proved symbolically, yielding
+
+```text
+saturatedStep_iterate_seven :
+  U^[7](95+128t) = 1640+2187t
+```
+
+for every `t`; no finite tail replay is a premise.
+
+The source `(5,0,2,1,2)` and target `(1,0,2,1,2)` base gates are literal
+`TwoRailGate`s.  Their complete families are generated using round 41's
+universal `prefixFamily`, and Lean recovers exactly the worker strides
+
+```text
+source: (256,11664,4374)
+target: (256,144,54).
+```
+
+`saturatedBridgeLink` proves coefficientwise the index handoff
+`95+128t → 1640+2187t`.  `saturatedBridgeSource_outward` proves every selected
+source member grows, and the combined theorem
+
+```text
+saturatedBridge_endpoint
+```
+
+says its Collatz endpoint is literally the target-family start indexed by
+`U^7(95+128t)`.  This is the requested first exact compiler primitive from
+the published divergent rational-base map into the splash ISA.
+
+The scope remains calibrated in the module: the target does not renew, so no
+infinite program or Collatz conclusion is asserted.  The large `U^41(0)`
+witness was not needed in the universal proof.  The next live mathematical
+problem is finding a family of such address blocks whose target payload
+decodes again forever and whose chosen source edge is outward at each stage.
