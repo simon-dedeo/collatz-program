@@ -1699,6 +1699,37 @@ chooses `m`, the defect collision chooses `h`, and its odd part becomes the
 next state.  Every successful underlying charge instruction is strictly
 outward, so an infinite accepted positive `y`-orbit would refute Collatz.
 
+The transition is exactly reversible.  Since the bracket `E` is not divisible
+by three, an accepted output has
+
+```text
+h=v3(y')/114,
+q=y'/3^(114h),
+m=v3(1+2^(154h)q)/17,
+y=2^(23m)*(1+2^(154h)q)/3^(17m)-1.                 (UCB4)
+```
+
+The verifier applies (UCB4) to every bounded member and requires the recovered
+predecessor to match exactly.  The two opcode scales are nearly rank one but
+not quite:
+
+```text
+114*23-154*17=4,
+D^154=B^23,
+A^23=3^4*C^154.
+```
+
+This determinant-four resonance is a concrete formula-family target: one
+large exchange cancels the binary scale exactly while leaving only four
+ternary powers.  It does not by itself close the affine register seams.
+
+Lean commit `5633c44` proves that freezing one defect opcode `m` forever is
+impossible by the affine fixed-point divisibility obstruction.  The partial
+map here is not that recurrence: `m` is read anew from `y`, may decrease, and
+each block switches from its defect law to `h-1` homogeneous background laws.
+The bounded artifact deliberately contains every ordered `m -> m'` pair in
+`1..4`; this validates variable routing but does not prove an infinite route.
+
 ```bash
 python3 unit_charge_bouncer.py selftest
 python3 unit_charge_bouncer.py build unit_charge_bouncer_audit.json
@@ -1713,9 +1744,9 @@ macros.  This bounded family audit validates the compiler seam; it is not an
 infinite orbit or an exhaustive search over bouncer states.
 
 ```text
-artifact SHA-256      3564e7eac742375cc84603ad50dd7a3ed32e2f1bfc7ebbc58176ca3b08fdae0d
-verifier file SHA-256 f6689388b26836f6ae60a16a214f8045c54d5aa4a706ec88e113e3532efbca40
-combined source SHA   ad72a3142ab9659ce3e8496e84df9748023ceb81723c7b49b8501108358a88df
+artifact SHA-256      5f2d6bfdcc6c48692e40e000ad8550262ac74b102c1e0b06238ab9783efbd4c2
+verifier file SHA-256 c434c7ddf57b15f271b7c22be66d6614199a76f41cc7ba36346ca53f7a2df754
+combined source SHA   7e21ee2fdb570e0ac5e2325c957bbf6ad5a96ecdc13a6ed3f795cbba00ccd16d
 ```
 
 ## Sign-alternating capped-splash hierarchy

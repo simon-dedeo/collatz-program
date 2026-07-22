@@ -23,6 +23,7 @@
     "fixed_form_packet_offset": 366766579225366411815189125828808709731081605975236237,
     "register_offset": 499379675639703663139777
   },
+  "exponent_determinant": "114*23-154*17=4; equivalently 2^(23*154)=2^(154*23) and 3^(114*23)=3^4*3^(17*154)",
   "families": [
     {
       "background_cells": 0,
@@ -740,6 +741,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 2,
       "output_y_bits": 612,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -751,6 +753,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 2,
       "output_y_bits": 617,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -762,6 +765,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 3,
       "output_y_bits": 635,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -773,6 +777,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 3,
       "output_y_bits": 640,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -784,6 +789,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 4,
       "output_y_bits": 661,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -795,6 +801,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 4,
       "output_y_bits": 663,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -806,6 +813,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 5,
       "output_y_bits": 686,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -817,6 +825,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 5,
       "output_y_bits": 687,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -828,6 +837,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 2,
       "output_y_bits": 797,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -839,6 +849,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 2,
       "output_y_bits": 798,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -850,6 +861,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 3,
       "output_y_bits": 819,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -861,6 +873,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 3,
       "output_y_bits": 821,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -872,6 +885,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 4,
       "output_y_bits": 842,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -883,6 +897,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 4,
       "output_y_bits": 844,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -894,6 +909,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 5,
       "output_y_bits": 866,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -905,6 +921,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 5,
       "output_y_bits": 867,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -916,6 +933,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 2,
       "output_y_bits": 977,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -927,6 +945,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 2,
       "output_y_bits": 979,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -938,6 +957,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 3,
       "output_y_bits": 1000,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -949,6 +969,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 3,
       "output_y_bits": 1002,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -960,6 +981,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 4,
       "output_y_bits": 1024,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -971,6 +993,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 4,
       "output_y_bits": 1025,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -982,6 +1005,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 5,
       "output_y_bits": 1047,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -993,6 +1017,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 5,
       "output_y_bits": 1048,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1004,6 +1029,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 2,
       "output_y_bits": 1158,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1015,6 +1041,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 2,
       "output_y_bits": 1159,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1026,6 +1053,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 3,
       "output_y_bits": 1181,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1037,6 +1065,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 3,
       "output_y_bits": 1182,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1048,6 +1077,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 4,
       "output_y_bits": 1204,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1059,6 +1089,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 4,
       "output_y_bits": 1206,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1070,6 +1101,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 5,
       "output_y_bits": 1227,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1081,6 +1113,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 5,
       "output_y_bits": 1228,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1092,6 +1125,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 2,
       "output_y_bits": 643,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1103,6 +1137,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 2,
       "output_y_bits": 644,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1114,6 +1149,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 3,
       "output_y_bits": 664,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1125,6 +1161,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 3,
       "output_y_bits": 667,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1136,6 +1173,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 4,
       "output_y_bits": 689,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1147,6 +1185,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 4,
       "output_y_bits": 690,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1158,6 +1197,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 5,
       "output_y_bits": 710,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1169,6 +1209,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 5,
       "output_y_bits": 713,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1180,6 +1221,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 2,
       "output_y_bits": 823,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1191,6 +1233,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 2,
       "output_y_bits": 825,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1202,6 +1245,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 3,
       "output_y_bits": 847,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1213,6 +1257,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 3,
       "output_y_bits": 848,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1224,6 +1269,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 4,
       "output_y_bits": 869,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1235,6 +1281,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 4,
       "output_y_bits": 871,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1246,6 +1293,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 5,
       "output_y_bits": 893,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1257,6 +1305,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 5,
       "output_y_bits": 894,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1268,6 +1317,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 2,
       "output_y_bits": 1005,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1279,6 +1329,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 2,
       "output_y_bits": 1006,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1290,6 +1341,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 3,
       "output_y_bits": 1027,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1301,6 +1353,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 3,
       "output_y_bits": 1029,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1312,6 +1365,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 4,
       "output_y_bits": 1051,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1323,6 +1377,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 4,
       "output_y_bits": 1052,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1334,6 +1389,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 5,
       "output_y_bits": 1071,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1345,6 +1401,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 5,
       "output_y_bits": 1074,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1356,6 +1413,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 2,
       "output_y_bits": 1184,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1367,6 +1425,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 2,
       "output_y_bits": 1186,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1378,6 +1437,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 3,
       "output_y_bits": 1208,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1389,6 +1449,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 3,
       "output_y_bits": 1210,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1400,6 +1461,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 4,
       "output_y_bits": 1229,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1411,6 +1473,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 4,
       "output_y_bits": 1232,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1422,6 +1485,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 5,
       "output_y_bits": 1255,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1433,6 +1497,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 5,
       "output_y_bits": 1256,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1444,6 +1509,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 2,
       "output_y_bits": 667,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1455,6 +1521,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 2,
       "output_y_bits": 671,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1466,6 +1533,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 3,
       "output_y_bits": 692,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1477,6 +1545,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 3,
       "output_y_bits": 694,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1488,6 +1557,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 4,
       "output_y_bits": 716,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1499,6 +1569,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 4,
       "output_y_bits": 717,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1510,6 +1581,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 5,
       "output_y_bits": 739,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1521,6 +1593,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 5,
       "output_y_bits": 740,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1532,6 +1605,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 2,
       "output_y_bits": 850,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1543,6 +1617,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 2,
       "output_y_bits": 852,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1554,6 +1629,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 3,
       "output_y_bits": 873,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1565,6 +1641,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 3,
       "output_y_bits": 875,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1576,6 +1653,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 4,
       "output_y_bits": 896,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1587,6 +1665,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 4,
       "output_y_bits": 898,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1598,6 +1677,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 5,
       "output_y_bits": 919,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1609,6 +1689,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 5,
       "output_y_bits": 921,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1620,6 +1701,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 2,
       "output_y_bits": 1031,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1631,6 +1713,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 2,
       "output_y_bits": 1033,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1642,6 +1725,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 3,
       "output_y_bits": 1051,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1653,6 +1737,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 3,
       "output_y_bits": 1055,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1664,6 +1749,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 4,
       "output_y_bits": 1078,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1675,6 +1761,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 4,
       "output_y_bits": 1079,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1686,6 +1773,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 5,
       "output_y_bits": 1100,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1697,6 +1785,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 5,
       "output_y_bits": 1101,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1708,6 +1797,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 2,
       "output_y_bits": 1211,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1719,6 +1809,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 2,
       "output_y_bits": 1213,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1730,6 +1821,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 3,
       "output_y_bits": 1234,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1741,6 +1833,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 3,
       "output_y_bits": 1236,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1752,6 +1845,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 4,
       "output_y_bits": 1258,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1763,6 +1857,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 4,
       "output_y_bits": 1259,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1774,6 +1869,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 5,
       "output_y_bits": 1282,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1785,6 +1881,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 5,
       "output_y_bits": 1283,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1796,6 +1893,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 2,
       "output_y_bits": 695,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1807,6 +1905,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 2,
       "output_y_bits": 698,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1818,6 +1917,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 3,
       "output_y_bits": 719,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1829,6 +1929,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 3,
       "output_y_bits": 721,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1840,6 +1941,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 4,
       "output_y_bits": 739,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1851,6 +1953,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 4,
       "output_y_bits": 744,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1862,6 +1965,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 5,
       "output_y_bits": 764,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1873,6 +1977,7 @@
       "original_unit_macros_replayed": 2,
       "output_defect_cells": 5,
       "output_y_bits": 767,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1884,6 +1989,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 2,
       "output_y_bits": 874,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1895,6 +2001,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 2,
       "output_y_bits": 878,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1906,6 +2013,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 3,
       "output_y_bits": 900,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1917,6 +2025,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 3,
       "output_y_bits": 902,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1928,6 +2037,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 4,
       "output_y_bits": 919,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1939,6 +2049,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 4,
       "output_y_bits": 924,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1950,6 +2061,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 5,
       "output_y_bits": 947,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1961,6 +2073,7 @@
       "original_unit_macros_replayed": 4,
       "output_defect_cells": 5,
       "output_y_bits": 948,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1972,6 +2085,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 2,
       "output_y_bits": 1058,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -1983,6 +2097,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 2,
       "output_y_bits": 1059,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -1994,6 +2109,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 3,
       "output_y_bits": 1078,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -2005,6 +2121,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 3,
       "output_y_bits": 1082,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -2016,6 +2133,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 4,
       "output_y_bits": 1103,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -2027,6 +2145,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 4,
       "output_y_bits": 1105,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -2038,6 +2157,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 5,
       "output_y_bits": 1128,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -2049,6 +2169,7 @@
       "original_unit_macros_replayed": 6,
       "output_defect_cells": 5,
       "output_y_bits": 1129,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -2060,6 +2181,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 2,
       "output_y_bits": 1239,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -2071,6 +2193,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 2,
       "output_y_bits": 1240,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -2082,6 +2205,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 3,
       "output_y_bits": 1262,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -2093,6 +2217,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 3,
       "output_y_bits": 1263,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -2104,6 +2229,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 4,
       "output_y_bits": 1283,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -2115,6 +2241,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 4,
       "output_y_bits": 1286,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     },
@@ -2126,6 +2253,7 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 5,
       "output_y_bits": 1306,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 0
     },
@@ -2137,10 +2265,12 @@
       "original_unit_macros_replayed": 8,
       "output_defect_cells": 5,
       "output_y_bits": 1309,
+      "reverse_readback_checked": true,
       "strict_outwardness_checked": true,
       "tail": 1
     }
   ],
+  "reverse_readback": "h=v3(y')/114; q=y'/3^(114*h); m=v3(1+2^(154*h)*q)/17; y=2^(23*m)*(1+2^(154*h)*q)/3^(17*m)-1",
   "schema": "collatz-unit-charge-bouncer-v1",
-  "verifier_sha256": "ad72a3142ab9659ce3e8496e84df9748023ceb81723c7b49b8501108358a88df"
+  "verifier_sha256": "7e21ee2fdb570e0ac5e2325c957bbf6ad5a96ecdc13a6ed3f795cbba00ccd16d"
 }

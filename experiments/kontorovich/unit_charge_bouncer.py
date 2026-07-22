@@ -35,8 +35,11 @@ The fixed register is encoded by y=0 (mod M), y=-1 (mod F), where
 This worker constructs complete bounded transition families in two ways:
 the displayed partial map and literal compositions of charge branches.  It
 replays every bounded member through the charge layer and its underlying two
-unit macros.  Any infinite accepted positive y-orbit would be an infinite
-outward ordinary Collatz macro-orbit.  No such orbit is supplied.
+unit macros.  The map is exactly reversible on accepted transitions:
+``v3(y')=114h`` and, after removing that power, the predecessor count is read
+from one further 3-adic valuation.  Any infinite accepted positive y-orbit
+would be an infinite outward ordinary Collatz macro-orbit.  No such orbit is
+supplied.
 """
 
 from __future__ import annotations
@@ -101,6 +104,17 @@ class BouncerStep:
     output_y: int
 
 
+def vp(value: int, prime: int) -> int:
+    if value == 0:
+        raise ValueError("valuation of zero is not used")
+    exponent = 0
+    value = abs(value)
+    while value % prime == 0:
+        value //= prime
+        exponent += 1
+    return exponent
+
+
 def as_macro(branch: ChargeBranch) -> AffineMacro:
     return AffineMacro(
         cells=branch.cells,
@@ -141,6 +155,10 @@ def constants() -> dict[str, int]:
         raise AssertionError("charge stride lost its difference factor")
     if (F * isa.register_offset - TWO_26) % isa.register_stride:
         raise AssertionError("fixed form is not integral on the register")
+    if pow(D, 154) != pow(B, 23):
+        raise AssertionError("binary bouncer exponents lost rank-one relation")
+    if pow(A, 23) != 81 * pow(C, 154):
+        raise AssertionError("ternary bouncer determinant is no longer four")
     return {
         "A": A,
         "B": B,
@@ -204,6 +222,34 @@ def bouncer_step(y: int) -> BouncerStep:
         input_y=y,
         output_y=output,
     )
+
+
+def reverse_bouncer_step(output: int) -> BouncerStep:
+    """Recover the unique predecessor and both opcodes of an accepted step."""
+    defect_phase(output)
+    ternary_valuation = vp(output, 3)
+    if ternary_valuation < 114 or ternary_valuation % 114:
+        raise ValueError("bouncer output has no recharge readback")
+    h = ternary_valuation // 114
+    odd = output // pow(A, h)
+    if odd % 3 == 0:
+        raise AssertionError("bouncer odd collision quotient retained a three")
+    reverse_collision = 1 + pow(B, h) * odd
+    reverse_valuation = vp(reverse_collision, 3)
+    if reverse_valuation < 17 or reverse_valuation % 17:
+        raise ValueError("bouncer output has no defect readback")
+    m = reverse_valuation // 17
+    predecessor = (
+        pow(D, m) * (reverse_collision // pow(C, m)) - 1
+    )
+    forward = bouncer_step(predecessor)
+    if (
+        forward.output_y != output
+        or forward.input_defect_cells != m + 1
+        or forward.background_cells != h - 1
+    ):
+        raise AssertionError("bouncer reverse readback failed")
+    return forward
 
 
 def block_macro(defect_cells: int, background_cells: int) -> AffineMacro:
@@ -293,6 +339,9 @@ def replay_transition(family: BouncerTransition, tail: int) -> dict[str, object]
         or formula.output_y != output_y
     ):
         raise AssertionError("fixed-form bouncer disagrees with macro replay")
+    reverse = reverse_bouncer_step(output_y)
+    if reverse.input_y != input_y:
+        raise AssertionError("bouncer readback did not recover its predecessor")
     input_register = isa.register_offset + isa.register_stride * packet
     output_register = isa.register_offset + isa.register_stride * state
     if output_register <= input_register:
@@ -307,6 +356,7 @@ def replay_transition(family: BouncerTransition, tail: int) -> dict[str, object]
         "charge_macros_replayed": charge_macros,
         "original_unit_macros_replayed": original_unit_macros,
         "strict_outwardness_checked": True,
+        "reverse_readback_checked": True,
     }
 
 
@@ -351,6 +401,15 @@ def build_certificate(
             "m=v2(y+1)/23; E=3^(17*m)*(y+1)-2^(23*m); "
             "h=(v2(E)-23*m)/154; y'=3^(114*h)*oddpart(E); "
             "accept positive integral m,h and another defect phase"
+        ),
+        "reverse_readback": (
+            "h=v3(y')/114; q=y'/3^(114*h); "
+            "m=v3(1+2^(154*h)*q)/17; "
+            "y=2^(23*m)*(1+2^(154*h)*q)/3^(17*m)-1"
+        ),
+        "exponent_determinant": (
+            "114*23-154*17=4; equivalently 2^(23*154)=2^(154*23) "
+            "and 3^(114*23)=3^4*3^(17*154)"
         ),
         "conditional_disproof": (
             "an infinite accepted positive bouncer orbit compiles to an "

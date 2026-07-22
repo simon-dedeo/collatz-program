@@ -1945,6 +1945,44 @@ unit macros.  No infinite accepted orbit is supplied.  The fixed-form
 bouncer, rather than a ninth nested charge level, is now the primary
 formula-family target.
 
+Accepted transitions also carry an exact reverse decoder.  Since the odd
+quotient in (69w) is not divisible by three, write
+
+```text
+h=v_3(y')/114,
+q=y'/3^(114h).
+```
+
+Then
+
+```text
+m=v_3(1+2^(154h)q)/17,
+y=2^(23m)(1+2^(154h)q)/3^(17m)-1.                 (69x)
+```
+
+Equation (69x) recovers the unique predecessor.  The opcode matrix has the
+small determinant
+
+```text
+114*23-154*17=4,                                   (69y)
+```
+
+or equivalently `2^(23*154)=2^(154*23)` while
+`3^(114*23)=3^4*3^(17*154)`.  This makes the resonance rays
+`(m,h)=(154t,23t)` and `(114t,17t)` the first formula-scale bouncer targets:
+one radix cancels exactly and the other leaves only a fourth power.  The
+remaining affine seam is essential; (69y) alone is not a transition or an
+orbit.
+
+Lean commit `5633c44` closes the frozen-opcode specialization.  For any fixed
+`m`, the positive affine-gain recurrence has a fixed-point defect satisfying
+`B delta'=A delta`; coprimality would force arbitrarily large powers of `B`
+to divide one positive natural.  This does not instantiate on (69v)--(69w):
+`m` may decrease or oscillate, and one block deliberately changes from its
+`m`-defect law to `h-1` homogeneous background laws.  The artifact includes
+all ordered pairs `m,m'<=4`, including strict decreases; no monotonic opcode
+rank is assumed.
+
 The remaining obstruction is now a programming-language condition rather
 than a missing collision gadget.  Reading (69e) from right to left, one
 instruction pops the required low binary word `z` and pushes a power-of-three

@@ -4713,3 +4713,64 @@ the finite telescope through `h-1` homogeneous backgrounds.  The large
 concrete offset divisibility can remain research-side.  Please do not infer
 an infinite orbit: the new result is an exact autonomous partial map, and an
 infinite positive accepted `y` sequence is precisely the missing witness.
+
+## Kontorovich request: reverse bouncer decoder (2026-07-22 06:16 EDT)
+
+The accepted fixed-form step is injective by elementary valuation readback.
+If the forward transition has
+
+```text
+E=3^(17*m)*(y+1)-2^(23*m),
+v2(E)=23*m+154*h,
+y'=3^(114*h)*E/2^(23*m+154*h),
+```
+
+then `E/2^(...)` is not divisible by three.  Hence
+
+```text
+h=v3(y')/114,
+q=y'/3^(114*h).
+```
+
+Rearranging the forward identity gives
+
+```text
+3^(17*m)*(y+1)=2^(23*m)*(1+2^(154*h)*q).
+```
+
+Because `y=0 (mod 3)`, it follows that
+
+```text
+m=v3(1+2^(154*h)*q)/17,
+y=2^(23*m)*(1+2^(154*h)*q)/3^(17*m)-1.
+```
+
+If cheap, a generic forward-then-reverse theorem would make the bouncer's
+information preservation kernel-checked.  The research verifier now checks
+this on all bounded macro members.  The arithmetic resonance
+`114*23-154*17=4` is only a search clue, not a theorem claiming an orbit.
+
+### Semantic audit against rounds 68--70
+
+The new `m` is **not** the recursive hierarchy level.  The bouncer remains at
+one fixed level-two charge register.  Here `m=N-1` is the variable defect
+opcode read from `v2(y+1)`; after that one defect, the same transition executes
+`h-1` copies of the *different* homogeneous one-cell law.  Thus successive
+positive `Z` states do not all obey one fixed affine-gain recurrence unless
+the opcode schedule has been artificially frozen.
+
+Nor is `m` known or intended to be nondecreasing.  The exact artifact contains
+all transitions `m -> m'` with `m,m'=1..4`, including strict decreases and
+oscillations.  So `MonotoneFixedFormDispatcher` is not presently instantiated:
+
+- hierarchy level: fixed at two;
+- defect opcode `m`: variable and potentially decreasing;
+- affine law within a block: one `m`-defect, then `h-1` homogeneous backgrounds;
+- ordinary control state: the evolving unbounded positive integer `y`.
+
+Round 68 correctly closes repetition of one fixed `m`/affine law, already a
+periodic sublane.  Round 69 correctly closes increasing canonical hierarchy
+addresses.  The reversible two-valuation map deliberately lies between those
+interfaces.  A useful next formal question is whether its exact forward and
+reverse equations imply any monotone *derived* rank despite oscillating `m`;
+none is currently known research-side.
