@@ -352,6 +352,32 @@ nvcc -O3 -std=c++17 mersenne_packet_gpu.cu -o mersenne_packet_gpu
 python3 verify_mersenne_packet_gpu.py mersenne_packet_gpu_results.json
 ```
 
-`psc_mersenne_packet.sbatch` is the H100 launch prescription.  This section
-describes a running search, not a result; bounds and counts will move to the
-headline table only after a complete artifact passes replay.
+`psc_mersenne_packet.sbatch` is the H100 launch prescription.  The first full
+run completed on Akdeniz's RTX 4090 and checked exactly
+`34,359,738,368=2^35` odd packets.  Its overflow counter is zero.  Of 243
+chains with at least six renewals, exactly three have seven and none has eight;
+the Python verifier replays all 243.  One length-seven example is
+
+```text
+initial h: 15301803983
+seed:      30603607965
+extras:    2,1,3,2,2,2,1
+states:    30603607965 -> 11476352987 -> 12910897111 -> 5446784719
+           -> 6893586911 -> 13087043903 -> 37267402367
+           -> 318374253823.
+```
+
+The final four macrosteps grow.  The eighth renewal fails, and exact
+continuation of the seed reaches `1` after 152 accelerated steps with peak
+`5,439,722,602,445`.  Thus the artifact is a complete bounded census and a
+source of state-dependent motifs, not a counterexample.
+
+Provenance hashes:
+
+```text
+artifact  2769cce1866927c863b02626e561a6876b6289a6171ce7096e0045ea37e189bf
+CUDA      f5e9bb3054dbf0b29247154a5ac3f90c614880e41ff58a71e3643d49e6c668a5
+verifier  de52aab1c97921484d8e547d1cb4609c29a2ef735a8f60fa2dbe66b9a2eaf919
+```
+
+PSC H100 job `42500602` is retained as an independent device rerun.

@@ -154,6 +154,7 @@ identically `x`.
 | Bounded `-1`/Mersenne shadow grammar | `376,800` positive paths checked exactly for start levels `1..100`, extras `1..12`, and depth at most three. There are 522 terminal renewals, 80 seed stabilizations, and three all-outward stabilization events; none supplies a second stabilized extension. The best finite run reaches `1` on exact continuation. | [`mersenne_shadow_results.json`](experiments/kontorovich/mersenne_shadow_results.json) |
 | Constant-extra Mersenne feedback | All `51,200` compiled paths for start levels `1..20`, constant extras `1..32`, depths `1..40`, and both mod-6 classes were checked. The unique two-extension event is seed `121` for extra `1`; its fifth macro fails and exact continuation reaches `1`. | [`mersenne_constant_results.json`](experiments/kontorovich/mersenne_constant_results.json) |
 | Short-period Mersenne feedback | All `2,726,400` prefixes from 568 primitive extra templates of period at most three over `{1,...,8}`, start levels `1..30`, depths `1..80`, and both mod-6 classes were checked in compressed exact arithmetic; every hit was literally replayed. No template improves the constant-`1` two-extension event or the `(4,3,1)` outward event. | [`mersenne_periodic_results.json`](experiments/kontorovich/mersenne_periodic_results.json) |
+| Direct state-dependent packet census | CUDA exhaustively checked all `2^35=34,359,738,368` odd packets `h<2^36` from start level one through an eight-renewal horizon, with zero arithmetic overflows. Python big-integer replay verified all 243 hits of length at least six. Exactly three have length seven; none has length eight. | [`mersenne_packet_gpu_akdeniz.json`](experiments/kontorovich/mersenne_packet_gpu_akdeniz.json) |
 | Small regular invariant sets | Previously closed only in the stated exhaustive classes: no base-2 DFA divergence certificate through eight states and no base-3 certificate through five. One-counter and genuinely morphic single-orbit certificates remain open. | [Base 2](experiments/dfacert/README.md), [base 3](experiments/dfacert3/README.md) |
 
 The first work product will be an exact `k`-word compiler and cycle/glider
@@ -181,6 +182,7 @@ positive integer and its claimed behavior are machine-checked.
 | Kernel phase-shadow disproof seam | Lean commits `3d9cedc` through `d6fb8b2` prove the exact shifted-coordinate macro and the literal Collatz negation from any infinite bounded-extra renewal after an arbitrary finite prefix. Signed cycles automatically supply supercriticality and all rotated phases. No infinite renewal witness is known. |
 | Kernel Mersenne-shadow seam | Lean commit `768f4d0` checks the signed `(-1,[1])` controller, proves the worker's exact Mersenne macro identity, and proves `MersenneShadowOrbit.not_conjecture` from infinite renewal data. It also kernel-replays the `24,017,279` event and its level-10 failure. |
 | Pure packet-recurrence endpoint | Lean commits `32a0896`--`a2652f2` reduce a Mersenne disproof to positive odd packets and bounded extras satisfying `2^e(2^(m+1)h'-1)=3^m h-1` at every level. Lean derives exact legality, transitions, eventual packet growth, the unique necessary class of `h' mod 3^m`, and the literal Collatz refutation. |
+| Seven-renewal state-dependent motif | Exact seed `30,603,607,965` has extras `(2,1,3,2,2,2,1)` and seven renewed Mersenne packet levels; its final four macrosteps grow and end at `318,374,253,823`. The eighth renewal fails, and exact continuation reaches `1` after 152 accelerated steps. |
 
 The compiler and certificate seam is now live.  The dependency-free
 [`path_compiler.py`](experiments/kontorovich/path_compiler.py) reproduces the
@@ -219,6 +221,20 @@ for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
 
+### 2026-07-21 20:51 EDT
+
+Completed the first direct state-dependent packet census on Akdeniz's RTX
+4090: all `34,359,738,368` odd packets below `2^36`, eight renewal attempts
+each, zero 64-bit overflows.  Independent Python big-integer replay verifies
+all 243 six-or-more-renewal hits.  Three reach seven renewals and none reaches
+eight; the best finite tail has four consecutive outward macros but then fails
+and reaches `1`.  Exact bounds and hashes are in the [experiment
+guide](experiments/kontorovich/README.md#direct-gpu-packet-census).  PSC H100
+job `42500602` remains queued as a hardware-independent rerun, while the two
+nonuniform-morphism jobs continue.  Next: mine the three length-seven packet
+chains against Lean's modulo-`3^m` scheduler for a compact state-dependent
+feedback invariant.
+
 ### 2026-07-21 20:08 EDT
 
 Added the previously omitted signed fixed controller `-1`, which encodes long
@@ -251,12 +267,9 @@ extension event, and `(4,3,1)` remains the best outward event.  Lean commits
 provide a modulo-`3^m` scheduler; state-dependent arithmetic feedback is now
 the active Mersenne lane.
 
-An exact direct packet census is now running on Akdeniz and queued as PSC H100
-job `42500602`.  It covers every odd `h<2^36` from start level one, tests up to
-eight renewals with checked unsigned arithmetic and an explicit overflow
-counter, and records every chain of length at least six for independent Python
-big-integer replay.  No result will enter the headline table until the full
-range completes and the replay verifier passes.
+The direct Akdeniz packet census described below has now completed and passed
+independent replay.  PSC H100 job `42500602` remains queued as an independent
+rerun of the same range.
 
 ### 2026-07-21 19:54 EDT
 

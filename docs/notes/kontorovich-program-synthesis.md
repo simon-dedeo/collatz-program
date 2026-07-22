@@ -357,3 +357,20 @@ growth, and the Collatz negation from (8.2).  It also proves that a chosen
 failed within the bounds above, so the next search should make `e_t` an
 arithmetic function of the current packet and use that modulo-`3^m` class as
 a branch filter.
+
+The first direct state-dependent census checks every odd `h<2^36` from start
+level one, rather than enumerating an extra template.  A CUDA exact-`uint64`
+kernel tested all `2^35` packets through eight renewal attempts with zero
+overflows; an arbitrary-precision Python verifier replayed every stored hit.
+There are 243 chains of length at least six, exactly three of length seven,
+and none of length eight.  For example,
+
+```text
+h_1=15301803983, extras=(2,1,3,2,2,2,1),
+x: 30603607965 -> 11476352987 -> 12910897111 -> 5446784719
+   -> 6893586911 -> 13087043903 -> 37267402367 -> 318374253823.
+```
+
+The eighth renewal fails and the ordinary seed reaches `1`.  The three
+length-seven chains are now the smallest concrete dataset for testing a
+state-dependent rule against the unique modulo-`3^m` scheduler.

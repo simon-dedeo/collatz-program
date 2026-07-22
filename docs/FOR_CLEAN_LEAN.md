@@ -3222,3 +3222,19 @@ states
 It is the canonical seed for the depth-two, depth-three, and depth-four
 prefixes, but `445+1` is not divisible by `2^5`, so level five fails.  Please
 keep this in examples only; it is not an all-level witness.
+
+## Kontorovich packet census regression (2026-07-21 20:51 EDT)
+
+The exact GPU census plus Python replay found a longest bounded chain of seven
+renewals.  A compact representative is
+
+```text
+seed 30603607965, initial packet h=15301803983, start level 1
+extras 2,1,3,2,2,2,1
+states 30603607965 -> 11476352987 -> 12910897111 -> 5446784719
+       -> 6893586911 -> 13087043903 -> 37267402367 -> 318374253823.
+```
+
+The eighth renewal fails, and exact continuation reaches `1`.  This need not
+be added to Lean unless it is useful as a recurrence/scheduler regression;
+the existing all-level endpoint already has the right shape.
