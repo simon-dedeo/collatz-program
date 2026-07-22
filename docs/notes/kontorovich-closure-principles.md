@@ -455,6 +455,242 @@ mechanism is therefore a two-stack or round-trip transducer which converts
 the emitted ternary register into the next binary delimiter.  A complete
 write alphabet without this feedback is not enough.
 
+### 5.1 The ordinary-address gate is a coboundary problem
+
+There is a more constructive alternative to watching longer dyadic prefixes.
+In the canonical cofactor coordinate, any opcode chain has
+
+```text
+2^P_i w_(i+1)=3^Q_i w_i+s_i,
+s_i=2^(154h_i)-3^(114h_i).                        (CP6)
+```
+
+Backward unrolling gives one forced 2-adic candidate
+
+```text
+w_0 = -sum_(i>=0)
+  s_i * 2^(sum_(j<i) P_j) / 3^(sum_(j<=i) Q_j).   (CP7)
+```
+
+The series converges 2-adically because every `P_i>0`.  An ordinary program
+requires this value not merely to exist in `Q_2`, but to be the embedded
+positive integer satisfying the public register conditions.  This reframes
+the search as **rationality engineering**:
+
+The hardware already exposes a near-coboundary.  With
+`a_i=2^P_i/3^Q_i`, direct cancellation gives
+
+```text
+-s_i/3^Q_i = 3^(-17m_i)-a_i*2^(-23m_(i+1)).       (CP8)
+```
+
+The obstruction is therefore not arbitrary debris: the two ends use
+different canonical charts, ternary on entry and binary on exit.  A genuine
+resonant glider must align those two potentials across successive cells.
+
+- a p-adic irrationality theorem closes a whole scheduled family at once;
+- a construction should try to make the summand a public coboundary
+  `Phi_i-a_i*Phi_(i+1)`, so CP7 telescopes to a
+  rational—and ultimately integral—initial state; and
+- finite prefix agreement is useful only as evidence for such a telescoping
+  identity or for a nonzero-lift obstruction.
+
+This is the algebraic form of “splash, scrub, reseed.”  The collision debris
+must be banked as the difference of two successive public potentials, not
+cancelled by a newly chosen future residue.  Fixed-rate counter policies tend
+to produce partial-theta series; payload-dependent variable jumps are useful
+only if they change CP7 into an exact coboundary or another provably rational
+series.
+
+The determinant-four phase-up family demonstrates this exactly.  For every
+fixed `k>=1`, `m_i=m_0+4ki` and `h=391k+1` turn CP7 into a nonzero rational
+multiple of
+
+```text
+f_(3^(68k)/2^(92k))
+  (2^(23m_0+154h)/3^(17m_0+114h)).                (CP9)
+```
+
+Lean commit `466e381` checks the public-step bridge, completed `Q_2` series,
+and coefficientwise CP9 identification.  The inspected main theorem of
+Väänänen--Wallisser (1989), pp. 200--201, makes CP9 irrational under an exact
+audited size inequality.  Thus the fixed-jump counter is closed with that
+external theorem as the explicit seam.  A surviving resonant controller must
+change its jump or direction from public payload infinitely often.
+
+There is a second, more elementary constraint on opcode chaining.  Write
+
+```text
+tau_m   = C^(-m),            beta_m = D^(-m),
+a_i     = B^(h_i) D^(m_(i+1)) / (A^(h_i) C^(m_i)),
+Delta_m = tau_m-beta_m < 0.                          (CP10)
+```
+
+Dividing PC4 gives the exact **typed interface law**
+
+```text
+w_i-tau_(m_i) = a_i (w_(i+1)-beta_(m_(i+1))).       (CP11)
+```
+
+Thus every ordinary forward cell has the same type: ternary entry potential
+to binary exit potential.  It is not a binary-to-ternary adapter.  If
+`A_j=product_(i<j) a_i`, a word of `N` cells satisfies
+
+```text
+w_0-tau_(m_0)
+  = sum_(1<=j<N) A_j Delta_(m_j)
+      + A_N (w_N-beta_(m_N)).                       (CP12)
+```
+
+Every internal interface tax in CP12 is strictly negative in the ordinary
+real ordering, since `3^17>2^23`.  Consequently no choice of recharges,
+jumps, or directions can make a multi-cell word into a *clean* bare chart adapter
+by termwise cancellation: chaining more copies of the same opcode type only
+accumulates the ternary/binary mismatch.  This does not rule out a nonlocal
+2-adic cancellation or an ordinary orbit.  It does rule out a tempting but
+weaker closure plan in which a clever four-letter word is expected to
+telescope solely because its phase returns.
+
+This tax is not a new mysterious constant.  It is exactly the normalized
+defect polynomial already found in the opcode semigroup:
+
+```text
+Delta_m = -(C-D) H_m/(C^m D^m),
+H_m=(C^m-D^m)/(C-D).                              (CP12a)
+```
+
+The Lucas law `H_(m+n)=C^n H_m+D^m H_n` explains both facts at once:
+recharge-free opcode chaining merely banks more positive defect and remembers
+only total length.  Cancellation requires an operation outside that positive
+semigroup.  The signed intercept in a parallel-branch conjugacy is a concrete
+place where such an opposite correction can enter.
+
+The constructive object must therefore carry an adapter in its payload.  If
+`Phi_i=tau_(m_i)+e_i` is a proposed public potential, its correction rail must
+obey
+
+```text
+e_i = a_i (e_(i+1)+Delta_(m_(i+1))).                (CP13)
+```
+
+and make `Phi_i` an ordinary positive cofactor at every state.  An affine
+resonant embedding, paired rail, or turnaround is useful precisely when its
+intercept supplies the missing positive correction in CP13.  This is a more
+discriminating opcode type system than matching source and target phases:
+period four is merely the first schedule not excluded by the present
+multi-theta estimate, whereas a genuine program needs a public CP13 adapter.
+
+The determinant-four conjugacies carry a second conserved-resource test.
+Their two charts begin `2622k` phase units apart but end only `2618k` apart.
+Composing such parallel cells therefore requires
+
+```text
+1311 k_(i+1)=1309 k_i.                            (CP14)
+```
+
+Since the two coefficients are coprime, `N` cells force `1311^N` to divide
+the first positive jump.  An infinite ladder of these cells is impossible
+before any tail arithmetic is considered.  In the spatial metaphor, the
+current resonant opcode moves a boundary but consumes chart separation.  A
+reproducing instruction set needs a phase booster with the inverse expansion,
+not just a richer word over phase-up and phase-down cells.
+
+At word level, that booster has a necessary signed-area law.  If two
+length-`N` words have equal total binary and ternary exponents and their
+boundary phase differences are `d_0,...,d_N`, elimination of the recharge
+differences gives
+
+```text
+1311 d_N-1309 d_0=-2 sum_(0<i<N) d_i.             (CP15)
+```
+
+Positive endpoint separation can therefore be regenerated only by crossing
+the charts somewhere inside the word.  The two-opcode family
+`W_r=[(r,h0,L-r),(L-r,h1,r+d)]` realizes the minimal sign pattern
+`(d,-d,d)` and has total gains independent of `r`.  The bounded exact
+phase-swap artifact verifies two adjacent *parallel* affine conjugacy squares
+at `L=4,d=h0=h1=1`.  It also proves that their embedded next-source tail
+strictly outruns the current output in both constant and slope, so the squares
+do not hand off along the advertised conjugacy.  The sign crossing solves the
+exponent budget, not the typed/cylinder handoff.  A live construction must
+first make the node-gauge correction compose, and then convert the exhausted
+middle phase into a larger public `L'` rather than load a fresh delay
+externally.
+
+### 5.2 Chaining is a renormalization, not yet a program
+
+The failed conjugacy reveals a distinction which every opcode search should
+make first.  A compiled word has one source cylinder and one output ray,
+
+```text
+x=rho+2^P u  ->  y=sigma+3^Q u.                  (CP16)
+```
+
+To execute a second word with source `rho'+2^P' v`, the actual dynamic
+handoff is
+
+```text
+sigma+3^Q u = rho'+2^P' v.                       (CP17)
+```
+
+This is not the conjugacy equation between two parallel maps.  Since the two
+coefficients are coprime, CP17 always has an integer solution lattice.  Once
+one nonnegative base pair `(u_0,v_0)` is chosen, all its forward solutions are
+
+```text
+u=u_0+2^P' t,       v=v_0+3^Q t.                 (CP18)
+```
+
+The updated phase-swap artifact constructs and replays CP18 for both adjacent
+word pairs.  Thus the Lean no-link theorem has a precise scope: the
+*conjugacy-selected* next source never meets the current output.  Other finite
+links exist, but they pay for themselves by selecting a fresh dyadic cylinder.
+
+This is the fundamental renormalization law for opcode chaining.  The map on
+surviving parameters in CP18 has exactly the same form as the original
+hardware: read a binary address, then write an odd ternary-scaled tail.  Any
+finite list of compatible opcodes can therefore be compiled into a larger
+macro-opcode.  That fact is almost free and is not evidence of reproduction.
+An infinite prescribed chain again selects one 2-adic address; closure begins
+only when the parameter transducer generates its own future address from one
+ordinary public state.
+
+There is also a sharp obstruction to the simplest proposed repair.  Suppose
+the parameter of node `i` were encoded for *every* natural register value by
+
+```text
+u_i=c_i+s_i z,
+```
+
+and one dynamic handoff used a total affine update
+`z'=a_i z+b_i`, with positive integral slopes.  Comparing coefficients in
+CP17 forces
+
+```text
+3^Q_i s_i = 2^P_(i+1) s_(i+1) a_i.              (CP19)
+```
+
+Because `P_(i+1)>0`, CP19 strictly spends the 2-adic valuation of `s_i` at
+every step.  Multiplying through `N` steps shows that
+`2^(sum P_i)` divides the initial slope `s_0` after cancellation of odd
+powers of three.  No fixed positive `s_0` can support arbitrarily many
+steps.  This elementary derivation has been sent to the Lean adversary for a
+kernel-checked finite-divisibility theorem.
+
+So a one-register, everywhere-defined affine node gauge cannot be the
+reproducer, even with infinitely many phase labels.  A survivor must do at
+least one genuinely programming-like thing:
+
+- restrict to a decoded source cylinder and thereby pop binary digits;
+- use a nonlinear public update which writes replacement address bits; or
+- move the address budget between two or more public rails, then swap their
+  roles at a regenerative collision.
+
+This is the exact reason the Brainfuck/tag-system analogy is more than
+decoration.  The missing operation is not another affine opcode; it is a
+public stack rotation or base-conversion round trip.  Searches should now ask
+for that operation coefficientwise before enumerating instruction words.
+
 ## 6. Closure should be an identity before it is a search hit
 
 The preferred order of work is now:

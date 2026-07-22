@@ -1,6 +1,6 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-22, about 13:09 EDT
+Updated: 2026-07-22, about 14:25 EDT
 
 Repository: `/Users/simon/Desktop/COLLATZ`
 
@@ -109,8 +109,8 @@ artifact hash:
 `e3db4d58871f3a8b0493969405ad4f29ca1e2f4e988eda0038eb578f78a333b1`.
 
 This is an exact glider *cell*, not closure.  Successive phase-dependent
-embeddings do not yet telescope; an infinite phase-up word may still define
-only a 2-adic address; and a fixed periodic bounce is obstructed.  Read
+embeddings do not yet telescope, and a fixed periodic bounce is obstructed.
+Read
 `docs/notes/kontorovich-resonant-phase-glider.md`.  The next constructive
 question is whether the surviving tail can choose and regenerate its own
 jump size/direction.
@@ -123,9 +123,121 @@ U(m)=(m,392,m+4).
 
 Since `m=v2(y+1)/23` is public, this is an autonomous one-counter policy.  It
 already passes the causal-decoder gate and evades the finite-state/periodic
-no-go by using unbounded public phase.  Its exact remaining closure question
-is whether the nested tail cylinders have one ordinary natural realization;
-do not replace that question by deeper prefix simulation.
+no-go by using unbounded public phase.  It nevertheless fails: commit
+`466e381` identifies the unique `Q_2` cofactor candidate coefficientwise with
+
+```text
+f_(3^(68k)/2^(92k))
+  (2^(23m0+154h)/3^(17m0+114h)),  h=391k+1,
+```
+
+for every fixed `k>=1`, and bridges a linked public-step ray to that
+recurrence.  The inspected main theorem of Väänänen--Wallisser (1989), pp.
+200--201, makes this value irrational; that published theorem is the explicit
+external seam.  Thus every fixed positive phase-up jump is closed.  The live
+phase language must vary `k` or direction from public payload infinitely
+often and make its forced 2-adic debris series telescope or otherwise become
+an integer.
+
+The general design principle is now **rationality engineering**.  Every
+opcode chain forces one convergent `Q_2` series for its initial cofactor.  A
+constructive chain should make its local debris a public coboundary so the
+series telescopes; a finite prefix search without such an identity is not a
+closure attack.
+
+The periodic extension has a corrected, sharply limited scope.  Commits
+`f2efee4`/`772a6e8` split a repeated positive jump word into one theta residue
+class per period position and connect the flattened PC4 series to the finite
+sum in `Q_2`, with summability, nonzero scales, and pairwise argument
+separation checked.  Commit `8b3d9f5` kernel-checks the period-dependent size
+bounds from Väänänen--Wallisser: the hypothesis succeeds at `L=2,3`, but
+`Gamma(4,0)<1/8<gamma`.  The formalizer retracted its initial all-period
+claim.  Accepting the external theorem closes periods one through three;
+period four is only the first escape from this theorem and no such ray is
+known.
+
+There is a more fundamental current lead.  A research derivation sent through
+`docs/FOR_CLEAN_LEAN.md` rewrites every public step as
+
+```text
+w-3^(-17m)
+  = (2^(154h+23m')/3^(114h+17m))*(w'-2^(-23m')).
+```
+
+Thus all forward cells, including phase-up and phase-down, have the same
+ternary-entry/binary-exit type.  Every internal boundary pays the strictly
+negative chart mismatch `3^(-17m)-2^(-23m)`, which is exactly the normalized
+negative defect polynomial `-H_m`.  A multi-cell word cannot be a clean bare
+chart adapter merely because its phase returns.  Lean commit `772a6e8` now
+proves this one-step identity, its arbitrary finite-word expansion, strict
+negativity, and the no-clean-adapter consequence.  The constructive target is
+an additional public correction rail or resonant affine intercept which
+converts the binary exit chart back to the ternary entry chart.
+
+A second exact research derivation is even cheaper.  The resonant parallel
+charts start `2622k` apart and end `2618k` apart.  Chaining them forces
+`1311*k_(i+1)=1309*k_i`, hence `1311^N|k_0` after `N` cells.  No positive
+finite `k_0` can feed an infinite ladder made only of the present conjugacy
+cells.  Commit `772a6e8` proves the finite divisibility law and infinite
+no-go.  The missing opcode is now specified as a phase booster with inverse
+separation expansion, combined with the binary-to-ternary correction rail.
+
+There is now a constructive word-level response.  Define
+
+```text
+W_r=[(r,h0,L-r),(L-r,h1,r+d)].
+```
+
+Consecutive words have boundary phase differences `(+d,-d,+d)`: their charts
+cross internally and recover their separation.  Their total gains are
+independent of `r`, namely
+
+```text
+Q=114*(h0+h1)+17*L,
+P=154*(h0+h1)+23*(L+d).
+```
+
+The new exact worker/artifact
+
+```text
+experiments/kontorovich/unit_charge_phase_swap_conjugacy.py
+experiments/kontorovich/unit_charge_phase_swap_conjugacy_audit.json
+```
+
+construct the smallest line `1->3->2`, `2->2->3`, `3->1->4`.  Both adjacent
+composite pairs have `P=423,Q=296`, gcd-one positive integral affine
+conjugacies and exact nested source/target cylinder checks.  Worker hash
+`4352e4d7a6637e4e8407c28c916a63dc84ac966e66ebd28839cbf3e09af90f9b`;
+artifact hash
+`1dcd6feacc137fc04db60de43d3ea70bab1253220e2708bbed4ce5af05acd5ab`.
+The artifact also proves that, for both squares, the conjugacy-selected next
+input strictly outruns the current output in constant and slope.  Hence they
+are parallel embeddings, not a bounded orbit glider.  Lean commit `3a6d285`
+kernel-checks this for both concrete embeddings.
+
+The version-two artifact also constructs the *different* direct handoff
+lattices
+
+```text
+u=u0+2^423*t,       v=v0+3^296*t
+```
+
+between both adjacent word-rays and replays two members of each.  These are
+fresh dyadic address selections, not conjugacies or reproduction.  This
+exposes the fundamental renormalization principle: a finite opcode chain is
+again a binary-reader/ternary-writer macro and does not solve its own ordinary
+address.
+
+Lean commit `a05ca2e` proves the general signed-area law, the concrete phase
+totals, the remaining negative typed tax, and the exact correction-rail iff.
+Commit `cc09f1b` adds that any nonnegative correction rail across the smallest
+macros strictly grows because `2^423/3^296<1`.  A new request in
+`docs/FOR_CLEAN_LEAN.md` asks for the complementary affine-gauge no-go:
+coefficientwise handoff forces
+`3^Q_i*s_i=2^P_(i+1)*s_(i+1)*a_i`, so a total affine one-register controller
+strictly spends dyadic slope at every step.  The constructive target is now a
+nonlinear decoded stack operation or multi-rail address rotation, followed by
+a public `L->L'` turnaround.
 
 ### Companion Lean state and next tasks
 
@@ -142,6 +254,19 @@ At this update, the newest pushed formalizer checkpoints are:
   to literal growing words and their dyadic witnesses are eliminated;
 - `6619b49`: the one-cell packet family has exact universal breakoff input
   and output boundaries, completing that base glider's endpoint theorem;
+- `a16883c`/`d452c59`/`f33fa00`/`466e381`: resonant conjugacy, the dependent
+  ordinary-tail criterion, the fixed-jump `Q_2` candidate, and its exact
+  partial-theta/public-step identification;
+- `f2efee4`/`8b3d9f5`: periodic-jump theta residue algebra and the exact
+  `L=2,3` success/`L=4` failure boundary for the external theorem's size
+  hypothesis;
+- `772a6e8`: completed flattened periodic `Q_2` splitter, universal typed
+  chart-tax/no-clean-adapter theorem, and the resonant-separation divisibility
+  no-go;
+- `3a6d285`: generic and both concrete no-handoff theorems for the advertised
+  phase-swap conjugacy embeddings;
+- `cc09f1b`: positive TI3 correction rails strictly accumulate debt, with the
+  exact `2^423/3^296<1` phase-swap specialization;
 - the formalizer is now lifting only the upper charge/unit/level-two layers.
 
 Never edit or stage its live `KontoroC/*` files.  Continue to send exact
@@ -151,17 +276,21 @@ formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
 The best immediate research tasks are:
 
 1. help the formalizer finish the generic three-layer linked composition;
-2. attack the genuinely aperiodic phase-up/conjugacy schedule now that every
-   fixed finite opcode period is closed;
-3. construct a genuinely payload-driven mixed-radix feedback or conjugacy
-   which turns the ternary-scaled tail into its next binary delimiter;
-4. reject new searches unless success would give a public self-map, a finite
+2. have the formalizer kernel-check the phase-swap signed-area law and the
+   concrete composite exponent identities; do not infer an all-period no-go
+   from the external theorem;
+3. kernel-check the total-affine gauge dyadic-slope no-go and then restrict
+   constructive searches to nonlinear or multi-rail address regeneration;
+4. use the phase-swap word as the current spatial test case: solve an actual
+   self-writing handoff, not another finite direct CRT link, then derive a
+   public turnaround `L -> L'`;
+5. reject new searches unless success would give a public self-map, a finite
    semantic rewrite, or a whole ansatz-class obstruction.
 
-The detached Akdeniz 1,198-digit Thue solve remains active with class number
-one and no completion line.  Ganesha still has 22 nonuniform-morphism workers;
-only shards 4 and 12 are complete.  These are scoped falsifiers, not the main
-closure strategy.  PSC is idle.
+The detached Akdeniz 1,198-digit Thue solve remains active after about 3 hours
+30 minutes of CPU with class number one and no completion line.  Ganesha still
+has 22 nonuniform-morphism workers; only shards 4 and 12 are complete.  These
+are scoped falsifiers, not the main closure strategy.  PSC is idle.
 
 No counterexample or infinite orbit is known.
 

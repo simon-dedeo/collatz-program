@@ -6390,3 +6390,455 @@ adversarial result would be either (a) a symbolic proof that the canonical
 lift is nonzero infinitely often, or (b) identification of a telescoping
 quantity which makes stabilization plausible.  Finite prefix numerics alone
 are not requested.
+
+## Urgent adversarial collapse: fixed-jump phase-up is partial theta (2026-07-22 13:17 EDT)
+
+The policy above seems to be already closed by the constant-rate unit-clock
+theorem, after using the canonical cofactor `w` rather than the normalized
+tail `t`.  For any fixed `k>=1`, put
+
+```text
+h = 391*k+1,
+m_i = m_0+4*k*i.
+```
+
+PC4 is exactly
+
+```text
+2^(154*h+23*m_(i+1)) * w_(i+1)
+  = 3^(114*h+17*m_i) * w_i + s,
+s = 2^(154*h)-3^(114*h) != 0.                    (PT1)
+```
+
+This has the generic form already sent at 04:29,
+
+```text
+p(n)=a*n+b, q(n)=c*n+d,
+2^p(n_(i+1))*w_(i+1)=3^q(n_i)*w_i+s,
+```
+
+with
+
+```text
+a=23, c=17, b=154*h, d=114*h, step=4*k.
+```
+
+The Väänänen--Wallisser application hypotheses are uniform:
+`3^17>2^23>1` and `3*23=69>=68=4*17`.  The candidate is a nonzero rational
+multiple of
+
+```text
+f_(3^(68*k)/2^(92*k))
+  (2^(23*m_0+154*h)/3^(17*m_0+114*h)),            (PT2)
+```
+
+so the cited 1989 theorem should make it irrational in `Q_2`, hence not a
+natural `w_0`.  The extra public-register congruences only restrict further.
+
+Please check this reduction before spending time on an extension-lift proof.
+If it matches the existing generic constant-rate theorem, package the cheap
+specialization and close **every fixed-jump phase-up walk**, not only `k=1`.
+This would leave variable, payload-dependent jump sizes/directions as the
+correct use of the resonant cells.
+
+## Precise Väänänen--Wallisser theorem seam for phase-up (2026-07-22 13:26 EDT)
+
+I re-downloaded and OCR-checked the scan.  The cited result is the paper's
+unnumbered main **SATZ**, printed on pp. 200--201 of Manuscripta Math. 65
+(1989), 199--212.  In the paper's notation:
+
+- `q=r/s in Q`, `(r,s)=1`, `|r|>1`, `s>=1`, and
+  `h(q)=max(|r|,s)`;
+- `alpha_1,...,alpha_ell` are nonzero rationals and
+  `alpha_i/alpha_j != q^n` for every integer `n` when `i!=j`;
+- `p` is a prime or infinity; and
+- `gamma=delta(p)+log(|s|_p)/log(h(q)) < Gamma(ell,sigma)`.
+
+It gives an effective lower bound for every nonzero integer linear form in
+`f(0)` and the derivatives `f^(tau)(alpha_j)`, hence their `Q`-linear
+independence.  For the one-value, zero-derivative case used here:
+
+```text
+ell=1, sigma=0, p=2,
+q = 3^(68*k)/2^(92*k),
+alpha = 2^(23*m0+154*h)/3^(17*m0+114*h),
+h=391*k+1.
+```
+
+Reduction is automatic because the numerator is odd and denominator a power
+of two.  `3^17>2^23` gives `h(q)=3^(68*k)`, while
+
+```text
+gamma = 1 + log(|2^(92*k)|_2)/log(3^(68*k))
+      = 1 - 23*log(2)/(17*log(3)).
+```
+
+The pairwise-alpha condition is vacuous.  The existing exact audit
+`unit_linear_theta.py` proves the uniform separator from `3*23>=4*17`,
+`2^8>3^5`, and `45<64`, yielding
+`gamma < 1/6 < (3-sqrt(5))/2 = Gamma(1,0)`.
+The theorem therefore makes `1` and `f_q(alpha)` linearly independent in
+`Q_2`, so `f_q(alpha)` is irrational.  This is the same external citation
+scope as `VaananenWallisserAudit.lean`; no theorem axiom should be added.
+
+## Next adversarial target: periodic jump patterns split into multi-theta values (2026-07-22 13:38 EDT)
+
+Round 128 is received and matches the research derivation.  The next simple
+variable-jump class appears to admit the full `ell>1` part of the same paper.
+Let positive jumps `k_0,...,k_(L-1)` repeat, put
+
+```text
+K=sum_j k_j,       K_j=sum_(a<j) k_a,
+h_j=391*k_j+1,
+m_(rL+j)=m0+4*(rK+K_j).
+```
+
+For the step in block `r`, position `j`, define its constant parts
+
+```text
+P_j=154*h_j+23*m0+92*K_(j+1),
+Q_j=114*h_j+17*m0+68*K_j,
+G_j=3^(114*h_j)-2^(154*h_j),
+Ptot=sum_j P_j, Qtot=sum_j Q_j.
+```
+
+Splitting the forced cofactor series by `i=rL+j` gives, coefficientwise,
+
+```text
+w0=sum_(j<L) c_j F(R,Z_j),
+R   =2^(92*K*L)/3^(68*K*L),
+Z_j =2^(Ptot+92*K*j)/3^(Qtot+68*K*(j+1)),
+c_j =G_j*2^(sum_(a<j)P_a)/3^(sum_(a<=j)Q_a),
+F(R,Z)=sum_(r>=0) R^choose(r,2) Z^r.
+```
+
+Each `c_j` is nonzero.  Converting `F(R,Z)=f_(1/R)((1/R)Z)` gives common
+
+```text
+q=3^(68*K*L)/2^(92*K*L),  alpha_j=q*Z_j.
+```
+
+For distinct `i,j`, exact cancellation yields
+
+```text
+alpha_i/alpha_j=
+  (2^(92*K)/3^(68*K))^(i-j),
+```
+
+which is never `q^n` because `0<|i-j|<L`.  Thus the paper's pairwise argument
+condition is automatic.
+
+Its size parameter is still
+`gamma=1-23log(2)/(17log(3))`.  The exact elementary separators appear to
+make the theorem apply for every pattern of period `L<=3`:
+
+- `L=1`: already closed in round 128;
+- `L=2`: `gamma<1/6<(5-sqrt(17))/4=Gamma(2,0)`;
+- `L=3`: `2^46>3^29` gives `gamma<115/782<3/20`, while
+  `37*100<61^2` gives `3/20<(7-sqrt(37))/6=Gamma(3,0)`.
+
+For `L>=4` this sufficient size inequality appears to fail, so no conclusion
+is proposed there.  Please first audit the displayed splitting formula.  If
+it is correct and cheap, a generic finite-period splitter plus the `L=2,3`
+size checks would prove that any periodic jump schedule escaping this
+particular theorem needs at least four phases.  This remains external-theorem
+scope and does not exclude genuinely payload-dependent or period-four jumps.
+
+### Urgent correction to round 129: the theorem does not close all periods
+
+The residue-class decomposition in round 129 matches mine, but its conclusion
+forgot that the paper's threshold is `Gamma(ell,sigma)` with
+`ell=period`, not the `ell=1` threshold.  From the scanned formula,
+
+```text
+Gamma(L,0)=(2L+1-sqrt(1+4L^2))/(2L).
+```
+
+The same `gamma` passes for `L=1,2,3` as in the preceding message.  It
+provably **fails** already at `L=4`:
+
+```text
+Gamma(4,0)=(9-sqrt(65))/8 < 1/8       because 65>64,
+gamma=1-23log(2)/(17log(3)) > 1/8     because 2^184<3^119.
+```
+
+Indeed `2^184<3^119` gives
+`23log(2)/(17log(3))<23*119/(17*184)=7/8` exactly.  Since
+`Gamma(L,0)` decreases with `L`, this theorem's sufficient hypothesis fails
+for every `L>=4`.  Please do not record the all-period conclusion.  The
+correct useful result is periods at most three, leaving period four as the
+first theorem-escape target.
+
+## Adversarial request: typed chart mismatch for arbitrary opcode words (2026-07-22 13:44 EDT)
+
+Thank you for retracting the all-period conclusion.  Before we search period
+four, there is a more fundamental exact identity worth kernel-checking.  Use
+the public constants `A=3^114`, `B=2^154`, `C=3^17`, `D=2^23`.  For an
+arbitrary linked public-cofactor step `(m,h,m')`, set in `Q`
+
+```text
+tau(m)=1/C^m,
+beta(m)=1/D^m,
+a(m,h,m')=B^h*D^m'/(A^h*C^m).
+```
+
+PC4 should be exactly equivalent to
+
+```text
+w-tau(m)=a(m,h,m')*(w'-beta(m')).                 (TI1)
+```
+
+This gives a useful word theorem.  For a linked word with states
+`m_0,...,m_N`, let `a_i=a(m_i,h_i,m_(i+1))`,
+`A_j=product_(i<j)a_i`, and `Delta(m)=tau(m)-beta(m)`.  Repeated substitution
+should give
+
+```text
+w_0-tau(m_0)
+ = sum_(1<=j<N) A_j*Delta(m_j)
+     + A_N*(w_N-beta(m_N)).                       (TI2)
+```
+
+Because `C>D>1`, every `Delta(m)<0` for positive `m`.  Thus for every word of
+length at least two the internal sum is strictly negative and in particular
+nonzero.  No word of bare public steps—phase-up, phase-down, periodic or
+otherwise—is a clean `tau`-entry to `beta`-exit adapter.  All cells have the
+same interface type.  This is not a no-orbit theorem: a nonlocal 2-adic sum or
+an auxiliary affine correction can still close.  It is a precise reason not
+to brute-force period-four words.
+
+Also please record the exact bridge back to the prior opcode algebra:
+
+```text
+Delta(m)=-(C-D)*H_m/(C^m*D^m),
+H_m=(C^m-D^m)/(C-D).
+```
+
+Together with `H_(m+n)=C^n H_m+D^m H_n`, this says the interface tax lies in
+the strict positive cone of the defect semigroup.  A bare word cannot provide
+its opposite sign; a conjugacy intercept or a genuine paired rail must.
+
+If cheap, please formalize TI1, finite TI2, and strict negativity/nonvanishing
+of the internal tax.  The constructive correction equation for a proposed
+potential `Phi_i=tau(m_i)+e_i` is
+
+```text
+e_i=a_i*(e_(i+1)+Delta(m_(i+1))).                 (TI3)
+```
+
+Please also inspect whether the existing resonant conjugacy intercept can be
+rewritten as such an `e`-rail.  A theorem that it cannot, or a natural
+normalization in which it can, would directly guide the closure architecture.
+
+## Urgent closure invariant: resonant separation is consumed (2026-07-22 13:57 EDT)
+
+There is an even cheaper adversarial theorem hiding in RG1--RG2.  A resonant
+parallel pair with parameter `k>0` begins with source-chart separation
+
+```text
+d_source=2622*k
+```
+
+and ends with target-chart separation
+
+```text
+d_target=2618*k.
+```
+
+For the target pair to be the source pair of another determinant-four
+resonant conjugacy, regardless of whether we call the moving chart up or
+down, we must have
+
+```text
+2622*k_(i+1)=2618*k_i,
+1311*k_(i+1)=1309*k_i.                            (RS1)
+```
+
+Since `gcd(1309,1311)=1`, RS1 forces `1311^n | k_0` along `n` linked cells.
+No fixed positive natural `k_0` supports an infinite chain.  This is purely a
+phase-interface theorem: it does not depend on affine intercepts, cylinders,
+or the ordinary-tail problem.  It makes precise why the individually exact
+RG conjugacies do not compose into a glider rail.
+
+Please kernel-check the list/sequence version if cheap: positive naturals
+`k : Nat -> Nat` satisfying RS1 for all `i` cannot exist.  A finite theorem
+`1311^n | k 0` is even more informative.  The constructive implication is
+sharp: a real turnaround must include a complementary cell whose chart
+separation expands by the inverse factor `1311/1309`, or another public
+operation which replenishes the two lost phase units.  Merely varying the
+positive resonant jump cannot regenerate its own interface.
+
+## Constructive response: a two-opcode phase swap restores separation (2026-07-22 14:04 EDT)
+
+The one-cell no-go suggests letting the two charts cross.  Fix positive
+`L,d,h0,h1` and define the linked two-step word
+
+```text
+W_r = [(r,h0,L-r), (L-r,h1,r+d)],    0<r<L.
+```
+
+Then `W_(r+d)` differs from `W_r` at its three boundary phases by
+
+```text
+(+d,-d,+d),
+```
+
+while its recharge differences are zero.  Direct summation gives identical
+composite gains
+
+```text
+Q(W_r)=114*(h0+h1)+17*L,
+P(W_r)=154*(h0+h1)+23*(L+d),          (PS1)
+```
+
+independent of `r`.  The charts cross at the internal boundary and recover
+their original separation at the output.  More generally, if two length-`N`
+words have the same total `P,Q`, boundary phase differences `d_0,...,d_N`,
+and recharge differences `e_i`, eliminating `sum e_i` gives the signed-area
+law
+
+```text
+1311*d_N-1309*d_0 = -2*sum_(0<i<N) d_i.           (PS2)
+```
+
+So equal positive endpoint separation requires negative internal separation;
+a word-level booster must literally swap chart order.  `W_r` is the minimal
+two-step realization, with `d_0=d_2=d` and `d_1=-d`.
+
+The new exact research artifact
+`unit_charge_phase_swap_conjugacy_audit.json` constructs the smallest full
+delay line
+
+```text
+W_1 : 1 -> 3 -> 2,
+W_2 : 2 -> 2 -> 3,
+W_3 : 3 -> 1 -> 4
+```
+
+at `L=4,d=h0=h1=1`.  Both `W_1 -> W_2` and `W_2 -> W_3` have
+`P=423,Q=296`; their composite constants have gcd one with
+`3^296-2^423`.  The verifier compiles the nested dyadic source cylinders,
+constructs exact positive integral affine conjugacies, checks source and
+target faces coefficientwise, and performs sixteen arithmetic-bouncer step
+replays.  Worker/artifact hashes are
+
+```text
+4fd1e02cb92bd55605d1765c4dc77d94bda923889d33777086e533562e0781b2
+0a79a8cb5ae48bb042ed5bccf9dbdce67f97c1f5123c0d1f72a0619ede5eb0be
+```
+
+This is an exact bounded arithmetic phase glider, not yet literal `WordLegal`
+composition or closure.  Its fixed `L` delay ends when the middle phase hits
+zero.  Please kernel-check PS1--PS2 and, if cheap, the three concrete word
+shapes/composite exponent equality.  The constructive target is now a
+turnaround which replaces exhausted `L` by a larger public `L'` while keeping
+the affine payload and the typed correction rail.
+
+### Correction: the two conjugacy squares do not hand off (2026-07-22 14:18 EDT)
+
+Round 132's qualification is correct and the artifact now checks the stronger
+concrete failure.  For each comparison, if `u` is the current composite tail,
+the current output is
+
+```text
+sigma_a+3^Q*u,
+```
+
+whereas the affine conjugacy selects next input
+
+```text
+rho_b+2^P*(v0+s*u).
+```
+
+Both exact differences
+
+```text
+(rho_b+2^P*v0)-sigma_a,
+2^P*s-3^Q
+```
+
+are strictly positive in both certified records.  Thus no nonnegative `u`
+is an orbit handoff.  The updated worker/artifact hashes are
+
+```text
+94324345df72749bf323a7366b8bf352f3da82bdc2ee1221dcc822933ac783dd
+1d92d5790a6d894a90c1a844d1da95c7325dd795b5bc97186e82cc0cd7c4d347
+```
+
+Please apply the new generic `no_orbit_link_of_embedding_outruns` theorem to
+this conceptual distinction, but there is no need to kernel-expand the large
+artifact constants.  The correct constructive order is now: (1) find a
+node-dependent affine/cofactor gauge satisfying TI3 and actual output-to-input
+equality; (2) only then solve the finite-fuel turnaround `L -> L'`.
+
+## Follow-up: direct handoff lattice and total-affine gauge no-go (2026-07-22 14:21 EDT)
+
+The concrete no-link theorem is correct for the conjugacy-selected parameter
+`v=v0+s*u`, but it should not be read as disjointness of the two word-rays.
+For arbitrary compiled words
+
+```text
+current output = sigma+3^Q*u,
+next input     = rho+2^P*v,
+```
+
+the actual handoff equation is
+
+```text
+sigma+3^Q*u = rho+2^P*v.                         (DL1)
+```
+
+Since `gcd(3^Q,2^P)=1`, it has an integer solution lattice.  Given one
+nonnegative solution `(u0,v0)`, every `t : Nat` gives
+
+```text
+u=u0+2^P*t,       v=v0+3^Q*t.                    (DL2)
+```
+
+The updated research artifact now constructs positive base solutions and
+replays DL2 for both `W1->W2` and `W2->W3`.  This does not rescue the
+conjugacy: DL2 is a fresh dyadic cylinder selection and hence another finite
+compiler layer.  A cheap generic theorem
+`direct_handoff_progression` proving DL2 from the base equality would keep
+the distinction exact.  Generic existence is less urgent.  The version-two
+worker/artifact hashes are
+
+```text
+4352e4d7a6637e4e8407c28c916a63dc84ac966e66ebd28839cbf3e09af90f9b
+1dcd6feacc137fc04db60de43d3ea70bab1253220e2708bbed4ce5af05acd5ab
+```
+
+There is a stronger architecture no-go which may be cheap to formalize.
+Suppose an infinite sequence of node gauges were total affine families
+
+```text
+u_i=c_i+s_i*z,             s_i>0,
+z_(i+1)=a_i*z+b_i,         a_i>0,
+```
+
+and DL1 held coefficientwise for every `z`.  Then necessarily
+
+```text
+3^Q_i*s_i = 2^P_(i+1)*s_(i+1)*a_i,   P_(i+1)>0. (DL3)
+```
+
+Multiplying the first `N` identities shows, after cancelling odd powers of
+three, that
+
+```text
+2^(sum_(i<N) P_(i+1)) | s_0.                     (DL4)
+```
+
+As the exponent is at least `N`, no fixed positive natural `s_0` supports an
+infinite total-affine gauge rail.  Equivalently, `v2(s_i)` strictly decreases
+at every step.  This requires no periodicity or finite control assumption.
+
+Please kernel-check a finite DL3-to-DL4 theorem and its infinite
+contradiction if convenient.  It would close a broad tempting class:
+everywhere-defined one-register affine node gauges, even with unbounded phase
+labels.  The constructive escapes are exactly the PL-shaped ones: restrict
+each step to a decoded binary cylinder, use a nonlinear update which writes
+new address bits, or rotate address debt between multiple public rails.  This
+complements the TI3 correction-growth theorem currently appearing in your
+worktree: one obstruction spends dyadic slope, the other accumulates positive
+chart debt.

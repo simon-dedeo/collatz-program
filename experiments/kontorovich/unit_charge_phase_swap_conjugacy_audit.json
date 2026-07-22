@@ -1,0 +1,193 @@
+{
+  "claim_scope": "exact arithmetic construction of the two consecutive composite conjugacies W_1->W_2 and W_2->W_3 in the L=4,d=1,h0=h1=1 phase-swap line, the exact no-conjugacy-handoff inequalities, and distinct direct finite handoff progressions",
+  "non_claims": "the direct progressions are fresh dyadic cylinder selections, not a conjugacy, turnaround, self-reproducing linked glider, infinite ordinary orbit, universal literal Collatz compiler, or counterexample",
+  "records": [
+    {
+      "P": 423,
+      "Q": 296,
+      "affine_conjugacy_checked": true,
+      "boundary_phase_differences": [
+        1,
+        -1,
+        1
+      ],
+      "composite_kappa_source": "1263250057401724181102409578222925639824582834530687409930110854496456130214388504300626422648443479155376773840080708438371797573823121187626",
+      "composite_kappa_target": "785627314334768038660830170307033912386340503349082213710620148409833086859093302286269557145042779411190615672793530063986101346402961322098",
+      "direct_handoff_base_equation_checked": true,
+      "direct_handoff_current_stride_power_of_two": 423,
+      "direct_handoff_current_tail_base": "9670952409693777103310220596344032053885925542445283571048589084431804952789010762279018536935905378125696514754240128740580740",
+      "direct_handoff_next_stride_power_of_three": 296,
+      "direct_handoff_next_tail_base": "754522990388293712609743155877742273390335688202182663302883869604878325465079303343198913528327870710202352926079725140048361956927418321753",
+      "direct_handoff_samples": [
+        {
+          "arithmetic_bouncer_steps_replayed": 4,
+          "current_surviving_tail_bits": 422,
+          "linked_public_tail_bits": 891,
+          "next_surviving_tail_bits": 468,
+          "residual_tail": 0
+        },
+        {
+          "arithmetic_bouncer_steps_replayed": 4,
+          "current_surviving_tail_bits": 424,
+          "linked_public_tail_bits": 893,
+          "next_surviving_tail_bits": 470,
+          "residual_tail": 1
+        }
+      ],
+      "embedding_intercept": "230320103360059418124862471504543687886619441962650111931377737088088215203466969066215947115497850925959870505384654811611372594736831795502",
+      "embedding_slope": "308129952608255164862168604192124895328380318723351135677484809422674985131340617509475856086685331327483854135738719645380635527119215095024",
+      "equal_total_gains_checked": true,
+      "kappa_gcd_with_gain_gap": 1,
+      "nested_source_cylinders_checked": true,
+      "no_nonnegative_tail_conjugacy_handoff_checked": true,
+      "orbit_handoff_constant_gap": "2941864900464732488042835749275030609145552120732539786242020005549434639817134455334019520413109582517566455974052240613564876872959791081131052705964011297909134407378301530951548946085930950457161152429834970967060816169691900010944663503374807098550022132395965956",
+      "orbit_handoff_slope_gap": "6674551417560875209285768289754544239812815502682670378724580983629247258052758216326746589176466820367820549061273797777714401029797288947903835436859487541078397402119106540812642265755563073823531638994248460224902827149378187641020121018701700614677849044623074271",
+      "parameters": {
+        "L": 4,
+        "d": 1,
+        "h0": 1,
+        "h1": 1,
+        "r": 1
+      },
+      "samples": [
+        {
+          "arithmetic_bouncer_steps_replayed": 4,
+          "source_endpoint_y_bits": 773,
+          "source_surviving_tail": 0,
+          "source_y_bits": 704,
+          "target_endpoint_y_bits": 1263,
+          "target_surviving_tail": 135810878612026184695893306845777897602952180309142391529519057770026977166139251351900562747016175743599769019723537633530640145800202345155,
+          "target_y_bits": 1194
+        },
+        {
+          "arithmetic_bouncer_steps_replayed": 4,
+          "source_endpoint_y_bits": 775,
+          "source_surviving_tail": 1,
+          "source_y_bits": 706,
+          "target_endpoint_y_bits": 1264,
+          "target_surviving_tail": 443940831220281349558061911037902792931332499032493527207003867192701962297479868861376418833701507071083623155462257278911275672919417440179,
+          "target_y_bits": 1195
+        }
+      ],
+      "source_word": [
+        [
+          1,
+          1,
+          3
+        ],
+        [
+          3,
+          1,
+          2
+        ]
+      ],
+      "surviving_tail_base": "135810878612026184695893306845777897602952180309142391529519057770026977166139251351900562747016175743599769019723537633530640145800202345155",
+      "target_word": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "P": 423,
+      "Q": 296,
+      "affine_conjugacy_checked": true,
+      "boundary_phase_differences": [
+        1,
+        -1,
+        1
+      ],
+      "composite_kappa_source": "785627314334768038660830170307033912386340503349082213710620148409833086859093302286269557145042779411190615672793530063986101346402961322098",
+      "composite_kappa_target": "1099676495846365857387184469310772968586908089138350339144584507422834470269940206333995271771194718226661086902119400351965543860110973185513",
+      "direct_handoff_base_equation_checked": true,
+      "direct_handoff_current_stride_power_of_two": 423,
+      "direct_handoff_current_tail_base": "3363449930237656462998681272094294302778376292982091957110154774496301423197795825631295998733532131711136501373980581690261068",
+      "direct_handoff_next_stride_power_of_three": 296,
+      "direct_handoff_next_tail_base": "262414723170431961861639111609204888459593235564354424634367988478381929978370863842474400013451976583628693625369567583323402166243918938032",
+      "direct_handoff_samples": [
+        {
+          "arithmetic_bouncer_steps_replayed": 4,
+          "current_surviving_tail_bits": 421,
+          "linked_public_tail_bits": 890,
+          "next_surviving_tail_bits": 467,
+          "residual_tail": 0
+        },
+        {
+          "arithmetic_bouncer_steps_replayed": 4,
+          "current_surviving_tail_bits": 424,
+          "linked_public_tail_bits": 893,
+          "next_surviving_tail_bits": 470,
+          "residual_tail": 1
+        }
+      ],
+      "embedding_intercept": "771611863052689539203507817971024351608762522927933392943282508614690433965217139166155447261410548527730977746337419206064126189624090633655",
+      "embedding_slope": "1659868635400486787449025759040723777508506656927541241039271721493471225341450546894411477744558095923777024007231475498850740032340438409536",
+      "equal_total_gains_checked": true,
+      "kappa_gcd_with_gain_gap": 1,
+      "nested_source_cylinders_checked": true,
+      "no_nonnegative_tail_conjugacy_handoff_checked": true,
+      "orbit_handoff_constant_gap": "17472105207533872354959127797114359268538947682622888337649085553455009456649827941222732922610539178026013448386347110170765847509526309384451183853069106733447695387078064064083294300895577089531351866463256438804483550381389608145766468805673718531891065974369933260",
+      "orbit_handoff_slope_gap": "35955214543723453628998883392222223253321130309386123474878288060047270018586684919832024693308987314523067898522959887343283108858202047619535134974119492242107910000211953118413283079725031098111098820262524515562592882478456106862707735289269741687527304596334617567",
+      "parameters": {
+        "L": 4,
+        "d": 1,
+        "h0": 1,
+        "h1": 1,
+        "r": 2
+      },
+      "samples": [
+        {
+          "arithmetic_bouncer_steps_replayed": 4,
+          "source_endpoint_y_bits": 796,
+          "source_surviving_tail": 0,
+          "source_y_bits": 727,
+          "target_endpoint_y_bits": 1288,
+          "target_surviving_tail": 806597868944315244916444340292750082808663916228707976104000275863669964569194845811098799267868634055229126058346153791700706846556942871536,
+          "target_y_bits": 1219
+        },
+        {
+          "arithmetic_bouncer_steps_replayed": 4,
+          "source_endpoint_y_bits": 798,
+          "source_surviving_tail": 1,
+          "source_y_bits": 729,
+          "target_endpoint_y_bits": 1290,
+          "target_surviving_tail": 2466466504344802032365470099333473860317170573156249217143271997357141189910645392705510277012426729979006150065577629290551446878897381281072,
+          "target_y_bits": 1221
+        }
+      ],
+      "source_word": [
+        [
+          2,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          3
+        ]
+      ],
+      "surviving_tail_base": "806597868944315244916444340292750082808663916228707976104000275863669964569194845811098799267868634055229126058346153791700706846556942871536",
+      "target_word": [
+        [
+          3,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          4
+        ]
+      ]
+    }
+  ],
+  "schema": "collatz-unit-charge-phase-swap-conjugacy-v2"
+}

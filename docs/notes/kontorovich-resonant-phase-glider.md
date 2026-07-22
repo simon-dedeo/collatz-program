@@ -161,6 +161,146 @@ ordinary tail which belongs successively to every decoded source cylinder.
 Thus the phase glider has already solved causal opcode generation, but not
 address regeneration.
 
+### 3.1 Fixed jump is still too rigid
+
+The one-counter policy above does not survive the ordinary-integer gate.  In
+fact the same argument closes every fixed jump `k>=1`.  Write
+
+```text
+h=391k+1,                 m_i=m_0+4ki.
+```
+
+In the canonical cofactor, PC4 is the subtraction-free natural recurrence
+
+```text
+2^(154h+23m_(i+1)) w_(i+1)
+  +(3^(114h)-2^(154h))
+  =3^(114h+17m_i) w_i.                            (RG9)
+```
+
+Exact backward unrolling forces one 2-adic initial cofactor.  Coefficientwise
+it is a nonzero rational multiple of Väänänen--Wallisser's
+
+```text
+f_q(alpha),
+q=3^(68k)/2^(92k),
+alpha=2^(23m_0+154h)/3^(17m_0+114h).              (RG10)
+```
+
+Their 1989 main theorem applies with `ell=1`, derivative order zero, and
+`p=2`.  The argument-ratio condition is vacuous.  The only delicate size
+parameter is
+
+```text
+gamma=1-23 log(2)/(17 log(3)),
+```
+
+and the already audited exact inequalities `3*23>=4*17`, `2^8>3^5`, and
+`45<64` give
+`gamma<1/6<(3-sqrt(5))/2`.  Hence `f_q(alpha)` is irrational in `Q_2` and
+cannot equal an ordinary integer cofactor.  Lean's
+`ChargePhaseUpTheta.lean` checks RG9, the full finite and completed-series
+unrolling, the coefficientwise RG10 conversion, and the implication from the
+external irrationality statement to no ray.  The transcendence theorem
+itself remains cited external mathematics, exactly as in the prior
+constant-rate unit-clock audit.
+
+So causal control was necessary but not sufficient.  The fixed-rate counter
+still writes an irrational infinite 2-adic tape.  Any constructive use of the
+phase glider must vary `k` or direction from public payload infinitely often,
+and must do so in a way that makes the resulting debris series telescope or
+otherwise become rational.
+
+There is also a schedule-independent interface obstruction.  Put
+
+```text
+tau_m=3^(-17m),       beta_m=2^(-23m),
+a=2^(154h+23m')/3^(114h+17m).
+```
+
+Every public cofactor step, up or down, has the exact normal form
+
+```text
+w-tau_m = a (w'-beta_m').                         (RG11)
+```
+
+Since `tau_m-beta_m<0`, composing cells creates one strictly negative
+ordinary mismatch at every internal boundary.  Hence phase-up and phase-down
+are not complementary bare opcodes: both are ternary-entry to binary-exit
+instructions.  A finite word cannot become a debris-free chart converter
+merely by returning its phase.  A useful turnaround must carry an additional
+public correction rail—most plausibly the intercept of a resonant affine
+embedding—which converts the binary exit chart back to the ternary entry
+chart.  This is the precise algebraic target behind “splash, scrub, reseed.”
+
+There is also a discrete fuel law before tails are considered.  A parallel
+resonant cell starts with the two opcode charts separated by `2622k` phase
+units and ends with them separated by `2618k`.  To use that target pair as the
+source pair of the next resonant cell requires
+
+```text
+2622 k_(i+1)=2618 k_i,
+1311 k_(i+1)=1309 k_i.                            (RG12)
+```
+
+Because `1309` and `1311` are coprime, an `N`-cell ladder forces
+`1311^N | k_0`.  No positive finite initial separation feeds an infinite
+ladder.  Opposite phase motion does not change this inter-chart contraction:
+it only changes which chart is called moving.  Thus the present conjugacy
+cell consumes two units of resonant separation every time it runs.  A genuine
+turnaround needs a complementary **phase booster** with inverse expansion
+`1311/1309`, or another public operation that regenerates that separation.
+This is the spatial closure principle: the glider must reproduce its chart
+gap as well as its data payload.
+
+### 3.2 A word-level phase swap evades the one-cell fuel loss
+
+The separation law also says how to escape it: the two charts must cross
+inside a longer word.  For two equal-total-gain words with boundary phase
+differences `d_0,...,d_N`, eliminating their recharge differences gives
+
+```text
+1311 d_N-1309 d_0=-2 sum_(0<i<N) d_i.             (RG13)
+```
+
+Thus a word which restores a positive endpoint separation must have negative
+signed separation internally.  The minimal construction is
+
+```text
+W_r=[(r,h_0,L-r),(L-r,h_1,r+d)].                  (RG14)
+```
+
+Consecutive words `W_r,W_(r+d)` have boundary differences `(d,-d,d)`
+and the identical total exponents
+
+```text
+Q=114(h_0+h_1)+17L,
+P=154(h_0+h_1)+23(L+d).                           (RG15)
+```
+
+This is a true two-opcode phase-swap at the exponent level: the outer phase
+advances while the middle phase retreats.  The exact research artifact checks
+the smallest phase line
+
+```text
+1 -> 3 -> 2,
+2 -> 2 -> 3,
+3 -> 1 -> 4
+```
+
+with `h_0=h_1=1`.  Both adjacent composite maps have `P=423,Q=296`, gcd-one
+affine conjugacies, exact nested source-cylinder embeddings, and sixteen
+arithmetic-bouncer step replays.  But the conjugacy-selected next input is
+strictly larger than the current output for every nonnegative tail: its
+constant term and its slope `2^P s` both exceed those of
+`sigma+3^Q u`.  These are parallel commutative squares, not orbit links along
+the advertised embeddings.  The rays do have distinct direct coprime handoff
+progressions `u=u0+2^P t`, `v=v0+3^Q t`, which the updated artifact replays;
+those are fresh dyadic cylinder selections and do not preserve the conjugacy
+or regenerate their address.  Fixed `L` would also be finite fuel.
+Reproduction therefore needs two gates: first a self-writing typed handoff,
+then a turnaround replacing exhausted `L` by a larger public `L'`.
+
 ## 4. Why this is not yet reproduction
 
 For `k=1`, down cells link geometrically as
@@ -188,16 +328,24 @@ Closure therefore requires at least one of:
 
 1. a payload invariant making the successive `E_r` telescope;
 2. a public marker which chooses variable `k` and direction, then survives the
-   move (constant `k=1`, direction up, is already causally decoded by RG8);
+   move (every fixed positive `k`, direction up, is closed by RG9--RG10);
 3. an exact turnaround which converts a finite down delay into a regenerated
    larger up delay; or
-4. a theorem that the infinite up schedule has one ordinary positive tail.
+4. a nonlinear jump schedule whose forced 2-adic series can be proved to be
+   one ordinary positive tail.
+
+Items 1--3 must now be read through RG11: the desired object is a **typed
+adapter**, not just a phase loop.  A schedule of period four is the first one
+escaping the current multi-theta *bound*, but it still pays the same interface
+tax and should not be searched blindly.  RG12 adds a second acceptance test:
+the adapter must replenish resonant chart separation rather than spend a
+finite stock of it.
 
 The first three are versions of Simon's “splash the gap”: the four-cell phase
 is the moving gap, while the 21,330-digit affine tail is the remote payload.
-The fourth is now the sharpest closure gate for RG8: an ordinary-versus-2-adic
-question which should be attacked symbolically, not by extending finite
-prefixes.
+The fourth remains an ordinary-versus-2-adic question, but fixed-rate RG8 is
+now closed.  It should be attacked by a rational coboundary or another
+symbolic value theorem, not by extending finite prefixes.
 
 ## 5. Exact verification and next attacks
 
@@ -216,8 +364,8 @@ The next theorem-shaped attacks are:
 
 - kernel-check RG1--RG6 and ask whether the source/target embeddings can be
   packaged as a public conjugacy rather than a representation choice;
-- derive the exact nested-tail series for `Up_r,Up_(r+4),...` and decide
-  whether its unique 2-adic address can be an ordinary natural;
+- derive the exact nested-tail series for a *variable*, publicly decoded jump
+  law and make it telescope to an ordinary natural (fixed jump is closed);
 - classify when RG5 fails or succeeds along a whole phase walk; and
 - solve the telescoping equations `E_(r+4) after E_r` before searching any
   larger opcode box.

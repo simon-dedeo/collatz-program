@@ -2586,8 +2586,27 @@ intercepts.  It checks the conjugacy identity, source-cylinder and output-tail
 embeddings coefficientwise, then replays two members of all four branches
 through the arithmetic bouncer formula.  This is a genuine public-tail
 glider cell, not a telescoping self-map, literal semantic theorem, or infinite
-orbit.  Fixed periodic bouncing is already obstructed; the open problem is a
-payload-generated direction/jump rule.
+orbit.  Fixed periodic bouncing is already obstructed.  Lean commit `466e381`
+also closes every constant positive phase-up jump: the linked public cofactor
+ray is a Väänänen--Wallisser partial-theta value and is nonordinary under that
+inspected 1989 external theorem.  The open problem is a genuinely variable,
+payload-generated direction/jump rule whose forced 2-adic debris series
+telescopes to an integer.
+
+The natural coboundary has a strict opcode type.  In cofactor coordinates,
+with `tau_m=3^(-17m)`, `beta_m=2^(-23m)`, every public step is
+
+```text
+w-tau_m = (2^(154h+23m')/3^(114h+17m))*(w'-beta_m').
+```
+
+Thus both the up and down cells are ternary-entry to binary-exit operations;
+they are not complementary merely because their phase motions have opposite
+signs.  Every internal word boundary pays
+`tau_m-beta_m<0`, the normalized defect polynomial `-H_m`.  The next useful
+computation is therefore an affine-conjugacy or paired-rail **adapter** which
+supplies the opposite correction, not a blind enumeration of four-letter
+jump words.
 
 ```bash
 PYTHONPATH=. python3 unit_charge_resonant_conjugacy.py selftest
@@ -2598,6 +2617,76 @@ PYTHONPATH=. python3 unit_charge_resonant_conjugacy.py verify unit_charge_resona
 ```text
 artifact SHA-256      e3db4d58871f3a8b0493969405ad4f29ca1e2f4e988eda0038eb578f78a333b1
 verifier file SHA-256 70666b9ff3a47436a3fd45003af37b631c7c592b913ee94201f0fdc24deb362c
+```
+
+## Two-opcode phase-swap conjugacy
+
+`unit_charge_phase_swap_conjugacy.py` implements the first word-level answer
+to the resonant separation loss.  For
+
+```text
+W_r=[(r,h0,L-r),(L-r,h1,r+d)],
+```
+
+the consecutive words `W_r,W_(r+d)` differ at their boundary phases by
+`(+d,-d,+d)` and have exactly the same total tail gains
+
+```text
+Q=114*(h0+h1)+17*L,
+P=154*(h0+h1)+23*(L+d).
+```
+
+The internal sign reversal means the two charts cross, then recover their
+original separation at the exponent level; this is the minimal escape from
+the one-cell `2622k -> 2618k` contraction.  The default artifact constructs
+
+```text
+W_1 : 1 -> 3 -> 2,
+W_2 : 2 -> 2 -> 3,
+W_3 : 3 -> 1 -> 4
+```
+
+with `L=4,d=h0=h1=1`.  Both adjacent pairs have `P=423,Q=296` and composite
+constant gcd one against `3^296-2^423`.  The verifier exactly compiles each
+nested two-branch source cylinder, constructs a positive integral affine
+conjugacy, checks both cylinder faces coefficientwise, and replays sixteen
+arithmetic bouncer steps.
+
+The same artifact now checks why these squares are not yet a glider handoff
+*along the conjugacy*.  For both comparisons, the conjugacy-selected next
+input is
+
+```text
+rho_next+2^P*(v0+s*u),
+```
+
+while the current output is `sigma_current+3^Q*u`; both the constant
+difference and the coefficient difference `2^P*s-3^Q` are strictly positive.
+Thus the parallel embeddings are not consecutive states of one orbit.
+
+The two word-rays themselves are not disjoint.  The direct handoff equation
+
+```text
+sigma_current+3^Q*u = rho_next+2^P*v
+```
+
+has a coprime solution lattice
+`u=u0+2^P*t`, `v=v0+3^Q*t`.  The version-two artifact constructs positive
+base solutions for both adjacent pairs and replays two members of each,
+adding sixteen linked arithmetic-bouncer steps.  These are finite CRT
+compiler layers, not conjugacies or a self-reproducing address mechanism.
+The artifact does not prove universal literal semantics, a typed adapter, a
+turnaround, an infinite orbit, or a counterexample.
+
+```bash
+PYTHONPATH=. python3 unit_charge_phase_swap_conjugacy.py selftest
+PYTHONPATH=. python3 unit_charge_phase_swap_conjugacy.py build unit_charge_phase_swap_conjugacy_audit.json
+PYTHONPATH=. python3 unit_charge_phase_swap_conjugacy.py verify unit_charge_phase_swap_conjugacy_audit.json
+```
+
+```text
+artifact SHA-256      1dcd6feacc137fc04db60de43d3ea70bab1253220e2708bbed4ce5af05acd5ab
+verifier file SHA-256 4352e4d7a6637e4e8407c28c916a63dc84ac966e66ebd28839cbf3e09af90f9b
 ```
 
 ## Three low-description aperiodic bouncer clocks

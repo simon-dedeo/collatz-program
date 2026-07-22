@@ -33,6 +33,160 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-22 14:25 EDT
+
+Opcode chaining now has a sharper fundamental interpretation.  A compiled
+word always has the form
+
+```text
+rho+2^P u  ->  sigma+3^Q u.
+```
+
+The actual handoff to a next word is the coprime equation
+`sigma+3^Q u=rho'+2^P' v`, whose solutions are another progression
+
+```text
+u=u_0+2^P' t,       v=v_0+3^Q t.
+```
+
+The revised exact [phase-swap
+artifact](experiments/kontorovich/unit_charge_phase_swap_conjugacy_audit.json)
+constructs positive bases and replays two members of this direct handoff
+lattice for both `W_1->W_2` and `W_2->W_3`.  This carefully narrows the prior
+failure: Lean commit `3a6d285` proves that the *conjugacy-selected* next ray
+never meets the current output, not that no finite link exists.  The direct
+links are fresh dyadic cylinder selections and therefore finite compilers,
+not reproduction.
+
+This gives the new [closure principle](docs/notes/kontorovich-closure-principles.md#52-chaining-is-a-renormalization-not-yet-a-program):
+chaining recompiles the same binary-reader/ternary-writer one level higher.
+It does not escape the ordinary-address problem.  Moreover, an
+everywhere-defined affine node gauge
+`u_i=c_i+s_i z`, `z'=a_i z+b_i` would have to satisfy
+
+```text
+3^Q_i s_i=2^P_(i+1) s_(i+1) a_i.
+```
+
+Thus it strictly spends the 2-adic valuation of its slope at every step; no
+fixed positive slope can support an infinite such rail.  This elementary
+finite-divisibility theorem has been sent to the adversarial Lean agent.  The
+constructive target is correspondingly less blind: a true program must pop a
+decoded binary cylinder and nonlinearly write its replacement, or rotate the
+address debt between multiple public rails.
+
+The companion has also added two independent exact barriers.  Commit
+`3a6d285` checks both concrete failed conjugacy handoffs, and commit `cc09f1b`
+proves that nonnegative TI3 correction rails strictly accumulate debt for the
+smallest phase-swap coefficient `2^423/3^296<1`.  A turnaround must therefore
+regenerate three things at once: phase separation, typed correction, and the
+spent dyadic address.  No counterexample or infinite orbit is known.
+
+### 2026-07-22 14:08 EDT
+
+The most attractive phase-glider counter has failed for a structural reason,
+and that failure sharpens the programming target.  For every fixed jump
+`k>=1`, the public phase-up policy has
+
+```text
+h=391k+1,       m_i=m_0+4ki,
+2^(154h+23m_(i+1))w_(i+1)+(3^(114h)-2^(154h))
+  =3^(114h+17m_i)w_i.
+```
+
+Lean commit `466e381` kernel-checks the exact public-step bridge, finite and
+completed `Q_2` unrolling, and coefficientwise identification of the unique
+initial cofactor with a nonzero rational multiple of
+
+```text
+f_q(alpha),
+q=3^(68k)/2^(92k),
+alpha=2^(23m_0+154h)/3^(17m_0+114h).
+```
+
+The unnumbered main theorem on pp. 200--201 of Väänänen--Wallisser (1989)
+applies with `ell=1`, derivative order zero, and `p=2`; its ratio condition is
+vacuous, while Lean checks the coprimality and exact logarithmic size bound.
+Accepting that inspected external theorem, `f_q(alpha)` is irrational in
+`Q_2`, so it cannot be an ordinary positive cofactor.  Thus **every fixed
+positive jump phase-up walk is closed**, including `U(m)=(m,392,m+4)`.
+
+This is useful negative guidance rather than a retreat to blind search.  The
+[closure doctrine](docs/notes/kontorovich-closure-principles.md) now rewrites
+the ordinary-address problem as one forced 2-adic debris series.  A viable
+opcode chain should make that series a public coboundary—its entry and exit
+potentials telescope to an integer.  The surviving phase-glider language must
+therefore choose jump size or direction from changing public payload
+infinitely often; a linear counter is too weak.  The next theorem-shaped
+attack is the variable-jump series, beginning with short periodic jump
+patterns and their multi-theta decomposition, not larger seed simulation.
+
+The adversarial worker caught and retracted an initially overbroad periodic
+claim.  Lean commit `8b3d9f5` checks that the 1989 theorem's period-dependent
+size hypothesis succeeds for two and three theta values but fails already at
+four: `Gamma(4,0)<1/8<gamma`.  Period four is therefore the first escape from
+this *theorem*, not a candidate orbit.  Commit `772a6e8` has now completed the
+generic flattened `Q_2` residue-class splitter, including summability,
+nonzero coefficients, and pairwise argument separation.  Accepting the
+external theorem, periodic positive phase-up jump words of periods one through
+three are closed; four remains outside this particular bound.
+
+More importantly, opcode chaining now has a principled type obstruction.  A
+research derivation sent to the Lean adversary rewrites every public step as
+
+```text
+w-3^(-17m)
+  = (2^(154h+23m')/3^(114h+17m))*(w'-2^(-23m')).
+```
+
+Every up or down opcode is therefore ternary-entry to binary-exit.  At an
+internal boundary the two charts differ by
+`3^(-17m)-2^(-23m)<0`, exactly the normalized `-H_m` defect already seen in
+the opcode semigroup.  Chaining more bare cells only accumulates this
+same-sign interface tax; returning the phase does not by itself create
+closure.  Lean commit `772a6e8` proves this typed normal form for every exact
+public step, its finite-word expansion, strict negativity of the internal tax,
+and the resulting no-clean-bare-adapter theorem.  The constructive target is
+therefore an affine conjugacy intercept or paired public rail that carries the
+opposite correction and regenerates the ternary entry chart.
+
+The same review request contains a second closure invariant.  Each resonant
+parallel cell shrinks the separation between its two opcode charts from
+`2622k` to `2618k`.  Linking its output pair to another such input pair would
+force `1311*k_(i+1)=1309*k_i`; since the coefficients are coprime, an
+`N`-cell ladder needs `1311^N|k_0`.  Commit `772a6e8` kernel-confirms this and
+kills an
+infinite rail made solely from the current conjugacy cells before tail
+arithmetic enters.  It also specifies the missing instruction: a phase
+booster must regenerate the chart gap by the inverse factor, alongside the
+payload adapter.  That is now the fundamental target—not an unguided opcode
+enumeration.
+
+The first principled booster now exists at word level.  For
+
+```text
+W_r=[(r,h_0,L-r),(L-r,h_1,r+d)],
+```
+
+consecutive words differ in boundary phase by `(+d,-d,+d)`: the charts cross
+internally and recover their separation.  Their total gains are independent
+of `r`.  The new exact
+[`phase-swap artifact`](experiments/kontorovich/unit_charge_phase_swap_conjugacy_audit.json)
+constructs `1->3->2`, `2->2->3`, `3->1->4`; both adjacent pairs have
+`P=423,Q=296`, gcd-one positive integral affine conjugacies, exact nested
+cylinder checks, and sixteen arithmetic-bouncer step replays.  The adversarial
+check then catches the remaining failure: the conjugacy-selected next input
+strictly exceeds the current output in both constant and slope for every
+nonnegative tail.  The squares are parallel embeddings, not orbit handoffs.
+The closure problem is now concrete but twofold: make the node-gauge correction
+compose, then make the terminal collision replace exhausted `L` by a larger
+public `L'`.  No literal or infinite orbit is claimed.
+
+Remote jobs remain secondary and unchanged: Akdeniz's exact 1,198-digit Thue
+solve is active after 3 hours 30 minutes of CPU with no completion line;
+Ganesha still has 22 search workers and only shards 4 and 12 complete.  No
+counterexample or infinite orbit is known.
+
 ### 2026-07-22 13:09 EDT
 
 The opcode-chain question now has a fundamental answer rather than a larger
@@ -2500,6 +2654,15 @@ identically `x`.
   `C(n) ->+ C(f(n))`, where the rule lifts to every `n` by induction.  This is
   the Collatz analogue of a Busy Beaver bouncer and directly implements
   Simon's nonlocality proposal.
+- **Handoff lattices and address rotation.**  Compile opcode chains through
+  their exact dynamic interface
+  `sigma+3^Q u=rho'+2^P v`, not through a parallel conjugacy alone.  Every
+  finite handoff is another dyadic-cylinder/ternary-ray transducer, so the
+  chain has made progress only if its surviving payload writes the next
+  cylinder rather than selecting it by a new CRT choice.  A one-register
+  total affine gauge spends 2-adic slope at every step and cannot persist;
+  the live PL-shaped architecture is a nonlinear decoder or a public
+  multi-rail stack rotation which restores that address budget.
 - **Colussi repetend-defect bouncers.**  Use the exact periodic grammar of the
   halting classes as a structured background, then search for a finite or
   congruential defect which reproduces from order `h` to order `h+1`.  The
@@ -2789,10 +2952,13 @@ identically `x`.
   spatial phase-glider cell, not closure: successive embeddings still need to
   telescope.  For fixed `k=1`, however, the up family already gives the
   autonomous public one-counter policy `U(m)=(m,392,m+4)`; it is not an
-  externally pasted word.  It evades the all-period no-go through unbounded
-  public phase, while leaving the ordinary-tail/address-regeneration problem
-  open.  Variable jump and direction would require additional payload
-  control.  See the [resonant phase-glider
+  externally pasted word.  That policy and every fixed `k>=1` nevertheless
+  fail the ordinary-address gate: commit `466e381` identifies the forced
+  cofactor with a Väänänen--Wallisser partial-theta value, irrational in
+  `Q_2` under their inspected 1989 theorem.  The relation remains a useful
+  cell, but closure now requires variable jump or direction generated by
+  public payload, with its debris series telescoping to an integer.  See the
+  [resonant phase-glider
   note](docs/notes/kontorovich-resonant-phase-glider.md).
   The resulting primary interface removes auxiliary coordinates entirely.
   Every legal state is uniquely
@@ -2823,6 +2989,57 @@ identically `x`.
   fixed-boundary two-letter product collisions, so the constructive target is
   a conjugacy or self-synchronizing invariant language for this transducer,
   not equality of short matrices.
+  The ordinary-address gate now has a more useful cohomological form.  For a
+  chain in canonical cofactors,
+
+  ```text
+  2^P_i w_(i+1)=3^Q_i w_i+s_i,
+  s_i=2^(154h_i)-3^(114h_i),
+  ```
+
+  backward unrolling forces one convergent `Q_2` series for `w_0`.  The local
+  debris is already the exact two-chart difference
+
+  ```text
+  -s_i/3^Q_i = 3^(-17m_i)
+                -(2^P_i/3^Q_i)*2^(-23m_(i+1)).
+  ```
+
+  The principled constructive target is therefore a public coboundary: align
+  the ternary entry potential with the next binary exit potential so the
+  infinite address series telescopes to a positive integer.  Fixed-rate
+  policies instead lead to partial-theta irrationality; variable payload
+  jumps are justified only when they alter this rationality problem.
+  Lean commit `772a6e8` now gives every public cell the same cohomological
+  interface type:
+
+  ```text
+  w_i-3^(-17m_i)
+    =a_i*(w_(i+1)-2^(-23m_(i+1))).
+  ```
+
+  Composing a multi-cell word inserts the internal taxes
+  `3^(-17m)-2^(-23m)<0`; equivalently these are normalized copies of the
+  positive defect polynomial `H_m`.  Consequently phase-up and phase-down do
+  not form a bare typed pair, and a period-four word is not a sensible search
+  target merely because the present multi-theta theorem first loses its size
+  bound there.  The required second opcode is an actual chart adapter whose
+  public payload or affine intercept supplies the opposite correction.
+  The resonant geometry imposes another resource law: source-chart separation
+  `2622k` exits as `2618k`, so a chain of the same cells would require
+  `1311*k_(i+1)=1309*k_i` and unbounded `1311`-divisibility in its first jump.
+  The same commit proves the finite divisibility law and infinite no-go.  It
+  turns Simon's regeneration picture into a precise search specification:
+  find a public phase booster which replenishes both the chart type and the
+  lost separation.
+  The two-opcode phase-swap family is the first exact exponent-level response.  Its words
+  `W_r=[(r,h0,L-r),(L-r,h1,r+d)]` cross their charts with signed boundary
+  differences `(d,-d,d)`, making their total `P,Q` independent of `r`.  The
+  bounded arithmetic artifact constructs two adjacent parallel conjugacies in
+  the `L=4,d=h0=h1=1` line and replays all sixteen bouncer steps.  Exact
+  constant/slope inequalities prove that neither conjugacy hands the current
+  output to the next source.  A node-dependent typed gauge must solve that
+  first; only then does the turnaround `L->L'` become relevant.
   The first low-description clocks do not solve it: an exact audit of
   Thue--Morse, period-doubling, and Fibonacci words, all 240 injective
   two-symbol codings by `(m,h)` in `{1,...,4}^2`, and every prefix through 48
@@ -3076,6 +3293,10 @@ identically `x`.
 | Defect-only opcode chains as a dispatcher | Universally closed.  With `H_m=(C^m-D^m)/(C-D)` and `J_m=[[C^m,H_m],[0,D^m]]`, exact arithmetic gives `H_(m+n)=C^nH_m+D^mH_n` and `J_nJ_m=J_(m+n)`.  Such a chain remembers only total defect length.  Any programming power must come from recharge decorations and their public dyadic boundary, not from rearranging defect opcodes alone. | [`unit_charge_norm_opcode_audit.json`](experiments/kontorovich/unit_charge_norm_opcode_audit.json), [`ChargeNormOpcode.lean`](KontoroC/KontoroC/ChargeNormOpcode.lean) |
 | Equal one- or two-letter decorated opcode products | Universally closed in the stated fixed-boundary class by Lean commits `90bdf21`/`5a9324b`.  Single decorated signatures are injective.  For two letters with fixed initial/final recharge phases, the two diagonal exponent equations recover total defect length and the middle recharge; the off-diagonal debris increases by the positive monomial `(A^h-B^h)C^eD^i` when the split moves one cell.  It therefore recovers both defect lengths.  This kills short matrix collisions, not conjugacies, renormalizations, longer relations, or invariant public tail languages. | [`ChargeNormOpcode.lean`](KontoroC/KontoroC/ChargeNormOpcode.lean) |
 | Every fixed finite charge-bouncer period | Kernel-closed at the arithmetic-surrogate level by commit `e8585c4`, including arbitrary finite transients.  A generic nonempty list fold compresses one period to a single expanding coprime affine gain law; arbitrarily large denominator divisibility contradicts a fixed positive initial state.  This subsumes the earlier constant and alternating results.  Payload-driven genuinely aperiodic schedules and phase conjugacies remain live. | [`ChargeBouncerPeriodicNoGo.lean`](KontoroC/KontoroC/ChargeBouncerPeriodicNoGo.lean) |
+| Fixed-jump resonant phase-up counter | Closed for every `k>=1`, despite its nonperiodic public phase `m_i=m_0+4ki`.  Lean commit `466e381` derives the exact public cofactor recurrence, constructs its unique `Q_2` candidate, identifies it coefficientwise with a nonzero rational multiple of `f_(3^(68k)/2^(92k))(alpha)`, and bridges every linked public-step ray to that recurrence.  The inspected main theorem of Väänänen--Wallisser (1989), pp. 200--201, applies with `ell=1,sigma=0,p=2`; accepting that external theorem makes the candidate irrational and rules out an ordinary cofactor.  Variable payload-dependent jumps/directions remain open. | [`ChargePhaseUpTheta.lean`](KontoroC/KontoroC/ChargePhaseUpTheta.lean), [phase-glider note](docs/notes/kontorovich-resonant-phase-glider.md) |
+| Väänänen--Wallisser as an all-period phase-up obstruction | **Retracted beyond period three.**  Periodic jump schedules split into several theta values, and the paper's sufficient threshold depends on their number `L`.  Commits `8b3d9f5`/`772a6e8` kernel-check the complete flattened multi-theta decomposition and `gamma<Gamma(L,0)` for `L=2,3`, but also `Gamma(4,0)<1/8<gamma`.  Accepting the external theorem closes periods one through three; the citation cannot close period four or any larger period by the same estimate.  Period four is only the first theorem escape, not evidence of an ordinary ray. | [`ChargePhaseUpPeriodicTheta.lean`](KontoroC/KontoroC/ChargePhaseUpPeriodicTheta.lean) |
+| Bare public words as binary-to-ternary chart adapters | Universally closed by Lean commit `772a6e8`.  Every exact public step has typed form `w-3^(-17m)=a*(w'-2^(-23m'))`.  A multi-cell word accumulates a strictly negative internal tax, exactly the normalized `-H_m` defect, so it cannot be a clean entry/exit coboundary.  This is not a no-orbit theorem; it proves that closure needs an auxiliary correction rail. | [`ChargeTypedInterface.lean`](KontoroC/KontoroC/ChargeTypedInterface.lean), [closure doctrine](docs/notes/kontorovich-closure-principles.md) |
+| Infinite rail of the one-cell determinant-four conjugacy | Universally closed in that chart class by Lean commit `772a6e8`.  Self-linking successive cells requires `1311*k_(i+1)=1309*k_i`; a length-`N` rail forces `1311^N|k_0`, and an infinite natural rail has `k_0=0`.  The result is independent of affine intercepts and tail cylinders.  A live turnaround must reverse the separation loss or leave the one-cell resonant class. | [`ChargeResonantSeparationNoGo.lean`](KontoroC/KontoroC/ChargeResonantSeparationNoGo.lean), [phase-glider note](docs/notes/kontorovich-resonant-phase-glider.md) |
 | Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
 | Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
 | Fixed defect opcode in the charge bouncer | Closed by Lean commit `5633c44`.  For a fixed affine gain law `B*Z_(t+1)=A*Z_t+C` with coprime `A,B`, `1<B`, and `A>B`, the fixed-point defect obeys `B*delta_(t+1)=A*delta_t`; hence every `B^n` divides one positive `delta_0`, impossible.  The concrete theorem applies to every fixed `m`.  It does not apply to the live bouncer, where `m` may decrease or oscillate and each block switches from its `m`-defect law to `h-1` homogeneous backgrounds. | [`AffineQuotientNoGo.lean`](KontoroC/KontoroC/AffineQuotientNoGo.lean) |
@@ -3133,7 +3354,8 @@ positive integer and its claimed behavior are machine-checked.
 | All-depth self-regenerating `-5` splash | Composing any depth-`j` charge branch with its one-cell branch, then quotienting by `D_j=3^(114*2^j)+2^(154*2^j)`, reproduces collision constant `-5` with offsets `d_(j+1)=2d_j+17`, `e_(j+1)=2e_j+26`.  Coprimality with the fixed 80-bit stride holds for every `j`: a failed prime would require `2^(j+1)<M`, so only `j=0..78` can fail, and all 79 exact gcds are one.  The artifact materializes eight levels, compares 64 direct/composed branches, checks 128 members, and recursively expands canonical members through 510 original unit macros.  Infinite nesting is not a seed because every positive child lift strictly enlarges its ancestor packet; fixed-level autonomous orbits remain open. | [`unit_charge_hierarchy_audit.json`](experiments/kontorovich/unit_charge_hierarchy_audit.json) |
 | Autonomous reversible fixed-form valuation bouncer | The rational one-cell fixed point clears integrally: with `F=(3^114-2^154)/5` and `Z=F*G-2^26`, one background cell is exactly `2^154 Z'=3^114 Z`.  At a defect boundary `Z=2^26y`, the normalized coordinate reads `m=v2(y+1)/23` and `h=(v2(3^(17m)(y+1)-2^(23m))-23m)/154`, then returns `y'=3^(114h)*oddpart(3^(17m)(y+1)-2^(23m))`.  The output recovers `h=v3(y')/114`, then `m=v3(1+2^(154h)q)/17` and the unique predecessor; the opcode matrix has determinant four.  The arithmetic artifact checks all 64 `(m,h,m')` families with `m,m'<=4,h<=4`, 128 forward/reverse members, 320 charge macros, and 640 unit-macro replays.  `y` is not itself the odd Collatz state; an infinite accepted ray refutes Collatz only through the separate semantic compiler.  None is supplied. | [`unit_charge_bouncer_audit.json`](experiments/kontorovich/unit_charge_bouncer_audit.json) |
 | Canonical public-cofactor transducer | Every fixed-register state has unique normalized coordinates `y=D^m(w_m+S*t)-1`, `S=2FM`.  Eliminating the collision quotient gives the exact branch `2^(154h+23m')t'=3^(114h+17m)t+kappa`, hence `t=rho+2^P u -> t'=sigma+3^Q u`.  Odd endpoint cofactors recover the exact normalized collision valuation and output, so this arithmetic interface has no hidden representation metadata.  Lean commit `5a9324b` proves coordinate uniqueness and equivalence with the arithmetic `ChargeBouncerStep` surrogate; commits `36d6633`/`afecb2c` expose the still-separate ordinary-state/`WordLegal` obligation.  The arithmetic artifact reconstructs all 27 branches with `m,h,m'<=3` and performs 54 forward/reverse formula replays.  It supplies no invariant tail language; the live target is a finite mixed-radix feedback which makes the written ternary-scaled tail decode its own next binary instruction. | [`ChargePublicCofactor.lean`](KontoroC/KontoroC/ChargePublicCofactor.lean), [`ChargePublicCofactorSemantics.lean`](KontoroC/KontoroC/ChargePublicCofactorSemantics.lean), [`unit_charge_public_cofactor_audit.json`](experiments/kontorovich/unit_charge_public_cofactor_audit.json), [closure doctrine](docs/notes/kontorovich-closure-principles.md) |
-| Determinant-four resonant phase glider | The opcode shift `(m,h,m')->(m+2622k,h-391k,m'+2618k)` preserves both public-tail exponents `P,Q` while displacing the defect boundary by `4k`.  Parallel branches admit an integral public-tail conjugacy `E(t)=s*t+c` whenever `gcd(kappa_a,3^Q-2^P)|kappa_b`; the same equation automatically embeds the exact source cylinder.  The artifact reconstructs the first phase-down and phase-up cells, each with 21,330-digit coefficients, checks the conjugacy/cylinders coefficientwise, and performs eight arithmetic bouncer replays.  At `k=1`, `U(m)=(m,392,m+4)` is a causally decoded public one-counter policy; ordinary-tail realization, telescoping, universal literal semantics, and an infinite orbit remain unproved. | [`unit_charge_resonant_conjugacy_audit.json`](experiments/kontorovich/unit_charge_resonant_conjugacy_audit.json), [phase-glider note](docs/notes/kontorovich-resonant-phase-glider.md) |
+| Determinant-four resonant phase glider | The opcode shift `(m,h,m')->(m+2622k,h-391k,m'+2618k)` preserves both public-tail exponents `P,Q` while displacing the defect boundary by `4k`.  Parallel branches admit an integral public-tail conjugacy `E(t)=s*t+c` whenever `gcd(kappa_a,3^Q-2^P)|kappa_b`; the same equation automatically embeds the exact source cylinder.  The artifact reconstructs the first phase-down and phase-up cells, each with 21,330-digit coefficients, checks the conjugacy/cylinders coefficientwise, and performs eight arithmetic bouncer replays.  The cell survives, but commit `466e381` plus the external Väänänen--Wallisser theorem closes every fixed positive phase-up jump.  Commits `8b3d9f5`/`772a6e8` complete the period-three external-theorem obstruction and locate its period-four size failure.  Commit `772a6e8` also proves that bare words pay a nonzero typed chart tax and that an infinite rail of the one-cell conjugacies loses resonant separation.  The live target is a word-level chart crossing with a payload-carried turnaround, universal literal semantics, and an infinite orbit. | [`unit_charge_resonant_conjugacy_audit.json`](experiments/kontorovich/unit_charge_resonant_conjugacy_audit.json), [`ChargePhaseUpTheta.lean`](KontoroC/KontoroC/ChargePhaseUpTheta.lean), [`ChargePhaseUpPeriodicTheta.lean`](KontoroC/KontoroC/ChargePhaseUpPeriodicTheta.lean), [`ChargeTypedInterface.lean`](KontoroC/KontoroC/ChargeTypedInterface.lean), [phase-glider note](docs/notes/kontorovich-resonant-phase-glider.md) |
+| Two-opcode phase-swap conjugacy, failed embedding, and direct finite links | The word family `W_r=[(r,h0,L-r),(L-r,h1,r+d)]` makes consecutive charts cross with boundary differences `(d,-d,d)`, so both composite gains are independent of `r`.  Lean commit `a05ca2e` proves this signed-area law and also that every exact two-step word still pays a negative typed tax.  The exact artifact constructs the smallest line `1->3->2`, `2->2->3`, `3->1->4`; both adjacent pairs have `P=423,Q=296`, gcd-one positive integral affine conjugacies, and exact nested cylinder faces.  Commit `3a6d285` proves that both conjugacy-selected next inputs strictly outrun the current outputs, so those parallel squares are not orbit links.  Separately, artifact version two constructs and replays the direct coprime handoff progressions `u=u0+2^423t`, `v=v0+3^296t`; these are fresh finite address selections, not conjugacies or closure.  Commit `cc09f1b` proves any nonnegative TI3 correction across these macros strictly grows.  No self-writing address, public `L->L'` turnaround, universal literal composition, ordinary infinite tail, or counterexample is supplied. | [`unit_charge_phase_swap_conjugacy.py`](experiments/kontorovich/unit_charge_phase_swap_conjugacy.py), [`unit_charge_phase_swap_conjugacy_audit.json`](experiments/kontorovich/unit_charge_phase_swap_conjugacy_audit.json), [`ChargePhaseSwap.lean`](KontoroC/KontoroC/ChargePhaseSwap.lean), [phase-glider note](docs/notes/kontorovich-resonant-phase-glider.md) |
 | Bounded literal bouncer semantic compiler | The normalized coordinate descends canonically through charge packet, unit packet, level-two packet, level-one glider, and breakoff `k`; the final router conversion, not `k`, produces the literal odd Collatz state.  The fixed substitution grammar is `charge(N)->unit[N,1]`, `unit(N)->glider[1,2,1^N]`, `glider(N)->gate[E,H,E^N]`.  The exact artifact rebuilds all 54 members with `m,h,m'<=3`, expands 756 gliders and 4,968 breakoff macros, emits 14,057 accelerated instructions, and independently replays every valuation and endpoint by direct arithmetic; all tested literal endpoints grow.  This repairs the bounded semantic regression but is not the universal Lean composition theorem or an infinite ray. | [`unit_charge_semantic_compiler.py`](experiments/kontorovich/unit_charge_semantic_compiler.py), [`unit_charge_semantic_compiler_audit.json`](experiments/kontorovich/unit_charge_semantic_compiler_audit.json) |
 | Perfect-23rd-power reproduction rail | Encoding the bouncer payload as `u=F*r^23` makes the output address self-similar because its binary cell base is `D=2^23`.  Lean commit `5fbacf5` kernel-checks the exact elimination and proves every accepted `h=1` transition would solve `3^15X^23-2^16Y^23=5`.  PARI/GP 2.15.4 checks the degree-23 polynomial irreducible, reports attached class number one, and returns the complete empty solution list; PARI documents that class-number-one fast results are unconditional.  Therefore the shortest-recharge rail is closed, with the final no-solution step trusted to PARI rather than Lean.  Higher recharge, corrected payloads, and the bouncer remain open. | [`ChargePowerQuine.lean`](KontoroC/KontoroC/ChargePowerQuine.lean), [`unit_charge_power_quine_thue.gp`](experiments/kontorovich/unit_charge_power_quine_thue.gp) |
 | Recharge-23 determinant-four resonance | At `h=23`, exact arithmetic gives `A^23=3^4C^154` and `B^23=D^154`; the forcing is the 1,198-digit integer `G23=5 Phi_23(A,B)`.  Although the original three primes leave all classes, Lean's complete checks at `277,599,829,1151` reduce every uncorrected single perfect-power transition to `e=15`, `m=9 (mod 23)`, and `3^15X^23-Y^23=G23`.  The remaining global Thue equation is explicit and is running as detached Akdeniz service `kc-r23`; a multi-rail correction can change it and remains open. | [`ChargePowerResonance.lean`](KontoroC/KontoroC/ChargePowerResonance.lean), [`unit_charge_power_resonance_thue.gp`](experiments/kontorovich/unit_charge_power_resonance_thue.gp) |
@@ -3655,9 +3877,10 @@ existing lines of work; the closest ancestors, and what each contributes:
   series”](https://arxiv.org/abs/math/0506086)
   (2005)** — the closest arithmetic literature for the exact partial-theta
   values forced by the standard two-rail schedule and by every constant-rate
-  fixed-level unit clock.  The full-source p-adic Väänänen--Wallisser theorem
-  applies and rules out both ansatz classes after their exact hypothesis
-  audits; Zudilin's displayed real/complex hypothesis fails for the original
+  fixed-level unit clock, now also the determinant-four fixed-jump phase-up
+  counter.  The full-source p-adic Väänänen--Wallisser theorem applies and
+  rules out all three ansatz classes after their exact hypothesis audits;
+  Zudilin's displayed real/complex hypothesis fails for the original
   standard-schedule parameters.
 - **K. Väänänen, [“Algebraic independence of certain Mahler
   numbers”](https://arxiv.org/abs/1507.02510) (2015)** — covers Thue--Morse
