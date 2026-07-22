@@ -76,6 +76,7 @@ import KontoroC.PrefixKraft
 import KontoroC.TwoKraftObstruction
 import KontoroC.YahBoundaryNoGo
 import KontoroC.YahContextGlider
+import KontoroC.YahRewriteSystem
 import KontoroC.YahUniformBlockNoGo
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain

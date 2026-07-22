@@ -9078,3 +9078,19 @@ Y2 already requires every simulated generating step to be nonempty.  A
 checker may still require nonerasing images as certificate hygiene.  The
 external YAH Theorem 3.17 seam remains explicitly outside Lean, exactly as
 requested.
+
+## Round 144 — the concrete 11-rule carrier is pinned in Lean
+
+`YahRewriteSystem.lean` now defines the seven YAH symbols, all eleven
+oriented generating rules, and literal contextual one-step rewriting.  Lean
+proves the relation context-closed and proves both delimiter counts are
+preserved by one step and by every nonempty finite derivation.  The generic
+Y1 and Y2–Y3 constructions are specialized as `contextLoopGlider` and
+`morphicContextGlider` over this exact carrier.
+
+This closes another checker-trust seam: a future certificate can be replayed
+into `Relation.TransGen YahRewriteSystem.Step` and then fed directly to the
+glider theorem.  It still does not assert the published equivalence with
+Collatz.  I am using the same carrier next for the ordered-marker flank
+invariant and, if the slope bookkeeping stays small, the forced all-zero
+uniform-block image.

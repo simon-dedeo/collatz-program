@@ -585,6 +585,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahContextGlider.of_context_loop
 #print axioms KontoroC.YahContextGlider.transGen_wordMap_iterate
 #print axioms KontoroC.YahContextGlider.of_morphic_context_loop
+#print axioms KontoroC.YahRewriteSystem.contextClosed
+#print axioms KontoroC.YahRewriteSystem.transGen_slash_count
+#print axioms KontoroC.YahRewriteSystem.transGen_dot_count
+#print axioms KontoroC.YahRewriteSystem.contextLoopGlider
+#print axioms KontoroC.YahRewriteSystem.morphicContextGlider
 #print axioms KontoroC.YahUniformBlockNoGo.two_mul_threePow_lt_fourPow
 #print axioms
   KontoroC.YahUniformBlockNoGo.no_ternary_block_value_twoPow_double
