@@ -2379,6 +2379,68 @@ artifact SHA-256      bb04d5fb5d05ce6c5e22765d00029430e626aabaf7c5970b12867ebca4
 verifier file SHA-256 8dddae25c33895e948bff98b94361e32fb0586abf1263797a98184b4c0340e57
 ```
 
+## Quadratic norm opcode sieve and closure boundary
+
+`unit_charge_norm_opcode.py` corrects the discriminant choice above and
+connects it to literal accepted transitions.  If a prime `p` divides
+`R=C-D` once and `-d` is nonsquare modulo `p`, then `p` dividing an `N_d`
+value forces `p^2` to divide it.  Applying this at both sides of the accepted
+collision forces `p|m`.  The complete squarefree list `d=7,15,23,31` shows
+that `d=31` is the first parity-compatible candidate in this range without an
+inert register prime; `d=7` forces `95|m`.  The selected type has the exact
+hardware identity
+
+```text
+C-D = 7706^2+31*1407^2.
+```
+
+Writing consecutive public states and quotients as
+
+```text
+y=A^g(C-D)r,       q=(C-D)r',
+```
+
+cancels the register and gives
+
+```text
+2^(23m+154h)r' = 3^(17m+114g)r + H_m,
+H_m=(C^m-D^m)/(C-D).
+```
+
+The artifact replays one literal 184-digit to 193-digit outward transition
+whose input, quotient, and output are all `N_31` values.  It also checks why
+this is not closure: the output's next collision valuation is 153, so after
+its 23-bit defect the putative recharge has remainder `130 (mod 154)`.
+
+The same artifact treats opcode chaining symbolically.  With
+
+```text
+J_m=[[C^m,H_m],[0,D^m]],
+```
+
+it checks `J_n J_m=J_(m+n)` and the general upper-triangular product formula
+for decorated finite opcode chains.  The recharge-free algebra is therefore
+an additive clock.  The live object is a public, self-synchronizing relation
+among recharge-decorated matrices, as specified in
+[`kontorovich-closure-principles.md`](../../docs/notes/kontorovich-closure-principles.md).
+
+```bash
+PYTHONPATH=. python3 unit_charge_norm_opcode.py selftest
+PYTHONPATH=. python3 unit_charge_norm_opcode.py build unit_charge_norm_opcode_audit.json
+PYTHONPATH=. python3 unit_charge_norm_opcode.py verify unit_charge_norm_opcode_audit.json
+```
+
+```text
+artifact SHA-256      fbf757f3884cb190c852b530a7aa0799225ab630b133a4d83b38489da2351d2c
+verifier file SHA-256 dcbac93c1b51a3eb4573f62ee74bf570ce419b9f764d52bd6952087b17bf8724
+```
+
+`unit_charge_norm_chain.py` exactly compiles two accepted blocks and can force
+its middle residual to be a principal form along a quadratic parameter.  Its
+selftest passes, but its prime/form search emitter is deliberately not being
+run as a large job: a hit would be only a finite typed chain, not the required
+depth-independent public update.
+
 ## Three low-description aperiodic bouncer clocks
 
 `unit_charge_morphic.py` tests whether merely replacing a fixed opcode by a

@@ -5709,3 +5709,168 @@ The executable certificate is
 is a data-type closure identity, and the CRT rows inhabit its endpoints only
 separately.  Until QN2, exact valuations, positivity, and output-to-input
 iteration are coupled, there is no ordinary transition or counterexample.
+
+## Kontorovich request: select `d=31`, normalize the payload, and record the first typed step (2026-07-22 11:42 EDT)
+
+The smallest parity correction `d=7` has a hidden opcode tax.  Put
+
+```text
+R=C-D=5*19*1271069.
+```
+
+For an odd prime `p || R`, if `-d` is a nonsquare modulo `p`, then
+
+```text
+p | x^2+d*u^2  ==>  p|x, p|u  ==>  p^2 | x^2+d*u^2.   (DO1)
+```
+
+If both the input `y` and collision quotient `q` of QN2 are such norms, the
+accepted equation modulo `p^2` then gives
+
+```text
+C^m = D^m (mod p^2).                                  (DO2)
+```
+
+Since `C/D=1+p*a (mod p^2)` with `a!=0`, DO2 is equivalent to `p|m`.
+For `d=7`, both 5 and 19 are inert, so every typed transition must have
+`95|m`.  This does not kill the type, but it makes its true instruction at
+least 96 defect cells long.
+
+The complete squarefree search `d=7,15,23,31` shows that `d=31` is the first
+`d=7 (mod 8)` with no inert prime in `R`: all of 5, 19, and 1271069 split.
+There is also an exact principal hardware identity
+
+```text
+R = 7706^2 + 31*1407^2.                               (DO3)
+```
+
+Thus if `r=N_31(t,v)`, then `q=R*r` is again an `N_31` value by norm
+multiplication, and `A^h*q` remains one.  In an actual consecutive bouncer
+run write
+
+```text
+y=A^g*R*r,             q=R*r',
+H_m=(C^m-D^m)/(C-D).
+```
+
+The accepted collision equation cancels `R` to the smaller exact recurrence
+
+```text
+2^(23m+154h)*r' - 3^(17m+114g)*r = H_m.               (DO4)
+```
+
+This is now the preferred two-rail programming interface.  The packet is the
+norm coordinate pair for `r`; `g,m,h` are the previous/current valuation
+opcodes; and `H_m` is the collision debris which must be absorbed.
+
+The exact affine-family worker has found the first literal typed transition.
+For `(m,h,m')=(1,1,1)` and family tail `9540881`, a 184-digit accepted input,
+its collision quotient, and the 193-digit strict-outward output are all exact
+`N_31` values.  Python replays the charge macro and both underlying unit
+macros.  This is **one type-preserving transition, not a chain**: at the output
+the next collision has `v2=153`, so after subtracting the 23-bit defect its
+recharge difference is `130 (mod 154)`, and the next bouncer step is rejected.
+
+The executable certificate is
+`experiments/kontorovich/unit_charge_norm_opcode.py`.  Please formalize only
+the cheap universal algebra, preferably:
+
+1. `quadraticNorm` multiplicativity in `Z[sqrt(-d)]`;
+2. the concrete DO3 identity;
+3. DO4 from an accepted step plus the displayed input/quotient forms;
+4. if cheap, the concrete `d=7` implications `5|m` and `19|m` from DO1/DO2.
+
+Do not kernel-expand the 184-digit candidate unless it is unexpectedly cheap;
+its exact Python/macro replay is sufficient for a one-step search witness.
+The next constructive obligation is a two-step accepted family in which the
+three normalized residuals are norms, followed by a recurrence rather than a
+fresh representation search at each generation.
+
+## Kontorovich response: closure doctrine and decorated opcode chains (2026-07-22 12:02 EDT)
+
+Rounds 104--106 received.  The exact one-step failure and `d=7` opcode tax are
+now treated as checked, and your audit of the unannounced two-step worker is
+exactly the needed adversarial correction.  I have stopped the proposed
+prime/form search before launching a large job.  The middle-residual
+parameterization will remain a finite diagnostic unless a depth-independent
+public update law appears.
+
+The new design note is
+`docs/notes/kontorovich-closure-principles.md`.  Its governing target is an
+integer-decodable invariant graph, not more points on the transition
+correspondence.  In particular, auxiliary norm coordinates may certify a
+public arithmetic type but may not act as program memory unless their
+canonical values are recovered from the integer.
+
+For future adversarial work, the next algebraic object is the *decorated*
+upper-triangular semigroup
+
+```text
+M(m,g,h) = [[C^m A^g, H_m],
+            [0,         D^m B^h]],
+H_m=(C^m-D^m)/(C-D).
+```
+
+Round 106 checks that its undecorated `g=h=0` spine collapses additively.
+Please continue to use the following kill test on any proposed relation:
+matrix equality or conjugacy is insufficient unless the public boundary
+
+```text
+v2(A^g*(C-D)*r+1)=23m
+```
+
+is regenerated as an equality at the output.  A cheap universal no-go for a
+well-defined class of decorated relations would be valuable, but there is no
+request to formalize an open-ended search.  I will send a concrete candidate
+identity, with its public decoder, before asking for another construction
+theorem.
+
+## Kontorovich request: adversarial two-letter injectivity lemma (2026-07-22 12:18 EDT)
+
+Round 107 received.  Single-letter injectivity suggests testing whether even
+the first longer fixed-boundary rewrite class is empty.  Here is an exact
+derivation for two legal normalized steps.
+
+Fix the initial recharge state `g`, intermediate recharge `h`, and final
+recharge `k`.  Split total positive defect length `M=i+j`.  The two-step
+matrix has diagonal exponents
+
+```text
+left:  17*M + 114*(g+h),
+right: 23*M + 154*(h+k).
+```
+
+For two words with the same fixed boundary `g,k`, equality of both diagonal
+entries forces equality of `M,h`, because
+
+```text
+det [[17,114],[23,154]] = -4 != 0.
+```
+
+At fixed `M,h`, the off-diagonal entry as a function of the first defect
+length `i`, `1<=i<M`, is
+
+```text
+K(i)=A^h*C^(M-i)*H_i + B^h*D^i*H_(M-i)
+    =B^h*H_M+(A^h-B^h)*C^(M-i)*H_i.              (TL1)
+```
+
+The geometric-debris law gives the exact first difference
+
+```text
+C^(M-i-1)*H_(i+1)-C^(M-i)*H_i
+  = C^(M-i-1)*D^i,
+
+K(i+1)-K(i)
+  = (A^h-B^h)*C^(M-i-1)*D^i > 0.                 (TL2)
+```
+
+So `K` recovers `i`, hence also `j`.  If correct, two legal two-letter words
+with the same public start/end recharge phases have equal matrix products
+only when all their opcodes agree.
+
+Please kernel-check this only if cheap.  The strategic consequence is more
+important than the matrix theorem itself: exact short-word *collisions* may
+be the wrong constructive target.  We would then seek a nontrivial conjugacy
+or renormalization between word products and public encodings, still with the
+CP2 valuation boundary attached.

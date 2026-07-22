@@ -1,0 +1,527 @@
+{
+  "checks": {
+    "C_minus_D_is_N31": true,
+    "counterexample_not_claimed": true,
+    "d_31_minimal_in_tested_complete_range": true,
+    "d_7_opcode_tax_exact": true,
+    "defect_semigroup_exact": true,
+    "finite_opcode_chain_formula_exact": true,
+    "normalized_families_literal_replay": true,
+    "one_literal_typed_transition_replayed": true,
+    "two_step_chain_not_claimed": true
+  },
+  "claim_scope": "exact inert-register-prime opcode sieve for quadratic norm types; minimal squarefree d=7 mod 8 without that local tax; exact representation of C-D by N_31; and normalized accepted affine transition families; one literal outward N_31-typed accepted transition with exact next-step failure; exact recharge-free defect semigroup and general finite opcode-chain composition law; no self-synchronizing infinite recurrence or counterexample",
+  "constants": {
+    "A": 2465034704958067503996131453373943813074726512397600969,
+    "B": 22835963083295358096932575511191922182123945984,
+    "C": 129140163,
+    "C_minus_D": 120751555,
+    "D": 8388608,
+    "register_primes": [
+      5,
+      19,
+      1271069
+    ]
+  },
+  "first_literal_typed_transition": {
+    "collision_quotient": 1163928559134351085415943790541515728146954840107878852083773901398115850069752717141763601902107119735423866376632242070907865500762549895,
+    "d": 31,
+    "family_tail": 9540881,
+    "h": 1,
+    "input_coordinates": [
+      -34594553071611848272136582046802637443772755074157998211935043332989563222062704139975009012,
+      -4133838670088167994381812076239648768167125806403569110151584721141922102800986119731890489
+    ],
+    "input_residual": 857351346357594534295466213634408148548388573349134671041361680633231254510538856911341309453806611482146375181887139049936509790091813089608485157280570503981,
+    "input_residual_coordinates": [
+      -28658127184646064172542759367153679581704294829838548980354034456639546032643609,
+      1078575712960634712747037457253951321204403377829171643523788548752107122821810
+    ],
+    "input_y": 1726530388884374482392449021454480255840596974145692901845654390281413005826347696809407999417037607729528498090391199506949674780910520967133605538579820201281829878447194076029648895,
+    "input_y_decimal_digits": 184,
+    "literal_bouncer_step": true,
+    "m": 1,
+    "next_collision_valuation": 153,
+    "next_m": 1,
+    "next_recharge_difference": 130,
+    "next_recharge_remainder_mod_154": 130,
+    "next_step_accepted": false,
+    "normalized_family_k": 3180293,
+    "output_coordinates": [
+      -860757236515782209311684476671887219716849430176641659215573722684672963549488942100275873665264,
+      262015837501114739670833050622214805537525329372322963054793490303846746301557678517266344861167
+    ],
+    "output_y": 2869124292358013753550031151761877658913321027791321665015391314665832134812791500109995918464136661003112871392486741456282169053703892896306134967436395870711749616611702361704176317162848255,
+    "output_y_decimal_digits": 193,
+    "quotient_coordinates": [
+      -548238036692513296541026846426354901017471233056039402560326705832528,
+      166884508476998366563232723834988782633854176807345418329929319712709
+    ],
+    "quotient_residual": 9639035779989343287678107255360112986925550069379055632730973124098615956289363868993352523717869469551956216022495462446904849389,
+    "quotient_residual_coordinates": [
+      25293912740823340049271985250618220733473654296842351017066815767,
+      17038148618045669233572156837187768759649201299206881708917247590
+    ],
+    "strict_public_state_growth": true,
+    "underlying_macro_replay": {
+      "background_cells": 0,
+      "charge_macros_replayed": 1,
+      "input_defect_cells": 2,
+      "input_y_bits": 609,
+      "original_unit_macros_replayed": 2,
+      "output_defect_cells": 2,
+      "output_y_bits": 640,
+      "reverse_readback_checked": true,
+      "strict_outwardness_checked": true,
+      "tail": 9540881
+    }
+  },
+  "normalized_accepted_families": [
+    {
+      "h": 1,
+      "input_base": 184382474858365675218972422816945492755799715985122778748872519600150545031186183751796600041214029801993970031364190000882474701368524217268933148373805,
+      "input_identity": "y=3^34*(C-D)*(input_base+input_step*k)",
+      "input_linear_form_primitive": true,
+      "input_step": 269582444754341715033737770281538629177530440607019128715053277091359712567362134786058252386558902047112191608734512098648303444876654987790202943045632,
+      "m": 1,
+      "next_m": 1,
+      "quotient_base": 2072976592284357556306260132898822482962772480769777699662409265961010262319856705620049646339713788677872204533309393810413,
+      "quotient_identity": "q=(C-D)*(quotient_base+quotient_step*k)",
+      "quotient_linear_form_primitive": true,
+      "quotient_step": 3030863416362187698844273451880056362134893579493013650928789725251525565499500061515290227557090849754462100866269532127232,
+      "replay_rows": [
+        {
+          "input_identity": true,
+          "k": 0,
+          "literal_bouncer_replay": true,
+          "quotient_identity": true,
+          "tail": 2
+        },
+        {
+          "input_identity": true,
+          "k": 1,
+          "literal_bouncer_replay": true,
+          "quotient_identity": true,
+          "tail": 5
+        },
+        {
+          "input_identity": true,
+          "k": 7,
+          "literal_bouncer_replay": true,
+          "quotient_identity": true,
+          "tail": 23
+        }
+      ],
+      "tail_formula": "tail=tail_residue_mod_3+3*k",
+      "tail_residue_mod_3": 2
+    },
+    {
+      "h": 1,
+      "input_base": 2024140004087648354164862294479781208702577974523813666830420757845372584395313600667495444900881273660834927626075252700600738269011539428651745524555911361325,
+      "input_identity": "y=3^34*(C-D)*(input_base+input_step*k)",
+      "input_linear_form_primitive": true,
+      "input_step": 2261421452725828945465732929685877197027665274319565519292125640634796815720274542763406544435907098183621707426563198066817947464119867043816798729656132960256,
+      "m": 2,
+      "next_m": 1,
+      "quotient_base": 350337588531642734973946127992545082460001763787917782908754049831174171994933537660107543627379432817325849773823190517526798218221,
+      "quotient_identity": "q=(C-D)*(quotient_base+quotient_step*k)",
+      "quotient_linear_form_primitive": true,
+      "quotient_step": 391406195619749786465344385192363135055287184843381240242169006511707227527272614362594606979029804143099745683192488580844477218816,
+      "replay_rows": [
+        {
+          "input_identity": true,
+          "k": 0,
+          "literal_bouncer_replay": true,
+          "quotient_identity": true,
+          "tail": 2
+        },
+        {
+          "input_identity": true,
+          "k": 1,
+          "literal_bouncer_replay": true,
+          "quotient_identity": true,
+          "tail": 5
+        },
+        {
+          "input_identity": true,
+          "k": 7,
+          "literal_bouncer_replay": true,
+          "quotient_identity": true,
+          "tail": 23
+        }
+      ],
+      "tail_formula": "tail=tail_residue_mod_3+3*k",
+      "tail_residue_mod_3": 2
+    },
+    {
+      "h": 2,
+      "input_base": 124067505316595773574907149478337069272534513879553921394818872223760606791817286862613939810978090796248366647056180309519170028804332408867703412153561460271813845313613330647753705656973098690597094781129159469,
+      "input_identity": "y=3^34*(C-D)*(input_base+input_step*k)",
+      "input_linear_form_primitive": true,
+      "input_step": 433202286540099167712122700623205303893326214554565323556528293958404995977961880940460243033413235831713661682652642332367427007821268763454525962108670952757540257640628626589566133002631686588870009810040389632,
+      "m": 2,
+      "next_m": 2,
+      "quotient_base": 940339989618480845917561158002207782043561555550450465431406863088899546607145987498902884080277463673467168211257703703359098239148656645,
+      "quotient_identity": "q=(C-D)*(quotient_base+quotient_step*k)",
+      "quotient_linear_form_primitive": true,
+      "quotient_step": 3283353143825398016741479632379738933629862521074666618945380865376159342493099271022976020861145247273239671435993975249180628353577648128,
+      "replay_rows": [
+        {
+          "input_identity": true,
+          "k": 0,
+          "literal_bouncer_replay": true,
+          "quotient_identity": true,
+          "tail": 0
+        },
+        {
+          "input_identity": true,
+          "k": 1,
+          "literal_bouncer_replay": true,
+          "quotient_identity": true,
+          "tail": 3
+        },
+        {
+          "input_identity": true,
+          "k": 7,
+          "literal_bouncer_replay": true,
+          "quotient_identity": true,
+          "tail": 21
+        }
+      ],
+      "tail_formula": "tail=tail_residue_mod_3+3*k",
+      "tail_residue_mod_3": 0
+    }
+  ],
+  "opcode_sieve": {
+    "d_7_forces_m_multiple_of": 95,
+    "first_candidate_without_inert_register_prime": 31,
+    "principle": "if -d is nonsquare mod p and p divides an N_d value, then p^2 divides it; the collision modulo p^2 forces p|m",
+    "small_squarefree_candidates": [
+      {
+        "d": 7,
+        "d_mod_8": 7,
+        "forced_opcode_divisor": 95,
+        "has_no_inert_register_prime": false,
+        "register_prime_rows": [
+          {
+            "C_over_D_mod_p2": 11,
+            "first_order_tangent": 2,
+            "forced_opcode_divisor": 5,
+            "inert_type_forces_opcode_divisibility": true,
+            "legendre_minus_d": -1,
+            "prime": 5,
+            "ratio_to_p_is_one_mod_p2": true,
+            "splitting": "inert",
+            "v_p_C_minus_D": 1
+          },
+          {
+            "C_over_D_mod_p2": 191,
+            "first_order_tangent": 10,
+            "forced_opcode_divisor": 19,
+            "inert_type_forces_opcode_divisibility": true,
+            "legendre_minus_d": -1,
+            "prime": 19,
+            "ratio_to_p_is_one_mod_p2": true,
+            "splitting": "inert",
+            "v_p_C_minus_D": 1
+          },
+          {
+            "C_over_D_mod_p2": 1042169810205,
+            "first_order_tangent": 819916,
+            "forced_opcode_divisor": 1,
+            "inert_type_forces_opcode_divisibility": false,
+            "legendre_minus_d": 1,
+            "prime": 1271069,
+            "ratio_to_p_is_one_mod_p2": true,
+            "splitting": "split",
+            "v_p_C_minus_D": 1
+          }
+        ],
+        "squarefree": true
+      },
+      {
+        "d": 15,
+        "d_mod_8": 7,
+        "forced_opcode_divisor": 1271069,
+        "has_no_inert_register_prime": false,
+        "register_prime_rows": [
+          {
+            "C_over_D_mod_p2": 11,
+            "first_order_tangent": 2,
+            "forced_opcode_divisor": 1,
+            "inert_type_forces_opcode_divisibility": false,
+            "legendre_minus_d": 0,
+            "prime": 5,
+            "ratio_to_p_is_one_mod_p2": true,
+            "splitting": "ramified",
+            "v_p_C_minus_D": 1
+          },
+          {
+            "C_over_D_mod_p2": 191,
+            "first_order_tangent": 10,
+            "forced_opcode_divisor": 1,
+            "inert_type_forces_opcode_divisibility": false,
+            "legendre_minus_d": 1,
+            "prime": 19,
+            "ratio_to_p_is_one_mod_p2": true,
+            "splitting": "split",
+            "v_p_C_minus_D": 1
+          },
+          {
+            "C_over_D_mod_p2": 1042169810205,
+            "first_order_tangent": 819916,
+            "forced_opcode_divisor": 1271069,
+            "inert_type_forces_opcode_divisibility": true,
+            "legendre_minus_d": -1,
+            "prime": 1271069,
+            "ratio_to_p_is_one_mod_p2": true,
+            "splitting": "inert",
+            "v_p_C_minus_D": 1
+          }
+        ],
+        "squarefree": true
+      },
+      {
+        "d": 23,
+        "d_mod_8": 7,
+        "forced_opcode_divisor": 120751555,
+        "has_no_inert_register_prime": false,
+        "register_prime_rows": [
+          {
+            "C_over_D_mod_p2": 11,
+            "first_order_tangent": 2,
+            "forced_opcode_divisor": 5,
+            "inert_type_forces_opcode_divisibility": true,
+            "legendre_minus_d": -1,
+            "prime": 5,
+            "ratio_to_p_is_one_mod_p2": true,
+            "splitting": "inert",
+            "v_p_C_minus_D": 1
+          },
+          {
+            "C_over_D_mod_p2": 191,
+            "first_order_tangent": 10,
+            "forced_opcode_divisor": 19,
+            "inert_type_forces_opcode_divisibility": true,
+            "legendre_minus_d": -1,
+            "prime": 19,
+            "ratio_to_p_is_one_mod_p2": true,
+            "splitting": "inert",
+            "v_p_C_minus_D": 1
+          },
+          {
+            "C_over_D_mod_p2": 1042169810205,
+            "first_order_tangent": 819916,
+            "forced_opcode_divisor": 1271069,
+            "inert_type_forces_opcode_divisibility": true,
+            "legendre_minus_d": -1,
+            "prime": 1271069,
+            "ratio_to_p_is_one_mod_p2": true,
+            "splitting": "inert",
+            "v_p_C_minus_D": 1
+          }
+        ],
+        "squarefree": true
+      },
+      {
+        "d": 31,
+        "d_mod_8": 7,
+        "forced_opcode_divisor": 1,
+        "has_no_inert_register_prime": true,
+        "register_prime_rows": [
+          {
+            "C_over_D_mod_p2": 11,
+            "first_order_tangent": 2,
+            "forced_opcode_divisor": 1,
+            "inert_type_forces_opcode_divisibility": false,
+            "legendre_minus_d": 1,
+            "prime": 5,
+            "ratio_to_p_is_one_mod_p2": true,
+            "splitting": "split",
+            "v_p_C_minus_D": 1
+          },
+          {
+            "C_over_D_mod_p2": 191,
+            "first_order_tangent": 10,
+            "forced_opcode_divisor": 1,
+            "inert_type_forces_opcode_divisibility": false,
+            "legendre_minus_d": 1,
+            "prime": 19,
+            "ratio_to_p_is_one_mod_p2": true,
+            "splitting": "split",
+            "v_p_C_minus_D": 1
+          },
+          {
+            "C_over_D_mod_p2": 1042169810205,
+            "first_order_tangent": 819916,
+            "forced_opcode_divisor": 1,
+            "inert_type_forces_opcode_divisibility": false,
+            "legendre_minus_d": 1,
+            "prime": 1271069,
+            "ratio_to_p_is_one_mod_p2": true,
+            "splitting": "split",
+            "v_p_C_minus_D": 1
+          }
+        ],
+        "squarefree": true
+      }
+    ]
+  },
+  "payload_recurrence": {
+    "H_m": "(C^m-D^m)/(C-D)",
+    "defect_semigroup_identity": "J_n*J_m=J_(m+n)",
+    "defect_semigroup_rows": [
+      {
+        "H_addition_law": true,
+        "J_n_times_J_m_equals_J_m_plus_n": true,
+        "common_signed_fixed_point": "r=-1/(C-D)",
+        "conjugating_coordinate": "z=(C-D)*r+1",
+        "m": 1,
+        "n": 1
+      },
+      {
+        "H_addition_law": true,
+        "J_n_times_J_m_equals_J_m_plus_n": true,
+        "common_signed_fixed_point": "r=-1/(C-D)",
+        "conjugating_coordinate": "z=(C-D)*r+1",
+        "m": 1,
+        "n": 2
+      },
+      {
+        "H_addition_law": true,
+        "J_n_times_J_m_equals_J_m_plus_n": true,
+        "common_signed_fixed_point": "r=-1/(C-D)",
+        "conjugating_coordinate": "z=(C-D)*r+1",
+        "m": 2,
+        "n": 3
+      },
+      {
+        "H_addition_law": true,
+        "J_n_times_J_m_equals_J_m_plus_n": true,
+        "common_signed_fixed_point": "r=-1/(C-D)",
+        "conjugating_coordinate": "z=(C-D)*r+1",
+        "m": 19,
+        "n": 23
+      }
+    ],
+    "equation": "2^(23m+154h)*r_next-3^(17m+114g)*r=H_m",
+    "finite_opcode_chain_identity": "2^(sum P_t)*r_N=3^(sum Q_t)*r_0+K_W",
+    "finite_opcode_chain_rows": [
+      {
+        "P_values": [
+          177
+        ],
+        "Q_values": [
+          131
+        ],
+        "composed_debris": 1,
+        "initial_g": 1,
+        "matrix_product_matches_CP4": true,
+        "opcodes_m_h": [
+          [
+            1,
+            1
+          ]
+        ],
+        "total_P": 177,
+        "total_Q": 131
+      },
+      {
+        "P_values": [
+          177,
+          177
+        ],
+        "Q_values": [
+          131,
+          131
+        ],
+        "composed_debris": 318334983790503688239299674552931382367100360943790100218568219,
+        "initial_g": 1,
+        "matrix_product_matches_CP4": true,
+        "opcodes_m_h": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "total_P": 354,
+        "total_Q": 262
+      },
+      {
+        "P_values": [
+          485,
+          200,
+          400
+        ],
+        "Q_values": [
+          245,
+          376,
+          182
+        ],
+        "composed_debris": 171261653827974189651871755356009081536454729940216066792743920758833813863609285170607250200511655234161555611858267382026658765709744407765938465716624839370119476417327246338517561045260876000856924238293453070284827712402943689248602338598283144177844033288056313,
+        "initial_g": 2,
+        "matrix_product_matches_CP4": true,
+        "opcodes_m_h": [
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "total_P": 1085,
+        "total_Q": 803
+      }
+    ],
+    "geometric_debris_rows": [
+      {
+        "H_m": 1,
+        "H_m_bits": 1,
+        "m": 1
+      },
+      {
+        "H_m": 137528771,
+        "H_m_bits": 28,
+        "m": 2
+      },
+      {
+        "H_m": 17830856648307337,
+        "H_m_bits": 54,
+        "m": 3
+      },
+      {
+        "H_m": 106726567561843912412842755482284195200931739512951775728588104360148368617301301064083060264500039708976318165315690403523803543050019520981333961,
+        "H_m_bits": 486,
+        "m": 19
+      },
+      {
+        "H_m": 2943971762485282998799291816372378606292275775637487013571212299757306090787387854530191740924474659122513381779142496759428393693202121364768236240954515755008612930040035644802150191615055063846161766259525102114763432102990959770920657808855300906478624791391441983387084852924443815216985996705019374395855380923605542249375853914829599361074721774185261408734460446071966839403153727851189034620656043411687088292231006622603090250206196234068157113480876068931002355724227556150509020211828414766994213683893643094189113021884642508253774953099292252757222590958133907387118327267706408052067329816194048519123154164956776480243486537961692308666630484809518223247593061793733574414487642963987990947705475845427671496341042615462597261113782535325198818105,
+        "H_m_bits": 2533,
+        "m": 95
+      }
+    ],
+    "quotient_form": "q=(C-D)*r_next",
+    "state_form": "y=A^g*(C-D)*r"
+  },
+  "schema": "collatz-unit-charge-norm-opcode-v2",
+  "selected_type": {
+    "class_number_diagnostic_not_used_as_proof": 3,
+    "d": 31,
+    "register_norm_coordinates": [
+      7706,
+      1407
+    ],
+    "register_norm_identity": "C-D=7706^2+31*1407^2"
+  },
+  "verifier_sha256": "c0f7ff3949f2ce0347c4bcd71a6a9b88e86f29c3b55f2c4c0666e024e26a850f"
+}

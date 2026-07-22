@@ -33,6 +33,70 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-22 12:05 EDT
+
+Simon challenged the quadratic search for drifting from the real objective:
+reproduction.  I agreed and have made that objection an explicit
+[closure doctrine](docs/notes/kontorovich-closure-principles.md).  A viable
+construction must be an integer-decodable invariant graph
+`T^tau(E(s))=E(f(s))`: every instruction-changing coordinate must be
+recoverable from the public integer, the output must automatically expose the
+next exact valuation, and one finite ordinary seed must generate all future
+states.  Fresh norm representations, new CRT choices, or longer finite
+prefixes are points of a correspondence, not closure.  The present
+two-step norm parameterization is therefore retained only as a diagnostic; I
+stopped before launching its proposed prime search.
+
+There is nevertheless a sharper exact programming interface.  The smallest
+squarefree correction `d=7 (mod 8)` without an inert public-register prime is
+`d=31`, and
+
+```text
+C-D = 7706^2+31*1407^2.
+```
+
+After cancelling this principal norm, every consecutive typed bouncer step
+would obey
+
+```text
+2^(23m+154h) r' = 3^(17m+114g) r + H_m,
+H_m=(C^m-D^m)/(C-D).
+```
+
+The new [opcode audit](experiments/kontorovich/unit_charge_norm_opcode_audit.json)
+checks the complete small discriminant sieve, the exact identity, and the
+first literal outward `N_31`-typed transition: a 184-digit input goes to a
+193-digit output and both underlying unit macros replay.  Crucially, it also
+checks the failure which prompted the doctrine.  The output's next collision
+valuation is `153`, leaving `130 (mod 154)` after its defect block, so it
+cannot execute another positive recharge.  This is one real typed step, not a
+chain or counterexample.
+
+Opcode chaining is now being attacked symbolically rather than by searching
+for a longer lucky prefix.  For the recharge-free defect matrices
+
+```text
+J_m = [[C^m,H_m],[0,D^m]],
+```
+
+the audit proves `J_n J_m=J_(m+n)` and checks the general finite decorated
+chain formula.  The independent adversarial agent then kernel-checked the
+debris law `H_(m+n)=C^n H_m+D^m H_n` in round 106.  Thus defect-only chains
+collapse to one additive clock; all possible computation must come from the
+noncommuting recharge decorations and, above all, their regeneration of the
+public dyadic boundary.  The next searches are theorem-shaped: exact rewrite
+or conjugacy relations in that decorated semigroup, a mixed-radix feedback
+which turns the bouncer's ternary output register into its next binary
+delimiter, or a universal obstruction to one of those classes.
+
+The external jobs remain unchanged.  Akdeniz's exact 1,198-digit Thue solve
+is active after about 1 hour 45 minutes with class number one and no
+completion line; its runtime is not predictable enough to promise an ETA.
+Ganesha still has 22 workers alive and only shards 4 and 12 complete.  Both
+jobs remain useful scoped falsification tasks, but neither is steering the
+closure theory.  PSC remains idle.  No counterexample or infinite orbit is
+known.
+
 ### 2026-07-22 11:13 EDT
 
 The hidden cofactor left by the public 23rd-power type is now an exact
@@ -2460,15 +2524,39 @@ identically `x`.
   23rd-power packet.  The two-coordinate type
   `N_d(x,u)=x^2+d*u^2` reproduces automatically because both recharge
   multipliers are squares.  Hardware parity kills `d=1` outright—every legal
-  endpoint is `7 (mod 8)`—but the matched choice
-  `d=13(C-D)=1569770215=7 (mod 8)` has exact legal endpoint inhabitants and a
-  rational point on its first collision quadric.  Its live integral coupling
-  equation has four variables and degree two.  The next attack is a
-  local-to-global/strong-approximation construction which uses the hidden
-  register to choose a return instruction, followed by literal bouncer replay.
-  A rational point, separate input/output witnesses, or a long sequence of
-  newly chosen points is not closure; the coordinate pair itself must generate
-  its successor indefinitely.
+  endpoint is `7 (mod 8)`.  A second local sieve shows why the smallest parity
+  correction `d=7` is also a poor instruction type: the register primes 5 and
+  19 are inert, forcing `95|m` at every typed step.  The first squarefree
+  `d=7 (mod 8)` with no inert register prime is `d=31`, and the exact identity
+  `C-D=7706^2+31*1407^2` cancels the public register to the normalized payload
+  recurrence
+
+  ```text
+  2^(23m+154h)r' = 3^(17m+114g)r + H_m,
+  H_m=(C^m-D^m)/(C-D).
+  ```
+
+  The exact worker has found and replayed one 184-to-193-digit outward
+  transition whose input, quotient, and output all have this type.  It fails
+  the very next decoder: the collision valuation `153` cannot contain a
+  23-bit defect followed by a positive 154-bit recharge.  Lean rounds
+  104--106 independently check the normalized recurrence, the concrete
+  `d=7` tax, the one-step valuation failure, and the debris addition law.
+  This has changed the search order.  A two-step quadratic parameterization
+  exists and has no cheap local obstruction, but it is only a diagnostic
+  unless it supplies a depth-independent public update.  The live target is
+  the [closure doctrine](docs/notes/kontorovich-closure-principles.md): first
+  construct an integer-decodable invariant graph which regenerates the next
+  exact opcode; only then use norm or class-form representations to certify
+  its arithmetic type.
+  Simon's suggestion to chain opcodes is now implemented at the symbolic
+  level.  The recharge-free matrices
+  `J_m=[[C^m,H_m],[0,D^m]]` obey `J_nJ_m=J_(m+n)`, so defect-only words retain
+  only their total length.  Programming power, if any, must come from exact
+  relations among the recharge-decorated matrices together with their dyadic
+  boundary cylinders.  Searches for those relations, mixed-radix
+  binary-reader/ternary-writer feedback, and public debris recurrences replace
+  blind norm-point enumeration.
   The first low-description clocks do not solve it: an exact audit of
   Thue--Morse, period-doubling, and Fibonacci words, all 240 injective
   two-symbol codings by `(m,h)` in `{1,...,4}^2`, and every prefix through 48
@@ -2717,6 +2805,9 @@ identically `x`.
 | Shortest-recharge perfect-23rd-power bouncer quine | Closed.  Lean commit `5fbacf5` proves every accepted `h=1`, `u=F*r^23` reproduction transition supplies an integer solution of `3^15X^23-2^16Y^23=5`.  PARI/GP 2.15.4 checks the associated degree-23 polynomial irreducible, reports attached class number one, and returns the complete empty Thue solution list.  PARI documents this class-number-one fast case as unconditional; that final no-solution step is external-PARI scope, not kernel scope.  Higher recharge and multi-rail/corrected payloads remain open. | [`ChargePowerQuine.lean`](KontoroC/KontoroC/ChargePowerQuine.lean), [`unit_charge_power_quine_thue_audit.txt`](experiments/kontorovich/unit_charge_power_quine_thue_audit.txt) |
 | Pure public-state 23rd-power rail, `m=0 (mod 23)` | Closed for every positive transition in this coefficient class.  Lean commit `4c56925` converts the transition to equal sums of two 23rd powers; exact input valuation makes `s` too large for the discrete gap.  Commits `f61f569`/`9f00894` reduce the remaining classes to scaled norm/cofactor equations and a hidden register.  Commit `07352a9` kernel-checks the elementary Roth approximation and exponent-11 bridge for the other classes; the external theorem and sequence-level finiteness consumer remain explicit seams.  Individual transitions, corrected types, and multi-rail packets remain open. | [`ChargeStatePowerQuine.lean`](KontoroC/KontoroC/ChargeStatePowerQuine.lean), [`ChargeStatePowerRoth.lean`](KontoroC/KontoroC/ChargeStatePowerRoth.lean) |
 | Sum-of-two-squares public type | Universally closed before any search.  Every accepted bouncer state has `2^23 | y+1`, so `y=7 (mod 8)`; the next accepted state and `A^h=1 (mod 8)` force the odd collision quotient to be `7 (mod 8)` as well.  A sum of two squares is never `3 (mod 4)`.  This kills only `d=1`; the hardware-matched `x^2+d u^2` type with `d=7 (mod 8)` is live. | [`unit_charge_quadratic_norm_audit.json`](experiments/kontorovich/unit_charge_quadratic_norm_audit.json) |
+| Naive `d=7` quadratic correction | Not closed, but locally taxed enough to abandon as the first search type.  The public-register primes 5 and 19 are inert for `x^2+7u^2`; exact prime-square collision arithmetic forces `5|m` and `19|m`, hence `95|m`, at every typed step.  The `d=31` replacement clears this particular tax. | [`unit_charge_norm_opcode_audit.json`](experiments/kontorovich/unit_charge_norm_opcode_audit.json), [`ChargeNormOpcode.lean`](KontoroC/KontoroC/ChargeNormOpcode.lean) |
+| Norm representability without next-boundary synchronization | Closed as a promotion criterion.  One exact 184-digit `N_31` input has an `N_31` quotient and 193-digit `N_31` output, but the next collision valuation is `153`, leaving recharge remainder `130 (mod 154)`.  More isolated represented points—even a finite chain—do not supply a public self-map.  A new norm search must first exhibit a depth-independent update which regenerates `v2(A^g(C-D)r+1)=23m`. | [`unit_charge_norm_opcode_audit.json`](experiments/kontorovich/unit_charge_norm_opcode_audit.json), [closure doctrine](docs/notes/kontorovich-closure-principles.md) |
+| Defect-only opcode chains as a dispatcher | Universally closed.  With `H_m=(C^m-D^m)/(C-D)` and `J_m=[[C^m,H_m],[0,D^m]]`, exact arithmetic gives `H_(m+n)=C^nH_m+D^mH_n` and `J_nJ_m=J_(m+n)`.  Such a chain remembers only total defect length.  Any programming power must come from recharge decorations and their public dyadic boundary, not from rearranging defect opcodes alone. | [`unit_charge_norm_opcode_audit.json`](experiments/kontorovich/unit_charge_norm_opcode_audit.json), [`ChargeNormOpcode.lean`](KontoroC/KontoroC/ChargeNormOpcode.lean) |
 | Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
 | Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
 | Fixed defect opcode in the charge bouncer | Closed by Lean commit `5633c44`.  For a fixed affine gain law `B*Z_(t+1)=A*Z_t+C` with coprime `A,B`, `1<B`, and `A>B`, the fixed-point defect obeys `B*delta_(t+1)=A*delta_t`; hence every `B^n` divides one positive `delta_0`, impossible.  The concrete theorem applies to every fixed `m`.  It does not apply to the live bouncer, where `m` may decrease or oscillate and each block switches from its `m`-defect law to `h-1` homogeneous backgrounds. | [`AffineQuotientNoGo.lean`](KontoroC/KontoroC/AffineQuotientNoGo.lean) |
@@ -2777,7 +2868,7 @@ positive integer and its claimed behavior are machine-checked.
 | Recharge-23 determinant-four resonance | At `h=23`, exact arithmetic gives `A^23=3^4C^154` and `B^23=D^154`; the forcing is the 1,198-digit integer `G23=5 Phi_23(A,B)`.  Although the original three primes leave all classes, Lean's complete checks at `277,599,829,1151` reduce every uncorrected single perfect-power transition to `e=15`, `m=9 (mod 23)`, and `3^15X^23-Y^23=G23`.  The remaining global Thue equation is explicit and is running as detached Akdeniz service `kc-r23`; a multi-rail correction can change it and remains open. | [`ChargePowerResonance.lean`](KontoroC/KontoroC/ChargePowerResonance.lean), [`unit_charge_power_resonance_thue.gp`](experiments/kontorovich/unit_charge_power_resonance_thue.gp) |
 | Public-state 23rd-power quine and hidden register | Encoding `y=s^23` makes every type-preserving recharge `h=23*ell` return the literal power `(A^ell*t)^23`.  Lean commit `4c56925` proves the `m=0 (mod 23)` no-go at `ell=1`; arbitrary positive `ell` is the same theorem after substituting `t'=B^(ell-1)t`.  Commit `f61f569` reduces every other class to a scaled norm equation, and `9f00894` retains exact valuation quotients in `w Q(s)=v Q(z)`, proves same-side cofactor gcd can contain no prime except 23, and exposes a residual congruence modulo `F`.  Commit `07352a9` checks the full elementary Roth bound and exponent-11 conversion; only the external finiteness theorem and sequence consumer remain. | [`ChargeStatePowerQuine.lean`](KontoroC/KontoroC/ChargeStatePowerQuine.lean), [`ChargeStatePowerRoth.lean`](KontoroC/KontoroC/ChargeStatePowerRoth.lean) |
 | Writable nonlinear hidden-`F` instruction | Exact Taylor expansion and Hensel lifting turn the residual cofactor congruence into `B D^m' w'=B C^m w-5ell (mod F)`.  Since `5,B,C,D` are units modulo the 179-bit `F`, recharge length writes every desired first register digit; the audit synthesizes five targets, lifts collision balance through `F^3`, checks the explicit nonlinear second digit, and proves the visible register alone does not force `F^2`.  Lean commit `34e166b` kernel-checks the universal carry, geometric output, first-digit law, and unique recharge class.  This is a necessary `F`-adic transducer, not an accepted positive transition: exact collision valuation and ordinary realization remain open. | [`ChargeHiddenRegister.lean`](KontoroC/KontoroC/ChargeHiddenRegister.lean), [`unit_charge_hidden_register_audit.json`](experiments/kontorovich/unit_charge_hidden_register_audit.json) |
-| Hardware-matched quadratic two-rail type | For `N_d(x,u)=x^2+d u^2`, both collision and output scaling preserve type because `B^h` and `A^h` are squares.  Hardware parity universally kills `d=1`; Lean commit `2743350` proves both statements and connects the obstruction to accepted bouncer semantics.  Commit `90c9b6c` proves that an already accepted typed step supplies QN2 and the regenerated output coordinates, while carefully not promoting a bare quadric point.  For `d=13(C-D)=1569770215`, exact CRT constructs independently legal inputs and output quotients for three opcode choices, and an exact integer vector certifies a rational point on the `m=h=1` homogenized collision quadric.  The paired accepted integral equation and infinite successor rule remain open; no transition is claimed. | [`ChargeQuadraticNorm.lean`](KontoroC/KontoroC/ChargeQuadraticNorm.lean), [`unit_charge_quadratic_norm_audit.json`](experiments/kontorovich/unit_charge_quadratic_norm_audit.json) |
+| Quadratic two-rail opcode interface | For `N_d(x,u)=x^2+d u^2`, both recharge scalings preserve type because `B^h` and `A^h` are squares.  Lean commits `2743350`/`90c9b6c` prove this and tie the collision equation to actual accepted semantics.  The new exact sieve shows `d=7` forces `95|m`, while `d=31` is the first squarefree `7 (mod 8)` candidate through 31 without an inert register prime and satisfies `C-D=7706^2+31*1407^2`.  Cancelling that norm gives `2^(23m+154h)r'=3^(17m+114g)r+H_m`.  One literal 184-to-193-digit accepted transition preserves `N_31` at input, quotient, and output, but its next collision valuation is `153` and cannot decode a recharge.  The exact artifact and independent Lean rounds 104--106 verify the arithmetic and failure.  No two-step public recurrence, infinite orbit, or counterexample is claimed. | [`ChargeNormOpcode.lean`](KontoroC/KontoroC/ChargeNormOpcode.lean), [`unit_charge_norm_opcode_audit.json`](experiments/kontorovich/unit_charge_norm_opcode_audit.json), [closure doctrine](docs/notes/kontorovich-closure-principles.md) |
 | Ordinary-ray extension-lift criterion | Lean commits `af1a934`/`ba121d9` prove that if nested dyadic compiler cylinders are realized by one ordinary natural, their extension residues are eventually zero.  Therefore nonzero residues at arbitrarily late scales exclude an ordinary realization.  This is a no-ray criterion for a proposed schedule, not a counterexample and not yet a theorem that the bouncer's residues are frequently nonzero. | [`DispatcherBoundary.lean`](KontoroC/KontoroC/DispatcherBoundary.lean) |
 | Constant-rate unit-counter schedules | For any of the six certified unit levels, every `n_0>=1`, and every fixed integer `k>=1`, the schedule `n_t=n_0+kt` has the unique 2-adic initial core `-s*3^(-q(n_0)) F(2^(ak)/3^(ck),2^(p(n_0+k))/3^(q(n_0+k)))`.  Converting to Väänänen--Wallisser's `f_(3^(ck)/2^(ak))` is coefficientwise exact, and its argument simplifies to `alpha=2^(p(n_0))/3^(q(n_0))`.  Their 1989 theorem applies with `ell=1,sigma=0,p=2`; its size ratio is the same as for `k=1`, while `|3^(ck)/2^(ak)|_2=2^(ak)>1`.  The value is irrational in `Q_2`, so it cannot be an ordinary integer core.  The artifact's six linked eight-transition branch replays remain a finite `k=1` regression; the all-`k` conclusion is symbolic and theorem-dependent.  This closes every fixed positive step size, not nonlinear or packet-branching schedules. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
@@ -3338,6 +3429,14 @@ existing lines of work; the closest ancestors, and what each contributes:
   The present audit uses only exact elementary identities, CRT, and one
   replayed rational point; no Hasse-principle or integral-representation
   theorem has yet been imported as a result.
+- **J. H. Silverman, [*The Arithmetic of Dynamical
+  Systems*](https://link.springer.com/book/10.1007/978-0-387-69904-2), GTM
+  241 (Springer, 2007)** — supplies the arithmetic-dynamics vocabulary behind
+  the new closure doctrine: orbits, conjugacy, invariant arithmetic sets, and
+  families of algebraic self-maps.  No theorem from the book is being invoked
+  to settle Collatz; the methodological point is that a counterexample
+  construction needs an integer-preserving self-map on an invariant graph,
+  not an accumulating list of points on successive transition varieties.
 - **D. Barina, “Improved verification limit for the convergence of the
   Collatz conjecture” (2025)** — the `2^71` exhaustive frontier used to
   calibrate why another ordinary seed sweep is not the active attack.
