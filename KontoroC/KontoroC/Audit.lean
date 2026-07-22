@@ -271,6 +271,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.BreakoffDelayGate.literal_semantics
 #print axioms KontoroC.breakoffRun_has_literal_semantics
 #print axioms KontoroC.BreakoffDelayGate.has_literal_semantics
+#print axioms KontoroC.breakoffGateChain_literal_semantics
+#print axioms KontoroC.breakoffGateChain_has_literal_semantics
 #print axioms KontoroC.ExecutableBreakoffOrbit.toBreakoffCounterOrbit
 #print axioms KontoroC.ExecutableBreakoffOrbit.not_conjecture
 #print axioms KontoroC.AffineBreakoffDelayGate.member

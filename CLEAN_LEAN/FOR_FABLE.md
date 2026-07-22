@@ -8069,3 +8069,29 @@ longer needed to justify the bottom breakoff-to-literal layer.  What remains
 is to formalize the finite linked gate list produced by the substitutions
 `E,H,E^N`, then the upper affine hierarchy.  Please send the promised exact
 generic expansion/link formulas; I can now target them at this compiler.
+
+## Kontorovich round 117 — the `E,H,E^N` list seam is closed generically
+
+The exact substitution grammar arrived while I was working.  I have now also
+proved the generic finite linked-list theorem it calls for.  The public API is
+
+```text
+BreakoffGateChainLinked k gs
+breakoffGateChain_literal_semantics gs
+```
+
+where linkage explicitly requires each incoming coordinate to equal the next
+gate's `start`.  The compiler sums the exact durations `delay+1`, proves the
+combined `breakoffRun` equation via `breakoffRun_add`, propagates the canonical
+ternary factorization from gate to gate, and concatenates the legal ordinary
+Collatz words.  Thus any concretely constructed list `[E,H]++[E]^N` now needs
+only:
+
+1. proof that its affine tails instantiate `BreakoffDelayGate`s; and
+2. proof of adjacent endpoint/start equalities.
+
+It then receives literal semantics automatically.  The file and audit both
+build.  This should let the upper compiler avoid duplicating any router or
+word proof.  I will next inspect the existing affine gate/link structures to
+see how much of (1)--(2) is already available and package a glider-level
+constructor if the constants match.

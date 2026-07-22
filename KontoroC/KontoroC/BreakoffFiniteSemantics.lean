@@ -191,4 +191,77 @@ theorem BreakoffDelayGate.has_literal_semantics (g : BreakoffDelayGate)
     Nonempty (BreakoffRunSemantics (g.delay + 1) g.start g.endpoint r H) :=
   ⟨g.literal_semantics hHpos hHodd hfactor⟩
 
+/-! ## Finite linked gate programs -/
+
+/-- Total number of executable break-off steps in a finite gate program. -/
+def breakoffGateChainDuration : List BreakoffDelayGate → ℕ
+  | [] => 0
+  | g :: gs => g.delay + 1 + breakoffGateChainDuration gs
+
+/-- Final break-off coordinate of a finite gate program.  For a nonempty
+program, each gate carries its own start; `BreakoffGateChainLinked` below
+checks that this agrees with the incoming coordinate. -/
+def breakoffGateChainEndpoint : ℕ → List BreakoffDelayGate → ℕ
+  | k, [] => k
+  | _, g :: gs => breakoffGateChainEndpoint g.endpoint gs
+
+/-- Adjacent proof-carrying gates share their break-off boundary exactly. -/
+def BreakoffGateChainLinked : ℕ → List BreakoffDelayGate → Prop
+  | _, [] => True
+  | k, g :: gs => k = g.start ∧ BreakoffGateChainLinked g.endpoint gs
+
+/-- The generic linked-list compiler needed by the symbolic substitutions
+`E,H,E^N`: a finite chain of proof-carrying delay gates composes to one exact
+ordinary accelerated-Collatz word. -/
+noncomputable def breakoffGateChain_literal_semantics
+    (gs : List BreakoffDelayGate) {k r H : ℕ}
+    (hk : 0 < k) (hHpos : 0 < H) (hHodd : Odd H)
+    (hfactor : 8 * k = 3 ^ (r + 2) * H + 1)
+    (hlinked : BreakoffGateChainLinked k gs) :
+    BreakoffRunSemantics (breakoffGateChainDuration gs) k
+      (breakoffGateChainEndpoint k gs) r H := by
+  induction gs generalizing k r H with
+  | nil =>
+      exact breakoffRun_literal_semantics hk hHpos hHodd hfactor
+        (by rfl)
+  | cons g gs ih =>
+      have hkstart : k = g.start := hlinked.1
+      subst k
+      let first := g.literal_semantics hHpos hHodd hfactor
+      have hendpoint_pos : 0 < g.endpoint := by
+        exact lt_trans hk (g.outward)
+      let rest := ih hendpoint_pos first.outputPayload_pos
+        first.outputPayload_odd first.output_factor hlinked.2
+      refine {
+        run := ?_
+        outputRail := rest.outputRail
+        outputPayload := rest.outputPayload
+        outputPayload_pos := rest.outputPayload_pos
+        outputPayload_odd := rest.outputPayload_odd
+        output_factor := rest.output_factor
+        word := first.word ++ rest.word
+        word_nonempty := ?_
+        legal := ?_
+        endpoint := ?_
+      }
+      · simp only [breakoffGateChainDuration, breakoffGateChainEndpoint]
+        rw [breakoffRun_add, g.run]
+        exact rest.run
+      · intro _
+        exact List.append_ne_nil_of_left_ne_nil
+          (first.word_nonempty (by omega)) rest.word
+      · rw [wordLegal_append_iff]
+        exact ⟨first.legal, by simpa [first.endpoint] using rest.legal⟩
+      · rw [runWord_append, first.endpoint, rest.endpoint]
+
+/-- Proposition-valued wrapper for the finite linked gate compiler. -/
+theorem breakoffGateChain_has_literal_semantics
+    (gs : List BreakoffDelayGate) {k r H : ℕ}
+    (hk : 0 < k) (hHpos : 0 < H) (hHodd : Odd H)
+    (hfactor : 8 * k = 3 ^ (r + 2) * H + 1)
+    (hlinked : BreakoffGateChainLinked k gs) :
+    Nonempty (BreakoffRunSemantics (breakoffGateChainDuration gs) k
+      (breakoffGateChainEndpoint k gs) r H) :=
+  ⟨breakoffGateChain_literal_semantics gs hk hHpos hHodd hfactor hlinked⟩
+
 end KontoroC
