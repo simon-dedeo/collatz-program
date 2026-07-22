@@ -1,0 +1,26 @@
+{
+  "schema": "collatz-mersenne-packet-gpu-search-v1",
+  "arithmetic": "exact_uint64_with_overflow_counter",
+  "device": "NVIDIA GeForce RTX 4090",
+  "bounds": {"start_level": 1, "odd_h_less_than": "549755813888", "h_bits": 39, "max_steps": 8, "threshold": 7},
+  "odd_packets_checked": "274877906944",
+  "overflow_count": "0",
+  "maximum_renewals": 7,
+  "hits_at_or_above_threshold": "14",
+  "hits": [
+    {"initial_h": "15301803983", "renewals": 7, "extras": [2, 1, 3, 2, 2, 2, 1]},
+    {"initial_h": "60784854845", "renewals": 7, "extras": [1, 1, 2, 1, 3, 1, 5]},
+    {"initial_h": "61207215931", "renewals": 7, "extras": [4, 1, 3, 2, 2, 2, 1]},
+    {"initial_h": "102460151247", "renewals": 7, "extras": [2, 1, 1, 1, 1, 2, 2]},
+    {"initial_h": "155496688781", "renewals": 7, "extras": [1, 2, 5, 2, 1, 4, 1]},
+    {"initial_h": "243139419379", "renewals": 7, "extras": [3, 1, 2, 1, 3, 1, 5]},
+    {"initial_h": "244828863723", "renewals": 7, "extras": [6, 1, 3, 2, 2, 2, 1]},
+    {"initial_h": "278960380557", "renewals": 7, "extras": [1, 2, 1, 3, 3, 5, 3]},
+    {"initial_h": "364930771757", "renewals": 7, "extras": [1, 3, 2, 4, 2, 1, 1]},
+    {"initial_h": "367163890413", "renewals": 7, "extras": [1, 5, 5, 2, 1, 1, 1]},
+    {"initial_h": "409840604987", "renewals": 7, "extras": [4, 1, 1, 1, 1, 2, 2]},
+    {"initial_h": "416859963453", "renewals": 7, "extras": [1, 1, 1, 1, 2, 2, 1]},
+    {"initial_h": "440067715389", "renewals": 7, "extras": [1, 1, 4, 2, 1, 4, 3]},
+    {"initial_h": "489657727469", "renewals": 7, "extras": [1, 7, 3, 2, 2, 2, 1]}
+  ]
+}

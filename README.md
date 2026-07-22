@@ -154,7 +154,7 @@ identically `x`.
 | Bounded `-1`/Mersenne shadow grammar | `376,800` positive paths checked exactly for start levels `1..100`, extras `1..12`, and depth at most three. There are 522 terminal renewals, 80 seed stabilizations, and three all-outward stabilization events; none supplies a second stabilized extension. The best finite run reaches `1` on exact continuation. | [`mersenne_shadow_results.json`](experiments/kontorovich/mersenne_shadow_results.json) |
 | Constant-extra Mersenne feedback | All `51,200` compiled paths for start levels `1..20`, constant extras `1..32`, depths `1..40`, and both mod-6 classes were checked. The unique two-extension event is seed `121` for extra `1`; its fifth macro fails and exact continuation reaches `1`. | [`mersenne_constant_results.json`](experiments/kontorovich/mersenne_constant_results.json) |
 | Short-period Mersenne feedback | All `2,726,400` prefixes from 568 primitive extra templates of period at most three over `{1,...,8}`, start levels `1..30`, depths `1..80`, and both mod-6 classes were checked in compressed exact arithmetic; every hit was literally replayed. No template improves the constant-`1` two-extension event or the `(4,3,1)` outward event. | [`mersenne_periodic_results.json`](experiments/kontorovich/mersenne_periodic_results.json) |
-| Direct state-dependent packet census | CUDA exhaustively checked all `2^35=34,359,738,368` odd packets `h<2^36` from start level one through an eight-renewal horizon, with zero arithmetic overflows. Python big-integer replay verified all 243 hits of length at least six. Exactly three have length seven; none has length eight. | [`mersenne_packet_gpu_akdeniz.json`](experiments/kontorovich/mersenne_packet_gpu_akdeniz.json) |
+| Direct state-dependent packet census | CUDA exhaustively checked all `2^38=274,877,906,944` odd packets `h<2^39` from start level one through an eight-renewal horizon, with zero arithmetic overflows. Python big-integer replay verified all 14 length-seven hits; none has length eight. The nested `h<2^36` run also stores and replays all 243 length-six-or-more hits. | [`h<2^39` artifact](experiments/kontorovich/mersenne_packet_gpu_akdeniz_h39.json) |
 | Small regular invariant sets | Previously closed only in the stated exhaustive classes: no base-2 DFA divergence certificate through eight states and no base-3 certificate through five. One-counter and genuinely morphic single-orbit certificates remain open. | [Base 2](experiments/dfacert/README.md), [base 3](experiments/dfacert3/README.md) |
 
 The first work product will be an exact `k`-word compiler and cycle/glider
@@ -223,15 +223,17 @@ for the exact algebra, bounds, result digest, and next attacks.
 
 ### 2026-07-21 20:51 EDT
 
-Completed the first direct state-dependent packet census on Akdeniz's RTX
-4090: all `34,359,738,368` odd packets below `2^36`, eight renewal attempts
-each, zero 64-bit overflows.  Independent Python big-integer replay verifies
-all 243 six-or-more-renewal hits.  Three reach seven renewals and none reaches
-eight; the best finite tail has four consecutive outward macros but then fails
-and reaches `1`.  Exact bounds and hashes are in the [experiment
+Completed nested direct state-dependent packet censuses on Akdeniz's RTX
+4090.  The wider run covers all `274,877,906,944` odd packets below `2^39`,
+with eight renewal attempts each and zero 64-bit overflows.  Independent
+Python big-integer replay verifies all 14 seven-renewal hits; none reaches
+eight.  The inner `h<2^36` run retains all 243 six-or-more hits for motif
+mining.  The best finite tail has four consecutive outward macros but then
+fails and reaches `1`.  Exact bounds and hashes are in the [experiment
 guide](experiments/kontorovich/README.md#direct-gpu-packet-census).  PSC H100
 job `42500602` remains queued as a hardware-independent rerun, while the two
-nonuniform-morphism jobs continue.  Next: mine the three length-seven packet
+nonuniform-morphism jobs continue.  A further `h<2^42` no-length-eight search
+is running on Akdeniz.  Next: mine the 14 length-seven packet
 chains against Lean's modulo-`3^m` scheduler for a compact state-dependent
 feedback invariant.
 

@@ -374,3 +374,8 @@ x: 30603607965 -> 11476352987 -> 12910897111 -> 5446784719
 The eighth renewal fails and the ordinary seed reaches `1`.  The three
 length-seven chains are now the smallest concrete dataset for testing a
 state-dependent rule against the unique modulo-`3^m` scheduler.
+
+A nested wider census checks all `2^38` odd packets `h<2^39`, again with zero
+overflows and arbitrary-precision replay.  It finds 14 length-seven chains and
+no length-eight chain.  The finite dataset grows, but the maximum renewal
+depth does not.

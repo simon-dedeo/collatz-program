@@ -381,3 +381,11 @@ verifier  de52aab1c97921484d8e547d1cb4609c29a2ef735a8f60fa2dbe66b9a2eaf919
 ```
 
 PSC H100 job `42500602` is retained as an independent device rerun.
+
+A nested wider run raises the packet bound to `h<2^39`, sets the recording
+threshold to seven, and checks all `274,877,906,944=2^38` odd packets.  Its
+overflow counter is zero; all 14 length-seven hits pass Python replay, and no
+packet completes the eighth renewal.  Artifact SHA-256:
+`676eb8a8c8f5c8c1987a505fe71c08bffe30f613c5348f1fb5852199972b8fe5`.
+The narrower artifact remains useful because it records length-six chains
+that the wider run intentionally omits.
