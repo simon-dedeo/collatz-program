@@ -74,6 +74,108 @@ theorem scaled_equation_iff_gap (a X U Y Z : ℤ) :
       Y ^ 23 - a * X ^ 23 = a * U ^ 23 - Z ^ 23 := by
   constructor <;> intro h <;> linarith
 
+/-- The alternating cofactor in `x^23 + 1 = (x+1) * plusCofactor x`. -/
+def plusCofactor (x : ℤ) : ℤ :=
+  ∑ i ∈ Finset.range 23, (-1 : ℤ) ^ i * x ^ (22 - i)
+
+theorem add_one_mul_plusCofactor (x : ℤ) :
+    (x + 1) * plusCofactor x = x ^ 23 + 1 := by
+  norm_num [plusCofactor, Finset.sum_range_succ]
+  ring
+
+theorem plusCofactor_eq_geom (x : ℤ) :
+    plusCofactor x = ∑ i ∈ Finset.range 23, (-x) ^ i := by
+  norm_num [plusCofactor, Finset.sum_range_succ]
+  ring
+
+/-- The cyclotomic cofactor is congruent to 23 modulo `x+1`. -/
+theorem add_one_dvd_plusCofactor_sub_twentyThree (x : ℤ) :
+    x + 1 ∣ plusCofactor x - 23 := by
+  rw [plusCofactor_eq_geom]
+  have hterm : ∀ i ∈ Finset.range 23,
+      x + 1 ∣ (-x) ^ i - 1 := by
+    intro i _
+    have h := sub_dvd_pow_sub_pow (-x) (1 : ℤ) i
+    have h' : -(x + 1) ∣ (-x) ^ i - 1 := by
+      simpa [sub_eq_add_neg, add_comm] using h
+    exact neg_dvd.mp h'
+  have hsum := Finset.dvd_sum hterm
+  simpa [Finset.sum_sub_distrib] using hsum
+
+/-- Consequently any common divisor of `x+1` and its cofactor divides 23. -/
+theorem common_dvd_add_one_plusCofactor_dvd_twentyThree
+    {d x : ℤ} (h₁ : d ∣ x + 1) (h₂ : d ∣ plusCofactor x) : d ∣ 23 := by
+  have hsub : d ∣ plusCofactor x - 23 :=
+    dvd_trans h₁ (add_one_dvd_plusCofactor_sub_twentyThree x)
+  have hneg : d ∣ -23 := by
+    simpa using dvd_sub hsub h₂
+  exact dvd_neg.mp hneg
+
+/-- After a common register factor has been cancelled from the valuation
+quotients, their residual quotients agree modulo that register. -/
+theorem reduced_quotients_modEq
+    {f s z w v : ℤ} (hf : IsCoprime f 23)
+    (hs : f ∣ s + 1) (hz : f ∣ z + 1)
+    (hbal : w * plusCofactor s = v * plusCofactor z) :
+    f ∣ w - v := by
+  have hQs : f ∣ plusCofactor s - 23 :=
+    dvd_trans hs (add_one_dvd_plusCofactor_sub_twentyThree s)
+  have hQz : f ∣ plusCofactor z - 23 :=
+    dvd_trans hz (add_one_dvd_plusCofactor_sub_twentyThree z)
+  rcases hQs with ⟨a, ha⟩
+  rcases hQz with ⟨b, hb⟩
+  have hQa : plusCofactor s = 23 + f * a := by linarith
+  have hQb : plusCofactor z = 23 + f * b := by linarith
+  rw [hQa, hQb] at hbal
+  apply hf.dvd_of_dvd_mul_left
+  refine ⟨v * b - w * a, ?_⟩
+  linear_combination hbal
+
+theorem fixedDivisor_isCoprime_twentyThree :
+    IsCoprime ChargePowerQuine.F (23 : ℤ) := by
+  rw [Int.isCoprime_iff_gcd_eq_one]
+  norm_num [ChargePowerQuine.F, chargeFixedDivisor]
+
+/-- The fixed register can be cancelled from both valuation quotients; the
+remaining quotients must then be congruent modulo the same fixed divisor. -/
+theorem fixedDivisor_reduced_quotients_modEq
+    {s z w v : ℤ}
+    (hs : ChargePowerQuine.F ∣ s + 1)
+    (hz : ChargePowerQuine.F ∣ z + 1)
+    (hbal : (ChargePowerQuine.F * w) * plusCofactor s =
+      (ChargePowerQuine.F * v) * plusCofactor z) :
+    ChargePowerQuine.F ∣ w - v := by
+  have hcancel : w * plusCofactor s = v * plusCofactor z := by
+    apply mul_left_cancel₀
+      (a := ChargePowerQuine.F)
+      (by norm_num [ChargePowerQuine.F, chargeFixedDivisor])
+    simpa [mul_assoc] using hbal
+  exact reduced_quotients_modEq fixedDivisor_isCoprime_twentyThree hs hz hcancel
+
+/-- After the exact 2- and 3-adic factors are extracted, the public-state
+equation is an equality of cyclotomic cofactors. -/
+theorem cofactor_balance
+    {c d s z w v : ℤ} (hcd : c * d ≠ 0)
+    (hs : s + 1 = d * w) (hz : z + 1 = c * v)
+    (heq : c * (s ^ 23 + 1) = d * (z ^ 23 + 1)) :
+    w * plusCofactor s = v * plusCofactor z := by
+  rw [← add_one_mul_plusCofactor, ← add_one_mul_plusCofactor, hs, hz] at heq
+  have hcommon : c * d * (w * plusCofactor s) =
+      c * d * (v * plusCofactor z) := by
+    simpa [mul_assoc, mul_comm, mul_left_comm] using heq
+  exact mul_left_cancel₀ hcd hcommon
+
+/-- Concrete cofactor reduction for SPQ1.  Unlike a local test with free
+`s,t`, it retains the exact valuation quotients `w,v`. -/
+theorem state_power_cofactor_balance
+    {m : ℕ} {s t w v : ℤ}
+    (hs : s + 1 = 2 ^ (23 * m) * w)
+    (ht : 2 ^ 154 * t + 1 = 3 ^ (17 * m) * v)
+    (heq : 3 ^ (17 * m) * (s ^ 23 + 1) =
+      2 ^ (23 * m) * ((2 ^ 154 * t) ^ 23 + 1)) :
+    w * plusCofactor s = v * plusCofactor (2 ^ 154 * t) := by
+  exact cofactor_balance (by positivity) hs ht heq
+
 /-- The public-state reproduction equation in the coefficient class
 `m = 23*k`, together with its forced 2-adic divisibility, has no positive
 solution when `k > 0`. -/

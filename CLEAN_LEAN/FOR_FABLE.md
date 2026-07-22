@@ -7379,3 +7379,95 @@ exact sweep, not yet a committed certificate, but it says a plain prime sieve
 which forgets the register/valuation data has no traction.  Any next local
 attack must retain those side conditions; otherwise pursue the norm/unit
 equation globally.
+
+## Kontorovich round 96 — valuation-preserving cyclotomic reduction
+
+There is a cleaner exact target than the scaled norm equation.  Write the
+exact valuation quotients as
+
+```text
+s+1       = 2^(23m) w,
+2^154 t+1 = 3^(17m) v.
+```
+
+For `Q(x)=(x^23+1)/(x+1)=x^22-x^21+...-x+1`, SPQ1 cancels to
+
+```text
+w Q(s) = v Q(2^154 t).                            (CQ)
+```
+
+This now kernel-checks in `state_power_cofactor_balance`; Lean also proves
+the alternating cofactor identity and a coefficient-generic cancellation
+lemma.  CQ retains exactly the valuation quotients discarded by the failed
+free-variable local sweep.  It suggests two concrete next questions:
+
+1. what coprimality can be proved between `w` and `Q(s)` (and symmetrically
+   `v,Q(2^154t)`), especially away from 23; and
+2. do the fixed-register root conditions force incompatible residues on
+   `w/v` after dividing by `F`?
+
+This is still a reduction, not a no-solution theorem, but it is probably the
+right elementary interface before invoking full S-unit machinery.
+
+## Kontorovich round 97 — the first cofactor coprimality theorem
+
+The standard cyclotomic gcd fact now kernel-checks:
+
+```text
+Q(x) = 23 (mod x+1),
+gcd-divisor(x+1,Q(x)) | 23.
+```
+
+Concretely, `add_one_dvd_plusCofactor_sub_twentyThree` and
+`common_dvd_add_one_plusCofactor_dvd_twentyThree` prove this over `Z` without
+importing cyclotomic-polynomial machinery.  Applied to SPQ, the exact
+valuation quotient and its same-side cofactor can share no prime other than
+23 once the quotient's primes are known to come from `s+1` (respectively
+`2^154t+1`).  The next useful step is to combine this with CQ to route every
+prime `ell != 23` crossing from `w` into the *opposite* cofactor, and then use
+23rd-power order constraints at such an `ell`.  I do not yet see a finite
+contradiction, but this is materially sharper than the free local equation.
+
+## Kontorovich round 98 — cancelling the register forces a new register congruence
+
+The fixed divisor satisfies `IsCoprime F 23` (now checked in Lean).  Therefore
+if CQ has `w=F*w0`, `v=F*v0` and the state roots obey
+`s=-1 (mod F)`, `2^154t=-1 (mod F)`, cancelling the common `F` gives
+
+```text
+w0 Q(s) = v0 Q(2^154t),
+Q(s) = Q(2^154t) = 23 (mod F),
+hence w0 = v0 (mod F).
+```
+
+This is formalized as `fixedDivisor_reduced_quotients_modEq`; the generic
+engine is `reduced_quotients_modEq`.  So a public-state quine does not merely
+preserve the visible state register: after stripping the forced `F` from both
+valuation quotients, it regenerates an additional hidden register modulo
+`F`.  Please check whether the bouncer semantics or the proposed correction
+already fixes either residual quotient modulo `F`; if so, this may be an
+immediate incompatibility.  Otherwise iterate the question: is a second
+factor `F` forced in both quotients, or does the lift stop after one layer?
+
+## Kontorovich round 99 — Roth request received; formalizer pausing cleanly
+
+I received the generalized `h=23*ell` GSPQ/Roth bridge request.  The outline
+is plausible and materially stronger than proving each remaining transition
+impossible.  I have not started its Lean implementation because this worker
+is pausing at a requested handoff boundary.  The complete next-task spec is in
+root `NEW_RESUME_LEAN.md`.
+
+Four seams should stay visible in the next implementation:
+
+1. the exponent-11 inequality needs the eventual constant `s>alpha`;
+2. the reduced rationals used by Roth must be shown infinitely many (RB2
+   tending to zero rules out infinite repetition of one rational when
+   `alpha` is irrational);
+3. `e=0` must be connected formally to `23|m` via `gcd(17,23)=1`; and
+4. Roth remains an explicit external finiteness hypothesis, never a project
+   axiom.
+
+Before pausing I completed the valuation/cofactor line through the hidden
+register theorem `fixedDivisor_reduced_quotients_modEq`.  Please leave any
+answer about whether the residual quotient has a second forced `F` in the
+incoming channel; the next instance will read it first.
