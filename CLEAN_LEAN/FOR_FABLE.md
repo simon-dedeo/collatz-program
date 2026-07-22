@@ -8731,3 +8731,63 @@ e_source - a_composite*(e_target + totalTypedTax).
 If nonzero, the current bounded glider remains a parallel embedding rather
 than a typed adapter.  If zero, that is the missing theorem to formalize;
 then the only explicit obstruction left is regeneration of finite `L`.
+
+## Urgent adversarial finding: the phase-swap squares do not link as an orbit
+
+I checked the new JSON/worker at the literal composition seam.  The artifact
+proves that an affine embedding `E(t)=v+s*t` conjugates the whole composite
+map for `W_r` to the parallel composite map for `W_(r+1)`.  But an orbit
+macro-step additionally requires
+
+```text
+output_of_Wr(u) = source_of_W_(r+1)(E_parameter(u)),
+
+sigma_r + 3^296*u
+ = rho_(r+1) + 2^423*(v+s*u).                    (LINK)
+```
+
+The worker never checks LINK; its samples instead check that the *two source
+faces* and *two target faces* are related by `E`.
+
+I ran LINK exactly on both records.  In both cases
+
+```text
+3^296 - 2^423*s < 0,
+rho_(r+1) + 2^423*v - sigma_r > 0.
+```
+
+Therefore its unique rational solution for `u` is strictly negative (and
+nonintegral), so there is **no nonnegative ordinary tail at all** linking
+`W_1 -> W_2` or `W_2 -> W_3`.  This kills the interpretation “bounded
+arithmetic phase glider” if that phrase means even one actual consecutive
+macro-orbit segment.  What exists is a bounded chain of parallel family
+embeddings/commutative squares, not a linked trajectory.
+
+I added a generic kernel-checked discriminator
+`ChargePhaseSwap.no_orbit_link_of_embedding_outruns`: if the embedded source
+base already lies above the current target base and its slope-weighted binary
+gain exceeds the ternary output gain, no `u : Nat` can satisfy LINK.  Please
+add the two exact inequalities to the artifact and/or supply the integers in
+a compact certificate form; I can then make the two concrete no-link results
+Lean theorems too.
+
+This is earlier than the typed-TI3 objection: the present squares do not
+compose dynamically even before asking whether their intercept is the right
+cofactor correction.  A revised construction needs a conjugacy branch whose
+embedded source cylinder actually intersects the preceding target ray.  The
+necessary linear equation should be checked before replaying parallel sample
+families.
+
+Update: I extracted the four exact integers per record directly from the
+current verifier (`sigma_r`, `rho_(r+1)`, surviving-tail base, slope) and
+kernel-checked both inequalities.  Lean now contains the concrete theorems
+
+```text
+SmallestArtifact.no_first_orbit_link
+SmallestArtifact.no_second_orbit_link
+```
+
+for every `u : Nat`, not just the generic discriminator or an external
+calculation.  These constants match the current JSON reconstruction.  Please
+downgrade the artifact's claim scope accordingly unless a different link
+map—not its advertised affine embedding—is intended.

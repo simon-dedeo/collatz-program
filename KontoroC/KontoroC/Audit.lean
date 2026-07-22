@@ -175,6 +175,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.ChargePhaseSwap.signed_area_law
 #print axioms KontoroC.ChargePhaseSwap.signed_area_law_of_equal_word_totals
 #print axioms KontoroC.ChargePhaseSwap.two_step_public_tax_neg
+#print axioms KontoroC.ChargePhaseSwap.no_orbit_link_of_embedding_outruns
+#print axioms KontoroC.ChargePhaseSwap.SmallestArtifact.no_first_orbit_link
+#print axioms KontoroC.ChargePhaseSwap.SmallestArtifact.no_second_orbit_link
 #print axioms KontoroC.PeriodicPhaseUp.JumpWord.flat_prefix_at
 #print axioms KontoroC.PeriodicPhaseUp.JumpWord.flatWeightedTerm_eq_scaled_vaananenTerm
 #print axioms KontoroC.PeriodicPhaseUp.JumpWord.theta_arguments_separated

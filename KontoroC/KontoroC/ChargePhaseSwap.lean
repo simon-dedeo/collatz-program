@@ -167,5 +167,136 @@ theorem two_step_public_tax_neg (g : PublicWord) (hg : g.length = 2) :
     g.typedTax < 0 := by
   exact g.typedTax_neg (by omega)
 
+/-! ## A conjugacy square is not an orbit link -/
+
+/-- Canonical source cylinder of a compressed public word. -/
+def sourceTail (rho binary u : ℕ) : ℕ := rho + binary * u
+
+/-- Canonical target ray of a compressed public word. -/
+def targetTail (sigma ternary u : ℕ) : ℕ := sigma + ternary * u
+
+/-- The next word's embedded source parameter. -/
+def embeddedParameter (base slope u : ℕ) : ℕ := base + slope * u
+
+/-- A simple but decisive discriminator.  If the embedded next-source base
+already lies above the current target base and its cylinder grows faster,
+then no nonnegative tail can make the current output equal the next input.
+A commutative conjugacy square does not supply this missing equality. -/
+theorem no_orbit_link_of_embedding_outruns
+    (sigma rho binary ternary base slope u : ℕ)
+    (hbase : sigma < sourceTail rho binary base)
+    (hgain : ternary < binary * slope) :
+    targetTail sigma ternary u ≠
+      sourceTail rho binary (embeddedParameter base slope u) := by
+  intro heq
+  have hmul : ternary * u ≤ (binary * slope) * u :=
+    Nat.mul_le_mul_right u (le_of_lt hgain)
+  have hlt : targetTail sigma ternary u <
+      sourceTail rho binary (embeddedParameter base slope u) := by
+    simp only [targetTail, sourceTail, embeddedParameter]
+    calc
+      sigma + ternary * u <
+          (rho + binary * base) + (binary * slope) * u :=
+        Nat.add_lt_add_of_lt_of_le hbase hmul
+      _ = rho + binary * (base + slope * u) := by ring
+  exact (Nat.ne_of_lt hlt) heq
+
+/-! ### The two records in the smallest phase-swap artifact
+
+These decimal constants are the exact `sigma`, next `rho`, surviving-tail
+base, and slope reconstructed by the public Python verifier for the two
+records `W₁→W₂` and `W₂→W₃`.  The theorems below certify the
+previously unchecked literal-link equation, independently of Python. -/
+
+-- Exact decimal certificates are intentionally kept on one line so that a
+-- transcription cannot be mistaken for arithmetic punctuation.
+set_option linter.style.longLine false
+namespace SmallestArtifact
+
+def sigma₁ : ℕ :=
+  744889819427608873222807483681117455594052018866244857967949396769305451478102698367897709783952585474535778390409626016409376728636144996298
+def rho₂ : ℕ :=
+  10526197576664414351938806566698775855376515653921917826387692972996978795523047394705044713890254039636501094498171482166808014
+def base₁₂ : ℕ :=
+  135810878612026184695893306845777897602952180309142391529519057770026977166139251351900562747016175743599769019723537633530640145800202345155
+def slope₁₂ : ℕ :=
+  308129952608255164862168604192124895328380318723351135677484809422674985131340617509475856086685331327483854135738719645380635527119215095024
+
+def sigma₂ : ℕ :=
+  821248801204092541588488035795282765857224461605483619349354723138906546883963667429604951991040225812953422346505744878149511478985739521899
+def rho₃ : ℕ :=
+  17452685594760724370529994722988563831732583772509201389816420874812056190360163159789046891239571433002120995799685212954601271
+def base₂₃ : ℕ :=
+  806597868944315244916444340292750082808663916228707976104000275863669964569194845811098799267868634055229126058346153791700706846556942871536
+def slope₂₃ : ℕ :=
+  1659868635400486787449025759040723777508506656927541241039271721493471225341450546894411477744558095923777024007231475498850740032340438409536
+
+theorem first_embedded_base_above :
+    sigma₁ < sourceTail rho₂ (2 ^ 423) base₁₂ := by
+  have hs : sigma₁ < 8 * base₁₂ := by
+    norm_num [sigma₁, base₁₂]
+  have hpow : 8 ≤ 2 ^ 423 := by
+    exact_mod_cast (show 8 ≤ 2 ^ 423 by omega)
+  simp only [sourceTail]
+  calc
+    sigma₁ < 8 * base₁₂ := hs
+    _ ≤ 2 ^ 423 * base₁₂ := Nat.mul_le_mul_right base₁₂ hpow
+    _ ≤ rho₂ + 2 ^ 423 * base₁₂ := Nat.le_add_left _ _
+
+set_option exponentiation.threshold 512 in
+theorem first_embedding_outruns :
+    3 ^ 296 < 2 ^ 423 * slope₁₂ := by
+  have hs : 2 ^ 169 < slope₁₂ := by
+    norm_num [slope₁₂]
+  calc
+    3 ^ 296 < 4 ^ 296 :=
+      Nat.pow_lt_pow_left (by norm_num : 3 < 4) (by norm_num : 296 ≠ 0)
+    _ = 2 ^ 423 * 2 ^ 169 := by
+      rw [show 4 = 2 ^ 2 by norm_num, ← pow_mul, ← pow_add]
+    _ < 2 ^ 423 * slope₁₂ :=
+      (Nat.mul_lt_mul_left (by positivity)).2 hs
+
+/-- The first advertised parallel square has no literal ordinary orbit link
+from the output of `W₁` to the embedded source of `W₂`. -/
+theorem no_first_orbit_link (u : ℕ) :
+    targetTail sigma₁ (3 ^ 296) u ≠
+      sourceTail rho₂ (2 ^ 423) (embeddedParameter base₁₂ slope₁₂ u) :=
+  no_orbit_link_of_embedding_outruns _ _ _ _ _ _ _
+    first_embedded_base_above first_embedding_outruns
+
+theorem second_embedded_base_above :
+    sigma₂ < sourceTail rho₃ (2 ^ 423) base₂₃ := by
+  have hs : sigma₂ < 2 * base₂₃ := by
+    norm_num [sigma₂, base₂₃]
+  have hpow : 2 ≤ 2 ^ 423 := by omega
+  simp only [sourceTail]
+  calc
+    sigma₂ < 2 * base₂₃ := hs
+    _ ≤ 2 ^ 423 * base₂₃ := Nat.mul_le_mul_right base₂₃ hpow
+    _ ≤ rho₃ + 2 ^ 423 * base₂₃ := Nat.le_add_left _ _
+
+set_option exponentiation.threshold 512 in
+theorem second_embedding_outruns :
+    3 ^ 296 < 2 ^ 423 * slope₂₃ := by
+  have hs : 2 ^ 169 < slope₂₃ := by
+    norm_num [slope₂₃]
+  calc
+    3 ^ 296 < 4 ^ 296 :=
+      Nat.pow_lt_pow_left (by norm_num : 3 < 4) (by norm_num : 296 ≠ 0)
+    _ = 2 ^ 423 * 2 ^ 169 := by
+      rw [show 4 = 2 ^ 2 by norm_num, ← pow_mul, ← pow_add]
+    _ < 2 ^ 423 * slope₂₃ :=
+      (Nat.mul_lt_mul_left (by positivity)).2 hs
+
+/-- Nor does the second square link `W₂` to `W₃`. -/
+theorem no_second_orbit_link (u : ℕ) :
+    targetTail sigma₂ (3 ^ 296) u ≠
+      sourceTail rho₃ (2 ^ 423) (embeddedParameter base₂₃ slope₂₃ u) :=
+  no_orbit_link_of_embedding_outruns _ _ _ _ _ _ _
+    second_embedded_base_above second_embedding_outruns
+
+end SmallestArtifact
+set_option linter.style.longLine true
+
 end ChargePhaseSwap
 end KontoroC
