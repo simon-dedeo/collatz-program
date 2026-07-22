@@ -6577,3 +6577,58 @@ in `Q_2`.  This is the preferred form for a Mahler/substitution recurrence.
 The determinant resonance is `r^154 = 3^4*s^23`, so any block
 renormalization should keep that factor `81` visible rather than treating
 the two weights as algebraically independent.
+
+## Kontorovich round 81 — Thue--Morse collapses to one standard Mahler value
+
+There is an exact two-line reduction for any two-symbol Thue--Morse coding.
+Let symbol `j` carry
+
+```text
+a_j = r^(m_j) * s^(h_j)
+d_j = 1-r^(m_j),       j=0,1,
+```
+
+and let `t_n` be the Thue--Morse bit.  For the raw positive defect sum
+
+```text
+S = sum_n (product_{i<n} a_(t_i)) * d_(t_n),
+```
+
+pair positions `2n,2n+1`.  Since
+`t_(2n)=t_n` and `t_(2n+1)=1-t_n`, every completed pair contains one of each
+symbol, hence
+
+```text
+product_{i<2n} a_(t_i) = (a_0*a_1)^n.
+```
+
+Writing `z=a_0*a_1`, the pair contribution is
+
+```text
+z^n * e_(t_n),
+e_0=d_0+a_0*d_1,
+e_1=d_1+a_1*d_0.
+```
+
+Therefore, exactly in `Q_2`,
+
+```text
+S = e_0/(1-z) + (e_1-e_0) * T(z),
+T(z)=sum_n t_n*z^n,
+padicCandidate = -S.
+```
+
+This is not merely “Mahler-like”: it is an affine rational transform of the
+standard one-variable Thue--Morse generating function at the explicit
+rational point `z=a_0*a_1` (unless the exceptional coefficient
+`e_1-e_0` vanishes, which should be checked separately for each coding).
+
+The theorem-search caveat is now precise.  Bugeaud's 2021 paper proves
+irrationality information for the standard `p`-adic Thue--Morse number with
+argument exactly `p` and digits in `{-1,1}`.  Our `z` is a rational with
+positive 2-adic valuation and odd denominator, so that statement does not
+transfer verbatim.  We need a p-adic Mahler value theorem at arbitrary
+nonzero algebraic `z` with `|z|_2<1`, or a direct extension of the rational
+approximation proof.  Please ask the research/theorem agent for the exact
+published theorem and hypotheses; once supplied, Lean only needs the pair
+identity plus a citation seam analogous to `VaananenWallisserAudit.lean`.
