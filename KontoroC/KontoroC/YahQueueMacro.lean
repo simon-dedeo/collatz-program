@@ -172,6 +172,39 @@ theorem carrySweep_parity (x : ℕ) (c : Carry) (v : List Trit) :
   rw [carrySweep_eq_core_append, tritEvalFrom_append, tritEval_deposit]
   split <;> omega
 
+/-- Exact value law for one dynamic sweep.  A zero terminal carry divides by
+two; a one terminal carry performs the odd shortcut `(3N+1)/2`. -/
+theorem carrySweep_value (x : ℕ) (c : Carry) (v : List Trit) :
+    2 * tritEvalFrom x (carrySweep c v) =
+      if terminalCarry c v = Carry.zero then
+        tritEvalFrom (2 * x + carryBit c) v
+      else
+        3 * tritEvalFrom (2 * x + carryBit c) v + 1 := by
+  have hdiv := quotientCore_division x c v
+  rw [carrySweep_eq_core_append, tritEvalFrom_append, tritEval_deposit]
+  generalize hc : terminalCarry c v = r at hdiv ⊢
+  cases r <;> simp [carryBit] at hdiv ⊢ <;> omega
+
+theorem carrySweep_value_of_terminal_one (x : ℕ) (c : Carry)
+    (v : List Trit) (hterminal : terminalCarry c v = Carry.one) :
+    2 * tritEvalFrom x (carrySweep c v) =
+      3 * tritEvalFrom (2 * x + carryBit c) v + 1 := by
+  simpa [hterminal] using carrySweep_value x c v
+
+/-- Two consecutive terminal-one sweeps obey the homogeneous fixed-point
+law around `-1`: `4(E+1)=9(N+1)`. -/
+theorem twoSweep_growth_balance (c : Carry) (v : List Trit)
+    (hfirst : terminalCarry c v = Carry.one)
+    (hsecond : terminalCarry Carry.zero (carrySweep c v) = Carry.one) :
+    4 * tritEvalFrom 1 (carrySweep Carry.zero (carrySweep c v)) =
+      9 * tritEvalFrom (4 + carryBit c) v + 5 := by
+  have h1 := carrySweep_value_of_terminal_one 2 c v hfirst
+  have h2 := carrySweep_value_of_terminal_one 1 Carry.zero
+    (carrySweep c v) hsecond
+  simp [carryBit] at h2
+  norm_num at h1
+  nlinarith
+
 /-- In a two-sweep macro, the first and second terminal carries are exactly
 the low two binary bits of the input value. -/
 theorem twoSweep_residue (c : Carry) (v : List Trit) :
@@ -192,6 +225,22 @@ theorem twoSweep_residue (c : Carry) (v : List Trit) :
     (terminalCarry Carry.zero (carrySweep c v))
   norm_num at hdiv
   omega
+
+theorem twoSweep_mod_four_three_balance (c : Carry) (v : List Trit)
+    (hmod : tritEvalFrom (4 + carryBit c) v % 4 = 3) :
+    4 * tritEvalFrom 1 (carrySweep Carry.zero (carrySweep c v)) =
+      9 * tritEvalFrom (4 + carryBit c) v + 5 := by
+  have hres := twoSweep_residue c v
+  rw [hmod] at hres
+  have hfirst : terminalCarry c v = Carry.one := by
+    generalize hfc : terminalCarry c v = fc at hres ⊢
+    generalize hsc : terminalCarry Carry.zero (carrySweep c v) = sc at hres
+    cases fc <;> cases sc <;> simp [carryBit] at hres ⊢
+  have hsecond : terminalCarry Carry.zero (carrySweep c v) = Carry.one := by
+    generalize hfc : terminalCarry c v = fc at hres
+    generalize hsc : terminalCarry Carry.zero (carrySweep c v) = sc at hres ⊢
+    cases fc <;> cases sc <;> simp [carryBit] at hres ⊢
+  exact twoSweep_growth_balance c v hfirst hsecond
 
 /-- Number of terminal carry-one events forced by a residue modulo four. -/
 def twoSweepCharge : ℕ → ℕ

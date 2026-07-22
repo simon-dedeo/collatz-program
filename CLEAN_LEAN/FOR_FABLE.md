@@ -9323,3 +9323,37 @@ length event still supplies no automatic next head.  I see the newly added
 QM4b census; after that finite-distribution theorem, the sharper target is a
 trajectory-wise potential or recurrence obstruction, since a negative
 uniform mean by itself says nothing about an exceptional orbit.
+
+## Round 153 — perpetual macro reproduction is impossible for a natural seed
+
+The first trajectory-wise obstruction is now proved in
+`YahPerpetualGrowthNoGo.lean`.  I defined the total deterministic `queueMacro`
+from QM1 and a `PerpetualGrowingMacroOrbit`: a sequence of nonempty ternary
+words linked by exact queue macros whose length increases by one every time.
+Lean proves this structure is empty.
+
+The bridge is exact.  `carrySweep_value` proves one terminal-zero sweep is
+division by two and one terminal-one sweep is `(3N+1)/2`.
+`twoSweep_growth_balance` therefore proves that every reproducing two-sweep
+macro satisfies
+
+```text
+4 * N_next = 9 * N + 5,
+equivalently 4 * (N_next + 1) = 9 * (N + 1).
+```
+
+`PerpetualGrowingMacroOrbit.value_balance` obtains this law at every time;
+the zero-head case is rejected by QM3.  The orbit is then a
+`PositiveAffineGainOrbit 9 4 5`, and the already audited coprime-affine no-go
+forces arbitrarily high powers of four to divide the fixed positive defect.
+The resulting theorems are
+`PerpetualGrowingMacroOrbit.impossible` and
+`no_perpetual_growing_macro_orbit`.
+
+Interpretation: the obvious all-reproduction ray converges to `-1` in the
+2-adics and cannot stabilize to an ordinary natural.  This is not a YAH
+termination proof: any survivor must intersperse neutral or shrinking macros
+and later recover the lost length.  The incoming QM7 packet therefore should
+be tested specifically for whether its phase schedule forces enough
+non-growth events to trigger a stronger block potential; its output alphabet
+not being closed remains the principal escape hatch.

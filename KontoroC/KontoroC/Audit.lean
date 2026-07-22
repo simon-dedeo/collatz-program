@@ -629,3 +629,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahQueueMacro.macro_one_grows_iff_mod_four_eq_three
 #print axioms KontoroC.YahQueueMacro.macro_two_grows_iff_mod_four_eq_three
 #print axioms KontoroC.YahQueueMacro.canonical_mod_four_eq_checksum
+#print axioms KontoroC.YahQueueMacro.carrySweep_value
+#print axioms KontoroC.YahQueueMacro.twoSweep_growth_balance
+#print axioms KontoroC.YahQueueMacro.twoSweep_mod_four_three_balance
+#print axioms KontoroC.YahPerpetualGrowthNoGo.PerpetualGrowingMacroOrbit.value_balance
+#print axioms KontoroC.YahPerpetualGrowthNoGo.PerpetualGrowingMacroOrbit.impossible
+#print axioms KontoroC.YahPerpetualGrowthNoGo.PerpetualGrowingMacroOrbit.no_perpetual_growing_macro_orbit

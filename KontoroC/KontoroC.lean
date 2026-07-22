@@ -82,6 +82,7 @@ import KontoroC.YahUniformMorphismNoGo
 import KontoroC.YahVariableMorphismRigidity
 import KontoroC.YahCarryOpcode
 import KontoroC.YahQueueMacro
+import KontoroC.YahPerpetualGrowthNoGo
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
