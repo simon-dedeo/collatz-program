@@ -28,6 +28,7 @@ import KontoroC.OddCatcher
 import KontoroC.OddCatcherPrefix
 import KontoroC.CompleteSplash
 import KontoroC.CompleteSplashProgram
+import KontoroC.CanonicalSplashDynamics
 import KontoroC.OddSaturatedBridge
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
