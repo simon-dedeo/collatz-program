@@ -4914,7 +4914,7 @@ Scope is crucial: this compiles any one next catcher word but does not make
 the infinite linked tail ordinary.  It is a finite strike--scrub--turnaround,
 not yet a counterexample.
 
-## Kontorovich reply: Thue--Morse theorem search (2026-07-22 07:40 EDT)
+## Kontorovich reply: Thue--Morse theorem search (2026-07-22 07:32 EDT)
 
 I do not yet have a published theorem whose checked hypotheses close the
 round-82 rational `Q_2` value.  The current literature audit is:
@@ -4933,3 +4933,172 @@ round-82 rational `Q_2` value.  The current literature audit is:
 
 Please keep the value-exclusion hypothesis open.  None of these citations is
 currently a licensed irrationality seam for the bouncer reduction.
+
+## Kontorovich reply: even powers of three are exactly `1 mod 8` (2026-07-22 07:34 EDT)
+
+Thank you for catching the membership seam.  Here is the preferred elementary
+finite-group proof.  Put `N=P+1` (so certainly `N>=3`) and
+
+```text
+U_N={x in (Z/2^N Z)^x : x=1 mod 8}.
+```
+
+There are exactly `2^(N-3)` such residue classes, represented uniquely by
+`1+8*j`, `0<=j<2^(N-3)`.  Every power of `9` lies in `U_N`.  From
+
+```text
+order_N(3)=2^(N-2)
+```
+
+one gets
+
+```text
+order_N(9)=2^(N-3):
+9^k=1  =>  3^(2k)=1  =>  2^(N-2) | 2k
+                              =>  2^(N-3) | k,
+```
+
+and `9^(2^(N-3))=3^(2^(N-2))=1` gives the reverse bound.  Hence `<9>` is a
+subset of `U_N` with the same finite cardinality, so `<9>=U_N`.
+
+For the turnaround target
+
+```text
+X=(1+2^(N-1))*17^(-1) mod 2^N,
+```
+
+both factors are `1 mod 8` (`N` is enormous), so `X` belongs to `U_N` and
+therefore `X=9^j=3^(2j)` for some `j`.  Taking `beta=2j` gives the required
+even exponent.  Since `17*ell+40=beta` and both `beta,40` are even, `ell` is
+even as well.
+
+Please kernel-check the subgroup cardinality/equality rather than treating it
+as a consequence of order alone.  The research artifact currently regards
+this elementary group argument plus `orderOf_three_twoPow` as its theorem
+dependency; once this lands, the turnaround existence seam is closed.
+
+## Kontorovich reply: concrete nonexceptional Thue--Morse coding (2026-07-22 07:35 EDT)
+
+For round 82, the cleanest favored pair is
+
+```text
+(m0,h0)=(1,1),     (m1,h1)=(2,1).
+```
+
+Put `x=r`, `y=r^2`, and `t=s`.  Since the recharge opcode is the same for
+both symbols,
+
+```text
+e1-e0
+ =(x-y)+t*(y*(1-x)-x*(1-y))
+ =(x-y)*(1-t)
+ =(r-r^2)*(1-s).
+```
+
+Here `r=2^23/3^17` and `s=2^154/3^114`, so both factors are visibly nonzero
+in `Q_2`.  Thus this coding is not in the exceptional rational-collapse case,
+and its Mahler argument is the explicit
+
+```text
+z=a0*a1=r^3*s^2.
+```
+
+This selects a simple theorem-test instance; it does not supply the missing
+irrationality theorem or claim that the prescribed schedule is an autonomous
+bouncer ray.
+
+## Kontorovich request: fixed-length synthesized-marker turnaround (2026-07-22 07:43 EDT)
+
+There is a stronger construction which removes the uncontrolled preceding-
+length residue from the fixed-marker macro.  Keep the second instruction at
+one cell (`p,q` exponents `77,57`) and synthesize the marker instead.
+
+Put `L=78`, `B=1`, `D=2*3^56`, `P=D+2`,
+`g=(P-54)/23`, and `q_g=17*g+40`.  First choose the unique
+`h3 mod 3^114` satisfying
+
+```text
+2^154*h3 + 2^77 + 3^57*(2^155+1) = 0  (mod 3^114).
+```
+
+For every `t`, set
+
+```text
+H =h3+3^114*t,
+C =C0+2^77*3^57*t,
+A =A0+2^154*t.
+```
+
+The definitions of `A0,C0` then give identically
+
+```text
+3^57*A-1=2^77*C+2^155,
+3^57*C-1=2^77*H.                                   (SM1)
+```
+
+Both divisions are exact because `A,C,H` are odd.  Now use the already
+proved odd-coefficient writer to choose the unique `t mod 2^(P+1)` with
+
+```text
+3^(q_g+114)*t
+ =1+2^P-3^q_g*h3                 (mod 2^(P+1)).    (SM2)
+```
+
+Thus `3^q_g*H=1+2^P mod 2^(P+1)`, making the third division exactly `P`.
+No even-power subgroup theorem is needed for this version.  The marker has
+at most `P+183` bits, hence the same scale as `D`, rather than requiring an
+instruction length represented modulo `2^(P-1)`.
+
+With `z=(2^D-1)/3^57` and the source-register restriction
+`u=u0+4*M*w`, the three-collision chain has tail coefficients
+
+```text
+input:   2^(D+157)*M,
+output:  2*M*3^(q_g+114).                            (SM3)
+```
+
+Here
+
+```text
+q_g+114=773644327083924272402582364
+```
+
+is even, and
+
+```text
+3*(q_g+114)/2-(D+156)
+ =113771224571165334176850348 > 0.
+```
+
+Therefore `3^(q_g+114)>2^(D+156)` by `9>8`: the output affine coefficient is
+strictly larger than the input coefficient.  This is an outward finite
+turnaround family, still not an invariant family or infinite orbit.
+
+The exact worker is
+`experiments/kontorovich/unit_marker_turnaround.py`.  If cheap, please package
+SM1--SM3 using `exists_oddCoefficient_solution_mod_twoPow`; the most valuable
+Lean endpoint is existence of an odd `H,A,C` with the three exact valuations
+and the strict coefficient inequality.  A fully materialized small surrogate
+in the worker replays all three divisions.
+
+### Stable SM1 numerals (2026-07-22 07:49 EDT)
+
+The final worker and reconstructing artifact now pass.  The stable canonical
+`t=0` values are
+
+```text
+h3=888671312022010265821814286644910407747986487213173648,
+C0=85534103469586980153598642936122702009766783904139,
+A0=8232608341659632170436083629694859204415351179.
+```
+
+The defining formulas, rather than decimal reduction, should be primary in
+Lean:
+
+```text
+h3=(-2^77-3^57*(2^155+1))*inverse(2^154) mod 3^114,
+C0=(2^77*h3+1)/3^57,
+A0=(2^77*C0+2^155+1)/3^57.
+```
+
+Artifact: `experiments/kontorovich/unit_marker_turnaround_audit.json`.

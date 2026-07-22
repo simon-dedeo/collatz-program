@@ -1758,6 +1758,58 @@ infinite nested dyadic cylinder, usually a non-natural 2-adic integer.  The
 new sharp target is a payload law which computes its own next word and for
 which those canonical extension residues eventually vanish.
 
+The fixed marker is not the best allocation of the nonlocal code.  Instead,
+freeze the preceding instruction at one cell and let the marker absorb both
+the ternary carry constraint and the dyadic turnaround constraint.  Define
+`h_3 mod 3^114` by
+
+```text
+2^154h_3+2^77+3^57(2^155+1)=0 (mod 3^114),          (69e9)
+```
+
+and lift
+
+```text
+H=h_3+3^114t,
+C=C_0+2^77 3^57t,
+A=A_0+2^154t.                                      (69e10)
+```
+
+Then `3^57A-1=2^77C+2^155` and
+`3^57C-1=2^77H` identically.  With the same `D,P,g`, choose `t` from
+
+```text
+3^(q(g)+114)t=1+2^P-3^q(g)h_3 (mod 2^(P+1)).       (69e11)
+```
+
+The coefficient is odd, so (69e11) has one residue class and makes the third
+valuation exactly `P`.  A positive marker exists with at most
+`P+183=D+185` bits.  This is the more literal version of Simon's distributed
+instruction: the low and remote marker islands are synthesized together,
+rather than asking a small local marker to determine an uncontrolled
+preceding length.
+
+More importantly, the family is outward in its free tail.  After
+`u=u_0+4Mw`, the input and output coefficients are
+
+```text
+2^(D+157)M,
+2M 3^Q,       Q=773644327083924272402582364.         (69e12)
+```
+
+Here `Q` is even and
+
+```text
+3Q/2-(D+156)=113771224571165334176850348>0,
+```
+
+so `9>8` proves the second coefficient strictly larger.  The exact worker
+[`unit_marker_turnaround.py`](../../experiments/kontorovich/unit_marker_turnaround.py)
+reconstructs (69e9)--(69e12), and its small surrogate literally replays the
+three divisions.  This is the first same-scale outward turnaround family,
+but still only one finite family: no invariant marker cylinder or autonomous
+next instruction has been found.
+
 There is a formula-compressed specialization which restores Kontorovich's
 very long spatial wire.  Let an odd marker `C` and exponent `T` satisfy
 

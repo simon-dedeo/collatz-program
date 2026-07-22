@@ -1404,6 +1404,92 @@ verifier file SHA-256 114c1ce6bb53fc396f5c06902ae12d55aef59f7a450080b3ab6440f529
 combined source SHA   1eb852eb1ddecb6505e95281b50cd889434a437677ab15701f2c262aa8d7ea66
 ```
 
+## Same-scale expanding marker turnaround
+
+`unit_marker_turnaround.py` removes the uncontrolled preceding-length class
+from the fixed-marker construction.  It keeps the second instruction at one
+level-two cell and synthesizes the marker itself.  Put
+
+```text
+L=78,  B=1,  D=2*3^56,  P=D+2,
+g=(P-54)/23=45508489828466133670740130.
+```
+
+The unique ternary residue `h_3 mod 3^114` is defined by
+
+```text
+2^154*h_3+2^77+3^57*(2^155+1)=0 (mod 3^114).
+```
+
+For every integer `t`, set
+
+```text
+H=h_3+3^114*t,
+C=C_0+2^77*3^57*t,
+A=A_0+2^154*t.
+```
+
+Then the first two exact collisions are identities:
+
+```text
+3^57*A-1=2^77*C+2^155,
+3^57*C-1=2^77*H.                                   (UMT1)
+```
+
+Choose `t` modulo `2^(P+1)` from
+
+```text
+3^(q(g)+114)t=1+2^P-3^q(g)h_3 (mod 2^(P+1)).       (UMT2)
+```
+
+The coefficient is odd, so it permutes all dyadic residues; Lean commit
+`a0073fd` kernel-checks the generic writer lemma.  Equation (UMT2) makes
+`H` odd and gives
+
+```text
+3^q(g)H=1+2^P (mod 2^(P+1)),
+```
+
+so the third collision has exact valuation `P`.  Taking the canonical `t`
+gives a positive marker of at most `P+183=D+185` bits.  This has the same
+scale as the scrub gap and does not require constructing the fixed-marker
+length class.
+
+After `z=(2^D-1)/3^57` translates the carry and the ordinary source tail is
+restricted as `u=u_0+4Mw`, the input and output `w` coefficients are
+
+```text
+2^(D+157)M,
+2M*3^Q,       Q=q(g)+114=773644327083924272402582364.
+```
+
+The second is strictly larger.  Since `Q` is even, `3^Q=9^(Q/2)>8^(Q/2)`,
+and
+
+```text
+3Q/2-(D+156)=113771224571165334176850348>0.         (UMT3)
+```
+
+Thus this is a finite outward affine family, not merely a cleanup gadget.
+The remaining obligation is closure: the output is not proved to lie in a
+next marker cylinder selected by its own payload.
+
+```bash
+PYTHONPATH=. python3 unit_marker_turnaround.py selftest
+PYTHONPATH=. python3 unit_marker_turnaround.py build unit_marker_turnaround_audit.json
+PYTHONPATH=. python3 unit_marker_turnaround.py verify unit_marker_turnaround_audit.json
+```
+
+The selftest also fully materializes a small surrogate and replays all three
+exact divisions.  The public instance remains formula-compressed.  No
+invariant family, infinite ordinary orbit, or counterexample is claimed.
+
+```text
+artifact SHA-256      475beaa146173295f49c382bc694bc9e11cec247df4d3fe43566f7147906a3a5
+verifier file SHA-256 809c95233c79c495ac2222127bd58d70f14d719e0ffbe13bb6d29b28d0b000c0
+combined source SHA   14803034960b7c074134b7c126a750c2c408d7fc45e2344a65d2ec875c42b084
+```
+
 ## Formula-generated repetend splashes
 
 `unit_repetend_splash.py` compresses the sacrificial word into one rational
