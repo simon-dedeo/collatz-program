@@ -1,6 +1,6 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-22, about 14:25 EDT
+Updated: 2026-07-22, about 14:37 EDT
 
 Repository: `/Users/simon/Desktop/COLLATZ`
 
@@ -17,6 +17,45 @@ delimiter; construct an endomorphism before collecting points; and demand
 control of the next opcode rather than mere outward scale.  Opcode chaining
 is useful only as a decoder-compatible semantic action, not a naked matrix
 collision.
+
+### New fundamental target: a thin trapping language
+
+For a positive valuation word `w`, let `n=w.length` and `S=sum(w)`.  The two
+weights
+
+```text
+p(w)=2^(-S),       q(w)=3^n/4^S
+```
+
+are both Kraft weights because their one-letter masses sum to one.  Every
+outward word has `q(w)>p(w)`.  Therefore a prefix-complete valuation decoder
+cannot be outward on every leaf: completeness would give `sum p=1`, while the
+second Kraft inequality gives `sum q<=1`.  Quantitatively, a prefix family
+whose every macro has slope at least `lambda>1` has ordinary mass at most
+`1/lambda`; after `N` closed generations, at most `lambda^(-N)`.
+
+This is currently a research derivation with a locally compiling, uncommitted
+companion draft in `KontoroC/KontoroC/TwoKraftObstruction.lean`.  That draft
+checks the two geometric sums, leafwise comparison, and abstract
+finite/countable contradictions.  The generic prefix-tree-to-Kraft theorem is
+still an explicit interface.  Do not call it a pushed Lean checkpoint until
+the companion commits it.
+
+The constructive target is now a finite **thin-trap certificate** over
+`CompleteSplashState.next`: a public predicate `L`, explicit ordinary seed,
+and public successor which preserves `L` and is strictly outward.  A precise
+wrapper request is at the tail of `docs/FOR_CLEAN_LEAN.md`.  This would produce
+an `InfiniteCanonicalSplashOrbit` by iteration and hence use the existing
+literal refutation theorem without preloading an infinite itinerary.
+
+The most principled parallel presentation is the 11-rule mixed-base string
+system of Yolcu--Aaronson--Heule.  Their Theorem 3.17 says global termination
+is equivalent to Collatz.  A finite contextual self-embedding or cyclic
+template rewrite would therefore be a genuine reproduction certificate.  Do
+not search blindly yet: first specify a small exact checker for a parametric
+rewrite/pumping certificate, and distinguish it from De Mol's tag encoding,
+where an arbitrary nonhalting word need not be reachable from unary Collatz
+input.
 
 ### Canonical arithmetic compiler, with corrected scope
 
@@ -275,21 +314,22 @@ formulas only through `docs/FOR_CLEAN_LEAN.md` and poll
 
 The best immediate research tasks are:
 
-1. help the formalizer finish the generic three-layer linked composition;
-2. have the formalizer kernel-check the phase-swap signed-area law and the
-   concrete composite exponent identities; do not infer an all-period no-go
-   from the external theorem;
-3. kernel-check the total-affine gauge dyadic-slope no-go and then restrict
-   constructive searches to nonlinear or multi-rail address regeneration;
-4. use the phase-swap word as the current spatial test case: solve an actual
-   self-writing handoff, not another finite direct CRT link, then derive a
-   public turnaround `L -> L'`;
+1. poll for the companion's two-Kraft and thin-trap commits, then promote only
+   their precise checked scope;
+2. define a finite parametric pumping/self-embedding certificate for the
+   Yolcu--Aaronson--Heule rewrite system before launching a search;
+3. search for a public invariant predicate on `CompleteSplashState.next`, not
+   a deeper finite orbit or another direct CRT handoff;
+4. treat nonlinear stack rewriting or multi-rail address rotation as the
+   required operation; total one-register affine rails spend their dyadic
+   slope and are closed;
 5. reject new searches unless success would give a public self-map, a finite
    semantic rewrite, or a whole ansatz-class obstruction.
 
-The detached Akdeniz 1,198-digit Thue solve remains active after about 3 hours
-30 minutes of CPU with class number one and no completion line.  Ganesha still
-has 22 nonuniform-morphism workers; only shards 4 and 12 are complete.  These
+The detached Akdeniz 1,198-digit Thue solve remains active with class number
+one and no completion line.  The Ganesha nonuniform-morphism workers are no
+longer running; only shards 4 and 12 completed.  Leave them stopped unless a
+new theorem-shaped hypothesis supplies a discriminating search target.  These
 are scoped falsifiers, not the main closure strategy.  PSC is idle.
 
 No counterexample or infinite orbit is known.
@@ -651,7 +691,7 @@ latter; the former was stuck on a narrow single-rail family.
 Akdeniz has 32 CPU cores and one GPU; passwordless sudo is available.  It is
 appropriate for PARI and CPU jobs.
 
-### Ganesha: leave the exact non-uniform morphic search running
+### Ganesha: partial morphic search stopped; leave it stopped
 
 Login:
 
@@ -665,12 +705,13 @@ Work directory:
 /home/simon/kontorovich-run-20260721
 ```
 
-Twenty-four deterministic shards search all nonempty binary morphisms with
+Twenty-four deterministic shards were intended to search all nonempty binary morphisms with
 image length at most 7, valuation codings `1..4`, depth at most 14, expanded
 word length at most 16,384, seed-word length at most 1,024, and 100,000 exact
-continuation steps.  At handoff shards 4 and 12 had finished, both with zero
-nontrivial cycles; 22 PPID-1 workers were still running.  They are detached and
-survive this Codex instance.
+continuation steps.  Only shards 4 and 12 finished, both with zero nontrivial
+cycles; the other workers are no longer running.  Do not cite this as an
+exhaustive result, and do not restart it merely to widen a bounded morphic
+search.  The two-Kraft/thin-trap program is now the primary lane.
 
 Check with
 
@@ -679,7 +720,8 @@ pgrep -af search_nonuniform.py
 ls -lh /home/simon/kontorovich-run-20260721/shards
 ```
 
-When all 24 files exist:
+If a later theorem-shaped reason justifies completing it and all 24 files
+eventually exist:
 
 ```bash
 cd /home/simon/kontorovich-run-20260721
@@ -721,8 +763,9 @@ The main research driver must not edit its files.  Put a complete theorem
 request, proof sketch, assumptions, and scope warning into
 `docs/FOR_CLEAN_LEAN.md`; then poll `CLEAN_LEAN/FOR_FABLE.md`.  The Roth,
 hidden-`F`, quadratic/mod-8, and accepted-step QN2 requests are complete in
-`07352a9`, `34e166b`, `2743350`, and `90c9b6c`.  No formalizer-owned file is
-dirty at this handoff; still inspect status and never stage its future edits.
+`07352a9`, `34e166b`, `2743350`, and `90c9b6c`.  Formalizer-owned files are
+currently dirty with the two-Kraft and finite-prefix-solvability work; inspect
+status and never edit or stage those files.
 
 The latest full formal build reported only standard mathlib logical axioms
 (`propext`, `Classical.choice`, `Quot.sound`) for these results, no project
@@ -753,22 +796,18 @@ Diary entry.
 
 ## Best next actions
 
-1. Poll the detached R23 service and the Ganesha shard count; do not block
-   creative work on them.
-2. Attack the full integral quadratic collision equation, not the timed-out
-   rank-one Pell ray.  Parameterize from the exact rational point, impose the
-   2-adic opcode and public register by CRT/strong approximation, and demand
-   literal `bouncer_step` replay for every candidate.
-3. Couple the quadratic coordinates to the writable hidden instruction:
-   recharge `ell` must simultaneously select `w' (mod F)` and be the exact
-   collision valuation.  Seek a symbolic family in which one coordinate pair
-   computes the next pair, not separately chosen endpoint witnesses.
-4. The inexpensive Lean spines are complete.  Ask for more formalization only
-   after the integral coupling attack produces a universal statement; keep
-   the Roth external theorem and sequence-consumer seams explicit.
-5. Keep Simon's spatial metaphor: interpret the two norm coordinates as the
-   payload and sacrificial/catcher rails, and require the collision to
-   regenerate both the gap and its next correction packet.
+1. Poll the detached R23 service, but do not block creative work on it; leave
+   the incomplete Ganesha morphic batch stopped.
+2. Finish the two-Kraft prefix-tree interface and thin-trap wrapper with the
+   companion, preserving the exact distinction between a checked logical core
+   and a concrete code theorem.
+3. Specify and implement an exact finite checker for a contextual pumping
+   certificate in the Yolcu--Aaronson--Heule 11-rule mixed-base system.
+4. Seek a symbolic invariant `L` for the canonical splash map whose successor
+   writes its own next address; do not promote long finite traces.
+5. Keep Simon's spatial metaphor: the invariant should explain how a payload
+   rail and sacrificial/catcher rail regenerate both the gap and the next
+   correction packet.
 
 The central calibration is unchanged: a spectacular finite path, a 10,000-
 digit compiled seed, or a fresh CRT word at every generation is not a

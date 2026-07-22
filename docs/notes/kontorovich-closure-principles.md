@@ -691,6 +691,104 @@ decoration.  The missing operation is not another affine opcode; it is a
 public stack rotation or base-conversion round trip.  Searches should now ask
 for that operation coefficientwise before enumerating instruction words.
 
+### 5.3 Two Kraft measures forbid a complete all-outward ISA
+
+There is an important limit on the multi-branch escape.  One might try to
+partition every tail into a complete prefix code of macro words and demand
+that every branch be outward.  Kontorovich--Sinai negative drift has a short
+coding-theoretic form which makes this impossible.
+
+For an accelerated valuation word `w=(k_1,...,k_n)`, put
+`S(w)=sum k_i`.  Its ordinary dyadic cylinder weight is
+
+```text
+p(w)=2^(-S(w)),
+```
+
+because `sum_(k>=1) 2^(-k)=1`.  There is a second exact Kraft weight
+
+```text
+q(w)=3^n/4^S(w),
+```
+
+because the one-letter weights also sum to one:
+
+```text
+sum_(k>=1) 3/4^k = 1.                            (CP20)
+```
+
+Consequently every prefix-free family has `sum q(w)<=1`, just as it has
+`sum p(w)<=1`.  But a word has outward affine slope exactly when
+
+```text
+3^n > 2^S(w),
+```
+
+and on such a word
+
+```text
+q(w)/p(w)=3^n/2^S(w)>1.                          (CP21)
+```
+
+If a prefix code were complete in ordinary dyadic measure, then
+`sum p(w)=1`.  If all its leaves were outward, CP21 would give
+`sum q(w)>1`, contradicting the tilted Kraft inequality.  This argument does
+not require a bounded stopping time; it is the exact nonnegative-martingale
+change of measure behind the drift `log(3/4)<0`.  A kernel formalization has
+been requested before promoting it to the headline result map.
+
+This corrects an overly ambitious constructive idea.  The parity-complete
+splash decoder can be total, or a branch language can be uniformly outward,
+but it cannot be both on every prefix leaf.  The route to a counterexample is
+therefore a **thin trapping language**:
+
+1. an explicit ordinary public state lies in a proper prefix sublanguage;
+2. its payload-decoded branch is outward;
+3. the output returns to the same sublanguage by a finite symbolic rule; and
+4. the omitted shrinking/halting branches are provably inaccessible from
+   that invariant.
+
+Such a set may have zero ordinary density—that is exactly the sparse-program
+possibility in Kontorovich's challenge.  The advantage over prescribing one
+itinerary backwards is that membership and forward invariance start from one
+ordinary integer, so no infinite 2-adic tape is preloaded.  Computation should
+now search for algebraic trapping predicates on the complete splash payload
+map, not for an all-outward completion and not for longer individual traces.
+
+The right finite proof object is therefore not a long orbit but a **thin-trap
+certificate**.  In the already formalized canonical splash state space it
+consists of a public predicate `L`, one explicit ordinary state `x_0` in `L`,
+and a public successor rule `f` such that, for every `x` in `L`,
+
+```text
+x.next = some (f x),      L(f x),      start(x)<start(f x).   (CP22)
+```
+
+Iteration of `f` then constructs the required infinite outward orbit without
+choosing an itinerary or an infinite address in advance.  The mathematical
+content is all in making `L` small enough to evade the two-Kraft obstruction
+but rigid enough that CP22 is a finite symbolic identity.  This is the closure
+analogue of a loop invariant in program verification.  It also clarifies the
+role of opcode chaining: an opcode is useful only when it preserves `L` after
+writing its next address; merely having a solvable input congruence is not an
+instruction.
+
+There is a quantitative version worth keeping as a search heuristic.  On any
+prefix-free leaf family,
+
+```text
+sum_w p(w) * (3^length(w)/2^sum(w)) = sum_w q(w) <= 1.       (CP23)
+```
+
+Thus if every accepted macro has slope at least `lambda>1`, its ordinary
+cylinder mass is at most `1/lambda`.  After `N` closed macro generations a
+uniform-`lambda` trap occupies at most `lambda^(-N)` of the ambient dyadic
+address space.  A genuine glider is therefore forced to be progressively
+thin; failure to find it by density sampling is expected, while a proposed
+finite-width invariant should be viewed suspiciously.  CP23 does not forbid
+one explicit ordinary seed in the intersection.  It says that the seed must
+be produced by a self-writing invariant, not found by typicality.
+
 ## 6. Closure should be an identity before it is a search hit
 
 The preferred order of work is now:

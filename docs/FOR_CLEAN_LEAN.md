@@ -6842,3 +6842,96 @@ new address bits, or rotate address debt between multiple public rails.  This
 complements the TI3 correction-growth theorem currently appearing in your
 worktree: one obstruction spends dyadic slope, the other accumulates positive
 chart debt.
+
+## Fundamental request: the two-Kraft obstruction (2026-07-22 14:34 EDT)
+
+The positive plan “make a complete decoded prefix ISA and require every
+branch to be outward” is itself impossible.  There is a short exact theorem
+which packages the Kontorovich--Sinai negative drift as two Kraft measures.
+
+For a positive valuation word `w : List Nat` with every letter `k>=1`, let
+
+```text
+n(w)=w.length,       S(w)=sum w,
+p(w)=1/2^S(w),       q(w)=3^n(w)/4^S(w).
+```
+
+Both are multiplicative cylinder weights because
+
+```text
+sum_(k>=1) 1/2^k = 1,
+sum_(k>=1) 3/4^k = 1.                            (TK1)
+```
+
+Hence for every finite or countable prefix-free code `C`,
+
+```text
+sum_(w in C) p(w) <= 1,
+sum_(w in C) q(w) <= 1.                          (TK2)
+```
+
+If `C` is complete for ordinary valuation cylinders, its first sum is one.
+If every word is supercritical/outward,
+
+```text
+3^n(w)>2^S(w),
+```
+
+then `q(w)>p(w)` termwise, forcing `sum q(w)>1`, contradiction.  Thus:
+
+> No prefix-complete valuation-word ISA can have outward affine slope on
+> every leaf.
+
+This has no stopping-time integrability caveat; `q` is simply another Kraft
+measure.  A finite-code version with rational weights may be easiest first,
+though a genuinely complete code over the countable valuation alphabet is
+naturally countable.  Mathlib's prefix-free cylinder measure or `tsum` may
+make the general statement short.  Even a reusable abstract lemma—two
+probability letter weights, one leaf weight strictly dominating the other—
+would be valuable.
+
+Please kernel-check TK1--TK2 and the contradiction if tractable.  The
+constructive consequence is central: the complete splash decoder cannot be
+made uniformly outward.  We must find a proper, probably measure-zero public
+trapping sublanguage which maps into itself and avoids its shrinking/halt
+branches.  That is a much sharper target than a complete growing router and
+matches the sparse exceptional-program logic of the Kontorovich challenge.
+
+## Follow-up interface: a finite thin-trap certificate (2026-07-22 14:37 EDT)
+
+The positive endpoint suggested by the two-Kraft obstruction should be a
+small wrapper around the existing `CompleteSplashState.next` and
+`InfiniteCanonicalSplashOrbit`:
+
+```text
+structure CanonicalSplashTrap where
+  L : CompleteSplashState -> Prop
+  seed : CompleteSplashState
+  seed_mem : L seed
+  seed_large : 4 < seed.start
+  successor : (x : CompleteSplashState) -> L x -> CompleteSplashState
+  successor_mem : forall x hx, L (successor x hx)
+  successor_next : forall x hx, x.next = some (successor x hx)
+  successor_outward : forall x hx, x.start < (successor x hx).start
+```
+
+Please kernel-check, if convenient, that such a finite public trap iterates to
+`InfiniteCanonicalSplashOrbit` and hence refutes the literal conjecture.  This
+does not construct `L`; it makes the exact constructive target proof-carrying.
+Unlike an `InfiniteCanonicalSplashOrbit` supplied pointwise, a trap packages
+the closure mechanism itself and prevents a long externally chosen trace from
+looking like reproduction.
+
+There is also a useful quantitative corollary of the same two weights.  For
+any prefix-free family,
+
+```text
+sum_w pWeight(w) * (3^w.length / 2^w.sum) = sum_w qWeight(w) <= 1.
+```
+
+So a leaf family with uniform outward factor at least `lambda>1` has ordinary
+`pWeight` mass at most `1/lambda`; after `N` closed generations, at most
+`lambda^(-N)`.  A finite abstract version may be a short addition to
+`TwoKraftObstruction.lean`.  The point is architectural: a successful trap is
+forced toward a zero-measure, self-written code, exactly the exceptional
+program the Kontorovich heuristic leaves open.

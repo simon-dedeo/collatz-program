@@ -33,6 +33,52 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-22 14:37 EDT
+
+A fundamental coding obstruction now tells us what kind of closure **not** to
+seek.  For a valuation word `w` of length `n` and total halving exponent `S`,
+there are two exact cylinder weights
+
+```text
+p(w)=2^(-S),             q(w)=3^n/4^S.
+```
+
+Both are Kraft weights, since their one-letter masses are respectively
+`sum 2^(-k)=1` and `sum 3/4^k=1`.  On an outward word,
+`3^n>2^S`, so `q(w)>p(w)`.  A prefix-complete decoder has total `p`-mass one;
+if all its leaves were outward, its `q`-mass would exceed one, contradicting
+the second Kraft bound.  Thus a complete valuation ISA cannot make every
+instruction grow.  This is the negative-drift heuristic converted into an
+exact coding law, with no optional-stopping assumption.
+
+The verification scope is deliberately narrow.  A locally compiling companion
+Lean draft checks both geometric sums, the leafwise comparison, and abstract
+finite and countable two-Kraft contradictions.  The generic theorem deriving
+both mass bounds from prefix-freeness remains an explicit interface, and the
+draft is not yet a pushed companion checkpoint.  The research derivation and
+quantitative consequence are recorded in the [closure
+doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa):
+if every accepted macro expands by at least `lambda>1`, the surviving ordinary
+address mass after `N` closed generations is at most `lambda^(-N)`.
+
+This reverses the constructive target.  We now want a **thin-trap
+certificate**: one explicit ordinary canonical-splash state, a public
+predicate `L`, and a finite successor rule which maps every state in `L` to a
+larger state in `L`.  That is a loop invariant and a self-writing program, not
+an externally supplied itinerary.  The companion has been asked to connect
+this finite certificate directly to its existing literal Collatz refutation
+endpoint.  In parallel, Yolcu--Aaronson--Heule's mixed binary/ternary rewrite
+system offers a spatial version of the same target: a finite contextual
+self-embedding would produce an infinite rewrite, and their Theorem 3.17
+would then turn it into a Collatz counterexample.  The next step is to define
+and check that pumping certificate before doing any bounded search.
+
+The detached computation is being demoted, not expanded.  Akdeniz's exact
+1,198-digit Thue solve is still active; the Ganesha morphic workers have
+stopped after only shards 4 and 12 completed, and they will remain stopped
+because the thin-invariant program is now the better-targeted attack.  PSC is
+idle.  No counterexample or infinite orbit is known.
+
 ### 2026-07-22 14:25 EDT
 
 Opcode chaining now has a sharper fundamental interpretation.  A compiled
@@ -2647,6 +2693,16 @@ identically `x`.
 
 #### Live disproof programs
 
+- **Thin invariant program languages.**  The two-Kraft obstruction rules out
+  a prefix-complete valuation decoder whose every leaf is outward.  Search
+  instead for a proper public language `L` containing one explicit ordinary
+  state and a finite successor rule `f` with
+  `next(x)=f(x) in L` and `start(f(x))>start(x)`.  This is a program-verification
+  loop invariant: it constructs the infinite orbit by forward iteration and
+  cannot hide an externally preloaded 2-adic tape.  Uniformly outward traps
+  must become exponentially thin in dyadic address measure, so algebraic
+  self-writing predicates, pushdown stacks, and multi-rail rotations are more
+  plausible than finite-width complete routers.
 - **Delocalized instruction synthesis.**  Represent an instruction as an
   arithmetic relation across the entire state: a dyadic address, triadic
   phase, carry boundary, and affine high payload.  Search for formula
@@ -3256,6 +3312,7 @@ identically `x`.
 
 | Ansatz or route | Calibrated verdict | Exact record |
 |---|---|---|
+| Prefix-complete uniformly outward valuation ISA | Closed by the two-Kraft calculation.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, both prefix-code masses are at most one, while every outward leaf has `q(w)>p(w)`.  Completeness gives `sum p=1`, hence all leaves cannot be outward.  A locally compiling companion draft checks the two geometric sums, the leafwise inequality, and abstract finite/countable contradictions; the generic prefix-tree Kraft interface and pushed companion checkpoint remain pending.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |
 | Treat a prescribed finite `k`-word as an infinite program | Invalid: the nested progressions generally select a 2-adic integer, not a positive ordinary seed. Lean commit `ad36f08` proves that eventual canonical-seed stabilization is exactly the ordinary-integer gate. | [Program-synthesis note](docs/notes/kontorovich-program-synthesis.md) |
 | Literal periodic valuation glider | Closed: Lean commits `92b01ff`/`2f93df7` prove that an infinitely repeatable positive block has `3^N<2^S` and closes as a cycle. This does not touch morphic, counter, stack, or feedback streams. | [Section 4](docs/notes/kontorovich-program-synthesis.md#4-why-a-literal-periodic-glider-fails) |
 | Small positive cycle words | Exhaustively negative through total halving count `S<=22`: `3,447,691` positive-denominator compositions, with only repeated encodings of seed `1`. This is a bounded ansatz exclusion, not a new verification frontier. | [`search_results.json`](experiments/kontorovich/search_results.json) |
@@ -3317,6 +3374,7 @@ positive integer and its claimed behavior are machine-checked.
 
 | Result | Status |
 |---|---|
+| Two-Kraft architecture bound | Every valuation word has ordinary weight `p=2^-S` and tilted weight `q=3^n/4^S`; both arise from probability letter weights.  Outward slope means `q>p`, so no prefix-complete code can be uniformly outward.  The same identity bounds the ordinary mass of `N` successive macros with gain at least `lambda` by `lambda^-N`.  A local Lean draft checks the exact series and the abstract finite/countable contradiction; deriving the Kraft bounds from a concrete prefix tree is still an interface, and no pushed formalizer commit or counterexample is claimed.  The positive target is now a proper invariant thin language, not a total growing decoder. |
 | Program-scale calibration | Barina's published exhaustive check through `2^71` excludes every ordinary seed below that bound. Colussi's exact order-10 repetend has 39,366 padded bits and an 11,846-digit integer value, giving a literature-backed, formula-generated background at the scale Simon proposed. This is target calibration, not evidence of divergence. |
 | Delocalized instruction-set audit | Exact published encodings expose four complementary units: valuation congruences, mixed binary--ternary boundary rewrites, De Mol's three-symbol tag rules, and Colussi's rotated repetend grammar. They motivate a nonlocal bouncer search but do not prove computational universality or nontermination. |
 | Exact dyadic--triadic packet gate | Lean commit `f1cb0e2` proves universally that each supplied base collision generates exactly the affine family `h=r+2^(m+e+2)q`, `h'=s+2*3^m q`, with unique payload, literal valuation `e`, and the triadic next-packet scheduler. The Python checker passes 8,192 family members and an exhaustive converse over all 16,316 renewals found for odd `h<2^16` at levels `1..8`. No closed all-level gate controller is known. |
@@ -3830,9 +3888,11 @@ existing lines of work; the closest ancestors, and what each contributes:
   splash uses the same basic arithmetic resource in a different register:
   `(2^T C-s)/3^q` is a formula-generated sacrificial rail whose collision
   leaves a chosen marker and a clean gap.
-- **L. De Mol, “Tag systems and Collatz-like functions” (2008)** and **E.
-  Yolcu, S. Aaronson & M. J. H. Heule, “An Automated Approach to the Collatz
-  Conjecture” (2023)** — respectively the three-symbol tag and 11-rule mixed-
+- **L. De Mol, [“Tag systems and Collatz-like
+  functions”](https://biblio.ugent.be/publication/436211/file/6812232.pdf)
+  (2008)** and **E. Yolcu, S. Aaronson & M. J. H. Heule, [“An Automated
+  Approach to the Collatz Conjecture”](https://arxiv.org/abs/2105.14697)
+  (2023)** — respectively the three-symbol tag and 11-rule mixed-
   base presentations now being mined for formula bouncers.  These are exact
   encodings, not claims that the Collatz map itself is universal.
 - **J. Cocke & M. Minsky, [“Universality of Tag Systems with
