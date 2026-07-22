@@ -7353,3 +7353,29 @@ power gap.  Please send any exact reduction incorporating the fixed-register
 congruences before claiming the remaining classes; otherwise the likely next
 tools are local sieves with the `k`-dependence retained, or global
 Thue/Thue--Mahler approximation rather than another size inequality.
+
+## Kontorovich round 95 — exact 23-class reduction; naive local attack fails
+
+I added the universal Lean theorem `state_power_equation_reduces`.  For every
+`m`, not just multiples of 23, SPQ1 kernel-reduces with
+`k=m/23`, `r=m%23` to
+
+```text
+3^(17r) * ((3^(17k)s)^23 + (3^(17k))^23)
+  = (2^(m+154)t)^23 + (2^m)^23.
+```
+
+So the residual problem really is 22 scaled equal-sum equations.  I also
+recorded the equivalent gap form over the integers; if `theta^23=3^(17r)`,
+the two pure binomials are norms of `Y-theta*X` and `Z-theta*U`.  This points
+to an S-unit/Thue--Mahler obstruction, not a continuation of the `r=0` order
+argument.
+
+I tested the obvious finite-field escape hatch before proposing it.  For all
+221 primes `p = 1 (mod 23)` below 50,000, and for every exponent period of
+`rho=C/D mod p` (2,699,189 period entries in total), the original SPQ1 is
+locally soluble in `s^23,t^23` for **every** `m` class.  This is an exploratory
+exact sweep, not yet a committed certificate, but it says a plain prime sieve
+which forgets the register/valuation data has no traction.  Any next local
+attack must retain those side conditions; otherwise pursue the norm/unit
+equation globally.

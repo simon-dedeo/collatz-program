@@ -36,6 +36,44 @@ private theorem three_pow_lt_two_pow_double {n : ℕ} (hn : 0 < n) :
     ← pow_mul (2 : ℕ) 2 n] at h
   exact h
 
+/-- Every public-state transition equation splits into a complete-power part
+`k = m / 23` and one of 23 genuinely scaled equations indexed by
+`r = m % 23`. -/
+theorem state_power_equation_reduces
+    {m s t : ℕ}
+    (heq : (3 ^ 17) ^ m * (s ^ 23 + 1) =
+      (2 ^ 23) ^ m * (1 + (2 ^ 154 * t) ^ 23)) :
+    let k := m / 23
+    let r := m % 23
+    3 ^ (17 * r) *
+        ((3 ^ (17 * k) * s) ^ 23 + (3 ^ (17 * k)) ^ 23) =
+      (2 ^ (m + 154) * t) ^ 23 + (2 ^ m) ^ 23 := by
+  dsimp only
+  have hm : m % 23 + 23 * (m / 23) = m := Nat.mod_add_div _ _
+  have hC : (3 ^ 17) ^ m =
+      3 ^ (17 * (m % 23)) * (3 ^ (17 * (m / 23))) ^ 23 := by
+    rw [← pow_mul, ← pow_mul, ← pow_add]
+    congr 1
+    omega
+  have hD : (2 ^ 23) ^ m = (2 ^ m) ^ 23 := by
+    rw [← pow_mul, ← pow_mul]
+    congr 1
+    omega
+  have hY : (2 ^ (m + 154) * t) ^ 23 =
+      (2 ^ m) ^ 23 * (2 ^ 154 * t) ^ 23 := by
+    rw [pow_add, mul_assoc, mul_pow]
+  rw [hC, hD] at heq
+  rw [mul_add, mul_pow, hY]
+  simpa [mul_add, Nat.mul_assoc, Nat.mul_comm, Nat.mul_left_comm,
+    Nat.add_assoc, Nat.add_comm, Nat.add_left_comm] using heq
+
+/-- Additive form of the scaled equation.  In the number field with
+`θ^23 = a`, its two sides are the corresponding pure-binomial norms. -/
+theorem scaled_equation_iff_gap (a X U Y Z : ℤ) :
+    a * (X ^ 23 + U ^ 23) = Y ^ 23 + Z ^ 23 ↔
+      Y ^ 23 - a * X ^ 23 = a * U ^ 23 - Z ^ 23 := by
+  constructor <;> intro h <;> linarith
+
 /-- The public-state reproduction equation in the coefficient class
 `m = 23*k`, together with its forced 2-adic divisibility, has no positive
 solution when `k > 0`. -/

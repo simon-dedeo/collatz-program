@@ -73,6 +73,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.ChargePowerResonance.no_recharge_twentyThree_power_quine
 #print axioms KontoroC.ChargeStatePowerQuine.no_state_power_quine_of_m_multiple_23
 #print axioms KontoroC.ChargeStatePowerQuine.no_state_power_quine_equation_of_m_multiple_23
+#print axioms KontoroC.ChargeStatePowerQuine.state_power_equation_reduces
+#print axioms KontoroC.ChargeStatePowerQuine.scaled_equation_iff_gap
 #print axioms KontoroC.AutonomousFiniteController.phase_future_eq
 #print axioms KontoroC.AutonomousFiniteController.impossible
 #print axioms KontoroC.AutonomousFiniteController.no_controller
