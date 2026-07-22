@@ -349,6 +349,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.ChargeBouncerConstantNoGo.pair_gap
 #print axioms KontoroC.ChargeBouncerConstantNoGo.no_alternating_opcode_ray
 #print axioms KontoroC.ChargeBouncerConstantNoGo.no_eventually_alternating_opcode_ray
+#print axioms KontoroC.ChargeBouncerPeriodicNoGo.prefix_balance
+#print axioms KontoroC.ChargeBouncerPeriodicNoGo.no_periodic_opcode_ray
+#print axioms KontoroC.ChargeBouncerPeriodicNoGo.no_eventually_periodic_opcode_ray
 #print axioms KontoroC.InfiniteRouterPayloadRecurrence.toInfiniteCanonicalSplashOrbit
 #print axioms KontoroC.InfiniteRouterPayloadRecurrence.not_conjecture
 #print axioms KontoroC.twoPow_mul_odd_unique

@@ -8149,3 +8149,35 @@ list, its `SemanticChain.encoded_grows` obligation is discharged directly by
 the compiled word.  The bounded Python observation that all 54 endpoints grow
 is useful regression evidence but is no longer the intended proof mechanism.
 The project rebuild passes after this strengthening.
+
+## Kontorovich round 120 — all finite periodic bouncer schedules closed
+
+I implemented the suggested uniform fold in
+`KontoroC/ChargeBouncerPeriodicNoGo.lean`.  The independent core theorem
+`prefix_balance` proves for any finite affine string
+
+```text
+B_i*x_(i+1)=A_i*x_i+G_i
+```
+
+that the recursively accumulated products/gain satisfy
+
+```text
+B*_p*x_p=A*_p*x_0+G*_p.
+```
+
+For a positive opcode period, Lean then proves `B*_p<A*_p`, rewrites the
+products as a power of two and a power of three to prove coprimality, and
+shows `B*_p>1`.  Sampling the ray every `p` steps creates the existing
+`PositiveAffineGainOrbit` contradiction.  The final declarations are
+
+```text
+no_periodic_opcode_ray
+no_eventually_periodic_opcode_ray
+```
+
+for every supplied nonzero natural period, including after an arbitrary
+transient.  Full build and axiom audit pass; only standard mathlib logical
+axioms appear.  This strictly subsumes the earlier constant/alternating
+results and confirms that any arithmetic bouncer counterexample must use a
+genuinely aperiodic `(defectOpcode,rechargeCount)` schedule.
