@@ -370,6 +370,169 @@ algebra, not a search frontier.  The next task is to close a family of these
 affine gates on a symbolic payload relation; no such all-level controller is
 known.
 
+## Formula-generated Colussi delay line
+
+`colussi_delay.py` reconstructs Colussi's order-10 repetend value from the
+short formula
+
+```text
+a_10 = (4^19683-1)/3^10.
+```
+
+The integer has 39,351 significant binary bits and 11,846 decimal digits, but
+no huge decimal literal is stored.  Its exact ten-instruction header is
+
+```text
+(1,1,2,1,1,1,5,1,4,1).
+```
+
+The compiler recomputes that this word has total halving count `18` and
+affine offset `262145=2^18+1`; literal replay therefore lands at
+
+```text
+1+2^39348.
+```
+
+This is a direct spatial realization of Kontorovich's delay-line picture.  For
+exactly 19,673 further accelerated steps,
+
+```text
+x_t = 1+3^t*2^(39348-2t),
+v2(3*x_t+1) = 2.
+```
+
+The high packet advances two bit positions per tick and its payload is
+multiplied by three.  The terminal state is `1+4*3^19673`; its next valuation
+is exactly three and the collision endpoint is `(1+3^19674)/2`.
+
+```bash
+python3 colussi_delay.py selftest
+python3 colussi_delay.py build colussi_delay_h10.json
+python3 colussi_delay.py verify colussi_delay_h10.json
+```
+
+The verifier reconstructs all formula values and literally checks all 19,684
+header/delay/collision macrosteps as a regression for the symbolic formulas.
+It also continues the original generated seed exactly to `1`: 95,146
+accelerated steps, 190,153 total halvings, hence 285,299 ordinary steps.  The
+peak occurs at accelerated step six and has 39,353 significant bits.
+
+The natural collision does not replenish the wire.  Among its first 1,024
+post-collision states, the largest `v2(x-1)` is only 10 (at step 907), versus
+the incoming gap exponent 39,348.  This is a bounded diagnostic, but full
+continuation supplies the stronger verdict for this seed: it converges.  The
+active target is a distributed defect in the compact header/background which
+changes the collision into a larger delay state, not a longer run of this
+unmodified program.
+
+```text
+artifact SHA-256  384ba545e86b203ed1aee78ad8832326330b868e26dbdd775205c85f47f64ce5
+verifier SHA-256  9d7a0bd2a807e8c022e0aafea79d33b1054e2c39be8ff5f4e6b95e78a488d7be
+```
+
+## Carry-splash gates and the pure-rail no-go
+
+`splash_gate.py` implements Simon's suggestion that sacrificial packets can
+use collision carries to erase a dirty suffix and emit a new empty gap.  For
+positive `r,r',a`, it solves
+
+```text
+3^(r+1) Q + 1 = 2^a (1+2^(2r'+2) Q')
+```
+
+in positive odd payloads.  The input `1+2^(2r+2)Q` traverses `r` exact
+valuation-two delay ticks, collides with valuation `2+a`, and becomes the new
+wire `1+2^(2r'+2)Q'`.  Invertibility of powers of two modulo `3^(r+1)` gives
+one odd base solution and the complete affine family
+
+```text
+Q' = Q'_0 + 2*3^(r+1) z,
+Q  = Q_0  + 2^(a+2r'+3) z,       z>=0.
+```
+
+```bash
+python3 splash_gate.py selftest
+python3 splash_gate.py describe 1 2 1
+python3 splash_gate.py describe 19673 19674 1
+```
+
+The small example has `Q=185,Q'=13` and literal orbit
+
+```text
+2961 --k=2--> 2221 --k=3--> 833,
+```
+
+so its gap grows from four to six bits.  The order-10-scale command constructs
+an exact 78,700-bit input whose splash grows a 39,348-bit gap to 39,350 bits;
+the CLI suppresses giant decimal literals and reports formula metadata.
+
+The self-test literally replays all 15,360 members with
+`1<=r<=8`, `1<=r'<=10`, `1<=a<=6`, and `0<=z<32`.  More importantly, the
+symbolic formula exposes a no-go: every pure `+1` splash strictly decreases
+the integer.  Its leading multiplier is
+`(3/4)^(r+1)/2^a<1`, and direct comparison in the exact balance gives the same
+verdict including the affine term.  The splash is a cleanup/timing primitive;
+an outward program needs a `-1`/valuation-one amplification rail and exact
+phase switches between the two.
+
+## Two-rail outward gates and a 10k-digit finite program
+
+`two_rail_gate.py` supplies the amplifying phase missing from the pure
+`+1` splash.  It alternates the exact rails
+
+```text
+-1+2^J P -> -1+3^t 2^(J-t)P       (valuation one),
+ 1+2^K Q ->  1+3^t 2^(K-2t)Q      (valuation two),
+```
+
+and solves both collision equations by modular inversion.  For any fixed
+amplifier length `r`, cleanup length `s`, collision extras `a,b`, and output
+gap `L`, it returns the complete affine family of positive odd payloads
+satisfying
+
+```text
+3^(r+1)P-1 = 2^a(1+2^(2s+2)Q),
+1+3^(s+1)Q = 2^b(-1+2^L P').
+```
+
+The standard gate uses `s=1`, `a=b=1`, and `L=r+2`.  Its first regression is
+
+```text
+94751 -> 142127 -> 213191 -> 319787 -> 479681
+      -> 359761 -> 269821 -> 101183,
+valuations [1,1,1,1,2,2,3].
+```
+
+It grows the `-1` gap from five to six bits and the whole state strictly
+increases.  Consecutive complete payload families are intersected
+symbolically; no seed interval is searched.
+
+```bash
+python3 two_rail_gate.py selftest
+python3 two_rail_gate.py describe 4
+python3 two_rail_gate.py build two_rail_chain_247.json
+python3 two_rail_gate.py verify two_rail_chain_247.json
+```
+
+The generated depth-247 certificate contains no giant decimal literal.  Its
+least seed has 33,351 significant bits (10,040 decimal digits) and executes
+247 strict outward rounds, or 32,110 accelerated steps, while its clean gap
+grows from 5 to 252 bits.  The designed endpoint has 51,146 significant bits
+(15,397 decimal digits).  Every gate and step is reconstructed and replayed
+with exact integers.
+
+This finite program is not a counterexample.  The least seed for 248 rounds
+is different, and exact continuation of the depth-247 seed reaches `1` after
+155,190 accelerated steps (434,511 ordinary steps); its peak has 51,293
+significant bits.  The artifact therefore certifies both the promised large
+two-rail behavior and the ordinary-integer stabilization failure of this
+particular schedule.
+
+```text
+artifact SHA-256  42599de911e74bbb5a5af4ec7da630878d59fe41d2d6d0000fffc83b84a94380
+verifier SHA-256  e1006e7bfc4df2ae3fa21467265130c1d2526808f37cf4a2767b8d23b81500bd
+```
+
 ## Direct GPU packet census
 
 `mersenne_packet_gpu.cu` enumerates the state-dependent recurrence directly,

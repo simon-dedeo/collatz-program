@@ -1,0 +1,66 @@
+{
+  "schema": "collatz-colussi-spatial-delay-v1",
+  "map": "accelerated_odd_3x_plus_1",
+  "claim_scope": "one exact finite delay-line macro plus full exact continuation of the generated seed to 1; no nontermination is claimed",
+  "seed_generator": {
+    "colussi_order": 10,
+    "lambda": 19683,
+    "expression": "(4^lambda-1)/3^order",
+    "padded_binary_bits": 39366,
+    "significant_binary_bits": 39351,
+    "decimal_digits": 11846
+  },
+  "header": {
+    "valuations": [
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      5,
+      1,
+      4,
+      1
+    ],
+    "accelerated_steps": 10,
+    "total_halvings": 18,
+    "affine_constant": "262145",
+    "exact_endpoint": "1+2^39348"
+  },
+  "delay_line": {
+    "gap_exponent": 39348,
+    "valuation": 2,
+    "steps": 19673,
+    "closed_form": "x_t=1+3^t*2^(39348-2t)",
+    "last_state": "1+4*3^19673",
+    "collision_valuation": 3,
+    "collision_endpoint": "(1+3^19674)/2"
+  },
+  "postcollision_audit": {
+    "steps_requested": 1024,
+    "steps_completed": 1024,
+    "hit_one": false,
+    "maximum_v2_state_minus_one": 10,
+    "maximum_gap_at_step": 907,
+    "maximum_step_valuation": 10,
+    "maximum_valuation_at_step": 475,
+    "endpoint_significant_binary_bits": 30751
+  },
+  "full_continuation": {
+    "step_limit": 1000000,
+    "reached_one": true,
+    "accelerated_steps": 95146,
+    "total_halvings": 190153,
+    "ordinary_steps": 285299,
+    "peak_at_accelerated_step": 6,
+    "peak_significant_binary_bits": 39353
+  },
+  "verification": {
+    "arithmetic": "python_exact_integer",
+    "header_replayed_stepwise": true,
+    "delay_replayed_stepwise": true,
+    "collision_replayed": true,
+    "full_continuation_replayed_stepwise": true
+  }
+}

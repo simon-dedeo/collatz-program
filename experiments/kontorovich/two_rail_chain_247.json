@@ -1,0 +1,64 @@
+{
+  "schema": "collatz-two-rail-chain-v1",
+  "map": "accelerated_odd_3x_plus_1",
+  "claim_scope": "a low-description finite outward two-rail program; exact full continuation reaches 1, so this is not a counterexample",
+  "schedule": {
+    "rounds": 247,
+    "round_index": "i=0,...,rounds-1",
+    "amp_ticks": "r_i=4+i",
+    "clean_ticks": 1,
+    "to_plus_extra": 1,
+    "to_minus_extra": 1,
+    "input_gap": "5+i",
+    "output_gap": "6+i",
+    "valuation_word_per_round": "[1]^r_i ++ [2,2,3]"
+  },
+  "seed_generator": {
+    "method": "least affine-family intersection for all rounds",
+    "decimal_literal_stored": false,
+    "significant_binary_bits": 33351,
+    "decimal_digits": 10040,
+    "previous_depth_has_same_seed": false
+  },
+  "program": {
+    "accelerated_steps": 32110,
+    "total_halvings": 33098,
+    "ordinary_steps": 65208,
+    "outward_rounds": 247,
+    "all_rounds_outward": true,
+    "initial_gap": 5,
+    "final_gap": 252,
+    "endpoint_significant_binary_bits": 51146,
+    "endpoint_decimal_digits": 15397
+  },
+  "first_round_regression": {
+    "seed": "94751",
+    "valuations": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      2,
+      3
+    ],
+    "endpoint": "101183",
+    "input_payload": "2961",
+    "output_payload": "1581"
+  },
+  "full_continuation": {
+    "step_limit": 1000000,
+    "reached_one": true,
+    "accelerated_steps": 155190,
+    "total_halvings": 279321,
+    "ordinary_steps": 434511,
+    "peak_at_accelerated_step": 32361,
+    "peak_significant_binary_bits": 51293
+  },
+  "verification": {
+    "arithmetic": "python_exact_integer",
+    "every_gate_reconstructed": true,
+    "every_designed_step_replayed": true,
+    "full_continuation_replayed": true
+  }
+}

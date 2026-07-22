@@ -41,6 +41,12 @@ digit position; and a congruence can couple the low address of a number to an
 arbitrarily large high payload.  The working unit should therefore be allowed
 to be a **relation**, not a substring.
 
+This is a hybrid rather than an anti-spatial model.  Kontorovich's separated
+bits and zero gaps are still literal packets and delay lines.  The revised
+claim is that the *junction* which schedules or replenishes them can be a
+whole-number congruence.  We should search for spatial wires connected by
+delocalized gates.
+
 | Exact presentation | Candidate instruction unit | Where it is nonlocal |
 |---|---|---|
 | Kontorovich--Sinai valuation stream | one exact `v_2(3x+1)` value | the first `N` values select one whole residue class modulo an exponentially growing power of two |
@@ -103,6 +109,10 @@ for every truncation.  Thus a symbolic controller is not hiding many ordinary
 seeds; it selects at most one.  Proving that the controller's unique 2-adic
 candidate is or is not a nonnegative integer becomes a separate arithmetic
 gate, and may rule out an entire controller family without seed enumeration.
+Commit `b205e40` now proves that the canonical series converges in `Q_2` for
+every schedule and equals `-(x_0+1)` whenever an ordinary renewal exists.  The
+remaining task is only to exclude embedded negative naturals for a useful
+schedule class.
 
 [`packet_gate.py`](../../experiments/kontorovich/packet_gate.py) computes these
 gates with exact integers.  Its current self-test checks the coefficient
@@ -110,7 +120,8 @@ identities and literally replays 8,192 gate/payload pairs (`1<=m,e<=8`,
 `0<=q<128`).  A separate exhaustive converse pass recovers all 16,316 literal
 renewals among odd `h<2^16` at levels `1..8`, including valuations outside the
 displayed `e<=8` test rectangle.  These bounded checks test the implementation;
-the algebra above is a research derivation pending the requested Lean theorem.
+Lean commit `f1cb0e2` proves the unbounded affine family, unique payload,
+literal valuation, and triadic scheduler universally.
 
 ## 4. A scale-matched periodic background
 
@@ -152,6 +163,144 @@ bounded, and the represented positive integer grows.  The background may be
 specified by rotations and congruences rather than expanded bits.  A verified
 transition from every `h>=h0`, together with one checked finite start, would
 be the desired finite nontermination certificate.
+
+### First spatial primitive: an 11,846-digit wire
+
+The order-10 background already contains a striking exact delay line.  Let
+
+```text
+a_10=(4^19683-1)/3^10.
+```
+
+The finite valuation header
+
+```text
+(1,1,2,1,1,1,5,1,4,1)
+```
+
+has ten steps, total halving count 18, and affine offset `2^18+1`.  Therefore
+literal replay gives
+
+```text
+T^10(a_10)=1+2^39348.
+```
+
+For the next 19,673 accelerated steps there is no need to simulate:
+
+```text
+T^t(1+2^39348)=1+3^t 2^(39348-2t),    0<=t<=19673,
+```
+
+and every one of the first 19,673 valuations is exactly two.  The high packet
+moves two bit positions toward the low `1` per tick while its payload is
+multiplied by three.  It then collides with valuation three and endpoint
+`(1+3^19674)/2`.
+
+[`colussi_delay.py`](../../experiments/kontorovich/colussi_delay.py)
+reconstructs the 11,846-digit seed from the formula, checks the compressed
+header, literally replays the full delay as an independent regression, and
+continues the seed exactly to `1` after 95,146 accelerated steps.  The first
+1,024 post-collision states regenerate no zero gap wider than 10 bits.  Thus
+the unmodified background is a verified wire but a failed bouncer.  The
+concrete synthesis problem is to add a distributed defect which changes the
+collision endpoint into a new state `1+q'2^J'` with `J'>39348` (or into a
+multi-packet state which later does so).
+
+### Simon's gap splash and the two-rail correction
+
+Simon suggested aligning other bits so that, when the high packet reaches the
+boundary, their carries “eat” the dirty collision output and regenerate a
+wide gap.  This can be written exactly.  Start with an odd payload `Q` on the
+`+1` rail,
+
+```text
+X=1+2^(2r+2)Q.
+```
+
+After `r` valuation-two ticks it is `1+4*3^r Q`.  Ask the collision to emit
+`Y=1+2^(2r'+2)Q'` with extra valuation `a`.  The entire splash condition is
+
+```text
+3^(r+1) Q + 1 = 2^a (1+2^(2r'+2) Q').              (4)
+```
+
+For every positive `r,r',a`, the coefficient of `Q'` is invertible modulo
+`3^(r+1)`.  Equation (4) therefore selects one residue class for `Q'`; choosing
+its odd lift gives a positive `Q`, and adding `2*3^(r+1)z` to `Q'` gives an
+infinite affine family of splashes.  The small regression
+
+```text
+r=1, r'=2, a=1:   Q=185, Q'=13,
+2961 -> 2221 -> 833
+```
+
+increases the empty gap from four to six bits.  At the order-10 scale, the
+same construction can increase 39,348 bits to 39,350 bits in one generated
+78,700-bit state.  [`splash_gate.py`](../../experiments/kontorovich/splash_gate.py)
+checks the coefficient identities and literally replays 15,360 bounded family
+members.
+
+There is also a universal energy warning.  A pure `+1` splash uses `r+1` odd
+steps and `2r+2+a` halvings, so its leading multiplier is
+
+```text
+3^(r+1)/2^(2r+2+a) = (3/4)^(r+1)/2^a < 1.
+```
+
+Indeed (4) directly gives `Y<X` for every positive member.  Gap cleanup is
+real, but the `+1` rail cannot be the engine.
+
+The proposed machine therefore has two spatial phases:
+
+```text
+-1 rail:  -1+2^J Q -> -1+3^t 2^(J-t) Q    (k=1, amplifier),
++1 rail:  +1+2^J Q -> +1+3^t 2^(J-2t) Q  (k=2, timer/cleaner).
+```
+
+Delocalized phase-switch congruences connect the rails.  The exact synthesis
+target is a return circuit whose `-1` amplification exceeds its `+1` cleanup
+loss, whose outgoing precisions are larger, and whose sacrificial payload
+bits are produced again by the same finite relation.
+
+That finite return circuit now exists.  With `r` amplifier ticks, `s` cleanup
+ticks, collision extras `a,b`, and outgoing gap `L`, the two switches are
+
+```text
+3^(r+1)P - 1 = 2^a(1+2^(2s+2)Q),
+1 + 3^(s+1)Q = 2^b(-1+2^L P').                 (5)
+```
+
+For every fixed shape, modular inversion gives the complete affine family of
+positive odd triples `(P,Q,P')`.  The standard shape
+
+```text
+s=1, a=b=1, L=r+2
+```
+
+has valuation word `[1]^r ++ [2,2,3]` and moves the `-1` gap from `r+1` to
+`r+2`.  At `r=4`, one exact member is
+
+```text
+-1+2^5*2961 = 94751  ->  101183 = -1+2^6*1581.
+```
+
+Thus the pump can pay for the cleanup loss and move outward.  Consecutive
+gate families are arithmetic progressions in their payloads, so Chinese-
+remainder intersection compiles a whole finite circuit without enumerating a
+seed interval.  [`two_rail_gate.py`](../../experiments/kontorovich/two_rail_gate.py)
+uses `r_i=4+i` and constructs a depth-247 seed with 33,351 significant bits
+(10,040 decimal digits).  Literal exact replay certifies 247 strict outward
+rounds, 32,110 accelerated steps, gap growth `5 -> 252`, and a 15,397-digit
+endpoint.  Full continuation nevertheless reaches `1` after 155,190
+accelerated steps.
+
+This separates the two hard parts cleanly.  The finite hardware has genuine
+wires, amplification, carry cleanup, and regeneration.  What it lacks is one
+ordinary program: adding the 248th gate changes the least canonical seed.
+The live target is therefore a recursive or self-similar payload constraint
+whose nested affine families stabilize to a positive ordinary integer (or an
+equivalent closed formula macrostate), not merely an arbitrarily long list of
+compatible finite splashes.
 
 ## 5. Three exact machines to mine for a bouncer
 

@@ -78,6 +78,15 @@ includes formula configurations and dyadic--triadic bridge gates, not only
 contiguous repeated bit blocks.  See the [delocalized-ISA
 map](docs/notes/kontorovich-delocalized-isa.md).
 
+Nonlocality does not replace Kontorovich's spatial picture.  Long zero gaps
+remain literal delay lines and separated packets remain signals; the new
+working architecture is **spatial wires joined by delocalized collision
+gates**.  Simon further suggested a “gap splash”: align sacrificial packets so
+their collision carries eat a dirty suffix and emit a new empty gap.  Exact
+splash gates below show that the mechanism is real, while also exposing the
+need for an amplifying rail.  The first exact large wire is now in the
+headline table below.
+
 The scale reinforces this choice.  Barina's current published verification
 covers every seed below `2^71`, already about 21 decimal digits.  A putative
 10,000-digit program is not a larger interval-search target: it must be emitted
@@ -126,13 +135,27 @@ identically `x`.
   congruential defect which reproduces from order `h` to order `h+1`.  The
   order-10 background has 39,366 padded bits and an 11,846-decimal-digit
   integer value, so this route reaches the proposed program scale by formula,
-  not enumeration.
+  not enumeration.  Its unmodified background has now been decoded into an
+  exact 19,673-tick spatial delay line; because the ensuing collision does not
+  renew the gap, the live variable is a distributed defect in the header or
+  packet phase.
 - **Mixed-base and tag-system bouncers.**  Mine the exact Yolcu--Aaronson--Heule
   binary/ternary rewrite system and De Mol's three-symbol deletion-2 tag
   system for formula-tape or run-length returns.  These presentations make
   whole-word carry, moving-base-boundary, and head--tail nonlocality explicit.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
+- **Two-rail splash bouncers.**  Implement Simon's collision idea with a
+  `-1`/valuation-one Mersenne rail, which amplifies a separated packet by
+  `3/2` per tick, and a `+1`/valuation-two Colussi rail, which supplies timing
+  and carry cleanup.  Exact `+1` splash gates can emit an arbitrarily longer
+  empty gap but always decrease the integer.  The phase switch now exists:
+  `94751 -> 101183` is the smallest standard regression, and symbolic affine-
+  family intersection compiles 247 consecutive outward rounds into a
+  10,040-digit seed.  That seed nevertheless reaches `1`, and its canonical
+  value changes when a 248th constraint is imposed.  The live target is no
+  longer a finite collision gate; it is a self-referential payload law whose
+  finite truncations stabilize to one ordinary positive seed.
 - **Exact cycle synthesis.**  Search valuation words and cyclic compositions
   for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
   seed whose valuations and closure can be checked directly.  Use modular
@@ -160,11 +183,12 @@ identically `x`.
   and every certified macro-state remain positive.
 - **2-adic rationality sieve.**  For a fixed infinite extra stream, Lean commit
   `7370489` proves that there is at most one ordinary packet realization and
-  unrolls every finite prefix as an exact backward affine series.  For
-  periodic or morphic controllers, attack that unique candidate by proving the
-  resulting lacunary 2-adic series is not a nonnegative integer.  This can
-  eliminate an infinite program family without enumerating any seeds; the
-  convergence and nonrationality theorem are still open.
+  unrolls every finite prefix as an exact backward affine series.  Commit
+  `b205e40` proves the corresponding series converges in `Q_2` for every
+  schedule and that any ordinary renewal must equal its negative 2-adic
+  candidate.  For periodic or morphic controllers, the remaining arithmetic
+  task is to prove that candidate is not a negative ordinary integer.  This
+  can eliminate an infinite program family without enumerating any seeds.
 - **Constraint-guided falsification.**  SAT/SMT, modular dynamic programming,
   evolutionary search, CPUs, and GPUs may propose or aggressively reject a
   symbolic macro.  They no longer rank raw seeds by excursion length.  A
@@ -197,6 +221,9 @@ identically `x`.
 | Short-period Mersenne feedback | All `2,726,400` prefixes from 568 primitive extra templates of period at most three over `{1,...,8}`, start levels `1..30`, depths `1..80`, and both mod-6 classes were checked in compressed exact arithmetic; every hit was literally replayed. No template improves the constant-`1` two-extension event or the `(4,3,1)` outward event. | [`mersenne_periodic_results.json`](experiments/kontorovich/mersenne_periodic_results.json) |
 | Direct state-dependent packet census | CUDA exhaustively checked all `2^41=2,199,023,255,552` odd packets `h<2^42` from start level one through an eight-renewal horizon, with zero arithmetic overflows and no length-eight chain. Nested replayed artifacts retain the 14 length-seven hits below `2^39` and 243 length-six-or-more hits below `2^36`; independent RTX 4090 and H100 runs reproduce all 243 inner hit triples exactly. | [`h<2^42` artifact](experiments/kontorovich/mersenne_packet_gpu_akdeniz_h42.json), [H100 replication](experiments/kontorovich/mersenne_packet_gpu_psc.json) |
 | Unstructured range widening as the main attack | Deprioritized: published ordinary-seed verification already reaches `2^71`, while the contemplated software may have roughly 10,000 decimal digits. Bounded compute remains useful only as a falsifier or independent checker of a proposed symbolic relation. | [Delocalized-ISA scale calibration](docs/notes/kontorovich-delocalized-isa.md#1-scale-changes-the-object-we-should-search-for) |
+| Unmodified order-10 Colussi wire | It is an exact, spectacularly long delay line but not a bouncer. After its certified collision, an exact 1,024-step audit finds no regenerated empty gap wider than 10 bits, versus the incoming 39,348-bit gap; full exact continuation reaches `1` after 95,146 accelerated steps. The next lane must alter the header/collision with a distributed defect. | [`colussi_delay_h10.json`](experiments/kontorovich/colussi_delay_h10.json) |
+| Pure `+1` gap-splash bouncer | Closed as an outward macro: the exact gate can turn a gap of `2r+2` bits into any chosen `2r'+2`-bit gap by a congruential payload, but the whole macro has dissipative multiplier `3^(r+1)/2^(2r+2+a)<1` and in fact strictly decreases every positive member. It remains useful as the cleanup rail of a multi-phase program. | [`splash_gate.py`](experiments/kontorovich/splash_gate.py) |
+| Standard two-rail schedule `[1]^r[2,2,3]` | Exact affine-family intersection compiles 247 outward rounds, growing the dyadic gap from 5 to 252 bits, from a formula-generated 10,040-digit seed. Every designed step replays, but the least canonical seed changes at depth 248 and full exact continuation reaches `1` after 155,190 accelerated steps. This closes only this finite canonical compilation, not two-rail or self-similar splash programs. | [`two_rail_chain_247.json`](experiments/kontorovich/two_rail_chain_247.json) |
 | Small regular invariant sets | Previously closed only in the stated exhaustive classes: no base-2 DFA divergence certificate through eight states and no base-3 certificate through five. One-counter and genuinely morphic single-orbit certificates remain open. | [Base 2](experiments/dfacert/README.md), [base 3](experiments/dfacert3/README.md) |
 
 The first work product will be an exact `k`-word compiler and cycle/glider
@@ -211,8 +238,11 @@ positive integer and its claimed behavior are machine-checked.
 |---|---|
 | Program-scale calibration | Barina's published exhaustive check through `2^71` excludes every ordinary seed below that bound. Colussi's exact order-10 repetend has 39,366 padded bits and an 11,846-digit integer value, giving a literature-backed, formula-generated background at the scale Simon proposed. This is target calibration, not evidence of divergence. |
 | Delocalized instruction-set audit | Exact published encodings expose four complementary units: valuation congruences, mixed binary--ternary boundary rewrites, De Mol's three-symbol tag rules, and Colussi's rotated repetend grammar. They motivate a nonlocal bouncer search but do not prove computational universality or nontermination. |
-| Exact dyadic--triadic packet gate | Research-side exact algebra rewrites each fixed level/extra Mersenne renewal as `h=r+2^(m+e+2)q`, `h'=s+2*3^m q`, while fixing `h' mod 3^m`. The Python checker passes 8,192 family members and an exhaustive converse over all 16,316 renewals found for odd `h<2^16` at levels `1..8`. Lean formalization has been requested; no closed all-level gate controller is known. |
-| Kernel stream uniqueness and backward series | Lean commit `7370489` proves that a fixed positive valuation stream has at most one ordinary seed; a fixed Mersenne extra stream likewise has at most one positive packet realization. It also kernel-checks the exact finite backward affine-series identity for every truncation. Passing to an infinite 2-adic sum and proving nonintegrality for a controller class remain open. |
+| Exact dyadic--triadic packet gate | Lean commit `f1cb0e2` proves universally that each supplied base collision generates exactly the affine family `h=r+2^(m+e+2)q`, `h'=s+2*3^m q`, with unique payload, literal valuation `e`, and the triadic next-packet scheduler. The Python checker passes 8,192 family members and an exhaustive converse over all 16,316 renewals found for odd `h<2^16` at levels `1..8`. No closed all-level gate controller is known. |
+| Kernel stream uniqueness and 2-adic candidate | Lean commit `7370489` proves that a fixed positive valuation stream has at most one ordinary seed and kernel-checks every finite backward-series truncation. Commit `b205e40` proves convergence of the canonical series in `Q_2`, vanishing of the terminal term for an ordinary renewal, and the exact reduction: if the candidate avoids embedded negative naturals, that schedule has no positive renewal. Candidate nonintegrality for a useful controller class remains open. |
+| Formula-generated 11,846-digit spatial wire | Colussi's order-10 value `(4^19683-1)/3^10` is reconstructed, not stored as a decimal literal. The exact header `(1,1,2,1,1,1,5,1,4,1)` sends it to `1+2^39348`; then 19,673 exact valuation-two steps obey `x_t=1+3^t 2^(39348-2t)` before a valuation-three collision. Lean commit `6229e7a` proves the general delay formula and kernel-checks this generated header and endpoint. Exact continuation reaches `1` after 95,146 accelerated steps, so this certifies a wire and its failed natural renewal, not nontermination. |
+| Exact finite carry-splash families | For every positive `r,r',a`, research-side exact algebra constructs an arithmetic progression of odd payload pairs such that an `r`-tick `+1` delay line collides with valuation `2+a` and emits an `r'`-tick gap. The checker literally replays 15,360 members in the bounded regression `r<=8,r'<=10,a<=6`; e.g. `2961 -> 2221 -> 833` grows the gap from four to six bits. Every member shrinks, so a splash needs an amplifying phase. |
+| Formula-generated 10,040-digit two-rail program | Exact congruence solving and affine-family intersection construct one seed with 33,351 significant bits, without storing its decimal literal. It executes 247 strict outward rounds of the schedule `[1]^(4+i) ++ [2,2,3]`, grows its clean gap from 5 to 252 bits, and reaches a 15,397-digit endpoint after 32,110 accelerated steps. Literal replay passes, but full exact continuation reaches `1`; the 248-round canonical seed is different. This is a large finite Collatz program and an exact ordinary-seed-gate failure, not a counterexample. |
 | Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
 | Kernel cycle-disproof seam | `KontoroC.CycleArtifact.checkNontrivial=true` implies the literal negation of the ordinary Collatz conjecture. The package build and axiom audit pass; no nontrivial artifact is known. |
 | Bounded composition search | All `3,447,691` positive-denominator compositions with `S<=22` were checked exactly. The only closure hits encode the trivial seed `1`; no nontrivial cycle was found within the bound. |
@@ -267,6 +297,59 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-21 22:02 EDT
+
+The “gap splash” has become an exact two-rail circuit rather than only a
+metaphor.  A `-1`/valuation-one rail pumps a remote payload, a collision emits
+a `+1`/valuation-two cleanup rail, and a second collision regenerates the
+`-1` rail one bit farther out.  The first standard gate is
+`94751 -> 101183`.  More strikingly, symbolic intersection of the complete
+affine gate families—not an interval search—constructs a 10,040-digit seed
+executing 247 strict outward rounds and growing its gap from 5 to 252 bits.
+Every one of its 32,110 designed accelerated steps replays exactly.  It is
+also a clean failure: the depth-248 canonical seed is different, and full
+exact continuation reaches `1` after 155,190 accelerated steps.  The new
+[certificate](experiments/kontorovich/two_rail_chain_247.json), [verifier](experiments/kontorovich/two_rail_gate.py),
+[headline](#kc-headline-results-with-verification-scope), and [failure
+entry](#kc-failure-ledger) record both facts.  Lean commit `6229e7a` meanwhile
+kernel-checks the generic `+1` delay line and Colussi order-10 wire.  Next:
+replace finite affine-family intersection by a recursive payload relation and
+attack its ordinary-integer stabilization directly.
+
+### 2026-07-21 21:47 EDT
+
+Simon proposed “splashing the gap”: line up other packets so collision carries
+eat the dirty bits and regenerate a sparse wire.  The metaphor survives exact
+algebra.  For any incoming and outgoing `+1` delay lengths and collision
+extra, [`splash_gate.py`](experiments/kontorovich/splash_gate.py) constructs a
+whole arithmetic progression of payloads realizing the requested splash; its
+15,360-case literal regression passes.  The same derivation gives a clean
+failure: every pure `+1` splash strictly decreases the integer.  The strategy
+map now promotes a two-rail machine—an amplifying `-1`/`k=1` Mersenne rail plus
+a timing/cleanup `+1`/`k=2` Colussi rail, joined by phase-changing splash
+gates.  Lean commit `f1cb0e2` meanwhile proved the unbounded dyadic--triadic
+packet gate and unique payload theorem requested at 21:28.  Next: synthesize
+an exact two-rail phase switch whose `k=1` pump pays for the cleanup loss and
+emits a larger pair of gaps.
+
+### 2026-07-21 21:40 EDT
+
+Restored the spatial half of Kontorovich's picture inside the nonlocal ISA.
+Colussi's formula-generated order-10 seed—11,846 decimal digits—has an exact
+ten-instruction decoder to `1+2^39348`.  That is a literal separated packet
+crossing a 39,348-bit delay line for 19,673 valuation-two ticks before a
+precisely timed collision.  The new [certificate and
+verifier](experiments/kontorovich/README.md#formula-generated-colussi-delay-line)
+reconstruct the seed, replay all steps, and then continue it to `1` after
+95,146 accelerated steps.  A 1,024-step collision audit finds no renewed gap
+wider than 10 bits, so the unmodified wire is now a scoped failure; a defect
+must rewrite the collision.  In parallel, Lean commit `b205e40` completed the
+scale-free `Q_2` candidate construction for every Mersenne schedule, leaving
+only candidate nonintegrality for a useful controller class.  Next: treat a
+Collatz program as spatial delay-line segments wired together by nonlocal
+dyadic--triadic gates, and search for a defect which makes the first collision
+emit a longer wire.
 
 ### 2026-07-21 21:28 EDT
 
@@ -805,8 +888,10 @@ existing lines of work; the closest ancestors, and what each contributes:
 - **Simon Dedeo** — suggested importing macro ideas from ultra-simple
   programming languages, targeting a possible 10,000-digit program, and—most
   importantly—not assuming spatial locality: a Collatz instruction may be a
-  relation spread across the entire digit span.  That proposal is the basis
-  of the active dyadic--triadic and mixed-base bouncer search.
+  relation spread across the entire digit span.  Simon then proposed the
+  “gap splash”: align sacrificial packets so collision carries erase the bad
+  suffix and regenerate a delay line.  Those proposals are the basis of the
+  active dyadic--triadic, mixed-base, and two-rail bouncer searches.
 - **L. Colussi, “The convergence classes of Collatz function” (2011)** — the
   exact rotated-repetend grammar for all finite stopping classes.  Its
   recursively generated order-10 background supplies an 11,846-digit

@@ -3278,3 +3278,36 @@ research-side checker is `experiments/kontorovich/packet_gate.py`; its finite
 tests pass, but the universal algebra is the requested seam.  This theorem
 would certify one delocalized instruction family, not a closed controller and
 not a counterexample.
+
+## Kontorovich request: two-rail splash gate (2026-07-21 22:02 EDT)
+
+Simon's “splash the gap” idea now has a small universal algebraic seam.  For
+positive odd payloads `P,Q,P'`, let the input be `-1+2^(r+1)P`.  Assuming
+
+```text
+3^(r+1)P - 1 = 2^a(1+2^(2s+2)Q),
+1 + 3^(s+1)Q = 2^b(-1+2^L P'),
+```
+
+the exact valuation word should be
+
+```text
+[1]^r ++ [1+a] ++ [2]^s ++ [2+b]
+```
+
+and the endpoint should be `-1+2^L P'`.  A theorem with the two displayed
+equalities and positivity/oddness as explicit premises is sufficient; the
+research-side modular solver need not be formalized yet.  The smallest
+standard regression is
+
+```text
+r=4, s=1, a=b=1, L=6,
+P=2961, Q=22485, P'=1581,
+94751 -> 101183,
+valuations [1,1,1,1,2,2,3].
+```
+
+The Python worker intersects these complete affine gate families to build 247
+outward rounds from a 10,040-digit seed, but the seed changes at the next
+depth and reaches `1`.  So the requested theorem certifies a reusable finite
+gate only, not an infinite glider or a counterexample.
