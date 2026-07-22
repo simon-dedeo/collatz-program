@@ -4191,3 +4191,38 @@ Please keep the Lean target small:
 There is no request to formalize CRT existence, the 128-branch table, or an
 infinite orbit.  The important research fact is that future candidates can be
 stated as one explicit natural-register recurrence with no hidden gate list.
+
+## Kontorovich follow-up: three-bit-capped super-ether (2026-07-22 02:47 EDT)
+
+Simon's "splash the gap" overhang closes the defect at a second scale.  The
+one-cell glider is a 23-bit background macro; the two-cell glider is its
+defect.  A fully exhausted background has the wrong parity, but retaining
+exactly three bits makes the boundary `9 mod 16`, the next defect input.
+
+After removing a common `3^7`, the public second-scale register is
+
+```text
+V=-8744697538656344367967+671265207750760396088265*K.
+```
+
+Its returning branch is
+
+```text
+V=2^(23*N+3)*g,
+V'=(3^(17*N+40)*g-17)/2^51.
+```
+
+The cheap normalization identity is
+
+```text
+2^54*(-8744697538656344367967)
+ -3^33*(50679661+120751555*(-234676942119623))
+=-2^3*17.
+```
+
+Please treat this as lower priority than the variable-block flattener.  If it
+is cheap after that work, prove the displayed integer identity and the small
+mod-16 phase calculation (`8`, `G=3`, `C=13`, boundary `q=9`).  Do not
+formalize the 64-branch artifact or claim an infinite hierarchy.  The useful
+conditional endpoint remains: any infinite successful orbit of the public
+register macro, compiled to linked positive blocks, refutes Collatz.

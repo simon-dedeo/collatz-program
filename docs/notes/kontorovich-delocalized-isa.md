@@ -1194,6 +1194,91 @@ original map: a one-register valuation machine with exponent class
 congruence.  Search should now emphasize symbolic invariant families for
 (43), not raw Collatz stopping times.
 
+### 5.17 Splashing the gap produces a recursive super-ether
+
+The factor of three in (40) is invariant and exact.  Dividing it out gives
+the primitive first-scale register
+
+```text
+Z=-291427+27930177K,
+Z=2^(8n-5)g  ->  Z'=(3^(6n+11)g+17)/2^20.            (48)
+```
+
+Now regard the `n=1` branch `B=M_1` as a background *super-cell*.  It is
+
+```text
+K=3520715+2^23q -> K'=54200376+3^17q.                (49)
+```
+
+Writing `D=2^23`, `P=3^17`, `C=50679661`, and `G=P-D`, its self-link is
+
+```text
+q=4844785+Dv -> q'=74584052+Pv,                      (50)
+F(q)=Gq+C,              D F(q')=P F(q).              (51)
+```
+
+Thus every background self-link consumes exactly 23 binary bits of `F` and
+multiplies the remaining odd packet by `3^17`.
+
+A literal exhaustion is the wrong operation.  If `F(q)` is odd, then (51)
+forces `q` even because `G,C` are odd.  On the other hand, every first-scale
+macro has odd input packet, so after executing `B` its source tail for a link
+to any next macro has the opposite parity.  This closes the fully exhausted
+recursive ether for the whole current glider alphabet.
+
+Simon's proposed "splash the gap" overhang evades the obstruction sharply:
+retain three bits rather than zero.  The two-cell macro supplies the defect
+
+```text
+B -> M_2: q=70933817+2^31v -> q_2=4265645+3^17v,
+M_2 -> B: q_2=7704077+2^23w -> q'=86460874100+3^23w. (52)
+```
+
+The bridges meet at
+
+```text
+v=8279328+2^23u,       w=127457829+3^17u.             (53)
+```
+
+With `u=K-1`, the defect input and returned fixed form are
+
+```text
+q_in=-234676942119623+2^54K,
+F(q_ret)=3^7*(-8744697538656344367967
+              +671265207750760396088265K).           (54)
+```
+
+Let the primitive expression in parentheses be `V`.  Choosing its exact
+valuation to be `23N+3` writes `N` background cells and leaves a three-bit
+cap.  At the exposed boundary, `F=8 (mod 16)`.  Since `G=3 (mod 16)` and
+`C=13 (mod 16)`, (51) gives `q=9 (mod 16)`, exactly the residue of `q_in`.
+The remaining 50 binary address bits are therefore one ordinary modular
+inverse, and the boundary re-enters (54).
+
+The resulting autonomous second-scale machine is
+
+```text
+V=2^(23N+3)g  ->  V'=(3^(17N+40)g-17)/2^51,          (55)
+K=R_N+2^(23N+54)t -> K'=S_N+3^(17N+40)t.             (56)
+```
+
+The sign flip is another exact cancellation, not a fitted recurrence:
+
+```text
+2^54*(-8744697538656344367967)
+ -3^33*(50679661+120751555*(-234676942119623))
+=-2^3*17.                                             (57)
+```
+
+`breakoff_superether.py` checks (48)--(57), constructs 64 branches with four
+members each, and literally expands 32 super-macro members through 336
+returning glider macros, 1,040 lower links, and 2,080 delay-gate macros.  This
+is still finite.  Its significance is recursive: a nonlocal cap has absorbed
+the collision debris while preserving the collision constant, changing only
+`+17` to `-17` and the binary/ternary scales.  The next kill test is whether
+the sign-flipped ISA nests again and, if it does, whether the nested addresses
+can describe one ordinary natural rather than a nonterminating 2-adic word.
+
 ## 6. Ranked attack and kill tests
 
 1. Implement the mixed-base rules and mine structured, formula-generated
@@ -1217,7 +1302,9 @@ congruence.  Search should now emphasize symbolic invariant families for
    (26).  The returning macros (35)--(39) now solve finite ether, boundary
    exposure, and defect return.  Prioritize an autonomous nonzero-tail
    recurrence in this macro ISA over enlarging either replay bound.  Use the
-   autonomous register (40)--(45) as the primary search and proof interface.
+   autonomous registers (48) and (55) as the primary search and proof
+   interfaces; test recursive renormalization before widening finite replay
+   bounds.
    Compare
    survivors
    with the run-length-accelerated three-symbol tag system and translate them

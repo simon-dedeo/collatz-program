@@ -1040,6 +1040,60 @@ artifact SHA-256  2e498bfd6f0dec384ebfc9255233c5a5769980d98ffba7f5c9e4ab397e61c7
 verifier SHA-256  2867d3a79d19c002a588927e1564c1850a50a03a107fbe4497b7773017585b75
 ```
 
+## Three-bit-capped recursive super-ether
+
+`breakoff_superether.py` treats the one-cell returning glider as a 23-bit
+background cell.  If its macro tail is `q`, then
+
+```text
+F(q)=(3^17-2^23)q+50679661,
+2^23 F(q')=3^17 F(q)
+```
+
+on every self-link.  An exactly exhausted super-ether has odd `F` and cannot
+enter any next glider macro: every macro input packet is odd, and the required
+source-tail parity is the opposite one.  Retaining exactly three bits repairs
+the phase.  The capped boundary is `9 (mod 16)`, identically the input phase of
+the composite defect `M_1 -> M_2 -> M_1`.
+
+After its common factor `3^7` is removed, the defect register is
+
+```text
+V=-8744697538656344367967+671265207750760396088265*K.
+```
+
+Its public autonomous branch and affine packet branch are
+
+```text
+V=2^(23N+3)g -> V'=(3^(17N+40)g-17)/2^51,
+K=R_N+2^(23N+54)t -> K'=S_N+3^(17N+40)t.
+```
+
+The change from the primitive `+17` register law to `-17` follows from the
+exact constant identity
+
+```text
+2^54*(-8744697538656344367967)
+ - 3^33*(50679661 + 120751555*(-234676942119623)) = -136.
+```
+
+```bash
+python3 breakoff_superether.py selftest
+python3 breakoff_superether.py build breakoff_superether_audit.json
+python3 breakoff_superether.py verify breakoff_superether_audit.json
+```
+
+The artifact constructs `N=1..64`, checks four affine members of each branch,
+and literally replays two members through `N=16`.  The latter 32 super-macro
+members expand to 336 returning glider macros, 1,040 lower affine links, and
+2,080 literal delay-gate macros.  This certifies a finite recursive delay
+constructor and its capped boundary return, not an infinite orbit.
+
+```text
+artifact SHA-256  67d6f701420cac98a780db27352d6f3adf4511e6d0958ccc38531f1e9f539a5c
+verifier SHA-256  5167fd7b912e4a3da9dca24c2183a5e877f1ea488003d4cd7764b79ab8333491
+```
+
 ## Autonomous ether-counter normal form
 
 `breakoff_ether_counter.py` removes all hidden gate metadata from the returning
