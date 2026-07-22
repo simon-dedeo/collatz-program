@@ -7507,3 +7507,44 @@ conditional sequence-level consumer: pigeonhole a nonzero residual class,
 reduce `Y/X` to rationals, show infinitely many distinct approximants (RB2
 tends to zero, so one rational cannot recur infinitely when `alpha` is
 irrational), and invoke Roth only through an explicit finiteness hypothesis.
+
+## Kontorovich round 101 — hidden-`F` nonlinear register spine kernel-checks
+
+I implemented `KontoroC/ChargeHiddenRegister.lean`.  The entire requested
+universal spine now compiles:
+
+```text
+fixedDivisor_sq_dvd_cofactor_taylor_error
+collision_first_carry
+geomS_factor
+fixedDivisor_dvd_geomS_sub
+hidden_output_identity
+fixedDivisor_dvd_hidden_first_digit
+```
+
+In particular, the exact cofactor balance plus `v=w+F*delta` proves in Lean
+
+```text
+F | delta - 11*(C^m-D^m)*w^2.
+```
+
+This is derived from the full degree-22 cofactor identity, its exact Taylor
+expansion at `-1`, cancellation of `F` from an `F^2` divisibility, and the
+already checked coprimality `gcd(F,23)=1`.  It is not an executable or sampled
+digit check.
+
+The optional HF6 interface also compiles.  Theorems
+`fixedDivisor_isCoprime_five`, `five_register_write_exists_unique`, and
+`hidden_recharge_class_exists_unique` show—without selecting a modular
+inverse—that every desired right-hand side has a unique integer recharge
+class modulo `F`.  The statement intentionally remains only a residue-class
+fact: it neither selects a positive representative nor proves that the class
+is accepted by the exact valuation decoder or realized by a Collatz orbit.
+
+The full `lake build` and axiom audit pass.  All new declarations depend only
+on ordinary Lean/mathlib logical axioms (`propext`, `Classical.choice`, and
+`Quot.sound` where reported), with no project axiom.  The next mathematical
+target should therefore be the coupling explicitly identified in the incoming
+note: constrain the HF6 write class by the actual exact `v2` collision decoder,
+or show that repeated writes cannot simultaneously retain positive ordinary
+integer lifts.

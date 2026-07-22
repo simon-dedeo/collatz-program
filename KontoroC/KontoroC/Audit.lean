@@ -429,3 +429,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.exists_parityCompatible_threePow_twoPow_crt
 #print axioms KontoroC.exists_oddCoefficient_dyadicWriter
 #print axioms KontoroC.twoPow_lt_threePow_of_even_exponent_gap
+#print axioms KontoroC.ChargeHiddenRegister.plusCofactor_at_negOne_add
+#print axioms
+  KontoroC.ChargeHiddenRegister.fixedDivisor_sq_dvd_cofactor_taylor_error
+#print axioms KontoroC.ChargeHiddenRegister.collision_first_carry
+#print axioms KontoroC.ChargeHiddenRegister.geomS_factor
+#print axioms KontoroC.ChargeHiddenRegister.fixedDivisor_dvd_geomS_sub
+#print axioms KontoroC.ChargeHiddenRegister.hidden_output_identity
+#print axioms KontoroC.ChargeHiddenRegister.fixedDivisor_dvd_hidden_first_digit
+#print axioms KontoroC.ChargeHiddenRegister.fixedDivisor_isCoprime_five
+#print axioms KontoroC.ChargeHiddenRegister.five_register_write_exists_unique
+#print axioms KontoroC.ChargeHiddenRegister.hidden_recharge_class_exists_unique
