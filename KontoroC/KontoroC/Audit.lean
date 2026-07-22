@@ -154,6 +154,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.AffineTwoRailTwoCycle.round_legal_and_endpoint
 #print axioms KontoroC.AffineTwoRailTwoCycle.toMacroGlider
 #print axioms KontoroC.AffineTwoRailTwoCycle.not_conjecture
+#print axioms KontoroC.MacroGlider.not_constant_word
+#print axioms KontoroC.AffineTwoRailTwoCycle.impossible
+#print axioms KontoroC.AffineTwoRailTwoCycle.no_twoCycle
+#print axioms KontoroC.AffineTwoRailLoop.impossible
+#print axioms KontoroC.AffineTwoRailLoop.no_loop
 #print axioms KontoroC.NormalizedStandardPayloadStream.step_backward
 #print axioms KontoroC.NormalizedStandardPayloadStream.backwardPrefixProduct_eq
 #print axioms KontoroC.NormalizedStandardPayloadStream.backwardPrefixDefect_eq

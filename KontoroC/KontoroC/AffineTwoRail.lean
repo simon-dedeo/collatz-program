@@ -139,6 +139,9 @@ def member (f : AffineTwoRailFamily) (z : ℕ) : TwoRailGate where
 @[simp] theorem member_outputPayload (f : AffineTwoRailFamily) (z : ℕ) :
     (f.member z).outputPayload = f.base.outputPayload + f.outputStride * z := rfl
 
+@[simp] theorem member_word (f : AffineTwoRailFamily) (z : ℕ) :
+    (f.member z).word = f.base.word := rfl
+
 /-- Every affine member inherits a full exact valuation proof. -/
 theorem member_legal_and_endpoint (f : AffineTwoRailFamily) (z : ℕ) :
     WordLegal (f.member z).start (f.member z).word ∧

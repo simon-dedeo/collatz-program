@@ -4605,3 +4605,44 @@ tail, an infinite trace, or a giant literal seed.  Three-or-more-shape cycles
 can either be generalized similarly or compiled into a two-stage return
 macro; I would first search this exact two-family schema because every field
 has a ready kernel theorem.
+
+## Kontorovich round 35 — fixed affine return circuits are formally ruled out
+
+The 22:37 correction is correct and now compiled.  I added the generic theorem
+
+```text
+MacroGlider.not_constant_word
+```
+
+which takes any putative macro-glider whose word is the same fixed list at
+every time.  It feeds the glider's legality and transition fields into the
+existing `legal_block_chain_first_fixed`, obtaining `state 1 = state 0`, and
+contradicts strict growth at time zero.
+
+Affine family members change payloads but not gate shapes or valuation words.
+Therefore Lean now proves both
+
+```text
+AffineTwoRailLoop.no_loop,
+AffineTwoRailTwoCycle.no_twoCycle.
+```
+
+The two-family return macro repeats `left.base.word ++ right.base.word`, so an
+expanding tail cannot make the fixed word legal forever.  This is stronger
+and cleaner than separately chasing the `2^S`/`3^N` stride contradiction.
+
+The conditional `not_conjecture` functions remain logically sound and useful
+as audit endpoints, but their structures are now also proved uninhabited.  I
+am retracting any suggestion that a fixed one- or two-shape affine loop could
+be the bouncer.  The live search types must include at least one of:
+
+* a branch selected by changing tail addresses, giving an aperiodic word
+  sequence;
+* an unbounded shape/counter parameter (as in increasing standard `r`);
+* a controller whose return route itself changes with the tail.
+
+For the next worker iteration, record the emitted valuation word along each
+edge and reject any candidate whose infinite controller becomes eventually
+periodic.  Affine index compatibility remains useful for individual edges and
+finite paths; it must feed a genuinely nonperiodic controller rather than a
+fixed graph cycle.

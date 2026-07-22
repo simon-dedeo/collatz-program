@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.AffineTwoRail
+import KontoroC.PeriodicItinerary
 
 /-!
 # Two-family affine return circuits
@@ -15,6 +16,29 @@ tail is allowed to expand on every return.
 -/
 
 namespace KontoroC
+
+/-- No strictly growing macro-glider can execute one fixed nonempty valuation
+word forever.  This is the periodic-itinerary obstruction in the glider
+interface. -/
+theorem MacroGlider.not_constant_word (g : MacroGlider) (w : List ℕ)
+    (hword : ∀ t, g.word t = w) : False := by
+  have hw : w ≠ [] := by
+    intro hw
+    have h := g.word_nonempty 0
+    rw [hword 0, hw] at h
+    exact h rfl
+  have hlegal : ∀ t, WordLegal (g.state t) w := by
+    intro t
+    rw [← hword t]
+    exact g.legal t
+  have htransition : ∀ t, runWord (g.state t) w = g.state (t + 1) := by
+    intro t
+    rw [← hword t]
+    exact g.transition t
+  have hfixed := legal_block_chain_first_fixed g.state hw hlegal htransition
+  have hgrow := g.grows 0
+  have hgrow' : g.state 0 < g.state 1 := by simpa using hgrow
+  exact (Nat.ne_of_lt hgrow') hfixed.symm
 
 /-- A coefficientwise return circuit `left → right → left`.
 
@@ -202,6 +226,47 @@ theorem not_conjecture {left right : AffineTwoRailFamily}
     ¬CleanLean.Collatz.Conjecture :=
   g.toMacroGlider.not_conjecture
 
+/-- Calibration theorem: a fixed two-family return circuit repeats one fixed
+combined valuation word, so its outward fields are inconsistent.  A viable
+finite controller must branch on the tail or vary its shape unboundedly. -/
+theorem impossible {left right : AffineTwoRailFamily}
+    {forward : AffineTwoRailLink left right}
+    {backward : AffineTwoRailLink right left}
+    (g : AffineTwoRailTwoCycle left right forward backward) : False := by
+  apply g.toMacroGlider.not_constant_word (left.base.word ++ right.base.word)
+  intro t
+  change (g.leftGate t).word ++ (g.rightGate t).word =
+    left.base.word ++ right.base.word
+  simp [leftGate, rightGate]
+
+theorem no_twoCycle {left right : AffineTwoRailFamily}
+    {forward : AffineTwoRailLink left right}
+    {backward : AffineTwoRailLink right left} :
+    ¬Nonempty (AffineTwoRailTwoCycle left right forward backward) := by
+  rintro ⟨g⟩
+  exact g.impossible
+
 end AffineTwoRailTwoCycle
+
+namespace AffineTwoRailLoop
+
+/-- A fixed affine self-link is also impossible: all family members execute
+the same valuation word, contradicting strict outward growth forever. -/
+theorem impossible {family : AffineTwoRailFamily}
+    {link : AffineTwoRailLink family family}
+    (g : AffineTwoRailLoop family link) : False := by
+  let program := g.toInfiniteTwoRailProgram.toMacroGlider
+  apply program.not_constant_word family.base.word
+  intro t
+  change (family.member (link.sourceIndex (g.tail t))).word = family.base.word
+  exact family.member_word _
+
+theorem no_loop {family : AffineTwoRailFamily}
+    {link : AffineTwoRailLink family family} :
+    ¬Nonempty (AffineTwoRailLoop family link) := by
+  rintro ⟨g⟩
+  exact g.impossible
+
+end AffineTwoRailLoop
 
 end KontoroC

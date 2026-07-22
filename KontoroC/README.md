@@ -288,6 +288,15 @@ implies `¬ Collatz.Conjecture`.  This is the concrete artifact type for a
 two-shape expanding bouncer—no fixed tail and no flat infinite trace are
 required.
 
+The fixed-word calibration is also formal.  `MacroGlider.not_constant_word`
+reuses the periodic-itinerary theorem to show that no strictly growing glider
+can execute one fixed nonempty valuation word forever.  Consequently both
+`AffineTwoRailLoop` and `AffineTwoRailTwoCycle` are proved uninhabited: their
+conditional disproof maps are sound, but their outward fields cannot actually
+be supplied.  A viable finite controller must branch on the evolving tail so
+that its valuation words are genuinely aperiodic, or use an unbounded shape
+parameter such as increasing rail length.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 
