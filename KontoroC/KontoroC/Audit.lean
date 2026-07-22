@@ -40,6 +40,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.MacroGlider.not_eventually_periodic_words
 #print axioms KontoroC.MacroGlider.periodBreaks_infinite
 #print axioms KontoroC.MacroGlider.exists_periodBreak_after
+#print axioms KontoroC.ToyRankOneBank.outputSlope_eq_gain_mul_sourceSlope
+#print axioms KontoroC.ToyRankOneBank.gain_strictly_mono
+#print axioms KontoroC.ToyRankOneBank.linked
+#print axioms KontoroC.ToyRankOneBank.outward
+#print axioms KontoroC.ToyRankOneBank.opcode_genuinelyAperiodic
+#print axioms KontoroC.exists_rankOne_outward_aperiodic_ordinary_ray
 #print axioms KontoroC.AutonomousFiniteController.phase_future_eq
 #print axioms KontoroC.AutonomousFiniteController.impossible
 #print axioms KontoroC.AutonomousFiniteController.no_controller

@@ -6787,3 +6787,70 @@ equalities are imported.  I have not yet packaged SM1's two coupled exact
 divisions; please keep the concrete `(h3,A0,C0)` definitions stable in the
 worker, since that portion is much more sensitive to a shifted constant than
 the generic writer and growth lemmas.
+
+## Kontorovich round 86 — the marker-bank no-go boundary
+
+I audited the corrected all-opcode marker bank in
+`experiments/kontorovich/unit_marker_bank.py`.  The current result is a
+valuable affine normal form, but it is not yet an autonomous machine:
+
+```text
+x_j = X_j + 2^(P_j+155) M v,
+y_j = Y_j + 2 M 3^(Q_j) v.
+```
+
+What is still absent is a deterministic next-opcode/register law and the
+semantic link
+
+```text
+y_j(v) = x_k(v')
+```
+
+along one infinite path arising from one ordinary starting integer.  The
+per-opcode slope inequality does not provide this link.
+
+I kernel-checked the sharp logical warning in the new file
+`KontoroC/RankOneBankBoundary.lean`.  It constructs an explicit abstract bank
+with
+
+```text
+sourceSlope(j) = 2^(j^2),
+outputSlope(j) = sourceSlope(j+1),
+opcode(t) = t,
+register = 1.
+```
+
+Every opcode is outward; its exact gain is `2^(2j+1)` and those gains are
+strictly increasing; the opcode schedule is genuinely aperiodic; and every
+output links exactly to the next source.  Therefore **rank one + positive
+drift + increasing unbounded opcode gains cannot imply a no-ray theorem**.
+The full build passes (8716 jobs), and the new endpoints use only the standard
+Lean axioms reported elsewhere in the project.
+
+What we can already rule out remains precise:
+
+1. If the post-address selector factors through finite state, then
+   `EventuallyZeroResidualController.impossible` kills it.
+2. If opcode level is nondecreasing, every strict increase visibly advances
+   the canonical ordinary address, and the fixed-form affine balance applies,
+   then `MonotoneFixedFormDispatcher.impossible` kills it.
+3. If composing successive instructions produces nonzero canonical dyadic
+   extension lifts arbitrarily late, then
+   `no_realization_of_frequently_nonzero_extension_lifts` kills realization
+   by one ordinary natural.
+
+The third route now looks like the most direct family-specific attack.  To
+test it, please export symbolic formulas (or a recurrence) for `X_j`, `Y_j`
+and for solving `y_j(v)=x_k(v')`, including the canonical next source residue
+modulo its dyadic source modulus.  In particular, the useful target is the
+extension coefficient `rho_t` in
+
+```text
+a_(t+1) = a_t + 2^(bits_t) rho_t.
+```
+
+If the actual bank arithmetic forces `rho_t != 0` whenever the opcode changes
+unboundedly, the existing Lean theorem gives the requested impossibility
+proof immediately.  Without such a Collatz-specific bridge, a proof that the
+surviving unbounded-opcode line must fail would be false at the advertised
+level of abstraction.

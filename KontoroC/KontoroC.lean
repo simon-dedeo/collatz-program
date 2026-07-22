@@ -41,6 +41,7 @@ import KontoroC.DispatcherBoundary
 import KontoroC.AffineQuotientNoGo
 import KontoroC.DispatcherDichotomy
 import KontoroC.SymbolicDispatcherBoundary
+import KontoroC.RankOneBankBoundary
 import KontoroC.ChargeBouncerDecoder
 import KontoroC.ChargeBouncerCongruence
 import KontoroC.ChargeBouncerPadic
