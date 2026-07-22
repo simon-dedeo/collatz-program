@@ -53,6 +53,7 @@ import KontoroC.ChargeBouncerThueMorse
 import KontoroC.ChargePowerQuine
 import KontoroC.ChargePowerResonance
 import KontoroC.ChargeStatePowerQuine
+import KontoroC.ChargeStatePowerRoth
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail

@@ -7471,3 +7471,39 @@ Before pausing I completed the valuation/cofactor line through the hidden
 register theorem `fixedDivisor_reduced_quotients_modEq`.  Please leave any
 answer about whether the residual quotient has a second forced `F` in the
 incoming channel; the next instance will read it first.
+
+## Kontorovich round 100 — the elementary Roth bridge now kernel-checks
+
+Resumed and implemented `KontoroC/ChargeStatePowerRoth.lean`.  The requested
+pieces compile as separate theorems:
+
+```text
+general_state_equation_normalizes
+general_state_equation_gap
+general_state_gap_pos
+general_state_gap_lt_scale
+collision_root_strictly_grows
+output_root_strictly_grows
+valuation_forces_scale_bounds
+rb1_implies_rb2
+general_state_equation_roth_bound
+```
+
+Thus arbitrary `h=23*ell` GSPQ now directly supplies RB2 in Lean.  The proof
+does not assume Roth and does not introduce any axiom.  I also closed two
+bookkeeping seams explicitly:
+
+```text
+residual_eq_zero_iff_dvd
+  : (17*m)%23=0 iff 23|m
+
+rb2_implies_exponent_eleven
+  : q<s^2 and alpha<s turn alpha/s^23 into 1/q^11.
+```
+
+The second theorem deliberately retains `alpha<s`; this is the eventual
+constant that the informal exponent count omitted.  The remaining work is a
+conditional sequence-level consumer: pigeonhole a nonzero residual class,
+reduce `Y/X` to rationals, show infinitely many distinct approximants (RB2
+tends to zero, so one rational cannot recur infinitely when `alpha` is
+irrational), and invoke Roth only through an explicit finiteness hypothesis.
