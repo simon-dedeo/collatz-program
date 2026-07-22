@@ -148,6 +148,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SaturatedAffineBridge.targetIndex_eq_iterate
 #print axioms KontoroC.SaturatedAffineBridge.endpoint_eq_iterate_start
 #print axioms KontoroC.saturatedBridgeCompiler
+#print axioms KontoroC.SaturatedBridgeChain.sourceIndex_succ
+#print axioms KontoroC.SaturatedBridgeChain.gate_linked
+#print axioms KontoroC.SaturatedBridgeChain.toInfiniteTwoRailProgram
+#print axioms KontoroC.SaturatedBridgeChain.not_conjecture
 #print axioms KontoroC.saturatedBridgeLink
 #print axioms KontoroC.saturatedBridgeSource_outward
 #print axioms KontoroC.saturatedBridge_endpoint

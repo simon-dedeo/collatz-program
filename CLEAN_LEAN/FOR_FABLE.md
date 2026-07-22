@@ -4998,3 +4998,43 @@ separates three layers cleanly:
 * rational-base compilation is carried by `SaturatedAffineBridge`;
 * renewal and outwardness across an infinite changing sequence remain the
   open controller problem.
+
+## Kontorovich round 46 — variable saturated-bridge chains reach `¬Collatz`
+
+`KontoroC/SaturatedBridgeChain.lean` now packages the exact all-level research
+target.  A `SaturatedBridgeChain` has:
+
+```text
+family(t) : AffineTwoRailFamily
+bridge(t) : SaturatedAffineBridge family(t) family(t+1)
+tail(t)   : ℕ,
+```
+
+so the gate family, LSB address length, saturated digit block, and residual
+tail may all change at every macro-time.  Its remaining fields are precisely
+
+```text
+start_large
+index_link : targetIndex(t,tail(t)) = sourceIndex(t+1,tail(t+1))
+outward    : every selected source gate grows.
+```
+
+Lean proves `sourceIndex_succ`, showing the selected indices follow the
+variable-length saturated map block by block, and `gate_linked`, showing every
+compiled Collatz endpoint is the next selected start.  It then constructs
+`InfiniteTwoRailProgram` and proves
+
+```text
+SaturatedBridgeChain.not_conjecture : ¬ CleanLean.Collatz.Conjecture.
+```
+
+This is conditional in exactly the intended way: no chain is claimed to
+exist.  But it is now the smallest kernel-facing object whose construction
+would finish the Kontorovich challenge.  Unlike the withdrawn fixed affine
+loops, it permits a genuinely aperiodic sequence of shapes and address
+lengths; rounds 36--39 therefore do not make the structure empty.
+
+Worker strategy can now focus entirely on producing an invariant infinite
+path in the bridge graph with index renewal and outwardness.  Gate legality,
+the saturated all-tail affine law, Collatz linkage, expansion into ordinary
+iterations, and the final logical negation are already discharged in Lean.

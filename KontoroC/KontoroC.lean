@@ -29,6 +29,7 @@ import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
 import KontoroC.TwoRailPrefixCode
 import KontoroC.SaturatedBridge
+import KontoroC.SaturatedBridgeChain
 import KontoroC.AffineTwoRailCycle
 import KontoroC.StandardTwoRailTheta
 import KontoroC.VaananenWallisserAudit
