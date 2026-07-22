@@ -1342,6 +1342,88 @@ artifact SHA-256  fc73032df9114e59ca3f8926509616b66455d69b61536866cc50728fc7a2d1
 verifier SHA-256  d1991059ec7be5b754d9352395d3053ce305496bc2dc85f849ea21eb9b0d3554
 ```
 
+## A second sign-negative repetend splash
+
+`unit_double_repetend.py` makes the level-two marker `1` launch one further
+formula-generated splash while preserving the first ternary bank.  For
+
+```text
+c_m=(2^(3^(m-1))+1)/3^m,
+```
+
+write `2^(3^(m-1))=-1+3^m c_m` and cube.  Exact division gives
+
+```text
+c_(m+1)=c_m-3^m*c_m^2+3^(2m-1)*c_m^3.          (UD1)
+```
+
+Therefore `c_(m+1)=c_m (mod 3^m)`.  For any fixed precision `P`, all later
+quotients have the same first `P` ternary digits.  At level two the initial
+data are
+
+```text
+q_0=57,
+T_0=21457252954121782025753972361,
+n_1=932924041483555740250172709,
+q_1=15859708705220447584252936093.
+```
+
+The odd register has `v_3(M)=33`, so use `P=q_0+33=90`.  The exact stable
+quotient modulo `3^90`, combined with the affine exponent class modulo `23`,
+gives
+
+```text
+k=376213925255524775706446580991916826376956379,
+T_1=3^(q_1-1)*k,
+T_1=54 (mod 23).
+```
+
+Because `q_1>=90`, binomial expansion modulo `3^(q_1+90)` gives
+
+```text
+2^T_1=-1+3^q_1 (mod 3^(q_1+90)).
+```
+
+Thus
+
+```text
+R_1=(2^T_1+1)/3^q_1 = 1 (mod 3^90),
+A=(R_1-1)/(2*3^q_0)
+```
+
+is an ordinary integer and is known modulo the complete level-two register.
+For every positive tail in one exact register class and every chosen final
+gap `D`, the two genuine unit collisions are
+
+```text
+h_0=R_0+2^(T_0+1)*(A+2^(T_1+D-1)*L)
+ -> h_1=R_1+2^(T_1+D)*3^q_0*L
+ -> h_2=1+2^D*3^(q_0+q_1)*L.                    (UD2)
+```
+
+Neither `T_1` nor `R_1` is materialized.  The worker evaluates the stable
+3-adic quotient through 89 exact recurrence steps, computes `R_1` modulo the
+coprime conductor factors, reduces `T_1` modulo the exact Carmichael exponent
+of the register, and checks all three public phases.  `T_1` itself has about
+`7.57*10^27` decimal digits.
+
+```bash
+python3 unit_double_repetend.py selftest
+python3 unit_double_repetend.py build unit_double_repetend_audit.json
+python3 unit_double_repetend.py verify unit_double_repetend_audit.json
+```
+
+The artifact reconstructs the unbounded families for final gaps `D=1,64`.
+This is exact one-time renewal, not an infinite staircase.  Backward nesting
+another independently selected repetend consumes a new dyadic address and
+again tends to a 2-adic stack.  The remaining target is an autonomous rule by
+which the free ordinary packet `L` emits its own third correction.
+
+```text
+artifact SHA-256  76ce98689eef74589937e05b3c3295844f49620ab8e2e9fb0a4889b5749a61f5
+verifier SHA-256  05dfc41a661089c68fa57cebbb850cc5109bec24803efda227c16825ede0453c
+```
+
 ## Sign-alternating capped-splash hierarchy
 
 `breakoff_renormalization.py` iterates the super-ether construction as exact

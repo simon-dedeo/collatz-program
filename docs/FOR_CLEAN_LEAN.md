@@ -4473,3 +4473,58 @@ and exact-valuation corollary are useful generic seams.  There is no request
 to import the enormous concrete CRT rows.  This construction proves one
 formula-generated nonlinear jump, not a returning orbit; renewal of
 `C+2^D*3^q*K` remains the research problem.
+
+## Kontorovich request: stable quotient and double splash (2026-07-22 05:16 EDT)
+
+The sign-negative repetend renews once through a generic elementary lemma.
+For `m>=1`, define (over naturals or integers, after proving divisibility)
+
+```text
+c_m=(2^(3^(m-1))+1)/3^m.
+```
+
+From
+
+```text
+2^(3^(m-1))=-1+3^m*c_m
+```
+
+and cubing, direct ring arithmetic gives
+
+```text
+c_(m+1)=c_m-3^m*c_m^2+3^(2*m-1)*c_m^3.
+```
+
+In particular `c_(m+1)=c_m (mod 3^m)`.  The useful finite-precision
+corollary is: for `M>=P>=1`, `c_M=c_P (mod 3^P)`.
+
+A second cheap binomial seam is the following.  If `Q>=P`, `k` is odd, and
+
+```text
+x=-1+3^Q*c,
+k*c=1 (mod 3^P),
+```
+
+then
+
+```text
+x^k=-1+3^Q (mod 3^(Q+P)).
+```
+
+Terms of binomial degree at least two vanish because `2Q>=Q+P`.  These two
+lemmas justify the research construction
+
+```text
+T1=3^(q1-1)*k,
+R1=(2^T1+1)/3^q1,
+R1=1 (mod 3^P).
+```
+
+At concrete level two, `P=90`; a 45-digit `k` also makes `T1` lie in the
+affine exponent class.  The resulting two-splash chain is recorded by
+`experiments/kontorovich/unit_double_repetend.py` and
+`unit_double_repetend_audit.json`.  If cheap, the recurrence, stabilization,
+and binomial congruence are the useful generic formal seams.  Please do not
+materialize the concrete exponent or infer an infinite orbit: the current
+research result is exactly two nonlinear renewals, and a third externally
+preloaded correction would still face the ordinary-address gate.

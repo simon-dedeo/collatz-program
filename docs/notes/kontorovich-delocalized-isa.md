@@ -1702,6 +1702,70 @@ repetend family.  Solving that handoff by another independently preselected
 congruence simply hides an infinite 2-adic tape in `K`; a useful solution must
 make the ordinary packet select and reconstruct the next `(C,T)`.
 
+At the sign-negative second level, the emitted marker renews once by an exact
+3-adic stability law.  Define
+
+```text
+c_m=(2^(3^(m-1))+1)/3^m.
+```
+
+Writing the numerator base as `-1+3^m c_m` and cubing gives
+
+```text
+c_(m+1)=c_m-3^m c_m^2+3^(2m-1)c_m^3.               (69h)
+```
+
+Thus `c_(m+1)=c_m (mod 3^m)`.  Once `m>=P`, the residue is frozen modulo
+`3^P`.  For the first level-two splash,
+
+```text
+q_0=57,
+T_0=21457252954121782025753972361,
+n_1=932924041483555740250172709,
+q_1=15859708705220447584252936093.
+```
+
+The register has `v_3(M)=33`, so take `P=q_0+33=90`.  If `c` is the stable
+residue, exact CRT produces the odd multiplier
+
+```text
+k=376213925255524775706446580991916826376956379
+```
+
+with `kc=1 (mod 3^90)` and
+`3^(q_1-1)k=54 (mod 23)`.  Put
+
+```text
+T_1=3^(q_1-1)k,
+R_i=(2^T_i+1)/3^q_i,
+A=(R_1-1)/(2*3^q_0).
+```
+
+The binomial expansion of `(-1+3^q_1 c)^k`, with `q_1>=90`, proves
+`R_1=1 (mod 3^90)` and makes `A` integral through the complete register
+conductor.  For a suitable ordinary class of positive `L`, the exact chain is
+
+```text
+R_0+2^(T_0+1)(A+2^(T_1+D-1)L)
+ -> R_1+2^(T_1+D)3^q_0 L
+ -> 1+2^D 3^(q_0+q_1)L.                            (69i)
+```
+
+[`unit_double_repetend.py`](../../experiments/kontorovich/unit_double_repetend.py)
+checks the 89 finite quotient recurrences, constructs `k`, computes the
+unmaterialized `R_1` modulo the coprime register conductor factors, and checks
+all three public phases for `D=1,64`.  Exponent reduction uses the exact
+Carmichael exponent of the level-two register.  `T_1` itself has about
+`7.57*10^27` decimal digits.
+
+Equation (69i) is genuine renewal through two nonlinear splashes, but it also
+exposes the next trap.  Backward nesting a third independently selected
+repetend changes another dyadic address of the initial core.  Iterating that
+compiler produces a coherent 2-adic stack, not automatically one natural
+program.  A live third step must be chosen by the fixed free packet `L`
+already present in (69i), so that the canonical ordinary address does not
+keep changing.
+
 The remaining obstruction is now a programming-language condition rather
 than a missing collision gadget.  Reading (69e) from right to left, one
 instruction pops the required low binary word `z` and pushes a power-of-three

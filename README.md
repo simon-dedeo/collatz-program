@@ -240,7 +240,12 @@ identically `x`.
   `R+2^(T+D)K -> C+2^D*3^qK`.  This gives formula-generated, enormously
   nonlinear gap splashes at all six levels; the live question is still
   renewal of the emitted marker rather than production of one spectacular
-  jump.
+  jump.  At the sign-negative second level that marker now renews once
+  exactly.  The stable quotients
+  `c_m=(2^(3^(m-1))+1)/3^m` let the first ternary bank be absorbed into a
+  second repetend, producing two consecutive formula-sized nonlinear jumps.
+  The remaining target is a third/self-writing renewal from one fixed
+  ordinary packet, not an externally nested tower.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -446,6 +451,7 @@ positive integer and its claimed behavior are machine-checked.
 | Invariant unit-debris register and signed radix swap | At every one of the six certified hierarchy levels, exactly one packet class modulo `17` makes the primitive `±17` register divisible by `17`; the class is preserved by every successful branch.  Dividing gives `H=2^(an+b)h -> H'=(3^(cn+d)h+s)/2^e`, `s=±1`.  With `W=2^eH`, every instruction is exactly `W=2^p h -> W'=3^q h+s`: it preserves the complete core `h`, swaps an exact binary delay for a ternary delay, and writes one signed unit.  Against the signed router it trims `d=p-1-q`, with the six formulas `2n+3,6n+13,20n+45,66n+151,218n+501,720n+1657`.  The artifact compares all 192 branches, checks this form on 768 members, and literally replays 32 level-one members through 336 lower links and 672 gates.  This identifies the factor a second rail must bank; no such rail or infinite unit orbit is supplied. |
 | Two-layer unit gap regenerator | Simon's “splash the gap” question has an exact answer in the smallest surviving ISA.  Given any three positive branch lengths and `D>=1`, choose `A,B,z,B_2,C` so `3^qA+s=2^pC+2^(p+L)B` and `B+3^qz=2^D B_2`.  Then `h=A+2^(p+L)(z+2^D u)` maps to `h'=C+2^(L+D)(B_2+3^q u)`: `A` emits the complete valuation-exact next instruction `C`, the sacrificial `D`-bit word `z` eats the carry `B`, and the remote tail survives affinely beyond a regenerated `D`-bit zero gap.  The exact artifact reconstructs 486 families across six compiled levels and replays 972 linked two-branch unit members for cell lengths `1..3` and gaps `1,4,12`.  This is a universal finite compiler identity plus bounded macro regression, not a self-supplying infinite stack or counterexample. | [`unit_gap_regenerator_audit.json`](experiments/kontorovich/unit_gap_regenerator_audit.json) |
 | Formula-generated nonlinear repetend splash | If `2^T C=s (mod 3^q)`, the ordinary repetend `R=(2^T C-s)/3^q` gives `R+2^(T+D)K -> C+2^D 3^qK` under the unit collision.  Intersecting the discrete-log class of `T` with `T=p(n')` produces a genuine enormous target length.  Exact modular certificates construct this at all six finite levels from source length one and gaps `D=1,64`; they verify the order `ord_(3^q)(2)=2*3^(q-1)`, exponent CRT, repetend integrality, and both register phases without expanding `2^T`.  Level one uses `C=5`, `T=105,734,623`, and `n'=13,216,826`; its low rail alone is about 31.8 million decimal digits.  Across levels the target exponents have `9,29,91,299,980,3235` decimal digits.  This is a short generator for one vast nonlinear splash, not renewal or nontermination. | [`unit_repetend_splash_audit.json`](experiments/kontorovich/unit_repetend_splash_audit.json) |
+| Two consecutive sign-negative repetend splashes | At level two, put `c_m=(2^(3^(m-1))+1)/3^m`.  Exact cubing gives `c_(m+1)=c_m-3^m c_m^2+3^(2m-1)c_m^3`, so `c_m` stabilizes modulo every fixed `3^P`.  At precision `P=q_0+v_3(M)=90`, a 45-digit odd `k` makes `T_1=3^(q_1-1)k` both retain the first ternary bank and lie in the affine target-exponent class.  This yields the exact unbounded family `h_0 -> R_1+2^(T_1+D)3^q0 L -> 1+2^D3^(q0+q1)L`, with both enormous valuations exact.  The audit checks 89 quotient recurrences, bridge integrality, exponent congruence, and all three unit-register phases for `D=1,64`, without materializing `T_1`; `T_1` itself has about `7.57*10^27` decimal digits.  This is genuine one-time renewal, not a third splash or infinite ordinary orbit. | [`unit_double_repetend_audit.json`](experiments/kontorovich/unit_double_repetend_audit.json) |
 | Constant-rate unit-counter schedules | For any of the six certified unit levels, every `n_0>=1`, and every fixed integer `k>=1`, the schedule `n_t=n_0+kt` has the unique 2-adic initial core `-s*3^(-q(n_0)) F(2^(ak)/3^(ck),2^(p(n_0+k))/3^(q(n_0+k)))`.  Converting to Väänänen--Wallisser's `f_(3^(ck)/2^(ak))` is coefficientwise exact, and its argument simplifies to `alpha=2^(p(n_0))/3^(q(n_0))`.  Their 1989 theorem applies with `ell=1,sigma=0,p=2`; its size ratio is the same as for `k=1`, while `|3^(ck)/2^(ak)|_2=2^(ak)>1`.  The value is irrational in `Q_2`, so it cannot be an ordinary integer core.  The artifact's six linked eight-transition branch replays remain a finite `k=1` regression; the all-`k` conclusion is symbolic and theorem-dependent.  This closes every fixed positive step size, not nonlinear or packet-branching schedules. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
@@ -503,6 +509,74 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 05:16 EDT
+
+The sign-negative unit splash renews once exactly.  This is the first result
+past the isolated nonlinear launch.  At level two the first jump has
+
+```text
+q_0=57,
+T_0=21457252954121782025753972361,
+n_1=932924041483555740250172709,
+q_1=15859708705220447584252936093.
+```
+
+To retain the first `3^q0` packet through a second minus-one repetend, define
+
+```text
+c_m=(2^(3^(m-1))+1)/3^m.
+```
+
+Cubing `-1+3^m c_m` gives the exact recurrence
+
+```text
+c_(m+1)=c_m-3^m*c_m^2+3^(2m-1)*c_m^3.
+```
+
+Hence `c_(m+1)=c_m (mod 3^m)`: after precision `P`, this quotient is stable
+modulo `3^P` forever.  The level-two register has `v_3(M)=33`, so precision
+`P=q_0+33=90` simultaneously retains the first ternary bank and resolves the
+whole register conductor.  Exact CRT produces the odd multiplier
+
+```text
+k=376213925255524775706446580991916826376956379,
+T_1=3^(q_1-1)*k.
+```
+
+It satisfies both `k*c_(q_1)=1 (mod 3^90)` and
+`T_1=54 (mod 23)`, making `T_1=p(n_2)`.  If
+
+```text
+R_i=(2^T_i+1)/3^q_i,
+A=(R_1-1)/(2*3^q_0),
+```
+
+then an exact unbounded family is
+
+```text
+h_0=R_0+2^(T_0+1)*(A+2^(T_1+D-1)*L)
+ -> R_1+2^(T_1+D)*3^q_0*L
+ -> 1+2^D*3^(q_0+q_1)*L.
+```
+
+The [symbolic verifier](experiments/kontorovich/unit_double_repetend.py)
+reduces unmaterializable exponents modulo the exact Carmichael exponent of
+the register.  It checks 89 quotient-recurrence stages, the retained-bank
+congruence, bridge integrality, and the source, intermediate, and final
+register phases for `D=1,64`.  `T_1` has about `7.57*10^27` decimal digits;
+neither it nor the corresponding states are expanded.  Artifact SHA-256:
+`76ce98689eef74589937e05b3c3295844f49620ab8e2e9fb0a4889b5749a61f5`.
+Verifier SHA-256:
+`05dfc41a661089c68fa57cebbb850cc5109bec24803efda227c16825ede0453c`.
+
+This is a genuine second collision renewal, not a counterexample.  A third
+externally prescribed repetend can again be nested, but doing so merely
+pushes another changing binary address into the initial packet.  The live
+test is now sharper: can the final ordinary free packet `L` autonomously
+select and synthesize the third correction, so that one fixed initial address
+survives?  That is the self-writing case; another backward-preloaded tower is
+rejected by the ordinary-tail gate.
 
 ### 2026-07-22 05:05 EDT
 

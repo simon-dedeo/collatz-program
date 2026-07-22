@@ -1,0 +1,95 @@
+{
+  "bounds": {
+    "compiled_level": 2,
+    "final_gap_sizes": [
+      1,
+      64
+    ],
+    "source_cells": 1,
+    "symbolic_two_splash_families": 2
+  },
+  "claim_scope": "exact symbolic two-splash renewal at the finite sign-negative level-two unit ISA, with stable 3-adic quotient, affine-exponent, bridge-integrality, and register-phase audits; T1 is represented by a power expression and no infinite ordinary orbit is claimed",
+  "quotient_recurrence": "c_(m+1)=c_m-3^m*c_m^2+3^(2m-1)*c_m^3 for c_m=(2^(3^(m-1))+1)/3^m",
+  "records": [
+    {
+      "T0": "21457252954121782025753972361",
+      "T1_formula": "3^(15859708705220447584252936092)*376213925255524775706446580991916826376956379",
+      "checks": {
+        "all_three_cores_coprime_to_six_checked": true,
+        "all_three_register_phases_checked": true,
+        "bridge_integrality_checked": true,
+        "second_multiplier_odd_checked": true,
+        "second_repetend_retains_first_ternary_bank": true,
+        "second_target_affine_exponent_checked": true,
+        "stable_3_adic_quotient_checked": true,
+        "unbounded_positive_final_packet_family": true
+      },
+      "collision_sign": -1,
+      "final_gap_bits": 1,
+      "final_packet_residue_bits": 80,
+      "final_packet_residue_mod_register_sha256": "fdf752177ac49922624f18b782e0604bbb01ebe52a3cce33db9cbfd119561dde",
+      "level": 2,
+      "n1": "932924041483555740250172709",
+      "n2_formula": "(3^(15859708705220447584252936092)*376213925255524775706446580991916826376956379-54)/23",
+      "q0": 57,
+      "q1": "15859708705220447584252936093",
+      "register_3_adic_conductor": 33,
+      "second_multiplier_decimal_digits": 45,
+      "second_multiplier_k": "376213925255524775706446580991916826376956379",
+      "source_cells": 1,
+      "stable_quotient_precision": 90,
+      "stable_quotient_recurrence_checks": 89,
+      "stable_quotient_sha256": "0c43d71a7702d04f228f92c9710551f4bd95f42aa172f2991caac79ee2ffb921",
+      "symbolic_chain": {
+        "A": "(R1-1)/(2*3^q0)",
+        "K0": "A+2^(T1+D-1)*L",
+        "R0": "(2^T0+1)/3^q0",
+        "R1": "(2^T1+1)/3^q1",
+        "h0": "R0+2^(T0+1)*K0",
+        "h1": "R1+2^(T1+D)*3^q0*L",
+        "h2": "1+2^D*3^(q0+q1)*L"
+      }
+    },
+    {
+      "T0": "21457252954121782025753972361",
+      "T1_formula": "3^(15859708705220447584252936092)*376213925255524775706446580991916826376956379",
+      "checks": {
+        "all_three_cores_coprime_to_six_checked": true,
+        "all_three_register_phases_checked": true,
+        "bridge_integrality_checked": true,
+        "second_multiplier_odd_checked": true,
+        "second_repetend_retains_first_ternary_bank": true,
+        "second_target_affine_exponent_checked": true,
+        "stable_3_adic_quotient_checked": true,
+        "unbounded_positive_final_packet_family": true
+      },
+      "collision_sign": -1,
+      "final_gap_bits": 64,
+      "final_packet_residue_bits": 78,
+      "final_packet_residue_mod_register_sha256": "2240a55e341be4bbcebb4d8eaf8619c873556e8c87b4b062e96808df5b14a1dc",
+      "level": 2,
+      "n1": "932924041483555740250172709",
+      "n2_formula": "(3^(15859708705220447584252936092)*376213925255524775706446580991916826376956379-54)/23",
+      "q0": 57,
+      "q1": "15859708705220447584252936093",
+      "register_3_adic_conductor": 33,
+      "second_multiplier_decimal_digits": 45,
+      "second_multiplier_k": "376213925255524775706446580991916826376956379",
+      "source_cells": 1,
+      "stable_quotient_precision": 90,
+      "stable_quotient_recurrence_checks": 89,
+      "stable_quotient_sha256": "0c43d71a7702d04f228f92c9710551f4bd95f42aa172f2991caac79ee2ffb921",
+      "symbolic_chain": {
+        "A": "(R1-1)/(2*3^q0)",
+        "K0": "A+2^(T1+D-1)*L",
+        "R0": "(2^T0+1)/3^q0",
+        "R1": "(2^T1+1)/3^q1",
+        "h0": "R0+2^(T0+1)*K0",
+        "h1": "R1+2^(T1+D)*3^q0*L",
+        "h2": "1+2^D*3^(q0+q1)*L"
+      }
+    }
+  ],
+  "schema": "collatz-unit-double-repetend-v1",
+  "verifier_sha256": "1b41f7d49d8369419bd0665da3892962d5b82928f30f5758f2df2652f6ac7f4c"
+}
