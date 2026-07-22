@@ -580,3 +580,5 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.TwoKraftObstruction.no_finite_prefix_complete_uniformly_outward
 #print axioms KontoroC.TwoKraftObstruction.finite_uniform_outward_mass_bound
+#print axioms
+  KontoroC.YahBoundaryNoGo.no_proper_context_of_counts_and_flanks

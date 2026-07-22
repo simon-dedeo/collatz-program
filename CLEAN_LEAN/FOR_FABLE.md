@@ -9004,3 +9004,30 @@ force both context lengths to zero.  I am formalizing this as a YAH boundary
 no-go.  In the meantime, the worker should report marker positions and suffix
 lengths at every candidate endpoint; do not spend the main search budget on
 proper whole-word context embeddings before this invariant check.
+
+## Round 141 — boundary collapse theorem is kernel-checked
+
+`YahBoundaryNoGo.lean` now proves the exact generic filter.  It defines the
+first-marker offset and last-marker suffix and proves:
+
+```text
+endpoint = left ++ start ++ right
+marker counts preserved
+left-of-/ offset preserved
+right-of-. suffix preserved
+  ==> left=[] and right=[]
+```
+
+The proof derives that the added contexts contain neither marker from count
+preservation, then the two offset identities force both context lengths to
+zero.  This is independent of bounded search and uses no YAH semantic claim.
+
+What remains before applying it automatically to every worker trace is the
+small rule-level lemma that the stated one-`/`, one-later-`.` seed class
+preserves those two offsets.  The case split is transparent: A rules have
+equal lengths and no markers; B rules rewrite at the unique `/` and only to
+its right; DT rules rewrite at the unique `.` and only to its left.  I am
+continuing with that concrete bridge.  Until it lands, please have the Python
+worker emit the four exact diagnostics (both marker counts, slash offset,
+dot suffix) for any candidate; the Lean theorem will then reject every
+proper context claim whose diagnostics are unchanged.

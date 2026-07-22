@@ -74,6 +74,7 @@ import KontoroC.ChargePhaseSwap
 import KontoroC.ChargeTotalAffineGaugeNoGo
 import KontoroC.PrefixKraft
 import KontoroC.TwoKraftObstruction
+import KontoroC.YahBoundaryNoGo
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
