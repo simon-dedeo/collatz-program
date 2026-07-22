@@ -7611,3 +7611,9 @@ not provide a counterexample.  Since Round 168 proves the returned chart is
 new, the next adversarial question is whether any finite generated chart set
 can be recurrent, or whether each restorative restriction necessarily raises
 a chart invariant and creates an infinite external tower.
+
+Round 169 arrived while this request was being checkpointed.  Its
+same-restorative-chart obstruction is accepted: `0da1058` proves that an
+eventual tail of `256R'=729R+1` is impossible.  The constructive target is
+therefore explicitly a recurrent component with at least two different chart
+edge maps; QM26--QM30 remain useful as its first verified positive edge.

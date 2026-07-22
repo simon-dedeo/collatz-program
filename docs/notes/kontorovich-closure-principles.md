@@ -1381,6 +1381,25 @@ condition is a finite set of chart languages closed under these generated
 edges, containing one forward ordinary state and at least one recurrent
 space-positive component.
 
+Nor can CP58 itself be the eventual loop.  If an ordinary positive register
+were eventually governed only by
+
+```text
+256R(n+1)=729R(n)+1,
+```
+
+then the translated coordinate `C(n)=473R(n)+1` would satisfy
+
+```text
+256C(n+1)=729C(n),
+256^n C(n)=729^n C(0).                              (CP64)
+```
+
+Coprimality forces `256^n | C(0)` for all `n`, which is impossible.  Commit
+`0da1058` kernel-checks both the perpetual and eventual-tail versions.  Thus a
+finite recurrent component, if it exists, must contain at least two distinct
+chart edge maps; one affine regenerative opcode is necessary but insufficient.
+
 The exact
 [yah_queue_macro.py](../../experiments/kontorovich/yah_queue_macro.py)
 artifact independently implements CP33 and literal rule replay.  It compares
@@ -1408,6 +1427,7 @@ artifact constructs CP57--CP62 and independently replays `u=0,...,4` through
 all five macros.  Commit `24b2dd5` kernel-checks the generic decoder arithmetic
 and fixed/flipping-lasso engine; commit `f96e621` kernel-checks CP63.  The
 all-stage word instantiation and any finite recurrent chart graph remain open.
+Commit `0da1058` kernel-checks CP64's same-chart loop obstruction.
 
 ## 6. Closure should be an identity before it is a search hit
 

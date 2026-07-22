@@ -297,6 +297,10 @@ block is new, and companion commit `f96e621` proves its register lies strictly
 between consecutive original decoder registers.  Therefore it cannot be
 reindexed into the old chart.  The live goal is now a **finite recurrent chart
 graph**, not deeper restriction down an infinite externally selected tower.
+Companion commit `0da1058` additionally closes an eventual tail consisting
+only of this same update.  With `C=473R+1`, the recurrence becomes
+`256C'=729C`, forcing `256^n | C(0)` for every `n`.  A recurrent component
+must therefore contain at least two genuinely different chart edge maps.
 
 ### Canonical arithmetic compiler, with corrected scope
 
@@ -606,6 +610,8 @@ At this update, the newest pushed formalizer checkpoints are:
   still separate.
 - `f96e621`: the restorative output register lies strictly between consecutive
   original decoder registers and is therefore a genuinely disjoint chart.
+- `0da1058`: no positive ordinary register can eventually repeat only the
+  restorative affine update; a recurrent component needs multiple edge maps.
 
 Never edit or stage its live `KontoroC/*` files.  Continue to send exact
 formulas only through `docs/FOR_CLEAN_LEAN.md` and poll

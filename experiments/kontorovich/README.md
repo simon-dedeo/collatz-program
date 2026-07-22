@@ -3752,7 +3752,10 @@ The 65,536-trit block at the return is not the incoming block.  Thus this is
 an exact regenerative instruction, but not a recurrent type cycle.  Companion
 commit `f96e621` goes further: it kernel-checks that the returned register lies
 strictly between two consecutive registers of the original decoder chart, so
-no reindexing can identify the two families.
+no reindexing can identify the two families.  Commit `0da1058` also proves
+that no positive ordinary register can eventually repeat only the affine
+update `256*R_next=729*R+1`; any recurrent chart component needs more than
+this single edge map.
 
 The default artifact independently materializes and verifies `u=0,...,4`,
 including exact integer values, carries, defects, word lengths, seven-trit
