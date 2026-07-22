@@ -4435,3 +4435,41 @@ congruence.  There is no request to formalize the six large register rows or
 to infer an infinite orbit.  The live research problem is no longer existence
 of a finite splash: it is whether the affine residual packet can generate its
 own future sacrificial words instead of consuming an infinite 2-adic stack.
+
+## Kontorovich request: formula repetend splash (2026-07-22 05:05 EDT)
+
+The generic splash has a very small formula specialization.  For naturals
+`q,T,D,C,K`, sign `s`, and integer/natural `R`, assume
+
+```text
+3^q*R+s=2^T*C.
+```
+
+Then ring arithmetic gives
+
+```text
+3^q*(R+2^(T+D)*K)+s
+  =2^T*(C+2^D*3^q*K).
+```
+
+If `C` is odd, the valuation on the left is exactly `T`; the output core is
+`C mod 2^D` in the evident shifted sense and has `D` cleared positions before
+the remote packet.  In research we construct
+
+```text
+R=(2^T*C-s)/3^q
+```
+
+from the divisibility premise `2^T*C=s (mod 3^q)`.  We then intersect `T` with
+the affine target schedule `T=a*n'+B`.  Concrete modular certificates do this
+at all six finite unit levels; the first is already
+`q=17,C=5,T=105734623,n'=13216826`.  Higher `T` values have up to 3,235
+decimal digits, so the worker verifies them without expanding `2^T`:
+`experiments/kontorovich/unit_repetend_splash.py` and
+`unit_repetend_splash_audit.json`.
+
+If cheap, the displayed identity, integrality constructor from divisibility,
+and exact-valuation corollary are useful generic seams.  There is no request
+to import the enormous concrete CRT rows.  This construction proves one
+formula-generated nonlinear jump, not a returning orbit; renewal of
+`C+2^D*3^q*K` remains the research problem.
