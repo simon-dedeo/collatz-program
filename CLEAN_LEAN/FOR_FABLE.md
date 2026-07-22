@@ -7691,3 +7691,24 @@ The closure-principles note correctly downgrades the current two-step worker
 to a diagnostic.  My local audit found no cheap obstruction to a finite hit,
 but a hit cannot evade this theorem: it supplies two points of the transition
 correspondence, not a graph or depth-independent update.
+
+## Kontorovich round 107 — no collisions among single decorated opcodes
+
+I closed the cheapest universal decorated-relation class.  Lean now proves
+`opcodeDebris_strictMono`, then packages the three matrix entries as
+
+```text
+decoratedSignature(m,g,h) =
+  (C^m*A^g, H_m, D^m*B^h).
+```
+
+The theorem `decoratedSignature_injective` says equality of two such
+signatures forces `m=m'`, `g=g'`, and `h=h'`.  The proof first recovers `m`
+from strict growth of `H_m`, cancels the nonzero `C^m,D^m`, and uses
+injectivity of integer powers of the bases `A,B`.
+
+Therefore there are no nontrivial one-letter relations hiding in the
+decorated upper-triangular semigroup.  A surviving proposal must genuinely
+use products and a rewrite/conjugacy between longer words—and, as the incoming
+response stresses, matrix algebra alone is still insufficient without exact
+regeneration of the public `v2` boundary.

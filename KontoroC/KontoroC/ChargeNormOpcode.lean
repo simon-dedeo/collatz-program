@@ -132,6 +132,60 @@ theorem opcodeDebris_add (m n : ℕ) :
       rw [← opcodeDebris_factor m, ← opcodeDebris_factor n]
       ring
 
+theorem opcodeDebris_nonneg (m : ℕ) : 0 ≤ opcodeDebris m := by
+  induction m with
+  | zero => simp [opcodeDebris]
+  | succ n ih =>
+      simp only [opcodeDebris]
+      exact add_nonneg (pow_nonneg (by norm_num [C]) n)
+        (mul_nonneg (by norm_num [D]) ih)
+
+theorem opcodeDebris_lt_succ (m : ℕ) :
+    opcodeDebris m < opcodeDebris (m + 1) := by
+  simp only [opcodeDebris]
+  have hpow : (0 : ℤ) < C ^ m := pow_pos (by norm_num [C]) m
+  have hdebris := opcodeDebris_nonneg m
+  have hD : (1 : ℤ) ≤ D := by norm_num [D]
+  have hscale : 0 ≤ (D - 1) * opcodeDebris m :=
+    mul_nonneg (sub_nonneg.mpr hD) hdebris
+  nlinarith
+
+theorem opcodeDebris_strictMono : StrictMono opcodeDebris :=
+  strictMono_nat_of_lt_succ opcodeDebris_lt_succ
+
+/-- The three entries of the decorated upper-triangular opcode matrix. -/
+structure DecoratedSignature where
+  left : ℤ
+  debris : ℤ
+  right : ℤ
+  deriving DecidableEq
+
+def decoratedSignature (m g h : ℕ) : DecoratedSignature where
+  left := C ^ m * A ^ g
+  debris := opcodeDebris m
+  right := D ^ m * B ^ h
+
+/-- Distinct single decorated instructions never have the same matrix.
+Thus any nontrivial semigroup mechanism must be a longer rewrite or
+conjugacy, and must additionally preserve the public valuation boundary. -/
+theorem decoratedSignature_injective
+    {m g h m' g' h' : ℕ}
+    (hsig : decoratedSignature m g h = decoratedSignature m' g' h') :
+    m = m' ∧ g = g' ∧ h = h' := by
+  have hm : m = m' := opcodeDebris_strictMono.injective
+    (congrArg DecoratedSignature.debris hsig)
+  subst m'
+  have hleft := congrArg DecoratedSignature.left hsig
+  have hright := congrArg DecoratedSignature.right hsig
+  dsimp [decoratedSignature] at hleft hright
+  have hA : A ^ g = A ^ g' := by
+    exact mul_left_cancel₀ (pow_ne_zero m (by norm_num [C])) hleft
+  have hB : B ^ h = B ^ h' := by
+    exact mul_left_cancel₀ (pow_ne_zero m (by norm_num [D])) hright
+  exact ⟨rfl,
+    Int.pow_right_injective (by norm_num [A] : 1 < A.natAbs) hA,
+    Int.pow_right_injective (by norm_num [B] : 1 < B.natAbs) hB⟩
+
 /-- If both payload sides vanish modulo `n`, the collision forces the two
 opcode coefficients to agree modulo `n`. -/
 theorem collision_forces_coefficient_modEq

@@ -459,6 +459,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.ChargeNormOpcode.ninetyFive_dvd_opcode_of_norm_seven_register_collision
 #print axioms KontoroC.ChargeNormOpcode.opcodeDebris_factor
 #print axioms KontoroC.ChargeNormOpcode.opcodeDebris_add
+#print axioms KontoroC.ChargeNormOpcode.opcodeDebris_strictMono
+#print axioms KontoroC.ChargeNormOpcode.decoratedSignature_injective
 #print axioms KontoroC.ChargeNormOpcode.normalized_payload_recurrence
 #print axioms KontoroC.ChargeNormOpcode.normalized_payload_recurrence_powers
 #print axioms KontoroC.ChargeNormOpcode.accepted_step_normalized_payload_recurrence
