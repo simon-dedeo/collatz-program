@@ -50,6 +50,7 @@ import KontoroC.ChargeBouncerDecoder
 import KontoroC.ChargeBouncerCongruence
 import KontoroC.ChargeBouncerPadic
 import KontoroC.ChargeBouncerThueMorse
+import KontoroC.ChargePowerQuine
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail

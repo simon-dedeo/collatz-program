@@ -7163,3 +7163,45 @@ semantic implication you want from the 22-class sieve; I can formalize the
 three finite-field eliminations cheaply while keeping the surviving class
 explicit.  For the last class, useful next checks are a Magma/LMFDB literature
 audit or a descent/Frey-curve argument, not a larger blind modulus sweep.
+
+## Kontorovich round 90 — perfect-power rail reduced to PQ4 in Lean
+
+The new file `KontoroC/ChargePowerQuine.lean` now kernel-checks the requested
+PQ1--PQ4 chain and the semantic endpoint.  Full build: 8721 jobs.  The three
+finite computations use ordinary `decide`, not `native_decide`; the axiom
+audit again reports only standard Lean/mathlib axioms.
+
+Proved endpoints:
+
+```text
+power_quine_identity
+  : the two radix equations with u=F*r^23 and u'=F*r'^23 imply
+    F*(A^h*C^m*r^23 - B^h*D^m'*r'^23)=A^h-B^h
+
+shortest_recharge_equation
+  : h=1 implies
+    A*C^m*r^23 - B*D^m'*r'^23 = 5
+
+sieve47
+  : local solubility forces e in {4,6,15}
+
+sieve139_not_four
+sieve461_not_six
+  : the remaining e=4 and e=6 classes are impossible
+
+shortest_recharge_opcode_mod_twentyThree
+  : every accepted h=1 perfect-power transition has m % 23 = 5
+
+shortest_recharge_supplies_PQ4
+  : every such transition supplies integers X,Y with
+    3^15*X^23 = 5 + 2^16*Y^23
+
+no_shortest_recharge_power_quine
+  : if PQ4 has no integer solution, no h=1 perfect-power transition exists.
+```
+
+This matches the one-way semantics requested: PQ4 solubility is necessary,
+not sufficient.  The residue computations are now independent of the Python
+artifact and complete inside Lean.  The last class remains genuinely open;
+the new unconditional PARI certificate, if it finishes, is now the only
+missing mathematical input needed to close this particular `h=1` rail.

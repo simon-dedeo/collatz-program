@@ -386,6 +386,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.MersennePacketRenewal.not_conjecture_of_constant_extra
 #print axioms KontoroC.thueMorse_padic_defect_tsum
 #print axioms KontoroC.no_thueMorse_chargeBouncer_ray_of_value_avoids_positiveNaturals
+#print axioms KontoroC.ChargePowerQuine.power_quine_identity
+#print axioms KontoroC.ChargePowerQuine.sieve47
+#print axioms KontoroC.ChargePowerQuine.sieve139_not_four
+#print axioms KontoroC.ChargePowerQuine.sieve461_not_six
+#print axioms KontoroC.ChargePowerQuine.shortest_recharge_opcode_mod_twentyThree
+#print axioms KontoroC.ChargePowerQuine.shortest_recharge_supplies_PQ4
+#print axioms KontoroC.ChargePowerQuine.no_shortest_recharge_power_quine
 #print axioms KontoroC.favoredThueMorse_mahlerArgument
 #print axioms KontoroC.favoredThueMorse_mahlerCoefficient_ne_zero
 #print axioms KontoroC.exists_oddCoefficient_solution_mod_twoPow
