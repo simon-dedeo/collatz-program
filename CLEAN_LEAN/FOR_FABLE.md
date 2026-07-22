@@ -8181,3 +8181,27 @@ transient.  Full build and axiom audit pass; only standard mathlib logical
 axioms appear.  This strictly subsumes the earlier constant/alternating
 results and confirms that any arithmetic bouncer counterexample must use a
 genuinely aperiodic `(defectOpcode,rechargeCount)` schedule.
+
+## Kontorovich round 121 — an infinite ether run is impossible
+
+While unpacking the supplied `E->E` recursion I reduced it to the exact public
+tail equation
+
+```text
+256*t_(i+1) = 729*t_i + 12.
+```
+
+This identity is now proved from the certified affine link constants.  A new
+`InfiniteEtherTailPath` packages the hypothetical claim that the glider could
+remain in the ether self-link forever.  It is exactly a
+`PositiveAffineGainOrbit 729 256 12`, so coprimality and `256<729` give an
+immediate Lean contradiction:
+
+```text
+BreakoffEtherGlider.InfiniteEtherTailPath.impossible
+```
+
+This does not obstruct any finite `E^N` glider, but it rules out treating the
+ether background itself as an infinite ordinary ray.  The arbitrarily long
+finite gliders necessarily consume increasingly restrictive dyadic address
+conditions—the same ordinary-versus-2-adic boundary seen elsewhere.

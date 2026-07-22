@@ -5,6 +5,7 @@ Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.BreakoffFiniteSemantics
 import KontoroC.AffineBreakoffDelay
+import KontoroC.AffineQuotientNoGo
 
 /-!
 # The exact ether--defect--ether break-off macro
@@ -155,6 +156,40 @@ noncomputable def oneCell_literal_semantics (u : ℕ) {r H : ℕ}
       r H :=
   breakoffGateChain_literal_semantics (oneCellGates u) hstart hHpos hHodd
     hfactor (oneCellGates_linked u)
+
+/-! ## The ether self-link cannot persist forever -/
+
+/-- Eliminating the shared affine tail from one `E -> E` link gives its
+small public recurrence. -/
+theorem ether_tail_balance (z : ℕ) :
+    256 * etherToEther.secondTail z =
+      729 * etherToEther.firstTail z + 12 := by
+  simp [AffineBreakoffDelayLink.firstTail,
+    AffineBreakoffDelayLink.secondTail, etherToEther]
+  ring
+
+/-- An attempted infinite execution which remains in the ether self-link. -/
+structure InfiniteEtherTailPath where
+  tail : ℕ → ℕ
+  tail_pos : ∀ t, 0 < tail t
+  balance : ∀ t, 256 * tail (t + 1) = 729 * tail t + 12
+
+namespace InfiniteEtherTailPath
+
+def toPositiveAffineGainOrbit (g : InfiniteEtherTailPath) :
+    PositiveAffineGainOrbit 729 256 12 where
+  value := g.tail
+  value_pos := g.tail_pos
+  balance := g.balance
+
+/-- No ordinary natural tail can execute `E -> E` forever.  Finite ether
+runs therefore require ever deeper congruence restrictions; they do not
+define a hidden constant-ray counterexample. -/
+theorem impossible (g : InfiniteEtherTailPath) : False := by
+  exact g.toPositiveAffineGainOrbit.impossible (by norm_num) (by norm_num)
+    (by norm_num)
+
+end InfiniteEtherTailPath
 
 end BreakoffEtherGlider
 end KontoroC
