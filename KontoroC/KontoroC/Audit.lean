@@ -366,3 +366,4 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.exists_even_turnaroundExponent_of_cast_eight_eq_one
 #print axioms KontoroC.exists_parityCompatible_threePow_twoPow_crt
 #print axioms KontoroC.exists_oddCoefficient_dyadicWriter
+#print axioms KontoroC.twoPow_lt_threePow_of_even_exponent_gap

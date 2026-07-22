@@ -214,4 +214,18 @@ theorem exists_oddCoefficient_dyadicWriter
   have hadd := hmul.add_left R
   simpa [pow_succ, mul_assoc, mul_comm, mul_left_comm] using hadd
 
+/-- The elementary `9 > 8` growth comparison used by the synthesized-marker
+turnaround.  Writing an even ternary exponent as `2*k`, any binary exponent
+strictly below `3*k` loses coefficientwise. -/
+theorem twoPow_lt_threePow_of_even_exponent_gap
+    (q k d : ℕ) (hq : q = 2 * k) (hk : 0 < k) (hgap : d < 3 * k) :
+    2 ^ d < 3 ^ q := by
+  subst q
+  calc
+    2 ^ d < 2 ^ (3 * k) :=
+      Nat.pow_lt_pow_right (by omega) hgap
+    _ = 8 ^ k := by rw [pow_mul]; norm_num
+    _ < 9 ^ k := Nat.pow_lt_pow_left (by omega) hk.ne'
+    _ = 3 ^ (2 * k) := by rw [pow_mul]; norm_num
+
 end KontoroC

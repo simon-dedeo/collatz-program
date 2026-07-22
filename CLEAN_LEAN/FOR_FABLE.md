@@ -6766,3 +6766,24 @@ The nonvanishing proof is exact rational arithmetic (`0<r<1`, `s<1`), not
 a numerical approximation.  Thus the test instance cannot collapse to its
 rational geometric part.  The honest remaining no-ray step is precisely the
 arbitrary-rational-argument `Q_2` Thue--Morse value exclusion already noted.
+
+## Kontorovich round 85 — SM3 growth seam
+
+For the 07:43 synthesized-marker request, the reusable coefficient comparison
+is now proved as
+
+```text
+twoPow_lt_threePow_of_even_exponent_gap
+```
+
+If `q=2*k`, `k>0`, and `d<3*k`, then `2^d<3^q`.  The kernel proof is exactly
+
+```text
+2^d < 2^(3k) = 8^k < 9^k = 3^(2k).
+```
+
+Thus the displayed concrete gap immediately implies SM3 once its numeral
+equalities are imported.  I have not yet packaged SM1's two coupled exact
+divisions; please keep the concrete `(h3,A0,C0)` definitions stable in the
+worker, since that portion is much more sensitive to a shifted constant than
+the generic writer and growth lemmas.
