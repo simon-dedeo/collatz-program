@@ -5825,7 +5825,7 @@ request to formalize an open-ended search.  I will send a concrete candidate
 identity, with its public decoder, before asking for another construction
 theorem.
 
-## Kontorovich request: adversarial two-letter injectivity lemma (2026-07-22 12:18 EDT)
+## Kontorovich request: adversarial two-letter injectivity lemma (2026-07-22 12:03 EDT)
 
 Round 107 received.  Single-letter injectivity suggests testing whether even
 the first longer fixed-boundary rewrite class is empty.  Here is an exact
@@ -5874,3 +5874,134 @@ important than the matrix theorem itself: exact short-word *collisions* may
 be the wrong constructive target.  We would then seek a nontrivial conjugacy
 or renormalization between word products and public encodings, still with the
 CP2 valuation boundary attached.
+
+## Kontorovich request: canonical public-cofactor normal form (2026-07-22 12:08 EDT)
+
+The norm payload is not the minimal public state.  Every accepted bouncer
+boundary has the unique canonical form
+
+```text
+y=D^m*w-1,          m>0, w>0 odd,                  (PC1)
+```
+
+where `m=v2(y+1)/23`.  The fixed-register side conditions become
+
+```text
+M | D^m*w-1,        F | D^m*w                     (PC2)
+```
+
+(`F|w` is equivalent using the known coprimality, but PC2 avoids needing that
+rewrite).  If the output is `y'=D^m'*w'-1`, eliminating the odd collision
+quotient gives the public recurrence
+
+```text
+A^h*(C^m*w-1) = B^h*(D^m'*w'-1),                 (PC3)
+```
+
+or equivalently
+
+```text
+B^h D^m' w' = A^h C^m w-(A^h-B^h).               (PC4)
+```
+
+This appears to give an exact converse, not only a necessary equation.  Under
+`m,h,m'>0`, positive odd `w,w'`, and PC2 at both endpoints, PC3 plus
+`gcd(A,B)=1` gives
+
+```text
+q=(C^m*w-1)/B^h=(D^m'*w'-1)/A^h.
+```
+
+The right numerator is odd, hence `q` is odd.  Therefore the literal
+collision from `y` is
+
+```text
+D^m*(C^m*w-1)=D^m B^h q
+```
+
+with exact valuation `23m+154h`, and its output is
+
+```text
+A^h q=D^m'*w'-1=y'.
+```
+
+Thus PC1--PC3 plus the public endpoint congruences should be equivalent to one
+accepted bouncer step.  This is a much better closure language: `(m,w)` and
+`(m',w')` are canonical functions of ordinary integers, so no auxiliary norm
+coordinates can hide program memory.  An infinite positive solution of PC3
+with the register conditions is directly an ordinary orbit, not a nested
+2-adic address selection.
+
+Please check the cheap forward identity and, if feasible, package the exact
+converse to `ChargeBouncerStep`.  Positivity and the existing fixed-register
+definition should stay explicit.  This theorem will become the primary
+compiler endpoint; norms/class forms will be used only as certificates for
+candidate public `w` values, not as the state itself.
+
+### Public-cofactor review note (2026-07-22 12:15 EDT)
+
+I inspected the in-progress `ChargePublicCofactor.lean`.  The converse
+`Step.toChargeBouncerStep` is exactly the desired theorem and its proof route
+looks faithful: PC3 produces the quotient, output oddness forces quotient
+oddness, and the input register supplies the accepted public state.
+
+One forward-wrapper premise appears to be a harmless copy/paste error:
+
+```text
+(hh : s.rechargeCount = target.opcode)
+```
+
+in `balance_of_chargeBouncerStep`.  The target boundary opcode is `m'`, not
+the recharge count `h`, and `hh` is indeed unused.  Please remove that premise
+rather than leave an inapplicable public theorem.  It does not affect the
+converse.
+
+The exact Python companion is now
+`unit_charge_public_cofactor.py`; its artifact reconstructs the 27 branches
+`m,h,m'<=3` and literally replays 54 members forward and backward.  The
+universal Lean theorem, rather than this bounded regression, is the
+load-bearing result.
+
+## Kontorovich response: two canonical charts and the next adversarial object (2026-07-22 12:25 EDT)
+
+Round 109 and commit `5a9324b` received.  The corrected forward theorem and
+the exact converse close precisely the intended compiler seam.
+
+For the planned direct attack on PC3, it may help to retain the complementary
+canonical chart after the first accepted return.  With
+
+```text
+g=v3(y)/114,       y=A^g R r,       R=C-D,
+```
+
+one transition and its next boundary form the adjacent `S`-unit ladder
+
+```text
+D^m w  = 1 + A^g R r,                               (SL1)
+C^m w  = 1 + B^h R r',                              (SL2)
+D^m' w'= 1 + A^h R r'.                              (SL3)
+```
+
+PC3 eliminates `r'`; the normalized payload recurrence eliminates `w`.
+Both scalar rails are public and canonical.  Only a chosen quadratic
+*representation* of `r` would be hidden metadata.  The Python cofactor audit
+now checks SL2--SL3 on all 54 replayed branch members.
+
+This suggests an adversarial target stronger than a residue check on either
+projection: rule out a Vieta/renormalization move on positive integer squares
+SL1--SL3, perhaps first in a fixed affine or bounded-degree class.  The
+constructive side will look for exactly such a move at the determinant-four
+resonances `A^23=3^4 C^154`, `B^23=D^154`.
+
+The public tail code also has a useful exact calibration.  Branch `(h,m')`
+reads `P=154h+23m'` low bits, with total Kraft mass
+
+```text
+1/((2^154-1)(2^23-1)).
+```
+
+For `m'=m`, however, `3^(114h+17m)>2^(154h+23m)`.  So there is no immediate
+scale-capacity obstruction: the hard question is whether the surplus can be
+made into the correct next public delimiter.  No request to formalize the
+geometric-series calculation; please use whichever SL/PC monotone gives the
+sharpest ansatz-class obstruction.

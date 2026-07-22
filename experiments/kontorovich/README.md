@@ -2441,6 +2441,84 @@ selftest passes, but its prime/form search emitter is deliberately not being
 run as a large job: a hit would be only a finite typed chain, not the required
 depth-independent public update.
 
+## Canonical public-cofactor transducer
+
+`unit_charge_public_cofactor.py` removes the noncanonical norm coordinates
+from the programming interface.  At defect opcode `m`, every legal public
+state has one unique presentation
+
+```text
+y=D^m*w-1,
+w=w_m+S*t,       S=2*F*M,       t>=0,
+```
+
+where `w_m` is the least positive odd solution of
+
+```text
+F|w_m,       D^m*w_m=1 (mod M).
+```
+
+For one branch `(m,h,m')`, exact collision/output elimination gives
+
+```text
+A^h(C^m*w-1)=B^h(D^m'*w'-1).
+```
+
+Substituting the canonical bases produces the literal mixed-radix
+instruction
+
+```text
+2^(154h+23m')*t'=3^(114h+17m)*t+kappa,
+t=rho+2^P*u  ->  t'=sigma+3^Q*u.
+```
+
+The state `(m,t)` is uniquely decoded from the ordinary integer; it is not a
+chosen certificate coordinate.  Positive odd endpoint cofactors make the
+collision quotient odd, so the equality recovers the exact valuation and
+actual bouncer output.  The bounded artifact reconstructs every branch with
+`1<=m,h,m'<=3`, replays two members per branch through the public bouncer and
+its reverse decoder, and checks 54 exact transitions.  At each tested control
+state it also checks all 36 pairs of source cylinders disjoint.  The complete
+positive-opcode code has the exact geometric Kraft mass
+
+```text
+sum_(h,m'>=1) 2^-(154h+23m')
+  = 1/((2^154-1)(2^23-1)),
+```
+
+so one instruction consumes at least 177 low binary bits and the accepted
+language is extraordinarily sparse.  This does not make closure impossible:
+when `m'=m`, the exact output coefficient satisfies
+`3^(114h+17m)>2^(154h+23m)`, leaving scale with which a self-writer could
+replenish its address.  The artifact supplies no
+invariant tail language or infinite orbit.  That invariant language—an exact
+binary-reader/ternary-writer feedback—is now the constructive target.
+Each replay also exposes the complementary canonical ternary rail
+`r'=q/(C-D)` and checks the two `S`-unit ladder faces
+
+```text
+C^m*w=1+B^h(C-D)r',
+D^m'*w'=1+A^h(C-D)r'.
+```
+
+The cofactor recurrence and normalized payload recurrence are therefore two
+projections of one exact square; a future renormalization must return the
+whole square, not merely preserve one arithmetic representation.
+Lean commit `5a9324b` independently proves coordinate uniqueness, the
+converse from the public balance to a literal `ChargeBouncerStep`, and the
+forward balance from every accepted step in these coordinates.
+
+```bash
+PYTHONPATH=. python3 unit_charge_public_cofactor.py selftest
+PYTHONPATH=. python3 unit_charge_public_cofactor.py build unit_charge_public_cofactor_audit.json
+PYTHONPATH=. python3 unit_charge_public_cofactor.py verify unit_charge_public_cofactor_audit.json
+```
+
+```text
+artifact SHA-256      95b5c6164a4c5f681f27b8fc98c59b7e3286c8f0e1b21ec1d473b52fef0e6f0a
+verifier file SHA-256 5a723c9e29b15ee3d6b8c37aca8e54b444a0acd9e0a0b115bff34d8deca6c9bf
+```
+
 ## Three low-description aperiodic bouncer clocks
 
 `unit_charge_morphic.py` tests whether merely replacing a fixed opcode by a

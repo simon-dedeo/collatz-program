@@ -107,6 +107,107 @@ Hence the entry ticket for a new lane is now **automatic next-opcode
 generation**.  Representation searches which leave CP2 random are diagnostic
 only and should not consume a large computation budget.
 
+### 3.1 The canonical public-cofactor machine
+
+There is a more fundamental state than the normalized norm payload.  Every
+accepted boundary has a unique expression
+
+```text
+y=D^m w-1,          m>0, w>0 odd,                  (PC1)
+```
+
+because `23m=v2(y+1)`.  With `M=3^33(C-D)`, the fixed public register is
+exactly the pair of endpoint conditions
+
+```text
+M | D^m w-1,        F | D^m w.                    (PC2)
+```
+
+Write the next state as `y'=D^m' w'-1`.  Eliminating the odd collision
+quotient gives
+
+```text
+A^h(C^m w-1)=B^h(D^m' w'-1),                      (PC3)
+```
+
+or
+
+```text
+B^h D^m' w'=A^h C^m w-(A^h-B^h).                 (PC4)
+```
+
+This is not merely another necessary Diophantine equation.  For positive
+`m,h,m'`, odd positive `w,w'`, and PC2 at both endpoints, coprimality of
+`A` and `B` makes
+
+```text
+q=(C^m w-1)/B^h=(D^m' w'-1)/A^h
+```
+
+an odd integer.  The actual collision is then
+
+```text
+D^m(C^m w-1)=D^m B^h q,
+```
+
+so its valuation is exactly `23m+154h`, and its actual output is
+`A^h q=D^m'w'-1`.  Lean commit `5a9324b` proves that PC1--PC3 are an exact
+public-coordinate presentation of one bouncer step.  It proves coordinate
+uniqueness, builds the positive odd quotient by coprime divisibility,
+reconstructs a literal accepted `ChargeBouncerStep`, and proves the forward
+balance for every accepted step presented in these coordinates.
+
+This should now be the primary compiler language.  A closure ansatz is one
+finite formula for positive odd `W(s)` and opcode updates
+`(m,h,s)->(m',f(s))` satisfying PC2--PC3 identically.  Norms and class forms
+may certify candidate values of `w`; their noncanonical coordinates no longer
+pretend to be state.  An infinite forward solution of this recurrence starts
+from the one ordinary integer `D^m w-1`, so the ordinary-versus-2-adic gate is
+visible rather than deferred.
+
+### 3.2 Two canonical charts form an `S`-unit ladder
+
+After the first accepted return, the same public integer also has a canonical
+ternary chart.  Put
+
+```text
+g=v3(y)/114,       y=A^g R r,       R=C-D.
+```
+
+Here `g` and the scalar `r` are functions of `y`; only a later *representation*
+of `r` as a quadratic form would be noncanonical.  Combining this chart with
+PC1 turns one transition into two adjacent unit equations:
+
+```text
+D^m w = 1 + A^g R r,                              (SL1)
+C^m w = 1 + B^h R r'.                             (SL2)
+```
+
+The next state supplies the next copy of SL1,
+
+```text
+D^m' w' = 1 + A^h R r'.                           (SL3)
+```
+
+Thus an orbit is an alternating positive `S`-unit ladder
+
+```text
+(g,r) --SL1-- (m,w) --SL2-- (h,r') --SL3-- (m',w') ...
+```
+
+PC3 is obtained by eliminating `r'`; CP1 is obtained by eliminating `w`.
+They are complementary projections of the same square.  This is a better
+spatial realization of Simon's splash picture than either projection alone:
+`w` is the sacrificial binary-address rail, `r'` is the surviving ternary
+rail, and closure means that the next square is produced by the previous one.
+
+The constructive algebraic target can now be stated as a Vieta-, cluster-, or
+renormalization-style move on whole positive integer squares SL1--SL3.  Such a
+move must preserve the canonical public charts; moving among multiple norm
+representations of a fixed `r` still does nothing.  The determinant-four
+resonances `A^23=3^4 C^154` and `B^23=D^154` are the obvious scale at which to
+look for a nontrivial square-to-square renormalization.
+
 ## 4. Opcode chains form an exact affine semigroup
 
 Simon suggested chaining opcodes.  The fundamental version is to compose the
@@ -137,6 +238,23 @@ This turns opcode chaining into three theorem-shaped searches:
   `M_(sigma(W)) E_(n+1) = E_n M_W`;
 - find an invariant family of dyadic boundary cylinders on which the matrix
   product and CP2 agree automatically.
+
+The independent Lean audit has already removed the smallest collision
+targets.  A single decorated matrix uniquely recovers its three opcodes.  For
+two legal letters with fixed initial/final recharge phases, the diagonal
+entries recover total defect length and the intermediate recharge.  At those
+fixed values, moving one defect cell from the second letter to the first
+changes the off-diagonal entry by
+
+```text
+(A^h-B^h) C^e D^i > 0.
+```
+
+Thus fixed-boundary one- and two-letter products collide only trivially.
+Longer equality searches remain logically open but are no longer the leading
+constructive bet.  A conjugacy or renormalization can map *different* matrix
+products through different public encodings; that is the more appropriate
+self-reproduction target.
 
 There is a particularly clean backbone.  Remove recharge and define
 
@@ -190,6 +308,35 @@ useful kill test:
 - positive outward drift is not repayment.  The bouncer already grows; its
   one-step witness shows that scale can grow while synchronization dies.
 
+The canonical cofactor language makes the bill quantitative.  At fixed
+public control `m`, a branch `(h,m')` reads
+
+```text
+P=154h+23m'
+```
+
+low binary bits of its canonical tail.  Exact valuation decoding makes
+distinct branch cylinders prefix-disjoint, and their Kraft mass is
+
+```text
+sum_(h,m'>=1) 2^-(154h+23m')
+  = 1/((2^154-1)(2^23-1)).
+```
+
+The shortest instruction therefore costs 177 bits.  This explains why
+ordinary sampling almost never sees the language, but it is not itself a
+no-go.  On a branch with `m'=m`, the surviving-tail coefficient obeys the
+exact favorable inequality
+
+```text
+3^(114h+17m) > 2^(154h+23m),
+```
+
+because `3^114>2^154` and `3^17>2^23`.  The hardware has scale capacity to
+replace the address it consumes.  The missing result is *semantic capacity*:
+turning that extra scale into the particular next low-bit delimiter rather
+than uncontrolled carry noise.
+
 This is the arithmetic version of a self-delimiting tag program.  The natural
 machine is mixed-radix: it reads a low binary prefix through `v2` and writes a
 ternary prefix through the large factor `3^(114h)`.  A plausible closure
@@ -231,6 +378,12 @@ retained as a diagnostic, not promoted to the main search.
 
 The next fundamental attacks are:
 
+- **Canonical cofactor invariant languages.**  Work in the public `(m,t)`
+  transducer from PC1--PC4.  Seek finitely described sets `L_m` with every
+  `t in L_m` decoding a legal branch and landing in `L_m'`.  The first target
+  is a two-stack/mixed-radix encoding in which the `2^P` source cylinder pops
+  a binary instruction and the `3^Q` output coefficient supplies the remote
+  write.  This is now prior to any norm-representation condition.
 - **Decorated-semigroup relations.**  Classify short relations or
   conjugacies among the `M(m,g,h)`, after quotienting the exact CP5 defect
   backbone.  A survivor must include the CP2 boundary cylinders, not merely
