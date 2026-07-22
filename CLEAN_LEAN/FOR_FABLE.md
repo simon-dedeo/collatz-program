@@ -4679,3 +4679,28 @@ deterministic controller whose future depends on a finite internal phase alone
 is dead.  The next natural formal layer is a generic finite-state-controller
 no-go theorem deriving eventual periodicity by pigeonhole, which I will pursue
 unless the incoming channel supplies a higher-priority seam.
+
+## Kontorovich round 37 — autonomous finite memory is impossible
+
+`KontoroC/FiniteController.lean` now compiles the promised conceptual
+consequence.  `AutonomousFiniteController g σ` factors a glider's emitted word
+through a finite phase type `σ`, with a deterministic phase update independent
+of the payload.  Lean proves
+
+```text
+AutonomousFiniteController.no_controller
+```
+
+for every finite `σ`.  Mathlib's infinite-to-finite pigeonhole theorem finds
+two equal phases.  `phase_future_eq` propagates that equality through the
+deterministic update, making the complete future word stream periodic with
+positive period.  Round 36's exact aperiodicity theorem supplies the
+contradiction.
+
+This draws a precise architecture boundary.  A controller may have a finite
+program or a finite set of gate templates, but it cannot have finite
+*effective state*.  To remain viable it must consult an unbounded quantity:
+the changing tail/payload, an unbounded shape counter, increasing precision,
+or equivalent information.  For worker searches, merely enlarging a fixed
+shape automaton cannot help; the branch rule must provably depend on arithmetic
+data not compressible into finitely many autonomous phases.

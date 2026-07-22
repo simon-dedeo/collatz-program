@@ -11,6 +11,7 @@ import KontoroC.Glider
 import KontoroC.EventualGlider
 import KontoroC.PeriodicItinerary
 import KontoroC.AperiodicGlider
+import KontoroC.FiniteController
 import KontoroC.FiniteCompiler
 import KontoroC.PathCertificate
 import KontoroC.PacketTiming

@@ -38,6 +38,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.MacroGlider.segment_legal_and_endpoint
 #print axioms KontoroC.MacroGlider.not_periodic_words
 #print axioms KontoroC.MacroGlider.not_eventually_periodic_words
+#print axioms KontoroC.AutonomousFiniteController.phase_future_eq
+#print axioms KontoroC.AutonomousFiniteController.impossible
+#print axioms KontoroC.AutonomousFiniteController.no_controller
 #print axioms KontoroC.affineOddFactor_iff_wordLegal
 #print axioms KontoroC.affineOddFactor_iff_finalCongruence
 #print axioms KontoroC.finalCongruence_iff_wordLegal
