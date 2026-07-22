@@ -1792,6 +1792,51 @@ verifier file SHA-256 c823867bccbc2001c4a3d3c58d4dbd32741f362eced027ed16a5fb7cbf
 combined source SHA   8103734360b9d601a3f2032a283bed30fc84ae3930eb661cf564e3c53cf0ccfb
 ```
 
+## Zero-extension audit for the charge bouncer
+
+`unit_charge_zero_lift.py` tests the exact seam between a finite bouncer word
+and one more block.  If the compiled word is
+
+```text
+K=R+2^P*t -> K'=S+3^Q*t
+```
+
+then linking a next input progression restricts the old tail to
+`t=rho+2^E*u`.  The case `rho=0` says that the current canonical output `S`
+already belongs to the next block's input progression, so the least ordinary
+address survives one more extension unchanged.  Lean proves that an ordinary
+infinite realization would require this zero case eventually.
+
+```bash
+python3 unit_charge_zero_lift.py selftest
+python3 unit_charge_zero_lift.py build unit_charge_zero_lift_audit.json
+python3 unit_charge_zero_lift.py verify unit_charge_zero_lift_audit.json
+```
+
+The artifact exhausts all bouncer words through depth four over the 16
+opcodes `(m,h)` with `1<=m,h<=4`, and tests every next opcode:
+
+```text
+prefixes by depth:          16, 256, 4,096, 65,536
+extension tests by depth:  256, 4,096, 65,536, 1,048,576
+total prefixes:            69,904
+total extension tests:     1,118,464
+zero extension lifts:      0
+```
+
+The closest nonlift is the word
+`[(1,3),(3,3),(4,1),(4,2)]` followed by `(1,1)`; it shares 16 low
+bits while the next input requires 177.  The maximum terminal public
+valuation by depth is `3,9,13,16`.  This is an exact finite grammar audit,
+not an all-depth nonzero-lift theorem, and the growing valuations rule out
+claiming a simple fixed-modulus mismatch from these data.
+
+```text
+artifact SHA-256      1c6f863dbe2c83adda3821bcd7f1f082c2e08e0880b708630640196af3568988
+verifier file SHA-256 b71feafab1c56e80b27e8e006eae640056831a249ab9cb427113e52526bbd33f
+combined source SHA   89c9042bec42ee3662f947d738262512518ce2a92134fe99a3d8058476e80da6
+```
+
 ## Sign-alternating capped-splash hierarchy
 
 `breakoff_renormalization.py` iterates the super-ether construction as exact

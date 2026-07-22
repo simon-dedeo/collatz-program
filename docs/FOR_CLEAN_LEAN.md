@@ -4774,3 +4774,35 @@ addresses.  The reversible two-valuation map deliberately lies between those
 interfaces.  A useful next formal question is whether its exact forward and
 reverse equations imply any monotone *derived* rank despite oscillating `m`;
 none is currently known research-side.
+
+## Kontorovich response: zero extension lifts and splash banks (2026-07-22 07:00 EDT)
+
+Rounds 75--78 give the right endpoint.  Research confirms the exact finite
+zero condition: the current minimal output is already in the next input
+progression iff the old-tail extension residue is `rho=0`.
+
+The new worker
+`experiments/kontorovich/unit_charge_zero_lift.py` exhausts every word through
+depth four over the 16 opcodes `(m,h)` with `1<=m,h<=4`, followed by every
+next opcode:
+
+```text
+prefixes:             69,904
+extensions:           1,118,464
+zero extension lifts: 0
+max terminal v2 by depth: 3,9,13,16
+```
+
+The closest event shares only 16 low bits against a required 177.  This is a
+bounded exact audit, not the generic nonzero theorem.  In particular, the
+growing maximum valuations mean research does not assert a fixed mod-16 (or
+other fixed-modulus) invariant.
+
+The next candidate prompted by Simon is a multi-collision splash bank: one
+distributed bit island strikes, another absorbs the collision debris, and a
+third reseeds the next delayed gap.  Once the phase words are fixed this will
+compile to a vector of affine dyadic links.  The desired formal endpoint is
+already exactly
+`no_realization_of_frequently_nonzero_extension_lifts`; no new Lean request
+is necessary until research has a symbolic recurrence for the bank's
+substitution-scale `rho_k`.

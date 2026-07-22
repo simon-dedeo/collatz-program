@@ -1,0 +1,62 @@
+{
+  "bounds": {
+    "extension_tests_by_depth": [
+      256,
+      4096,
+      65536,
+      1048576
+    ],
+    "opcode_h_max": 4,
+    "opcode_h_min": 1,
+    "opcode_m_max": 4,
+    "opcode_m_min": 1,
+    "opcodes": 16,
+    "prefixes_by_depth": [
+      16,
+      256,
+      4096,
+      65536
+    ],
+    "total_extension_tests": 1118464,
+    "total_prefixes": 69904,
+    "word_depth": 4
+  },
+  "claim_scope": "exact exhaustive zero-extension test for all bouncer words and next blocks inside stated opcode/depth bounds; not an all-depth positive-lift theorem",
+  "closest_dyadic_nonlift": {
+    "next_opcode": [
+      1,
+      1
+    ],
+    "prefix_word": [
+      [
+        1,
+        3
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        2
+      ]
+    ],
+    "required_input_bits": 177,
+    "shared_low_bits": 16,
+    "terminal_public_valuation": 16
+  },
+  "maximum_terminal_public_valuation_by_depth": [
+    3,
+    9,
+    13,
+    16
+  ],
+  "schema": "collatz-unit-charge-zero-lift-v1",
+  "verifier_sha256": "89c9042bec42ee3662f947d738262512518ce2a92134fe99a3d8058476e80da6",
+  "zero_extension_lift_count": 0,
+  "zero_extension_lifts": []
+}

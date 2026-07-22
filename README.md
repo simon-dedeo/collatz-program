@@ -313,6 +313,13 @@ identically `x`.
   transitions finds no canonical-address stabilization.  Search should now
   target an arithmetic payload-generated counter law, not merely paste a
   familiar aperiodic word over two fixed opcodes.
+  The ordinary-ray seam is sharper than that finite test: Lean commits
+  `af1a934`/`ba121d9` prove that a realizing natural would force the canonical
+  extension lift `rho_k` to vanish eventually.  Thus it is enough to prove
+  `rho_k!=0` infinitely often; universal positivity is unnecessary.  An exact
+  bounded audit finds no zero lift among 1,118,464 extensions of all words of
+  depth at most four over the 16 opcodes `(m,h)` with `1<=m,h<=4`.  This is
+  evidence about the compiler seam, not an all-depth theorem.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -363,6 +370,18 @@ identically `x`.
   among odd 2-adic payloads: a valid tape is necessarily sparse, but its
   unbounded arithmetic contents can supply the required nonautonomous state.
   Simon's “splash the gap” suggestion also repairs the apparent missing
+  collision mechanism in a more ambitious form.  Treat a long zero gap as a
+  delay line and place several nonlocal bit islands across the full digit span:
+  the first island triggers the main collision, later islands arrive as timed
+  carry catchers which absorb its debris, and a surviving island writes the
+  spacing and residues of the next catcher bank.  This is a three-phase
+  **strike--scrub--reseed splash code**, not a single local rewrite.  Because a
+  fixed finite valuation word is affine, any proposed code can be synthesized
+  by simultaneous dyadic congruences and then checked exactly.  The hard
+  obligation is regeneration: the post-collision catcher vector must lie in
+  the same parameterized family with a larger delay, while retaining an
+  ordinary positive tail.  This explicitly combines Simon's programming-
+  language/nonlocality idea with Kontorovich's spatial delay-line picture.
   instructions: an odd intermediate gap has a parity-dual terminal collision,
   and a one-bit outgoing gap is a legal zero-delay rail.  The even cleanup and
   odd catcher families have exact Kraft masses `1/3` and `2/3`, so every
@@ -479,6 +498,7 @@ identically `x`.
 | Fixed or eventually periodic break-off opcodes | Closed for the autonomous router subclass.  Lean commit `a1a5fd0` proves that every infinite growing `BreakoffCounterOrbit` emits macro-words `[1]^r[2,1]` and that neither its rail lengths nor its collision opcodes can be eventually periodic.  The six-class opcode acceptor is therefore syntax, not a cyclic generator; an infinite witness must encode unbounded aperiodic information. | [`BreakoffCounter.lean`](KontoroC/KontoroC/BreakoffCounter.lean) |
 | Fixed defect opcode in the charge bouncer | Closed by Lean commit `5633c44`.  For a fixed affine gain law `B*Z_(t+1)=A*Z_t+C` with coprime `A,B`, `1<B`, and `A>B`, the fixed-point defect obeys `B*delta_(t+1)=A*delta_t`; hence every `B^n` divides one positive `delta_0`, impossible.  The concrete theorem applies to every fixed `m`.  It does not apply to the live bouncer, where `m` may decrease or oscillate and each block switches from its `m`-defect law to `h-1` homogeneous backgrounds. | [`AffineQuotientNoGo.lean`](KontoroC/KontoroC/AffineQuotientNoGo.lean) |
 | Three named aperiodic two-opcode bouncer clocks | No canonical ordinary address stabilizes in the exact finite grammar: Thue--Morse, period-doubling, and Fibonacci control words; every injective coding of `0,1` by the 16 pairs `(m,h)` with `1<=m,h<=4`; all 34,560 prefixes through depth 48.  The closest pair shares 33,128 low bits but changes from a 33,386-bit address to a 34,092-bit address.  This closes only these named clocks and bounds, not payload-generated, larger-alphabet, or general morphic bouncers. | [`unit_charge_morphic_audit.json`](experiments/kontorovich/unit_charge_morphic_audit.json) |
+| Bounded zero-extension charge-bouncer tree | Every word of depths `1..4` over the 16 opcodes `(m,h)` with `1<=m,h<=4`, followed by every one of the 16 possible next blocks, was compiled exactly: 69,904 prefixes and 1,118,464 extensions.  Zero canonical lifts found: none.  The closest nonlift agrees in only 16 of 177 required low bits, while the maximum terminal public valuations by depth are `3,9,13,16`; this does not imply a fixed-modulus obstruction or an all-depth theorem. | [`unit_charge_zero_lift_audit.json`](experiments/kontorovich/unit_charge_zero_lift_audit.json) |
 | Standard two-rail schedule `[1]^r[2,2,3]` | Closed at all levels.  Exact affine-family intersection compiles 247 outward rounds from a 10,040-digit seed, but depth 248 changes the seed and exact continuation reaches `1`.  Lean reduces every infinite realization to `2^(r+8)P'=3^(r+3)P+69` and its sole 2-adic Tschakaloff candidate.  Väänänen--Wallisser's 1989 theorem applies at `q=3/2,p=2,alpha=4096/6561` and proves that candidate irrational, so it cannot be an ordinary payload.  This does not close branching or other aperiodic splash programs. | [Finite certificate](experiments/kontorovich/two_rail_chain_247.json), [theorem audit](docs/notes/standard-two-rail-theta.md) |
 | Fixed affine or autonomous finite-state return | Closed as an outward bouncer.  Lean commits `b741a14`/`26f3584` prove fixed affine circuits and every eventually periodic macro-word schedule impossible; `560fcc5` proves an autonomous controller with any finite effective state eventually enters that obstruction.  Coefficientwise, a repeated word would require natural slope `m=3^N/2^S` with `S>0`.  Payload-dependent branching and unbounded shape counters remain open. | [Delocalized tag-ISA note](docs/notes/kontorovich-delocalized-isa.md) |
 | Canonical zero-preload two-rail graph | Exactly checked 128,000 gate shapes in the stated box (`r<=40`, `s<=4`, collision extras `<=4`, output gap `<=41`): 98,760 canonical members are outward, 25 canonical links exist, and the longest linked chain has two gates. Its seed `45247` reaches `1`; a wider targeted audit finds no third canonical gate for that endpoint. This rejects only index-zero links, not branching affine-tail controllers. | [`two_rail_transducer_audit.json`](experiments/kontorovich/two_rail_transducer_audit.json) |
@@ -527,6 +547,7 @@ positive integer and its claimed behavior are machine-checked.
 | Autonomous `-5` charge--discharge register | Pairing a length-`N` sign-negative level-two unit instruction with the one-cell instruction gives fixed debris `3^57+2^77=5D`.  The divisor `D=314038802961906688057474567` is coprime to the register stride, so one exact packet class can be divided by `D` and is preserved.  The quotient ISA is `G=2^(23N+3)g -> (3^(17N+97)g-5)/2^128`; every branch is strictly outward because `3^(17N+97)>2^(23N+131)`.  The artifact constructs branches `N=1..32` twice—directly by CRT and by restricted composition—and checks 128 members through 256 actual unit-macro replays.  An infinite successful positive orbit would refute Collatz; none is supplied. | [`unit_charge_discharge_audit.json`](experiments/kontorovich/unit_charge_discharge_audit.json) |
 | All-depth self-regenerating `-5` splash | Composing any depth-`j` charge branch with its one-cell branch, then quotienting by `D_j=3^(114*2^j)+2^(154*2^j)`, reproduces collision constant `-5` with offsets `d_(j+1)=2d_j+17`, `e_(j+1)=2e_j+26`.  Coprimality with the fixed 80-bit stride holds for every `j`: a failed prime would require `2^(j+1)<M`, so only `j=0..78` can fail, and all 79 exact gcds are one.  The artifact materializes eight levels, compares 64 direct/composed branches, checks 128 members, and recursively expands canonical members through 510 original unit macros.  Infinite nesting is not a seed because every positive child lift strictly enlarges its ancestor packet; fixed-level autonomous orbits remain open. | [`unit_charge_hierarchy_audit.json`](experiments/kontorovich/unit_charge_hierarchy_audit.json) |
 | Autonomous reversible fixed-form valuation bouncer | The rational one-cell fixed point clears integrally: with `F=(3^114-2^154)/5` and `Z=F*G-2^26`, one background cell is exactly `2^154 Z'=3^114 Z`.  At a defect boundary `Z=2^26y`, the state reads `m=v2(y+1)/23` and `h=(v2(3^(17m)(y+1)-2^(23m))-23m)/154`, then returns `y'=3^(114h)*oddpart(3^(17m)(y+1)-2^(23m))`.  The output recovers `h=v3(y')/114`, then `m=v3(1+2^(154h)q)/17` and the unique predecessor; the opcode matrix has determinant four.  The artifact checks all 64 `(m,h,m')` families with `m,m'<=4,h<=4`, 128 forward/reverse members, 320 charge macros, and 640 original unit macros.  Any infinite accepted positive `y`-orbit refutes Collatz; none is supplied. | [`unit_charge_bouncer_audit.json`](experiments/kontorovich/unit_charge_bouncer_audit.json) |
+| Ordinary-ray extension-lift criterion | Lean commits `af1a934`/`ba121d9` prove that if nested dyadic compiler cylinders are realized by one ordinary natural, their extension residues are eventually zero.  Therefore nonzero residues at arbitrarily late scales exclude an ordinary realization.  This is a no-ray criterion for a proposed schedule, not a counterexample and not yet a theorem that the bouncer's residues are frequently nonzero. | [`DispatcherBoundary.lean`](KontoroC/KontoroC/DispatcherBoundary.lean) |
 | Constant-rate unit-counter schedules | For any of the six certified unit levels, every `n_0>=1`, and every fixed integer `k>=1`, the schedule `n_t=n_0+kt` has the unique 2-adic initial core `-s*3^(-q(n_0)) F(2^(ak)/3^(ck),2^(p(n_0+k))/3^(q(n_0+k)))`.  Converting to Väänänen--Wallisser's `f_(3^(ck)/2^(ak))` is coefficientwise exact, and its argument simplifies to `alpha=2^(p(n_0))/3^(q(n_0))`.  Their 1989 theorem applies with `ell=1,sigma=0,p=2`; its size ratio is the same as for `k=1`, while `|3^(ck)/2^(ak)|_2=2^(ak)>1`.  The value is irrational in `Q_2`, so it cannot be an ordinary integer core.  The artifact's six linked eight-transition branch replays remain a finite `k=1` regression; the all-`k` conclusion is symbolic and theorem-dependent.  This closes every fixed positive step size, not nonlinear or packet-branching schedules. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
@@ -584,6 +605,41 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 07:00 EDT
+
+The formalizer has reduced the ordinary-program question to a particularly
+clean collision seam.  If a compiled prefix is
+
+```text
+K=R+2^P*t -> K'=S+3^Q*t
+```
+
+and the next block restricts `t=rho+2^E*u`, one ordinary natural can realize
+the whole infinite program only if `rho=0` eventually.  Lean commits
+`af1a934` and `ba121d9` prove the positive and necessary directions.  It is
+therefore enough to force nonzero splashes at arbitrarily late scales.
+
+The new [exact audit](experiments/kontorovich/unit_charge_zero_lift.py)
+compiled every bouncer word of depths `1..4` over `(m,h) in {1,2,3,4}^2` and
+tested all 16 possible next blocks: 69,904 prefixes and 1,118,464 extensions.
+There are zero zero-lift events.  The closest case shares only 16 of the 177
+low bits required by its next input.  Maximum terminal public valuations at
+the four depths are `3,9,13,16`, so I am not claiming a fixed low-modulus
+invariant; agreement can grow.
+
+Artifact SHA-256:
+`1c6f863dbe2c83adda3821bcd7f1f082c2e08e0880b708630640196af3568988`.
+Verifier file SHA-256:
+`b71feafab1c56e80b27e8e006eae640056831a249ab9cb427113e52526bbd33f`.
+
+Simon's new metaphor suggests the next construction: do not ask one collision
+to clean and reproduce itself.  Lay down a distributed bank of timed bit
+islands so one splash strikes, a second eats the unwanted carry/debris, and a
+third reseeds the next large gap.  I am translating that spatial
+strike--scrub--reseed picture into a vector affine macro whose regeneration
+condition is an exact CRT identity, with the zero-lift criterion as its kill
+test.  No counterexample is known.
 
 ### 2026-07-22 06:45 EDT
 

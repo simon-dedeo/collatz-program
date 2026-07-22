@@ -1993,6 +1993,34 @@ general morphic control.  It pushes the PL target from “emit an aperiodic
 clock” to “make the odd payload perform the counter update or zero-test which
 chooses the clock.”
 
+The formal ordinary-address obstruction is now smaller than “show every
+canonical address changes.”  For a prefix affine map followed by one more
+dyadic input filter, write the old-tail restriction as
+
+```text
+t=rho+2^E*u.                                          (69z)
+```
+
+Lean commits `af1a934`/`ba121d9` prove that realization by one ordinary
+natural forces `rho=0` eventually.  Hence it suffices to prove `rho!=0` at an
+unbounded sequence of scales.  [`unit_charge_zero_lift.py`](../../experiments/kontorovich/unit_charge_zero_lift.py)
+exhausts all words through depth four over the 16 small bouncer opcodes and
+all next blocks: zero of 1,118,464 extensions have `rho=0`.  This is finite
+evidence only.  The terminal two-adic agreement grows with depth, so no fixed
+mod-`2^c` separator is asserted.
+
+Simon's proposed **gap splash** should therefore be treated as a distributed
+code rather than one collision.  Place several bit islands across an immense
+zero gap so that their carry waves arrive in phases: a strike opens the main
+collision, a scrub island cancels or absorbs its bad residue, and a reseed
+island survives as the header of the next delayed configuration.  The
+instruction is nonlocal in precisely Simon's PL sense: its operands are
+spread over the entire digit span, while their spatial separations are clock
+delays in Kontorovich's picture.  After fixing the valuation word each phase
+is affine, so simultaneous phase alignment is a CRT problem.  What must be
+synthesized is a parameterized catcher vector `C(n)` with an exact return
+`C(n)->+C(f(n))`, not merely one beautifully clean finite splash.
+
 The remaining obstruction is now a programming-language condition rather
 than a missing collision gadget.  Reading (69e) from right to left, one
 instruction pops the required low binary word `z` and pushes a power-of-three
