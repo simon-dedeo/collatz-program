@@ -200,6 +200,106 @@ theorem minusSeventeenController_check :
     SignedCycleCertificate.Valid, SignedWordLegal, SignedLegalInstruction,
     signedRunWord, signedStepAt] <;> simp
 
+/-- High-level all-level search certificate.  Each phase is represented by a
+split `prefix ++ suffix` of one checked negative cycle; the active controller
+word is the rotation `suffix ++ prefix`. -/
+structure CertifiedCyclePhaseShadowOrbit where
+  cert : SignedCycleCertificate
+  cert_ok : cert.check = true
+  phasePrefix : ℕ → List ℕ
+  phaseSuffix : ℕ → List ℕ
+  phase_split : ∀ t, cert.word = phasePrefix t ++ phaseSuffix t
+  phase_neg : ∀ t, signedRunWord cert.seed (phasePrefix t) < 0
+  level0 : ℕ
+  extra : ℕ → ℕ
+  packet : ℕ → ℕ
+  state : ℕ → ℕ
+  extraBound : ℕ
+  level0_pos : 0 < level0
+  packet_pos : ∀ t, 0 < packet t
+  extra_le : ∀ t, extra t ≤ extraBound
+  coordinate : ∀ t, (state t : ℤ) =
+    signedRunWord cert.seed (phasePrefix t) +
+      (2 ^ totalValuation (phaseSuffix t ++ phasePrefix t) : ℤ) ^
+        (level0 + t) * packet t
+  legal : ∀ t, WordLegal (state t)
+    (shadowMacroWord (phaseSuffix t ++ phasePrefix t)
+      (level0 + t) (extra t))
+  renewal : ∀ t, (2 ^ extra t : ℤ) * state (t + 1) =
+    signedRunWord cert.seed (phasePrefix t) +
+      (3 ^ (phaseSuffix t ++ phasePrefix t).length : ℤ) ^
+        (level0 + t) * packet t
+
+namespace CertifiedCyclePhaseShadowOrbit
+
+theorem rotatedWord_nonempty (g : CertifiedCyclePhaseShadowOrbit) (t : ℕ) :
+    g.phaseSuffix t ++ g.phasePrefix t ≠ [] := by
+  intro hrot
+  have hparts := List.append_eq_nil_iff.mp hrot
+  have hv := g.cert.valid_of_check g.cert_ok
+  apply hv.2.1
+  rw [g.phase_split t, hparts.2, hparts.1]
+  rfl
+
+theorem rotated_fixed_affine (g : CertifiedCyclePhaseShadowOrbit) (t : ℕ) :
+    (2 ^ totalValuation (g.phaseSuffix t ++ g.phasePrefix t) : ℤ) *
+        signedRunWord g.cert.seed (g.phasePrefix t) =
+      (3 ^ (g.phaseSuffix t ++ g.phasePrefix t).length : ℤ) *
+        signedRunWord g.cert.seed (g.phasePrefix t) +
+          affineOffset (g.phaseSuffix t ++ g.phasePrefix t) := by
+  have hv := g.cert.valid_of_check g.cert_ok
+  have hlegal : SignedWordLegal g.cert.seed
+      (g.phasePrefix t ++ g.phaseSuffix t) := by
+    rw [← g.phase_split t]
+    exact hv.2.2.1
+  have hclose : signedRunWord g.cert.seed
+      (g.phasePrefix t ++ g.phaseSuffix t) = g.cert.seed := by
+    rw [← g.phase_split t]
+    exact hv.2.2.2
+  exact signedCycle_rotate_affine_fixed hlegal hclose
+
+/-- All low-level controller provenance fields are derived from one checked
+base cycle. -/
+def toBoundedPhaseShadowOrbit (g : CertifiedCyclePhaseShadowOrbit) :
+    BoundedPhaseShadowOrbit where
+  controller := fun t => signedRunWord g.cert.seed (g.phasePrefix t)
+  word := fun t => g.phaseSuffix t ++ g.phasePrefix t
+  level0 := g.level0
+  extra := g.extra
+  packet := g.packet
+  state := g.state
+  numerator := 3 ^ g.cert.word.length
+  denominator := 2 ^ totalValuation g.cert.word
+  extraBound := g.extraBound
+  controller_neg := g.phase_neg
+  word_nonempty := g.rotatedWord_nonempty
+  level0_pos := g.level0_pos
+  packet_pos := g.packet_pos
+  denominator_pos := by positivity
+  supercritical := g.cert.supercritical g.cert_ok
+  common_shape := fun t => by
+    constructor
+    · congr 1
+      rw [g.phase_split t]
+      simp only [List.length_append]
+      omega
+    · congr 1
+      rw [g.phase_split t, totalValuation_append, totalValuation_append]
+      omega
+  extra_le := g.extra_le
+  fixed_affine := g.rotated_fixed_affine
+  coordinate := g.coordinate
+  legal := g.legal
+  renewal := g.renewal
+
+/-- A bounded infinite phase program over one checked negative controller is
+a literal disproof certificate. -/
+theorem not_conjecture (g : CertifiedCyclePhaseShadowOrbit) :
+    ¬CleanLean.Collatz.Conjecture :=
+  g.toBoundedPhaseShadowOrbit.not_conjecture
+
+end CertifiedCyclePhaseShadowOrbit
+
 /-- The shadow endpoint can consume a checked signed controller directly. -/
 theorem negativeShadow_endpoint_of_signedController
     {cert : SignedCycleCertificate} {h : ℤ} {x m e : ℕ}

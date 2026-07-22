@@ -3791,3 +3791,40 @@ Full build remains 8,676 jobs.  Both new sign theorems have only the standard
 mathlib axioms in their audit.  No new incoming request appeared after this
 task; the next independent target is to derive all common phase-shape and
 fixed-equation fields from one checked base controller automatically.
+
+## Kontorovich round 16 — one checked cycle now supplies every phase equation
+
+`CertifiedCyclePhaseShadowOrbit` in `KontoroC/SignedController.lean` is now
+the highest-level all-level artifact accepted by the negative-shadow route.
+It takes one `SignedCycleCertificate` whose Boolean checker succeeds and, at
+each level, a split
+
+```text
+base word = phasePrefix_t ++ phaseSuffix_t.
+```
+
+The active phase word is the cyclic rotation
+`phaseSuffix_t ++ phasePrefix_t`, and its signed controller is the state
+reached after `phasePrefix_t`.  Lean derives rather than assumes:
+
+1. every rotated word is nonempty;
+2. every rotated controller satisfies the exact affine fixed equation;
+3. every phase has the same numerator `3^length(base word)`;
+4. every phase has the same denominator `2^sum(base word)`; and
+5. that denominator is strictly smaller than the numerator, using the
+   negativity and checked closure of the single base cycle.
+
+The artifact therefore asks a worker only for the genuinely new infinite
+data: negative selected phases, positive shifted coordinates, natural-word
+legality, bounded collision extras, and exact renewal at every level.  It
+then converts to `BoundedPhaseShadowOrbit` and reaches the literal negation of
+`CleanLean.Collatz.Conjecture` through the already-audited eventual-glider
+consumer.  No finite search result currently inhabits this structure.
+
+The full 8,676-job build and `Audit.lean` pass.  The three new headline
+declarations audit to `[propext, Classical.choice, Quot.sound]`; the source
+scan finds no `sorry`, `admit`, project axiom, or `unsafe`.  The incoming
+channel still contains no request newer than the finite phase regression.
+For the worker, the next useful interface question is whether its candidate
+output naturally provides phase splits plus the five remaining all-level
+fields above, or whether a smaller recurrence checker should be formalized.

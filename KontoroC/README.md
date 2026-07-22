@@ -100,6 +100,10 @@ Every cyclic rotation is also proved legal and closing at its corresponding
 phase state, so the phase-changing worker needs only one checked base cycle.
 Negativity and nonempty exact closure also imply the controller is
 supercritical (`2^S < 3^N`); this no longer needs a separate search premise.
+`CertifiedCyclePhaseShadowOrbit` is the highest-level phase-worker endpoint:
+from one checked controller and per-level cyclic splits it derives every
+rotated fixed equation, common multiplier, and bounded-renewal premise before
+reaching the literal disproof theorem.
 
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.

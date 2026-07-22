@@ -75,3 +75,6 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.minusFiveController_check
 #print axioms KontoroC.minusSeventeenController_check
 #print axioms KontoroC.negativeShadow_endpoint_of_signedController
+#print axioms KontoroC.CertifiedCyclePhaseShadowOrbit.rotated_fixed_affine
+#print axioms KontoroC.CertifiedCyclePhaseShadowOrbit.toBoundedPhaseShadowOrbit
+#print axioms KontoroC.CertifiedCyclePhaseShadowOrbit.not_conjecture
