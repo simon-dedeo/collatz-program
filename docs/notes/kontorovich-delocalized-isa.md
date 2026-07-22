@@ -345,6 +345,40 @@ offset.  The instruction is literally “sparse binary prefix read, global
 ternary write.”  [`two_rail_prefix_code.py`](../../experiments/kontorovich/two_rail_prefix_code.py)
 audits the bounded prefix tree and literal decoder.
 
+That `1/6` language was not the whole hardware.  It silently rejected odd
+intermediate `+1`-rail gaps and outgoing gaps of one bit.  Simon's suggestion
+that another aligned packet could eat the bad collision gives the exact
+parity-dual branch.  At an odd gap `2s+1`, the last state is
+
+```text
+1+2*3^s Q,
+```
+
+and its next accelerated step has valuation one and endpoint
+
+```text
+2+3^(s+1)Q = -1+2^L P'.                         (6)
+```
+
+The congruence `3(1+3^s Q)=2^L P'` is the promised sacrificial alignment:
+the low payload bits absorb the dirty constant and regenerate the `-1` rail.
+Allowing `L=1` means the next rail has zero free ticks but a perfectly legal
+immediate collision.  The even cleanup family, now also with `L>=1`, has
+Kraft mass `1/3`; the odd catcher has mass `2/3`.  Their sum is one.
+
+This is not only a measure calculation.  For every nonnegative rail length
+and every positive odd payload, the first collision either reaches `1` or
+its `+1` gap has exactly one parity.  The corresponding terminal collision
+then has a unique positive outgoing gap `L>=1`.  Hence every nonhalting
+payload decodes into exactly one parity-complete splash instruction.  The
+[exact checker](../../experiments/kontorovich/complete_splash_isa.py) builds
+both affine families, literally replays their words, and audits the combined
+prefix tree.  The remaining challenge is no longer instruction coverage; it
+is to find one ordinary decoded tape avoiding the explicit halt with positive
+long-run drift.  Lean commit `afb86a5` certifies the odd catcher's exact word
+and endpoint for arbitrary payloads, including `r=0,L=1`; the combined
+total-decoder theorem remains research-side at this checkpoint.
+
 The splash must therefore regenerate a **rewritten instruction tape**, not the
 same schedule.  The live target is a finite controller which branches on the
 changing residual tail and thereby emits a genuinely aperiodic gate sequence,
@@ -432,6 +466,22 @@ whole divergent `U` orbit.  The attack now seeks a payload-selected chain of
 such blocks.  This preserves Kontorovich's spatial delay-line intuition while
 allowing Simon's instruction to be a global boundary/carry condition.
 
+A second exact bridge is longer and exposes the value of the complete
+catcher.  Coefficientwise affine iteration gives
+
+```text
+U^12(1023+4096t)=132860+531441t
+```
+
+with ten appended `1`s followed by `[2,1]`.  It links the shapes
+`(10,0,4,2,11)` and `(10,2,1,3,2)`, and both families are universally
+outward.  At the saturated orbit's first entry, time 622, the next payload
+has odd intermediate gap one.  The old grammar stopped; equation (6) decodes
+the catcher `(r,s,a,L)=(1,0,3,6)`.  That catcher shrinks.  Continuing the
+total decoder gives 290 exact macros, 101 outward, and then the explicit
+halting collision `5->1`.  So “splash the splash” repairs the syntax but has
+not yet repaired the energy budget.
+
 ## 6. Ranked attack and kill tests
 
 1. Implement the mixed-base rules and mine structured, formula-generated
@@ -446,13 +496,15 @@ allowing Simon's instruction to be a global boundary/carry condition.
 4. Run-length accelerate the three-symbol tag system and look for a
    head--tail bouncer.  Translate any survivor back to a canonical positive
    integer before treating it as Collatz evidence.
-5. Build a branching affine two-rail transducer.  Each instruction consumes a
-   low-bit address and must choose the next gate shape from the residual tape;
+5. Use the parity-complete splash decoder as a deterministic variable-length
+   machine.  Search for a finite symbolic invariant of its natural payload
+   map with genuinely aperiodic branch sequence and positive long-run drift;
    reject fixed return routes because their valuation words are periodic.
-   Search for an invariant natural tape orbit with a genuinely aperiodic shape
-   sequence or an unbounded rail-length counter.
-6. Extend the exact seven-append rational-base bridge into a payload-selected
-   block compiler, and search the Stérin--Woods spacetime for a diagonal defect
+6. Extend the exact seven- and twelve-append rational-base bridges into a
+   payload-selected block compiler.  The twelve-step bridge supplies two
+   outward gates before its catcher shrinks; search for a saturated cylinder
+   whose catcher is also outward, or a bounded catcher cascade with net gain.
+   In parallel, search the Stérin--Woods spacetime for a diagonal defect
    implementing the same binary-address/ternary-write transitions.
 
 Every candidate is rejected unless all of the following are explicit:

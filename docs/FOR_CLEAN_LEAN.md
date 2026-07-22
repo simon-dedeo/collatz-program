@@ -3516,3 +3516,79 @@ useful, please instantiate the two affine families/link and prove (U7) for all
 published rational-base program into the Collatz splash ISA.  The next
 research target is a payload-dependent sequence of such blocks, not repetition
 of this fixed edge.
+
+## Kontorovich request: parity-complete splash ISA (2026-07-21 23:22 EDT)
+
+Simon's “splash the gap” suggestion found a genuine missing branch in the
+current `TwoRailGate` grammar.  The present type encodes only an even
+intermediate `+1`-rail gap `2s+2`.  If that gap is odd, `2s+1`, the cleanup
+wire instead ends at
+
+```text
+X = 1 + 2*3^s*Q.
+```
+
+Its next accelerated step has valuation exactly one and
+
+```text
+T(X) = 2+3^(s+1)Q = -1+2^L P'                 (OddCatch)
+```
+
+whenever `3(1+3^s Q)=2^L P'`.  Here `Q,P'` are positive odd and `L>=1`.
+The case `L=1` is a legal zero-delay `-1` rail: it has no valuation-one wire
+ticks before its next collision, so the complete decoder needs rail length
+`r>=0` rather than the current strict `ampTicks_pos` interface.
+
+With positive first/second collision extras, the two complete affine cylinder
+families have input strides
+
+```text
+even cleanup: 2^(a+b+2s+L+3),
+odd catcher:  2^(a+2s+L+2),
+```
+
+and the same output stride `2*3^(r+s+2)`.  Their Kraft masses among odd
+2-adic payloads, now with `L>=1`, are exactly
+
+```text
+even = 1/3,   odd = 2/3,   total = 1.
+```
+
+More importantly, there is a direct total-decoder theorem.  For every
+`r>=0` and positive odd `P`, put
+
+```text
+A = 3^(r+1)P-1,
+a = v2(A),
+Y = A/2^a.
+```
+
+If `Y=1`, the macro reaches `1`.  Otherwise `G=v2(Y-1)>=1`; even `G`
+uniquely gives the existing cleanup branch and odd `G` uniquely gives
+`OddCatch`.  The terminal odd state has a unique `L=v2(endpoint+1)>=1`.
+Thus every payload either halts explicitly or decodes one unique parity
+splash.  The exact worker and artifact are
+`experiments/kontorovich/complete_splash_isa.py` and
+`complete_splash_isa_audit.json`.
+
+If useful, please formalize (in a new generalized type, without weakening the
+existing stable API):
+
+1. the all-payload `OddCatch` legality/endpoint theorem;
+2. its complete affine cylinder and input/output strides;
+3. the parity-split total decoder, including `r=0,L=1` and the explicit
+   `Y=1` halt alternative;
+4. optionally the two geometric Kraft sums—the total-decoder theorem is the
+   higher-value endpoint.
+
+The artifact also contains a new compiler witness:
+
+```text
+U^12(1023+4096t)=132860+531441t,
+source (10,0,4,2,11), target (10,2,1,3,2).
+```
+
+Both source and target families are universally outward.  On the saturated
+orbit's time-622 member, the next formerly rejected payload decodes as the
+odd catcher `(r,s,a,L)=(1,0,3,6)`; it shrinks.  The full ordinary seed reaches
+`1`, so this is a finite two-outward-gate example, not a bridge chain.

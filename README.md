@@ -150,11 +150,15 @@ identically `x`.
   columns perform base conversion; search for a diagonal defect or boundary
   signal with a formula return.  In Eliahou--Verger-Gaugry's base-`3/2`
   picture, try to compile the divergent saturated-map instruction “append
-  `2`” from bounded exact Collatz/two-rail macros.  One outward splash link now
-  compiles seven consecutive saturated-map appends exactly on an unbounded
-  index family; its target does not renew, so the live task is to chain
-  payload-selected blocks rather than infer divergence from one bridge.
-  Neither presentation transfers divergence by itself.
+  `2`” from bounded exact Collatz/two-rail macros.  Seven- and twelve-append
+  blocks now compile exactly on unbounded index families; in the latter both
+  linked gates are universally outward.  The complete catcher after them
+  shrinks, so the live task is to chain payload-selected blocks with net gain
+  rather than infer divergence from a finite bridge.  Lean commits
+  `401d494`/`6ab99fc` prove the universal saturated-cylinder law and package a
+  reusable affine-bridge certificate; `dbe0e5a` proves that any supplied
+  outward renewing variable bridge chain refutes Collatz.  No such infinite
+  chain is known, and neither presentation transfers divergence by itself.
 - **Two-rail splash bouncers.**  Implement Simon's collision idea with a
   `-1`/valuation-one Mersenne rail, which amplifies a separated packet by
   `3/2` per tick, and a `+1`/valuation-two Colussi rail, which supplies timing
@@ -176,6 +180,15 @@ identically `x`.
   decoding makes the gate shapes an LSB-first prefix code of Kraft mass `1/6`
   among odd 2-adic payloads: a valid tape is necessarily sparse, but its
   unbounded arithmetic contents can supply the required nonautonomous state.
+  Simon's “splash the gap” suggestion also repairs the apparent missing
+  instructions: an odd intermediate gap has a parity-dual terminal collision,
+  and a one-bit outgoing gap is a legal zero-delay rail.  The even cleanup and
+  odd catcher families have exact Kraft masses `1/3` and `2/3`, so every
+  positive odd payload uniquely decodes unless that macro explicitly reaches
+  `1`.  Hardware jamming is therefore gone; the target is an ordinary decoded
+  tape with aperiodic positive long-run drift.  Lean commit `afb86a5` already
+  certifies the new odd catcher for arbitrary payloads, including `r=0,L=1`;
+  the total two-branch decoder remains research-side.
 - **Exact cycle synthesis.**  Search valuation words and cyclic compositions
   for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
   seed whose valuations and closure can be checked directly.  Use modular
@@ -250,6 +263,7 @@ identically `x`.
 | Unstructured range widening as the main attack | Deprioritized: published ordinary-seed verification already reaches `2^71`, while the contemplated software may have roughly 10,000 decimal digits. Bounded compute remains useful only as a falsifier or independent checker of a proposed symbolic relation. | [Delocalized-ISA scale calibration](docs/notes/kontorovich-delocalized-isa.md#1-scale-changes-the-object-we-should-search-for) |
 | Unmodified order-10 Colussi wire | It is an exact, spectacularly long delay line but not a bouncer. After its certified collision, an exact 1,024-step audit finds no regenerated empty gap wider than 10 bits, versus the incoming 39,348-bit gap; full exact continuation reaches `1` after 95,146 accelerated steps. The next lane must alter the header/collision with a distributed defect. | [`colussi_delay_h10.json`](experiments/kontorovich/colussi_delay_h10.json) |
 | Pure `+1` gap-splash bouncer | Closed as an outward macro: the exact gate can turn a gap of `2r+2` bits into any chosen `2r'+2`-bit gap by a congruential payload, but the whole macro has dissipative multiplier `3^(r+1)/2^(2r+2+a)<1` and in fact strictly decreases every positive member. It remains useful as the cleanup rail of a multi-phase program. | [`splash_gate.py`](experiments/kontorovich/splash_gate.py) |
+| Even-gap-only splash decoder | Superseded as an obstruction.  Rejecting odd intermediate gaps or `L=1` outgoing gaps created artificial “renewal failures.”  The odd-gap collision `1+2*3^sQ -> 2+3^(s+1)Q=-1+2^LP'` and zero-delay rail make the decoder total away from explicit halting collisions.  This repairs syntax, not growth: the saturated `U^12` witness still reaches `1`. | [`complete_splash_isa.py`](experiments/kontorovich/complete_splash_isa.py) |
 | Standard two-rail schedule `[1]^r[2,2,3]` | Closed at all levels.  Exact affine-family intersection compiles 247 outward rounds from a 10,040-digit seed, but depth 248 changes the seed and exact continuation reaches `1`.  Lean reduces every infinite realization to `2^(r+8)P'=3^(r+3)P+69` and its sole 2-adic Tschakaloff candidate.  Väänänen--Wallisser's 1989 theorem applies at `q=3/2,p=2,alpha=4096/6561` and proves that candidate irrational, so it cannot be an ordinary payload.  This does not close branching or other aperiodic splash programs. | [Finite certificate](experiments/kontorovich/two_rail_chain_247.json), [theorem audit](docs/notes/standard-two-rail-theta.md) |
 | Fixed affine or autonomous finite-state return | Closed as an outward bouncer.  Lean commits `b741a14`/`26f3584` prove fixed affine circuits and every eventually periodic macro-word schedule impossible; `560fcc5` proves an autonomous controller with any finite effective state eventually enters that obstruction.  Coefficientwise, a repeated word would require natural slope `m=3^N/2^S` with `S>0`.  Payload-dependent branching and unbounded shape counters remain open. | [Delocalized tag-ISA note](docs/notes/kontorovich-delocalized-isa.md) |
 | Canonical zero-preload two-rail graph | Exactly checked 128,000 gate shapes in the stated box (`r<=40`, `s<=4`, collision extras `<=4`, output gap `<=41`): 98,760 canonical members are outward, 25 canonical links exist, and the longest linked chain has two gates. Its seed `45247` reaches `1`; a wider targeted audit finds no third canonical gate for that endpoint. This rejects only index-zero links, not branching affine-tail controllers. | [`two_rail_transducer_audit.json`](experiments/kontorovich/two_rail_transducer_audit.json) |
@@ -274,7 +288,9 @@ positive integer and its claimed behavior are machine-checked.
 | Formula-generated 10,040-digit two-rail program | Exact congruence solving and affine-family intersection construct one seed with 33,351 significant bits, without storing its decimal literal. It executes 247 strict outward rounds of the schedule `[1]^(4+i) ++ [2,2,3]`, grows its clean gap from 5 to 252 bits, and reaches a 15,397-digit endpoint after 32,110 accelerated steps. Literal replay passes; Lean commits `39a3aba`/`5d3e0e3` certify the generic gate and finite-chain seams. Full exact continuation reaches `1`, and the 248-round canonical seed is different. This is a large finite Collatz program, not a counterexample. |
 | Exact affine tag-transducer and branching target | Every affine two-rail handoff reads one dyadic residue of a nonlocal family index, deletes that address block, and maps the residual tail by a power of three plus an offset. Lean commits `4789a80`/`1076954` prove universal one- and two-instruction linkage.  Commits `b741a14`--`560fcc5` rule out fixed affine returns, every eventually periodic macro-word stream, and every payload-independent finite-state controller.  The live target must branch on unbounded tail data or carry an unbounded counter. |
 | LSB-first splash instruction grammar | For fixed amplifier length, each positive gate shape `(s,a,b,L)` is one odd payload residue modulo `2^(a+b+2s+L+3)`.  Lean commit `1b7df1f` proves universal parameter decoding, the complete cylinder strides, and pairwise disjointness; the exact Kraft mass among odd 2-adic payloads is `1/6`.  The artifact checks 902,496 codeword pairs per `r=1..16` through 20 bits and independently decodes 21,504 bases.  This identifies a sparse mixed-base tag language, not an infinite survivor. |
-| Exact base-`3/2` compiler bridge | The outward two-rail link `(5,0,2,1,2)->(1,0,2,1,2)` maps family indices by `95+128t -> 1640+2187t`, exactly `U^7` for every natural `t`, where divergent `U` appends digits `[1,1,1,1,1,2,1]` in rational base `3/2`.  The saturated orbit realizes `440843894591 -> 470764451891` through this gate, but the linked target shrinks, fails the next renewal, and the seed reaches `1`.  This is one universal compiler primitive, not transferred divergence. |
+| Parity-complete splash ISA | Simon's proposed sacrificial alignment supplies the missing odd-gap catcher `2+3^(s+1)Q=-1+2^L P'`; admitting `L=1` supplies a zero-delay next rail.  Lean commit `afb86a5` certifies that branch for arbitrary payloads.  Research-side exact valuation decoding sends every positive odd payload to one unique even-cleanup or odd-catcher gate unless the macro reaches `1`; their Kraft masses are `1/3+2/3=1`.  The artifact checks 990,528 prefix pairs for each `r=0..8` through 18 bits and 36,864 literal payload decodes.  This is a total macro factorization, not a nonhalting invariant. |
+| Exact base-`3/2` compiler bridge | The outward two-rail link `(5,0,2,1,2)->(1,0,2,1,2)` maps family indices by `95+128t -> 1640+2187t`, exactly `U^7` for every natural `t`, where divergent `U` appends digits `[1,1,1,1,1,2,1]` in rational base `3/2`.  Lean commits `401d494`/`6ab99fc` prove the universal dyadic-cylinder law and reusable compiler certificate; `dbe0e5a` proves the conditional variable-chain endpoint to `¬Collatz`.  The concrete target shrinks and the seed reaches `1`, so no infinite chain is supplied. |
+| Two-outward-gate `U^12` bridge | Exact coefficient algebra gives `U^12(1023+4096t)=132860+531441t` with digits `[1]^10[2,1]`.  It links shapes `(10,0,4,2,11)->(10,2,1,3,2)`, and both complete families are universally outward.  The saturated orbit enters at time 622; the parity-complete decoder catches the next formerly rejected payload, but that catcher shrinks.  The resulting 120-digit seed parses into 290 exact splash gates, 101 outward, and reaches `1` after 1,016 accelerated steps.  This is a finite compiler cascade, not transferred divergence. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
 | Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
 | Kernel cycle-disproof seam | `KontoroC.CycleArtifact.checkNontrivial=true` implies the literal negation of the ordinary Collatz conjecture. The package build and axiom audit pass; no nontrivial artifact is known. |
@@ -330,6 +346,28 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-21 23:22 EDT
+
+Simon’s “splash the gap” metaphor exposed a real missing instruction.  The
+old grammar rejected odd intermediate gaps, but their terminal collision is
+exactly `1+2*3^sQ -> 2+3^(s+1)Q=-1+2^LP'`; allowing `L=1` also turns a
+one-bit output into a legal zero-delay rail.  The resulting
+[parity-complete ISA](experiments/kontorovich/complete_splash_isa.py) has
+exact Kraft mass `1/3+2/3=1` and uniquely decodes every positive odd payload
+unless the macro reaches `1`.  The new exact `U^12` bridge has two universally
+outward gates, and its formerly rejected third payload is now caught.  The
+failure has moved rather than vanished: that catcher shrinks, and the full
+120-digit witness parses into 290 gates before reaching `1`.  The
+[headline](#kc-headline-results-with-verification-scope) and [strategy/failure
+map](#kc-strategy-and-failure-map) record the exact scope.  Next: treat the
+total decoder as the actual programming language and search symbolically for
+an invariant aperiodic tape with positive long-run drift, especially a
+saturated cylinder whose catcher cascade is also net outward.  In parallel,
+Lean commit `dbe0e5a` now reduces a disproof through this compiler to exactly
+such an outward renewing variable bridge chain, and `afb86a5` kernel-checks
+the new odd catcher; the total decoder and chain existence remain open in
+Lean and mathematics, respectively.
 
 ### 2026-07-21 23:04 EDT
 

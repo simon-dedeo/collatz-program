@@ -651,6 +651,77 @@ artifact SHA-256  cc4c30ad51a942e584c89c518a4adb5b1f231d049843216ad3c16be431d8d6
 verifier SHA-256  e534fb609813af1f826e9d654507f1a0ca917952e37e07afe52eafd35c095c84
 ```
 
+## A parity-complete splash instruction set
+
+The `1/6` grammar above deliberately retained only an even intermediate
+`+1`-rail gap and an outgoing gap of at least two bits.  Simon's proposal to
+line up additional bits to “eat” the bad collision has an exact missing
+branch.  When the intermediate gap is odd, after `s` valuation-two ticks the
+state is `1+2*3^s Q`; its next valuation is exactly one, and
+
+```text
+1+2*3^s Q -> 2+3^(s+1)Q = -1+2^L P'.              (odd catcher)
+```
+
+Thus the low bits of `Q` can absorb the dirty `+3` and regenerate a `-1`
+rail.  Allowing `L=1` gives a legitimate zero-delay rail whose collision is
+immediate.  With positive collision extras, the two complete affine families
+have input code lengths
+
+```text
+even cleanup: E=a+b+2s+L+3,
+odd catcher:  E=a+2s+L+2,
+```
+
+and exact Kraft masses among odd 2-adic payloads
+
+```text
+sum 2^(-(E_even-1)) = 1/3,
+sum 2^(-(E_odd-1))  = 2/3.
+```
+
+The total mass is one.  More strongly, literal valuation decoding proves
+that every positive odd payload selects exactly one of these gates unless
+the current macro reaches `1`.  This removes “failure to decode” as a
+hardware obstruction; the disproof problem becomes finding an ordinary
+payload orbit whose decoded gates avoid the explicit halt and supply enough
+long-run outward growth.  Lean commit `afb86a5` independently certifies the
+odd catcher's exact word and endpoint for arbitrary payloads, including
+`r=0,L=1`; the combined total-decoder theorem is not yet kernel-checked.
+
+```bash
+python3 complete_splash_isa.py selftest
+python3 complete_splash_isa.py build complete_splash_isa_audit.json
+python3 complete_splash_isa.py verify complete_splash_isa_audit.json
+```
+
+The bounded regression checks 1,408 codewords through 18 bits and 990,528
+pairwise prefix comparisons for each rail length `r=0,...,8`.  It also
+literally decodes every odd `P<2^13` at each of those nine lengths: 12,288
+even cleanups, 24,565 odd catchers, and 11 explicit halts.  These finite
+counts audit the implementation; total decoding and Kraft mass one follow
+from the displayed valuation split and exact geometric series.
+
+The same artifact records a deeper rational-base bridge:
+
+```text
+U^12(1023+4096t)=132860+531441t,
+digits [1,1,1,1,1,1,1,1,1,1,2,1].
+```
+
+Both linked splash families are universally outward.  The saturated orbit
+first enters this cylinder at time 622.  What the even-only grammar called
+its next “renewal failure” is decoded by the odd catcher
+`(r,s,a,L)=(1,0,3,6)`.  It shrinks, and the complete ordinary path parses as
+290 splash gates (101 outward) before reaching `1` after 1,016 accelerated
+steps.  This is an exact two-stage compiler and total finite parse, not
+transferred divergence.
+
+```text
+artifact SHA-256  d0c32f2d6c82ab142adf97a528046ef18d836f7db9b162150394aefe87dc269f
+verifier SHA-256  7cd2e65d5dcf2ef3f44c4567941657a95c0a2d31a3489563858242cc7748d8c3
+```
+
 ## A seven-step base-`3/2` compiler bridge
 
 Eliahou--Verger-Gaugry's saturated-word map

@@ -1,0 +1,128 @@
+{
+  "schema": "collatz-complete-splash-isa-v1",
+  "claim_scope": "exact total macro decoder away from explicit halting collisions, bounded prefix/decoder audit, and one finite saturated-map cascade; not a counterexample",
+  "parity_complete_grammar": {
+    "even_cleanup_equation": "1+3^(s+1)Q=2^b(-1+2^L P')",
+    "odd_catcher_equation": "2+3^(s+1)Q=-1+2^L P'",
+    "zero_delay_output_allowed": true,
+    "even_branch_kraft_mass_among_odd_payloads": "1/3",
+    "odd_branch_kraft_mass_among_odd_payloads": "2/3",
+    "total_kraft_mass": "1",
+    "decoder_outcome": "every positive odd payload emits exactly one branch or its current macro reaches 1"
+  },
+  "bounded_audit": {
+    "bounds": {
+      "amp_ticks": "0..8",
+      "maximum_code_bits_including_forced_odd_bit": 18,
+      "decoded_payloads": "positive odd P<2^13"
+    },
+    "codewords_per_amp_length": 1408,
+    "pairwise_prefix_comparisons_per_amp_length": 990528,
+    "covered_odd_residues_mod_2^18": 130610,
+    "all_odd_residues_mod_2^18": 131072,
+    "amp_lengths_checked": 9,
+    "literal_decoder_outcomes": {
+      "even_cleanup": 12288,
+      "odd_catcher": 24565,
+      "halts": 11
+    },
+    "all_codes_prefix_free": true
+  },
+  "saturated_U12_bridge": {
+    "source_gate": {
+      "branch": "even_cleanup",
+      "amp_ticks": 10,
+      "clean_ticks": 0,
+      "to_plus_extra": 4,
+      "terminal_extra": 2,
+      "input_gap": 11,
+      "plus_gap": 2,
+      "output_gap": 11,
+      "input_payload_base": 1047843,
+      "input_payload_stride": 1048576,
+      "plus_payload_base": 2900347561,
+      "plus_payload_stride": 2902376448,
+      "output_payload_base": 1062139,
+      "output_payload_stride": 1062882
+    },
+    "target_gate": {
+      "branch": "even_cleanup",
+      "amp_ticks": 10,
+      "clean_ticks": 2,
+      "to_plus_extra": 1,
+      "terminal_extra": 3,
+      "input_gap": 11,
+      "plus_gap": 6,
+      "output_gap": 2,
+      "input_payload_base": 1305,
+      "input_payload_stride": 8192,
+      "plus_payload_base": 1806069,
+      "plus_payload_stride": 11337408,
+      "output_payload_base": 1523871,
+      "output_payload_stride": 9565938
+    },
+    "link": {
+      "address_bits": 12,
+      "source_index_base": 1023,
+      "source_index_stride": 4096,
+      "target_index_base": 132860,
+      "target_index_stride": 531441
+    },
+    "universal_identity": "U^12(1023+4096*t)=132860+531441*t for every t>=0",
+    "digits": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      1
+    ],
+    "source_family_universally_outward": true,
+    "target_family_universally_outward": true,
+    "saturated_orbit_entry_time": 622,
+    "saturated_source_index": 54813357426385151863115016739129747775748325307986267971379641985542951114863686492582348033467345460687819775,
+    "saturated_target_index": 7111832393563367063302174709682581124924674255371467343012199296005598506697820413404408110657695199944676667377,
+    "collatz_source_state": 117710788765141477376036232790527415098783899562285074277083913164047739920833136491819065695316081118794119801729521663,
+    "after_source_gate": 119316748222609618908306258374081954970384243712006267850661758224133863356146779804895050224656054431635028498746755071,
+    "after_target_gate": 272125390972875073595162714151966282883998754388318494289117726836932811871855739239043747652994606022273521720706113987,
+    "first_previously_rejected_catcher": {
+      "gate_shape": {
+        "branch": "odd_catcher",
+        "amp_ticks": 1,
+        "clean_ticks": 0,
+        "to_plus_extra": 3,
+        "terminal_extra": null,
+        "output_gap": 6
+      },
+      "start": 272125390972875073595162714151966282883998754388318494289117726836932811871855739239043747652994606022273521720706113987,
+      "endpoint": 114802899316681671672959270032860775591686974507571864778221541009331030008439139991471581041107099415646641975922891839,
+      "outward": false
+    },
+    "complete_macro_parse": {
+      "decoded_gates": 290,
+      "outward_gates": 101,
+      "branch_totals": {
+        "even_cleanup": 94,
+        "odd_catcher": 196
+      },
+      "state_before_halting_collision": 5,
+      "accelerated_steps_to_one": 1016,
+      "total_halvings_to_one": 2006
+    },
+    "literal_continuation": {
+      "limit": 100000,
+      "reached_one": true,
+      "accelerated_steps": 1016,
+      "total_halvings": 2006,
+      "ordinary_steps": 3022,
+      "peak": 6880404947067261120035718994854653670943573444287361435853248204469609860661241406932859199917690779427360154123532363521,
+      "peak_at_accelerated_step": 22
+    }
+  }
+}
