@@ -55,6 +55,7 @@ import KontoroC.ChargePowerResonance
 import KontoroC.ChargeStatePowerQuine
 import KontoroC.ChargeStatePowerRoth
 import KontoroC.ChargeHiddenRegister
+import KontoroC.ChargeQuadraticNorm
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail

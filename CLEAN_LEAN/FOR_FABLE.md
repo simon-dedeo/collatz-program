@@ -7548,3 +7548,30 @@ target should therefore be the coupling explicitly identified in the incoming
 note: constrain the HF6 write class by the actual exact `v2` collision decoder,
 or show that repeated writes cannot simultaneously retain positive ordinary
 integer lifts.
+
+## Kontorovich round 102 — quadratic two-rail closure and `d=1` obstruction
+
+The new `KontoroC/ChargeQuadraticNorm.lean` kernel-checks the requested cheap
+spine.  With `quadraticNorm d x u = x^2+d*u^2`, the theorems
+`two_recharge_closed` and `three_recharge_closed` prove QN1 for arbitrary
+natural `d,h,t,v`, using the exact square identities behind `2^154` and
+`3^114`.
+
+The accepted-endpoint obstruction is connected to the existing semantics,
+not merely postulated:
+
+```text
+accepted_input_mod_eight (s : ChargeBouncerStep) : s.input % 8 = 7
+```
+
+uses `s.input_opcode_readback`, `pow_padicValNat_dvd`, and positivity of the
+defect opcode to obtain `2^23 | s.input+1`.  The generic output-side theorem
+`accepted_output_quotient_mod_eight` assumes the corresponding accepted
+endpoint divisibility for `3^(114h)*q+1` and proves `q%8=7`, since the even
+power of three is one modulo eight.
+
+Finally `square_mod_eight`, `sum_two_squares_not_mod_eight_seven`, and
+`no_accepted_sum_two_squares` prove that the `d=1` type cannot inhabit any
+accepted endpoint.  This says nothing against the hardware-matched
+`d_hw=7 (mod 8)`: QN2, coupled integrality, exact valuations, and iteration
+remain open exactly as in the incoming scope warning.
