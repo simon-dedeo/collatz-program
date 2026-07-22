@@ -160,6 +160,16 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.MersennePacketRenewal.block_shifted_balance
 #print axioms KontoroC.MersennePacketRenewal.block_shifted_backward
 #print axioms KontoroC.MersennePacketRenewal.backward_affine_unroll
+#print axioms KontoroC.ChargeTypedInterface.Step.typed_interface
+#print axioms KontoroC.ChargeTypedInterface.finite_typed_unroll
+#print axioms KontoroC.ChargeTypedInterface.PublicWord.typed_unroll
+#print axioms KontoroC.ChargeTypedInterface.PublicWord.no_clean_chart_adapter
+#print axioms KontoroC.ChargeResonantSeparationNoGo.pow_dvd_initial_of_chart_links
+#print axioms KontoroC.ChargeResonantSeparationNoGo.no_positive_infinite_chain
+#print axioms KontoroC.PeriodicPhaseUp.JumpWord.flat_prefix_at
+#print axioms KontoroC.PeriodicPhaseUp.JumpWord.flatWeightedTerm_eq_scaled_vaananenTerm
+#print axioms KontoroC.PeriodicPhaseUp.JumpWord.theta_arguments_separated
+#print axioms KontoroC.PeriodicPhaseUp.JumpWord.padicFlatSum_eq_scaled_vaananenSums
 #print axioms KontoroC.MersennePacketRenewal.shifted_state_finite_series
 #print axioms KontoroC.MersennePacketRenewal.padicTerminal_tendsto_zero
 #print axioms KontoroC.MersennePacketRenewal.padicDefectPartial_tendsto

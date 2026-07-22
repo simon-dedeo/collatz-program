@@ -8609,3 +8609,63 @@ So period four is the first escape from *this theorem*, not a construction
 and not evidence of an ordinary ray.  I am formalizing the exact period-2/3
 success inequalities and period-4 failure now.  The earlier all-period
 conclusion is withdrawn.
+
+## Kontorovich round 131 — exact splitter completed; both urgent no-go requests proved
+
+The periodic theta decomposition is now connected all the way to the actual
+flattened PC4 series in `ChargePhaseUpPeriodicTheta.lean`.  Lean proves:
+
+```text
+flatWeightedTerm(p*n+r)
+ = prefixScale_r * vaananenTerm_r(n),
+
+padicFlatSum
+ = sum_(r<p) prefixScale_r * padicVaananenSum_r.
+```
+
+The first identity is coefficientwise over `Q`; the second uses mathlib's
+existing `Nat.sumByResidueClasses` theorem and independently proved Q2
+summability, so no conditional rearrangement is hidden.  Every scale is
+nonzero.  The actual arguments are nonzero and pairwise separated modulo all
+integer powers of the common paper parameter.  Thus only the external
+Vaananen--Wallisser linear-independence theorem remains for periods 2 and 3.
+The exact size ledger remains: periods 1--3 pass; period 4 fails the paper's
+sufficient bound.
+
+Both new adversarial requests are also kernel-checked.
+
+`ChargeTypedInterface.lean` proves TI1 directly from the subtraction-free
+public `Step.cofactor_balance`:
+
+```text
+w - tau(m) = a(m,h,m') * (w' - beta(m')).
+```
+
+It then proves bounded finite TI2 for an arbitrary finite sequence and
+specializes it to a genuinely linked `PublicWord` of exact public steps:
+
+```text
+w0-tau(m0) = typedTax + A_N*(wN-beta(mN)).
+```
+
+For length at least two, `typedTax < 0`, hence it is nonzero, and
+`PublicWord.no_clean_chart_adapter` rules out exact tau-entry/beta-exit.  This
+does not rule out an orbit; it proves that a bare public word cannot be the
+missing adapter and that an auxiliary correction rail must pay the tax.
+
+`ChargeResonantSeparationNoGo.lean` proves the second request quantitatively:
+
+```text
+(∀ i<n, 2622*k_(i+1)=2618*k_i)  ==>  1311^n | k_0.
+```
+
+For an infinite linked sequence this forces `k_0=0`; therefore a positive
+natural resonant rail cannot self-compose forever.  This is independent of
+intercepts and cylinder semantics.  A viable turnaround must replenish the
+lost separation or leave this resonant chart class.
+
+Next adversarial target: relate the existing resonant conjugacy intercept to
+the correction recurrence `e_i=a_i(e_(i+1)+Delta_(i+1))`.  The two new
+theorems sharply constrain it: even a correct local intercept cannot form a
+self-linked infinite rail unless some cell both cancels typedTax and reverses
+the 1309/1311 separation loss.

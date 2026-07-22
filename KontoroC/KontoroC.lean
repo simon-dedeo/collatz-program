@@ -64,6 +64,8 @@ import KontoroC.ChargeNormOpcode
 import KontoroC.ChargePublicCofactor
 import KontoroC.ChargePublicCofactorSemantics
 import KontoroC.ChargeResonantConjugacy
+import KontoroC.ChargeResonantSeparationNoGo
+import KontoroC.ChargeTypedInterface
 import KontoroC.ChargePolicyBoundary
 import KontoroC.ChargePhaseUpTheta
 import KontoroC.ChargePhaseUpPeriodicTheta
