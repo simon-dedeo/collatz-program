@@ -5910,3 +5910,95 @@ low-bit address is a 2-adic phantom, not a Collatz counterexample.
 
 Full build and audit pass; these boundary theorems use only `propext` and
 `Quot.sound`.
+
+## Kontorovich round 66 — starting the dispatcher impossibility audit
+
+Simon has explicitly asked me to try proving that a symbolic genuinely
+aperiodic infinite dispatcher with nested addresses stabilizing to an
+ordinary natural is impossible (and to test possibility if that fails).
+
+I am beginning with the strongest honest observation: the round-65 theorem
+alone is not enough.  Ordinary realization forces the canonical address
+residues eventually to equal the fixed natural tail, equivalently all deeper
+cylinder parameters are zero.  It does **not** by itself force the gate-shape
+or opcode sequence to become periodic; those may still be selected
+aperiodically by other evolving arithmetic state.
+
+The planned impossibility theorem therefore needs an extra finite-memory
+property of the proposed dispatcher:
+
+```text
+eventual zero residual tail
+  + control determined by finitely many states at zero residual
+  => eventual periodic emitted words,
+```
+
+which contradicts the already-audited macro-glider aperiodicity theorem.
+I will formalize this as a reusable no-go and then check whether the current
+break-off/charge-discharge dispatcher actually satisfies the finite-memory
+hypothesis.  If it does not, the formal theorem will identify precisely what
+an actually possible dispatcher must retain: an unbounded arithmetic control
+register even after ordinary address stabilization.
+
+I have also read the new 05:24--05:46 charge/discharge requests.  The recursive
+hierarchy's elementary lift inequality appears to be an instance of this
+ordinary-address obstruction, while the fixed finite-level autonomous orbit
+is not yet covered.  I will keep that scope distinction explicit.
+
+## Kontorovich round 67 — finite impossibility proved; absolute claim refuted
+
+The dispatcher audit now compiles in `KontoroC/DispatcherBoundary.lean`.
+
+First, the honest impossibility theorem:
+
+```text
+OrdinaryFiniteResidualDispatcher.impossible
+```
+
+packages an ordinary natural tail realizing unbounded dyadic link cylinders,
+a finite phase, and control/output functions reading only that phase and the
+current address residual.  Lean proves:
+
+1. ordinary realization makes the residual eventually zero;
+2. the remaining tail is an autonomous finite-state controller;
+3. its emitted words are eventually periodic;
+4. this contradicts `MacroGlider.not_eventually_periodic_words`.
+
+Second, the sharp necessary condition without assuming finiteness:
+
+```text
+EventuallyZeroResidualController.tail_phase_injective
+```
+
+says that after the residual vanishes, the effective phase map must be
+injective.  A successful dispatcher must therefore visit a genuinely new
+control state forever; it cannot hide behind a finite cycle with changing
+payload labels.
+
+Third, the requested attempt at an absolute impossibility theorem fails for a
+precise reason, now also formalized.  `AutonomousController.clock` gives every
+*already supplied* macro-glider an autonomous presentation over the unbounded
+state type `Nat`, using time itself as state.  This does not construct a
+glider or counterexample, but it is a formal countermodel to the inference
+
+```text
+address residual stabilizes -> every aperiodic dispatcher is impossible.
+```
+
+Thus the correct dichotomy is:
+
+```text
+finite post-stabilization memory: impossible;
+unbounded injective arithmetic memory: not excluded (but still unconstructed).
+```
+
+For the new recursive `-5` hierarchy, the growing-depth address parameter is
+already unbounded, but the stated `rho+D*K>K` obstruction rules out its
+canonical nested realization by one natural.  A fixed finite charge level
+could retain an unbounded packet register and therefore lies exactly on the
+not-excluded side of this theorem.
+
+Full build passes (8,707 jobs); all new audited theorems use only standard
+Lean/mathlib principles.  I will next package the elementary growing-lift
+obstruction and test whether fixed-level charge dynamics admits any further
+finite-quotient collapse.

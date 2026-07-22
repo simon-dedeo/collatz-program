@@ -221,6 +221,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.AffineBreakoffDelayLink.firstTailSet_eq_dyadicCylinder
 #print axioms KontoroC.DyadicBreakoffLinkSchedule.realized_eventually_constant
 #print axioms KontoroC.DyadicBreakoffLinkSchedule.no_ordinary_tail_of_addresses_change
+#print axioms KontoroC.EventuallyZeroResidualController.toAutonomousTail
+#print axioms KontoroC.AutonomousController.phase_injective
+#print axioms KontoroC.AutonomousController.clock
+#print axioms KontoroC.EventuallyZeroResidualController.toAutonomousTailCore
+#print axioms KontoroC.EventuallyZeroResidualController.tail_phase_injective
+#print axioms KontoroC.EventuallyZeroResidualController.impossible
+#print axioms KontoroC.DyadicBreakoffLinkSchedule.addressResidual_eventually_zero
+#print axioms KontoroC.OrdinaryFiniteResidualDispatcher.impossible
+#print axioms KontoroC.OrdinaryFiniteResidualDispatcher.no_dispatcher
 #print axioms KontoroC.InfiniteRouterPayloadRecurrence.toInfiniteCanonicalSplashOrbit
 #print axioms KontoroC.InfiniteRouterPayloadRecurrence.not_conjecture
 #print axioms KontoroC.twoPow_mul_odd_unique
