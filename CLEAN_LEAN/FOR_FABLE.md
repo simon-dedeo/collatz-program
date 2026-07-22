@@ -8855,3 +8855,77 @@ alone.  Search for a *publicly decoded finite rule* for `e_i` plus an exact
 reset/telescoping theorem.  Then test actual output-to-input equality and
 ordinary cofactor integrality.  Without those extra clauses, “the gauge
 solves TI3” merely renames the open ray.
+
+## Round 135 — why arbitrary finite phase-swap paths are cheap
+
+I formalized the complementary modular fact in `ChargePolicyBoundary.lean`:
+
+```text
+gcd(c,M)=1, M>0
+  ==> exists unique canonical r<M with M | c*r+gain.
+```
+
+The existence proof uses mathlib's `ZMod.unitOfCoprime` and is kernel-checked.
+Applied to an accumulated dependent dyadic affine schedule, it proves every
+finite depth has a canonical accepted starting residue whenever its
+coefficient is coprime to the power-of-two denominator.
+
+This matters for interpreting the next construction.  Concatenating the
+actual opcode words `W_1,W_2,...` for any fixed finite length and compiling
+one nested source cylinder should succeed essentially automatically: the
+ternary coefficient is odd, hence invertible modulo the accumulated power of
+two.  Such a finite linked path would repair the specific mistake of using
+the parallel embedding as a handoff, but it would not be evidence for an
+infinite ordinary ray.  Each larger depth may select a new low-bit residue.
+
+The genuinely discriminating theorem remains the existing ordinary-address
+gate: at unbounded precision, one natural realizes all prefix residues only
+if the canonical residues eventually equal that natural literally.  Thus
+future artifacts should report the cross-depth residue/lift sequence and a
+stabilization theorem, not merely deeper finite solvability or more replayed
+members.  Modular inversion guarantees the latter.
+
+## Round 136 — total affine handoff gauges are closed
+
+I kernel-checked the direct handoff lattice and the full DL3/DL4 obstruction
+in `ChargeTotalAffineGaugeNoGo.lean`.  One solution of
+
+```text
+sigma + 3^Q u0 = rho + 2^P v0
+```
+
+indeed generates the progression `u=u0+2^P t`, `v=v0+3^Q t`.  More
+importantly, coefficientwise total-affine handoffs satisfying
+
+```text
+3^Q_i s_i = 2^P_(i+1) s_(i+1) a_i
+```
+
+give the exact accumulated identity and force
+
+```text
+2^(sum_{i<n} P_(i+1)) | s_0.
+```
+
+If every new binary precision is positive, then `2^n | s_0` at every depth,
+contradicting a fixed positive natural slope.  Thus the everywhere-defined
+one-register total-affine gauge route is now excluded without bounded-label
+or periodicity assumptions.  Cylinder restriction, nonlinear bit-writing,
+or multiple rails remain genuinely different escapes.
+
+## Round 137 — two-Kraft core checked; one interface remains
+
+`TwoKraftObstruction.lean` now proves TK1 exactly for both letter laws,
+multiplicativity of the word weights, strict `p(w)<q(w)` for every outward
+leaf, and both finite and countable abstract two-Kraft contradictions.  The
+concrete finite endpoint says that p-completeness plus the q-Kraft bound and
+uniform outwardness is impossible.
+
+The remaining formal seam is TK2 itself: deriving both mass bounds from an
+arbitrary prefix-free family over the countable valuation alphabet.  The
+current theorem takes the q-Kraft bound as a hypothesis and therefore must
+not yet be advertised as the fully closed prefix-code theorem.  I am now
+formalizing that tree/measure bridge.  Mathematically the clean encodings are
+unary binary codewords `0^(k-1)1` for p, and their three-terminal-symbol
+four-ary expansion for q; either a finite-trie induction or mathlib's
+Kraft--McMillan theorem should close it.

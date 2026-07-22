@@ -163,6 +163,45 @@ theorem prefixCoefficient_coprime (g : PhaseUpTailRay) (n : ℕ) :
 
 end PhaseUpTailRay
 
+/-! ## Finite-prefix solvability is automatic -/
+
+/-- Every affine congruence with invertible coefficient has one canonical
+residue.  This elementary fact is why arbitrarily long successful finite
+prefixes are not evidence for an ordinary infinite tail. -/
+theorem exists_canonical_affine_residue (M coefficient gain : ℕ)
+    (hM : 0 < M) (hcop : coefficient.Coprime M) :
+    ∃ residue, residue < M ∧ M ∣ coefficient * residue + gain := by
+  letI : NeZero M := ⟨hM.ne'⟩
+  let u : (ZMod M)ˣ := ZMod.unitOfCoprime coefficient hcop
+  let z : ZMod M := -(↑(u⁻¹) : ZMod M) * (gain : ZMod M)
+  refine ⟨z.val, z.val_lt, ?_⟩
+  rw [← ZMod.natCast_eq_zero_iff (coefficient * z.val + gain) M]
+  push_cast
+  rw [ZMod.natCast_zmod_val]
+  dsimp only [z]
+  rw [← ZMod.coe_unitOfCoprime coefficient hcop]
+  change (u : ZMod M) * (-(↑(u⁻¹) : ZMod M) * (gain : ZMod M)) +
+    (gain : ZMod M) = 0
+  calc
+    (u : ZMod M) * (-(↑(u⁻¹) : ZMod M) * (gain : ZMod M)) +
+        (gain : ZMod M) =
+      -((u : ZMod M) * (↑(u⁻¹) : ZMod M)) * (gain : ZMod M) +
+        (gain : ZMod M) := by ring
+    _ = 0 := by rw [Units.mul_inv]; ring
+
+/-- Applied to a dependent dyadic affine schedule: if the accumulated odd
+coefficient is coprime to the dyadic denominator, every finite depth has a
+canonical accepted starting residue, independently of whether one ordinary
+natural realizes all depths. -/
+theorem DependentDyadicAffineRay.exists_prefix_residue
+    (g : DependentDyadicAffineRay)
+    (hcop : ∀ n, (g.prefixCoefficient n).Coprime (2 ^ g.prefixBits n))
+    (n : ℕ) :
+    ∃ residue, residue < 2 ^ g.prefixBits n ∧
+      2 ^ g.prefixBits n ∣
+        g.prefixCoefficient n * residue + g.prefixGain n := by
+  exact exists_canonical_affine_residue _ _ _ (by positivity) (hcop n)
+
 /-- Proof-carrying canonical solutions of the affine congruences accumulated
 by finite prefixes of a dependent tail policy. -/
 structure DyadicAffinePrefixSystem where

@@ -535,6 +535,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.DyadicAffinePrefixSystem.extensionLifts_eventually_zero
 #print axioms KontoroC.DyadicAffinePrefixSystem.no_accepts_of_frequently_nonzero_extensionLifts
 #print axioms KontoroC.DependentDyadicAffineRay.prefix_balance
+#print axioms KontoroC.exists_canonical_affine_residue
+#print axioms KontoroC.DependentDyadicAffineRay.exists_prefix_residue
 #print axioms KontoroC.PhaseUpTailRay.prefixPrecision_diverges
 #print axioms KontoroC.PhaseUpTailRay.prefixCoefficient_coprime
 #print axioms KontoroC.FixedJumpPhaseUp.recharge_power_lt
@@ -559,3 +561,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.PeriodicPhaseUp.gamma_lt_threshold_two
 #print axioms KontoroC.PeriodicPhaseUp.gamma_lt_threshold_three
 #print axioms KontoroC.PeriodicPhaseUp.threshold_four_lt_gamma
+#print axioms KontoroC.ChargeTotalAffineGaugeNoGo.direct_handoff_progression
+#print axioms
+  KontoroC.ChargeTotalAffineGaugeNoGo.accumulated_two_power_dvd_initial_slope
+#print axioms
+  KontoroC.ChargeTotalAffineGaugeNoGo.no_positive_infinite_total_affine_gauge
+#print axioms KontoroC.TwoKraftObstruction.hasSum_pLetter
+#print axioms KontoroC.TwoKraftObstruction.hasSum_qLetter
+#print axioms KontoroC.TwoKraftObstruction.pWeight_lt_qWeight_of_outward
+#print axioms KontoroC.TwoKraftObstruction.finite_two_kraft_contradiction
+#print axioms KontoroC.TwoKraftObstruction.countable_two_kraft_contradiction
+#print axioms KontoroC.TwoKraftObstruction.no_finite_complete_uniformly_outward
