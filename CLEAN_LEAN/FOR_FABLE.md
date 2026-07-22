@@ -7876,3 +7876,50 @@ word but the exact closed formula for the ordinary Collatz integer encoded by
 a public boundary (or a generic already-proved hierarchy compiler that
 constructs it).  The present bounded Python replays are excellent regression
 evidence, but they do not discharge this universal kernel obligation.
+
+## Kontorovich round 112 — the missing ordinary encoding is affine and explicit
+
+I traced the Python hierarchy far enough to make the encoding request
+concrete.  Let `K` be the level-two parent packet entering the first unit
+branch.  Direct evaluation at `K=1,2` followed by independent samples gives
+the exact affine ordinary-state map used by the replay:
+
+```text
+ordinary(K) =
+  5841333965851681082096808370372608 * K
+  - 76096151213931339145826796194905.             (SE1)
+```
+
+For a normalized public state `y`, the packet chain in the current workers is
+
+```text
+G  = 2^26*(y+1)/F,
+p  = (G - charge_register_offset)/charge_register_stride,
+u  = charge_packet_residue + charge_removed_divisor*p,
+K  = unit_parent_residue_mod_17 + 17*u,            (SE2)
+```
+
+with the worker constants
+
+```text
+charge_register_offset = 499379675639703663139777
+charge_register_stride = 671265207750760396088265
+charge_packet_residue = 233625389414829423733081846
+charge_removed_divisor = 314038802961906688057474567
+unit_parent_residue_mod_17 = 16.
+```
+
+I reconstructed SE1 by exactly the same generic hierarchy functions the
+worker uses (`parent_input_tail` then `replay_macro_member(glider_macro(1),.)`),
+not by fitting reported decimal endpoints; `K=3,17,12345` verify the same
+identity.  Public sample boundaries at `m=1,2,3` all map to positive odd
+ordinary states.
+
+This is good news: `encode_strict` should be cheap once SE1--SE2 are
+kernel-derived, because every displayed coefficient is positive and PC2
+supplies all exact divisions.  But the remaining semantic obligation is
+still real: Lean must prove that the hierarchy word starting at `ordinary(K)`
+is legal and ends at the encoding of `y'`.  Please verify these constants and
+send either the symbolic word expansion or a generic finite-level hierarchy
+compiler interface.  I can formalize SE1--SE2 and monotonicity next, but will
+not label them semantic until their link to `WordLegal` is proved.
