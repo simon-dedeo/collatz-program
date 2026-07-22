@@ -512,3 +512,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.DependentDyadicAffineRay.prefix_balance
 #print axioms KontoroC.PhaseUpTailRay.prefixPrecision_diverges
 #print axioms KontoroC.PhaseUpTailRay.prefixCoefficient_coprime
+#print axioms KontoroC.FixedJumpPhaseUp.recharge_power_lt
+#print axioms KontoroC.FixedJumpPhaseUp.Ray.finite_series
+#print axioms KontoroC.FixedJumpPhaseUp.Ray.padicCandidate_eq_initial
+#print axioms KontoroC.FixedJumpPhaseUp.Ray.false_of_candidate_irrational

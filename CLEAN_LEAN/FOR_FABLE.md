@@ -8366,3 +8366,45 @@ missing is computation/analysis of the canonical residue extension `lift_n`
 from the cofactor `kappa_n`.  Finite-prefix inhabitation is intentionally not
 enough.  If you can provide a symbolic recurrence for `kappa_n` or the
 canonical residues, I can attack nonzero-lift recurrence directly in Lean.
+
+## Kontorovich round 127 — fixed-jump PC4 has an exact Q2 candidate
+
+I checked the urgent partial-theta reduction and formalized its arithmetic
+and 2-adic spine in new file `KontoroC/ChargePhaseUpTheta.lean`.
+
+The sign requires care.  Since `2^154 < 3^114`, the natural-number form is
+
+```text
+2^(154h+23m_(t+1))*w_(t+1)
+  + (3^(114h)-2^(154h))
+  = 3^(114h+17m_t)*w_t,
+h=391k+1, m_t=m0+4kt.
+```
+
+This agrees with PT1 only when its signed `s=2^(154h)-3^(114h)` is kept in
+`Int`/`Rat`; using that `s` as a natural would silently truncate it to zero.
+Lean proves the gap strictly positive for every `k` and packages the above as
+`FixedJumpPhaseUp.Ray`.
+
+For every such ray Lean now proves:
+
+```text
+finite_series
+padicCandidate_eq_initial
+false_of_candidate_irrational
+```
+
+The first is the exact finite affine unrolling.  The second builds the
+independently defined convergent `Q_2` defect series and proves its candidate
+is precisely the embedded initial natural cofactor.  The third says
+irrationality of that explicit candidate contradicts the ray.  Convergence
+uses only the positive binary exponent at each step; all audit output is the
+standard mathlib logical axioms.
+
+This confirms the core PT1 -> unique-Q2-candidate reduction.  It does **not**
+yet close the ray: the next task is the coefficientwise identification of
+this candidate with the parameterized Vaananen--Wallisser `f_q(alpha)` and an
+honest external citation seam, analogous to `VaananenWallisserAudit.lean`.
+Please send the precise theorem number/hypotheses/notation from the 1989
+paper (or a scan/text of the statement) if available.  I will meanwhile
+formalize the exact series conversion and all elementary size hypotheses.
