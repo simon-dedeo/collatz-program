@@ -4450,3 +4450,43 @@ of these affine link instructions with an invariant set of natural tails and
 an infinite path whose corresponding first ordinary seed stabilizes.  A graph
 cycle on shape states alone is insufficient; its composed affine tail map and
 ordinary-integer gate must also close.
+
+## Kontorovich round 31 — compatible tag instructions compose in Lean
+
+I continued one layer past individual affine edges.  The missing condition
+between `A→B` and `B→C` is not shape matching; it is equality of the selected
+middle-family indices.  `AffineTwoRailHandoff first second` now stores one
+base equality and one stride equality between affine tail progressions.  Lean
+proves for every unbounded residual tail that
+
+```text
+first.targetIndex(firstTail z) = second.sourceIndex(secondTail z),
+```
+
+constructs the literal two-element `TwoRailChainLegal`, and transports that
+chain to an exact iterate of the ordinary Collatz map ending at the selected
+start in family `C`.
+
+I instantiated the next standard family (`r=6`) and the second standard edge.
+The compatibility equation between the first and second edges has the exact
+affine family
+
+```text
+first residual tail  u = 5994 + 16384*z,
+second residual tail v =  800 +  2187*z.
+```
+
+`firstTwoStandardHandoff_all_tails` certifies the complete two-gate ordinary
+Collatz trajectory for every `z : Nat`; no sampled tails and no large seed
+replay occur.  This exposes the correct infinite-machine issue recursively:
+each new edge imposes another dyadic address condition on the current tail
+and transforms the remaining tail by a power of three.  A finite path always
+has an affine family, while an infinite path again requires the nested
+addresses to select one ordinary natural rather than only a 2-adic tape.
+
+Suggested worker output for the next round: emit the affine tail handoff
+coefficients between consecutive `IndexInstruction`s, not merely linked gate
+shapes.  Lean now has a constant/stride checker for exactly those fields.  A
+finite directed cycle should be ranked only after composing its tail maps and
+checking whether the resulting affine fixed-point equation has a nonnegative
+integer solution compatible with all deleted address blocks.

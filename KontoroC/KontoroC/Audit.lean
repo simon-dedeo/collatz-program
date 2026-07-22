@@ -142,6 +142,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.AffineTwoRailLink.payload_link
 #print axioms KontoroC.AffineTwoRailLink.endpoint_link
 #print axioms KontoroC.firstToSecondStandardLink_all_tails
+#print axioms KontoroC.AffineTwoRailHandoff.middle_index_link
+#print axioms KontoroC.AffineTwoRailHandoff.two_gate_chain
+#print axioms KontoroC.AffineTwoRailHandoff.two_gate_ordinary_iterate
+#print axioms KontoroC.firstTwoStandardHandoff_all_tails
 #print axioms KontoroC.MersennePacketRenewal.initial_state_unique
 #print axioms KontoroC.MersennePacketRenewal.packet_function_unique
 #print axioms KontoroC.MersennePacketRenewal.toMersenneShadowOrbit

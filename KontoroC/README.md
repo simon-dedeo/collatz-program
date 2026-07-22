@@ -240,6 +240,19 @@ target index = 1667 + 2187*u.
 Thus the 13-bit address deletion and `3^7` tail update are theorems, not
 conclusions from sampled members.  An infinite counterexample still requires
 these affine instructions to close into one all-level ordinary program.
+Consecutive instructions can also be certified coefficientwise:
+`AffineTwoRailHandoff` proves that two affine tail progressions select the
+same middle gate, then derives the exact two-gate iterate of the ordinary map.
+For the first two standard edges, the universal compatibility is
+
+```text
+first residual tail  = 5994 + 16384*t,
+second residual tail =  800 +  2187*t.
+```
+
+This is the first compositional transducer path theorem; extending such paths
+still refines the admissible initial tail and does not by itself establish an
+ordinary infinite seed.
 
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.

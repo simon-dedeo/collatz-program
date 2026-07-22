@@ -282,4 +282,175 @@ theorem firstToSecondStandardLink_all_tails (u : ℕ) :
         (firstToSecondStandardLink.targetIndex u)).start :=
   firstToSecondStandardLink.endpoint_link u
 
+/-- Kernel-checked base gate for the third standard rail length. -/
+def thirdStandardTwoRailGate : TwoRailGate where
+  ampTicks := 6
+  cleanTicks := 1
+  toPlusExtra := 1
+  toMinusExtra := 1
+  outputGap := 8
+  inputPayload := 20809
+  plusPayload := 1422165
+  outputPayload := 24999
+  ampTicks_pos := by norm_num
+  outputGap_pos := by norm_num
+  inputPayload_pos := by norm_num
+  plusPayload_pos := by norm_num
+  outputPayload_pos := by norm_num
+  inputPayload_odd := by norm_num
+  plusPayload_odd := by norm_num
+  outputPayload_odd := by norm_num
+  toPlus_balance := by norm_num [delayState]
+  toMinus_balance := by norm_num [minusOneState]
+
+def thirdStandardTwoRailFamily : AffineTwoRailFamily where
+  base := thirdStandardTwoRailGate
+  inputStride := 32768
+  plusStride := 2239488
+  outputStride := 39366
+  inputStride_even := by norm_num
+  plusStride_even := by norm_num
+  outputStride_even := by norm_num
+  toPlus_stride_balance := by norm_num [thirdStandardTwoRailGate]
+  toMinus_stride_balance := by norm_num [thirdStandardTwoRailGate]
+
+def secondToThirdStandardLink :
+    AffineTwoRailLink secondStandardTwoRailFamily
+      thirdStandardTwoRailFamily where
+  sourceIndexBase := 3345
+  sourceIndexStride := 16384
+  targetIndexBase := 1339
+  targetIndexStride := 6561
+  gap_link := by norm_num [secondStandardTwoRailFamily,
+    thirdStandardTwoRailFamily, secondStandardTwoRailGate,
+    thirdStandardTwoRailGate]
+  payload_base_link := by norm_num [secondStandardTwoRailFamily,
+    thirdStandardTwoRailFamily, secondStandardTwoRailGate,
+    thirdStandardTwoRailGate]
+  payload_stride_link := by norm_num [secondStandardTwoRailFamily,
+    thirdStandardTwoRailFamily]
+
+/-- Compatibility of two consecutive affine link instructions.  The first
+tail progression is mapped exactly onto the source-index progression selected
+by the second instruction. -/
+structure AffineTwoRailHandoff
+    {source middle target : AffineTwoRailFamily}
+    (first : AffineTwoRailLink source middle)
+    (second : AffineTwoRailLink middle target) where
+  firstTailBase : ℕ
+  firstTailStride : ℕ
+  secondTailBase : ℕ
+  secondTailStride : ℕ
+  index_base_link :
+    first.targetIndex firstTailBase = second.sourceIndex secondTailBase
+  index_stride_link :
+    first.targetIndexStride * firstTailStride =
+      second.sourceIndexStride * secondTailStride
+
+namespace AffineTwoRailHandoff
+
+def firstTail {source middle target : AffineTwoRailFamily}
+    {first : AffineTwoRailLink source middle}
+    {second : AffineTwoRailLink middle target}
+    (h : AffineTwoRailHandoff first second) (z : ℕ) : ℕ :=
+  h.firstTailBase + h.firstTailStride * z
+
+def secondTail {source middle target : AffineTwoRailFamily}
+    {first : AffineTwoRailLink source middle}
+    {second : AffineTwoRailLink middle target}
+    (h : AffineTwoRailHandoff first second) (z : ℕ) : ℕ :=
+  h.secondTailBase + h.secondTailStride * z
+
+theorem middle_index_link {source middle target : AffineTwoRailFamily}
+    {first : AffineTwoRailLink source middle}
+    {second : AffineTwoRailLink middle target}
+    (h : AffineTwoRailHandoff first second) (z : ℕ) :
+    first.targetIndex (h.firstTail z) =
+      second.sourceIndex (h.secondTail z) := by
+  simp only [AffineTwoRailLink.targetIndex,
+    AffineTwoRailLink.sourceIndex, firstTail, secondTail]
+  calc
+    first.targetIndexBase +
+          first.targetIndexStride *
+            (h.firstTailBase + h.firstTailStride * z) =
+        first.targetIndex h.firstTailBase +
+          (first.targetIndexStride * h.firstTailStride) * z := by
+      simp only [AffineTwoRailLink.targetIndex]
+      ring
+    _ = second.sourceIndex h.secondTailBase +
+          (second.sourceIndexStride * h.secondTailStride) * z := by
+      rw [h.index_base_link, h.index_stride_link]
+    _ = second.sourceIndexBase +
+          second.sourceIndexStride *
+            (h.secondTailBase + h.secondTailStride * z) := by
+      simp only [AffineTwoRailLink.sourceIndex]
+      ring
+
+/-- Two compatible link instructions produce a literal linked pair of exact
+Collatz gates for every residual tail. -/
+theorem two_gate_chain {source middle target : AffineTwoRailFamily}
+    {first : AffineTwoRailLink source middle}
+    {second : AffineTwoRailLink middle target}
+    (h : AffineTwoRailHandoff first second) (z : ℕ) :
+    TwoRailChainLegal
+      (source.member (first.sourceIndex (h.firstTail z))).start
+      [source.member (first.sourceIndex (h.firstTail z)),
+        middle.member (second.sourceIndex (h.secondTail z))] := by
+  refine ⟨rfl, ?_⟩
+  refine ⟨?_, trivial⟩
+  calc
+    (source.member (first.sourceIndex (h.firstTail z))).endpoint =
+        (middle.member (first.targetIndex (h.firstTail z))).start :=
+      first.endpoint_link _
+    _ = (middle.member (second.sourceIndex (h.secondTail z))).start := by
+      rw [h.middle_index_link z]
+
+/-- The universal two-edge transducer path is an exact iterate of the
+ordinary Collatz map, ending at the start selected in the third family. -/
+theorem two_gate_ordinary_iterate
+    {source middle target : AffineTwoRailFamily}
+    {first : AffineTwoRailLink source middle}
+    {second : AffineTwoRailLink middle target}
+    (h : AffineTwoRailHandoff first second) (z : ℕ) :
+    CleanLean.Collatz.step^[ordinaryDuration (twoRailChainWord
+        [source.member (first.sourceIndex (h.firstTail z)),
+          middle.member (second.sourceIndex (h.secondTail z))])]
+        (source.member (first.sourceIndex (h.firstTail z))).start =
+      (target.member (second.targetIndex (h.secondTail z))).start := by
+  have hchain := twoRailChain_ordinary_iterate (h.two_gate_chain z)
+  simpa [twoRailChainEndpoint, second.endpoint_link (h.secondTail z)] using
+    hchain
+
+end AffineTwoRailHandoff
+
+/-- Universal compatibility of the first two standard link instructions. -/
+def firstTwoStandardHandoff :
+    AffineTwoRailHandoff firstToSecondStandardLink
+      secondToThirdStandardLink where
+  firstTailBase := 5994
+  firstTailStride := 16384
+  secondTailBase := 800
+  secondTailStride := 2187
+  index_base_link := by norm_num [firstToSecondStandardLink,
+    secondToThirdStandardLink, AffineTwoRailLink.targetIndex,
+    AffineTwoRailLink.sourceIndex]
+  index_stride_link := by norm_num [firstToSecondStandardLink,
+    secondToThirdStandardLink]
+
+theorem firstTwoStandardHandoff_all_tails (z : ℕ) :
+    CleanLean.Collatz.step^[ordinaryDuration (twoRailChainWord
+        [firstStandardTwoRailFamily.member
+            (firstToSecondStandardLink.sourceIndex
+              (firstTwoStandardHandoff.firstTail z)),
+          secondStandardTwoRailFamily.member
+            (secondToThirdStandardLink.sourceIndex
+              (firstTwoStandardHandoff.secondTail z))])]
+        (firstStandardTwoRailFamily.member
+          (firstToSecondStandardLink.sourceIndex
+            (firstTwoStandardHandoff.firstTail z))).start =
+      (thirdStandardTwoRailFamily.member
+        (secondToThirdStandardLink.targetIndex
+          (firstTwoStandardHandoff.secondTail z))).start :=
+  firstTwoStandardHandoff.two_gate_ordinary_iterate z
+
 end KontoroC
