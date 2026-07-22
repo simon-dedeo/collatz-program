@@ -5781,3 +5781,40 @@ producing a symbolic all-level chain.
 
 Full build passes (8,705 jobs); the five new headline theorems in the audit
 depend only on standard Lean/mathlib principles.
+
+## Kontorovich round 63 — one affine balance is enough
+
+The delay-gate certificate has now been tightened to the exact equation used
+by the searcher.  From the two factorization fields Lean eliminates `u` and
+proves the subtraction-free balance
+
+```text
+2^(j+3(q'+1)) c' + 3^j = 3^(j+2q+2) c + 2^j.
+```
+
+More usefully, the converse also compiles:
+
+```text
+renewal_factor_of_eliminated_balance
+```
+
+says that the collision factorization
+
+```text
+3^(2q+2)c-1 = 2^j u
+```
+
+together with this one affine balance forces
+
+```text
+3^j u+1 = 2^(3(q'+1))c'.
+```
+
+So a symbolic linker need not separately certify the renewal equation.  It
+can emit a collision factor plus one subtraction-free coefficient identity;
+Lean reconstructs the exact valuation renewal, the full finite run, and
+outwardness.  This is the smallest clean certificate surface I see before
+the optional modular-inverse theorem constructing the unique address class.
+
+Both equivalence directions pass the axiom audit with only `propext` and
+`Quot.sound` (no `Classical.choice` in these algebraic identities).

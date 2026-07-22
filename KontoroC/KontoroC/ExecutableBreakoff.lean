@@ -271,6 +271,101 @@ def collision (g : BreakoffDelayGate) : ℕ :=
 def endpoint (g : BreakoffDelayGate) : ℕ :=
   9 * 2 ^ (3 * g.nextDelay) * g.outputCoefficient - 1
 
+/-- The two exact factorization certificates eliminate the collision payload
+to the single affine balance used by the symbolic gate search.  The
+subtraction-free form is preferable over naturals. -/
+theorem eliminated_balance (g : BreakoffDelayGate) :
+    2 ^ (g.collisionOpcode + 3 * (g.nextDelay + 1)) *
+        g.outputCoefficient + 3 ^ g.collisionOpcode =
+      3 ^ (g.collisionOpcode + 2 * g.delay + 2) * g.coefficient +
+        2 ^ g.collisionOpcode := by
+  have hcollision_pos :
+      0 < 3 ^ (2 * g.delay + 2) * g.coefficient :=
+    Nat.mul_pos (Nat.pow_pos (by omega)) g.coefficient_pos
+  have hcollision :
+      3 ^ (2 * g.delay + 2) * g.coefficient =
+        2 ^ g.collisionOpcode * g.collisionPayload + 1 := by
+    have := g.collision_factor
+    omega
+  calc
+    2 ^ (g.collisionOpcode + 3 * (g.nextDelay + 1)) *
+          g.outputCoefficient + 3 ^ g.collisionOpcode =
+        2 ^ g.collisionOpcode *
+          (2 ^ (3 * (g.nextDelay + 1)) * g.outputCoefficient) +
+            3 ^ g.collisionOpcode := by rw [pow_add]; ring
+    _ = 2 ^ g.collisionOpcode *
+          (3 ^ g.collisionOpcode * g.collisionPayload + 1) +
+            3 ^ g.collisionOpcode := by rw [g.renewal_factor]
+    _ = 3 ^ g.collisionOpcode *
+          (2 ^ g.collisionOpcode * g.collisionPayload + 1) +
+            2 ^ g.collisionOpcode := by ring
+    _ = 3 ^ g.collisionOpcode *
+          (3 ^ (2 * g.delay + 2) * g.coefficient) +
+            2 ^ g.collisionOpcode := by rw [← hcollision]
+    _ = 3 ^ (g.collisionOpcode + 2 * g.delay + 2) * g.coefficient +
+          2 ^ g.collisionOpcode := by
+        rw [show g.collisionOpcode + 2 * g.delay + 2 =
+          g.collisionOpcode + (2 * g.delay + 2) by omega, pow_add]
+        ring
+
+/-- Conversely, once the collision factorization is known, the eliminated
+affine balance recovers the renewal factorization exactly. -/
+theorem renewal_factor_of_eliminated_balance
+    (delay collisionOpcode nextDelay coefficient collisionPayload
+      outputCoefficient : ℕ)
+    (hcoefficient_pos : 0 < coefficient)
+    (hcollision :
+      3 ^ (2 * delay + 2) * coefficient - 1 =
+        2 ^ collisionOpcode * collisionPayload)
+    (hbalance :
+      2 ^ (collisionOpcode + 3 * (nextDelay + 1)) * outputCoefficient +
+          3 ^ collisionOpcode =
+        3 ^ (collisionOpcode + 2 * delay + 2) * coefficient +
+          2 ^ collisionOpcode) :
+    3 ^ collisionOpcode * collisionPayload + 1 =
+      2 ^ (3 * (nextDelay + 1)) * outputCoefficient := by
+  have hcollision_pos : 0 < 3 ^ (2 * delay + 2) * coefficient := by
+    exact Nat.mul_pos (Nat.pow_pos (by omega)) hcoefficient_pos
+  have hcollision' :
+      3 ^ (2 * delay + 2) * coefficient =
+        2 ^ collisionOpcode * collisionPayload + 1 := by
+    omega
+  have hnormalized :
+      2 ^ collisionOpcode *
+          (2 ^ (3 * (nextDelay + 1)) * outputCoefficient) +
+          3 ^ collisionOpcode =
+        2 ^ collisionOpcode *
+          (3 ^ collisionOpcode * collisionPayload + 1) +
+          3 ^ collisionOpcode := by
+    calc
+      2 ^ collisionOpcode *
+            (2 ^ (3 * (nextDelay + 1)) * outputCoefficient) +
+            3 ^ collisionOpcode =
+          2 ^ (collisionOpcode + 3 * (nextDelay + 1)) *
+            outputCoefficient + 3 ^ collisionOpcode := by rw [pow_add]; ring
+      _ = 3 ^ (collisionOpcode + 2 * delay + 2) * coefficient +
+            2 ^ collisionOpcode := hbalance
+      _ = 3 ^ collisionOpcode *
+            (3 ^ (2 * delay + 2) * coefficient) +
+            2 ^ collisionOpcode := by
+          rw [show collisionOpcode + 2 * delay + 2 =
+            collisionOpcode + (2 * delay + 2) by omega, pow_add]
+          ring
+      _ = 3 ^ collisionOpcode *
+            (2 ^ collisionOpcode * collisionPayload + 1) +
+            2 ^ collisionOpcode := by rw [hcollision']
+      _ = 2 ^ collisionOpcode *
+            (3 ^ collisionOpcode * collisionPayload + 1) +
+            3 ^ collisionOpcode := by ring
+  have hmul :
+      2 ^ collisionOpcode *
+          (2 ^ (3 * (nextDelay + 1)) * outputCoefficient) =
+        2 ^ collisionOpcode *
+          (3 ^ collisionOpcode * collisionPayload + 1) :=
+    Nat.add_right_cancel hnormalized
+  exact (Nat.mul_left_cancel (Nat.pow_pos (by omega) : 0 < 2 ^ collisionOpcode))
+    hmul |>.symm
+
 /-- The collision factorization determines the executable registers. -/
 theorem collision_registers (g : BreakoffDelayGate) :
     breakoffOpcode g.collision = g.collisionOpcode ∧
