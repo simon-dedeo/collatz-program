@@ -215,6 +215,23 @@ theorem no_realization_of_affine_address_lifts
   rw [hstep k]
   exact affineLift_gt _ _ _ (hD k) (hpos k)
 
+/-- Exact prefix-extension form used by affine macro composition.  If adding
+one more block replaces the old canonical address `a_k` by
+`a_k + 2^(bits k) * rho_k` with a positive source residue, then no ordinary
+natural realizes every finite prefix. -/
+theorem no_realization_of_positive_extension_lifts
+    (S : DyadicBreakoffLinkSchedule) (rho : ℕ → ℕ)
+    (hrho : ∀ k, 0 < rho k)
+    (hstep : ∀ k,
+      (S.link (k + 1)).firstTailBase =
+        (S.link k).firstTailBase + 2 ^ S.bits k * rho k) :
+    ¬ ∃ n, S.RealizedBy n := by
+  apply S.no_realization_of_strictly_growing_addresses
+  intro k
+  rw [hstep k]
+  exact Nat.lt_add_of_pos_right
+    (Nat.mul_pos (Nat.pow_pos (by omega)) (hrho k))
+
 end DyadicBreakoffLinkSchedule
 
 /-- A dyadic affine-link dispatcher whose control consists of a finite phase

@@ -6290,3 +6290,107 @@ bouncer into any recurrent/bi-infinite symbolic component.  A stronger
 derived rank would have to be bounded above or descend forward; neither the
 decoder equations nor determinant four currently supply one.  Full build and
 axiom audit pass (8,711 jobs).
+
+## Kontorovich round 74 — beginning the one-sided-ray attack
+
+The user has asked us to try to disprove existence of the remaining one-sided
+accepted bouncer ray.  I am working from the full register conditions, not the
+weaker decoder interface.
+
+At an accepted state, write
+
+```text
+y+1 = 2^(23m) * F * r,
+q   = (3^(17m)*(y+1)-2^(23m))/2^(23m+154h) = Delta*s,
+F=(3^114-2^154)/5,
+Delta=3^17-2^23.
+```
+
+The preserved congruences appear to normalize a transition to
+
+```text
+F*3^(17m)*r - Delta*2^(154h)*s = 1,
+F*2^(23m')*r' - Delta*3^(114h)*s = 1.
+```
+
+I will check this exactly and search for a height/rank using the determinant
+`114*23-154*17=4`.  Early warning: the fixed-register congruences seem to be
+automatically preserved by these equations, so they may not supply an extra
+local obstruction; the bounded artifact's complete `m -> m'` families point
+the same way.  Please send any new formula-family constraint or candidate
+rank.  I will scope any no-go to the hypotheses actually proved and will not
+mistake this ray question for a routine consequence of outwardness.
+
+## Kontorovich round 75 — candidate ray-killer: positive extension lifts
+
+There is a more promising global target than a local rank.  Build the exact
+affine macro for a finite bouncer word, then link one more `(m,h)` block.  The
+new restriction on the *original* tail has the form
+
+```text
+tail = rho + 2^L * newTail.
+```
+
+I exhaustively checked the small exact families available locally
+(`m,h<=2`, through four blocks; broader two-block boxes as well).  Every
+extension had `rho>0`; no zero lift occurred.  If `rho>0` holds for every
+finite prefix and every next accepted block, then the existing Lean address
+theorem closes the ray immediately: canonical initial addresses strictly
+increase under every extension, whereas the residues of one ordinary natural
+must eventually stabilize.
+
+Please prioritize deriving/auditing the generic `link_macros` source-residue
+formula for:
+
+```text
+current = arbitrary composed accepted bouncer prefix,
+next    = one defect m+1 followed by h-1 backgrounds.
+```
+
+The exact question is **not** merely whether the source tail is nonnegative;
+it is whether its canonical representative can ever be zero.  Equivalently,
+can the minimal member of any accepted finite prefix already execute one more
+accepted block?  If a modular invariant forces `rho != 0`, we have the desired
+no-ray proof.  If a zero lift exists, please return the smallest exact opcode
+word as a decisive counterexample to this strategy.
+
+## Kontorovich round 76 — the positive-lift endpoint now compiles
+
+I have formalized the exact endpoint needed by round 75 as
+
+```text
+DyadicBreakoffLinkSchedule.no_realization_of_positive_extension_lifts
+```
+
+Its hypothesis is precisely
+
+```text
+base_(k+1) = base_k + 2^(bits_k) * rho_k,
+rho_k > 0.
+```
+
+Lean proves that the canonical bases are strictly increasing, contradicting
+eventual equality to any ordinary realizing tail.  Thus the whole ray problem
+has a small, reviewed seam now: prove the compiler's canonical extension
+residue `rho_k` is never zero.
+
+The generic `link_macros` formula makes the zero case especially concrete.
+For current output `b+c*q` and next input `a+2^E*s`, the unadjusted source is
+
+```text
+q0 = (a-b) * c^(-1) mod 2^E.
+```
+
+The final natural source can equal zero only if `b` itself is already a member
+of the next input progression (`b=a+2^E*s` for some natural `s`).  So the
+research obligation can equivalently be stated:
+
+```text
+the minimal output of no accepted finite prefix is an accepted input to one
+more bouncer block.
+```
+
+Small exact scans find no zero source.  They also show this is not merely a
+fixed mod-16 mismatch: the two-adic agreement depth grows with prefix length,
+so an all-depth invariant or a strict minimality argument is required.  Full
+Lean build and axiom audit pass (8,711 jobs).

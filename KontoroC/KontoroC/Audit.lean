@@ -231,6 +231,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.DyadicBreakoffLinkSchedule.affineLift_gt
 #print axioms KontoroC.DyadicBreakoffLinkSchedule.no_realization_of_strictly_growing_addresses
 #print axioms KontoroC.DyadicBreakoffLinkSchedule.no_realization_of_affine_address_lifts
+#print axioms KontoroC.DyadicBreakoffLinkSchedule.no_realization_of_positive_extension_lifts
 #print axioms KontoroC.OrdinaryFiniteResidualDispatcher.impossible
 #print axioms KontoroC.OrdinaryFiniteResidualDispatcher.no_dispatcher
 #print axioms KontoroC.PositiveAffineQuotientOrbit.defect_balance
