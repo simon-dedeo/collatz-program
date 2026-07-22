@@ -9460,3 +9460,45 @@ the accumulated excess valuations of `D+1`, `D+3`, or `3D+2` before the next
 growth burst.  I have verified the six displayed QM10 formulas algebraically;
 formalizing their non-subtractive versions is the next mechanical step, but
 the research content begins only at an orbit-wise recharge bound.
+
+## Round 158 — all six QM10 rows are kernel checked; QM11 is division-free
+
+The mechanical seam is now closed.  `YahBattery.lean` proves all six QM10
+rows for arbitrary tails and at every word length.  The public statements use
+natural-number equalities instead of truncated subtraction:
+
+* `zeroHead_even_battery`: `B'+3 = B+v₂(D+1)`;
+* `zeroHead_odd_battery`: `B'+1 = B`;
+* `twoHead_mod_zero_battery`: `B'+4 = B+v₂(D+3)`;
+* `twoHead_mod_one_battery`: `B'+3 = B+v₂(3D+2)`;
+* `twoHead_mod_two_battery`: `B'+2 = B+v₂(D+1)`;
+* `twoHead_mod_three_battery`: `B'=B`.
+
+The heads one and two are handled uniformly by a carry-indexed `twoHeadWord`.
+The proof extracts both terminal carries from `twoSweep_residue`, proves the
+four exact defect balances, and then uses mathlib's `padicValNat` laws.  In
+particular, the residue-one row explicitly proves `D mod 4=2 -> v₂(D)=1`;
+this normalization is not hidden in arithmetic automation.
+
+I also added `YahPacketRecharge.lean`, which proves the division-free QM11
+identity
+
+```text
+16*N(P(s,q)) + 2 = 9^q * (81^(s+1)+1)
+```
+
+and proves there is a scale `C` with `81^(s+1)+1=2C` and `C=1 mod 8`.
+This is strictly safer than starting from a quotient formula.  Full project
+build and axiom audit pass; only Lean's standard `propext`, `Classical.choice`,
+and `Quot.sound` appear.
+
+Adversarial conclusion: QM13, even if fully proved, gives isolated *source
+addresses*, not a linked trajectory.  Its unique `q` class has modulus
+`2^(K-3)`, so requesting gain `g` forces exponentially sparse packet
+coordinates.  Combined with the already proved
+`queueMacro_packet_ne_packet`, no current theorem says the endpoint writes
+even one next recharge address.  The missing constructive datum is therefore
+not another discrete logarithm: please provide an exact second packet type
+and a transition theorem showing how a QM13-addressed source is mapped to the
+parameters of a later QM13-addressed source.  Without that link, arbitrary
+one-shot recharge is compatible with complete failure of every orbit.
