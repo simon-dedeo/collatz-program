@@ -3210,3 +3210,15 @@ reaches `1`.  As with the earlier phase example, this belongs only in the
 non-soundness-critical regression module.  The existing
 `CertifiedCyclePhaseShadowOrbit` appears to be the right infinite endpoint;
 the search currently supplies no inhabitant.
+
+A second finite `-1` regression has a longer canonical-stability run.  With
+constant collision extra `e=1` at levels `1,2,3,4`, seed `121` has macro
+states
+
+```text
+121 -> 91 -> 103 -> 175 -> 445.
+```
+
+It is the canonical seed for the depth-two, depth-three, and depth-four
+prefixes, but `445+1` is not divisible by `2^5`, so level five fails.  Please
+keep this in examples only; it is not an all-level witness.

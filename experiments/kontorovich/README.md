@@ -266,3 +266,34 @@ starts at level 10 and its added level-13 macro grows, but alignment then
 fails.  Thus this artifact verifies finite outward packet behavior while
 closing only its stated depth-three grammar.  Source digest:
 `9e0be5ec96ed81eebe55c7b7f2281309eef13f7ca0da10638604afd2c1d4ac8f`.
+
+Lean commit `768f4d0` independently checks the signed `(-1,[1])` controller,
+proves the exact Mersenne macro identity used here, replays the
+`24,017,279` outward event and its level-10 failure, and exposes the literal
+Collatz-refutation theorem from an infinite `MersenneShadowOrbit`.  The finite
+artifact does not inhabit that all-level structure.
+
+`search_mersenne_constants.py` separately exhausts the simplest feedback
+grammar, one constant collision extra:
+
+```bash
+python3 search_mersenne_constants.py --selftest
+python3 search_mersenne_constants.py \
+  --max-start-level 20 --max-extra 32 --max-depth 40 \
+  --continuation-steps 100000 \
+  --output mersenne_constant_results.json
+```
+
+Across `51,200` compiled paths, the unique two-extension stabilization is
+
+```text
+constant extra: 1
+start level:    1
+macro states:   121 -> 91 -> 103 -> 175 -> 445.
+```
+
+Seed `121` is the canonical representative for depths two, three, and four.
+The fifth macro fails, and exact continuation reaches `1` after 34 accelerated
+steps with peak `3077`.  No other constant extra through 32 produces two
+extensions within the stated bounds.  Source digest:
+`dd0ca553197fa5881a2db36ed2dde00984d7750efc1412bff4648b0b9238ed04`.

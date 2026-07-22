@@ -1,0 +1,39 @@
+{
+  "arithmetic": "exact_python_integers",
+  "bounds": {
+    "continuation_steps": 100000,
+    "max_depth": 40,
+    "max_extra": 32,
+    "max_start_level": 20
+  },
+  "compiled_paths": 51200,
+  "schema": "collatz-mersenne-constant-extra-search-v1",
+  "seed_stabilization_events": 4,
+  "source_sha256": "dd0ca553197fa5881a2db36ed2dde00984d7750efc1412bff4648b0b9238ed04",
+  "strongest_seed_stabilization": {
+    "constant_extra": 1,
+    "continuation": {
+      "accelerated_steps": 34,
+      "peak": "3077",
+      "status": "reaches_one"
+    },
+    "controller_state": "-1",
+    "controller_word": [
+      1
+    ],
+    "endpoint": "445",
+    "macro_states": [
+      "121",
+      "91",
+      "103",
+      "175",
+      "445"
+    ],
+    "program_depth": 4,
+    "residue_mod_6": 1,
+    "seed": "121",
+    "stable_extensions": 2,
+    "start_level": 1
+  },
+  "two_extension_stabilization_events": 1
+}
