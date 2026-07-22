@@ -259,6 +259,32 @@ def mixedEvalFrom (x : ℕ) (w : Word) : ℕ :=
 
 def mixedEval (w : Word) : ℕ := mixedEvalFrom 1 w
 
+/-- With neither delimiter present, only A-rules can fire, and they preserve
+the affine action at every input value. -/
+theorem step_mixedEvalFrom_eq_of_delimiter_free {u v : Word} (h : Step u v)
+    (hslash : u.count slash = 0) (hdot : u.count dot = 0) (x : ℕ) :
+    mixedEvalFrom x u = mixedEvalFrom x v := by
+  cases h with
+  | context left right rule =>
+      cases rule <;>
+        simp_all [mixedEvalFrom, symbolAction, List.foldl_append,
+          List.count_append] <;>
+        congr 1 <;> omega
+
+theorem transGen_mixedEvalFrom_eq_of_delimiter_free {u v : Word}
+    (h : Relation.TransGen Step u v)
+    (hslash : u.count slash = 0) (hdot : u.count dot = 0) (x : ℕ) :
+    mixedEvalFrom x u = mixedEvalFrom x v := by
+  induction h with
+  | single huv =>
+      exact step_mixedEvalFrom_eq_of_delimiter_free huv hslash hdot x
+  | tail hab hbc ih =>
+      exact ih.trans (step_mixedEvalFrom_eq_of_delimiter_free hbc (by
+        rw [← transGen_slash_count hab]
+        exact hslash) (by
+        rw [← transGen_dot_count hab]
+        exact hdot) x)
+
 /-- A- and B-rules preserve the represented integer.  With no dot in the
 source, the dynamic terminal rules are unavailable, so every literal step
 preserves `mixedEval`. -/

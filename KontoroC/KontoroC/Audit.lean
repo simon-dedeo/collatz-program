@@ -601,3 +601,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahUniformMorphismNoGo.bin0_image_forced
 #print axioms KontoroC.YahUniformMorphismNoGo.tri1_image_value_forced
 #print axioms KontoroC.YahUniformMorphismNoGo.no_uniform_digit_morphism
+#print axioms KontoroC.YahVariableMorphismRigidity.mr2_of_simulation
+#print axioms
+  KontoroC.YahVariableMorphismRigidity.identity_on_digits_of_bin1_intercept_pos
+#print axioms KontoroC.YahVariableMorphismRigidity.bin1_intercept_ne_zero
+#print axioms
+  KontoroC.YahVariableMorphismRigidity.marker_fixed_digit_morphism_eq_identity

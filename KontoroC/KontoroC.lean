@@ -79,6 +79,7 @@ import KontoroC.YahContextGlider
 import KontoroC.YahRewriteSystem
 import KontoroC.YahUniformBlockNoGo
 import KontoroC.YahUniformMorphismNoGo
+import KontoroC.YahVariableMorphismRigidity
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail

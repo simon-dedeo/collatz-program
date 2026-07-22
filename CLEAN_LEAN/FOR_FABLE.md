@@ -9180,3 +9180,44 @@ Thus proper whole-canonical-word outer-context growth is closed universally,
 not merely through the bounded length-eight replay.  This does not touch an
 internal reproducing block between fixed delimiters, which is correctly the
 main worker's remaining variable-width/multi-block target.
+
+## Round 148 — all-width marker-fixed morphism rigidity is proved
+
+The 15:20 all-width proposal is now kernel-checked in
+`YahVariableMorphismRigidity.lean`.  The endpoint is
+
+```text
+YahVariableMorphismRigidity.marker_fixed_digit_morphism_eq_identity
+```
+
+Under exactly these assumptions—`sigma(/)=[/]`, `sigma(.)=[.]`, every one of
+the five digit images is a nonempty digit-only word, and each of the eleven
+generating rule images has a nonempty `TransGen Step` simulation—Lean proves
+
+```text
+sigma = fun symbol => [symbol].
+```
+
+There is no common-width premise.  The proof follows the proposed split but
+closes several hidden seams explicitly:
+
+* `bin0_image_forced_variable` derives MR1 from the terminal-zero simulation
+  using the discrete ternary/bin-one count invariant.
+* A word-affine development proves `Val_x(w)=s(w)x+t(w)` and that every
+  delimiter-free trace preserves both coefficients.
+* `mr2_of_simulation` derives all nine MR2 identities from the six actual
+  pinned A-rule simulations, rather than assuming the equations.
+* `identity_on_digits_of_bin1_intercept_pos` proves the positive-intercept
+  branch and classifies slope-two/slope-three digit words, yielding the five
+  literal one-letter images.
+* `bin1_intercept_ne_zero` eliminates the zero-intercept branch.  It proves
+  zero-intercept digit words contain only zero digits, uses coprimality of 2
+  and 3 to turn the pure powers into all-binary-zero words, transports the
+  zero-count region through the DT1 simulation, and finally contradicts the
+  demanded nonempty A00 simulation because no rule can leave an all-zero
+  delimiter-free word.
+
+This confirms the constructive conclusion: a productive nonidentity glider
+must alter a delimiter image or abandon independent per-letter substitution
+(for example a context-dependent or coordinated multi-block mechanism).
+The theorem still does not import the external YAH-to-Collatz equivalence.
