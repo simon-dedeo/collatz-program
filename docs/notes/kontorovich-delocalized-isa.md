@@ -1335,6 +1335,27 @@ where `r0` is the exact inherited binary valuation of the shifted defect
 return.  The offset and odd stride are the primitive coefficients remaining
 after the common ternary factor is removed.
 
+Branch one is not essential.  If branch `j>=1` is the background and the
+adjacent branch `j+1` is the defect, retain `aj+b` bits.  The corresponding
+visible update is
+
+```text
+a_new=aj+b+e,
+b_new=aj+b-r0,
+c_new=cj+d,
+d_new=c(2j+1)+2d,
+e_new=a(j+1)+b+2e+r0,
+s_new=-s.                                             (63a)
+```
+
+The same phase and normalized-numerator checks decide the large hidden
+coefficients.  The artifact evaluates every level-one `j=1..64`: all 64
+adjacent defects return and give normalized constant `-17`.  It also checks
+the nonconstant background words `(2,2,2,2)`, `(3,1,4,2)`, and `(8,5,3,1)`
+through four renormalizations, with signs `+,-,+,-,+`.  Hence the spatial
+hierarchy has a bounded verified meta-alphabet, not merely one substitution.
+No all-`j`, all-level induction is claimed.
+
 Exact arithmetic passes five such renormalizations:
 
 ```text

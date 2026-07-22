@@ -111,10 +111,14 @@ class CanonicalDepthAudit:
     literal_gate_macros_replayed: int
 
 
-def renormalize(parent: RegisterISA) -> RenormalizationStep:
-    """Construct and exactly validate one capped B/M_2 renormalization."""
-    background = affine_macro(parent, 1)
-    defect = affine_macro(parent, 2)
+def renormalize(
+    parent: RegisterISA, background_cells: int = 1
+) -> RenormalizationStep:
+    """Validate a capped B_j/M_(j+1) renormalization."""
+    if background_cells < 1:
+        raise ValueError("background cell count must be positive")
+    background = affine_macro(parent, background_cells)
+    defect = affine_macro(parent, background_cells + 1)
     binary_stride = 1 << background.input_packet_stride_exponent
     ternary_stride = background.output_packet_stride
     fixed_slope = ternary_stride - binary_stride
@@ -165,7 +169,9 @@ def renormalize(parent: RegisterISA) -> RenormalizationStep:
     )
     defect_input_exponent = base_input_exponent + inherited
     defect_input_constant = raw_input - (1 << base_input_exponent)
-    retained_cap = parent.binary_cell + parent.binary_offset
+    retained_cap = (
+        parent.binary_cell * background_cells + parent.binary_offset
+    )
     if retained_cap < 1 or defect_input_exponent <= retained_cap + 1:
         raise AssertionError("invalid retained-cap geometry")
 
@@ -198,8 +204,14 @@ def renormalize(parent: RegisterISA) -> RenormalizationStep:
         register_stride=child_stride,
         binary_cell=background.input_packet_stride_exponent,
         binary_offset=retained_cap - inherited,
-        ternary_cell=parent.ternary_cell + parent.ternary_offset,
-        ternary_offset=3 * parent.ternary_cell + 2 * parent.ternary_offset,
+        ternary_cell=(
+            parent.ternary_cell * background_cells
+            + parent.ternary_offset
+        ),
+        ternary_offset=(
+            parent.ternary_cell * (2 * background_cells + 1)
+            + 2 * parent.ternary_offset
+        ),
         division_exponent=defect_input_exponent - retained_cap,
         collision_sign=-parent.collision_sign,
     )
@@ -394,18 +406,85 @@ def replay_parent_member(
     )
 
 
-def construct_hierarchy(levels: int) -> tuple[list[RegisterISA], list[RenormalizationStep]]:
+def construct_hierarchy(
+    levels: int, background_word: list[int] | None = None
+) -> tuple[list[RegisterISA], list[RenormalizationStep]]:
     if levels < 2:
         raise ValueError("hierarchy must contain at least two levels")
+    if background_word is None:
+        background_word = [1] * (levels - 1)
+    if len(background_word) != levels - 1 or any(
+        cells < 1 for cells in background_word
+    ):
+        raise ValueError("background word must have one positive entry per step")
     hierarchy = [level_one_isa()]
     steps: list[RenormalizationStep] = []
     while len(hierarchy) < levels:
-        step = renormalize(hierarchy[-1])
-        if step.parent_level == 1 and step.child != level_two_isa():
+        background_cells = background_word[len(steps)]
+        step = renormalize(hierarchy[-1], background_cells)
+        if (
+            step.parent_level == 1
+            and background_cells == 1
+            and step.child != level_two_isa()
+        ):
             raise AssertionError("generic level-two ISA disagrees with literal super-ether")
         steps.append(step)
         hierarchy.append(step.child)
     return hierarchy, steps
+
+
+def adjacent_background_alphabet(max_background_cells: int) -> list[dict[str, int]]:
+    """Check all adjacent B_j/M_(j+1) sign-preserving defects in a box."""
+    if max_background_cells < 1:
+        raise ValueError("background alphabet bound must be positive")
+    parent = level_one_isa()
+    records: list[dict[str, int]] = []
+    for background_cells in range(1, max_background_cells + 1):
+        step = renormalize(parent, background_cells)
+        records.append(
+            {
+                "background_cells": background_cells,
+                "defect_cells": background_cells + 1,
+                "retained_cap_bits": step.retained_cap_bits,
+                "inherited_binary_bits": step.inherited_binary_bits,
+                "common_ternary_factor": step.common_ternary_factor,
+                "normalized_collision_constant": (
+                    step.normalized_collision_constant
+                ),
+                "child_binary_cell": step.child.binary_cell,
+                "child_binary_offset": step.child.binary_offset,
+                "child_ternary_cell": step.child.ternary_cell,
+                "child_ternary_offset": step.child.ternary_offset,
+                "child_division_exponent": step.child.division_exponent,
+            }
+        )
+    return records
+
+
+def alternative_choice_words() -> list[dict[str, object]]:
+    """Exercise nonconstant meta-programs through four renormalizations."""
+    words = ([2, 2, 2, 2], [3, 1, 4, 2], [8, 5, 3, 1])
+    records: list[dict[str, object]] = []
+    for word in words:
+        hierarchy, steps = construct_hierarchy(len(word) + 1, list(word))
+        records.append(
+            {
+                "background_word": list(word),
+                "collision_signs": [isa.collision_sign for isa in hierarchy],
+                "binary_cell_widths": [isa.binary_cell for isa in hierarchy],
+                "retained_caps": [step.retained_cap_bits for step in steps],
+                "normalized_collision_constants": [
+                    step.normalized_collision_constant for step in steps
+                ],
+                "terminal_offset_decimal_sha256": hashlib.sha256(
+                    str(hierarchy[-1].register_offset).encode()
+                ).hexdigest(),
+                "terminal_stride_decimal_sha256": hashlib.sha256(
+                    str(hierarchy[-1].register_stride).encode()
+                ).hexdigest(),
+            }
+        )
+    return records
 
 
 def expand_to_level_one(
@@ -433,9 +512,12 @@ def expand_to_level_one(
         background.output_packet_stride * u
     )
     current = step.from_defect_target + defect.output_packet_stride * bridge_tail
-    parent_members = [(1, first_tail), (2, defect_tail)]
+    parent_members = [
+        (step.background.cells, first_tail),
+        (step.defect.cells, defect_tail),
+    ]
     for _ in range(cells):
-        parent_members.append((1, current))
+        parent_members.append((step.background.cells, current))
         difference = current - step.background_link_source
         if difference < 0 or difference % binary_stride:
             raise AssertionError("recursive expansion missed a background link")
@@ -537,12 +619,17 @@ def source_sha256() -> str:
 
 
 def build_certificate(
-    levels: int, max_branch_cells: int, tails_per_branch: int
+    levels: int,
+    max_branch_cells: int,
+    tails_per_branch: int,
+    max_background_alphabet: int,
 ) -> dict[str, object]:
     if min(levels - 1, max_branch_cells, tails_per_branch) < 1:
         raise ValueError("invalid hierarchy or replay bounds")
     hierarchy, steps = construct_hierarchy(levels)
     canonical = canonical_depth_audit(hierarchy, steps)
+    alphabet = adjacent_background_alphabet(max_background_alphabet)
+    alternative_words = alternative_choice_words()
     direct_checks = 0
     replays: list[AbstractReplay] = []
     branch_samples: list[dict[str, object]] = []
@@ -565,12 +652,14 @@ def build_certificate(
         "claim_scope": (
             "six exact finite renormalization levels by default; phase and "
             "sign-flip identities; bounded direct-branch comparison and "
-            "parent-macro replay; no infinite hierarchy or ordinary orbit"
+            "parent-macro replay; bounded adjacent-background alphabet; "
+            "no infinite hierarchy or ordinary orbit"
         ),
         "bounds": {
             "levels": levels,
             "branch_cells_per_step": [1, max_branch_cells],
             "tails_per_branch": tails_per_branch,
+            "level_one_background_alphabet": [1, max_background_alphabet],
         },
         "level_count": len(hierarchy),
         "renormalization_step_count": len(steps),
@@ -591,6 +680,7 @@ def build_certificate(
         "canonical_literal_gate_macros_replayed": sum(
             audit.literal_gate_macros_replayed for audit in canonical
         ),
+        "adjacent_background_choices_checked": len(alphabet),
         "levels": [asdict(isa) for isa in hierarchy],
         "steps": [asdict(step) for step in steps],
         "branch_samples": branch_samples,
@@ -599,6 +689,8 @@ def build_certificate(
             for index in sorted({0, len(replays) // 2, len(replays) - 1})
         ],
         "canonical_tail_zero_audit": [asdict(audit) for audit in canonical],
+        "adjacent_background_alphabet": alphabet,
+        "alternative_choice_words": alternative_words,
     }
 
 
@@ -633,6 +725,7 @@ def main() -> None:
     build.add_argument("--levels", type=int, default=6)
     build.add_argument("--max-branch-cells", type=int, default=8)
     build.add_argument("--tails-per-branch", type=int, default=2)
+    build.add_argument("--max-background-alphabet", type=int, default=64)
     verify = subparsers.add_parser("verify")
     verify.add_argument("artifact", type=Path)
     args = parser.parse_args()
@@ -642,7 +735,10 @@ def main() -> None:
         print("breakoff renormalization selftest: PASS")
     elif args.command == "build":
         certificate = build_certificate(
-            args.levels, args.max_branch_cells, args.tails_per_branch
+            args.levels,
+            args.max_branch_cells,
+            args.tails_per_branch,
+            args.max_background_alphabet,
         )
         args.output.write_text(render(certificate))
         print(f"wrote {args.output}")
@@ -655,6 +751,7 @@ def main() -> None:
             int(bounds["levels"]),
             int(bounds["branch_cells_per_step"][1]),
             int(bounds["tails_per_branch"]),
+            int(bounds["level_one_background_alphabet"][1]),
         )
         if actual != expected:
             raise AssertionError("artifact differs from exact recomputation")

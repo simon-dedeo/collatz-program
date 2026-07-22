@@ -1070,6 +1070,19 @@ ternary offset   11     40     131      433      1430       4723
 fixed division   20     51     153      485      1578       5189
 ```
 
+The background length is itself an instruction.  For any supplied `j>=1`,
+the same constructor may use branch `j` as `B` and the adjacent branch `j+1`
+as `H`; it retains `aj+b` bits and checks that the normalized collision is
+again `-s*17`.  The artifact verifies all level-one choices `j=1..64` and
+three nonconstant four-step meta-words:
+
+```text
+(2,2,2,2),  (3,1,4,2),  (8,5,3,1).
+```
+
+All three have collision signs `+,-,+,-,+`.  This is a bounded audit of the
+variable meta-alphabet, not a universal theorem for every choice word.
+
 For every renormalization and `N=1..8`, a child branch is built twice: once
 by CRT from its public register and once directly by composing the parent
 `B -> M_2 -> B`, `N` background self-links, and the capped boundary return.
@@ -1096,8 +1109,8 @@ loading them.  The scope is six finite levels, not an induction to all levels
 and not an infinite Collatz orbit.
 
 ```text
-artifact SHA-256  71aa0a58ad41c568f6961be2cfc3ace005a43ce2dcc8ccfffda574326ecca256
-verifier SHA-256  9875010747071f42db8bbc14690111fa7cd2a8200acf00fb4280910413982c47
+artifact SHA-256  37f64b0bf7f45ba163023325e440707d096aac85c96198337377e562addb26c1
+verifier SHA-256  cb7da0801b8249886909219724d1c581a516486bfcffea21e03286e1c6fbfcf2
 ```
 
 ## Three-bit-capped recursive super-ether

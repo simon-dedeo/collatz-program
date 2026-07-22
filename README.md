@@ -193,7 +193,13 @@ identically `x`.
   finite program, but its first-scale packet has changed at every depth.
   Search now targets a finite self-describing address or an ordinary-tail
   theorem for a different recursive branch, not a seventh certificate made
-  by extending the same changing tower.
+  by extending the same changing tower.  The meta-language is not unary:
+  choosing any background branch `j` and the adjacent defect `j+1` gives the
+  same exact sign flip after retaining the background valuation.  This has
+  been checked for `j=1..64` at level one and along three nonconstant
+  four-step choice words.  The live question is whether this variable syntax
+  can make a finite quine, not whether it can prescribe arbitrary finite
+  nested code.
   A survivor must start at a canonical positive integer and contain infinitely
   many genuine Collatz steps; a loop on a malformed representation is rejected.
 - **Rational-base and spatial-grid gliders.**  In the Stérin--Woods exact
@@ -392,7 +398,7 @@ positive integer and its claimed behavior are machine-checked.
 | Returning finite ether glider ISA | Exact parity shows an exhausted ether boundary is odd and therefore cannot re-enter the `j=136` defect; among immediate `E -> H_j -> E` defects, `j=1` is the parity-compatible receiver.  Its small identities give defect input `X(K)=2^20K-10941`, return factor `473t+12=2^5(83790531K-874281)`, and for every `n>=1` a complete outward macro `K=R_n+2^(8n+15)q -> K'=S_n+3^(6n+11)q` which writes `n` ether cells and returns to the same defect family.  The artifact replays 64 macro members through 1,184 links and 2,368 gate macros.  No infinite linked macro orbit is supplied. |
 | Autonomous ether-counter normal form | Put `Y=83790531K-874281`.  The length-`n` returning glider branch is exactly `Y=2^(8n-5)h -> Y'=(3^(6n+11)h+51)/2^20`, with `h` in one CRT class modulo `83790531*2^20`; the enormous defect constants cancel to `51`.  Every branch is strictly outward, and its packet coefficients agree identically with the compiled glider macro.  The artifact checks `n=1..128`, four tails each, and repeats the executable macro replays through `n=32`.  An infinite successful autonomous orbit would be a counterexample, but none is supplied. |
 | Three-bit-capped recursive super-ether | Regard the one-cell returning glider as a 23-bit background cell and the two-cell glider as its defect.  Exact parity kills a fully exhausted second-scale gap, but retaining three low bits makes the boundary re-enter the same defect cylinder.  After removing a common `3^7`, the public register is `V=-8744697538656344367967+671265207750760396088265K` and its length-`N` branch is `V=2^(23N+3)g -> V'=(3^(17N+40)g-17)/2^51`.  The affine super-macro is `K=R_N+2^(23N+54)t -> K'=S_N+3^(17N+40)t`.  The artifact checks 64 branches and 256 members, and literally replays 32 members through 336 glider macros, 1,040 lower links, and 2,080 gate macros.  This is a finite two-scale constructor, not an infinite orbit. |
-| Six-level sign-alternating splash hierarchy | The capped construction renormalizes five more times without changing the magnitude `17`: public collision signs are `+,-,+,-,+,-` and binary cell widths are `8,23,77,254,839,2771`.  At every checked step the retained cap is the parent branch-one valuation; exact phase arithmetic returns to the defect, and normalization flips only the sign.  The artifact checks 40 child branches independently by CRT and parent-macro composition, replays 80 members through 520 parent blocks, and expands the canonical tail-zero programs through six levels to literal first-scale gliders.  The depth-six member is a generated 6,708-digit ordinary start executing 360 linked glider macros.  Its packet differs from every shallower depth, so this is deep finite software—not an ordinary infinite orbit or an induction to all levels. |
+| Six-level sign-alternating splash hierarchy | The capped construction renormalizes five more times without changing the magnitude `17`: public collision signs are `+,-,+,-,+,-` and binary cell widths are `8,23,77,254,839,2771`.  At every checked step exact phase arithmetic returns to the defect and normalization flips only the sign.  The artifact checks 40 child branches independently by CRT and parent-macro composition, replays 80 members through 520 parent blocks, and expands the canonical tail-zero programs through six levels to literal first-scale gliders.  It additionally checks all 64 level-one choices `B=M_j,H=M_(j+1)` and three nonconstant four-step meta-words; every adjacent defect preserves `17` with sign flip.  The depth-six canonical member is a generated 6,708-digit ordinary start executing 360 linked glider macros.  Its packet differs from every shallower depth, so this is deep finite software—not an ordinary infinite orbit or an induction to all choices or levels. |
 | Canonical ordinary base graph | The tail-zero specialization asks each gate to land literally on the next gate's least coefficient, so no further initial-address bits are consumed.  An exact exhaustive shape audit covers `q,q'=1..100,j=0..100`: only three of 1,010,000 shapes give normalized base-to-base links, and all three targets fail to regenerate another delay.  Seven additional hits are rejected as noncanonical aliases because their coefficient contains a whole factor of eight.  Every retained gate is literally replayed and every ordinary seed reaches `1`.  This is a scoped failure of the simplest stabilized-address counter, not evidence against nonzero evolved tails. |
 | Standard schedule ruled out by a p-adic theorem | Lean commits `db0971c`/`806bf8c` reduce any infinite standard schedule to the sole `Q_2` value `U_5=-(23/3^8)F(2/3,2^13/3^9)`.  Commits `3fc63a6`/`08485d3` prove the all-coefficient and completed-sum identity `F=f_(3/2)(4096/6561)`, the exact Väänänen--Wallisser size inequality, preservation of irrationality under the nonzero scale, and the implication to no payload stream.  Their 1989 theorem supplies that irrationality externally.  This is a published-theorem application with a kernel-checked citation seam, not a reproof of the external theorem or a Collatz proof. |
 | Exact finite `k`-word compiler | Python arbitrary-precision compilation and replay pass exhaustive complete-period regression for both classes modulo `6`, all words of length at most four with `1<=k_i<=4`; Kontorovich's `(1,1,2,2)` example gives seed `199`. Lean commit `63c3b3d` proves terminal congruence equivalent to all intermediate valuations, plus canonical existence, uniqueness, and endpoint stride. |
@@ -449,6 +455,41 @@ See [`docs/notes/kontorovich-program-synthesis.md`](docs/notes/kontorovich-progr
 for the exact algebra, bounds, result digest, and next attacks.
 
 ## Diary
+
+### 2026-07-22 03:08 EDT
+
+The recursive splash has a variable instruction alphabet.  At a parent level
+
+```text
+V=2^(an+b)g -> (3^(cn+d)g+s*17)/2^e,
+```
+
+choose any background branch `j>=1`, use the adjacent branch `j+1` as its
+defect, and retain the background valuation `aj+b`.  Whenever the exact phase
+identity is evaluated, the primitive child again has collision constant
+`-s*17`.  Its visible parameter update is
+
+```text
+a' = aj+b+e,                 c' = cj+d,
+b' = aj+b-r0,                d' = c(2j+1)+2d,
+e' = a(j+1)+b+2e+r0,         s' = -s,
+```
+
+with `r0` the defect's computed inherited binary valuation.  This replaces
+the fixed morphism `1 -> 1,2,1` by a meta-instruction `j -> j,j+1,j^N`.
+
+The rebuilt renormalization artifact checks every level-one adjacent choice
+`j=1..64`; all 64 return to the capped interface and normalize to `-17`.
+It also follows the nonconstant background words `(2,2,2,2)`, `(3,1,4,2)`,
+and `(8,5,3,1)` through four successive renormalizations, obtaining collision
+signs `+,-,+,-,+` in each case.  Exact artifact/verifier hashes changed and
+are updated in the experiment guide.
+
+This is a stronger programming-language result, but still not a survivor.
+An externally chosen infinite meta-word consumes unbounded nested binary
+address and generally names a 2-adic program.  The next useful event must be
+finite self-reference: an evolved packet choosing its own next `j` while its
+ordinary lower address has stopped changing.
 
 ### 2026-07-22 02:57 EDT
 

@@ -4243,6 +4243,13 @@ uses branch one as background, branch two as defect, retains `a+b` boundary
 bits, and—when the phase identity holds—normalizes to the same shape with
 sign `-s`.
 
+The exact worker now shows the intended generic parameters: branch `j` may be
+the background and adjacent branch `j+1` the defect, with retained cap
+`a*j+b`.  The level-one artifact checks `j=1..64` and three nonconstant
+four-step choice words.  If you package the conditional algebra lemma, please
+take `j` as a parameter rather than hard-coding one; the phase and normalized
+numerator remain supplied hypotheses.
+
 Please do not interrupt the variable-block flattener for this.  After it, the
 useful theorem would be a parameterized *conditional* algebra lemma: supplied
 affine B/H link identities, a supplied cap-phase equality, and a supplied
