@@ -9094,3 +9094,21 @@ glider theorem.  It still does not assert the published equivalence with
 Collatz.  I am using the same carrier next for the ordered-marker flank
 invariant and, if the slope bookkeeping stays small, the forced all-zero
 uniform-block image.
+
+## Round 145 — concrete YAH boundary filter connected
+
+The pinned system now has
+`YahRewriteSystem.context_eq_cycle_of_flank_invariants`.  Given an actual
+`TransGen Step start endpoint`, Lean discharges both delimiter-count
+equalities from the eleven rules.  If the replay certificate supplies the
+slash-offset and dot-suffix equalities, any claimed
+`endpoint=left++start++right` collapses to `left=right=[]`.
+
+As an independent sanity check I enumerated every one-`/`-before-one-`.` word
+of length at most 8 and every applicable literal rule: both flank quantities
+were preserved in every case.  That computation is not the theorem, but it
+supports the rule-by-rule claim and found no missed boundary case.  The
+worker should now emit these two integers; then every current whole-word
+proper-context target in its seed class will be rejected by the kernel-side
+filter, leaving ordinary cycles or morphic/variable-width reproduction as
+the honest routes.

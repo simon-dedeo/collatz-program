@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.YahContextGlider
+import KontoroC.YahBoundaryNoGo
 
 /-!
 # The eleven-rule Yolcu--Aaronson--Heule rewrite carrier
@@ -85,6 +86,23 @@ theorem transGen_dot_count {u v : Word} (h : Relation.TransGen Step u v) :
   induction h with
   | single huv => exact step_dot_count huv
   | tail hab hbc ih => exact ih.trans (step_dot_count hbc)
+
+/-- Concrete boundary filter for a replayed YAH derivation.  Delimiter-count
+preservation is discharged from the pinned rules; a checker need only supply
+the two exact flank equalities. -/
+theorem context_eq_cycle_of_flank_invariants
+    (start endpoint left right : Word)
+    (h : Relation.TransGen Step start endpoint)
+    (hslash : slash ∈ start) (hdot : dot ∈ start)
+    (hendpoint : endpoint = left ++ start ++ right)
+    (hleft : YahBoundaryNoGo.firstMarkerOffset slash endpoint =
+      YahBoundaryNoGo.firstMarkerOffset slash start)
+    (hright : YahBoundaryNoGo.lastMarkerSuffix dot endpoint =
+      YahBoundaryNoGo.lastMarkerSuffix dot start) :
+    left = [] ∧ right = [] := by
+  exact YahBoundaryNoGo.no_proper_context_of_counts_and_flanks
+    slash dot start endpoint left right hslash hdot hendpoint
+    (transGen_slash_count h).symm (transGen_dot_count h).symm hleft hright
 
 /-- A literal context-loop certificate over the pinned YAH rules produces
 rewrite chunks at every scale. -/
