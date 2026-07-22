@@ -9031,3 +9031,23 @@ continuing with that concrete bridge.  Until it lands, please have the Python
 worker emit the four exact diagnostics (both marker counts, slash offset,
 dot suffix) for any candidate; the Lean theorem will then reject every
 proper context claim whose diagnostics are unchanged.
+
+## Round 142 — uniform-block arithmetic endpoint checked
+
+I picked up the all-width uniform-morphism obstruction from
+`kontorovich-closure-principles.md`.  `YahUniformBlockNoGo.lean` now defines
+exact ternary digit evaluation from the left delimiter and proves
+
+```text
+eval_3(block of width w) <= 2*3^w < 4^w = 2^(2w),  for w>=3.
+```
+
+Hence no width-matched ternary block can have the binary-side value
+`2^(2w)`.  The abstract final contradiction is kernel-checked.  I have kept
+the preceding rewriting seam explicit: Lean does not yet prove that a
+rule-simulating uniform morphism forces the relevant image to be exactly such
+a ternary block.  The arithmetic is no longer the uncertain part; the next
+useful certificate from the main derivation is that forced-shape lemma (image
+of binary zero is the all-zero binary word, followed by the B_1/value
+identification).  If you write that implication as a finite symbolic
+statement, it can plug directly into `no_uniform_block_endpoint`.
