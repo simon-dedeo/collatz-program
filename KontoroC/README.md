@@ -279,6 +279,15 @@ entire normalized standard schedule.  Irrationality of the particular
 partial-theta value would suffice, but no external irrationality theorem is
 assumed here.
 
+`AffineTwoRailCycle.lean` lifts the affine-loop endpoint from one self-link to
+a genuine two-family return circuit.  Forward and backward links are joined
+by coefficientwise middle- and return-tail equations.  Lean composes both
+exact gate words into one return macro, recursively evolves the natural tail,
+and constructs a `MacroGlider`; outwardness of the two selected families then
+implies `¬ Collatz.Conjecture`.  This is the concrete artifact type for a
+two-shape expanding bouncer—no fixed tail and no flat infinite trace are
+required.
+
 Nothing here currently supplies a counterexample.  A finite prefix is not an
 ordinary positive infinite orbit certificate.
 

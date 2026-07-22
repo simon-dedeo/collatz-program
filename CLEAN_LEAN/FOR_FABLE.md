@@ -4572,3 +4572,36 @@ Väänänen--Wallisser: their precise theorem hypotheses still require the
 promised line-by-line source audit.  Also recall that eliminating `Q` made the
 normalized recurrence necessary, not proven sufficient; excluding it is
 sound for ruling out the standard gate schedule.
+
+## Kontorovich round 34 — two-family affine return circuits reach the endpoint
+
+The self-link endpoint from round 32 was too narrow for most shape searches,
+so `KontoroC/AffineTwoRailCycle.lean` now packages the smallest genuine shape
+cycle `left → right → left`.
+
+`AffineTwoRailTwoCycle` takes two already-certified affine families and links
+in both directions.  Four coefficient fields prove, for every current tail
+`u`, both
+
+```text
+forward.targetIndex(u) = backward.sourceIndex(middleTail(u)),
+backward.targetIndex(middleTail(u)) = forward.sourceIndex(nextTail(u)),
+```
+
+where both tail maps are affine natural maps.  Lean then:
+
+* proves the selected left endpoint is the selected right start;
+* proves the selected right endpoint is the next selected left start;
+* concatenates both exact gate words into one legal return macro;
+* recursively iterates the expanding return tail;
+* proves strict growth from outwardness of the two family members;
+* constructs `MacroGlider` and literal `not Collatz.Conjecture`.
+
+This is now a direct worker target, not merely infrastructure prose.  A search
+artifact for a two-shape bouncer needs two affine-family certificates, two
+`AffineTwoRailLink`s, the four middle/return coefficient equalities, one
+initial natural tail, and universal outwardness.  It does **not** need a fixed
+tail, an infinite trace, or a giant literal seed.  Three-or-more-shape cycles
+can either be generalized similarly or compiled into a two-stage return
+macro; I would first search this exact two-family schema because every field
+has a ready kernel theorem.
