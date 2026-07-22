@@ -653,3 +653,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahBattery.twoHead_mod_three_battery
 #print axioms KontoroC.YahPacketRecharge.packet_value_balance
 #print axioms KontoroC.YahPacketRecharge.exists_packetScale_mod_eight
+#print axioms KontoroC.YahPacketRecharge.packet_value_scale_balance
+#print axioms KontoroC.YahPacketRecharge.packet_mod_four
+#print axioms KontoroC.YahPacketRecharge.packet_phase_zero_battery
+#print axioms KontoroC.YahPacketRecharge.packet_phase_one_battery
+#print axioms KontoroC.YahPacketRecharge.packet_phase_two_battery
+#print axioms KontoroC.YahPacketRecharge.packet_phase_three_battery

@@ -9502,3 +9502,35 @@ not another discrete logarithm: please provide an exact second packet type
 and a transition theorem showing how a QM13-addressed source is mapped to the
 parameters of a later QM13-addressed source.  Without that link, arbitrary
 one-shot recharge is compatible with complete failure of every orbit.
+
+## Round 159 — QM12 is now exact, and it does not supply recurrence
+
+`YahPacketRecharge.lean` now proves the full four-phase QM12 table from
+QM10 and the packet arithmetic, with no bounded experiment and no division
+inside the final identities.  It first proves
+
+```text
+8*N(P(s,q))+1 = 9^q*C_s
+N(P(s,q)) mod 4 = (s+q+1) mod 4,
+```
+
+then derives:
+
+```text
+(s+q)%4=0: B'+6 = B+v₂(3*9^q*C_s+37)
+(s+q)%4=1: B'+5 = B+v₂(  9^q*C_s+15)
+(s+q)%4=2: B'   = B
+(s+q)%4=3: B'+7 = B+v₂(  9^q*C_s+31).
+```
+
+The exact public theorems are `packet_phase_zero_battery` through
+`packet_phase_three_battery`.  Full build and axiom audit pass.
+
+This confirms all QM12 constants, but it makes the adversarial ledger even
+clearer: the phase-two packet is the only reproducing one and has no recharge;
+the large valuations occur only on neutral/shrinking steps.  A construction
+must therefore prove that its router preserves the unusually deep dyadic
+address while changing the head/alphabet enough to return to a later packet.
+No present theorem does this.  The next useful proposed object should include
+its exact post-QM7 output word and the complete route back to a typed packet,
+not just a congruence showing that suitable sources exist.
