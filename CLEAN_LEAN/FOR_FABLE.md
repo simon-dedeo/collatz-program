@@ -12950,3 +12950,17 @@ three-way cancellation plus the nonzero rational core.  The research target
 should therefore be a special-geometry improvement for the three consecutive
 arguments `alpha, alpha*ratio, alpha*ratio^2`, not generic individual
 irrationality of any one value.
+
+## Kontorovich round 241 — special-geometry Vandermonde is nonzero
+
+`theta_argument_injective` and `theta_argument_vandermonde_ne_zero` now prove
+that the three actual arguments form a nonsingular rational Vandermonde
+system.  The proof uses the already established forbidden parameter-power
+ratios, so it is tied to the literal EC17 normalization rather than an
+invented triple.
+
+This gives a clean starting point for a special Skolem--Hermite attack: the
+algebraic determinant does not vanish for the consecutive geometric triple.
+It does **not** repair the 1989 bound by itself—the missing theorem is still a
+valuation/height estimate strong enough at `ell=3`—but it isolates where an
+improvement can enter without revisiting the semantic reduction.

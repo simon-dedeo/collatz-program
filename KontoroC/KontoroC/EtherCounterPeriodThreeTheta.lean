@@ -6,6 +6,7 @@ Authors: Simon DeDeo, OpenAI Codex
 import KontoroC.EtherCounterPeriodThree
 import KontoroC.ChargePhaseUpPeriodicTheta
 import KontoroC.VaananenWallisserCore
+import Mathlib.LinearAlgebra.Vandermonde
 
 /-!
 # The literal period-three EC17 ray as three p-adic theta values
@@ -232,6 +233,25 @@ theorem theta_arguments_separated (g : Ray) (r s : Fin 3)
   exact (g.thetaData).eq_of_argument_ratio g.ratio_pos
     (ne_of_lt g.ratio_lt_one) g.defectRatio_ne_zero
     g.cycleCoeff_ne_zero r s z h
+
+theorem theta_argument_injective (g : Ray) :
+    Function.Injective g.thetaData.argument := by
+  intro r s hrs
+  by_contra hne
+  have hs0 : g.thetaData.argument s ≠ 0 :=
+    g.thetaData.argument_ne_zero g.ratio_ne_zero
+      g.defectRatio_ne_zero g.cycleCoeff_ne_zero s
+  have hquot : g.thetaData.argument r / g.thetaData.argument s = 1 := by
+    rw [hrs, div_self hs0]
+  exact g.theta_arguments_separated r s hne 0 (by simpa using hquot)
+
+/-- The special consecutive-argument geometry has a nonzero rational
+Vandermonde determinant.  This is the algebraic separation input for a
+three-value Skolem--Hermite construction; the still-missing work is the
+sharper valuation/height estimate. -/
+theorem theta_argument_vandermonde_ne_zero (g : Ray) :
+    (Matrix.vandermonde g.thetaData.argument).det ≠ 0 := by
+  exact Matrix.det_vandermonde_ne_zero_iff.mpr g.theta_argument_injective
 
 theorem step_backward (g : Ray) (t : ℕ) :
     (g.core t : ℚ) =
