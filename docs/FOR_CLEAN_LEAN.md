@@ -7715,3 +7715,203 @@ positive translations and before any false chart identification.  A compact
 corollary instantiating these numerals would be useful, but the mathematical
 scope must remain conditional on periodic alternation; the actual output
 chart is new and no cycle exists.
+
+## Kontorovich request: aperiodic chart clock and third edge (2026-07-23)
+
+The second-edge endpoint has a simpler exact description than its
+34-billion-trit restricted block suggests.  At every queue-macro boundary
+let `rho` be the leading coefficient in
+
+```text
+D = rho * 3^L + c,
+```
+
+where `L` is the current ternary word length and `c` is the finite additive
+correction.  The returned chart starts at
+
+```text
+rho_0 = 269001/262144.
+```
+
+Head zero consumes one shortcut sweep; heads one and two consume two.  The
+leading clock is therefore
+
+```text
+head 0,  1 <= rho < 4/3:   rho' = 3*rho/2,
+head 1,  4/3 <= rho < 5/3: rho' = 3*rho/4,
+head 2,  5/3 <= rho < 2:   rho' = 3*rho/4.        (QM35)
+```
+
+Each branch maps back into `[1,2)`.  The exact prefix is
+
+```text
+01020210102101020210...
+```
+
+and the closed law is `rho_n=rho_0*3^n/2^S_n`, where `S_n` is the sum of
+the head widths.  This clock is not eventually periodic: a period of `p>0`
+macros and `q` sweeps would keep multiplying `rho` by `3^p/2^q`; boundedness
+for all repeated periods forces `3^p=2^q`, impossible.                 (QM36)
+
+Please formalize QM35--QM36 abstractly, without the enormous word constants.
+The finite correction does not change the next five heads below: the exact
+research checker tracks it as a rational and proves both interval gaps using
+only `L>=20`.
+
+Now restrict the second returned register to
+
+```text
+thirdSourceParameter(z)=249+256*z,
+T(z)=secondReturnedRegister(thirdSourceParameter(z)).
+```
+
+The all-parameter arithmetic target is
+
+```text
+T(z) mod 256 = 221,
+256 | 3^7*T(z)+1,
+U(z)=(3^7*T(z)+1)/256,
+256*U(z)=3^7*T(z)+1,                               (QM37)
+v2(U(v)-U(u))=v2(v-u),
+U(z) mod 2 = z mod 2.                              (QM38)
+```
+
+The five exact macros occupy clock phases 7 through 11:
+
+```text
+heads    0       1       0       2       1
+carries [0]    [1,1]   [1]     [1,1]   [1,1].     (QM39)
+```
+
+They use eight shortcut sweeps, seven odd sweeps, gain two cells, and return
+to head zero with exactly seven trailing twos.  The representative residue
+`T=221` maps to `U=1888`; the division-free identity QM37 is the preferred
+formal seam.  QM39 can remain research-side if the generic queue semantics
+plus the corrected-head inequalities are enough.
+
+There is also a universal design no-go.  For any segment of `M` macros,
+`S` shortcut sweeps, and `J` odd sweeps, its word-space gain is `G=J-M` and
+its register slope is
+
+```text
+3^J/2^S = 3^G * rho_(n+M)/rho_n.                  (QM40)
+```
+
+Since both clock values lie in `[1,2)`, `G>=1` implies the slope is strictly
+greater than `3/2`.  Thus a positive-space nonexpanding chart edge cannot
+exist.  This closes that proposed escape; it does not exclude an aperiodic
+expanding dispatcher.  Please kernel-check QM40 as an abstract algebra lemma.
+
+The exact worker/artifact are:
+
+```text
+experiments/kontorovich/yah_chart_clock.py
+experiments/kontorovich/yah_chart_clock_audit.json
+worker   6cd98e32a22c47432d5d22d31a551afed0c5175f9abd094b7cea36385191d8ab
+artifact 2c55cec21f81b563f181803a26ef5dc7489e13c668317af17438ace6220a29ab
+```
+
+The artifact checks 128 exact clock steps, the third source residue, every
+carry and correction inequality in QM39, inherited low-bit/isometry
+regressions through parameter 32, and 27,796 exact finite instances of QM40.
+It claims no infinite register execution and no counterexample.
+
+There is a more decisive scope theorem for the present chart-tower
+construction.  Each research edge is obtained by restricting a lasso
+parameter
+
+```text
+t_n = a_n + 2^(k_n) * t_(n+1),   k_n >= 1,         (QM41)
+```
+
+and then applying fixed/flipping letter-to-letter sweeps.  Those sweeps change
+the block contents but not the remaining repetition count `t_(n+1)`.  Thus
+`t_(n+1) <= t_n/2`.  Please kernel-check the abstract consequence:
+
+```text
+forall t address bits,
+  (forall n, 0 < bits n) ->
+  (forall n, t n = address n + 2^(bits n) * t(n+1)) ->
+  exists N, forall n>=N, t n=0 and address n=0.     (QM42)
+```
+
+An equivalent form saying that infinitely many positive addresses are
+impossible is useful.  This is stronger than the fixed bit-pop theorem because
+the consumed bit widths and nonzero source residues may vary at every chart.
+It applies directly to the current sequence of source coordinates
+
+```text
+t=91+256u,
+u=35+2048w,
+w=249+256z.
+```
+
+Scope: QM42 closes only chains whose chart parameter is updated solely by
+lasso restriction/quotient.  It does not exclude a contextual opcode that
+rewrites the repetition count, reindexes the output by a growing public
+function, or uses a genuinely different finite grammar.  Constructively,
+that is now the mandatory escape: the next YAH edge must **write** the lasso
+counter, not merely expose and pop more of its preloaded binary expansion.
+
+The first plausible counter-write mechanism has already failed exactly.  The
+third nominal block contains `2^19` copies of the original 65,536-trit atom,
+and the complete first-through-third pipeline has 19 quotient sweeps.  On the
+19-bit cascade carry state, one atom acts affinely as
+
+```text
+f(r)=a*r+b mod 2^19,
+a=3^65536 mod 2^19=1+2^18,
+b=449133.                                          (QM43)
+```
+
+The multiplier has order two, which initially suggested atom-pair
+reblocking, but `b` is odd and
+
+```text
+f^2(r)=r+c mod 2^19,
+c=(a+1)b mod 2^19=111834,
+v2(c)=1.                                           (QM44)
+```
+
+Therefore even iterates return only when their half-index is divisible by
+`2^18`, while every odd return difference is odd.  Every state has exact
+period `2^19`; the nominal block traverses one full carry-state cycle and has
+no smaller atom-aligned repetition.  Please kernel-check the abstract affine
+period lemma behind QM44.  The research artifact independently cascades two
+actual 65,536-trit atoms, checks their state and content hashes, and exhausts
+four full representative state orbits.
+
+This closes the tempting `z -> 2^18 z` reindexing.  QM42 still applies to the
+current sequence: no certified opcode has yet rewritten the lasso counter.
+
+The same argument has an all-depth form worth formalizing.  For an atom of
+even length `m` and odd base-three value `b`, a cascade of `s>=1` quotient
+sweeps acts on its `s` carry bits by
+
+```text
+f_s(r)=3^m*r+b mod 2^s.                            (QM45)
+```
+
+Here `3^m=1 mod 4` and `b` is odd.  The power-of-two full-period criterion
+therefore makes `f_s` one cycle of exact length `2^s`.  If `3^m>2^s`, the
+output quotient atom is also injective in the incoming state: equality of
+two quotient blocks would contradict the difference
+`3^m*(r-r')/2^s`.  Consequently a fixed finite `s`-sweep pipeline has no
+smaller atom-aligned word period than its carry cycle.
+
+Applied to a cylinder initially written as `t=a+2^K*z`, canonical reblocking
+uses a block of `2^s` atoms and parameter `t_next=2^(K-s)z`; hence
+
+```text
+t=a+2^s*t_next.                                    (QM46)
+```
+
+So every fixed-macro letter-to-letter lasso edge consumes exactly `s` bits,
+even when it was presented using an artificially deeper source cylinder.
+Together QM42/QM45/QM46 close the entire present restorative lasso-tower
+architecture, not only the first three numeric addresses.  The artifact
+checks the exact hypotheses through 24 layers and exhausts the complete
+affine state cycles through layer 18.  The honest escape is a genuinely
+contextual/nonuniform pipeline whose treatment of repeated blocks depends on
+the repetition index or surviving payload; another fixed lasso restriction
+cannot write the counter.

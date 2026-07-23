@@ -1,0 +1,584 @@
+{
+  "artifact_sha256": "2c55cec21f81b563f181803a26ef5dc7489e13c668317af17438ace6220a29ab",
+  "audit": {
+    "aperiodicity_schema": "an eventually periodic head tail would repeat one sweep count q over p macros; bounded rho forces 3^p=2^q, impossible for p>0",
+    "clock_length": 128,
+    "closed_scale_law": "rho_n=rho_0*3^n/2^S_n in [1,2)",
+    "closure_status": {
+      "achieved": "an abstract scale clock, a correction-bridged third edge, and exact positive-space and counter-reblocking no-go certificates",
+      "closed_lane": "a positive-space nonexpanding chart edge cannot exist",
+      "counterexample": null,
+      "missing": "a contextual opcode which genuinely increases or nonlinearly rewrites the lasso counter instead of restricting it"
+    },
+    "counter_write_no_go": {
+      "atom_aligned_primitive_period": 524288,
+      "atom_multiplier_mod_state": 262145,
+      "atom_translation_mod_state": 449133,
+      "base_atom_length": 65536,
+      "cascade_layers": 19,
+      "counter_update": null,
+      "first_atom_sha256_at_state_zero": "9f5cfa4196165ad0a5c2a7ec632f84b4f9fcb40bb6de60dca3dd453dc2d9f817",
+      "multiplier_order": 2,
+      "nominal_block_length": 34359738368,
+      "period_proof": "even iterates translate by j*c with v2(c)=1; odd return differences are odd; hence the least return is 2^19",
+      "representative_periods": {
+        "0": 524288,
+        "1": 524288,
+        "12345": 524288,
+        "524287": 524288
+      },
+      "scope": "the third output block traverses a full 2^19 carry-state cycle; the order-two multiplier does not yield a two-atom reblocking",
+      "second_atom_sha256_at_state_zero": "de0738273e5c1cbbbfd003a0e9c3f3444a77d75155938e1063a8378853ad3ac3",
+      "source_atoms_per_nominal_block": 524288,
+      "state_after_first_atom_from_zero": 449133,
+      "state_after_two_atoms_from_zero": 111834,
+      "state_modulus": 524288,
+      "two_atom_block_sha256_at_state_zero": "bf811f616b8a5fee33489a8fca7f6b36d40f3f9b5ed6cd74fc31cb374d01113e",
+      "two_atoms_distinct_at_state_zero": true,
+      "two_step_translation": 111834,
+      "two_step_translation_v2": 1,
+      "universal_period": 524288,
+      "universal_state_law": "r_next=3^65536*r+blockValue (mod 2^19)",
+      "written_zero_bits": 0
+    },
+    "full_cycle_lasso_gate": {
+      "base_atom_even": true,
+      "base_atom_length": 65536,
+      "base_atom_value_odd": true,
+      "conditional_design_implication": "no fixed-macro letter-to-letter lasso edge can increase its ordinary repetition parameter once the displayed full-period schema is kernel-checked; contextual/nonuniform pipelines remain open",
+      "exhaustive_cycle_layers": 18,
+      "formal_status": "the universal LCG/reblocking theorem is requested from Lean; this artifact checks its hypotheses through layer 24 and exhausts the cycles through layer 18",
+      "full_period_schema_to_formalize": "for every s>=1, odd b and a=3^m=1 mod 4 give one affine carry-state cycle of length 2^s",
+      "lasso_information_law": "after canonical reblocking, every fixed finite pipeline of s quotient sweeps updates t=a+2^s*t_next and consumes s bits",
+      "max_layers": 24,
+      "output_atom_injectivity": "3^m>2^s makes the quotient output block injective in its incoming carry state",
+      "rows": [
+        {
+          "exhausted_period": 2,
+          "layers": 1,
+          "modulus": 2,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 1,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 4,
+          "layers": 2,
+          "modulus": 4,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 1,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 8,
+          "layers": 3,
+          "modulus": 8,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 5,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 16,
+          "layers": 4,
+          "modulus": 16,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 13,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 32,
+          "layers": 5,
+          "modulus": 32,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 13,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 64,
+          "layers": 6,
+          "modulus": 64,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 45,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 128,
+          "layers": 7,
+          "modulus": 128,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 109,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 256,
+          "layers": 8,
+          "modulus": 256,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 109,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 512,
+          "layers": 9,
+          "modulus": 512,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 109,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 1024,
+          "layers": 10,
+          "modulus": 1024,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 621,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 2048,
+          "layers": 11,
+          "modulus": 2048,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 621,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 4096,
+          "layers": 12,
+          "modulus": 4096,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 2669,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 8192,
+          "layers": 13,
+          "modulus": 8192,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 6765,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 16384,
+          "layers": 14,
+          "modulus": 16384,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 6765,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 32768,
+          "layers": 15,
+          "modulus": 32768,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 23149,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 65536,
+          "layers": 16,
+          "modulus": 65536,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 55917,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 131072,
+          "layers": 17,
+          "modulus": 131072,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 55917,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": 262144,
+          "layers": 18,
+          "modulus": 262144,
+          "multiplier": 1,
+          "multiplier_mod_4": 1,
+          "translation": 186989,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": null,
+          "layers": 19,
+          "modulus": 524288,
+          "multiplier": 262145,
+          "multiplier_mod_4": 1,
+          "translation": 449133,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": null,
+          "layers": 20,
+          "modulus": 1048576,
+          "multiplier": 262145,
+          "multiplier_mod_4": 1,
+          "translation": 973421,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": null,
+          "layers": 21,
+          "modulus": 2097152,
+          "multiplier": 1310721,
+          "multiplier_mod_4": 1,
+          "translation": 973421,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": null,
+          "layers": 22,
+          "modulus": 4194304,
+          "multiplier": 3407873,
+          "multiplier_mod_4": 1,
+          "translation": 973421,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": null,
+          "layers": 23,
+          "modulus": 8388608,
+          "multiplier": 7602177,
+          "multiplier_mod_4": 1,
+          "translation": 973421,
+          "translation_mod_2": 1
+        },
+        {
+          "exhausted_period": null,
+          "layers": 24,
+          "modulus": 16777216,
+          "multiplier": 15990785,
+          "multiplier_mod_4": 1,
+          "translation": 9362029,
+          "translation_mod_2": 1
+        }
+      ]
+    },
+    "head_word": "01020210102101020210102101021010202101021010202101021010202101021010202102021010210102021010210102021010210102021010210102021020",
+    "initial_scale": {
+      "denominator": 262144,
+      "numerator": 269001
+    },
+    "one_heads": 41,
+    "slope_space": {
+      "finite_identity_checks": 27796,
+      "minimum_positive_slope_in_audit": {
+        "denominator": 1048576,
+        "numerator": 1594323
+      },
+      "samples": [
+        {
+          "macro_count": 1,
+          "scale_ratio": {
+            "denominator": 2,
+            "numerator": 3
+          },
+          "start_phase": 0,
+          "sweeps": 1
+        },
+        {
+          "macro_count": 5,
+          "scale_ratio": {
+            "denominator": 128,
+            "numerator": 243
+          },
+          "start_phase": 0,
+          "sweeps": 7
+        },
+        {
+          "macro_count": 12,
+          "scale_ratio": {
+            "denominator": 524288,
+            "numerator": 531441
+          },
+          "start_phase": 0,
+          "sweeps": 19
+        },
+        {
+          "macro_count": 1,
+          "scale_ratio": {
+            "denominator": 2,
+            "numerator": 3
+          },
+          "start_phase": 7,
+          "sweeps": 1
+        },
+        {
+          "macro_count": 5,
+          "scale_ratio": {
+            "denominator": 256,
+            "numerator": 243
+          },
+          "start_phase": 7,
+          "sweeps": 8
+        },
+        {
+          "macro_count": 12,
+          "scale_ratio": {
+            "denominator": 524288,
+            "numerator": 531441
+          },
+          "start_phase": 7,
+          "sweeps": 19
+        },
+        {
+          "macro_count": 1,
+          "scale_ratio": {
+            "denominator": 2,
+            "numerator": 3
+          },
+          "start_phase": 12,
+          "sweeps": 1
+        },
+        {
+          "macro_count": 5,
+          "scale_ratio": {
+            "denominator": 128,
+            "numerator": 243
+          },
+          "start_phase": 12,
+          "sweeps": 7
+        },
+        {
+          "macro_count": 12,
+          "scale_ratio": {
+            "denominator": 524288,
+            "numerator": 531441
+          },
+          "start_phase": 12,
+          "sweeps": 19
+        }
+      ],
+      "universal_consequence": "rho in [1,2) implies every segment with J-M>=1 has slope >3/2",
+      "universal_identity": "3^J/2^S=3^(J-M)*rho_(n+M)/rho_n"
+    },
+    "sweep_prefix_final": 202,
+    "third_restorative_edge": {
+      "endpoint_reservoir": 7,
+      "heads": [
+        0,
+        1,
+        0,
+        2,
+        1
+      ],
+      "isometry_scope": "all-parameter algebra; bounded pair replay for z=0,...,32",
+      "net_space_charge": 2,
+      "odd_steps": 7,
+      "output_low_bit": "U(z) mod 2 = z mod 2",
+      "output_register_mod_256": [
+        44006,
+        39051,
+        34096,
+        29141,
+        24186,
+        19231,
+        14276,
+        9321,
+        4366,
+        64947,
+        59992,
+        55037,
+        50082,
+        45127,
+        40172,
+        35217
+      ],
+      "register_map": "256*U=3^7*T+1",
+      "representative_output_register": 1888,
+      "shortcut_steps": 8,
+      "source_modulus": 256,
+      "source_parameter": "w=249+256*z",
+      "source_register_mod_256": 221,
+      "source_residue": 249,
+      "stages": [
+        {
+          "head_check": {
+            "correction": {
+              "denominator": 536870912,
+              "numerator": 607541892471
+            },
+            "head": 0,
+            "length_lower_bound": 20,
+            "lower_gap_at_bound": {
+              "denominator": 268435456,
+              "numerator": 89670417375882917
+            },
+            "scale": {
+              "denominator": 536870912,
+              "numerator": 588305187
+            },
+            "upper_gap_at_bound": {
+              "denominator": 268435456,
+              "numerator": 222321769509491035
+            }
+          },
+          "phase": 7,
+          "representative_defect": 241664,
+          "space_delta": -1,
+          "terminal_carries": [
+            0
+          ]
+        },
+        {
+          "head_check": {
+            "correction": {
+              "denominator": 1073741824,
+              "numerator": 608078763383
+            },
+            "head": 1,
+            "length_lower_bound": 20,
+            "lower_gap_at_bound": {
+              "denominator": 67108864,
+              "numerator": 72625354001000143
+            },
+            "scale": {
+              "denominator": 1073741824,
+              "numerator": 1764915561
+            },
+            "upper_gap_at_bound": {
+              "denominator": 67108864,
+              "numerator": 5372692720343345
+            }
+          },
+          "phase": 8,
+          "representative_defect": 543744,
+          "space_delta": 1,
+          "terminal_carries": [
+            1,
+            1
+          ]
+        },
+        {
+          "head_check": {
+            "correction": {
+              "denominator": 4294967296,
+              "numerator": 5472708870447
+            },
+            "head": 0,
+            "length_lower_bound": 20,
+            "lower_gap_at_bound": {
+              "denominator": 2147483648,
+              "numerator": 1743010319723422669
+            },
+            "scale": {
+              "denominator": 4294967296,
+              "numerator": 5294746683
+            },
+            "upper_gap_at_bound": {
+              "denominator": 2147483648,
+              "numerator": 752927175359568947
+            }
+          },
+          "phase": 9,
+          "representative_defect": 815616,
+          "space_delta": 0,
+          "terminal_carries": [
+            1
+          ]
+        },
+        {
+          "head_check": {
+            "correction": {
+              "denominator": 8589934592,
+              "numerator": 16418126611341
+            },
+            "head": 2,
+            "length_lower_bound": 20,
+            "lower_gap_at_bound": {
+              "denominator": 4294967296,
+              "numerator": 2733093466234760039
+            },
+            "scale": {
+              "denominator": 8589934592,
+              "numerator": 15884240049
+            },
+            "upper_gap_at_bound": {
+              "denominator": 4294967296,
+              "numerator": 2258781523931223193
+            }
+          },
+          "phase": 10,
+          "representative_defect": 1835136,
+          "space_delta": 1,
+          "terminal_carries": [
+            1,
+            1
+          ]
+        },
+        {
+          "head_check": {
+            "correction": {
+              "denominator": 34359738368,
+              "numerator": 147763139502069
+            },
+            "head": 1,
+            "length_lower_bound": 20,
+            "lower_gap_at_bound": {
+              "denominator": 4294967296,
+              "numerator": 801863664655790903
+            },
+            "scale": {
+              "denominator": 34359738368,
+              "numerator": 47652720147
+            },
+            "upper_gap_at_bound": {
+              "denominator": 4294967296,
+              "numerator": 4190011325510192329
+            }
+          },
+          "phase": 11,
+          "representative_defect": 4129056,
+          "space_delta": 1,
+          "terminal_carries": [
+            1,
+            1
+          ]
+        }
+      ],
+      "terminal_carries": [
+        [
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    "two_heads": 33,
+    "zero_heads": 54
+  },
+  "burst_worker_sha256": "f552fb0a4fa754ef4313f678dcfb4b45448de6d21fc05312ea6d6994def569fa",
+  "generated_at_utc": "2026-07-23T04:40:14.803580+00:00",
+  "schema": "yah_chart_clock_v1",
+  "worker_sha256": "6cd98e32a22c47432d5d22d31a551afed0c5175f9abd094b7cea36385191d8ab"
+}

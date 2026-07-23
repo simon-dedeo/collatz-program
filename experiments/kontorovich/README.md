@@ -3840,3 +3840,79 @@ Artifact SHA-256:
 `e6c9aae7b804f616a1fb5b9640f693f641156d995666e5e275f4d641680d6293`.
 Worker SHA-256:
 `f552fb0a4fa754ef4313f678dcfb4b45448de6d21fc05312ea6d6994def569fa`.
+
+## YAH abstract chart clock and fixed-lasso gate
+
+`yah_chart_clock.py` continues the second restorative endpoint without
+materializing its 134,217,728-trit block.  At macro boundaries its normalized
+leading scale begins at `rho=269001/262144` and follows
+
+```text
+head 0,  1 <= rho < 4/3:   rho' = 3*rho/2
+head 1,  4/3 <= rho < 5/3: rho' = 3*rho/4
+head 2,  5/3 <= rho < 2:   rho' = 3*rho/4.
+```
+
+The resulting abstract head prefix is `01020210102101020210...`.  An
+eventually periodic tail would multiply a bounded positive `rho` by one fixed
+`3^p/2^q` on every period, forcing `3^p=2^q`.  This proves aperiodicity of the
+abstract clock.  It is not by itself an infinite literal-word theorem: the
+additive correction could cross a head boundary.  The worker supplies exact
+gap inequalities only for the five phases used below.
+
+On `w=249+256z`, the incoming second-edge register is `T=221 (mod 256)`.
+The exact five-macro schedule is
+
+```text
+heads    0       1       0       2       1
+carries [0]    [1,1]   [1]     [1,1]   [1,1].
+```
+
+It uses eight quotient sweeps and seven odd sweeps, gains two cells, restores
+seven trailing twos, and writes
+
+```text
+256*U=3^7*T+1.
+```
+
+The output register inherits the exact two-adic isometry and satisfies
+`U(z)=z (mod 2)`.  The artifact checks the unique source residue, every finite
+correction gap and carry, and bounded low-bit/isometry regressions through
+`z=32`.
+
+For any segment with `M` macros, `S` quotient sweeps, `J` odd sweeps, and
+space gain `G=J-M`, the worker checks the exact factorization
+
+```text
+3^J/2^S = 3^G * rho_end/rho_start.
+```
+
+The universal algebra implies that positive space gain has slope greater than
+`3/2`; the default artifact includes 27,796 finite identity regressions.
+
+The same artifact falsifies a proposed counter-writing reblock.  Across all
+19 quotient layers, one 65,536-trit atom acts on the carry state by
+
+```text
+f(r)=(262145*r+449133) mod 2^19,
+f^2(r)=r+111834 mod 2^19.
+```
+
+Since `v2(111834)=1` and odd iterates have odd return difference, every state
+has exact period `2^19`.  The third nominal block contains precisely `2^19`
+base atoms and therefore traverses one full carry-state cycle; it has no
+smaller atom-aligned repetition.  The worker checks the general LCG
+hypotheses through 24 layers and exhausts every cycle through 18.  The
+all-depth full-period/reblocking generalization is a theorem request, not yet
+a kernel-checked claim.
+
+```bash
+python3 yah_chart_clock.py selftest
+python3 yah_chart_clock.py build yah_chart_clock_audit.json
+python3 yah_chart_clock.py verify yah_chart_clock_audit.json
+```
+
+Artifact SHA-256:
+`2c55cec21f81b563f181803a26ef5dc7489e13c668317af17438ace6220a29ab`.
+Worker SHA-256:
+`6cd98e32a22c47432d5d22d31a551afed0c5175f9abd094b7cea36385191d8ab`.

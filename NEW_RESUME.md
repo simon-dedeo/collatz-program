@@ -1,6 +1,74 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-22, about 17:18 EDT
+Updated: 2026-07-23, about 00:45 EDT
+
+### 00:45 EDT continuation — fixed-lasso chart tower closed
+
+`experiments/kontorovich/yah_chart_clock.py` now certifies a third
+restorative edge.  On `w=249+256z`, the second-edge register has
+`T=221 mod 256`; five macros with heads `01021` and carries
+`[0],[1,1],[1],[1,1],[1,1]` return to a seven-trit reservoir, gain two cells,
+and write `256*U=3^7*T+1`.  The output is again a two-adic isometry and
+`U(z) mod 2=z mod 2`.
+
+The normalized leading scale starts at `269001/262144` and obeys
+`rho'=3rho/2` on head zero and `rho'=3rho/4` on heads one/two.  Its abstract
+head word begins `01020210102101020210` and is not eventually periodic.  Do
+not call this an infinite actual YAH itinerary: the finite correction has
+only been separated from head boundaries for the five new phases.  The exact
+segment identity
+
+```text
+3^J/2^S = 3^(J-M) * rho_end/rho_start
+```
+
+shows that every positive-space edge has slope greater than `3/2`; the
+proposed nonexpanding-positive-space escape is closed.
+
+The more decisive theorem is companion QM42: every current chart edge only
+restricts a lasso parameter as `t_n=a_n+2^(k_n)t_(n+1)`, `k_n>0`, and any
+ordinary natural tower of this form is eventually zero.  The third block's
+possible reblocking was checked separately.  Its 19-layer carry action is
+
+```text
+f(r)=(262145*r+449133) mod 2^19,
+f^2(r)=r+111834 mod 2^19,  v2(111834)=1,
+```
+
+so every carry state has full period `2^19`; the nominal block is one whole
+cycle and writes no repetition-counter bits.  The all-depth LCG hypotheses are
+checked through layer 24 and cycles are exhausted through 18.  QM45/QM46 ask
+the companion to formalize the universal full-period/reblocking statement;
+until then, keep that generalization separate from the kernel-checked QM42.
+
+The current exact hashes are:
+
+```text
+worker   6cd98e32a22c47432d5d22d31a551afed0c5175f9abd094b7cea36385191d8ab
+artifact 2c55cec21f81b563f181803a26ef5dc7489e13c668317af17438ace6220a29ab
+```
+
+Companion commit `9021e86` contains the Lean proofs of the third arithmetic
+edge, abstract chart clock/slope identity, and lasso-tower drain theorem.  A
+local `lake build KontoroC` passes.  Do not edit or stage the companion's
+`KontoroC/` or `CLEAN_LEAN/` files; its untracked `KontoroC/Scratch.lean` is
+also out of scope.
+
+The live lane is no longer a fourth fixed lasso restriction.  Analyze the
+autonomous public `breakoff_ether_counter.py` map, or another contextual YAH
+pipeline, for an opcode which genuinely rewrites its surviving payload.  A
+transition from branch `n` to branch `m` has exact tail form
+
+```text
+q=a_(n,m)+2^(8m+15)t,
+q'=b_(n,m)+3^(6n+11)t.
+```
+
+Unlike a pure lasso pop, the odd multiplier can generate more binary
+information than the next gate consumes.  Search for a symbolic invariant or
+canonical tail-zero regeneration in this affine successor graph; do not
+resume broad raw-seed searches.  No counterexample or infinite execution is
+known.
 
 ### 20:53 EDT continuation
 
@@ -1150,21 +1218,18 @@ Diary entry.
 
 ## Best next actions
 
-1. Poll the detached R23 service, but do not block creative work on it; leave
+1. Poll the companion for QM45/QM46 after commit `9021e86`.  Do not stage or
+   edit its Lean files; local `lake build KontoroC` already passes.
+2. Derive and certify the exact branch-to-branch tail map of
+   `breakoff_ether_counter.py`.  Search its canonical affine-cylinder graph
+   for a public self-writing invariant, not just long finite runs.
+3. If the ether-counter also reduces to a restriction-only tower, prove that
+   obstruction at the exact affine interface.  If it has positive information
+   balance, isolate the smallest symbolic branch family that preserves it.
+4. Seek a contextual YAH block operator only if it depends on a surviving
+   public payload or repetition index.  QM42 closes another fixed lasso pop.
+5. Poll the detached R23 service without blocking the contextual search; leave
    the incomplete Ganesha morphic batch stopped.
-2. Poll the companion's QM26--QM30 restorative response.  QM20/QM21/QM23 and
-   the generic lasso engine are complete; the concrete all-stage word theorem
-   remains a separate seam.
-3. Decode the returned **new 65,536-trit chart** symbolically and seek a finite
-   recurrent chart graph.  Do not keep selecting deeper source cylinders
-   unless a chart invariant proves that only finitely many block types arise.
-   Begin by certifying the `u=3 mod 8` and `u=27 mod 64` all-odd burst pattern
-   with compressed blocks; do not resume the explicit multi-million-trit BFS.
-4. Seek a symbolic invariant `L` for the canonical splash map whose successor
-   writes its own next address; do not promote long finite traces.
-5. Keep Simon's spatial metaphor: the invariant should explain how a payload
-   rail and sacrificial/catcher rail regenerate both the gap and the next
-   correction packet.
 
 The central calibration is unchanged: a spectacular finite path, a 10,000-
 digit compiled seed, or a fresh CRT word at every generation is not a

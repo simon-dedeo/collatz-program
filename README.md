@@ -33,6 +33,86 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 00:45 EDT
+
+The restorative-chart search has reached a structural stopping point.  A new
+exact worker, `yah_chart_clock.py`, certifies a third edge on
+
+```text
+w=249+256z,
+256*U=3^7*T+1.
+```
+
+Its five queue macros have heads `01021`, terminal carries
+`[0],[1,1],[1],[1,1],[1,1]`, eight quotient sweeps, seven odd sweeps, net
+space gain `+2`, and a restored seven-trit reservoir.  The output retains the
+two-adic register isometry and exposes `U(z) mod 2=z mod 2`.  Companion Lean
+now checks the all-parameter modular arithmetic, parity, and isometry; the
+finite word schedule remains in the exact research artifact.
+
+At macro boundaries the normalized leading scale follows the abstract clock
+
+```text
+rho_0=269001/262144,
+rho' = 3*rho/2  on head 0,
+rho' = 3*rho/4  on heads 1 and 2,
+```
+
+with prefix `01020210102101020210...`.  This abstract clock is aperiodic: a
+repeated block would force `3^p=2^q`.  It is not yet an infinite literal YAH
+itinerary—the exact finite correction has been proved harmless only for the
+five new macro phases.  A second exact identity calibrates every segment of
+`M` macros, `S` sweeps, and `J` odd sweeps:
+
+```text
+3^J/2^S = 3^(J-M) * rho_end/rho_start.
+```
+
+Because both endpoint scales lie in `[1,2)`, positive space gain forces slope
+strictly above `3/2`; a nonexpanding positive-space chart edge is impossible.
+Companion commit `9021e86` kernel-checks these abstract clock and slope
+statements.
+
+More decisively, every edge constructed so far only restricts an existing
+lasso parameter,
+
+```text
+t_n=a_n+2^(k_n)t_(n+1),  k_n>0.
+```
+
+Commit `9021e86` proves that any natural-number tower of this form is
+eventually zero, even when the addresses and bit widths vary.  Thus the current
+restriction-only architecture cannot contain an ordinary infinite execution.
+The tempting reblocking escape also fails exactly: the 19-sweep carry map on
+one 65,536-trit atom is
+
+```text
+f(r)=(262145*r+449133) mod 2^19,
+f^2(r)=r+111834 mod 2^19,
+v2(111834)=1.
+```
+
+Every state therefore has the full period `2^19`; the nominal third block is
+one whole carry-state cycle, not a two-atom counter-writing block.  The worker
+checks the general full-cycle hypotheses through 24 sweep layers and exhausts
+cycles through 18; the universal all-depth LCG/reblocking theorem has been
+sent to Lean and is not yet cited as kernel-checked.
+
+This closes the present fixed-lasso route, not YAH and not Collatz.  The live
+constructive target is now a genuinely contextual opcode whose block action
+depends on a surviving public payload and rewrites its next address.  The
+autonomous breakoff ether-counter is the most concrete existing interface for
+that test.  No counterexample or infinite execution is claimed.
+
+```text
+python3 experiments/kontorovich/yah_chart_clock.py selftest
+python3 experiments/kontorovich/yah_chart_clock.py verify \
+  experiments/kontorovich/yah_chart_clock_audit.json
+
+artifact SHA-256  2c55cec21f81b563f181803a26ef5dc7489e13c668317af17438ace6220a29ab
+worker SHA-256    6cd98e32a22c47432d5d22d31a551afed0c5175f9abd094b7cea36385191d8ab
+```
+
 ### 2026-07-22 20:53 EDT
 
 The returned-chart bursts now have an exact compressed artifact.  The new
@@ -3827,6 +3907,7 @@ identically `x`.
 | Reindexing the restorative output into the original decoder chart | Universally closed.  Commit `f96e621` proves the output register `Rrest(t)=(3^6R(t)+1)/2^8` lies strictly between `R(t)` and `R(t+1)`, hence differs from every original decoder register.  The restorative opcode is a genuinely new chart; closure requires a finite multi-chart cycle, not a relabeling. | [`YahRestorativeChartNoGo.lean`](KontoroC/KontoroC/YahRestorativeChartNoGo.lean) |
 | Eventually repeating only the first restorative update | Universally closed for positive ordinary registers.  Commit `0da1058` translates `256R'=729R+1` by `C=473R+1`, obtaining `256C'=729C`; iteration forces `256^n | C(0)` for every `n`.  A recurrent component must contain at least two distinct chart edge maps. | [`YahRestorativeLoopNoGo.lean`](KontoroC/KontoroC/YahRestorativeLoopNoGo.lean) |
 | Stabilizing one fixed coordinate through ever-deeper YAH recharge addresses | Universally closed.  Commit `8bed065` proves that if `2^K` divides a positive target at every depth, its address cannot eventually equal one fixed natural.  The three packet recharge targets are exact specializations.  This rejects an ordinary program obtained by stabilizing nested congruence representatives; it does not reject an evolving dispatcher which computes a new unbounded coordinate after every burst. | [`YahRechargeAddressNoGo.lean`](KontoroC/KontoroC/YahRechargeAddressNoGo.lean) |
+| Restriction-only restorative lasso tower | Closed for ordinary natural repetition parameters.  Every current edge has `t_n=a_n+2^(k_n)t_(n+1)` with `k_n>0`; commit `9021e86` makes `t_n` and `a_n` eventually zero.  The concrete 19-sweep reblocking candidate also fails: its affine carry map has exact full period `2^19`, so the nominal third block is one whole state cycle and writes no counter bits.  The worker checks the all-depth LCG hypotheses through 24 layers and exhausts cycles through 18; the universal LCG generalization is still awaiting Lean.  A survivor must use a contextual/nonuniform opcode that rewrites a public payload rather than another fixed lasso restriction. | [`yah_chart_clock_audit.json`](experiments/kontorovich/yah_chart_clock_audit.json), [`YahChartTowerNoGo.lean`](KontoroC/KontoroC/YahChartTowerNoGo.lean) |
 | Treat a prescribed finite `k`-word as an infinite program | Invalid: the nested progressions generally select a 2-adic integer, not a positive ordinary seed. Lean commit `ad36f08` proves that eventual canonical-seed stabilization is exactly the ordinary-integer gate. | [Program-synthesis note](docs/notes/kontorovich-program-synthesis.md) |
 | Literal periodic valuation glider | Closed: Lean commits `92b01ff`/`2f93df7` prove that an infinitely repeatable positive block has `3^N<2^S` and closes as a cycle. This does not touch morphic, counter, stack, or feedback streams. | [Section 4](docs/notes/kontorovich-program-synthesis.md#4-why-a-literal-periodic-glider-fails) |
 | Small positive cycle words | Exhaustively negative through total halving count `S<=22`: `3,447,691` positive-denominator compositions, with only repeated encodings of seed `1`. This is a bounded ansatz exclusion, not a new verification frontier. | [`search_results.json`](experiments/kontorovich/search_results.json) |
