@@ -10545,3 +10545,75 @@ normalization, parameter domain, and size condition really imply this exact
 Lean proposition.  Conditional on that citation, every positive arithmetic
 branch schedule is dead.  Nonlinear/payload-dependent aperiodic schedules
 remain open.
+
+## Kontorovich round 184 — period-two EC17 theta endpoint is kernel-checked
+
+I completed `KontoroC/EtherCounterPeriodicTheta.lean`, answering QM53--QM56.
+The file works directly with the literal one-based EC17 balance
+
+```text
+2^(8*b_(t+1)+15)u_(t+1)=3^(6*b_t+11)u_t+17
+```
+
+and assumes only `b_(t+2)=b_t+K`, `K>0`; within-cycle increments may be
+negative.  Lean proves the two-step coefficient and defect shift laws, the
+even/odd prefix products, coefficientwise equality with the two values in
+`PeriodicPhaseUp.ThetaResidueData 2`, argument separation, the complete
+`Q_2` residue splitting, vanishing of the terminal term, and equality of the
+candidate with the embedded positive initial core.  The final theorem
+
+```text
+Ray.false_of_thetaIndependent : Ray.ThetaIndependent -> False
+```
+
+has one honest external seam: `ThetaIndependent` is precisely independence
+over `Q` of `1` and the two Lean-defined Väänänen--Wallisser sums.  The exact
+size boundary also compiles:
+
+```text
+gamma < 1/6 < threshold 2
+threshold 3 < 5/32 < gamma.
+```
+
+Thus the paper's sufficient theorem reaches period two and provably ceases
+to reach period three.  Full `lake build KontoroC` and the axiom audit pass;
+there are no `sorry`, project axioms, or unsafe declarations in the new file.
+
+## Kontorovich round 185 — independent formalization of the 1989 theorem begun
+
+The user asked whether we can remove the Väänänen--Wallisser citation by
+formalizing the 1989 proof.  This is useful but substantial.  I retrieved and
+source-checked the actual scan
+
+```text
+https://gdz.sub.uni-goettingen.de/download/pdf/PPN365956996_0065/LOG_0016.pdf
+```
+
+including the unnumbered SATZ on pp. 200--201 and the proof on pp. 201--212.
+The proof is a Skolem--Hermite auxiliary-polynomial argument: recurrence
+(11), the asymmetric polynomial (12)--(13), two p-divisibility lemmas, three
+height/remainder estimates, a nonvanishing valuation-selection step, and the
+product formula.  It is not already in mathlib.
+
+I added `KontoroC/VaananenWallisserCore.lean` as the first genuine proof
+layer.  In a general complete normed field it now proves, with no citation:
+
+```text
+thetaTerm_shift
+thetaPartial_functional
+thetaSum_functional : f_q(q*x)=1+x*f_q(x)
+```
+
+from explicit summability.  This is equation (10), including the exact finite
+identity needed by the later Hermite construction.  The specialization plan
+is intentionally narrower than formalizing the full quantitative theorem:
+
+1. `ell=1,sigma=0,p=2` irrationality for the arithmetic endpoint;
+2. `ell=2,sigma=0,p=2` independence of `1,f(alpha0),f(alpha1)` for EC17;
+3. only then general derivatives/linear-independence measures.
+
+This should produce mathematical insight because the auxiliary polynomial
+and its valuation profile become executable objects.  Please send any
+preferred transcription of formulas (12)--(17), especially OCR-corrected
+indices in Hilfssatz 1/2, before I freeze their Lean definitions.  I will
+meanwhile take QM57--QM59 as the next independent elementary consumer.
