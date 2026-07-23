@@ -10714,3 +10714,76 @@ real progress toward removing the citation, not a new assumption.  The next
 hard layer is arithmetic rather than polynomial algebra: specialize `kappa`,
 prove the rho-adic valuation separation corresponding to Hilfssatz 1/2, and
 then formalize only the estimates needed for `ell=1,sigma=0,p=2`.
+
+## Kontorovich round 189 — QM62--QM63 infinite residue consumer complete
+
+I formalized the newest residue-stabilization request in the existing EC17
+files.  `EtherCounterResidueBound.initialResidue_val_eq_initial_core` is the
+exact QM62 value statement:
+
+```text
+P <= binaryMass branch 0 length
+core 0 < 2^P
+--------------------------------
+(initialResidue branch P length).val = core 0.
+```
+
+`EtherCounterStateNoRepeat.Orbit.toNaturalPrefix` restricts a literal
+infinite orbit to any requested finite length without weakening the balance
+law.  The abstract QM63 endpoint is now
+`Orbit.false_of_unbounded_residue_obstructions`.  It takes length and
+precision sequences, exact accumulated-precision bounds, cofinal
+unboundedness of the precisions, and an abstract checker failure for every
+finite row.  Lean derives `False`: QM59 would force the one fixed initial
+core above `2^(precision j)` at every row, while unbounded precision supplies
+a row whose power of two already exceeds that core.
+
+The scope is intentionally exact: this excludes one prescribed literal
+infinite schedule only after the infinite certificate family is proved; it
+makes no universal claim from finitely many experimental rows.  Both edited
+files compile.  I added the endpoints to `Audit.lean` and am continuing with
+the exact root-vanishing layer of the independent 1989 formalization unless
+a newer request supersedes it.
+
+## Kontorovich round 190 — semantic correction, QM65, and QM73--QM74
+
+The attempt to prove the first Väänänen--Wallisser root vanishing found a
+real semantic bug in my round-188 definition.  Lean had parsed
+
+```text
+∏ a ∈ range nu, C((q^a)^-1)*X - C(alpha)
+```
+
+as `(∏ monomials) - C(alpha)`, because the factor body lacked parentheses.
+The earlier iterate theorem compiled because it treated that polynomial as
+an abstract `R`; compilation therefore did not detect the wrong source
+translation.  I corrected the definition to
+
+```text
+∏ a ∈ range nu, (C((q^a)^-1)*X - C(alpha)).
+```
+
+The recurrence theorem still compiles, and two new theorems now regression-
+test the intended semantics: the factor at address `mu` makes the shifted
+root product vanish at `alpha` for every `mu<nu`, and hence
+`P_mu(alpha)=0` exactly in that range.  This is the algebraic zero pattern
+preceding Hilfssatz 1.  Please treat this as an important example of why
+source-definition review remains necessary even when every proof compiles.
+
+I also completed the two newest inexpensive requests:
+
+* `EtherCounterPeriodThree.lean` defines a literal positive EC17 orbit with
+  three affine branch phases.  `Ray.compose_three` composes any three literal
+  balances, each phase factor is derived from the branch law, and
+  `Ray.cycle_balance` proves QM65 with exactly the three defect monomials
+  `Y^(2q)`, `(X*Y)^q`, and `X^(2q)`.  No theta or coboundary assumption enters.
+* `EtherCounterPeriodicTheta.derivativeThreshold` records QM73, and
+  `derivativeThreshold_three_lt_gamma` proves QM74 for every `sigma>=1` via
+  `Gamma < 1/(2m) <= 1/12 < 5/32 < gamma`.  Together with the existing
+  sigma-zero result this closes the derivative-order loophole for the 1989
+  sufficient theorem, but says nothing about a sharper theorem.
+
+I am running the full build and axiom audit now.  The next substantial target
+is QM67--QM68; I will first assess whether a finitely-supported Laurent model
+can express the extreme-support proof without importing a large multivariate
+algebra stack.

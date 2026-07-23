@@ -492,6 +492,23 @@ noncomputable def gamma : ℝ :=
 noncomputable def threshold (L : ℕ) : ℝ :=
   (2 * L + 1 - √(1 + 4 * (L : ℝ) ^ 2)) / (2 * L)
 
+/-- QM73: the exact all-derivative threshold printed in the 1989 theorem.
+It depends only on the combined parameter `ell * (sigma+1)`. -/
+noncomputable def derivativeThreshold (ell sigma : ℕ) : ℝ :=
+  threshold (ell * (sigma + 1))
+
+theorem derivativeThreshold_eq (ell sigma : ℕ) :
+    derivativeThreshold ell sigma =
+      (2 * ell * (sigma + 1) + 1 -
+        √(1 + 4 * ((ell * (sigma + 1) : ℕ) : ℝ) ^ 2)) /
+        (2 * ell * (sigma + 1)) := by
+  simp [derivativeThreshold, threshold]
+  ring
+
+theorem derivativeThreshold_zero (ell : ℕ) :
+    derivativeThreshold ell 0 = threshold ell := by
+  simp [derivativeThreshold]
+
 theorem gamma_lt_one_sixth : gamma < (1 : ℝ) / 6 := by
   have hlog3 : 0 < Real.log 3 := Real.log_pos (by norm_num)
   have hpow : (3 : ℝ) ^ 5 < (2 : ℝ) ^ 8 := by norm_num
@@ -553,6 +570,37 @@ theorem threshold_three_lt_five_thirtyseconds :
 
 theorem threshold_three_lt_gamma : threshold 3 < gamma :=
   threshold_three_lt_five_thirtyseconds.trans five_thirtyseconds_lt_gamma
+
+/-- QM74: positive derivative order cannot rescue the three-phase EC17
+endpoint.  Its sufficient threshold is already below the proven lower bound
+for `gamma`. -/
+theorem derivativeThreshold_three_lt_gamma (sigma : ℕ) (hsigma : 1 ≤ sigma) :
+    derivativeThreshold 3 sigma < gamma := by
+  let m : ℕ := 3 * (sigma + 1)
+  have hm_nat : 6 ≤ m := by simp [m]; omega
+  have hm : (0 : ℝ) < m := by exact_mod_cast (lt_of_lt_of_le (by norm_num) hm_nat)
+  have hsqrt_nonneg : 0 ≤ √(1 + 4 * (m : ℝ) ^ 2) := Real.sqrt_nonneg _
+  have hsqrt_sq : (√(1 + 4 * (m : ℝ) ^ 2)) ^ 2 =
+      1 + 4 * (m : ℝ) ^ 2 := by
+    rw [Real.sq_sqrt]
+    positivity
+  have hsqrt_gt : 2 * (m : ℝ) < √(1 + 4 * (m : ℝ) ^ 2) := by
+    nlinarith
+  have hthreshold : derivativeThreshold 3 sigma < 1 / (2 * (m : ℝ)) := by
+    rw [derivativeThreshold, threshold]
+    change (2 * (m : ℝ) + 1 - √(1 + 4 * (m : ℝ) ^ 2)) /
+      (2 * (m : ℝ)) < 1 / (2 * (m : ℝ))
+    apply (div_lt_div_iff₀ (by positivity) (by positivity)).2
+    nlinarith
+  have hrecip : 1 / (2 * (m : ℝ)) ≤ (1 : ℝ) / 12 := by
+    have hm_real : (6 : ℝ) ≤ m := by exact_mod_cast hm_nat
+    apply (div_le_div_iff₀ (by positivity) (by norm_num)).2
+    nlinarith
+  calc
+    derivativeThreshold 3 sigma < 1 / (2 * (m : ℝ)) := hthreshold
+    _ ≤ (1 : ℝ) / 12 := hrecip
+    _ < (5 : ℝ) / 32 := by norm_num
+    _ < gamma := five_thirtyseconds_lt_gamma
 
 end EtherCounterPeriodicTheta
 end KontoroC

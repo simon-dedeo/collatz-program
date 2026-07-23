@@ -179,7 +179,7 @@ theorem hermiteIter_C_mul_X_pow_mul {K : Type*} [Field K]
 `prod_(a<ν) (x/q^a-alpha)`. -/
 noncomputable def skolemRootProduct {K : Type*} [Field K]
     (q α : K) (ν : ℕ) : K[X] :=
-  ∏ a ∈ Finset.range ν, C ((q ^ a)⁻¹) * X - C α
+  ∏ a ∈ Finset.range ν, (C ((q ^ a)⁻¹) * X - C α)
 
 /-- Formula (12) in the one-value, zero-derivative case.  The arithmetic
 normalization of `κ` is intentionally separate from this polynomial shape. -/
@@ -198,6 +198,36 @@ theorem hermiteIter_skolemInitial {K : Type*} [Field K]
         (skolemRootProduct q α ν).comp (C (q ^ μ) * X) := by
   exact hermiteIter_C_mul_X_pow_mul q κ (ν + t + 1) μ
     (skolemRootProduct q α ν) hμ
+
+/-- Before the Hermite index reaches `ν`, the shifted root product still
+vanishes at `α`: its factor with address `a=μ` is exactly zero.  This is the
+algebraic vanishing that isolates the first nonzero term in Hilfssatz 1. -/
+theorem eval_skolemRootProduct_comp_eq_zero {K : Type*} [Field K]
+    (q α : K) (hq : q ≠ 0) (ν μ : ℕ) (hμ : μ < ν) :
+    ((skolemRootProduct q α ν).comp (C (q ^ μ) * X)).eval α = 0 := by
+  rw [Polynomial.eval_comp]
+  simp only [eval_mul, eval_C, eval_X]
+  let factor : ℕ → K[X] := fun a => C ((q ^ a)⁻¹) * X - C α
+  have hdiv : factor μ ∣ skolemRootProduct q α ν := by
+    rw [skolemRootProduct]
+    exact Finset.dvd_prod_of_mem factor (Finset.mem_range.mpr hμ)
+  obtain ⟨R, hR⟩ := hdiv
+  rw [hR, eval_mul]
+  have hqμ : q ^ μ ≠ 0 := pow_ne_zero μ hq
+  have hzero : (factor μ).eval (q ^ μ * α) = 0 := by
+    simp [factor, hqμ]
+  rw [hzero, zero_mul]
+
+/-- Consequently every source polynomial `P_μ(α)` with `μ<ν` vanishes
+exactly.  This proves the zero pattern used before the paper's genuinely
+arithmetic valuation calculation; no p-adic estimate is involved. -/
+theorem eval_hermiteIter_skolemInitial_eq_zero {K : Type*} [Field K]
+    (q α κ : K) (hq : q ≠ 0) (ν t μ : ℕ) (hμ : μ < ν) :
+    (hermiteIter q μ (skolemInitial q α κ ν t)).eval α = 0 := by
+  rw [hermiteIter_skolemInitial q α κ ν t μ (by omega)]
+  simp only [eval_mul, eval_C, eval_pow, eval_X]
+  rw [eval_skolemRootProduct_comp_eq_zero q α hq ν μ hμ]
+  simp
 
 end VaananenWallisser
 end KontoroC

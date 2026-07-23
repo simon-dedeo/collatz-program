@@ -29,6 +29,58 @@ structure Orbit where
 
 namespace Orbit
 
+/-- Restrict a literal infinite positive EC17 orbit to its first `length`
+steps.  This is the exact bridge from infinite schedules to the finite
+residue-certificate interface. -/
+def toNaturalPrefix (g : Orbit) (length : ℕ) :
+    EtherCounterResidueBound.NaturalPrefix g.branch length where
+  branch_pos t _ := g.branch_pos t
+  core := g.core
+  core_pos t _ := g.core_pos t
+  balance t _ := by
+    simpa [EtherCounterResidueBound.binaryExponent,
+      EtherCounterResidueBound.ternaryExponent] using g.balance t
+
+theorem self_le_two_pow (n : ℕ) : n ≤ 2 ^ n := by
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      rw [pow_succ]
+      have hpos : 0 < 2 ^ n := pow_pos (by omega) n
+      omega
+
+/-- QM63: unbounded exact residue obstructions exclude a natural infinite
+orbit on the prescribed branch schedule.  The premise is deliberately
+abstract: each finite row may be discharged by any exact checker.
+
+This theorem does **not** say that every schedule has such certificates.  It
+says that, for one fixed literal orbit, certificate failures at cofinally
+large precisions would force its one fixed initial core above arbitrarily
+large powers of two. -/
+theorem false_of_unbounded_residue_obstructions
+    (g : Orbit) (length precision : ℕ → ℕ)
+    (hprecision : ∀ j,
+      precision j ≤ EtherCounterResidueBound.binaryMass
+        g.branch 0 (length j))
+    (hunbounded : ∀ B, ∃ j, B < precision j)
+    (hfail : ∀ j
+      (pref : EtherCounterResidueBound.NaturalPrefix
+        g.branch (length j)),
+      pref.core 0 ≠
+        (EtherCounterResidueBound.initialResidue
+          g.branch (precision j) (length j)).val) :
+    False := by
+  obtain ⟨j, hj⟩ := hunbounded (g.core 0)
+  let pref := g.toNaturalPrefix (length j)
+  have hlower : 2 ^ precision j ≤ g.core 0 := by
+    simpa [pref, toNaturalPrefix] using
+      EtherCounterResidueBound.initial_core_ge_modulus_of_least_residue_fails
+        (branch := g.branch) (length := length j)
+        (P := precision j) (hprecision j) (hfail j) pref
+  have hupper : g.core 0 < 2 ^ precision j :=
+    lt_of_lt_of_le hj (self_le_two_pow (precision j))
+  exact (Nat.not_lt_of_ge hlower) hupper
+
 def binaryFactor (g : Orbit) (t : ℕ) : ℕ :=
   2 ^ (8 * g.branch (t + 1) + 15)
 

@@ -839,17 +839,26 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterPeriodicTheta.Ray.false_of_thetaIndependent
 #print axioms KontoroC.EtherCounterPeriodicTheta.gamma_lt_threshold_two
 #print axioms KontoroC.EtherCounterPeriodicTheta.threshold_three_lt_gamma
+#print axioms KontoroC.EtherCounterPeriodicTheta.derivativeThreshold_eq
+#print axioms KontoroC.EtherCounterPeriodicTheta.derivativeThreshold_three_lt_gamma
 #print axioms KontoroC.EtherCounterResidueBound.backwardEval_sub_factor
 #print axioms KontoroC.EtherCounterResidueBound.initial_core_cast_eq_residue
+#print axioms KontoroC.EtherCounterResidueBound.initialResidue_val_eq_initial_core
 #print axioms
   KontoroC.EtherCounterResidueBound.initial_core_ge_modulus_of_least_residue_fails
 #print axioms KontoroC.EtherCounterStateNoRepeat.Orbit.composed_strict
 #print axioms KontoroC.EtherCounterStateNoRepeat.Orbit.state_ne_after
 #print axioms KontoroC.EtherCounterStateNoRepeat.Orbit.state_injective
 #print axioms KontoroC.EtherCounterStateNoRepeat.Orbit.unbounded_public_resource
+#print axioms
+  KontoroC.EtherCounterStateNoRepeat.Orbit.false_of_unbounded_residue_obstructions
+#print axioms KontoroC.EtherCounterPeriodThree.Ray.compose_three
+#print axioms KontoroC.EtherCounterPeriodThree.Ray.cycle_balance
 #print axioms KontoroC.VaananenWallisser.thetaTerm_shift
 #print axioms KontoroC.VaananenWallisser.thetaPartial_functional
 #print axioms KontoroC.VaananenWallisser.thetaSum_functional
 #print axioms KontoroC.VaananenWallisser.X_mul_hermiteStep_add
 #print axioms KontoroC.VaananenWallisser.hermiteStep_C_mul_X_pow_succ_mul
 #print axioms KontoroC.VaananenWallisser.hermiteIter_skolemInitial
+#print axioms KontoroC.VaananenWallisser.eval_skolemRootProduct_comp_eq_zero
+#print axioms KontoroC.VaananenWallisser.eval_hermiteIter_skolemInitial_eq_zero

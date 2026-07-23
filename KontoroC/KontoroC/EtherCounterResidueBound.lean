@@ -190,6 +190,19 @@ theorem initial_core_cast_eq_residue (g : NaturalPrefix branch length) (P : ℕ)
     _ = backwardEval branch P length 0 0 :=
       backwardEval_eq_zero_terminal branch P 0 length _ hprecision
 
+/-- QM62: below the modulus, equality in `ZMod (2^P)` is equality of the
+least natural representatives.  This is the value-level form used by exact
+certificate checkers. -/
+theorem initialResidue_val_eq_initial_core
+    (g : NaturalPrefix branch length) (P : ℕ)
+    (hprecision : P ≤ binaryMass branch 0 length)
+    (hsmall : g.core 0 < 2 ^ P) :
+    (initialResidue branch P length).val = g.core 0 := by
+  have hcast := initial_core_cast_eq_residue g P hprecision
+  have hval := congrArg ZMod.val hcast
+  rw [ZMod.val_natCast_of_lt hsmall] at hval
+  exact hval.symm
+
 /-- Abstract finite-certificate consumer (QM59).  If exact execution proves
 that the least representative is not the initial core of any natural prefix,
 then every natural prefix begins at least at the modulus. -/
