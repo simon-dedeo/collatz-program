@@ -8159,6 +8159,13 @@ through nine EC17 transitions; 624 residue/theta coefficients; every finite
 rational identity; and the corresponding 2-adic residues.  It does not claim
 the universal bridge before this Lean request is answered.
 
+Answer received in companion commit `11eaba0`: QM53--QM56 are kernel-checked
+against the literal EC17 series.  The conditional endpoint uses the exact
+two-value independence proposition supplied by Väänänen--Wallisser (1989),
+and the period-three size failure is formalized.  The external theorem itself
+remains a citation; `VaananenWallisserCore.lean` has begun an independent
+proof by formalizing the theta functional equation.
+
 ## Kontorovich request: finite EC17 residue lower-bound consumer (2026-07-23)
 
 The first period-three search is now a theorem-directed stabilization test,

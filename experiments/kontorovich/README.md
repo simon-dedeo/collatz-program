@@ -3151,9 +3151,10 @@ Gamma(3,0)<5/32<gamma.
 ```
 
 Thus period three is the first escape from this particular sufficient
-external theorem; it is not evidence for an ordinary orbit.  The generic
-period-two bridge has been sent to the companion Lean worker and remains
-pending until kernel-checked.
+external theorem; it is not evidence for an ordinary orbit.  Companion commit
+`11eaba0` kernel-checks the generic period-two EC17 bridge and its exact
+external independence seam.  Accepting the cited theorem, every
+positive-mean period-two increment tail is impossible.
 
 The bounded artifact compiles and literally executes 15 public schedules,
 including positive-mean words with negative increments, through nine EC17

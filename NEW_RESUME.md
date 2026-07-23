@@ -35,6 +35,14 @@ priority remains either a stronger three-value `Q_2` independence theorem or
 a special EC17 coboundary/modular identity that closes or isolates a
 period-three program.
 
+Companion commit `11eaba0` now completes QM53--QM56.  It works directly with
+the literal EC17 recurrence, proves the even/odd theta split and terminal
+vanishing, and exposes the exact two-value external independence seam.
+Accepting Väänänen--Wallisser (1989), every positive-mean period-two increment
+tail is impossible.  The same commit starts an independent formalization of
+the paper and proves its theta functional equation; the Skolem--Hermite
+linear-independence proof remains unfinished.
+
 ### 01:22 EDT continuation — periodic increments expose a period-three boundary
 
 Companion commit `2150534` divides out the exactly forced factor of three
@@ -59,8 +67,8 @@ artifact 2d1e80094f494776f6a6fb3338a41403e806695db34b8feffab98ce391962f68
 splits the backward series into `L` theta values.  It compiles 15 literal
 public schedules through nine core transitions, including within-cycle
 down-steps; checks every finite rational and 2-adic identity; and audits 624
-theta coefficients.  The universal algebra has been sent to the companion as
-QM53--QM56 and is not yet claimed before its Lean bridge arrives.
+theta coefficients.  Companion commit `11eaba0` now kernel-checks the
+universal period-two algebra and exact external-theorem seam.
 
 The external theorem's exact size bound passes for period two but fails
 already at period three:
@@ -70,12 +78,12 @@ gamma<1/6<Gamma(2,0),
 Gamma(3,0)<5/32<gamma.
 ```
 
-So, conditional on the cited theorem and pending the Lean bridge, all
-eventual increment words of length at most two should close; length three is
-the smallest theorem-escape target.  A failed sufficient inequality is not a
-witness.  The constructive search should use EC17 and test period-three
-increment programs for additional modular/coboundary obstructions before
-attempting broader payload-dependent controllers.
+So, conditional on the cited theorem, all eventual positive-mean increment
+words of length at most two close; length three is the smallest
+theorem-escape target.  A failed sufficient inequality is not a witness.  The
+constructive search should use EC17 and test period-three increment programs
+for additional modular/coboundary obstructions before attempting broader
+payload-dependent controllers.
 
 ### 01:09 EDT continuation — fixed-rate ether counters close by partial theta
 
