@@ -3395,6 +3395,136 @@ Extension-carry artifact SHA-256:
 Extension-carry verifier SHA-256:
 `4412e1e0db6d79c623809e106b97999c259e1858cb6b2188c2064025bbebd2f6`.
 
+### Consecutive-cycle and balanced construction carries
+
+The fixed-depth block scans are not construction criteria: exact composition
+shows that modulo `3^d` a long block retains only its final consecutive carry.
+The construction-facing object instead compares adjacent normalized residues.
+If `r_q` is the canonical residue at the sharp budget `U(q)`, compose one
+three-step cycle as
+
+```text
+2^m(q)*y_q=3^Q(q)*r_q+D(q),
+p(q)=U(q)-m(q)>0,
+r_(q+1)-y_q=2^p(q)*C_q.
+```
+
+The exact worker `breakoff_ether_period3_cycle_carry.py` checks the compact
+formula, all three literal valuations, canonical low-bit consistency, and the
+independent reverse predecessor congruence on every row.  It records backward
+transition counts and covered binary mass for every residue; four deterministic
+residues per schedule, plus every anomaly, are also reconstructed by an
+independent forward-series evaluator.  Companion commit `daae4a8` proves bare
+residue reduction/splitting without assuming an orbit and kernel-checks the
+generic endpoint that compatible positive three-step factors glue to an
+infinite EC17 orbit.  Commit `40835c0` proves the strict defect bound and
+abstract balanced-carry equivalence, and `5769c85` proves the exact long-block
+last-carry no-go; `122680b` supplies the canonical upper-block range bounds.
+Commit `f79192e` proves the displayed three-step identities, specializes zero
+carry to the exact replay factor, and constructs an infinite positive EC17
+orbit from any eventual zero-carry tail.  Commit `4516a03` promotes the result
+to the project's literal period-three `Ray`, and `fff0dec` formalizes the
+canonical range gate under which full ternary divisibility forces exact zero
+carry.  Commit `732da20` specializes it to the worker's actual logarithmic
+precision.  The construction implication and finite-row gate are
+kernel-checked; the finite workers simply contain no hit to feed into them.
+
+The dense Akdeniz scan covers all 71 positive `[-1,1]^3`, start-through-eight
+schedules and every `q=14..256`, the first common interval with `p(q)>0`:
+
+```text
+exact consecutive-cycle rows                         17,253
+independent series checkpoint residues                  284
+exact zero carries                                        0
+full 3^Q predecessor divisibilities                       0
+rows with |C| < 3^Q                                  16,870
+rows satisfying the zero-forcing exponent gate        8,339
+positive / negative carries                     8,748 / 8,505
+maximum observed v3(C)                                    8
+counterexample                                          null
+```
+
+The exact zero-forcing gate is
+
+```text
+2^(U(q+1)-p(q)) <= 3^Q(q).
+```
+
+Since `D(q)<3^Q(q)`, a carry divisible by `3^Q` cannot be negative; on a gate
+row it is also strictly below `3^Q`, so full predecessor divisibility would
+force `C_q=0`.  Nearly half the rows therefore reduce to one theorem-facing
+full congruence.  None hits it.  The result is a bounded negative construction
+audit, not proof that a zero tail cannot begin later.
+
+```bash
+python3 breakoff_ether_period3_cycle_carry.py selftest
+python3 breakoff_ether_period3_cycle_carry.py verify \
+  breakoff_ether_period3_cycle_carry_audit.json --jobs 30
+```
+
+Consecutive-cycle artifact SHA-256:
+`18e65eb08d8d9960cacd88868779d17fdcca8f6912c97530c76fd91c851b951e`.
+Consecutive-cycle verifier SHA-256:
+`bb7f53a312a6e7a7362c08743b962a17c516e9a13a250f5bfd6fe04d7640cfed`.
+
+The separate balanced worker makes every hit constructive rather than using
+the exclusion budget `U`.  Starting at `P_q=m(q)+h`, it transports
+
+```text
+ell_q=floor(log2(3^Q(q))),
+P_(q+1)=P_q-m(q)+ell_q.
+```
+
+Both high blocks in the carry difference are then strictly below `3^Q`, so
+the full congruence
+
+```text
+2^m(q)*r_(q+1)=D(q) (mod 3^Q(q))
+```
+
+is equivalent to exact `C_q=0`.  A consecutive all-future hit tail would
+therefore splice into an infinite orbit.  The exact artifact checks 1,136
+precision paths (`h=1..16`) across the same 71 schedules and every
+`q=14..60`, for 53,392 rows.  There are zero full-congruence/zero-carry hits,
+maximum hit run zero, and `counterexample:null`.  Misses on this deliberately
+chosen precision path do not exclude a ray.
+
+```bash
+python3 breakoff_ether_period3_balanced_carry.py selftest
+python3 breakoff_ether_period3_balanced_carry.py verify \
+  breakoff_ether_period3_balanced_carry_audit.json --jobs 12
+```
+
+Balanced-carry artifact SHA-256:
+`6a619989230c623cecdc8c10b8fb963c1f395568a1e5867d0e0186031cef9187`.
+Balanced-carry verifier SHA-256:
+`3ffb7f0163b9f73662f9ae43b2a614306741bcdddd30caa1f7ef7658f957d60d`.
+
+Finally, `breakoff_ether_period3_rational_reconstruction.py` probes the actual
+2-adic initial values rather than another fixed ternary clock.  At the `q=0`
+boundary for all 71 schedules, it reconstructs the canonical residues at
+2,048 and 4,096 bits and searches for a repeated reduced pair
+
+```text
+a = b*r (mod 2^P),  |a|<=2^512,  0<b<=2^512,  b odd.
+```
+
+The exact uniqueness gate `2AB<2^P` holds in every row, and backward and
+direct-series residues agree.  There are zero single-precision reconstructions
+and zero repeated rational or positive-integer candidates.  This excludes only
+the displayed finite height box; it is not an irrationality theorem.
+
+```bash
+python3 breakoff_ether_period3_rational_reconstruction.py selftest
+python3 breakoff_ether_period3_rational_reconstruction.py verify \
+  breakoff_ether_period3_rational_reconstruction_audit.json
+```
+
+Rational-reconstruction artifact SHA-256:
+`356994f129961e385b0dd6b0423d8ea96c96411c15a19ce501559c1d315bab93`.
+Rational-reconstruction verifier SHA-256:
+`4dc374208dae1fc21d413c1a9c26569205e37c7d3a06d9e65027a268d6f5c3bb`.
+
 Companion commit `6b96f89` kernel-checks the strongest mod-27 cell's exact
 EC17-specific block reduction.
 For word `(1,1,0)`, start branch 8, compose nine cycles from a source

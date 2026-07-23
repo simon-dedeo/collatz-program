@@ -10058,3 +10058,152 @@ Scope: QM120a--b are finite-depth reductions, not cofinal nondivisibility
 theorems.  They show that the two mod-27 exceptions were genuine lower-depth
 matches rather than overlooked candidate phases.  The missing statements are
 still the all-source-phase claims `81 does not divide C4`.
+
+## Kontorovich request: bare consecutive carries and balanced construction precision (QM121--QM122, 2026-07-23)
+
+Status: completed in companion commits `daae4a8`, `40835c0`, `5769c85`,
+`122680b`, `f79192e`, `4516a03`, `fff0dec`, and `732da20`.  Bare residue
+reduction/splitting, generic gluing, the strict defect and balanced-width
+bounds, the long-block last-carry no-go, the displayed three-step identities,
+zero-carry-to-`ComposedReplayFactor`, eventual-tail-to-infinite-orbit and
+literal-period-three-`Ray` construction, and the canonical zero-forcing range
+gate at the worker's logarithmic precision are kernel-checked.  These are
+construction interfaces, not a counterexample; the Python workers contain no
+hit.  A fresh 8,794-target build and `Audit.lean` pass at `f79192e`; the later
+companion commits were also made under its build-and-audit discipline.  The
+earlier reported failure occurred while the companion was actively rewriting
+`EtherCounterBareGlue.lean`; it was a transient build race, not a committed
+regression.
+
+Let a bare positive period-three schedule have base phase branches
+`n0,n1,n2`, gain `K>0`, and branch function
+
+```text
+n(3q+i)=ni+Kq,  i=0,1,2.
+```
+
+At cycle `q`, put
+
+```text
+b0=8*(n1+Kq)+15,
+b1=8*(n2+Kq)+15,
+b2=8*(n0+K*(q+1))+15,
+
+a0=6*(n0+Kq)+11,
+a1=6*(n1+Kq)+11,
+a2=6*(n2+Kq)+11,
+
+m=b0+b1+b2,  Q=a0+a1+a2,
+D=17*(3^(a1+a2)+2^b0*3^a2+2^(b0+b1)).
+```
+
+Thus a literal cycle is the compact factor
+
+```text
+2^m*y=3^Q*x+D.                                      (QM121a)
+```
+
+### Bare canonical-residue coherence
+
+Please abstract the canonical future residue away from an already assumed
+`Ray`.  The needed ingredients should be consequences of `backwardEval`:
+
+1. reduction from precision `P'` to `P<=P'` commutes with `backwardEval`;
+2. once suffix binary mass is at least `P`, the terminal value is irrelevant;
+3. splitting a covered backward evaluation after three transitions identifies
+   the source residue at precision `P=m+p` with the one-cycle backward
+   evaluation of the shifted canonical residue at precision `p`.
+
+For any covered bare residues `r_q mod 2^P` and
+`r_(q+1) mod 2^Pnext`, with `p=P-m>0` and `Pnext>=p`, these should give
+
+```text
+2^p | (r_(q+1)-y_q),
+C_q=(r_(q+1)-y_q)/2^p in Z.                         (QM121b)
+```
+
+The current `shiftedInitialResidue_high_mod_low` obtains nesting through an
+already existing natural prefix, so it must not be reused circularly for this
+construction direction.
+
+Please then package the two directions separately:
+
+```text
+existing period-three Ray + eventual core<2^U
+  -> eventually C_q=0;                              (QM121c)
+
+bare positive period-three schedule
++ positive canonical representatives
++ P_q>m(q)
++ forall q>=Q0, C_q=0
+  -> an infinite positive EC17 Orbit/Ray tail.       (QM121d)
+```
+
+For the converse, rewrite each zero carry as
+`ComposedReplayFactor ... 3 r_q r_(q+1)`, decode it with
+`exactReplayTo_of_composedReplayFactor`, and glue the three-step replays.
+Positivity follows from positive boundary representatives and the exact
+balances.  The intermediate quotients are odd: an even intermediate would
+make the next numerator odd, contradicting its positive requested binary
+exponent; the terminal representative is odd.  Starting at the shifted tail
+is enough—no finite backward replay to the original `q=0` is required.
+
+### Long blocks forget all but the last carry
+
+For one-cycle residuals
+
+```text
+E_i=2^m_i*r_(i+1)-3^Q_i*r_i-D_i=2^U_i*C_i,
+```
+
+exact composition over `T` cycles gives
+
+```text
+E_(q,T)=sum_(j<T) E_(q+j)
+  *2^(sum_(i<j)m_(q+i))*3^(sum_(j<i<T)Q_(q+i)).     (QM121e)
+```
+
+Consequently, when every later ternary mass is at least `d`, modulo `3^d`
+all but the final summand vanish and the remaining binary coefficient is a
+unit.  Thus the earlier diagonal fixed-depth workers read only the last
+consecutive carry; they cannot establish a chain of exact links.  This is a
+requested formal failure-ledger theorem, not a no-ray result.
+
+### Balanced construction precision
+
+Put `N_q=3^Q(q)` and `ell_q=floor(log2 N_q)`, so
+`2^ell_q<N_q`.  Choose a bare precision path by
+
+```text
+P_q=m(q)+p_q,  p_q>0,
+P_(q+1)=p_q+ell_q.                                  (QM122a)
+```
+
+Let `r_q<2^P_q`, `r_(q+1)<2^P_(q+1)`, and let `y_q` be the exact
+image in QM121a.  Coherence gives a shared low block `s mod2^p_q`; write
+
+```text
+r_(q+1)=s+2^p_q*A_q,
+y_q    =s+2^p_q*H_q,
+C_q=A_q-H_q.
+```
+
+The range gives `A_q<2^ell_q<N_q`.  Please prove the elementary EC17 defect
+bound `D(q)<N_q`; then `r_q<2^P_q` and QM121a give `H_q<N_q`.  Hence
+
+```text
+|C_q|<N_q,
+N_q divides C_q  <->  C_q=0.                        (QM122b)
+```
+
+Because `2` is a unit modulo `N_q`, the worker-facing form is
+
+```text
+2^m(q)*r_(q+1)=D(q) (mod 3^Q(q))
+  <-> C_q=0.                                         (QM122c)
+```
+
+A hit is therefore an exact three-step positive macro, and consecutive hits
+splice.  This precision path is construction-facing only: it need not dominate
+the sharp `U` bound, so a failed congruence does **not** exclude a hypothetical
+ray.  The first bounded worker box has no hits; that remains finite evidence.

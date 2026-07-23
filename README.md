@@ -33,6 +33,99 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 07:20 EDT
+
+There is still no counterexample.  The period-three search has been turned
+around from finite-depth exclusion clocks to an exact construction criterion.
+For the canonical future residues at consecutive cycle boundaries, write
+
+```text
+2^m(q)*y_q=3^Q(q)*r_q+D(q),
+p(q)=U(q)-m(q)>0,
+r_(q+1)-y_q=2^p(q)*C_q.
+```
+
+An eventual tail of exact equalities `C_q=0` supplies consecutive literal
+three-step EC17 factors.  Companion commit `daae4a8` removes the circularity
+from this statement: it proves canonical residue reduction and splitting from
+the bare backward recurrence, then kernel-checks that any compatible positive
+chain of three-step factors glues to an infinite positive EC17 orbit.  Commit
+`40835c0` kernel-checks the strict defect bound and abstract balanced-carry
+equivalence; `5769c85` checks the long-block last-carry theorem; `122680b`
+supplies the canonical upper-block range bounds; and `f79192e` proves the
+displayed three-step identities, translates zero carry to the exact replay
+factor, and constructs an infinite positive orbit from any eventual zero-carry
+tail.  Commit `4516a03` upgrades that endpoint to the project's literal
+period-three `Ray`, and `fff0dec` formalizes the canonical range hypotheses
+under which the worker's full ternary congruence forces exact zero carry;
+`732da20` instantiates that gate at the worker's actual logarithmic precision.
+Thus the construction implication and the finite-row gate are kernel-checked.
+The workers contain no finite zero-carry row to feed into them.
+
+The corresponding exact Akdeniz audit covers all 71 positive schedules with
+increments in `[-1,1]`, starts through branch eight, and every `q=14..256`
+(17,253 rows).  Every row checks the compact identity, the three literal
+valuations, covered binary mass, low-bit compatibility, and the reverse full
+predecessor congruence; deterministic checkpoint residues and all anomalies
+also use an independent series evaluator.  The result is
+
+```text
+exact zero carries                                      0
+full 3^Q predecessor divisibilities                     0
+rows with |C|<3^Q                                  16,870
+zero-forcing exponent-gate rows                     8,339
+positive / negative carries                   8,748 / 8,505
+maximum observed v3(C)                                  8
+counterexample                                        null
+```
+
+The gate is exact: `D(q)<3^Q(q)` makes a fully divisible carry nonnegative,
+and on rows with `2^(U(q+1)-p(q))<=3^Q(q)` its allowed range is too small for
+any nonzero multiple of `3^Q`.  Thus nearly half the finite rows reduce to one
+full moving-depth congruence which would force an exact construction link.
+None hits it.  Commits `fff0dec`/`732da20` kernel-check this implication with
+both canonical representative bounds explicit and at the actual logarithmic
+precision; they do not prove that an exact zero tail cannot begin later.
+
+A construction-only normalization sharpens the same idea.  Choose precisions
+
+```text
+P_(q+1)=P_q-m(q)+floor(log2(3^Q(q))).
+```
+
+Then `|C_q|<3^Q(q)` on every row, so the full ternary congruence is equivalent
+to exact zero carry.  The independently reconstructed balanced artifact tests
+1,136 such precision paths (`h=1..16`) across all 71 schedules and every
+`q=14..60`, 53,392 exact rows in total.  It finds zero links and zero nonempty
+hit runs.  These misses are construction evidence only; this precision path
+does not dominate the exclusion budget.
+
+Finally, exact signed 2-adic rational reconstruction at 2,048 and 4,096 bits
+finds no candidate with `|numerator|,denominator<=2^512` and odd positive
+denominator for any of the 71 `q=0` schedule values.  The uniqueness bound is
+checked and both residue evaluators agree in all 142 rows.  This is a finite
+height exclusion, not an irrationality theorem.
+
+The general long-block identity also explains why deeper diagonal clocks are
+not the construction route: modulo `3^d`, every earlier consecutive carry is
+killed by a later ternary factor, leaving only the last carry multiplied by a
+unit.  Exact long-block zero can additionally arise by signed cancellation.
+That lane is now in the failure ledger; further compute is reserved for exact
+consecutive links or a theorem controlling canonical representatives.
+
+```text
+consecutive-cycle artifact 18e65eb08d8d9960cacd88868779d17fdcca8f6912c97530c76fd91c851b951e
+balanced-carry artifact    6a619989230c623cecdc8c10b8fb963c1f395568a1e5867d0e0186031cef9187
+rational-reconstruction    356994f129961e385b0dd6b0423d8ea96c96411c15a19ce501559c1d315bab93
+```
+
+A fresh 8,794-target Lean build and `Audit.lean` pass at `f79192e`; the new
+theorems use only the standard audited axioms.  An earlier failure occurred
+while the companion was actively rewriting `EtherCounterBareGlue.lean` and
+was a transient edit/build race, not a committed regression.  PSC remains
+unused: these exact variable-size integer recurrences do not map usefully to
+the GPU.
+
 ### 2026-07-23 06:28 EDT
 
 There is still no counterexample.  The theorem-directed period-three search
@@ -4710,12 +4803,30 @@ identically `x`.
   first discriminating finite phase window, while an exact nine-cycle
   composition reduces its strongest cell to one signed carry modulo 27;
   commits `6b96f89`/`6f05ff5` kernel-check that reduction and both necessary
-  depth-four lifts.  The live target is direct cofinal nondivisibility of such
-  a carry, a moving-depth invariant, or a sharper three-theta theorem.  QM118
-  blocks the generic inference from a periodic fixed-depth target to
-  rationality, and consecutive fixed-depth block compositions forget the
-  earlier carry.  Do not return to
-  raw precision widening; it only raises finite lower bounds.
+  depth-four lifts.  The construction-facing refinement now compares
+  consecutive cycle residues by an exact signed carry `C_q`.  Commit `daae4a8`
+  proves bare residue coherence and kernel-checks that compatible positive
+  three-step factors glue to an infinite EC17 orbit; `40835c0` proves the
+  strict defect bound and abstract balanced-width equivalence; `5769c85`
+  proves that every fixed-depth long block retains only its last carry;
+  `122680b` supplies the remaining canonical upper-block bounds; and `f79192e`
+  closes the displayed three-step specialization and proves that an eventual
+  zero-carry tail constructs an infinite positive EC17 orbit.  Commit
+  `4516a03` promotes it to the literal period-three `Ray`, while `fff0dec`
+  formalizes the canonical range gate that turns full ternary divisibility
+  into equality of the source and target upper blocks; `732da20` specializes
+  it to the worker's exact logarithmic precision.  Exact zero carries are both
+  the right candidate macro and, eventually, the necessary ordinary-ray
+  behavior; the dense 17,253-row `U` audit and 53,392-row balanced-precision
+  audit find no such link.  The balanced precision recurrence makes full
+  `3^Q` predecessor divisibility equivalent to exact zero, while the rational
+  reconstruction audit finds no height-`2^512` exception at 2,048/4,096 bits.
+  QM118 blocks generic rationality from a periodic fixed-depth target, and the
+  exact block identity shows that long fixed-depth compositions remember only
+  their final consecutive carry.  The live targets are now an inductive law
+  for exact consecutive compatibility, a cofinal theorem forcing or excluding
+  zero carries, or a sharper theorem for the evaluated three-theta value.  Do
+  not return to raw precision widening; it only raises finite lower bounds.
 - **Partial-theta integrality sieves.**  The standard two-rail schedule reduces
   to the sole 2-adic initial value
   `-(23/3^8) F(2/3,2^13/3^9)`.  Väänänen--Wallisser's full-source 1989 theorem
@@ -4797,7 +4908,7 @@ identically `x`.
 | Väänänen--Wallisser as an all-period phase-up obstruction | **Retracted beyond period three.**  Periodic jump schedules split into several theta values, and the paper's sufficient threshold depends on their number `L`.  Commits `8b3d9f5`/`772a6e8` kernel-check the complete flattened multi-theta decomposition and `gamma<Gamma(L,0)` for `L=2,3`, but also `Gamma(4,0)<1/8<gamma`.  Accepting the external theorem closes periods one through three; the citation cannot close period four or any larger period by the same estimate.  Period four is only the first theorem escape, not evidence of an ordinary ray. | [`ChargePhaseUpPeriodicTheta.lean`](KontoroC/KontoroC/ChargePhaseUpPeriodicTheta.lean) |
 | Finite Laurent and homogeneous rational period-three EC17 coboundaries | Universally closed in the stated classes by companion commits `1154476`, `d0faf96`, and `82198ac`.  The exact three-step defect has three quadratic monomials.  Extreme support excludes every finite Laurent slice.  For a reduced homogeneous rational potential `x^-1 f(y/x)`, the scaled denominator divides the original, hence is a monomial; the same extreme-support contradiction then closes the quotient.  This does not exclude a general nonhomogeneous bivariate rational function, an infinite theta series, or rationality at one evaluated orbit. | [`LaurentCoboundaryNoGo.lean`](KontoroC/KontoroC/LaurentCoboundaryNoGo.lean), [`RationalCoboundaryReduction.lean`](KontoroC/KontoroC/RationalCoboundaryReduction.lean) |
 | General 2005/2007/2013 theta theorems as an immediate period-three shortcut | Closed as applications of those sufficient statements, not as a no-period-three result.  Amou--Väänänen (2005) controls simultaneous relations over the full expanding-place set, which here contains both the real and 2-adic places; EC17 supplies only the latter relation.  Väänänen (2013), Theorem 4, allows a non-archimedean place, but tracing its criterion to Amou--Matala-aho--Väänänen (2007) gives `B/A<13/12`, while the EC17 height ratio is larger.  Commit `92416b1` kernel-checks the uniform threshold comparison and reduces its logarithmic part to `2^13<3^9`.  A sharper theorem specialized to this one evaluated three-theta form remains live. | [`AmouMatalaahoVaananenThreshold.lean`](KontoroC/KontoroC/AmouMatalaahoVaananenThreshold.lean), [`FOR_CLEAN_LEAN.md`](docs/FOR_CLEAN_LEAN.md) |
-| Periodic fixed-depth residue clock as a rationality or finite-state proof | Invalid without EC17-specific carry control.  Commit `a9ed874` proves the target clock and its no-ray consumer, but QM118 in the same commit constructs any prescribed fixed-depth class by one sufficiently wide appended binary block.  Exact clock-block composition exposes the sharper failure: at fixed modulus `3^d`, the next block's huge ternary factor annihilates the previous carry and replaces it with a new terminal carry.  A direct cofinal valuation theorem or moving-depth invariant remains live; merely observing phasewise failures or matches cannot be iterated generically. | [`breakoff_ether_period3_fixed_depth_audit.json`](experiments/kontorovich/breakoff_ether_period3_fixed_depth_audit.json), [`FOR_CLEAN_LEAN.md`](docs/FOR_CLEAN_LEAN.md) |
+| Periodic fixed-depth residue clock as a rationality or construction proof | Invalid without EC17-specific consecutive-carry control.  Commit `a9ed874` proves the target clock and its no-ray consumer, but QM118 constructs any prescribed fixed-depth class by one sufficiently wide appended binary block.  Commit `5769c85` kernel-checks the sharper failure: modulo `3^d`, every carry except the final consecutive one is annihilated by a later ternary factor, and even exact long-block zero may be signed cancellation.  Deeper diagonal scans therefore neither glue finite links nor imply rationality.  The replacement balanced-precision worker makes a full moving-depth congruence equivalent to exact one-cycle equality; `4516a03` proves an eventual equality tail constructs a literal period-three ray, while `fff0dec`/`732da20` check the exact finite-row canonical range gate at its logarithmic precision.  Its bounded 53,392-row audit has zero hits but is not an all-precision theorem. | [`breakoff_ether_period3_fixed_depth_audit.json`](experiments/kontorovich/breakoff_ether_period3_fixed_depth_audit.json), [`breakoff_ether_period3_balanced_carry_audit.json`](experiments/kontorovich/breakoff_ether_period3_balanced_carry_audit.json), [`EtherCounterResidualFold.lean`](KontoroC/KontoroC/EtherCounterResidualFold.lean), [`FOR_CLEAN_LEAN.md`](docs/FOR_CLEAN_LEAN.md) |
 | Bare public words as binary-to-ternary chart adapters | Universally closed by Lean commit `772a6e8`.  Every exact public step has typed form `w-3^(-17m)=a*(w'-2^(-23m'))`.  A multi-cell word accumulates a strictly negative internal tax, exactly the normalized `-H_m` defect, so it cannot be a clean entry/exit coboundary.  This is not a no-orbit theorem; it proves that closure needs an auxiliary correction rail. | [`ChargeTypedInterface.lean`](KontoroC/KontoroC/ChargeTypedInterface.lean), [closure doctrine](docs/notes/kontorovich-closure-principles.md) |
 | Infinite rail of the one-cell determinant-four conjugacy | Universally closed in that chart class by Lean commit `772a6e8`.  Self-linking successive cells requires `1311*k_(i+1)=1309*k_i`; a length-`N` rail forces `1311^N|k_0`, and an infinite natural rail has `k_0=0`.  The result is independent of affine intercepts and tail cylinders.  A live turnaround must reverse the separation loss or leave the one-cell resonant class. | [`ChargeResonantSeparationNoGo.lean`](KontoroC/KontoroC/ChargeResonantSeparationNoGo.lean), [phase-glider note](docs/notes/kontorovich-resonant-phase-glider.md) |
 | Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |

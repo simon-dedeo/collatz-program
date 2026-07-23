@@ -1,6 +1,99 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 06:28 EDT
+Updated: 2026-07-23, about 07:20 EDT
+
+### 07:20 EDT continuation — exact consecutive construction carries
+
+There is no counterexample.  Period-three search is now centered on exact
+adjacent-cycle compatibility rather than deeper fixed-depth clocks.  For the
+canonical residue `r_q` at the sharp budget `U(q)`, write
+
+```text
+2^m(q)*y_q=3^Q(q)*r_q+D(q),
+p(q)=U(q)-m(q)>0,
+r_(q+1)-y_q=2^p(q)*C_q.
+```
+
+An eventual exact-zero tail `C_q=0` supplies consecutive literal three-step
+EC17 factors.  Companion commit `daae4a8` proves non-circular residue
+reduction/splitting from bare `backwardEval` and kernel-checks that any
+compatible positive chain of three-step factors glues to an infinite EC17
+orbit.  Commit `40835c0` checks the strict defect bound and abstract balanced
+carry equivalence, `5769c85` checks the long-block last-carry theorem, and
+`122680b` supplies the canonical upper-block range bounds.  Commit `f79192e`
+then proves the displayed three-step identities, translates zero carry to the
+exact `ComposedReplayFactor`, and constructs an infinite positive EC17 orbit
+from any eventual zero-carry tail.  Commit `4516a03` promotes the endpoint to
+the project's literal period-three `Ray`, and `fff0dec` kernel-checks the
+canonical range gate by which a full worker congruence forces equality of the
+two upper blocks.  Commit `732da20` instantiates that result at the worker's
+actual `floor(log2(3^Q))` precision.  The construction implication and
+finite-row gate are fully kernel-checked; there is simply no finite hit to
+instantiate them.
+
+The exact consecutive-cycle worker covers all 71 positive `[-1,1]^3`
+schedules, starts through eight, and every `q=14..256` (17,253 rows).  Every
+row checks the compact and stepwise equations, coverage, future low-bit
+compatibility, and independent reverse predecessor congruence; 284 checkpoint
+residues plus every anomaly use a second series evaluator.  Results:
+
+```text
+exact zero carries                                      0
+full 3^Q predecessor divisibilities                     0
+rows with |C|<3^Q                                  16,870
+zero-forcing exponent-gate rows                     8,339
+positive / negative carries                   8,748 / 8,505
+maximum observed v3(C)                                  8
+counterexample                                        null
+```
+
+The exact gate is `2^(U(q+1)-p(q))<=3^Q(q)`.  Together with
+`D(q)<3^Q(q)`, it upgrades full predecessor divisibility to `C_q=0`; none of
+the 8,339 finite gate rows has the divisibility.  Commits
+`fff0dec`/`732da20` prove the gate with both canonical representative bounds
+explicit and at the exact logarithmic precision.  This does not rule out a
+later zero tail.
+
+The balanced construction precision
+
+```text
+P_(q+1)=P_q-m(q)+floor(log2(3^Q(q)))
+```
+
+forces `|C_q|<3^Q(q)` on every row, so its full congruence is equivalent to
+one exact three-step link.  Commit `4fe60a7` adds the independently verified
+artifact over 1,136 paths (`h=1..16`), all 71 schedules, and `q=14..60`:
+53,392 rows, zero hits, maximum run zero, `counterexample:null`.  Misses do
+not exclude a ray because this is a construction precision, not the upper
+budget.
+
+Commit `a457222` adds an exact signed 2-adic rational reconstruction audit at
+2,048 and 4,096 bits for all 71 `q=0` values.  With
+`|numerator|,denominator<=2^512` and odd positive denominator, every uniqueness
+gate passes and both residue evaluators agree; there are zero single-precision
+or repeated rational candidates.  This is a finite height exclusion only.
+
+The exact long-block identity closes deeper diagonal clocks as a construction
+lane: modulo `3^d`, later ternary factors kill every carry except the final
+consecutive carry; exact long-block zero can also be signed cancellation.
+Only extend exact consecutive hits, balanced full-congruence hits, or a
+symbolic theorem controlling the canonical representatives.  Do not widen
+fixed-depth phase scans.
+
+```text
+consecutive-cycle artifact 18e65eb08d8d9960cacd88868779d17fdcca8f6912c97530c76fd91c851b951e
+consecutive-cycle worker   bb7f53a312a6e7a7362c08743b962a17c516e9a13a250f5bfd6fe04d7640cfed
+balanced-carry artifact    6a619989230c623cecdc8c10b8fb963c1f395568a1e5867d0e0186031cef9187
+rational artifact          356994f129961e385b0dd6b0423d8ea96c96411c15a19ce501559c1d315bab93
+```
+
+A fresh 8,794-target `lake build` and `Audit.lean` pass at `f79192e`; the new
+declarations use only the standard audited axioms.  The earlier failure was a
+transient race while the companion was actively rewriting
+`EtherCounterBareGlue.lean`, not a committed regression.  Akdeniz independently
+rebuilt the consecutive-cycle artifact with 30 workers; the detached R23 PARI
+service remains healthy.  PSC is idle because these are CPU big-integer
+recurrences.
 
 ### 06:28 EDT continuation — fixed-depth clocks and canonical carries
 
