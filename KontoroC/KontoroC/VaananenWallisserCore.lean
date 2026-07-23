@@ -197,6 +197,77 @@ def hermiteScale {K : Type*} [Field K]
     (q κ : K) (S μ : ℕ) : K :=
   κ * ∏ i ∈ Finset.range μ, q ^ (S - i)
 
+/-- The exponent of the normalization constant in the one-value,
+zero-derivative specialization of the paper.  It is defined as the literal
+sum of the powers of `q` accumulated by the first `ν` Hermite steps. -/
+def skolemNormalizationCost (ν t : ℕ) : ℕ :=
+  ∑ i ∈ Finset.range ν, (ν + t + 1 - i)
+
+/-- The paper's normalization `K` when the distinguished value has
+auxiliary-prime valuation zero.  Writing it as the inverse of one natural
+power avoids any ambiguity about negative integer exponents. -/
+def skolemNormalization {K : Type*} [Field K]
+    (q : K) (ν t : ℕ) : K :=
+  (q ^ skolemNormalizationCost ν t)⁻¹
+
+/-- Closed form of the normalization cost.  The triangular contribution is
+the same exponent that occurs in the theta coefficients. -/
+theorem skolemNormalizationCost_eq (ν t : ℕ) :
+    skolemNormalizationCost ν t = ν * (t + 1) + exponent ν := by
+  rw [skolemNormalizationCost]
+  calc
+    (∑ i ∈ Finset.range ν, (ν + t + 1 - i)) =
+        ∑ i ∈ Finset.range ν, (ν - 1 - i + t + 2) := by
+      apply Finset.sum_congr rfl
+      intro i hi
+      have hi' := Finset.mem_range.mp hi
+      omega
+    _ = ∑ i ∈ Finset.range ν, (i + t + 2) := by
+      exact Finset.sum_range_reflect (fun i => i + t + 2) ν
+    _ = ∑ i ∈ Finset.range ν, (i + (t + 2)) := by congr 1
+    _ = (∑ i ∈ Finset.range ν, i) +
+        ∑ _i ∈ Finset.range ν, (t + 2) := by
+      rw [Finset.sum_add_distrib]
+    _ = ν.choose 2 + ν * (t + 2) := by
+      rw [Finset.sum_range_id]
+      simp [Nat.choose_two_right]
+    _ = ν * (t + 1) + exponent ν := by
+      rw [show ν * (t + 2) = ν * (t + 1) + ν by ring]
+      simp [exponent]
+      ac_rfl
+
+/-- Equation (14)'s binomial difference is exactly the normalization cost.
+The additive form avoids a truncated natural subtraction and directly
+records which binomial is larger. -/
+theorem choose_add_skolemNormalizationCost (ν t : ℕ) :
+    (t + 2).choose 2 + skolemNormalizationCost ν t =
+      (ν + t + 2).choose 2 := by
+  rw [skolemNormalizationCost_eq]
+  induction ν with
+  | zero => simp [exponent]
+  | succ ν ih =>
+      rw [show ν + 1 + t + 2 = (ν + t + 2) + 1 by omega,
+        show (ν + t + 2 + 1).choose 2 =
+          (ν + t + 2).choose 1 + (ν + t + 2).choose 2 by
+            rw [show ν + t + 2 + 1 = (ν + t + 2).succ by omega,
+              Nat.choose_succ_succ]]
+      rw [exponent_succ, ← ih]
+      simp only [Nat.choose_one_right]
+      rw [Nat.succ_mul]
+      omega
+
+/-- The key exact cancellation behind the paper's normalization: after
+`ν` Hermite steps, the chosen `K` cancels every accumulated power of `q`.
+The scalar is literally one, not only a unit modulo the auxiliary prime. -/
+theorem hermiteScale_skolemNormalization {K : Type*} [Field K]
+    (q : K) (hq : q ≠ 0) (ν t : ℕ) :
+    hermiteScale q (skolemNormalization q ν t) (ν + t + 1) ν = 1 := by
+  rw [hermiteScale, skolemNormalization,
+    Finset.prod_pow_eq_pow_sum]
+  change (q ^ skolemNormalizationCost ν t)⁻¹ *
+      q ^ skolemNormalizationCost ν t = 1
+  exact inv_mul_cancel₀ (pow_ne_zero _ hq)
+
 theorem hermiteScale_succ {K : Type*} [Field K]
     (q κ : K) (S μ : ℕ) :
     hermiteScale q κ S (μ + 1) =
@@ -330,6 +401,18 @@ theorem eval_hermiteIter_skolemInitial_boundary_exact
     _ = hermiteScale q κ (ν + t + 1) ν * α ^ (ν + t + 1) *
         ∏ a ∈ Finset.range ν, ((q ^ a)⁻¹ * q ^ ν - 1) := by
       rw [hpow]
+
+/-- With the paper's normalized constant, the first nonzero Hermite value
+has no residual scalar at all.  This is the clean arithmetic interface for
+the auxiliary-prime valuation argument. -/
+theorem eval_hermiteIter_skolemInitial_normalized_boundary_exact
+    {K : Type*} [Field K] (q α : K) (hq : q ≠ 0) (ν t : ℕ) :
+    (hermiteIter q ν
+      (skolemInitial q α (skolemNormalization q ν t) ν t)).eval α =
+      α ^ (ν + t + 1) *
+        ∏ a ∈ Finset.range ν, ((q ^ a)⁻¹ * q ^ ν - 1) := by
+  rw [eval_hermiteIter_skolemInitial_boundary_exact,
+    hermiteScale_skolemNormalization q hq ν t, one_mul]
 
 /-! ## The first arithmetic specialization used by the project -/
 
@@ -512,6 +595,43 @@ theorem padicValRat_three_boundaryGapProduct_threeHalves (ν : ℕ) :
         ((((3 : ℚ) / 2) ^ a)⁻¹ * ((3 : ℚ) / 2) ^ ν - 1)) = 0 := by
   rw [boundaryGapProduct_threeHalves,
     padicValRat_three_threeHalvesGapProduct]
+
+/-- At `q=3/2`, the normalized first nonzero Hermite value is a unit at the
+paper's auxiliary prime whenever the distinguished point is.  This isolates
+Hilfssatz 1's nonvanishing mechanism in the present `ell=1, sigma=0` case:
+the normalization cancels the Hermite scale exactly and every remaining
+power gap is a 3-adic unit. -/
+theorem padicValRat_three_normalized_boundary_of_unit
+    (α : ℚ) (hα : α ≠ 0) (hαunit : padicValRat 3 α = 0)
+    (ν t : ℕ) :
+    padicValRat 3
+      ((hermiteIter ((3 : ℚ) / 2) ν
+        (skolemInitial ((3 : ℚ) / 2) α
+          (skolemNormalization ((3 : ℚ) / 2) ν t) ν t)).eval α) = 0 := by
+  rw [eval_hermiteIter_skolemInitial_normalized_boundary_exact
+    ((3 : ℚ) / 2) α (by norm_num) ν t]
+  have hgap :
+      (∏ a ∈ Finset.range ν,
+        ((((3 : ℚ) / 2) ^ a)⁻¹ * ((3 : ℚ) / 2) ^ ν - 1)) ≠ 0 := by
+    rw [boundaryGapProduct_threeHalves]
+    exact threeHalvesGapProduct_ne_zero ν
+  rw [padicValRat.mul (pow_ne_zero _ hα) hgap,
+    padicValRat.pow, hαunit,
+    padicValRat_three_boundaryGapProduct_threeHalves]
+  simp
+
+/-- The concrete normalized point used after shifting the project's theta
+argument is `16`; it is visibly a unit at the auxiliary prime three. -/
+theorem padicValRat_three_normalized_boundary_sixteen (ν t : ℕ) :
+    padicValRat 3
+      ((hermiteIter ((3 : ℚ) / 2) ν
+        (skolemInitial ((3 : ℚ) / 2) 16
+          (skolemNormalization ((3 : ℚ) / 2) ν t) ν t)).eval 16) = 0 := by
+  apply padicValRat_three_normalized_boundary_of_unit 16 (by norm_num)
+  rw [show (16 : ℚ) = ((16 : ℕ) : ℚ) by norm_num,
+    padicValRat.of_nat]
+  exact_mod_cast padicValNat.eq_zero_of_not_dvd
+    (p := 3) (n := 16) (by norm_num)
 
 /-- Consequently every source polynomial `P_μ(α)` with `μ<ν` vanishes
 exactly.  This proves the zero pattern used before the paper's genuinely

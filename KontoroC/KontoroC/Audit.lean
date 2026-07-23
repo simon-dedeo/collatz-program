@@ -1250,11 +1250,16 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.VaananenWallisser.thetaSum_functional_of_norm
 #print axioms KontoroC.VaananenWallisser.X_mul_hermiteStep_add
 #print axioms KontoroC.VaananenWallisser.hermiteStep_C_mul_X_pow_succ_mul
+#print axioms KontoroC.VaananenWallisser.skolemNormalizationCost_eq
+#print axioms KontoroC.VaananenWallisser.choose_add_skolemNormalizationCost
+#print axioms KontoroC.VaananenWallisser.hermiteScale_skolemNormalization
 #print axioms KontoroC.VaananenWallisser.hermiteIter_skolemInitial
 #print axioms KontoroC.VaananenWallisser.eval_skolemRootProduct_comp_eq_zero
 #print axioms KontoroC.VaananenWallisser.eval_skolemRootProduct_comp_exact
 #print axioms
   KontoroC.VaananenWallisser.eval_hermiteIter_skolemInitial_boundary_exact
+#print axioms
+  KontoroC.VaananenWallisser.eval_hermiteIter_skolemInitial_normalized_boundary_exact
 #print axioms KontoroC.VaananenWallisser.padicValRat_threeHalves_pow_sub_one
 #print axioms KontoroC.VaananenWallisser.padicValRat_three_threeHalves_pow_sub_one
 #print axioms KontoroC.VaananenWallisser.padicValRat_threeHalvesGapProduct
@@ -1262,6 +1267,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.VaananenWallisser.boundaryGapProduct_threeHalves
 #print axioms KontoroC.VaananenWallisser.padicValRat_boundaryGapProduct_threeHalves
 #print axioms KontoroC.VaananenWallisser.padicValRat_three_boundaryGapProduct_threeHalves
+#print axioms
+  KontoroC.VaananenWallisser.padicValRat_three_normalized_boundary_of_unit
+#print axioms
+  KontoroC.VaananenWallisser.padicValRat_three_normalized_boundary_sixteen
 #print axioms KontoroC.VaananenWallisser.eval_hermiteIter_skolemInitial_eq_zero
 #print axioms KontoroC.VaananenWallisser.eval_skolemRootProduct_comp_ne_zero
 #print axioms KontoroC.VaananenWallisser.hermiteScale_ne_zero

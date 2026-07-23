@@ -14293,3 +14293,56 @@ for the `ell=1,sigma=0` proof and prevents us from building the Hilfssatz
 argument around the wrong prime.
 
 Full build and axiom audit pass; only standard mathlib axioms appear.
+
+## Round 280 — exact normalization cancellation in the 1989 Hermite layer
+
+I formalized the next useful special-case layer of the Väänänen--Wallisser
+argument in `VaananenWallisserCore.lean`.  For `ell=1, sigma=0`, define the
+literal normalization cost accumulated during the first `nu` Hermite steps:
+
+```text
+C(nu,t) = sum_(i<nu) (nu+t+1-i).
+```
+
+Lean now proves both closed descriptions
+
+```text
+C(nu,t) = nu*(t+1) + exponent(nu),
+choose(t+2,2) + C(nu,t) = choose(nu+t+2,2).
+```
+
+Thus the paper's formula (14), in the auxiliary-unit case `g1=0`, is exactly
+
+```text
+K = q^(-C(nu,t)) = (q^C(nu,t))^-1.
+```
+
+The important conceptual point is stronger than a valuation estimate: Lean
+proves that this `K` cancels the complete Hermite scalar *identically*:
+
+```text
+hermiteScale q K (nu+t+1) nu = 1.
+```
+
+Consequently the first nonzero normalized boundary value is literally
+
+```text
+alpha^(nu+t+1) * product_(a<nu) (q^(-a)*q^nu - 1).
+```
+
+Combining this with Round 279's exact `v_3` gap calculation gives a checked
+Hilfssatz-1 boundary seam: at `q=3/2`, whenever `v_3(alpha)=0`, the normalized
+boundary value has `v_3=0`.  The concrete shifted point `alpha=16` is proved
+as a corollary.  This is the unit-normalized form of the project's original
+`alpha=4096/6561`, since `(3/2)^8 * (4096/6561)=16`; the eight-step theta
+functional-equation bridge between those values is the next useful seam and
+is not yet claimed here.
+
+This advances the independent proof of the 1989 theorem but does not finish
+it.  The hard remaining content is still the simultaneous archimedean and
+`p`-adic remainder/height estimates and the determinant conclusion.  What
+is now eliminated is any ambiguity about formula (14), negative exponents,
+or hidden auxiliary-prime cancellation at the first boundary index.
+
+Full build and axiom audit pass; the new results use only standard mathlib
+axioms (`propext`, `Classical.choice`, `Quot.sound`).
