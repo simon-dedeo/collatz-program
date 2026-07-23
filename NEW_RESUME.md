@@ -1,6 +1,41 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 01:31 EDT
+Updated: 2026-07-23, about 02:12 EDT
+
+### 02:12 EDT continuation — infinite residue seam and literal period-three algebra
+
+Companion commit `def4c52` completes QM62--QM65 and QM73--QM74.  The finite
+least-residue theorem now has the exact unbounded-precision consumer: an
+infinite cofinal family of exact prefix failures excludes one prescribed
+ordinary schedule.  The current 4,096-bit artifact is still finite and does
+not instantiate that endpoint.
+
+The same commit composes three literal EC17 steps under an affine three-phase
+branch law.  The cycle defect has exactly the monomials
+
+```text
+Y^(2q), (X*Y)^q, X^(2q),
+```
+
+with the phase coefficients requested in QM65.  This is the machine-checked
+input for the finite-Laurent coboundary no-go in QM67--QM68, which remains in
+progress.  The general derivative threshold is also formalized, and every
+`sigma>=1` satisfies
+
+```text
+Gamma(3,sigma)<1/12<5/32<gamma.
+```
+
+Thus derivative order cannot rescue period three using the same 1989
+sufficient theorem.  A sharper fixed-linear-form theorem or an infinite
+residue nonstabilization argument is still required.
+
+While starting the independent Hilfssatz layer, the companion found that the
+round-188 Skolem root product was parsed with the subtraction outside the
+product.  It corrected the definition and added factorwise root-vanishing
+regressions.  The merged full `KontoroC` build and axiom audit pass.  This is
+a semantic correction and proof progress, not a counterexample; no infinite
+ordinary EC17 execution is known.
 
 ### 01:31 EDT continuation — exact period-three core lower bounds
 

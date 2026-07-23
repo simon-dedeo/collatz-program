@@ -33,6 +33,44 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 02:12 EDT
+
+Companion commit `def4c52` turns the next theorem-driven period-three seams
+into kernel-checked statements.  First, the finite residue consumer now has
+its exact infinite endpoint: if one prescribed EC17 schedule has certified
+least-residue failures at an unbounded cofinal sequence of precisions, then no
+ordinary positive orbit follows that schedule.  The existing 4,096-bit box is
+still only finite data; it does not supply the required infinite certificate
+family.
+
+Second, Lean now composes three literal EC17 balances under the affine
+three-phase branch law.  At cycle `q` the defect is exactly the sum of the
+three monomials
+
+```text
+Y^(2q),  (X*Y)^q,  X^(2q),
+```
+
+with their explicit nonzero phase coefficients.  This is the algebraic source
+of the three theta values and the input to the finite-Laurent coboundary
+obstruction; it is not itself a no-orbit theorem.  The same commit proves that
+positive derivative order only lowers the Väänänen--Wallisser sufficient
+threshold: for every `sigma>=1`,
+
+```text
+Gamma(3,sigma) < 1/12 < 5/32 < gamma.
+```
+
+Thus derivatives cannot repair the period-three gap in that 1989 theorem.
+A sharper fixed-linear-form theorem could still do so.
+
+The companion's source formalization also caught and corrected a semantic
+parenthesization bug in the round-188 Skolem root product.  The corrected
+product now has a kernel-checked factorwise vanishing regression before the
+Hilfssatz valuation layer.  A fresh local full build and axiom audit pass with
+only the standard mathlib logical axioms.  No counterexample or infinite
+ordinary execution is known.
+
 ### 2026-07-23 01:54 EDT
 
 Companion commit `4f93346` gives an exact answer to the public-resource
@@ -4263,8 +4301,8 @@ positive integer and its claimed behavior are machine-checked.
 | Returning finite ether glider ISA | Exact parity shows an exhausted ether boundary is odd and therefore cannot re-enter the `j=136` defect; among immediate `E -> H_j -> E` defects, `j=1` is the parity-compatible receiver.  Its small identities give defect input `X(K)=2^20K-10941`, return factor `473t+12=2^5(83790531K-874281)`, and for every `n>=1` a complete outward macro `K=R_n+2^(8n+15)q -> K'=S_n+3^(6n+11)q` which writes `n` ether cells and returns to the same defect family.  The artifact replays 64 macro members through 1,184 links and 2,368 gate macros.  No infinite linked macro orbit is supplied. |
 | Autonomous ether-counter normal form | Put `Y=83790531K-874281`.  The length-`n` returning glider branch is exactly `Y=2^(8n-5)h -> Y'=(3^(6n+11)h+51)/2^20`, with `h` in one CRT class modulo `83790531*2^20`; the enormous defect constants cancel to `51`.  Every branch is strictly outward, and its packet coefficients agree identically with the compiled glider macro.  The dynamics artifact proves the successor-cylinder law and exhausts `160^3` canonical three-branch prefixes into the minimum-width next branch.  Its unique zero-address hit `115->59->9->1` begins exactly when the 574-bit initial tail is exhausted, so it is padding rather than a counter write; 384 literal gate macros replay and then halt.  An infinite successful autonomous orbit would be a counterexample, but none is supplied. |
 | Arithmetic-growth ether branch counter | Conditionally closed for every `n_t=n_0+kt`, `n_0,k>=1`.  Exact unrolling gives a single 2-adic partial-theta candidate with paper parameters `q=3^(6k)/2^(8k)` and `alpha=2^(8n_0+15)/3^(6n_0+11)`.  The artifact checks 16 finite eight-transition ether schedules, 4,096 conversion coefficients, and every elementary Väänänen--Wallisser hypothesis uniformly; accepting that inspected external 1989 theorem makes the candidate irrational and nonordinary.  This does not close nonlinear or payload-dependent unbounded counters. | [`breakoff_ether_linear_theta_audit.json`](experiments/kontorovich/breakoff_ether_linear_theta_audit.json), [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
-| Periodic-increment ether counters | The constant-`17` core turns any positive-mean period-`L` increment word into `L` separated theta values.  The exact artifact checks 15 literal period-two/three schedules through nine public core transitions and 624 coefficients.  Commit `11eaba0` kernel-checks the entire period-two EC17 bridge and exact external independence seam; accepting the cited 1989 theorem, all positive-mean period-two increment tails are dead.  Its size bound provably fails at period three, making period three the first theorem escape, not a witness. | [`breakoff_ether_periodic_theta_audit.json`](experiments/kontorovich/breakoff_ether_periodic_theta_audit.json), [`EtherCounterPeriodicTheta.lean`](KontoroC/KontoroC/EtherCounterPeriodicTheta.lean) |
-| Period-three EC17 ordinary-core sieve | At precision `P`, every prescribed schedule has one forced core residue modulo `2^P`; exact failure of its least representative rules out all ordinary cores below `2^P`.  The Akdeniz artifact exhausts 2,340 increment words and 72,156 positive schedules in the box `d_i in [-8,8]`, `n_0 in [1,32]`, `P=4096`; every representative fails after 7--47 steps, with no high-bit stabilization anomaly.  Companion commit `75a6829` kernel-checks the generic QM57--QM59 consumer, so this is a certified finite `2^4096` core lower bound in the stated box—not an orbit or global exclusion. | [`breakoff_ether_period3_sieve_audit.json`](experiments/kontorovich/breakoff_ether_period3_sieve_audit.json), [`EtherCounterResidueBound.lean`](KontoroC/KontoroC/EtherCounterResidueBound.lean) |
+| Periodic-increment ether counters | The constant-`17` core turns any positive-mean period-`L` increment word into `L` separated theta values.  The exact artifact checks 15 literal period-two/three schedules through nine public core transitions and 624 coefficients.  Commit `11eaba0` kernel-checks the entire period-two EC17 bridge and exact external independence seam; accepting the cited 1989 theorem, all positive-mean period-two increment tails are dead.  Commit `def4c52` derives the literal three-step defect monomials and proves that every positive derivative order makes the theorem's period-three threshold still worse.  Period three remains the first theorem escape, not a witness. | [`breakoff_ether_periodic_theta_audit.json`](experiments/kontorovich/breakoff_ether_periodic_theta_audit.json), [`EtherCounterPeriodicTheta.lean`](KontoroC/KontoroC/EtherCounterPeriodicTheta.lean), [`EtherCounterPeriodThree.lean`](KontoroC/KontoroC/EtherCounterPeriodThree.lean) |
+| Period-three EC17 ordinary-core sieve | At precision `P`, every prescribed schedule has one forced core residue modulo `2^P`; exact failure of its least representative rules out all ordinary cores below `2^P`.  The Akdeniz artifact exhausts 2,340 increment words and 72,156 positive schedules in the box `d_i in [-8,8]`, `n_0 in [1,32]`, `P=4096`; every representative fails after 7--47 steps, with no high-bit stabilization anomaly.  Companion commit `75a6829` kernel-checks the finite consumer, and `def4c52` proves the exact infinite endpoint: certified failures at cofinally unbounded precisions exclude one prescribed schedule.  The present artifact supplies only the finite `2^4096` lower bound, not that infinite family, an orbit, or a global exclusion. | [`breakoff_ether_period3_sieve_audit.json`](experiments/kontorovich/breakoff_ether_period3_sieve_audit.json), [`EtherCounterResidueBound.lean`](KontoroC/KontoroC/EtherCounterResidueBound.lean), [`EtherCounterStateNoRepeat.lean`](KontoroC/KontoroC/EtherCounterStateNoRepeat.lean) |
 | Three-bit-capped recursive super-ether | Regard the one-cell returning glider as a 23-bit background cell and the two-cell glider as its defect.  Exact parity kills a fully exhausted second-scale gap, but retaining three low bits makes the boundary re-enter the same defect cylinder.  After removing a common `3^7`, the public register is `V=-8744697538656344367967+671265207750760396088265K` and its length-`N` branch is `V=2^(23N+3)g -> V'=(3^(17N+40)g-17)/2^51`.  The affine super-macro is `K=R_N+2^(23N+54)t -> K'=S_N+3^(17N+40)t`.  The artifact checks 64 branches and 256 members, and literally replays 32 members through 336 glider macros, 1,040 lower links, and 2,080 gate macros.  This is a finite two-scale constructor, not an infinite orbit. |
 | Six-level sign-alternating splash hierarchy | The capped construction renormalizes five more times without changing the magnitude `17`: public collision signs are `+,-,+,-,+,-` and binary cell widths are `8,23,77,254,839,2771`.  At every checked step exact phase arithmetic returns to the defect and normalization flips only the sign.  The artifact checks 40 child branches independently by CRT and parent-macro composition, replays 80 members through 520 parent blocks, and expands the canonical tail-zero programs through six levels to literal first-scale gliders.  It additionally checks all 64 level-one choices `B=M_j,H=M_(j+1)`, three nonconstant four-step meta-words, and every depth-three meta-word over `j=1..8`.  Beyond those bounds, the exact positive-tail identity proves universally that no infinite chain of these adjacent-defect nestings can stabilize its canonical ordinary address.  The depth-six canonical member is a generated 6,708-digit ordinary start executing 360 linked glider macros.  This is a finite compiler and a source of fixed-level ISAs—not an ordinary infinite orbit or an induction that the phase identities persist at all levels. |
 | Invariant unit-debris register and signed radix swap | At every one of the six certified hierarchy levels, exactly one packet class modulo `17` makes the primitive `±17` register divisible by `17`; the class is preserved by every successful branch.  Dividing gives `H=2^(an+b)h -> H'=(3^(cn+d)h+s)/2^e`, `s=±1`.  With `W=2^eH`, every instruction is exactly `W=2^p h -> W'=3^q h+s`: it preserves the complete core `h`, swaps an exact binary delay for a ternary delay, and writes one signed unit.  Against the signed router it trims `d=p-1-q`, with the six formulas `2n+3,6n+13,20n+45,66n+151,218n+501,720n+1657`.  The artifact compares all 192 branches, checks this form on 768 members, and literally replays 32 level-one members through 336 lower links and 672 gates.  This identifies the factor a second rail must bank; no such rail or infinite unit orbit is supplied. |
