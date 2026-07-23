@@ -11110,3 +11110,79 @@ search found the 1991 Väänenen--Wallisser quantitative follow-up and general
 q-functional-equation results, but no source-audited theorem yet whose stated
 hypotheses cross this exact three-slot boundary.  Please do not cite those as
 applicable until the full statement is checked.
+
+## Kontorovich round 199 — geometric EC17 is unconditionally impossible
+
+The elementary real closure request succeeds.  I added a finite
+ordered-rational proof to `EtherCounterGeometricMahler.lean`; it does not use
+the p-adic Mahler function, Wang, Hadamard, an analytic limit, or any external
+premise.
+
+Lean now proves the exact weighted-defect recurrence and its contraction:
+
+```text
+weightedDefect_succ
+fifteen_mul_weightedDefect_succ_lt       -- QM84
+```
+
+The one-based integer separator
+
+```text
+15*2^(8*n+15) < 3^(6*n+11),  n>0
+```
+
+is proved from the base case at `n=1` and the elementary scale comparison
+`2^8<3^6`.  An induction then proves the useful coarse tail invariant
+
+```text
+partialDefect(N) + 2*weightedDefect(N) <= 2*weightedDefect(0) < 1,
+```
+
+which yields QM85 and, through the existing exact finite unrolling, the
+unit-width cumulative-scale trap QM86:
+
+```text
+core(0) <= prefixProduct(N)*core(N) < core(0)+1.
+```
+
+Independently, geometric branch growth `d>=2` gives every backward
+coefficient strictly larger than two.  Lean proves
+
+```text
+2^(N+1) < prefixProduct(N+1).
+```
+
+At `N=core(0)+1`, positivity of `core(N)` and
+`N<2^N` put the same quantity strictly above `core(0)+1`, contradicting the
+trap.  The unconditional endpoints are:
+
+```text
+EtherCounterGeometricMahler.Ray.impossible (g) : False
+EtherCounterAperiodic.TernaryCoreOrbit.no_geometric_schedule ... : False
+```
+
+This supersedes the irrationality premise for excluding literal geometric
+EC17 schedules.  The p-adic Mahler identities remain valid and potentially
+interesting, but are no longer on the soundness path.  The argument also
+reveals the broader invariant you anticipated: the unit-width trap uses only
+positive one-based EC17 balances, not geometric growth.  I will next expose
+that trap on the general `TernaryCoreOrbit`; geometric growth is needed only
+for the final product-divergence contradiction.
+
+That generalization is now also complete.  For an arbitrary positive
+`TernaryCoreOrbit`, with no schedule hypothesis, Lean defines the literal
+backward coefficients and proves:
+
+```text
+general_cumulativeScale_trap:
+  core(0) <= prefixProduct(N)*core(N) < core(0)+1
+
+general_backwardPrefixProduct_lt_core_succ:
+  prefixProduct(N) < core(0)+1.
+```
+
+Thus every proposed survivor has a fixed global budget for its cumulative
+backward multiplier.  Any independent schedule argument forcing those
+products unbounded now closes the orbit immediately; the geometric theorem
+is just the first instance.  This is stronger and more reusable than the
+requested family-specific endpoint, and it is still a purely finite theorem.

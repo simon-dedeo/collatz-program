@@ -18,10 +18,11 @@ This file proves the exact finite backward expansion and identifies its
 
 `G(x) = sum_j (2^15/3^11)^j * x^(1+d+...+d^(j-1))`.
 
-It also proves the functional equation `G(x)=1+a*x*G(x^d)` and the
-conditional endpoint saying that p-adic irrationality of the displayed value
-excludes an ordinary natural orbit.  No transcendence theorem is postulated:
-the published Mahler-value theorem remains an explicit external premise.
+It also proves the functional equation `G(x)=1+a*x*G(x^d)`.  An elementary
+ordered-rational argument ultimately excludes every such positive ray
+unconditionally; the p-adic irrationality endpoint is retained as an
+independent arithmetic interpretation.  No transcendence theorem is
+postulated.
 -/
 
 namespace KontoroC
@@ -70,6 +71,48 @@ theorem geometricExponent_eq_sum (d j : ℕ) :
   | succ j ih =>
       rw [Finset.sum_range_succ, ← ih]
       exact (geometricExponent_add_power d j).symm
+
+/-- One-based form of the uniform EC17 defect contraction. -/
+theorem fifteen_mul_two_pow_lt_three_pow (n : ℕ) (hn : 0 < n) :
+    15 * 2 ^ (8 * n + 15) < 3 ^ (6 * n + 11) := by
+  obtain ⟨k, rfl⟩ := Nat.exists_eq_succ_of_ne_zero hn.ne'
+  have hbase : 15 * 2 ^ 23 < 3 ^ 17 := by norm_num
+  have hscale : (2 ^ 8) ^ k ≤ (3 ^ 6) ^ k :=
+    Nat.pow_le_pow_left (by norm_num) k
+  have hscale_pos : 0 < (2 ^ 8) ^ k := by positivity
+  calc
+    15 * 2 ^ (8 * (k + 1) + 15) =
+        (15 * 2 ^ 23) * (2 ^ 8) ^ k := by
+      rw [show 8 * (k + 1) + 15 = 23 + 8 * k by omega,
+        pow_add, pow_mul]
+      ring
+    _ < 3 ^ 17 * (2 ^ 8) ^ k :=
+      (Nat.mul_lt_mul_right hscale_pos).2 hbase
+    _ ≤ 3 ^ 17 * (3 ^ 6) ^ k := Nat.mul_le_mul_left _ hscale
+    _ = 3 ^ (6 * (k + 1) + 11) := by
+      rw [show 6 * (k + 1) + 11 = 17 + 6 * k by omega,
+        pow_add, pow_mul]
+
+/-- A coarse expansion separator used by the elementary geometric no-go. -/
+theorem two_mul_three_pow_lt_two_pow_double (n : ℕ) (hn : 0 < n) :
+    2 * 3 ^ (6 * n + 11) < 2 ^ (16 * n + 15) := by
+  obtain ⟨k, rfl⟩ := Nat.exists_eq_succ_of_ne_zero hn.ne'
+  have hbase : 2 * 3 ^ 17 < 2 ^ 31 := by norm_num
+  have hscale : (3 ^ 6) ^ k ≤ (2 ^ 16) ^ k :=
+    Nat.pow_le_pow_left (by norm_num) k
+  have hscale_pos : 0 < (3 ^ 6) ^ k := by positivity
+  calc
+    2 * 3 ^ (6 * (k + 1) + 11) =
+        (2 * 3 ^ 17) * (3 ^ 6) ^ k := by
+      rw [show 6 * (k + 1) + 11 = 17 + 6 * k by omega,
+        pow_add, pow_mul]
+      ring
+    _ < 2 ^ 31 * (3 ^ 6) ^ k :=
+      (Nat.mul_lt_mul_right hscale_pos).2 hbase
+    _ ≤ 2 ^ 31 * (2 ^ 16) ^ k := Nat.mul_le_mul_left _ hscale
+    _ = 2 ^ (16 * (k + 1) + 15) := by
+      rw [show 16 * (k + 1) + 15 = 31 + 16 * k by omega,
+        pow_add, pow_mul]
 
 /-- A necessary arithmetic projection of an infinite EC17 core orbit on a
 positive geometric branch schedule. -/
@@ -198,6 +241,225 @@ theorem weightedDefect_eq_scaled_mahlerTerm (g : Ray) (j : ℕ) :
           (geometricExponent g.multiplier j + g.multiplier ^ j) := by rw [he]
     _ = 6 * g.initialBranch * geometricExponent g.multiplier j +
           6 * g.initialBranch * g.multiplier ^ j := by ring
+
+/-! ## Elementary real obstruction -/
+
+/-- The positive defect term at time `t`, before passing to `Q_2`. -/
+def weightedDefect (g : Ray) (t : ℕ) : ℚ :=
+  backwardPrefixProduct g.backwardCoeff t * g.backwardDefect t
+
+theorem branch_pos (g : Ray) (t : ℕ) :
+    0 < branch g.initialBranch g.multiplier t := by
+  exact Nat.mul_pos g.initialBranch_pos
+    (pow_pos (lt_of_lt_of_le (by norm_num) g.multiplier_ge_two) t)
+
+theorem two_mul_branch_le_next (g : Ray) (t : ℕ) :
+    2 * branch g.initialBranch g.multiplier t ≤
+      branch g.initialBranch g.multiplier (t + 1) := by
+  simp only [branch, pow_succ]
+  nlinarith [g.multiplier_ge_two,
+    Nat.zero_le (g.initialBranch * g.multiplier ^ t)]
+
+/-- A geometric schedule makes every backward coefficient larger than two.
+This is deliberately coarser than the closed product formula. -/
+theorem two_lt_backwardCoeff (g : Ray) (t : ℕ) :
+    (2 : ℚ) < g.backwardCoeff t := by
+  let n := branch g.initialBranch g.multiplier t
+  have hn : 0 < n := g.branch_pos t
+  have hdouble : 2 * n ≤ branch g.initialBranch g.multiplier (t + 1) :=
+    g.two_mul_branch_le_next t
+  have hexp : 16 * n + 15 ≤
+      binaryExponent g.initialBranch g.multiplier t := by
+    simp only [binaryExponent]
+    omega
+  have hpow : 2 ^ (16 * n + 15) ≤
+      2 ^ binaryExponent g.initialBranch g.multiplier t :=
+    Nat.pow_le_pow_right (by norm_num) hexp
+  have hnat :
+      2 * 3 ^ ternaryExponent g.initialBranch g.multiplier t <
+        2 ^ binaryExponent g.initialBranch g.multiplier t := by
+    apply (two_mul_three_pow_lt_two_pow_double n hn).trans_le
+    simpa only [ternaryExponent] using hpow
+  rw [backwardCoeff]
+  apply (lt_div_iff₀ (by positivity :
+    (0 : ℚ) < 3 ^ ternaryExponent g.initialBranch g.multiplier t)).2
+  exact_mod_cast hnat
+
+theorem backwardPrefixProduct_pos (g : Ray) (t : ℕ) :
+    0 < backwardPrefixProduct g.backwardCoeff t := by
+  induction t with
+  | zero => simp [backwardPrefixProduct]
+  | succ t ih =>
+      rw [backwardPrefixProduct]
+      exact mul_pos ih (by simp [backwardCoeff])
+
+theorem weightedDefect_pos (g : Ray) (t : ℕ) :
+    0 < g.weightedDefect t :=
+  mul_pos (g.backwardPrefixProduct_pos t) (by simp [backwardDefect])
+
+/-- Exact cancellation behind QM84. -/
+theorem weightedDefect_succ (g : Ray) (t : ℕ) :
+    g.weightedDefect (t + 1) =
+      g.weightedDefect t *
+        ((2 : ℚ) ^ binaryExponent g.initialBranch g.multiplier t /
+          (3 : ℚ) ^ ternaryExponent g.initialBranch g.multiplier (t + 1)) := by
+  simp only [weightedDefect, backwardPrefixProduct, backwardCoeff,
+    backwardDefect]
+  ring
+
+/-- QM84 without division: consecutive positive defect terms contract by a
+factor strictly smaller than `1/15`. -/
+theorem fifteen_mul_weightedDefect_succ_lt (g : Ray) (t : ℕ) :
+    15 * g.weightedDefect (t + 1) < g.weightedDefect t := by
+  have hn : 0 < branch g.initialBranch g.multiplier (t + 1) :=
+    g.branch_pos (t + 1)
+  have hnat := fifteen_mul_two_pow_lt_three_pow
+    (branch g.initialBranch g.multiplier (t + 1)) hn
+  have hnatQ :
+      (15 : ℚ) * (2 : ℚ) ^
+          (8 * branch g.initialBranch g.multiplier (t + 1) + 15) <
+        (3 : ℚ) ^
+          (6 * branch g.initialBranch g.multiplier (t + 1) + 11) := by
+    exact_mod_cast hnat
+  have hratio :
+      15 * ((2 : ℚ) ^ binaryExponent g.initialBranch g.multiplier t /
+        (3 : ℚ) ^ ternaryExponent g.initialBranch g.multiplier (t + 1)) < 1 := by
+    calc
+      15 * ((2 : ℚ) ^ binaryExponent g.initialBranch g.multiplier t /
+          (3 : ℚ) ^ ternaryExponent g.initialBranch g.multiplier (t + 1)) =
+          (15 * (2 : ℚ) ^ binaryExponent g.initialBranch g.multiplier t) /
+            (3 : ℚ) ^ ternaryExponent g.initialBranch g.multiplier (t + 1) :=
+        by ring
+      _ < 1 := by
+        apply (div_lt_iff₀ (by positivity :
+          (0 : ℚ) < 3 ^ ternaryExponent g.initialBranch g.multiplier (t + 1))).2
+        simpa only [binaryExponent, ternaryExponent, one_mul] using hnatQ
+  rw [g.weightedDefect_succ]
+  have hw := g.weightedDefect_pos t
+  calc
+    15 * (g.weightedDefect t *
+        ((2 : ℚ) ^ binaryExponent g.initialBranch g.multiplier t /
+          (3 : ℚ) ^ ternaryExponent g.initialBranch g.multiplier (t + 1))) =
+        g.weightedDefect t *
+          (15 * ((2 : ℚ) ^ binaryExponent g.initialBranch g.multiplier t /
+            (3 : ℚ) ^ ternaryExponent g.initialBranch g.multiplier (t + 1))) := by
+      ring
+    _ < g.weightedDefect t * 1 := mul_lt_mul_of_pos_left hratio hw
+    _ = g.weightedDefect t := mul_one _
+
+/-- The finite defect partial sum plus twice its next term never exceeds
+twice the initial term.  This is a convenient coarse geometric-tail bound. -/
+theorem defectPartial_add_two_weightedDefect_le (g : Ray) (N : ℕ) :
+    backwardPrefixDefect g.backwardCoeff g.backwardDefect N +
+        2 * g.weightedDefect N ≤
+      2 * g.weightedDefect 0 := by
+  induction N with
+  | zero => simp [backwardPrefixDefect]
+  | succ N ih =>
+      rw [backwardPrefixDefect]
+      change
+        backwardPrefixDefect g.backwardCoeff g.backwardDefect N +
+              g.weightedDefect N + 2 * g.weightedDefect (N + 1) ≤
+          2 * g.weightedDefect 0
+      have hcontract := g.fifteen_mul_weightedDefect_succ_lt N
+      have hpos := g.weightedDefect_pos (N + 1)
+      have htwo : 2 * g.weightedDefect (N + 1) ≤
+          g.weightedDefect N := by linarith
+      exact le_trans (by linarith) ih
+
+theorem backwardPrefixDefect_nonneg (g : Ray) (N : ℕ) :
+    0 ≤ backwardPrefixDefect g.backwardCoeff g.backwardDefect N := by
+  rw [g.backwardPrefixDefect_eq_sum]
+  exact Finset.sum_nonneg fun t _ => (g.weightedDefect_pos t).le
+
+theorem two_mul_weightedDefect_zero_lt_one (g : Ray) :
+    2 * g.weightedDefect 0 < 1 := by
+  have hn : 17 ≤ ternaryExponent g.initialBranch g.multiplier 0 := by
+    simp only [ternaryExponent, branch, pow_zero, mul_one]
+    have := g.initialBranch_pos
+    omega
+  have hpow : 3 ^ 17 ≤
+      3 ^ ternaryExponent g.initialBranch g.multiplier 0 :=
+    Nat.pow_le_pow_right (by norm_num) hn
+  have hden : 34 < 3 ^ ternaryExponent g.initialBranch g.multiplier 0 :=
+    (by norm_num : 34 < 3 ^ 17).trans_le hpow
+  have hdenQ : (34 : ℚ) <
+      (3 : ℚ) ^ ternaryExponent g.initialBranch g.multiplier 0 := by
+    exact_mod_cast hden
+  simp only [weightedDefect, backwardPrefixProduct, backwardDefect,
+    one_mul]
+  calc
+    2 * (17 / (3 : ℚ) ^ ternaryExponent g.initialBranch g.multiplier 0) =
+        34 / (3 : ℚ) ^ ternaryExponent g.initialBranch g.multiplier 0 := by
+      ring
+    _ < 1 := by
+      apply (div_lt_iff₀ (by positivity :
+        (0 : ℚ) < 3 ^ ternaryExponent g.initialBranch g.multiplier 0)).2
+      simpa using hdenQ
+
+/-- QM85 in the only form needed downstream. -/
+theorem backwardPrefixDefect_lt_one (g : Ray) (N : ℕ) :
+    backwardPrefixDefect g.backwardCoeff g.backwardDefect N < 1 := by
+  have htail := g.defectPartial_add_two_weightedDefect_le N
+  have hpos := g.weightedDefect_pos N
+  exact lt_of_le_of_lt (by linarith) g.two_mul_weightedDefect_zero_lt_one
+
+/-- QM86: every cumulative scale lies in a fixed unit-width interval. -/
+theorem cumulativeScale_trap (g : Ray) (N : ℕ) :
+    (g.core 0 : ℚ) ≤
+        backwardPrefixProduct g.backwardCoeff N * g.core N ∧
+      backwardPrefixProduct g.backwardCoeff N * g.core N <
+        (g.core 0 : ℚ) + 1 := by
+  have hseries := g.finite_series N
+  have hnonneg := g.backwardPrefixDefect_nonneg N
+  have hlt := g.backwardPrefixDefect_lt_one N
+  constructor <;> linarith
+
+/-- Prefix products grow faster than `2^(N+1)`. -/
+theorem two_pow_succ_lt_backwardPrefixProduct (g : Ray) (N : ℕ) :
+    (2 : ℚ) ^ (N + 1) <
+      backwardPrefixProduct g.backwardCoeff (N + 1) := by
+  induction N with
+  | zero =>
+      simp only [backwardPrefixProduct, pow_one, one_mul]
+      exact g.two_lt_backwardCoeff 0
+  | succ N ih =>
+      rw [backwardPrefixProduct]
+      have hp : 0 < backwardPrefixProduct g.backwardCoeff (N + 1) := by
+        exact g.backwardPrefixProduct_pos (N + 1)
+      calc
+        (2 : ℚ) ^ (N + 1 + 1) = 2 ^ (N + 1) * 2 := by
+          rw [pow_succ]
+        _ < backwardPrefixProduct g.backwardCoeff (N + 1) * 2 :=
+          mul_lt_mul_of_pos_right ih (by norm_num)
+        _ < backwardPrefixProduct g.backwardCoeff (N + 1) *
+            g.backwardCoeff (N + 1) :=
+          mul_lt_mul_of_pos_left (g.two_lt_backwardCoeff (N + 1)) hp
+
+/-- QM87: geometric one-based EC17 rays are unconditionally impossible.
+The proof is finite and ordered; no p-adic transcendence input is used. -/
+theorem impossible (g : Ray) : False := by
+  let N := g.core 0 + 1
+  have htrap := g.cumulativeScale_trap N
+  have hprod := g.two_pow_succ_lt_backwardPrefixProduct (g.core 0)
+  have hcore : (1 : ℚ) ≤ g.core N := by
+    exact_mod_cast g.core_pos N
+  have hscale : (2 : ℚ) ^ N <
+      backwardPrefixProduct g.backwardCoeff N * g.core N := by
+    have hN : N = g.core 0 + 1 := rfl
+    rw [hN]
+    calc
+      (2 : ℚ) ^ (g.core 0 + 1) <
+          backwardPrefixProduct g.backwardCoeff (g.core 0 + 1) := hprod
+      _ = backwardPrefixProduct g.backwardCoeff (g.core 0 + 1) * 1 := by ring
+      _ ≤ backwardPrefixProduct g.backwardCoeff (g.core 0 + 1) *
+          g.core (g.core 0 + 1) :=
+        mul_le_mul_of_nonneg_left hcore
+          (le_of_lt (g.backwardPrefixProduct_pos (g.core 0 + 1)))
+  have hnat : (g.core 0 : ℚ) + 1 < (2 : ℚ) ^ N := by
+    exact_mod_cast (show g.core 0 + 1 < 2 ^ (g.core 0 + 1) from
+      Nat.lt_two_pow_self)
+  linarith
 
 end Ray
 
@@ -495,8 +757,183 @@ end EtherCounterGeometricMahler
 /-! ## Connection to the executable ether normalization -/
 
 open EtherCounterGeometricMahler
+open MersennePacketRenewal
 
 namespace EtherCounterAperiodic.TernaryCoreOrbit
+
+/-! ## A schedule-independent cumulative-scale trap -/
+
+def generalBackwardCoeff (o : EtherCounterAperiodic.TernaryCoreOrbit)
+    (t : ℕ) : ℚ :=
+  (2 : ℚ) ^ (8 * o.level (t + 1) + 23) /
+    (3 : ℚ) ^ (6 * o.level t + 17)
+
+def generalBackwardDefect (o : EtherCounterAperiodic.TernaryCoreOrbit)
+    (t : ℕ) : ℚ :=
+  17 / (3 : ℚ) ^ (6 * o.level t + 17)
+
+def generalWeightedDefect (o : EtherCounterAperiodic.TernaryCoreOrbit)
+    (t : ℕ) : ℚ :=
+  backwardPrefixProduct o.generalBackwardCoeff t * o.generalBackwardDefect t
+
+theorem general_step_backward
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (t : ℕ) :
+    (o.core t : ℚ) =
+      o.generalBackwardCoeff t * o.core (t + 1) -
+        o.generalBackwardDefect t := by
+  have h :
+      (2 : ℚ) ^ (8 * o.level (t + 1) + 23) * o.core (t + 1) =
+        (3 : ℚ) ^ (6 * o.level t + 17) * o.core t + 17 := by
+    exact_mod_cast o.balance t
+  dsimp [generalBackwardCoeff, generalBackwardDefect]
+  field_simp
+  nlinarith
+
+theorem general_finite_series
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) :
+    (o.core 0 : ℚ) =
+      backwardPrefixProduct o.generalBackwardCoeff N * o.core N -
+        backwardPrefixDefect o.generalBackwardCoeff o.generalBackwardDefect N :=
+  backward_affine_unroll (fun t => o.general_step_backward t) N
+
+theorem generalBackwardPrefixProduct_pos
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) :
+    0 < backwardPrefixProduct o.generalBackwardCoeff N := by
+  induction N with
+  | zero => simp [backwardPrefixProduct]
+  | succ N ih =>
+      rw [backwardPrefixProduct]
+      exact mul_pos ih (by simp [generalBackwardCoeff])
+
+theorem generalWeightedDefect_pos
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (t : ℕ) :
+    0 < o.generalWeightedDefect t :=
+  mul_pos (o.generalBackwardPrefixProduct_pos t)
+    (by simp [generalBackwardDefect])
+
+theorem generalWeightedDefect_succ
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (t : ℕ) :
+    o.generalWeightedDefect (t + 1) =
+      o.generalWeightedDefect t *
+        ((2 : ℚ) ^ (8 * o.level (t + 1) + 23) /
+          (3 : ℚ) ^ (6 * o.level (t + 1) + 17)) := by
+  simp only [generalWeightedDefect, backwardPrefixProduct,
+    generalBackwardCoeff, generalBackwardDefect]
+  ring
+
+theorem fifteen_mul_generalWeightedDefect_succ_lt
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (t : ℕ) :
+    15 * o.generalWeightedDefect (t + 1) <
+      o.generalWeightedDefect t := by
+  have hnat := EtherCounterAperiodic.fifteen_mul_edgeB_lt_edgeA
+    (o.level (t + 1))
+  have hnat' :
+      15 * 2 ^ (8 * o.level (t + 1) + 23) <
+        3 ^ (6 * o.level (t + 1) + 17) := by
+    simpa [EtherCounterAperiodic.edgeA, EtherCounterAperiodic.edgeB,
+      EtherCounterAperiodic.binaryExponent,
+      EtherCounterAperiodic.ternaryExponent] using hnat
+  have hnatQ :
+      (15 : ℚ) * (2 : ℚ) ^ (8 * o.level (t + 1) + 23) <
+        (3 : ℚ) ^ (6 * o.level (t + 1) + 17) := by
+    exact_mod_cast hnat'
+  have hratio :
+      15 * ((2 : ℚ) ^ (8 * o.level (t + 1) + 23) /
+        (3 : ℚ) ^ (6 * o.level (t + 1) + 17)) < 1 := by
+    calc
+      15 * ((2 : ℚ) ^ (8 * o.level (t + 1) + 23) /
+          (3 : ℚ) ^ (6 * o.level (t + 1) + 17)) =
+          (15 * (2 : ℚ) ^ (8 * o.level (t + 1) + 23)) /
+            (3 : ℚ) ^ (6 * o.level (t + 1) + 17) := by ring
+      _ < 1 := by
+        apply (div_lt_iff₀ (by positivity :
+          (0 : ℚ) < 3 ^ (6 * o.level (t + 1) + 17))).2
+        simpa using hnatQ
+  rw [o.generalWeightedDefect_succ]
+  have hw := o.generalWeightedDefect_pos t
+  calc
+    15 * (o.generalWeightedDefect t *
+        ((2 : ℚ) ^ (8 * o.level (t + 1) + 23) /
+          (3 : ℚ) ^ (6 * o.level (t + 1) + 17))) =
+        o.generalWeightedDefect t *
+          (15 * ((2 : ℚ) ^ (8 * o.level (t + 1) + 23) /
+            (3 : ℚ) ^ (6 * o.level (t + 1) + 17))) := by ring
+    _ < o.generalWeightedDefect t * 1 := mul_lt_mul_of_pos_left hratio hw
+    _ = o.generalWeightedDefect t := mul_one _
+
+theorem generalDefectPartial_add_two_weighted_le
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) :
+    backwardPrefixDefect o.generalBackwardCoeff o.generalBackwardDefect N +
+        2 * o.generalWeightedDefect N ≤
+      2 * o.generalWeightedDefect 0 := by
+  induction N with
+  | zero => simp [backwardPrefixDefect]
+  | succ N ih =>
+      rw [backwardPrefixDefect]
+      change
+        backwardPrefixDefect o.generalBackwardCoeff o.generalBackwardDefect N +
+              o.generalWeightedDefect N +
+                2 * o.generalWeightedDefect (N + 1) ≤
+          2 * o.generalWeightedDefect 0
+      have hcontract := o.fifteen_mul_generalWeightedDefect_succ_lt N
+      have hpos := o.generalWeightedDefect_pos (N + 1)
+      have htwo : 2 * o.generalWeightedDefect (N + 1) ≤
+          o.generalWeightedDefect N := by linarith
+      exact le_trans (by linarith) ih
+
+theorem generalBackwardPrefixDefect_nonneg
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) :
+    0 ≤ backwardPrefixDefect o.generalBackwardCoeff o.generalBackwardDefect N := by
+  induction N with
+  | zero => simp [backwardPrefixDefect]
+  | succ N ih =>
+      rw [backwardPrefixDefect]
+      exact add_nonneg ih (o.generalWeightedDefect_pos N).le
+
+theorem two_mul_generalWeightedDefect_zero_lt_one
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) :
+    2 * o.generalWeightedDefect 0 < 1 := by
+  have hden : 34 < 3 ^ (6 * o.level 0 + 17) := by
+    exact (by norm_num : 34 < 3 ^ 17).trans_le
+      (Nat.pow_le_pow_right (by norm_num) (by omega))
+  have hdenQ : (34 : ℚ) < (3 : ℚ) ^ (6 * o.level 0 + 17) := by
+    exact_mod_cast hden
+  simp only [generalWeightedDefect, backwardPrefixProduct,
+    generalBackwardDefect, one_mul]
+  calc
+    2 * (17 / (3 : ℚ) ^ (6 * o.level 0 + 17)) =
+        34 / (3 : ℚ) ^ (6 * o.level 0 + 17) := by ring
+    _ < 1 := by
+      apply (div_lt_iff₀ (by positivity :
+        (0 : ℚ) < 3 ^ (6 * o.level 0 + 17))).2
+      simpa using hdenQ
+
+/-- Schedule-independent form of QM86. -/
+theorem general_cumulativeScale_trap
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) :
+    (o.core 0 : ℚ) ≤
+        backwardPrefixProduct o.generalBackwardCoeff N * o.core N ∧
+      backwardPrefixProduct o.generalBackwardCoeff N * o.core N <
+        (o.core 0 : ℚ) + 1 := by
+  have hseries := o.general_finite_series N
+  have hnonneg := o.generalBackwardPrefixDefect_nonneg N
+  have htail := o.generalDefectPartial_add_two_weighted_le N
+  have hterm := o.generalWeightedDefect_pos N
+  have hinitial := o.two_mul_generalWeightedDefect_zero_lt_one
+  have hdefect :
+      backwardPrefixDefect o.generalBackwardCoeff o.generalBackwardDefect N < 1 :=
+    lt_of_le_of_lt (by linarith) hinitial
+  constructor <;> linarith
+
+/-- Every positive execution keeps its cumulative backward coefficient below
+the fixed natural threshold `core(0)+1`. -/
+theorem general_backwardPrefixProduct_lt_core_succ
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) :
+    backwardPrefixProduct o.generalBackwardCoeff N < (o.core 0 : ℚ) + 1 := by
+  have htrap := (o.general_cumulativeScale_trap N).2
+  have hcore : (1 : ℚ) ≤ o.core N := by exact_mod_cast o.core_pos N
+  have hp := o.generalBackwardPrefixProduct_pos N
+  nlinarith
 
 /-- A literal ternary-core orbit on a geometric one-based level schedule is
 exactly the abstract EC17 ray used by the Mahler reduction. -/
@@ -539,6 +976,14 @@ theorem no_geometric_schedule_of_irrational
     (hirr : NormalizedStandardPayloadStream.IsPadicIrrational
       (o.toGeometricMahlerRay n₀ d hn₀ hd hschedule).padicMahlerValue) : False :=
   (o.toGeometricMahlerRay n₀ d hn₀ hd hschedule).false_of_mahlerValue_irrational hirr
+
+/-- Concrete unconditional form of QM87. -/
+theorem no_geometric_schedule
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (n₀ d : ℕ)
+    (hn₀ : 0 < n₀) (hd : 2 ≤ d)
+    (hschedule : ∀ t, o.level t + 1 =
+      EtherCounterGeometricMahler.branch n₀ d t) : False :=
+  (o.toGeometricMahlerRay n₀ d hn₀ hd hschedule).impossible
 
 end EtherCounterAperiodic.TernaryCoreOrbit
 end KontoroC
