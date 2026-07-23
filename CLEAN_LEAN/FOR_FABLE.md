@@ -11805,3 +11805,64 @@ The remaining external seam is exact and narrow: construct the canonical
 candidate, verify its two modular identities and strict product range, and
 turn a literal replay failure into `not Required(candidate)`.  No finite row
 or extrapolated failure trend is promoted by these theorems.
+
+## Kontorovich round 215 — exact replay-failure semantics closed
+
+I audited the new normalized CRT worker against the abstract `Required`
+premise and found an important one-step distinction.  Python's
+`literal_failure` reports both
+
+```text
+actual v2 < required v2
+actual v2 > required v2.
+```
+
+The first is an immediate failure of the current EC17 balance.  The second is
+*not* an immediate failure of the bare `NaturalPrefix` structure, because
+that structure does not explicitly require the output core to be odd: the
+current balance can hold with an even quotient.  It becomes a contradiction
+at the next transition, whose balance forces that quotient to be odd.  The
+worker's large replay horizon supplies this extra transition empirically,
+but the theorem interface needs the off-by-one guard explicitly.
+
+Lean now formalizes this distinction.  I proved that every core with an
+outgoing natural EC17 balance is odd, then introduced an exact finite replay
+object and proved determinism from its initial core.  There are two separate
+certificate types:
+
+```text
+NondivisibleReplayFailure:
+  exact balances before step s,
+  2^required(s) does not divide numerator(s).
+
+EvenQuotientReplayFailure:
+  exact balances through step s,
+  resulting core(s+1) is even.
+```
+
+The first proves `not AdmitsNaturalPrefix ... length candidate` when
+`s < length`.  The second proves the same only when `s+1 < length`.  Thus an
+artifact emitter can no longer accidentally promote an over-divisibility row
+without including the following transition.
+
+I also specialized QM106 and QM107 so `Required` is exactly
+
+```text
+AdmitsNaturalPrefix (shiftedBranch g q) length candidate,
+```
+
+and proved that the genuine `core(3*q)` satisfies it using the literal
+shifted prefix.  This removes the arbitrary-predicate seam: either replay
+certificate type can now feed the normalized CRT no-ray consumer directly.
+
+The normalized CRT Python self-test passes.  The complete Lean project and
+axiom audit pass; all new replay and specialized CRT theorems depend only on
+standard `propext`, `Classical.choice`, and `Quot.sound`.
+
+Action for the worker/certificate emitter: retain or reconstruct the exact
+intermediate cores through the failure.  Emit the nondivisibility proof for
+`actual<required`; for `actual>required`, emit exact balance at the reported
+step, evenness of the quotient, and choose `length >= failure_step+2`.  The
+current `transitions+PERIOD+64` runtime horizon is ample, but the artifact
+schema should record the certified replay length rather than leaving it
+implicit in Python control flow.

@@ -220,6 +220,133 @@ theorem initial_core_ge_modulus_of_least_residue_fails
   rw [ZMod.val_natCast_of_lt hlt] at hval
   exact hval
 
+/-! ## Exact finite replay-failure certificates -/
+
+/-- Although `NaturalPrefix` does not redundantly store an oddness field,
+every core that has an outgoing EC17 balance is necessarily odd. -/
+theorem NaturalPrefix.core_mod_two_eq_one
+    {branch : ℕ → ℕ} {length : ℕ}
+    (g : NaturalPrefix branch length) (t : ℕ) (ht : t < length) :
+    g.core t % 2 = 1 := by
+  have hpow : 2 ∣ 2 ^ binaryExponent branch t := by
+    apply dvd_pow_self
+    simp [binaryExponent]
+  have hdvd : 2 ∣
+      3 ^ ternaryExponent branch t * g.core t + 17 := by
+    rw [← g.balance t ht]
+    exact dvd_mul_of_dvd_left hpow _
+  have hthree : 3 ^ ternaryExponent branch t % 2 = 1 := by
+    rw [Nat.pow_mod]
+    norm_num
+  rw [Nat.dvd_iff_mod_eq_zero] at hdvd
+  simp [Nat.add_mod, Nat.mul_mod, hthree] at hdvd
+  omega
+
+/-- A literal exact replay from a proposed initial core through `steps`
+transitions.  No claim about the next transition is included. -/
+structure ExactReplayTo (branch : ℕ → ℕ) (candidate steps : ℕ) where
+  core : ℕ → ℕ
+  initial : core 0 = candidate
+  balance : ∀ t < steps,
+    2 ^ binaryExponent branch t * core (t + 1) =
+      3 ^ ternaryExponent branch t * core t + 17
+
+/-- The exact necessary predicate used by CRT consumers: some positive EC17
+prefix on the prescribed branch schedule starts from `candidate`. -/
+def AdmitsNaturalPrefix (branch : ℕ → ℕ) (length candidate : ℕ) : Prop :=
+  ∃ g : NaturalPrefix branch length, g.core 0 = candidate
+
+/-- Determinism of the positive binary multiplier: a natural prefix with the
+same initial core agrees with every supplied exact replayed core. -/
+theorem ExactReplayTo.core_eq
+    {branch : ℕ → ℕ} {candidate steps length : ℕ}
+    (c : ExactReplayTo branch candidate steps)
+    (g : NaturalPrefix branch length)
+    (hsteps : steps ≤ length)
+    (hinitial : g.core 0 = candidate) :
+    ∀ t ≤ steps, g.core t = c.core t := by
+  intro t ht
+  induction t with
+  | zero => exact hinitial.trans c.initial.symm
+  | succ t ih =>
+      have htlt : t < steps := by omega
+      have hprefix := g.balance t (lt_of_lt_of_le htlt hsteps)
+      have hcert := c.balance t htlt
+      have hprevious : g.core t = c.core t := ih (by omega)
+      have hmul :
+          2 ^ binaryExponent branch t * g.core (t + 1) =
+            2 ^ binaryExponent branch t * c.core (t + 1) := by
+        calc
+          2 ^ binaryExponent branch t * g.core (t + 1) =
+              3 ^ ternaryExponent branch t * g.core t + 17 := hprefix
+          _ = 3 ^ ternaryExponent branch t * c.core t + 17 := by
+            rw [hprevious]
+          _ = 2 ^ binaryExponent branch t * c.core (t + 1) := hcert.symm
+      exact Nat.eq_of_mul_eq_mul_left (by positivity) hmul
+
+/-- A checker certificate for the Python `actual < required` branch: the
+candidate replays exactly up to `step`, but the required binary power does
+not divide the next numerator. -/
+structure NondivisibleReplayFailure (branch : ℕ → ℕ) (candidate : ℕ) where
+  step : ℕ
+  replay : ExactReplayTo branch candidate step
+  failure : ¬ 2 ^ binaryExponent branch step ∣
+    3 ^ ternaryExponent branch step * replay.core step + 17
+
+/-- A nondivisible replay-failure certificate rules out every natural prefix
+long enough to contain the failed transition. -/
+theorem NondivisibleReplayFailure.excludesNaturalPrefix
+    {branch : ℕ → ℕ} {candidate length : ℕ}
+    (c : NondivisibleReplayFailure branch candidate)
+    (g : NaturalPrefix branch length)
+    (hstep : c.step < length)
+    (hinitial : g.core 0 = candidate) : False := by
+  have heq : g.core c.step = c.replay.core c.step :=
+    c.replay.core_eq g (by omega) hinitial c.step (le_refl _)
+  apply c.failure
+  rw [← heq, ← g.balance c.step hstep]
+  exact dvd_mul_right _ _
+
+theorem NondivisibleReplayFailure.not_admitsNaturalPrefix
+    {branch : ℕ → ℕ} {candidate : ℕ}
+    (c : NondivisibleReplayFailure branch candidate)
+    {length : ℕ} (hstep : c.step < length) :
+    ¬ AdmitsNaturalPrefix branch length candidate := by
+  rintro ⟨g, hinitial⟩
+  exact c.excludesNaturalPrefix g hstep hinitial
+
+/-- A checker certificate for the Python `actual > required` branch: the
+candidate replays through the reported transition, but the resulting core is
+even.  This becomes a contradiction only when the required prefix includes
+one further transition. -/
+structure EvenQuotientReplayFailure (branch : ℕ → ℕ) (candidate : ℕ) where
+  step : ℕ
+  replay : ExactReplayTo branch candidate (step + 1)
+  next_even : replay.core (step + 1) % 2 = 0
+
+/-- An even-quotient certificate rules out every natural prefix containing
+the following transition.  This explicit `step+1<length` guard is the
+off-by-one condition needed to soundly interpret `actual > required`. -/
+theorem EvenQuotientReplayFailure.excludesNaturalPrefix
+    {branch : ℕ → ℕ} {candidate length : ℕ}
+    (c : EvenQuotientReplayFailure branch candidate)
+    (g : NaturalPrefix branch length)
+    (hnext : c.step + 1 < length)
+    (hinitial : g.core 0 = candidate) : False := by
+  have heq : g.core (c.step + 1) = c.replay.core (c.step + 1) :=
+    c.replay.core_eq g (by omega) hinitial (c.step + 1) (le_refl _)
+  have hodd := g.core_mod_two_eq_one (c.step + 1) hnext
+  rw [heq, c.next_even] at hodd
+  omega
+
+theorem EvenQuotientReplayFailure.not_admitsNaturalPrefix
+    {branch : ℕ → ℕ} {candidate : ℕ}
+    (c : EvenQuotientReplayFailure branch candidate)
+    {length : ℕ} (hnext : c.step + 1 < length) :
+    ¬ AdmitsNaturalPrefix branch length candidate := by
+  rintro ⟨g, hinitial⟩
+  exact c.excludesNaturalPrefix g hnext hinitial
+
 /-! ## Coprime predecessor/future residue synthesis -/
 
 /-- Reducing one literal EC17 balance modulo its ternary numerator modulus

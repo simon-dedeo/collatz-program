@@ -528,6 +528,12 @@ def shiftedNaturalPrefix (g : Ray) (q length : ℕ) :
       EtherCounterResidueBound.ternaryExponent, Nat.add_assoc] using
         g.balance (3 * q + t)
 
+theorem shiftedCore_admitsNaturalPrefix
+    (g : Ray) (q length : ℕ) :
+    EtherCounterResidueBound.AdmitsNaturalPrefix
+      (shiftedBranch g q) length (g.core (3 * q)) := by
+  exact ⟨shiftedNaturalPrefix g q length, rfl⟩
+
 def normalizedPrecision (g : Ray) (q R : ℕ) : ℕ :=
   sharpUpperBudget g q + R
 
@@ -750,6 +756,29 @@ theorem normalizedCRTFailure_predecessorExponent_lt_initialDigits
     Nat.pow_lt_pow_left (by norm_num) (by dsimp [E]; omega)
   omega
 
+/-- Replay-specialized QM106.  Here `Required` is no longer an arbitrary
+predicate: it is exactly existence of a positive natural EC17 prefix on the
+shifted future schedule. -/
+theorem normalizedCRTFailure_predecessorExponent_lt_initialDigits_of_noPrefix
+    (g : Ray) (q candidate length : ℕ) (hq : 5 ≤ q)
+    (hbinary : g.core (3 * q) ≡ candidate
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : g.core (3 * q) ≡ candidate
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : candidate <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11))
+    (hfail : ¬ EtherCounterResidueBound.AdmitsNaturalPrefix
+      (shiftedBranch g q) length candidate) :
+    6 * g.branch (3 * q - 1) + 11 <
+      (Nat.log 2 (g.core 0)).succ := by
+  apply g.normalizedCRTFailure_predecessorExponent_lt_initialDigits
+    q candidate
+      (EtherCounterResidueBound.AdmitsNaturalPrefix
+        (shiftedBranch g q) length) hq hbinary hternary hcandidate
+  · exact g.shiftedCore_admitsNaturalPrefix q length
+  · exact hfail
+
 /-- The predecessor branch at cycle boundary `q` is already at least `q`.
 This is the elementary bridge making unbounded cycle indices sufficient for
 the cofinal CRT consumer. -/
@@ -788,6 +817,30 @@ theorem false_of_unbounded_normalizedCRTFailures
     (q j) (candidate j) (Required j) (hq j) (hbinary j) (hternary j)
       (hcandidate j) (hrequired j) (hfail j)
   omega
+
+/-- Replay-specialized QM107.  This is the direct target for the two exact
+finite failure-certificate types in `EtherCounterResidueBound`. -/
+theorem false_of_unbounded_normalizedCRTReplayFailures
+    (g : Ray) (q candidate length : ℕ → ℕ)
+    (hq : ∀ j, 5 ≤ q j)
+    (hbinary : ∀ j, g.core (3 * q j) ≡ candidate j
+      [MOD 2 ^ sharpUpperBudget g (q j)])
+    (hternary : ∀ j, g.core (3 * q j) ≡ candidate j
+      [MOD 3 ^ (6 * g.branch (3 * q j - 1) + 11)])
+    (hcandidate : ∀ j, candidate j <
+      2 ^ sharpUpperBudget g (q j) *
+        3 ^ (6 * g.branch (3 * q j - 1) + 11))
+    (hfail : ∀ j, ¬ EtherCounterResidueBound.AdmitsNaturalPrefix
+      (shiftedBranch g (q j)) (length j) (candidate j))
+    (hunbounded : ∀ M, ∃ j, M < q j) :
+    False := by
+  apply g.false_of_unbounded_normalizedCRTFailures q candidate
+    (fun j => EtherCounterResidueBound.AdmitsNaturalPrefix
+      (shiftedBranch g (q j)) (length j)) hq hbinary hternary hcandidate
+  · intro j
+    exact g.shiftedCore_admitsNaturalPrefix (q j) (length j)
+  · exact hfail
+  · exact hunbounded
 
 set_option maxRecDepth 1000
 

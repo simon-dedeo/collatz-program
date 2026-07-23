@@ -918,6 +918,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterResidueBound.initialResidue_val_eq_initial_core
 #print axioms
   KontoroC.EtherCounterResidueBound.initial_core_ge_modulus_of_least_residue_fails
+#print axioms
+  KontoroC.EtherCounterResidueBound.NaturalPrefix.core_mod_two_eq_one
+#print axioms KontoroC.EtherCounterResidueBound.ExactReplayTo.core_eq
+#print axioms
+  KontoroC.EtherCounterResidueBound.NondivisibleReplayFailure.not_admitsNaturalPrefix
+#print axioms
+  KontoroC.EtherCounterResidueBound.EvenQuotientReplayFailure.not_admitsNaturalPrefix
 #print axioms KontoroC.EtherCounterResidueBound.ec17_successor_mul_modEq
 #print axioms KontoroC.EtherCounterResidueBound.ec17_successor_modEq_of_candidate
 #print axioms
@@ -961,9 +968,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.EtherCounterPeriodThree.Ray.normalizedCRTFailure_predecessorExponent_lt_initialDigits
 #print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.normalizedCRTFailure_predecessorExponent_lt_initialDigits_of_noPrefix
+#print axioms
   KontoroC.EtherCounterPeriodThree.Ray.cycleIndex_le_predecessorBranch
 #print axioms
   KontoroC.EtherCounterPeriodThree.Ray.false_of_unbounded_normalizedCRTFailures
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.false_of_unbounded_normalizedCRTReplayFailures
 #print axioms KontoroC.LaurentCoboundaryNoGo.no_finite_homogeneous_potential
 #print axioms KontoroC.LaurentCoboundaryNoGo.finite_homogeneous_kernel_eq_zero
 #print axioms KontoroC.LaurentCoboundaryNoGo.slice_eq_zero_of_fullSatisfies
