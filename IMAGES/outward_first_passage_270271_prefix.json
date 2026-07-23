@@ -81,6 +81,7 @@
   "height": 88,
   "id": "outward_first_passage_270271_prefix",
   "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "minimum_canvas_width_bits": 71,
   "pixel_convention": {
     "alignment": "right aligned; least significant bit at right",
     "black": 1,
@@ -89,12 +90,18 @@
     "white": "0 or left padding"
   },
   "png": "outward_first_passage_270271_prefix.png",
-  "png_sha256": "b3e12859eed363440c9124e393ca9d341489585b4cf34ed90f7a5647d77d31bf",
+  "png_sha256": "4cec9a6a89bf52d6f742e2253038527257fafa2077f8075d37dc39d4e58225a4",
   "provenance": "experiments/kontorovich/outward_first_passage_audit.json#/minimum_address_regression/visualizer_prefix",
-  "raster_window": "full binary expansion",
+  "raster_window": "full binary expansion in a minimum 71-bit canvas",
+  "scale_reference": {
+    "note": "canvas padding does not change the active seed; an odd seed beyond 2^71 has at least 72 active bits",
+    "published_exhaustive_frontier": "2^71",
+    "seed_active_bits": 19,
+    "seed_beyond_frontier": false
+  },
   "schema": "accelerated-odd-collatz-bitmap-v1",
   "scope": "Exact 35-block odd prefix of the record minimum-address witness through the h_36 finite regression. It ends at its global peak and is not an infinite-orbit claim.",
   "states_sha256": "2d0999651b1afcb57103fa7dfa28213cda4a74d63eb862ad337d7ed19b3d5cea",
   "valuations_sha256": "b5bba6ac8fb99469fd569ed3102815d411438c1f015c0c09559413d023a8d256",
-  "width": 33
+  "width": 71
 }

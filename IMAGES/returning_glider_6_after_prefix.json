@@ -66,6 +66,7 @@
   "height": 242,
   "id": "returning_glider_6_after_prefix",
   "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "minimum_canvas_width_bits": 71,
   "pixel_convention": {
     "alignment": "right aligned; least significant bit at right",
     "black": 1,
@@ -76,7 +77,13 @@
   "png": "returning_glider_6_after_prefix.png",
   "png_sha256": "e27fbb271ab36dc281b2331dd1ddf2ed37731865843d1b583e05608724c0d14c",
   "provenance": "Post-prefix suffix of IMAGES/returning_glider_6_full.png beginning at accelerated step 45",
-  "raster_window": "full binary expansion",
+  "raster_window": "full binary expansion in a minimum 71-bit canvas",
+  "scale_reference": {
+    "note": "canvas padding does not change the active seed; an odd seed beyond 2^71 has at least 72 active bits",
+    "published_exhaustive_frontier": "2^71",
+    "seed_active_bits": 108,
+    "seed_beyond_frontier": true
+  },
   "schema": "accelerated-odd-collatz-bitmap-v1",
   "scope": "Exact suffix after the certified six-cell EC17 returning-glider prefix. It retains 27 further valuations in {1,2}, then collapses and reaches 1.",
   "states_sha256": "00d7ca712626b11e64037c96d880a2f181e8b9952b8416d061d9ee83282551b7",

@@ -67,6 +67,7 @@
   "height": 109,
   "id": "mersenne_controller_24017279_full",
   "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "minimum_canvas_width_bits": 71,
   "pixel_convention": {
     "alignment": "right aligned; least significant bit at right",
     "black": 1,
@@ -75,12 +76,18 @@
     "white": "0 or left padding"
   },
   "png": "mersenne_controller_24017279_full.png",
-  "png_sha256": "4c57584a67f1c0308a50e6632bbc100b08d12d06e4e1934362f56e1a1aa40a0c",
+  "png_sha256": "9a7dbb0f3efd9b176132c9ff1202ec45979461b6d8015288f1766e250d5258d3",
   "provenance": "experiments/kontorovich/mersenne_shadow_results.json#/strongest_growing_seed_stabilization",
-  "raster_window": "full binary expansion",
+  "raster_window": "full binary expansion in a minimum 71-bit canvas",
+  "scale_reference": {
+    "note": "canvas padding does not change the active seed; an odd seed beyond 2^71 has at least 72 active bits",
+    "published_exhaustive_frontier": "2^71",
+    "seed_active_bits": 25,
+    "seed_beyond_frontier": false
+  },
   "schema": "accelerated-odd-collatz-bitmap-v1",
   "scope": "Exact ordinary continuation of a finite all-macrostep-growing controller witness; it reaches 1 and is not a counterexample.",
   "states_sha256": "fa516514509e1047a040859aa3b81eeb99a835a2b24fb0f121b365c7c2efa202",
   "valuations_sha256": "6fd87670072fdbac12826171f9c0e6ad438a5f2d2cf7b71de691986cd1a23b8b",
-  "width": 33
+  "width": 71
 }

@@ -12,6 +12,17 @@ at the right edge. A black pixel is one; a white pixel is zero or left padding.
 There is exactly one image pixel per bit and one image row per odd state. The
 PNG files are 8-bit grayscale containers but use only sample values 0 and 255.
 
+Full-expansion images use a minimum 71-bit canvas as a visual scale reference;
+wider trajectories retain their full natural width. This does not promote a
+small seed beyond the published `2^71` verification frontier: added columns
+are explicitly white left-padding, and metadata separately records the active
+peak width. Named `low16` images remain intentional 16-bit diagnostic crops.
+The manifest also records active seed width and whether that seed is genuinely
+beyond `2^71`. In the present reviewed set, that is true only for the
+four-cell and larger EC17 returning-glider starts (including the six-cell
+post-prefix state); the smaller pictures are mechanism diagnostics inside the
+verified range, not candidate counterexamples.
+
 `constructions.json` records the exact seed, endpoint, expected step count,
 scope, and source artifact for every reviewed image. `render_collatz.py`
 replays the arbitrary-precision integer dynamics, refuses an endpoint or step

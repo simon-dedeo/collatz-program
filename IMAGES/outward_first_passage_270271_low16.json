@@ -81,6 +81,7 @@
   "height": 88,
   "id": "outward_first_passage_270271_low16",
   "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "minimum_canvas_width_bits": null,
   "pixel_convention": {
     "alignment": "right aligned; least significant bit at right",
     "black": 1,
@@ -92,6 +93,12 @@
   "png_sha256": "5d4dd8cb27fe86a1c1ce12b84ad7032d7af3f15480fe5dd03468711be7ded3bd",
   "provenance": "Low-bit window of IMAGES/outward_first_passage_270271_prefix.png",
   "raster_window": "least significant 16 bits; higher bits omitted",
+  "scale_reference": {
+    "note": "canvas padding does not change the active seed; an odd seed beyond 2^71 has at least 72 active bits",
+    "published_exhaustive_frontier": "2^71",
+    "seed_active_bits": 19,
+    "seed_beyond_frontier": false
+  },
   "schema": "accelerated-odd-collatz-bitmap-v1",
   "scope": "Exact least-significant-16-bit crop of the record finite outward first-passage prefix; no infinite-orbit claim.",
   "states_sha256": "2d0999651b1afcb57103fa7dfa28213cda4a74d63eb862ad337d7ed19b3d5cea",

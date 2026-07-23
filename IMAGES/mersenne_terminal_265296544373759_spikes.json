@@ -68,6 +68,7 @@
   "height": 47,
   "id": "mersenne_terminal_265296544373759_spikes",
   "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "minimum_canvas_width_bits": 71,
   "pixel_convention": {
     "alignment": "right aligned; least significant bit at right",
     "black": 1,
@@ -76,12 +77,18 @@
     "white": "0 or left padding"
   },
   "png": "mersenne_terminal_265296544373759_spikes.png",
-  "png_sha256": "51c596d5ddea6178f5ca4549d8cbcc87d18c387277a3c26f3a0980cbc8cadd10",
+  "png_sha256": "74dd38848a48a21ba0bbd69def4615188e0a12d841dd9d595129d1968c5e4e5d",
   "provenance": "experiments/kontorovich/mersenne_shadow_results.json#/highest_start_level_terminal_renewal including its automatic_continuation/0",
-  "raster_window": "full binary expansion",
+  "raster_window": "full binary expansion in a minimum 71-bit canvas",
+  "scale_reference": {
+    "note": "canvas padding does not change the active seed; an odd seed beyond 2^71 has at least 72 active bits",
+    "published_exhaustive_frontier": "2^71",
+    "seed_active_bits": 48,
+    "seed_beyond_frontier": false
+  },
   "schema": "accelerated-odd-collatz-bitmap-v1",
   "scope": "Exact crop of four Mersenne-shadow macro bursts. Their starting v2(n+1) values are 10, 11, 12, and 13; the final state resets to v2(n+1)=3. Finite witness only.",
   "states_sha256": "57eff59e795da8e557e393daf573bf2268b1ad1222fdcbeeb2c7f2570672e1cb",
   "valuations_sha256": "f8746729b37946b1dd268e7a580455c9f534b99592e0aca41de41ec708732a25",
-  "width": 61
+  "width": 71
 }

@@ -48,6 +48,7 @@
   "height": 64,
   "id": "outward_first_passage_270271_after_prefix",
   "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "minimum_canvas_width_bits": 71,
   "pixel_convention": {
     "alignment": "right aligned; least significant bit at right",
     "black": 1,
@@ -56,12 +57,18 @@
     "white": "0 or left padding"
   },
   "png": "outward_first_passage_270271_after_prefix.png",
-  "png_sha256": "b5c198c33de6954b7a49e294a41dddce49042e20b080b1c1ef4173c8674c5af8",
+  "png_sha256": "f8c5d7400b88f53095d386f2cc777d5189464f307391519f705807c364113d69",
   "provenance": "Post-prefix suffix of IMAGES/outward_first_passage_270271_full.png beginning at accelerated step 87",
-  "raster_window": "full binary expansion",
+  "raster_window": "full binary expansion in a minimum 71-bit canvas",
+  "scale_reference": {
+    "note": "canvas padding does not change the active seed; an odd seed beyond 2^71 has at least 72 active bits",
+    "published_exhaustive_frontier": "2^71",
+    "seed_active_bits": 33,
+    "seed_beyond_frontier": false
+  },
   "schema": "accelerated-odd-collatz-bitmap-v1",
   "scope": "Exact suffix after the record finite outward first-passage prefix. It drops below the boundary peak after one accelerated step and reaches 1.",
   "states_sha256": "f3d31bf7eb22a28679dbc7e5cc6b9f1aecace58557f48d67455355a8dc3c1dae",
   "valuations_sha256": "b16791bd3f4452f4de19ab46afe26b5164315b8fc2d54af985cd060bf03c2f19",
-  "width": 33
+  "width": 71
 }

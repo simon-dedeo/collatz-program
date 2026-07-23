@@ -83,6 +83,7 @@
   "height": 151,
   "id": "outward_first_passage_270271_full",
   "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "minimum_canvas_width_bits": 71,
   "pixel_convention": {
     "alignment": "right aligned; least significant bit at right",
     "black": 1,
@@ -91,12 +92,18 @@
     "white": "0 or left padding"
   },
   "png": "outward_first_passage_270271_full.png",
-  "png_sha256": "0087955536a4eec4fa42d336b826ff5e4f91783ed9da0c90ef03157629d94cc8",
+  "png_sha256": "37c6a85bc9d55e098d842e8263ea0f8ce750a0916e8f2601f4bd9f02c77be817",
   "provenance": "Prefix from experiments/kontorovich/outward_first_passage_audit.json#/minimum_address_regression/visualizer_prefix; continuation independently replayed by IMAGES/render_collatz.py",
-  "raster_window": "full binary expansion",
+  "raster_window": "full binary expansion in a minimum 71-bit canvas",
+  "scale_reference": {
+    "note": "canvas padding does not change the active seed; an odd seed beyond 2^71 has at least 72 active bits",
+    "published_exhaustive_frontier": "2^71",
+    "seed_active_bits": 19,
+    "seed_beyond_frontier": false
+  },
   "schema": "accelerated-odd-collatz-bitmap-v1",
   "scope": "The first 87 accelerated steps are the exact finite outward prefix. The next step drops below its boundary peak and the ordinary continuation reaches 1; no counterexample.",
   "states_sha256": "e804fce3b735ae27c84b0fb1952b64d9ae3abac9ff994cab88de87f6a7ee0c34",
   "valuations_sha256": "18d96a6b7a09c0137181875a1c1533bfb612244d44b08daddada87593cd1bacd",
-  "width": 33
+  "width": 71
 }

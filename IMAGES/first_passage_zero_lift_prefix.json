@@ -55,6 +55,7 @@
   "height": 24,
   "id": "first_passage_zero_lift_prefix",
   "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "minimum_canvas_width_bits": 71,
   "pixel_convention": {
     "alignment": "right aligned; least significant bit at right",
     "black": 1,
@@ -63,12 +64,18 @@
     "white": "0 or left padding"
   },
   "png": "first_passage_zero_lift_prefix.png",
-  "png_sha256": "9df1e09cd28bd95218d41e15203ffcadf093d5ab7d57330bb79b6a8aee77fb95",
+  "png_sha256": "a93418bd6754433126c71516affb3f94cf46783421a6bad8a6d565f39064a0d7",
   "provenance": "experiments/kontorovich/kl_signed_thin_residue.json#/strongest_finite_zero_lift_run; the stored even shortcut seed 138770 reaches odd accelerated seed 69385 after one halving, and the two stored lookahead words are included",
-  "raster_window": "full binary expansion",
+  "raster_window": "full binary expansion in a minimum 71-bit canvas",
+  "scale_reference": {
+    "note": "canvas padding does not change the active seed; an odd seed beyond 2^71 has at least 72 active bits",
+    "published_exhaustive_frontier": "2^71",
+    "seed_active_bits": 17,
+    "seed_beyond_frontier": false
+  },
   "schema": "accelerated-odd-collatz-bitmap-v1",
   "scope": "Exact odd-only view of the strongest stored finite zero-lift first-passage-code run plus its two-word lookahead; not an infinite invariant orbit.",
   "states_sha256": "09275453ad80a9a9e725324edb174a171792d6d48e5748340bf1ff962550b950",
   "valuations_sha256": "0a9569d47d9bc60bcd16edb73902a5d6ca03909981a966ebea05858aaa0b37d0",
-  "width": 21
+  "width": 71
 }

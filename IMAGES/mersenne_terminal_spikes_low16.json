@@ -68,6 +68,7 @@
   "height": 47,
   "id": "mersenne_terminal_spikes_low16",
   "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "minimum_canvas_width_bits": null,
   "pixel_convention": {
     "alignment": "right aligned; least significant bit at right",
     "black": 1,
@@ -79,6 +80,12 @@
   "png_sha256": "4a941768d6a2872b166275f6b69a0967acd24a2c62e8a3b4e898b3bbcaab4cc0",
   "provenance": "Low-bit window of IMAGES/mersenne_terminal_265296544373759_spikes.png",
   "raster_window": "least significant 16 bits; higher bits omitted",
+  "scale_reference": {
+    "note": "canvas padding does not change the active seed; an odd seed beyond 2^71 has at least 72 active bits",
+    "published_exhaustive_frontier": "2^71",
+    "seed_active_bits": 48,
+    "seed_beyond_frontier": false
+  },
   "schema": "accelerated-odd-collatz-bitmap-v1",
   "scope": "Exact least-significant-16-bit crop. At macro starts, the trailing black run has lengths 10, 11, 12, and 13, then resets to 3. Finite witness only.",
   "states_sha256": "57eff59e795da8e557e393daf573bf2268b1ad1222fdcbeeb2c7f2570672e1cb",

@@ -25,6 +25,8 @@ from typing import Any
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_SPECS = HERE / "constructions.json"
+DEFAULT_FULL_CANVAS_BITS = 71
+REFERENCE_FRONTIER = 1 << 71
 
 
 def v2(value: int) -> int:
@@ -86,11 +88,20 @@ def png_chunk(kind: bytes, payload: bytes) -> bytes:
 
 
 def pixel_rows(
-    states: list[int], low_bits: int | None = None
+    states: list[int],
+    low_bits: int | None = None,
+    minimum_width: int = 0,
 ) -> tuple[int, list[bytes]]:
     if low_bits is not None and low_bits <= 0:
         raise ValueError("low_bits must be positive")
-    width = low_bits or max(value.bit_length() for value in states)
+    if minimum_width < 0:
+        raise ValueError("minimum_width must be nonnegative")
+    if low_bits is not None and minimum_width:
+        raise ValueError("low_bits and minimum_width are mutually exclusive")
+    width = low_bits or max(
+        minimum_width,
+        max(value.bit_length() for value in states),
+    )
     rows: list[bytes] = []
     for value in states:
         # Right alignment follows ordinary place value: bit 0 is always the
@@ -108,9 +119,16 @@ def pixel_rows(
 
 
 def write_png(
-    path: Path, states: list[int], low_bits: int | None = None
+    path: Path,
+    states: list[int],
+    low_bits: int | None = None,
+    minimum_width: int = 0,
 ) -> tuple[int, int, str]:
-    width, rows = pixel_rows(states, low_bits=low_bits)
+    width, rows = pixel_rows(
+        states,
+        low_bits=low_bits,
+        minimum_width=minimum_width,
+    )
     height = len(rows)
     raw = b"".join(b"\x00" + row for row in rows)  # filter type 0
     header = struct.pack(">IIBBBBB", width, height, 8, 0, 0, 0, 0)
@@ -189,7 +207,17 @@ def render_spec(spec: dict[str, Any], output_dir: Path) -> dict[str, Any]:
     )
     png_path = output_dir / f"{identifier}.png"
     low_bits = None if spec.get("low_bits") is None else int(spec["low_bits"])
-    width, height, png_sha256 = write_png(png_path, states, low_bits=low_bits)
+    minimum_width = (
+        0
+        if low_bits is not None
+        else int(spec.get("minimum_width", DEFAULT_FULL_CANVAS_BITS))
+    )
+    width, height, png_sha256 = write_png(
+        png_path,
+        states,
+        low_bits=low_bits,
+        minimum_width=minimum_width,
+    )
     record: dict[str, Any] = {
         "schema": "accelerated-odd-collatz-bitmap-v1",
         "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
@@ -201,10 +229,22 @@ def render_spec(spec: dict[str, Any], output_dir: Path) -> dict[str, Any]:
             "logical_pixel_scale": 1,
         },
         "raster_window": (
-            "full binary expansion"
+            f"full binary expansion in a minimum {minimum_width}-bit canvas"
             if low_bits is None
             else f"least significant {low_bits} bits; higher bits omitted"
         ),
+        "minimum_canvas_width_bits": (
+            minimum_width if low_bits is None else None
+        ),
+        "scale_reference": {
+            "published_exhaustive_frontier": "2^71",
+            "seed_beyond_frontier": seed > REFERENCE_FRONTIER,
+            "seed_active_bits": seed.bit_length(),
+            "note": (
+                "canvas padding does not change the active seed; an odd seed "
+                "beyond 2^71 has at least 72 active bits"
+            ),
+        },
         "id": identifier,
         "png": png_path.name,
         "png_sha256": png_sha256,
@@ -242,6 +282,12 @@ def render_specs(spec_path: Path, output_dir: Path) -> list[dict[str, Any]]:
                 "png_sha256": record["png_sha256"],
                 "width": record["width"],
                 "height": record["height"],
+                "active_peak_width": record["analysis"]["peak_bit_length"],
+                "active_seed_width": record["analysis"]["start_bit_length"],
+                "seed_beyond_2_pow_71": record["scale_reference"][
+                    "seed_beyond_frontier"
+                ],
+                "raster_window": record["raster_window"],
             }
             for record in records
         ],

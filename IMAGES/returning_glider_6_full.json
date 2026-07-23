@@ -95,6 +95,7 @@
   "height": 287,
   "id": "returning_glider_6_full",
   "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "minimum_canvas_width_bits": 71,
   "pixel_convention": {
     "alignment": "right aligned; least significant bit at right",
     "black": 1,
@@ -105,7 +106,13 @@
   "png": "returning_glider_6_full.png",
   "png_sha256": "1c82a6c87cb055ab20327e65f3d9fb2c93326f7909651acfbbcfeb853ddf1a1b",
   "provenance": "Prefix from experiments/kontorovich/breakoff_ether_glider_kl_bridge_audit.json#/actual_packet_macro_bridge/macro_rows/5/trace; continuation independently replayed by IMAGES/render_collatz.py",
-  "raster_window": "full binary expansion",
+  "raster_window": "full binary expansion in a minimum 71-bit canvas",
+  "scale_reference": {
+    "note": "canvas padding does not change the active seed; an odd seed beyond 2^71 has at least 72 active bits",
+    "published_exhaustive_frontier": "2^71",
+    "seed_active_bits": 98,
+    "seed_beyond_frontier": true
+  },
   "schema": "accelerated-odd-collatz-bitmap-v1",
   "scope": "The certified finite glider is the first 45 accelerated steps. The remaining exact ordinary continuation reaches 1; no counterexample.",
   "states_sha256": "1cd1648fd45193f34a29aa7a749763adc8641eaf58b2bbac813e336c0e925046",

@@ -61,6 +61,7 @@
   "height": 29,
   "id": "returning_glider_3_prefix",
   "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "minimum_canvas_width_bits": 71,
   "pixel_convention": {
     "alignment": "right aligned; least significant bit at right",
     "black": 1,
@@ -71,7 +72,13 @@
   "png": "returning_glider_3_prefix.png",
   "png_sha256": "828ba7426e814da26f738519d13da01c320bf39bb69576cfb04eac851cffbfdd",
   "provenance": "experiments/kontorovich/breakoff_ether_glider_kl_bridge_audit.json#/actual_packet_macro_bridge/macro_rows/2/trace",
-  "raster_window": "full binary expansion",
+  "raster_window": "full binary expansion in a minimum 71-bit canvas",
+  "scale_reference": {
+    "note": "canvas padding does not change the active seed; an odd seed beyond 2^71 has at least 72 active bits",
+    "published_exhaustive_frontier": "2^71",
+    "seed_active_bits": 67,
+    "seed_beyond_frontier": false
+  },
   "schema": "accelerated-odd-collatz-bitmap-v1",
   "scope": "Kernel-adjacent finite exact returning-glider prefix with three ether cells; no infinite orbit claim.",
   "states_sha256": "c8de344ede9acaac3ddfcad7ebc3122c38f3ada4cd296560c2fba9c50bb4ba28",

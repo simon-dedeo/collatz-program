@@ -72,6 +72,7 @@
   "height": 199,
   "id": "mersenne_terminal_265296544373759_full",
   "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "minimum_canvas_width_bits": 71,
   "pixel_convention": {
     "alignment": "right aligned; least significant bit at right",
     "black": 1,
@@ -80,12 +81,18 @@
     "white": "0 or left padding"
   },
   "png": "mersenne_terminal_265296544373759_full.png",
-  "png_sha256": "afc6abcb4db585610bbecd2cbe9c1ea2fe35225309aa0b716c353b0eafc06bd5",
+  "png_sha256": "6f27d7737e296b7ccb747867fa452720a5602150e7e480fc4e169c5d8749ab94",
   "provenance": "experiments/kontorovich/mersenne_shadow_results.json#/highest_start_level_terminal_renewal",
-  "raster_window": "full binary expansion",
+  "raster_window": "full binary expansion in a minimum 71-bit canvas",
+  "scale_reference": {
+    "note": "canvas padding does not change the active seed; an odd seed beyond 2^71 has at least 72 active bits",
+    "published_exhaustive_frontier": "2^71",
+    "seed_active_bits": 48,
+    "seed_beyond_frontier": false
+  },
   "schema": "accelerated-odd-collatz-bitmap-v1",
   "scope": "Exact ordinary continuation of the highest-start-level stored terminal-renewal witness; it reaches 1 and is not a counterexample.",
   "states_sha256": "b5b7f5c7c945e1a9c6f52b744908e64280056cd3d91db461283d8297075d431b",
   "valuations_sha256": "a3c5bf207d130701c1d7923471485680b9a0c700eac9e78f1c486f86adc04995",
-  "width": 61
+  "width": 71
 }

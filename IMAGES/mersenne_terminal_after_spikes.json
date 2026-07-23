@@ -52,6 +52,7 @@
   "height": 153,
   "id": "mersenne_terminal_after_spikes",
   "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "minimum_canvas_width_bits": 71,
   "pixel_convention": {
     "alignment": "right aligned; least significant bit at right",
     "black": 1,
@@ -60,12 +61,18 @@
     "white": "0 or left padding"
   },
   "png": "mersenne_terminal_after_spikes.png",
-  "png_sha256": "84e66440d005737031a744ea9c4c11d5f546b25e16ca5a0fdc65e31b06865afe",
+  "png_sha256": "eed3f887127eb9c375e3cf30abb8530d6ba888c704023baa375fad47edd7037d",
   "provenance": "Post-prefix suffix of IMAGES/mersenne_terminal_265296544373759_full.png beginning at accelerated step 46",
-  "raster_window": "full binary expansion",
+  "raster_window": "full binary expansion in a minimum 71-bit canvas",
+  "scale_reference": {
+    "note": "canvas padding does not change the active seed; an odd seed beyond 2^71 has at least 72 active bits",
+    "published_exhaustive_frontier": "2^71",
+    "seed_active_bits": 59,
+    "seed_beyond_frontier": false
+  },
   "schema": "accelerated-odd-collatz-bitmap-v1",
   "scope": "Exact suffix after the four programmed Mersenne-shadow spikes. It reaches 1; no counterexample.",
   "states_sha256": "93c401c682b67ee53fe357d651f44fd6a899b92e9ce77b060945816bfee6ba11",
   "valuations_sha256": "e6535c6f32d9e536aa96709dfe9e0d48dec43a783e5e180f8992bd4da3684ef7",
-  "width": 61
+  "width": 71
 }

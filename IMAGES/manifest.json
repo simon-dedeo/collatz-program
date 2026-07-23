@@ -2,136 +2,212 @@
   "construction_registry": "IMAGES/constructions.json",
   "images": [
     {
+      "active_peak_width": 33,
+      "active_seed_width": 25,
       "height": 109,
       "id": "mersenne_controller_24017279_full",
       "png": "mersenne_controller_24017279_full.png",
-      "png_sha256": "4c57584a67f1c0308a50e6632bbc100b08d12d06e4e1934362f56e1a1aa40a0c",
-      "width": 33
+      "png_sha256": "9a7dbb0f3efd9b176132c9ff1202ec45979461b6d8015288f1766e250d5258d3",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": false,
+      "width": 71
     },
     {
+      "active_peak_width": 61,
+      "active_seed_width": 48,
       "height": 199,
       "id": "mersenne_terminal_265296544373759_full",
       "png": "mersenne_terminal_265296544373759_full.png",
-      "png_sha256": "afc6abcb4db585610bbecd2cbe9c1ea2fe35225309aa0b716c353b0eafc06bd5",
-      "width": 61
+      "png_sha256": "6f27d7737e296b7ccb747867fa452720a5602150e7e480fc4e169c5d8749ab94",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": false,
+      "width": 71
     },
     {
+      "active_peak_width": 61,
+      "active_seed_width": 48,
       "height": 47,
       "id": "mersenne_terminal_265296544373759_spikes",
       "png": "mersenne_terminal_265296544373759_spikes.png",
-      "png_sha256": "51c596d5ddea6178f5ca4549d8cbcc87d18c387277a3c26f3a0980cbc8cadd10",
-      "width": 61
+      "png_sha256": "74dd38848a48a21ba0bbd69def4615188e0a12d841dd9d595129d1968c5e4e5d",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": false,
+      "width": 71
     },
     {
+      "active_peak_width": 61,
+      "active_seed_width": 48,
       "height": 47,
       "id": "mersenne_terminal_spikes_low16",
       "png": "mersenne_terminal_spikes_low16.png",
       "png_sha256": "4a941768d6a2872b166275f6b69a0967acd24a2c62e8a3b4e898b3bbcaab4cc0",
+      "raster_window": "least significant 16 bits; higher bits omitted",
+      "seed_beyond_2_pow_71": false,
       "width": 16
     },
     {
+      "active_peak_width": 61,
+      "active_seed_width": 59,
       "height": 153,
       "id": "mersenne_terminal_after_spikes",
       "png": "mersenne_terminal_after_spikes.png",
-      "png_sha256": "84e66440d005737031a744ea9c4c11d5f546b25e16ca5a0fdc65e31b06865afe",
-      "width": 61
+      "png_sha256": "eed3f887127eb9c375e3cf30abb8530d6ba888c704023baa375fad47edd7037d",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": false,
+      "width": 71
     },
     {
+      "active_peak_width": 21,
+      "active_seed_width": 17,
       "height": 24,
       "id": "first_passage_zero_lift_prefix",
       "png": "first_passage_zero_lift_prefix.png",
-      "png_sha256": "9df1e09cd28bd95218d41e15203ffcadf093d5ab7d57330bb79b6a8aee77fb95",
-      "width": 21
+      "png_sha256": "a93418bd6754433126c71516affb3f94cf46783421a6bad8a6d565f39064a0d7",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": false,
+      "width": 71
     },
     {
+      "active_peak_width": 21,
+      "active_seed_width": 17,
       "height": 57,
       "id": "first_passage_zero_lift_full",
       "png": "first_passage_zero_lift_full.png",
-      "png_sha256": "daac668f05e0f57127d01799158f7aeaa98f14c79e7ef5dba1c54857ebb24cef",
-      "width": 21
+      "png_sha256": "6da374fa5b4121a7b5715f85cc5869a8bee694482894f5d5ceed5445fb177560",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": false,
+      "width": 71
     },
     {
+      "active_peak_width": 33,
+      "active_seed_width": 19,
       "height": 88,
       "id": "outward_first_passage_270271_prefix",
       "png": "outward_first_passage_270271_prefix.png",
-      "png_sha256": "b3e12859eed363440c9124e393ca9d341489585b4cf34ed90f7a5647d77d31bf",
-      "width": 33
+      "png_sha256": "4cec9a6a89bf52d6f742e2253038527257fafa2077f8075d37dc39d4e58225a4",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": false,
+      "width": 71
     },
     {
+      "active_peak_width": 33,
+      "active_seed_width": 19,
       "height": 88,
       "id": "outward_first_passage_270271_low16",
       "png": "outward_first_passage_270271_low16.png",
       "png_sha256": "5d4dd8cb27fe86a1c1ce12b84ad7032d7af3f15480fe5dd03468711be7ded3bd",
+      "raster_window": "least significant 16 bits; higher bits omitted",
+      "seed_beyond_2_pow_71": false,
       "width": 16
     },
     {
+      "active_peak_width": 33,
+      "active_seed_width": 19,
       "height": 151,
       "id": "outward_first_passage_270271_full",
       "png": "outward_first_passage_270271_full.png",
-      "png_sha256": "0087955536a4eec4fa42d336b826ff5e4f91783ed9da0c90ef03157629d94cc8",
-      "width": 33
+      "png_sha256": "37c6a85bc9d55e098d842e8263ea0f8ce750a0916e8f2601f4bd9f02c77be817",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": false,
+      "width": 71
     },
     {
+      "active_peak_width": 33,
+      "active_seed_width": 33,
       "height": 64,
       "id": "outward_first_passage_270271_after_prefix",
       "png": "outward_first_passage_270271_after_prefix.png",
-      "png_sha256": "b5c198c33de6954b7a49e294a41dddce49042e20b080b1c1ef4173c8674c5af8",
-      "width": 33
+      "png_sha256": "f8c5d7400b88f53095d386f2cc777d5189464f307391519f705807c364113d69",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": false,
+      "width": 71
     },
     {
+      "active_peak_width": 63,
+      "active_seed_width": 60,
       "height": 16,
       "id": "returning_glider_1_prefix",
       "png": "returning_glider_1_prefix.png",
-      "png_sha256": "9adc8d18b3f433e7f6b0a624f5c51d15d5c2f986c694f5b54b474bfdfdb42199",
-      "width": 63
+      "png_sha256": "36029b05bcb94172a1192a2dd5273a6d9bf0afe9a2319d89d188c32b6449fc8c",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": false,
+      "width": 71
     },
     {
+      "active_peak_width": 73,
+      "active_seed_width": 69,
       "height": 22,
       "id": "returning_glider_2_prefix",
       "png": "returning_glider_2_prefix.png",
       "png_sha256": "32355d0a035114bfd4d4b69b9ad6d897ee3d005d8a52634faba08b202151b265",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": false,
       "width": 73
     },
     {
+      "active_peak_width": 74,
+      "active_seed_width": 67,
       "height": 29,
       "id": "returning_glider_3_prefix",
       "png": "returning_glider_3_prefix.png",
       "png_sha256": "828ba7426e814da26f738519d13da01c320bf39bb69576cfb04eac851cffbfdd",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": false,
       "width": 74
     },
     {
+      "active_peak_width": 91,
+      "active_seed_width": 83,
       "height": 35,
       "id": "returning_glider_4_prefix",
       "png": "returning_glider_4_prefix.png",
       "png_sha256": "a1015c805902828e3ae5dd53f0db17f8ddfe18a990e78b314978afd9c992542a",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": true,
       "width": 91
     },
     {
+      "active_peak_width": 101,
+      "active_seed_width": 92,
       "height": 40,
       "id": "returning_glider_5_prefix",
       "png": "returning_glider_5_prefix.png",
       "png_sha256": "6a33a950535ffb51a175455af51334f82c91bec822a22ec5bfe40d85df32d587",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": true,
       "width": 101
     },
     {
+      "active_peak_width": 108,
+      "active_seed_width": 98,
       "height": 46,
       "id": "returning_glider_6_prefix",
       "png": "returning_glider_6_prefix.png",
       "png_sha256": "55f0c922bb9f8359e49f624d6b90df993c9345bf28abb622fe01d1c85069cf0a",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": true,
       "width": 108
     },
     {
+      "active_peak_width": 115,
+      "active_seed_width": 98,
       "height": 287,
       "id": "returning_glider_6_full",
       "png": "returning_glider_6_full.png",
       "png_sha256": "1c82a6c87cb055ab20327e65f3d9fb2c93326f7909651acfbbcfeb853ddf1a1b",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": true,
       "width": 115
     },
     {
+      "active_peak_width": 115,
+      "active_seed_width": 108,
       "height": 242,
       "id": "returning_glider_6_after_prefix",
       "png": "returning_glider_6_after_prefix.png",
       "png_sha256": "e27fbb271ab36dc281b2331dd1ddf2ed37731865843d1b583e05608724c0d14c",
+      "raster_window": "full binary expansion in a minimum 71-bit canvas",
+      "seed_beyond_2_pow_71": true,
       "width": 115
     }
   ],

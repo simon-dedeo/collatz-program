@@ -59,6 +59,7 @@
   "height": 57,
   "id": "first_passage_zero_lift_full",
   "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "minimum_canvas_width_bits": 71,
   "pixel_convention": {
     "alignment": "right aligned; least significant bit at right",
     "black": 1,
@@ -67,12 +68,18 @@
     "white": "0 or left padding"
   },
   "png": "first_passage_zero_lift_full.png",
-  "png_sha256": "daac668f05e0f57127d01799158f7aeaa98f14c79e7ef5dba1c54857ebb24cef",
+  "png_sha256": "6da374fa5b4121a7b5715f85cc5869a8bee694482894f5d5ceed5445fb177560",
   "provenance": "Prefix from experiments/kontorovich/kl_signed_thin_residue.json#/strongest_finite_zero_lift_run; continuation independently replayed by IMAGES/render_collatz.py",
-  "raster_window": "full binary expansion",
+  "raster_window": "full binary expansion in a minimum 71-bit canvas",
+  "scale_reference": {
+    "note": "canvas padding does not change the active seed; an odd seed beyond 2^71 has at least 72 active bits",
+    "published_exhaustive_frontier": "2^71",
+    "seed_active_bits": 17,
+    "seed_beyond_frontier": false
+  },
   "schema": "accelerated-odd-collatz-bitmap-v1",
   "scope": "The first 23 accelerated steps are the finite zero-lift construction. The exact ordinary continuation reaches 1; no counterexample.",
   "states_sha256": "9ad288af7ee5bed40b38776c2126cbc7b834cb6b3b485e72a6ab126a32b76d12",
   "valuations_sha256": "0218b13fc38deef016148bb4b8dafc3a16bf41fb2fa36d41fa696502c3d5d666",
-  "width": 21
+  "width": 71
 }

@@ -398,31 +398,45 @@ The visual bottom line is simple: the program knows how to move outward and it
 knows how to execute finite tapes.  It has not yet shown an ordinary Collatz
 orbit that remembers how to keep doing so after the tape is consumed.
 
+## 2026-07-23 — 71-bit scale correction
+
+The earlier renderer chose the smallest canvas containing each trajectory's
+actual peak.  That was why the Mersenne and outward-first-passage images were
+only 61 and 33 pixels wide.  It was literal, but it hid the project's most
+important scale calibration.  The EC17 collection already contained natural
+widths `73,74,91,101,108,115`, so this was a presentation inconsistency rather
+than a shortage of large constructions.
+
+Full-expansion images now use a minimum 71-bit canvas and remain right-aligned.
+The added columns are white zero-padding.  Explicit `low16` diagnostic crops
+remain 16 pixels wide.
+
+This distinction is essential: **a 71-pixel canvas is not a 71-bit seed**.
+Padding a 19-, 48-, or 60-bit state does not move it beyond the published
+ordinary-seed verification frontier.  Indeed a number strictly beyond
+`2^71` needs at least 72 active bits.  Sidecars and the manifest therefore
+record both canvas width and active peak width.  The pictures may share a
+71-bit ruler, but only the active black/white support is mathematical state.
+
+Under the stronger and more relevant reading—“the starting integer itself
+must be beyond the verified range”—the current collection does have such
+images, but only in the EC17 family: the four-cell, five-cell, and six-cell
+starts, plus the six-cell post-prefix state.  Their active seed widths are
+`83,92,98,108` bits.  The glider-six prefix and full-continuation images share
+the same 98-bit seed.  All smaller-seed pictures are retained only because
+they expose controller failure modes cheaply and exactly.
+
 <!-- visualizer-monitor:start -->
 ## Automated monitor status
 
-Last change scan: `2026-07-23T19:35:27+00:00`. This block is a machine alert, not a research result.
+Last change scan: `2026-07-23T19:40:52+00:00`. This block is a machine alert, not a research result.
 
 Changed monitored files:
 
 - `CLEAN_LEAN/FOR_FABLE.md`
-- `NEW_RESUME.md`
-- `README.md`
-- `docs/FOR_CLEAN_LEAN.md`
-- `experiments/kontorovich/outward_first_passage.py`
-- `experiments/kontorovich/outward_first_passage_audit.json`
-
-New exact unreviewed renders:
-
-- `IMAGES/AUTO/auto_9c721f6204e1d7ca.png`
 
 Keyword alerts for visual review:
 
 - `CLEAN_LEAN/FOR_FABLE.md`: 27: the advanced-fiber root law, the root self-loop counterexample, mixer | 28: bounds/counterexample, and rational pressure-row/Chernoff-gap checkers are | 184: ("selection") needs primitivity, and the branch residues cycle 5→2→8 (mod
-- `NEW_RESUME.md`: 1: # NEW_RESUME — Kontorovich counterexample-search handoff | 7: There is no counterexample. Simon's point that YAH/tag universality is likely | 50: reaches the terminal cycle. The artifact exposes its exact 35-block odd
-- `README.md`: 18: certify a counterexample. | 38: There is still no counterexample. Simon's observation that the YAH/tag | 89: moment is ensemble conservation, not an ordinary orbit.
-- `docs/FOR_CLEAN_LEAN.md`: 117: the one-sided inclusion and arbitrary-cycle argument in reply 19 below. | 148: Your C3 counterexample (2-branch CAN amplify one-sided oscillation) matches | 251: residues cycle 5→2→8 (mod 9), period 3; check aperiodicity before claiming
-- `experiments/kontorovich/outward_first_passage.py`: 13: blocks would therefore be a Collatz counterexample. | 16: terminal 1--2 cycle. Increasing-source exhaustion then computes the exact | 71: def accelerated_odd_step(value: int) -> int:
-- `experiments/kontorovich/outward_first_passage_audit.json`: 5: "claim_scope": "exact finite first-passage and stopped-mass identities at the stated bound; no infinite ordinary survivor and no Collatz counterexample", | 6: "counterexample": null, | 698: "mass_to_atom_gate": "branching criticality alone does not give an ordinary seed; a projectively consistent schedule measure would suffice if the nondecreasing canonical least resi
 
 <!-- visualizer-monitor:end -->
