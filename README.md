@@ -129,9 +129,31 @@ T^L(2^L*t-1)=3^L*t-1.
 
 Splicing another pure rail consumes its length from the finite counter
 `v_2(t)`, so a fixed positive payload cannot repeat this discharge forever.
-A counterexample must include a self-writing recharge phase.  The artifact
-has `counterexample:null`; its SHA-256 is
+A counterexample must include a self-writing recharge phase.  Commits
+`408cb2c`/`814fb00` now sharpen that statement: the three KL predecessor
+branches merely move the negative center among `-1,-2,-4`, and `v_2(n+1)` is
+exactly the length of the next forced consecutive odd burst.  Recharge depth
+is discharged immediately; it is not an independent stored counter.
+
+The exact follow-up calibrates all three explicitly supplied signed cycles
+through `-1`, `-5`, and `-17`.  Their deviation/weight surpluses decrease over
+`k=12..19` from respectively `1.00491`, `1.14003`, and `1.86455` to
+`1.00030`, `1.06409`, and `1.48130`; `-1` is exactly cheapest in every row.
+This is finite evidence from feasible subeigenvectors, not a limit theorem.
+Commit `35200ca` proves the first structural consequence: coherent
+moving-center branches preserve the `2,3`-primitive part of the centered
+distance.  QM132--133 ask Lean to check the complementary reset costs: any
+`N`-step shadow of a fixed signed orbit needs a fresh congruence modulo `2^N`,
+and switching distinct controllers through ternary precision `k` requires
+connector length growing with `k`.  Hence the live freedom is an aperiodic
+self-writing sequence of increasingly precise controller resets, not three
+independently growing counters.
+
+Both exact artifacts have `counterexample:null`.  The original minus-one
+artifact SHA-256 is
 `b6204c3964b880e3c5857114f7bcd112e2e1592ca3653ad79445ce470dc14577`.
+The three-cycle artifact SHA-256 is
+`f52afeca61dc4bd0683a2ab72e285377355e86edd5e52fec85e89a84ab534249`.
 See [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md).
 
 ### 2026-07-23 07:20 EDT
@@ -4966,17 +4988,20 @@ identically `x`.
   gate directly and can reuse the project's side-bush disjointness, rational
   base-`3/2` coordinate, and affine product-of-places diagnostics.
 - **KL-calibrated recharge/discharge rays.**  Treat the positive class-8
-  chord as a discharge of the finite counter `v_2(m+1)`.  The minimizing KL
-  policy has no outward cycle; every non-minimal lift pays the exact potential
-  factor `c_alt/c_min`, and every outward word must also obey
-  `24*n8>17*n2+82*ns`.  Search only autonomous mixed blocks which regenerate
-  the counter, beat both costs, and close for one natural payload.  The
-  `k=12..19` exact diagnostic says the nonordinary `-1` self-loop nearly
-  saturates the tax, while its feasible-vector condition numbers grow.
-  Commits `ddff8d7`/`7aa7c0d`/`cc9f441` prove the arbitrary-path endpoint
-  bound, the uniform fixed-level cap on selected drift, and the exponential
-  ordinary size cost of tracking the exact spine.  The missing theorem must
-  couple moving precision, height gain, and counter recharge.
+  chord as an immediately forced discharge of `v_2(m+1)`.  The minimizing KL
+  policy has no outward cycle; every non-minimal lift pays `c_alt/c_min`, and
+  every outward word obeys `24*n8>17*n2+82*ns`.  Commits
+  `408cb2c`/`814fb00` prove that mixed branches move the exceptional negative
+  center rather than freely resetting a battery, and that the complete
+  dyadic depth is consumed by the next odd burst.  The exact `k=12..19`
+  comparison makes the signed cycles through `-1,-5,-17` the calibrated
+  near-equality templates, with `-1` cheapest at every audited level.  Search
+  only autonomous controller-switch blocks that beat the KL tax and close for
+  one natural payload.  Commit `35200ca` proves the QM131 primitive-core
+  invariant on arbitrary moving-center segments; QM132--133 target the
+  remaining exponential dyadic shadow-address cost and growing connector
+  length for growing ternary precision.  The missing construction must
+  self-write an aperiodic sequence of increasingly precise controller resets.
   This is a search principle and finite calibration, not a counterexample. See
   [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md).
 - **Exceptional-orbit obstructions in reverse.**  Re-read the proof program's
@@ -5044,7 +5069,7 @@ identically `x`.
 | Finite Laurent and homogeneous rational period-three EC17 coboundaries | Universally closed in the stated classes by companion commits `1154476`, `d0faf96`, and `82198ac`.  The exact three-step defect has three quadratic monomials.  Extreme support excludes every finite Laurent slice.  For a reduced homogeneous rational potential `x^-1 f(y/x)`, the scaled denominator divides the original, hence is a monomial; the same extreme-support contradiction then closes the quotient.  This does not exclude a general nonhomogeneous bivariate rational function, an infinite theta series, or rationality at one evaluated orbit. | [`LaurentCoboundaryNoGo.lean`](KontoroC/KontoroC/LaurentCoboundaryNoGo.lean), [`RationalCoboundaryReduction.lean`](KontoroC/KontoroC/RationalCoboundaryReduction.lean) |
 | General 2005/2007/2013 theta theorems as an immediate period-three shortcut | Closed as applications of those sufficient statements, not as a no-period-three result.  Amou--Väänänen (2005) controls simultaneous relations over the full expanding-place set, which here contains both the real and 2-adic places; EC17 supplies only the latter relation.  Väänänen (2013), Theorem 4, allows a non-archimedean place, but tracing its criterion to Amou--Matala-aho--Väänänen (2007) gives `B/A<13/12`, while the EC17 height ratio is larger.  Commit `92416b1` kernel-checks the uniform threshold comparison and reduces its logarithmic part to `2^13<3^9`.  A sharper theorem specialized to this one evaluated three-theta form remains live. | [`AmouMatalaahoVaananenThreshold.lean`](KontoroC/KontoroC/AmouMatalaahoVaananenThreshold.lean), [`FOR_CLEAN_LEAN.md`](docs/FOR_CLEAN_LEAN.md) |
 | Scalarizing the three theta values and importing a one-value threshold | Closed.  The scalar coefficient sequence is `u_n=s_0+s_1R^n+s_2R^(2n)`.  Commit `847027b` kernel-checks its cubic recurrence and the strictly positive literal Hankel determinant `s_0s_1s_2R^2(R-1)^6(R+1)^2`, then proves every recurrence of order at most two has zero such determinant.  The scalar relation therefore retains exact rank three.  The same commit shows that bare determinant-minus-cofactor multiplicity is only linear after primitive normalization; the generic cofactor divisor for a particular Padé matrix remains a seam. | [`ThetaScalarRank.lean`](KontoroC/KontoroC/ThetaScalarRank.lean), [`GeometricVandermonde.lean`](KontoroC/KontoroC/GeometricVandermonde.lean) |
-| Pure KL class-8 / minus-one escape rail | Closed for ordinary positive payloads.  Commit `9f307a9` proves `T^L(2^L*t-1)=3^L*t-1`, exact splice balance `M+v_2(u)=v_2(t)`, and impossibility of infinitely many positive pure-rail splices; over `Q`, `-1` is the unique positive-period point of the class-8 predecessor map.  Commit `cc9f441` proves no fixed natural occupies its inverse-limit address.  This does not close a growing diagonal with mixed recharge/discharge schedules. | [`KLMinusOneRail.lean`](KontoroC/KontoroC/KLMinusOneRail.lean), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md) |
+| Pure KL class-8 / minus-one escape rail | Closed for ordinary positive payloads.  Commit `9f307a9` proves `T^L(2^L*t-1)=3^L*t-1`, exact splice balance `M+v_2(u)=v_2(t)`, and impossibility of infinitely many positive pure-rail splices; over `Q`, `-1` is the unique positive-period point of the class-8 predecessor map.  Commit `cc9f441` proves no fixed natural occupies its inverse-limit address.  Commits `408cb2c`/`814fb00` add the three-branch center ledger and prove `v_2(n+1)` is exactly the next forced odd-burst length, so mixed recharge is not stored fuel.  This does not close a growing diagonal with aperiodic controller resets. | [`KLMinusOneRail.lean`](KontoroC/KontoroC/KLMinusOneRail.lean), [`KLRechargeLedger.lean`](KontoroC/KontoroC/KLRechargeLedger.lean), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md) |
 | Periodic fixed-depth residue clock as a rationality or construction proof | Invalid without EC17-specific consecutive-carry control.  Commit `a9ed874` proves the target clock and its no-ray consumer, but QM118 constructs any prescribed fixed-depth class by one sufficiently wide appended binary block.  Commit `5769c85` kernel-checks the sharper failure: modulo `3^d`, every carry except the final consecutive one is annihilated by a later ternary factor, and even exact long-block zero may be signed cancellation.  Deeper diagonal scans therefore neither glue finite links nor imply rationality.  The replacement balanced-precision worker makes a full moving-depth congruence equivalent to exact one-cycle equality; `4516a03` proves an eventual equality tail constructs a literal period-three ray, while `fff0dec`/`732da20` check the exact finite-row canonical range gate at its logarithmic precision.  Its bounded 53,392-row audit has zero hits but is not an all-precision theorem. | [`breakoff_ether_period3_fixed_depth_audit.json`](experiments/kontorovich/breakoff_ether_period3_fixed_depth_audit.json), [`breakoff_ether_period3_balanced_carry_audit.json`](experiments/kontorovich/breakoff_ether_period3_balanced_carry_audit.json), [`EtherCounterResidualFold.lean`](KontoroC/KontoroC/EtherCounterResidualFold.lean), [`FOR_CLEAN_LEAN.md`](docs/FOR_CLEAN_LEAN.md) |
 | Bare public words as binary-to-ternary chart adapters | Universally closed by Lean commit `772a6e8`.  Every exact public step has typed form `w-3^(-17m)=a*(w'-2^(-23m'))`.  A multi-cell word accumulates a strictly negative internal tax, exactly the normalized `-H_m` defect, so it cannot be a clean entry/exit coboundary.  This is not a no-orbit theorem; it proves that closure needs an auxiliary correction rail. | [`ChargeTypedInterface.lean`](KontoroC/KontoroC/ChargeTypedInterface.lean), [closure doctrine](docs/notes/kontorovich-closure-principles.md) |
 | Infinite rail of the one-cell determinant-four conjugacy | Universally closed in that chart class by Lean commit `772a6e8`.  Self-linking successive cells requires `1311*k_(i+1)=1309*k_i`; a length-`N` rail forces `1311^N|k_0`, and an infinite natural rail has `k_0=0`.  The result is independent of affine intercepts and tail cylinders.  A live turnaround must reverse the separation loss or leave the one-cell resonant class. | [`ChargeResonantSeparationNoGo.lean`](KontoroC/KontoroC/ChargeResonantSeparationNoGo.lean), [phase-glider note](docs/notes/kontorovich-resonant-phase-glider.md) |

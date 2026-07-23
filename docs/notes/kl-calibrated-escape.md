@@ -3,7 +3,9 @@
 2026-07-23. Status: **the path/cycle tax, strict selected-cycle drift,
 mixed-word budget, and pure minus-one rail obstruction are kernel-checked in
 companion commits `9f307a9`, `ddff8d7`, and `7aa7c0d`; `cc9f441`
-kernel-checks the exact ordinary size cost of tracking the minus-one spine**.
+kernel-checks the exact ordinary size cost of tracking the minus-one spine;
+`408cb2c`/`814fb00` prove the three-branch recharge ledger and that its
+dyadic depth is exactly the next forced odd-burst length**.
 The full
 cross-precision rigidity problem remains research.  There is no
 counterexample.
@@ -269,26 +271,187 @@ which is repeatedly regenerated, not merely one which starts large.  Companion
 commit `9f307a9` connects (5.1)--(5.2) to the literal Syracuse semantics and
 proves the infinite-splice contradiction.
 
-## 6. The theorem-driven construction target
+## 6. Recharge is an immediate forced burst, not stored fuel
 
-The KL reading narrows the next construction search to a renewal problem.
+The three literal KL predecessors of a positive target `a=2 (mod 3)` are
 
-1. **Discharge.**  A class-8 block spends `r` units of `v_2(m+1)` and gains
-   about `r*log_2(3/2)` in height.
-2. **Recharge.**  Mixed class-2/transport or existing EC17 compiler blocks
-   must recreate at least `r'` units of `v_2(m+1)`.  They have negative KL
-   size shift and must be paid for by a longer discharge.
-3. **Calibration.**  Among exact recharge blocks, prioritize the least
-   product of KL deviation factors from (3.1).  The active policy itself is
-   excluded by (2.2).
-4. **Cofinality.**  A repeating finite residue cycle is insufficient.  The
-   payload recurrence must close autonomously for one positive natural; fresh
-   lift digits at each generation are only an externally preloaded 3-adic
-   stack.
+```text
+advancedChild=(2a-1)/3,
+retardedChild=2*advancedChild,
+transportChild=4a.
+```
 
-This does not yet construct a survivor.  It supplies a principled objective
-and two exact kill tests--negative selected-cycle drift and finite `-1`
-counter exhaustion--before any further computation.  The live big theorem
-would be either an autonomous recharge law that beats both costs, yielding a
-machine-checkable infinite orbit, or a uniform theorem that every admissible
-recharge pays more contraction than its next discharge can recover.
+Companion commit `408cb2c` connects them to one, two, and two shortcut
+Syracuse steps respectively and proves the exact centered balances
+
+```text
+3*(advancedChild+1)=2*(a+1),
+3*(retardedChild+2)=4*(a+1),
+transportChild+4=4*(a+1).                           (6.1)
+```
+
+The corresponding dyadic depths are therefore `1+v_2(a+1)`,
+`2+v_2(a+1)`, and `2+v_2(a+1)`.  Class-2 and transport do not reset an
+independent battery for free; they move the exceptional center from `-1` to
+`-2` or `-4` and pay the exact ordinary-size inequalities recorded in
+`KLRechargeLedger.lean`.
+
+Commit `814fb00` makes the operational meaning sharper.  For every natural
+`n`, put
+
+```text
+r=v_2(n+1),       t=(n+1)/2^r.
+```
+
+Lean proves `t>0`, `t` odd, `n=2^r*t-1`, and
+
+```text
+T^j(n)=3^j*2^(r-j)*t-1,       0<=j<=r.              (6.2)
+```
+
+Every source before `j=r` is odd and the endpoint at `r` is even.  Thus
+`v_2(n+1)` is exactly the maximal length of the next consecutive odd burst.
+A deep recharge cannot be stored or assigned to a later program branch: it
+forces its entire discharge immediately.
+
+## 7. The hidden invariant is one two-place content ledger
+
+The specific identities (6.1) have a moving-center form.  If `h=1 (mod 3)`
+is the positive center of a negative controller, define
+
+```text
+h8=(2h+1)/3,       h2=(4h+2)/3,       hs=4h.
+```
+
+Direct substitution gives
+
+```text
+3*(advancedChild(a)+h8)=2*(a+h),
+3*(retardedChild(a)+h2)=4*(a+h),
+transportChild(a)+hs=4*(a+h).                       (7.1)
+```
+
+Consequently the `2,3`-primitive cofactor of the positive centered distance
+`a+h` is unchanged by every coherent KL branch.  Moreover, for any positive
+integer `z`,
+
+```text
+2^v_2(z) * 3^v_3(z) <= z.                           (7.2)
+```
+
+So ordinary height, ternary shadow precision, and dyadic burst depth are not
+three resources which can be optimized independently.  They are the two
+prime contents of one integer.  If `a=-h (mod 3^k)` and
+`b=v_2(a+h)`, then (7.2) gives the combined address cost
+
+```text
+2^b*3^k <= a+h.                                     (7.3)
+```
+
+The special branch balances are kernel-checked in `408cb2c`.  Companion
+commit `35200ca` proves QM131 in full: the complementary ternary balances,
+two-place content divisor and height bound, the three abstract core-transfer
+lemmas, and every moving-center invariant in (7.1).  Thus the collapse from
+three apparent resources to one centered integer is a kernel-checked result.
+
+## 8. Negative cycles are the finite near-equality templates
+
+The fixed point `-1` is not the only signed equality object.  The new exact
+worker checks the three explicitly supplied signed shortcut cycles through
+`-1`, `-5`, and `-17`, whose KL positive-center presentations are
+
+```text
+1 -> 1,
+7 -> 10 -> 7,
+25 -> 34 -> 136 -> 91 -> 61 -> 82 -> 55 -> 37 -> 25.
+```
+
+Their branch counts give the strict outward separators `3>2`, `3^2>2^3`,
+and `3^7>2^11`.  For each certified feasible subeigenvector at
+`k=12,...,19`, the worker extracts the prescribed lift on every chord and
+computes the exact rational product
+
+```text
+product(c_prescribed/minFiber) /
+product(certified edge-weight lower bounds).         (8.1)
+```
+
+All 24 values exceed one.  Each finite sequence decreases strictly, and the
+`-1` template is exactly cheapest in every row:
+
+```text
+template                 k=12              k=19
+-1 fixed point        1.00491098975441   1.00029914602351
+-5 cycle             1.14003194854355   1.06409075514007
+-17 cycle            1.86455471354517   1.48129516352954
+```
+
+This suggests that the correct KL analogue of an Aubry/equality set is built
+from signed cycles rather than a positive ray.  That interpretation is a
+conjectural guide: the vectors are certified feasible subeigenvectors, the
+levels are finite, and neither convergence nor completeness of the three
+templates is claimed.  The exact artifact SHA-256 is
+`f52afeca61dc4bd0683a2ab72e285377355e86edd5e52fec85e89a84ab534249` and
+contains `counterexample:null`.
+
+## 9. Coherent negative shadowing has universally finite depth
+
+There is an elementary obstruction broader than periodic negative cycles.
+Suppose two signed shortcut-Syracuse orbits have the same parity choices for
+`N` steps, with `O_N` odd sources.  Subtracting their one-step affine laws and
+iterating gives
+
+```text
+2^N*(T^N(x)-T^N(y))=3^O_N*(x-y).                    (9.1)
+```
+
+Because `3^O_N` is odd and the endpoint difference is integral,
+
+```text
+2^N divides x-y.                                    (9.2)
+```
+
+Thus two distinct ordinary integers cannot share an infinite parity
+itinerary.  In particular, a positive orbit cannot coherently shadow any one
+fixed signed negative orbit forever, even if that controller is aperiodic.
+It may still reset to a different controller, but a post-reset shadow of
+length `N` needs a fresh address modulo `2^N`.
+
+Controller switching has a parallel ternary cost.  Each legal positive-center
+step in (7.1) obeys `h'<=4h`.  A length-`L` connector therefore has
+`h'<=4^Lh`.  If it imitates a distinct fixed target `g` modulo `3^k`, then
+
+```text
+3^k <= |h'-g| <= h'+g <= 4^L*h+g.                  (9.3)
+```
+
+No fixed-length connector can switch distinct negative controllers at
+cofinally increasing precision.  Equations (9.1)--(9.3) are requested as
+QM132--133 and remain pending kernel checking; they are recorded here to
+define the next exact interface, not as a completed Collatz theorem.
+
+## 10. The revised theorem-driven construction target
+
+The KL reading now narrows a viable counterexample architecture much more
+than “make the counters grow.”
+
+1. **Coherent segment.**  Follow a signed near-equality controller.  The
+   centered primitive cofactor stays fixed, and dyadic recharge immediately
+   becomes a forced odd burst.
+2. **Controller switch.**  Write a genuinely new negative center.  A shadow
+   of length `N` requires a mod-`2^N` address, while ternary precision `k`
+   requires connector length growing with `k` unless the connection is exact.
+3. **KL payment.**  The complete word must obey
+   `24*n8>17*n2+82*ns` and its non-minimal lift deviations must pay the
+   calibrated path tax.  The three signed cycles supply the baseline prices.
+4. **Autonomy.**  One positive payload must generate the next longer,
+   finer controller switch.  Supplying fresh CRT digits externally merely
+   constructs a 2- or 3-adic stack, not an ordinary counterexample.
+
+This is not a counterexample.  It identifies the only remaining constructive
+freedom: an aperiodic self-writing sequence of controller resets.  A big
+positive result would be an exact recurrence that generates those resets and
+beats both KL costs.  A big negative result would show that every such reset
+changes or drains the primitive cofactor faster than the next coherent
+segment can recover.  Pure seed widening and fixed-controller searches no
+longer address the live seam.

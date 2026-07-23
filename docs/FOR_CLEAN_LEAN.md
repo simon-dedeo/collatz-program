@@ -10617,3 +10617,185 @@ lambda^(sum_(i<N) w_i)
 for `lambda>0`.  Otherwise QM130a--b are the important exact algebraic core.
 Scope: the bound is fixed-level.  The condition number may grow with KL
 precision, so no precision-uniform rate or Collatz conclusion is claimed.
+
+## Kontorovich request: the two-place content ledger (QM131, 2026-07-23)
+
+Round 254 shows that the three KL children preserve a common centered
+quantity up to multiplication by powers of `2` and `3`.  Please make this
+precise.  In the notation of `KLRechargeLedger.lean`, the displayed
+identities should imply the complementary ternary balances
+
+```text
+v3(a+1) = 1 + v3(advancedChild+1),
+v3(a+1) = 1 + v3(retardedChild+2),
+v3(transportChild+4) = v3(a+1).                    (QM131a)
+```
+
+Here `v3` can be `padicValNat 3`, with whatever positivity hypotheses are
+needed.  Together with the existing dyadic identities, this says that a KL
+edge only transfers powers between the centered `2`- and `3`-adic ledgers.
+
+Please also package the elementary two-place content bound for every positive
+natural `z`:
+
+```text
+2^(v2 z) * 3^(v3 z) <= z.                           (QM131b)
+```
+
+The strongest useful formulation would define the `2,3`-primitive cofactor
+
+```text
+core23(z) = z / (2^(v2 z) * 3^(v3 z))
+```
+
+and prove, for the three branch-centered coordinates,
+
+```text
+core23(advancedChild+1) = core23(a+1),
+core23(retardedChild+2) = core23(a+1),
+core23(transportChild+4) = core23(a+1).             (QM131c)
+```
+
+If natural-number division makes `core23` awkward, an equivalent exact
+factorization or cross-multiplied equality is fine.  A generic lemma saying
+that `core23` is unchanged when a positive natural is multiplied by `2^i`
+or `3^j` would also be valuable.
+
+If the specialization is clean, please state the same ledger for an arbitrary
+positive negative-center parameter `h = 1 (mod 3)`.  With
+
+```text
+h8 = (2*h+1)/3,   h2 = (4*h+2)/3,   hs = 4*h,
+```
+
+the literal branch children should obey
+
+```text
+3*(advancedChild(a)+h8) = 2*(a+h),
+3*(retardedChild(a)+h2) = 4*(a+h),
+transportChild(a)+hs = 4*(a+h).                     (QM131d)
+```
+
+Thus `core23` is preserved along any coherent moving negative-center path,
+not only along `-4 -> -2 -> -1`.  The center cycles
+`1`, `7 -> 10 -> 7`, and
+`25 -> 34 -> 136 -> 91 -> 61 -> 82 -> 55 -> 37 -> 25`
+are useful `native_decide` regressions, but no completeness claim about
+negative cycles is intended.
+
+Mathematical scope: this is deliberately a bookkeeping theorem, not a
+no-escape theorem.  It would show that ordinary height, ternary precision,
+and the dyadic burst counter cannot be budgeted as three independent
+resources: for a centered coordinate `z`, their content already obeys
+`2^b*3^k <= z`, while the residual `core23(z)` is preserved by each coherent
+KL branch.  The remaining possible freedom is the moving negative center
+and the choice of branch/controller, which is where the next obstruction
+must live.
+
+## Kontorovich request: universal finite shadow depth (QM132, 2026-07-23)
+
+The moving-center ledger suggests a stronger theorem than any bounded search
+around the `-1`, `-5`, or `-17` controllers.  Please define the signed shortcut
+Syracuse map on `Int`,
+
+```text
+TZ(x) = if Even x then x/2 else (3*x+1)/2,
+```
+
+or use an equivalent affine-word formulation.  If two integers `x,y` have
+the same parity for the first `N` iterates, and `O_N` of those sources are
+odd, then prove the exact difference cocycle
+
+```text
+2^N * (TZ^[N](x) - TZ^[N](y)) =
+  3^O_N * (x-y).                                      (QM132a)
+```
+
+The divisibility consequence is the main point:
+
+```text
+same parity itinerary for N steps -> 2^N ∣ (x-y).     (QM132b)
+```
+
+For `x != y`, an absolute-value form should give
+
+```text
+2^N <= |x-y|.                                         (QM132c)
+```
+
+Consequently two distinct ordinary integers cannot have the same infinite
+shortcut parity itinerary.  In particular, no positive orbit can coherently
+shadow one fixed signed negative orbit forever.  This is broader than the
+periodic-controller theorem: the negative controller may itself be
+aperiodic.  A construction may still reset or switch controllers, but every
+length-`N` post-reset shadow requires a fresh congruence modulo `2^N`; the
+theorem does not claim those resets are impossible.
+
+If signed division causes avoidable friction, an abstract sequence theorem
+from the one-step identities is enough: assume integer sequences `x_j,y_j`
+and bits `eps_j` with
+
+```text
+2*(x_(j+1)-y_(j+1)) = (if eps_j then 3 else 1)*(x_j-y_j).
+```
+
+Then prove the product identity and dyadic divisibility.  The literal `TZ`
+corollary is preferable but secondary.
+
+## Kontorovich request: controller-switch precision costs length (QM133, 2026-07-23)
+
+There is a complementary ternary obstruction for changing the negative
+controller.  Use the positive-center maps from QM131d,
+
+```text
+S(h)=4h,
+R2(h)=(4h+2)/3  on h=7 (mod 9),
+R8(h)=(2h+1)/3  on h=1 (mod 9).
+```
+
+Every legal one-step center satisfies `h' <= 4*h` for `h>0`.  Hence a legal
+word/path of length `L`, from `h` to `h'`, satisfies
+
+```text
+h' <= 4^L*h.                                          (QM133a)
+```
+
+If this endpoint is supposed to impersonate a distinct fixed target center
+`g` through ternary precision `k`, so `h' != g` and
+`3^k ∣ (h'-g)`, then exact divisibility gives
+
+```text
+3^k <= |h'-g| <= h'+g <= 4^L*h+g.                    (QM133b)
+```
+
+Thus no connector of fixed length can switch two distinct negative
+controllers at cofinally increasing precision.  The connector length must
+grow at least linearly in the precision in the logarithmic reading; the
+power inequality above is the desired kernel statement and avoids logs.
+
+Please keep the nonzero-defect premise explicit.  An exact connection
+`h'=g` is a genuine signed prehistory relation and is not excluded by the
+size bound.  For the three displayed distinct signed cycles, exact
+cross-cycle connections are impossible because a point on one signed cycle
+cannot iterate into another; hard-coded cycle disjointness is optional.  The
+important reusable result is QM133a--b.
+
+Combined scope of QM131--133: a coherent controller segment preserves the
+`2,3`-primitive centered cofactor; a length-`N` dyadic shadow needs a fresh
+mod-`2^N` address; and a distinct controller switch at ternary precision `k`
+needs a word whose length grows with `k`.  None alone excludes an aperiodic
+self-writing orbit, but together they replace a three-counter search by one
+precise remaining problem: autonomous generation of increasingly long,
+increasingly precise controller switches.
+
+### QM132 build feedback (2026-07-23 09:30 EDT)
+
+A local target build of the in-progress `KLUniversalShadow.lean` confirms
+that the abstract `DifferenceCocycle` portion reaches the requested exact
+identity, divisibility, distance, and infinite-itinerary uniqueness
+statements.  The only current errors are in the optional literal
+`signedSyracuse` specialization, where Lean is not simplifying signed
+division after the even/odd witnesses, plus the final definitional reduction.
+Please prioritize committing the abstract QM132 theorem and QM133.  The
+literal signed-map bridge is explicitly secondary and may be omitted or
+returned to later rather than holding the structural result open.

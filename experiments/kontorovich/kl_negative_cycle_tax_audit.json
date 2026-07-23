@@ -1,0 +1,3254 @@
+{
+  "all_strict": true,
+  "all_surplus_sequences_strictly_decreasing": true,
+  "counterexample": null,
+  "minus_one_smallest_at_every_level": true,
+  "rows": [
+    {
+      "cycles": [
+        {
+          "certified_weight_product_lower": {
+            "denominator": 500000000000000,
+            "numerator": 706642523717051
+          },
+          "counts": {
+            "R2": 0,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 10648049193413798889777181021,
+            "numerator": 10700341653907100000000000000
+          },
+          "deviation_over_weight_decimal": "1.00491098975441",
+          "deviation_product": {
+            "denominator": 75342544752355,
+            "numerator": 107003416539071
+          },
+          "edges": [
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 706642523717051
+              },
+              "child_center": 1,
+              "coarse_child_state": 177146,
+              "desired_child_state": 531440,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 75342544752355,
+                "numerator": 107003416539071
+              },
+              "lift_states": [
+                177146,
+                354293,
+                531440
+              ],
+              "lift_values": [
+                140887310511279,
+                75342544752355,
+                107003416539071
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 531440,
+              "target_center": 1
+            }
+          ],
+          "name": "minus_one",
+          "strict_surplus_numerator": 52292460493301110222818979
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 31250000000000000000000000000,
+            "numerator": 34553343035001238584679238601
+          },
+          "counts": {
+            "R2": 1,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 260864326050604900303266413697148406929745478207243,
+            "numerator": 297393665932970708930745361328125000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.14003194854355",
+          "deviation_product": {
+            "denominator": 248352029529185357313644928,
+            "numerator": 313057985104992142111545581
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 62500000000000,
+                "numerator": 48897910719051
+              },
+              "child_center": 10,
+              "coarse_child_state": 177137,
+              "desired_child_state": 531431,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 12071549309088,
+                "numerator": 14892211675781
+              },
+              "lift_states": [
+                177137,
+                354284,
+                531431
+              ],
+              "lift_values": [
+                24143098618176,
+                25448162065778,
+                29784423351562
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 531434,
+              "target_center": 7
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 706642523717051
+              },
+              "child_center": 7,
+              "coarse_child_state": 177140,
+              "desired_child_state": 531434,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 20573335134556,
+                "numerator": 21021591145801
+              },
+              "lift_states": [
+                177140,
+                354287,
+                531434
+              ],
+              "lift_values": [
+                23832513628511,
+                20573335134556,
+                21021591145801
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 531431,
+              "target_center": 10
+            }
+          ],
+          "name": "minus_five",
+          "strict_surplus_numerator": 36529339882365808627478947630976593070254521792757
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 398335500026075439453125000000000000000000000000000000000000000000000000000000000000000000000000000000,
+            "numerator": 421288349274677127373767903232268262712171584999788096656218048743991742407452640469077623865801100851
+          },
+          "counts": {
+            "R2": 2,
+            "R8": 5,
+            "S": 1
+          },
+          "deviation_over_weight": {
+            "denominator": 5661075232200665085184099974649042390069330713628807672878322779451437704584774348103412229383383385282107104326078882442432680415019622716182237962487898375877336106117133270702929,
+            "numerator": 10555384507933546957872435412803290396827067887337988763610189011643554648748235708531598353404493713378906250000000000000000000000000000000000000000000000000000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.86455471354517",
+          "deviation_product": {
+            "denominator": 96750222839107557021728946230430829051641848101841540042236218263685077397813608800,
+            "numerator": 190790849553069166195205295442021329133800738541104823291562949875294924762830641561
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 62500000000000,
+                "numerator": 48897910719051
+              },
+              "child_center": 34,
+              "coarse_child_state": 177113,
+              "desired_child_state": 531407,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 14778429702399,
+                "numerator": 15218431192142
+              },
+              "lift_states": [
+                177113,
+                354260,
+                531407
+              ],
+              "lift_values": [
+                14778429702399,
+                15403348221838,
+                15218431192142
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 531416,
+              "target_center": 25
+            },
+            {
+              "branch": "S",
+              "certified_weight_lower": {
+                "denominator": 326316441621361,
+                "numerator": 100000000000000
+              },
+              "child_center": 136,
+              "desired_child_state": 531305,
+              "deviation_factor": {
+                "denominator": 1,
+                "numerator": 1
+              },
+              "source_state": 531407,
+              "target_center": 34
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 706642523717051
+              },
+              "child_center": 91,
+              "coarse_child_state": 177056,
+              "desired_child_state": 531350,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 29606264263864,
+                "numerator": 35105552441697
+              },
+              "lift_states": [
+                177056,
+                354203,
+                531350
+              ],
+              "lift_values": [
+                29606264263864,
+                29778652774254,
+                35105552441697
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 531305,
+              "target_center": 136
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 706642523717051
+              },
+              "child_center": 61,
+              "coarse_child_state": 177086,
+              "desired_child_state": 531380,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 186601118143,
+                "numerator": 213374950985
+              },
+              "lift_states": [
+                177086,
+                354233,
+                531380
+              ],
+              "lift_values": [
+                24444746476733,
+                25591993848641,
+                27952118579035
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 531350,
+              "target_center": 91
+            },
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 62500000000000,
+                "numerator": 48897910719051
+              },
+              "child_center": 82,
+              "coarse_child_state": 177065,
+              "desired_child_state": 531359,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 29255867169029,
+                "numerator": 32085154173645
+              },
+              "lift_states": [
+                177065,
+                354212,
+                531359
+              ],
+              "lift_values": [
+                29255867169029,
+                39627249003858,
+                32085154173645
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 531380,
+              "target_center": 61
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 706642523717051
+              },
+              "child_center": 55,
+              "coarse_child_state": 177092,
+              "desired_child_state": 531386,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 22471837610900,
+                "numerator": 23773266118951
+              },
+              "lift_states": [
+                177092,
+                354239,
+                531386
+              ],
+              "lift_values": [
+                27583301909296,
+                22471837610900,
+                23773266118951
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 531359,
+              "target_center": 82
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 706642523717051
+              },
+              "child_center": 37,
+              "coarse_child_state": 177110,
+              "desired_child_state": 531404,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 16499568128275,
+                "numerator": 19316765119212
+              },
+              "lift_states": [
+                177110,
+                354257,
+                531404
+              ],
+              "lift_values": [
+                18346994972249,
+                16499568128275,
+                19316765119212
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 531386,
+              "target_center": 55
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 706642523717051
+              },
+              "child_center": 25,
+              "coarse_child_state": 177122,
+              "desired_child_state": 531416,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 3199153324888,
+                "numerator": 3326399398867
+              },
+              "lift_states": [
+                177122,
+                354269,
+                531416
+              ],
+              "lift_values": [
+                15027264523326,
+                12796613299552,
+                13305597595468
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 531404,
+              "target_center": 37
+            }
+          ],
+          "name": "minus_seventeen",
+          "strict_surplus_numerator": 4894309275732881872688335438154248006757737173709181090731866232192116944163461360428186124021110328096799145673921117557567319584980377283817762037512101624122663893882866729297071
+        }
+      ],
+      "inputs": {
+        "certificate": "experiments/kl/cert_k12.json",
+        "certificate_sha256": "a6386bfc8d0410a3dd82a98d765690e53c620259e6b7c4a5359f150ce6d1459f"
+      },
+      "lambda_lower": {
+        "denominator": 10000000,
+        "numerator": 18064231
+      },
+      "level": 12
+    },
+    {
+      "cycles": [
+        {
+          "certified_weight_product_lower": {
+            "denominator": 500000000000000,
+            "numerator": 709475979287317
+          },
+          "counts": {
+            "R2": 0,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 3661327331984170253528321461,
+            "numerator": 3673523709128750000000000000
+          },
+          "deviation_over_weight_decimal": "1.00333113541585",
+          "deviation_product": {
+            "denominator": 113533373440726,
+            "numerator": 161635043201665
+          },
+          "edges": [
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 709475979287317
+              },
+              "child_center": 1,
+              "coarse_child_state": 531440,
+              "desired_child_state": 1594322,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 113533373440726,
+                "numerator": 161635043201665
+              },
+              "lift_states": [
+                531440,
+                1062881,
+                1594322
+              ],
+              "lift_values": [
+                113533373440726,
+                210403364189873,
+                161635043201665
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 1594322,
+              "target_center": 1
+            }
+          ],
+          "name": "minus_one",
+          "strict_surplus_numerator": 12196377144579746471678539
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 100000000000000000000000000000,
+            "numerator": 110699306053649947431447119371
+          },
+          "counts": {
+            "R2": 1,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 3072648274243278464221806713091155234367067398405429419,
+            "numerator": 3446851346565114644188311725000000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.12178519600132",
+          "deviation_product": {
+            "denominator": 111026830565826042609069956,
+            "numerator": 137874053862604585767532469
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 200000000000000,
+                "numerator": 156029674415263
+              },
+              "child_center": 10,
+              "coarse_child_state": 531431,
+              "desired_child_state": 1594313,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 30850902494638,
+                "numerator": 31372755362439
+              },
+              "lift_states": [
+                531431,
+                1062872,
+                1594313
+              ],
+              "lift_values": [
+                30850902494638,
+                35602255465479,
+                31372755362439
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 1594316,
+              "target_center": 7
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 709475979287317
+              },
+              "child_center": 7,
+              "coarse_child_state": 531434,
+              "desired_child_state": 1594316,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 10796458604586,
+                "numerator": 13184119686313
+              },
+              "lift_states": [
+                531434,
+                1062875,
+                1594316
+              ],
+              "lift_values": [
+                21592917209172,
+                23076425392584,
+                26368239372626
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 1594313,
+              "target_center": 10
+            }
+          ],
+          "name": "minus_five",
+          "strict_surplus_numerator": 374203072321836179966505011908844765632932601594570581
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 4135147291072800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+            "numerator": 4376257673048965771079519487598313417747101504683044360474270677676115781028221356625237095012735307333
+          },
+          "counts": {
+            "R2": 2,
+            "R8": 5,
+            "S": 1
+          },
+          "deviation_over_weight": {
+            "denominator": 54070824641881319850601771192358131557467439562924067644329965547417487097711035711048326430600306032490992845465213547761510328729287976296645464527396686285751827951280585578630340382256463,
+            "numerator": 98403227360473499087342237700256330438414597015690064860167443266297674385788441352052674986920727622400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.81989507303082",
+          "deviation_product": {
+            "denominator": 111199444396035432467769571757008041293631184959201235972593730735264277554381380500153499,
+            "numerator": 214171100544885000969706090024669056121400311652302070575318570595215075624923928414181272
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 200000000000000,
+                "numerator": 156029674415263
+              },
+              "child_center": 34,
+              "coarse_child_state": 531407,
+              "desired_child_state": 1594289,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 7831089851478,
+                "numerator": 9236078746663
+              },
+              "lift_states": [
+                531407,
+                1062848,
+                1594289
+              ],
+              "lift_values": [
+                15662179702956,
+                15822968087593,
+                18472157493326
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 1594298,
+              "target_center": 25
+            },
+            {
+              "branch": "S",
+              "certified_weight_lower": {
+                "denominator": 5168934113841,
+                "numerator": 1562500000000
+              },
+              "child_center": 136,
+              "desired_child_state": 1594187,
+              "deviation_factor": {
+                "denominator": 1,
+                "numerator": 1
+              },
+              "source_state": 1594289,
+              "target_center": 34
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 709475979287317
+              },
+              "child_center": 91,
+              "coarse_child_state": 531350,
+              "desired_child_state": 1594232,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 37407002208519,
+                "numerator": 42707581891118
+              },
+              "lift_states": [
+                531350,
+                1062791,
+                1594232
+              ],
+              "lift_values": [
+                40386633078065,
+                37407002208519,
+                42707581891118
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 1594187,
+              "target_center": 136
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 709475979287317
+              },
+              "child_center": 61,
+              "coarse_child_state": 531380,
+              "desired_child_state": 1594262,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 14842173242971,
+                "numerator": 16197941589904
+              },
+              "lift_states": [
+                531380,
+                1062821,
+                1594262
+              ],
+              "lift_values": [
+                29684346485942,
+                37791100727170,
+                32395883179808
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 1594232,
+              "target_center": 91
+            },
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 200000000000000,
+                "numerator": 156029674415263
+              },
+              "child_center": 82,
+              "coarse_child_state": 531359,
+              "desired_child_state": 1594241,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 11163393320308,
+                "numerator": 11716189510407
+              },
+              "lift_states": [
+                531359,
+                1062800,
+                1594241
+              ],
+              "lift_values": [
+                33490179960924,
+                40816143434920,
+                35148568531221
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 1594262,
+              "target_center": 61
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 709475979287317
+              },
+              "child_center": 55,
+              "coarse_child_state": 531386,
+              "desired_child_state": 1594268,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 24535735413798,
+                "numerator": 28741507595359
+              },
+              "lift_states": [
+                531386,
+                1062827,
+                1594268
+              ],
+              "lift_values": [
+                24535735413798,
+                27876548936454,
+                28741507595359
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 1594241,
+              "target_center": 82
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 709475979287317
+              },
+              "child_center": 37,
+              "coarse_child_state": 531404,
+              "desired_child_state": 1594286,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 19933969646937,
+                "numerator": 20841759003962
+              },
+              "lift_states": [
+                531404,
+                1062845,
+                1594286
+              ],
+              "lift_values": [
+                19933969646937,
+                23808441736192,
+                20841759003962
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 1594268,
+              "target_center": 55
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 709475979287317
+              },
+              "child_center": 25,
+              "coarse_child_state": 531416,
+              "desired_child_state": 1594298,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 13715510661597,
+                "numerator": 13984572684626
+              },
+              "lift_states": [
+                531416,
+                1062857,
+                1594298
+              ],
+              "lift_values": [
+                13715510661597,
+                14049850500133,
+                13984572684626
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 1594286,
+              "target_center": 37
+            }
+          ],
+          "name": "minus_seventeen",
+          "strict_surplus_numerator": 44332402718592179236740466507898198880947157452765997215837477718880187288077405641004348556320421589909007154534786452238489671270712023703354535472603313714248172048719414421369659617743537
+        }
+      ],
+      "inputs": {
+        "certificate": "experiments/kl/cert_k13.json",
+        "certificate_sha256": "32f22a8bfc6e7962443ce0da0fd28bdb5d2a56748e0ea832a9135a45391fc7b7"
+      },
+      "lambda_lower": {
+        "denominator": 1250000,
+        "numerator": 2273529
+      },
+      "level": 13
+    },
+    {
+      "cycles": [
+        {
+          "certified_weight_product_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 1424397381530503
+          },
+          "counts": {
+            "R2": 0,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 244829016400527499916855173649,
+            "numerator": 245364670373248000000000000000
+          },
+          "deviation_over_weight_decimal": "1.00218786964305",
+          "deviation_product": {
+            "denominator": 171882523497383,
+            "numerator": 245364670373248
+          },
+          "edges": [
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 1424397381530503
+              },
+              "child_center": 1,
+              "coarse_child_state": 1594322,
+              "desired_child_state": 4782968,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 171882523497383,
+                "numerator": 245364670373248
+              },
+              "lift_states": [
+                1594322,
+                3188645,
+                4782968
+              ],
+              "lift_values": [
+                316337702183543,
+                171882523497383,
+                245364670373248
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 4782968,
+              "target_center": 1
+            }
+          ],
+          "name": "minus_one",
+          "strict_surplus_numerator": 535653972720500083144826351
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 1000000000000000000000000000000,
+            "numerator": 1108225449240015206726080706013
+          },
+          "counts": {
+            "R2": 1,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 36467730089362066989541060474716124669868313,
+            "numerator": 40525879917598000000000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.11128057102243",
+          "deviation_product": {
+            "denominator": 32906418197101,
+            "numerator": 40525879917598
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 778031091330171
+              },
+              "child_center": 10,
+              "coarse_child_state": 1594313,
+              "desired_child_state": 4782959,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 32906418197101,
+                "numerator": 40525879917598
+              },
+              "lift_states": [
+                1594313,
+                3188636,
+                4782959
+              ],
+              "lift_values": [
+                35115708350580,
+                32906418197101,
+                40525879917598
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 4782962,
+              "target_center": 7
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 1424397381530503
+              },
+              "child_center": 7,
+              "coarse_child_state": 1594316,
+              "desired_child_state": 4782962,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 1,
+                "numerator": 1
+              },
+              "lift_states": [
+                1594316,
+                3188639,
+                4782962
+              ],
+              "lift_values": [
+                28005190579878,
+                31737557356515,
+                27938881361704
+              ],
+              "minimum_lift_index": 2,
+              "source_state": 4782959,
+              "target_center": 10
+            }
+          ],
+          "name": "minus_five",
+          "strict_surplus_numerator": 4058149828235933010458939525283875330131687
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 3351725383675240000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+            "numerator": 3549357445051849885078943823022248197733410811680392562993572168955722116229941321301188918377594552538063
+          },
+          "counts": {
+            "R2": 2,
+            "R8": 5,
+            "S": 1
+          },
+          "deviation_over_weight": {
+            "denominator": 990828466780926118469173342837911849035856164384261016453561336248328556560481048513108244651549967808020369626494941332073029714149096413011947687493373917679972703948867452242644816711779,
+            "numerator": 1695584435634502627760076294660238420125159784349752913157753369124979710038557953146931502668310704000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.71127949234567",
+          "deviation_product": {
+            "denominator": 598792061421708746650473618569571027250176452730949705506777526927177848520294700086285,
+            "numerator": 1085121302643215632486845276955613283415874475279613001049846181250877062861347367602542
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 778031091330171
+              },
+              "child_center": 34,
+              "coarse_child_state": 1594289,
+              "desired_child_state": 4782935,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 9636358958352,
+                "numerator": 10795346339017
+              },
+              "lift_states": [
+                1594289,
+                3188612,
+                4782935
+              ],
+              "lift_values": [
+                19272717916704,
+                21006306204875,
+                21590692678034
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 4782944,
+              "target_center": 25
+            },
+            {
+              "branch": "S",
+              "certified_weight_lower": {
+                "denominator": 83793134591881,
+                "numerator": 25000000000000
+              },
+              "child_center": 136,
+              "desired_child_state": 4782833,
+              "deviation_factor": {
+                "denominator": 1,
+                "numerator": 1
+              },
+              "source_state": 4782935,
+              "target_center": 34
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 1424397381530503
+              },
+              "child_center": 91,
+              "coarse_child_state": 1594232,
+              "desired_child_state": 4782878,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 22477263676891,
+                "numerator": 24772733043308
+              },
+              "lift_states": [
+                1594232,
+                3188555,
+                4782878
+              ],
+              "lift_values": [
+                57471305626418,
+                44954527353782,
+                49545466086616
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 4782833,
+              "target_center": 136
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 1424397381530503
+              },
+              "child_center": 61,
+              "coarse_child_state": 1594262,
+              "desired_child_state": 4782908,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 4294729556741,
+                "numerator": 4501151329680
+              },
+              "lift_states": [
+                1594262,
+                3188585,
+                4782908
+              ],
+              "lift_values": [
+                34357836453928,
+                41272461323570,
+                36009210637440
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 4782878,
+              "target_center": 91
+            },
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 778031091330171
+              },
+              "child_center": 82,
+              "coarse_child_state": 1594241,
+              "desired_child_state": 4782887,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 37963203503378,
+                "numerator": 42816549210657
+              },
+              "lift_states": [
+                1594241,
+                3188564,
+                4782887
+              ],
+              "lift_values": [
+                41709587481951,
+                37963203503378,
+                42816549210657
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 4782908,
+              "target_center": 61
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 1424397381530503
+              },
+              "child_center": 55,
+              "coarse_child_state": 1594268,
+              "desired_child_state": 4782914,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 14910777438650,
+                "numerator": 15960998649761
+              },
+              "lift_states": [
+                1594268,
+                3188591,
+                4782914
+              ],
+              "lift_values": [
+                35551986296488,
+                29821554877300,
+                31921997299522
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 4782887,
+              "target_center": 82
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 1424397381530503
+              },
+              "child_center": 37,
+              "coarse_child_state": 1594286,
+              "desired_child_state": 4782932,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 7358089484779,
+                "numerator": 7461375128274
+              },
+              "lift_states": [
+                1594286,
+                3188609,
+                4782932
+              ],
+              "lift_values": [
+                22572553383305,
+                22074268454337,
+                22384125384822
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 4782914,
+              "target_center": 55
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 1424397381530503
+              },
+              "child_center": 25,
+              "coarse_child_state": 1594298,
+              "desired_child_state": 4782944,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 14687978392569,
+                "numerator": 16801962135817
+              },
+              "lift_states": [
+                1594298,
+                3188621,
+                4782944
+              ],
+              "lift_values": [
+                14687978392569,
+                14693213679757,
+                16801962135817
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 4782932,
+              "target_center": 37
+            }
+          ],
+          "name": "minus_seventeen",
+          "strict_surplus_numerator": 704755968853576509290902951822326571089303619965491896704192032876651153478076904633823258016760736191979630373505058667926970285850903586988052312506626082320027296051132547757355183288221
+        }
+      ],
+      "inputs": {
+        "certificate": "experiments/kl/cert_k14.json",
+        "certificate_sha256": "08ac51b3f259798b9bf979388ec5f7f590c26025cc323ee331867d20d616285f"
+      },
+      "lambda_lower": {
+        "denominator": 5000000,
+        "numerator": 9153859
+      },
+      "level": 14
+    },
+    {
+      "cycles": [
+        {
+          "certified_weight_product_lower": {
+            "denominator": 250000000000000,
+            "numerator": 357371622851993
+          },
+          "counts": {
+            "R2": 0,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 23016380249634579055452741413,
+            "numerator": 23051246633672312500000000000
+          },
+          "deviation_over_weight_decimal": "1.00151485088705",
+          "deviation_product": {
+            "denominator": 257618442851764,
+            "numerator": 368819946138757
+          },
+          "edges": [
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 250000000000000,
+                "numerator": 357371622851993
+              },
+              "child_center": 1,
+              "coarse_child_state": 4782968,
+              "desired_child_state": 14348906,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 257618442851764,
+                "numerator": 368819946138757
+              },
+              "lift_states": [
+                4782968,
+                9565937,
+                14348906
+              ],
+              "lift_values": [
+                257618442851764,
+                476008768223236,
+                368819946138757
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 14348906,
+              "target_center": 1
+            }
+          ],
+          "name": "minus_one",
+          "strict_surplus_numerator": 34866384037733444547258587
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 50000000000000000000000000000,
+            "numerator": 55468709012732365586664022729
+          },
+          "counts": {
+            "R2": 1,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 64223244471120478448315318246423476692603,
+            "numerator": 70341985370690000000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.09527299578147",
+          "deviation_product": {
+            "denominator": 5789141807535,
+            "numerator": 7034198537069
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 200000000000000,
+                "numerator": 155212964504753
+              },
+              "child_center": 10,
+              "coarse_child_state": 4782959,
+              "desired_child_state": 14348897,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 1,
+                "numerator": 1
+              },
+              "lift_states": [
+                4782959,
+                9565928,
+                14348897
+              ],
+              "lift_values": [
+                48018377860501,
+                42200829147976,
+                42138362201601
+              ],
+              "minimum_lift_index": 2,
+              "source_state": 14348900,
+              "target_center": 7
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 250000000000000,
+                "numerator": 357371622851993
+              },
+              "child_center": 7,
+              "coarse_child_state": 4782962,
+              "desired_child_state": 14348900,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 5789141807535,
+                "numerator": 7034198537069
+              },
+              "lift_states": [
+                4782962,
+                9565931,
+                14348900
+              ],
+              "lift_values": [
+                30601349309136,
+                28945709037675,
+                35170992685345
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 14348897,
+              "target_center": 10
+            }
+          ],
+          "name": "minus_five",
+          "strict_surplus_numerator": 6118740899569521551684681753576523307397
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 132533036899625390625000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+            "numerator": 140428840280376444271861663691601276378632384999122104404123581780126649490315414580205842551178251737
+          },
+          "counts": {
+            "R2": 2,
+            "R8": 5,
+            "S": 1
+          },
+          "deviation_over_weight": {
+            "denominator": 135447310422062819195093285061940495548749695782258843434109575921784653881967166024638345631637275929849780145543401125884126651029292717841638630807208842979182446518498532703717410107,
+            "numerator": 222362134248002799115457146800312262695404437434458655450001944370216896679088376651133237646756810725875000000000000000000000000000000000000000000000000000000000000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.64168733624247",
+          "deviation_product": {
+            "denominator": 3014144702924635250549605698716146416692364358070970157769853832300468400992351228159375,
+            "numerator": 5243082674180937410930571027693689257823203986409223092262079929096951578422558808655727
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 200000000000000,
+                "numerator": 155212964504753
+              },
+              "child_center": 34,
+              "coarse_child_state": 4782935,
+              "desired_child_state": 14348873,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 4406017160691,
+                "numerator": 4810516055992
+              },
+              "lift_states": [
+                4782935,
+                9565904,
+                14348873
+              ],
+              "lift_values": [
+                22030085803455,
+                27785530465854,
+                24052580279960
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 14348882,
+              "target_center": 25
+            },
+            {
+              "branch": "S",
+              "certified_weight_lower": {
+                "denominator": 339284574463041,
+                "numerator": 100000000000000
+              },
+              "child_center": 136,
+              "desired_child_state": 14348771,
+              "deviation_factor": {
+                "denominator": 1,
+                "numerator": 1
+              },
+              "source_state": 14348873,
+              "target_center": 34
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 250000000000000,
+                "numerator": 357371622851993
+              },
+              "child_center": 91,
+              "coarse_child_state": 4782878,
+              "desired_child_state": 14348816,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 50998762335922,
+                "numerator": 54244722179479
+              },
+              "lift_states": [
+                4782878,
+                9565847,
+                14348816
+              ],
+              "lift_values": [
+                62619945325847,
+                50998762335922,
+                54244722179479
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 14348771,
+              "target_center": 136
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 250000000000000,
+                "numerator": 357371622851993
+              },
+              "child_center": 61,
+              "coarse_child_state": 4782908,
+              "desired_child_state": 14348846,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 2207218002574,
+                "numerator": 2423398737267
+              },
+              "lift_states": [
+                4782908,
+                9565877,
+                14348846
+              ],
+              "lift_values": [
+                40180930539310,
+                37522706043758,
+                41197778533539
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 14348816,
+              "target_center": 91
+            },
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 200000000000000,
+                "numerator": 155212964504753
+              },
+              "child_center": 82,
+              "coarse_child_state": 4782887,
+              "desired_child_state": 14348825,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 44178877843900,
+                "numerator": 47595636641989
+              },
+              "lift_states": [
+                4782887,
+                9565856,
+                14348825
+              ],
+              "lift_values": [
+                44178877843900,
+                52833791355379,
+                47595636641989
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 14348846,
+              "target_center": 61
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 250000000000000,
+                "numerator": 357371622851993
+              },
+              "child_center": 55,
+              "coarse_child_state": 4782914,
+              "desired_child_state": 14348852,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 33051204439475,
+                "numerator": 33301534091991
+              },
+              "lift_states": [
+                4782914,
+                9565883,
+                14348852
+              ],
+              "lift_values": [
+                33051204439475,
+                34219725257347,
+                33301534091991
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 14348825,
+              "target_center": 82
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 250000000000000,
+                "numerator": 357371622851993
+              },
+              "child_center": 37,
+              "coarse_child_state": 4782932,
+              "desired_child_state": 14348870,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 1350059614545,
+                "numerator": 1550751831934
+              },
+              "lift_states": [
+                4782932,
+                9565901,
+                14348870
+              ],
+              "lift_values": [
+                23379697343263,
+                22951013447265,
+                26362781142878
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 14348852,
+              "target_center": 55
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 250000000000000,
+                "numerator": 357371622851993
+              },
+              "child_center": 25,
+              "coarse_child_state": 4782944,
+              "desired_child_state": 14348882,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 17313514284857,
+                "numerator": 18943755779367
+              },
+              "lift_states": [
+                4782944,
+                9565913,
+                14348882
+              ],
+              "lift_values": [
+                17313514284857,
+                18568453915146,
+                18943755779367
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 14348870,
+              "target_center": 37
+            }
+          ],
+          "name": "minus_seventeen",
+          "strict_surplus_numerator": 86914823825939979920363861738371767146654741652199812015892368448432242797121210626494892015119534796025219854456598874115873348970707282158361369192791157020817553481501467296282589893
+        }
+      ],
+      "inputs": {
+        "certificate": "experiments/kl/cert_k15.json",
+        "certificate_sha256": "fdf28dbd79aa50334e4f643e51232bebb46d32e6e18d40acd144101613c87ae1",
+        "vector": "experiments/kl/cert_k15_C.npy",
+        "vector_sha256": "fa65959e13cb445e50c92a447a924658b45aae943873e38d774a0b79aa85cda4"
+      },
+      "lambda_lower": {
+        "denominator": 10000000,
+        "numerator": 18419679
+      },
+      "level": 15
+    },
+    {
+      "cycles": [
+        {
+          "certified_weight_product_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 1434141740409001
+          },
+          "counts": {
+            "R2": 0,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 184384953637332556909323044821,
+            "numerator": 184567676938474000000000000000
+          },
+          "deviation_over_weight_decimal": "1.00099098813399",
+          "deviation_product": {
+            "denominator": 128568152255821,
+            "numerator": 184567676938474
+          },
+          "edges": [
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 1434141740409001
+              },
+              "child_center": 1,
+              "coarse_child_state": 14348906,
+              "desired_child_state": 43046720,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 128568152255821,
+                "numerator": 184567676938474
+              },
+              "lift_states": [
+                14348906,
+                28697813,
+                43046720
+              ],
+              "lift_values": [
+                721576924296361,
+                385704456767463,
+                553703030815422
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 43046720,
+              "target_center": 1
+            }
+          ],
+          "name": "minus_one",
+          "strict_surplus_numerator": 182723301141443090676955179
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 1000000000000000000000000000000,
+            "numerator": 1110422440391779047620856914717
+          },
+          "counts": {
+            "R2": 1,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 9642412412753557869356759549610999739045839,
+            "numerator": 10535451668344600000000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.09261574981069",
+          "deviation_product": {
+            "denominator": 43417766347335,
+            "numerator": 52677258341723
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 774276634661717
+              },
+              "child_center": 10,
+              "coarse_child_state": 14348897,
+              "desired_child_state": 43046711,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 43417766347335,
+                "numerator": 52677258341723
+              },
+              "lift_states": [
+                14348897,
+                28697804,
+                43046711
+              ],
+              "lift_values": [
+                43417766347335,
+                45628175193604,
+                52677258341723
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 43046714,
+              "target_center": 7
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 1434141740409001
+              },
+              "child_center": 7,
+              "coarse_child_state": 14348900,
+              "desired_child_state": 43046714,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 1,
+                "numerator": 1
+              },
+              "lift_states": [
+                14348900,
+                28697807,
+                43046714
+              ],
+              "lift_values": [
+                40612318724512,
+                36218417842263,
+                36194595465597
+              ],
+              "minimum_lift_index": 2,
+              "source_state": 43046711,
+              "target_center": 10
+            }
+          ],
+          "name": "minus_five",
+          "strict_surplus_numerator": 893039255591042130643240450389000260954161
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 3430771902096490000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+            "numerator": 3637078609626823306890518689136854624165711983804038993519053816562980383118941090090994409780642057393089
+          },
+          "counts": {
+            "R2": 2,
+            "R8": 5,
+            "S": 1
+          },
+          "deviation_over_weight": {
+            "denominator": 118944218665352547286609742880799189221721625690983687869781567885687666988575514756043864142646777330087434835248789386672930149756724723436256747888420834403700970373803312722633084944261899,
+            "numerator": 188813804442336526622220313375837187090769890370395243679548471464158609803906819890830816115085537892187500000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.58741472734846",
+          "deviation_product": {
+            "denominator": 7325523542580974141528550283479782788355375418384211106822760346895261121834086361633184,
+            "numerator": 12327923103613508801294153403017656242445022155872551621590934640342119518917674913138465
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 774276634661717
+              },
+              "child_center": 34,
+              "coarse_child_state": 14348873,
+              "desired_child_state": 43046687,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 24768663029486,
+                "numerator": 25789763688789
+              },
+              "lift_states": [
+                14348873,
+                28697780,
+                43046687
+              ],
+              "lift_values": [
+                24768663029486,
+                29754272589588,
+                25789763688789
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 43046696,
+              "target_center": 25
+            },
+            {
+              "branch": "S",
+              "certified_weight_lower": {
+                "denominator": 343077190209649,
+                "numerator": 100000000000000
+              },
+              "child_center": 136,
+              "desired_child_state": 43046585,
+              "deviation_factor": {
+                "denominator": 1,
+                "numerator": 1
+              },
+              "source_state": 43046687,
+              "target_center": 34
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 1434141740409001
+              },
+              "child_center": 91,
+              "coarse_child_state": 14348816,
+              "desired_child_state": 43046630,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 4263248478937,
+                "numerator": 4822299120088
+              },
+              "lift_states": [
+                14348816,
+                28697723,
+                43046630
+              ],
+              "lift_values": [
+                55422230226181,
+                59858821579384,
+                62689888561144
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 43046585,
+              "target_center": 136
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 1434141740409001
+              },
+              "child_center": 61,
+              "coarse_child_state": 14348846,
+              "desired_child_state": 43046660,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 43286424480128,
+                "numerator": 45047200060663
+              },
+              "lift_states": [
+                14348846,
+                28697753,
+                43046660
+              ],
+              "lift_values": [
+                43286424480128,
+                49282991509875,
+                45047200060663
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 43046630,
+              "target_center": 91
+            },
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 774276634661717
+              },
+              "child_center": 82,
+              "coarse_child_state": 14348825,
+              "desired_child_state": 43046639,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 49007483864173,
+                "numerator": 49260826514458
+              },
+              "lift_states": [
+                14348825,
+                28697732,
+                43046639
+              ],
+              "lift_values": [
+                50230582535774,
+                49007483864173,
+                49260826514458
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 43046660,
+              "target_center": 61
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 1434141740409001
+              },
+              "child_center": 55,
+              "coarse_child_state": 14348852,
+              "desired_child_state": 43046666,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 34095664367041,
+                "numerator": 39101402544955
+              },
+              "lift_states": [
+                14348852,
+                28697759,
+                43046666
+              ],
+              "lift_values": [
+                34095664367041,
+                34760597497924,
+                39101402544955
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 43046639,
+              "target_center": 82
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 1434141740409001
+              },
+              "child_center": 37,
+              "coarse_child_state": 14348870,
+              "desired_child_state": 43046684,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 238201930369,
+                "numerator": 259825431237
+              },
+              "lift_states": [
+                14348870,
+                28697777,
+                43046684
+              ],
+              "lift_values": [
+                28822087102252,
+                26916818131697,
+                29360273729781
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 43046666,
+              "target_center": 55
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 1434141740409001
+              },
+              "child_center": 25,
+              "coarse_child_state": 14348882,
+              "desired_child_state": 43046696,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 19263184107758,
+                "numerator": 21034688771137
+              },
+              "lift_states": [
+                14348882,
+                28697789,
+                43046696
+              ],
+              "lift_values": [
+                19263184107758,
+                24015365266806,
+                21034688771137
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 43046684,
+              "target_center": 37
+            }
+          ],
+          "name": "minus_seventeen",
+          "strict_surplus_numerator": 69869585776983979335610570495037997869048264679411555809766903578470942815331305134786951972438760562100065164751210613327069850243275276563743252111579165596299029626196687277366915055738101
+        }
+      ],
+      "inputs": {
+        "certificate": "experiments/kl/cert_k16.json",
+        "certificate_sha256": "5e4aa8081659c0d33ce0b50a6c3a211d62c508fcccc602dd2b33fa07dede170e",
+        "vector": "experiments/kl/cert_k16_C.npy",
+        "vector_sha256": "180c4856ee6cffdf08a2feedea15a17bab9f0d8bf2702808b4ae2512a41d300b"
+      },
+      "lambda_lower": {
+        "denominator": 10000000,
+        "numerator": 18522343
+      },
+      "level": 16
+    },
+    {
+      "cycles": [
+        {
+          "certified_weight_product_lower": {
+            "denominator": 200000000000000,
+            "numerator": 287683829599457
+          },
+          "counts": {
+            "R2": 0,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 167354949719495220294064268487,
+            "numerator": 167465142345803800000000000000
+          },
+          "deviation_over_weight_decimal": "1.00065843661328",
+          "deviation_product": {
+            "denominator": 581732209114791,
+            "numerator": 837325711729019
+          },
+          "edges": [
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 200000000000000,
+                "numerator": 287683829599457
+              },
+              "child_center": 1,
+              "coarse_child_state": 43046720,
+              "desired_child_state": 129140162,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 581732209114791,
+                "numerator": 837325711729019
+              },
+              "lift_states": [
+                43046720,
+                86093441,
+                129140162
+              ],
+              "lift_values": [
+                581732209114791,
+                1096458830412111,
+                837325711729019
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 129140162,
+              "target_center": 1
+            }
+          ],
+          "name": "minus_one",
+          "strict_surplus_numerator": 110192626308579705935731513
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 100000000000000000000000000000,
+            "numerator": 111138349278191979868090243327
+          },
+          "counts": {
+            "R2": 1,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 75479685940585570101590173933818787187261128362826634691,
+            "numerator": 81413675745027304615149992200000000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.0786170441821",
+          "deviation_product": {
+            "denominator": 679150684087013895326588733,
+            "numerator": 814136757450273046151499922
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 386321154834911
+              },
+              "child_center": 10,
+              "coarse_child_state": 43046711,
+              "desired_child_state": 129140153,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 54380182114427,
+                "numerator": 54668845641442
+              },
+              "lift_states": [
+                43046711,
+                86093432,
+                129140153
+              ],
+              "lift_values": [
+                54380182114427,
+                61322224222085,
+                54668845641442
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 129140156,
+              "target_center": 7
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 200000000000000,
+                "numerator": 287683829599457
+              },
+              "child_center": 7,
+              "coarse_child_state": 43046714,
+              "desired_child_state": 129140156,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 12488937287079,
+                "numerator": 14892151972441
+              },
+              "lift_states": [
+                43046714,
+                86093435,
+                129140156
+              ],
+              "lift_values": [
+                37466811861237,
+                39145506059215,
+                44676455917323
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 129140153,
+              "target_center": 10
+            }
+          ],
+          "name": "minus_five",
+          "strict_surplus_numerator": 5933989804441734513559818266181212812738871637173365309
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 277270666108551200000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+            "numerator": 294085923924364710828909071553023044087614683652450923664690622836844458741622484793666167334128910497
+          },
+          "counts": {
+            "R2": 2,
+            "R8": 5,
+            "S": 1
+          },
+          "deviation_over_weight": {
+            "denominator": 12064193553681047904059552787145879291336976385355994345046453174685106017816092631220696091745445566744997833275929589227832673260623738556094530881137852488967922579196657552268921297834013,
+            "numerator": 18986292432631652456258220541967173561864349315502076865269499039005962077815062563883970157658358167029812500000000000000000000000000000000000000000000000000000000000000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.57377220020136",
+          "deviation_product": {
+            "denominator": 2625451694975254456632870212242143927243853789978330277747851836781348393418749426282037056,
+            "numerator": 4382442372078070381886719603607968507292975035315390080693642387575863720967651537076303465
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 386321154834911
+              },
+              "child_center": 34,
+              "coarse_child_state": 43046687,
+              "desired_child_state": 129140129,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 26675679275916,
+                "numerator": 29571327696239
+              },
+              "lift_states": [
+                43046687,
+                86093408,
+                129140129
+              ],
+              "lift_values": [
+                28508883433169,
+                26675679275916,
+                29571327696239
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 129140138,
+              "target_center": 25
+            },
+            {
+              "branch": "S",
+              "certified_weight_lower": {
+                "denominator": 346588332635689,
+                "numerator": 100000000000000
+              },
+              "child_center": 136,
+              "desired_child_state": 129140027,
+              "deviation_factor": {
+                "denominator": 1,
+                "numerator": 1
+              },
+              "source_state": 129140129,
+              "target_center": 34
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 200000000000000,
+                "numerator": 287683829599457
+              },
+              "child_center": 91,
+              "coarse_child_state": 43046630,
+              "desired_child_state": 129140072,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 64687443875507,
+                "numerator": 67718196786555
+              },
+              "lift_states": [
+                43046630,
+                86093351,
+                129140072
+              ],
+              "lift_values": [
+                75319775075484,
+                64687443875507,
+                67718196786555
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 129140027,
+              "target_center": 136
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 200000000000000,
+                "numerator": 287683829599457
+              },
+              "child_center": 61,
+              "coarse_child_state": 43046660,
+              "desired_child_state": 129140102,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 46654187927753,
+                "numerator": 47203945988513
+              },
+              "lift_states": [
+                43046660,
+                86093381,
+                129140102
+              ],
+              "lift_values": [
+                47431478840774,
+                46654187927753,
+                47203945988513
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 129140072,
+              "target_center": 91
+            },
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 386321154834911
+              },
+              "child_center": 82,
+              "coarse_child_state": 43046639,
+              "desired_child_state": 129140081,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 50862335202937,
+                "numerator": 58495686182789
+              },
+              "lift_states": [
+                43046639,
+                86093360,
+                129140081
+              ],
+              "lift_values": [
+                51521512358345,
+                50862335202937,
+                58495686182789
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 129140102,
+              "target_center": 61
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 200000000000000,
+                "numerator": 287683829599457
+              },
+              "child_center": 55,
+              "coarse_child_state": 43046666,
+              "desired_child_state": 129140108,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 40406328050708,
+                "numerator": 44428676298099
+              },
+              "lift_states": [
+                43046666,
+                86093387,
+                129140108
+              ],
+              "lift_values": [
+                40406328050708,
+                42929830113866,
+                44428676298099
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 129140081,
+              "target_center": 82
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 200000000000000,
+                "numerator": 287683829599457
+              },
+              "child_center": 37,
+              "coarse_child_state": 43046684,
+              "desired_child_state": 129140126,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 30534542632466,
+                "numerator": 32710318581727
+              },
+              "lift_states": [
+                43046684,
+                86093405,
+                129140126
+              ],
+              "lift_values": [
+                37261798532378,
+                30534542632466,
+                32710318581727
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 129140108,
+              "target_center": 55
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 200000000000000,
+                "numerator": 287683829599457
+              },
+              "child_center": 25,
+              "coarse_child_state": 43046696,
+              "desired_child_state": 129140138,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 5380306711058,
+                "numerator": 5646195690741
+              },
+              "lift_states": [
+                43046696,
+                86093417,
+                129140138
+              ],
+              "lift_values": [
+                21521226844232,
+                25626355055154,
+                22584782762964
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 129140126,
+              "target_center": 37
+            }
+          ],
+          "name": "minus_seventeen",
+          "strict_surplus_numerator": 6922098878950604552198667754821294270527372930146082520223045864320856059998969932663274065912912600284814666724070410772167326739376261443905469118862147511032077420803342447731078702165987
+        }
+      ],
+      "inputs": {
+        "certificate": "experiments/kl/cert_k17.json",
+        "certificate_sha256": "56cf23c9ea2e61006535a3a65f952136c671d8f770df37dbc647d0133c462183",
+        "vector": "experiments/kl/cert_k17_C.npy",
+        "vector_sha256": "72da89e5733d56855d7514107b690c9127ca243ac65f6ad2873c9eeff0a770d2"
+      },
+      "lambda_lower": {
+        "denominator": 10000000,
+        "numerator": 18616883
+      },
+      "level": 17
+    },
+    {
+      "cycles": [
+        {
+          "certified_weight_product_lower": {
+            "denominator": 125000000000000,
+            "numerator": 180289834268809
+          },
+          "counts": {
+            "R2": 0,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 31669306767635834673368687379,
+            "numerator": 31683607239309950000000000000
+          },
+          "deviation_over_weight_decimal": "1.00045155619537",
+          "deviation_product": {
+            "denominator": 878288753663655,
+            "numerator": 1267344289572398
+          },
+          "edges": [
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 125000000000000,
+                "numerator": 180289834268809
+              },
+              "child_center": 1,
+              "coarse_child_state": 129140162,
+              "desired_child_state": 387420488,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 878288753663655,
+                "numerator": 1267344289572398
+              },
+              "lift_states": [
+                129140162,
+                258280325,
+                387420488
+              ],
+              "lift_values": [
+                1658077459623969,
+                878288753663655,
+                1267344289572398
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 387420488,
+              "target_center": 1
+            }
+          ],
+          "name": "minus_one",
+          "strict_surplus_numerator": 14300471674115326631312621
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 125000000000000000000000000000,
+            "numerator": 139032234633827918735495237243
+          },
+          "counts": {
+            "R2": 1,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 3908767572154335950391425973185645635179723,
+            "numerator": 4201261720839812500000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.07483027406622",
+          "deviation_product": {
+            "denominator": 56228220490722,
+            "numerator": 67220187533437
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 771159589766627
+              },
+              "child_center": 10,
+              "coarse_child_state": 129140153,
+              "desired_child_state": 387420479,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 56228220490722,
+                "numerator": 67220187533437
+              },
+              "lift_states": [
+                129140153,
+                258280316,
+                387420479
+              ],
+              "lift_values": [
+                58672819276652,
+                56228220490722,
+                67220187533437
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 387420482,
+              "target_center": 7
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 125000000000000,
+                "numerator": 180289834268809
+              },
+              "child_center": 7,
+              "coarse_child_state": 129140156,
+              "desired_child_state": 387420482,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 1,
+                "numerator": 1
+              },
+              "lift_states": [
+                129140156,
+                258280319,
+                387420482
+              ],
+              "lift_values": [
+                46146054774489,
+                51659322423466,
+                46057579128042
+              ],
+              "minimum_lift_index": 2,
+              "source_state": 387420479,
+              "target_center": 10
+            }
+          ],
+          "name": "minus_five",
+          "strict_surplus_numerator": 292494148685476549608574026814354364820277
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 106753959207160949707031250000000000000000000000000000000000000000000000000000000000000000000000000000,
+            "numerator": 113277778849856166014285976145114913226936169961019601437340129771632196562720368667448808410223846321
+          },
+          "counts": {
+            "R2": 2,
+            "R8": 5,
+            "S": 1
+          },
+          "deviation_over_weight": {
+            "denominator": 14266920824100800506788977918931757966579472596679689313218746281841419213709864802830573243626848117316345999516859451213674878901977724506580756394199656555473330817410562673847403471914089,
+            "numerator": 21522838890091441934862232729047323533837930226455147925413956775096679749494284246205012887167015956656066894531250000000000000000000000000000000000000000000000000000000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.50858332750634",
+          "deviation_product": {
+            "denominator": 15743291589221203057921346189053568702432326414724829619169781482724940659087412404334151125,
+            "numerator": 25201452772732047824677978315881794565280666435888416248169835441980850048740292901117310253
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 771159589766627
+              },
+              "child_center": 34,
+              "coarse_child_state": 129140129,
+              "desired_child_state": 387420455,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 30674955462115,
+                "numerator": 31677385421072
+              },
+              "lift_states": [
+                129140129,
+                258280292,
+                387420455
+              ],
+              "lift_values": [
+                30674955462115,
+                35056627957253,
+                31677385421072
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 387420464,
+              "target_center": 25
+            },
+            {
+              "branch": "S",
+              "certified_weight_lower": {
+                "denominator": 13992454941201,
+                "numerator": 4000000000000
+              },
+              "child_center": 136,
+              "desired_child_state": 387420353,
+              "deviation_factor": {
+                "denominator": 1,
+                "numerator": 1
+              },
+              "source_state": 387420455,
+              "target_center": 34
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 125000000000000,
+                "numerator": 180289834268809
+              },
+              "child_center": 91,
+              "coarse_child_state": 129140072,
+              "desired_child_state": 387420398,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 70042692462830,
+                "numerator": 71019316372813
+              },
+              "lift_states": [
+                129140072,
+                258280235,
+                387420398
+              ],
+              "lift_values": [
+                70042692462830,
+                71192943995726,
+                71019316372813
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 387420353,
+              "target_center": 136
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 125000000000000,
+                "numerator": 180289834268809
+              },
+              "child_center": 61,
+              "coarse_child_state": 129140102,
+              "desired_child_state": 387420428,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 48802393474641,
+                "numerator": 54614807661901
+              },
+              "lift_states": [
+                129140102,
+                258280265,
+                387420428
+              ],
+              "lift_values": [
+                49776722798679,
+                48802393474641,
+                54614807661901
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 387420398,
+              "target_center": 91
+            },
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 1000000000000000,
+                "numerator": 771159589766627
+              },
+              "child_center": 82,
+              "coarse_child_state": 129140081,
+              "desired_child_state": 387420407,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 30129982823375,
+                "numerator": 33485668342507
+              },
+              "lift_states": [
+                129140081,
+                258280244,
+                387420407
+              ],
+              "lift_values": [
+                63573191160170,
+                60259965646750,
+                66971336685014
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 387420428,
+              "target_center": 61
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 125000000000000,
+                "numerator": 180289834268809
+              },
+              "child_center": 55,
+              "coarse_child_state": 129140108,
+              "desired_child_state": 387420434,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 46168375261258,
+                "numerator": 49079960188785
+              },
+              "lift_states": [
+                129140108,
+                258280271,
+                387420434
+              ],
+              "lift_values": [
+                46168375261258,
+                56152884252057,
+                49079960188785
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 387420407,
+              "target_center": 82
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 125000000000000,
+                "numerator": 180289834268809
+              },
+              "child_center": 37,
+              "coarse_child_state": 129140126,
+              "desired_child_state": 387420452,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 33679553220407,
+                "numerator": 35048051445037
+              },
+              "lift_states": [
+                129140126,
+                258280289,
+                387420452
+              ],
+              "lift_values": [
+                39861902324603,
+                33679553220407,
+                35048051445037
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 387420434,
+              "target_center": 55
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 125000000000000,
+                "numerator": 180289834268809
+              },
+              "child_center": 25,
+              "coarse_child_state": 129140138,
+              "desired_child_state": 387420464,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 11537198049236,
+                "numerator": 12819314493995
+              },
+              "lift_states": [
+                129140138,
+                258280301,
+                387420464
+              ],
+              "lift_values": [
+                24706299758184,
+                23074396098472,
+                25638628987990
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 387420452,
+              "target_center": 37
+            }
+          ],
+          "name": "minus_seventeen",
+          "strict_surplus_numerator": 7255918065990641428073254810115565567258457629775458612195210493255260535784419443374439643540167839339720895014390548786325121098022275493419243605800343444526669182589437326152596528085911
+        }
+      ],
+      "inputs": {
+        "certificate": "experiments/kl/cert_k18.json",
+        "certificate_sha256": "4c064a165c680f4eab05b58b1cd49ba27de37fa15c3b093ea70bda711b406a6f",
+        "vector": "experiments/kl/cert_k18_C.npy",
+        "vector_sha256": "e3d998ff0e34ae16ec7f2a53be4f48bcedc3b106f5b7316f3b558e97c34522ef"
+      },
+      "lambda_lower": {
+        "denominator": 2000000,
+        "numerator": 3740649
+      },
+      "level": 18
+    },
+    {
+      "cycles": [
+        {
+          "certified_weight_product_lower": {
+            "denominator": 500000000000000,
+            "numerator": 722959479654303
+          },
+          "counts": {
+            "R2": 0,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 960210336841927507712788440723,
+            "numerator": 960497579945924500000000000000
+          },
+          "deviation_over_weight_decimal": "1.00029914602351",
+          "deviation_product": {
+            "denominator": 1328166188928141,
+            "numerator": 1920995159891849
+          },
+          "edges": [
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 722959479654303
+              },
+              "child_center": 1,
+              "coarse_child_state": 387420488,
+              "desired_child_state": 1162261466,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 1328166188928141,
+                "numerator": 1920995159891849
+              },
+              "lift_states": [
+                387420488,
+                774840977,
+                1162261466
+              ],
+              "lift_values": [
+                1328166188928141,
+                2529171130346087,
+                1920995159891849
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 1162261466,
+              "target_center": 1
+            }
+          ],
+          "name": "minus_one",
+          "strict_surplus_numerator": 287243103996992287211559277
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 250000000000000000000000000000,
+            "numerator": 278265918780201257245321425069
+          },
+          "counts": {
+            "R2": 1,
+            "R8": 1,
+            "S": 0
+          },
+          "deviation_over_weight": {
+            "denominator": 2613620947267930488482185430081080430799069,
+            "numerator": 2781129887428250000000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.06409075514007",
+          "deviation_product": {
+            "denominator": 9392529846001,
+            "numerator": 11124519549713
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 384898360988723
+              },
+              "child_center": 10,
+              "coarse_child_state": 387420479,
+              "desired_child_state": 1162261457,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 1,
+                "numerator": 1
+              },
+              "lift_states": [
+                387420479,
+                774840968,
+                1162261457
+              ],
+              "lift_values": [
+                77413162325791,
+                69689573899080,
+                68715765924455
+              ],
+              "minimum_lift_index": 2,
+              "source_state": 1162261460,
+              "target_center": 7
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 722959479654303
+              },
+              "child_center": 7,
+              "coarse_child_state": 387420482,
+              "desired_child_state": 1162261460,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 9392529846001,
+                "numerator": 11124519549713
+              },
+              "lift_states": [
+                387420482,
+                774840971,
+                1162261460
+              ],
+              "lift_values": [
+                49243022492958,
+                46962649230005,
+                55622597748565
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 1162261457,
+              "target_center": 10
+            }
+          ],
+          "name": "minus_five",
+          "strict_surplus_numerator": 167508940160319511517814569918919569200931
+        },
+        {
+          "certified_weight_product_lower": {
+            "denominator": 27562957804541328125000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+            "numerator": 29259163578871943623429177035936158964672834499058354112498159206490745967820890316982016578368805990647
+          },
+          "counts": {
+            "R2": 2,
+            "R8": 5,
+            "S": 1
+          },
+          "deviation_over_weight": {
+            "denominator": 239509376075047286538021152979242819850909134592461311107472215102571597310892360412604375523312017709195468198494304911511176738289694626278693893921081941115884781878416677907155962920250123,
+            "numerator": 354784080399944286321018575583385535815643249887834058555537977639299274857428509351784111879303381580123593750000000000000000000000000000000000000000000000000000000000000000000000000000000000
+          },
+          "deviation_over_weight_decimal": "1.48129516352954",
+          "deviation_product": {
+            "denominator": 331524505302122974664520609113806033056853534813062617559736833061096613639901765401284814500,
+            "numerator": 521306724702467117130597142778858954607087879171371544946157295299524599493752200496309539799
+          },
+          "edges": [
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 384898360988723
+              },
+              "child_center": 34,
+              "coarse_child_state": 387420455,
+              "desired_child_state": 1162261433,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 32363857238156,
+                "numerator": 32870289584719
+              },
+              "lift_states": [
+                387420455,
+                774840944,
+                1162261433
+              ],
+              "lift_values": [
+                32877295876886,
+                32363857238156,
+                32870289584719
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 1162261442,
+              "target_center": 25
+            },
+            {
+              "branch": "S",
+              "certified_weight_lower": {
+                "denominator": 352805859898129,
+                "numerator": 100000000000000
+              },
+              "child_center": 136,
+              "desired_child_state": 1162261331,
+              "deviation_factor": {
+                "denominator": 1,
+                "numerator": 1
+              },
+              "source_state": 1162261433,
+              "target_center": 34
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 722959479654303
+              },
+              "child_center": 91,
+              "coarse_child_state": 387420398,
+              "desired_child_state": 1162261376,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 73275505357145,
+                "numerator": 81632546753036
+              },
+              "lift_states": [
+                387420398,
+                774840887,
+                1162261376
+              ],
+              "lift_values": [
+                73275505357145,
+                74721742393235,
+                81632546753036
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 1162261331,
+              "target_center": 136
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 722959479654303
+              },
+              "child_center": 61,
+              "coarse_child_state": 387420428,
+              "desired_child_state": 1162261406,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 56017731431239,
+                "numerator": 61828398083521
+              },
+              "lift_states": [
+                387420428,
+                774840917,
+                1162261406
+              ],
+              "lift_values": [
+                59077525714299,
+                56017731431239,
+                61828398083521
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 1162261376,
+              "target_center": 91
+            },
+            {
+              "branch": "R2",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 384898360988723
+              },
+              "child_center": 82,
+              "coarse_child_state": 387420407,
+              "desired_child_state": 1162261385,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 68898891426256,
+                "numerator": 74050493511939
+              },
+              "lift_states": [
+                387420407,
+                774840896,
+                1162261385
+              ],
+              "lift_values": [
+                84225463737116,
+                68898891426256,
+                74050493511939
+              ],
+              "minimum_lift_index": 1,
+              "source_state": 1162261406,
+              "target_center": 61
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 722959479654303
+              },
+              "child_center": 55,
+              "coarse_child_state": 387420434,
+              "desired_child_state": 1162261412,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 16982343628628,
+                "numerator": 17577315393951
+              },
+              "lift_states": [
+                387420434,
+                774840923,
+                1162261412
+              ],
+              "lift_values": [
+                50947030885884,
+                59799858878577,
+                52731946181853
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 1162261385,
+              "target_center": 82
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 722959479654303
+              },
+              "child_center": 37,
+              "coarse_child_state": 387420452,
+              "desired_child_state": 1162261430,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 36110297438675,
+                "numerator": 40124345980464
+              },
+              "lift_states": [
+                387420452,
+                774840941,
+                1162261430
+              ],
+              "lift_values": [
+                36110297438675,
+                38664585489157,
+                40124345980464
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 1162261412,
+              "target_center": 55
+            },
+            {
+              "branch": "R8",
+              "certified_weight_lower": {
+                "denominator": 500000000000000,
+                "numerator": 722959479654303
+              },
+              "child_center": 25,
+              "coarse_child_state": 387420464,
+              "desired_child_state": 1162261442,
+              "desired_lift_index": 2,
+              "deviation_factor": {
+                "denominator": 26461113112153,
+                "numerator": 26954296515683
+              },
+              "lift_states": [
+                387420464,
+                774840953,
+                1162261442
+              ],
+              "lift_values": [
+                26461113112153,
+                29938190905628,
+                26954296515683
+              ],
+              "minimum_lift_index": 0,
+              "source_state": 1162261430,
+              "target_center": 37
+            }
+          ],
+          "name": "minus_seventeen",
+          "strict_surplus_numerator": 115274704324896999782997422604142715964734115295372747448065762536727677546536148939179736355991363870928125551505695088488823261710305373721306106078918058884115218121583322092844037079749877
+        }
+      ],
+      "inputs": {
+        "certificate": "experiments/kl/cert_k19.json",
+        "certificate_sha256": "a37716cc508410ec6043ff153c2f2b2527b25b53220fa9827d79d3145f0641fb",
+        "vector": "experiments/kl/cert_k19_C.npy",
+        "vector_sha256": "052c7e75907c99ec4c05dca550adcf23e4dad264175d3f559f4b5a9da5b4d517"
+      },
+      "lambda_lower": {
+        "denominator": 10000000,
+        "numerator": 18783127
+      },
+      "level": 19
+    }
+  ],
+  "schema": "kl-negative-cycle-tax-v1",
+  "scope": {
+    "exact_claim": "The three displayed integer center cycles expand to the signed shortcut-Collatz cycles through -1, -5, and -17.  At every stored level, each exact deviation product strictly exceeds its certified rational lower edge-weight product, and each of the three eight-level surplus sequences is strictly decreasing.",
+    "finite_evidence": "These negative cycles are finite KL near-equality templates; among the three, the minus-one template has the smallest observed surplus at every audited level.",
+    "levels": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "nonclaim": "The audit does not classify negative cycles, identify a critical eigenvector, prove convergence, construct an infinite positive orbit, or disprove the Collatz conjecture."
+  },
+  "templates": [
+    {
+      "center_edges": [
+        {
+          "branch": "R8",
+          "child_center": 1,
+          "signed_forward_segment": [
+            -1,
+            -1
+          ],
+          "target_center": 1
+        }
+      ],
+      "chord_count": 1,
+      "counts": {
+        "R2": 0,
+        "R8": 1,
+        "S": 0
+      },
+      "name": "minus_one",
+      "outward_separator": {
+        "strict_margin": 1,
+        "three_pow_chords": 3,
+        "two_pow_time_cost": 2
+      },
+      "signed_cycle_seed": -1,
+      "signed_shortcut_cycle": [
+        -1
+      ],
+      "time_cost": 1
+    },
+    {
+      "center_edges": [
+        {
+          "branch": "R2",
+          "child_center": 10,
+          "signed_forward_segment": [
+            -10,
+            -5,
+            -7
+          ],
+          "target_center": 7
+        },
+        {
+          "branch": "R8",
+          "child_center": 7,
+          "signed_forward_segment": [
+            -7,
+            -10
+          ],
+          "target_center": 10
+        }
+      ],
+      "chord_count": 2,
+      "counts": {
+        "R2": 1,
+        "R8": 1,
+        "S": 0
+      },
+      "name": "minus_five",
+      "outward_separator": {
+        "strict_margin": 1,
+        "three_pow_chords": 9,
+        "two_pow_time_cost": 8
+      },
+      "signed_cycle_seed": -5,
+      "signed_shortcut_cycle": [
+        -5,
+        -7,
+        -10
+      ],
+      "time_cost": 3
+    },
+    {
+      "center_edges": [
+        {
+          "branch": "R2",
+          "child_center": 34,
+          "signed_forward_segment": [
+            -34,
+            -17,
+            -25
+          ],
+          "target_center": 25
+        },
+        {
+          "branch": "S",
+          "child_center": 136,
+          "signed_forward_segment": [
+            -136,
+            -68,
+            -34
+          ],
+          "target_center": 34
+        },
+        {
+          "branch": "R8",
+          "child_center": 91,
+          "signed_forward_segment": [
+            -91,
+            -136
+          ],
+          "target_center": 136
+        },
+        {
+          "branch": "R8",
+          "child_center": 61,
+          "signed_forward_segment": [
+            -61,
+            -91
+          ],
+          "target_center": 91
+        },
+        {
+          "branch": "R2",
+          "child_center": 82,
+          "signed_forward_segment": [
+            -82,
+            -41,
+            -61
+          ],
+          "target_center": 61
+        },
+        {
+          "branch": "R8",
+          "child_center": 55,
+          "signed_forward_segment": [
+            -55,
+            -82
+          ],
+          "target_center": 82
+        },
+        {
+          "branch": "R8",
+          "child_center": 37,
+          "signed_forward_segment": [
+            -37,
+            -55
+          ],
+          "target_center": 55
+        },
+        {
+          "branch": "R8",
+          "child_center": 25,
+          "signed_forward_segment": [
+            -25,
+            -37
+          ],
+          "target_center": 37
+        }
+      ],
+      "chord_count": 7,
+      "counts": {
+        "R2": 2,
+        "R8": 5,
+        "S": 1
+      },
+      "name": "minus_seventeen",
+      "outward_separator": {
+        "strict_margin": 139,
+        "three_pow_chords": 2187,
+        "two_pow_time_cost": 2048
+      },
+      "signed_cycle_seed": -17,
+      "signed_shortcut_cycle": [
+        -17,
+        -25,
+        -37,
+        -55,
+        -82,
+        -41,
+        -61,
+        -91,
+        -136,
+        -68,
+        -34
+      ],
+      "time_cost": 11
+    }
+  ]
+}

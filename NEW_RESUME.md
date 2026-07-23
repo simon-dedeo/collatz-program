@@ -126,6 +126,74 @@ beats the KL deviation tax, (ii) regenerates `v_2(m+1)`, and (iii) closes for
 one ordinary positive payload rather than a fresh 3-adic address at every
 generation.
 
+### 09:25 EDT continuation -- the resource ledger collapses to one centered integer
+
+There is still no counterexample.  Commits `408cb2c` and `814fb00` replace
+the informal mixed-recharge picture by literal Syracuse semantics.  For the
+advanced, retarded, and transport KL children, Lean proves the centered
+balances
+
+```text
+3*(advancedChild+1)=2*(a+1),
+3*(retardedChild+2)=4*(a+1),
+transportChild+4=4*(a+1).
+```
+
+It also proves that if `r=v_2(n+1)`, then the next `r` sources are odd, their
+states are exactly `3^j*2^(r-j)*t-1`, and the endpoint at `j=r` is even.
+Thus recharge depth is exactly the next forced odd-burst length.  It cannot be
+stored for later or routed independently.
+
+The same algebra has a general moving negative-center form.  If the center is
+`-h`, the three new centers are `-(2h+1)/3`, `-(4h+2)/3`, and `-4h`; the
+centered distance changes only by factors `2/3`, `4/3`, and `4`.  Therefore
+its `2,3`-primitive cofactor is invariant on every coherent controller
+segment, and `2^b*3^k<=n+h` whenever that segment has dyadic depth `b` and
+ternary address depth `k`.  Companion commit `35200ca` kernel-checks QM131:
+the ternary valuation balances, `content23(z)|z`, its ordinary-height bound,
+and primitive-core invariance for all three arbitrary moving-center branches.
+
+The exact new worker calibrates the three supplied signed cycles through
+`-1,-5,-17`.  Their KL center cycles and outward separators are
+
+```text
+1                              3 > 2
+7 -> 10 -> 7                   3^2 > 2^3
+25 -> 34 -> 136 -> 91 -> 61
+   -> 82 -> 55 -> 37 -> 25     3^7 > 2^11.
+```
+
+At every certified level `k=12..19`, all exact deviation products exceed the
+corresponding certified lower weight products.  The surplus sequences
+decrease from `1.00491,1.14003,1.86455` to
+`1.00030,1.06409,1.48130`; `-1` is exactly cheapest in every row.  This is
+finite evidence from feasible subeigenvectors, not a critical-vector limit or
+cycle classification.  Artifact SHA-256:
+`f52afeca61dc4bd0683a2ab72e285377355e86edd5e52fec85e89a84ab534249`;
+`counterexample:null`.
+
+Two further exact obstruction interfaces are QM132--133.  If two signed
+Syracuse orbits share `N` parity choices, subtracting their affine laws gives
+
+```text
+2^N*(T^N(x)-T^N(y))=3^O*(x-y),
+```
+
+so `2^N | x-y`: no distinct positive/negative ordinary pair can shadow
+coherently forever, even with an aperiodic negative controller.  A reset is
+therefore compulsory.  For ternary switching, every center step has
+`h'<=4h`; a length-`L` connector matching a distinct target `g` modulo `3^k`
+must satisfy `3^k<=4^L*h+g`.  Fixed-length switches cannot work at cofinal
+precision.  These statements are elementary exact derivations but remain
+pending companion Lean checking.
+
+The revised live object is an aperiodic **self-writing controller reset**:
+one ordinary payload must generate successively longer mod-`2^N` shadow
+addresses and successively longer mod-`3^k` connectors while paying the KL
+deviation and branch-count taxes.  Pure seed widening, fixed negative
+controllers, and treating height/precision/battery as independent counters no
+longer attack the seam.
+
 ### 07:20 EDT continuation — exact consecutive construction carries
 
 There is no counterexample.  Period-three search is now centered on exact

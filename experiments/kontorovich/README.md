@@ -4601,3 +4601,54 @@ Worker SHA-256:
 The mathematical interpretation and original-source audit are in
 [`docs/notes/kl-calibrated-escape.md`](../../docs/notes/kl-calibrated-escape.md).
 `counterexample:null`.
+
+## KL tax on the three standard negative-cycle templates
+
+`kl_negative_cycle_tax.py` extends the same exact finite calibration from the
+fixed point `-1` to the signed shortcut-Collatz cycles through `-5` and `-17`.
+It does not discover or classify cycles: the three templates are supplied
+explicitly, then checked against the signed Syracuse rule and against their
+positive-center KL predecessor presentations:
+
+```text
+1 -> 1
+7 -> 10 -> 7
+25 -> 34 -> 136 -> 91 -> 61 -> 82 -> 55 -> 37 -> 25.
+```
+
+Their class counts give the exact outward separators `3>2`, `3^2>2^3`,
+and `3^7>2^11`.  At each stored level `k=12..19`, the worker SHA-checks the
+certified feasible subeigenvector, extracts every prescribed chord lift, and
+forms
+
+```text
+product(c_prescribed/minFiber) / product(certified edge-weight lower bounds).
+```
+
+All 24 rational ratios are strictly larger than one.  Each of the three
+eight-level sequences decreases strictly, and `-1` is exactly the smallest
+in every row:
+
+```text
+template                 k=12              k=19
+-1 fixed point        1.00491098975441   1.00029914602351
+-5 cycle             1.14003194854355   1.06409075514007
+-17 cycle            1.86455471354517   1.48129516352954
+```
+
+These are finite diagnostics from feasible vectors, not critical-eigenvector
+identities or limiting theorems.  They suggest that signed cycles are the
+right near-equality controllers, while proving nothing about an ordinary
+positive orbit.  In particular, an autonomous construction still has to pay
+for increasingly precise switches or resets between finite shadow blocks.
+
+```bash
+python3 kl_negative_cycle_tax.py selftest
+python3 kl_negative_cycle_tax.py verify kl_negative_cycle_tax_audit.json
+```
+
+Artifact SHA-256:
+`f52afeca61dc4bd0683a2ab72e285377355e86edd5e52fec85e89a84ab534249`.
+Worker SHA-256:
+`6372c07d1b4cf289b44c624496e3813af7c2ceb901cd6d7ff27af9d5c60d2774`.
+`counterexample:null`.
