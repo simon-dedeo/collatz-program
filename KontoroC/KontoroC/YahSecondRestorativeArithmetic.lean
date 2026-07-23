@@ -142,6 +142,41 @@ theorem secondReturnedRegister_pos (w : ℕ) :
   norm_num only [Nat.reducePow] at h
   omega
 
+theorem secondReturnedRegister_strictMono : StrictMono secondReturnedRegister := by
+  intro u v huv
+  have hin := secondIncomingRegister_strictMono huv
+  have hu := secondReturnedRegister_balance u
+  have hv := secondReturnedRegister_balance v
+  norm_num only [Nat.reducePow] at hu hv
+  omega
+
+theorem secondReturnedRegister_sub_balance (u v : ℕ) (huv : u < v) :
+    2 ^ 11 * (secondReturnedRegister v - secondReturnedRegister u) =
+      3 ^ 10 * (secondIncomingRegister v - secondIncomingRegister u) := by
+  have hout := secondReturnedRegister_strictMono huv
+  have hin := secondIncomingRegister_strictMono huv
+  have hu := secondReturnedRegister_balance u
+  have hv := secondReturnedRegister_balance v
+  norm_num only [Nat.reducePow] at hu hv ⊢
+  omega
+
+/-- The second returned register is again a two-adic isometry in its free
+parameter. -/
+theorem secondReturnedRegister_sub_val (u v : ℕ) (huv : u < v) :
+    padicValNat 2 (secondReturnedRegister v - secondReturnedRegister u) =
+      padicValNat 2 (v - u) := by
+  have hout := secondReturnedRegister_strictMono huv
+  have hin := secondIncomingRegister_strictMono huv
+  have hv := YahBattery.padicVal_of_twoPow_balance
+    (k := 11)
+    (E := secondReturnedRegister v - secondReturnedRegister u)
+    (A := 3 ^ 10)
+    (X := secondIncomingRegister v - secondIncomingRegister u)
+    (Nat.sub_pos_of_lt hout) (by positivity) (Nat.sub_pos_of_lt hin)
+    (by norm_num) (secondReturnedRegister_sub_balance u v huv)
+  have hsource := secondIncomingRegister_sub_val u v huv
+  omega
+
 /-- Closed value formula for the second returned chart. -/
 theorem secondReturnedRegister_value (w : ℕ) :
     2 ^ 29 * secondReturnedRegister w =

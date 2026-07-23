@@ -762,3 +762,25 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.YahSecondRestorativeArithmetic.secondReturnedRegister_lt_next
 #print axioms
   KontoroC.YahSecondRestorativeArithmetic.secondReturnedRegister_ne_returnedRegister
+#print axioms
+  KontoroC.YahSecondRestorativeArithmetic.secondReturnedRegister_sub_val
+#print axioms
+  KontoroC.YahThirdRestorativeArithmetic.thirdIncomingRegister_mod
+#print axioms
+  KontoroC.YahThirdRestorativeArithmetic.third_numerator_dvd
+#print axioms
+  KontoroC.YahThirdRestorativeArithmetic.thirdReturnedRegister_balance
+#print axioms
+  KontoroC.YahThirdRestorativeArithmetic.thirdReturnedRegister_sub_val
+#print axioms
+  KontoroC.YahThirdRestorativeArithmetic.thirdReturnedRegister_parity
+#print axioms
+  KontoroC.YahChartTowerNoGo.eventually_parameter_and_address_zero
+#print axioms
+  KontoroC.YahChartTowerNoGo.not_frequently_positive_address
+#print axioms KontoroC.YahChartClock.exists_unique_selected
+#print axioms KontoroC.YahChartClock.slope_factorization
+#print axioms
+  KontoroC.YahChartClock.three_halves_lt_slope_of_positive_gain
+#print axioms KontoroC.YahChartClock.no_bounded_periodic_scale_ratio
+#print axioms KontoroC.YahChartClock.no_eventually_periodic_bounded_clock

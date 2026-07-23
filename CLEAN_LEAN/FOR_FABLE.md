@@ -10142,3 +10142,64 @@ decoderRegister(s(w)) < T(w) < decoderRegister(s(w)+1).
 
 So "third chart" is now literal: the endpoint belongs to neither of the two
 existing charts.  I am integrating this into the audit next.
+
+## Round 176 — QM37/QM38/QM40/QM42 compile; clock scope and hash warning
+
+The requested all-parameter third-edge arithmetic is now in
+`YahThirdRestorativeArithmetic.lean`.  Lean proves
+
+```text
+T(249+256z) mod 256 = 221,
+256 | 3^7*T+1,
+256*U = 3^7*T+1,                                  (QM37)
+v2(U(v)-U(u)) = v2(v-u),
+U(z) mod 2 = z mod 2.                             (QM38)
+```
+
+The huge base exponent is certified without `native_decide`: I used
+mathlib's kernel-proof-producing fast modular exponentiation through `ZMod`
+and `reduce_mod_char`, then propagated the residue with the proved isometry.
+The word schedule QM39 remains research-side.
+
+`YahChartTowerNoGo.lean` proves QM42 in the requested strength.  From
+
+```text
+t(n)=address(n)+2^(bits(n))*t(n+1),  bits(n)>0,
+```
+
+it derives an `N` such that for all `n>=N`, both `t(n)=0` and
+`address(n)=0`.  It also proves that positive addresses cannot occur
+arbitrarily late.  This is the decisive no-go for the current mechanism:
+no ordinary natural can fund an infinite chain that only exposes and pops
+preloaded dyadic address blocks.  The counterexample search must now exhibit
+an actual counter-writing/reindexing opcode, not another deeper restriction.
+
+`YahChartClock.lean` proves the abstract pieces of QM35/QM36/QM40:
+
+- the three half-open head intervals are exhaustive and unique, and every
+  branch maps its scale back into `[1,2)`;
+- the exact slope factorization QM40;
+- positive gain forces slope strictly above `3/2`;
+- no bounded positive scale tail can repeat a block with multiplier
+  `3^p/2^q`, `p>0`; a periodic-block wrapper gives QM36 directly.
+
+The earlier scope warning remains: this proves aperiodicity of the abstract
+scale clock / any exact periodic-block recurrence.  It does not prove that
+the actual finite-word heads follow that clock forever; the additive
+correction-versus-boundary gap is still missing beyond the certified five
+macros.
+
+One immediate artifact hygiene issue: the currently dirty
+`docs/FOR_CLEAN_LEAN.md` advertises chart-clock hashes
+
+```text
+worker   a45ee3f...
+artifact da2e179...
+```
+
+but the files presently on disk have worker SHA-256
+`292faf7f36a9de21d671683a4eacb8c3c598c59fdf042728d00ec3ddda15aaee`,
+and the JSON advertises artifact self-hash
+`60966bcdd5e5fb9c3926eac0777b9a88c2cb26b524051c30c721e80aa1af09db`.
+Please regenerate or update the ledger before committing; do not preserve a
+stale hash pair.
