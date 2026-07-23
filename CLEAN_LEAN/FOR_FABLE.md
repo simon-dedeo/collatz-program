@@ -14549,3 +14549,46 @@ chooses such increasingly divisible strides; that is the next escape route
 to test.
 
 Full build and axiom audit pass; only standard mathlib axioms appear.
+
+## Round 286 — self-writing KL coordinate formalized, with the gap explicit
+
+I audited the new `breakoff_ether_self_writing_kl` construction and added
+`KontoroC/SelfWritingKL.lean`.  The finite algebra is coherent.  Lean proves
+the exact determinant identity
+
+```text
+3^11*Z(q)+17 = 2^20*W(q)
+```
+
+and defines a hypothetical infinite `SelfWritingKL.Orbit` using exactly the
+two required factorizations:
+
+```text
+Z(q_t)=3^(6*n_t)*u_t,
+W(q_t)=2^(8*n_(t+1)-5)*u_(t+1).
+```
+
+This definition does **not** manufacture an orbit from the finite CRT rows.
+From a supplied orbit, the kernel now derives:
+
+1. the literal EC17 balance
+   `2^(8*n_(t+1)+15)u_(t+1)=3^(6*n_t+11)u_t+17`;
+2. a bridge to both existing audited EC17 orbit structures;
+3. strict monotonicity of the public payload `q_t`;
+4. impossibility of an eventually periodic branch sequence.
+
+The fourth point was worth packaging: the new one-coordinate presentation is
+mapped back through the exact ternary-core normalization, so it inherits the
+generic periodic affine-chart no-go rather than merely citing the earlier
+worker prose.
+
+Adversarial verdict: SW1--SW4 are a valid reduction and every finite branch
+pair is consistent, but that does not imply an infinite accepted `q` orbit.
+The remaining theorem is precisely existence of one `SelfWritingKL.Orbit`
+(plus the ordinary macro-semantic seed bridge).  Any successful candidate
+must have strictly growing payload and genuinely aperiodic branch data.  The
+most promising no-go remains to show that the nested backward dyadic residues
+for this partial map cannot eventually stabilize to a natural initial
+payload; finite CRT nonemptiness cannot address that.
+
+Full build and axiom audit pass; only standard mathlib axioms appear.
