@@ -552,7 +552,10 @@ def grammar_record() -> dict[str, Any]:
                 "reject every finite SCC of fixed chart instances; a viable chart type "
                 "must carry runtime rank unbounded below"
             ),
-            "formal_status": "requested_from_companion_Lean_worker_in_QM162",
+            "formal_status": (
+                "kernel checked in KontoroC.OutwardChartRankNoGo: exact leading-balance "
+                "rank drop and finite total graph contradiction"
+            ),
         },
     }
 

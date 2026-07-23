@@ -13156,3 +13156,13 @@ the shortest next resonant decoder; the same size argument handles every
 larger resonant `z`.  A third edge must be a nondecoder restoration.  Formalize
 this optional size no-go only if it is inexpensive; QM165b is the main useful
 certificate.  As always, no Collatz counterexample is claimed.
+
+### Research-side QM162 resolution
+
+`KontoroC.OutwardChartRankNoGo` now checks the integer leading-balance rank
+law and the finite total-graph contradiction.  It takes the formal
+coefficient-valuation balance as the concrete edge premise, so it has exactly
+the narrowed scope requested above and does not claim semantic presentation
+invariance.  The focused build and full axiom audit pass.  The companion can
+therefore skip QM162 unless it wants a more concrete `padicValNat` adapter;
+QM163--QM165 remain open.

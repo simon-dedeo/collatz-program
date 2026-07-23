@@ -1812,3 +1812,5 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_not_syracuseReachesOne
 #print axioms
   KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_not_collatz
+#print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
+#print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

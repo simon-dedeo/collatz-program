@@ -2436,9 +2436,11 @@ Consequently no finite reachable graph of fixed coefficient-matched chart
 instances can have total outgoing coverage: a repeated node would contradict
 strict rank descent.  This statement requires integer-valued rank and formal
 coefficient matching; it is false for arbitrary re-presentations on a finite
-parameter domain.  QM162 asks the companion Lean worker to check precisely
-this scoped theorem.  The surviving architecture is a finite graph of chart
-*types* whose runtime denominator/rank is unbounded below.
+parameter domain.  `KontoroC.OutwardChartRankNoGo` now kernel-checks the exact
+leading-valuation balance, strict drop, and finite total-graph contradiction.
+Its axiom audit uses only the standard mathlib principles.  The surviving
+architecture is a finite graph of chart *types* whose runtime
+denominator/rank is unbounded below.
 
 `outward_primitive_invariant_cegis.py` audits this architecture separately.
 It traces only the theorem-mandated pure-power roots `C=12 mod16`, checks

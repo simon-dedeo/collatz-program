@@ -5261,9 +5261,9 @@ The default reconstructible artifact uses only the directed root family
 `C=12 mod16`, tests `C<=1000`, keeps one coherent nested exponent cylinder,
 and records an `(H,D,P)` ledger for the `C=700` champion.  It also checks the
 mod-nine resonant-return lemma on the complete first-passage word table
-through length 24.  The unbounded primitive normalization, chart-rank
-obstruction, and word lemma are requested from the companion Lean worker as
-QM162--QM163.
+through length 24.  The chart-rank graph obstruction is kernel-checked in
+`OutwardChartRankNoGo.lean`; the unbounded primitive normalization and word
+lemma remain companion requests QM163--QM164.
 
 The same artifact contains a theorem-directed writer--decoder outer loop.
 For each displayed counter `c<=5`, it solves the unique base-nine Hensel

@@ -1,5 +1,5 @@
 {
-  "artifact_sha256": "5dc67117ae55bf17dd95cd5b6e06946d50e2f94a2c45507bd1056348dd236400",
+  "artifact_sha256": "ccc0c32b67b2d74747086824d44fd5b7f33ce0ef9a7e3c484b83f98a2f2bf395",
   "audit": {
     "architecture_outer_loop": [
       {
@@ -591,7 +591,7 @@
         "chi": "Int(v2(alpha))-Int(d)",
         "consequence": "reject every finite SCC of fixed chart instances; a viable chart type must carry runtime rank unbounded below",
         "edge_law": "chi' = chi-(S+a)",
-        "formal_status": "requested_from_companion_Lean_worker_in_QM162"
+        "formal_status": "kernel checked in KontoroC.OutwardChartRankNoGo: exact leading-balance rank drop and finite total graph contradiction"
       },
       "transition_types": {
         "HIGH_t_gt_O_plus_c": {
@@ -1041,5 +1041,5 @@
     "universal_invariant": null
   },
   "schema": "collatz-outward-primitive-invariant-cegis-v1",
-  "worker_sha256": "efa7222b73c6dfaa46efd333d19333c981d07dcea59c821eb2bcd9548c866705"
+  "worker_sha256": "728c56e61cab4f55fb7a21e30db25fc5c21ad4a8bfebefc3a8699cc57ddbbfc5"
 }
