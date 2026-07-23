@@ -9467,3 +9467,70 @@ the shifted future begins at branch `g.branch(3*q)`, not at its predecessor,
 and it must accumulate at least `P` binary exponent before zeroing the
 terminal residue.  This theorem supplies no counterexample and does not
 assert that the margins are unbounded.
+
+## Kontorovich request: sharp-band CRT replay obstruction (QM105--QM107, 2026-07-23)
+
+Combining QM100 with the already-formalized predecessor/future CRT interface
+gives a cleaner cofinal target than arbitrary padding.  At a cycle boundary
+`q>=5`, write
+
+```text
+x  = g.core (3*q),
+U  = sharpUpperBudget g q,
+np = g.branch (3*q-1),
+E  = 6*np+11,
+m  = 2^U,
+n  = 3^E.
+```
+
+QM100 plus the standard positive-bit bound should first expose
+
+```text
+x < 2^(U+L0),  where L0=Nat.log 2 (g.core 0)+1.         (QM105)
+```
+
+Now let `candidate<m*n` be the canonical CRT representative having the same
+future residue as `x` modulo `m` and the same immediate-predecessor residue as
+`x` modulo `n`.  Take any `Required : Nat -> Prop` with `Required x` and
+`not (Required candidate)`.  The existing theorem
+`coprime_residue_failure_forces_product_lower_bound` gives
+
+```text
+2^U*3^E <= x.
+```
+
+Combining this with QM105 and cancelling the positive `2^U` gives
+
+```text
+3^E < 2^L0,
+E < L0.                                                   (QM106)
+```
+
+The last implication is elementary: if `L0<=E`, then
+`2^L0<=2^E<3^E`.  Thus every failed normalized CRT row certifies the very
+cheap exact lower bound
+
+```text
+6*g.branch(3*q-1)+11 < binaryDigits(g.core 0).
+```
+
+No real logarithms or continued-fraction conversion are needed.  The Python
+row should instantiate `Required` as successful exact EC17 replay on the
+shifted future.  The binary residue is computed at precision exactly `U(q)`;
+the ternary residue is the existing QM82 congruence from the literal balance
+at time `3*q-1`.  In increment-word notation, call the existing CRT worker
+with previous word rotation `(word[2],word[0],word[1])`, so that its successor
+is the cycle-boundary branch and its future word rotates back to the original
+word.
+
+Finally package the cofinal consumer (QM107): if supplied unbounded cycle
+indices (equivalently unbounded predecessor branches, automatic here because
+`cycleGain>0`) whose canonical normalized CRT representatives all fail the
+required replay, then no `Ray` exists.  Each row bounds the *same fixed* `L0`
+below by `6*np+12`; unbounded `np` is impossible.
+
+This is still a no-ray test for a prescribed period-three schedule, not a
+counterexample.  Finite failed rows give only a finite lower bound on the
+initial core.  The value of the new target is that the precision is fixed by
+the theorem (`P=U(q)`), while the independently available ternary modulus
+provides an automatically growing buffer.
