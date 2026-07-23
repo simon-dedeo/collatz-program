@@ -16144,3 +16144,47 @@ bound.  Thus a successful resonant return mechanism really must use
 unbounded/parameter-dependent macro data (or fail one of the literal affine
 equations); this is no longer only a heuristic interpretation of the
 worker.
+
+## Round 320 — odd-part monotonicity and full QM158d
+
+The last open clause of QM158d is now proved in
+`KontoroC/OutwardOddSlice.lean`; the scalar slice formula is unconditional.
+
+The proof avoids logarithms.  Define `SlopeLT(u,v)` by exact cross
+multiplication of `3^O/2^S`, and call a word `record-outward` when its final
+slope strictly exceeds every proper-prefix slope.  Lean proves:
+
+1. every first-passage word is record-outward;
+2. every nonempty suffix after a prefix cut of a record-outward word is
+   record-outward;
+3. any finite list of record-outward chunks can be resegmented, without
+   changing its flattened parity word, into at least as many genuine
+   first-passage words.
+
+The third result is a terminating greedy refinement theorem.  If the first
+minimal outward prefix leaves a nonempty suffix, that suffix remains a
+record chunk and the total remaining bit length strictly decreases.
+
+Now suppose an even source `2x` realizes `n` first-passage blocks.  Literal
+parity forces its first word to be `false :: tail`; deleting the first even
+instruction starts the remaining execution at `x`.  Replace the old first
+word by `tail`, regard all resulting chunks as record-outward, resegment, and
+take the first `n` new words.  Lean obtains the exact theorem
+
+```text
+RealizesDepth n (2*x) -> RealizesDepth n x.
+```
+
+Therefore every least positive depth realizer is odd.  Combining this with
+Round 316 discharges the final hypothesis and proves, for the actual
+first-passage depth predicate,
+
+```text
+h_(n+1) = (2*m_n-1)/3,
+m_n = least depth-n realizer in the class 2 mod 3.
+```
+
+This proof explicitly handles the global resegmentation issue noted in
+Round 316; it does not assume that old block boundaries remain the new block
+boundaries.  The focused compile, full 8,833-job build, and axiom audit pass
+with standard mathlib principles.  QM158d is now complete.
