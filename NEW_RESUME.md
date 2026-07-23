@@ -1,6 +1,88 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 08:59 EDT
+Updated: 2026-07-23, about 10:54 EDT
+
+### 10:54 EDT continuation -- exact height gate, proper thin language, and the failed EC17/KL bridge
+
+There is no counterexample.  Companion commit `73601f7` strengthens the
+zero-carry theorem to the exact height equivalence
+
+```text
+ResiduesBounded(e)
+  <-> EventuallyConstantResidue(e)
+  <-> EventuallyZeroCarry(e)
+  <-> exists m, Follows(e,m) and 0<=m(0).
+```
+
+The contrapositive `no_nonnegative_follows_of_unbounded_residues` is now the
+preferred symbolic no-go interface.  A worker need not derive every carry:
+after identifying its nested address with `initialResidue`, any exact
+unbounded height lower bound excludes an ordinary initial integer.
+
+The exact signed-controller worker
+`experiments/kontorovich/kl_signed_thin_residue.py` searches only the proper
+outward language in `c in [-96,-1]`, shadow depths `1..8`, and binary
+precision 8.  The minimal prefix code is exactly
+
+```text
+1, 011, 001111, 010111,
+p=21/32, q=1905/2048.
+```
+
+It checks 768 current modes, 246 outward modes, 168 admitted residues, and
+41,328 literal growing reset transitions.  The depth-nine preloaded tree has
+finite zero-lift runs; the strongest audited natural `M=138770` continues for
+eight zero-lift blocks and then has no zero-lift code extension.  This is a
+bounded diagnostic only.  The artifact has `counterexample:null` and leaves
+the eventual-zero tail undecided.  Companion commit `1aa3e52` proves that no
+periodic or ultimately periodic block schedule over these four outward words
+can be a positive ordinary shortcut orbit.  The only live subcase is a
+genuinely aperiodic path with bounded canonical residue height.
+
+The direct period-three EC17-to-KL bridge is false.  Exact reduction of the
+EC17 coefficient congruences gives
+
+```text
+m_(t+1)=4^(-4*Delta_t)*m_t (mod 3^d).
+```
+
+For period-three gain `K`, the boundary orbit has length
+`3^(d-1-min(v_3(K),d-1))`; if `3` does not divide `K`, it is all of `Y_d`.
+However, a phase pair `y=u*m` is a KL transport only in the exceptional
+congruence `u=4`, and over a full odometer orbit it meets exactly one class-2
+and one class-8 chord.  For `(-1,1,1)`, every phase has counts
+`(transport,R2,R8,nonedge)=(0,1,1,7)` at `d=3` and `(0,1,1,25)` at `d=4`.
+
+The affine-defect obstruction is stronger.  Every KL predecessor word with
+`r` divided letters has `D>=3^r-2^r`.  A normalized EC17 core transition has
+`r=6n+11>=17` and `D=34`, but
+`3^17-2^17=129009091`.  Hence no single core transition is any KL word.
+The exact reconstructive artifact is
+`breakoff_ether_period3_kl_bridge_audit.json`; it records
+`tax_ready:false` and `counterexample:null`.  This closes only the boundary
+identification.  The actual packet compiler uses different ordinary Collatz
+endpoints and remains eligible for a KL audit after its literal path is
+expanded and sampled at successive `2 mod 3` states.
+
+The correct finite packet bridge is now implemented in
+`breakoff_ether_glider_kl_bridge.py`.  At ether lengths `1..6`, tail zero, and
+the exactly reverified `k=12` KL certificate, it performs the full chain
+
+```text
+compiled breakoff macro
+ -> linked literal accelerated-Collatz words
+ -> every one-halving Syracuse state
+ -> successive 2 mod 3 visits
+ -> reversed genuine KL full-lift edges
+ -> exact prescribed-lift potential inequalities.
+```
+
+The edge-count rows `(R2,R8,S)` are `(6,9,0),(8,13,0),(10,18,0),
+(12,22,0),(14,25,0),(16,29,0)`.  Every macro has leading multiplier larger
+than one, and every edge and telescoped product inequality passes in exact
+rational arithmetic.  The artifact has `counterexample:null`.  This is the
+valid way to use KL on the ether program; it remains finite and says nothing
+yet about the macro tails forced by one infinite period-three execution.
 
 ### 08:59 EDT continuation -- special-theta audit and KL-calibrated escape
 
@@ -184,15 +266,122 @@ coherently forever, even with an aperiodic negative controller.  A reset is
 therefore compulsory.  For ternary switching, every center step has
 `h'<=4h`; a length-`L` connector matching a distinct target `g` modulo `3^k`
 must satisfy `3^k<=4^L*h+g`.  Fixed-length switches cannot work at cofinal
-precision.  These statements are elementary exact derivations but remain
+precision.  Companion commit `616ace8` kernel-checks QM132 completely,
+including a literal signed-Syracuse specialization and the infinite
+same-itinerary uniqueness theorem.  QM133's connector inequality remains
 pending companion Lean checking.
 
-The revised live object is an aperiodic **self-writing controller reset**:
-one ordinary payload must generate successively longer mod-`2^N` shadow
-addresses and successively longer mod-`3^k` connectors while paying the KL
-deviation and branch-count taxes.  Pure seed widening, fixed negative
-controllers, and treating height/precision/battery as independent counters no
-longer attack the seam.
+The adversarial review prevents two overclaims.  QM132 is the exact cost of a
+finite shadow, not a local impossibility: commit `2fcddea` proves that the
+first `N` parity bits agree exactly when the starts agree modulo `2^N`, and
+constructs an explicit negative representative in every finite cylinder.
+Finite signed shadowing at separately chosen depths is therefore automatic.
+Likewise commit `2700d1e` proves that QM133 only excludes fixed-length
+connectors between fixed/bounded centers.  Commit `aab22e7` adds its sharper
+count form
+
+```text
+h' <= 4^nS*2^n2*h,
+h'!=g and h'=g (mod 3^k) -> 3^k<=4^nS*2^n2*h+g.
+```
+
+Transport words of unbounded length can attain every fixed target precision,
+so this is not a finite-alphabet no-go.
+
+The revised live object is an aperiodic **self-writing controller reset**.
+Writing the reset state as `x_j=c_j+2^N_j*m_j`, exact subtraction gives the
+new QM134 interface
+
+```text
+2^N_(j+1)*m_(j+1)=3^O_j*m_j+T^N_j(c_j)-c_(j+1).
+```
+
+Backward iteration selects one 2-adic payload; a counterexample requires it
+to be a positive natural with every quotient positive, integral, and legal.
+Eventually periodic coefficients reduce to a finite rational fixed-point
+audit and are already closed; the live schedule must be genuinely aperiodic
+and payload-written.  On the ternary side the exact word accumulators obey
+`3^r*h'=A*h+B`, giving one connector congruence rather than an undirected
+search.  Commit `aab22e7` kernel-checks the complete QM134 accumulator,
+connector iff, and exact reset recurrence, with positivity/integrality/
+legality kept as explicit construction obligations.
+
+The finite ternary obligations are now completely classified.  Commits
+`8c20163`/`54eb749` prove that `A=2^scaleBits(w)`, so a fixed word and target
+select exactly one input class and any additional dyadic class is
+CRT-compatible.  Commit `961c692` proves the stronger equivalence, for every
+word with `r>0` divided letters,
+
+```text
+LegalWord(w,h) <-> A*h+B = 3^r (mod 3^(r+1)).
+```
+
+For every target center `g=1 (mod 3)` and `k>=1`, Lean constructs a positive
+legal input reaching `g mod 3^k` and proves uniqueness modulo `3^(k+r)`.
+Therefore finite controller legality, finite ternary targeting, and finite
+mixed CRT hits are automatic.  The live seam is no longer “find a legal
+connector”: it is make the dyadic and ternary inverse-limit cylinders come
+from one fixed positive ordinary payload while the real KL size cocycle stays
+outward.
+
+Commits `2acceaa`, `d8d8337`, `2963a8d`, `ca8dc5c`, and `18b8c93` formalize the
+dyadic inverse-limit side.  For reset
+instructions `(N,O,delta)`, the accumulator
+
+```text
+(S,P,D)->(S+N,P+O,3^O*D+2^S*delta)
+```
+
+satisfies `2^S*m_end=3^P*m_start+D`; the corresponding initial class exists
+and is unique modulo `2^S`.  The stronger terminal theorem proves that this
+one congruence is equivalent to existence of every intermediate integer
+quotient, and an affine cylinder shift makes every payload in any finite
+program strictly positive.  Thus finite reset integrality and positivity are
+automatic too.  For an infinite instruction stream with
+unbounded cumulative `S`, any two ordinary integer payload chains have the
+same initial payload.  Thus individual reset lengths need not grow, but their
+cumulative written precision does, and it selects at most one ordinary
+candidate.  The canonical representatives are nested and nondecreasing, and
+an ordinary nonnegative chain with unbounded cumulative precision makes them
+eventually equal to its initial payload.  The exact new carry digit satisfies
+
+```text
+r_(J+1)=r_J+2^S_J*q_J,  q_J<2^N_J,
+q_J=0 <-> 2^N_J divides 3^O_J*z_J+delta_J,
+```
+
+where `z_J` is the canonical finite endpoint.  Lean proves the exact
+infinite equivalence, without an unboundedness hypothesis:
+
+```text
+EventuallyZeroCarry(e)
+  <-> exists m, Follows(e,m) and 0<=m(0).
+```
+
+Thus nonzero carries arbitrarily late exclude every nonnegative ordinary
+chain, while a zero tail constructs one.  Strict positivity of every later
+quotient and outward real growth remain separate construction obligations.
+
+Commit `302ce3b` adds a deliberately abstract finite covering-dispatcher
+consumer: if a supplied residue table already certifies every affine reset,
+threshold preservation, positivity, and strict reset-state growth, Lean
+constructs its infinite growing configuration orbit.  It has no
+signed-Syracuse semantic bridge and cannot assert a Collatz counterexample.
+Moreover a total semantic cover by outward next-controller cylinders should
+pull back to the already closed Two-Kraft complete-code obstruction; that
+affine-preimage reduction is currently a proposed bridge, not a new checked
+no-go.  The live construction target remains a proper invariant thin
+language.
+
+Finally, the three-cycle audit is finite calibration only.  The certificates
+are not a coherent critical tower, the `-17` surplus `1.4813` is not “near
+equality,” and individual `-5` edge deviations alternate across levels.  Any
+future renormalization theorem must control cycle products, not a named edge.
+Commit `e15c6f0` proves the safe fixed-level consequence
+`W<=product d_i<=M^q`: an outward `q`-chord cycle forces some nontrivial
+projective fiber defect without selecting which edge carries it.
+Pure seed widening, fixed negative controllers, and treating
+height/precision/battery as independent counters no longer attack the seam.
 
 ### 07:20 EDT continuation — exact consecutive construction carries
 

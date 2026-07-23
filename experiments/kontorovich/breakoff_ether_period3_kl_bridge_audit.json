@@ -1,0 +1,624 @@
+{
+  "counterexample": null,
+  "fixed_regressions": {
+    "defect": {
+      "alphabet": {
+        "A": "advanced: D -> 2D+3^r",
+        "R": "retarded: D -> 4D+2*3^r",
+        "T": "transport: D -> 4D"
+      },
+      "ec17_mismatch": {
+        "divided_count_lower_bound": 17,
+        "doubled_kl_state_defect": 34,
+        "doubled_kl_state_defect_is_too_small": true,
+        "raw_core_defect": 17,
+        "raw_core_defect_is_too_small": true,
+        "sharp_defect_lower_bound_at_17": 129009091
+      },
+      "maximum_word_length": 9,
+      "minimum_by_divided_count": [
+        {
+          "divided_count": 0,
+          "first_minimizing_word": "",
+          "observed_minimum_defect": 0,
+          "sharp_lower_bound": 0
+        },
+        {
+          "divided_count": 1,
+          "first_minimizing_word": "A",
+          "observed_minimum_defect": 1,
+          "sharp_lower_bound": 1
+        },
+        {
+          "divided_count": 2,
+          "first_minimizing_word": "AA",
+          "observed_minimum_defect": 5,
+          "sharp_lower_bound": 5
+        },
+        {
+          "divided_count": 3,
+          "first_minimizing_word": "AAA",
+          "observed_minimum_defect": 19,
+          "sharp_lower_bound": 19
+        },
+        {
+          "divided_count": 4,
+          "first_minimizing_word": "AAAA",
+          "observed_minimum_defect": 65,
+          "sharp_lower_bound": 65
+        },
+        {
+          "divided_count": 5,
+          "first_minimizing_word": "AAAAA",
+          "observed_minimum_defect": 211,
+          "sharp_lower_bound": 211
+        },
+        {
+          "divided_count": 6,
+          "first_minimizing_word": "AAAAAA",
+          "observed_minimum_defect": 665,
+          "sharp_lower_bound": 665
+        },
+        {
+          "divided_count": 7,
+          "first_minimizing_word": "AAAAAAA",
+          "observed_minimum_defect": 2059,
+          "sharp_lower_bound": 2059
+        },
+        {
+          "divided_count": 8,
+          "first_minimizing_word": "AAAAAAAA",
+          "observed_minimum_defect": 6305,
+          "sharp_lower_bound": 6305
+        },
+        {
+          "divided_count": 9,
+          "first_minimizing_word": "AAAAAAAAA",
+          "observed_minimum_defect": 19171,
+          "sharp_lower_bound": 19171
+        }
+      ],
+      "words_checked": 29524
+    },
+    "period_three_minus_one_one_one": [
+      {
+        "cycle_gain": 1,
+        "depth": 3,
+        "increment_classifications": [
+          {
+            "global_counts": {
+              "no_kl_edge": 7,
+              "r2": 1,
+              "r8": 1,
+              "transport": 0
+            },
+            "increment": -1,
+            "multiplier_mod_3_power": 13,
+            "r2_coefficient_is_unit": true,
+            "r2_coefficient_mod_3_power": 8,
+            "r2_unique_source": 20,
+            "r8_coefficient_is_unit": true,
+            "r8_coefficient_mod_3_power": 10,
+            "r8_unique_source": 8,
+            "transport_exponent_mod_order": 4
+          },
+          {
+            "global_counts": {
+              "no_kl_edge": 7,
+              "r2": 1,
+              "r8": 1,
+              "transport": 0
+            },
+            "increment": 1,
+            "multiplier_mod_3_power": 25,
+            "r2_coefficient_is_unit": true,
+            "r2_coefficient_mod_3_power": 17,
+            "r2_unique_source": 11,
+            "r8_coefficient_is_unit": true,
+            "r8_coefficient_mod_3_power": 19,
+            "r8_unique_source": 17,
+            "transport_exponent_mod_order": 5
+          },
+          {
+            "global_counts": {
+              "no_kl_edge": 7,
+              "r2": 1,
+              "r8": 1,
+              "transport": 0
+            },
+            "increment": 1,
+            "multiplier_mod_3_power": 25,
+            "r2_coefficient_is_unit": true,
+            "r2_coefficient_mod_3_power": 17,
+            "r2_unique_source": 11,
+            "r8_coefficient_is_unit": true,
+            "r8_coefficient_mod_3_power": 19,
+            "r8_unique_source": 17,
+            "transport_exponent_mod_order": 5
+          }
+        ],
+        "increments": [
+          -1,
+          1,
+          1
+        ],
+        "macro_multiplier_mod_3_power": 25,
+        "macro_orbit_is_all_Y": true,
+        "macro_states": [
+          8,
+          11,
+          5,
+          17,
+          20,
+          14,
+          26,
+          2,
+          23
+        ],
+        "modulus": 27,
+        "observed_macro_orbit_length": 9,
+        "phase_rows": [
+          {
+            "clock_multiplier_mod_3_power": 13,
+            "counts_on_macro_orbit": {
+              "no_kl_edge": 7,
+              "r2": 1,
+              "r8": 1,
+              "transport": 0
+            },
+            "edge_hits": [
+              {
+                "edges": [
+                  "r8"
+                ],
+                "source": 8,
+                "target": 23
+              },
+              {
+                "edges": [
+                  "r2"
+                ],
+                "source": 20,
+                "target": 17
+              }
+            ],
+            "increment": -1,
+            "phase": 0,
+            "source_prefix_increment": 0
+          },
+          {
+            "clock_multiplier_mod_3_power": 25,
+            "counts_on_macro_orbit": {
+              "no_kl_edge": 7,
+              "r2": 1,
+              "r8": 1,
+              "transport": 0
+            },
+            "edge_hits": [
+              {
+                "edges": [
+                  "r2"
+                ],
+                "source": 11,
+                "target": 5
+              },
+              {
+                "edges": [
+                  "r8"
+                ],
+                "source": 17,
+                "target": 20
+              }
+            ],
+            "increment": 1,
+            "phase": 1,
+            "source_prefix_increment": -1
+          },
+          {
+            "clock_multiplier_mod_3_power": 25,
+            "counts_on_macro_orbit": {
+              "no_kl_edge": 7,
+              "r2": 1,
+              "r8": 1,
+              "transport": 0
+            },
+            "edge_hits": [
+              {
+                "edges": [
+                  "r2"
+                ],
+                "source": 11,
+                "target": 5
+              },
+              {
+                "edges": [
+                  "r8"
+                ],
+                "source": 17,
+                "target": 20
+              }
+            ],
+            "increment": 1,
+            "phase": 2,
+            "source_prefix_increment": 0
+          }
+        ],
+        "predicted_macro_orbit_length": 9,
+        "start_branch": 2,
+        "state_count": 9
+      },
+      {
+        "cycle_gain": 1,
+        "depth": 4,
+        "increment_classifications": [
+          {
+            "global_counts": {
+              "no_kl_edge": 25,
+              "r2": 1,
+              "r8": 1,
+              "transport": 0
+            },
+            "increment": -1,
+            "multiplier_mod_3_power": 13,
+            "r2_coefficient_is_unit": true,
+            "r2_coefficient_mod_3_power": 35,
+            "r2_unique_source": 74,
+            "r8_coefficient_is_unit": true,
+            "r8_coefficient_mod_3_power": 37,
+            "r8_unique_source": 35,
+            "transport_exponent_mod_order": 4
+          },
+          {
+            "global_counts": {
+              "no_kl_edge": 25,
+              "r2": 1,
+              "r8": 1,
+              "transport": 0
+            },
+            "increment": 1,
+            "multiplier_mod_3_power": 25,
+            "r2_coefficient_is_unit": true,
+            "r2_coefficient_mod_3_power": 71,
+            "r2_unique_source": 65,
+            "r8_coefficient_is_unit": true,
+            "r8_coefficient_mod_3_power": 73,
+            "r8_unique_source": 71,
+            "transport_exponent_mod_order": 23
+          },
+          {
+            "global_counts": {
+              "no_kl_edge": 25,
+              "r2": 1,
+              "r8": 1,
+              "transport": 0
+            },
+            "increment": 1,
+            "multiplier_mod_3_power": 25,
+            "r2_coefficient_is_unit": true,
+            "r2_coefficient_mod_3_power": 71,
+            "r2_unique_source": 65,
+            "r8_coefficient_is_unit": true,
+            "r8_coefficient_mod_3_power": 73,
+            "r8_unique_source": 71,
+            "transport_exponent_mod_order": 23
+          }
+        ],
+        "increments": [
+          -1,
+          1,
+          1
+        ],
+        "macro_multiplier_mod_3_power": 25,
+        "macro_orbit_is_all_Y": true,
+        "macro_states": [
+          8,
+          38,
+          59,
+          17,
+          20,
+          14,
+          26,
+          2,
+          50,
+          35,
+          65,
+          5,
+          44,
+          47,
+          41,
+          53,
+          29,
+          77,
+          62,
+          11,
+          32,
+          71,
+          74,
+          68,
+          80,
+          56,
+          23
+        ],
+        "modulus": 81,
+        "observed_macro_orbit_length": 27,
+        "phase_rows": [
+          {
+            "clock_multiplier_mod_3_power": 13,
+            "counts_on_macro_orbit": {
+              "no_kl_edge": 25,
+              "r2": 1,
+              "r8": 1,
+              "transport": 0
+            },
+            "edge_hits": [
+              {
+                "edges": [
+                  "r8"
+                ],
+                "source": 35,
+                "target": 50
+              },
+              {
+                "edges": [
+                  "r2"
+                ],
+                "source": 74,
+                "target": 71
+              }
+            ],
+            "increment": -1,
+            "phase": 0,
+            "source_prefix_increment": 0
+          },
+          {
+            "clock_multiplier_mod_3_power": 25,
+            "counts_on_macro_orbit": {
+              "no_kl_edge": 25,
+              "r2": 1,
+              "r8": 1,
+              "transport": 0
+            },
+            "edge_hits": [
+              {
+                "edges": [
+                  "r2"
+                ],
+                "source": 65,
+                "target": 5
+              },
+              {
+                "edges": [
+                  "r8"
+                ],
+                "source": 71,
+                "target": 74
+              }
+            ],
+            "increment": 1,
+            "phase": 1,
+            "source_prefix_increment": -1
+          },
+          {
+            "clock_multiplier_mod_3_power": 25,
+            "counts_on_macro_orbit": {
+              "no_kl_edge": 25,
+              "r2": 1,
+              "r8": 1,
+              "transport": 0
+            },
+            "edge_hits": [
+              {
+                "edges": [
+                  "r2"
+                ],
+                "source": 65,
+                "target": 5
+              },
+              {
+                "edges": [
+                  "r8"
+                ],
+                "source": 71,
+                "target": 74
+              }
+            ],
+            "increment": 1,
+            "phase": 2,
+            "source_prefix_increment": 0
+          }
+        ],
+        "predicted_macro_orbit_length": 27,
+        "start_branch": 2,
+        "state_count": 27
+      }
+    ]
+  },
+  "requested_audit": {
+    "cycle_gain": 1,
+    "depth": 4,
+    "increment_classifications": [
+      {
+        "global_counts": {
+          "no_kl_edge": 25,
+          "r2": 1,
+          "r8": 1,
+          "transport": 0
+        },
+        "increment": -1,
+        "multiplier_mod_3_power": 13,
+        "r2_coefficient_is_unit": true,
+        "r2_coefficient_mod_3_power": 35,
+        "r2_unique_source": 74,
+        "r8_coefficient_is_unit": true,
+        "r8_coefficient_mod_3_power": 37,
+        "r8_unique_source": 35,
+        "transport_exponent_mod_order": 4
+      },
+      {
+        "global_counts": {
+          "no_kl_edge": 25,
+          "r2": 1,
+          "r8": 1,
+          "transport": 0
+        },
+        "increment": 1,
+        "multiplier_mod_3_power": 25,
+        "r2_coefficient_is_unit": true,
+        "r2_coefficient_mod_3_power": 71,
+        "r2_unique_source": 65,
+        "r8_coefficient_is_unit": true,
+        "r8_coefficient_mod_3_power": 73,
+        "r8_unique_source": 71,
+        "transport_exponent_mod_order": 23
+      },
+      {
+        "global_counts": {
+          "no_kl_edge": 25,
+          "r2": 1,
+          "r8": 1,
+          "transport": 0
+        },
+        "increment": 1,
+        "multiplier_mod_3_power": 25,
+        "r2_coefficient_is_unit": true,
+        "r2_coefficient_mod_3_power": 71,
+        "r2_unique_source": 65,
+        "r8_coefficient_is_unit": true,
+        "r8_coefficient_mod_3_power": 73,
+        "r8_unique_source": 71,
+        "transport_exponent_mod_order": 23
+      }
+    ],
+    "increments": [
+      -1,
+      1,
+      1
+    ],
+    "macro_multiplier_mod_3_power": 25,
+    "macro_orbit_is_all_Y": true,
+    "macro_states": [
+      8,
+      38,
+      59,
+      17,
+      20,
+      14,
+      26,
+      2,
+      50,
+      35,
+      65,
+      5,
+      44,
+      47,
+      41,
+      53,
+      29,
+      77,
+      62,
+      11,
+      32,
+      71,
+      74,
+      68,
+      80,
+      56,
+      23
+    ],
+    "modulus": 81,
+    "observed_macro_orbit_length": 27,
+    "phase_rows": [
+      {
+        "clock_multiplier_mod_3_power": 13,
+        "counts_on_macro_orbit": {
+          "no_kl_edge": 25,
+          "r2": 1,
+          "r8": 1,
+          "transport": 0
+        },
+        "edge_hits": [
+          {
+            "edges": [
+              "r8"
+            ],
+            "source": 35,
+            "target": 50
+          },
+          {
+            "edges": [
+              "r2"
+            ],
+            "source": 74,
+            "target": 71
+          }
+        ],
+        "increment": -1,
+        "phase": 0,
+        "source_prefix_increment": 0
+      },
+      {
+        "clock_multiplier_mod_3_power": 25,
+        "counts_on_macro_orbit": {
+          "no_kl_edge": 25,
+          "r2": 1,
+          "r8": 1,
+          "transport": 0
+        },
+        "edge_hits": [
+          {
+            "edges": [
+              "r2"
+            ],
+            "source": 65,
+            "target": 5
+          },
+          {
+            "edges": [
+              "r8"
+            ],
+            "source": 71,
+            "target": 74
+          }
+        ],
+        "increment": 1,
+        "phase": 1,
+        "source_prefix_increment": -1
+      },
+      {
+        "clock_multiplier_mod_3_power": 25,
+        "counts_on_macro_orbit": {
+          "no_kl_edge": 25,
+          "r2": 1,
+          "r8": 1,
+          "transport": 0
+        },
+        "edge_hits": [
+          {
+            "edges": [
+              "r2"
+            ],
+            "source": 65,
+            "target": 5
+          },
+          {
+            "edges": [
+              "r8"
+            ],
+            "source": 71,
+            "target": 74
+          }
+        ],
+        "increment": 1,
+        "phase": 2,
+        "source_prefix_increment": 0
+      }
+    ],
+    "predicted_macro_orbit_length": 27,
+    "start_branch": 2,
+    "state_count": 27
+  },
+  "schema": "collatz-ec17-kl-boundary-bridge-audit-v1",
+  "scope": "finite exact EC17 coefficient-clock, odometer-order, and KL-edge congruence audit; exhaustive abstract KL defect regression only through the stated word-length bound; no packet compiler, infinite ray, Haar-tax theorem, or Collatz counterexample claim",
+  "tax_ready": false,
+  "verifier_sha256": "c68013efe9ebe1753cfc71e023d730f1e00b7364e23fb2ce773126d0a58de27b"
+}

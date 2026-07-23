@@ -4636,11 +4636,54 @@ template                 k=12              k=19
 -17 cycle            1.86455471354517   1.48129516352954
 ```
 
-These are finite diagnostics from feasible vectors, not critical-eigenvector
-identities or limiting theorems.  They suggest that signed cycles are the
-right near-equality controllers, while proving nothing about an ordinary
-positive orbit.  In particular, an autonomous construction still has to pay
-for increasingly precise switches or resets between finite shadow blocks.
+These are finite diagnostics from independent feasible vectors, not
+critical-eigenvector identities, a coherent tower, or limiting theorems.
+They justify signed cycles as comparison controllers, not as an equality set;
+the `-17` surplus in particular remains `1.4813` at level 19.  An autonomous
+construction still has to pay for increasingly precise switches or resets
+between finite shadow blocks.
+Companion commit `e15c6f0` kernel-checks the only immediate product-level
+corollary: if all `q` chord deviations are at most `M`, the calibrated cycle
+weight is at most `M^q`.  Individual edges may exchange which one carries the
+tax across levels.
+
+The companion's subsequent controller theorem removes finite legality as a
+search discriminator.  Commits `8c20163`/`54eb749` prove that a controller
+word's numerator slope is a power of two, giving one input class for every
+finite ternary target and automatic mixed dyadic/ternary CRT compatibility.
+Commit `961c692` proves that for every word with `r>0` divided letters,
+
+```text
+LegalWord(w,h) <-> A*h+B = 3^r (mod 3^(r+1)),
+```
+
+and constructs the unique positive legal input class reaching every target
+`g=1 mod 3` at every finite precision.  A bounded worker that merely finds
+such legal target hits is therefore testing an automatic cylinder theorem,
+not approaching a counterexample.  Future workers must test coherence of one
+ordinary payload across resets and the real KL outward budget.
+
+Commits `2acceaa`/`d8d8337` supply the matching dyadic accumulator for that test.  A
+finite reset program has data `(S,P,D)` with
+`2^S*m_end=3^P*m_start+D`, hence one initial class modulo `2^S`; an infinite
+program whose cumulative `S` is unbounded has at most one ordinary initial
+payload.  The terminal congruence reconstructs every intermediate integer
+quotient, and a large enough cylinder shift makes all payloads in any finite
+program positive.  Workers should therefore report the coherent sequence of
+accumulated classes and its exact extension carries: a natural payload
+requires the canonical representative to stabilize, so every newly written
+high-bit block must eventually be zero.  Commits `2963a8d`/`ca8dc5c`
+kernel-check this stabilization criterion and the exact bounded carry law,
+including the no-chain consumer for carries that are nonzero arbitrarily
+late.  Counts of independent finite reset, integrality, or positivity hits
+carry no promotion evidence.  Commit `18b8c93` proves the complete interface:
+an exact eventual zero-carry tail is equivalent to existence of a
+nonnegative ordinary integer reset chain.  Workers must still certify strict
+positivity of all later quotients and literal outward Collatz semantics.
+Commit `302ce3b` supplies an abstract finite-table consumer for exactly those
+extra fields, but intentionally has no signed-Syracuse bridge.  Do not search
+total outward tables: the live computational target is a proper thin language
+of compatible cylinders and its exact carry behavior.
 
 ```bash
 python3 kl_negative_cycle_tax.py selftest
@@ -4652,3 +4695,68 @@ Artifact SHA-256:
 Worker SHA-256:
 `6372c07d1b4cf289b44c624496e3813af7c2ceb901cd6d7ff27af9d5c60d2774`.
 `counterexample:null`.
+
+## Proper signed-controller thin language
+
+`kl_signed_thin_residue.py` extracts the minimal outward shortcut-parity
+language in the exact bounded controller box `c in [-96,-1]`, `1<=N<=8`.
+It verifies the four-word prefix code, its exact Kraft masses, every
+odd-affine pullback modulo `2^8`, and literal positive reset growth.  Its
+finite prefix tree reports exact extension lifts; it does not promote a long
+zero-lift suffix to an infinite address.
+
+```bash
+python3 kl_signed_thin_residue.py selftest
+python3 kl_signed_thin_residue.py verify kl_signed_thin_residue.json
+```
+
+Default results: 768 modes, 246 outward modes, code
+`{1,011,001111,010111}`, ordinary mass `21/32`, tilted mass `1905/2048`, and
+41,328 literal growing reset checks.  The strongest finite zero-lift run is
+eight blocks and then fails.  Companion commit `1aa3e52` rules out all
+periodic and ultimately periodic infinite paths in this code.  A genuinely
+aperiodic eventually-zero-carry path is not decided.  `counterexample:null`.
+
+## EC17 boundary clock versus KL edges
+
+`breakoff_ether_period3_kl_bridge.py` is a deliberately negative semantic
+audit.  It proves by exact modular enumeration that the EC17 normalized core
+clock is an odometer but that almost every boundary pair is not a KL
+full-lift edge.  It also exhausts 29,524 KL words through length nine against
+the sharp defect bound `D>=3^r-2^r`.
+
+```bash
+python3 breakoff_ether_period3_kl_bridge.py selftest --max-word-length 8
+python3 breakoff_ether_period3_kl_bridge.py verify \
+  breakoff_ether_period3_kl_bridge_audit.json
+```
+
+For the `(-1,1,1)` schedule, every phase has exactly one class-2 and one
+class-8 KL chord over the full odometer orbit, with 7 nonedges at depth 3 and
+25 at depth 4.  A normalized EC17 core step has defect 34 at divided count at
+least 17, far below `3^17-2^17=129009091`, so it cannot itself be a KL word.
+The actual packet compiler is not ruled out.  The artifact records
+`tax_ready:false` and `counterexample:null`.
+
+## Literal returning-glider KL bridge
+
+`breakoff_ether_glider_kl_bridge.py` performs the corrected semantic
+compilation which the core-boundary audit deliberately refuses.  It expands
+the actual returning glider through linked breakoff steps and literal Collatz
+states, samples `2 mod 3` visits, reverses them to KL full-lift edges, exactly
+re-verifies the stored KL certificate, and checks every edge and path-product
+potential inequality before reporting a tax row.
+
+```bash
+python3 breakoff_ether_glider_kl_bridge.py selftest \
+  --maximum-ether-cells 3
+python3 breakoff_ether_glider_kl_bridge.py verify \
+  breakoff_ether_glider_kl_bridge_audit.json
+```
+
+The default artifact covers ether lengths `1..6`, tail zero, at KL level 12.
+All paths are outward and contain only chord edges; their `(R2,R8)` counts are
+`(6,9),(8,13),(10,18),(12,22),(14,25),(16,29)`.  Every exact edge inequality
+and telescoped product passes.  This is finite packet-level calibration only;
+it does not supply an infinite macro schedule, a precision-uniform KL bound,
+or a Collatz counterexample.  `counterexample:null`.

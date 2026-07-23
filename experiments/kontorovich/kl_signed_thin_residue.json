@@ -1,0 +1,320 @@
+{
+  "affine_pullback_audit": {
+    "all_mode_cover_count_histogram": {
+      "168": 768
+    },
+    "identity": "2^Nnext*mnext = 3^O*m + signedSyracuse^[N](c) - cnext",
+    "literal_reset_transition_checks": 41328,
+    "outward_mode_cover_count_histogram": {
+      "168": 246
+    },
+    "total_cover_reduction": "for fixed current mode, m -> cEnd+3^O*m is a permutation modulo 2^B; a total outward next-mode cover would normalize to the already-closed complete outward prefix-code case"
+  },
+  "arithmetic": "exact_python_integers_and_fractions",
+  "bounds": {
+    "current_shadow_depth_max": 8,
+    "current_shadow_depth_min": 1,
+    "dyadic_precision_bits": 8,
+    "finite_preloaded_block_depth": 9,
+    "negative_center_max": -1,
+    "negative_center_min": -96
+  },
+  "claim_scope": "bounded exact specialization of the signed-Syracuse reset recurrence; finite-depth admissible preloaded language only, not an invariant ordinary orbit and not a Collatz counterexample",
+  "code_masses": {
+    "ambient_residues": 256,
+    "is_total_cover": false,
+    "missing_target_residues": 88,
+    "ordinary_p": {
+      "denominator": 32,
+      "fraction": "21/32",
+      "numerator": 21
+    },
+    "resolved_outward_target_residues": 168,
+    "tilted_q": {
+      "denominator": 2048,
+      "fraction": "1905/2048",
+      "numerator": 1905
+    }
+  },
+  "counterexample": null,
+  "eventual_zero_address_tail": {
+    "decided": false,
+    "ordinary_promotion_gate": "an infinite compatible controller schedule must have ell=0 eventually, then pass positivity and literal replay",
+    "reason": "finite block depth cannot decide whether one nested canonical address has zero extension lifts from some point on",
+    "required_extension_relation": "R_(u v)=R_u+2^len(u)*ell, where ell=(R_v-T^len(u)(R_u))*3^(-odd(u)) mod 2^len(v)"
+  },
+  "finite_depth_admissible_preloaded_language": [
+    {
+      "admissible_preloaded_prefixes": 4,
+      "block_depth": 1,
+      "maximum_shortcut_steps": 6,
+      "maximum_terminal_zero_lift_run": 0,
+      "minimum_shortcut_steps": 1,
+      "ordinary_mass": {
+        "denominator": 32,
+        "fraction": "21/32",
+        "numerator": 21
+      },
+      "prefixes_ending_in_zero_lift": 0,
+      "tilted_mass": {
+        "denominator": 2048,
+        "fraction": "1905/2048",
+        "numerator": 1905
+      },
+      "zero_lift_extensions": 0
+    },
+    {
+      "admissible_preloaded_prefixes": 16,
+      "block_depth": 2,
+      "maximum_shortcut_steps": 12,
+      "maximum_terminal_zero_lift_run": 0,
+      "minimum_shortcut_steps": 2,
+      "ordinary_mass": {
+        "denominator": 1024,
+        "fraction": "441/1024",
+        "numerator": 441
+      },
+      "prefixes_ending_in_zero_lift": 0,
+      "tilted_mass": {
+        "denominator": 4194304,
+        "fraction": "3629025/4194304",
+        "numerator": 3629025
+      },
+      "zero_lift_extensions": 0
+    },
+    {
+      "admissible_preloaded_prefixes": 64,
+      "block_depth": 3,
+      "maximum_shortcut_steps": 18,
+      "maximum_terminal_zero_lift_run": 1,
+      "minimum_shortcut_steps": 3,
+      "ordinary_mass": {
+        "denominator": 32768,
+        "fraction": "9261/32768",
+        "numerator": 9261
+      },
+      "prefixes_ending_in_zero_lift": 8,
+      "tilted_mass": {
+        "denominator": 8589934592,
+        "fraction": "6913292625/8589934592",
+        "numerator": 6913292625
+      },
+      "zero_lift_extensions": 8
+    },
+    {
+      "admissible_preloaded_prefixes": 256,
+      "block_depth": 4,
+      "maximum_shortcut_steps": 24,
+      "maximum_terminal_zero_lift_run": 2,
+      "minimum_shortcut_steps": 4,
+      "ordinary_mass": {
+        "denominator": 1048576,
+        "fraction": "194481/1048576",
+        "numerator": 194481
+      },
+      "prefixes_ending_in_zero_lift": 36,
+      "tilted_mass": {
+        "denominator": 17592186044416,
+        "fraction": "13169822450625/17592186044416",
+        "numerator": 13169822450625
+      },
+      "zero_lift_extensions": 36
+    },
+    {
+      "admissible_preloaded_prefixes": 1024,
+      "block_depth": 5,
+      "maximum_shortcut_steps": 30,
+      "maximum_terminal_zero_lift_run": 3,
+      "minimum_shortcut_steps": 5,
+      "ordinary_mass": {
+        "denominator": 33554432,
+        "fraction": "4084101/33554432",
+        "numerator": 4084101
+      },
+      "prefixes_ending_in_zero_lift": 166,
+      "tilted_mass": {
+        "denominator": 36028797018963968,
+        "fraction": "25088511768440625/36028797018963968",
+        "numerator": 25088511768440625
+      },
+      "zero_lift_extensions": 166
+    },
+    {
+      "admissible_preloaded_prefixes": 4096,
+      "block_depth": 6,
+      "maximum_shortcut_steps": 36,
+      "maximum_terminal_zero_lift_run": 4,
+      "minimum_shortcut_steps": 6,
+      "ordinary_mass": {
+        "denominator": 1073741824,
+        "fraction": "85766121/1073741824",
+        "numerator": 85766121
+      },
+      "prefixes_ending_in_zero_lift": 684,
+      "tilted_mass": {
+        "denominator": 73786976294838206464,
+        "fraction": "47793614918879390625/73786976294838206464",
+        "numerator": 47793614918879390625
+      },
+      "zero_lift_extensions": 684
+    },
+    {
+      "admissible_preloaded_prefixes": 16384,
+      "block_depth": 7,
+      "maximum_shortcut_steps": 42,
+      "maximum_terminal_zero_lift_run": 5,
+      "minimum_shortcut_steps": 7,
+      "ordinary_mass": {
+        "denominator": 34359738368,
+        "fraction": "1801088541/34359738368",
+        "numerator": 1801088541
+      },
+      "prefixes_ending_in_zero_lift": 2674,
+      "tilted_mass": {
+        "denominator": 151115727451828646838272,
+        "fraction": "91046836420465239140625/151115727451828646838272",
+        "numerator": 91046836420465239140625
+      },
+      "zero_lift_extensions": 2674
+    },
+    {
+      "admissible_preloaded_prefixes": 65536,
+      "block_depth": 8,
+      "maximum_shortcut_steps": 48,
+      "maximum_terminal_zero_lift_run": 6,
+      "minimum_shortcut_steps": 8,
+      "ordinary_mass": {
+        "denominator": 1099511627776,
+        "fraction": "37822859361/1099511627776",
+        "numerator": 37822859361
+      },
+      "prefixes_ending_in_zero_lift": 10690,
+      "tilted_mass": {
+        "denominator": 309485009821345068724781056,
+        "fraction": "173444223380986280562890625/309485009821345068724781056",
+        "numerator": 173444223380986280562890625
+      },
+      "zero_lift_extensions": 10690
+    },
+    {
+      "admissible_preloaded_prefixes": 262144,
+      "block_depth": 9,
+      "maximum_shortcut_steps": 54,
+      "maximum_terminal_zero_lift_run": 6,
+      "minimum_shortcut_steps": 9,
+      "ordinary_mass": {
+        "denominator": 35184372088832,
+        "fraction": "794280046581/35184372088832",
+        "numerator": 794280046581
+      },
+      "prefixes_ending_in_zero_lift": 43007,
+      "tilted_mass": {
+        "denominator": 633825300114114700748351602688,
+        "fraction": "330411245540778864472306640625/633825300114114700748351602688",
+        "numerator": 330411245540778864472306640625
+      },
+      "zero_lift_extensions": 43007
+    }
+  ],
+  "minimal_outward_prefix_code": [
+    {
+      "dyadic_residue": 1,
+      "negative_representative": -1,
+      "odd_sources": 1,
+      "parity_word": "1",
+      "shortcut_steps": 1,
+      "signed_endpoint": -1,
+      "strict_slope_margin": 1,
+      "three_pow_odd": 3,
+      "two_pow_steps": 2
+    },
+    {
+      "dyadic_residue": 6,
+      "negative_representative": -2,
+      "odd_sources": 2,
+      "parity_word": "011",
+      "shortcut_steps": 3,
+      "signed_endpoint": -1,
+      "strict_slope_margin": 1,
+      "three_pow_odd": 9,
+      "two_pow_steps": 8
+    },
+    {
+      "dyadic_residue": 60,
+      "negative_representative": -4,
+      "odd_sources": 4,
+      "parity_word": "001111",
+      "shortcut_steps": 6,
+      "signed_endpoint": -1,
+      "strict_slope_margin": 17,
+      "three_pow_odd": 81,
+      "two_pow_steps": 64
+    },
+    {
+      "dyadic_residue": 18,
+      "negative_representative": -46,
+      "odd_sources": 4,
+      "parity_word": "010111",
+      "shortcut_steps": 6,
+      "signed_endpoint": -55,
+      "strict_slope_margin": 17,
+      "three_pow_odd": 81,
+      "two_pow_steps": 64
+    }
+  ],
+  "mode_counts": {
+    "controller_modes": 768,
+    "distinct_outward_parity_words": 82,
+    "universally_outward_modes": 246
+  },
+  "schema": "collatz-kl-signed-thin-residue-v1",
+  "strongest_finite_zero_lift_run": {
+    "canonical_initial_residue": 138770,
+    "code_words": [
+      "010111",
+      "010111",
+      "010111",
+      "1",
+      "1",
+      "011",
+      "011",
+      "1",
+      "011"
+    ],
+    "extension_lifts": [
+      18,
+      56,
+      33,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "literal_reset_states": [
+      138770,
+      175634,
+      222290,
+      281339,
+      422009,
+      633014,
+      712142,
+      801161,
+      1201742,
+      1351961
+    ],
+    "terminal_zero_lift_run": 6,
+    "written_bits": 30,
+    "zero_lift_lookahead": {
+      "additional_zero_lift_count": 2,
+      "additional_zero_lift_words": [
+        "1",
+        "011"
+      ],
+      "extended_terminal_zero_lift_run": 8,
+      "stopped_with_no_zero_lift_extension": true
+    }
+  },
+  "verifier_sha256": "077aac3899b6961b1022f953c3a6eb55b88b6bb2f745aa0b7915fcbdc2e0419f"
+}

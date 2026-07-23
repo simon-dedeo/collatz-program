@@ -10799,3 +10799,556 @@ division after the even/odd witnesses, plus the final definitional reduction.
 Please prioritize committing the abstract QM132 theorem and QM133.  The
 literal signed-map bridge is explicitly secondary and may be omitted or
 returned to later rather than holding the structural result open.
+
+### QM132 completion and adversarial scope (2026-07-23 09:39 EDT)
+
+Commit `616ace8` has now completed both the abstract theorem and the literal
+signed-Syracuse bridge; the temporary build note above is resolved.  The
+theorem closes coherent infinite tracking of one controller, not finite
+shadowing.  In fact the sharp converse should be recorded if short:
+
+```text
+the first N signed parity bits of x,y agree <-> x = y (mod 2^N).  (QM132d)
+```
+
+The reverse implication is the standard parity-residue coding induction.
+It matters conceptually: every finite controller can be shadowed for an
+arbitrarily long finite time by choosing a fresh residue class.  QM132
+quantifies that address; it does not make resets locally impossible.
+
+QM133 also has a stronger count-sensitive bound.  If a legal connector uses
+`nS,n2,n8` steps of types `S,R2,R8`, respectively, then for positive centers
+
+```text
+R8(h) <= h,       R2(h) <= 2*h,       S(h)=4*h,
+h' <= 4^nS * 2^n2 * h.                              (QM133c)
+```
+
+Please prefer this over `4^L*h` and derive
+
+```text
+h' != g and 3^k | (h'-g)
+  -> 3^k <= |h'-g| <= 4^nS*2^n2*h+g.                (QM133d)
+```
+
+Scope must keep `h,g` fixed or bounded before reading this as linear growth
+of word length.  The one-letter transport family shows why: from `h=1`,
+`S^L(h)=4^L`, and `L=1+3^(k-1)` gives `4^L = 4 (mod 3^k)` with endpoint
+different from the fixed target `g=4`.  Finite alphabets with unbounded word
+length remain possible.
+
+## Kontorovich request: exact controller-reset recurrence (QM134, 2026-07-23)
+
+The useful synthesis of QM131--133 is not another independent cost; it is an
+exact affine/radix recurrence.  Please package either or both layers below.
+
+For a positive-center word, accumulate integers `(A,B,r)`, initialized by
+`(1,0,0)`, under
+
+```text
+S:   (A,B,r) -> (4A, 4B, r),
+R2:  (A,B,r) -> (4A, 4B + 2*3^r, r+1),
+R8:  (A,B,r) -> (2A, 2B +   3^r, r+1).              (QM134a)
+```
+
+If the word takes center `h` to `h'`, prove
+
+```text
+3^r*h' = A*h+B.                                      (QM134b)
+```
+
+This gives the exact ternary connector test, without enumeration:
+
+```text
+h' = g (mod 3^k)  <->
+A*h+B = 3^r*g (mod 3^(k+r)).                         (QM134c)
+```
+
+At a controller reset, write the positive state as
+`x_j=c_j+2^N_j*m_j`.  If it shares `N_j` shortcut branches with `c_j`, with
+`O_j` odd sources, and the next controller is `c_(j+1)`, subtraction gives
+
+```text
+2^N_(j+1)*m_(j+1) = 3^O_j*m_j + delta_j,
+delta_j = T^N_j(c_j)-c_(j+1).                       (QM134d)
+```
+
+An abstract integer version with the displayed identity as hypotheses is
+enough.  Backward iteration selects one canonical `2`-adic initial payload;
+an ordinary escape requires that value to be a positive natural and every
+forward quotient to be positive, integral, and branch-legal.  Eventually
+periodic coefficient schedules reduce to one rational affine fixed-point
+audit and are already covered by the project's periodic/finite-state no-go
+machinery; do not reopen that closed search.  The new live consumer is a
+genuinely aperiodic, payload-written reset schedule.
+
+## Kontorovich request: outward cycles force a fiber defect (QM135, low priority)
+
+For a cycle with `q>0` chord deviations `d_i>=1`, the calibrated tax gives
+`W <= product d_i`.  Please package the elementary consequence
+
+```text
+(forall i, d_i <= M) -> W <= M^q.                    (QM135)
+```
+
+This is the safe structural reading of the three-cycle audit: an outward
+cycle forces some nontrivial projective fiber oscillation.  It does not make
+the cycle minimizing or identify an equality/Aubry set.  Individual edge
+deviations for the `-5` cycle switch between the two chords across levels, so
+any cross-level theorem must control the cycle product, not one named edge.
+
+Status: companion commit `e15c6f0` completes QM135 exactly in this scope.
+
+## Kontorovich request: one cylinder per fixed connector word (QM136, 2026-07-23)
+
+The in-progress strengthening already proves
+
+```text
+wordData(w).A = 2^scaleBits(w),
+wordData(w).r = dividedCount(w),
+coprime(wordData(w).A, 3^K).
+```
+
+Please finish the natural consumer.  For every fixed word `w`, target `g`,
+and precision `k`, the numerator congruence from QM134c
+
+```text
+A*h+B = 3^r*g (mod 3^(k+r))                         (QM136a)
+```
+
+has exactly one residue class `h (mod 3^(k+r))`, because `A` is a unit.
+An existence/uniqueness theorem using `Nat.ModEq` or an explicit modular
+inverse is sufficient.  Do not assert that the unique class makes `w` legal;
+legality is a separate filter.
+
+Optionally combine this with QM132's unique dyadic parity cylinder: since
+`2^N` and `3^(k+r)` are coprime, the prescribed dyadic and ternary start
+classes have one simultaneous CRT class modulo `2^N*3^(k+r)`.  This proves
+that local congruence compatibility is automatic.  The live obstruction is
+not CRT solvability but positivity/legality plus the cross-reset recurrence
+QM134d.
+
+## Kontorovich request: legality is exactly one terminal ternary cylinder (QM137, 2026-07-23)
+
+QM136 suggests a stronger fact which would remove `LegalWord` as an
+independent finite search filter.  Let `w` contain at least one divided
+letter, and write `(A,B,r)=wordData(w)`, so `r>0`.  Exact exhaustive checking
+of all 9,832 such words through length eight, over every residue modulo
+`3^(r+1)`, finds
+
+```text
+LegalWord w h
+  <-> A*h+B = 3^r (mod 3^(r+1)).                    (QM137a)
+```
+
+This should have a direct induction proof.  Conceptually, a legal divided
+move sends a center in its prescribed class modulo `9` to a center congruent
+to `1 mod 3`; conversely, requiring the rational endpoint to be integral and
+`1 mod 3` pulls back through `R8`, `R2`, and transport to exactly those local
+classes.  Please kernel-check QM137a without relying on the finite audit.
+
+The useful consumer is the exact existence theorem.  If `g = 1 (mod 3)` and
+`k>=1`, QM136's unique solution of
+
+```text
+A*h+B = 3^r*g (mod 3^(k+r))                         (QM137b)
+```
+
+reduces modulo `3^(r+1)` to QM137a.  Hence that solution class is legal, and
+QM134c makes its endpoint congruent to `g mod 3^k`.  Thus every fixed word
+with a divided letter has exactly one **legal** input class modulo
+`3^(k+r)` reaching any prescribed center target class `g=1 mod 3`; a positive
+representative always exists.  Transport-only words can be split off as the
+obvious special case.
+
+If correct, this changes the research seam materially.  Finite controller
+legality and finite ternary targeting are then automatic and cost exactly one
+new ternary digit per divided letter (after the initial endpoint digit).
+They cannot distinguish a counterexample.  The remaining obstruction is
+cross-reset coherence of QM134d, including positivity and the requirement
+that one fixed ordinary payload realizes the entire infinite sequence.
+
+## Kontorovich request: accumulate the reset recurrence into one dyadic cylinder (QM138, 2026-07-23)
+
+Please package the exact dual of `ControllerData`.  For reset steps
+
+```text
+2^N_j * m_(j+1) = 3^O_j * m_j + delta_j,
+```
+
+accumulate `(S,P,D)`, initially `(0,0,0)`, by
+
+```text
+(S,P,D) -> (S+N, P+O, 3^O*D + 2^S*delta).           (QM138a)
+```
+
+Here `D` is naturally integer-valued.  Induction should give the exact
+finite-block invariant
+
+```text
+2^S*m_end = 3^P*m_start + D.                         (QM138b)
+```
+
+Consequently every finite reset program selects one initial dyadic cylinder,
+
+```text
+3^P*m_start = -D (mod 2^S),                          (QM138c)
+```
+
+and the class exists uniquely because `3^P` is a unit modulo `2^S`.
+
+The main consumer is cross-reset uniqueness.  If two integer payload chains
+obey the same `N,O,delta` program for `J` steps, subtraction gives
+
+```text
+2^S*(m_end-m'_end)=3^P*(m_start-m'_start),
+so 2^S | (m_start-m'_start).                         (QM138d)
+```
+
+If the cumulative binary precision `S` is unbounded along an infinite
+program, there is at most one ordinary initial payload.  This answers the
+resource question precisely: individual counters need not all grow, but the
+**cumulative** written precision must grow; otherwise the controller has not
+specified one infinite orbit.  Together with QM137, the architecture is a
+pair of dual affine cylinders--ternary for controller legality/targeting,
+dyadic for reset integrality--whose finite compatibility is automatic.  A
+counterexample requires their inverse-limit classes to be realized by one
+positive ordinary state while the real KL size cocycle remains outward.
+
+### QM138 strengthening: the terminal dyadic cylinder should reconstruct the whole finite chain
+
+There is a closer dual of QM137 which seems worth proving before stopping.
+For a finite reset word `w`, the accumulated congruence
+
+```text
+3^P*m_start + D = 0 (mod 2^S)                       (QM138e)
+```
+
+should be equivalent to existence of an integer `m_end` with
+`Obeys w m_start m_end`, not merely necessary.  For two steps, reducing the
+terminal numerator modulo the first `2^N` gives the first divisibility
+because the remaining `3^O` coefficient is odd; divide it out and continue.
+An induction from the final letter, parallel to QM137, should recover every
+intermediate quotient.  Please add this converse if correct.
+
+There is also a useful finite positivity consumer.  Once one solution class
+`m_start (mod 2^S)` exists, replace it by `m_start+t*2^S`.  Every intermediate
+payload then increases by a positive integer multiple of `t`, since its
+homogeneous coefficient is a power of three times the unused suffix power of
+two.  Because the word is finite, sufficiently large `t` should make the
+start, every intermediate payload, and the endpoint positive.  A convenient
+`ObeysPositive` definition and existence theorem would establish:
+
+```text
+every finite reset instruction word has a positive integer payload chain.
+                                                               (QM138f)
+```
+
+This would finish the local-universality theorem cleanly.  Finite controller
+legality/targeting (QM137), finite reset integrality/positivity (QM138e--f),
+and their CRT combination would all be automatic.  The sole arithmetic gate
+would be whether the nested cylinders for an **infinite** aperiodic program
+stabilize to one positive ordinary payload while satisfying the real outward
+KL budget.
+
+Status: the in-progress QM138e converse now passes a direct local target
+check of `KLDyadicReset.lean` (warnings only).  Please audit and commit it.
+QM138f is valuable but may be deferred if the all-intermediate positivity
+bookkeeping would delay the exact terminal-cylinder equivalence.
+
+## Kontorovich request: canonical reset residues must eventually stabilize (QM139, 2026-07-23)
+
+QM138 suggests a sharper promotion criterion for every future worker.  Define
+`initialResidue(e,J)` to be the canonical natural representative in
+`[0,2^S_J)` of the unique accumulated class
+
+```text
+3^P_J*m + D_J = 0 (mod 2^S_J).
+```
+
+For `J<=K`, the depth-`K` class should reduce to the depth-`J` class; QM138e
+makes this a semantic prefix statement, while the accumulator gives a direct
+algebraic proof.  Hence
+
+```text
+initialResidue(e,J) = initialResidue(e,K) (mod 2^S_J),
+initialResidue(e,J) <= initialResidue(e,K).           (QM139a)
+```
+
+The second conclusion uses the canonical ranges: the later representative
+is the earlier one plus a nonnegative multiple of `2^S_J`.
+
+Now suppose cumulative `S_J` is unbounded and an infinite chain has
+nonnegative ordinary initial payload `M`.  Once `2^S_J>M`, uniqueness of the
+finite class and the canonical range force
+
+```text
+initialResidue(e,K)=M for every K>=J.                 (QM139b)
+```
+
+Thus a positive ordinary payload exists only if the monotone canonical
+residue sequence is eventually constant.  Please package QM139a--b and the
+contrapositive consumer: if the canonical residue changes at arbitrarily late
+depths, no infinite chain for that program starts at a natural number.
+
+This is the right theorem-driven search gate.  “Many low bits agree” is not
+evidence; a genuine natural program must eventually stop writing new high
+bits of its initial payload even while cumulative precision continues to
+grow.  A symbolic schedule can now be closed by proving perpetual residue
+change, while a construction must prove exact eventual stabilization and
+then positivity/outward growth of the resulting infinite chain.
+
+Status: companion commit `2963a8d` kernel-checks QM139a--b, monotonicity of
+the cumulative precision and canonical residues, and the perpetual-change
+no-chain consumer.
+
+## Kontorovich request: expose the exact reset carry digit (QM140, 2026-07-23)
+
+QM139 has a useful local normal form which should be the interface used by
+future searches.  Let the canonical depth-`J` initial residue be `r_J`, let
+the accumulated data there be `(S,P,D)`, and define its exact endpoint
+quotient
+
+```text
+z_J = (3^P*r_J+D)/2^S.
+```
+
+Terminal divisibility and QM138e make `z_J` an integer and the unique endpoint
+of the canonical finite chain.  If the next instruction is `(N,O,delta)`,
+QM139a gives a unique digit `q_J` with
+
+```text
+0 <= q_J < 2^N,
+r_(J+1) = r_J + 2^S*q_J.                            (QM140a)
+```
+
+Substitution in the accumulator update gives the exact one-block carry law
+
+```text
+3^O*z_J + 3^(P+O)*q_J + delta = 0 (mod 2^N).        (QM140b)
+```
+
+Because `3^(P+O)` is odd, (QM140b) also proves existence and uniqueness of
+`q_J` modulo `2^N`.  Most importantly,
+
+```text
+q_J=0 <-> 2^N divides 3^O*z_J+delta.                (QM140c)
+```
+
+The right side says exactly that the depth-`J` canonical integer chain
+already executes the next reset without changing its initial
+representative.  Together with QM139, an infinite program has a natural
+initial payload only if its exact carry digits are eventually all zero.
+This is stronger operational guidance than comparing long binary prefixes:
+searches should emit and certify the `q_J`, and a no-go theorem should force
+`q_J != 0` infinitely often.  Conversely a construction must prove an exact
+zero-carry tail, not merely a periodic or sparse carry stream.
+
+Status: companion commit `ca8dc5c` kernel-checks QM140a--c, the exact
+canonical endpoint, the sharp digit range, and the cofinally-nonzero-carry
+no-chain consumer.
+
+## Kontorovich request: zero-carry is the complete ordinary-integer gate (QM141, 2026-07-23)
+
+After QM140, the one-way necessity should strengthen to an exact equivalence.
+Define
+
+```text
+EventuallyZeroCarry(e) := exists J, forall K>=J, carryDigit(e,K)=0.
+```
+
+The proposed theorem is
+
+```text
+EventuallyZeroCarry(e)
+  <-> exists m : Nat -> Int, Follows e m and 0 <= m(0).       (QM141)
+```
+
+For the reverse direction, zero carries make `initialResidue(e,K)` exactly
+constant after some `J`; call the constant `M`.  The depth-`J` terminal
+cylinder reduces to every earlier prefix, while the constant later residues
+give every later terminal cylinder.  Hence `M` lies in every finite cylinder.
+Choose the exact quotient at each depth and use adjacent accumulator
+identities (or deterministic `Obeys`) to prove that these quotients form one
+infinite `Follows` chain with initial payload `M>=0`.
+
+For the forward direction, QM139 already handles unbounded cumulative `S`.
+If cumulative `S` is bounded, its monotone natural sequence is eventually
+constant; then the next widths `N` are eventually zero, and QM140's range
+`carryDigit<2^N=1` forces zero carry.  Equivalently, one can prove directly
+that the canonical residues are the binary truncations of the fixed natural
+`m(0)` and therefore change only finitely often.
+
+If kernel-checked, QM141 is the clean promotion boundary for all future
+symbolic searches: cofinally nonzero carry proves no ordinary initial
+integer; an exact zero tail constructs the unique ordinary integer chain.
+Strict positivity of all infinitely many quotients and KL-outward growth
+remain additional obligations and must not be folded into this equivalence.
+
+Status: companion commit `18b8c93` kernel-checks QM141 exactly, including the
+bounded-precision branch and construction of an infinite chain from the
+terminal cylinders.  No positivity or outwardness is asserted.
+
+## Kontorovich request: reduce total reset dispatchers to Two-Kraft; retain only thin traps (QM142, 2026-07-23)
+
+QM141 also shows why “genuinely aperiodic” is not itself a no-go.  A bounded
+low-bit dispatcher can read successively exposed payload bits and emit an
+aperiodic instruction stream whose canonical initial residue nevertheless
+stabilizes perfectly.  However, adversarial review catches that a **total**
+outward dispatcher should reduce to the already closed Two-Kraft lane
+(`da9fa59`).  Please package that reduction rather than reopening a
+parity-complete search.
+
+Let a finite mode `q` contain a signed controller `c_q<0` and a current shadow
+length `L_q>=1`.  Following the first `L_q` shortcut-Syracuse steps of `c_q`
+uses `O_e` odd steps and lands at `T^L_q(c_q)`.  An edge `e:q->q'` has
+
+```text
+N_e=L_(q'),
+delta_e=T^L_q(c_q)-c_(q'),
+2^N_e*m' = 3^O_e*m+delta_e,                         (QM142a)
+x=c_q+2^L_q*m,
+x'=c_(q')+2^N_e*m'=T^L_q(c_q)+3^O_e*m.
+```
+
+Fix a read width `B` with every `N_e<=B`.  An edge is accepted on a payload
+residue cylinder when
+
+```text
+2^N_e divides 3^O_e*r+delta_e.                      (QM142b)
+```
+
+Because `m=r (mod 2^B)`, this makes the next payload integral for every
+member of the cylinder.  A constructive edge would also need a common
+threshold `H` and finite-verifiable inequalities saying that for every
+`m>=H` in its assigned cylinder,
+
+```text
+m'>=H,   x>0,   x'>x.                               (QM142c)
+```
+
+The simplest sufficient form asks both affine slopes to be supercritical,
+`3^O_e>2^N_e` for payload preservation/growth and
+`3^O_e>2^L_q` for actual reset-state growth, then checks the least cylinder
+member at or above `H`.  More general finite invariant intervals are allowed,
+but must be stated exactly.
+
+For a fixed current mode `q`, (QM142b) is equivalently
+
+```text
+c_(q') = Phi_q(m) (mod 2^L_(q')),
+Phi_q(m)=T^L_q(c_q)+3^O_e*m.                        (QM142d)
+```
+
+`Phi_q` is an odd-slope affine homeomorphism of `Z_2`.  Therefore a total
+cover of all payload residues by outgoing next modes exists iff the next-mode
+controller cylinders cover all of `Z_2`.  Remove redundant cylinders to get
+a finite prefix-free complete controller code.  If every next mode is
+actually outward, each leaf has `3^O>2^L`; the Two-Kraft theorem says that a
+nonempty prefix-free `2^-L`-complete code cannot have every leaf outward.
+Thus the proposed total dispatcher is universally impossible in precisely
+the already checked class.  Please formalize this affine-preimage reduction
+only if it is not already a direct corollary of the `da9fa59` interfaces.
+
+The surviving target is the one already identified by Two-Kraft: a **proper
+invariant thin language** of payload cylinders, not total coverage.  A
+theorem-driven worker may search a fixed signed-controller macro library for
+a nonempty proper family `R_q` of residue cylinders such that every admitted
+payload has an accepted edge, every possible quotient remains in the target
+family, (QM142c) holds, and literal signed-shadow semantics replay.  This is
+a specialized finite instance of the existing thin-trap consumer
+(`298f5a3`), not a new generic endpoint.  Failure is a scoped no-go for that
+library; a successful closed thin trap would be a genuine construction
+certificate after the semantic bridge.  Do not enumerate all-payload covers.
+
+As a sanity check showing that aperiodicity alone is insufficient, the
+abstract one-mode, one-bit table
+
+```text
+r=0: (N,O,delta)=(1,1,0),
+r=1: (N,O,delta)=(1,1,1)
+```
+
+gives `m'=(3m+(m mod 2))/2`, integral and strictly increasing for every
+`m>0`; from `M=5` its canonical residues are `1,1,5,5,5,...`.  This has no
+claimed signed-controller realization and must remain only an abstract
+regression example.
+
+**Urgent scope correction:** the first version of QM142 requested a total
+covering consumer.  Keep an abstract regression theorem if already useful,
+but do not treat total coverage as a live Collatz construction: (QM142d)
+reduces it to the checked Two-Kraft impossibility.  The only live semantic
+target is a proper infinite thin language; fixed finite-depth hits are not an
+invariant-ray certificate.
+
+Status: companion commit `302ce3b` keeps the total table only as an abstract
+regression consumer and proves its infinite affine orbit from explicitly
+supplied exactness/positivity/growth fields.  It provides no signed-Syracuse
+bridge.  The companion correctly reports that the affine-preimage-to-Kraft
+reduction is not yet kernel-packaged; do not cite that bridge as checked.
+
+## Kontorovich request: close the false EC17-core/KL bridge (QM143, 2026-07-23)
+
+An exact worker now shows that the tempting period-three boundary
+identification is false.  Please package only the small universal algebra;
+do not assert that EC17 cores are ordinary Collatz states or that a KL tax is
+available there.
+
+First, consecutive EC17 coefficient congruences should give the residue clock
+
+```text
+2^(8*n+15)*c = 17 (mod 3^d),
+2^(8*(n+K)+15)*c' = 17 (mod 3^d)
+  -> 4^(4*K)*(2*c') = 2*c (mod 3^d).                (QM143a)
+```
+
+The existing order theorem for `4 mod 3^d` then gives orbit length
+`3^(d-1-min(v_3(K),d-1))`, and full traversal of `Y_d` when `3` does not
+divide `K`.  This is the true boundary odometer theorem.
+
+Second, for `KLControllerReset.wordData`, prove the sharp defect lower bound
+
+```text
+3^(dividedCount w)-2^(dividedCount w) <= (wordData w).B.   (QM143b)
+```
+
+The induction follows the three exact updates already present:
+
+```text
+transport: D -> 4*D,
+retarded:  D -> 4*D+2*3^r,
+advanced:  D -> 2*D+3^r.
+```
+
+Consecutive advanced letters attain equality.  The intended specialization
+is
+
+```text
+dividedCount w = 6*n+11 -> (wordData w).B != 34,    (QM143c)
+```
+
+because `6*n+11>=17` for the positive EC17 branch convention and
+`3^17-2^17=129009091>34`.  This proves that one normalized core transition
+
+```text
+3^(6*n+11)*(2*c) = 2^(8*n'+15)*(2*c') - 34
+```
+
+is not any KL predecessor word with the required chord count.  It does **not**
+rule out the actual break-off packet compiler, whose ordinary Collatz
+endpoints differ from `2*c`.
+
+Exact finite regressions and reconstructive verification are in
+`experiments/kontorovich/breakoff_ether_period3_kl_bridge.py` and its audit
+artifact.  At depths 3 and 4, every phase of `(-1,1,1)` has respectively
+`(transport,R2,R8,nonedge)=(0,1,1,7)` and `(0,1,1,25)`.  These counts explain
+why a Haar KL tax on the boundary clock was invalid, but QM143b--c are the
+clean semantic no-go worth retaining.
+
+Status: companion commit `43859d5` proves QM143b for all controller words,
+the monotonicity of the floor in the divided count, and both defect-17 and
+positive-EC17-branch consumers.  Thus the bounded word regression has been
+upgraded to the universal kernel-checked no-go.  The packet-level bridge is
+separate: `breakoff_ether_glider_kl_bridge.py` now expands the true ordinary
+Collatz chart for finite macros and should not be conflated with the rejected
+raw-core normalization.
