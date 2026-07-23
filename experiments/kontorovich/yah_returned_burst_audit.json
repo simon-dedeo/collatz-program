@@ -1,0 +1,664 @@
+{
+  "artifact_sha256": "dabed1fe2a74b2afe5ab4217ea75fa34fba54125d5f8b2b7ca418d2c81468b69",
+  "audit": {
+    "bursts": [
+      {
+        "carry_schedule": [
+          [
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "certificate_scope": "the entire residue-class lasso is checked by exact SLP composition; the repeated block is never expanded",
+        "defect_multiplier": {
+          "denominator": 8,
+          "numerator": 27
+        },
+        "dyadic_depth": 3,
+        "endpoint": {
+          "block_length": 524288,
+          "block_slp_sha256": "d2f3e597e01a700afca8086d1978f4f8df9a6a2f1223194c1ffdacc335458605",
+          "prefix_length": 219928,
+          "prefix_slp_sha256": "3832bf52cf0165a3156f13a144892502be46fa6712a774f5abaf62f01a2ed76e",
+          "suffix_length": 15,
+          "suffix_slp_sha256": "04a0c8405cd1bdf85730e20761f50b0fefb4de8e33ea4e3eab97523a50fa316a",
+          "trailing_twos": 10
+        },
+        "endpoint_reservoir": 10,
+        "head_schedule": "01",
+        "macros": [
+          {
+            "endpoint": {
+              "block_length": 524288,
+              "block_slp_sha256": "142a71a23a2e0fdb89f3f93cbf6b53a265ee4f61b41200a75d72f4ecf9b416b4",
+              "prefix_length": 219929,
+              "prefix_slp_sha256": "41c2de672947d6539612fbde446b3ebde57271bb60c545c845d591cfef6ba07b",
+              "suffix_length": 13,
+              "suffix_slp_sha256": "d0f5f4989a8259f4159707b6b2e83638f10c258b7af67fe09f0173fde7e2a2ff",
+              "trailing_twos": 8
+            },
+            "head": "0",
+            "length_delta": 0,
+            "macro": 1,
+            "terminal_carries": [
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 524288,
+              "block_slp_sha256": "d2f3e597e01a700afca8086d1978f4f8df9a6a2f1223194c1ffdacc335458605",
+              "prefix_length": 219928,
+              "prefix_slp_sha256": "3832bf52cf0165a3156f13a144892502be46fa6712a774f5abaf62f01a2ed76e",
+              "suffix_length": 15,
+              "suffix_slp_sha256": "04a0c8405cd1bdf85730e20761f50b0fefb4de8e33ea4e3eab97523a50fa316a",
+              "trailing_twos": 10
+            },
+            "head": "1",
+            "length_delta": 1,
+            "macro": 2,
+            "terminal_carries": [
+              1,
+              1
+            ]
+          }
+        ],
+        "net_space_charge": 1,
+        "pair_depth_g": 1,
+        "source": {
+          "block_length": 524288,
+          "block_slp_sha256": "427b15ee73e6bf938d3b6d7153d7ee2c24d29a89da659515444862a7eb15a88f",
+          "prefix_length": 219930,
+          "prefix_slp_sha256": "4f477477b520c24d580a8248be118d56e7a9abe648a9bab502edf27087fcbfa7",
+          "suffix_length": 12,
+          "suffix_slp_sha256": "d793b284d8eba8191190deef7b273255e377b577fa925c5242593b82dc83c4dd",
+          "trailing_twos": 7
+        },
+        "source_modulus": 8,
+        "source_register_modulus_check": 0,
+        "source_residue": 3
+      },
+      {
+        "carry_schedule": [
+          [
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "certificate_scope": "the entire residue-class lasso is checked by exact SLP composition; the repeated block is never expanded",
+        "defect_multiplier": {
+          "denominator": 64,
+          "numerator": 729
+        },
+        "dyadic_depth": 6,
+        "endpoint": {
+          "block_length": 4194304,
+          "block_slp_sha256": "aba2dba065cd9be034e2de0f76e31f832a1447cdf5bcf20cd7ef3f43e97df096",
+          "prefix_length": 1792790,
+          "prefix_slp_sha256": "20e2fb28141b1c0a02f0d07d2230181d10999c4335bc48e0b44591a565d68edd",
+          "suffix_length": 18,
+          "suffix_slp_sha256": "ad3b38ed42d8e09a8d03896ad4c73b235d98c86b120006acc6fdb6b807b5ed0f",
+          "trailing_twos": 13
+        },
+        "endpoint_reservoir": 13,
+        "head_schedule": "0102",
+        "macros": [
+          {
+            "endpoint": {
+              "block_length": 4194304,
+              "block_slp_sha256": "0847f67848b055a44f5a0e3e859b221140f7dd0f009c908ca075bdc1d5c16195",
+              "prefix_length": 1792793,
+              "prefix_slp_sha256": "6e09b0a2501656e6b545079f2d56b707a8083d503f97aa0492020aee2c596a8b",
+              "suffix_length": 13,
+              "suffix_slp_sha256": "d0f5f4989a8259f4159707b6b2e83638f10c258b7af67fe09f0173fde7e2a2ff",
+              "trailing_twos": 8
+            },
+            "head": "0",
+            "length_delta": 0,
+            "macro": 1,
+            "terminal_carries": [
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 4194304,
+              "block_slp_sha256": "f18d43318abfc4c208f3bc3409457f91aba90ebb79686830d1d3e8a8cf55045a",
+              "prefix_length": 1792792,
+              "prefix_slp_sha256": "2f5ac15aa15304d958d34024c5b914830d29923ecdc5a998818ea433558710de",
+              "suffix_length": 15,
+              "suffix_slp_sha256": "04a0c8405cd1bdf85730e20761f50b0fefb4de8e33ea4e3eab97523a50fa316a",
+              "trailing_twos": 10
+            },
+            "head": "1",
+            "length_delta": 1,
+            "macro": 2,
+            "terminal_carries": [
+              1,
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 4194304,
+              "block_slp_sha256": "7e3f41892b26af305960f0f3c74a16c3560b39fb9b44126f1d134ce1eba1e7f5",
+              "prefix_length": 1792791,
+              "prefix_slp_sha256": "e299a864cbfdea816d09bb9655eab9894b7ca9c22c7cda55153db5ef572033f8",
+              "suffix_length": 16,
+              "suffix_slp_sha256": "92a6f9c7c59728a48e6911c9fd3c17bf4235c742f5f9ff3ac51a9c36aaf69cf7",
+              "trailing_twos": 11
+            },
+            "head": "0",
+            "length_delta": 0,
+            "macro": 3,
+            "terminal_carries": [
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 4194304,
+              "block_slp_sha256": "aba2dba065cd9be034e2de0f76e31f832a1447cdf5bcf20cd7ef3f43e97df096",
+              "prefix_length": 1792790,
+              "prefix_slp_sha256": "20e2fb28141b1c0a02f0d07d2230181d10999c4335bc48e0b44591a565d68edd",
+              "suffix_length": 18,
+              "suffix_slp_sha256": "ad3b38ed42d8e09a8d03896ad4c73b235d98c86b120006acc6fdb6b807b5ed0f",
+              "trailing_twos": 13
+            },
+            "head": "2",
+            "length_delta": 1,
+            "macro": 4,
+            "terminal_carries": [
+              1,
+              1
+            ]
+          }
+        ],
+        "net_space_charge": 2,
+        "pair_depth_g": 2,
+        "source": {
+          "block_length": 4194304,
+          "block_slp_sha256": "b355c8c0833b4ede11a6ca441f73283dfeb158c4a1614cfe5db17ec5d3c35d1e",
+          "prefix_length": 1792794,
+          "prefix_slp_sha256": "77b2af149babd995e1f02ae301daaed192f03138f65eac40e6443eb5e3a1a5e0",
+          "suffix_length": 12,
+          "suffix_slp_sha256": "d793b284d8eba8191190deef7b273255e377b577fa925c5242593b82dc83c4dd",
+          "trailing_twos": 7
+        },
+        "source_modulus": 64,
+        "source_register_modulus_check": 0,
+        "source_residue": 27
+      },
+      {
+        "carry_schedule": [
+          [
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "certificate_scope": "the entire residue-class lasso is checked by exact SLP composition; the repeated block is never expanded",
+        "defect_multiplier": {
+          "denominator": 512,
+          "numerator": 19683
+        },
+        "dyadic_depth": 9,
+        "endpoint": {
+          "block_length": 33554432,
+          "block_slp_sha256": "6fc0c1fae9d186fcd04795186939ec8462d3391b8da606d92e915d2143444c52",
+          "prefix_length": 26958612,
+          "prefix_slp_sha256": "f8e6de684d0690ce837ca3050cd5df09f3e55fa0ba20d52387bf6afe6e48b0ee",
+          "suffix_length": 21,
+          "suffix_slp_sha256": "32df012505d01b1b05ed55db2134fbb9d99cd8612dff529012bf61eb0cbd616f",
+          "trailing_twos": 16
+        },
+        "endpoint_reservoir": 16,
+        "head_schedule": "010202",
+        "macros": [
+          {
+            "endpoint": {
+              "block_length": 33554432,
+              "block_slp_sha256": "bfec4b577346d9c2eee3ac77b4754b47f11dc329aae02e07ebfcd455ec2c94ad",
+              "prefix_length": 26958617,
+              "prefix_slp_sha256": "35b1fc2d02237d5b996f216726bedd61bb95f80a2fa485f2aa137d2982e2cf04",
+              "suffix_length": 13,
+              "suffix_slp_sha256": "d0f5f4989a8259f4159707b6b2e83638f10c258b7af67fe09f0173fde7e2a2ff",
+              "trailing_twos": 8
+            },
+            "head": "0",
+            "length_delta": 0,
+            "macro": 1,
+            "terminal_carries": [
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 33554432,
+              "block_slp_sha256": "6fd6179d9f8bb0fa4a5ece72fe6f5cdd4a2409f3da3ac94d8f736cae41910f1d",
+              "prefix_length": 26958616,
+              "prefix_slp_sha256": "d1fb6aba55baedaa0e064d2840a0f48e358c34fcfbcf510bdb0cf3fe6d57f7de",
+              "suffix_length": 15,
+              "suffix_slp_sha256": "04a0c8405cd1bdf85730e20761f50b0fefb4de8e33ea4e3eab97523a50fa316a",
+              "trailing_twos": 10
+            },
+            "head": "1",
+            "length_delta": 1,
+            "macro": 2,
+            "terminal_carries": [
+              1,
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 33554432,
+              "block_slp_sha256": "dd1dcb309c6c650e8df141fe99a870847f985e9c6a203d3de23766e8f5bd7a73",
+              "prefix_length": 26958615,
+              "prefix_slp_sha256": "906dff33f324ba4b637da318daa3c22aa0c9c166d8a322aaa847a4f12095e741",
+              "suffix_length": 16,
+              "suffix_slp_sha256": "92a6f9c7c59728a48e6911c9fd3c17bf4235c742f5f9ff3ac51a9c36aaf69cf7",
+              "trailing_twos": 11
+            },
+            "head": "0",
+            "length_delta": 0,
+            "macro": 3,
+            "terminal_carries": [
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 33554432,
+              "block_slp_sha256": "dc40a11c380638e0d77eedaa6fda81a46a965d1e1c49ec1580b955dfb8af544d",
+              "prefix_length": 26958614,
+              "prefix_slp_sha256": "388345905ea6a10d339f07bd3d8471321a25e24aa4154c73c12ac35ce48d9b05",
+              "suffix_length": 18,
+              "suffix_slp_sha256": "ad3b38ed42d8e09a8d03896ad4c73b235d98c86b120006acc6fdb6b807b5ed0f",
+              "trailing_twos": 13
+            },
+            "head": "2",
+            "length_delta": 1,
+            "macro": 4,
+            "terminal_carries": [
+              1,
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 33554432,
+              "block_slp_sha256": "ebe618ebd632abba75e50906f75f79f9eef55d8342c5e903f08c7b2a2ed210d0",
+              "prefix_length": 26958613,
+              "prefix_slp_sha256": "a4fe78b7f66e4d43c0148fa852d68c6bedec19bc7f9286ab1b3b30cb67c41734",
+              "suffix_length": 19,
+              "suffix_slp_sha256": "8ed66560def4df8d433d4275c05dc386ddcb1d6866f1ff5258afc0a38c4d1c80",
+              "trailing_twos": 14
+            },
+            "head": "0",
+            "length_delta": 0,
+            "macro": 5,
+            "terminal_carries": [
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 33554432,
+              "block_slp_sha256": "6fc0c1fae9d186fcd04795186939ec8462d3391b8da606d92e915d2143444c52",
+              "prefix_length": 26958612,
+              "prefix_slp_sha256": "f8e6de684d0690ce837ca3050cd5df09f3e55fa0ba20d52387bf6afe6e48b0ee",
+              "suffix_length": 21,
+              "suffix_slp_sha256": "32df012505d01b1b05ed55db2134fbb9d99cd8612dff529012bf61eb0cbd616f",
+              "trailing_twos": 16
+            },
+            "head": "2",
+            "length_delta": 1,
+            "macro": 6,
+            "terminal_carries": [
+              1,
+              1
+            ]
+          }
+        ],
+        "net_space_charge": 3,
+        "pair_depth_g": 3,
+        "source": {
+          "block_length": 33554432,
+          "block_slp_sha256": "01d41f162e4cf725e6abaabe42b4591b1922b70f4738b3663e4daa6bb72b4450",
+          "prefix_length": 26958618,
+          "prefix_slp_sha256": "821af4549d4d71d6bca6f7a3b4c7fc51359ee3fbf4a84f7f2de0b2a048eab24a",
+          "suffix_length": 12,
+          "suffix_slp_sha256": "d793b284d8eba8191190deef7b273255e377b577fa925c5242593b82dc83c4dd",
+          "trailing_twos": 7
+        },
+        "source_modulus": 512,
+        "source_register_modulus_check": 0,
+        "source_residue": 411
+      },
+      {
+        "carry_schedule": [
+          [
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1
+          ]
+        ],
+        "certificate_scope": "the entire residue-class lasso is checked by exact SLP composition; the repeated block is never expanded",
+        "defect_multiplier": {
+          "denominator": 4096,
+          "numerator": 531441
+        },
+        "dyadic_depth": 12,
+        "endpoint": {
+          "block_length": 268435456,
+          "block_slp_sha256": "4e410d58892c9ace34c2149947bc28b3a09b8d764fae748b0249ec87dfe217a0",
+          "prefix_length": 194730770,
+          "prefix_slp_sha256": "aae744ab6dc2ce48d6cc157760eb3d1a4a2c68f7bed9c7e8449ace11843cea48",
+          "suffix_length": 24,
+          "suffix_slp_sha256": "dbf061a721b4534bdf81e3baa3a083c220be64bda514d18c8e826ecb93a70923",
+          "trailing_twos": 19
+        },
+        "endpoint_reservoir": 19,
+        "head_schedule": "01020210",
+        "macros": [
+          {
+            "endpoint": {
+              "block_length": 268435456,
+              "block_slp_sha256": "f3dff4a9d468534b7739a794e900e6b06c3781f1f8a355bb6299761601702de8",
+              "prefix_length": 194730777,
+              "prefix_slp_sha256": "11143ca40a5a6194b526842560b3be4dc34aa9a2d60d56fdd3db43d50dca14b1",
+              "suffix_length": 13,
+              "suffix_slp_sha256": "d0f5f4989a8259f4159707b6b2e83638f10c258b7af67fe09f0173fde7e2a2ff",
+              "trailing_twos": 8
+            },
+            "head": "0",
+            "length_delta": 0,
+            "macro": 1,
+            "terminal_carries": [
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 268435456,
+              "block_slp_sha256": "ee5075c6cb4f0c387aa54809ee687a849063bee956d1413a684fb7f0bcb29b69",
+              "prefix_length": 194730776,
+              "prefix_slp_sha256": "2d311883d36548862c4d25216f6f872cb3951ed103f82b1e33ee5068feb7cdb6",
+              "suffix_length": 15,
+              "suffix_slp_sha256": "04a0c8405cd1bdf85730e20761f50b0fefb4de8e33ea4e3eab97523a50fa316a",
+              "trailing_twos": 10
+            },
+            "head": "1",
+            "length_delta": 1,
+            "macro": 2,
+            "terminal_carries": [
+              1,
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 268435456,
+              "block_slp_sha256": "2a66ab9bbeb806924562aaad195523fd051d9124a6988d80c1ba8ecb5175736c",
+              "prefix_length": 194730775,
+              "prefix_slp_sha256": "4e0f17788e71c96969d569450cc7a2544a7f94436edc58eec88c54259459d071",
+              "suffix_length": 16,
+              "suffix_slp_sha256": "92a6f9c7c59728a48e6911c9fd3c17bf4235c742f5f9ff3ac51a9c36aaf69cf7",
+              "trailing_twos": 11
+            },
+            "head": "0",
+            "length_delta": 0,
+            "macro": 3,
+            "terminal_carries": [
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 268435456,
+              "block_slp_sha256": "908f9639ee6c9572fcabd9d0d93235ff595fa235e2a58db22970e0d456461c57",
+              "prefix_length": 194730774,
+              "prefix_slp_sha256": "11d68f43a9f5527672d620d9b38915fe499cd2f3600320a01f725d0394037f00",
+              "suffix_length": 18,
+              "suffix_slp_sha256": "ad3b38ed42d8e09a8d03896ad4c73b235d98c86b120006acc6fdb6b807b5ed0f",
+              "trailing_twos": 13
+            },
+            "head": "2",
+            "length_delta": 1,
+            "macro": 4,
+            "terminal_carries": [
+              1,
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 268435456,
+              "block_slp_sha256": "cfaaf806836c62daed8a8cea5fda8cb19ba9c1298f99b461bf3f2a3739f1c3bc",
+              "prefix_length": 194730773,
+              "prefix_slp_sha256": "acae610b117f233e7eb3adb7e4dbf4622136ac166f98e550ab70f59cdf819a8b",
+              "suffix_length": 19,
+              "suffix_slp_sha256": "8ed66560def4df8d433d4275c05dc386ddcb1d6866f1ff5258afc0a38c4d1c80",
+              "trailing_twos": 14
+            },
+            "head": "0",
+            "length_delta": 0,
+            "macro": 5,
+            "terminal_carries": [
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 268435456,
+              "block_slp_sha256": "176468bfe6cce1bd855f580e27cde7c470f0a5b02e9ededca33e9d1c904f45ed",
+              "prefix_length": 194730772,
+              "prefix_slp_sha256": "32cc53cb4598ae2c6a10781c65f51583c0f9c21a0e57c470f84a6372e0cacdb7",
+              "suffix_length": 21,
+              "suffix_slp_sha256": "32df012505d01b1b05ed55db2134fbb9d99cd8612dff529012bf61eb0cbd616f",
+              "trailing_twos": 16
+            },
+            "head": "2",
+            "length_delta": 1,
+            "macro": 6,
+            "terminal_carries": [
+              1,
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 268435456,
+              "block_slp_sha256": "99d1076a66e8559b29d920d898e620cd5fe5db9df8c51c42e8474d0382390438",
+              "prefix_length": 194730771,
+              "prefix_slp_sha256": "0407898a8d4d8184c91d8330a36ec6fbc8601fc7e8680c23c16d07bd72e6d102",
+              "suffix_length": 23,
+              "suffix_slp_sha256": "41cf496746414fa46f8630d55ba6660ecce469a4ffcbb6d370c3a827f5bb3f40",
+              "trailing_twos": 18
+            },
+            "head": "1",
+            "length_delta": 1,
+            "macro": 7,
+            "terminal_carries": [
+              1,
+              1
+            ]
+          },
+          {
+            "endpoint": {
+              "block_length": 268435456,
+              "block_slp_sha256": "4e410d58892c9ace34c2149947bc28b3a09b8d764fae748b0249ec87dfe217a0",
+              "prefix_length": 194730770,
+              "prefix_slp_sha256": "aae744ab6dc2ce48d6cc157760eb3d1a4a2c68f7bed9c7e8449ace11843cea48",
+              "suffix_length": 24,
+              "suffix_slp_sha256": "dbf061a721b4534bdf81e3baa3a083c220be64bda514d18c8e826ecb93a70923",
+              "trailing_twos": 19
+            },
+            "head": "0",
+            "length_delta": 0,
+            "macro": 8,
+            "terminal_carries": [
+              1
+            ]
+          }
+        ],
+        "net_space_charge": 4,
+        "pair_depth_g": 4,
+        "source": {
+          "block_length": 268435456,
+          "block_slp_sha256": "1b63cd128c02e9705dfef2ee70a9c4acda2077b538f6e00d2ead5674404fde5c",
+          "prefix_length": 194730778,
+          "prefix_slp_sha256": "b305d5d1024d659a4b13d09c2e7341a8577f67785c44efc5adca4fbbf70c139c",
+          "suffix_length": 12,
+          "suffix_slp_sha256": "d793b284d8eba8191190deef7b273255e377b577fa925c5242593b82dc83c4dd",
+          "trailing_twos": 7
+        },
+        "source_modulus": 4096,
+        "source_register_modulus_check": 0,
+        "source_residue": 2971
+      }
+    ],
+    "certified_burst_law_through_max_depth": {
+      "defect": "D'=(27/8)^g*D",
+      "macro_count": "2g, with g one-sweep and g two-sweep heads",
+      "nested_addresses": "a_(g+1)=a_g mod 2^(3g)",
+      "reservoir": "7+3g trailing twos",
+      "source": "2^(3g) divides R_next(u) on one residue u=a_g mod 2^(3g)",
+      "space": "+g ternary cells",
+      "terminal_carries": "all 3g quotient sweeps terminate odd"
+    },
+    "closure_status": {
+      "achieved": "compressed exact all-parameter burst certificates and the nested dyadic source law",
+      "counterexample": null,
+      "missing": "a collision/recharge edge with a genuinely different affine register update in a finite recurrent ordinary chart graph"
+    },
+    "literal_regressions": [
+      {
+        "pair_depth_g": 1,
+        "source_residue": 3,
+        "source_word_length": 219942,
+        "source_word_sha256": "8dd47e84e408442aff4a1d24dca12fa2d657021e7d9831b0ae25d0845433cf8d",
+        "trace": [
+          {
+            "head": "0",
+            "terminal_carries": [
+              1
+            ],
+            "word_length": 219942,
+            "word_sha256": "dff4aa709e0a5483ea7580641259ea08bbf7673bea2e5db4990a3fe61b54432e"
+          },
+          {
+            "head": "1",
+            "terminal_carries": [
+              1,
+              1
+            ],
+            "word_length": 219943,
+            "word_sha256": "59c08bab52c1a93687d86eac5725651e3814c1761a50451f43860401bb74133e"
+          }
+        ]
+      },
+      {
+        "pair_depth_g": 2,
+        "source_residue": 27,
+        "source_word_length": 1792806,
+        "source_word_sha256": "112121ca695870ffcc5e8ca2179b71c9a3a9f28ab164f39732147ae2fb554737",
+        "trace": [
+          {
+            "head": "0",
+            "terminal_carries": [
+              1
+            ],
+            "word_length": 1792806,
+            "word_sha256": "ffbfa1635876646052e23772400a026e44826ed46462019a3bf2053eb5a767b2"
+          },
+          {
+            "head": "1",
+            "terminal_carries": [
+              1,
+              1
+            ],
+            "word_length": 1792807,
+            "word_sha256": "b1d65b562d6f807c4d96408ee10b10a679ea588167fb30202f23b844af78a1d7"
+          },
+          {
+            "head": "0",
+            "terminal_carries": [
+              1
+            ],
+            "word_length": 1792807,
+            "word_sha256": "f2a5d5d1bef2e6b141ac770b752016a9b15e3e55885c7b397f41147f808026ca"
+          },
+          {
+            "head": "2",
+            "terminal_carries": [
+              1,
+              1
+            ],
+            "word_length": 1792808,
+            "word_sha256": "834f50fe6b3bceea213fe27d728747e38adef8677547b7278c18923eaad78eca"
+          }
+        ]
+      }
+    ],
+    "max_pair_depth": 4
+  },
+  "generated_at_utc": "2026-07-23T00:54:14.057486+00:00",
+  "queue_worker_sha256": "dd31ba052f11102ad0b9cc6dc13278c0254c8366ddb39f5b01c96a519b305745",
+  "restorative_worker_sha256": "2f8e835e100a5041b17a07db8fd86b92aa0e5a549fa06f08d7963ddcce5d54ba",
+  "schema": "yah_returned_burst_v1",
+  "worker_sha256": "9a38d7c65f885db6f9812649dedad43abe47ed0c0f89ae46672e7897ed31f2c9"
+}

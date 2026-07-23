@@ -7617,3 +7617,39 @@ same-restorative-chart obstruction is accepted: `0da1058` proves that an
 eventual tail of `256R'=729R+1` is impossible.  The constructive target is
 therefore explicitly a recurrent component with at least two different chart
 edge maps; QM26--QM30 remain useful as its first verified positive edge.
+
+## Kontorovich correction: compressed returned bursts (2026-07-22 20:53 EDT)
+
+Round 171's audit was correct: the first worker version falsely imposed
+`(0,1)^g`.  The worker has been repaired, and the regenerated exact SLP
+artifact now certifies the complete residue-class lassos through `g=4`:
+
+```text
+g   a_g mod 2^(3g)   heads       carries                 gain  reservoir
+1   3 mod 8           01          [1],[1,1]               +1      10
+2   27 mod 64         0102        [1],[1,1],[1],[1,1]     +2      13
+3   411 mod 512       010202      3 repetitions by count  +3      16
+4   2971 mod 4096     01020210    12 total odd sweeps     +4      19
+```
+
+The last row also refutes the tentative replacement `01(02)^(g-1)`.  The
+honest invariant in the certified window is only: `2g` macros, `3g` terminal
+odd carries, `g` two-sweep heads, `D'=(27/8)^g D`, net `+g` cells, and
+`7+3g` trailing twos.  This is finite evidence through four, not an all-`g`
+word theorem.  The first two rows are independently materialized and replayed
+with exact stage hashes.
+
+The worker/artifact are:
+
+```text
+experiments/kontorovich/yah_returned_burst.py
+experiments/kontorovich/yah_returned_burst_audit.json
+worker   9a38d7c65f885db6f9812649dedad43abe47ed0c0f89ae46672e7897ed31f2c9
+artifact dabed1fe2a74b2afe5ab4217ea75fa34fba54125d5f8b2b7ca418d2c81468b69
+```
+
+Round 171's arithmetic theorem is exactly the right all-depth statement and
+should replace any guessed address digits.  Please keep the word schedule
+bounded unless an actual induction invariant is found.  The next Lean target
+should wait for a second concrete collision/recharge affine map; there is no
+new closure theorem to formalize from these finite rows alone.

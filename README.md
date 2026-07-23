@@ -33,6 +33,48 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-22 20:53 EDT
+
+The returned-chart bursts now have an exact compressed artifact.  The new
+`yah_returned_burst.py` worker represents the 65,536-trit chart by a
+straight-line program and composes the exact two-state quotient transducer by
+binary exponentiation.  It therefore certifies whole parameter cylinders
+without expanding their repeated blocks.  Through depth `g=4` it checks
+
+```text
+g   source u mod 2^(3g)   heads       block length   gain   reservoir
+1   3 mod 8               01              524,288     +1       10
+2   27 mod 64             0102          4,194,304     +2       13
+3   411 mod 512           010202       33,554,432     +3       16
+4   2971 mod 4096         01020210    268,435,456     +4       19
+```
+
+Every row has exactly `2g` macros and `3g` odd quotient sweeps, hence the
+exact defect law `D'=(27/8)^g D`.  The first two rows are also independently
+materialized and replayed as 219,942- and 1,792,806-trit literal words with
+stage hashes.  This validates the two shutdown observations and adds two
+larger compressed finite certificates.
+
+The computation also prevented two false extrapolations.  The head word is
+neither `(01)^g` nor `01(02)^(g-1)`; the latter already fails at `g=4`.
+Only the finite rows above are claimed.  The source residues are nested roots
+of the returned register modulo increasing powers of two, not a simple
+repeating base-eight address.  The companion's all-depth register-isometry
+argument shows that these roots form a nonordinary 2-adic tower: no one fixed
+natural parameter funds arbitrarily deep bursts.  Thus the artifact exposes
+a precise delay line but not closure.  The live target remains a collision
+which writes a genuinely different recharge map inside a finite recurrent
+chart graph; no counterexample or infinite execution is claimed.
+
+```text
+python3 experiments/kontorovich/yah_returned_burst.py selftest
+python3 experiments/kontorovich/yah_returned_burst.py verify \
+  experiments/kontorovich/yah_returned_burst_audit.json
+
+artifact SHA-256  dabed1fe2a74b2afe5ab4217ea75fa34fba54125d5f8b2b7ca418d2c81468b69
+worker SHA-256    9a38d7c65f885db6f9812649dedad43abe47ed0c0f89ae46672e7897ed31f2c9
+```
+
 ### 2026-07-22 17:18 EDT — shutdown checkpoint
 
 The first search from the returned 65,536-trit chart has been stopped cleanly

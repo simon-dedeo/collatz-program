@@ -2,6 +2,22 @@
 
 Updated: 2026-07-22, about 17:18 EDT
 
+### 20:53 EDT continuation
+
+The shutdown bursts are now certified by
+`experiments/kontorovich/yah_returned_burst.py` and its audit artifact through
+`g=4`, using straight-line blocks rather than explicit blocks up to
+268,435,456 trits.  The exact rows are `a_g=3,27,411,2971` modulo
+`8,64,512,4096`, with head words `01,0102,010202,01020210`, gains `+g`, and
+reservoirs `7+3g`.  Literal regressions independently replay `g=1,2`.
+
+Do not extrapolate the head word: both `(01)^g` and `01(02)^(g-1)` fail in
+the checked window.  The companion's returned-register isometry proves the
+all-depth roots form a compatible nonordinary 2-adic tower, not an ordinary
+source.  The next constructive task is unchanged: force a collision after a
+burst to write a second affine recharge edge and test a finite multi-chart
+cycle.  No closure or counterexample is claimed.
+
 Repository: `/Users/simon/Desktop/COLLATZ`
 
 ## CURRENT OVERRIDE — read this before the older detail below

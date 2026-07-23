@@ -3770,3 +3770,47 @@ chart graph and an infinite ordinary Collatz orbit remain open.
 
     artifact SHA-256  2346f0b87c15d8a7c336be2b7f5dbcb2003c58bc2435d88344715ff27054638a
     worker SHA-256    2f8e835e100a5041b17a07db8fd86b92aa0e5a549fa06f08d7963ddcce5d54ba
+
+## Compressed returned-chart bursts
+
+`yah_returned_burst.py` replaces explicit multiplication of the restorative
+chart's 65,536-trit block by an exact straight-line program.  Each literal,
+concatenation, and repetition node carries the complete two-input-state
+summary of the quotient sweep.  Summary composition and binary powering
+therefore certify a restricted lasso for every natural value of its remaining
+parameter without expanding the repeated block.
+
+For `g=1,...,4`, let `a_g` be the unique checked residue at which the returned
+register vanishes modulo `2^(3g)`.  The artifact proves the following finite
+table:
+
+```text
+g   a_g mod 2^(3g)   macro heads   odd sweeps   net cells   trailing twos
+1   3 mod 8           01                 3          +1           10
+2   27 mod 64         0102               6          +2           13
+3   411 mod 512       010202             9          +3           16
+4   2971 mod 4096     01020210          12          +4           19
+```
+
+Thus every certified row has `D'=(27/8)^g D`.  The repeated blocks have
+lengths `2^(16+3g)`, reaching 268,435,456 trits in the fourth row while
+remaining compressed.  Separate literal regressions materialize the least
+source at `g=1,2`, replay every queue macro independently, and pin each stage
+by SHA-256.
+
+This is deliberately a bounded word theorem.  The observed heads do not obey
+either tempting extrapolation `(01)^g` or `01(02)^(g-1)`.  The register
+isometry supplies an all-depth arithmetic root tower, but its compatible
+addresses cannot eventually be one ordinary natural parameter.  A forward
+dispatcher and a second recharge affine map are still missing.
+
+```bash
+python3 yah_returned_burst.py selftest
+python3 yah_returned_burst.py build yah_returned_burst_audit.json --max-depth 4
+python3 yah_returned_burst.py verify yah_returned_burst_audit.json
+```
+
+Artifact SHA-256:
+`dabed1fe2a74b2afe5ab4217ea75fa34fba54125d5f8b2b7ca418d2c81468b69`.
+Worker SHA-256:
+`9a38d7c65f885db6f9812649dedad43abe47ed0c0f89ae46672e7897ed31f2c9`.
