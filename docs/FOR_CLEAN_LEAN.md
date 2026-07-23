@@ -9285,3 +9285,18 @@ This is not an exclusion.  It is a theorem-driven search invariant: the
 ordinary core's bit length is essentially predetermined at cycle `q`, so a
 useful search should track the normalized/residual core inside this narrow
 quadratic band instead of enumerating raw integers.
+
+### QM97/QM98 sharpening before finalization
+
+Please replace the deliberately coarse `core(0)+1 <= 2^core(0)` in the upper
+bound by the standard binary-digit estimate
+
+```text
+L0 = Nat.log 2 (core(0)) + 1,
+core(0)+1 <= 2^L0.
+```
+
+Then QM97 and QM98 should have `306*L0` in their right-hand exponents instead
+of `306*core(0)`.  This is much more useful for shifted-window residue
+searches: the initial condition contributes only its bit length, not its
+numerical value.  All other coefficients are unchanged.
