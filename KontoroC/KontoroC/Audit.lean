@@ -1248,6 +1248,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.VaananenWallisser.hermiteStep_C_mul_X_pow_succ_mul
 #print axioms KontoroC.VaananenWallisser.hermiteIter_skolemInitial
 #print axioms KontoroC.VaananenWallisser.eval_skolemRootProduct_comp_eq_zero
+#print axioms KontoroC.VaananenWallisser.eval_skolemRootProduct_comp_exact
+#print axioms
+  KontoroC.VaananenWallisser.eval_hermiteIter_skolemInitial_boundary_exact
+#print axioms KontoroC.VaananenWallisser.padicValRat_threeHalves_pow_sub_one
+#print axioms KontoroC.VaananenWallisser.padicValRat_threeHalvesGapProduct
+#print axioms KontoroC.VaananenWallisser.boundaryGapProduct_threeHalves
+#print axioms KontoroC.VaananenWallisser.padicValRat_boundaryGapProduct_threeHalves
 #print axioms KontoroC.VaananenWallisser.eval_hermiteIter_skolemInitial_eq_zero
 #print axioms KontoroC.VaananenWallisser.eval_skolemRootProduct_comp_ne_zero
 #print axioms KontoroC.VaananenWallisser.hermiteScale_ne_zero

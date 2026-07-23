@@ -218,6 +218,182 @@ theorem eval_skolemRootProduct_comp_eq_zero {K : Type*} [Field K]
     simp [factor, hqμ]
   rw [hzero, zero_mul]
 
+/-- Exact value of the shifted Skolem root product at the distinguished
+point.  This is the finite product hidden behind the valuation calculation
+in Hilfssatz 1 of Väänänen--Wallisser.  In particular, at the first index
+outside the planted zero range (`μ = ν`), every factor is a multiplicative
+gap between two powers of `q`.
+
+Keeping the factors in the paper's original address order avoids any
+reindexing convention: later arithmetic specializations can compute the
+valuation of each term independently. -/
+theorem eval_skolemRootProduct_comp_exact {K : Type*} [Field K]
+    (q α : K) (ν μ : ℕ) :
+    ((skolemRootProduct q α ν).comp (C (q ^ μ) * X)).eval α =
+      α ^ ν * ∏ a ∈ Finset.range ν, ((q ^ a)⁻¹ * q ^ μ - 1) := by
+  rw [Polynomial.eval_comp]
+  simp only [eval_mul, eval_C, eval_X, skolemRootProduct,
+    Polynomial.eval_prod]
+  simp_rw [eval_sub, eval_mul, eval_C, eval_X]
+  calc
+    (∏ a ∈ Finset.range ν,
+        ((q ^ a)⁻¹ * (q ^ μ * α) - α)) =
+        ∏ a ∈ Finset.range ν,
+          (α * ((q ^ a)⁻¹ * q ^ μ - 1)) := by
+      apply Finset.prod_congr rfl
+      intro a _ha
+      ring
+    _ = (∏ _a ∈ Finset.range ν, α) *
+        ∏ a ∈ Finset.range ν, ((q ^ a)⁻¹ * q ^ μ - 1) := by
+      rw [Finset.prod_mul_distrib]
+    _ = α ^ ν *
+        ∏ a ∈ Finset.range ν, ((q ^ a)⁻¹ * q ^ μ - 1) := by
+      simp
+
+/-- The exact first nonzero Hermite specialization.  All dependence on the
+analytic theta series has disappeared: the value is a scalar, one power of
+the distinguished point, and a finite power-gap product.  This is the right
+interface for the missing p-adic normalization and valuation layer of the
+1989 proof. -/
+theorem eval_hermiteIter_skolemInitial_boundary_exact
+    {K : Type*} [Field K] (q α κ : K) (ν t : ℕ) :
+    (hermiteIter q ν (skolemInitial q α κ ν t)).eval α =
+      hermiteScale q κ (ν + t + 1) ν * α ^ (ν + t + 1) *
+        ∏ a ∈ Finset.range ν, ((q ^ a)⁻¹ * q ^ ν - 1) := by
+  rw [hermiteIter_skolemInitial q α κ ν t ν (by omega)]
+  simp only [eval_mul, eval_C, eval_pow, eval_X,
+    eval_skolemRootProduct_comp_exact]
+  rw [show ν + t + 1 - ν = t + 1 by omega]
+  have hpow : α ^ (t + 1) * α ^ ν = α ^ (ν + t + 1) := by
+    rw [← pow_add]
+    congr 1
+    omega
+  calc
+    hermiteScale q κ (ν + t + 1) ν * α ^ (t + 1) *
+        (α ^ ν * ∏ a ∈ Finset.range ν, ((q ^ a)⁻¹ * q ^ ν - 1)) =
+      hermiteScale q κ (ν + t + 1) ν *
+        (α ^ (t + 1) * α ^ ν) *
+          ∏ a ∈ Finset.range ν, ((q ^ a)⁻¹ * q ^ ν - 1) := by ring
+    _ = hermiteScale q κ (ν + t + 1) ν * α ^ (ν + t + 1) *
+        ∏ a ∈ Finset.range ν, ((q ^ a)⁻¹ * q ^ ν - 1) := by
+      rw [hpow]
+
+/-! ## The first arithmetic specialization used by the project -/
+
+/-- At the project's Väänänen--Wallisser parameter `q = 3/2`, every
+positive power gap has exactly the negative 2-adic valuation contributed by
+its denominator.  There is no hidden cancellation: `3^d - 2^d` is odd.
+
+This is the local arithmetic input behind the valuation of the finite gap
+product in the preceding boundary formula. -/
+theorem padicValRat_threeHalves_pow_sub_one (d : ℕ) (hd : 0 < d) :
+    padicValRat 2 (((3 : ℚ) / 2) ^ d - 1) = -(d : ℤ) := by
+  have hq : (3 : ℚ) / 2 ≠ 0 := by norm_num
+  have hpow : ((3 : ℚ) / 2) ^ d ≠ 0 := pow_ne_zero d hq
+  have hgt : (1 : ℚ) < ((3 : ℚ) / 2) ^ d := by
+    exact one_lt_pow₀ (by norm_num) hd.ne'
+  have hgap : ((3 : ℚ) / 2) ^ d + (-1) ≠ 0 := by
+    simpa only [sub_eq_add_neg] using
+      (sub_ne_zero.mpr (ne_of_gt hgt))
+  have hvalq : padicValRat 2 ((3 : ℚ) / 2) = -1 := by
+    rw [padicValRat.div (by norm_num) (by norm_num)]
+    have hval3 : padicValRat 2 (3 : ℚ) = 0 := by
+      rw [show (3 : ℚ) = ((3 : ℕ) : ℚ) by norm_num,
+        padicValRat.of_nat]
+      exact_mod_cast padicValNat.eq_zero_of_not_dvd
+        (p := 2) (n := 3) (by norm_num)
+    have hval2 : padicValRat 2 (2 : ℚ) = 1 := by
+      rw [show (2 : ℚ) = ((2 : ℕ) : ℚ) by norm_num,
+        padicValRat.of_nat]
+      simpa using (padicValNat.prime_pow (p := 2) 1)
+    rw [hval3, hval2]
+    norm_num
+  have hvalpow : padicValRat 2 (((3 : ℚ) / 2) ^ d) = -(d : ℤ) := by
+    rw [padicValRat.pow, hvalq]
+    omega
+  have hlt : padicValRat 2 (((3 : ℚ) / 2) ^ d) <
+      padicValRat 2 (-1 : ℚ) := by
+    rw [hvalpow, padicValRat.neg, padicValRat.one]
+    omega
+  rw [sub_eq_add_neg]
+  rw [padicValRat.add_eq_of_lt hgap hpow (by norm_num) hlt, hvalpow]
+
+/-- The same noncancellation fact without mentioning valuations. -/
+theorem threeHalves_pow_sub_one_ne_zero (d : ℕ) (hd : 0 < d) :
+    ((3 : ℚ) / 2) ^ d - 1 ≠ 0 := by
+  exact sub_ne_zero.mpr (ne_of_gt (one_lt_pow₀ (by norm_num) hd.ne'))
+
+/-- The power-gap product occurring at the first nonzero Skolem index,
+written in increasing rather than decreasing address order. -/
+def threeHalvesGapProduct (ν : ℕ) : ℚ :=
+  ∏ d ∈ Finset.range ν, (((3 : ℚ) / 2) ^ (d + 1) - 1)
+
+theorem threeHalvesGapProduct_ne_zero (ν : ℕ) :
+    threeHalvesGapProduct ν ≠ 0 := by
+  rw [threeHalvesGapProduct]
+  apply Finset.prod_ne_zero_iff.mpr
+  intro d _hd
+  exact threeHalves_pow_sub_one_ne_zero (d + 1) (by omega)
+
+/-- Exact valuation of the complete boundary gap product.  The successive
+costs are `-1,-2,...,-ν`, so the total is the negative triangular exponent
+of the theta series.  This identifies a quadratic term of Hilfssatz 1
+without estimates or asymptotics. -/
+theorem padicValRat_threeHalvesGapProduct (ν : ℕ) :
+    padicValRat 2 (threeHalvesGapProduct ν) = -(exponent ν : ℤ) := by
+  induction ν with
+  | zero => simp [threeHalvesGapProduct, exponent_zero]
+  | succ ν ih =>
+      have hsucc : threeHalvesGapProduct (ν + 1) =
+          threeHalvesGapProduct ν * (((3 : ℚ) / 2) ^ (ν + 1) - 1) := by
+        rw [threeHalvesGapProduct, show ν + 1 = ν.succ by omega,
+          Finset.prod_range_succ]
+        rfl
+      rw [hsucc]
+      rw [padicValRat.mul
+        (threeHalvesGapProduct_ne_zero ν)
+        (threeHalves_pow_sub_one_ne_zero (ν + 1) (by omega))]
+      rw [ih, padicValRat_threeHalves_pow_sub_one (ν + 1) (by omega)]
+      rw [show exponent (ν + 1) = exponent ν + (ν + 1) by
+        exact exponent_succ ν]
+      push_cast
+      omega
+
+/-- The decreasing address order produced by the Hermite recurrence is
+exactly the increasing gap product above.  This is the bookkeeping bridge
+between the generic boundary formula and its 2-adic specialization. -/
+theorem boundaryGapProduct_threeHalves (ν : ℕ) :
+    (∏ a ∈ Finset.range ν,
+      ((((3 : ℚ) / 2) ^ a)⁻¹ * ((3 : ℚ) / 2) ^ ν - 1)) =
+        threeHalvesGapProduct ν := by
+  let q : ℚ := (3 : ℚ) / 2
+  have hq : q ≠ 0 := by norm_num [q]
+  calc
+    (∏ a ∈ Finset.range ν, ((q ^ a)⁻¹ * q ^ ν - 1)) =
+        ∏ a ∈ Finset.range ν, (q ^ (ν - 1 - a + 1) - 1) := by
+      apply Finset.prod_congr rfl
+      intro a ha
+      have ha' : a < ν := Finset.mem_range.mp ha
+      have hpow := pow_sub₀ q hq (Nat.le_of_lt ha')
+      have hindex : ν - a = ν - 1 - a + 1 := by omega
+      calc
+        (q ^ a)⁻¹ * q ^ ν - 1 = q ^ ν * (q ^ a)⁻¹ - 1 := by ring
+        _ = q ^ (ν - a) - 1 := by rw [hpow]
+        _ = q ^ (ν - 1 - a + 1) - 1 := by rw [hindex]
+    _ = ∏ d ∈ Finset.range ν, (q ^ (d + 1) - 1) := by
+      exact Finset.prod_range_reflect (fun d => q ^ (d + 1) - 1) ν
+    _ = threeHalvesGapProduct ν := by rfl
+
+/-- Exact valuation of the literal gap product in the generic first-nonzero
+formula. -/
+theorem padicValRat_boundaryGapProduct_threeHalves (ν : ℕ) :
+    padicValRat 2
+      (∏ a ∈ Finset.range ν,
+        ((((3 : ℚ) / 2) ^ a)⁻¹ * ((3 : ℚ) / 2) ^ ν - 1)) =
+      -(exponent ν : ℤ) := by
+  rw [boundaryGapProduct_threeHalves,
+    padicValRat_threeHalvesGapProduct]
+
 /-- Consequently every source polynomial `P_μ(α)` with `μ<ν` vanishes
 exactly.  This proves the zero pattern used before the paper's genuinely
 arithmetic valuation calculation; no p-adic estimate is involved. -/

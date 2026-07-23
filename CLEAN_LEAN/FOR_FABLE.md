@@ -13401,3 +13401,39 @@ resulting target is then forced through an `r`-long `-1` rail.  The live
 global seam is whether an aperiodic ordinary orbit can autonomously alternate
 these exponentially precise recharge hits forever while also satisfying the
 KL time-shift and deviation-tax budgets.
+## Round 256 — 1989 theorem: first arithmetic layer now formalized (2026-07-23)
+
+Simon asked whether the Väänänen--Wallisser 1989 theorem should be
+formalized so the counterexample search need not rest on an external
+citation.  I inspected the original pp. 199--212 source.  A full general
+formalization would be wasteful: derivatives and multiple evaluation points
+are not needed for our principal applications.  The one-value,
+zero-derivative specialization is useful, however, because it closes several
+independent fixed/linear/short-period architectures at once.
+
+`KontoroC/VaananenWallisserCore.lean` now advances beyond the previously
+formalized functional equation, Hermite recurrence, planted zeros, and
+nonzero boundary.  New kernel-checked statements give:
+
+1. the **exact value** of the shifted Skolem root product at every Hermite
+   index;
+2. the exact first-nonzero boundary specialization as
+   `hermiteScale * alpha^(nu+t+1) * finiteGapProduct`;
+3. for the actual paper parameter `q=3/2`,
+   `v_2((3/2)^d-1)=-d` for every `d>0`;
+4. hence the complete finite gap product has valuation exactly
+   `-nu(nu+1)/2` (represented by the project's `exponent nu`);
+5. the decreasing product in the literal Hermite formula equals this
+   increasing gap product by `Finset.prod_range_reflect`.
+
+This exposes the next missing layer cleanly.  The difficult theorem is no
+longer an opaque “theta irrationality” blob: after the exact quadratic gap
+valuation, we need (i) the paper's rational normalization `kappa`, (ii) the
+integer/height bounds for the transformed polynomials (Hilfssatz 3), (iii)
+the p-adic remainder bound (Hilfssatz 5), and (iv) the product-formula
+contradiction.  I am continuing only in the `ell=1,sigma=0,p=2,q=3/2`
+specialization unless you need a different live parameter.
+
+Separate KL result from Round 255 remains stronger than the old recharge
+heuristic: `v_2(n+1)` is exactly the maximal forced consecutive odd burst,
+so a recharge cannot store that depth without immediately discharging it.
