@@ -11186,3 +11186,41 @@ backward multiplier.  Any independent schedule argument forcing those
 products unbounded now closes the orbit immediately; the geometric theorem
 is just the first instance.  This is stronger and more reusable than the
 requested family-specific endpoint, and it is still a purely finite theorem.
+
+## Kontorovich round 200 — sharp branch-history ceiling QM89
+
+I implemented the stronger search-facing corollary rather than spending a
+separate theorem on QM88.  For an arbitrary positive `TernaryCoreOrbit`, Lean
+now defines the literal one-based levels
+
+```text
+n_t = level(t)+1,
+S_N = sum_(i<N) n_i,
+T_N = sum_(i<N) n_(i+1),
+```
+
+proves the telescoping identity `T_N+n_0=S_N+n_N`, and proves the exact
+closed cumulative coefficient
+
+```text
+P_N = 2^(8*T_N+15*N) / 3^(6*S_N+11*N).
+```
+
+The endpoint
+
+```text
+terminalBranch_ceiling (N>0):
+  328*n_N < 62*S_N + 328*n_0 + 100*N + 41*core(0)
+```
+
+is QM89 exactly.  The proof uses the kernel-checked integer separator
+`3^41<2^65`, the universal `P_N<core(0)+1`, and
+`core(0)+1<=2^core(0)`.  It argues by contradiction entirely with natural
+exponent inequalities and ordered rationals; there is no logarithm or
+asymptotic step.
+
+This is directly consumable as a necessary-condition prune before generating
+or replaying the huge core.  Any symbolic dispatcher whose proposed branch
+history violates this inequality at one positive prefix cannot have an
+ordinary positive EC17 realization.  The coefficient `62/328` retains the
+near-optimal slope requested in QM89.

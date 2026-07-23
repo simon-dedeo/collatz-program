@@ -776,6 +776,56 @@ def generalWeightedDefect (o : EtherCounterAperiodic.TernaryCoreOrbit)
     (t : ℕ) : ℚ :=
   backwardPrefixProduct o.generalBackwardCoeff t * o.generalBackwardDefect t
 
+/-- One-based branch level and its two prefix sums. -/
+def oneBasedLevel (o : EtherCounterAperiodic.TernaryCoreOrbit) (t : ℕ) : ℕ :=
+  o.level t + 1
+
+def oneBasedLevelSum (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) : ℕ :=
+  ∑ i ∈ Finset.range N, o.oneBasedLevel i
+
+def nextOneBasedLevelSum (o : EtherCounterAperiodic.TernaryCoreOrbit)
+    (N : ℕ) : ℕ :=
+  ∑ i ∈ Finset.range N, o.oneBasedLevel (i + 1)
+
+theorem oneBasedLevelSum_succ
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) :
+    o.oneBasedLevelSum (N + 1) =
+      o.oneBasedLevelSum N + o.oneBasedLevel N := by
+  simp [oneBasedLevelSum, Finset.sum_range_succ]
+
+theorem nextOneBasedLevelSum_succ
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) :
+    o.nextOneBasedLevelSum (N + 1) =
+      o.nextOneBasedLevelSum N + o.oneBasedLevel (N + 1) := by
+  simp [nextOneBasedLevelSum, Finset.sum_range_succ]
+
+/-- Telescoping relation `T_N+n_0=S_N+n_N`. -/
+theorem nextSum_add_initial_eq_sum_add_terminal
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) :
+    o.nextOneBasedLevelSum N + o.oneBasedLevel 0 =
+      o.oneBasedLevelSum N + o.oneBasedLevel N := by
+  induction N with
+  | zero => simp [oneBasedLevelSum, nextOneBasedLevelSum]
+  | succ N ih =>
+      rw [o.nextOneBasedLevelSum_succ, o.oneBasedLevelSum_succ]
+      omega
+
+/-- Closed cumulative coefficient for an arbitrary schedule. -/
+theorem generalBackwardPrefixProduct_eq_closed
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) :
+    backwardPrefixProduct o.generalBackwardCoeff N =
+      (2 : ℚ) ^ (8 * o.nextOneBasedLevelSum N + 15 * N) /
+        (3 : ℚ) ^ (6 * o.oneBasedLevelSum N + 11 * N) := by
+  induction N with
+  | zero => simp [backwardPrefixProduct, oneBasedLevelSum,
+      nextOneBasedLevelSum]
+  | succ N ih =>
+      rw [backwardPrefixProduct, ih, o.nextOneBasedLevelSum_succ,
+        o.oneBasedLevelSum_succ]
+      simp only [generalBackwardCoeff, oneBasedLevel]
+      rw [div_mul_div_comm, ← pow_add, ← pow_add]
+      congr 2 <;> omega
+
 theorem general_step_backward
     (o : EtherCounterAperiodic.TernaryCoreOrbit) (t : ℕ) :
     (o.core t : ℚ) =
@@ -934,6 +984,98 @@ theorem general_backwardPrefixProduct_lt_core_succ
   have hcore : (1 : ℚ) ≤ o.core N := by exact_mod_cast o.core_pos N
   have hp := o.generalBackwardPrefixProduct_pos N
   nlinarith
+
+theorem three_pow_41_lt_two_pow_65 : 3 ^ 41 < 2 ^ 65 := by norm_num
+
+/-- QM89: a sharp integral ceiling on every one-based branch history.  It is
+obtained from the universal product budget using `3^41 < 2^65`. -/
+theorem terminalBranch_ceiling
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) (hN : 0 < N) :
+    328 * o.oneBasedLevel N <
+      62 * o.oneBasedLevelSum N + 328 * o.oneBasedLevel 0 +
+        100 * N + 41 * o.core 0 := by
+  by_contra hbad
+  push Not at hbad
+  let S := o.oneBasedLevelSum N
+  let T := o.nextOneBasedLevelSum N
+  let n₀ := o.oneBasedLevel 0
+  let nN := o.oneBasedLevel N
+  let u₀ := o.core 0
+  have hshift : T + n₀ = S + nN := by
+    simpa [S, T, n₀, nN] using o.nextSum_add_initial_eq_sum_add_terminal N
+  have hbad' : 62 * S + 328 * n₀ + 100 * N + 41 * u₀ ≤
+      328 * nN := by
+    simpa [S, n₀, nN, u₀] using hbad
+  have hexponents :
+      390 * S + 715 * N + 41 * u₀ ≤ 328 * T + 615 * N := by
+    omega
+  let k := 6 * S + 11 * N
+  have hk : 0 < k := by simp [k]; omega
+  have hdenNat : 3 ^ (246 * S + 451 * N) <
+      2 ^ (390 * S + 715 * N) := by
+    calc
+      3 ^ (246 * S + 451 * N) = (3 ^ 41) ^ k := by
+        rw [show 246 * S + 451 * N = 41 * k by simp [k]; omega,
+          pow_mul]
+      _ < (2 ^ 65) ^ k := Nat.pow_lt_pow_left three_pow_41_lt_two_pow_65 hk.ne'
+      _ = 2 ^ (390 * S + 715 * N) := by
+        rw [← pow_mul]
+        congr 1
+        simp [k]
+        omega
+  have hdenQ :
+      (3 : ℚ) ^ (246 * S + 451 * N) <
+        (2 : ℚ) ^ (390 * S + 715 * N) := by
+    exact_mod_cast hdenNat
+  have hnumPow :
+      (2 : ℚ) ^ (390 * S + 715 * N + 41 * u₀) ≤
+        (2 : ℚ) ^ (328 * T + 615 * N) :=
+    pow_le_pow_right₀ (by norm_num) hexponents
+  have hlower :
+      (2 : ℚ) ^ (41 * u₀) <
+        ((2 : ℚ) ^ (328 * T + 615 * N) /
+          (3 : ℚ) ^ (246 * S + 451 * N)) := by
+    have hfirst :
+        (2 : ℚ) ^ (41 * u₀) ≤
+          (2 : ℚ) ^ (328 * T + 615 * N) /
+            (2 : ℚ) ^ (390 * S + 715 * N) := by
+      apply (le_div_iff₀ (by positivity :
+        (0 : ℚ) < 2 ^ (390 * S + 715 * N))).2
+      rw [← pow_add]
+      simpa [Nat.add_comm, Nat.add_left_comm, Nat.add_assoc] using hnumPow
+    exact lt_of_le_of_lt hfirst
+      ((div_lt_div_iff_of_pos_left
+        (by positivity : (0 : ℚ) < 2 ^ (328 * T + 615 * N))
+        (by positivity : (0 : ℚ) < 2 ^ (390 * S + 715 * N))
+        (by positivity : (0 : ℚ) < 3 ^ (246 * S + 451 * N))).2 hdenQ)
+  have hproductPower :
+      (2 : ℚ) ^ (41 * u₀) <
+        (backwardPrefixProduct o.generalBackwardCoeff N) ^ 41 := by
+    have hnumEq : (8 * T + 15 * N) * 41 = 328 * T + 615 * N := by omega
+    have hdenEq : (6 * S + 11 * N) * 41 = 246 * S + 451 * N := by omega
+    rw [o.generalBackwardPrefixProduct_eq_closed N, div_pow,
+      ← pow_mul, ← pow_mul, hnumEq, hdenEq]
+    simpa [S, T] using hlower
+  have hcoreTwoNat : u₀ + 1 ≤ 2 ^ u₀ := by
+    exact (Nat.add_one_le_iff).2 Nat.lt_two_pow_self
+  have hcoreTwo : (u₀ : ℚ) + 1 ≤ (2 : ℚ) ^ u₀ := by
+    exact_mod_cast hcoreTwoNat
+  have hproductUpper := o.general_backwardPrefixProduct_lt_core_succ N
+  have hpowUpper :
+      (backwardPrefixProduct o.generalBackwardCoeff N) ^ 41 <
+        ((u₀ : ℚ) + 1) ^ 41 :=
+    pow_lt_pow_left₀ (by simpa [u₀] using hproductUpper)
+      (le_of_lt (o.generalBackwardPrefixProduct_pos N)) (by norm_num)
+  have hcorePow : ((u₀ : ℚ) + 1) ^ 41 ≤
+      (2 : ℚ) ^ (41 * u₀) := by
+    calc
+      ((u₀ : ℚ) + 1) ^ 41 ≤ ((2 : ℚ) ^ u₀) ^ 41 :=
+        pow_le_pow_left₀ (by positivity) hcoreTwo 41
+      _ = (2 : ℚ) ^ (41 * u₀) := by
+        rw [← pow_mul]
+        congr 1
+        omega
+  exact (not_lt_of_ge hcorePow) (hproductPower.trans hpowUpper)
 
 /-- A literal ternary-core orbit on a geometric one-based level schedule is
 exactly the abstract EC17 ray used by the Mahler reduction. -/
