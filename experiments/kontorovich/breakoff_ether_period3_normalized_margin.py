@@ -49,7 +49,7 @@ from breakoff_ether_period3_sieve import (
 )
 
 
-SCHEMA = "collatz-breakoff-ether-period3-normalized-margin-v1"
+SCHEMA = "collatz-breakoff-ether-period3-normalized-margin-v2"
 UPPER_POWER = 306
 UPPER_ROUNDING = UPPER_POWER - 1
 MINIMUM_CYCLE = 5
@@ -77,6 +77,7 @@ class MarginRow:
     failure_target_branch: int | None
     failure_numerator_v2: int | None
     failure_required_v2: int | None
+    failure_offset_from_last_precision_transition: int | None
     proposed_replay_lower_bound_initial_bits: int | None
 
 
@@ -93,7 +94,9 @@ class ScheduleSummary:
     maximum_margin_cycle: int
     final_margin_bits: int
     maximum_leading_zero_bits: int
+    maximum_leading_zero_cycle: int
     all_canonical_residues_failed: bool
+    all_failures_at_last_precision_transition: bool
     maximum_proposed_replay_lower_bound_initial_bits: int | None
     row_sha256: str
 
@@ -180,9 +183,11 @@ def audit_row(
     )
     if failure is None:
         failure_fields: tuple[int | None, ...] = (None,) * 5
+        failure_offset = None
         replay_lower_bound = None
     else:
         failure_fields = failure
+        failure_offset = int(failure[0]) - (transitions - 1)
         # Requested QM104 turns this exact failure into L0 > padding_bits.
         replay_lower_bound = padding_bits + 1
     return MarginRow(
@@ -206,6 +211,7 @@ def audit_row(
         failure_target_branch=failure_fields[2],
         failure_numerator_v2=failure_fields[3],
         failure_required_v2=failure_fields[4],
+        failure_offset_from_last_precision_transition=failure_offset,
         proposed_replay_lower_bound_initial_bits=replay_lower_bound,
     )
 
@@ -232,6 +238,7 @@ def summarize_rows(rows: Sequence[MarginRow]) -> ScheduleSummary:
     if not rows:
         raise ValueError("cannot summarize an empty schedule")
     best = max(rows, key=lambda row: (row.normalized_margin_bits, -row.cycle))
+    most_zeros = max(rows, key=lambda row: (row.leading_zero_bits, -row.cycle))
     return ScheduleSummary(
         increment_word=rows[0].increment_word,
         start_branch=rows[0].start_branch,
@@ -243,9 +250,14 @@ def summarize_rows(rows: Sequence[MarginRow]) -> ScheduleSummary:
         maximum_margin_bits=best.normalized_margin_bits,
         maximum_margin_cycle=best.cycle,
         final_margin_bits=rows[-1].normalized_margin_bits,
-        maximum_leading_zero_bits=max(row.leading_zero_bits for row in rows),
+        maximum_leading_zero_bits=most_zeros.leading_zero_bits,
+        maximum_leading_zero_cycle=most_zeros.cycle,
         all_canonical_residues_failed=all(
             row.failure_step is not None for row in rows
+        ),
+        all_failures_at_last_precision_transition=all(
+            row.failure_offset_from_last_precision_transition == 0
+            for row in rows
         ),
         maximum_proposed_replay_lower_bound_initial_bits=max(
             (
@@ -322,6 +334,16 @@ def scan_box(
         ),
         reverse=True,
     )
+    zero_anomalies = sorted(
+        rows,
+        key=lambda row: (
+            row.leading_zero_bits,
+            -row.cycle,
+            -row.start_branch,
+            row.increment_word,
+        ),
+        reverse=True,
+    )
     return {
         "schema": SCHEMA,
         "bounds": {
@@ -349,6 +371,10 @@ def scan_box(
         "all_canonical_residues_failed": all(
             summary.all_canonical_residues_failed for summary in summaries
         ),
+        "all_failures_at_last_precision_transition": all(
+            summary.all_failures_at_last_precision_transition
+            for summary in summaries
+        ),
         "minimum_of_schedule_replay_lower_bounds": min(
             summary.maximum_proposed_replay_lower_bound_initial_bits
             for summary in summaries
@@ -359,6 +385,9 @@ def scan_box(
         ) else None,
         "largest_margin_schedules": [
             summary_dict(summary) for summary in ordered[:32]
+        ],
+        "leading_zero_anomalies": [
+            row_dict(row) for row in zero_anomalies[:64]
         ],
         "schedule_summaries": [summary_dict(summary) for summary in summaries],
         "theorem_interface": (
@@ -495,6 +524,9 @@ def main() -> None:
             ],
             "all_canonical_residues_failed": artifact[
                 "all_canonical_residues_failed"
+            ],
+            "all_failures_at_last_precision_transition": artifact[
+                "all_failures_at_last_precision_transition"
             ],
             "minimum_of_schedule_replay_lower_bounds": artifact[
                 "minimum_of_schedule_replay_lower_bounds"
