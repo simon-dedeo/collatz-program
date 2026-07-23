@@ -1,0 +1,1255 @@
+{
+  "artifact_sha256": "bd7cf4b64a68c8146a6144c37d3a20098e2b84285a75bec2d2f393944f71848b",
+  "audit": {
+    "all_literal_residues_failed": true,
+    "bounds": {
+      "increment_components": [
+        -8,
+        8
+      ],
+      "precision_bits": 4096,
+      "start_branches": [
+        1,
+        32
+      ]
+    },
+    "certified_ordinary_core_lower_bound": "2^4096",
+    "claim_scope": "exhaustive in the stated increment/start box; exact candidate residues modulo 2^P and exact forward failure of their least nonnegative representatives; no exclusion above 2^P and no claim outside the box",
+    "counterexample": null,
+    "failure_step_range": [
+      7,
+      47
+    ],
+    "increment_words_checked": 2340,
+    "leading_one_anomalies": [
+      {
+        "backward_transitions": 12,
+        "failure_numerator_v2": 435,
+        "failure_required_v2": 471,
+        "failure_source_branch": 51,
+        "failure_step": 11,
+        "failure_target_branch": 57,
+        "increment_word": [
+          -3,
+          4,
+          6
+        ],
+        "leading_one_bits": 21,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfffff9066e1f6f41794fffd362816d3c92ff4330fac2df37ec25ae90aea6d796e87d0a06c4ae638949c7880c177d74544c96d46fcc0c91c51446fb051bace6cdbbe52f1ebc1b345eda91769c4ce9e02e3f4a7a6527a3325ef9258dfb159026f60efe747bfb9707ef43c381cbe635edd2a40abdb30b4ace1a2ff33d1fe95696b623447de806e8cf1f633106c667be02d2618f1734292b3875d402473d72812f9f99c57c520ebb3aea3c02d3839a915050ce1d35f5ceb0debaf27349dc9c9d02f24a8ee988ce0791fe69cf146ae65c1f8a8944fd61a5d798c80bd5ff6e3385c144a89e44c1cdff95a76a2ddfc2eef9897f8e501cb5d81386ecab12cc7e169ea85488a12328350ff2b6c163021f46185ae2e7a706b42a098d40e90cb4bd90a8b7382cf1fd9210201406ef15a5b1f735f84f1a7a96e7eae0cf88963abc96c22d6cfde676890b659171fdcb3702f5019d18c5fcd2454ded416661dad0349680d6fd98278ac64f9f62d30fcbb5ea0632d66016445de6718dc57f4c3604d4c9daa5c0a6e6808bc55cbe949c79734ad4a89a8924f176f3a81dd81b22c7f298dc0a3d9b1973fe67568f79353736120940090e5d95ee73869ffacbbf2237cfed466ce02ad991af67ef2b612834ed2f50a4bc655f19c7155e4f69991d481d44e31dcc090e564122871145d142921a4669fc89c1b8ac0ed62b7d4f957dcc0eb1839b80551bc5",
+        "start_branch": 29
+      },
+      {
+        "backward_transitions": 14,
+        "failure_numerator_v2": 485,
+        "failure_required_v2": 535,
+        "failure_source_branch": 59,
+        "failure_step": 13,
+        "failure_target_branch": 65,
+        "increment_word": [
+          0,
+          6,
+          8
+        ],
+        "leading_one_bits": 16,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xffff526339621e31cfefcd8c84882249f311662d7d37739f63c8b818c4174f52711da3b704c66eae36bb712fb45f4b47c39bd44c76c6c039f9ab05e4068d2ecb87f49ebdc644b6ff533f4fa1bc4a3b6582066f79ca469edb02746482807f3717a59e8add9dc7baedc16b4466d3f03ea9b115f761b1e3c70e072dcd7b9ff41ca4c095d47a62c57aaf3f1c1689b311cd71eaf7d7752e69a558dc97006caa14fc72b791f45357eb1946a3387f52be53d646a16bf05a01759a9d256d53051e4126edca7e8d4a70d0108e45e36c4956df4d2b4e14e98c529c6bc97bd25e5c95ed153fc9b78ac9021686c45ad56eab8fe281f69d8e0d3f42e2e9e9e6c1b7722d075d89d5a737bbee5d8d70c37964857a15b59f8bf5b6de3c180fccde852f305034f458c0eb8a3a7bf40cec68eedbcf60ddbdf8afbad9d658885f329eba3aed003f4e5aaa9ec98027b0037cc0fb4529387a7ef122b49ed9f79fe6e820326ce6e03330675ad9b440aa145df13794d4969720107b8a398d71e2895a76f117aab1e861a222c153647194b93a07915dfd34f884e41e7faa25ba19eb532a80ffc214881351fd6eb483433a7dd79bedbdeffcf35517c7b45405337dd7a2fe3675d8a7ae5a1d958784fe9534878da0a623fbd79d7e25d3a7bda89af845147401bc7552d0bdcba790cb737eca4f4c692aa1eae93f7d63a7d23228e45529c250e7b493d1c1514db5",
+        "start_branch": 3
+      },
+      {
+        "backward_transitions": 10,
+        "failure_numerator_v2": 1,
+        "failure_required_v2": 751,
+        "failure_source_branch": 84,
+        "failure_step": 9,
+        "failure_target_branch": 92,
+        "increment_word": [
+          8,
+          7,
+          7
+        ],
+        "leading_one_bits": 16,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xffff4ac55c0f501489ee483c5afb35cea66b7050db79c52d9b060d81a76f3ea25e18c9162780e04531a1809f51096f682ef33409e42a1d63b45683737da345c9870d5dc2dac07cfb8fbe053bd34cc9b428f30a128be4ec136a5f8eac8b4e9d9bfc0357d8001d015862b414e81615d7cca53531549f167e6bb39f1686d0ae19607a829a86764b771ddbf42c1153497e69f4ad6199e61e1effd475bb86c627aecfd3777edbede1e297ce06376256b58883a5cdd6423ea0f5a739c54d4d3fed5dfe0b8c19323e1c15d514754a40f32d35a0e435638f82d3729b23eafeb580b3ee283454af676f17a61730024088a699833189536909f0f08b28652966230d445164755f3b0dce876044f7cea83ead8d84f40b5c24e173bd92a11e46543306f7d4ad9c556d3d789ee94937b912bd5d37b48da0f24a69928c93c67be23e26e22ed03b830fb4fd7ed45ee5afe48b1c33110292c062c9936766e5881bc7b2e3e779e8b3aee210c19366bbe8103420cbb3d61a7225acd919d55a92a905946635b808bac469683fc2c6ab85919c9e1c1554f680a7f870c001a0dd48dd514517cb9dcd439ae3dfeb6a306d337f5064c6f2dbe07a2d99aabbcfa21927b7e4bfed49f8bab64a92e50a98607cdb37c36f646946d40facb2ae6ddfa16689caa8197c1fa59fe346959cc7cf2383ffdd4470e22cbbd7386828569f4d4aebb66aa4b428eb0c27f2ed",
+        "start_branch": 18
+      },
+      {
+        "backward_transitions": 13,
+        "failure_numerator_v2": 366,
+        "failure_required_v2": 567,
+        "failure_source_branch": 63,
+        "failure_step": 12,
+        "failure_target_branch": 69,
+        "increment_word": [
+          6,
+          1,
+          7
+        ],
+        "leading_one_bits": 15,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfffed6a212e6e4ee4f055351967dcae97df69a71a20c2590bdb521de0d17603ffee799f23ce7cc6b777c513268c3c5f2787bc7f18be034cd1d999e02b94373040e0731c4670aa91982739c05713f9c8add7b48f879fa38cad7b8c9a7f0b16775b68143ec2879def0febd987a7c3b4d4c2fe3349dd104bb2a94268e7bd7e6f8d499e28b183a01474c731a6c3d10b42fdbef52fa6fd34b4ae4b23a73431006b86cd5b1be9de21180b7ba30664f57ab0d482cdb6c4b42ffcbf041c1e072bd77f4e212598b6a5a119631ae51c9dea08ab01ba1c073a11fa7ec2ffd4e99105f6a073440393d8595a060ad4cf1ff4cde90377c055d83522e64a9f5afa5cc01f10c2a1bd7bf3a628c55a607c5173b95f7e7960d7b6cd433b3ea186dd3e6b6fe17e702af2583cf62747a943806083020696a0e10461cfdf828bdfc173aa0b5c1e89829d98965e2607a11d32a4d82392ef5933bb79695d0d1de9406bd911bfbd018614b915097132e34000f236c58b60c96de517ec6f5ee3a2791994b7ed28673da9e53e370a57d8ec5e7f8461073f0a296c2dd97bddac49f61a8e0472427b98b19f2df6f2a2c695b6d34ea4c86c466c030c9374e62bdbb1de7830b71a32068850b0c90cd434272d73659fe656ccda3a4bd15208fe11a310470de984e9cc6b52dfb424dbbe2caedaa959ac9ba7d0db2434188dc436cec1f0cffe353deca699add215e4b55",
+        "start_branch": 7
+      },
+      {
+        "backward_transitions": 15,
+        "failure_numerator_v2": 367,
+        "failure_required_v2": 415,
+        "failure_source_branch": 47,
+        "failure_step": 14,
+        "failure_target_branch": 50,
+        "increment_word": [
+          7,
+          -2,
+          3
+        ],
+        "leading_one_bits": 15,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfffe548b3f40fecb2b701933495f00d7ab5aca8a23fe034272495f0bba6656c97ab27f8d94758178673d6b431bf1f167be5842e231d27209ce135c1838f1b3b23ba353867f82d51ad57ef56303395005aa8596dc79a2c4e69393ba96974dbee01bfc3ed89baadc43f7241eaf04d2ee8fe131465fbe470c04f5273dd3d750c2ee4389530587160dc603a48edbb9755265465c1c5ddb4a5b215c10c4fcd5bf4249ecf400e2d0f18e9bbe453a1a7bdd70a604ac8a50fae500033c3352dd6f478995267256ec96c84e8e5be20f55288b0a36c3fd78ae094e2fd7a198c4809c9f7c8b4d5fd2a5ce11a8823daee461ae54d949095becb2f2b706ae769518262b9f68aa808387b8e2d3e4e4cad53283bcd042089ac698a2da6b5ea67e7a7ef98d3fd9878ba36fb8ac4a8dbafed40d37fd7b3931c412afedfe3fa498b5295c7edbc8d34ae05ce87138ef4dc50fae0433f80ed354b5cbdc9426985b4c699d50d2a93ba8545d9c599c20c6ca218c6d25bd2e7733fc40b7f5526e3f52b310ee26bdcc012d49800b3a2c625e43af0cc1f49e363dea6c7f3eebd9c0c02feca9ad32e31857f455e47b39200b92f864b2d8cc426b7176eb878ff003cee2ff733259e9c74552b3374dcc7bb62e5e1ddef720a56d03813e8be044a30ac9200b4286fcec45fe57d9cd49c7210464264ea501b292fea3fff6d220e554b4789ad78b91e66c4d477535ad",
+        "start_branch": 10
+      },
+      {
+        "backward_transitions": 13,
+        "failure_numerator_v2": 173,
+        "failure_required_v2": 519,
+        "failure_source_branch": 55,
+        "failure_step": 12,
+        "failure_target_branch": 63,
+        "increment_word": [
+          8,
+          1,
+          1
+        ],
+        "leading_one_bits": 14,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfffc9e14216ad2809a19e78763877ecd32bce4c01fa24c8e02e9fcca477d6727be79693b26a92b5fd59084118e53f123f8f3d490f3a18c5824d154062cf819b1459d23cc439b85cff64fe1b747614f5425531c0cdbadfb0bccbf7151edff09c9799e3b732eec1a130f74769d3b1f785f6d0287923d20a9dcef4af45b28c94406f5bfbad46404c81aa8722b922800c094a037a5cbc330e1e8e8201622249f54fce74c2363b9c79c2d184bcadec0777d682ce7343e11dcda3b4a351da5124f08e9ff3c4dd9550a915a48e50e9b5fd0c756915d6f6e9c1c22b4bf6b6bd5141c2226d9d55b9345c869aadd1c08300520e26be70698f7f532bb74de52f0b47dd388950c5ed519c4e63466a58fd99f61422cade882a690cf1f7812e2d4718bd5307452f4c4d74f0a609f71cbfa107ce0762c909311c2e724cffd3b74cc1e06b38ae8064037ea5c90a97d90b689a5aa3ba01452044f2962af6b38b86e942776e23fd5f74d2edc65962af215fffcc897ec0133bdc40a8f5e2f2bdaab1a746905f0afba9e30c627391720753c3ac777230e1ff3e3f53443074dd57af87c9217b98787f0f31a7acb5c9784c2161fc39239f2bba700d6694823c3e5c4567c362f199d49e7518fa50a4b98ff15cad2e90fda80a6213e0edf37235b6e4b110325eb18d5fa0f8fbcfa3d5724895fd2cb310b8de44d7ca4d29b1d0ad7ea678fcdc27b5336478295",
+        "start_branch": 15
+      },
+      {
+        "backward_transitions": 15,
+        "failure_numerator_v2": 72,
+        "failure_required_v2": 439,
+        "failure_source_branch": 47,
+        "failure_step": 14,
+        "failure_target_branch": 53,
+        "increment_word": [
+          2,
+          -1,
+          6
+        ],
+        "leading_one_bits": 14,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfffc3ea2170f1c0e7bfe56500e8068fc253b6650313b5430eb7f064ff0b3e8360dffa5ceac3be7747d43d74d75bbec3eec9b8f9c546c514d61198cd3130852f1111ba71a1010b0cea2894ec78617b316bf9469be416039404d36f2cdbc53160b16b6463f17e9902979e08fcc8209f06d154043e11b629400d46c3ab69d95cd941245573d6ad38acca5be805996cb273e250910bc1632998ee38ee1958d84dd49baf851e2dca18f1fd0f563723f7b63d1a7af3e733c9d3db97a32320fd4b88e2fc645f3bf0a39e2fb5464890b87a81c09c0a28646309da7177f34f151ad262aa1d24aee3a93f176feb251aaf79dd6521ed85f1559161216983fb793bf4bc913df669b787c60dd1d9450f3dbefadf82d540e0d2757d99ae0f51f2882cc9ec19af5afe5d31312c2a6164b91ad743e9d0a40a54938a4bcc241368b16877cc68188baa1c0a1c0108f8e14fea8cab7e5defa8514dc1ab0fbabb6468b6bf48622560660daf42088b048456cad16b6280b5b4f68fd28ca1d4ca1df07dc1f9bc0a99266f0739bef9c0b5f8fb049583a662de7f386ff04df837c1c8628aafab7a4b8a77121eb5e579eabd600277a9bd1bc224309f8e322b8457f567d3c2a3cca6e4424e23fba3a9989139d0693bc43ed673cd7e74758a9ad40735d2bae2d86fb48838c0fb90c8fd2563ebe3ebf363c622cbbd7386828569f4d4aebb66aa4b428eb0c27f2ed",
+        "start_branch": 18
+      },
+      {
+        "backward_transitions": 14,
+        "failure_numerator_v2": 93,
+        "failure_required_v2": 415,
+        "failure_source_branch": 44,
+        "failure_step": 13,
+        "failure_target_branch": 50,
+        "increment_word": [
+          4,
+          6,
+          -6
+        ],
+        "leading_one_bits": 14,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfffd1aaa27c116efc0fdb3670dfdfd2c96b4e72ba411fd507adb1b70fd9bdb11354c0a33067ed999f6324729bdbd6618c59dd345d6276fb3bcef3e9f96e3e3097a2160a0387323bb0ce2d77c951db501499ffb09c71b6d4c3450ba946f0f25460534efd4091aac900318b5a71cb5ea754c5e64b7cac5c5c4f02ae967caf85b83d54630504249d98252a4a7ac9ac3549ec604c985c243d2a82f842386c8fe003eb6dad4694c985e22b0d7830fe1f4fed7c781f1eadeb349fc31691d27db8687de694b1bb066af354cbda1b35a8ef29e991f64b0ef616a72440db947f9a073bc19475ccc51b4d1de3498a005545d913dbed07781b6b7053693b72a2681a0a5ca0d2d25599c504fa3c67e15b5f9e51d4f96788d1f48120db1ee690dc0c7fddd19f13e0e8c6f7d07bf221310661824a9e29b1589dccb78e1bdb72d754aac988e063bc132be03e88f00f47a56ddcb15f044aea9803dc2f8cd4e38f1fceaf567eb74d715a161aad4de90ad51e2248185ac688fac9fa960436e7f6f0f6bd9c81cf11df3896db87ec25b06ac9ef12e46bf8e8d525fd9b8b50d496439d8a53d02147d6b2d65bf3755e5bfb2dcea576ef7736e3497cb86a1184493268eddacd600a2c20f41949d73d3be8154d515d780f7295bc52aa17329831a43e3e209cd2b6e5ed426647fa08db7f80657f078d9cd1f58c5875d4980d52fae695fe4e0520adb9af7695d",
+        "start_branch": 24
+      },
+      {
+        "backward_transitions": 11,
+        "failure_numerator_v2": 338,
+        "failure_required_v2": 527,
+        "failure_source_branch": 58,
+        "failure_step": 10,
+        "failure_target_branch": 64,
+        "increment_word": [
+          4,
+          6,
+          -1
+        ],
+        "leading_one_bits": 14,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfffd4e73224e04906c57902163c6e413fe07e34c475699fed2d75796ad85b4a2eb2e2c69dcd188159643ace74185f99bfef2c81a79ec7a21a08886ec10a595ed5b68d19390b6e71d97288d1482bdb97434e1b702a952aea15ef0abeda4e172963a023cd29cf7f7206f2b6df188680a36446cabd9dd112444a50a065a73fd617957abc3440d54f2d36df453e255a34e9d1a3a8b14ed79496bf57192fb40eaeaca41d3d325559c228d52771c81bfd315ce39d82b80d51edeb859f1c76f54fb72dcc6efba48f3b03c0f22ea58405848234a3930c5d42ad8a2a651c8141e348946edcef258d211e6fbe162e1de0c428af2bed50fb0ac1a24ee423c464273137ec63073306ac8eb0b404e891ac8abf31d8f37102d81ecdeebd158086da684a1f86ad1e5473e555c8a180147a70cb103831c20fc8034774e32ca86137298ca418f740cba1c744c0023bf6ed889a191b38b6025eb4775d81d066d083bfd2d972586e6613a717a33ef0c64805a32f6e00ca0f8d87a5f634c2ba3be2f6542b76b7ab4f4e43b15ac4479aeb610b2debdae52902cf23c0a8cc875caf4d0c883f59cf809a864cf9f9e748792711e784a820007f2c9e6675a8df649e582cb44c9963cfae5ea5666cd96806c75aaa34ca81d0d00ff490b6c13f87732bd82e92717f090b21295932d01bdea6095e683795bb752e339763bea1fa5089e606832aada4e95a834eb75",
+        "start_branch": 27
+      },
+      {
+        "backward_transitions": 12,
+        "failure_numerator_v2": 100,
+        "failure_required_v2": 487,
+        "failure_source_branch": 56,
+        "failure_step": 11,
+        "failure_target_branch": 59,
+        "increment_word": [
+          -1,
+          5,
+          3
+        ],
+        "leading_one_bits": 14,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfffc0e9b20c38f2a9b3c820456bc68753ab37fb9d625c821d31b3c0dbfc7e6df47444e3095275192b6218bcafbf19296c662bc0dbfe25e4139c7117bc4272236f9f1e206e0354cb0506eeaa9a3075a9b5ab8f2048a62a2a21f678cef29403672eac3ae758c0eecd1a48d66d71c6b69a9ae5a719578ccb9934d970f5a0fb67ae90c34d821716a59ed5e498d04aeda24878a12f936584c16550e19afcec0cf7d784ca3de42c5aa982f1ca11fa82495e1945058da93e980b2fbd86a936d565b759aaf73d11bad2ef42d80a4a31ab13e493a5bfb48320015d0e091eaba140a92c5f9672589007e54ced0553bd8e537a51af0c19c6f399208bcbae3584234e7cb3123078e59162f5ab386a9658e275c427f36ffda3d4d11ca795a82f9788a8877f1d3df84a7bc73acc6f4c88252074ef6445e1b408edf0d19367ceb949cf7b13f4b70bd1ab03991e31bd758adf9ac86645d9ba36c28b91b99a1706a0862d80f6711d45dc29053c04003e436491756f49cc72c7b8c7e4caa63a9e900a62bc447c8745497eb50d6a6ace9e741566714baabc972a4c138cfcd2c6723c6f6faacbcf1db54d1350d0ef128a661c02fee67865ead067da79dd7303a2beb680527b3f4efa8dd6872589267859ba5d3e182742afc292f2566cad22a73143d11a88f5acb6465d171e1ac685486febbb4f8cfc424503c7afa10dbb958b4b7c25ff6186e1cdce115",
+        "start_branch": 31
+      },
+      {
+        "backward_transitions": 19,
+        "failure_numerator_v2": 178,
+        "failure_required_v2": 319,
+        "failure_source_branch": 33,
+        "failure_step": 18,
+        "failure_target_branch": 38,
+        "increment_word": [
+          5,
+          5,
+          -6
+        ],
+        "leading_one_bits": 13,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfffaabc2a07169f575984731e8710550340b3260bfc61fc26ff145d2ca6aeeaec2645e0f7fff7308b2a58cc6a2f98d87aafd5e493ce1108efd034f4ba29e465b61c68f9c8c860063a2a64e8ce8eac6650cbc7b3ca60f24efffb6f307551f7e147c8cd0ce09fc66ba0f32ee0c1f65aaf190f0b7c1c6a4c770e50c321f7aa8f74b1b758da6bfbf88750c17c257f1aec6a1bbf3e4a31e60c1a02f0b7727aed8e1b8e33d2aac58eb7dc25bda670507d2cc8eb5a2cd952f85e976c316c7dd2502a5c47abda6f9cb0b100e0b016f54c169ffbefe6e4a5996e6f0f1feda97102cd57332d5c93fae71b8280b4280a071f1a788f4de07cb9bb8d4a4a9d8429916495959decdb08cb2cf22c3f2e4bc2cd342dd29fd05898d41a00ce4a4ea9ccbbe39acf21198928a0f6edf54cf8b1fd4ffd7c0523cf86b7cd4dfb7ba90669c7325f4bee4023ff417717d9b88112571ad3064ab337376f00c2001d3f5a6d4137f72456301a15f5d5ee22ddf7e5ab0518f76d12606948db6bae745b7626dac1760ea52fe522917d5a3b166748f422b83780aac9e19c589f271d998c430cfd5e4195be23e7d8d8eb5b78205cde86927d2193c271d7995b6fba99b1cd66845bec2b978dc0ae6f8628ab6f651805f28d5495faad86f7bd20210ff7f8263cc2583115053167350742e4ecde8d851de08989194ef77dc5c972d0e35eb70efcc72792a68107cc5d9a5",
+        "start_branch": 9
+      },
+      {
+        "backward_transitions": 12,
+        "failure_numerator_v2": 325,
+        "failure_required_v2": 551,
+        "failure_source_branch": 61,
+        "failure_step": 11,
+        "failure_target_branch": 67,
+        "increment_word": [
+          6,
+          1,
+          6
+        ],
+        "leading_one_bits": 13,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfff9e7d16a0d42852bb6d085c1165dbd8f494dac16b3e2584398f32ca867e1c0ea25ad97e061ceaf1b03192504391c0efd39fa1b48551ff651e7caec4eebb437e2485b8007d04d613890d6ab6beabb79ae4db4a8c1627977eead09a2054c581d2cdf573c800bb41bce744ebb44974d0f171260248f1fdc1263e498f331d982c542aa2386a455bfa25fccf3c529b78d15450ef5cea981846f58e4cce0fe6405c585b3a7676c2907dd056ccb732e52cd8e60ce82e5874c0c02ccfa7efa985b33526db05adeae34cc05a9908a4b183c0782fbf1ee5eafa78a27ccc196562e1381f0fba0c6f404ddc9ba93afd1d97170d5e29e5696fd592ff261348eddd74389c693f22f78c065dc61c7774eb5564e675cf86f6913127654671f853b37fa7b6a14ea44794654f31a9d9e9fb2e824994d156075c4ce37375d2fcba899ecdc495c947c1038210d30bcc283a6dcd1ddfd1a034a61fe5a635ddab4a5a9beda2182b703032f3e68d4fbc67c9c937bf0f4d632d30478c7299bd1044025f25e39fcb6525455b8ad8abe045613c0d380cb163923d16c24397db281d34f2eb729fb700045d8b61496413af5c9cba0b0ba6c14cb7fa203a5abd45a6551f696d2b298a8ad38269ac98507e7e72b67b7be49e1069fe9827b70ccbd2d51df380c5c04f4bab29df6f9b10ba055c92d2569deb10b8de44d7ca4d29b1d0ad7ea678fcdc27b5336478295",
+        "start_branch": 15
+      },
+      {
+        "backward_transitions": 15,
+        "failure_numerator_v2": 359,
+        "failure_required_v2": 367,
+        "failure_source_branch": 45,
+        "failure_step": 14,
+        "failure_target_branch": 44,
+        "increment_word": [
+          -1,
+          7,
+          -1
+        ],
+        "leading_one_bits": 13,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfffb7a57140ca6193e6e9e8a31a800c9a1fbae681712e553bbc3b7169f3ea9b776115631d9077b01b200db387c270b4441574590ec3dc11368bd42c5b7b10dc24b8d903c95a17fed970d889398da2746cafd4731f73b99c88184e5906e57cc5456661343ebe7faa3911d943c112d4047b4e99ef2c05d0b41525b26f163fcd72f25de056a923cb7f629481da624895572ce270bdf722e060a6a59c7d27ec94e048b729651d61115c266970ef395c47ee230bb6c01b6a7ac3c26bd73c76dd2293ccd930e0b4c60cd8c16e15b019860afa9925e4dcbce3da2a5a3ab9775963f2aa4c6d5a58b54f67f7c610a508d42cc4274f304022521faa115cf954b5b57935b0bcd22cba09cce7409d2ddeb634a2c5ad1c2fa47d5cb041a8778e68e4063452f20e3df6180c767f33c27d2dda2d727d61d0e04b752acd83af2638e8bec150067620bef1423be89e10894e46d3c57e72ef5e77776cf4755842803021ca21cb038638d8fe3d08a6f580d45c08ed44349f9e644cb6a873c3df5c1c38dfdc854f75d249f1aca8ec0a18bfe4b8a0645fb9325832dc10d3d6da1bef990b29591797b8ce83effbfb35a184b1d409fb646061f8fefa7d2f810a2a159ee2e47e2de207100611ef230af4a5b4fdccefc8e1e66ba01239a4673caff6fe508a75f5336a6f067229e9e303143e28c330e587f1ce23ba46c4d4fd560535440837b7c356ef090bc35",
+        "start_branch": 19
+      },
+      {
+        "backward_transitions": 13,
+        "failure_numerator_v2": 29,
+        "failure_required_v2": 503,
+        "failure_source_branch": 64,
+        "failure_step": 12,
+        "failure_target_branch": 61,
+        "increment_word": [
+          -3,
+          7,
+          7
+        ],
+        "leading_one_bits": 13,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfff90a09b34cdcda5a30676c6f70263f04353e15dcc398233137954bb3b9e6e6c41bd8c0c7337f766c131ff6128abe538417e080c074e9c5244fe0b27d5ccf885d5e22d987b9c4a52af305e7405b1486d4de38fee488895564d0cd097800a69e868116b609cfd956d0f01b6071438ead4f5911021c9835b584c15413b1591484ea52a48fbdc748eefdd71b74665acd086b6dabd42a9bf74d28db5a4817e51a5df8221e9a4acc7df5fb06d207ed6b5faab2c8dc72f0b04bc1ab055e3636943e95c42e462e363c84d8121a7ec3abea49eb5751c6ca8986c832f67eb3b2a837881e345e403efc496ea7036da918f729e62934223429fb715eca67a7467995d4f95a2537b7dbbdb4ef563d636c4e89d0316b2cb24dc4a7072459ba6af5b207b6492a3c2666e8a1186e914f8ca859f24e38e0cb18f5644d4375ea4c0b733a0c08c2583b4e636221b2a81d6cd702e86cd7d08db1466a4f1753b4b37cef6f99c29b10f8a94888f2658fb9e1a6885a5cff12583430682765628474e89bbf4bb99ab9d4b5ec3fbcf87d9fcbb59fe41a2d3e17a3ee93d080091a69fca4269b23e01e3086470689a3f71a4320ca633c8182b3a50ac9193be1970747b492e9bf9bdfe46e82839a806af1d0762426bdb4c6b4da06e1460ce7dc8179c3dd83c7b97eb25f996ae1d6b09dddbead9f795ac7fec6a804d292ef99eb92eb65405a142f93ea075a72bd",
+        "start_branch": 20
+      },
+      {
+        "backward_transitions": 15,
+        "failure_numerator_v2": 208,
+        "failure_required_v2": 295,
+        "failure_source_branch": 37,
+        "failure_step": 14,
+        "failure_target_branch": 35,
+        "increment_word": [
+          6,
+          -2,
+          -2
+        ],
+        "leading_one_bits": 13,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfffb51e626323056c460c2699a1909e2fd106a266720f06b5306b43e09151381b0a644c8aae364688a2556fd75276db7c8644604a8a7a6d7de1df9ac91e9fe20c419f07d99880b6706c716623ff59626fd3d11dea5c8b70d0abfa2d49fb90c3a54c7b46ab2f61a6a89d80d8af9b7616447691a9674e84b98f0c871ed02213873b9b6a683e04dfe680287855c27f8f4d91e6f8630eb95e3a3b6bdbac6b7c8e8b2085b870291e27a0dc9df1c4397c4cd3ac3c3c385f014b0ee6cb3051f32e174dd8c29aaf673ed161797634a8ed23ad5517f97e03eca42655a63334a82244612cceb5ea75cf678d76df3854c443ae004be9bbda4c68a16884edbc6250d282717304ba92e00d5d8b6c872f19249346012c2e771eda85362135ea17dccf472ce1ff39e5b1123aab889fba37cc593a1b9a0f8727a356d0718ab4fabc2b5c650be3a98574acc8b8572a937da020bce427a377a66c0701d7ec39f52e2c26148e94e8cf9fd9c32ece1632478126acac5d91c8e54328211b156aab3b62cd12e4ef5e746d177dc8d2e3acc6b3169ece6da8914c769dae6243f7768d0c71d35a3754d3a4d8da14d27b4df0055c042f1b5e7173c0be4a0325c518c07f2ef18df6c8b481a296e6a6d9e03d8df4211cdbbc053256358c69dbb107cd8800d5cd86e4b9445debd5a7cfe8683f089aa6fa6446ccaaa6ff115e67738d48554c68a527b05484a4f0025",
+        "start_branch": 25
+      },
+      {
+        "backward_transitions": 10,
+        "failure_numerator_v2": 265,
+        "failure_required_v2": 599,
+        "failure_source_branch": 66,
+        "failure_step": 9,
+        "failure_target_branch": 73,
+        "increment_word": [
+          7,
+          7,
+          -1
+        ],
+        "leading_one_bits": 13,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfffbe6f52152fbad0c09a23d3c638ba7eafe9617ef9a40dcb2236ee119b864ecf64ed79ae59d555bb251a5f015f490850c40a3325c4b40632ffb389aed54dfaed0a3a5f2fb0194011ad65b29722ce9854b4357dff70b494b686133d143c440d3c3410d6a607463626e431b2956047bb8e51b85f3326bf3c9f40630e8477c3522dc7d05d8da9be8b91b50cf15e611aff8691f4a8135f7090b3891f14020f64b4d8ae48559040d42ffe25052c5a79b97cc1dec7dc3aa10610ea0e7a4ed7998ca9b56922528e7acc0620c7bebe0e1e1640475929f54a6790785ff584e128a7fa0480aa458d782d1fa77d8f4dbe3355309c1cb1d1a073bbf9147cba5dba449f549aa4cf113e2903f8737c3d48d46a24bfb560f4b9085acfc71d36e531c8261723facf40b4c10bd5d5603a4006e616fd6e76ec52fac6fc269f68a55f278f9442d450b818effcdeb6b207738ddb2794883dc145325e502329c43463ee791a23f69a3cb373484dafa676435da4efe0f60becbcac982af72ef74910d73151db72578b7588738c803097b18af20a766499ba1ae302755356c19a62a33860838ab2fd6b7a7e16f55bf77184b02e0aac3f6a3a549d1165eb379521a86ecb6f1a717985abe9079f3c26fc79f1d06853e31a7e804853bc4f5f35ef1de80404d6620775dfd1a132d01bdea6095e683795bb752e339763bea1fa5089e606832aada4e95a834eb75",
+        "start_branch": 27
+      },
+      {
+        "backward_transitions": 13,
+        "failure_numerator_v2": 77,
+        "failure_required_v2": 511,
+        "failure_source_branch": 55,
+        "failure_step": 12,
+        "failure_target_branch": 62,
+        "increment_word": [
+          7,
+          6,
+          -3
+        ],
+        "leading_one_bits": 12,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfff0a9227ca2991f2da5fee8b9c02d68c82e1751b7f9518ef3b0164d1e763adda571c6cbd118fce89a28e0ceaf257c0b7387c8bd182d6ffd94d006b688c94ed038235de28dcc2d64d959caac7e20443b610f363a3852689913dd31819e9f064ac6bb3daa01e3dcd7ce39431b623489125a63501fd9c8d0fd852c8c34cd5b39b5d5b0cf4630f58f3066a0be2b9abbfe02700be8ca744b9934aca480318617a1581cbc486707aad276756b7989420a01e93b83526cb0c34a928f660a73e5956f4b3e989c08f8d72e60004a38e3fb85e70c0ff5b5074e3eceebc2372aca83750c9c405512e4e83e8e8bb6eb87c9f5636a819c472655094c13e5e059b935ae3eb581c848b3e38454c795bab72ad6dfe303c73e3cbe819d06557630bea7c09736450f29b0d46c2d4cc954d1a8fd58875c09e4c83f26e47e64076e93c10a667fdbce03e788920ecbb08fbd7dd3cd2a3852f2a3508d488528349d7993ed5087edd0240c10ec15163ff6a73a48702df535bc46170671269df487adff0566062fe75f8e41770df809427b648bb2dbcae54208617bf5528fa723ce6b39e6527d6b4d1fb8e415ce400135d9e9306770930b58bf5fe726ea1a2c8507d01e6cb89c5d635a3e06ed225a2767de3b9c4368339ddbd0a744a43ad5f23a04c150c713fec0f44a9ab6f8830bf5540120d24b310b8de44d7ca4d29b1d0ad7ea678fcdc27b5336478295",
+        "start_branch": 15
+      },
+      {
+        "backward_transitions": 15,
+        "failure_numerator_v2": 200,
+        "failure_required_v2": 447,
+        "failure_source_branch": 49,
+        "failure_step": 14,
+        "failure_target_branch": 54,
+        "increment_word": [
+          -5,
+          7,
+          5
+        ],
+        "leading_one_bits": 12,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfff55ba238c142b2af0f9daea49a7f2603548ab92bfb7e6208d900599bffd521868253901b6fc1ed5f01eb838a53c47787a09c4a02108d86a825e85ef612bfe224418286bbd97bb0c685a303b329505f378cdd249b8e7f4f4ea8b5615268a1963d15a9b3078a0b8c5376bee0da4e2fa95bccc4a46fa346d29adfa2b2cb14f54d337099d91c9810279949d4a09989fe65abf779f40618891ae31b7b53fce76c8e7720d427a7c0d0bbb9a1fe391131fd13ef0f47756d1fbb4667f4342c6f095325be349079228bf09b945a768c2ad9dd187b83cebc4a654e9474b7548c32c6ece282350ec6f95efc3844364da1fe3f4bfdfbe18960f0614289c5dfa03d599f9b8ef35b53367f492ae46b55370a89f9d77f26307d6858977e39699b544951c2184f53f4fa3ae6952788c065b4f56cbc5c1543aec263a76f4087ee918cda3d05900d882659cce660c6affe66b3af4ff9a52d7e2129ff37329bf78968397097138cab301f453bd2d5e9bb7e7e5388eba46038e0a420775b6b2ebf27883fe2c34b11d380adaf1c6d66507c47f0e163d6f08557dc964967c3525748acae371b53c22a53508ce3fbf7edb6e02c45a1801ff520fc80a97d6493a4f49dd29e17751abe7d3674c97f27beb77e991ea6a23381d79372b9a37cf7b6994b791b8dc32a65fa73a4f7e6933e3e65f851e42631d109edc47bcd4fd560535440837b7c356ef090bc35",
+        "start_branch": 19
+      },
+      {
+        "backward_transitions": 13,
+        "failure_numerator_v2": 268,
+        "failure_required_v2": 455,
+        "failure_source_branch": 49,
+        "failure_step": 12,
+        "failure_target_branch": 55,
+        "increment_word": [
+          6,
+          -6,
+          6
+        ],
+        "leading_one_bits": 12,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfff575ad8c6aaa0cd7616f6c1bf535066ebe2b9e9a55c06a5e4a44cc440d3420b759bc765e06551c7a73002b10ab1607bafbd219f58984e84a1df8ed87e8e5e6b5612510a1899e58b3671bec10c4e6a1848bcad337fd6e3be620309606ce98432579f5658f4866383ab54f527493184cdcfe0ee283fb918a5d062399d8a5ea35227a86748a4211d91b8838f23e056e835166afc2a15d9139fa625ba7b44875a268c8718fa3db9ce25ca5d75016d0a43a52ae8388749e6fa64ba6162e37ef44675cf4b14fdf569b08dc354ed68bddcbd0bb15cebd84f389db064590a8cce68fcb74b92ec80054752bb359484592409e77cda2413ab072973d177f76fc793e611b298343be776131b3cfb4e379f9d6e56878bfb5f8fb7d4df8374a01d3d89f6b0620ecbbf15e18f342fc25f44bc214b8feb01bfa79509f0c3c1bee1b6223395045c482fe55d636fad4b580306212250c96c54acb88f414e19d475d6ea2b1c310ca67697f195ac15e986298688c8a134a111da524a87962abeca99fe4736d4b749020819d66f5fe488ea97c8d4495850579e3f58463d20d77801d609582f34722af745cac3643d8430517a092b095d7babecce61862469ffdf8383bd013bab3dd46040227af18df4211cdbbc053256358c69dbb107cd8800d5cd86e4b9445debd5a7cfe8683f089aa6fa6446ccaaa6ff115e67738d48554c68a527b05484a4f0025",
+        "start_branch": 25
+      },
+      {
+        "backward_transitions": 10,
+        "failure_numerator_v2": 97,
+        "failure_required_v2": 647,
+        "failure_source_branch": 74,
+        "failure_step": 9,
+        "failure_target_branch": 79,
+        "increment_word": [
+          5,
+          4,
+          6
+        ],
+        "leading_one_bits": 12,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xfff71e61bddeb314a6e3e665dfd4ff2a9587e923367f28de3a18274d3f6a17c71e35301b4f636acd7d55bcd7130ebca49af0c57dd61afbeab4564d074bcff0649f08988d8a4630e0e830bdafc96e9da5ef9a3503bcbb71f50eaf54488e87caa35ea43750e123c2098d802815b7264ebb629c8a9a16437f24a21b15eedabe0d1459120275ee6bc31a810f4a09c56e7cbfe9a94d9d914be30278fc28dc9f8709a51f103033061d01b391c11d24b4e7b46b9e12652d6bfe9ee0d14fd14832fbfd847b458ccc7f96e3ed0828dece62f72e4333595f39a4cabb4404b29ad9cc36a7ee2ded50560d6536c0d7f4ee22b31519197397d40965de2fb88b2ca14222bbe2a8f5fae92f3fb0a2d3547c1852398aea5196427a39b6bcf37339e98d070bc0f6a4b292115a8ef08551dc221170fc431914db52bbbeca9d9824dfcc28398e1f4ff01f96b9c389249aed23ada728a07a43ce0791732345e80917cf8fee37fd936a9bb43574bee1c6b5337ba7a560a8127bf8403419d4d20ecab7979c619d4808d8e8561508871a1dc75c0773d8d803d2cc269d88ff3625b92bcc77e8f5ccff33bee73041814374d091f6672fc3cdf638a03fa2ff85ba71482a174e37872d3421406843a8bf7cab01355b67c10f7b92bb212b5727b11d441476443eebc6704f0cd314e5e4f359c5d142921a4669fc89c1b8ac0ed62b7d4f957dcc0eb1839b80551bc5",
+        "start_branch": 29
+      },
+      {
+        "backward_transitions": 32,
+        "failure_numerator_v2": 57,
+        "failure_required_v2": 207,
+        "failure_source_branch": 27,
+        "failure_step": 31,
+        "failure_target_branch": 24,
+        "increment_word": [
+          5,
+          -3,
+          0
+        ],
+        "leading_one_bits": 11,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xffe4568b3fba24b15ef81b90d4171f5661bfd33ddcfedfa673c3493627a833b479367610c95b9744df1a38da3e06da35b59f722e15fbe1f00fabb5140f8e0439615caf4ef6644d2a96d53f700941b499ae20021b72cb2ecc5de26f1cb442027b56c29c79b9a5d3d5d95a3240b759ae0e148b6a931ae8cfff0e4981d0c557ab77e17f77c0f92aa3feba8bd13a700ea418ba3db54ef5a75273e225099796fa8fdd56182deb8e5c257d4e94b1829676e671ec5fc327864ca79952926dfc7099d314a6ce164ee8493a61e385559fb891ef40f1b23fd7e53616d2c25625c9c0421d7affba2039b40639a07e7a0c9d98279cbcf274033062c5df21410910b6eaeb2f4a96b52e8b153cce73fe157a6e49a3a6323afe834b1fda7e7de6b5938e08cab614335b2de020db862272b7be7e08f5075ce4e34430510ecfd5ab17bf9d1962f12409ddf23fe6928ed90bed48dd4e6c50dd3b7e1315c7e706ef7fb62e8149ec9b695d67e12e78264e23cfe89dd17e968d8c8cab3f380b57c7c30426854f414eca3f10f15761ad7df5407bfe2399260f4e1d708b40bdb13fb9eeb8e14818cc49ad8ceb3405f9b64679b9172fb85e780db454aafc768cf857dd9d697e6569e085356c401099025c28d9ad42927ee3d48000c502da3a3ac917f66288eb681a02eec01014634e1388576776ef6878bc0b897d7af0d2477a66cd7c31c3c7f0cf8086486d",
+        "start_branch": 2
+      },
+      {
+        "backward_transitions": 17,
+        "failure_numerator_v2": 400,
+        "failure_required_v2": 407,
+        "failure_source_branch": 47,
+        "failure_step": 16,
+        "failure_target_branch": 49,
+        "increment_word": [
+          2,
+          2,
+          4
+        ],
+        "leading_one_bits": 11,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xffe6f14fdd6b92185a5479e0ed0905a91368d1767593b271bf30d2c4b5f4efa07f4ecf63f33a0fb7122355a601b69d5eeb4a6d94edd5f46cc7731fe7996678de74f8a624b9bb9dfde4901edc94101d0be7f9e02b122cd67caf90d15ea404c97be65449ab2b055d1b6344ff7b7b39793e1fdbc30269ab12672bf01838495d55ef7d10b0345fa942ae09cde51ceaa7f25978db600e4b6ca4385924a0e6492582cf5735ce4b507e4373d2b7f1295fcda8c4e002aea9cce281ce117f9cd964e2059ddee1ee56ccbddbe40d6d04a560717edf223f83011f1a142e68297f6661c0b141e3e04430d677bb6a33502de1ebb560fb14b93b3489e0a2a96485700fbb921cf7204dc3235c7ba7c10cdba96780f602df8eae3dfb86407e5f861c91ba51686d5e534f10554d580ef4b74d55df070f58d68f931b6b43210694af2c8f1f0089f482861b374af56f8bcaac4e7dec679e1083d95898edf00bd0bba1fe6336d54049853788829ceefc4ad69ad019bc6b04a0ff7333ddb6170ac1b1df1c194f4b5846a54939fc6cac97b4ac88bc28587493f0b801c5a686485fe88f3784d8a4194c85a8be7a19b457709b2f32e0a85223d7f49bb7ee734aea3b49a0418c4a80661f57ebd3af3b33dac7bc61c5e8f34589df78584a11b20b8fc22e9eb09e9810e3fec207daa156bb50f039c96e6d3fbe257f9911883f89aef2183ae287a927a3b65ee205",
+        "start_branch": 5
+      },
+      {
+        "backward_transitions": 31,
+        "failure_numerator_v2": 206,
+        "failure_required_v2": 231,
+        "failure_source_branch": 25,
+        "failure_step": 30,
+        "failure_target_branch": 27,
+        "increment_word": [
+          2,
+          -5,
+          5
+        ],
+        "leading_one_bits": 11,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xffebc8ed2c558f7ceb48104438a95fad4e08afbbbffb5718b96247de7bee8bf95cbe280b25b71f5997e8574a7abf912096f72c2de8c62d100cd0c8d26a494350b6142827907225894f341d8d6127443320844dbf3c475763391a6f815cd2ff7601ffefbcee0b193862b53545beb0c7e1d7aa76b7feb670c586907e76909c098f4932e958a348a5658fa8e00c4e3ee8bba149cdebf369318b54da0f1b7d506d360ab1ac5449b0b6979558ddaf2d0e4573a27b68eb274983ee3430696cbace483595087c467486acdc31f789195d7b58b930bcbbd3c670f71fda9910cdb397dad4bb769b1e6c38350708a5dd3502449d00401fcb619eb2fce5826204fd3a0c10c0b8a4c34b07d5294f107e3a19e4f3ba8ab8973114125bbc438bf0cb88615c625094af561ec7d1ffc4da2e0c053305e59c2e96452023140dec87dfe2c9eebfe166e28eb9ccae86c76e4f733433fa83616eabb0569680d68b38300088d421ad84f8468b2bf66b487da3694acb31dbba1bb3f057cfc37350cb91c4a5e86dbd1db0fbf83234b8a9847b1844d0b2147efa6bc0c85dca61a51a2a5adf576ae8f640aad2293ba33d923c3ecaf9a9b0df0f6ff357fa0642d39b84269f8f5a72de102f3ea63e418b478b34f217707194c767bf20264c062e9d4ef04cad1e06cb7d283a5f25b28c82ffa37af381f440cf5d7adba9ece2221eeef2183ae287a927a3b65ee205",
+        "start_branch": 5
+      },
+      {
+        "backward_transitions": 13,
+        "failure_numerator_v2": 268,
+        "failure_required_v2": 527,
+        "failure_source_branch": 57,
+        "failure_step": 12,
+        "failure_target_branch": 64,
+        "increment_word": [
+          7,
+          7,
+          -2
+        ],
+        "leading_one_bits": 11,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xffe4ae951949d2003aff77f0abdf6a9d9b247340dc58cf7c99acb18a509e6e7850af9767225ea1f6f193ca6a02f385251ff5ee90675661596377bfd16c285edec06fe92a2187d62f66ee5a96173841b5c9866ff09d3ec2d764c1e1d0e93583bf0c9eb49996c60dbc91b965cab46816a63aaeee416ec4b86f46f85e30695eb305d8e54d25585a3d2de0fae6ac254c3498c6e7e30150fc1cba98d5efb186273d7f89a768098ead97e2f3d1d8280fd7ab62f465cbd8fe1051b962ddf7c94b3c44b387a17ec96588b968300360ceaea34fda490ae5a357c415b185ced42f0f752c6d59366db8b9bc72ef67af9415fb883f583fb13dc671dcbe97dc629c77d5972d4a35166eba44cb25e798a28b1558540144cda3703eba8448b6aafd8efd8ff3c981a09a12ba5277ae3b02189ad119943256c548687ae7884a7e6d84aeabdbcc6df645ebf889ccf4a3a63e50f9386bb9c0a37bc6275f3257da7d612795be97cfb413a1bdb64ca4ad95e46bbd8d34ccdac5fefdd86881ea11b83b4d9436828def551ee8077ade0e626397124144050f328f35f8ec2bff7fa8c2898282971f97ce7d29068dcd8a3aa83f38cae0db850b10e75b1cc26f3cf32bb9bf227fdfa49e516a7daa0f14d38de8cf4fa3bb7dbc689b5a087bc310d604f5fb18947494b948254602cc28e63aac9eb48092b9895269955c5fad0e35eb70efcc72792a68107cc5d9a5",
+        "start_branch": 9
+      },
+      {
+        "backward_transitions": 12,
+        "failure_numerator_v2": 524,
+        "failure_required_v2": 543,
+        "failure_source_branch": 61,
+        "failure_step": 11,
+        "failure_target_branch": 66,
+        "increment_word": [
+          7,
+          2,
+          5
+        ],
+        "leading_one_bits": 11,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xffe9cea010cb64895fc87912004613ebb8c48cab986749b54cd79929cf055f705a21bd90869b022f246b801e09bace00d9ffedd9ffc2d36bcfacbd4f5fc22e22b7552dd68183adfee1d7bedbfb085597b702476855d4f9764c9a3212d28ad490c4d97443b6e9195cca00dfe31ad8e94b932205e17e322d307ac4d5dcae1e6eec15f4514962843c9333ad30b8ce6729326626fc2212bbe68f847543f9675f29d5cb699adf52b2303a393e02c073e04bf8f6d0ad5772019439281aee20d23c4cb53256aa351000dd4541d51e77ad08b2806226695dafc2f22083e025904e7c37ddb09d569a792dd1cc071af79df9dbebe4b6758771d185ccf6ab235a369febf2ba5154a762e0a8fa1501d3fd1d43ff82bdf2fd99ccc44993ce5c2108babb3eaa6dd0b85f6df27ecae228ef6f2ac9ec7567fcc8fde6eab8e1b267a75695cdc5dbb6963ec836ad730943d8a504186e749d0c8f768fd310552d4d6e2e078b071c522f5fe22f9d7f47aa68c2f5a45d1e8bac3d77d1cb15ee03a92bb0fdb6164490bbc0c3cf954423812e8b994040202e85a19d9731085608d9857dfbba81370d94af5359d34e368ad0210cb1d3f53d77a0e7367013d5c3bfeacfc938ba673630a2307f50dcac1609a9ae00d5b14a81625d8e9be20695533ce4b89057f4b9d8be57d9cd49c7210464264ea501b292fea3fff6d220e554b4789ad78b91e66c4d477535ad",
+        "start_branch": 10
+      },
+      {
+        "backward_transitions": 18,
+        "failure_numerator_v2": 106,
+        "failure_required_v2": 431,
+        "failure_source_branch": 47,
+        "failure_step": 17,
+        "failure_target_branch": 52,
+        "increment_word": [
+          -5,
+          7,
+          5
+        ],
+        "leading_one_bits": 11,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xffecff7963b24427f3727a5b6b5838d2366be85502d91f0dffac12ca38b291fa33216763cdc8072af6c9e5269fce2abe6f5c4ab8c94e53cfc043b960de07c05055015ef423a7c12bf7529ddf3f193a3753a58e4d1a36aff28b5630940d123ddf02166d99a435ae8511dbe54a42bda0365664a1bf769cfdec0b40df89a5d13279e13cd75e78fb84b1061d0149707b848c2bd808c7317356ae6b161bd461447cb221f972f146cae419859e3eafc4f671276bbf7b3aeb9e195522be3b3bc7a044ebce8e706cc6f9cf1d6da95aedc22ec599ee092335e2b1b4ec6899c2719e02a5a4f1b02e1cbb7622e252d2a82a82a4ff36357b631d421cd4b83c882f95b72387fc578d2cbd912effd538afba67b7120e1310a87f69af765af8ae9f0828b0beed55281b36141719f001e81614e031ef79904a3a874e5362ae2508c2444d67f9001b5687e18a1fd716c0d80253200cbc34edb114fa5f40f070635f1303b40f7049f6f7482743df11d17c0780fdb49bebfff499f97650bc36e6b72757fd356b8ec7d4f18ccfe8087d82db51822f7e0008af113b1da858a95ecf61131b9ba2b7c69d483cba1492fde543f89c9d4b2cf2c526b700d785b4971b94acfcfeace00eedd3b44c1ed1027c2da37c28e9fafa3e476b7072049d80626e52f6069103d891244eff48456439b0230b9171ba8409a405ce82a76ce17c79077bb2e9666c4d477535ad",
+        "start_branch": 10
+      },
+      {
+        "backward_transitions": 13,
+        "failure_numerator_v2": 141,
+        "failure_required_v2": 551,
+        "failure_source_branch": 62,
+        "failure_step": 12,
+        "failure_target_branch": 67,
+        "increment_word": [
+          5,
+          0,
+          7
+        ],
+        "leading_one_bits": 11,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xffe486cdcaf2b0d9f497fa86c192e97278e9a05dcebf70510245996863a5e0b986a337d54066b0d75bced975b35ba74e15e9f2003cc1d5a2e78d406b602efb84901d1eddb01bbb1f3f9cd362e771cae63e66d29c4c1562be4456ad279900faa6b1ea9a6b21ba6c61963c6c1ef9dc6892caccc2d412f48fc9ccdaf1afdb2a67a8f8e412aa6467e53906da73c5a76288ac8409ef5a82194a4be5ef88ef5f879d5a94fd587de6d638ca537e4ffe23a7578e6bb3a959a7ce92fb1d567461ba494172081467ae79f56e40016b37e75cbe6ffe5bff2901bf52495bffe778565cec388ccadcf728e56755c2935fded1cabc185ee3b1928fd1637e48f1c1ddb2a4edf8d586a625273f2672415ea20abd41c35f37793c60234b1d4b12b2e6edf8004866fb3effc6889134cbcf48090ea475e4b09ae10417689cacd2c78dd812a5e357ba81fe3669f554384f7e9578ac40199c89166a5a3daa0b49fe629e728d01da1cad3634dcc1983591368f081a091d4cb6062118e0f98205ad56c0ee96a942e7d30e3417049632fe9fba080a3b68ef36d1f886d6a4f5c863b38a6ccdcd7e5bf61e31bfd171e604461f1af4cab9e5fb43c3fda214999881f694d4efb5db6e044585643dbf3cf1de7a41868d9ab476f1c619a30450095004c3d4f7310106fc129d795d4ba804cbfcd8e4936c50c9f68f20a7f15bbbb5b3e0da80e880eed12ff591a2da4d",
+        "start_branch": 14
+      },
+      {
+        "backward_transitions": 19,
+        "failure_numerator_v2": 178,
+        "failure_required_v2": 287,
+        "failure_source_branch": 28,
+        "failure_step": 18,
+        "failure_target_branch": 34,
+        "increment_word": [
+          6,
+          -1,
+          -3
+        ],
+        "leading_one_bits": 11,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xffe373894b8061dd3de6260d37e6de91891678512c2b4f5acdd7c41689a9bfdf86168e2f5f0feb8e65c4cee229924205c1f6aeca1ce80d6a9a980ce13ee18c33e162524125d67e559f2e3734f38e58822b5e509dcfe41f48aceb08f3c548e86c58d5188dfc8a4fda703f0722ee29d07ad90c73a0dfda29010ecda1d6be59115144444ae3d71d6016e82d986a5a8a4ab5168b8d275ef0f8fb7a40cdbd2433556ac54ae68f967bcab239112f1a30c5a50f49abcdc13f5f96a21ae2c65bf21ef219ef20e28453cd1eed276108e5bd1cf9177f19d3535a0a71f211e606feb213d5b91820d74a691f6ad8f105a57191c9e1125ece3d757a5745e5ee556b28b667e7a2b1450670854cd01c1b3bbe1018c2f6911617ba6e070b09e9e119b9973f109f1e04f1cc7cfaaffcfb5b41a2ff8ed7eac8b3cdcc6bb3cdab79cb6f4666c95c2dd002f4a5db6834a7e0ab9632e044352f217af268bc75bf764674fb0ee8af52c26ff829f72460a935a5fa4a05cb74a908ae07d3407fdf12923e14f56bf1184219fbab68464b5abff672a8b5e5ffdde9914583f4d14428b64033cef6fb97473eca3278b544a44284a131cb91097ebfbc2cf704b9e323a67167823825b6836b9c280be612ac76637ff1e629967031ff5b18fdd4b2e977ba8c7910f77e727a786f121f2752005e190c4ad7e78582a64bd0590416c3760817791f655543b0ce3fa2b01d",
+        "start_branch": 16
+      },
+      {
+        "backward_transitions": 23,
+        "failure_numerator_v2": 142,
+        "failure_required_v2": 199,
+        "failure_source_branch": 26,
+        "failure_step": 22,
+        "failure_target_branch": 23,
+        "increment_word": [
+          3,
+          -3,
+          1
+        ],
+        "leading_one_bits": 11,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xffe1aebbf659d49c4e11d4fb1002c04ebbe486de32980f3c322a2413cdfd8be0bb1469d05bcf2e9eccc68ed37bbfdd2c9714e50df0405bbc85dfd74113cf927be6858aaa854906f44fb03af163fc8e2339b850453e684a970b58dfe952272f82b28e7aa2363c72642ead2117e322928e6b68847142b5a14d6fe4e32259b71c5fc5141f362cad67b19b7e5ef1bf217a10cb6e4c397deb8d523f0412f2035d7c816eb4b6406d332d1b6ee6a01a516b7f2d956005f211b7f0f0a250356ef0a18f391c458a1dbf75cf67e15de25dfcfbe2f3ae32105941b4530b64ad49a9c566a33a5480ae84814c8f4e8b7571ce40ece1321813ec8926d31a986ff66b4ba78a8916343847e35ec3f3f731e0361fb9f4e6f3673d5956b523dd7ba309abaafab3dff9df988b7e138d706dfc3004e270b46b7857afaa94974e0f53bd449ab550f221b8f936dd2d3e26fda28cbacad5da2aa7f1f591d4b53b5616c2726c66978a66a076de271809bf243aed78c9dcff28e732aa872e85869204d94853ee734ea71fb16a8d1b7b5928d813cb593cba60cceb371bbe7c717cf119fe376b549aa6ba0340be33d8c155d2f7cd13d7288bfc85bcaa67c6ae5a76156daa271cd44ee96a36bcaee4b590ee136eabbc686689b927919bc9383d0503d84bc3b96e4273b08e7ab1684b458eaf9e5e98f6923c0a264bd0590416c3760817791f655543b0ce3fa2b01d",
+        "start_branch": 16
+      },
+      {
+        "backward_transitions": 16,
+        "failure_numerator_v2": 311,
+        "failure_required_v2": 335,
+        "failure_source_branch": 33,
+        "failure_step": 15,
+        "failure_target_branch": 40,
+        "increment_word": [
+          7,
+          0,
+          -4
+        ],
+        "leading_one_bits": 11,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xffe37d422e2e5c46b018f9ba68fe5df927f664fbd99aa207aacafdf4999dc9ea37b54f86b5013f69d6e33e4a4d008f70a2a282a1b744c6bff1fec0226aec456a878ddf9de0ac526824c3e086c3718419922ed91446654c79eecf23df42f5ce8fc4caabbcf408cd12649486a3e5c5c422ca8f3fe0f4b4bee0c64d165ff5c18c98c6dd3eb75d4500998063dae7db91aba45823db2de63c8139c13545e0d9302e91af20c0fcb01aca84b7950cb7ee7f6fc5b50fa6e9aae08ead03e0cf6363542273322955b719e01dcbf5cee163a216711e7556ac4f9362413143ee0e5232453098f332784807e0a55efacafaab8429d822ae2eb1a4e25649860ebd39a70471c3d7486c94498a420356c583bb2a15ab6cc1af8da2263234f4a0ebf2df23221a3b8ec5486875c267f38675f56a80a4430b074e15c0015cc9d3557277724de14dd83b076cb907e6e9489bbaeb508a1ea8ab8d520e0d77e27b5f0edd6279b7966488a61b4ddbec28542322975fdcf0a4bce4861e54fa0bd99cac873405988c988cd6e0e3c3f249b9705a56b9e0487f2e802f08a8481dd219925498c50ae2591a9d2b4c3d0c406706bbd962ca50d6969c170bbf923c02e2137a2bb241550fe005ad60f07d687956120c1e52942c44f2e2a057628fab72157e0de78bdd086bf111aa2d456860e0970b03ffdd4470e22cbbd7386828569f4d4aebb66aa4b428eb0c27f2ed",
+        "start_branch": 18
+      },
+      {
+        "backward_transitions": 13,
+        "failure_numerator_v2": 108,
+        "failure_required_v2": 495,
+        "failure_source_branch": 58,
+        "failure_step": 12,
+        "failure_target_branch": 60,
+        "increment_word": [
+          2,
+          6,
+          2
+        ],
+        "leading_one_bits": 11,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xffef274e3d251c69f8dfad0fa42201cdc49b7e23f61f21689825a2ee0f637f9abac5892413a8c64bedd74b9a63908ac5f51a3ab13e382ef20352b1f39fa258973ca6f11c8bc03be80e021cb7bf5216be932690ac0e926690bbc2b616594f8743df9b4f8067e49bcadb600a1a7ad625b0ae3765345048ebf05cedbddef4b03b7f88a73211b6cc3a6e9c4236a3bd56e4fc8efbeb7e0a8fa6eae95e89911907d1ed79c230647253f7fd430788827e28e0fd5686436c6d54cda25eda3f5b1d29b08e23fd16ae5984728c602b7fb9d66c01d4f948705f86b1116c02902599e64a9890585ed51c89a30bdf57a107cf7ffa4b7da7ebf3d73e68c5c406102e8b2de2d7b18ebb3228c0e6d461abdc606a5d29eabb6f9355fbae22eb52ffd9e0a16100c23494103b935b834b8c21ecdee4900ef26dc04c109455e15528fbe9d07befbaf07aff89336b85e80f70d3f6397c073c404bfc8361b53656d1da86bcd73517f8b92367b0d0da812720ea3f67791ab3a4e3722a5beeaa1f899810c5524829e0565dac0ee8dc851cc323c94e747faeed7796791c347f46e851f79b688217f91b44c6eb902d06cad33740fc410b1e5f73d9ddc51c7729f305c2b2c709088db3bb1bb5dce47b163566f7ccd8caf4609faa8e03f585820dbcb81d2bae2d86fb48838c0fb90c8fd2563ebe3ebf363c622cbbd7386828569f4d4aebb66aa4b428eb0c27f2ed",
+        "start_branch": 18
+      },
+      {
+        "backward_transitions": 10,
+        "failure_numerator_v2": 481,
+        "failure_required_v2": 615,
+        "failure_source_branch": 70,
+        "failure_step": 9,
+        "failure_target_branch": 75,
+        "increment_word": [
+          5,
+          5,
+          6
+        ],
+        "leading_one_bits": 11,
+        "leading_zero_bits": 0,
+        "precision_bits": 4096,
+        "residue_bits": 4096,
+        "residue_hex": "0xffe3e756009c4783dd9da52cb63324285940b984d0c9d1dc53b52784c264bbc31878324a69e8e61d44f105b4a7bd1908ab7a3e8e8232ebae319473f9ae2cfaed63accf647cb3d8a55fec3f67889d07bf09f1be79e472c2ed33a62070db28c3bded52672a5baf8dc07c0e4d87f5d89a36629e3248bfc30c60fc383ece41d9b4e3b08676e72743e2726993d0565df7025bb5452d67a161e6fd4fd2fd1988c2e5f06936bb1e197fbd448bd838862bbcc4f7da15da8f9ffeff7955cad4df1427b40934acbeeb33c570c16567c42c79882fd47461359a4f5f79ce52ae2de2fdab6c5bb540f33d491205fa47ce40f7a7f8e28b179fffd4cb11fe7e363466733856790d4c5de2b362459f6e8d6d95f72df61d69c858790ff6420c066412f729617389c6c7d6a1ee4b9f32cea86936c2412ebbf3763c45d523c04dd23d554d6e46a2be0792deda043ff253482e54a0accff0ebae7c64a906126129a815c2cd1a1b2aabcf714952121adf2d074c9dcaa07a24bf1cfca6287fdc25ef218aa94dac204ebd06c12b562b26cb97f1d9d7ff091929441e14b2df053c7981a3ee3b552a2c862ba7ea46d62434033eed1bceb94bde5e0fc6bbe91372d47a14a0511dd3cf144798ddcf4adfef5ade5283a630f425c284a4703e02f3d4b9ba3e7ff3d7f3f5ec154878b441e10be8c2ecef26a72f0ba225919972422c934d776cb02b3e39d045eeff8d",
+        "start_branch": 22
+      }
+    ],
+    "leading_zero_anomalies": [
+      {
+        "backward_transitions": 18,
+        "failure_numerator_v2": 290,
+        "failure_required_v2": 351,
+        "failure_source_branch": 40,
+        "failure_step": 17,
+        "failure_target_branch": 42,
+        "increment_word": [
+          8,
+          -4,
+          2
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 16,
+        "precision_bits": 4096,
+        "residue_bits": 4080,
+        "residue_hex": "0xf7f2e3871a082918c1d35b996ec4945f2570899cd9c375605ad8998910e602c49f8437b22700aa83bff109957e997f569b6679088d1be85b38f797370820f350ccd69829f2a7ec5e19593dfc6a1ccae97f2d5b73cd339ff3c4f5ddc3ae4a30fdce01cd0b4f80ad21820e0c90033af0ecb7287e6f8c5d825a636ba722cb9bf59398385220657d9dd9366c8feb885a501f4d4ace3868b7b11aec76c520cec5ad533598a60678d9016c85fe565fe1559836be2b6d1315cff38a7cbf5623da9a081f7ecce6fe937fb22f460a602e15b39b620447d640d852c794bdaeaeaaa51282393480982846aa94c99ebba58f5713603ea27a41afe58994217f3729fdc148f26a829261146cf029747379231d36ba609f3a005db259cc7c9599c4fc0fe0adc2eb04cf37d2dd11a2061b4ce1a03859c12e913e3722d1fea160c160684bf09de3e453fba4b78f6e4af4ea0cf2fd8b21230f01e3ee53dcbdc5d5efbf2c112da607ce0abe4fa9e11645f537b07c544634a4af1c1fd9d4489db9d3a60edbbf31e0c6c973e077962ad3ff4da2f18f71ffc6d06c707835d129ee35cb1a949ec42417bb8f40cad7b6f8503a9e0063c729f86153dac4cb1cf9ec9c6770deefeab486f61a6ff5bd9336bd1198f2bd8829dc9616e36e1cb4d929dd24793222bf8489741511d0566f0695f853dc27ac4ae4e95abfe4e46c04ae59d56e66b9ffb40584850d",
+        "start_branch": 6
+      },
+      {
+        "backward_transitions": 14,
+        "failure_numerator_v2": 334,
+        "failure_required_v2": 543,
+        "failure_source_branch": 60,
+        "failure_step": 13,
+        "failure_target_branch": 66,
+        "increment_word": [
+          5,
+          6,
+          2
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 15,
+        "precision_bits": 4096,
+        "residue_bits": 4081,
+        "residue_hex": "0x1c93f4dad7cd295d04e6b9a8f68d34197aea91942ab85948ca5e725a907f558498cea0a8283415459ac393586d046ee826d7ecc6ffa09b5311c695eff226b7c85ed0153d6693c2bb578578ee9013065c1be116c2500909291deb293881e8fea3eb32cd727ba1c42a1f074db01bf00f6fe5a3af87a4be920ad5a9c10eac73c37ab1a242c23185565b2a60502f2accb9e32a554bdafe6e2b9996a79c929eb199767bd7e7aa302610d5a4d3277584b4c4b822f1571de0f8e136660996fe92319d23338a259ca81981974b981247a9af1868182c37e2b53418ee704f7f3cc38ce0927945df3dff643f8265c13443811497b44653028e36290bbb2fce15abb628c6515d25184f046e286297b48a72c58356fc1c9c1229f50f68e8ead8a3eb59c5e7aaaca17bf72e92a59e72aadacbce9a8eb09475998f206266403cf8298af06ae1e64e14d72e3b66f9ee8d614c96f7863ce528bd452de1b31fd97d945737664613eae9705d2bc97bc30b8930c8c321dac2248476dc64f31a1a49d6278e66c08d1354c278f0490159e15391ce0fa18562b29902813761363abd353ce3ad42b386e2d1dcfbf4698049eecf0416f6e10b64c5483caa38cb091dcefb4d493e973af02eddc16467541c719a21f1fc4293aa61264a93b48878990f77c5a86097a9408c67d41bcc9e18ed38614ed1a9c91a2a7d2a1d8c575298ed559ca8a4851c1514db5",
+        "start_branch": 3
+      },
+      {
+        "backward_transitions": 17,
+        "failure_numerator_v2": 96,
+        "failure_required_v2": 359,
+        "failure_source_branch": 40,
+        "failure_step": 16,
+        "failure_target_branch": 43,
+        "increment_word": [
+          -3,
+          3,
+          5
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 14,
+        "precision_bits": 4096,
+        "residue_bits": 4082,
+        "residue_hex": "0x2f522053143e838091299edf8f078e193803f8bb17ccf20033113213564dc3f9ccf156e3984267745918f3f45c917cd7b1c19e564397d76d262259fcf5d1119c6a88ed898e8c8f489f4c1c23fc7da98859793c242857fd8d10b3f8b071bd9b6179563597901a922d0dac0096a216a80436bf5859e2d41b2129fa8dee8a7f7dab4a76c329d2a1b2b7ce7697c55c3fa0d3f9a34d19c36736e6f2988b79b01e0f5d86889ee0209b8a334efa677f4c77db29dab1c025b23f820140ec956ba957258bd03c46d51db8c87cf8e6d952aa866f001f8770ac705cad07b4e6c173b959acfba9c8a7e985e50c420e29c3e9e48cf44cc8aa7c2b6081ae777e02b45d4186b83daf7cace0a9684505f5a285a4e0c0e89be2e4b1e49fb32ace7fa8a1c8ebfeda5a8be008d2a52d734fdde4b2383ac4a5112d100749762340d7a2b118da52c88e314243412fca2dcc8fccdc5d7429e75de5ae906d391068cfb01692ec66eb7d4b8c1d73c6f4537c9eb9aa25489437aefa87850cfe72859c684c0432478899cae2109e643875e2400ae3491df65af656159e321c9eb297ec0e3b44148316b8e758aeb516655ddd4a33fcbfc664c6ba87ab979264c772581522426d32e4c8ab74994f05ecad829b5ab4b3687a751cd8915fcff32238c40a7dd9f0c8e0b7bac3a30a57e068c4af8fbc47bb015d46df747e828569f4d4aebb66aa4b428eb0c27f2ed",
+        "start_branch": 18
+      },
+      {
+        "backward_transitions": 20,
+        "failure_numerator_v2": 84,
+        "failure_required_v2": 263,
+        "failure_source_branch": 28,
+        "failure_step": 19,
+        "failure_target_branch": 31,
+        "increment_word": [
+          -5,
+          3,
+          4
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 14,
+        "precision_bits": 4096,
+        "residue_bits": 4082,
+        "residue_hex": "0x24c1cc0d1ff1ba04522ed7ac6f23a71076b347db1dd837e657357e889f1e8b6cf165521980fc3401349ffb3af0277f4aa3b36a653b6f3b5c6aec99390f8405913b524686268095d10915cabd68a4f69cfada29977d7afd11b5aa5c355bcecbce93c61c435ea0b35b54cef194c7142516675acce16729d7cb3b425759d362e8ea881e48a8cb85ac90f7bfcfcafa97d4cdef3968ed2062d94812abd3d0b1c585b72b1e4a86d80a7c1be87e5dda9ca000c99ea56e9bc5678ca5c72c5c4af9c7c9d2f36230d34ef9f7788493e20b5ad0a136f3def169a8562b1d7f04d6ee4a0ef34e2dac3f1b038c61d514f01e975dc95412f035a46f29c8c6f6ae2742d4bf5a1a8161a0e416b88fd5b438a0bbadd891c98bc405d70b975f38652d96658e7ba26bd3d18d96ac80da7e0516ce8e776fb6bcfc974229b7b6167a18f338b659f98f93a64d1dc61824f06f4222fdb0b7c7745028c7b742def08961409f8a6473aa99f58b440fd18d36a58e348994069db02bf0a49621cc5358ce72ad55565ad62c2d44a3a643fb54f2f39ff32483335487273e007885b529b9bd9eda51aedd128b165b105e5cf35e261f21c458008a949545e11d256b02049d6d383c65616be766022ecebfb75e79449875fed8fb9933b778be8ea24dad3144806087119680063718d76fae27b56bd6b291af2098a497b1df65e70ef77991481ab2432a2172595b885",
+        "start_branch": 21
+      },
+      {
+        "backward_transitions": 18,
+        "failure_numerator_v2": 106,
+        "failure_required_v2": 239,
+        "failure_source_branch": 32,
+        "failure_step": 17,
+        "failure_target_branch": 28,
+        "increment_word": [
+          3,
+          2,
+          -4
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 14,
+        "precision_bits": 4096,
+        "residue_bits": 4082,
+        "residue_hex": "0x3d9acf93820ee734ff9d11d232bf6d8d2805c6f764fc0f5ad2d6f95694a08c75f34ca02568149910e5e617e6bfadc936a1ce92885a817be94c14c408a5e82eb1368fbdb2c198af8905882ea36686d5f191647001ba6b5aa9e6888548c6ffd4b810567053d4496873ce37010a42df67f0115d3820c3031088bc4b10b473bd24eab480e0a89749da063368656a06377299189e85eada65ec637453de0e1316dfb6e6ed68202f8edc94613c315886d6ee4eba738735fb5a7dd65dcdefd89a5da3b9bb62f771259cc5879cdb4ec3360d9bf3d60f8b758725e8c8221077d85a9abb34902418451cfcd483a5f8c531ca89dddc64c1367e52e6c2fa9e726a99c911d968bf09b76c66ce8c04fa87c9a48f773855f6c7cffea731eb0ae37968768578fc64bb68bf57ddd149dde8b0c402f428f93d6f3496dd501194047fe69481bab34c53ce2103791a1c462563c9e69250d9012a43b7f978e3b6b4c976a12a75e7f898fe68e5b6c639e334a3567047b647505d7bec89af6eb4b54b6e606f7d0ca417acbdb6243201003a37900ff0ec1d60aafaa4a76c5fb5783d64227d1821c3df0874d768a3770f02d3465f73892a9e250d51ec041aa3390422673819fcc74d05a8c19f52b1d44a87bd94e512ee7331841945e44f23b8bf1d55e983cc7921ec8520152f2d4e6c042ecef26a72f0ba225919972422c934d776cb02b3e39d045eeff8d",
+        "start_branch": 22
+      },
+      {
+        "backward_transitions": 26,
+        "failure_numerator_v2": 33,
+        "failure_required_v2": 255,
+        "failure_source_branch": 33,
+        "failure_step": 25,
+        "failure_target_branch": 30,
+        "increment_word": [
+          5,
+          -3,
+          1
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 13,
+        "precision_bits": 4096,
+        "residue_bits": 4083,
+        "residue_hex": "0x4e367dc7f096a7ebb12e6a11ce580d4af3d12dbd1de40a1e0fdb5ae4ce79d53b3adc45ce974f3f6705086f2fa6cbca9150ec33d913e7360d26fae4df79b001ba62d84aec5f2352ee1b400819734eacb6d0cdb7bf18c56969cc8e052e4312be9ab30dba6a8daf3d127ae284d7692a2a30a0bfb7c9404aa18519adeb61646512933ccf652eb9662feef17613b86ff1e8cfe5ab22242a9d29bcec59543aae3e04b4bcd3e11faa35e6bbfb8419a0aa7e6030eb77f365ac146951e2ba34791eed544fc958f748aec5d414ff155123c71d5bd7718aed92de8b9256aea2ad82e0e4bea625163a524e97f4106109816c02bdd37234a6ac3f96c56626c3ef00a8936451eaca51740e1902056f5b8ee961b53d1f5d7ce77997dd56b2856e42f0245e4aa93cd1851f14aa603aa04750118706c71de7ad9327c051c88cec4d656b595987e578f3b1a4f738ce5892040ea0b2384ff4e38cbad252ff1a89ceeb84200df27b07b1b6c91a0c7335066cde70d841e376dcba67b6c7785cacd8bb5a446276abb030af33e1cbbe5eaa7f02d3c0cd0eccceefb6b78087ff881c7d757259ee5127b173e6b2ae28ddd39d05972f1c3b10456a94f88ac0f5f0693eb3be4c316049a7041baae8cbf8ac76e4dc9c484c86a0ed63c68d16e7a7954cda0be42c27c435c160fdd47d5603368329dd4807a835e2cca8b6f650cde2707c79450b1e1325431a03d",
+        "start_branch": 4
+      },
+      {
+        "backward_transitions": 22,
+        "failure_numerator_v2": 197,
+        "failure_required_v2": 263,
+        "failure_source_branch": 27,
+        "failure_step": 21,
+        "failure_target_branch": 31,
+        "increment_word": [
+          4,
+          -3,
+          1
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 13,
+        "precision_bits": 4096,
+        "residue_bits": 4083,
+        "residue_hex": "0x5f3316eba3a3081515d5f9abd2e3b7460f55da4b6bed747d0ef446719218b3275cec8c87247c5eadaa1bebab9e9bba6b7340118930183a53c485076606c4d72ef5cecef3551a92bff4768bfa3dec3dbb602e212f765ee14db09adc9c5894ad25246fc790983476c2bcb44f872c0094af7edacd48d112e87d9047e1e58c822cfc11fe4db097cd59100eeac444db2295e3d1a51bf382801ec3e02260cf739b792022e1294f073a7fa7b46dcc43f4483a4421ced2ac9eb18a15667ab5b6a3166cbf889c2132cd23b8112beed2a97bf7ff66a9bb3919ba93888d3368b70a80251af8c270473bba0f5ed79eb63a7cbe6acc4f7a2f146b340349608c3aa2999aa2b070128f41c89edf568e9b1ef2fba685c2a078e09d62d2723ab5ddcadcbc2522d6d0fb2623048c74455e38174b142ff721ba2a2ae931be63da35c3cee9134eb47ba508dc34aa5b06e43ae54496f3c3e7ded3c28dc2669e2d1b1936ff168f86e85d264c381bf54d94f8ccddc689b84605fb913079c91e8b4b0a2ed0a3e57ff4d862a40dc5452469e47200904f15d4f830b3dce4b14129d495c4b13be4681ec9c3293c8550e6e0b6abac9c7336e5086f5049347db8aef2147bba6d9c9056c54cc51bbf77b3e0eda17afaef6ed60e2121c04e9d92a715ecaacfafe7bccfc2d55ca0205e4f85fbf78f9416aced27fe9be4e39886d3b4e3916172811b1924bb8bfa545",
+        "start_branch": 13
+      },
+      {
+        "backward_transitions": 15,
+        "failure_numerator_v2": 254,
+        "failure_required_v2": 263,
+        "failure_source_branch": 36,
+        "failure_step": 14,
+        "failure_target_branch": 31,
+        "increment_word": [
+          6,
+          0,
+          -5
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 13,
+        "precision_bits": 4096,
+        "residue_bits": 4083,
+        "residue_hex": "0x5034965c26248ded7a9d619d877eb0538f5bcdfb0d7e66eb7e62ba6b15af8539cf56ed87295aa58de5bfed1eae0b6f686d789181e31d8d280ac8e08d7fc540a56420186c16701619868fc95543c36f6c99dd8aeaaad95e7d92dfb5c6ee2e60690300892b6a9a0ea9a11a577dcc9cbb5b7861b19e54fcaed677b24cf9970ceb6156980786ef977855966cecb49b71ee941f7b855d036cd6750ab3ad78e22f423fc09a5b01ad5ed7c7ccc0f4bbb70cfa5b463d96eefd14a3e43ac0d72028299026489f666789f65e8b98e0c32f8df98790da8f3c265fd6a3c0d381feaad302a95e9b4353b83d3a5aee862b4f849c636b5e5e6140e40ebe4cc3dbfe63edd1c542fb7465c3d15db80093067a78ee327f70edaf57edfb6317fb4833ba1a9dda33f72eeb3f5f8b7da2f44560cbcae763cbb2b15b52852db12a702334d54f91c32004ac44ae575878a6453dcb588bd10b820ba9d08850200d44f5028c06684d785e7e95f204969275fb794325d150b3cc6845d6ac1330d2949fc5ef7201240df94a392d1c5ee3869256ddf17730ddbd91b694673ed772c75e920b647451004d8ed5d8f12f0d2fbd9a2cb9dd21247b5c425e66845339a3e1ebd11999de9a035842e8a00dd53a00d8f7fcbad71054902ae6cf759885aa2ae6d354aadad4e0b3b3ac09b29f5d06d0add6c64962d0b090ea1b09db41cf58b0088b84887a9c82bfeb2802d",
+        "start_branch": 26
+      },
+      {
+        "backward_transitions": 12,
+        "failure_numerator_v2": 58,
+        "failure_required_v2": 487,
+        "failure_source_branch": 56,
+        "failure_step": 11,
+        "failure_target_branch": 59,
+        "increment_word": [
+          6,
+          -1,
+          3
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 13,
+        "precision_bits": 4096,
+        "residue_bits": 4083,
+        "residue_hex": "0x5f366d9e0c218ea4bf4429617b70fedbe47cf2a759aeafe03bc82a15b1c7d032a0fd2cfe02975ee33e74dac72f0bb54b62f5251a0f320f40864fa100d6d8ac43e0922dcc07f3af0ad0257341c8829eaffaf1cd8854bb0d4f302ac2477b9ab1230526f25dd7988c0dd8d95c5cb9c3038f0281441ae1d7c0633dbf4a8a170a9ae041c3eb4aeb5bcf1a6b3a6642e4ed8c67d8490c35400d10ad03e897d323cbd931bcbc790977677529231361eea7e9b27573454f5d63e04728f56d2bb459f6154483d42748a2ce2b504edf78060a9344dc131d143196c6e6cb34d4d43f203ad7744b879b70dbff01c4765d4be7b730ff041bafc9be33746c6dd1a002c4bf1bc3f810235a5bc0802dabf636b43866f35bcd498d7ed8e73087a4cb8cda41ac9c5bf61026d32e985fdb406d18b6aeb73dae1721ea4816cca323da32c7d2a5055562e53b304fbc932b9a3be7a1924b138c2b58cab7134b7a9cdfab8c4da6259952ad1d20316c732e6e26e3e99d701a812130b87e4172b275cbb233bce87dfe770cc533667ca99a4ddbdbcaf56c7f0bf8a86ea186ec415cc2cbbeb3ad36db9b161b3b9d4c8daf624a24be1f77ca8300bb877b4ff649967490615fc8b9d9ad8caced14813dddd1bdc34cb1268c76edbb17a05a89ad225eed1b0eaf8d215b6917d1a132d01bdea6095e683795bb752e339763bea1fa5089e606832aada4e95a834eb75",
+        "start_branch": 27
+      },
+      {
+        "backward_transitions": 13,
+        "failure_numerator_v2": 44,
+        "failure_required_v2": 447,
+        "failure_source_branch": 51,
+        "failure_step": 12,
+        "failure_target_branch": 54,
+        "increment_word": [
+          3,
+          1,
+          2
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 13,
+        "precision_bits": 4096,
+        "residue_bits": 4083,
+        "residue_hex": "0x5d993f69be78e69e3d060f72d1cc1da7f07d55d80b14fc5bb6611fc92b964978f9edc80b2678a911315feb8d8e96076fdea24b891dffdd247ced6c531d9842cd754a4811ca5f89258ef7e99e79aa9bd899409ab2f2fd2b3542294a4054424461d04364c88574fa378ff61d736749842a8ddb4a45b715166d9a1616053a51e43fb696a41b5a752aca43c05576a6362ca3f252570b0759fd7cca2ff4913cf3cb96bdcc29a5dd836c424a75af25ed07614ab7ae874a35cfba06d6655033b359a4faa2d54d7e3c596087d275c09846b0fc1d49f686ceb745e7e54c5081232c61ef37b2d88d8d0329698e9257c2b340528f7cbe906a6f086530d18450407efd0ea967b8a6454f8b95759d4c43c23044175bd80b685eee2d89e3cac9ed59238aef73b3fb848c8d2e587f228172cfe4c953c2dacff7b5a51d4f81f05bfa75ff209366acdcf6c9f19575b0fc96d24810a1d62b8d57a8ac1ca5f5ecf68b0f85ab8b7c405d959a20fc06eb9a2c73f94798cb0811ceac9b79bf314dc4cb657f8630bc4b278dac071c7d0a5a52227919141f5e8862ede4567bccb21c1531f1c44c0f0df9a3a51196b0fdd7c58f0f66719e2c02dd6fd33adacf63b9496deb0d0ebb8bc97b7e78c2ac081432e0e864566c1bfd3919ffb7f4ea7ff8cbf7dccbd6f4eb1ee46c2ad01bdea6095e683795bb752e339763bea1fa5089e606832aada4e95a834eb75",
+        "start_branch": 27
+      },
+      {
+        "backward_transitions": 11,
+        "failure_numerator_v2": 394,
+        "failure_required_v2": 455,
+        "failure_source_branch": 57,
+        "failure_step": 10,
+        "failure_target_branch": 55,
+        "increment_word": [
+          5,
+          -2,
+          4
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 13,
+        "precision_bits": 4096,
+        "residue_bits": 4083,
+        "residue_hex": "0x45dd92472d3e9c98794b93efe8b95f2959fda209b1fd85311f073663411bf0f1589d27b4a157954b4fe81b0c9a0b0be58c2ff19b3b6ab9cd37fd6e197107bc27324117cd6b5c3c048f0a3286958739267e45d96c6db49372cfd91725f4090558f3cc5f5140dcb7d07fe6c902711692551e18d22551d3d00a3bc48f7da1123cc0a08c184d07fe6d3c862600235024acb2050fe0a6ebe0f393229c4b103ae7a6e4dcf01f8926cfe3fe66566085cd1f122a29c8c71ed28aeed41172b9b9f6f92e7bfb99187cbf4d570346c6def2b0469e251afe4bcb9cd2a2e8dafaa197e961ce82d1f823e82b1e99e3aeacd8dfa90ec832bcfa1aa437a7eda34a02227ee0be5b31e5da5e42d5fee744a869f1dbabef3a8808c50784d924035e74c253f55e8f85eb732945d6682222559c921a902e7bfc6b78ded643742ffc95abf480596360c58b8d2d0b44a2af1d2af02a53ae15aa3056f93b271900b1c9439ea41516bdd25201ba3e6e4e175ed366fc6e503ee4370d0dbb819ce3b5c5d6f62ae158d8d98593d64ecf154df15b1dde1828078c1646d8a052f804784274d7a727585b221a64bb615b57ddb2e23b97c07488ae318bfa9e8d211879cea56e389e4142c94607adb64b62c7f5d3ebda984efa7a46fd98c63efb73da0191c3523f29d8e2e97bf58b1f1e1ac685486febbb4f8cfc424503c7afa10dbb958b4b7c25ff6186e1cdce115",
+        "start_branch": 31
+      },
+      {
+        "backward_transitions": 12,
+        "failure_numerator_v2": 164,
+        "failure_required_v2": 615,
+        "failure_source_branch": 73,
+        "failure_step": 11,
+        "failure_target_branch": 75,
+        "increment_word": [
+          7,
+          8,
+          2
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 12,
+        "precision_bits": 4096,
+        "residue_bits": 4084,
+        "residue_hex": "0xd7573bb8e698ab5d898572d307da18e1bcdb01fd696c35d53cff461a4db3e983c78b7bd1c35e95a3881a024b9c22353cca29052f382da2f0c4f6b128b00717ab18ceb4ad86982cad64179cfa59f83a8e70e1f34259251fac54296d43eaa82852ecaefc11f38556df2abeafc4789b0bcc63df7ed768a8368c3a461490f18118ca4d91c1fc88c835ee63b072545ff80794b0cbfcce773faf627edb80445ee615e1ac6acbb54cf764f2e4f0767d5fadd61adb0c7e93d7da4a2f283279bbc64418469769711866827ad609bde673867ac9f1a513155b0f7cded199e4ed28d741c75cc9b73d7fff0adf0af6398746a792c7effb6ea6b83e07a9b333160b84f28881a78898005a2b3ba55cd49b014f26f0f158e8262789d6cb56eb5f314fc7c2f18888ea3e1fa9abb063cbb1b949ee458b33c5310d6788b47f0fcce99a9ca8e4499e725b28490f320c5c18342e5f92b99f0092acade44b99ded6888ad41360b397ed3c906644b2a9c798eebd9e363eb0360573317864cd171616cfa5eb2069d328870a08103844c0ec5602c39487e0730dd5d7033354e72ebfc883f8308bc289a2b7196c4799d007d8f5241d270fb6f18297f1f1493142a3d4971210de0cf3ce5e0a366552b07c3052b100b7116b3c7a97e83b98c8aced8a4c5865f7bf0cfac70b8572e299337c1b2bba33e35f6f8f08483996c1f0cffe353deca699add215e4b55",
+        "start_branch": 7
+      },
+      {
+        "backward_transitions": 13,
+        "failure_numerator_v2": 302,
+        "failure_required_v2": 511,
+        "failure_source_branch": 54,
+        "failure_step": 12,
+        "failure_target_branch": 62,
+        "increment_word": [
+          8,
+          0,
+          2
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 12,
+        "precision_bits": 4096,
+        "residue_bits": 4084,
+        "residue_hex": "0xc0fd85b11c1944c754c40ddd749eb366c5a0a712bb57dd4be66f038abeb9d8ffabaa6197a0f63acfd5f07868b2a81eb3f3c02e547159afafbb3a8668ac71486e84ef8ef7ca9402317095f9a30ae6544bca0423489bf3ed21dd0aee2f830cda8b3a08c94f50ed0a182d614b56873c690884f0168f695febf7b94434d1b59e647a793d9f0d8d3926fc50b30c9ed12c7d76509daf4c0565cd088b438beac01e44c0ea42caff8cd6d27863c03a07840f192936765f21007930b817a026eea469dcc4ce18118d95b496f5638b1a58387cef3f0bcb6447e47279811665519b12d290652ce47b76afb6ce745af9f105976ffe3d3828b738dc7ea09d986861179b19b763e763b17bb906ca1cbf09e436ac8dfb8dd485d730686d60f66b847fa74b5b3247542ce21ec388f03ae7bfbe374acb355bd49deb10dabdd868a6e6bdd42282df87f5176cb5b21104ac734e86b1fcd5996f300a42c659a2d0a8653c7c1d1544453d430b0010ccc51019975fdb735808118a4a3ec2c7939c5bd682e20038904671b41553c5f9d88ab3bd1e3d4ff203bbf20e45e93036693c89c6ad619086697ff2329c4c5fc3b01da44b4b5c8927d2dec8b8ae66b7e4ebbdecfc96c41c4535fbb18305793d869b5ca0d3c7ed58eafe084eb8b3ec7378a7f06e7f07377a8729309ad2d0d9c373676d81ea9e70f20a7f15bbbb5b3e0da80e880eed12ff591a2da4d",
+        "start_branch": 14
+      },
+      {
+        "backward_transitions": 14,
+        "failure_numerator_v2": 37,
+        "failure_required_v2": 455,
+        "failure_source_branch": 57,
+        "failure_step": 13,
+        "failure_target_branch": 55,
+        "increment_word": [
+          4,
+          -2,
+          7
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 12,
+        "precision_bits": 4096,
+        "residue_bits": 4084,
+        "residue_hex": "0xec337fb2608e20f7cd83d035f4f871c5516363983bc2954732e6afd622bda49b44238bd21394850f7d3d5f63c062df70020d34996dc19d4f94c77f8beef0f698fdb7e2460d4cb323fe3562ca80bf4a488f2524fdc644c3dea6ba82a901b9cb0c1fdfa70da8b6580f36f1b875e4791a916df799741c79be52225f03e7a69a3fa7c22e7316bfb39f545568cfe6b84c399da4f322fae1233347896026de872e21e0db5d75a51e16270cc9657005cc01a5589cc67b9f63ee42569caa00a6c64bf939437e9d9fd9db85d50940ec9ec909c84d466bee9285c32229079e2b8dd942bdbeb6974eae21a695805eb96ee1286e1335c25e4274311cf03e4a1d1803b8b664058f0039ba3da7a53eb2397b15f91d3d716b091d34ce764259e58717024440ba185a9657bd5ee5a9ae267ba56a00f589777465f3dba7ccff7b29f3690dd229c48534d285a79800e30995fe84529fd5970928db2f1607294ea1b3dd1eab67688f5d91b21d4797d38ab1c2c442eb6aaa83c5009ff72b6e6a2a8a2f26195b3ecb268cb1531e107250a376a431e1e19ad0c9d5b941b06093dbd441768dd9bbde30f273e2464179c871809a725a4c41dd2079cc68265680ddafefb0aca49da9f08ac3831215e59c0b249911d6424e9708791d0f20cc7ec4284692f21cd908630a7a43a66bc0fdd227f09b0f41162e7dfa09adeaba31a593a75af050885559dc2c4e5",
+        "start_branch": 17
+      },
+      {
+        "backward_transitions": 26,
+        "failure_numerator_v2": 1,
+        "failure_required_v2": 191,
+        "failure_source_branch": 21,
+        "failure_step": 25,
+        "failure_target_branch": 22,
+        "increment_word": [
+          -4,
+          1,
+          4
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 12,
+        "precision_bits": 4096,
+        "residue_bits": 4084,
+        "residue_hex": "0xbc1a2b41efad3dbc172ce8b87c4e1e1f6c9437022fe88101ab9dc710662dff0800eccb8fdae50744daccb4ffafbda70ef05acf2214c8486a59322b48525213ac792ffcb32d575fea44b270ffa968c04f9b8fc7de5f35e1ee6a693f6690cd66d6a79c2af01b4271db182cac4bf570ad2e40cb9c3f03a853134a47ff9ec51955c2a6a83d8123c8bd2043d26e35fd345ebb9986ae3cfe7ce05c4625074b9cf40269333317dde214a6a556f5fd5ae68cab03e9e47ac277a725a35c44a3d83aa73ae6cae03e3e52cffde8f583b9043889d9076232a9b5e3403ad8a83cd6b15a01bf03ae8314a3567f4a4238d68c1c83bc07e1c6d926a558ed95b4d3dbe56dc7033252abf4b940573243555ec57ed166d3b6d2877f76f932bdfac62ace71d34f24b54532b76d926799b7565de53be60297de61e07ce20f0bfcf88fbdf9396f0f5d0ceea7a0939b6b0e43d34cf3c9fcac8e4d94662c158c14575cd121acd3c7cbc111b3518f6398c09ca4a9788c6893daecd2234fcbbe203f3b6c1c374c8a872f86abcb7ab2bee72cbe13eeb9b0ca75231123dae200da7a79e90d31f234efddfce9512460e9fc5e766ae62b841c12a6f23ac0f9b5a0dc23130f11e0093056c271529f9eda05c70531a66c2d178d28cc2d6fbfe7cabc7d81726eb6da043e23f09b081029bc3120f4107de54ff53bc80db7906ca2ba31a593a75af050885559dc2c4e5",
+        "start_branch": 17
+      },
+      {
+        "backward_transitions": 14,
+        "failure_numerator_v2": 277,
+        "failure_required_v2": 367,
+        "failure_source_branch": 37,
+        "failure_step": 13,
+        "failure_target_branch": 44,
+        "increment_word": [
+          1,
+          7,
+          -6
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 12,
+        "precision_bits": 4096,
+        "residue_bits": 4084,
+        "residue_hex": "0xcf851d4583dcb4163adae902951397b523bfde4bf6ae674bddc18a053744aa40076c06e2217f83d3d32e98dd3d3cccce6200af9e54f39beca7f0deb8c59e2b37b9375bbe4c92d43f99d589d08cc6e8cea7980f49e577f870b7b48537e6da4a8ebf18672e8ecc37be620ee991584020c58c235870e82b7b535c3b5b95f9864e2889ba7b74e62d36e2e14af504b4520aa7479e6c3411d1a2030ad771b1a4fdc07b764dd77753517c2687156501e5a53d45afcce26f01fd9d3f4b2c99cffa0b1f74cf1b1ddf89eb6bd3fab94cec49a232a11d9209003f5a1efbcf2a53e2a0dbc764860eccb31d0f4c41d57d244088183cf25815e8f3d80ae9192566b942da6cf68ee566de289c7f5405000fee53872523018ff1d46b3b6af6fcb5c5733184a340c31f6cc219ce4c8c5468022a8c01aa09dfbe8a4c69c62f323278fd2646839e745f7d6a17f9b32c8dcd787e9f3d706c21a1c633cf8976610d1fb53e00e3ccdcbf4b519552067f8eeb4648e040fae2d839db818b376b22a5b41d43e6af4d28f985dc9ac9537a99f64d2d14b0a4604fca05a1cace8bedebcd107bd32a86dc62e8b1342d04db825c8dd8c43a22ee97366809f688a2b5996a49cc4fa1f4ec696babacabb3af3544668cab9b8211db992df5e92727277c826e6ad20573ec1925907af5878faa450e6920cd283d02448a6e1f63fe1d7d7a0b33a15d77fc5d0725c13fd",
+        "start_branch": 28
+      },
+      {
+        "backward_transitions": 20,
+        "failure_numerator_v2": 82,
+        "failure_required_v2": 359,
+        "failure_source_branch": 50,
+        "failure_step": 19,
+        "failure_target_branch": 43,
+        "increment_word": [
+          7,
+          -7,
+          7
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 11,
+        "precision_bits": 4096,
+        "residue_bits": 4085,
+        "residue_hex": "0x106918337e17e6e80601a33994fb6cdbb51c4d64d0dd01a4dbcae9dbe2f1a4fc3296551c8d99fe831850851a88f36c36b979abb081a2094a7cd99e5f88630301b60f9c09a8a0842d6c630f01ad85915addffa9ed1eee0ab021948f6120532bae53e6e5d0d0e3cedc5b3e9aa81836b8cff2e7d188dc48a1eb2810c75eb983d9209f9562d856b1c7666900986cbd5eb1f99cf0b5b7dbb7d734bdaefb9b2d67aea6e862e445bb3cde0f16fa6e6a1923f85c9ccff0f3543679c20b69034145cd9bbca10f4734a4ac39c85527cbe7a79b2aaeec5f3647ad1fc52341ef445098d0bc8e8993df22a4e469021beaf1d72363457d6ae3f0eee92b8f12e70e634ab067b8bee279c9826779482b1f7723a26aa6b3186e2ebfb00d3a1438a2ae1ae78e38e9788bb907e217472960a9db9d44d6248282c684619f165ff3cf43930646ad69493a2a108027571173d35c63f96a50e111ce4ee49f6a7f00d66a8b304df7423bde593ce5e9daa406783ca75140407b5cbc6dbdfb666c98744002e1b18cee840ba27d45573ba9d40a9bef52c86138438751fce55c57b57686d30bab80f879dda1f3140efe0dfdd4e578bb6c147953093bed1a543f5b29ede345f08f8490a90c040ca80c6930b8b7ee37d7e99c3c23a17de8f21eaf700889ca1e79432c55dd3fa161ad9e7a21f02d69c6c5d43fefd7142baa13f9b864dac5a636845cbee4fe643e65",
+        "start_branch": 1
+      },
+      {
+        "backward_transitions": 13,
+        "failure_numerator_v2": 269,
+        "failure_required_v2": 615,
+        "failure_source_branch": 67,
+        "failure_step": 12,
+        "failure_target_branch": 75,
+        "increment_word": [
+          8,
+          1,
+          7
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 11,
+        "precision_bits": 4096,
+        "residue_bits": 4085,
+        "residue_hex": "0x10e3a702946c9c21bd782d3fcdc1fc8552ab276629fe69f0dfe8828385b114f383385e175fe586b9e0e66a1c8764fd6ea6f0b23b323d8eccf3870495eae2aaeedb99274469b4541f9d6da2a43ca19d6c0d6499d216731b6159035a32c2d6bff62595c2790bf6c96423ce8c72c0b378df7d0d003ca03c414281828f54599d46c65c0afc22d3c84eebd029156cc320bfb7ff001f0ff398a5bb42fc8f486aa573fb256d8b60d09b239bd0c82ddf40408723550ee04e531de9204eac87d5a8dd521f0d89b68688e8df08d0dfd9a1ffd5081599d30fb13a713d7c473857d615732c22b5422fabf0abdb894cc1a7c3ba2a4b2b77856c7f9dd8a8855fab19c2acad77c2f8ca5e27e91e01648e8fdeb8a2a4704daf57ca4cf9ac5951a45ebe3e803b87a6cb554b59a25592c03981cae2c548d09d4ce9f24116dc371fcb815705c107c4a9b34c2109d82d749116fa1040f98325735cd75cfd2bc4c010533689a4a19439e61b00d0117a639fe0273bfaed0eb99c16122caae114dd62efda715c74d8a5178e62e4e0bb2259757d1bcea3c9b7c6b624c98e3d160a15e5465e44520fb5bf9272d6bd7ff7df95e9ee93fea791d33fa95da6297895a729ef4d644115a012cfb461138d2989a4f4ee196cb16f20bc217eb207654a8f41c2e3d43c1412fcc9b073daf99df5e02e530571a6dcfb546fc2a7ba6f5bd5b1a75559ca8a4851c1514db5",
+        "start_branch": 3
+      },
+      {
+        "backward_transitions": 13,
+        "failure_numerator_v2": 188,
+        "failure_required_v2": 575,
+        "failure_source_branch": 67,
+        "failure_step": 12,
+        "failure_target_branch": 70,
+        "increment_word": [
+          3,
+          7,
+          5
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 11,
+        "precision_bits": 4096,
+        "residue_bits": 4085,
+        "residue_hex": "0x1b44e1d6b4e19aa2b229d526e8f437a69425f828a9bc6a938128cdd7e4c5b63297cd6928c2523925f9ef9e5444a0d3d263897e9512af2fd7f8866b1999a88de7fc8d42993969f067499eb51334d5fe70440aee8e10474c5ec504e535d4618ab0073adc802a2ddf5d391bd4f91562c0b9eb5c433b01be3053e98ab29eb9889b63744424df2c9794e83e4573a65479e8820c91054756cb01f61737ebeda46e969a32f5dbb7dbdd0094e9310f187ac4491fbd710e5a360c72f69113b51557405f6fe9cbf55e81ab9aa89314a4e3b98f6562ee031add6573a1a55b3f320db3b98c4a282cde9de3f8924260caaefc5f7b881c7224ee376b5f8f5708bf73183a3a8288c480ff3822c894687d7e31faf819a327f86609aeb33420fcecbc249572dafbbd9e69f1c7267818f037310f850ffdf927e5491cec27133eaf9c27625039d24c81ebec6963062c2b03328ee5ed0598d2f1deb44d4ae738ac7ff6233648fd4ea6a509121db94f29fbed13fd11a63605a96e3a8b492ce2c13387b9e9aff52594715f4e770417272fc00cb5411562005edbac8b5d4039f1fcf8135d98a8e4b3295af82c6159f47f1f4bfffa533b542ef3e62e78c1c502360b77a9254f8a307f01110961b407a5726a2e6879dc49d93082fb20c81a3aac5476b80aaa7f686535814d8ff9010a2c9e56a7f1cb35b1c25a45ea8245395c7fe353deca699add215e4b55",
+        "start_branch": 7
+      },
+      {
+        "backward_transitions": 22,
+        "failure_numerator_v2": 30,
+        "failure_required_v2": 343,
+        "failure_source_branch": 36,
+        "failure_step": 21,
+        "failure_target_branch": 41,
+        "increment_word": [
+          5,
+          -7,
+          6
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 11,
+        "precision_bits": 4096,
+        "residue_bits": 4085,
+        "residue_hex": "0x1fad5f31b4d2bbfef2318f048433442c3f2be763247defdae664382362a350a00e98b557577d8beb1cb56115ba440753edf9b33fa68e3824f11101c544461e8945ae8df3f4e769735d622a71bd4b9d5171708ce04ca14ada089abc923644a805df059b24adf1a3b78cd3e754666b2b93607236e63a8ca77e97d4397947030550a82ad203b95b4d4f40b03a98c24279d5bb6eb57bf3a309ef146a0d76ad119ce0879a6aba295989199edc80300e9682705ff476ebcbec720728ca28f30440deb96b4cb25bc5cda99dca8b98480a5a0e401976266a5afbfef9b511fc69e578b1af8ac336a1f83ca856576b3ffb6cd9afb78d288ea8cc1c848e7e7437f6ec8284b978b1bee6cadc71ae77a5ab53ab6c63ca9a4ba4cc1ae0cfe94887ef6d2e337172c8bfd59e7c51514e62dd5e648ab15166251cc082ac5662368e0f6daf7453459bfa5ee55ba0f7524a5840249516677d310da794f5d7687ea35d5d1809c082cfb0f461af4bbdde9953d36e5717208e3af128d070433d4855de8ed9d6f853f89170717b0ae1113ed05778b2b30680b6c5e20dbccaf8e738db9db3927005df9ddf23da89d0465ab424b915fa4de65dadfc78b4290d125aa802332f1fbb7401bf275585a9b8ad8697bc214357c8432d240be0dd9566af2a75aa73bc9227afef241e5ef6d49e9ec342b9b9847f03f4805d028cf78b749add31fb09c256f34f68c6dd",
+        "start_branch": 8
+      },
+      {
+        "backward_transitions": 27,
+        "failure_numerator_v2": 42,
+        "failure_required_v2": 239,
+        "failure_source_branch": 24,
+        "failure_step": 26,
+        "failure_target_branch": 28,
+        "increment_word": [
+          0,
+          -2,
+          4
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 11,
+        "precision_bits": 4096,
+        "residue_bits": 4085,
+        "residue_hex": "0x18afa881152af331a324cf6aebecf30d2faaecd3f3800ac553c1c1cfa00b452cb23e77009d69021d7f413663aa6e4ec8221bdb900b1959644cd3420a8e3cc84e2916acc0e91c477058db9145cc1aaad5cb6b1e94a64934d9f2b471b45e38997bfacfe32575ae060a6de5a467dd149ffb3750d03d26fd8a4cf8edc0684ba831df7def8c241df4af9cacb1e9231921d207765d3d6f0a71fb553658c93683e70f693a323720df467d441b1ca7b742816c03296ad7e13e873631afb24f0f84cd51b3f28fe848e3370729426971c2efcd5b2bd2b9bdba6131e0c955ad6af7142803b583150e289ea3b0a38ea0d1fcf14bb40e1e258b097fb6b587427e600c84ce117639314e3a5304b48931f8fdd0e94336dc9512d6be6233d5fcef6d1880e4675751b5aa780d18adbbf9a84a965c1defd89aa8c7cd4204fc38195b85627955a064eeed1e944213b3bea90ce6f644c10911e4f71825c567039da84ea3ad1f9653210ee2e569f521da7991095f257a69857ddca86f14d15777c6c1227bf530ec176bfb92c1b96af633ff4d58a8ca693ef0697a790339c6a3e7e8a106e92b8e300b2b1b3a0aece1f8920fbf834ea3f532c97359b76a5735db9009f2880d8c0446727f6b398f8669f9b088427d9a2da9e28bca41347de80bddf9cac235f810c25eeb3daaaf6c1163d901012e86765d3d5d4d8a89cbd407f89ad78b91e66c4d477535ad",
+        "start_branch": 10
+      },
+      {
+        "backward_transitions": 13,
+        "failure_numerator_v2": 348,
+        "failure_required_v2": 535,
+        "failure_source_branch": 63,
+        "failure_step": 12,
+        "failure_target_branch": 65,
+        "increment_word": [
+          2,
+          3,
+          8
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 11,
+        "precision_bits": 4096,
+        "residue_bits": 4085,
+        "residue_hex": "0x13e577226f24e5f2145467d02de1ff8edac6703a77398435906d0b6d754fc3557e71af5e4368fd19fafe8077e7a5648e0e6b0185b2a03d2a4217d50a2d1e850be5f37461806d922c1a2fddc86956743c9322a42811b58afea1fc6dbe87afc13b637034086a65f6781cd73d6c1553d566494401a9fc3e5ede02e7e0bd80c2c6d1ac7485e8cbf9b17d5ccf5742c9947740768673a3bf45bf4d020eb8c033a0d364023c1f81e4b8134671950341ceced2470deaa2de4ab7b04317bf47235b170c98838a9152452445924b6dccedfa12a536bf0e333169a09f2f5000a0b7fd1dcf7571403cc4f754883b4e59aabba3de9c31adfe147501d9b799e63ea41895e2e80feca32686ace6b022c9e47558b8c1258eb1b66fc61f41ea4f8c6841c39b6db64b5d1a4975cf28df2f92428e310bdfec4ab8328ced878433230687a7a3fd881fc7675cace3231bb9d0645d485a6befb5a6d148837a49dddc96c9d66c7e4486fa9ac7cbc4b2dfae5547a8df785f03f544ea230a1353fd232c455f41da2e5333a15f56be892a18a3078c2eb0f40f8d1a092ec26fed5fab8fe1e561249fa2c7a39f22aa1d129ff4efcabe051b464feeb987273903f4226b7837707614cd47ef92b9c41ba5cb622ec0e7ef43b422450c5cf83ebd30b5fa1bd30b5f05f4db524f1aeb2de423a058d2ff0a0568f9419eb204b71207dd59cb7d9422f4f67bc24d00dcf5",
+        "start_branch": 11
+      },
+      {
+        "backward_transitions": 14,
+        "failure_numerator_v2": 181,
+        "failure_required_v2": 503,
+        "failure_source_branch": 53,
+        "failure_step": 13,
+        "failure_target_branch": 61,
+        "increment_word": [
+          -1,
+          8,
+          3
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 11,
+        "precision_bits": 4096,
+        "residue_bits": 4085,
+        "residue_hex": "0x116c634df0ddcb4cdb6ed901b1833b64940daa692cf9a6254a27834726871a441a7c7faf57080a570d8574eb5c38c8e94fe6a2add165c08bd208c7352bba8ddf62438e2ce3e1cf3e089f427f9ea1ee2146cb1f34579f26f13f01b5974b9a4806241bc735bc83fc60bf0d25138804b4fa6bf582021e8e591b570791285050e2fd40d71576469c5a0e70ac08b7c12b3e01574724b8458d5a826ed7dd534192200a2901730d5ad4ceaa5e44b23b797566ccdcf005b89a302f5ec8965dbbd9e4b444fb9b75d39fedf0234db7ece4e4b5a3ce4bebb15749376ea8f7007370b60de65ef63b9046577f66e8f71933851009cb578348a92c579f8225f045c17fc03983c8cbd7f618ce017138d0dfee4428745a6811ffc1f7d83a9575e69a7351ea8c0e559560391aa6d0acd5f341cac7dbe35fd8eb6b005285d2b0b7e416e66055b982aeec7a6c1ab2e54b7121b4f6ff7eb0def7872caf536376d33cde5da0c6bb1b4f375d10d9b15aee1e3c957d86e3ad63dd4701e4cc080559a82180052067e0b492b111c5185584b1f09f84104cb26fd80360f74623636d7f606190b80e1a51f5413990d4eb6ec2648b1765afd9d0993cb93f1cba46a968cc4ef62cfb96f070bc0f01e866b6223f81590923362597b8438785c21ce50dd79a498fa6366d3e614a3002a61156dd9cc00150bff15489e871056335b3e0da80e880eed12ff591a2da4d",
+        "start_branch": 14
+      },
+      {
+        "backward_transitions": 15,
+        "failure_numerator_v2": 425,
+        "failure_required_v2": 431,
+        "failure_source_branch": 45,
+        "failure_step": 14,
+        "failure_target_branch": 52,
+        "increment_word": [
+          -3,
+          3,
+          7
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 11,
+        "precision_bits": 4096,
+        "residue_bits": 4085,
+        "residue_hex": "0x110718e97f202b9fe2f4be1b2540359eb907c6ffc12aa84cfe4ffbbf4534068a69e6a4b7f29a7ccfedb0ee8bc1f1f42042e4c517e7c73603e739c8e999c70243f76286a742573eb5ac808d43e4c70c602aff6363cb89f06042d9501bb4e698dd6f812030d3e5973ed319504f5d2c84310b474f42e7c12f77c0b11954b56938336fb67e6340854a1afb1bbdf79e7930f6cb048594b19be2ff1f851a2f2e0fd5928de6cbe15aca78700f2b5070140a21d048c0d2c5ef96f466d3c099b140595a3b0d4a71ab4d7e3f013ddf70ffdf2a002b0cb267387b46b42650ca7c351458d8774b4cb2b43a259782f0b31b1f7996c90f02ba94f6747ac658902d2efc18044b5e10c4920deaee83639204b5eff4095b6bf2a5a863c993581888bed2ce435f7ef722c8aa037b451f44e7e730f3ec85ec084c9601572c5b7b8791dd19298d7dc1f24514e316f1a3bf2d400c7fa02ec063db13b42aa10335569fe3d445125217b2f5a602e5ec32b0214cedc232757ea0f6e3361789b3967531122407549559540af7f02fe27093a73395fe4280d716102c0320774b3e018ce918158c50ed88451228ea1216c9e5a8fbdb8cd11400794ddd569fdbc624c3df496506c71234cdbeabbe3275bb7f2352050ec8d8cd603d373a50dbb6a406efa63b781070a4716103a74b8a215d41be89595dbe4144906d71b25eaba31a593a75af050885559dc2c4e5",
+        "start_branch": 17
+      },
+      {
+        "backward_transitions": 13,
+        "failure_numerator_v2": 237,
+        "failure_required_v2": 455,
+        "failure_source_branch": 53,
+        "failure_step": 12,
+        "failure_target_branch": 55,
+        "increment_word": [
+          2,
+          4,
+          2
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 11,
+        "precision_bits": 4096,
+        "residue_bits": 4085,
+        "residue_hex": "0x1adce138b7a872aa9f98d005f818e168ccfa6e68a2fb0e5b915bac348be5f01642f17a51d857e35eb1e83a1aeb818d470d1d7d6e5682d4eaf606efb72b8c0c5880f527bcf24f76c2dce428fea0db0d4072aefad562bd77a2cab6080291a258eb43aa8017550f441add06de6f21ecd12e6cd42046b95cb155fb0c645b630776dde2b6574d5a37dc3adebb38d0f36b50f106054ae94490eb580bea9621f83608790c151fdc5fe40c621e65de1160336aae3563c6470390a18063a89bf72a6ad3fccaca48946c15db0aa3ff340aef255e9076936f7ac8aa8956179970621480a25c185e49d13a0c3cec4a27b230153b9f281608116e2a0e11119234cb7f67e7e4205fa674e09e9d3059ef7447ff62f6e56d1f5002593ec668391a1899d245e4f10ba074c7e9456fb580470a2da8d64740a31d72bf1a1ff37497cade7a764c6e8b94e4b999b57864524447efc5da989807e4546f87ae3dd7b236e10fd340bdca965e690d3f414aceb62e29a0d6dbfc11db333284501be503c6117982d20442355d77bd3467808f925723f009d3b560c1569820dcbb395e728a76e8e057d867d0a0bb9c95b6e92fa5b55aa34e162c2746870ba923e4b0b9df5543de74ae54056ec381dd102d406d045113026b573260d2be8bb1779b2d98977379c0574c1ca484c1772651b3d88ba8851214f820bcfb9df65e70ef77991481ab2432a2172595b885",
+        "start_branch": 21
+      },
+      {
+        "backward_transitions": 17,
+        "failure_numerator_v2": 17,
+        "failure_required_v2": 271,
+        "failure_source_branch": 40,
+        "failure_step": 16,
+        "failure_target_branch": 32,
+        "increment_word": [
+          8,
+          -8,
+          2
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 11,
+        "precision_bits": 4096,
+        "residue_bits": 4085,
+        "residue_hex": "0x1dc6de3e931efaa70725e88dde0eaaeb8e5afc1ba6235df442a17d89646295aff4111d027c95253e3043add56e727275c5db03f174fd7d8fcd43ef16e831f5d07326548daaf870687fa67c00e0b9948a47adce119e80fc2f5df36e4391f0531b28b06f40f11706e6bf01105d097316c1977405fc28df06b587e157ad104af8a37561ffc5f5cff980cba7979d2f6cc8afc1ddcf1113f9638021e029b34893e4714ad45676f7747744fb5291732a9410ec8ae0737d74d79b6fd891080ae553bcf9f62e51b203781f968f9b3afb97620aeb3e353d5980c9bf3f6a7b3c3c00cd544917b9ce2f828b5a36b240791725e0d9a8a935d7613025a4d22e9fd8f9e4d144c395700a391dbc2aa390a632fbeae54c0f825c7664e221510758aad8ffa13e41290f85df5ff9f7fda2960b14cb223b2cd1089505e776a8f4fb01f141afc215f8638e3e233bbe4893e08952be2ba4fc1eeb01bc78b285d6fb70d5c7d965149dadff08a37b9c68a6a99bc94f6ce94af1ce27f1daf767b0b5092d7add8ce4717ef2463c1d7755f56b37cdc4715d118c0a7d855ae8a1103895abacb514a94aebf547d27d6ad31f7536f4304d83a275ea7bb773957677875222bb6de17487898147714886c96b69a1bf76ba696f216abd563226b3f59cef18f218c1e364fe98eca7e13f3c118be8c2ecef26a72f0ba225919972422c934d776cb02b3e39d045eeff8d",
+        "start_branch": 22
+      },
+      {
+        "backward_transitions": 10,
+        "failure_numerator_v2": 361,
+        "failure_required_v2": 639,
+        "failure_source_branch": 72,
+        "failure_step": 9,
+        "failure_target_branch": 78,
+        "increment_word": [
+          6,
+          2,
+          8
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 11,
+        "precision_bits": 4096,
+        "residue_bits": 4085,
+        "residue_hex": "0x102bdf0c4241cdfa25e3be99b7386842ad48b6162aaf86bf55835593fc9f624dc10adc3fbcdfae7b95c869b682edf4518cd42c694c14165ebe477fe6a5cade4943f1976d1178ffae30fabbb3f0847db1463b05aad6d775bd7f448108f210d678c5dd706c15314789031998a51147e7982c18986f96364bf81b3193991b102fe039727ba4b1d882dcc97db8dced78115cf261299cafd9259fcda2aafc093c761ac0c5d0d503d5287d773b16f92499d8a5ba0a8f9ee0038b693a41be3390e14d25eac023dfdd832f0f1f484d04085f8a7553819a16e4e4f991c573cf727a5b95c714a7140b4b64b4b28f93acd9d77cd10876c6fe1e4252599288aa8be7024b83a7048c7785b3252f58429e02876db17e86e151fe95a9d9f60c9d4bb24e5e5e8943f9bc69c22c01d6a53f090cdd1743f647dfa99778078ecc72e95750cb14aefc1164ec1ff2518dcd02a3e295009e50f5c1b14c1b5eee94217063cb4b4dd68528a70080631d19e7b910252efb83b7ace77165309f957e7ffb14541f41752383c5b2f8075a570754884df360158962b8d34de2a31a7decfb75818125f7cc28c3fc7c54076d0ffa11a745de3d054f4e36bec11a33854724476912b5f99ac7b43fc68e17e0485a9ca8a93ca248fdfdc82c92fbe83080194b45dbc01eb4fc8c0f24b970cd0db7f80657f078d9cd1f58c5875d4980d52fae695fe4e0520adb9af7695d",
+        "start_branch": 24
+      },
+      {
+        "backward_transitions": 10,
+        "failure_numerator_v2": 457,
+        "failure_required_v2": 559,
+        "failure_source_branch": 60,
+        "failure_step": 9,
+        "failure_target_branch": 68,
+        "increment_word": [
+          8,
+          5,
+          -2
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 11,
+        "precision_bits": 4096,
+        "residue_bits": 4085,
+        "residue_hex": "0x1043bc920496c5557b9c17ab57214388e5667ef12b809b765953d2b06907e8aad4d6558106cdac3e8d7220922b8c1589b551df6b8aa1d0568f9ec4ad09e54e849e4a9f2c6d73f5887de4de8bd1a1f65e7af5c669b96527bfa8b3b334f2c671e138aa446baf44c856ef1b84b9df6481562c36447abde67b607aa6ad11c3ea7b609755b231ba4889a4246e8ef5bec29e0584f7379b50da0d44764f2a07d74ec706d8a777fb80607771f45ffccc1b74eb62140df564c2e598ae37ef0282d96d345aa5d8b0838acd201925f4a987a91666fd162f62431825172d5e90688a7ac526cf7db7f4b78b02e7d402e1229e6318c6459b58b50004156cdacad2e5b26e896ec202cd27c44ddfc272ff9ed49ecca68a1b5a47242d89a9bb97bbfff371ef8afd915074ab5ca6b2ef87a2f5386a922ab0d1b7145c23ee5d68e58e62132571dfc2871481c449a0f165ed0204b03aa3bcf69345aef225df108e808954601b508ddcf03f61dbf5fe8c7a9f93fb0db97dc9449eded3aee7166ed97724848380259fb99371c806f539f491d0de9da400c98190f35af5dfd289a02dbe4fd22e101b5f2bb48543e45190b016589b52bcdfc38618e69b2b8950abeeefd712cf0868174c58b59b3a62abcbadc9933b2ddf0e689e3d90692dbe1d6e698add947ed7ddfd1a132d01bdea6095e683795bb752e339763bea1fa5089e606832aada4e95a834eb75",
+        "start_branch": 27
+      },
+      {
+        "backward_transitions": 10,
+        "failure_numerator_v2": 97,
+        "failure_required_v2": 615,
+        "failure_source_branch": 69,
+        "failure_step": 9,
+        "failure_target_branch": 75,
+        "increment_word": [
+          6,
+          7,
+          0
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 11,
+        "precision_bits": 4096,
+        "residue_bits": 4085,
+        "residue_hex": "0x1fe09cb155a0803a119e0e93e985fe7bc1b1be6a706e89f77e87cdf090a996fc1b69abe9b911ebc77aa0a83332f8142984aaab3990a20ee7de34e65945f5d5f71a8a98b5404559e7283cf93c37fd8adee9ba84461cb58c9f9020b0ce9521210475dde57f1b24090e1c71fec5d04af04c7c6680b2cc9f9fe23b6987a9741ee5949783c6e7d25be909c0dd3e5cc8f96de26f234e89a77a04cfbe8ac71d4940e544d1df36cffe597cf5a4038cc9b7bde28977bde82c7774d1110d30ac58c9fa035a40fefc1085a2b5a4498ea5fdfff617be7e76e1a30d228b2b9a10cc0279cbbea8cadffad5d1e271c29e546d7db6239e3d60555feb8ae39f18d43e3c78193612b5e03108820f82404a25076f6253accd4986162353af3b674db5ebb4b75c611b58bc0d7441ec1caa9450a1719dd2148860f5459f0ce03e831cdee06467bc3e975b88b98d8b2637576ee56fb2043c4d85dd3948c24fb1150b36c9ff6b3a97ab59e1970339e6c689ed727e4db12ae5e387d0b299f773b32761be5c11326c86fde3ccd256c8e08e65b3ffaab527ea211434abd414af7149054d731613885b6847414d233f3bcb2cea8a4e0c8e87f27869ed494f9facd6202df3aa7d72f286bddac1cac4b6b087aa17bb8e7463428280c895a0ce7ce78153535de2a9e2ae1fe392b9cba3f518b46b64865887a58b687c3a321a01b2cd9a9f488343cb919030fcf4cd",
+        "start_branch": 30
+      },
+      {
+        "backward_transitions": 12,
+        "failure_numerator_v2": 349,
+        "failure_required_v2": 479,
+        "failure_source_branch": 51,
+        "failure_step": 11,
+        "failure_target_branch": 58,
+        "increment_word": [
+          -2,
+          2,
+          7
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 11,
+        "precision_bits": 4096,
+        "residue_bits": 4085,
+        "residue_hex": "0x155a9324e4568fb4d37b569b8e328bd8ba4eb945fd37eae93c1d7a7c7773d79ddf2ecaa0da3cdf886650756edaf2c924f5cc16897a2306862f683ca87748648419e116ff8dbacf9077d3a79e9801749cacda090e9f10bcc388ba4b1aa5b1d98c4975a5908a49d842ca2a37b1252a1dce9282abc5f03bf1fb80df07f5dd18f01ab1c931b43fe84aef18ead02e9d18b73e875c485d375ad87c262fe08b8f191d53e4fea1086a36eac0de94803627547924f8808393f0f9f3281412d14e43204189b2571cce805e146888d92fee3471b3031756f7245720a4dce39a7f9de5a21811aa4bc71f229a0ba51f13d757e3d897a00a65d2c0fd312c07532a15779577d39babcc80bfdcd75683c112bd641aea4375a6f252fe3ea547aa06b3ae5166354a25a596a8a9fc699437a0c1c0732c8b41791e1d8172ec81542fb82d995fce7e82142918e975cbe92c90b9396e331fb9ee368c06bed7da06eb1232e56a7929ea0ddce4e67f78cc638ada386e0f4229dc61c64238b62616f5179224318d68b9e203c420ee4c436865a2f6a43117884e3a56ca10094d0d49b5b235d3eb1b3c3be2ad643263c5b46654a47373510624532ae39215e011a1a6492ce4d0df6a667e500adc32fe078530de88f6a25508a766e566cf86963e5adaf32b34d237bb76c0cb8de11f7518b46b64865887a58b687c3a321a01b2cd9a9f488343cb919030fcf4cd",
+        "start_branch": 30
+      },
+      {
+        "backward_transitions": 20,
+        "failure_numerator_v2": 331,
+        "failure_required_v2": 391,
+        "failure_source_branch": 39,
+        "failure_step": 19,
+        "failure_target_branch": 47,
+        "increment_word": [
+          2,
+          8,
+          -4
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 10,
+        "precision_bits": 4096,
+        "residue_bits": 4086,
+        "residue_hex": "0x25e1324b521373480fb5c5f87bb7a593bff50eedd5d0d15a06ad962966d0dc399aa74b95cab938a37454a45e6060af57765b5f8b8502a4832f63aa6d3f70f87d582ddd5f9f5adf9843058c7362c5a4cce0d1cb2549895f996fa3ef9a52f8fa110f9d57ca88e7bdf0ce769e77ea149776e5785809500f0ea4d8288d2697a885cf3b7194c733fbcf393d79f9c99faa9bd8aaa0c9726c4bf0b6f76368611637c3c6ac89c74cc675f43537a16e3bfd619ce3e4c88a47d46bc1f4fd3944492c56c5a1b26941f48379998ca1e4fbf359b94475167cedcfd9f7debe3a8a1bb4a3ad35c1c2ba7d1441fe752c7bd868fa227f68e16844bcd6850e6db0e95012511540fdd5217f105a03333851665c61dcdd6875da684334198ae6b60b7a2609501c750394c432968b0eeceea5087839efaed7ded285280dd99253c79a406f2ae53094c51cce882ff04f8880db9d716ed6e57f9155a7864aaf41365b6e3024859dce0cfaec1b4bac18d18b9f6ffc12f194755c1c24544ac3a3f83b0c85bb1f31c2ac0c1ad665a167bd04be52429a89204caeed84a08497a44bbac66661d4a76e7c06a9a754186bb04af379f0c861f3e0dda6ca5bb861843c997fe4897d284fdc0e11d91d8fbe1c8dae9c7c3fe276db01d84899b7394da6c06a0fb82238ce2bb2e877bf332b44ef72f343a89d3a652c77204d1ab632ab3d3da655b43ecb245264fe643e65",
+        "start_branch": 1
+      },
+      {
+        "backward_transitions": 29,
+        "failure_numerator_v2": 68,
+        "failure_required_v2": 279,
+        "failure_source_branch": 28,
+        "failure_step": 28,
+        "failure_target_branch": 33,
+        "increment_word": [
+          0,
+          5,
+          -2
+        ],
+        "leading_one_bits": 0,
+        "leading_zero_bits": 10,
+        "precision_bits": 4096,
+        "residue_bits": 4086,
+        "residue_hex": "0x20563fca2529d382a50c9e892d465e3520adfbca2efa1342bfc79409789ff0bc15ba72ca4c695b098bcff1150752b72bda8bbbae868b0428b496e18400428e80518d572bec4063a41e7f232c6ac2e60ff2d364b2f85a4717395f7d2030e2872b48c20c67af6795968878798aa6162201bbf3356aa57df183897315da449b9ca0cf33ba07bc78f9f037f5a795e4032d62af8aacecc84a67d94e63adbce76166728249992f95cd758b90c8e246be75b49bef7d721de753165b27069238c9bbf2b048fbe6edd5ff011d8ef8f012f970b7ff51f6933b4f99eacc9a5dc27e10b8c2371a0f466d867d1a227a5b870f3e76a96bd35f63e603af6f0e12adbdf6174bae11a917084ada07bd7b1b0036da03b888e99fc5f213312a37b7ec11b4baa83baf198aa7e024fd6225bcc7184ae497d9a4d67c7ff05fa6ec247bc5a58c4b7978786096d7706207f8486ac3601d0951dd39fabd00ff93e4609a1b4b959ea30bb3322ec69259300c9bf6d4c83d5aa592d6ba024c5b4ce82039276fc5499c645d92717d0a053e9ece58ea54b6cc67600ef6afcb5157c39decbbcbd6a8d6892c7085c4ec7f1be483dfa72065f0e1d8b764ba4eb11ac4651382733218dffcffe21b4b3de7a77f59be137a0efe3249e6480fbd1bcd5be3c5bd06f9f946a2d16b52a75c3d09eb1ea0c170620c10db23fbe0118e9cbdd04dfa470f31084fdb095559e43e65",
+        "start_branch": 1
+      }
+    ],
+    "lower_bound_scope": "for every checked start/word pair, any positive ordinary EC17 core realizing that entire prescribed schedule is at least the displayed power of two",
+    "maximum_leading_one_bits": 21,
+    "maximum_leading_zero_bits": 16,
+    "period": 3,
+    "positive_schedule_candidates_checked": 72156,
+    "record_sha256": "f9cd530dc0ed8d7746a2291128e5f04523dd9472314c08695da64423de5eb64a",
+    "unresolved": []
+  },
+  "generated_at_utc": "2026-07-23T05:29:47.988821+00:00",
+  "schema": "collatz-breakoff-ether-period3-sieve-v1",
+  "verifier_sha256": "82ac3a9e463a95c573c4f8f30aa66eac420cf89bd85de40869a5e10fd2908d56"
+}

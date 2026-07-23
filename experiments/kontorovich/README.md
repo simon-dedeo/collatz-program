@@ -3171,6 +3171,45 @@ Artifact SHA-256:
 Verifier SHA-256:
 `e0c29f74b3c4b34513309f056428a4767faa9d30e860177be9a570b8689e65cc`.
 
+## Exact period-three ordinary-core sieve
+
+`breakoff_ether_period3_sieve.py` tests the necessary ordinary-stabilization
+condition at the first theta-theorem escape.  It does not scan unrelated
+Collatz seeds.  For every prescribed period-three increment word, EC17 has
+one forced initial residue `r_P modulo 2^P`.  If an ordinary core were smaller
+than `2^P`, it would equal the least representative `r_P` exactly.  The worker
+therefore executes that representative with exact integers; a failed required
+division rules out every ordinary core below `2^P` on that schedule.
+
+The default committed artifact was run and independently re-verified on the
+32-core Akdeniz host.  It exhausts all genuine period-three words with
+increment components in `-8..8`, positive cycle sum, and positive schedules
+starting at branches `1..32`, at precision 4,096 bits:
+
+```text
+period-three increment words     2,340
+positive start/word schedules   72,156
+least-residue failure steps       7..47
+largest leading-zero run             16 bits
+ordinary-core lower bound          2^4096
+```
+
+All 72,156 least representatives fail.  The lower-bound bridge has also been
+sent to the companion Lean worker as QM57--QM59.  The result is finite and
+boxed: a larger core, a word outside the bounds, or a non-periodic controller
+is not excluded, and no counterexample is claimed.
+
+```bash
+python3 breakoff_ether_period3_sieve.py selftest
+python3 breakoff_ether_period3_sieve.py verify \
+  breakoff_ether_period3_sieve_audit.json --jobs 32
+```
+
+Artifact SHA-256:
+`bd7cf4b64a68c8146a6144c37d3a20098e2b84285a75bec2d2f393944f71848b`.
+Verifier SHA-256:
+`82ac3a9e463a95c573c4f8f30aa66eac420cf89bd85de40869a5e10fd2908d56`.
+
 ## Returning finite ether glider macros
 
 `breakoff_ether_glider.py` closes the finite boundary return left open by the

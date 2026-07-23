@@ -8158,3 +8158,93 @@ It checks 15 literal schedules, including negative within-cycle increments,
 through nine EC17 transitions; 624 residue/theta coefficients; every finite
 rational identity; and the corresponding 2-adic residues.  It does not claim
 the universal bridge before this Lean request is answered.
+
+## Kontorovich request: finite EC17 residue lower-bound consumer (2026-07-23)
+
+The first period-three search is now a theorem-directed stabilization test,
+not a seed sweep.  For a prescribed positive one-based level list
+`b_0,...,b_N`, define
+
+```text
+A_t = 8*b_(t+1)+15,
+B_t = 6*b_t+11,
+S_N = sum_(t<N) A_t.
+```
+
+Backward EC17 substitution with an arbitrary terminal core gives, modulo
+`2^P` whenever `P<=S_N`, one unique initial residue.  Equivalently, define
+the residue by starting `r_N=0` and iterating backward
+
+```text
+r_t = (2^A_t*r_(t+1)-17) * 3^(-B_t)  (mod 2^P).        (QM57)
+```
+
+Please prove the generic bridge: every positive-natural EC17 ray following
+those first `N` levels satisfies
+
+```text
+u_0 = r_0 (mod 2^P).                                  (QM58)
+```
+
+The useful finite certificate consumer is then immediate.  If the literal
+least representative `0<=r_0<2^P`, executed as an exact natural through the
+prescribed EC17 divisions, fails at some finite step, then no infinite ray
+on that prescribed schedule has `0<u_0<2^P`; hence every ordinary ray has
+`2^P<=u_0`.  Please package this implication abstractly, leaving the large
+row arithmetic to the exact Python artifact.                         (QM59)
+
+The first Akdeniz run has been built and independently recomputed with the
+same verifier:
+
+```text
+experiments/kontorovich/breakoff_ether_period3_sieve.py
+experiments/kontorovich/breakoff_ether_period3_sieve_audit.json
+increment components  -8..8
+start branches        1..32
+precision             4096 bits
+period-three words    2,340
+positive schedules    72,156
+failure-step range    7..47
+verifier              82ac3a9e463a95c573c4f8f30aa66eac420cf89bd85de40869a5e10fd2908d56
+artifact              bd7cf4b64a68c8146a6144c37d3a20098e2b84285a75bec2d2f393944f71848b
+```
+
+Every least residue fails; the maximum leading-zero run at bit 4096 is 16.
+Conditional only on QM57--QM59's elementary bridge, the artifact therefore
+certifies `u_0>=2^4096` throughout its exact parameter box.  This remains a
+finite lower bound: it neither excludes larger cores nor supplies an orbit.
+
+## Kontorovich request: EC17 unbounded-resource dichotomy (2026-07-23)
+
+There is a short exact answer to whether an infinite escape must have a
+growing counter.  In any positive EC17 orbit, the same public pair
+`(branch t, core t)` cannot occur twice.  If it occurred at `i<j`, compose the
+balances from `i` through `j-1`.  The target branch multiset
+
+```text
+branch(i+1),...,branch(j)
+```
+
+equals the source multiset `branch(i),...,branch(j-1)` because the endpoint
+branches agree.  For every positive one-based branch `n`,
+
+```text
+2^(8*n+15) < 3^(6*n+11).
+```
+
+The composed binary coefficient is therefore strictly smaller than the
+composed ternary coefficient, while the accumulated constant-`17` defect is
+positive.  Equal endpoint cores would force the smaller multiple to equal
+the larger multiple plus a positive number, impossible.               (QM60)
+
+Preferred corollary: no infinite positive EC17 orbit has both branch and core
+bounded.  Equivalently, for every bound `B` there is a time `t` with
+
+```text
+B < branch t  OR  B < core t.                              (QM61)
+```
+
+This is the precise public-storage dichotomy.  Branch levels need not grow if
+the core payload is unbounded, and conversely, but a genuinely infinite orbit
+cannot live in a finite public state box.  This result is independent of the
+external theta theorem.

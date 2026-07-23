@@ -1,6 +1,39 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 01:22 EDT
+Updated: 2026-07-23, about 01:31 EDT
+
+### 01:31 EDT continuation — exact period-three core lower bounds
+
+The first constructive search beyond the period-two theta obstruction is an
+ordinary-stabilization sieve on EC17, not a raw seed scan.  At precision `P`,
+the infinite recurrence forces one residue `r_P mod 2^P`.  If an ordinary
+core were below `2^P`, it would equal the least representative `r_P`; exact
+forward failure of that integer therefore proves a `2^P` lower bound for the
+prescribed schedule.
+
+The new worker and Akdeniz artifact are
+
+```text
+experiments/kontorovich/breakoff_ether_period3_sieve.py
+experiments/kontorovich/breakoff_ether_period3_sieve_audit.json
+verifier 82ac3a9e463a95c573c4f8f30aa66eac420cf89bd85de40869a5e10fd2908d56
+artifact bd7cf4b64a68c8146a6144c37d3a20098e2b84285a75bec2d2f393944f71848b
+```
+
+Akdeniz built and independently recomputed the exact box in about 17.5 wall
+seconds per pass on 32 cores.  It covers all 2,340 genuine period-three words
+with components in `-8..8` and positive cycle sum, all positive schedules
+starting at branches `1..32`, and 4,096 bits of precision: 72,156 schedules
+total.  Every least representative fails after 7--47 EC17 steps, so the
+generic residue lemma would give `u_0>=2^4096` throughout the box.  The
+largest leading-zero run was only 16 bits; no stabilization anomaly appeared.
+
+QM57--QM59 ask the companion to kernel-check the generic residue/lower-bound
+consumer.  This is a finite lower bound, not a no-orbit theorem and not a
+counterexample.  Scaling the same box has diminishing conceptual value; the
+priority remains either a stronger three-value `Q_2` independence theorem or
+a special EC17 coboundary/modular identity that closes or isolates a
+period-three program.
 
 ### 01:22 EDT continuation — periodic increments expose a period-three boundary
 
