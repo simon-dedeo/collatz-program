@@ -1763,3 +1763,21 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardPowerChargeNoGo.no_eventually_constant_shallowDrain_address
 #print axioms KontoroC.OutwardPowerChargeNoGo.no_ordinary_unbounded_shallowDrain_exponent
 #print axioms KontoroC.OutwardPowerChargeNoGo.no_ordinary_unbounded_shallowDrain_C
+#print axioms KontoroC.OutwardPowerChargeNoGo.no_direct_purePower_return_equation
+#print axioms KontoroC.OutwardInvariantBridge.executesBlocksTo_iff_flatten
+#print axioms KontoroC.OutwardInvariantBridge.ExecutesBlocksTo.executesBlocks
+#print axioms KontoroC.OutwardInvariantBridge.executesBlocks_iff_exists_endpoint
+#print axioms KontoroC.OutwardInvariantBridge.executesBlocksTo_append
+#print axioms KontoroC.OutwardInvariantBridge.executesBlocksTo_take_drop_iff
+#print axioms KontoroC.OutwardInvariantBridge.RechargeMacro.append
+#print axioms KontoroC.OutwardInvariantBridge.invariant_gives_finiteMacroChain
+#print axioms KontoroC.OutwardInvariantBridge.invariant_gives_infiniteExecution
+#print axioms
+  KontoroC.OutwardInvariantBridge.invariant_gives_not_syracuseReachesOne
+#print axioms KontoroC.OutwardInvariantBridge.invariant_gives_not_collatz
+#print axioms
+  KontoroC.OutwardInvariantBridge.partialMap_invariant_gives_infiniteExecution
+#print axioms
+  KontoroC.OutwardInvariantBridge.partialMap_invariant_gives_not_syracuseReachesOne
+#print axioms
+  KontoroC.OutwardInvariantBridge.partialMap_invariant_gives_not_collatz

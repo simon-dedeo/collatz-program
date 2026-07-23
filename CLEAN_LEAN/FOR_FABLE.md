@@ -16280,3 +16280,145 @@ produce the requested ordinary ray.  A viable construction must either use
 only finitely much depth per visit while moving another public parameter, or
 find a different return mechanism; treating the depth-64 residue as the
 prefix of one huge natural counterexample is logically invalid.
+
+## Round 323 — direct shallow pure-power return is impossible
+
+The power-charge worker lists the direct pure-power return equation for the
+`010111` exponent cylinder but only records that no row was found.  It is now
+closed symbolically in `OutwardPowerChargeNoGo.lean`:
+
+```text
+3^(14+16*n)+7 != 2^(a+6)       for every n,a in Nat.
+```
+
+The proof is elementary and kernel-checked.  Reducing the proposed equality
+modulo three shows that `a+6` is even.  Writing both sides as squares gives
+
+```text
+(2^d)^2 - (3^(7+8*n))^2 = 7.
+```
+
+The positive factorization
+
+```text
+(2^d-3^(7+8*n))*(2^d+3^(7+8*n))=7
+```
+
+forces the factors to be `1` and `7`, hence the ternary square root to be
+`3`.  But `3^(7+8*n)>3`.  Equivalently, the only even-exponent classical
+identity of this shape is `3^2+7=2^4`, while the shallow cylinder requires
+ternary exponent at least 14 and binary exponent at least 6.
+
+This removes a whole return type without any exponent scan: a `010111`
+recharge starting from the pure-power landing family can never return
+directly to a pure power.  Combined with Round 322, its arbitrarily deep
+Hensel tower is both non-natural at infinite depth and incapable of closing
+through the obvious finite pure-power edge.
+
+## Round 324 — conditional invariant-to-counterexample bridge
+
+The invariant target now has an exact Lean interface in
+`KontoroC/OutwardInvariantBridge.lean`.  The endpoint-sensitive relation
+
+```text
+ExecutesBlocksTo words start finish
+```
+
+recurses over the literal word list and retains every joining state.  It is
+proved equivalent to execution of `flattenWords words`, existentially
+equivalent to the older endpoint-forgetting `ExecutesBlocks`, compositional
+under list append, and compatible with an arbitrary `take`/`drop` cut.
+
+The requested boundary relation is
+
+```text
+RechargeMacro H H' words
+```
+
+and includes, definitionally:
+
+```text
+0 < H, 0 < H', words != [],
+WordsIn FirstPassageCode words,
+ExecutesBlocksTo words (3*H-1) (3*H'-1).
+```
+
+`RechargeMacro.append` proves literal composition at the common boundary.
+The generic induction
+
+```text
+invariant_gives_finiteMacroChain
+```
+
+shows that `n` applications of relational closure produce at least `n`
+first-passage blocks even when every macro has a different positive length.
+It does not invoke dependent choice or postulate a coherent infinite state
+sequence.  For each requested finite depth it independently builds `n`
+macros, concatenates them, and then restricts to the first `n` blocks using
+the already-proved `executesBlocks_take`.
+
+The main theorem has the requested type:
+
+```text
+invariant_gives_infiniteExecution
+  (I : Nat -> Prop) (H0 : Nat)
+  (h0pos : 0 < H0) (h0 : I H0)
+  (hclosed :
+    forall H, I H ->
+      exists H' words, RechargeMacro H H' words /\ I H') :
+  InfiniteExecution FirstPassageCode (3*H0-1).
+```
+
+The explicit endpoints are:
+
+```text
+invariant_gives_not_syracuseReachesOne :
+  ¬ SyracuseReachesOne (3*H0-1)
+
+invariant_gives_not_collatz :
+  ¬ CleanLean.Collatz.Conjecture
+```
+
+Both reuse `OutwardCodeCounterexample`; no second Syracuse bridge is hidden
+in the new module.
+
+The partial functional variants are:
+
+```text
+partialMap_invariant_gives_infiniteExecution
+partialMap_invariant_gives_not_syracuseReachesOne
+partialMap_invariant_gives_not_collatz
+```
+
+They expose the one necessary semantic qualification.  The attractive
+condition
+
+```text
+I H -> exists H', R H = some H' /\ I H'
+```
+
+alone cannot imply anything about Syracuse: an arbitrary option-valued map
+could preserve `I` without executing a single shortcut step.  The theorem
+therefore also requires
+
+```text
+I H -> R H = some H' -> exists words, RechargeMacro H H' words.
+```
+
+This `hsound` premise is exactly the proof obligation for a CEGIS-produced
+transition rule.  Thus the remaining mathematical target is now crisp:
+construct a nonempty predicate `I`, prove one initial positive member, and
+prove literal macro closure (or partial-map closure plus `hsound`).  Bounded
+worker evidence proves none of those universally.
+
+The focused module build, full 8,836-job library build, and axiom audit pass.
+The new declarations use only standard mathlib principles
+(`propext`, `Quot.sound`, and on the imported Collatz endpoint the usual
+`Classical.choice`).
+
+Separate status: the exponent-cylinder draft now contains symbolic LTE,
+one-child Hensel uniqueness, and a recursively selected finite root, but a
+full library-mode build exposed elaboration failures that the direct file
+check had missed.  I quarantined it from `KontoroC.lean` and the audit rather
+than advertising an unstable result.  The invariant bridge above is
+independent and fully integrated.
