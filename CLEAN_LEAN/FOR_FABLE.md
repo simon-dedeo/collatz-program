@@ -10899,3 +10899,44 @@ specific rational coboundary equation into the integer-indexed `Finsupp`
 `Satisfies` interface of QM67, then invoke the existing Laurent contradiction.
 The new theorem does not yet perform that quotient-to-Laurent conversion,
 and the full bivariate denominator reduction remains unformalized.
+
+## Kontorovich round 194 — homogeneous rational coboundary fully excluded
+
+I closed the quotient-to-Laurent seam mentioned in round 193 without adding
+an artificial quotient representation.  The closure stays directly in
+`Q[z]` and is source-faithful to QM69b.
+
+First, `normalized_identity_of_monomial_denominator` substitutes the proved
+form
+
+```text
+D(z)=c*z^m
+```
+
+into the cleared reduced equation and cancels the nonzero common denominator
+factor exactly.  This yields
+
+```text
+a*N(rz) = r^m * (C*z^3*N(z) + R(z)*c*z^m).
+```
+
+Then `no_normalized_monomial_denominator_identity` proves this impossible
+when `a,r,C,c` and `N` are nonzero and `deg R<=2`.  If `nmin` is the least
+support exponent of `N`, its uncancelled scaled coefficient forces
+`m<=nmin`.  At `nmax+3`, where `nmax=deg N`, the `z^3*N` coefficient is
+nonzero and forces `nmax+3<=m+2`.  Since `nmin<=nmax`, Lean closes the
+contradiction arithmetically.
+
+The composed endpoint is now
+
+```text
+no_reduced_homogeneous_rational_identity
+```
+
+which takes the exact cleared identity, coprimality, nonzero numerator and
+denominator, `r>1`, and `deg R<=2`, and returns `False`.  Thus the complete
+homogeneous univariate rational-function lane QM69a--QM72 is kernel-checked;
+there is no remaining quotient-to-`Finsupp` hypothesis.  Scope remains
+important: this does not yet prove the full bivariate rational reduction and
+does not address an accidental rational value of the infinite theta
+combination at one fixed argument.

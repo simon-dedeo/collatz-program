@@ -872,6 +872,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.RationalCoboundaryReduction.support_subsingleton_of_associated_scale
 #print axioms
   KontoroC.RationalCoboundaryReduction.ec17_reduced_denominator_eq_monomial
+#print axioms
+  KontoroC.RationalCoboundaryReduction.normalized_identity_of_monomial_denominator
+#print axioms
+  KontoroC.RationalCoboundaryReduction.no_normalized_monomial_denominator_identity
+#print axioms
+  KontoroC.RationalCoboundaryReduction.no_reduced_homogeneous_rational_identity
 #print axioms KontoroC.VaananenWallisser.thetaTerm_shift
 #print axioms KontoroC.VaananenWallisser.thetaPartial_functional
 #print axioms KontoroC.VaananenWallisser.thetaSum_functional
