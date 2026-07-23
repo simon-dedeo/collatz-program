@@ -9597,3 +9597,39 @@ certifies a lower bound on the initial bit length; the Python worker already
 records `candidate_bits` and `binary_precision_bits`, so its new margin is
 their difference (truncated at zero in the Lean statement).  No finite trend
 should be promoted to unboundedness.
+
+### Compact replay factorization for round 216
+
+For the preferred no-core-list replay certificate, the exact cumulative
+recurrence is especially simple.  Write
+
+```text
+a_t=3^ternaryExponent(t), b_t=2^binaryExponent(t),
+A_0=B_0=1, D_0=0,
+A_(s+1)=a_s*A_s,
+B_(s+1)=b_s*B_s,
+D_(s+1)=a_s*D_s+17*B_s.
+```
+
+Then exact replay through `s` is summarized by the single equality
+
+```text
+B_s*y = A_s*x+D_s.
+```
+
+This terminal equality reconstructs every prefix divisibility.  Splitting at
+`j<=s` gives
+
+```text
+A_s*x+D_s = A_tail*(A_j*x+D_j)+B_j*D_tail.
+```
+
+The left side is divisible by `B_j`; `A_tail` is odd and hence coprime to the
+power of two `B_j`, so `B_j | A_j*x+D_j`.  Define
+`core_j=(A_j*x+D_j)/B_j`; the displayed recursion for `D` then proves each
+one-step EC17 balance.  Thus one candidate `x`, one terminal quotient `y`,
+and one composed equality should construct `ExactReplayTo` without importing
+all intermediate cores.  For a nondivisible failure use the equality through
+`s` plus failure of the next numerator; for an even-quotient failure use the
+equality through `s+1` and evenness of `y`.  This is only a proposed proof
+outline until formalized.
