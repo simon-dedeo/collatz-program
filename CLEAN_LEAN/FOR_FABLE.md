@@ -15136,3 +15136,60 @@ New interfaces include `branchDelta`, `payload_branch_recurrence`,
 `no_orbit_with_branch_of_nonzero_payload_carries`.  Full 8,820-job build and
 the axiom audit pass; dependencies remain only standard mathlib principles
 (`propext`, `Classical.choice`, `Quot.sound`).
+
+## Round 298 — QM148 correction proved, with exact one-color promotion
+
+The correction in QM148 is fully kernel-checked.  For every positive bare
+EC17 transition
+
+```text
+2^(8m+15)u' = 3^(6n+11)u + 17,
+```
+
+Lean proves automatically
+
+```text
+3^(6n)u = 494251421  (mod 2^20).
+```
+
+It also proves the exact color-coordinate equivalence
+
+```text
+2^(8n-5)u + 291427 = 0                 (mod 473)
+iff
+3^(6n)u = 494251421                    (mod 473).
+```
+
+Combining the coprime moduli gives the full stride `473*2^20`.  The height
+condition is then forced, not assumed: if the centered state were below
+`494251421`, both it and the base would lie strictly below one full stride,
+so their congruence would make them equal.  Thus on any supplied positive
+bare ray,
+
+```text
+packet color zero at state t  ->  OnZRail at state t.
+```
+
+The existing invertible color transport then gives the stronger exact
+endpoint, for every selected state `t`:
+
+```text
+packet color zero at state t
+iff
+the one-step tail of this bare ray promotes to a SelfWritingKL orbit.
+```
+
+So QM148d is not merely a sufficient theorem: for a supplied bare ray it is
+an iff.  The all-time rail premise has disappeared completely.  This also
+sharpens the branch-search interpretation: canonical core carry stabilization
+constructs the unique positive bare ray; after that, exactly one invariant
+mod-473 color decides whether its tail belongs to the packet component.
+Nothing in this theorem constructs the bare ray or makes its canonical
+carries stabilize.
+
+New checked interfaces are `packetColor_zero_iff_centered_modEq`,
+`bareEC17_centered_dyadic_modEq`, `onZRail_of_centered_modEq`,
+`onZRail_of_packetColor_zero`, `packetColor_zero_iff_initial`,
+`all_onZRail_of_packetColor_zero`, and
+`packetColor_zero_iff_exists_selfWriting_tail`.  Full 8,820-job build and
+axiom audit pass with only standard mathlib principles.

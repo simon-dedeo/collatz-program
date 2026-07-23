@@ -395,6 +395,45 @@ theorem packetColor_nonzero_propagates {s s' u u' : ℕ} {n m : ℕ}
   exact fun hzero' => hnonzero
     (packetColor_zero_reflects hn hm hs hs' ht hzero')
 
+/-- The executable packet color is exactly the centered `Z`-rail congruence.
+The factor `32` relating the two coordinates is a unit modulo `473`. -/
+theorem packetColor_zero_iff_centered_modEq {n u : ℕ} (hn : 0 < n) :
+    Nat.ModEq 473 (2 ^ (8 * n - 5) * u + 291427) 0 ↔
+      Nat.ModEq 473 (3 ^ (6 * n) * u) 494251421 := by
+  obtain ⟨k, rfl⟩ := Nat.exists_eq_add_of_le hn
+  have hk : Nat.succ 0 + k = k + 1 := by omega
+  simp_rw [hk]
+  have hpow : (3 : ZMod 473) ^ (6 * (k + 1)) =
+      2 ^ 5 * 2 ^ (8 * (k + 1) - 5) := by
+    have hres : (3 : ZMod 473) ^ 6 = 2 ^ 8 := by decide
+    rw [pow_mul, hres, ← pow_mul, ← pow_add]
+    congr 1
+    omega
+  have hconstant : (494251421 : ZMod 473) =
+      -(2 ^ 5 * 291427) := by decide
+  rw [← ZMod.natCast_eq_natCast_iff, ← ZMod.natCast_eq_natCast_iff]
+  simp only [Nat.cast_add, Nat.cast_mul, Nat.cast_pow, Nat.cast_ofNat]
+  rw [hpow, hconstant]
+  have hunit : IsUnit (2 ^ 5 : ZMod 473) := by
+    change IsUnit ((2 ^ 5 : ℕ) : ZMod 473)
+    rw [ZMod.isUnit_iff_coprime]
+    norm_num
+  let a : ZMod 473 := 2 ^ (8 * (k + 1) - 5) * u
+  let b : ZMod 473 := 291427
+  have hab : a + b = 0 ↔ 2 ^ 5 * a = -(2 ^ 5 * b) := by
+    constructor
+    · intro h
+      calc
+        2 ^ 5 * a = 2 ^ 5 * (a + b) - 2 ^ 5 * b := by ring
+        _ = -(2 ^ 5 * b) := by rw [h]; ring
+    · intro h
+      apply hunit.mul_right_inj.mp
+      calc
+        2 ^ 5 * (a + b) = 2 ^ 5 * a + 2 ^ 5 * b := by ring
+        _ = 0 := by rw [h]; ring
+        _ = 2 ^ 5 * 0 := by ring
+  simpa [a, b, mul_assoc] using hab
+
 /-- A hypothetical infinite execution of the deterministic self-writing
 coordinate.  `z_factor` records the current ternary branch and `w_factor`
 records the next binary branch.  Requiring the next `z_factor` is exactly the
@@ -1170,6 +1209,38 @@ theorem bareEC17_core_next_mod_three
   simpa [bareEC17ToTernaryCore] using
     (bareEC17ToTernaryCore g).core_next_mod_three t
 
+/-- The `2^20` part of the centered packet rail is automatic on every
+positive bare EC17 transition.  This is QM148a-b in congruence form. -/
+theorem bareEC17_centered_dyadic_modEq {n m u u' : ℕ} (hm : 0 < m)
+    (ht : 2 ^ (8 * m + 15) * u' = 3 ^ (6 * n + 11) * u + 17) :
+    Nat.ModEq (2 ^ 20) (3 ^ (6 * n) * u) 494251421 := by
+  have hleft : Nat.ModEq (2 ^ 20)
+      (3 ^ 11 * (3 ^ (6 * n) * u) + 17) 0 := by
+    rw [Nat.modEq_zero_iff_dvd]
+    have heq : 3 ^ 11 * (3 ^ (6 * n) * u) + 17 =
+        2 ^ (8 * m + 15) * u' := by
+      calc
+        3 ^ 11 * (3 ^ (6 * n) * u) + 17 =
+            3 ^ (6 * n + 11) * u + 17 := by
+          rw [pow_add]
+          ring
+        _ = 2 ^ (8 * m + 15) * u' := ht.symm
+    rw [heq, show 8 * m + 15 = 20 + (8 * m - 5) by omega, pow_add]
+    simpa [mul_assoc] using
+      (dvd_mul_right (2 ^ 20) (2 ^ (8 * m - 5) * u'))
+  have hright : Nat.ModEq (2 ^ 20)
+      (3 ^ 11 * 494251421 + 17) 0 := by
+    rw [Nat.modEq_zero_iff_dvd]
+    use 83499104
+    simpa [Z, W] using determinant_identity 0
+  have hadd : Nat.ModEq (2 ^ 20)
+      (3 ^ 11 * (3 ^ (6 * n) * u) + 17)
+      (3 ^ 11 * 494251421 + 17) := hleft.trans hright.symm
+  have hmul : Nat.ModEq (2 ^ 20)
+      (3 ^ 11 * (3 ^ (6 * n) * u)) (3 ^ 11 * 494251421) :=
+    Nat.ModEq.add_right_cancel (Nat.ModEq.refl 17) hadd
+  exact Nat.ModEq.cancel_left_of_coprime (by norm_num) hmul
+
 /-- Membership of one branch/core state in the affine `Z` payload rail. -/
 def OnZRail (n u : ℕ) : Prop :=
   ∃ q, Z q = 3 ^ (6 * n) * u
@@ -1197,6 +1268,76 @@ theorem onZRail_iff (n u : ℕ) :
 
 theorem zRail_stride_factorization :
     495976448 = 473 * 2 ^ 20 := by norm_num
+
+/-- The two centered congruences force full affine-rail membership.  The
+height inequality is not an extra hypothesis: both centered values lie
+strictly below one stride if the candidate lies below the rail base, so
+congruence would force equality. -/
+theorem onZRail_of_centered_modEq {n u : ℕ}
+    (h473 : Nat.ModEq 473 (3 ^ (6 * n) * u) 494251421)
+    (hdyadic : Nat.ModEq (2 ^ 20) (3 ^ (6 * n) * u) 494251421) :
+    OnZRail n u := by
+  have hcoprime : Nat.Coprime 473 (2 ^ 20) := by norm_num
+  have hfull : Nat.ModEq (473 * 2 ^ 20)
+      (3 ^ (6 * n) * u) 494251421 :=
+    (Nat.modEq_and_modEq_iff_modEq_mul hcoprime).mp ⟨h473, hdyadic⟩
+  have hbase_lt : 494251421 < 473 * 2 ^ 20 := by norm_num
+  have hle : 494251421 ≤ 3 ^ (6 * n) * u := by
+    by_contra hnot
+    have hsmall : 3 ^ (6 * n) * u < 494251421 := by omega
+    have hcand_lt : 3 ^ (6 * n) * u < 473 * 2 ^ 20 :=
+      lt_trans hsmall hbase_lt
+    change (3 ^ (6 * n) * u) % (473 * 2 ^ 20) =
+      494251421 % (473 * 2 ^ 20) at hfull
+    rw [Nat.mod_eq_of_lt hcand_lt, Nat.mod_eq_of_lt hbase_lt] at hfull
+    omega
+  rw [onZRail_iff]
+  refine ⟨hle, ?_⟩
+  rw [zRail_stride_factorization]
+  exact (Nat.modEq_iff_dvd' hle).mp hfull.symm
+
+/-- At a state with an outgoing positive bare EC17 step, packet color zero
+is already sufficient for the complete affine `Z` rail. -/
+theorem onZRail_of_packetColor_zero
+    (g : EtherCounterStateNoRepeat.Orbit) (t : ℕ)
+    (hcolor : Nat.ModEq 473
+      (2 ^ (8 * g.branch t - 5) * g.core t + 291427) 0) :
+    OnZRail (g.branch t) (g.core t) := by
+  apply onZRail_of_centered_modEq
+  · exact (packetColor_zero_iff_centered_modEq (g.branch_pos t)).mp hcolor
+  · exact bareEC17_centered_dyadic_modEq (g.branch_pos (t + 1))
+      (g.balance t)
+
+/-- Packet color at every bare EC17 state is equivalent to its color at the
+initial state.  This packages both propagation and reflection. -/
+theorem packetColor_zero_iff_initial
+    (g : EtherCounterStateNoRepeat.Orbit) (t : ℕ) :
+    Nat.ModEq 473
+        (2 ^ (8 * g.branch t - 5) * g.core t + 291427) 0 ↔
+      Nat.ModEq 473
+        (2 ^ (8 * g.branch 0 - 5) * g.core 0 + 291427) 0 := by
+  induction t with
+  | zero => rfl
+  | succ t ih =>
+      have hstep := packetColor_zero_iff
+        (g.branch_pos t) (g.branch_pos (t + 1))
+        (s := 2 ^ (8 * g.branch t - 5) * g.core t)
+        (s' := 2 ^ (8 * g.branch (t + 1) - 5) * g.core (t + 1))
+        (u := g.core t) (u' := g.core (t + 1))
+        (n := g.branch t) (m := g.branch (t + 1)) rfl rfl (g.balance t)
+      exact hstep.trans ih
+
+/-- One packet-color-zero state forces the full affine rail at every state
+of the positive bare ray. -/
+theorem all_onZRail_of_packetColor_zero
+    (g : EtherCounterStateNoRepeat.Orbit) (t : ℕ)
+    (hcolor : Nat.ModEq 473
+      (2 ^ (8 * g.branch t - 5) * g.core t + 291427) 0) :
+    ∀ j, OnZRail (g.branch j) (g.core j) := by
+  have hinitial := (packetColor_zero_iff_initial g t).mp hcolor
+  intro j
+  apply onZRail_of_packetColor_zero g j
+  exact (packetColor_zero_iff_initial g j).mpr hinitial
 
 /-- If every state of a bare EC17 tail lies on the affine `Z` rail, the
 entire self-writing orbit is forced.  The `W` factor is not an extra
@@ -1234,6 +1375,17 @@ noncomputable def promoteBareTail
         have hpos := g.branch_pos (t + 2)
         omega
 
+/-- QM148d: one color-zero state is sufficient to promote the shifted bare
+ray.  Propagation/reflection supplies the color everywhere; the preceding
+theorems turn it into full affine-rail membership. -/
+noncomputable def promoteBareTailOfPacketColor
+    (g : EtherCounterStateNoRepeat.Orbit) (t : ℕ)
+    (hcolor : Nat.ModEq 473
+      (2 ^ (8 * g.branch t - 5) * g.core t + 291427) 0) :
+    SelfWritingKL.Orbit :=
+  promoteBareTail g (fun j =>
+    all_onZRail_of_packetColor_zero g t hcolor (j + 1))
+
 /-- Exact promotion criterion.  A bare positive EC17 ray becomes a
 self-writing orbit after discarding its first state if and only if every
 remaining state belongs to the affine `Z` rail.  Packet color zero is only a
@@ -1251,6 +1403,33 @@ theorem all_onZRail_iff_exists_selfWriting_tail
     intro t
     refine ⟨o.payload t, ?_⟩
     simpa [hbranch, hcore] using o.z_factor t
+
+/-- Exact single-color promotion criterion for a supplied positive bare
+ray.  Thus the old all-time affine-rail premise is equivalent to checking
+the packet color at any one state. -/
+theorem packetColor_zero_iff_exists_selfWriting_tail
+    (g : EtherCounterStateNoRepeat.Orbit) (t : ℕ) :
+    Nat.ModEq 473
+        (2 ^ (8 * g.branch t - 5) * g.core t + 291427) 0 ↔
+      ∃ o : SelfWritingKL.Orbit,
+        o.branch = (fun j => g.branch (j + 1)) ∧
+        o.core = (fun j => g.core (j + 1)) := by
+  constructor
+  · intro hcolor
+    exact (all_onZRail_iff_exists_selfWriting_tail g).mp
+      (fun j => all_onZRail_of_packetColor_zero g t hcolor (j + 1))
+  · intro hexists
+    have hrail := (all_onZRail_iff_exists_selfWriting_tail g).mpr hexists 0
+    have hrailData := (onZRail_iff (g.branch 1) (g.core 1)).mp hrail
+    have h473 : Nat.ModEq 473
+        (3 ^ (6 * g.branch 1) * g.core 1) 494251421 := by
+      apply ((Nat.modEq_iff_dvd' hrailData.1).mpr ?_).symm
+      exact dvd_trans (by norm_num : 473 ∣ 495976448) hrailData.2
+    have hcolorOne : Nat.ModEq 473
+        (2 ^ (8 * g.branch 1 - 5) * g.core 1 + 291427) 0 :=
+      (packetColor_zero_iff_centered_modEq (g.branch_pos 1)).mpr h473
+    have hinitial := (packetColor_zero_iff_initial g 1).mp hcolorOne
+    exact (packetColor_zero_iff_initial g t).mpr hinitial
 
 /-- Single-state adversarial consumer.  Failure of the full affine rail at
 any time prevents the given bare ray from being the tail of a self-writing

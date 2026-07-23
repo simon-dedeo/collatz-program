@@ -1459,6 +1459,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.Orbit.payloadCarry_eventually_zero
 #print axioms
   KontoroC.SelfWritingKL.Orbit.no_orbit_with_branch_of_nonzero_payload_carries
+#print axioms KontoroC.SelfWritingKL.packetColor_zero_iff_centered_modEq
+#print axioms KontoroC.SelfWritingKL.Orbit.bareEC17_centered_dyadic_modEq
+#print axioms KontoroC.SelfWritingKL.Orbit.onZRail_of_centered_modEq
+#print axioms KontoroC.SelfWritingKL.Orbit.onZRail_of_packetColor_zero
+#print axioms KontoroC.SelfWritingKL.Orbit.packetColor_zero_iff_initial
+#print axioms KontoroC.SelfWritingKL.Orbit.all_onZRail_of_packetColor_zero
+#print axioms
+  KontoroC.SelfWritingKL.Orbit.packetColor_zero_iff_exists_selfWriting_tail
 #print axioms KontoroC.KLUniversalShadow.DifferenceCocycle.exact
 #print axioms
   KontoroC.KLUniversalShadow.DifferenceCocycle.two_pow_dvd_initial_difference
