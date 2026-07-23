@@ -747,6 +747,16 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.YahSecondRestorativeArithmetic.secondReturnedRegister_balance
 #print axioms
+  KontoroC.YahSecondRestorativeArithmetic.secondReturnedRegister_value
+#print axioms
+  KontoroC.YahSecondRestorativeArithmetic.decoderBracketExponent
+#print axioms
+  KontoroC.YahSecondRestorativeArithmetic.decoderRegister_lt_secondReturnedRegister
+#print axioms
+  KontoroC.YahSecondRestorativeArithmetic.secondReturnedRegister_lt_decoder_next
+#print axioms
+  KontoroC.YahSecondRestorativeArithmetic.secondReturnedRegister_ne_decoderRegister
+#print axioms
   KontoroC.YahSecondRestorativeArithmetic.secondIncomingRegister_lt_secondReturnedRegister
 #print axioms
   KontoroC.YahSecondRestorativeArithmetic.secondReturnedRegister_lt_next

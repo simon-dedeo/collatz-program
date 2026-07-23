@@ -20,7 +20,7 @@ The word-level seven-macro lasso identity QM32 remains a separate certificate.
 namespace KontoroC
 namespace YahSecondRestorativeArithmetic
 
-open YahRestorativeDecoderArithmetic
+open YahLiftDecoderArithmetic YahRestorativeDecoderArithmetic
 
 def secondSourceParameter (w : ℕ) : ℕ := 35 + 2048 * w
 
@@ -141,6 +141,119 @@ theorem secondReturnedRegister_pos (w : ℕ) :
   have h := secondReturnedRegister_balance w
   norm_num only [Nat.reducePow] at h
   omega
+
+/-- Closed value formula for the second returned chart. -/
+theorem secondReturnedRegister_value (w : ℕ) :
+    2 ^ 29 * secondReturnedRegister w =
+      588305187 * 9 ^ (11665 + 32768 * secondSourceParameter w) +
+        277796933 := by
+  let p : ℕ := 9 ^ (11665 + 32768 * secondSourceParameter w)
+  have hin := returnedRegister_value (secondSourceParameter w)
+  have hout := secondReturnedRegister_balance w
+  change 262144 * secondIncomingRegister w = 9963 * p + 4669 at hin
+  change 2048 * secondReturnedRegister w =
+    59049 * secondIncomingRegister w + 8 at hout
+  change 536870912 * secondReturnedRegister w =
+    588305187 * p + 277796933
+  calc
+    536870912 * secondReturnedRegister w =
+        262144 * (2048 * secondReturnedRegister w) := by ring
+    _ = 262144 * (59049 * secondIncomingRegister w + 8) := by rw [hout]
+    _ = 59049 * (262144 * secondIncomingRegister w) + 2097152 := by ring
+    _ = 59049 * (9963 * p + 4669) + 2097152 := by rw [hin]
+    _ = 588305187 * p + 277796933 := by ring
+
+/-- The original decoder parameter with exactly the same leading
+`9`-exponent as the second restorative source. -/
+def decoderBracketParameter (w : ℕ) : ℕ := 9051 + 524288 * w
+
+theorem decoderBracketExponent (w : ℕ) :
+    decoderExponent (decoderBracketParameter w) =
+      11665 + 32768 * secondSourceParameter w := by
+  simp only [decoderExponent, decoderBracketParameter, secondSourceParameter]
+  ring
+
+theorem decoderRegister_lt_secondReturnedRegister (w : ℕ) :
+    decoderRegister (decoderBracketParameter w) < secondReturnedRegister w := by
+  have hd := decoderRegister_value (decoderBracketParameter w)
+  rw [decoderBracketExponent] at hd
+  have ht := secondReturnedRegister_value w
+  generalize hpdef : 9 ^ (11665 + 32768 * secondSourceParameter w) = p at hd ht
+  change 3072 * decoderRegister (decoderBracketParameter w) = 41 * p + 15 at hd
+  change 536870912 * secondReturnedRegister w =
+    588305187 * p + 277796933 at ht
+  have hp : 0 < p := by rw [← hpdef]; positivity
+  have hcross :
+      536870912 * (41 * p + 15) <
+        3072 * (588305187 * p + 277796933) := by nlinarith
+  have hscaled :
+      (536870912 * 3072) * decoderRegister (decoderBracketParameter w) <
+        (536870912 * 3072) * secondReturnedRegister w := by
+    calc
+      (536870912 * 3072) * decoderRegister (decoderBracketParameter w) =
+          536870912 * (3072 * decoderRegister (decoderBracketParameter w)) := by ring
+      _ = 536870912 * (41 * p + 15) := by rw [hd]
+      _ < 3072 * (588305187 * p + 277796933) := hcross
+      _ = 3072 * (536870912 * secondReturnedRegister w) := by rw [ht]
+      _ = (536870912 * 3072) * secondReturnedRegister w := by ring
+  exact Nat.lt_of_mul_lt_mul_left hscaled
+
+private theorem seven_twenty_nine_le_decoder_step : 729 ≤ 9 ^ 128 := by
+  calc
+    729 = 9 ^ 3 := by norm_num
+    _ ≤ 9 ^ 128 := pow_le_pow_right' (by norm_num) (by norm_num)
+
+theorem secondReturnedRegister_lt_decoder_next (w : ℕ) :
+    secondReturnedRegister w < decoderRegister (decoderBracketParameter w + 1) := by
+  have ht := secondReturnedRegister_value w
+  have hd := decoderRegister_value (decoderBracketParameter w + 1)
+  have hexp : decoderExponent (decoderBracketParameter w + 1) =
+      (11665 + 32768 * secondSourceParameter w) + 128 := by
+    simp only [decoderExponent, decoderBracketParameter, secondSourceParameter]
+    ring
+  rw [hexp, pow_add] at hd
+  generalize hpdef : 9 ^ (11665 + 32768 * secondSourceParameter w) = p at ht hd
+  generalize hqdef : 9 ^ 128 = q at hd
+  change 536870912 * secondReturnedRegister w =
+    588305187 * p + 277796933 at ht
+  change 3072 * decoderRegister (decoderBracketParameter w + 1) =
+    41 * (p * q) + 15 at hd
+  have hq : 729 ≤ q := by
+    rw [← hqdef]
+    exact seven_twenty_nine_le_decoder_step
+  have hpq : 729 * p ≤ p * q := by
+    rw [Nat.mul_comm 729 p]
+    exact Nat.mul_le_mul_left p hq
+  have hp : 0 < p := by rw [← hpdef]; positivity
+  have hcross :
+      3072 * (588305187 * p + 277796933) <
+        536870912 * (41 * (p * q) + 15) := by nlinarith
+  have hscaled :
+      (536870912 * 3072) * secondReturnedRegister w <
+        (536870912 * 3072) * decoderRegister (decoderBracketParameter w + 1) := by
+    calc
+      (536870912 * 3072) * secondReturnedRegister w =
+          3072 * (536870912 * secondReturnedRegister w) := by ring
+      _ = 3072 * (588305187 * p + 277796933) := by rw [ht]
+      _ < 536870912 * (41 * (p * q) + 15) := hcross
+      _ = 536870912 *
+          (3072 * decoderRegister (decoderBracketParameter w + 1)) := by rw [hd]
+      _ = (536870912 * 3072) *
+          decoderRegister (decoderBracketParameter w + 1) := by ring
+  exact Nat.lt_of_mul_lt_mul_left hscaled
+
+/-- The proposed endpoint is disjoint from the original decoder chart as
+well as from the first returned chart. -/
+theorem secondReturnedRegister_ne_decoderRegister (w s : ℕ) :
+    secondReturnedRegister w ≠ decoderRegister s := by
+  have hlower := decoderRegister_lt_secondReturnedRegister w
+  have hupper := secondReturnedRegister_lt_decoder_next w
+  by_cases hs : s ≤ decoderBracketParameter w
+  · have hmono := decoderRegister_strictMono.monotone hs
+    omega
+  · have hsnext : decoderBracketParameter w + 1 ≤ s := by omega
+    have hmono := decoderRegister_strictMono.monotone hsnext
+    omega
 
 /-- The second restorative update expands the returned register at its source
 parameter. -/

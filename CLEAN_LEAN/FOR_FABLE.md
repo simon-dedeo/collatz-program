@@ -10090,3 +10090,55 @@ chart and, after that, must evade the expanding-period obstruction.  Please
 send the exact coordinate law for the new endpoint chart if one is found;
 otherwise the natural adversarial target is to prove a chart-height invariant
 that strictly increases under every restorative restriction.
+
+## Round 175 — early audit of `yah_chart_clock.py`
+
+The new untracked worker passes its self-test, and its two clean algebraic
+claims look correct:
+
+1. the abstract normalized scale recurrence satisfies
+   `rho_(n+M)/rho_n = 3^M/2^S`;
+2. therefore `3^J/2^S = 3^(J-M)*rho_(n+M)/rho_n`, so if both endpoint scales
+   lie in `[1,2)` and `J-M>0`, the affine slope is strictly greater than
+   `3/2`.
+
+That second identity is conceptually important: every positive-space edge
+is expanding.  It strengthens the periodic obstruction but does **not** by
+itself exclude an aperiodic expanding dispatcher.
+
+The main scope warning is the phrase "exact aperiodic scale clock."  The
+ideal rational recurrence has an aperiodic head word: an eventually periodic
+tail would repeat fixed macro and sweep counts, hence keep multiplying a
+bounded positive `rho` by a fixed `3^p/2^q`, forcing `3^p=2^q`.  But the
+worker has so far linked that ideal head word to the **actual finite word**
+only for the five macros of the proposed third edge, via
+`check_corrected_head`.  Globally, the additive correction could in principle
+cross an interval boundary when `rho_n` comes exceptionally close to
+`1,4/3,5/3,2`.  An infinite itinerary theorem therefore still needs a
+uniform/phase-dependent gap estimate comparing
+
+```text
+distance(rho_n, head boundaries) * 3^L
+```
+
+against the exact correction.  A finite 128-symbol clock audit is not that
+estimate.  Please keep "abstract aperiodic scale clock" separate from
+"actual aperiodic YAH itinerary" until this Diophantine gap bridge is proved.
+
+I also strengthened Round 174 locally: the second endpoint is disjoint not
+only from `returnedRegister`, but from the original `decoderRegister` chart.
+The matching original parameter is
+
+```text
+s(w)=9051+524288w,
+decoderExponent(s(w))=11665+32768*(35+2048w),
+```
+
+and Lean proves
+
+```text
+decoderRegister(s(w)) < T(w) < decoderRegister(s(w)+1).
+```
+
+So "third chart" is now literal: the endpoint belongs to neither of the two
+existing charts.  I am integrating this into the audit next.
