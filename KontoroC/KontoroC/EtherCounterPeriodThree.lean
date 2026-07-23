@@ -1277,6 +1277,59 @@ theorem normalizedCRTLift_eq_zero_iff_shiftedResidue_predecessorCongruence
     rw [normalizedCRTLift, heq]
     exact Nat.div_eq_of_lt (by simpa [U] using hresidue)
 
+/-- A hypothetical period-three ray eventually forces the raw finite-future
+residue to satisfy the predecessor congruence, provided the finite prefix
+contains enough binary mass to determine that residue.  This removes the CRT
+candidate entirely from the asymptotic arithmetic hinge. -/
+theorem shiftedInitialResidue_eventually_predecessorCongruence
+    (g : Ray) (length : ℕ → ℕ)
+    (hprecision : ∀ q, normalizedPrecision g q 0 ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g q) 0 (length q)) :
+    ∃ Q, ∀ q, Q ≤ q →
+      2 ^ (8 * g.branch (3 * q) + 15) *
+          (shiftedInitialResidue g q 0 (length q)).val ≡ 17
+        [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)] := by
+  obtain ⟨Qcore, hcore⟩ := g.eventually_core_lt_two_pow_upperBudget
+  refine ⟨max 1 Qcore, ?_⟩
+  intro q hq
+  have hq_pos : 1 ≤ q := (le_max_left 1 Qcore).trans hq
+  have hQcore : Qcore ≤ q := (le_max_right 1 Qcore).trans hq
+  have hsmall : g.core (3 * q) < 2 ^ normalizedPrecision g q 0 := by
+    simpa [normalizedPrecision] using hcore q hQcore
+  have heq : (shiftedInitialResidue g q 0 (length q)).val =
+      g.core (3 * q) := by
+    simpa [shiftedInitialResidue, shiftedNaturalPrefix] using
+      EtherCounterResidueBound.initialResidue_val_eq_initial_core
+        (shiftedNaturalPrefix g q (length q)) (normalizedPrecision g q 0)
+          (by simpa [shiftedNaturalPrefix] using hprecision q)
+          (by simpa [shiftedNaturalPrefix] using hsmall)
+  have hindex : 3 * q - 1 + 1 = 3 * q := by omega
+  have hbalance :
+      2 ^ (8 * g.branch (3 * q) + 15) * g.core (3 * q) =
+        3 ^ (6 * g.branch (3 * q - 1) + 11) * g.core (3 * q - 1) + 17 := by
+    simpa [hindex] using g.balance (3 * q - 1)
+  rw [heq, hbalance]
+  exact (Nat.modEq_modulus_mul_add_iff.mpr (Nat.ModEq.refl 17)).symm
+
+/-- Direct no-ray consumer for the candidate-free formulation: arbitrarily
+late failures of the raw predecessor congruence contradict the eventual
+congruence forced by every period-three ray. -/
+theorem false_of_cofinally_failed_shiftedResidue_predecessorCongruence
+    (g : Ray) (length : ℕ → ℕ)
+    (hprecision : ∀ q, normalizedPrecision g q 0 ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g q) 0 (length q))
+    (hfail : ∀ Q, ∃ q, Q ≤ q ∧ ¬
+      2 ^ (8 * g.branch (3 * q) + 15) *
+          (shiftedInitialResidue g q 0 (length q)).val ≡ 17
+        [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)]) :
+    False := by
+  obtain ⟨Q, heventual⟩ :=
+    g.shiftedInitialResidue_eventually_predecessorCongruence length hprecision
+  obtain ⟨q, hQq, hne⟩ := hfail Q
+  exact hne (heventual q hQq)
+
 /-- QM108: the replay-free normalized candidate margin lower-bounds the
 same fixed initial-core bit length. -/
 theorem normalizedCRT_candidateMargin_le_initialDigits

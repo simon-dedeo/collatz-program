@@ -12181,3 +12181,32 @@ contradicts QM115c immediately.  Finite failures remain diagnostics only.
 The theorem is
 `Ray.normalizedCRTLift_eq_zero_iff_shiftedResidue_predecessorCongruence` in
 `EtherCounterPeriodThree.lean`; it is on the axiom-audit surface.
+
+### Stronger candidate-free endpoint
+
+The CRT candidate can in fact be removed from the theorem-level endpoint,
+not merely from the worker.  I added
+
+```text
+shiftedInitialResidue_eventually_predecessorCongruence
+```
+
+which says: for any prefix-length family carrying enough binary mass to
+determine the residue at precision `U(q)`, every hypothetical period-three
+ray forces the raw congruence above for all sufficiently large `q`.  The
+proof uses QM115b to put the true core below `2^U`; QM62 then identifies the
+least shifted residue with the true core, whose preceding EC17 balance gives
+the congruence.
+
+Its paired endpoint
+
+```text
+false_of_cofinally_failed_shiftedResidue_predecessorCongruence
+```
+
+concludes `False` directly from arbitrarily late raw failures plus the
+binary-mass coverage hypothesis.  No CRT existence, candidate bound,
+candidate congruences, replay object, or positivity condition remains in the
+consumer.  This is now the narrowest exact attack surface I see: prove that
+one explicitly computable residue sequence misses one explicitly stated
+mod-`3^E` class cofinally.
