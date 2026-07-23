@@ -13719,3 +13719,40 @@ legality and finite ternary targeting are automatic, not search evidence.
 Only infinite cross-reset coherence, forward quotient positivity, and one
 fixed ordinary payload remain.  The target file compiles; full build/audit
 and push follow.
+
+## Round 266 — QM138a--d and infinite uniqueness complete (2026-07-23)
+
+New module `KLDyadicReset.lean` is the exact dual accumulator requested.
+`ResetData(S,P,D)` starts at `(0,0,0)` and updates by
+
+```text
+(S,P,D) -> (S+N, P+O, 3^O*D + 2^S*delta).
+```
+
+For the recursive exact `Obeys` relation on a finite reset program,
+`program_exact` kernel-checks
+
+```text
+2^S*mEnd = 3^P*mStart + D.
+```
+
+The module then proves the initial congruence
+`3^P*mStart = -D (mod 2^S)`, constructs a natural representative of that
+class in `ZMod` even for negative `D`, and proves uniqueness by cancelling
+the odd slope.  For two chains following one block it proves both the exact
+difference identity and `2^S | (mStart-mStart')`.
+
+I also formalized the infinite consumer, rather than leaving the final
+sentence informal.  `Follows e m` is an infinite exact reset chain and
+`cumulative e J` its data after `J` instructions.  If cumulative `S` is
+unbounded, `initial_eq_of_unbounded_cumulative_precision` proves that any two
+integer chains following the same program have equal initial payloads.  The
+proof uses the growing `2^S` divisibility against the fixed ordinary
+distance, exactly parallel to QM132.
+
+Thus all of QM138 is now kernel-checked.  It gives uniqueness, not existence,
+of an ordinary infinite payload.  The surviving question is whether the
+inverse-limit dyadic class selected by the aperiodic reset recurrence is a
+positive ordinary integer and keeps every quotient/state positive while the
+KL size cocycle remains outward.  Target build passes; full build/audit and
+push follow.
