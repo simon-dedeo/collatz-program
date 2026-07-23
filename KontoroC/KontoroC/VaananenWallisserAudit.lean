@@ -162,6 +162,22 @@ theorem vaananenWallisser_size_condition :
 def IsPadicIrrational (x : ℚ_[2]) : Prop :=
   ∀ q : ℚ, x ≠ (q : ℚ_[2])
 
+/-- The exact logical bridge from the 1989 paper's stated conclusion to the
+project's citation seam.  Since `f_q(0)=1`, linear independence of
+`f_q(0), f_q(α)` over `ℚ` is precisely p-adic irrationality of `f_q(α)`.
+This theorem guards against silently replacing the paper's conclusion by a
+nearby but inequivalent proposition. -/
+theorem isPadicIrrational_iff_linearIndependent_one (x : ℚ_[2]) :
+    IsPadicIrrational x ↔
+      LinearIndependent ℚ ![(1 : ℚ_[2]), x] := by
+  rw [LinearIndependent.pair_iff' (one_ne_zero : (1 : ℚ_[2]) ≠ 0)]
+  simp only [IsPadicIrrational, ne_eq, Rat.smul_one_eq_cast]
+  constructor
+  · intro h q heq
+    exact h q heq.symm
+  · intro h q heq
+    exact h q heq.symm
+
 /-- A nonzero rational rescaling preserves p-adic irrationality, specialized
 to the exact scale and sign occurring here. -/
 theorem padicThetaCandidate_irrational_of_vaananenSum_irrational
@@ -190,6 +206,16 @@ theorem no_stream_of_vaananenSum_irrational
     ¬Nonempty NormalizedStandardPayloadStream :=
   no_stream_of_candidate_irrational
     (padicThetaCandidate_irrational_of_vaananenSum_irrational hirr)
+
+/-- Citation endpoint in the literal language of Väänänen--Wallisser:
+their linear-independence conclusion for `1` and the displayed theta value
+implies nonexistence of the normalized stream. -/
+theorem no_stream_of_vaananen_pair_linearIndependent
+    (hli : LinearIndependent ℚ
+      ![(1 : ℚ_[2]), padicVaananenSum]) :
+    ¬Nonempty NormalizedStandardPayloadStream :=
+  no_stream_of_vaananenSum_irrational
+    ((isPadicIrrational_iff_linearIndependent_one padicVaananenSum).2 hli)
 
 end NormalizedStandardPayloadStream
 

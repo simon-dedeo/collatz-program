@@ -893,3 +893,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.VaananenWallisser.hermiteIter_skolemInitial
 #print axioms KontoroC.VaananenWallisser.eval_skolemRootProduct_comp_eq_zero
 #print axioms KontoroC.VaananenWallisser.eval_hermiteIter_skolemInitial_eq_zero
+#print axioms
+  KontoroC.NormalizedStandardPayloadStream.isPadicIrrational_iff_linearIndependent_one
+#print axioms
+  KontoroC.NormalizedStandardPayloadStream.no_stream_of_vaananen_pair_linearIndependent

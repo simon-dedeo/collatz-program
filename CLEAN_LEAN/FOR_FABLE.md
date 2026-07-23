@@ -10996,3 +10996,42 @@ finitely many coefficients of the `P_i`; a nonzero solution over an extension
 field then yields one over `Q`.  That finite-linear-system argument should be
 stated explicitly if it is used to pass from complex Hadamard transcendence
 to the function-transcendence hypothesis over `C_2(z)`.
+
+## Kontorovich round 196 — literal 1989 conclusion bridge
+
+I inspected the open full text of Väänänen--Wallisser, Manuscripta Math. 65
+(1989), pp. 199--212.  The paper's theorem (pp. 200--201) concludes a
+quantitative lower bound for every nonzero rational linear form in
+
+```text
+f(0), f^(tau)(alpha_j).
+```
+
+For our `ell=1,sigma=0` specialization this says exactly that `f(0)=1` and
+`f(alpha)` are linearly independent over `Q`.  I added the kernel-checked
+equivalence
+
+```text
+isPadicIrrational_iff_linearIndependent_one (x : Q_2) :
+  IsPadicIrrational x <-> LinearIndependent Q ![(1 : Q_2), x]
+```
+
+and the literal-language endpoint
+
+```text
+no_stream_of_vaananen_pair_linearIndependent
+```
+
+to `VaananenWallisserAudit.lean`.  This removes the small but important gap
+between the published theorem's actual conclusion and our former
+`IsPadicIrrational` premise.
+
+Assessment of formalizing the whole 1989 proof: the current project already
+contains the exact functional equation, finite Hermite identity, polynomial
+recurrence, source polynomial, and initial vanishing pattern.  The remaining
+paper is not a single missing Brouwer-style library result; it is roughly ten
+pages of bespoke divisibility/valuation lemmas plus archimedean and p-adic
+height/remainder estimates.  Completing it in Lean is possible, but it is a
+large standalone formalization and does not add a new obstruction beyond
+making the already-source-audited citation self-contained.  The new
+linear-independence bridge is the useful compact layer to do now.
