@@ -1,6 +1,88 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 05:45 EDT
+Updated: 2026-07-23, about 06:28 EDT
+
+### 06:28 EDT continuation — fixed-depth clocks and canonical carries
+
+There is no counterexample.  Companion commit `a9ed874` kernel-checks the
+fixed-depth hierarchy: for every `d`, a hypothetical period-three ray
+eventually satisfies the predecessor condition modulo `3^d`, whose required
+coefficient has period dividing `3^(d-1)` in `q`; cofinally many failures in
+one fixed window exclude the ray.  QM118 in the same commit is the guardrail:
+one sufficiently wide appended binary block can hit any chosen fixed-depth
+class.  Do not infer rationality, automaticity, or cofinal mismatch merely
+from the periodic target.
+
+The exact dense Akdeniz audit covers all 71 positive `[-1,1]^3` schedules,
+starts through eight, and every `q=5..256` (17,892 rows):
+
+```text
+mod 3:    6,025 matches / 11,867 failures;  0 schedules have a no-match phase
+mod 9:    2,014 matches / 15,878 failures;  0 schedules have a no-match phase
+mod 27:     635 matches / 17,257 failures; 69 schedules have a no-match phase
+mod 81:     217 matches / 17,675 failures; 71 schedules have a no-match phase
+mod 243:     76 matches / 17,816 failures; 71 schedules have a no-match phase
+counterexample: null
+```
+
+Thus mod 27 is the first discriminating finite window, not a cofinal theorem.
+The two mod-27 exceptions are `(0,1,1)` from branch 8 and `(1,1,0)` from
+branch 6; both lift to clean no-match cells modulo 81.
+
+Commits `40f4265`/`2e8010c` formalize the canonical same-cycle extension carry
+
+```text
+carry_D(q)=r_(U(q)+D) // 2^U(q)
+```
+
+and prove that every ray makes it eventually zero, for arbitrary covered
+`D(q)`.  The dense 24-bit artifact finds the first extension bit nonzero in
+8,869/17,892 rows and some bit among the first 18 nonzero in every row.  The
+longest observed zero run is 17 bits at `(0,1,0)`, branch 3, `q=167`; the next
+is 16 bits at `(0,0,1)`, branch 4, `q=31`.  These are finite statistics only.
+
+For the strongest mod-27 cell `(1,1,0)`, start 8, compose nine cycles at
+source `q=0 mod 9`:
+
+```text
+2^(432q+4221)*y_q=3^(324q+3051)*r_q+D9(q),
+y_q=13 (mod 27).
+```
+
+For `q>=99`, `p=U(q)-(432q+4221)>0` and the exact signed carry
+
+```text
+r_(q+9)-y_q=2^p*C_q
+```
+
+satisfies `r_(q+9)=13 mod27 <-> C_q=0 mod27`.  The new artifact checks all
+17 sources `99,108,...,243`; their `C_q mod27` values are
+
+```text
+14,11,5,24,16,3,22,23,12,3,6,19,13,17,18,14,5.
+```
+
+Companion commit `6b96f89` kernel-checks the nine-cycle reduction, including
+signed carries.  Commit `6f05ff5` kernel-checks the analogous 27-cycle/mod-81
+budget and carry interfaces for both lower-depth exceptions.  Neither asserts
+the missing universal nondivisibility premise.  Exact research-side block
+composition shows why consecutive fixed-depth clock blocks do not provide a
+naive induction: the huge ternary factor annihilates the earlier carry modulo
+`3^d`, and a new terminal carry replaces it.  The live proof targets are
+direct cofinal carry nondivisibility, a moving-depth invariant, or a sharper
+three-theta arithmetic theorem.
+
+```text
+fixed-depth artifact    c4c93e5db3320803e8f434441bd555601f3ab439638a9b0a82c02adbac91c512
+extension-carry artifact f05b656c0297a9af416f28f4da5df34d081a281636cf45f3379ae6dc90239978
+nine-cycle artifact     c8358802829067b98fac11d7cc798de5d914cc59f79c219625fce2052fa537c3
+```
+
+The fixed-depth and 24-bit extension artifacts have both been independently
+reconstructed on Akdeniz with 30 workers; the nine-cycle artifact was rebuilt
+and verified locally.  A full 8,792-target Lean build and `Audit.lean` pass.
+PSC remains unused because the workload is exact big-integer CPU arithmetic.
+The detached R23 PARI service is still healthy and incomplete.
 
 ### 05:45 EDT continuation — eventual zero lift and the one-trit hinge
 

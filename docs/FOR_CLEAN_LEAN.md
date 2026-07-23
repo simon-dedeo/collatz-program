@@ -9865,3 +9865,196 @@ because `ord_(3^d)(2)=2*3^(d-1)` and the exponent advances by `8*K`.
 Thus for `3∤K`, modulus nine is the first phase-sensitive window.  Formalize
 this refinement only if the exact-order library makes it inexpensive; the
 already-proved dividing period `3^(d-1)` is sufficient for soundness.
+
+## Kontorovich request: concrete nine-cycle carry reduction (QM119, 2026-07-23)
+
+Status: completed in companion commit `6b96f89`.
+
+The fixed-depth audit identifies a particularly clean cell: increment word
+`(1,1,0)`, start branch `8`, and `q=0 mod 9`.  Its branches in cycle `q` are
+`8+2q,9+2q,10+2q`.  Please kernel-check the following EC17-specific reduction;
+it turns the finite mod-27 signal into one explicit carry-divisibility target.
+
+One three-step cycle has
+
+```text
+A(q)=3^(195+36q),
+B(q)=2^(277+48q),
+D(q)=17*(3^(136+24q)
+          +2^(87+16q)*3^(71+12q)
+          +2^(182+32q)),
+
+B(q)*u_(q+1)=A(q)*u_q+D(q).                           (QM119a)
+```
+
+After nine cycles put
+
+```text
+M(q)=432q+4221,       Q(q)=324q+3051,
+
+D9(q)=sum_(j=0)^8 D(q+j)
+       *2^(sum_(i<j) (277+48(q+i)))
+       *3^(sum_(j<i<=8) (195+36(q+i))).
+```
+
+Then exact composition gives
+
+```text
+2^M(q)*y = 3^Q(q)*x+D9(q).                            (QM119b)
+```
+
+If `q=0 mod 9`, elementary power reduction modulo `27` gives
+
+```text
+2^M(q) = -1 (mod 27),       D9(q)=14 (mod 27).
+```
+
+All summands of `D9` except the final cycle's last defect vanish modulo 27;
+the surviving binary exponent is `M(q)-(223+16q)`.  Hence every natural
+solution of QM119b satisfies
+
+```text
+y=13 (mod 27).                                        (QM119c)
+```
+
+For this schedule the existing sharp budget specializes to
+
+```text
+U(q)=ceil(q*(1386q+8427)/306).
+```
+
+Direct polynomial comparison proves
+
+```text
+q>=99  ->  M(q)<U(q);       p(q):=U(q)-M(q)>0,         (QM119d)
+
+q*(1386q+8427)-306*M(q)
+  =1386q^2-123765q-1291626.
+```
+
+The important semantic seam is now between the canonical normalized residues
+`r_q` and `r_(q+9)`.  Use sufficiently long natural prefixes (or terminal
+independence to reconcile different covered lengths).  Exact 27-step forward
+evaluation of `r_q` gives a natural `y_q` satisfying QM119b, and future-residue
+consistency should give
+
+```text
+r_(q+9)=y_q (mod 2^p(q)).                              (QM119e)
+```
+
+It is fine to expose QM119e as a theorem with explicit binary-mass coverage
+hypotheses rather than hide the prefix lengths.  Define the signed canonical
+carry by the exact integer equation
+
+```text
+r_(q+9)-y_q = 2^p(q)*C_q.
+```
+
+Since powers of two are units modulo 27, QM119c yields the exact equivalence
+
+```text
+r_(q+9)=13 (mod 27)  <->  C_q=0 (mod 27).              (QM119f)
+```
+
+This is the desired reduction, not yet the missing no-ray theorem.  The live
+arithmetic target is
+
+```text
+q>=99, q=0 mod 9  ->  27 does not divide C_q.
+```
+
+That statement would give cofinally many failures to the already checked
+fixed-depth consumer and exclude this complete period-three schedule.  An
+independent exact Python check currently verifies QM119a--f and `C_q mod 27
+!=0` for `q=99,108,...,243`; those 17 rows remain finite evidence only.
+
+## Kontorovich request: depth-four lifts for the two mod-27 exceptions (QM120, 2026-07-23)
+
+Status: completed in companion commit `6f05ff5`.
+
+The dense fixed-depth artifact has exactly two schedules for which every one
+of the nine mod-27 clock phases has an observed match.  Both acquire a clean
+zero-match phase at the next hierarchy rung, modulus `81` and clock length
+`27`.  After QM119, please check the same composition/carry interface for
+these two concrete cells if it is inexpensive.
+
+### Cell A: word `(0,1,1)`, start `8`, phase `q=14 mod 27`
+
+One cycle has
+
+```text
+m(t)=261+48t,    a(t)=183+36t,
+D(t)=17*(3^(124+24t)+2^(79+16t)*3^(65+12t)+2^(166+32t)).
+```
+
+Across 27 cycles:
+
+```text
+M27(q)=1296q+23895,     Q27(q)=972q+17577,
+
+D27(q)=sum_(j=0)^26 D(q+j)
+        *2^(sum_(i<j)m(q+i))*3^(sum_(j<i<=26)a(q+i)).
+```
+
+Modulo `81`, only the final cycle's last defect survives, so
+
+```text
+D27(q)=17*2^(1280q+23384) (mod 81).
+```
+
+For `q=14 mod 27`, `2^M27=-1`, `D27=-1`, and every exact 27-cycle
+image is therefore `1 mod 81`, the required class at `q+27`.  Here
+
+```text
+U(q)=ceil(q*(462q+2501)/102),
+```
+
+and `p=U-M27` is positive on this phase from `q=311` onward.  Defining
+`C4=(r_(q+27)-y_q)/2^p` gives
+
+```text
+r_(q+27)=1 (mod 81) <-> C4=0 (mod 81).                 (QM120a)
+C4=2^(-U(q))*(1-r_(q+27)) (mod 81).
+```
+
+Exact research-side checks at sources `311,338` give respectively
+`(r_(q+27),C4)=(32,19),(28,54) mod 81`.  The second row still matches
+`1 mod 27` but fails at the fourth trit, which is the intended lift.
+
+### Cell B: word `(1,1,0)`, start `6`, phase `q=0 mod 27`
+
+One cycle has
+
+```text
+m(t)=229+48t,    a(t)=159+36t,
+D(t)=17*(3^(112+24t)+2^(71+16t)*3^(59+12t)+2^(150+32t)).
+```
+
+Across 27 cycles:
+
+```text
+M27(q)=1296q+23031,     Q27(q)=972q+16929,
+D27(q)=17*2^(1280q+22536) (mod 81).
+```
+
+For `q=0 mod 27`, `2^M27=-1`, `D27=71`, so the exact image is
+`10 mod 81`, again the required class at `q+27`.  With
+
+```text
+U(q)=ceil(q*(462q+1885)/102),
+```
+
+the carry precision is positive on this phase from `q=324`, and
+
+```text
+r_(q+27)=10 (mod 81) <-> C4=0 (mod 81).                (QM120b)
+C4=2^(-U(q))*(10-r_(q+27)) (mod 81).
+```
+
+Exact research-side checks at sources `324,351,378` give target residues
+`69,0,2 mod 81` and carries `52,20,25 mod 81`, all failures.
+
+Scope: QM120a--b are finite-depth reductions, not cofinal nondivisibility
+theorems.  They show that the two mod-27 exceptions were genuine lower-depth
+matches rather than overlooked candidate phases.  The missing statements are
+still the all-source-phase claims `81 does not divide C4`.

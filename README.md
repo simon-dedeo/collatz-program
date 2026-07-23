@@ -33,6 +33,98 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 06:28 EDT
+
+There is still no counterexample.  The theorem-directed period-three search
+now has an exact fixed-depth hierarchy and two explicit carry objects; the
+computation has been used to select symbolic congruence targets, not to widen
+an undirected seed range.
+
+Companion commit `a9ed874` proves that every hypothetical period-three ray
+eventually satisfies the predecessor congruence modulo any fixed `3^d`, and
+that its required coefficient has clock period dividing `3^(d-1)`.  Its paired
+no-ray theorem needs only cofinally many failures at one fixed depth.  The
+independently reconstructed Akdeniz artifact checks all 71 positive schedules
+with increments in `[-1,1]`, starts through branch eight, and every
+`q=5..256` (17,892 exact rows):
+
+```text
+modulus      matches    failures   zero-match phase cells   schedules w/ no-match
+   3           6,025      11,867              0                       0
+   9           2,014      15,878              0                       0
+  27             635      17,257            218                      69
+  81             217      17,675          1,709                      71
+ 243              76      17,816          5,676                      71
+counterexample                                                       null
+```
+
+Thus modulus 27 is the first discriminating finite window in this box; mod 9
+is too shallow.  This remains finite evidence.  QM118, also in `a9ed874`,
+kernel-checks the necessary warning: a sufficiently wide free binary block
+can hit any prescribed fixed-depth ternary class.  Periodicity of the target
+clock alone therefore implies neither rationality nor automaticity; an
+all-`q` proof must use EC17's canonical carry or its three-theta coupling.
+
+Companion commits `40f4265` and `2e8010c` formalize the same-cycle carry above
+the sharp bit budget.  If `r_(U+D)` is the future residue modulo `2^(U+D)`,
+
+```text
+carry_D(q)=r_(U+D) // 2^U.
+```
+
+Every ray forces this carry to vanish eventually, for arbitrary covered
+`D(q)`.  In the independently reconstructed dense 24-bit extension audit,
+8,869/17,892 first extension bits are nonzero and every row has a nonzero bit
+among the first 18.  The longest observed zero run above `U` is 17 bits.  This
+locates the finite anomalies exactly but gives no bound on future zero runs.
+
+The strongest mod-27 cell now has a concrete EC17 recurrence.  For word
+`(1,1,0)`, start branch eight, and source `q=0 mod 9`, composing nine cycles
+gives
+
+```text
+2^(432q+4221)*y_q = 3^(324q+3051)*r_q + D9(q),
+y_q = 13 (mod 27).
+```
+
+For `q>=99`, set `p=U(q)-(432q+4221)>0` and define the signed cross-cycle
+carry by
+
+```text
+r_(q+9)-y_q = 2^p*C_q.
+```
+
+Exact arithmetic gives the equivalence
+
+```text
+r_(q+9)=13 (mod 27)  <->  C_q=0 (mod 27).
+```
+
+The new reproducible artifact verifies all formulas at sources
+`q=99,108,...,243`; the 17 values of `C_q mod 27` are
+
+```text
+14,11,5,24,16,3,22,23,12,3,6,19,13,17,18,14,5,
+```
+
+all nonzero.  The requested all-`q` nondivisibility statement would exclude
+this entire schedule, but the 17 rows do not prove it.  Companion commit
+`6b96f89` kernel-checks the nine-cycle arithmetic and signed-carry equivalence.
+The two schedules without a zero-match mod-27 phase lift cleanly to 27-cycle
+carries modulo 81; one checked row genuinely matches through mod 27 and then
+fails mod 81.  Commit `6f05ff5` kernel-checks both depth-four modular, budget,
+and carry interfaces.  Neither commit asserts the missing cofinal premise.
+
+The strategic limitation is now equally explicit.  Exact research-side block
+composition shows that the next clock block multiplies the previous
+fixed-depth carry by a huge power of three, so it vanishes modulo the same
+`3^d`; the next terminal carry replaces it.  A naive fixed-depth carry
+induction therefore forgets precisely the state it would need to propagate.
+The live targets are a direct cofinal valuation theorem, a moving-depth carry
+invariant, or a sharper arithmetic theorem for the evaluated three-theta form.
+PSC remains unused because none of these exact big-integer modular tasks
+benefits from the available GPU allocation.
+
 ### 2026-07-23 05:45 EDT
 
 There is still no counterexample.  The period-three search has been reduced
@@ -4604,18 +4696,25 @@ identically `x`.
   candidate.  For periodic or morphic controllers, the remaining arithmetic
   task is to prove that candidate is not a negative ordinary integer.  This
   can eliminate an infinite program family without enumerating any seeds.
-- **Normalized period-three residues and the one-trit hinge.**  Commits
+- **Normalized period-three residues and carry hierarchy.**  Commits
   `e385967`/`5a3413a` give adjacent exact upper budgets `U(q)` and `V(q)` whose
   difference grows quadratically.  Every hypothetical ray eventually has
   `core(3q)<2^U`, so its normalized CRT lift is eventually exactly zero.
   Commits `78a6d05`/`43cdba7` identify this with one raw future-residue
   congruence, without constructing a CRT candidate.  Commit `d9398a8` proves
   the cheapest necessary consequence: the canonical `U(q)`-bit residue must
-  eventually equal `1 mod 3`.  The live target is to prove cofinally many
-  failures of this single trit, or of the full predecessor congruence, for
-  every positive-gain period-three word.  The exact dyadic audit through
-  `q=512` finds 568/568 full-congruence failures and 350/568 one-trit failures,
-  but this finite sample is not a nonstabilization theorem.  Do not return to
+  eventually equal `1 mod 3`.  Commit `a9ed874` extends this to every fixed
+  ternary depth and its finite target clock; commits `40f4265`/`2e8010c`
+  expose the canonical same-cycle binary extension carry and prove that every
+  ray eventually makes it zero.  The dense audit identifies modulus 27 as the
+  first discriminating finite phase window, while an exact nine-cycle
+  composition reduces its strongest cell to one signed carry modulo 27;
+  commits `6b96f89`/`6f05ff5` kernel-check that reduction and both necessary
+  depth-four lifts.  The live target is direct cofinal nondivisibility of such
+  a carry, a moving-depth invariant, or a sharper three-theta theorem.  QM118
+  blocks the generic inference from a periodic fixed-depth target to
+  rationality, and consecutive fixed-depth block compositions forget the
+  earlier carry.  Do not return to
   raw precision widening; it only raises finite lower bounds.
 - **Partial-theta integrality sieves.**  The standard two-rail schedule reduces
   to the sole 2-adic initial value
@@ -4698,6 +4797,7 @@ identically `x`.
 | Väänänen--Wallisser as an all-period phase-up obstruction | **Retracted beyond period three.**  Periodic jump schedules split into several theta values, and the paper's sufficient threshold depends on their number `L`.  Commits `8b3d9f5`/`772a6e8` kernel-check the complete flattened multi-theta decomposition and `gamma<Gamma(L,0)` for `L=2,3`, but also `Gamma(4,0)<1/8<gamma`.  Accepting the external theorem closes periods one through three; the citation cannot close period four or any larger period by the same estimate.  Period four is only the first theorem escape, not evidence of an ordinary ray. | [`ChargePhaseUpPeriodicTheta.lean`](KontoroC/KontoroC/ChargePhaseUpPeriodicTheta.lean) |
 | Finite Laurent and homogeneous rational period-three EC17 coboundaries | Universally closed in the stated classes by companion commits `1154476`, `d0faf96`, and `82198ac`.  The exact three-step defect has three quadratic monomials.  Extreme support excludes every finite Laurent slice.  For a reduced homogeneous rational potential `x^-1 f(y/x)`, the scaled denominator divides the original, hence is a monomial; the same extreme-support contradiction then closes the quotient.  This does not exclude a general nonhomogeneous bivariate rational function, an infinite theta series, or rationality at one evaluated orbit. | [`LaurentCoboundaryNoGo.lean`](KontoroC/KontoroC/LaurentCoboundaryNoGo.lean), [`RationalCoboundaryReduction.lean`](KontoroC/KontoroC/RationalCoboundaryReduction.lean) |
 | General 2005/2007/2013 theta theorems as an immediate period-three shortcut | Closed as applications of those sufficient statements, not as a no-period-three result.  Amou--Väänänen (2005) controls simultaneous relations over the full expanding-place set, which here contains both the real and 2-adic places; EC17 supplies only the latter relation.  Väänänen (2013), Theorem 4, allows a non-archimedean place, but tracing its criterion to Amou--Matala-aho--Väänänen (2007) gives `B/A<13/12`, while the EC17 height ratio is larger.  Commit `92416b1` kernel-checks the uniform threshold comparison and reduces its logarithmic part to `2^13<3^9`.  A sharper theorem specialized to this one evaluated three-theta form remains live. | [`AmouMatalaahoVaananenThreshold.lean`](KontoroC/KontoroC/AmouMatalaahoVaananenThreshold.lean), [`FOR_CLEAN_LEAN.md`](docs/FOR_CLEAN_LEAN.md) |
+| Periodic fixed-depth residue clock as a rationality or finite-state proof | Invalid without EC17-specific carry control.  Commit `a9ed874` proves the target clock and its no-ray consumer, but QM118 in the same commit constructs any prescribed fixed-depth class by one sufficiently wide appended binary block.  Exact clock-block composition exposes the sharper failure: at fixed modulus `3^d`, the next block's huge ternary factor annihilates the previous carry and replaces it with a new terminal carry.  A direct cofinal valuation theorem or moving-depth invariant remains live; merely observing phasewise failures or matches cannot be iterated generically. | [`breakoff_ether_period3_fixed_depth_audit.json`](experiments/kontorovich/breakoff_ether_period3_fixed_depth_audit.json), [`FOR_CLEAN_LEAN.md`](docs/FOR_CLEAN_LEAN.md) |
 | Bare public words as binary-to-ternary chart adapters | Universally closed by Lean commit `772a6e8`.  Every exact public step has typed form `w-3^(-17m)=a*(w'-2^(-23m'))`.  A multi-cell word accumulates a strictly negative internal tax, exactly the normalized `-H_m` defect, so it cannot be a clean entry/exit coboundary.  This is not a no-orbit theorem; it proves that closure needs an auxiliary correction rail. | [`ChargeTypedInterface.lean`](KontoroC/KontoroC/ChargeTypedInterface.lean), [closure doctrine](docs/notes/kontorovich-closure-principles.md) |
 | Infinite rail of the one-cell determinant-four conjugacy | Universally closed in that chart class by Lean commit `772a6e8`.  Self-linking successive cells requires `1311*k_(i+1)=1309*k_i`; a length-`N` rail forces `1311^N|k_0`, and an infinite natural rail has `k_0=0`.  The result is independent of affine intercepts and tail cylinders.  A live turnaround must reverse the separation loss or leave the one-cell resonant class. | [`ChargeResonantSeparationNoGo.lean`](KontoroC/KontoroC/ChargeResonantSeparationNoGo.lean), [phase-glider note](docs/notes/kontorovich-resonant-phase-glider.md) |
 | Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |

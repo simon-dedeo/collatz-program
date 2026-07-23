@@ -3322,6 +3322,124 @@ Artifact SHA-256:
 Verifier SHA-256:
 `e433a8b37ef2273ab91a182d074c16de49f186174f7e7e5616c0e309e98efe41`.
 
+### Fixed-depth phase and normalized-carry audits
+
+Companion commit `a9ed874` proves that the predecessor congruence may be
+reduced to any fixed modulus `3^d`, and that its required coefficient has
+clock period dividing `3^(d-1)` in the cycle index.  Cofinal failures in one
+fixed window exclude the entire prescribed ray.  The exact worker
+`breakoff_ether_period3_fixed_depth.py` therefore groups canonical `U(q)`-bit
+future residues by these proved clock phases; it does not scan Collatz seeds.
+
+The dense Akdeniz artifact covers all 71 positive schedules in the
+`[-1,1]^3`, start-through-eight box and every `q=5..256`, for 17,892 exact
+rows.  It was independently reconstructed with 30 workers:
+
+```text
+depth  modulus  clock  matches  failures  zero-match cells  schedules w/ no-match
+  1       3       1     6,025    11,867          0                  0
+  2       9       3     2,014    15,878          0                  0
+  3      27       9       635    17,257        218                 69
+  4      81      27       217    17,675      1,709                 71
+  5     243      81        76    17,816      5,676                 71
+counterexample                                                   null
+```
+
+Thus modulus 27 is the first discriminating finite window in this box.  It
+is not a proof of cofinal failure.  The two schedules with no zero-match
+mod-27 phase are `(0,1,1)` from branch 8 and `(1,1,0)` from branch 6; both
+acquire many zero-match phases at modulus 81.  QM118 separately proves why a
+periodic target alone cannot justify an automaticity or rationality claim:
+one sufficiently wide free binary block can hit any prescribed fixed-depth
+class.
+
+```bash
+python3 breakoff_ether_period3_fixed_depth.py selftest
+python3 breakoff_ether_period3_fixed_depth.py verify \
+  breakoff_ether_period3_fixed_depth_audit.json --jobs 30
+```
+
+Fixed-depth artifact SHA-256:
+`c4c93e5db3320803e8f434441bd555601f3ab439638a9b0a82c02adbac91c512`.
+Fixed-depth verifier SHA-256:
+`b289da2010090ce04cde87efb124fab91c06f247e03dbbbeb28a496b4568b3c8`.
+
+Companion commits `40f4265` and `2e8010c` expose the canonical same-cycle
+extension carry.  If `r_(U+D)` is the padded future residue, then
+
+```text
+carry_D(q)=r_(U+D) // 2^U.
+```
+
+Every hypothetical period-three ray forces this carry to be eventually zero,
+for arbitrary covered `D(q)`.  The extension-carry worker measures the first
+nonzero bit above `U`; a finite nonzero row is only a direct measurement of
+that theorem object, not an irrationality proof.
+
+On the same dense 17,892-row box, the first extension bit is nonzero in 8,869
+rows, while every row has a nonzero bit among the first 18.  The longest zero
+run above `U` is 17 bits, at word `(0,1,0)`, start branch 3, `q=167`; the next
+largest is 16 bits at word `(0,0,1)`, start branch 4, `q=31`.  Thus all 71
+schedules have every observed row nonzero by depth 18.  The independently
+reconstructed artifact records all 24 extension depths and the exact anomaly
+rows.  These finite zero-run statistics do not bound future zero runs.
+
+```bash
+python3 breakoff_ether_period3_extension_carry.py selftest
+python3 breakoff_ether_period3_extension_carry.py verify \
+  breakoff_ether_period3_extension_carry_audit.json --jobs 30
+```
+
+Extension-carry artifact SHA-256:
+`f05b656c0297a9af416f28f4da5df34d081a281636cf45f3379ae6dc90239978`.
+Extension-carry verifier SHA-256:
+`4412e1e0db6d79c623809e106b97999c259e1858cb6b2188c2064025bbebd2f6`.
+
+Companion commit `6b96f89` kernel-checks the strongest mod-27 cell's exact
+EC17-specific block reduction.
+For word `(1,1,0)`, start branch 8, compose nine cycles from a source
+`q=0 mod 9`.  With
+
+```text
+M=432q+4221,   Q=324q+3051,
+2^M*y_q=3^Q*r_q+D9(q),
+```
+
+exact reduction gives `2^M=-1`, `D9=14`, and hence `y_q=13 mod 27`, exactly
+the required class at cycle `q+9`.  For `q>=99`, put
+`p=U(q)-M>0` and
+
+```text
+C_q=(r_(q+9)-y_q)/2^p.
+```
+
+Then `r_(q+9)=13 mod 27` if and only if `C_q=0 mod 27`.  The exact
+`breakoff_ether_period3_nine_cycle_carry.py` artifact verifies the composition,
+future-residue consistency, and this equivalence at all 17 sources
+`q=99,108,...,243`; the carries modulo 27 are
+
+```text
+14,11,5,24,16,3,22,23,12,3,6,19,13,17,18,14,5.
+```
+
+Their nonzeroness is still finite evidence.  Algebraically the block carry is
+an invertible rescaling of the target-residue discrepancy, so this reduction
+identifies an exact all-`q` theorem target but does not itself supply the
+missing induction.  Companion commit `6f05ff5` also kernel-checks the analogous
+27-cycle/mod-81 budget and carry interfaces for both schedules without a
+zero-match mod-27 phase; it does not assert their missing cofinal premises.
+
+```bash
+python3 breakoff_ether_period3_nine_cycle_carry.py selftest
+python3 breakoff_ether_period3_nine_cycle_carry.py verify \
+  breakoff_ether_period3_nine_cycle_carry_audit.json
+```
+
+Nine-cycle artifact SHA-256:
+`c8358802829067b98fac11d7cc798de5d914cc59f79c219625fce2052fa537c3`.
+Nine-cycle verifier SHA-256:
+`431483494d073b4bbb7f344ab0bfbd81b96d63512c0d6a840b5d9d502c977522`.
+
 ## Returning finite ether glider macros
 
 `breakoff_ether_glider.py` closes the finite boundary return left open by the
