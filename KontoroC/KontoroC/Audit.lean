@@ -1689,3 +1689,22 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardCarryThreshold.exists_eventually_carry_eq_zero_of_below_dyadic
 #print axioms KontoroC.OutwardCarryThreshold.frequently_dyadic_le_of_frequently_carry_pos
+#print axioms KontoroC.OutwardBoundaryRenewal.slope_le_affine
+#print axioms KontoroC.OutwardBoundaryRenewal.rawDefect_append_false
+#print axioms KontoroC.OutwardBoundaryRenewal.rawDefect_append_true
+#print axioms KontoroC.OutwardBoundaryRenewal.rawDefect_pos_of_false_mem
+#print axioms KontoroC.OutwardBoundaryRenewal.boundaryError_false_true_true
+#print axioms KontoroC.OutwardBoundaryRenewal.firstPassage_cons_true_eq_singleton
+#print axioms KontoroC.OutwardBoundaryRenewal.firstPassage_nontrivial_head_false
+#print axioms KontoroC.OutwardBoundaryRenewal.firstPassage_not_terminal_false_true
+#print axioms KontoroC.OutwardBoundaryRenewal.firstPassage_nontrivial_ends_true_true
+#print axioms KontoroC.OutwardBoundaryRenewal.firstPassage_boundaryError_pos_and_three_dvd
+#print axioms KontoroC.OutwardBoundaryRenewal.boundary_balance
+#print axioms KontoroC.OutwardBoundaryRenewal.firstPassage_boundary_package
+#print axioms KontoroC.OutwardBoundaryRenewal.even_boundary_executes_true
+#print axioms KontoroC.OutwardBoundaryRenewal.firstPassage_from_even_boundary_eq_true
+#print axioms KontoroC.OutwardBoundaryRenewal.drain_executes
+#print axioms KontoroC.OutwardBoundaryRenewal.canonical_drain
+#print axioms KontoroC.OutwardBoundaryRenewal.three_dvd_boundary_target
+#print axioms KontoroC.OutwardBoundaryRenewal.sub_one_modEq_neg_one_of_dvd
+#print axioms KontoroC.OutwardBoundaryRenewal.recharge_then_drain_properties

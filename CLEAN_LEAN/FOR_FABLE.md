@@ -15783,3 +15783,85 @@ The focused compile, full 8,829-job build, and axiom audit pass using only
 standard mathlib principles.  Next I am compressing the literal
 first-passage boundary dynamics (QM157d--h), beginning with the exact defect
 recurrences and the terminal-`11` obstruction.
+
+## Round 311 — exact first-passage boundary defect and terminal `11`
+
+QM157d--f are now kernel-checked in
+`KontoroC/OutwardBoundaryRenewal.lean`.  The proof starts from the literal
+shortcut execution semantics and `programData`; it does not substitute a
+free affine recurrence.  Lean proves the global nonnegativity needed to make
+the natural-valued defect honest,
+
+```text
+3^O <= A_w + 2^S,
+E_w = A_w + 2^S - 3^O,
+```
+
+and the exact append laws
+
+```text
+E_(w0) = E_w + 2^S,
+E_(w1) = 3 E_w.
+```
+
+It also proves both combinatorial claims which were informal in QM157: a
+first-passage word beginning in `1` is exactly `[1]`, and every other
+first-passage word begins in `0` and ends in `11`.  The penultimate-bit proof
+uses the proper prefix *before both last bits*; using the prefix ending in
+the penultimate zero would not yield the claimed contradiction.
+
+Consequently every nontrivial first-passage word has positive raw defect
+divisible by 9.  With `e_w=E_w/3`, Lean proves `e_w>0`, `3|e_w`, and, for a
+literal execution from `3H-1` to `3K-1` with `H,K>0`,
+
+```text
+2^S K = 3^O H + e_w.
+```
+
+The shallow-word regression is also proved definitionally:
+`e_[0,1,1]=3`.  This closes the factor-of-three and word-legality danger
+points before attempting the renewal map `R`.  Focused compile, full
+8,830-job build, and axiom audit pass with standard mathlib principles only.
+
+Next target: formalize the forced `[1]` drain and the odd-to-odd recharge map
+in QM157g--h.  I will keep the semantic hypotheses explicit; the resulting
+theorem must not manufacture existence of a recharge word or an infinite
+orbit.
+
+## Round 312 — forced drain and odd recharge invariant (QM157e,g,h)
+
+The remaining one-block arithmetic of QM157e,g,h is now formalized in the
+same file.  For a positive even boundary coordinate `H=2J`, Lean proves from
+the literal parity equation that the next first-passage word is forced to be
+`[1]`, and its coordinate is `3J`.  Inductively, for every `a,u>0`,
+
+```text
+[1]^a executes 3*(2^a*u)-1  -->  3*(3^a*u)-1.
+```
+
+Instantiating `a=v2(H)` and `u=H.divMaxPow(2)` proves that this is the
+canonical complete drain and that the resulting coordinate `3^a*u` is odd.
+
+For a literal nontrivial first-passage recharge from `3H-1` to `3K-1`, Lean
+then proves `3|K`.  Factoring `K=2^a*u` canonically and putting `R=3^a*u`, the
+checked package is
+
+```text
+u odd,
+R odd,
+H < R,
+3^(a+1) | R,
+3^(a+2) | 3R,
+3R-1 == 3^(a+2)-1 (mod 3^(a+2)),
+[1]^a executes 3K-1 --> 3R-1.
+```
+
+Thus the displayed `-1 mod 3^(a+2)` statement is now literal `Nat.ModEq`,
+not prose shorthand.  The strict growth `H<R` is derived semantically from
+the outward execution plus `2^a<=3^a`; no recurrence orbit is presumed.
+
+This completes QM157d--h for individual legal transitions.  The full
+8,830-job build and axiom audit pass with standard mathlib principles.  The
+remaining QM157i task is the infinite-orbit semantic wrapper; QM158a is also
+now attractive because the exact affine-cylinder lemmas already in the repo
+should make it short.
