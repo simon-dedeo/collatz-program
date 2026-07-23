@@ -5,6 +5,7 @@ Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.EtherCounterPeriodThree
 import KontoroC.ChargePhaseUpPeriodicTheta
+import KontoroC.VaananenWallisserCore
 
 /-!
 # The literal period-three EC17 ray as three p-adic theta values
@@ -474,6 +475,52 @@ theorem padicVaananenTerm_summable (g : Ray) (r : Fin 3) :
   rw [g.padicWeightedTerm_eq_scaled_vaananenTerm q r]
   dsimp only [c]
   rw [← mul_assoc, inv_mul_cancel₀ hc, one_mul]
+
+/-- Exact normalization seam to the independently defined 1989 theta term.
+The paper's parameter is the inverse of `parameterInverse`; recording this
+orientation avoids silently applying a theorem at `q⁻¹`. -/
+theorem padicVaananenTerm_eq_thetaTerm (g : Ray) (r : Fin 3) (n : ℕ) :
+    g.padicVaananenTerm r n =
+      VaananenWallisser.thetaTerm
+        (((g.thetaData).parameterInverse : ℚ_[2])⁻¹)
+        ((g.thetaData).argument r : ℚ_[2]) n := by
+  simp [padicVaananenTerm, PeriodicPhaseUp.ThetaResidueData.vaananenTerm,
+    PeriodicPhaseUp.ThetaResidueData.vaananenExponent,
+    VaananenWallisser.thetaTerm, VaananenWallisser.exponent,
+    Rat.cast_pow]
+
+/-- The completed EC17 residue value is literally the paper's completed
+theta function, not merely a coefficientwise analogue. -/
+theorem padicVaananenSum_eq_thetaSum (g : Ray) (r : Fin 3) :
+    g.padicVaananenSum r =
+      VaananenWallisser.thetaSum
+        (((g.thetaData).parameterInverse : ℚ_[2])⁻¹)
+        ((g.thetaData).argument r : ℚ_[2]) := by
+  rw [padicVaananenSum, VaananenWallisser.thetaSum]
+  apply tsum_congr
+  intro n
+  exact g.padicVaananenTerm_eq_thetaTerm r n
+
+/-- Exact paper functional equation at each of the three actual arguments. -/
+theorem padicVaananen_functional (g : Ray) (r : Fin 3) :
+    let q : ℚ_[2] := ((g.thetaData).parameterInverse : ℚ_[2])⁻¹
+    let x : ℚ_[2] := ((g.thetaData).argument r : ℚ_[2])
+    VaananenWallisser.thetaSum q (q * x) =
+      1 + x * g.padicVaananenSum r := by
+  dsimp only
+  have hparameter :
+      ((g.thetaData).parameterInverse : ℚ_[2]) ≠ 0 := by
+    exact_mod_cast (pow_ne_zero 3 g.ratio_ne_zero)
+  have hq :
+      (((g.thetaData).parameterInverse : ℚ_[2])⁻¹) ≠ 0 :=
+    inv_ne_zero hparameter
+  have hs : Summable (VaananenWallisser.thetaTerm
+      (((g.thetaData).parameterInverse : ℚ_[2])⁻¹)
+      ((g.thetaData).argument r : ℚ_[2])) := by
+    exact (g.padicVaananenTerm_summable r).congr
+      (fun n => g.padicVaananenTerm_eq_thetaTerm r n)
+  rw [g.padicVaananenSum_eq_thetaSum r]
+  exact VaananenWallisser.thetaSum_functional _ _ hq hs
 
 theorem padicResidueSum_eq_scaled_vaananenSum (g : Ray) (r : Fin 3) :
     (∑' q, g.padicWeightedTerm (3 * q + r)) =

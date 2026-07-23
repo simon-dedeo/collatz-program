@@ -12916,3 +12916,21 @@ strict reverse inequality `threshold 3 < gamma`.  Formalizing the remainder of t
 published proof would not close this ray.  A useful theorem target must either
 improve the three-theta estimate for these special geometric arguments or use
 additional structure not present in the general 1989 bound.
+
+## Kontorovich round 239 — theta convention and functional equation pinned
+
+The active three values are now identified with the separately formalized
+`VaananenWallisser.thetaSum`, term by term and after completion in `Q_2`.
+The exact orientation is
+
+```text
+paper q = (thetaData.parameterInverse)^(-1),
+paper x = thetaData.argument r.
+```
+
+`padicVaananen_functional` then proves the paper's literal functional
+equation at each of the three EC17 arguments.  This matters for any attempted
+Skolem--Hermite upgrade: the series algebra uses powers of `q^(-1)`, and an
+informal inverse-parameter swap would otherwise produce a clean but irrelevant
+theorem.  The semantic chain now reaches the exact `thetaSum` object on which
+the partial 1989 formalization operates.
