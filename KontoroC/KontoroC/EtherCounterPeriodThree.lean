@@ -829,6 +829,17 @@ theorem shiftedResidueExtensionCarry_lt_two_pow
   rw [mul_comm, ← pow_add]
   exact hhigh
 
+/-- Search-facing characterization: the extension carry vanishes exactly
+when the high-precision least representative already fits below the old
+normalized modulus. -/
+theorem shiftedResidueExtensionCarry_eq_zero_iff
+    (g : Ray) (q R Δ length : ℕ) :
+    shiftedResidueExtensionCarry g q R Δ length = 0 ↔
+      (shiftedInitialResidue g q (R + Δ) length).val <
+        2 ^ normalizedPrecision g q R := by
+  rw [shiftedResidueExtensionCarry, Nat.div_eq_zero_iff]
+  exact or_iff_right (by positivity)
+
 /-- A hypothetical period-three ray forces every sufficiently covered
 same-cycle precision-extension carry above `U(q)` to vanish eventually.  The
 extra precision and prefix length may vary arbitrarily with `q`. -/
@@ -876,6 +887,29 @@ theorem false_of_cofinally_nonzero_shiftedResidueExtensionCarry
     g.shiftedResidueExtensionCarry_eventually_zero Δ length hprecision
   obtain ⟨q, hQq, hne⟩ := hnonzero Q
   exact hne (hzero q hQq)
+
+/-- Scalar version for workers: it is enough that arbitrarily late padded
+least representatives reach or exceed the old normalized modulus. -/
+theorem false_of_cofinally_large_shiftedInitialResidue
+    (g : Ray) (Δ length : ℕ → ℕ)
+    (hprecision : ∀ q, normalizedPrecision g q (Δ q) ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g q) 0 (length q))
+    (hlarge : ∀ Q, ∃ q, Q ≤ q ∧
+      2 ^ sharpUpperBudget g q ≤
+        (shiftedInitialResidue g q (Δ q) (length q)).val) :
+    False := by
+  apply g.false_of_cofinally_nonzero_shiftedResidueExtensionCarry
+    Δ length hprecision
+  intro Q
+  obtain ⟨q, hQq, hlargeq⟩ := hlarge Q
+  refine ⟨q, hQq, ?_⟩
+  intro hzero
+  have hsmall :=
+    (g.shiftedResidueExtensionCarry_eq_zero_iff
+      q 0 (Δ q) (length q)).1 hzero
+  rw [show 0 + Δ q = Δ q by omega] at hsmall
+  exact (not_lt_of_ge hlargeq) (by simpa [normalizedPrecision] using hsmall)
 
 /-! ## QM117: why naive dyadic residue induction loses its terminal value -/
 

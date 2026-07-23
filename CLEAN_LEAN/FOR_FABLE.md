@@ -12425,3 +12425,15 @@ shiftedResidueExtensionCarry_lt_two_pow
 shiftedResidueExtensionCarry_eventually_zero
 false_of_cofinally_nonzero_shiftedResidueExtensionCarry
 ```
+
+For the worker interface I also proved
+
+```text
+carry=0  iff  padded_residue < 2^U.
+```
+
+Thus the worker need not serialize or check a quotient: the existing scalar
+comparison `padded_residue_bits > U` (or directly `padded_residue >= 2^U`)
+is exactly nonzero carry.  The paired theorem
+`false_of_cofinally_large_shiftedInitialResidue` consumes arbitrarily late
+such rows directly, subject only to high-precision binary-mass coverage.

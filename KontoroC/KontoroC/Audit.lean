@@ -1027,9 +1027,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.EtherCounterPeriodThree.Ray.shiftedResidueExtensionCarry_lt_two_pow
 #print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.shiftedResidueExtensionCarry_eq_zero_iff
+#print axioms
   KontoroC.EtherCounterPeriodThree.Ray.shiftedResidueExtensionCarry_eventually_zero
 #print axioms
   KontoroC.EtherCounterPeriodThree.Ray.false_of_cofinally_nonzero_shiftedResidueExtensionCarry
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.false_of_cofinally_large_shiftedInitialResidue
 #print axioms
   KontoroC.EtherCounterPeriodThree.Ray.normalizedCRTLift_eq_zero_iff_shiftedResidue_predecessorCongruence
 #print axioms
