@@ -159,6 +159,55 @@ theorem packetColor_zero_propagates {s s' u u' : ℕ} {n m : ℕ}
   have htransport := packetColor_transport hn hm hs hs' ht
   exact htransport.trans (by simpa using hzero.mul_left 316)
 
+/-- Packet color zero cannot be acquired at a later positive EC17 step.
+The transport multiplier `316` is a unit modulo `473`, so a zero target
+color already forces a zero source color.  This is the missing reverse
+direction behind the informal statement that a non-packet bare EC17 ray
+can never enter the returning-packet component. -/
+theorem packetColor_zero_reflects {s s' u u' : ℕ} {n m : ℕ}
+    (hn : 0 < n) (hm : 0 < m)
+    (hs : s = 2 ^ (8 * n - 5) * u)
+    (hs' : s' = 2 ^ (8 * m - 5) * u')
+    (ht : 2 ^ (8 * m + 15) * u' = 3 ^ (6 * n + 11) * u + 17)
+    (hzero' : Nat.ModEq 473 (s' + 291427) 0) :
+    Nat.ModEq 473 (s + 291427) 0 := by
+  have htransport := packetColor_transport hn hm hs hs' ht
+  have hproduct : Nat.ModEq 473 (316 * (s + 291427)) 0 :=
+    htransport.symm.trans hzero'
+  rw [← ZMod.natCast_eq_natCast_iff] at hproduct ⊢
+  simp only [Nat.cast_mul, Nat.cast_add, Nat.cast_ofNat] at hproduct ⊢
+  have hunit : IsUnit (316 : ZMod 473) := by
+    change IsUnit ((316 : ℕ) : ZMod 473)
+    rw [ZMod.isUnit_iff_coprime]
+    norm_num
+  apply hunit.mul_left_inj.mp
+  simpa [mul_comm] using hproduct
+
+/-- Packet validity is exactly invariant, in both time directions, along a
+positive EC17 transition. -/
+theorem packetColor_zero_iff {s s' u u' : ℕ} {n m : ℕ}
+    (hn : 0 < n) (hm : 0 < m)
+    (hs : s = 2 ^ (8 * n - 5) * u)
+    (hs' : s' = 2 ^ (8 * m - 5) * u')
+    (ht : 2 ^ (8 * m + 15) * u' = 3 ^ (6 * n + 11) * u + 17) :
+    Nat.ModEq 473 (s' + 291427) 0 ↔
+      Nat.ModEq 473 (s + 291427) 0 :=
+  ⟨packetColor_zero_reflects hn hm hs hs' ht,
+    packetColor_zero_propagates hn hm hs hs' ht⟩
+
+/-- Contrapositive form consumed by adversarial searches: once the bare
+EC17 color is nonzero, every positive successor still fails the packet
+gate. -/
+theorem packetColor_nonzero_propagates {s s' u u' : ℕ} {n m : ℕ}
+    (hn : 0 < n) (hm : 0 < m)
+    (hs : s = 2 ^ (8 * n - 5) * u)
+    (hs' : s' = 2 ^ (8 * m - 5) * u')
+    (ht : 2 ^ (8 * m + 15) * u' = 3 ^ (6 * n + 11) * u + 17)
+    (hnonzero : ¬ Nat.ModEq 473 (s + 291427) 0) :
+    ¬ Nat.ModEq 473 (s' + 291427) 0 := by
+  exact fun hzero' => hnonzero
+    (packetColor_zero_reflects hn hm hs hs' ht hzero')
+
 /-- A hypothetical infinite execution of the deterministic self-writing
 coordinate.  `z_factor` records the current ternary branch and `w_factor`
 records the next binary branch.  Requiring the next `z_factor` is exactly the

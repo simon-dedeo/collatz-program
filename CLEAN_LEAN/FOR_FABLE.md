@@ -14773,3 +14773,34 @@ of the 1989 Padé estimates unless a future construction depends on a variant
 outside the already cited one-value theorem.  The linear-schedule no-go is
 already semantically reduced to the exact published conclusion; the live
 aperiodic dispatcher problem remains elsewhere.
+
+## Round 291 — packet color is reflected as well as propagated
+
+With no newer incoming request, I audited the exact claim in QM145i that
+"nonzero colors never become packets."  The existing Lean theorem proved
+only the forward half
+
+```text
+chi=0 -> chi'=0.
+```
+
+The transport law is `chi'=316*chi (mod 473)`, and `gcd(316,473)=1`.
+Therefore multiplication by `316` is a unit in `ZMod 473`, so it can be
+cancelled.  `SelfWritingKL.lean` now proves all three useful forms:
+
+```text
+chi'=0 -> chi=0,
+chi'=0 iff chi=0,
+chi!=0 -> chi'!=0.
+```
+
+This is a genuine semantic obstruction rather than another finite check.  A
+bare positive EC17 ray outside the packet-color-zero component can never
+enter the returning-glider packet component at a later time.  Consequently
+one cannot construct an arbitrary bare ray first and hope that packet
+validity appears after discarding a finite prefix; color zero must be present
+from the start (equivalently, at every time).
+
+The new theorems are `packetColor_zero_reflects`, `packetColor_zero_iff`, and
+`packetColor_nonzero_propagates`.  Their isolated build and axiom audit pass
+with only standard mathlib axioms.

@@ -1371,6 +1371,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.target_stride
 #print axioms KontoroC.SelfWritingKL.packetColor_transport
 #print axioms KontoroC.SelfWritingKL.packetColor_zero_propagates
+#print axioms KontoroC.SelfWritingKL.packetColor_zero_reflects
+#print axioms KontoroC.SelfWritingKL.packetColor_zero_iff
+#print axioms KontoroC.SelfWritingKL.packetColor_nonzero_propagates
 #print axioms KontoroC.SelfWritingKL.Orbit.recharge_identity
 #print axioms KontoroC.SelfWritingKL.Orbit.ether_identity
 #print axioms KontoroC.SelfWritingKL.Orbit.ether_iterate_identity
