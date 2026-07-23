@@ -9912,3 +9912,79 @@ yet been instantiated in Lean.  More importantly, none of this weakens the
 Rounds 168--169 obstruction: the returned family is disjoint from the old
 chart and cannot repeat this same restorative affine instruction forever.
 Closure still requires a genuinely finite recurrent multi-chart graph.
+
+## Round 171 — returned-burst tower theorem, plus a worker self-test failure
+
+I inspected the new untracked `yah_returned_burst.py` immediately.  Its own
+`selftest` currently fails at `burst(2)` with
+
+```text
+AssertionError: returned-chart all-odd burst pattern failed
+```
+
+The source arithmetic is not the problem.  Exact instrumentation gives:
+
+```text
+g=1: heads 0,1;       carries [1],[1,1]
+g=2: heads 0,1,0,2;   carries [1],[1,1],[1],[1,1]
+g=3: heads 0,1,0,2,0,2
+```
+
+The worker hard-codes every odd-position head as `1`, and advertises
+`(0,1)^g`; after the first pair the actual head is `2`.  This agrees with the
+earlier shutdown observation for `g=2`, so it is a regression in the new
+generalization, not evidence against the finite bursts.  The likely corrected
+schedule is `0,1,(0,2)^(g-1)`.  Please fix and regenerate before treating the
+artifact or its `general_law` field as evidence.  Even after that fix, a run to
+finite `max_depth` is not an all-`g` proof.
+
+The tempting address extrapolation also fails: the first roots are base-eight
+`3`, `33`, but the next are `633`, `5633`, `75633`, not `333`, `3333`,
+`33333`.  I therefore did not encode a guessed digit recurrence.
+
+Instead `YahReturnedBurstAddressNoGo.lean` proves the correct universal
+arithmetic statement from the already checked register isometry:
+
+```text
+Rnext(u) == Rnext(v) mod 2^k  <->  u == v mod 2^k.
+```
+
+Consequently the returned-register residue map on `Fin (2^k)` is a
+permutation; every depth has a unique zero-root residue; roots at depths
+`3g` form a compatible tower; and any supplied depth-address family cannot
+eventually stabilize to an ordinary natural.  In particular no single
+ordinary `u` can satisfy `2^(3g) | Rnext(u)` for every `g`.
+
+This cleanly separates the claims:
+
+- all-depth arithmetic source roots: now a Lean theorem;
+- all-depth word schedule and `+g` burst: **not proved**, and the current
+  worker fails its own depth-two check because its claimed schedule is wrong;
+- ordinary closure: still absent, since the source roots form a nonstationary
+  2-adic tower and a forward dispatcher must write the next address.
+
+## Round 172 — correction received and replayed
+
+The repaired returned-burst worker now passes its self-test, and I replayed
+the committed-depth artifact successfully:
+
+```text
+max_pair_depth       4
+deepest source       2971 mod 4096
+worker hash          9a38d7c65f885db6f9812649dedad43abe47ed0c0f89ae46672e7897ed31f2c9
+artifact self-hash   dabed1fe2a74b2afe5ab4217ea75fa34fba54125d5f8b2b7ca418d2c81468b69
+counterexample       null
+```
+
+The correction appropriately removes a fixed head schedule and labels the
+claim `certified_burst_law_through_max_depth`.  The rows are `01`, `0102`,
+`010202`, and `01020210`; thus even the tentative replacement
+`01(02)^(g-1)` fails at `g=4`.  The bounded evidence really supports only the
+aggregate ledger through four: `2g` macros, `3g` odd terminal carries, `g`
+two-sweep heads, `+g` cells, and a `7+3g` reservoir.
+
+The all-depth portion remains exactly the Lean arithmetic theorem in Round
+171: unique compatible divisibility roots and no eventual ordinary source.
+There is still no all-`g` word theorem and no second recharge affine map.  I
+agree with the corrected channel instruction to wait for a concrete second
+edge before formalizing a purported recurrent chart cycle.

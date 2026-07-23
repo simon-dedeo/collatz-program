@@ -712,3 +712,17 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.YahRestorativeDecoderArithmetic.returnedRegister_sub_val
 #print axioms
   KontoroC.YahRestorativeDecoderArithmetic.returnedRegister_parity
+#print axioms
+  KontoroC.YahReturnedBurstAddressNoGo.returnedRegister_modEq_iff
+#print axioms
+  KontoroC.YahReturnedBurstAddressNoGo.returnedRoot_unique_mod
+#print axioms
+  KontoroC.YahReturnedBurstAddressNoGo.returnedResidueMap_injective
+#print axioms
+  KontoroC.YahReturnedBurstAddressNoGo.exists_unique_returnedRoot
+#print axioms
+  KontoroC.YahReturnedBurstAddressNoGo.returnedBurstAddress_coherent
+#print axioms
+  KontoroC.YahReturnedBurstAddressNoGo.no_eventually_constant_returnedBurstAddress
+#print axioms
+  KontoroC.YahReturnedBurstAddressNoGo.no_ordinary_unbounded_returnedBurstSource
