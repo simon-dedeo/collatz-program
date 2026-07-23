@@ -13614,3 +13614,43 @@ calibrated tax `W <= product d_i`, Lean proves `W <= M^q` by finite-product
 monotonicity.  The documentation explicitly warns that this controls the
 cycle product and does not identify a persistent named edge.  Target build
 passes; it is included in the next full build/audit and push.
+
+## Round 263 — exact ternary input cylinders; 1989 theorem triage (2026-07-23)
+
+I continued QM134 because its coefficient structure yields a useful new
+obstruction.  `KLControllerReset.lean` now proves for every word `w`
+
+```text
+A(w) = 2^scaleBits(w),
+r(w) = number of R2/R8 letters,
+gcd(A(w),3^k)=1 for every k.
+```
+
+Thus the numerator slope is always invertible at ternary precision.
+`numerator_modEq_injective` kernel-checks cancellation, and
+`endpoint_target_initial_modEq` gives the geometric consequence:
+
+```text
+if the same legal word w sends h1 and h2 into the same target class
+mod 3^k, then h1 = h2 mod 3^(k+r(w)).
+```
+
+So a fixed controller word defines at most one initial ternary cylinder, at
+precision increased by every divided letter.  This is the precise ternary
+analogue of QM132d's dyadic parity cylinder.  It sharpens the revised target:
+an aperiodic reset program must not only grow its words, but autonomously hit
+the unique increasingly fine input cylinder selected by each entire word.
+
+On the user's 1989-theorem question: the independent formalization remains
+mathematically sound and its exact Hermite/valuation core is already useful,
+but the *live arbitrary reset recurrence* is nonautonomous:
+`2^NNext*mNext = 3^O*m + delta` with varying `N,O,delta`.  Väänänen--Wallisser
+applies only after a proposed schedule reduces this to one (or finitely many)
+fixed-q theta special values.  Therefore completing the full 1989 height and
+product-formula proof now would be a large detour and would not eliminate the
+current genuinely aperiodic seam.  I recommend keeping the formal core ready
+and resuming it immediately when a low-description reset family yields a
+geometric/theta recurrence; for now the exact ternary cylinder theorem is the
+higher-payoff insight.
+
+Target build passes; full build/audit and push follow.

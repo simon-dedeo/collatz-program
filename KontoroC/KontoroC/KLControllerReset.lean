@@ -47,6 +47,78 @@ def accumulate : List CenterMove → ControllerData → ControllerData
 def wordData (w : List CenterMove) : ControllerData :=
   accumulate w initialData
 
+/-- Binary scaling exponent in the homogeneous numerator coefficient. -/
+def scaleBits : List CenterMove → ℕ
+  | [] => 0
+  | .transport :: w => 2 + scaleBits w
+  | .retarded :: w => 2 + scaleBits w
+  | .advanced :: w => 1 + scaleBits w
+
+/-- Number of divided letters, hence the ternary denominator exponent. -/
+def dividedCount : List CenterMove → ℕ
+  | [] => 0
+  | .transport :: w => dividedCount w
+  | .retarded :: w => 1 + dividedCount w
+  | .advanced :: w => 1 + dividedCount w
+
+theorem accumulate_A (w : List CenterMove) (d : ControllerData) :
+    (accumulate w d).A = d.A * 2 ^ scaleBits w := by
+  induction w generalizing d with
+  | nil => simp [accumulate, scaleBits]
+  | cons m w ih =>
+      rw [accumulate, ih]
+      cases m <;> simp [ControllerData.step, scaleBits, pow_add] <;> ring
+
+theorem accumulate_r (w : List CenterMove) (d : ControllerData) :
+    (accumulate w d).r = d.r + dividedCount w := by
+  induction w generalizing d with
+  | nil => simp [accumulate, dividedCount]
+  | cons m w ih =>
+      rw [accumulate, ih]
+      cases m <;> simp [ControllerData.step, dividedCount] <;> omega
+
+/-- The numerator slope is always a pure power of two. -/
+theorem wordData_A (w : List CenterMove) :
+    (wordData w).A = 2 ^ scaleBits w := by
+  simpa [wordData, initialData] using accumulate_A w initialData
+
+/-- The denominator exponent is exactly the number of divided letters. -/
+theorem wordData_r (w : List CenterMove) :
+    (wordData w).r = dividedCount w := by
+  simpa [wordData, initialData] using accumulate_r w initialData
+
+/-- In particular the numerator slope is invertible at every ternary
+precision. -/
+theorem wordData_A_coprime_three_pow (w : List CenterMove) (k : ℕ) :
+    (wordData w).A.Coprime (3 ^ k) := by
+  rw [wordData_A]
+  exact Nat.coprime_pow_primes (scaleBits w) k
+    Nat.prime_two Nat.prime_three (by norm_num)
+
+/-- Cancellation of an invertible natural multiplier from a congruence. -/
+theorem modEq_of_mul_modEq_mul_of_coprime
+    {A M x y : ℕ} (hcop : A.Coprime M)
+    (hmul : A * x ≡ A * y [MOD M]) :
+    x ≡ y [MOD M] := by
+  rw [Nat.modEq_iff_dvd] at hmul ⊢
+  have hmul' : (M : ℤ) ∣ (A : ℤ) * ((y : ℤ) - (x : ℤ)) := by
+    convert hmul using 1 <;> push_cast <;> ring
+  exact hcop.isCoprime.symm.dvd_of_dvd_mul_left hmul'
+
+/-- A fixed controller word has at most one initial ternary residue class
+producing any prescribed numerator residue.  This is the ternary analogue
+of the exact dyadic cylinder theorem for shortcut parity words. -/
+theorem numerator_modEq_injective
+    (w : List CenterMove) {k h₁ h₂ : ℕ}
+    (hnum : (wordData w).A * h₁ + (wordData w).B ≡
+      (wordData w).A * h₂ + (wordData w).B [MOD 3 ^ k]) :
+    h₁ ≡ h₂ [MOD 3 ^ k] := by
+  have hmul : (wordData w).A * h₁ ≡
+      (wordData w).A * h₂ [MOD 3 ^ k] :=
+    Nat.ModEq.add_right_cancel' (wordData w).B hnum
+  exact modEq_of_mul_modEq_mul_of_coprime
+    (wordData_A_coprime_three_pow w k) hmul
+
 /-- One legal controller step preserves the affine numerator invariant. -/
 theorem ControllerData.step_invariant (d : ControllerData)
     {origin h : ℕ} (hinv : 3 ^ d.r * h = d.A * origin + d.B)
@@ -125,6 +197,20 @@ theorem endpoint_modEq_iff_numerator_modEq
   rw [← wordData_exact w hw]
   exact three_pow_mul_modEq_iff
     (runCenter w h) g k (wordData w).r
+
+/-- A fixed legal connector aimed at one target cylinder selects at most one
+initial cylinder, at the stronger precision `k+r`. -/
+theorem endpoint_target_initial_modEq
+    (w : List CenterMove) {h₁ h₂ g k : ℕ}
+    (hw₁ : LegalWord w h₁) (hw₂ : LegalWord w h₂)
+    (htarget₁ : runCenter w h₁ ≡ g [MOD 3 ^ k])
+    (htarget₂ : runCenter w h₂ ≡ g [MOD 3 ^ k]) :
+    h₁ ≡ h₂ [MOD 3 ^ (k + (wordData w).r)] := by
+  have hnum₁ :=
+    (endpoint_modEq_iff_numerator_modEq w hw₁).mp htarget₁
+  have hnum₂ :=
+    (endpoint_modEq_iff_numerator_modEq w hw₂).mp htarget₂
+  exact numerator_modEq_injective w (hnum₁.trans hnum₂.symm)
 
 /-! ## Abstract reset recurrence -/
 
