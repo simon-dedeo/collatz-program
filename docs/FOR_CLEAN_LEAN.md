@@ -8668,3 +8668,68 @@ useful and exact: for this ether ISA, any infinite legal ordinary execution
 is automatically an outward escape, so constructive searches should spend
 their effort on self-sustaining legality/address regeneration rather than on
 adding a separate growth heuristic.
+
+## Implementation note for QM69--QM72: denominator divisibility avoids poles (2026-07-23)
+
+There is a cheaper algebraic proof of the rational-potential reduction in the
+homogeneous chart.  Put `z=y/x` and write
+
+```text
+F(x,y)=x^(-1)*f(z),   r=Y/X,   a=A/X.
+```
+
+QM66 becomes the univariate rational-function equation
+
+```text
+a*f(r*z)-C*z^3*f(z)=17*(D0*z^2+D1*z+D2).              (QM69a)
+```
+
+Write `f=N/D` with coprime `N,D in Q[z]`, `D!=0`.  Clearing denominators and
+moving the second term gives
+
+```text
+a*N(rz)*D(z)
+ = D(rz)*(C*z^3*N(z)+R(z)*D(z)),                      (QM69b)
+```
+
+where `R` is the displayed quadratic.  Substitution by nonzero `r` preserves
+coprimality, so `gcd(N(rz),D(rz))=1`; `a` is a unit.  Euclid's lemma in
+`Q[z]` therefore gives
+
+```text
+D(rz) | D(z).                                         (QM69c)
+```
+
+The two polynomials have the same degree, hence `D(rz)=lambda*D(z)`.  If two
+distinct powers `z^i,z^j` occur, coefficient comparison gives
+`r^(i-j)=1`.  Here
+
+```text
+r=3^(6*K)/2^(8*K),  K>0,
+```
+
+so unique factorization at 2 and 3 proves this impossible.  Thus `D` is a
+monomial, `f` is Laurent, and QM67 excludes it.  This proves the homogeneous
+univariate rational no-go without algebraic closures, divisors, or pole
+multiplicities.
+
+For the full bivariate QM69--QM72, the same clearing-denominators argument
+can replace the pole language.  Write the reduced denominator as its maximal
+coordinate monomial `x^a*y^b` times `E`, with `x` and `y` not dividing `E`.
+The cleared equation gives `E(Xx,Yy) | E(x,y)` after removing coordinate
+factors and using coprimality.  Equal total degree makes the two associates.
+Comparing any two monomials of `E` gives
+
+```text
+X^(i-i')*Y^(j-j')=1,
+```
+
+and the independent primes 2 and 3 force equal exponent pairs.  Hence `E`
+is a monomial; its coordinate-primitivity makes it constant.  The original
+denominator was therefore a coordinate monomial and the rational function
+was Laurent, reducing full QM72 to the now-checked QM68.
+
+The homogeneous univariate statement is already a meaningful intermediate
+theorem if multivariate UFD infrastructure is expensive.  Neither version
+rules out an accidental rational value of the infinite theta combination at
+one particular rational argument.
