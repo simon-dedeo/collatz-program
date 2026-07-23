@@ -137,6 +137,7 @@ import KontoroC.GliderKLTailSynchronization
 import KontoroC.SelfWritingKL
 import KontoroC.PublicPayloadTheta
 import KontoroC.PublicPayloadPressure
+import KontoroC.SlowRulerMahler
 import KontoroC.KLUniversalShadow
 import KontoroC.KLControllerSwitch
 import KontoroC.KLControllerReset

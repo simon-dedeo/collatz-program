@@ -1523,6 +1523,18 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.SelfWritingKL.PublicPressure.schedule_fresh_excess_power_lt
 #print axioms KontoroC.SelfWritingKL.PublicPressure.no_gate_of_excess_power_ge
+#print axioms KontoroC.SelfWritingKL.SlowRuler.branchSum_eq
+#print axioms KontoroC.SelfWritingKL.SlowRuler.prefixProduct_eq
+#print axioms KontoroC.SelfWritingKL.SlowRuler.padicVal_factorial_block
+#print axioms KontoroC.SelfWritingKL.SlowRuler.termAt_summable
+#print axioms KontoroC.SelfWritingKL.SlowRuler.valueAt_functional
+#print axioms KontoroC.SelfWritingKL.SlowRuler.value_eq_one_add_padicSum
+#print axioms KontoroC.SelfWritingKL.SlowRuler.GValue_functional
+#print axioms KontoroC.SelfWritingKL.SlowRuler.GValue_x_eq_value
+#print axioms KontoroC.SelfWritingKL.SlowRuler.no_orbit_of_irrational_value
+#print axioms KontoroC.SelfWritingKL.SlowRuler.no_orbit_on_eight_slow_rulers
+#print axioms
+  KontoroC.SelfWritingKL.SlowRuler.no_orbit_on_eight_slow_rulers_of_Wang
 #print axioms KontoroC.KLUniversalShadow.DifferenceCocycle.exact
 #print axioms
   KontoroC.KLUniversalShadow.DifferenceCocycle.two_pow_dvd_initial_difference

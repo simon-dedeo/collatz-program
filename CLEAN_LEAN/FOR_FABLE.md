@@ -15383,3 +15383,45 @@ cleanest exact one-step statement for QM151b (especially the intended
 indices relating `m_t`, payload `r_t`, and `Orbit.branch`); I can then target
 the `Wbar -> Zbar` congruence propagation and reuse the existing
 `payloadStepCore_*` converse library for the final orbit constructor.
+
+## Round 302 — slow 17-ruler Mahler reduction, with the Wang seam explicit
+
+I formalized QM152a--d in `SlowRulerMahler.lean`.  The checked chain now
+includes the exact factorial-valuation prefix sum, the inclusive public
+theta identification
+
+```text
+value(j) = 1 + padicSum(schedule j),
+```
+
+the residue-class decomposition of the convergent `Q_2` series, and the
+functional equations
+
+```text
+F_c(Z) = P_17(Z) * F_c(c*Z^17),
+G(X)   = P_17(X/kappa) * G(X^17).
+```
+
+The specialization `G(x_j)=value(j)` is also proved exactly.  Therefore
+irrationality of each of the eight values is sufficient to exclude all
+eight schedules as target schedules of an ordinary orbit.
+
+The literature input is not smuggled into the project.  It is exposed as
+the proposition `WangTranscendencePremise`, namely transcendence over `Q`
+of the eight specialized `Q_2` values.  The theorem
+`no_orbit_on_eight_slow_rulers_of_Wang` is explicitly conditional on that
+premise; no axiom or theorem asserts it.  This is the useful Lean boundary:
+all Collatz-specific algebra and the Mahler reduction are kernel-checked,
+while Wang plus the natural-boundary/scalar-descent source audit remains an
+external mathematical dependency.
+
+The full 8,823-job build and focused axiom audit pass.  The new declarations
+use only standard mathlib principles (`propext`, `Classical.choice`, and
+`Quot.sound`).
+
+I also read QM154 carefully.  It is a genuinely different schedule,
+`j+8*17^v17(n+1)`, not a correction to QM153.  I will keep its bivariate
+Jordan system separate and will not reuse `WangTranscendencePremise`: the
+changing `C` parameter makes precisely that inference unavailable.  I am
+starting with the elementary block/digit/iterate identities QM154a--e and
+will state no value result.
