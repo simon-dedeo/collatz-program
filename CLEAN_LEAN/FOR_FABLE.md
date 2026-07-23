@@ -12366,3 +12366,62 @@ evolves between cycle indices.  I did not formalize the stronger research-side
 infinite nonrational construction, as requested.
 
 The new audited theorem is `Ray.exists_fixedDepth_binaryExtension`.
+
+## Kontorovich round 225 — the canonical carry is now an exact Lean object
+
+I formalized the carry which QM118 identifies as the live variable.  For the
+same cycle and prefix, compare the forced residue at precisions
+
+```text
+P=U(q)+R,  P'=U(q)+R+Delta.
+```
+
+Under high-precision binary-mass coverage, Lean proves the nesting identity
+
+```text
+r_(P') mod 2^P = r_P
+```
+
+using the actual natural prefix as the semantic bridge.  It then defines
+
+```text
+carry(q,R,Delta)=r_(P') / 2^P
+```
+
+and proves, exactly,
+
+```text
+r_(P') = r_P + 2^P*carry,
+carry < 2^Delta.
+```
+
+This is the precise quantity which a state-enriched induction would have to
+control; no claim of automaticity is hidden in its definition.
+
+There is also a simpler new falsifier.  Since QM115 eventually gives the
+true core below `2^U`, every sufficiently covered residue at *any higher
+same-cycle precision* must equal that same core.  Hence Lean proves
+
+```text
+exists Q, forall q>=Q,
+  carry(q,0,Delta(q),length(q)) = 0.
+```
+
+Consequently arbitrarily late nonzero padded-vs-normalized carries exclude
+the period-three ray directly.  This endpoint needs no ternary predecessor
+congruence, CRT candidate, or replay certificate.  The current padded worker
+already has the two values: its carry is exactly
+`padded_residue >> U` once the masking check establishes the low residue.
+Finite nonzero rows remain finite evidence; the missing theorem is cofinal
+nonzeroness of this canonical carry.
+
+New audited declarations:
+
+```text
+shiftedResidueExtensionCarry
+shiftedInitialResidue_high_mod_low
+shiftedInitialResidue_high_eq_low_add_carry
+shiftedResidueExtensionCarry_lt_two_pow
+shiftedResidueExtensionCarry_eventually_zero
+false_of_cofinally_nonzero_shiftedResidueExtensionCarry
+```

@@ -758,6 +758,125 @@ def shiftedInitialResidue (g : Ray) (q R length : ℕ) :
   EtherCounterResidueBound.initialResidue (shiftedBranch g q)
     (normalizedPrecision g q R) length
 
+/-- The canonical carry exposed when the forced shifted residue is recomputed
+with `Delta` additional binary digits. -/
+def shiftedResidueExtensionCarry
+    (g : Ray) (q R Δ length : ℕ) : ℕ :=
+  (shiftedInitialResidue g q (R + Δ) length).val /
+    2 ^ normalizedPrecision g q R
+
+/-- Under binary-mass coverage, high-precision and low-precision forced
+residues are genuinely nested.  This uses the actual natural prefix only to
+prove compatibility; it makes no assertion that the carry is predictable. -/
+theorem shiftedInitialResidue_high_mod_low
+    (g : Ray) (q R Δ length : ℕ)
+    (hprecision : normalizedPrecision g q (R + Δ) ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g q) 0 length) :
+    (shiftedInitialResidue g q (R + Δ) length).val %
+        2 ^ normalizedPrecision g q R =
+      (shiftedInitialResidue g q R length).val := by
+  let P := normalizedPrecision g q R
+  let P' := normalizedPrecision g q (R + Δ)
+  let pref := shiftedNaturalPrefix g q length
+  have hPP' : P ≤ P' := by simp [P, P', normalizedPrecision]
+  have hprecisionLow : P ≤
+      EtherCounterResidueBound.binaryMass (shiftedBranch g q) 0 length :=
+    hPP'.trans (by simpa [P'] using hprecision)
+  have hlowCast := EtherCounterResidueBound.initial_core_cast_eq_residue
+    pref P (by simpa [pref, shiftedNaturalPrefix] using hprecisionLow)
+  have hhighCast := EtherCounterResidueBound.initial_core_cast_eq_residue
+    pref P' (by simpa [pref, P', shiftedNaturalPrefix] using hprecision)
+  have hlow : g.core (3 * q) % 2 ^ P =
+      (shiftedInitialResidue g q R length).val := by
+    have h := congrArg ZMod.val hlowCast
+    simpa [pref, shiftedNaturalPrefix, shiftedInitialResidue, P] using h
+  have hhigh : g.core (3 * q) % 2 ^ P' =
+      (shiftedInitialResidue g q (R + Δ) length).val := by
+    have h := congrArg ZMod.val hhighCast
+    simpa [pref, shiftedNaturalPrefix, shiftedInitialResidue, P'] using h
+  rw [← hlow, ← hhigh]
+  exact Nat.mod_mod_of_dvd _ (pow_dvd_pow 2 hPP')
+
+/-- Exact lift equation for the canonical reduction carry. -/
+theorem shiftedInitialResidue_high_eq_low_add_carry
+    (g : Ray) (q R Δ length : ℕ)
+    (hprecision : normalizedPrecision g q (R + Δ) ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g q) 0 length) :
+    (shiftedInitialResidue g q (R + Δ) length).val =
+      (shiftedInitialResidue g q R length).val +
+        2 ^ normalizedPrecision g q R *
+          shiftedResidueExtensionCarry g q R Δ length := by
+  let high := (shiftedInitialResidue g q (R + Δ) length).val
+  let M := 2 ^ normalizedPrecision g q R
+  have hmod := g.shiftedInitialResidue_high_mod_low q R Δ length hprecision
+  have hdivision := Nat.mod_add_div high M
+  simpa [high, M, shiftedResidueExtensionCarry, hmod] using hdivision.symm
+
+/-- The canonical carry fits in precisely the newly exposed `Delta` bits. -/
+theorem shiftedResidueExtensionCarry_lt_two_pow
+    (g : Ray) (q R Δ length : ℕ) :
+    shiftedResidueExtensionCarry g q R Δ length < 2 ^ Δ := by
+  let P := normalizedPrecision g q R
+  let high := (shiftedInitialResidue g q (R + Δ) length).val
+  have hhigh : high < 2 ^ (P + Δ) := by
+    simpa [high, P, shiftedInitialResidue, normalizedPrecision,
+      Nat.add_assoc] using
+        ZMod.val_lt (shiftedInitialResidue g q (R + Δ) length)
+  apply (Nat.div_lt_iff_lt_mul (by positivity : 0 < 2 ^ P)).2
+  change high < 2 ^ Δ * 2 ^ P
+  rw [mul_comm, ← pow_add]
+  exact hhigh
+
+/-- A hypothetical period-three ray forces every sufficiently covered
+same-cycle precision-extension carry above `U(q)` to vanish eventually.  The
+extra precision and prefix length may vary arbitrarily with `q`. -/
+theorem shiftedResidueExtensionCarry_eventually_zero
+    (g : Ray) (Δ length : ℕ → ℕ)
+    (hprecision : ∀ q, normalizedPrecision g q (Δ q) ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g q) 0 (length q)) :
+    ∃ Q, ∀ q, Q ≤ q →
+      shiftedResidueExtensionCarry g q 0 (Δ q) (length q) = 0 := by
+  obtain ⟨Q, hcore⟩ := g.eventually_core_lt_two_pow_upperBudget
+  refine ⟨Q, ?_⟩
+  intro q hQq
+  let pref := shiftedNaturalPrefix g q (length q)
+  have hcoreU : g.core (3 * q) < 2 ^ sharpUpperBudget g q := hcore q hQq
+  have hUhigh : sharpUpperBudget g q ≤ normalizedPrecision g q (Δ q) := by
+    simp [normalizedPrecision]
+  have hcoreHigh : g.core (3 * q) <
+      2 ^ normalizedPrecision g q (Δ q) :=
+    hcoreU.trans_le (Nat.pow_le_pow_right (by norm_num) hUhigh)
+  have heq : (shiftedInitialResidue g q (Δ q) (length q)).val =
+      g.core (3 * q) := by
+    simpa [shiftedInitialResidue, pref, shiftedNaturalPrefix] using
+      EtherCounterResidueBound.initialResidue_val_eq_initial_core
+        pref (normalizedPrecision g q (Δ q))
+          (by simpa [pref, shiftedNaturalPrefix] using hprecision q)
+          (by simpa [pref, shiftedNaturalPrefix] using hcoreHigh)
+  rw [shiftedResidueExtensionCarry]
+  rw [show 0 + Δ q = Δ q by omega]
+  rw [heq]
+  simpa [normalizedPrecision] using Nat.div_eq_of_lt hcoreU
+
+/-- Direct padded-residue falsifier: arbitrarily late nonzero canonical
+extension carries rule out the period-three ray.  No ternary predecessor
+congruence, CRT candidate, or replay certificate appears in this endpoint. -/
+theorem false_of_cofinally_nonzero_shiftedResidueExtensionCarry
+    (g : Ray) (Δ length : ℕ → ℕ)
+    (hprecision : ∀ q, normalizedPrecision g q (Δ q) ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g q) 0 (length q))
+    (hnonzero : ∀ Q, ∃ q, Q ≤ q ∧
+      shiftedResidueExtensionCarry g q 0 (Δ q) (length q) ≠ 0) :
+    False := by
+  obtain ⟨Q, hzero⟩ :=
+    g.shiftedResidueExtensionCarry_eventually_zero Δ length hprecision
+  obtain ⟨q, hQq, hne⟩ := hnonzero Q
+  exact hne (hzero q hQq)
+
 /-! ## QM117: why naive dyadic residue induction loses its terminal value -/
 
 /-- Binary precision accumulated between cycle boundaries `q` and `2q`. -/
