@@ -13831,3 +13831,42 @@ only standard mathlib axioms appear.
 I have read QM140 and am proceeding to expose the exact bounded carry digit,
 its affine congruence, and the equivalence between zero carry and immediate
 execution of the next reset.
+
+## Round 269 — QM140 complete: exact bounded reset carries (2026-07-23)
+
+The full carry normal form now compiles in `KLDyadicReset.lean`.
+`canonicalEndpoint e J` is the exact integer quotient `z_J` of the canonical
+depth-`J` cylinder, with its defining affine identity proved.  The new
+`carryDigit e J` satisfies
+
+```text
+r_(J+1) = r_J + 2^S_J*q_J,
+q_J < 2^N_J.
+```
+
+Both the decomposition and the sharp range are theorems, and a second
+bounded digit giving the same decomposition is proved equal to `q_J`.
+Substitution into the two adjacent accumulator identities kernel-checks the
+requested carry law
+
+```text
+2^N_J | 3^O_J*z_J + 3^(P_J+O_J)*q_J + delta_J.
+```
+
+Cancelling the odd coefficient and using the bounded range proves exactly
+
+```text
+q_J=0 <-> 2^N_J | 3^O_J*z_J+delta_J.
+```
+
+I also added the infinite operational consumers.  Any nonnegative ordinary
+infinite chain with unbounded cumulative precision has an eventually-zero
+carry sequence.  Conversely, if nonzero carry digits occur arbitrarily
+late, `no_nonnegative_follows_of_nonzero_carries` rules out every such
+ordinary chain.  This is now the precise certificate future searches should
+emit, rather than decimal size or approximate prefix agreement.
+
+Full project build and axiom audit pass with only standard mathlib axioms.
+I have read QM141 and am now checking the stronger equivalence: an exact
+zero-carry tail should reconstruct a nonnegative integer chain, while the
+bounded-precision case must be included in the necessity direction.

@@ -652,6 +652,16 @@ theorem initialResidue_terminal (e : ℕ → ResetStep) (J : ℕ) :
   have hneg := dvd_neg.mpr hm
   simpa [d, modulus, sub_eq_add_neg] using hneg
 
+/-- Exact endpoint quotient of the canonical finite cylinder. -/
+noncomputable def canonicalEndpoint (e : ℕ → ResetStep) (J : ℕ) : ℤ :=
+  (initialResidue_terminal e J).choose
+
+theorem canonicalEndpoint_exact (e : ℕ → ResetStep) (J : ℕ) :
+    (2 : ℤ) ^ (cumulative e J).S * canonicalEndpoint e J =
+      (3 : ℤ) ^ (cumulative e J).P * initialResidue e J +
+        (cumulative e J).D := by
+  exact (initialResidue_terminal e J).choose_spec.symm
+
 /-- Two initial integers satisfying the same cumulative terminal cylinder
 are congruent modulo all written binary precision. -/
 theorem cumulativeTerminal_unique_modEq
@@ -692,6 +702,162 @@ theorem initialResidue_mono (e : ℕ → ResetStep) :
       _ = initialResidue e K % modulus := hmodEq
   rw [heqmod]
   exact Nat.mod_le _ _
+
+theorem cumulative_succ_S (e : ℕ → ResetStep) (J : ℕ) :
+    (cumulative e (J + 1)).S =
+      (cumulative e J).S + (e J).N := by
+  simp [cumulative, ResetData.step]
+
+theorem cumulative_succ_P (e : ℕ → ResetStep) (J : ℕ) :
+    (cumulative e (J + 1)).P =
+      (cumulative e J).P + (e J).O := by
+  simp [cumulative, ResetData.step]
+
+/-- The bounded new binary block written into the canonical initial
+representative by reset `J`. -/
+noncomputable def carryDigit (e : ℕ → ResetStep) (J : ℕ) : ℕ :=
+  (initialResidue e (J + 1) - initialResidue e J) /
+    2 ^ (cumulative e J).S
+
+/-- QM140a, exact base-`2^N` digit decomposition. -/
+theorem initialResidue_succ_eq_add_carry
+    (e : ℕ → ResetStep) (J : ℕ) :
+    initialResidue e (J + 1) = initialResidue e J +
+      2 ^ (cumulative e J).S * carryDigit e J := by
+  have hmono : initialResidue e J ≤ initialResidue e (J + 1) :=
+    initialResidue_mono e (Nat.le_succ J)
+  have hdiv : 2 ^ (cumulative e J).S ∣
+      initialResidue e (J + 1) - initialResidue e J :=
+    (Nat.modEq_iff_dvd' hmono).mp
+      (initialResidue_modEq e (Nat.le_succ J))
+  have hmul := Nat.mul_div_cancel' hdiv
+  rw [carryDigit]
+  calc
+    initialResidue e (J + 1) =
+        (initialResidue e (J + 1) - initialResidue e J) +
+          initialResidue e J := (Nat.sub_add_cancel hmono).symm
+    _ = 2 ^ (cumulative e J).S *
+          ((initialResidue e (J + 1) - initialResidue e J) /
+            2 ^ (cumulative e J).S) + initialResidue e J := by rw [hmul]
+    _ = initialResidue e J +
+          2 ^ (cumulative e J).S *
+            ((initialResidue e (J + 1) - initialResidue e J) /
+              2 ^ (cumulative e J).S) := by omega
+
+theorem carryDigit_lt (e : ℕ → ResetStep) (J : ℕ) :
+    carryDigit e J < 2 ^ (e J).N := by
+  let width := 2 ^ (cumulative e J).S
+  have hdecomp := initialResidue_succ_eq_add_carry e J
+  have hnext := initialResidue_lt e (J + 1)
+  rw [cumulative_succ_S, pow_add] at hnext
+  have hprod : width * carryDigit e J < width * 2 ^ (e J).N := by
+    calc
+      width * carryDigit e J ≤
+          initialResidue e J + width * carryDigit e J :=
+            Nat.le_add_left _ _
+      _ = initialResidue e (J + 1) := hdecomp.symm
+      _ < width * 2 ^ (e J).N := hnext
+  exact Nat.lt_of_mul_lt_mul_left hprod
+
+/-- QM140b, the exact one-reset carry congruence. -/
+theorem carryDigit_law (e : ℕ → ResetStep) (J : ℕ) :
+    (2 : ℤ) ^ (e J).N ∣
+      (3 : ℤ) ^ (e J).O * canonicalEndpoint e J +
+        (3 : ℤ) ^ ((cumulative e J).P + (e J).O) * carryDigit e J +
+          (e J).delta := by
+  let d := cumulative e J
+  let r := initialResidue e J
+  let q := carryDigit e J
+  let z := canonicalEndpoint e J
+  let zNext := canonicalEndpoint e (J + 1)
+  have hcurr := canonicalEndpoint_exact e J
+  have hnext := canonicalEndpoint_exact e (J + 1)
+  have hres := initialResidue_succ_eq_add_carry e J
+  change (2 : ℤ) ^ (e J).N ∣
+    (3 : ℤ) ^ (e J).O * z +
+      (3 : ℤ) ^ (d.P + (e J).O) * q + (e J).delta
+  refine ⟨zNext, ?_⟩
+  change (3 : ℤ) ^ (e J).O * z +
+      (3 : ℤ) ^ (d.P + (e J).O) * (q : ℤ) + (e J).delta =
+    (2 : ℤ) ^ (e J).N * zNext
+  have hcurr' : (2 : ℤ) ^ d.S * z =
+      (3 : ℤ) ^ d.P * r + d.D := hcurr
+  have hres' : (initialResidue e (J + 1) : ℤ) =
+      r + (2 : ℤ) ^ d.S * q := by exact_mod_cast hres
+  have hnext' : (2 : ℤ) ^ (d.S + (e J).N) * zNext =
+      (3 : ℤ) ^ (d.P + (e J).O) *
+          (r + (2 : ℤ) ^ d.S * q) +
+        ((3 : ℤ) ^ (e J).O * d.D +
+          (2 : ℤ) ^ d.S * (e J).delta) := by
+    rw [show d.S + (e J).N = (cumulative e (J + 1)).S by
+      exact (cumulative_succ_S e J).symm]
+    rw [show d.P + (e J).O = (cumulative e (J + 1)).P by
+      exact (cumulative_succ_P e J).symm]
+    rw [← hres']
+    simpa only [cumulative, ResetData.step] using hnext
+  have hscaled : (2 : ℤ) ^ d.S *
+        ((3 : ℤ) ^ (e J).O * z +
+          (3 : ℤ) ^ (d.P + (e J).O) * (q : ℤ) + (e J).delta) =
+      (2 : ℤ) ^ d.S * ((2 : ℤ) ^ (e J).N * zNext) := by
+    calc
+      (2 : ℤ) ^ d.S *
+          ((3 : ℤ) ^ (e J).O * z +
+            (3 : ℤ) ^ (d.P + (e J).O) * (q : ℤ) +
+              (e J).delta) =
+          (3 : ℤ) ^ (e J).O * ((2 : ℤ) ^ d.S * z) +
+            (2 : ℤ) ^ d.S *
+              ((3 : ℤ) ^ (d.P + (e J).O) * (q : ℤ)) +
+            (2 : ℤ) ^ d.S * (e J).delta := by ring
+      _ = (3 : ℤ) ^ (e J).O *
+            ((3 : ℤ) ^ d.P * r + d.D) +
+          (2 : ℤ) ^ d.S *
+            ((3 : ℤ) ^ (d.P + (e J).O) * (q : ℤ)) +
+          (2 : ℤ) ^ d.S * (e J).delta := by rw [hcurr']
+      _ = (2 : ℤ) ^ (d.S + (e J).N) * zNext := by
+        rw [hnext']
+        rw [pow_add]
+        ring
+      _ = (2 : ℤ) ^ d.S *
+          ((2 : ℤ) ^ (e J).N * zNext) := by rw [pow_add]; ring
+  exact (mul_left_cancel₀
+    (pow_ne_zero d.S (by norm_num : (2 : ℤ) ≠ 0)) hscaled)
+
+/-- The carry digit is uniquely determined within its canonical range. -/
+theorem carryDigit_unique
+    (e : ℕ → ResetStep) (J q : ℕ) (hq : q < 2 ^ (e J).N)
+    (hdecomp : initialResidue e (J + 1) = initialResidue e J +
+      2 ^ (cumulative e J).S * q) :
+    q = carryDigit e J := by
+  have hcanonical := initialResidue_succ_eq_add_carry e J
+  have hmul : 2 ^ (cumulative e J).S * q =
+      2 ^ (cumulative e J).S * carryDigit e J := by omega
+  exact Nat.eq_of_mul_eq_mul_left (by positivity) hmul
+
+/-- QM140c: zero carry is exactly immediate integrality of the next reset
+on the current canonical endpoint. -/
+theorem carryDigit_eq_zero_iff
+    (e : ℕ → ResetStep) (J : ℕ) :
+    carryDigit e J = 0 ↔
+      (2 : ℤ) ^ (e J).N ∣
+        (3 : ℤ) ^ (e J).O * canonicalEndpoint e J +
+          (e J).delta := by
+  constructor
+  · intro hq
+    simpa [hq] using carryDigit_law e J
+  · intro hbase
+    have hlaw := carryDigit_law e J
+    have hsub := Int.dvd_sub hlaw hbase
+    have hqmul : (2 : ℤ) ^ (e J).N ∣
+        (3 : ℤ) ^ ((cumulative e J).P + (e J).O) *
+          carryDigit e J := by
+      convert hsub using 1 <;> ring
+    have hcop := three_pow_coprime_two_pow
+      ((cumulative e J).P + (e J).O) (e J).N
+    have hqdiv : (2 : ℤ) ^ (e J).N ∣ (carryDigit e J : ℤ) :=
+      hcop.isCoprime.symm.dvd_of_dvd_mul_left hqmul
+    have hqdivNat : 2 ^ (e J).N ∣ carryDigit e J := by
+      exact_mod_cast hqdiv
+    exact Nat.eq_zero_of_dvd_of_lt hqdivNat (carryDigit_lt e J)
 
 theorem cumulative_S_mono (e : ℕ → ResetStep) :
     Monotone (fun J => (cumulative e J).S) := by
@@ -739,6 +905,35 @@ theorem initialResidue_eventually_constant_of_follows
     Nat.pow_le_pow_right (by norm_num) hSK
   exact M.lt_two_pow_self.trans
     ((Nat.pow_lt_pow_right (by norm_num) (Nat.lt_succ_self M)).trans_le hpow)
+
+/-- Operational form of QM139b/QM140: an ordinary nonnegative payload makes
+all sufficiently late exact carry digits vanish. -/
+theorem carryDigit_eventually_zero_of_follows
+    (e : ℕ → ResetStep) (m : ℕ → ℤ) (hm : Follows e m)
+    (h0 : 0 ≤ m 0)
+    (hunbounded : ∀ L, ∃ J, L ≤ (cumulative e J).S) :
+    ∃ J, ∀ K, J ≤ K → carryDigit e K = 0 := by
+  obtain ⟨J, hstable⟩ :=
+    initialResidue_eventually_constant_of_follows e m hm h0 hunbounded
+  refine ⟨J, fun K hJK => ?_⟩
+  rw [carryDigit, hstable K hJK,
+    hstable (K + 1) (hJK.trans (Nat.le_succ K))]
+  simp
+
+def NonzeroCarriesArbitrarilyLate (e : ℕ → ResetStep) : Prop :=
+  ∀ J, ∃ K, J ≤ K ∧ carryDigit e K ≠ 0
+
+/-- The carry-digit version of the inverse-limit no-go criterion. -/
+theorem no_nonnegative_follows_of_nonzero_carries
+    (e : ℕ → ResetStep)
+    (hunbounded : ∀ L, ∃ J, L ≤ (cumulative e J).S)
+    (hcarry : NonzeroCarriesArbitrarilyLate e) :
+    ¬ ∃ m : ℕ → ℤ, Follows e m ∧ 0 ≤ m 0 := by
+  rintro ⟨m, hm, h0⟩
+  obtain ⟨J, hzero⟩ :=
+    carryDigit_eventually_zero_of_follows e m hm h0 hunbounded
+  obtain ⟨K, hJK, hne⟩ := hcarry J
+  exact hne (hzero K hJK)
 
 /-- Canonical residues keep acquiring genuinely new high bits arbitrarily
 late. -/
