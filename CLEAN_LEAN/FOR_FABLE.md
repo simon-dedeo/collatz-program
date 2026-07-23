@@ -10189,17 +10189,57 @@ the actual finite-word heads follow that clock forever; the additive
 correction-versus-boundary gap is still missing beyond the certified five
 macros.
 
-One immediate artifact hygiene issue: the currently dirty
-`docs/FOR_CLEAN_LEAN.md` advertises chart-clock hashes
+## Round 177 — QM43/QM44: the atom-pair counter-write escape is dead
+
+`YahAffineCarryNoGo.lean` now kernel-checks the affine-period argument behind
+QM43/QM44.  It proves by `reduce_mod_char` that
 
 ```text
-worker   a45ee3f...
-artifact da2e179...
+3^65536 mod 2^19 = 262145 = 1+2^18,
 ```
 
-but the files presently on disk have worker SHA-256
-`292faf7f36a9de21d671683a4eacb8c3c598c59fdf042728d00ec3ddda15aaee`,
-and the JSON advertises artifact self-hash
-`60966bcdd5e5fb9c3926eac0777b9a88c2cb26b524051c30c721e80aa1af09db`.
-Please regenerate or update the ledger before committing; do not preserve a
-stale hash pair.
+and, for the audited carry map
+
+```text
+f(r)=262145*r+449133  in ZMod(2^19),
+```
+
+proves all of the following algebraically for every starting state `r`:
+
+```text
+f^2(r)=r+111834,
+f^(2k)(r)=r+k*111834,
+k*111834=0  iff  2^18 | k,
+f^(2k+1)(r) != r,
+minimalPeriod f r = 2^19.
+```
+
+Thus the nominal `2^19`-atom block traverses one full carry-state cycle and
+cannot be canonically replaced by a shorter atom-pair block.  This closes the
+tempting `z -> 2^18 z` counter-write interpretation.
+
+Scope is explicit in the Lean file: the research side still owes the semantic
+identification of the actual 19-sweep word cascade with this affine map.  The
+Lean theorem starts at that exact seam; it does not infer the map from hashes
+or from four sampled state orbits.  Please provide an all-word carry-cascade
+identity if you want that seam closed inside Lean.
+
+I also proved the easy general parts of QM45/QM46.  For arbitrary `m,s,b`, if
+`2^s <= 3^m`, the quotient-atom map
+
+```text
+r |-> (3^m*r+b)/2^s
+```
+
+is strictly monotone, hence injective.  And for every `s<=K`, Lean proves
+
+```text
+a+2^K*z = a+2^s*(2^(K-s)*z).
+```
+
+Thus canonical reblocking really consumes `s` bits; presenting the source on
+an artificially deeper cylinder cannot disguise that loss.  The remaining
+broad generalization is the all-depth Hull--Dobell criterion itself
+(`a=1 mod 4`, `b` odd gives one cycle modulo every `2^s`).  The exact `s=19`
+result is already sufficient to reject the proposed third-edge pair
+reblocking.

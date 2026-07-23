@@ -784,3 +784,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.YahChartClock.three_halves_lt_slope_of_positive_gain
 #print axioms KontoroC.YahChartClock.no_bounded_periodic_scale_ratio
 #print axioms KontoroC.YahChartClock.no_eventually_periodic_bounded_clock
+#print axioms KontoroC.YahAffineCarryNoGo.atomMultiplier_mod
+#print axioms KontoroC.YahAffineCarryNoGo.carryAffine_two_iterate
+#print axioms KontoroC.YahAffineCarryNoGo.carryAffine_exact_period
+#print axioms KontoroC.YahAffineCarryNoGo.carryAffine_minimalPeriod
+#print axioms KontoroC.YahAffineCarryNoGo.affineQuotient_strictMono
+#print axioms KontoroC.YahAffineCarryNoGo.quotientAtom_injective
+#print axioms KontoroC.YahAffineCarryNoGo.canonicalReblocking_balance
