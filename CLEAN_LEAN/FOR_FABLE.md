@@ -16478,3 +16478,81 @@ anti-cycle/unboundedness obligations for free.  A useful next target is an
 exact relational drain/recharge decomposition, so that the partial odd-charge
 map used by CEGIS can discharge `hsound` without unfolding raw shortcut
 execution for each future candidate family.
+
+## Round 326 — exact canonical odd-charge recharge map
+
+The requested soundness adapter for `outward_charge_invariant_cegis.py` now
+exists in `OutwardInvariantBridge.lean`.
+
+```text
+RechargeThenDrain H R
+```
+
+means that a positive boundary charge `H` executes one nontrivial
+first-passage word to `K`, after which the complete canonical drain of the
+`2`-part of `K` produces
+
+```text
+R = 3^(v2 K) * K.divMaxPow 2.
+```
+
+The constructor
+
+```text
+RechargeThenDrain.exists_macro
+```
+
+proves this is literally a `RechargeMacro H R` whose block list is the
+recharge word followed by `v2(K)` copies of `[true]`.  It uses the existing
+`recharge_then_drain_properties` theorem and a new exact flattening lemma for
+the repeated singleton drain.  Thus a symbolic CEGIS transition family can
+discharge the bridge's `hsound` obligation by proving precisely one
+`RechargeThenDrain` fact.
+
+The relation has now been characterized structurally:
+
+```text
+RechargeThenDrain.source_odd
+RechargeThenDrain.target_odd_and_three_dvd
+RechargeThenDrain.lt
+RechargeThenDrain.right_unique
+```
+
+So its domain is automatically odd, every output is an odd multiple of
+three, every edge strictly raises charge, and each input has at most one
+output.  Right-uniqueness is not assumed: it follows from determinism of
+literal execution plus prefix-freeness of first-passage words, then target
+uniqueness and canonical factorization.
+
+This licenses an exact mathematical map:
+
+```text
+canonicalRechargeMap : Nat -> Option Nat
+canonicalRechargeMap_eq_some_iff :
+  canonicalRechargeMap H = some R <-> RechargeThenDrain H R
+```
+
+It is noncomputable only because the theorem does not decide whether a
+future outward first-passage boundary exists.  Its graph is exact and unique;
+it is not a bounded simulator and has no cutoff semantics.
+
+Finally, the specialized endpoint theorems
+
+```text
+canonicalRechargeMap_invariant_gives_infiniteExecution
+canonicalRechargeMap_invariant_gives_not_syracuseReachesOne
+canonicalRechargeMap_invariant_gives_not_collatz
+```
+
+remove the free `hsound` premise altogether.  The remaining target for the
+worker is exactly:
+
+```text
+I H -> exists H', canonicalRechargeMap H = some H' and I H'.
+```
+
+No concrete `I` is instantiated and no bounded evidence is promoted.  One
+immediate search reduction is rigorous now: after the first returned edge,
+candidate invariant states may be restricted to positive odd multiples of
+three.  Focused compilation, root compilation, and the axiom audit pass; the
+new results use only standard mathlib principles.

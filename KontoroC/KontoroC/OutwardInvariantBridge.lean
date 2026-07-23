@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.OutwardCarryThreshold
+import KontoroC.OutwardFiniteHeight
 import KontoroC.OutwardOddSlice
 
 /-!
@@ -25,7 +26,7 @@ namespace OutwardInvariantBridge
 
 open ShortcutParityPeriodicNoGo OutwardFirstPassage
   OutwardCodeCompactness OutwardBoundaryRenewal OutwardCylinderRenewal
-  OutwardOddSlice
+  OutwardFiniteHeight OutwardOddSlice
   OutwardCodeCounterexample
 open CleanLean.Collatz
 
@@ -222,6 +223,65 @@ theorem RechargeMacro.append {H K L : ℕ}
   · exact (executesBlocksTo_append left right).mpr
       ⟨3 * K - 1, hleft.executesTo, hright.executesTo⟩
 
+@[simp] theorem flattenWords_replicate_singleton_true (a : ℕ) :
+    flattenWords (List.replicate a [true]) = List.replicate a true := by
+  induction a with
+  | zero => simp [flattenWords]
+  | succ a ih => simp [List.replicate_succ, flattenWords, ih]
+
+/-- The exact transition used by the odd-charge worker: one nontrivial
+first-passage recharge is followed by the complete forced one-letter drain
+of the target boundary coordinate. -/
+def RechargeThenDrain (H R : ℕ) : Prop :=
+  0 < H ∧ ∃ w K,
+    0 < K ∧
+    FirstPassage w ∧
+    w ≠ [true] ∧
+    Executes w (3 * H - 1) (3 * K - 1) ∧
+    R = 3 ^ padicValNat 2 K * K.divMaxPow 2
+
+/-- A literal recharge followed by its canonical drain is exactly a
+nonempty boundary macro.  This is the reusable soundness adapter for
+arithmetic or CEGIS descriptions of the partial odd-charge map. -/
+theorem RechargeThenDrain.exists_macro {H R : ℕ}
+    (h : RechargeThenDrain H R) :
+    ∃ words, RechargeMacro H R words := by
+  rcases h with ⟨hH, w, K, hK, hfirst, hwne, hw, rfl⟩
+  let a := padicValNat 2 K
+  let u := K.divMaxPow 2
+  let R := 3 ^ a * u
+  have hprops := recharge_then_drain_properties
+    hfirst hwne hw hH hK
+  dsimp only at hprops
+  rcases hprops with
+    ⟨_, _, _, hHR, _, _, _, hdrain⟩
+  have hR : 0 < R := by
+    dsimp [R, a, u]
+    omega
+  have honeFirst : FirstPassage [true] := by
+    constructor
+    · norm_num [WordOutward]
+    · intro q hq
+      have hlen := properPrefix_length_lt hq
+      have hqnil : q = [] :=
+        List.eq_nil_of_length_eq_zero (by simpa using hlen)
+      subst q
+      norm_num [WordOutward]
+  have hwords : WordsIn FirstPassageCode
+      (w :: List.replicate a [true]) := by
+    intro v hv
+    simp only [List.mem_cons, List.mem_replicate] at hv
+    rcases hv with rfl | ⟨_, rfl⟩
+    · exact hfirst
+    · exact honeFirst
+  have hdrainBlocks : ExecutesBlocksTo (List.replicate a [true])
+      (3 * K - 1) (3 * R - 1) := by
+    apply executesBlocksTo_iff_flatten.mpr
+    simpa [a, u, R] using hdrain
+  refine ⟨w :: List.replicate a [true], hH, hR, by simp,
+    hwords, ?_⟩
+  exact ⟨3 * K - 1, hw, hdrainBlocks⟩
+
 /-- Every nonempty recharge macro strictly raises the boundary charge.  This
 is inherited from strict outward growth of every first-passage block. -/
 theorem RechargeMacro.lt {H H' : ℕ} {words : List (List Bool)}
@@ -241,6 +301,87 @@ theorem RechargeMacro.lt {H H' : ℕ} {words : List (List Bool)}
     List.length_pos_iff.mpr h.words_ne_nil
   rw [hfinish] at hgrowth
   omega
+
+theorem RechargeThenDrain.lt {H R : ℕ} (h : RechargeThenDrain H R) :
+    H < R := by
+  obtain ⟨words, hmacro⟩ := h.exists_macro
+  exact hmacro.lt
+
+/-- The semantic relation really has the odd-charge domain used by the
+worker; even boundary coordinates have the forced first word `[true]`. -/
+theorem RechargeThenDrain.source_odd {H R : ℕ}
+    (h : RechargeThenDrain H R) : Odd H := by
+  rcases h with ⟨hH, w, K, hK, hfirst, hwne, hw, _⟩
+  rw [Nat.odd_iff]
+  have hrem := Nat.mod_lt H (by omega : 0 < 2)
+  by_contra hnot
+  have hzero : H % 2 = 0 := by omega
+  have hdvd : 2 ∣ H := Nat.dvd_iff_mod_eq_zero.mpr hzero
+  obtain ⟨J, hHJ⟩ := hdvd
+  have hJ : 0 < J := by omega
+  have hforced := firstPassage_from_even_boundary_eq_true
+    hJ hfirst (by simpa [hHJ, mul_comm] using hw)
+  exact hwne hforced.1
+
+/-- Canonical draining leaves a positive odd multiple of three. -/
+theorem RechargeThenDrain.target_odd_and_three_dvd {H R : ℕ}
+    (h : RechargeThenDrain H R) : Odd R ∧ 3 ∣ R := by
+  rcases h with ⟨hH, w, K, hK, hfirst, hwne, hw, rfl⟩
+  have hprops := recharge_then_drain_properties
+    hfirst hwne hw hH hK
+  dsimp only at hprops
+  rcases hprops with ⟨_, _, hodd, _, hdiv, _, _, _⟩
+  refine ⟨hodd, ?_⟩
+  exact dvd_trans (dvd_pow_self 3 (by omega)) hdiv
+
+/-- Although phrased relationally, canonical recharge followed by complete
+drain has at most one output at each source charge. -/
+theorem RechargeThenDrain.right_unique {H R R' : ℕ}
+    (h : RechargeThenDrain H R) (h' : RechargeThenDrain H R') :
+    R = R' := by
+  rcases h with ⟨_, w, K, _, hfirst, _, hw, hR⟩
+  rcases h' with ⟨_, w', K', _, hfirst', _, hw', hR'⟩
+  have hword : w = w' :=
+    firstPassage_eq_of_common_source hfirst hfirst' hw hw'
+  subst w'
+  have htarget : 3 * K - 1 = 3 * K' - 1 :=
+    executes_target_unique w hw hw'
+  have hK : K = K' := by omega
+  subst K'
+  exact hR.trans hR'.symm
+
+/-- The exact partial odd-charge recharge map induced by the relational
+semantics.  It is noncomputable only because existence of a future
+first-passage boundary is not decided here. -/
+noncomputable def canonicalRechargeMap (H : ℕ) : Option ℕ :=
+  by
+    classical
+    exact if h : ∃ R, RechargeThenDrain H R then
+      some (Classical.choose h)
+    else
+      none
+
+/-- The option-valued graph loses no information: `some R` is returned
+exactly for the unique semantic recharge-and-drain output `R`. -/
+theorem canonicalRechargeMap_eq_some_iff {H R : ℕ} :
+    canonicalRechargeMap H = some R ↔ RechargeThenDrain H R := by
+  classical
+  unfold canonicalRechargeMap
+  split_ifs with hex
+  · constructor
+    · intro heq
+      have hchoose : Classical.choose hex = R := Option.some.inj heq
+      rw [← hchoose]
+      exact Classical.choose_spec hex
+    · intro hR
+      have hchoose : Classical.choose hex = R :=
+        RechargeThenDrain.right_unique (Classical.choose_spec hex) hR
+      rw [hchoose]
+  · constructor
+    · intro heq
+      simp at heq
+    · intro hR
+      exact (hex ⟨R, hR⟩).elim
 
 /-- In particular, a recharge macro cannot return to its own boundary. -/
 theorem not_rechargeMacro_self (H : ℕ) (words : List (List Bool)) :
@@ -508,6 +649,46 @@ theorem partialMap_invariant_gives_not_collatz
     (fun _ hw => hw.1)
     (partialMap_invariant_gives_infiniteExecution
       I R H₀ h₀pos h₀ hstep hsound)
+
+/-! ## The canonical odd-charge map -/
+
+/-- For the canonical relation-derived map, the separate `hsound` premise
+is discharged once and for all by `RechargeThenDrain.exists_macro`. -/
+theorem canonicalRechargeMap_invariant_gives_infiniteExecution
+    (I : ℕ → Prop) (H₀ : ℕ)
+    (h₀pos : 0 < H₀)
+    (h₀ : I H₀)
+    (hstep : ∀ H, I H → ∃ H',
+      canonicalRechargeMap H = some H' ∧ I H') :
+    InfiniteExecution FirstPassageCode (3 * H₀ - 1) := by
+  apply partialMap_invariant_gives_infiniteExecution
+    I canonicalRechargeMap H₀ h₀pos h₀ hstep
+  intro H H' _ hmap
+  exact (canonicalRechargeMap_eq_some_iff.mp hmap).exists_macro
+
+theorem canonicalRechargeMap_invariant_gives_not_syracuseReachesOne
+    (I : ℕ → Prop) (H₀ : ℕ)
+    (h₀pos : 0 < H₀)
+    (h₀ : I H₀)
+    (hstep : ∀ H, I H → ∃ H',
+      canonicalRechargeMap H = some H' ∧ I H') :
+    ¬ SyracuseReachesOne (3 * H₀ - 1) := by
+  exact not_syracuseReachesOne_of_infiniteExecution
+    (fun _ hw => hw.1)
+    (canonicalRechargeMap_invariant_gives_infiniteExecution
+      I H₀ h₀pos h₀ hstep)
+
+theorem canonicalRechargeMap_invariant_gives_not_collatz
+    (I : ℕ → Prop) (H₀ : ℕ)
+    (h₀pos : 0 < H₀)
+    (h₀ : I H₀)
+    (hstep : ∀ H, I H → ∃ H',
+      canonicalRechargeMap H = some H' ∧ I H') :
+    ¬ CleanLean.Collatz.Conjecture := by
+  exact not_conjecture_of_infiniteExecution
+    (fun _ hw => hw.1)
+    (canonicalRechargeMap_invariant_gives_infiniteExecution
+      I H₀ h₀pos h₀ hstep)
 
 end OutwardInvariantBridge
 end KontoroC

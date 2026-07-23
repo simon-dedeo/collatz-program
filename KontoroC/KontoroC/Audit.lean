@@ -1773,7 +1773,17 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardInvariantBridge.firstPassage_finish_gt_properPrefix
 #print axioms KontoroC.OutwardInvariantBridge.RechargeMacro.append
+#print axioms
+  KontoroC.OutwardInvariantBridge.flattenWords_replicate_singleton_true
+#print axioms KontoroC.OutwardInvariantBridge.RechargeThenDrain.exists_macro
 #print axioms KontoroC.OutwardInvariantBridge.RechargeMacro.lt
+#print axioms KontoroC.OutwardInvariantBridge.RechargeThenDrain.lt
+#print axioms KontoroC.OutwardInvariantBridge.RechargeThenDrain.source_odd
+#print axioms
+  KontoroC.OutwardInvariantBridge.RechargeThenDrain.target_odd_and_three_dvd
+#print axioms KontoroC.OutwardInvariantBridge.RechargeThenDrain.right_unique
+#print axioms
+  KontoroC.OutwardInvariantBridge.canonicalRechargeMap_eq_some_iff
 #print axioms KontoroC.OutwardInvariantBridge.not_rechargeMacro_self
 #print axioms KontoroC.OutwardInvariantBridge.not_rechargeMacro_twoCycle
 #print axioms KontoroC.OutwardInvariantBridge.invariant_gives_finiteMacroChain
@@ -1796,3 +1806,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardInvariantBridge.partialMap_invariant_gives_not_syracuseReachesOne
 #print axioms
   KontoroC.OutwardInvariantBridge.partialMap_invariant_gives_not_collatz
+#print axioms
+  KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_infiniteExecution
+#print axioms
+  KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_not_syracuseReachesOne
+#print axioms
+  KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_not_collatz
