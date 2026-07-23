@@ -3211,6 +3211,67 @@ Artifact SHA-256:
 Verifier SHA-256:
 `82ac3a9e463a95c573c4f8f30aa66eac420cf89bd85de40869a5e10fd2908d56`.
 
+## Normalized period-three residue and CRT audits
+
+The normalized workers replace raw precision widening by the kernel-checked
+sharp quadratic bit budget.  For a positive-gain period-three schedule put
+
+```text
+A(q)=q*(462*B+2235+K*(693*q-3141)),
+U(q)=ceil(A(q)/306).
+```
+
+`breakoff_ether_period3_normalized_margin.py` computes the future-forced
+residue at precision `U(q)+R`, with `R=2*q+32`.  Its exact replay failures
+invoke QM104: every checked failure forces the one fixed initial-core bit
+length to exceed `R`.  `breakoff_ether_period3_normalized_crt.py` instead
+uses precision `U(q)` and combines the future residue with the immediate
+predecessor congruence modulo `3^(6*n_previous+11)`.  A failed canonical CRT
+replay invokes QM106 and forces that whole ternary exponent below the fixed
+initial bit length.  The replay-free CRT margin is separately bounded by the
+same initial bit length (QM108).
+
+The committed artifacts use the theorem-relevant dyadic horizon
+`q=5,8,16,32,64,128,256,512`.  They exhaust the nine genuine positive-gain
+words in `[-1,1]^3` and every positive start through branch eight:
+
+```text
+positive schedules                                 71
+exact rows per artifact                           568
+all normalized future residues failed replay      yes
+weakest schedule-wide residue lower bound        1,057 bits
+all normalized CRT representatives failed replay  yes
+weakest schedule-wide CRT lower bound            3,084 bits
+smallest schedule-maximum CRT margin             4,885 bits
+largest measured CRT margin                      9,832 bits
+counterexample                                    null
+```
+
+Both artifacts were generated and independently reconstructed on Akdeniz;
+the verification commands recompute every integer rather than trusting row
+hashes.  This is finite evidence only.  It neither proves that the failures
+continue cofinally nor constructs an ordinary orbit.
+
+```bash
+python3 breakoff_ether_period3_normalized_margin.py selftest
+python3 breakoff_ether_period3_normalized_margin.py verify \
+  breakoff_ether_period3_normalized_margin_audit.json --jobs 30
+
+python3 breakoff_ether_period3_normalized_crt.py selftest
+python3 breakoff_ether_period3_normalized_crt.py verify \
+  breakoff_ether_period3_normalized_crt_audit.json --jobs 30
+```
+
+Normalized-margin artifact SHA-256:
+`2c51f510e4b86f0fafae489df8ad54749eb78e4aadf70511dcf5b0bcd073b720`.
+Normalized-margin verifier SHA-256:
+`934579c9d5253a3c40d662c98e8a8c663b461e0cc78927dafe8a1b0d9e4de345`.
+
+Normalized-CRT artifact SHA-256:
+`f0754083c04d5912b7719f6f7c72455905d7eb23d265efde2eeb9b5d612da20c`.
+Normalized-CRT verifier SHA-256:
+`3e4e4e89ae6e072f07529a690bb3cd40535585b65f1d7752c6a83eaf3b03079b`.
+
 ## Returning finite ether glider macros
 
 `breakoff_ether_glider.py` closes the finite boundary return left open by the
