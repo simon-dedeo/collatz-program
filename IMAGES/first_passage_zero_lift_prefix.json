@@ -1,0 +1,74 @@
+{
+  "analysis": {
+    "accelerated_steps": 23,
+    "adjacent_xor_bit_count_sum": 212,
+    "black_density": {
+      "denominator": "24",
+      "numerator": "11"
+    },
+    "black_pixels": 231,
+    "end_bit_length": 21,
+    "endpoint": "1520957",
+    "first_step_below_seed": 1,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "23",
+      "numerator": "212"
+    },
+    "mean_valuation": {
+      "denominator": "23",
+      "numerator": "32"
+    },
+    "peak": "1520957",
+    "peak_at_step": 23,
+    "peak_bit_length": 21,
+    "peak_over_seed": {
+      "denominator": "69385",
+      "numerator": "1520957"
+    },
+    "record_high_steps": [
+      0,
+      2,
+      3,
+      7,
+      11,
+      12,
+      13,
+      15,
+      17,
+      18,
+      20,
+      21,
+      23
+    ],
+    "rows": 24,
+    "seed": "69385",
+    "start_bit_length": 17,
+    "total_pixels": 504,
+    "valuation_histogram": {
+      "1": 14,
+      "2": 9
+    },
+    "valuation_sum": 32,
+    "width_bits": 21
+  },
+  "construction_prefix_steps": 23,
+  "height": 24,
+  "id": "first_passage_zero_lift_prefix",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "first_passage_zero_lift_prefix.png",
+  "png_sha256": "9df1e09cd28bd95218d41e15203ffcadf093d5ab7d57330bb79b6a8aee77fb95",
+  "provenance": "experiments/kontorovich/kl_signed_thin_residue.json#/strongest_finite_zero_lift_run; the stored even shortcut seed 138770 reaches odd accelerated seed 69385 after one halving, and the two stored lookahead words are included",
+  "raster_window": "full binary expansion",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "Exact odd-only view of the strongest stored finite zero-lift first-passage-code run plus its two-word lookahead; not an infinite invariant orbit.",
+  "states_sha256": "09275453ad80a9a9e725324edb174a171792d6d48e5748340bf1ff962550b950",
+  "valuations_sha256": "0a9569d47d9bc60bcd16edb73902a5d6ca03909981a966ebea05858aaa0b37d0",
+  "width": 21
+}

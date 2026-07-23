@@ -1,0 +1,138 @@
+[
+  {
+    "id": "mersenne_controller_24017279_full",
+    "seed": "24017279",
+    "stop_at": "1",
+    "expected_steps": 108,
+    "construction_prefix_steps": null,
+    "provenance": "experiments/kontorovich/mersenne_shadow_results.json#/strongest_growing_seed_stabilization",
+    "scope": "Exact ordinary continuation of a finite all-macrostep-growing controller witness; it reaches 1 and is not a counterexample."
+  },
+  {
+    "id": "mersenne_terminal_265296544373759_full",
+    "seed": "265296544373759",
+    "stop_at": "1",
+    "expected_steps": 198,
+    "construction_prefix_steps": null,
+    "provenance": "experiments/kontorovich/mersenne_shadow_results.json#/highest_start_level_terminal_renewal",
+    "scope": "Exact ordinary continuation of the highest-start-level stored terminal-renewal witness; it reaches 1 and is not a counterexample."
+  },
+  {
+    "id": "mersenne_terminal_265296544373759_spikes",
+    "seed": "265296544373759",
+    "stop_at": "509858400321904295",
+    "expected_steps": 46,
+    "construction_prefix_steps": 46,
+    "provenance": "experiments/kontorovich/mersenne_shadow_results.json#/highest_start_level_terminal_renewal including its automatic_continuation/0",
+    "scope": "Exact crop of four Mersenne-shadow macro bursts. Their starting v2(n+1) values are 10, 11, 12, and 13; the final state resets to v2(n+1)=3. Finite witness only."
+  },
+  {
+    "id": "mersenne_terminal_spikes_low16",
+    "seed": "265296544373759",
+    "stop_at": "509858400321904295",
+    "expected_steps": 46,
+    "construction_prefix_steps": 46,
+    "low_bits": 16,
+    "provenance": "Low-bit window of IMAGES/mersenne_terminal_265296544373759_spikes.png",
+    "scope": "Exact least-significant-16-bit crop. At macro starts, the trailing black run has lengths 10, 11, 12, and 13, then resets to 3. Finite witness only."
+  },
+  {
+    "id": "mersenne_terminal_after_spikes",
+    "seed": "509858400321904295",
+    "stop_at": "1",
+    "expected_steps": 152,
+    "construction_prefix_steps": 0,
+    "provenance": "Post-prefix suffix of IMAGES/mersenne_terminal_265296544373759_full.png beginning at accelerated step 46",
+    "scope": "Exact suffix after the four programmed Mersenne-shadow spikes. It reaches 1; no counterexample."
+  },
+  {
+    "id": "first_passage_zero_lift_prefix",
+    "seed": "69385",
+    "stop_at": "1520957",
+    "expected_steps": 23,
+    "construction_prefix_steps": 23,
+    "provenance": "experiments/kontorovich/kl_signed_thin_residue.json#/strongest_finite_zero_lift_run; the stored even shortcut seed 138770 reaches odd accelerated seed 69385 after one halving, and the two stored lookahead words are included",
+    "scope": "Exact odd-only view of the strongest stored finite zero-lift first-passage-code run plus its two-word lookahead; not an infinite invariant orbit."
+  },
+  {
+    "id": "first_passage_zero_lift_full",
+    "seed": "69385",
+    "stop_at": "1",
+    "expected_steps": 56,
+    "construction_prefix_steps": 23,
+    "provenance": "Prefix from experiments/kontorovich/kl_signed_thin_residue.json#/strongest_finite_zero_lift_run; continuation independently replayed by IMAGES/render_collatz.py",
+    "scope": "The first 23 accelerated steps are the finite zero-lift construction. The exact ordinary continuation reaches 1; no counterexample."
+  },
+  {
+    "id": "returning_glider_1_prefix",
+    "seed": "725825075458675577",
+    "stop_at": "4966161969196566695",
+    "expected_steps": 15,
+    "construction_prefix_steps": 15,
+    "provenance": "experiments/kontorovich/breakoff_ether_glider_kl_bridge_audit.json#/actual_packet_macro_bridge/macro_rows/0/trace",
+    "scope": "Kernel-adjacent finite exact returning-glider prefix with one ether cell; no infinite orbit claim."
+  },
+  {
+    "id": "returning_glider_2_prefix",
+    "seed": "383067017192506200953",
+    "stop_at": "7463649474556163524775",
+    "expected_steps": 21,
+    "construction_prefix_steps": 21,
+    "provenance": "experiments/kontorovich/breakoff_ether_glider_kl_bridge_audit.json#/actual_packet_macro_bridge/macro_rows/1/trace",
+    "scope": "Kernel-adjacent finite exact returning-glider prefix with two ether cells; no infinite orbit claim."
+  },
+  {
+    "id": "returning_glider_3_prefix",
+    "seed": "145693686961992502523",
+    "stop_at": "12125398784073913338023",
+    "expected_steps": 28,
+    "construction_prefix_steps": 28,
+    "provenance": "experiments/kontorovich/breakoff_ether_glider_kl_bridge_audit.json#/actual_packet_macro_bridge/macro_rows/2/trace",
+    "scope": "Kernel-adjacent finite exact returning-glider prefix with three ether cells; no infinite orbit claim."
+  },
+  {
+    "id": "returning_glider_4_prefix",
+    "seed": "6834932643418954071936251",
+    "stop_at": "1619858574021012427911727271",
+    "expected_steps": 34,
+    "construction_prefix_steps": 34,
+    "provenance": "experiments/kontorovich/breakoff_ether_glider_kl_bridge_audit.json#/actual_packet_macro_bridge/macro_rows/3/trace",
+    "scope": "Kernel-adjacent finite exact returning-glider prefix with four ether cells; no infinite orbit claim."
+  },
+  {
+    "id": "returning_glider_5_prefix",
+    "seed": "4593323320699916051628495737",
+    "stop_at": "2066646419860949156648888567975",
+    "expected_steps": 39,
+    "construction_prefix_steps": 39,
+    "provenance": "experiments/kontorovich/breakoff_ether_glider_kl_bridge_audit.json#/actual_packet_macro_bridge/macro_rows/4/trace",
+    "scope": "Kernel-adjacent finite exact returning-glider prefix with five ether cells; no infinite orbit claim."
+  },
+  {
+    "id": "returning_glider_6_prefix",
+    "seed": "213035522142268397688894067577",
+    "stop_at": "272947268090994234357505277036711",
+    "expected_steps": 45,
+    "construction_prefix_steps": 45,
+    "provenance": "experiments/kontorovich/breakoff_ether_glider_kl_bridge_audit.json#/actual_packet_macro_bridge/macro_rows/5/trace",
+    "scope": "Kernel-adjacent finite exact returning-glider prefix with six ether cells; no infinite orbit claim."
+  },
+  {
+    "id": "returning_glider_6_full",
+    "seed": "213035522142268397688894067577",
+    "stop_at": "1",
+    "expected_steps": 286,
+    "construction_prefix_steps": 45,
+    "provenance": "Prefix from experiments/kontorovich/breakoff_ether_glider_kl_bridge_audit.json#/actual_packet_macro_bridge/macro_rows/5/trace; continuation independently replayed by IMAGES/render_collatz.py",
+    "scope": "The certified finite glider is the first 45 accelerated steps. The remaining exact ordinary continuation reaches 1; no counterexample."
+  },
+  {
+    "id": "returning_glider_6_after_prefix",
+    "seed": "272947268090994234357505277036711",
+    "stop_at": "1",
+    "expected_steps": 241,
+    "construction_prefix_steps": 0,
+    "provenance": "Post-prefix suffix of IMAGES/returning_glider_6_full.png beginning at accelerated step 45",
+    "scope": "Exact suffix after the certified six-cell EC17 returning-glider prefix. It retains 27 further valuations in {1,2}, then collapses and reaches 1."
+  }
+]

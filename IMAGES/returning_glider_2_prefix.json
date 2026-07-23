@@ -1,0 +1,75 @@
+{
+  "analysis": {
+    "accelerated_steps": 21,
+    "adjacent_xor_bit_count_sum": 723,
+    "black_density": {
+      "denominator": "1606",
+      "numerator": "801"
+    },
+    "black_pixels": 801,
+    "end_bit_length": 73,
+    "endpoint": "7463649474556163524775",
+    "first_step_below_seed": 1,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "7",
+      "numerator": "241"
+    },
+    "mean_valuation": {
+      "denominator": "21",
+      "numerator": "29"
+    },
+    "peak": "7463649474556163524775",
+    "peak_at_step": 21,
+    "peak_bit_length": 73,
+    "peak_over_seed": {
+      "denominator": "383067017192506200953",
+      "numerator": "7463649474556163524775"
+    },
+    "record_high_steps": [
+      0,
+      2,
+      4,
+      5,
+      6,
+      8,
+      10,
+      11,
+      13,
+      15,
+      16,
+      17,
+      19,
+      21
+    ],
+    "rows": 22,
+    "seed": "383067017192506200953",
+    "start_bit_length": 69,
+    "total_pixels": 1606,
+    "valuation_histogram": {
+      "1": 13,
+      "2": 8
+    },
+    "valuation_sum": 29,
+    "width_bits": 73
+  },
+  "construction_prefix_steps": 21,
+  "height": 22,
+  "id": "returning_glider_2_prefix",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "returning_glider_2_prefix.png",
+  "png_sha256": "32355d0a035114bfd4d4b69b9ad6d897ee3d005d8a52634faba08b202151b265",
+  "provenance": "experiments/kontorovich/breakoff_ether_glider_kl_bridge_audit.json#/actual_packet_macro_bridge/macro_rows/1/trace",
+  "raster_window": "full binary expansion",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "Kernel-adjacent finite exact returning-glider prefix with two ether cells; no infinite orbit claim.",
+  "states_sha256": "a6cff953d37ce5204152155415399899f471dde8cdde54709618b431f088ef79",
+  "valuations_sha256": "c98c3e6276963ac7e3ccf3c304fa7f7545d39658fd30d8ef174c2af9cfe8f95c",
+  "width": 73
+}

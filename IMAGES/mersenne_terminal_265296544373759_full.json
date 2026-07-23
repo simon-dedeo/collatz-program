@@ -1,0 +1,91 @@
+{
+  "analysis": {
+    "accelerated_steps": 198,
+    "adjacent_xor_bit_count_sum": 3640,
+    "black_density": {
+      "denominator": "12139",
+      "numerator": "3941"
+    },
+    "black_pixels": 3941,
+    "end_bit_length": 1,
+    "endpoint": "1",
+    "first_step_below_seed": 63,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "99",
+      "numerator": "1820"
+    },
+    "mean_valuation": {
+      "denominator": "99",
+      "numerator": "181"
+    },
+    "peak": "1451901460291672781",
+    "peak_at_step": 52,
+    "peak_bit_length": 61,
+    "peak_over_seed": {
+      "denominator": "265296544373759",
+      "numerator": "1451901460291672781"
+    },
+    "record_high_steps": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      43,
+      44,
+      45,
+      52
+    ],
+    "rows": 199,
+    "seed": "265296544373759",
+    "start_bit_length": 48,
+    "total_pixels": 12139,
+    "valuation_histogram": {
+      "1": 117,
+      "2": 43,
+      "3": 18,
+      "4": 8,
+      "5": 5,
+      "6": 3,
+      "7": 3,
+      "9": 1
+    },
+    "valuation_sum": 362,
+    "width_bits": 61
+  },
+  "construction_prefix_steps": null,
+  "height": 199,
+  "id": "mersenne_terminal_265296544373759_full",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "mersenne_terminal_265296544373759_full.png",
+  "png_sha256": "afc6abcb4db585610bbecd2cbe9c1ea2fe35225309aa0b716c353b0eafc06bd5",
+  "provenance": "experiments/kontorovich/mersenne_shadow_results.json#/highest_start_level_terminal_renewal",
+  "raster_window": "full binary expansion",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "Exact ordinary continuation of the highest-start-level stored terminal-renewal witness; it reaches 1 and is not a counterexample.",
+  "states_sha256": "b5b7f5c7c945e1a9c6f52b744908e64280056cd3d91db461283d8297075d431b",
+  "valuations_sha256": "a3c5bf207d130701c1d7923471485680b9a0c700eac9e78f1c486f86adc04995",
+  "width": 61
+}

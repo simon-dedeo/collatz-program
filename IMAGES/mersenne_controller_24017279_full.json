@@ -1,0 +1,86 @@
+{
+  "analysis": {
+    "accelerated_steps": 108,
+    "adjacent_xor_bit_count_sum": 1115,
+    "black_density": {
+      "denominator": "1199",
+      "numerator": "414"
+    },
+    "black_pixels": 1242,
+    "end_bit_length": 1,
+    "endpoint": "1",
+    "first_step_below_seed": 44,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "108",
+      "numerator": "1115"
+    },
+    "mean_valuation": {
+      "denominator": "27",
+      "numerator": "49"
+    },
+    "peak": "8538035597",
+    "peak_at_step": 35,
+    "peak_bit_length": 33,
+    "peak_over_seed": {
+      "denominator": "1847483",
+      "numerator": "656771969"
+    },
+    "record_high_steps": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      13,
+      14,
+      20,
+      21,
+      22,
+      23,
+      25,
+      27,
+      29,
+      30,
+      32,
+      34,
+      35
+    ],
+    "rows": 109,
+    "seed": "24017279",
+    "start_bit_length": 25,
+    "total_pixels": 3597,
+    "valuation_histogram": {
+      "1": 61,
+      "2": 24,
+      "3": 14,
+      "4": 4,
+      "5": 2,
+      "6": 2,
+      "7": 1
+    },
+    "valuation_sum": 196,
+    "width_bits": 33
+  },
+  "construction_prefix_steps": null,
+  "height": 109,
+  "id": "mersenne_controller_24017279_full",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "mersenne_controller_24017279_full.png",
+  "png_sha256": "4c57584a67f1c0308a50e6632bbc100b08d12d06e4e1934362f56e1a1aa40a0c",
+  "provenance": "experiments/kontorovich/mersenne_shadow_results.json#/strongest_growing_seed_stabilization",
+  "raster_window": "full binary expansion",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "Exact ordinary continuation of a finite all-macrostep-growing controller witness; it reaches 1 and is not a counterexample.",
+  "states_sha256": "fa516514509e1047a040859aa3b81eeb99a835a2b24fb0f121b365c7c2efa202",
+  "valuations_sha256": "6fd87670072fdbac12826171f9c0e6ad438a5f2d2cf7b71de691986cd1a23b8b",
+  "width": 33
+}

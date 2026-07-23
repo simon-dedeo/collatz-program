@@ -1,0 +1,71 @@
+{
+  "analysis": {
+    "accelerated_steps": 152,
+    "adjacent_xor_bit_count_sum": 2416,
+    "black_density": {
+      "denominator": "9333",
+      "numerator": "2548"
+    },
+    "black_pixels": 2548,
+    "end_bit_length": 1,
+    "endpoint": "1",
+    "first_step_below_seed": 8,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "19",
+      "numerator": "302"
+    },
+    "mean_valuation": {
+      "denominator": "38",
+      "numerator": "75"
+    },
+    "peak": "1451901460291672781",
+    "peak_at_step": 6,
+    "peak_bit_length": 61,
+    "peak_over_seed": {
+      "denominator": "509858400321904295",
+      "numerator": "1451901460291672781"
+    },
+    "record_high_steps": [
+      0,
+      1,
+      2,
+      4,
+      6
+    ],
+    "rows": 153,
+    "seed": "509858400321904295",
+    "start_bit_length": 59,
+    "total_pixels": 9333,
+    "valuation_histogram": {
+      "1": 75,
+      "2": 42,
+      "3": 17,
+      "4": 8,
+      "5": 5,
+      "6": 2,
+      "7": 3
+    },
+    "valuation_sum": 300,
+    "width_bits": 61
+  },
+  "construction_prefix_steps": 0,
+  "height": 153,
+  "id": "mersenne_terminal_after_spikes",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "mersenne_terminal_after_spikes.png",
+  "png_sha256": "84e66440d005737031a744ea9c4c11d5f546b25e16ca5a0fdc65e31b06865afe",
+  "provenance": "Post-prefix suffix of IMAGES/mersenne_terminal_265296544373759_full.png beginning at accelerated step 46",
+  "raster_window": "full binary expansion",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "Exact suffix after the four programmed Mersenne-shadow spikes. It reaches 1; no counterexample.",
+  "states_sha256": "93c401c682b67ee53fe357d651f44fd6a899b92e9ce77b060945816bfee6ba11",
+  "valuations_sha256": "e6535c6f32d9e536aa96709dfe9e0d48dec43a783e5e180f8992bd4da3684ef7",
+  "width": 61
+}

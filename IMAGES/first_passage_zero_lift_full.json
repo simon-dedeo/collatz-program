@@ -1,0 +1,78 @@
+{
+  "analysis": {
+    "accelerated_steps": 56,
+    "adjacent_xor_bit_count_sum": 402,
+    "black_density": {
+      "denominator": "1197",
+      "numerator": "443"
+    },
+    "black_pixels": 443,
+    "end_bit_length": 1,
+    "endpoint": "1",
+    "first_step_below_seed": 1,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "28",
+      "numerator": "201"
+    },
+    "mean_valuation": {
+      "denominator": "8",
+      "numerator": "15"
+    },
+    "peak": "1520957",
+    "peak_at_step": 23,
+    "peak_bit_length": 21,
+    "peak_over_seed": {
+      "denominator": "69385",
+      "numerator": "1520957"
+    },
+    "record_high_steps": [
+      0,
+      2,
+      3,
+      7,
+      11,
+      12,
+      13,
+      15,
+      17,
+      18,
+      20,
+      21,
+      23
+    ],
+    "rows": 57,
+    "seed": "69385",
+    "start_bit_length": 17,
+    "total_pixels": 1197,
+    "valuation_histogram": {
+      "1": 29,
+      "2": 16,
+      "3": 5,
+      "4": 3,
+      "5": 2,
+      "7": 1
+    },
+    "valuation_sum": 105,
+    "width_bits": 21
+  },
+  "construction_prefix_steps": 23,
+  "height": 57,
+  "id": "first_passage_zero_lift_full",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "first_passage_zero_lift_full.png",
+  "png_sha256": "daac668f05e0f57127d01799158f7aeaa98f14c79e7ef5dba1c54857ebb24cef",
+  "provenance": "Prefix from experiments/kontorovich/kl_signed_thin_residue.json#/strongest_finite_zero_lift_run; continuation independently replayed by IMAGES/render_collatz.py",
+  "raster_window": "full binary expansion",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "The first 23 accelerated steps are the finite zero-lift construction. The exact ordinary continuation reaches 1; no counterexample.",
+  "states_sha256": "9ad288af7ee5bed40b38776c2126cbc7b834cb6b3b485e72a6ab126a32b76d12",
+  "valuations_sha256": "0218b13fc38deef016148bb4b8dafc3a16bf41fb2fa36d41fa696502c3d5d666",
+  "width": 21
+}

@@ -1,0 +1,91 @@
+{
+  "analysis": {
+    "accelerated_steps": 45,
+    "adjacent_xor_bit_count_sum": 2386,
+    "black_density": {
+      "denominator": "4968",
+      "numerator": "2345"
+    },
+    "black_pixels": 2345,
+    "end_bit_length": 108,
+    "endpoint": "272947268090994234357505277036711",
+    "first_step_below_seed": 1,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "45",
+      "numerator": "2386"
+    },
+    "mean_valuation": {
+      "denominator": "45",
+      "numerator": "61"
+    },
+    "peak": "272947268090994234357505277036711",
+    "peak_at_step": 45,
+    "peak_bit_length": 108,
+    "peak_over_seed": {
+      "denominator": "213035522142268397688894067577",
+      "numerator": "272947268090994234357505277036711"
+    },
+    "record_high_steps": [
+      0,
+      2,
+      4,
+      5,
+      6,
+      8,
+      10,
+      11,
+      13,
+      15,
+      16,
+      17,
+      19,
+      21,
+      22,
+      23,
+      25,
+      27,
+      28,
+      29,
+      31,
+      33,
+      34,
+      35,
+      37,
+      39,
+      40,
+      41,
+      43,
+      45
+    ],
+    "rows": 46,
+    "seed": "213035522142268397688894067577",
+    "start_bit_length": 98,
+    "total_pixels": 4968,
+    "valuation_histogram": {
+      "1": 29,
+      "2": 16
+    },
+    "valuation_sum": 61,
+    "width_bits": 108
+  },
+  "construction_prefix_steps": 45,
+  "height": 46,
+  "id": "returning_glider_6_prefix",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "returning_glider_6_prefix.png",
+  "png_sha256": "55f0c922bb9f8359e49f624d6b90df993c9345bf28abb622fe01d1c85069cf0a",
+  "provenance": "experiments/kontorovich/breakoff_ether_glider_kl_bridge_audit.json#/actual_packet_macro_bridge/macro_rows/5/trace",
+  "raster_window": "full binary expansion",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "Kernel-adjacent finite exact returning-glider prefix with six ether cells; no infinite orbit claim.",
+  "states_sha256": "19ad9ed629d75ecd140b4c826b9549d8480d270fe702c789dd711f9655e6748f",
+  "valuations_sha256": "85756cbf5045f32ba95fb93833be6b81aef21e242d9640f903864227e9a34e2d",
+  "width": 108
+}

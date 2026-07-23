@@ -1,0 +1,87 @@
+{
+  "analysis": {
+    "accelerated_steps": 46,
+    "adjacent_xor_bit_count_sum": 1224,
+    "black_density": {
+      "denominator": "2867",
+      "numerator": "1424"
+    },
+    "black_pixels": 1424,
+    "end_bit_length": 59,
+    "endpoint": "509858400321904295",
+    "first_step_below_seed": null,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "23",
+      "numerator": "612"
+    },
+    "mean_valuation": {
+      "denominator": "23",
+      "numerator": "31"
+    },
+    "peak": "1359622400858411453",
+    "peak_at_step": 45,
+    "peak_bit_length": 61,
+    "peak_over_seed": {
+      "denominator": "265296544373759",
+      "numerator": "1359622400858411453"
+    },
+    "record_high_steps": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      43,
+      44,
+      45
+    ],
+    "rows": 47,
+    "seed": "265296544373759",
+    "start_bit_length": 48,
+    "total_pixels": 2867,
+    "valuation_histogram": {
+      "1": 42,
+      "2": 1,
+      "3": 1,
+      "6": 1,
+      "9": 1
+    },
+    "valuation_sum": 62,
+    "width_bits": 61
+  },
+  "construction_prefix_steps": 46,
+  "height": 47,
+  "id": "mersenne_terminal_265296544373759_spikes",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "mersenne_terminal_265296544373759_spikes.png",
+  "png_sha256": "51c596d5ddea6178f5ca4549d8cbcc87d18c387277a3c26f3a0980cbc8cadd10",
+  "provenance": "experiments/kontorovich/mersenne_shadow_results.json#/highest_start_level_terminal_renewal including its automatic_continuation/0",
+  "raster_window": "full binary expansion",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "Exact crop of four Mersenne-shadow macro bursts. Their starting v2(n+1) values are 10, 11, 12, and 13; the final state resets to v2(n+1)=3. Finite witness only.",
+  "states_sha256": "57eff59e795da8e557e393daf573bf2268b1ad1222fdcbeeb2c7f2570672e1cb",
+  "valuations_sha256": "f8746729b37946b1dd268e7a580455c9f534b99592e0aca41de41ec708732a25",
+  "width": 61
+}

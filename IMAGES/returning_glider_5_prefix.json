@@ -1,0 +1,87 @@
+{
+  "analysis": {
+    "accelerated_steps": 39,
+    "adjacent_xor_bit_count_sum": 1869,
+    "black_density": {
+      "denominator": "505",
+      "numerator": "246"
+    },
+    "black_pixels": 1968,
+    "end_bit_length": 101,
+    "endpoint": "2066646419860949156648888567975",
+    "first_step_below_seed": 1,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "13",
+      "numerator": "623"
+    },
+    "mean_valuation": {
+      "denominator": "39",
+      "numerator": "53"
+    },
+    "peak": "2066646419860949156648888567975",
+    "peak_at_step": 39,
+    "peak_bit_length": 101,
+    "peak_over_seed": {
+      "denominator": "4593323320699916051628495737",
+      "numerator": "2066646419860949156648888567975"
+    },
+    "record_high_steps": [
+      0,
+      2,
+      4,
+      5,
+      6,
+      8,
+      10,
+      11,
+      13,
+      15,
+      16,
+      17,
+      19,
+      21,
+      22,
+      23,
+      25,
+      27,
+      28,
+      29,
+      31,
+      33,
+      34,
+      35,
+      37,
+      39
+    ],
+    "rows": 40,
+    "seed": "4593323320699916051628495737",
+    "start_bit_length": 92,
+    "total_pixels": 4040,
+    "valuation_histogram": {
+      "1": 25,
+      "2": 14
+    },
+    "valuation_sum": 53,
+    "width_bits": 101
+  },
+  "construction_prefix_steps": 39,
+  "height": 40,
+  "id": "returning_glider_5_prefix",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "returning_glider_5_prefix.png",
+  "png_sha256": "6a33a950535ffb51a175455af51334f82c91bec822a22ec5bfe40d85df32d587",
+  "provenance": "experiments/kontorovich/breakoff_ether_glider_kl_bridge_audit.json#/actual_packet_macro_bridge/macro_rows/4/trace",
+  "raster_window": "full binary expansion",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "Kernel-adjacent finite exact returning-glider prefix with five ether cells; no infinite orbit claim.",
+  "states_sha256": "f707a9bfd2e2431cfb7cec9daa9ddee4c7b61723b27680eea5e65803175b60e1",
+  "valuations_sha256": "f374854fc09ab033a5ac6763046d636fad84a0c09c698e74fcacc79ab8df10da",
+  "width": 101
+}

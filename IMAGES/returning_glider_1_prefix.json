@@ -1,0 +1,71 @@
+{
+  "analysis": {
+    "accelerated_steps": 15,
+    "adjacent_xor_bit_count_sum": 437,
+    "black_density": {
+      "denominator": "336",
+      "numerator": "173"
+    },
+    "black_pixels": 519,
+    "end_bit_length": 63,
+    "endpoint": "4966161969196566695",
+    "first_step_below_seed": 1,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "15",
+      "numerator": "437"
+    },
+    "mean_valuation": {
+      "denominator": "5",
+      "numerator": "7"
+    },
+    "peak": "4966161969196566695",
+    "peak_at_step": 15,
+    "peak_bit_length": 63,
+    "peak_over_seed": {
+      "denominator": "725825075458675577",
+      "numerator": "4966161969196566695"
+    },
+    "record_high_steps": [
+      0,
+      2,
+      4,
+      5,
+      6,
+      8,
+      10,
+      11,
+      13,
+      15
+    ],
+    "rows": 16,
+    "seed": "725825075458675577",
+    "start_bit_length": 60,
+    "total_pixels": 1008,
+    "valuation_histogram": {
+      "1": 9,
+      "2": 6
+    },
+    "valuation_sum": 21,
+    "width_bits": 63
+  },
+  "construction_prefix_steps": 15,
+  "height": 16,
+  "id": "returning_glider_1_prefix",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "returning_glider_1_prefix.png",
+  "png_sha256": "9adc8d18b3f433e7f6b0a624f5c51d15d5c2f986c694f5b54b474bfdfdb42199",
+  "provenance": "experiments/kontorovich/breakoff_ether_glider_kl_bridge_audit.json#/actual_packet_macro_bridge/macro_rows/0/trace",
+  "raster_window": "full binary expansion",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "Kernel-adjacent finite exact returning-glider prefix with one ether cell; no infinite orbit claim.",
+  "states_sha256": "8fabb6a6d89674cca1f9adeff8cb893434e7e618058893110214d4e2d786192d",
+  "valuations_sha256": "4fac6837c29751d12e2d95b8f90fb76695a9cfa63752bf2c86f1ccc47e27e09d",
+  "width": 63
+}

@@ -1,0 +1,80 @@
+{
+  "analysis": {
+    "accelerated_steps": 28,
+    "adjacent_xor_bit_count_sum": 997,
+    "black_density": {
+      "denominator": "2146",
+      "numerator": "1043"
+    },
+    "black_pixels": 1043,
+    "end_bit_length": 74,
+    "endpoint": "12125398784073913338023",
+    "first_step_below_seed": null,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "28",
+      "numerator": "997"
+    },
+    "mean_valuation": {
+      "denominator": "14",
+      "numerator": "19"
+    },
+    "peak": "12125398784073913338023",
+    "peak_at_step": 28,
+    "peak_bit_length": 74,
+    "peak_over_seed": {
+      "denominator": "145693686961992502523",
+      "numerator": "12125398784073913338023"
+    },
+    "record_high_steps": [
+      0,
+      1,
+      3,
+      5,
+      6,
+      7,
+      9,
+      11,
+      12,
+      14,
+      16,
+      17,
+      18,
+      20,
+      22,
+      23,
+      24,
+      26,
+      28
+    ],
+    "rows": 29,
+    "seed": "145693686961992502523",
+    "start_bit_length": 67,
+    "total_pixels": 2146,
+    "valuation_histogram": {
+      "1": 18,
+      "2": 10
+    },
+    "valuation_sum": 38,
+    "width_bits": 74
+  },
+  "construction_prefix_steps": 28,
+  "height": 29,
+  "id": "returning_glider_3_prefix",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "returning_glider_3_prefix.png",
+  "png_sha256": "828ba7426e814da26f738519d13da01c320bf39bb69576cfb04eac851cffbfdd",
+  "provenance": "experiments/kontorovich/breakoff_ether_glider_kl_bridge_audit.json#/actual_packet_macro_bridge/macro_rows/2/trace",
+  "raster_window": "full binary expansion",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "Kernel-adjacent finite exact returning-glider prefix with three ether cells; no infinite orbit claim.",
+  "states_sha256": "c8de344ede9acaac3ddfcad7ebc3122c38f3ada4cd296560c2fba9c50bb4ba28",
+  "valuations_sha256": "071c8a7d79627c145ec715c7bbb924a3938404d1c4c1442f34f615f97a7798fe",
+  "width": 74
+}

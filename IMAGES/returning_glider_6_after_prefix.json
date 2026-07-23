@@ -1,0 +1,85 @@
+{
+  "analysis": {
+    "accelerated_steps": 241,
+    "adjacent_xor_bit_count_sum": 8211,
+    "black_density": {
+      "denominator": "1265",
+      "numerator": "381"
+    },
+    "black_pixels": 8382,
+    "end_bit_length": 1,
+    "endpoint": "1",
+    "first_step_below_seed": 31,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "241",
+      "numerator": "8211"
+    },
+    "mean_valuation": {
+      "denominator": "241",
+      "numerator": "490"
+    },
+    "peak": "30288152645353083355889392353110285",
+    "peak_at_step": 27,
+    "peak_bit_length": 115,
+    "peak_over_seed": {
+      "denominator": "272947268090994234357505277036711",
+      "numerator": "30288152645353083355889392353110285"
+    },
+    "record_high_steps": [
+      0,
+      1,
+      2,
+      4,
+      6,
+      7,
+      8,
+      10,
+      12,
+      13,
+      15,
+      17,
+      18,
+      19,
+      21,
+      23,
+      24,
+      25,
+      27
+    ],
+    "rows": 242,
+    "seed": "272947268090994234357505277036711",
+    "start_bit_length": 108,
+    "total_pixels": 27830,
+    "valuation_histogram": {
+      "1": 113,
+      "2": 63,
+      "3": 38,
+      "4": 10,
+      "5": 8,
+      "6": 6,
+      "7": 3
+    },
+    "valuation_sum": 490,
+    "width_bits": 115
+  },
+  "construction_prefix_steps": 0,
+  "height": 242,
+  "id": "returning_glider_6_after_prefix",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "returning_glider_6_after_prefix.png",
+  "png_sha256": "e27fbb271ab36dc281b2331dd1ddf2ed37731865843d1b583e05608724c0d14c",
+  "provenance": "Post-prefix suffix of IMAGES/returning_glider_6_full.png beginning at accelerated step 45",
+  "raster_window": "full binary expansion",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "Exact suffix after the certified six-cell EC17 returning-glider prefix. It retains 27 further valuations in {1,2}, then collapses and reaches 1.",
+  "states_sha256": "00d7ca712626b11e64037c96d880a2f181e8b9952b8416d061d9ee83282551b7",
+  "valuations_sha256": "033f0c4b1126df7fda1769873ccbd00b3840fabf56d64199f9ab26bae09f2d75",
+  "width": 115
+}

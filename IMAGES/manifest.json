@@ -1,0 +1,111 @@
+{
+  "construction_registry": "IMAGES/constructions.json",
+  "images": [
+    {
+      "height": 109,
+      "id": "mersenne_controller_24017279_full",
+      "png": "mersenne_controller_24017279_full.png",
+      "png_sha256": "4c57584a67f1c0308a50e6632bbc100b08d12d06e4e1934362f56e1a1aa40a0c",
+      "width": 33
+    },
+    {
+      "height": 199,
+      "id": "mersenne_terminal_265296544373759_full",
+      "png": "mersenne_terminal_265296544373759_full.png",
+      "png_sha256": "afc6abcb4db585610bbecd2cbe9c1ea2fe35225309aa0b716c353b0eafc06bd5",
+      "width": 61
+    },
+    {
+      "height": 47,
+      "id": "mersenne_terminal_265296544373759_spikes",
+      "png": "mersenne_terminal_265296544373759_spikes.png",
+      "png_sha256": "51c596d5ddea6178f5ca4549d8cbcc87d18c387277a3c26f3a0980cbc8cadd10",
+      "width": 61
+    },
+    {
+      "height": 47,
+      "id": "mersenne_terminal_spikes_low16",
+      "png": "mersenne_terminal_spikes_low16.png",
+      "png_sha256": "4a941768d6a2872b166275f6b69a0967acd24a2c62e8a3b4e898b3bbcaab4cc0",
+      "width": 16
+    },
+    {
+      "height": 153,
+      "id": "mersenne_terminal_after_spikes",
+      "png": "mersenne_terminal_after_spikes.png",
+      "png_sha256": "84e66440d005737031a744ea9c4c11d5f546b25e16ca5a0fdc65e31b06865afe",
+      "width": 61
+    },
+    {
+      "height": 24,
+      "id": "first_passage_zero_lift_prefix",
+      "png": "first_passage_zero_lift_prefix.png",
+      "png_sha256": "9df1e09cd28bd95218d41e15203ffcadf093d5ab7d57330bb79b6a8aee77fb95",
+      "width": 21
+    },
+    {
+      "height": 57,
+      "id": "first_passage_zero_lift_full",
+      "png": "first_passage_zero_lift_full.png",
+      "png_sha256": "daac668f05e0f57127d01799158f7aeaa98f14c79e7ef5dba1c54857ebb24cef",
+      "width": 21
+    },
+    {
+      "height": 16,
+      "id": "returning_glider_1_prefix",
+      "png": "returning_glider_1_prefix.png",
+      "png_sha256": "9adc8d18b3f433e7f6b0a624f5c51d15d5c2f986c694f5b54b474bfdfdb42199",
+      "width": 63
+    },
+    {
+      "height": 22,
+      "id": "returning_glider_2_prefix",
+      "png": "returning_glider_2_prefix.png",
+      "png_sha256": "32355d0a035114bfd4d4b69b9ad6d897ee3d005d8a52634faba08b202151b265",
+      "width": 73
+    },
+    {
+      "height": 29,
+      "id": "returning_glider_3_prefix",
+      "png": "returning_glider_3_prefix.png",
+      "png_sha256": "828ba7426e814da26f738519d13da01c320bf39bb69576cfb04eac851cffbfdd",
+      "width": 74
+    },
+    {
+      "height": 35,
+      "id": "returning_glider_4_prefix",
+      "png": "returning_glider_4_prefix.png",
+      "png_sha256": "a1015c805902828e3ae5dd53f0db17f8ddfe18a990e78b314978afd9c992542a",
+      "width": 91
+    },
+    {
+      "height": 40,
+      "id": "returning_glider_5_prefix",
+      "png": "returning_glider_5_prefix.png",
+      "png_sha256": "6a33a950535ffb51a175455af51334f82c91bec822a22ec5bfe40d85df32d587",
+      "width": 101
+    },
+    {
+      "height": 46,
+      "id": "returning_glider_6_prefix",
+      "png": "returning_glider_6_prefix.png",
+      "png_sha256": "55f0c922bb9f8359e49f624d6b90df993c9345bf28abb622fe01d1c85069cf0a",
+      "width": 108
+    },
+    {
+      "height": 287,
+      "id": "returning_glider_6_full",
+      "png": "returning_glider_6_full.png",
+      "png_sha256": "1c82a6c87cb055ab20327e65f3d9fb2c93326f7909651acfbbcfeb853ddf1a1b",
+      "width": 115
+    },
+    {
+      "height": 242,
+      "id": "returning_glider_6_after_prefix",
+      "png": "returning_glider_6_after_prefix.png",
+      "png_sha256": "e27fbb271ab36dc281b2331dd1ddf2ed37731865843d1b583e05608724c0d14c",
+      "width": 115
+    }
+  ],
+  "schema": "accelerated-odd-collatz-bitmap-manifest-v1"
+}
