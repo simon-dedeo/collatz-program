@@ -1760,3 +1760,6 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardResonance.resonant_family_executes
 #print axioms KontoroC.OutwardResonance.fixed_return_exponent_bound
 #print axioms KontoroC.OutwardResonance.no_fixed_return_with_two_unbounded_exponents
+#print axioms KontoroC.OutwardPowerChargeNoGo.no_eventually_constant_shallowDrain_address
+#print axioms KontoroC.OutwardPowerChargeNoGo.no_ordinary_unbounded_shallowDrain_exponent
+#print axioms KontoroC.OutwardPowerChargeNoGo.no_ordinary_unbounded_shallowDrain_C

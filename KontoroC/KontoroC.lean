@@ -155,6 +155,7 @@ import KontoroC.OutwardCylinderRenewal
 import KontoroC.OutwardFiniteHeight
 import KontoroC.OutwardOddSlice
 import KontoroC.OutwardResonance
+import KontoroC.OutwardPowerChargeNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
 import KontoroC.TwoRailPrefixCode

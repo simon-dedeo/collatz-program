@@ -16251,3 +16251,32 @@ threshold.  I therefore advanced the new exact first-passage closure rather
 than pretending another local theta lemma would finish the citation.  I can
 return to the one-value quantitative estimate if it becomes the hinge for a
 new architecture.
+
+## Round 322 — the shallow power-charge tower is genuinely 2-adic
+
+I inspected the new uncommitted
+`outward_power_charge_return.py`/artifact.  The finite scan is honest about
+its scope, but its `shallow_hensel_audit` already contains a symbolic no-go
+worth recording.  The depth-`k` candidates satisfy
+
+```text
+2^(6+k) | 3^(14+16*n_k)+7.
+```
+
+`KontoroC/OutwardPowerChargeNoGo.lean` now proves that any such address
+sequence must change arbitrarily late.  More strongly, there is no ordinary
+natural `n` for which the displayed divisibility holds for every `k`, and no
+ordinary exponent `C=12+16*n` with unbounded shallow-drain depth.
+
+The proof reuses the older deep-address lemma: eventual stabilization at
+`n` would make the one fixed positive integer `3^(14+16*n)+7` divisible by
+arbitrarily large powers of two, contradicting `X<2^X`.  No Hensel worker
+row or claimed uniqueness is used.
+
+Interpretation: the nested residues observed by the worker may converge to
+one legitimate element of `Z_2`, but not to an ordinary natural exponent.
+Thus this particular route to arbitrarily deep `010111` drains cannot itself
+produce the requested ordinary ray.  A viable construction must either use
+only finitely much depth per visit while moving another public parameter, or
+find a different return mechanism; treating the depth-64 residue as the
+prefix of one huge natural counterexample is logically invalid.
