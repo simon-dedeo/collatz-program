@@ -1077,6 +1077,82 @@ theorem terminalBranch_ceiling
         omega
   exact (not_lt_of_ge hcorePow) (hproductPower.trans hpowUpper)
 
+/-! ## Recurring local slowdown -/
+
+/-- A step whose backward coefficient is strictly larger than two. -/
+def TwoExpandingAt (o : EtherCounterAperiodic.TernaryCoreOrbit) (t : ℕ) : Prop :=
+  2 * 3 ^ (6 * o.level t + 17) < 2 ^ (8 * o.level (t + 1) + 23)
+
+theorem two_lt_generalBackwardCoeff_of_expanding
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (t : ℕ)
+    (h : o.TwoExpandingAt t) :
+    (2 : ℚ) < o.generalBackwardCoeff t := by
+  have hQ :
+      (2 : ℚ) * (3 : ℚ) ^ (6 * o.level t + 17) <
+        (2 : ℚ) ^ (8 * o.level (t + 1) + 23) := by
+    exact_mod_cast h
+  rw [generalBackwardCoeff]
+  apply (lt_div_iff₀ (by positivity :
+    (0 : ℚ) < 3 ^ (6 * o.level t + 17))).2
+  simpa using hQ
+
+theorem two_pow_succ_lt_generalBackwardPrefixProduct
+    (o : EtherCounterAperiodic.TernaryCoreOrbit)
+    (h : ∀ t, o.TwoExpandingAt t) (N : ℕ) :
+    (2 : ℚ) ^ (N + 1) <
+      backwardPrefixProduct o.generalBackwardCoeff (N + 1) := by
+  induction N with
+  | zero =>
+      simp only [backwardPrefixProduct, one_mul]
+      exact o.two_lt_generalBackwardCoeff_of_expanding 0 (h 0)
+  | succ N ih =>
+      rw [backwardPrefixProduct]
+      have hp := o.generalBackwardPrefixProduct_pos (N + 1)
+      calc
+        (2 : ℚ) ^ (N + 1 + 1) = 2 ^ (N + 1) * 2 := by rw [pow_succ]
+        _ < backwardPrefixProduct o.generalBackwardCoeff (N + 1) * 2 :=
+          mul_lt_mul_of_pos_right ih (by norm_num)
+        _ < backwardPrefixProduct o.generalBackwardCoeff (N + 1) *
+            o.generalBackwardCoeff (N + 1) :=
+          mul_lt_mul_of_pos_left
+            (o.two_lt_generalBackwardCoeff_of_expanding (N + 1) (h (N + 1))) hp
+
+theorem not_all_twoExpanding
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) :
+    ¬ ∀ t, o.TwoExpandingAt t := by
+  intro h
+  let N := o.core 0 + 1
+  have hprod := o.two_pow_succ_lt_generalBackwardPrefixProduct h (o.core 0)
+  have hbudget := o.general_backwardPrefixProduct_lt_core_succ N
+  have hnat : (o.core 0 : ℚ) + 1 < (2 : ℚ) ^ N := by
+    exact_mod_cast (show o.core 0 + 1 < 2 ^ (o.core 0 + 1) from
+      Nat.lt_two_pow_self)
+  exact (not_lt_of_ge (le_of_lt hbudget)) (hnat.trans hprod)
+
+/-- Discarding a finite prefix preserves the literal orbit interface. -/
+def shift (o : EtherCounterAperiodic.TernaryCoreOrbit) (K : ℕ) :
+    EtherCounterAperiodic.TernaryCoreOrbit where
+  level t := o.level (K + t)
+  core t := o.core (K + t)
+  core_pos t := o.core_pos (K + t)
+  balance t := by
+    simpa [Nat.add_assoc] using o.balance (K + t)
+
+/-- Every possible survivor has a non-more-than-doubling step after every
+finite time.  This is the local recurrence form of the global product budget. -/
+theorem exists_nonexpanding_after
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (K : ℕ) :
+    ∃ t, K ≤ t ∧
+      2 ^ (8 * o.level (t + 1) + 23) ≤
+        2 * 3 ^ (6 * o.level t + 17) := by
+  have hnot := (o.shift K).not_all_twoExpanding
+  push Not at hnot
+  obtain ⟨s, hs⟩ := hnot
+  refine ⟨K + s, by omega, ?_⟩
+  simp only [TwoExpandingAt, shift] at hs
+  push Not at hs
+  simpa [Nat.add_assoc] using hs
+
 /-- A literal ternary-core orbit on a geometric one-based level schedule is
 exactly the abstract EC17 ray used by the Mahler reduction. -/
 def toGeometricMahlerRay

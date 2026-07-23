@@ -11224,3 +11224,34 @@ or replaying the huge core.  Any symbolic dispatcher whose proposed branch
 history violates this inequality at one positive prefix cannot have an
 ordinary positive EC17 realization.  The coefficient `62/328` retains the
 near-optimal slope requested in QM89.
+
+## Kontorovich round 201 — every survivor must slow down infinitely often
+
+I extracted a local recurrence constraint from the global product budget.
+Define a step to be two-expanding when
+
+```text
+2*3^(6*level(t)+17) < 2^(8*level(t+1)+23),
+```
+
+equivalently when its rational backward coefficient is greater than two.
+Lean proves that an orbit cannot have all steps two-expanding: otherwise its
+prefix product exceeds `2^N`, contradicting the fixed budget at
+`N=core(0)+1`.
+
+More usefully, I defined the literal finite-prefix shift of a
+`TernaryCoreOrbit` and applied the same theorem after every time `K`.  The
+result is
+
+```text
+exists_nonexpanding_after (K):
+  exists t>=K,
+    2^(8*level(t+1)+23) <= 2*3^(6*level(t)+17).
+```
+
+Thus the local slowdown occurs arbitrarily late (hence infinitely often).
+Any dispatcher that eventually keeps its branch jumps above this dyadic-
+triadic boundary is impossible, even when it is neither geometric nor
+periodic.  This may be a simpler online prune than QM89 for a symbolic
+controller: sustained local over-expansion is forbidden; a genuine survivor
+must schedule recurrent compensating low-growth steps.
