@@ -111,15 +111,28 @@ def backward_residue(
     )
     modulus = 1 << precision_bits
     residue = 0
+    inverse_ternary: int | None = None
+    previous_ternary: int | None = None
     for transition in range(len(levels) - 2, -1, -1):
         source = levels[transition]
         target = levels[transition + 1]
         binary = 8 * target + 15
         ternary = 6 * source + 11
+        if inverse_ternary is None:
+            inverse_ternary = pow(3, -ternary, modulus)
+        elif ternary < previous_ternary:
+            inverse_ternary = (
+                inverse_ternary * pow(3, previous_ternary - ternary, modulus)
+            ) % modulus
+        elif previous_ternary < ternary:
+            inverse_ternary = (
+                inverse_ternary * pow(3, -(ternary - previous_ternary), modulus)
+            ) % modulus
         residue = (
             ((residue << binary) - CORE_CONSTANT)
-            * pow(3, -ternary, modulus)
+            * inverse_ternary
         ) % modulus
+        previous_ternary = ternary
     if residue % 2 != 1:
         raise AssertionError("EC17 candidate residue is not odd")
     return residue, len(levels) - 1, accumulated_binary
