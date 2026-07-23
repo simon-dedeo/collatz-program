@@ -66,6 +66,27 @@ enumeration is therefore the wrong representation; a useful search must
 track normalized residues or theta data that can encode that growth.  This
 is a necessary condition, not a survivor.
 
+Companion commit `e385967` sharply narrows the same resource law.  Put
+`B=n_0+n_1+n_2` and `L0=Nat.log 2 (core(0))+1`.  From the exact continued-
+fraction separators `2^1054<3^665` and `3^306<2^485`, Lean proves
+
+```text
+2^(q*(7869+G*(1506*q-6826))) < core(3*q)^665,
+
+core(3*q)^306 <
+  2^(306*L0+q*(462*B+2235+G*(693*q-3141))).
+```
+
+Thus the leading quadratic coefficient of the core's binary length lies
+between `(1506/665)G` and `(693/306)G`, approximately
+`2.264661654G` and `2.264705882G`.  The initial condition enters the upper
+bound only through its bit length.  This suggests a theorem-driven residue
+test: subtract the explicit quadratic bit budget from each forced 2-adic
+residue and ask whether the residual margin is unbounded.  If it is, one fixed
+finite initial core is impossible.  The formal residue-margin implication is
+the next requested endpoint; until it is proved and its margins are shown
+unbounded, the sandwich is still only a necessary invariant.
+
 The published-theorem audit also closed two tempting shortcuts.  Amou and
 Väänänen's 2005 qualitative theorem controls a relation simultaneously at
 every place where the common parameter expands; for the EC17 parameter that
@@ -4419,6 +4440,15 @@ identically `x`.
   candidate.  For periodic or morphic controllers, the remaining arithmetic
   task is to prove that candidate is not a negative ordinary integer.  This
   can eliminate an infinite program family without enumerating any seeds.
+- **Normalized period-three residue margins.**  The sharp Lean sandwich in
+  commit `e385967` determines the core's quadratic bit budget up to a very
+  narrow interval.  At cycle `q`, compute the forced future residue only after
+  subtracting the explicit upper budget
+  `U(q)=ceil(q*(462B+2235+G*(693q-3141))/306)`.  Its excess bit length over
+  `U(q)` is a certified lower bound on the one fixed initial bit length; an
+  unbounded sequence of such margins excludes that schedule.  Formalize this
+  implication first, then search margins.  Raw precision widening without
+  normalization remains only a finite lower-bound exercise.
 - **Partial-theta integrality sieves.**  The standard two-rail schedule reduces
   to the sole 2-adic initial value
   `-(23/3^8) F(2/3,2^13/3^9)`.  Väänänen--Wallisser's full-source 1989 theorem

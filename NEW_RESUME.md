@@ -1,6 +1,6 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 04:08 EDT
+Updated: 2026-07-23, about 04:28 EDT
 
 ### 04:08 EDT continuation — period-three cores must carry quadratic bits
 
@@ -64,6 +64,43 @@ The live period-three hinge is unchanged in kind but much narrower in form:
 prove the exact three-theta Q2 linear form nonordinary, reduce it to fewer
 values, or prove a cofinal nonstabilization theorem for its exact residue
 bits.  Finite CRT widening alone remains a lower-bound exercise.
+
+Companion commit `e385967` makes the narrowing quantitative and nearly
+optimal.  With `B=n_0+n_1+n_2`, `G=cycleGain`, and
+`L0=Nat.log 2 (core(0))+1`, every `q>=5` satisfies
+
+```text
+2^(q*(7869+G*(1506*q-6826))) < core(3*q)^665,
+
+core(3*q)^306 <
+  2^(306*L0+q*(462*B+2235+G*(693*q-3141))).
+```
+
+The two leading bit coefficients are
+`(1506/665)G=2.264661654...G` and
+`(693/306)G=2.264705882...G`.  The proof uses the exact adjacent separators
+`2^1054<3^665` and `3^306<2^485`; the upper initial contribution is `L0`, not
+the numerical core.  This creates a principled shifted-window target.  Define
+
+```text
+A(q)=q*(462*B+2235+G*(693*q-3141)),
+U(q)=ceil(A(q)/306).
+```
+
+The upper theorem gives `bits(core(3q))<=L0+U(q)`.  Compute the future-forced
+residue `r(q,P)` modulo `2^P` at `P=U(q)+R`.  If
+
+```text
+margin(q,R)=bits(r(q,P))-U(q)=R-leadingZeroBits(r(q,P))
+```
+
+exceeds `L0`, the actual core is too small to represent that residue, a
+contradiction.  Hence any ray must satisfy `L0>=margin(q,R)`; cofinally
+unbounded exact margins exclude the schedule.  This is the next formal Lean
+request and exact worker design.  It converts computation into certified
+lower bounds on one fixed initial bit length and, in the unbounded case, a
+universal no-ray theorem.  Do not claim the implication until CLEAN_LEAN has
+checked its off-by-one and shifted-prefix details.
 
 ### 03:23 EDT continuation — unconditional geometric closure and sharp schedule budget
 
