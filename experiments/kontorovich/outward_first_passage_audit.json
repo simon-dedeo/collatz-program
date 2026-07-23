@@ -1,0 +1,988 @@
+{
+  "artifact_sha256": "d3fc40180317e7794015f6cd88048b694545a1c6a8d7c869f4ecd6ecf4e06977",
+  "audit": {
+    "bound": 256,
+    "claim_scope": "exact finite first-passage and stopped-mass identities at the stated bound; no infinite ordinary survivor and no Collatz counterexample",
+    "counterexample": null,
+    "crossing_by_length": [
+      {
+        "first_passage_words": "1",
+        "length": 1,
+        "odd_count_histogram": {
+          "1": "1"
+        }
+      },
+      {
+        "first_passage_words": "0",
+        "length": 2,
+        "odd_count_histogram": {}
+      },
+      {
+        "first_passage_words": "1",
+        "length": 3,
+        "odd_count_histogram": {
+          "2": "1"
+        }
+      },
+      {
+        "first_passage_words": "0",
+        "length": 4,
+        "odd_count_histogram": {}
+      },
+      {
+        "first_passage_words": "0",
+        "length": 5,
+        "odd_count_histogram": {}
+      },
+      {
+        "first_passage_words": "2",
+        "length": 6,
+        "odd_count_histogram": {
+          "4": "2"
+        }
+      },
+      {
+        "first_passage_words": "7",
+        "length": 9,
+        "odd_count_histogram": {
+          "6": "7"
+        }
+      },
+      {
+        "first_passage_words": "30",
+        "length": 11,
+        "odd_count_histogram": {
+          "7": "30"
+        }
+      },
+      {
+        "first_passage_words": "113",
+        "length": 14,
+        "odd_count_histogram": {
+          "9": "113"
+        }
+      },
+      {
+        "first_passage_words": "525",
+        "length": 17,
+        "odd_count_histogram": {
+          "11": "525"
+        }
+      },
+      {
+        "first_passage_words": "2652",
+        "length": 19,
+        "odd_count_histogram": {
+          "12": "2652"
+        }
+      },
+      {
+        "first_passage_words": "11433",
+        "length": 22,
+        "odd_count_histogram": {
+          "14": "11433"
+        }
+      },
+      {
+        "first_passage_words": "58040",
+        "length": 25,
+        "odd_count_histogram": {
+          "16": "58040"
+        }
+      },
+      {
+        "first_passage_words": "312455",
+        "length": 28,
+        "odd_count_histogram": {
+          "18": "312455"
+        }
+      },
+      {
+        "first_passage_words": "1741350",
+        "length": 30,
+        "odd_count_histogram": {
+          "19": "1741350"
+        }
+      },
+      {
+        "first_passage_words": "8199904",
+        "length": 33,
+        "odd_count_histogram": {
+          "21": "8199904"
+        }
+      },
+      {
+        "first_passage_words": "44368265",
+        "length": 36,
+        "odd_count_histogram": {
+          "23": "44368265"
+        }
+      },
+      {
+        "first_passage_words": "250945398",
+        "length": 38,
+        "odd_count_histogram": {
+          "24": "250945398"
+        }
+      },
+      {
+        "first_passage_words": "1204202538",
+        "length": 41,
+        "odd_count_histogram": {
+          "26": "1204202538"
+        }
+      },
+      {
+        "first_passage_words": "6626333161",
+        "length": 44,
+        "odd_count_histogram": {
+          "28": "6626333161"
+        }
+      },
+      {
+        "first_passage_words": "38036848410",
+        "length": 47,
+        "odd_count_histogram": {
+          "30": "38036848410"
+        }
+      },
+      {
+        "first_passage_words": "223443778324",
+        "length": 49,
+        "odd_count_histogram": {
+          "31": "223443778324"
+        }
+      },
+      {
+        "first_passage_words": "1109708569827",
+        "length": 52,
+        "odd_count_histogram": {
+          "33": "1109708569827"
+        }
+      },
+      {
+        "first_passage_words": "6266689897560",
+        "length": 55,
+        "odd_count_histogram": {
+          "35": "6266689897560"
+        }
+      },
+      {
+        "first_passage_words": "36738445167398",
+        "length": 57,
+        "odd_count_histogram": {
+          "36": "36738445167398"
+        }
+      },
+      {
+        "first_passage_words": "182941652041975",
+        "length": 60,
+        "odd_count_histogram": {
+          "38": "182941652041975"
+        }
+      },
+      {
+        "first_passage_words": "1037706226947780",
+        "length": 63,
+        "odd_count_histogram": {
+          "40": "1037706226947780"
+        }
+      },
+      {
+        "first_passage_words": "6113392816333320",
+        "length": 66,
+        "odd_count_histogram": {
+          "42": "6113392816333320"
+        }
+      },
+      {
+        "first_passage_words": "36734102113053696",
+        "length": 68,
+        "odd_count_histogram": {
+          "43": "36734102113053696"
+        }
+      },
+      {
+        "first_passage_words": "186851831519814332",
+        "length": 71,
+        "odd_count_histogram": {
+          "45": "186851831519814332"
+        }
+      },
+      {
+        "first_passage_words": "1076660907011792462",
+        "length": 74,
+        "odd_count_histogram": {
+          "47": "1076660907011792462"
+        }
+      },
+      {
+        "first_passage_words": "6424145833371802181",
+        "length": 76,
+        "odd_count_histogram": {
+          "48": "6424145833371802181"
+        }
+      },
+      {
+        "first_passage_words": "32595600837982736893",
+        "length": 79,
+        "odd_count_histogram": {
+          "50": "32595600837982736893"
+        }
+      },
+      {
+        "first_passage_words": "187864998899925074787",
+        "length": 82,
+        "odd_count_histogram": {
+          "52": "187864998899925074787"
+        }
+      },
+      {
+        "first_passage_words": "1122428422670255691408",
+        "length": 84,
+        "odd_count_histogram": {
+          "53": "1122428422670255691408"
+        }
+      },
+      {
+        "first_passage_words": "5707415894860355290740",
+        "length": 87,
+        "odd_count_histogram": {
+          "55": "5707415894860355290740"
+        }
+      },
+      {
+        "first_passage_words": "32971348188830055845167",
+        "length": 90,
+        "odd_count_histogram": {
+          "57": "32971348188830055845167"
+        }
+      },
+      {
+        "first_passage_words": "197456903970568797553065",
+        "length": 93,
+        "odd_count_histogram": {
+          "59": "197456903970568797553065"
+        }
+      },
+      {
+        "first_passage_words": "1204284947036602110792234",
+        "length": 95,
+        "odd_count_histogram": {
+          "60": "1204284947036602110792234"
+        }
+      },
+      {
+        "first_passage_words": "6226170168816670441280455",
+        "length": 98,
+        "odd_count_histogram": {
+          "62": "6226170168816670441280455"
+        }
+      },
+      {
+        "first_passage_words": "36387924331362930483597091",
+        "length": 101,
+        "odd_count_histogram": {
+          "64": "36387924331362930483597091"
+        }
+      },
+      {
+        "first_passage_words": "219905053111809192676160799",
+        "length": 103,
+        "odd_count_histogram": {
+          "65": "219905053111809192676160799"
+        }
+      },
+      {
+        "first_passage_words": "1131408057529965669363478411",
+        "length": 106,
+        "odd_count_histogram": {
+          "67": "1131408057529965669363478411"
+        }
+      },
+      {
+        "first_passage_words": "6600364781178559566294401077",
+        "length": 109,
+        "odd_count_histogram": {
+          "69": "6600364781178559566294401077"
+        }
+      },
+      {
+        "first_passage_words": "39867974248642237622968704045",
+        "length": 112,
+        "odd_count_histogram": {
+          "71": "39867974248642237622968704045"
+        }
+      },
+      {
+        "first_passage_words": "245024376778492876988449433293",
+        "length": 114,
+        "odd_count_histogram": {
+          "72": "245024376778492876988449433293"
+        }
+      },
+      {
+        "first_passage_words": "1277319484285205182751470872602",
+        "length": 117,
+        "odd_count_histogram": {
+          "74": "1277319484285205182751470872602"
+        }
+      },
+      {
+        "first_passage_words": "7518939956162842583463747778116",
+        "length": 120,
+        "odd_count_histogram": {
+          "76": "7518939956162842583463747778116"
+        }
+      },
+      {
+        "first_passage_words": "45734267182247122909647836725128",
+        "length": 122,
+        "odd_count_histogram": {
+          "77": "45734267182247122909647836725128"
+        }
+      },
+      {
+        "first_passage_words": "236965132213919746872146230450483",
+        "length": 125,
+        "odd_count_histogram": {
+          "79": "236965132213919746872146230450483"
+        }
+      },
+      {
+        "first_passage_words": "1390924910564549744282194137613647",
+        "length": 128,
+        "odd_count_histogram": {
+          "81": "1390924910564549744282194137613647"
+        }
+      },
+      {
+        "first_passage_words": "8448431486314096748209784641852900",
+        "length": 131,
+        "odd_count_histogram": {
+          "83": "8448431486314096748209784641852900"
+        }
+      },
+      {
+        "first_passage_words": "52188869066961203046382064410213072",
+        "length": 133,
+        "odd_count_histogram": {
+          "84": "52188869066961203046382064410213072"
+        }
+      },
+      {
+        "first_passage_words": "273596705680334846510462841441840236",
+        "length": 136,
+        "odd_count_histogram": {
+          "86": "273596705680334846510462841441840236"
+        }
+      },
+      {
+        "first_passage_words": "1618546722886926317566806288135417625",
+        "length": 139,
+        "odd_count_histogram": {
+          "88": "1618546722886926317566806288135417625"
+        }
+      },
+      {
+        "first_passage_words": "9889630254028853257171651320227474862",
+        "length": 141,
+        "odd_count_histogram": {
+          "89": "9889630254028853257171651320227474862"
+        }
+      },
+      {
+        "first_passage_words": "51498468841557143069203936490583158652",
+        "length": 144,
+        "odd_count_histogram": {
+          "91": "51498468841557143069203936490583158652"
+        }
+      },
+      {
+        "first_passage_words": "303621517364300433658363564090905851167",
+        "length": 147,
+        "odd_count_histogram": {
+          "93": "303621517364300433658363564090905851167"
+        }
+      },
+      {
+        "first_passage_words": "1851651965537096155939804262166579952960",
+        "length": 150,
+        "odd_count_histogram": {
+          "95": "1851651965537096155939804262166579952960"
+        }
+      },
+      {
+        "first_passage_words": "11481158703377597223587890791968939923329",
+        "length": 152,
+        "odd_count_histogram": {
+          "96": "11481158703377597223587890791968939923329"
+        }
+      },
+      {
+        "first_passage_words": "60439737585678070750887662870132346173050",
+        "length": 155,
+        "odd_count_histogram": {
+          "98": "60439737585678070750887662870132346173050"
+        }
+      },
+      {
+        "first_passage_words": "358874977976576543274311248693123049699470",
+        "length": 158,
+        "odd_count_histogram": {
+          "100": "358874977976576543274311248693123049699470"
+        }
+      },
+      {
+        "first_passage_words": "2200267440055315062326595969567784976412306",
+        "length": 160,
+        "odd_count_histogram": {
+          "101": "2200267440055315062326595969567784976412306"
+        }
+      },
+      {
+        "first_passage_words": "11500813821686837323020861787842956672937827",
+        "length": 163,
+        "odd_count_histogram": {
+          "103": "11500813821686837323020861787842956672937827"
+        }
+      },
+      {
+        "first_passage_words": "68033820543477742622270150361488748026940750",
+        "length": 166,
+        "odd_count_histogram": {
+          "105": "68033820543477742622270150361488748026940750"
+        }
+      },
+      {
+        "first_passage_words": "416191262867658584723317022979689742382272888",
+        "length": 168,
+        "odd_count_histogram": {
+          "106": "416191262867658584723317022979689742382272888"
+        }
+      },
+      {
+        "first_passage_words": "2171833842497336918252312127671679837767508776",
+        "length": 171,
+        "odd_count_histogram": {
+          "108": "2171833842497336918252312127671679837767508776"
+        }
+      },
+      {
+        "first_passage_words": "12835430561045263440868728520719664207957605767",
+        "length": 174,
+        "odd_count_histogram": {
+          "110": "12835430561045263440868728520719664207957605767"
+        }
+      },
+      {
+        "first_passage_words": "78475967434134232529186899814870850432504067250",
+        "length": 177,
+        "odd_count_histogram": {
+          "112": "78475967434134232529186899814870850432504067250"
+        }
+      },
+      {
+        "first_passage_words": "487840292750751836283622877209370001830620754007",
+        "length": 179,
+        "odd_count_histogram": {
+          "113": "487840292750751836283622877209370001830620754007"
+        }
+      },
+      {
+        "first_passage_words": "2575926182960842285172498907826294580100131533457",
+        "length": 182,
+        "odd_count_histogram": {
+          "115": "2575926182960842285172498907826294580100131533457"
+        }
+      },
+      {
+        "first_passage_words": "15338853580628990939254366529053768828924422943960",
+        "length": 185,
+        "odd_count_histogram": {
+          "117": "15338853580628990939254366529053768828924422943960"
+        }
+      },
+      {
+        "first_passage_words": "94299916165533460375992209072510609718477006665004",
+        "length": 187,
+        "odd_count_histogram": {
+          "118": "94299916165533460375992209072510609718477006665004"
+        }
+      },
+      {
+        "first_passage_words": "494449083132433872051829756029009479098070013544596",
+        "length": 190,
+        "odd_count_histogram": {
+          "120": "494449083132433872051829756029009479098070013544596"
+        }
+      },
+      {
+        "first_passage_words": "2933326497795067238134493783759703850133812162814907",
+        "length": 193,
+        "odd_count_histogram": {
+          "122": "2933326497795067238134493783759703850133812162814907"
+        }
+      },
+      {
+        "first_passage_words": "17992780130388090678981176880295850026928279960518800",
+        "length": 196,
+        "odd_count_histogram": {
+          "124": "17992780130388090678981176880295850026928279960518800"
+        }
+      },
+      {
+        "first_passage_words": "112172022953522696637715997686973280979955284009495926",
+        "length": 198,
+        "odd_count_histogram": {
+          "125": "112172022953522696637715997686973280979955284009495926"
+        }
+      },
+      {
+        "first_passage_words": "594120490245178775730622390946169129516272784511723731",
+        "length": 201,
+        "odd_count_histogram": {
+          "127": "594120490245178775730622390946169129516272784511723731"
+        }
+      },
+      {
+        "first_passage_words": "3547223284175546660085826280007818152299848146503357752",
+        "length": 204,
+        "odd_count_histogram": {
+          "129": "3547223284175546660085826280007818152299848146503357752"
+        }
+      },
+      {
+        "first_passage_words": "21859893144876334268134764855592859309500855408070184201",
+        "length": 206,
+        "odd_count_histogram": {
+          "130": "21859893144876334268134764855592859309500855408070184201"
+        }
+      },
+      {
+        "first_passage_words": "114920063455108088100468046216503081247000874266232188097",
+        "length": 209,
+        "odd_count_histogram": {
+          "132": "114920063455108088100468046216503081247000874266232188097"
+        }
+      },
+      {
+        "first_passage_words": "683337234991819747706377515833888102197932133273318741674",
+        "length": 212,
+        "odd_count_histogram": {
+          "134": "683337234991819747706377515833888102197932133273318741674"
+        }
+      },
+      {
+        "first_passage_words": "4200356990978789699037566616350552977934982561555680387544",
+        "length": 215,
+        "odd_count_histogram": {
+          "136": "4200356990978789699037566616350552977934982561555680387544"
+        }
+      },
+      {
+        "first_passage_words": "26237276390138732546261332373241775203886629119504740561278",
+        "length": 217,
+        "odd_count_histogram": {
+          "137": "26237276390138732546261332373241775203886629119504740561278"
+        }
+      },
+      {
+        "first_passage_words": "139267294403002767665408543283592858670614831355050069621740",
+        "length": 220,
+        "odd_count_histogram": {
+          "139": "139267294403002767665408543283592858670614831355050069621740"
+        }
+      },
+      {
+        "first_passage_words": "833111448477337893567227067632776972959507270048123716712385",
+        "length": 223,
+        "odd_count_histogram": {
+          "141": "833111448477337893567227067632776972959507270048123716712385"
+        }
+      },
+      {
+        "first_passage_words": "5143259701818105538552820910442925270999214021210604618986344",
+        "length": 225,
+        "odd_count_histogram": {
+          "142": "5143259701818105538552820910442925270999214021210604618986344"
+        }
+      },
+      {
+        "first_passage_words": "27092545682411778042048762310093430901551375740489316921929416",
+        "length": 228,
+        "odd_count_histogram": {
+          "144": "27092545682411778042048762310093430901551375740489316921929416"
+        }
+      },
+      {
+        "first_passage_words": "161384344528893593133872117957000347309910880055107611310662281",
+        "length": 231,
+        "odd_count_histogram": {
+          "146": "161384344528893593133872117957000347309910880055107611310662281"
+        }
+      },
+      {
+        "first_passage_words": "993635499326765498246069027087455786762500240652152536226007160",
+        "length": 234,
+        "odd_count_histogram": {
+          "148": "993635499326765498246069027087455786762500240652152536226007160"
+        }
+      },
+      {
+        "first_passage_words": "6216259499115648224964468186094840296107192803637317423087350816",
+        "length": 236,
+        "odd_count_histogram": {
+          "149": "6216259499115648224964468186094840296107192803637317423087350816"
+        }
+      },
+      {
+        "first_passage_words": "33052944797501535535128060741445321629317547842135923022687061695",
+        "length": 239,
+        "odd_count_histogram": {
+          "151": "33052944797501535535128060741445321629317547842135923022687061695"
+        }
+      },
+      {
+        "first_passage_words": "198034307364352770446333941555778044086816142280341633078446434720",
+        "length": 242,
+        "odd_count_histogram": {
+          "153": "198034307364352770446333941555778044086816142280341633078446434720"
+        }
+      },
+      {
+        "first_passage_words": "1224348453773412966030746090826584128149073054714340081606903030460",
+        "length": 244,
+        "odd_count_histogram": {
+          "154": "1224348453773412966030746090826584128149073054714340081606903030460"
+        }
+      },
+      {
+        "first_passage_words": "6459828567939138263217313492083774758522829837663783732704610094818",
+        "length": 247,
+        "odd_count_histogram": {
+          "156": "6459828567939138263217313492083774758522829837663783732704610094818"
+        }
+      },
+      {
+        "first_passage_words": "38535997434996039941466854509864243129522363134344844643927240788419",
+        "length": 250,
+        "odd_count_histogram": {
+          "158": "38535997434996039941466854509864243129522363134344844643927240788419"
+        }
+      },
+      {
+        "first_passage_words": "237586612529432374138231892890102279798310358210045181520180447039592",
+        "length": 252,
+        "odd_count_histogram": {
+          "159": "237586612529432374138231892890102279798310358210045181520180447039592"
+        }
+      },
+      {
+        "first_passage_words": "1250674104632762677969686081814837059846039278439530120098560344150400",
+        "length": 255,
+        "odd_count_histogram": {
+          "161": "1250674104632762677969686081814837059846039278439530120098560344150400"
+        }
+      }
+    ],
+    "definition": "all parity words w with 3^odd(w)>2^len(w) and 3^odd(u)<=2^len(u) for every proper prefix u",
+    "full_ordinary_kraft_bracket": {
+      "lower": "28034020387680410592545864273861948468252625653335891723469819279173593387523150699122380754898877850421472392998677895874139115257169601133039602567043/39280687294753702440158276361931189826599704552516777473799496417153605556856094658599241107910849885810640209530720852110607078550624716639942331072512",
+      "lower_decimal_diagnostic": "0.713684569145118094",
+      "proof": "the unobserved tilted tail has mass R_N; first-passage overshoot gives 1<slope<=3/2 and hence (2/3)q<=p<q",
+      "upper": "18689348806704987777583952740994163396533145420614725313783770279887135466941626370572217094496207725208120594824236576026505687076013552551474745509763/26187124863169134960105517574620793217733136368344518315866330944769070371237396439066160738607233257207093473020480568073738052367083144426628220715008",
+      "upper_decimal_diagnostic": "0.713684640996637644"
+    },
+    "infinite_theorem_boundary": "the fair-parity slope is a nonnegative martingale; on uncrossed paths it is at most one and tends to zero almost surely by the negative log drift, so dominated convergence gives total tilted first-passage mass exactly one",
+    "mass_to_atom_gate": "branching criticality alone does not give an ordinary seed; a projectively consistent schedule measure would suffice if the nondecreasing canonical least residues had uniformly bounded first moment, because then one residue tower is eventually constant",
+    "maximality": "every outward parity word has a unique first-passage prefix, so replacing it by that prefix shows this code dominates every outward prefix-free code in both ordinary and tilted mass",
+    "minimal_layers": {
+      "length_word_counts": [
+        [
+          1,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "literal_words": [
+        "1",
+        "011",
+        "001111",
+        "010111"
+      ],
+      "ordinary_kraft_mass": "21/32",
+      "tilted_mass": "1905/2048"
+    },
+    "ordinary_stopped_mass": {
+      "alive_numerator": "33153078559244247392362172344482651109008875342046688622289503084944662356416",
+      "crossed_decimal_diagnostic": "0.713684425442078996",
+      "crossed_numerator": "82639010678071948031208812664205256744261109323593875417168080922968467283520",
+      "denominator": "115792089237316195423570985008687907853269984665640564039457584007913129639936",
+      "identity": "P_N+A_N=1"
+    },
+    "prefix_free": true,
+    "tilted_stopped_mass": {
+      "alive_decimal_diagnostic": "0.000000215554558648",
+      "alive_numerator": "2890114120779601986393732399745584222697048264957138776208032880448398631789297607564129724147088085503219381215401594281325415145158832656074343936",
+      "crossed_decimal_diagnostic": "0.999999784445441351",
+      "crossed_numerator": "13407805039828476319972038604473446381895143123544128420584785235688883581674915187504266734037179280601946354967104835452159601486531424787600992931740160",
+      "denominator": "13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006084096",
+      "identity": "Q_N+R_N=1"
+    }
+  },
+  "minimum_address_regression": {
+    "all_scanned_sources_reached_terminal_cycle": true,
+    "certified_h_values": [
+      {
+        "block_depth": 1,
+        "minimum_address": 1
+      },
+      {
+        "block_depth": 2,
+        "minimum_address": 3
+      },
+      {
+        "block_depth": 3,
+        "minimum_address": 7
+      },
+      {
+        "block_depth": 4,
+        "minimum_address": 15
+      },
+      {
+        "block_depth": 5,
+        "minimum_address": 27
+      },
+      {
+        "block_depth": 6,
+        "minimum_address": 27
+      },
+      {
+        "block_depth": 7,
+        "minimum_address": 27
+      },
+      {
+        "block_depth": 8,
+        "minimum_address": 27
+      },
+      {
+        "block_depth": 9,
+        "minimum_address": 27
+      },
+      {
+        "block_depth": 10,
+        "minimum_address": 27
+      },
+      {
+        "block_depth": 11,
+        "minimum_address": 27
+      },
+      {
+        "block_depth": 12,
+        "minimum_address": 27
+      },
+      {
+        "block_depth": 13,
+        "minimum_address": 27
+      },
+      {
+        "block_depth": 14,
+        "minimum_address": 27
+      },
+      {
+        "block_depth": 15,
+        "minimum_address": 27
+      },
+      {
+        "block_depth": 16,
+        "minimum_address": 703
+      },
+      {
+        "block_depth": 17,
+        "minimum_address": 4255
+      },
+      {
+        "block_depth": 18,
+        "minimum_address": 4255
+      },
+      {
+        "block_depth": 19,
+        "minimum_address": 4255
+      },
+      {
+        "block_depth": 20,
+        "minimum_address": 4591
+      },
+      {
+        "block_depth": 21,
+        "minimum_address": 4591
+      },
+      {
+        "block_depth": 22,
+        "minimum_address": 31911
+      },
+      {
+        "block_depth": 23,
+        "minimum_address": 31911
+      },
+      {
+        "block_depth": 24,
+        "minimum_address": 31911
+      },
+      {
+        "block_depth": 25,
+        "minimum_address": 77671
+      },
+      {
+        "block_depth": 26,
+        "minimum_address": 113383
+      },
+      {
+        "block_depth": 27,
+        "minimum_address": 113383
+      },
+      {
+        "block_depth": 28,
+        "minimum_address": 159487
+      },
+      {
+        "block_depth": 29,
+        "minimum_address": 159487
+      },
+      {
+        "block_depth": 30,
+        "minimum_address": 270271
+      },
+      {
+        "block_depth": 31,
+        "minimum_address": 270271
+      },
+      {
+        "block_depth": 32,
+        "minimum_address": 270271
+      },
+      {
+        "block_depth": 33,
+        "minimum_address": 270271
+      },
+      {
+        "block_depth": 34,
+        "minimum_address": 270271
+      },
+      {
+        "block_depth": 35,
+        "minimum_address": 270271
+      },
+      {
+        "block_depth": 36,
+        "minimum_address": 270271
+      }
+    ],
+    "greatest_certified_block_depth": 36,
+    "maximum_seed": 300000,
+    "maximum_shortcut_steps_per_seed": 10000,
+    "meaning": "h_n is the least positive ordinary seed completing n successive first-passage blocks; exhaustive increasing-seed replay certifies every displayed minimum",
+    "next_minimum_address_strict_lower_bound": {
+      "block_depth": 37,
+      "strictly_greater_than": 300000
+    },
+    "record_rows": [
+      {
+        "accelerated_steps_to_terminal_cycle": 1,
+        "first_passage_blocks": 1,
+        "shortcut_steps_to_terminal_cycle": 1,
+        "source": 1
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 2,
+        "first_passage_blocks": 2,
+        "shortcut_steps_to_terminal_cycle": 4,
+        "source": 3
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 5,
+        "first_passage_blocks": 3,
+        "shortcut_steps_to_terminal_cycle": 10,
+        "source": 7
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 5,
+        "first_passage_blocks": 4,
+        "shortcut_steps_to_terminal_cycle": 11,
+        "source": 15
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 41,
+        "first_passage_blocks": 15,
+        "shortcut_steps_to_terminal_cycle": 69,
+        "source": 27
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 62,
+        "first_passage_blocks": 16,
+        "shortcut_steps_to_terminal_cycle": 107,
+        "source": 703
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 73,
+        "first_passage_blocks": 19,
+        "shortcut_steps_to_terminal_cycle": 127,
+        "source": 4255
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 61,
+        "first_passage_blocks": 21,
+        "shortcut_steps_to_terminal_cycle": 108,
+        "source": 4591
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 56,
+        "first_passage_blocks": 24,
+        "shortcut_steps_to_terminal_cycle": 103,
+        "source": 31911
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 83,
+        "first_passage_blocks": 25,
+        "shortcut_steps_to_terminal_cycle": 147,
+        "source": 77671
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 89,
+        "first_passage_blocks": 27,
+        "shortcut_steps_to_terminal_cycle": 157,
+        "source": 113383
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 64,
+        "first_passage_blocks": 29,
+        "shortcut_steps_to_terminal_cycle": 118,
+        "source": 159487
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 150,
+        "first_passage_blocks": 36,
+        "shortcut_steps_to_terminal_cycle": 255,
+        "source": 270271
+      }
+    ],
+    "visualizer_prefix": {
+      "accelerated_steps": 87,
+      "collatz_source": 270271,
+      "collatz_target": 8216025965,
+      "first_passage_blocks": 35,
+      "scope": "exact finite prefix of the record minimum-address seed; the complete ordinary orbit reaches the 1--2 cycle",
+      "shortcut_steps": 123
+    }
+  },
+  "schema": "collatz-outward-first-passage-v2",
+  "worker_sha256": "62075652fd83be6ffe82b199a6d539ed28e0a09b37e97e8640ae068d820a46db"
+}

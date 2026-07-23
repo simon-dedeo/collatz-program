@@ -4927,7 +4927,7 @@ proves that consecutive normalized cores can never both contain `17^2`:
 `min(v17(u),v17(u'))=1`.  This all-depth filter leaves every finite branch
 pair CRT-solvable, so it narrows but does not close the live component.
 
-The v2 audit also certifies the complete shallow graph and eight invariant
+The v4 audit also certifies the complete shallow graph and eight invariant
 rails
 
 ```text
@@ -4943,6 +4943,99 @@ coefficient.  At depth `17^k` this becomes an exact branch clock modulo
 `0.0250459467556681664...`.  These are exact selectors for a canonical-carry
 analysis, not evidence that an ordinary infinite address exists.
 
+Version 3 added the exact KL/Tschakaloff telescope for the public-payload
+address.  With `alpha_m=2^(8m+15)/3^(6m+11)`,
+`R_j=product_(i<j)alpha_(m_i)`, and
+
+```text
+A=83499104/(473*3^11),
+B=494251421/(473*2^20),
+epsilon=A-B=17/(473*2^20*3^11),
+```
+
+every finite public chain satisfies
+
+```text
+q_0+A+epsilon*sum_(1<=j<N)R_j=R_N*(q_N+B).
+```
+
+The artifact verifies this identity on all 1,278 stored prefix cylinders.  An
+ordinary infinite orbit would force the single variable-exponent theta value
+`Theta=sum_(j>=1)R_j` to equal `-2^20*W(q_0)/17` in `Q_2`.  This recovers the
+closed fixed-rate partial-theta cases but makes no irrationality claim for a
+nonlinear payload-written exponent sequence.
+
+Version 4 adds the exact two-place height gate.  Put
+
+```text
+M_N=sum_(i<N)m_i, D_N=11N+6M_N, V_N=15N+8M_N.
+```
+
+If the theta value is a negative integer `-K`, then the exact valuation of
+the first omitted term and the positive real partial sum give
+
+```text
+2^V_(N+1) < (K+1)*3^D_N.
+```
+
+Combining this with `3^41<2^65` bounds
+`328m_N-62M_N-100N+615`.  In particular a schedule whose fresh branch is
+superincreasing relative to its entire past cannot work.  This is a universal
+growth sieve, not a proof against slow nonlinear rulers.  The same certificate
+checks the mod-473 constants used in the converse: one exact hit
+`Theta=-2^20*Wbar(r)` recursively supplies integral suffixes and preserves the
+full reduced packet lattice.
+
+The same version checks 83,521 Legendre block identities behind the slow
+valuation ruler `m_n=j+8*v17(n+1)`, verifies all eight rational Mahler
+specialization points, and records the exact 17-Mahler functional equation.
+It also uses the quadratically amplified ruler as a negative control for the
+height gate.  These coefficient checks do not certify irrationality of the
+resulting `Q_2` value.
+
+Version 5 adds the source-audited value-theorem application that was missed in
+version 4.  With `kappa=16/27`, the slow-ruler function has the stronger form
+
+```text
+G(x)=sum_(n>=0)kappa^(-s17(n))*x^n
+    =product_(k>=0)P_17(x^(17^k)/kappa),
+G(x)=P_17(x/kappa)G(x^17).
+```
+
+Its product zeros approach the complex unit circle densely, giving a natural
+boundary and, after rational-coefficient scalar descent, transcendence over
+`C_2(x)`.  Wang's 2006 p-adic Mahler theorem applies with `rho=17`, functional
+degree one, `M0=17`, and size condition `17<17^2`.  At each of the eight exact
+arguments `x_j`, its nonvanishing polynomial is positive in the real
+embedding.  The published theorem therefore makes `G(x_j)` transcendental in
+`Q_2`, excluding its required ordinary-integer value.  The artifact checks
+the digit-sum conversion, argument valuations, and elementary Wang
+parameters; it cites rather than re-proves the analytic theorem.
+
+Version 6 records the structurally different place-value ruler
+`m_n=j+8*17^v17(n+1)`.  For
+`A_n=sum_(1<=t<=n)17^v17(t)`, the exact block law
+
+```text
+A_(17n+r)=17A_n+16n+r
+```
+
+gives the bivariate equation
+
+```text
+H(C,Z)=P_17(CZ)H(C^17,C^16Z^17),
+1+Theta=H(c,z_j).
+```
+
+The checker verifies 83,521 block cases, the digit-position formula through
+`17^4`, 65 iterates of `T(C,Z)=(C^17,C^16Z^17)`, all eight prime-exponent
+determinants `16`, and the boundary identity
+`A_(17^k-1)=16k17^(k-1)` through eight symbolic rows.  This is a genuine
+rank-two Jordan system; Wang's univariate theorem does not apply, while the
+cumulative `k17^k` depth makes the public height gate asymptotically slack.
+The artifact identifies a multivariate `Q_2` value theorem as the live seam
+and makes no irrationality claim for `H(c,z_j)`.
+
 ```bash
 python3 breakoff_ether_branch_pressure.py selftest
 python3 breakoff_ether_branch_pressure.py verify \
@@ -4952,3 +5045,63 @@ python3 breakoff_ether_branch_pressure.py verify \
 The default artifact checks target families through `m=64`, 1,278 distinct
 schedule cylinders through 160 source bits, and the higher 17-adic branch
 clock through precision 12.  It has `counterexample:null`.
+
+Version 7 also records the exact valuation of every polynomial monomial along
+the defective Jordan orbit.  Lexicographically distinct exponent pairs have
+eventually distinct valuations, and the worker constructs an explicit depth
+after which a chosen finite polynomial has a unique least-valuation monomial.
+This is a rigorous zero-estimate input for a possible direct multivariate
+`Q_2` auxiliary-function argument; it is not itself a special-value theorem.
+
+### Minimal raw outward first-passage code
+
+`outward_first_passage.py` removes the YAH/tag compiler from the construction
+search and audits the canonical shortcut-parity system directly.  A word is a
+codeword exactly when its affine slope `3^O/2^S` first exceeds one at its last
+bit.  Every outward word has one such prefix, so this is the maximal outward
+prefix-free code.  Its first layers are exactly the previously audited thin
+language
+
+```text
+1, 011, 001111, 010111.
+```
+
+The worker counts states by `(length,odd_count)`, not by enumerating words.
+It checks the ordinary stopped mass `P_N+A_N=1`, the slope-tilted martingale
+identity `Q_N+R_N=1`, and the overshoot bracket
+
+```text
+P_N+(2/3)R_N <= P <= P_N+R_N.
+```
+
+At the default exact depth 256 this gives the rational bounds rendered as
+`0.713684569145118094... < P < 0.713684640996637644...`; the remaining tilted
+mass is `0.000000215554558648...`.  The full tilted mass is one by the
+positive-drift stopped-martingale argument recorded in the artifact.  This is
+critical ensemble conservation, not an ordinary survivor.
+
+Schema v2 also scans the exact monotone construction variable, not an
+unstructured seed record.  It replays every positive source through `300000`
+to the terminal cycle and thereby certifies `h_n` through block depth 36 and
+the strict lower bound `h_37>300000`.  The successive record sources are
+
+```text
+1, 3, 7, 15, 27, 703, 4255, 4591, 31911, 77671,
+113383, 159487, 270271.
+```
+
+The final source completes 36 blocks before reaching the `1--2` cycle.  A
+nested `visualizer_prefix` object supplies the exactly replayed odd-map triple
+`270271 -> 8216025965` in 87 accelerated steps, covering 35 complete blocks.
+
+```bash
+python3 outward_first_passage.py selftest
+python3 outward_first_passage.py verify outward_first_passage_audit.json
+```
+
+The construction target is the monotone minimum canonical address `h_n`.
+Boundedness/eventual constancy of `h_n` is equivalent to an ordinary infinite
+strictly growing shortcut orbit.  Companion commit `8959436` kernel-checks the
+finite-window compactness and minimum-start equivalence for literal shortcut
+executions.  Diffuse critical flow fails this gate; the artifact makes no
+orbit claim and stores `counterexample:null`.

@@ -1,6 +1,323 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 13:13 EDT
+Updated: 2026-07-23, about 15:27 EDT
+
+### 15:27 EDT continuation -- strip YAH to the critical raw controller
+
+There is no counterexample.  Simon's point that YAH/tag universality is likely
+more power than the task needs changes the preferred construction lane.  Keep
+YAH only as a correctness bridge; first attack the canonical raw shortcut
+system.
+
+For a parity word `w`, let `S=|w|`, let `O` count odd sources, and put
+`R(w)=3^O/2^S`.  Define `F` by first passage through `R=1`: `R(w)>1`, while
+every proper prefix has slope at most one.  Every outward word has a unique
+prefix in `F`, so `F` dominates every outward prefix-free code.  Its first
+layers are
+
+```text
+(length,count)=(1,1),(3,1),(6,2),(9,7),(11,30),...
+F_(<=6)={1,011,001111,010111}.                    (PT11)
+```
+
+Thus the old four-word signed language is the canonical complete truncation
+through length eight.  With `p(w)=2^-S` and
+`q(w)=p(w)R(w)=3^O/4^S`, exact stopped-mass conservation gives
+
+```text
+P=sum_F p(w)<1,          sum_F q(w)=1.            (PT12)
+```
+
+The v2 first-passage artifact counts by `(S,O)` without word enumeration.  At
+depth 256 it gives the exact rational bracket
+
+```text
+0.713684569145118094... < P < 0.713684640996637644...,
+tilted residual 0.000000215554558648... .         (PT13)
+```
+
+It also exhaustively evaluates the actual minimum-address invariant over all
+positive sources `x<=300000`.  The record changes are
+
+```text
+(n,h_n)=(1,1),(2,3),(3,7),(4,15),(5,27),(16,703),
+        (17,4255),(20,4591),(22,31911),(25,77671),
+        (26,113383),(28,159487),(30,270271).       (PT13a)
+```
+
+These certify every `h_n` through `n=36` (constant between displayed change
+points) and `h_37>300000`.  Source `270271` completes 36 blocks and then
+reaches the terminal cycle.  The artifact exposes its exact 35-block odd
+prefix `270271 -> 8216025965` in 87 accelerated steps for the visualizer.  It
+is a directed finite test of the theorem variable, not a survivor.
+
+For `u in F^n`, let `r(u)` be its least compatible initial natural residue and
+`h_n=min r(u)`.  Extension adds a nonnegative high-bit carry, hence `h_n` is
+nondecreasing.  The following are equivalent: an ordinary positive infinite
+`F`-orbit exists; `h_n` is bounded; `h_n` is eventually constant; some path's
+extension carries are eventually zero.  The measure version is uniform
+tightness of canonical addresses.  The natural critical flow is not tight:
+
+```text
+mu_q(r_n<=B)<=B*(3/4)^n.                          (PT14)
+```
+
+So KL/pressure mass cannot be promoted to an orbit without a genuine atom.
+The live constructive theorem is an arithmetic adaptive selector or Doob
+transform proving `sup h_n<infinity`.  This is a much smaller target than a
+tag-system quine and should be pursued before more YAH synthesis or undirected
+prefix search.
+
+Companion commit `0c6587b` closes the public one-hit converse: one theta
+lattice equality now kernel-checkably constructs the full self-writing orbit.
+Commit `0e3fcf8` packages the bivariate place-value ruler without a value
+claim.  Branch-pressure schema v7 adds exact eventual 2-adic monomial
+separation on its Jordan orbit.  That exclusion theorem remains useful but is
+secondary to PT11--PT14 as the lower-power construction lane.  Companion
+commit `45dd08b` kernel-checks prefix-freeness, unique first-passage prefixes,
+odd terminal crossing, and the exact `3/2` overshoot bound.  Commit `8959436`
+kernel-checks the full finite-window compactness theorem: an ordinary all-depth
+literal code execution exists iff the canonical minimum-start sequence is
+bounded iff it is eventually constant.  Both executable artifacts retain
+`counterexample:null`.
+
+### 14:34 EDT continuation -- the live ruler is genuinely bivariate
+
+There is no counterexample.  After QM153 closes the ordinary valuation ruler,
+the next principled schedule is
+
+```text
+m_n=j+8*17^v17(n+1),       1<=j<=8.
+```
+
+Let `A_n=sum_(1<=t<=n)17^v17(t)`, `c=(2^8/3^6)^8`, and
+`z_j=(2^15/3^11)*(2^8/3^6)^j`.  Exact base-17 blocking gives
+
+```text
+A_(17n+r)=17A_n+16n+r,
+1+Theta=H(c,z_j),
+H(C,Z)=sum_(n>=0)C^A_n Z^n,
+H(C,Z)=P_17(CZ)H(C^17,C^16Z^17).                 (PT9)
+```
+
+The transformation `T(C,Z)=(C^17,C^16Z^17)` satisfies
+
+```text
+T^k(C,Z)=(C^(17^k),C^(16k17^(k-1))Z^(17^k)).     (PT10)
+```
+
+It is not a disguised one-variable system.  The prime-exponent vectors
+`(64,-48)` and `(15+8j,-11-6j)` have determinant `16` for every rail.  A
+research-side dominant-monomial argument makes each forward orbit
+Zariski-dense: at `T^k`, the logarithmic size of `C^pZ^q` contains the term
+`(16/17)q*k*17^k*log(c)`, so the least `(q,p)` uniquely dominates.  QM154
+requests a kernel package and explicitly labels this part pending.
+
+The height gate is also asymptotically slack, since
+
+```text
+A_(17^k-1)=16k17^(k-1).
+```
+
+Cumulative `k17^k` depth pays for every fresh `17^k` spike.  Wang 2006 does
+not apply because both variables move, and the currently audited complex
+multivariate Mahler framework does not cover this defective Jordan map or a
+`Q_2` value.  The live seam is a multivariate 2-adic value theorem or a direct
+auxiliary-function proof.  Version 6 of the artifact checks the exact finite
+algebra and retains `counterexample:null`; do not replace this seam with a
+wider prefix scan.
+
+### 14:21 EDT continuation -- Wang closes the slow 17-ruler
+
+There is no counterexample.  The slow valuation ruler left live at 14:06 is
+now excluded by the source-audited Wang theorem already used for geometric
+Mahler clocks.
+
+For `m_n=j+8*v17(n+1)`, `1<=j<=8`, put `kappa=16/27`.  Legendre's
+digit-sum identity turns the inclusive public series into
+
+```text
+G(x)=sum_(n>=0)kappa^(-s17(n))*x^n
+    =product_(k>=0)P_17(x^(17^k)/kappa),
+G(x)=P_17(x/kappa)*G(x^17),                        (PT7)
+x_j=2^(19+8j)/3^(14+6j).
+```
+
+The required theta hit is the ordinary integer equality
+
+```text
+G(x_j)=1-2^20*Wbar(r).                             (PT8)
+```
+
+The product zeros `x^(17^k)=kappa*zeta`, with `zeta` a nontrivial 17th
+root of unity, approach every point of the complex unit circle.  Hence `G`
+has a natural boundary and is transcendental over `C(x)`; rational-
+coefficient scalar descent gives transcendence over `C_2(x)`.  Wang's 2006
+Theorem 1 applies exactly with
+
+```text
+p=2, rho=17, functional degree N=1, M0=17,
+Q0=P_17(z/kappa), Q1=-u,      17<17^2.
+```
+
+For all eight `x_j`, `0<|x_j|_2<1`, and the elimination polynomial never
+vanishes because it is positive in the real embedding.  Thus `G(x_j)` is
+transcendental in `Q_2`, contradicting (PT8).  Version 5 of the exact artifact
+checks every elementary specialization and theorem parameter.  QM153 asks the
+companion to package the exact functional bridge; Wang and the natural-
+boundary/scalar-descent input remain explicit external cited mathematics.
+
+Design consequence: simply replacing a periodic clock by this finite-order
+Mahler ruler is not enough.  For the positive first-order examples audited
+here, rational functions are killed by the two-place sign separator and
+functions satisfying Wang's transcendence hypotheses are killed at algebraic
+points.  Seek controllers whose recursion is genuinely adaptive/payload-
+dependent or lies outside the small-degree Mahler hypotheses.  Do not return
+to wider ruler-prefix search.
+
+Companion commit `3f7cc7c` now kernel-checks (PT3), the exact tail norm,
+automatic propagation of ordinary suffix integrality from one initial hit,
+and the grouped natural pressure kernel behind (PT5)--(PT6).  It does not yet
+check the `Wbar` lattice propagation or assemble the converse orbit.  The
+precise indexing and one-step statement are appended after QM153 in
+`docs/FOR_CLEAN_LEAN.md`.
+
+### 14:06 EDT continuation -- lattice sufficiency and the counter-growth gate
+
+There is no counterexample.  Companion commits `1c322d4` and `685f6ca`
+kernel-check the full `Q_2` public theta endpoint from PT1--PT3 and its exact
+unit-slice specialization.
+
+The tail equation gives a converse target.  If only
+
+```text
+Theta_0=-X_0
+```
+
+is an ordinary negative integer, its uniquely least dyadic term recursively
+forces
+
+```text
+X_t=2^(8m_t+15)h_t,
+Theta_(t+1)=-X_(t+1),
+X_(t+1)=3^(6m_t+11)h_t+1.                         (PT4)
+```
+
+Thus all suffixes are automatically integral.  If
+`X_0=2^20*Wbar(r_0)`, the reduced determinant identity together with
+`3^6=2^8 (mod 473)` and `32Wbar(0)=Zbar(0) (mod 473)` propagates the full
+affine packet lattice.  A single equality
+
+```text
+Theta=-2^20*Wbar(r)
+```
+
+is therefore sufficient to construct the accepted public orbit after the
+standard shift.  QM151 requests this converse in Lean.
+
+The same series supplies a public-theta version of the already kernel-checked
+universal EC17 scale budget.  With
+
+```text
+M_N=sum_(i<N)m_i, D_N=11N+6M_N, V_N=15N+8M_N,
+```
+
+an integer hit `Theta=-K`, `K>0`, forces
+
+```text
+2^V_(N+1) < (K+1)*3^D_N.                          (PT5)
+```
+
+The exact separator `3^41<2^65` bounds
+
+```text
+328m_N-62M_N-100N+615.                            (PT6)
+```
+
+Consequently a new branch may not outrun its accumulated history;
+superincreasing and naive exponentially deep branch clocks are closed.  Do
+not infer boundedness or necessary divergence of `m_t`: slow nonlinear
+counters remain live.  Treat PT5/PT6 as a cleaner coordinate and independent
+audit, not as a new stronger ceiling.
+
+Construction principle: do not search for an ordinary telescope whose
+boundary vanishes in both `R` and `Q_2`; that forces the same positive rational
+value at both places.  An actual orbit has a two-place separator whose
+boundary tends to zero 2-adically but to a positive nonzero real limit.  Any
+new ansatz must explain that asymmetric boundary explicitly.
+
+The standard valuation ruler `m_n=j+8*v17(n+1)` survives PT5 and has the exact
+Mahler form
+
+```text
+F_c(z)=(1+z+...+z^16)F_c(c*z^17),
+F_c(z)=sum_(n>=0)c^v17(n!)*z^n.
+```
+
+It is the next principled ansatz, but no applicable `Q_2` Mahler-value theorem
+has been verified.  Its nonrationality as a function is not enough.  Version
+4 of the pressure artifact checks PT1 and the PT5/PT6 arithmetic and still
+records `counterexample:null`.
+
+### 13:43 EDT continuation -- the public address is one variable-exponent theta value
+
+There is no counterexample.  Use the public program from `d4a8edf` as the
+primary coordinate.  Put
+
+```text
+alpha_m=2^(8m+15)/3^(6m+11),
+A=83499104/(473*3^11),
+B=494251421/(473*2^20),
+epsilon=A-B=17/(473*2^20*3^11).
+```
+
+For schedule `m_0,m_1,...`, let
+`R_0=1`, `R_j=product_(i<j)alpha_(m_i)`.  Every finite exact public chain
+satisfies
+
+```text
+q_0+A+epsilon*sum_(1<=j<N)R_j=R_N*(q_N+B).        (PT1)
+```
+
+This comes from the coefficient identity
+
+```text
+delta_m/3^(6m+11)=A-B*alpha_m.
+```
+
+For an infinite ordinary public orbit, `v2(R_N)>=23N`, so (PT1) gives in
+`Q_2`
+
+```text
+q_0=-A-epsilon*Theta,
+Theta=sum_(j>=1)R_j=-2^20*W(q_0)/17.               (PT2)
+```
+
+Also
+
+```text
+R_j=(2^15/3^11)^j*(2^8/3^6)^M_j,
+M_j=sum_(i<j)m_i,
+Theta_t=alpha_(m_t)*(1+Theta_(t+1)).               (PT3)
+```
+
+Thus the full construction problem is one variable-exponent
+KL/Tschakaloff-series rationality problem.  Arithmetic `M_j` is the closed
+fixed-rate theta lane and must not be retried.  The live target is a nonlinear,
+payload-written sequence `M_j` whose 2-adic value hits the exact rational
+lattice (PT2); equivalently, whose canonical public carry eventually vanishes.
+On `q_0=17r`, (PT2) simplifies to the negative ordinary integer target
+`Theta=-2^20*Wbar(r)`, so the shallow branch clock is a selector inside this
+one-series integer-value problem.
+The v3 pressure artifact checks (PT1) on all 1,278 stored prefix cylinders.
+QM150 requests a kernel interface for the telescope without claiming a
+general irrationality theorem.
+
+Companion commit `3ebde99` proves the complementary finite warning: every
+finite word in each shallow rail has a strictly positive exact public chain
+remaining in its fixed class modulo `17^2`.  Bounded rail-prefix search cannot
+prune anything.  Only literal stabilization of the least public dyadic
+representatives can supply an ordinary seed.
 
 ### 13:13 EDT continuation -- shallow rails are writable; color closes the packet gate
 
@@ -73,7 +390,7 @@ is equivalent to promotion of its one-step tail.
 No bounded finite-prefix CRT audit can settle either condition: every finite
 dyadic reset cylinder remains compatible with the odd color/shallow checksum.
 Track canonical height/carry as the primary state and use the writable
-17-adic clock only as a selector.  Updated v2 artifacts reconstruct all eight
+17-adic clock only as a selector.  Updated exact artifacts reconstruct all eight
 digit laws and 1,024 color-zero positive bare-step promotions; both retain
 `counterexample:null`.  QM148 is complete in `ded9c30`; QM147/QM149 retain the
 higher-clock and universal finite-prefix rail targets.

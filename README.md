@@ -33,6 +33,340 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 15:27 EDT
+
+There is still no counterexample.  Simon's observation that the YAH/tag
+compiler may be much more powerful than necessary produces a real strategic
+simplification: use the compiler only as a verified bridge, and search first
+in the densest minimal raw Collatz subsystem.
+
+For a shortcut parity word `w`, put
+
+```text
+S=length(w),  O=number of odd sources,  R(w)=3^O/2^S.
+```
+
+Let `F` be the words for which `R(w)>1` for the first time at the final bit.
+This is the canonical maximal prefix-free outward code.  Every outward word
+has a unique prefix in `F`, so no other outward prefix code can have greater
+ordinary or slope-tilted mass.  Its first layers are exactly
+
+```text
+length/count: (1,1), (3,1), (6,2), (9,7), (11,30), ...
+F_(<=6)={1,011,001111,010111}.
+```
+
+Thus the earlier four-word signed language was not ad hoc: it is the complete
+minimal outward system through length eight.  The full system has two exact
+Kraft laws.  With
+
+```text
+p(w)=2^-S,       q(w)=p(w)R(w)=3^O/4^S,
+```
+
+fair parity has negative log drift and gives
+
+```text
+P=sum_F p(w)<1,
+```
+
+whereas `q` is Bernoulli parity with odd probability `3/4`, has positive log
+drift, and gives the stopped-martingale identity
+
+```text
+sum_F q(w)=1.                                      (KC-FP1)
+```
+
+The new exact worker counts this code by `(S,O)` without enumerating words.
+At depth 256 it certifies
+
+```text
+0.713684569145118094... < P < 0.713684640996637644...,
+remaining tilted mass = 0.000000215554558648... .  (KC-FP2)
+```
+
+These are exact rational bounds with decimal renderings.  The critical first
+moment is ensemble conservation, not an ordinary orbit.
+
+Version 2 also evaluates the theorem variable itself rather than widening a
+generic prefix search.  Exhaustive exact replay of every positive source at
+most `300000` certifies the changes in the minimum-address sequence
+
+```text
+(n,h_n)=(1,1),(2,3),(3,7),(4,15),(5,27),(16,703),
+        (17,4255),(20,4591),(22,31911),(25,77671),
+        (26,113383),(28,159487),(30,270271),
+```
+
+with the displayed value constant between change points through `h_36`, and
+proves `h_37>300000`.  The record source `270271` completes 36 outward blocks
+but then reaches the `1--2` cycle.  This is a finite lower bound on the atomic
+gate, not evidence of an infinite escape.
+
+The construction gate is now equally exact.  Let `r(u)` be the least
+nonnegative initial residue for a concatenation `u in F^n`, and
+
+```text
+h_n=min_(u in F^n) r(u).
+```
+
+Compatible residues only gain nonnegative high-bit carries, so `h_n` is
+nondecreasing.  An ordinary positive infinite survivor exists exactly when
+`h_n` is bounded, equivalently eventually constant; companion commit
+`8959436` kernel-checks this finite-window compactness equivalence directly
+for literal shortcut executions.  A projectively
+consistent schedule measure can force such a path if its canonical residues
+are uniformly tight (uniformly bounded first moment is sufficient).  The
+natural critical `q`-flow is provably not tight:
+
+```text
+mu_q{r_n<=B} <= B*(3/4)^n.                         (KC-FP3)
+```
+
+Hence diffuse pressure, KL branching mass, and universality do not supply the
+missing atom.  The preferred constructive target is now an arithmetic
+Doob transform or adaptive rule that keeps `h_n` bounded—an explicitly
+atomic, aperiodic raw Collatz controller.  This is materially smaller than a
+YAH tag machine and stronger than another prefix scan.
+
+The executable artifact
+[`outward_first_passage_audit.json`](experiments/kontorovich/outward_first_passage_audit.json)
+has `counterexample:null`.  Separately, companion commits `0c6587b` and
+`0e3fcf8` now kernel-check the full one-hit public-theta lattice converse and
+the elementary bivariate ruler system.  Commit `45dd08b` now kernel-checks
+the first-passage foundation and exact `3/2` overshoot inequality.  Commit
+`8959436` proves the minimum-address compactness criterion.  Version 7
+of the branch-pressure artifact adds an exact eventual `2`-adic
+monomial-separation algorithm along the Jordan orbit; the multivariate value
+theorem remains open and secondary to the minimal raw construction lane.
+
+### 2026-07-23 14:34 EDT
+
+There is still no counterexample.  Closing the ordinary valuation ruler
+revealed a sharper next candidate that genuinely lies outside the one-variable
+Wang theorem rather than merely missing a numerical threshold.
+
+For the place-value target schedule
+
+```text
+m_n=j+8*17^v_17(n+1),       1<=j<=8,
+```
+
+put `A_n=sum_(1<=t<=n)17^v_17(t)`.  Its exact block law
+
+```text
+A_(17n+r)=17A_n+16n+r
+```
+
+turns the inclusive theta series into
+
+```text
+H(C,Z)=sum_(n>=0)C^A_n Z^n,
+1+Theta=H(c,z_j),
+H(C,Z)=P_17(CZ)H(C^17,C^16Z^17).
+```
+
+The Mahler map `T(C,Z)=(C^17,C^16Z^17)` has a defective Jordan matrix and
+is genuinely bivariate.  Its iterates are
+
+```text
+T^k(C,Z)=(C^(17^k),C^(16k17^(k-1))Z^(17^k)).
+```
+
+At every specialized rail the prime-exponent vectors of `c` and `z_j` have
+the exactly audited determinant `16`.  A research-side real dominant-monomial
+argument makes the forward orbit Zariski-dense and therefore rules out an
+invariant algebraic curve that quietly reduces this to the now-closed
+one-variable ruler; QM154 asks Lean to package this if cheap.
+
+This schedule also survives the exact height gate for a principled reason:
+`A_(17^k-1)=16k17^(k-1)`, so cumulative `k17^k` depth eventually dominates
+each fresh `17^k` spike.  The live seam is now precise—a multivariate
+`2`-adic Mahler value theorem for this Jordan map, or a direct auxiliary-
+function proof—not a longer prefix scan.  Version 6 of the exact artifact
+checks the block/digit laws, matrix iterates, rank determinants, and boundary
+sums; it still records `counterexample:null`.  QM154 requests the elementary
+Lean package without making a special-value claim.
+
+### 2026-07-23 14:21 EDT
+
+There is still no counterexample, but the KL-driven slow-counter candidate is
+now closed by the same source-audited p-adic Mahler theorem that previously
+closed geometric clocks.
+
+For the only valuation ruler surviving the public-theta height gate,
+
+```text
+m_n=j+8*v_17(n+1),       1<=j<=8,
+```
+
+Legendre's formula and `kappa=16/27` give the exact digit-sum function
+
+```text
+G(x)=sum_(n>=0)kappa^(-s_17(n))*x^n
+    =product_(k>=0)P_17(x^(17^k)/kappa),
+G(x)=P_17(x/kappa)G(x^17).
+```
+
+The required orbit value is
+
+```text
+G(2^(19+8j)/3^(14+6j))=1-2^20*Wbar(r),
+```
+
+an ordinary integer in `Q_2`.  The product zeros approach every point of the
+complex unit circle, so `G` has a natural boundary and is transcendental as a
+function; rational-coefficient scalar descent gives the required
+`C_2(x)` transcendence.  Wang's 2006 theorem then applies with
+`rho=17`, functional degree one, and exact size condition `17<17^2`.
+It makes all eight displayed special values transcendental in `Q_2`, a
+contradiction.  Thus neither a standard nor an amplified 17-ruler can supply
+the orbit.
+
+This exposes a broader theorem-driven warning for the positive first-order
+controllers considered here.  A rational solution is defeated by the
+two-place sign separator, while a function meeting Wang's transcendence,
+small-degree, and nonvanishing hypotheses has a transcendental
+algebraic-point value.  A successful self-writing counter therefore has to
+escape this trap, not merely use an aperiodic ruler.  Version 5 of the exact
+artifact checks the digit-sum identities, all eight arguments, and every
+elementary Wang parameter.  Companion commit `3f7cc7c` kernel-checks the
+theta tail equation, automatic integrality of all suffixes from one initial
+integer hit, and the grouped natural-number pressure kernel.  QM153 requests
+the slow-ruler endpoint bridge, while the final `Wbar` lattice propagation in
+the converse remains open.  The artifact still records `counterexample:null`.
+
+### 2026-07-23 14:06 EDT
+
+There is still no counterexample, but the KL theta reduction now gives a
+converse construction theorem and recovers the existing universal EC17
+branch-growth budget directly in the public-payload coordinate.
+
+For a positive schedule, write the suffix equation as
+
+```text
+Theta_t=alpha_(m_t)*(1+Theta_(t+1)).
+```
+
+If the initial value alone is a negative integer `Theta_0=-X_0`, its unique
+lowest dyadic term forces every suffix to be a negative integer and
+
+```text
+X_t=2^(8m_t+15)h_t,
+X_(t+1)=3^(6m_t+11)h_t+1.
+```
+
+If `X_0=2^20*Wbar(r_0)`, the reduced determinant identity and the exact
+resonances `3^6=2^8 (mod 473)` and
+`32Wbar(0)=Zbar(0) (mod 473)` propagate the full affine packet lattice.
+Thus one exact hit
+
+```text
+Theta=-2^20*Wbar(r)
+```
+
+is sufficient to construct the entire accepted public orbit after the known
+one-step shift.  There is no hidden suffix-integrality condition.  Companion
+commits `1c322d4` and `685f6ca` kernel-check the full `Q_2` theta endpoint and
+its unit-slice integer specialization; QM151 asks for the converse.
+
+The same series gives an exact two-place form of the earlier scale-budget
+theorem.  Put
+
+```text
+M_N=sum_(i<N)m_i, D_N=11N+6M_N, V_N=15N+8M_N.
+```
+
+If `Theta=-K` with `K>0`, then
+
+```text
+2^V_(N+1) < (K+1)*3^D_N.
+```
+
+Combining this with `3^41<2^65` bounds
+
+```text
+328m_N-62M_N-100N+615.
+```
+
+So branch counters may grow, but a fresh branch cannot outrun the cumulative
+depth that paid for it.  This agrees with the already kernel-checked core
+ceiling and excludes superincreasing and naive exponentially deep clocks in
+the theta language.  The v4 artifact checks the constants, exponent
+identity, 1,278 finite theta telescopes, and retains `counterexample:null`.
+
+The slower valuation ruler `m_n=j+8*v_17(n+1)` survives this sieve and reduces
+exactly to a 17-Mahler equation.  That is now a principled nonlinear target,
+not an invitation to widen a prefix scan.  Its function is nonrational, but no
+applicable `2`-adic Mahler-value irrationality theorem has yet been verified;
+claiming that its special value is irrational would be premature.
+
+The design principle is now adelic: a successful closed form must have a
+terminal boundary that vanishes in `Q_2` but approaches a positive nonzero
+real limit.  Any telescope whose boundary vanishes in both completions gives
+the same positive rational value twice and cannot hit the required negative
+integer.
+
+### 2026-07-23 13:43 EDT
+
+There is still no counterexample.  The public-payload carry theorem and the
+KL paper now combine into a single exact variable-exponent theta problem.
+
+For a target branch `m`, define
+
+```text
+alpha_m=2^(8m+15)/3^(6m+11),
+A=83499104/(473*3^11),
+B=494251421/(473*2^20),
+epsilon=A-B=17/(473*2^20*3^11).
+```
+
+For a branch schedule `m_0,m_1,...`, let
+`R_0=1`, `R_j=product_(i<j)alpha_(m_i)`.  Exact finite unrolling of the public
+recurrence gives
+
+```text
+q_0+A+epsilon*sum_(1<=j<N)R_j=R_N*(q_N+B).
+```
+
+The v3 artifact verifies this identity on all 1,278 schedule cylinders through
+160 written bits.  Along an ordinary infinite public orbit the right-hand side
+vanishes 2-adically, so
+
+```text
+q_0=-A-epsilon*Theta,
+Theta=sum_(j>=1)R_j=-2^20*W(q_0)/17.
+```
+
+Since
+
+```text
+R_j=(2^15/3^11)^j*(2^8/3^6)^M_j,
+M_j=sum_(i<j)m_i,
+```
+
+this is one KL/Tschakaloff series whose exponent positions are written by the
+payload.  Fixed-rate `M_j` is exactly the already-closed partial-theta lane.
+The live construction question is sharper: find nonlinear, aperiodic exponent
+positions for which this `Q_2` series lands on the displayed rational lattice.
+Its tail equation `Theta_t=alpha_(m_t)*(1+Theta_(t+1))` recovers the branch
+from `v_2(Theta_t)=8m_t+15`, so it is equivalent to, not weaker than, the
+public carry program.
+
+On the invariant unit slice `q_0=17r`, the rational target becomes the
+negative ordinary integer `Theta=-2^20*Wbar(r)`.  The eight shallow rails are
+therefore exact 17-adic selectors inside a one-series **integer-value**
+problem, rather than an unrelated checksum experiment.
+
+Companion commit `3ebde99` also proves universally that every finite word in
+any of the eight shallow rails has a strictly positive exact public-payload
+realization in the fixed class modulo `17^2`.  Thus no bounded rail-prefix
+search can prune the language; its compatible representatives may simply
+escape upward.  Literal stabilization of the canonical public residues is
+the only infinite gate.  QM150 asks Lean to expose the finite theta telescope;
+no irrationality or existence claim is made for arbitrary nonlinear
+`M_j`, and `counterexample:null` remains unchanged.
+
 ### 2026-07-23 13:13 EDT
 
 There is still no counterexample, but the theorem-driven unit slice has now
@@ -4674,7 +5008,10 @@ reproduces while its scale grows.
 Simon Dedeo suggested two refinements which now govern the KC strategy.  First,
 mine ultra-simple programming languages—Brainfuck, tag systems, and FRACTRAN—
 for macro, loop, counter, and nonhalting-certificate ideas, without assuming
-that `3x+1` is universal.  Second, and more importantly, do **not** assume that
+that `3x+1` is universal.  These languages are sources of mechanisms, not the
+preferred state space: the YAH packet compiler is now known to impose a very
+sparse address code, and the canonical raw first-passage outward system below
+is the lower-power construction target.  Second, and more importantly, do **not** assume that
 a Collatz instruction is spatially local.  Its natural unit may be a
 congruence, a carry phase between remote packets, or a mixed-base relation
 spread across the whole digit span.  The active instruction set therefore
@@ -5337,6 +5674,18 @@ identically `x`.
   seed whose valuations and closure can be checked directly.  Use modular
   meet-in-the-middle, lattice, and branch-and-bound searches aimed at long,
   low-description words rather than another undirected small-seed sweep.
+- **Minimal raw first-passage controller (preferred low-power lane).**  Let
+  `F` contain each shortcut parity word whose slope `3^O/2^S` first exceeds
+  one at its last bit.  It is the maximal outward prefix-free code; its first
+  four words are `{1,011,001111,010111}`.  Exact stopped-mass conservation
+  gives ordinary Kraft mass `P` in the rational interval recorded by
+  [`outward_first_passage_audit.json`](experiments/kontorovich/outward_first_passage_audit.json)
+  and tilted mass exactly one.  For the least compatible initial residues,
+  `h_n=min_(u in F^n)r(u)` is nondecreasing, and boundedness is equivalent to
+  an ordinary infinite strictly growing shortcut orbit.  Diffuse critical
+  flow is insufficient (`mu_q{r_n<=B}<=B(3/4)^n`).  Seek an arithmetic,
+  necessarily atomic and aperiodic selector proving `sup_n h_n<infinity`;
+  do not promote critical pressure or longer finite survival by itself.
 - **Parametric gliders.**  Search for a finite symbolic transducer, substitution,
   or arithmetic family `x_t` with a machine-checkable macrostep
   `T^(ell(t))(x_t)=x_(t+1)` and `x_(t+1)>x_t`.  The existing exhaustive
@@ -5524,6 +5873,7 @@ identically `x`.
 
 | Ansatz or route | Calibrated verdict | Exact record |
 |---|---|---|
+| Treating critical first-passage/KL mass as an ordinary survivor | Invalid.  For the canonical maximal outward first-passage code, the slope-tilted Kraft mass is exactly one at every block depth, but its natural product flow satisfies `mu_q{r_n<=B}<=B(3/4)^n`.  Thus conserved first moment and positive pressure are compatible with exponential escape from every bounded ordinary residue window.  Any successful selector must create an atom, equivalently prove the monotone minimum address `h_n` stays bounded; more diffuse branching search cannot cross this gate. | [`outward_first_passage_audit.json`](experiments/kontorovich/outward_first_passage_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#22-the-minimal-raw-outward-system-is-critical-and-an-orbit-is-an-atom) |
 | Prefix-complete uniformly outward valuation ISA | Closed for finite positive prefix-free codes.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, every outward leaf has `q(w)>p(w)`; `p`-completeness and the `q`-Kraft bound are inconsistent.  Commit `da9fa59` constructs explicit binary and four-letter compilers, derives both Kraft inequalities from prefix-freeness, and proves the full finite contradiction and quantitative mass bound in Lean.  The countably infinite prefix-free theorem still uses an abstract `tsum` interface.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |
 | Periodic or ultimately periodic path in the four-word signed thin language | Closed.  The exact bounded controller audit extracts the proper code `{1,011,001111,010111}` with ordinary mass `21/32`, tilted mass `1905/2048`, and 41,328 literal growing reset checks.  Commit `1aa3e52` proves that any nonempty periodic concatenation of outward shortcut blocks gives an expanding coprime affine recurrence and cannot persist on positive naturals; an arbitrary finite prefix does not help.  Genuinely aperiodic paths with eventually zero address carry remain open. | [`kl_signed_thin_residue.json`](experiments/kontorovich/kl_signed_thin_residue.json), [`ShortcutParityPeriodicNoGo.lean`](KontoroC/KontoroC/ShortcutParityPeriodicNoGo.lean) |
 | EC17 normalized core boundary as a KL full-lift path | Closed as a semantic identification.  The boundary clock is a genuine ternary odometer and is cofinal on `Y_d` when `3` does not divide the period-three gain.  Nevertheless each phase has only one class-2 and one class-8 KL chord over a full orbit; almost all pairs are nonedges.  More decisively, a KL word with `r` chords has defect at least `3^r-2^r`, while one normalized EC17 core step has `r>=17` and defect 34.  No KL/Haar tax may be attached directly to the core clock.  This does not close the actual packet compiler, whose ordinary endpoints must be expanded and sampled separately. | [`breakoff_ether_period3_kl_bridge_audit.json`](experiments/kontorovich/breakoff_ether_period3_kl_bridge_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md) |

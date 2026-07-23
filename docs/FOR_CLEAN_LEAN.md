@@ -11688,7 +11688,7 @@ higher 17-adic lifting does not obstruct the rail; it supplies an evolving
 counter channel capable of encoding the next branch digit.  A stationary
 all-depth lift forces stationary branch data and is killed by the existing
 fixed/eventually-periodic branch theorem, but evolving higher digits remain
-live.  The Python v2 artifact checks all eight affine digit laws exactly and
+live.  The Python v3 artifact checks all eight affine digit laws exactly and
 still records `counterexample:null`.
 
 ## Kontorovich request: color zero already supplies the full packet rail (QM148, 2026-07-23)
@@ -11814,3 +11814,623 @@ an ordinary infinite tail.                              (QM149b)
 
 Do not infer an infinite orbit by compactness: the CRT representatives can
 and generally do escape to infinity as the written dyadic precision grows.
+
+Status: companion commit `3ebde99` proves the generic finite fixed-rail
+realization theorem and all eight named shallow-rail corollaries.  It also
+formalizes the exact local modulo-`17^2` propagation.  The result explicitly
+stops at finite words and supplies no compactness passage or infinite seed.
+
+## Kontorovich request: one variable-exponent theta series for the public address (QM150, 2026-07-23)
+
+The public-payload carry program from `d4a8edf` telescopes much more cleanly
+than the older bare-core multi-theta coordinates.  For a target branch `m`,
+put
+
+```text
+P_m=8m+15, Q_m=6m+11,
+alpha_m=2^P_m/3^Q_m,
+A=83499104/(473*3^11),
+B=494251421/(473*2^20),
+epsilon=A-B=17/(473*2^20*3^11).                  (QM150a)
+```
+
+The exact branch defect satisfies over `Rat`
+
+```text
+branchDelta(m)/3^Q_m = A-B*alpha_m.               (QM150b)
+```
+
+For a finite positive target word `m_0,...,m_(N-1)`, define
+
+```text
+R_0=1,
+R_j=product_(i<j) alpha_(m_i).
+```
+
+Any exact public chain through that word obeys the telescope
+
+```text
+q_0+A+epsilon*sum_(1<=j<N) R_j = R_N*(q_N+B).     (QM150c)
+```
+
+This should be a short induction from `payload_branch_recurrence` or the
+generic reset accumulator.  The Python v3 artifact checks (QM150c) on all
+1,278 distinct public cylinders through 160 written bits.
+
+For an infinite ordinary public orbit, `v2(R_N)>=23N`, so the right side
+tends to zero in `Q_2`.  Hence its initial payload satisfies
+
+```text
+q_0=-A-epsilon*Theta,
+Theta=sum_(j>=1) R_j,
+Theta=-2^20*W(q_0)/17.                            (QM150d)
+```
+
+On the invariant unit slice `q_0=17r`, record the immediate integral
+specialization
+
+```text
+Theta=-2^20*Wbar(r).                               (QM150d-unit)
+```
+
+If formalizing `Q_2` convergence is expensive, retain (QM150c) plus the
+finite congruence consumer at arbitrary precision; the infinite identity is
+then a clearly marked mathematical consequence.
+
+Because
+
+```text
+alpha_m=(2^15/3^11)*(2^8/3^6)^m,
+R_j=(2^15/3^11)^j*(2^8/3^6)^M_j,
+M_j=sum_(i<j)m_i,                                  (QM150e)
+```
+
+the entire construction is one variable-exponent KL/Tschakaloff series, not
+three unrelated theta values.  Its tail equation is
+
+```text
+Theta_t=alpha_(m_t)*(1+Theta_(t+1)),
+v2(Theta_t)=P_(m_t).                               (QM150f)
+```
+
+This is a reformulation, not a counterexample.  Fixed-rate `M_j` recovers the
+already-closed partial-theta lane.  The genuinely live case is nonlinear,
+payload-written exponent positions whose `Q_2` value lands on the rational
+lattice in (QM150d).  Please expose (QM150b--c) as reusable exact interfaces;
+do not claim irrationality for arbitrary `M_j`.
+
+Status: companion commit `1c322d4` proves the finite rational telescope, the
+`Q_2` convergence and endpoint, and the conditional lattice-avoidance and
+irrationality consumers.  Commit `685f6ca` proves the literal unit-slice
+integer specialization.  These commits make QM150 complete without asserting
+existence or arbitrary variable-exponent irrationality.
+
+## Kontorovich request: theta sufficiency and the two-place pressure gate (QM151, 2026-07-23)
+
+QM150 can be strengthened in two directions.  First, on the invariant unit
+slice its lattice hit is sufficient, not merely necessary.  For a positive
+schedule `m_t`, let `Theta_t` denote its suffix series, with
+
+```text
+Theta_t=alpha_(m_t)*(1+Theta_(t+1)).
+```
+
+If only the initial value is an ordinary negative integer,
+`Theta_0=-X_0`, then the unique lowest dyadic term gives
+`v2(Theta_t)=8*m_t+15`.  Inductively this forces
+
+```text
+X_t=2^(8*m_t+15)*h_t,
+Theta_(t+1)=-X_(t+1),
+X_(t+1)=3^(6*m_t+11)*h_t+1.                       (QM151a)
+```
+
+Thus every suffix is automatically a negative ordinary integer.  If in
+addition
+
+```text
+X_0=2^20*Wbar(r_0),
+```
+
+then the full affine packet lattice propagates.  Assuming
+`X_t=2^20*Wbar(r_t)`, put
+`h_t=Wbar(r_t)/2^(8*m_t-5)` and `z'=3^(6*m_t)*h_t`.  Equation (QM151a) is
+
+```text
+X_(t+1)=3^11*z'+1.
+```
+
+The suffix valuation makes `2^20 | X_(t+1)`.  Modulo `3^11`, the reduced
+determinant identity supplies the `Wbar` lattice.  Modulo `473`, use the exact
+constants
+
+```text
+3^6 = 2^8 (mod 473),
+32*Wbar(0) = Zbar(0) (mod 473),
+Wbar(r_t)=Wbar(0) (mod 473).
+```
+
+They imply `z'=Zbar(0) (mod 473)`, hence define a nonnegative integer
+`r_(t+1)` with
+
+```text
+z'=Zbar(r_(t+1)),
+X_(t+1)=2^20*Wbar(r_(t+1)).                        (QM151b)
+```
+
+Real growth supplies nonnegativity, and `h_t=2 (mod 3)` makes the ternary
+factor exact.  Therefore one equality
+
+```text
+Theta_0=-2^20*Wbar(r_0)
+```
+
+constructs the entire accepted public orbit after the already documented
+one-step shift.  Please package this as a converse to QM150d, without assuming
+suffix integrality separately.
+
+Second, the real and dyadic sizes give a universal pressure gate.  Define
+
+```text
+M_N=sum_(i<N)m_i,
+D_N=11*N+6*M_N,
+V_N=15*N+8*M_N,
+R_N=2^V_N/3^D_N,
+S_N=sum_(1<=j<=N)R_j=A_N/3^D_N.
+```
+
+If `Theta=-K` for a positive natural `K`, then the exact first omitted term
+gives
+
+```text
+v2(K*3^D_N+A_N)=V_(N+1).
+```
+
+Since `alpha_m<=alpha_1<1/2`, the real partial sum satisfies `0<S_N<1`.
+Consequently
+
+```text
+2^V_(N+1) <= K*3^D_N+A_N < (K+1)*3^D_N.          (QM151c)
+```
+
+This natural-valued inequality is the preferred kernel statement.  Raising
+to the 41st power and using the existing exact separator `3^41<2^65` gives
+
+```text
+2^(41*V_(N+1)) < (K+1)^41*2^(65*D_N).             (QM151d)
+```
+
+When `65*D_N <= 41*V_(N+1)`, cancellation leaves
+
+```text
+2^(328*m_N-62*M_N-100*N+615) < (K+1)^41.          (QM151e)
+```
+
+Hence any schedule for which the displayed fresh-branch excess is unbounded
+above cannot hit an ordinary negative integer.  In particular, every
+superincreasing schedule with `m_N>=M_N` at arbitrarily late indices is
+excluded, as are naive exponentially deep 17-adic clocks.  This does not exclude ordinary slow
+ruler schedules: it is a theorem-driven growth sieve, not an arbitrary
+variable-exponent irrationality theorem.
+
+Scope/reuse note: QM151c--e are the public-theta restatement of the existing
+kernel-checked EC17 scale budget and branch ceiling in
+`EtherCounterGeometricMahler.lean`, not a claim of a stronger new growth
+theorem.  Prefer a short bridge to that library if possible.  The genuinely
+new target is QM151a--b: the converse from one unit-lattice theta hit to all
+integral suffixes and a complete accepted public orbit.
+
+Status after companion commit `3f7cc7c`: the tail functional equation, exact
+tail norm, all-suffix ordinary integrality in QM151a, and the grouped-natural
+pressure kernel in QM151d--e are checked.  The lattice propagation and orbit
+assembly in QM151b remain; their precise target-program indexing is appended
+after QM153 below.
+
+## Kontorovich request: slow 17-ruler Mahler equation (QM152, 2026-07-23)
+
+This request is secondary to the QM151 converse.  For a fixed rail
+representative `1<=j<=8`, define
+
+```text
+m_n=j+8*v17(n+1),
+a=2^15/3^11,
+b=2^8/3^6,
+c=b^8,
+z_j=a*b^j.
+```
+
+The cumulative branch sum is
+
+```text
+M_n=j*n+8*v17(n!).                                (QM152a)
+```
+
+Consequently the inclusive public series is
+
+```text
+1+Theta=F_c(z_j),
+F_c(z)=sum_(n>=0)c^v17(n!)*z^n.                   (QM152b)
+```
+
+The elementary Legendre block identity
+
+```text
+v17((17*n+r)!)=n+v17(n!),       0<=r<17
+```
+
+gives the exact functional equation
+
+```text
+F_c(z)=(1+z+...+z^16)*F_c(c*z^17).                (QM152c)
+```
+
+Since `c=(16/27)^16`, putting `G(x)=F_c(x/(16/27))` gives
+
+```text
+G(x)=P_17(x/(16/27))*G(x^17),
+x_j=2^(19+8*j)/3^(14+6*j).                        (QM152d)
+```
+
+The required counterexample value would be
+
+```text
+G(x_j)=1-2^20*Wbar(r).                             (QM152e)
+```
+
+The Python v4 artifact checks 83,521 literal Legendre block identities and
+all eight rational specialization points.  Please package QM152a--d if the
+factorial valuation API is cheap.  Do not assert irrationality or
+transcendence of the `Q_2` value in QM152e: no applicable value theorem has
+been verified, and functional nonrationality alone is insufficient.
+
+## Kontorovich correction: Wang closes the slow 17-ruler (QM153, 2026-07-23)
+
+The last sentence of QM152 was too pessimistic.  The Wang theorem already
+source-audited for QM78 applies directly after the standard rescaling.
+This is not an inference from nonrationality alone.
+
+Put `kappa=16/27`.  Legendre's digit-sum formula strengthens QM152 to
+
+```text
+16*v17(n!)=n-s17(n),
+G(x)=sum_(n>=0)kappa^(-s17(n))*x^n
+    =product_(k>=0)P_17(x^(17^k)/kappa),           (QM153a)
+G(x)=P_17(x/kappa)*G(x^17).
+```
+
+The product is holomorphic in the complex unit disk.  For every `k`, its
+`k`th factor has zeros
+
+```text
+x^(17^k)=kappa*zeta,   zeta^17=1, zeta!=1.
+```
+
+Their moduli tend to one and their arguments are dense on the unit circle.
+Hence every boundary point is approached from inside by zeros of `G`.  Any
+analytic continuation across one boundary point would make those zeros
+accumulate in its domain and force `G` identically zero, contrary to
+`G(0)=1`.  Thus the unit circle is a natural boundary and `G` is
+transcendental over `C(x)`.  Because all coefficients are rational, the same
+finite-linear-system scalar-descent argument used in QM78 shows that
+algebraicity over `C_2(x)` would descend to algebraicity over `Q(x)`, a
+contradiction.  Therefore `G` is transcendental over `C_2(x)`.
+
+Apply Tian Qin Wang, *p-adic Transcendence and p-adic Transcendence Measures
+for the Values of Mahler Type Functions*, Acta Math. Sinica 22 (2006),
+Theorem 1, in the notation already transcribed near QM81:
+
+```text
+p=2, rho=17, N=1,
+Q0(z,u)=P_17(z/kappa), Q1(z,u)=-u,
+g0=1, g1=0, g(z)=P_17(z/kappa),
+m0=1, M0=17,
+M0*N^2=17<17^2=rho^2.                              (QM153b)
+```
+
+For every rail `1<=j<=8`,
+
+```text
+x_j=2^(19+8*j)/3^(14+6*j),
+0<|x_j|_2=2^(-(19+8*j))<1.
+```
+
+Moreover `g(x_j^(17^k))` is nonzero for every `k`: in the real embedding it
+is the strictly positive number
+`P_17(x_j^(17^k)/kappa)`.  All literal hypotheses of Wang Theorem 1 therefore
+hold, and it gives
+
+```text
+G(x_j) is transcendental in Q_2 for every 1<=j<=8. (QM153c)
+```
+
+This contradicts the necessary unit-lattice value from QM152e.  Consequently
+none of the eight schedules
+
+```text
+m_n=j+8*v17(n+1),  1<=j<=8,                       (QM153d)
+```
+
+can be the target schedule of a self-writing orbit.  The Python v5 artifact
+checks the digit-sum identities, all eight arguments, and every elementary
+Wang parameter.  Please formalize QM152a--d and expose the conditional
+consumer
+
+```text
+(forall j in 1..8, Transcendental_2 (G(x_j)))
+  -> no SelfWritingKL orbit has one of the slow-ruler target schedules.
+```
+
+It is acceptable, as in QM81, to leave Wang plus the natural-boundary/scalar-
+descent input as an explicit cited external premise.  Do not infer a
+counterexample: QM153 closes the most principled remaining fixed ruler.
+
+## QM151b index clarification requested after round 301 (2026-07-23)
+
+Let `m : Nat -> Nat` be the target schedule used by `padicTail m`, with
+`0<m_t`.  The clean payload statement should have no orbit index in its
+hypotheses:
+
+```text
+padicTail m 0 = -(2^20*Wbar(r_0) : Q_2)
+  -> exists r : Nat -> Nat, r 0=r_0 and, for every t,
+       2^(8*m_t+15)*(17*r_(t+1))
+         =3^(6*m_t+11)*(17*r_t)+branchDelta(m_t). (QM151b-index)
+```
+
+Thus `q_t=17*r_t` follows the literal program `payloadStep(m_t)`.  To feed
+the existing constructor, define the dummy-prepended schedule
+
+```text
+b 0=1,       b(t+1)=m_t.
+```
+
+Then `payloadResetProgramOfBranch b t=payloadStep(m_t)`, and
+`promotePayloadChain b ... q ...` has
+
+```text
+orbit.branch(t)=b(t+1)=m_t.
+```
+
+The constructor shifts the payload to `q_(t+1)`, but it does **not** shift
+the requested target schedule `m`.  This is the exact intended indexing.
+
+For the one-step lattice induction, round 301 supplies
+
+```text
+X_t=2^(8*m_t+15)h_t,
+X_(t+1)=3^(6*m_t+11)h_t+1.
+```
+
+Assume `X_t=2^20*Wbar(r_t)` and put `z'=3^(6*m_t)h_t`.  The next tail's
+valuation gives `2^20|X_(t+1)`.  Since
+
+```text
+X_(t+1)=3^11*z'+1,
+3^11*Zbar(0)+1=2^20*Wbar(0),
+```
+
+and `3` is a unit modulo `2^20`, one gets
+`z'=Zbar(0) (mod 2^20)`.  Modulo `473`, use
+
+```text
+Wbar(r_t)=Wbar(0) (mod 473),
+Wbar(r_t)=2^(8*m_t-5)h_t,
+3^(6*m_t)=2^(8*m_t) (mod 473),
+32*Wbar(0)=Zbar(0) (mod 473)
+```
+
+to get `z'=Zbar(0) (mod 473)`.  The moduli are coprime and
+
+```text
+Zbar(r)=Zbar(0)+(473*2^20)*r.
+```
+
+Because `0<Zbar(0)<473*2^20` and `z'>0`, there is a unique nonnegative
+`r_(t+1)` with `z'=Zbar(r_(t+1))`.  The reduced determinant identity then
+gives `X_(t+1)=2^20*Wbar(r_(t+1))`.
+
+Finally the two factorizations
+
+```text
+W(17*r_t)=17*2^(8*m_t-5)h_t,
+Z(17*r_(t+1))=17*3^(6*m_t)h_t
+```
+
+give the public recurrence in (QM151b-index) by expanding `Z,W` and using
+`branchDelta_factor`.  A small reusable converse
+
+```text
+2^(8m-5)*Z(q')=3^(6m)*W(q)
+  -> 2^(8m+15)q'=3^(6m+11)q+branchDelta(m)
+```
+
+would bridge directly to the existing `promotePayloadChain` library.
+
+## Kontorovich request: genuinely bivariate place-value ruler (QM154, 2026-07-23)
+
+The standard valuation ruler is closed by QM153, but the next exact rail
+selector escapes both Wang and the public height gate:
+
+```text
+m_n=j+8*17^v17(n+1),        1<=j<=8.
+```
+
+Define
+
+```text
+A_n=sum_(1<=t<=n)17^v17(t),
+c=(2^8/3^6)^8,              z_j=(2^15/3^11)*(2^8/3^6)^j,
+H(C,Z)=sum_(n>=0)C^A_n*Z^n.
+```
+
+The elementary block law is
+
+```text
+A_(17n+r)=17*A_n+16*n+r,    0<=r<17.              (QM154a)
+```
+
+Equivalently, if `n=sum_i d_i17^i`,
+
+```text
+A_n=d_0+sum_(i>=1)d_i*17^(i-1)*(17+16i).          (QM154b)
+```
+
+The public specialization and functional equation are
+
+```text
+1+Theta=H(c,z_j),
+H(C,Z)=P_17(CZ)*H(C^17,C^16*Z^17).                (QM154c)
+```
+
+Writing `T(C,Z)=(C^17,C^16Z^17)`, exact iteration gives
+
+```text
+T^k(C,Z)=(C^(17^k), C^(16k17^(k-1))*Z^(17^k)),
+H(C,Z)=product_(k>=0)
+  P_17(C^(17^k+16k17^(k-1))*Z^(17^k)).            (QM154d)
+```
+
+This system is genuinely rank two.  The `(v2,v3)` exponent vectors of the
+specialized parameters are
+
+```text
+c:   (64,-48),
+z_j: (15+8j,-11-6j),
+det=16                                                   (QM154e)
+```
+
+for every rail.  More strongly, the forward orbit is Zariski-dense in
+`G_m^2`.  For a Laurent polynomial, evaluate a monomial `C^pZ^q` at `T^k`.
+Its real logarithmic size is
+
+```text
+17^k*(p*log(c)+q*log(z)+(16/17)*q*k*log(c)).       (QM154f)
+```
+
+Since `0<c,z<1`, the term with lexicographically least `(q,p)` uniquely
+dominates for large `k`; a nonzero polynomial cannot vanish along the whole
+orbit.  Thus no invariant algebraic curve through a specialized point can
+reduce QM154c to a one-variable `x -> x^17` Wang equation.
+
+The public height gate is deliberately silent.  At the spike indices,
+
+```text
+A_(17^k-1)=16*k*17^(k-1),                          (QM154g)
+```
+
+so cumulative `k17^k` depth dominates the fresh `17^k` branch.  The v6
+artifact checks 83,521 block identities, the digit formula through `17^4`,
+65 exact iterates, all eight rank determinants, and the first eight closed
+boundary rows.
+
+Please package QM154a--e if cheap; QM154f would be a useful exact real theorem
+but is secondary to the QM151b converse.  Do not claim a value result.  Wang
+2006 is univariate and does not apply because `C` changes under iteration.
+The natural multivariate transformation has a defective Jordan matrix
+`[[17,0],[16,17]]`; the audited Adamczewski--Faverjon complex framework is not
+a ready substitute and in any case is not a `Q_2` value theorem.  The live
+external seam is a multivariate 2-adic Mahler theorem for this Jordan map or
+a direct auxiliary-function proof.
+
+## Kontorovich request: minimal raw first-passage controller (QM155, 2026-07-23)
+
+Simon points out that the YAH/tag compiler is probably much more powerful
+than a counterexample needs.  The preferred construction lane is now the raw
+shortcut map.  For a parity word `w`, let `S=length(w)`, let `O` count odd
+sources, and put `R=3^O/2^S`.  Define `FirstOutward(w)` by
+
+```text
+R(w)>1 and R(u)<=1 for every proper prefix u of w. (QM155a)
+```
+
+Every outward word has a unique first outward prefix.  Hence these words form
+the maximal outward prefix-free code.  Its complete part through length eight
+is
+
+```text
+1, 011, 001111, 010111.                            (QM155b)
+```
+
+The old `ShortcutParityPeriodicNoGo` module already knows these four words
+and their outwardness.  The cheap formal target is the canonical-address
+existence criterion.  For any nonempty finite prefix-free outward code `C`,
+let `r(u)` be the least starting residue of a concatenation and
+
+```text
+h_n=min_(u in C^n) r(u).
+```
+
+Exact parity-cylinder extension gives
+
+```text
+r(uv)=r(u)+2^S(u)*ell(u,v), ell>=0.                (QM155c)
+```
+
+Please prove:
+
+```text
+h_(n+1)>=h_n,
+(exists positive ordinary infinite C execution)
+  <-> Bounded(range h)
+  <-> EventuallyConstant h.                       (QM155d)
+```
+
+For the reverse implication, if `h_n<=B` for every `n`, one natural in the
+finite window `[1,B]` realizes arbitrarily many depths.  Its parity itinerary
+and prefix-free parsing are deterministic, so it realizes all depths.  Since
+every block is outward, the boundary states strictly increase; the existing
+Collatz counterexample consumer should then apply.
+
+Secondary finite-mass target: with `p(w)=2^-S` and
+`q(w)=3^O/4^S`, package the finite stopped identities
+
+```text
+P_N+A_N=1,      Q_N+R_N=1,                         (QM155e)
+```
+
+from the recurrence in `outward_first_passage.py`.  The infinite identity
+`sum_FirstOutward q=1` may remain an explicit probability/LLN premise.  The
+most useful theorem is QM155d, not a decimal or a finite word census.  Do not
+assert existence: the exact artifact has `counterexample:null`.
+
+## Kontorovich follow-up: finish the mass-to-atom boundary (QM156, 2026-07-23)
+
+Round 305 closes the first-passage foundation and overshoot inequality.  Thank
+you.  The remaining high-value part of QM155 is the bounded-minimum criterion,
+which can first be isolated as a finite compactness lemma independent of
+Collatz syntax.
+
+Let `X={1,...,B}` and let `Good n x` mean that `x` realizes some concatenation
+of `n` codewords.  Prefix closure gives
+
+```text
+Good (n+1) x -> Good n x.                         (QM156a)
+```
+
+Because `X` is finite, the following nested-set lemma should be cheap:
+
+```text
+(forall n, exists x in X, Good n x)
+  -> exists x in X, forall n, Good n x.           (QM156b)
+```
+
+Please then instantiate it for a nonempty finite prefix-free outward code,
+using the canonical least residue to show
+
+```text
+(forall n, h_n<=B)
+  -> exists positive x, forall n, Good n x.       (QM156c)
+```
+
+Together with canonical-residue monotonicity, this gives bounded `h` iff
+eventually constant `h` iff an ordinary infinite code execution exists.  It
+is fine to package QM156b first and leave only a sharply stated parity-cylinder
+adapter if the latter is expensive.  Do not turn critical tilted mass into the
+premise: the exact natural product flow is non-tight and no existence claim is
+available.
+
+For calibration, schema v2 now exhaustively replays every positive source
+through `300000`.  It certifies the full `h_n` sequence through `n=36` and
+`h_37>300000`; the last record is `h_30=...=h_36=270271`, and that source
+still reaches the terminal cycle.  These finite rows may be useful `example`
+tests for the adapter, but they are not premises for QM156b--c.

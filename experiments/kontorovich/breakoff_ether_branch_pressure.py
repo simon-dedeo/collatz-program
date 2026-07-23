@@ -63,6 +63,25 @@ pressure equation to
 The audit certifies the graph, all eight rails, their Kraft masses, and exact
 rational brackets for these pressure roots.  None of these statements supplies
 an infinite accepted orbit or a Collatz counterexample.
+
+The standard nonlinear rail schedule ``m_n=j+8*v17(n+1)`` has an exact
+digit-sum Mahler function.  Version 5 audits the hypotheses of Wang's 2006
+p-adic value theorem, which excludes all eight such schedules after the
+natural-boundary argument recorded in the artifact.  The theorem is cited,
+not reproved; the artifact itself remains an exact hypothesis checker and
+records no counterexample.
+
+Version 6 isolates the next place-value ruler
+``m_n=j+8*17^v17(n+1)`` as a genuinely bivariate Mahler system.  It checks
+the exact block/digit laws, the defective-Jordan iterates, and the rank-two
+rational specializations.  This identifies a multivariate 2-adic value
+theorem as a precise open seam; it does not assert such a theorem.
+
+Version 7 adds the exact valuation formula and an executable eventual
+monomial-separation algorithm along every one of the eight specialized
+Jordan orbits.  This is the finite-polynomial zero-estimate input suggested
+by a KL-style auxiliary argument.  It proves no special-value theorem by
+itself.
 """
 
 from __future__ import annotations
@@ -86,13 +105,16 @@ from breakoff_ether_self_writing_kl import (
 )
 
 
-SCHEMA = "collatz-breakoff-ether-branch-pressure-v2"
+SCHEMA = "collatz-breakoff-ether-branch-pressure-v7"
 COLLISION = 17
 RESONANCE = 473
 MINIMUM_CODE_BITS = 23
 CODE_PERIOD_BITS = 8
 UNIT_Z0 = Z0 // COLLISION
 UNIT_W0 = W0 // COLLISION
+PUBLIC_A = Fraction(W0, W_STRIDE)
+PUBLIC_B = Fraction(Z0, Z_STRIDE)
+PUBLIC_EPSILON = PUBLIC_A - PUBLIC_B
 
 
 def vprime(value: int, prime: int) -> int:
@@ -129,6 +151,12 @@ def branch_delta(target: int) -> int:
     if result <= 0:
         raise AssertionError("branch delta is not positive")
     return result
+
+
+def branch_ratio(target: int) -> Fraction:
+    """Real-contracting and 2-adically contracting inverse branch ratio."""
+
+    return Fraction(1 << branch_bits(target), 3 ** branch_trits(target))
 
 
 @cache
@@ -247,6 +275,7 @@ def exhaustive_prefix_regression(bit_budget: int) -> dict[str, Any]:
     maximum_depth = 0
     maximum_height_slack = 0
     packet_valid_canonical_sources = 0
+    public_theta_identities = 0
     while stack:
         prefix = stack.pop()
         maximum_depth = max(maximum_depth, len(prefix.schedule))
@@ -263,6 +292,8 @@ def exhaustive_prefix_regression(bit_budget: int) -> dict[str, Any]:
                     packet_valid_canonical_sources += 1
         for target in range(1, (bit_budget - prefix.source_bits - 15) // 8 + 1):
             child = prefix.extend(target)
+            verify_public_theta_prefix(child)
+            public_theta_identities += 1
             key = (child.source_bits, child.initial_residue)
             if key in seen:
                 raise AssertionError(
@@ -279,10 +310,639 @@ def exhaustive_prefix_regression(bit_budget: int) -> dict[str, Any]:
         "maximum_schedule_depth": maximum_depth,
         "maximum_canonical_height_slack_bits": maximum_height_slack,
         "packet_valid_canonical_sources": packet_valid_canonical_sources,
+        "public_theta_prefix_identities": public_theta_identities,
         "nonzero_exact_cost_counts": {
             str(cost): count for cost, count in enumerate(counts) if count
         },
         "distinct_cylinders_checked": True,
+    }
+
+
+def verify_public_theta_prefix(prefix: Prefix) -> None:
+    """Check the exact finite telescoping form of the public address."""
+
+    if not prefix.schedule:
+        return
+    ratio = Fraction(1)
+    inner_sum = Fraction(0)
+    last_index = len(prefix.schedule) - 1
+    for index, target in enumerate(prefix.schedule):
+        ratio *= branch_ratio(target)
+        if index < last_index:
+            inner_sum += ratio
+    left = prefix.initial_residue + PUBLIC_A + PUBLIC_EPSILON * inner_sum
+    right = ratio * (prefix.endpoint + PUBLIC_B)
+    if left != right:
+        raise AssertionError("public theta prefix identity failed")
+
+
+def public_theta_certificate() -> dict[str, Any]:
+    """The one-series KL/Tschakaloff form of an arbitrary branch schedule."""
+
+    expected_epsilon = Fraction(
+        17, RESONANCE * (1 << 20) * 3**11
+    )
+    if PUBLIC_EPSILON != expected_epsilon:
+        raise AssertionError("public theta determinant gap changed")
+    if not all(0 < branch_ratio(target) < 1 for target in range(1, 65)):
+        raise AssertionError("public inverse branch stopped contracting over R")
+    return {
+        "inverse_branch_ratio": (
+            "alpha_m=2^(8m+15)/3^(6m+11)="
+            "(2^15/3^11)*(2^8/3^6)^m"
+        ),
+        "determinant_gap": (
+            "A=W0/(473*3^11), B=Z0/(473*2^20), "
+            "epsilon=A-B=17/(473*2^20*3^11)"
+        ),
+        "finite_telescoping_identity": (
+            "q0+A+epsilon*sum_(1<=j<N)R_j=R_N*(q_N+B), "
+            "R_j=product_(i<j)alpha_(m_i)"
+        ),
+        "infinite_two_adic_address": (
+            "q0=-A-epsilon*Theta, Theta=sum_(j>=1)R_j"
+        ),
+        "ordinary_seed_target": (
+            "Theta=-2^20*W(q0)/17 for an ordinary public payload q0"
+        ),
+        "unit_slice_target": (
+            "if q0=17r, then Theta=-2^20*Wbar(r), a negative ordinary "
+            "integer; the eight shallow rails add the certified branch-clock "
+            "residue constraints to this integer target"
+        ),
+        "tail_functional_equation": (
+            "Theta_t=alpha_(m_t)*(1+Theta_(t+1)); "
+            "v2(Theta_t)=8m_t+15"
+        ),
+        "interpretation": (
+            "the counterexample problem is a variable-exponent one-series "
+            "2-adic theta rationality problem; fixed-rate schedules are the "
+            "already-closed partial-theta special case, while nonlinear "
+            "payload-written exponent positions remain open"
+        ),
+    }
+
+
+def public_theta_pressure_certificate() -> dict[str, Any]:
+    """Exact two-place height gate for a negative integral theta value.
+
+    This records the finite arithmetic behind the universal implication.  If
+    ``Theta=-K`` with ``K>0``, write the first ``N`` terms as
+    ``A_N/3^D_N``.  The first omitted term has exact dyadic valuation
+    ``V_(N+1)``, while the real partial sum lies in ``(0,1)``.  Therefore
+
+        2^V_(N+1) <= K*3^D_N+A_N < (K+1)*3^D_N.
+
+    The checker does not assume that an integral theta value exists.
+    """
+
+    if not 2 * (1 << 23) < 3**17:
+        raise AssertionError("alpha_1 stopped being less than one half")
+    if not 3**41 < 1 << 65:
+        raise AssertionError("dyadic/ternary separator changed")
+    if not 3**6 % RESONANCE == 2**8 % RESONANCE:
+        raise AssertionError("mod-473 ether resonance changed")
+    if not (32 * UNIT_W0 - UNIT_Z0) % RESONANCE == 0:
+        raise AssertionError("reduced lattice resonance changed")
+
+    # Audit the exponent elimination independently over a nontrivial exact
+    # box.  The identity itself is polynomial, so these checks are regression
+    # witnesses rather than the proof of its universal quantifiers.
+    identities_checked = 0
+    for count in range(1, 65):
+        for cumulative in range(count, count + 65):
+            for fresh in (1, count, cumulative, cumulative + 17):
+                d_n = 11 * count + 6 * cumulative
+                v_next = 15 * (count + 1) + 8 * (cumulative + fresh)
+                excess = 41 * v_next - 65 * d_n
+                expected = 328 * fresh - 62 * cumulative - 100 * count + 615
+                if excess != expected:
+                    raise AssertionError("fresh-branch pressure identity failed")
+                identities_checked += 1
+
+    # If m_N >= M_N and M_N >= N, the ratio in the height gate is bounded
+    # below by 2^15*(2^31/3^17)^N.  Its base is already strictly greater than
+    # one, so such indices cannot occur cofinally for one fixed K.
+    if not 2**31 > 3**17:
+        raise AssertionError("superincreasing lower-bound base stopped growing")
+
+    return {
+        "negative_integer_height_gate": (
+            "if Theta=-K with K>0, M_N=sum_(i<N)m_i, "
+            "D_N=11N+6M_N, and V_N=15N+8M_N, then "
+            "2^V_(N+1) <= K*3^D_N+A_N < (K+1)*3^D_N"
+        ),
+        "exact_tail_valuation": (
+            "v2(Theta-sum_(1<=j<=N)R_j)=V_(N+1)"
+        ),
+        "real_partial_sum_gate": (
+            "0<sum_(1<=j<=N)R_j<1 because alpha_m<=alpha_1<1/2"
+        ),
+        "separator": "3^41<2^65",
+        "fresh_branch_excess": (
+            "41V_(N+1)-65D_N=328m_N-62M_N-100N+615"
+        ),
+        "exclusion": (
+            "an unbounded positive fresh-branch excess cannot hit a fixed "
+            "negative integer; in particular schedules with m_N>=M_N "
+            "at arbitrarily late indices are excluded"
+        ),
+        "superincreasing_lower_bound": (
+            "2^V_(N+1)/3^D_N >= 2^15*(2^31/3^17)^N when "
+            "m_N>=M_N>=N"
+        ),
+        "unit_lattice_sufficiency_constants": {
+            "3^6_mod_473": pow(3, 6, RESONANCE),
+            "2^8_mod_473": pow(2, 8, RESONANCE),
+            "32Wbar0_minus_Zbar0_div_473": (
+                32 * UNIT_W0 - UNIT_Z0
+            ) // RESONANCE,
+            "interpretation": (
+                "a negative theta hit -2^20*Wbar(r) recursively produces "
+                "integer suffixes and the reduced affine lattice; this is "
+                "the converse construction target, not an existence claim"
+            ),
+        },
+        "exponent_identity_regressions": identities_checked,
+        "scope": (
+            "slow valuation/place-value ruler schedules can satisfy this "
+            "height gate; the standard valuation ruler is separately closed "
+            "by the Wang application below, while more general adaptive "
+            "schedules require other input"
+        ),
+    }
+
+
+def valuation_factorial(n: int, prime: int) -> int:
+    """Legendre valuation of ``n!`` in exact integer arithmetic."""
+
+    if n < 0:
+        raise ValueError("factorial index must be nonnegative")
+    result = 0
+    quotient = n
+    while quotient:
+        quotient //= prime
+        result += quotient
+    return result
+
+
+def digit_sum(n: int, base: int) -> int:
+    """Sum the base-``base`` digits of a nonnegative integer."""
+
+    if n < 0 or base < 2:
+        raise ValueError("invalid digit-sum query")
+    result = 0
+    while n:
+        result += n % base
+        n //= base
+    return result
+
+
+def ruler_mahler_certificate() -> dict[str, Any]:
+    """Certify the exact 17-ruler/Mahler reduction coefficient by coefficient."""
+
+    prime = COLLISION
+    coefficient_checks = 0
+    digit_sum_checks = 0
+    for n in range(prime**3):
+        base = valuation_factorial(n, prime)
+        if 16 * base != n - digit_sum(n, prime):
+            raise AssertionError("17-ruler Legendre digit-sum identity failed")
+        digit_sum_checks += 1
+        for remainder in range(prime):
+            if valuation_factorial(prime * n + remainder, prime) != n + base:
+                raise AssertionError("17-ruler Legendre block identity failed")
+            coefficient_checks += 1
+
+    a = Fraction(1 << 15, 3**11)
+    b = Fraction(1 << 8, 3**6)
+    c = b**8
+    kappa = Fraction(16, 27)
+    if kappa**16 != c:
+        raise AssertionError("Mahler rescaling constant changed")
+    if not 17 < 17**2:
+        raise AssertionError("Wang degree condition changed")
+
+    rail_points: list[dict[str, Any]] = []
+    for rail in range(1, 9):
+        z = a * b**rail
+        x = kappa * z
+        expected_x = Fraction(1 << (19 + 8 * rail), 3 ** (14 + 6 * rail))
+        if x != expected_x:
+            raise AssertionError("17-ruler Mahler point identity failed")
+        if vprime(x.numerator, 2) != 19 + 8 * rail:
+            raise AssertionError("17-ruler point lost its 2-adic size")
+        rail_points.append(
+            {
+                "rail_representative": rail,
+                "z": str(z),
+                "rescaled_x": str(x),
+            }
+        )
+
+    # The amplified ruler is a theorem-driven negative control for the height
+    # gate.  At N=17^k-1 the closed Legendre sum makes its fresh branch larger
+    # than all preceding branches combined.
+    amplified_checks = 0
+    for depth in range(1, 9):
+        boundary = prime**depth
+        closed_sum = prime ** (depth - 1) * (boundary - 1)
+        if depth <= 4:
+            exact_sum = sum(
+                prime ** (2 * vprime(t, prime)) for t in range(1, boundary)
+            )
+            if exact_sum != closed_sum:
+                raise AssertionError("amplified-ruler valuation sum changed")
+        else:
+            exact_sum = closed_sum
+        index = boundary - 1
+        for rail in range(1, 9):
+            cumulative = rail * index + 8 * exact_sum
+            fresh = rail + 8 * prime ** (2 * depth)
+            if fresh <= cumulative:
+                raise AssertionError("amplified ruler stopped being superincreasing")
+            amplified_checks += 1
+
+    return {
+        "schedule": "m_n=j+8*v17(n+1), 1<=j<=8",
+        "series_parameters": {
+            "a": str(a),
+            "b": str(b),
+            "c": str(c),
+            "kappa": str(kappa),
+        },
+        "legendre_block_identity": (
+            "v17((17n+r)!)=n+v17(n!) for 0<=r<17"
+        ),
+        "mahler_function": (
+            "F_c(z)=sum_(n>=0)c^v17(n!)*z^n; "
+            "F_c(z)=(1+z+...+z^16)*F_c(c*z^17)"
+        ),
+        "theta_specialization": "1+Theta=F_c(a*b^j)",
+        "standard_rescaling": (
+            "G(x)=F_c(x/kappa), G(x)=P_17(x/kappa)*G(x^17)"
+        ),
+        "digit_sum_form": (
+            "G(x)=sum_(n>=0)kappa^(-s_17(n))*x^n="
+            "product_(k>=0)P_17(x^(17^k)/kappa)"
+        ),
+        "target": "G(x_j)=1-2^20*Wbar(r)",
+        "rail_points": rail_points,
+        "coefficient_identity_regressions": coefficient_checks,
+        "digit_sum_identity_regressions": digit_sum_checks,
+        "wang_theorem_application": {
+            "source": (
+                "T. Q. Wang, p-adic Transcendence and p-adic "
+                "Transcendence Measures for the Values of Mahler Type "
+                "Functions, Acta Math. Sinica 22 (2006), Theorem 1"
+            ),
+            "parameters": {
+                "p": 2,
+                "rho": 17,
+                "functional_degree_N": 1,
+                "Q0(z,u)": "P_17(z/kappa)",
+                "Q1(z,u)": "-u",
+                "elimination_polynomial_g(z)": "P_17(z/kappa)",
+                "m0": 1,
+                "M0": 17,
+            },
+            "numerical_condition": "M0*N^2=17<17^2=rho^2",
+            "argument_condition": (
+                "x_j is nonzero and |x_j|_2=2^(-(19+8j))<1"
+            ),
+            "nonvanishing": (
+                "P_17(x_j^(17^k)/kappa)>0 in the real embedding for all k"
+            ),
+            "function_transcendence": (
+                "the product zeros x^(17^k)=kappa*zeta, "
+                "zeta^17=1 and zeta!=1, accumulate densely at the complex "
+                "unit circle, giving a natural boundary; rational-coefficient "
+                "scalar descent transfers transcendence to C_2(z)"
+            ),
+            "published_theorem_conclusion": (
+                "G(x_j) is transcendental in Q_2 for every 1<=j<=8, so it "
+                "cannot equal the ordinary integer 1-2^20*Wbar(r)"
+            ),
+        },
+        "amplified_negative_control": {
+            "schedule": "m_n=j+8*17^(2*v17(n+1))",
+            "closed_sum": (
+                "sum_(1<=t<17^k)17^(2v17(t))=17^(k-1)*(17^k-1)"
+            ),
+            "superincreasing_cases_checked": amplified_checks,
+            "consequence": "excluded by the public theta height gate",
+        },
+        "scope": (
+            "the functional equation, digit-sum form, specializations, and "
+            "elementary Wang hypotheses are checked exactly; the universal "
+            "special-value conclusion invokes the cited published theorem "
+            "and the displayed natural-boundary/scalar-descent argument"
+        ),
+    }
+
+
+def place_value_mahler_certificate() -> dict[str, Any]:
+    """Exact bivariate system for the surviving place-value 17-ruler."""
+
+    prime = COLLISION
+    bound = prime**4
+    prefix = [0] * (bound + 1)
+    digit_formula_checks = 0
+    for n in range(1, bound + 1):
+        prefix[n] = prefix[n - 1] + prime ** vprime(n, prime)
+
+    for n in range(bound):
+        digits = []
+        value = n
+        while value:
+            digits.append(value % prime)
+            value //= prime
+        candidate = digits[0] if digits else 0
+        candidate += sum(
+            digit * prime ** (index - 1) * (prime + 16 * index)
+            for index, digit in enumerate(digits[1:], start=1)
+        )
+        if prefix[n] != candidate:
+            raise AssertionError("place-value ruler digit formula failed")
+        digit_formula_checks += 1
+
+    block_checks = 0
+    for n in range(prime**3):
+        for remainder in range(prime):
+            if prefix[prime * n + remainder] != (
+                prime * prefix[n] + 16 * n + remainder
+            ):
+                raise AssertionError("place-value ruler block law failed")
+            block_checks += 1
+
+    iterate_checks = 0
+    iterates: list[dict[str, Any]] = []
+    c_exponent = 1
+    z_c_exponent = 0
+    z_exponent = 1
+    for depth in range(65):
+        expected_c = prime**depth
+        expected_z_c = 0 if depth == 0 else 16 * depth * prime ** (depth - 1)
+        expected_z = prime**depth
+        if (c_exponent, z_c_exponent, z_exponent) != (
+            expected_c,
+            expected_z_c,
+            expected_z,
+        ):
+            raise AssertionError("bivariate Mahler iterate formula failed")
+        if depth < 8:
+            iterates.append(
+                {
+                    "depth": depth,
+                    "C_coordinate_C_exponent": str(c_exponent),
+                    "Z_coordinate_C_exponent": str(z_c_exponent),
+                    "Z_coordinate_Z_exponent": str(z_exponent),
+                }
+            )
+        c_exponent *= prime
+        z_c_exponent = 16 * expected_c + prime * z_c_exponent
+        z_exponent *= prime
+        iterate_checks += 1
+
+    rank_checks = []
+    for rail in range(1, 9):
+        c_vector = (64, -48)
+        z_vector = (15 + 8 * rail, -(11 + 6 * rail))
+        determinant = (
+            c_vector[0] * z_vector[1] - c_vector[1] * z_vector[0]
+        )
+        if determinant != 16:
+            raise AssertionError("place-value rational parameters lost rank two")
+        rank_checks.append(
+            {
+                "rail_representative": rail,
+                "prime_exponent_determinant": determinant,
+            }
+        )
+
+    boundary_checks = []
+    for depth in range(1, 9):
+        boundary = prime**depth
+        closed = 16 * depth * prime ** (depth - 1)
+        if depth <= 4 and prefix[boundary - 1] != closed:
+            raise AssertionError("place-value boundary sum failed")
+        for rail in range(1, 9):
+            cumulative = rail * (boundary - 1) + 8 * closed
+            fresh = rail + 8 * boundary
+            if fresh >= cumulative:
+                raise AssertionError("place-value spike unexpectedly superincreasing")
+        boundary_checks.append(
+            {
+                "depth": depth,
+                "A_(17^k-1)": str(closed),
+                "all_eight_fresh_spikes_below_history": True,
+            }
+        )
+
+    return {
+        "schedule": "m_n=j+8*17^v17(n+1), 1<=j<=8",
+        "prefix_weight": "A_n=sum_(1<=t<=n)17^v17(t)",
+        "block_law": "A_(17n+r)=17*A_n+16*n+r for 0<=r<17",
+        "digit_formula": (
+            "if n=sum_i d_i*17^i, then "
+            "A_n=d_0+sum_(i>=1)d_i*17^(i-1)*(17+16i)"
+        ),
+        "theta_value": (
+            "1+Theta=H(c,z_j), H(C,Z)=sum_(n>=0)C^A_n*Z^n"
+        ),
+        "functional_equation": (
+            "H(C,Z)=P_17(CZ)*H(C^17,C^16*Z^17)"
+        ),
+        "mahler_map": "T(C,Z)=(C^17,C^16*Z^17)",
+        "iterate_formula": (
+            "T^k(C,Z)=(C^(17^k),C^(16k17^(k-1))*Z^(17^k))"
+        ),
+        "product": (
+            "H(C,Z)=product_(k>=0)P_17("
+            "C^(17^k+16k17^(k-1))*Z^(17^k))"
+        ),
+        "finite_checks": {
+            "digit_formula": digit_formula_checks,
+            "block_law": block_checks,
+            "iterate_formula": iterate_checks,
+            "sample_iterates": iterates,
+            "boundary_rows": boundary_checks,
+        },
+        "rank_two_parameters": {
+            "c_prime_vector": "(v2,v3)=(64,-48)",
+            "z_j_prime_vector": "(15+8j,-11-6j)",
+            "determinants": rank_checks,
+            "interpretation": (
+                "determinant 16 for every rail; the rational parameters "
+                "cannot both be powers of one rational base"
+            ),
+        },
+        "theorem_boundary": (
+            "the defective Jordan map is genuinely bivariate and does not "
+            "reduce to the univariate Wang theorem; the exact height gate is "
+            "asymptotically slack because cumulative k*17^k depth dominates "
+            "each fresh 17^k spike"
+        ),
+        "live_target": (
+            "a multivariate 2-adic Mahler value theorem for the Jordan map, "
+            "or a direct auxiliary-function proof; no rationality or orbit "
+            "claim is made"
+        ),
+    }
+
+
+def jordan_monomial_separation_certificate() -> dict[str, Any]:
+    """Exact 2-adic monomial separation on the place-value Jordan orbit.
+
+    A term is represented by ``(p, q, v)`` for a coefficient of 2-adic
+    valuation ``v`` multiplying ``C^p Z^q``.  For a finite support, the
+    lexicographically least pair ``(q, p)`` is eventually the unique term of
+    least valuation.  The loop below computes a rigorous witness depth using
+    only integer arithmetic.
+    """
+
+    def term_valuation(
+        rail: int, depth: int, p_exponent: int, q_exponent: int, coefficient_v2: int
+    ) -> int:
+        c_coordinate_v2 = 64 * COLLISION**depth
+        z_coordinate_v2 = (
+            1024 * depth * COLLISION ** (depth - 1)
+            if depth > 0
+            else 0
+        ) + (15 + 8 * rail) * COLLISION**depth
+        return (
+            coefficient_v2
+            + p_exponent * c_coordinate_v2
+            + q_exponent * z_coordinate_v2
+        )
+
+    def witness_depth(rail: int, terms: Sequence[tuple[int, int, int]]) -> int:
+        if not terms:
+            raise ValueError("a polynomial support must be nonempty")
+        if len({(p, q) for p, q, _ in terms}) != len(terms):
+            raise ValueError("combine equal monomials before separation")
+        chosen = min(terms, key=lambda term: (term[1], term[0]))
+        depth = 0
+        while True:
+            chosen_value = term_valuation(rail, depth, *chosen)
+            if all(
+                chosen_value < term_valuation(rail, depth, *term)
+                for term in terms
+                if term != chosen
+            ):
+                # Once the affine bracket in k is positive, its slope is
+                # nonnegative for every competitor because chosen has least
+                # q and then least p.  The exponentially increasing factor
+                # 17^(k-1) then preserves strictness.  Check the next 64
+                # depths as an independent regression of that derivation.
+                for later in range(depth, depth + 65):
+                    chosen_later = term_valuation(rail, later, *chosen)
+                    if not all(
+                        chosen_later < term_valuation(rail, later, *term)
+                        for term in terms
+                        if term != chosen
+                    ):
+                        break
+                else:
+                    return depth
+            depth += 1
+            if depth > 10_000:
+                raise AssertionError("Jordan monomial separation did not terminate")
+
+    # Bare monomial collisions have a particularly transparent exact law.
+    # For k>=1 the valuation difference, after removing coefficient
+    # valuations, is
+    #
+    #   17^(k-1) * (17*(64*dp+(15+8j)*dq) + 1024*k*dq).
+    #
+    # If dq=0 it never vanishes for distinct monomials; if dq!=0 the affine
+    # bracket has at most one integer root.  Exhaust a nontrivial box as a
+    # regression against the direct valuation implementation.
+    pair_checks = 0
+    for rail in range(1, 9):
+        monomials = [(p, q) for p in range(9) for q in range(9)]
+        for left_index, (p_left, q_left) in enumerate(monomials):
+            for p_right, q_right in monomials[left_index + 1 :]:
+                direct_collisions = []
+                formula_collisions = []
+                for depth in range(1, 65):
+                    direct_difference = term_valuation(
+                        rail, depth, p_right, q_right, 0
+                    ) - term_valuation(rail, depth, p_left, q_left, 0)
+                    dp = p_right - p_left
+                    dq = q_right - q_left
+                    formula_difference = COLLISION ** (depth - 1) * (
+                        COLLISION * (64 * dp + (15 + 8 * rail) * dq)
+                        + 1024 * depth * dq
+                    )
+                    if direct_difference != formula_difference:
+                        raise AssertionError("Jordan valuation-difference formula failed")
+                    if direct_difference == 0:
+                        direct_collisions.append(depth)
+                    if formula_difference == 0:
+                        formula_collisions.append(depth)
+                if direct_collisions != formula_collisions or len(direct_collisions) > 1:
+                    raise AssertionError("Jordan monomials collided more than once")
+                pair_checks += 1
+
+    adversarial_support = (
+        (0, 0, 100_000),
+        (1, 0, -100_000),
+        (0, 1, -1_000_000),
+        (8, 1, 50_000),
+        (0, 2, -10_000_000),
+    )
+    witness_rows = []
+    for rail in range(1, 9):
+        depth = witness_depth(rail, adversarial_support)
+        chosen = min(adversarial_support, key=lambda term: (term[1], term[0]))
+        chosen_value = term_valuation(rail, depth, *chosen)
+        margin = min(
+            term_valuation(rail, depth, *term) - chosen_value
+            for term in adversarial_support
+            if term != chosen
+        )
+        if margin <= 0:
+            raise AssertionError("Jordan separation witness has no strict margin")
+        witness_rows.append(
+            {
+                "rail": rail,
+                "witness_depth": depth,
+                "least_support_pair_(q,p)": [chosen[1], chosen[0]],
+                "strict_v2_margin": str(margin),
+            }
+        )
+
+    return {
+        "orbit": (
+            "T^k(c,z_j)=(c^(17^k),c^(16k17^(k-1))*z_j^(17^k))"
+        ),
+        "term_valuation": (
+            "v2(a*C_k^p*Z_k^q)=v2(a)+64p*17^k+"
+            "q*((15+8j)*17^k+1024k*17^(k-1))"
+        ),
+        "pair_difference_for_k_ge_1": (
+            "17^(k-1)*(17*(64*dp+(15+8j)*dq)+1024*k*dq), "
+            "before the coefficient-valuation difference"
+        ),
+        "eventual_separator": (
+            "for every nonzero finite rational polynomial, the support term "
+            "with lexicographically least (q,p) is eventually the unique "
+            "term of least 2-adic valuation; hence evaluation along the "
+            "Jordan orbit is eventually nonzero"
+        ),
+        "finite_regression": {
+            "bare_pairs_checked": pair_checks,
+            "depths_per_pair": 64,
+            "adversarial_support": [list(term) for term in adversarial_support],
+            "all_eight_witnesses": witness_rows,
+        },
+        "scope": (
+            "exact finite-polynomial orbit separation only; functional "
+            "transcendence plus this zero estimate still require a new "
+            "multivariate 2-adic auxiliary-value theorem before any ruler "
+            "or orbit conclusion"
+        ),
     }
 
 
@@ -728,6 +1388,11 @@ def build_audit(
             ),
         },
         "pressure": pressure_certificate(),
+        "public_theta": public_theta_certificate(),
+        "public_theta_pressure": public_theta_pressure_certificate(),
+        "ruler_mahler": ruler_mahler_certificate(),
+        "place_value_mahler": place_value_mahler_certificate(),
+        "jordan_monomial_separation": jordan_monomial_separation_certificate(),
         "prefix_regression": exhaustive_prefix_regression(prefix_bit_budget),
         "unit_slice": unit_slice_theorems(maximum_branch),
         "unit_residue_rails": unit_residue_rails(),
@@ -797,6 +1462,7 @@ def selftest() -> None:
     if len(rails["invariant_rails"]) != 8:
         raise AssertionError("unit-residue rail census changed")
     hensel_branch_clock(4)
+    jordan_monomial_separation_certificate()
     regression = exhaustive_prefix_regression(80)
     if regression["schedule_cylinders_including_root"] != 28:
         raise AssertionError("tiny prefix census changed")

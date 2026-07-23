@@ -1230,3 +1230,532 @@ Only literal stabilization of the least dyadic representatives can decide an
 ordinary infinite seed.  The theorem-driven role of (17.4)--(17.6) is to
 select schedules for that carry problem, not to replace it with a residue
 scan.
+
+Companion commit `3ebde99` upgrades this last finite warning to a universal
+Lean theorem for all eight rails: every finite branch word in the chosen
+class has a strictly positive exact public chain in the fixed payload class
+modulo `17^2`.
+
+## 18. The public address is one variable-exponent KL theta value
+
+The branch defect in (16.1) has a telescoping form that is hidden in the raw
+integer constants.  Define
+
+```text
+alpha_m=2^(8m+15)/3^(6m+11),
+A=83499104/(473*3^11),
+B=494251421/(473*2^20).
+```
+
+The determinant identity gives
+
+```text
+epsilon=A-B=17/(473*2^20*3^11),
+delta_m/3^(6m+11)=A-B*alpha_m.                    (18.1)
+```
+
+For targets `m_0,...,m_(N-1)`, put
+
+```text
+R_0=1,       R_j=product_(i<j)alpha_(m_i).
+```
+
+Backward unrolling of the exact public recurrence (17.10) and substitution
+of (18.1) telescope to
+
+```text
+q_0+A+epsilon*sum_(1<=j<N)R_j=R_N*(q_N+B).        (18.2)
+```
+
+The v3 branch-pressure artifact checks (18.2) independently on every one of
+the 1,278 stored schedule cylinders through 160 source bits.  It is a
+universal rational identity; the finite audit guards indexing and constants.
+
+For an ordinary infinite public chain, every `q_N` is a natural and
+`v_2(R_N)>=23N`, so the right side tends to zero in `Q_2`.  Therefore
+
+```text
+q_0=-A-epsilon*Theta,
+Theta=sum_(j>=1)R_j=-2^20*W(q_0)/17.              (18.3)
+```
+
+The schedule enters only through cumulative branch positions:
+
+```text
+R_j=(2^15/3^11)^j*(2^8/3^6)^M_j,
+M_j=sum_(i<j)m_i.                                  (18.4)
+```
+
+Thus the complete ordinary-address problem is one variable-exponent
+Tschakaloff/KL series.  Its tails obey
+
+```text
+Theta_t=alpha_(m_t)*(1+Theta_(t+1)),
+v_2(Theta_t)=8m_t+15.                              (18.5)
+```
+
+Equation (18.5) shows that the series and the deterministic public program
+contain exactly the same branch information.  For arithmetic `M_j`, (18.4)
+is the partial-theta specialization already excluded by the inspected 1989
+theorem.  Periodic increment words split into the previously studied finite
+multi-theta systems.  Neither result applies to arbitrary nonlinear,
+payload-written `M_j`.
+
+On the invariant unit slice `q_0=17r`, (18.3) becomes
+
+```text
+Theta=-2^20*Wbar(r),                               (18.6)
+```
+
+a negative ordinary integer.  Hence the shallow 17-adic rails are naturally
+coupled to the theta problem: they select branch digits inside a one-series
+integer-value problem.
+
+The constructive problem is now precise: choose a genuinely nonlinear
+increasing exponent sequence satisfying the public branch semantics for which
+the `Q_2` value in (18.3) is the exact rational attached to some `q_0>=0`.
+The small pressure quantifies how exceptional such a digit expansion is;
+the shallow 17-adic clock supplies a writable selector for its exponent
+positions.  No theorem here says that the rational lattice is hit, and no
+counterexample is known.
+
+## 19. One lattice hit is sufficient, and fresh counter depth has a price
+
+The tail equation (18.5) removes a possible hidden gate.  Suppose only that
+the initial series value is an ordinary negative integer,
+
+```text
+Theta_0=-X_0.
+```
+
+The first term has uniquely least dyadic valuation, so
+`v_2(Theta_t)=8m_t+15`.  Consequently every suffix is forced to be an ordinary
+negative integer and
+
+```text
+X_t=2^(8m_t+15)h_t,
+X_(t+1)=3^(6m_t+11)h_t+1.                          (19.1)
+```
+
+If `X_0=2^20*Wbar(r_0)`, the affine packet lattice propagates as well.  The
+proof uses only the reduced determinant identity and
+
+```text
+3^6=2^8 (mod 473),       32Wbar(0)=Zbar(0) (mod 473).
+```
+
+Indeed, with `z'=3^(6m_t)h_t`, equation (19.1) reads
+`X_(t+1)=3^11z'+1`.  Its suffix valuation gives divisibility by `2^20`;
+the two displayed congruences give `z'=Zbar(0)` modulo `473`, while the
+determinant identity gives the remaining `3^11` factor.  Thus there is a
+nonnegative `r_(t+1)` with
+
+```text
+z'=Zbar(r_(t+1)),       X_(t+1)=2^20Wbar(r_(t+1)). (19.2)
+```
+
+Also `h_t=2 (mod 3)`, so the ternary factor in (19.2) is exact.  Therefore a
+single equality `Theta=-2^20Wbar(r)` is already a construction certificate
+for the whole accepted public orbit after the standard one-step shift.  There
+is no additional suffix-integrality or lattice condition to search.
+
+Companion commit `3f7cc7c` kernel-checks the tail functional equation, its
+exact norm, and propagation of ordinary suffix integrality.  The
+`Wbar`-lattice propagation in (19.2) and final orbit assembly remain the
+unformalized part of this converse; QM151b now records their exact indices.
+
+The same one-series form recovers the universal counter-growth sieve already
+proved in the normalized EC17 core coordinate.  Its public-theta form is
+useful because it applies directly to the exact lattice target.  Put
+
+```text
+M_N=sum_(i<N)m_i,
+D_N=11N+6M_N,
+V_N=15N+8M_N,
+S_N=sum_(1<=j<=N)R_j=A_N/3^D_N.
+```
+
+If `Theta=-K` for a positive integer `K`, the first omitted term has exact
+valuation `V_(N+1)`.  Since `alpha_m<=alpha_1<1/2`, the real partial sum lies
+strictly between zero and one.  Hence
+
+```text
+2^V_(N+1) <= K*3^D_N+A_N < (K+1)*3^D_N.           (19.3)
+```
+
+Using the exact separator `3^41<2^65`, (19.3) bounds the fresh-branch excess
+
+```text
+41V_(N+1)-65D_N
+  =328m_N-62M_N-100N+615.                          (19.4)
+```
+
+In particular an unbounded positive excess is impossible.  A convenient
+corollary is that schedules with `m_N>=M_N` at arbitrarily late indices are
+excluded, because then
+
+```text
+2^V_(N+1)/3^D_N
+  >=2^15*(2^31/3^17)^N -> infinity.                (19.5)
+```
+
+This restates, rather than supersedes, the existing kernel-checked EC17 scale
+budget and online branch ceiling.  It answers the counter-growth question
+precisely.  Branch values need not
+be bounded and are not known to be forced to infinity, but a new branch may
+not outrun the cumulative depth that financed it.  Naive exponentially deep
+digit clocks and superincreasing schedules are closed.  Slow nonlinear
+counters remain live.  The v4 exact artifact checks all constants and the
+exponent elimination in (19.4); QM151 requests the universal Lean package.
+
+There is also a constructive no-go hidden in the telescope.  If an ansatz
+writes `R_j=T_j-T_(j+1)` with one rational boundary `T_N` tending to zero both
+really and 2-adically, then `Theta=T_1` is the same positive rational in both
+completions and can never be (18.6).  The boundary of a genuine orbit is
+necessarily asymmetric: it tends to zero in `Q_2` but to
+`K+sum_(j>=1)R_j>0` in the real metric.  A successful closed-form controller
+must manufacture this adelic separator explicitly; a local decaying
+coboundary cannot work.
+
+## 20. Wang's theorem closes the slow 17-ruler
+
+For the valuation ruler
+
+```text
+m_n=j+8*v_17(n+1),          1<=j<=8,
+```
+
+Legendre's formula turns the theta series into one exact Mahler function.
+Let
+
+```text
+a=2^15/3^11, b=2^8/3^6, z_j=a*b^j, c=b^8,
+F_c(z)=sum_(n>=0)c^v_17(n!)*z^n.
+```
+
+Then `1+Theta=F_c(z_j)`, and
+
+```text
+F_c(z)=(1+z+...+z^16)F_c(c*z^17).                 (20.1)
+```
+
+Because `c^(1/16)=16/27`, a rational rescaling converts (20.1) to a standard
+17-Mahler equation.  Put `kappa=16/27`.  Legendre's digit-sum formula gives
+
+```text
+16v_17(n!)=n-s_17(n),
+G(x)=sum_(n>=0)kappa^(-s_17(n))*x^n
+    =product_(k>=0)P_17(x^(17^k)/kappa),            (20.2)
+G(x)=P_17(x/kappa)G(x^17).
+```
+
+Its required value is exactly
+
+```text
+G(2^(19+8j)/3^(14+6j))=1-2^20Wbar(r).             (20.3)
+```
+
+The complex product is holomorphic in the unit disk.  Its zeros satisfy
+
+```text
+x^(17^k)=kappa*zeta,       zeta^17=1, zeta!=1.
+```
+
+They approach every point of the unit circle from inside, so the identity
+theorem rules out analytic continuation through any boundary point.  Thus
+`G` has the unit circle as a natural boundary and is transcendental over
+`C(x)`.  Since its coefficients are rational, a finite-linear-system scalar
+descent transfers this to transcendence over `C_2(x)`.
+
+Wang's 2006 p-adic Mahler-value theorem now applies with
+
+```text
+p=2, rho=17, N=1,
+Q_0(z,u)=P_17(z/kappa), Q_1(z,u)=-u,
+M_0=17,       M_0N^2=17<17^2.
+```
+
+For `x_j=2^(19+8j)/3^(14+6j)`, one has
+`|x_j|_2=2^(-(19+8j))<1`, and the required elimination polynomial never
+vanishes because `P_17(x_j^(17^k)/kappa)>0` in the real embedding.  Wang's
+theorem therefore makes every `G(x_j)` transcendental in `Q_2`, contradicting
+the ordinary integer in (20.3).  All eight slow schedules are excluded.
+
+This conclusion uses the source-audited published theorem, not merely the
+function's nonrationality.  Version 5 of the exact artifact checks the
+digit-sum conversion, all specializations, and the elementary theorem
+hypotheses.  The companion request QM153 asks Lean to connect the functional
+equation to the already checked theta endpoint.  Amplified rulers remain
+independently excluded by (19.3), and no counterexample is constructed.
+
+## 21. The place-value ruler reaches a genuinely bivariate boundary
+
+Replace the valuation itself by its 17-adic place value:
+
+```text
+m_n=j+8*17^v_17(n+1),          1<=j<=8.
+```
+
+Set
+
+```text
+A_n=sum_(1<=t<=n)17^v_17(t).
+```
+
+Splitting at `17n+r` gives the exact recursion
+
+```text
+A_(17n+r)=17A_n+16n+r,          0<=r<17.           (21.1)
+```
+
+In digit form, if `n=sum_i d_i17^i`, this is
+
+```text
+A_n=d_0+sum_(i>=1)d_i17^(i-1)(17+16i).             (21.2)
+```
+
+With `c=(2^8/3^6)^8`, `z_j=(2^15/3^11)(2^8/3^6)^j`, define
+
+```text
+H(C,Z)=sum_(n>=0)C^A_n Z^n.
+```
+
+Then
+
+```text
+1+Theta=H(c,z_j),
+H(C,Z)=P_17(CZ)H(C^17,C^16Z^17).                  (21.3)
+```
+
+The associated monomial transformation
+
+```text
+T(C,Z)=(C^17,C^16Z^17)
+```
+
+has the exact iterate and product
+
+```text
+T^k(C,Z)=(C^(17^k),C^(16k17^(k-1))Z^(17^k)),
+H(C,Z)=product_(k>=0)
+  P_17(C^(17^k+16k17^(k-1))Z^(17^k)).             (21.4)
+```
+
+There is no scalar rational base hidden in the eight specializations.  In
+the prime-exponent plane,
+
+```text
+c   -> (64,-48),
+z_j -> (15+8j,-11-6j),
+det -> 16.                                         (21.5)
+```
+
+The stronger research-side statement is Zariski density of the forward
+orbit.  Indeed, a monomial `C^pZ^q` at `T^k(c,z)` has real logarithmic size
+
+```text
+17^k[p log(c)+q log(z)+(16/17)qk log(c)].          (21.6)
+```
+
+Because `0<c,z<1`, the lexicographically least `(q,p)` in a nonzero Laurent
+polynomial uniquely dominates for large `k`, precluding vanishing on the
+whole orbit.  Companion commit `0e3fcf8` kernel-checks the exact block law,
+functional equation, Jordan iterates, and determinant.  Version 7 of the
+executable artifact additionally gives the exact `2`-adic valuation of every
+monomial and constructs a depth after which one monomial in any supplied
+finite polynomial has uniquely least valuation.  This is a zero-estimate
+ingredient, not a special-value theorem.
+
+The public height obstruction is silent here for a structural reason.  At
+the spike indices,
+
+```text
+A_(17^k-1)=16k17^(k-1),                            (21.7)
+```
+
+so the cumulative depth is of order `k17^k`, larger than the fresh
+`17^k` spike.  Thus neither (19.3) nor Wang's univariate theorem closes this
+schedule.  The natural complex multivariate theorem inspected in the
+literature is not a ready substitute: the exponent matrix
+`[[17,0],[16,17]]` is a defective Jordan block outside its audited
+admissibility hypothesis, and that theorem is not 2-adic in any event.
+
+Wang's 2009 paper
+[“Transcendence Measure for the Value of Mahler Type Functions with Several
+Variables”](https://actamath.cjoe.ac.cn/Jwk_sxxb_cn/EN/10.12386/A2009sxxb0026)
+was also audited as a possible replacement.  The primary metadata and
+abstract describe multivariable nonlinear Mahler values but contain no
+`p`-adic setting; the journal's PDF object is empty and the available mirror
+copies require login, so its exact monomial-map hypotheses cannot responsibly
+be certified here.  Even if the defective Jordan matrix were admissible, its
+advertised complex special value is not the completion-specific `Q_2` sum in
+(21.8).  This paper therefore does not close the seam; matrix admissibility is
+recorded as unknown, not as a theorem failure.
+
+The closely related 2010 Liu--Hao paper
+[“Algebraic Independence of the Values of Mahler Functions”](https://sxjk.magtechjournal.com/CN/Y2010/V25/I2/191)
+is openly available and makes the structural exclusion explicit.  For a
+monomial transformation with spectral radius `d`, it requires every entry of
+the `k`th matrix power to be `O(d^k)`.  Our Jordan power has off-diagonal entry
+`16k17^(k-1)`, so it fails this hypothesis exactly.  Its theorem and proof are
+also formulated over complex holomorphic germs and ordinary absolute values,
+despite an introductory comparison with a `p`-adic analogue.  This nearby
+theorem therefore confirms both obstructions without licensing an inference
+about the unavailable 2009 theorem text.
+
+The resulting target is exact but open:
+
+```text
+H(c,z_j)=1-2^20Wbar(r).                            (21.8)
+```
+
+A useful next theorem would be a multivariate `Q_2` Mahler-value result for
+this Jordan map, or a direct auxiliary-function proof specialized to (21.3).
+Version 7 of the artifact checks (21.1)--(21.7), including eventual monomial
+separation, in the stated exact and finite regression ranges.  It makes no
+value or orbit claim.
+
+## 22. The minimal raw outward system is critical, and an orbit is an atom
+
+The YAH/tag compiler is sufficient hardware for a counterexample, but it is
+not a sensible default search space.  Its cheapest public instruction consumes
+23 address bits and its schedule dimension is only `0.070659...`.  Strip the
+construction back to the raw shortcut map.
+
+For a parity word `w`, write
+
+```text
+S(w)=length(w),  O(w)=number of odd sources,
+R(w)=3^O(w)/2^S(w).
+```
+
+Let `F` be the strict ascending first-passage code:
+
+```text
+R(w)>1, and R(u)<=1 for every proper prefix u of w. (22.1)
+```
+
+It is prefix-free.  More strongly, every outward word has a unique prefix in
+`F`, so replacing each word of any outward prefix-free code by its
+first-passage prefix proves that `F` is maximal in both ordinary and tilted
+Kraft mass.  The first crossing layers are
+
+```text
+(S,count)=(1,1),(3,1),(6,2),(9,7),(11,30),...
+F_(<=6)=F_(<=8)={1,011,001111,010111}.             (22.2)
+```
+
+This retrospectively identifies the signed thin language of Section 12 as the
+canonical finite truncation, rather than an arbitrary controller sample.
+
+Put
+
+```text
+p(w)=2^-S(w),       q(w)=p(w)R(w)=3^O(w)/4^S(w).  (22.3)
+```
+
+The `p` law is fair parity and has negative logarithmic slope drift.  The `q`
+law is Bernoulli parity with odd probability `3/4`; its log drift is positive
+because `3^3>2^4`.  Consequently `q` reaches (22.1) almost surely, and the
+stopped martingale gives
+
+```text
+P=sum_(w in F)p(w)<1,       sum_(w in F)q(w)=1.    (22.4)
+```
+
+For every first passage, `1<R(w)<=3/2`.  If `P_L,Q_L` are the exact masses
+through length `L`, the unobserved `q` tail therefore gives
+
+```text
+P_L+(2/3)(1-Q_L) <= P <= P_L+(1-Q_L).             (22.5)
+```
+
+The exact dynamic program uses the subcritical state count
+
+```text
+b_(n,k)=1_(3^k<=2^n)*(b_(n-1,k)+b_(n-1,k-1)).    (22.6)
+```
+
+At `L=256`, (22.5) is the rational interval whose decimal rendering is
+
+```text
+0.713684569145118094... < P < 0.713684640996637644...,
+1-Q_L=0.000000215554558648... .                   (22.7)
+```
+
+The exact values, all crossing counts, source hash, and `counterexample:null`
+are in `outward_first_passage_audit.json`.
+
+Schema v2 evaluates the minimum-address invariant itself by exhaustive exact
+ordinary replay.  For every positive source through `300000`, the shortcut
+orbit is followed to the `1--2` cycle, yielding the certified record changes
+
+```text
+(n,h_n)=(1,1),(2,3),(3,7),(4,15),(5,27),(16,703),
+        (17,4255),(20,4591),(22,31911),(25,77671),
+        (26,113383),(28,159487),(30,270271).       (22.7a)
+```
+
+The value remains constant between change points through `h_36`, and
+`h_37>300000`.  The last record source still reaches the terminal cycle.
+This is a bounded theorem-variable audit, not a trend extrapolation or an
+infinite-orbit claim.
+
+Critical ensemble mass is not a single orbit.  For a concatenation `u`, the
+shortcut identity is
+
+```text
+2^S(u) T^S(u)(x)=3^O(u)x+A(u),  A(u)>=0.
+```
+
+Let `r(u)` be the least nonnegative solution of its parity cylinder, and set
+
+```text
+h_n=min_(u in F^n)r(u).                            (22.8)
+```
+
+Extension has the exact form
+
+```text
+r(uv)=r(u)+2^S(u)*ell(u,v),  ell(u,v)>=0.          (22.9)
+```
+
+Hence `h_n` is nondecreasing.  Boundedness of `h_n` forces one natural in a
+fixed finite window to realize arbitrarily many depths.  Prefix-free parsing
+is deterministic, so that same natural realizes every depth.  Conversely an
+infinite ordinary survivor bounds `h_n`.  Thus
+
+```text
+ordinary positive infinite F-orbit
+  <-> h_n bounded
+  <-> h_n eventually constant
+  <-> one path has eventually zero extension carry. (22.10)
+```
+
+Companion commit `8959436` kernel-checks the literal shortcut-execution core
+of (22.10): an all-depth execution exists iff the canonical minimum-start
+sequence has bounded range iff it is eventually constant.  The proof builds
+positive parity-cylinder witnesses, proves nestedness in depth, and applies
+finite-window infinite pigeonhole; it assumes no mass or probabilistic
+selection principle.
+
+Each block is outward, so such an orbit would be strictly increasing and
+would disprove Collatz.
+
+The measure form identifies exactly why KL-style branching does not yet do
+this.  A projectively consistent flow suffices if its canonical residues are
+uniformly tight; a uniform first-moment bound is stronger and sufficient.
+But the natural critical product flow is diffuse.  Since every block has
+`q(w)<=q(1)=3/4`, and at most `B` distinct deterministic paths can have
+canonical residue at most `B`,
+
+```text
+mu_q{r_n<=B} <= B*(3/4)^n.                         (22.11)
+```
+
+It escapes every fixed ordinary-height window.  Therefore the next
+construction theorem is not positive pressure, another KL eigenmeasure, or a
+larger tag program.  It is an arithmetic, necessarily atomic, aperiodic
+selector proving `sup_n h_n<infinity`.  Any proposed Doob transform must be
+audited against (22.11): if it remains uniformly diffuse, it cannot solve the
+ordinary-seed problem.
