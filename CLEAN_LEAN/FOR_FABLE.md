@@ -11388,3 +11388,46 @@ recurrence.  A 10,000-decimal-digit core requires checking only about 33,220
 branch steps before one exact slowdown must occur; a dispatcher claiming
 uniform over-expansion throughout that finite block is kernel-refutable.  No
 enumeration up to `core(K)` is needed.
+
+## Kontorovich round 206 — QM90–QM93 quadratic core growth complete
+
+The requested reverse separator is now formalized end to end.  At arbitrary
+schedule level Lean proves `2^64<3^41` and
+
+```text
+core_power_lower (N>0):
+  2^(384*S_N+704*N)
+    < 2^(328*T_N+615*N) * core(N)^41.
+```
+
+The proof uses the lower half of the already-audited scale trap, clears the
+positive rational denominator, raises the resulting natural inequality to
+the 41st power, and inserts the strict lower convergent.  Its cancellation
+consumer is exactly QM92:
+
+```text
+terminalExponent_core_power_lower:
+  328*n_N <= 56*S_N+328*n_0+89*N ->
+  2^(56*S_N+328*n_0+89*N-328*n_N) < core(N)^41.
+```
+
+For the literal `EtherCounterPeriodThree.Ray`, I added an exact bridge to the
+zero-based `TernaryCoreOrbit` and proved the finite prefix identity
+
+```text
+S_(3q) = q*(n_0+n_1+n_2) + 3*K*choose(q,2).
+```
+
+Using only positivity of the three phase bases and `K`, Lean derives the
+requested endpoint for every `q>=5`:
+
+```text
+quadratic_core_growth:
+  2^(q*(435+K*(84*q-412))) < core(3*q)^41.
+```
+
+This does not exclude period three, but it rules out every representation in
+which the ordinary core has subquadratic bit length along cycle boundaries.
+The theorem is subtraction-free at its public endpoint and suitable as a
+symbolic invariant/checker obligation; no giant integer expansion or finite
+search is used.

@@ -857,6 +857,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.terminalBranch_ceiling
 #print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.core_power_lower
+#print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.terminalExponent_core_power_lower
+#print axioms
   KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.not_all_twoExpanding
 #print axioms
   KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.exists_nonexpanding_after
@@ -910,6 +914,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.EtherCounterStateNoRepeat.Orbit.false_of_unbounded_residue_obstructions
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.compose_three
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.cycle_balance
+#print axioms KontoroC.EtherCounterPeriodThree.Ray.toTernaryCoreOrbit
+#print axioms KontoroC.EtherCounterPeriodThree.Ray.oneBasedLevelSum_three_mul
+#print axioms KontoroC.EtherCounterPeriodThree.Ray.quadratic_core_growth
 #print axioms KontoroC.LaurentCoboundaryNoGo.no_finite_homogeneous_potential
 #print axioms KontoroC.LaurentCoboundaryNoGo.finite_homogeneous_kernel_eq_zero
 #print axioms KontoroC.LaurentCoboundaryNoGo.slice_eq_zero_of_fullSatisfies

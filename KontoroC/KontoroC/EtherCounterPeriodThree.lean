@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.EtherCounterStateNoRepeat
+import KontoroC.EtherCounterGeometricMahler
 
 /-!
 # Literal period-three EC17 composition
@@ -28,6 +29,154 @@ structure Ray extends EtherCounterStateNoRepeat.Orbit where
   branch_two : ∀ q, branch (3 * q + 2) = branch 2 + cycleGain * q
 
 namespace Ray
+
+/-- Reindex the positive one-based EC17 branch as the zero-based level used
+by the universal cumulative-scale theorems. -/
+def toTernaryCoreOrbit (g : Ray) : EtherCounterAperiodic.TernaryCoreOrbit where
+  level t := g.branch t - 1
+  core := g.core
+  core_pos := g.core_pos
+  balance t := by
+    have ht : 1 ≤ g.branch t := g.branch_pos t
+    have hnext : 1 ≤ g.branch (t + 1) := g.branch_pos (t + 1)
+    simpa [Nat.sub_add_cancel ht, Nat.sub_add_cancel hnext,
+      show 8 * (g.branch (t + 1) - 1) + 23 =
+        8 * g.branch (t + 1) + 15 by omega,
+      show 6 * (g.branch t - 1) + 17 =
+        6 * g.branch t + 11 by omega] using g.balance t
+
+theorem toTernaryCoreOrbit_oneBasedLevel (g : Ray) (t : ℕ) :
+    g.toTernaryCoreOrbit.oneBasedLevel t = g.branch t := by
+  simp only [toTernaryCoreOrbit,
+    EtherCounterAperiodic.TernaryCoreOrbit.oneBasedLevel]
+  exact Nat.sub_add_cancel (g.branch_pos t)
+
+theorem toTernaryCoreOrbit_core (g : Ray) (t : ℕ) :
+    g.toTernaryCoreOrbit.core t = g.core t := rfl
+
+/-- Exact terminal branch at a cycle boundary. -/
+theorem branch_three_mul (g : Ray) (q : ℕ) :
+    g.branch (3 * q) = g.branch 0 + g.cycleGain * q :=
+  g.branch_zero q
+
+/-- Exact prefix sum over `q` complete three-phase cycles. -/
+theorem oneBasedLevelSum_three_mul (g : Ray) (q : ℕ) :
+    g.toTernaryCoreOrbit.oneBasedLevelSum (3 * q) =
+      q * (g.branch 0 + g.branch 1 + g.branch 2) +
+        3 * g.cycleGain * q.choose 2 := by
+  induction q with
+  | zero =>
+      simp [EtherCounterAperiodic.TernaryCoreOrbit.oneBasedLevelSum]
+  | succ q ih =>
+      rw [show 3 * (q + 1) = ((3 * q + 2) + 1) by omega,
+        g.toTernaryCoreOrbit.oneBasedLevelSum_succ,
+        show 3 * q + 2 = (3 * q + 1) + 1 by omega,
+        g.toTernaryCoreOrbit.oneBasedLevelSum_succ,
+        show 3 * q + 1 = 3 * q + 1 by rfl,
+        g.toTernaryCoreOrbit.oneBasedLevelSum_succ, ih,
+        g.toTernaryCoreOrbit_oneBasedLevel,
+        g.toTernaryCoreOrbit_oneBasedLevel,
+        g.toTernaryCoreOrbit_oneBasedLevel,
+        g.branch_zero q, g.branch_one q, g.branch_two q]
+      rw [show (q + 1).choose 2 = q.choose 2 + q by
+        rw [show q + 1 = q.succ by omega, Nat.choose_succ_succ]
+        simp [Nat.add_comm]]
+      ring
+
+theorem two_mul_choose_two (q : ℕ) :
+    2 * q.choose 2 = q * (q - 1) := by
+  induction q with
+  | zero => simp
+  | succ q ih =>
+      rw [show (q + 1).choose 2 = q.choose 2 + q by
+        rw [show q + 1 = q.succ by omega, Nat.choose_succ_succ]
+        simp [Nat.add_comm]]
+      cases q with
+      | zero => simp
+      | succ q =>
+          simp only [Nat.add_sub_cancel]
+          have ih' := ih
+          simp only [Nat.add_sub_cancel] at ih'
+          nlinarith
+
+/-- QM93: a positive period-three EC17 survivor must carry quadratic core
+bit growth even though its branch grows only linearly. -/
+theorem quadratic_core_growth (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    2 ^ (q * (435 + g.cycleGain * (84 * q - 412))) <
+      g.core (3 * q) ^ 41 := by
+  let o := g.toTernaryCoreOrbit
+  let S := o.oneBasedLevelSum (3 * q)
+  let n₀ := o.oneBasedLevel 0
+  let nN := o.oneBasedLevel (3 * q)
+  let K := g.cycleGain
+  let B := g.branch 0 + g.branch 1 + g.branch 2
+  have hS : S = q * B + 3 * K * q.choose 2 := by
+    simpa [o, S, B, K] using g.oneBasedLevelSum_three_mul q
+  have hn₀ : n₀ = g.branch 0 := by
+    simpa [o, n₀] using g.toTernaryCoreOrbit_oneBasedLevel 0
+  have hnN : nN = g.branch 0 + K * q := by
+    simpa [o, nN, K] using
+      (g.toTernaryCoreOrbit_oneBasedLevel (3 * q)).trans (g.branch_zero q)
+  have hB : 3 ≤ B := by
+    dsimp only [B]
+    have h0 := g.branch_pos 0
+    have h1 := g.branch_pos 1
+    have h2 := g.branch_pos 2
+    omega
+  have hchoose := two_mul_choose_two q
+  have hchooseK : 168 * K * q.choose 2 =
+      84 * K * q * (q - 1) := by
+    calc
+      168 * K * q.choose 2 = 84 * K * (2 * q.choose 2) := by ring
+      _ = 84 * K * (q * (q - 1)) := by rw [hchoose]
+      _ = 84 * K * q * (q - 1) := by ring
+  have hKidentity :
+      328 * K * q + q * K * (84 * q - 412) =
+        168 * K * q.choose 2 := by
+    calc
+      328 * K * q + q * K * (84 * q - 412) =
+          q * K * (328 + (84 * q - 412)) := by ring
+      _ = q * K * (84 * q - 84) := by
+        rw [show 328 + (84 * q - 412) = 84 * q - 84 by omega]
+      _ = 84 * K * q * (q - 1) := by
+        rw [show 84 * q - 84 = 84 * (q - 1) by omega]
+        ring
+      _ = 168 * K * q.choose 2 := hchooseK.symm
+  have hBmul : 168 * q ≤ 56 * q * B := by
+    nlinarith [Nat.mul_le_mul_left (56 * q) hB]
+  have hstrong :
+      328 * nN + q * (435 + K * (84 * q - 412)) ≤
+        56 * S + 328 * n₀ + 89 * (3 * q) := by
+    rw [hS, hn₀, hnN]
+    calc
+      328 * (g.branch 0 + K * q) +
+            q * (435 + K * (84 * q - 412)) =
+          328 * g.branch 0 + 435 * q +
+            (328 * K * q + q * K * (84 * q - 412)) := by ring
+      _ = 328 * g.branch 0 + 435 * q + 168 * K * q.choose 2 := by
+        rw [hKidentity]
+      _ ≤ 328 * g.branch 0 + (267 * q + 56 * q * B) +
+            168 * K * q.choose 2 := by omega
+      _ = 56 * (q * B + 3 * K * q.choose 2) +
+            328 * g.branch 0 + 89 * (3 * q) := by ring
+  have hterminal :
+      328 * nN ≤ 56 * S + 328 * n₀ + 89 * (3 * q) :=
+    le_trans (Nat.le_add_right _ _) hstrong
+  have hgeneral := o.terminalExponent_core_power_lower (3 * q) (by omega)
+    (by simpa [S, n₀, nN] using hterminal)
+  have hexponent :
+      q * (435 + K * (84 * q - 412)) ≤
+        56 * S + 328 * n₀ + 89 * (3 * q) - 328 * nN := by
+    omega
+  have hpow :
+      2 ^ (q * (435 + K * (84 * q - 412))) ≤
+        2 ^ (56 * S + 328 * n₀ + 89 * (3 * q) - 328 * nN) :=
+    Nat.pow_le_pow_right (by norm_num) hexponent
+  have hgeneral' :
+      2 ^ (56 * S + 328 * n₀ + 89 * (3 * q) - 328 * nN) <
+        g.core (3 * q) ^ 41 := by
+    simpa [S, n₀, nN, o, toTernaryCoreOrbit] using hgeneral
+  exact lt_of_le_of_lt hpow hgeneral'
 
 def binaryScale (g : Ray) : ℕ := 2 ^ (8 * g.cycleGain)
 def ternaryScale (g : Ray) : ℕ := 3 ^ (6 * g.cycleGain)

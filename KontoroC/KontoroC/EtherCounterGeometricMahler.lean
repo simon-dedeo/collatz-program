@@ -987,6 +987,95 @@ theorem general_backwardPrefixProduct_lt_core_succ
 
 theorem three_pow_41_lt_two_pow_65 : 3 ^ 41 < 2 ^ 65 := by norm_num
 
+/-- QM90: the lower dyadic convergent used to reverse the scale budget. -/
+theorem two_pow_64_lt_three_pow_41 : 2 ^ 64 < 3 ^ 41 := by norm_num
+
+/-- QM91: every positive EC17 execution must put enough size into its
+terminal core to compensate for a small cumulative backward coefficient. -/
+theorem core_power_lower
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) (hN : 0 < N) :
+    2 ^ (384 * o.oneBasedLevelSum N + 704 * N) <
+      2 ^ (328 * o.nextOneBasedLevelSum N + 615 * N) *
+        o.core N ^ 41 := by
+  let S := o.oneBasedLevelSum N
+  let T := o.nextOneBasedLevelSum N
+  let u := o.core N
+  have htrap := (o.general_cumulativeScale_trap N).1
+  have hcore0 : (1 : ℚ) ≤ o.core 0 := by
+    exact_mod_cast o.core_pos 0
+  have hone : (1 : ℚ) ≤
+      backwardPrefixProduct o.generalBackwardCoeff N * o.core N :=
+    hcore0.trans htrap
+  have hclosed := o.generalBackwardPrefixProduct_eq_closed N
+  have hcrossQ :
+      (3 : ℚ) ^ (6 * S + 11 * N) ≤
+        (2 : ℚ) ^ (8 * T + 15 * N) * u := by
+    rw [hclosed] at hone
+    have hone' : (1 : ℚ) ≤
+        ((2 : ℚ) ^ (8 * T + 15 * N) * u) /
+          (3 : ℚ) ^ (6 * S + 11 * N) := by
+      simpa [S, T, u, div_mul_eq_mul_div, mul_assoc] using hone
+    have h := (le_div_iff₀ (by positivity :
+      (0 : ℚ) < 3 ^ (6 * S + 11 * N))).mp hone'
+    simpa using h
+  have hcrossNat :
+      3 ^ (6 * S + 11 * N) ≤ 2 ^ (8 * T + 15 * N) * u := by
+    exact_mod_cast hcrossQ
+  have hcrossPow := Nat.pow_le_pow_left hcrossNat 41
+  have hscaled :
+      3 ^ (246 * S + 451 * N) ≤
+        2 ^ (328 * T + 615 * N) * u ^ 41 := by
+    rw [mul_pow, ← pow_mul, ← pow_mul] at hcrossPow
+    simpa only [show (6 * S + 11 * N) * 41 = 246 * S + 451 * N by omega,
+      show (8 * T + 15 * N) * 41 = 328 * T + 615 * N by omega] using hcrossPow
+  let k := 6 * S + 11 * N
+  have hk : 0 < k := by simp [k]; omega
+  have hden : 2 ^ (384 * S + 704 * N) <
+      3 ^ (246 * S + 451 * N) := by
+    calc
+      2 ^ (384 * S + 704 * N) = (2 ^ 64) ^ k := by
+        rw [show 384 * S + 704 * N = 64 * k by simp [k]; omega, pow_mul]
+      _ < (3 ^ 41) ^ k :=
+        Nat.pow_lt_pow_left two_pow_64_lt_three_pow_41 hk.ne'
+      _ = 3 ^ (246 * S + 451 * N) := by
+        rw [← pow_mul]
+        congr 1
+        simp [k]
+        omega
+  simpa [S, T, u] using hden.trans_le hscaled
+
+/-- QM92: cancellation form of `core_power_lower`, with an explicit
+nonnegative terminal exponent. -/
+theorem terminalExponent_core_power_lower
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) (hN : 0 < N)
+    (hterminal :
+      328 * o.oneBasedLevel N ≤
+        56 * o.oneBasedLevelSum N + 328 * o.oneBasedLevel 0 + 89 * N) :
+    2 ^ (56 * o.oneBasedLevelSum N + 328 * o.oneBasedLevel 0 + 89 * N -
+        328 * o.oneBasedLevel N) <
+      o.core N ^ 41 := by
+  let S := o.oneBasedLevelSum N
+  let T := o.nextOneBasedLevelSum N
+  let n₀ := o.oneBasedLevel 0
+  let nN := o.oneBasedLevel N
+  let E := 56 * S + 328 * n₀ + 89 * N - 328 * nN
+  have hshift : T + n₀ = S + nN := by
+    simpa [S, T, n₀, nN] using o.nextSum_add_initial_eq_sum_add_terminal N
+  have hterminal' : 328 * nN ≤ 56 * S + 328 * n₀ + 89 * N := by
+    simpa [S, n₀, nN] using hterminal
+  have hexponents :
+      384 * S + 704 * N = 328 * T + 615 * N + E := by
+    simp only [E]
+    omega
+  have hlower := o.core_power_lower N hN
+  change 2 ^ (384 * S + 704 * N) <
+    2 ^ (328 * T + 615 * N) * o.core N ^ 41 at hlower
+  rw [hexponents, pow_add] at hlower
+  have hcancel : 2 ^ E < o.core N ^ 41 := by
+    exact (Nat.mul_lt_mul_left (by positivity : 0 < 2 ^ (328 * T + 615 * N))).mp
+      (by simpa [mul_comm, mul_left_comm, mul_assoc] using hlower)
+  simpa [E, S, n₀, nN] using hcancel
+
 /-- QM89: a sharp integral ceiling on every one-based branch history.  It is
 obtained from the universal product budget using `3^41 < 2^65`. -/
 theorem terminalBranch_ceiling
