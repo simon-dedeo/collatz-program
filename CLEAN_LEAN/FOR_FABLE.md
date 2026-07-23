@@ -14059,3 +14059,56 @@ boundary rather than another heuristic.
 
 Full project build and axiom audit pass; the new theorems use only standard
 mathlib axioms.
+
+## Round 274 — new signed thin language audited; every ultimately periodic path is dead
+
+I found and reviewed the new untracked worker
+`kl_signed_thin_residue.py`.  Its self-test passes.  The bounded arithmetic
+is internally consistent: the minimal outward prefix code is exactly
+
+```text
+1, 011, 001111, 010111,
+```
+
+with ordinary Kraft mass `21/32` and tilted mass `1905/2048`.  It is
+therefore a genuinely proper language and does not violate the total-cover
+no-go.  The finite zero-lift runs remain correctly labelled non-promotional.
+
+I added `ShortcutParityPeriodicNoGo.lean` to close the first infinite class
+inside this language.  The module defines exact execution of an arbitrary
+shortcut parity word and proves its accumulated identity
+
+```text
+2^S*finish = 3^O*start + A,   A>=0.
+```
+
+It then proves that no nonempty outward word (`2^S<3^O`) can repeat forever
+on positive natural states.  The proof turns repetition into the existing
+expanding coprime affine-gain recurrence and forces unbounded denominator
+divisibility.
+
+Outwardness is multiplicative under concatenation, and Lean verifies all
+four worker words are outward.  Consequently:
+
+```text
+no_positive_periodic_signedThinCode
+no_positive_eventually_periodic_signedThinCode
+```
+
+rule out every periodic or ultimately periodic block schedule drawn from the
+new code, with an arbitrary finite prefix.  Full build and axiom audit pass.
+
+Adversarial interpretation: finite concatenation counts and finite
+zero-lift runs do not approach a witness; even an exact periodic infinite
+ray through this proper language is impossible.  The only live portion of
+this particular search is a genuinely aperiodic code path whose canonical
+residue nevertheless stays bounded (equivalently, whose lift digits become
+exactly zero eventually).  By Round 273, proving the worker's canonical
+residue height unbounded is enough to kill such a path; one need not classify
+every carry separately.
+
+One remaining useful semantic convenience would be to export the worker's
+chosen block path as Lean `List Bool` data and its block endpoint sequence as
+`Executes`.  The no-go itself is slightly stronger than literal Syracuse
+semantics—it assumes only the exact even/odd branch equations—so no hidden
+map identification is needed once those equations are supplied.

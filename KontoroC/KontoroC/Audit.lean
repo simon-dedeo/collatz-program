@@ -1382,6 +1382,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.KLCoveringDispatcher.CoveringDispatcher.orbit_resetState_pos
 #print axioms KontoroC.KLCoveringDispatcher.CoveringDispatcher.orbit_resetState_strictMono
 #print axioms KontoroC.KLCoveringDispatcher.CoveringDispatcher.exists_infinite_growing_orbit
+#print axioms KontoroC.ShortcutParityPeriodicNoGo.program_exact
+#print axioms KontoroC.ShortcutParityPeriodicNoGo.wordOutward_join
+#print axioms KontoroC.ShortcutParityPeriodicNoGo.no_positive_repeated_outward_word
+#print axioms KontoroC.ShortcutParityPeriodicNoGo.signedThinCode_outward
+#print axioms KontoroC.ShortcutParityPeriodicNoGo.no_positive_periodic_signedThinCode
+#print axioms KontoroC.ShortcutParityPeriodicNoGo.no_positive_eventually_periodic_signedThinCode
 #print axioms KontoroC.KLCalibratedCycle.path_telescoping
 #print axioms KontoroC.KLCalibratedCycle.multiplicative_path_telescoping
 #print axioms KontoroC.KLCalibratedCycle.multiplicative_path_condition_bound
