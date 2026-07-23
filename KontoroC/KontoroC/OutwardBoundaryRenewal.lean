@@ -449,5 +449,55 @@ theorem recharge_then_drain_properties {w : List Bool} {H K : ℕ}
   dsimp only
   exact ⟨hfactor, huodd, hRodd, hHR, hRdiv, hthreeRdiv, hnegOne, hdrain⟩
 
+/-! ## The shallow `011` normal form -/
+
+/-- QM157j in algebraic normal form.  The exponent after the shallow
+recharge is not free: if `K=2^a*v` with `v` odd, then `v` has exactly one
+factor of three.  Writing `H=3^c*u` produces the advertised two-counter
+equation with `c'=a+1`. -/
+theorem shallow_recharge_normal_form
+    {H K a v c u : ℕ}
+    (hbalance : 8 * K = 9 * H + 3)
+    (hKfactor : 2 ^ a * v = K) (hvOdd : Odd v)
+    (hHfactor : 3 ^ c * u = H) :
+    ∃ u' : ℕ,
+      Odd u' ∧ ¬3 ∣ u' ∧ v = 3 * u' ∧
+      2 ^ ((a + 1) + 2) * u' = 3 ^ (c + 1) * u + 1 := by
+  have hthreeRhs : 3 ∣ 9 * H + 3 := by
+    refine ⟨3 * H + 1, by ring⟩
+  have hthreeProd : 3 ∣ 8 * K := by
+    rw [hbalance]
+    exact hthreeRhs
+  have hthreeK : 3 ∣ K :=
+    (by norm_num : Nat.Coprime 3 8).dvd_of_dvd_mul_left hthreeProd
+  have hthreeV : 3 ∣ v := by
+    have hprod : 3 ∣ 2 ^ a * v := by rwa [hKfactor]
+    exact (Nat.Coprime.pow_right a (by norm_num : Nat.Coprime 3 2)).dvd_of_dvd_mul_left hprod
+  obtain ⟨u', hv⟩ := hthreeV
+  have huOdd : Odd u' := by
+    rw [Nat.odd_iff] at hvOdd ⊢
+    rw [hv] at hvOdd
+    simpa [Nat.mul_mod] using hvOdd
+  have heq : 2 ^ (a + 3) * u' = 3 * H + 1 := by
+    apply Nat.mul_left_cancel (by norm_num : 0 < 3)
+    calc
+      3 * (2 ^ (a + 3) * u') = 8 * (2 ^ a * (3 * u')) := by
+        rw [pow_add]
+        norm_num
+        ring
+      _ = 8 * K := by rw [← hv, hKfactor]
+      _ = 9 * H + 3 := hbalance
+      _ = 3 * (3 * H + 1) := by ring
+  have huNotThree : ¬3 ∣ u' := by
+    intro hthree
+    have hleft : 3 ∣ 2 ^ (a + 3) * u' := dvd_mul_of_dvd_right hthree _
+    rw [heq] at hleft
+    obtain ⟨q, hq⟩ := hleft
+    omega
+  refine ⟨u', huOdd, huNotThree, hv, ?_⟩
+  rw [show (a + 1) + 2 = a + 3 by omega, heq, ← hHfactor]
+  rw [pow_succ]
+  ring
+
 end OutwardBoundaryRenewal
 end KontoroC

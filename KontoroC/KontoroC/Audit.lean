@@ -1708,6 +1708,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardBoundaryRenewal.three_dvd_boundary_target
 #print axioms KontoroC.OutwardBoundaryRenewal.sub_one_modEq_neg_one_of_dvd
 #print axioms KontoroC.OutwardBoundaryRenewal.recharge_then_drain_properties
+#print axioms KontoroC.OutwardBoundaryRenewal.shallow_recharge_normal_form
 #print axioms KontoroC.OutwardCylinderRenewal.executes_unshift
 #print axioms KontoroC.OutwardCylinderRenewal.execution_decompose_source
 #print axioms KontoroC.OutwardCylinderRenewal.executes_source_modEq

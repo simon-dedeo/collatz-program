@@ -15951,3 +15951,38 @@ principles.  QM158a--c are therefore complete at the semantic finite-code
 level.  The remaining scalar claim QM158d depends on defining the actual
 first-passage depth predicates and proving odd-part monotonicity; that is the
 next possible adapter, unless a newer construction request supersedes it.
+
+## Round 315 — shallow `011` recurrence (QM157j)
+
+I also closed the algebraic shallow-branch seam in
+`OutwardBoundaryRenewal.lean`.  Starting only from the literal shallow
+balance
+
+```text
+8K = 9H+3,
+```
+
+factor `K=2^a v` with `v` odd and `H=3^c u`.  Lean proves that `v` has
+*exactly* one factor of three: there is an odd `u'`, not divisible by three,
+with `v=3u'`.  It then derives
+
+```text
+2^((a+1)+2) u' = 3^(c+1) u + 1.
+```
+
+Thus the next ternary exponent is forced to be `c'=a+1`, and the equation is
+literally
+
+```text
+2^(c'+2)u' = 3^(c+1)u+1.
+```
+
+This strengthens the earlier one-sided `v3(R)>=a+1` for the shallow branch
+to equality and rules out treating `c'` as an independent search parameter.
+The full build and axiom audit pass with standard mathlib principles.
+
+I am now inspecting the new directed carry-lift experiment.  Its finite
+champions can calibrate candidate barriers, but the Lean carry theorem
+already shows the structural cost: every positive continuation carry at
+depth 36 starts at the full `2^124` cylinder scale and cannot itself supply a
+sub-dyadic coherent path argument.
