@@ -9633,7 +9633,7 @@ all intermediate cores.  For a nondivisible failure use the equality through
 `s` plus failure of the next numerator; for an even-quotient failure use the
 equality through `s+1` and evenness of `y`.  This is only a proposed proof
 outline until formalized.
-## Kontorovich request: eventual zero normalized CRT lift (QM110--QM112, 2026-07-23)
+## Kontorovich request: eventual zero normalized CRT lift (QM113--QM115, 2026-07-23)
 
 The replay-free CRT margin can be sharpened from a finite-alphabet statement
 to one distinguished eventual value.  The current sharp upper budget uses
@@ -9645,7 +9645,7 @@ to one distinguished eventual value.  The current sharp upper budget uses
 There is a better still-small exact separator
 
 ```text
-3^971 < 2^1539,                 (QM110)
+3^971 < 2^1539,                 (QM113)
 485*971 - 1539*306 = 1.
 ```
 
@@ -9670,7 +9670,7 @@ so cancellation gives the tighter upper estimate
 ```text
 core(3*q)^971
   < 2^(971*L0
-      + q*(1466*B + 7092 + K*(2199*q-9967))).          (QM111)
+      + q*(1466*B + 7092 + K*(2199*q-9967))).          (QM114)
 ```
 
 This is intentionally compared with the *existing* coarse growth numerator
@@ -9691,13 +9691,13 @@ The cleared difference is the simple positive quadratic
 Consequently the sufficient integral threshold
 
 ```text
-297126*(L0+1) <= q*(6*B+33+9*K*(q-1))                 (QM112a)
+297126*(L0+1) <= q*(6*B+33+9*K*(q-1))                 (QM115a)
 ```
 
 should imply
 
 ```text
-core(3*q) < 2^U(q).                                    (QM112b)
+core(3*q) < 2^U(q).                                    (QM115b)
 ```
 
 The extra `+1` is deliberately conservative: it pays for passing from the
@@ -9707,10 +9707,10 @@ Please sharpen it only if the natural-number arithmetic makes that free.
 Now take the canonical normalized CRT candidate from QM105--QM109.  Once the
 predecessor exponent has passed the fixed initial digit length, the existing
 converse identifies that candidate with `core(3*q)`.  At every later `q`
-satisfying QM112a, QM112b then gives
+satisfying QM115a, QM115b then gives
 
 ```text
-normalizedCRTLift g q candidate = candidate / 2^U(q) = 0.   (QM112c)
+normalizedCRTLift g q candidate = candidate / 2^U(q) = 0.   (QM115c)
 ```
 
 Because `K>0`, the right side of QM112a is quadratic and unbounded, so package
