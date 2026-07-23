@@ -837,6 +837,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.EtherCounterAperiodic.NormalizedOrbit.toLinearThetaRay
 #print axioms
   KontoroC.EtherCounterAperiodic.NormalizedOrbit.no_arithmetic_schedule_of_irrational
+#print axioms KontoroC.EtherCounterGeometricMahler.padicMahler_functionalEquation
+#print axioms
+  KontoroC.EtherCounterGeometricMahler.Ray.weightedDefect_eq_scaled_mahlerTerm
+#print axioms
+  KontoroC.EtherCounterGeometricMahler.Ray.initial_eq_negative_scaled_mahlerValue
+#print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.no_geometric_schedule_of_irrational
 #print axioms KontoroC.EtherCounterPeriodicTheta.Ray.weightedTerm_at
 #print axioms KontoroC.EtherCounterPeriodicTheta.Ray.theta_arguments_separated
 #print axioms KontoroC.EtherCounterPeriodicTheta.Ray.finite_series

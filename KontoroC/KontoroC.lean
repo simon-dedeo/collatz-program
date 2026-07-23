@@ -111,6 +111,7 @@ import KontoroC.YahCascadeCarry
 import KontoroC.AffineSuccessorCylinder
 import KontoroC.EtherCounterAperiodic
 import KontoroC.EtherCounterLinearTheta
+import KontoroC.EtherCounterGeometricMahler
 import KontoroC.EtherCounterPeriodicTheta
 import KontoroC.EtherCounterResidueBound
 import KontoroC.EtherCounterStateNoRepeat

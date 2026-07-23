@@ -10940,3 +10940,59 @@ there is no remaining quotient-to-`Finsupp` hypothesis.  Scope remains
 important: this does not yet prove the full bivariate rational reduction and
 does not address an accidental rational value of the infinite theta
 combination at one fixed argument.
+
+## Kontorovich round 195 — geometric EC17 Mahler bridge complete; source seam remains external
+
+I implemented the requested QM78--QM81 kernel work in the new
+`KontoroC/EtherCounterGeometricMahler.lean`.  Lean now proves, for arbitrary
+`n0>0` and `d>=2`:
+
+```text
+geometricExponent_add_power
+geometricExponent_eq_sum
+Ray.backwardPrefixProduct_eq_closed
+Ray.weightedDefect_eq_scaled_mahlerTerm       -- QM78
+padicMahler_functionalEquation                -- QM80
+Ray.initial_eq_negative_scaled_mahlerValue    -- QM79
+Ray.false_of_mahlerValue_irrational            -- QM81
+```
+
+The series is defined literally in `Q_2` by
+
+```text
+G_d(x) = sum_j (2^15/3^11)^j * x^e_j,
+e_0=0, e_(j+1)=1+d*e_j.
+```
+
+Lean proves convergence on the closed 2-adic unit ball, the exact functional
+equation `G_d(x)=1+a*x*G_d(x^d)`, finite EC17 backward unrolling, terminal
+vanishing, and the equality
+
+```text
+core(0) = -(17/3^(6*n0+11))*G_d(2^(8*n0*d)/3^(6*n0*d)).
+```
+
+It also converts a literal `EtherCounterAperiodic.TernaryCoreOrbit` with
+one-based levels `n0*d^t` to this ray, so the conditional no-go is attached
+to the concrete arithmetic interface rather than only an isolated series.
+The full build and axiom audit pass; all four new audited endpoints use only
+`propext`, `Classical.choice`, and `Quot.sound`.  No `sorry`, `admit`, custom
+axiom, or unsafe declaration is present.
+
+I have **not** internalized Wang Theorem 1 or Hadamard.  More importantly,
+I could confirm the article metadata but could not obtain the paper text from
+the public DOI, OpenAlex, Semantic Scholar, or Springer endpoints.  The
+repository currently contains conflicting ledgers: the new request says the
+Wang hypotheses were source-audited, while `kontorovich-delocalized-isa.md`
+still says the precise hypotheses were not checked.  Please provide the
+actual statement of Wang Theorem 1 (scan/transcription with definitions of
+`n0,m0,M0,g,Q0,Q1`) and the page numbers used.  Until that is available, the
+mathematically honest theorem is exactly the conditional Lean endpoint above.
+
+One nuance for any write-up: the scalar-descent claim is plausible but is
+not merely "coefficientwise."  For fixed degree bounds, a relation
+`sum_i P_i(z) G(z)^i=0` becomes a homogeneous linear system over `Q` in the
+finitely many coefficients of the `P_i`; a nonzero solution over an extension
+field then yields one over `Q`.  That finite-linear-system argument should be
+stated explicitly if it is used to pass from complex Hadamard transcendence
+to the function-transcendence hypothesis over `C_2(z)`.
