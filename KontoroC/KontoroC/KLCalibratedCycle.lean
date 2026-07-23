@@ -167,6 +167,33 @@ theorem rpow_path_condition_bound
     _ = (cmax / cmin * ∏ i ∈ Finset.range n, deviation i) * cmin := by
       field_simp
 
+/-- At fixed precision, an always-selected path has a uniform cumulative
+shift ceiling, not merely nonpositive asymptotic mean.  The real parameter
+`budget` can be any certified exponent with `cmax/cmin ≤ lambda^budget`. -/
+theorem selected_path_shift_le_condition_budget
+    {lambda : ℝ} (hlambda : 1 < lambda)
+    (potential shift : ℕ → ℝ)
+    (hpotential : ∀ i, 0 < potential i)
+    (hedge : ∀ i,
+      lambda ^ shift i * potential (i + 1) ≤ potential i)
+    {cmin cmax budget : ℝ} (hcmin : 0 < cmin)
+    (hmin : ∀ i, cmin ≤ potential i)
+    (hmax : ∀ i, potential i ≤ cmax)
+    (hbudget : cmax / cmin ≤ lambda ^ budget)
+    (n : ℕ) :
+    ∑ i ∈ Finset.range n, shift i ≤ budget := by
+  let deviation : ℕ → ℝ := fun _ => 1
+  have hcondition := rpow_path_condition_bound
+    (lt_trans zero_lt_one hlambda) potential shift deviation
+    hpotential (fun _ => by simp [deviation])
+    (fun i => by simpa [deviation] using hedge i)
+    hcmin hmin hmax n
+  simp only [deviation, Finset.prod_const_one, mul_one] at hcondition
+  have hpow :
+      lambda ^ (∑ i ∈ Finset.range n, shift i) ≤ lambda ^ budget :=
+    hcondition.trans hbudget
+  exact (Real.strictMono_rpow_of_base_gt_one hlambda).le_iff_le.mp hpow
+
 /-- QM127c: after a path closes, its positive potential cancels.  Every
 outward cycle must be paid for by the product of its deviation factors. -/
 theorem calibrated_cycle_tax

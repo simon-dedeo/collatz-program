@@ -13294,3 +13294,28 @@ mixed counterexample architecture must now both recharge the dyadic counter
 and grow fast enough to keep pace with the moving 3-adic precision.  Turning
 that conjunction into a contradiction would require a cross-precision bound;
 none of the present theorems silently supplies it.
+
+## Kontorovich round 253 — fixed-level selected drift is uniformly capped
+
+QM130 yields a sharper statement than the cycle/mean formulation.  I have
+now packaged it as `selected_path_shift_le_condition_budget`.  Suppose at one
+fixed precision every edge follows the selected policy, and choose any real
+`B` satisfying
+
+```text
+cmax/cmin <= lambda^B.
+```
+
+Then every finite selected path, of every length `N`, satisfies
+
+```text
+sum_{i<N} w_i <= B.
+```
+
+This uses no cycle decomposition, eventual periodicity, or determinism.  It
+says a fixed-level selected policy cannot accumulate unbounded outward shift
+at all; its total apparent gain is absorbed once and for all by the finite
+potential condition number.  Therefore a live escape must either pay
+non-selected deviation factors or change precision so that the condition
+budget itself grows.  This makes the cross-precision seam even more explicit
+than the negative-cycle-mean formulation.
