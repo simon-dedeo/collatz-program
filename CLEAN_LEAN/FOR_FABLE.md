@@ -11866,3 +11866,138 @@ step, evenness of the quotient, and choose `length >= failure_step+2`.  The
 current `transitions+PERIOD+64` runtime horizon is ample, but the artifact
 schema should record the certified replay length rather than leaving it
 implicit in Python control flow.
+
+## Kontorovich round 216 — audit of emitted replay certificates
+
+I checked commit `278ecad` against the new Lean structures.  The off-by-one
+semantics are now correct: under-divisibility uses `step < length`, and
+over-divisibility records the even quotient and chooses
+`failure_step+2 <= length`.  The extended backward residue check also
+correctly ensures that enlarging the prefix does not change the candidate
+modulo the requested binary precision.
+
+One promotion seam remains.  The JSON records only
+
+```text
+candidate_sha256
+replay_core_sha256
+```
+
+and scalar failure metadata.  A hash of the candidate/core sequence cannot
+construct either Lean's `ExactReplayTo` or the two failure structures.  The
+Python verifier can recompute the hidden integers, so the artifact is
+reproducible computational evidence, but it is not yet a kernel-checkable
+certificate.  Please keep prose saying “emits exact Lean replay certificate”
+qualified until one of these routes lands:
+
+1. emit the candidate and exact replay cores (possibly in chunked files),
+   plus the terminal nondivisibility/evenness fact; or
+2. emit a compact composed-affine factorization and use a new Lean theorem
+   showing that one odd terminal factorization reconstructs every
+   intermediate EC17 balance.
+
+Route 2 is preferable and I am investigating it: it is the variable-odd-
+multiplier analogue of `FiniteCompiler.affineOddFactor_iff_wordLegal` and
+would avoid storing a huge core at every transition.
+
+## Kontorovich round 217 — compact EC17 compiler and eventual-success converse
+
+Both conceptual follow-ups are now kernel-checked.
+
+First, the compact certificate route works.  For an arbitrary branch
+schedule I defined the accumulated ternary mass and the recursively composed
+EC17 offset, then the single identity
+
+```text
+3^T * initial + C = 2^S * terminal.
+```
+
+Lean proves a first-step splitting equivalence: because `2^b` is coprime to
+the remaining odd power `3^Ttail`, the composed identity forces
+
+```text
+2^b * next = 3^a * initial + 17
+```
+
+and leaves the same kind of composed identity on the tail.  Induction gives
+`exactReplayTo_of_composedReplayFactor`: one initial integer, one terminal
+integer, and one composed equality reconstruct every intermediate exact EC17
+balance.  This is the variable-power-of-three analogue of the finite Collatz
+compiler.
+
+I then exposed compact under- and over-divisibility certificate types:
+
+```text
+CompactNondivisibleReplayFailure:
+  factor through s steps + nondivisibility at s.
+
+CompactEvenQuotientReplayFailure:
+  factor through s+1 steps + even terminal quotient.
+```
+
+They feed `not AdmitsNaturalPrefix` with the exact same `s<length` versus
+`s+1<length` guards as the expanded certificates.  The worker therefore need
+not emit every intermediate core.  It should emit the actual candidate and
+terminal quotient (not only their hashes), together with enough exact data
+to check the one composed equality and final failure.  These two integers
+can be chunked independently if literal numerals are large.
+
+Second, I formalized the adversarial converse to QM106.  If the predecessor
+exponent has reached the fixed initial bit length, the genuine core is below
+the CRT product; uniqueness below the coprime product then proves
+
+```text
+canonical_candidate = core(3*q).
+```
+
+Hence it admits *every* finite shifted prefix.  Since Lean also has
+`q <= branch(3*q-1)`, a hypothetical ray forces an eventual all-success tail
+for every correctly formed sequence of canonical rows:
+
+```text
+exists Q, forall q >= Q, AdmitsNaturalPrefix ... candidate(q).
+```
+
+This is the honest interpretation of the sparse experiments.  Continued
+failures give ever larger lower bounds on the unknown initial bit length, but
+no finite run establishes cofinality; under a real ray the failures must stop
+and the candidates become the actual cores.  The experiment is therefore a
+decisive falsifier if one can prove arbitrarily late failures, not a finite-
+trend proof.
+
+The full 8,790-target project build and axiom audit pass.  The new compiler,
+compact consumers, CRT equality, and eventual-success theorem depend only on
+standard `propext`, `Classical.choice`, and `Quot.sound`.
+
+## Kontorovich round 218 — QM108–QM109 replay-free CRT margins complete
+
+The new replay-free endpoint is formalized exactly as requested.  For a
+positive canonical CRT representative with the two explicit congruences and
+strict product-range premise, Lean proves
+
+```text
+binaryDigits(candidate) <= U(q)+binaryDigits(core(0)).
+```
+
+The bootstrap is entirely integral.  If the candidate used more bits, then
+`2^(U+L0) <= candidate`; QM105 puts the genuine core strictly below that
+power.  Coprimality combines the two congruences modulo `2^U*3^E`, and both
+numbers lie below that product, forcing equality—a contradiction to the
+strict size ordering.
+
+I exposed the search quantity
+
+```text
+normalizedCRTMargin(q,candidate) = binaryDigits(candidate)-U(q)
+```
+
+with natural-number truncation, and QM108 proves it is at most the fixed
+initial bit length.  QM109 accepts arbitrary supplied row sequences and
+turns cofinally unbounded margins into `False`.  It assumes neither replay
+nor a replay failure; the current worker's `candidate_bits` and
+`binary_precision_bits` are exactly the two scalars needed for exploratory
+measurement.  As usual, the congruences, canonical range, positivity, and
+unboundedness remain explicit premises rather than artifact-derived axioms.
+
+The full project build and axiom audit pass after QM108–QM109.  These
+endpoints use only standard `propext`, `Classical.choice`, and `Quot.sound`.

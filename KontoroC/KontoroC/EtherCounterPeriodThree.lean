@@ -779,6 +779,159 @@ theorem normalizedCRTFailure_predecessorExponent_lt_initialDigits_of_noPrefix
   · exact g.shiftedCore_admitsNaturalPrefix q length
   · exact hfail
 
+/-! ## Replay-free normalized CRT margins -/
+
+/-- Bit-length form behind QM108.  A positive canonical CRT representative
+cannot use more bits than the theorem-forced growth budget plus the one fixed
+initial-core bit length, independently of whether it replays. -/
+theorem normalizedCRT_candidate_binaryDigits_le
+    (g : Ray) (q candidate : ℕ) (hq : 5 ≤ q)
+    (hbinary : g.core (3 * q) ≡ candidate
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : g.core (3 * q) ≡ candidate
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : candidate <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11))
+    (hcandidate_pos : 0 < candidate) :
+    (Nat.log 2 candidate).succ ≤
+      sharpUpperBudget g q + (Nat.log 2 (g.core 0)).succ := by
+  let U := sharpUpperBudget g q
+  let E := 6 * g.branch (3 * q - 1) + 11
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  have hcoreUpper : g.core (3 * q) < 2 ^ (U + L₀) := by
+    simpa [U, L₀] using
+      g.core_lt_two_pow_upperBudget_add_initialDigits q hq
+  by_contra hbad
+  push Not at hbad
+  have hexponents : U + L₀ ≤ Nat.log 2 candidate := by
+    omega
+  have hbudgetPow : 2 ^ (U + L₀) ≤ 2 ^ Nat.log 2 candidate :=
+    Nat.pow_le_pow_right (by norm_num) hexponents
+  have hlogPow : 2 ^ Nat.log 2 candidate ≤ candidate :=
+    Nat.pow_log_le_self 2 hcandidate_pos.ne'
+  have hcore_lt_candidate : g.core (3 * q) < candidate :=
+    hcoreUpper.trans_le (hbudgetPow.trans hlogPow)
+  have hcoprime : (2 ^ U).Coprime (3 ^ E) :=
+    (by norm_num : Nat.Coprime 2 3).pow _ _
+  have hproductMod : g.core (3 * q) ≡ candidate
+      [MOD (2 ^ U) * (3 ^ E)] :=
+    (Nat.modEq_and_modEq_iff_modEq_mul hcoprime).1
+      ⟨by simpa [U] using hbinary, by simpa [E] using hternary⟩
+  have heq : g.core (3 * q) = candidate :=
+    hproductMod.eq_of_lt_of_lt
+      (hcore_lt_candidate.trans (by simpa [U, E] using hcandidate))
+      (by simpa [U, E] using hcandidate)
+  exact (ne_of_lt hcore_lt_candidate) heq
+
+def normalizedCRTMargin (g : Ray) (q candidate : ℕ) : ℕ :=
+  (Nat.log 2 candidate).succ - sharpUpperBudget g q
+
+/-- QM108: the replay-free normalized candidate margin lower-bounds the
+same fixed initial-core bit length. -/
+theorem normalizedCRT_candidateMargin_le_initialDigits
+    (g : Ray) (q candidate : ℕ) (hq : 5 ≤ q)
+    (hbinary : g.core (3 * q) ≡ candidate
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : g.core (3 * q) ≡ candidate
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : candidate <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11))
+    (hcandidate_pos : 0 < candidate) :
+    normalizedCRTMargin g q candidate ≤
+      (Nat.log 2 (g.core 0)).succ := by
+  have hbits := g.normalizedCRT_candidate_binaryDigits_le q candidate hq
+    hbinary hternary hcandidate hcandidate_pos
+  change (Nat.log 2 candidate).succ - sharpUpperBudget g q ≤
+    (Nat.log 2 (g.core 0)).succ
+  omega
+
+/-- QM109: unbounded replay-free normalized CRT margins exclude a
+period-three ray.  No replay predicate or failure certificate is assumed. -/
+theorem false_of_unbounded_normalizedCRTMargins
+    (g : Ray) (q candidate : ℕ → ℕ)
+    (hq : ∀ j, 5 ≤ q j)
+    (hbinary : ∀ j, g.core (3 * q j) ≡ candidate j
+      [MOD 2 ^ sharpUpperBudget g (q j)])
+    (hternary : ∀ j, g.core (3 * q j) ≡ candidate j
+      [MOD 3 ^ (6 * g.branch (3 * q j - 1) + 11)])
+    (hcandidate : ∀ j, candidate j <
+      2 ^ sharpUpperBudget g (q j) *
+        3 ^ (6 * g.branch (3 * q j - 1) + 11))
+    (hcandidate_pos : ∀ j, 0 < candidate j)
+    (hunbounded : ∀ M, ∃ j, M <
+      normalizedCRTMargin g (q j) (candidate j)) :
+    False := by
+  obtain ⟨j, hj⟩ := hunbounded (Nat.log 2 (g.core 0)).succ
+  have hbound := g.normalizedCRT_candidateMargin_le_initialDigits
+    (q j) (candidate j) (hq j) (hbinary j) (hternary j)
+      (hcandidate j) (hcandidate_pos j)
+  omega
+
+/-- Converse/completeness form of the normalized CRT test.  Once the growing
+predecessor exponent reaches the fixed initial-core bit length, the canonical
+representative is not merely compatible with a hypothetical ray: it is the
+actual cycle-boundary core. -/
+theorem normalizedCRT_candidate_eq_core_of_initialDigits_le_predecessorExponent
+    (g : Ray) (q candidate : ℕ) (hq : 5 ≤ q)
+    (hbinary : g.core (3 * q) ≡ candidate
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : g.core (3 * q) ≡ candidate
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : candidate <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11))
+    (hthreshold : (Nat.log 2 (g.core 0)).succ ≤
+      6 * g.branch (3 * q - 1) + 11) :
+    g.core (3 * q) = candidate := by
+  let U := sharpUpperBudget g q
+  let E := 6 * g.branch (3 * q - 1) + 11
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  have hcoreUpper : g.core (3 * q) < 2 ^ (U + L₀) := by
+    simpa [U, L₀] using
+      g.core_lt_two_pow_upperBudget_add_initialDigits q hq
+  have htwoPowers : 2 ^ (U + L₀) ≤ 2 ^ U * 2 ^ E := by
+    rw [← pow_add]
+    apply Nat.pow_le_pow_right (by norm_num)
+    simpa [E, L₀] using Nat.add_le_add_left hthreshold U
+  have hbasePowers : 2 ^ E < 3 ^ E :=
+    Nat.pow_lt_pow_left (by norm_num) (by dsimp [E]; omega)
+  have hproductPowers : 2 ^ U * 2 ^ E < 2 ^ U * 3 ^ E :=
+    (Nat.mul_lt_mul_left (by positivity : 0 < 2 ^ U)).2 hbasePowers
+  have hcoreProduct : g.core (3 * q) < 2 ^ U * 3 ^ E :=
+    hcoreUpper.trans_le htwoPowers |>.trans hproductPowers
+  have hcoprime : (2 ^ U).Coprime (3 ^ E) :=
+    (by norm_num : Nat.Coprime 2 3).pow _ _
+  have hproductMod : g.core (3 * q) ≡ candidate
+      [MOD (2 ^ U) * (3 ^ E)] :=
+    (Nat.modEq_and_modEq_iff_modEq_mul hcoprime).1
+      ⟨by simpa [U] using hbinary, by simpa [E] using hternary⟩
+  apply hproductMod.eq_of_lt_of_lt hcoreProduct
+  simpa [U, E] using hcandidate
+
+/-- Under the same threshold, the canonical representative admits every
+finite shifted natural prefix, since it is the genuine core.  Thus a reported
+failure at this point contradicts the hypothetical ray outright. -/
+theorem normalizedCRT_candidate_admitsPrefix_of_threshold
+    (g : Ray) (q candidate length : ℕ) (hq : 5 ≤ q)
+    (hbinary : g.core (3 * q) ≡ candidate
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : g.core (3 * q) ≡ candidate
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : candidate <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11))
+    (hthreshold : (Nat.log 2 (g.core 0)).succ ≤
+      6 * g.branch (3 * q - 1) + 11) :
+    EtherCounterResidueBound.AdmitsNaturalPrefix
+      (shiftedBranch g q) length candidate := by
+  have heq :=
+    g.normalizedCRT_candidate_eq_core_of_initialDigits_le_predecessorExponent
+      q candidate hq hbinary hternary hcandidate hthreshold
+  rw [← heq]
+  exact g.shiftedCore_admitsNaturalPrefix q length
+
 /-- The predecessor branch at cycle boundary `q` is already at least `q`.
 This is the elementary bridge making unbounded cycle indices sufficient for
 the cofinal CRT consumer. -/
@@ -791,6 +944,52 @@ theorem cycleIndex_le_predecessorBranch
     Nat.le_mul_of_pos_left _ g.cycleGain_pos
   have hbase := g.branch_pos 2
   omega
+
+/-- Search interpretation: after the cycle index itself reaches the fixed
+initial bit length, every correctly formed canonical CRT row must replay.
+Consequently a hypothetical ray has an eventual all-success tail; observing
+arbitrarily late failures is exactly the missing contradiction, not a trend
+that follows from finitely many rows. -/
+theorem normalizedCRT_candidate_admitsPrefix_of_initialDigits_le_cycleIndex
+    (g : Ray) (q candidate length : ℕ) (hq : 5 ≤ q)
+    (hbinary : g.core (3 * q) ≡ candidate
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : g.core (3 * q) ≡ candidate
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : candidate <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11))
+    (hcycle : (Nat.log 2 (g.core 0)).succ ≤ q) :
+    EtherCounterResidueBound.AdmitsNaturalPrefix
+      (shiftedBranch g q) length candidate := by
+  have hbranch : q ≤ g.branch (3 * q - 1) :=
+    g.cycleIndex_le_predecessorBranch q (by omega)
+  apply g.normalizedCRT_candidate_admitsPrefix_of_threshold
+    q candidate length hq hbinary hternary hcandidate
+  omega
+
+/-- Family-level converse to the cofinal-failure consumer: for any supplied
+canonical CRT row at every cycle, a hypothetical ray forces an eventual tail
+on which every candidate admits the requested finite replay. -/
+theorem normalizedCRT_eventually_admitsPrefix
+    (g : Ray) (candidate length : ℕ → ℕ)
+    (hbinary : ∀ q, g.core (3 * q) ≡ candidate q
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : ∀ q, g.core (3 * q) ≡ candidate q
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : ∀ q, candidate q <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11)) :
+    ∃ Q, ∀ q, Q ≤ q →
+      EtherCounterResidueBound.AdmitsNaturalPrefix
+        (shiftedBranch g q) (length q) (candidate q) := by
+  let Q := max 5 (Nat.log 2 (g.core 0)).succ
+  refine ⟨Q, ?_⟩
+  intro q hq
+  apply g.normalizedCRT_candidate_admitsPrefix_of_initialDigits_le_cycleIndex
+    q (candidate q) (length q) (by simpa [Q] using (le_max_left 5 _).trans hq)
+      (hbinary q) (hternary q) (hcandidate q)
+  simpa [Q] using (le_max_right 5 (Nat.log 2 (g.core 0)).succ).trans hq
 
 /-- QM107: canonical normalized CRT failures along unbounded cycle indices
 exclude the period-three ray.  The family of required predicates may vary by

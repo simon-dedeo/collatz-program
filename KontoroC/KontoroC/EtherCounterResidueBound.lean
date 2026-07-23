@@ -284,6 +284,210 @@ theorem ExactReplayTo.core_eq
           _ = 2 ^ binaryExponent branch t * c.core (t + 1) := hcert.symm
       exact Nat.eq_of_mul_eq_mul_left (by positivity) hmul
 
+/-! ### Compact composed-affine replay certificates -/
+
+/-- Accumulated ternary exponent on a finite EC17 interval. -/
+def replayTernaryMass (branch : ℕ → ℕ) (start length : ℕ) : ℕ :=
+  ∑ i ∈ Finset.range length, ternaryExponent branch (start + i)
+
+theorem replayTernaryMass_zero (branch : ℕ → ℕ) (start : ℕ) :
+    replayTernaryMass branch start 0 = 0 := by
+  simp [replayTernaryMass]
+
+theorem replayTernaryMass_succ (branch : ℕ → ℕ) (start length : ℕ) :
+    replayTernaryMass branch start (length + 1) =
+      ternaryExponent branch start +
+        replayTernaryMass branch (start + 1) length := by
+  rw [replayTernaryMass, Finset.sum_range_succ']
+  simp only [replayTernaryMass]
+  have hsum :
+      (∑ i ∈ Finset.range length,
+        ternaryExponent branch (start + (i + 1))) =
+      ∑ i ∈ Finset.range length,
+        ternaryExponent branch (start + 1 + i) := by
+    apply Finset.sum_congr rfl
+    intro i _
+    congr 1
+    omega
+  rw [hsum]
+  ac_rfl
+
+/-- Additive term in the EC17 interval composition, recursively split at the
+first transition so the compact factorization can be decoded inductively. -/
+def replayOffset (branch : ℕ → ℕ) : ℕ → ℕ → ℕ
+  | _, 0 => 0
+  | start, length + 1 =>
+      17 * 3 ^ replayTernaryMass branch (start + 1) length +
+        2 ^ binaryExponent branch start *
+          replayOffset branch (start + 1) length
+
+theorem replayTernaryMass_shift (branch : ℕ → ℕ)
+    (shift start length : ℕ) :
+    replayTernaryMass (fun t => branch (shift + t)) start length =
+      replayTernaryMass branch (shift + start) length := by
+  simp only [replayTernaryMass]
+  apply Finset.sum_congr rfl
+  intro i _
+  simp only [ternaryExponent]
+  rw [show shift + (start + i) = shift + start + i by omega]
+
+theorem binaryMass_shift (branch : ℕ → ℕ) (shift start length : ℕ) :
+    binaryMass (fun t => branch (shift + t)) start length =
+      binaryMass branch (shift + start) length := by
+  simp only [binaryMass]
+  apply Finset.sum_congr rfl
+  intro i _
+  simp only [binaryExponent]
+  rw [show shift + (start + i + 1) = shift + start + i + 1 by omega]
+
+theorem replayOffset_shift (branch : ℕ → ℕ) (shift start length : ℕ) :
+    replayOffset (fun t => branch (shift + t)) start length =
+      replayOffset branch (shift + start) length := by
+  induction length generalizing start with
+  | zero => simp [replayOffset]
+  | succ length ih =>
+      simp only [replayOffset]
+      rw [replayTernaryMass_shift, ih]
+      have hstart : shift + (start + 1) = shift + start + 1 := by omega
+      have hbinary :
+          binaryExponent (fun t => branch (shift + t)) start =
+            binaryExponent branch (shift + start) := by
+        simp only [binaryExponent]
+        rw [show shift + (start + 1) = shift + start + 1 by omega]
+      rw [hstart, hbinary]
+
+/-- One compact natural-number identity encoding an entire finite EC17
+replay from `initial` to `terminal`. -/
+def ComposedReplayFactor (branch : ℕ → ℕ) (start length initial terminal : ℕ) :
+    Prop :=
+  3 ^ replayTernaryMass branch start length * initial +
+      replayOffset branch start length =
+    2 ^ binaryMass branch start length * terminal
+
+/-- Splitting a compact factorization exposes the first exact transition and
+a compact factorization for the tail.  Oddness of the ternary multiplier is
+what prevents a power of two from being hidden in the tail coefficient. -/
+theorem composedReplayFactor_succ_iff
+    (branch : ℕ → ℕ) (start length initial terminal : ℕ) :
+    ComposedReplayFactor branch start (length + 1) initial terminal ↔
+      ∃ next,
+        2 ^ binaryExponent branch start * next =
+          3 ^ ternaryExponent branch start * initial + 17 ∧
+        ComposedReplayFactor branch (start + 1) length next terminal := by
+  let b := binaryExponent branch start
+  let a := ternaryExponent branch start
+  let S := binaryMass branch (start + 1) length
+  let T := replayTernaryMass branch (start + 1) length
+  let C := replayOffset branch (start + 1) length
+  let N := 3 ^ a * initial + 17
+  have hbinary : binaryMass branch start (length + 1) = b + S := by
+    simpa [b, S] using binaryMass_succ branch start length
+  have hternary : replayTernaryMass branch start (length + 1) = a + T := by
+    simpa [a, T] using replayTernaryMass_succ branch start length
+  constructor
+  · intro hfactor
+    have hexpanded :
+        3 ^ T * N + 2 ^ b * C = 2 ^ b * (2 ^ S * terminal) := by
+      change 3 ^ replayTernaryMass branch start (length + 1) * initial +
+          replayOffset branch start (length + 1) =
+        2 ^ binaryMass branch start (length + 1) * terminal at hfactor
+      rw [hbinary, hternary, pow_add, pow_add] at hfactor
+      dsimp only [replayOffset] at hfactor
+      dsimp only [a, b, S, T, C, N]
+      nlinarith [hfactor]
+    have hsumDvd : 2 ^ b ∣ 3 ^ T * N + 2 ^ b * C := by
+      rw [hexpanded]
+      exact dvd_mul_right _ _
+    have hrightDvd : 2 ^ b ∣ 2 ^ b * C := dvd_mul_right _ _
+    have hmulDvd : 2 ^ b ∣ 3 ^ T * N :=
+      (Nat.dvd_add_left hrightDvd).mp hsumDvd
+    have hcoprime : (2 ^ b).Coprime (3 ^ T) :=
+      (by norm_num : Nat.Coprime 2 3).pow _ _
+    have hNdiv : 2 ^ b ∣ N := hcoprime.dvd_of_dvd_mul_left hmulDvd
+    let next := N / 2 ^ b
+    have hstep : 2 ^ b * next = N := Nat.mul_div_cancel' hNdiv
+    have htail : ComposedReplayFactor branch (start + 1) length next terminal := by
+      change 3 ^ T * next + C = 2 ^ S * terminal
+      apply Nat.eq_of_mul_eq_mul_left (by positivity : 0 < 2 ^ b)
+      calc
+        2 ^ b * (3 ^ T * next + C) =
+            3 ^ T * (2 ^ b * next) + 2 ^ b * C := by ring
+        _ = 3 ^ T * N + 2 ^ b * C := by rw [hstep]
+        _ = 2 ^ b * (2 ^ S * terminal) := hexpanded
+    refine ⟨next, ?_, htail⟩
+    simpa [a, b, N] using hstep
+  · rintro ⟨next, hstep, htail⟩
+    change 3 ^ replayTernaryMass branch start (length + 1) * initial +
+        replayOffset branch start (length + 1) =
+      2 ^ binaryMass branch start (length + 1) * terminal
+    change 3 ^ T * next + C = 2 ^ S * terminal at htail
+    rw [hbinary, hternary, pow_add, pow_add]
+    dsimp only [replayOffset]
+    change
+      (3 ^ a * 3 ^ T) * initial +
+          (17 * 3 ^ T + 2 ^ b * C) =
+        (2 ^ b * 2 ^ S) * terminal
+    calc
+      (3 ^ a * 3 ^ T) * initial +
+            (17 * 3 ^ T + 2 ^ b * C) =
+          3 ^ T * (3 ^ a * initial + 17) + 2 ^ b * C := by ring
+      _ = 3 ^ T * (2 ^ b * next) + 2 ^ b * C := by
+        rw [← hstep]
+      _ = 2 ^ b * (3 ^ T * next + C) := by ring
+      _ = 2 ^ b * (2 ^ S * terminal) := by rw [htail]
+      _ = (2 ^ b * 2 ^ S) * terminal := by ring
+
+/-- Decode a compact factorization into every exact intermediate EC17
+balance.  Only the terminal core is stored in addition to the initial core. -/
+theorem exactReplayTo_of_composedReplayFactor
+    (branch : ℕ → ℕ) (initial terminal steps : ℕ)
+    (hfactor : ComposedReplayFactor branch 0 steps initial terminal) :
+    ∃ replay : ExactReplayTo branch initial steps,
+      replay.core steps = terminal := by
+  induction steps generalizing branch initial with
+  | zero =>
+      let replay : ExactReplayTo branch initial 0 := {
+        core := fun _ => initial
+        initial := rfl
+        balance := by intro t ht; omega
+      }
+      refine ⟨replay, ?_⟩
+      change initial = terminal
+      simpa [ComposedReplayFactor, replayTernaryMass, replayOffset,
+        binaryMass] using hfactor
+  | succ steps ih =>
+      obtain ⟨next, hstep, htail⟩ :=
+        (composedReplayFactor_succ_iff branch 0 steps initial terminal).mp
+          (by simpa using hfactor)
+      let tailBranch : ℕ → ℕ := fun t => branch (1 + t)
+      have htailShift :
+          ComposedReplayFactor tailBranch 0 steps next terminal := by
+        simpa [tailBranch, ComposedReplayFactor, replayTernaryMass_shift,
+          replayOffset_shift, binaryMass_shift] using htail
+      obtain ⟨tail, hterminal⟩ := ih tailBranch next htailShift
+      let replay : ExactReplayTo branch initial (steps + 1) := {
+        core := fun
+          | 0 => initial
+          | t + 1 => tail.core t
+        initial := rfl
+        balance := by
+          intro t ht
+          cases t with
+          | zero =>
+              change 2 ^ binaryExponent branch 0 * tail.core 0 =
+                3 ^ ternaryExponent branch 0 * initial + 17
+              rw [tail.initial]
+              exact hstep
+          | succ t =>
+              have htt : t < steps := by omega
+              have htailBalance := tail.balance t htt
+              simpa only [tailBranch, binaryExponent, ternaryExponent,
+                Nat.one_add, Nat.add_assoc] using htailBalance
+      }
+      refine ⟨replay, ?_⟩
+      change tail.core steps = terminal
+      exact hterminal
+
 /-- A checker certificate for the Python `actual < required` branch: the
 candidate replays exactly up to `step`, but the required binary power does
 not divide the next numerator. -/
@@ -346,6 +550,59 @@ theorem EvenQuotientReplayFailure.not_admitsNaturalPrefix
     ¬ AdmitsNaturalPrefix branch length candidate := by
   rintro ⟨g, hinitial⟩
   exact c.excludesNaturalPrefix g hnext hinitial
+
+/-- Compact under-divisibility certificate: one composed identity replaces
+the entire list of intermediate replay cores. -/
+structure CompactNondivisibleReplayFailure
+    (branch : ℕ → ℕ) (candidate : ℕ) where
+  step : ℕ
+  terminal : ℕ
+  factor : ComposedReplayFactor branch 0 step candidate terminal
+  failure : ¬ 2 ^ binaryExponent branch step ∣
+    3 ^ ternaryExponent branch step * terminal + 17
+
+theorem CompactNondivisibleReplayFailure.not_admitsNaturalPrefix
+    {branch : ℕ → ℕ} {candidate : ℕ}
+    (c : CompactNondivisibleReplayFailure branch candidate)
+    {length : ℕ} (hstep : c.step < length) :
+    ¬ AdmitsNaturalPrefix branch length candidate := by
+  intro hadmits
+  obtain ⟨replay, hterminal⟩ :=
+    exactReplayTo_of_composedReplayFactor branch candidate c.terminal c.step
+      c.factor
+  let expanded : NondivisibleReplayFailure branch candidate := {
+    step := c.step
+    replay := replay
+    failure := by simpa [hterminal] using c.failure
+  }
+  exact expanded.not_admitsNaturalPrefix (by simpa [expanded] using hstep)
+    hadmits
+
+/-- Compact over-divisibility certificate.  The composed identity runs
+through the reported transition and stores only its even terminal quotient. -/
+structure CompactEvenQuotientReplayFailure
+    (branch : ℕ → ℕ) (candidate : ℕ) where
+  step : ℕ
+  terminal : ℕ
+  factor : ComposedReplayFactor branch 0 (step + 1) candidate terminal
+  terminal_even : terminal % 2 = 0
+
+theorem CompactEvenQuotientReplayFailure.not_admitsNaturalPrefix
+    {branch : ℕ → ℕ} {candidate : ℕ}
+    (c : CompactEvenQuotientReplayFailure branch candidate)
+    {length : ℕ} (hnext : c.step + 1 < length) :
+    ¬ AdmitsNaturalPrefix branch length candidate := by
+  intro hadmits
+  obtain ⟨replay, hterminal⟩ :=
+    exactReplayTo_of_composedReplayFactor branch candidate c.terminal
+      (c.step + 1) c.factor
+  let expanded : EvenQuotientReplayFailure branch candidate := {
+    step := c.step
+    replay := replay
+    next_even := by simpa [hterminal] using c.terminal_even
+  }
+  exact expanded.not_admitsNaturalPrefix (by simpa [expanded] using hnext)
+    hadmits
 
 /-! ## Coprime predecessor/future residue synthesis -/
 

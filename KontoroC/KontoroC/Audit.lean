@@ -922,9 +922,17 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.EtherCounterResidueBound.NaturalPrefix.core_mod_two_eq_one
 #print axioms KontoroC.EtherCounterResidueBound.ExactReplayTo.core_eq
 #print axioms
+  KontoroC.EtherCounterResidueBound.composedReplayFactor_succ_iff
+#print axioms
+  KontoroC.EtherCounterResidueBound.exactReplayTo_of_composedReplayFactor
+#print axioms
   KontoroC.EtherCounterResidueBound.NondivisibleReplayFailure.not_admitsNaturalPrefix
 #print axioms
   KontoroC.EtherCounterResidueBound.EvenQuotientReplayFailure.not_admitsNaturalPrefix
+#print axioms
+  KontoroC.EtherCounterResidueBound.CompactNondivisibleReplayFailure.not_admitsNaturalPrefix
+#print axioms
+  KontoroC.EtherCounterResidueBound.CompactEvenQuotientReplayFailure.not_admitsNaturalPrefix
 #print axioms KontoroC.EtherCounterResidueBound.ec17_successor_mul_modEq
 #print axioms KontoroC.EtherCounterResidueBound.ec17_successor_modEq_of_candidate
 #print axioms
@@ -970,7 +978,21 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.EtherCounterPeriodThree.Ray.normalizedCRTFailure_predecessorExponent_lt_initialDigits_of_noPrefix
 #print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.normalizedCRT_candidate_binaryDigits_le
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.normalizedCRT_candidateMargin_le_initialDigits
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.false_of_unbounded_normalizedCRTMargins
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.normalizedCRT_candidate_eq_core_of_initialDigits_le_predecessorExponent
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.normalizedCRT_candidate_admitsPrefix_of_threshold
+#print axioms
   KontoroC.EtherCounterPeriodThree.Ray.cycleIndex_le_predecessorBranch
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.normalizedCRT_candidate_admitsPrefix_of_initialDigits_le_cycleIndex
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.normalizedCRT_eventually_admitsPrefix
 #print axioms
   KontoroC.EtherCounterPeriodThree.Ray.false_of_unbounded_normalizedCRTFailures
 #print axioms
