@@ -268,6 +268,46 @@ theorem affineImage_upperBlock_lt
       _ = 2 ^ p * N := by ring
   exact Nat.lt_of_mul_lt_mul_left hHscaled
 
+/-- Complete canonical worker gate.  Source and target canonical ranges,
+their shared low `p`-bit block, the affine equation, `D<N`, and the exponent
+gate `2^ell≤N` make the full ternary congruence equivalent to equality of the
+two high blocks—and hence to a literal zero carry. -/
+theorem canonical_worker_modEq_iff_upperBlocks_eq
+    (m p ell Q r D y rnext s A H : ℕ)
+    (hsource : r < 2 ^ (m + p))
+    (htarget : rnext < 2 ^ (p + ell))
+    (hdefect : D < 3 ^ Q)
+    (haffine : 2 ^ m * y = 3 ^ Q * r + D)
+    (hnextDecomp : rnext = s + 2 ^ p * A)
+    (himageDecomp : y = s + 2 ^ p * H)
+    (hgate : 2 ^ ell ≤ 3 ^ Q) :
+    (2 : ℤ) ^ m * (rnext : ℤ) ≡ (D : ℤ) [ZMOD (3 : ℤ) ^ Q] ↔ A = H := by
+  have hA0 : A < 2 ^ ell :=
+    upperBlock_lt_two_pow p ell rnext s A htarget hnextDecomp
+  have hA : A < 3 ^ Q := hA0.trans_le hgate
+  have hH : H < 3 ^ Q :=
+    affineImage_upperBlock_lt m p (3 ^ Q) r D y s H
+      hsource hdefect haffine himageDecomp
+  have haffineInt :
+      (2 : ℤ) ^ m * (y : ℤ) =
+        (3 : ℤ) ^ Q * (r : ℤ) + (D : ℤ) := by exact_mod_cast haffine
+  have hcarryInt :
+      (rnext : ℤ) = (y : ℤ) +
+        (2 : ℤ) ^ p * ((A : ℤ) - (H : ℤ)) := by
+    have hn : (rnext : ℤ) = (s : ℤ) + (2 : ℤ) ^ p * (A : ℤ) := by
+      exact_mod_cast hnextDecomp
+    have hi : (y : ℤ) = (s : ℤ) + (2 : ℤ) ^ p * (H : ℤ) := by
+      exact_mod_cast himageDecomp
+    rw [hn, hi]
+    ring
+  have hbound : |(A : ℤ) - (H : ℤ)| < ((3 ^ Q : ℕ) : ℤ) :=
+    abs_signedCarry_lt A H (3 ^ Q) hA hH
+  have hworker := worker_modEq_iff_signedCarry_zero m p
+    ((3 : ℤ) ^ Q) (r : ℤ) (D : ℤ) (y : ℤ) (rnext : ℤ)
+    ((A : ℤ) - (H : ℤ)) haffineInt hcarryInt
+    (isCoprime_three_pow_two_pow Q (m + p)) hbound
+  simpa [sub_eq_zero] using hworker
+
 /-- Proof-carrying consecutive three-step replays on a bare branch schedule. -/
 structure ThreeReplayChain where
   branch : ℕ → ℕ

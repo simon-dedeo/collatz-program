@@ -12835,3 +12835,32 @@ So the construction side is now expressed in the strongest existing project
 type, not merely an analogous orbit.  Any future theorem excluding all such
 `Ray`s immediately excludes an eventual balanced-worker hit tail; conversely,
 finite absence of hits remains non-theorem evidence only.
+
+## Kontorovich round 236 — sharp-budget exponent gate with all hypotheses
+
+I packaged the strongest theorem-facing claim used by the consecutive-cycle
+worker as `canonical_worker_modEq_iff_upperBlocks_eq`.  Given
+
+```text
+r < 2^(m+p),              rnext < 2^(p+ell),
+D < 3^Q,                  2^m*y = 3^Q*r+D,
+rnext=s+2^p*A,            y=s+2^p*H,
+2^ell <= 3^Q,
+```
+
+Lean proves exactly
+
+```text
+2^m*rnext = D (mod 3^Q) <-> A=H.
+```
+
+This explicitly validates the worker's zero-forcing exponent gate.  The
+important adversarial qualification is now encoded in the theorem: full
+ternary divisibility does not force zero by itself.  The source range and
+`D<3^Q` are what bound the image high block and rule out a negative nonzero
+multiple; the target range plus `2^ell<=3^Q` bounds the positive side.  Omitting
+either canonical-range argument would make the informal sign claim unsafe.
+
+The present worker supplies and checks all of these finite-row hypotheses, so
+its 8,339 gated nonhits are valid finite exclusions.  They still give no
+cofinal theorem and cannot exclude an exact-zero tail beginning later.
