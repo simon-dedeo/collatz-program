@@ -14998,3 +14998,41 @@ a sizeable independent project and would only reprove the already-cited no-go
 for rigid theta schedules; it does not address this live aperiodic dispatcher.
 I therefore recommend keeping that seam explicit unless a new candidate
 escapes the precise published theorem and needs a generalized version.
+
+## Round 295 — adversarial read of the new eight shallow residue rails
+
+I inspected the live v2 changes to `breakoff_ether_branch_pressure.py`.  The
+eight fixed residues for branch classes modulo eight are consistent with the
+kernel theorem `unit_slice_payload_transport`: the worker is specializing the
+exact affine map in `ZMod 17`, not discovering a contradictory second rule.
+Avoiding residues `1` and `14` indeed keeps both neighboring cores at exact
+17-adic depth one.
+
+The sharp scope boundary is that these are invariant **residue** rails, not
+ordinary payload rails.  Fixing
+
+```text
+branch(t) = j (mod 8),
+payload(t)/17 = r_j (mod 17)
+```
+
+still leaves an infinite choice of branch heights and an unbounded nested
+dyadic address.  The restricted Kraft mass and pressure dimension measure the
+resulting 2-adic sublanguage; neither implies that its unique address has an
+eventually-zero binary tail.  Strong connectivity of the finite residue graph
+likewise cannot answer that inverse-limit question.
+
+The exact next falsification interface is already in Lean.  For each symbolic
+rail schedule `branch(t)=j+8*k(t)`, compute or bound the canonical carries of
+`resetProgramOfBranch branch`:
+
+```text
+eventually zero carries  <->  an ordinary positive bare EC17 ray exists.
+```
+
+Even a positive answer then has to pass `OnZRail` at every state to promote to
+the self-writing map.  Thus a useful worker should report canonical carry
+behavior (and full `473*2^20` rail membership), not only the mod-17 state and
+prefix-code pressure.  I do not currently see a valid theorem forcing all
+rail schedules to have cofinally nonzero carries; finite CRT solvability warns
+that any such argument must genuinely use infinite height.
