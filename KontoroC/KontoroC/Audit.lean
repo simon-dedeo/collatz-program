@@ -1646,3 +1646,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardFirstPassage.exists_unique_firstPassage_prefix
 #print axioms KontoroC.OutwardFirstPassage.firstPassage_last_eq_true
 #print axioms KontoroC.OutwardFirstPassage.firstPassage_overshoot
+#print axioms KontoroC.OutwardCodeCompactness.eventuallyConstant_iff_boundedRange_of_monotone
+#print axioms KontoroC.OutwardCodeCompactness.exists_all_iff_bounded_least
+#print axioms KontoroC.OutwardCodeCompactness.executes_shift
+#print axioms KontoroC.OutwardCodeCompactness.exists_positive_executes
+#print axioms KontoroC.OutwardCodeCompactness.finiteDepth_of_nonempty
+#print axioms KontoroC.OutwardCodeCompactness.canonicalMinimumStart_mono
+#print axioms KontoroC.OutwardCodeCompactness.infiniteExecution_iff_bounded_canonicalMinimum
+#print axioms KontoroC.OutwardCodeCompactness.infiniteExecution_iff_eventuallyConstant_canonicalMinimum

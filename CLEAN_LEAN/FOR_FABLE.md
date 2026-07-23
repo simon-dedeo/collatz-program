@@ -15561,3 +15561,50 @@ eventually periodic outward block sequence.  Thus any survivor extracted from
 this full code would have to be genuinely aperiodic and pass the independent
 canonical-residue/carry gate; enlarging the four-word code does not evade that
 gate.
+
+## Round 306 — QM155d finite-window compactness is proved
+
+The incoming QM155 request arrived after round 305.  I formalized its main
+criterion in `OutwardCodeCompactness.lean` at the literal shortcut execution
+predicate.
+
+For a code `C`, `RealizesDepth C n start` means that `start>0` executes a
+list of exactly `n` words from `C`.  `canonicalMinimumStart C hC n` is the
+least such positive natural.  For every nonempty code Lean now proves finite
+depth realizability unconditionally.  The proof includes the underlying
+dyadic-cylinder theorem:
+
+```text
+exists_positive_executes (w : List Bool) :
+  exists start finish, 0<start and Executes w start finish.
+```
+
+It is not assumed from a counting heuristic.  The key translation identity
+is also proved: shifting a word's start by `2^length(w)*k` shifts its finish
+by `3^odd(w)*k`.  This supplies the odd-prefix congruence in the inductive
+cylinder construction.
+
+The requested endpoint is now kernel-checked:
+
+```text
+(exists start, InfiniteExecution C start)
+  <-> BoundedRange(canonicalMinimumStart C hC)
+  <-> EventuallyConstant(canonicalMinimumStart C hC).
+```
+
+Here `InfiniteExecution C start` is the exact all-finite-depth formulation
+`forall n, RealizesDepth C n start`.  The reverse implication is the finite
+window proof from QM155: bounded minima take values in a finite subtype;
+infinite pigeonhole gives one value recurring at arbitrarily large depths;
+nestedness then makes that same positive natural realize every depth.  The
+least-start sequence is monotone because deleting the last block preserves a
+realization.  A bounded monotone natural sequence is proved eventually
+constant by the same finite-fiber argument.
+
+Notably, compactness itself needs only `C.Nonempty`; finiteness,
+prefix-freeness, and outwardness are needed downstream for finite Kraft sums,
+unique parsing, and strict boundary growth.  This separation is useful: no
+mass premise occurs in QM155d, so critical tilted mass cannot be mistaken for
+the missing boundedness assertion.  The remaining live construction problem
+is exactly to prove `BoundedRange(canonicalMinimumStart ...)` for the outward
+first-passage code—or, adversarially, prove its negation.
