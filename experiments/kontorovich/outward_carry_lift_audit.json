@@ -1,0 +1,206 @@
+{
+  "artifact_sha256": "9a6bc816513abdf8ad2a59e256a8572d2cd1979949c3ae7d0aa84dfd86eb8559",
+  "audit": {
+    "all_candidates_reached_terminal_cycle": true,
+    "base_prefix": {
+      "cumulative_shortcut_length": 124,
+      "first_passage_blocks": 36,
+      "lift_formula": "source=270271+2^124*carry",
+      "source": 270271,
+      "zero_carry_reaches_terminal_cycle": true
+    },
+    "block_count_histogram": {
+      "36": 286385,
+      "37": 204344,
+      "38": 145594,
+      "39": 104032,
+      "40": 74137,
+      "41": 53128,
+      "42": 37806,
+      "43": 26969,
+      "44": 19476,
+      "45": 13808,
+      "46": 9882,
+      "47": 6849,
+      "48": 4935,
+      "49": 3566,
+      "50": 2582,
+      "51": 1915,
+      "52": 1323,
+      "53": 933,
+      "54": 671,
+      "55": 502,
+      "56": 338,
+      "57": 241,
+      "58": 161,
+      "59": 117,
+      "60": 94,
+      "61": 51,
+      "62": 48,
+      "63": 41,
+      "64": 25,
+      "65": 8,
+      "66": 15,
+      "67": 6,
+      "68": 5,
+      "69": 3,
+      "70": 4,
+      "71": 3,
+      "72": 1,
+      "73": 2
+    },
+    "champion": {
+      "accelerated_steps_to_terminal_cycle": 553,
+      "additional_blocks_after_base_prefix": 37,
+      "address_stabilization": {
+        "accelerated_steps": 105,
+        "block_depth": 50,
+        "shortcut_steps": 144,
+        "state": 76020774033615532114032984056899412706087062463101
+      },
+      "carry": 636503,
+      "first_passage_blocks": 73,
+      "post_address_first_passage_extensions": 23,
+      "shortcut_steps_to_terminal_cycle": 1019,
+      "source": "13536921712017380925614270484633922618793919"
+    },
+    "champion_ties": [
+      {
+        "accelerated_steps_to_terminal_cycle": 553,
+        "additional_blocks_after_base_prefix": 37,
+        "carry": 636503,
+        "first_passage_blocks": 73,
+        "shortcut_steps_to_terminal_cycle": 1019,
+        "source": "13536921712017380925614270484633922618793919"
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 739,
+        "additional_blocks_after_base_prefix": 37,
+        "carry": 719011,
+        "first_passage_blocks": 73,
+        "shortcut_steps_to_terminal_cycle": 1314,
+        "source": "15291672807636930347079027491507693343219647"
+      }
+    ],
+    "claim_scope": "exhaustive only for the displayed carry interval above one fixed prefix; finite records are not an infinite orbit",
+    "counterexample": null,
+    "maximum_carry": 1000000,
+    "maximum_shortcut_steps_observed": 1614,
+    "maximum_shortcut_steps_per_candidate": 100000,
+    "meaning": "directed exact search of the least positive dyadic carries above the failed 36-block canonical prefix of source 270271",
+    "record_rows": [
+      {
+        "accelerated_steps_to_terminal_cycle": 528,
+        "additional_blocks_after_base_prefix": 1,
+        "carry": 1,
+        "first_passage_blocks": 37,
+        "shortcut_steps_to_terminal_cycle": 960,
+        "source": "21267647932558653966460912964485783487"
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 515,
+        "additional_blocks_after_base_prefix": 3,
+        "carry": 3,
+        "first_passage_blocks": 39,
+        "shortcut_steps_to_terminal_cycle": 941,
+        "source": "63802943797675961899382738893456809919"
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 370,
+        "additional_blocks_after_base_prefix": 6,
+        "carry": 5,
+        "first_passage_blocks": 42,
+        "shortcut_steps_to_terminal_cycle": 712,
+        "source": "106338239662793269832304564822427836351"
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 528,
+        "additional_blocks_after_base_prefix": 9,
+        "carry": 15,
+        "first_passage_blocks": 45,
+        "shortcut_steps_to_terminal_cycle": 964,
+        "source": "319014718988379809496913694467282968511"
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 557,
+        "additional_blocks_after_base_prefix": 10,
+        "carry": 59,
+        "first_passage_blocks": 46,
+        "shortcut_steps_to_terminal_cycle": 1012,
+        "source": "1254791228020960584021193864904645550015"
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 486,
+        "additional_blocks_after_base_prefix": 11,
+        "carry": 94,
+        "first_passage_blocks": 47,
+        "shortcut_steps_to_terminal_cycle": 900,
+        "source": "1999158905660513472847325818661638512575"
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 543,
+        "additional_blocks_after_base_prefix": 15,
+        "carry": 149,
+        "first_passage_blocks": 51,
+        "shortcut_steps_to_terminal_cycle": 991,
+        "source": "3168879541951239441002676031708341739455"
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 358,
+        "additional_blocks_after_base_prefix": 19,
+        "carry": 163,
+        "first_passage_blocks": 55,
+        "shortcut_steps_to_terminal_cycle": 698,
+        "source": "3466626613007060596533128813211138924479"
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 585,
+        "additional_blocks_after_base_prefix": 25,
+        "carry": 194,
+        "first_passage_blocks": 61,
+        "shortcut_steps_to_terminal_cycle": 1058,
+        "source": "4125923698916378869493417115110189834175"
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 672,
+        "additional_blocks_after_base_prefix": 31,
+        "carry": 13048,
+        "first_passage_blocks": 67,
+        "shortcut_steps_to_terminal_cycle": 1202,
+        "source": "277500270224025316954381992360606976712639"
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 738,
+        "additional_blocks_after_base_prefix": 35,
+        "carry": 34805,
+        "first_passage_blocks": 71,
+        "shortcut_steps_to_terminal_cycle": 1308,
+        "source": "740220486292703951302672075728918287753151"
+      },
+      {
+        "accelerated_steps_to_terminal_cycle": 553,
+        "additional_blocks_after_base_prefix": 37,
+        "carry": 636503,
+        "first_passage_blocks": 73,
+        "shortcut_steps_to_terminal_cycle": 1019,
+        "source": "13536921712017380925614270484633922618793919"
+      }
+    ],
+    "visualizer_post_address_prefix": {
+      "accelerated_steps": 56,
+      "collatz_source": "76020774033615532114032984056899412706087062463101",
+      "collatz_target": "131638489329586586873312353398391442686020127869267629",
+      "first_passage_extensions": 22,
+      "scope": "exact finite prefix beginning only after the lifted source address stabilizes; the complete ordinary orbit reaches 1"
+    },
+    "visualizer_prefix": {
+      "accelerated_steps": 161,
+      "collatz_source": "13536921712017380925614270484633922618793919",
+      "collatz_target": "131638489329586586873312353398391442686020127869267629",
+      "first_passage_blocks": 72,
+      "scope": "exact finite prefix of the best low-carry lift; its complete ordinary orbit reaches the 1--2 cycle"
+    }
+  },
+  "schema": "collatz-outward-carry-lift-v1",
+  "worker_sha256": "2e9fd40b257817b5d081a38d989106a54baaf2de54bd8eb5e5012aef46bed558"
+}

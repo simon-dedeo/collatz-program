@@ -42,6 +42,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from fractions import Fraction
 from pathlib import Path
 from typing import Any, Sequence
@@ -280,6 +281,7 @@ def minimum_address_regression(
 
     previous_words: list[str] | None = None
     previous_source: int | None = None
+    continuation_barriers: list[dict[str, Any]] = []
     for row in record_rows:
         profile = source_profile(int(row["source"]), maximum_shortcut_steps, True)
         words = [str(boundary["word"]) for boundary in profile["boundaries"]]
@@ -291,6 +293,29 @@ def minimum_address_regression(
                 common += 1
         row["previous_record_source"] = previous_source
         row["common_first_passage_prefix_blocks"] = common
+        last_boundary = profile["boundaries"][-1]
+        cumulative_length = int(last_boundary["shortcut_steps"])
+        block_depth = int(row["first_passage_blocks"])
+        source = int(row["source"])
+        if source >= 2**cumulative_length:
+            raise AssertionError("record source is not canonical at its last block")
+        next_lift_floor = source + 2**cumulative_length
+        exponent_ratio = cumulative_length / (block_depth + 1)
+        continuation_barriers.append(
+            {
+                "source": source,
+                "completed_block_depth": block_depth,
+                "cumulative_shortcut_length": cumulative_length,
+                "next_block_depth": block_depth + 1,
+                "same_prefix_next_source_at_least": next_lift_floor,
+                "dyadic_exponent_per_requested_block": (
+                    f"{cumulative_length}/{block_depth + 1}"
+                ),
+                "per_block_root_lower_bound_decimal_diagnostic": (
+                    f"{math.pow(2.0, exponent_ratio):.12f}"
+                ),
+            }
+        )
         previous_words = words
         previous_source = int(row["source"])
 
@@ -382,6 +407,14 @@ def minimum_address_regression(
         "maximum_shortcut_steps_per_seed": maximum_shortcut_steps,
         "all_scanned_sources_reached_terminal_cycle": True,
         "record_rows": record_rows,
+        "same_prefix_continuation_barriers": {
+            "meaning": (
+                "the displayed source is canonical after L bits and its "
+                "zero-carry orbit has no next block; every extension preserving "
+                "that record prefix is source+2^L*ell with ell>=1"
+            ),
+            "rows": continuation_barriers,
+        },
         "certified_h_values": certified_h,
         "survivor_counts_by_depth": survivor_rows,
         "triadic_min_plus_reduction": {

@@ -1,5 +1,5 @@
 {
-  "artifact_sha256": "dcb49c957902d424f33036037870e1a30ff90be4418c2d26dd486f5041d30615",
+  "artifact_sha256": "892f69f555ecf1411ad7218dc5d6ef9d326fff777167408d09148eda50077eaf",
   "audit": {
     "bound": 256,
     "carry_growth_criterion": {
@@ -1095,6 +1095,128 @@
         "source": 270271
       }
     ],
+    "same_prefix_continuation_barriers": {
+      "meaning": "the displayed source is canonical after L bits and its zero-carry orbit has no next block; every extension preserving that record prefix is source+2^L*ell with ell>=1",
+      "rows": [
+        {
+          "completed_block_depth": 1,
+          "cumulative_shortcut_length": 1,
+          "dyadic_exponent_per_requested_block": "1/2",
+          "next_block_depth": 2,
+          "per_block_root_lower_bound_decimal_diagnostic": "1.414213562373",
+          "same_prefix_next_source_at_least": 3,
+          "source": 1
+        },
+        {
+          "completed_block_depth": 2,
+          "cumulative_shortcut_length": 2,
+          "dyadic_exponent_per_requested_block": "2/3",
+          "next_block_depth": 3,
+          "per_block_root_lower_bound_decimal_diagnostic": "1.587401051968",
+          "same_prefix_next_source_at_least": 7,
+          "source": 3
+        },
+        {
+          "completed_block_depth": 3,
+          "cumulative_shortcut_length": 3,
+          "dyadic_exponent_per_requested_block": "3/4",
+          "next_block_depth": 4,
+          "per_block_root_lower_bound_decimal_diagnostic": "1.681792830507",
+          "same_prefix_next_source_at_least": 15,
+          "source": 7
+        },
+        {
+          "completed_block_depth": 4,
+          "cumulative_shortcut_length": 4,
+          "dyadic_exponent_per_requested_block": "4/5",
+          "next_block_depth": 5,
+          "per_block_root_lower_bound_decimal_diagnostic": "1.741101126592",
+          "same_prefix_next_source_at_least": 31,
+          "source": 15
+        },
+        {
+          "completed_block_depth": 15,
+          "cumulative_shortcut_length": 45,
+          "dyadic_exponent_per_requested_block": "45/16",
+          "next_block_depth": 16,
+          "per_block_root_lower_bound_decimal_diagnostic": "7.025008641493",
+          "same_prefix_next_source_at_least": 35184372088859,
+          "source": 27
+        },
+        {
+          "completed_block_depth": 16,
+          "cumulative_shortcut_length": 48,
+          "dyadic_exponent_per_requested_block": "48/17",
+          "next_block_depth": 17,
+          "per_block_root_lower_bound_decimal_diagnostic": "7.078920688749",
+          "same_prefix_next_source_at_least": 281474976711359,
+          "source": 703
+        },
+        {
+          "completed_block_depth": 19,
+          "cumulative_shortcut_length": 49,
+          "dyadic_exponent_per_requested_block": "49/20",
+          "next_block_depth": 20,
+          "per_block_root_lower_bound_decimal_diagnostic": "5.464161027018",
+          "same_prefix_next_source_at_least": 562949953425567,
+          "source": 4255
+        },
+        {
+          "completed_block_depth": 21,
+          "cumulative_shortcut_length": 33,
+          "dyadic_exponent_per_requested_block": "33/22",
+          "next_block_depth": 22,
+          "per_block_root_lower_bound_decimal_diagnostic": "2.828427124746",
+          "same_prefix_next_source_at_least": 8589939183,
+          "source": 4591
+        },
+        {
+          "completed_block_depth": 24,
+          "cumulative_shortcut_length": 43,
+          "dyadic_exponent_per_requested_block": "43/25",
+          "next_block_depth": 25,
+          "per_block_root_lower_bound_decimal_diagnostic": "3.294364069070",
+          "same_prefix_next_source_at_least": 8796093054119,
+          "source": 31911
+        },
+        {
+          "completed_block_depth": 25,
+          "cumulative_shortcut_length": 39,
+          "dyadic_exponent_per_requested_block": "39/26",
+          "next_block_depth": 26,
+          "per_block_root_lower_bound_decimal_diagnostic": "2.828427124746",
+          "same_prefix_next_source_at_least": 549755891559,
+          "source": 77671
+        },
+        {
+          "completed_block_depth": 27,
+          "cumulative_shortcut_length": 69,
+          "dyadic_exponent_per_requested_block": "69/28",
+          "next_block_depth": 28,
+          "per_block_root_lower_bound_decimal_diagnostic": "5.518536481382",
+          "same_prefix_next_source_at_least": 590295810358705765095,
+          "source": 113383
+        },
+        {
+          "completed_block_depth": 29,
+          "cumulative_shortcut_length": 35,
+          "dyadic_exponent_per_requested_block": "35/30",
+          "next_block_depth": 30,
+          "per_block_root_lower_bound_decimal_diagnostic": "2.244924096619",
+          "same_prefix_next_source_at_least": 34359897855,
+          "source": 159487
+        },
+        {
+          "completed_block_depth": 36,
+          "cumulative_shortcut_length": 124,
+          "dyadic_exponent_per_requested_block": "124/37",
+          "next_block_depth": 37,
+          "per_block_root_lower_bound_decimal_diagnostic": "10.206040391480",
+          "same_prefix_next_source_at_least": 21267647932558653966460912964485783487,
+          "source": 270271
+        }
+      ]
+    },
     "survivor_counts_by_depth": [
       {
         "block_depth": 1,
@@ -2539,5 +2661,5 @@
     "scope": "P^n is a fixed-depth asymptotic density law, not a uniform short-interval estimate when depth grows with the seed bound; the displayed finite survivor counts are the exact comparison"
   },
   "schema": "collatz-outward-first-passage-v3",
-  "worker_sha256": "c70e1eef559ba7b2076753be75ba655b932cd2c603c3f7d3cf2f5ccb55a631e9"
+  "worker_sha256": "1cbeefd64fca173b7323c7961b807e0ddf2b93e7c454e73f78340ded1697a849"
 }

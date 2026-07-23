@@ -33,6 +33,122 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 17:00 EDT
+
+There is still no counterexample.  Commit `5448445` proves odd-part
+monotonicity, so every least first-passage depth realizer is odd and the
+residue-two recurrence is unconditional.  Commits `7f27ae5` and `09f6803`
+kernel-check the resonant family
+
+```text
+3*(2^17*3^L-7) -> 3^(L+12)
+```
+
+and rule out every fixed finite macro as an unbounded return from powers of
+three to that family.  The missing return must carry growing arithmetic state.
+
+The correct next state space is a dyadic trie of exponent cylinders, not a
+list of unrelated exponents.  On the first shallow branch,
+
+```text
+H=3^C, C=12 mod 16,
+3^C --010111--> 3^(a+2) q,
+a=v_2(3^(C+2)+7)-6.                                (KC-FP10)
+```
+
+There is one nested residue `r_k mod 2^k` for which `a>=k`; exact Hensel
+lifting constructs it one bit at a time.  The new artifact builds this tower
+through 64 bits, producing arbitrarily deep finite recharge classes without
+enumerating their enormous members.  Commit `7826516` proves that these
+residues cannot eventually stabilize to any natural exponent, so this tower
+itself is closed as an infinite ordinary construction.  It also calibrates the resonant landing
+family on Akdeniz: for `12<=C<=10000`, every compressed orbit terminates, no
+orbit returns to a pure power or the resonant family, and `C=700` is the
+unique 11-recharge record.  This bounded calibration is not a no-go theorem.
+
+The active implementation is bounded arithmetic EM/CEGIS on coherent nested
+seed cylinders.  The beam retains actual ancestry-compatible dyadic
+cylinders, uses the growing-precision triadic profile only as an exact bounded
+ranking feature, fits a small selector from ternary-charge features, and
+exact-replays its first mismatch or halt.  A mismatch refines the selector;
+it is never called a Collatz counterexample.  Promotion still requires a
+compact parametric invariant and one ordinary infinite orbit.
+
+### 2026-07-23 16:31 EDT
+
+There is still no counterexample.  The carry theorem now drives a directed
+search beyond the ordinary verification frontier.  The 36-block record
+prefix of `270271` has cumulative parity length 124, and its literal
+zero-carry continuation dies.  Every seed preserving that exact prefix and
+attempting a later repair is therefore in the one-parameter cylinder
+
+```text
+x_ell=270271+2^124*ell,   ell>=1.                  (KC-FP7)
+```
+
+The new exact carry-lift worker follows every candidate to the `1--2` cycle.
+Among the first million positive carries, the first depth-73 record is
+
+```text
+ell=636503,
+x=13536921712017380925614270484633922618793919.
+```
+
+It preserves the original 36 blocks, reaches 73 total blocks, stabilizes its
+own address at block 50, executes 23 further post-address extensions, and
+then reaches `1`.  Carry `719011` ties depth 73 and also dies.  This is a
+principled next-cylinder exhaustion, not a counterexample or a reason to
+extrapolate the finite record.
+
+The inverse search is now executable as an exact triadic min-plus operator.
+For dual word data
+
+```text
+(source,target)=(r+2^S t,b+3^O t),
+```
+
+fixing source phase `a mod 3^k` fixes `t=c mod 3^k` and target phase
+`d=b+3^O c mod 3^(O+k)`.  Hence
+
+```text
+m_(n+1)(k,a)=min_w
+  [r+2^S*(m_n(O+k,d)-b)/3^O].                    (KC-FP8)
+```
+
+The new finite-height artifact checks 240 instances against literal Collatz
+execution for source bound 50, depths through six, and every phase through
+`k=3`.  It also exposes the precise limitation: no fixed 3-adic precision
+closes the unbounded operator, since even word `1` raises the required input
+precision from `k` to `k+1`.  At finite height an explicit complete word
+table and target bound `C(B)` do close, so bounded computations can be
+certified without silently replacing the inverse limit by a finite state.
+Companion commit `a0e460d` kernel-checks the full dual-residue execution
+family, and `8d79424` proves the finite active-code min-plus leastness theorem.
+Commit `4c39f8d` now kernel-checks the full growing-phase equivalences and
+phase-refined finite active-code minimum itself, rather than only the finite
+worker instances.  Commit `4372d45` proves the complete finite-height cutoff,
+active-word count, and nonzero-carry target bound.
+Commit `1aec3fc` proves the literal residue-two predecessor equivalence;
+`5448445` proves odd-part monotonicity and makes the scalar slice formula
+unconditional.
+
+A natural scalar cross-prime Lyapunov attempt also closes.  No nonzero
+`alpha` makes `log H-alpha*v_3(H)` branch-monotone.  The obstruction is an
+exact resonant word with
+
+```text
+(S,O,e)=(17,11,7*3^12),
+3*(2^17*3^L-7) -> 3^(12+L).                       (KC-FP9)
+```
+
+It creates arbitrarily large ternary-charge spikes.  But no fixed finite
+macro composition can return unbounded powers `3^C` to this resonant family:
+the affine return equation gives a fixed upper bound on the smaller 3-adic
+exponent.  Thus a resonant construction, if one exists, needs genuinely
+parameter-dependent words or recharge counts.  Commits `7f27ae5`/`09f6803`
+kernel-check the resonant family and this fixed-return obstruction.  All committed
+artifacts retain `counterexample:null`.
+
 ### 2026-07-23 15:56 EDT
 
 There is still no counterexample.  The raw first-passage lane now has a much
@@ -5791,9 +5907,13 @@ identically `x`.
   `H` with `v_3(R(H))>=v_2(K)+1`.  An infinite `R`-orbit is exactly the
   counterexample target.  In the inverse direction, propagate the min-plus
   profile of least survivors in classes modulo `3^k`; the scalar `h_n` loses
-  this phase.  Seek a coherent path with `rho_n=o(2^n)`, which already forces
-  eventual zero carry.  Do not promote critical pressure or longer finite
-  survival by itself.
+  this phase.  The exact update raises phase precision by `O(w)`, so no fixed
+  finite phase state closes the inverse limit; use certified finite-height
+  word tables or a genuinely growing arithmetic state.  Failed prefixes
+  generate directed carry cylinders `rho+2^L ell`; the first million lifts of
+  the 36-block record reach at most 73 blocks and all die.  Seek a coherent
+  path with `rho_n=o(2^n)`, which already forces eventual zero carry.  Do not
+  promote critical pressure or longer finite survival by itself.
 - **Parametric gliders.**  Search for a finite symbolic transducer, substitution,
   or arithmetic family `x_t` with a machine-checkable macrostep
   `T^(ell(t))(x_t)=x_(t+1)` and `x_(t+1)>x_t`.  The existing exhaustive
@@ -5982,6 +6102,7 @@ identically `x`.
 | Ansatz or route | Calibrated verdict | Exact record |
 |---|---|---|
 | Treating critical first-passage/KL mass as an ordinary survivor | Invalid.  For the canonical maximal outward first-passage code, the slope-tilted Kraft mass is exactly one at every block depth, but its natural product flow satisfies `mu_q{r_n<=B}<=B(3/4)^n`.  Conditioning fair renewal on arbitrarily long survival gives the product block law `p(w)/P`, which is also diffuse, with fixed-window bound `B(1/(2P))^n`.  Thus conserved mass and the classical survival Doob transform both escape every bounded ordinary residue window.  Any successful selector must create an atom; a useful sufficient proof input is the weaker growth condition `rho_n=o(2^n)`, which forces eventual zero carry. | [`outward_first_passage_audit.json`](experiments/kontorovich/outward_first_passage_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#23-odd-charge-compression-and-triadic-min-plus-renewal) |
+| Fixed-precision triadic min-plus controller | Does not close the unbounded raw renewal.  The exact dual-residue update for a source phase modulo `3^k` queries the target profile modulo `3^(O(w)+k)`; already word `1` requires precision `k+1`.  Finite height closes with the complete table `W_B`, explicit target bound `C(B)`, and a membership precision `3^K>C(B)`, but `K` grows with height.  Thus a successful phase selector needs genuinely growing arithmetic state, not one fixed residue automaton. | [`outward_minplus_profile_audit.json`](experiments/kontorovich/outward_minplus_profile_audit.json), companion commits `a0e460d`/`8d79424`, [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#24-growing-phase-precision-and-directed-carry-repair) |
 | Prefix-complete uniformly outward valuation ISA | Closed for finite positive prefix-free codes.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, every outward leaf has `q(w)>p(w)`; `p`-completeness and the `q`-Kraft bound are inconsistent.  Commit `da9fa59` constructs explicit binary and four-letter compilers, derives both Kraft inequalities from prefix-freeness, and proves the full finite contradiction and quantitative mass bound in Lean.  The countably infinite prefix-free theorem still uses an abstract `tsum` interface.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |
 | Periodic or ultimately periodic path in the four-word signed thin language | Closed.  The exact bounded controller audit extracts the proper code `{1,011,001111,010111}` with ordinary mass `21/32`, tilted mass `1905/2048`, and 41,328 literal growing reset checks.  Commit `1aa3e52` proves that any nonempty periodic concatenation of outward shortcut blocks gives an expanding coprime affine recurrence and cannot persist on positive naturals; an arbitrary finite prefix does not help.  Genuinely aperiodic paths with eventually zero address carry remain open. | [`kl_signed_thin_residue.json`](experiments/kontorovich/kl_signed_thin_residue.json), [`ShortcutParityPeriodicNoGo.lean`](KontoroC/KontoroC/ShortcutParityPeriodicNoGo.lean) |
 | EC17 normalized core boundary as a KL full-lift path | Closed as a semantic identification.  The boundary clock is a genuine ternary odometer and is cofinal on `Y_d` when `3` does not divide the period-three gain.  Nevertheless each phase has only one class-2 and one class-8 KL chord over a full orbit; almost all pairs are nonedges.  More decisively, a KL word with `r` chords has defect at least `3^r-2^r`, while one normalized EC17 core step has `r>=17` and defect 34.  No KL/Haar tax may be attached directly to the core clock.  This does not close the actual packet compiler, whose ordinary endpoints must be expanded and sampled separately. | [`breakoff_ether_period3_kl_bridge_audit.json`](experiments/kontorovich/breakoff_ether_period3_kl_bridge_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md) |

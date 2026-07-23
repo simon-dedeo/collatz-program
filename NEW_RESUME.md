@@ -1,6 +1,118 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 15:56 EDT
+Updated: 2026-07-23, about 17:00 EDT
+
+### 17:00 EDT continuation -- exponent cylinders and coherent CEGIS
+
+There is no counterexample.  Companion commit `5448445` proves odd-part
+monotonicity and makes the scalar residue-two recurrence unconditional.
+Commits `7f27ae5`/`09f6803` prove the resonant edge and its no-fixed-macro
+return theorem.
+
+After the resonant edge lands at `H=3^C`, the first `010111` branch is legal
+exactly on `C=12 mod16` and has
+
+```text
+a=v2(3^(C+2)+7)-6,
+R=3^(a+2)*(3^(C+2)+7)/2^(a+6).                    (PT22)
+```
+
+There is one nested Hensel class `C=12+16*r_k mod2^(k+4)` with `a>=k`.
+`outward_power_charge_return.py` constructs the tower exactly through 64
+bits.  Commit `7826516` proves that the classes cannot stabilize to one
+natural exponent, closing this tower by itself as an ordinary infinite ray.
+Its Akdeniz calibration checks every `12<=C<=10000`: all terminate,
+there is no pure-power or resonant-family return, and `C=700` is the unique
+11-recharge record.  This is finite evidence, not an infinite conclusion.
+
+The primary implementation target is the requested bounded exact arithmetic
+EM/CEGIS search.  Maintain coherent nested dyadic seed cylinders, not
+independent minima; use phase-wise min-plus data only as an exact bounded
+ranking feature unless full growing precision is retained; fit the smallest
+charge-feature selector; exact-replay it; and feed the first mismatch or halt
+back as a refinement witness.  Increase beam depth, word bound, and ternary
+precision only with explicit frontiers.  Seek a compact parametric invariant,
+never a long finite trajectory.
+
+### 16:31 EDT continuation -- exact carry cylinder and phase operator
+
+There is no counterexample.  The next search is no longer a raw seed sweep.
+The failed 36-block prefix of `270271` is canonical at cumulative length 124,
+so every ordinary repair preserving it is exactly
+
+```text
+x_ell=270271+2^124*ell, ell>=1.                    (PT18)
+```
+
+`outward_carry_lift.py` exhausts this theorem-mandated carry cylinder and
+follows every source to the terminal cycle.  Through one million carries the
+record is 73 blocks, first at
+
+```text
+ell=636503,
+x=13536921712017380925614270484633922618793919.
+```
+
+It stabilizes its own address at block 50, runs 23 further zero-carry blocks,
+and dies.  Carry `719011` ties 73 and also dies.  Treat the scan as finite
+next-cylinder evidence only.
+
+The full triadic profile recurrence is now explicit.  For dual word data
+`(S,O,r,b)` and desired source phase `a mod3^k`, put
+
+```text
+c=(a-r)*2^(-S) mod3^k,  d=b+3^O*c.
+```
+
+Then
+
+```text
+m_(n+1)(k,a)=min_w
+ [r+2^S*(m_n(O+k,d)-b)/3^O].                     (PT19)
+```
+
+`outward_minplus_profile.py` checks 240 exact instances of PT19 against
+literal execution for `B=50`, depths through six, and every phase `k<=3`.
+The finite word table is `{1,011,010111}` and `C(50)=74`.
+Companion commits `a0e460d` and `8d79424` kernel-check the full dual-residue
+family and finite active-code min-plus leastness.  Commit `4c39f8d` checks the
+full growing-phase equivalences and phase-refined minimum.  Commit `1aec3fc`
+checks the residue-two predecessor equivalence, and `5448445` proves the
+odd-minimum lemma and the unconditional PT17 formula.
+
+Important limitation: no fixed 3-adic precision closes the unbounded
+operator; word `1` alone turns an output query at `k` into an input query at
+`k+1`.  Finite height does close using `W_B={w:r_w<=B}` and
+
+```text
+C(B)=max_w [b_w+3^O floor((B-r_w)/2^S)].          (PT20)
+```
+
+The word-to-residue map is injective, so `|W_B|<=B`.  A fixed-state min-plus
+approximation is not the missing infinite theorem; arithmetic precision must
+grow.
+
+The simplest cross-prime scalar potential is also inadequate.  There is no
+nonzero `alpha` for which `log H-alpha*v3(H)` is branch-monotone.  An exact
+resonant word has
+
+```text
+(S,O,e)=(17,11,7*3^12),
+3*(2^17*3^L-7) -> 3^(12+L).                       (PT21)
+```
+
+This gives unbounded charge spikes but not renewal.  Any fixed finite return
+composition has affine form `(3^A H+B)/2^D`; returning unbounded `3^C` to the
+resonant family would force
+
+```text
+min(L'+1,A+C)<=v3(B+21*2^D),
+```
+
+a fixed bound.  Thus any resonant escape needs parameter-dependent/unbounded
+return words.  QM158--QM159 communicate PT19--PT21 to the companion Lean
+worker.  The active constructive target is a growing-precision arithmetic
+selector or parametric resonant return, not more finite-state search.
 
 ### 15:56 EDT continuation -- odd charge and triadic min-plus renewal
 

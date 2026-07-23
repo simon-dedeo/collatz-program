@@ -1,0 +1,939 @@
+{
+  "artifact_sha256": "49cd146954026fd96aa9f272ce5308b7d0c74d7f045c8a370f2d8d55ac46af85",
+  "audit": {
+    "claim_scope": "exact finite word-table completeness and min-plus equality in the stated box; no bounded inverse-limit profile or orbit",
+    "complete_word_table": [
+      {
+        "affine_constant": 1,
+        "length": 1,
+        "odd_count": 1,
+        "source_residue": 1,
+        "target_residue": 2,
+        "word": "1"
+      },
+      {
+        "affine_constant": 10,
+        "length": 3,
+        "odd_count": 2,
+        "source_residue": 6,
+        "target_residue": 8,
+        "word": "011"
+      },
+      {
+        "affine_constant": 206,
+        "length": 6,
+        "odd_count": 4,
+        "source_residue": 18,
+        "target_residue": 26,
+        "word": "010111"
+      }
+    ],
+    "counterexample": null,
+    "definition": "m_n(k,a) is the least positive source <=B completing n blocks and congruent to a modulo 3^k, with null for an empty phase",
+    "finite_closure": "at height C choose K with 3^K>C; the level-K profile is the exact membership bitmap and answers every higher-phase query",
+    "maximum_depth": 6,
+    "maximum_phase_exponent": 3,
+    "maximum_shortcut_steps_per_source": 100000,
+    "minplus_equalities_checked": 240,
+    "nonempty_profile_rows": [
+      {
+        "input_depth": 0,
+        "minimum": 1,
+        "output_depth": 1,
+        "phase_exponent": 0,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 0,
+        "minimum": 3,
+        "output_depth": 1,
+        "phase_exponent": 1,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 0,
+        "minimum": 1,
+        "output_depth": 1,
+        "phase_exponent": 1,
+        "phase_residue": 1
+      },
+      {
+        "input_depth": 0,
+        "minimum": 5,
+        "output_depth": 1,
+        "phase_exponent": 1,
+        "phase_residue": 2
+      },
+      {
+        "input_depth": 0,
+        "minimum": 9,
+        "output_depth": 1,
+        "phase_exponent": 2,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 0,
+        "minimum": 1,
+        "output_depth": 1,
+        "phase_exponent": 2,
+        "phase_residue": 1
+      },
+      {
+        "input_depth": 0,
+        "minimum": 11,
+        "output_depth": 1,
+        "phase_exponent": 2,
+        "phase_residue": 2
+      },
+      {
+        "input_depth": 0,
+        "minimum": 3,
+        "output_depth": 1,
+        "phase_exponent": 2,
+        "phase_residue": 3
+      },
+      {
+        "input_depth": 0,
+        "minimum": 13,
+        "output_depth": 1,
+        "phase_exponent": 2,
+        "phase_residue": 4
+      },
+      {
+        "input_depth": 0,
+        "minimum": 5,
+        "output_depth": 1,
+        "phase_exponent": 2,
+        "phase_residue": 5
+      },
+      {
+        "input_depth": 0,
+        "minimum": 6,
+        "output_depth": 1,
+        "phase_exponent": 2,
+        "phase_residue": 6
+      },
+      {
+        "input_depth": 0,
+        "minimum": 7,
+        "output_depth": 1,
+        "phase_exponent": 2,
+        "phase_residue": 7
+      },
+      {
+        "input_depth": 0,
+        "minimum": 17,
+        "output_depth": 1,
+        "phase_exponent": 2,
+        "phase_residue": 8
+      },
+      {
+        "input_depth": 0,
+        "minimum": 27,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 0,
+        "minimum": 1,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 1
+      },
+      {
+        "input_depth": 0,
+        "minimum": 29,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 2
+      },
+      {
+        "input_depth": 0,
+        "minimum": 3,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 3
+      },
+      {
+        "input_depth": 0,
+        "minimum": 31,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 4
+      },
+      {
+        "input_depth": 0,
+        "minimum": 5,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 5
+      },
+      {
+        "input_depth": 0,
+        "minimum": 6,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 6
+      },
+      {
+        "input_depth": 0,
+        "minimum": 7,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 7
+      },
+      {
+        "input_depth": 0,
+        "minimum": 35,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 8
+      },
+      {
+        "input_depth": 0,
+        "minimum": 9,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 9
+      },
+      {
+        "input_depth": 0,
+        "minimum": 37,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 10
+      },
+      {
+        "input_depth": 0,
+        "minimum": 11,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 11
+      },
+      {
+        "input_depth": 0,
+        "minimum": 39,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 12
+      },
+      {
+        "input_depth": 0,
+        "minimum": 13,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 13
+      },
+      {
+        "input_depth": 0,
+        "minimum": 14,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 14
+      },
+      {
+        "input_depth": 0,
+        "minimum": 15,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 15
+      },
+      {
+        "input_depth": 0,
+        "minimum": 43,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 16
+      },
+      {
+        "input_depth": 0,
+        "minimum": 17,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 17
+      },
+      {
+        "input_depth": 0,
+        "minimum": 18,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 18
+      },
+      {
+        "input_depth": 0,
+        "minimum": 19,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 19
+      },
+      {
+        "input_depth": 0,
+        "minimum": 47,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 20
+      },
+      {
+        "input_depth": 0,
+        "minimum": 21,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 21
+      },
+      {
+        "input_depth": 0,
+        "minimum": 22,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 22
+      },
+      {
+        "input_depth": 0,
+        "minimum": 23,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 23
+      },
+      {
+        "input_depth": 0,
+        "minimum": 25,
+        "output_depth": 1,
+        "phase_exponent": 3,
+        "phase_residue": 25
+      },
+      {
+        "input_depth": 1,
+        "minimum": 3,
+        "output_depth": 2,
+        "phase_exponent": 0,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 1,
+        "minimum": 3,
+        "output_depth": 2,
+        "phase_exponent": 1,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 1,
+        "minimum": 7,
+        "output_depth": 2,
+        "phase_exponent": 1,
+        "phase_residue": 1
+      },
+      {
+        "input_depth": 1,
+        "minimum": 11,
+        "output_depth": 2,
+        "phase_exponent": 1,
+        "phase_residue": 2
+      },
+      {
+        "input_depth": 1,
+        "minimum": 9,
+        "output_depth": 2,
+        "phase_exponent": 2,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 1,
+        "minimum": 19,
+        "output_depth": 2,
+        "phase_exponent": 2,
+        "phase_residue": 1
+      },
+      {
+        "input_depth": 1,
+        "minimum": 11,
+        "output_depth": 2,
+        "phase_exponent": 2,
+        "phase_residue": 2
+      },
+      {
+        "input_depth": 1,
+        "minimum": 3,
+        "output_depth": 2,
+        "phase_exponent": 2,
+        "phase_residue": 3
+      },
+      {
+        "input_depth": 1,
+        "minimum": 31,
+        "output_depth": 2,
+        "phase_exponent": 2,
+        "phase_residue": 4
+      },
+      {
+        "input_depth": 1,
+        "minimum": 14,
+        "output_depth": 2,
+        "phase_exponent": 2,
+        "phase_residue": 5
+      },
+      {
+        "input_depth": 1,
+        "minimum": 15,
+        "output_depth": 2,
+        "phase_exponent": 2,
+        "phase_residue": 6
+      },
+      {
+        "input_depth": 1,
+        "minimum": 7,
+        "output_depth": 2,
+        "phase_exponent": 2,
+        "phase_residue": 7
+      },
+      {
+        "input_depth": 1,
+        "minimum": 35,
+        "output_depth": 2,
+        "phase_exponent": 2,
+        "phase_residue": 8
+      },
+      {
+        "input_depth": 1,
+        "minimum": 27,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 1,
+        "minimum": 3,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 3
+      },
+      {
+        "input_depth": 1,
+        "minimum": 31,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 4
+      },
+      {
+        "input_depth": 1,
+        "minimum": 7,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 7
+      },
+      {
+        "input_depth": 1,
+        "minimum": 35,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 8
+      },
+      {
+        "input_depth": 1,
+        "minimum": 9,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 9
+      },
+      {
+        "input_depth": 1,
+        "minimum": 11,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 11
+      },
+      {
+        "input_depth": 1,
+        "minimum": 39,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 12
+      },
+      {
+        "input_depth": 1,
+        "minimum": 14,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 14
+      },
+      {
+        "input_depth": 1,
+        "minimum": 15,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 15
+      },
+      {
+        "input_depth": 1,
+        "minimum": 43,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 16
+      },
+      {
+        "input_depth": 1,
+        "minimum": 19,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 19
+      },
+      {
+        "input_depth": 1,
+        "minimum": 47,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 20
+      },
+      {
+        "input_depth": 1,
+        "minimum": 23,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 23
+      },
+      {
+        "input_depth": 1,
+        "minimum": 25,
+        "output_depth": 2,
+        "phase_exponent": 3,
+        "phase_residue": 25
+      },
+      {
+        "input_depth": 2,
+        "minimum": 7,
+        "output_depth": 3,
+        "phase_exponent": 0,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 2,
+        "minimum": 9,
+        "output_depth": 3,
+        "phase_exponent": 1,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 2,
+        "minimum": 7,
+        "output_depth": 3,
+        "phase_exponent": 1,
+        "phase_residue": 1
+      },
+      {
+        "input_depth": 2,
+        "minimum": 23,
+        "output_depth": 3,
+        "phase_exponent": 1,
+        "phase_residue": 2
+      },
+      {
+        "input_depth": 2,
+        "minimum": 9,
+        "output_depth": 3,
+        "phase_exponent": 2,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 2,
+        "minimum": 47,
+        "output_depth": 3,
+        "phase_exponent": 2,
+        "phase_residue": 2
+      },
+      {
+        "input_depth": 2,
+        "minimum": 30,
+        "output_depth": 3,
+        "phase_exponent": 2,
+        "phase_residue": 3
+      },
+      {
+        "input_depth": 2,
+        "minimum": 31,
+        "output_depth": 3,
+        "phase_exponent": 2,
+        "phase_residue": 4
+      },
+      {
+        "input_depth": 2,
+        "minimum": 23,
+        "output_depth": 3,
+        "phase_exponent": 2,
+        "phase_residue": 5
+      },
+      {
+        "input_depth": 2,
+        "minimum": 15,
+        "output_depth": 3,
+        "phase_exponent": 2,
+        "phase_residue": 6
+      },
+      {
+        "input_depth": 2,
+        "minimum": 7,
+        "output_depth": 3,
+        "phase_exponent": 2,
+        "phase_residue": 7
+      },
+      {
+        "input_depth": 2,
+        "minimum": 27,
+        "output_depth": 3,
+        "phase_exponent": 3,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 2,
+        "minimum": 30,
+        "output_depth": 3,
+        "phase_exponent": 3,
+        "phase_residue": 3
+      },
+      {
+        "input_depth": 2,
+        "minimum": 31,
+        "output_depth": 3,
+        "phase_exponent": 3,
+        "phase_residue": 4
+      },
+      {
+        "input_depth": 2,
+        "minimum": 7,
+        "output_depth": 3,
+        "phase_exponent": 3,
+        "phase_residue": 7
+      },
+      {
+        "input_depth": 2,
+        "minimum": 9,
+        "output_depth": 3,
+        "phase_exponent": 3,
+        "phase_residue": 9
+      },
+      {
+        "input_depth": 2,
+        "minimum": 39,
+        "output_depth": 3,
+        "phase_exponent": 3,
+        "phase_residue": 12
+      },
+      {
+        "input_depth": 2,
+        "minimum": 41,
+        "output_depth": 3,
+        "phase_exponent": 3,
+        "phase_residue": 14
+      },
+      {
+        "input_depth": 2,
+        "minimum": 15,
+        "output_depth": 3,
+        "phase_exponent": 3,
+        "phase_residue": 15
+      },
+      {
+        "input_depth": 2,
+        "minimum": 47,
+        "output_depth": 3,
+        "phase_exponent": 3,
+        "phase_residue": 20
+      },
+      {
+        "input_depth": 2,
+        "minimum": 23,
+        "output_depth": 3,
+        "phase_exponent": 3,
+        "phase_residue": 23
+      },
+      {
+        "input_depth": 3,
+        "minimum": 15,
+        "output_depth": 4,
+        "phase_exponent": 0,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 3,
+        "minimum": 15,
+        "output_depth": 4,
+        "phase_exponent": 1,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 3,
+        "minimum": 31,
+        "output_depth": 4,
+        "phase_exponent": 1,
+        "phase_residue": 1
+      },
+      {
+        "input_depth": 3,
+        "minimum": 41,
+        "output_depth": 4,
+        "phase_exponent": 1,
+        "phase_residue": 2
+      },
+      {
+        "input_depth": 3,
+        "minimum": 27,
+        "output_depth": 4,
+        "phase_exponent": 2,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 3,
+        "minimum": 47,
+        "output_depth": 4,
+        "phase_exponent": 2,
+        "phase_residue": 2
+      },
+      {
+        "input_depth": 3,
+        "minimum": 39,
+        "output_depth": 4,
+        "phase_exponent": 2,
+        "phase_residue": 3
+      },
+      {
+        "input_depth": 3,
+        "minimum": 31,
+        "output_depth": 4,
+        "phase_exponent": 2,
+        "phase_residue": 4
+      },
+      {
+        "input_depth": 3,
+        "minimum": 41,
+        "output_depth": 4,
+        "phase_exponent": 2,
+        "phase_residue": 5
+      },
+      {
+        "input_depth": 3,
+        "minimum": 15,
+        "output_depth": 4,
+        "phase_exponent": 2,
+        "phase_residue": 6
+      },
+      {
+        "input_depth": 3,
+        "minimum": 27,
+        "output_depth": 4,
+        "phase_exponent": 3,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 3,
+        "minimum": 31,
+        "output_depth": 4,
+        "phase_exponent": 3,
+        "phase_residue": 4
+      },
+      {
+        "input_depth": 3,
+        "minimum": 39,
+        "output_depth": 4,
+        "phase_exponent": 3,
+        "phase_residue": 12
+      },
+      {
+        "input_depth": 3,
+        "minimum": 41,
+        "output_depth": 4,
+        "phase_exponent": 3,
+        "phase_residue": 14
+      },
+      {
+        "input_depth": 3,
+        "minimum": 15,
+        "output_depth": 4,
+        "phase_exponent": 3,
+        "phase_residue": 15
+      },
+      {
+        "input_depth": 3,
+        "minimum": 47,
+        "output_depth": 4,
+        "phase_exponent": 3,
+        "phase_residue": 20
+      },
+      {
+        "input_depth": 4,
+        "minimum": 27,
+        "output_depth": 5,
+        "phase_exponent": 0,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 4,
+        "minimum": 27,
+        "output_depth": 5,
+        "phase_exponent": 1,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 4,
+        "minimum": 31,
+        "output_depth": 5,
+        "phase_exponent": 1,
+        "phase_residue": 1
+      },
+      {
+        "input_depth": 4,
+        "minimum": 41,
+        "output_depth": 5,
+        "phase_exponent": 1,
+        "phase_residue": 2
+      },
+      {
+        "input_depth": 4,
+        "minimum": 27,
+        "output_depth": 5,
+        "phase_exponent": 2,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 4,
+        "minimum": 47,
+        "output_depth": 5,
+        "phase_exponent": 2,
+        "phase_residue": 2
+      },
+      {
+        "input_depth": 4,
+        "minimum": 31,
+        "output_depth": 5,
+        "phase_exponent": 2,
+        "phase_residue": 4
+      },
+      {
+        "input_depth": 4,
+        "minimum": 41,
+        "output_depth": 5,
+        "phase_exponent": 2,
+        "phase_residue": 5
+      },
+      {
+        "input_depth": 4,
+        "minimum": 27,
+        "output_depth": 5,
+        "phase_exponent": 3,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 4,
+        "minimum": 31,
+        "output_depth": 5,
+        "phase_exponent": 3,
+        "phase_residue": 4
+      },
+      {
+        "input_depth": 4,
+        "minimum": 41,
+        "output_depth": 5,
+        "phase_exponent": 3,
+        "phase_residue": 14
+      },
+      {
+        "input_depth": 4,
+        "minimum": 47,
+        "output_depth": 5,
+        "phase_exponent": 3,
+        "phase_residue": 20
+      },
+      {
+        "input_depth": 5,
+        "minimum": 27,
+        "output_depth": 6,
+        "phase_exponent": 0,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 5,
+        "minimum": 27,
+        "output_depth": 6,
+        "phase_exponent": 1,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 5,
+        "minimum": 31,
+        "output_depth": 6,
+        "phase_exponent": 1,
+        "phase_residue": 1
+      },
+      {
+        "input_depth": 5,
+        "minimum": 41,
+        "output_depth": 6,
+        "phase_exponent": 1,
+        "phase_residue": 2
+      },
+      {
+        "input_depth": 5,
+        "minimum": 27,
+        "output_depth": 6,
+        "phase_exponent": 2,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 5,
+        "minimum": 47,
+        "output_depth": 6,
+        "phase_exponent": 2,
+        "phase_residue": 2
+      },
+      {
+        "input_depth": 5,
+        "minimum": 31,
+        "output_depth": 6,
+        "phase_exponent": 2,
+        "phase_residue": 4
+      },
+      {
+        "input_depth": 5,
+        "minimum": 41,
+        "output_depth": 6,
+        "phase_exponent": 2,
+        "phase_residue": 5
+      },
+      {
+        "input_depth": 5,
+        "minimum": 27,
+        "output_depth": 6,
+        "phase_exponent": 3,
+        "phase_residue": 0
+      },
+      {
+        "input_depth": 5,
+        "minimum": 31,
+        "output_depth": 6,
+        "phase_exponent": 3,
+        "phase_residue": 4
+      },
+      {
+        "input_depth": 5,
+        "minimum": 41,
+        "output_depth": 6,
+        "phase_exponent": 3,
+        "phase_residue": 14
+      },
+      {
+        "input_depth": 5,
+        "minimum": 47,
+        "output_depth": 6,
+        "phase_exponent": 3,
+        "phase_residue": 20
+      }
+    ],
+    "nonzero_carry_target_bounds_checked": 29,
+    "nonzero_carry_target_upper_bound": 149,
+    "source_bound": 50,
+    "target_bound_C_of_B": 74,
+    "unbounded_obstruction": "no fixed phase depth closes the unbounded operator: word 1 requires input precision k+1 to update output precision k",
+    "word_table_size": 3,
+    "zero_carry_target_maximum": 26
+  },
+  "schema": "collatz-outward-minplus-profile-v1",
+  "worker_sha256": "58d8c67d9c7e028593ba4c4faf0d26257289f75bc343346be2544089ccfac544"
+}

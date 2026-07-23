@@ -2043,3 +2043,180 @@ in 72 accelerated steps and 27 completed extensions.  The next recharge is
 undefined and the orbit reaches the terminal cycle.  These are exact finite
 renewal data and a useful target for the bit visualizer; they do not imply an
 infinite escape.  The artifact continues to record `counterexample:null`.
+
+## 24. Growing phase precision and directed carry repair
+
+The dual-residue family (23.22) gives the complete phase-aware operator, not
+only the scalar minimum.  For a desired source phase `a mod 3^k`, define
+
+```text
+c=(a-r_w)*2^(-S) mod 3^k,
+d=b_w+3^O*c,       0<=d<3^(O+k).                   (24.1)
+```
+
+Then `x=a mod 3^k` iff its family parameter is `t=c mod 3^k`, iff the target
+is `y=d mod 3^(O+k)`.  Therefore
+
+```text
+m_(n+1)(k,a)=min_(w in F)
+ [r_w+2^S(m_n(O+k,d)-b_w)/3^O].                   (24.2)
+```
+
+This is exact, but it explains why a fixed finite-state profile is not enough:
+even word `1` raises the queried input precision from `k` to `k+1`.  At finite
+source height `B`, define
+
+```text
+W_B={w in F:r_w<=B},
+T_w(B)=floor((B-r_w)/2^S),
+C(B)=max_(w in W_B)[b_w+3^O*T_w(B)].               (24.3)
+```
+
+The canonical source residue determines a first-passage word injectively, so
+`|W_B|<=B`.  Every source at most `B` uses a word in `W_B`, and its target is
+at most `C(B)`.  Hence `E_(n+1) intersect [1,B]` is determined by the finite
+word table and `E_n intersect [1,C(B)]`.  A precision `3^K>C(B)` is then an
+exact membership bitmap and answers every higher-modulus query.  Nonzero
+family parameters satisfy the sharper target bound `y<=3B-1`; only a
+zero-carry canonical word can make `C(B)` larger.
+
+The exact `outward_minplus_profile` artifact checks (24.2) for `B=50`,
+`C(B)=74`, depths through six, and every phase `k<=3`.  The complete table is
+
+```text
+(S,O,r,b): (1,1,1,2), (3,2,6,8), (6,4,18,26),     (24.4)
+words:     1,          011,         010111.
+```
+
+All 240 operator comparisons with literal execution pass.  This certifies the
+finite operator; it does not stop the required phase depth from growing in the
+inverse limit.  Companion commit `a0e460d` kernel-checks the general
+dual-residue family (23.22), and `8d79424` proves the finite active-code
+min-plus minimum theorem.  Commit `4c39f8d` proves the full growing-phase
+equivalences and phase-refined finite active-code minimum.  Commit `1aec3fc`
+proves the literal residue-two predecessor equivalence, and `5448445` proves
+odd-part monotonicity and the unconditional formula (23.25).
+
+The carry threshold also turns a failed prefix into a directed candidate
+family.  The 36-block prefix of `270271` has cumulative length 124.  Since its
+zero-carry continuation dies, every repair preserving those blocks is
+
+```text
+x_ell=270271+2^124*ell, ell>=1.                    (24.5)
+```
+
+The exact carry-lift worker exhausts the first million positive `ell`.  The
+first maximum is
+
+```text
+ell=636503,
+x=13536921712017380925614270484633922618793919,
+73 completed blocks.                               (24.6)
+```
+
+It stabilizes its own address at block 50, completes 23 later blocks, and
+reaches `1`.  Carry `719011` ties 73 and also dies.  This probes the smallest
+theorem-mandated repairs of one prefix; it is not a general computational
+verification bound.
+
+Finally, scalar cross-prime height corrections do not control the charge map.
+For
+
+```text
+Phi_alpha(H)=log H-alpha*v_3(H),
+```
+
+no nonzero `alpha` is branch-monotone.  The useful exact obstruction is the
+resonant word
+
+```text
+w=00000011111111111,
+(S,O,e)=(17,11,7*3^12),
+H_L=3(2^17*3^L-7) -> 3^(12+L).                    (24.7)
+```
+
+It produces arbitrarily large ternary-charge spikes.  It does not renew: a
+fixed finite composition has form `(3^A H+B)/2^D`, and a return from `3^C` to
+an unbounded member of (24.7) would imply
+
+```text
+min(L'+1,A+C)<=v_3(B+21*2^D),                     (24.8)
+```
+
+whose right side is fixed.  Thus any resonant return must have
+parameter-dependent word length or recharge counts.  The live construction
+target has become precise: growing arithmetic phase, not a fixed-state Doob
+kernel or fixed macro return.
+
+## 25. Exponent cylinders and bounded coherent CEGIS
+
+The resonant edge lands on `H=3^C`.  Its first `010111` recharge is not a
+condition on the size of `C`, but one exact exponent cylinder.  The word has
+
+```text
+(S,O,r,b,e)=(6,4,18,26,63),
+```
+
+and legality is
+
+```text
+3^(C+1)-1 = 18 (mod 64),
+C = 12 (mod 16).                                      (25.1)
+```
+
+For such `C`, exact substitution gives
+
+```text
+K=9*(3^(C+2)+7)/64,
+a=v_2(3^(C+2)+7)-6,
+R=3^(a+2)*(3^(C+2)+7)/2^(a+6).                        (25.2)
+```
+
+Write `C=12+16n` and `f(n)=3^(14+16n)+7`.  Since
+
+```text
+v_2((3^16)^(2^k)-1)=6+k,                              (25.3)
+```
+
+there is a unique `r_k mod2^k` with `2^(6+k)|f(r_k)`.  Exactly one of the two
+lifts `r_k` and `r_k+2^k` becomes `r_(k+1)`.  Thus
+
+```text
+a(C)>=k  iff  C=12+16*r_k (mod 2^(k+4)).               (25.4)
+```
+
+The exact worker constructs (25.4) through `k=64` by modular exponentiation.
+This proves that arbitrarily deep *finite* recharge classes exist; the nested
+classes converge to a 2-adic exponent, not automatically to one natural `C`.
+Commit `7826516` proves they cannot eventually stabilize to a natural `C`, so
+the shallow tower alone cannot be the requested ordinary infinite ray.
+Moreover (25.2) has `v_3(R)=a+2>=2`, whereas the resonant input family has
+valuation one, so this branch cannot return directly in one recharge.
+
+As a finite calibration, the same worker follows every compressed orbit from
+`3^C`, `12<=C<=10000`, on Akdeniz.  All 9,989 exponents terminate before the
+declared limits, none returns to a pure power or the resonant family, and the
+unique maximum is 11 recharges at `C=700`.  The interval scan is subordinate
+to the exponent-cylinder theorem; it is not extrapolated.
+
+The next bounded search maintains a beam of coherent nested seed cylinders
+`(rho,L,Q,y)` with the exact affine meaning
+
+```text
+rho+2^L*ell  |->  y+3^Q*ell.                           (25.5)
+```
+
+For a candidate next word `(S,O,r,b)`, the unique lift digit is
+
+```text
+ell_0=(r-y)*3^(-Q) mod2^S,                             (25.6)
+```
+
+and the child has `rho'=rho+2^L ell_0`.  Every edge is checked by literal
+Collatz replay.  Growing-precision triadic min-plus minima are retained as
+bounded ranking witnesses, never used as an unsound forward dominance rule.
+A small lookup selector on `(v_3(H), primitive(H) mod3^k)` is then fitted to
+elite coherent traces.  Its first exact mismatch or halt is a CEGIS witness
+that refines the selector or precision.  Such a witness is not a Collatz
+counterexample.  The only promotion target is a compact parametric invariant
+whose exact replay closes for all counter values.

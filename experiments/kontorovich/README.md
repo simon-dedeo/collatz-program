@@ -5142,3 +5142,107 @@ finite-window compactness and minimum-start equivalence for literal shortcut
 executions.  The next search should propagate triadic class minima or iterate
 the odd-charge map, not widen the seed bound.  Diffuse critical flow fails the
 gate; the artifact makes no orbit claim and stores `counterexample:null`.
+
+### Directed carry lifts of the 36-block prefix
+
+`outward_carry_lift.py` searches the exact next cylinder above the failed
+record prefix, rather than unrelated starting integers.  At block 36 the
+source `270271` is canonical at cumulative parity length 124.  Its zero-carry
+continuation dies, so every seed preserving the prefix is
+
+```text
+270271+2^124*ell, ell>=1.
+```
+
+The committed artifact exhausts `1<=ell<=1000000` with exact integer replay
+to the terminal cycle.  The first maximum of 73 blocks is carry `636503`,
+source
+
+```text
+13536921712017380925614270484633922618793919.
+```
+
+Carry `719011` ties it.  Both terminate.  The champion's address stabilizes at
+block 50, followed by 23 further complete blocks.  This demonstrates genuine
+post-address renewal at a 144-bit source, but remains finite.
+
+```bash
+python3 outward_carry_lift.py selftest
+python3 outward_carry_lift.py --processes 8 verify \
+  outward_carry_lift_audit.json
+```
+
+The `probe` command performs one exact scan without writing an artifact;
+promote a diagnostic only by rebuilding and verifying a stated bound.
+
+### Triadic min-plus profile operator
+
+`outward_minplus_profile.py` checks the exact inverse renewal on residue-class
+minima.  If every execution of word `w` is
+
+```text
+(x,y)=(r+2^S*t,b+3^O*t),
+```
+
+then source phase `a mod 3^k` fixes `t=c mod 3^k` and target phase
+`d=b+3^O*c mod 3^(O+k)`.  The worker evaluates the resulting min-plus formula
+and compares it with literal Collatz block counts.
+
+The default artifact uses `B=50`, target bound `C(B)=74`, depths through six,
+and all phases through exponent three.  Its complete word table is
+`{1,011,010111}` and all 240 profile equalities pass.  It also checks every
+available nonzero-carry target against `y<=3B-1`.
+
+Companion commit `a0e460d` proves the exact dual-residue family for every
+literal word, and `8d79424` proves the finite active-code min-plus minimum
+formula.  Commit `4c39f8d` proves the growing-phase equivalences and the
+phase-refined finite active-code minimum.  Commit `1aec3fc` proves the
+residue-two predecessor equivalence, and `5448445` proves odd-part
+monotonicity and the unconditional scalar slice law.
+
+```bash
+python3 outward_minplus_profile.py selftest
+python3 outward_minplus_profile.py verify \
+  outward_minplus_profile_audit.json
+```
+
+This finite checker exposes rather than hides the inverse-limit obstruction:
+no fixed phase precision closes the unbounded operator, because the update
+for word `1` already asks for one more ternary digit.  At finite height, a
+complete word table and a precision `3^K>C(B)` do close exactly.  The artifact
+has `counterexample:null`.
+
+### Power-charge return and Hensel exponent cylinders
+
+`outward_power_charge_return.py` starts only from `H=3^C`, the exact landing
+family of the kernel-checked resonant word.  It iterates the deterministic
+compressed odd-charge map and checks for a return to either a pure power or
+the resonant family.
+
+The artifact checks every `12<=C<=10000` on Akdeniz.  All 9,989 cases reach a
+terminal orbit before the declared recharge and shortcut limits.  No return
+is found; `C=700` is the unique maximum with 11 completed recharges.  The
+worker stores hashes rather than enormous decimal charges and reconstruction
+replays all arithmetic exactly.
+
+More importantly, it certifies the first exponent cylinder symbolically.
+The word `010111` occurs exactly for `C=12 mod16`, with
+
+```text
+a=v2(3^(C+2)+7)-6,
+R=3^(a+2)*(3^(C+2)+7)/2^(a+6).
+```
+
+An exact 64-bit Hensel tower constructs the unique nested class with `a>=k`
+at every `k`.  This supplies arbitrarily deep finite recharge classes without
+claiming that their 2-adic limit is a natural exponent.  Commit `7826516`
+proves that the residues cannot eventually stabilize to any natural exponent.
+
+```bash
+python3 outward_power_charge_return.py selftest
+python3 outward_power_charge_return.py --processes 8 --chunk-size 100 verify \
+  outward_power_charge_return_audit.json
+```
+
+The artifact records `counterexample:null`.  The interval bound is a finite
+calibration; the exponent-cylinder formulas are the reusable search state.

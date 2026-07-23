@@ -12625,3 +12625,147 @@ Please prove the odd-part monotonicity and QM158d if cheap.  Schema v3 checks
 the identity on all certified minima through `h_36`; the theorem, rather than
 the finite rows, is what licenses calling the displayed target the least
 triadic-slice survivor.
+
+### QM158 refinement: the full output-phase operator
+
+The exact phase formula is slightly stronger than QM158b--c.  For desired
+source phase `a mod 3^k`, define
+
+```text
+c = (a-r_w)*2^(-S) mod 3^k,   0<=c<3^k,
+d = b_w+3^O*c,                 0<=d<3^(O+k).       (QM158e)
+```
+
+Then
+
+```text
+m_(n+1)(k,a)=min_(w in F)
+  [r_w+2^S*(m_n(O+k,d)-b_w)/3^O].                 (QM158f)
+```
+
+Indeed `x=a mod 3^k` iff the family parameter `t=c mod 3^k`, iff
+`y=d mod 3^(O+k)`.  Empty fibers contribute infinity.  The new exact worker
+checks 240 instances of QM158f against literal shortcut execution for
+`B=50`, depths through six, and every phase `k<=3`.
+
+There is an important non-closure statement: no fixed unbounded phase depth
+`K` suffices, because even `w=[true]` raises the input query from precision
+`k` to `k+1`.  At finite height it does close exactly.  Put
+
+```text
+W_B={w in F:r_w<=B},
+T_w(B)=floor((B-r_w)/2^S),
+C(B)=max_(w in W_B) [b_w+3^O*T_w(B)].              (QM158g)
+```
+
+The map `w -> r_w` is injective on `F`, hence `W_B` has at most `B` words,
+and `E_(n+1) intersect [1,B]` is determined by `W_B` and
+`E_n intersect [1,C(B)]`.  Choosing `K` with `3^K>C(B)` makes the level-`K`
+profile an exact membership bitmap, which answers all higher-precision
+queries.  For nonzero family parameter `t>=1`, overshoot gives the useful
+uniform target bound `y<=3B-1`; only zero-carry `t=0` words can make `C(B)`
+larger.
+
+Please prioritize the dual-family theorem QM158a and phase equivalence
+QM158e--f after finishing QM157g--h.  A finite-height wrapper is secondary.
+Do not replace the growing precision by a fixed-state approximation.
+
+## Kontorovich follow-up: record-prefix carry lifts and resonant spikes (QM159, 2026-07-23)
+
+The carry law turns a failed record into an exact next-cylinder family.  The
+source `270271` has 36 blocks and cumulative length `L=124`; its zero-carry
+continuation dies.  Therefore every extension preserving those 36 words is
+
+```text
+x_ell=270271+2^124*ell,   ell>=1.                  (QM159a)
+```
+
+The new exact worker exhausts the first million positive carries in this
+one-dimensional family and follows every candidate to the terminal cycle.
+The current diagnostic champion has carry `636503` and 73 total blocks; it
+still dies.  This is directed finite evidence, not a compactness premise.
+The reusable Lean lemma is simply: if canonical residue `rho` at length `L`
+does not realize depth `n+1`, then every residue extending its exact depth-`n`
+word list is `rho+2^L*ell` with `ell>0`.
+
+There is also an exact resonant recharge family.  The word
+
+```text
+w=00000011111111111,  (S,O,e)=(17,11,7*3^12)
+```
+
+maps
+
+```text
+H_L=3*(2^17*3^L-7)  |->  3^(12+L).                (QM159b)
+```
+
+Thus arbitrarily large fresh ternary charge is possible; no scalar
+`log(H)-alpha*v3(H)` can be a nontrivial branch-uniform Lyapunov function.
+However a fixed finite macro composition has affine form
+
+```text
+H_out=(3^A*H+B)/2^D.
+```
+
+If it returned `3^C` to an unbounded member of the resonant family, then
+
+```text
+2^(D+17)*3^(L'+1)-3^(A+C)=B+21*2^D,
+min(L'+1,A+C)<=v3(B+21*2^D).                      (QM159c)
+```
+
+The right side is fixed, a contradiction for unbounded parameters.  Hence a
+resonant return construction must use parameter-dependent/unbounded words or
+recharge counts.  QM159b--c are lower priority than the general charge map,
+but they are useful regression examples once its affine composition library
+is in place.  No infinite resonant orbit is claimed.
+
+## Kontorovich follow-up: exponent-cylinder Hensel lift (QM160, 2026-07-23)
+
+Thank you for commits `5448445`, `7f27ae5`, and `09f6803`; they close the
+odd-part lemma, resonant family, and fixed-macro obstruction.
+
+The next reusable theorem is the first exponent-cylinder lift.  For
+`H=3^C`, word `010111` is legal exactly when `C=12 mod16`.  On that class,
+
+```text
+K=9*(3^(C+2)+7)/64,
+a=v2(3^(C+2)+7)-6,
+R=3^(a+2)*(3^(C+2)+7)/2^(a+6).                    (QM160a)
+```
+
+Writing `C=12+16n`, put `f(n)=3^(14+16n)+7` and `g=3^16`.  LTE gives
+
+```text
+v2(g^(2^k)-1)=6+k.                                (QM160b)
+```
+
+There is therefore a unique `r_k mod2^k` with `2^(6+k)|f(r_k)`, exactly one
+of `r_k,r_k+2^k` lifts, and
+
+```text
+a(C)>=k iff C=12+16*r_k mod2^(k+4).               (QM160c)
+```
+
+Please formalize QM160a--c if cheap.  The important semantic warning is that
+the nested classes define a 2-adic exponent; they do not provide one natural
+`C` with infinite recharge.  Since every output in QM160a has `v3=a+2>=2`
+and the resonant input family has `v3=1`, a one-recharge return is impossible.
+
+For later CEGIS nodes, the useful symbolic composition law is this.  If
+
+```text
+2^D H_C=3^(C+A)+B,
+```
+
+then a recharge `(S,O,e)` with exact drain `a` produces a child triple
+
+```text
+A'=A+O+a,
+D'=D+S+a,
+B'=3^a*(3^O*B+e*2^D).                              (QM160d)
+```
+
+This turns a bounded search into a trie of exact exponent residue classes.
+No exhaustive unbounded search or infinite-orbit claim is requested.
