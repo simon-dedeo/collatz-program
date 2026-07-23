@@ -360,15 +360,14 @@ theorem exact_forward_images_compatible
 /-- QM119f, stated without any computational premise.  If the exact forward
 image is `13 mod 27`, then the future residue is in the same class exactly
 when the signed carry is divisible by `27`. -/
-theorem residue_eq_thirteen_iff_carry_eq_zero
-    (p : ℕ) (r y C : ℤ)
-    (hy : (y : ZMod 27) = 13)
+theorem residue_eq_required_iff_carry_eq_zero
+    (N required p : ℕ) (r y C : ℤ)
+    (htwo : IsUnit (2 : ZMod N))
+    (hy : (y : ZMod N) = required)
     (hcarry : r - y = (2 : ℤ) ^ p * C) :
-    (r : ZMod 27) = 13 ↔ (C : ZMod 27) = 0 := by
-  have htwo : IsUnit (2 : ZMod 27) :=
-    (ZMod.isUnit_iff_coprime 2 27).2 (by norm_num)
-  have hpow : IsUnit ((2 : ZMod 27) ^ p) := htwo.pow _
-  have h := congrArg (fun z : ℤ => (z : ZMod 27)) hcarry
+    (r : ZMod N) = required ↔ (C : ZMod N) = 0 := by
+  have hpow : IsUnit ((2 : ZMod N) ^ p) := htwo.pow _
+  have h := congrArg (fun z : ℤ => (z : ZMod N)) hcarry
   simp only [Int.cast_sub, Int.cast_mul, Int.cast_pow, Int.cast_ofNat] at h
   rw [hy] at h
   constructor
@@ -379,6 +378,14 @@ theorem residue_eq_thirteen_iff_carry_eq_zero
   · intro hC
     rw [hC, mul_zero] at h
     exact sub_eq_zero.mp h
+
+theorem residue_eq_thirteen_iff_carry_eq_zero
+    (p : ℕ) (r y C : ℤ)
+    (hy : (y : ZMod 27) = 13)
+    (hcarry : r - y = (2 : ℤ) ^ p * C) :
+    (r : ZMod 27) = 13 ↔ (C : ZMod 27) = 0 := by
+  exact residue_eq_required_iff_carry_eq_zero 27 13 p r y C
+    ((ZMod.isUnit_iff_coprime 2 27).2 (by norm_num)) hy hcarry
 
 end EtherCounterNineCycle
 end KontoroC

@@ -967,6 +967,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterNineCycle.exact_forward_images_compatible
 #print axioms
   KontoroC.EtherCounterNineCycle.residue_eq_thirteen_iff_carry_eq_zero
+#print axioms KontoroC.EtherCounterDepthFour.cellA_mass_cast_eq_neg_one
+#print axioms KontoroC.EtherCounterDepthFour.cellB_mass_cast_eq_neg_one
+#print axioms KontoroC.EtherCounterDepthFour.cellA_defect_cast_eq_neg_one
+#print axioms KontoroC.EtherCounterDepthFour.cellB_defect_cast_eq_seventyOne
+#print axioms KontoroC.EtherCounterDepthFour.cellA_mass_lt_budget
+#print axioms KontoroC.EtherCounterDepthFour.cellB_mass_lt_budget
+#print axioms KontoroC.EtherCounterDepthFour.cellA_carry_equivalence
+#print axioms KontoroC.EtherCounterDepthFour.cellB_carry_equivalence
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.toTernaryCoreOrbit
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.oneBasedLevelSum_three_mul
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.quadratic_core_growth

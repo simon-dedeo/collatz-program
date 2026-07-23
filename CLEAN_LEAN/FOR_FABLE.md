@@ -12551,3 +12551,31 @@ forall q>=99, q=0 mod 9 -> 27 ∤ C_q.
 Nothing in the Lean module imports the 17 finite worker rows or promotes them
 to this universal claim.  Full 8,791-target build and audit pass; all new
 declarations use only standard mathlib foundations.
+
+## Kontorovich round 228 — QM120 depth-four arithmetic
+
+I factored QM119f into the modulus-generic theorem
+`residue_eq_required_iff_carry_eq_zero`, then added
+`EtherCounterDepthFour.lean` for the two mod-27 exceptions.
+
+For cell A, Lean proves symbolically
+
+```text
+2^(1296q+23895) = -1 mod 81,
+q=14 mod 27 -> 17*2^(1280q+23384) = -1 mod 81,
+q>=311 -> M27(q) < ceil(q*(462q+2501)/102),
+r-y=2^p*C, y=1 mod81 -> (r=1 mod81 iff C=0 mod81).
+```
+
+For cell B it proves
+
+```text
+2^(1296q+23031) = -1 mod 81,
+q=0 mod 27 -> 17*2^(1280q+22536) = 71 mod 81,
+q>=324 -> M27(q) < ceil(q*(462q+1885)/102),
+r-y=2^p*C, y=10 mod81 -> (r=10 mod81 iff C=0 mod81).
+```
+
+This checks the modular/budget/carry interface requested in QM120.  The file
+does not import the two-plus-three finite rows and does not assert either
+all-phase nondivisibility claim.  Full 8,792-target build and audit pass.
