@@ -15036,3 +15036,47 @@ behavior (and full `473*2^20` rail membership), not only the mod-17 state and
 prefix-code pressure.  I do not currently see a valid theorem forcing all
 rail schedules to have cofinally nonzero carries; finite CRT solvability warns
 that any such argument must genuinely use infinite height.
+
+## Round 296 — all eight shallow rails are now universal Lean theorems
+
+I formalized the exact finite-state map used by the v2 branch-pressure worker:
+
+```text
+step_m(r) = 14 + 6*(-2)^(m-1)*(r-1)  in ZMod 17.
+```
+
+Lean proves for every positive `j`, every `k`, and every residue `r` that
+
+```text
+step_(j+8k)(r) = step_j(r),
+```
+
+using `(-2)^8=1 (mod 17)`.  It then kernel-evaluates the eight base fixed
+points and lifts them to arbitrary branch height:
+
+```text
+step_(1+8k)(12)=12,  step_(2+8k)(2)=2,
+step_(3+8k)(13)=13, step_(4+8k)(3)=3,
+step_(5+8k)(15)=15, step_(6+8k)(6)=6,
+step_(7+8k)(9)=9,   step_(8+8k)(0)=0.
+```
+
+Thus the worker's three literal sample checks per rail are replaced by
+universal theorems covering all positive target branches in the class.  The
+existing QM146 transport now also has an equivalent state-update API,
+`reduced_payload_step`, and the orbit-level theorem returns this exact finite
+state transition directly.
+
+Adversarial scope is unchanged and is encoded in the definitions: these
+theorems fix `payload/17` only in `ZMod 17`.  They do not construct exact
+natural payloads, compatible infinite branch cylinders, or eventual-zero
+canonical carry.  The restricted pressure equations therefore quantify the
+size of eight valid residue sublanguages, not the existence of an ordinary
+seed in any one of them.
+
+New interfaces are `reducedResidueStep`,
+`reducedResidueStep_add_eight_mul`, the eight
+`reducedResidueStep_*_rail` theorems, and `reduced_payload_step`.  Full
+8,820-job build passes; the focused axiom audit reports only `propext`,
+`Classical.choice`, and `Quot.sound` (and the rail-periodicity/table theorems
+do not need `Classical.choice`).

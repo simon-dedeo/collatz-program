@@ -474,6 +474,63 @@ theorem unit_slice_reduced_balance (o : Orbit) (t : ℕ) {v v' : ℕ}
 /-- QM146c in a reusable one-step form.  The reduced source and target rail
 factorizations force the exact affine transport of the payload quotient
 modulo `17`. -/
+def reducedResidueStep (m : ℕ) (r : ZMod 17) : ZMod 17 :=
+  14 + 6 * (-(2 : ZMod 17)) ^ (m - 1) * (r - 1)
+
+/-- The reduced residue dynamics depends on a positive target branch only
+modulo eight.  This is the universal algebra behind the worker's finite
+three-sample checks of each proposed shallow rail. -/
+theorem reducedResidueStep_add_eight_mul (j k : ℕ) (hj : 0 < j)
+    (r : ZMod 17) :
+    reducedResidueStep (j + 8 * k) r = reducedResidueStep j r := by
+  have hexponent : j + 8 * k - 1 = (j - 1) + 8 * k := by omega
+  have hperiod : (-(2 : ZMod 17)) ^ 8 = 1 := by decide
+  simp only [reducedResidueStep, hexponent, pow_add, pow_mul, hperiod,
+    one_pow, mul_one]
+
+theorem reducedResidueStep_one_fixed : reducedResidueStep 1 12 = 12 := by decide
+theorem reducedResidueStep_two_fixed : reducedResidueStep 2 2 = 2 := by decide
+theorem reducedResidueStep_three_fixed : reducedResidueStep 3 13 = 13 := by decide
+theorem reducedResidueStep_four_fixed : reducedResidueStep 4 3 = 3 := by decide
+theorem reducedResidueStep_five_fixed : reducedResidueStep 5 15 = 15 := by decide
+theorem reducedResidueStep_six_fixed : reducedResidueStep 6 6 = 6 := by decide
+theorem reducedResidueStep_seven_fixed : reducedResidueStep 7 9 = 9 := by decide
+theorem reducedResidueStep_eight_fixed : reducedResidueStep 8 0 = 0 := by decide
+
+/-- The eight constant-residue rails, valid for all branch heights in the
+displayed congruence classes. -/
+theorem reducedResidueStep_one_rail (k : ℕ) :
+    reducedResidueStep (1 + 8 * k) 12 = 12 := by
+  rw [reducedResidueStep_add_eight_mul 1 k (by omega), reducedResidueStep_one_fixed]
+
+theorem reducedResidueStep_two_rail (k : ℕ) :
+    reducedResidueStep (2 + 8 * k) 2 = 2 := by
+  rw [reducedResidueStep_add_eight_mul 2 k (by omega), reducedResidueStep_two_fixed]
+
+theorem reducedResidueStep_three_rail (k : ℕ) :
+    reducedResidueStep (3 + 8 * k) 13 = 13 := by
+  rw [reducedResidueStep_add_eight_mul 3 k (by omega), reducedResidueStep_three_fixed]
+
+theorem reducedResidueStep_four_rail (k : ℕ) :
+    reducedResidueStep (4 + 8 * k) 3 = 3 := by
+  rw [reducedResidueStep_add_eight_mul 4 k (by omega), reducedResidueStep_four_fixed]
+
+theorem reducedResidueStep_five_rail (k : ℕ) :
+    reducedResidueStep (5 + 8 * k) 15 = 15 := by
+  rw [reducedResidueStep_add_eight_mul 5 k (by omega), reducedResidueStep_five_fixed]
+
+theorem reducedResidueStep_six_rail (k : ℕ) :
+    reducedResidueStep (6 + 8 * k) 6 = 6 := by
+  rw [reducedResidueStep_add_eight_mul 6 k (by omega), reducedResidueStep_six_fixed]
+
+theorem reducedResidueStep_seven_rail (k : ℕ) :
+    reducedResidueStep (7 + 8 * k) 9 = 9 := by
+  rw [reducedResidueStep_add_eight_mul 7 k (by omega), reducedResidueStep_seven_fixed]
+
+theorem reducedResidueStep_eight_rail (k : ℕ) :
+    reducedResidueStep (8 + 8 * k) 0 = 0 := by
+  rw [reducedResidueStep_add_eight_mul 8 k (by omega), reducedResidueStep_eight_fixed]
+
 theorem reduced_payload_transport {m r r' v : ℕ} (hm : 0 < m)
     (hsource : Wbar r = 2 ^ (8 * m - 5) * v)
     (htarget : Zbar r' = 3 ^ (6 * m) * v) :
@@ -515,6 +572,18 @@ theorem reduced_payload_transport {m r r' v : ℕ} (hm : 0 < m)
   ring_nf at hmul ⊢
   reduce_mod_char at hmul ⊢
   exact hmul
+
+/-- Equivalent state-update form of QM146c, convenient for finite-state
+residue graphs and invariant-rail consumers. -/
+theorem reduced_payload_step {m r r' v : ℕ} (hm : 0 < m)
+    (hsource : Wbar r = 2 ^ (8 * m - 5) * v)
+    (htarget : Zbar r' = 3 ^ (6 * m) * v) :
+    ((r' : ℕ) : ZMod 17) =
+      reducedResidueStep m ((r : ℕ) : ZMod 17) := by
+  have h := reduced_payload_transport hm hsource htarget
+  exact (sub_eq_iff_eq_add.mp h).trans (by
+    simp only [reducedResidueStep]
+    ring)
 
 /-! ## The invariant collision factor and its exact local obstruction -/
 
@@ -623,9 +692,8 @@ the stated affine rule in `ZMod 17`. -/
 theorem unit_slice_payload_transport (o : Orbit) (t r r' : ℕ)
     (hpayload : o.payload t = 17 * r)
     (hnextPayload : o.payload (t + 1) = 17 * r') :
-    ((r' : ℕ) : ZMod 17) - 14 =
-      6 * (-(2 : ZMod 17)) ^ (o.branch (t + 1) - 1) *
-        (((r : ℕ) : ZMod 17) - 1) := by
+    ((r' : ℕ) : ZMod 17) =
+      reducedResidueStep (o.branch (t + 1)) ((r : ℕ) : ZMod 17) := by
   have hpdiv : 17 ∣ o.payload t := by
     rw [hpayload]
     exact dvd_mul_right 17 r
@@ -651,7 +719,7 @@ theorem unit_slice_payload_transport (o : Orbit) (t r r' : ℕ)
       _ = Z (o.payload (t + 1)) := by rw [hnextPayload]
       _ = 3 ^ (6 * o.branch (t + 1)) * o.core (t + 1) := o.z_factor (t + 1)
       _ = 17 * (3 ^ (6 * o.branch (t + 1)) * v) := by rw [hv]; ring
-  exact reduced_payload_transport (o.branch_pos (t + 1)) hsource htarget
+  exact reduced_payload_step (o.branch_pos (t + 1)) hsource htarget
 
 /-- QM146d, current-state half, stated directly on an orbit in the unit
 slice.  A second factor `17` occurs in the current core exactly when the

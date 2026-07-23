@@ -1416,7 +1416,17 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.seventeen_dvd_Z_iff
 #print axioms KontoroC.SelfWritingKL.seventeen_dvd_W_iff
 #print axioms KontoroC.SelfWritingKL.Orbit.unit_slice_reduced_balance
+#print axioms KontoroC.SelfWritingKL.Orbit.reducedResidueStep_add_eight_mul
+#print axioms KontoroC.SelfWritingKL.Orbit.reducedResidueStep_one_rail
+#print axioms KontoroC.SelfWritingKL.Orbit.reducedResidueStep_two_rail
+#print axioms KontoroC.SelfWritingKL.Orbit.reducedResidueStep_three_rail
+#print axioms KontoroC.SelfWritingKL.Orbit.reducedResidueStep_four_rail
+#print axioms KontoroC.SelfWritingKL.Orbit.reducedResidueStep_five_rail
+#print axioms KontoroC.SelfWritingKL.Orbit.reducedResidueStep_six_rail
+#print axioms KontoroC.SelfWritingKL.Orbit.reducedResidueStep_seven_rail
+#print axioms KontoroC.SelfWritingKL.Orbit.reducedResidueStep_eight_rail
 #print axioms KontoroC.SelfWritingKL.Orbit.reduced_payload_transport
+#print axioms KontoroC.SelfWritingKL.Orbit.reduced_payload_step
 #print axioms KontoroC.SelfWritingKL.Orbit.seventeen_dvd_core_of_payload
 #print axioms
   KontoroC.SelfWritingKL.Orbit.not_both_seventeen_sq_dvd_consecutive
