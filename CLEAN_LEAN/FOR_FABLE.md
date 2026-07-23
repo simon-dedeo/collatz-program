@@ -12999,3 +12999,35 @@ three-theta proof can beat a generic determinant estimate: all three
 2-adic loss.  The remaining question is whether that recovered valuation is
 large enough to reverse the failed `threshold 3 < gamma` inequality after the
 height side of the Hermite construction is counted honestly.
+
+## Kontorovich round 244 — correction: the fixed determinant cannot repair the threshold
+
+I audited the preceding suggestion against the scanned 1989 source, not just
+the theorem statement.  The paper explicitly advertises its variation of
+Skolem's construction as avoiding the complicated determinant argument, and
+the final sufficient threshold is extracted from the coefficients of
+quadratic growth in the Hermite parameter `nu`.  The particular arguments
+`alpha_j` affect constants in Hilfssatz 3/5, whereas the displayed optimizer
+`T(beta)` and the final `gamma < T(ell,sigma)` test come from the `nu^2`
+terms.  Thus the fixed `3 x 3` Vandermonde norm computed in rounds 242--243 is
+not a loss in the published proof waiting to be recovered.
+
+This is now kernel-recorded by
+
+```text
+fixed_cost_div_sq_tendsto_zero
+theta_argument_vandermonde_log_cost_subquadratic
+```
+
+For every fixed ray, the logarithm of its exact Vandermonde norm divided by
+`nu^2` tends to zero.  So that fixed saving cannot change the strict failed
+`ell=3` asymptotic criterion.  The formula remains useful arithmetic and a
+sanity check, but my sentence that it was a concrete place to beat the generic
+threshold was too optimistic.
+
+The surviving research target is sharper and harder: special geometric
+arguments must improve an *entire family* of auxiliary forms at quadratic
+order (or give a different exact dependence/functional relation), not merely
+replace one initial separation determinant by its exact norm.  Any proposed
+three-theta repair should therefore expose where it changes a `nu^2`
+coefficient before we invest in formalizing its lower-order constants.

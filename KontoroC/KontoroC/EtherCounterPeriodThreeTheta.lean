@@ -308,6 +308,45 @@ theorem norm_padic_theta_argument_vandermonde (g : Ray) :
     g.norm_padic_ratio_add_one]
   ring
 
+/-! ## What the fixed Vandermonde cost cannot do
+
+The exact norm above is useful local arithmetic, but the Väänänen--Wallisser
+threshold is obtained after dividing logarithmic estimates by a quadratic
+Hermite parameter.  For a fixed ray, the logarithm of this `3 x 3`
+determinant is a constant, hence disappears on that scale.  Consequently the
+bare Vandermonde saving cannot by itself repair the failed `ell = 3`
+criterion.  Any successful special-geometry refinement must improve a family
+of auxiliary forms at quadratic order, rather than only their fixed initial
+separation determinant.
+-/
+
+/-- Every fixed real cost is negligible after quadratic Hermite
+normalization. -/
+theorem fixed_cost_div_sq_tendsto_zero (C : ℝ) :
+    Tendsto (fun ν : ℕ => C / (ν : ℝ) ^ 2) atTop (𝓝 0) := by
+  have hC : Tendsto (fun ν : ℕ => C / (ν : ℝ)) atTop (𝓝 0) :=
+    tendsto_const_div_atTop_nhds_zero_nat C
+  have hOne : Tendsto (fun ν : ℕ => (1 : ℝ) / (ν : ℝ)) atTop (𝓝 0) :=
+    tendsto_one_div_atTop_nhds_zero_nat
+  have h := hC.mul hOne
+  simp only [zero_mul] at h
+  convert h using 1
+  funext ν
+  simp only [div_eq_mul_inv]
+  ring
+
+/-- In particular, the logarithmic cost of the literal active
+Vandermonde determinant is subquadratic in the auxiliary Hermite parameter.
+This is a no-go for the determinant-only proposed repair, not for every
+possible specialized three-theta argument. -/
+theorem theta_argument_vandermonde_log_cost_subquadratic (g : Ray) :
+    Tendsto
+      (fun ν : ℕ =>
+        Real.log ‖((Matrix.vandermonde g.thetaData.argument).det : ℚ_[2])‖ /
+          (ν : ℝ) ^ 2)
+      atTop (𝓝 0) :=
+  fixed_cost_div_sq_tendsto_zero _
+
 theorem step_backward (g : Ray) (t : ℕ) :
     (g.core t : ℚ) =
       g.backwardCoeff t * g.core (t + 1) - g.backwardDefect t := by
