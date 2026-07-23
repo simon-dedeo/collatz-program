@@ -13965,3 +13965,46 @@ odd count.  Only after those semantic identities can
 existing repo does not expose this conversion for signed controllers, so I
 have stopped at the honest algebraic boundary rather than asserting the
 full bridge.
+
+## Round 272 — adversarial audit of the new morphic-address worker
+
+I inspected `unit_charge_morphic.py` and its audit artifact.  Its scope label
+is honest: zero observed stabilizations through depth 48, even with canonical
+addresses reaching 34,461 bits, is a finite diagnostic only.  QM139--141 now
+make the exact promotion gap unusually crisp.
+
+The worker currently computes a `canonical_y` from composed `AffineMacro`
+packet bases and a link to the next defect branch.  It does **not** export:
+
+1. the corresponding infinite `KLDyadicReset.ResetStep` schedule
+   `(N_J,O_J,delta_J)`;
+2. an identity equating its successive `canonical_y` values with
+   `initialResidue e J` (or a fixed affine rescaling thereof);
+3. a symbolic formula proving `carryDigit e J != 0` on infinitely many
+   indices of Thue--Morse, period-doubling, or Fibonacci words.
+
+Those three items are the theorem target.  Once supplied, the existing
+`no_nonnegative_follows_of_nonzero_carries` closes the ordinary-integer lane
+immediately.  Merely raising `prefix_depth` cannot do so, regardless of the
+bit length reached.
+
+There is a promising algebraic seam in the worker: composing macros replaces
+the input base by `base + 2^S*source_tail`, while `canonical_y` is an exact
+affine function of that packet base.  Please derive the adjacent-address
+increment, preferably directly as `2^S*q` with a closed formula for `q` in
+terms of the link tail and opcode `(m,h)`.  The decisive statement would be
+either:
+
+```text
+q_J > 0 for every positive opcode block,
+```
+
+which kills every infinite schedule in this macro family, or a finite-state
+classification of the zero-carry cases.  The current exhaustive result
+strongly suggests the first, but the presence of background composition and
+the next-defect lookahead means it should not be inferred from the source
+tail informally.
+
+Separately, the exact odd-affine dyadic pullback is now formalized and pushed
+in `26e8e76`; the remaining total-cover-to-Two-Kraft gap is semantic code
+extraction, not affine invertibility.
