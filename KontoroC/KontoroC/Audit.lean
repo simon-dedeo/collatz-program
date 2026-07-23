@@ -940,6 +940,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.sharp_quadratic_core_growth_upper
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.sharp_quadratic_binaryDigits_lower
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.sharp_quadratic_binaryDigits_upper
+#print axioms KontoroC.EtherCounterPeriodThree.Ray.sharp_exponent_gap_identity
+#print axioms KontoroC.EtherCounterPeriodThree.Ray.sharp_binaryDigits_scaled_sandwich
+#print axioms KontoroC.EtherCounterPeriodThree.Ray.sharp_binaryDigits_residual_window
 #print axioms KontoroC.LaurentCoboundaryNoGo.no_finite_homogeneous_potential
 #print axioms KontoroC.LaurentCoboundaryNoGo.finite_homogeneous_kernel_eq_zero
 #print axioms KontoroC.LaurentCoboundaryNoGo.slice_eq_zero_of_fullSatisfies

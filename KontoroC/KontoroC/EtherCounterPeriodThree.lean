@@ -368,6 +368,97 @@ theorem sharp_quadratic_binaryDigits_upper (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
       (g.sharp_quadratic_core_growth_upper q hq)
   omega
 
+/-! ## Exact residual width of the near-optimal band -/
+
+-- Large cleared-denominator numerals make elaboration recurse more deeply
+-- than the default while checking the three residual-band declarations.
+set_option maxRecDepth 50000
+
+def phaseSum (g : Ray) : ℕ :=
+  g.branch 0 + g.branch 1 + g.branch 2
+
+def sharpLowerExponent (g : Ray) (q : ℕ) : ℕ :=
+  q * (7869 + g.cycleGain * (1506 * q - 6826))
+
+def sharpUpperExponent (g : Ray) (q : ℕ) : ℕ :=
+  306 * (Nat.log 2 (g.core 0)).succ +
+    q * (462 * phaseSum g + 2235 + g.cycleGain * (693 * q - 3141))
+
+/-- Exact cleared-denominator width after the adjacent convergents cancel.
+The quadratic coefficient is only `9*K`, because
+`665*693 - 306*1506 = 9`. -/
+def sharpBandWidth (g : Ray) (q : ℕ) : ℕ :=
+  203490 * ((Nat.log 2 (g.core 0)).succ + 1) +
+    q * (307230 * (phaseSum g - 3) + 51) +
+      9 * g.cycleGain * q * (q - 1)
+
+/-- The exact arithmetic cancellation hidden by the two decimal leading
+coefficients. -/
+theorem sharp_exponent_gap_identity (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    665 * (sharpUpperExponent g q + 306) =
+      306 * sharpLowerExponent g q + sharpBandWidth g q := by
+  let r := q - 5
+  let b := phaseSum g - 3
+  have hphase : 3 ≤ phaseSum g := by
+    dsimp only [phaseSum]
+    have h0 := g.branch_pos 0
+    have h1 := g.branch_pos 1
+    have h2 := g.branch_pos 2
+    omega
+  have hqrep : q = r + 5 := by dsimp only [r]; omega
+  have hbrep : phaseSum g = b + 3 := by dsimp only [b]; omega
+  simp only [sharpUpperExponent, sharpLowerExponent, sharpBandWidth]
+  rw [hqrep, hbrep]
+  rw [show 693 * (r + 5) - 3141 = 693 * r + 324 by omega,
+    show 1506 * (r + 5) - 6826 = 1506 * r + 704 by omega,
+    show b + 3 - 3 = b by omega,
+    show r + 5 - 1 = r + 4 by omega]
+  ring
+
+/-- Cleared-denominator QM99 sandwich. -/
+theorem sharp_binaryDigits_scaled_sandwich
+    (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    306 * sharpLowerExponent g q <
+        203490 * (Nat.log 2 (g.core (3 * q))).succ ∧
+      203490 * (Nat.log 2 (g.core (3 * q))).succ <
+        665 * (sharpUpperExponent g q + 306) := by
+  let L := (Nat.log 2 (g.core (3 * q))).succ
+  have hlower : sharpLowerExponent g q / 665 < L := by
+    simpa [sharpLowerExponent, L] using g.sharp_quadratic_binaryDigits_lower q hq
+  have hlower' : sharpLowerExponent g q < L * 665 :=
+    (Nat.div_lt_iff_lt_mul (by norm_num : 0 < 665)).1 hlower
+  have hlowerScaled :=
+    (Nat.mul_lt_mul_left (by norm_num : 0 < 306)).2 hlower'
+  have hupper : 306 * L < sharpUpperExponent g q + 306 := by
+    simpa [sharpUpperExponent, phaseSum, L] using
+      g.sharp_quadratic_binaryDigits_upper q hq
+  have hupperScaled :=
+    (Nat.mul_lt_mul_left (by norm_num : 0 < 665)).2 hupper
+  constructor
+  · change 306 * sharpLowerExponent g q < 203490 * L
+    calc
+      306 * sharpLowerExponent g q < 306 * (L * 665) := hlowerScaled
+      _ = 203490 * L := by ring
+  · change 203490 * L < 665 * (sharpUpperExponent g q + 306)
+    calc
+      203490 * L = 665 * (306 * L) := by ring
+      _ < 665 * (sharpUpperExponent g q + 306) := hupperScaled
+
+/-- Search-normalized form: after subtracting the forced lower exponent, the
+remaining scaled digit coordinate lies in one explicit interval. -/
+theorem sharp_binaryDigits_residual_window
+    (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    306 * sharpLowerExponent g q <
+        203490 * (Nat.log 2 (g.core (3 * q))).succ ∧
+      203490 * (Nat.log 2 (g.core (3 * q))).succ <
+        306 * sharpLowerExponent g q + sharpBandWidth g q := by
+  have hband := g.sharp_binaryDigits_scaled_sandwich q hq
+  refine ⟨hband.1, ?_⟩
+  rw [← g.sharp_exponent_gap_identity q hq]
+  exact hband.2
+
+set_option maxRecDepth 1000
+
 /-- An explicit superlinear endpoint for the literal core size.  Given any
 starting cycle `Q` and affine bit budget `C*q+B`, the displayed cycle already
 exceeds that budget.  This rejects fixed-output-rate literal encodings; it

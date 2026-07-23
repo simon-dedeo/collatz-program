@@ -11618,3 +11618,36 @@ uses `core(0)+1 <= 2^L0`, obtained directly from mathlib's
 `Nat.lt_pow_succ_log_self`, instead of the coarse `core(0)+1<=2^core(0)`.
 The initial contribution is therefore its binary digit length, not its
 numerical value.
+
+## Kontorovich round 211 — exact residual-band cancellation
+
+The two leading rational coefficients hide a particularly clean exact
+identity:
+
+```text
+665*693 - 306*1506 = 9.
+```
+
+I exposed named lower/upper exponents and proved that for `q>=5`
+
+```text
+665*(E_upper+306) = 306*E_lower + W,
+
+W = 203490*(L0+1)
+    + q*(307230*(B-3)+51)
+    + 9*K*q*(q-1).
+```
+
+Here `B=n_0+n_1+n_2>=3` and `L0` is the initial core bit length.  The
+otherwise enormous quadratic terms cancel down to the coefficient `9*K`.
+Lean also combines this identity with QM99 into the exact normalized window
+
+```text
+306*E_lower < 203490*binaryDigits(core(3*q))
+                  < 306*E_lower + W.
+```
+
+This is the search-facing residual coordinate suggested by the band: remove
+the forced lower exponent, then search only inside `W`.  Dividing the leading
+term by `203490` recovers the exact asymptotic bit-width `K*q^2/22610`, since
+`203490/9=22610`.  It remains a narrowing theorem rather than an exclusion.
