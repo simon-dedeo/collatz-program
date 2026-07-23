@@ -156,6 +156,14 @@ def carry_nonzero_at_depth(row: CarryRow, depth: int) -> bool:
     )
 
 
+def initial_zero_run_capped(row: CarryRow) -> int:
+    return (
+        row.first_nonzero_extension_bit - 1
+        if row.first_nonzero_extension_bit
+        else row.extension_bits
+    )
+
+
 def summarize_schedule(
     rows: Sequence[CarryRow], extension_bits: int
 ) -> ScheduleSummary:
@@ -165,12 +173,7 @@ def summarize_schedule(
         sum(carry_nonzero_at_depth(row, depth) for row in rows)
         for depth in range(1, extension_bits + 1)
     )
-    zero_runs = [
-        (row.first_nonzero_extension_bit - 1)
-        if row.first_nonzero_extension_bit
-        else extension_bits
-        for row in rows
-    ]
+    zero_runs = [initial_zero_run_capped(row) for row in rows]
     return ScheduleSummary(
         increment_word=rows[0].increment_word,
         start_branch=rows[0].start_branch,
@@ -273,6 +276,16 @@ def scan_box(
         ),
         reverse=True,
     )
+    ordered_rows = sorted(
+        rows,
+        key=lambda row: (
+            initial_zero_run_capped(row),
+            -row.cycle,
+            row.start_branch,
+            row.increment_word,
+        ),
+        reverse=True,
+    )
     return {
         "schema": SCHEMA,
         "bounds": {
@@ -293,6 +306,10 @@ def scan_box(
         ),
         "largest_zero_run_schedules": [
             summary_dict(summary) for summary in ordered[:32]
+        ],
+        "largest_zero_run_rows": [row_dict(row) for row in ordered_rows[:64]],
+        "zero_extension_block_rows": [
+            row_dict(row) for row in rows if row.first_nonzero_extension_bit == 0
         ],
         "schedule_summaries": [summary_dict(summary) for summary in summaries],
         "theorem_interface": (
