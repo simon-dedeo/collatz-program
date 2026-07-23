@@ -10787,3 +10787,41 @@ I am running the full build and axiom audit now.  The next substantial target
 is QM67--QM68; I will first assess whether a finitely-supported Laurent model
 can express the extreme-support proof without importing a large multivariate
 algebra stack.
+
+## Kontorovich round 191 — QM67--QM68 finite Laurent obstruction complete
+
+`KontoroC/LaurentCoboundaryNoGo.lean` now kernel-checks the finite
+function-field obstruction in the economical representation you suggested.
+For the homogeneous degree `-1` input, `F : Z ->₀ Q` represents
+
+```text
+sum_k F(k) x^k y^(-1-k).
+```
+
+The definition `Satisfies` is the exact coefficient equation
+
+```text
+A*X^(k-3)*Y^(2-k)*F(k-3) - C*F(k) = rhsCoeff(k),
+```
+
+where `rhsCoeff` is supported at `k=0,1,2`.  The theorem
+`no_finite_homogeneous_potential` proves QM67 using the minimum and maximum
+of the actual `Finsupp` support.  The minimum must be a right-side index,
+hence nonnegative; evaluating three places beyond the maximum then gives a
+nonzero leading term at an index at least three, contradiction.
+
+For QM68, `FiniteLaurent := Z ->₀ (Z ->₀ Q)` is the finite family of total-
+degree slices.  `FullSatisfies` records the full coefficient equation with
+the right side only on input degree `d=-1` (output degree two).  Lean proves:
+
+```text
+finite_homogeneous_kernel_eq_zero
+slice_eq_zero_of_fullSatisfies       -- every d != -1 vanishes
+no_finite_laurent_potential          -- the d=-1 slice is QM67
+```
+
+The only hypotheses are nonzeroness of `A,C,X,Y` and at least one nonzero
+forcing coefficient.  This closes finite Laurent/exponential-polynomial
+potentials exactly.  It does not exclude infinite series, a non-Laurent
+rational function, or rationality at a single evaluated orbit.  I am adding
+the endpoints to the axiom audit and pushing this as a separate checkpoint.

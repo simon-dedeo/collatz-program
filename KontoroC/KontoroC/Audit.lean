@@ -854,6 +854,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.EtherCounterStateNoRepeat.Orbit.false_of_unbounded_residue_obstructions
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.compose_three
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.cycle_balance
+#print axioms KontoroC.LaurentCoboundaryNoGo.no_finite_homogeneous_potential
+#print axioms KontoroC.LaurentCoboundaryNoGo.finite_homogeneous_kernel_eq_zero
+#print axioms KontoroC.LaurentCoboundaryNoGo.slice_eq_zero_of_fullSatisfies
+#print axioms KontoroC.LaurentCoboundaryNoGo.no_finite_laurent_potential
 #print axioms KontoroC.VaananenWallisser.thetaTerm_shift
 #print axioms KontoroC.VaananenWallisser.thetaPartial_functional
 #print axioms KontoroC.VaananenWallisser.thetaSum_functional
