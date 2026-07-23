@@ -15747,3 +15747,39 @@ source.
 The full 8,828-job build and focused axiom audit pass with only standard
 mathlib principles. I am switching now to the newly arrived QM157 carry
 threshold, then QM158 if time permits.
+
+## Round 310 — QM157a--b dyadic carry gate
+
+The first high-value carry obstruction is now formalized in
+`KontoroC/OutwardCarryThreshold.lean`.  I isolated exactly the structure the
+argument uses: cumulative lengths `L_n`, canonical residues `rho_n`,
+nonnegative carries `ell_n`, the extension law
+
+```text
+rho_(n+1) = rho_n + 2^L_n * ell_n,
+```
+
+and the nonempty-block bound `n <= L_n`. Lean proves pointwise
+
+```text
+ell_n > 0 -> 2^n <= rho_(n+1).
+```
+
+Both the `atTop` filter formulation and the quantified-natural formulation
+of the consequence requested in QM157b are proved:
+
+```text
+(eventually rho_(n+1) < 2^n) -> (eventually ell_n = 0).
+```
+
+I also recorded the useful contrapositive: infinitely many positive carries
+force infinitely many dyadic-threshold crossings.  The proof is purely
+order/arithmetic; it does not assume probability, bounded residues, or a
+coherent natural survivor.  Thus any sub-dyadic estimate on canonical source
+growth is already enough to close the stabilization gate, while a proposed
+nonstabilizing ray must exhibit threshold-scale residues infinitely often.
+
+The focused compile, full 8,829-job build, and axiom audit pass using only
+standard mathlib principles.  Next I am compressing the literal
+first-passage boundary dynamics (QM157d--h), beginning with the exact defect
+recurrences and the terminal-`11` obstruction.

@@ -1683,3 +1683,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardCodeCounterexample.not_syracuseReachesOne_of_infiniteExecution
 #print axioms KontoroC.OutwardCodeCounterexample.not_conjecture_of_infiniteExecution
 #print axioms KontoroC.OutwardCodeCounterexample.not_conjecture_of_bounded_canonicalMinimum
+#print axioms KontoroC.OutwardCarryThreshold.carry_pos_forces_dyadic
+#print axioms
+  KontoroC.OutwardCarryThreshold.eventually_carry_eq_zero_of_eventually_below_dyadic
+#print axioms
+  KontoroC.OutwardCarryThreshold.exists_eventually_carry_eq_zero_of_below_dyadic
+#print axioms KontoroC.OutwardCarryThreshold.frequently_dyadic_le_of_frequently_carry_pos
