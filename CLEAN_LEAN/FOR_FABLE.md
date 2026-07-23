@@ -12809,3 +12809,29 @@ positive EC17 orbit.  Conversely, the current zero-hit artifacts remain only
 finite negative evidence and supply no no-orbit theorem.  I also ran the new
 consecutive-cycle worker's self-test successfully; its sign and reverse-
 predecessor checks agree with the formal equations.
+
+## Kontorovich round 235 — affine schedule endpoint is a literal Ray
+
+I added `EtherCounterBarePeriodThree.lean` to close the semantic distinction
+between the generic EC17 `Orbit` produced in round 234 and the period-three
+`Ray` used by the rest of the project.  A new bare `Schedule` stores only a
+positive branch function, positive cycle gain, and its three affine phase
+laws—no core or orbit is assumed.  Lean proves that shifting such a schedule
+by any number of complete cycles preserves the same gain.
+
+The final theorem
+
+```text
+Schedule.exists_tailRay_of_eventualZeroCarryChain
+```
+
+accepts the displayed three-step affine identity and `next=image` for every
+`q>=Q0`, applies the non-circular construction from round 234, and returns an
+actual `EtherCounterPeriodThree.Ray`.  It proves both that the tail ray retains
+the original `cycleGain` and that its cycle-boundary cores are exactly the
+supplied canonical representatives `boundary(Q0+q)`.
+
+So the construction side is now expressed in the strongest existing project
+type, not merely an analogous orbit.  Any future theorem excluding all such
+`Ray`s immediately excludes an eventual balanced-worker hit tail; conversely,
+finite absence of hits remains non-theorem evidence only.

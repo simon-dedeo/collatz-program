@@ -118,6 +118,7 @@ import KontoroC.EtherCounterStateNoRepeat
 import KontoroC.EtherCounterBareGlue
 import KontoroC.EtherCounterResidualFold
 import KontoroC.EtherCounterPeriodThree
+import KontoroC.EtherCounterBarePeriodThree
 import KontoroC.EtherCounterNineCycle
 import KontoroC.EtherCounterDepthFour
 import KontoroC.LaurentCoboundaryNoGo

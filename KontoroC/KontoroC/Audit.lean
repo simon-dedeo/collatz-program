@@ -961,6 +961,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterBareGlue.exists_orbit_of_zeroCarryChain
 #print axioms
   KontoroC.EtherCounterBareGlue.exists_tailOrbit_of_eventualZeroCarryChain
+#print axioms KontoroC.EtherCounterBarePeriodThree.Schedule.tail
+#print axioms KontoroC.EtherCounterBarePeriodThree.Schedule.toRay
+#print axioms
+  KontoroC.EtherCounterBarePeriodThree.Schedule.exists_tailRay_of_eventualZeroCarryChain
 #print axioms KontoroC.EtherCounterResidualFold.residualFold_eq_expansion
 #print axioms KontoroC.EtherCounterResidualFold.residualFold_last_modEq
 #print axioms KontoroC.EtherCounterResidualFold.residualFold_dvd_iff_last_dvd
