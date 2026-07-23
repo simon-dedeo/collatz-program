@@ -943,6 +943,27 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.sharp_exponent_gap_identity
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.sharp_binaryDigits_scaled_sandwich
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.sharp_binaryDigits_residual_window
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.core_binaryDigits_le_initial_add_upperBudget
+#print axioms KontoroC.EtherCounterPeriodThree.Ray.shiftedNaturalPrefix
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.shiftedInitialResidue_binaryDigits_le
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.shiftedInitialResidue_normalizedMargin_le_initialDigits
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.false_of_unbounded_normalizedResidueMargins
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.replayFailure_padding_lt_initialDigits
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.false_of_unbounded_replayFailures
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.core_lt_two_pow_upperBudget_add_initialDigits
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.normalizedCRTFailure_predecessorExponent_lt_initialDigits
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.cycleIndex_le_predecessorBranch
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.false_of_unbounded_normalizedCRTFailures
 #print axioms KontoroC.LaurentCoboundaryNoGo.no_finite_homogeneous_potential
 #print axioms KontoroC.LaurentCoboundaryNoGo.finite_homogeneous_kernel_eq_zero
 #print axioms KontoroC.LaurentCoboundaryNoGo.slice_eq_zero_of_fullSatisfies

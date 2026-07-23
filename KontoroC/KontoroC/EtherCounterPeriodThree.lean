@@ -380,9 +380,11 @@ def phaseSum (g : Ray) : ℕ :=
 def sharpLowerExponent (g : Ray) (q : ℕ) : ℕ :=
   q * (7869 + g.cycleGain * (1506 * q - 6826))
 
+def sharpGrowthExponent (g : Ray) (q : ℕ) : ℕ :=
+  q * (462 * phaseSum g + 2235 + g.cycleGain * (693 * q - 3141))
+
 def sharpUpperExponent (g : Ray) (q : ℕ) : ℕ :=
-  306 * (Nat.log 2 (g.core 0)).succ +
-    q * (462 * phaseSum g + 2235 + g.cycleGain * (693 * q - 3141))
+  306 * (Nat.log 2 (g.core 0)).succ + sharpGrowthExponent g q
 
 /-- Exact cleared-denominator width after the adjacent convergents cancel.
 The quadratic coefficient is only `9*K`, because
@@ -407,7 +409,8 @@ theorem sharp_exponent_gap_identity (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
     omega
   have hqrep : q = r + 5 := by dsimp only [r]; omega
   have hbrep : phaseSum g = b + 3 := by dsimp only [b]; omega
-  simp only [sharpUpperExponent, sharpLowerExponent, sharpBandWidth]
+  simp only [sharpUpperExponent, sharpGrowthExponent, sharpLowerExponent,
+    sharpBandWidth]
   rw [hqrep, hbrep]
   rw [show 693 * (r + 5) - 3141 = 693 * r + 324 by omega,
     show 1506 * (r + 5) - 6826 = 1506 * r + 704 by omega,
@@ -430,7 +433,7 @@ theorem sharp_binaryDigits_scaled_sandwich
   have hlowerScaled :=
     (Nat.mul_lt_mul_left (by norm_num : 0 < 306)).2 hlower'
   have hupper : 306 * L < sharpUpperExponent g q + 306 := by
-    simpa [sharpUpperExponent, phaseSum, L] using
+    simpa [sharpUpperExponent, sharpGrowthExponent, phaseSum, L] using
       g.sharp_quadratic_binaryDigits_upper q hq
   have hupperScaled :=
     (Nat.mul_lt_mul_left (by norm_num : 0 < 665)).2 hupper
@@ -456,6 +459,335 @@ theorem sharp_binaryDigits_residual_window
   refine ⟨hband.1, ?_⟩
   rw [← g.sharp_exponent_gap_identity q hq]
   exact hband.2
+
+/-! ## Normalized residue margins -/
+
+/-- Ceiling of the new-growth exponent after division by the upper power
+`306`. -/
+def sharpUpperBudget (g : Ray) (q : ℕ) : ℕ :=
+  (sharpGrowthExponent g q + 305) / 306
+
+/-- Elementary ceiling-division inequality, kept explicit so certificate
+consumers need no rational arithmetic. -/
+theorem le_mul_ceilDiv (A d : ℕ) (hd : 0 < d) :
+    A ≤ d * ((A + (d - 1)) / d) := by
+  have hdecomp := Nat.div_add_mod (A + (d - 1)) d
+  have hmod := Nat.mod_lt (A + (d - 1)) hd
+  omega
+
+/-- QM100: the core at cycle `q` has at most the initial bit length plus the
+rounded sharp-growth budget. -/
+theorem core_binaryDigits_le_initial_add_upperBudget
+    (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    (Nat.log 2 (g.core (3 * q))).succ ≤
+      (Nat.log 2 (g.core 0)).succ + sharpUpperBudget g q := by
+  let L := (Nat.log 2 (g.core (3 * q))).succ
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  let A := sharpGrowthExponent g q
+  let U := sharpUpperBudget g q
+  have hupper := g.sharp_quadratic_binaryDigits_upper q hq
+  have hupper' : 306 * L < 306 * L₀ + A + 306 := by
+    change 306 * L < sharpUpperExponent g q + 306
+    simpa [sharpUpperExponent, sharpGrowthExponent, phaseSum, L, L₀, A] using hupper
+  have hceil : A ≤ 306 * U := by
+    simpa [U, sharpUpperBudget] using
+      le_mul_ceilDiv A 306 (by norm_num)
+  change L ≤ L₀ + U
+  omega
+
+/-- QM105: power-level form of QM100.  The actual cycle-boundary core lies
+strictly below the theorem-forced binary budget times the fixed initial-core
+bit budget. -/
+theorem core_lt_two_pow_upperBudget_add_initialDigits
+    (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    g.core (3 * q) <
+      2 ^ (sharpUpperBudget g q + (Nat.log 2 (g.core 0)).succ) := by
+  have hself : g.core (3 * q) <
+      2 ^ (Nat.log 2 (g.core (3 * q))).succ :=
+    Nat.lt_pow_succ_log_self Nat.one_lt_two _
+  have hdigits := g.core_binaryDigits_le_initial_add_upperBudget q hq
+  have hexponents : (Nat.log 2 (g.core (3 * q))).succ ≤
+      sharpUpperBudget g q + (Nat.log 2 (g.core 0)).succ := by
+    omega
+  exact hself.trans_le (Nat.pow_le_pow_right (by norm_num) hexponents)
+
+/-- Shift the prescribed branch schedule to the boundary after `q` complete
+three-step cycles. -/
+def shiftedBranch (g : Ray) (q t : ℕ) : ℕ :=
+  g.branch (3 * q + t)
+
+/-- The literal natural EC17 prefix beginning exactly at cycle boundary
+`3*q`; the shifted future starts at `g.branch (3*q)`, not its predecessor. -/
+def shiftedNaturalPrefix (g : Ray) (q length : ℕ) :
+    EtherCounterResidueBound.NaturalPrefix (shiftedBranch g q) length where
+  branch_pos t _ := g.branch_pos (3 * q + t)
+  core t := g.core (3 * q + t)
+  core_pos t _ := g.core_pos (3 * q + t)
+  balance t _ := by
+    simpa [shiftedBranch, EtherCounterResidueBound.binaryExponent,
+      EtherCounterResidueBound.ternaryExponent, Nat.add_assoc] using
+        g.balance (3 * q + t)
+
+def normalizedPrecision (g : Ray) (q R : ℕ) : ℕ :=
+  sharpUpperBudget g q + R
+
+def shiftedInitialResidue (g : Ray) (q R length : ℕ) :
+    ZMod (2 ^ normalizedPrecision g q R) :=
+  EtherCounterResidueBound.initialResidue (shiftedBranch g q)
+    (normalizedPrecision g q R) length
+
+/-- QM101: every positive forced residue at precision `U(q)+R` obeys the
+same bit budget as the actual cycle-boundary core.  The proof bootstraps the
+unknown comparison between the initial bit length and `R`: an oversized
+residue first forces enough precision for QM62, which identifies it with the
+actual core and yields the contradiction. -/
+theorem shiftedInitialResidue_binaryDigits_le
+    (g : Ray) (q R length : ℕ) (hq : 5 ≤ q)
+    (hprecision : normalizedPrecision g q R ≤
+      EtherCounterResidueBound.binaryMass (shiftedBranch g q) 0 length)
+    (hresidue_pos : 0 < (shiftedInitialResidue g q R length).val) :
+    (Nat.log 2 (shiftedInitialResidue g q R length).val).succ ≤
+      sharpUpperBudget g q + (Nat.log 2 (g.core 0)).succ := by
+  let P := normalizedPrecision g q R
+  let r := (shiftedInitialResidue g q R length).val
+  let U := sharpUpperBudget g q
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  let pref := shiftedNaturalPrefix g q length
+  have hcoreDigits := g.core_binaryDigits_le_initial_add_upperBudget q hq
+  by_contra hbad
+  push Not at hbad
+  have hbadR : U + L₀ < (Nat.log 2 r).succ := by
+    simpa [U, L₀, r] using hbad
+  have hrlt : r < 2 ^ P := by
+    simpa [r, P, shiftedInitialResidue, normalizedPrecision] using
+      ZMod.val_lt (shiftedInitialResidue g q R length)
+  have hrdigits : (Nat.log 2 r).succ ≤ P := by
+    have hlog : Nat.log 2 r < P :=
+      Nat.log_lt_of_lt_pow (by simpa [r] using hresidue_pos.ne') hrlt
+    omega
+  have hbudget_lt_P : L₀ + U < P := by
+    omega
+  have hcoreLog : Nat.log 2 (g.core (3 * q)) < P := by
+    change (Nat.log 2 (g.core (3 * q))).succ ≤ L₀ + U at hcoreDigits
+    omega
+  have hcoreSmall : g.core (3 * q) < 2 ^ P :=
+    (Nat.log_lt_iff_lt_pow Nat.one_lt_two (g.core_pos (3 * q)).ne').1
+      hcoreLog
+  have heq0 := EtherCounterResidueBound.initialResidue_val_eq_initial_core
+    pref P (by simpa [P, pref, shiftedNaturalPrefix] using hprecision)
+      (by simpa [pref, shiftedNaturalPrefix] using hcoreSmall)
+  have heq : r = g.core (3 * q) := by
+    simpa [r, P, pref, shiftedInitialResidue, shiftedNaturalPrefix] using heq0
+  have hdigitsEq : (Nat.log 2 r).succ =
+      (Nat.log 2 (g.core (3 * q))).succ :=
+    congrArg (fun z : ℕ => (Nat.log 2 z).succ) heq
+  have hbadCore : L₀ + U < (Nat.log 2 (g.core (3 * q))).succ := by
+    rw [← hdigitsEq]
+    omega
+  change (Nat.log 2 (g.core (3 * q))).succ ≤ L₀ + U at hcoreDigits
+  exact (not_lt_of_ge hcoreDigits) hbadCore
+
+/-- QM102: the normalized finite-row margin lower-bounds the one fixed
+initial core bit length. -/
+theorem shiftedInitialResidue_normalizedMargin_le_initialDigits
+    (g : Ray) (q R length : ℕ) (hq : 5 ≤ q)
+    (hprecision : normalizedPrecision g q R ≤
+      EtherCounterResidueBound.binaryMass (shiftedBranch g q) 0 length)
+    (hresidue_pos : 0 < (shiftedInitialResidue g q R length).val) :
+    (Nat.log 2 (shiftedInitialResidue g q R length).val).succ -
+        sharpUpperBudget g q ≤
+      (Nat.log 2 (g.core 0)).succ := by
+  have h := g.shiftedInitialResidue_binaryDigits_le q R length hq
+    hprecision hresidue_pos
+  omega
+
+def normalizedResidueMargin (g : Ray) (q R length : ℕ) : ℕ :=
+  (Nat.log 2 (shiftedInitialResidue g q R length).val).succ -
+    sharpUpperBudget g q
+
+/-- QM103: a supplied cofinal family of exact rows with unbounded normalized
+margins excludes the entire proposed period-three ray.  No finite trend or
+unboundedness assertion is hidden in this consumer. -/
+theorem false_of_unbounded_normalizedResidueMargins
+    (g : Ray) (q R length : ℕ → ℕ)
+    (hq : ∀ j, 5 ≤ q j)
+    (hprecision : ∀ j, normalizedPrecision g (q j) (R j) ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g (q j)) 0 (length j))
+    (hresidue_pos : ∀ j,
+      0 < (shiftedInitialResidue g (q j) (R j) (length j)).val)
+    (hunbounded : ∀ M, ∃ j, M <
+      normalizedResidueMargin g (q j) (R j) (length j)) :
+    False := by
+  obtain ⟨j, hj⟩ := hunbounded (Nat.log 2 (g.core 0)).succ
+  have hbound := g.shiftedInitialResidue_normalizedMargin_le_initialDigits
+    (q j) (R j) (length j) (hq j) (hprecision j) (hresidue_pos j)
+  change normalizedResidueMargin g (q j) (R j) (length j) ≤
+    (Nat.log 2 (g.core 0)).succ at hbound
+  omega
+
+/-- QM104: if the canonical least residue at padding `R` fails to replay as
+the initial core of *every* natural prefix on the shifted schedule, then `R`
+is strictly smaller than the one fixed initial-core bit length.
+
+This is stronger than the positive-residue margin bound and needs no
+positivity premise.  The failure theorem forces the actual cycle-boundary
+core above `2^(U+R)`, while QM100 keeps it below `2^(L₀+U)`. -/
+theorem replayFailure_padding_lt_initialDigits
+    (g : Ray) (q R length : ℕ) (hq : 5 ≤ q)
+    (hprecision : normalizedPrecision g q R ≤
+      EtherCounterResidueBound.binaryMass (shiftedBranch g q) 0 length)
+    (hfail : ∀ pref : EtherCounterResidueBound.NaturalPrefix
+      (shiftedBranch g q) length,
+      pref.core 0 ≠
+        (EtherCounterResidueBound.initialResidue (shiftedBranch g q)
+          (normalizedPrecision g q R) length).val) :
+    R < (Nat.log 2 (g.core 0)).succ := by
+  let P := normalizedPrecision g q R
+  let U := sharpUpperBudget g q
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  let pref := shiftedNaturalPrefix g q length
+  have hlower : 2 ^ P ≤ g.core (3 * q) := by
+    simpa [P, pref, shiftedNaturalPrefix] using
+      EtherCounterResidueBound.initial_core_ge_modulus_of_least_residue_fails
+        (branch := shiftedBranch g q) (length := length) (P := P)
+        (by simpa [P] using hprecision)
+        (by simpa [P] using hfail) pref
+  have hcoreDigits := g.core_binaryDigits_le_initial_add_upperBudget q hq
+  have hcoreSmall : g.core (3 * q) < 2 ^ (L₀ + U) := by
+    have hself : g.core (3 * q) <
+        2 ^ (Nat.log 2 (g.core (3 * q))).succ :=
+      Nat.lt_pow_succ_log_self Nat.one_lt_two _
+    have hpower : 2 ^ (Nat.log 2 (g.core (3 * q))).succ ≤
+        2 ^ (L₀ + U) := by
+      apply Nat.pow_le_pow_right (by norm_num)
+      simpa [L₀, U] using hcoreDigits
+    exact hself.trans_le hpower
+  by_contra hnot
+  push Not at hnot
+  have hexponents : L₀ + U ≤ P := by
+    dsimp [P, normalizedPrecision, L₀, U]
+    omega
+  have hpower : 2 ^ (L₀ + U) ≤ 2 ^ P :=
+    Nat.pow_le_pow_right (by norm_num) hexponents
+  exact (Nat.not_lt_of_ge hlower) (hcoreSmall.trans_le hpower)
+
+/-- Cofinal exact replay failures exclude a period-three ray.  This theorem
+asserts no computational failure and no unboundedness result: it only turns a
+supplied unbounded family of formally stated finite failures into `False`. -/
+theorem false_of_unbounded_replayFailures
+    (g : Ray) (q R length : ℕ → ℕ)
+    (hq : ∀ j, 5 ≤ q j)
+    (hprecision : ∀ j, normalizedPrecision g (q j) (R j) ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g (q j)) 0 (length j))
+    (hfail : ∀ j
+      (pref : EtherCounterResidueBound.NaturalPrefix
+        (shiftedBranch g (q j)) (length j)),
+      pref.core 0 ≠
+        (EtherCounterResidueBound.initialResidue (shiftedBranch g (q j))
+          (normalizedPrecision g (q j) (R j)) (length j)).val)
+    (hunbounded : ∀ M, ∃ j, M < R j) :
+    False := by
+  obtain ⟨j, hj⟩ := hunbounded (Nat.log 2 (g.core 0)).succ
+  have hbound := g.replayFailure_padding_lt_initialDigits
+    (q j) (R j) (length j) (hq j) (hprecision j) (hfail j)
+  omega
+
+/-! ## Normalized predecessor/future CRT failures -/
+
+/-- QM106: a failed canonical CRT representative at the theorem-forced
+binary precision bounds the immediately preceding ternary exponent by the
+one fixed initial-core bit length.
+
+The predicate `Required` deliberately remains abstract.  A checker may
+instantiate it with exact EC17 replay, but Lean only promotes a row after it
+receives both residue congruences, the canonical product bound, success of
+the genuine core, and failure of the candidate. -/
+theorem normalizedCRTFailure_predecessorExponent_lt_initialDigits
+    (g : Ray) (q candidate : ℕ) (Required : ℕ → Prop) (hq : 5 ≤ q)
+    (hbinary : g.core (3 * q) ≡ candidate
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : g.core (3 * q) ≡ candidate
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : candidate <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11))
+    (hrequired : Required (g.core (3 * q)))
+    (hfail : ¬ Required candidate) :
+    6 * g.branch (3 * q - 1) + 11 <
+      (Nat.log 2 (g.core 0)).succ := by
+  let U := sharpUpperBudget g q
+  let E := 6 * g.branch (3 * q - 1) + 11
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  have hcoprime : (2 ^ U).Coprime (3 ^ E) :=
+    (by norm_num : Nat.Coprime 2 3).pow _ _
+  have hlower : 2 ^ U * 3 ^ E ≤ g.core (3 * q) := by
+    apply EtherCounterResidueBound.coprime_residue_failure_forces_product_lower_bound
+      (m := 2 ^ U) (n := 3 ^ E) (candidate := candidate)
+      (x := g.core (3 * q)) (Required := Required) hcoprime
+    · simpa [U] using hbinary
+    · simpa [E] using hternary
+    · simpa [U, E] using hcandidate
+    · exact hrequired
+    · exact hfail
+  have hupper : g.core (3 * q) < 2 ^ (U + L₀) := by
+    simpa [U, L₀] using
+      g.core_lt_two_pow_upperBudget_add_initialDigits q hq
+  have hproduct : 2 ^ U * 3 ^ E < 2 ^ U * 2 ^ L₀ := by
+    calc
+      2 ^ U * 3 ^ E ≤ g.core (3 * q) := hlower
+      _ < 2 ^ (U + L₀) := hupper
+      _ = 2 ^ U * 2 ^ L₀ := by rw [pow_add]
+  have hthree_lt_two : 3 ^ E < 2 ^ L₀ :=
+    (Nat.mul_lt_mul_left (by positivity : 0 < 2 ^ U)).mp hproduct
+  change E < L₀
+  by_contra hnot
+  push Not at hnot
+  have htwo_mono : 2 ^ L₀ ≤ 2 ^ E :=
+    Nat.pow_le_pow_right (by norm_num) hnot
+  have htwo_lt_three : 2 ^ E < 3 ^ E :=
+    Nat.pow_lt_pow_left (by norm_num) (by dsimp [E]; omega)
+  omega
+
+/-- The predecessor branch at cycle boundary `q` is already at least `q`.
+This is the elementary bridge making unbounded cycle indices sufficient for
+the cofinal CRT consumer. -/
+theorem cycleIndex_le_predecessorBranch
+    (g : Ray) (q : ℕ) (hq : 1 ≤ q) :
+    q ≤ g.branch (3 * q - 1) := by
+  have hindex : 3 * q - 1 = 3 * (q - 1) + 2 := by omega
+  rw [hindex, g.branch_two]
+  have hgain : q - 1 ≤ g.cycleGain * (q - 1) :=
+    Nat.le_mul_of_pos_left _ g.cycleGain_pos
+  have hbase := g.branch_pos 2
+  omega
+
+/-- QM107: canonical normalized CRT failures along unbounded cycle indices
+exclude the period-three ray.  The family of required predicates may vary by
+row; every finite certificate still has to discharge all hypotheses of
+QM106 exactly. -/
+theorem false_of_unbounded_normalizedCRTFailures
+    (g : Ray) (q candidate : ℕ → ℕ) (Required : ℕ → ℕ → Prop)
+    (hq : ∀ j, 5 ≤ q j)
+    (hbinary : ∀ j, g.core (3 * q j) ≡ candidate j
+      [MOD 2 ^ sharpUpperBudget g (q j)])
+    (hternary : ∀ j, g.core (3 * q j) ≡ candidate j
+      [MOD 3 ^ (6 * g.branch (3 * q j - 1) + 11)])
+    (hcandidate : ∀ j, candidate j <
+      2 ^ sharpUpperBudget g (q j) *
+        3 ^ (6 * g.branch (3 * q j - 1) + 11))
+    (hrequired : ∀ j, Required j (g.core (3 * q j)))
+    (hfail : ∀ j, ¬ Required j (candidate j))
+    (hunbounded : ∀ M, ∃ j, M < q j) :
+    False := by
+  obtain ⟨j, hj⟩ := hunbounded (Nat.log 2 (g.core 0)).succ
+  have hbranch : q j ≤ g.branch (3 * q j - 1) :=
+    g.cycleIndex_le_predecessorBranch (q j) (by omega)
+  have hbound := g.normalizedCRTFailure_predecessorExponent_lt_initialDigits
+    (q j) (candidate j) (Required j) (hq j) (hbinary j) (hternary j)
+      (hcandidate j) (hrequired j) (hfail j)
+  omega
 
 set_option maxRecDepth 1000
 

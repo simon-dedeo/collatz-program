@@ -11651,3 +11651,157 @@ This is the search-facing residual coordinate suggested by the band: remove
 the forced lower exponent, then search only inside `W`.  Dividing the leading
 term by `203490` recovers the exact asymptotic bit-width `K*q^2/22610`, since
 `203490/9=22610`.  It remains a narrowing theorem rather than an exclusion.
+
+## Kontorovich round 212 — QM100–QM103 normalized residue bridge complete
+
+The theorem-directed margin pipeline is now formalized end to end.
+
+I defined
+
+```text
+A(q) = q*(462*B+2235+K*(693*q-3141)),
+U(q) = (A(q)+305)/306,
+branchQ(t) = g.branch(3*q+t),
+P(q,R) = U(q)+R,
+r(q,R,length) = (initialResidue branchQ P length).val.
+```
+
+The shifted `NaturalPrefix` has core `g.core(3*q+t)` and its balance is
+proved directly from the literal `Ray`; thus the first future branch is
+exactly `g.branch(3*q)`, with no predecessor off-by-one.
+
+Lean proves QM100 using the Euclidean identity behind ceiling division:
+
+```text
+binaryDigits(core(3*q)) <= binaryDigits(core(0))+U(q).
+```
+
+For QM101 I took positivity of `r` as an explicit checker premise.  Assuming
+`P <= binaryMass branchQ 0 length`, Lean proves
+
+```text
+binaryDigits(r) <= U(q)+binaryDigits(core(0)).
+```
+
+The proof implements the requested bootstrap exactly.  If the residue were
+too long, `r<2^P` would first force `U+L0<P`; QM100 would then put the actual
+cycle-boundary core below `2^P`; QM62 identifies the residue with that core,
+contradicting QM100.  No prior assumption comparing `R` with `L0` is used.
+
+QM102 is the subtraction-form checker endpoint:
+
+```text
+binaryDigits(r)-U(q) <= binaryDigits(core(0)).
+```
+
+Finally QM103 accepts arbitrary supplied sequences `q_j,R_j,length_j`, with
+`q_j>=5`, precision saturation, and positive residues.  If their normalized
+margins are cofinally unbounded, it derives `False` by evaluating the
+unboundedness premise at the one fixed initial bit length.  It does not infer
+unboundedness from finite data.
+
+The new Python worker's use of signed `residue_bits-budget` differs from
+Lean's truncated natural subtraction only when the margin is negative.  That
+does not affect positive lower-bound rows or the cofinal-unbounded consumer,
+but the artifact/verifier prose should retain the “whenever positive” caveat.
+
+## Kontorovich round 213 — QM104 replay-failure obstruction complete
+
+The stronger replay interface is now formalized.  For `q>=5`, padding `R`,
+precision `P=U(q)+R`, and a shifted prefix long enough to saturate that
+precision, Lean proves
+
+```text
+(forall pref : NaturalPrefix branchQ length,
+   pref.core 0 != (initialResidue branchQ P length).val)
+  -> R < binaryDigits(core(0)).
+```
+
+The proof uses precisely the two intended inequalities.  QM59/QM62's
+abstract replay-failure consumer forces
+
+```text
+2^P <= core(3*q),
+```
+
+whereas QM100 plus `core(3*q)<2^binaryDigits(core(3*q))` gives
+
+```text
+core(3*q) < 2^(binaryDigits(core(0))+U(q)).
+```
+
+If the initial bit length were at most `R`, monotonicity of powers would put
+the latter upper bound below `2^(U+R)=2^P`, a contradiction.  This endpoint
+requires neither positivity of the computed residue nor a margin
+subtraction convention.
+
+I also exposed the cofinal consumer: arbitrary supplied sequences of exact
+replay failures with unbounded `R_j` exclude the period-three `Ray`, by
+choosing one row with `R_j` larger than its fixed initial bit length.  Again,
+Lean asserts neither the finite failures nor their unboundedness; those are
+the exact external certificate seams.
+
+The focused file, full 8,790-target project build, and complete axiom audit
+all pass.  Both new endpoints use only mathlib/Lean's standard
+`propext`, `Classical.choice`, and `Quot.sound`.  The remaining worker task is
+therefore concrete: connect its literal failure-step record to the universal
+`hfail` predicate (or emit a separately checkable witness proving it) and
+seek unbounded padding.  Finite observed failures alone remain deliberately
+unpromoted.
+
+## Kontorovich round 214 — QM105–QM107 normalized CRT obstruction complete
+
+The forced-precision CRT route is formalized.  QM105 first exposes the exact
+power form of QM100:
+
+```text
+core(3*q) < 2^(U(q)+binaryDigits(core(0))).
+```
+
+QM106 then accepts a candidate and an abstract predicate `Required`, together
+with explicit checker premises saying:
+
+```text
+core(3*q) = candidate  (mod 2^U),
+core(3*q) = candidate  (mod 3^E),
+candidate < 2^U*3^E,
+Required(core(3*q)),
+not Required(candidate),
+
+E = 6*branch(3*q-1)+11.
+```
+
+The existing coprime-residue failure theorem forces
+`2^U*3^E <= core(3*q)`.  Combining this with QM105 and cancelling the positive
+factor `2^U` gives `3^E < 2^L0`; elementary power monotonicity then proves
+
+```text
+6*branch(3*q-1)+11 < binaryDigits(core(0)).
+```
+
+No real logarithms, floating-point comparisons, or continued fractions enter
+the endpoint.  I kept both congruences and the product-range condition as
+explicit certificate premises rather than silently identifying an external
+worker's CRT convention with Lean's.
+
+For QM107 Lean additionally proves directly from `branch_two` and positive
+`cycleGain` that
+
+```text
+q <= branch(3*q-1)  (q>=1).
+```
+
+Consequently an unbounded family of cycle indices whose normalized CRT
+candidates all satisfy the exact QM106 premises derives `False`: QM106 would
+bound an automatically unbounded predecessor exponent below the one fixed
+initial bit length.  The per-row `Required` predicate is allowed to vary,
+which makes the consumer compatible with replay lengths chosen by the
+checker.
+
+The focused theorem file, full 8,790-target build, and axiom audit all pass.
+QM105–QM107 use only the standard `propext`, `Classical.choice`, and
+`Quot.sound` (the branch-growth helper uses only `propext` and `Quot.sound`).
+The remaining external seam is exact and narrow: construct the canonical
+candidate, verify its two modular identities and strict product range, and
+turn a literal replay failure into `not Required(candidate)`.  No finite row
+or extrapolated failure trend is promoted by these theorems.
