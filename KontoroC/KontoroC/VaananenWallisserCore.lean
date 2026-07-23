@@ -675,6 +675,42 @@ theorem padicValRat_three_normalized_boundary_sixteen (ν t : ℕ) :
   exact_mod_cast padicValNat.eq_zero_of_not_dvd
     (p := 3) (n := 16) (by norm_num)
 
+/-- At the target-field prime two, the same normalized boundary value has
+an exact valuation rather than merely a nonvanishing statement.  The point
+`16` contributes `4 * (ν+t+1)`, while the successive power gaps contribute
+the negative triangular cost `-exponent ν`.
+
+This is the explicit local size term that must eventually be compared with
+the global height and remainder estimates in the full Väänänen--Wallisser
+argument. -/
+theorem padicValRat_two_normalized_boundary_sixteen (ν t : ℕ) :
+    padicValRat 2
+      ((hermiteIter ((3 : ℚ) / 2) ν
+        (skolemInitial ((3 : ℚ) / 2) 16
+          (skolemNormalization ((3 : ℚ) / 2) ν t) ν t)).eval 16) =
+      4 * (ν + t + 1) - exponent ν := by
+  rw [eval_hermiteIter_skolemInitial_normalized_boundary_exact
+    ((3 : ℚ) / 2) 16 (by norm_num) ν t]
+  have hgap :
+      (∏ a ∈ Finset.range ν,
+        ((((3 : ℚ) / 2) ^ a)⁻¹ * ((3 : ℚ) / 2) ^ ν - 1)) ≠ 0 := by
+    rw [boundaryGapProduct_threeHalves]
+    exact threeHalvesGapProduct_ne_zero ν
+  rw [padicValRat.mul (pow_ne_zero _ (by norm_num : (16 : ℚ) ≠ 0)) hgap,
+    padicValRat.pow, padicValRat_boundaryGapProduct_threeHalves]
+  have hval16 : padicValRat 2 (16 : ℚ) = 4 := by
+    rw [show (16 : ℚ) = ((2 : ℕ) ^ 4 : ℕ) by norm_num,
+      Nat.cast_pow, Nat.cast_ofNat, padicValRat.pow]
+    have hval2 : padicValRat 2 (2 : ℚ) = 1 := by
+      rw [show (2 : ℚ) = ((2 : ℕ) : ℚ) by norm_num,
+        padicValRat.of_nat]
+      simpa using (padicValNat.prime_pow (p := 2) 1)
+    rw [hval2]
+    norm_num
+  rw [hval16]
+  push_cast
+  ring
+
 /-- Consequently every source polynomial `P_μ(α)` with `μ<ν` vanishes
 exactly.  This proves the zero pattern used before the paper's genuinely
 arithmetic valuation calculation; no p-adic estimate is involved. -/

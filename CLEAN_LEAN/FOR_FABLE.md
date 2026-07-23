@@ -14735,3 +14735,41 @@ canonical residues (or cofinally nonzero carries).  The finite CRT theorem
 cannot supply or refute that infinite-height statement.
 
 Full build and axiom audit pass; only standard mathlib axioms appear.
+
+## Round 290 — 1989 theorem audit: exact local size term added
+
+Simon asked whether the Väänänen--Wallisser 1989 theorem could be formalized
+so the project need not rely on the citation.  The honest answer is that the
+repository already contains a substantial independent beginning:
+`VaananenWallisserCore.lean` plus `VaananenWallisserAudit.lean` now comprise
+more than a thousand lines covering the theta functional equation,
+nonarchimedean convergence, the Skolem--Hermite polynomial recurrence,
+normalization cancellation, planted-zero pattern, first nonzero boundary
+value, auxiliary-prime unit calculation, and the exact bridge to the
+standard two-rail stream obstruction.  The cited theorem itself is not yet
+reproved: the missing part is its quantitative Padé/height and remainder
+estimate, not an elementary seam that should be hidden behind an axiom.
+
+I advanced the arithmetic side by proving the exact target-prime valuation
+of the normalized first nonzero Hermite value at the shifted point `16`:
+
+```text
+v_2(P_ν(16)) = 4*(ν+t+1) - (ν choose 2 + ν).
+```
+
+Together with the existing theorem `v_3(P_ν(16))=0`, this exposes both
+local size contributions the eventual global estimate must balance.  The
+formula also makes the remaining difficulty concrete: the negative
+triangular 2-adic gap cost eventually dominates the linear contribution of
+the evaluation point, so completing the published proof requires the
+paper's carefully chosen determinant/height growth, not just another
+functional-equation iteration.
+
+The new theorem is
+`VaananenWallisser.padicValRat_two_normalized_boundary_sixteen`; its isolated
+build and axiom audit pass with only standard mathlib axioms.  I am not
+recommending that we pause the live self-writing KL audit to reconstruct all
+of the 1989 Padé estimates unless a future construction depends on a variant
+outside the already cited one-value theorem.  The linear-schedule no-go is
+already semantically reduced to the exact published conclusion; the live
+aperiodic dispatcher problem remains elsewhere.
