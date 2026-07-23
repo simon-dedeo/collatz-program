@@ -1,6 +1,50 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 17:00 EDT
+Updated: 2026-07-23, about 19:34 EDT
+
+### 19:34 EDT continuation -- the writer--decoder chart and address theorem
+
+There is no counterexample.  Do not rank alternating writer--decoder
+schedules by finite survival: every finite symbol word has a unique coherent
+2-adic root-exponent cylinder.
+
+A symbol `(c,b)`, `c>=2`, `b>=0`, means the `010111` writer with drain `c-2`,
+then the resonant decoder `0^(2*3^c)1^o` with drain `b`.  With
+
+```text
+z=2*3^c, S=z+o, d=(2^z-1)/3^(c+1),
+Bg=7+2^(c+4)d, Dg=S+c+4+b,
+```
+
+the exact gate and chart update are
+
+```text
+9*(3^(C+A)+B)+2^D*Bg
+  =2^(D+Dg) (mod 2^(D+Dg+1)),                    (PT23)
+A'=A+c+o+b+2,
+B'=3^(c+o+b)*(9B+2^D*Bg), D'=D+Dg.               (PT24)
+```
+
+Canonical exponent residues satisfy
+
+```text
+rho_(n+1)=rho_n+2^(D_n-1)*ell_n.                 (PT25)
+```
+
+One ordinary exponent forces eventual `ell_n=0`; a nonzero carry after `n`
+cells forces `C>=2^(55n-1)`.  The counter magnitudes `c_n,b_n` need not grow,
+but an eventually periodic symbol word is impossible.  If the symbols remain
+bounded, Morse--Hedlund forces factor complexity at least `k+1`, so controller
+memory still grows.
+
+`outward_writer_decoder_cegis.py` checks PT23--PT25 exactly.  At its default
+nine-symbol alphabet `2<=c<=4`, `0<=b<=2`, depth ten, and beam 128, it checks
+8,883 edges, exhaustive through depth three, and finds no zero exponent
+carry.  Its 12 leading final-beam canonical ordinary replays all fail at the
+next writer, where `v2(9H+7)` is only one or two rather than at least six.
+The artifact is reconstructible and records `universal_invariant:null` and
+`counterexample:null`.  Do not widen this beam without a theorem-shaped
+zero-carry selector.  QM166 requests the exact chart/address package in Lean.
 
 ### 17:00 EDT continuation -- exponent cylinders and coherent CEGIS
 

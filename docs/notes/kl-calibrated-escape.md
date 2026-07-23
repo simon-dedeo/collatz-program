@@ -2540,3 +2540,133 @@ the displayed output chart which restores enough primitive/address mass.
 
 The artifact has `universal_invariant:null` and `counterexample:null`.  It is
 a grammar reduction and a resource diagnosis, not a nontermination claim.
+
+## 28. The writer--decoder chart type and the only ordinary gate
+
+The isolated cylinders in (27.3) compose in one finite predicate type once
+the decoder drain is retained as runtime state.  Let `c>=2`, put
+
+```text
+z=2*3^c,
+o=min {j : 3^j>2^(z+j)},
+S=z+o,
+d=(2^z-1)/3^(c+1),
+Bg=7+2^(c+4)d.
+```
+
+The `010111` writer followed by its `c-2` forced drains sends a positive odd
+charge `H` to
+
+```text
+3^c*q,       q=(9H+7)/2^(c+4).
+```
+
+The resonant word `0^z1^o` followed by exactly `b` forced drains is legal
+precisely when
+
+```text
+v_2(q+d)=S+b.
+```
+
+Since `Bg-7=2^(c+4)d` has exact valuation `c+4`, both the writer counter and
+the decoder drain are necessary and sufficient consequences of the single
+gate
+
+```text
+v_2(9H+Bg)=Dg,       Dg=S+c+4+b.                  (28.1)
+```
+
+For the unbounded-runtime chart
+
+```text
+H_C=(3^(C+A)+B)/2^D,
+```
+
+(28.1) is exactly
+
+```text
+9*(3^(C+A)+B)+2^D*Bg
+  =2^(D+Dg) (mod 2^(D+Dg+1)).                    (28.2)
+```
+
+The output remains in the same chart type with
+
+```text
+A'=A+c+o+b+2,
+B'=3^(c+o+b)*(9B+2^D*Bg),
+D'=D+Dg.                                          (28.3)
+```
+
+All constants are positive and the leading multiplier satisfies
+
+```text
+3^(c+o+b+2)>2^Dg,
+```
+
+so each composite cell is strictly outward.  The primitive ternary charge
+may contain the additional factor `v_3(q+d)`; (28.3) intentionally stores the
+whole odd charge rather than pretending its displayed ternary exponent is
+primitive.
+
+Equation (28.2) has one exponent solution modulo `2^(D+Dg-1)`.  Moreover it
+automatically extends the previous solution modulo `2^(D-1)`.  Thus **every
+finite symbol word `(c_0,b_0),...,(c_(n-1),b_(n-1))` has a coherent nested
+2-adic root-exponent cylinder.**  This makes finite survival useless as a
+selector objective in this architecture.
+
+Let `rho_n` be the canonical exponent representative after `n` cells.  The
+only ordinary-integer gate is
+
+```text
+rho_(n+1)=rho_n+2^(D_n-1)*ell_n,    ell_n>=0.      (28.4)
+```
+
+If one natural exponent `C` realizes the infinite schedule, then `rho_n=C`
+once `2^(D_n-1)>C`; hence every later `ell_n` is zero.  Conversely eventual
+zero carry stabilizes the nested representatives at one natural exponent.
+A nonzero carry gives the quantitative lower bound
+
+```text
+C>=2^(D_n-1).
+```
+
+Since `Dg(c,b)>=Dg(2,0)=55`, a nonzero carry after `n` completed cells forces
+
+```text
+C>=2^(55n-1).                                     (28.5)
+```
+
+This answers the counter-growth question carefully.  Runtime chart depth
+`D_n` must grow without bound, but neither `c_n` nor `b_n` is proved to tend
+to infinity.  A bounded genuinely aperiodic symbol stream remains possible.
+What is excluded is eventual periodicity.  One period composes to
+
+```text
+F(H)=(3^P H+K)/2^L,       3^P>2^L, K>0.
+```
+
+If all positive iterates were integral, then for every `r`,
+`2^(rL)` would divide `(3^P-2^L)H+K`; the latter must vanish, forcing a
+negative `H`.  This also follows from the already kernel-checked general
+periodic outward-word theorem.  By Morse--Hedlund, any viable bounded symbol
+word therefore has factor complexity `p(k)>=k+1` for every `k`: bounded
+symbol magnitudes still require unbounded controller memory.
+
+`outward_writer_decoder_cegis.py` implements (28.1)--(28.4) with exact
+Hensel lifting.  Its default alphabet is `2<=c<=4`, `0<=b<=2`.  At depth ten,
+beam 128, it checks 8,883 edges; coverage is exhaustive through depth three
+and explicitly beam-bounded afterward.  No tested extension has zero exponent
+carry.  The worker then holds each of the 12 final-beam canonical exponents
+fixed and derives the next symbol from its exact valuations.  All 12 fail
+before the decoder: `v_2(9H+7)` is one or two, so the next recharge is not in
+the `010111` counter family, which requires valuation at least six.  These
+are literal first CEGIS failures for 12 ordinary finite prefixes, but remain
+a bounded failure of the displayed selectors rather than an unbounded
+exclusion.  The source and artifact are self-digesting and retain
+`universal_invariant:null` and `counterexample:null`.
+
+The next justified step is not a wider beam.  It is an arithmetic selector
+which makes (28.1) hold at the already fixed canonical `C`, so that the next
+carry is exactly zero, together with a proof that the resulting aperiodic
+symbol law recurs forever.  QM166 asks the companion Lean worker to package
+the chart update and address theorem.

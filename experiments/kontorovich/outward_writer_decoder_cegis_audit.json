@@ -1,0 +1,4132 @@
+{
+  "artifact_sha256": "c475d26fe7e303a4f5927db9dceadb23040268f2f638b686522caadcb2f82e9a",
+  "audit": {
+    "bounds": {
+      "beam_width": 128,
+      "canonical_replay_candidates": 12,
+      "champions_per_depth": 5,
+      "final_beam_witnesses": 12,
+      "maximum_canonical_replay_counter": 6,
+      "maximum_canonical_replay_drain": 64,
+      "maximum_canonical_replay_steps": 4,
+      "maximum_counter": 4,
+      "maximum_decoder_drain": 2,
+      "maximum_depth": 10,
+      "minimum_counter": 2
+    },
+    "claim_scope": "every displayed edge is an exact all-members cylinder identity; the beam coverage is exhaustive only where explicitly marked, and finite cylinder existence is not ordinary nontermination",
+    "coherent_cylinder_beam": {
+      "alphabet": [
+        {
+          "Bg": "621383",
+          "Dg": 55,
+          "S": 49,
+          "b": 0,
+          "c": 2,
+          "d": "9709",
+          "o": 31,
+          "z": 18
+        },
+        {
+          "Bg": "621383",
+          "Dg": 56,
+          "S": 49,
+          "b": 1,
+          "c": 2,
+          "d": "9709",
+          "o": 31,
+          "z": 18
+        },
+        {
+          "Bg": "621383",
+          "Dg": 57,
+          "S": 49,
+          "b": 2,
+          "c": 2,
+          "d": "9709",
+          "o": 31,
+          "z": 18
+        },
+        {
+          "Bg": "28467197644613511",
+          "Dg": 154,
+          "S": 147,
+          "b": 0,
+          "c": 3,
+          "d": "222399981598543",
+          "o": 93,
+          "z": 54
+        },
+        {
+          "Bg": "28467197644613511",
+          "Dg": 155,
+          "S": 147,
+          "b": 1,
+          "c": 3,
+          "d": "222399981598543",
+          "o": 93,
+          "z": 54
+        },
+        {
+          "Bg": "28467197644613511",
+          "Dg": 156,
+          "S": 147,
+          "b": 2,
+          "c": 3,
+          "d": "222399981598543",
+          "o": 93,
+          "z": 54
+        },
+        {
+          "Bg": "6158755870892364560660795344450509514928703390983",
+          "Dg": 447,
+          "S": 439,
+          "b": 0,
+          "c": 4,
+          "d": "24057640120673299065081231814259802792690247621",
+          "o": 277,
+          "z": 162
+        },
+        {
+          "Bg": "6158755870892364560660795344450509514928703390983",
+          "Dg": 448,
+          "S": 439,
+          "b": 1,
+          "c": 4,
+          "d": "24057640120673299065081231814259802792690247621",
+          "o": 277,
+          "z": 162
+        },
+        {
+          "Bg": "6158755870892364560660795344450509514928703390983",
+          "Dg": 449,
+          "S": 439,
+          "b": 2,
+          "c": 4,
+          "d": "24057640120673299065081231814259802792690247621",
+          "o": 277,
+          "z": 162
+        }
+      ],
+      "bounded_verdict": "no exact zero-carry edge in the explored coherent cylinders",
+      "canonical_replay_failure_counts": {
+        "writer_not_in_010111_counter_family": 12
+      },
+      "canonical_replays": [
+        {
+          "claim_scope": "exact symbolic replay of one ordinary exponent through the displayed cells; a bounded replay frontier is not nontermination",
+          "first_failure": {
+            "derived_c": -3,
+            "kind": "writer_not_in_010111_counter_family",
+            "replay_depth": 0,
+            "v2_9H_plus_7": 1
+          },
+          "fixed_canonical_C": "2117893426136278565251168966971572463324286188549694948211788423306017120187106322226110172702207083158948355967897817319346890768108806991994807154374687603578943260",
+          "fixed_canonical_C_bits": 550,
+          "ordinary_seed_encoding": "3^(2117893426136278565251168966971572463324286188549694948211788423306017120187106322226110172702207083158948355967897817319346890768108806991994807154374687603578943261)-1",
+          "prefix_path": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "rows": [],
+          "successful_zero_carry_cells": 0
+        },
+        {
+          "claim_scope": "exact symbolic replay of one ordinary exponent through the displayed cells; a bounded replay frontier is not nontermination",
+          "first_failure": {
+            "derived_c": -3,
+            "kind": "writer_not_in_010111_counter_family",
+            "replay_depth": 0,
+            "v2_9H_plus_7": 1
+          },
+          "fixed_canonical_C": "1025138643751340951777391961638285629749198023678378125706488326767619599021079898795427016543238232291988636420854926046892803937118976981770179627004891464507011795931890080957608684484735089228",
+          "fixed_canonical_C_bits": 648,
+          "ordinary_seed_encoding": "3^(1025138643751340951777391961638285629749198023678378125706488326767619599021079898795427016543238232291988636420854926046892803937118976981770179627004891464507011795931890080957608684484735089229)-1",
+          "prefix_path": [
+            [
+              3,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "rows": [],
+          "successful_zero_carry_cells": 0
+        },
+        {
+          "claim_scope": "exact symbolic replay of one ordinary exponent through the displayed cells; a bounded replay frontier is not nontermination",
+          "first_failure": {
+            "derived_c": -2,
+            "kind": "writer_not_in_010111_counter_family",
+            "replay_depth": 0,
+            "v2_9H_plus_7": 2
+          },
+          "fixed_canonical_C": "301767803693248000553244441309948548817053606831491736484622405840652943189052577392293529505829759342591100724240835951647801328559947898421538688814472649441327254028845014802963084929032036720504558985005546267583071965762477640502337943029346741780786267287379889458606960153473620708846694907541134063597881062733764252417171549552604924075305911308582969829646832538500470845577495154892274923628",
+          "fixed_canonical_C_bits": 1334,
+          "ordinary_seed_encoding": "3^(301767803693248000553244441309948548817053606831491736484622405840652943189052577392293529505829759342591100724240835951647801328559947898421538688814472649441327254028845014802963084929032036720504558985005546267583071965762477640502337943029346741780786267287379889458606960153473620708846694907541134063597881062733764252417171549552604924075305911308582969829646832538500470845577495154892274923629)-1",
+          "prefix_path": [
+            [
+              4,
+              1
+            ],
+            [
+              4,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "rows": [],
+          "successful_zero_carry_cells": 0
+        },
+        {
+          "claim_scope": "exact symbolic replay of one ordinary exponent through the displayed cells; a bounded replay frontier is not nontermination",
+          "first_failure": {
+            "derived_c": -2,
+            "kind": "writer_not_in_010111_counter_family",
+            "replay_depth": 0,
+            "v2_9H_plus_7": 2
+          },
+          "fixed_canonical_C": "19267358811624547935757665413940818915442413617576342594973590393940725957455221237131325915685735509337248840903235729020416844623896401988895373281548615384963217595256318416407666358540216203647158064225202370633938409820928296280519555043821932016834685496423914962700956641241837761420311853310888477644814444",
+          "fixed_canonical_C_bits": 1041,
+          "ordinary_seed_encoding": "3^(19267358811624547935757665413940818915442413617576342594973590393940725957455221237131325915685735509337248840903235729020416844623896401988895373281548615384963217595256318416407666358540216203647158064225202370633938409820928296280519555043821932016834685496423914962700956641241837761420311853310888477644814445)-1",
+          "prefix_path": [
+            [
+              4,
+              1
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "rows": [],
+          "successful_zero_carry_cells": 0
+        },
+        {
+          "claim_scope": "exact symbolic replay of one ordinary exponent through the displayed cells; a bounded replay frontier is not nontermination",
+          "first_failure": {
+            "derived_c": -2,
+            "kind": "writer_not_in_010111_counter_family",
+            "replay_depth": 0,
+            "v2_9H_plus_7": 2
+          },
+          "fixed_canonical_C": "25232385461748085011987579627264857709886644720293247203679774216601003613227821559546902817268990432891797094118642783304709664117556450405030758654133883620001519683353723677693766243125415706007281172141282372996820526180098387203947644869389085523638837146179495145255449820057698302856884488886205403516451404",
+          "fixed_canonical_C_bits": 1042,
+          "ordinary_seed_encoding": "3^(25232385461748085011987579627264857709886644720293247203679774216601003613227821559546902817268990432891797094118642783304709664117556450405030758654133883620001519683353723677693766243125415706007281172141282372996820526180098387203947644869389085523638837146179495145255449820057698302856884488886205403516451405)-1",
+          "prefix_path": [
+            [
+              3,
+              2
+            ],
+            [
+              4,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "rows": [],
+          "successful_zero_carry_cells": 0
+        },
+        {
+          "claim_scope": "exact symbolic replay of one ordinary exponent through the displayed cells; a bounded replay frontier is not nontermination",
+          "first_failure": {
+            "derived_c": -3,
+            "kind": "writer_not_in_010111_counter_family",
+            "replay_depth": 0,
+            "v2_9H_plus_7": 1
+          },
+          "fixed_canonical_C": "195495488294376972434645499535430145756231454820157122640143639736475242754976885865904652371615137487907355014412254325475211435451244514959719298133173364465299032889456336136245935857691162393164",
+          "fixed_canonical_C_bits": 656,
+          "ordinary_seed_encoding": "3^(195495488294376972434645499535430145756231454820157122640143639736475242754976885865904652371615137487907355014412254325475211435451244514959719298133173364465299032889456336136245935857691162393165)-1",
+          "prefix_path": [
+            [
+              3,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "rows": [],
+          "successful_zero_carry_cells": 0
+        },
+        {
+          "claim_scope": "exact symbolic replay of one ordinary exponent through the displayed cells; a bounded replay frontier is not nontermination",
+          "first_failure": {
+            "derived_c": -3,
+            "kind": "writer_not_in_010111_counter_family",
+            "replay_depth": 0,
+            "v2_9H_plus_7": 1
+          },
+          "fixed_canonical_C": "809727909893160128151952257551850959484565030234129216267402869752471930122507840392982351633115009995383113750401928208448730414769466088687903444797084244897444969401092075335090569742280687102205552425571737439480438528656130890307444241975301355245130295464656633772054338525198444",
+          "fixed_canonical_C_bits": 947,
+          "ordinary_seed_encoding": "3^(809727909893160128151952257551850959484565030234129216267402869752471930122507840392982351633115009995383113750401928208448730414769466088687903444797084244897444969401092075335090569742280687102205552425571737439480438528656130890307444241975301355245130295464656633772054338525198445)-1",
+          "prefix_path": [
+            [
+              4,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "rows": [],
+          "successful_zero_carry_cells": 0
+        },
+        {
+          "claim_scope": "exact symbolic replay of one ordinary exponent through the displayed cells; a bounded replay frontier is not nontermination",
+          "first_failure": {
+            "derived_c": -2,
+            "kind": "writer_not_in_010111_counter_family",
+            "replay_depth": 0,
+            "v2_9H_plus_7": 2
+          },
+          "fixed_canonical_C": "262571906571634795302370609615678931613250730789773937984413150484306151012358562174300754944159649288117363373751357439798033197865937374892380567697347133602500374369373968229598525876676048943738355359772297345767468108719079145099239147743455854540086830367241382748774291616610076",
+          "fixed_canonical_C_bits": 945,
+          "ordinary_seed_encoding": "3^(262571906571634795302370609615678931613250730789773937984413150484306151012358562174300754944159649288117363373751357439798033197865937374892380567697347133602500374369373968229598525876676048943738355359772297345767468108719079145099239147743455854540086830367241382748774291616610077)-1",
+          "prefix_path": [
+            [
+              2,
+              2
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "rows": [],
+          "successful_zero_carry_cells": 0
+        },
+        {
+          "claim_scope": "exact symbolic replay of one ordinary exponent through the displayed cells; a bounded replay frontier is not nontermination",
+          "first_failure": {
+            "derived_c": -3,
+            "kind": "writer_not_in_010111_counter_family",
+            "replay_depth": 0,
+            "v2_9H_plus_7": 1
+          },
+          "fixed_canonical_C": "10648316777841551526444565633798099104470761942099976218913112385087631201084206982141729182834268546191750477128312863765501187895500443906488064664946166821959977982979290253568572251996243596437133356436361889274202723269196",
+          "fixed_canonical_C_bits": 751,
+          "ordinary_seed_encoding": "3^(10648316777841551526444565633798099104470761942099976218913112385087631201084206982141729182834268546191750477128312863765501187895500443906488064664946166821959977982979290253568572251996243596437133356436361889274202723269197)-1",
+          "prefix_path": [
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "rows": [],
+          "successful_zero_carry_cells": 0
+        },
+        {
+          "claim_scope": "exact symbolic replay of one ordinary exponent through the displayed cells; a bounded replay frontier is not nontermination",
+          "first_failure": {
+            "derived_c": -3,
+            "kind": "writer_not_in_010111_counter_family",
+            "replay_depth": 0,
+            "v2_9H_plus_7": 1
+          },
+          "fixed_canonical_C": "695461588761037486606442714445925451951934927516563200666050183500800322290900904430059021257264852548872201269392753569059935549214074335503807726905811551099990943399116634023373783340622139113020997683372688493740671293441702935776307909392797154840955370523310194545769838905381023412942329750192190540960283486853177423089159304264979506974378412024978564777757148830692123052840933373359901374572",
+          "fixed_canonical_C_bits": 1335,
+          "ordinary_seed_encoding": "3^(695461588761037486606442714445925451951934927516563200666050183500800322290900904430059021257264852548872201269392753569059935549214074335503807726905811551099990943399116634023373783340622139113020997683372688493740671293441702935776307909392797154840955370523310194545769838905381023412942329750192190540960283486853177423089159304264979506974378412024978564777757148830692123052840933373359901374573)-1",
+          "prefix_path": [
+            [
+              4,
+              0
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "rows": [],
+          "successful_zero_carry_cells": 0
+        },
+        {
+          "claim_scope": "exact symbolic replay of one ordinary exponent through the displayed cells; a bounded replay frontier is not nontermination",
+          "first_failure": {
+            "derived_c": -2,
+            "kind": "writer_not_in_010111_counter_family",
+            "replay_depth": 0,
+            "v2_9H_plus_7": 2
+          },
+          "fixed_canonical_C": "38931694623244630568825942867064709181843822337401881470065222336623862391388210349200922048937118361937284850436400078509168720939202997144828539638482421965666474855432522685555712781657029785372",
+          "fixed_canonical_C_bits": 654,
+          "ordinary_seed_encoding": "3^(38931694623244630568825942867064709181843822337401881470065222336623862391388210349200922048937118361937284850436400078509168720939202997144828539638482421965666474855432522685555712781657029785373)-1",
+          "prefix_path": [
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "rows": [],
+          "successful_zero_carry_cells": 0
+        },
+        {
+          "claim_scope": "exact symbolic replay of one ordinary exponent through the displayed cells; a bounded replay frontier is not nontermination",
+          "first_failure": {
+            "derived_c": -2,
+            "kind": "writer_not_in_010111_counter_family",
+            "replay_depth": 0,
+            "v2_9H_plus_7": 2
+          },
+          "fixed_canonical_C": "628857303787218603771932966510380667595070727172920872161992593166376521310972868047847818108431011132394816759950182379241007464583471843930874335009079576733033360844843554602107809046703932122697142148690882638740897829255171829814608260269347871827395796665000293893963908382242588",
+          "fixed_canonical_C_bits": 947,
+          "ordinary_seed_encoding": "3^(628857303787218603771932966510380667595070727172920872161992593166376521310972868047847818108431011132394816759950182379241007464583471843930874335009079576733033360844843554602107809046703932122697142148690882638740897829255171829814608260269347871827395796665000293893963908382242589)-1",
+          "prefix_path": [
+            [
+              2,
+              1
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "rows": [],
+          "successful_zero_carry_cells": 0
+        }
+      ],
+      "depth_rows": [
+        {
+          "alphabet_size": 9,
+          "champions": [
+            {
+              "A": 35,
+              "B_bits": 72,
+              "B_sha256": "410aebbd8a378e12f6af63fc346cf8121ba0b379a0601ba6e90d762b34102973",
+              "D": 55,
+              "canonical_C": "7848752615831324",
+              "canonical_C_bits": 53,
+              "exponent_precision_K": 54,
+              "factor_complexity_through_5": {
+                "1": 1
+              },
+              "last_exponent_carry": null,
+              "last_exponent_carry_bits": null,
+              "least_prefix_period": 1,
+              "nonzero_carries": 0,
+              "path": [
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 6,
+              "path_sha256": "75273ac17054d9569884ac48ff9b17db6fa1c1d2d11d07fbe72cbe7bbf6df493",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 36,
+              "B_bits": 74,
+              "B_sha256": "e438b6abc86b72bc07c349cfe7386b91a6ad00ce6c32936c7543e89af4bf7b04",
+              "D": 56,
+              "canonical_C": "16855951870572316",
+              "canonical_C_bits": 54,
+              "exponent_precision_K": 55,
+              "factor_complexity_through_5": {
+                "1": 1
+              },
+              "last_exponent_carry": null,
+              "last_exponent_carry_bits": null,
+              "least_prefix_period": 1,
+              "nonzero_carries": 0,
+              "path": [
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 6,
+              "path_sha256": "7fb2d3bfd3e120ae769d22fcf1abc7708f6405a8139e2440fc4a38ff4800016c",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 37,
+              "B_bits": 75,
+              "B_sha256": "1406156bb477485b231720d816591877eb2b5fae88d4782a258690759b5d746e",
+              "D": 57,
+              "canonical_C": "34870350380054300",
+              "canonical_C_bits": 55,
+              "exponent_precision_K": 56,
+              "factor_complexity_through_5": {
+                "1": 1
+              },
+              "last_exponent_carry": null,
+              "last_exponent_carry_bits": null,
+              "least_prefix_period": 1,
+              "nonzero_carries": 0,
+              "path": [
+                [
+                  2,
+                  2
+                ]
+              ],
+              "path_description_cost": 6,
+              "path_sha256": "4fed734ca99dd1dacc399c5b317f13ba28c8f8f66b7c07ecc3a6b61ef90bd16e",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 98,
+              "B_bits": 207,
+              "B_sha256": "879ad6b2e6faec4fae7b43e21d0cbe62c677eee66e984225296b188b980d9116",
+              "D": 154,
+              "canonical_C": "1442304757408638653794731051551832487281900108",
+              "canonical_C_bits": 151,
+              "exponent_precision_K": 153,
+              "factor_complexity_through_5": {
+                "1": 1
+              },
+              "last_exponent_carry": null,
+              "last_exponent_carry_bits": null,
+              "least_prefix_period": 1,
+              "nonzero_carries": 0,
+              "path": [
+                [
+                  3,
+                  0
+                ]
+              ],
+              "path_description_cost": 6,
+              "path_sha256": "082e398dfa750b1f0868d699acae06c7a3e3d3fe12823080deabd5c0ff7bb700",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 99,
+              "B_bits": 209,
+              "B_sha256": "8815da4c7176e97ae87cd6b8f7e9434f83989dab53a510941e036f19b6efe10d",
+              "D": 155,
+              "canonical_C": "18569277069880157226494162684945774123874859596",
+              "canonical_C_bits": 154,
+              "exponent_precision_K": 154,
+              "factor_complexity_through_5": {
+                "1": 1
+              },
+              "last_exponent_carry": null,
+              "last_exponent_carry_bits": null,
+              "least_prefix_period": 1,
+              "nonzero_carries": 0,
+              "path": [
+                [
+                  3,
+                  1
+                ]
+              ],
+              "path_description_cost": 6,
+              "path_sha256": "ff3e5927e468f4fe7d11706936924886659f46f90d947a0aba9399bc1e2d972c",
+              "zero_carry_suffix": 0
+            }
+          ],
+          "depth": 1,
+          "exhaustive_over_full_alphabet_at_this_depth": true,
+          "minimum_nonzero_carry": null,
+          "minimum_nonzero_carry_bits": null,
+          "parents_expanded": 1,
+          "tested_edges": 9,
+          "zero_exponent_carry_edges": 0
+        },
+        {
+          "alphabet_size": 9,
+          "champions": [
+            {
+              "A": 136,
+              "B_bits": 268,
+              "B_sha256": "a0000393e7f774f3c105607fe36b91394a0a73743819e01b0ee25bd4e07bfba0",
+              "D": 212,
+              "canonical_C": "142106992041832699181699520028394600257601130874170307476798028",
+              "canonical_C_bits": 207,
+              "exponent_precision_K": 211,
+              "factor_complexity_through_5": {
+                "1": 2,
+                "2": 1
+              },
+              "last_exponent_carry": "6222947178688723",
+              "last_exponent_carry_bits": 53,
+              "least_prefix_period": 2,
+              "nonzero_carries": 1,
+              "path": [
+                [
+                  3,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ]
+              ],
+              "path_description_cost": 13,
+              "path_sha256": "dffcbc4bdc33b4c331e7d6059750b71767c92d2051da9e9f328d58f65ea24afd",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 134,
+              "B_bits": 264,
+              "B_sha256": "f01c4003b0d7e82904e1fe35e1673db1edf3ddf34f969c9b737455ec4731210f",
+              "D": 210,
+              "canonical_C": "91381639716324979481484114912015817403790383306195983134702156",
+              "canonical_C_bits": 206,
+              "exponent_precision_K": 209,
+              "factor_complexity_through_5": {
+                "1": 2,
+                "2": 1
+              },
+              "last_exponent_carry": "8003309462623119",
+              "last_exponent_carry_bits": 53,
+              "least_prefix_period": 2,
+              "nonzero_carries": 1,
+              "path": [
+                [
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 13,
+              "path_sha256": "545d119addc2e6330346b179ccf2fddec8d28deb0b1e0715b2009cb6e81f49ce",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 321,
+              "B_bits": 668,
+              "B_sha256": "55b6e93c70a0ad77c30f19bfff3c8a7a42f3f90380ee51a0bdb9eaa04487c844",
+              "D": 505,
+              "canonical_C": "7613755798312503965313216111504069997514715335421286998719022303622179040691652800454494698177524137315165837696454587805727462054524450361617891981420",
+              "canonical_C_bits": 502,
+              "exponent_precision_K": 504,
+              "factor_complexity_through_5": {
+                "1": 2,
+                "2": 1
+              },
+              "last_exponent_carry": "10475165320465194",
+              "last_exponent_carry_bits": 54,
+              "least_prefix_period": 2,
+              "nonzero_carries": 1,
+              "path": [
+                [
+                  4,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 13,
+              "path_sha256": "921ab4a4eca78b9aba20ce7f2623a4d788b0db0d390c3322ad328aa53debc85f",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 321,
+              "B_bits": 668,
+              "B_sha256": "9a5743006dedf0f4f6abb27a2a7e875060d1af455cbe9462bdbaad8acdd1736c",
+              "D": 505,
+              "canonical_C": "4517296788162970865075805402981450590382461333708585872153698984546191922569662898490378191435461510418891936183953532433936440396032898904619283642476",
+              "canonical_C_bits": 501,
+              "exponent_precision_K": 504,
+              "factor_complexity_through_5": {
+                "1": 2,
+                "2": 1
+              },
+              "last_exponent_carry": "12429983811170128",
+              "last_exponent_carry_bits": 54,
+              "least_prefix_period": 2,
+              "nonzero_carries": 1,
+              "path": [
+                [
+                  4,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ]
+              ],
+              "path_description_cost": 13,
+              "path_sha256": "5e686665ab518e151c005ae4cc437225fbc3e19aced5eee9d0b533bf53c3e6d9",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 135,
+              "B_bits": 266,
+              "B_sha256": "be47936d5f6f63243dfa38716efdf30597bb225cca6b38a6010b105466f016bc",
+              "D": 211,
+              "canonical_C": "724425412699239859700166184291763957154386917797346478154398284",
+              "canonical_C_bits": 209,
+              "exponent_precision_K": 210,
+              "factor_complexity_through_5": {
+                "1": 2,
+                "2": 1
+              },
+              "last_exponent_carry": "15861503411458072",
+              "last_exponent_carry_bits": 54,
+              "least_prefix_period": 2,
+              "nonzero_carries": 1,
+              "path": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 13,
+              "path_sha256": "6633d5766e7ef973c0cec020ad68c7c8d876dfa387dc167bb9903b0f30ffa4a9",
+              "zero_carry_suffix": 0
+            }
+          ],
+          "depth": 2,
+          "exhaustive_over_full_alphabet_at_this_depth": true,
+          "minimum_nonzero_carry": "6222947178688723",
+          "minimum_nonzero_carry_bits": 53,
+          "parents_expanded": 9,
+          "tested_edges": 81,
+          "zero_exponent_carry_edges": 0
+        },
+        {
+          "alphabet_size": 9,
+          "champions": [
+            {
+              "A": 355,
+              "B_bits": 722,
+              "B_sha256": "8a35e3863ae07ae550710167d3500798f118ef6534451f3c29b1f6f0b5521c1c",
+              "D": 559,
+              "canonical_C": "82322212573256406305031838236363439579551966449842099585186345272976239485878814996416265714479370633192122851226305670625830407903229782777105933042603812791564060",
+              "canonical_C_bits": 545,
+              "exponent_precision_K": 558,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 2,
+                "3": 1
+              },
+              "last_exponent_carry": "6287228017844",
+              "last_exponent_carry_bits": 43,
+              "least_prefix_period": 3,
+              "nonzero_carries": 2,
+              "path": [
+                [
+                  2,
+                  0
+                ],
+                [
+                  4,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 20,
+              "path_sha256": "df0b5584749dd02764a3d51df43f75d3a06fc60ae9484df50966aca4f90167cc",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 169,
+              "B_bits": 320,
+              "B_sha256": "419a46d154814fa2d882c9ec7642410767b89423579b384a93156744612202ca",
+              "D": 265,
+              "canonical_C": "288595598990417915035510181795446667012249174898527115875934778730196244707916",
+              "canonical_C_bits": 258,
+              "exponent_precision_K": 264,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 2,
+                "3": 1
+              },
+              "last_exponent_carry": "350768519851730",
+              "last_exponent_carry_bits": 49,
+              "least_prefix_period": 3,
+              "nonzero_carries": 2,
+              "path": [
+                [
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 20,
+              "path_sha256": "436cfeb87358903a152a7f7aa5ee0dd9acdb3266ffe2684b1b1bc552bbddb052",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 170,
+              "B_bits": 321,
+              "B_sha256": "8bdcbd2ef5528d891ccd192e7cee83d4fb327396f288c9871de77a1258a36dc3",
+              "D": 266,
+              "canonical_C": "1181191026059237802514788745040312488399038779466828045849339145519654104021580",
+              "canonical_C_bits": 260,
+              "exponent_precision_K": 265,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 2,
+                "3": 1
+              },
+              "last_exponent_carry": "717829082152257",
+              "last_exponent_carry_bits": 50,
+              "least_prefix_period": 3,
+              "nonzero_carries": 2,
+              "path": [
+                [
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 20,
+              "path_sha256": "6ee52f8543da6448204a59f545002f95755428f05f42bb55610a456efb084367",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 356,
+              "B_bits": 723,
+              "B_sha256": "20d4be248579bfd932dbc50b1df7326c31aaae24643f3427d8c7e9497303ed5c",
+              "D": 560,
+              "canonical_C": "24370902782040971838090344428859191191507776800901801234302993761951596575151606152999330063235386101046450786715680840605796438958922732187114324041901645922102195996",
+              "canonical_C_bits": 553,
+              "exponent_precision_K": 559,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 2,
+                "3": 1
+              },
+              "last_exponent_carry": "930644464002133",
+              "last_exponent_carry_bits": 50,
+              "least_prefix_period": 3,
+              "nonzero_carries": 2,
+              "path": [
+                [
+                  2,
+                  0
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 20,
+              "path_sha256": "7f94603a531ffd1e25f206c15b32c5ff5122be2c6730c657584bab12282ce37d",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 169,
+              "B_bits": 319,
+              "B_sha256": "54e58311516b67df9291d778fa39c83dc759303d39624944d0f9a4e9419b092f",
+              "D": 265,
+              "canonical_C": "841362386100844162370093447535698513625744651057399326583296984593901041530652",
+              "canonical_C_bits": 259,
+              "exponent_precision_K": 264,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 2,
+                "3": 1
+              },
+              "last_exponent_carry": "1022619332602198",
+              "last_exponent_carry_bits": 50,
+              "least_prefix_period": 3,
+              "nonzero_carries": 2,
+              "path": [
+                [
+                  2,
+                  1
+                ],
+                [
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 20,
+              "path_sha256": "4e94ed481bd0b2f4f8079057fbdbe9daab63c1d3d2fe9adcb570713ec47e7286",
+              "zero_carry_suffix": 0
+            }
+          ],
+          "depth": 3,
+          "exhaustive_over_full_alphabet_at_this_depth": true,
+          "minimum_nonzero_carry": "6287228017844",
+          "minimum_nonzero_carry_bits": 43,
+          "parents_expanded": 81,
+          "tested_edges": 729,
+          "zero_exponent_carry_edges": 0
+        },
+        {
+          "alphabet_size": 9,
+          "champions": [
+            {
+              "A": 207,
+              "B_bits": 380,
+              "B_sha256": "06a7971e96668ba38b4bfe221eb214235f7cbbf9e1c9a3e85d5672db516af9e0",
+              "D": 323,
+              "canonical_C": "6069270881436404245913016986246143309062160233800302981231961761814501027154171750835967572556",
+              "canonical_C_bits": 312,
+              "exponent_precision_K": 322,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 3,
+                "3": 2,
+                "4": 1
+              },
+              "last_exponent_carry": "25593382001275",
+              "last_exponent_carry_bits": 45,
+              "least_prefix_period": 4,
+              "nonzero_carries": 3,
+              "path": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 24,
+              "path_sha256": "1e63ba7776fef84f6d90256d31194060dd3bbbe6ac5b45b475a5d0ff1ad4aa2b",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 394,
+              "B_bits": 783,
+              "B_sha256": "8c85e8e4831a50e889ed6dee4b03479e9e2bfa924995a86c52d3542861c46a52",
+              "D": 618,
+              "canonical_C": "248774044840770716420344038452432503982920907965492980355858683268078120450136021266874975616664203141562507258970031652730418896529618394134629764577105973884755889894324110483830556",
+              "canonical_C_bits": 606,
+              "exponent_precision_K": 617,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 3,
+                "3": 2,
+                "4": 1
+              },
+              "last_exponent_carry": "65918527223422",
+              "last_exponent_carry_bits": 46,
+              "least_prefix_period": 4,
+              "nonzero_carries": 3,
+              "path": [
+                [
+                  2,
+                  1
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ]
+              ],
+              "path_description_cost": 25,
+              "path_sha256": "9d180d858b1c921154cc0f7b71d58d6b2a26d5c4daf1ac71947d40a30f9ad478",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 453,
+              "B_bits": 877,
+              "B_sha256": "9c5509fdc00a88552359bb47693243e0369084ba053e1b5c94acec3ddd42a23d",
+              "D": 713,
+              "canonical_C": "74868356901534945545795189322293408942029755943637837111419782730527358902226108981945511689808634955568107723757092433484703620059936188798379262753369830209881156325156781782963826341861387665932262423928764524",
+              "canonical_C_bits": 704,
+              "exponent_precision_K": 712,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 3,
+                "3": 2,
+                "4": 1
+              },
+              "last_exponent_carry": "125196201020570",
+              "last_exponent_carry_bits": 47,
+              "least_prefix_period": 4,
+              "nonzero_carries": 3,
+              "path": [
+                [
+                  4,
+                  1
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 24,
+              "path_sha256": "4ce9059647f15b84e2701254e41a00bf0a66858b8c2b67e2d197adc7a8b73828",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 271,
+              "B_bits": 482,
+              "B_sha256": "98cd8a769b8efefaa1c0cf0d63de1c02392a7d865ec0bfa5ef8b0d16c99d7bd7",
+              "D": 423,
+              "canonical_C": "37352015509420705108610853114861500942926411022483776422317384306825463516124581052270304907479711269783853087300724780513868",
+              "canonical_C_bits": 414,
+              "exponent_precision_K": 422,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 3,
+                "3": 2,
+                "4": 1
+              },
+              "last_exponent_carry": "248505284347617",
+              "last_exponent_carry_bits": 48,
+              "least_prefix_period": 4,
+              "nonzero_carries": 3,
+              "path": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 24,
+              "path_sha256": "72b4e5fb05eaa5e23d5dc5229020aa46581d9f1e414ab2ac8990b6e614dbfcef",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 268,
+              "B_bits": 477,
+              "B_sha256": "95d68d6b37d5da1a3d5b4b5d276fe99207b4fe2abd188a3ccfa27979b63277b3",
+              "D": 420,
+              "canonical_C": "12664977717639675405958949476625129465549694439241779754960150010759367513850378917188718204370790062370638843673218602056268",
+              "canonical_C_bits": 413,
+              "exponent_precision_K": 419,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 3,
+                "3": 2,
+                "4": 1
+              },
+              "last_exponent_carry": "337043540601923",
+              "last_exponent_carry_bits": 49,
+              "least_prefix_period": 4,
+              "nonzero_carries": 3,
+              "path": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 24,
+              "path_sha256": "3e0b5724216bdcbdb0c78cd9f615555b57f335dfad42752c514b56b6de32d4ed",
+              "zero_carry_suffix": 0
+            }
+          ],
+          "depth": 4,
+          "exhaustive_over_full_alphabet_at_this_depth": false,
+          "minimum_nonzero_carry": "25593382001275",
+          "minimum_nonzero_carry_bits": 45,
+          "parents_expanded": 128,
+          "tested_edges": 1152,
+          "zero_exponent_carry_edges": 0
+        },
+        {
+          "alphabet_size": 9,
+          "champions": [
+            {
+              "A": 489,
+              "B_bits": 934,
+              "B_sha256": "4ef333bf659eb250381dc14b246b084e3772b53c9f4f1db816ca75aca3ae4505",
+              "D": 769,
+              "canonical_C": "8061395133892816402334740790616049328069063153416380364036317363231215809006789378169171556759257097075272289238695524723028911929657162285333826906308372740940212741327623511601935637525775262650328828085052508283263561674520684",
+              "canonical_C_bits": 761,
+              "exponent_precision_K": 768,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 3,
+                "3": 3,
+                "4": 2,
+                "5": 1
+              },
+              "last_exponent_carry": "187078250752154",
+              "last_exponent_carry_bits": 48,
+              "least_prefix_period": 5,
+              "nonzero_carries": 4,
+              "path": [
+                [
+                  4,
+                  2
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 28,
+              "path_sha256": "4c06cff824a65af49e0bbc46c7e17961527914c989a49d4c8818f603d782953c",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 179,
+              "B_bits": 302,
+              "B_sha256": "3576384a3b53e83615f48edc6f7f9b24fd6c81a259ac25bed29d5c5128190f84",
+              "D": 279,
+              "canonical_C": "693367162792777197823974939385639604663092706453861993451432211068567596746454812",
+              "canonical_C_bits": 269,
+              "exponent_precision_K": 278,
+              "factor_complexity_through_5": {
+                "1": 2,
+                "2": 3,
+                "3": 3,
+                "4": 2,
+                "5": 1
+              },
+              "last_exponent_carry": "205747339593252",
+              "last_exponent_carry_bits": 48,
+              "least_prefix_period": 5,
+              "nonzero_carries": 4,
+              "path": [
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ]
+              ],
+              "path_description_cost": 27,
+              "path_sha256": "328558ce9b05cc51d7c6020c40d0a9aa35edc52d018c7eaa5d037f9cbaa16954",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 243,
+              "B_bits": 436,
+              "B_sha256": "3e94ceda4ba9cac123f4ec3a4a5a6bcdec947f6d047758684b21fe5069a57d35",
+              "D": 379,
+              "canonical_C": "2592641710657024234512506379291227305784206748467414732154173233565541610919162253141964451198820023709772330780",
+              "canonical_C_bits": 371,
+              "exponent_precision_K": 378,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 4,
+                "3": 3,
+                "4": 2,
+                "5": 1
+              },
+              "last_exponent_carry": "303447734824293",
+              "last_exponent_carry_bits": 49,
+              "least_prefix_period": 4,
+              "nonzero_carries": 4,
+              "path": [
+                [
+                  2,
+                  1
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 28,
+              "path_sha256": "7b7509df91df4ee74e7e6b80507df387ae949698b772a99a12b85254f14e9508",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 488,
+              "B_bits": 932,
+              "B_sha256": "4581a68efb3337980a348c23d0ee427479c43aaf73a702f077daac48f1de3351",
+              "D": 768,
+              "canonical_C": "7003027541790000533558971980498917668552475920208067094858196513845239606281416009571451313571391456287200769158607168146758419178878842473279408002666489784906853299972119356306400832500229394976926947959109418757632007396735564",
+              "canonical_C_bits": 761,
+              "exponent_precision_K": 767,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 3,
+                "3": 3,
+                "4": 2,
+                "5": 1
+              },
+              "last_exponent_carry": "325034096636467",
+              "last_exponent_carry_bits": 49,
+              "least_prefix_period": 5,
+              "nonzero_carries": 4,
+              "path": [
+                [
+                  3,
+                  0
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 28,
+              "path_sha256": "17ef60e25f332a7b796e5093375924b08be03c6bd46485904a927ca22bea94fe",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 305,
+              "B_bits": 536,
+              "B_sha256": "0b3d990b8656964f8455d073f45ac5d8df0eb381129ddda27edf195bebbd5590",
+              "D": 477,
+              "canonical_C": "1620845573257014412703736257022390373628392204140128329935659150838170595323996050402158203764961320789742828622821892290748672844143798598220",
+              "canonical_C_bits": 470,
+              "exponent_precision_K": 476,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 4,
+                "3": 3,
+                "4": 2,
+                "5": 1
+              },
+              "last_exponent_carry": "598609300824587",
+              "last_exponent_carry_bits": 50,
+              "least_prefix_period": 5,
+              "nonzero_carries": 4,
+              "path": [
+                [
+                  3,
+                  1
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 31,
+              "path_sha256": "66e5c2066b4bff12dd5c3fe8d0bb8290fdf022c858a946d4d6d6f959c66e1eda",
+              "zero_carry_suffix": 0
+            }
+          ],
+          "depth": 5,
+          "exhaustive_over_full_alphabet_at_this_depth": false,
+          "minimum_nonzero_carry": "187078250752154",
+          "minimum_nonzero_carry_bits": 48,
+          "parents_expanded": 128,
+          "tested_edges": 1152,
+          "zero_exponent_carry_edges": 0
+        },
+        {
+          "alphabet_size": 9,
+          "champions": [
+            {
+              "A": 463,
+              "B_bits": 892,
+              "B_sha256": "f30915dd649ee35e245fdc32fddaa0c8e28e382005040ebd66d9a2223a1c1b95",
+              "D": 727,
+              "canonical_C": "300355067882656512844155424887030160212721709627192534759929069031440668075715239751204670371181137164797703616273767131308849641920882001249087237113769158866872050299888371816073242028810964064148879271642055358236",
+              "canonical_C_bits": 716,
+              "exponent_precision_K": 726,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 5,
+                "3": 4,
+                "4": 3,
+                "5": 2
+              },
+              "last_exponent_carry": "30655462565238",
+              "last_exponent_carry_bits": 45,
+              "least_prefix_period": 6,
+              "nonzero_carries": 5,
+              "path": [
+                [
+                  2,
+                  1
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 36,
+              "path_sha256": "8aec6dbe51cf05114284a410a57bc9d293ba49d75c258aef01aaaa4842d41bb7",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 525,
+              "B_bits": 990,
+              "B_sha256": "223bafcd8ae0246089dcdb395bcfc22fba2edba2e4354a0ff26b99a772017d15",
+              "D": 825,
+              "canonical_C": "51386926776160136791612431583333586113461372798958631937908228257389269146612188096105137182583427472350016408777002117100054383524328805214256649097639501940798668132796325596932109751937166615235130477528125995968100740536506942983433974004300",
+              "canonical_C_bits": 813,
+              "exponent_precision_K": 824,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 5,
+                "3": 4,
+                "4": 3,
+                "5": 2
+              },
+              "last_exponent_carry": "33099084017764",
+              "last_exponent_carry_bits": 45,
+              "least_prefix_period": 6,
+              "nonzero_carries": 5,
+              "path": [
+                [
+                  3,
+                  0
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 36,
+              "path_sha256": "2c048889f18830e91bbdb9af217f794638f2144c2a1f7fe666f9937677556bf7",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 708,
+              "B_bits": 1282,
+              "B_sha256": "d1ff2f5f4afcb1f5fbd1beeb441243c21f52a1e1aad19e47389c8dc8942a7793",
+              "D": 1116,
+              "canonical_C": "377633521175828467548853232435673256023434842790479138843228847417337609799320555636570987113574744320045805118452274097894907028751715319600970318173112010802427684920660718368549268769257808366743296383798431444975290090823416623775348503764470293375137028453530881088523329459388918085001886707542319350172784149627391197264476268",
+              "canonical_C_bits": 1105,
+              "exponent_precision_K": 1115,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 4,
+                "3": 4,
+                "4": 3,
+                "5": 2
+              },
+              "last_exponent_carry": "61137141606331",
+              "last_exponent_carry_bits": 46,
+              "least_prefix_period": 6,
+              "nonzero_carries": 5,
+              "path": [
+                [
+                  4,
+                  1
+                ],
+                [
+                  4,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 35,
+              "path_sha256": "e52a4fc5c738387a4d93a2f09f1f4ec42a7a45175b84c5e0f95c9121d498ccea",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 709,
+              "B_bits": 1283,
+              "B_sha256": "18caee3ea7bc01b7a3fe20df74fd91f725f6d79be69b77c3e29903515984ec98",
+              "D": 1117,
+              "canonical_C": "1599443407071754331303054860248771318406282713360005466288441588790500765924010630661130298948283347061009878929494683926039688840975107521053123218157361123817143885627316468174000212475734881947285931234988277487384736091365963490673992562907407541936949300434498503228700224144232622340995117531390438954463313675335448481261942892",
+              "canonical_C_bits": 1107,
+              "exponent_precision_K": 1116,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 5,
+                "3": 4,
+                "4": 3,
+                "5": 2
+              },
+              "last_exponent_carry": "64735644868725",
+              "last_exponent_carry_bits": 46,
+              "least_prefix_period": 6,
+              "nonzero_carries": 5,
+              "path": [
+                [
+                  4,
+                  1
+                ],
+                [
+                  4,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 33,
+              "path_sha256": "97f988833eeb8eafd4db89f8db81f533d0cb90a7e3ea9486ae2e92d45cf3da22",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 709,
+              "B_bits": 1284,
+              "B_sha256": "0f9b5ecd1f2ced891df76d6aed61ff2c8dc957dd8e4d9f43576227fba4bdae0a",
+              "D": 1117,
+              "canonical_C": "2189945226572163710792288815087893732540975881273586592972906155105662673903354583624841742939319597216908810348302225007137974924945899999548631390164874593522498066459061732031475506356698540720987795963644854869290488946873174448290116451170860637705388529627817183408163098987291316740279215100315504249803010859230190776126011500",
+              "canonical_C_bits": 1108,
+              "exponent_precision_K": 1116,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 4,
+                "3": 4,
+                "4": 3,
+                "5": 2
+              },
+              "last_exponent_carry": "177271062974190",
+              "last_exponent_carry_bits": 48,
+              "least_prefix_period": 6,
+              "nonzero_carries": 5,
+              "path": [
+                [
+                  4,
+                  0
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 35,
+              "path_sha256": "d072f736dc53747714c4fb86eb4b16015035715ceebb65496e7698ceeb04d24b",
+              "zero_carry_suffix": 0
+            }
+          ],
+          "depth": 6,
+          "exhaustive_over_full_alphabet_at_this_depth": false,
+          "minimum_nonzero_carry": "30655462565238",
+          "minimum_nonzero_carry_bits": 45,
+          "parents_expanded": 128,
+          "tested_edges": 1152,
+          "zero_exponent_carry_edges": 0
+        },
+        {
+          "alphabet_size": 9,
+          "champions": [
+            {
+              "A": 247,
+              "B_bits": 409,
+              "B_sha256": "8995a297a57bfc84874222fc700c252c466a82d6621efc426fc82119fc17cdde",
+              "D": 387,
+              "canonical_C": "554521226130861815483994550134494424273727130217527953850700076932362665079687512414298817451331275094498326656796",
+              "canonical_C_bits": 378,
+              "exponent_precision_K": 386,
+              "factor_complexity_through_5": {
+                "1": 2,
+                "2": 3,
+                "3": 4,
+                "4": 4,
+                "5": 3
+              },
+              "last_exponent_carry": "126762153933192",
+              "last_exponent_carry_bits": 47,
+              "least_prefix_period": 6,
+              "nonzero_carries": 6,
+              "path": [
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 32,
+              "path_sha256": "3a6852a5ddcf5391ff391c7ce6d1276cf8ec430f5bd3fac6f0cf68035bf50ed5",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 744,
+              "B_bits": 1339,
+              "B_sha256": "280253f5a71b870fcc77fbed22a1f00d786d3a2ddc396e48c73ba911b380b4af",
+              "D": 1172,
+              "canonical_C": "301014529656623266731250758685265191733199375576266425872568813459322648390440326308187581213051202251582043856363529948820146090067262974614544271650321256680831771971603755844622133116092541659302456084116357494412366429911758717944224821428393751713917020142505604085358362388290895014832783877425114738731582549752868676202011268401980176110188652",
+              "canonical_C_bits": 1165,
+              "exponent_precision_K": 1171,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 5,
+                "3": 5,
+                "4": 4,
+                "5": 3
+              },
+              "last_exponent_carry": "338152262889704",
+              "last_exponent_carry_bits": 49,
+              "least_prefix_period": 7,
+              "nonzero_carries": 6,
+              "path": [
+                [
+                  4,
+                  0
+                ],
+                [
+                  4,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 36,
+              "path_sha256": "bbfe5514743a2cf5241c71268c563330c7f5475130bf419246bafd397661206b",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 378,
+              "B_bits": 651,
+              "B_sha256": "47a2056f777109962f22bf3c603ca4e5a0fe03dab0d6b088790fecf4ddf0f9d1",
+              "D": 590,
+              "canonical_C": "9805545961143686475040797122767241816375239851891212947671048409985770710952298854436914986535941784524776424174610326435743736048799271176884613447519125042670300556320389708",
+              "canonical_C_bits": 582,
+              "exponent_precision_K": 589,
+              "factor_complexity_through_5": {
+                "1": 5,
+                "2": 6,
+                "3": 5,
+                "4": 4,
+                "5": 3
+              },
+              "last_exponent_carry": "348725809257763",
+              "last_exponent_carry_bits": 49,
+              "least_prefix_period": 7,
+              "nonzero_carries": 6,
+              "path": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 43,
+              "path_sha256": "213d1268e6de25e06cf012d20b0def88236670c76afe1c6950d4f53016fb739a",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 313,
+              "B_bits": 546,
+              "B_sha256": "6809463d3fa901f8c7528a1008125ef691b391b13767de6e9c1f5ecf22f3b308",
+              "D": 489,
+              "canonical_C": "8903298278879616235022240721992758437343712248229020103946712719332884419527769458951889433710679582509211010011667946909317144438825650061096732",
+              "canonical_C_bits": 482,
+              "exponent_precision_K": 488,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 5,
+                "3": 5,
+                "4": 4,
+                "5": 3
+              },
+              "last_exponent_carry": "401386536311836",
+              "last_exponent_carry_bits": 49,
+              "least_prefix_period": 7,
+              "nonzero_carries": 6,
+              "path": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 41,
+              "path_sha256": "6b29ee71efa97281327dc847688ad2495a4f9e208e6a7dd8012af184d39a8807",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 560,
+              "B_bits": 1047,
+              "B_sha256": "fe99ab4ad258ff930d2f285035be13eff09788a16aa7e25b677bfa5a8ddf18e2",
+              "D": 880,
+              "canonical_C": "51843111643474113036660308439452704728036080196626251136598665658873143750629102455152106297708918937352362060170072865265685357718631133414733074651830103063178671282503872640033468099809579935123317185759681422224796933668508922540130402107615647490778825750636",
+              "canonical_C_bits": 873,
+              "exponent_precision_K": 879,
+              "factor_complexity_through_5": {
+                "1": 5,
+                "2": 6,
+                "3": 5,
+                "4": 4,
+                "5": 3
+              },
+              "last_exponent_carry": "463419850791416",
+              "last_exponent_carry_bits": 49,
+              "least_prefix_period": 7,
+              "nonzero_carries": 6,
+              "path": [
+                [
+                  4,
+                  1
+                ],
+                [
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 43,
+              "path_sha256": "2bacf194628327ce82f7959285e65cf54c49fde64b8d0c9c2063296a2d47b803",
+              "zero_carry_suffix": 0
+            }
+          ],
+          "depth": 7,
+          "exhaustive_over_full_alphabet_at_this_depth": false,
+          "minimum_nonzero_carry": "126762153933192",
+          "minimum_nonzero_carry_bits": 47,
+          "parents_expanded": 128,
+          "tested_edges": 1152,
+          "zero_exponent_carry_edges": 0
+        },
+        {
+          "alphabet_size": 9,
+          "champions": [
+            {
+              "A": 351,
+              "B_bits": 608,
+              "B_sha256": "f8b6be26f7d6720c20e18d2a65a7fb9f9bec90f01ac5a464b613dbc901fd1c9c",
+              "D": 547,
+              "canonical_C": "75779354705218196142601551410012930240314965807468080595774160424884611816312737576325574550950714355679552925078724589513795504440130747144575003503387964684876",
+              "canonical_C_bits": 535,
+              "exponent_precision_K": 546,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 6,
+                "3": 6,
+                "4": 5,
+                "5": 4
+              },
+              "last_exponent_carry": "23705713284250",
+              "last_exponent_carry_bits": 45,
+              "least_prefix_period": 8,
+              "nonzero_carries": 7,
+              "path": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 44,
+              "path_sha256": "1276ff6ba538ad1d20686c4fbe97bfac2303151d7db2da2050b637bc2e53fb4e",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 283,
+              "B_bits": 467,
+              "B_sha256": "64a104ef2ef38733627f6edfdad0789e93fa7e7ef5aa89547d2cf620172cc839",
+              "D": 443,
+              "canonical_C": "95323748084517247494705279270874460831358810392644842509097759338002051551911301986992233827665874646926123491741986321387818104604",
+              "canonical_C_bits": 436,
+              "exponent_precision_K": 442,
+              "factor_complexity_through_5": {
+                "1": 2,
+                "2": 3,
+                "3": 4,
+                "4": 5,
+                "5": 4
+              },
+              "last_exponent_carry": "302407660441792",
+              "last_exponent_carry_bits": 49,
+              "least_prefix_period": 5,
+              "nonzero_carries": 7,
+              "path": [
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 30,
+              "path_sha256": "49be31a56e194f9aef7c40a41b85325a5535493941b08f90f67e70d0ee398340",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 284,
+              "B_bits": 468,
+              "B_sha256": "24a52b043e58b8574236c22fdf71daf2abb22ccb2e40d70b4de66890abb29c21",
+              "D": 444,
+              "canonical_C": "192921365481358330801083235092019437908013083751222309712403483466624058929449495146636023154337734584094777867588265280166145079068",
+              "canonical_C_bits": 437,
+              "exponent_precision_K": 443,
+              "factor_complexity_through_5": {
+                "1": 2,
+                "2": 4,
+                "3": 4,
+                "4": 4,
+                "5": 4
+              },
+              "last_exponent_carry": "612029005959003",
+              "last_exponent_carry_bits": 50,
+              "least_prefix_period": 7,
+              "nonzero_carries": 7,
+              "path": [
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 36,
+              "path_sha256": "0057d0287a74e083583e29c254e19bc2a11b0fc5487192267d20c7d8f0cf4d0f",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 283,
+              "B_bits": 466,
+              "B_sha256": "be04f0f918f1b8b17bbd8187f885225dae404b071aec3ab8e4d00c6cf276d063",
+              "D": 443,
+              "canonical_C": "231574306437044705381232085845855009077639614594061155579942013582052431609071996746135433501120374738240826012840345112403160643356",
+              "canonical_C_bits": 437,
+              "exponent_precision_K": 442,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 4,
+                "3": 4,
+                "4": 4,
+                "5": 4
+              },
+              "last_exponent_carry": "734652650942413",
+              "last_exponent_carry_bits": 50,
+              "least_prefix_period": 8,
+              "nonzero_carries": 7,
+              "path": [
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 41,
+              "path_sha256": "79616d53de0bd0e44101716a872dc1868fad8669bd7aa50c2d0d6230a9e86201",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 533,
+              "B_bits": 1004,
+              "B_sha256": "c84c5e27910b3cc70a93abf5fbd69eb827ce2159ec220b07060c144238b21db8",
+              "D": 837,
+              "canonical_C": "2936198786848492342818348495907940134860813458225645818566231387372476486330271398595167977576983392517124605121197950350859850135148186137584278518971981703739066862043443470996040279159756286818151143022224105932814046301336308104386972252739516188",
+              "canonical_C_bits": 829,
+              "exponent_precision_K": 836,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 6,
+                "3": 6,
+                "4": 5,
+                "5": 4
+              },
+              "last_exponent_carry": "923461582187586",
+              "last_exponent_carry_bits": 50,
+              "least_prefix_period": 8,
+              "nonzero_carries": 7,
+              "path": [
+                [
+                  2,
+                  0
+                ],
+                [
+                  4,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ]
+              ],
+              "path_description_cost": 44,
+              "path_sha256": "5aca6b843c521c78595461c47ce6479c3970ec6df75cd8e4ffd2551b3e4047f7",
+              "zero_carry_suffix": 0
+            }
+          ],
+          "depth": 8,
+          "exhaustive_over_full_alphabet_at_this_depth": false,
+          "minimum_nonzero_carry": "23705713284250",
+          "minimum_nonzero_carry_bits": 45,
+          "parents_expanded": 128,
+          "tested_edges": 1152,
+          "zero_exponent_carry_edges": 0
+        },
+        {
+          "alphabet_size": 9,
+          "champions": [
+            {
+              "A": 449,
+              "B_bits": 764,
+              "B_sha256": "174cf1bc23da93b1b6aa7d8d7b7b58607dfe9d109e5cc066bb1563448cad3c87",
+              "D": 701,
+              "canonical_C": "1172007444634770570919971168173691119328920042589671825657036313814316327111523798892395691193325753454274940090067899406111655937116965681924917253347590027829323498982561722194623835801141093590210210511436",
+              "canonical_C_bits": 688,
+              "exponent_precision_K": 700,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 5,
+                "3": 5,
+                "4": 5,
+                "5": 5
+              },
+              "last_exponent_carry": "16055105464112",
+              "last_exponent_carry_bits": 44,
+              "least_prefix_period": 9,
+              "nonzero_carries": 8,
+              "path": [
+                [
+                  3,
+                  1
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 47,
+              "path_sha256": "529fb4f1d2ac9e2d2c85d55eb20c1dec04c695dfbc369b1fa45869d63b5ad26c",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 385,
+              "B_bits": 661,
+              "B_sha256": "aea3d2ae110b2eac289e4b92a5d45d81aaed6c8b0c68dbc4b0a4bf5f3b49068c",
+              "D": 601,
+              "canonical_C": "6814498143658120859531973908264155056074581765435591147815028834111646718816761150645262451773243330682199828975795211385618482885552767436440497114173839998117963812903988016924",
+              "canonical_C_bits": 591,
+              "exponent_precision_K": 600,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 7,
+                "3": 7,
+                "4": 6,
+                "5": 5
+              },
+              "last_exponent_carry": "59167911610023",
+              "last_exponent_carry_bits": 46,
+              "least_prefix_period": 9,
+              "nonzero_carries": 8,
+              "path": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 51,
+              "path_sha256": "31481fbb823be4506c9f5b7c484f012ed6071586e64f661b12da530e3e982a2c",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 817,
+              "B_bits": 1455,
+              "B_sha256": "4b39443833167722e602480242ddccbc14126b6419a50930a88d164580ec5cbe",
+              "D": 1285,
+              "canonical_C": "2151750829302823498527408565123350422743859707692300633395340313193456150962737440473280904603338703132259227693537056178075432521676110555888290249031450374877846963622099211411873842577278030479814108430606333123455757696321249718637718133174234833380444563792233491414048271085989214082845052350433788104492063668949200830551050316617838031048215353154659023749129954910415712155756",
+              "canonical_C_bits": 1277,
+              "exponent_precision_K": 1284,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 6,
+                "3": 6,
+                "4": 6,
+                "5": 5
+              },
+              "last_exponent_carry": "232770161541075",
+              "last_exponent_carry_bits": 48,
+              "least_prefix_period": 9,
+              "nonzero_carries": 8,
+              "path": [
+                [
+                  4,
+                  0
+                ],
+                [
+                  4,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 51,
+              "path_sha256": "7bd4af69a2642413226e9df1ef26c215edabaee63f6e8daf2b1d6b1fb2cfd608",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 388,
+              "B_bits": 665,
+              "B_sha256": "d63913f3f9df6f814288802946d006b26f67acc7e97a74799f2b81762fbafee6",
+              "D": 604,
+              "canonical_C": "217802836108995210849232818298306499970662807216486802062247375664682376670775686471704315346223494374166829598908437471390596442922837905110227042831059205875528575861517652113180",
+              "canonical_C_bits": 596,
+              "exponent_precision_K": 603,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 5,
+                "3": 6,
+                "4": 6,
+                "5": 5
+              },
+              "last_exponent_carry": "945553046140495",
+              "last_exponent_carry_bits": 50,
+              "least_prefix_period": 8,
+              "nonzero_carries": 8,
+              "path": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ]
+              ],
+              "path_description_cost": 45,
+              "path_sha256": "7fdc767686545dced90cdce2dbf2921888926c96054de0d9a048cf3b669fe7e8",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 573,
+              "B_bits": 1068,
+              "B_sha256": "22a9cd5fb1d6610e8bd3cba41b75050f4900c1f93298e2d5bf0ae496dea6cd56",
+              "D": 897,
+              "canonical_C": "3547780340378223242275924027898519549602133295609211824164398697954831052302957811564960825786710412601529432062710979123612519617108210839503196536887760936007869006637021968261038643267081927434994989085666099268562046134991388533611187237981973064494406884401084524",
+              "canonical_C_bits": 889,
+              "exponent_precision_K": 896,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 6,
+                "3": 6,
+                "4": 6,
+                "5": 5
+              },
+              "last_exponent_carry": "967810569430508",
+              "last_exponent_carry_bits": 50,
+              "least_prefix_period": 9,
+              "nonzero_carries": 8,
+              "path": [
+                [
+                  4,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ]
+              ],
+              "path_description_cost": 51,
+              "path_sha256": "0c83016e0ed049428b2e4ef94a1069f534adf7a46bd179f43376e658784b5a8b",
+              "zero_carry_suffix": 0
+            }
+          ],
+          "depth": 9,
+          "exhaustive_over_full_alphabet_at_this_depth": false,
+          "minimum_nonzero_carry": "16055105464112",
+          "minimum_nonzero_carry_bits": 44,
+          "parents_expanded": 128,
+          "tested_edges": 1152,
+          "zero_exponent_carry_edges": 0
+        },
+        {
+          "alphabet_size": 9,
+          "champions": [
+            {
+              "A": 357,
+              "B_bits": 584,
+              "B_sha256": "9313da8f277b10ce5120a4c230f52d3e427c359298170d37e98f7ebe4c4623eb",
+              "D": 557,
+              "canonical_C": "2117893426136278565251168966971572463324286188549694948211788423306017120187106322226110172702207083158948355967897817319346890768108806991994807154374687603578943260",
+              "canonical_C_bits": 550,
+              "exponent_precision_K": 556,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 5,
+                "3": 6,
+                "4": 6,
+                "5": 6
+              },
+              "last_exponent_carry": "323501482076024",
+              "last_exponent_carry_bits": 49,
+              "least_prefix_period": 9,
+              "nonzero_carries": 9,
+              "path": [
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 45,
+              "path_sha256": "39416868c5b4017fef1453b2a07343121606231d1ac210660f41c8f09b956a78",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 420,
+              "B_bits": 718,
+              "B_sha256": "2510098574b9d9e7dd62cf7d39b298aedb9f05379ac0bc970348f4510cc77aa0",
+              "D": 656,
+              "canonical_C": "1025138643751340951777391961638285629749198023678378125706488326767619599021079898795427016543238232291988636420854926046892803937118976981770179627004891464507011795931890080957608684484735089228",
+              "canonical_C_bits": 648,
+              "exponent_precision_K": 655,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 5,
+                "3": 7,
+                "4": 7,
+                "5": 6
+              },
+              "last_exponent_carry": "494100396412197",
+              "last_exponent_carry_bits": 49,
+              "least_prefix_period": 10,
+              "nonzero_carries": 9,
+              "path": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 49,
+              "path_sha256": "374b75d0fb553bf655f848b0e9ede26888578c5298f20a24a71638d9c79f076f",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 852,
+              "B_bits": 1510,
+              "B_sha256": "701f40c84b8b58231dae658c523e2b5bdf3dc560881a19b9c2e2bafeab33e5ea",
+              "D": 1340,
+              "canonical_C": "301767803693248000553244441309948548817053606831491736484622405840652943189052577392293529505829759342591100724240835951647801328559947898421538688814472649441327254028845014802963084929032036720504558985005546267583071965762477640502337943029346741780786267287379889458606960153473620708846694907541134063597881062733764252417171549552604924075305911308582969829646832538500470845577495154892274923628",
+              "canonical_C_bits": 1334,
+              "exponent_precision_K": 1339,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 8,
+                "3": 8,
+                "4": 7,
+                "5": 6
+              },
+              "last_exponent_carry": "906063153471387",
+              "last_exponent_carry_bits": 50,
+              "least_prefix_period": 10,
+              "nonzero_carries": 9,
+              "path": [
+                [
+                  4,
+                  1
+                ],
+                [
+                  4,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 53,
+              "path_sha256": "88410d84e82b9cf44811e2d3b4b59e3f486e5907258d0a8a487148e7a97f0d4a",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 667,
+              "B_bits": 1217,
+              "B_sha256": "819bb092d1261f90f5e27e4cd6956245adf0cb517c42cf9ef114d49f96560628",
+              "D": 1047,
+              "canonical_C": "19267358811624547935757665413940818915442413617576342594973590393940725957455221237131325915685735509337248840903235729020416844623896401988895373281548615384963217595256318416407666358540216203647158064225202370633938409820928296280519555043821932016834685496423914962700956641241837761420311853310888477644814444",
+              "canonical_C_bits": 1041,
+              "exponent_precision_K": 1046,
+              "factor_complexity_through_5": {
+                "1": 5,
+                "2": 7,
+                "3": 8,
+                "4": 7,
+                "5": 6
+              },
+              "last_exponent_carry": "920654080181074",
+              "last_exponent_carry_bits": 50,
+              "least_prefix_period": 10,
+              "nonzero_carries": 9,
+              "path": [
+                [
+                  4,
+                  1
+                ],
+                [
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 57,
+              "path_sha256": "c0f9a6d85dafa46a52ee5f596477c7e3217545264f147fa69cbeed66f6443f8d",
+              "zero_carry_suffix": 0
+            },
+            {
+              "A": 668,
+              "B_bits": 1216,
+              "B_sha256": "5073aff5131481b6b82e7724f0ca73932f5944360e18be2a77f307b6fa415acd",
+              "D": 1048,
+              "canonical_C": "25232385461748085011987579627264857709886644720293247203679774216601003613227821559546902817268990432891797094118642783304709664117556450405030758654133883620001519683353723677693766243125415706007281172141282372996820526180098387203947644869389085523638837146179495145255449820057698302856884488886205403516451404",
+              "canonical_C_bits": 1042,
+              "exponent_precision_K": 1047,
+              "factor_complexity_through_5": {
+                "1": 5,
+                "2": 7,
+                "3": 8,
+                "4": 7,
+                "5": 6
+              },
+              "last_exponent_carry": "1205681528806350",
+              "last_exponent_carry_bits": 51,
+              "least_prefix_period": 10,
+              "nonzero_carries": 9,
+              "path": [
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ]
+              ],
+              "path_description_cost": 56,
+              "path_sha256": "5f27929a2756602b4907e79af2bfb5c479890d8604ed49773078bc3828d4e6d1",
+              "zero_carry_suffix": 0
+            }
+          ],
+          "depth": 10,
+          "exhaustive_over_full_alphabet_at_this_depth": false,
+          "minimum_nonzero_carry": "323501482076024",
+          "minimum_nonzero_carry_bits": 49,
+          "parents_expanded": 128,
+          "tested_edges": 1152,
+          "zero_exponent_carry_edges": 0
+        }
+      ],
+      "final_beam": [
+        {
+          "A": 357,
+          "B_bits": 584,
+          "B_sha256": "9313da8f277b10ce5120a4c230f52d3e427c359298170d37e98f7ebe4c4623eb",
+          "D": 557,
+          "canonical_C": "2117893426136278565251168966971572463324286188549694948211788423306017120187106322226110172702207083158948355967897817319346890768108806991994807154374687603578943260",
+          "canonical_C_bits": 550,
+          "exponent_precision_K": 556,
+          "factor_complexity_through_5": {
+            "1": 3,
+            "2": 5,
+            "3": 6,
+            "4": 6,
+            "5": 6
+          },
+          "last_exponent_carry": "323501482076024",
+          "last_exponent_carry_bits": 49,
+          "least_prefix_period": 9,
+          "nonzero_carries": 9,
+          "path": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "path_description_cost": 45,
+          "path_sha256": "39416868c5b4017fef1453b2a07343121606231d1ac210660f41c8f09b956a78",
+          "zero_carry_suffix": 0
+        },
+        {
+          "A": 420,
+          "B_bits": 718,
+          "B_sha256": "2510098574b9d9e7dd62cf7d39b298aedb9f05379ac0bc970348f4510cc77aa0",
+          "D": 656,
+          "canonical_C": "1025138643751340951777391961638285629749198023678378125706488326767619599021079898795427016543238232291988636420854926046892803937118976981770179627004891464507011795931890080957608684484735089228",
+          "canonical_C_bits": 648,
+          "exponent_precision_K": 655,
+          "factor_complexity_through_5": {
+            "1": 3,
+            "2": 5,
+            "3": 7,
+            "4": 7,
+            "5": 6
+          },
+          "last_exponent_carry": "494100396412197",
+          "last_exponent_carry_bits": 49,
+          "least_prefix_period": 10,
+          "nonzero_carries": 9,
+          "path": [
+            [
+              3,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "path_description_cost": 49,
+          "path_sha256": "374b75d0fb553bf655f848b0e9ede26888578c5298f20a24a71638d9c79f076f",
+          "zero_carry_suffix": 0
+        },
+        {
+          "A": 852,
+          "B_bits": 1510,
+          "B_sha256": "701f40c84b8b58231dae658c523e2b5bdf3dc560881a19b9c2e2bafeab33e5ea",
+          "D": 1340,
+          "canonical_C": "301767803693248000553244441309948548817053606831491736484622405840652943189052577392293529505829759342591100724240835951647801328559947898421538688814472649441327254028845014802963084929032036720504558985005546267583071965762477640502337943029346741780786267287379889458606960153473620708846694907541134063597881062733764252417171549552604924075305911308582969829646832538500470845577495154892274923628",
+          "canonical_C_bits": 1334,
+          "exponent_precision_K": 1339,
+          "factor_complexity_through_5": {
+            "1": 4,
+            "2": 8,
+            "3": 8,
+            "4": 7,
+            "5": 6
+          },
+          "last_exponent_carry": "906063153471387",
+          "last_exponent_carry_bits": 50,
+          "least_prefix_period": 10,
+          "nonzero_carries": 9,
+          "path": [
+            [
+              4,
+              1
+            ],
+            [
+              4,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "path_description_cost": 53,
+          "path_sha256": "88410d84e82b9cf44811e2d3b4b59e3f486e5907258d0a8a487148e7a97f0d4a",
+          "zero_carry_suffix": 0
+        },
+        {
+          "A": 667,
+          "B_bits": 1217,
+          "B_sha256": "819bb092d1261f90f5e27e4cd6956245adf0cb517c42cf9ef114d49f96560628",
+          "D": 1047,
+          "canonical_C": "19267358811624547935757665413940818915442413617576342594973590393940725957455221237131325915685735509337248840903235729020416844623896401988895373281548615384963217595256318416407666358540216203647158064225202370633938409820928296280519555043821932016834685496423914962700956641241837761420311853310888477644814444",
+          "canonical_C_bits": 1041,
+          "exponent_precision_K": 1046,
+          "factor_complexity_through_5": {
+            "1": 5,
+            "2": 7,
+            "3": 8,
+            "4": 7,
+            "5": 6
+          },
+          "last_exponent_carry": "920654080181074",
+          "last_exponent_carry_bits": 50,
+          "least_prefix_period": 10,
+          "nonzero_carries": 9,
+          "path": [
+            [
+              4,
+              1
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "path_description_cost": 57,
+          "path_sha256": "c0f9a6d85dafa46a52ee5f596477c7e3217545264f147fa69cbeed66f6443f8d",
+          "zero_carry_suffix": 0
+        },
+        {
+          "A": 668,
+          "B_bits": 1216,
+          "B_sha256": "5073aff5131481b6b82e7724f0ca73932f5944360e18be2a77f307b6fa415acd",
+          "D": 1048,
+          "canonical_C": "25232385461748085011987579627264857709886644720293247203679774216601003613227821559546902817268990432891797094118642783304709664117556450405030758654133883620001519683353723677693766243125415706007281172141282372996820526180098387203947644869389085523638837146179495145255449820057698302856884488886205403516451404",
+          "canonical_C_bits": 1042,
+          "exponent_precision_K": 1047,
+          "factor_complexity_through_5": {
+            "1": 5,
+            "2": 7,
+            "3": 8,
+            "4": 7,
+            "5": 6
+          },
+          "last_exponent_carry": "1205681528806350",
+          "last_exponent_carry_bits": 51,
+          "least_prefix_period": 10,
+          "nonzero_carries": 9,
+          "path": [
+            [
+              3,
+              2
+            ],
+            [
+              4,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "path_description_cost": 56,
+          "path_sha256": "5f27929a2756602b4907e79af2bfb5c479890d8604ed49773078bc3828d4e6d1",
+          "zero_carry_suffix": 0
+        },
+        {
+          "A": 426,
+          "B_bits": 727,
+          "B_sha256": "5ce80f10cb972a301e613cd5dc9d8d363d36c274d37ae19906447369e3c523fb",
+          "D": 662,
+          "canonical_C": "195495488294376972434645499535430145756231454820157122640143639736475242754976885865904652371615137487907355014412254325475211435451244514959719298133173364465299032889456336136245935857691162393164",
+          "canonical_C_bits": 656,
+          "exponent_precision_K": 661,
+          "factor_complexity_through_5": {
+            "1": 4,
+            "2": 7,
+            "3": 8,
+            "4": 7,
+            "5": 6
+          },
+          "last_exponent_carry": "1472276439933148",
+          "last_exponent_carry_bits": 51,
+          "least_prefix_period": 10,
+          "nonzero_carries": 9,
+          "path": [
+            [
+              3,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "path_description_cost": 54,
+          "path_sha256": "bbe4ddfe5e90b373420e1accc6b5e0b4305b4b54678dc4984a67b560a8054970",
+          "zero_carry_suffix": 0
+        },
+        {
+          "A": 610,
+          "B_bits": 1126,
+          "B_sha256": "1fb097c5b268930665f6cd44368bd6efe4920edf3d8ae0e751f1e38eee4b44e4",
+          "D": 954,
+          "canonical_C": "809727909893160128151952257551850959484565030234129216267402869752471930122507840392982351633115009995383113750401928208448730414769466088687903444797084244897444969401092075335090569742280687102205552425571737439480438528656130890307444241975301355245130295464656633772054338525198444",
+          "canonical_C_bits": 947,
+          "exponent_precision_K": 953,
+          "factor_complexity_through_5": {
+            "1": 4,
+            "2": 7,
+            "3": 7,
+            "4": 7,
+            "5": 6
+          },
+          "last_exponent_carry": "1532720598398970",
+          "last_exponent_carry_bits": 51,
+          "least_prefix_period": 10,
+          "nonzero_carries": 9,
+          "path": [
+            [
+              4,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "path_description_cost": 55,
+          "path_sha256": "90942135b0b66d474e1d8501a6055e70b2f69f19a7d9b9ecc2b918972ad968ac",
+          "zero_carry_suffix": 0
+        },
+        {
+          "A": 606,
+          "B_bits": 1118,
+          "B_sha256": "776ba5f75fb167e33bcd82de1f98f771c4ee9094b981e5e50b971a1b470c9156",
+          "D": 950,
+          "canonical_C": "262571906571634795302370609615678931613250730789773937984413150484306151012358562174300754944159649288117363373751357439798033197865937374892380567697347133602500374369373968229598525876676048943738355359772297345767468108719079145099239147743455854540086830367241382748774291616610076",
+          "canonical_C_bits": 945,
+          "exponent_precision_K": 949,
+          "factor_complexity_through_5": {
+            "1": 4,
+            "2": 7,
+            "3": 8,
+            "4": 7,
+            "5": 6
+          },
+          "last_exponent_carry": "1988072115811524",
+          "last_exponent_carry_bits": 51,
+          "least_prefix_period": 10,
+          "nonzero_carries": 9,
+          "path": [
+            [
+              2,
+              2
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "path_description_cost": 53,
+          "path_sha256": "2aa3f8b743bfa81e2758d1ceff5a2d6f00b9518ab6af157d262689ce10f3dacd",
+          "zero_carry_suffix": 0
+        },
+        {
+          "A": 486,
+          "B_bits": 823,
+          "B_sha256": "6d45ee1125553f2e184da9fcc15d3a619a97b54bcc03b17b6df965b93011e913",
+          "D": 758,
+          "canonical_C": "10648316777841551526444565633798099104470761942099976218913112385087631201084206982141729182834268546191750477128312863765501187895500443906488064664946166821959977982979290253568572251996243596437133356436361889274202723269196",
+          "canonical_C_bits": 751,
+          "exponent_precision_K": 757,
+          "factor_complexity_through_5": {
+            "1": 5,
+            "2": 9,
+            "3": 8,
+            "4": 7,
+            "5": 6
+          },
+          "last_exponent_carry": "2024342522159382",
+          "last_exponent_carry_bits": 51,
+          "least_prefix_period": 10,
+          "nonzero_carries": 9,
+          "path": [
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "path_description_cost": 57,
+          "path_sha256": "78fb1f9fc6d825e11ee07cf7efb07b7b4d74c02103522803525285f8b1b5aef0",
+          "zero_carry_suffix": 0
+        },
+        {
+          "A": 853,
+          "B_bits": 1512,
+          "B_sha256": "44f0f1c367f1d3e01024435e6c192088174fb97d8e0a7a8d5d18a8751b9307b0",
+          "D": 1341,
+          "canonical_C": "695461588761037486606442714445925451951934927516563200666050183500800322290900904430059021257264852548872201269392753569059935549214074335503807726905811551099990943399116634023373783340622139113020997683372688493740671293441702935776307909392797154840955370523310194545769838905381023412942329750192190540960283486853177423089159304264979506974378412024978564777757148830692123052840933373359901374572",
+          "canonical_C_bits": 1335,
+          "exponent_precision_K": 1340,
+          "factor_complexity_through_5": {
+            "1": 5,
+            "2": 6,
+            "3": 6,
+            "4": 6,
+            "5": 6
+          },
+          "last_exponent_carry": "2088135687502257",
+          "last_exponent_carry_bits": 51,
+          "least_prefix_period": 10,
+          "nonzero_carries": 9,
+          "path": [
+            [
+              4,
+              0
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "path_description_cost": 57,
+          "path_sha256": "fc786cdcc1bb950a90db99cb0522e19e401d330066b344bcbe2ef8350817f626",
+          "zero_carry_suffix": 0
+        },
+        {
+          "A": 422,
+          "B_bits": 719,
+          "B_sha256": "2c83df5a8e193078be2d7bf2edac90e72c32af26496b0d7286907a0a83ae85a3",
+          "D": 658,
+          "canonical_C": "38931694623244630568825942867064709181843822337401881470065222336623862391388210349200922048937118361937284850436400078509168720939202997144828539638482421965666474855432522685555712781657029785372",
+          "canonical_C_bits": 654,
+          "exponent_precision_K": 657,
+          "factor_complexity_through_5": {
+            "1": 4,
+            "2": 7,
+            "3": 8,
+            "4": 7,
+            "5": 6
+          },
+          "last_exponent_carry": "2345556606366909",
+          "last_exponent_carry_bits": 52,
+          "least_prefix_period": 10,
+          "nonzero_carries": 9,
+          "path": [
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "path_description_cost": 55,
+          "path_sha256": "82af516651f4bec2cf4fef8726713f2cae16732e44173aefbf2e225ba316eb5d",
+          "zero_carry_suffix": 0
+        },
+        {
+          "A": 609,
+          "B_bits": 1124,
+          "B_sha256": "5c3ca731bd27df00ea04719df261166034bdcf3d383fdd45c1e51ef3d6ea51be",
+          "D": 953,
+          "canonical_C": "628857303787218603771932966510380667595070727172920872161992593166376521310972868047847818108431011132394816759950182379241007464583471843930874335009079576733033360844843554602107809046703932122697142148690882638740897829255171829814608260269347871827395796665000293893963908382242588",
+          "canonical_C_bits": 947,
+          "exponent_precision_K": 952,
+          "factor_complexity_through_5": {
+            "1": 4,
+            "2": 6,
+            "3": 6,
+            "4": 6,
+            "5": 6
+          },
+          "last_exponent_carry": "2380707225703720",
+          "last_exponent_carry_bits": 52,
+          "least_prefix_period": 10,
+          "nonzero_carries": 9,
+          "path": [
+            [
+              2,
+              1
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "path_description_cost": 57,
+          "path_sha256": "00b838c8e95562f87e13ee27d36563efd026baa62f6bb4a239e8ce97969c441a",
+          "zero_carry_suffix": 0
+        }
+      ],
+      "maximum_successful_zero_carry_replay_cells": 0,
+      "smallest_nonzero_address_failure": {
+        "A": 136,
+        "B_bits": 268,
+        "B_sha256": "a0000393e7f774f3c105607fe36b91394a0a73743819e01b0ee25bd4e07bfba0",
+        "D": 212,
+        "canonical_C": "142106992041832699181699520028394600257601130874170307476798028",
+        "canonical_C_bits": 207,
+        "exponent_precision_K": 211,
+        "factor_complexity_through_5": {
+          "1": 2,
+          "2": 1
+        },
+        "last_exponent_carry": "6222947178688723",
+        "last_exponent_carry_bits": 53,
+        "least_prefix_period": 2,
+        "nonzero_carries": 1,
+        "path": [
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "path_description_cost": 13,
+        "path_sha256": "dffcbc4bdc33b4c331e7d6059750b71767c92d2051da9e9f328d58f65ea24afd",
+        "zero_carry_suffix": 0
+      },
+      "tested_edges_sha256": "0e3f1d69f4ed2b85be562376dcb2943cd59edf1cd187aead73c76beb71ac8b06"
+    },
+    "counterexample": null,
+    "exact_semantics_and_theorems": {
+      "address_carry_law": {
+        "minimum_cell_depth": 55,
+        "nonzero_carry_lower_bound": "C>=2^(D_n-1)",
+        "ordinary_gate": "one natural exponent C forces ell_n=0 whenever D_n>floor(log2(C))+1",
+        "precision": "K_n=D_n-1 after the first cell",
+        "recurrence": "rho_(n+1)=rho_n+2^(D_n-1)*ell_n, ell_n>=0",
+        "status": "research derivation; companion Lean request QM166",
+        "uniform_finite_consequence": "a nonzero carry after n completed cells requires C>=2^(55*n-1)"
+      },
+      "cell_semantics": {
+        "chart_update": {
+          "A_prime": "A+c+o+b+2",
+          "B_prime": "3^(c+o+b)*(9B+2^D*Bg)",
+          "D_prime": "D+Dg"
+        },
+        "decoder_data": "z=2*3^c, d=(2^z-1)/3^(c+1), v2(q+d)=S+b",
+        "gate": "v2(9H+Bg)=Dg=S+c+4+b",
+        "writer_output": "3^c*q, q=(9H+7)/2^(c+4)"
+      },
+      "selector_complexity": {
+        "bounded_aperiodic_symbols": "not excluded; Morse-Hedlund forces factor complexity p(k)>=k+1",
+        "counter_growth_scope": "c_n or b_n need not tend to infinity; what must grow is runtime chart depth, and a bounded selector must retain unbounded word complexity",
+        "eventually_periodic_symbols": "universally impossible: a period composes to (3^P*H+K)/2^L with 3^P>2^L and K>0",
+        "kernel_checked_support": "ShortcutParityPeriodicNoGo already excludes periodic and ultimately periodic concatenations of outward shortcut blocks"
+      }
+    },
+    "meaning": "bounded exact arithmetic CEGIS on coherent nested exponent cylinders for alternating writer--resonant-decoder cells",
+    "selector_architecture_outer_loop": [
+      {
+        "architecture": "fixed_or_eventually_periodic_(c,b)",
+        "description_complexity": "finite period",
+        "smallest_closure_failure": "positive affine period would require (3^P-2^L)H+K=0",
+        "status": "universally_rejected"
+      },
+      {
+        "architecture": "bounded_aperiodic_(c,b)_with_growing_chart_depth",
+        "description_complexity": "factor complexity at least k+1",
+        "smallest_closure_failure": {
+          "first_failure": {
+            "derived_c": -3,
+            "kind": "writer_not_in_010111_counter_family",
+            "replay_depth": 0,
+            "v2_9H_plus_7": 1
+          },
+          "fixed_canonical_C": "2117893426136278565251168966971572463324286188549694948211788423306017120187106322226110172702207083158948355967897817319346890768108806991994807154374687603578943260",
+          "prefix_path": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "successful_zero_carry_cells": 0
+        },
+        "status": "bounded_CEGIS_only"
+      },
+      {
+        "architecture": "unbounded_arithmetic_counter_selector",
+        "description_complexity": "pending parametric recurrence",
+        "smallest_closure_failure": null,
+        "status": "not_rejected_and_not_certified"
+      }
+    ],
+    "symbolic_transition_algebra_closed": true,
+    "unbounded_invariant_closed": false,
+    "universal_invariant": null
+  },
+  "schema": "collatz-outward-writer-decoder-cegis-v1",
+  "worker_sha256": "13605545857ba73a9aba7ea57ed835da60ca73622697e2d5bff07202446509f8"
+}

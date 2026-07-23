@@ -5283,3 +5283,43 @@ python3 outward_primitive_invariant_cegis.py verify \
 The artifact records `universal_invariant:null` and `counterexample:null`.
 The coherent cylinder is a bounded 2-adic diagnostic unless its canonical
 ordinary exponent stabilizes.
+
+### Alternating writer--decoder cylinder CEGIS
+
+`outward_writer_decoder_cegis.py` composes the `010111` writer with the
+resonant decoder `0^(2*3^c)1^o`.  Its symbols retain both the writer counter
+`c>=2` and decoder drain `b>=0`.  For a chart
+
+```text
+H=(3^(C+A)+B)/2^D,
+```
+
+one exact Hensel congruence is necessary and sufficient for the complete
+cell, and the worker checks the resulting `(A,B,D)` coefficient update and
+both exact valuations without expanding `3^C`.
+
+The default artifact uses the nine symbols `2<=c<=4`, `0<=b<=2`, depth ten,
+and beam 128.  It checks 8,883 coherent edges, exhaustive through depth three
+and beam-bounded after that.  Every finite symbol word has a 2-adic exponent
+cylinder, so the search score is canonical exponent carry rather than finite
+survival.  No displayed edge has zero carry.  This finite verdict neither
+rules out a bounded aperiodic selector nor supplies an ordinary infinite
+orbit.  The worker also exact-replays the 12 leading final cylinders at their
+canonical ordinary exponents.  Each completes the stored ten-cell prefix and
+then leaves the writer family with `v2(9H+7)` equal to one or two.
+
+```bash
+PYTHONPATH=experiments/kontorovich \
+  python3 experiments/kontorovich/outward_writer_decoder_cegis.py selftest
+PYTHONPATH=experiments/kontorovich \
+  python3 experiments/kontorovich/outward_writer_decoder_cegis.py verify \
+  experiments/kontorovich/outward_writer_decoder_cegis_audit.json
+```
+
+The artifact records `universal_invariant:null` and `counterexample:null`.
+Worker SHA-256:
+`13605545857ba73a9aba7ea57ed835da60ca73622697e2d5bff07202446509f8`.
+Canonical internal artifact SHA-256:
+`c475d26fe7e303a4f5927db9dceadb23040268f2f638b686522caadcb2f82e9a`.
+Pretty-printed artifact file SHA-256:
+`06c2704cb10bc578e99887cac319cbe633d9b6fbf388931d3ae39fa37cee82b6`.

@@ -13166,3 +13166,94 @@ the narrowed scope requested above and does not claim semantic presentation
 invariance.  The focused build and full axiom audit pass.  The companion can
 therefore skip QM162 unless it wants a more concrete `padicValNat` adapter;
 QM163--QM165 remain open.
+
+## Kontorovich follow-up: alternating writer--decoder chart type (QM166, 2026-07-23)
+
+Please package the exact all-parameter cell and its exponent-address gate.
+This is the theorem-shaped output of the bounded CEGIS run; no orbit or
+counterexample is claimed.
+
+For `c>=2`, `b>=0`, put
+
+```text
+z=2*3^c,
+o=min {j : 3^j>2^(z+j)},
+S=z+o,
+d=(2^z-1)/3^(c+1),
+Bg=7+2^(c+4)d,
+Dg=S+c+4+b.
+```
+
+Starting from a positive odd charge `H`, prove that the following exact
+valuation is necessary and sufficient for: execute `010111`, drain exactly
+`c-2` forced `[true]` blocks, execute `0^z++1^o`, then drain exactly `b`
+forced `[true]` blocks:
+
+```text
+v2(9H+Bg)=Dg.                                     (QM166a)
+```
+
+The key converse uses
+
+```text
+Bg-7=2^(c+4)d,   v2(Bg-7)=c+4<Dg,
+```
+
+so QM166a first forces `v2(9H+7)=c+4`, hence the writer counter, and after
+division forces `v2(q+d)=S+b` for
+`q=(9H+7)/2^(c+4)`.  LTE gives `v3(2^z-1)=c+1`; the minimality definition of
+`o` gives the decoder first-passage inequalities.
+
+For a coefficient-matched chart
+
+```text
+H_C=(3^(C+A)+B)/2^D,
+```
+
+QM166a is equivalent to
+
+```text
+9*(3^(C+A)+B)+2^D*Bg
+  =2^(D+Dg) (mod 2^(D+Dg+1)).                    (QM166b)
+```
+
+The exact output chart is
+
+```text
+A'=A+c+o+b+2,
+B'=3^(c+o+b)*(9B+2^D*Bg),
+D'=D+Dg.                                          (QM166c)
+```
+
+Please prove the Hensel/address consequence in whatever canonical interface
+is cheapest.  Since
+
+```text
+ord_(2^(D'+1))(3)=2^(D'-1),
+```
+
+one gate determines `C mod 2^(D'-1)` and coherently extends the old residue
+modulo `2^(D-1)`.  For canonical representatives this gives
+
+```text
+rho'=rho+2^(D-1)*ell, ell>=0.                     (QM166d)
+```
+
+Consequently one fixed natural exponent realizing an infinite symbol stream
+has eventual `ell=0`; a nonzero carry at depth `D` forces
+`C>=2^(D-1)`.  Since `Dg>=55`, after `n` completed cells it forces the finite
+lower bound `C>=2^(55n-1)`.
+
+The eventually-periodic obstruction need not be reproved if
+`ShortcutParityPeriodicNoGo` applies directly to the concatenated outward
+cell words.  Otherwise the elementary cell map is
+
+```text
+F_(c,b)(H)=(3^(c+o+b+2)H+3^(c+o+b)Bg)/2^Dg,
+```
+
+with slope greater than one and positive constant.  A period composes to
+`(3^P H+K)/2^L`, `3^P>2^L`, `K>0`; indefinite integrality implies
+`2^(rL) | (3^P-2^L)H+K` for every `r`, hence a contradiction for positive
+`H`.  Scope warning: bounded genuinely aperiodic `(c,b)` streams are not
+excluded, and QM166 does not construct an invariant or ordinary orbit.
