@@ -16188,3 +16188,66 @@ This proof explicitly handles the global resegmentation issue noted in
 Round 316; it does not assume that old block boundaries remain the new block
 boundaries.  The focused compile, full 8,833-job build, and axiom audit pass
 with standard mathlib principles.  QM158d is now complete.
+
+## Round 321 — finite-height closure QM158g
+
+I completed the optional finite-height wrapper in the new
+`KontoroC/OutwardFiniteHeight.lean`, including the two points most worth
+auditing rather than assuming.
+
+First, Lean proves determinism directly at the word level: any two parity
+words executable from the same natural source are comparable in the prefix
+order.  Since first-passage words are prefix-free, two such words with the
+same source are equal.  Applying this to the canonical cylinder executions
+proves
+
+```text
+w |-> (canonicalExecution w).source
+```
+
+is injective on the first-passage code.  A separate zero-source induction
+shows that an execution from zero contains no odd bit; an outward word cannot
+have that form.  Thus every canonical first-passage source is positive, and
+the sharp advertised count really is
+
+```text
+|{w in F : r_w <= B}| <= B,
+```
+
+not merely `B+1`.
+
+Second, the literal cutoff is now defined exactly as requested:
+
+```text
+T_w(B) = (B-r_w)/2^S,
+C_F(B) = sup_{w in F, r_w<=B} (b_w+3^O*T_w(B)).
+```
+
+Every execution of a word in `F` whose source is at most `B` has target at
+most `C_F(B)`.  Therefore `NextSource F E` and `NextSource F E'` agree on
+all sources up to `B` whenever `E` and `E'` agree through `C_F(B)`.  This is
+the exact predicate-level statement that the next finite source window is
+determined by a finite old target window; no fixed phase truncation is
+introduced.
+
+The useful nonzero-carry refinement is also proved.  For a first-passage
+word and affine-family parameter `t>0`, canonical target range plus
+`2*3^O<=3*2^S` gives
+
+```text
+target < 3*source,
+source <= B -> target <= 3*B-1.
+```
+
+Thus only the zero-carry member can make the exact cutoff exceed `3B-1`, as
+claimed in QM158g.
+
+On Simon's renewed 1989-theorem question: the specialized Väänänen--Wallisser
+formalization remains worthwhile infrastructure, and the repository already
+has its exact Hermite algebra, normalization, local valuations, and tail
+interface.  The missing denominator/height/remainder/product-formula layer is
+a substantial standalone proof and still cannot cross the live three-slot
+threshold.  I therefore advanced the new exact first-passage closure rather
+than pretending another local theta lemma would finish the citation.  I can
+return to the one-value quantitative estimate if it becomes the hinge for a
+new architecture.

@@ -1730,6 +1730,17 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardCylinderRenewal.nextSource_iff_parameters
 #print axioms KontoroC.OutwardCylinderRenewal.finite_minPlus_renewal
 #print axioms KontoroC.OutwardCylinderRenewal.candidate_eq_targetFiber_quotient
+#print axioms KontoroC.OutwardFiniteHeight.executes_common_source_comparable
+#print axioms KontoroC.OutwardFiniteHeight.firstPassage_eq_of_common_source
+#print axioms KontoroC.OutwardFiniteHeight.executes_zero_count_true_eq_zero
+#print axioms KontoroC.OutwardFiniteHeight.canonicalSource_pos
+#print axioms KontoroC.OutwardFiniteHeight.canonicalSource_injective_on_firstPassage
+#print axioms KontoroC.OutwardFiniteHeight.card_activeWords_le
+#print axioms KontoroC.OutwardFiniteHeight.positive_parameter_target_lt_three_source
+#print axioms
+  KontoroC.OutwardFiniteHeight.positive_parameter_target_le_three_bound_sub_one
+#print axioms KontoroC.OutwardFiniteHeight.execution_target_le_finiteHeightTargetBound
+#print axioms KontoroC.OutwardFiniteHeight.nextSource_congr_on_finiteHeight
 #print axioms KontoroC.OutwardOddSlice.firstPassage_execution_of_odd_source_eq_true
 #print axioms KontoroC.OutwardOddSlice.slopeLT_append_left_iff
 #print axioms KontoroC.OutwardOddSlice.firstPassage_recordOutward
