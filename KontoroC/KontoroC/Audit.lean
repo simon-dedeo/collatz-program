@@ -1242,8 +1242,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.RationalCoboundaryReduction.no_reduced_homogeneous_rational_identity
 #print axioms KontoroC.VaananenWallisser.thetaTerm_shift
+#print axioms KontoroC.VaananenWallisser.norm_thetaTerm_le_geometric
+#print axioms KontoroC.VaananenWallisser.thetaTerm_tendsto_zero_of_norm
+#print axioms KontoroC.VaananenWallisser.thetaTerm_summable_of_norm
 #print axioms KontoroC.VaananenWallisser.thetaPartial_functional
 #print axioms KontoroC.VaananenWallisser.thetaSum_functional
+#print axioms KontoroC.VaananenWallisser.thetaSum_functional_of_norm
 #print axioms KontoroC.VaananenWallisser.X_mul_hermiteStep_add
 #print axioms KontoroC.VaananenWallisser.hermiteStep_C_mul_X_pow_succ_mul
 #print axioms KontoroC.VaananenWallisser.hermiteIter_skolemInitial

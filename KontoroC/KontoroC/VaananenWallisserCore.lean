@@ -5,7 +5,9 @@ Authors: Simon DeDeo, OpenAI Codex
 -/
 import Mathlib.NumberTheory.Padics.PadicNumbers
 import Mathlib.Topology.Algebra.InfiniteSum.NatInt
+import Mathlib.Topology.Algebra.InfiniteSum.Nonarchimedean
 import Mathlib.Algebra.Polynomial.Inductions
+import Mathlib.Analysis.SpecificLimits.Normed
 
 /-!
 # Algebraic core of the Väänänen--Wallisser theta function
@@ -27,6 +29,8 @@ without changing the polynomial algebra.
 namespace KontoroC
 namespace VaananenWallisser
 
+open Filter Topology
+
 /-- The paper's exponent `n(n+1)/2`, represented without division. -/
 def exponent (n : ℕ) : ℕ := n.choose 2 + n
 
@@ -39,9 +43,48 @@ theorem exponent_succ (n : ℕ) :
   simp
   omega
 
+theorem self_le_exponent (n : ℕ) : n ≤ exponent n := by
+  simp [exponent]
+
 /-- The `n`th term of the Väänänen--Wallisser theta series. -/
 def thetaTerm {K : Type*} [Field K] (q x : K) (n : ℕ) : K :=
   q⁻¹ ^ exponent n * x ^ n
+
+/-- In the natural non-Archimedean convergence range, the quadratic theta
+term is bounded by an ordinary geometric sequence.  The deliberately weaker
+linear bound `n ≤ exponent n` is already sufficient. -/
+theorem norm_thetaTerm_le_geometric {K : Type*} [NormedField K]
+    (q x : K) (hq : 1 < ‖q‖) (hx : ‖x‖ ≤ 1) (n : ℕ) :
+    ‖thetaTerm q x n‖ ≤ ‖q‖⁻¹ ^ n := by
+  have hqinv0 : 0 ≤ ‖q‖⁻¹ := by positivity
+  have hqinv1 : ‖q‖⁻¹ ≤ 1 := (inv_lt_one_of_one_lt₀ hq).le
+  rw [thetaTerm, norm_mul, norm_pow, norm_pow, norm_inv]
+  calc
+    ‖q‖⁻¹ ^ exponent n * ‖x‖ ^ n ≤
+        ‖q‖⁻¹ ^ exponent n * 1 :=
+      mul_le_mul_of_nonneg_left (pow_le_one₀ (norm_nonneg x) hx)
+        (by positivity)
+    _ = ‖q‖⁻¹ ^ exponent n := by ring
+    _ ≤ ‖q‖⁻¹ ^ n :=
+      pow_le_pow_of_le_one hqinv0 hqinv1 (self_le_exponent n)
+
+theorem thetaTerm_tendsto_zero_of_norm {K : Type*} [NormedField K]
+    (q x : K) (hq : 1 < ‖q‖) (hx : ‖x‖ ≤ 1) :
+    Tendsto (thetaTerm q x) atTop (𝓝 0) := by
+  apply squeeze_zero_norm (norm_thetaTerm_le_geometric q x hq hx)
+  exact tendsto_pow_atTop_nhds_zero_of_lt_one (by positivity)
+    (inv_lt_one_of_one_lt₀ hq)
+
+/-- Over a complete non-Archimedean field, the Väänänen--Wallisser theta
+series converges throughout the norm range used by the project's 2-adic
+applications. -/
+theorem thetaTerm_summable_of_norm {K : Type*} [NormedField K]
+    [CompleteSpace K] [NonarchimedeanAddGroup K]
+    (q x : K) (hq : 1 < ‖q‖) (hx : ‖x‖ ≤ 1) :
+    Summable (thetaTerm q x) := by
+  apply NonarchimedeanAddGroup.summable_of_tendsto_cofinite_zero
+  simpa only [Nat.cofinite_eq_atTop] using
+    thetaTerm_tendsto_zero_of_norm q x hq hx
 
 theorem thetaTerm_zero {K : Type*} [Field K] (q x : K) :
     thetaTerm q x 0 = 1 := by simp [thetaTerm, exponent]
@@ -99,6 +142,16 @@ theorem thetaSum_functional {K : Type*} [NormedField K]
     have h := (hasSum_nat_add_iff 1).mp htail
     simpa [thetaTerm_zero, add_comm] using h
   exact hall.tsum_eq
+
+/-- The completed functional equation with convergence discharged by the
+standard non-Archimedean norm hypotheses. -/
+theorem thetaSum_functional_of_norm {K : Type*} [NormedField K]
+    [CompleteSpace K] [NonarchimedeanAddGroup K]
+    (q x : K) (hq : 1 < ‖q‖) (hx : ‖x‖ ≤ 1) :
+    thetaSum q (q * x) = 1 + x * thetaSum q x := by
+  have hq0 : q ≠ 0 := norm_pos_iff.mp (lt_trans zero_lt_one hq)
+  exact thetaSum_functional q x hq0
+    (thetaTerm_summable_of_norm q x hq hx)
 
 /-! ## The Skolem--Hermite polynomial recurrence -/
 

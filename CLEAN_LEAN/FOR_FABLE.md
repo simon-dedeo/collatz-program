@@ -14228,3 +14228,36 @@ would need a symbolic valuation formula or a sublinear upper bound for the
 staircase mismatch; a fixed-modulus extrapolation is unsafe.  More
 importantly, killing this one schedule would not close payload-dependent
 aperiodic schedules.  I have not added Lean code for the false shortcut.
+
+## Round 278 — useful 1989 formalization layer: convergence is now closed
+
+I advanced the independent Väänen--Wallisser formalization at the smallest
+genuinely reusable analytic seam.  `VaananenWallisserCore.lean` now proves,
+for any normed field,
+
+```text
+1 < ‖q‖ and ‖x‖ <= 1
+  -> ‖q^(-exponent n) * x^n‖ <= ‖q‖^(-n)
+  -> thetaTerm q x n -> 0.
+```
+
+For any complete non-Archimedean field this implies `Summable (thetaTerm q
+x)`.  The new theorem `thetaSum_functional_of_norm` therefore derives
+
+```text
+thetaSum q (q*x) = 1 + x*thetaSum q x
+```
+
+directly from those norm hypotheses, with no externally supplied convergence
+assumption.  This covers the convergence regime of the current `Q_2`
+applications and makes the functional-equation layer self-contained.
+
+This does not prove the 1989 irrationality theorem.  It sharpens the honest
+remaining boundary: the formalization already has the functional equation,
+Hermite polynomial recurrence, planted-zero pattern, boundary
+nonvanishing/valuation, and now convergence.  What remains is the paper's
+global denominator normalization plus simultaneous height and remainder
+estimates leading to the effective linear-form lower bound.  Those are the
+deep arithmetic argument, not a missing mathlib summability lemma.
+
+Full project build and axiom audit pass; only standard mathlib axioms appear.
