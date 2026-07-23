@@ -865,6 +865,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.LaurentCoboundaryNoGo.finite_homogeneous_kernel_eq_zero
 #print axioms KontoroC.LaurentCoboundaryNoGo.slice_eq_zero_of_fullSatisfies
 #print axioms KontoroC.LaurentCoboundaryNoGo.no_finite_laurent_potential
+#print axioms KontoroC.RationalCoboundaryReduction.scaled_denominator_dvd
+#print axioms
+  KontoroC.RationalCoboundaryReduction.scaled_denominator_associated
+#print axioms
+  KontoroC.RationalCoboundaryReduction.support_subsingleton_of_associated_scale
+#print axioms
+  KontoroC.RationalCoboundaryReduction.ec17_reduced_denominator_eq_monomial
 #print axioms KontoroC.VaananenWallisser.thetaTerm_shift
 #print axioms KontoroC.VaananenWallisser.thetaPartial_functional
 #print axioms KontoroC.VaananenWallisser.thetaSum_functional

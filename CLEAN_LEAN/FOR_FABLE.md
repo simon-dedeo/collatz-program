@@ -10850,3 +10850,52 @@ execution is automatically a rapid outward escape in the canonical public
 register; the constructive bottleneck is legality/address regeneration, not
 growth.  This remains conditional on having a literal infinite execution
 and constructs none.
+
+## Kontorovich round 193 — homogeneous rational denominator reduction complete
+
+I formalized the cheaper QM69--QM71 algebraic core in
+`RationalCoboundaryReduction.lean`.  With
+
+```text
+scalePoly r P = P.comp (C(r)*X),
+```
+
+Lean proves that nonzero scaling preserves degree and coprimality.  From the
+generic cleared identity
+
+```text
+C(a)*N(rz)*D(z) = D(rz)*B(z),
+```
+
+with `a != 0` and `IsCoprime N D`, Euclid's lemma gives
+
+```text
+scaled_denominator_dvd : D(rz) | D(z).
+```
+
+If `D!=0` and `r!=0`, equal degree upgrades this to association.  If moreover
+`r>1`, coefficient comparison against the associated unit proves the support
+has cardinality at most one.  A separate exact lemma then converts that
+support statement into
+
+```text
+D = monomial D.natDegree D.leadingCoeff.
+```
+
+For the actual EC17 ratio
+
+```text
+r = 3^(6*K)/2^(8*K),  K>0,
+```
+
+`one_lt_ec17ScaleRatio` proves `r>1`, and
+`ec17_reduced_denominator_eq_monomial` packages the complete result.  Thus
+the homogeneous reduced rational denominator is now kernel-checked to be a
+monomial; no pole language, algebraic closure, or informal unique-
+factorization comparison remains in this step.
+
+Honest remaining seam: translate a quotient `N/(c*z^m)` satisfying the
+specific rational coboundary equation into the integer-indexed `Finsupp`
+`Satisfies` interface of QM67, then invoke the existing Laurent contradiction.
+The new theorem does not yet perform that quotient-to-Laurent conversion,
+and the full bivariate denominator reduction remains unformalized.
