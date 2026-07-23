@@ -2,15 +2,15 @@
 
 Updated: 2026-07-23, about 00:53 EDT
 
-### 00:53 EDT continuation — first finite public counter-write
+### 00:53 EDT continuation — finite zero-tail transition, not a counter write
 
 The live ether-counter pivot now has an exact artifact:
 
 ```text
 experiments/kontorovich/breakoff_ether_dynamics.py
 experiments/kontorovich/breakoff_ether_dynamics_audit.json
-worker   bfa00c3c82481b2f8c72b2643797928b344bee88705b0b690f39f0957021660d
-artifact def124575bbfcd96bc982b06828923bd75a3d37acfa4577ca85626c79a55ea31
+worker   f5c93af8af44fd7f789feaa92dd738d253c9a8e0d916a0040a29c947855f7497
+artifact a2b0eeddb2667c0eb74305405585f479e2a861923cb01a7fc117c9c13a14395f
 ```
 
 For every linked branch pair it proves coefficientwise
@@ -30,19 +30,20 @@ address widths 487,87,23,
 last address digit 0.
 ```
 
-This is the first genuine finite counter-write: the canonical high tail is
-already in the fourth branch cylinder, so branch one is generated rather than
-prepaid.  All three successor edges have positive bit-capacity surpluses
-`624,491,80`.  The positive public register has 463 decimal digits.  Exact
+Adversarial audit corrects the interpretation: the initial tail bitlength is
+`574=487+87`, so the zero 23-bit digit begins exactly after the natural's last
+nonzero bit.  It is ordinary padding, not independently written storage.  The
+three successor edges have expanding tail slopes with floor log-scale excesses
+`624,491,80`, but numeric scale growth is not information regeneration.  The
+positive public register has 463 decimal digits.  Exact
 replay covers four public steps, 192 linked affine members, and 384 literal
 gate macros.  It then halts at a register with `v2=2`.  `counterexample=null`.
 
-Do not treat the hit rate as evidence of infinity: one hit among roughly four
-million is compatible with a random 23-bit congruence.  The next job is to
-derive a parameterized family of zero-address writes or an invariant tail
-language with cumulative positive information balance.  Consecutive blind
-zero-write searches would cost roughly another factor `2^23` per instruction
-and are not the route.
+Do not treat the hit as evidence of infinity.  Every ordinary accepted tail
+has eventually zero canonical address digits.  The actual criterion is an
+infinite public branch itinerary whose digits are eventually all zero,
+equivalently a nonhalting orbit of the deterministic tail-zero/current-offset
+dynamics.  This witness enters that regime once and immediately halts.
 
 ### 00:45 EDT continuation — fixed-lasso chart tower closed
 
@@ -1262,9 +1263,9 @@ Diary entry.
 
 1. Poll the companion for QM45/QM46 after commit `9021e86`.  Do not stage or
    edit its Lean files; local `lake build KontoroC` already passes.
-2. Use the certified ether successor law and the `115->59->9->1` zero-address
-   event to derive a parameterized self-writing family.  Do not merely widen
-   the `160^3` census or search blindly for two consecutive 23-bit hits.
+2. Use the certified ether successor law to formulate the deterministic
+   tail-zero/current-offset state map and seek a nonhalting invariant ray.
+   The `115->59->9->1` path is a halting regression, not a self-write seed.
 3. If the ether-counter also reduces to a restriction-only tower, prove that
    obstruction at the exact affine interface.  If it has positive information
    balance, isolate the smallest symbolic branch family that preserves it.

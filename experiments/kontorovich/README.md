@@ -2980,7 +2980,7 @@ artifact SHA-256  1bd14809686ed19e599f95d624c81732daa984a681e28b82fdda868abfedff
 verifier SHA-256  ac560b6b088d62c685fa7382af7cc5e75a8f0039d9ea55558a00a237214f9dfe
 ```
 
-## Ether-counter successor dynamics and finite self-write
+## Ether-counter successor dynamics and finite zero-tail transition
 
 `breakoff_ether_dynamics.py` links the autonomous branches without hidden
 gate metadata.  If the length-`n` branch tail is `q`, intersecting its output
@@ -2999,8 +2999,9 @@ current tail = C+3^P*u.
 ```
 
 An extension with new address digit zero means that the canonical member
-`u=0` already executes the next branch: earlier arithmetic has written the
-next instruction instead of exposing more preloaded high bits.
+`u=0` already executes the next branch.  For an ordinary natural, however,
+extension digits must eventually be zero merely because its binary expansion
+ends.  One zero digit is therefore not evidence of counter writing.
 
 The default artifact constructs and coefficient-checks all `160^2=25,600`
 branch-pair cylinders at tails zero and one.  It then exhausts all
@@ -3015,10 +3016,10 @@ address digits  2530113750825948409461814926738962740354603904097734994390883320
                 0
 ```
 
-The edge multipliers provide exact positive information balance:
+The edge multipliers provide exact expanding tail slopes:
 
 ```text
-edge       floor(log2 multiplier)   bits consumed   certified surplus
+edge       floor(log2 multiplier)   address width   log-scale excess
 115->59             1111                 487               624
  59->9               578                  87               491
   9->1               103                  23                80
@@ -3031,9 +3032,13 @@ steps expand into 192 linked affine members and 384 literal gate macros.  The
 ordinary endpoints link exactly.  The next public register has `v2=2`, so the
 ether counter halts after branch one.
 
-This is an exact finite counter-writing event.  It is not an infinite orbit,
-and the bounded uniqueness statement excludes neither other next branches nor
-longer prefixes.
+The initial tail has bitlength `574=487+87`; the 23-bit zero address begins
+exactly after its last nonzero bit.  It is binary padding at source exhaustion,
+not independently regenerated storage.  The exact finite path is not an
+infinite orbit, and the bounded uniqueness statement excludes neither other
+next branches nor longer prefixes.  A real ordinary escape requires an
+infinite deterministic itinerary after the canonical address digits become
+permanently zero.
 
 ```bash
 python3 breakoff_ether_dynamics.py selftest
@@ -3042,9 +3047,9 @@ python3 breakoff_ether_dynamics.py verify breakoff_ether_dynamics_audit.json
 ```
 
 Artifact SHA-256:
-`def124575bbfcd96bc982b06828923bd75a3d37acfa4577ca85626c79a55ea31`.
+`a2b0eeddb2667c0eb74305405585f479e2a861923cb01a7fc117c9c13a14395f`.
 Verifier SHA-256:
-`bfa00c3c82481b2f8c72b2643797928b344bee88705b0b690f39f0957021660d`.
+`f5c93af8af44fd7f789feaa92dd738d253c9a8e0d916a0040a29c947855f7497`.
 
 ## Returning finite ether glider macros
 

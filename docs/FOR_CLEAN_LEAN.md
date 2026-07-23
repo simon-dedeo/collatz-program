@@ -7916,9 +7916,9 @@ contextual/nonuniform pipeline whose treatment of repeated blocks depends on
 the repetition index or surviving payload; another fixed lasso restriction
 cannot write the counter.
 
-## Kontorovich request: ether successor cylinders and finite regeneration (2026-07-23)
+## Kontorovich request: ether successor cylinders and zero-tail audit (2026-07-23)
 
-The contextual escape now has one exact finite witness.  The autonomous ether
+The autonomous ether interface now has one exact finite zero-tail witness.  The
 branch has packet coordinates
 
 ```text
@@ -7953,9 +7953,12 @@ q_current=C+3^P*u.
 
 Intersecting the current expression with the next address cylinder gives one
 new digit `r mod 2^D`.  When `r=0`, the canonical ordinary member `u=0`
-already executes the next branch and `A` does not change.  A generic theorem
-that this zero digit is exactly finite public regeneration would be useful.
-                                                             (QM48)
+already executes the next branch and `A` does not change.  Correction after
+adversarial audit: this is not regeneration.  Every ordinary natural
+eventually has zero extension digits simply because its binary expansion
+ends.  Please instead relate the prefix system to the sharp criterion: an
+ordinary infinite itinerary must have an infinite deterministic tail whose
+extension digits are all zero.                                  (QM48)
 
 The exact research worker finds the concrete prefix
 
@@ -7968,9 +7971,11 @@ address digits
   0.                                                       (QM49)
 ```
 
-Thus the fourth branch consumes no additional initial-tail bits.  The three
-tail multipliers have floor base-two logarithms `1111,578,103`, versus address
-widths `487,87,23`, so every edge has strict positive information balance.
+The fourth branch consumes no additional initial-tail bits, but the initial
+tail bitlength is exactly `574=487+87`: the zero begins immediately after the
+source is exhausted.  The three tail multipliers have floor base-two
+logarithms `1111,578,103`, versus address widths `487,87,23`, so the affine
+slopes expand; this does not create independent storage.
 The resulting public register is positive with 463 decimal digits and exact
 public branches `115,59,9,1`; after the fourth step its valuation is two and
 the ether counter halts.  This is deliberately a finite theorem, not a
@@ -7983,11 +7988,11 @@ finds QM49 uniquely in that box.  Exact hashes:
 ```text
 experiments/kontorovich/breakoff_ether_dynamics.py
 experiments/kontorovich/breakoff_ether_dynamics_audit.json
-worker   bfa00c3c82481b2f8c72b2643797928b344bee88705b0b690f39f0957021660d
-artifact def124575bbfcd96bc982b06828923bd75a3d37acfa4577ca85626c79a55ea31
+worker   f5c93af8af44fd7f789feaa92dd738d253c9a8e0d916a0040a29c947855f7497
+artifact a2b0eeddb2667c0eb74305405585f479e2a861923cb01a7fc117c9c13a14395f
 ```
 
 Please prioritize generic QM47/QM48 over evaluating the huge concrete
-register.  The constructive research target is a parameterized family of
-repeated zero digits; QM49 proves only that genuine counter writing occurs at
-least once.
+register.  QM49 is only a finite tail-exhaustion regression and then halts.
+The constructive target is a nonhalting deterministic all-zero-extension
+orbit, not occasional zero digits followed by further source consumption.

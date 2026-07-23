@@ -1,13 +1,13 @@
 {
-  "artifact_sha256": "def124575bbfcd96bc982b06828923bd75a3d37acfa4577ca85626c79a55ea31",
+  "artifact_sha256": "a2b0eeddb2667c0eb74305405585f479e2a861923cb01a7fc117c9c13a14395f",
   "audit": {
-    "claim_scope": "exact coefficientwise successor cylinders in the stated pair box, exhaustive branch-1 zero-address census in the stated triple box, and literal replay of the unique hit; finite only",
+    "claim_scope": "exact coefficientwise successor cylinders in the stated pair box, exhaustive branch-1 zero-tail census in the stated triple box, and literal replay of the unique hit; finite only",
     "closure_status": {
-      "achieved": "one ordinary finite counter-writing event",
+      "achieved": "one ordinary finite transition after source-tail exhaustion",
       "counterexample": null,
-      "missing": "a closed invariant family or one ordinary register with an infinite successful public-counter orbit"
+      "missing": "a nonhalting deterministic tail-zero orbit, equivalently one ordinary register with an infinite successful public-counter orbit"
     },
-    "finite_regeneration": {
+    "finite_zero_tail_transition": {
       "address_digits": [
         253011375082594840946181492673896274035460390409773499439088332045860417958511512792922515817364797677003558821916246716044707729607838737010028739,
         103202970569942805738160702,
@@ -36,6 +36,7 @@
       "initial_register_decimal_digits": 463,
       "initial_tail": 41238236641922939437009969858003240212696142298467104582424750630625290740316018368524749819603651169000430374715417257500236837871695718427606960272854237825582267488563395,
       "initial_tail_bits": 574,
+      "initial_tail_exhausted_before_zero_digit": true,
       "literal_gate_macros_replayed": 384,
       "literal_linked_members_replayed": 192,
       "ordinary_endpoint": 167030377989356715480559504576138457357127924294585211234524129046400103755831582167474814154618453436558749542807350016253125143500312135534638242734164947668439786183399453767555145966876500065174870456192396437261033996727459835485273064620146845576374421753232306878543542287776497419349638290604235412557840333819062322604662623981609010597307439774964045978196423149335340706294253257470114497045940886509564856356704310637182027480402819397683876514773894708226137732528521336079336857411963257287145695904499253227360488326002568167188463989671,
@@ -95,8 +96,8 @@
       "successor_edges": [
         {
           "address_bits_consumed": 487,
-          "certified_bit_capacity_surplus": 624,
-          "positive_information_balance": true,
+          "expanding_tail_slope": true,
+          "floor_log_scale_excess": 624,
           "source_branch": 115,
           "tail_multiplier": 28973406421775274131437326094568785312113583910330529299514780166026659201064250238786961965048640997190781861728416933646705502704916841692218642205382704727381183008743284445998028973630661683913438570325868386438426578180166329454426435732746623698079106603770680134374129726222635981450981764761541007273916698281905960554749962003,
           "tail_multiplier_floor_log2": 1111,
@@ -105,8 +106,8 @@
         },
         {
           "address_bits_consumed": 87,
-          "certified_bit_capacity_surplus": 491,
-          "positive_information_balance": true,
+          "expanding_tail_slope": true,
+          "floor_log_scale_excess": 491,
           "source_branch": 59,
           "tail_multiplier": 1410126170338158616048224728371571380367482072097134683678107761525088518577095663713418622408085910027579856094121983229714153961689762543490699072942506404339112922628405843,
           "tail_multiplier_floor_log2": 578,
@@ -115,19 +116,21 @@
         },
         {
           "address_bits_consumed": 23,
-          "certified_bit_capacity_surplus": 80,
-          "positive_information_balance": true,
+          "expanding_tail_slope": true,
+          "floor_log_scale_excess": 80,
           "source_branch": 9,
           "tail_multiplier": 10301051460877537453973547267843,
           "tail_multiplier_floor_log2": 103,
           "target_branch": 1,
           "ternary_exponent": 65
         }
-      ]
+      ],
+      "zero_digit_interpretation": "ordinary binary padding after the 574-bit initial tail is exhausted; not newly written independent storage"
     },
     "pair_cylinders_checked": 25600,
     "pair_tail_members_checked": 51200,
-    "regeneration_census": {
+    "successor_law": "q=a_(n,m)+2^(8m+15)t; q'=b_(n,m)+3^(6n+11)t",
+    "zero_tail_census": {
       "branch_bound": 160,
       "hits": [
         [
@@ -142,10 +145,9 @@
       "scope": "exhaustive for first,middle,current in 1..bound and a zero new address digit into branch 1; other next branches and longer prefixes are not excluded",
       "triple_prefixes_checked": 4096000,
       "unique_hit": true
-    },
-    "successor_law": "q=a_(n,m)+2^(8m+15)t; q'=b_(n,m)+3^(6n+11)t"
+    }
   },
-  "generated_at_utc": "2026-07-23T04:53:35.134211+00:00",
-  "schema": "collatz-breakoff-ether-dynamics-v1",
-  "verifier_sha256": "bfa00c3c82481b2f8c72b2643797928b344bee88705b0b690f39f0957021660d"
+  "generated_at_utc": "2026-07-23T05:01:07.492757+00:00",
+  "schema": "collatz-breakoff-ether-dynamics-v2",
+  "verifier_sha256": "f5c93af8af44fd7f789feaa92dd738d253c9a8e0d916a0040a29c947855f7497"
 }

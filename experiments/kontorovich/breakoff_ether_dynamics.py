@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exact successor cylinders and first finite ether-counter regeneration.
+"""Exact successor cylinders and a finite ether-counter zero-tail transition.
 
 The autonomous returning-glider counter has branch families
 
@@ -19,17 +19,21 @@ For a compiled prefix, this module maintains the all-parameter invariant
     initial tail = A + 2^B*u,
     current tail = C + 3^P*u.
 
-An extension whose new address digit is zero is a literal finite regeneration:
-the canonical member ``u=0`` already enters the next branch without consuming
-more bits of the initial tail.  Exhausting all three-branch prefixes in
+An extension whose new address digit is zero means that the canonical member
+``u=0`` enters the next branch without consuming more nonzero bits of the
+initial tail.  For an ordinary natural this eventually happens merely because
+its binary expansion has ended, so one zero digit is not counter writing.
+Exhausting all three-branch prefixes in
 ``1 <= n,m,l <= 160`` against the minimum-width next branch finds one such
 event:
 
     115 -> 59 -> 9 -> 1.
 
 The resulting ordinary positive packet executes four complete returning
-glider macros and then halts.  This is the first exact counter-writing event
-in this interface, but it is finite and is not a Collatz counterexample.
+glider macros and then halts.  Its zero digit starts exactly when the 574-bit
+initial tail is exhausted; it is padding, not regenerated storage.  The true
+target is a nonhalting deterministic tail-zero orbit.  This finite path is not
+a Collatz counterexample.
 """
 
 from __future__ import annotations
@@ -55,10 +59,10 @@ from breakoff_ether_counter import (
 from breakoff_ether_glider import glider_macro, replay_macro_member
 
 
-SCHEMA = "collatz-breakoff-ether-dynamics-v1"
+SCHEMA = "collatz-breakoff-ether-dynamics-v2"
 MINIMUM_BRANCH_BITS = 23
 CERTIFIED_BOUND = 160
-REGENERATING_BRANCHES = (115, 59, 9, 1)
+ZERO_TAIL_BRANCHES = (115, 59, 9, 1)
 
 
 def branch_input_packet(candidate: Any, tail: int) -> int:
@@ -228,7 +232,7 @@ def check_prefix_member(prefix: PrefixCylinder, tail: int) -> None:
         raise AssertionError("prefix closed form and linked packets disagree")
 
 
-def exhaustive_branch_one_regeneration(bound: int) -> dict[str, Any]:
+def exhaustive_branch_one_zero_tail(bound: int) -> dict[str, Any]:
     """Exhaust canonical three-branch prefixes for a zero-cost branch 1.
 
     The inner test needs only the generated current tail modulo ``2^23``.
@@ -236,8 +240,8 @@ def exhaustive_branch_one_regeneration(bound: int) -> dict[str, Any]:
     numerator modulo ``2^(D+23)`` determines its quotient modulo ``2^23``.
     """
 
-    if bound < max(REGENERATING_BRANCHES[:-1]):
-        raise ValueError("audit bound must contain the certified regeneration")
+    if bound < max(ZERO_TAIL_BRANCHES[:-1]):
+        raise ValueError("audit bound must contain the certified zero-tail path")
     transitions = [
         [None] * (bound + 1) for _ in range(bound + 1)
     ]
@@ -296,9 +300,9 @@ def exhaustive_branch_one_regeneration(bound: int) -> dict[str, Any]:
                     hits.append((first, middle, current))
                 checks += 1
 
-    if hits != [REGENERATING_BRANCHES[:-1]]:
-        raise AssertionError("bounded regeneration census changed")
-    prefix = compile_prefix(REGENERATING_BRANCHES)
+    if hits != [ZERO_TAIL_BRANCHES[:-1]]:
+        raise AssertionError("bounded zero-tail census changed")
+    prefix = compile_prefix(ZERO_TAIL_BRANCHES)
     if prefix.address_digits[-1] != 0:
         raise AssertionError("certified extension is not a zero address write")
     check_prefix_member(prefix, 0)
@@ -318,22 +322,22 @@ def exhaustive_branch_one_regeneration(bound: int) -> dict[str, Any]:
     }
 
 
-def replay_regeneration() -> dict[str, Any]:
-    prefix = compile_prefix(REGENERATING_BRANCHES)
+def replay_zero_tail_transition() -> dict[str, Any]:
+    prefix = compile_prefix(ZERO_TAIL_BRANCHES)
     if prefix.address_digits[-1] != 0:
-        raise AssertionError("regenerating prefix consumed another initial bit")
+        raise AssertionError("zero-tail prefix consumed another initial bit")
     initial_tail = prefix.initial_address
     first = branch(prefix.branches[0])
     initial_packet = branch_input_packet(first, initial_tail)
     initial_register = packet_to_register(initial_packet)
     if initial_register <= 0:
-        raise AssertionError("regeneration source is not an ordinary positive register")
+        raise AssertionError("zero-tail source is not an ordinary positive register")
 
     register = initial_register
     packet = initial_packet
     records: list[dict[str, Any]] = []
     preceding_ordinary_endpoint = None
-    for expected_branch in REGENERATING_BRANCHES:
+    for expected_branch in ZERO_TAIL_BRANCHES:
         exponent = v2(register)
         actual_branch = (exponent + 5) // 8
         if exponent != 8 * expected_branch - 5 or actual_branch != expected_branch:
@@ -372,15 +376,15 @@ def replay_regeneration() -> dict[str, Any]:
         packet = output_packet
 
     if counter_next(register) is not None:
-        raise AssertionError("finite regeneration unexpectedly continued")
+        raise AssertionError("finite zero-tail transition unexpectedly continued")
     successor_edges = []
     for source_branch, target_branch in zip(
-        REGENERATING_BRANCHES, REGENERATING_BRANCHES[1:], strict=False
+        ZERO_TAIL_BRANCHES, ZERO_TAIL_BRANCHES[1:], strict=False
     ):
         edge = successor_cylinder(source_branch, target_branch)
         source = branch(source_branch)
         if edge.tail_multiplier <= 1 << edge.address_bits:
-            raise AssertionError("regeneration witness lost positive information balance")
+            raise AssertionError("zero-tail path lost its expanding tail slope")
         successor_edges.append(
             {
                 "source_branch": source_branch,
@@ -389,14 +393,14 @@ def replay_regeneration() -> dict[str, Any]:
                 "address_bits_consumed": edge.address_bits,
                 "tail_multiplier": edge.tail_multiplier,
                 "tail_multiplier_floor_log2": edge.tail_multiplier.bit_length() - 1,
-                "certified_bit_capacity_surplus": (
+                "floor_log_scale_excess": (
                     edge.tail_multiplier.bit_length() - 1 - edge.address_bits
                 ),
-                "positive_information_balance": True,
+                "expanding_tail_slope": True,
             }
         )
     return {
-        "branches": list(REGENERATING_BRANCHES),
+        "branches": list(ZERO_TAIL_BRANCHES),
         "initial_tail": initial_tail,
         "initial_tail_bits": initial_tail.bit_length(),
         "initial_packet": initial_packet,
@@ -407,6 +411,13 @@ def replay_regeneration() -> dict[str, Any]:
         "address_digits": list(prefix.address_digits),
         "address_widths": list(prefix.address_widths),
         "final_address_digit_zero": True,
+        "initial_tail_exhausted_before_zero_digit": (
+            initial_tail.bit_length() == sum(prefix.address_widths[:-1])
+        ),
+        "zero_digit_interpretation": (
+            "ordinary binary padding after the 574-bit initial tail is exhausted; "
+            "not newly written independent storage"
+        ),
         "generated_branch": 1,
         "successor_edges": successor_edges,
         "records": records,
@@ -438,9 +449,9 @@ def build_audit(bound: int) -> dict[str, Any]:
     if bound != CERTIFIED_BOUND:
         raise ValueError(f"v1 certificate requires bound {CERTIFIED_BOUND}")
     # The complete pair box is reconstructed and checked coefficientwise by
-    # the regeneration census before its triple loop begins.
-    census = exhaustive_branch_one_regeneration(bound)
-    replay = replay_regeneration()
+    # the zero-tail census before its triple loop begins.
+    census = exhaustive_branch_one_zero_tail(bound)
+    replay = replay_zero_tail_transition()
     return {
         "successor_law": (
             "q=a_(n,m)+2^(8m+15)t; "
@@ -448,19 +459,19 @@ def build_audit(bound: int) -> dict[str, Any]:
         ),
         "pair_cylinders_checked": bound * bound,
         "pair_tail_members_checked": 2 * bound * bound,
-        "regeneration_census": census,
-        "finite_regeneration": replay,
+        "zero_tail_census": census,
+        "finite_zero_tail_transition": replay,
         "claim_scope": (
             "exact coefficientwise successor cylinders in the stated pair "
-            "box, exhaustive branch-1 zero-address census in the stated "
-            "triple box, and literal replay of the unique hit; finite only"
+            "box, exhaustive branch-1 zero-tail census in the stated triple "
+            "box, and literal replay of the unique hit; finite only"
         ),
         "closure_status": {
             "counterexample": None,
-            "achieved": "one ordinary finite counter-writing event",
+            "achieved": "one ordinary finite transition after source-tail exhaustion",
             "missing": (
-                "a closed invariant family or one ordinary register with an "
-                "infinite successful public-counter orbit"
+                "a nonhalting deterministic tail-zero orbit, equivalently one "
+                "ordinary register with an infinite successful public-counter orbit"
             ),
         },
     }
@@ -490,17 +501,17 @@ def verify_artifact(path: Path) -> dict[str, Any]:
     advertised = payload.pop("artifact_sha256")
     if advertised != hashlib.sha256(canonical_json(payload)).hexdigest():
         raise ValueError("artifact self-hash mismatch")
-    bound = int(data["audit"]["regeneration_census"]["branch_bound"])
+    bound = int(data["audit"]["zero_tail_census"]["branch_bound"])
     if data["audit"] != build_audit(bound):
         raise AssertionError("artifact differs from exact recomputation")
-    finite = data["audit"]["finite_regeneration"]
+    finite = data["audit"]["finite_zero_tail_transition"]
     return {
         "artifact_sha256": advertised,
         "verifier_sha256": data["verifier_sha256"],
-        "triple_prefixes_checked": data["audit"]["regeneration_census"][
+        "triple_prefixes_checked": data["audit"]["zero_tail_census"][
             "triple_prefixes_checked"
         ],
-        "regenerating_branches": finite["branches"],
+        "zero_tail_branches": finite["branches"],
         "successful_public_steps": finite["successful_public_steps"],
         "counterexample": None,
     }
@@ -513,13 +524,13 @@ def selftest() -> None:
         one = branch(1)
         if branch_output_packet(one, source_tail) != branch_input_packet(one, target_tail):
             raise AssertionError("one-cell successor cylinder changed")
-    prefix = compile_prefix(REGENERATING_BRANCHES)
+    prefix = compile_prefix(ZERO_TAIL_BRANCHES)
     if prefix.address_digits[-1] != 0:
-        raise AssertionError("regeneration witness changed")
+        raise AssertionError("zero-tail witness changed")
     check_prefix_member(prefix, 0)
-    replay = replay_regeneration()
+    replay = replay_zero_tail_transition()
     if replay["successful_public_steps"] != 4 or replay["counterexample"] is not None:
-        raise AssertionError("finite regeneration replay changed")
+        raise AssertionError("finite zero-tail replay changed")
 
 
 def parse_args(argv: Sequence[str]) -> argparse.Namespace:
