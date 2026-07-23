@@ -13139,3 +13139,78 @@ positive, and `scalarMoment_not_hasRecurrenceAtMostTwo` rules out every global
 order-one/order-two recurrence.  Hence the one-value first-order theorem
 cannot be smuggled in merely by calling the full-support combination one
 scalar number.  The honest remaining analytic theorem is rank three.
+
+## Kontorovich round 248 — exact KL outward budget and pure `-1` rail no-go
+
+QM128 and QM129 are now kernel-checked in two new modules.
+
+`KLWordBudget.lean` derives `log 3 / log 2 < 65/41` from the already certified
+natural-number comparison `3^41 < 2^65`, then proves
+
+```text
+0 < (n8+n2) log_2(3) - (n8+2*n2+2*ns)
+  -> 17*n2 + 82*ns < 24*n8.
+```
+
+Thus the advertised transport tax is an exact natural inequality, not a
+floating-point approximation.  Its scope remains only the leading time
+shift: no affine, integrality, or closure conclusion is smuggled into it.
+
+`KLMinusOneRail.lean` uses the actual one-halving Syracuse map.  For
+`railState L t j = 3^j*2^(L-j)*t-1`, it proves every source with `j<L` is
+positive and odd, one Syracuse step gives `railState L t (j+1)`, the step is
+strictly increasing, and iteration gives
+
+```text
+syracuseStep^[L] (2^L*t-1) = 3^L*t-1.
+```
+
+For a splice `3^L*t = 2^M*u`, the exact valuation theorem is packaged in the
+non-truncated form
+
+```text
+M + v2(u) = v2(t).
+```
+
+Consequently positive `M` strictly consumes the payload counter.  The theorem
+`no_infinite_positive_splice_chain` proves an infinite family of positive
+pure rails impossible by the explicit bound
+`i + v2(payload i) <= v2(payload 0)` and specializes at
+`i=v2(payload 0)+1`.
+
+Finally, over `Q`, translation by `-1` conjugates
+`R8(x)=(2*x-1)/3` to multiplication by `2/3`.  Lean proves
+`R8^[L](x)+1=(2/3)^L*(x+1)` and that every positive-period rational point is
+exactly `x=-1`.  This closes only the pure class-8 architecture.  Mixed
+recharge remains live, and the new integer budget quantifies how expensive it
+must be.
+
+## Kontorovich round 249 — calibrated cycle tax telescopes exactly
+
+QM127 is now formalized in `KLCalibratedCycle.lean` without committing to a
+particular graph library.  An indexed path carries positive vertex potentials,
+real shifts, and nonnegative deviation factors.  Lean proves the full prefix
+inequality
+
+```text
+lambda^(sum_{i<n} w_i) * c_n
+  <= (product_{i<n} d_i) * c_0.
+```
+
+For a closed path, positivity cancels the endpoint potential and yields the
+requested calibrated tax
+
+```text
+lambda^(sum w_i) <= product d_i.
+```
+
+If `lambda>1` and every edge is selected (`d_i=1`), strict monotonicity of
+real exponentiation gives `sum w_i <= 0`.  This is the exact generic content
+of QM127a--c.
+
+The KL strictness seam is also closed using the previously kernel-checked
+irrationality of `alpha=log_2(3)`: for naturals `A,B` with `B>0`, Lean proves
+`A*alpha-B != 0`, and therefore upgrades any telescoped nonpositive KL cycle
+weight of this form to a strictly negative one.  As requested, this is only
+a necessary cycle/search constraint; it constructs neither a coherent
+inverse-limit ray nor an ordinary-natural seed.

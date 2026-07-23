@@ -112,6 +112,8 @@ import KontoroC.AffineSuccessorCylinder
 import KontoroC.EtherCounterAperiodic
 import KontoroC.EtherCounterLinearTheta
 import KontoroC.EtherCounterGeometricMahler
+import KontoroC.KLWordBudget
+import KontoroC.KLCalibratedCycle
 import KontoroC.EtherCounterPeriodicTheta
 import KontoroC.EtherCounterResidueBound
 import KontoroC.EtherCounterStateNoRepeat
@@ -128,6 +130,7 @@ import KontoroC.VaananenWallisserCore
 import KontoroC.AmouMatalaahoVaananenThreshold
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
+import KontoroC.KLMinusOneRail
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
 import KontoroC.TwoRailPrefixCode

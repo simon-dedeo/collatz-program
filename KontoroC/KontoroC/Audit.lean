@@ -1261,3 +1261,18 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.NormalizedStandardPayloadStream.isPadicIrrational_iff_linearIndependent_one
 #print axioms
   KontoroC.NormalizedStandardPayloadStream.no_stream_of_vaananen_pair_linearIndependent
+#print axioms
+  KontoroC.KLWordBudget.log_three_div_log_two_lt_sixtyFive_div_fortyOne
+#print axioms KontoroC.KLWordBudget.positive_shift_forces_classEight_budget
+#print axioms KontoroC.KLMinusOneRail.syracuseStep_railState
+#print axioms KontoroC.KLMinusOneRail.railState_strictMono
+#print axioms KontoroC.KLMinusOneRail.syracuse_iterate_minusOne_rail
+#print axioms KontoroC.KLMinusOneRail.splice_valuation_balance
+#print axioms KontoroC.KLMinusOneRail.no_infinite_positive_splice_chain
+#print axioms KontoroC.KLMinusOneRail.r8_iterate_add_one
+#print axioms KontoroC.KLMinusOneRail.r8_periodic_only_minusOne
+#print axioms KontoroC.KLCalibratedCycle.path_telescoping
+#print axioms KontoroC.KLCalibratedCycle.calibrated_cycle_tax
+#print axioms KontoroC.KLCalibratedCycle.selected_cycle_shift_nonpos
+#print axioms KontoroC.KLCalibratedCycle.kl_log_weight_ne_zero
+#print axioms KontoroC.KLCalibratedCycle.kl_selected_cycle_weight_strict
