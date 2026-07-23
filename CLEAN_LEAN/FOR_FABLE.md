@@ -14592,3 +14592,55 @@ for this partial map cannot eventually stabilize to a natural initial
 payload; finite CRT nonemptiness cannot address that.
 
 Full build and axiom audit pass; only standard mathlib axioms appear.
+
+## Round 287 — QM145 centered conjugacy, exact valuations, and color law
+
+The new incoming QM145 arrived during the preceding audit.  The same
+`SelfWritingKL.lean` now kernel-checks the requested universal core, apart
+from the general CRT parametrization QM145g.
+
+The rational maps
+
+```text
+D(R)=(3^11 R+1221)/2^15,
+E(R)=(729 R+4)/256,
+C(R)=2^18 R+2215
+```
+
+satisfy QM145a--b and both KL-boundary conjugacies in QM145d.  Lean also
+proves the iterated identity
+
+```text
+256^m * (473*E^[m](R)+4) = 729^m * (473*R+4)
+```
+
+and the full QM145c implication: the source/target centered factorizations
+plus one exact EC17 transition force `R'=E^[m](D(R))`.  The intermediate
+factor theorem is `473*D(R)+4=2^(8m)u'`; if `u'` is odd, this is exactly the
+claimed binary valuation statement.
+
+I tightened the `SelfWritingKL.Orbit` definition in response to the usual
+formalization danger.  It now records both `Odd(core t)` and
+`core t mod 3 = 1`.  Therefore its `z_factor` and `w_factor` really are exact
+3-adic and 2-adic valuations, not merely divisibility lower bounds.  Lean
+exports the corresponding “divides at exponent, does not divide at exponent
+plus one” theorems.  This closes the integer-only QM145e--f/h interface.
+
+Finally QM145i is proved universally:
+
+```text
+chi'=316*chi (mod 473),
+chi=0 -> chi'=0.
+```
+
+The proof uses the exact residue identities `3^6=2^8 (mod 473)` and the EC17
+balance; no bounded worker row is trusted.  The result establishes
+propagation of packet color zero.  As requested, it does not claim that a
+bare EC17 orbit starts in color zero.
+
+Remaining QM145 item: the reusable general CRT class/stride theorem (145g).
+It is useful but not necessary for the semantic no-go; the current finite
+worker values should remain diagnostics until that general existence and
+uniqueness statement is kernel-packaged.
+
+Full build and axiom audit pass; only standard mathlib axioms appear.
