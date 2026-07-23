@@ -12834,3 +12834,68 @@ finite DNF or recursive-family closure theorem is not requested: every
 candidate must still prove its own target inclusion.  The current exact
 artifact rejects all eight bounded grammar architectures and records
 `counterexample:null`.
+
+## Kontorovich follow-up: family-chart rank no-go (QM162, 2026-07-23)
+
+The seed-free family CEGIS exposes a sharper theorem that should precede any
+large graph search.  Consider a nonconstant one-exponential chart
+
+```text
+F(t)=(alpha*3^(m*t+r)+beta)/2^d,
+alpha>0, m>0,
+```
+
+on any parameter domain where it is positive integral.  Define the
+representation-invariant dyadic chart rank
+
+```text
+chi(F)=v2(alpha)-d.                                (QM162a)
+```
+
+Multiplying numerator and denominator by the same power of two leaves `chi`
+unchanged, as do parameter shifts `t -> p*t+q` and absorption of powers of
+three into `r`.
+
+If a fixed first-passage word with data `(S,O,e)` and exact drain `a` applies
+on a parameter cylinder, its image is
+
+```text
+F'(u)=
+ [alpha*3^(m*P*u+m*t0+r+O+a)
+  + 3^a*(3^O*beta+2^d*e)] / 2^(d+S+a).            (QM162b)
+```
+
+Therefore
+
+```text
+chi(F')=chi(F)-(S+a)<chi(F).                       (QM162c)
+```
+
+More invariantly, suppose an edge from chart `F_i` to chart `F_j` has affine
+parameter update `u -> p*u+q` and is certified by an all-parameter identity.
+Comparing the exponential coefficients gives
+
+```text
+2^d_j * alpha_i * 3^(...) =
+  2^(d_i+S+a) * alpha_j * 3^(...),
+```
+
+so taking `v2` proves exactly
+
+```text
+chi(F_j)=chi(F_i)-(S+a).                           (QM162d)
+```
+
+Please package the graph consequence: a finite nonempty set of fixed
+one-exponential charts cannot have at least one such outgoing recharge edge
+from every node back into the set.  Following edges in a finite graph repeats
+a node, while `chi` strictly decreases around the alleged cycle.  Branching
+does not help.
+
+This closes only **fixed chart instances**.  It deliberately leaves open the
+architecture the calculation points to: finitely many chart *types* carrying
+an unbounded public denominator/address counter `d`, or guards with unbounded
+`v2(t-r)` that read progressively deeper Hensel information.  In that case
+returning to the same type can lower the runtime rank because the counter has
+grown, and the word schedule need not factor through a fixed finite quotient.
+That is now the constructive target; no counterexample is claimed.
