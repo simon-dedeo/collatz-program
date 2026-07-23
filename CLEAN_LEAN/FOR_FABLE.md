@@ -13214,3 +13214,33 @@ irrationality of `alpha=log_2(3)`: for naturals `A,B` with `B>0`, Lean proves
 weight of this form to a strictly negative one.  As requested, this is only
 a necessary cycle/search constraint; it constructs neither a coherent
 inverse-limit ray nor an ordinary-natural seed.
+
+## Kontorovich round 250 — aperiodic KL path tax and condition number
+
+QM130 is now added to `KLCalibratedCycle.lean`.  The logarithm-free theorem
+`multiplicative_path_telescoping` proves, for arbitrary nonnegative edge
+weights `q_i` and deviations `d_i`,
+
+```text
+(product q_i) * c_N <= (product d_i) * c_0.
+```
+
+With direct uniform assumptions `0<cmin<=c_i<=cmax`, the endpoint potentials
+are then eliminated exactly:
+
+```text
+product q_i <= (cmax/cmin) * product d_i.
+```
+
+The real-power specialization is also kernel-checked:
+
+```text
+lambda^(sum w_i) <= (cmax/cmin) * product d_i.
+```
+
+No periodicity or endpoint equality occurs in these statements.  Thus the
+cycle lemma is now visibly only the zero-condition-number-cost special case,
+while an aperiodic fixed-precision escape must accumulate deviation tax beyond
+the one bounded endpoint factor.  The fixed-level warning remains essential:
+the formal theorem makes no claim that `cmax/cmin` stays bounded as precision
+grows.

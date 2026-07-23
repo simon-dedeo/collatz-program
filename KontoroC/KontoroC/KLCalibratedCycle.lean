@@ -22,6 +22,78 @@ its vertices and edges.
 namespace KontoroC
 namespace KLCalibratedCycle
 
+/-- QM130a in its logarithm-free form: arbitrary nonnegative edge weights
+and deviation factors telescope along every finite indexed path. -/
+theorem multiplicative_path_telescoping
+    (potential weight deviation : ℕ → ℝ)
+    (hweight : ∀ i, 0 ≤ weight i)
+    (hdeviation : ∀ i, 0 ≤ deviation i)
+    (hedge : ∀ i,
+      weight i * potential (i + 1) ≤ deviation i * potential i)
+    (n : ℕ) :
+    (∏ i ∈ Finset.range n, weight i) * potential n ≤
+      (∏ i ∈ Finset.range n, deviation i) * potential 0 := by
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      calc
+        (∏ i ∈ Finset.range (n + 1), weight i) * potential (n + 1) =
+            (∏ i ∈ Finset.range n, weight i) *
+              (weight n * potential (n + 1)) := by
+                rw [Finset.prod_range_succ]
+                ring
+        _ ≤ (∏ i ∈ Finset.range n, weight i) *
+              (deviation n * potential n) :=
+                mul_le_mul_of_nonneg_left (hedge n)
+                  (Finset.prod_nonneg fun i _ => hweight i)
+        _ = deviation n *
+              ((∏ i ∈ Finset.range n, weight i) * potential n) := by
+                ring
+        _ ≤ deviation n *
+              ((∏ i ∈ Finset.range n, deviation i) * potential 0) :=
+                mul_le_mul_of_nonneg_left ih (hdeviation n)
+        _ = (∏ i ∈ Finset.range (n + 1), deviation i) * potential 0 := by
+                rw [Finset.prod_range_succ]
+                ring
+
+/-- QM130b: on a finite state space, endpoint potentials cost only their
+condition number.  The assumptions are stated directly as uniform bounds so
+the lemma also applies outside finite graphs. -/
+theorem multiplicative_path_condition_bound
+    (potential weight deviation : ℕ → ℝ)
+    (hweight : ∀ i, 0 ≤ weight i)
+    (hdeviation : ∀ i, 0 ≤ deviation i)
+    (hedge : ∀ i,
+      weight i * potential (i + 1) ≤ deviation i * potential i)
+    {cmin cmax : ℝ} (hcmin : 0 < cmin)
+    (hmin : ∀ i, cmin ≤ potential i)
+    (hmax : ∀ i, potential i ≤ cmax)
+    (n : ℕ) :
+    ∏ i ∈ Finset.range n, weight i ≤
+      (cmax / cmin) * ∏ i ∈ Finset.range n, deviation i := by
+  have htel := multiplicative_path_telescoping potential weight deviation
+    hweight hdeviation hedge n
+  have hwprod : 0 ≤ ∏ i ∈ Finset.range n, weight i :=
+    Finset.prod_nonneg fun i _ => hweight i
+  have hdprod : 0 ≤ ∏ i ∈ Finset.range n, deviation i :=
+    Finset.prod_nonneg fun i _ => hdeviation i
+  have hlower :
+      (∏ i ∈ Finset.range n, weight i) * cmin ≤
+        (∏ i ∈ Finset.range n, weight i) * potential n :=
+    mul_le_mul_of_nonneg_left (hmin n) hwprod
+  have hupper :
+      (∏ i ∈ Finset.range n, deviation i) * potential 0 ≤
+        (∏ i ∈ Finset.range n, deviation i) * cmax :=
+    mul_le_mul_of_nonneg_left (hmax 0) hdprod
+  refine (mul_le_mul_iff_of_pos_right hcmin).mp ?_
+  calc
+    (∏ i ∈ Finset.range n, weight i) * cmin ≤
+        (∏ i ∈ Finset.range n, weight i) * potential n := hlower
+    _ ≤ (∏ i ∈ Finset.range n, deviation i) * potential 0 := htel
+    _ ≤ (∏ i ∈ Finset.range n, deviation i) * cmax := hupper
+    _ = (cmax / cmin * ∏ i ∈ Finset.range n, deviation i) * cmin := by
+      field_simp
+
 /-- Multiplication of the edge inequalities along an indexed path. -/
 theorem path_telescoping
     {lambda : ℝ} (hlambda : 0 < lambda)
@@ -55,6 +127,45 @@ theorem path_telescoping
         _ = (∏ i ∈ Finset.range (n + 1), deviation i) * potential 0 := by
                 rw [Finset.prod_range_succ]
                 ring
+
+/-- QM130c: exponential KL weights satisfy the same endpoint condition-
+number bound along arbitrary, not necessarily periodic, finite paths. -/
+theorem rpow_path_condition_bound
+    {lambda : ℝ} (hlambda : 0 < lambda)
+    (potential shift deviation : ℕ → ℝ)
+    (hpotential : ∀ i, 0 < potential i)
+    (hdeviation : ∀ i, 0 ≤ deviation i)
+    (hedge : ∀ i,
+      lambda ^ shift i * potential (i + 1) ≤
+        deviation i * potential i)
+    {cmin cmax : ℝ} (hcmin : 0 < cmin)
+    (hmin : ∀ i, cmin ≤ potential i)
+    (hmax : ∀ i, potential i ≤ cmax)
+    (n : ℕ) :
+    lambda ^ (∑ i ∈ Finset.range n, shift i) ≤
+      (cmax / cmin) * ∏ i ∈ Finset.range n, deviation i := by
+  have htel := path_telescoping hlambda potential shift deviation
+    hpotential hdeviation hedge n
+  have hq : 0 ≤ lambda ^ (∑ i ∈ Finset.range n, shift i) :=
+    Real.rpow_nonneg hlambda.le _
+  have hdprod : 0 ≤ ∏ i ∈ Finset.range n, deviation i :=
+    Finset.prod_nonneg fun i _ => hdeviation i
+  have hlower :
+      lambda ^ (∑ i ∈ Finset.range n, shift i) * cmin ≤
+        lambda ^ (∑ i ∈ Finset.range n, shift i) * potential n :=
+    mul_le_mul_of_nonneg_left (hmin n) hq
+  have hupper :
+      (∏ i ∈ Finset.range n, deviation i) * potential 0 ≤
+        (∏ i ∈ Finset.range n, deviation i) * cmax :=
+    mul_le_mul_of_nonneg_left (hmax 0) hdprod
+  refine (mul_le_mul_iff_of_pos_right hcmin).mp ?_
+  calc
+    lambda ^ (∑ i ∈ Finset.range n, shift i) * cmin ≤
+        lambda ^ (∑ i ∈ Finset.range n, shift i) * potential n := hlower
+    _ ≤ (∏ i ∈ Finset.range n, deviation i) * potential 0 := htel
+    _ ≤ (∏ i ∈ Finset.range n, deviation i) * cmax := hupper
+    _ = (cmax / cmin * ∏ i ∈ Finset.range n, deviation i) * cmin := by
+      field_simp
 
 /-- QM127c: after a path closes, its positive potential cancels.  Every
 outward cycle must be paid for by the product of its deviation factors. -/
