@@ -10207,3 +10207,413 @@ A hit is therefore an exact three-step positive macro, and consecutive hits
 splice.  This precision path is construction-facing only: it need not dominate
 the sharp `U` bound, so a failed congruence does **not** exclude a hypothetical
 ray.  The first bounded worker box has no hits; that remains finite evidence.
+
+## Kontorovich request: consecutive geometric root grid and auxiliary-prime gain (QM123, 2026-07-23)
+
+The literal three-theta reduction exposes stronger geometry than the generic
+`ell=3` hypotheses.  Put
+
+```text
+R = g.ratio = 2^(8*K)/3^(6*K),
+q = (g.thetaData.parameterInverse)^(-1) = R^(-3),
+alpha = g.thetaData.argumentCommon,
+alpha_r = alpha*R^r,  r=0,1,2.
+```
+
+For every `nu>0`, the `3*nu` Skolem root points are one consecutive geometric
+grid, not three unrelated `q`-orbits.  In a natural-exponent normalization,
+
+```text
+R^(3*(nu-1)) * q^a * alpha_r
+  = alpha * R^(3*(nu-1-a)+r),
+0<=a<nu, 0<=r<3,                                  (QM123a)
+```
+
+and `(a,r) -> 3*(nu-1-a)+r` is a bijection onto `0,...,3*nu-1`.
+An equivalent polynomial statement is that the union of the roots of
+`prod_r prod_(a<nu) (X/q^a-alpha_r)` is, up to the explicit product of the
+`q^(-a)` leading scalars, a single `R`-Pochhammer block.
+
+For `m=3*nu` and `beta_i=alpha*R^i`, please prove the exact Vandermonde
+factorization
+
+```text
+det(vandermonde beta)
+ = alpha^(choose(m,2)) * R^(choose(m,3))
+   * prod_(d=1..m-1) (R^d-1)^(m-d).                (QM123b)
+```
+
+The exponent identity needed here is
+`sum_(i<j) i = choose(m,3)`.  Formula QM123b specializes the current
+three-point determinant theorem and exposes arithmetic that the determinant-
+free 1989 proof deliberately discards.
+
+Finally set `u=2^(8*K)`, `v=3^(6*K)`, so `R=u/v` and
+`v-u` is divisible by `729-256=473=11*43`.  Since `alpha`, `R`, and all their
+denominators are units at both 11 and 43, QM123b should give
+
+```text
+v_11(det) >= choose(3*nu,2),
+v_43(det) >= choose(3*nu,2),                         (QM123c)
+```
+
+and LTE should sharpen, for `p=11,43`, to the exact formula
+
+```text
+v_p(det) = choose(m,2)*(1+v_p(K))
+           + sum_(d=1..m-1) (m-d)*v_p(d).            (QM123d)
+```
+
+Equivalently, after clearing only powers of `2` and `3`, the numerator carries
+`(3^(6*K)-2^(8*K))^(choose(3*nu,2))` as an explicit factor.
+
+Scope: QM123a--c are exact algebraic/divisibility inputs, not yet a repaired
+linear-independence theorem.  The failed generic bound has gap
+
+```text
+gamma-threshold(3) = 0.005887416954426655...
+```
+
+whereas the new factor has quadratic multiplicity in `nu`.  The decisive next
+audit is whether a Padé/Skolem determinant retains this auxiliary-prime gain
+after all denominator and archimedean height costs are counted.  Do not claim
+an improvement merely from nonzero Vandermonde or from the three-point
+2-adic norm; the full product-of-places bookkeeping is the missing theorem.
+
+## Kontorovich request: scalar full-support Hankel factor (QM124, 2026-07-23)
+
+QM123's growing-grid determinant could still be irrelevant if its quadratic
+factor is spread across a growing number of unrelated auxiliary forms.  The
+ray-forced coefficient vector gives a sharper fixed-scalar object on which to
+test that objection.
+
+Let `s_r=thetaData.prefixScale r>0`, put
+
+```text
+P(Z)=s_0+s_1*Z+s_2*Z^2,
+T=R^3=q^(-1),
+c_n=T^(choose(n+1,2))*z^n*P(R^n),
+H_N=det (c_(i+j))_(0<=i,j<N).
+```
+
+Up to the nonzero row/column factors
+`T^(choose(i+1,2))*z^i`, the Hankel entry is
+
+```text
+M_(i,j)=R^(3*i*j)*P(R^(i+j))
+       =sum_(r=0..2) s_r*R^(r*j)*(R^i)^(3*j+r).     (QM124a)
+```
+
+Thus column `j` evaluates the polynomial
+
+```text
+f_j(X)=sum_(r=0..2) s_r*R^(r*j)*X^(3*j+r)
+```
+
+at the nodes `X_i=R^i`.  Expanding the determinant chooses one exponent
+`3*j+r_j` from each column.  These exponent bands are disjoint and ordered,
+so every generalized Vandermonde term has the same sign for
+`0<R<1,s_r>0`.  Consequently `H_N` is nonzero for every `N>0`, and the
+ordinary alternant factor gives
+
+```text
+prod_(0<=i<j<N)(R^j-R^i)
+ =R^(choose(N,3))*prod_(d=1..N-1)(R^d-1)^(N-d)     (QM124b)
+```
+
+as an exact divisor of the normalized determinant.  Equivalently, after the
+known monomial row/column factor is removed, the quotient by this Vandermonde
+is a positive generalized-Schur sum.  Exact symbolic regressions give
+
+```text
+N=2: (R-1),
+N=3: (R-1)^3*(R+1),
+N=4: (R-1)^6*(R+1)^2*(R^2+R+1),
+```
+
+times a nonzero positive-coefficient quotient.
+
+At `p=11,43`, QM124b yields the same genuinely quadratic lower bound
+
+```text
+v_p(H_N after monomial normalization)
+ >= choose(N,2)*(1+v_p(K))
+    +sum_(d=1..N-1)(N-d)*v_p(d).                   (QM124c)
+```
+
+This is attached to the natural Padé/Hankel determinant of the *one fixed
+full-support scalar combination*, not just to the initial `3 x 3`
+Vandermonde.  Scope remains critical: nonzero Hankel determinants prove the
+scalar generating function is not rational and give normal Padé systems, but
+do not by themselves prove its evaluated `Q_2` value irrational.  Before
+claiming a threshold improvement, audit whether solving/normalizing the Padé
+system divides by exactly the factor in QM124b.  A net quadratic gain in the
+final integer linear form is required; otherwise this lane also closes as
+bookkeeping cancellation.
+
+## Kontorovich request: primitive cofactor cancellation audit (QM125, 2026-07-23)
+
+There is a likely obstruction to promoting QM124 into a threshold gain.  The
+same alternant argument applies to every cofactor: after deleting one row and
+one column, the remaining determinant is alternating in `N-1` geometric
+nodes.  After clearing only the fixed powers of `2` and `3`, every cofactor
+therefore carries at least
+
+```text
+(3^(6*K)-2^(8*K))^(choose(N-1,2)).                  (QM125a)
+```
+
+The full determinant carries exponent `choose(N,2)`.  Hence a Cramer/adjugate
+Padé vector has a common factor of order `choose(N-1,2)` which must be removed
+when the integer vector is made primitive.  The largest resonance power that
+can remain from this source alone is only
+
+```text
+choose(N,2)-choose(N-1,2)=N-1,                      (QM125b)
+```
+
+and `(N-1)/N^2 -> 0`.  Please package the generic cofactor alternation/division
+statement if it is short, then a limit lemma analogous to round 244.
+
+Scope: QM125 would close the bare Vandermonde-factor idea as an asymptotic
+repair of the 1989 threshold.  It would not say that the scalar Hankel/Padé
+construction is useless: an additional factor present in the remainder but
+absent from the primitive coefficient vector could still give a genuine
+quadratic gain.  The next analytic search must locate such an *unbalanced*
+factor explicitly; common determinant/cofactor divisibility is bookkeeping,
+not arithmetic progress.
+
+## Kontorovich request: scalarization retains exact rank three (QM126, 2026-07-23)
+
+The full-support scalar combination in QM124 is one number, but it is not a
+rank-one Tschakaloff problem.  This closes the tempting but invalid move of
+applying the one-value irrationality threshold merely after scalarizing.
+
+With `R` and the positive rational prefix scales `s_0,s_1,s_2` as above, put
+
+```text
+u_n = s_0 + s_1*R^n + s_2*R^(2*n).
+```
+
+Please prove the exact recurrence
+
+```text
+u_(n+3) - (1+R+R^2)*u_(n+2)
+        + (R+R^2+R^3)*u_(n+1) - R^3*u_n = 0.       (QM126a)
+```
+
+More decisively, the order cannot drop below three.  The moment/Hankel
+factorization for the nodes `1,R,R^2` is
+
+```text
+det (u_(i+j))_(0<=i,j<3)
+ = s_0*s_1*s_2 * R^2*(R-1)^6*(R+1)^2.              (QM126b)
+```
+
+For the literal ray, `0<R<1` and every `s_r>0`, so this determinant is
+strictly positive.  Thus the coefficient sequence has minimal linear
+recurrence order exactly three over `Q`.  Equivalently, writing
+
+```text
+f(x)=sum_(n>=0) R^(3*choose(n+1,2))*x^n,
+G(x)=s_0*f(x)+s_1*f(R*x)+s_2*f(R^2*x),
+```
+
+the scalar `G` still contains all three dilation modes.  A one-value
+irrationality theorem that uses a first-order functional equation therefore
+does not apply without a new rank-three argument.  This statement does not
+exclude a special rank-three Padé theorem with a better threshold; it pins
+the honest theorem that would be needed.
+
+## Kontorovich request: KL calibrated cycles and escape tax (QM127, 2026-07-23)
+
+The original Krasikov--Lagarias paper suggests a theorem-driven way to rank
+counterexample schedules.  The following abstract lemma is independent of
+the paper's faulty deletion proof and uses only an attained positive critical
+eigenvector, which the repaired development already supplies.
+
+Let a finite directed graph have a positive potential `c`, a real `lambda>1`,
+and edge time-shifts `w(e)`.  Suppose every selected edge `e : x -> y`
+satisfies
+
+```text
+lambda^(w(e))*c(y) <= c(x).                          (QM127a)
+```
+
+Then every directed selected cycle `C` satisfies
+
+```text
+sum_(e in C) w(e) <= 0.                              (QM127b)
+```
+
+This is just multiplication around the cycle and cancellation of the source
+and target multisets.  For the KL selected-policy graph the shifts are
+
+```text
+transport: -2;
+class-2 chord: alpha-2;
+class-8 chord: alpha-1;       alpha=log_2(3).
+```
+
+The inequality in QM127b is strict for every nonempty KL cycle: its sum is
+`A*log_2(3)-B` with integers `A>=0,B>0`; equality would give `3^A=2^B`, and
+the `A=0` case consists only of negative transport shifts.  In particular,
+the minimizing KL policy itself cannot contain an outward cycle.  Its
+critical spectral radius is sustained by branching entropy, not by one
+escaping ray.
+
+There is also a calibrated version for leaving the minimizing policy.  On a
+chord row let `c_min` be the selected fiber minimum and choose another lift
+with value `c_alt`; define the deviation factor
+
+```text
+d(e)=c_alt/c_min >= 1
+```
+
+(and `d(e)=1` on selected or transport edges).  Since
+`lambda^(w(e))*c(target) <= d(e)*c(source)`, every directed cycle in the full
+lift graph satisfies
+
+```text
+lambda^(sum_(e in C) w(e)) <= prod_(e in C) d(e).    (QM127c)
+```
+
+Thus every outward cycle pays a positive, quantitatively calibrated KL
+deviation tax.  Please package the generic telescoping lemma and, if short,
+its strict KL specialization.  Scope: this is a necessary constraint and a
+search objective, not a counterexample.  A constructive ray must additionally
+be coherent across precisions and arise from one ordinary positive integer;
+an inverse-limit policy address alone is only 3-adic.
+
+## Kontorovich request: the KL `-1` escape rail exhausts a finite counter (QM128, 2026-07-23)
+
+The only positive KL time-shift is the class-8 chord.  In the affine coordinate
+`z=m+1`, that predecessor edge is simply
+
+```text
+z -> (2/3)*z,
+```
+
+and its forward reversal is `z -> (3/2)*z`.  This identifies the exceptional
+KL fixed point with the familiar minus-one rail, and turns its failure for
+ordinary naturals into an exact counter theorem.
+
+For `L>0,t>0`, let
+
+```text
+x_j = 3^j * 2^(L-j) * t - 1,   0<=j<=L.
+```
+
+Please reuse the existing shortcut/word semantics to prove
+
+```text
+x_(j+1) = (3*x_j+1)/2,
+T^[L] (2^L*t-1) = 3^L*t-1,                         (QM128a)
+```
+
+with every intermediate shortcut legal and strictly increasing.  Consecutive
+pure minus-one rails can splice only if
+
+```text
+3^(L_i)*t_i = 2^(L_(i+1))*t_(i+1).                 (QM128b)
+```
+
+Since the left power of three is odd, QM128b gives
+
+```text
+v_2(t_(i+1)) = v_2(t_i)-L_(i+1).                   (QM128c)
+```
+
+Consequently no infinite sequence with every `L_i>0` can be spliced from one
+fixed positive natural payload: the nonnegative counter `v_2(t_i)` would
+strictly decrease forever.  Equivalently, a pure class-8 KL escape is the
+3-adic fixed address `m=-1`, not an ordinary positive seed.  Any actual
+counterexample architecture must contain a recharge phase which recreates at
+least as much `v_2(m+1)` as its outward class-8 blocks consume.
+
+The companion uniqueness statement is also short over `Q`: if the affine map
+`R8(x)=(2*x-1)/3` has an `L>0` periodic point, then
+
+```text
+R8^[L](x)+1=(2/3)^L*(x+1)
+```
+
+forces `(3^L-2^L)*(x+1)=0`, hence `x=-1`.  Scope: this closes the pure
+class-8 rail only.  Mixed recharge/discharge schedules remain the live
+construction target.
+
+Optional strengthening if the finite-graph library makes it short: since a
+fixed KL policy graph has only finitely many simple cycles and all have
+strictly negative weight, every infinite selected walk has strictly negative
+upper asymptotic mean.  Do not seek a precision-uniform margin; the elementary
+gap between `A*log_2(3)` and an integer can shrink exponentially with the
+cycle length.  The useful statement is fixed-level only.
+
+## Kontorovich request: exact mixed-word outward budget (QM129, 2026-07-23)
+
+For a finite KL predecessor word, let `n8,n2,ns` count class-8 chord,
+class-2 chord, and transport edges.  Its total time-shift is
+
+```text
+W=(n8+n2)*log_2(3)-(n8+2*n2+2*ns).
+```
+
+Using the already proved `three_pow_41_lt_two_pow_65`, please package the
+short necessary condition
+
+```text
+0<W -> 24*n8 > 17*n2+82*ns.                          (QM129)
+```
+
+Indeed `log_2(3)<65/41`, so positivity gives
+`65*(n8+n2)>41*(n8+2*n2+2*ns)`.  This is a construction
+branch-and-bound theorem: every transport recharge costs more than `82/24`
+positive class-8 discharges at the leading-multiplier level.  It says nothing
+about additive terms, integrality, or ordinary closure by itself.
+
+## Kontorovich request: pathwise KL escape tax (QM130, 2026-07-23)
+
+QM127 was phrased for cycles, while the surviving recharge/counter
+architectures are aperiodic.  The same multiplication argument is stronger
+and should be packaged for arbitrary finite paths (and of course retains the
+cycle case).
+
+An abstract version can avoid logarithms and real powers entirely.  Let
+`x_0,...,x_N` be vertices, let `q_i,d_i,c(x_i)>0`, and suppose
+
+```text
+q_i * c(x_(i+1)) <= d_i * c(x_i)       for every i<N.
+```
+
+Please prove the finite telescoping inequality
+
+```text
+(prod_(i<N) q_i) * c(x_N)
+  <= (prod_(i<N) d_i) * c(x_0).                     (QM130a)
+```
+
+If the finite state potential has uniform bounds
+`0<c_min<=c(x)<=c_max`, deduce
+
+```text
+prod_(i<N) q_i
+  <= (c_max/c_min) * prod_(i<N) d_i.                 (QM130b)
+```
+
+The KL instance takes `q_i=lambda^(w_i)` and `d_i=c_alt/c_minFiber`
+(with `d_i=1` on transport and selected edges).  Thus at every fixed
+precision, endpoint potential contributes only the bounded condition number
+`c_max/c_min`: sustained outward drift on a genuinely aperiodic path still
+forces sustained non-minimizing-lift tax.  The cycle theorem is the special
+case `x_N=x_0`, not the main endpoint.
+
+If the `Real.rpow` product identity is short, also record
+
+```text
+lambda^(sum_(i<N) w_i)
+  <= (c_max/c_min) * prod_(i<N) d_i                  (QM130c)
+```
+
+for `lambda>0`.  Otherwise QM130a--b are the important exact algebraic core.
+Scope: the bound is fixed-level.  The condition number may grow with KL
+precision, so no precision-uniform rate or Collatz conclusion is claimed.

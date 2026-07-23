@@ -1,0 +1,391 @@
+{
+  "all_strict": true,
+  "condition_number_strictly_increasing": true,
+  "counterexample": null,
+  "rail_regression": {
+    "all_exact": true,
+    "length_max": 64,
+    "payload_max": 64
+  },
+  "rows": [
+    {
+      "class8_weight_lower": {
+        "denominator": 500000000000000,
+        "numerator": 706642523717051
+      },
+      "deviation_factor": {
+        "denominator": 75342544752355,
+        "numerator": 107003416539071
+      },
+      "deviation_over_weight": {
+        "denominator": 10648049193413798889777181021,
+        "numerator": 10700341653907100000000000000
+      },
+      "deviation_over_weight_decimal": "1.00491098975441",
+      "inputs": {
+        "certificate": "experiments/kl/cert_k12.json",
+        "certificate_sha256": "a6386bfc8d0410a3dd82a98d765690e53c620259e6b7c4a5359f150ce6d1459f"
+      },
+      "lambda_lower": {
+        "denominator": 10000000,
+        "numerator": 18064231
+      },
+      "level": 12,
+      "lift_states": [
+        177146,
+        354293,
+        531440
+      ],
+      "lift_values": [
+        140887310511279,
+        75342544752355,
+        107003416539071
+      ],
+      "minimum_lift_index": 1,
+      "potential_condition_number": {
+        "denominator": 1000000000000,
+        "numerator": 146967160601293
+      },
+      "potential_condition_number_decimal": "146.967160601293",
+      "potential_maximum": 146967160601293,
+      "potential_minimum": 1000000000000,
+      "self_lift_index": 2,
+      "strict_cross_margin": 522924604933011102228189790
+    },
+    {
+      "class8_weight_lower": {
+        "denominator": 500000000000000,
+        "numerator": 709475979287317
+      },
+      "deviation_factor": {
+        "denominator": 113533373440726,
+        "numerator": 161635043201665
+      },
+      "deviation_over_weight": {
+        "denominator": 3661327331984170253528321461,
+        "numerator": 3673523709128750000000000000
+      },
+      "deviation_over_weight_decimal": "1.00333113541585",
+      "inputs": {
+        "certificate": "experiments/kl/cert_k13.json",
+        "certificate_sha256": "32f22a8bfc6e7962443ce0da0fd28bdb5d2a56748e0ea832a9135a45391fc7b7"
+      },
+      "lambda_lower": {
+        "denominator": 1250000,
+        "numerator": 2273529
+      },
+      "level": 13,
+      "lift_states": [
+        531440,
+        1062881,
+        1594322
+      ],
+      "lift_values": [
+        113533373440726,
+        210403364189873,
+        161635043201665
+      ],
+      "minimum_lift_index": 0,
+      "potential_condition_number": {
+        "denominator": 1000000000000,
+        "numerator": 223527237154359
+      },
+      "potential_condition_number_decimal": "223.527237154359",
+      "potential_maximum": 223527237154359,
+      "potential_minimum": 1000000000000,
+      "self_lift_index": 2,
+      "strict_cross_margin": 536640594361508844753855716
+    },
+    {
+      "class8_weight_lower": {
+        "denominator": 1000000000000000,
+        "numerator": 1424397381530503
+      },
+      "deviation_factor": {
+        "denominator": 171882523497383,
+        "numerator": 245364670373248
+      },
+      "deviation_over_weight": {
+        "denominator": 244829016400527499916855173649,
+        "numerator": 245364670373248000000000000000
+      },
+      "deviation_over_weight_decimal": "1.00218786964305",
+      "inputs": {
+        "certificate": "experiments/kl/cert_k14.json",
+        "certificate_sha256": "08ac51b3f259798b9bf979388ec5f7f590c26025cc323ee331867d20d616285f"
+      },
+      "lambda_lower": {
+        "denominator": 5000000,
+        "numerator": 9153859
+      },
+      "level": 14,
+      "lift_states": [
+        1594322,
+        3188645,
+        4782968
+      ],
+      "lift_values": [
+        316337702183543,
+        171882523497383,
+        245364670373248
+      ],
+      "minimum_lift_index": 1,
+      "potential_condition_number": {
+        "denominator": 62500000000,
+        "numerator": 21203495831541
+      },
+      "potential_condition_number_decimal": "339.255933304656",
+      "potential_maximum": 339255933304656,
+      "potential_minimum": 1000000000000,
+      "self_lift_index": 2,
+      "strict_cross_margin": 535653972720500083144826351
+    },
+    {
+      "class8_weight_lower": {
+        "denominator": 250000000000000,
+        "numerator": 357371622851993
+      },
+      "deviation_factor": {
+        "denominator": 257618442851764,
+        "numerator": 368819946138757
+      },
+      "deviation_over_weight": {
+        "denominator": 23016380249634579055452741413,
+        "numerator": 23051246633672312500000000000
+      },
+      "deviation_over_weight_decimal": "1.00151485088705",
+      "inputs": {
+        "certificate": "experiments/kl/cert_k15.json",
+        "certificate_sha256": "fdf28dbd79aa50334e4f643e51232bebb46d32e6e18d40acd144101613c87ae1",
+        "vector": "experiments/kl/cert_k15_C.npy",
+        "vector_sha256": "fa65959e13cb445e50c92a447a924658b45aae943873e38d774a0b79aa85cda4"
+      },
+      "lambda_lower": {
+        "denominator": 10000000,
+        "numerator": 18419679
+      },
+      "level": 15,
+      "lift_states": [
+        4782968,
+        9565937,
+        14348906
+      ],
+      "lift_values": [
+        257618442851764,
+        476008768223236,
+        368819946138757
+      ],
+      "minimum_lift_index": 0,
+      "potential_condition_number": {
+        "denominator": 1000000000000,
+        "numerator": 516319932654493
+      },
+      "potential_condition_number_decimal": "516.319932654493",
+      "potential_maximum": 516319932654493,
+      "potential_minimum": 1000000000000,
+      "self_lift_index": 2,
+      "strict_cross_margin": 557862144603735112756137392
+    },
+    {
+      "class8_weight_lower": {
+        "denominator": 1000000000000000,
+        "numerator": 1434141740409001
+      },
+      "deviation_factor": {
+        "denominator": 128568152255821,
+        "numerator": 184567676938474
+      },
+      "deviation_over_weight": {
+        "denominator": 184384953637332556909323044821,
+        "numerator": 184567676938474000000000000000
+      },
+      "deviation_over_weight_decimal": "1.00099098813399",
+      "inputs": {
+        "certificate": "experiments/kl/cert_k16.json",
+        "certificate_sha256": "5e4aa8081659c0d33ce0b50a6c3a211d62c508fcccc602dd2b33fa07dede170e",
+        "vector": "experiments/kl/cert_k16_C.npy",
+        "vector_sha256": "180c4856ee6cffdf08a2feedea15a17bab9f0d8bf2702808b4ae2512a41d300b"
+      },
+      "lambda_lower": {
+        "denominator": 10000000,
+        "numerator": 18522343
+      },
+      "level": 16,
+      "lift_states": [
+        14348906,
+        28697813,
+        43046720
+      ],
+      "lift_values": [
+        721576924296361,
+        385704456767463,
+        553703030815422
+      ],
+      "minimum_lift_index": 1,
+      "potential_condition_number": {
+        "denominator": 1000000000000,
+        "numerator": 793056390091719
+      },
+      "potential_condition_number_decimal": "793.056390091719",
+      "potential_maximum": 793056390091719,
+      "potential_minimum": 1000000000000,
+      "self_lift_index": 2,
+      "strict_cross_margin": 548169903424329272030865537
+    },
+    {
+      "class8_weight_lower": {
+        "denominator": 200000000000000,
+        "numerator": 287683829599457
+      },
+      "deviation_factor": {
+        "denominator": 581732209114791,
+        "numerator": 837325711729019
+      },
+      "deviation_over_weight": {
+        "denominator": 167354949719495220294064268487,
+        "numerator": 167465142345803800000000000000
+      },
+      "deviation_over_weight_decimal": "1.00065843661328",
+      "inputs": {
+        "certificate": "experiments/kl/cert_k17.json",
+        "certificate_sha256": "56cf23c9ea2e61006535a3a65f952136c671d8f770df37dbc647d0133c462183",
+        "vector": "experiments/kl/cert_k17_C.npy",
+        "vector_sha256": "72da89e5733d56855d7514107b690c9127ca243ac65f6ad2873c9eeff0a770d2"
+      },
+      "lambda_lower": {
+        "denominator": 10000000,
+        "numerator": 18616883
+      },
+      "level": 17,
+      "lift_states": [
+        43046720,
+        86093441,
+        129140162
+      ],
+      "lift_values": [
+        581732209114791,
+        1096458830412111,
+        837325711729019
+      ],
+      "minimum_lift_index": 0,
+      "potential_condition_number": {
+        "denominator": 500000000000,
+        "numerator": 603719684022297
+      },
+      "potential_condition_number_decimal": "1207.43936804459",
+      "potential_maximum": 1207439368044594,
+      "potential_minimum": 1000000000000,
+      "self_lift_index": 2,
+      "strict_cross_margin": 550963131542898529678657565
+    },
+    {
+      "class8_weight_lower": {
+        "denominator": 125000000000000,
+        "numerator": 180289834268809
+      },
+      "deviation_factor": {
+        "denominator": 878288753663655,
+        "numerator": 1267344289572398
+      },
+      "deviation_over_weight": {
+        "denominator": 31669306767635834673368687379,
+        "numerator": 31683607239309950000000000000
+      },
+      "deviation_over_weight_decimal": "1.00045155619537",
+      "inputs": {
+        "certificate": "experiments/kl/cert_k18.json",
+        "certificate_sha256": "4c064a165c680f4eab05b58b1cd49ba27de37fa15c3b093ea70bda711b406a6f",
+        "vector": "experiments/kl/cert_k18_C.npy",
+        "vector_sha256": "e3d998ff0e34ae16ec7f2a53be4f48bcedc3b106f5b7316f3b558e97c34522ef"
+      },
+      "lambda_lower": {
+        "denominator": 2000000,
+        "numerator": 3740649
+      },
+      "level": 18,
+      "lift_states": [
+        129140162,
+        258280325,
+        387420488
+      ],
+      "lift_values": [
+        1658077459623969,
+        878288753663655,
+        1267344289572398
+      ],
+      "minimum_lift_index": 1,
+      "potential_condition_number": {
+        "denominator": 500000000000,
+        "numerator": 917389059788209
+      },
+      "potential_condition_number_decimal": "1834.77811957642",
+      "potential_maximum": 1834778119576418,
+      "potential_minimum": 1000000000000,
+      "self_lift_index": 2,
+      "strict_cross_margin": 572018866964613065252504840
+    },
+    {
+      "class8_weight_lower": {
+        "denominator": 500000000000000,
+        "numerator": 722959479654303
+      },
+      "deviation_factor": {
+        "denominator": 1328166188928141,
+        "numerator": 1920995159891849
+      },
+      "deviation_over_weight": {
+        "denominator": 960210336841927507712788440723,
+        "numerator": 960497579945924500000000000000
+      },
+      "deviation_over_weight_decimal": "1.00029914602351",
+      "inputs": {
+        "certificate": "experiments/kl/cert_k19.json",
+        "certificate_sha256": "a37716cc508410ec6043ff153c2f2b2527b25b53220fa9827d79d3145f0641fb",
+        "vector": "experiments/kl/cert_k19_C.npy",
+        "vector_sha256": "052c7e75907c99ec4c05dca550adcf23e4dad264175d3f559f4b5a9da5b4d517"
+      },
+      "lambda_lower": {
+        "denominator": 10000000,
+        "numerator": 18783127
+      },
+      "level": 19,
+      "lift_states": [
+        387420488,
+        774840977,
+        1162261466
+      ],
+      "lift_values": [
+        1328166188928141,
+        2529171130346087,
+        1920995159891849
+      ],
+      "minimum_lift_index": 0,
+      "potential_condition_number": {
+        "denominator": 1000000000000,
+        "numerator": 2782615993072981
+      },
+      "potential_condition_number_decimal": "2782.61599307298",
+      "potential_maximum": 2782615993072981,
+      "potential_minimum": 1000000000000,
+      "self_lift_index": 2,
+      "strict_cross_margin": 574486207993984574423118554
+    }
+  ],
+  "schema": "kl-minus-one-escape-tax-v2",
+  "scope": {
+    "exact_claim": "For every stored level, c(-1)/minFiber(-1) is strictly larger than the certificate's rational class-8 lower weight.  The eight exact surplus ratios are strictly decreasing, while the eight exact potential condition numbers are strictly increasing.",
+    "finite_evidence": "The deviation tax of the nonordinary -1 self-loop approaches the certified class-8 weight over levels 12 through 19.",
+    "levels": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "nonclaim": "No limit, infinite positive orbit, or Collatz counterexample is established."
+  },
+  "surplus_strictly_decreasing": true
+}

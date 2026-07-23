@@ -1,6 +1,130 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 07:20 EDT
+Updated: 2026-07-23, about 08:59 EDT
+
+### 08:59 EDT continuation -- special-theta audit and KL-calibrated escape
+
+There is no counterexample.  The period-three analytic lane now has a real
+quadratic-order arithmetic feature, but not yet a retained product-formula
+gain.  Companion commit `7aad758` proves that the complete `3*nu` Skolem root
+set is one consecutive geometric `R`-grid and kernel-checks
+
+```text
+det V(alpha,...,alpha*R^(m-1))
+ =alpha^choose(m,2)*R^choose(m,3)
+  *product_(1<=d<m)(R^d-1)^(m-d).
+```
+
+For `m=3*nu`, the cleared numerator is divisible by both
+`11^choose(m,2)` and `43^choose(m,2)`, with exact LTE ledger
+
+```text
+v_p(det gap numerator)
+ =choose(m,2)*(1+v_p(K))+sum_(1<=d<m)(m-d)*v_p(d),
+p=11,43.
+```
+
+Unlike the fixed `3 x 3` determinant, this is genuinely quadratic in `nu`.
+It still does not prove independence: a primitive Cramer/adjugate vector is
+expected to cancel the common cofactor factor through order
+`choose(m-1,2)`, leaving only linear savings.  Commit `847027b` proves the
+determinant-minus-cofactor multiplicity and subquadratic limit; the generic
+cofactor alternation divisor for a particular Padé matrix remains the semantic
+seam.  Do not claim a repaired threshold unless a factor survives in the final
+primitive linear form.
+
+The tempting scalar rewrite is also being closed honestly.  For
+
+```text
+u_n=s_0+s_1*R^n+s_2*R^(2n),
+```
+
+the coefficient sequence has the cubic recurrence with characteristic roots
+`1,R,R^2`, and its `3 x 3` Hankel determinant is
+
+```text
+s_0*s_1*s_2*R^2*(R-1)^6*(R+1)^2>0.
+```
+
+Thus a scalar full-support relation still has minimal recurrence rank three;
+one cannot import the friendlier one-value Tschakaloff threshold merely by
+renaming three theta values as one scalar.  Companion commit `847027b`
+kernel-checks this recurrence, the determinant identity, positivity for the
+literal ray, and the converse excluding every recurrence of order at most
+two.  The same commit proves the determinant-minus-cofactor multiplicity is
+only linear and hence subquadratic; applying that no-go to a particular Padé
+matrix still needs the generic cofactor alternation divisor.
+
+At Simon's suggestion, the original Krasikov--Lagarias paper was reread as a
+construction guide, with its faulty deletion proof and equation (2.1)
+excluded.  A positive critical eigenvector calibrates every selected edge by
+
+```text
+lambda^w*c(target)<=c(source).
+```
+
+Multiplication around a cycle cancels `c`; every KL minimizing-policy cycle
+has strictly negative total time shift.  The KL critical value is sustained
+by branching entropy, not by one outward ray.  A non-minimal chord lift pays
+`d=c_alt/c_min`, and every outward full-lift cycle must satisfy
+
+```text
+lambda^(sum w)<=product d.
+```
+
+Companion commit `9f307a9` kernel-checks QM127--129: generic calibrated
+path/cycle telescoping, strict negativity of every KL selected-policy cycle,
+the exact mixed-word budget, and the pure minus-one rail no-go.  Commit
+`ddff8d7` adds QM130, eliminating arbitrary path endpoints at the cost of the
+fixed-level potential condition number.  Commit `7aa7c0d` adds the selected
+corollary: `cmax/cmin<=lambda^B` forces every selected path, of every length,
+to have total shift at most `B`.  These give a theorem-driven search objective:
+minimize exact KL deviation tax among autonomous
+recharge/discharge programs, rather than enumerate seeds or follow the active
+policy itself.  The existing `3^41<2^65` separator forces every outward mixed
+word with class counts `(n8,n2,ns)` to satisfy
+`24*n8>17*n2+82*ns`.
+
+The distinguished positive-shift cycle is the 3-adic fixed point `-1`.
+The new exact diagnostic SHA-checks all stored KL inputs at `k=12..19` and
+proves by integer cross-products that
+
+```text
+c(-1)/minFiber(-1) > B8/SC_W
+```
+
+at every level.  The exact surplus ratios decrease monotonically from
+`1.00491098975441` to `1.00029914602351`: finite evidence that the nonordinary
+`-1` loop saturates the escape tax.  For the pathwise extension, the audit also
+extracts the exact condition number of each certified feasible
+subeigenvector; it increases from
+`146.967160601293` to `2782.61599307298`.  Consequently the endpoint factor is
+bounded along every fixed-level path but no precision-uniform margin is yet
+available.  Companion commit `cc9f441` proves that matching the exceptional
+spine at precision `3^k` forces `3^k<=n+1`; a fixed natural eventually leaves
+that spine, while a growing diagonal can still chase it.  Its positive natural
+rail is
+
+```text
+T^L(2^L*t-1)=3^L*t-1.
+```
+
+Splicing another pure rail subtracts its length from the finite payload
+counter `v_2(t)`, so no fixed positive payload supports infinitely many such
+discharges.  An actual escape must autonomously recharge that counter.  This
+literal statement is kernel-checked in `9f307a9`; the exact finite artifact
+has `counterexample:null`.
+
+```text
+KL minus-one artifact b6204c3964b880e3c5857114f7bcd112e2e1592ca3653ad79445ce470dc14577
+```
+
+The new source-audited map is
+`docs/notes/kl-calibrated-escape.md`.  The next constructive object is not a
+periodic residue cycle but a mixed recharge/discharge recurrence which (i)
+beats the KL deviation tax, (ii) regenerates `v_2(m+1)`, and (iii) closes for
+one ordinary positive payload rather than a fresh 3-adic address at every
+generation.
 
 ### 07:20 EDT continuation — exact consecutive construction carries
 
@@ -72,6 +196,17 @@ Commit `a457222` adds an exact signed 2-adic rational reconstruction audit at
 `|numerator|,denominator<=2^512` and odd positive denominator, every uniqueness
 gate passes and both residue evaluators agree; there are zero single-precision
 or repeated rational candidates.  This is a finite height exclusion only.
+
+Companion commits `2cad6e1`/`b518d2b`/`a2e940e` give the theorem-driven
+analytic endpoint.  Any literal period-three ray's completed backward series
+is exactly `1` plus three paper-normalized 2-adic theta values; independence of
+those four values excludes the ray.  The theta count in the relevant 1989
+sufficient bound is three, not four, but the required threshold inequality
+still fails in the strict reverse direction.  The paper's inverse-parameter
+normalization and functional equation are now pinned.  A live analytic lane
+must improve the independence estimate for these three special geometric
+arguments or use extra EC17 structure; merely completing the known proof will
+not work.
 
 The exact long-block identity closes deeper diagonal clocks as a construction
 lane: modulo `3^d`, later ternary factors kill every carry except the final

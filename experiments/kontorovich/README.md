@@ -3429,6 +3429,15 @@ carry.  Commit `732da20` specializes it to the worker's actual logarithmic
 precision.  The construction implication and finite-row gate are
 kernel-checked; the finite workers simply contain no hit to feed into them.
 
+Companion commits `2cad6e1`/`b518d2b`/`a2e940e` also identify any literal
+period-three ray's completed backward series with exactly three
+paper-normalized 2-adic theta values and prove that their linear independence
+together with `1` excludes the ray.  The relevant published 1989 sufficient
+criterion counts three theta values, but its threshold inequality fails here
+in the strict reverse direction.  Its parameter orientation and functional
+equation are now pinned, so a useful analytic continuation needs a genuinely
+sharper special-argument estimate rather than another finite scan.
+
 The dense Akdeniz scan covers all 71 positive `[-1,1]^3`, start-through-eight
 schedules and every `q=14..256`, the first common interval with `p(q)>0`:
 
@@ -4506,3 +4515,89 @@ Artifact SHA-256:
 `2c55cec21f81b563f181803a26ef5dc7489e13c668317af17438ace6220a29ab`.
 Worker SHA-256:
 `6cd98e32a22c47432d5d22d31a551afed0c5175f9abd094b7cea36385191d8ab`.
+
+## KL-calibrated minus-one escape tax
+
+`kl_minus_one_escape_tax.py` turns the original Krasikov--Lagarias
+predecessor system into a construction diagnostic.  At an exact positive
+critical eigenvector, every edge retained by the minimizing policy satisfies
+
+```text
+lambda^w*c(target) <= c(source).
+```
+
+Multiplication around a cycle cancels `c`, so every selected-policy cycle has
+nonpositive total time shift; irrationality of `log_2(3)` makes the KL
+inequality strict.  Thus the critical policy is supported by branching
+entropy rather than one outward ray.  If a chord uses a non-minimal lift, its
+factor `d=c_alt/c_min` gives the calibrated full-cycle constraint
+
+```text
+lambda^(sum w) <= product d.
+```
+
+Companion commit `9f307a9` kernel-checks both generic statements as QM127,
+including strict negativity for KL selected-policy cycles.  Commit `ddff8d7`
+adds the arbitrary-path condition-number form QM130, and `7aa7c0d` packages
+the selected-path corollary: if `cmax/cmin<=lambda^B`, every selected path has
+total shift at most `B`, independent of its length.
+
+The exact finite worker tests the distinguished positive-shift self-loop at
+the 3-adic state `-1`.  It SHA-checks the stored KL certificate/vector inputs
+at every level `k=12..19`, extracts the three integer values in the fiber over
+`-1`, and compares the exact deviation factor
+
+```text
+c(-1)/min_fiber(c)
+```
+
+to the certificate's rational class-8 weight `B8/SC_W`.  All eight exact
+cross-products are strictly positive.  More specifically,
+
+```text
+k                         12                 19
+deviation / weight   1.00491098975441   1.00029914602351
+```
+
+and all eight exact ratios decrease strictly with `k`.  This is bounded
+evidence that the nonordinary `-1` self-loop saturates the escape-tax bound,
+not an asymptotic theorem.
+
+For the pathwise form of the tax, the worker also takes the exact minimum and
+maximum of each certified feasible subeigenvector.  The condition numbers
+increase strictly from `146.967160601293` at `k=12` to
+`2782.61599307298` at `k=19`.
+At any one level this is only a fixed endpoint factor, independent of path
+length; its growth with level means that no precision-uniform path estimate is
+being claimed.  Companion commit `cc9f441` separately proves that a natural
+matching the exact `-1` residue at depth `k` must satisfy `3^k<=n+1`, so only a
+growing diagonal sequence can chase the exceptional spine.
+
+The paired exact rail regression checks, for every `L,t<=64`,
+
+```text
+T^L(2^L*t-1)=3^L*t-1.
+```
+
+The universal algebra shows why this outward wire is finite: splicing the
+next pure wire subtracts its positive length from the payload counter
+`v_2(t)`.  A fixed positive payload cannot support infinitely many such
+discharges.  Companion commit `9f307a9` connects this exact counter exhaustion
+to the literal Syracuse semantics.  A viable construction must therefore
+contain an autonomous recharge phase; fresh high lift digits describe only a
+3-adic stack.
+
+```bash
+python3 kl_minus_one_escape_tax.py selftest
+python3 kl_minus_one_escape_tax.py verify \
+  kl_minus_one_escape_tax_audit.json
+```
+
+Artifact SHA-256:
+`b6204c3964b880e3c5857114f7bcd112e2e1592ca3653ad79445ce470dc14577`.
+Worker SHA-256:
+`5e8a2be5e31cc7beea536b871e86813b00b4954a193d0a7c5a28ef30b606af29`.
+
+The mathematical interpretation and original-source audit are in
+[`docs/notes/kl-calibrated-escape.md`](../../docs/notes/kl-calibrated-escape.md).
+`counterexample:null`.

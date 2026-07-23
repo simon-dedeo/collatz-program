@@ -33,6 +33,107 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 08:59 EDT
+
+There is still no counterexample.  The theorem-driven period-three audit has
+separated a genuine quadratic arithmetic feature from two bookkeeping traps.
+Companion commit `7aad758` proves that the full `3*nu` Skolem root family is
+one consecutive geometric grid and kernel-checks its Vandermonde
+factorization.  At the auxiliary primes `11` and `43`, the cleared gap
+numerator has exact valuation
+
+```text
+choose(3*nu,2)*(1+v_p(K))
+  +sum_(1<=d<3*nu)(3*nu-d)*v_p(d).
+```
+
+This gain is genuinely quadratic, unlike the fixed three-point determinant.
+It is not yet a linear-independence theorem: primitive cofactor normalization
+appears to cancel all but a linear residue of the common Vandermonde factor.
+Commit `847027b` kernel-checks the determinant-minus-cofactor multiplicity and
+its subquadratic limit.  Applying it to a concrete Padé system still needs the
+generic cofactor alternation divisor; no threshold improvement is claimed.
+
+Scalarization does not evade the rank-three obstruction.  The full-support
+coefficient sequence
+
+```text
+u_n=s_0+s_1*R^n+s_2*R^(2n)
+```
+
+has a cubic recurrence with roots `1,R,R^2`, and its `3 x 3` Hankel
+determinant is
+
+```text
+s_0*s_1*s_2*R^2*(R-1)^6*(R+1)^2>0.
+```
+
+Thus the friendlier one-value Tschakaloff threshold cannot be imported by
+calling the three forced theta modes one scalar.  Companion commit `847027b`
+kernel-checks the cubic recurrence, determinant identity, positivity for the
+literal ray, and the converse that every recurrence of order at most two has
+zero `3 x 3` Hankel determinant.
+
+At Simon's suggestion, the original Krasikov--Lagarias paper was then reread
+from the counterexample side, excluding its already documented faulty
+deletion proof and false printed equation (2.1).  The critical eigenvector is
+a calibrated potential: every edge retained by its minimizing policy obeys
+`lambda^w*c(target)<=c(source)`.  Multiplying around a cycle cancels the
+potential, and irrationality of `log_2(3)` makes every selected-policy cycle
+strictly retarded.  KL criticality comes from branching entropy, not from one
+growing ray.  Leaving the policy through a non-minimal lift of factor
+`d=c_alt/c_min` gives the exact necessary escape-tax inequality
+
+```text
+lambda^(sum cycle shifts) <= product d.
+```
+
+Companion commit `9f307a9` kernel-checks these generic path/cycle statements,
+strict KL cycle negativity, the exact branch-count budget, and the literal
+minus-one rail obstruction.  Commit `ddff8d7` strengthens the tax to arbitrary
+paths with a fixed-level potential condition-number cost.  Commit `7aa7c0d`
+packages the selected-edge corollary: if `cmax/cmin<=lambda^B`, then every
+selected path of every length has total shift at most `B`.  These results
+replace an undirected search by a precise target: an autonomous mixed
+recharge/discharge ray with minimal KL deviation tax.
+The existing exact separator `3^41<2^65` also gives a pure integer pruning
+law: an outward word with class counts `(n8,n2,ns)` must satisfy
+`24*n8>17*n2+82*ns`.  Transport-heavy recharge is therefore expensive before
+any integrality or closure constraint is imposed.
+
+The first exact diagnostic isolates the exceptional class-8 loop at the
+3-adic point `-1`.  It SHA-checks the stored KL certificate vectors at every
+level `k=12..19` and proves by exact cross-products that its deviation factor
+exceeds the certified class-8 weight.  The eight exact surplus ratios decrease
+strictly from `1.00491098975441` to `1.00029914602351`, finite evidence that
+the nonordinary `-1` loop saturates the tax.  The same audit records the
+fixed-level endpoint factor suggested by the certified feasible
+subeigenvectors: their exact condition number increases from
+`146.967160601293` to
+`2782.61599307298`.  Thus pathwise telescoping is strong at every fixed level
+but is not yet uniform as precision grows; controlling that spike is now an
+explicit rigidity target.  Companion commit `cc9f441` proves the first exact
+cross-precision constraint:
+
+```text
+n mod 3^k = 3^k-1  ->  3^k <= n+1.
+```
+
+No fixed natural can occupy the all-`2` inverse-limit spine; a moving diagonal
+can do so only at exponential ordinary size.  Its positive finite
+approximation is the exact outward rail
+
+```text
+T^L(2^L*t-1)=3^L*t-1.
+```
+
+Splicing another pure rail consumes its length from the finite counter
+`v_2(t)`, so a fixed positive payload cannot repeat this discharge forever.
+A counterexample must include a self-writing recharge phase.  The artifact
+has `counterexample:null`; its SHA-256 is
+`b6204c3964b880e3c5857114f7bcd112e2e1592ca3653ad79445ce470dc14577`.
+See [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md).
+
 ### 2026-07-23 07:20 EDT
 
 There is still no counterexample.  The period-three search has been turned
@@ -105,6 +206,17 @@ finds no candidate with `|numerator|,denominator<=2^512` and odd positive
 denominator for any of the 71 `q=0` schedule values.  The uniqueness bound is
 checked and both residue evaluators agree in all 142 rows.  This is a finite
 height exclusion, not an irrationality theorem.
+
+The companion then removed another conceptual ambiguity rather than widening
+the scan.  Commits `2cad6e1`/`b518d2b` split any literal period-three ray's
+completed backward series into exactly three explicit 2-adic theta values and
+prove that linear independence of those values together with `1` excludes the
+ray.  The relevant published 1989 sufficient criterion has theta count three,
+but its threshold inequality fails here in the strict reverse direction.
+Commit `a2e940e` pins the paper's inverse-parameter convention and functional
+equation.  The live analytic target is therefore a sharper independence
+theorem for these special three geometric arguments, not a reapplication of
+the known general bound.
 
 The general long-block identity also explains why deeper diagonal clocks are
 not the construction route: modulo `3^d`, every earlier consecutive carry is
@@ -4823,10 +4935,19 @@ identically `x`.
   reconstruction audit finds no height-`2^512` exception at 2,048/4,096 bits.
   QM118 blocks generic rationality from a periodic fixed-depth target, and the
   exact block identity shows that long fixed-depth compositions remember only
-  their final consecutive carry.  The live targets are now an inductive law
-  for exact consecutive compatibility, a cofinal theorem forcing or excluding
-  zero carries, or a sharper theorem for the evaluated three-theta value.  Do
-  not return to raw precision widening; it only raises finite lower bounds.
+  their final consecutive carry.  Commits `2cad6e1`/`b518d2b`/`a2e940e` now
+  identify a literal ray with `1` plus exactly three paper-normalized 2-adic
+  theta values, prove that their linear independence excludes the ray, and
+  kernel-check that the available 1989 sufficient threshold fails in the
+  strict reverse direction.  Commits `7aad758`/`847027b` prove the full
+  geometric root determinant and its exact 11/43 LTE ledger, then show that
+  primitive cofactor multiplicities leave only subquadratic savings and that
+  the scalar full-support coefficient sequence has irreducible recurrence
+  rank three.  The live targets are now an inductive law for
+  exact consecutive compatibility, a cofinal theorem forcing or excluding
+  zero carries, or a sharper independence theorem exploiting the special
+  three theta arguments.  Do not return to raw precision widening; it only
+  raises finite lower bounds.
 - **Partial-theta integrality sieves.**  The standard two-rail schedule reduces
   to the sole 2-adic initial value
   `-(23/3^8) F(2/3,2^13/3^9)`.  Väänänen--Wallisser's full-source 1989 theorem
@@ -4844,6 +4965,20 @@ identically `x`.
   maps into itself while moving outward.  This attacks the ordinary-integer
   gate directly and can reuse the project's side-bush disjointness, rational
   base-`3/2` coordinate, and affine product-of-places diagnostics.
+- **KL-calibrated recharge/discharge rays.**  Treat the positive class-8
+  chord as a discharge of the finite counter `v_2(m+1)`.  The minimizing KL
+  policy has no outward cycle; every non-minimal lift pays the exact potential
+  factor `c_alt/c_min`, and every outward word must also obey
+  `24*n8>17*n2+82*ns`.  Search only autonomous mixed blocks which regenerate
+  the counter, beat both costs, and close for one natural payload.  The
+  `k=12..19` exact diagnostic says the nonordinary `-1` self-loop nearly
+  saturates the tax, while its feasible-vector condition numbers grow.
+  Commits `ddff8d7`/`7aa7c0d`/`cc9f441` prove the arbitrary-path endpoint
+  bound, the uniform fixed-level cap on selected drift, and the exponential
+  ordinary size cost of tracking the exact spine.  The missing theorem must
+  couple moving precision, height gain, and counter recharge.
+  This is a search principle and finite calibration, not a counterexample. See
+  [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md).
 - **Exceptional-orbit obstructions in reverse.**  Re-read the proof program's
   exact capacity and carry constraints as a specification of what a
   counterexample must look like, then search on the thin boundary where those
@@ -4908,6 +5043,8 @@ identically `x`.
 | Väänänen--Wallisser as an all-period phase-up obstruction | **Retracted beyond period three.**  Periodic jump schedules split into several theta values, and the paper's sufficient threshold depends on their number `L`.  Commits `8b3d9f5`/`772a6e8` kernel-check the complete flattened multi-theta decomposition and `gamma<Gamma(L,0)` for `L=2,3`, but also `Gamma(4,0)<1/8<gamma`.  Accepting the external theorem closes periods one through three; the citation cannot close period four or any larger period by the same estimate.  Period four is only the first theorem escape, not evidence of an ordinary ray. | [`ChargePhaseUpPeriodicTheta.lean`](KontoroC/KontoroC/ChargePhaseUpPeriodicTheta.lean) |
 | Finite Laurent and homogeneous rational period-three EC17 coboundaries | Universally closed in the stated classes by companion commits `1154476`, `d0faf96`, and `82198ac`.  The exact three-step defect has three quadratic monomials.  Extreme support excludes every finite Laurent slice.  For a reduced homogeneous rational potential `x^-1 f(y/x)`, the scaled denominator divides the original, hence is a monomial; the same extreme-support contradiction then closes the quotient.  This does not exclude a general nonhomogeneous bivariate rational function, an infinite theta series, or rationality at one evaluated orbit. | [`LaurentCoboundaryNoGo.lean`](KontoroC/KontoroC/LaurentCoboundaryNoGo.lean), [`RationalCoboundaryReduction.lean`](KontoroC/KontoroC/RationalCoboundaryReduction.lean) |
 | General 2005/2007/2013 theta theorems as an immediate period-three shortcut | Closed as applications of those sufficient statements, not as a no-period-three result.  Amou--Väänänen (2005) controls simultaneous relations over the full expanding-place set, which here contains both the real and 2-adic places; EC17 supplies only the latter relation.  Väänänen (2013), Theorem 4, allows a non-archimedean place, but tracing its criterion to Amou--Matala-aho--Väänänen (2007) gives `B/A<13/12`, while the EC17 height ratio is larger.  Commit `92416b1` kernel-checks the uniform threshold comparison and reduces its logarithmic part to `2^13<3^9`.  A sharper theorem specialized to this one evaluated three-theta form remains live. | [`AmouMatalaahoVaananenThreshold.lean`](KontoroC/KontoroC/AmouMatalaahoVaananenThreshold.lean), [`FOR_CLEAN_LEAN.md`](docs/FOR_CLEAN_LEAN.md) |
+| Scalarizing the three theta values and importing a one-value threshold | Closed.  The scalar coefficient sequence is `u_n=s_0+s_1R^n+s_2R^(2n)`.  Commit `847027b` kernel-checks its cubic recurrence and the strictly positive literal Hankel determinant `s_0s_1s_2R^2(R-1)^6(R+1)^2`, then proves every recurrence of order at most two has zero such determinant.  The scalar relation therefore retains exact rank three.  The same commit shows that bare determinant-minus-cofactor multiplicity is only linear after primitive normalization; the generic cofactor divisor for a particular Padé matrix remains a seam. | [`ThetaScalarRank.lean`](KontoroC/KontoroC/ThetaScalarRank.lean), [`GeometricVandermonde.lean`](KontoroC/KontoroC/GeometricVandermonde.lean) |
+| Pure KL class-8 / minus-one escape rail | Closed for ordinary positive payloads.  Commit `9f307a9` proves `T^L(2^L*t-1)=3^L*t-1`, exact splice balance `M+v_2(u)=v_2(t)`, and impossibility of infinitely many positive pure-rail splices; over `Q`, `-1` is the unique positive-period point of the class-8 predecessor map.  Commit `cc9f441` proves no fixed natural occupies its inverse-limit address.  This does not close a growing diagonal with mixed recharge/discharge schedules. | [`KLMinusOneRail.lean`](KontoroC/KontoroC/KLMinusOneRail.lean), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md) |
 | Periodic fixed-depth residue clock as a rationality or construction proof | Invalid without EC17-specific consecutive-carry control.  Commit `a9ed874` proves the target clock and its no-ray consumer, but QM118 constructs any prescribed fixed-depth class by one sufficiently wide appended binary block.  Commit `5769c85` kernel-checks the sharper failure: modulo `3^d`, every carry except the final consecutive one is annihilated by a later ternary factor, and even exact long-block zero may be signed cancellation.  Deeper diagonal scans therefore neither glue finite links nor imply rationality.  The replacement balanced-precision worker makes a full moving-depth congruence equivalent to exact one-cycle equality; `4516a03` proves an eventual equality tail constructs a literal period-three ray, while `fff0dec`/`732da20` check the exact finite-row canonical range gate at its logarithmic precision.  Its bounded 53,392-row audit has zero hits but is not an all-precision theorem. | [`breakoff_ether_period3_fixed_depth_audit.json`](experiments/kontorovich/breakoff_ether_period3_fixed_depth_audit.json), [`breakoff_ether_period3_balanced_carry_audit.json`](experiments/kontorovich/breakoff_ether_period3_balanced_carry_audit.json), [`EtherCounterResidualFold.lean`](KontoroC/KontoroC/EtherCounterResidualFold.lean), [`FOR_CLEAN_LEAN.md`](docs/FOR_CLEAN_LEAN.md) |
 | Bare public words as binary-to-ternary chart adapters | Universally closed by Lean commit `772a6e8`.  Every exact public step has typed form `w-3^(-17m)=a*(w'-2^(-23m'))`.  A multi-cell word accumulates a strictly negative internal tax, exactly the normalized `-H_m` defect, so it cannot be a clean entry/exit coboundary.  This is not a no-orbit theorem; it proves that closure needs an auxiliary correction rail. | [`ChargeTypedInterface.lean`](KontoroC/KontoroC/ChargeTypedInterface.lean), [closure doctrine](docs/notes/kontorovich-closure-principles.md) |
 | Infinite rail of the one-cell determinant-four conjugacy | Universally closed in that chart class by Lean commit `772a6e8`.  Self-linking successive cells requires `1311*k_(i+1)=1309*k_i`; a length-`N` rail forces `1311^N|k_0`, and an infinite natural rail has `k_0=0`.  The result is independent of affine intercepts and tail cylinders.  A live turnaround must reverse the separation loss or leave the one-cell resonant class. | [`ChargeResonantSeparationNoGo.lean`](KontoroC/KontoroC/ChargeResonantSeparationNoGo.lean), [phase-glider note](docs/notes/kontorovich-resonant-phase-glider.md) |
