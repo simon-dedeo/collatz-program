@@ -1484,6 +1484,29 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.Orbit.exists_positive_six_rail_word
 #print axioms KontoroC.SelfWritingKL.Orbit.exists_positive_seven_rail_word
 #print axioms KontoroC.SelfWritingKL.Orbit.exists_positive_eight_rail_word
+#print axioms KontoroC.SelfWritingKL.publicAlpha_factor
+#print axioms KontoroC.SelfWritingKL.publicPrefixProduct_factor
+#print axioms KontoroC.SelfWritingKL.publicEpsilon_eq
+#print axioms KontoroC.SelfWritingKL.public_theta_lattice
+#print axioms KontoroC.SelfWritingKL.branchDelta_div_three_pow
+#print axioms KontoroC.SelfWritingKL.public_step_centered
+#print axioms KontoroC.SelfWritingKL.public_finite_telescope
+#print axioms KontoroC.SelfWritingKL.public_finite_theta_approximation
+#print axioms KontoroC.SelfWritingKL.Orbit.finite_public_theta_telescope
+#print axioms KontoroC.SelfWritingKL.Orbit.finite_public_theta_lattice
+#print axioms KontoroC.SelfWritingKL.PublicTheta.norm_publicAlpha
+#print axioms KontoroC.SelfWritingKL.PublicTheta.norm_publicPrefixProduct_le
+#print axioms KontoroC.SelfWritingKL.PublicTheta.padicTerm_summable
+#print axioms KontoroC.SelfWritingKL.PublicTheta.padicPartial_tendsto_sum
+#print axioms KontoroC.SelfWritingKL.PublicTheta.norm_padic_publicB
+#print axioms KontoroC.SelfWritingKL.PublicTheta.norm_padic_publicEpsilon
+#print axioms KontoroC.SelfWritingKL.PublicTheta.orbitPadicTerminal_tendsto_zero
+#print axioms KontoroC.SelfWritingKL.PublicTheta.orbit_padic_finite_lattice
+#print axioms KontoroC.SelfWritingKL.PublicTheta.orbit_padicSum_eq_lattice
+#print axioms
+  KontoroC.SelfWritingKL.PublicTheta.no_orbit_with_targetBranch_of_avoidsOrdinaryLattice
+#print axioms
+  KontoroC.SelfWritingKL.PublicTheta.no_orbit_with_targetBranch_of_padic_irrational
 #print axioms KontoroC.KLUniversalShadow.DifferenceCocycle.exact
 #print axioms
   KontoroC.KLUniversalShadow.DifferenceCocycle.two_pow_dvd_initial_difference

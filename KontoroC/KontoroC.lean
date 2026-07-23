@@ -135,6 +135,7 @@ import KontoroC.KLRechargeLedger
 import KontoroC.KLSyracuseVisitBridge
 import KontoroC.GliderKLTailSynchronization
 import KontoroC.SelfWritingKL
+import KontoroC.PublicPayloadTheta
 import KontoroC.KLUniversalShadow
 import KontoroC.KLControllerSwitch
 import KontoroC.KLControllerReset

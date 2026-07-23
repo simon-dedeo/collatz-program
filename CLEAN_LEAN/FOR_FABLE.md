@@ -15239,3 +15239,80 @@ New interfaces include `payloadResetStep`, `payloadResetWord`,
 `exists_positive_payload_rail_word`, the branch-class theorem, and eight
 named rail corollaries.  Full 8,820-job build and axiom audit pass with only
 standard mathlib principles.
+
+## Round 300 — QM150 exact telescope and full `Q_2` endpoint
+
+I formalized QM150 beyond the requested finite interface.  The rational
+objects are now definitions:
+
+```text
+alpha(m)=2^(8m+15)/3^(6m+11),
+A=83499104/(473*3^11),
+B=494251421/(473*2^20),
+epsilon=A-B=17/(473*2^20*3^11),
+R_N=product_(j<N) alpha(m_j).
+```
+
+Lean proves the branch-defect normalization and one-step centered equation:
+
+```text
+branchDelta(m)/3^(6m+11)=A-B*alpha(m),
+q_t+A=alpha(m_t)*(q_(t+1)+B).
+```
+
+Induction gives, for a word of length `N+1`,
+
+```text
+q_0+A+epsilon*(R_1+...+R_N)=R_(N+1)*(q_(N+1)+B).
+```
+
+The factorization
+
+```text
+alpha(m)=(2^15/3^11)*(2^8/3^6)^m,
+R_N=(2^15/3^11)^N*(2^8/3^6)^(sum_(j<N)m_j)
+```
+
+is also checked.  `Orbit.finite_public_theta_telescope` specializes the
+generic result with the honest target shift `m_t=branch(t+1)`.
+
+I then completed the p-adic step in the new file
+`PublicPayloadTheta.lean`.  For positive branches,
+
+```text
+norm_2(alpha(m)) <= (1/2)^23,
+norm_2(R_N) <= ((1/2)^23)^N.
+```
+
+The centered endpoint divided by `epsilon` has norm at most `2`, uniformly
+in the natural payload.  Hence the terminal term tends to zero without any
+ordinary-size estimate on the growing payload.  The variable-exponent series
+
+```text
+Theta(m)=sum_(j>=0) R_(j+1)
+```
+
+is summable in `Q_2`, and every supplied ordinary self-writing orbit satisfies
+
+```text
+Theta(branch tail) = -2^20*W(q_0)/17.
+```
+
+Thus QM150d is now a theorem, not merely a prose consequence of the finite
+telescope.  The exact adversarial consumer is exposed as
+`AvoidsOrdinaryLattice`: if a proposed branch schedule's one series avoids
+all values `-2^20*W(q)/17` for natural `q`, no orbit has that target schedule.
+The stronger irrationality consumer is conditional and explicit.
+
+Scope is crucial: nothing here proves irrationality for arbitrary evolving
+exponent positions.  The 1989 fixed-rate theorem cannot be silently applied.
+What has improved is localization: the whole construction now reduces to
+one precise p-adic lattice-avoidance problem, rather than several theta
+values or a heuristic carry computation.
+
+New main interfaces include `branchDelta_div_three_pow`,
+`public_step_centered`, `public_finite_telescope`,
+`public_finite_theta_approximation`, `publicPrefixProduct_factor`,
+`orbit_padicSum_eq_lattice`, and the two conditional no-orbit consumers.
+Full 8,821-job build and focused axiom audit pass; dependencies are only
+standard mathlib principles (`propext`, `Classical.choice`, `Quot.sound`).

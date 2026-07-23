@@ -34,6 +34,27 @@ def Wbar (r : ℕ) : ℕ := 4911712 + 83790531 * r
 division by `473` is exact for positive branches; this is proved below. -/
 def branchDelta (m : ℕ) : ℕ :=
   (3 ^ (6 * m) * 83499104 - 2 ^ (8 * m - 5) * 494251421) / 473
+
+/-- Rational multiplier of one public-payload branch. -/
+def publicAlpha (m : ℕ) : ℚ :=
+  (2 : ℚ) ^ (8 * m + 15) / (3 : ℚ) ^ (6 * m + 11)
+
+/-- The two centered constants in the one-series normalization. -/
+def publicA : ℚ := 83499104 / (473 * (3 : ℚ) ^ 11)
+def publicB : ℚ := 494251421 / (473 * (2 : ℚ) ^ 20)
+def publicEpsilon : ℚ := publicA - publicB
+
+/-- Prefix product `R_N` of the variable branch multipliers. -/
+def publicPrefixProduct (m : ℕ → ℕ) (N : ℕ) : ℚ :=
+  ∏ j ∈ Finset.range N, publicAlpha (m j)
+
+def publicBranchSum (m : ℕ → ℕ) (N : ℕ) : ℕ :=
+  ∑ j ∈ Finset.range N, m j
+
+/-- Interior theta sum `R_1+...+R_N`.  A word of length `N+1` uses this
+sum, hence the endpoint convention avoids truncated subtraction. -/
+def publicInteriorSum (m : ℕ → ℕ) (N : ℕ) : ℚ :=
+  ∑ j ∈ Finset.range N, publicPrefixProduct m (j + 1)
 def coreModulus : ℕ := 473 * 3 ^ 11
 def returnModulus : ℕ := 2 ^ 20
 
@@ -128,6 +149,175 @@ theorem branchDelta_positive {m : ℕ} (hm : 0 < m) :
   simp only [Nat.not_lt, nonpos_iff_eq_zero] at hzero
   rw [hzero, mul_zero] at hfactor
   omega
+
+@[simp] theorem publicPrefixProduct_zero (m : ℕ → ℕ) :
+    publicPrefixProduct m 0 = 1 := by
+  simp [publicPrefixProduct]
+
+theorem publicPrefixProduct_succ (m : ℕ → ℕ) (N : ℕ) :
+    publicPrefixProduct m (N + 1) =
+      publicPrefixProduct m N * publicAlpha (m N) := by
+  simp [publicPrefixProduct, Finset.prod_range_succ]
+
+@[simp] theorem publicInteriorSum_zero (m : ℕ → ℕ) :
+    publicInteriorSum m 0 = 0 := by
+  simp [publicInteriorSum]
+
+theorem publicInteriorSum_succ (m : ℕ → ℕ) (N : ℕ) :
+    publicInteriorSum m (N + 1) =
+      publicInteriorSum m N + publicPrefixProduct m (N + 1) := by
+  simp [publicInteriorSum, Finset.sum_range_succ]
+
+/-- QM150e at one branch. -/
+theorem publicAlpha_factor (m : ℕ) :
+    publicAlpha m =
+      ((2 : ℚ) ^ 15 / (3 : ℚ) ^ 11) *
+        ((2 : ℚ) ^ 8 / (3 : ℚ) ^ 6) ^ m := by
+  rw [publicAlpha, show 8 * m + 15 = 15 + 8 * m by omega,
+    show 6 * m + 11 = 11 + 6 * m by omega,
+    pow_add, pow_add, pow_mul, pow_mul, div_pow]
+  ring
+
+@[simp] theorem publicBranchSum_zero (m : ℕ → ℕ) :
+    publicBranchSum m 0 = 0 := by
+  simp [publicBranchSum]
+
+theorem publicBranchSum_succ (m : ℕ → ℕ) (N : ℕ) :
+    publicBranchSum m (N + 1) = publicBranchSum m N + m N := by
+  simp [publicBranchSum, Finset.sum_range_succ]
+
+/-- QM150e for the prefix product: only the cumulative variable exponent
+`M_N` remains. -/
+theorem publicPrefixProduct_factor (m : ℕ → ℕ) (N : ℕ) :
+    publicPrefixProduct m N =
+      ((2 : ℚ) ^ 15 / (3 : ℚ) ^ 11) ^ N *
+        ((2 : ℚ) ^ 8 / (3 : ℚ) ^ 6) ^ publicBranchSum m N := by
+  induction N with
+  | zero => simp
+  | succ N ih =>
+      rw [publicPrefixProduct_succ, publicBranchSum_succ, ih,
+        publicAlpha_factor, pow_succ, pow_add]
+      ring
+
+/-- Exact small difference between the two rational centers. -/
+theorem publicEpsilon_eq :
+    publicEpsilon = 17 / (473 * (2 : ℚ) ^ 20 * (3 : ℚ) ^ 11) := by
+  norm_num [publicEpsilon, publicA, publicB]
+
+theorem publicEpsilon_ne_zero : publicEpsilon ≠ 0 := by
+  rw [publicEpsilon_eq]
+  norm_num
+
+/-- The rational lattice in QM150d is an exact algebraic restatement of the
+initial centered payload.  It is not by itself an irrationality theorem. -/
+theorem public_theta_lattice (q : ℕ) :
+    -((q : ℚ) + publicA) / publicEpsilon =
+      -((2 : ℚ) ^ 20 * W q / 17) := by
+  norm_num [publicEpsilon, publicA, publicB, W]
+  ring
+
+/-- QM150b: the integral branch defect becomes an affine function of the
+single variable multiplier after division by its ternary exponent. -/
+theorem branchDelta_div_three_pow {m : ℕ} (hm : 0 < m) :
+    (branchDelta m : ℚ) / (3 : ℚ) ^ (6 * m + 11) =
+      publicA - publicB * publicAlpha m := by
+  have hfactor := branchDelta_factor hm
+  have hle := (branchDelta_raw_positive hm).le
+  have hadd :
+      473 * branchDelta m + 2 ^ (8 * m - 5) * 494251421 =
+        3 ^ (6 * m) * 83499104 := by
+    rw [hfactor]
+    exact Nat.sub_add_cancel hle
+  have haddQ :
+      (473 : ℚ) * branchDelta m +
+          (2 : ℚ) ^ (8 * m - 5) * 494251421 =
+        (3 : ℚ) ^ (6 * m) * 83499104 := by
+    exact_mod_cast hadd
+  rw [publicA, publicB, publicAlpha]
+  field_simp
+  rw [show 6 * m + 11 = 6 * m + 11 by rfl, pow_add,
+    show 8 * m + 15 = (8 * m - 5) + 20 by omega, pow_add]
+  nlinarith
+
+/-- One-step centered form of the public recurrence.  This is the atomic
+identity from which the variable-exponent theta telescope follows. -/
+theorem public_step_centered {m q q' : ℕ} (hm : 0 < m)
+    (hrecurrence :
+      2 ^ (8 * m + 15) * q' =
+        3 ^ (6 * m + 11) * q + branchDelta m) :
+    (q : ℚ) + publicA = publicAlpha m * ((q' : ℚ) + publicB) := by
+  have hrecQ :
+      (2 : ℚ) ^ (8 * m + 15) * q' =
+        (3 : ℚ) ^ (6 * m + 11) * q + branchDelta m := by
+    exact_mod_cast hrecurrence
+  have hscaled : publicAlpha m * (q' : ℚ) =
+      q + (branchDelta m : ℚ) / (3 : ℚ) ^ (6 * m + 11) := by
+    rw [publicAlpha]
+    field_simp
+    nlinarith
+  rw [mul_add, hscaled, branchDelta_div_three_pow hm]
+  ring
+
+/-- QM150c, indexed by a word of length `N+1`.  `publicInteriorSum m N`
+is `R₁+...+R_N`, so the right endpoint is `q_(N+1)`. -/
+theorem public_finite_telescope
+    (m q : ℕ → ℕ) (hm : ∀ t, 0 < m t)
+    (hrecurrence : ∀ t,
+      2 ^ (8 * m t + 15) * q (t + 1) =
+        3 ^ (6 * m t + 11) * q t + branchDelta (m t))
+    (N : ℕ) :
+    (q 0 : ℚ) + publicA + publicEpsilon * publicInteriorSum m N =
+      publicPrefixProduct m (N + 1) * ((q (N + 1) : ℚ) + publicB) := by
+  induction N with
+  | zero =>
+      simpa [publicPrefixProduct_succ] using
+        public_step_centered (hm 0) (hrecurrence 0)
+  | succ N ih =>
+      have hstep := public_step_centered (hm (N + 1))
+        (hrecurrence (N + 1))
+      calc
+        (q 0 : ℚ) + publicA +
+            publicEpsilon * publicInteriorSum m (N + 1) =
+            ((q 0 : ℚ) + publicA +
+              publicEpsilon * publicInteriorSum m N) +
+              publicEpsilon * publicPrefixProduct m (N + 1) := by
+          rw [publicInteriorSum_succ]
+          ring
+        _ = publicPrefixProduct m (N + 1) *
+              ((q (N + 1) : ℚ) + publicB) +
+                publicEpsilon * publicPrefixProduct m (N + 1) := by rw [ih]
+        _ = publicPrefixProduct m (N + 1) *
+              ((q (N + 1) : ℚ) + publicA) := by
+          simp only [publicEpsilon]
+          ring
+        _ = publicPrefixProduct m (N + 1) *
+              (publicAlpha (m (N + 1)) *
+                ((q (N + 2) : ℚ) + publicB)) := by rw [hstep]
+        _ = publicPrefixProduct m (N + 2) *
+              ((q (N + 2) : ℚ) + publicB) := by
+          have hprefix : publicPrefixProduct m (N + 2) =
+              publicPrefixProduct m (N + 1) *
+                publicAlpha (m (N + 1)) := by
+            simpa [Nat.add_assoc] using publicPrefixProduct_succ m (N + 1)
+          rw [hprefix]
+          ring
+
+/-- Exact finite approximation to the putative infinite theta value.  The
+only missing infinite step is proving that the displayed terminal term tends
+to zero in `ℚ₂`. -/
+theorem public_finite_theta_approximation
+    (m q : ℕ → ℕ) (hm : ∀ t, 0 < m t)
+    (hrecurrence : ∀ t,
+      2 ^ (8 * m t + 15) * q (t + 1) =
+        3 ^ (6 * m t + 11) * q t + branchDelta (m t))
+    (N : ℕ) :
+    publicInteriorSum m N =
+      -((q 0 : ℚ) + publicA) / publicEpsilon +
+        publicPrefixProduct m (N + 1) *
+          ((q (N + 1) : ℚ) + publicB) / publicEpsilon := by
+  have h := public_finite_telescope m q hm hrecurrence N
+  field_simp [publicEpsilon_ne_zero]
+  nlinarith
 
 theorem Z_odd (q : ℕ) : Odd (Z q) := by
   rw [Nat.odd_iff]
@@ -649,6 +839,32 @@ theorem payload_branch_recurrence (o : Orbit) (t : ℕ) :
         473 * (3 ^ (6 * m + 11) * o.payload t + branchDelta m) := by
     nlinarith
   exact Nat.eq_of_mul_eq_mul_left (by norm_num : 0 < 473) hcancel
+
+/-- Orbit-level QM150c.  The target sequence is shifted because public step
+`t` writes `branch (t+1)`. -/
+theorem finite_public_theta_telescope (o : Orbit) (N : ℕ) :
+    (o.payload 0 : ℚ) + publicA +
+        publicEpsilon *
+          publicInteriorSum (fun t => o.branch (t + 1)) N =
+      publicPrefixProduct (fun t => o.branch (t + 1)) (N + 1) *
+        ((o.payload (N + 1) : ℚ) + publicB) := by
+  apply public_finite_telescope
+  · exact fun t => o.branch_pos (t + 1)
+  · exact fun t => o.payload_branch_recurrence t
+
+/-- Orbit-level finite approximation with the rational lattice written in
+the closed `W(q₀)` form from QM150d. -/
+theorem finite_public_theta_lattice (o : Orbit) (N : ℕ) :
+    publicInteriorSum (fun t => o.branch (t + 1)) N =
+      -((2 : ℚ) ^ 20 * W (o.payload 0) / 17) +
+        publicPrefixProduct (fun t => o.branch (t + 1)) (N + 1) *
+          ((o.payload (N + 1) : ℚ) + publicB) / publicEpsilon := by
+  have h := public_finite_theta_approximation
+    (fun t => o.branch (t + 1)) o.payload
+    (fun t => o.branch_pos (t + 1))
+    (fun t => o.payload_branch_recurrence t) N
+  rw [public_theta_lattice] at h
+  exact h
 
 /-- Candidate normalized core decoded from one public payload and its target
 branch.  The following lemmas prove this division is exact whenever the
