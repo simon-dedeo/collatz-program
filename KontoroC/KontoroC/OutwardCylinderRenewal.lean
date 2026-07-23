@@ -240,10 +240,243 @@ theorem canonical_affine_identity (w : List Bool) :
   simpa only [programData_S, programData_O] using
     program_exact w (canonicalExecution_spec w).2.2
 
-/-! ## Finite min-plus renewal -/
+/-! ## Growing triadic phase -/
+
+noncomputable def rawPhaseParameter (w : List Bool) (k a : ℕ) : ℕ :=
+  Classical.choose <| KLControllerReset.exists_affine_modEq_of_coprime
+    (2 ^ w.length) (canonicalExecution w).1 a (3 ^ k)
+    (by positivity)
+    (Nat.Coprime.pow_right k <| Nat.Coprime.pow_left w.length (by norm_num))
+
+noncomputable def phaseParameter (w : List Bool) (k a : ℕ) : ℕ :=
+  rawPhaseParameter w k a % 3 ^ k
+
+theorem rawPhaseParameter_spec (w : List Bool) (k a : ℕ) :
+    2 ^ w.length * rawPhaseParameter w k a + (canonicalExecution w).1 ≡ a
+      [MOD 3 ^ k] :=
+  Classical.choose_spec <| KLControllerReset.exists_affine_modEq_of_coprime
+    (2 ^ w.length) (canonicalExecution w).1 a (3 ^ k)
+    (by positivity)
+    (Nat.Coprime.pow_right k <| Nat.Coprime.pow_left w.length (by norm_num))
+
+theorem phaseParameter_lt (w : List Bool) (k a : ℕ) :
+    phaseParameter w k a < 3 ^ k :=
+  Nat.mod_lt _ (by positivity)
+
+theorem phaseParameter_spec (w : List Bool) (k a : ℕ) :
+    (canonicalExecution w).1 + 2 ^ w.length * phaseParameter w k a ≡ a
+      [MOD 3 ^ k] := by
+  have hmod : phaseParameter w k a ≡ rawPhaseParameter w k a [MOD 3 ^ k] := by
+    simp [phaseParameter, Nat.ModEq]
+  have h := (hmod.mul_left (2 ^ w.length)).add_left (canonicalExecution w).1
+  exact h.trans <| by
+    simpa [Nat.add_comm] using rawPhaseParameter_spec w k a
+
+/-- QM158e, input half: the source phase is equivalent to one parameter
+phase because the dyadic multiplier is invertible modulo every power of
+three. -/
+theorem source_phase_iff_parameter_phase
+    (w : List Bool) (k a t : ℕ) :
+    (canonicalExecution w).1 + 2 ^ w.length * t ≡ a [MOD 3 ^ k] ↔
+      t ≡ phaseParameter w k a [MOD 3 ^ k] := by
+  let c := phaseParameter w k a
+  have hc := phaseParameter_spec w k a
+  have hcop : Nat.Coprime (3 ^ k) (2 ^ w.length) :=
+    (Nat.Coprime.pow_right w.length <| Nat.Coprime.pow_left k (by norm_num))
+  constructor
+  · intro ht
+    have hs :
+        (canonicalExecution w).1 + 2 ^ w.length * t ≡
+          (canonicalExecution w).1 + 2 ^ w.length * c [MOD 3 ^ k] :=
+      ht.trans hc.symm
+    have hmul : 2 ^ w.length * t ≡ 2 ^ w.length * c [MOD 3 ^ k] :=
+      Nat.ModEq.add_left_cancel' _ hs
+    exact hmul.cancel_left_of_coprime hcop.gcd_eq_one
+  · intro ht
+    exact ((ht.mul_left (2 ^ w.length)).add_left
+      (canonicalExecution w).1).trans hc
+
+noncomputable def outputPhase (w : List Bool) (k a : ℕ) : ℕ :=
+  (canonicalExecution w).2 +
+    3 ^ w.count true * phaseParameter w k a
+
+theorem outputPhase_lt (w : List Bool) (k a : ℕ) :
+    outputPhase w k a < 3 ^ (w.count true + k) := by
+  have hb := (canonicalExecution_spec w).2.1
+  have hc := phaseParameter_lt w k a
+  dsimp [outputPhase]
+  rw [pow_add]
+  nlinarith [show 0 < 3 ^ w.count true by positivity]
+
+/-- QM158e, output half: multiplying a parameter congruence by `3^O`
+raises its precision from `k` to `O+k`, and conversely the common factor can
+be cancelled exactly. -/
+theorem target_phase_iff_parameter_phase
+    (w : List Bool) (k a t : ℕ) :
+    (canonicalExecution w).2 + 3 ^ w.count true * t ≡ outputPhase w k a
+        [MOD 3 ^ (w.count true + k)] ↔
+      t ≡ phaseParameter w k a [MOD 3 ^ k] := by
+  let O := w.count true
+  let c := phaseParameter w k a
+  have hpow : 3 ^ (O + k) = 3 ^ O * 3 ^ k := pow_add 3 O k
+  constructor
+  · intro hy
+    have hmul : 3 ^ O * t ≡ 3 ^ O * c [MOD 3 ^ (O + k)] := by
+      apply Nat.ModEq.add_left_cancel' (canonicalExecution w).2
+      simpa [outputPhase, O, c] using hy
+    rw [hpow] at hmul
+    exact hmul.mul_left_cancel' (by positivity)
+  · intro ht
+    have hmul := ht.mul_left' (3 ^ O)
+    rw [← hpow] at hmul
+    simpa [outputPhase, O, c] using hmul.add_left (canonicalExecution w).2
+
+/-- Full phase equivalence along one literal execution family. -/
+theorem execution_source_phase_iff_target_phase
+    (w : List Bool) (k a : ℕ) {source target : ℕ}
+    (h : Executes w source target) :
+    source ≡ a [MOD 3 ^ k] ↔
+      target ≡ outputPhase w k a [MOD 3 ^ (w.count true + k)] := by
+  obtain ⟨t, hs, ht⟩ := (executes_iff_canonical_family w).1 h
+  rw [hs, ht, source_phase_iff_parameter_phase,
+    target_phase_iff_parameter_phase]
+
+/-- Any natural in the canonical output phase has a unique nonnegative
+target-family parameter in the corresponding input phase. -/
+theorem outputPhase_modEq_decompose
+    (w : List Bool) (k a m : ℕ)
+    (hm : m ≡ outputPhase w k a [MOD 3 ^ (w.count true + k)]) :
+    ∃ t : ℕ,
+      m = (canonicalExecution w).2 + 3 ^ w.count true * t ∧
+      t ≡ phaseParameter w k a [MOD 3 ^ k] ∧
+      (m - (canonicalExecution w).2) / 3 ^ w.count true = t := by
+  let O := w.count true
+  let c := phaseParameter w k a
+  let d := outputPhase w k a
+  let M := 3 ^ (O + k)
+  have hdlt : d < M := outputPhase_lt w k a
+  have hrem : m % M = d := by
+    have := hm
+    change m % M = d % M at this
+    rwa [Nat.mod_eq_of_lt hdlt] at this
+  have hmEq : m = d + M * (m / M) := by
+    rw [← hrem]
+    exact (Nat.mod_add_div m M).symm
+  let q := m / M
+  let t := c + 3 ^ k * q
+  have htarget : m = (canonicalExecution w).2 + 3 ^ O * t := by
+    rw [hmEq]
+    dsimp [d, outputPhase, M, t, q, O, c]
+    rw [pow_add]
+    ring
+  have htphase : t ≡ c [MOD 3 ^ k] := by
+    dsimp [t]
+    simp [Nat.ModEq]
+  refine ⟨t, by simpa [O] using htarget, by simpa [c] using htphase, ?_⟩
+  rw [htarget]
+  have hp : 0 < 3 ^ O := by positivity
+  simp [Nat.mul_div_cancel_left _ hp, O]
 
 def NextSource (F : Finset (List Bool)) (E : ℕ → Prop) (x : ℕ) : Prop :=
   ∃ w ∈ F, ∃ y, E y ∧ Executes w x y
+
+def PhaseNextSource (F : Finset (List Bool)) (E : ℕ → Prop)
+    (k a x : ℕ) : Prop :=
+  NextSource F E x ∧ x ≡ a [MOD 3 ^ k]
+
+/-- QM158f at the set level: source-phase preimages query the target profile
+at precision `O+k` and phase `d=outputPhase`. -/
+theorem phaseNextSource_iff_targetFibers
+    (F : Finset (List Bool)) (E : ℕ → Prop) (k a x : ℕ) :
+    PhaseNextSource F E k a x ↔
+      ∃ w ∈ F, ∃ m,
+        E m ∧ m ≡ outputPhase w k a [MOD 3 ^ (w.count true + k)] ∧
+        x = (canonicalExecution w).1 + 2 ^ w.length *
+          ((m - (canonicalExecution w).2) / 3 ^ w.count true) := by
+  constructor
+  · rintro ⟨⟨w, hwF, y, hyE, hxy⟩, hxphase⟩
+    have hyphase := (execution_source_phase_iff_target_phase w k a hxy).1 hxphase
+    obtain ⟨t, hx, hy⟩ := (executes_iff_canonical_family w).1 hxy
+    refine ⟨w, hwF, y, hyE, hyphase, ?_⟩
+    rw [hx, hy]
+    have hp : 0 < 3 ^ w.count true := by positivity
+    simp [Nat.mul_div_cancel_left _ hp]
+  · rintro ⟨w, hwF, m, hmE, hmphase, rfl⟩
+    obtain ⟨t, hm, htphase, hquot⟩ :=
+      outputPhase_modEq_decompose w k a m hmphase
+    rw [hquot]
+    constructor
+    · refine ⟨w, hwF, m, hmE, ?_⟩
+      exact (executes_iff_canonical_family w).2 ⟨t, rfl, hm⟩
+    · exact (source_phase_iff_parameter_phase w k a t).2 htphase
+
+noncomputable def phaseCandidateValue (_k _a : ℕ)
+    (m : List Bool → ℕ) (w : List Bool) : ℕ :=
+  (canonicalExecution w).1 + 2 ^ w.length *
+    ((m w - (canonicalExecution w).2) / 3 ^ w.count true)
+
+noncomputable def phaseCandidateValues (F : Finset (List Bool)) (k a : ℕ)
+    (m : List Bool → ℕ) : Finset ℕ :=
+  F.image (phaseCandidateValue k a m)
+
+theorem phaseCandidateValues_nonempty {F : Finset (List Bool)}
+    (hF : F.Nonempty) (k a : ℕ) (m : List Bool → ℕ) :
+    (phaseCandidateValues F k a m).Nonempty := by
+  obtain ⟨w, hw⟩ := hF
+  exact ⟨phaseCandidateValue k a m w,
+    Finset.mem_image.mpr ⟨w, hw, rfl⟩⟩
+
+noncomputable def minPhaseCandidate
+    (F : Finset (List Bool)) (hF : F.Nonempty) (k a : ℕ)
+    (m : List Bool → ℕ) : ℕ :=
+  (phaseCandidateValues F k a m).min'
+    (phaseCandidateValues_nonempty hF k a m)
+
+/-- QM158f in minimum form for a finite active code.  `m w` is the least
+old source in the exact output fiber of `w`; the minimum of the displayed
+inverse images is the least new source in phase `a mod 3^k`. -/
+theorem finite_phase_minPlus_renewal
+    (F : Finset (List Bool)) (hF : F.Nonempty)
+    (E : ℕ → Prop) (k a : ℕ) (m : List Bool → ℕ)
+    (hmE : ∀ w ∈ F, E (m w))
+    (hmPhase : ∀ w ∈ F,
+      m w ≡ outputPhase w k a [MOD 3 ^ (w.count true + k)])
+    (hmLeast : ∀ w ∈ F, ∀ y, E y →
+      y ≡ outputPhase w k a [MOD 3 ^ (w.count true + k)] → m w ≤ y) :
+    PhaseNextSource F E k a (minPhaseCandidate F hF k a m) ∧
+      ∀ x, PhaseNextSource F E k a x →
+        minPhaseCandidate F hF k a m ≤ x := by
+  have hmem : minPhaseCandidate F hF k a m ∈ phaseCandidateValues F k a m :=
+    Finset.min'_mem _ _
+  obtain ⟨w, hwF, hwEq⟩ := Finset.mem_image.mp hmem
+  constructor
+  · apply (phaseNextSource_iff_targetFibers F E k a _).2
+    refine ⟨w, hwF, m w, hmE w hwF, hmPhase w hwF, ?_⟩
+    simpa [phaseCandidateValue] using hwEq.symm
+  · intro x hx
+    obtain ⟨v, hvF, y, hyE, hyPhase, rfl⟩ :=
+      (phaseNextSource_iff_targetFibers F E k a x).1 hx
+    have hmin : minPhaseCandidate F hF k a m ≤ phaseCandidateValue k a m v := by
+      apply Finset.min'_le
+      exact Finset.mem_image.mpr ⟨v, hvF, rfl⟩
+    obtain ⟨tm, hmTarget, _, hmQuot⟩ :=
+      outputPhase_modEq_decompose v k a (m v) (hmPhase v hvF)
+    obtain ⟨ty, hyTarget, _, hyQuot⟩ :=
+      outputPhase_modEq_decompose v k a y hyPhase
+    have hmy : m v ≤ y := hmLeast v hvF y hyE hyPhase
+    have ht : tm ≤ ty := by
+      rw [hmTarget, hyTarget] at hmy
+      have hmul : 3 ^ v.count true * tm ≤ 3 ^ v.count true * ty := by omega
+      exact Nat.le_of_mul_le_mul_left hmul (by positivity)
+    have hcand : phaseCandidateValue k a m v ≤
+        (canonicalExecution v).1 + 2 ^ v.length *
+          ((y - (canonicalExecution v).2) / 3 ^ v.count true) := by
+      dsimp [phaseCandidateValue]
+      rw [hmQuot, hyQuot]
+      gcongr
+    exact hmin.trans hcand
+
+/-! ## Finite min-plus renewal -/
 
 def AdmissibleParameter (E : ℕ → Prop) (w : List Bool) (t : ℕ) : Prop :=
   E ((canonicalExecution w).2 + 3 ^ w.count true * t)

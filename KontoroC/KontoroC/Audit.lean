@@ -1718,6 +1718,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardCylinderRenewal.canonicalExecution_spec
 #print axioms KontoroC.OutwardCylinderRenewal.executes_iff_canonical_family
 #print axioms KontoroC.OutwardCylinderRenewal.canonical_affine_identity
+#print axioms KontoroC.OutwardCylinderRenewal.phaseParameter_spec
+#print axioms KontoroC.OutwardCylinderRenewal.source_phase_iff_parameter_phase
+#print axioms KontoroC.OutwardCylinderRenewal.outputPhase_lt
+#print axioms KontoroC.OutwardCylinderRenewal.target_phase_iff_parameter_phase
+#print axioms KontoroC.OutwardCylinderRenewal.execution_source_phase_iff_target_phase
+#print axioms KontoroC.OutwardCylinderRenewal.outputPhase_modEq_decompose
+#print axioms KontoroC.OutwardCylinderRenewal.phaseNextSource_iff_targetFibers
+#print axioms KontoroC.OutwardCylinderRenewal.finite_phase_minPlus_renewal
 #print axioms KontoroC.OutwardCylinderRenewal.nextSource_iff_parameters
 #print axioms KontoroC.OutwardCylinderRenewal.finite_minPlus_renewal
 #print axioms KontoroC.OutwardCylinderRenewal.candidate_eq_targetFiber_quotient

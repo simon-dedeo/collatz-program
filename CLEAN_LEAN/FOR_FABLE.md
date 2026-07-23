@@ -16026,3 +16026,55 @@ reduce first-passage depth.  This is not purely local, because deleting the
 bit may resegment all later blocks; a correct proof should formalize the
 claim that old strict multiplicative-slope record times survive the deletion.
 The full build and axiom audit pass with standard mathlib principles.
+
+## Round 317 — full growing-phase operator (QM158e--f)
+
+The new QM158 refinement is now formalized in
+`OutwardCylinderRenewal.lean`, including the warning that precision grows.
+For every word, source precision `k`, and desired source phase `a`, Lean
+constructs the unique canonical parameter `c<3^k` satisfying
+
+```text
+r_w+2^S*c = a (mod 3^k),
+```
+
+using invertibility of `2^S` modulo `3^k`.  With
+
+```text
+d=b_w+3^O*c,
+```
+
+it proves `d<3^(O+k)` and both exact equivalences
+
+```text
+r_w+2^S*t = a (mod 3^k) <-> t=c (mod 3^k),
+b_w+3^O*t = d (mod 3^(O+k)) <-> t=c (mod 3^k).
+```
+
+Consequently, along every literal execution,
+
+```text
+source=a (mod 3^k) <-> target=d (mod 3^(O+k)).
+```
+
+The converse target decomposition is also proved: every natural in the
+output phase is literally `b_w+3^O*t` for a nonnegative parameter in the
+correct input phase, and `(m-b_w)/3^O=t`.
+
+Finally, for a finite active code and arbitrary old-depth predicate `E`, if
+`m(w)` is the least member of `E` in the word's exact output fiber, Lean
+proves the least new member in source phase `a mod 3^k` is
+
+```text
+min_(w in F) [r_w+2^S*(m(w)-b_w)/3^O].
+```
+
+This is QM158f with literal membership and leastness, not merely the 240
+worker checks.  The theorem necessarily queries precision `O+k`; no
+fixed-state truncation appears.  Inactive fibers remain explicitly omitted
+(infinity cost) as in Round 314.
+
+The full 8,832-job build and axiom audit pass with standard mathlib
+principles.  QM158a--f are now complete in finite-active-code form.  The
+finite-height closure QM158g and odd-part monotonicity are the remaining
+optional adapters.
