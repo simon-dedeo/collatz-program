@@ -896,3 +896,118 @@ cross-product difference.  The cycle has one selected lift through `k=15`
 and two from `k=16` onward.  The downward trend is evidence that the ether
 cycle is a near-critical KL direction, not proof that the ratio tends to one
 or that a compatible infinite ordinary path exists.
+
+## 15. The KL center is a self-writing two-rail coordinate
+
+The denominator `473` does more than identify the synchronized center.  For a
+genuine branch-`n` packet, set
+
+```text
+z=3^(6n)u,                 R=(z-4)/473.
+```
+
+Packet validity implies `z=4 mod 473`.  Define two fixed affine maps
+
+```text
+D(R)=(3^11 R+1221)/2^15,
+E(R)=(729 R+4)/256.                                  (15.1)
+```
+
+Their defining identities are
+
+```text
+3^11(473R+4)+17=2^15(473D(R)+4),
+256(473E(R)+4)=729(473R+4).                          (15.2)
+```
+
+Consequently an EC17 transition to branch `m` is exactly
+
+```text
+R'=E^m(D(R)),
+v_2(473D(R)+4)=8m.                                  (15.3)
+```
+
+The binary delay in (15.3) is written by `E^m` into the factor `3^(6m)` of
+the next packet.  Under
+
+```text
+C=2^18 R+2215,
+```
+
+the map `E` is conjugate to `(729C+881)/256`, and the fixed point
+`R=-4/473` is exactly `C=-881/473`.  The rational KL center has therefore
+exposed the actual recharge--ether normal form of the packet map.
+
+There is an integer-only compression.  Every packet has
+
+```text
+R=1044929+2^20 q,
+Z(q)=494251421+495976448q,
+W(q)= 83499104+ 83790531q,                           (15.4)
+```
+
+and coefficientwise
+
+```text
+3^11 Z(q)+17=2^20 W(q).                              (15.5)
+```
+
+For a valid current state `v_3(Z)=6n`.  If
+
+```text
+v_2(W)=8m-5,       h=W/2^(8m-5),
+```
+
+then continuation is precisely
+
+```text
+q'=(729^m h-494251421)/(473*2^20) in Nat.            (15.6)
+```
+
+On acceptance, `Z(q')=729^m h`; because `h=1 mod 3`, this has exact ternary
+valuation `6m`.  Thus (15.6) is a deterministic self-writing mixed-radix
+controller on one public nonnegative integer.
+
+For a fixed target `m`, the two local conditions on `h` are
+
+```text
+h = 83499104*2^(-(8m-5))       (mod 473*3^11),
+h = 494251421*729^(-m)         (mod 2^20).            (15.7)
+```
+
+CRT gives one class, and hence the complete branch
+
+```text
+q=a_m+2^(8m+15)t,
+q'=b_m+3^(6m+11)t.                                  (15.8)
+```
+
+The source branch condition is a further coprime ternary class of `t`, so
+every finite `n -> m` link exists.  This rules out using the synchronized
+`r=2` rail or the factor `473` as a local obstruction.  Their real value is
+the global recurrence (15.6).
+
+The same calculation exposes the packet premise missing from a bare EC17
+ray.  With `s=2^(8n-5)u`, put
+
+```text
+chi=s+291427 (mod 473).
+```
+
+Every EC17 step satisfies `chi'=316chi`; actual packets have `chi=0`.
+Nonzero colors never enter the packet lattice, even if the bare EC17
+recurrence is coherent.  One color-zero seed repairs the semantic bridge and
+then propagates automatically.
+
+Finally, every accepted transition has `q'>q`.  In `Z` coordinates its
+leading multiplier is `3^(6m+11)/2^(8m+15)>1` for `m>=1`, and the additive
+term is positive.  Hence the branch counter need not increase monotonically,
+but this canonical payload counter must.  An infinite accepted orbit of
+(15.6) would be an exact construction certificate.  None is known; the
+artifact records `counterexample:null`.
+
+Companion commit `7ca6d4f` kernel-checks (15.5) and packages a hypothetical
+self-writing orbit by the two exact `Z`/`W` factorizations.  From that
+hypothesis Lean derives the EC17 balance, strict payload monotonicity, and the
+impossibility of an eventually periodic branch sequence.  The formal
+definition deliberately does not infer an orbit from finite CRT rows.

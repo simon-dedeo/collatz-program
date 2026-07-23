@@ -4823,3 +4823,48 @@ All eight exact ratios `D_E/W_E` exceed one and decrease strictly from
 is certified by a positive integer cross-product.  The artifact independently
 matches the level-12 literal tail-chart factor.  It records
 `finite_evidence_only:true`, `limit_theorem:null`, and `counterexample:null`.
+
+## Self-writing KL/EC17 two-rail coordinate
+
+`breakoff_ether_self_writing_kl.py` turns the rational ether center into a
+global deterministic packet coordinate.  Every genuine packet has
+
+```text
+Z(q)=494251421+(473*2^20)q,
+W(q)=83499104+(473*3^11)q,
+3^11 Z(q)+17=2^20 W(q).
+```
+
+The current branch is stored in `v_3(Z)=6n`.  A target branch is decoded by
+`v_2(W)=8m-5`; writing `h=W/2^(8m-5)`, the fixed packet-return test and output
+are
+
+```text
+729^m h = 494251421+(473*2^20)q'.
+```
+
+Thus the binary delay is written back as `v_3(Z(q'))=6m`.  In the centered
+coordinate `Z=473R+4`, the same step is
+
+```text
+D(R)=(3^11 R+1221)/2^15,
+E(R)=(729R+4)/256,
+R'=E^m(D(R)).
+```
+
+Under the literal boundary change `C=2^18R+2215`, `E` is exactly the KL ether
+map `(729C+881)/256`.  For each fixed `m`, CRT reconstructs the complete
+affine source/output family with strides `2^(8m+15)` and `3^(6m+11)`.
+
+```bash
+python3 breakoff_ether_self_writing_kl.py selftest
+python3 breakoff_ether_self_writing_kl.py verify \
+  breakoff_ether_self_writing_kl_audit.json
+```
+
+The artifact checks all target families through `m=32` and 4,096 literal
+linked packet transitions.  Every accepted step has `q'>q`.  It does not
+find an infinite accepted orbit; `counterexample:null`.
+Companion commit `7ca6d4f` kernel-checks the determinant identity and proves
+strict payload growth and branch aperiodicity for every supplied infinite
+self-writing orbit.

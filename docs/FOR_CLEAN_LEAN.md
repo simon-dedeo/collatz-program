@@ -11432,3 +11432,120 @@ The reconstructive worker and artifact are
 router count formulas and the level-12 ether-cycle tax, but QM144a--e are the
 small load-bearing theorem.  Do not infer an infinite EC17 chain or a Collatz
 counterexample; the artifact has `counterexample:null`.
+
+## Kontorovich request: self-writing KL/EC17 two-rail normal form (QM145, 2026-07-23)
+
+The rational center from QM144 gives a much smaller exact state coordinate.
+Please formalize the universal algebra, independently of the bounded worker.
+
+For a packet-valid branch/core put
+
+```text
+z=3^(6n)*u,       R=(z-4)/473.
+```
+
+First prove the two affine identities
+
+```text
+D(R)=(3^11*R+1221)/2^15,
+E(R)=(729*R+4)/256,
+
+3^11*(473*R+4)+17=2^15*(473*D(R)+4),               (QM145a)
+256*(473*E(R)+4)=729*(473*R+4).                    (QM145b)
+```
+
+From the EC17 equation to a target branch `m`, derive the exact conjugacy
+
+```text
+R'=E^[m](D(R)),
+v2(473*D(R)+4)=8*m.                                (QM145c)
+```
+
+Valuation-free factorization/divisibility statements are fine.  The literal
+KL boundary change is
+
+```text
+C=2^18*R+2215.
+```
+
+Please prove that it conjugates `E` and `D` to
+
+```text
+C |-> (729*C+881)/256,
+C |-> (3^11*C+278339)/2^15.                        (QM145d)
+```
+
+The strongest integer-only interface is the following.  Define
+
+```text
+Z(q)=494251421+(473*2^20)*q,
+W(q)= 83499104+(473*3^11)*q.
+```
+
+Prove coefficientwise
+
+```text
+3^11*Z(q)+17=2^20*W(q).                            (QM145e)
+```
+
+If `v3(Z(q))=6*n`, `Z(q)/3^(6*n)=1 mod 3`, and
+
+```text
+v2(W(q))=8*m-5,
+h=W(q)/2^(8*m-5),
+729^m*h=494251421+(473*2^20)*q',                   (QM145f)
+```
+
+then prove that `(n,Z/3^(6n)) -> (m,h)` is an EC17 transition and that the
+target has exact ternary valuation `6*m`.  This packages the statement that
+the binary delay reads `m` and writes it back as six `m` ternary zeros.
+
+For fixed `m`, CRT gives the complete affine branch
+
+```text
+q=a_m+2^(8m+15)*t,
+q'=b_m+3^(6m+11)*t.                                (QM145g)
+```
+
+The reusable theorem need not expose enormous least representatives: it is
+enough to state that the two congruences
+
+```text
+h=83499104*2^(-(8m-5)) (mod 473*3^11),
+h=494251421*729^(-m)    (mod 2^20)
+```
+
+have a unique class modulo `473*3^11*2^20`, then derive the two strides.
+A further CRT with the source ternary rail proves that
+every fixed finite `n -> m` link exists; this explains why the synchronization
+theorem cannot be a local all-depth no-go.
+
+Finally prove the strict growth consumer
+
+```text
+accepted q -> q'>q,                                (QM145h)
+```
+
+using `3^(6m+11)>2^(8m+15)` for every `m>=1` and the exact transition
+identity.  This answers the resource question precisely: `n` need not grow,
+but the canonical payload does on every infinite accepted execution.
+
+There is also a small packet-color lemma worth packaging if convenient.  For
+`s=2^(8n-5)u`, let `chi=s+291427 mod 473`.  EC17 gives
+
+```text
+chi'=316*chi (mod 473),                             (QM145i)
+```
+
+and packet-valid states have `chi=0`.  This is the missing premise between a
+bare EC17 ray and a returning-glider orbit; nonzero colors never become
+packets.  The worker is
+`experiments/kontorovich/breakoff_ether_self_writing_kl.py` with artifact
+`breakoff_ether_self_writing_kl_audit.json`.  It supplies no infinite orbit or
+counterexample.
+
+Status: companion commit `7ca6d4f` completes the load-bearing orbit package:
+QM145e, the exact EC17 balance from the two `Z`/`W` factorizations, strict
+payload growth (QM145h), and non-eventual-periodicity of the branch schedule.
+It deliberately leaves orbit existence, the full `D/E` presentation, CRT
+families, and packet color as separate obligations.

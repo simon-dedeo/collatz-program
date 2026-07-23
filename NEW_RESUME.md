@@ -1,6 +1,101 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 11:28 EDT
+Updated: 2026-07-23, about 12:02 EDT
+
+### 12:02 EDT continuation -- the KL center yields one self-writing integer
+
+There is no counterexample.  The rational ether center has now reduced the
+complete packet transition to one deterministic nonnegative coordinate.  Put
+
+```text
+Z(q)=494251421+495976448*q,
+W(q)= 83499104+ 83790531*q.
+```
+
+The constants satisfy the exact determinant identity
+
+```text
+3^11*Z(q)+17=2^20*W(q).                            (SW1)
+```
+
+For a genuine current packet, `v_3(Z)=6n` and `u=Z/3^(6n)` is the normalized
+EC17 core.  If
+
+```text
+v_2(W)=8m-5,  h=W/2^(8m-5),
+```
+
+then the next packet coordinate must be
+
+```text
+q'=(729^m*h-494251421)/(473*2^20).                 (SW2)
+```
+
+It is accepted exactly when this is a nonnegative integer.  On acceptance,
+`Z(q')=729^m*h`, so the binary delay `m` is written back as exactly `6m`
+ternary zeros.  The unit is `1 mod 3` automatically after the first genuine
+packet.  This is the sought self-writing mixed-radix controller: the branch
+schedule is decoded from the payload rather than supplied externally.
+
+The rational KL relation is exact.  With `Z=473R+4`,
+
+```text
+D(R)=(3^11*R+1221)/2^15,
+E(R)=(729*R+4)/256,
+R'=E^m(D(R)).                                      (SW3)
+```
+
+The literal boundary is `C=2^18*R+2215`; hence `E` is conjugate to
+`C |-> (729C+881)/256` and the fixed center is the same `-881/473` found by
+the KL tail chart.
+
+For every fixed target branch `m`, CRT gives one complete family
+
+```text
+q=a_m+2^(8m+15)t,
+q'=b_m+3^(6m+11)t.                                 (SW4)
+```
+
+The current ternary branch condition is coprime to this binary cylinder, so
+every finite `n -> m` link still exists.  Therefore linked `r=2`, fixed-depth
+tail synchronization, and the `473` resonance do not give an all-depth no-go.
+Their constructive value is the one-state recurrence (SW1)--(SW2).
+
+The checksum audit also corrects the semantic scope of the bare carry lane.
+For `s=2^(8n-5)u`, define
+
+```text
+chi=s+291427 (mod 473).
+```
+
+Every EC17 step gives `chi'=316*chi`; genuine packets are exactly color zero
+after the automatic `3^10` and outgoing `2^20` conditions.  Thus an eventual
+zero-carry theorem constructs a bare EC17 ray, but it becomes a returning
+glider only after one packet-valid/color-zero seed premise.  That premise then
+propagates forever.
+
+Every accepted self-writing step has `q'>q`, using
+`3^(6m+11)>2^(8m+15)` for all `m>=1`.  The branch counter need not diverge,
+but the public payload counter must grow strictly on any infinite execution.
+Finite or ultimately periodic schedules remain excluded; the live object is
+an aperiodic invariant thin set of (SW2) whose canonical dyadic residues
+eventually stabilize to one natural seed.
+
+The exact worker checks the universal identities, constructs target families
+through `m=32`, and replays 4,096 linked packet transitions:
+
+```bash
+python3 experiments/kontorovich/breakoff_ether_self_writing_kl.py selftest
+python3 experiments/kontorovich/breakoff_ether_self_writing_kl.py verify \
+  experiments/kontorovich/breakoff_ether_self_writing_kl_audit.json
+```
+
+The artifact has `counterexample:null`.  The next theorem-driven target is an
+exact invariant/recurrence for the accepted `q` values, not a wider seed scan.
+Companion commit `7ca6d4f` has now kernel-checked (SW1), the reduction from
+any supplied self-writing orbit to the exact EC17 balance, strict monotonicity
+of `q`, and impossibility of an eventually periodic branch schedule.  It does
+not assert that such an orbit exists.
 
 ### 11:28 EDT continuation -- linked tails collapse to one KL ether spine
 
