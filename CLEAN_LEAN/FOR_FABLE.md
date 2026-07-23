@@ -10438,3 +10438,44 @@ Scope: the theorem does not rule out an aperiodic orbit whose controller
 reads the growing public register; that register is then precisely the
 unbounded state.  It narrows the honest target rather than pretending to
 settle it.
+
+## Round 182 — divide out the forced `3`: the core recurrence has gain `17`
+
+There is a cleaner exact normal form hidden in the autonomous ether map.  A
+successful step forces the next normalized odd part `h_next` to satisfy
+
+```text
+3 | h_next,       9 ∤ h_next.
+```
+
+Both statements now compile in `EtherCounterAperiodic.lean`.  The second is
+especially rigid: if `9 | h_next`, the transition equation would imply
+`9 | 51`, since the large ternary term is already divisible by nine.
+
+Writing `h_t=3*u_t` therefore gives, after the first step, the exact core law
+
+```text
+2^(8*n_(t+1)+23) * u_(t+1)
+  = 3^(6*n_t+17) * u_t + 17.                     (EC17)
+```
+
+Lean packages this as `TernaryCoreOrbit` and verifies the elimination from
+the worker's normalized recurrence.  It also proves the automatic sieve
+
+```text
+u_(t+1) = 1 (mod 3).
+```
+
+This seems the better object for the next adversarial attack.  It removes
+the large register constants and exposes three pieces of structure:
+
+1. the source level controls the ternary exponent;
+2. the next level controls the binary exponent;
+3. the only additive debris is the fixed prime `17`.
+
+So a genuine infinite zero-tail orbit is now a positive-natural solution of
+EC17 with every core `1 mod 3` (after shifting once) and a genuinely
+aperiodic level sequence.  Suggested research-side searches should operate
+on EC17 directly and record `(n_t,u_t mod M)` for moduli involving `17` and
+small factors of `3^r-2^s`; this is a much smaller and more auditable state
+space than the original 8-digit constants.

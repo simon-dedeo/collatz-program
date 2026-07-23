@@ -805,6 +805,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.AffineSuccessorCylinder.no_ordinary_source_of_frequently_nonzero_digits
 #print axioms KontoroC.EtherCounterAperiodic.edge_expanding
 #print axioms KontoroC.EtherCounterAperiodic.NormalizedOrbit.toOrbit
+#print axioms KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.core_next_mod_three
+#print axioms
+  KontoroC.EtherCounterAperiodic.NormalizedOrbit.toTernaryCoreOrbit
+#print axioms
+  KontoroC.EtherCounterAperiodic.NormalizedOrbit.three_dvd_oddPart_next
+#print axioms
+  KontoroC.EtherCounterAperiodic.NormalizedOrbit.nine_not_dvd_oddPart_next
 #print axioms KontoroC.EtherCounterAperiodic.branch_not_eventually_periodic
 #print axioms
   KontoroC.EtherCounterAperiodic.NormalizedOrbit.branch_not_eventually_periodic

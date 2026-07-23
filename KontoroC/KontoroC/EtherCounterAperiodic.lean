@@ -108,6 +108,103 @@ def NormalizedOrbit.toOrbit (o : NormalizedOrbit) : Orbit where
         simp [edgeA, edgeGain, ternaryExponent]
         ring
 
+/-! ## The forced ternary core -/
+
+/-- After removing the invariant single factor of three from the odd part,
+the autonomous recurrence has the much smaller constant gain `17`.  Notice
+that the source level controls the power of three while the *next* level
+controls the power of two. -/
+structure TernaryCoreOrbit where
+  level : ℕ → ℕ
+  core : ℕ → ℕ
+  core_pos : ∀ t, 0 < core t
+  balance : ∀ t,
+    2 ^ (8 * level (t + 1) + 23) * core (t + 1) =
+      3 ^ (6 * level t + 17) * core t + 17
+
+private theorem two_pow_branch_mod_three (n : ℕ) :
+    2 ^ (8 * n + 23) % 3 = 2 := by
+  rw [show 8 * n + 23 = 2 * (4 * n + 11) + 1 by omega, pow_add,
+    pow_mul]
+  norm_num [Nat.mul_mod, Nat.pow_mod]
+
+/-- Every core after the first is `1 mod 3`.  This is an exact necessary
+condition for a surviving zero-tail orbit and a useful search sieve. -/
+theorem TernaryCoreOrbit.core_next_mod_three
+    (o : TernaryCoreOrbit) (t : ℕ) : o.core (t + 1) % 3 = 1 := by
+  have hmod := congrArg (fun z : ℕ => z % 3) (o.balance t)
+  have hpow := two_pow_branch_mod_three (o.level (t + 1))
+  have hthree :
+      (3 ^ (6 * o.level t + 17) * o.core t) % 3 = 0 := by
+    apply Nat.dvd_iff_mod_eq_zero.mp
+    exact dvd_mul_of_dvd_left (dvd_pow_self 3 (by omega)) _
+  rw [Nat.mul_mod, hpow, Nat.add_mod, hthree] at hmod
+  norm_num at hmod
+  have hlt := Nat.mod_lt (o.core (t + 1)) (by omega : 0 < 3)
+  omega
+
+/-- When the normalized odd part is written as `3*core`, the large-constant
+worker recurrence reduces exactly to the constant-`17` ternary core. -/
+def NormalizedOrbit.toTernaryCoreOrbit (o : NormalizedOrbit)
+    (core : ℕ → ℕ) (hcore_pos : ∀ t, 0 < core t)
+    (hodd : ∀ t, o.oddPart t = 3 * core t) : TernaryCoreOrbit where
+  level := o.level
+  core := core
+  core_pos := hcore_pos
+  balance t := by
+    apply Nat.mul_left_cancel (by omega : 0 < 3)
+    calc
+      3 * (2 ^ (8 * o.level (t + 1) + 23) * core (t + 1)) =
+          2 ^ 20 *
+            (2 ^ (8 * o.level (t + 1) + 3) * (3 * core (t + 1))) := by
+        rw [show 8 * o.level (t + 1) + 23 =
+          (8 * o.level (t + 1) + 3) + 20 by omega, pow_add]
+        ring
+      _ = 2 ^ 20 * o.value (t + 1) := by
+        rw [o.factor (t + 1), hodd (t + 1)]
+      _ = 3 ^ (6 * o.level t + 17) * o.oddPart t + 51 :=
+        o.transition t
+      _ = 3 ^ (6 * o.level t + 17) * (3 * core t) + 51 := by
+        rw [hodd t]
+      _ = 3 *
+          (3 ^ (6 * o.level t + 17) * core t + 17) := by ring
+
+/-- The factor of three used by the core normalization is not an extra
+worker assumption after the first step: every successful transition forces
+the next odd part to be divisible by three. -/
+theorem NormalizedOrbit.three_dvd_oddPart_next
+    (o : NormalizedOrbit) (t : ℕ) : 3 ∣ o.oddPart (t + 1) := by
+  have hrhs :
+      3 ∣ 3 ^ (6 * o.level t + 17) * o.oddPart t + 51 := by
+    apply dvd_add
+    · exact dvd_mul_of_dvd_left (dvd_pow_self 3 (by omega)) _
+    · norm_num
+  have hscaled : 3 ∣ 2 ^ 20 * o.value (t + 1) := by
+    rw [o.transition t]
+    exact hrhs
+  have hvalue : 3 ∣ o.value (t + 1) :=
+    (by norm_num : Nat.Coprime 3 2).pow_right 20 |>.dvd_of_dvd_mul_left hscaled
+  rw [o.factor (t + 1)] at hvalue
+  exact (by norm_num : Nat.Coprime 3 2).pow_right
+    (8 * o.level (t + 1) + 3) |>.dvd_of_dvd_mul_left hvalue
+
+/-- The forced factor is exactly one factor of three: a second factor would
+make the transition imply the false divisibility `9 ∣ 51`. -/
+theorem NormalizedOrbit.nine_not_dvd_oddPart_next
+    (o : NormalizedOrbit) (t : ℕ) : ¬ 9 ∣ o.oddPart (t + 1) := by
+  intro hodd
+  have hvalue : 9 ∣ o.value (t + 1) := by
+    rw [o.factor (t + 1)]
+    exact dvd_mul_of_dvd_right hodd _
+  have hscaled : 9 ∣ 2 ^ 20 * o.value (t + 1) :=
+    dvd_mul_of_dvd_right hvalue _
+  rw [o.transition t] at hscaled
+  have hfirst : 9 ∣ 3 ^ (6 * o.level t + 17) * o.oddPart t := by
+    apply dvd_mul_of_dvd_left
+    exact pow_dvd_pow 3 (by omega : 2 ≤ 6 * o.level t + 17)
+  have h51 : 9 ∣ 51 := (Nat.dvd_add_iff_right hfirst).2 hscaled
+  norm_num at h51
+
 /-- Standard eventual periodicity after time `K`, with nonzero period `p`
 supplied separately where needed. -/
 def EventuallyPeriodicFrom (f : ℕ → ℕ) (K p : ℕ) : Prop :=
