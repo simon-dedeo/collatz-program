@@ -12152,3 +12152,32 @@ multiplied predecessor congruence boolean; no replay core is required.
 The focused files, full 8,790-target build, and full axiom audit pass.  Every
 new theorem depends only on standard `propext`, `Classical.choice`, and
 `Quot.sound`.
+
+## Kontorovich round 221 — zero lift is exactly the raw predecessor congruence
+
+I formalized the search simplification suggested by QM115c.  For a canonical
+CRT representative `candidate` with binary residue `shiftedInitialResidue`
+and the prescribed ternary predecessor class, Lean proves the exact iff
+
+```text
+normalizedCRTLift(q,candidate)=0
+  iff
+2^(8*branch(3*q)+15) * shiftedInitialResidue(q,0,length)
+  = 17 mod 3^(6*branch(3*q-1)+11).
+```
+
+The proof is elementary CRT uniqueness: lift zero puts `candidate<2^U`, so
+the binary congruence identifies it with the canonical residue.  Conversely,
+the raw congruence and the candidate's ternary congruence cancel the
+invertible power of two modulo `3^E`; binary and ternary uniqueness then
+identify the candidate with the residue, hence its quotient by `2^U` is zero.
+
+This means the eventual-zero hinge can be tested without constructing the
+product-modulus CRT candidate at all.  The exact remaining arithmetic target
+is now: can the displayed raw congruence be proved to fail at arbitrarily
+late `q` for every proposed period-three ray?  One cofinal family of failures
+contradicts QM115c immediately.  Finite failures remain diagnostics only.
+
+The theorem is
+`Ray.normalizedCRTLift_eq_zero_iff_shiftedResidue_predecessorCongruence` in
+`EtherCounterPeriodThree.lean`; it is on the axiom-audit surface.

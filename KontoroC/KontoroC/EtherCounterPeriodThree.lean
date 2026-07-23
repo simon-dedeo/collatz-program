@@ -1215,6 +1215,68 @@ residue `r₂<2^U` it is exactly `lift`. -/
 def normalizedCRTLift (g : Ray) (q candidate : ℕ) : ℕ :=
   candidate / 2 ^ sharpUpperBudget g q
 
+/-- Exact search simplification: for a canonical CRT representative at
+binary precision `U`, lift zero is equivalent to the raw forced future
+residue itself satisfying the immediate predecessor congruence.  Thus the
+eventual-zero hinge can be tested without constructing the product-modulus
+CRT candidate. -/
+theorem normalizedCRTLift_eq_zero_iff_shiftedResidue_predecessorCongruence
+    (g : Ray) (q length candidate : ℕ)
+    (hbinary : (shiftedInitialResidue g q 0 length).val ≡ candidate
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary :
+      2 ^ (8 * g.branch (3 * q) + 15) * candidate ≡ 17
+        [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : candidate <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11)) :
+    normalizedCRTLift g q candidate = 0 ↔
+      2 ^ (8 * g.branch (3 * q) + 15) *
+          (shiftedInitialResidue g q 0 length).val ≡ 17
+        [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)] := by
+  let U := sharpUpperBudget g q
+  let E := 6 * g.branch (3 * q - 1) + 11
+  let A := 8 * g.branch (3 * q) + 15
+  let residue := (shiftedInitialResidue g q 0 length).val
+  have hresidue : residue < 2 ^ U := by
+    simpa [residue, U, shiftedInitialResidue, normalizedPrecision] using
+      ZMod.val_lt (shiftedInitialResidue g q 0 length)
+  have hmoduli : (2 ^ U).Coprime (3 ^ E) :=
+    (by norm_num : Nat.Coprime 2 3).pow _ _
+  constructor
+  · intro hlift
+    have hcandSmall : candidate < 2 ^ U := by
+      have hor : 2 ^ U = 0 ∨ candidate < 2 ^ U :=
+        Nat.div_eq_zero_iff.mp (by
+          simpa [normalizedCRTLift, U] using hlift)
+      exact hor.resolve_left (by positivity)
+    have hbinary' : residue ≡ candidate [MOD 2 ^ U] := by
+      simpa [U, residue] using hbinary
+    have heq : residue = candidate :=
+      hbinary'.eq_of_lt_of_lt hresidue hcandSmall
+    simpa [A, E, residue, heq] using hternary
+  · intro hresidueTernary
+    have hcandidateTernary : 2 ^ A * candidate ≡ 17 [MOD 3 ^ E] := by
+      simpa [A, E] using hternary
+    have hresidueTernary' : 17 ≡ 2 ^ A * residue [MOD 3 ^ E] := by
+      simpa [A, E, residue] using hresidueTernary.symm
+    have hmul : 2 ^ A * candidate ≡ 2 ^ A * residue [MOD 3 ^ E] :=
+      hcandidateTernary.trans hresidueTernary'
+    have hcancelCoprime : Nat.gcd (3 ^ E) (2 ^ A) = 1 :=
+      ((by norm_num : Nat.Coprime 3 2).pow _ _).gcd_eq_one
+    have hternaryPair : candidate ≡ residue [MOD 3 ^ E] :=
+      Nat.ModEq.cancel_left_of_coprime hcancelCoprime hmul
+    have hproductMod : candidate ≡ residue [MOD (2 ^ U) * (3 ^ E)] :=
+      (Nat.modEq_and_modEq_iff_modEq_mul hmoduli).1
+        ⟨by simpa [U, residue] using hbinary.symm, hternaryPair⟩
+    have hresidueProduct : residue < 2 ^ U * 3 ^ E := by
+      exact hresidue.trans_le (Nat.le_mul_of_pos_right _ (by positivity))
+    have heq : candidate = residue :=
+      hproductMod.eq_of_lt_of_lt
+        (by simpa [U, E] using hcandidate) hresidueProduct
+    rw [normalizedCRTLift, heq]
+    exact Nat.div_eq_of_lt (by simpa [U] using hresidue)
+
 /-- QM108: the replay-free normalized candidate margin lower-bounds the
 same fixed initial-core bit length. -/
 theorem normalizedCRT_candidateMargin_le_initialDigits

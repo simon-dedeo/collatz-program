@@ -1009,6 +1009,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.EtherCounterPeriodThree.Ray.normalizedCRTLift_lt_two_pow_initialDigits
 #print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.normalizedCRTLift_eq_zero_iff_shiftedResidue_predecessorCongruence
+#print axioms
   KontoroC.EtherCounterPeriodThree.Ray.exists_cofinally_constant_normalizedCRTLift
 #print axioms
   KontoroC.EtherCounterPeriodThree.Ray.false_of_eventually_avoids_each_normalizedCRTLift
