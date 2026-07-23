@@ -33,6 +33,52 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 02:34 EDT
+
+The theorem-driven nonlinear search has a new exact target.  For the genuinely
+aperiodic geometric branch schedule
+
+```text
+n_t=n_0*d^t,  n_0>=1, d>=2,
+```
+
+finite backward unrolling of EC17 reduces the only possible initial core to
+
+```text
+u_0=-17/3^(6*n_0+11)*G(z),
+G(z)=sum_(j>=0) (2^15/3^11)^j z^((d^j-1)/(d-1)),
+z=2^(8*n_0*d)/3^(6*n_0*d),
+G(z)=1+(2^15/3^11)*z*G(z^d).
+```
+
+The new exact artifact replays nine literal schedules through six EC17
+transitions and checks 3,584 coefficient identities.  More importantly, the
+previously unaudited literature seam is now precise: Wang's 2006 p-adic
+Mahler-value theorem has parameters `rho=d`, theorem degree `n0=1`, and
+`M0=d`, so its numerical condition is just `d<d^2`.  The needed function
+transcendence follows by the classical Hadamard gap theorem and scalar descent
+from rational coefficients.  This gives a source-checked proposed conditional
+no-go for every geometric counter, but the universal EC17-to-value bridge is
+still a research derivation; QM78--QM81 ask the companion to kernel-check it.
+It is not a counterexample.
+
+Companion commits `d0faf96` and `82198ac` also complete the natural homogeneous
+rational period-three coboundary no-go.  A reduced denominator must divide its
+scaled copy, hence is a monomial; least- and greatest-support coefficients then
+contradict the quadratic forcing.  This excludes every homogeneous rational
+potential `x^-1 f(y/x)`.  It does not yet exclude an arbitrary nonhomogeneous
+bivariate rational potential or an accidental rational value of the three
+theta sums at one orbit.
+
+```text
+python3 experiments/kontorovich/breakoff_ether_geometric_mahler.py selftest
+python3 experiments/kontorovich/breakoff_ether_geometric_mahler.py verify \
+  experiments/kontorovich/breakoff_ether_geometric_mahler_audit.json
+
+artifact SHA-256  39ab4d6025729d2eced00cb8a4a331ba5640c41832cd05bc270c078823b85bbe
+verifier SHA-256  d22be4b977f9f6ba98d96b1426533634514237dc6ebfccfecd37b48f7f303e81
+```
+
 ### 2026-07-23 02:20 EDT
 
 Two more theorem-shaped period-three checks are complete.  Companion commit
@@ -4280,7 +4326,7 @@ identically `x`.
 | Every fixed finite charge-bouncer period | Kernel-closed at the arithmetic-surrogate level by commit `e8585c4`, including arbitrary finite transients.  A generic nonempty list fold compresses one period to a single expanding coprime affine gain law; arbitrarily large denominator divisibility contradicts a fixed positive initial state.  This subsumes the earlier constant and alternating results.  Payload-driven genuinely aperiodic schedules and phase conjugacies remain live. | [`ChargeBouncerPeriodicNoGo.lean`](KontoroC/KontoroC/ChargeBouncerPeriodicNoGo.lean) |
 | Fixed-jump resonant phase-up counter | Closed for every `k>=1`, despite its nonperiodic public phase `m_i=m_0+4ki`.  Lean commit `466e381` derives the exact public cofactor recurrence, constructs its unique `Q_2` candidate, identifies it coefficientwise with a nonzero rational multiple of `f_(3^(68k)/2^(92k))(alpha)`, and bridges every linked public-step ray to that recurrence.  The inspected main theorem of Väänänen--Wallisser (1989), pp. 200--201, applies with `ell=1,sigma=0,p=2`; accepting that external theorem makes the candidate irrational and rules out an ordinary cofactor.  Variable payload-dependent jumps/directions remain open. | [`ChargePhaseUpTheta.lean`](KontoroC/KontoroC/ChargePhaseUpTheta.lean), [phase-glider note](docs/notes/kontorovich-resonant-phase-glider.md) |
 | Väänänen--Wallisser as an all-period phase-up obstruction | **Retracted beyond period three.**  Periodic jump schedules split into several theta values, and the paper's sufficient threshold depends on their number `L`.  Commits `8b3d9f5`/`772a6e8` kernel-check the complete flattened multi-theta decomposition and `gamma<Gamma(L,0)` for `L=2,3`, but also `Gamma(4,0)<1/8<gamma`.  Accepting the external theorem closes periods one through three; the citation cannot close period four or any larger period by the same estimate.  Period four is only the first theorem escape, not evidence of an ordinary ray. | [`ChargePhaseUpPeriodicTheta.lean`](KontoroC/KontoroC/ChargePhaseUpPeriodicTheta.lean) |
-| Finite Laurent period-three EC17 coboundary | Universally closed by companion commit `1154476`.  The exact three-step defect has three quadratic monomials.  On each homogeneous Laurent slice, the least support exponent contributes an unmatched `-C` term and the greatest contributes an unmatched shifted `A` term; the forcing support `{0,1,2}` makes their required ranges disjoint.  Total-degree slicing kills every other finite component.  This excludes finite Laurent/exponential-polynomial potentials, not infinite theta series, non-Laurent rational functions, or rationality at one evaluated orbit. | [`LaurentCoboundaryNoGo.lean`](KontoroC/KontoroC/LaurentCoboundaryNoGo.lean) |
+| Finite Laurent and homogeneous rational period-three EC17 coboundaries | Universally closed in the stated classes by companion commits `1154476`, `d0faf96`, and `82198ac`.  The exact three-step defect has three quadratic monomials.  Extreme support excludes every finite Laurent slice.  For a reduced homogeneous rational potential `x^-1 f(y/x)`, the scaled denominator divides the original, hence is a monomial; the same extreme-support contradiction then closes the quotient.  This does not exclude a general nonhomogeneous bivariate rational function, an infinite theta series, or rationality at one evaluated orbit. | [`LaurentCoboundaryNoGo.lean`](KontoroC/KontoroC/LaurentCoboundaryNoGo.lean), [`RationalCoboundaryReduction.lean`](KontoroC/KontoroC/RationalCoboundaryReduction.lean) |
 | Bare public words as binary-to-ternary chart adapters | Universally closed by Lean commit `772a6e8`.  Every exact public step has typed form `w-3^(-17m)=a*(w'-2^(-23m'))`.  A multi-cell word accumulates a strictly negative internal tax, exactly the normalized `-H_m` defect, so it cannot be a clean entry/exit coboundary.  This is not a no-orbit theorem; it proves that closure needs an auxiliary correction rail. | [`ChargeTypedInterface.lean`](KontoroC/KontoroC/ChargeTypedInterface.lean), [closure doctrine](docs/notes/kontorovich-closure-principles.md) |
 | Infinite rail of the one-cell determinant-four conjugacy | Universally closed in that chart class by Lean commit `772a6e8`.  Self-linking successive cells requires `1311*k_(i+1)=1309*k_i`; a length-`N` rail forces `1311^N|k_0`, and an infinite natural rail has `k_0=0`.  The result is independent of affine intercepts and tail cylinders.  A live turnaround must reverse the separation loss or leave the one-cell resonant class. | [`ChargeResonantSeparationNoGo.lean`](KontoroC/KontoroC/ChargeResonantSeparationNoGo.lean), [phase-glider note](docs/notes/kontorovich-resonant-phase-glider.md) |
 | Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
@@ -4335,7 +4381,8 @@ positive integer and its claimed behavior are machine-checked.
 | Returning finite ether glider ISA | Exact parity shows an exhausted ether boundary is odd and therefore cannot re-enter the `j=136` defect; among immediate `E -> H_j -> E` defects, `j=1` is the parity-compatible receiver.  Its small identities give defect input `X(K)=2^20K-10941`, return factor `473t+12=2^5(83790531K-874281)`, and for every `n>=1` a complete outward macro `K=R_n+2^(8n+15)q -> K'=S_n+3^(6n+11)q` which writes `n` ether cells and returns to the same defect family.  The artifact replays 64 macro members through 1,184 links and 2,368 gate macros.  No infinite linked macro orbit is supplied. |
 | Autonomous ether-counter normal form | Put `Y=83790531K-874281`.  The length-`n` returning glider branch is exactly `Y=2^(8n-5)h -> Y'=(3^(6n+11)h+51)/2^20`, with `h` in one CRT class modulo `83790531*2^20`; the enormous defect constants cancel to `51`.  Commit `a732905` proves the stronger all-branch Lyapunov law `15*Y_t<Y_(t+1)` and its `15^t` iterate, so any infinite legal execution is automatically an outward escape.  The dynamics artifact proves the successor-cylinder law and exhausts `160^3` canonical three-branch prefixes into the minimum-width next branch.  Its unique zero-address hit `115->59->9->1` begins exactly when the 574-bit initial tail is exhausted, so it is padding rather than a counter write; 384 literal gate macros replay and then halt.  An infinite successful autonomous orbit would be a counterexample, but none is supplied. |
 | Arithmetic-growth ether branch counter | Conditionally closed for every `n_t=n_0+kt`, `n_0,k>=1`.  Exact unrolling gives a single 2-adic partial-theta candidate with paper parameters `q=3^(6k)/2^(8k)` and `alpha=2^(8n_0+15)/3^(6n_0+11)`.  The artifact checks 16 finite eight-transition ether schedules, 4,096 conversion coefficients, and every elementary Väänänen--Wallisser hypothesis uniformly; accepting that inspected external 1989 theorem makes the candidate irrational and nonordinary.  This does not close nonlinear or payload-dependent unbounded counters. | [`breakoff_ether_linear_theta_audit.json`](experiments/kontorovich/breakoff_ether_linear_theta_audit.json), [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
-| Periodic-increment ether counters | The constant-`17` core turns any positive-mean period-`L` increment word into `L` separated theta values.  The exact artifact checks 15 literal period-two/three schedules through nine public core transitions and 624 coefficients.  Commit `11eaba0` kernel-checks the entire period-two EC17 bridge and exact external independence seam; accepting the cited 1989 theorem, all positive-mean period-two increment tails are dead.  Commit `def4c52` derives the literal three-step defect monomials and proves that every positive derivative order makes the theorem's period-three threshold still worse; `1154476` closes every finite Laurent potential for those monomials.  Period three remains an arithmetic infinite-series gap, not a witness. | [`breakoff_ether_periodic_theta_audit.json`](experiments/kontorovich/breakoff_ether_periodic_theta_audit.json), [`EtherCounterPeriodicTheta.lean`](KontoroC/KontoroC/EtherCounterPeriodicTheta.lean), [`EtherCounterPeriodThree.lean`](KontoroC/KontoroC/EtherCounterPeriodThree.lean), [`LaurentCoboundaryNoGo.lean`](KontoroC/KontoroC/LaurentCoboundaryNoGo.lean) |
+| Geometric ether branch counter `n_t=n_0*d^t` | Proposed conditional closure, awaiting the kernel EC17 bridge.  Backward unrolling gives one lacunary Mahler value `G(z)` with `G(z)=1+(2^15/3^11)zG(z^d)`.  The exact artifact replays nine six-transition schedules and checks 3,584 coefficient identities.  Wang's source-audited p-adic theorem has automatic size condition `d<d^2`; Hadamard gaps plus scalar descent supply its function-transcendence premise.  QM78--QM81 request universal Lean checking before this moves from research derivation to a conditional no-go theorem.  No orbit is supplied. | [`breakoff_ether_geometric_mahler_audit.json`](experiments/kontorovich/breakoff_ether_geometric_mahler_audit.json) |
+| Periodic-increment ether counters | The constant-`17` core turns any positive-mean period-`L` increment word into `L` separated theta values.  The exact artifact checks 15 literal period-two/three schedules through nine public core transitions and 624 coefficients.  Commit `11eaba0` kernel-checks the entire period-two EC17 bridge and exact external independence seam; accepting the cited 1989 theorem, all positive-mean period-two increment tails are dead.  Commit `def4c52` derives the literal three-step defect monomials and proves that every positive derivative order makes the theorem's period-three threshold still worse; commits `1154476`/`82198ac` close every finite Laurent and homogeneous rational potential for those monomials.  Period three remains an arithmetic infinite-series/evaluated-value gap, not a witness. | [`breakoff_ether_periodic_theta_audit.json`](experiments/kontorovich/breakoff_ether_periodic_theta_audit.json), [`EtherCounterPeriodicTheta.lean`](KontoroC/KontoroC/EtherCounterPeriodicTheta.lean), [`EtherCounterPeriodThree.lean`](KontoroC/KontoroC/EtherCounterPeriodThree.lean), [`LaurentCoboundaryNoGo.lean`](KontoroC/KontoroC/LaurentCoboundaryNoGo.lean), [`RationalCoboundaryReduction.lean`](KontoroC/KontoroC/RationalCoboundaryReduction.lean) |
 | Period-three EC17 ordinary-core sieve | At precision `P`, every prescribed schedule has one forced core residue modulo `2^P`; exact failure of its least representative rules out all ordinary cores below `2^P`.  The Akdeniz artifact exhausts 2,340 increment words and 72,156 positive schedules in the box `d_i in [-8,8]`, `n_0 in [1,32]`, `P=4096`; every representative fails after 7--47 steps, with no high-bit stabilization anomaly.  Companion commit `75a6829` kernel-checks the finite consumer, and `def4c52` proves the exact infinite endpoint: certified failures at cofinally unbounded precisions exclude one prescribed schedule.  The present artifact supplies only the finite `2^4096` lower bound, not that infinite family, an orbit, or a global exclusion. | [`breakoff_ether_period3_sieve_audit.json`](experiments/kontorovich/breakoff_ether_period3_sieve_audit.json), [`EtherCounterResidueBound.lean`](KontoroC/KontoroC/EtherCounterResidueBound.lean), [`EtherCounterStateNoRepeat.lean`](KontoroC/KontoroC/EtherCounterStateNoRepeat.lean) |
 | Three-bit-capped recursive super-ether | Regard the one-cell returning glider as a 23-bit background cell and the two-cell glider as its defect.  Exact parity kills a fully exhausted second-scale gap, but retaining three low bits makes the boundary re-enter the same defect cylinder.  After removing a common `3^7`, the public register is `V=-8744697538656344367967+671265207750760396088265K` and its length-`N` branch is `V=2^(23N+3)g -> V'=(3^(17N+40)g-17)/2^51`.  The affine super-macro is `K=R_N+2^(23N+54)t -> K'=S_N+3^(17N+40)t`.  The artifact checks 64 branches and 256 members, and literally replays 32 members through 336 glider macros, 1,040 lower links, and 2,080 gate macros.  This is a finite two-scale constructor, not an infinite orbit. |
 | Six-level sign-alternating splash hierarchy | The capped construction renormalizes five more times without changing the magnitude `17`: public collision signs are `+,-,+,-,+,-` and binary cell widths are `8,23,77,254,839,2771`.  At every checked step exact phase arithmetic returns to the defect and normalization flips only the sign.  The artifact checks 40 child branches independently by CRT and parent-macro composition, replays 80 members through 520 parent blocks, and expands the canonical tail-zero programs through six levels to literal first-scale gliders.  It additionally checks all 64 level-one choices `B=M_j,H=M_(j+1)`, three nonconstant four-step meta-words, and every depth-three meta-word over `j=1..8`.  Beyond those bounds, the exact positive-tail identity proves universally that no infinite chain of these adjacent-defect nestings can stabilize its canonical ordinary address.  The depth-six canonical member is a generated 6,708-digit ordinary start executing 360 linked glider macros.  This is a finite compiler and a source of fixed-level ISAs—not an ordinary infinite orbit or an induction that the phase identities persist at all levels. |
@@ -4921,11 +4968,20 @@ existing lines of work; the closest ancestors, and what each contributes:
   rational argument `z=a_0a_1`, so no transfer is currently claimed.
 - **T. Q. Wang, [“p-adic Transcendence and p-adic Transcendence Measures for
   the Values of Mahler Type
-  Functions”](https://doi.org/10.1007/s10114-005-0534-4) (2006)** — a
-  possible general Mahler-value source.  Its exact function, argument, and
-  nonvanishing hypotheses have not yet been recovered and audited, so it is
-  bibliography and a theorem-search lead, not a closure of the Thue--Morse
-  bouncer lane.
+  Functions”](https://actamath.cjoe.ac.cn/Jwk_sxxb_en/EN/PDF/10.1007/s10114-005-0534-4)
+  (2006)** — Theorem 1 is now visually source-audited.  For the geometric EC17
+  series `G(z)=1+a*z*G(z^d)`, its parameters reduce to `rho=d`, theorem degree
+  one, and `M0=d`, so the numerical hypothesis is `d<d^2`; the nonvanishing
+  and 2-adic argument conditions are automatic.  The universal EC17 bridge is
+  awaiting Lean, so this is a precise external seam rather than a claimed
+  counterexample.
+- **J.-C. Puchta, [“On Fabry's gap
+  theorem”](https://www.dml.cz/bitstream/handle/10338.dmlcz/107844/ArchMathRetro_038-2002-4_7.pdf)
+  (2002)** — states the classical Hadamard gap theorem used to show that the
+  geometric EC17 Mahler function has the complex unit circle as a natural
+  boundary.  Together with coefficient-field descent, this supplies Wang's
+  function-transcendence premise; it says nothing by itself about an EC17
+  orbit.
 - **Y. Bilu & G. Hanrot, [“Solving Thue Equations of High
   Degree”](https://doi.org/10.1006/jnth.1996.0129) (1996)** — the algorithmic
   source behind PARI/GP's attack on the degree-23 power-quine survivor

@@ -1,0 +1,383 @@
+{
+  "artifact_sha256": "39ab4d6025729d2eced00cb8a4a331ba5640c41832cd05bc270c078823b85bbe",
+  "audit": {
+    "bounds": {
+      "finite_multiplier": [
+        2,
+        4
+      ],
+      "finite_start_branch": [
+        1,
+        3
+      ],
+      "finite_transitions": 6
+    },
+    "claim_scope": "exact finite public replays, EC17 backward identities, and Mahler coefficient identities in the stated boxes; bounded exact regressions for the elementary theorem hypotheses; the universal algebra is a research derivation awaiting Lean, and the two published external theorems are cited, not reproved",
+    "closure_status": {
+      "counterexample": null,
+      "proposed_conditional_closure_awaiting_lean": "every geometric branch counter n_t=n0*d^t, n0>=1,d>=2",
+      "remaining": "more general nonlinear or payload-dependent aperiodic schedules, including non-geometric period-three escapes"
+    },
+    "core_recurrence": "2^(8*n_(t+1)+15)*u_(t+1)=3^(6*n_t+11)*u_t+17",
+    "finite_schedule_checks": [
+      {
+        "closed_exponent_checks": 7,
+        "compiled_initial_tail_bits": 1121,
+        "compiled_precision_bits": 1121,
+        "compiled_predecessor_branch": 1,
+        "finite_rational_identity_checked": true,
+        "first_term_exponents": [
+          0,
+          17
+        ],
+        "initial_core_bits": 1170,
+        "initial_register_bits": 1174,
+        "last_term_exponents": [
+          571,
+          444
+        ],
+        "levels": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64
+        ],
+        "literal_public_core_replay_checked": true,
+        "multiplier": 2,
+        "start_branch": 1,
+        "terminal_core_bits": 775,
+        "terminal_register_bits": 1284,
+        "terminal_two_adic_precision_bits": 1098,
+        "transitions": 6,
+        "two_adic_residue_checked": true
+      },
+      {
+        "closed_exponent_checks": 7,
+        "compiled_initial_tail_bits": 8849,
+        "compiled_precision_bits": 8849,
+        "compiled_predecessor_branch": 1,
+        "finite_rational_identity_checked": true,
+        "first_term_exponents": [
+          0,
+          17
+        ],
+        "initial_core_bits": 8898,
+        "initial_register_bits": 8903,
+        "last_term_exponents": [
+          2979,
+          2250
+        ],
+        "levels": [
+          1,
+          3,
+          9,
+          27,
+          81,
+          243,
+          729
+        ],
+        "literal_public_core_replay_checked": true,
+        "multiplier": 3,
+        "start_branch": 1,
+        "terminal_core_bits": 3638,
+        "terminal_register_bits": 9467,
+        "terminal_two_adic_precision_bits": 8826,
+        "transitions": 6,
+        "two_adic_residue_checked": true
+      },
+      {
+        "closed_exponent_checks": 7,
+        "compiled_initial_tail_bits": 43793,
+        "compiled_precision_bits": 43793,
+        "compiled_predecessor_branch": 1,
+        "finite_rational_identity_checked": true,
+        "first_term_exponents": [
+          0,
+          17
+        ],
+        "initial_core_bits": 43842,
+        "initial_register_bits": 43847,
+        "last_term_exponents": [
+          10987,
+          8256
+        ],
+        "levels": [
+          1,
+          4,
+          16,
+          64,
+          256,
+          1024,
+          4096
+        ],
+        "literal_public_core_replay_checked": true,
+        "multiplier": 4,
+        "start_branch": 1,
+        "terminal_core_bits": 13158,
+        "terminal_register_bits": 45922,
+        "terminal_two_adic_precision_bits": 43770,
+        "transitions": 6,
+        "two_adic_residue_checked": true
+      },
+      {
+        "closed_exponent_checks": 7,
+        "compiled_initial_tail_bits": 2136,
+        "compiled_precision_bits": 2137,
+        "compiled_predecessor_branch": 1,
+        "finite_rational_identity_checked": true,
+        "first_term_exponents": [
+          0,
+          23
+        ],
+        "initial_core_bits": 2177,
+        "initial_register_bits": 2189,
+        "last_term_exponents": [
+          1067,
+          822
+        ],
+        "levels": [
+          2,
+          4,
+          8,
+          16,
+          32,
+          64,
+          128
+        ],
+        "literal_public_core_replay_checked": true,
+        "multiplier": 2,
+        "start_branch": 2,
+        "terminal_core_bits": 1374,
+        "terminal_register_bits": 2394,
+        "terminal_two_adic_precision_bits": 2106,
+        "transitions": 6,
+        "two_adic_residue_checked": true
+      },
+      {
+        "closed_exponent_checks": 7,
+        "compiled_initial_tail_bits": 17593,
+        "compiled_precision_bits": 17593,
+        "compiled_predecessor_branch": 1,
+        "finite_rational_identity_checked": true,
+        "first_term_exponents": [
+          0,
+          23
+        ],
+        "initial_core_bits": 17634,
+        "initial_register_bits": 17646,
+        "last_term_exponents": [
+          5883,
+          4434
+        ],
+        "levels": [
+          2,
+          6,
+          18,
+          54,
+          162,
+          486,
+          1458
+        ],
+        "literal_public_core_replay_checked": true,
+        "multiplier": 3,
+        "start_branch": 2,
+        "terminal_core_bits": 7099,
+        "terminal_register_bits": 18760,
+        "terminal_two_adic_precision_bits": 17562,
+        "transitions": 6,
+        "two_adic_residue_checked": true
+      },
+      {
+        "closed_exponent_checks": 7,
+        "compiled_initial_tail_bits": 87481,
+        "compiled_precision_bits": 87481,
+        "compiled_predecessor_branch": 1,
+        "finite_rational_identity_checked": true,
+        "first_term_exponents": [
+          0,
+          23
+        ],
+        "initial_core_bits": 87522,
+        "initial_register_bits": 87534,
+        "last_term_exponents": [
+          21899,
+          16446
+        ],
+        "levels": [
+          2,
+          8,
+          32,
+          128,
+          512,
+          2048,
+          8192
+        ],
+        "literal_public_core_replay_checked": true,
+        "multiplier": 4,
+        "start_branch": 2,
+        "terminal_core_bits": 26138,
+        "terminal_register_bits": 91671,
+        "terminal_two_adic_precision_bits": 87450,
+        "transitions": 6,
+        "two_adic_residue_checked": true
+      },
+      {
+        "closed_exponent_checks": 7,
+        "compiled_initial_tail_bits": 3153,
+        "compiled_precision_bits": 3153,
+        "compiled_predecessor_branch": 1,
+        "finite_rational_identity_checked": true,
+        "first_term_exponents": [
+          0,
+          29
+        ],
+        "initial_core_bits": 3185,
+        "initial_register_bits": 3206,
+        "last_term_exponents": [
+          1563,
+          1200
+        ],
+        "levels": [
+          3,
+          6,
+          12,
+          24,
+          48,
+          96,
+          192
+        ],
+        "literal_public_core_replay_checked": true,
+        "multiplier": 2,
+        "start_branch": 3,
+        "terminal_core_bits": 1973,
+        "terminal_register_bits": 3506,
+        "terminal_two_adic_precision_bits": 3114,
+        "transitions": 6,
+        "two_adic_residue_checked": true
+      },
+      {
+        "closed_exponent_checks": 7,
+        "compiled_initial_tail_bits": 26337,
+        "compiled_precision_bits": 26337,
+        "compiled_predecessor_branch": 1,
+        "finite_rational_identity_checked": true,
+        "first_term_exponents": [
+          0,
+          29
+        ],
+        "initial_core_bits": 26370,
+        "initial_register_bits": 26391,
+        "last_term_exponents": [
+          8787,
+          6618
+        ],
+        "levels": [
+          3,
+          9,
+          27,
+          81,
+          243,
+          729,
+          2187
+        ],
+        "literal_public_core_replay_checked": true,
+        "multiplier": 3,
+        "start_branch": 3,
+        "terminal_core_bits": 10561,
+        "terminal_register_bits": 28054,
+        "terminal_two_adic_precision_bits": 26298,
+        "transitions": 6,
+        "two_adic_residue_checked": true
+      },
+      {
+        "closed_exponent_checks": 7,
+        "compiled_initial_tail_bits": 131168,
+        "compiled_precision_bits": 131169,
+        "compiled_predecessor_branch": 1,
+        "finite_rational_identity_checked": true,
+        "first_term_exponents": [
+          0,
+          29
+        ],
+        "initial_core_bits": 131201,
+        "initial_register_bits": 131221,
+        "last_term_exponents": [
+          32811,
+          24636
+        ],
+        "levels": [
+          3,
+          12,
+          48,
+          192,
+          768,
+          3072,
+          12288
+        ],
+        "literal_public_core_replay_checked": true,
+        "multiplier": 4,
+        "start_branch": 3,
+        "terminal_core_bits": 39118,
+        "terminal_register_bits": 137418,
+        "terminal_two_adic_precision_bits": 131130,
+        "transitions": 6,
+        "two_adic_residue_checked": true
+      }
+    ],
+    "finite_schedules_checked": 9,
+    "mahler_reduction": {
+      "argument": "z=2^(8*n0*d)/3^(6*n0*d)",
+      "candidate": "u0=-17/3^(6*n0+11)*G_(d,a)(z)",
+      "coefficient": "a=2^15/3^11",
+      "coefficient_checks": 3584,
+      "family": "n_t=n0*d^t for arbitrary n0>=1 and integer d>=2",
+      "functional_equation": "G_(d,a)(z)=1+a*z*G_(d,a)(z^d)",
+      "series": "G_(d,a)(z)=sum_(j>=0) a^j*z^((d^j-1)/(d-1))"
+    },
+    "theorem_application": {
+      "conditional_conclusion": "accepting Wang Theorem 1 and the classical Hadamard gap theorem, the forced EC17 candidate is transcendental in Q_2 and cannot be an ordinary integer; the universal EC17-to-value bridge is a research derivation awaiting Lean",
+      "function_transcendence": {
+        "exact_hypotheses": {
+          "complex_coefficient_size": "0<2^15/3^11<1",
+          "complex_radius": "one, since abs(a)^(j/e_j) tends to one",
+          "conclusion": "G is transcendental over C_2(z)",
+          "descent": "a polynomial relation over C_2(z) for a Q-coefficient series descends coefficientwise to Q(z)",
+          "gap_identity": "e_(j+1)=1+d*e_j>d*e_j for j>=1",
+          "natural_boundary": "the complex unit circle"
+        },
+        "external_source": "Hadamard gap theorem, as stated for example in J.-C. Puchta, On Fabry's gap theorem, Arch. Math. (Brno) 38 (2002), 307-309"
+      },
+      "wang_theorem": {
+        "author": "Tian Qin Wang",
+        "doi": "10.1007/s10114-005-0534-4",
+        "elementary_hypotheses": {
+          "argument_nonzero": true,
+          "argument_two_adic_size": "abs_2(z)=2^(-8*n0*d)<1",
+          "coefficient_field": "Q",
+          "convergence": "for abs_2(z)<1, abs_2(a^j*z^e_j) tends to zero",
+          "functional_equation": "a*z*G(z^d)+1-G(z)=0",
+          "nonvanishing_iterates": "g(z^(d^k))=a*z^(d^k)!=0",
+          "size_condition": "M0*n0^2=d<d^2=rho^2 for every d>=2"
+        },
+        "journal": "Acta Mathematica Sinica 22 (2006), 187-194",
+        "parameters": {
+          "M0": "max(d,1)=d",
+          "Q0": "a*z",
+          "Q1": "1-u",
+          "elimination_polynomial_g": "a*z",
+          "functional_degree_n0": 1,
+          "p_adic_prime": 2,
+          "rho": "d"
+        },
+        "theorem": 1,
+        "title": "p-adic Transcendence and p-adic Transcendence Measures for the Values of Mahler Type Functions"
+      }
+    }
+  },
+  "generated_at_utc": "2026-07-23T06:33:22.699189+00:00",
+  "schema": "collatz-breakoff-ether-geometric-mahler-v1",
+  "verifier_sha256": "d22be4b977f9f6ba98d96b1426533634514237dc6ebfccfecd37b48f7f303e81"
+}

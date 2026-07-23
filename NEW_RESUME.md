@@ -1,6 +1,61 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 02:20 EDT
+Updated: 2026-07-23, about 02:34 EDT
+
+### 02:34 EDT continuation — rational period-three closure and a geometric Mahler target
+
+Companion commits `d0faf96` and `82198ac` complete the homogeneous rational
+extension of QM69--QM72.  For a reduced univariate denominator `D`, the cleared
+scaled equation gives `D(rz)|D(z)`.  Equal degree and `r>1` force `D` to be a
+monomial.  Substitution and least/greatest support then contradict the
+quadratic forcing.  Thus no homogeneous rational period-three potential
+`x^-1 f(y/x)` exists.  The arbitrary nonhomogeneous bivariate rational case and
+an accidental rational value of the three theta sums at one orbit remain open.
+
+The next theorem-driven nonlinear schedule is
+
+```text
+n_t=n0*d^t,  n0>=1, d>=2.
+```
+
+For EC17 put
+
+```text
+e_j=(d^j-1)/(d-1),
+a=2^15/3^11,
+z=2^(8*n0*d)/3^(6*n0*d),
+G(z)=sum_(j>=0) a^j*z^e_j.
+```
+
+Exact backward algebra gives the proposed universal endpoint
+
+```text
+u0=-17/3^(6*n0+11)*G(z),
+G(z)=1+a*z*G(z^d).
+```
+
+The bounded artifact
+
+```text
+experiments/kontorovich/breakoff_ether_geometric_mahler.py
+experiments/kontorovich/breakoff_ether_geometric_mahler_audit.json
+verifier d22be4b977f9f6ba98d96b1426533634514237dc6ebfccfecd37b48f7f303e81
+artifact 39ab4d6025729d2eced00cb8a4a331ba5640c41832cd05bc270c078823b85bbe
+```
+
+replays nine literal schedules through six transitions and checks 3,584
+coefficient identities.  Wang's visually audited 2006 p-adic Theorem 1 applies
+with `rho=d`, theorem degree one, and `M0=d`, so its size condition is simply
+`d<d^2`.  Hadamard gaps plus scalar descent give the function-transcendence
+premise.  QM78--QM81 in `docs/FOR_CLEAN_LEAN.md` request a kernel-checked
+universal EC17-to-value bridge and irrationality consumer.  Until that lands,
+this is a source-checked proposed conditional closure, not an all-parameter
+machine-checked theorem.  It supplies no orbit and no counterexample.
+
+Akdeniz's detached degree-23 exact Thue job remains active after roughly 16
+CPU hours and has printed only its irreducibility/class-number header.  Do not
+record a result unless `R23_DONE` appears.  PSC remains idle because this
+Mahler work is symbolic rather than a useful GPU enumeration.
 
 ### 02:20 EDT continuation — finite coboundaries close; growth is automatic
 

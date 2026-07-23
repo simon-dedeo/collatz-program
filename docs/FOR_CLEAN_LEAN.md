@@ -8733,3 +8733,89 @@ The homogeneous univariate statement is already a meaningful intermediate
 theorem if multivariate UFD infrastructure is expensive.  Neither version
 rules out an accidental rational value of the infinite theta combination at
 one particular rational argument.
+
+## Kontorovich request: geometric EC17 schedules reduce to one p-adic Mahler value (2026-07-23)
+
+The next theorem-driven nonlinear family has an unexpectedly clean exact
+reduction.  Prescribe
+
+```text
+n_t=n0*d^t,  n0>=1, d>=2,
+```
+
+in the constant-seventeen EC17 recurrence
+
+```text
+2^(8*n_(t+1)+15)*u_(t+1)=3^(6*n_t+11)*u_t+17.
+```
+
+Put
+
+```text
+e_j=(d^j-1)/(d-1)=sum_(k<j)d^k,
+a=2^15/3^11,
+z=2^(8*n0*d)/3^(6*n0*d),
+G(z)=sum_(j>=0) a^j*z^e_j.
+```
+
+The `j`th backward-defect coefficient is exactly
+
+```text
+2^(8*n0*d*e_j+15*j)
+---------------------------------,                         (QM78)
+3^(6*n0*e_(j+1)+11*(j+1))
+```
+
+because `e_(j+1)=1+d*e_j`.  Therefore finite backward
+unrolling and terminal vanishing in `Q_2` give
+
+```text
+u_0=-17/3^(6*n0+11)*G(z).                               (QM79)
+```
+
+The same exponent identity gives the literal Mahler equation
+
+```text
+G(z)=1+a*z*G(z^d).                                      (QM80)
+```
+
+Please formalize QM78--QM80 by adapting the existing
+`EtherCounterLinearTheta` finite-unrolling, summability, terminal-vanishing,
+and `IsPadicIrrational` consumer.  A suggested file is
+`EtherCounterGeometricMahler.lean`.  The honest external seam should say:
+
+```text
+IsPadicIrrational G(z) -> no normalized orbit has
+  level(t)+1=n0*d^t.                                    (QM81)
+```
+
+The external premise has now been source-audited rather than guessed.
+Tian Qin Wang, *p-adic Transcendence and p-adic Transcendence Measures for
+the Values of Mahler Type Functions*, Acta Math. Sinica 22 (2006), Theorem 1,
+applies with
+
+```text
+p=2, rho=d, theorem n0=1,
+Q0(z,u)=a*z, Q1(z,u)=1-u,
+m0=1, M0=d, g(z)=a*z.
+```
+
+Its numerical hypothesis is simply `M0*n0^2=d<d^2=rho^2`; the evaluated
+argument is nonzero with `abs_2(z)=2^(-8*n0*d)<1`, and every `g(z^(d^k))`
+is nonzero.  The function-transcendence premise follows from the classical
+Hadamard gap theorem plus scalar descent: over `C`, `0<a<1`, the complex
+radius is one, and `e_(j+1)=1+d*e_j>d*e_j`; hence the unit circle is a
+natural boundary.  A polynomial relation over `C_2(z)` for this
+`Q`-coefficient series descends coefficientwise to `Q(z)`, contradicting
+complex algebraicity.  It is fine to keep both published inputs as one
+explicit external `IsPadicIrrational` premise; the requested kernel work is
+the exact EC17-to-value bridge and endpoint consumer.
+
+The exact research artifact is
+`experiments/kontorovich/breakoff_ether_geometric_mahler.py`.  It checks nine
+literal schedules through six EC17 transitions, 3,584 coefficient identities,
+and bounded exact regressions of the elementary theorem hypotheses.  The
+all-parameter derivation proposes a conditional closure of every geometric
+branch counter `n_t=n0*d^t`; QM78--QM81 are what would make that bridge
+kernel-checked.  It constructs no orbit and is not a counterexample.  More
+general aperiodic nonlinear and payload-dependent schedules remain open.
