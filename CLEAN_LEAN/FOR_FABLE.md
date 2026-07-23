@@ -10479,3 +10479,69 @@ aperiodic level sequence.  Suggested research-side searches should operate
 on EC17 directly and record `(n_t,u_t mod M)` for moduli involving `17` and
 small factors of `3^r-2^s`; this is a much smaller and more auditable state
 space than the original 8-digit constants.
+
+## Round 183 — QM50--QM52 formalized; arithmetic schedules conditionally dead
+
+`KontoroC/EtherCounterLinearTheta.lean` now compiles the complete arithmetic
+schedule bridge requested in QM50--QM52.
+
+The executable normalization is connected, with no surrogate substitution:
+if the zero-based worker level satisfies
+
+```text
+level(t)+1 = n0+k*t,  n0>0, k>0,
+```
+
+then Lean constructs the exact one-based ray
+
+```text
+2^(8*(n0+k*(t+1))+15) h(t+1)
+  = 3^(6*(n0+k*t)+11) h(t)+51.                  (QM50)
+```
+
+The file then proves:
+
+* the finite backward affine identity for every truncation `N`;
+* an expanded finite-sum version (QM51), retaining the terminal term;
+* the closed prefix-product formula;
+* coefficientwise equality with
+  `51/3^(6*n0+11)` times the Väänänen--Wallisser series having
+
+```text
+q     = 3^(6*k)/2^(8*k),
+alpha = 2^(8*n0+15)/3^(6*n0+11);
+```
+
+* convergence of the exact defect and terminal terms in `Q_2`;
+* equality of the resulting 2-adic candidate with the embedded ordinary
+  initial odd part;
+* the elementary theorem-application data: coprimality, numerator greater
+  than one, `|q|_2>1`, `3^6>2^8`, `3*8=4*6`, and the strict logarithmic
+  size inequality;
+* the final conditional theorem: irrationality of the explicit Lean-defined
+  paper-normalized sum implies that no such arithmetic ether orbit exists.
+
+The sign/index audit passed.  In particular the candidate is
+
+```text
+-51/3^(6*n0+11) * f_q(alpha),
+```
+
+not its positive, and the binary exponent uses the *next* branch while the
+ternary exponent uses the source branch.
+
+Adversarial scope warning: this is not yet an unconditional Lean theorem
+that arithmetic schedules are impossible.  The final theorem takes
+
+```text
+IsPadicIrrational ray.padicVaananenSum
+```
+
+as an explicit hypothesis.  Everything from the ether recurrence to that
+single proposition is kernel-checked; the proposition itself remains the
+external Väänänen--Wallisser citation.  Before prose says “closed,” a human
+or a separate source audit must confirm that the 1989 theorem's exact
+normalization, parameter domain, and size condition really imply this exact
+Lean proposition.  Conditional on that citation, every positive arithmetic
+branch schedule is dead.  Nonlinear/payload-dependent aperiodic schedules
+remain open.

@@ -818,3 +818,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterAperiodic.periodBreaks_infinite
 #print axioms
   KontoroC.EtherCounterAperiodic.AutonomousFiniteBranchController.impossible
+#print axioms KontoroC.EtherCounterLinearTheta.Ray.finite_series
+#print axioms KontoroC.EtherCounterLinearTheta.Ray.finite_series_sum
+#print axioms
+  KontoroC.EtherCounterLinearTheta.Ray.weightedDefect_eq_scaled_vaananenTerm
+#print axioms KontoroC.EtherCounterLinearTheta.Ray.vaananenWallisser_size_condition
+#print axioms KontoroC.EtherCounterLinearTheta.Ray.padicCandidate_eq_initial
+#print axioms
+  KontoroC.EtherCounterLinearTheta.Ray.false_of_vaananenSum_irrational
+#print axioms
+  KontoroC.EtherCounterAperiodic.NormalizedOrbit.toLinearThetaRay
+#print axioms
+  KontoroC.EtherCounterAperiodic.NormalizedOrbit.no_arithmetic_schedule_of_irrational
