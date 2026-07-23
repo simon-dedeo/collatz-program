@@ -16116,3 +16116,31 @@ fixed-macro return obstruction remains a possible next theorem.
 
 The full 8,833-job build and axiom audit pass using standard mathlib
 principles; no native decision axiom is used by these results.
+
+## Round 319 — fixed-macro resonant return obstruction (QM159c)
+
+QM159c is now formalized in `OutwardResonance.lean`.  From the exact natural
+equation
+
+```text
+2^(D+17)*3^(L'+1)-3^(A+C)=B+21*2^D,
+```
+
+Lean proves
+
+```text
+min(L'+1,A+C) <= v3(B+21*2^D).
+```
+
+The proof is the clean valuation argument suggested in the note: if both
+left exponents exceeded `v=v3(right)`, then `3^(v+1)` would divide both left
+terms, hence their difference, contradicting maximality of `v`.  Positivity
+of the fixed right side is proved internally, so the `padicValNat` interface
+is used in its valid nonzero regime.
+
+A second theorem quantifies the advertised no-go: for fixed `A,B,D`, no
+family can satisfy this equation while `min(L'(n)+1,A+C(n))` escapes every
+bound.  Thus a successful resonant return mechanism really must use
+unbounded/parameter-dependent macro data (or fail one of the literal affine
+equations); this is no longer only a heuristic interpretation of the
+worker.

@@ -93,5 +93,52 @@ theorem resonant_family_executes (L : ℕ) :
         _ = 177147 * (9 * 3 ^ L) := by rw [hsub]
     omega
 
+/-! ## Fixed-macro return obstruction -/
+
+/-- QM159c: a fixed right-hand side bounds the smaller ternary exponent in
+any proposed resonant return equation. -/
+theorem fixed_return_exponent_bound
+    {A B D C L' : ℕ}
+    (heq : 2 ^ (D + 17) * 3 ^ (L' + 1) - 3 ^ (A + C) =
+      B + 21 * 2 ^ D) :
+    min (L' + 1) (A + C) ≤ padicValNat 3 (B + 21 * 2 ^ D) := by
+  let N := B + 21 * 2 ^ D
+  let v := padicValNat 3 N
+  have hN : N ≠ 0 := by
+    dsimp [N]
+    positivity
+  by_contra hnot
+  change ¬min (L' + 1) (A + C) ≤ v at hnot
+  have hvL : v + 1 ≤ L' + 1 := by
+    have : v < min (L' + 1) (A + C) := by omega
+    omega
+  have hvC : v + 1 ≤ A + C := by
+    have : v < min (L' + 1) (A + C) := by omega
+    omega
+  have hdivL : 3 ^ (v + 1) ∣
+      2 ^ (D + 17) * 3 ^ (L' + 1) :=
+    dvd_mul_of_dvd_right (pow_dvd_pow 3 hvL) _
+  have hdivC : 3 ^ (v + 1) ∣ 3 ^ (A + C) :=
+    pow_dvd_pow 3 hvC
+  have hdivN : 3 ^ (v + 1) ∣ N := by
+    have := Nat.dvd_sub hdivL hdivC
+    rwa [heq] at this
+  have hvContr : v + 1 ≤ padicValNat 3 N :=
+    (Nat.pow_dvd_iff_le_padicValNat (by omega) hN).mp hdivN
+  exact (by omega)
+
+/-- No fixed macro can satisfy the return equation along a family in which
+both ternary exponents escape every bound. -/
+theorem no_fixed_return_with_two_unbounded_exponents
+    (A B D : ℕ) (C L' : ℕ → ℕ)
+    (heq : ∀ n,
+      2 ^ (D + 17) * 3 ^ (L' n + 1) - 3 ^ (A + C n) =
+        B + 21 * 2 ^ D)
+    (hunbounded : ∀ M, ∃ n, M < min (L' n + 1) (A + C n)) : False := by
+  let v := padicValNat 3 (B + 21 * 2 ^ D)
+  obtain ⟨n, hn⟩ := hunbounded v
+  have hb := fixed_return_exponent_bound (heq n)
+  omega
+
 end OutwardResonance
 end KontoroC
