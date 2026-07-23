@@ -8504,3 +8504,75 @@ Scope: QM66--QM68 rule out a finite bivariate Laurent/exponential-polynomial
 potential.  They do not prove the evaluated three theta values independent;
 an infinite series or non-Laurent rational construction is still possible.
 This is nevertheless a principled closure of the simplest coboundary lane.
+
+### Stronger target: every rational two-scale potential reduces to Laurent
+
+QM68 should extend to `F in Q(x,y)`, not merely Laurent polynomials.  Here is
+the elementary pole-orbit argument; please formalize it only after QM65--QM68
+if the multivariate-polynomial infrastructure is reasonable.
+
+Assume a reduced rational solution `F=P/Q` of QM66.  The diagonal scaling
+
+```text
+T(x,y)=(X*x,Y*y),   X=2^(8*K), Y=3^(6*K), K>0
+```
+
+is an automorphism of `Q[x,y]`, so `P(T)` and `Q(T)` remain coprime.  Let `H`
+be a non-coordinate irreducible factor of `Q`.  At the divisor `H=0`, the
+term `-C*y^3*F` has a pole and the polynomial right side has none.  Therefore
+`A*x^3*F(T)` must have the same pole, so `H` divides `Q(T)`.  Reversing the
+argument for a factor of `Q(T)` shows that pullback by `T` permutes the finite
+set of non-coordinate irreducible factors of `Q`.  Consequently some iterate
+satisfies
+
+```text
+H(X^n*x,Y^n*y)=lambda*H(x,y),  n>0, lambda!=0.            (QM69)
+```
+
+If two distinct monomials `x^a*y^b` and `x^c*y^d` occur in `H`, comparison
+of their coefficients gives
+
+```text
+X^(n*(a-c))*Y^(n*(b-d))=1.
+```
+
+Unique factorization at the rational primes `2` and `3` forces `a=c` and
+`b=d`.  Thus `H` has only one monomial.  An irreducible monomial is associated
+to `x` or `y`, contradicting that `H` was non-coordinate.               (QM70)
+
+Hence the denominator of every rational solution is a monomial, so every
+rational solution is Laurent.                                           (QM71)
+Combining QM71 with QM68 proves that the period-three equation has no rational
+bivariate potential at all.                                              (QM72)
+
+This does not exclude a rational value of the infinite theta combination at
+the single orbit `(X^q,Y^q)`; it excludes only a rational *function* whose
+specializations would generate the whole cycle-boundary core sequence.  The
+remaining gap is genuinely arithmetic/evaluative rather than a missed finite
+or rational coboundary.
+
+## Kontorovich request: derivative order cannot rescue period three (2026-07-23)
+
+I returned to the displayed SATZ on printed p. 200 of Väänänen--Wallisser.
+The general threshold is visibly
+
+```text
+Gamma(ell,sigma)
+ = (2*ell*(sigma+1)+1
+      -sqrt(1+4*ell^2*(sigma+1)^2))
+   /(2*ell*(sigma+1)).                                  (QM73)
+```
+
+Thus allowing derivatives does not improve the period-three endpoint.  The
+already-checked `sigma=0` case is the largest relevant threshold.  For a
+particularly cheap all-order proof, if `sigma>=1` and `ell=3`, put
+`m=3*(sigma+1)>=6`.  Since `sqrt(1+4*m^2)>2*m`,
+
+```text
+Gamma(3,sigma) < 1/(2*m) <= 1/12 < 5/32 < gamma.        (QM74)
+```
+
+Please add QM73--QM74 to the exact theorem-boundary file if its present
+definitions make this inexpensive.  This closes the possible loophole of
+applying the same 1989 theorem with positive derivative order; it does not
+exclude a sharper theorem or a fixed-linear-form refinement.
