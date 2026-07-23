@@ -1370,6 +1370,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.KLDyadicReset.chainFromTerminal_follows
 #print axioms KontoroC.KLDyadicReset.eventuallyZeroCarry_of_follows
 #print axioms KontoroC.KLDyadicReset.eventuallyZeroCarry_iff_exists_nonnegative_follows
+#print axioms KontoroC.KLDyadicReset.eventuallyConstantResidue_iff_eventuallyZeroCarry
+#print axioms KontoroC.KLDyadicReset.residuesBounded_iff_eventuallyConstant
+#print axioms KontoroC.KLDyadicReset.residuesBounded_iff_exists_nonnegative_follows
+#print axioms KontoroC.KLDyadicReset.no_nonnegative_follows_of_unbounded_residues
 #print axioms KontoroC.KLDyadicReset.no_nonnegative_follows_of_changes
 #print axioms KontoroC.KLDyadicReset.initial_eq_of_unbounded_cumulative_precision
 #print axioms KontoroC.KLCoveringDispatcher.CoveringDispatcher.orbit_reset_exact

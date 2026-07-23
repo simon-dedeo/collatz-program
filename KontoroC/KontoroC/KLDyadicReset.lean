@@ -1078,6 +1078,67 @@ theorem eventuallyZeroCarry_iff_exists_nonnegative_follows
   · rintro ⟨m, hm, h0⟩
     exact eventuallyZeroCarry_of_follows e m hm h0
 
+/-! ## Height form of the ordinary-integer gate -/
+
+def EventuallyConstantResidue (e : ℕ → ResetStep) : Prop :=
+  ∃ J, ∀ K, J ≤ K → initialResidue e K = initialResidue e J
+
+theorem eventuallyConstantResidue_iff_eventuallyZeroCarry
+    (e : ℕ → ResetStep) :
+    EventuallyConstantResidue e ↔ EventuallyZeroCarry e := by
+  constructor
+  · rintro ⟨J, hstable⟩
+    refine ⟨J, fun K hJK => ?_⟩
+    rw [carryDigit, hstable K hJK,
+      hstable (K + 1) (hJK.trans (Nat.le_succ K))]
+    simp
+  · rintro ⟨J, hzero⟩
+    exact ⟨J, initialResidue_constant_of_zero_carries e hzero⟩
+
+def ResiduesBounded (e : ℕ → ResetStep) : Prop :=
+  ∃ B, ∀ J, initialResidue e J ≤ B
+
+theorem residuesBounded_iff_eventuallyConstant
+    (e : ℕ → ResetStep) :
+    ResiduesBounded e ↔ EventuallyConstantResidue e := by
+  constructor
+  · rintro ⟨B, hB⟩
+    obtain ⟨J, hstable⟩ := monotone_eventually_constant_of_bounded
+      (initialResidue e) (initialResidue_mono e) (B + 1)
+      (fun K => Nat.lt_succ_of_le (hB K))
+    exact ⟨J, hstable⟩
+  · rintro ⟨J, hstable⟩
+    refine ⟨initialResidue e J, fun K => ?_⟩
+    rcases le_total K J with hKJ | hJK
+    · exact initialResidue_mono e hKJ
+    · exact (hstable K hJK).le
+
+/-- A second exact formulation of QM141: a nonnegative ordinary initial
+integer exists exactly when the monotone canonical residue sequence is
+bounded in ordinary height. -/
+theorem residuesBounded_iff_exists_nonnegative_follows
+    (e : ℕ → ResetStep) :
+    ResiduesBounded e ↔
+      ∃ m : ℕ → ℤ, Follows e m ∧ 0 ≤ m 0 := by
+  rw [residuesBounded_iff_eventuallyConstant,
+    eventuallyConstantResidue_iff_eventuallyZeroCarry,
+    eventuallyZeroCarry_iff_exists_nonnegative_follows]
+
+def ResiduesUnbounded (e : ℕ → ResetStep) : Prop :=
+  ∀ B, ∃ J, B < initialResidue e J
+
+/-- Height-growth no-go criterion.  This is often easier to establish for a
+symbolic address generator than an explicit nonzero-carry statement. -/
+theorem no_nonnegative_follows_of_unbounded_residues
+    (e : ℕ → ResetStep) (hunbounded : ResiduesUnbounded e) :
+    ¬ ∃ m : ℕ → ℤ, Follows e m ∧ 0 ≤ m 0 := by
+  intro hexists
+  have hbounded : ResiduesBounded e :=
+    (residuesBounded_iff_exists_nonnegative_follows e).mpr hexists
+  obtain ⟨B, hB⟩ := hbounded
+  obtain ⟨J, hJ⟩ := hunbounded B
+  exact (not_lt_of_ge (hB J)) hJ
+
 /-- Canonical residues keep acquiring genuinely new high bits arbitrarily
 late. -/
 def ChangesArbitrarilyLate (e : ℕ → ResetStep) : Prop :=

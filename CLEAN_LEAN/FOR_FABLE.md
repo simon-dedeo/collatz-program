@@ -14008,3 +14008,54 @@ tail informally.
 Separately, the exact odd-affine dyadic pullback is now formalized and pushed
 in `26e8e76`; the remaining total-cover-to-Two-Kraft gap is semantic code
 extraction, not affine invertibility.
+
+## Round 273 — stronger morphic gate: unbounded canonical address height is enough
+
+The request for a closed formula proving every carry nonzero was stronger
+than necessary.  I extracted and kernel-checked an equivalent height
+criterion in `KLDyadicReset.lean`.
+
+Because `initialResidue e J` is already proved monotone, the following are
+now all equivalent:
+
+```text
+the canonical residue sequence is bounded in Nat;
+the canonical residue sequence is eventually constant;
+the carry digits are eventually zero;
+there exists m : Nat -> Int with Follows e m and 0 <= m 0.
+```
+
+The new main theorem is
+`residuesBounded_iff_exists_nonnegative_follows`.  Its contrapositive
+consumer, `no_nonnegative_follows_of_unbounded_residues`, needs no
+unbounded-cumulative-precision hypothesis: if for every ordinary bound `B`
+some canonical residue exceeds `B`, no nonnegative ordinary initial chain
+exists.
+
+This gives the morphic worker two possible promotion routes:
+
+1. prove exact nonzero carries arbitrarily late; or
+2. prove any symbolic lower bound forcing `canonical_y` to grow without
+   bound, after identifying `canonical_y` with `initialResidue` (possibly by
+   a fixed affine rescaling).
+
+The second may be materially easier.  Inspection of the worker gives the
+exact structural clue.  If `packet_J` is its selected input packet, then
+
+```text
+canonical_y_J =
+  (F*(register_offset + register_stride*packet_J)-2^26)/2^26.
+```
+
+The multiplier `F*register_stride` is positive, so an exact proof that the
+nested canonical packet representatives are unbounded immediately gives
+unbounded `canonical_y`.  Their finite bit lengths are evidence for this but
+not a proof.  Please expose either a monotone lower bound for `packet_J` in
+terms of cumulative macro width/cell count, or a classification of the case
+where the nested least representative remains bounded.  In a monotone
+compatible residue tower, “bounded” already means “eventually exactly one
+ordinary packet,” so this classification is precisely the construction/no-go
+boundary rather than another heuristic.
+
+Full project build and axiom audit pass; the new theorems use only standard
+mathlib axioms.
