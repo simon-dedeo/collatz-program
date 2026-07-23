@@ -180,21 +180,249 @@ post-retraction trailing-one bars. In EC17, the analogous `D_i` must be read
 from the exact public-payload/carry decoder; ordinary bit length or black-pixel
 density is not an adequate substitute.
 
+## 2026-07-23 — large visual review: how memory leaves the system
+
+### Executive finding
+
+The pictures now support a sharper diagnosis than “the value eventually
+decreases.”  The program has repeatedly built **large integers with finite
+scripts**, but it has not yet built an ordinary orbit that both executes a
+macro and leaves behind more certified instructions than it consumed.  In
+the strongest visual examples, the magnitude edge can keep moving while the
+right-edge controller state is erased.  The later numerical collapse is a
+consequence; the earlier information collapse is the warning sign.
+
+This is a finite, exact review of the checked artifacts, not a proof about all
+possible Collatz constructions and not a counterexample.
+
+### The entropy experiment
+
+`IMAGES/analyze_bit_entropy.py` measures exact overlapping one- and two-bit
+word counts in every active binary row and fixed low-16-bit window, with
+counts through four bits at marked construction boundaries.  Its output is
+`IMAGES/bit_entropy_diagnostics.json`.  The decimal entropies are plotting
+diagnostics derived from exact finite counts.  They are not Shannon entropies
+of a proved stochastic source.
+
+The decisive Mersenne comparison is the last certified macro boundary before
+the terminal retraction:
+
+| step | active width | exact `v2(n+1)` memory | active H1 | active delta-H2 | low-16 H1 |
+|---:|---:|---:|---:|---:|---:|
+| 33 | 54 | 13 | 0.950956 | 0.959955 | 0.337290 |
+| 46 | 59 | 3 | 0.998134 | 0.978851 | 0.954434 |
+
+At precisely the transition where the certified Mersenne controller loses ten
+bits of future depth, both the full-row black/white balance and the incremental
+two-pixel entropy estimate move **toward their maxima**.  The low-16 window
+becomes dramatically more balanced as well.  The row looks richer while the
+usable program becomes poorer.
+
+So the proposed statistic is useful, but chiefly as a negative control:
+
+- low block entropy can expose a rigid bar or ether that is being consumed;
+- high block entropy certifies neither a decoder nor a next opcode;
+- entropy computed after adding white left-padding is invalid because it mixes
+  magnitude loss with bit balance;
+- active-string entropy mostly becomes a width-weighted capacity estimate once
+  the row is mixed, so it can remain high throughout a collapse;
+- a unary counter such as a trailing-one Mersenne bar can store unbounded
+  information with very low entropy, so balance is not necessary for scalar
+  memory either.
+
+What matters is **semantic memory**: bits that an exact public decoder turns
+into certified future behavior.  A better eventual statistic is mutual
+information between a public boundary state and its future opcode/address,
+but that requires a specified ensemble of boundary states and an exact
+decoder.  On one deterministic bit string, empirical block entropy is only
+local texture complexity.
+
+### What the principal images say
+
+#### Mersenne terminal construction
+
+This is the cleanest memory-loss microscope.  The spike staircase carries an
+exact public counter `v2(n+1)` through depths `10,11,12,13`, then the final
+retraction resets it to `3`.  The active width still rises from 54 to 59 across
+that reset.  Therefore magnitude, pixel balance, and controller memory are
+three genuinely different resources.
+
+The construction should not be extended merely by adding another taller
+preloaded bar.  The missing operation is a write-back that makes the
+post-retraction trailing-one depth exceed the inherited depth on the *same*
+ordinary orbit.
+
+#### EC17 returning glider
+
+The prefix is visually regular for 45 accelerated steps, followed by a long
+low-valuation runway and a peak near step 72.  It then falls irreversibly below
+the prefix endpoint near step 76 and reaches 1 at step 286.  Its monobit
+entropy remains essentially maximal around this transition.  This reinforces
+the Mersenne lesson: a balanced-looking residue can be the debris of a decoded
+motif, not retained instructions.
+
+For EC17, `v2(n+1)` is only a suffix statistic.  Any future visualization must
+overlay the exact public payload/carry decoder and mark which bits certify the
+next macro.  Without that overlay, a regular diagonal texture is aesthetically
+suggestive but semantically ambiguous.
+
+#### First-passage zero lift
+
+The zero-lift prefix has a certified finite outward passage, then begins its
+collapse one accelerated step after the construction boundary and reaches 1
+at step 56.  This is the most severe “longer fuse” warning: extending the
+horizon selects a farther initial address, but does not show a fixed seed
+writing its next address.
+
+The newer maximal outward-code record makes the same warning even cleaner.
+The exact seed `270271` executes its stored 35-block odd prefix for 87
+accelerated steps and reaches the prefix endpoint `8216025965`, which is also
+the global peak of its whole orbit.  The very next accelerated step falls
+below that boundary, never returns, and the orbit reaches 1 at step 150.
+`IMAGES/outward_first_passage_270271_prefix.png`, its low-16 crop, and its
+full continuation make the transition explicit.  This is a strong finite
+record and a particularly sharp tape-exhaustion image, not an infinite
+survivor.
+
+It also repeats the entropy paradox.  From the boundary at step 87 to the
+first post-prefix step 88, active width falls `33 -> 32`, but monobit entropy
+rises `0.945660 -> 0.997180`, incremental two-block entropy rises
+`0.877532 -> 0.982180`, and the low-16 monobit entropy becomes exactly `1`.
+The most balanced row is already on the collapsing side of the boundary.
+
+The correct visual companion to first-passage mass is therefore a
+**canonical-seed horizon plot**.  If the least surviving residue keeps moving
+right as the horizon grows, the family is diffuse.  An ordinary survivor
+requires the canonical addresses to remain bounded and eventually stabilize.
+
+### Review across the research program
+
+The major construction families differ in notation but repeatedly meet the
+same conservation law.
+
+- The two-rail construction proves impressive finite outward motion: 247
+  rounds from a 10,040-digit seed, with a growing rail gap.  At the next round
+  the seed changes, and the depth-247 seed still reaches 1.  The visual issue
+  is not insufficient scale; it is nonrenewal of the public address.
+- The Colussi wire provides 19,673 valuation-two ticks from an 11,846-digit
+  seed and then reaches 1.  Its clock is a large preloaded tape.  No checked
+  writer recreates the gap that supplies the following tape segment.
+- Recursive and hierarchical compilers produce arbitrary finite depth, but
+  their ancestor addresses grow with the requested horizon.  The hierarchy is
+  in the seed-selection procedure, not yet in one ordinary trajectory.
+- The YAH/tag work has genuine opcodes and decoders.  Its missing object is a
+  recurrent graph on public Collatz charts whose return map both preserves the
+  data and regenerates the controller state.
+- Named morphic clocks and ether candidates show finite regularity but no
+  stabilizing ordinary seed.  Regular texture alone is expected to be cheap:
+  finite residue prescriptions can manufacture long motifs.
+- The outward first-passage lane now has a strong exact mass statement, but
+  its natural tilted flow is diffuse rather than tight.  Ensemble survival is
+  not an atom, just as high bit entropy is not a decoded instruction.
+- The Mahler and scheduled lanes constrain several fixed symbolic schedules,
+  but they do not provide a self-sustaining public register.  Scale relations
+  are not control flow.
+- The cycle searches remain bounded exhaustive evidence only; they have not
+  supplied a nontrivial cycle.
+
+### The resource ledger future constructions should expose
+
+At every proposed macro return, record three separate quantities:
+
+1. `H_i`: ordinary height or bit length;
+2. `D_i`: exact public address depth certifying future intended behavior;
+3. `P_i`: decoded controller/payload state, including carry and phase.
+
+Then split address depth into inherited unread material and material freshly
+written by the completed macro:
+
+```text
+fresh_i = endpoint certified depth - inherited unread suffix.
+```
+
+A promising fixed-orbit engine needs positive amortized height drift **and** a
+nonnegative, preferably positive, fresh-memory drift at a recurrent public
+boundary.  It need not grow on every accelerated step.  It must recover after
+each retraction.  A long construction with `fresh_i <= 0` is still consuming a
+finite tape.
+
+There are two complementary asymptotic requirements that should not be
+confused:
+
+- across requested horizons, the canonical initial seed must stabilize rather
+  than escape to infinity;
+- along that one stabilized orbit, the public memory must keep evolving or
+  growing, because a bounded finite controller eventually repeats.
+
+This resolves a visual tension: we do not want the initial address to grow,
+but we do want the internal on-orbit address resource to regenerate.
+
+### Acceptance tests for the next generation of artifacts
+
+Every construction artifact intended for visual review should include:
+
+- exact `collatz_source`, `collatz_target`, and accelerated step count;
+- exact macro-boundary indices;
+- the public decoder and its domain, with no hidden auxiliary tape;
+- depth consumed, unread depth inherited, and depth freshly written per macro;
+- canonical seeds for increasing horizons;
+- the ordinary continuation fate of every finite witness tested;
+- explicit finite scope and `counterexample: null` unless a full certificate
+  exists.
+
+The highest-value new plots are:
+
+- a boundary memory ledger `(H_i,D_i,P_i)` rather than only a height trace;
+- least-significant-bit rasters with decoded address/payload brackets;
+- an XOR residual between the predicted return word and the actual return word
+  to locate carry corruption;
+- motif novelty after quotienting out shifts, so repeated preloaded ether is
+  separated from freshly written structure;
+- canonical-seed versus requested-horizon plots;
+- collapse audits that continue every finite witness to 1 or to a stated
+  exact cutoff;
+- one- through four-bit entropy curves retained as syntactic diagnostics, with
+  semantic memory overlaid rather than inferred from them.
+
+### Research priority suggested by the images
+
+The most promising next unit of work is not another record-length prefix.  It
+is the smallest exact **return-and-write gadget**: a public chart on which one
+macro returns to the chart, preserves or advances a payload, and leaves more
+certified address depth than it inherited after costs.  Even a tiny positive
+fresh-memory balance would be qualitatively new.  A construction that merely
+makes a taller spike, denser suffix, or more balanced raster would not address
+the observed failure.
+
+The visual bottom line is simple: the program knows how to move outward and it
+knows how to execute finite tapes.  It has not yet shown an ordinary Collatz
+orbit that remembers how to keep doing so after the tape is consumed.
+
 <!-- visualizer-monitor:start -->
 ## Automated monitor status
 
-Last change scan: `2026-07-23T19:17:02+00:00`. This block is a machine alert, not a research result.
+Last change scan: `2026-07-23T19:35:27+00:00`. This block is a machine alert, not a research result.
 
 Changed monitored files:
 
 - `CLEAN_LEAN/FOR_FABLE.md`
+- `NEW_RESUME.md`
 - `README.md`
-- `experiments/kontorovich/breakoff_ether_branch_pressure_audit.json`
+- `docs/FOR_CLEAN_LEAN.md`
+- `experiments/kontorovich/outward_first_passage.py`
+- `experiments/kontorovich/outward_first_passage_audit.json`
+
+New exact unreviewed renders:
+
+- `IMAGES/AUTO/auto_9c721f6204e1d7ca.png`
 
 Keyword alerts for visual review:
 
 - `CLEAN_LEAN/FOR_FABLE.md`: 27: the advanced-fiber root law, the root self-loop counterexample, mixer | 28: bounds/counterexample, and rational pressure-row/Chernoff-gap checkers are | 184: ("selection") needs primitivity, and the branch residues cycle 5→2→8 (mod
+- `NEW_RESUME.md`: 1: # NEW_RESUME — Kontorovich counterexample-search handoff | 7: There is no counterexample. Simon's point that YAH/tag universality is likely | 50: reaches the terminal cycle. The artifact exposes its exact 35-block odd
 - `README.md`: 18: certify a counterexample. | 38: There is still no counterexample. Simon's observation that the YAH/tag | 89: moment is ensemble conservation, not an ordinary orbit.
-- `experiments/kontorovich/breakoff_ether_branch_pressure_audit.json`: 5: "claim_scope": "universal algebraic branch/unit-slice identities, exact finite prefix-tree regression at the stated bit budget, and exact 17-adic Hensel lifts through the stated pr | 6: "counterexample": null, | 186: "scope": "exact finite-polynomial orbit separation only; functional transcendence plus this zero estimate still require a new multivariate 2-adic auxiliary-value theorem before any
+- `docs/FOR_CLEAN_LEAN.md`: 117: the one-sided inclusion and arbitrary-cycle argument in reply 19 below. | 148: Your C3 counterexample (2-branch CAN amplify one-sided oscillation) matches | 251: residues cycle 5→2→8 (mod 9), period 3; check aperiodicity before claiming
+- `experiments/kontorovich/outward_first_passage.py`: 13: blocks would therefore be a Collatz counterexample. | 16: terminal 1--2 cycle. Increasing-source exhaustion then computes the exact | 71: def accelerated_odd_step(value: int) -> int:
+- `experiments/kontorovich/outward_first_passage_audit.json`: 5: "claim_scope": "exact finite first-passage and stopped-mass identities at the stated bound; no infinite ordinary survivor and no Collatz counterexample", | 6: "counterexample": null, | 698: "mass_to_atom_gate": "branching criticality alone does not give an ordinary seed; a projectively consistent schedule measure would suffice if the nondecreasing canonical least resi
 
 <!-- visualizer-monitor:end -->

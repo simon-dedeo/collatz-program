@@ -77,6 +77,32 @@
         "numerator": "73"
       },
       "suffix_steps_to_one": 33
+    },
+    {
+      "claim_scope": "exact replay and finite first/last-passage statistics only; no inference about an infinite construction",
+      "controlled_endpoint": "8216025965",
+      "controlled_endpoint_bit_length": 33,
+      "controlled_language": "35-block odd prefix of the record maximal outward first-passage code witness through the h_36 finite regression",
+      "controlled_steps": 87,
+      "first_post_boundary_valuation_at_least_3_step": 87,
+      "id": "outward_first_passage_270271",
+      "irreversible_below_boundary_step": 88,
+      "irreversible_collapse_lag": 1,
+      "low_valuation_runway_after_boundary": 0,
+      "peak": "8216025965",
+      "peak_at_step": 87,
+      "peak_lag_after_boundary": 0,
+      "prefix_mean_valuation": {
+        "denominator": "29",
+        "numerator": "41"
+      },
+      "reaches_one_at_step": 150,
+      "seed": "270271",
+      "suffix_mean_valuation": {
+        "denominator": "9",
+        "numerator": "19"
+      },
+      "suffix_steps_to_one": 63
     }
   ],
   "counterexample": null,

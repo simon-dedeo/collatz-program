@@ -36,6 +36,16 @@ CASES = (
         "controlled_steps": 23,
         "controlled_language": "finite zero-lift first-passage-code prefix",
     },
+    {
+        "id": "outward_first_passage_270271",
+        "seed": 270271,
+        "steps_to_one": 150,
+        "controlled_steps": 87,
+        "controlled_language": (
+            "35-block odd prefix of the record maximal outward first-passage "
+            "code witness through the h_36 finite regression"
+        ),
+    },
 )
 
 

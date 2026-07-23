@@ -1,0 +1,67 @@
+{
+  "analysis": {
+    "accelerated_steps": 63,
+    "adjacent_xor_bit_count_sum": 446,
+    "black_density": {
+      "denominator": "192",
+      "numerator": "43"
+    },
+    "black_pixels": 473,
+    "end_bit_length": 1,
+    "endpoint": "1",
+    "first_step_below_seed": 1,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "63",
+      "numerator": "446"
+    },
+    "mean_valuation": {
+      "denominator": "9",
+      "numerator": "19"
+    },
+    "peak": "8216025965",
+    "peak_at_step": 0,
+    "peak_bit_length": 33,
+    "peak_over_seed": {
+      "denominator": "1",
+      "numerator": "1"
+    },
+    "record_high_steps": [
+      0
+    ],
+    "rows": 64,
+    "seed": "8216025965",
+    "start_bit_length": 33,
+    "total_pixels": 2112,
+    "valuation_histogram": {
+      "1": 30,
+      "2": 15,
+      "3": 8,
+      "4": 6,
+      "5": 2,
+      "6": 1,
+      "9": 1
+    },
+    "valuation_sum": 133,
+    "width_bits": 33
+  },
+  "construction_prefix_steps": 0,
+  "height": 64,
+  "id": "outward_first_passage_270271_after_prefix",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "outward_first_passage_270271_after_prefix.png",
+  "png_sha256": "b5c198c33de6954b7a49e294a41dddce49042e20b080b1c1ef4173c8674c5af8",
+  "provenance": "Post-prefix suffix of IMAGES/outward_first_passage_270271_full.png beginning at accelerated step 87",
+  "raster_window": "full binary expansion",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "Exact suffix after the record finite outward first-passage prefix. It drops below the boundary peak after one accelerated step and reaches 1.",
+  "states_sha256": "f3d31bf7eb22a28679dbc7e5cc6b9f1aecace58557f48d67455355a8dc3c1dae",
+  "valuations_sha256": "b16791bd3f4452f4de19ab46afe26b5164315b8fc2d54af985cd060bf03c2f19",
+  "width": 33
+}

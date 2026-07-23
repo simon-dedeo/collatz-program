@@ -51,6 +51,34 @@
       "width": 21
     },
     {
+      "height": 88,
+      "id": "outward_first_passage_270271_prefix",
+      "png": "outward_first_passage_270271_prefix.png",
+      "png_sha256": "b3e12859eed363440c9124e393ca9d341489585b4cf34ed90f7a5647d77d31bf",
+      "width": 33
+    },
+    {
+      "height": 88,
+      "id": "outward_first_passage_270271_low16",
+      "png": "outward_first_passage_270271_low16.png",
+      "png_sha256": "5d4dd8cb27fe86a1c1ce12b84ad7032d7af3f15480fe5dd03468711be7ded3bd",
+      "width": 16
+    },
+    {
+      "height": 151,
+      "id": "outward_first_passage_270271_full",
+      "png": "outward_first_passage_270271_full.png",
+      "png_sha256": "0087955536a4eec4fa42d336b826ff5e4f91783ed9da0c90ef03157629d94cc8",
+      "width": 33
+    },
+    {
+      "height": 64,
+      "id": "outward_first_passage_270271_after_prefix",
+      "png": "outward_first_passage_270271_after_prefix.png",
+      "png_sha256": "b5c198c33de6954b7a49e294a41dddce49042e20b080b1c1ef4173c8674c5af8",
+      "width": 33
+    },
+    {
       "height": 16,
       "id": "returning_glider_1_prefix",
       "png": "returning_glider_1_prefix.png",

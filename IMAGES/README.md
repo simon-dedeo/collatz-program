@@ -33,6 +33,11 @@ same positive seed to 1 and makes the post-construction collapse visible.
 The two `mersenne_*_full.png` files likewise show finite controller witnesses
 whose exact ordinary continuations reach 1.
 
+The `outward_first_passage_270271_*` files show the record minimum-address
+finite witness from the maximal outward code audit. Its 87-step constructed
+prefix ends at the global peak; the next accelerated step drops below that
+boundary permanently, and the full orbit reaches 1 at step 150.
+
 `monitor_repo.py` fingerprints the counterexample-search surface and can run
 continuously. It updates only a delimited machine-alert block in the root
 `VISUALIZER_COMMENTS.md`. A changed JSON artifact is auto-rendered only when an
@@ -50,3 +55,10 @@ python3 IMAGES/monitor_repo.py --watch --interval 60
 finite controllers: how much low-valuation runway remains after the certified
 motif, where the trajectory peaks, and how soon it falls irreversibly below
 the motif endpoint. Its output is `consumption_diagnostics.json`.
+
+`analyze_bit_entropy.py` records exact one- and two-pixel block counts on every
+row of the active binary expansion and a fixed low-16-bit window, plus counts
+through four pixels at marked construction boundaries. It also emits floating
+empirical entropy diagnostics for plotting. These measure balance and local
+syntactic complexity, not certified controller memory; the Mersenne example
+shows why the distinction matters.

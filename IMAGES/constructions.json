@@ -64,6 +64,43 @@
     "scope": "The first 23 accelerated steps are the finite zero-lift construction. The exact ordinary continuation reaches 1; no counterexample."
   },
   {
+    "id": "outward_first_passage_270271_prefix",
+    "seed": "270271",
+    "stop_at": "8216025965",
+    "expected_steps": 87,
+    "construction_prefix_steps": 87,
+    "provenance": "experiments/kontorovich/outward_first_passage_audit.json#/minimum_address_regression/visualizer_prefix",
+    "scope": "Exact 35-block odd prefix of the record minimum-address witness through the h_36 finite regression. It ends at its global peak and is not an infinite-orbit claim."
+  },
+  {
+    "id": "outward_first_passage_270271_low16",
+    "seed": "270271",
+    "stop_at": "8216025965",
+    "expected_steps": 87,
+    "construction_prefix_steps": 87,
+    "low_bits": 16,
+    "provenance": "Low-bit window of IMAGES/outward_first_passage_270271_prefix.png",
+    "scope": "Exact least-significant-16-bit crop of the record finite outward first-passage prefix; no infinite-orbit claim."
+  },
+  {
+    "id": "outward_first_passage_270271_full",
+    "seed": "270271",
+    "stop_at": "1",
+    "expected_steps": 150,
+    "construction_prefix_steps": 87,
+    "provenance": "Prefix from experiments/kontorovich/outward_first_passage_audit.json#/minimum_address_regression/visualizer_prefix; continuation independently replayed by IMAGES/render_collatz.py",
+    "scope": "The first 87 accelerated steps are the exact finite outward prefix. The next step drops below its boundary peak and the ordinary continuation reaches 1; no counterexample."
+  },
+  {
+    "id": "outward_first_passage_270271_after_prefix",
+    "seed": "8216025965",
+    "stop_at": "1",
+    "expected_steps": 63,
+    "construction_prefix_steps": 0,
+    "provenance": "Post-prefix suffix of IMAGES/outward_first_passage_270271_full.png beginning at accelerated step 87",
+    "scope": "Exact suffix after the record finite outward first-passage prefix. It drops below the boundary peak after one accelerated step and reaches 1."
+  },
+  {
     "id": "returning_glider_1_prefix",
     "seed": "725825075458675577",
     "stop_at": "4966161969196566695",

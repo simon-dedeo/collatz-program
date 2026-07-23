@@ -1,0 +1,100 @@
+{
+  "analysis": {
+    "accelerated_steps": 87,
+    "adjacent_xor_bit_count_sum": 1212,
+    "black_density": {
+      "denominator": "726",
+      "numerator": "335"
+    },
+    "black_pixels": 1340,
+    "end_bit_length": 33,
+    "endpoint": "8216025965",
+    "first_step_below_seed": null,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "29",
+      "numerator": "404"
+    },
+    "mean_valuation": {
+      "denominator": "29",
+      "numerator": "41"
+    },
+    "peak": "8216025965",
+    "peak_at_step": 87,
+    "peak_bit_length": 33,
+    "peak_over_seed": {
+      "denominator": "270271",
+      "numerator": "8216025965"
+    },
+    "record_high_steps": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      14,
+      15,
+      16,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      31,
+      32,
+      33,
+      35,
+      36,
+      37,
+      38,
+      45,
+      51,
+      53,
+      65,
+      67,
+      69,
+      70,
+      71,
+      83,
+      85,
+      86,
+      87
+    ],
+    "rows": 88,
+    "seed": "270271",
+    "start_bit_length": 19,
+    "total_pixels": 2904,
+    "valuation_histogram": {
+      "1": 61,
+      "2": 19,
+      "3": 5,
+      "4": 1,
+      "5": 1
+    },
+    "valuation_sum": 123,
+    "width_bits": 33
+  },
+  "construction_prefix_steps": 87,
+  "height": 88,
+  "id": "outward_first_passage_270271_low16",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "outward_first_passage_270271_low16.png",
+  "png_sha256": "5d4dd8cb27fe86a1c1ce12b84ad7032d7af3f15480fe5dd03468711be7ded3bd",
+  "provenance": "Low-bit window of IMAGES/outward_first_passage_270271_prefix.png",
+  "raster_window": "least significant 16 bits; higher bits omitted",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "Exact least-significant-16-bit crop of the record finite outward first-passage prefix; no infinite-orbit claim.",
+  "states_sha256": "2d0999651b1afcb57103fa7dfa28213cda4a74d63eb862ad337d7ed19b3d5cea",
+  "valuations_sha256": "b5bba6ac8fb99469fd569ed3102815d411438c1f015c0c09559413d023a8d256",
+  "width": 16
+}

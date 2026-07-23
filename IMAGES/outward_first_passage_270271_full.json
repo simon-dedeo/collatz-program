@@ -1,0 +1,102 @@
+{
+  "analysis": {
+    "accelerated_steps": 150,
+    "adjacent_xor_bit_count_sum": 1658,
+    "black_density": {
+      "denominator": "4983",
+      "numerator": "1792"
+    },
+    "black_pixels": 1792,
+    "end_bit_length": 1,
+    "endpoint": "1",
+    "first_step_below_seed": 103,
+    "mean_adjacent_xor_bit_count": {
+      "denominator": "75",
+      "numerator": "829"
+    },
+    "mean_valuation": {
+      "denominator": "75",
+      "numerator": "128"
+    },
+    "peak": "8216025965",
+    "peak_at_step": 87,
+    "peak_bit_length": 33,
+    "peak_over_seed": {
+      "denominator": "270271",
+      "numerator": "8216025965"
+    },
+    "record_high_steps": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      14,
+      15,
+      16,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      31,
+      32,
+      33,
+      35,
+      36,
+      37,
+      38,
+      45,
+      51,
+      53,
+      65,
+      67,
+      69,
+      70,
+      71,
+      83,
+      85,
+      86,
+      87
+    ],
+    "rows": 151,
+    "seed": "270271",
+    "start_bit_length": 19,
+    "total_pixels": 4983,
+    "valuation_histogram": {
+      "1": 91,
+      "2": 34,
+      "3": 13,
+      "4": 7,
+      "5": 3,
+      "6": 1,
+      "9": 1
+    },
+    "valuation_sum": 256,
+    "width_bits": 33
+  },
+  "construction_prefix_steps": 87,
+  "height": 151,
+  "id": "outward_first_passage_270271_full",
+  "map": "T(n)=(3*n+1)/2^v2(3*n+1)",
+  "pixel_convention": {
+    "alignment": "right aligned; least significant bit at right",
+    "black": 1,
+    "logical_pixel_scale": 1,
+    "row_order": "seed at top, accelerated iterates downward",
+    "white": "0 or left padding"
+  },
+  "png": "outward_first_passage_270271_full.png",
+  "png_sha256": "0087955536a4eec4fa42d336b826ff5e4f91783ed9da0c90ef03157629d94cc8",
+  "provenance": "Prefix from experiments/kontorovich/outward_first_passage_audit.json#/minimum_address_regression/visualizer_prefix; continuation independently replayed by IMAGES/render_collatz.py",
+  "raster_window": "full binary expansion",
+  "schema": "accelerated-odd-collatz-bitmap-v1",
+  "scope": "The first 87 accelerated steps are the exact finite outward prefix. The next step drops below its boundary peak and the ordinary continuation reaches 1; no counterexample.",
+  "states_sha256": "e804fce3b735ae27c84b0fb1952b64d9ae3abac9ff994cab88de87f6a7ee0c34",
+  "valuations_sha256": "18d96a6b7a09c0137181875a1c1533bfb612244d44b08daddada87593cd1bacd",
+  "width": 33
+}
