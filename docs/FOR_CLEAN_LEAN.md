@@ -8349,3 +8349,92 @@ j=1,...,ell, tau=0,...,sigma.
 The printed lower cutoffs are `nu>=c_12` for (16) and `nu>=c_17` for (17).
 Scope: this is a visual transcription of the source formulas, not yet a Lean
 proof of their divisibility or height estimates.
+
+## Kontorovich request: unbounded EC17 residue stabilization consumer (2026-07-23)
+
+Commit `75a6829` proves the finite lower-bound consumer.  The next theorem
+should expose its exact infinite consequence without importing any large
+certificate.  First, for `g : NaturalPrefix branch length`, please package
+the immediate value-level form
+
+```text
+P <= binaryMass branch 0 length
+g.core 0 < 2^P
+--------------------------------
+(initialResidue branch P length).val = g.core 0.           (QM62)
+```
+
+For a literal infinite positive EC17 orbit, restrict it to a
+`NaturalPrefix` of every requested length.  A useful generic endpoint is:
+if `length_j,P_j` satisfy
+
+```text
+P_j <= binaryMass branch 0 length_j,
+P_j -> infinity,
+```
+
+and an exact checker proves for every `j` that the least residue
+`(initialResidue branch P_j length_j).val` cannot realize that prescribed
+prefix, then no natural infinite orbit follows the schedule.             (QM63)
+Equivalently, applying the existing finite theorem would force one fixed
+`core 0` to be at least `2^P_j` for unbounded `P_j`.
+
+Please make the checker premise abstract, as in QM59; finite rows should
+remain data.  If convenient, reuse `EtherCounterStateNoRepeat.Orbit` and add
+the exact conversion from an orbit restriction to `NaturalPrefix`.
+
+There is a dual search interpretation, which need not be formalized unless it
+simplifies the proof.  Write
+
+```text
+P_N = sum_(t<N) (8*b_(t+1)+15),
+Q_N = sum_(t<N) (6*b_t+11),
+F_0=0,
+F_(N+1)=3^(6*b_N+11)*F_N+2^P_N.
+```
+
+Then
+
+```text
+2^P_N*u_N = 3^Q_N*u_0 + 17*F_N.                            (QM64)
+```
+
+The least `r_N in [0,3^Q_N)` satisfying
+
+```text
+2^P_N*r_N = 17*F_N+k_N*3^Q_N,
+0 <= k_N < 2^P_N,
+```
+
+has `k_N=(initialResidue branch P_N N).val`.  Exact next-step success of
+`r_N` is equivalent to `k_(N+1)=k_N`.  Thus the apparent ternary terminal
+sieve is exactly the ordinary dyadic stabilization problem, not a separate
+source of evidence.  Five representative period-three schedules showed no
+success through 80 boundaries, but that finite observation is deliberately
+not a claim.
+
+## Literature audit: Bézivin does not remove the period-three gap (2026-07-23)
+
+I source-checked Jean-Paul Bézivin, *Indépendance linéaire des valeurs des
+solutions transcendantes de certaines équations fonctionnelles*,
+Manuscripta Math. 61 (1988), especially printed pp. 107--110.  Its Théorème 2
+is genuinely `p`-adic and strong, but applies to
+
+```text
+L(z)=sum_(n>=0) p^(M(n))*z^n
+```
+
+for a prime `p` and a natural quadratic polynomial `M`, with argument ratios
+not powers of `p`.  The EC17 period-three values instead have coefficients
+
+```text
+2^(8*K*L*choose(n+1,2)) /
+3^(6*K*L*choose(n+1,2))
+```
+
+times a rational argument power.  The varying quadratic power of `3` is a
+`2`-adic unit but has non-negligible global height and cannot be absorbed into
+the argument.  Therefore Théorème 2 does not apply.  Bézivin's 1990 sequel in
+Acta Arith. 55, 233--240 is an archimedean entire-function result and likewise
+does not close the `Q_2` endpoint.  This is a closed shortcut, not evidence
+against a special sharpening of the Väänänen--Wallisser construction.

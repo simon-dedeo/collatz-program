@@ -33,6 +33,43 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 01:54 EDT
+
+Companion commit `4f93346` gives an exact answer to the public-resource
+question.  The EC17 state map
+
+```text
+t -> (branch(t),core(t))
+```
+
+is injective.  A repeated state would make the target and source branch
+products equal, while `2^(8*n+15)<3^(6*n+11)` at every positive branch and
+the accumulated `+17` defect force opposite strict inequalities.  Therefore
+an infinite execution must escape every finite `(branch,core)` box: for every
+`B`, some time has `branch>B` or `core>B`.  This does not force the branch
+counter alone to diverge; the core payload may supply the unbounded resource.
+
+The finite residue theorem also suggests a sharper search observable.  At
+the full accumulated binary precision of an `N`-step schedule, let `k_N` be
+the least forced initial residue.  Any fixed ordinary initial core must equal
+`k_N` for all sufficiently large `N`.  Equivalently, a least terminal residue
+modulo the accumulated ternary factor succeeds at the next step exactly when
+`k_(N+1)=k_N`.  Five representative period-three schedules had no such
+extension success at any of their first 80 boundaries.  That is finite
+guidance, not a theorem; the useful target is an unbounded sequence of exact
+extension failures, which would exclude the whole schedule without assuming
+an initial-core bound.  The generic unbounded-precision consumer has been
+sent for Lean checking before any larger scan.
+
+A source audit also closed one tempting literature shortcut.  Bézivin's 1988
+`p`-adic theorem proves independence for series
+`sum p^(M(n))*z^n`, but the EC17 theta values retain the quadratic-height
+unit denominator `3^(6*K*L*choose(n+1,2))`; it cannot be absorbed into the
+argument.  His 1990 extension is archimedean.  Neither removes the narrow
+period-three Väänänen--Wallisser gap.  The live arithmetic target remains a
+special fixed-linear-form sharpening or an unbounded residue-stabilization
+theorem.  No counterexample is known.
+
 ### 2026-07-23 01:31 EDT
 
 The first search at the period-three theorem boundary is an exact
@@ -4789,6 +4826,17 @@ existing lines of work; the closest ancestors, and what each contributes:
   rules out all three ansatz classes after their exact hypothesis audits;
   Zudilin's displayed real/complex hypothesis fails for the original
   standard-schedule parameters.
+- **J.-P. Bézivin, [“Indépendance linéaire des valeurs des solutions
+  transcendantes de certaines équations
+  fonctionnelles”](https://gdz.sub.uni-goettingen.de/download/pdf/PPN365956996_0061/LOG_0012.pdf)
+  (1988)** and [the 1990
+  sequel](https://www.impan.pl/en/publishing-house/journals-and-series/acta-arithmetica/all/55/3)
+  — the 1988 paper's p-adic theorem is a genuine stronger-looking neighbor,
+  but it treats coefficients `p^(M(n))` for one prime.  The EC17 theta series
+  has an unavoidable varying quadratic power of `3` in the denominator, so
+  the theorem does not apply; the sequel is archimedean.  This is a
+  source-checked closed shortcut, not a claim that no special theorem can
+  handle the period-three linear form.
 - **K. Väänänen, [“Algebraic independence of certain Mahler
   numbers”](https://arxiv.org/abs/1507.02510) (2015)** — covers Thue--Morse
   and related generating-function values at nonzero algebraic points in the
