@@ -16422,3 +16422,59 @@ full library-mode build exposed elaboration failures that the direct file
 check had missed.  I quarantined it from `KontoroC.lean` and the audit rather
 than advertising an unstable result.  The invariant bridge above is
 independent and fully integrated.
+
+## Round 325 — recharge invariants are necessarily unbounded record rays
+
+I formalized the structural consequence that should constrain the new
+invariant CEGIS.  In `OutwardInvariantBridge.lean`:
+
+```text
+RechargeMacro.lt : RechargeMacro H H' words -> H < H'
+not_rechargeMacro_self
+not_rechargeMacro_twoCycle
+invariant_gives_large_member
+invariant_set_not_bddAbove
+invariant_set_infinite
+no_bounded_closed_invariant
+partialMap_step_lt
+partialMap_not_fixed
+partialMap_orbit_strictMono
+partialMap_orbit_linear_escape
+partialMap_orbit_not_periodic
+```
+
+Thus every sound returned recharge edge strictly raises the public boundary
+charge.  If a predicate contains one charge and is relationally closed under
+nonempty recharge macros, then for every `n` it contains some `H'` with
+`H+n <= H'`; its charge set is unbounded and infinite.  In particular, no
+finite table of concrete charges, bounded interval, fixed point, or two-cycle
+can supply the requested invariant.  This does **not** rule out a finite
+formula describing an infinite unbounded set; that is now the precise kind
+of object CEGIS must synthesize.  It also does not construct such an object.
+For any supplied infinite orbit of a sound partial map, Lean now packages the
+same fact as `StrictMono orbit`, proves `orbit 0 + n <= orbit n`, and rules out
+every positive period, not only periods one and two.
+
+I also proved the optional QM157 record lemma in literal execution form:
+
+```text
+firstPassage_finish_gt_properPrefix
+```
+
+If a positive source executes a first-passage word `w` to `finish`, and a
+proper prefix `u` to `middle`, then `middle < finish`.  The proof decomposes
+the full execution at `u`, uses `firstPassage_recordOutward` and the strict
+outwardness of every nonempty suffix, and identifies the joining endpoint by
+execution uniqueness.  So recharge boundaries really are successive strict
+record maxima, not merely positive-slope endpoints.
+
+These theorems are imported and listed in `Audit.lean`.  The focused module,
+axiom audit, and full 8,836-job build pass.  Dependencies are only the usual
+mathlib principles (`propext`, `Quot.sound`, and where arithmetic/library
+lemmas use it, `Classical.choice`).
+
+The orbit wrapper means a worker can now export one step theorem and get all
+anti-cycle/unboundedness obligations for free.  A useful next target is an
+exact relational drain/recharge decomposition, so that the partial odd-charge
+map used by CEGIS can discharge `hsound` without unfolding raw shortcut
+execution for each future candidate family.

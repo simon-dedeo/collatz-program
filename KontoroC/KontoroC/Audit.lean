@@ -1769,12 +1769,27 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardInvariantBridge.executesBlocks_iff_exists_endpoint
 #print axioms KontoroC.OutwardInvariantBridge.executesBlocksTo_append
 #print axioms KontoroC.OutwardInvariantBridge.executesBlocksTo_take_drop_iff
+#print axioms KontoroC.OutwardInvariantBridge.executes_pos
+#print axioms
+  KontoroC.OutwardInvariantBridge.firstPassage_finish_gt_properPrefix
 #print axioms KontoroC.OutwardInvariantBridge.RechargeMacro.append
+#print axioms KontoroC.OutwardInvariantBridge.RechargeMacro.lt
+#print axioms KontoroC.OutwardInvariantBridge.not_rechargeMacro_self
+#print axioms KontoroC.OutwardInvariantBridge.not_rechargeMacro_twoCycle
 #print axioms KontoroC.OutwardInvariantBridge.invariant_gives_finiteMacroChain
+#print axioms KontoroC.OutwardInvariantBridge.invariant_gives_large_member
+#print axioms KontoroC.OutwardInvariantBridge.invariant_set_not_bddAbove
+#print axioms KontoroC.OutwardInvariantBridge.invariant_set_infinite
+#print axioms KontoroC.OutwardInvariantBridge.no_bounded_closed_invariant
 #print axioms KontoroC.OutwardInvariantBridge.invariant_gives_infiniteExecution
 #print axioms
   KontoroC.OutwardInvariantBridge.invariant_gives_not_syracuseReachesOne
 #print axioms KontoroC.OutwardInvariantBridge.invariant_gives_not_collatz
+#print axioms KontoroC.OutwardInvariantBridge.partialMap_step_lt
+#print axioms KontoroC.OutwardInvariantBridge.partialMap_not_fixed
+#print axioms KontoroC.OutwardInvariantBridge.partialMap_orbit_strictMono
+#print axioms KontoroC.OutwardInvariantBridge.partialMap_orbit_linear_escape
+#print axioms KontoroC.OutwardInvariantBridge.partialMap_orbit_not_periodic
 #print axioms
   KontoroC.OutwardInvariantBridge.partialMap_invariant_gives_infiniteExecution
 #print axioms

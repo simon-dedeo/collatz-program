@@ -24,7 +24,8 @@ namespace KontoroC
 namespace OutwardInvariantBridge
 
 open ShortcutParityPeriodicNoGo OutwardFirstPassage
-  OutwardCodeCompactness OutwardBoundaryRenewal OutwardOddSlice
+  OutwardCodeCompactness OutwardBoundaryRenewal OutwardCylinderRenewal
+  OutwardOddSlice
   OutwardCodeCounterexample
 open CleanLean.Collatz
 
@@ -125,6 +126,52 @@ theorem ExecutesBlocksTo.exists_take_endpoint {n : ℕ}
     (executesBlocksTo_take_drop_iff n).mp h
   exact ⟨middle, htake⟩
 
+/-! ## Strict record structure inside first-passage blocks -/
+
+/-- Literal shortcut execution preserves positivity. -/
+theorem executes_pos {w : List Bool} {start finish : ℕ}
+    (hstart : 0 < start) (h : Executes w start finish) : 0 < finish := by
+  induction w generalizing start with
+  | nil =>
+      simp only [Executes] at h
+      subst finish
+      exact hstart
+  | cons odd w ih =>
+      obtain ⟨middle, hstep, htail⟩ := h
+      have hmiddle : 0 < middle := by
+        cases odd <;> simp only [Bool.false_eq_true, ↓reduceIte] at hstep <;>
+          omega
+      exact ih hmiddle htail
+
+/-- The endpoint of a positive first-passage execution is a strict record:
+it exceeds the endpoint reached at every proper parity-word prefix. -/
+theorem firstPassage_finish_gt_properPrefix
+    {w u : List Bool} {start middle finish : ℕ}
+    (hfirst : FirstPassage w)
+    (hstart : 0 < start)
+    (hproper : ProperPrefix u w)
+    (hprefix : Executes u start middle)
+    (hfull : Executes w start finish) :
+    middle < finish := by
+  obtain ⟨suffix, hdecomp⟩ := hproper.1
+  have hsuffixNe : suffix ≠ [] := by
+    intro hsuffix
+    subst suffix
+    simp only [List.append_nil] at hdecomp
+    exact hproper.2 hdecomp
+  rw [← hdecomp] at hfirst hfull
+  obtain ⟨joining, hjoining, hsuffix⟩ :=
+    (executes_append u suffix).mp hfull
+  have hmiddle : middle = joining :=
+    executes_target_unique u hprefix hjoining
+  subst joining
+  have hrecord : RecordOutward (u ++ suffix) :=
+    firstPassage_recordOutward hfirst
+  have hsuffixOut : WordOutward suffix :=
+    (RecordOutward.suffix hrecord hsuffixNe).1
+  exact executes_lt_of_outward
+    (executes_pos hstart hprefix) hsuffixOut hsuffix
+
 /-! ## Exact boundary macros -/
 
 /-- A positive, nonempty boundary-to-boundary execution through exactly the
@@ -175,6 +222,40 @@ theorem RechargeMacro.append {H K L : ℕ}
   · exact (executesBlocksTo_append left right).mpr
       ⟨3 * K - 1, hleft.executesTo, hright.executesTo⟩
 
+/-- Every nonempty recharge macro strictly raises the boundary charge.  This
+is inherited from strict outward growth of every first-passage block. -/
+theorem RechargeMacro.lt {H H' : ℕ} {words : List (List Bool)}
+    (h : RechargeMacro H H' words) : H < H' := by
+  have hstart : 0 < 3 * H - 1 := by
+    have hH := h.source_pos
+    omega
+  obtain ⟨finish, hflat, hgrowth⟩ :=
+    executesBlocks_growth
+      (C := FirstPassageCode) (fun _ hw => hw.1)
+      hstart h.wordsIn h.executesTo.executesBlocks
+  have hend : Executes (flattenWords words) (3 * H - 1) (3 * H' - 1) :=
+    executesBlocksTo_iff_flatten.mp h.executesTo
+  have hfinish : finish = 3 * H' - 1 :=
+    executes_target_unique (flattenWords words) hflat hend
+  have hlen : 0 < words.length :=
+    List.length_pos_iff.mpr h.words_ne_nil
+  rw [hfinish] at hgrowth
+  omega
+
+/-- In particular, a recharge macro cannot return to its own boundary. -/
+theorem not_rechargeMacro_self (H : ℕ) (words : List (List Bool)) :
+    ¬ RechargeMacro H H words := by
+  intro h
+  exact (Nat.lt_irrefl H) h.lt
+
+/-- Nor can two recharge macros form a two-cycle. -/
+theorem not_rechargeMacro_twoCycle {H K : ℕ}
+    {forward backward : List (List Bool)}
+    (hforward : RechargeMacro H K forward) :
+    ¬ RechargeMacro K H backward := by
+  intro hbackward
+  exact (Nat.not_lt_of_ge hforward.lt.le) hbackward.lt
+
 /-! ## The invariant bridge -/
 
 /-- `n` applications of relational invariant closure produce at least `n`
@@ -208,6 +289,61 @@ theorem invariant_gives_finiteMacroChain
         omega
       · exact (executesBlocksTo_append head tail).mpr
           ⟨3 * K - 1, hmacro.executesTo, htailExec⟩
+
+/-- Iterating closure `n` times supplies an invariant member at least `n`
+larger than the starting charge.  This records macro count rather than word
+count, so variable macro lengths cause no loss. -/
+theorem invariant_gives_large_member
+    (I : ℕ → Prop)
+    (hclosed :
+      ∀ H, I H →
+        ∃ H' words, RechargeMacro H H' words ∧ I H')
+    (n H : ℕ) (hH : I H) :
+    ∃ H', I H' ∧ H + n ≤ H' := by
+  induction n generalizing H with
+  | zero => exact ⟨H, hH, by omega⟩
+  | succ n ih =>
+      obtain ⟨K, words, hmacro, hK⟩ := hclosed H hH
+      obtain ⟨L, hL, hlarge⟩ := ih K hK
+      have hHK : H < K := hmacro.lt
+      exact ⟨L, hL, by omega⟩
+
+/-- Any nonempty relationally closed invariant is unbounded in `ℕ`. -/
+theorem invariant_set_not_bddAbove
+    (I : ℕ → Prop) (H₀ : ℕ) (h₀ : I H₀)
+    (hclosed :
+      ∀ H, I H →
+        ∃ H' words, RechargeMacro H H' words ∧ I H') :
+    ¬ BddAbove {H : ℕ | I H} := by
+  rw [not_bddAbove_iff]
+  intro B
+  obtain ⟨H, hH, hlarge⟩ :=
+    invariant_gives_large_member I hclosed (B + 1) H₀ h₀
+  exact ⟨H, hH, by omega⟩
+
+/-- Consequently, the charge set described by a successful invariant is
+infinite.  A finite table of concrete charges can never suffice. -/
+theorem invariant_set_infinite
+    (I : ℕ → Prop) (H₀ : ℕ) (h₀ : I H₀)
+    (hclosed :
+      ∀ H, I H →
+        ∃ H' words, RechargeMacro H H' words ∧ I H') :
+    Set.Infinite {H : ℕ | I H} :=
+  Set.infinite_of_not_bddAbove
+    (invariant_set_not_bddAbove I H₀ h₀ hclosed)
+
+/-- A convenient contradiction form for auditing proposed bounded
+invariants. -/
+theorem no_bounded_closed_invariant
+    (I : ℕ → Prop) (H₀ B : ℕ) (h₀ : I H₀)
+    (hclosed :
+      ∀ H, I H →
+        ∃ H' words, RechargeMacro H H' words ∧ I H')
+    (hbounded : ∀ H, I H → H ≤ B) : False := by
+  obtain ⟨H, hH, hlarge⟩ :=
+    invariant_gives_large_member I hclosed (B + 1) H₀ h₀
+  have hHB : H ≤ B := hbounded H hH
+  exact (by omega : False)
 
 /-- A positive invariant closed under nonempty recharge macros supplies an
 ordinary infinite execution of the exact first-passage code. -/
@@ -262,6 +398,73 @@ theorem invariant_gives_not_collatz
   · exact invariant_gives_infiniteExecution I H₀ h₀pos h₀ hclosed
 
 /-! ## Partial functional recharge maps -/
+
+/-- Any sound returned edge of a partial recharge map strictly increases the
+charge. -/
+theorem partialMap_step_lt
+    (I : ℕ → Prop) (R : ℕ → Option ℕ)
+    (hsound : ∀ H H', I H → R H = some H' →
+      ∃ words, RechargeMacro H H' words)
+    {H H' : ℕ} (hH : I H) (hR : R H = some H') : H < H' := by
+  obtain ⟨words, hmacro⟩ := hsound H H' hH hR
+  exact hmacro.lt
+
+/-- Thus a sound partial recharge map has no fixed point inside its
+invariant domain. -/
+theorem partialMap_not_fixed
+    (I : ℕ → Prop) (R : ℕ → Option ℕ)
+    (hsound : ∀ H H', I H → R H = some H' →
+      ∃ words, RechargeMacro H H' words)
+    {H : ℕ} (hH : I H) : R H ≠ some H := by
+  intro hR
+  exact (Nat.lt_irrefl H) (partialMap_step_lt I R hsound hH hR)
+
+/-- Every infinite orbit of sound returned edges is strictly increasing. -/
+theorem partialMap_orbit_strictMono
+    (I : ℕ → Prop) (R : ℕ → Option ℕ)
+    (hsound : ∀ H H', I H → R H = some H' →
+      ∃ words, RechargeMacro H H' words)
+    (orbit : ℕ → ℕ)
+    (hinvariant : ∀ n, I (orbit n))
+    (hstep : ∀ n, R (orbit n) = some (orbit (n + 1))) :
+    StrictMono orbit :=
+  strictMono_nat_of_lt_succ fun n =>
+    partialMap_step_lt I R hsound (hinvariant n) (hstep n)
+
+/-- Quantitatively, a sound recharge orbit escapes at least linearly in its
+macro count.  Individual macros may raise the charge by much more. -/
+theorem partialMap_orbit_linear_escape
+    (I : ℕ → Prop) (R : ℕ → Option ℕ)
+    (hsound : ∀ H H', I H → R H = some H' →
+      ∃ words, RechargeMacro H H' words)
+    (orbit : ℕ → ℕ)
+    (hinvariant : ∀ n, I (orbit n))
+    (hstep : ∀ n, R (orbit n) = some (orbit (n + 1)))
+    (n : ℕ) :
+    orbit 0 + n ≤ orbit n := by
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      have hn : orbit n < orbit (n + 1) :=
+        partialMap_step_lt I R hsound (hinvariant n) (hstep n)
+      omega
+
+/-- Hence a sound infinite recharge orbit has no positive period. -/
+theorem partialMap_orbit_not_periodic
+    (I : ℕ → Prop) (R : ℕ → Option ℕ)
+    (hsound : ∀ H H', I H → R H = some H' →
+      ∃ words, RechargeMacro H H' words)
+    (orbit : ℕ → ℕ)
+    (hinvariant : ∀ n, I (orbit n))
+    (hstep : ∀ n, R (orbit n) = some (orbit (n + 1)))
+    {p : ℕ} (hp : 0 < p) :
+    ¬ Function.Periodic orbit p := by
+  intro hperiodic
+  have hlt : orbit 0 < orbit p :=
+    partialMap_orbit_strictMono I R hsound orbit hinvariant hstep hp
+  have heq : orbit p = orbit 0 := by
+    simpa using hperiodic 0
+  exact (Nat.ne_of_lt hlt) heq.symm
 
 /-- A partial function version.  Closure of `I` under the returned boundary
 is not enough by itself: `hsound` is the necessary semantic hypothesis that
