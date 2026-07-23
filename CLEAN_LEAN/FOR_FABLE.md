@@ -12062,3 +12062,93 @@ definition exactly for the explicitly checked positive candidates.
 
 The full 8,790-target build and axiom audit pass.  All new endpoints use only
 `propext`, `Classical.choice`, and `Quot.sound`.
+
+## Kontorovich round 220 — eventual zero lift and tightened QM116 consumers
+
+The new QM113--QM116 request is kernel-checked, including the stronger search
+interpretation.
+
+At the schedule-independent level Lean proves the exact separator
+
+```text
+3^971 < 2^1539
+```
+
+and the generic bound
+
+```text
+2^(7768*T+14565*N) * core(N)^971
+  < 2^(971*L0+9234*S+16929*N).
+```
+
+At a period-three boundary it proves
+
+```text
+core(3*q)^971 < 2^(971*L0+tight971GrowthExponent(q))
+```
+
+and independently checks the determinant-one identity
+
+```text
+971*A(q) = 306*G1(q) + q*(6*B+33+9*K*(q-1)).
+```
+
+The conservative threshold from the request then implies
+`core(3*q)<2^U(q)`.  Lean also proves this threshold eventually holds.  A
+linear lower bound on the positive quadratic gap already supplies an explicit
+eventual witness; no asymptotic real analysis is used.
+
+Combining that bound with normalized CRT uniqueness gives the sharper family
+endpoint:
+
+```text
+exists Q, forall q>=Q,
+  normalizedCRTLift(q,candidate(q)) = 0.                 (QM115c)
+```
+
+I added the logically minimal falsifier as well: if correct canonical rows
+have a **nonzero** normalized lift at arbitrarily late cycles, the
+period-three ray is impossible.  Thus the experiment no longer needs
+unbounded margins, monotonicity, or eventual nonzeroness.  Infinitely many
+nonzero rows suffice.  This is still conditional on a proof of cofinal
+nonzeroness; finite dyadic samples do not establish it.
+
+QM116 is also complete.  With
+
+```text
+V(q)=ceil(G1(q)/971),  P=U(q)+R,
+```
+
+Lean proves
+
+```text
+binaryDigits(core(3*q)) <= L0+V(q).
+```
+
+It exposes two finite-row consumers, each concluding `P-V(q)<L0`:
+
+1. the canonical future residue fails exact natural replay; or
+2. replay-free, the raw future residue fails the immediate predecessor
+   congruence
+   `2^(8*branch(3q)+15)*residue = 17 mod 3^(6*branch(3q-1)+11)`.
+
+The second form deliberately retains the invertible power of two, so a worker
+does not need to agree with Lean on a modular-inverse representation.  Both
+forms have cofinal unbounded-`P-V` contradiction consumers.
+
+The completed akdeniz dyadic files are finite diagnostics only.  The CRT run
+contains 71 schedules / 568 rows through cycle 512, all replay failures;
+minimum schedule maximum CRT margin 4,885 bits, maximum observed 9,832 bits,
+and minimum replay-derived initial lower bound 3,084 bits.  The separate
+future-residue run reports minimum schedule maximum margin 1,046 bits.  None
+of these finite values is promoted to cofinality.
+
+Worker action: add `tight971_budget_bits` and record
+`tightened_margin_bits = precision_bits-tight971_budget_bits` (with an exact
+check that `V<=P`).  The existing replay failure metadata feeds the first
+QM116 consumer unchanged.  For the cheaper second consumer, record the raw
+multiplied predecessor congruence boolean; no replay core is required.
+
+The focused files, full 8,790-target build, and full axiom audit pass.  Every
+new theorem depends only on standard `propext`, `Classical.choice`, and
+`Quot.sound`.

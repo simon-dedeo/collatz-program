@@ -998,6 +998,12 @@ set_option exponentiation.threshold 1100 in
 /-- QM94b: near-optimal upper continued-fraction separator. -/
 theorem three_pow_306_lt_two_pow_485 : 3 ^ 306 < 2 ^ 485 := by norm_num
 
+set_option exponentiation.threshold 1600 in
+/-- QM110: the next upper continued-fraction separator.  Together with
+`3^306 < 2^485` it has determinant one:
+`485*971 - 1539*306 = 1`. -/
+theorem three_pow_971_lt_two_pow_1539 : 3 ^ 971 < 2 ^ 1539 := by norm_num
+
 /-- QM91: every positive EC17 execution must put enough size into its
 terminal core to compensate for a small cumulative backward coefficient. -/
 theorem core_power_lower
@@ -1212,6 +1218,80 @@ theorem core_power_upper_306
     _ < 2 ^ (306 * L₀) * 2 ^ (2910 * S + 5335 * N) :=
       Nat.mul_lt_mul_of_pos_left hden (by positivity)
     _ = 2 ^ (306 * L₀ + 2910 * S + 5335 * N) := by
+      rw [← pow_add]
+      congr 1
+      omega
+
+/-- QM110, schedule-independent form: the sharper separator
+`3^971 < 2^1539` gives a 971st-power upper bound for every positive EC17
+execution. -/
+theorem core_power_upper_971
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) (hN : 0 < N) :
+    2 ^ (7768 * o.nextOneBasedLevelSum N + 14565 * N) *
+        o.core N ^ 971 <
+      2 ^ (971 * (Nat.log 2 (o.core 0)).succ +
+        9234 * o.oneBasedLevelSum N + 16929 * N) := by
+  let S := o.oneBasedLevelSum N
+  let T := o.nextOneBasedLevelSum N
+  let u := o.core N
+  let u₀ := o.core 0
+  let L₀ := (Nat.log 2 u₀).succ
+  have htrap := (o.general_cumulativeScale_trap N).2
+  have hcoreTwoNat : u₀ + 1 ≤ 2 ^ L₀ := by
+    exact (Nat.add_one_le_iff).2
+      (by simpa [L₀] using Nat.lt_pow_succ_log_self Nat.one_lt_two u₀)
+  have hcoreTwo : (u₀ : ℚ) + 1 ≤ (2 : ℚ) ^ L₀ := by
+    exact_mod_cast hcoreTwoNat
+  have hclosed := o.generalBackwardPrefixProduct_eq_closed N
+  have hcrossQ :
+      (2 : ℚ) ^ (8 * T + 15 * N) * u <
+        (2 : ℚ) ^ L₀ * (3 : ℚ) ^ (6 * S + 11 * N) := by
+    rw [hclosed] at htrap
+    have hratio :
+        ((2 : ℚ) ^ (8 * T + 15 * N) * u) /
+            (3 : ℚ) ^ (6 * S + 11 * N) < (2 : ℚ) ^ L₀ := by
+      have htrap' :
+          ((2 : ℚ) ^ (8 * T + 15 * N) * u) /
+              (3 : ℚ) ^ (6 * S + 11 * N) < (u₀ : ℚ) + 1 := by
+        simpa [S, T, u, u₀, div_mul_eq_mul_div, mul_assoc] using htrap
+      exact htrap'.trans_le hcoreTwo
+    exact (div_lt_iff₀ (by positivity :
+      (0 : ℚ) < 3 ^ (6 * S + 11 * N))).mp hratio
+  have hcrossNat :
+      2 ^ (8 * T + 15 * N) * u <
+        2 ^ L₀ * 3 ^ (6 * S + 11 * N) := by
+    exact_mod_cast hcrossQ
+  have hcrossPow := Nat.pow_lt_pow_left hcrossNat (by norm_num : 971 ≠ 0)
+  have hraised :
+      2 ^ (7768 * T + 14565 * N) * u ^ 971 <
+        2 ^ (971 * L₀) * 3 ^ (5826 * S + 10681 * N) := by
+    rw [mul_pow, mul_pow, ← pow_mul, ← pow_mul, ← pow_mul] at hcrossPow
+    simpa only [show (8 * T + 15 * N) * 971 =
+        7768 * T + 14565 * N by omega,
+      show L₀ * 971 = 971 * L₀ by omega,
+      show (6 * S + 11 * N) * 971 =
+        5826 * S + 10681 * N by omega] using hcrossPow
+  let k := 6 * S + 11 * N
+  have hk : 0 < k := by simp [k]; omega
+  have hden : 3 ^ (5826 * S + 10681 * N) <
+      2 ^ (9234 * S + 16929 * N) := by
+    calc
+      3 ^ (5826 * S + 10681 * N) = (3 ^ 971) ^ k := by
+        rw [show 5826 * S + 10681 * N = 971 * k by simp [k]; omega,
+          pow_mul]
+      _ < (2 ^ 1539) ^ k :=
+        Nat.pow_lt_pow_left three_pow_971_lt_two_pow_1539 hk.ne'
+      _ = 2 ^ (9234 * S + 16929 * N) := by
+        rw [← pow_mul]
+        congr 1
+        simp [k]
+        omega
+  calc
+    2 ^ (7768 * T + 14565 * N) * u ^ 971 <
+        2 ^ (971 * L₀) * 3 ^ (5826 * S + 10681 * N) := hraised
+    _ < 2 ^ (971 * L₀) * 2 ^ (9234 * S + 16929 * N) :=
+      Nat.mul_lt_mul_of_pos_left hden (by positivity)
+    _ = 2 ^ (971 * L₀ + 9234 * S + 16929 * N) := by
       rw [← pow_add]
       congr 1
       omega

@@ -388,6 +388,122 @@ def sharpGrowthExponent (g : Ray) (q : ℕ) : ℕ :=
 def sharpUpperExponent (g : Ray) (q : ℕ) : ℕ :=
   306 * (Nat.log 2 (g.core 0)).succ + sharpGrowthExponent g q
 
+/-- Growth numerator supplied by the sharper upper separator
+`3^971 < 2^1539`. -/
+def tight971GrowthExponent (g : Ray) (q : ℕ) : ℕ :=
+  q * (1466 * phaseSum g + 7092 +
+    g.cycleGain * (2199 * q - 9967))
+
+/-- Determinant-one gap between the old `/306` budget and the sharper
+`/971` upper estimate. -/
+def tight971Gap (g : Ray) (q : ℕ) : ℕ :=
+  q * (6 * phaseSum g + 33 + 9 * g.cycleGain * (q - 1))
+
+/-- Exact cleared identity behind QM112. -/
+theorem tight971_gap_identity (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    971 * sharpGrowthExponent g q =
+      306 * tight971GrowthExponent g q + tight971Gap g q := by
+  let r := q - 5
+  let B := phaseSum g
+  have hqrep : q = r + 5 := by dsimp only [r]; omega
+  simp only [sharpGrowthExponent, tight971GrowthExponent, tight971Gap]
+  rw [hqrep]
+  rw [show 693 * (r + 5) - 3141 = 693 * r + 324 by omega,
+    show 2199 * (r + 5) - 9967 = 2199 * r + 1028 by omega,
+    show r + 5 - 1 = r + 4 by omega]
+  ring
+
+/-- QM111: the sharper 971st-power estimate at a period-three cycle
+boundary. -/
+theorem sharp_quadratic_core_growth_upper_971
+    (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    g.core (3 * q) ^ 971 <
+      2 ^ (971 * (Nat.log 2 (g.core 0)).succ +
+        tight971GrowthExponent g q) := by
+  let o := g.toTernaryCoreOrbit
+  let S := o.oneBasedLevelSum (3 * q)
+  let T := o.nextOneBasedLevelSum (3 * q)
+  let n₀ := o.oneBasedLevel 0
+  let nN := o.oneBasedLevel (3 * q)
+  let K := g.cycleGain
+  let B := phaseSum g
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  let U := 971 * L₀ + tight971GrowthExponent g q
+  have hS : S = q * B + 3 * K * q.choose 2 := by
+    simpa [o, S, B, K, phaseSum] using g.oneBasedLevelSum_three_mul q
+  have hn₀ : n₀ = g.branch 0 := by
+    simpa [o, n₀] using g.toTernaryCoreOrbit_oneBasedLevel 0
+  have hnN : nN = g.branch 0 + K * q := by
+    simpa [o, nN, K] using
+      (g.toTernaryCoreOrbit_oneBasedLevel (3 * q)).trans (g.branch_zero q)
+  have hshift : T + n₀ = S + nN := by
+    simpa [S, T, n₀, nN] using
+      o.nextSum_add_initial_eq_sum_add_terminal (3 * q)
+  have hT : T = q * B + 3 * K * q.choose 2 + K * q := by
+    rw [hS, hn₀, hnN] at hshift
+    omega
+  have hchoose := two_mul_choose_two q
+  have hchooseK : 4398 * K * q.choose 2 =
+      2199 * K * q * (q - 1) := by
+    calc
+      4398 * K * q.choose 2 = 2199 * K * (2 * q.choose 2) := by ring
+      _ = 2199 * K * (q * (q - 1)) := by rw [hchoose]
+      _ = 2199 * K * q * (q - 1) := by ring
+  have hKidentity :
+      7768 * K * q + q * K * (2199 * q - 9967) =
+        4398 * K * q.choose 2 := by
+    calc
+      7768 * K * q + q * K * (2199 * q - 9967) =
+          q * K * (7768 + (2199 * q - 9967)) := by ring
+      _ = q * K * (2199 * q - 2199) := by
+        rw [show 7768 + (2199 * q - 9967) = 2199 * q - 2199 by omega]
+      _ = 2199 * K * q * (q - 1) := by
+        rw [show 2199 * q - 2199 = 2199 * (q - 1) by omega]
+        ring
+      _ = 4398 * K * q.choose 2 := hchooseK.symm
+  have hexponents :
+      971 * L₀ + 9234 * S + 16929 * (3 * q) =
+        7768 * T + 14565 * (3 * q) + U := by
+    rw [hS, hT]
+    dsimp only [U, tight971GrowthExponent]
+    change
+      971 * L₀ + 9234 * (q * B + 3 * K * q.choose 2) +
+          16929 * (3 * q) =
+        7768 * (q * B + 3 * K * q.choose 2 + K * q) +
+          14565 * (3 * q) +
+            (971 * L₀ +
+              q * (1466 * B + 7092 + K * (2199 * q - 9967)))
+    calc
+      971 * L₀ + 9234 * (q * B + 3 * K * q.choose 2) +
+            16929 * (3 * q) =
+          971 * L₀ + 9234 * q * B + 27702 * K * q.choose 2 +
+            50787 * q := by ring
+      _ = 971 * L₀ + 9234 * q * B +
+            23304 * K * q.choose 2 + 4398 * K * q.choose 2 +
+            50787 * q := by ring
+      _ = 971 * L₀ + 9234 * q * B +
+            23304 * K * q.choose 2 +
+              (7768 * K * q + q * K * (2199 * q - 9967)) +
+            50787 * q := by rw [hKidentity]
+      _ = 7768 * (q * B + 3 * K * q.choose 2 + K * q) +
+            14565 * (3 * q) +
+              (971 * L₀ +
+                q * (1466 * B + 7092 + K * (2199 * q - 9967))) := by
+        ring
+  have hupper := o.core_power_upper_971 (3 * q) (by omega)
+  change
+    2 ^ (7768 * T + 14565 * (3 * q)) * g.core (3 * q) ^ 971 <
+      2 ^ (971 * L₀ + 9234 * S + 16929 * (3 * q)) at hupper
+  have hrhs :
+      2 ^ (971 * L₀ + 9234 * S + 16929 * (3 * q)) =
+        2 ^ (7768 * T + 14565 * (3 * q)) * 2 ^ U := by
+    rw [hexponents, pow_add]
+  rw [hrhs] at hupper
+  have hcancel : g.core (3 * q) ^ 971 < 2 ^ U := by
+    exact (Nat.mul_lt_mul_left
+      (by positivity : 0 < 2 ^ (7768 * T + 14565 * (3 * q)))).mp hupper
+  simpa [U, L₀] using hcancel
+
 /-- Exact cleared-denominator width after the adjacent convergents cancel.
 The quadratic coefficient is only `9*K`, because
 `665*693 - 306*1506 = 9`. -/
@@ -469,6 +585,10 @@ theorem sharp_binaryDigits_residual_window
 def sharpUpperBudget (g : Ray) (q : ℕ) : ℕ :=
   (sharpGrowthExponent g q + 305) / 306
 
+/-- Rounded binary growth budget from the sharper 971st-power estimate. -/
+def tight971Budget (g : Ray) (q : ℕ) : ℕ :=
+  (tight971GrowthExponent g q + 970) / 971
+
 /-- Elementary ceiling-division inequality, kept explicit so certificate
 consumers need no rational arithmetic. -/
 theorem le_mul_ceilDiv (A d : ℕ) (hd : 0 < d) :
@@ -476,6 +596,86 @@ theorem le_mul_ceilDiv (A d : ℕ) (hd : 0 < d) :
   have hdecomp := Nat.div_add_mod (A + (d - 1)) d
   have hmod := Nat.mod_lt (A + (d - 1)) hd
   omega
+
+/-- QM116a: direct binary-digit form of the sharper 971st-power estimate. -/
+theorem core_binaryDigits_le_initial_add_tight971Budget
+    (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    (Nat.log 2 (g.core (3 * q))).succ ≤
+      (Nat.log 2 (g.core 0)).succ + tight971Budget g q := by
+  let L := (Nat.log 2 (g.core (3 * q))).succ
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  let C := tight971GrowthExponent g q
+  let V := tight971Budget g q
+  have hpower := g.sharp_quadratic_core_growth_upper_971 q hq
+  have hlog :=
+    EtherCounterAperiodic.TernaryCoreOrbit.power_mul_binaryLog_lt_exponent_of_pow_lt_two_pow
+      971 (971 * L₀ + C) (g.core (3 * q))
+        (g.core_pos (3 * q)).ne' (by simpa [L₀, C] using hpower)
+  have hceil : C ≤ 971 * V := by
+    simpa [C, V, tight971Budget] using
+      le_mul_ceilDiv C 971 (by norm_num)
+  change L ≤ L₀ + V
+  change 971 * (L - 1) < 971 * L₀ + C at hlog
+  omega
+
+/-- QM112a--b: once the determinant-one gap pays for the fixed initial
+bit-length allowance, the genuine cycle-boundary core lies below the old
+coarse binary budget itself. -/
+theorem core_lt_two_pow_upperBudget_of_tight971Gap
+    (g : Ray) (q : ℕ) (hq : 5 ≤ q)
+    (hthreshold :
+      297126 * ((Nat.log 2 (g.core 0)).succ + 1) ≤ tight971Gap g q) :
+    g.core (3 * q) < 2 ^ sharpUpperBudget g q := by
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  let A := sharpGrowthExponent g q
+  let C := tight971GrowthExponent g q
+  let D := tight971Gap g q
+  let U := sharpUpperBudget g q
+  have hidentity : 971 * A = 306 * C + D := by
+    simpa [A, C, D] using g.tight971_gap_identity q hq
+  have hceil : A ≤ 306 * U := by
+    simpa [A, U, sharpUpperBudget] using
+      le_mul_ceilDiv A 306 (by norm_num)
+  have hthreshold' : 297126 * (L₀ + 1) ≤ D := by
+    simpa [L₀, D] using hthreshold
+  have hleft : 306 * C + 297126 * (L₀ + 1) ≤ 971 * A := by
+    rw [hidentity]
+    exact Nat.add_le_add_left hthreshold' (306 * C)
+  have hright : 971 * A ≤ 971 * (306 * U) :=
+    Nat.mul_le_mul_left 971 hceil
+  have hexponent : 971 * L₀ + C < 971 * U := by
+    omega
+  have htight := g.sharp_quadratic_core_growth_upper_971 q hq
+  change g.core (3 * q) ^ 971 < 2 ^ (971 * L₀ + C) at htight
+  have hpowStrict : g.core (3 * q) ^ 971 < 2 ^ (971 * U) :=
+    htight.trans (Nat.pow_lt_pow_right (by norm_num) hexponent)
+  by_contra hnot
+  push Not at hnot
+  have hraised := Nat.pow_le_pow_left hnot 971
+  have hreverse : 2 ^ (971 * U) ≤ g.core (3 * q) ^ 971 := by
+    rw [show 971 * U = U * 971 by omega, pow_mul]
+    exact hraised
+  exact (not_lt_of_ge hreverse) hpowStrict
+
+/-- The determinant-one gap is eventually large enough for QM112a, hence
+the genuine core eventually lies below the old coarse budget.  The explicit
+witness uses only a linear lower bound on the positive quadratic gap. -/
+theorem eventually_core_lt_two_pow_upperBudget (g : Ray) :
+    ∃ Q, ∀ q, Q ≤ q →
+      g.core (3 * q) < 2 ^ sharpUpperBudget g q := by
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  let H := 297126 * (L₀ + 1)
+  let Q := max 5 H
+  refine ⟨Q, ?_⟩
+  intro q hq
+  have hq5 : 5 ≤ q := (le_max_left 5 H).trans hq
+  have hHq : H ≤ q := (le_max_right 5 H).trans hq
+  apply g.core_lt_two_pow_upperBudget_of_tight971Gap q hq5
+  change H ≤ tight971Gap g q
+  have hfactor : 0 <
+      6 * phaseSum g + 33 + 9 * g.cycleGain * (q - 1) := by omega
+  exact hHq.trans (by
+    simpa [tight971Gap] using Nat.le_mul_of_pos_right q hfactor)
 
 /-- QM100: the core at cycle `q` has at most the initial bit length plus the
 rounded sharp-growth budget. -/
@@ -680,6 +880,93 @@ theorem replayFailure_padding_lt_initialDigits
     Nat.pow_le_pow_right (by norm_num) hexponents
   exact (Nat.not_lt_of_ge hlower) (hcoreSmall.trans_le hpower)
 
+/-- QM116b: the sharper 971-budget turns a failed exact future replay at
+precision `P` into the improved lower bound `P-V<L₀`. -/
+theorem replayFailure_tight971Margin_lt_initialDigits
+    (g : Ray) (q R length : ℕ) (hq : 5 ≤ q)
+    (hbudget : tight971Budget g q ≤ normalizedPrecision g q R)
+    (hprecision : normalizedPrecision g q R ≤
+      EtherCounterResidueBound.binaryMass (shiftedBranch g q) 0 length)
+    (hfail : ∀ pref : EtherCounterResidueBound.NaturalPrefix
+      (shiftedBranch g q) length,
+      pref.core 0 ≠
+        (EtherCounterResidueBound.initialResidue (shiftedBranch g q)
+          (normalizedPrecision g q R) length).val) :
+    normalizedPrecision g q R - tight971Budget g q <
+      (Nat.log 2 (g.core 0)).succ := by
+  let P := normalizedPrecision g q R
+  let V := tight971Budget g q
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  let pref := shiftedNaturalPrefix g q length
+  have hlower : 2 ^ P ≤ g.core (3 * q) := by
+    simpa [P, pref, shiftedNaturalPrefix] using
+      EtherCounterResidueBound.initial_core_ge_modulus_of_least_residue_fails
+        (branch := shiftedBranch g q) (length := length) (P := P)
+        (by simpa [P] using hprecision)
+        (by simpa [P] using hfail) pref
+  have hcoreDigits := g.core_binaryDigits_le_initial_add_tight971Budget q hq
+  have hcoreSmall : g.core (3 * q) < 2 ^ (L₀ + V) := by
+    have hself : g.core (3 * q) <
+        2 ^ (Nat.log 2 (g.core (3 * q))).succ :=
+      Nat.lt_pow_succ_log_self Nat.one_lt_two _
+    exact hself.trans_le (Nat.pow_le_pow_right (by norm_num)
+      (by simpa [L₀, V] using hcoreDigits))
+  by_contra hnot
+  push Not at hnot
+  have hVP : V ≤ P := by simpa [V, P] using hbudget
+  have hexponents : L₀ + V ≤ P := by omega
+  have hpower : 2 ^ (L₀ + V) ≤ 2 ^ P :=
+    Nat.pow_le_pow_right (by norm_num) hexponents
+  exact (Nat.not_lt_of_ge hlower) (hcoreSmall.trans_le hpower)
+
+/-- Replay-free QM116b.  It is enough for the raw forced future residue to
+miss the immediately preceding EC17 congruence modulo the corresponding
+power of three.  The congruence is stated with its invertible power of two
+left in place, so no modular-inverse convention enters the Lean interface. -/
+theorem predecessorCongruenceFailure_tight971Margin_lt_initialDigits
+    (g : Ray) (q R length : ℕ) (hq : 5 ≤ q)
+    (hbudget : tight971Budget g q ≤ normalizedPrecision g q R)
+    (hprecision : normalizedPrecision g q R ≤
+      EtherCounterResidueBound.binaryMass (shiftedBranch g q) 0 length)
+    (hfail : ¬
+      2 ^ (8 * g.branch (3 * q) + 15) *
+          (shiftedInitialResidue g q R length).val ≡ 17
+        [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)]) :
+    normalizedPrecision g q R - tight971Budget g q <
+      (Nat.log 2 (g.core 0)).succ := by
+  let P := normalizedPrecision g q R
+  let V := tight971Budget g q
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  let pref := shiftedNaturalPrefix g q length
+  have hcoreDigits := g.core_binaryDigits_le_initial_add_tight971Budget q hq
+  by_contra hnot
+  push Not at hnot
+  have hVP : V ≤ P := by simpa [V, P] using hbudget
+  have hexponents : L₀ + V ≤ P := by omega
+  have hcoreSmall : g.core (3 * q) < 2 ^ P := by
+    have hself : g.core (3 * q) <
+        2 ^ (Nat.log 2 (g.core (3 * q))).succ :=
+      Nat.lt_pow_succ_log_self Nat.one_lt_two _
+    have hbitsBudget :
+        (Nat.log 2 (g.core (3 * q))).succ ≤ L₀ + V := by
+      simpa [L₀, V] using hcoreDigits
+    have hbitsP : (Nat.log 2 (g.core (3 * q))).succ ≤ P :=
+      hbitsBudget.trans hexponents
+    exact hself.trans_le (Nat.pow_le_pow_right (by norm_num) hbitsP)
+  have heq0 := EtherCounterResidueBound.initialResidue_val_eq_initial_core
+    pref P (by simpa [P, pref, shiftedNaturalPrefix] using hprecision)
+      (by simpa [pref, shiftedNaturalPrefix] using hcoreSmall)
+  have heq : (shiftedInitialResidue g q R length).val = g.core (3 * q) := by
+    simpa [shiftedInitialResidue, P, pref, shiftedNaturalPrefix,
+      normalizedPrecision] using heq0
+  have hindex : 3 * q - 1 + 1 = 3 * q := by omega
+  have hcoreMod := EtherCounterResidueBound.ec17_successor_mul_modEq
+    (g.branch (3 * q - 1)) (g.branch (3 * q))
+      (g.core (3 * q - 1)) (g.core (3 * q))
+      (by simpa [hindex] using g.balance (3 * q - 1))
+  apply hfail
+  simpa [heq] using hcoreMod
+
 /-- Cofinal exact replay failures exclude a period-three ray.  This theorem
 asserts no computational failure and no unboundedness result: it only turns a
 supplied unbounded family of formally stated finite failures into `False`. -/
@@ -700,6 +987,53 @@ theorem false_of_unbounded_replayFailures
   obtain ⟨j, hj⟩ := hunbounded (Nat.log 2 (g.core 0)).succ
   have hbound := g.replayFailure_padding_lt_initialDigits
     (q j) (R j) (length j) (hq j) (hprecision j) (hfail j)
+  omega
+
+/-- Cofinal QM116 replay consumer: unbounded tightened margins `P-V` among
+exact failed rows exclude the ray. -/
+theorem false_of_unbounded_tight971ReplayFailureMargins
+    (g : Ray) (q R length : ℕ → ℕ)
+    (hq : ∀ j, 5 ≤ q j)
+    (hbudget : ∀ j, tight971Budget g (q j) ≤
+      normalizedPrecision g (q j) (R j))
+    (hprecision : ∀ j, normalizedPrecision g (q j) (R j) ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g (q j)) 0 (length j))
+    (hfail : ∀ j
+      (pref : EtherCounterResidueBound.NaturalPrefix
+        (shiftedBranch g (q j)) (length j)),
+      pref.core 0 ≠
+        (EtherCounterResidueBound.initialResidue (shiftedBranch g (q j))
+          (normalizedPrecision g (q j) (R j)) (length j)).val)
+    (hunbounded : ∀ M, ∃ j, M <
+      normalizedPrecision g (q j) (R j) - tight971Budget g (q j)) :
+    False := by
+  obtain ⟨j, hj⟩ := hunbounded (Nat.log 2 (g.core 0)).succ
+  have hbound := g.replayFailure_tight971Margin_lt_initialDigits
+    (q j) (R j) (length j) (hq j) (hbudget j) (hprecision j) (hfail j)
+  omega
+
+/-- Cofinal replay-free QM116 consumer using only failure of the immediate
+predecessor congruence for the raw future residue. -/
+theorem false_of_unbounded_tight971PredecessorFailureMargins
+    (g : Ray) (q R length : ℕ → ℕ)
+    (hq : ∀ j, 5 ≤ q j)
+    (hbudget : ∀ j, tight971Budget g (q j) ≤
+      normalizedPrecision g (q j) (R j))
+    (hprecision : ∀ j, normalizedPrecision g (q j) (R j) ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g (q j)) 0 (length j))
+    (hfail : ∀ j, ¬
+      2 ^ (8 * g.branch (3 * q j) + 15) *
+          (shiftedInitialResidue g (q j) (R j) (length j)).val ≡ 17
+        [MOD 3 ^ (6 * g.branch (3 * q j - 1) + 11)])
+    (hunbounded : ∀ M, ∃ j, M <
+      normalizedPrecision g (q j) (R j) - tight971Budget g (q j)) :
+    False := by
+  obtain ⟨j, hj⟩ := hunbounded (Nat.log 2 (g.core 0)).succ
+  have hbound :=
+    g.predecessorCongruenceFailure_tight971Margin_lt_initialDigits
+      (q j) (R j) (length j) (hq j) (hbudget j) (hprecision j) (hfail j)
   omega
 
 /-! ## Normalized predecessor/future CRT failures -/
@@ -1091,6 +1425,65 @@ theorem cycleIndex_le_predecessorBranch
     Nat.le_mul_of_pos_left _ g.cycleGain_pos
   have hbase := g.branch_pos 2
   omega
+
+/-- QM112c: for every correctly formed canonical CRT row family, a
+hypothetical period-three ray forces the normalized lift to be eventually
+exactly zero.  The remaining obstruction is therefore the single arithmetic
+claim that lift zero cannot recur forever. -/
+theorem normalizedCRT_eventually_zeroLift
+    (g : Ray) (candidate : ℕ → ℕ)
+    (hbinary : ∀ q, g.core (3 * q) ≡ candidate q
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : ∀ q, g.core (3 * q) ≡ candidate q
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : ∀ q, candidate q <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11)) :
+    ∃ Q, ∀ q, Q ≤ q → normalizedCRTLift g q (candidate q) = 0 := by
+  obtain ⟨Qcore, hcore⟩ := g.eventually_core_lt_two_pow_upperBudget
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  let Q := max 5 (max Qcore L₀)
+  refine ⟨Q, ?_⟩
+  intro q hq
+  have hq5 : 5 ≤ q := (le_max_left 5 (max Qcore L₀)).trans hq
+  have hQcore : Qcore ≤ q :=
+    (le_max_left Qcore L₀).trans
+      ((le_max_right 5 (max Qcore L₀)).trans hq)
+  have hL₀q : L₀ ≤ q :=
+    (le_max_right Qcore L₀).trans
+      ((le_max_right 5 (max Qcore L₀)).trans hq)
+  have hbranch : q ≤ g.branch (3 * q - 1) :=
+    g.cycleIndex_le_predecessorBranch q (by omega)
+  have hthreshold : (Nat.log 2 (g.core 0)).succ ≤
+      6 * g.branch (3 * q - 1) + 11 := by
+    change L₀ ≤ 6 * g.branch (3 * q - 1) + 11
+    omega
+  have heq :=
+    g.normalizedCRT_candidate_eq_core_of_initialDigits_le_predecessorExponent
+      q (candidate q) hq5 (hbinary q) (hternary q) (hcandidate q) hthreshold
+  change candidate q / 2 ^ sharpUpperBudget g q = 0
+  rw [← heq]
+  exact Nat.div_eq_of_lt (hcore q hQcore)
+
+/-- Direct falsifier paired with QM112c: it is enough to produce nonzero
+normalized lifts at arbitrarily late cycles.  Eventual nonzeroness is not
+required. -/
+theorem false_of_cofinally_nonzero_normalizedCRTLift
+    (g : Ray) (candidate : ℕ → ℕ)
+    (hbinary : ∀ q, g.core (3 * q) ≡ candidate q
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : ∀ q, g.core (3 * q) ≡ candidate q
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : ∀ q, candidate q <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11))
+    (hnonzero : ∀ Q, ∃ q, Q ≤ q ∧
+      normalizedCRTLift g q (candidate q) ≠ 0) :
+    False := by
+  obtain ⟨Q, hzero⟩ :=
+    g.normalizedCRT_eventually_zeroLift candidate hbinary hternary hcandidate
+  obtain ⟨q, hQq, hne⟩ := hnonzero Q
+  exact hne (hzero q hQq)
 
 /-- Search interpretation: after the cycle index itself reaches the fixed
 initial bit length, every correctly formed canonical CRT row must replay.
