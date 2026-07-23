@@ -101,6 +101,8 @@ import KontoroC.YahRestorativeLoopNoGo
 import KontoroC.YahRestorativeDecoderArithmetic
 import KontoroC.YahReturnedBurstAddressNoGo
 import KontoroC.PeriodicAffineChartNoGo
+import KontoroC.YahTwoRestorativeCycleNoGo
+import KontoroC.YahSecondRestorativeArithmetic
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail

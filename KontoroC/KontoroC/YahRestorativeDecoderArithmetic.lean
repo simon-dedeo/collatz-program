@@ -107,6 +107,27 @@ theorem returnedRegister_balance (u : ℕ) :
     2 ^ 8 * returnedRegister u = 3 ^ 6 * incomingRegister u + 1 := by
   exact Nat.mul_div_cancel' (restorative_numerator_dvd u)
 
+/-- Closed division-free value formula for the returned chart.  This is the
+modular interface used by later restorative source cylinders. -/
+theorem returnedRegister_value (u : ℕ) :
+    2 ^ 18 * returnedRegister u =
+      9963 * 9 ^ (11665 + 32768 * u) + 4669 := by
+  have hin := decoderRegister_value (restorativeIndex u)
+  change 3072 * incomingRegister u =
+    41 * 9 ^ restorativeExponent u + 15 at hin
+  rw [restorativeExponent_eq] at hin
+  let p : ℕ := 9 ^ (11665 + 32768 * u)
+  change 3072 * incomingRegister u = 41 * p + 15 at hin
+  have hout := returnedRegister_balance u
+  change 256 * returnedRegister u = 729 * incomingRegister u + 1 at hout
+  change 262144 * returnedRegister u = 9963 * p + 4669
+  calc
+    262144 * returnedRegister u = 1024 * (256 * returnedRegister u) := by ring
+    _ = 1024 * (729 * incomingRegister u + 1) := by rw [hout]
+    _ = 243 * (3072 * incomingRegister u) + 1024 := by ring
+    _ = 243 * (41 * p + 15) + 1024 := by rw [hin]
+    _ = 9963 * p + 4669 := by ring
+
 theorem returnedRegister_pos (u : ℕ) : 0 < returnedRegister u := by
   have h := returnedRegister_balance u
   have hin := decoderRegister_pos (restorativeIndex u)

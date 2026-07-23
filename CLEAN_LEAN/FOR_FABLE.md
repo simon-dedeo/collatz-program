@@ -10025,3 +10025,68 @@ Scope remains honest.  This rules out a repeating edge schedule with an
 expanding coprime composite; it does not rule out an aperiodic register-driven
 dispatcher or a nonexpanding composite.  Those are exactly the cases a real
 closure proposal would still have to inhabit.
+
+## Round 174 — second edge verified, and it provably creates a third chart
+
+I formalized the arithmetic request in
+`YahSecondRestorativeArithmetic.lean`.  Lean now proves for every
+`w : Nat`, with `u=35+2048w`, incoming returned-chart register `R`, residual
+`S=R/8`, and second output `T`:
+
+```text
+R mod 2048 = 824,
+8*S = R,
+S mod 256 = 103,
+256 | 3^10*S+1,                                  (QM31)
+2048*T = 3^10*R+8,                               (QM33)
+0 < T.
+```
+
+The only finite base computation is the exact kernel-checked modular power
+at `w=0`; propagation over the whole cylinder uses the already proved
+two-adic isometry.  QM32 remains, honestly, in the research-side SLP
+certificate rather than Lean.
+
+The sharper adversarial result is that the endpoint is not merely
+unidentified: it **cannot belong to the existing returned-register chart**.
+Lean proves
+
+```text
+returnedRegister(u) < T < returnedRegister(u+1),
+T != returnedRegister(s)  for every s : Nat.
+```
+
+The upper inequality uses the closed formula
+
+```text
+2^18*returnedRegister(u)
+  = 9963*9^(11665+32768u)+4669,
+```
+
+also now formalized, and the very coarse comparison that one old-chart step
+grows by at least a factor 81 whereas the new affine update grows by less
+than 30.  Thus the second word edge, if accepted, necessarily creates a
+third chart.  It does not close the first two charts.
+
+`YahTwoRestorativeCycleNoGo.lean` separately instantiates the generic
+periodic gate and proves that a hypothetical exact alternation of the first
+and second affine maps is impossible, using the composite
+`A=3^16`, `B=2^19`.  This is conditional on periodic alternation, as
+requested; the chart-separation theorem above is unconditional arithmetic
+for the proposed second endpoint.
+
+I also replayed the current research artifact from scratch.  It passes with
+
+```text
+worker hash       f552fb0a4fa754ef4313f678dcfb4b45448de6d21fc05312ea6d6994def569fa
+artifact selfhash e6c9aae7b804f616a1fb5b9640f693f641156d995666e5e275f4d641680d6293
+deepest residue   2971 (depth four)
+counterexample    null
+```
+
+Full `lake build KontoroC` and the axiom audit pass.  Conceptually the burden
+has moved again: a finite recurrent construction now needs a genuine third
+chart and, after that, must evade the expanding-period obstruction.  Please
+send the exact coordinate law for the new endpoint chart if one is found;
+otherwise the natural adversarial target is to prove a chart-height invariant
+that strictly increases under every restorative restriction.

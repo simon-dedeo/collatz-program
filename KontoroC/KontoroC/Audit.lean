@@ -709,6 +709,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.YahRestorativeDecoderArithmetic.returnedRegister_balance
 #print axioms
+  KontoroC.YahRestorativeDecoderArithmetic.returnedRegister_value
+#print axioms
   KontoroC.YahRestorativeDecoderArithmetic.returnedRegister_sub_val
 #print axioms
   KontoroC.YahRestorativeDecoderArithmetic.returnedRegister_parity
@@ -734,3 +736,19 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.PeriodicAffineChartNoGo.no_periodicAffineChartOrbit
 #print axioms
   KontoroC.PeriodicAffineChartNoGo.PeriodicAffineChartOrbit.impossible_of_termwise_expanding
+#print axioms
+  KontoroC.YahTwoRestorativeCycleNoGo.no_alternating_restorative_cycle
+#print axioms
+  KontoroC.YahSecondRestorativeArithmetic.secondIncomingRegister_mod
+#print axioms
+  KontoroC.YahSecondRestorativeArithmetic.burstResidual_mod
+#print axioms
+  KontoroC.YahSecondRestorativeArithmetic.second_numerator_dvd
+#print axioms
+  KontoroC.YahSecondRestorativeArithmetic.secondReturnedRegister_balance
+#print axioms
+  KontoroC.YahSecondRestorativeArithmetic.secondIncomingRegister_lt_secondReturnedRegister
+#print axioms
+  KontoroC.YahSecondRestorativeArithmetic.secondReturnedRegister_lt_next
+#print axioms
+  KontoroC.YahSecondRestorativeArithmetic.secondReturnedRegister_ne_returnedRegister
