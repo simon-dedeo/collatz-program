@@ -35,6 +35,7 @@ from breakoff_ether_period3_crt_sieve import (
 )
 from breakoff_ether_period3_normalized_margin import (
     MINIMUM_CYCLE,
+    exact_replay_failure_certificate,
     phase_sum,
     sharp_upper_budget_bits,
     sharp_upper_exponent,
@@ -43,12 +44,11 @@ from breakoff_ether_period3_normalized_margin import (
 from breakoff_ether_period3_sieve import (
     PERIOD,
     backward_residue,
-    literal_failure,
     stays_positive,
 )
 
 
-SCHEMA = "collatz-breakoff-ether-period3-normalized-crt-v1"
+SCHEMA = "collatz-breakoff-ether-period3-normalized-crt-v2"
 
 
 @dataclass(frozen=True)
@@ -75,6 +75,11 @@ class CrtRow:
     failure_target_branch: int | None
     failure_numerator_v2: int | None
     failure_required_v2: int | None
+    failure_kind: str | None
+    certified_exact_balance_steps: int | None
+    certified_prefix_length: int | None
+    replay_core_sha256: str | None
+    extended_residue_matches: bool | None
     proposed_lower_bound_initial_bits: int | None
 
 
@@ -139,18 +144,36 @@ def audit_row(start_branch: int, word: Sequence[int], cycle: int) -> CrtRow:
         raise AssertionError("CRT candidate lost its future residue")
     if candidate % three_modulus != three_residue:
         raise AssertionError("CRT candidate lost its predecessor residue")
-    failure = literal_failure(
+    failure = exact_replay_failure_certificate(
         candidate,
         successor,
         normalized_word,
+        precision,
+        transitions,
         transitions + PERIOD + 64,
     )
     if failure is None:
         failure_fields: tuple[int | None, ...] = (None,) * 5
+        failure_kind = None
+        exact_steps = None
+        prefix_length = None
+        replay_digest = None
+        extended_matches = None
         lower_bound = None
     else:
-        failure_fields = failure
-        # Requested QM106 gives E<L0, so the digit count is at least E+1.
+        failure_fields = (
+            failure["failure_step"],
+            failure["failure_source_branch"],
+            failure["failure_target_branch"],
+            failure["failure_numerator_v2"],
+            failure["failure_required_v2"],
+        )
+        failure_kind = str(failure["failure_kind"])
+        exact_steps = int(failure["certified_exact_balance_steps"])
+        prefix_length = int(failure["certified_prefix_length"])
+        replay_digest = str(failure["replay_core_sha256"])
+        extended_matches = bool(failure["extended_residue_matches"])
+        # QM106 gives E<L0, so the digit count is at least E+1.
         lower_bound = 6 * previous + 12
     return CrtRow(
         increment_word=normalized_word,
@@ -177,6 +200,11 @@ def audit_row(start_branch: int, word: Sequence[int], cycle: int) -> CrtRow:
         failure_target_branch=failure_fields[2],
         failure_numerator_v2=failure_fields[3],
         failure_required_v2=failure_fields[4],
+        failure_kind=failure_kind,
+        certified_exact_balance_steps=exact_steps,
+        certified_prefix_length=prefix_length,
+        replay_core_sha256=replay_digest,
+        extended_residue_matches=extended_matches,
         proposed_lower_bound_initial_bits=lower_bound,
     )
 

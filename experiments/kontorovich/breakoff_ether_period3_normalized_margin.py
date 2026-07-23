@@ -44,13 +44,13 @@ from breakoff_ether_period3_sieve import (
     PERIOD,
     backward_residue,
     direct_series_residue,
-    literal_failure,
     stays_positive,
     valid_period_three_word,
+    v2,
 )
 
 
-SCHEMA = "collatz-breakoff-ether-period3-normalized-margin-v2"
+SCHEMA = "collatz-breakoff-ether-period3-normalized-margin-v3"
 UPPER_POWER = 306
 UPPER_ROUNDING = UPPER_POWER - 1
 MINIMUM_CYCLE = 5
@@ -79,6 +79,11 @@ class MarginRow:
     failure_numerator_v2: int | None
     failure_required_v2: int | None
     failure_offset_from_last_precision_transition: int | None
+    failure_kind: str | None
+    certified_exact_balance_steps: int | None
+    certified_prefix_length: int | None
+    replay_core_sha256: str | None
+    extended_residue_matches: bool | None
     proposed_replay_lower_bound_initial_bits: int | None
 
 
@@ -148,6 +153,104 @@ def sharp_upper_budget_bits(
     return (exponent + UPPER_ROUNDING) // UPPER_POWER
 
 
+def backward_residue_for_length(
+    start_branch: int,
+    word: Sequence[int],
+    precision_bits: int,
+    length: int,
+) -> int:
+    """Evaluate the zero-terminal backward recurrence for an exact length."""
+
+    if min(precision_bits, length) < 1 or not stays_positive(start_branch, word):
+        raise ValueError("invalid extended backward residue request")
+    modulus = 1 << precision_bits
+    levels = [start_branch]
+    for transition in range(length):
+        following = levels[-1] + int(word[transition % PERIOD])
+        if following < 1:
+            raise AssertionError("extended schedule became nonpositive")
+        levels.append(following)
+    residue = 0
+    for transition in range(length - 1, -1, -1):
+        source = levels[transition]
+        target = levels[transition + 1]
+        residue = (
+            ((residue << (8 * target + 15)) - 17)
+            * pow(3, -(6 * source + 11), modulus)
+        ) % modulus
+    return residue
+
+
+def replay_core_digest(cores: Sequence[int]) -> str:
+    digest = hashlib.sha256()
+    for core in cores:
+        digest.update(f"{core.bit_length()}:{core:x}\n".encode())
+    return digest.hexdigest()
+
+
+def exact_replay_failure_certificate(
+    candidate: int,
+    start_branch: int,
+    word: Sequence[int],
+    precision_bits: int,
+    minimum_prefix_length: int,
+    max_steps: int,
+) -> dict[str, Any] | None:
+    """Reconstruct the exact Lean replay-certificate seam.
+
+    Under-divisibility certifies failure at the reported transition.  Strict
+    over-divisibility supplies an even quotient and requires one additional
+    hypothetical transition in the ruled-out natural prefix.
+    """
+
+    core = candidate
+    source = start_branch
+    cores = [candidate]
+    for step in range(max_steps):
+        target = source + int(word[step % PERIOD])
+        if target < 1:
+            raise AssertionError("certified schedule became nonpositive")
+        numerator = 3 ** (6 * source + 11) * core + 17
+        actual = v2(numerator)
+        required = 8 * target + 15
+        if actual < required:
+            prefix_length = max(minimum_prefix_length, step + 1)
+            exact_steps = step
+            kind = "nondivisible"
+        else:
+            quotient = numerator >> required
+            if actual > required:
+                if quotient % 2 != 0:
+                    raise AssertionError("over-divisible quotient is not even")
+                cores.append(quotient)
+                prefix_length = max(minimum_prefix_length, step + 2)
+                exact_steps = step + 1
+                kind = "even_quotient"
+            else:
+                core = quotient
+                cores.append(core)
+                source = target
+                continue
+        extended = backward_residue_for_length(
+            start_branch, word, precision_bits, prefix_length
+        )
+        if extended != candidate % (1 << precision_bits):
+            raise AssertionError("extended zero-terminal residue changed")
+        return {
+            "failure_step": step,
+            "failure_source_branch": source,
+            "failure_target_branch": target,
+            "failure_numerator_v2": actual,
+            "failure_required_v2": required,
+            "failure_kind": kind,
+            "certified_exact_balance_steps": exact_steps,
+            "certified_prefix_length": prefix_length,
+            "replay_core_sha256": replay_core_digest(cores),
+            "extended_residue_matches": True,
+        }
+    return None
+
+
 def audit_row(
     start_branch: int,
     word: Sequence[int],
@@ -176,20 +279,38 @@ def audit_row(
         raise AssertionError("normalized-margin identity failed")
     if not 306 * (budget - 1) < upper_exponent <= 306 * budget:
         raise AssertionError("ceiling conversion failed")
-    failure = literal_failure(
+    failure = exact_replay_failure_certificate(
         residue,
         shifted_branch,
         normalized_word,
+        precision,
+        transitions,
         transitions + PERIOD + 64,
     )
     if failure is None:
         failure_fields: tuple[int | None, ...] = (None,) * 5
         failure_offset = None
+        failure_kind = None
+        exact_steps = None
+        prefix_length = None
+        replay_digest = None
+        extended_matches = None
         replay_lower_bound = None
     else:
-        failure_fields = failure
-        failure_offset = int(failure[0]) - (transitions - 1)
-        # Requested QM104 turns this exact failure into L0 > padding_bits.
+        failure_fields = (
+            failure["failure_step"],
+            failure["failure_source_branch"],
+            failure["failure_target_branch"],
+            failure["failure_numerator_v2"],
+            failure["failure_required_v2"],
+        )
+        failure_offset = int(failure["failure_step"]) - (transitions - 1)
+        failure_kind = str(failure["failure_kind"])
+        exact_steps = int(failure["certified_exact_balance_steps"])
+        prefix_length = int(failure["certified_prefix_length"])
+        replay_digest = str(failure["replay_core_sha256"])
+        extended_matches = bool(failure["extended_residue_matches"])
+        # QM104 turns this exact failure into L0 > padding_bits.
         replay_lower_bound = padding_bits + 1
     return MarginRow(
         increment_word=normalized_word,
@@ -213,6 +334,11 @@ def audit_row(
         failure_numerator_v2=failure_fields[3],
         failure_required_v2=failure_fields[4],
         failure_offset_from_last_precision_transition=failure_offset,
+        failure_kind=failure_kind,
+        certified_exact_balance_steps=exact_steps,
+        certified_prefix_length=prefix_length,
+        replay_core_sha256=replay_digest,
+        extended_residue_matches=extended_matches,
         proposed_replay_lower_bound_initial_bits=replay_lower_bound,
     )
 
