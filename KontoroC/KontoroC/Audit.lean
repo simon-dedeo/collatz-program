@@ -1503,6 +1503,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.PublicTheta.orbitPadicTerminal_tendsto_zero
 #print axioms KontoroC.SelfWritingKL.PublicTheta.orbit_padic_finite_lattice
 #print axioms KontoroC.SelfWritingKL.PublicTheta.orbit_padicSum_eq_lattice
+#print axioms KontoroC.SelfWritingKL.PublicTheta.orbit_padicSum_eq_unit_lattice
 #print axioms
   KontoroC.SelfWritingKL.PublicTheta.no_orbit_with_targetBranch_of_avoidsOrdinaryLattice
 #print axioms

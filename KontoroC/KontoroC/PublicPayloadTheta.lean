@@ -204,6 +204,19 @@ theorem orbit_padicSum_eq_lattice (o : Orbit) :
     simpa using tendsto_const_nhds.add (orbitPadicTerminal_tendsto_zero o)
   exact tendsto_nhds_unique hpartial hlattice
 
+/-- QM150d-unit: on the invariant payload slice the lattice value is an
+embedded integer, with the collision factor `17` cancelled exactly. -/
+theorem orbit_padicSum_eq_unit_lattice (o : Orbit) (r : ℕ)
+    (hpayload : o.payload 0 = 17 * r) :
+    padicSum (fun t => o.branch (t + 1)) =
+      (-((2 : ℤ) ^ 20 * Wbar r) : ℚ_[2]) := by
+  rw [orbit_padicSum_eq_lattice, orbitPadicLattice, hpayload,
+    W_seventeen_mul]
+  norm_num only [Rat.cast_neg, Rat.cast_div, Rat.cast_mul,
+    Rat.cast_pow, Rat.cast_natCast, Rat.cast_ofNat]
+  push_cast
+  field_simp
+
 /-- Exact adversarial endpoint for a proposed target-branch schedule. -/
 def AvoidsOrdinaryLattice (m : ℕ → ℕ) : Prop :=
   ∀ q : ℕ,

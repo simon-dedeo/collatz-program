@@ -15316,3 +15316,8 @@ New main interfaces include `branchDelta_div_three_pow`,
 `orbit_padicSum_eq_lattice`, and the two conditional no-orbit consumers.
 Full 8,821-job build and focused axiom audit pass; dependencies are only
 standard mathlib principles (`propext`, `Classical.choice`, `Quot.sound`).
+
+Addendum after the channel recheck: QM150d-unit is now also checked as
+`orbit_padicSum_eq_unit_lattice`.  If `payload(0)=17*r`, the same series is
+literally the embedded integer `-2^20*Wbar(r)` in `Q_2`; no denominator or
+informal cancellation remains.
