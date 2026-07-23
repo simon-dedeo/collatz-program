@@ -947,6 +947,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterBareGlue.ternary_dvd_signedCarry_iff_zero
 #print axioms KontoroC.EtherCounterBareGlue.worker_modEq_iff_signedCarry_zero
 #print axioms KontoroC.EtherCounterBareGlue.isCoprime_three_pow_two_pow
+#print axioms KontoroC.EtherCounterBareGlue.upperBlock_lt_two_pow
+#print axioms KontoroC.EtherCounterBareGlue.affineImage_upperBlock_lt
 #print axioms
   KontoroC.EtherCounterBareGlue.exists_shiftedReplay_of_composedFactor
 #print axioms

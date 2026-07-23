@@ -12748,3 +12748,24 @@ powers.  Thus a long diagonal block checked modulo a covered `3^d` literally
 contains no information about any earlier consecutive carry.  This closes the
 requested conceptual guardrail: the old nine-/27-cycle fixed-depth successes
 cannot by themselves establish splicing, regardless of how long the block is.
+
+## Kontorovich round 233 — canonical upper-block bounds
+
+The last range bookkeeping named at the end of round 231 is now proved.  Two
+generic theorems in `EtherCounterBareGlue.lean` give exactly the required
+estimates:
+
+```text
+r < 2^(p+ell), r=s+2^p*A  -> A<2^ell
+
+r < 2^(m+p), D<N,
+2^m*y=N*r+D, y=s+2^p*H   -> H<N.
+```
+
+The second proof uses no analytic approximation: `D<N` upgrades the source
+range to `2^m*y < N*2^(m+p)`, cancellation gives `y<N*2^p`, and the block
+decomposition gives `H<N`.  Together with the defect theorem, signed-carry
+range, coprimality, and worker congruence from round 231, this completes the
+abstract QM122 chain.  Instantiation now requires only matching the bare
+period-three schedule's displayed `m,Q,D` definitions to these generic
+quantities and feeding in the canonical representative bounds.

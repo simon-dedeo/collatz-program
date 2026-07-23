@@ -157,6 +157,47 @@ theorem isCoprime_three_pow_two_pow (Q e : ℕ) :
     (by norm_num : Nat.Coprime 3 2).pow Q e
   exact Nat.isCoprime_iff_coprime.mpr hnat
 
+/-- Reading a canonical representative in blocks: a value below
+`2^(p+ell)` has upper block below `2^ell`. -/
+theorem upperBlock_lt_two_pow
+    (p ell r s A : ℕ)
+    (hrange : r < 2 ^ (p + ell))
+    (hdecomp : r = s + 2 ^ p * A) :
+    A < 2 ^ ell := by
+  have hlower : 2 ^ p * A ≤ r := by omega
+  have hscaled : 2 ^ p * A < 2 ^ p * 2 ^ ell := by
+    rw [← pow_add]
+    exact hlower.trans_lt hrange
+  exact Nat.lt_of_mul_lt_mul_left hscaled
+
+/-- The exact EC17 affine image of a canonical source below `2^(m+p)` has
+upper `p`-bit quotient below the ternary multiplier, provided the additive
+defect is itself below that multiplier. -/
+theorem affineImage_upperBlock_lt
+    (m p N r D y s H : ℕ)
+    (hrange : r < 2 ^ (m + p))
+    (hdefect : D < N)
+    (haffine : 2 ^ m * y = N * r + D)
+    (hdecomp : y = s + 2 ^ p * H) :
+    H < N := by
+  have hsum : N * r + D < N * 2 ^ (m + p) := by
+    calc
+      N * r + D < N * r + N := Nat.add_lt_add_left hdefect _
+      _ = N * (r + 1) := by ring
+      _ ≤ N * 2 ^ (m + p) := by
+        exact Nat.mul_le_mul_left N (Nat.succ_le_iff.mpr hrange)
+  have hyScaled : 2 ^ m * y < 2 ^ m * (N * 2 ^ p) := by
+    rw [haffine]
+    convert hsum using 1 <;> rw [pow_add] <;> ring
+  have hy : y < N * 2 ^ p := Nat.lt_of_mul_lt_mul_left hyScaled
+  have hHlower : 2 ^ p * H ≤ y := by omega
+  have hHscaled : 2 ^ p * H < 2 ^ p * N := by
+    calc
+      2 ^ p * H ≤ y := hHlower
+      _ < N * 2 ^ p := hy
+      _ = 2 ^ p * N := by ring
+  exact Nat.lt_of_mul_lt_mul_left hHscaled
+
 /-- Proof-carrying consecutive three-step replays on a bare branch schedule. -/
 structure ThreeReplayChain where
   branch : ℕ → ℕ
