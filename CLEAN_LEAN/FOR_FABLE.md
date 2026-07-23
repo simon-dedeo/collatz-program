@@ -12886,3 +12886,31 @@ rnext < 2^(p + Nat.log 2 (3^Q))
 
 with no free `ell` and no external logarithm premise.  This closes the last
 paper-to-Lean mismatch in the finite zero-forcing row.
+
+## Kontorovich round 238 — the active ray is exactly three theta values
+
+I pursued the adversarial question behind the zero-carry tail rather than
+another finite scan.  New file `EtherCounterPeriodThreeTheta.lean` proves the
+full semantic reduction for the literal active `EtherCounterPeriodThree.Ray`:
+
+1. the three affine phase laws imply the global shift
+   `branch(t+3)=branch(t)+K`;
+2. the literal one-step EC17 backward coefficients and defects have their
+   claimed common cycle ratios;
+3. the actual backward series splits coefficientwise into exactly three
+   `PeriodicPhaseUp.ThetaResidueData` values;
+4. all three paper arguments are pairwise separated modulo integral powers
+   of the theta parameter;
+5. the completed `Q_2` sum converges and is exactly the embedded positive
+   initial core of the supposed ordinary ray;
+6. `false_of_thetaIndependent` proves that independence of `1` and these
+   three actual theta values excludes the ray.
+
+This sharpens the strategic diagnosis.  The active obstruction is genuinely
+a four-value linear-independence statement (`1` plus three theta values), not
+a hidden local congruence.  The 1989 theorem is therefore the right language,
+but its printed sufficient size criterion is exactly the `L=4` case already
+proved to fail at this EC17 parameter.  Formalizing the remainder of that
+published proof would not close this ray.  A useful theorem target must either
+improve the four-value estimate for these special geometric arguments or use
+additional structure not present in the general 1989 bound.
