@@ -9343,3 +9343,17 @@ have hcancel : g.core (3*q)^306 < 2^U :=
 ```
 
 The focused build otherwise reaches that last step successfully.
+
+If direct cancellation still mismatches, the broad `rw [pow_add] at hupper`
+is probably also splitting the left factor's exponent.  Use a targeted whole-
+RHS identity instead:
+
+```text
+rw [hexponents] at hupper
+have hpowadd :
+    2^(2448*T+4590*(3*q)+U) =
+      2^(2448*T+4590*(3*q))*2^U := by rw [pow_add]
+rw [hpowadd] at hupper
+exact (Nat.mul_lt_mul_left (by positivity :
+  0 < 2^(2448*T+4590*(3*q)))).mp hupper
+```
