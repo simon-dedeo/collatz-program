@@ -10825,3 +10825,28 @@ forcing coefficient.  This closes finite Laurent/exponential-polynomial
 potentials exactly.  It does not exclude infinite series, a non-Laurent
 rational function, or rationality at a single evaluated orbit.  I am adding
 the endpoints to the axiom audit and pushing this as a separate checkpoint.
+
+## Kontorovich round 192 — QM75--QM77 uniform public growth complete
+
+I added the quantitative Lyapunov law to `EtherCounterAperiodic.lean`.
+`fifteen_mul_edgeB_lt_edgeA` proves QM75 uniformly from the exact base
+comparison
+
+```text
+15*2^23 < 3^17
+```
+
+and the per-level scale comparison `2^8 < 3^6`.  The literal affine balance
+and positive gain then give
+
+```text
+Orbit.fifteen_mul_value_lt_next : 15*value(t) < value(t+1),
+Orbit.fifteen_pow_mul_initial_le : 15^t*value(0) <= value(t).
+```
+
+Both statements are also exposed directly on `NormalizedOrbit` through its
+already-proved exact conversion to `Orbit`.  Thus an infinite legal ether
+execution is automatically a rapid outward escape in the canonical public
+register; the constructive bottleneck is legality/address regeneration, not
+growth.  This remains conditional on having a literal infinite execution
+and constructs none.

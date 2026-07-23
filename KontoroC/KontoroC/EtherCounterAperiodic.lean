@@ -59,6 +59,25 @@ theorem edge_expanding (n : ℕ) : edgeB n < edgeA n := by
       simp [edgeA, ternaryExponent, pow_add, pow_mul]
       ring
 
+/-- QM75: the sharp uniform integer expansion needed for the public
+Lyapunov law. -/
+theorem fifteen_mul_edgeB_lt_edgeA (n : ℕ) :
+    15 * edgeB n < edgeA n := by
+  have hbase : 15 * 2 ^ 23 < 3 ^ 17 := by norm_num
+  have hscale : (2 ^ 8) ^ n ≤ (3 ^ 6) ^ n :=
+    Nat.pow_le_pow_left (by norm_num) n
+  have hscale_pos : 0 < (2 ^ 8) ^ n := by positivity
+  calc
+    15 * edgeB n = (15 * 2 ^ 23) * (2 ^ 8) ^ n := by
+      simp [edgeB, binaryExponent, pow_add, pow_mul]
+      ring
+    _ < 3 ^ 17 * (2 ^ 8) ^ n :=
+      (Nat.mul_lt_mul_right hscale_pos).2 hbase
+    _ ≤ 3 ^ 17 * (3 ^ 6) ^ n := Nat.mul_le_mul_left _ hscale
+    _ = edgeA n := by
+      simp [edgeA, ternaryExponent, pow_add, pow_mul]
+      ring
+
 /-- Abstract infinite execution of the exact autonomous ether recurrence.
 No Collatz semantics are hidden here: a concrete counterexample compiler must
 construct this public arithmetic object and then connect it to its macro
@@ -70,6 +89,35 @@ structure Orbit where
   balance : ∀ t,
     edgeB (level t) * value (t + 1) =
       edgeA (level t) * value t + edgeGain (level t)
+
+/-- QM76: every legal normalized ether step multiplies the public value by
+strictly more than fifteen. -/
+theorem Orbit.fifteen_mul_value_lt_next (o : Orbit) (t : ℕ) :
+    15 * o.value t < o.value (t + 1) := by
+  apply (Nat.mul_lt_mul_left (by simp [edgeB] : 0 < edgeB (o.level t))).mp
+  calc
+    edgeB (o.level t) * (15 * o.value t) =
+        (15 * edgeB (o.level t)) * o.value t := by ring
+    _ < edgeA (o.level t) * o.value t :=
+      Nat.mul_lt_mul_of_pos_right
+        (fifteen_mul_edgeB_lt_edgeA (o.level t)) (o.value_pos t)
+    _ < edgeA (o.level t) * o.value t + edgeGain (o.level t) := by
+      exact Nat.lt_add_of_pos_right (by simp [edgeGain])
+    _ = edgeB (o.level t) * o.value (t + 1) := (o.balance t).symm
+
+/-- QM77: the public value grows at least geometrically along every finite
+prefix of a legal orbit. -/
+theorem Orbit.fifteen_pow_mul_initial_le (o : Orbit) (t : ℕ) :
+    15 ^ t * o.value 0 ≤ o.value t := by
+  induction t with
+  | zero => simp
+  | succ t ih =>
+      calc
+        15 ^ (t + 1) * o.value 0 = 15 * (15 ^ t * o.value 0) := by
+          rw [pow_succ]
+          ring
+        _ ≤ 15 * o.value t := Nat.mul_le_mul_left 15 ih
+        _ ≤ o.value (t + 1) := (o.fifteen_mul_value_lt_next t).le
 
 /-- The normalized public form used by the executable research worker.  At
 zero-based level `n`, the register is `2^(8*n+3) * oddPart`; a successful
@@ -107,6 +155,16 @@ def NormalizedOrbit.toOrbit (o : NormalizedOrbit) : Orbit where
         rw [hfactor]
         simp [edgeA, edgeGain, ternaryExponent]
         ring
+
+theorem NormalizedOrbit.fifteen_mul_value_lt_next
+    (o : NormalizedOrbit) (t : ℕ) :
+    15 * o.value t < o.value (t + 1) :=
+  o.toOrbit.fifteen_mul_value_lt_next t
+
+theorem NormalizedOrbit.fifteen_pow_mul_initial_le
+    (o : NormalizedOrbit) (t : ℕ) :
+    15 ^ t * o.value 0 ≤ o.value t :=
+  o.toOrbit.fifteen_pow_mul_initial_le t
 
 /-! ## The forced ternary core -/
 
