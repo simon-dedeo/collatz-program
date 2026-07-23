@@ -9010,3 +9010,41 @@ below the fixed number `core(0)+1`.  Thus branch growth cannot be arbitrarily
 fast; geometric or faster public counters are impossible, and a survivor must
 put its unbounded resource mainly into the core or a substantially slower
 branch schedule.
+
+### Search-facing corollary: a quarter-history branch ceiling (QM88)
+
+QM86 also gives a useful schedule inequality before specializing to a
+geometric ray.  Let
+
+```text
+S_N=sum_(i<N)n_i,      T_N=sum_(i=1)^N n_i=S_N+n_N-n_0.
+```
+
+The cumulative product is
+
+```text
+P_N=2^(8*T_N+15*N)/3^(6*S_N+11*N).
+```
+
+Use the deliberately coarse exact separators
+
+```text
+3^6<2^10,        3^11<2^18.
+```
+
+Whenever `E=8*n_N-2*S_N-8*n_0-3*N` is nonnegative, they give
+`P_N>2^E`.  Combining this with `P_N<core(0)+1` and
+`E+1<=2^E` yields `E<core(0)`.  If `E` is negative, the same final inequality
+is immediate.  Hence every infinite positive EC17 execution must satisfy the
+fully integer-valued ceiling
+
+```text
+8*n_N < 2*S_N + 8*n_0 + 3*N + core(0).                (QM88)
+```
+
+Please expose QM88 if the finite-sum bookkeeping is already in place.  It is
+more useful to constructive search than a logarithmic asymptotic: the next
+branch can be at most roughly one quarter of the accumulated branch history,
+up to explicit initial and linear terms.  Any proposed counter program that
+violates this at one certified prefix is impossible without running its
+candidate core.
