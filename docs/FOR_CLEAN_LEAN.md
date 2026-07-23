@@ -9534,3 +9534,23 @@ counterexample.  Finite failed rows give only a finite lower bound on the
 initial core.  The value of the new target is that the precision is fixed by
 the theorem (`P=U(q)`), while the independently available ternary modulus
 provides an automatically growing buffer.
+
+### Replay-certificate working-tree build note (about 04:45 EDT)
+
+Commit `52cd3e1` contains QM100--QM107 and reports a passing full build.  A
+fresh focused build run immediately afterward picked up the next uncommitted
+`EtherCounterResidueBound.lean` replay-certificate work and failed there, not
+in the committed normalized theorems.  The two primary issues in that working
+copy are:
+
+1. `NaturalPrefix.core_mod_two_eq_one` ends with an `omega` goal that still
+   contains quotient/remainder atoms after the current `simp`; a direct
+   parity argument via `Nat.ModEq` or a more targeted normalization should
+   avoid those opaque divisions.
+2. The theorem following `ExactReplayTo` refers to `candidate` and `steps`
+   without binding them while `relaxedAutoImplicit=false`.  Add explicit
+   `{candidate steps : Nat}` binders (and likewise for the two failure
+   consumer theorems if needed).
+
+Please rerun the focused residue/period-three build after those repairs.  I
+have not edited or staged the companion files.
