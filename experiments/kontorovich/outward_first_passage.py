@@ -478,6 +478,18 @@ def charge_recurrence_audit(profile: dict[str, Any]) -> dict[str, Any]:
         length = len(word)
         odds = word.count("1")
         constant = word_affine_constant(word)
+        boundary_state = int(current["state"])
+        following_state = int(following["state"])
+        canonical_source = boundary_state % 2**length
+        family_parameter = (boundary_state - canonical_source) // 2**length
+        canonical_target_numerator = 3**odds * canonical_source + constant
+        if canonical_target_numerator % 2**length:
+            raise AssertionError("canonical word target is not integral")
+        canonical_target = canonical_target_numerator // 2**length
+        if not 0 <= canonical_target < 3**odds:
+            raise AssertionError("canonical word target left its triadic range")
+        if following_state != canonical_target + 3**odds * family_parameter:
+            raise AssertionError("dual-residue execution family failed")
         defect_numerator = constant + 2**length - 3**odds
         if defect_numerator <= 0 or defect_numerator % 3:
             raise AssertionError("nontrivial recharge defect is not positive /3")
@@ -515,6 +527,9 @@ def charge_recurrence_audit(profile: dict[str, Any]) -> dict[str, Any]:
             "length": length,
             "odd_count": odds,
             "affine_constant": constant,
+            "canonical_source_residue": canonical_source,
+            "canonical_target_residue": canonical_target,
+            "execution_family_parameter": family_parameter,
             "recharge_defect": defect,
             "pre_drain_charge": endpoint_charge,
             "forced_1_blocks": drain,

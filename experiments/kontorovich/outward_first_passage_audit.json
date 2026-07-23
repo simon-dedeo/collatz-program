@@ -1,5 +1,5 @@
 {
-  "artifact_sha256": "77428e2ae528c78eaf3cc821d7033100daf2e1c162e5102f94e22daf3fc64f95",
+  "artifact_sha256": "dcb49c957902d424f33036037870e1a30ff90be4418c2d26dd486f5041d30615",
   "audit": {
     "bound": 256,
     "carry_growth_criterion": {
@@ -1522,6 +1522,9 @@
       "recharge_rows": [
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 384820,
           "first_passage_blocks_consumed": 1,
           "forced_1_blocks": 0,
           "input_block_depth": 6,
@@ -1538,6 +1541,9 @@
         },
         {
           "affine_constant": 14476,
+          "canonical_source_residue": 220,
+          "canonical_target_residue": 242,
+          "execution_family_parameter": 1691,
           "first_passage_blocks_consumed": 3,
           "forced_1_blocks": 2,
           "input_block_depth": 7,
@@ -1554,6 +1560,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 1040191,
           "first_passage_blocks_consumed": 7,
           "forced_1_blocks": 6,
           "input_block_depth": 10,
@@ -1570,6 +1579,9 @@
         },
         {
           "affine_constant": 11596,
+          "canonical_source_residue": 668,
+          "canonical_target_residue": 719,
+          "execution_family_parameter": 52068,
           "first_passage_blocks_consumed": 3,
           "forced_1_blocks": 2,
           "input_block_depth": 17,
@@ -1586,6 +1598,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 32026903,
           "first_passage_blocks_consumed": 4,
           "forced_1_blocks": 3,
           "input_block_depth": 20,
@@ -1602,6 +1617,9 @@
         },
         {
           "affine_constant": 20632,
+          "canonical_source_residue": 824,
+          "canonical_target_residue": 890,
+          "execution_family_parameter": 475008,
           "first_passage_blocks_consumed": 1,
           "forced_1_blocks": 0,
           "input_block_depth": 24,
@@ -1618,6 +1636,9 @@
         },
         {
           "affine_constant": 3862,
+          "canonical_source_residue": 506,
+          "canonical_target_residue": 728,
+          "execution_family_parameter": 2028990,
           "first_passage_blocks_consumed": 1,
           "forced_1_blocks": 0,
           "input_block_depth": 25,
@@ -1634,6 +1655,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 184891804,
           "first_passage_blocks_consumed": 1,
           "forced_1_blocks": 0,
           "input_block_depth": 26,
@@ -1650,6 +1674,9 @@
         },
         {
           "affine_constant": 10154428,
+          "canonical_source_residue": 460420,
+          "canonical_target_residue": 466721,
+          "execution_family_parameter": 3173,
           "first_passage_blocks_consumed": 1,
           "forced_1_blocks": 0,
           "input_block_depth": 27,
@@ -1666,6 +1693,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 210841126,
           "first_passage_blocks_consumed": 1,
           "forced_1_blocks": 0,
           "input_block_depth": 28,
@@ -1682,6 +1712,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 237196267,
           "first_passage_blocks_consumed": 3,
           "forced_1_blocks": 2,
           "input_block_depth": 29,
@@ -1698,6 +1731,9 @@
         },
         {
           "affine_constant": 19610422,
+          "canonical_source_residue": 222058,
+          "canonical_target_residue": 225125,
+          "execution_family_parameter": 9161,
           "first_passage_blocks_consumed": 1,
           "forced_1_blocks": 0,
           "input_block_depth": 32,
@@ -1714,6 +1750,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 608594515,
           "first_passage_blocks_consumed": 3,
           "forced_1_blocks": 2,
           "input_block_depth": 33,
@@ -1808,6 +1847,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 384820,
           "first_passage_blocks_consumed": 1,
           "forced_1_blocks": 0,
           "input_block_depth": 6,
@@ -1825,6 +1867,9 @@
         },
         {
           "affine_constant": 14476,
+          "canonical_source_residue": 220,
+          "canonical_target_residue": 242,
+          "execution_family_parameter": 1691,
           "first_passage_blocks_consumed": 3,
           "forced_1_blocks": 2,
           "input_block_depth": 7,
@@ -1854,6 +1899,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 1040191,
           "first_passage_blocks_consumed": 7,
           "forced_1_blocks": 6,
           "input_block_depth": 10,
@@ -1907,6 +1955,9 @@
         },
         {
           "affine_constant": 11596,
+          "canonical_source_residue": 668,
+          "canonical_target_residue": 719,
+          "execution_family_parameter": 52068,
           "first_passage_blocks_consumed": 3,
           "forced_1_blocks": 2,
           "input_block_depth": 17,
@@ -1936,6 +1987,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 32026903,
           "first_passage_blocks_consumed": 4,
           "forced_1_blocks": 3,
           "input_block_depth": 20,
@@ -1971,6 +2025,9 @@
         },
         {
           "affine_constant": 20632,
+          "canonical_source_residue": 824,
+          "canonical_target_residue": 890,
+          "execution_family_parameter": 475008,
           "first_passage_blocks_consumed": 1,
           "forced_1_blocks": 0,
           "input_block_depth": 24,
@@ -1988,6 +2045,9 @@
         },
         {
           "affine_constant": 3862,
+          "canonical_source_residue": 506,
+          "canonical_target_residue": 728,
+          "execution_family_parameter": 2028990,
           "first_passage_blocks_consumed": 1,
           "forced_1_blocks": 0,
           "input_block_depth": 25,
@@ -2005,6 +2065,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 184891804,
           "first_passage_blocks_consumed": 1,
           "forced_1_blocks": 0,
           "input_block_depth": 26,
@@ -2022,6 +2085,9 @@
         },
         {
           "affine_constant": 10154428,
+          "canonical_source_residue": 460420,
+          "canonical_target_residue": 466721,
+          "execution_family_parameter": 3173,
           "first_passage_blocks_consumed": 1,
           "forced_1_blocks": 0,
           "input_block_depth": 27,
@@ -2039,6 +2105,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 210841126,
           "first_passage_blocks_consumed": 1,
           "forced_1_blocks": 0,
           "input_block_depth": 28,
@@ -2056,6 +2125,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 237196267,
           "first_passage_blocks_consumed": 3,
           "forced_1_blocks": 2,
           "input_block_depth": 29,
@@ -2085,6 +2157,9 @@
         },
         {
           "affine_constant": 19610422,
+          "canonical_source_residue": 222058,
+          "canonical_target_residue": 225125,
+          "execution_family_parameter": 9161,
           "first_passage_blocks_consumed": 1,
           "forced_1_blocks": 0,
           "input_block_depth": 32,
@@ -2102,6 +2177,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 608594515,
           "first_passage_blocks_consumed": 3,
           "forced_1_blocks": 2,
           "input_block_depth": 33,
@@ -2139,6 +2217,9 @@
       "recharge_rows": [
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 510937,
           "first_passage_blocks_consumed": 2,
           "forced_1_blocks": 1,
           "input_block_depth": 8,
@@ -2155,6 +2236,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 862207,
           "first_passage_blocks_consumed": 12,
           "forced_1_blocks": 11,
           "input_block_depth": 10,
@@ -2171,6 +2255,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 83901247,
           "first_passage_blocks_consumed": 7,
           "forced_1_blocks": 6,
           "input_block_depth": 22,
@@ -2253,6 +2340,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 510937,
           "first_passage_blocks_consumed": 2,
           "forced_1_blocks": 1,
           "input_block_depth": 8,
@@ -2276,6 +2366,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 862207,
           "first_passage_blocks_consumed": 12,
           "forced_1_blocks": 11,
           "input_block_depth": 10,
@@ -2359,6 +2452,9 @@
         },
         {
           "affine_constant": 10,
+          "canonical_source_residue": 6,
+          "canonical_target_residue": 8,
+          "execution_family_parameter": 83901247,
           "first_passage_blocks_consumed": 7,
           "forced_1_blocks": 6,
           "input_block_depth": 22,
@@ -2443,5 +2539,5 @@
     "scope": "P^n is a fixed-depth asymptotic density law, not a uniform short-interval estimate when depth grows with the seed bound; the displayed finite survivor counts are the exact comparison"
   },
   "schema": "collatz-outward-first-passage-v3",
-  "worker_sha256": "f025ea46c75bd3804ccb1158bc62cb2e5b41cb336f223aa74c2784cb0735401b"
+  "worker_sha256": "c70e1eef559ba7b2076753be75ba655b932cd2c603c3f7d3cf2f5ccb55a631e9"
 }
