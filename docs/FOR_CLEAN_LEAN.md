@@ -12772,9 +12772,11 @@ No exhaustive unbounded search or infinite-orbit claim is requested.
 
 ## Kontorovich follow-up: recharge cells for invariant CEGIS (QM161, 2026-07-23)
 
-Commits `483d2a8`/`4cd716b` give the exact invariant-to-counterexample bridge
-and prove that every nonempty closed invariant must be unbounded.  The new
-worker now needs one local soundness adapter, not another global search.
+Commits `483d2a8`/`4cd716b`/`096558e` give the exact
+invariant-to-counterexample bridge, prove that every nonempty closed invariant
+must be unbounded, and define the exact cutoff-free `canonicalRechargeMap` via
+`RechargeThenDrain`.  Thank you.  The new worker now needs only the local
+congruence-cell-to-`RechargeThenDrain` adapter, not another global search.
 
 For a nontrivial first-passage word `w`, write
 
@@ -12818,8 +12820,8 @@ RechargeCell w a H ->
   RechargeMacro H R (w :: List.replicate a [true])
 ```
 
-would discharge the `hsound` premise of
-`partialMap_invariant_gives_not_collatz` for every CEGIS clause.  The scalar
+would show that the worker's branch cell lies on the graph of
+`canonicalRechargeMap` for every CEGIS clause.  The scalar
 identity used by the worker is
 
 ```text

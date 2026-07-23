@@ -1,5 +1,5 @@
 {
-  "artifact_sha256": "91b5302a3194a75d5af156302e8da3243c6c71ae1bbff828f7820abd792afe88",
+  "artifact_sha256": "621cf7e7b7d2c86814e343209d1631deccae120b5c910d37fbcc5e3a73ad776b",
   "audit": {
     "anchor": {
       "H0": "7145858762336606944055413876361289077111761550755103833437768756873192461255141035972543854694792973789734251178337885723798095462222260371861564823082754010374258702888937396448248542419041978759452545606666066688978547863696555467588277502794412665478622576672538600846916085652882151284419308767717776583678732873839199575930699755",
@@ -21,7 +21,7 @@
           "anchor_membership_in_final_candidate": true,
           "coherent_dyadic_carry_obligation": "not_applicable_to_explicit_H0",
           "kind": "explicit_ordinary_anchor",
-          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.partialMap_invariant_gives_not_collatz, with hsound supplied by OutwardBoundaryRenewal.recharge_then_drain_properties",
+          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_not_collatz; each synthesized step cell must be proved to instantiate RechargeThenDrain",
           "x0_equals_3H0_minus_1": "21437576287009820832166241629083867231335284652265311500313306270619577383765423107917631564084378921369202753535013657171394286386666781115584694469248262031122776108666812189344745627257125936278357636819998200066935643591089666402764832508383237996435867730017615802540748256958646453853257926303153329751036198621517598727792099264"
         },
         "rounds": [
@@ -154,7 +154,7 @@
           "anchor_membership_in_final_candidate": true,
           "coherent_dyadic_carry_obligation": "not_applicable_to_explicit_H0",
           "kind": "explicit_ordinary_anchor",
-          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.partialMap_invariant_gives_not_collatz, with hsound supplied by OutwardBoundaryRenewal.recharge_then_drain_properties",
+          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_not_collatz; each synthesized step cell must be proved to instantiate RechargeThenDrain",
           "x0_equals_3H0_minus_1": "21437576287009820832166241629083867231335284652265311500313306270619577383765423107917631564084378921369202753535013657171394286386666781115584694469248262031122776108666812189344745627257125936278357636819998200066935643591089666402764832508383237996435867730017615802540748256958646453853257926303153329751036198621517598727792099264"
         },
         "rounds": [
@@ -827,7 +827,7 @@
           "anchor_membership_in_final_candidate": true,
           "coherent_dyadic_carry_obligation": "not_applicable_to_explicit_H0",
           "kind": "explicit_ordinary_anchor",
-          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.partialMap_invariant_gives_not_collatz, with hsound supplied by OutwardBoundaryRenewal.recharge_then_drain_properties",
+          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_not_collatz; each synthesized step cell must be proved to instantiate RechargeThenDrain",
           "x0_equals_3H0_minus_1": "21437576287009820832166241629083867231335284652265311500313306270619577383765423107917631564084378921369202753535013657171394286386666781115584694469248262031122776108666812189344745627257125936278357636819998200066935643591089666402764832508383237996435867730017615802540748256958646453853257926303153329751036198621517598727792099264"
         },
         "rounds": [
@@ -1313,7 +1313,7 @@
           "anchor_membership_in_final_candidate": true,
           "coherent_dyadic_carry_obligation": "not_applicable_to_explicit_H0",
           "kind": "explicit_ordinary_anchor",
-          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.partialMap_invariant_gives_not_collatz, with hsound supplied by OutwardBoundaryRenewal.recharge_then_drain_properties",
+          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_not_collatz; each synthesized step cell must be proved to instantiate RechargeThenDrain",
           "x0_equals_3H0_minus_1": "21437576287009820832166241629083867231335284652265311500313306270619577383765423107917631564084378921369202753535013657171394286386666781115584694469248262031122776108666812189344745627257125936278357636819998200066935643591089666402764832508383237996435867730017615802540748256958646453853257926303153329751036198621517598727792099264"
         },
         "rounds": [
@@ -5226,7 +5226,7 @@
           "anchor_membership_in_final_candidate": true,
           "coherent_dyadic_carry_obligation": "not_applicable_to_explicit_H0",
           "kind": "explicit_ordinary_anchor",
-          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.partialMap_invariant_gives_not_collatz, with hsound supplied by OutwardBoundaryRenewal.recharge_then_drain_properties",
+          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_not_collatz; each synthesized step cell must be proved to instantiate RechargeThenDrain",
           "x0_equals_3H0_minus_1": "21437576287009820832166241629083867231335284652265311500313306270619577383765423107917631564084378921369202753535013657171394286386666781115584694469248262031122776108666812189344745627257125936278357636819998200066935643591089666402764832508383237996435867730017615802540748256958646453853257926303153329751036198621517598727792099264"
         },
         "rounds": [
@@ -6363,7 +6363,7 @@
           "anchor_membership_in_final_candidate": true,
           "coherent_dyadic_carry_obligation": "not_applicable_to_explicit_H0",
           "kind": "explicit_ordinary_anchor",
-          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.partialMap_invariant_gives_not_collatz, with hsound supplied by OutwardBoundaryRenewal.recharge_then_drain_properties",
+          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_not_collatz; each synthesized step cell must be proved to instantiate RechargeThenDrain",
           "x0_equals_3H0_minus_1": "21437576287009820832166241629083867231335284652265311500313306270619577383765423107917631564084378921369202753535013657171394286386666781115584694469248262031122776108666812189344745627257125936278357636819998200066935643591089666402764832508383237996435867730017615802540748256958646453853257926303153329751036198621517598727792099264"
         },
         "rounds": [
@@ -7546,7 +7546,7 @@
           "anchor_membership_in_final_candidate": true,
           "coherent_dyadic_carry_obligation": "not_applicable_to_explicit_H0",
           "kind": "explicit_ordinary_anchor",
-          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.partialMap_invariant_gives_not_collatz, with hsound supplied by OutwardBoundaryRenewal.recharge_then_drain_properties",
+          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_not_collatz; each synthesized step cell must be proved to instantiate RechargeThenDrain",
           "x0_equals_3H0_minus_1": "21437576287009820832166241629083867231335284652265311500313306270619577383765423107917631564084378921369202753535013657171394286386666781115584694469248262031122776108666812189344745627257125936278357636819998200066935643591089666402764832508383237996435867730017615802540748256958646453853257926303153329751036198621517598727792099264"
         },
         "rounds": [
@@ -11043,7 +11043,7 @@
           "anchor_membership_in_final_candidate": true,
           "coherent_dyadic_carry_obligation": "not_applicable_to_explicit_H0",
           "kind": "explicit_ordinary_anchor",
-          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.partialMap_invariant_gives_not_collatz, with hsound supplied by OutwardBoundaryRenewal.recharge_then_drain_properties",
+          "recharge_equivalence_reference": "KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_not_collatz; each synthesized step cell must be proved to instantiate RechargeThenDrain",
           "x0_equals_3H0_minus_1": "21437576287009820832166241629083867231335284652265311500313306270619577383765423107917631564084378921369202753535013657171394286386666781115584694469248262031122776108666812189344745627257125936278357636819998200066935643591089666402764832508383237996435867730017615802540748256958646453853257926303153329751036198621517598727792099264"
         },
         "rounds": [
@@ -13871,11 +13871,12 @@
       "bounded_survival": "only survived the explicitly displayed finite domains",
       "carry_growth": "projective candidates would additionally require one coherent dyadic path with eventual-zero or sub-2 carry; none is promoted here",
       "ordinary_seed": "explicit H0 avoids a merely 2-adic inverse limit",
+      "post_first_edge_range": "OutwardInvariantBridge.RechargeThenDrain.target_odd_and_three_dvd restricts all returned charges to positive odd multiples of three",
       "symbolic_closure": "true only after complete periodic progression enumeration",
       "unboundedness": "OutwardInvariantBridge.invariant_set_not_bddAbove proves every nonempty recharge-closed invariant must be unbounded; finite tables cannot qualify"
     },
     "universal_candidate_found": false
   },
   "schema": "collatz-outward-charge-invariant-cegis-v1",
-  "worker_sha256": "a03c75971c62020df84e132280425d8e16778222b763bec20717732769f7a48a"
+  "worker_sha256": "8658ff56d9138ec99138eb76e0c5c6b3d430aef00dbbf8b9453047b7d55b9e54"
 }

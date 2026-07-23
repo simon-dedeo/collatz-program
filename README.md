@@ -35,13 +35,17 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ### 2026-07-23 17:55 EDT
 
-There is still no counterexample.  Commits `483d2a8`/`4cd716b` now give the
-invariant lane its exact Lean endpoint.  If a nonempty predicate `I(H)` on positive
-charges is closed under sound, nonempty recharge macros, then
+There is still no counterexample.  Commits
+`483d2a8`/`4cd716b`/`096558e` now give the invariant lane its exact Lean
+endpoint.  If a nonempty predicate `I(H)` on positive charges is closed under
+sound, nonempty recharge macros, then
 `3*H_0-1` has an ordinary infinite first-passage execution and refutes
 Collatz.  Lean also proves that every such invariant is unbounded.  Thus a
 finite table, a bounded collection of cylinders, or a merely 2-adic inverse
 limit cannot qualify.
+The last commit defines the cutoff-free `canonicalRechargeMap`, proves its
+graph is exactly recharge followed by complete drain, and shows that every
+returned charge is an odd multiple of three.
 
 Two distinct exact CEGIS workers now test the construction side.  The
 coherent-cylinder worker ran on all 32 Akdeniz cores with depth 32, beam 512,
@@ -5960,9 +5964,10 @@ identically `x`.
   path with `rho_n=o(2^n)`, which already forces eventual zero carry.  In the
   forward direction, synthesize a predicate on odd charges from exact
   branch-homogeneous step cells (KC-FP11), valuation/congruence atoms, and
-  recursively parameterized families.  Commits `483d2a8`/`4cd716b` prove that
-  a positive member plus sound universal closure is already an ordinary
-  Collatz counterexample and that every such invariant must be unbounded.
+  recursively parameterized families.  Commits
+  `483d2a8`/`4cd716b`/`096558e` prove that a positive member plus sound
+  universal closure is already an ordinary Collatz counterexample and that
+  every such invariant must be unbounded.
   Bounded CEGIS witnesses refine or reject a grammar; they never discharge
   universal closure.  Do not promote critical pressure or longer finite
   survival by itself.

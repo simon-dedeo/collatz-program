@@ -2358,7 +2358,10 @@ still destroy closure.  No all-parameter recursive transition rule survives.
 
 ### 26.4 Promotion theorem and remaining mathematics
 
-Lean commits `483d2a8`/`4cd716b` supply the exact endpoint.  A positive member `H_0`
+Lean commits `483d2a8`/`4cd716b`/`096558e` supply the exact endpoint.  The
+last defines a cutoff-free `canonicalRechargeMap`, identifies its graph with
+a literal nontrivial recharge followed by complete drain, and proves every
+target is an odd multiple of three.  A positive member `H_0`
 and a proof that every invariant member has a sound nonempty recharge macro
 to another member yield an ordinary infinite first-passage execution from
 `3H_0-1`, hence a Collatz counterexample.  It also proves every such invariant

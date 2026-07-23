@@ -993,8 +993,8 @@ def run_architecture(
         ),
         "recharge_equivalence_reference": (
             "KontoroC.OutwardInvariantBridge."
-            "partialMap_invariant_gives_not_collatz, with hsound supplied by "
-            "OutwardBoundaryRenewal.recharge_then_drain_properties"
+            "canonicalRechargeMap_invariant_gives_not_collatz; each synthesized "
+            "step cell must be proved to instantiate RechargeThenDrain"
         ),
         "coherent_dyadic_carry_obligation": "not_applicable_to_explicit_H0",
     }
@@ -1110,6 +1110,10 @@ def exact_cegis(args: argparse.Namespace) -> dict[str, Any]:
             "unboundedness": (
                 "OutwardInvariantBridge.invariant_set_not_bddAbove proves every "
                 "nonempty recharge-closed invariant must be unbounded; finite tables cannot qualify"
+            ),
+            "post_first_edge_range": (
+                "OutwardInvariantBridge.RechargeThenDrain.target_odd_and_three_dvd "
+                "restricts all returned charges to positive odd multiples of three"
             ),
             "actual_collatz_counterexample": False,
         },
