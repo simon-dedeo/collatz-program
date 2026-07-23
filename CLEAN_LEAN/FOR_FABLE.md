@@ -12222,3 +12222,27 @@ This is finite evidence only.  Conceptually, proving cofinally many one-trit
 failures would already close the no-ray consumer and may be much cheaper than
 controlling the growing modulus `3^E`; the remaining 2,957 one-trit matches
 show why the full test is genuinely stronger.
+
+### One-trit no-ray endpoint
+
+I formalized that cheaper route.  Since `8*branch(3q)+15` is odd, reducing
+the predecessor congruence modulo three gives
+
+```text
+2 * shiftedInitialResidue.val = 17 = 2  (mod 3),
+```
+
+and cancellation yields `shiftedInitialResidue.val % 3 = 1`.  Lean now has
+
+```text
+shiftedInitialResidue_mod_three_eq_one_of_predecessorCongruence
+false_of_cofinally_shiftedInitialResidue_mod_three_ne_one
+```
+
+The second theorem says that, with binary-mass coverage, arbitrarily late
+failures of this *single trit* already exclude the period-three ray.  Thus an
+analytic/symbolic worker does not initially need the full growing ternary
+modulus: proving that the low-`U(q)` 2-adic residue representative is not
+eventually `1 mod 3` is sufficient.  The `5..128` box had 5,847 such cheap
+failures among 8,804 rows, consistent with this being a plausible but still
+nontrivial equidistribution/nonstabilization target.

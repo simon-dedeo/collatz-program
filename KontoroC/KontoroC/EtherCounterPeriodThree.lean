@@ -1312,6 +1312,36 @@ theorem shiftedInitialResidue_eventually_predecessorCongruence
   rw [heq, hbalance]
   exact (Nat.modEq_modulus_mul_add_iff.mpr (Nat.ModEq.refl 17)).symm
 
+/-- The cheapest visible consequence of the predecessor congruence: because
+its power-of-two exponent is odd, the shifted residue must be `1 mod 3`.
+This is the exact theorem interface for the worker's one-trit diagnostic. -/
+theorem shiftedInitialResidue_mod_three_eq_one_of_predecessorCongruence
+    (g : Ray) (q R length : ℕ)
+    (hcongruence :
+      2 ^ (8 * g.branch (3 * q) + 15) *
+          (shiftedInitialResidue g q R length).val ≡ 17
+        [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)]) :
+    (shiftedInitialResidue g q R length).val % 3 = 1 := by
+  let residue := (shiftedInitialResidue g q R length).val
+  let A := 8 * g.branch (3 * q) + 15
+  let E := 6 * g.branch (3 * q - 1) + 11
+  have hthreeDvd : 3 ∣ 3 ^ E :=
+    dvd_pow (dvd_refl 3) (by dsimp [E]; omega)
+  have hmod3 : 2 ^ A * residue ≡ 17 [MOD 3] :=
+    Nat.ModEq.of_dvd hthreeDvd (by simpa [A, E, residue] using hcongruence)
+  have htwo8 : 2 ^ 8 ≡ 1 [MOD 3] := by norm_num
+  have htwo15 : 2 ^ 15 ≡ 2 [MOD 3] := by norm_num
+  have htwoA : 2 ^ A ≡ 2 [MOD 3] := by
+    have hpow : (2 ^ 8) ^ g.branch (3 * q) * 2 ^ 15 ≡
+        1 ^ g.branch (3 * q) * 2 [MOD 3] :=
+      (htwo8.pow _).mul htwo15
+    simpa [A, pow_mul, pow_add] using hpow
+  have hscaled : 2 * residue ≡ 2 * 1 [MOD 3] :=
+    ((htwoA.mul_right residue).symm.trans hmod3).trans (by norm_num)
+  have hcancel : residue ≡ 1 [MOD 3] :=
+    Nat.ModEq.cancel_left_of_coprime (by norm_num) hscaled
+  simpa [Nat.ModEq] using hcancel
+
 /-- Direct no-ray consumer for the candidate-free formulation: arbitrarily
 late failures of the raw predecessor congruence contradict the eventual
 congruence forced by every period-three ray. -/
@@ -1329,6 +1359,27 @@ theorem false_of_cofinally_failed_shiftedResidue_predecessorCongruence
     g.shiftedInitialResidue_eventually_predecessorCongruence length hprecision
   obtain ⟨q, hQq, hne⟩ := hfail Q
   exact hne (heventual q hQq)
+
+/-- Even the first ternary digit is enough: if the canonical shifted residue
+is not `1 mod 3` at arbitrarily late cycle boundaries, no period-three ray
+can realize the schedule. -/
+theorem false_of_cofinally_shiftedInitialResidue_mod_three_ne_one
+    (g : Ray) (length : ℕ → ℕ)
+    (hprecision : ∀ q, normalizedPrecision g q 0 ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g q) 0 (length q))
+    (hfail : ∀ Q, ∃ q, Q ≤ q ∧
+      (shiftedInitialResidue g q 0 (length q)).val % 3 ≠ 1) :
+    False := by
+  apply g.false_of_cofinally_failed_shiftedResidue_predecessorCongruence
+    length hprecision
+  intro Q
+  obtain ⟨q, hQq, hmod3⟩ := hfail Q
+  refine ⟨q, hQq, ?_⟩
+  intro hcongruence
+  exact hmod3
+    (g.shiftedInitialResidue_mod_three_eq_one_of_predecessorCongruence
+      q 0 (length q) hcongruence)
 
 /-- QM108: the replay-free normalized candidate margin lower-bounds the
 same fixed initial-core bit length. -/
