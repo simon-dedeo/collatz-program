@@ -3051,6 +3051,72 @@ Artifact SHA-256:
 Verifier SHA-256:
 `f5c93af8af44fd7f789feaa92dd738d253c9a8e0d916a0040a29c947855f7497`.
 
+## Arithmetic ether counters and the partial-theta obstruction
+
+`breakoff_ether_linear_theta.py` tests the most direct unbounded public
+counter: prescribe `n_t=n_0+k*t` with fixed `n_0,k>=1`.  If
+
+```text
+Y_t=2^(8n_t-5)h_t,
+```
+
+then the autonomous public map gives exactly
+
+```text
+2^(8n_(t+1)+15)h_(t+1)=3^(6n_t+11)h_t+51.
+```
+
+Backward unrolling produces the unique 2-adic candidate
+
+```text
+h_0=-51/3^(6n_0+11) *
+    F(2^(8k)/3^(6k), 2^(8(n_0+k)+15)/3^(6(n_0+k)+11)).
+```
+
+The coefficient identity
+
+```text
+F(2^(8k)/3^(6k),z)
+ = f_(3^(6k)/2^(8k))((3^(6k)/2^(8k))*z)
+```
+
+turns the paper argument into the `k`-independent rational
+
+```text
+alpha=2^(8n_0+15)/3^(6n_0+11).
+```
+
+The Väänänen--Wallisser full-source theorem applies with
+`ell=1,sigma=0,p=2`.  Its elementary hypotheses are uniform: the theorem base
+is reduced and has 2-adic absolute value `2^(8k)>1`; `alpha` is nonzero; and
+the exact size chain uses
+
+```text
+2^8>3^5,
+3*8=4*6,
+45<64.
+```
+
+Accepting the cited theorem, the candidate is irrational in `Q_2`, hence not
+an ordinary integer.  The external theorem is not reproved here.
+
+The default artifact separately compiles and executes all 16 schedules with
+`1<=n_0,k<=4` through eight transitions.  It checks their exact public
+odd-part recurrence, finite rational partial-theta identity, and terminal
+2-adic residue.  The symbolic theorem audit compares 4,096 coefficients and
+applies to every `n_0,k>=1`.
+
+```bash
+python3 breakoff_ether_linear_theta.py selftest
+python3 breakoff_ether_linear_theta.py build breakoff_ether_linear_theta_audit.json
+python3 breakoff_ether_linear_theta.py verify breakoff_ether_linear_theta_audit.json
+```
+
+Artifact SHA-256:
+`9190bf6ea1a85d3bffc81c9f066a3af8e96529fc75267b147096c3e2c2491dc2`.
+Verifier SHA-256:
+`1a53504df1091e65054c5647b6ef59ff2ed04f4ca58840604de277469821b7a5`.
+
 ## Returning finite ether glider macros
 
 `breakoff_ether_glider.py` closes the finite boundary return left open by the

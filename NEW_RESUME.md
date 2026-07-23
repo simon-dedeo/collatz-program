@@ -1,6 +1,45 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 00:53 EDT
+Updated: 2026-07-23, about 01:09 EDT
+
+### 01:09 EDT continuation — fixed-rate ether counters close by partial theta
+
+Two new companion theorems sharply constrain the honest zero-tail search.
+Commit `1c449e6` proves that every ordinary source eventually has zero
+canonical extension digits; commit `bf8b7c2` proves that no infinite positive
+ether orbit has an eventually periodic branch tail.  A finite controller and
+an infinite preloaded source are both dead.  The missing controller must use
+genuinely unbounded public state to emit a genuinely aperiodic schedule.
+
+The simplest unbounded schedule, `n_t=n_0+k*t`, is now conditionally closed by
+
+```text
+experiments/kontorovich/breakoff_ether_linear_theta.py
+experiments/kontorovich/breakoff_ether_linear_theta_audit.json
+verifier 1a53504df1091e65054c5647b6ef59ff2ed04f4ca58840604de277469821b7a5
+artifact 9190bf6ea1a85d3bffc81c9f066a3af8e96529fc75267b147096c3e2c2491dc2
+```
+
+The exact odd-part recurrence is
+
+```text
+2^(8n_(t+1)+15)h_(t+1)=3^(6n_t+11)h_t+51.
+```
+
+For every `n_0,k>=1`, backward unrolling gives a single partial-theta
+candidate at paper parameters
+
+```text
+q=3^(6k)/2^(8k),
+alpha=2^(8n_0+15)/3^(6n_0+11).
+```
+
+The artifact checks 16 finite schedules through eight transitions, 4,096
+coefficient conversions, and the elementary Väänänen--Wallisser hypotheses
+uniformly.  Accepting the same inspected external 1989 theorem used for the
+unit bank, every candidate is irrational in `Q_2` and hence nonordinary.  The
+theorem is cited, not reproved.  Nonlinear/payload-dependent counters and
+bounded aperiodic branch schedules remain open.
 
 ### 00:53 EDT continuation — finite zero-tail transition, not a counter write
 
@@ -1266,9 +1305,9 @@ Diary entry.
 2. Use the certified ether successor law to formulate the deterministic
    tail-zero/current-offset state map and seek a nonhalting invariant ray.
    The `115->59->9->1` path is a halting regression, not a self-write seed.
-3. If the ether-counter also reduces to a restriction-only tower, prove that
-   obstruction at the exact affine interface.  If it has positive information
-   balance, isolate the smallest symbolic branch family that preserves it.
+3. Skip arithmetic branch growth `n_t=n_0+kt`: the partial-theta obstruction
+   closes it conditionally on the cited theorem.  Search nonlinear
+   payload-dependent counters or bounded genuinely aperiodic branch schedules.
 4. Seek a contextual YAH block operator only if it depends on a surviving
    public payload or repetition index.  QM42 closes another fixed lasso pop.
 5. Poll the detached R23 service without blocking the contextual search; leave

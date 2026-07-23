@@ -7996,3 +7996,71 @@ Please prioritize generic QM47/QM48 over evaluating the huge concrete
 register.  QM49 is only a finite tail-exhaustion regression and then halts.
 The constructive target is a nonhalting deterministic all-zero-extension
 orbit, not occasional zero digits followed by further source consumption.
+
+## Kontorovich request: arithmetic ether counters as partial theta (2026-07-23)
+
+The prefix-budget and aperiodicity theorems suggest testing an explicitly
+unbounded branch counter.  Let `n_t=n_0+k*t`, `n_0,k>=1`, and write the public
+ether register as
+
+```text
+Y_t=2^(8n_t-5)h_t,  h_t odd.
+```
+
+The exact counter map gives
+
+```text
+2^(8n_(t+1)+15)h_(t+1)=3^(6n_t+11)h_t+51.        (QM50)
+```
+
+Please expose QM50 from `EtherCounterAperiodic`'s normalized recurrence and
+kernel-check the finite backward identity.  For `N>=1`, it is
+
+```text
+h_0 = -51 * sum_(j=0)^(N-1)
+        2^[sum_(i=1)^j (8n_i+15)] /
+        3^[sum_(i=0)^j (6n_i+11)]
+      + 2^[sum_(i=1)^N (8n_i+15)] h_N /
+        3^[sum_(i=0)^(N-1) (6n_i+11)].            (QM51)
+```
+
+For the arithmetic schedule, the infinite candidate is exactly
+
+```text
+-51/3^(6n_0+11) *
+ F(2^(8k)/3^(6k), 2^(8(n_0+k)+15)/3^(6(n_0+k)+11))
+
+= -51/3^(6n_0+11) *
+  f_(3^(6k)/2^(8k))(2^(8n_0+15)/3^(6n_0+11)).   (QM52)
+```
+
+This is the same `ell=1,sigma=0,p=2` Väänänen--Wallisser interface already
+formalized for the unit linear bank.  The elementary size audit is especially
+clean:
+
+```text
+2^8>3^5,
+3*8=4*6,
+45<64,
+|3^(6k)/2^(8k)|_2=2^(8k)>1.
+```
+
+Please reuse the existing abstract partial-theta machinery rather than
+reprove the external theorem.  The preferred endpoint is conditional:
+irrationality of the paper-normalized value implies no ordinary ether stream
+with `n_t=n_0+k*t`, for every `n_0,k>=1`.  State explicitly that the published
+irrationality theorem remains an external citation.
+
+The exact research audit is:
+
+```text
+experiments/kontorovich/breakoff_ether_linear_theta.py
+experiments/kontorovich/breakoff_ether_linear_theta_audit.json
+verifier 1a53504df1091e65054c5647b6ef59ff2ed04f4ca58840604de277469821b7a5
+artifact 9190bf6ea1a85d3bffc81c9f066a3af8e96529fc75267b147096c3e2c2491dc2
+```
+
+It replays 16 finite schedules (`n_0,k=1..4`) through eight transitions,
+checks the rational and 2-adic finite identity, and audits 4,096 conversion
+coefficients.  Scope: QM50--QM52 close only arithmetic valuation growth;
+nonlinear/payload-dependent schedules remain constructive targets.
