@@ -9085,3 +9085,74 @@ optimal logarithmic coefficient `(6*log_2(3)-8)/8≈0.1887` while keeping the
 statement entirely integral and easy to consume in a search.  If QM88 is
 already complete, please retain it as the simple corollary and expose QM89 as
 the stronger pruning endpoint.
+
+## Kontorovich request: period-three core must have quadratic bit growth (2026-07-23)
+
+The universal scale trap also gives a lower-growth theorem that complements
+QM89 and answers what resource a slow period-three branch must carry.  This is
+the useful reverse separator:
+
+```text
+2^64 < 3^41.                                           (QM90)
+```
+
+For an arbitrary positive EC17 orbit use the existing one-based notation
+
+```text
+S_N=sum_(i<N)n_i,
+T_N=sum_(i<N)n_(i+1)=S_N+n_N-n_0,
+P_N=2^(8*T_N+15*N)/3^(6*S_N+11*N).
+```
+
+The lower half of the scale trap and `core(0)>=1` give `1 <= P_N*core(N)`.
+Raise this to the 41st power and use QM90.  For every `N>0` this yields the
+subtraction-free natural inequality
+
+```text
+2^(384*S_N+704*N)
+  < 2^(328*T_N+615*N) * core(N)^41.                    (QM91)
+```
+
+Indeed the left side is strictly below
+`3^(246*S_N+451*N)`, while the latter is at most the right side.  A convenient
+search-facing cancellation form is: whenever
+
+```text
+328*n_N <= 56*S_N+328*n_0+89*N,
+```
+
+then
+
+```text
+2^(56*S_N+328*n_0+89*N-328*n_N) < core(N)^41.          (QM92)
+```
+
+Now specialize to `EtherCounterPeriodThree.Ray` and `N=3*q`.  If its positive
+cycle gain is `K`, then
+
+```text
+n_(3*q)=n_0+K*q,
+S_(3*q)=q*(n_0+n_1+n_2)+3*K*q*(q-1)/2.
+```
+
+Since each phase base is positive, for `q>=5` the exponent in QM92 is at
+least
+
+```text
+q*(435+K*(84*q-412)).
+```
+
+The parenthesis is positive because `84*q-412>=8`.  Please expose the exact
+period-three endpoint
+
+```text
+2^(q*(435+K*(84*q-412))) < core(3*q)^41,   q>=5.       (QM93)
+```
+
+This proves that every hypothetical period-three survivor has core
+bit-length quadratic in the cycle count, while its branch grows only
+linearly.  It does **not** exclude period three or construct an orbit.  Its
+search consequence is structural: direct bounded-core enumeration is the
+wrong state representation; a constructive period-three search must operate
+on normalized residues/theta data capable of carrying this forced quadratic
+bit growth.
