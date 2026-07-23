@@ -1,6 +1,60 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 04:28 EDT
+Updated: 2026-07-23, about 04:55 EDT
+
+### 04:55 EDT continuation — normalized residue and CRT no-ray consumers
+
+There is no counterexample.  Companion commit `a6619c5` proves the exact
+residual-width identity
+
+```text
+665*(E_upper+306) = 306*E_lower + W,
+W=203490*(L0+1)+q*(307230*(B-3)+51)+9*K*q*(q-1).
+```
+
+The scaled terminal bit length lies strictly between `306*E_lower` and that
+value plus `W`.  Its leading uncertainty is only `K*q^2/22610` bits.
+
+Companion commit `52cd3e1` formalizes QM100--QM107.  Put
+
+```text
+A(q)=q*(462*B+2235+K*(693*q-3141)),
+U(q)=(A(q)+305)/306,
+L0=Nat.log 2 (core(0))+1.
+```
+
+Then `bits(core(3q))<=L0+U(q)`.  A future-forced residue at precision
+`P=U(q)+R` has normalized margin at most `L0`; if the canonical residue fails
+the prescribed replay, then `R<L0`.  Lean packages both cofinal consumers:
+unbounded exact margins or replay failures at unbounded paddings exclude the
+period-three `Ray`.  Finite rows do not establish either premise.
+
+The stronger normalized CRT endpoint takes binary precision exactly `U(q)`
+and combines it with the immediate predecessor residue modulo
+`3^(6*n_previous+11)`.  A canonical CRT representative satisfying the two
+congruences and strict product range, but failing the required replay, forces
+
+```text
+6*n_previous+11 < L0.
+```
+
+Because positive cycle gain makes `n_previous` unbounded with `q`, cofinal
+failed CRT rows exclude the schedule.  This is the preferred worker target:
+no guessed padding and no real logarithms.
+
+Companion commit `44c43b0` closes the replay-certificate seam.  An
+under-divisible numerator is an immediate failure.  An over-divisible
+numerator has an even quotient and needs one further hypothetical transition
+before it contradicts the forced odd core.  The Python workers now emit the
+failure kind, exact replay length, certified prefix length, and a SHA-256 of
+the reconstructed core list; their verifiers reconstruct everything.
+
+A stable local `lake build` passes all 8,790 targets.  The Akdeniz run now
+uses the theorem-relevant dyadic subsequence
+`q=5,8,16,...,2048`, not a dense interval, over all positive schedules with
+increments in `[-1,1]` and starts `1..8`.  It is still finite evidence.  PSC
+is idle because these arbitrary-precision modular inversions are a CPU task,
+not a useful GPU kernel.
 
 ### 04:08 EDT continuation — period-three cores must carry quadratic bits
 

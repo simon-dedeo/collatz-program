@@ -33,6 +33,77 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 04:55 EDT
+
+There is still no counterexample.  The period-three search is now driven by
+an exact cofinal obstruction rather than raw precision widening.
+
+Companion commit `a6619c5` first cancels the two adjacent continued-fraction
+bounds exactly.  If `E_lower,E_upper` are the sharp exponents, `K` is the
+cycle gain, `B=n_0+n_1+n_2`, and `L0` is the initial core bit length, then
+
+```text
+665*(E_upper+306) = 306*E_lower + W,
+
+W = 203490*(L0+1)
+    + q*(307230*(B-3)+51)
+    + 9*K*q*(q-1).
+```
+
+Lean traps the scaled terminal bit length between `306*E_lower` and that
+quantity plus `W`.  The leading uncertainty is only `K*q^2/22610`; this is
+a narrow normalized coordinate, not an exclusion.
+
+Companion commit `52cd3e1` then kernel-checks QM100--QM107.  With
+
+```text
+A(q)=q*(462*B+2235+K*(693*q-3141)),
+U(q)=ceil(A(q)/306),
+```
+
+every ray satisfies
+
+```text
+bits(core(3q)) <= L0+U(q).
+```
+
+If the future-forced residue modulo `2^(U(q)+R)` has normalized margin
+`bits(residue)-U(q)`, that margin is at most the same fixed `L0`.  If the
+canonical residue fails exact replay, the stronger conclusion is `R<L0`.
+Thus unbounded margins or replay failures with unbounded padding exclude the
+entire prescribed schedule; finite rows only raise a lower bound on its
+unknown initial core.
+
+The sharper worker uses the immediate predecessor as well.  At precision
+exactly `U(q)`, combine the future residue modulo `2^U` with EC17's predecessor
+residue modulo `3^(6*n_previous+11)`.  If the canonical CRT representative
+fails replay, Lean proves
+
+```text
+6*n_previous+11 < L0.
+```
+
+Since `n_previous` grows with `q`, failed CRT rows at a cofinal sequence of
+cycle indices would rule out that period-three schedule without any guessed
+padding or real logarithms.  Commit `44c43b0` closes the exact replay semantics,
+including the important distinction between under-divisibility and an even
+over-divisible quotient, which needs one additional transition.
+
+The two exact workers now emit replay lengths and hashes of all reconstructed
+intermediate cores:
+
+```text
+experiments/kontorovich/breakoff_ether_period3_normalized_margin.py
+experiments/kontorovich/breakoff_ether_period3_normalized_crt.py
+```
+
+Their self-tests and a stable local 8,790-target Lean build pass.  Akdeniz is
+probing the cofinal dyadic indices through `q=2048` for every positive
+period-three schedule with increments in `[-1,1]` and starting branch at most
+eight.  This bounded run is a theorem-facing diagnostic, not an assertion of
+unbounded failure.  PSC remains unused because arbitrary-precision modular
+arithmetic has no credible GPU advantage here.
+
 ### 2026-07-23 04:08 EDT
 
 There is still no counterexample.  Period three now has a machine-checked
@@ -4447,8 +4518,12 @@ identically `x`.
   `U(q)=ceil(q*(462B+2235+G*(693q-3141))/306)`.  Its excess bit length over
   `U(q)` is a certified lower bound on the one fixed initial bit length; an
   unbounded sequence of such margins excludes that schedule.  Formalize this
-  implication first, then search margins.  Raw precision widening without
-  normalization remains only a finite lower-bound exercise.
+  implication first, then search margins.  Commits `52cd3e1`/`44c43b0` now
+  formalize both the implication and exact replay-failure semantics.  The
+  stronger normalized CRT version adds the predecessor modulus and turns
+  each failed row into `6*n_previous+11<bits(core(0))`; cofinal failed rows
+  exclude the schedule.  Raw precision widening without normalization remains
+  only a finite lower-bound exercise.
 - **Partial-theta integrality sieves.**  The standard two-rail schedule reduces
   to the sole 2-adic initial value
   `-(23/3^8) F(2/3,2^13/3^9)`.  Väänänen--Wallisser's full-source 1989 theorem
