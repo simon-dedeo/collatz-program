@@ -17,7 +17,8 @@ margin is
 
     bits(r)-U(q) = R-leading_zero_bits(r among P bits).
 
-QM100--QM103 request the Lean bridge proving that every genuine ray must have
+Companion commit ``52cd3e1`` kernel-checks the QM100--QM104 bridge proving
+that every genuine ray must have
 ``bits(core(0)) >= margin``.  Consequently a finite row gives a rigorous
 lower bound after that bridge is kernel-checked, while an unbounded sequence
 of exact margins excludes the entire prescribed schedule.  This worker does
@@ -391,7 +392,7 @@ def scan_box(
         ],
         "schedule_summaries": [summary_dict(summary) for summary in summaries],
         "theorem_interface": (
-            "requested QM100--QM104: every genuine period-three Ray must "
+            "Lean commit 52cd3e1, QM100--QM104: every genuine period-three Ray must "
             "satisfy bits(core(0)) >= max(0, normalized_margin_bits); if "
             "the canonical residue fails exact replay, bits(core(0)) must "
             "also exceed padding_bits"

@@ -8,8 +8,8 @@ At cycle boundary ``q >= 5``, QM100 bounds the genuine core by
 where ``L0`` is the initial core's binary digit count and ``U(q)`` is the
 kernel-checked sharp upper growth budget.  The prescribed future fixes this
 core modulo ``2^U``.  Its immediate predecessor independently fixes it modulo
-``3^(6*n_previous+11)``.  A failed canonical CRT representative therefore
-forces, by requested QM105--QM107,
+``3^(6*n_previous+11)``.  Companion commit ``52cd3e1`` kernel-checks
+QM105--QM107, under which a failed canonical CRT representative forces
 
     6*n_previous+11 < L0.
 
@@ -316,7 +316,7 @@ def scan_box(
         "leading_zero_anomalies": [row_dict(row) for row in anomalies[:64]],
         "schedule_summaries": [summary_dict(summary) for summary in summaries],
         "theorem_interface": (
-            "requested QM105--QM107: a failed canonical normalized CRT "
+            "Lean commit 52cd3e1, QM105--QM107: a failed canonical normalized CRT "
             "representative forces 6*n_previous+11 < bits(core(0))"
         ),
         "claim_scope": (
