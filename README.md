@@ -61,18 +61,42 @@ Only the finite rows above are claimed.  The source residues are nested roots
 of the returned register modulo increasing powers of two, not a simple
 repeating base-eight address.  The companion's all-depth register-isometry
 argument shows that these roots form a nonordinary 2-adic tower: no one fixed
-natural parameter funds arbitrarily deep bursts.  Thus the artifact exposes
-a precise delay line but not closure.  The live target remains a collision
-which writes a genuinely different recharge map inside a finite recurrent
-chart graph; no counterexample or infinite execution is claimed.
+natural parameter funds arbitrarily deep bursts.
+
+The same artifact now finds the first post-burst collision edge.  On the
+whole cylinder `u=35 (mod 2048)`, seven macros have heads `0102021` and carry
+lists
+
+```text
+[1], [1,1], [0], [1,1], [1], [1,1], [1,1].
+```
+
+They burst once, collide evenly, then recharge and return to head zero with
+seven trailing twos and net `+3` cells.  If `R` is the incoming returned-chart
+register and `T` the new register, the exact map is
+
+```text
+2048*T = 3^10*R + 8.
+```
+
+This is genuinely different from `256*R'=3^6*R+1`.  A separate literal
+regression replays all seven macros on the least 2,317,094-trit source and
+pins every endpoint hash.  It is still not closure: the output block is not
+identified with an earlier chart.  Moreover, if the two known affine edges
+were simply alternated as a periodic two-chart loop, their composite has
+coprime multipliers `B=2^19 < A=3^16`; companion commit `2037f54` provides a
+kernel-checked generic obstruction to precisely such an expanding periodic
+natural-register schedule.  A survivor needs a nonperiodic dispatcher or a
+different nonexpanding composite.  No counterexample or infinite execution
+is claimed.
 
 ```text
 python3 experiments/kontorovich/yah_returned_burst.py selftest
 python3 experiments/kontorovich/yah_returned_burst.py verify \
   experiments/kontorovich/yah_returned_burst_audit.json
 
-artifact SHA-256  dabed1fe2a74b2afe5ab4217ea75fa34fba54125d5f8b2b7ca418d2c81468b69
-worker SHA-256    9a38d7c65f885db6f9812649dedad43abe47ed0c0f89ae46672e7897ed31f2c9
+artifact SHA-256  e6c9aae7b804f616a1fb5b9640f693f641156d995666e5e275f4d641680d6293
+worker SHA-256    f552fb0a4fa754ef4313f678dcfb4b45448de6d21fc05312ea6d6994def569fa
 ```
 
 ### 2026-07-22 17:18 EDT — shutdown checkpoint

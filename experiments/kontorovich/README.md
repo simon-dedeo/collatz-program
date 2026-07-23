@@ -3801,8 +3801,34 @@ by SHA-256.
 This is deliberately a bounded word theorem.  The observed heads do not obey
 either tempting extrapolation `(01)^g` or `01(02)^(g-1)`.  The register
 isometry supplies an all-depth arithmetic root tower, but its compatible
-addresses cannot eventually be one ordinary natural parameter.  A forward
-dispatcher and a second recharge affine map are still missing.
+addresses cannot eventually be one ordinary natural parameter.
+
+The first collision after a depth-one burst does produce a second restorative
+edge.  Restrict the returned chart to `u=35+2048*w`.  The exact seven-macro
+schedule is
+
+```text
+heads    0       1       0       2       0       2       1
+carries [1]    [1,1]   [0]     [1,1]   [1]     [1,1]   [1,1]
+```
+
+The first two macros are the `g=1` burst.  The third is an even collision;
+the remaining four spend seven odd sweeps and restore the seven-trit
+reservoir.  The full instruction gains three cells.  With incoming register
+`R` and returned register `T`, its exact affine law is
+
+```text
+2048*T = 59049*R + 8.
+```
+
+The repeated SLP block has length 134,217,728.  The independent regression
+materializes only the least 2,317,094-trit member, replays all seven literal
+queue macros, and records every SHA-256.  The endpoint is not identified with
+an earlier chart.  If one nevertheless postulates a periodic alternation with
+the original restorative edge, the composite expands by `3^16/2^19`; the
+kernel-checked periodic affine gate in companion commit `2037f54` rules out
+such a positive natural register orbit.  Closure still needs a nonperiodic
+dispatcher or a different composite.
 
 ```bash
 python3 yah_returned_burst.py selftest
@@ -3811,6 +3837,6 @@ python3 yah_returned_burst.py verify yah_returned_burst_audit.json
 ```
 
 Artifact SHA-256:
-`dabed1fe2a74b2afe5ab4217ea75fa34fba54125d5f8b2b7ca418d2c81468b69`.
+`e6c9aae7b804f616a1fb5b9640f693f641156d995666e5e275f4d641680d6293`.
 Worker SHA-256:
-`9a38d7c65f885db6f9812649dedad43abe47ed0c0f89ae46672e7897ed31f2c9`.
+`f552fb0a4fa754ef4313f678dcfb4b45448de6d21fc05312ea6d6994def569fa`.

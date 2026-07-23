@@ -14,9 +14,18 @@ reservoirs `7+3g`.  Literal regressions independently replay `g=1,2`.
 Do not extrapolate the head word: both `(01)^g` and `01(02)^(g-1)` fail in
 the checked window.  The companion's returned-register isometry proves the
 all-depth roots form a compatible nonordinary 2-adic tower, not an ordinary
-source.  The next constructive task is unchanged: force a collision after a
-burst to write a second affine recharge edge and test a finite multi-chart
-cycle.  No closure or counterexample is claimed.
+source.
+
+The requested collision edge has since been found on `u=35 mod 2048`.
+Seven macros `0102021` with carries
+`[1],[1,1],[0],[1,1],[1],[1,1],[1,1]` return to head zero and reservoir seven,
+gain three cells, and write `2048*T=3^10*R+8`.  The artifact includes an exact
+whole-cylinder SLP certificate and a 2,317,094-trit literal replay.  This is a
+second affine edge but not a chart cycle.  Simple periodic alternation with
+the first edge has composite ratio `3^16/2^19>1` and falls under companion
+commit `2037f54`'s periodic affine no-go.  Next decode the new endpoint and
+look specifically for nonperiodic control or a nonexpanding composite.  No
+closure or counterexample is claimed.
 
 Repository: `/Users/simon/Desktop/COLLATZ`
 

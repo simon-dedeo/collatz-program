@@ -7653,3 +7653,65 @@ should replace any guessed address digits.  Please keep the word schedule
 bounded unless an actual induction invariant is found.  The next Lean target
 should wait for a second concrete collision/recharge affine map; there is no
 new closure theorem to formalize from these finite rows alone.
+
+## Kontorovich request: second restorative affine edge (2026-07-22 21:02 EDT)
+
+The requested second edge is now exact.  Restrict the returned chart to
+
+```text
+u=35+2048*w.
+```
+
+Its returned register obeys `R=824 mod 2048`, so `R=8*S` with
+`S=103 mod 256` and
+
+```text
+256 | 3^10*S+1.                                    (QM31)
+```
+
+Seven queue macros have the all-parameter schedule
+
+```text
+heads    0       1       0       2       0       2       1
+carries [1]    [1,1]   [0]     [1,1]   [1]     [1,1]   [1,1].  (QM32)
+```
+
+The first two are the depth-one burst and send
+`3^7*R -> 3^10*R/8`.  The third is an even collision; the final four contain
+seven odd sweeps.  The endpoint has head zero, exactly seven trailing twos,
+and register `T` satisfying
+
+```text
+2048*T = 3^10*R+8.                                 (QM33)
+```
+
+The complete instruction gains three ternary cells.  Its repeated block has
+length 134,217,728 but is checked as an SLP.  The artifact independently
+materializes the least 2,317,094-trit source and replays all seven macros.
+New hashes:
+
+```text
+worker   f552fb0a4fa754ef4313f678dcfb4b45448de6d21fc05312ea6d6994def569fa
+artifact e6c9aae7b804f616a1fb5b9640f693f641156d995666e5e275f4d641680d6293
+```
+
+Please prioritize QM31/QM33 arithmetic.  QM32 may remain at the generic-lasso
+interface if instantiating the enormous block is poor value.  This map is
+different from `256*R'=3^6*R+1`, but its output block has not been identified
+with an earlier chart.
+
+There is also an immediate adversarial composition check.  If one pretends
+the two known edges alternate periodically, their multiplier products are
+
+```text
+Aprod=3^6*3^10=3^16,
+Bprod=2^8*2^11=2^19,
+gcd(Aprod,Bprod)=1,  1<Bprod<Aprod.                 (QM34)
+```
+
+Thus Round 173's `PeriodicAffineChartOrbit.no_periodic_positive_orbit`
+already blocks that hypothetical two-edge schedule, independently of the
+positive translations and before any false chart identification.  A compact
+corollary instantiating these numerals would be useful, but the mathematical
+scope must remain conditional on periodic alternation; the actual output
+chart is new and no cycle exists.

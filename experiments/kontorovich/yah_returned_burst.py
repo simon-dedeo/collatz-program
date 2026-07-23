@@ -423,6 +423,120 @@ def literal_regression(depth_pairs: int, maximum: int = 2_000_000) -> dict[str, 
     }
 
 
+def second_restorative_edge() -> dict[str, Any]:
+    """Certify a burst/collision/recharge edge with a new affine register map.
+
+    On ``u=35 mod 2048`` the depth-one burst spends three odd sweeps.  The
+    next zero-head macro collides evenly, and four more macros use seven odd
+    sweeps to restore the seven-trit reservoir.  If ``R`` is the register on
+    entry and ``T`` the register on return, exact defect bookkeeping gives
+
+        2048*T = 3^10*R + 8.
+
+    This differs from the first restorative map ``256*R'=3^6*R+1``.  The
+    output lasso is not asserted to equal any earlier chart.
+    """
+
+    source_base = 35
+    source_stride = 2048
+    register_mod = returned_register_mod(source_base, 11)
+    if register_mod % 8:
+        raise AssertionError("secondary edge source missed the depth-one burst")
+    residual_mod = register_mod // 8
+    if (3**10 * residual_mod + 1) % 256:
+        raise AssertionError("secondary edge source missed its recharge address")
+    if returned_register_mod(source_base + source_stride, 11) != register_mod:
+        raise AssertionError("secondary edge cylinder is not uniform")
+
+    current = CompressedLasso.from_explicit(returned_explicit_lasso()).restrict(
+        source_base, source_stride
+    )
+    source = current.record()
+    expected = (
+        ("0", [1]),
+        ("1", [1, 1]),
+        ("0", [0]),
+        ("2", [1, 1]),
+        ("0", [1]),
+        ("2", [1, 1]),
+        ("1", [1, 1]),
+    )
+    stages: list[dict[str, Any]] = []
+    for index, (expected_head, expected_carries) in enumerate(expected, start=1):
+        before = slp_length(current.word(0))
+        current, head, carries = current.fixed_macro()
+        after = slp_length(current.word(0))
+        if (head, carries) != (expected_head, expected_carries):
+            raise AssertionError("secondary restorative edge schedule failed")
+        stages.append(
+            {
+                "macro": index,
+                "head": head,
+                "terminal_carries": carries,
+                "length_delta": after - before,
+                "endpoint": current.record(),
+            }
+        )
+    endpoint = current.record()
+    net = endpoint["prefix_length"] + endpoint["suffix_length"]
+    net -= source["prefix_length"] + source["suffix_length"]
+    if net != 3 or endpoint["trailing_twos"] != 7:
+        raise AssertionError("secondary restorative edge has the wrong output type")
+
+    # Independent literal replay at the least source.  This expands one
+    # 2,316,094-trit word, never the 134,217,728-trit repeated lasso block.
+    maximum = 2_400_000
+    word = returned_explicit_lasso().word(source_base)
+    if len(word) > maximum:
+        raise AssertionError("secondary literal regression exceeded its bound")
+    literal_trace: list[dict[str, Any]] = []
+    for expected_head, expected_carries in expected:
+        if word[0] != expected_head:
+            raise AssertionError("secondary literal replay has the wrong head")
+        word, _, carries = queue.macro_factorized(word)
+        if carries != expected_carries:
+            raise AssertionError("secondary literal replay has the wrong carries")
+        literal_trace.append(
+            {
+                "head": expected_head,
+                "terminal_carries": carries,
+                "word_length": len(word),
+                "word_sha256": yah.sha256_bytes(word.encode()),
+            }
+        )
+    if word != materialize(current.word(0), maximum):
+        raise AssertionError("secondary compressed endpoint failed literal replay")
+    return {
+        "source_parameter": "u=35+2048*w",
+        "source_base": source_base,
+        "source_stride": source_stride,
+        "incoming_register_mod_2048": register_mod,
+        "burst_residual_mod_256": residual_mod,
+        "source": source,
+        "stages": stages,
+        "endpoint": endpoint,
+        "net_space_charge": net,
+        "endpoint_reservoir": 7,
+        "register_map": "2048*T=3^10*R+8",
+        "register_map_coefficients": {
+            "denominator": 2048,
+            "slope_numerator": 3**10,
+            "translation": 8,
+        },
+        "literal_regression": {
+            "source_word_length": len(returned_explicit_lasso().word(source_base)),
+            "source_word_sha256": yah.sha256_bytes(
+                returned_explicit_lasso().word(source_base).encode()
+            ),
+            "trace": literal_trace,
+        },
+        "closure_warning": (
+            "this is a second restorative affine edge, not an identification "
+            "of its output with an earlier chart or a recurrent cycle"
+        ),
+    }
+
+
 def build_audit(max_depth: int) -> dict[str, Any]:
     if max_depth < 2:
         raise ValueError("maximum depth must include the two observed bursts")
@@ -439,6 +553,7 @@ def build_audit(max_depth: int) -> dict[str, Any]:
         "max_pair_depth": max_depth,
         "bursts": bursts,
         "literal_regressions": [literal_regression(1), literal_regression(2)],
+        "second_restorative_edge": second_restorative_edge(),
         "certified_burst_law_through_max_depth": {
             "source": "2^(3g) divides R_next(u) on one residue u=a_g mod 2^(3g)",
             "nested_addresses": "a_(g+1)=a_g mod 2^(3g)",
@@ -451,12 +566,12 @@ def build_audit(max_depth: int) -> dict[str, Any]:
         "closure_status": {
             "counterexample": None,
             "achieved": (
-                "compressed exact all-parameter burst certificates and the "
-                "nested dyadic source law"
+                "compressed exact all-parameter burst certificates, the "
+                "nested dyadic source law, and a second restorative affine edge"
             ),
             "missing": (
-                "a collision/recharge edge with a genuinely different affine "
-                "register update in a finite recurrent ordinary chart graph"
+                "identification of edge outputs with finitely many chart inputs "
+                "and a recurrent ordinary register cycle"
             ),
         },
     }
