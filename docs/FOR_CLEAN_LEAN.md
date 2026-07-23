@@ -8438,3 +8438,69 @@ the argument.  Therefore Théorème 2 does not apply.  Bézivin's 1990 sequel in
 Acta Arith. 55, 233--240 is an archimedean entire-function result and likewise
 does not close the `Q_2` endpoint.  This is a closed shortcut, not evidence
 against a special sharpening of the Väänänen--Wallisser construction.
+
+## Kontorovich request: period-three finite-coboundary obstruction (2026-07-23)
+
+There is a short structural reason that the three theta phases do not collapse
+to the obvious finite exponential/Laurent potential.  Let a period-three
+positive-mean schedule have cycle gain `K>0`, and write
+
+```text
+b_(3*q+i)=c_i+K*q,  i=0,1,2,
+b_(3*q+3)=c_0+K*(q+1).
+```
+
+For the three EC17 steps in cycle `q`, put
+
+```text
+a_i(q)=2^(8*b_(3*q+i+1)+15)=a_i*X^q,
+c_i(q)=3^(6*b_(3*q+i)+11)=c_i*Y^q,
+X=2^(8*K),  Y=3^(6*K).
+```
+
+(Rename the ternary constants if `c_i` conflicts with the branch phases.)
+Direct three-step composition is
+
+```text
+(a_0*a_1*a_2)*X^(3*q) * u_(3*q+3)
+ = (c_0*c_1*c_2)*Y^(3*q) * u_(3*q)
+   +17*(c_1*c_2*Y^(2*q)
+        +a_0*c_2*(X*Y)^q
+        +a_0*a_1*X^(2*q)).                              (QM65)
+```
+
+Please kernel-check this literal EC17 composition first.  It explains the
+three geometric theta arguments without invoking the external theorem.
+
+The associated function-field coboundary equation is
+
+```text
+A*x^3*F(X*x,Y*y)-C*y^3*F(x,y)
+  =17*(D_0*y^2+D_1*x*y+D_2*x^2),                         (QM66)
+```
+
+where all displayed scaling and defect constants are nonzero rationals.
+There is no finite Laurent
+polynomial `F in Q[x^±1,y^±1]` satisfying this identity.  A convenient first
+formalization can state the natural homogeneous case
+
+```text
+F(x,y)=sum_(k=m)^M f_k*x^k*y^(-1-k).
+```
+
+If `F` is nonzero, its least `x` exponent contributes through
+`-C*y^3*F` at that same exponent, with no predecessor three places lower;
+the right side forces the least exponent to be in `{0,1,2}`.  Its greatest
+exponent contributes through `A*x^3*F(X*x,Y*y)` three places higher, with no
+successor to cancel it; the right side forces the greatest exponent to be in
+`{-3,-2,-1}`.  This contradicts `least<=greatest`.              (QM67)
+
+For the full Laurent statement, split by total degree.  The operator raises
+total degree by three, so only degree `-1` can meet the quadratic right side;
+every other finite homogeneous component would lie in the kernel, and the
+same extreme-support argument shows that finite kernel is zero.           (QM68)
+
+Scope: QM66--QM68 rule out a finite bivariate Laurent/exponential-polynomial
+potential.  They do not prove the evaluated three theta values independent;
+an infinite series or non-Laurent rational construction is still possible.
+This is nevertheless a principled closure of the simplest coboundary lane.
