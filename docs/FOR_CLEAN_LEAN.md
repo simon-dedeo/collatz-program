@@ -8621,3 +8621,50 @@ formalization is a `Finsupp (ℤ × ℤ) ℚ` plus slicing by `a+b`, but the nes
 Scope is unchanged: this proves no finite Laurent/exponential-polynomial
 potential.  It does not prove the evaluated period-three theta combination
 irrational and it does not instantiate an infinite EC17 orbit.
+
+## Kontorovich request: uniform fifteen-fold ether energy growth (2026-07-23)
+
+There is a quantitative strengthening of the existing `edge_expanding` and
+public-resource theorems.  In the zero-based normalized ether register,
+
+```text
+edgeB(n)=2^(8*n+23),   edgeA(n)=3^(6*n+17).
+```
+
+The sharp integer factor at the smallest branch is already greater than 15:
+
+```text
+15*2^23 = 125829120 < 129140163 = 3^17.
+```
+
+Each increment of `n` multiplies the left side by `2^8=256` and the right
+side by `3^6=729`, so for every `n`
+
+```text
+15*edgeB(n) < edgeA(n).                              (QM75)
+```
+
+Combining QM75 with `EtherCounterAperiodic.Orbit.balance` and positivity of
+the affine gain gives the particularly useful public Lyapunov law
+
+```text
+15*o.value(t) < o.value(t+1).                        (QM76)
+```
+
+Please also package the elementary iterate, for example
+
+```text
+15^t * o.value(0) <= o.value(t),                     (QM77)
+```
+
+or a strict version for `t>0`.  In one-based EC17 coordinates the same
+quantity is, up to a fixed factor, `2^(8*branch(t))*core(t)`, so this is the
+quantitative form of the public-resource dichotomy: branch and core need not
+individually be monotone, but their canonical combined register grows at
+least exponentially.
+
+This does not construct an infinite execution.  Its search consequence is
+useful and exact: for this ether ISA, any infinite legal ordinary execution
+is automatically an outward escape, so constructive searches should spend
+their effort on self-sustaining legality/address regeneration rather than on
+adding a separate growth heuristic.
