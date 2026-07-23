@@ -9808,3 +9808,60 @@ from `2*q` on which a dyadic induction could operate.  A useful theorem need
 only certify QM117a--c and state this terminal-annihilation consequence using
 the existing initial-residue interface; do not attempt to formalize the
 research-side claim that no more elaborate induction is possible.
+## Kontorovich request: fixed-depth truncation freedom guardrail (QM118, 2026-07-23)
+
+The fixed-depth congruence hierarchy is a valid no-ray consumer, but one must
+not infer rationality or automaticity from periodic ternary targets alone.
+The exact finite extension lemma is elementary and worth kernel-checking.
+
+Let `d,P,Delta,R,c` be naturals with
+
+```text
+R < 2^P,   3^d <= 2^Delta.
+```
+
+Because `2^P` is invertible modulo `3^d`, the canonical residue
+
+```text
+a = (c-R)*2^(-P) mod 3^d
+```
+
+satisfies `a<3^d<=2^Delta` and
+
+```text
+R+2^P*a = c (mod 3^d).                                 (QM118)
+```
+
+Please state this without choosing a modular-inverse convention if a CRT or
+`ZMod` existence proof is cheaper.  Iterating QM118 across precision gaps
+larger than `d*log2(3)` lets arbitrary fixed-depth periodic target classes be
+enforced by successive binary blocks.  A research-side construction can at
+the same time choose extra multiples of `3^d` to keep the resulting binary
+expansion non-eventually-periodic.  In the one-trit constant case the explicit
+2-adic series
+
+```text
+x = 1 + sum_q 3*2^(P_q)
+```
+
+has boundary truncations `1 mod 3` while suitably growing, nonperiodic gaps
+make `x` nonrational.
+
+Scope: QM118 is the requested machine-checked guardrail.  The infinite-series
+countermodel is research-side unless separately formalized.  Its consequence
+for strategy is already clear: eventual matching at one fixed ternary depth
+does **not** by itself force a rational or automatic 2-adic value.  Any proof
+of cofinal mismatch must use the special EC17/three-theta coupling between
+successive `q`, including the canonical reduction carry.
+
+The target clock itself admits a sharper research formula.  At modulus `3^d`,
+the exact period in `q` should be
+
+```text
+3^max(d-1-v3(K),0),
+```
+
+because `ord_(3^d)(2)=2*3^(d-1)` and the exponent advances by `8*K`.
+Thus for `3∤K`, modulus nine is the first phase-sensitive window.  Formalize
+this refinement only if the exact-order library makes it inexpensive; the
+already-proved dividing period `3^(d-1)` is sufficient for soundness.

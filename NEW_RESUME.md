@@ -59,6 +59,15 @@ formalized.  The missing theorem appears to require control of the canonical
 reduction carry (equivalently the next Hensel digit of the finite three-theta
 defect), not just the low-bit recurrence.
 
+The independent analytic audit also closes one tempting overreach.  For any
+fixed ternary depth and any periodic target clock, sufficiently large binary
+precision gaps allow each next block to be chosen to hit that clock while the
+resulting 2-adic number remains nonrational.  Thus eventual fixed-depth
+matching does not generically imply rationality or automaticity.  The live
+proof must exploit the EC17/three-theta coupling across cycle indices.  The
+finite extension lemma has been sent to the companion as QM118; until its
+reply, treat the infinite countermodel as a research-side guardrail.
+
 ### 04:55 EDT continuation — normalized residue and CRT no-ray consumers
 
 There is no counterexample.  Companion commit `a6619c5` proves the exact
