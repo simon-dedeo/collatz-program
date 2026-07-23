@@ -655,6 +655,126 @@ def resonant_decoder_regression(maximum_shortcut_steps: int) -> dict[str, Any]:
     }
 
 
+def discrete_log9_mod_two_power(value: int, modulus_power: int) -> int:
+    """Return q with 9^q=value mod 2^M for value=1 mod 8."""
+
+    if modulus_power < 3 or value % 8 != 1:
+        raise ValueError("base-nine logarithm requires M>=3 and value=1 mod8")
+    q = 0
+    for precision in range(3, modulus_power):
+        modulus = 2 ** (precision + 1)
+        lifted = q + 2 ** (precision - 3)
+        old_holds = pow(9, q, modulus) == value % modulus
+        lifted_holds = pow(9, lifted, modulus) == value % modulus
+        if old_holds == lifted_holds:
+            raise AssertionError("base-nine Hensel lift lost uniqueness")
+        if lifted_holds:
+            q = lifted
+    if pow(9, q, 2**modulus_power) != value % 2**modulus_power:
+        raise AssertionError("base-nine logarithm reconstruction failed")
+    return q
+
+
+def symbolic_sum_v2(exponent: int, constant: int, known_power: int) -> int:
+    """Compute v2(3^exponent+constant) from modular powers only."""
+
+    if (pow(3, exponent, 2**known_power) + constant) % 2**known_power:
+        raise ValueError("claimed lower dyadic valuation is false")
+    power = known_power
+    while (pow(3, exponent, 2 ** (power + 1)) + constant) % 2 ** (power + 1) == 0:
+        power += 1
+    return power
+
+
+def restorative_writer_decoder_cylinders(maximum_counter: int) -> dict[str, Any]:
+    """Construct exact root-writer to resonant-decoder exponent cylinders."""
+
+    if maximum_counter < 0:
+        raise ValueError("restorative counter bound must be nonnegative")
+    rows: list[dict[str, Any]] = []
+    for c in range(maximum_counter + 1):
+        z = 2 * 3**c
+        o = minimal_terminal_ones(z)
+        S = z + o
+        d = (2**z - 1) // 3 ** (c + 1)
+        D = S + c + 4
+        constant = 7 + 2 ** (c + 4) * d
+        target_residue = (-constant) % 2**D
+        logarithm = discrete_log9_mod_two_power(target_residue, D)
+        period = 2 ** (D - 2)
+        C = (2 * logarithm - 2) % period
+        if pow(3, C + 2, 2**D) != target_residue:
+            raise AssertionError("writer-decoder exponent cylinder failed")
+        compatible = c >= 2 and C % 16 == 12
+        row: dict[str, Any] = {
+            "counter_c": c,
+            "decoder_zero_count_z": z,
+            "decoder_one_count_o": o,
+            "decoder_word_length_S": S,
+            "decoder_d": str(d),
+            "exponent_modulus_power": D - 2,
+            "canonical_root_exponent_C": str(C),
+            "canonical_root_exponent_bits": C.bit_length(),
+            "C_mod_16": C % 16,
+            "root_010111_compatible": compatible,
+        }
+        if compatible:
+            root_drain = c - 2
+            root_numerator_v2 = symbolic_sum_v2(C + 2, 7, c + 4)
+            if root_numerator_v2 != c + 4:
+                raise AssertionError("root writer has the wrong exact drain")
+            total_v2 = symbolic_sum_v2(C + 2, constant, D)
+            decoder_drain = total_v2 - D
+            constant_v3, constant_unit = valuation(constant, 3)
+            if C + 2 <= constant_v3:
+                raise AssertionError("constant valuation does not determine decoder q")
+            target_c = c + o + decoder_drain + constant_v3
+            target_minimum_z = 2 * 3**target_c
+            if constant.bit_length() >= C + 2:
+                raise AssertionError("decoder constant is not smaller than its exponential rail")
+            immediate_decoder_size_no_go = C + 3 <= target_minimum_z
+            row.update(
+                {
+                    "root_drain_a": root_drain,
+                    "decoder_drain_a": decoder_drain,
+                    "decoder_q_v3": constant_v3,
+                    "decoder_q_primitive_constant_unit": str(constant_unit),
+                    "target_charge_exponent_c": target_c,
+                    "ordinary_seed_encoding": f"3^({C + 1})-1",
+                    "two_recharge_words": [ROOT_WORD, "0" * z + "1" * o],
+                    "output_primitive_chart": {
+                        "numerator": f"3^({C + 2})+{constant}",
+                        "division_power_2": D + decoder_drain,
+                        "division_power_3": constant_v3,
+                    },
+                    "immediate_resonant_decoder_size_no_go": immediate_decoder_size_no_go,
+                    "size_no_go_reason": (
+                        "C+3<=2*3^c_target implies output unit plus every resonant "
+                        "decoder defect is smaller than its required 2^S address"
+                        if immediate_decoder_size_no_go
+                        else "displayed elementary size comparison is inconclusive"
+                    ),
+                }
+            )
+        rows.append(row)
+    compatible_rows = [row for row in rows if row["root_010111_compatible"]]
+    return {
+        "maximum_counter": maximum_counter,
+        "rows": rows,
+        "rows_sha256": hashlib.sha256(canonical_json(rows)).hexdigest(),
+        "compatible_counters": [row["counter_c"] for row in compatible_rows],
+        "least_compatible_ordinary_root_exponent": (
+            compatible_rows[0]["canonical_root_exponent_C"]
+            if compatible_rows
+            else None
+        ),
+        "unbounded_status": (
+            "bounded exact cylinders; no invariant closure and no claim that the "
+            "canonical exponents cohere as the counter grows"
+        ),
+    }
+
+
 def build_audit(args: argparse.Namespace) -> dict[str, Any]:
     if args.maximum_root_exponent < 12 or args.maximum_root_exponent % 2:
         raise ValueError("root exponent bound must be at least 12 and even")
@@ -730,6 +850,7 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
             "maximum_root_precision_bits": args.maximum_root_precision_bits,
             "maximum_word_length": args.maximum_word_length,
             "processes": args.processes,
+            "maximum_restorative_counter": args.maximum_restorative_counter,
         },
         "grammar": grammar_record(),
         "resonant_return_no_go": {
@@ -744,6 +865,9 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         },
         "resonant_decoder_family": resonant_decoder_regression(
             args.maximum_shortcut_steps
+        ),
+        "restorative_writer_decoder_cylinders": restorative_writer_decoder_cylinders(
+            args.maximum_restorative_counter
         ),
         "exact_test_population": {
             "root_exponents": len(exponents),
@@ -794,6 +918,7 @@ def build_artifact(args: argparse.Namespace) -> dict[str, Any]:
 def report(artifact: dict[str, Any]) -> dict[str, Any]:
     audit = artifact["audit"]
     champion = audit["resource_ledger_champion"]
+    restorative = audit["restorative_writer_decoder_cylinders"]
     return {
         "artifact_sha256": artifact["artifact_sha256"],
         "worker_sha256": artifact["worker_sha256"],
@@ -802,6 +927,10 @@ def report(artifact: dict[str, Any]) -> dict[str, Any]:
         "defect_case_counts": audit["exact_test_population"]["defect_case_counts"],
         "champion_root_C": champion["root_exponent"],
         "champion_defined_recharges": champion["defined_recharges"],
+        "restorative_compatible_counters": restorative["compatible_counters"],
+        "least_restorative_root_C": restorative[
+            "least_compatible_ordinary_root_exponent"
+        ],
         "universal_invariant": audit["universal_invariant"],
         "counterexample": audit["counterexample"],
     }
@@ -834,6 +963,7 @@ def selftest() -> None:
         maximum_root_precision_bits=6,
         maximum_word_length=12,
         processes=1,
+        maximum_restorative_counter=2,
     )
     audit = build_audit(args)
     if audit["counterexample"] is not None or audit["universal_invariant"] is not None:
@@ -853,6 +983,7 @@ def add_bounds(command: argparse.ArgumentParser) -> None:
     command.add_argument("--maximum-root-precision-bits", type=int, default=10)
     command.add_argument("--maximum-word-length", type=int, default=24)
     command.add_argument("--processes", type=int, default=4)
+    command.add_argument("--maximum-restorative-counter", type=int, default=5)
 
 
 def parser() -> argparse.ArgumentParser:

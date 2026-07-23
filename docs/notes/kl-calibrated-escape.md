@@ -2491,5 +2491,50 @@ forever.  The old `(z,o,c,d)=(6,11,1,7)` family is the specialization
 descent theorem.  Mixed architectures remain open, but they now have a sharp
 resource obligation: a nondecoder edge must replenish the primitive payload.
 
+There is nevertheless an exact writer--decoder handoff.  Fix `c`, take the
+minimal first-passage `o` for `z=2*3^c`, and put
+
+```text
+S=z+o,
+d=(2^z-1)/3^(c+1),
+D=S+c+4,
+B=7+2^(c+4)d.
+```
+
+The root `010111` writer has exact drain `c-2` and lands in the decoder
+cylinder precisely when
+
+```text
+3^(C+2) = -B (mod 2^D).                            (27.3)
+```
+
+For `c>=2`, the right side is `1 mod8`, so its even base-3 exponent is found
+by the unique bitwise base-nine logarithm.  The complete exponent period is
+`2^(D-2)`, and reduction modulo 64 forces `C=12 mod16`, exactly the root-word
+legality class.  The worker reconstructs this coefficientwise for
+`c=2,3,4,5`.  The least canonical exponent is
+
+```text
+c=2, z=18, o=31, D=55,
+C=7848752615831324.                                (27.4)
+```
+
+It represents the fixed ordinary seed `3^(C+1)-1`; no 2-adic inverse limit is
+being substituted for a natural.  After the two recharges its primitive chart
+is
+
+```text
+q_prim = (3^(C+2)+B)/(2^(D+a)3^v),
+```
+
+where `a` and `v` are reconstructed exactly by modular valuation.  For the
+four displayed counters the target charge exponents are `33,97,282,839`.
+Each canonical output also passes an elementary size no-go: its primitive
+unit plus any next resonant decoder defect is smaller than the shortest
+required decoder address.  Therefore none can take a third decoder edge
+immediately.  This is a useful nonempty two-edge architecture and a precise
+first failure, not closure.  CEGIS must now synthesize a nondecoder edge from
+the displayed output chart which restores enough primitive/address mass.
+
 The artifact has `universal_invariant:null` and `counterexample:null`.  It is
 a grammar reduction and a resource diagnosis, not a nontermination claim.

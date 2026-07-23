@@ -74,7 +74,24 @@ primitive part of an encoded quotient `q`, but that payload is strictly
 smaller than the incoming primitive unit.  QM164 asks Lean to prove that no
 ordinary orbit can use only these decoders forever.  A viable mixed invariant
 therefore needs a restorative edge that replenishes primitive payload—the
-arithmetic return-and-write gadget.  The first-crossing lane remains inside
+arithmetic return-and-write gadget.
+
+The first exact writer--decoder compatibility gate is nonempty.  Solving its
+base-3 discrete logarithm modulo the required power of two constructs one
+ordinary root-exponent cylinder for each tested counter `c=2,3,4,5`.  The
+least canonical exponent is
+
+```text
+C=7848752615831324,
+words = 010111, 0^18 1^31.
+```
+
+This is an exact symbolic two-recharge seed far beyond direct expansion, not
+a counterexample.  The resulting primitive chart is not a pure power, and an
+exact size gate shows that all four displayed outputs are too small in their
+primitive unit to execute another resonant decoder immediately.  Thus the
+next CEGIS edge must be a nondecoder restoration, not a longer decoder tape.
+The first-crossing lane remains inside
 its 24-hour time box; further scale is conditional on a symbolic predicate
 type surviving these obstructions.
 

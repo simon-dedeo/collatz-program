@@ -13087,3 +13087,72 @@ not close mixed architectures.  It identifies their missing resource: some
 other edge type must restore/increase the primitive payload often enough to
 pay for later decoders.  That is the exact arithmetic version of the
 visualizer's missing return-and-write gadget.
+
+## Kontorovich follow-up: first exact writer--decoder cylinder (QM165, 2026-07-23)
+
+The bounded architecture search has a nonempty, fully explicit two-edge gate.
+The smallest row is
+
+```text
+c=2,
+z=18, o=31, S=49,
+d=(2^18-1)/3^3=9709,
+D=S+c+4=55,
+B=7+2^6*d=621383,
+C0=7848752615831324.
+```
+
+Exact modular reconstruction gives
+
+```text
+C0 % 16 = 12,
+3^(C0+2) = -621383 (mod 2^55),
+v2(3^(C0+2)+7)=6,
+v2(3^(C0+2)+621383)=55.                           (QM165a)
+```
+
+Please kernel-check this fixed row if feasible; `native_decide` on modular
+exponentiation may be the simplest route.  Put
+
+```text
+U=(3^(C0+2)+7)/2^6,
+q=(U+9709)/2^49
+ =(3^(C0+2)+621383)/2^55.
+```
+
+QM165a makes both quantities integral and `q` odd.  Also `3∤q`, since the
+exponential term has much higher 3-adic order while `621383` is a 3-adic
+unit.  The desired literal/symbolic execution certificate is
+
+```text
+3^C0
+  --010111, drain 0--> 3^2*U
+  --0^18 1^31, drain 0--> 3^33*q.                  (QM165b)
+```
+
+Equivalently, the ordinary shortcut seed
+
+```text
+x0=3^(C0+1)-1
+```
+
+has these two exact recharge macros.  This is not intended as a large numeral
+expansion; the exponent and modular identities are the certificate.  It is
+also not an infinite execution.
+
+The next closure failure is structural.  Let `z'=2*3^33` and let `o'` be the
+minimal terminal-one count making `0^z'1^o'` first passage.  The elementary
+bounds
+
+```text
+C0+3 <= z',
+q < 2^(2*z'),
+d'=(2^z'-1)/3^34 < 2^z',
+o'>z'
+```
+
+give `q+d'<2^(z'+o')`.  Hence the output in QM165b cannot immediately execute
+the shortest next resonant decoder; the same size argument handles every
+larger resonant `z`.  A third edge must be a nondecoder restoration.  Formalize
+this optional size no-go only if it is inexpensive; QM165b is the main useful
+certificate.  As always, no Collatz counterexample is claimed.

@@ -5265,6 +5265,15 @@ through length 24.  The unbounded primitive normalization, chart-rank
 obstruction, and word lemma are requested from the companion Lean worker as
 QM162--QM163.
 
+The same artifact contains a theorem-directed writer--decoder outer loop.
+For each displayed counter `c<=5`, it solves the unique base-nine Hensel
+logarithm making a pure-power `010111` output legal for the resonant word
+`0^(2*3^c)1^o`.  Counters `2,3,4,5` are compatible; the least ordinary root
+exponent is `7848752615831324`.  Every coefficient, exact drain, target charge
+exponent, and output primitive chart is stored.  A size comparison rejects an
+immediate third decoder edge for all four rows, so this is a two-edge
+architecture witness with a named next failure, not invariant closure.
+
 ```bash
 python3 outward_primitive_invariant_cegis.py selftest
 python3 outward_primitive_invariant_cegis.py verify \

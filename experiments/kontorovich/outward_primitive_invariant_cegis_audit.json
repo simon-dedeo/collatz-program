@@ -1,5 +1,5 @@
 {
-  "artifact_sha256": "361772b2ddb6b9a2555b9b998cf849e6fcaf58b5e52fb5d124acfd2c24ff42ec",
+  "artifact_sha256": "5dc67117ae55bf17dd95cd5b6e06946d50e2f94a2c45507bd1056348dd236400",
   "audit": {
     "architecture_outer_loop": [
       {
@@ -463,6 +463,7 @@
       "maximum_dyadic_bits": 10,
       "maximum_exponent_residue_bits": 10,
       "maximum_macro_depth": 24,
+      "maximum_restorative_counter": 5,
       "maximum_root_exponent": 1000,
       "maximum_root_precision_bits": 10,
       "maximum_shortcut_steps": 250000,
@@ -880,11 +881,165 @@
         "status": "undefined_terminal"
       }
     },
+    "restorative_writer_decoder_cylinders": {
+      "compatible_counters": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "least_compatible_ordinary_root_exponent": "7848752615831324",
+      "maximum_counter": 5,
+      "rows": [
+        {
+          "C_mod_16": 8,
+          "canonical_root_exponent_C": "24",
+          "canonical_root_exponent_bits": 5,
+          "counter_c": 0,
+          "decoder_d": "1",
+          "decoder_one_count_o": 4,
+          "decoder_word_length_S": 6,
+          "decoder_zero_count_z": 2,
+          "exponent_modulus_power": 8,
+          "root_010111_compatible": false
+        },
+        {
+          "C_mod_16": 4,
+          "canonical_root_exponent_C": "180948",
+          "canonical_root_exponent_bits": 18,
+          "counter_c": 1,
+          "decoder_d": "7",
+          "decoder_one_count_o": 11,
+          "decoder_word_length_S": 17,
+          "decoder_zero_count_z": 6,
+          "exponent_modulus_power": 20,
+          "root_010111_compatible": false
+        },
+        {
+          "C_mod_16": 12,
+          "canonical_root_exponent_C": "7848752615831324",
+          "canonical_root_exponent_bits": 53,
+          "counter_c": 2,
+          "decoder_d": "9709",
+          "decoder_drain_a": 0,
+          "decoder_one_count_o": 31,
+          "decoder_q_primitive_constant_unit": "621383",
+          "decoder_q_v3": 0,
+          "decoder_word_length_S": 49,
+          "decoder_zero_count_z": 18,
+          "exponent_modulus_power": 53,
+          "immediate_resonant_decoder_size_no_go": true,
+          "ordinary_seed_encoding": "3^(7848752615831325)-1",
+          "output_primitive_chart": {
+            "division_power_2": 55,
+            "division_power_3": 0,
+            "numerator": "3^(7848752615831326)+621383"
+          },
+          "root_010111_compatible": true,
+          "root_drain_a": 0,
+          "size_no_go_reason": "C+3<=2*3^c_target implies output unit plus every resonant decoder defect is smaller than its required 2^S address",
+          "target_charge_exponent_c": 33,
+          "two_recharge_words": [
+            "010111",
+            "0000000000000000001111111111111111111111111111111"
+          ]
+        },
+        {
+          "C_mod_16": 12,
+          "canonical_root_exponent_C": "1442304757408638653794731051551832487281900108",
+          "canonical_root_exponent_bits": 151,
+          "counter_c": 3,
+          "decoder_d": "222399981598543",
+          "decoder_drain_a": 0,
+          "decoder_one_count_o": 93,
+          "decoder_q_primitive_constant_unit": "9489065881537837",
+          "decoder_q_v3": 1,
+          "decoder_word_length_S": 147,
+          "decoder_zero_count_z": 54,
+          "exponent_modulus_power": 152,
+          "immediate_resonant_decoder_size_no_go": true,
+          "ordinary_seed_encoding": "3^(1442304757408638653794731051551832487281900109)-1",
+          "output_primitive_chart": {
+            "division_power_2": 154,
+            "division_power_3": 1,
+            "numerator": "3^(1442304757408638653794731051551832487281900110)+28467197644613511"
+          },
+          "root_010111_compatible": true,
+          "root_drain_a": 1,
+          "size_no_go_reason": "C+3<=2*3^c_target implies output unit plus every resonant decoder defect is smaller than its required 2^S address",
+          "target_charge_exponent_c": 97,
+          "two_recharge_words": [
+            "010111",
+            "000000000000000000000000000000000000000000000000000000111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+          ]
+        },
+        {
+          "C_mod_16": 12,
+          "canonical_root_exponent_C": "41858251983921377678433098384876640062294770321681151332326510538513513094153061837480018712052379675360680748110287507333015798544492",
+          "canonical_root_exponent_bits": 444,
+          "counter_c": 4,
+          "decoder_d": "24057640120673299065081231814259802792690247621",
+          "decoder_drain_a": 1,
+          "decoder_one_count_o": 277,
+          "decoder_q_primitive_constant_unit": "6158755870892364560660795344450509514928703390983",
+          "decoder_q_v3": 0,
+          "decoder_word_length_S": 439,
+          "decoder_zero_count_z": 162,
+          "exponent_modulus_power": 445,
+          "immediate_resonant_decoder_size_no_go": true,
+          "ordinary_seed_encoding": "3^(41858251983921377678433098384876640062294770321681151332326510538513513094153061837480018712052379675360680748110287507333015798544493)-1",
+          "output_primitive_chart": {
+            "division_power_2": 448,
+            "division_power_3": 0,
+            "numerator": "3^(41858251983921377678433098384876640062294770321681151332326510538513513094153061837480018712052379675360680748110287507333015798544494)+6158755870892364560660795344450509514928703390983"
+          },
+          "root_010111_compatible": true,
+          "root_drain_a": 2,
+          "size_no_go_reason": "C+3<=2*3^c_target implies output unit plus every resonant decoder defect is smaller than its required 2^S address",
+          "target_charge_exponent_c": 282,
+          "two_recharge_words": [
+            "010111",
+            "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+          ]
+        },
+        {
+          "C_mod_16": 12,
+          "canonical_root_exponent_C": "276559660543376991550398122060814052070455093714587516609313203197422050561916764682932593692011784571177579310507231619842600457528630468724653248967821721519215209155874411115292458634589866247048117408026490054872933377975150781967210354636344435726670907417093054741271889077984996520032156460585009503634256957868502870594264114453072255263921658014051776234445335098436793335830015181990389548",
+          "canonical_root_exponent_bits": 1324,
+          "counter_c": 5,
+          "decoder_d": "274062972867247603303734187526423379379849494006252611323711996455451016851117969393277902052213286905663818370054902421548244778428601179153047",
+          "decoder_drain_a": 1,
+          "decoder_one_count_o": 831,
+          "decoder_q_primitive_constant_unit": "15591138012003419210167989334836530026942548992355704110860060242798991180863600036595365094525911432855541667274234448870300147395049311525151119",
+          "decoder_q_v3": 2,
+          "decoder_word_length_S": 1317,
+          "decoder_zero_count_z": 486,
+          "exponent_modulus_power": 1324,
+          "immediate_resonant_decoder_size_no_go": true,
+          "ordinary_seed_encoding": "3^(276559660543376991550398122060814052070455093714587516609313203197422050561916764682932593692011784571177579310507231619842600457528630468724653248967821721519215209155874411115292458634589866247048117408026490054872933377975150781967210354636344435726670907417093054741271889077984996520032156460585009503634256957868502870594264114453072255263921658014051776234445335098436793335830015181990389549)-1",
+          "output_primitive_chart": {
+            "division_power_2": 1327,
+            "division_power_3": 2,
+            "numerator": "3^(276559660543376991550398122060814052070455093714587516609313203197422050561916764682932593692011784571177579310507231619842600457528630468724653248967821721519215209155874411115292458634589866247048117408026490054872933377975150781967210354636344435726670907417093054741271889077984996520032156460585009503634256957868502870594264114453072255263921658014051776234445335098436793335830015181990389550)+140320242108030772891511904013528770242482940931201336997740542185190920627772400329358285850733202895699875005468110039832701326555443803726360071"
+          },
+          "root_010111_compatible": true,
+          "root_drain_a": 3,
+          "size_no_go_reason": "C+3<=2*3^c_target implies output unit plus every resonant decoder defect is smaller than its required 2^S address",
+          "target_charge_exponent_c": 839,
+          "two_recharge_words": [
+            "010111",
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+          ]
+        }
+      ],
+      "rows_sha256": "bec9bee7e18bf8894e1d00572e0bc039142dc2a834953feb699ca831ab6d56ec",
+      "unbounded_status": "bounded exact cylinders; no invariant closure and no claim that the canonical exponents cohere as the counter grows"
+    },
     "symbolic_transition_algebra_closed": false,
     "symbolic_transition_algebra_scope": "the displayed LOW/HIGH/RESONANT identities normalize every already-legal recharge; they do not prove a total closed predicate",
     "symbolic_transition_algebra_status": "research normal form with exact bounded regression; universal Lean proof requested in QM163",
     "universal_invariant": null
   },
   "schema": "collatz-outward-primitive-invariant-cegis-v1",
-  "worker_sha256": "0f2ce0b40832cd4a311493fefd89b8fa8593b45a50e009365bf6cfa10b93df7f"
+  "worker_sha256": "efa7222b73c6dfaa46efd333d19333c981d07dcea59c821eb2bcd9548c866705"
 }
