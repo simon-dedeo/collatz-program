@@ -78,6 +78,20 @@ theorem CenterMove.apply_le_four_mul (m : CenterMove) {h : ℕ} (hh : 0 < h) :
       apply Nat.div_le_of_le_mul
       omega
 
+/-- The advanced divided move does not increase a positive center. -/
+theorem advanced_apply_le {h : ℕ} (hh : 0 < h) :
+    CenterMove.advanced.apply h ≤ h := by
+  simp only [CenterMove.apply, advancedCenter]
+  apply Nat.div_le_of_le_mul
+  omega
+
+/-- The retarded divided move grows a positive center by at most two. -/
+theorem retarded_apply_le_two_mul {h : ℕ} (hh : 0 < h) :
+    CenterMove.retarded.apply h ≤ 2 * h := by
+  simp only [CenterMove.apply, retardedCenter]
+  apply Nat.div_le_of_le_mul
+  omega
+
 /-- Endpoint obtained by reading a controller word from left to right. -/
 def runCenter : List CenterMove → ℕ → ℕ
   | [], h => h
@@ -116,6 +130,48 @@ theorem legal_runCenter_le_four_pow_mul (w : List CenterMove) {h : ℕ}
     (hh : 0 < h) (_hw : LegalWord w h) :
     runCenter w h ≤ 4 ^ w.length * h :=
   runCenter_le_four_pow_mul w hh
+
+/-- QM133c: only transport and retarded letters contribute to the sharp
+height budget.  Advanced letters have multiplicative cost one. -/
+theorem runCenter_le_counted_budget (w : List CenterMove) {h : ℕ}
+    (hh : 0 < h) :
+    runCenter w h ≤
+      4 ^ w.count .transport * 2 ^ w.count .retarded * h := by
+  induction w generalizing h with
+  | nil => simp [runCenter]
+  | cons m w ih =>
+      simp only [runCenter]
+      have hih := ih (m.apply_pos hh)
+      cases m with
+      | transport =>
+          simp only [List.count_cons, ↓reduceIte, pow_succ]
+          calc
+            runCenter w (CenterMove.transport.apply h) ≤
+                4 ^ w.count .transport * 2 ^ w.count .retarded *
+                  CenterMove.transport.apply h := hih
+            _ ≤ 4 ^ w.count .transport * 2 ^ w.count .retarded * (4 * h) :=
+              Nat.mul_le_mul_left _
+                (CenterMove.apply_le_four_mul .transport hh)
+            _ = (4 ^ w.count .transport * 4) *
+                2 ^ w.count .retarded * h := by ring
+      | retarded =>
+          simp only [List.count_cons, ↓reduceIte, pow_succ]
+          calc
+            runCenter w (CenterMove.retarded.apply h) ≤
+                4 ^ w.count .transport * 2 ^ w.count .retarded *
+                  CenterMove.retarded.apply h := hih
+            _ ≤ 4 ^ w.count .transport * 2 ^ w.count .retarded * (2 * h) :=
+              Nat.mul_le_mul_left _ (retarded_apply_le_two_mul hh)
+            _ = 4 ^ w.count .transport *
+                (2 ^ w.count .retarded * 2) * h := by ring
+      | advanced =>
+          simp only [List.count_cons, ↓reduceIte]
+          calc
+            runCenter w (CenterMove.advanced.apply h) ≤
+                4 ^ w.count .transport * 2 ^ w.count .retarded *
+                  CenterMove.advanced.apply h := hih
+            _ ≤ 4 ^ w.count .transport * 2 ^ w.count .retarded * h :=
+              Nat.mul_le_mul_left _ (advanced_apply_le hh)
 
 /-- Ordinary distance between two natural centers, represented without
 truncated subtraction. -/
@@ -169,6 +225,18 @@ theorem three_pow_le_four_pow_mul_add
   obtain ⟨h₁, h₂, h₃⟩ :=
     controller_switch_precision_cost w hh hne hdiv
   exact h₁.trans (h₂.trans h₃)
+
+/-- QM133d: count-sensitive precision cost. -/
+theorem three_pow_le_counted_budget_add
+    (w : List CenterMove) {h g k : ℕ} (hh : 0 < h)
+    (hne : runCenter w h ≠ g)
+    (hdiv : ((3 ^ k : ℕ) : ℤ) ∣
+      (runCenter w h : ℤ) - (g : ℤ)) :
+    3 ^ k ≤
+      4 ^ w.count .transport * 2 ^ w.count .retarded * h + g := by
+  exact (three_pow_le_centerDistance hne hdiv).trans
+    ((centerDistance_le_add _ _).trans
+      (Nat.add_le_add_right (runCenter_le_counted_budget w hh) g))
 
 end KLControllerSwitch
 end KontoroC

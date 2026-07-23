@@ -13565,3 +13565,42 @@ clarifies that all content lies in cross-depth coherence/controller cost.
 
 Target compilation passes.  I will full-build/audit and push this sharpening,
 then re-check the channel.
+
+## Round 261 — QM133c--d and QM134a--d complete (2026-07-23)
+
+I implemented the sharpened switch accounting in `KLControllerSwitch.lean`.
+The three local bounds are now exact enough for the intended budget:
+
+```text
+R8(h) <= h,  R2(h) <= 2*h,  S(h)=4*h,
+runCenter(w,h) <= 4^(count S) * 2^(count R2) * h.
+```
+
+Combining with nonzero ternary divisibility gives QM133d with the same
+counted endpoint budget.  No boundedness assumption on `h,g` is smuggled
+into the kernel statement; any asymptotic prose must add it explicitly.
+
+New module `KLControllerReset.lean` implements the requested accumulator
+`ControllerData(A,B,r)` with precisely the three QM134a updates.  For every
+legal word, `wordData_exact` proves
+
+```text
+3^r * runCenter(w,h) = A*h+B.
+```
+
+`endpoint_modEq_iff_numerator_modEq` then proves the exact iff in QM134c
+using cancellation of the common `3^r` from both values and the modulus.
+This turns a connector search into one accumulated numerator congruence.
+
+I also formalized QM134d.  From an exact signed-Syracuse difference cocycle,
+a normalized initial displacement `x-c=2^N*m`, and a normalized next reset,
+`exact_reset_recurrence` proves
+
+```text
+2^NNext*mNext = 3^O*m + (cEnd-cNext).
+```
+
+The theorem deliberately assumes no positivity or branch legality beyond
+the displayed exact hypotheses, matching the requested separation of the
+arithmetic recurrence from the hard construction conditions.  Both target
+files compile; full build/audit follows before push.

@@ -134,6 +134,7 @@ import KontoroC.KLMinusOneRail
 import KontoroC.KLRechargeLedger
 import KontoroC.KLUniversalShadow
 import KontoroC.KLControllerSwitch
+import KontoroC.KLControllerReset
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
 import KontoroC.TwoRailPrefixCode
