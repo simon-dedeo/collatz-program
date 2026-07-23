@@ -9434,6 +9434,33 @@ then no such `Ray` exists (QM103), by applying the premise at `M=L0` and
 QM102.  This is the exact theorem that would promote unbounded computed
 margins to a universal schedule exclusion.
 
+There is a stronger replay consumer worth exposing at the same time (QM104).
+With the same `q,U,R,P,length` and precision hypothesis, suppose the canonical
+least residue fails the prescribed exact natural prefix, in the existing
+abstract form
+
+```text
+hfail : forall pref : NaturalPrefix branchQ length,
+  pref.core 0 != (initialResidue branchQ P length).val.
+```
+
+Then prove
+
+```text
+R < L0.                                                   (QM104)
+```
+
+This is immediate from the existing
+`initial_core_ge_modulus_of_least_residue_fails`, which gives
+`2^P<=core(3q)`, and QM100's strict
+`core(3q)<2^(U+L0)`: if `L0<=R`, monotonicity gives
+`core(3q)<2^(U+R)=2^P`, contradiction.  Thus an exact replay failure at
+padding `R` is stronger than the raw margin and certifies an initial bit
+length of at least `R+1`.  Cofinal replay failures with unbounded `R` exclude
+the schedule.  The Python worker records the literal failure step, but until
+its failure predicate is connected to `hfail` this remains the requested
+formal interface, not a promoted artifact claim.
+
 Off-by-one audit: Python's `int.bit_length()` agrees with
 `Nat.log 2 r+1` only for `r>0`; the worker must record/check positivity.  Also
 the shifted future begins at branch `g.branch(3*q)`, not at its predecessor,
