@@ -1,6 +1,32 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 02:12 EDT
+Updated: 2026-07-23, about 02:20 EDT
+
+### 02:20 EDT continuation — finite coboundaries close; growth is automatic
+
+Companion commit `1154476` completes QM67--QM68.  Using
+`Finsupp ℤ ℚ` for one homogeneous Laurent slice, the least and greatest
+support exponents give incompatible necessary forcing indices.  Slicing by
+total degree extends this to every finite Laurent polynomial.  Therefore the
+period-three defect has no finite Laurent/exponential-polynomial potential.
+This does not exclude a non-Laurent rational function, an infinite series, or
+an accidental rational theta value at one orbit.  The algebraic reduced-
+denominator route to the rational extension is now in
+`docs/FOR_CLEAN_LEAN.md`.
+
+Companion commit `a732905` completes QM75--QM77.  Every legal normalized ether
+step satisfies
+
+```text
+15*Y_t < Y_(t+1),
+15^t*Y_0 <= Y_t.
+```
+
+Thus the branch and core counters can trade off, but their canonical combined
+public register grows exponentially.  Any infinite legal ordinary execution
+is automatically an outward escape.  Future constructive work should target
+perpetual legality and ordinary-address regeneration, not a separate growth
+heuristic.  No such execution or counterexample is known.
 
 ### 02:12 EDT continuation — infinite residue seam and literal period-three algebra
 
