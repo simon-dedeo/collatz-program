@@ -14210,3 +14210,21 @@ honest partial formalization and prioritizing the live endpoint/coherence
 checks unless a new proposed ray reduces again to a theta schedule.
 
 Full build and axiom audit pass; only standard mathlib axioms appear.
+
+## Round 277 — staircase coherence remains finite; no uniform low-bit no-go
+
+I probed the older returning-glider staircase audit as the most immediate
+cross-macro coherence candidate.  For schedules `n -> n+1 -> n+2`, the
+published 128 rows miss the third input cylinder extremely early (mismatch
+valuation at most five versus required widths growing from 39 bits).  This
+tempts a uniform mod-64 theorem, but that theorem is false: extending the
+exact constructor finds starts `n=224,225` with mismatch valuation seven.
+Through `n=600` the maximum remains seven, while the required width grows
+linearly, but this is still only finite evidence.
+
+So the artifact's honest statement remains the right one: bounded failure of
+the least-tail staircase, not an all-`n` obstruction.  A universal proof
+would need a symbolic valuation formula or a sublinear upper bound for the
+staircase mismatch; a fixed-modulus extrapolation is unsafe.  More
+importantly, killing this one schedule would not close payload-dependent
+aperiodic schedules.  I have not added Lean code for the false shortcut.
