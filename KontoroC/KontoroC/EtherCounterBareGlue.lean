@@ -308,6 +308,46 @@ theorem canonical_worker_modEq_iff_upperBlocks_eq
     (isCoprime_three_pow_two_pow Q (m + p)) hbound
   simpa [sub_eq_zero] using hworker
 
+/-- The concrete balanced width used by the worker always satisfies the
+exponent gate required by `canonical_worker_modEq_iff_upperBlocks_eq`. -/
+theorem two_pow_log_three_pow_le (Q : ℕ) :
+    2 ^ Nat.log 2 (3 ^ Q) ≤ 3 ^ Q := by
+  exact Nat.pow_log_le_self 2 (pow_ne_zero Q (by norm_num))
+
+/-- At positive ternary precision the balanced dyadic width is strictly
+smaller.  Equality is impossible because its left side is even while its
+right side is odd. -/
+theorem two_pow_log_three_pow_lt (Q : ℕ) (hQ : 0 < Q) :
+    2 ^ Nat.log 2 (3 ^ Q) < 3 ^ Q := by
+  have hle := two_pow_log_three_pow_le Q
+  apply hle.lt_of_ne
+  intro heq
+  have hthree : 2 ≤ 3 ^ Q := Nat.one_lt_pow hQ.ne' (by omega)
+  have hlogpos : 0 < Nat.log 2 (3 ^ Q) :=
+    Nat.log_pos (by omega) hthree
+  have heven : Even (2 ^ Nat.log 2 (3 ^ Q)) :=
+    Nat.even_pow.mpr ⟨by norm_num, hlogpos.ne'⟩
+  have hodd : Odd (3 ^ Q) := (by norm_num : Odd 3).pow
+  rw [heq] at heven
+  exact (Nat.not_even_iff_odd.mpr hodd) heven
+
+/-- Worker-facing specialization at the actual balanced choice
+`ell = floor(log_2(3^Q))`.  No separate logarithmic estimate remains among
+the hypotheses. -/
+theorem canonical_log_worker_modEq_iff_upperBlocks_eq
+    (m p Q r D y rnext s A H : ℕ)
+    (hsource : r < 2 ^ (m + p))
+    (htarget : rnext < 2 ^ (p + Nat.log 2 (3 ^ Q)))
+    (hdefect : D < 3 ^ Q)
+    (haffine : 2 ^ m * y = 3 ^ Q * r + D)
+    (hnextDecomp : rnext = s + 2 ^ p * A)
+    (himageDecomp : y = s + 2 ^ p * H) :
+    (2 : ℤ) ^ m * (rnext : ℤ) ≡ (D : ℤ) [ZMOD (3 : ℤ) ^ Q] ↔ A = H := by
+  exact canonical_worker_modEq_iff_upperBlocks_eq
+    m p (Nat.log 2 (3 ^ Q)) Q r D y rnext s A H
+    hsource htarget hdefect haffine hnextDecomp himageDecomp
+    (two_pow_log_three_pow_le Q)
+
 /-- Proof-carrying consecutive three-step replays on a bare branch schedule. -/
 structure ThreeReplayChain where
   branch : ℕ → ℕ

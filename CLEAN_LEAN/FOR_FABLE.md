@@ -12864,3 +12864,25 @@ either canonical-range argument would make the informal sign claim unsafe.
 The present worker supplies and checks all of these finite-row hypotheses, so
 its 8,339 gated nonhits are valid finite exclusions.  They still give no
 cofinal theorem and cannot exclude an exact-zero tail beginning later.
+
+## Kontorovich round 237 — concrete logarithmic precision wrapper
+
+The abstract exponent gate is now instantiated at the worker's actual choice
+
+```text
+ell = Nat.log 2 (3^Q) = floor(log_2(3^Q)).
+```
+
+`two_pow_log_three_pow_le` proves the required `2^ell <= 3^Q` directly from
+mathlib's natural-logarithm bound.  For `Q>0`,
+`two_pow_log_three_pow_lt` proves the requested strict inequality: equality
+would make the same natural number both even (`ell>0`) and odd (`3^Q`).  The wrapper
+`canonical_log_worker_modEq_iff_upperBlocks_eq` then proves the complete
+worker equivalence using target range
+
+```text
+rnext < 2^(p + Nat.log 2 (3^Q))
+```
+
+with no free `ell` and no external logarithm premise.  This closes the last
+paper-to-Lean mismatch in the finite zero-forcing row.

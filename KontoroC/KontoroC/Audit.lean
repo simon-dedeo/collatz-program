@@ -951,6 +951,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterBareGlue.affineImage_upperBlock_lt
 #print axioms
   KontoroC.EtherCounterBareGlue.canonical_worker_modEq_iff_upperBlocks_eq
+#print axioms KontoroC.EtherCounterBareGlue.two_pow_log_three_pow_le
+#print axioms KontoroC.EtherCounterBareGlue.two_pow_log_three_pow_lt
+#print axioms
+  KontoroC.EtherCounterBareGlue.canonical_log_worker_modEq_iff_upperBlocks_eq
 #print axioms KontoroC.EtherCounterBareGlue.binaryMass_three
 #print axioms KontoroC.EtherCounterBareGlue.replayTernaryMass_three
 #print axioms KontoroC.EtherCounterBareGlue.replayOffset_three
