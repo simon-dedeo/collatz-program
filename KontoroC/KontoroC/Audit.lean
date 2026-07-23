@@ -861,9 +861,19 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.exists_nonexpanding_after
 #print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.two_pow_succ_lt_generalBackwardPrefixProduct_of_expanding_upto
+#print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.exists_nonexpanding_before_of_core_succ_lt_two_pow
+#print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.exists_nonexpanding_before_logarithmic_horizon
+#print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.exists_nonexpanding_in_logarithmic_window
+#print axioms
   KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.branch_ceiling_of_nonexpanding
 #print axioms
   KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.exists_branch_ceiling_after
+#print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.exists_branch_ceiling_in_logarithmic_window
 #print axioms
   KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.branch_ratio_lt_six_fifths_of_ceiling
 #print axioms

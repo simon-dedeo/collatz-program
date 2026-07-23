@@ -1117,6 +1117,75 @@ theorem two_pow_succ_lt_generalBackwardPrefixProduct
           mul_lt_mul_of_pos_left
             (o.two_lt_generalBackwardCoeff_of_expanding (N + 1) (h (N + 1))) hp
 
+/-- Finite-prefix version: expansion is needed only on the prefix whose
+product is being estimated. -/
+theorem two_pow_succ_lt_generalBackwardPrefixProduct_of_expanding_upto
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ)
+    (h : ∀ t, t < N + 1 → o.TwoExpandingAt t) :
+    (2 : ℚ) ^ (N + 1) <
+      backwardPrefixProduct o.generalBackwardCoeff (N + 1) := by
+  induction N with
+  | zero =>
+      simp only [backwardPrefixProduct, one_mul]
+      exact o.two_lt_generalBackwardCoeff_of_expanding 0 (h 0 (by omega))
+  | succ N ih =>
+      rw [backwardPrefixProduct]
+      have ih' := ih (fun t ht => h t (by omega))
+      have hp := o.generalBackwardPrefixProduct_pos (N + 1)
+      calc
+        (2 : ℚ) ^ (N + 1 + 1) = 2 ^ (N + 1) * 2 := by rw [pow_succ]
+        _ < backwardPrefixProduct o.generalBackwardCoeff (N + 1) * 2 :=
+          mul_lt_mul_of_pos_right ih' (by norm_num)
+        _ < backwardPrefixProduct o.generalBackwardCoeff (N + 1) *
+            o.generalBackwardCoeff (N + 1) :=
+          mul_lt_mul_of_pos_left
+            (o.two_lt_generalBackwardCoeff_of_expanding (N + 1)
+              (h (N + 1) (by omega))) hp
+
+theorem two_pow_lt_generalBackwardPrefixProduct_of_expanding_upto
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) (hN : 0 < N)
+    (h : ∀ t, t < N → o.TwoExpandingAt t) :
+    (2 : ℚ) ^ N < backwardPrefixProduct o.generalBackwardCoeff N := by
+  obtain ⟨M, rfl⟩ := Nat.exists_eq_succ_of_ne_zero hN.ne'
+  exact o.two_pow_succ_lt_generalBackwardPrefixProduct_of_expanding_upto M h
+
+/-- A block cannot remain more-than-two-expanding long enough for `2^N` to
+exceed the current one-unit scale budget.  This is a finite certificate, not
+an asymptotic statement. -/
+theorem exists_nonexpanding_before_of_core_succ_lt_two_pow
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ)
+    (hpow : o.core 0 + 1 < 2 ^ N) :
+    ∃ t, t < N ∧
+      2 ^ (8 * o.level (t + 1) + 23) ≤
+        2 * 3 ^ (6 * o.level t + 17) := by
+  by_contra hnone
+  push Not at hnone
+  have hN : 0 < N := by
+    by_contra hz
+    have : N = 0 := by omega
+    subst N
+    simp at hpow
+  have hexpand : ∀ t, t < N → o.TwoExpandingAt t := by
+    intro t ht
+    simp only [TwoExpandingAt]
+    have h := hnone t ht
+    omega
+  have hlower :=
+    o.two_pow_lt_generalBackwardPrefixProduct_of_expanding_upto N hN hexpand
+  have hbudget := o.general_backwardPrefixProduct_lt_core_succ N
+  have hpowQ : (o.core 0 : ℚ) + 1 < (2 : ℚ) ^ N := by
+    exact_mod_cast hpow
+  exact (not_lt_of_ge (le_of_lt hbudget)) (hpowQ.trans hlower)
+
+/-- Canonical logarithmic horizon for the finite slowdown certificate. -/
+theorem exists_nonexpanding_before_logarithmic_horizon
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) :
+    ∃ t, t < (Nat.log 2 (o.core 0 + 1)).succ ∧
+      2 ^ (8 * o.level (t + 1) + 23) ≤
+        2 * 3 ^ (6 * o.level t + 17) := by
+  apply o.exists_nonexpanding_before_of_core_succ_lt_two_pow
+  exact Nat.lt_pow_succ_log_self Nat.one_lt_two (o.core 0 + 1)
+
 theorem not_all_twoExpanding
     (o : EtherCounterAperiodic.TernaryCoreOrbit) :
     ¬ ∀ t, o.TwoExpandingAt t := by
@@ -1152,6 +1221,22 @@ theorem exists_nonexpanding_after
   simp only [TwoExpandingAt, shift] at hs
   push Not at hs
   simpa [Nat.add_assoc] using hs
+
+/-- Shifted finite-horizon form: after time `K`, a slowdown occurs within
+the binary logarithm of the current core, plus one. -/
+theorem exists_nonexpanding_in_logarithmic_window
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (K : ℕ) :
+    ∃ t, K ≤ t ∧
+      t < K + (Nat.log 2 (o.core K + 1)).succ ∧
+      2 ^ (8 * o.level (t + 1) + 23) ≤
+        2 * 3 ^ (6 * o.level t + 17) := by
+  obtain ⟨s, hs, hslow⟩ :=
+    (o.shift K).exists_nonexpanding_before_logarithmic_horizon
+  refine ⟨K + s, by omega, ?_, ?_⟩
+  · have hs' : s < (Nat.log 2 (o.core K + 1)).succ := by
+      simpa [shift] using hs
+    omega
+  · simpa [shift, Nat.add_assoc] using hslow
 
 /-- The exact power inequality at a nonexpanding step implies a simple
 near-linear ceiling on the next one-based branch. -/
@@ -1210,6 +1295,18 @@ theorem exists_branch_ceiling_after
         390 * o.oneBasedLevel t + 141 := by
   obtain ⟨t, ht, hslow⟩ := o.exists_nonexpanding_after K
   exact ⟨t, ht, o.branch_ceiling_of_nonexpanding t hslow⟩
+
+/-- The exact rational branch ceiling occurs inside the same logarithmic
+window, giving a finite search certificate for any proposed concrete core. -/
+theorem exists_branch_ceiling_in_logarithmic_window
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (K : ℕ) :
+    ∃ t, K ≤ t ∧
+      t < K + (Nat.log 2 (o.core K + 1)).succ ∧
+      328 * o.oneBasedLevel (t + 1) <
+        390 * o.oneBasedLevel t + 141 := by
+  obtain ⟨t, ht, hwindow, hslow⟩ :=
+    o.exists_nonexpanding_in_logarithmic_window K
+  exact ⟨t, ht, hwindow, o.branch_ceiling_of_nonexpanding t hslow⟩
 
 /-- Above the small explicit threshold `40`, the exact branch ceiling forces
 the more memorable strict ratio `n_(t+1) / n_t < 6 / 5`. -/

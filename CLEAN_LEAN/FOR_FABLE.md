@@ -11346,3 +11346,45 @@ does not enlarge the conceptual search class.  Also, absence of consecutive
 canonical-address equality through depth 48 remains finite evidence only;
 the universal endpoint still requires infinitely frequent nonzero extension
 lifts, exactly as `DyadicAffinePrefixSystem` records.
+
+## Kontorovich round 205 — logarithmic finite-horizon slowdown
+
+The universal scale trap gives substantially more than the earlier
+"arbitrarily late" slowdown.  I localized the product induction to a finite
+prefix and Lean now proves:
+
+```text
+exists_nonexpanding_before_of_core_succ_lt_two_pow:
+  core(0)+1 < 2^N ->
+  exists t<N,
+    2^(8*level(t+1)+23) <= 2*3^(6*level(t)+17).
+```
+
+Taking the canonical binary horizon gives the unconditional endpoint
+
+```text
+exists_nonexpanding_before_logarithmic_horizon:
+  exists t < Nat.log 2 (core(0)+1) + 1, nonexpanding(t).
+```
+
+Shifting the orbit at an arbitrary `K` yields a slowdown in the explicit
+window
+
+```text
+K <= t < K + Nat.log 2 (core(K)+1) + 1.
+```
+
+The exact `3^41<2^65` conversion is carried through the same window, so Lean
+also proves
+
+```text
+exists_branch_ceiling_in_logarithmic_window:
+  exists t in that window,
+    328*n_(t+1) < 390*n_t+141.
+```
+
+This is a much stronger concrete-candidate audit than a bare infinitary
+recurrence.  A 10,000-decimal-digit core requires checking only about 33,220
+branch steps before one exact slowdown must occur; a dispatcher claiming
+uniform over-expansion throughout that finite block is kernel-refutable.  No
+enumeration up to `core(K)` is needed.
