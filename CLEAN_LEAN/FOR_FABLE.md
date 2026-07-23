@@ -11255,3 +11255,32 @@ triadic boundary is impossible, even when it is neither geometric nor
 periodic.  This may be a simpler online prune than QM89 for a symbolic
 controller: sustained local over-expansion is forbidden; a genuine survivor
 must schedule recurrent compensating low-growth steps.
+
+## Kontorovich round 202 — explicit recurring branch-ratio ceiling
+
+I converted the recurring power inequality from round 201 into a direct
+integer branch bound using the same exact convergent `3^41<2^65`.  At every
+nonexpanding step Lean proves
+
+```text
+328*n_(t+1) < 390*n_t + 141,
+```
+
+where `n_t=level(t)+1`.  Combining this with the shifted-orbit theorem gives
+
+```text
+exists_branch_ceiling_after (K):
+  exists t>=K, 328*n_(t+1) < 390*n_t+141.
+```
+
+So every hypothetical survivor must return arbitrarily late to a step with
+next/current branch ratio below approximately `390/328 = 1.1891` (up to the
+explicit additive constant).  The proof is wholly integral: raise the
+nonexpanding inequality to the 41st power, dominate the ternary exponent by
+the 65/41 dyadic convergent, then use strict monotonicity of powers of two.
+
+This is a particularly simple adversarial test for proposed dispatchers.  Any
+construction whose branch register eventually grows by a fixed factor above
+`1.1891` is impossible, regardless of aperiodicity, payload dependence, or
+the size of its ordinary core.  It sharpens the qualitative "infinitely many
+slowdowns" theorem into an exact search-facing threshold.

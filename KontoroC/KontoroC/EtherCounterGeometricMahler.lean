@@ -1153,6 +1153,64 @@ theorem exists_nonexpanding_after
   push Not at hs
   simpa [Nat.add_assoc] using hs
 
+/-- The exact power inequality at a nonexpanding step implies a simple
+near-linear ceiling on the next one-based branch. -/
+theorem branch_ceiling_of_nonexpanding
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (t : ℕ)
+    (hslow :
+      2 ^ (8 * o.level (t + 1) + 23) ≤
+        2 * 3 ^ (6 * o.level t + 17)) :
+    328 * o.oneBasedLevel (t + 1) <
+      390 * o.oneBasedLevel t + 141 := by
+  let n := o.oneBasedLevel t
+  let m := o.oneBasedLevel (t + 1)
+  have hslow' : 2 ^ (8 * m + 15) ≤ 2 * 3 ^ (6 * n + 11) := by
+    rw [show 8 * m + 15 = 8 * o.level (t + 1) + 23 by
+      simp [m, oneBasedLevel]; omega]
+    rw [show 6 * n + 11 = 6 * o.level t + 17 by
+      simp [n, oneBasedLevel]; omega]
+    exact hslow
+  let k := 6 * n + 11
+  have hk : 0 < k := by simp [k]
+  have hden : 3 ^ (246 * n + 451) < 2 ^ (390 * n + 715) := by
+    calc
+      3 ^ (246 * n + 451) = (3 ^ 41) ^ k := by
+        rw [show 246 * n + 451 = 41 * k by simp [k]; omega, pow_mul]
+      _ < (2 ^ 65) ^ k :=
+        Nat.pow_lt_pow_left three_pow_41_lt_two_pow_65 hk.ne'
+      _ = 2 ^ (390 * n + 715) := by
+        rw [← pow_mul]
+        congr 1
+        simp [k]
+        omega
+  have hchain : 2 ^ (328 * m + 615) < 2 ^ (390 * n + 756) := by
+    calc
+      2 ^ (328 * m + 615) = (2 ^ (8 * m + 15)) ^ 41 := by
+        rw [← pow_mul]
+        congr 1
+        omega
+      _ ≤ (2 * 3 ^ (6 * n + 11)) ^ 41 := Nat.pow_le_pow_left hslow' 41
+      _ = 2 ^ 41 * 3 ^ (246 * n + 451) := by
+        rw [mul_pow, ← pow_mul,
+          show (6 * n + 11) * 41 = 246 * n + 451 by omega]
+      _ < 2 ^ 41 * 2 ^ (390 * n + 715) :=
+        Nat.mul_lt_mul_of_pos_left hden (by positivity)
+      _ = 2 ^ (390 * n + 756) := by
+        rw [← pow_add, show 41 + (390 * n + 715) = 390 * n + 756 by omega]
+  have hexp : 328 * m + 615 < 390 * n + 756 :=
+    (Nat.pow_lt_pow_iff_right (by norm_num)).1 hchain
+  simpa [n, m] using (show 328 * m < 390 * n + 141 by omega)
+
+/-- Infinitely often, the next one-based branch is at most about `1.189`
+times the current branch, in this exact integer form. -/
+theorem exists_branch_ceiling_after
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (K : ℕ) :
+    ∃ t, K ≤ t ∧
+      328 * o.oneBasedLevel (t + 1) <
+        390 * o.oneBasedLevel t + 141 := by
+  obtain ⟨t, ht, hslow⟩ := o.exists_nonexpanding_after K
+  exact ⟨t, ht, o.branch_ceiling_of_nonexpanding t hslow⟩
+
 /-- A literal ternary-core orbit on a geometric one-based level schedule is
 exactly the abstract EC17 ray used by the Mahler reduction. -/
 def toGeometricMahlerRay

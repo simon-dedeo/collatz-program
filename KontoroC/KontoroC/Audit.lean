@@ -860,6 +860,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.not_all_twoExpanding
 #print axioms
   KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.exists_nonexpanding_after
+#print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.branch_ceiling_of_nonexpanding
+#print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.exists_branch_ceiling_after
 #print axioms KontoroC.EtherCounterPeriodicTheta.Ray.weightedTerm_at
 #print axioms KontoroC.EtherCounterPeriodicTheta.Ray.theta_arguments_separated
 #print axioms KontoroC.EtherCounterPeriodicTheta.Ray.finite_series
