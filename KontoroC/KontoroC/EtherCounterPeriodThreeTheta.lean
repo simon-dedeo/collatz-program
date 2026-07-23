@@ -253,6 +253,18 @@ theorem theta_argument_vandermonde_ne_zero (g : Ray) :
     (Matrix.vandermonde g.thetaData.argument).det ≠ 0 := by
   exact Matrix.det_vandermonde_ne_zero_iff.mpr g.theta_argument_injective
 
+/-- Exact determinant of the consecutive geometric argument triple.  Unlike
+generic separation, this displays the precise extra factor paid by the
+three-value geometry. -/
+theorem theta_argument_vandermonde_formula (g : Ray) :
+    (Matrix.vandermonde g.thetaData.argument).det =
+      g.thetaData.argumentCommon ^ 3 * g.ratio *
+        (g.ratio - 1) ^ 3 * (g.ratio + 1) := by
+  rw [Matrix.det_vandermonde]
+  simp only [Fin.prod_univ_succ, Fin.prod_Ioi_zero, Fin.prod_Ioi_succ]
+  simp [PeriodicPhaseUp.ThetaResidueData.argument_eq_common_mul, thetaData]
+  ring
+
 theorem step_backward (g : Ray) (t : ℕ) :
     (g.core t : ℚ) =
       g.backwardCoeff t * g.core (t + 1) - g.backwardDefect t := by

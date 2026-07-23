@@ -12964,3 +12964,19 @@ algebraic determinant does not vanish for the consecutive geometric triple.
 It does **not** repair the 1989 bound by itself—the missing theorem is still a
 valuation/height estimate strong enough at `ell=3`—but it isolates where an
 improvement can enter without revisiting the semantic reduction.
+
+## Kontorovich round 242 — exact determinant cost of the geometric triple
+
+`theta_argument_vandermonde_formula` computes the determinant exactly:
+
+```text
+det V(alpha, alpha*r, alpha*r^2)
+  = alpha^3 * r * (r-1)^3 * (r+1),
+```
+
+where `alpha=thetaData.argumentCommon` and `r=ratio`.  This is more useful
+than abstract nonvanishing: for the EC17 ratio, `r` has positive 2-adic
+valuation while `r-1` and `r+1` are 2-adic units.  Thus the special triple's
+separation cost is concentrated in one explicit `r` factor (plus the common
+scale).  A sharpened Hermite estimate should track this factor exactly rather
+than pay a generic three-argument determinant bound.

@@ -964,6 +964,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.EtherCounterPeriodThreeTheta.Ray.theta_argument_vandermonde_ne_zero
 #print axioms
+  KontoroC.EtherCounterPeriodThreeTheta.Ray.theta_argument_vandermonde_formula
+#print axioms
   KontoroC.EtherCounterPeriodThreeTheta.Ray.padicCandidate_eq_initial
 #print axioms
   KontoroC.EtherCounterPeriodThreeTheta.Ray.padicWeightedSum_eq_scaled_vaananenSums
