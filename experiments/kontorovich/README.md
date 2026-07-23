@@ -3272,6 +3272,56 @@ Normalized-CRT artifact SHA-256:
 Normalized-CRT verifier SHA-256:
 `3e4e4e89ae6e072f07529a690bb3cd40535585b65f1d7752c6a83eaf3b03079b`.
 
+### Tight 971-budget raw-residue audit
+
+`breakoff_ether_period3_tight_residue.py` implements the cheaper endpoint
+made available by companion commits `5a3413a` and `78a6d05`.  The exact
+separator `3^971<2^1539` defines
+
+```text
+G1(q)=q*(1466*B+7092+K*(2199*q-9967)),
+V(q)=ceil(G1(q)/971).
+```
+
+Lean proves that a hypothetical ray eventually has `core(3q)<2^U`, so its
+normalized CRT lift must eventually be zero.  Lift zero is equivalent to the
+raw `U`-bit future residue satisfying the immediate predecessor congruence.
+The worker therefore needs no product-modulus CRT construction.  It computes
+one residue at precision `P=U+2*q+32`, masks its low `U` bits, and tests both
+representatives directly against
+
+```text
+2^(8*n_q+15)*residue = 17 (mod 3^(6*n_previous+11)).
+```
+
+On the same 71-schedule, 568-row dyadic box through `q=512`, every normalized
+and every padded residue fails the full predecessor congruence.  Among the
+normalized residues, 350 already fail the necessary first-trit test
+`residue=1 (mod 3)` and 218 match that trit but fail at a higher ternary
+digit.  The padded counts are 367 failures and 201 matches.  QM116 turns the
+finite failures into the uniform schedule-wise lower bounds below:
+
+```text
+weakest normalized lower bound     9 bits
+weakest padded lower bound     1,065 bits
+counterexample                    null
+```
+
+The normalized full-congruence failures are precisely finite nonzero-lift
+rows.  They do not prove that nonzero lifts recur arbitrarily late.  The
+artifact was independently reconstructed on Akdeniz with 30 workers.
+
+```bash
+python3 breakoff_ether_period3_tight_residue.py selftest
+python3 breakoff_ether_period3_tight_residue.py verify \
+  breakoff_ether_period3_tight_residue_audit.json --jobs 30
+```
+
+Artifact SHA-256:
+`c964e93d7290832cb61f3beac17892b148b8319096411865e07c9dbb46c2832a`.
+Verifier SHA-256:
+`e433a8b37ef2273ab91a182d074c16de49f186174f7e7e5616c0e309e98efe41`.
+
 ## Returning finite ether glider macros
 
 `breakoff_ether_glider.py` closes the finite boundary return left open by the
