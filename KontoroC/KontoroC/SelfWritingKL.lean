@@ -134,6 +134,21 @@ theorem Z_odd (q : ℕ) : Odd (Z q) := by
   simp only [Z]
   omega
 
+/-- Cancelling the common factor `17` converts a congruence modulo `17^2`
+into the reduced congruence modulo `17`. -/
+theorem seventeen_mul_modEq_iff (a b : ℕ) :
+    Nat.ModEq (17 ^ 2) (17 * a) (17 * b) ↔ Nat.ModEq 17 a b := by
+  rw [Nat.modEq_iff_dvd, Nat.modEq_iff_dvd]
+  constructor
+  · intro h
+    have h' : (17 : ℤ) * 17 ∣
+        (17 : ℤ) * ((b : ℤ) - (a : ℤ)) := by
+      convert h using 1 <;> norm_num <;> ring
+    exact Int.dvd_of_mul_dvd_mul_left (by norm_num) h'
+  · intro h
+    have h' := Int.mul_dvd_mul_left (17 : ℤ) h
+    convert h' using 1 <;> norm_num <;> ring
+
 /-- Exact mod-17 root of the reduced `Z` rail. -/
 theorem seventeen_dvd_Zbar_iff (r : ℕ) :
     17 ∣ Zbar r ↔ r % 17 = 14 := by
@@ -889,6 +904,91 @@ theorem reduced_payload_step {m r r' v : ℕ} (hm : 0 < m)
     simp only [reducedResidueStep]
     ring)
 
+/-- A fixed reduced shallow rail propagates through any exact public-payload
+step.  This is the local modulo-`17^2` engine for QM149. -/
+theorem payload_mod_seventeen_sq_step {m q q' c : ℕ} (hm : 0 < m)
+    (hrecurrence :
+      2 ^ (8 * m + 15) * q' =
+        3 ^ (6 * m + 11) * q + branchDelta m)
+    (hsource : Nat.ModEq (17 ^ 2) q (17 * c))
+    (hfixed : reducedResidueStep m (c : ZMod 17) = c) :
+    Nat.ModEq (17 ^ 2) q' (17 * c) := by
+  have hqdiv : 17 ∣ q :=
+    (hsource.dvd_iff (by norm_num : 17 ∣ 17 ^ 2)).mpr
+      (dvd_mul_right 17 c)
+  have hW := payloadStepCore_factor_W hm hrecurrence
+  have hWdiv : 17 ∣ W q := (seventeen_dvd_W_iff q).mpr hqdiv
+  obtain ⟨r, hr⟩ := hqdiv
+  rw [hW] at hWdiv
+  have hcoreDiv : 17 ∣ payloadStepCore m q :=
+    ((by norm_num : Nat.Coprime 17 2).pow_right
+      (8 * m - 5)).dvd_of_dvd_mul_left hWdiv
+  obtain ⟨v, hv⟩ := hcoreDiv
+  have hZ := payloadStepCore_factor_Z hm hrecurrence
+  have hZdiv : 17 ∣ Z q' := by
+    rw [hZ, hv]
+    exact dvd_mul_of_dvd_right (dvd_mul_right 17 v) _
+  have hq'div : 17 ∣ q' := (seventeen_dvd_Z_iff q').mp hZdiv
+  obtain ⟨r', hr'⟩ := hq'div
+  have hsourceFactor : Wbar r = 2 ^ (8 * m - 5) * v := by
+    apply Nat.mul_left_cancel (by norm_num : 0 < 17)
+    calc
+      17 * Wbar r = W (17 * r) := (W_seventeen_mul r).symm
+      _ = W q := by rw [hr]
+      _ = 2 ^ (8 * m - 5) * payloadStepCore m q := hW
+      _ = 17 * (2 ^ (8 * m - 5) * v) := by rw [hv]; ring
+  have htargetFactor : Zbar r' = 3 ^ (6 * m) * v := by
+    apply Nat.mul_left_cancel (by norm_num : 0 < 17)
+    calc
+      17 * Zbar r' = Z (17 * r') := (Z_seventeen_mul r').symm
+      _ = Z q' := by rw [hr']
+      _ = 3 ^ (6 * m) * payloadStepCore m q := hZ
+      _ = 17 * (3 ^ (6 * m) * v) := by rw [hv]; ring
+  have hrc : Nat.ModEq 17 r c := by
+    apply (seventeen_mul_modEq_iff r c).mp
+    simpa [hr] using hsource
+  have hrcZ : ((r : ℕ) : ZMod 17) = c := by
+    rw [ZMod.natCast_eq_natCast_iff]
+    exact hrc
+  have hstep := reduced_payload_step hm hsourceFactor htargetFactor
+  have hr'cZ : ((r' : ℕ) : ZMod 17) = c := by
+    rw [hstep, hrcZ, hfixed]
+  have hr'c : Nat.ModEq 17 r' c := by
+    rw [← ZMod.natCast_eq_natCast_iff]
+    exact hr'cZ
+  rw [hr']
+  exact (seventeen_mul_modEq_iff r' c).mpr hr'c
+
+/-- Integer wrapper used by positive finite reset chains. -/
+theorem int_payload_mod_seventeen_sq_step {m c : ℕ} {q q' : ℤ}
+    (hm : 0 < m) (hq : 0 < q) (hq' : 0 < q')
+    (hrecurrence :
+      (2 : ℤ) ^ (8 * m + 15) * q' =
+        (3 : ℤ) ^ (6 * m + 11) * q + branchDelta m)
+    (hsource : Int.ModEq (17 ^ 2) q (17 * c))
+    (hfixed : reducedResidueStep m (c : ZMod 17) = c) :
+    Int.ModEq (17 ^ 2) q' (17 * c) := by
+  let qNat := q.toNat
+  let qNat' := q'.toNat
+  have hqcast : (qNat : ℤ) = q := Int.toNat_of_nonneg hq.le
+  have hq'cast : (qNat' : ℤ) = q' := Int.toNat_of_nonneg hq'.le
+  have hrecNat :
+      2 ^ (8 * m + 15) * qNat' =
+        3 ^ (6 * m + 11) * qNat + branchDelta m := by
+    apply Nat.cast_injective (R := ℤ)
+    push_cast
+    rw [hqcast, hq'cast]
+    exact hrecurrence
+  have hsourceNat : Nat.ModEq (17 ^ 2) qNat (17 * c) := by
+    rw [Nat.modEq_iff_dvd]
+    rw [Int.modEq_iff_dvd] at hsource
+    simpa [hqcast] using hsource
+  have htargetNat :=
+    payload_mod_seventeen_sq_step hm hrecNat hsourceNat hfixed
+  rw [Int.modEq_iff_dvd]
+  rw [Nat.modEq_iff_dvd] at htargetNat
+  simpa [hq'cast] using htargetNat
+
 /-! ## The invariant collision factor and its exact local obstruction -/
 
 /-- On the invariant unit slice `17 ∣ payload`, the normalized core contains
@@ -1446,14 +1546,208 @@ theorem no_selfWriting_tail_of_not_onZRail
 
 /-! ## Canonical backward dyadic address -/
 
+/-- One public-payload reset instruction with target branch `m`. -/
+def payloadResetStep (m : ℕ) : KLDyadicReset.ResetStep where
+  N := 8 * m + 15
+  O := 6 * m + 11
+  delta := branchDelta m
+
+/-- Finite public-payload program written by a list of target branches. -/
+def payloadResetWord (targets : List ℕ) : List KLDyadicReset.ResetStep :=
+  targets.map payloadResetStep
+
+/-- A positive finite public-payload chain whose every payload stays in the
+same shallow class `17*c (mod 17^2)`. -/
+def ObeysPositivePayloadRail (c : ℕ) : List ℕ → ℤ → ℤ → Prop
+  | [], qStart, qEnd =>
+      qEnd = qStart ∧ 0 < qStart ∧ Int.ModEq (17 ^ 2) qStart (17 * c)
+  | m :: targets, qStart, qEnd =>
+      0 < qStart ∧ Int.ModEq (17 ^ 2) qStart (17 * c) ∧
+        ∃ qNext : ℤ,
+          (2 : ℤ) ^ (8 * m + 15) * qNext =
+            (3 : ℤ) ^ (6 * m + 11) * qStart + branchDelta m ∧
+          ObeysPositivePayloadRail c targets qNext qEnd
+
+theorem obeysPositive_start_pos
+    (w : List KLDyadicReset.ResetStep) {qStart qEnd : ℤ}
+    (h : KLDyadicReset.ObeysPositive w qStart qEnd) : 0 < qStart := by
+  cases w with
+  | nil => exact h.2
+  | cons e w => exact h.1
+
+/-- Every finite dyadic reset word admits a positive realization whose
+initial payload lies in any prescribed class modulo `17^2`.  The dyadic
+cylinder width is a unit modulo `17^2`, and a further multiple of `17^2`
+preserves the class while making the whole finite chain positive. -/
+theorem exists_positive_obeys_initial_mod_seventeen_sq
+    (w : List KLDyadicReset.ResetStep) (c : ℕ) :
+    ∃ qStart qEnd : ℤ,
+      KLDyadicReset.ObeysPositive w qStart qEnd ∧
+        Int.ModEq (17 ^ 2) qStart (17 * c) := by
+  obtain ⟨qStart, hterminal⟩ := KLDyadicReset.exists_terminalDivisible w
+  obtain ⟨qEnd, hobeys⟩ :=
+    KLDyadicReset.exists_obeys_of_terminalDivisible w hterminal
+  obtain ⟨T, hpositive⟩ :=
+    KLDyadicReset.obeysPositive_shift_eventually w hobeys
+  have htwo : IsUnit (2 : ZMod (17 ^ 2)) := by
+    change IsUnit ((2 : ℕ) : ZMod (17 ^ 2))
+    rw [ZMod.isUnit_iff_coprime]
+    norm_num
+  have hwidth : IsUnit
+      ((2 : ZMod (17 ^ 2)) ^ (KLDyadicReset.programData w).S) :=
+    htwo.pow _
+  obtain ⟨widthUnit, hwidthUnit⟩ := hwidth
+  let z : ZMod (17 ^ 2) :=
+    (widthUnit⁻¹ : ZMod (17 ^ 2)) *
+      ((17 * c : ℕ) - (qStart : ZMod (17 ^ 2)))
+  let t0 : ℕ := z.val
+  let t : ℕ := t0 + 17 ^ 2 * T
+  have htT : T ≤ t := by
+    dsimp [t]
+    omega
+  have hpos := hpositive t htT
+  have htz : ((t : ℕ) : ZMod (17 ^ 2)) = z := by
+    calc
+      ((t : ℕ) : ZMod (17 ^ 2)) =
+          z.val + ((17 ^ 2 : ℕ) : ZMod (17 ^ 2)) * T := by
+        simp [t, t0]
+      _ = z.val := by rw [ZMod.natCast_self]; ring
+      _ = z := ZMod.natCast_zmod_val z
+  have hwidthz :
+      (2 : ZMod (17 ^ 2)) ^ (KLDyadicReset.programData w).S * z =
+        (17 : ZMod (17 ^ 2)) * c - (qStart : ZMod (17 ^ 2)) := by
+    rw [← hwidthUnit]
+    simp [z, Nat.cast_mul]
+  refine ⟨qStart + (2 : ℤ) ^ (KLDyadicReset.programData w).S * t,
+    qEnd + (3 : ℤ) ^ (KLDyadicReset.programData w).P * t,
+    hpos, ?_⟩
+  apply (ZMod.intCast_eq_intCast_iff
+    (qStart + (2 : ℤ) ^ (KLDyadicReset.programData w).S * t)
+    (17 * (c : ℤ)) (17 ^ 2)).mp
+  push_cast
+  rw [htz, hwidthz]
+  ring
+
+/-- A positive realization whose initial payload is on a fixed reduced rail
+stays on that rail throughout the finite word. -/
+theorem obeysPositivePayloadRail_of_fixed
+    (targets : List ℕ) (c : ℕ) {qStart qEnd : ℤ}
+    (hpositive : KLDyadicReset.ObeysPositive
+      (payloadResetWord targets) qStart qEnd)
+    (hfixed : ∀ m ∈ targets,
+      0 < m ∧ reducedResidueStep m (c : ZMod 17) = c)
+    (hsource : Int.ModEq (17 ^ 2) qStart (17 * c)) :
+    ObeysPositivePayloadRail c targets qStart qEnd := by
+  induction targets generalizing qStart with
+  | nil =>
+      exact ⟨hpositive.1, hpositive.2, hsource⟩
+  | cons m targets ih =>
+      simp only [payloadResetWord, List.map_cons,
+        KLDyadicReset.ObeysPositive] at hpositive
+      obtain ⟨hqpos, qNext, hstep, htail⟩ := hpositive
+      have hmdata := hfixed m (by simp)
+      have hqNextPos := obeysPositive_start_pos _ htail
+      have hnext : Int.ModEq (17 ^ 2) qNext (17 * c) :=
+        int_payload_mod_seventeen_sq_step hmdata.1 hqpos hqNextPos
+          (by simpa [payloadResetStep] using hstep) hsource hmdata.2
+      refine ⟨hqpos, hsource, qNext,
+        by simpa [payloadResetStep] using hstep, ?_⟩
+      apply ih htail
+      · intro m' hm'
+        exact hfixed m' (by simp [hm'])
+      · exact hnext
+
+/-- QM149a in its reusable form: every finite target word on a fixed shallow
+rail has a strictly positive exact public-payload realization, and every
+payload in the realization is `17*c (mod 17^2)`. -/
+theorem exists_positive_payload_rail_word
+    (targets : List ℕ) (c : ℕ)
+    (hfixed : ∀ m ∈ targets,
+      0 < m ∧ reducedResidueStep m (c : ZMod 17) = c) :
+    ∃ qStart qEnd : ℤ,
+      ObeysPositivePayloadRail c targets qStart qEnd := by
+  obtain ⟨qStart, qEnd, hpositive, hsource⟩ :=
+    exists_positive_obeys_initial_mod_seventeen_sq
+      (payloadResetWord targets) c
+  exact ⟨qStart, qEnd,
+    obeysPositivePayloadRail_of_fixed targets c hpositive hfixed hsource⟩
+
+/-- Convenient residue-class form.  It applies directly to each of the
+eight universal fixed rails proved above. -/
+theorem exists_positive_payload_rail_word_of_branch_class
+    (j c : ℕ) (hj : 0 < j)
+    (hrail : ∀ k, reducedResidueStep (j + 8 * k) (c : ZMod 17) = c)
+    (targets : List ℕ)
+    (hclass : ∀ m ∈ targets, ∃ k, m = j + 8 * k) :
+    ∃ qStart qEnd : ℤ,
+      ObeysPositivePayloadRail c targets qStart qEnd := by
+  apply exists_positive_payload_rail_word targets c
+  intro m hm
+  obtain ⟨k, rfl⟩ := hclass m hm
+  exact ⟨by omega, hrail k⟩
+
+theorem exists_positive_one_rail_word (targets : List ℕ)
+    (hclass : ∀ m ∈ targets, ∃ k, m = 1 + 8 * k) :
+    ∃ qStart qEnd : ℤ,
+      ObeysPositivePayloadRail 12 targets qStart qEnd :=
+  exists_positive_payload_rail_word_of_branch_class 1 12 (by omega)
+    reducedResidueStep_one_rail targets hclass
+
+theorem exists_positive_two_rail_word (targets : List ℕ)
+    (hclass : ∀ m ∈ targets, ∃ k, m = 2 + 8 * k) :
+    ∃ qStart qEnd : ℤ,
+      ObeysPositivePayloadRail 2 targets qStart qEnd :=
+  exists_positive_payload_rail_word_of_branch_class 2 2 (by omega)
+    reducedResidueStep_two_rail targets hclass
+
+theorem exists_positive_three_rail_word (targets : List ℕ)
+    (hclass : ∀ m ∈ targets, ∃ k, m = 3 + 8 * k) :
+    ∃ qStart qEnd : ℤ,
+      ObeysPositivePayloadRail 13 targets qStart qEnd :=
+  exists_positive_payload_rail_word_of_branch_class 3 13 (by omega)
+    reducedResidueStep_three_rail targets hclass
+
+theorem exists_positive_four_rail_word (targets : List ℕ)
+    (hclass : ∀ m ∈ targets, ∃ k, m = 4 + 8 * k) :
+    ∃ qStart qEnd : ℤ,
+      ObeysPositivePayloadRail 3 targets qStart qEnd :=
+  exists_positive_payload_rail_word_of_branch_class 4 3 (by omega)
+    reducedResidueStep_four_rail targets hclass
+
+theorem exists_positive_five_rail_word (targets : List ℕ)
+    (hclass : ∀ m ∈ targets, ∃ k, m = 5 + 8 * k) :
+    ∃ qStart qEnd : ℤ,
+      ObeysPositivePayloadRail 15 targets qStart qEnd :=
+  exists_positive_payload_rail_word_of_branch_class 5 15 (by omega)
+    reducedResidueStep_five_rail targets hclass
+
+theorem exists_positive_six_rail_word (targets : List ℕ)
+    (hclass : ∀ m ∈ targets, ∃ k, m = 6 + 8 * k) :
+    ∃ qStart qEnd : ℤ,
+      ObeysPositivePayloadRail 6 targets qStart qEnd :=
+  exists_positive_payload_rail_word_of_branch_class 6 6 (by omega)
+    reducedResidueStep_six_rail targets hclass
+
+theorem exists_positive_seven_rail_word (targets : List ℕ)
+    (hclass : ∀ m ∈ targets, ∃ k, m = 7 + 8 * k) :
+    ∃ qStart qEnd : ℤ,
+      ObeysPositivePayloadRail 9 targets qStart qEnd :=
+  exists_positive_payload_rail_word_of_branch_class 7 9 (by omega)
+    reducedResidueStep_seven_rail targets hclass
+
+theorem exists_positive_eight_rail_word (targets : List ℕ)
+    (hclass : ∀ m ∈ targets, ∃ k, m = 8 + 8 * k) :
+    ∃ qStart qEnd : ℤ,
+      ObeysPositivePayloadRail 0 targets qStart qEnd :=
+  exists_positive_payload_rail_word_of_branch_class 8 0 (by omega)
+    reducedResidueStep_eight_rail targets hclass
+
 /-- Exact public-payload reset program attached to a proposed branch
 schedule.  Step `t` reads the target branch `branch (t+1)`, matching the
 payload recurrence of an orbit with branch sequence `branch`. -/
 def payloadResetProgramOfBranch (branch : ℕ → ℕ) (t : ℕ) :
-    KLDyadicReset.ResetStep where
-  N := 8 * branch (t + 1) + 15
-  O := 6 * branch (t + 1) + 11
-  delta := branchDelta (branch (t + 1))
+    KLDyadicReset.ResetStep :=
+  payloadResetStep (branch (t + 1))
 
 /-- Every supplied self-writing orbit follows its public-payload reset
 program literally. -/
@@ -1461,7 +1755,7 @@ theorem follows_payloadResetProgram (o : Orbit) :
     KLDyadicReset.Follows (payloadResetProgramOfBranch o.branch)
       (fun t => (o.payload t : ℤ)) := by
   intro t
-  simp only [payloadResetProgramOfBranch]
+  simp only [payloadResetProgramOfBranch, payloadResetStep]
   exact_mod_cast o.payload_branch_recurrence t
 
 /-- Nonnegativity propagates along the public program because every positive
@@ -1476,7 +1770,7 @@ theorem payload_follows_nonnegative
   | zero => exact hzero
   | succ t ih =>
       have hstep := hq t
-      simp only [payloadResetProgramOfBranch] at hstep
+      simp only [payloadResetProgramOfBranch, payloadResetStep] at hstep
       have hdelta : 0 < (branchDelta (branch (t + 1)) : ℤ) := by
         exact_mod_cast branchDelta_positive (hbranch (t + 1))
       have hrhs : 0 <
@@ -1502,7 +1796,7 @@ theorem payload_toNat_recurrence
       3 ^ (6 * branch (t + 1) + 11) * (q t).toNat +
         branchDelta (branch (t + 1)) := by
   have hstep := hq t
-  simp only [payloadResetProgramOfBranch] at hstep
+  simp only [payloadResetProgramOfBranch, payloadResetStep] at hstep
   apply Nat.cast_injective (R := ℤ)
   push_cast
   rw [Int.toNat_of_nonneg (hqnonneg t),

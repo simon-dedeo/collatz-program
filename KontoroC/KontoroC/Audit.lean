@@ -1467,6 +1467,23 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.Orbit.all_onZRail_of_packetColor_zero
 #print axioms
   KontoroC.SelfWritingKL.Orbit.packetColor_zero_iff_exists_selfWriting_tail
+#print axioms KontoroC.SelfWritingKL.seventeen_mul_modEq_iff
+#print axioms KontoroC.SelfWritingKL.Orbit.payload_mod_seventeen_sq_step
+#print axioms KontoroC.SelfWritingKL.Orbit.int_payload_mod_seventeen_sq_step
+#print axioms
+  KontoroC.SelfWritingKL.Orbit.exists_positive_obeys_initial_mod_seventeen_sq
+#print axioms KontoroC.SelfWritingKL.Orbit.obeysPositivePayloadRail_of_fixed
+#print axioms KontoroC.SelfWritingKL.Orbit.exists_positive_payload_rail_word
+#print axioms
+  KontoroC.SelfWritingKL.Orbit.exists_positive_payload_rail_word_of_branch_class
+#print axioms KontoroC.SelfWritingKL.Orbit.exists_positive_one_rail_word
+#print axioms KontoroC.SelfWritingKL.Orbit.exists_positive_two_rail_word
+#print axioms KontoroC.SelfWritingKL.Orbit.exists_positive_three_rail_word
+#print axioms KontoroC.SelfWritingKL.Orbit.exists_positive_four_rail_word
+#print axioms KontoroC.SelfWritingKL.Orbit.exists_positive_five_rail_word
+#print axioms KontoroC.SelfWritingKL.Orbit.exists_positive_six_rail_word
+#print axioms KontoroC.SelfWritingKL.Orbit.exists_positive_seven_rail_word
+#print axioms KontoroC.SelfWritingKL.Orbit.exists_positive_eight_rail_word
 #print axioms KontoroC.KLUniversalShadow.DifferenceCocycle.exact
 #print axioms
   KontoroC.KLUniversalShadow.DifferenceCocycle.two_pow_dvd_initial_difference

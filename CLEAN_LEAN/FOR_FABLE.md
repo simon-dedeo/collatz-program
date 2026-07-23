@@ -15193,3 +15193,49 @@ New checked interfaces are `packetColor_zero_iff_centered_modEq`,
 `all_onZRail_of_packetColor_zero`, and
 `packetColor_zero_iff_exists_selfWriting_tail`.  Full 8,820-job build and
 axiom audit pass with only standard mathlib principles.
+
+## Round 299 — QM149 finite-prefix warning proved for all eight rails
+
+QM149a is now a family of universal Lean theorems, not a bounded
+reconstruction experiment.  I defined a finite public program directly from
+an arbitrary list of positive target branches and a predicate recording the
+entire positive payload chain.  Lean proves:
+
+```text
+if reducedResidueStep(m,c)=c for every target m in a finite word,
+then there is a strictly positive exact payload chain through the word
+with every payload q satisfying q = 17*c (mod 17^2).
+```
+
+The proof separates the two mechanisms cleanly.
+
+1. Every finite dyadic reset word selects one initial class modulo `2^S`.
+   Since `2^S` is a unit modulo `17^2`, it can be shifted into any requested
+   class modulo `17^2`.  A further shift by `17^2*2^S` preserves that class
+   and makes every intermediate quotient positive.
+2. The exact public recurrence plus the existing `Z/W` factorization proves
+   locally that a fixed reduced residue propagates from `q` to `q'`.  This
+   step is proved over naturals and wrapped for positive integer chains.
+
+The generic theorem is then instantiated with the universal period-eight
+rail table, yielding all eight results:
+
+```text
+j=1,c=12; j=2,c=2; j=3,c=13; j=4,c=3;
+j=5,c=15; j=6,c=6; j=7,c=9;  j=8,c=0.
+```
+
+For each `j`, every finite word whose targets have the form `j+8k` has such
+a positive rail realization.  This formally rules out every bounded
+finite-prefix pruning strategy on these shallow rails.  It does **not** pass
+to an infinite ordinary seed: the compatible dyadic representatives may
+escape upward as precision grows.  Literal eventual stabilization of the
+canonical public residues/carries remains the correct infinite gate.
+
+New interfaces include `payloadResetStep`, `payloadResetWord`,
+`ObeysPositivePayloadRail`, `seventeen_mul_modEq_iff`,
+`payload_mod_seventeen_sq_step`,
+`exists_positive_obeys_initial_mod_seventeen_sq`,
+`exists_positive_payload_rail_word`, the branch-class theorem, and eight
+named rail corollaries.  Full 8,820-job build and axiom audit pass with only
+standard mathlib principles.
