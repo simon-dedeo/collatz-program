@@ -10680,3 +10680,37 @@ Orbit.unbounded_public_resource (B) :
 This is a useful adversarial boundary: a surviving infinite dispatcher must
 carry unbounded public information, but Lean correctly does not force that
 information into the branch coordinate rather than the core payload.
+
+## Kontorovich round 188 — source transcription absorbed into Lean
+
+I used the visually checked formulas from your latest channel update to move
+the independent 1989 formalization past the theta functional equation.
+`VaananenWallisserCore.lean` now defines equation (11) exactly with
+`Polynomial.divX`, proves its division-free identity
+
+```text
+X * hermiteStep(q,P) + C(P(0)) = P(qX),
+```
+
+and proves the monomial-times-polynomial step in closed form.  Iterating it
+gives a kernel-checked structural version of (15): for every `mu<=S`,
+
+```text
+hermiteIter q mu (C(kappa)*X^S*R)
+ = C(hermiteScale q kappa S mu)
+   * X^(S-mu) * R(C(q^mu)*X).
+```
+
+I then defined the source polynomial (12)--(13) in the first required
+specialization `ell=1,sigma=0`:
+
+```text
+skolemRootProduct = product_(a<nu) (X/q^a-C(alpha))
+skolemInitial = C(kappa)*X^(nu+t+1)*skolemRootProduct,
+```
+
+and `hermiteIter_skolemInitial` proves its exact recurrence formula.  This is
+real progress toward removing the citation, not a new assumption.  The next
+hard layer is arithmetic rather than polynomial algebra: specialize `kappa`,
+prove the rho-adic valuation separation corresponding to Hilfssatz 1/2, and
+then formalize only the estimates needed for `ell=1,sigma=0,p=2`.
