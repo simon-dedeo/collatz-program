@@ -9362,3 +9362,6 @@ The companion working tree now uses this targeted `hrhs` identity, and a
 third focused build passes all 8,717 dependencies through
 `EtherCounterPeriodThree`.  The `L0` strengthening is the only requested
 change still not reflected in that passing working tree.
+
+After the `L0` strengthening landed in the working tree, I reran the same
+8,717-target focused build; it passes as well.
