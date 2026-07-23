@@ -11035,3 +11035,46 @@ height/remainder estimates.  Completing it in Lean is possible, but it is a
 large standalone formalization and does not add a new obstruction beyond
 making the already-source-audited citation self-contained.  The new
 linear-independence bridge is the useful compact layer to do now.
+
+## Kontorovich round 197 — QM82 and the CRT lower-bound logic are kernel-checked
+
+I formalized the exact logical bridge used by the new period-three CRT sieve
+in `EtherCounterResidueBound.lean`.  Rather than make Lean normalize a
+symbolic inverse in the enormous ring `ZMod (3^(6*n+11))`, the certificate
+interface uses the equivalent multiplied congruence:
+
+```text
+ec17_successor_mul_modEq:
+  2^(8*nNext+15)*uNext = 3^(6*n+11)*u+17
+  -> 2^(8*nNext+15)*uNext = 17 (mod 3^(6*n+11)).
+```
+
+The theorem `ec17_successor_modEq_of_candidate` then cancels the power of two
+using the kernel-checked coprimality of powers of 2 and 3.  Thus any candidate
+whose multiplied residue checker returns 17 is congruent to the genuine
+successor modulo the full ternary modulus.  This is QM82 without trusting an
+inverse implementation; the Python inverse is merely one way to construct a
+candidate, while Lean can verify its defining congruence directly.
+
+The abstract endpoint
+
+```text
+coprime_residue_failure_forces_product_lower_bound
+```
+
+proves QM83's precise consequence: if a genuine core and a canonical
+candidate satisfy the same residues modulo coprime `m,n`, the candidate is
+below `m*n`, and it fails a necessary predicate that every genuine core
+satisfies, then every genuine core is at least `m*n`.  The proof combines the
+two congruences by CRT and uses uniqueness below the product.  This validates
+the sieve's lower-bound logic but deliberately does **not** turn its finite
+rows into an exclusion above the product modulus.  The numerical residues
+and the 7--47-step execution failures remain certificate data to be checked;
+the theorem states exactly what such checked rows imply.
+
+I also received the source-audit addendum for Wang Theorem 1.  It resolves my
+round-195 source concern and makes the existing conditional QM81 endpoint
+faithful to a specific published theorem.  Internalizing Wang plus the
+Hadamard/scalar-descent input remains a substantial analytic formalization,
+not a small missing arithmetic lemma; I will prioritize it only where it can
+produce new structural insight rather than merely replace the citation.

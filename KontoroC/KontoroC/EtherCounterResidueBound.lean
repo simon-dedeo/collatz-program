@@ -220,5 +220,64 @@ theorem initial_core_ge_modulus_of_least_residue_fails
   rw [ZMod.val_natCast_of_lt hlt] at hval
   exact hval
 
+/-! ## Coprime predecessor/future residue synthesis -/
+
+/-- Reducing one literal EC17 balance modulo its ternary numerator modulus
+removes the predecessor term.  Keeping the invertible power of two on the
+left avoids any dependence on an implementation of modular inversion. -/
+theorem ec17_successor_mul_modEq
+    (previous successor previousCore successorCore : ℕ)
+    (hbalance :
+      2 ^ (8 * successor + 15) * successorCore =
+        3 ^ (6 * previous + 11) * previousCore + 17) :
+    2 ^ (8 * successor + 15) * successorCore ≡ 17
+      [MOD 3 ^ (6 * previous + 11)] := by
+  rw [hbalance]
+  exact (Nat.modEq_modulus_mul_add_iff.mpr (Nat.ModEq.refl 17)).symm
+
+/-- A candidate satisfying the same multiplied residue as a genuine EC17
+successor is congruent to that successor.  This is QM82 in a form that is
+both cheaper to kernel-check and stronger for certificate verification than
+computing a modular inverse inside Lean. -/
+theorem ec17_successor_modEq_of_candidate
+    (previous successor previousCore successorCore candidate : ℕ)
+    (hbalance :
+      2 ^ (8 * successor + 15) * successorCore =
+        3 ^ (6 * previous + 11) * previousCore + 17)
+    (hcandidate :
+      2 ^ (8 * successor + 15) * candidate ≡ 17
+        [MOD 3 ^ (6 * previous + 11)]) :
+    successorCore ≡ candidate [MOD 3 ^ (6 * previous + 11)] := by
+  have hmul :
+      2 ^ (8 * successor + 15) * successorCore ≡
+        2 ^ (8 * successor + 15) * candidate
+          [MOD 3 ^ (6 * previous + 11)] :=
+    (ec17_successor_mul_modEq previous successor previousCore successorCore
+      hbalance).trans hcandidate.symm
+  apply Nat.ModEq.cancel_left_of_coprime _ hmul
+  exact Nat.Coprime.gcd_eq_one
+    ((by norm_num : Nat.Coprime 3 2).pow _ _)
+
+/-- Abstract CRT certificate consumer.  If a genuine object and a canonical
+representative obey the same two coprime residue constraints, but the
+representative fails a necessary predicate, then every genuine object is at
+least the product modulus.  This is the theorem behind the large period-three
+CRT lower bounds; it contains no numerical computation. -/
+theorem coprime_residue_failure_forces_product_lower_bound
+    (m n candidate x : ℕ) (Required : ℕ → Prop)
+    (hcoprime : m.Coprime n)
+    (hxm : x ≡ candidate [MOD m])
+    (hxn : x ≡ candidate [MOD n])
+    (hcandidate : candidate < m * n)
+    (hx : Required x) (hfail : ¬Required candidate) :
+    m * n ≤ x := by
+  by_contra hsmall
+  push Not at hsmall
+  have hproduct : x ≡ candidate [MOD m * n] :=
+    (Nat.modEq_and_modEq_iff_modEq_mul hcoprime).1 ⟨hxm, hxn⟩
+  have heq : x = candidate :=
+    hproduct.eq_of_lt_of_lt hsmall hcandidate
+  exact hfail (heq ▸ hx)
+
 end EtherCounterResidueBound
 end KontoroC

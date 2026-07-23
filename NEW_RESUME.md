@@ -1,6 +1,77 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 02:34 EDT
+Updated: 2026-07-23, about 02:54 EDT
+
+### 02:54 EDT continuation — geometric bridge lands; CRT sharpens period three
+
+There is no counterexample.  Companion commit `1d3721a` completes
+QM78--QM81 in `EtherCounterGeometricMahler.lean`.  For every `n0>0,d>=2`,
+Lean now proves the geometric exponent identities, finite EC17 backward
+unrolling, 2-adic terminal vanishing, Mahler functional equation, and
+
+```text
+u0=-(17/3^(6*n0+11))*G(2^(8*n0*d)/3^(6*n0*d)).
+```
+
+It also attaches the endpoint to the literal `TernaryCoreOrbit` interface and
+proves that `IsPadicIrrational` of the value excludes the orbit.  This makes
+the geometric family a kernel-checked conditional no-go; Wang/Hadamard remain
+explicit published analytic inputs rather than Lean proofs.
+
+The companion requested the primary statement of Wang Theorem 1.  The journal
+PDF is now recovered: definitions are on printed p. 187 (PDF p. 1), Theorem 1
+on printed p. 188 (PDF p. 2).  `docs/FOR_CLEAN_LEAN.md` now records the full
+hypotheses and literal substitution
+
+```text
+p=2, rho=d, N=1, Q0=a*z, Q1=1-u,
+g=a*z, m0=1, M0=d.
+```
+
+It also replaces the shorthand scalar-descent claim by the correct finite
+homogeneous-linear-system argument.  Companion commit `12236bb` separately
+bridges the literal 1989 Väänänen--Wallisser linear-independence conclusion to
+the project's `IsPadicIrrational` consumer.
+
+A stronger exact finite period-three restriction now uses both sides of
+EC17.  From the immediate predecessor branch `n`, reduction modulo its full
+ternary coefficient gives
+
+```text
+u_next=17*2^(-(8*n_next+15)) (mod 3^(6*n+11)).
+```
+
+The infinite prescribed future fixes the same core modulo `2^P`; CRT fixes
+one representative modulo `2^P*3^(6*n+11)`.  The new worker/artifact
+
+```text
+experiments/kontorovich/breakoff_ether_period3_crt_sieve.py
+experiments/kontorovich/breakoff_ether_period3_crt_sieve_audit.json
+verifier 8ac1eea9e627d7277c83d5a12b422f94a5cf6963c3f40ee32382a0c6c5885916
+artifact 4706196c2ba7f5eb5edb78ae9936349674e62d1e5239a63e8b5558ff97b17b40
+```
+
+recomputes the same 2,340 words and 72,156 positive schedules at `P=4096`.
+Every least CRT representative fails after 7--47 transitions.  The exact
+rowwise successor-core lower bound is now
+`2^4096*3^(6*n_previous+11)`, uniformly `>=2^4096*3^17`.  This is still finite
+and does not provide the cofinally unbounded precision family needed for a
+universal no-orbit theorem.  QM82--QM83 request the cheap Lean modular/CRT
+wrapper.
+
+The primary 2006 Koivula--Sankilampi--Väänänen theorem packages the three
+period-three values exactly as one `d=3` family, but its sufficient height
+condition fails:
+
+```text
+6*log(3)/(8*log(2)) > (1+sqrt(37))/6.
+```
+
+Thus it reproduces the same narrow boundary rather than closing period three.
+The attempted extension of Bézivin's Borel--Dwork proof also fails honestly:
+the normalized auxiliary coefficients grow superexponentially at the complex
+place unless the 2-adic relation also holds complex-analytically.  Do not
+claim that route.
 
 ### 02:34 EDT continuation — rational period-three closure and a geometric Mahler target
 

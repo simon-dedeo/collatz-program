@@ -860,6 +860,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterResidueBound.initialResidue_val_eq_initial_core
 #print axioms
   KontoroC.EtherCounterResidueBound.initial_core_ge_modulus_of_least_residue_fails
+#print axioms KontoroC.EtherCounterResidueBound.ec17_successor_mul_modEq
+#print axioms KontoroC.EtherCounterResidueBound.ec17_successor_modEq_of_candidate
+#print axioms
+  KontoroC.EtherCounterResidueBound.coprime_residue_failure_forces_product_lower_bound
 #print axioms KontoroC.EtherCounterStateNoRepeat.Orbit.composed_strict
 #print axioms KontoroC.EtherCounterStateNoRepeat.Orbit.state_ne_after
 #print axioms KontoroC.EtherCounterStateNoRepeat.Orbit.state_injective

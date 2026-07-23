@@ -8819,3 +8819,117 @@ all-parameter derivation proposes a conditional closure of every geometric
 branch counter `n_t=n0*d^t`; QM78--QM81 are what would make that bridge
 kernel-checked.  It constructs no orbit and is not a counterexample.  More
 general aperiodic nonlinear and payload-dependent schedules remain open.
+
+### Source-audit addendum for Wang Theorem 1 (requested after round 195)
+
+The primary text is available from the journal as an eight-page PDF:
+
+```text
+https://actamath.cjoe.ac.cn/Jwk_sxxb_en/EN/PDF/10.1007/s10114-005-0534-4
+```
+
+The definitions are on printed page 187 (PDF page 1), and Theorem 1 is on
+printed page 188 (PDF page 2). Here is the complete mathematical content
+needed for QM81, with the paper's overloaded `n0` renamed `N` to avoid
+confusion with our initial branch.
+
+Let `Q_i in K[z,u]`, `0<=i<=N`, be relatively prime with `Q_0` nonzero.
+Choose `g_i in K[z,u]` and a nonzero `g in K[z]` such that
+
+```text
+g(z)=sum_(i=0)^N g_i(z,u)*Q_i(z,u).
+```
+
+For an integer `rho>=2`, define
+
+```text
+m0=max_i deg_u(Q_i),      M0=max(rho,m0).
+```
+
+Let `f` be p-adically holomorphic near zero, with algebraic-number-field
+coefficients, convergence radius `R`, and transcendental over `C_p(z)`. If
+
+```text
+Q_0(z,f(z))*f(z^rho)^N + Q_1(z,f(z))*f(z^rho)^(N-1)
+  + ... + Q_N(z,f(z)) = 0,
+M0*N^2 < rho^2,
+0 < |alpha|_p < min(1,R),
+g(alpha^(rho^k)) != 0 for every k>=0,
+```
+
+then Wang concludes that `f(alpha)` is transcendental.
+
+For our function the literal substitution is
+
+```text
+p=2, rho=d, N=1,
+Q_0(z,u)=a*z, Q_1(z,u)=1-u,
+g_0=1, g_1=0, g(z)=a*z,
+m0=1, M0=d.
+```
+
+Thus the functional equation is exactly QM80 and the numerical inequality is
+`d<d^2`. The argument is nonzero, has
+`|z|_2=2^(-8*initialBranch*d)<1`, and all iterated `g` values are nonzero.
+The series proof in round 195 already gives convergence on the closed 2-adic
+unit ball, so its radius is at least one.
+
+The only external analytic premise remaining is function transcendence over
+`C_2(z)`. The intended proof uses the classical Hadamard gap theorem over
+the complex numbers and a finite-linear-system scalar descent. More
+precisely, the complex series has radius one because
+`a^(j/e_j) -> 1`, while `e_(j+1)>d*e_j`, so its unit circle is a natural
+boundary. If a bounded-degree polynomial relation existed over an extension
+field, equating coefficients would give a finite homogeneous linear system
+over `Q`; a nonzero extension-field solution therefore gives a nonzero
+`Q`-solution. This is the precise replacement for the earlier shorthand
+"coefficientwise descent."
+
+It is acceptable for Lean to retain Wang plus Hadamard/scalar descent as one
+explicit external transcendence or irrationality premise. The source
+hypotheses themselves have now been checked against the primary theorem.
+
+## Kontorovich request: two-sided CRT lower bound for period three (2026-07-23)
+
+There is a cheap theorem-driven strengthening of the period-three residue
+sieve. From one literal EC17 step
+
+```text
+2^(8*nNext+15)*uNext = 3^(6*n+11)*u + 17
+```
+
+reduce modulo `3^(6*n+11)`. Since two is a unit there,
+
+```text
+uNext = 17*2^(-(8*nNext+15))
+        (mod 3^(6*n+11)).                              (QM82)
+```
+
+Please prove QM82 directly in `ZMod (3^(6*n+11))`, preferably attached to
+the existing `TernaryCoreOrbit`/EC17 interface. This is stronger than the
+already-used `uNext=1 (mod 3)` and grows in precision with the previous
+public branch.
+
+For a prescribed infinite future, the existing backward-unrolling theorem
+fixes the same `uNext` modulo `2^P`. The moduli are coprime, so CRT fixes one
+class modulo
+
+```text
+2^P*3^(6*n+11).                                       (QM83)
+```
+
+An economical endpoint is a uniqueness-below-modulus lemma: any two natural
+cores below that product satisfying both residues are equal. If convenient,
+also expose that the least possible product is `2^P*3^17` because `n>=1`.
+This packages the exact logical bridge consumed by the new worker
+
+```text
+experiments/kontorovich/breakoff_ether_period3_crt_sieve.py
+```
+
+The artifact checks all 2,340 genuine period-three words in `[-8,8]^3`, all
+positive schedules with previous branch `1..32`, and `P=4096`: 72,156 exact
+CRT representatives, all failing after 7--47 prescribed EC17 transitions.
+Consequently each checked row has the certified lower bound
+`2^4096*3^(6*n+11)`, uniformly at least `2^4096*3^17`. This remains a finite
+lower bound and constructs no orbit; its `counterexample` field is null.

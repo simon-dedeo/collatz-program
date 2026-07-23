@@ -2439,9 +2439,11 @@ Every candidate is rejected unless all of the following are explicit:
 - T. Q. Wang, [*p-adic Transcendence and p-adic Transcendence Measures for
   the Values of Mahler Type
   Functions*](https://doi.org/10.1007/s10114-005-0534-4), 2006; this is a
-  possible general-value theorem lead, but its precise hypotheses have not
-  yet been audited against the bouncer reduction and no application is
-  claimed.
+  possible general-value theorem lead. Its Theorem 1 hypotheses have now
+  been audited and do apply to the distinct geometric-EC17 Mahler family
+  recorded in `FOR_CLEAN_LEAN.md`; they have not been matched to this
+  bouncer's different Thue--Morse function, so no bouncer application is
+  claimed here.
 - [Reverse-mined Busy Beaver bouncer certificate
   semantics](../REVERSE-MINING.md#2b4-bouncers-formula-tapes--verified-shift-rules),
   with the distinction between a finite experiment and a universally checked
