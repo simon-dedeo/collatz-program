@@ -935,6 +935,149 @@ theorem no_nonnegative_follows_of_nonzero_carries
   obtain ⟨K, hJK, hne⟩ := hcarry J
   exact hne (hzero K hJK)
 
+/-! ## Complete ordinary-integer promotion criterion -/
+
+def EventuallyZeroCarry (e : ℕ → ResetStep) : Prop :=
+  ∃ J, ∀ K, J ≤ K → carryDigit e K = 0
+
+theorem monotone_eventually_constant_of_bounded
+    (f : ℕ → ℕ) (hf : Monotone f) :
+    ∀ B, (∀ n, f n < B) → ∃ J, ∀ K, J ≤ K → f K = f J := by
+  intro B
+  induction B with
+  | zero =>
+      intro h
+      exact (Nat.not_lt_zero (f 0) (h 0)).elim
+  | succ B ih =>
+      intro hbound
+      by_cases hhit : ∃ J, f J = B
+      · obtain ⟨J, hJ⟩ := hhit
+        refine ⟨J, fun K hJK => ?_⟩
+        have hlower : f J ≤ f K := hf hJK
+        have hupper := hbound K
+        omega
+      · apply ih
+        intro n
+        have hn := hbound n
+        have hne : f n ≠ B := fun heq => hhit ⟨n, heq⟩
+        omega
+
+theorem initialResidue_constant_of_zero_carries
+    (e : ℕ → ResetStep) {J : ℕ}
+    (hzero : ∀ K, J ≤ K → carryDigit e K = 0) :
+    ∀ K, J ≤ K → initialResidue e K = initialResidue e J := by
+  intro K hJK
+  obtain ⟨d, rfl⟩ := Nat.exists_eq_add_of_le hJK
+  induction d with
+  | zero => rfl
+  | succ d ih =>
+      rw [Nat.add_succ, initialResidue_succ_eq_add_carry,
+        hzero (J + d) (Nat.le_add_right J d),
+        ih (Nat.le_add_right J d)]
+      simp
+
+/-- Canonical quotient chain associated to an integer lying in every finite
+cumulative cylinder. -/
+noncomputable def chainFromTerminal
+    (e : ℕ → ResetStep) (M : ℤ)
+    (hM : ∀ J, CumulativeTerminal e J M) : ℕ → ℤ :=
+  fun J => (hM J).choose
+
+theorem chainFromTerminal_exact
+    (e : ℕ → ResetStep) (M : ℤ)
+    (hM : ∀ J, CumulativeTerminal e J M) (J : ℕ) :
+    (2 : ℤ) ^ (cumulative e J).S * chainFromTerminal e M hM J =
+      (3 : ℤ) ^ (cumulative e J).P * M +
+        (cumulative e J).D := by
+  exact (hM J).choose_spec.symm
+
+theorem chainFromTerminal_follows
+    (e : ℕ → ResetStep) (M : ℤ)
+    (hM : ∀ J, CumulativeTerminal e J M) :
+    Follows e (chainFromTerminal e M hM) := by
+  intro J
+  let d := cumulative e J
+  let mJ := chainFromTerminal e M hM J
+  let mNext := chainFromTerminal e M hM (J + 1)
+  have hcurr : (2 : ℤ) ^ d.S * mJ =
+      (3 : ℤ) ^ d.P * M + d.D := chainFromTerminal_exact e M hM J
+  have hnext0 := chainFromTerminal_exact e M hM (J + 1)
+  have hnext : (2 : ℤ) ^ (d.S + (e J).N) * mNext =
+      (3 : ℤ) ^ (d.P + (e J).O) * M +
+        ((3 : ℤ) ^ (e J).O * d.D +
+          (2 : ℤ) ^ d.S * (e J).delta) := by
+    simpa only [cumulative, ResetData.step] using hnext0
+  change (2 : ℤ) ^ (e J).N * mNext =
+    (3 : ℤ) ^ (e J).O * mJ + (e J).delta
+  have hscaled : (2 : ℤ) ^ d.S *
+        ((2 : ℤ) ^ (e J).N * mNext) =
+      (2 : ℤ) ^ d.S *
+        ((3 : ℤ) ^ (e J).O * mJ + (e J).delta) := by
+    calc
+      (2 : ℤ) ^ d.S * ((2 : ℤ) ^ (e J).N * mNext) =
+          (2 : ℤ) ^ (d.S + (e J).N) * mNext := by rw [pow_add]; ring
+      _ = (3 : ℤ) ^ (d.P + (e J).O) * M +
+          ((3 : ℤ) ^ (e J).O * d.D +
+            (2 : ℤ) ^ d.S * (e J).delta) := hnext
+      _ = (3 : ℤ) ^ (e J).O *
+            ((3 : ℤ) ^ d.P * M + d.D) +
+          (2 : ℤ) ^ d.S * (e J).delta := by rw [pow_add]; ring
+      _ = (3 : ℤ) ^ (e J).O * ((2 : ℤ) ^ d.S * mJ) +
+          (2 : ℤ) ^ d.S * (e J).delta := by rw [hcurr]
+      _ = (2 : ℤ) ^ d.S *
+          ((3 : ℤ) ^ (e J).O * mJ + (e J).delta) := by ring
+  exact mul_left_cancel₀
+    (pow_ne_zero d.S (by norm_num : (2 : ℤ) ≠ 0)) hscaled
+
+theorem eventuallyZeroCarry_of_follows
+    (e : ℕ → ResetStep) (m : ℕ → ℤ)
+    (hm : Follows e m) (h0 : 0 ≤ m 0) :
+    EventuallyZeroCarry e := by
+  by_cases hunbounded : ∀ L, ∃ J, L ≤ (cumulative e J).S
+  · exact carryDigit_eventually_zero_of_follows e m hm h0 hunbounded
+  · push_neg at hunbounded
+    obtain ⟨B, hB⟩ := hunbounded
+    obtain ⟨J, hstable⟩ := monotone_eventually_constant_of_bounded
+      (fun K => (cumulative e K).S) (cumulative_S_mono e) B hB
+    refine ⟨J, fun K hJK => ?_⟩
+    have hwidth : (e K).N = 0 := by
+      have hs := hstable (K + 1) (hJK.trans (Nat.le_succ K))
+      rw [cumulative_succ_S] at hs
+      have hsK := hstable K hJK
+      omega
+    have hlt := carryDigit_lt e K
+    simp [hwidth] at hlt
+    exact hlt
+
+/-- QM141: eventual exact zero carry is precisely the existence of an
+ordinary nonnegative initial integer chain.  This theorem does not assert
+positivity of later quotients or outward KL growth. -/
+theorem eventuallyZeroCarry_iff_exists_nonnegative_follows
+    (e : ℕ → ResetStep) :
+    EventuallyZeroCarry e ↔
+      ∃ m : ℕ → ℤ, Follows e m ∧ 0 ≤ m 0 := by
+  constructor
+  · rintro ⟨J, hzero⟩
+    let M : ℤ := initialResidue e J
+    have hconstant : ∀ K, J ≤ K →
+        initialResidue e K = initialResidue e J :=
+      initialResidue_constant_of_zero_carries e hzero
+    have hM : ∀ K, CumulativeTerminal e K M := by
+      intro K
+      rcases le_total K J with hKJ | hJK
+      · exact cumulativeTerminal_prefix e hKJ
+          (by simpa [M] using initialResidue_terminal e J)
+      · simpa [M, hconstant K hJK] using initialResidue_terminal e K
+    let m := chainFromTerminal e M hM
+    refine ⟨m, chainFromTerminal_follows e M hM, ?_⟩
+    have hstart := chainFromTerminal_exact e M hM 0
+    have hm0 : m 0 = M := by
+      simpa [m, cumulative, initialData] using hstart
+    rw [hm0]
+    exact Int.natCast_nonneg _
+  · rintro ⟨m, hm, h0⟩
+    exact eventuallyZeroCarry_of_follows e m hm h0
+
 /-- Canonical residues keep acquiring genuinely new high bits arbitrarily
 late. -/
 def ChangesArbitrarilyLate (e : ℕ → ResetStep) : Prop :=

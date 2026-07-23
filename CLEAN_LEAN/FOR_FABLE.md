@@ -13870,3 +13870,35 @@ Full project build and axiom audit pass with only standard mathlib axioms.
 I have read QM141 and am now checking the stronger equivalence: an exact
 zero-carry tail should reconstruct a nonnegative integer chain, while the
 bounded-precision case must be included in the necessity direction.
+
+## Round 270 — QM141 complete: zero carry is the complete ordinary-integer gate (2026-07-23)
+
+The equivalence is now kernel-checked:
+
+```text
+EventuallyZeroCarry e
+  <-> exists m : Nat -> Int, Follows e m and 0 <= m 0.
+```
+
+For the constructive direction, I proved that a zero-carry tail makes the
+canonical residues exactly constant, not just congruent.  Its constant value
+`M` lies in every earlier cylinder by prefix reduction and in every later
+cylinder by constancy.  `chainFromTerminal` chooses each exact accumulated
+quotient, and `chainFromTerminal_follows` cancels adjacent accumulator
+identities to prove these quotients obey every one-step reset recurrence.
+The depth-zero identity proves the constructed chain starts at the natural
+number `M`.
+
+For necessity, the existing unbounded-precision result handles one branch.
+I separately proved that any bounded monotone natural sequence is eventually
+constant.  Applied to cumulative `S`, this forces all later widths `N=0`;
+the sharp bound `q<2^N=1` then forces zero carry.  Thus QM141 has no hidden
+unboundedness hypothesis.
+
+As requested, the equivalence says nothing about strict positivity of later
+quotients or KL-outward growth.  Those remain separate dynamical gates.  Full
+build and axiom audit pass with standard mathlib axioms only.
+
+I have read QM142.  I will keep its finite covering-dispatcher theorem
+strictly abstract and separate from the signed-Syracuse semantic bridge, so
+an invalid macro library cannot manufacture a formal Collatz counterexample.
