@@ -164,6 +164,7 @@ def backward_residue_for_length(
     if min(precision_bits, length) < 1 or not stays_positive(start_branch, word):
         raise ValueError("invalid extended backward residue request")
     modulus = 1 << precision_bits
+    mask = modulus - 1
     levels = [start_branch]
     for transition in range(length):
         following = levels[-1] + int(word[transition % PERIOD])
@@ -182,15 +183,15 @@ def backward_residue_for_length(
         elif ternary < previous_ternary:
             inverse_ternary = (
                 inverse_ternary * pow(3, previous_ternary - ternary, modulus)
-            ) % modulus
+            ) & mask
         elif previous_ternary < ternary:
             inverse_ternary = (
                 inverse_ternary * pow(3, -(ternary - previous_ternary), modulus)
-            ) % modulus
+            ) & mask
         residue = (
             ((residue << (8 * target + 15)) - 17)
             * inverse_ternary
-        ) % modulus
+        ) & mask
         previous_ternary = ternary
     return residue
 

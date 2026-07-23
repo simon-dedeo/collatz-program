@@ -110,6 +110,7 @@ def backward_residue(
         start_branch, word, precision_bits
     )
     modulus = 1 << precision_bits
+    mask = modulus - 1
     residue = 0
     inverse_ternary: int | None = None
     previous_ternary: int | None = None
@@ -123,15 +124,15 @@ def backward_residue(
         elif ternary < previous_ternary:
             inverse_ternary = (
                 inverse_ternary * pow(3, previous_ternary - ternary, modulus)
-            ) % modulus
+            ) & mask
         elif previous_ternary < ternary:
             inverse_ternary = (
                 inverse_ternary * pow(3, -(ternary - previous_ternary), modulus)
-            ) % modulus
+            ) & mask
         residue = (
             ((residue << binary) - CORE_CONSTANT)
             * inverse_ternary
-        ) % modulus
+        ) & mask
         previous_ternary = ternary
     if residue % 2 != 1:
         raise AssertionError("EC17 candidate residue is not odd")
