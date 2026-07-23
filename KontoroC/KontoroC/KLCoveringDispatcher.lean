@@ -17,6 +17,60 @@ separate module for any concrete macro library.
 namespace KontoroC
 namespace KLCoveringDispatcher
 
+/-! ## The affine-preimage part of the total-cover reduction -/
+
+/-- An odd-slope affine map is an exact permutation at every finite dyadic
+precision.  This is the algebraic first step of QM142d; extracting a
+prefix-free complete valuation code from controller cylinders remains a
+separate semantic/combinatorial bridge. -/
+noncomputable def oddAffineEquiv (P B : ℕ) (b : ZMod (2 ^ B)) :
+    ZMod (2 ^ B) ≃ ZMod (2 ^ B) where
+  toFun x := (3 : ZMod (2 ^ B)) ^ P * x + b
+  invFun y := ((3 : ZMod (2 ^ B)) ^ P)⁻¹ * (y - b)
+  left_inv x := by
+    have hcast : (3 : ZMod (2 ^ B)) ^ P =
+        ((3 ^ P : ℕ) : ZMod (2 ^ B)) := by norm_cast
+    have hu : (3 : ZMod (2 ^ B)) ^ P *
+        ((3 : ZMod (2 ^ B)) ^ P)⁻¹ = 1 := by
+      rw [hcast, ZMod.coe_mul_inv_eq_one]
+      exact (by norm_num : Nat.Coprime 3 2).pow _ _
+    calc
+      ((3 : ZMod (2 ^ B)) ^ P)⁻¹ *
+          ((3 : ZMod (2 ^ B)) ^ P * x + b - b) =
+          ((3 : ZMod (2 ^ B)) ^ P *
+            ((3 : ZMod (2 ^ B)) ^ P)⁻¹) * x := by ring
+      _ = x := by rw [hu, one_mul]
+  right_inv y := by
+    have hcast : (3 : ZMod (2 ^ B)) ^ P =
+        ((3 ^ P : ℕ) : ZMod (2 ^ B)) := by norm_cast
+    have hu : (3 : ZMod (2 ^ B)) ^ P *
+        ((3 : ZMod (2 ^ B)) ^ P)⁻¹ = 1 := by
+      rw [hcast, ZMod.coe_mul_inv_eq_one]
+      exact (by norm_num : Nat.Coprime 3 2).pow _ _
+    calc
+      (3 : ZMod (2 ^ B)) ^ P *
+          (((3 : ZMod (2 ^ B)) ^ P)⁻¹ * (y - b)) + b =
+          ((3 : ZMod (2 ^ B)) ^ P *
+            ((3 : ZMod (2 ^ B)) ^ P)⁻¹) * (y - b) + b := by ring
+      _ = y := by rw [hu, one_mul]; ring
+
+/-- Pullback by the odd affine permutation preserves and reflects total
+coverage. -/
+theorem oddAffine_preimage_iUnion_eq_univ_iff
+    {ι : Sort*} (P B : ℕ) (b : ZMod (2 ^ B))
+    (s : ι → Set (ZMod (2 ^ B))) :
+    (⋃ i, (oddAffineEquiv P B b) ⁻¹' s i) = Set.univ ↔
+      (⋃ i, s i) = Set.univ := by
+  let E := oddAffineEquiv P B b
+  constructor
+  · intro h
+    apply E.surjective.preimage_injective
+    rw [Set.preimage_iUnion]
+    simpa [E] using h
+  · intro h
+    rw [← Set.preimage_iUnion, h]
+    rfl
+
 structure Edge (Q : Type*) where
   target : Q
   N : ℕ

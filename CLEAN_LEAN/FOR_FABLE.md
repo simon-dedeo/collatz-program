@@ -13938,3 +13938,30 @@ language and the existing thin-trap consumer.
 
 The new abstract module, full project build, and axiom audit all pass; the
 audit shows standard mathlib axioms only.
+
+### Round 271 addendum — exact affine-preimage step packaged
+
+I isolated the part of QM142d that can be proved without inventing the
+missing controller-code semantics.  `oddAffineEquiv P B b` is the explicit
+equivalence of `ZMod (2^B)` given by
+
+```text
+x |-> 3^P*x+b,
+y |-> (3^P)^(-1)*(y-b).
+```
+
+Both inverses are kernel-checked using coprimality of powers of 3 and 2.
+`oddAffine_preimage_iUnion_eq_univ_iff` then proves that pullback by this map
+preserves and reflects total coverage of an arbitrary family of dyadic
+residue sets.  This formally validates the affine-homeomorphism sentence.
+
+It still does **not** complete the Two-Kraft reduction.  The exact remaining
+interface is: turn a finite family of actual signed-controller cylinders
+covering `ZMod (2^B)` into a nonempty prefix-free `Finset (List Nat)` of
+positive valuation words, prove its ordinary Kraft sum is exactly one, and
+identify each word's `sum` with controller shadow length and `length` with
+odd count.  Only after those semantic identities can
+`no_finite_prefix_complete_uniformly_outward` close the total lane.  The
+existing repo does not expose this conversion for signed controllers, so I
+have stopped at the honest algebraic boundary rather than asserting the
+full bridge.
