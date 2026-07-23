@@ -18,6 +18,145 @@ namespace EtherCounterBareGlue
 
 open EtherCounterResidueBound EtherCounterStateNoRepeat
 
+/-- The additive defect in a bare three-step EC17 composition. -/
+def threeStepDefect (_n0 n1 n2 : ℕ) : ℕ :=
+  17 * (3 ^ ((6 * n1 + 11) + (6 * n2 + 11)) +
+    2 ^ (8 * n1 + 15) * 3 ^ (6 * n2 + 11) +
+    2 ^ ((8 * n1 + 15) + (8 * n2 + 15)))
+
+/-- The elementary defect estimate required by the balanced-precision
+construction: the positive three-step defect is strictly smaller than its
+full ternary multiplier. -/
+theorem threeStepDefect_lt_ternaryMultiplier
+    (n0 n1 n2 : ℕ) (hn0 : 0 < n0) :
+    threeStepDefect n0 n1 n2 <
+      3 ^ ((6 * n0 + 11) + (6 * n1 + 11) + (6 * n2 + 11)) := by
+  let a0 := 6 * n0 + 11
+  let a1 := 6 * n1 + 11
+  let a2 := 6 * n2 + 11
+  let b1 := 8 * n1 + 15
+  let b2 := 8 * n2 + 15
+  let N := 3 ^ (a0 + a1 + a2)
+  have ha0 : 51 < 3 ^ a0 := by
+    have hpow : 3 ^ 17 ≤ 3 ^ a0 := by
+      apply Nat.pow_le_pow_right (by omega)
+      dsimp only [a0]
+      omega
+    exact (by norm_num : 51 < 3 ^ 17).trans_le hpow
+  have hb1 : 2 ^ b1 < 3 ^ a1 := by
+    simpa [b1, a1] using Orbit.binary_lt_ternary_at_branch n1
+  have hb2 : 2 ^ b2 < 3 ^ a2 := by
+    simpa [b2, a2] using Orbit.binary_lt_ternary_at_branch n2
+  have hfirst : 51 * 3 ^ (a1 + a2) < N := by
+    calc
+      51 * 3 ^ (a1 + a2) < 3 ^ a0 * 3 ^ (a1 + a2) :=
+        Nat.mul_lt_mul_of_pos_right ha0 (by positivity)
+      _ = N := by simp [N, pow_add, mul_assoc]
+  have hsecondBase : 51 * 2 ^ b1 < 3 ^ a0 * 3 ^ a1 := by
+    calc
+      51 * 2 ^ b1 < 3 ^ a0 * 2 ^ b1 :=
+        Nat.mul_lt_mul_of_pos_right ha0 (by positivity)
+      _ < 3 ^ a0 * 3 ^ a1 :=
+        Nat.mul_lt_mul_of_pos_left hb1 (by positivity)
+  have hsecond : 51 * (2 ^ b1 * 3 ^ a2) < N := by
+    calc
+      51 * (2 ^ b1 * 3 ^ a2) = (51 * 2 ^ b1) * 3 ^ a2 := by ring
+      _ < (3 ^ a0 * 3 ^ a1) * 3 ^ a2 :=
+        Nat.mul_lt_mul_of_pos_right hsecondBase (by positivity)
+      _ = N := by simp [N, pow_add]
+  have hthirdBase : 51 * (2 ^ b1 * 2 ^ b2) <
+      3 ^ a0 * (3 ^ a1 * 3 ^ a2) := by
+    calc
+      51 * (2 ^ b1 * 2 ^ b2) < 3 ^ a0 * (2 ^ b1 * 2 ^ b2) :=
+        Nat.mul_lt_mul_of_pos_right ha0 (by positivity)
+      _ < 3 ^ a0 * (3 ^ a1 * 2 ^ b2) := by
+        apply Nat.mul_lt_mul_of_pos_left _ (by positivity)
+        exact Nat.mul_lt_mul_of_pos_right hb1 (by positivity)
+      _ < 3 ^ a0 * (3 ^ a1 * 3 ^ a2) := by
+        apply Nat.mul_lt_mul_of_pos_left _ (by positivity)
+        exact Nat.mul_lt_mul_of_pos_left hb2 (by positivity)
+  have hthird : 51 * 2 ^ (b1 + b2) < N := by
+    rw [pow_add]
+    exact hthirdBase.trans_eq (by simp [N, pow_add, mul_assoc])
+  have htriple : 3 * threeStepDefect n0 n1 n2 < 3 * N := by
+    have hsum :
+        51 * 3 ^ (a1 + a2) + 51 * (2 ^ b1 * 3 ^ a2) +
+            51 * 2 ^ (b1 + b2) < N + N + N :=
+      Nat.add_lt_add (Nat.add_lt_add hfirst hsecond) hthird
+    calc
+      3 * threeStepDefect n0 n1 n2 =
+          51 * 3 ^ (a1 + a2) + 51 * (2 ^ b1 * 3 ^ a2) +
+            51 * 2 ^ (b1 + b2) := by
+              simp only [threeStepDefect]
+              dsimp only [a1, a2, b1, b2]
+              ring
+      _ < N + N + N := hsum
+      _ = 3 * N := by ring
+  apply Nat.lt_of_mul_lt_mul_left
+  simpa only [N, a0, a1, a2] using htriple
+
+/-- Two canonical high blocks below the ternary modulus have signed
+difference strictly inside that modulus. -/
+theorem abs_signedCarry_lt
+    (A H N : ℕ) (hA : A < N) (hH : H < N) :
+    |(A : ℤ) - (H : ℤ)| < (N : ℤ) := by
+  rw [abs_lt]
+  constructor <;> omega
+
+/-- Within the balanced range, divisibility of the signed carry by the full
+ternary modulus is equivalent to literal vanishing. -/
+theorem ternary_dvd_signedCarry_iff_zero
+    (A H N : ℕ) (hA : A < N) (hH : H < N) :
+    (N : ℤ) ∣ (A : ℤ) - (H : ℤ) ↔ (A : ℤ) - (H : ℤ) = 0 := by
+  constructor
+  · intro hdvd
+    exact Int.eq_zero_of_abs_lt_dvd hdvd (abs_signedCarry_lt A H N hA hH)
+  · intro hzero
+    rw [hzero]
+    exact dvd_zero _
+
+/-- Worker-facing balanced congruence.  If the next representative differs
+from the exact image by `2^p*C`, then the affine target congruence modulo `N`
+is equivalent to `C=0`, provided the binary coefficient is coprime to `N` and
+the balanced range has already shown `|C|<N`. -/
+theorem worker_modEq_iff_signedCarry_zero
+    (m p : ℕ) (N r D y rnext C : ℤ)
+    (haffine : (2 : ℤ) ^ m * y = N * r + D)
+    (hcarry : rnext = y + (2 : ℤ) ^ p * C)
+    (hcoprime : IsCoprime N ((2 : ℤ) ^ (m + p)))
+    (hbound : |C| < N) :
+    (2 : ℤ) ^ m * rnext ≡ D [ZMOD N] ↔ C = 0 := by
+  constructor
+  · intro hmod
+    rw [Int.modEq_iff_dvd] at hmod
+    obtain ⟨k, hk⟩ := hmod
+    have hfactor : N ∣ (2 : ℤ) ^ (m + p) * C := by
+      refine ⟨-(r + k), ?_⟩
+      calc
+        (2 : ℤ) ^ (m + p) * C =
+            (2 : ℤ) ^ m * ((2 : ℤ) ^ p * C) := by rw [pow_add]; ring
+        _ = (2 : ℤ) ^ m * (rnext - y) := by rw [hcarry]; ring
+        _ = (2 : ℤ) ^ m * rnext - (2 : ℤ) ^ m * y := by ring
+        _ = (2 : ℤ) ^ m * rnext - (N * r + D) := by rw [haffine]
+        _ = -(D - (2 : ℤ) ^ m * rnext) - N * r := by ring
+        _ = -(N * k) - N * r := by rw [hk]
+        _ = N * (-(r + k)) := by ring
+    have hdvd : N ∣ C := hcoprime.dvd_of_dvd_mul_left hfactor
+    exact Int.eq_zero_of_abs_lt_dvd hdvd hbound
+  · intro hzero
+    rw [Int.modEq_iff_dvd]
+    refine ⟨-r, ?_⟩
+    rw [hcarry, hzero, mul_zero, add_zero, haffine]
+    ring
+
+/-- The coprimality premise in the worker theorem is automatic for the EC17
+ternary modulus and every binary power. -/
+theorem isCoprime_three_pow_two_pow (Q e : ℕ) :
+    IsCoprime ((3 : ℤ) ^ Q) ((2 : ℤ) ^ e) := by
+  have hnat : Nat.Coprime (3 ^ Q) (2 ^ e) :=
+    (by norm_num : Nat.Coprime 3 2).pow Q e
+  exact Nat.isCoprime_iff_coprime.mpr hnat
+
 /-- Proof-carrying consecutive three-step replays on a bare branch schedule. -/
 structure ThreeReplayChain where
   branch : ℕ → ℕ

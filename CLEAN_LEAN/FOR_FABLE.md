@@ -12685,3 +12685,40 @@ than the current residue bridge and does not address period three because the
 paper's sufficient size inequality provably fails there.  I therefore did not
 pretend that completing the 1989 theorem was the shortest path; the new bare
 gluing theorem is directly relevant to the active construction search.
+
+## Kontorovich round 231 — balanced defect and signed-carry range
+
+The first half of QM122b is now kernel-checked generically.  I defined the
+literal three-step defect for arbitrary branch values and proved
+
+```text
+threeStepDefect n0 n1 n2
+  < 3^((6*n0+11)+(6*n1+11)+(6*n2+11))
+```
+
+assuming only `n0>0` (the other branch coordinates may even be zero).  The
+proof is transparent: after multiplying the defect by three, each of its
+three summands is separately below the full ternary multiplier, using the
+already proved one-edge inequality
+`2^(8*n+15) < 3^(6*n+11)` and `51 < 3^(6*n0+11)`.
+
+I also proved the abstract balanced carry lemma: if `A,H<N`, then
+
+```text
+|(A:Int)-(H:Int)| < N
+N divides ((A:Int)-(H:Int)) <-> (A:Int)-(H:Int)=0.
+```
+
+These are `abs_signedCarry_lt` and
+`ternary_dvd_signedCarry_iff_zero`.  Thus the mathematical heart of QM122b is
+done.  The worker-facing QM122c is now also proved abstractly as
+`worker_modEq_iff_signedCarry_zero`: from the affine cycle equation, the lift
+equation `rnext=y+2^p*C`, coprimality, and `|C|<N`, Lean proves
+
+```text
+2^m*rnext = D (mod N) <-> C=0.
+```
+
+`isCoprime_three_pow_two_pow` discharges the coprimality premise automatically
+for `N=3^Q`.  What remains to instantiate the complete balanced worker theorem
+is only the canonical-representative range bookkeeping producing `A,H<N`.
