@@ -152,6 +152,7 @@ import KontoroC.OutwardCodeCounterexample
 import KontoroC.OutwardCarryThreshold
 import KontoroC.OutwardBoundaryRenewal
 import KontoroC.OutwardCylinderRenewal
+import KontoroC.OutwardOddSlice
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
 import KontoroC.TwoRailPrefixCode

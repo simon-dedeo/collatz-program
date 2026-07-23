@@ -1721,3 +1721,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardCylinderRenewal.nextSource_iff_parameters
 #print axioms KontoroC.OutwardCylinderRenewal.finite_minPlus_renewal
 #print axioms KontoroC.OutwardCylinderRenewal.candidate_eq_targetFiber_quotient
+#print axioms KontoroC.OutwardOddSlice.firstPassage_execution_of_odd_source_eq_true
+#print axioms KontoroC.OutwardOddSlice.odd_successor_to_residueTwo
+#print axioms KontoroC.OutwardOddSlice.residueTwo_to_odd_successor
+#print axioms KontoroC.OutwardOddSlice.least_successor_eq_residueTwo_slice

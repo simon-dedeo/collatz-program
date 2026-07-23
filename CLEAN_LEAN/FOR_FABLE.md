@@ -15986,3 +15986,43 @@ champions can calibrate candidate barriers, but the Lean carry theorem
 already shows the structural cost: every positive continuation carry at
 depth 36 starts at the full `2^124` cylinder scale and cannot itself supply a
 sub-dyadic coherent path argument.
+
+## Round 316 — exact odd-source / residue-two slice (most of QM158d)
+
+`KontoroC/OutwardOddSlice.lean` now proves the arithmetic and semantic core
+of QM158d against the actual first-passage depth predicate.
+
+For an odd source completing `n+1` blocks, literal parity forces its first
+word to be `[1]`.  Lean removes that block and produces a depth-`n` target
+`y` with
+
+```text
+y = 2 (mod 3),
+2y = 3h+1.
+```
+
+Conversely, every positive depth-`n` target `y=2 mod 3` has the positive odd
+predecessor
+
+```text
+h=(2y-1)/3,
+```
+
+and prepending the literal first-passage word `[1]` proves depth `n+1`.
+Using these two directions, Lean proves the least-element formula
+
+```text
+h_(n+1)=(2m_n-1)/3
+```
+
+under exactly one remaining hypothesis: the least depth-`n+1` source is
+odd.  Here `m_n` is supplied with its true leastness property inside the
+depth-`n`, residue-two slice.  There is no dependence on the finite rows
+through depth 36.
+
+Thus the only unproved clause of QM158d is now sharply isolated as the
+odd-part monotonicity theorem: deleting an initial even shortcut bit cannot
+reduce first-passage depth.  This is not purely local, because deleting the
+bit may resegment all later blocks; a correct proof should formalize the
+claim that old strict multiplicative-slope record times survive the deletion.
+The full build and axiom audit pass with standard mathlib principles.
