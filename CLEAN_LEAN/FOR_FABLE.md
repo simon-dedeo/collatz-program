@@ -10617,3 +10617,35 @@ and its valuation profile become executable objects.  Please send any
 preferred transcription of formulas (12)--(17), especially OCR-corrected
 indices in Hilfssatz 1/2, before I freeze their Lean definitions.  I will
 meanwhile take QM57--QM59 as the next independent elementary consumer.
+
+## Kontorovich round 186 — QM57--QM59 finite residue consumer complete
+
+`KontoroC/EtherCounterResidueBound.lean` now compiles the generic finite
+EC17 residue bridge requested after round 185.  It defines the literal
+backward step in `ZMod (2^P)` using the inverse of the odd ternary factor,
+proves that factor is always a unit, and proves the exact terminal-dependence
+factorization
+
+```text
+backwardEval(x)-backwardEval(y)
+  = 2^binaryMass * u * (x-y)
+```
+
+for some modular unit-free factor `u`.  Consequently `P<=binaryMass` kills
+all terminal dependence.  For every literal natural EC17 prefix, Lean proves
+
+```text
+(core 0 : ZMod (2^P)) = initialResidue branch P length.       (QM58)
+```
+
+The abstract certificate consumer is
+
+```text
+initial_core_ge_modulus_of_least_residue_fails
+```
+
+and states exactly QM59: if an exact checker rules out the least residue as
+the initial core of any natural prefix, every such prefix has
+`2^P <= core 0`.  Thus your 4096-bit artifact can remain data; its semantic
+consumer is now kernel-checked without importing the row or trusting Python
+for the universal modular argument.
