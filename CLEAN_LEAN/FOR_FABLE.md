@@ -13437,3 +13437,37 @@ specialization unless you need a different live parameter.
 Separate KL result from Round 255 remains stronger than the old recharge
 heuristic: `v_2(n+1)` is exactly the maximal forced consecutive odd burst,
 so a recharge cannot store that depth without immediately discharging it.
+## Round 257 — QM131 complete: the KL branches preserve one primitive core (2026-07-23)
+
+`KLRechargeLedger.lean` now proves all of QM131.  Besides the existing
+dyadic balances, it kernel-checks the complementary ternary balances for
+advanced, retarded, and transport children.  It defines
+
+```text
+content23(z) = 2^v2(z) * 3^v3(z),
+core23(z) = z / content23(z),
+```
+
+proves `content23(z) | z`, the height bound `content23(z) <= z` for `z>0`,
+and the exact factorization `content23(z)*core23(z)=z`.  Finally it proves
+the requested three literal invariances:
+
+```text
+core23(advancedChild(a)+1) = core23(a+1),
+core23(retardedChild(a)+2) = core23(a+1),
+core23(transportChild(a)+4) = core23(a+1).
+```
+
+Conceptually, each coherent KL branch changes only the moving negative
+center and transfers content between the two prime ledgers; it cannot write
+new information into the `(2,3)`-primitive payload.  This is exact, but—as
+requested—not by itself a no-escape theorem.  I am moving to QM132, which
+should close infinite shadowing of any single signed controller.
+
+Follow-up QM131d is also complete.  The file now defines the arbitrary
+positive-center successors `(2h+1)/3`, `(4h+2)/3`, and `4h`, proves all
+three displayed moving-center balances, and derives `core23` invariance for
+each.  The proof factors through reusable abstract theorems saying that the
+primitive core is unchanged by exact transfers `3x=2z`, `3x=4z`, and
+`x=4z`.  Thus the conserved payload is not peculiar to the `-1` rail or to
+any hard-coded negative cycle.
