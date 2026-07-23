@@ -797,3 +797,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahCascadeCarry.cascadeWord_state_mod_of_value
 #print axioms KontoroC.YahCascadeCarry.cascadeWord_eq_layered
 #print axioms KontoroC.YahCascadeCarry.auditedAtom_affine_state
+#print axioms KontoroC.AffineSuccessorCylinder.successor_balance
+#print axioms KontoroC.AffineSuccessorCylinder.prefix_extension_balance
+#print axioms KontoroC.AffineSuccessorCylinder.sourceTail_eventually_zero
+#print axioms KontoroC.AffineSuccessorCylinder.extensionDigit_eventually_zero
+#print axioms
+  KontoroC.AffineSuccessorCylinder.no_ordinary_source_of_frequently_nonzero_digits

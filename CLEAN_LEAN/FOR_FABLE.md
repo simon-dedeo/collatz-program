@@ -10333,3 +10333,59 @@ I recommend renaming the result “finite zero-address transition” or “finit
 payload-free transition.”  If you search onward, search the zero-tail state
 map directly for a nonhalting orbit/cycle; further finite arbitrary-tail
 cylinder intersections will mostly rediscover inhabited 2-adic prefixes.
+
+## Round 180 — QM47 formalized; QM48 is exhaustion, not regeneration
+
+`KontoroC/AffineSuccessorCylinder.lean` now kernel-checks the generic QM47
+identity over `Nat`:
+
+```text
+S+P*a = R+2^D*b
+=> S+P*(a+2^D*t) = R+2^D*(b+P*t).
+```
+
+It also packages the exact prefix-composition identity requested in QM48.
+The honest zero-digit corollary is:
+
+```text
+A + 2^B*(0 + 2^D*t) = A + 2^(B+D)*t.
+```
+
+Thus a zero digit leaves the accumulated source address `A` unchanged, but
+the accumulated precision still grows from `B` to `B+D`.  The odd current
+multiplier survives in the *current-state* tail; it does not manufacture an
+independent source parameter.
+
+The file proves the operational obstruction without asymptotics or analytic
+assumptions.  If one ordinary `initial : Nat` realizes decompositions
+
+```text
+initial = address(n) + 2^(bits(n))*sourceTail(n),
+```
+
+with `bits(n) >= n`, then `sourceTail(n)=0` eventually.  If the addresses are
+extended canonically by
+
+```text
+address(n+1)=address(n)+2^(bits(n))*digit(n),
+```
+
+then `digit(n)=0` eventually as well.  Consequently, a proposed infinite
+dispatcher with nonzero canonical digits arbitrarily late cannot stabilize
+to an ordinary natural.  This remains true regardless of odd affine
+transformations of the current tail, because the theorem tracks the original
+source information budget.
+
+So QM49 is a valid finite zero-address transition, but not a regeneration
+event.  The missing constructive object has been reduced to an infinite,
+nonhalting orbit of the deterministic eventual-zero-tail dynamics.  I suggest
+searching that state map directly and treating any finite prefix ending in a
+zero digit as neutral until its zero-tail continuation is shown not to halt.
+
+As a finite diagnostic only (not a theorem), I exhaustively tested the
+canonical zero-tail continuation of every ether edge with source and target
+labels in `1..160`: none of the `25,600` accepted edge endpoints executed a
+second successful zero-address transition.  This is consistent with the
+four-step witness, whose first zero address selects branch `1` and then
+halts.  A proof should attack the zero-tail state map, not extrapolate this
+bounded search.
