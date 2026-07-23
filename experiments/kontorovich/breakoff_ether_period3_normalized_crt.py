@@ -254,12 +254,26 @@ def scan_box(
     maximum_cycle: int,
     cycle_step: int,
     jobs: int,
+    cycle_values: Sequence[int] | None = None,
 ) -> dict[str, Any]:
     if min(max_start_branch, cycle_step, jobs) < 1:
         raise ValueError("scan counts and jobs must be positive")
     if minimum_cycle < MINIMUM_CYCLE or maximum_cycle < minimum_cycle:
         raise ValueError("invalid QM100 cycle interval")
-    cycles = tuple(range(minimum_cycle, maximum_cycle + 1, cycle_step))
+    if cycle_values is None:
+        cycles = tuple(range(minimum_cycle, maximum_cycle + 1, cycle_step))
+        cycle_bounds: dict[str, Any] = {
+            "cycles": [minimum_cycle, maximum_cycle, cycle_step]
+        }
+    else:
+        cycles = tuple(int(value) for value in cycle_values)
+        if (
+            not cycles
+            or any(value < MINIMUM_CYCLE for value in cycles)
+            or tuple(sorted(set(cycles))) != cycles
+        ):
+            raise ValueError("cycle values must be unique, increasing, and >= 5")
+        cycle_bounds = {"cycle_values": list(cycles)}
     words = words_in_box(increment_abs_bound)
     tasks = [
         (word, start, cycles)
@@ -292,7 +306,7 @@ def scan_box(
                 increment_abs_bound,
             ],
             "start_branches": [1, max_start_branch],
-            "cycles": [minimum_cycle, maximum_cycle, cycle_step],
+            **cycle_bounds,
         },
         "increment_words_checked": len(words),
         "positive_schedules_checked": len(summaries),
@@ -338,16 +352,23 @@ def reconstruct(artifact: dict[str, Any], jobs: int) -> dict[str, Any]:
     ]:
         raise ValueError("asymmetric increment bounds")
     starts = bounds["start_branches"]
-    cycles = bounds["cycles"]
+    cycles = bounds.get("cycles")
+    cycle_values = bounds.get("cycle_values")
+    if (cycles is None) == (cycle_values is None):
+        raise ValueError("artifact must specify exactly one cycle scheme")
     if starts[0] != 1:
         raise ValueError("start interval must begin at one")
     return scan_box(
         increment_abs_bound=increment_abs_bound,
         max_start_branch=int(starts[1]),
-        minimum_cycle=int(cycles[0]),
-        maximum_cycle=int(cycles[1]),
-        cycle_step=int(cycles[2]),
+        minimum_cycle=(int(cycles[0]) if cycles is not None else MINIMUM_CYCLE),
+        maximum_cycle=(int(cycles[1]) if cycles is not None else MINIMUM_CYCLE),
+        cycle_step=(int(cycles[2]) if cycles is not None else 1),
         jobs=jobs,
+        cycle_values=(
+            tuple(int(value) for value in cycle_values)
+            if cycle_values is not None else None
+        ),
     )
 
 
@@ -395,6 +416,10 @@ def parser() -> argparse.ArgumentParser:
     scan.add_argument("--min-cycle", type=int, default=5)
     scan.add_argument("--max-cycle", type=int, default=128)
     scan.add_argument("--cycle-step", type=int, default=1)
+    scan.add_argument(
+        "--cycle-values",
+        help="comma-separated increasing cycle indices; overrides the interval",
+    )
     scan.add_argument("--jobs", type=int, default=1)
     scan.add_argument("--output", type=Path, required=True)
 
@@ -419,6 +444,10 @@ def main() -> None:
             maximum_cycle=args.max_cycle,
             cycle_step=args.cycle_step,
             jobs=args.jobs,
+            cycle_values=(
+                tuple(int(value) for value in args.cycle_values.split(","))
+                if args.cycle_values else None
+            ),
         )
         write_artifact(args.output, artifact)
         print(json.dumps({

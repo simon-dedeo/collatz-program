@@ -303,6 +303,7 @@ def scan_box(
     padding_slope: int,
     padding_intercept: int,
     jobs: int,
+    cycle_values: Sequence[int] | None = None,
 ) -> dict[str, Any]:
     if min(max_start_branch, cycle_step, padding_slope, jobs) < 1:
         raise ValueError("scan counts, slope, and jobs must be positive")
@@ -310,7 +311,20 @@ def scan_box(
         raise ValueError("invalid QM99 cycle interval")
     if padding_intercept < 0:
         raise ValueError("padding intercept must be nonnegative")
-    cycles = tuple(range(minimum_cycle, maximum_cycle + 1, cycle_step))
+    if cycle_values is None:
+        cycles = tuple(range(minimum_cycle, maximum_cycle + 1, cycle_step))
+        cycle_bounds: dict[str, Any] = {
+            "cycles": [minimum_cycle, maximum_cycle, cycle_step]
+        }
+    else:
+        cycles = tuple(int(value) for value in cycle_values)
+        if (
+            not cycles
+            or any(value < MINIMUM_CYCLE for value in cycles)
+            or tuple(sorted(set(cycles))) != cycles
+        ):
+            raise ValueError("cycle values must be unique, increasing, and >= 5")
+        cycle_bounds = {"cycle_values": list(cycles)}
     words = words_in_box(increment_abs_bound)
     tasks = [
         (word, start, cycles, padding_slope, padding_intercept)
@@ -353,7 +367,7 @@ def scan_box(
                 increment_abs_bound,
             ],
             "start_branches": [1, max_start_branch],
-            "cycles": [minimum_cycle, maximum_cycle, cycle_step],
+            **cycle_bounds,
             "padding_bits": {
                 "slope_times_cycle": padding_slope,
                 "intercept": padding_intercept,
@@ -418,17 +432,24 @@ def reconstruct(artifact: dict[str, Any], jobs: int) -> dict[str, Any]:
     start_bounds = bounds["start_branches"]
     if start_bounds[0] != 1:
         raise ValueError("start-branch interval must begin at one")
-    cycles = bounds["cycles"]
+    cycles = bounds.get("cycles")
+    cycle_values = bounds.get("cycle_values")
+    if (cycles is None) == (cycle_values is None):
+        raise ValueError("artifact must specify exactly one cycle scheme")
     padding = bounds["padding_bits"]
     return scan_box(
         increment_abs_bound=increment_abs_bound,
         max_start_branch=int(start_bounds[1]),
-        minimum_cycle=int(cycles[0]),
-        maximum_cycle=int(cycles[1]),
-        cycle_step=int(cycles[2]),
+        minimum_cycle=(int(cycles[0]) if cycles is not None else MINIMUM_CYCLE),
+        maximum_cycle=(int(cycles[1]) if cycles is not None else MINIMUM_CYCLE),
+        cycle_step=(int(cycles[2]) if cycles is not None else 1),
         padding_slope=int(padding["slope_times_cycle"]),
         padding_intercept=int(padding["intercept"]),
         jobs=jobs,
+        cycle_values=(
+            tuple(int(value) for value in cycle_values)
+            if cycle_values is not None else None
+        ),
     )
 
 
@@ -485,6 +506,10 @@ def parser() -> argparse.ArgumentParser:
     scan.add_argument("--min-cycle", type=int, default=5)
     scan.add_argument("--max-cycle", type=int, default=128)
     scan.add_argument("--cycle-step", type=int, default=1)
+    scan.add_argument(
+        "--cycle-values",
+        help="comma-separated increasing cycle indices; overrides the interval",
+    )
     scan.add_argument("--padding-slope", type=int, default=2)
     scan.add_argument("--padding-intercept", type=int, default=32)
     scan.add_argument("--jobs", type=int, default=1)
@@ -513,6 +538,10 @@ def main() -> None:
             padding_slope=args.padding_slope,
             padding_intercept=args.padding_intercept,
             jobs=args.jobs,
+            cycle_values=(
+                tuple(int(value) for value in args.cycle_values.split(","))
+                if args.cycle_values else None
+            ),
         )
         write_artifact(args.output, artifact)
         print(json.dumps({
