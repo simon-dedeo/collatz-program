@@ -15865,3 +15865,49 @@ This completes QM157d--h for individual legal transitions.  The full
 remaining QM157i task is the infinite-orbit semantic wrapper; QM158a is also
 now attractive because the exact affine-cylinder lemmas already in the repo
 should make it short.
+
+## Round 313 — QM158a exact dyadic-to-triadic cylinders
+
+The dual-residue rows added in commit `6dce4a9` are now backed by a general
+Lean theorem in `KontoroC/OutwardCylinderRenewal.lean`.  The key new lemma is
+the reverse of the existing shift construction:
+
+```text
+w executes (r + 2^S*t) -> y
+  => exists b, w executes r -> b and y=b+3^O*t.
+```
+
+Its proof is by literal instruction induction.  On an even first bit the
+middle lift is `2^(S-1)*t`; on an odd first bit it is
+`2^(S-1)*(3t)`.  This is precisely the dyadic-to-triadic conversion that a
+mere affine equality does not by itself certify.
+
+Lean then proves:
+
+* starts executing the same word are congruent modulo `2^S`;
+* equal starts have equal targets;
+* a canonical start `r<2^S` has target `b<3^O`;
+* every word has a unique canonical pair `(r_w,b_w)` in those two ranges;
+* for all naturals `x,y`,
+
+```text
+w executes x -> y
+  <-> exists t>=0,
+      x=r_w+2^S*t and y=b_w+3^O*t;
+```
+
+* and the canonical pair satisfies exactly
+
+```text
+2^S*b_w = 3^O*r_w + A_w.
+```
+
+Thus QM158a is complete, including both directions and the target bound.  No
+finite audit row, positivity restriction, or presumed parity-cylinder
+bijection is used.  The full 8,831-job build and axiom audit pass using only
+standard mathlib principles.
+
+The next theorem target is the finite-code/finite-depth min-plus adapter
+(QM158b--c).  The exact family theorem now isolates its only real content:
+minimum over a union of affine preimages equals the minimum of their least
+admissible family parameters.
