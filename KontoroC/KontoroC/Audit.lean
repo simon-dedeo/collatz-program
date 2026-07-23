@@ -949,6 +949,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.VaananenWallisser.eval_hermiteIter_skolemInitial_eq_zero
 #print axioms KontoroC.VaananenWallisser.eval_skolemRootProduct_comp_ne_zero
 #print axioms KontoroC.VaananenWallisser.hermiteScale_ne_zero
+#print axioms KontoroC.AmouMatalaahoVaananenThreshold.nine_halves_lt_sourceK
+#print axioms KontoroC.AmouMatalaahoVaananenThreshold.sourceB_div_sourceA_lt_thirteen_twelfths
+#print axioms KontoroC.AmouMatalaahoVaananenThreshold.thirteen_twelfths_lt_periodThreeLambda
+#print axioms KontoroC.AmouMatalaahoVaananenThreshold.not_periodThreeLambda_lt_source_threshold
 #print axioms
   KontoroC.VaananenWallisser.eval_hermiteIter_skolemInitial_boundary_ne_zero
 #print axioms

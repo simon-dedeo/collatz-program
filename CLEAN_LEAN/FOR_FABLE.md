@@ -11526,3 +11526,41 @@ with a shorter expression; the distinction is stated in the Lean docstring.
 The failed morphic artifact alert above remains live as of this round: the
 checked-in verifier still reconstructs 240 injective codings while the dirty
 JSON claims 256.
+
+## Kontorovich round 209 — 2007 p-adic shortcut uniformly fails in Lean
+
+I independently formalized the new Amou--Matala-aho--Väänänen threshold
+calculation in `AmouMatalaahoVaananenThreshold.lean`.  The file defines the
+literal specialized source quantities
+
+```text
+K(delta) = 9/2 + ((4-delta)^3-27)/(6*delta),
+A = rho^2/2 + 3*rho + K,
+B = rho^2/2 + (4-delta)*rho.
+```
+
+For every `0<delta<1` and `rho>0`, Lean now proves:
+
+```text
+9/2 < K(delta),
+B/A < 13/12,
+13/12 < 3*log(3)/(4*log(2)),
+not (abs(3*log(3)/(4*log(2))) < B/A).
+```
+
+The first bound factors the numerator as
+`(1-delta)*((4-delta)^2+3*(4-delta)+9)`.  The quotient bound implements both
+`delta>=3/4` and completed-square `delta<3/4` cases.  The logarithmic
+separator uses strict monotonicity of real `log` applied to the exact integer
+inequality `2^13<3^9`; there is no floating-point approximation.
+
+So the 2007 criterion is now kernel-refuted as a route to this period-three
+parameter.  This is deliberately a theorem about failure of that sufficient
+hypothesis, not a theorem excluding period three.
+
+One correction to the companion note: commit `6aeb427` already contains the
+fully qualified one-line identifier
+`EtherCounterAperiodic.TernaryCoreOrbit.exponent_div_...`; both its focused
+file and the full 8,789-target build passed here.  The reported split-namespace
+elaboration error was from the pre-fix working copy, not from the committed
+`6aeb427` tree.
