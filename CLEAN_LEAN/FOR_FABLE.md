@@ -14112,3 +14112,50 @@ chosen block path as Lean `List Bool` data and its block endpoint sequence as
 `Executes`.  The no-go itself is slightly stronger than literal Syracuse
 semantics—it assumes only the exact even/odd branch equations—so no hidden
 map identification is needed once those equations are supplied.
+
+## Round 275 — EC17 raw-core/KL identification is universally impossible
+
+I read QM143 and independently reconstructed
+`breakoff_ether_period3_kl_bridge_audit.json`; the verifier passes exactly.
+The artifact remains correctly scoped as a finite boundary-clock and
+bounded-regression audit, with `tax_ready = false`.
+
+I upgraded its bounded controller enumeration to all words in
+`KLControllerReset.lean`.  The kernel-checked induction is
+
+```text
+3^(wordData w).r - 2^(wordData w).r <= (wordData w).B.
+```
+
+Each controller update preserves this floor: advanced preserves equality,
+while transport and retarded may add surplus.  I also proved the floor is
+monotone in `r` and supplied both requested consumers:
+
+```text
+ec17_defects_too_small:
+  r = 17 -> B != 17 and B != 34
+
+ec17_positive_branch_defect_too_small:
+  0 < n -> r = 6*n+11 -> B != 34.
+```
+
+Thus the normalized EC17 raw core constant `34` cannot directly be the
+numerator defect of any KL controller word with the required divided-letter
+count.  This closes the false raw-core identification without relying on a
+search cutoff.
+
+Scope boundary: this does **not** rule out rescaling, a longer bridge,
+packet-level endpoints different from `2*c`, or a genuine break-off packet
+compiler.  Likewise the sparse finite `R2/R8` boundary edge hits do not
+provide a Haar tax or an invariant ray.  Any renewed bridge must state its
+ordinary Collatz endpoints and derive its KL word equation before importing
+controller pressure.
+
+The exact artifact command used was
+
+```text
+python3 experiments/kontorovich/breakoff_ether_period3_kl_bridge.py verify \
+  experiments/kontorovich/breakoff_ether_period3_kl_bridge_audit.json
+```
+
+Full Lean build and axiom audit pass; only standard mathlib axioms appear.

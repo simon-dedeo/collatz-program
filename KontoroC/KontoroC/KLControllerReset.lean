@@ -121,6 +121,78 @@ theorem wordData_r (w : List CenterMove) :
 theorem dividedCount_eq_wordData_r (w : List CenterMove) :
     dividedCount w = (wordData w).r := (wordData_r w).symm
 
+/-! ## Universal defect floor -/
+
+/-- Every controller letter preserves the sharp lower floor
+`B >= 3^r-2^r`.  The advanced letter preserves equality; transport and the
+retarded letter can only add surplus. -/
+theorem ControllerData.step_B_lower (d : ControllerData) (m : CenterMove)
+    (h : 3 ^ d.r - 2 ^ d.r ≤ d.B) :
+    3 ^ (d.step m).r - 2 ^ (d.step m).r ≤ (d.step m).B := by
+  have hp : 2 ^ d.r ≤ 3 ^ d.r := Nat.pow_le_pow_left (by omega) d.r
+  cases m with
+  | transport =>
+      change 3 ^ d.r - 2 ^ d.r ≤ 4 * d.B
+      omega
+  | retarded =>
+      change 3 ^ (d.r + 1) - 2 ^ (d.r + 1) ≤
+        4 * d.B + 2 * 3 ^ d.r
+      rw [pow_succ', pow_succ']
+      omega
+  | advanced =>
+      change 3 ^ (d.r + 1) - 2 ^ (d.r + 1) ≤
+        2 * d.B + 3 ^ d.r
+      rw [pow_succ', pow_succ']
+      omega
+
+theorem accumulate_B_lower (w : List CenterMove) (d : ControllerData)
+    (h : 3 ^ d.r - 2 ^ d.r ≤ d.B) :
+    3 ^ (accumulate w d).r - 2 ^ (accumulate w d).r ≤
+      (accumulate w d).B := by
+  induction w generalizing d with
+  | nil => simpa [accumulate] using h
+  | cons m w ih =>
+      exact ih (d.step m) (d.step_B_lower m h)
+
+/-- Exact all-word upgrade of the bounded EC17/KL defect audit. -/
+theorem wordData_B_lower (w : List CenterMove) :
+    3 ^ (wordData w).r - 2 ^ (wordData w).r ≤ (wordData w).B := by
+  exact accumulate_B_lower w initialData (by simp [initialData])
+
+/-- The universal defect floor increases with the number of divided
+letters. -/
+theorem defectFloor_mono : Monotone (fun r : ℕ => 3 ^ r - 2 ^ r) := by
+  apply monotone_nat_of_le_succ
+  intro r
+  have hp : 2 ^ r ≤ 3 ^ r := Nat.pow_le_pow_left (by omega) r
+  rw [pow_succ', pow_succ']
+  omega
+
+/-- In particular, neither EC17 boundary constant proposed by the finite
+bridge worker can be the defect of a controller word with 17 divided
+letters. -/
+theorem ec17_defects_too_small (w : List CenterMove)
+    (hr : (wordData w).r = 17) :
+    (wordData w).B ≠ 17 ∧ (wordData w).B ≠ 34 := by
+  have h := wordData_B_lower w
+  rw [hr] at h
+  norm_num at h ⊢
+  omega
+
+/-- The positive EC17 branch convention asks for `6*n+11` divided letters.
+At every positive branch index its raw defect `34` is far below the
+universal KL controller floor. -/
+theorem ec17_positive_branch_defect_too_small (w : List CenterMove) (n : ℕ)
+    (hn : 0 < n) (hr : (wordData w).r = 6 * n + 11) :
+    (wordData w).B ≠ 34 := by
+  have hr17 : 17 ≤ (wordData w).r := by omega
+  have hmono := defectFloor_mono hr17
+  have hB := wordData_B_lower w
+  norm_num at hmono
+  intro heq
+  rw [heq] at hB
+  omega
+
 /-- In particular the numerator slope is invertible at every ternary
 precision. -/
 theorem wordData_A_coprime_three_pow (w : List CenterMove) (k : ℕ) :

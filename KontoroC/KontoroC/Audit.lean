@@ -1334,6 +1334,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.KLControllerReset.wordData_exact
 #print axioms KontoroC.KLControllerReset.wordData_A
 #print axioms KontoroC.KLControllerReset.wordData_r
+#print axioms KontoroC.KLControllerReset.ControllerData.step_B_lower
+#print axioms KontoroC.KLControllerReset.wordData_B_lower
+#print axioms KontoroC.KLControllerReset.defectFloor_mono
+#print axioms KontoroC.KLControllerReset.ec17_defects_too_small
+#print axioms KontoroC.KLControllerReset.ec17_positive_branch_defect_too_small
 #print axioms KontoroC.KLControllerReset.wordData_A_coprime_three_pow
 #print axioms KontoroC.KLControllerReset.numerator_modEq_injective
 #print axioms KontoroC.KLControllerReset.exists_unique_numerator_input_class
