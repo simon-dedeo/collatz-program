@@ -2220,3 +2220,166 @@ elite coherent traces.  Its first exact mismatch or halt is a CEGIS witness
 that refines the selector or precision.  Such a witness is not a Collatz
 counterexample.  The only promotion target is a compact parametric invariant
 whose exact replay closes for all counter values.
+
+## 26. Selector architecture and invariant CEGIS
+
+The predictor and invariant questions are different.  A selector tries to
+guess the next first-passage word on a chosen finite population.  An invariant
+is a predicate on the actual odd charge and must make the partial map total on
+its whole domain.  The latter is the theorem-bearing target.
+
+### 26.1 Coherent selector architecture pilot
+
+The bounded coherent worker keeps the exact cylinder
+
+```text
+rho+2^L*z  |->  y+3^Q*z
+```
+
+at every beam node.  It does not combine minima from unrelated parents.  Its
+outer loop begins with the ternary feature
+
+```text
+(min(v_3(H),c_max), primitive(H) mod 3^k)
+```
+
+and opens one-step word memory, a coarse remaining-address carry, or an
+additional dyadic charge residue when the first exact replay failure collides
+with an already labeled feature.  Models are a default action plus a bounded
+exception table, so merely observing a new feature does not force an entry.
+
+The Akdeniz run used all 32 cores with the following exact bounds:
+
+```text
+depth=32, beam=512, maximum word length=14,
+154 complete first-passage words, phase precision=4,
+selector ternary precision<=5, v_3 cap<=8,
+dyadic bits<=6, exception entries<=128,
+32 exact rollout blocks, 250000 shortcut steps.
+```
+
+The first charge-only collision occurs at depth three.  Further collisions
+open architecture levels two and three; one-step memory plus dyadic residue
+occasionally wins an intermediate fit, but no refinement becomes exact.  The
+final model uses five dyadic bits and has
+
+```text
+70 weighted errors / 16722 weighted examples,
+31 ambiguous features,
+127 stored exceptions.
+```
+
+Its champion is the ordinary seed `34834345`.  It has 15 zero-carry suffix
+blocks after its address has stabilized, but its exact continuation reaches
+state `2`.  This is useful negative architecture evidence: a small
+next-word table does not expose a compact renewal law.  It neither excludes a
+larger selector nor proves anything from the champion's finite survival.
+
+### 26.2 Exact recharge step cells
+
+For a nontrivial first-passage word with data `(S,O,A,r)` put
+
+```text
+e=(A+2^S-3^O)/3.
+```
+
+If `a` is the number of forced one-letter drains after this recharge, the
+branch-homogeneous source cell is
+
+```text
+Cell(w,a):
+  3H-1 = r (mod 2^S),
+  v_2(3^O H+e)=S+a.                                  (26.1)
+```
+
+The exact map on the whole cell is
+
+```text
+R(H)=3^a(3^O H+e)/2^(S+a).                           (26.2)
+```
+
+Equivalently, (26.1) is one odd residue modulo `2^(S+a+1)`.  This is the
+right unit for invariant synthesis: legality and the affine update are
+proved simultaneously, rather than inferred from training labels.
+
+The invariant grammar forms finite DNFs of such cells with atoms drawn from
+exact/lower/congruential conditions on `v_3(H)`, dyadic charge or primitive
+residues, and ternary primitive residues.  It also admits normalized recursive
+families
+
+```text
+T_0(t,z)=z,
+T_(i+1)(t,z)=
+  (alpha_i*3^(m_i*t+r_i)*T_i(t,z)+beta_i)/2^d_i.     (26.3)
+```
+
+The first implemented instances are `3^t` and the exact resonant family
+`3*(2^17*3^t-7)`.  Candidates are ordered lexicographically by recursive
+depth, parameter dimension, family count, DNF count, atom count, modulus
+budget, coefficient bit length, and threshold bit length.  Congruences and
+valuations are canonicalized before hashing.
+
+For a closure witness `H -> H'`, CEGIS compares two legitimate refinements:
+exclude the spurious source, or adjoin the target as a new positive example.
+It selects the lower-complexity feasible predicate.  If the witness is already
+a required reachable positive, the target must be adjoined; an undefined map
+at such a positive rejects the architecture.
+
+### 26.3 Exact bounded verdict
+
+The theorem-driven anchor is the resonant member with `L=688`, which maps to
+the previously calibrated record charge `3^700`.  It is an explicit 1110-bit
+natural charge, so the corresponding ordinary seed `3H_0-1` is fixed from the
+start; no projective 2-adic compatibility is being smuggled in.
+
+The default invariant artifact exhausts all positive odd `H<=200001`, family
+parameters through 800, up to four primitive ternary digits and eight dyadic
+bits, at most 64 CEGIS rounds, and symbolic progression periods through one
+million.  All eight implemented architectures are rejected.  In grammar
+order, their least stored exact failures are
+
+```text
+valuation                              H=3      (R undefined),
+valuation+primitive3                   H=15     (R undefined),
+valuation+dyadic                       H=3      (R undefined),
+valuation+primitive3+dyadic            H=15     (R undefined),
+step+valuation                         H=189    (R(H)=213 outside),
+step+valuation+primitive3              H=82701  (R(H)=93039 outside),
+step+valuation+primitive3+dyadic       H=23541  (R(H)=59589 outside),
+recursive-family+step-DNF              H=333    (R(H)=375 outside).
+```
+
+These minima refer to the rejected candidates encountered within each
+architecture, and the artifact retains the exact candidate hash, word,
+`(S,O,A,e,a)`, affine identity, and target-clause truth vector.  The family
+lane does learn that adding a pure-power target is preferable after the
+resonant modulus reaches its precision cap; later exact step-cell witnesses
+still destroy closure.  No all-parameter recursive transition rule survives.
+
+### 26.4 Promotion theorem and remaining mathematics
+
+Lean commits `483d2a8`/`4cd716b` supply the exact endpoint.  A positive member `H_0`
+and a proof that every invariant member has a sound nonempty recharge macro
+to another member yield an ordinary infinite first-passage execution from
+`3H_0-1`, hence a Collatz counterexample.  It also proves every such invariant
+set is unbounded.  Therefore finite state tables and bounded-height cylinder
+unions cannot be successful invariants even in principle.
+
+For finite periodic step DNFs, the worker has a universal checker: decompose
+each source clause into arithmetic progressions, apply the affine formula
+(26.2), and enumerate the complete target-membership period.  It reports
+universal closure only if every progression is completed within the explicit
+symbolic period budget.  Recursive families require a separate coefficient
+identity, integrality proof, and Presburger/residue-domain inclusion; bounded
+family samples never set `universal_closed=true`.
+
+If a future candidate is specified only as nested inverse cylinders rather
+than by an explicit natural `H_0`, it still owes the old coherence gate: one
+dyadic residue path whose canonical addresses stabilize, or whose carries
+are eventually zero (the sufficient bound `rho_n=o(2^n)` remains useful).
+Finite nonempty cylinders at every depth describe at most a 2-adic object.
+
+The lane is time-boxed to 24 hours.  A continuation is justified only by a
+new symbolic family-transition theorem or a qualitatively smaller invariant
+architecture.  Larger undirected seed or finite-survival scans are outside
+the lane.  Both artifacts record `counterexample:null`.

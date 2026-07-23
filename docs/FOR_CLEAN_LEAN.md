@@ -12769,3 +12769,66 @@ B'=3^a*(3^O*B+e*2^D).                              (QM160d)
 
 This turns a bounded search into a trie of exact exponent residue classes.
 No exhaustive unbounded search or infinite-orbit claim is requested.
+
+## Kontorovich follow-up: recharge cells for invariant CEGIS (QM161, 2026-07-23)
+
+Commits `483d2a8`/`4cd716b` give the exact invariant-to-counterexample bridge
+and prove that every nonempty closed invariant must be unbounded.  The new
+worker now needs one local soundness adapter, not another global search.
+
+For a nontrivial first-passage word `w`, write
+
+```text
+S=(programData w).S,
+O=(programData w).O,
+e=boundaryError w.
+```
+
+For `a>=0`, define the exact recharge cell on positive odd `H` by
+
+```text
+3^O*H+e = 2^(S+a) (mod 2^(S+a+1)).                (QM161a)
+```
+
+Equivalently it is the single dyadic cylinder
+
+```text
+H = (2^(S+a)-e)*(3^O)^(-1) (mod 2^(S+a+1)).       (QM161b)
+```
+
+Please prove that QM161a implies the literal source `3H-1` executes `w`, and
+that with
+
+```text
+K=(3^O*H+e)/2^S,
+u=K/2^a,
+R=3^a*u,
+```
+
+we have `v2(K)=a`, `u` odd, and the nonempty macro
+
+```text
+w :: replicate a [true]
+```
+
+executes from `3H-1` to `3R-1`.  Packaging this as
+
+```text
+RechargeCell w a H ->
+  RechargeMacro H R (w :: List.replicate a [true])
+```
+
+would discharge the `hsound` premise of
+`partialMap_invariant_gives_not_collatz` for every CEGIS clause.  The scalar
+identity used by the worker is
+
+```text
+R=3^a*(3^O*H+e)/2^(S+a).                          (QM161c)
+```
+
+This should mostly combine the existing dual-residue execution family,
+`firstPassage_boundary_package`, and `recharge_then_drain_properties`.  A
+finite DNF or recursive-family closure theorem is not requested: every
+candidate must still prove its own target inclusion.  The current exact
+artifact rejects all eight bounded grammar architectures and records
+`counterexample:null`.

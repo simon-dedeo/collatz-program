@@ -33,6 +33,51 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 17:55 EDT
+
+There is still no counterexample.  Commits `483d2a8`/`4cd716b` now give the
+invariant lane its exact Lean endpoint.  If a nonempty predicate `I(H)` on positive
+charges is closed under sound, nonempty recharge macros, then
+`3*H_0-1` has an ordinary infinite first-passage execution and refutes
+Collatz.  Lean also proves that every such invariant is unbounded.  Thus a
+finite table, a bounded collection of cylinders, or a merely 2-adic inverse
+limit cannot qualify.
+
+Two distinct exact CEGIS workers now test the construction side.  The
+coherent-cylinder worker ran on all 32 Akdeniz cores with depth 32, beam 512,
+and the complete 154-word first-passage table through length 14.  Exact
+feature collisions successively opened one-step memory, carry, and dyadic
+residue architectures.  The final bounded fit still has 70 weighted errors,
+31 ambiguous features, and 127 exception entries.  Its champion seed
+`34834345` has 15 zero-carry/post-address blocks and then reaches state `2`.
+This diagnoses the inadequacy of the small predictor grammar; it is not an
+unbounded no-go theorem.
+
+The separate invariant worker uses the exact branch cell
+
+```text
+Cell(w,a): 3H-1=r_w (mod 2^S),
+           v_2(3^O H+e_w)=S+a,
+R(H)=3^a(3^O H+e_w)/2^(S+a).                       (KC-FP11)
+```
+
+It ranks finite DNFs of valuation/congruence cells and the recursive families
+`3^t` and `3*(2^17*3^t-7)` by explicit description complexity.  Each exact
+closure witness is used either to exclude its source or to adjoin its target,
+whichever yields the simpler next predicate.  With exhaustive odd charges
+through `200001`, family parameters through 800, four ternary digits, eight
+dyadic bits, and a one-million-period symbolic budget, all eight implemented
+architectures are rejected.  Their least recorded failures are respectively
+`H=3,15,3,15,189,82701,23541,333`; the artifact stores each literal recharge
+identity and failed target truth vector.  No architecture is universally
+closed, and `counterexample` remains `null`.
+
+This first-crossing lane is now time-boxed to 24 hours.  Further compute must
+either expose a smaller all-parameter transition theorem or a genuinely new
+invariant architecture; otherwise the bounded grammar is moved to the
+failure ledger and the program returns to the broader arithmetic/controller
+lanes.
+
 ### 2026-07-23 17:00 EDT
 
 There is still no counterexample.  Commit `5448445` proves odd-part
@@ -5912,8 +5957,15 @@ identically `x`.
   word tables or a genuinely growing arithmetic state.  Failed prefixes
   generate directed carry cylinders `rho+2^L ell`; the first million lifts of
   the 36-block record reach at most 73 blocks and all die.  Seek a coherent
-  path with `rho_n=o(2^n)`, which already forces eventual zero carry.  Do not
-  promote critical pressure or longer finite survival by itself.
+  path with `rho_n=o(2^n)`, which already forces eventual zero carry.  In the
+  forward direction, synthesize a predicate on odd charges from exact
+  branch-homogeneous step cells (KC-FP11), valuation/congruence atoms, and
+  recursively parameterized families.  Commits `483d2a8`/`4cd716b` prove that
+  a positive member plus sound universal closure is already an ordinary
+  Collatz counterexample and that every such invariant must be unbounded.
+  Bounded CEGIS witnesses refine or reject a grammar; they never discharge
+  universal closure.  Do not promote critical pressure or longer finite
+  survival by itself.
 - **Parametric gliders.**  Search for a finite symbolic transducer, substitution,
   or arithmetic family `x_t` with a machine-checkable macrostep
   `T^(ell(t))(x_t)=x_(t+1)` and `x_(t+1)>x_t`.  The existing exhaustive
@@ -6101,6 +6153,8 @@ identically `x`.
 
 | Ansatz or route | Calibrated verdict | Exact record |
 |---|---|---|
+| Small charge-selector architectures on coherent first-passage cylinders | Inadequate at the displayed bounds, not universally closed.  A depth-32, beam-512, 154-word exact run successively exposes collisions in charge-only, one-step-memory, carry, and dyadic-residue selectors.  The final dyadic fit still needs 127 exceptions and has 70 weighted errors/31 ambiguous features; its champion has 15 post-address zero-carry blocks and then reaches state `2`.  This closes further scale-only tuning of the same small predictor grammar during the 24-hour first-crossing time box, not all selectors. | [`outward_coherent_cegis_audit.json`](experiments/kontorovich/outward_coherent_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#26-selector-architecture-and-invariant-cegis) |
+| First bounded odd-charge invariant grammar | All eight implemented architectures are rejected within their stated exact domains.  The grammar combines exact `Cell(w,a)` branches, `v3`/primitive/dyadic cylinders, and the recursive pure-power/resonant families; CEGIS compares excluding a bad source with adjoining its target by description complexity.  Through `H<=200001`, family parameter 800, four ternary digits and eight dyadic bits, the least stored failures are `3,15,3,15,189,82701,23541,333`.  No recursive-family transition is universally certified, so this is a bounded grammar verdict, not a no-invariant theorem. | [`outward_charge_invariant_cegis_audit.json`](experiments/kontorovich/outward_charge_invariant_cegis_audit.json), [`OutwardInvariantBridge.lean`](KontoroC/KontoroC/OutwardInvariantBridge.lean), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#26-selector-architecture-and-invariant-cegis) |
 | Treating critical first-passage/KL mass as an ordinary survivor | Invalid.  For the canonical maximal outward first-passage code, the slope-tilted Kraft mass is exactly one at every block depth, but its natural product flow satisfies `mu_q{r_n<=B}<=B(3/4)^n`.  Conditioning fair renewal on arbitrarily long survival gives the product block law `p(w)/P`, which is also diffuse, with fixed-window bound `B(1/(2P))^n`.  Thus conserved mass and the classical survival Doob transform both escape every bounded ordinary residue window.  Any successful selector must create an atom; a useful sufficient proof input is the weaker growth condition `rho_n=o(2^n)`, which forces eventual zero carry. | [`outward_first_passage_audit.json`](experiments/kontorovich/outward_first_passage_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#23-odd-charge-compression-and-triadic-min-plus-renewal) |
 | Fixed-precision triadic min-plus controller | Does not close the unbounded raw renewal.  The exact dual-residue update for a source phase modulo `3^k` queries the target profile modulo `3^(O(w)+k)`; already word `1` requires precision `k+1`.  Finite height closes with the complete table `W_B`, explicit target bound `C(B)`, and a membership precision `3^K>C(B)`, but `K` grows with height.  Thus a successful phase selector needs genuinely growing arithmetic state, not one fixed residue automaton. | [`outward_minplus_profile_audit.json`](experiments/kontorovich/outward_minplus_profile_audit.json), companion commits `a0e460d`/`8d79424`, [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#24-growing-phase-precision-and-directed-carry-repair) |
 | Prefix-complete uniformly outward valuation ISA | Closed for finite positive prefix-free codes.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, every outward leaf has `q(w)>p(w)`; `p`-completeness and the `q`-Kraft bound are inconsistent.  Commit `da9fa59` constructs explicit binary and four-letter compilers, derives both Kraft inequalities from prefix-freeness, and proves the full finite contradiction and quantitative mass bound in Lean.  The countably infinite prefix-free theorem still uses an abstract `tsum` interface.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |
