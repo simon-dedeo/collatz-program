@@ -951,6 +951,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.EtherCounterBareGlue.exists_shiftedReplay_of_composedFactor
 #print axioms
   KontoroC.EtherCounterBareGlue.exists_orbit_of_composedReplayFactors
+#print axioms KontoroC.EtherCounterResidualFold.residualFold_eq_expansion
+#print axioms KontoroC.EtherCounterResidualFold.residualFold_last_modEq
+#print axioms KontoroC.EtherCounterResidualFold.residualFold_dvd_iff_last_dvd
 #print axioms
   KontoroC.EtherCounterResidueBound.EvenQuotientReplayFailure.not_admitsNaturalPrefix
 #print axioms

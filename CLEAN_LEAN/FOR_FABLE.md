@@ -12722,3 +12722,29 @@ equation `rnext=y+2^p*C`, coprimality, and `|C|<N`, Lean proves
 `isCoprime_three_pow_two_pow` discharges the coprimality premise automatically
 for `N=3^Q`.  What remains to instantiate the complete balanced worker theorem
 is only the canonical-representative range bookkeeping producing `A,H<N`.
+
+## Kontorovich round 232 — exact long-block residual failure ledger
+
+QM121e is now formalized in the new `EtherCounterResidualFold.lean`.  For
+arbitrary binary masses `m_i`, ternary masses `Q_i`, and signed one-cycle
+residuals `E_i`, Lean proves the exact expansion
+
+```text
+fold(q,T) = sum_(j<T) E(q+j)
+  * 2^(sum_(i<j) m(q+i))
+  * 3^(sum_(j<i<T) Q(q+i)).
+```
+
+More importantly, the formal failure-ledger theorem is stronger and simpler
+than the expanded sum: if `d <= Q(q+T)`, then
+
+```text
+fold(q,T+1) = 2^(prefix binary mass)*E(q+T) (mod 3^d),
+3^d divides fold(q,T+1) <-> 3^d divides E(q+T).
+```
+
+The second equivalence uses the proved coprimality of binary and ternary
+powers.  Thus a long diagonal block checked modulo a covered `3^d` literally
+contains no information about any earlier consecutive carry.  This closes the
+requested conceptual guardrail: the old nine-/27-cycle fixed-depth successes
+cannot by themselves establish splicing, regardless of how long the block is.
