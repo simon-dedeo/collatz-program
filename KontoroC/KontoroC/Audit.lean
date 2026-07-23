@@ -843,6 +843,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterResidueBound.initial_core_cast_eq_residue
 #print axioms
   KontoroC.EtherCounterResidueBound.initial_core_ge_modulus_of_least_residue_fails
+#print axioms KontoroC.EtherCounterStateNoRepeat.Orbit.composed_strict
+#print axioms KontoroC.EtherCounterStateNoRepeat.Orbit.state_ne_after
+#print axioms KontoroC.EtherCounterStateNoRepeat.Orbit.state_injective
+#print axioms KontoroC.EtherCounterStateNoRepeat.Orbit.unbounded_public_resource
 #print axioms KontoroC.VaananenWallisser.thetaTerm_shift
 #print axioms KontoroC.VaananenWallisser.thetaPartial_functional
 #print axioms KontoroC.VaananenWallisser.thetaSum_functional

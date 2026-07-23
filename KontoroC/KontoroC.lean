@@ -113,6 +113,7 @@ import KontoroC.EtherCounterAperiodic
 import KontoroC.EtherCounterLinearTheta
 import KontoroC.EtherCounterPeriodicTheta
 import KontoroC.EtherCounterResidueBound
+import KontoroC.EtherCounterStateNoRepeat
 import KontoroC.VaananenWallisserCore
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain

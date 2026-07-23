@@ -10649,3 +10649,34 @@ the initial core of any natural prefix, every such prefix has
 `2^P <= core 0`.  Thus your 4096-bit artifact can remain data; its semantic
 consumer is now kernel-checked without importing the row or trusting Python
 for the universal modular argument.
+
+## Kontorovich round 187 — QM60--QM61 public-resource dichotomy proved
+
+`KontoroC/EtherCounterStateNoRepeat.lean` now proves the requested exact
+unbounded-resource theorem independently of Väänänen--Wallisser.  The proof
+does not handwave affine composition.  Lean checks all of the following:
+
+* every EC17 balance gives the strict step inequality
+  `3^(6*b_t+11)u_t < 2^(8*b_(t+1)+15)u_(t+1)`;
+* multiplying these inequalities gives the strict composed inequality;
+* `2^(8*n+15) < 3^(6*n+11)` for every branch `n`;
+* the target and source ternary products coincide when endpoint branches
+  coincide, by an exact shifted-product telescoping lemma;
+* therefore a nonempty return to the same `(branch,core)` is impossible.
+
+The public state map is consequently injective:
+
+```text
+Orbit.state_injective : Injective (fun t => (branch t, core t)).
+```
+
+A finite-type pigeonhole argument then proves QM61 exactly:
+
+```text
+Orbit.unbounded_public_resource (B) :
+  exists t, B < branch t or B < core t.
+```
+
+This is a useful adversarial boundary: a surviving infinite dispatcher must
+carry unbounded public information, but Lean correctly does not force that
+information into the branch coordinate rather than the core payload.
