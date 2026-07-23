@@ -12911,3 +12911,179 @@ an unbounded public denominator/address counter `d`, or guards with unbounded
 returning to the same type can lower the runtime rank because the counter has
 grown, and the word schedule need not factor through a fixed finite quotient.
 That is now the constructive target; no counterexample is claimed.
+
+## Kontorovich follow-up: primitive defect grammar and resonant-return no-go (QM163, 2026-07-23)
+
+The unbounded-counter invariant worker now uses primitive coordinates
+
+```text
+H=3^c*u,  u>0, Odd u, 3∤u.
+```
+
+For a nontrivial first-passage word with recharge data `(S,O,e)`, write
+`e=3^t*d`, `3∤d`, and put
+
+```text
+N=3^(O+c)*u+e,
+a=v2(N)-S,
+R(H)=3^a*N/2^(S+a).
+```
+
+Please first package the following exact three-way normalization.  It is the
+proposed transition semantics for finite predicate types with unbounded
+valuation binders.
+
+```text
+t < O+c:
+  2^(S+a)u' = 3^(O+c-t)u+d,       (c',u')=(t+a,u')
+
+t > O+c:
+  2^(S+a)u' = u+3^(t-O-c)d,       (c',u')=(O+c+a,u')
+
+t = O+c:
+  v=v3(u+d),
+  2^(S+a)3^v*u' = u+d,            (c',u')=(t+a+v,u').
+```
+
+In all cases `u'` is again a positive 2,3-unit.  The LOW and HIGH clauses are
+just unequal-valuation minima; only the resonant clause requires an unbounded
+ternary cancellation binder.  A bridge from these equations to one
+`RechargeThenDrain` fact would let a future invariant certificate use the
+existing canonical-map endpoint without unfolding a literal orbit.
+
+There is also a stronger no-return theorem for the original resonant family
+
+```text
+H_L = 3*(2^17*3^L-7).
+```
+
+The needed word lemma is:
+
+```text
+for every nontrivial first-passage word w,
+if e_w=3*d and 3∤d, then
+v3(d+7*2^S)=1.                                    (QM163a)
+```
+
+A compact proof splits on the odd count.  If `O=2`, first passage forces
+`w=011`, and `(e,d,d+7*2^S)=(3,1,57)`.  If `O>=3`, let `p` be the position of
+the third-last `1`.  Reducing the affine defect modulo three shows `3∤d`
+forces the gap from `p` to the penultimate position to be even.  First
+passage bounds the suffix slope by `9/2^(gap+1)>1`, hence the gap is exactly
+two and every candidate ends in `1011`.  Modulo nine, `O=3` gives residue
+six; for `O>=4`, the fourth-last-one term gives residue `3` or `6`.  Thus
+QM163a follows.
+
+Now suppose any later recharge macro lands on `H_L` from a primitive source
+`3^c*u`, `c>=1`.  Since targets `H_L` have `v3=1`, the final drain is zero
+and `v3(e_w)=1`.  With `e_w=3d`, the exact landing equation is
+
+```text
+2^(S+17)*3^L - 3^(O+c-1)*u = d+7*2^S.             (QM163b)
+```
+
+QM163a says the right side has valuation exactly one.  The left side is a
+3-adic unit for `L=0` and is divisible by nine for `L>=2`, so necessarily
+`L=1`.  After the root `010111` edge, every `C>=28` already has charge larger
+than `H_1=1179627`, and every recharge strictly increases charge, so return
+is impossible.  The only remaining `C=12` case is exact:
+
+```text
+3^12 -> 1008909 ->[011] 1135023,
+```
+
+after which no recharge is defined (a finite literal certificate can be
+supplied if useful).  Hence **no itinerary**, even with parameter-dependent
+words and drains, returns from the `010111` root branch to the original
+`H_L` family.  This removes that family from the constructive grammar; a
+viable engine must target a genuinely different recursive family.  This is
+a no-go theorem, not a Collatz counterexample.
+
+## Kontorovich follow-up: the resonant decoder family (QM164, 2026-07-23)
+
+The LOW/HIGH/RESONANT split exposes a general version of the old length-17
+word.  Let
+
+```text
+w(z,o) = 0^z ++ 1^o,  z>=1,
+```
+
+and assume the exact first-passage inequalities
+
+```text
+3^(o-1) <= 2^(z+o-1),
+3^o > 2^(z+o).
+```
+
+Because the slope rises monotonically during the final run of ones, these
+conditions make `w(z,o)` first passage.  Its recharge defect is
+
+```text
+e_(z,o)=(2^z-1)*3^(o-1).                           (QM164a)
+```
+
+Now write a source charge as `H=3^c*u`, with `u` a positive 2,3-unit, and
+assume the exact resonance condition
+
+```text
+v3(2^z-1)=c+1,
+d=(2^z-1)/3^(c+1).
+```
+
+Then the source-cylinder condition has the particularly clean form
+
+```text
+w(z,o) is legal from 3H-1
+  <->  2^(z+o) divides u+d.                         (QM164b)
+```
+
+Indeed, if `u+d=2^(z+o)q`, then
+
+```text
+3H-1 = 2^z*(3^(c+1)*2^o*q-1),
+```
+
+so there are exactly `z` zero steps followed by `o` odd steps.  Conversely,
+the word cylinder gives the same divisibility after multiplying by the odd
+unit `3^(c+1)`.
+
+The recharge-before-drain charge is exactly
+
+```text
+K=3^(c+o)*q.                                       (QM164c)
+```
+
+If `a=v2(q)`, `v=v3(q)`, and `q=2^a*3^v*u'`, the canonical recharge map is
+
+```text
+(c,u) -> (c+o+a+v,u').                             (QM164d)
+```
+
+Thus this entire resonant family is a **decoder**: it trades a deeply encoded
+dyadic payload `q` for ternary charge and exposes the primitive part of `q`.
+The original word is `(z,o,c,d)=(6,11,1,7)`; taking `q=3^L` recovers
+
+```text
+3*(2^17*3^L-7) -> 3^(L+12).
+```
+
+Please package the resource no-go as well.  Since
+
+```text
+u=2^(z+o)q-d,
+0<d<2^z,
+```
+
+we have `u'>=1` and
+
+```text
+u' <= q < u.                                       (QM164e)
+```
+
+Therefore no positive ordinary orbit can consist forever solely of
+QM164-type resonant decoders, even with varying `(z,o,c)`: the primitive unit
+would form an infinite strictly descending sequence of naturals.  This does
+not close mixed architectures.  It identifies their missing resource: some
+other edge type must restore/increase the primitive payload often enough to
+pay for later decoders.  That is the exact arithmetic version of the
+visualizer's missing return-and-write gadget.

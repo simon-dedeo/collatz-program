@@ -5246,3 +5246,31 @@ python3 outward_power_charge_return.py --processes 8 --chunk-size 100 verify \
 
 The artifact records `counterexample:null`.  The interval bound is a finite
 calibration; the exponent-cylinder formulas are the reusable search state.
+
+### Primitive-coordinate invariant architecture CEGIS
+
+`outward_primitive_invariant_cegis.py` is separate from the next-word beam.
+It writes `H=3^c*u`, binds the exact unbounded drain, and audits the
+LOW/HIGH/RESONANT defect normalization for every defined displayed recharge.
+Its finite guard-architecture loop adds memory, prior carry, a dyadic unit
+residue, and an exponent residue only in response to exact feature
+ambiguities.  None is promoted to an invariant without universal
+definedness, target inclusion, and root coverage.
+
+The default reconstructible artifact uses only the directed root family
+`C=12 mod16`, tests `C<=1000`, keeps one coherent nested exponent cylinder,
+and records an `(H,D,P)` ledger for the `C=700` champion.  It also checks the
+mod-nine resonant-return lemma on the complete first-passage word table
+through length 24.  The unbounded primitive normalization, chart-rank
+obstruction, and word lemma are requested from the companion Lean worker as
+QM162--QM163.
+
+```bash
+python3 outward_primitive_invariant_cegis.py selftest
+python3 outward_primitive_invariant_cegis.py verify \
+  outward_primitive_invariant_cegis_audit.json
+```
+
+The artifact records `universal_invariant:null` and `counterexample:null`.
+The coherent cylinder is a bounded 2-adic diagnostic unless its canonical
+ordinary exponent stabilizes.

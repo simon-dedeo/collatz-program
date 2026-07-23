@@ -33,6 +33,51 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 18:50 EDT
+
+There is still no counterexample.  The invariant lane has moved from bounded
+charge tables to the smallest exact unbounded-counter semantics.  Writing
+`H=3^c*u`, every legal recharge falls into a LOW, HIGH, or RESONANT defect
+case according as `v3(e_w)` is below, above, or equal to `O_w+c`.  The drain
+`a=v2(3^(O+c)u+e_w)-S` is an unbounded binder; only the resonant case needs an
+additional unbounded ternary-cancellation binder.  This is a finite language
+of predicate types, not a finite state space.
+
+A new exact worker audits that grammar only on descendants of the
+theorem-mandated root cylinder `C=12 mod16`.  Its reconstructible default
+artifact checks 62 ordinary roots through `C=988`, 178 states, and all 116
+defined recharge identities.  Every displayed transition is LOW.  The known
+`C=700` record again survives eleven recharges, but its resource ledger shows
+chart depth increasing to 105 while height remains 1110--1112 bits.  This is
+address consumption, not fresh-memory production.  A coherent exponent
+cylinder moves `12,28,60,60,188,188,700` as precision grows; it does not give
+a stabilizing ordinary exponent.
+
+The finite architecture outer loop makes the precision issue explicit.
+Charge/ternary features retain 74 minority transition errors.  Ten dyadic and
+ten exponent-residue bits separate the 178 displayed states, but this bounded
+lookup proves neither definedness nor target inclusion.  The artifact records
+`universal_invariant:null` and `counterexample:null`.
+
+Two basic-math obstructions now precede further search.  First, the
+integer-valued chart rank `chi=v2(alpha)-d` drops by `S+a` on every fixed
+coefficient-matched recharge edge, apparently ruling out every finite graph
+of fixed chart instances; QM162 asks Lean to check the exact scoped theorem.
+Second, a mod-nine word lemma appears to rule out **any** later return from
+the root `010111` branch to the original resonant family, even with
+parameter-dependent words.  The worker finds no failure among all 14,764
+first-passage words through length 24, including 533 relevant words; QM163
+requests the unbounded Lean proof.  Until those proofs land these are research
+derivations, not certified results.  A further exact calculation identifies
+the whole resonant family `0^z1^o` as a payload decoder: it exposes the
+primitive part of an encoded quotient `q`, but that payload is strictly
+smaller than the incoming primitive unit.  QM164 asks Lean to prove that no
+ordinary orbit can use only these decoders forever.  A viable mixed invariant
+therefore needs a restorative edge that replenishes primitive payload—the
+arithmetic return-and-write gadget.  The first-crossing lane remains inside
+its 24-hour time box; further scale is conditional on a symbolic predicate
+type surviving these obstructions.
+
 ### 2026-07-23 17:55 EDT
 
 There is still no counterexample.  Commits
@@ -6160,6 +6205,7 @@ identically `x`.
 |---|---|---|
 | Small charge-selector architectures on coherent first-passage cylinders | Inadequate at the displayed bounds, not universally closed.  A depth-32, beam-512, 154-word exact run successively exposes collisions in charge-only, one-step-memory, carry, and dyadic-residue selectors.  The final dyadic fit still needs 127 exceptions and has 70 weighted errors/31 ambiguous features; its champion has 15 post-address zero-carry blocks and then reaches state `2`.  This closes further scale-only tuning of the same small predictor grammar during the 24-hour first-crossing time box, not all selectors. | [`outward_coherent_cegis_audit.json`](experiments/kontorovich/outward_coherent_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#26-selector-architecture-and-invariant-cegis) |
 | First bounded odd-charge invariant grammar | All eight implemented architectures are rejected within their stated exact domains.  The grammar combines exact `Cell(w,a)` branches, `v3`/primitive/dyadic cylinders, and the recursive pure-power/resonant families; CEGIS compares excluding a bad source with adjoining its target by description complexity.  Through `H<=200001`, family parameter 800, four ternary digits and eight dyadic bits, the least stored failures are `3,15,3,15,189,82701,23541,333`.  No recursive-family transition is universally certified, so this is a bounded grammar verdict, not a no-invariant theorem. | [`outward_charge_invariant_cegis_audit.json`](experiments/kontorovich/outward_charge_invariant_cegis_audit.json), [`OutwardInvariantBridge.lean`](KontoroC/KontoroC/OutwardInvariantBridge.lean), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#26-selector-architecture-and-invariant-cegis) |
+| Fixed-precision primitive guard partitions | Inadequate as invariant certificates.  On 178 exact states descended from the theorem-mandated `C=12 mod16` roots, bounded charge/ternary guards retain 74 minority transition errors.  Ten dyadic plus ten exponent-residue bits separate the displayed sample, but only as a finite lookup: unbounded word coverage, exact valuation binders, target inclusion, and ordinary root closure remain unproved.  The coherent exponent address moves to `700`, and the record's chart depth grows to 105 while height stays nearly fixed.  The replacement grammar uses finite LOW/HIGH/RESONANT predicate types with unbounded `v2`/`v3` binders. | [`outward_primitive_invariant_cegis_audit.json`](experiments/kontorovich/outward_primitive_invariant_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#27-primitive-coordinate-invariant-types-and-the-growing-rank-obstruction) |
 | Treating critical first-passage/KL mass as an ordinary survivor | Invalid.  For the canonical maximal outward first-passage code, the slope-tilted Kraft mass is exactly one at every block depth, but its natural product flow satisfies `mu_q{r_n<=B}<=B(3/4)^n`.  Conditioning fair renewal on arbitrarily long survival gives the product block law `p(w)/P`, which is also diffuse, with fixed-window bound `B(1/(2P))^n`.  Thus conserved mass and the classical survival Doob transform both escape every bounded ordinary residue window.  Any successful selector must create an atom; a useful sufficient proof input is the weaker growth condition `rho_n=o(2^n)`, which forces eventual zero carry. | [`outward_first_passage_audit.json`](experiments/kontorovich/outward_first_passage_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#23-odd-charge-compression-and-triadic-min-plus-renewal) |
 | Fixed-precision triadic min-plus controller | Does not close the unbounded raw renewal.  The exact dual-residue update for a source phase modulo `3^k` queries the target profile modulo `3^(O(w)+k)`; already word `1` requires precision `k+1`.  Finite height closes with the complete table `W_B`, explicit target bound `C(B)`, and a membership precision `3^K>C(B)`, but `K` grows with height.  Thus a successful phase selector needs genuinely growing arithmetic state, not one fixed residue automaton. | [`outward_minplus_profile_audit.json`](experiments/kontorovich/outward_minplus_profile_audit.json), companion commits `a0e460d`/`8d79424`, [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#24-growing-phase-precision-and-directed-carry-repair) |
 | Prefix-complete uniformly outward valuation ISA | Closed for finite positive prefix-free codes.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, every outward leaf has `q(w)>p(w)`; `p`-completeness and the `q`-Kraft bound are inconsistent.  Commit `da9fa59` constructs explicit binary and four-letter compilers, derives both Kraft inequalities from prefix-freeness, and proves the full finite contradiction and quantitative mass bound in Lean.  The countably infinite prefix-free theorem still uses an abstract `tsum` interface.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |

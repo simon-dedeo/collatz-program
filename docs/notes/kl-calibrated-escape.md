@@ -2386,3 +2386,110 @@ The lane is time-boxed to 24 hours.  A continuation is justified only by a
 new symbolic family-transition theorem or a qualitatively smaller invariant
 architecture.  Larger undirected seed or finite-survival scans are outside
 the lane.  Both artifacts record `counterexample:null`.
+
+## 27. Primitive-coordinate invariant types and the growing-rank obstruction
+
+The anchored invariant grammar exposed the wrong abstraction boundary.  Write
+every positive odd charge uniquely as
+
+```text
+H=3^c*u,  gcd(u,6)=1.
+```
+
+For a legal recharge word `(S,O,e)`, factor `e=3^t*d`, `3∤d`, and set
+
+```text
+N=3^(O+c)*u+e,
+a=v_2(N)-S.
+```
+
+Unequal 3-adic orders and the one cancellation case give the exact transition
+grammar
+
+```text
+t<O+c:  2^(S+a)u'=3^(O+c-t)u+d,  c'=t+a;
+t>O+c:  2^(S+a)u'=u+3^(t-O-c)d,  c'=O+c+a;
+t=O+c: v=v_3(u+d),
+         2^(S+a)3^v*u'=u+d,       c'=t+a+v.        (27.1)
+```
+
+Thus the smallest honest predicate language has finite *types* but unbounded
+arithmetic binders `a` and, only at resonance, `v`.  Capping those valuations
+turns the construction back into a finite next-word table.  A universal
+candidate must prove word legality, existence and uniqueness of the valuation
+binders, the exact target substitution, total guard coverage, and inclusion
+of an explicit ordinary root progression.
+
+There is a complementary rank law.  For a fixed canonical chart
+
+```text
+F(t)=(alpha*3^(m*t+r)+beta)/2^d
+```
+
+put `chi=Int(v_2(alpha))-Int(d)`.  A fixed recharge word and fixed drain send
+
+```text
+chi' = chi-(S+a).                                  (27.2)
+```
+
+Consequently no finite reachable graph of fixed coefficient-matched chart
+instances can have total outgoing coverage: a repeated node would contradict
+strict rank descent.  This statement requires integer-valued rank and formal
+coefficient matching; it is false for arbitrary re-presentations on a finite
+parameter domain.  QM162 asks the companion Lean worker to check precisely
+this scoped theorem.  The surviving architecture is a finite graph of chart
+*types* whose runtime denominator/rank is unbounded below.
+
+`outward_primitive_invariant_cegis.py` audits this architecture separately.
+It traces only the theorem-mandated pure-power roots `C=12 mod16`, checks
+(27.1) at every defined edge, tests successive guard architectures, and keeps
+one coherent nested exponent cylinder.  The reconstructible default artifact
+tests 62 ordinary roots through `C=988` and 178 exact states.  All 116 defined
+recharges are LOW cases.  Charge/ternary features leave 74 minority transition
+errors.  Adding ten dyadic and ten exponent-residue bits separates the finite
+sample, but supplies neither unbounded word coverage nor invariant closure.
+
+The coherent root address moves
+
+```text
+12 -> 28 -> 60 -> 60 -> 188 -> 188 -> 700
+```
+
+as precision grows from four to ten bits.  Its final singleton is the known
+`C=700` record.  The resource ledger is more informative than its height:
+over eleven recharges the charge stays between 1110 and 1112 bits while the
+chart depth rises from zero to 105.  This is exactly the visualizer's finite
+tape signature, not a return-and-write gadget.
+
+The same worker exhaustively checks the proposed mod-nine word lemma on every
+first-passage word through length 24: 14,764 complete words, including 533
+with `v_3(e)=1`, give no failure.  Research-side, that lemma implies that no
+later itinerary after the root `010111` edge can return to the original
+resonant family `3*(2^17*3^L-7)`; QM163 requests its Lean proof.  Until that
+unbounded proof lands, the statement remains a research derivation backed by
+the displayed finite regression.
+
+The primitive split also explains the resonant word as a general decoder.
+For `w=0^z1^o` at first passage,
+
+```text
+e_w=(2^z-1)3^(o-1).
+```
+
+If `v_3(2^z-1)=c+1` and `d=(2^z-1)/3^(c+1)`, then legality from
+`H=3^c*u` is exactly
+
+```text
+u+d=2^(z+o)q,
+```
+
+and the pre-drain target is `3^(c+o)q`.  The canonical recharge exposes the
+primitive part `u'` of `q` and increments `c` by `o+v_2(q)+v_3(q)`.  But
+`u'<=q<u`, so an ordinary orbit cannot use only such resonant decoders
+forever.  The old `(z,o,c,d)=(6,11,1,7)` family is the specialization
+`q=3^L`.  QM164 asks Lean to check the general decoder and strict-payload
+descent theorem.  Mixed architectures remain open, but they now have a sharp
+resource obligation: a nondecoder edge must replenish the primitive payload.
+
+The artifact has `universal_invariant:null` and `counterexample:null`.  It is
+a grammar reduction and a resource diagnosis, not a nontermination claim.

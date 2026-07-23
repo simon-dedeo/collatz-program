@@ -1,0 +1,890 @@
+{
+  "artifact_sha256": "361772b2ddb6b9a2555b9b998cf849e6fcaf58b5e52fb5d124acfd2c24ff42ec",
+  "audit": {
+    "architecture_outer_loop": [
+      {
+        "architecture": "finite_charge",
+        "best_bounded_partition": {
+          "ambiguous_feature_cells": 13,
+          "conflicting_label_pairs": 1742,
+          "dyadic_bits": 0,
+          "exponent_residue_bits": 0,
+          "first_exact_ambiguity": {
+            "conflicting": {
+              "H": "22876792454961",
+              "H_sha256": "4254cdfa3d20bb64c8ce6887a5c57f3fed4cfacb63435d9008b047c0eb557e82",
+              "cell": "010111:a=0",
+              "depth": 0,
+              "root_C": 28
+            },
+            "feature": [
+              3,
+              1
+            ],
+            "first": {
+              "H": "531441",
+              "H_sha256": "72a54ce7d495a69cabf991269102ec4cbf18e5cc6db3c137f47797cd92daf3ee",
+              "cell": "010111:a=1",
+              "depth": 0,
+              "root_C": 12
+            }
+          },
+          "minority_transition_errors": 74,
+          "objective": [
+            74,
+            1742,
+            13,
+            8,
+            37
+          ],
+          "observed_feature_cells": 37,
+          "ternary_digits": 5,
+          "valuation_cap": 3
+        },
+        "rejection_reason": "exact observed ambiguity",
+        "smallest_guard_ambiguity": {
+          "conflicting": {
+            "H": "22876792454961",
+            "H_sha256": "4254cdfa3d20bb64c8ce6887a5c57f3fed4cfacb63435d9008b047c0eb557e82",
+            "cell": "010111:a=0",
+            "depth": 0,
+            "root_C": 28
+          },
+          "feature": [
+            3,
+            1
+          ],
+          "first": {
+            "H": "531441",
+            "H_sha256": "72a54ce7d495a69cabf991269102ec4cbf18e5cc6db3c137f47797cd92daf3ee",
+            "cell": "010111:a=1",
+            "depth": 0,
+            "root_C": 12
+          }
+        },
+        "trial_count": 40,
+        "trials_sha256": "43a093299e45a0ded85fd65a3b8ddebdc3b2fff2da82af17b360c75341b207d2",
+        "unbounded_obligation": "finite observed separation does not prove that every predicate member has defined R or that its target remains in the predicate",
+        "universal_closed": false
+      },
+      {
+        "architecture": "finite_charge+memory",
+        "best_bounded_partition": {
+          "ambiguous_feature_cells": 12,
+          "conflicting_label_pairs": 1726,
+          "dyadic_bits": 0,
+          "exponent_residue_bits": 0,
+          "first_exact_ambiguity": {
+            "conflicting": {
+              "H": "22876792454961",
+              "H_sha256": "4254cdfa3d20bb64c8ce6887a5c57f3fed4cfacb63435d9008b047c0eb557e82",
+              "cell": "010111:a=0",
+              "depth": 0,
+              "root_C": 28
+            },
+            "feature": [
+              1,
+              1,
+              "ROOT"
+            ],
+            "first": {
+              "H": "531441",
+              "H_sha256": "72a54ce7d495a69cabf991269102ec4cbf18e5cc6db3c137f47797cd92daf3ee",
+              "cell": "010111:a=1",
+              "depth": 0,
+              "root_C": 12
+            }
+          },
+          "minority_transition_errors": 70,
+          "objective": [
+            70,
+            1726,
+            12,
+            10,
+            43
+          ],
+          "observed_feature_cells": 43,
+          "ternary_digits": 5,
+          "valuation_cap": 1
+        },
+        "rejection_reason": "exact observed ambiguity",
+        "smallest_guard_ambiguity": {
+          "conflicting": {
+            "H": "22876792454961",
+            "H_sha256": "4254cdfa3d20bb64c8ce6887a5c57f3fed4cfacb63435d9008b047c0eb557e82",
+            "cell": "010111:a=0",
+            "depth": 0,
+            "root_C": 28
+          },
+          "feature": [
+            1,
+            1,
+            "ROOT"
+          ],
+          "first": {
+            "H": "531441",
+            "H_sha256": "72a54ce7d495a69cabf991269102ec4cbf18e5cc6db3c137f47797cd92daf3ee",
+            "cell": "010111:a=1",
+            "depth": 0,
+            "root_C": 12
+          }
+        },
+        "trial_count": 40,
+        "trials_sha256": "d35dbce9d1ca31f057f167ab06f1abb35a26e24316fff20b5887049655ddc740",
+        "unbounded_obligation": "finite observed separation does not prove that every predicate member has defined R or that its target remains in the predicate",
+        "universal_closed": false
+      },
+      {
+        "architecture": "finite_charge+carry",
+        "best_bounded_partition": {
+          "ambiguous_feature_cells": 12,
+          "conflicting_label_pairs": 1736,
+          "dyadic_bits": 0,
+          "exponent_residue_bits": 0,
+          "first_exact_ambiguity": {
+            "conflicting": {
+              "H": "22876792454961",
+              "H_sha256": "4254cdfa3d20bb64c8ce6887a5c57f3fed4cfacb63435d9008b047c0eb557e82",
+              "cell": "010111:a=0",
+              "depth": 0,
+              "root_C": 28
+            },
+            "feature": [
+              3,
+              1,
+              0
+            ],
+            "first": {
+              "H": "531441",
+              "H_sha256": "72a54ce7d495a69cabf991269102ec4cbf18e5cc6db3c137f47797cd92daf3ee",
+              "cell": "010111:a=1",
+              "depth": 0,
+              "root_C": 12
+            }
+          },
+          "minority_transition_errors": 72,
+          "objective": [
+            72,
+            1736,
+            12,
+            12,
+            41
+          ],
+          "observed_feature_cells": 41,
+          "ternary_digits": 5,
+          "valuation_cap": 3
+        },
+        "rejection_reason": "exact observed ambiguity",
+        "smallest_guard_ambiguity": {
+          "conflicting": {
+            "H": "22876792454961",
+            "H_sha256": "4254cdfa3d20bb64c8ce6887a5c57f3fed4cfacb63435d9008b047c0eb557e82",
+            "cell": "010111:a=0",
+            "depth": 0,
+            "root_C": 28
+          },
+          "feature": [
+            3,
+            1,
+            0
+          ],
+          "first": {
+            "H": "531441",
+            "H_sha256": "72a54ce7d495a69cabf991269102ec4cbf18e5cc6db3c137f47797cd92daf3ee",
+            "cell": "010111:a=1",
+            "depth": 0,
+            "root_C": 12
+          }
+        },
+        "trial_count": 40,
+        "trials_sha256": "218845f540728610a6b93a3250ad9ee26265c6416da7c1f2b43de7ad767c13e1",
+        "unbounded_obligation": "finite observed separation does not prove that every predicate member has defined R or that its target remains in the predicate",
+        "universal_closed": false
+      },
+      {
+        "architecture": "finite_charge+dyadic",
+        "best_bounded_partition": {
+          "ambiguous_feature_cells": 1,
+          "conflicting_label_pairs": 1278,
+          "dyadic_bits": 10,
+          "exponent_residue_bits": 0,
+          "first_exact_ambiguity": {
+            "conflicting": {
+              "H": "22876792454961",
+              "H_sha256": "4254cdfa3d20bb64c8ce6887a5c57f3fed4cfacb63435d9008b047c0eb557e82",
+              "cell": "010111:a=0",
+              "depth": 0,
+              "root_C": 28
+            },
+            "feature": [
+              1,
+              1,
+              1
+            ],
+            "first": {
+              "H": "531441",
+              "H_sha256": "72a54ce7d495a69cabf991269102ec4cbf18e5cc6db3c137f47797cd92daf3ee",
+              "cell": "010111:a=1",
+              "depth": 0,
+              "root_C": 12
+            }
+          },
+          "minority_transition_errors": 31,
+          "objective": [
+            31,
+            1278,
+            1,
+            17,
+            117
+          ],
+          "observed_feature_cells": 117,
+          "ternary_digits": 2,
+          "valuation_cap": 1
+        },
+        "rejection_reason": "exact observed ambiguity",
+        "smallest_guard_ambiguity": {
+          "conflicting": {
+            "H": "22876792454961",
+            "H_sha256": "4254cdfa3d20bb64c8ce6887a5c57f3fed4cfacb63435d9008b047c0eb557e82",
+            "cell": "010111:a=0",
+            "depth": 0,
+            "root_C": 28
+          },
+          "feature": [
+            1,
+            1,
+            1
+          ],
+          "first": {
+            "H": "531441",
+            "H_sha256": "72a54ce7d495a69cabf991269102ec4cbf18e5cc6db3c137f47797cd92daf3ee",
+            "cell": "010111:a=1",
+            "depth": 0,
+            "root_C": 12
+          }
+        },
+        "trial_count": 400,
+        "trials_sha256": "5ea052fcdb3cd855f68d9dd243626f28d019181d92a0845678772339d9b20262",
+        "unbounded_obligation": "finite observed separation does not prove that every predicate member has defined R or that its target remains in the predicate",
+        "universal_closed": false
+      },
+      {
+        "architecture": "finite_charge+exponent-residue",
+        "best_bounded_partition": {
+          "ambiguous_feature_cells": 12,
+          "conflicting_label_pairs": 464,
+          "dyadic_bits": 0,
+          "exponent_residue_bits": 10,
+          "first_exact_ambiguity": {
+            "conflicting": {
+              "H": "3464269439398732577720700239212108539",
+              "H_sha256": "3d0e8133ecf9c563013a4357b3278d6f368c490d2e89480a3a61a54be00874d8",
+              "cell": "UNDEFINED",
+              "depth": 1,
+              "root_C": 76
+            },
+            "feature": [
+              1,
+              188,
+              3
+            ],
+            "first": {
+              "H": "1008909",
+              "H_sha256": "101c52779aa0049820e64a3e64c6b56ef2912016f2b9b688c51fc5f71affe2ed",
+              "cell": "011:a=0",
+              "depth": 1,
+              "root_C": 12
+            }
+          },
+          "minority_transition_errors": 43,
+          "objective": [
+            43,
+            464,
+            12,
+            20,
+            98
+          ],
+          "observed_feature_cells": 98,
+          "ternary_digits": 5,
+          "valuation_cap": 1
+        },
+        "rejection_reason": "exact observed ambiguity",
+        "smallest_guard_ambiguity": {
+          "conflicting": {
+            "H": "3464269439398732577720700239212108539",
+            "H_sha256": "3d0e8133ecf9c563013a4357b3278d6f368c490d2e89480a3a61a54be00874d8",
+            "cell": "UNDEFINED",
+            "depth": 1,
+            "root_C": 76
+          },
+          "feature": [
+            1,
+            188,
+            3
+          ],
+          "first": {
+            "H": "1008909",
+            "H_sha256": "101c52779aa0049820e64a3e64c6b56ef2912016f2b9b688c51fc5f71affe2ed",
+            "cell": "011:a=0",
+            "depth": 1,
+            "root_C": 12
+          }
+        },
+        "trial_count": 400,
+        "trials_sha256": "0a8527062e582eb0e74a2a4cb48277e590c2d06aee086d2a77b7cfb70a820cb0",
+        "unbounded_obligation": "finite observed separation does not prove that every predicate member has defined R or that its target remains in the predicate",
+        "universal_closed": false
+      },
+      {
+        "architecture": "finite_charge+memory+exponent-residue",
+        "best_bounded_partition": {
+          "ambiguous_feature_cells": 11,
+          "conflicting_label_pairs": 448,
+          "dyadic_bits": 0,
+          "exponent_residue_bits": 10,
+          "first_exact_ambiguity": {
+            "conflicting": {
+              "H": "3464269439398732577720700239212108539",
+              "H_sha256": "3d0e8133ecf9c563013a4357b3278d6f368c490d2e89480a3a61a54be00874d8",
+              "cell": "UNDEFINED",
+              "depth": 1,
+              "root_C": 76
+            },
+            "feature": [
+              1,
+              188,
+              "010111",
+              3
+            ],
+            "first": {
+              "H": "1008909",
+              "H_sha256": "101c52779aa0049820e64a3e64c6b56ef2912016f2b9b688c51fc5f71affe2ed",
+              "cell": "011:a=0",
+              "depth": 1,
+              "root_C": 12
+            }
+          },
+          "minority_transition_errors": 39,
+          "objective": [
+            39,
+            448,
+            11,
+            24,
+            104
+          ],
+          "observed_feature_cells": 104,
+          "ternary_digits": 5,
+          "valuation_cap": 1
+        },
+        "rejection_reason": "exact observed ambiguity",
+        "smallest_guard_ambiguity": {
+          "conflicting": {
+            "H": "3464269439398732577720700239212108539",
+            "H_sha256": "3d0e8133ecf9c563013a4357b3278d6f368c490d2e89480a3a61a54be00874d8",
+            "cell": "UNDEFINED",
+            "depth": 1,
+            "root_C": 76
+          },
+          "feature": [
+            1,
+            188,
+            "010111",
+            3
+          ],
+          "first": {
+            "H": "1008909",
+            "H_sha256": "101c52779aa0049820e64a3e64c6b56ef2912016f2b9b688c51fc5f71affe2ed",
+            "cell": "011:a=0",
+            "depth": 1,
+            "root_C": 12
+          }
+        },
+        "trial_count": 400,
+        "trials_sha256": "add87faf0fb3b0d8ec19fbb2dbd4670d0c344198d9eaaa91d8e7b02f2be5d687",
+        "unbounded_obligation": "finite observed separation does not prove that every predicate member has defined R or that its target remains in the predicate",
+        "universal_closed": false
+      },
+      {
+        "architecture": "finite_charge+dyadic+exponent-residue",
+        "best_bounded_partition": {
+          "ambiguous_feature_cells": 0,
+          "conflicting_label_pairs": 0,
+          "dyadic_bits": 10,
+          "exponent_residue_bits": 10,
+          "first_exact_ambiguity": null,
+          "minority_transition_errors": 0,
+          "objective": [
+            0,
+            0,
+            0,
+            30,
+            177
+          ],
+          "observed_feature_cells": 177,
+          "ternary_digits": 1,
+          "valuation_cap": 1
+        },
+        "rejection_reason": "bounded separation only; universal definedness and target inclusion unproved",
+        "smallest_guard_ambiguity": null,
+        "trial_count": 4000,
+        "trials_sha256": "dff9b3f5a0349863eb8cdf8772f9cef92ba110913ab4640a1e879bd4b936b95d",
+        "unbounded_obligation": "finite observed separation does not prove that every predicate member has defined R or that its target remains in the predicate",
+        "universal_closed": false
+      },
+      {
+        "architecture": "finite_charge+memory+carry+dyadic+exponent-residue",
+        "best_bounded_partition": {
+          "ambiguous_feature_cells": 0,
+          "conflicting_label_pairs": 0,
+          "dyadic_bits": 6,
+          "exponent_residue_bits": 10,
+          "first_exact_ambiguity": null,
+          "minority_transition_errors": 0,
+          "objective": [
+            0,
+            0,
+            0,
+            36,
+            175
+          ],
+          "observed_feature_cells": 175,
+          "ternary_digits": 3,
+          "valuation_cap": 1
+        },
+        "rejection_reason": "bounded separation only; universal definedness and target inclusion unproved",
+        "smallest_guard_ambiguity": null,
+        "trial_count": 4000,
+        "trials_sha256": "b0a4a021ac68089df052dec57a00fde66183db1b03dc2f0fb02e44466581bf0b",
+        "unbounded_obligation": "finite observed separation does not prove that every predicate member has defined R or that its target remains in the predicate",
+        "universal_closed": false
+      }
+    ],
+    "bounds": {
+      "maximum_dyadic_bits": 10,
+      "maximum_exponent_residue_bits": 10,
+      "maximum_macro_depth": 24,
+      "maximum_root_exponent": 1000,
+      "maximum_root_precision_bits": 10,
+      "maximum_shortcut_steps": 250000,
+      "maximum_ternary_digits": 5,
+      "maximum_valuation_cap": 8,
+      "maximum_word_length": 24,
+      "processes": 4
+    },
+    "claim_scope": "exact arithmetic inside all displayed bounds; architecture separation and coherent cylinder survival are finite diagnostics only",
+    "coherent_root_cylinder": {
+      "ordinary_compatibility": "an infinite natural exponent would require the canonical rho to stabilize; finite displayed stabilization is not enough",
+      "rows": [
+        {
+          "canonical_address_stable_from_previous": true,
+          "least_minimum_survival_witness_C": 28,
+          "least_representative": 12,
+          "lift_bit": 0,
+          "maximum_defined_recharges": 11,
+          "minimum_defined_recharges": 1,
+          "modulus": 16,
+          "ordinary_representatives_tested": 62,
+          "precision_bits": 4,
+          "rho": 12,
+          "status": "bounded_exact_test_only"
+        },
+        {
+          "canonical_address_stable_from_previous": false,
+          "least_minimum_survival_witness_C": 28,
+          "least_representative": 28,
+          "lift_bit": 1,
+          "maximum_defined_recharges": 11,
+          "minimum_defined_recharges": 1,
+          "modulus": 32,
+          "ordinary_representatives_tested": 31,
+          "precision_bits": 5,
+          "rho": 28,
+          "status": "bounded_exact_test_only"
+        },
+        {
+          "canonical_address_stable_from_previous": false,
+          "least_minimum_survival_witness_C": 124,
+          "least_representative": 60,
+          "lift_bit": 1,
+          "maximum_defined_recharges": 11,
+          "minimum_defined_recharges": 1,
+          "modulus": 64,
+          "ordinary_representatives_tested": 15,
+          "precision_bits": 6,
+          "rho": 60,
+          "status": "bounded_exact_test_only"
+        },
+        {
+          "canonical_address_stable_from_previous": true,
+          "least_minimum_survival_witness_C": 188,
+          "least_representative": 60,
+          "lift_bit": 0,
+          "maximum_defined_recharges": 11,
+          "minimum_defined_recharges": 2,
+          "modulus": 128,
+          "ordinary_representatives_tested": 8,
+          "precision_bits": 7,
+          "rho": 60,
+          "status": "bounded_exact_test_only"
+        },
+        {
+          "canonical_address_stable_from_previous": false,
+          "least_minimum_survival_witness_C": 188,
+          "least_representative": 188,
+          "lift_bit": 1,
+          "maximum_defined_recharges": 11,
+          "minimum_defined_recharges": 2,
+          "modulus": 256,
+          "ordinary_representatives_tested": 4,
+          "precision_bits": 8,
+          "rho": 188,
+          "status": "bounded_exact_test_only"
+        },
+        {
+          "canonical_address_stable_from_previous": true,
+          "least_minimum_survival_witness_C": 188,
+          "least_representative": 188,
+          "lift_bit": 0,
+          "maximum_defined_recharges": 11,
+          "minimum_defined_recharges": 2,
+          "modulus": 512,
+          "ordinary_representatives_tested": 2,
+          "precision_bits": 9,
+          "rho": 188,
+          "status": "bounded_exact_test_only"
+        },
+        {
+          "canonical_address_stable_from_previous": false,
+          "least_minimum_survival_witness_C": 700,
+          "least_representative": 700,
+          "lift_bit": 1,
+          "maximum_defined_recharges": 11,
+          "minimum_defined_recharges": 11,
+          "modulus": 1024,
+          "ordinary_representatives_tested": 1,
+          "precision_bits": 10,
+          "rho": 700,
+          "status": "bounded_exact_test_only"
+        }
+      ],
+      "semantics": "one ancestry-compatible nested C residue, selected by tested worst-case survival"
+    },
+    "counterexample": null,
+    "exact_test_population": {
+      "defect_case_counts": {
+        "LOW": 116
+      },
+      "greatest_C": 988,
+      "least_C": 12,
+      "root_exponents": 62,
+      "status_counts": {
+        "defined": 116,
+        "undefined_terminal": 62
+      },
+      "transition_states": 178
+    },
+    "grammar": {
+      "candidate_predicate_type": "finite node types over unbounded (c,u,a,v), with exact word legality, valuation binders, dyadic/cross-prime guards, and clausewise target inclusion",
+      "coordinates": "H=3^c*u with c>=0, u positive, gcd(u,6)=1",
+      "fixed_chart_rank_filter": {
+        "chi": "Int(v2(alpha))-Int(d)",
+        "consequence": "reject every finite SCC of fixed chart instances; a viable chart type must carry runtime rank unbounded below",
+        "edge_law": "chi' = chi-(S+a)",
+        "formal_status": "requested_from_companion_Lean_worker_in_QM162"
+      },
+      "transition_types": {
+        "HIGH_t_gt_O_plus_c": {
+          "equation": "2^(S+a)u'=u+3^(t-O-c)d",
+          "target": "(c',u')=(O+c+a,u')"
+        },
+        "LOW_t_lt_O_plus_c": {
+          "equation": "2^(S+a)u'=3^(O+c-t)u+d",
+          "target": "(c',u')=(t+a,u')"
+        },
+        "RESONANT_t_eq_O_plus_c": {
+          "equation": "2^(S+a)3^v*u'=u+d, v=v3(u+d)",
+          "target": "(c',u')=(t+a+v,u')"
+        }
+      },
+      "unbounded_binders": [
+        "a=v2(3^(O+c)*u+e)-S",
+        "v=v3(u+d) in the resonant case t=O+c"
+      ],
+      "universal_checker_obligations": [
+        "positive primitive source",
+        "legal first-passage word and exact valuation binders",
+        "RechargeThenDrain soundness",
+        "target predicate inclusion after exact substitution",
+        "total outgoing guard coverage",
+        "nonempty ordinary root arithmetic progression"
+      ],
+      "word_data": "w=(S,O,e), e=3^t*d, 3 does not divide d"
+    },
+    "least_tested_terminal_root": {
+      "defined_recharges": 2,
+      "ordinary_H0": "531441",
+      "ordinary_x0": "1594322",
+      "resource_ledger": [
+        {
+          "D_chart_depth": 7,
+          "D_increment": 7,
+          "H_bits": 20,
+          "P": {
+            "c": 12,
+            "case": "LOW",
+            "drain_a": 1,
+            "numerator_v3": 2,
+            "u_mod_2^8": 1,
+            "u_mod_3^4": 1,
+            "word": "010111"
+          },
+          "chi": -7,
+          "depth": 0
+        },
+        {
+          "D_chart_depth": 10,
+          "D_increment": 3,
+          "H_bits": 20,
+          "P": {
+            "c": 3,
+            "case": "LOW",
+            "drain_a": 0,
+            "numerator_v3": 1,
+            "u_mod_2^8": 247,
+            "u_mod_3^4": 26,
+            "word": "011"
+          },
+          "chi": -10,
+          "depth": 1
+        }
+      ],
+      "root_exponent": 12,
+      "terminal_or_frontier": {
+        "H": "1135023",
+        "H_bits": 21,
+        "H_sha256": "d0593ae7016eed14e1723a92bbdb90d138139b6f38f05f0377706ff3131a4077",
+        "depth": 2,
+        "status": "undefined_terminal"
+      }
+    },
+    "meaning": "bounded exact invariant-architecture CEGIS in primitive coordinates, restricted to descendants of C=12 mod16 pure-power roots",
+    "resonant_decoder_family": {
+      "all_exact_replays_pass": true,
+      "all_primitive_payloads_strictly_decrease": true,
+      "instances": 12,
+      "maximum_c": 2,
+      "rows_sha256": "0be820d1bb77878b664cd1ec032d2c1a0662cb545beae08094b84cc1e7d78037",
+      "unbounded_status": "pending_companion_Lean_proof_QM164"
+    },
+    "resonant_return_no_go": {
+      "research_derivation": "QM163a forces any final return to H_L to have L=1; monotone recharge excludes C>=28 and the exact C=12 continuation has undefined R",
+      "universal_status": "pending_companion_Lean_proof_QM163",
+      "word_lemma_regression": {
+        "complete_first_passage_words": 14764,
+        "failures": 0,
+        "maximum_word_length": 24,
+        "nonoutward_prefix_frontier": 4978524,
+        "relevant_rows_sha256": "4deb25608d7e1baf576677d19a315363545cd034a530ea933343f62f38d1c86d",
+        "unbounded_status": "pending_companion_Lean_proof_QM163a",
+        "words_with_v3_e_eq_1": 533
+      }
+    },
+    "resource_ledger_champion": {
+      "defined_recharges": 11,
+      "ordinary_H0": "9657802140591758043812442031522928437371194636776843099838260055342219733688083412928987321682880332396927287242805644548901834234972280564072880735127568242460394336247761481999342991210220561304479523441956128812808859393388776484808811910915541232693035534590226711458043242074211993816993921587180335757972232760635320184916654001",
+      "ordinary_x0": "28973406421775274131437326094568785312113583910330529299514780166026659201064250238786961965048640997190781861728416933646705502704916841692218642205382704727381183008743284445998028973630661683913438570325868386438426578180166329454426435732746623698079106603770680134374129726222635981450981764761541007273916698281905960554749962002",
+      "resource_ledger": [
+        {
+          "D_chart_depth": 6,
+          "D_increment": 6,
+          "H_bits": 1110,
+          "P": {
+            "c": 700,
+            "case": "LOW",
+            "drain_a": 0,
+            "numerator_v3": 2,
+            "u_mod_2^8": 1,
+            "u_mod_3^4": 1,
+            "word": "010111"
+          },
+          "chi": -6,
+          "depth": 0
+        },
+        {
+          "D_chart_depth": 9,
+          "D_increment": 3,
+          "H_bits": 1110,
+          "P": {
+            "c": 2,
+            "case": "LOW",
+            "drain_a": 0,
+            "numerator_v3": 1,
+            "u_mod_2^8": 213,
+            "u_mod_3^4": 52,
+            "word": "011"
+          },
+          "chi": -9,
+          "depth": 1
+        },
+        {
+          "D_chart_depth": 12,
+          "D_increment": 3,
+          "H_bits": 1110,
+          "P": {
+            "c": 1,
+            "case": "LOW",
+            "drain_a": 0,
+            "numerator_v3": 1,
+            "u_mod_2^8": 175,
+            "u_mod_3^4": 44,
+            "word": "011"
+          },
+          "chi": -12,
+          "depth": 2
+        },
+        {
+          "D_chart_depth": 37,
+          "D_increment": 25,
+          "H_bits": 1111,
+          "P": {
+            "c": 1,
+            "case": "LOW",
+            "drain_a": 0,
+            "numerator_v3": 7,
+            "u_mod_2^8": 229,
+            "u_mod_3^4": 80,
+            "word": "0011000111010011011111111"
+          },
+          "chi": -37,
+          "depth": 3
+        },
+        {
+          "D_chart_depth": 43,
+          "D_increment": 6,
+          "H_bits": 1111,
+          "P": {
+            "c": 7,
+            "case": "LOW",
+            "drain_a": 0,
+            "numerator_v3": 4,
+            "u_mod_2^8": 157,
+            "u_mod_3^4": 80,
+            "word": "001111"
+          },
+          "chi": -43,
+          "depth": 4
+        },
+        {
+          "D_chart_depth": 46,
+          "D_increment": 3,
+          "H_bits": 1111,
+          "P": {
+            "c": 4,
+            "case": "LOW",
+            "drain_a": 0,
+            "numerator_v3": 1,
+            "u_mod_2^8": 45,
+            "u_mod_3^4": 19,
+            "word": "011"
+          },
+          "chi": -46,
+          "depth": 5
+        },
+        {
+          "D_chart_depth": 50,
+          "D_increment": 4,
+          "H_bits": 1112,
+          "P": {
+            "c": 1,
+            "case": "LOW",
+            "drain_a": 1,
+            "numerator_v3": 1,
+            "u_mod_2^8": 247,
+            "u_mod_3^4": 71,
+            "word": "011"
+          },
+          "chi": -50,
+          "depth": 6
+        },
+        {
+          "D_chart_depth": 69,
+          "D_increment": 19,
+          "H_bits": 1112,
+          "P": {
+            "c": 2,
+            "case": "LOW",
+            "drain_a": 0,
+            "numerator_v3": 1,
+            "u_mod_2^8": 75,
+            "u_mod_3^4": 40,
+            "word": "0001001101111111011"
+          },
+          "chi": -69,
+          "depth": 7
+        },
+        {
+          "D_chart_depth": 80,
+          "D_increment": 11,
+          "H_bits": 1112,
+          "P": {
+            "c": 1,
+            "case": "LOW",
+            "drain_a": 0,
+            "numerator_v3": 5,
+            "u_mod_2^8": 75,
+            "u_mod_3^4": 71,
+            "word": "01010011111"
+          },
+          "chi": -80,
+          "depth": 8
+        },
+        {
+          "D_chart_depth": 91,
+          "D_increment": 11,
+          "H_bits": 1112,
+          "P": {
+            "c": 5,
+            "case": "LOW",
+            "drain_a": 0,
+            "numerator_v3": 2,
+            "u_mod_2^8": 53,
+            "u_mod_3^4": 28,
+            "word": "00110110111"
+          },
+          "chi": -91,
+          "depth": 9
+        },
+        {
+          "D_chart_depth": 105,
+          "D_increment": 14,
+          "H_bits": 1112,
+          "P": {
+            "c": 2,
+            "case": "LOW",
+            "drain_a": 0,
+            "numerator_v3": 2,
+            "u_mod_2^8": 215,
+            "u_mod_3^4": 40,
+            "word": "00110101110111"
+          },
+          "chi": -105,
+          "depth": 10
+        }
+      ],
+      "root_exponent": 700,
+      "terminal_or_frontier": {
+        "H": "66217698178352312099818848730129008420245194031408471372673099374825805495269768071000131199164642233394507070615623265529658181679010294313295695610681272508432301007036828271573659190447334933052108008026333156058352360928681403352104494969295290908684302076704252950867562118423703508950114020254132562332542667484395572799935661315",
+        "H_bits": 1113,
+        "H_sha256": "114bbb697db95cc955e920b69d587ebf6bdc285e05897055e9ac68c6d713ec61",
+        "depth": 11,
+        "status": "undefined_terminal"
+      }
+    },
+    "symbolic_transition_algebra_closed": false,
+    "symbolic_transition_algebra_scope": "the displayed LOW/HIGH/RESONANT identities normalize every already-legal recharge; they do not prove a total closed predicate",
+    "symbolic_transition_algebra_status": "research normal form with exact bounded regression; universal Lean proof requested in QM163",
+    "universal_invariant": null
+  },
+  "schema": "collatz-outward-primitive-invariant-cegis-v1",
+  "worker_sha256": "0f2ce0b40832cd4a311493fefd89b8fa8593b45a50e009365bf6cfa10b93df7f"
+}
