@@ -12980,3 +12980,22 @@ valuation while `r-1` and `r+1` are 2-adic units.  Thus the special triple's
 separation cost is concentrated in one explicit `r` factor (plus the common
 scale).  A sharpened Hermite estimate should track this factor exactly rather
 than pay a generic three-argument determinant bound.
+
+## Kontorovich round 243 — exact 2-adic Vandermonde norm
+
+The determinant heuristic is now an exact norm theorem.  Lean proves
+
+```text
+||ratio||_2   = 2^(-8*K),
+||ratio - 1||_2 = ||ratio + 1||_2 = 1,
+
+||det V||_2 = ||alpha||_2^3 * 2^(-8*K).
+```
+
+So the consecutive triple pays only one nonunit separation factor beyond its
+common argument scale.  This is a concrete place where a specialized
+three-theta proof can beat a generic determinant estimate: all three
+`ratio-1` factors and the `ratio+1` factor are units and should contribute no
+2-adic loss.  The remaining question is whether that recovered valuation is
+large enough to reverse the failed `threshold 3 < gamma` inequality after the
+height side of the Hermite construction is counted honestly.

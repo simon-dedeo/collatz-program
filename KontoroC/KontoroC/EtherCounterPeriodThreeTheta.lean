@@ -265,6 +265,49 @@ theorem theta_argument_vandermonde_formula (g : Ray) :
   simp [PeriodicPhaseUp.ThetaResidueData.argument_eq_common_mul, thetaData]
   ring
 
+theorem norm_padic_ratio (g : Ray) :
+    ‖(g.ratio : ℚ_[2])‖ = ((2 : ℝ)⁻¹) ^ (8 * g.cycleGain) := by
+  have htwo : ‖(2 : ℚ_[2])‖ = (2 : ℝ)⁻¹ := Padic.norm_p
+  have hthree : ‖(3 : ℚ_[2])‖ = 1 :=
+    Padic.norm_natCast_eq_one_iff.mpr (by norm_num)
+  rw [ratio, Rat.cast_div, Rat.cast_pow, Rat.cast_pow,
+    Rat.cast_ofNat, Rat.cast_ofNat, norm_div, norm_pow, norm_pow,
+    htwo, hthree, one_pow, div_one]
+
+theorem norm_padic_ratio_lt_one (g : Ray) : ‖(g.ratio : ℚ_[2])‖ < 1 := by
+  rw [g.norm_padic_ratio]
+  apply pow_lt_one₀ (by positivity) (by norm_num)
+  exact Nat.mul_ne_zero (by norm_num) g.cycleGain_pos.ne'
+
+theorem norm_padic_ratio_sub_one (g : Ray) :
+    ‖(g.ratio : ℚ_[2]) - 1‖ = 1 := by
+  rw [sub_eq_add_neg, Padic.add_eq_max_of_ne]
+  · simp only [norm_neg, norm_one]
+    exact max_eq_right g.norm_padic_ratio_lt_one.le
+  · simp only [norm_neg, norm_one]
+    exact ne_of_lt g.norm_padic_ratio_lt_one
+
+theorem norm_padic_ratio_add_one (g : Ray) :
+    ‖(g.ratio : ℚ_[2]) + 1‖ = 1 := by
+  rw [Padic.add_eq_max_of_ne]
+  · simp only [norm_one]
+    exact max_eq_right g.norm_padic_ratio_lt_one.le
+  · simp only [norm_one]
+    exact ne_of_lt g.norm_padic_ratio_lt_one
+
+/-- Exact `2`-adic cost of the geometric Vandermonde: apart from the common
+argument scale, only the single ratio factor contributes. -/
+theorem norm_padic_theta_argument_vandermonde (g : Ray) :
+    ‖((Matrix.vandermonde g.thetaData.argument).det : ℚ_[2])‖ =
+      ‖(g.thetaData.argumentCommon : ℚ_[2])‖ ^ 3 *
+        ((2 : ℝ)⁻¹) ^ (8 * g.cycleGain) := by
+  rw [g.theta_argument_vandermonde_formula]
+  simp only [Rat.cast_mul, Rat.cast_pow, Rat.cast_sub, Rat.cast_add,
+    Rat.cast_one, norm_mul, norm_pow]
+  rw [g.norm_padic_ratio, g.norm_padic_ratio_sub_one,
+    g.norm_padic_ratio_add_one]
+  ring
+
 theorem step_backward (g : Ray) (t : ℕ) :
     (g.core t : ℚ) =
       g.backwardCoeff t * g.core (t + 1) - g.backwardDefect t := by
