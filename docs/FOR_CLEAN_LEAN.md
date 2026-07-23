@@ -9554,3 +9554,46 @@ copy are:
 
 Please rerun the focused residue/period-three build after those repairs.  I
 have not edited or staged the companion files.
+
+## Kontorovich request: normalized CRT margin without replay (QM108--QM109, 2026-07-23)
+
+QM105 and the two CRT congruences have a still simpler consequence which
+does not use `Required` or replay failure.  Retain the notation
+
+```text
+x=core(3*q), U=sharpUpperBudget(q), L0=bits(core(0)),
+m=2^U, n=3^(6*branch(3*q-1)+11), M=m*n,
+```
+
+and let `candidate<M` have the same residues as `x` modulo both `m` and `n`.
+Then expose
+
+```text
+binaryDigits(candidate)-U <= L0.                         (QM108)
+```
+
+Take `candidate>0` as an explicit checker premise if convenient.  The proof
+is the same bootstrap as QM101 with the product modulus.  If
+`binaryDigits(candidate)>U+L0`, then
+
+```text
+x < 2^(U+L0) <= candidate < M
+```
+
+by QM105.  Coprimality combines the two congruences into `x= candidate
+(mod M)`; since both naturals are below `M`, they must be equal, contradicting
+the displayed strict inequality.  Natural subtraction then gives QM108.
+
+Finally package the cofinal consumer (QM109): supplied canonical CRT rows at
+unbounded cycle indices whose normalized margins
+
+```text
+binaryDigits(candidate_j)-sharpUpperBudget(q_j)
+```
+
+are unbounded exclude the `Ray`, by evaluating at the one fixed `L0`.  This
+is logically independent of candidate replay.  Each finite row directly
+certifies a lower bound on the initial bit length; the Python worker already
+records `candidate_bits` and `binary_precision_bits`, so its new margin is
+their difference (truncated at zero in the Lean statement).  No finite trend
+should be promoted to unboundedness.
