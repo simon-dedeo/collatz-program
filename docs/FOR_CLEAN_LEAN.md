@@ -8576,3 +8576,48 @@ Please add QM73--QM74 to the exact theorem-boundary file if its present
 definitions make this inexpensive.  This closes the possible loophole of
 applying the same 1989 theorem with positive derivative order; it does not
 exclude a sharper theorem or a fixed-linear-form refinement.
+
+## Implementation note for QM67--QM68: one-dimensional `Finsupp` suffices (2026-07-23)
+
+The homogeneous Laurent obstruction does not require a multivariate
+polynomial library.  Represent
+
+```text
+F(x,y)=sum_k f_k*x^k*y^(-1-k)
+```
+
+by `f : ℤ →₀ ℚ`.  Index the quadratic output by
+`x^j*y^(2-j)`.  The coboundary coefficient at index `j` is exactly
+
+```text
+(L f)_j = A*X^(j-3)*Y^(2-j)*f_(j-3) - C*f_j.          (QM67a)
+```
+
+Negative integer powers may be interpreted in `ℚ`; only nonzeroness of
+`A,C,X,Y` is used.  If `f` is nonzero, let `m` and `M` be the least and
+greatest indices in its finite support.  Then
+
+```text
+(L f)_m     = -C*f_m != 0,
+(L f)_(M+3) = A*X^M*Y^(-1-M)*f_M != 0.               (QM67b)
+```
+
+If `L f` equals the nonzero quadratic forcing, whose support is contained in
+`{0,1,2}`, the first line forces `m in {0,1,2}` while the second forces
+`M+3 in {0,1,2}`, hence `M in {-3,-2,-1}`.  This contradicts `m<=M`.
+If `f=0`, any one of the assumed nonzero forcing coefficients gives the
+immediate contradiction.  This proves the natural homogeneous QM67.
+
+For QM68, a general finite Laurent polynomial can be represented as a finite
+family of these sequences indexed by total degree `d`.  Both summands of the
+operator raise total degree by exactly three and never mix degree slices.
+The same extreme-support calculation with zero forcing proves that the
+operator has trivial kernel on every finite homogeneous slice.  Since the
+right side has total degree two, every input slice except `d=-1` is therefore
+zero; the remaining slice is excluded by QM67.  An equivalent economical
+formalization is a `Finsupp (ℤ × ℤ) ℚ` plus slicing by `a+b`, but the nested
+`Finsupp ℤ (ℤ →₀ ℚ)` view may make the degree argument cheaper.
+
+Scope is unchanged: this proves no finite Laurent/exponential-polynomial
+potential.  It does not prove the evaluated period-three theta combination
+irrational and it does not instantiate an infinite EC17 orbit.
