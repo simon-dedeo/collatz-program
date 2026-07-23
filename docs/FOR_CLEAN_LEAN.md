@@ -8933,3 +8933,80 @@ CRT representatives, all failing after 7--47 prescribed EC17 transitions.
 Consequently each checked row has the certified lower bound
 `2^4096*3^(6*n+11)`, uniformly at least `2^4096*3^17`. This remains a finite
 lower bound and constructs no orbit; its `counterexample` field is null.
+
+## Kontorovich request: elementary real closure of geometric EC17 (2026-07-23)
+
+There is a much cheaper unconditional endpoint for the geometric family than
+Wang/Hadamard.  It uses the already-checked finite backward identity in
+`EtherCounterGeometricMahler.Ray` and ordered rational arithmetic only.
+
+For an arbitrary positive EC17 ray, write
+
+```text
+w_t = backwardPrefixProduct(backwardCoeff,t)*backwardDefect(t).
+```
+
+The ratio of consecutive positive defect terms cancels to
+
+```text
+w_(t+1)/w_t = 2^(8*n_(t+1)+15)/3^(6*n_(t+1)+11) < 1/15,  (QM84)
+```
+
+where the final inequality is exactly the one-based form of the existing
+`fifteen_mul_edgeB_lt_edgeA`.  Also
+
+```text
+w_0 = 17/3^(6*n_0+11) <= 17/3^17.
+```
+
+Therefore every finite accumulated defect satisfies
+
+```text
+0 <= sum_(t<N) w_t < (15/14)*(17/3^17) < 1.           (QM85)
+```
+
+No analytic limit is needed; an induction against the finite geometric sum
+is enough.  The exact finite backward identity then yields the universal
+cumulative-scale trap
+
+```text
+core(0)
+  <= backwardPrefixProduct(backwardCoeff,N)*core(N)
+  < core(0)+1.                                         (QM86)
+```
+
+For the geometric ray, the already-proved closed product is
+
+```text
+P_N = (2^(8*d)/3^6)^(n0*e_N) * (2^15/3^11)^N,
+e_N=sum_(k<N)d^k.
+```
+
+The following deliberately coarse integer separators make divergence easy:
+
+```text
+d>=2       -> 2^(8*d)/3^6 > 2^16/3^6 > 64,
+2^15/3^11 > 1/6,
+n0*e_N >= N,
+```
+
+so for `N>0`, `P_N>(64/6)^N>2^N`.  Taking
+`N=core(0)+1` and using `core(N)>=1` contradicts QM86.  Please package the
+unconditional endpoint as, for example,
+
+```text
+Ray.impossible (g : EtherCounterGeometricMahler.Ray) : False,             (QM87)
+TernaryCoreOrbit.no_geometric_schedule :
+  not (forall t, level(t)+1=n0*d^t).
+```
+
+This would supersede the external irrationality premise for geometric
+branches.  Wang/Hadamard remains a correct independent arithmetic audit of
+the Mahler value, but is no longer needed to exclude the literal EC17 orbit.
+
+The broader theorem is also useful for search: every positive infinite EC17
+execution, with any schedule, must keep its cumulative coefficient product
+below the fixed number `core(0)+1`.  Thus branch growth cannot be arbitrarily
+fast; geometric or faster public counters are impossible, and a survivor must
+put its unbounded resource mainly into the core or a substantially slower
+branch schedule.
