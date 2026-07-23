@@ -1382,6 +1382,18 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.Orbit.w_exact_factor
 #print axioms KontoroC.SelfWritingKL.Orbit.payload_strictMono
 #print axioms KontoroC.SelfWritingKL.Orbit.branch_not_eventually_periodic
+#print axioms KontoroC.SelfWritingKL.Orbit.follows_resetProgram
+#print axioms KontoroC.SelfWritingKL.Orbit.resetPrecision_ge
+#print axioms KontoroC.SelfWritingKL.Orbit.initialResidue_eventually_constant
+#print axioms KontoroC.SelfWritingKL.Orbit.carryDigit_eventually_zero
+#print axioms KontoroC.SelfWritingKL.Orbit.false_of_cofinally_nonzero_carries
+#print axioms
+  KontoroC.SelfWritingKL.Orbit.no_orbit_with_branch_of_cofinally_nonzero_carries
+#print axioms
+  KontoroC.SelfWritingKL.Orbit.no_orbit_with_branch_of_unbounded_residues
+#print axioms KontoroC.SelfWritingKL.Orbit.no_orbit_with_branch_of_changes
+#print axioms KontoroC.SelfWritingKL.Orbit.initial_core_unique_of_same_branch
+#print axioms KontoroC.SelfWritingKL.Orbit.initial_payload_unique_of_same_branch
 #print axioms KontoroC.KLUniversalShadow.DifferenceCocycle.exact
 #print axioms
   KontoroC.KLUniversalShadow.DifferenceCocycle.two_pow_dvd_initial_difference

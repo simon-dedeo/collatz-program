@@ -5,6 +5,7 @@ Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.EtherCounterAperiodic
 import KontoroC.EtherCounterStateNoRepeat
+import KontoroC.KLDyadicReset
 
 /-!
 # The self-writing KL/EC17 coordinate
@@ -384,6 +385,134 @@ def ternaryCoreToNormalized (o : EtherCounterAperiodic.TernaryCoreOrbit) :
 
 def toNormalized (o : Orbit) : EtherCounterAperiodic.NormalizedOrbit :=
   ternaryCoreToNormalized o.toTernaryCore
+
+/-! ## Canonical backward dyadic address -/
+
+/-- The exact reset program read from an arbitrary proposed branch
+schedule.  It is defined before assuming that the schedule has an orbit, so
+its canonical carries can be audited independently. -/
+def resetProgramOfBranch (branch : ℕ → ℕ) (t : ℕ) :
+    KLDyadicReset.ResetStep where
+  N := 8 * branch (t + 1) + 15
+  O := 6 * branch t + 11
+  delta := 17
+
+def resetProgram (o : Orbit) : ℕ → KLDyadicReset.ResetStep :=
+  resetProgramOfBranch o.branch
+
+/-- The normalized EC17 cores follow that reset program literally. -/
+theorem follows_resetProgram (o : Orbit) :
+    KLDyadicReset.Follows o.resetProgram (fun t => (o.core t : ℤ)) := by
+  intro t
+  simp only [resetProgram, resetProgramOfBranch]
+  exact_mod_cast o.balance t
+
+/-- Every self-writing step contributes positive dyadic precision, so the
+accumulated reset precision dominates the number of steps. -/
+theorem resetPrecision_ge (o : Orbit) (J : ℕ) :
+    J ≤ (KLDyadicReset.cumulative o.resetProgram J).S := by
+  induction J with
+  | zero => simp [KLDyadicReset.cumulative, KLDyadicReset.initialData]
+  | succ J ih =>
+      rw [KLDyadicReset.cumulative_succ_S]
+      have hN : 0 < (o.resetProgram J).N := by
+        simp [resetProgram, resetProgramOfBranch]
+      omega
+
+/-- The accumulated binary precision of the self-writing reset program is
+unbounded. -/
+theorem resetPrecision_unbounded (o : Orbit) :
+    ∀ L, ∃ J, L ≤ (KLDyadicReset.cumulative o.resetProgram J).S := by
+  intro L
+  exact ⟨L, o.resetPrecision_ge L⟩
+
+/-- Necessary inverse-limit condition for an ordinary self-writing orbit:
+the canonical initial EC17-core residues must eventually become literally
+constant at the one natural initial core. -/
+theorem initialResidue_eventually_constant (o : Orbit) :
+    ∃ J, ∀ K, J ≤ K →
+      KLDyadicReset.initialResidue o.resetProgram K = o.core 0 := by
+  simpa using KLDyadicReset.initialResidue_eventually_constant_of_follows
+    o.resetProgram (fun t => (o.core t : ℤ)) o.follows_resetProgram
+      (by positivity) o.resetPrecision_unbounded
+
+/-- Operational version of the same obstruction: all sufficiently late
+canonical address carries must vanish. -/
+theorem carryDigit_eventually_zero (o : Orbit) :
+    ∃ J, ∀ K, J ≤ K →
+      KLDyadicReset.carryDigit o.resetProgram K = 0 := by
+  exact KLDyadicReset.carryDigit_eventually_zero_of_follows
+    o.resetProgram (fun t => (o.core t : ℤ)) o.follows_resetProgram
+      (by positivity) o.resetPrecision_unbounded
+
+/-- Ready-made adversarial consumer: infinitely recurring nonzero canonical
+carries are incompatible with an ordinary self-writing orbit. -/
+theorem false_of_cofinally_nonzero_carries (o : Orbit)
+    (hbad : ∀ J, ∃ K, J ≤ K ∧
+      KLDyadicReset.carryDigit o.resetProgram K ≠ 0) : False := by
+  obtain ⟨J, hzero⟩ := o.carryDigit_eventually_zero
+  obtain ⟨K, hJK, hne⟩ := hbad J
+  exact hne (hzero K hJK)
+
+/-- Branch-only exclusion interface.  A checker may compute the canonical
+carries from a proposed schedule without first constructing any payloads; if
+nonzero carries recur cofinally, no self-writing orbit can realize that
+schedule. -/
+theorem no_orbit_with_branch_of_cofinally_nonzero_carries
+    (branch : ℕ → ℕ)
+    (hbad : ∀ J, ∃ K, J ≤ K ∧
+      KLDyadicReset.carryDigit (resetProgramOfBranch branch) K ≠ 0) :
+    ¬ ∃ o : Orbit, o.branch = branch := by
+  rintro ⟨o, rfl⟩
+  apply o.false_of_cofinally_nonzero_carries
+  simpa [resetProgram] using hbad
+
+/-- Height-form branch exclusion, useful when a symbolic or morphic analysis
+shows the canonical residues themselves escape every ordinary bound. -/
+theorem no_orbit_with_branch_of_unbounded_residues
+    (branch : ℕ → ℕ)
+    (hbad : KLDyadicReset.ResiduesUnbounded
+      (resetProgramOfBranch branch)) :
+    ¬ ∃ o : Orbit, o.branch = branch := by
+  rintro ⟨o, rfl⟩
+  apply KLDyadicReset.no_nonnegative_follows_of_unbounded_residues
+    o.resetProgram (by simpa [resetProgram] using hbad)
+  exact ⟨fun t => (o.core t : ℤ), o.follows_resetProgram, by positivity⟩
+
+/-- Change-form branch exclusion: perpetual acquisition of new canonical
+high bits also rules out an ordinary orbit. -/
+theorem no_orbit_with_branch_of_changes
+    (branch : ℕ → ℕ)
+    (hbad : KLDyadicReset.ChangesArbitrarilyLate
+      (resetProgramOfBranch branch)) :
+    ¬ ∃ o : Orbit, o.branch = branch := by
+  rintro ⟨o, rfl⟩
+  apply KLDyadicReset.no_nonnegative_follows_of_changes
+    o.resetProgram o.resetPrecision_unbounded
+      (by simpa [resetProgram] using hbad)
+  exact ⟨fun t => (o.core t : ℤ), o.follows_resetProgram, by positivity⟩
+
+/-- One branch schedule can select at most one ordinary initial normalized
+core. -/
+theorem initial_core_unique_of_same_branch (o o' : Orbit)
+    (hbranch : o.branch = o'.branch) : o.core 0 = o'.core 0 := by
+  have hfollows' : KLDyadicReset.Follows o.resetProgram
+      (fun t => (o'.core t : ℤ)) := by
+    simpa [resetProgram, hbranch] using o'.follows_resetProgram
+  have hint := KLDyadicReset.initial_eq_of_unbounded_cumulative_precision
+    o.resetProgram (fun t => (o.core t : ℤ)) (fun t => (o'.core t : ℤ))
+      o.follows_resetProgram hfollows' o.resetPrecision_unbounded
+  exact_mod_cast hint
+
+/-- Consequently a branch schedule selects at most one initial public
+payload in the self-writing coordinate. -/
+theorem initial_payload_unique_of_same_branch (o o' : Orbit)
+    (hbranch : o.branch = o'.branch) : o.payload 0 = o'.payload 0 := by
+  have hcore := initial_core_unique_of_same_branch o o' hbranch
+  have hz : Z (o.payload 0) = Z (o'.payload 0) := by
+    rw [o.z_factor, o'.z_factor, hcore, hbranch]
+  simp [Z] at hz
+  omega
 
 /-- Every accepted step is outward in the public self-writing coordinate.
 This is a theorem about a supplied exact orbit, not evidence that one exists. -/

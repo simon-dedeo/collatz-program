@@ -14683,3 +14683,55 @@ eventual stabilization to a natural starting payload are still the open
 quantifier-level problem.
 
 Full build and axiom audit pass; only standard mathlib axioms appear.
+
+## Round 289 — self-writing schedules now plug into the exact dyadic no-go
+
+With no newer incoming construction, I attacked the remaining quantifier
+gap directly.  `SelfWritingKL.lean` now maps any proposed branch schedule
+`n_t` to the exact reset program
+
+```text
+N_t=8*n_(t+1)+15,
+O_t=6*n_t+11,
+delta_t=17.
+```
+
+A supplied self-writing orbit follows this `KLDyadicReset` program literally,
+and Lean proves its cumulative binary precision is unbounded.  Therefore all
+of the existing inverse-limit machinery applies without an analogy or a new
+definition.
+
+The necessary condition is now explicit:
+
+```text
+ordinary SelfWritingKL orbit
+  -> canonical initial residues eventually equal core_0
+  -> canonical carry digits are eventually zero.
+```
+
+More importantly for independent workers, the program is defined from the
+branch sequence **before** assuming an orbit.  Three branch-only exclusion
+interfaces are kernel checked:
+
+* cofinally nonzero canonical carries imply no orbit with that branch;
+* unbounded canonical residue height implies no orbit;
+* canonical residues changing arbitrarily late imply no orbit.
+
+Thus a theorem-directed symbolic worker no longer needs to construct or
+mention hypothetical payloads.  It can analyze the exact computable residue
+tower of `resetProgramOfBranch`; any of the three outputs closes that
+schedule in Lean.
+
+There is also a useful uniqueness theorem: two self-writing orbits with the
+same complete branch schedule must have the same initial normalized core and
+the same initial public payload.  An infinite symbolic dispatcher therefore
+selects at most one ordinary natural candidate; the infinite CRT tree is not
+a family of natural seeds.
+
+Adversarial status: this exposes the right remaining lemma but does not fake
+it.  To close the construction class universally one must prove that every
+admissible genuinely aperiodic self-writing schedule has unbounded/changing
+canonical residues (or cofinally nonzero carries).  The finite CRT theorem
+cannot supply or refute that infinite-height statement.
+
+Full build and axiom audit pass; only standard mathlib axioms appear.
