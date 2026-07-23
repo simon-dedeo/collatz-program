@@ -33,6 +33,64 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 03:23 EDT
+
+There is still no counterexample.  The theorem-driven schedule search now has
+an unconditional geometric closure and a general exact pruning inequality.
+
+Companion commit `a6ce60a` proves, for every positive EC17 execution, that the
+weighted defects contract by a factor smaller than `1/15` and their every
+finite partial sum is smaller than one.  Exact finite backward unrolling
+therefore gives the schedule-independent scale trap
+
+```text
+core(0) <= P_N*core(N) < core(0)+1,
+P_N=prod_(t<N) 2^(8*n_(t+1)+15)/3^(6*n_t+11).
+```
+
+For a geometric schedule `n_t=n_0*d^t`, `d>=2`, every factor of `P_N` is
+strictly larger than two.  Taking `N=core(0)+1` contradicts the trap.  Thus
+geometric EC17 schedules are now unconditionally impossible by finite ordered
+rational arithmetic; Wang, Hadamard gaps, and the Mahler-value irrationality
+premise are no longer on this soundness path.
+
+Companion commit `26cacdb` turns the same trap into the sharper search-facing
+QM89 theorem.  If `S_N=sum_(i<N)n_i` and `N>0`, every positive EC17 execution
+must satisfy
+
+```text
+328*n_N < 62*S_N + 328*n_0 + 100*N + 41*core(0).
+```
+
+The proof uses the exact separator `3^41<2^65`; the history coefficient
+`62/328` is about `0.189`, close to the optimal logarithmic slope.  A proposed
+schedule that violates this at one prefix can now be discarded before its
+enormous forced core is generated.  This clarifies the resource question:
+the branch counter need not grow monotonically, while the combined public
+register must escape; branch growth itself is subject to the displayed global
+budget.  Companion commit `007c252` supplies the local form: after every time
+`K` there is a later step `t>=K` with
+
+```text
+2^(8*n_(t+1)+15) <= 2*3^(6*n_t+11).
+```
+
+Thus a survivor must slow its branch expansion infinitely often; eventual
+uniform over-expansion is impossible.  Companion commit `eb06dcb` converts
+this to the direct exact branch threshold
+
+```text
+328*n_(t+1) < 390*n_t+141
+```
+
+at arbitrarily late steps.  The asymptotic ratio is below `390/328≈1.1891`.
+Positive-mean period-three schedules grow only linearly and are not excluded
+by these ceilings, so their separate arithmetic gap remains open.
+
+A fresh local full build and axiom audit pass.  The new endpoints use only
+Lean's standard `propext`, `Classical.choice`, and `Quot.sound`.  The bounded
+period-three CRT result remains a finite lower bound, not an orbit.
+
 ### 2026-07-23 02:54 EDT
 
 There is still no counterexample.  Two theorem-driven advances sharpen what
@@ -4441,9 +4499,10 @@ positive integer and its claimed behavior are machine-checked.
 | Returning finite ether glider ISA | Exact parity shows an exhausted ether boundary is odd and therefore cannot re-enter the `j=136` defect; among immediate `E -> H_j -> E` defects, `j=1` is the parity-compatible receiver.  Its small identities give defect input `X(K)=2^20K-10941`, return factor `473t+12=2^5(83790531K-874281)`, and for every `n>=1` a complete outward macro `K=R_n+2^(8n+15)q -> K'=S_n+3^(6n+11)q` which writes `n` ether cells and returns to the same defect family.  The artifact replays 64 macro members through 1,184 links and 2,368 gate macros.  No infinite linked macro orbit is supplied. |
 | Autonomous ether-counter normal form | Put `Y=83790531K-874281`.  The length-`n` returning glider branch is exactly `Y=2^(8n-5)h -> Y'=(3^(6n+11)h+51)/2^20`, with `h` in one CRT class modulo `83790531*2^20`; the enormous defect constants cancel to `51`.  Commit `a732905` proves the stronger all-branch Lyapunov law `15*Y_t<Y_(t+1)` and its `15^t` iterate, so any infinite legal execution is automatically an outward escape.  The dynamics artifact proves the successor-cylinder law and exhausts `160^3` canonical three-branch prefixes into the minimum-width next branch.  Its unique zero-address hit `115->59->9->1` begins exactly when the 574-bit initial tail is exhausted, so it is padding rather than a counter write; 384 literal gate macros replay and then halt.  An infinite successful autonomous orbit would be a counterexample, but none is supplied. |
 | Arithmetic-growth ether branch counter | Conditionally closed for every `n_t=n_0+kt`, `n_0,k>=1`.  Exact unrolling gives a single 2-adic partial-theta candidate with paper parameters `q=3^(6k)/2^(8k)` and `alpha=2^(8n_0+15)/3^(6n_0+11)`.  The artifact checks 16 finite eight-transition ether schedules, 4,096 conversion coefficients, and every elementary Väänänen--Wallisser hypothesis uniformly; accepting that inspected external 1989 theorem makes the candidate irrational and nonordinary.  This does not close nonlinear or payload-dependent unbounded counters. | [`breakoff_ether_linear_theta_audit.json`](experiments/kontorovich/breakoff_ether_linear_theta_audit.json), [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
-| Geometric ether branch counter `n_t=n_0*d^t` | Conditionally closed for every `n_0>=1,d>=2`.  Backward unrolling gives one lacunary Mahler value `G(z)` with `G(z)=1+(2^15/3^11)zG(z^d)`.  Companion commit `1d3721a` kernel-checks convergence, finite unrolling, terminal vanishing, the universal EC17-to-value endpoint, and the irrationality consumer.  Wang's source-audited p-adic theorem has automatic size condition `d<d^2`; Hadamard gaps plus finite-linear-system scalar descent supply its external function-transcendence premise.  The exact artifact replays nine six-transition schedules and checks 3,584 coefficient identities.  No orbit is supplied. | [`breakoff_ether_geometric_mahler_audit.json`](experiments/kontorovich/breakoff_ether_geometric_mahler_audit.json), [`EtherCounterGeometricMahler.lean`](KontoroC/KontoroC/EtherCounterGeometricMahler.lean) |
+| Universal EC17 scale budget and branch ceiling | Companion commits `a6ce60a`/`26cacdb` prove for every positive ternary-core execution that `core(0)<=P_N*core(N)<core(0)+1`, hence `P_N<core(0)+1`.  The exact separator `3^41<2^65` then gives the machine-checked necessary condition `328*n_N<62*sum_(i<N)n_i+328*n_0+100*N+41*core(0)`.  Commits `007c252`/`eb06dcb` prove the online form: arbitrarily late steps satisfy `328*n_(t+1)<390*n_t+141` (asymptotic ratio below `1.1891`), so every survivor slows its branch expansion infinitely often.  Violating either condition excludes a schedule before constructing the forced core.  These are universal pruning theorems, not an orbit. | [`EtherCounterGeometricMahler.lean`](KontoroC/KontoroC/EtherCounterGeometricMahler.lean) |
+| Geometric ether branch counter `n_t=n_0*d^t` | Unconditionally closed for every `n_0>=1,d>=2`.  The universal defect sum is below one, so exact unrolling traps `P_N*core(N)` in `[core(0),core(0)+1)`; geometric growth makes every factor of `P_N` larger than two and yields a finite contradiction at `N=core(0)+1`.  Companion commit `a6ce60a` kernel-checks the abstract and literal-orbit endpoints.  The older Mahler reduction and exact nine-schedule artifact remain valid independent audits, but no external irrationality theorem is needed.  No orbit is supplied. | [`breakoff_ether_geometric_mahler_audit.json`](experiments/kontorovich/breakoff_ether_geometric_mahler_audit.json), [`EtherCounterGeometricMahler.lean`](KontoroC/KontoroC/EtherCounterGeometricMahler.lean) |
 | Periodic-increment ether counters | The constant-`17` core turns any positive-mean period-`L` increment word into `L` separated theta values.  The exact artifact checks 15 literal period-two/three schedules through nine public core transitions and 624 coefficients.  Commit `11eaba0` kernel-checks the entire period-two EC17 bridge and exact external independence seam; accepting the cited 1989 theorem, all positive-mean period-two increment tails are dead.  Commit `def4c52` derives the literal three-step defect monomials and proves that every positive derivative order makes the theorem's period-three threshold still worse; commits `1154476`/`82198ac` close every finite Laurent and homogeneous rational potential for those monomials.  Period three remains an arithmetic infinite-series/evaluated-value gap, not a witness. | [`breakoff_ether_periodic_theta_audit.json`](experiments/kontorovich/breakoff_ether_periodic_theta_audit.json), [`EtherCounterPeriodicTheta.lean`](KontoroC/KontoroC/EtherCounterPeriodicTheta.lean), [`EtherCounterPeriodThree.lean`](KontoroC/KontoroC/EtherCounterPeriodThree.lean), [`LaurentCoboundaryNoGo.lean`](KontoroC/KontoroC/LaurentCoboundaryNoGo.lean), [`RationalCoboundaryReduction.lean`](KontoroC/KontoroC/RationalCoboundaryReduction.lean) |
-| Period-three EC17 ordinary-core sieve | At precision `P`, the future fixes one core residue modulo `2^P`; the preceding EC17 step independently fixes the successor modulo `3^(6*n_previous+11)`.  Exact CRT therefore gives one representative below the product modulus.  The artifacts exhaust 2,340 increment words and 72,156 positive schedules in the box `d_i in [-8,8]`, previous branch in `[1,32]`, `P=4096`; every least representative fails after 7--47 steps.  The stronger rowwise bound is `2^4096*3^(6*n_previous+11)`, uniformly at least `2^4096*3^17`.  Companion commits `75a6829` and `def4c52` kernel-check the binary finite consumer and cofinal infinite endpoint; QM82--QM83 request the new ternary/CRT wrapper.  These artifacts still supply only finite lower bounds, not the required cofinal family, an orbit, or a global exclusion. | [`breakoff_ether_period3_sieve_audit.json`](experiments/kontorovich/breakoff_ether_period3_sieve_audit.json), [`breakoff_ether_period3_crt_sieve_audit.json`](experiments/kontorovich/breakoff_ether_period3_crt_sieve_audit.json), [`EtherCounterResidueBound.lean`](KontoroC/KontoroC/EtherCounterResidueBound.lean), [`EtherCounterStateNoRepeat.lean`](KontoroC/KontoroC/EtherCounterStateNoRepeat.lean) |
+| Period-three EC17 ordinary-core sieve | At precision `P`, the future fixes one core residue modulo `2^P`; the preceding EC17 step independently fixes the successor modulo `3^(6*n_previous+11)`.  Exact CRT therefore gives one representative below the product modulus.  The artifacts exhaust 2,340 increment words and 72,156 positive schedules in the box `d_i in [-8,8]`, previous branch in `[1,32]`, `P=4096`; every least representative fails after 7--47 steps.  The stronger rowwise bound is `2^4096*3^(6*n_previous+11)`, uniformly at least `2^4096*3^17`.  Companion commits `75a6829`, `def4c52`, and `cbc51f4` kernel-check the binary finite consumer, cofinal infinite endpoint, full ternary congruence, and CRT product-lower-bound logic.  These artifacts still supply only finite lower bounds, not the required cofinal family, an orbit, or a global exclusion. | [`breakoff_ether_period3_sieve_audit.json`](experiments/kontorovich/breakoff_ether_period3_sieve_audit.json), [`breakoff_ether_period3_crt_sieve_audit.json`](experiments/kontorovich/breakoff_ether_period3_crt_sieve_audit.json), [`EtherCounterResidueBound.lean`](KontoroC/KontoroC/EtherCounterResidueBound.lean), [`EtherCounterStateNoRepeat.lean`](KontoroC/KontoroC/EtherCounterStateNoRepeat.lean) |
 | Three-bit-capped recursive super-ether | Regard the one-cell returning glider as a 23-bit background cell and the two-cell glider as its defect.  Exact parity kills a fully exhausted second-scale gap, but retaining three low bits makes the boundary re-enter the same defect cylinder.  After removing a common `3^7`, the public register is `V=-8744697538656344367967+671265207750760396088265K` and its length-`N` branch is `V=2^(23N+3)g -> V'=(3^(17N+40)g-17)/2^51`.  The affine super-macro is `K=R_N+2^(23N+54)t -> K'=S_N+3^(17N+40)t`.  The artifact checks 64 branches and 256 members, and literally replays 32 members through 336 glider macros, 1,040 lower links, and 2,080 gate macros.  This is a finite two-scale constructor, not an infinite orbit. |
 | Six-level sign-alternating splash hierarchy | The capped construction renormalizes five more times without changing the magnitude `17`: public collision signs are `+,-,+,-,+,-` and binary cell widths are `8,23,77,254,839,2771`.  At every checked step exact phase arithmetic returns to the defect and normalization flips only the sign.  The artifact checks 40 child branches independently by CRT and parent-macro composition, replays 80 members through 520 parent blocks, and expands the canonical tail-zero programs through six levels to literal first-scale gliders.  It additionally checks all 64 level-one choices `B=M_j,H=M_(j+1)`, three nonconstant four-step meta-words, and every depth-three meta-word over `j=1..8`.  Beyond those bounds, the exact positive-tail identity proves universally that no infinite chain of these adjacent-defect nestings can stabilize its canonical ordinary address.  The depth-six canonical member is a generated 6,708-digit ordinary start executing 360 linked glider macros.  This is a finite compiler and a source of fixed-level ISAs—not an ordinary infinite orbit or an induction that the phase identities persist at all levels. |
 | Invariant unit-debris register and signed radix swap | At every one of the six certified hierarchy levels, exactly one packet class modulo `17` makes the primitive `±17` register divisible by `17`; the class is preserved by every successful branch.  Dividing gives `H=2^(an+b)h -> H'=(3^(cn+d)h+s)/2^e`, `s=±1`.  With `W=2^eH`, every instruction is exactly `W=2^p h -> W'=3^q h+s`: it preserves the complete core `h`, swaps an exact binary delay for a ternary delay, and writes one signed unit.  Against the signed router it trims `d=p-1-q`, with the six formulas `2n+3,6n+13,20n+45,66n+151,218n+501,720n+1657`.  The artifact compares all 192 branches, checks this form on 768 members, and literally replays 32 level-one members through 336 lower links and 672 gates.  This identifies the factor a second rail must bank; no such rail or infinite unit orbit is supplied. |
@@ -5042,9 +5101,10 @@ existing lines of work; the closest ancestors, and what each contributes:
   series `G(z)=1+a*z*G(z^d)`, its parameters reduce to `rho=d`, theorem degree
   one, and `M0=d`, so the numerical hypothesis is `d<d^2`; the nonvanishing
   and 2-adic argument conditions are automatic.  Companion commit `1d3721a`
-  kernel-checks the universal EC17-to-value bridge; Wang plus Hadamard remains
-  the explicit external analytic seam.  This is a conditional no-go rather
-  than a counterexample.
+  kernel-checks the universal EC17-to-value bridge.  Companion commit
+  `a6ce60a` later gives an elementary unconditional geometric no-go, so Wang
+  plus Hadamard is now an independent value-theory audit rather than a
+  soundness premise.  Neither result is a counterexample.
 - **J.-C. Puchta, [“On Fabry's gap
   theorem”](https://www.dml.cz/bitstream/handle/10338.dmlcz/107844/ArchMathRetro_038-2002-4_7.pdf)
   (2002)** — states the classical Hadamard gap theorem used to show that the

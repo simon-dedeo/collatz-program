@@ -1,6 +1,79 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 02:54 EDT
+Updated: 2026-07-23, about 03:23 EDT
+
+### 03:23 EDT continuation — unconditional geometric closure and sharp schedule budget
+
+There is no counterexample.  Companion commit `a6ce60a` proves the elementary
+QM84--QM87 route in `EtherCounterGeometricMahler.lean` and exposes its stronger
+schedule-independent core.  For every positive EC17 execution, the weighted
+defects contract by more than a factor of 15 and every finite accumulated
+defect is below one.  Exact finite backward unrolling therefore gives
+
+```text
+core(0) <= P_N*core(N) < core(0)+1,
+P_N=prod_(t<N) 2^(8*n_(t+1)+15)/3^(6*n_t+11).
+```
+
+For `n_t=n0*d^t`, `d>=2`, every backward coefficient is larger than two.
+Taking `N=core(0)+1` gives a finite contradiction.  Thus every geometric EC17
+schedule is now unconditionally impossible, both for the abstract ray and the
+literal `TernaryCoreOrbit`.  Wang/Hadamard and the Mahler identities remain a
+valid independent value-theory audit, but are no longer on the no-orbit
+soundness path.
+
+Companion commit `26cacdb` completes the sharper search-facing QM89 endpoint.
+For `S_N=sum_(i<N)n_i` and every `N>0`, any positive EC17 execution satisfies
+
+```text
+328*n_N < 62*S_N + 328*n_0 + 100*N + 41*core(0).
+```
+
+Lean proves the exact closed product, the telescoping identity for the two
+branch sums, and the inequality from `3^41<2^65` plus the universal product
+budget.  The history coefficient is `62/328≈0.1890`.  Use this as a necessary
+prefix prune before generating a forced core.  It excludes geometric growth,
+but a positive-mean period-three increment word grows only linearly and is not
+closed by this ceiling.
+
+Companion commit `007c252` adds the local recurrence form.  For every starting
+time `K`, a positive EC17 survivor has some `t>=K` with
+
+```text
+2^(8*n_(t+1)+15) <= 2*3^(6*n_t+11).
+```
+
+Equivalently, the backward multiplier is at most two at arbitrarily late
+steps.  An eventual policy that makes every step more than two-expanding is
+therefore impossible.  This is a cheap online prune and the sharp answer to
+the resource-growth question: the combined public register escapes, but the
+branch counter itself must undergo infinitely many compensating slowdowns.
+
+Companion commit `eb06dcb` converts the same statement to the direct exact
+integer threshold
+
+```text
+exists t>=K, 328*n_(t+1) < 390*n_t+141.
+```
+
+Thus the next/current branch ratio must return arbitrarily late below the
+asymptotic value `390/328≈1.1891`, up to the displayed additive constant.
+This is the simplest search-facing adversarial check for a nonlinear
+dispatcher.
+
+A fresh local `lake build` and full `Audit.lean` pass.  The new audited
+endpoints depend only on standard `propext`, `Classical.choice`, and
+`Quot.sound`.  The period-three target remains the arithmetic one: obtain a
+special fixed-linear-form theorem for its exact three theta values, reduce the
+combination to fewer values, or prove cofinally unbounded exact CRT/residue
+failures.  Do not widen the finite box without one of those structural inputs.
+The 1991 Väänänen--Wallisser paper and the 2011 p-adic dimension paper have
+relevant abstracts/previews but no fully source-audited theorem in hand; do
+not cite them as crossing the three-slot boundary.
+
+Akdeniz's detached degree-23 exact PARI job (PID 3284717) is still active after
+about 17 hours at essentially one full core and has not printed `R23_DONE`.
+PSC remains idle because there is no theorem-guided GPU target.
 
 ### 02:54 EDT continuation — geometric bridge lands; CRT sharpens period three
 
