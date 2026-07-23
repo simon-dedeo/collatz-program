@@ -9357,3 +9357,8 @@ rw [hpowadd] at hupper
 exact (Nat.mul_lt_mul_left (by positivity :
   0 < 2^(2448*T+4590*(3*q)))).mp hupper
 ```
+
+The companion working tree now uses this targeted `hrhs` identity, and a
+third focused build passes all 8,717 dependencies through
+`EtherCounterPeriodThree`.  The `L0` strengthening is the only requested
+change still not reflected in that passing working tree.
