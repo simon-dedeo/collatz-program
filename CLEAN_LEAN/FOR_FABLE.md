@@ -13795,3 +13795,39 @@ inverse-limit: whether one fixed ordinary positive payload realizes the
 entire infinite program.  I have read the new QM139 request and will now
 formalize canonical residue compatibility, eventual stabilization for any
 ordinary infinite chain, and the perpetual-change no-go criterion.
+
+## Round 268 — QM139 complete: ordinary payloads require eventual residue stabilization (2026-07-23)
+
+`KLDyadicReset.lean` now defines the canonical natural representative
+`initialResidue e J` of the cumulative depth-`J` dyadic cylinder and proves
+all requested statements.
+
+First, `cumulativeTerminal_prefix` proves directly from the affine
+accumulator that every deeper terminal cylinder reduces to every shallower
+one.  The canonical residues therefore satisfy
+
+```text
+r_J = r_K (mod 2^S_J)  for J<=K,
+r_J <= r_K.
+```
+
+The monotonicity is not assumed: it follows because `r_J` is the canonical
+remainder of `r_K` modulo `2^S_J`.  The module also proves cumulative `S`
+is monotone.
+
+For an actual infinite chain `m` with `m 0 >= 0`, the finite exact identity
+puts `m 0` in every canonical class.  Once the modulus exceeds `m 0`, the
+canonical range forces equality.  With unbounded cumulative precision,
+`initialResidue_eventually_constant_of_follows` gives a depth after which
+every `r_K` is exactly `(m 0).toNat`.
+
+Finally, `no_nonnegative_follows_of_changes` is the requested adversarial
+consumer: if canonical residues change at arbitrarily late depths, no
+infinite reset chain for that schedule begins at any nonnegative ordinary
+integer.  This formally upgrades the search gate from “many low bits agree”
+to exact eventual stabilization.  Full project build and axiom audit pass;
+only standard mathlib axioms appear.
+
+I have read QM140 and am proceeding to expose the exact bounded carry digit,
+its affine congruence, and the equivalence between zero carry and immediate
+execution of the next reset.

@@ -540,6 +540,224 @@ theorem cumulative_two_pow_dvd_initial_difference
     (cumulative e J).P (cumulative e J).S
   exact hcopNat.isCoprime.symm.dvd_of_dvd_mul_left hdiv
 
+/-! ## Canonical inverse-limit residues -/
+
+/-- The finite cylinder condition at cumulative depth `J`. -/
+def CumulativeTerminal (e : ℕ → ResetStep) (J : ℕ) (mStart : ℤ) : Prop :=
+  (2 : ℤ) ^ (cumulative e J).S ∣
+    (3 : ℤ) ^ (cumulative e J).P * mStart +
+      (cumulative e J).D
+
+theorem cumulativeTerminal_of_follows
+    (e : ℕ → ResetStep) (m : ℕ → ℤ)
+    (hm : Follows e m) (J : ℕ) :
+    CumulativeTerminal e J (m 0) := by
+  use m J
+  exact (cumulative_exact e m hm J).symm
+
+/-- A terminal cylinder at depth `J+1` necessarily lies in the terminal
+cylinder of its prefix at depth `J`. -/
+theorem cumulativeTerminal_of_succ
+    (e : ℕ → ResetStep) (J : ℕ) {mStart : ℤ}
+    (h : CumulativeTerminal e (J + 1) mStart) :
+    CumulativeTerminal e J mStart := by
+  let d := cumulative e J
+  let prefixNumerator :=
+    (3 : ℤ) ^ d.P * mStart + d.D
+  have hfull := h
+  rw [CumulativeTerminal, cumulative] at hfull
+  simp only [ResetData.step] at hfull
+  have hfull' : (2 : ℤ) ^ (d.S + (e J).N) ∣
+      (3 : ℤ) ^ (e J).O * prefixNumerator +
+        (2 : ℤ) ^ d.S * (e J).delta := by
+    convert hfull using 1 <;> dsimp [prefixNumerator, d] <;>
+      rw [pow_add] <;> ring
+  have hsmallDivisor : (2 : ℤ) ^ d.S ∣
+      (2 : ℤ) ^ (d.S + (e J).N) := by
+    rw [pow_add]
+    exact dvd_mul_right _ _
+  have hsmallFull : (2 : ℤ) ^ d.S ∣
+      (3 : ℤ) ^ (e J).O * prefixNumerator +
+        (2 : ℤ) ^ d.S * (e J).delta :=
+    hsmallDivisor.trans hfull'
+  have hdelta : (2 : ℤ) ^ d.S ∣
+      (2 : ℤ) ^ d.S * (e J).delta := dvd_mul_right _ _
+  have hoddProduct : (2 : ℤ) ^ d.S ∣
+      (3 : ℤ) ^ (e J).O * prefixNumerator := by
+    have hsub := Int.dvd_sub hsmallFull hdelta
+    convert hsub using 1 <;> ring
+  have hcop : (3 ^ (e J).O).Coprime (2 ^ d.S) :=
+    (by norm_num : Nat.Coprime 3 2).pow _ _
+  have hprefix : (2 : ℤ) ^ d.S ∣ prefixNumerator :=
+    hcop.isCoprime.symm.dvd_of_dvd_mul_left hoddProduct
+  simpa [CumulativeTerminal, prefixNumerator, d] using hprefix
+
+theorem cumulativeTerminal_prefix
+    (e : ℕ → ResetStep) {J K : ℕ} {mStart : ℤ}
+    (hJK : J ≤ K) (hK : CumulativeTerminal e K mStart) :
+    CumulativeTerminal e J mStart := by
+  induction K with
+  | zero =>
+      have : J = 0 := Nat.eq_zero_of_le_zero hJK
+      simpa [this] using hK
+  | succ K ih =>
+      rcases Nat.eq_or_lt_of_le hJK with hEq | hLt
+      · simpa [hEq] using hK
+      · exact ih (Nat.le_of_lt_succ hLt)
+          (cumulativeTerminal_of_succ e K hK)
+
+/-- Canonical representative in `[0,2^S)` of the unique initial cylinder at
+depth `J`. -/
+noncomputable def initialResidue (e : ℕ → ResetStep) (J : ℕ) : ℕ := by
+  let d := cumulative e J
+  let modulus := 2 ^ d.S
+  letI : NeZero modulus := ⟨by positivity⟩
+  exact (((3 ^ d.P : ℕ) : ZMod modulus)⁻¹ *
+    (-d.D : ZMod modulus)).val
+
+theorem initialResidue_lt (e : ℕ → ResetStep) (J : ℕ) :
+    initialResidue e J < 2 ^ (cumulative e J).S := by
+  unfold initialResidue
+  exact ZMod.val_lt _
+
+theorem initialResidue_terminal (e : ℕ → ResetStep) (J : ℕ) :
+    CumulativeTerminal e J (initialResidue e J) := by
+  let d := cumulative e J
+  let modulus := 2 ^ d.S
+  letI : NeZero modulus := ⟨by positivity⟩
+  let z : ZMod modulus :=
+    ((3 ^ d.P : ℕ) : ZMod modulus)⁻¹ * (-d.D : ZMod modulus)
+  have hz : (initialResidue e J : ZMod modulus) = z := by
+    rw [show initialResidue e J = z.val by rfl]
+    exact ZMod.natCast_zmod_val z
+  have hunit : ((3 ^ d.P : ℕ) : ZMod modulus) * z = -d.D := by
+    dsimp [z]
+    calc
+      ((3 ^ d.P : ℕ) : ZMod modulus) *
+          (((3 ^ d.P : ℕ) : ZMod modulus)⁻¹ * (-d.D : ZMod modulus)) =
+          (((3 ^ d.P : ℕ) : ZMod modulus) *
+            ((3 ^ d.P : ℕ) : ZMod modulus)⁻¹) *
+              (-d.D : ZMod modulus) := by ring
+      _ = -d.D := by
+        rw [ZMod.coe_mul_inv_eq_one _
+          (three_pow_coprime_two_pow d.P d.S), one_mul]
+  have hm : ((3 ^ d.P : ℕ) : ℤ) * (initialResidue e J : ℤ) ≡
+      -d.D [ZMOD (modulus : ℕ)] := by
+    rw [← ZMod.intCast_eq_intCast_iff]
+    push_cast
+    rw [hz]
+    simpa only [Nat.cast_pow, Nat.cast_ofNat] using hunit
+  rw [CumulativeTerminal]
+  rw [Int.modEq_iff_dvd] at hm
+  have hneg := dvd_neg.mpr hm
+  simpa [d, modulus, sub_eq_add_neg] using hneg
+
+/-- Two initial integers satisfying the same cumulative terminal cylinder
+are congruent modulo all written binary precision. -/
+theorem cumulativeTerminal_unique_modEq
+    (e : ℕ → ResetStep) (J : ℕ) {a b : ℤ}
+    (ha : CumulativeTerminal e J a)
+    (hb : CumulativeTerminal e J b) :
+    a ≡ b [ZMOD (2 : ℤ) ^ (cumulative e J).S] := by
+  rw [Int.modEq_iff_dvd]
+  have hsub := Int.dvd_sub hb ha
+  have hmul : (2 : ℤ) ^ (cumulative e J).S ∣
+      (3 : ℤ) ^ (cumulative e J).P * (b - a) := by
+    convert hsub using 1 <;> ring
+  have hcop := three_pow_coprime_two_pow
+    (cumulative e J).P (cumulative e J).S
+  exact hcop.isCoprime.symm.dvd_of_dvd_mul_left hmul
+
+/-- QM139a, compatibility of canonical representatives. -/
+theorem initialResidue_modEq
+    (e : ℕ → ResetStep) {J K : ℕ} (hJK : J ≤ K) :
+    initialResidue e J ≡ initialResidue e K
+      [MOD 2 ^ (cumulative e J).S] := by
+  rw [← Int.natCast_modEq_iff]
+  exact cumulativeTerminal_unique_modEq e J
+    (initialResidue_terminal e J)
+    (cumulativeTerminal_prefix e hJK (initialResidue_terminal e K))
+
+/-- Later compatible canonical representatives can only move upward. -/
+theorem initialResidue_mono (e : ℕ → ResetStep) :
+    Monotone (initialResidue e) := by
+  intro J K hJK
+  let modulus := 2 ^ (cumulative e J).S
+  have hmodEq := initialResidue_modEq e hJK
+  have hsmall : initialResidue e J < modulus := initialResidue_lt e J
+  have heqmod : initialResidue e J = initialResidue e K % modulus := by
+    calc
+      initialResidue e J = initialResidue e J % modulus :=
+        (Nat.mod_eq_of_lt hsmall).symm
+      _ = initialResidue e K % modulus := hmodEq
+  rw [heqmod]
+  exact Nat.mod_le _ _
+
+theorem cumulative_S_mono (e : ℕ → ResetStep) :
+    Monotone (fun J => (cumulative e J).S) := by
+  intro J K hJK
+  obtain ⟨d, rfl⟩ := Nat.exists_eq_add_of_le hJK
+  induction d with
+  | zero => simp
+  | succ d ih =>
+      rw [Nat.add_succ]
+      have hstep : (cumulative e (J + d)).S ≤
+          (cumulative e (J + d + 1)).S := by
+        change (cumulative e (J + d)).S ≤
+          ((cumulative e (J + d)).step (e (J + d))).S
+        simp [ResetData.step]
+      exact (ih (Nat.le_add_right J d)).trans hstep
+
+/-- Once an ordinary nonnegative initial payload lies below the current
+modulus, it is exactly the canonical representative. -/
+theorem initialResidue_eq_of_follows_of_lt
+    (e : ℕ → ResetStep) (m : ℕ → ℤ) (hm : Follows e m)
+    (h0 : 0 ≤ m 0) (J : ℕ)
+    (hlt : (m 0).toNat < 2 ^ (cumulative e J).S) :
+    initialResidue e J = (m 0).toNat := by
+  have hmodInt := cumulativeTerminal_unique_modEq e J
+    (initialResidue_terminal e J) (cumulativeTerminal_of_follows e m hm J)
+  have hcast : ((m 0).toNat : ℤ) = m 0 := Int.toNat_of_nonneg h0
+  rw [← hcast] at hmodInt
+  have hmodNat := Int.natCast_modEq_iff.mp hmodInt
+  exact hmodNat.eq_of_lt_of_lt (initialResidue_lt e J) hlt
+
+/-- QM139b: an ordinary nonnegative infinite payload forces eventual exact
+stabilization of the canonical residue sequence. -/
+theorem initialResidue_eventually_constant_of_follows
+    (e : ℕ → ResetStep) (m : ℕ → ℤ) (hm : Follows e m)
+    (h0 : 0 ≤ m 0)
+    (hunbounded : ∀ L, ∃ J, L ≤ (cumulative e J).S) :
+    ∃ J, ∀ K, J ≤ K → initialResidue e K = (m 0).toNat := by
+  let M := (m 0).toNat
+  obtain ⟨J, hJ⟩ := hunbounded (M + 1)
+  refine ⟨J, fun K hJK => ?_⟩
+  apply initialResidue_eq_of_follows_of_lt e m hm h0 K
+  have hSK : M + 1 ≤ (cumulative e K).S :=
+    hJ.trans (cumulative_S_mono e hJK)
+  have hpow : 2 ^ (M + 1) ≤ 2 ^ (cumulative e K).S :=
+    Nat.pow_le_pow_right (by norm_num) hSK
+  exact M.lt_two_pow_self.trans
+    ((Nat.pow_lt_pow_right (by norm_num) (Nat.lt_succ_self M)).trans_le hpow)
+
+/-- Canonical residues keep acquiring genuinely new high bits arbitrarily
+late. -/
+def ChangesArbitrarilyLate (e : ℕ → ResetStep) : Prop :=
+  ∀ J, ∃ K, J ≤ K ∧ initialResidue e K ≠ initialResidue e J
+
+/-- QM139's adversarial consumer: perpetual canonical-residue change rules
+out every infinite reset chain beginning at a nonnegative ordinary integer. -/
+theorem no_nonnegative_follows_of_changes
+    (e : ℕ → ResetStep)
+    (hunbounded : ∀ L, ∃ J, L ≤ (cumulative e J).S)
+    (hchange : ChangesArbitrarilyLate e) :
+    ¬ ∃ m : ℕ → ℤ, Follows e m ∧ 0 ≤ m 0 := by
+  rintro ⟨m, hm, h0⟩
+  obtain ⟨J, hstable⟩ :=
+    initialResidue_eventually_constant_of_follows e m hm h0 hunbounded
+  obtain ⟨K, hJK, hne⟩ := hchange J
+  exact hne ((hstable K hJK).trans (hstable J le_rfl).symm)
+
 /-- If cumulative written binary precision is unbounded, one infinite reset
 program has at most one ordinary integer initial payload. -/
 theorem initial_eq_of_unbounded_cumulative_precision
