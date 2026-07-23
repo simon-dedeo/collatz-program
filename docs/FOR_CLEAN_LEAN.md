@@ -9048,3 +9048,40 @@ branch can be at most roughly one quarter of the accumulated branch history,
 up to explicit initial and linear terms.  Any proposed counter program that
 violates this at one certified prefix is impossible without running its
 candidate core.
+
+### Sharper rational ceiling (QM89; prefer this to QM88 if equally cheap)
+
+There is a substantially tighter exact integer version using the elementary
+upper convergent
+
+```text
+3^41 < 2^65.
+```
+
+For `N>0`, raise the cumulative product to the 41st power.  With the same
+`S_N,T_N` as above,
+
+```text
+P_N^41
+ = 2^(328*T_N+615*N) / 3^(246*S_N+451*N)
+ > 2^(328*n_N-62*S_N-328*n_0-100*N).                 (QM89a)
+```
+
+Indeed `3^(246*S_N+451*N) < 2^(390*S_N+715*N)` follows
+directly by raising `3^41<2^65`; strictness is available because `N>0` (and
+also `S_N>0`).  Let the final exponent be `E`.  The universal product bound
+`P_N<core(0)+1`, positivity `core(0)>=1`, and
+`core(0)+1<=2^core(0)` show that `E>=41*core(0)` is impossible.  Hence every
+positive infinite EC17 execution satisfies
+
+```text
+328*n_N
+  < 62*S_N + 328*n_0 + 100*N + 41*core(0).           (QM89)
+```
+
+After division by 328, the history coefficient is `62/328≈0.1890`, versus
+`2/8=0.25` in QM88, and the other terms improve as well.  This is close to the
+optimal logarithmic coefficient `(6*log_2(3)-8)/8≈0.1887` while keeping the
+statement entirely integral and easy to consume in a search.  If QM88 is
+already complete, please retain it as the simple corollary and expose QM89 as
+the stronger pruning endpoint.
