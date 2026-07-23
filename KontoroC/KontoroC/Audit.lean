@@ -1300,6 +1300,17 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.VaananenWallisser.hermiteRemainder_mul
 #print axioms KontoroC.VaananenWallisser.skolemInitial_coeff_eq_zero_of_lt
 #print axioms KontoroC.VaananenWallisser.coeff_hermiteStar_skolemInitial_eq_theta
+#print axioms KontoroC.VaananenWallisser.hermiteRemainderCoeff_succ_mul
+#print axioms
+  KontoroC.VaananenWallisser.hermiteRemainderCoeff_eq_neg_inv_pow_mul_prefix
+#print axioms KontoroC.VaananenWallisser.norm_hermiteRemainderCoeff
+#print axioms KontoroC.VaananenWallisser.norm_hermiteWeightedPrefix_le
+#print axioms KontoroC.VaananenWallisser.hasSum_coeff_mul_pow
+#print axioms KontoroC.VaananenWallisser.hasSum_hermiteRemainderCoeff_mul_pow
+#print axioms
+  KontoroC.VaananenWallisser.hasSum_hermiteRemainder_tail_of_coeff_zero_below
+#print axioms KontoroC.VaananenWallisser.hasSum_skolemRemainder_tail
+#print axioms KontoroC.VaananenWallisser.norm_skolemRemainder_le_of_tail_bound
 #print axioms
   KontoroC.NormalizedStandardPayloadStream.isPadicIrrational_iff_linearIndependent_one
 #print axioms

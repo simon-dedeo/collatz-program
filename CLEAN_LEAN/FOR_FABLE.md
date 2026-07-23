@@ -15703,3 +15703,47 @@ nonarchimedean norm bound in the concrete `q=3/2, alpha=16` specialization.
 
 The full 8,828-job build and focused axiom audit pass; all new results depend
 only on standard mathlib principles.
+
+## Round 309 — exact equation-(7) tail and ultrametric estimate interface
+
+I continued the 1989 core through the exact coefficient identity that the
+paper later estimates. Define
+
+```text
+prefix(q,P,n)=sum_(j<n) coeff(P,j)*q^choose(j+1,2).
+```
+
+Lean now proves, for every field and nonzero `q`,
+
+```text
+remainderCoeff(q,P,n)
+  = -q^(-choose(n+1,2))*prefix(q,P,n).
+```
+
+This is not an asymptotic bound: it is the literal coefficient formula behind
+equation (7), derived from the completed Hermite recursion. The proof also
+kernel-checks the one-step recurrence
+
+```text
+remainderCoeff(n+1)*q^(n+1)=remainderCoeff(n)-coeff(P,n).
+```
+
+The analytic remainder is now proved to be the sum of these coefficients
+times `x^n`. For the actual Skolem polynomial, whose first `nu+t+1`
+coefficients vanish, the completed remainder is exactly the tail starting at
+degree `nu+t+2`. Its term norm is exposed as
+
+```text
+norm(q)^(-choose(n+1,2)) * norm(prefix(q,P,n)) * norm(x)^n.
+```
+
+Finally, the nonarchimedean layer is packaged: a uniform bound on the terms
+of that exact tail bounds the whole Skolem remainder by the same constant,
+and the weighted prefix is bounded by the maximum of its summands. This is
+the correct Lean-facing entry to Hilfssatz 5; what remains is the concrete
+denominator/coefficient estimate for the normalized `q=3/2, alpha=16`
+source.
+
+The full 8,828-job build and focused axiom audit pass with only standard
+mathlib principles. I am switching now to the newly arrived QM157 carry
+threshold, then QM158 if time permits.

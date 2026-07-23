@@ -8,6 +8,7 @@ import Mathlib.Topology.Algebra.InfiniteSum.NatInt
 import Mathlib.Topology.Algebra.InfiniteSum.Nonarchimedean
 import Mathlib.Algebra.Polynomial.Inductions
 import Mathlib.Analysis.SpecificLimits.Normed
+import Mathlib.Analysis.Normed.Group.Ultra
 
 /-!
 # Algebraic core of the Väänänen--Wallisser theta function
@@ -392,6 +393,184 @@ theorem hermiteRemainder_mul {K : Type*} [NormedField K]
   rw [hermiteIter_natDegree_add_one_eq_zero] at h
   simpa [hermiteRemainder, hermiteStar, hermiteDefect] using h
 
+/-- Coefficients of the exact Hermite remainder. -/
+noncomputable def hermiteRemainderCoeff {K : Type*} [Field K]
+    (q : K) (P : K[X]) (n : ℕ) : K :=
+  (hermiteStar q P).coeff n -
+    (hermiteStar q P).eval 0 * q⁻¹ ^ exponent n
+
+/-- Weighted source prefix occurring coefficientwise in equation (7). -/
+noncomputable def hermiteWeightedPrefix {K : Type*} [Field K]
+    (q : K) (P : K[X]) (n : ℕ) : K :=
+  ∑ j ∈ Finset.range n, P.coeff j * q ^ exponent j
+
+theorem hermiteWeightedPrefix_succ {K : Type*} [Field K]
+    (q : K) (P : K[X]) (n : ℕ) :
+    hermiteWeightedPrefix q P (n + 1) =
+      hermiteWeightedPrefix q P n + P.coeff n * q ^ exponent n := by
+  exact Finset.sum_range_succ _ _
+
+theorem hermiteRemainderCoeff_succ_mul {K : Type*} [Field K]
+    (q : K) (P : K[X]) (hq : q ≠ 0) (n : ℕ) :
+    hermiteRemainderCoeff q P (n + 1) * q ^ (n + 1) =
+      hermiteRemainderCoeff q P n - P.coeff n := by
+  let c := (hermiteStar q P).eval 0
+  have hcancel : q⁻¹ ^ (n + 1) * q ^ (n + 1) = 1 := by
+    rw [← mul_pow, inv_mul_cancel₀ hq, one_pow]
+  have htheta : c * q⁻¹ ^ exponent (n + 1) * q ^ (n + 1) =
+      c * q⁻¹ ^ exponent n := by
+    rw [exponent_succ, pow_add]
+    calc
+      c * (q⁻¹ ^ exponent n * q⁻¹ ^ (n + 1)) * q ^ (n + 1) =
+          c * q⁻¹ ^ exponent n *
+            (q⁻¹ ^ (n + 1) * q ^ (n + 1)) := by ac_rfl
+      _ = c * q⁻¹ ^ exponent n := by rw [hcancel, mul_one]
+  rw [hermiteRemainderCoeff, hermiteRemainderCoeff, sub_mul,
+    coeff_hermiteStar_succ q P n]
+  change (hermiteStar q P).coeff n - P.coeff n -
+      c * q⁻¹ ^ exponent (n + 1) * q ^ (n + 1) =
+    (hermiteStar q P).coeff n - c * q⁻¹ ^ exponent n - P.coeff n
+  rw [htheta]
+  ring
+
+/-- Exact coefficient formula from equation (7): every remainder coefficient
+is a weighted finite prefix of the source polynomial.  This is the direct
+input for both the archimedean and p-adic tail estimates. -/
+theorem hermiteRemainderCoeff_eq_neg_inv_pow_mul_prefix
+    {K : Type*} [Field K] (q : K) (P : K[X]) (hq : q ≠ 0) (n : ℕ) :
+    hermiteRemainderCoeff q P n =
+      -(q⁻¹ ^ exponent n) * hermiteWeightedPrefix q P n := by
+  induction n with
+  | zero =>
+      simp [hermiteRemainderCoeff, hermiteWeightedPrefix, exponent_zero,
+        Polynomial.coeff_zero_eq_eval_zero]
+  | succ n ih =>
+      apply (mul_right_cancel₀ (pow_ne_zero (n + 1) hq))
+      rw [hermiteRemainderCoeff_succ_mul q P hq n, ih,
+        hermiteWeightedPrefix_succ, exponent_succ, pow_add]
+      have hcancel : q⁻¹ ^ (n + 1) * q ^ (n + 1) = 1 := by
+        rw [← mul_pow, inv_mul_cancel₀ hq, one_pow]
+      have hexp : q⁻¹ ^ exponent n * q ^ exponent n = 1 := by
+        rw [← mul_pow, inv_mul_cancel₀ hq, one_pow]
+      have hsource : -(q⁻¹ ^ exponent n) *
+          (P.coeff n * q ^ exponent n) = -P.coeff n := by
+        calc
+          -(q⁻¹ ^ exponent n) * (P.coeff n * q ^ exponent n) =
+              -(P.coeff n *
+                (q⁻¹ ^ exponent n * q ^ exponent n)) := by ring
+          _ = -P.coeff n := by rw [hexp, mul_one]
+      calc
+        -(q⁻¹ ^ exponent n) * hermiteWeightedPrefix q P n - P.coeff n =
+            -(q⁻¹ ^ exponent n) *
+              (hermiteWeightedPrefix q P n +
+                P.coeff n * q ^ exponent n) := by
+          rw [mul_add, hsource]
+          ring
+        _ = -(q⁻¹ ^ exponent n * q⁻¹ ^ (n + 1)) *
+              (hermiteWeightedPrefix q P n +
+                P.coeff n * q ^ exponent n) * q ^ (n + 1) := by
+          calc
+            -(q⁻¹ ^ exponent n) *
+                (hermiteWeightedPrefix q P n +
+                  P.coeff n * q ^ exponent n) =
+                (-(q⁻¹ ^ exponent n) *
+                  (hermiteWeightedPrefix q P n +
+                    P.coeff n * q ^ exponent n)) * 1 := by ring
+            _ = (-(q⁻¹ ^ exponent n) *
+                  (hermiteWeightedPrefix q P n +
+                    P.coeff n * q ^ exponent n)) *
+                    (q⁻¹ ^ (n + 1) * q ^ (n + 1)) := by rw [hcancel]
+            _ = -(q⁻¹ ^ exponent n * q⁻¹ ^ (n + 1)) *
+                  (hermiteWeightedPrefix q P n +
+                    P.coeff n * q ^ exponent n) * q ^ (n + 1) := by ring
+
+theorem norm_hermiteRemainderCoeff
+    {K : Type*} [NormedField K] (q : K) (P : K[X]) (hq : q ≠ 0)
+    (n : ℕ) :
+    ‖hermiteRemainderCoeff q P n‖ =
+      ‖q‖⁻¹ ^ exponent n * ‖hermiteWeightedPrefix q P n‖ := by
+  rw [hermiteRemainderCoeff_eq_neg_inv_pow_mul_prefix q P hq n,
+    norm_mul, norm_neg, norm_pow, norm_inv]
+
+theorem norm_hermiteRemainderCoeff_mul_pow
+    {K : Type*} [NormedField K] (q : K) (P : K[X]) (x : K)
+    (hq : q ≠ 0) (n : ℕ) :
+    ‖hermiteRemainderCoeff q P n * x ^ n‖ =
+      ‖q‖⁻¹ ^ exponent n * ‖hermiteWeightedPrefix q P n‖ * ‖x‖ ^ n := by
+  rw [norm_mul, norm_hermiteRemainderCoeff q P hq n, norm_pow]
+
+theorem norm_hermiteWeightedPrefix_le
+    {K : Type*} [NormedField K] [IsUltrametricDist K]
+    (q : K) (P : K[X]) (n : ℕ) (B : ℝ) (hB : 0 ≤ B)
+    (hterm : ∀ j < n, ‖P.coeff j * q ^ exponent j‖ ≤ B) :
+    ‖hermiteWeightedPrefix q P n‖ ≤ B := by
+  rw [hermiteWeightedPrefix]
+  apply IsUltrametricDist.norm_sum_le_of_forall_le_of_nonneg hB
+  intro j hj
+  exact hterm j (Finset.mem_range.mp hj)
+
+/-- A polynomial evaluation is the sum of its coefficient sequence padded
+by zeros. -/
+theorem hasSum_coeff_mul_pow {K : Type*} [NormedField K]
+    [CompleteSpace K] (P : K[X]) (x : K) :
+    HasSum (fun n : ℕ => P.coeff n * x ^ n) (P.eval x) := by
+  have hz : ∀ n ∉ P.support, P.coeff n * x ^ n = 0 := by
+    intro n hn
+    have hc : P.coeff n = 0 := by
+      by_contra hc
+      exact hn (Polynomial.mem_support_iff.mpr hc)
+    rw [hc, zero_mul]
+  have hs : Summable (fun n : ℕ => P.coeff n * x ^ n) :=
+    summable_of_ne_finset_zero hz
+  have heq : (∑' n : ℕ, P.coeff n * x ^ n) = P.eval x := by
+    rw [tsum_eq_sum hz]
+    exact Polynomial.eval_eq_sum.symm
+  rw [← heq]
+  exact hs.hasSum
+
+/-- Exact coefficient-series representation of the analytic remainder. -/
+theorem hasSum_hermiteRemainderCoeff_mul_pow
+    {K : Type*} [NormedField K] [CompleteSpace K]
+    (q : K) (P : K[X]) (x : K)
+    (hs : Summable (thetaTerm q x)) :
+    HasSum (fun n : ℕ => hermiteRemainderCoeff q P n * x ^ n)
+      (hermiteRemainder q P x) := by
+  have hpoly := hasSum_coeff_mul_pow (hermiteStar q P) x
+  have htheta := hs.hasSum.mul_left ((hermiteStar q P).eval 0)
+  have hsub := hpoly.sub htheta
+  exact hsub.congr_fun (fun n => by
+    simp only [hermiteRemainderCoeff, thetaTerm]
+    ring)
+
+/-- If the source has an initial gap of length `N`, the remainder is exactly
+the tail beginning at degree `N+1`; all earlier coefficients vanish. -/
+theorem hasSum_hermiteRemainder_tail_of_coeff_zero_below
+    {K : Type*} [NormedField K] [CompleteSpace K]
+    (q : K) (P : K[X]) (x : K) (hq : q ≠ 0) (N : ℕ)
+    (hP : ∀ n < N, P.coeff n = 0)
+    (hs : Summable (thetaTerm q x)) :
+    HasSum
+      (fun n : ℕ => hermiteRemainderCoeff q P (n + (N + 1)) *
+        x ^ (n + (N + 1)))
+      (hermiteRemainder q P x) := by
+  let f : ℕ → K := fun n => hermiteRemainderCoeff q P n * x ^ n
+  change HasSum (fun n : ℕ => f (n + (N + 1)))
+    (hermiteRemainder q P x)
+  have hall : HasSum f (hermiteRemainder q P x) :=
+    hasSum_hermiteRemainderCoeff_mul_pow q P x hs
+  have hzero : ∀ n < N + 1, f n = 0 := by
+    intro n hn
+    have hcoeff := coeff_hermiteStar_eq_theta_of_coeff_zero_below
+      q P hq N hP n (by omega)
+    dsimp only [f, hermiteRemainderCoeff]
+    rw [hcoeff, sub_self, zero_mul]
+  have hsum : ∑ n ∈ Finset.range (N + 1), f n = 0 := by
+    apply Finset.sum_eq_zero
+    intro n hn
+    exact hzero n (Finset.mem_range.mp hn)
+  apply (hasSum_nat_add_iff (N + 1)).2
+  simpa [hsum] using hall
+
 /-- One closed recurrence step on the monomial-times-polynomial shape used
 in (12).  This is the algebraic engine behind the paper's formula (15). -/
 theorem hermiteStep_C_mul_X_pow_succ_mul {K : Type*} [Field K]
@@ -546,6 +725,37 @@ theorem coeff_hermiteStar_skolemInitial_eq_theta
   exact coeff_hermiteStar_eq_theta_of_coeff_zero_below q
     (skolemInitial q α κ ν t) hq (ν + t + 1)
     (fun d hd => skolemInitial_coeff_eq_zero_of_lt q α κ ν t d hd) n hn
+
+/-- Literal tail-series form of the remainder for the one-value Skolem
+source.  This is the object bounded in the paper's Hilfssatz 5. -/
+theorem hasSum_skolemRemainder_tail
+    {K : Type*} [NormedField K] [CompleteSpace K]
+    (q α κ x : K) (hq : q ≠ 0) (ν t : ℕ)
+    (hs : Summable (thetaTerm q x)) :
+    HasSum
+      (fun n : ℕ =>
+        hermiteRemainderCoeff q (skolemInitial q α κ ν t)
+            (n + (ν + t + 2)) * x ^ (n + (ν + t + 2)))
+      (hermiteRemainder q (skolemInitial q α κ ν t) x) := by
+  simpa only [show (ν + t + 1) + 1 = ν + t + 2 by omega] using
+    hasSum_hermiteRemainder_tail_of_coeff_zero_below q
+      (skolemInitial q α κ ν t) x hq (ν + t + 1)
+      (fun d hd => skolemInitial_coeff_eq_zero_of_lt q α κ ν t d hd) hs
+
+/-- Ultrametric endpoint for the future concrete coefficient estimate: a
+uniform bound on every term of the exact tail bounds the whole remainder by
+the same constant, without an archimedean geometric-series loss. -/
+theorem norm_skolemRemainder_le_of_tail_bound
+    {K : Type*} [NormedField K] [CompleteSpace K] [IsUltrametricDist K]
+    (q α κ x : K) (hq : q ≠ 0) (ν t : ℕ)
+    (hs : Summable (thetaTerm q x)) (B : ℝ) (hB : 0 ≤ B)
+    (hterm : ∀ n : ℕ,
+      ‖hermiteRemainderCoeff q (skolemInitial q α κ ν t)
+          (n + (ν + t + 2)) * x ^ (n + (ν + t + 2))‖ ≤ B) :
+    ‖hermiteRemainder q (skolemInitial q α κ ν t) x‖ ≤ B := by
+  have hsum := hasSum_skolemRemainder_tail q α κ x hq ν t hs
+  rw [← hsum.tsum_eq]
+  exact IsUltrametricDist.norm_tsum_le_of_forall_le_of_nonneg hB hterm
 
 /-- Structural specialization of formula (15).  The remaining work in the
 1989 theorem is arithmetic: choose `κ`, prove valuation separation, and
