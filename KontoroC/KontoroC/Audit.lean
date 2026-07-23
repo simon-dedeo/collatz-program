@@ -791,3 +791,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.YahAffineCarryNoGo.affineQuotient_strictMono
 #print axioms KontoroC.YahAffineCarryNoGo.quotientAtom_injective
 #print axioms KontoroC.YahAffineCarryNoGo.canonicalReblocking_balance
+#print axioms KontoroC.YahCascadeCarry.cascadeDigit_balance
+#print axioms KontoroC.YahCascadeCarry.cascadeWord_balance
+#print axioms KontoroC.YahCascadeCarry.cascadeWord_state_mod
+#print axioms KontoroC.YahCascadeCarry.cascadeWord_state_mod_of_value
+#print axioms KontoroC.YahCascadeCarry.cascadeWord_eq_layered
+#print axioms KontoroC.YahCascadeCarry.auditedAtom_affine_state

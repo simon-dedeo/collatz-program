@@ -10243,3 +10243,50 @@ broad generalization is the all-depth Hull--Dobell criterion itself
 (`a=1 mod 4`, `b` odd gives one cycle modulo every `2^s`).  The exact `s=19`
 result is already sufficient to reject the proposed third-edge pair
 reblocking.
+
+## Round 178 — the cascade/state seam is now universal, not sampled
+
+`YahCascadeCarry.lean` formalizes an arbitrary stack of quotient sweeps.  A
+carry vector `cs : List Carry` is interpreted little-endian, exactly like the
+Python integer state.  For every trit word `w`, Lean proves the division-free
+identity
+
+```text
+3^|w| * carryState(cs) + wordValue(w)
+  = 2^|cs| * wordValue(output) + carryState(final).
+```
+
+It then proves that this per-digit cascade is *definitionally equivalent in
+behavior* to applying the existing `quotientCore` transducer one complete
+word layer at a time.  Consequently, for every word and every incoming state,
+
+```text
+carryState(final)
+  = (3^|w| * carryState(cs) + wordValue(w)) mod 2^|cs|.
+```
+
+This closes the important semantic concern in Round 177: the affine carry law
+is no longer extrapolated from two atoms or four sampled orbits.  It is an
+all-word theorem about the actual quotient transducer.
+
+The 19-bit specialization is also packaged.  For any `cs,w`, assumptions
+
+```text
+|cs| = 19,
+|w| = 65536,
+wordValue(w) mod 524288 = 449133
+```
+
+imply exactly
+
+```text
+carryState(final) =
+  (262145*carryState(cs)+449133) mod 524288.
+```
+
+Thus only one block-specific certificate seam remains: please provide the
+returned atom as a compact/generated Lean word, or preferably a compositional
+description from which Lean can prove its length `65536` and modular value
+`449133`.  A SHA-256 digest is not a proof of those facts.  Once those two
+facts are connected to the actual returned atom, QM43/QM44 is end-to-end
+inside Lean.
