@@ -48,7 +48,7 @@ from breakoff_ether_period3_sieve import (
 )
 
 
-SCHEMA = "collatz-breakoff-ether-period3-normalized-crt-v2"
+SCHEMA = "collatz-breakoff-ether-period3-normalized-crt-v3"
 
 
 @dataclass(frozen=True)
@@ -69,6 +69,7 @@ class CrtRow:
     accumulated_binary_precision: int
     candidate_bits: int
     candidate_leading_zero_bits: int
+    normalized_crt_margin_bits: int
     candidate_sha256: str
     failure_step: int | None
     failure_source_branch: int | None
@@ -96,6 +97,9 @@ class ScheduleSummary:
     maximum_proposed_lower_bound_initial_bits: int | None
     maximum_candidate_leading_zero_bits: int
     maximum_candidate_leading_zero_cycle: int
+    maximum_normalized_crt_margin_bits: int
+    maximum_normalized_crt_margin_cycle: int
+    final_normalized_crt_margin_bits: int
     row_sha256: str
 
 
@@ -194,6 +198,7 @@ def audit_row(start_branch: int, word: Sequence[int], cycle: int) -> CrtRow:
         candidate_leading_zero_bits=(
             combined_modulus.bit_length() - candidate.bit_length()
         ),
+        normalized_crt_margin_bits=max(0, candidate.bit_length() - precision),
         candidate_sha256=digest_natural(candidate),
         failure_step=failure_fields[0],
         failure_source_branch=failure_fields[1],
@@ -234,6 +239,9 @@ def summarize(rows: Sequence[CrtRow]) -> ScheduleSummary:
     most_zeros = max(
         rows, key=lambda row: (row.candidate_leading_zero_bits, -row.cycle)
     )
+    largest_margin = max(
+        rows, key=lambda row: (row.normalized_crt_margin_bits, -row.cycle)
+    )
     lower_bounds = [
         row.proposed_lower_bound_initial_bits
         for row in rows
@@ -257,6 +265,11 @@ def summarize(rows: Sequence[CrtRow]) -> ScheduleSummary:
             most_zeros.candidate_leading_zero_bits
         ),
         maximum_candidate_leading_zero_cycle=most_zeros.cycle,
+        maximum_normalized_crt_margin_bits=(
+            largest_margin.normalized_crt_margin_bits
+        ),
+        maximum_normalized_crt_margin_cycle=largest_margin.cycle,
+        final_normalized_crt_margin_bits=rows[-1].normalized_crt_margin_bits,
         row_sha256=row_digest(rows),
     )
 
@@ -355,11 +368,20 @@ def scan_box(
         "maximum_candidate_leading_zero_bits": max(
             row.candidate_leading_zero_bits for row in rows
         ) if rows else None,
+        "maximum_normalized_crt_margin_bits": max(
+            row.normalized_crt_margin_bits for row in rows
+        ) if rows else None,
+        "minimum_of_schedule_maximum_crt_margins": min(
+            summary.maximum_normalized_crt_margin_bits
+            for summary in summaries
+        ) if summaries else None,
         "leading_zero_anomalies": [row_dict(row) for row in anomalies[:64]],
         "schedule_summaries": [summary_dict(summary) for summary in summaries],
         "theorem_interface": (
-            "Lean commit 52cd3e1, QM105--QM107: a failed canonical normalized CRT "
-            "representative forces 6*n_previous+11 < bits(core(0))"
+            "Lean commits 52cd3e1/0179bb7, QM105--QM109: replay failure "
+            "forces 6*n_previous+11 < bits(core(0)); independently, every "
+            "positive canonical representative satisfies "
+            "candidate_bits-binary_precision_bits <= bits(core(0))"
         ),
         "claim_scope": (
             "finite exact CRT and replay measurements in the displayed "
@@ -487,6 +509,9 @@ def main() -> None:
             ],
             "minimum_of_schedule_lower_bounds": artifact[
                 "minimum_of_schedule_lower_bounds"
+            ],
+            "minimum_of_schedule_maximum_crt_margins": artifact[
+                "minimum_of_schedule_maximum_crt_margins"
             ],
             "counterexample": None,
         }, sort_keys=True))
