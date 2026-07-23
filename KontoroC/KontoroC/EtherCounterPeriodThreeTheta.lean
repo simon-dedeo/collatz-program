@@ -522,6 +522,15 @@ theorem false_of_thetaIndependent (g : Ray)
     exact_mod_cast (g.core_pos 0).ne'
   exact hind (g.core 0) (g.thetaData).prefixScale (Or.inl hcore) hrelation
 
+/-- Citation-boundary audit.  The desired relation has four values in total,
+but the 1989 parameter `ell` counts the three theta values (not the additional
+constant `1`).  Its sufficient threshold is already strictly below the EC17
+height parameter at `ell=3`. -/
+theorem published_threshold_three_lt_gamma :
+    EtherCounterPeriodicTheta.threshold 3 <
+      EtherCounterPeriodicTheta.gamma :=
+  EtherCounterPeriodicTheta.threshold_three_lt_gamma
+
 end Ray
 end EtherCounterPeriodThreeTheta
 end KontoroC

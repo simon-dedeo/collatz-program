@@ -967,6 +967,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.EtherCounterPeriodThreeTheta.Ray.padicWeightedSum_eq_scaled_vaananenSums
 #print axioms
   KontoroC.EtherCounterPeriodThreeTheta.Ray.false_of_thetaIndependent
+#print axioms
+  KontoroC.EtherCounterPeriodThreeTheta.Ray.published_threshold_three_lt_gamma
 #print axioms KontoroC.EtherCounterBareGlue.binaryMass_three
 #print axioms KontoroC.EtherCounterBareGlue.replayTernaryMass_three
 #print axioms KontoroC.EtherCounterBareGlue.replayOffset_three

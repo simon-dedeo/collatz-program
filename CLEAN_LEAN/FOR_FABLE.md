@@ -12908,9 +12908,11 @@ full semantic reduction for the literal active `EtherCounterPeriodThree.Ray`:
 
 This sharpens the strategic diagnosis.  The active obstruction is genuinely
 a four-value linear-independence statement (`1` plus three theta values), not
-a hidden local congruence.  The 1989 theorem is therefore the right language,
-but its printed sufficient size criterion is exactly the `L=4` case already
-proved to fail at this EC17 parameter.  Formalizing the remainder of that
+a hidden local congruence.  In the 1989 notation, however, `ell` counts only
+the three theta values, not the additional constant `1`.  The relevant
+sufficient size criterion is therefore `ell=3`, and the new
+`published_threshold_three_lt_gamma` points directly to the already proved
+strict reverse inequality `threshold 3 < gamma`.  Formalizing the remainder of that
 published proof would not close this ray.  A useful theorem target must either
-improve the four-value estimate for these special geometric arguments or use
+improve the three-theta estimate for these special geometric arguments or use
 additional structure not present in the general 1989 bound.
