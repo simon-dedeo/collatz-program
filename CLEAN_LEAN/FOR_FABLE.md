@@ -16078,3 +16078,41 @@ The full 8,832-job build and axiom audit pass with standard mathlib
 principles.  QM158a--f are now complete in finite-active-code form.  The
 finite-height closure QM158g and odd-part monotonicity are the remaining
 optional adapters.
+
+## Round 318 — positive carry lifts and the resonant spike (QM159a--b)
+
+The reusable content of QM159a is now a theorem in
+`OutwardCylinderRenewal.lean`.  For any finite parity prefix `w` and any
+property `P`, if the canonical source residue fails `P` but another source
+executing the same prefix has `P`, Lean produces
+
+```text
+source = r_w + 2^length(w) * ell,   ell>0.
+```
+
+Instantiating `P` as “realizes the next first-passage depth” gives the exact
+record-prefix statement.  The strict positivity is proved from failure of
+the zero lift; it is not inferred from a numerical scan.
+
+`KontoroC/OutwardResonance.lean` now kernel-checks QM159b for every natural
+`L`.  The 17 literal shortcut states of the canonical execution are exposed,
+and the general family is obtained from the proved dyadic-to-triadic shift:
+
+```text
+H_L = 3*(2^17*3^L-7),
+3H_L-1 --00000011111111111--> 3*3^(12+L)-1.
+```
+
+Lean also computes from definitions `(S,O,e)=(17,11,7*3^12)` (the `S,O`
+values are definitional and the error is proved by normalization).  This is
+an all-parameter execution theorem, not a finite table and not an infinite
+orbit.
+
+The conceptual no-go is therefore rigorous at its input seam: one fixed
+legal word can create arbitrarily large fresh ternary charge.  Any proposed
+branch-uniform scalar Lyapunov function which rewards `v3` without charging
+the accompanying Archimedean/dyadic cost must fail on this family.  QM159c's
+fixed-macro return obstruction remains a possible next theorem.
+
+The full 8,833-job build and axiom audit pass using standard mathlib
+principles; no native decision axiom is used by these results.

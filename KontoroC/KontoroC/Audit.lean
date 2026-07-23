@@ -1717,6 +1717,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardCylinderRenewal.exists_unique_canonical_execution
 #print axioms KontoroC.OutwardCylinderRenewal.canonicalExecution_spec
 #print axioms KontoroC.OutwardCylinderRenewal.executes_iff_canonical_family
+#print axioms KontoroC.OutwardCylinderRenewal.positive_lift_of_canonical_fails
 #print axioms KontoroC.OutwardCylinderRenewal.canonical_affine_identity
 #print axioms KontoroC.OutwardCylinderRenewal.phaseParameter_spec
 #print axioms KontoroC.OutwardCylinderRenewal.source_phase_iff_parameter_phase
@@ -1733,3 +1734,6 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardOddSlice.odd_successor_to_residueTwo
 #print axioms KontoroC.OutwardOddSlice.residueTwo_to_odd_successor
 #print axioms KontoroC.OutwardOddSlice.least_successor_eq_residueTwo_slice
+#print axioms KontoroC.OutwardResonance.resonant_base_executes
+#print axioms KontoroC.OutwardResonance.resonantWord_boundaryError
+#print axioms KontoroC.OutwardResonance.resonant_family_executes

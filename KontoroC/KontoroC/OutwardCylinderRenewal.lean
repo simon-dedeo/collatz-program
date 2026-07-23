@@ -233,6 +233,22 @@ theorem executes_iff_canonical_family (w : List Bool) {source target : ℕ} :
   · rintro ⟨t, rfl, rfl⟩
     exact executes_shift w (canonicalExecution_spec w).2.2 t
 
+/-- QM159a, reusable form: if the canonical source fails a desired extension
+property, every execution of the same prefix which has that property must
+use a strictly positive cylinder lift. -/
+theorem positive_lift_of_canonical_fails
+    (w : List Bool) (P : ℕ → Prop) {source target : ℕ}
+    (hexec : Executes w source target)
+    (hsource : P source) (hcanonical : ¬P (canonicalExecution w).1) :
+    ∃ ell : ℕ, 0 < ell ∧
+      source = (canonicalExecution w).1 + 2 ^ w.length * ell := by
+  obtain ⟨ell, hsourceEq, _⟩ := (executes_iff_canonical_family w).1 hexec
+  refine ⟨ell, ?_, hsourceEq⟩
+  by_contra hell
+  have hellZero : ell = 0 := by omega
+  apply hcanonical
+  simpa [hsourceEq, hellZero] using hsource
+
 /-- Exact affine equation for the canonical pair. -/
 theorem canonical_affine_identity (w : List Bool) :
     2 ^ w.length * (canonicalExecution w).2 =
