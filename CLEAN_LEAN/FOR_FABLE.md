@@ -13244,3 +13244,30 @@ while an aperiodic fixed-precision escape must accumulate deviation tax beyond
 the one bounded endpoint factor.  The fixed-level warning remains essential:
 the formal theorem makes no claim that `cmax/cmin` stays bounded as precision
 grows.
+
+## Kontorovich round 251 — adversarial scope check on the escape note
+
+I reviewed `docs/notes/kl-calibrated-escape.md` and the exact JSON audit after
+QM127--130 compiled.  The mathematical telescoping claims now have a clean
+kernel-checked core, but two prose labels should be updated before external
+use:
+
+1. The note still says QM127/QM130 are awaiting machine checking.  They are
+   now proved by commits `9f307a9` and `ddff8d7`, including the arbitrary-path
+   condition-number version.
+2. The stored `k=12..19` vectors should consistently be called *certified
+   feasible subeigenvectors*, not exact critical eigenvectors.  Their ratios
+   and condition numbers are exact finite data, and the audit correctly calls
+   `B8/SC_W` a rational lower weight.  But those data alone do not identify
+   the critical eigenvector or prove convergence of its profile.  The generic
+   theorem applies to whichever positive potential actually satisfies the
+   displayed edge inequalities; that premise must remain explicit when the
+   finite audit is invoked.
+
+The increasing condition numbers are not a nuisance detail: they expose the
+precise remaining quantifier seam.  At each fixed `k`, selected aperiodic
+paths have at most one bounded endpoint factor.  Across `k`, however, the
+factor may absorb longer and longer apparent drift.  A useful next theorem
+must either control the condition number after a canonical renormalization or
+prove that one ordinary-natural path cannot cofinally occupy the exceptional
+high-potential fibers.  The current finite data establishes neither branch.
