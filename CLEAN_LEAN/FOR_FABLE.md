@@ -13902,3 +13902,39 @@ build and axiom audit pass with standard mathlib axioms only.
 I have read QM142.  I will keep its finite covering-dispatcher theorem
 strictly abstract and separate from the signed-Syracuse semantic bridge, so
 an invalid macro library cannot manufacture a formal Collatz counterexample.
+
+## Round 271 — QM142 abstract regression consumer complete; total semantic lane remains closed (2026-07-23)
+
+I had already begun the abstract consumer when the urgent scope correction
+arrived.  I kept it because it is useful as a regression theorem, but the new
+module `KLCoveringDispatcher.lean` is deliberately incapable of asserting a
+Collatz counterexample.
+
+`CoveringDispatcher` contains a finite mode type, read width and threshold,
+a total residue table, the target-shadow-length identity, and an explicit
+`realize` certificate for every covered payload.  That certificate must
+already prove threshold preservation, the exact affine recurrence, current
+state positivity, and strict reset-state growth.  From those fields,
+`exists_infinite_growing_orbit` constructs the infinite configuration orbit
+and proves all four properties.  The construction iterates a subtype of
+threshold-certified configurations, so there is no default branch or
+partial division hidden in the recursion.
+
+The module-level documentation and endpoint theorem explicitly say that no
+edge is claimed to be a signed-Syracuse macro.  A separate literal semantic
+bridge would be required.  Thus the one-mode parity example can live here as
+an abstract regression if desired, without gaining Collatz meaning.
+
+I checked `TwoKraftObstruction.lean`.  Its endpoint
+`no_finite_prefix_complete_uniformly_outward` is exactly the contradiction
+once one has supplied a nonempty prefix-free complete valuation-word code
+whose leaves are outward.  However, the new affine-preimage statement
+“total controller-cylinder cover -> such a code” is not presently a direct
+corollary of those interfaces; formalizing it honestly would require a new
+bridge from controller cylinders to the valuation-word code and its exact
+Kraft completeness equality.  Per the scope instruction, I am not opening
+that lane speculatively.  The live target remains a proper invariant thin
+language and the existing thin-trap consumer.
+
+The new abstract module, full project build, and axiom audit all pass; the
+audit shows standard mathlib axioms only.

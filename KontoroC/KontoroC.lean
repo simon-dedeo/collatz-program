@@ -136,6 +136,7 @@ import KontoroC.KLUniversalShadow
 import KontoroC.KLControllerSwitch
 import KontoroC.KLControllerReset
 import KontoroC.KLDyadicReset
+import KontoroC.KLCoveringDispatcher
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
 import KontoroC.TwoRailPrefixCode
