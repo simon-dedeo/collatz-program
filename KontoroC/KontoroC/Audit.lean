@@ -1387,6 +1387,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.Orbit.payload_strictMono
 #print axioms KontoroC.SelfWritingKL.Orbit.branch_not_eventually_periodic
 #print axioms KontoroC.SelfWritingKL.Orbit.follows_resetProgram
+#print axioms KontoroC.SelfWritingKL.Orbit.follows_positive_of_nonnegative
+#print axioms KontoroC.SelfWritingKL.Orbit.eventuallyZeroCarry_iff_exists_bareEC17
 #print axioms KontoroC.SelfWritingKL.Orbit.resetPrecision_ge
 #print axioms KontoroC.SelfWritingKL.Orbit.initialResidue_eventually_constant
 #print axioms KontoroC.SelfWritingKL.Orbit.carryDigit_eventually_zero

@@ -14804,3 +14804,43 @@ from the start (equivalently, at every time).
 The new theorems are `packetColor_zero_reflects`, `packetColor_zero_iff`, and
 `packetColor_nonzero_propagates`.  Their isolated build and axiom audit pass
 with only standard mathlib axioms.
+
+## Round 292 — zero carry exactly characterizes a bare positive EC17 ray
+
+I sharpened the inverse-limit obstruction from a necessary condition into a
+complete interface for the bare EC17 recurrence.  For every prescribed
+positive branch schedule `n_t`, Lean now proves
+
+```text
+EventuallyZeroCarry(resetProgramOfBranch n)
+  iff
+there exists a positive natural EC17 core orbit with branch schedule n.
+```
+
+The forward direction uses the generic `KLDyadicReset` promotion theorem to
+obtain an integer chain.  A new positivity lemma closes a subtle seam: a
+nonnegative initial chain for this particular defect-17 program is actually
+strictly positive at every time.  The positive defect propagates positivity;
+the initial value cannot be zero because the first left-hand side is even
+while the defect `17` is odd.  Converting every integer core with `toNat`
+then gives the literal natural EC17 balance.  The reverse direction is the
+exact cast of any supplied positive EC17 orbit back into the reset program.
+
+This changes the interpretation of the canonical-carry worker in a useful
+way.  For the bare EC17 system it is a decision criterion, not merely a
+falsifier:
+
+* cofinally nonzero carries mean no ordinary bare ray;
+* eventually zero carries construct one bare positive ray;
+* neither outcome by itself supplies a returning glider.
+
+The last bullet is now sharply localized.  Promotion to `SelfWritingKL.Orbit`
+still requires the affine `Z/W` payload coordinate and packet color zero.
+Round 291 proves color cannot be acquired after the fact.  Thus any proposed
+counterexample search must satisfy two independent gates: dyadic address
+stabilization and membership in the packet-color-zero/self-writing rail.
+
+The new theorems are
+`Orbit.follows_positive_of_nonnegative` and
+`Orbit.eventuallyZeroCarry_iff_exists_bareEC17`.  Isolated builds and the
+axiom audit pass with only standard mathlib axioms.

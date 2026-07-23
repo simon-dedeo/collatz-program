@@ -446,6 +446,88 @@ def resetProgramOfBranch (branch : ℕ → ℕ) (t : ℕ) :
   O := 6 * branch t + 11
   delta := 17
 
+/-- Any nonnegative integer chain following the branch reset program is in
+fact strictly positive at every time.  Positivity after time zero follows
+from the positive defect.  At time zero, equality with defect `17` rules out
+zero because the left side is divisible by two. -/
+theorem follows_positive_of_nonnegative
+    (branch : ℕ → ℕ) (m : ℕ → ℤ)
+    (hm : KLDyadicReset.Follows (resetProgramOfBranch branch) m)
+    (h0 : 0 ≤ m 0) : ∀ t, 0 < m t := by
+  have hzero_ne : m 0 ≠ 0 := by
+    intro hzero
+    have hstep := hm 0
+    simp only [resetProgramOfBranch] at hstep
+    rw [hzero, mul_zero, zero_add] at hstep
+    have hpow : (2 : ℤ) ∣ (2 : ℤ) ^ (8 * branch 1 + 15) :=
+      dvd_pow_self 2 (by omega)
+    have hleft : (2 : ℤ) ∣
+        (2 : ℤ) ^ (8 * branch 1 + 15) * m 1 :=
+      dvd_mul_of_dvd_left hpow _
+    rw [hstep] at hleft
+    norm_num at hleft
+  have hbase : 0 < m 0 := by omega
+  intro t
+  induction t with
+  | zero => exact hbase
+  | succ t ih =>
+      have hstep := hm t
+      simp only [resetProgramOfBranch] at hstep
+      have hrhs : 0 <
+          (3 : ℤ) ^ (6 * branch t + 11) * m t + 17 := by
+        have hproduct : 0 <
+            (3 : ℤ) ^ (6 * branch t + 11) * m t :=
+          mul_pos (by positivity) ih
+        omega
+      have hlhs : 0 <
+          (2 : ℤ) ^ (8 * branch (t + 1) + 15) * m (t + 1) := by
+        rw [hstep]
+        exact hrhs
+      have hreordered : 0 <
+          m (t + 1) * (2 : ℤ) ^ (8 * branch (t + 1) + 15) := by
+        simpa [mul_comm] using hlhs
+      exact pos_of_mul_pos_left hreordered (by positivity)
+
+/-- Complete ordinary-address characterization for the bare positive EC17
+core recurrence on a prescribed positive branch schedule.  Eventual zero
+carry is neither merely necessary nor heuristic: it is equivalent to the
+existence of a positive natural EC17 core ray.  Packet color and the affine
+`Z/W` self-writing rail remain additional, separate constraints. -/
+theorem eventuallyZeroCarry_iff_exists_bareEC17
+    (branch : ℕ → ℕ) (hbranch : ∀ t, 0 < branch t) :
+    KLDyadicReset.EventuallyZeroCarry (resetProgramOfBranch branch) ↔
+      ∃ o : EtherCounterStateNoRepeat.Orbit, o.branch = branch := by
+  rw [KLDyadicReset.eventuallyZeroCarry_iff_exists_nonnegative_follows]
+  constructor
+  · rintro ⟨m, hm, h0⟩
+    have hmpos := follows_positive_of_nonnegative branch m hm h0
+    let o : EtherCounterStateNoRepeat.Orbit :=
+      { branch := branch
+        branch_pos := hbranch
+        core := fun t => (m t).toNat
+        core_pos := fun t => by
+          have hcast := Int.toNat_of_nonneg (hmpos t).le
+          apply Nat.pos_of_ne_zero
+          intro hzero
+          have hmzero : m t = 0 := by
+            calc
+              m t = ((m t).toNat : ℤ) := hcast.symm
+              _ = 0 := by simp [hzero]
+          exact (ne_of_gt (hmpos t)) hmzero
+        balance := fun t => by
+          have hstep := hm t
+          simp only [resetProgramOfBranch] at hstep
+          rw [← Int.toNat_of_nonneg (hmpos t).le,
+            ← Int.toNat_of_nonneg (hmpos (t + 1)).le] at hstep
+          exact_mod_cast hstep }
+    exact ⟨o, rfl⟩
+  · rintro ⟨o, rfl⟩
+    let m : ℕ → ℤ := fun t => o.core t
+    refine ⟨m, ?_, by simp [m]⟩
+    intro t
+    simp only [resetProgramOfBranch, m]
+    exact_mod_cast o.balance t
+
 def resetProgram (o : Orbit) : ℕ → KLDyadicReset.ResetStep :=
   resetProgramOfBranch o.branch
 
