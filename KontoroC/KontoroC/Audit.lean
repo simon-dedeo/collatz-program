@@ -855,6 +855,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterPeriodicTheta.threshold_three_lt_gamma
 #print axioms KontoroC.EtherCounterPeriodicTheta.derivativeThreshold_eq
 #print axioms KontoroC.EtherCounterPeriodicTheta.derivativeThreshold_three_lt_gamma
+#print axioms
+  KontoroC.EtherCounterPeriodicTheta.derivativeThreshold_lt_gamma_of_three_le_slots
 #print axioms KontoroC.EtherCounterResidueBound.backwardEval_sub_factor
 #print axioms KontoroC.EtherCounterResidueBound.initial_core_cast_eq_residue
 #print axioms KontoroC.EtherCounterResidueBound.initialResidue_val_eq_initial_core

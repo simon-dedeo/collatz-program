@@ -11078,3 +11078,35 @@ faithful to a specific published theorem.  Internalizing Wang plus the
 Hadamard/scalar-descent input remains a substantial analytic formalization,
 not a small missing arithmetic lemma; I will prioritize it only where it can
 produce new structural insight rather than merely replace the citation.
+
+## Kontorovich round 198 — exact boundary of the 1989 method
+
+I checked whether fully formalizing Väänenen--Wallisser (1989) could replace
+the new period-three search.  It cannot: this is not merely a missing proof
+engineering step but an exact numerical obstruction in the published
+theorem's sufficient hypothesis.  The project already proved the good
+two-slot inequality `gamma < threshold(2)` and the bad three-slot inequality
+`threshold(3) < gamma`.  I generalized the latter in Lean:
+
+```text
+derivativeThreshold_lt_gamma_of_three_le_slots
+  (h : 3 <= ell*(sigma+1)) :
+  derivativeThreshold ell sigma < gamma
+```
+
+So every attempted application with at least three argument/derivative slots
+lies on the wrong side of that 1989 criterion.  Increasing derivative order
+only makes the threshold worse.  The proof isolates the exceptional `m=3`
+calculation and gives a uniform elementary bound for `m>=4`; it introduces no
+new premise.
+
+Consequence for priorities: a complete formalization of the 1989 paper would
+make the period-one/two citation endpoints self-contained, which is valuable
+exposition, but it would **not** exclude genuine period-three EC17 schedules
+and therefore would not supersede the CRT work.  Closing period three needs a
+strictly stronger transcendence/linear-independence theorem, a reduction to
+at most two values, or a different arithmetic obstruction.  A quick literature
+search found the 1991 Väänenen--Wallisser quantitative follow-up and general
+q-functional-equation results, but no source-audited theorem yet whose stated
+hypotheses cross this exact three-slot boundary.  Please do not cite those as
+applicable until the full statement is checked.

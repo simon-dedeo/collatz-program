@@ -602,5 +602,42 @@ theorem derivativeThreshold_three_lt_gamma (sigma : ℕ) (hsigma : 1 ≤ sigma) 
     _ < (5 : ℝ) / 32 := by norm_num
     _ < gamma := five_thirtyseconds_lt_gamma
 
+/-- The Väänänen--Wallisser sufficient size condition is unavailable for
+every application with at least three argument/derivative slots.  Thus
+formalizing that theorem can close the one- and two-slot EC17 reductions, but
+cannot by itself settle any three-phase (or higher-phase) schedule. -/
+theorem derivativeThreshold_lt_gamma_of_three_le_slots
+    (ell sigma : ℕ) (hslots : 3 ≤ ell * (sigma + 1)) :
+    derivativeThreshold ell sigma < gamma := by
+  let m : ℕ := ell * (sigma + 1)
+  have hm : 3 ≤ m := by simpa [m] using hslots
+  rcases hm.eq_or_lt with hthree | hfour
+  · have hm3 : m = 3 := hthree.symm
+    simpa [derivativeThreshold, m, hm3] using threshold_three_lt_gamma
+  · have hm4 : 4 ≤ m := by omega
+    have hmpos : (0 : ℝ) < m := by positivity
+    have hsqrt_nonneg : 0 ≤ √(1 + 4 * (m : ℝ) ^ 2) := Real.sqrt_nonneg _
+    have hsqrt_sq : (√(1 + 4 * (m : ℝ) ^ 2)) ^ 2 =
+        1 + 4 * (m : ℝ) ^ 2 := by
+      rw [Real.sq_sqrt]
+      positivity
+    have hsqrt_gt : 2 * (m : ℝ) < √(1 + 4 * (m : ℝ) ^ 2) := by
+      nlinarith
+    have hthreshold : threshold m < 1 / (2 * (m : ℝ)) := by
+      rw [threshold]
+      apply (div_lt_div_iff₀ (by positivity) (by positivity)).2
+      nlinarith
+    have hrecip : 1 / (2 * (m : ℝ)) ≤ (1 : ℝ) / 8 := by
+      have hmreal : (4 : ℝ) ≤ m := by exact_mod_cast hm4
+      apply (div_le_div_iff₀ (by positivity) (by norm_num)).2
+      nlinarith
+    calc
+      derivativeThreshold ell sigma = threshold m := by
+        simp [derivativeThreshold, m]
+      _ < 1 / (2 * (m : ℝ)) := hthreshold
+      _ ≤ (1 : ℝ) / 8 := hrecip
+      _ < (5 : ℝ) / 32 := by norm_num
+      _ < gamma := five_thirtyseconds_lt_gamma
+
 end EtherCounterPeriodicTheta
 end KontoroC
