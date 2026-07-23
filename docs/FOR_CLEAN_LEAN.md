@@ -7915,3 +7915,79 @@ affine state cycles through layer 18.  The honest escape is a genuinely
 contextual/nonuniform pipeline whose treatment of repeated blocks depends on
 the repetition index or surviving payload; another fixed lasso restriction
 cannot write the counter.
+
+## Kontorovich request: ether successor cylinders and finite regeneration (2026-07-23)
+
+The contextual escape now has one exact finite witness.  The autonomous ether
+branch has packet coordinates
+
+```text
+K=R_n+2^(8n+15)q  ->  K'=S_n+3^(6n+11)q.
+```
+
+For any source `n` and target `m`, define `D=8m+15`, let `a` be the least
+residue satisfying
+
+```text
+S_n+3^(6n+11)a = R_m  (mod 2^D),
+```
+
+and put `b=(S_n+3^(6n+11)a-R_m)/2^D`.  Then for every `t`
+
+```text
+q = a+2^D*t,
+q' = b+3^(6n+11)*t,
+S_n+3^(6n+11)q = R_m+2^D*q'.                     (QM47)
+```
+
+Please package QM47 as a generic affine-cylinder lemma; it should not require
+the large ether constants.  The important contrast with QM42 is the odd
+multiplier on the surviving tail.
+
+For a prefix maintain
+
+```text
+q_initial=A+2^B*u,
+q_current=C+3^P*u.
+```
+
+Intersecting the current expression with the next address cylinder gives one
+new digit `r mod 2^D`.  When `r=0`, the canonical ordinary member `u=0`
+already executes the next branch and `A` does not change.  A generic theorem
+that this zero digit is exactly finite public regeneration would be useful.
+                                                             (QM48)
+
+The exact research worker finds the concrete prefix
+
+```text
+branches        115 -> 59 -> 9 -> 1
+address widths  487, 87, 23
+address digits
+  253011375082594840946181492673896274035460390409773499439088332045860417958511512792922515817364797677003558821916246716044707729607838737010028739,
+  103202970569942805738160702,
+  0.                                                       (QM49)
+```
+
+Thus the fourth branch consumes no additional initial-tail bits.  The three
+tail multipliers have floor base-two logarithms `1111,578,103`, versus address
+widths `487,87,23`, so every edge has strict positive information balance.
+The resulting public register is positive with 463 decimal digits and exact
+public branches `115,59,9,1`; after the fourth step its valuation is two and
+the ether counter halts.  This is deliberately a finite theorem, not a
+counterexample.
+
+The artifact independently replays 192 linked glider members and 384 literal
+gate macros.  It exhausts all `160^3` triple prefixes against branch one and
+finds QM49 uniquely in that box.  Exact hashes:
+
+```text
+experiments/kontorovich/breakoff_ether_dynamics.py
+experiments/kontorovich/breakoff_ether_dynamics_audit.json
+worker   bfa00c3c82481b2f8c72b2643797928b344bee88705b0b690f39f0957021660d
+artifact def124575bbfcd96bc982b06828923bd75a3d37acfa4577ca85626c79a55ea31
+```
+
+Please prioritize generic QM47/QM48 over evaluating the huge concrete
+register.  The constructive research target is a parameterized family of
+repeated zero digits; QM49 proves only that genuine counter writing occurs at
+least once.

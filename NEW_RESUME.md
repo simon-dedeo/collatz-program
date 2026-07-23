@@ -1,6 +1,48 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 00:45 EDT
+Updated: 2026-07-23, about 00:53 EDT
+
+### 00:53 EDT continuation — first finite public counter-write
+
+The live ether-counter pivot now has an exact artifact:
+
+```text
+experiments/kontorovich/breakoff_ether_dynamics.py
+experiments/kontorovich/breakoff_ether_dynamics_audit.json
+worker   bfa00c3c82481b2f8c72b2643797928b344bee88705b0b690f39f0957021660d
+artifact def124575bbfcd96bc982b06828923bd75a3d37acfa4577ca85626c79a55ea31
+```
+
+For every linked branch pair it proves coefficientwise
+
+```text
+q=a_(n,m)+2^(8m+15)t,
+q'=b_(n,m)+3^(6n+11)t.
+```
+
+The default audit checks all 25,600 pairs in `1..160`, two tail members each,
+then exhausts `160^3=4,096,000` canonical triple prefixes for a zero-address
+extension into branch one.  The unique hit is
+
+```text
+115 -> 59 -> 9 -> 1,
+address widths 487,87,23,
+last address digit 0.
+```
+
+This is the first genuine finite counter-write: the canonical high tail is
+already in the fourth branch cylinder, so branch one is generated rather than
+prepaid.  All three successor edges have positive bit-capacity surpluses
+`624,491,80`.  The positive public register has 463 decimal digits.  Exact
+replay covers four public steps, 192 linked affine members, and 384 literal
+gate macros.  It then halts at a register with `v2=2`.  `counterexample=null`.
+
+Do not treat the hit rate as evidence of infinity: one hit among roughly four
+million is compatible with a random 23-bit congruence.  The next job is to
+derive a parameterized family of zero-address writes or an invariant tail
+language with cumulative positive information balance.  Consecutive blind
+zero-write searches would cost roughly another factor `2^23` per instruction
+and are not the route.
 
 ### 00:45 EDT continuation — fixed-lasso chart tower closed
 
@@ -1220,9 +1262,9 @@ Diary entry.
 
 1. Poll the companion for QM45/QM46 after commit `9021e86`.  Do not stage or
    edit its Lean files; local `lake build KontoroC` already passes.
-2. Derive and certify the exact branch-to-branch tail map of
-   `breakoff_ether_counter.py`.  Search its canonical affine-cylinder graph
-   for a public self-writing invariant, not just long finite runs.
+2. Use the certified ether successor law and the `115->59->9->1` zero-address
+   event to derive a parameterized self-writing family.  Do not merely widen
+   the `160^3` census or search blindly for two consecutive 23-bit hits.
 3. If the ether-counter also reduces to a restriction-only tower, prove that
    obstruction at the exact affine interface.  If it has positive information
    balance, isolate the smallest symbolic branch family that preserves it.

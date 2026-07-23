@@ -2980,6 +2980,72 @@ artifact SHA-256  1bd14809686ed19e599f95d624c81732daa984a681e28b82fdda868abfedff
 verifier SHA-256  ac560b6b088d62c685fa7382af7cc5e75a8f0039d9ea55558a00a237214f9dfe
 ```
 
+## Ether-counter successor dynamics and finite self-write
+
+`breakoff_ether_dynamics.py` links the autonomous branches without hidden
+gate metadata.  If the length-`n` branch tail is `q`, intersecting its output
+packet with the length-`m` input cylinder gives the exact all-parameter law
+
+```text
+q  = a_(n,m) + 2^(8m+15)*t,
+q' = b_(n,m) + 3^(6n+11)*t.
+```
+
+For a whole prefix the worker maintains
+
+```text
+initial tail = A+2^B*u,
+current tail = C+3^P*u.
+```
+
+An extension with new address digit zero means that the canonical member
+`u=0` already executes the next branch: earlier arithmetic has written the
+next instruction instead of exposing more preloaded high bits.
+
+The default artifact constructs and coefficient-checks all `160^2=25,600`
+branch-pair cylinders at tails zero and one.  It then exhausts all
+`160^3=4,096,000` canonical three-branch prefixes for a zero-cost extension
+to the minimum-width branch one.  There is exactly one:
+
+```text
+branches        115 -> 59 -> 9 -> 1
+address widths  487, 87, 23
+address digits  253011375082594840946181492673896274035460390409773499439088332045860417958511512792922515817364797677003558821916246716044707729607838737010028739,
+                103202970569942805738160702,
+                0
+```
+
+The edge multipliers provide exact positive information balance:
+
+```text
+edge       floor(log2 multiplier)   bits consumed   certified surplus
+115->59             1111                 487               624
+ 59->9               578                  87               491
+  9->1               103                  23                80
+```
+
+The resulting initial packet has 455 decimal digits and its public register
+has 463.  The verifier executes the public partial map, reconstructs every
+branch tail, and independently calls the returning-glider replayer.  The four
+steps expand into 192 linked affine members and 384 literal gate macros.  The
+ordinary endpoints link exactly.  The next public register has `v2=2`, so the
+ether counter halts after branch one.
+
+This is an exact finite counter-writing event.  It is not an infinite orbit,
+and the bounded uniqueness statement excludes neither other next branches nor
+longer prefixes.
+
+```bash
+python3 breakoff_ether_dynamics.py selftest
+python3 breakoff_ether_dynamics.py build breakoff_ether_dynamics_audit.json
+python3 breakoff_ether_dynamics.py verify breakoff_ether_dynamics_audit.json
+```
+
+Artifact SHA-256:
+`def124575bbfcd96bc982b06828923bd75a3d37acfa4577ca85626c79a55ea31`.
+Verifier SHA-256:
+`bfa00c3c82481b2f8c72b2643797928b344bee88705b0b690f39f0957021660d`.
+
 ## Returning finite ether glider macros
 
 `breakoff_ether_glider.py` closes the finite boundary return left open by the
