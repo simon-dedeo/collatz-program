@@ -3117,6 +3117,60 @@ Artifact SHA-256:
 Verifier SHA-256:
 `1a53504df1091e65054c5647b6ef59ff2ed04f4ca58840604de277469821b7a5`.
 
+## Periodic-increment ether counters
+
+`breakoff_ether_periodic_theta.py` moves from a constant-rate branch counter
+to a repeated word of integer increments.  After one successful public step,
+the odd part is exactly `3*u`, and the literal recurrence becomes
+
+```text
+2^(8*n_(t+1)+15)u_(t+1)=3^(6*n_t+11)u_t+17.
+```
+
+For a period-`L` increment word with positive cycle sum `K`, including words
+with down-steps inside a cycle, the backward term at `j=L*q+r` splits as
+
+```text
+T_(L*q+r)=T_r Q^choose(q,2) R_r^q,
+Q=2^(8*K*L)/3^(6*K*L),
+R_(r+1)/R_r=2^(8*K)/3^(6*K).
+```
+
+The corresponding `L` paper arguments are pairwise separated modulo powers
+of the common theta parameter.  For the ether exponent ratio, the exact
+Väänänen--Wallisser size audit passes at period two,
+
+```text
+gamma<1/6<Gamma(2,0),
+```
+
+but fails already at period three:
+
+```text
+Gamma(3,0)<5/32<gamma.
+```
+
+Thus period three is the first escape from this particular sufficient
+external theorem; it is not evidence for an ordinary orbit.  The generic
+period-two bridge has been sent to the companion Lean worker and remains
+pending until kernel-checked.
+
+The bounded artifact compiles and literally executes 15 public schedules,
+including positive-mean words with negative increments, through nine EC17
+transitions.  It checks every finite rational and 2-adic backward identity
+and 624 residue/theta coefficients.
+
+```bash
+python3 breakoff_ether_periodic_theta.py selftest
+python3 breakoff_ether_periodic_theta.py build breakoff_ether_periodic_theta_audit.json
+python3 breakoff_ether_periodic_theta.py verify breakoff_ether_periodic_theta_audit.json
+```
+
+Artifact SHA-256:
+`2d1e80094f494776f6a6fb3338a41403e806695db34b8feffab98ce391962f68`.
+Verifier SHA-256:
+`e0c29f74b3c4b34513309f056428a4767faa9d30e860177be9a570b8689e65cc`.
+
 ## Returning finite ether glider macros
 
 `breakoff_ether_glider.py` closes the finite boundary return left open by the

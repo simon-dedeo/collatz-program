@@ -1,6 +1,48 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 01:09 EDT
+Updated: 2026-07-23, about 01:22 EDT
+
+### 01:22 EDT continuation — periodic increments expose a period-three boundary
+
+Companion commit `2150534` divides out the exactly forced factor of three
+after the first successful ether step.  In positive branch coordinates the
+public state now satisfies
+
+```text
+2^(8n_(t+1)+15)u_(t+1)=3^(6n_t+11)u_t+17,
+u_(t+1)=1 (mod 3).
+```
+
+This is the preferred search state.  For a repeated integer increment word
+`d_0,...,d_(L-1)` with positive cycle sum `K`, the exact research worker
+
+```text
+experiments/kontorovich/breakoff_ether_periodic_theta.py
+experiments/kontorovich/breakoff_ether_periodic_theta_audit.json
+verifier e0c29f74b3c4b34513309f056428a4767faa9d30e860177be9a570b8689e65cc
+artifact 2d1e80094f494776f6a6fb3338a41403e806695db34b8feffab98ce391962f68
+```
+
+splits the backward series into `L` theta values.  It compiles 15 literal
+public schedules through nine core transitions, including within-cycle
+down-steps; checks every finite rational and 2-adic identity; and audits 624
+theta coefficients.  The universal algebra has been sent to the companion as
+QM53--QM56 and is not yet claimed before its Lean bridge arrives.
+
+The external theorem's exact size bound passes for period two but fails
+already at period three:
+
+```text
+gamma<1/6<Gamma(2,0),
+Gamma(3,0)<5/32<gamma.
+```
+
+So, conditional on the cited theorem and pending the Lean bridge, all
+eventual increment words of length at most two should close; length three is
+the smallest theorem-escape target.  A failed sufficient inequality is not a
+witness.  The constructive search should use EC17 and test period-three
+increment programs for additional modular/coboundary obstructions before
+attempting broader payload-dependent controllers.
 
 ### 01:09 EDT continuation — fixed-rate ether counters close by partial theta
 

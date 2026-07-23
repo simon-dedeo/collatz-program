@@ -8064,3 +8064,97 @@ It replays 16 finite schedules (`n_0,k=1..4`) through eight transitions,
 checks the rational and 2-adic finite identity, and audits 4,096 conversion
 coefficients.  Scope: QM50--QM52 close only arithmetic valuation growth;
 nonlinear/payload-dependent schedules remain constructive targets.
+
+## Kontorovich request: periodic-increment ether counters (2026-07-23)
+
+Round 182's constant-`17` normalization exposes the next theorem-defined
+counter language.  Use positive research branch coordinates `b=level+1`.
+Then the core law is
+
+```text
+2^(8*b_(t+1)+15) u_(t+1) = 3^(6*b_t+11) u_t + 17.       (QM53)
+```
+
+Let an integer increment word `d_0,...,d_(L-1)` repeat, assume its cycle sum
+`K=sum_r d_r` is positive, and assume the resulting branches remain positive:
+
+```text
+b_(t+1)-b_t=d_(t mod L).
+```
+
+In the finite backward EC17 identity, put
+
+```text
+T_j = 2^[sum_(i=1)^j (8*b_i+15)] /
+      3^[sum_(i=0)^j (6*b_i+11)].
+```
+
+For `j=L*q+r`, `0<=r<L`, exact cancellation should give
+
+```text
+T_(L*q+r) = T_r * Q^choose(q,2) * R_r^q,
+Q           = 2^(8*K*L)/3^(6*K*L),
+R_r         = 2^[sum_(i=r+1)^(r+L) (8*b_i+15)] /
+              3^[sum_(i=r+1)^(r+L) (6*b_i+11)],
+R_(r+1)/R_r = rho,
+rho         = 2^(8*K)/3^(6*K).                           (QM54)
+```
+
+Thus the completed candidate, if the terminal term vanishes, is
+
+```text
+u_0 = -17 * sum_(r<L) T_r F(Q,R_r)
+    = -17 * sum_(r<L) T_r f_(1/Q)(alpha_r),
+alpha_r=R_r/Q.                                           (QM55)
+```
+
+The paper arguments satisfy `alpha_r/alpha_s=rho^(r-s)`, while a forbidden
+power of the paper parameter `1/Q=rho^(-L)` would force
+`r-s=-L*z`.  For two positions in one period this forces `r=s`; hence the
+pairwise separation hypothesis is automatic.  Please reuse
+`PeriodicPhaseUp.ThetaResidueData` if convenient, but bridge it to the
+literal EC17 series rather than only proving a free algebraic surrogate.
+
+The ether size boundary differs from the phase-up one:
+
+```text
+gamma = 1 - 8*log(2)/(6*log(3)).
+```
+
+The exact period-two chain is
+
+```text
+2^8>3^5
+=> gamma<1/6
+< (5-sqrt(17))/4 = Gamma(2,0),
+```
+
+where `13^2>9*17` proves the radical inequality.  But period three already
+fails the cited theorem's sufficient estimate:
+
+```text
+2^128<3^81       => gamma>5/32,
+97^2<37*16^2     => Gamma(3,0)<5/32.                    (QM56)
+```
+
+Preferred endpoint: kernel-check QM53--QM56 and expose a conditional theorem
+that, accepting the same external Väänänen--Wallisser linear-independence
+result, no positive natural EC17 orbit has an eventually period-two
+positive-mean increment tail.  Combined with the prior periodic-level no-go
+and the period-one theta result, this closes all eventual increment periods
+at most two.  Period three is only the first escape from this sufficient
+external estimate, not evidence for an orbit.
+
+The bounded research audit is deliberately narrower:
+
+```text
+experiments/kontorovich/breakoff_ether_periodic_theta.py
+experiments/kontorovich/breakoff_ether_periodic_theta_audit.json
+verifier e0c29f74b3c4b34513309f056428a4767faa9d30e860177be9a570b8689e65cc
+artifact 2d1e80094f494776f6a6fb3338a41403e806695db34b8feffab98ce391962f68
+```
+
+It checks 15 literal schedules, including negative within-cycle increments,
+through nine EC17 transitions; 624 residue/theta coefficients; every finite
+rational identity; and the corresponding 2-adic residues.  It does not claim
+the universal bridge before this Lean request is answered.

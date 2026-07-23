@@ -1,0 +1,1199 @@
+{
+  "artifact_sha256": "2d1e80094f494776f6a6fb3338a41403e806695db34b8feffab98ce391962f68",
+  "audit": {
+    "bounds": {
+      "finite_transitions": 9,
+      "sample_words": 15,
+      "theta_cycles_per_residue": 16
+    },
+    "claim_scope": "exact literal public EC17 replays, finite rational and 2-adic identities, and periodic residue coefficient checks for the listed words and bounds; exact elementary period-two/three size separators; the external theorem and universal generic residue bridge are not proved by this artifact",
+    "closure_status": {
+      "bounded_samples": "all exact checks passed",
+      "counterexample": null,
+      "period_three": "first failure of the cited sufficient theorem; not a witness",
+      "universal_period_two": "pending companion Lean bridge"
+    },
+    "core_recurrence": "2^(8*n_(t+1)+15)*u_(t+1)=3^(6*n_t+11)*u_t+17",
+    "finite_schedule_checks": [
+      {
+        "compiled_initial_tail_bits": 907,
+        "compiled_precision_bits": 910,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 3,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          1,
+          2
+        ],
+        "initial_core_bits": 940,
+        "initial_register_bits": 960,
+        "levels": [
+          3,
+          4,
+          6,
+          7,
+          9,
+          10,
+          12,
+          13,
+          15,
+          16
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 2,
+        "start_branch": 3,
+        "terminal_core_bits": 977,
+        "terminal_register_bits": 1102,
+        "terminal_two_adic_precision_bits": 871,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      },
+      {
+        "compiled_initial_tail_bits": 950,
+        "compiled_precision_bits": 950,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 3,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          2,
+          1
+        ],
+        "initial_core_bits": 982,
+        "initial_register_bits": 1003,
+        "levels": [
+          3,
+          5,
+          6,
+          8,
+          9,
+          11,
+          12,
+          14,
+          15,
+          17
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 2,
+        "start_branch": 3,
+        "terminal_core_bits": 1018,
+        "terminal_register_bits": 1150,
+        "terminal_two_adic_precision_bits": 911,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      },
+      {
+        "compiled_initial_tail_bits": 629,
+        "compiled_precision_bits": 630,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 1,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          2,
+          -1
+        ],
+        "initial_core_bits": 661,
+        "initial_register_bits": 682,
+        "levels": [
+          3,
+          5,
+          4,
+          6,
+          5,
+          7,
+          6,
+          8,
+          7,
+          9
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 2,
+        "start_branch": 3,
+        "terminal_core_bits": 712,
+        "terminal_register_bits": 781,
+        "terminal_two_adic_precision_bits": 591,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      },
+      {
+        "compiled_initial_tail_bits": 506,
+        "compiled_precision_bits": 510,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 1,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          -1,
+          2
+        ],
+        "initial_core_bits": 539,
+        "initial_register_bits": 559,
+        "levels": [
+          3,
+          2,
+          4,
+          3,
+          5,
+          4,
+          6,
+          5,
+          7,
+          6
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 2,
+        "start_branch": 3,
+        "terminal_core_bits": 596,
+        "terminal_register_bits": 640,
+        "terminal_two_adic_precision_bits": 471,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      },
+      {
+        "compiled_initial_tail_bits": 750,
+        "compiled_precision_bits": 750,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 1,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          3,
+          -2
+        ],
+        "initial_core_bits": 775,
+        "initial_register_bits": 803,
+        "levels": [
+          4,
+          7,
+          5,
+          8,
+          6,
+          9,
+          7,
+          10,
+          8,
+          11
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 2,
+        "start_branch": 4,
+        "terminal_core_bits": 837,
+        "terminal_register_bits": 922,
+        "terminal_two_adic_precision_bits": 703,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      },
+      {
+        "compiled_initial_tail_bits": 549,
+        "compiled_precision_bits": 550,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 1,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          -2,
+          3
+        ],
+        "initial_core_bits": 573,
+        "initial_register_bits": 602,
+        "levels": [
+          4,
+          2,
+          5,
+          3,
+          6,
+          4,
+          7,
+          5,
+          8,
+          6
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 2,
+        "start_branch": 4,
+        "terminal_core_bits": 646,
+        "terminal_register_bits": 690,
+        "terminal_two_adic_precision_bits": 503,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      },
+      {
+        "compiled_initial_tail_bits": 924,
+        "compiled_precision_bits": 926,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 4,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          1,
+          1,
+          2
+        ],
+        "initial_core_bits": 948,
+        "initial_register_bits": 977,
+        "levels": [
+          4,
+          5,
+          6,
+          8,
+          9,
+          10,
+          12,
+          13,
+          14,
+          16
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 3,
+        "start_branch": 4,
+        "terminal_core_bits": 996,
+        "terminal_register_bits": 1121,
+        "terminal_two_adic_precision_bits": 879,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      },
+      {
+        "compiled_initial_tail_bits": 948,
+        "compiled_precision_bits": 950,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 4,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          1,
+          2,
+          1
+        ],
+        "initial_core_bits": 973,
+        "initial_register_bits": 1002,
+        "levels": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          11,
+          12,
+          13,
+          15,
+          16
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 3,
+        "start_branch": 4,
+        "terminal_core_bits": 1026,
+        "terminal_register_bits": 1150,
+        "terminal_two_adic_precision_bits": 903,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      },
+      {
+        "compiled_initial_tail_bits": 973,
+        "compiled_precision_bits": 974,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 4,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          2,
+          1,
+          1
+        ],
+        "initial_core_bits": 998,
+        "initial_register_bits": 1026,
+        "levels": [
+          4,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          14,
+          15,
+          16
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 3,
+        "start_branch": 4,
+        "terminal_core_bits": 1055,
+        "terminal_register_bits": 1180,
+        "terminal_two_adic_precision_bits": 927,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      },
+      {
+        "compiled_initial_tail_bits": 734,
+        "compiled_precision_bits": 734,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 2,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          2,
+          -1,
+          1
+        ],
+        "initial_core_bits": 759,
+        "initial_register_bits": 787,
+        "levels": [
+          4,
+          6,
+          5,
+          6,
+          8,
+          7,
+          8,
+          10,
+          9,
+          10
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 3,
+        "start_branch": 4,
+        "terminal_core_bits": 828,
+        "terminal_register_bits": 904,
+        "terminal_two_adic_precision_bits": 687,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      },
+      {
+        "compiled_initial_tail_bits": 662,
+        "compiled_precision_bits": 662,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 2,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          -1,
+          2,
+          1
+        ],
+        "initial_core_bits": 687,
+        "initial_register_bits": 715,
+        "levels": [
+          4,
+          3,
+          5,
+          6,
+          5,
+          7,
+          8,
+          7,
+          9,
+          10
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 3,
+        "start_branch": 4,
+        "terminal_core_bits": 742,
+        "terminal_register_bits": 819,
+        "terminal_two_adic_precision_bits": 615,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      },
+      {
+        "compiled_initial_tail_bits": 685,
+        "compiled_precision_bits": 686,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 2,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          1,
+          -1,
+          2
+        ],
+        "initial_core_bits": 710,
+        "initial_register_bits": 739,
+        "levels": [
+          4,
+          5,
+          4,
+          6,
+          7,
+          6,
+          8,
+          9,
+          8,
+          10
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 3,
+        "start_branch": 4,
+        "terminal_core_bits": 770,
+        "terminal_register_bits": 846,
+        "terminal_two_adic_precision_bits": 639,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      },
+      {
+        "compiled_initial_tail_bits": 685,
+        "compiled_precision_bits": 686,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 1,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          3,
+          -1,
+          -1
+        ],
+        "initial_core_bits": 710,
+        "initial_register_bits": 739,
+        "levels": [
+          4,
+          7,
+          6,
+          5,
+          8,
+          7,
+          6,
+          9,
+          8,
+          7
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 3,
+        "start_branch": 4,
+        "terminal_core_bits": 799,
+        "terminal_register_bits": 851,
+        "terminal_two_adic_precision_bits": 639,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      },
+      {
+        "compiled_initial_tail_bits": 590,
+        "compiled_precision_bits": 590,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 1,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          -1,
+          3,
+          -1
+        ],
+        "initial_core_bits": 615,
+        "initial_register_bits": 643,
+        "levels": [
+          4,
+          3,
+          6,
+          5,
+          4,
+          7,
+          6,
+          5,
+          8,
+          7
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 3,
+        "start_branch": 4,
+        "terminal_core_bits": 685,
+        "terminal_register_bits": 738,
+        "terminal_two_adic_precision_bits": 543,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      },
+      {
+        "compiled_initial_tail_bits": 493,
+        "compiled_precision_bits": 494,
+        "compiled_predecessor_branch": 1,
+        "cycle_gain": 1,
+        "finite_rational_identity_checked": true,
+        "increment_word": [
+          -1,
+          -1,
+          3
+        ],
+        "initial_core_bits": 518,
+        "initial_register_bits": 546,
+        "levels": [
+          4,
+          3,
+          2,
+          5,
+          4,
+          3,
+          6,
+          5,
+          4,
+          7
+        ],
+        "literal_public_core_replay_checked": true,
+        "period": 3,
+        "start_branch": 4,
+        "terminal_core_bits": 570,
+        "terminal_register_bits": 623,
+        "terminal_two_adic_precision_bits": 447,
+        "transitions": 9,
+        "two_adic_residue_checked": true
+      }
+    ],
+    "periodic_increment_law": "n_(t+1)-n_t=d_(t mod L), K=sum(d)>0",
+    "residue_decomposition_checks": [
+      {
+        "bounded_separation_checks": 34,
+        "coefficient_checks": 32,
+        "cycle_gain": 3,
+        "increment_word": [
+          1,
+          2
+        ],
+        "one_residue_ratio_three_exponent": 18,
+        "one_residue_ratio_two_exponent": 24,
+        "paper_parameter": "3^(36)/2^(48)",
+        "period": 2,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 46,
+            "paper_argument_two_exponent": 62,
+            "prefix_three_exponent": 29,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 82,
+            "ratio_two_exponent": 110,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 64,
+            "paper_argument_two_exponent": 86,
+            "prefix_three_exponent": 64,
+            "prefix_two_exponent": 47,
+            "ratio_three_exponent": 100,
+            "ratio_two_exponent": 134,
+            "residue": 1
+          }
+        ],
+        "start_branch": 3,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 36,
+        "theta_inverse_two_exponent": 48
+      },
+      {
+        "bounded_separation_checks": 34,
+        "coefficient_checks": 32,
+        "cycle_gain": 3,
+        "increment_word": [
+          2,
+          1
+        ],
+        "one_residue_ratio_three_exponent": 18,
+        "one_residue_ratio_two_exponent": 24,
+        "paper_parameter": "3^(36)/2^(48)",
+        "period": 2,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 52,
+            "paper_argument_two_exponent": 70,
+            "prefix_three_exponent": 29,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 88,
+            "ratio_two_exponent": 118,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 70,
+            "paper_argument_two_exponent": 94,
+            "prefix_three_exponent": 70,
+            "prefix_two_exponent": 55,
+            "ratio_three_exponent": 106,
+            "ratio_two_exponent": 142,
+            "residue": 1
+          }
+        ],
+        "start_branch": 3,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 36,
+        "theta_inverse_two_exponent": 48
+      },
+      {
+        "bounded_separation_checks": 34,
+        "coefficient_checks": 32,
+        "cycle_gain": 1,
+        "increment_word": [
+          2,
+          -1
+        ],
+        "one_residue_ratio_three_exponent": 6,
+        "one_residue_ratio_two_exponent": 8,
+        "paper_parameter": "3^(12)/2^(16)",
+        "period": 2,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 64,
+            "paper_argument_two_exponent": 86,
+            "prefix_three_exponent": 29,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 76,
+            "ratio_two_exponent": 102,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 70,
+            "paper_argument_two_exponent": 94,
+            "prefix_three_exponent": 70,
+            "prefix_two_exponent": 55,
+            "ratio_three_exponent": 82,
+            "ratio_two_exponent": 110,
+            "residue": 1
+          }
+        ],
+        "start_branch": 3,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 12,
+        "theta_inverse_two_exponent": 16
+      },
+      {
+        "bounded_separation_checks": 34,
+        "coefficient_checks": 32,
+        "cycle_gain": 1,
+        "increment_word": [
+          -1,
+          2
+        ],
+        "one_residue_ratio_three_exponent": 6,
+        "one_residue_ratio_two_exponent": 8,
+        "paper_parameter": "3^(12)/2^(16)",
+        "period": 2,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 46,
+            "paper_argument_two_exponent": 62,
+            "prefix_three_exponent": 29,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 58,
+            "ratio_two_exponent": 78,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 52,
+            "paper_argument_two_exponent": 70,
+            "prefix_three_exponent": 52,
+            "prefix_two_exponent": 31,
+            "ratio_three_exponent": 64,
+            "ratio_two_exponent": 86,
+            "residue": 1
+          }
+        ],
+        "start_branch": 3,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 12,
+        "theta_inverse_two_exponent": 16
+      },
+      {
+        "bounded_separation_checks": 34,
+        "coefficient_checks": 32,
+        "cycle_gain": 1,
+        "increment_word": [
+          3,
+          -2
+        ],
+        "one_residue_ratio_three_exponent": 6,
+        "one_residue_ratio_two_exponent": 8,
+        "paper_parameter": "3^(12)/2^(16)",
+        "period": 2,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 82,
+            "paper_argument_two_exponent": 110,
+            "prefix_three_exponent": 35,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 94,
+            "ratio_two_exponent": 126,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 88,
+            "paper_argument_two_exponent": 118,
+            "prefix_three_exponent": 88,
+            "prefix_two_exponent": 71,
+            "ratio_three_exponent": 100,
+            "ratio_two_exponent": 134,
+            "residue": 1
+          }
+        ],
+        "start_branch": 4,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 12,
+        "theta_inverse_two_exponent": 16
+      },
+      {
+        "bounded_separation_checks": 34,
+        "coefficient_checks": 32,
+        "cycle_gain": 1,
+        "increment_word": [
+          -2,
+          3
+        ],
+        "one_residue_ratio_three_exponent": 6,
+        "one_residue_ratio_two_exponent": 8,
+        "paper_parameter": "3^(12)/2^(16)",
+        "period": 2,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 52,
+            "paper_argument_two_exponent": 70,
+            "prefix_three_exponent": 35,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 64,
+            "ratio_two_exponent": 86,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 58,
+            "paper_argument_two_exponent": 78,
+            "prefix_three_exponent": 58,
+            "prefix_two_exponent": 31,
+            "ratio_three_exponent": 70,
+            "ratio_two_exponent": 94,
+            "residue": 1
+          }
+        ],
+        "start_branch": 4,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 12,
+        "theta_inverse_two_exponent": 16
+      },
+      {
+        "bounded_separation_checks": 102,
+        "coefficient_checks": 48,
+        "cycle_gain": 4,
+        "increment_word": [
+          1,
+          1,
+          2
+        ],
+        "one_residue_ratio_three_exponent": 24,
+        "one_residue_ratio_two_exponent": 32,
+        "paper_parameter": "3^(72)/2^(96)",
+        "period": 3,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 75,
+            "paper_argument_two_exponent": 101,
+            "prefix_three_exponent": 35,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 147,
+            "ratio_two_exponent": 197,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 99,
+            "paper_argument_two_exponent": 133,
+            "prefix_three_exponent": 76,
+            "prefix_two_exponent": 55,
+            "ratio_three_exponent": 171,
+            "ratio_two_exponent": 229,
+            "residue": 1
+          },
+          {
+            "paper_argument_three_exponent": 123,
+            "paper_argument_two_exponent": 165,
+            "prefix_three_exponent": 123,
+            "prefix_two_exponent": 118,
+            "ratio_three_exponent": 195,
+            "ratio_two_exponent": 261,
+            "residue": 2
+          }
+        ],
+        "start_branch": 4,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 72,
+        "theta_inverse_two_exponent": 96
+      },
+      {
+        "bounded_separation_checks": 102,
+        "coefficient_checks": 48,
+        "cycle_gain": 4,
+        "increment_word": [
+          1,
+          2,
+          1
+        ],
+        "one_residue_ratio_three_exponent": 24,
+        "one_residue_ratio_two_exponent": 32,
+        "paper_parameter": "3^(72)/2^(96)",
+        "period": 3,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 81,
+            "paper_argument_two_exponent": 109,
+            "prefix_three_exponent": 35,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 153,
+            "ratio_two_exponent": 205,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 105,
+            "paper_argument_two_exponent": 141,
+            "prefix_three_exponent": 76,
+            "prefix_two_exponent": 55,
+            "ratio_three_exponent": 177,
+            "ratio_two_exponent": 237,
+            "residue": 1
+          },
+          {
+            "paper_argument_three_exponent": 129,
+            "paper_argument_two_exponent": 173,
+            "prefix_three_exponent": 129,
+            "prefix_two_exponent": 126,
+            "ratio_three_exponent": 201,
+            "ratio_two_exponent": 269,
+            "residue": 2
+          }
+        ],
+        "start_branch": 4,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 72,
+        "theta_inverse_two_exponent": 96
+      },
+      {
+        "bounded_separation_checks": 102,
+        "coefficient_checks": 48,
+        "cycle_gain": 4,
+        "increment_word": [
+          2,
+          1,
+          1
+        ],
+        "one_residue_ratio_three_exponent": 24,
+        "one_residue_ratio_two_exponent": 32,
+        "paper_parameter": "3^(72)/2^(96)",
+        "period": 3,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 87,
+            "paper_argument_two_exponent": 117,
+            "prefix_three_exponent": 35,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 159,
+            "ratio_two_exponent": 213,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 111,
+            "paper_argument_two_exponent": 149,
+            "prefix_three_exponent": 82,
+            "prefix_two_exponent": 63,
+            "ratio_three_exponent": 183,
+            "ratio_two_exponent": 245,
+            "residue": 1
+          },
+          {
+            "paper_argument_three_exponent": 135,
+            "paper_argument_two_exponent": 181,
+            "prefix_three_exponent": 135,
+            "prefix_two_exponent": 134,
+            "ratio_three_exponent": 207,
+            "ratio_two_exponent": 277,
+            "residue": 2
+          }
+        ],
+        "start_branch": 4,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 72,
+        "theta_inverse_two_exponent": 96
+      },
+      {
+        "bounded_separation_checks": 102,
+        "coefficient_checks": 48,
+        "cycle_gain": 2,
+        "increment_word": [
+          2,
+          -1,
+          1
+        ],
+        "one_residue_ratio_three_exponent": 12,
+        "one_residue_ratio_two_exponent": 16,
+        "paper_parameter": "3^(36)/2^(48)",
+        "period": 3,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 99,
+            "paper_argument_two_exponent": 133,
+            "prefix_three_exponent": 35,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 135,
+            "ratio_two_exponent": 181,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 111,
+            "paper_argument_two_exponent": 149,
+            "prefix_three_exponent": 82,
+            "prefix_two_exponent": 63,
+            "ratio_three_exponent": 147,
+            "ratio_two_exponent": 197,
+            "residue": 1
+          },
+          {
+            "paper_argument_three_exponent": 123,
+            "paper_argument_two_exponent": 165,
+            "prefix_three_exponent": 123,
+            "prefix_two_exponent": 118,
+            "ratio_three_exponent": 159,
+            "ratio_two_exponent": 213,
+            "residue": 2
+          }
+        ],
+        "start_branch": 4,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 36,
+        "theta_inverse_two_exponent": 48
+      },
+      {
+        "bounded_separation_checks": 102,
+        "coefficient_checks": 48,
+        "cycle_gain": 2,
+        "increment_word": [
+          -1,
+          2,
+          1
+        ],
+        "one_residue_ratio_three_exponent": 12,
+        "one_residue_ratio_two_exponent": 16,
+        "paper_parameter": "3^(36)/2^(48)",
+        "period": 3,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 81,
+            "paper_argument_two_exponent": 109,
+            "prefix_three_exponent": 35,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 117,
+            "ratio_two_exponent": 157,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 93,
+            "paper_argument_two_exponent": 125,
+            "prefix_three_exponent": 64,
+            "prefix_two_exponent": 39,
+            "ratio_three_exponent": 129,
+            "ratio_two_exponent": 173,
+            "residue": 1
+          },
+          {
+            "paper_argument_three_exponent": 105,
+            "paper_argument_two_exponent": 141,
+            "prefix_three_exponent": 105,
+            "prefix_two_exponent": 94,
+            "ratio_three_exponent": 141,
+            "ratio_two_exponent": 189,
+            "residue": 2
+          }
+        ],
+        "start_branch": 4,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 36,
+        "theta_inverse_two_exponent": 48
+      },
+      {
+        "bounded_separation_checks": 102,
+        "coefficient_checks": 48,
+        "cycle_gain": 2,
+        "increment_word": [
+          1,
+          -1,
+          2
+        ],
+        "one_residue_ratio_three_exponent": 12,
+        "one_residue_ratio_two_exponent": 16,
+        "paper_parameter": "3^(36)/2^(48)",
+        "period": 3,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 87,
+            "paper_argument_two_exponent": 117,
+            "prefix_three_exponent": 35,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 123,
+            "ratio_two_exponent": 165,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 99,
+            "paper_argument_two_exponent": 133,
+            "prefix_three_exponent": 76,
+            "prefix_two_exponent": 55,
+            "ratio_three_exponent": 135,
+            "ratio_two_exponent": 181,
+            "residue": 1
+          },
+          {
+            "paper_argument_three_exponent": 111,
+            "paper_argument_two_exponent": 149,
+            "prefix_three_exponent": 111,
+            "prefix_two_exponent": 102,
+            "ratio_three_exponent": 147,
+            "ratio_two_exponent": 197,
+            "residue": 2
+          }
+        ],
+        "start_branch": 4,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 36,
+        "theta_inverse_two_exponent": 48
+      },
+      {
+        "bounded_separation_checks": 102,
+        "coefficient_checks": 48,
+        "cycle_gain": 1,
+        "increment_word": [
+          3,
+          -1,
+          -1
+        ],
+        "one_residue_ratio_three_exponent": 6,
+        "one_residue_ratio_two_exponent": 8,
+        "paper_parameter": "3^(18)/2^(24)",
+        "period": 3,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 123,
+            "paper_argument_two_exponent": 165,
+            "prefix_three_exponent": 35,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 141,
+            "ratio_two_exponent": 189,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 129,
+            "paper_argument_two_exponent": 173,
+            "prefix_three_exponent": 88,
+            "prefix_two_exponent": 71,
+            "ratio_three_exponent": 147,
+            "ratio_two_exponent": 197,
+            "residue": 1
+          },
+          {
+            "paper_argument_three_exponent": 135,
+            "paper_argument_two_exponent": 181,
+            "prefix_three_exponent": 135,
+            "prefix_two_exponent": 134,
+            "ratio_three_exponent": 153,
+            "ratio_two_exponent": 205,
+            "residue": 2
+          }
+        ],
+        "start_branch": 4,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 18,
+        "theta_inverse_two_exponent": 24
+      },
+      {
+        "bounded_separation_checks": 102,
+        "coefficient_checks": 48,
+        "cycle_gain": 1,
+        "increment_word": [
+          -1,
+          3,
+          -1
+        ],
+        "one_residue_ratio_three_exponent": 6,
+        "one_residue_ratio_two_exponent": 8,
+        "paper_parameter": "3^(18)/2^(24)",
+        "period": 3,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 99,
+            "paper_argument_two_exponent": 133,
+            "prefix_three_exponent": 35,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 117,
+            "ratio_two_exponent": 157,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 105,
+            "paper_argument_two_exponent": 141,
+            "prefix_three_exponent": 64,
+            "prefix_two_exponent": 39,
+            "ratio_three_exponent": 123,
+            "ratio_two_exponent": 165,
+            "residue": 1
+          },
+          {
+            "paper_argument_three_exponent": 111,
+            "paper_argument_two_exponent": 149,
+            "prefix_three_exponent": 111,
+            "prefix_two_exponent": 102,
+            "ratio_three_exponent": 129,
+            "ratio_two_exponent": 173,
+            "residue": 2
+          }
+        ],
+        "start_branch": 4,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 18,
+        "theta_inverse_two_exponent": 24
+      },
+      {
+        "bounded_separation_checks": 102,
+        "coefficient_checks": 48,
+        "cycle_gain": 1,
+        "increment_word": [
+          -1,
+          -1,
+          3
+        ],
+        "one_residue_ratio_three_exponent": 6,
+        "one_residue_ratio_two_exponent": 8,
+        "paper_parameter": "3^(18)/2^(24)",
+        "period": 3,
+        "residues": [
+          {
+            "paper_argument_three_exponent": 75,
+            "paper_argument_two_exponent": 101,
+            "prefix_three_exponent": 35,
+            "prefix_two_exponent": 0,
+            "ratio_three_exponent": 93,
+            "ratio_two_exponent": 125,
+            "residue": 0
+          },
+          {
+            "paper_argument_three_exponent": 81,
+            "paper_argument_two_exponent": 109,
+            "prefix_three_exponent": 64,
+            "prefix_two_exponent": 39,
+            "ratio_three_exponent": 99,
+            "ratio_two_exponent": 133,
+            "residue": 1
+          },
+          {
+            "paper_argument_three_exponent": 87,
+            "paper_argument_two_exponent": 117,
+            "prefix_three_exponent": 87,
+            "prefix_two_exponent": 70,
+            "ratio_three_exponent": 105,
+            "ratio_two_exponent": 141,
+            "residue": 2
+          }
+        ],
+        "start_branch": 4,
+        "symbolic_separation_identity": "r-s=-period*z",
+        "theta_inverse_three_exponent": 18,
+        "theta_inverse_two_exponent": 24
+      }
+    ],
+    "theorem_boundary": {
+      "conditional_scope_pending_lean": "the displayed generic residue algebra would let the cited theorem close every positive-mean period-two increment word; the universal bridge is requested from the companion Lean worker",
+      "external_source": {
+        "authors": "K. Vaananen and R. Wallisser",
+        "journal": "Manuscripta Mathematica 65 (1989), 199-212",
+        "theorem_parameters": {
+          "ell": "period",
+          "p": 2,
+          "sigma": 0
+        },
+        "title": "Zu einem Satz von Skolem ueber lineare Unabhaengigkeit von Werten gewisser Thetareihen"
+      },
+      "first_theorem_escape": "period three; failure of this sufficient estimate is not an orbit",
+      "period_three": {
+        "criterion": "fails",
+        "exact_chain": "2^128<3^81 gives gamma>5/32; 97^2<37*16^2 gives Gamma(3,0)<5/32"
+      },
+      "period_two": {
+        "criterion": "passes",
+        "exact_chain": "2^8>3^5 gives gamma<1/6; 13^2>9*17 gives 1/6<Gamma(2,0)"
+      },
+      "size_parameter": "gamma=1-8*log(2)/(6*log(3))",
+      "threshold": "Gamma(L,0)=(2*L+1-sqrt(1+4*L^2))/(2*L)"
+    }
+  },
+  "generated_at_utc": "2026-07-23T05:18:09.253746+00:00",
+  "schema": "collatz-breakoff-ether-periodic-theta-v1",
+  "verifier_sha256": "e0c29f74b3c4b34513309f056428a4767faa9d30e860177be9a570b8689e65cc"
+}
