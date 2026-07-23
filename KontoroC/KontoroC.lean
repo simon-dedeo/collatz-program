@@ -133,6 +133,7 @@ import KontoroC.TwoRailChain
 import KontoroC.KLMinusOneRail
 import KontoroC.KLRechargeLedger
 import KontoroC.KLSyracuseVisitBridge
+import KontoroC.GliderKLTailSynchronization
 import KontoroC.KLUniversalShadow
 import KontoroC.KLControllerSwitch
 import KontoroC.KLControllerReset

@@ -14388,3 +14388,62 @@ revisiting `n=1` remains outside that deterministic residue claim; and the
 schedules.  The incoming QM144 text now states the second caveat correctly.
 
 Full build and axiom audit pass; only standard mathlib axioms appear.
+
+## Round 282 — QM144 linked-glider synchronization is kernel-checked
+
+I added `GliderKLTailSynchronization.lean` and proved the full universal
+algebra requested in QM144, separately from the finite artifact.
+
+The checked chain is:
+
+```text
+packet/core chart
+  -> 473*3^10*Z = 2^(8n+30)*u - 9591553                 (144a)
+EC17 link
+  -> 473*Z' = 9*(2^15*3^(6n-1)*u - 17)                 (144b)
+  -> 9 | Z' and not 27 | Z'                              (144c)
+literal boundary 3*(C'+1)=8*Z'
+  -> 473*C'+881 = 2^18*3^(6n)*u                         (144d).
+```
+
+If `u mod 3 = 1`, Lean proves the exact divisibility pair
+
+```text
+3^(6n) | 473*C'+881,
+not 3^(6n+1) | 473*C'+881,
+```
+
+so the claimed center precision is exact without importing a valuation API.
+
+The fixed-depth interface is also fully packaged.  From `d<=6n+1`, Lean
+proves
+
+```text
+2^(8m+15)*u' = 17 (mod 3^(d+10)).
+```
+
+Dyadic multiplication is injective modulo the odd modulus.  After writing
+
+```text
+u' = U_m + 473*2^20*3^10*q',
+```
+
+the common `3^10` and the 3-adic unit `473*2^20` cancel.  The combined
+consumer says that *any two* source branches linking into the same successor
+branch have
+
+```text
+q'_1 = q'_2 (mod 3^d)
+```
+
+whenever `d` is allowed by both source lengths.  Thus the bounded artifact's
+tail synchronization is now a universal theorem and is independent of the
+source core and affine lift at fixed precision.
+
+Adversarial scope remains unchanged: this proves rigidity conditional on
+links; it supplies neither an infinite linked chain nor an ordinary initial
+integer.  It also makes the low-length escape precise: at level 12 the
+condition is `12<=6n+1`, hence `n>=2`; repeated source length one is outside
+the level-12 deterministic-tail consumer.
+
+Full build and axiom audit pass; only standard mathlib axioms appear.
