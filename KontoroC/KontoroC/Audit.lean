@@ -949,10 +949,18 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterBareGlue.isCoprime_three_pow_two_pow
 #print axioms KontoroC.EtherCounterBareGlue.upperBlock_lt_two_pow
 #print axioms KontoroC.EtherCounterBareGlue.affineImage_upperBlock_lt
+#print axioms KontoroC.EtherCounterBareGlue.binaryMass_three
+#print axioms KontoroC.EtherCounterBareGlue.replayTernaryMass_three
+#print axioms KontoroC.EtherCounterBareGlue.replayOffset_three
+#print axioms KontoroC.EtherCounterBareGlue.composedReplayFactor_three_iff
+#print axioms KontoroC.EtherCounterBareGlue.composedReplayFactor_of_zeroCarry
 #print axioms
   KontoroC.EtherCounterBareGlue.exists_shiftedReplay_of_composedFactor
 #print axioms
   KontoroC.EtherCounterBareGlue.exists_orbit_of_composedReplayFactors
+#print axioms KontoroC.EtherCounterBareGlue.exists_orbit_of_zeroCarryChain
+#print axioms
+  KontoroC.EtherCounterBareGlue.exists_tailOrbit_of_eventualZeroCarryChain
 #print axioms KontoroC.EtherCounterResidualFold.residualFold_eq_expansion
 #print axioms KontoroC.EtherCounterResidualFold.residualFold_last_modEq
 #print axioms KontoroC.EtherCounterResidualFold.residualFold_dvd_iff_last_dvd

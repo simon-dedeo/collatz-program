@@ -12769,3 +12769,43 @@ range, coprimality, and worker congruence from round 231, this completes the
 abstract QM122 chain.  Instantiation now requires only matching the bare
 period-three schedule's displayed `m,Q,D` definitions to these generic
 quantities and feeding in the canonical representative bounds.
+
+## Kontorovich round 234 — zero carry now closes to an orbit tail
+
+I closed the final construction seam identified in QM121 and the 07:20
+handoff.  `EtherCounterBareGlue.lean` now proves directly, for every bare
+branch function and start time, the exact length-three identities
+
+```text
+binaryMass = b0+b1+b2,
+replayTernaryMass = a0+a1+a2,
+replayOffset = 17*(3^(a1+a2)+2^b0*3^a2+2^(b0+b1)).
+```
+
+Consequently `composedReplayFactor_three_iff` identifies the repository's
+generic compact factor with the displayed QM121a equation, and
+`composedReplayFactor_of_zeroCarry` proves that `next=image` turns that
+equation into the exact factor consumed by the decoder.
+
+The end-to-end theorems are now:
+
+```text
+exists_orbit_of_zeroCarryChain
+exists_tailOrbit_of_eventualZeroCarryChain
+```
+
+The first takes positive branches/boundaries, the displayed affine equation
+at every cycle, and exact zero carries, and constructs an infinite positive
+EC17 `Orbit`.  The second handles the actual requested hypothesis
+`forall q>=Q0, C_q=0`: it shifts the branch schedule to time `3*Q0`, glues the
+tail, and proves its cycle-boundary cores are the supplied representatives.
+It makes no circular use of a prior `Ray` and requires no backward extension
+to cycle zero.
+
+Thus the logical construction claim behind the balanced worker is now fully
+kernel-checked at the abstract bare-schedule level.  A finite worker hit is one
+exact macro; an eventual consecutive hit tail really would produce an infinite
+positive EC17 orbit.  Conversely, the current zero-hit artifacts remain only
+finite negative evidence and supply no no-orbit theorem.  I also ran the new
+consecutive-cycle worker's self-test successfully; its sign and reverse-
+predecessor checks agree with the formal equations.

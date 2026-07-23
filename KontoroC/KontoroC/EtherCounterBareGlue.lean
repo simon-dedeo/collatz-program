@@ -24,6 +24,76 @@ def threeStepDefect (_n0 n1 n2 : ℕ) : ℕ :=
     2 ^ (8 * n1 + 15) * 3 ^ (6 * n2 + 11) +
     2 ^ ((8 * n1 + 15) + (8 * n2 + 15)))
 
+/-- Displayed binary exponent of the three transitions beginning at `start`.
+The last term uses the branch at `start+3`, as required by the EC17 target
+exponent. -/
+def threeStepBinaryMass (branch : ℕ → ℕ) (start : ℕ) : ℕ :=
+  (8 * branch (start + 1) + 15) +
+    (8 * branch (start + 2) + 15) +
+    (8 * branch (start + 3) + 15)
+
+/-- Displayed ternary exponent of the three source branches. -/
+def threeStepTernaryMass (branch : ℕ → ℕ) (start : ℕ) : ℕ :=
+  (6 * branch start + 11) +
+    (6 * branch (start + 1) + 11) +
+    (6 * branch (start + 2) + 11)
+
+theorem binaryMass_three (branch : ℕ → ℕ) (start : ℕ) :
+    binaryMass branch start 3 = threeStepBinaryMass branch start := by
+  simp [binaryMass, binaryExponent, threeStepBinaryMass,
+    Finset.sum_range_succ]
+
+theorem replayTernaryMass_three (branch : ℕ → ℕ) (start : ℕ) :
+    replayTernaryMass branch start 3 = threeStepTernaryMass branch start := by
+  simp [replayTernaryMass, ternaryExponent, threeStepTernaryMass,
+    Finset.sum_range_succ]
+
+theorem replayOffset_three (branch : ℕ → ℕ) (start : ℕ) :
+    replayOffset branch start 3 =
+      threeStepDefect (branch start) (branch (start + 1))
+        (branch (start + 2)) := by
+  have htail2 : replayTernaryMass branch (start + 1) 2 =
+      (6 * branch (start + 1) + 11) +
+        (6 * branch (start + 2) + 11) := by
+    simp [replayTernaryMass, ternaryExponent, Finset.sum_range_succ]
+  have htail1 : replayTernaryMass branch (start + 2) 1 =
+      6 * branch (start + 2) + 11 := by
+    simp [replayTernaryMass, ternaryExponent, Finset.sum_range_succ]
+  simp only [replayOffset]
+  rw [htail2, htail1]
+  simp only [replayTernaryMass_zero, pow_zero, mul_one, mul_zero, add_zero]
+  simp only [threeStepDefect, binaryExponent, Nat.add_assoc, Nat.one_add,
+    pow_add]
+  ring
+
+/-- The compact replay predicate at length three is exactly the displayed
+one-cycle affine equation QM121a. -/
+theorem composedReplayFactor_three_iff
+    (branch : ℕ → ℕ) (start initial terminal : ℕ) :
+    ComposedReplayFactor branch start 3 initial terminal ↔
+      2 ^ threeStepBinaryMass branch start * terminal =
+        3 ^ threeStepTernaryMass branch start * initial +
+          threeStepDefect (branch start) (branch (start + 1))
+            (branch (start + 2)) := by
+  rw [ComposedReplayFactor, binaryMass_three, replayTernaryMass_three,
+    replayOffset_three]
+  exact eq_comm
+
+/-- A literal zero carry—equality of the next canonical representative and
+the exact affine image—produces the compact factor consumed by the gluing
+theorem.  No pre-existing orbit is used. -/
+theorem composedReplayFactor_of_zeroCarry
+    (branch : ℕ → ℕ) (start initial image next : ℕ)
+    (haffine :
+      2 ^ threeStepBinaryMass branch start * image =
+        3 ^ threeStepTernaryMass branch start * initial +
+          threeStepDefect (branch start) (branch (start + 1))
+            (branch (start + 2)))
+    (hzero : next = image) :
+    ComposedReplayFactor branch start 3 initial next := by
+  rw [composedReplayFactor_three_iff, hzero]
+  exact haffine
+
 /-- The elementary defect estimate required by the balanced-precision
 construction: the positive three-step defect is strictly smaller than its
 full ternary multiplier. -/
@@ -328,6 +398,66 @@ theorem exists_orbit_of_composedReplayFactors
   refine ⟨chain.toOrbit, rfl, ?_⟩
   intro q
   exact chain.core_three_mul q
+
+/-- End-to-end zero-carry construction interface.  Exact displayed affine
+images together with literal zero carries at every cycle produce an infinite
+positive EC17 orbit. -/
+theorem exists_orbit_of_zeroCarryChain
+    (branch boundary image : ℕ → ℕ)
+    (hbranch : ∀ t, 0 < branch t)
+    (hboundary : ∀ q, 0 < boundary q)
+    (haffine : ∀ q,
+      2 ^ threeStepBinaryMass branch (3 * q) * image q =
+        3 ^ threeStepTernaryMass branch (3 * q) * boundary q +
+          threeStepDefect (branch (3 * q)) (branch (3 * q + 1))
+            (branch (3 * q + 2)))
+    (hzero : ∀ q, boundary (q + 1) = image q) :
+    ∃ g : EtherCounterStateNoRepeat.Orbit,
+      g.branch = branch ∧ ∀ q, g.core (3 * q) = boundary q := by
+  apply exists_orbit_of_composedReplayFactors branch boundary hbranch hboundary
+  intro q
+  exact composedReplayFactor_of_zeroCarry branch (3 * q)
+    (boundary q) (image q) (boundary (q + 1)) (haffine q) (hzero q)
+
+/-- Eventual zero carries are enough: reindex at the first exact cycle and
+construct an infinite positive orbit on that tail.  No backward extension to
+the original cycle zero is asserted or needed. -/
+theorem exists_tailOrbit_of_eventualZeroCarryChain
+    (branch boundary image : ℕ → ℕ) (Q0 : ℕ)
+    (hbranch : ∀ t, 0 < branch t)
+    (hboundary : ∀ q, 0 < boundary q)
+    (haffine : ∀ q ≥ Q0,
+      2 ^ threeStepBinaryMass branch (3 * q) * image q =
+        3 ^ threeStepTernaryMass branch (3 * q) * boundary q +
+          threeStepDefect (branch (3 * q)) (branch (3 * q + 1))
+            (branch (3 * q + 2)))
+    (hzero : ∀ q ≥ Q0, boundary (q + 1) = image q) :
+    ∃ g : EtherCounterStateNoRepeat.Orbit,
+      (∀ t, g.branch t = branch (3 * Q0 + t)) ∧
+        ∀ q, g.core (3 * q) = boundary (Q0 + q) := by
+  let tailBranch : ℕ → ℕ := fun t => branch (3 * Q0 + t)
+  let tailBoundary : ℕ → ℕ := fun q => boundary (Q0 + q)
+  have htailBranch : ∀ t, 0 < tailBranch t := fun t => hbranch _
+  have htailBoundary : ∀ q, 0 < tailBoundary q := fun q => hboundary _
+  have htailFactor : ∀ q,
+      ComposedReplayFactor tailBranch (3 * q) 3
+        (tailBoundary q) (tailBoundary (q + 1)) := by
+    intro q
+    let originalQ := Q0 + q
+    have hq : Q0 ≤ originalQ := by simp [originalQ]
+    have hfactor := composedReplayFactor_of_zeroCarry branch (3 * originalQ)
+      (boundary originalQ) (image originalQ) (boundary (originalQ + 1))
+      (haffine originalQ hq) (hzero originalQ hq)
+    simpa [tailBranch, tailBoundary, originalQ, ComposedReplayFactor,
+      replayTernaryMass_shift, replayOffset_shift, binaryMass_shift,
+      Nat.add_assoc,
+      show 3 * Q0 + 3 * q = 3 * (Q0 + q) by ring] using hfactor
+  obtain ⟨g, hgbranch, hgcore⟩ :=
+    exists_orbit_of_composedReplayFactors tailBranch tailBoundary
+      htailBranch htailBoundary htailFactor
+  refine ⟨g, ?_, hgcore⟩
+  intro t
+  simpa [tailBranch] using congrFun hgbranch t
 
 end EtherCounterBareGlue
 end KontoroC
