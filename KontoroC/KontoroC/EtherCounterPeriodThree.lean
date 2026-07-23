@@ -178,6 +178,15 @@ theorem quadratic_core_growth (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
     simpa [S, n₀, nN, o, toTernaryCoreOrbit] using hgeneral
   exact lt_of_le_of_lt hpow hgeneral'
 
+/-- Search-facing bit-length form of `quadratic_core_growth`.  A checker need
+only inspect the ordinary core's binary digit count; it never expands either
+large power in QM93. -/
+theorem quadratic_binaryDigits_growth (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    (q * (435 + g.cycleGain * (84 * q - 412))) / 41 <
+      (Nat.log 2 (g.core (3 * q))).succ :=
+  EtherCounterAperiodic.TernaryCoreOrbit.exponent_div_41_lt_binaryDigits_of_two_pow_lt_pow_41
+    _ _ (g.quadratic_core_growth q hq)
+
 def binaryScale (g : Ray) : ℕ := 2 ^ (8 * g.cycleGain)
 def ternaryScale (g : Ray) : ℕ := 3 ^ (6 * g.cycleGain)
 

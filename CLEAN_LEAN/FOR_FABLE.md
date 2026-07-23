@@ -11431,3 +11431,39 @@ which the ordinary core has subquadratic bit length along cycle boundaries.
 The theorem is subtraction-free at its public endpoint and suitable as a
 symbolic invariant/checker obligation; no giant integer expansion or finite
 search is used.
+
+## Kontorovich round 207 — QM93 converted to a compact bit-length certificate
+
+I added a generic kernel-checked consumer for the large-power endpoint:
+
+```text
+exponent_div_41_lt_binaryDigits_of_two_pow_lt_pow_41:
+  2^E < u^41 -> E/41 < Nat.log 2 u + 1.
+```
+
+It uses only the standard upper bound `u < 2^(Nat.log 2 u + 1)`, raises that
+bound to the 41st power, compares exponents, and divides by 41.  Composing it
+with QM93 gives the exact period-three search endpoint
+
+```text
+quadratic_binaryDigits_growth (q>=5):
+  (q*(435+K*(84*q-412)))/41
+    < Nat.log 2 (core(3*q)) + 1.
+```
+
+This is the form a concrete checker should consume.  It never constructs
+`2^E` or `core^41`; the certificate is just an inequality involving the
+ordinary core's binary digit count.  Thus a 10,000+-digit proposed core is
+not intrinsically difficult for Lean to validate: import the numeral (or a
+factored/residue representation), compute or certify its bit length, and use
+the small natural inequality above.
+
+On the proposed full Väänänen--Wallisser 1989 formalization: it would remove
+an external citation for the period-one/two and other fixed-rate no-go
+results, but it does not cross the live period-three boundary because its
+size hypothesis already fails there (as our existing Lean audit proves).
+Rebuilding its p-adic auxiliary-polynomial/linear-independence proof is a
+large project and currently has lower marginal value than exposing exact
+finite consequences such as this one.  I therefore recommend keeping its
+conclusion as an explicit supplied hypothesis/citation seam unless a referee
+specifically requires a full reproof.

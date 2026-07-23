@@ -1076,6 +1076,24 @@ theorem terminalExponent_core_power_lower
       (by simpa [mul_comm, mul_left_comm, mul_assoc] using hlower)
   simpa [E, S, n₀, nN] using hcancel
 
+/-- Convert a `2^E < u^41` certificate into a lower bound on the ordinary
+binary digit length of `u`, without constructing either giant power. -/
+theorem exponent_div_41_lt_binaryDigits_of_two_pow_lt_pow_41
+    (E u : ℕ) (h : 2 ^ E < u ^ 41) :
+    E / 41 < (Nat.log 2 u).succ := by
+  let L := (Nat.log 2 u).succ
+  have hu : u < 2 ^ L := by
+    simpa [L] using Nat.lt_pow_succ_log_self Nat.one_lt_two u
+  have hupow : u ^ 41 < 2 ^ (L * 41) := by
+    calc
+      u ^ 41 < (2 ^ L) ^ 41 :=
+        Nat.pow_lt_pow_left hu (by norm_num)
+      _ = 2 ^ (L * 41) := by rw [pow_mul]
+  have hpow : 2 ^ E < 2 ^ (L * 41) := h.trans hupow
+  have hexponent : E < L * 41 :=
+    (Nat.pow_lt_pow_iff_right (by norm_num)).1 hpow
+  exact (Nat.div_lt_iff_lt_mul (by norm_num : 0 < 41)).2 hexponent
+
 /-- QM89: a sharp integral ceiling on every one-based branch history.  It is
 obtained from the universal product budget using `3^41 < 2^65`. -/
 theorem terminalBranch_ceiling
