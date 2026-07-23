@@ -1,6 +1,69 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 03:23 EDT
+Updated: 2026-07-23, about 04:08 EDT
+
+### 04:08 EDT continuation — period-three cores must carry quadratic bits
+
+There is no counterexample.  Companion commit `2d016ab` strengthens the
+universal slowdown theorem to an explicit finite horizon.  From every time
+`K`, a positive EC17 execution has a branch-ceiling step in
+
+```text
+K <= t < K + Nat.log 2 (core(K)+1) + 1,
+328*n_(t+1) < 390*n_t+141.
+```
+
+Companion commits `17de520`, `6aeb427`, and `3ebdb72` establish the new
+period-three resource invariant.  If `G>0` is the cycle gain, then for every
+`q>=5`,
+
+```text
+2^(q*(435+G*(84*q-412))) < core(3*q)^41,
+
+(q*(435+G*(84*q-412)))/41
+  < Nat.log 2 (core(3*q)) + 1.
+```
+
+Lean also refutes every eventual affine upper bound on this bit length and
+constructs a violating cycle explicitly from the cutoff and affine
+coefficients.  The branch counter itself is only linear in `q`; the ordinary
+core must carry quadratically many bits.  This is the precise answer to the
+resource question and a search-design theorem, not a counterexample.  Do not
+enumerate bounded raw cores as the main period-three state space; use
+normalized residues/theta data or another compressed representation that can
+carry the forced quadratic growth.
+
+The source audit has closed two further sufficient-theorem shortcuts:
+
+1. Amou--Väänänen (2005) gives linear independence with respect to the full
+   set of expanding places.  The EC17 parameter expands at both the real and
+   2-adic places.  Its real series value is not the positive ordinary core,
+   so this simultaneous-place theorem does not exclude the Q2-only relation.
+2. Väänänen (2013), Theorem 4, is genuinely non-archimedean, but its cited
+   Amou--Matala-aho--Väänänen (2007) criterion has an explicit auxiliary
+   threshold.  Commit `92416b1` kernel-checks for every `0<delta<1,rho>0`
+   in the three-value specialization that
+
+   ```text
+   B/A < 13/12 < 3*log(3)/(4*log(2)).
+   ```
+
+   The second strict inequality is proved from the exact separator
+   `2^13<3^9`.  Hence the 2007/2013 sufficient condition misses the EC17
+   parameter uniformly.
+
+A fresh stable `cd KontoroC && lake build` passes all 8,790 targets.  The
+earlier namespace error was a build race against a newly committed dependency,
+not a committed Lean defect.  The current dirty
+`experiments/kontorovich/unit_charge_morphic_audit.json` fails reconstruction
+from its checked-in verifier; preserve it but do not cite it.  Akdeniz was
+useful for retrieving the 2005, 2007, and 2013 primary PDFs.  PSC is idle:
+there is still no theorem-guided GPU target worth running.
+
+The live period-three hinge is unchanged in kind but much narrower in form:
+prove the exact three-theta Q2 linear form nonordinary, reduce it to fewer
+values, or prove a cofinal nonstabilization theorem for its exact residue
+bits.  Finite CRT widening alone remains a lower-bound exercise.
 
 ### 03:23 EDT continuation — unconditional geometric closure and sharp schedule budget
 

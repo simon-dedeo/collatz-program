@@ -33,6 +33,60 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 04:08 EDT
+
+There is still no counterexample.  Period three now has a machine-checked
+resource theorem: a hypothetical positive EC17 survivor may keep its branch
+counter linear, but its ordinary core cannot remain small or even have
+eventually linear bit length.
+
+Companion commit `2d016ab` first makes the earlier recurring slowdown local.
+Starting at any time `K`, a branch-ceiling step occurs before
+
+```text
+K + Nat.log 2 (core(K)+1) + 1.
+```
+
+Companion commits `17de520`, `6aeb427`, and `3ebdb72` then prove, for every
+period-three ray with positive cycle gain `G` and every `q>=5`,
+
+```text
+2^(q*(435+G*(84*q-412))) < core(3*q)^41,
+
+(q*(435+G*(84*q-412)))/41
+  < Nat.log 2 (core(3*q)) + 1.
+```
+
+In particular, for every proposed affine bit budget `C*q+B` and every
+cutoff, Lean gives an explicit later cycle where the core exceeds it.  This
+answers the counter-growth question precisely: not every individual counter
+must grow monotonically, but a period-three survivor must transfer
+quadratically growing bit mass into the ordinary core.  Raw bounded-core
+enumeration is therefore the wrong representation; a useful search must
+track normalized residues or theta data that can encode that growth.  This
+is a necessary condition, not a survivor.
+
+The published-theorem audit also closed two tempting shortcuts.  Amou and
+Väänänen's 2005 qualitative theorem controls a relation simultaneously at
+every place where the common parameter expands; for the EC17 parameter that
+set includes both the real and 2-adic places, whereas the candidate relation
+is only 2-adic.  Väänänen's 2013 non-archimedean theorem is closer, but tracing
+it to Amou--Matala-aho--Väänänen (2007) exposes an explicit threshold.  In the
+three-value specialization Lean commit `92416b1` proves uniformly
+
+```text
+B/A < 13/12 < 3*log(3)/(4*log(2)),
+```
+
+with the logarithmic comparison reduced exactly to `2^13<3^9`.  Thus that
+sufficient criterion cannot reach period three either.  Neither failure
+proves that the three-theta value is rational or irrational.
+
+A stable local full build passes all 8,790 targets.  The current dirty
+`unit_charge_morphic_audit.json` does not reconstruct from its checked-in
+verifier and is not cited.  Akdeniz was used for primary-source retrieval;
+PSC remains idle because no theorem-guided GPU computation is yet available.
+
 ### 2026-07-23 03:23 EDT
 
 There is still no counterexample.  The theorem-driven schedule search now has
@@ -4445,6 +4499,7 @@ identically `x`.
 | Fixed-jump resonant phase-up counter | Closed for every `k>=1`, despite its nonperiodic public phase `m_i=m_0+4ki`.  Lean commit `466e381` derives the exact public cofactor recurrence, constructs its unique `Q_2` candidate, identifies it coefficientwise with a nonzero rational multiple of `f_(3^(68k)/2^(92k))(alpha)`, and bridges every linked public-step ray to that recurrence.  The inspected main theorem of Väänänen--Wallisser (1989), pp. 200--201, applies with `ell=1,sigma=0,p=2`; accepting that external theorem makes the candidate irrational and rules out an ordinary cofactor.  Variable payload-dependent jumps/directions remain open. | [`ChargePhaseUpTheta.lean`](KontoroC/KontoroC/ChargePhaseUpTheta.lean), [phase-glider note](docs/notes/kontorovich-resonant-phase-glider.md) |
 | Väänänen--Wallisser as an all-period phase-up obstruction | **Retracted beyond period three.**  Periodic jump schedules split into several theta values, and the paper's sufficient threshold depends on their number `L`.  Commits `8b3d9f5`/`772a6e8` kernel-check the complete flattened multi-theta decomposition and `gamma<Gamma(L,0)` for `L=2,3`, but also `Gamma(4,0)<1/8<gamma`.  Accepting the external theorem closes periods one through three; the citation cannot close period four or any larger period by the same estimate.  Period four is only the first theorem escape, not evidence of an ordinary ray. | [`ChargePhaseUpPeriodicTheta.lean`](KontoroC/KontoroC/ChargePhaseUpPeriodicTheta.lean) |
 | Finite Laurent and homogeneous rational period-three EC17 coboundaries | Universally closed in the stated classes by companion commits `1154476`, `d0faf96`, and `82198ac`.  The exact three-step defect has three quadratic monomials.  Extreme support excludes every finite Laurent slice.  For a reduced homogeneous rational potential `x^-1 f(y/x)`, the scaled denominator divides the original, hence is a monomial; the same extreme-support contradiction then closes the quotient.  This does not exclude a general nonhomogeneous bivariate rational function, an infinite theta series, or rationality at one evaluated orbit. | [`LaurentCoboundaryNoGo.lean`](KontoroC/KontoroC/LaurentCoboundaryNoGo.lean), [`RationalCoboundaryReduction.lean`](KontoroC/KontoroC/RationalCoboundaryReduction.lean) |
+| General 2005/2007/2013 theta theorems as an immediate period-three shortcut | Closed as applications of those sufficient statements, not as a no-period-three result.  Amou--Väänänen (2005) controls simultaneous relations over the full expanding-place set, which here contains both the real and 2-adic places; EC17 supplies only the latter relation.  Väänänen (2013), Theorem 4, allows a non-archimedean place, but tracing its criterion to Amou--Matala-aho--Väänänen (2007) gives `B/A<13/12`, while the EC17 height ratio is larger.  Commit `92416b1` kernel-checks the uniform threshold comparison and reduces its logarithmic part to `2^13<3^9`.  A sharper theorem specialized to this one evaluated three-theta form remains live. | [`AmouMatalaahoVaananenThreshold.lean`](KontoroC/KontoroC/AmouMatalaahoVaananenThreshold.lean), [`FOR_CLEAN_LEAN.md`](docs/FOR_CLEAN_LEAN.md) |
 | Bare public words as binary-to-ternary chart adapters | Universally closed by Lean commit `772a6e8`.  Every exact public step has typed form `w-3^(-17m)=a*(w'-2^(-23m'))`.  A multi-cell word accumulates a strictly negative internal tax, exactly the normalized `-H_m` defect, so it cannot be a clean entry/exit coboundary.  This is not a no-orbit theorem; it proves that closure needs an auxiliary correction rail. | [`ChargeTypedInterface.lean`](KontoroC/KontoroC/ChargeTypedInterface.lean), [closure doctrine](docs/notes/kontorovich-closure-principles.md) |
 | Infinite rail of the one-cell determinant-four conjugacy | Universally closed in that chart class by Lean commit `772a6e8`.  Self-linking successive cells requires `1311*k_(i+1)=1309*k_i`; a length-`N` rail forces `1311^N|k_0`, and an infinite natural rail has `k_0=0`.  The result is independent of affine intercepts and tail cylinders.  A live turnaround must reverse the separation loss or leave the one-cell resonant class. | [`ChargeResonantSeparationNoGo.lean`](KontoroC/KontoroC/ChargeResonantSeparationNoGo.lean), [phase-glider note](docs/notes/kontorovich-resonant-phase-glider.md) |
 | Constant-rate fixed-level unit bank `n_t=n_0+kt` | Closed at all six compiled levels for every `n_0>=1` and fixed integer `k>=1`.  Exact unrolling gives a Tschakaloff value with theorem parameter `q=3^(ck)/2^(ak)` and rational nonzero `alpha=2^(p(n_0))/3^(q(n_0))`, independent of `k`.  The full-source Väänänen--Wallisser theorem makes it irrational in `Q_2`; the exact audit checks the function conversion and the uniform strict size bound, whose logarithmic ratio is unchanged because `k` cancels.  Six linked eight-transition regressions verify the finite `k=1` recurrence, while the symbolic coefficient identity and cited theorem give the all-`k` conclusion.  A factor bank must use nonlinear packet feedback, not any fixed-rate counter. | [`unit_linear_theta_audit.json`](experiments/kontorovich/unit_linear_theta_audit.json) |
@@ -5084,6 +5139,23 @@ existing lines of work; the closest ancestors, and what each contributes:
   condition fails by the already-certified separator
   `Gamma(3,0)<5/32<gamma`.  Thus this stronger packaging confirms rather than
   removes the period-three boundary.
+- **M. Amou & K. Väänänen, [“Linear Independence of the Values of
+  q-Hypergeometric Series and Related
+  Functions”](https://doi.org/10.1007/s11139-005-1871-8) (2005)** — its
+  qualitative theorem uses the full set of places where the rational
+  parameter expands.  For the EC17 period-three parameter that set contains
+  both the real and 2-adic places.  The theorem therefore does not exclude a
+  relation present only in `Q_2`; this is a simultaneous-place mismatch, not
+  a claim about the actual three-theta value.
+- **M. Amou, T. Matala-aho & K. Väänänen, [“On Siegel--Shidlovskii's theory
+  for q-difference equations”](https://doi.org/10.4064/aa127-4-2) (2007)**
+  and **K. Väänänen, [“On Tschakaloff, q-exponential and related
+  functions”](https://doi.org/10.1007/s11139-012-9375-9) (2013)** — the later
+  paper's Theorem 4 does allow a non-archimedean place, but its cited 2007
+  threshold misses uniformly in the three-value specialization.  Lean commit
+  `92416b1` proves `B/A<13/12<3*log(3)/(4*log(2))` from exact ordered-field
+  algebra and `2^13<3^9`.  These sufficient theorems do not close period
+  three.
 - **K. Väänänen, [“Algebraic independence of certain Mahler
   numbers”](https://arxiv.org/abs/1507.02510) (2015)** — covers Thue--Morse
   and related generating-function values at nonzero algebraic points in the
