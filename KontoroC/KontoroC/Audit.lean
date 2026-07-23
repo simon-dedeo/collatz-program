@@ -1624,3 +1624,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.KLCalibratedCycle.selected_cycle_shift_nonpos
 #print axioms KontoroC.KLCalibratedCycle.kl_log_weight_ne_zero
 #print axioms KontoroC.KLCalibratedCycle.kl_selected_cycle_weight_strict
+#print axioms KontoroC.SelfWritingKL.PublicTheta.payload_recurrence_of_reduced_factors
+#print axioms KontoroC.SelfWritingKL.PublicTheta.target_core_mod_473
+#print axioms KontoroC.SelfWritingKL.PublicTheta.target_core_mod_two_pow
+#print axioms KontoroC.SelfWritingKL.PublicTheta.exists_target_Zbar
+#print axioms KontoroC.SelfWritingKL.PublicTheta.next_Wbar_lattice
+#print axioms KontoroC.SelfWritingKL.PublicTheta.WbarTailChain_recurrence
+#print axioms KontoroC.SelfWritingKL.PublicTheta.exists_orbit_of_padicSum_eq_Wbar_lattice

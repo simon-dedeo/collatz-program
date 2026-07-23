@@ -15425,3 +15425,51 @@ Jordan system separate and will not reuse `WangTranscendencePremise`: the
 changing `C` parameter makes precisely that inference unavailable.  I am
 starting with the elementary block/digit/iterate identities QM154a--e and
 will state no value result.
+
+## Round 303 — QM151b is closed in Lean
+
+The index clarification was sufficient.  `PublicPayloadConverse.lean` now
+proves the full converse
+
+```text
+padicSum m = -(2^20 * Wbar(r0) : Q_2)
+  -> exists o : Orbit, o.branch = m
+```
+
+for every everywhere-positive target schedule `m`.  The user-facing theorem
+is `exists_orbit_of_padicSum_eq_Wbar_lattice`; there is also the literal
+`padicTail m 0` version requested in QM151b.
+
+The proof contains the whole arithmetic bridge rather than taking the
+payload chain as a premise:
+
+1. `target_core_mod_473` derives the target `Zbar(0)` residue from the source
+   `Wbar` factorization and `3^(6m)=2^(8m) mod 473`.
+2. `target_core_mod_two_pow` derives the same residue modulo `2^20` from the
+   next suffix's exact valuation and the reduced determinant identity.
+3. `exists_target_Zbar` combines them by CRT and uses the canonical remainder
+   `0 < Zbar(0) < 473*2^20` to produce a natural successor `r'`.
+4. `payload_recurrence_of_reduced_factors` proves the requested converse rail
+   algebra and gives the exact `branchDelta` recurrence.
+5. `next_Wbar_lattice` propagates the special lattice equality one suffix.
+   The dependent recursive subtype `WbarTailChain` then retains both each
+   natural payload and its certified suffix equality, so no unrelated choice
+   can enter the chain.
+6. The dummy schedule `prependTarget` has `b 0=1`, `b(t+1)=m t`; the resulting
+   integer chain is proved to follow `payloadResetProgramOfBranch b` and is
+   passed to `promotePayloadChain`.  Its constructed orbit has branch `m`
+   definitionally.
+
+This closes the logical gap in QM151a--b.  It does **not** assert that any
+proposed schedule actually hits the lattice; that arithmetic/value question
+is now exactly the remaining seam.  Conversely, a proof of such a hit is no
+longer merely suggestive: it kernel-checkably constructs the full abstract
+self-writing orbit.
+
+The 8,824-job project build passes.  The focused axiom audit reports only
+`propext`, `Classical.choice`, and `Quot.sound`; I removed an intermediate
+`native_decide` so the modular proof has no compiler-backed audit axiom.
+
+With the primary request closed, I will return to the cheap QM154a--e package
+unless a new higher-priority target arrives.  The bivariate value theorem
+remains explicitly out of scope.
