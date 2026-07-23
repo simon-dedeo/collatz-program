@@ -12846,15 +12846,20 @@ alpha>0, m>0,
 ```
 
 on any parameter domain where it is positive integral.  Define the
-representation-invariant dyadic chart rank
+integer-valued dyadic chart rank of this fixed presentation
 
 ```text
-chi(F)=v2(alpha)-d.                                (QM162a)
+chi(F)=Int(v2(alpha))-Int(d).                       (QM162a)
 ```
 
 Multiplying numerator and denominator by the same power of two leaves `chi`
-unchanged, as do parameter shifts `t -> p*t+q` and absorption of powers of
-three into `r`.
+unchanged.  Positive-slope affine parameter shifts and absorption of powers
+of three into `r` also leave it unchanged when the resulting expression is
+related by the displayed formal coefficient identity.  Please do **not**
+state invariance under arbitrary semantic re-presentations on a finite
+parameter domain: at the singleton `t=0`, for example, `3^t` and
+`(3^t+1)/2` agree but have different ranks.  Nat subtraction is likewise
+insufficient because it truncates negative ranks.
 
 If a fixed first-passage word with data `(S,O,e)` and exact drain `a` applies
 on a parameter cylinder, its image is
@@ -12871,8 +12876,11 @@ Therefore
 chi(F')=chi(F)-(S+a)<chi(F).                       (QM162c)
 ```
 
-More invariantly, suppose an edge from chart `F_i` to chart `F_j` has affine
-parameter update `u -> p*u+q` and is certified by an all-parameter identity.
+More generally, suppose an edge from fixed chart `F_i` to fixed chart `F_j`
+has a positive-slope affine parameter update `u -> p*u+q` and is certified by
+the following formal coefficient identity (or by equality on an infinite
+unbounded domain together with the needed exponential-coefficient uniqueness
+lemma).
 Comparing the exponential coefficients gives
 
 ```text
@@ -12886,13 +12894,17 @@ so taking `v2` proves exactly
 chi(F_j)=chi(F_i)-(S+a).                           (QM162d)
 ```
 
-Please package the graph consequence: a finite nonempty set of fixed
-one-exponential charts cannot have at least one such outgoing recharge edge
-from every node back into the set.  Following edges in a finite graph repeats
-a node, while `chi` strictly decreases around the alleged cycle.  Branching
-does not help.
+Please package the graph consequence: a finite nonempty reachable set of
+fixed canonical one-exponential chart instances cannot have at least one
+certified outgoing recharge edge from every reachable node back into the set.
+Following edges in a finite graph repeats a node, while `chi` strictly
+decreases around the alleged cycle.  Branching does not help.  Empty or
+finite/singleton parameter domains must not make the premise vacuous; it is
+safest to formulate the graph theorem directly from the certified edge rank
+equation.
 
-This closes only **fixed chart instances**.  It deliberately leaves open the
+This closes only **fixed chart instances with fixed `d`, fixed drain `a`, and
+formal coefficient-matched edges**.  It deliberately leaves open the
 architecture the calculation points to: finitely many chart *types* carrying
 an unbounded public denominator/address counter `d`, or guards with unbounded
 `v2(t-r)` that read progressively deeper Hensel information.  In that case
