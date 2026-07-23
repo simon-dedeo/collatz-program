@@ -5,6 +5,8 @@ Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.EtherCounterStateNoRepeat
 import KontoroC.EtherCounterGeometricMahler
+import Mathlib.Data.Fintype.Pigeonhole
+import Mathlib.Order.Interval.Finset.Basic
 
 /-!
 # Literal period-three EC17 composition
@@ -779,6 +781,51 @@ theorem normalizedCRTFailure_predecessorExponent_lt_initialDigits_of_noPrefix
   · exact g.shiftedCore_admitsNaturalPrefix q length
   · exact hfail
 
+/-- Direct compact-certificate specialization of QM106 for an
+under-divisibility replay failure.  This is the kernel endpoint for a worker
+row: no expanded list of intermediate cores, and no separately supplied
+`AdmitsNaturalPrefix` negation, is required. -/
+theorem normalizedCRTFailure_predecessorExponent_lt_initialDigits_of_compactNondivisible
+    (g : Ray) (q candidate length : ℕ) (hq : 5 ≤ q)
+    (hbinary : g.core (3 * q) ≡ candidate
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : g.core (3 * q) ≡ candidate
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : candidate <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11))
+    (certificate :
+      EtherCounterResidueBound.CompactNondivisibleReplayFailure
+        (shiftedBranch g q) candidate)
+    (hstep : certificate.step < length) :
+    6 * g.branch (3 * q - 1) + 11 <
+      (Nat.log 2 (g.core 0)).succ := by
+  apply g.normalizedCRTFailure_predecessorExponent_lt_initialDigits_of_noPrefix
+    q candidate length hq hbinary hternary hcandidate
+  exact certificate.not_admitsNaturalPrefix hstep
+
+/-- Direct compact-certificate specialization of QM106 for an even terminal
+quotient.  The explicit `step+1<length` premise preserves the necessary
+off-by-one distinction from under-divisibility. -/
+theorem normalizedCRTFailure_predecessorExponent_lt_initialDigits_of_compactEven
+    (g : Ray) (q candidate length : ℕ) (hq : 5 ≤ q)
+    (hbinary : g.core (3 * q) ≡ candidate
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : g.core (3 * q) ≡ candidate
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : candidate <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11))
+    (certificate :
+      EtherCounterResidueBound.CompactEvenQuotientReplayFailure
+        (shiftedBranch g q) candidate)
+    (hnext : certificate.step + 1 < length) :
+    6 * g.branch (3 * q - 1) + 11 <
+      (Nat.log 2 (g.core 0)).succ := by
+  apply g.normalizedCRTFailure_predecessorExponent_lt_initialDigits_of_noPrefix
+    q candidate length hq hbinary hternary hcandidate
+  exact certificate.not_admitsNaturalPrefix hnext
+
 /-! ## Replay-free normalized CRT margins -/
 
 /-- Bit-length form behind QM108.  A positive canonical CRT representative
@@ -827,6 +874,13 @@ theorem normalizedCRT_candidate_binaryDigits_le
 def normalizedCRTMargin (g : Ray) (q candidate : ℕ) : ℕ :=
   (Nat.log 2 candidate).succ - sharpUpperBudget g q
 
+/-- The coefficient of the binary CRT modulus in a canonical representative.
+Writing the candidate as `r₂ + 2^U * lift`, this quotient is either `lift`
+or `lift` plus the harmless quotient of `r₂`; for the canonical binary
+residue `r₂<2^U` it is exactly `lift`. -/
+def normalizedCRTLift (g : Ray) (q candidate : ℕ) : ℕ :=
+  candidate / 2 ^ sharpUpperBudget g q
+
 /-- QM108: the replay-free normalized candidate margin lower-bounds the
 same fixed initial-core bit length. -/
 theorem normalizedCRT_candidateMargin_le_initialDigits
@@ -846,6 +900,99 @@ theorem normalizedCRT_candidateMargin_le_initialDigits
   change (Nat.log 2 candidate).succ - sharpUpperBudget g q ≤
     (Nat.log 2 (g.core 0)).succ
   omega
+
+/-- Under a hypothetical ray, every normalized CRT lift lies in one fixed
+finite set whose size depends only on the initial core.  This is the exact
+pigeonhole form of the missing arithmetic obstruction: unbounded computed
+margins are equivalent to escaping every such finite lift alphabet. -/
+theorem normalizedCRTLift_lt_two_pow_initialDigits
+    (g : Ray) (q candidate : ℕ) (hq : 5 ≤ q)
+    (hbinary : g.core (3 * q) ≡ candidate
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : g.core (3 * q) ≡ candidate
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : candidate <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11))
+    (hcandidate_pos : 0 < candidate) :
+    normalizedCRTLift g q candidate <
+      2 ^ (Nat.log 2 (g.core 0)).succ := by
+  let U := sharpUpperBudget g q
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  have hbits := g.normalizedCRT_candidate_binaryDigits_le q candidate hq
+    hbinary hternary hcandidate hcandidate_pos
+  have hcandBits : candidate < 2 ^ (Nat.log 2 candidate).succ :=
+    Nat.lt_pow_succ_log_self Nat.one_lt_two candidate
+  have hpowers : 2 ^ (Nat.log 2 candidate).succ ≤ 2 ^ (U + L₀) :=
+    Nat.pow_le_pow_right (by norm_num) (by simpa [U, L₀] using hbits)
+  have hcandProduct : candidate < 2 ^ L₀ * 2 ^ U := by
+    calc
+      candidate < 2 ^ (Nat.log 2 candidate).succ := hcandBits
+      _ ≤ 2 ^ (U + L₀) := hpowers
+      _ = 2 ^ L₀ * 2 ^ U := by rw [pow_add]; ac_rfl
+  exact (Nat.div_lt_iff_lt_mul (by positivity : 0 < 2 ^ U)).2
+    (by simpa [normalizedCRTLift, U, L₀] using hcandProduct)
+
+/-- If a period-three ray existed, the normalized CRT lift would take one
+fixed value at arbitrarily late cycle indices.  Therefore the replay-free
+search can be attacked one fixed lift at a time; proving that every fixed
+lift occurs only finitely often is enough to exclude the ray. -/
+theorem exists_cofinally_constant_normalizedCRTLift
+    (g : Ray) (candidate : ℕ → ℕ)
+    (hbinary : ∀ q, g.core (3 * q) ≡ candidate q
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : ∀ q, g.core (3 * q) ≡ candidate q
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : ∀ q, candidate q <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11))
+    (hcandidate_pos : ∀ q, 0 < candidate q) :
+    ∃ lift < 2 ^ (Nat.log 2 (g.core 0)).succ,
+      ∀ N, ∃ n, N < n ∧
+        normalizedCRTLift g (n + 5) (candidate (n + 5)) = lift := by
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  let lifts : ℕ → Fin (2 ^ L₀) := fun n =>
+    ⟨normalizedCRTLift g (n + 5) (candidate (n + 5)),
+      g.normalizedCRTLift_lt_two_pow_initialDigits
+        (n + 5) (candidate (n + 5)) (by omega)
+        (hbinary (n + 5)) (hternary (n + 5))
+        (hcandidate (n + 5)) (hcandidate_pos (n + 5))⟩
+  obtain ⟨lift, hinfinite⟩ := Finite.exists_infinite_fiber lifts
+  refine ⟨lift, by simpa [L₀] using lift.isLt, ?_⟩
+  have hset : ({n : ℕ | lifts n = lift} : Set ℕ).Infinite := by
+    rw [show {n : ℕ | lifts n = lift} = lifts ⁻¹' ({lift} : Set (Fin (2 ^ L₀))) by
+      ext n
+      simp]
+    exact Set.infinite_coe_iff.mp hinfinite
+  intro N
+  obtain ⟨n, hnmem, hn⟩ := hset.exists_gt N
+  refine ⟨n, hn, ?_⟩
+  simpa [lifts] using congrArg Fin.val hnmem
+
+/-- Fixed-lift exclusion principle.  It is enough to prove, separately for
+each natural lift, that the canonical CRT construction eventually avoids
+that lift.  No uniform avoidance bound in the lift is required.  This is
+strictly weaker in shape than a full multi-value linear-independence theorem
+and isolates a possible fixed-linear-form route beyond the 1989 threshold. -/
+theorem false_of_eventually_avoids_each_normalizedCRTLift
+    (g : Ray) (candidate : ℕ → ℕ)
+    (hbinary : ∀ q, g.core (3 * q) ≡ candidate q
+      [MOD 2 ^ sharpUpperBudget g q])
+    (hternary : ∀ q, g.core (3 * q) ≡ candidate q
+      [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)])
+    (hcandidate : ∀ q, candidate q <
+      2 ^ sharpUpperBudget g q *
+        3 ^ (6 * g.branch (3 * q - 1) + 11))
+    (hcandidate_pos : ∀ q, 0 < candidate q)
+    (havoid : ∀ lift, ∃ N, ∀ n, N < n →
+      normalizedCRTLift g (n + 5) (candidate (n + 5)) ≠ lift) :
+    False := by
+  obtain ⟨lift, _hlift, hcofinal⟩ :=
+    g.exists_cofinally_constant_normalizedCRTLift candidate
+      hbinary hternary hcandidate hcandidate_pos
+  obtain ⟨N, hN⟩ := havoid lift
+  obtain ⟨n, hn, heq⟩ := hcofinal N
+  exact hN n hn heq
 
 /-- QM109: unbounded replay-free normalized CRT margins exclude a
 period-three ray.  No replay predicate or failure certificate is assumed. -/
@@ -1039,6 +1186,55 @@ theorem false_of_unbounded_normalizedCRTReplayFailures
   · intro j
     exact g.shiftedCore_admitsNaturalPrefix (q j) (length j)
   · exact hfail
+  · exact hunbounded
+
+/-- Cofinal compact under-divisibility certificates exclude a period-three
+ray.  Every row remains independently kernel-checkable from one composed
+replay identity and one failed divisibility test. -/
+theorem false_of_unbounded_normalizedCRTCompactNondivisibleFailures
+    (g : Ray) (q candidate length : ℕ → ℕ)
+    (hq : ∀ j, 5 ≤ q j)
+    (hbinary : ∀ j, g.core (3 * q j) ≡ candidate j
+      [MOD 2 ^ sharpUpperBudget g (q j)])
+    (hternary : ∀ j, g.core (3 * q j) ≡ candidate j
+      [MOD 3 ^ (6 * g.branch (3 * q j - 1) + 11)])
+    (hcandidate : ∀ j, candidate j <
+      2 ^ sharpUpperBudget g (q j) *
+        3 ^ (6 * g.branch (3 * q j - 1) + 11))
+    (certificate : ∀ j,
+      EtherCounterResidueBound.CompactNondivisibleReplayFailure
+        (shiftedBranch g (q j)) (candidate j))
+    (hstep : ∀ j, (certificate j).step < length j)
+    (hunbounded : ∀ M, ∃ j, M < q j) :
+    False := by
+  apply g.false_of_unbounded_normalizedCRTReplayFailures
+    q candidate length hq hbinary hternary hcandidate
+  · intro j
+    exact (certificate j).not_admitsNaturalPrefix (hstep j)
+  · exact hunbounded
+
+/-- Cofinal compact even-quotient certificates exclude a period-three ray.
+The family interface retains the extra-transition guard on every row. -/
+theorem false_of_unbounded_normalizedCRTCompactEvenFailures
+    (g : Ray) (q candidate length : ℕ → ℕ)
+    (hq : ∀ j, 5 ≤ q j)
+    (hbinary : ∀ j, g.core (3 * q j) ≡ candidate j
+      [MOD 2 ^ sharpUpperBudget g (q j)])
+    (hternary : ∀ j, g.core (3 * q j) ≡ candidate j
+      [MOD 3 ^ (6 * g.branch (3 * q j - 1) + 11)])
+    (hcandidate : ∀ j, candidate j <
+      2 ^ sharpUpperBudget g (q j) *
+        3 ^ (6 * g.branch (3 * q j - 1) + 11))
+    (certificate : ∀ j,
+      EtherCounterResidueBound.CompactEvenQuotientReplayFailure
+        (shiftedBranch g (q j)) (candidate j))
+    (hnext : ∀ j, (certificate j).step + 1 < length j)
+    (hunbounded : ∀ M, ∃ j, M < q j) :
+    False := by
+  apply g.false_of_unbounded_normalizedCRTReplayFailures
+    q candidate length hq hbinary hternary hcandidate
+  · intro j
+    exact (certificate j).not_admitsNaturalPrefix (hnext j)
   · exact hunbounded
 
 set_option maxRecDepth 1000

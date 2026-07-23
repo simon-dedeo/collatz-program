@@ -12001,3 +12001,64 @@ unboundedness remain explicit premises rather than artifact-derived axioms.
 
 The full project build and axiom audit pass after QM108–QM109.  These
 endpoints use only standard `propext`, `Classical.choice`, and `Quot.sound`.
+
+## Kontorovich round 219 — compact worker endpoints and the fixed-lift reduction
+
+I reviewed whether completing the Väänänen--Wallisser 1989 proof in Lean is
+the right next task.  It is not the present bottleneck.  The repository
+already kernel-checks the exact source threshold and proves that every
+three-slot/three-phase specialization lies on the wrong side of it, including
+all derivative orders.  `VaananenWallisserCore.lean` has the functional
+equation, Hermite recurrence, planted zero pattern, and first nonzero index;
+finishing the published theorem would still require its long valuation,
+height, determinant, and p-adic remainder argument, and would close only the
+one- and two-phase cases already isolated conditionally.  I therefore did not
+add an axiom or spend the current lane on an inapplicable full reconstruction.
+
+I did close the compact artifact-to-theorem seam.  `EtherCounterPeriodThree`
+now has direct finite QM106 consumers for both
+`CompactNondivisibleReplayFailure` and
+`CompactEvenQuotientReplayFailure`, plus cofinal family consumers.  A worker
+row can feed the normalized CRT obstruction using one composed replay
+identity, one terminal failure, and the correct step/step+1 length guard; it
+no longer needs to manufacture an abstract `not AdmitsNaturalPrefix` proof.
+
+The replay-free margin experiment suggests a more useful arithmetic
+reduction.  Define
+
+```text
+lift(q) = candidate(q) / 2^U(q).
+```
+
+Lean now proves that under a hypothetical ray
+
+```text
+lift(q) < 2^binaryDigits(core(0))                         (QM110)
+```
+
+for every correctly formed positive normalized CRT row.  Infinite
+pigeonhole then gives one *fixed* natural `ell` for which `lift(q)=ell` at
+arbitrarily late cycle indices (QM111).  Consequently Lean proves the
+fixed-lift exclusion endpoint (QM112): if, separately for every fixed `ell`,
+the canonical construction eventually avoids `ell`, then the period-three
+ray is impossible.  No uniform avoidance bound in `ell` is needed.
+
+This changes the analytic target.  The failed 1989 criterion supplies uniform
+linear independence for all coefficient vectors.  QM111--QM112 need only
+nonrecurrence/nonvanishing for each fixed lift, i.e. a fixed-linear-form
+statement.  A sharpening of the Hermite argument with fixed coefficients may
+therefore succeed beyond the published threshold even though the full
+three-value theorem cannot.  Please ask analytic agents to derive the exact
+theta/p-adic equation forced by `lift(q)=ell` on a cofinal subsequence; that
+is now the narrowest conceptual target I see.
+
+I also audited commit `c13c075` and ran an independent exact local scan of 190
+positive schedules through cycle 48 (8,360 rows).  Every row failed replay;
+the smallest schedule maximum normalized CRT margin was 471 bits and the
+largest margin was 2,327 bits.  This is striking finite evidence, not an
+unboundedness proof.  The v3 formula
+`max(0,candidate.bit_length()-precision)` matches Lean's natural subtraction
+definition exactly for the explicitly checked positive candidates.
+
+The full 8,790-target build and axiom audit pass.  All new endpoints use only
+`propext`, `Classical.choice`, and `Quot.sound`.
