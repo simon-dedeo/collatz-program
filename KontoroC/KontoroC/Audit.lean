@@ -1406,6 +1406,28 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.Orbit.no_orbit_with_branch_of_changes
 #print axioms KontoroC.SelfWritingKL.Orbit.initial_core_unique_of_same_branch
 #print axioms KontoroC.SelfWritingKL.Orbit.initial_payload_unique_of_same_branch
+#print axioms KontoroC.SelfWritingKL.Z_seventeen_mul
+#print axioms KontoroC.SelfWritingKL.W_seventeen_mul
+#print axioms KontoroC.SelfWritingKL.reduced_determinant_identity
+#print axioms KontoroC.SelfWritingKL.seventeen_dvd_Zbar_iff
+#print axioms KontoroC.SelfWritingKL.seventeen_dvd_Wbar_iff
+#print axioms KontoroC.SelfWritingKL.current_core_deep_iff
+#print axioms KontoroC.SelfWritingKL.successor_core_deep_iff
+#print axioms KontoroC.SelfWritingKL.seventeen_dvd_Z_iff
+#print axioms KontoroC.SelfWritingKL.seventeen_dvd_W_iff
+#print axioms KontoroC.SelfWritingKL.Orbit.unit_slice_reduced_balance
+#print axioms KontoroC.SelfWritingKL.Orbit.reduced_payload_transport
+#print axioms KontoroC.SelfWritingKL.Orbit.seventeen_dvd_core_of_payload
+#print axioms
+  KontoroC.SelfWritingKL.Orbit.not_both_seventeen_sq_dvd_consecutive
+#print axioms KontoroC.SelfWritingKL.Orbit.consecutive_collision_factor_exact
+#print axioms KontoroC.SelfWritingKL.Orbit.payload_seventeen_dvd_next_iff
+#print axioms KontoroC.SelfWritingKL.Orbit.exists_unit_slice_reduced_balance
+#print axioms KontoroC.SelfWritingKL.Orbit.unit_slice_payload_transport
+#print axioms KontoroC.SelfWritingKL.Orbit.unit_slice_current_core_deep_iff
+#print axioms KontoroC.SelfWritingKL.Orbit.unit_slice_successor_core_deep_iff
+#print axioms
+  KontoroC.SelfWritingKL.Orbit.unit_slice_consecutive_collision_exact
 #print axioms KontoroC.KLUniversalShadow.DifferenceCocycle.exact
 #print axioms
   KontoroC.KLUniversalShadow.DifferenceCocycle.two_pow_dvd_initial_difference

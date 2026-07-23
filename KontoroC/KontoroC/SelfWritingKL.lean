@@ -25,6 +25,11 @@ namespace SelfWritingKL
 
 def Z (q : ℕ) : ℕ := 494251421 + 495976448 * q
 def W (q : ℕ) : ℕ := 83499104 + 83790531 * q
+/-- The `Z` rail after dividing out the invariant collision factor on
+payloads of the form `17*r`. -/
+def Zbar (r : ℕ) : ℕ := 29073613 + 495976448 * r
+/-- The `W` rail after dividing out the same factor. -/
+def Wbar (r : ℕ) : ℕ := 4911712 + 83790531 * r
 def coreModulus : ℕ := 473 * 3 ^ 11
 def returnModulus : ℕ := 2 ^ 20
 
@@ -33,6 +38,109 @@ theorem determinant_identity (q : ℕ) :
     3 ^ 11 * Z q + 17 = 2 ^ 20 * W q := by
   simp [Z, W]
   ring
+
+/-- First coefficientwise identity in QM146a. -/
+theorem Z_seventeen_mul (r : ℕ) : Z (17 * r) = 17 * Zbar r := by
+  simp [Z, Zbar]
+  ring
+
+/-- Second coefficientwise identity in QM146a. -/
+theorem W_seventeen_mul (r : ℕ) : W (17 * r) = 17 * Wbar r := by
+  simp [W, Wbar]
+  ring
+
+/-- The determinant identity on the divided collision slice has defect one. -/
+theorem reduced_determinant_identity (r : ℕ) :
+    3 ^ 11 * Zbar r + 1 = 2 ^ 20 * Wbar r := by
+  simp [Zbar, Wbar]
+  ring
+
+/-- Exact mod-17 root of the reduced `Z` rail. -/
+theorem seventeen_dvd_Zbar_iff (r : ℕ) :
+    17 ∣ Zbar r ↔ r % 17 = 14 := by
+  rw [Nat.dvd_iff_mod_eq_zero]
+  simp only [Zbar]
+  omega
+
+/-- Exact mod-17 root of the reduced `W` rail. -/
+theorem seventeen_dvd_Wbar_iff (r : ℕ) :
+    17 ∣ Wbar r ↔ r % 17 = 1 := by
+  rw [Nat.dvd_iff_mod_eq_zero]
+  simp only [Wbar]
+  omega
+
+/-- The current reduced `Z` factor detects a second collision factor exactly
+at the residue `r=14 (mod 17)`. -/
+theorem current_core_deep_iff {n r v u : ℕ}
+    (hcore : u = 17 * v) (hfactor : Zbar r = 3 ^ (6 * n) * v) :
+    17 ^ 2 ∣ u ↔ r % 17 = 14 := by
+  have hcancel : 17 ^ 2 ∣ u ↔ 17 ∣ v := by
+    rw [hcore, show 17 ^ 2 = 17 * 17 by norm_num]
+    exact Nat.mul_dvd_mul_iff_left (by norm_num)
+  have hcoprime : Nat.Coprime 17 (3 ^ (6 * n)) :=
+    (by norm_num : Nat.Coprime 17 3).pow_right _
+  calc
+    17 ^ 2 ∣ u ↔ 17 ∣ v := hcancel
+    _ ↔ 17 ∣ 3 ^ (6 * n) * v := by
+      constructor
+      · exact fun hv => dvd_mul_of_dvd_right hv _
+      · exact hcoprime.dvd_of_dvd_mul_left
+    _ ↔ 17 ∣ Zbar r := by rw [hfactor]
+    _ ↔ r % 17 = 14 := seventeen_dvd_Zbar_iff r
+
+/-- The successor reduced `W` factor detects a second collision factor
+exactly at the distinct residue `r=1 (mod 17)`. -/
+theorem successor_core_deep_iff {m r v u : ℕ}
+    (hcore : u = 17 * v) (hfactor : Wbar r = 2 ^ (8 * m - 5) * v) :
+    17 ^ 2 ∣ u ↔ r % 17 = 1 := by
+  have hcancel : 17 ^ 2 ∣ u ↔ 17 ∣ v := by
+    rw [hcore, show 17 ^ 2 = 17 * 17 by norm_num]
+    exact Nat.mul_dvd_mul_iff_left (by norm_num)
+  have hcoprime : Nat.Coprime 17 (2 ^ (8 * m - 5)) :=
+    (by norm_num : Nat.Coprime 17 2).pow_right _
+  calc
+    17 ^ 2 ∣ u ↔ 17 ∣ v := hcancel
+    _ ↔ 17 ∣ 2 ^ (8 * m - 5) * v := by
+      constructor
+      · exact fun hv => dvd_mul_of_dvd_right hv _
+      · exact hcoprime.dvd_of_dvd_mul_left
+    _ ↔ 17 ∣ Wbar r := by rw [hfactor]
+    _ ↔ r % 17 = 1 := seventeen_dvd_Wbar_iff r
+
+/-- The affine `Z` coordinate detects the invariant unit slice exactly.
+Its constant is divisible by `17`, while its slope is coprime to `17`. -/
+theorem seventeen_dvd_Z_iff (q : ℕ) : 17 ∣ Z q ↔ 17 ∣ q := by
+  have hconstant : 17 ∣ 494251421 := by norm_num
+  constructor
+  · intro hZ
+    have hproduct : 17 ∣ 495976448 * q := by
+      change 17 ∣ 494251421 + 495976448 * q at hZ
+      exact (Nat.dvd_add_iff_left hconstant).mpr
+        (by simpa [Nat.add_comm] using hZ)
+    exact (by norm_num : Nat.Coprime 17 495976448).dvd_of_dvd_mul_left hproduct
+  · intro hq
+    obtain ⟨r, hr⟩ := hq
+    refine ⟨29073613 + 495976448 * r, ?_⟩
+    rw [hr]
+    simp only [Z]
+    ring
+
+/-- The return coordinate detects the same unit slice. -/
+theorem seventeen_dvd_W_iff (q : ℕ) : 17 ∣ W q ↔ 17 ∣ q := by
+  have hconstant : 17 ∣ 83499104 := by norm_num
+  constructor
+  · intro hW
+    have hproduct : 17 ∣ 83790531 * q := by
+      change 17 ∣ 83499104 + 83790531 * q at hW
+      exact (Nat.dvd_add_iff_left hconstant).mpr
+        (by simpa [Nat.add_comm] using hW)
+    exact (by norm_num : Nat.Coprime 17 83790531).dvd_of_dvd_mul_left hproduct
+  · intro hq
+    obtain ⟨r, hr⟩ := hq
+    refine ⟨4911712 + 83790531 * r, ?_⟩
+    rw [hr]
+    simp only [W]
+    ring
 
 /-- The two moduli selecting the fixed-target odd core are coprime. -/
 theorem coreModulus_coprime_returnModulus :
@@ -344,6 +452,263 @@ theorem balance (o : Orbit) (t : ℕ) :
       rw [o.z_factor, ← mul_assoc, ← pow_add]
       congr 3
       omega
+
+/-- QM146b: after dividing consecutive unit-slice cores by `17`, the EC17
+recurrence has irreducible defect one. -/
+theorem unit_slice_reduced_balance (o : Orbit) (t : ℕ) {v v' : ℕ}
+    (hcurrent : o.core t = 17 * v)
+    (hnext : o.core (t + 1) = 17 * v') :
+    2 ^ (8 * o.branch (t + 1) + 15) * v' =
+      3 ^ (6 * o.branch t + 11) * v + 1 := by
+  apply Nat.mul_left_cancel (by norm_num : 0 < 17)
+  calc
+    17 * (2 ^ (8 * o.branch (t + 1) + 15) * v') =
+        2 ^ (8 * o.branch (t + 1) + 15) * o.core (t + 1) := by
+      rw [hnext]
+      ring
+    _ = 3 ^ (6 * o.branch t + 11) * o.core t + 17 := o.balance t
+    _ = 17 * (3 ^ (6 * o.branch t + 11) * v + 1) := by
+      rw [hcurrent]
+      ring
+
+/-- QM146c in a reusable one-step form.  The reduced source and target rail
+factorizations force the exact affine transport of the payload quotient
+modulo `17`. -/
+theorem reduced_payload_transport {m r r' v : ℕ} (hm : 0 < m)
+    (hsource : Wbar r = 2 ^ (8 * m - 5) * v)
+    (htarget : Zbar r' = 3 ^ (6 * m) * v) :
+    ((r' : ℕ) : ZMod 17) - 14 =
+      6 * (-(2 : ZMod 17)) ^ (m - 1) * (((r : ℕ) : ZMod 17) - 1) := by
+  have hbalance :
+      2 ^ (8 * m - 5) * Zbar r' = 3 ^ (6 * m) * Wbar r := by
+    rw [htarget, hsource]
+    ring
+  obtain ⟨k, rfl⟩ := Nat.exists_eq_add_of_le hm
+  have hk : Nat.succ 0 + k = k + 1 := by omega
+  simp_rw [hk] at hsource htarget hbalance ⊢
+  have htwo :
+      (2 : ZMod 17) ^ (8 * (k + 1) - 5) = 8 := by
+    rw [show 8 * (k + 1) - 5 = 8 * k + 3 by omega,
+      pow_add, pow_mul]
+    have hperiod : (2 : ZMod 17) ^ 8 = 1 := by decide
+    rw [hperiod]
+    norm_num
+  have hthree :
+      (3 : ZMod 17) ^ (6 * (k + 1)) = (-(2 : ZMod 17)) ^ (k + 1) := by
+    rw [pow_mul]
+    have hbase : (3 : ZMod 17) ^ 6 = -(2 : ZMod 17) := by decide
+    rw [hbase]
+  have hcast := congrArg (fun x : ℕ => (x : ZMod 17)) hbalance
+  simp only [Nat.cast_mul, Nat.cast_pow, Nat.cast_ofNat] at hcast
+  rw [htwo, hthree] at hcast
+  simp only [Zbar, Wbar, Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat] at hcast
+  have hz0 : (29073613 : ZMod 17) = 9 := by decide
+  have hz1 : (495976448 : ZMod 17) = 3 := by decide
+  have hw0 : (4911712 : ZMod 17) = 4 := by decide
+  have hw1 : (83790531 : ZMod 17) = 13 := by decide
+  rw [hz0, hz1, hw0, hw1] at hcast
+  norm_num at ⊢
+  rw [pow_succ] at hcast
+  ring_nf at hcast ⊢
+  reduce_mod_char at hcast ⊢
+  have hmul := congrArg (fun x : ZMod 17 => 5 * x) hcast
+  ring_nf at hmul ⊢
+  reduce_mod_char at hmul ⊢
+  exact hmul
+
+/-! ## The invariant collision factor and its exact local obstruction -/
+
+/-- On the invariant unit slice `17 ∣ payload`, the normalized core contains
+the collision factor `17`.  The affine `Z`-rail constant is divisible by
+`17`, while substituting `payload = 17*r` supplies the same factor in its
+linear term. -/
+theorem seventeen_dvd_core_of_payload (o : Orbit) (t : ℕ)
+    (hpayload : 17 ∣ o.payload t) : 17 ∣ o.core t := by
+  have hZ : 17 ∣ Z (o.payload t) := by
+    obtain ⟨r, hr⟩ := hpayload
+    rw [hr]
+    refine ⟨29073613 + 495976448 * r, ?_⟩
+    simp [Z]
+    ring
+  rw [o.z_factor] at hZ
+  have hcoprime : Nat.Coprime 17 (3 ^ (6 * o.branch t)) :=
+    (by norm_num : Nat.Coprime 17 3).pow_right _
+  exact hcoprime.dvd_of_dvd_mul_left hZ
+
+/-- The defect `17` prevents two consecutive EC17 cores from both carrying
+a second factor of `17`.  If `17^2` divided both cores, it would divide both
+weighted terms in `balance`, and hence divide their difference `17`.
+
+This elementary theorem is the universal content behind the branch-pressure
+worker's finite residue check called `adjacent_deep_core_theorem`. -/
+theorem not_both_seventeen_sq_dvd_consecutive (o : Orbit) (t : ℕ) :
+    ¬ (17 ^ 2 ∣ o.core t ∧ 17 ^ 2 ∣ o.core (t + 1)) := by
+  rintro ⟨hcurrent, hnext⟩
+  have hleft : 17 ^ 2 ∣
+      2 ^ (8 * o.branch (t + 1) + 15) * o.core (t + 1) :=
+    dvd_mul_of_dvd_right hnext _
+  have hright : 17 ^ 2 ∣
+      3 ^ (6 * o.branch t + 11) * o.core t :=
+    dvd_mul_of_dvd_right hcurrent _
+  rw [o.balance t] at hleft
+  have hleftMod := Nat.dvd_iff_mod_eq_zero.mp hleft
+  have hrightMod := Nat.dvd_iff_mod_eq_zero.mp hright
+  have hleftMod289 :
+      (3 ^ (6 * o.branch t + 11) * o.core t + 17) % 289 = 0 := by
+    norm_num at hleftMod ⊢
+    exact hleftMod
+  have hrightMod289 :
+      (3 ^ (6 * o.branch t + 11) * o.core t) % 289 = 0 := by
+    norm_num at hrightMod ⊢
+    exact hrightMod
+  rw [Nat.add_mod, hrightMod289] at hleftMod289
+  norm_num at hleftMod289
+
+/-- Exact local form of the invariant unit slice: both neighboring cores
+contain `17`, and at least one of them contains no second factor. -/
+theorem consecutive_collision_factor_exact (o : Orbit) (t : ℕ)
+    (hcurrent : 17 ∣ o.core t) (hnext : 17 ∣ o.core (t + 1)) :
+    17 ∣ o.core t ∧ 17 ∣ o.core (t + 1) ∧
+      (¬ 17 ^ 2 ∣ o.core t ∨ ¬ 17 ^ 2 ∣ o.core (t + 1)) := by
+  refine ⟨hcurrent, hnext, ?_⟩
+  by_cases hdeep : 17 ^ 2 ∣ o.core t
+  · exact Or.inr (fun hnextDeep =>
+      o.not_both_seventeen_sq_dvd_consecutive t ⟨hdeep, hnextDeep⟩)
+  · exact Or.inl hdeep
+
+/-- The unit slice is genuinely invariant, not merely a pattern in the
+finite branch rows: divisibility of the public payload by `17` is equivalent
+at consecutive times. -/
+theorem payload_seventeen_dvd_next_iff (o : Orbit) (t : ℕ) :
+    17 ∣ o.payload (t + 1) ↔ 17 ∣ o.payload t := by
+  constructor
+  · intro hnextPayload
+    have hnextCore : 17 ∣ o.core (t + 1) :=
+      o.seventeen_dvd_core_of_payload (t + 1) hnextPayload
+    have hW : 17 ∣ W (o.payload t) := by
+      rw [o.w_factor]
+      exact dvd_mul_of_dvd_right hnextCore _
+    exact (seventeen_dvd_W_iff (o.payload t)).mp hW
+  · intro hPayload
+    have hW : 17 ∣ W (o.payload t) :=
+      (seventeen_dvd_W_iff (o.payload t)).mpr hPayload
+    rw [o.w_factor] at hW
+    have hcoprime : Nat.Coprime 17
+        (2 ^ (8 * o.branch (t + 1) - 5)) :=
+      (by norm_num : Nat.Coprime 17 2).pow_right _
+    have hnextCore : 17 ∣ o.core (t + 1) :=
+      hcoprime.dvd_of_dvd_mul_left hW
+    have hZ : 17 ∣ Z (o.payload (t + 1)) := by
+      rw [o.z_factor]
+      exact dvd_mul_of_dvd_right hnextCore _
+    exact (seventeen_dvd_Z_iff (o.payload (t + 1))).mp hZ
+
+/-- Orbit-level QM146b: every accepted step in the invariant payload slice
+admits reduced cores satisfying the exact defect-one recurrence. -/
+theorem exists_unit_slice_reduced_balance (o : Orbit) (t : ℕ)
+    (hpayload : 17 ∣ o.payload t) :
+    ∃ v v', o.core t = 17 * v ∧ o.core (t + 1) = 17 * v' ∧
+      2 ^ (8 * o.branch (t + 1) + 15) * v' =
+        3 ^ (6 * o.branch t + 11) * v + 1 := by
+  obtain ⟨v, hv⟩ := o.seventeen_dvd_core_of_payload t hpayload
+  have hnextPayload : 17 ∣ o.payload (t + 1) :=
+    (o.payload_seventeen_dvd_next_iff t).mpr hpayload
+  obtain ⟨v', hv'⟩ :=
+    o.seventeen_dvd_core_of_payload (t + 1) hnextPayload
+  exact ⟨v, v', hv, hv', o.unit_slice_reduced_balance t hv hv'⟩
+
+/-- Orbit-level QM146c.  Once consecutive invariant payloads are written as
+`17*r` and `17*r'`, the target branch transports their reduced residues by
+the stated affine rule in `ZMod 17`. -/
+theorem unit_slice_payload_transport (o : Orbit) (t r r' : ℕ)
+    (hpayload : o.payload t = 17 * r)
+    (hnextPayload : o.payload (t + 1) = 17 * r') :
+    ((r' : ℕ) : ZMod 17) - 14 =
+      6 * (-(2 : ZMod 17)) ^ (o.branch (t + 1) - 1) *
+        (((r : ℕ) : ZMod 17) - 1) := by
+  have hpdiv : 17 ∣ o.payload t := by
+    rw [hpayload]
+    exact dvd_mul_right 17 r
+  have hnextDiv : 17 ∣ o.core (t + 1) := by
+    have hW : 17 ∣ W (o.payload t) :=
+      (seventeen_dvd_W_iff (o.payload t)).mpr hpdiv
+    rw [o.w_factor] at hW
+    exact ((by norm_num : Nat.Coprime 17 2).pow_right
+      (8 * o.branch (t + 1) - 5)).dvd_of_dvd_mul_left hW
+  obtain ⟨v, hv⟩ := hnextDiv
+  have hsource : Wbar r =
+      2 ^ (8 * o.branch (t + 1) - 5) * v := by
+    apply Nat.mul_left_cancel (by norm_num : 0 < 17)
+    calc
+      17 * Wbar r = W (17 * r) := (W_seventeen_mul r).symm
+      _ = W (o.payload t) := by rw [hpayload]
+      _ = 2 ^ (8 * o.branch (t + 1) - 5) * o.core (t + 1) := o.w_factor t
+      _ = 17 * (2 ^ (8 * o.branch (t + 1) - 5) * v) := by rw [hv]; ring
+  have htarget : Zbar r' = 3 ^ (6 * o.branch (t + 1)) * v := by
+    apply Nat.mul_left_cancel (by norm_num : 0 < 17)
+    calc
+      17 * Zbar r' = Z (17 * r') := (Z_seventeen_mul r').symm
+      _ = Z (o.payload (t + 1)) := by rw [hnextPayload]
+      _ = 3 ^ (6 * o.branch (t + 1)) * o.core (t + 1) := o.z_factor (t + 1)
+      _ = 17 * (3 ^ (6 * o.branch (t + 1)) * v) := by rw [hv]; ring
+  exact reduced_payload_transport (o.branch_pos (t + 1)) hsource htarget
+
+/-- QM146d, current-state half, stated directly on an orbit in the unit
+slice.  A second factor `17` occurs in the current core exactly when the
+reduced payload is `14 mod 17`. -/
+theorem unit_slice_current_core_deep_iff (o : Orbit) (t r : ℕ)
+    (hpayload : o.payload t = 17 * r) :
+    17 ^ 2 ∣ o.core t ↔ r % 17 = 14 := by
+  have hpdiv : 17 ∣ o.payload t := by
+    rw [hpayload]
+    exact dvd_mul_right 17 r
+  obtain ⟨v, hv⟩ := o.seventeen_dvd_core_of_payload t hpdiv
+  have hfactor : Zbar r = 3 ^ (6 * o.branch t) * v := by
+    apply Nat.mul_left_cancel (by norm_num : 0 < 17)
+    calc
+      17 * Zbar r = Z (17 * r) := (Z_seventeen_mul r).symm
+      _ = Z (o.payload t) := by rw [hpayload]
+      _ = 3 ^ (6 * o.branch t) * o.core t := o.z_factor t
+      _ = 17 * (3 ^ (6 * o.branch t) * v) := by rw [hv]; ring
+  exact current_core_deep_iff hv hfactor
+
+/-- QM146d, successor half.  Relative to the same source quotient `r`, a
+second factor in the successor core occurs exactly at `r=1 mod 17`. -/
+theorem unit_slice_successor_core_deep_iff (o : Orbit) (t r : ℕ)
+    (hpayload : o.payload t = 17 * r) :
+    17 ^ 2 ∣ o.core (t + 1) ↔ r % 17 = 1 := by
+  have hpdiv : 17 ∣ o.payload t := by
+    rw [hpayload]
+    exact dvd_mul_right 17 r
+  have hnextDiv : 17 ∣ o.core (t + 1) := by
+    have hW : 17 ∣ W (o.payload t) :=
+      (seventeen_dvd_W_iff (o.payload t)).mpr hpdiv
+    rw [o.w_factor] at hW
+    exact ((by norm_num : Nat.Coprime 17 2).pow_right
+      (8 * o.branch (t + 1) - 5)).dvd_of_dvd_mul_left hW
+  obtain ⟨v, hv⟩ := hnextDiv
+  have hfactor : Wbar r =
+      2 ^ (8 * o.branch (t + 1) - 5) * v := by
+    apply Nat.mul_left_cancel (by norm_num : 0 < 17)
+    calc
+      17 * Wbar r = W (17 * r) := (W_seventeen_mul r).symm
+      _ = W (o.payload t) := by rw [hpayload]
+      _ = 2 ^ (8 * o.branch (t + 1) - 5) * o.core (t + 1) := o.w_factor t
+      _ = 17 * (2 ^ (8 * o.branch (t + 1) - 5) * v) := by rw [hv]; ring
+  exact successor_core_deep_iff hv hfactor
+
+/-- Universal unit-slice version of the worker's adjacent-depth claim.  If
+one payload lies in the invariant slice, both neighboring cores contain one
+factor `17`, but the defect recurrence forces at least one of the two to
+contain exactly one such factor. -/
+theorem unit_slice_consecutive_collision_exact (o : Orbit) (t : ℕ)
+    (hpayload : 17 ∣ o.payload t) :
+    17 ∣ o.core t ∧ 17 ∣ o.core (t + 1) ∧
+      (¬ 17 ^ 2 ∣ o.core t ∨ ¬ 17 ^ 2 ∣ o.core (t + 1)) := by
+  apply o.consecutive_collision_factor_exact t
+  · exact o.seventeen_dvd_core_of_payload t hpayload
+  · exact o.seventeen_dvd_core_of_payload (t + 1)
+      ((o.payload_seventeen_dvd_next_iff t).mpr hpayload)
 
 /-- The ternary factor displayed by the self-writing rail is exact, not only
 a lower bound. -/

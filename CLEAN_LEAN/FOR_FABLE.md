@@ -14897,3 +14897,104 @@ The new checked interfaces are `bareEC17_core_odd`,
 `all_onZRail_iff_exists_selfWriting_tail`, and
 `no_selfWriting_tail_of_not_onZRail`.  Isolated builds and axiom audit pass
 with only standard mathlib axioms.
+
+## Round 294 — branch-pressure unit slice: premise corrected and theorem proved
+
+I audited the new `breakoff_ether_branch_pressure` artifact.  Its prefix-code
+and pressure measurements are honestly scoped: they describe a very thin
+2-adic schedule set and do not turn an infinite address into an ordinary
+natural.  The live elementary content was the claimed invariant 17-adic unit
+slice and the adjacent-deep-core exclusion.
+
+The first attempted statement exposed an important premise that should remain
+explicit in prose.  The affine `Z` stride `495976448=473*2^20` is **not**
+divisible by `17`; therefore an arbitrary self-writing core need not contain
+`17`.  The unit slice is specifically `17 | payload`.  Lean now proves the
+exact coordinate tests
+
+```text
+17 | Z(q) iff 17 | q,
+17 | W(q) iff 17 | q,
+```
+
+using the divisibility of the two constants and coprimality of the slopes.
+Combining these with the orbit's `Z/W` factorizations proves the genuine
+invariance theorem
+
+```text
+17 | payload(t+1) iff 17 | payload(t).
+```
+
+On that explicitly stated slice, both neighboring normalized cores contain
+`17`.  The stronger universal obstruction is almost tautological from EC17:
+
+```text
+not (17^2 | core(t) and 17^2 | core(t+1)).
+```
+
+Indeed both weighted terms would be divisible by `17^2`, while their exact
+difference is only `17`.  Hence, on the unit slice, at least one core in every
+adjacent pair has exactly one factor of `17`.  This replaces the worker's
+finite residue-loop evidence with a kernel theorem valid for every branch and
+every supplied orbit.
+
+The result is a density/local-geometry restriction, not a no-ray theorem: a
+ray can alternate shallow and deep 17-adic cores.  The higher Hensel clock may
+constrain runs that insist on preserving `17^s | payload` for `s>1`, but the
+base invariant slice alone does not force such preservation.
+
+New checked interfaces in `SelfWritingKL.lean`:
+`seventeen_dvd_Z_iff`, `seventeen_dvd_W_iff`,
+`seventeen_dvd_core_of_payload`,
+`not_both_seventeen_sq_dvd_consecutive`,
+`payload_seventeen_dvd_next_iff`, and
+`unit_slice_consecutive_collision_exact`.  Full 8,820-job build and axiom
+audit pass; only standard mathlib axioms appear.
+
+After QM146 arrived, I completed its load-bearing algebra as well.  Lean now
+defines `Zbar` and `Wbar` and proves coefficientwise
+
+```text
+Z(17r)=17*Zbar(r),
+W(17r)=17*Wbar(r),
+3^11*Zbar(r)+1=2^20*Wbar(r).
+```
+
+Every orbit step in the invariant payload slice supplies reduced cores
+`u=17v`, `u'=17v'` satisfying the literal defect-one recurrence
+
+```text
+2^(8m+15)*v'=3^(6n+11)*v+1.
+```
+
+The mod-17 transport is also kernel-checked, first from abstract reduced rail
+factorizations and then directly for consecutive orbit payloads:
+
+```text
+r'-14 = 6*(-2)^(m-1)*(r-1) in ZMod 17.
+```
+
+The two deep-core tests are exact orbit theorems:
+
+```text
+17^2 | core(t)   iff r % 17 = 14,
+17^2 | core(t+1) iff r % 17 = 1,
+```
+
+when `payload(t)=17r`.  Thus the distinct residue classes explain the
+no-adjacent result, while the defect argument proves it independently without
+any rail-coordinate manipulation.  Added interfaces include
+`Z_seventeen_mul`, `W_seventeen_mul`, `reduced_determinant_identity`,
+`unit_slice_reduced_balance`, `reduced_payload_transport`,
+`exists_unit_slice_reduced_balance`, `unit_slice_payload_transport`,
+`unit_slice_current_core_deep_iff`, and
+`unit_slice_successor_core_deep_iff`.
+
+On the separate 1989 request: the existing Lean files already formalize the
+functional equation, convergence, Hermite recurrence, zero pattern, boundary
+nonvanishing, and local valuations.  What remains is the paper's genuinely
+deep quantitative Pade/height and remainder argument.  Completing it would be
+a sizeable independent project and would only reprove the already-cited no-go
+for rigid theta schedules; it does not address this live aperiodic dispatcher.
+I therefore recommend keeping that seam explicit unless a new candidate
+escapes the precise published theorem and needs a generalized version.
