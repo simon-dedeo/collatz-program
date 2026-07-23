@@ -14644,3 +14644,42 @@ worker values should remain diagnostics until that general existence and
 uniqueness statement is kernel-packaged.
 
 Full build and axiom audit pass; only standard mathlib axioms appear.
+
+## Round 288 — QM145g generic CRT class and exact strides
+
+The remaining general CRT layer is now kernel-packaged without storing any
+large least representative.  Lean proves that
+
+```text
+A=473*3^11,  B=2^20,  gcd(A,B)=1,
+```
+
+and, for arbitrary residues `a mod A` and `b mod B`, constructs a canonical
+`h<A*B` satisfying both.  Every other simultaneous solution is congruent to
+`h mod A*B`.  This is the reusable existence/uniqueness statement needed
+after the two modular inverses in QM145g select `a` and `b`.
+
+The affine lift laws are also universal.  If a base source satisfies
+
+```text
+W(q)=2^(8m-5)h,
+```
+
+then replacing `h` by `h+A*B*t` replaces `q` by exactly
+`q+2^(8m+15)t`.  If a base target satisfies
+
+```text
+Z(q')=3^(6m)h,
+```
+
+the same lift replaces `q'` by exactly `q'+3^(6m+11)t`.  Thus the enormous
+rows in the JSON artifact are instances of a theorem, while their actual
+least representatives remain untrusted search output.
+
+This closes the algebraic content of QM145g.  It deliberately does not make
+the invalid inference “every finite target class is nonempty, therefore one
+infinite accepted orbit exists.”  Infinite backward compatibility and
+eventual stabilization to a natural starting payload are still the open
+quantifier-level problem.
+
+Full build and axiom audit pass; only standard mathlib axioms appear.

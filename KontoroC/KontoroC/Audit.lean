@@ -1365,6 +1365,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.GliderKLTailSynchronization.linkedTailCoordinate_unique_seven
 #print axioms KontoroC.GliderKLTailSynchronization.linkedTailCoordinate_unique_twelve
 #print axioms KontoroC.SelfWritingKL.determinant_identity
+#print axioms KontoroC.SelfWritingKL.exists_unique_core_crt
+#print axioms KontoroC.SelfWritingKL.source_stride
+#print axioms KontoroC.SelfWritingKL.target_stride
 #print axioms KontoroC.SelfWritingKL.packetColor_transport
 #print axioms KontoroC.SelfWritingKL.packetColor_zero_propagates
 #print axioms KontoroC.SelfWritingKL.Orbit.recharge_identity

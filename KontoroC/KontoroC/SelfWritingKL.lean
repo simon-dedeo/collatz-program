@@ -24,12 +24,85 @@ namespace SelfWritingKL
 
 def Z (q : ℕ) : ℕ := 494251421 + 495976448 * q
 def W (q : ℕ) : ℕ := 83499104 + 83790531 * q
+def coreModulus : ℕ := 473 * 3 ^ 11
+def returnModulus : ℕ := 2 ^ 20
 
 /-- SW1, including both the constant and slope identities. -/
 theorem determinant_identity (q : ℕ) :
     3 ^ 11 * Z q + 17 = 2 ^ 20 * W q := by
   simp [Z, W]
   ring
+
+/-- The two moduli selecting the fixed-target odd core are coprime. -/
+theorem coreModulus_coprime_returnModulus :
+    coreModulus.Coprime returnModulus := by
+  norm_num [coreModulus, returnModulus, Nat.Coprime]
+
+/-- Valuation-free CRT interface for QM145g.  Any two requested core
+residues select one canonical representative and every other solution is in
+the same class modulo the product. -/
+theorem exists_unique_core_crt (a b : ℕ) :
+    ∃ h : ℕ, h < coreModulus * returnModulus ∧
+      Nat.ModEq coreModulus h a ∧ Nat.ModEq returnModulus h b ∧
+      ∀ h' : ℕ, Nat.ModEq coreModulus h' a →
+        Nat.ModEq returnModulus h' b →
+        Nat.ModEq (coreModulus * returnModulus) h' h := by
+  let h : ℕ := ↑(Nat.chineseRemainder
+    coreModulus_coprime_returnModulus a b)
+  refine ⟨h, Nat.chineseRemainder_lt_mul
+    coreModulus_coprime_returnModulus a b (by norm_num [coreModulus])
+      (by norm_num [returnModulus]), ?_, ?_, ?_⟩
+  · exact (Nat.chineseRemainder
+      coreModulus_coprime_returnModulus a b).property.1
+  · exact (Nat.chineseRemainder
+      coreModulus_coprime_returnModulus a b).property.2
+  · intro h' hhA hhB
+    apply (Nat.modEq_and_modEq_iff_modEq_mul
+      coreModulus_coprime_returnModulus).mp
+    exact ⟨hhA.trans (Nat.chineseRemainder
+      coreModulus_coprime_returnModulus a b).property.1.symm,
+      hhB.trans (Nat.chineseRemainder
+        coreModulus_coprime_returnModulus a b).property.2.symm⟩
+
+/-- The source member of a fixed-target CRT family has exactly the dyadic
+stride in QM145g. -/
+theorem source_stride {m h q : ℕ} (hm : 0 < m)
+    (hbase : W q = 2 ^ (8 * m - 5) * h) (t : ℕ) :
+    W (q + 2 ^ (8 * m + 15) * t) =
+      2 ^ (8 * m - 5) *
+        (h + coreModulus * returnModulus * t) := by
+  calc
+    W (q + 2 ^ (8 * m + 15) * t) =
+        W q + 83790531 * 2 ^ (8 * m + 15) * t := by
+      simp [W]
+      ring
+    _ = 2 ^ (8 * m - 5) * h +
+        83790531 * 2 ^ (8 * m + 15) * t := by rw [hbase]
+    _ = 2 ^ (8 * m - 5) *
+        (h + coreModulus * returnModulus * t) := by
+      rw [show 8 * m + 15 = (8 * m - 5) + 20 by omega, pow_add]
+      norm_num [coreModulus, returnModulus]
+      ring
+
+/-- The target member written by the same core lift has exactly the ternary
+stride in QM145g. -/
+theorem target_stride {m h q' : ℕ}
+    (hbase : Z q' = 3 ^ (6 * m) * h) (t : ℕ) :
+    Z (q' + 3 ^ (6 * m + 11) * t) =
+      3 ^ (6 * m) *
+        (h + coreModulus * returnModulus * t) := by
+  calc
+    Z (q' + 3 ^ (6 * m + 11) * t) =
+        Z q' + 495976448 * 3 ^ (6 * m + 11) * t := by
+      simp [Z]
+      ring
+    _ = 3 ^ (6 * m) * h +
+        495976448 * 3 ^ (6 * m + 11) * t := by rw [hbase]
+    _ = 3 ^ (6 * m) *
+        (h + coreModulus * returnModulus * t) := by
+      rw [show 6 * m + 11 = 6 * m + 11 by rfl, pow_add]
+      norm_num [coreModulus, returnModulus]
+      ring
 
 /-- QM145i: the packet color is multiplied by `316` at every positive EC17
 step.  The large offset is kept literally to match the executable chart; the
