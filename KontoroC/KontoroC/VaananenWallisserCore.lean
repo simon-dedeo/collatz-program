@@ -229,5 +229,51 @@ theorem eval_hermiteIter_skolemInitial_eq_zero {K : Type*} [Field K]
   rw [eval_skolemRootProduct_comp_eq_zero q α hq ν μ hμ]
   simp
 
+/-- Away from the deliberately planted roots, the shifted Skolem root
+product is nonzero.  This is the algebraic separation input used at the first
+nonvanishing Hermite index in Hilfssatz 1. -/
+theorem eval_skolemRootProduct_comp_ne_zero {K : Type*} [Field K]
+    (q α : K) (hq : q ≠ 0) (hα : α ≠ 0) (ν μ : ℕ)
+    (hsep : ∀ a < ν, q ^ μ ≠ q ^ a) :
+    ((skolemRootProduct q α ν).comp (C (q ^ μ) * X)).eval α ≠ 0 := by
+  rw [Polynomial.eval_comp]
+  simp only [eval_mul, eval_C, eval_X, skolemRootProduct,
+    Polynomial.eval_prod]
+  apply Finset.prod_ne_zero_iff.mpr
+  intro a ha
+  simp only [Finset.mem_range] at ha
+  simp only [eval_sub, eval_mul, eval_C, eval_X]
+  have hqa : q ^ a ≠ 0 := pow_ne_zero a hq
+  intro hzero
+  apply hsep a ha
+  rw [sub_eq_zero] at hzero
+  have hscaled := congrArg (fun z : K => q ^ a * z) hzero
+  field_simp [hqa] at hscaled
+  exact hscaled
+
+theorem hermiteScale_ne_zero {K : Type*} [Field K]
+    (q κ : K) (hq : q ≠ 0) (hκ : κ ≠ 0) (S μ : ℕ) :
+    hermiteScale q κ S μ ≠ 0 := by
+  rw [hermiteScale]
+  apply mul_ne_zero hκ
+  apply Finset.prod_ne_zero_iff.mpr
+  intro i _hi
+  exact pow_ne_zero _ hq
+
+/-- The first index after the forced zero range is genuinely nonzero.  The
+remaining content of the 1989 theorem is therefore quantitative: compare its
+valuation against the other specializations and bound the Hermite remainder. -/
+theorem eval_hermiteIter_skolemInitial_boundary_ne_zero
+    {K : Type*} [Field K]
+    (q α κ : K) (hq : q ≠ 0) (hα : α ≠ 0) (hκ : κ ≠ 0)
+    (ν t : ℕ) (hsep : ∀ a < ν, q ^ ν ≠ q ^ a) :
+    (hermiteIter q ν (skolemInitial q α κ ν t)).eval α ≠ 0 := by
+  rw [hermiteIter_skolemInitial q α κ ν t ν (by omega)]
+  simp only [eval_mul, eval_C, eval_pow, eval_X]
+  exact mul_ne_zero
+    (mul_ne_zero (hermiteScale_ne_zero q κ hq hκ (ν + t + 1) ν)
+      (pow_ne_zero _ hα))
+    (eval_skolemRootProduct_comp_ne_zero q α hq hα ν ν hsep)
+
 end VaananenWallisser
 end KontoroC

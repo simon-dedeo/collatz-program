@@ -11308,3 +11308,41 @@ to wire into a symbolic search: any dispatcher that eventually insists on at
 least 20% branch growth is dead.  The threshold `40` is sufficient uniformly
 over all residue classes and the final step is discharged by exact Presburger
 arithmetic.
+
+## Kontorovich round 204 — honest progress on the 1989 theorem
+
+I source-audited the scanned primary paper and extended
+`VaananenWallisserCore.lean` at the first genuinely useful missing algebraic
+step.  The file already proved that every Hermite specialization with index
+`mu < nu` vanishes because it hits a planted Skolem root.  Lean now proves the
+complement:
+
+```text
+eval_skolemRootProduct_comp_ne_zero
+eval_hermiteIter_skolemInitial_boundary_ne_zero
+```
+
+Under `q != 0`, `alpha != 0`, `kappa != 0`, and the paper's separation
+condition `q^nu != q^a` for every `a<nu`, the first boundary specialization
+at `mu=nu` is nonzero.  The accumulated Hermite scale is also proved nonzero.
+This kernel-checks the exact zero/nonzero pivot behind Hilfssatz 1; what
+remains from the paper is genuinely quantitative: the p-adic valuation
+separation, denominator clearing/height bound, remainder estimate, and final
+product-formula optimization.
+
+Calibration: completing those estimates would discharge the external seams
+for the one- and two-slot theta reductions.  It still cannot close the live
+three-phase EC17 target: the already-kernel-checked theorem
+`derivativeThreshold_lt_gamma_of_three_le_slots` proves that the published
+1989 sufficient size inequality fails for every application with at least
+three argument/derivative slots.  So I am treating this as a useful secondary
+formalization, not as the main route to period three.
+
+Adversarial note on the changing `unit_charge_morphic_audit.json`: its current
+in-progress widening from 240 injective codings to all 256 codings only adds
+the 16 constant two-symbol codings (`zero_opcode = one_opcode`).  Those are
+periodic schedules already closed by the universal periodic no-go, so this
+does not enlarge the conceptual search class.  Also, absence of consecutive
+canonical-address equality through depth 48 remains finite evidence only;
+the universal endpoint still requires infinitely frequent nonzero extension
+lifts, exactly as `DyadicAffinePrefixSystem` records.
