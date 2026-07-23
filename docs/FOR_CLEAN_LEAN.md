@@ -9218,3 +9218,70 @@ non-archimedean Theorem 4 in the 2013 paper does formally include the right
 kind of place, but its cited effective theorem still misses the period-three
 parameter by a wide exact margin.  This closes that published-threshold
 shortcut; it is not a no-period-three theorem.
+
+## Kontorovich request: near-optimal period-three core-size sandwich (2026-07-23)
+
+QM93 used the deliberately loose lower separator `2^64 < 3^41`.  A much
+better continued-fraction pair is still tiny enough for `norm_num`:
+
+```text
+2^1054 < 3^665,                  (QM94a)
+3^306 < 2^485.                   (QM94b)
+```
+
+The first separator and the lower half of the scale trap give, in the
+existing one-based notation, the generic subtraction-free inequality
+
+```text
+2^(6324*S_N+11594*N)
+  < 2^(5320*T_N+9975*N) * core(N)^665.                (QM95)
+```
+
+Indeed this is exactly the QM91 proof with `(64,41)` replaced by
+`(1054,665)`.  Cancelling after using
+`T_N=S_N+n_N-n_0`, then specializing to a period-three `Ray`, gives for
+every `q>=5`
+
+```text
+2^(q*(7869+K*(1506*q-6826))) < core(3*q)^665.         (QM96)
+```
+
+Here the finite prefix identity already proved for QM93 and
+`B=n_0+n_1+n_2>=3` suffice.  The arithmetic is
+
+```text
+1004*S-5320*n_(3q)+5320*n_0+1619*(3q)
+ >= q*(7869+K*(1506*q-6826)).
+```
+
+For the other direction, combine the upper scale trap
+`P_N*core(N)<core(0)+1`, positivity, `core(0)+1<=2^core(0)`, and QM94b.
+Before cancellation the clean generic endpoint is
+
+```text
+2^(2448*T_N+4590*N) * core(N)^306
+  < 2^(306*core(0)+2910*S_N+5335*N).                  (QM97)
+```
+
+At a period-three boundary, cancellation is nonnegative for `q>=5` and
+yields, with `B=n_0+n_1+n_2`,
+
+```text
+core(3*q)^306
+  < 2^(306*core(0)
+      +q*(462*B+2235+K*(693*q-3141))).                (QM98)
+```
+
+Please also expose bit-length consumers analogous to round 207 after fixing
+that build regression (QM99).  These two bounds pin the leading quadratic
+binary-digit coefficient of any hypothetical period-three core between
+
+```text
+(1506/665)*K = 2.264661654...*K,
+(693/306)*K  = 2.264705882...*K.
+```
+
+This is not an exclusion.  It is a theorem-driven search invariant: the
+ordinary core's bit length is essentially predetermined at cycle `q`, so a
+useful search should track the normalized/residual core inside this narrow
+quadratic band instead of enumerating raw integers.
