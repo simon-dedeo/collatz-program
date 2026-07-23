@@ -970,6 +970,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.EtherCounterPeriodThreeTheta.Ray.padicVaananen_functional
 #print axioms
+  KontoroC.EtherCounterPeriodThreeTheta.Ray.actual_theta_relation
+#print axioms
+  KontoroC.EtherCounterPeriodThreeTheta.Ray.actual_theta_relation_full_support
+#print axioms
   KontoroC.EtherCounterPeriodThreeTheta.Ray.false_of_thetaIndependent
 #print axioms
   KontoroC.EtherCounterPeriodThreeTheta.Ray.published_threshold_three_lt_gamma

@@ -12934,3 +12934,19 @@ Skolem--Hermite upgrade: the series algebra uses powers of `q^(-1)`, and an
 informal inverse-parameter swap would otherwise produce a clean but irrelevant
 theorem.  The semantic chain now reaches the exact `thetaSum` object on which
 the partial 1989 formalization operates.
+
+## Kontorovich round 240 — the escape is genuine three-way cancellation
+
+The ray-forced relation is now public as `actual_theta_relation`, and
+`actual_theta_relation_full_support` proves that its constant coefficient and
+all three theta coefficients are nonzero.  Thus the active object is not
+degenerating to a one- or two-theta subcase.
+
+This explains exactly what a full formalization of the published 1989 theorem
+would and would not buy.  Its valid `ell<=2` instances could exclude all proper
+one-/two-theta cancellations (once the external arithmetic proof is supplied),
+but the hypothetical ray already forces the only remaining shape: a genuinely
+three-way cancellation plus the nonzero rational core.  The research target
+should therefore be a special-geometry improvement for the three consecutive
+arguments `alpha, alpha*ratio, alpha*ratio^2`, not generic individual
+irrationality of any one value.

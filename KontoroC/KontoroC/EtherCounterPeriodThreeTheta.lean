@@ -554,20 +554,30 @@ def ThetaIndependent (g : Ray) : Prop :=
     (a₀ : ℚ_[2]) + ∑ r : Fin 3,
       (a r : ℚ_[2]) * g.padicVaananenSum r ≠ 0
 
+/-- The concrete full-support rational relation forced by a hypothetical
+ordinary period-three ray. -/
+theorem actual_theta_relation (g : Ray) :
+    (g.core 0 : ℚ_[2]) + ∑ r : Fin 3,
+      ((g.thetaData).prefixScale r : ℚ_[2]) *
+        g.padicVaananenSum r = 0 := by
+  have hcand := g.padicCandidate_eq_initial
+  rw [padicCandidate, g.padicWeightedSum_eq_scaled_vaananenSums] at hcand
+  linear_combination -hcand
+
+/-- Every coefficient in the ray-forced four-term relation is nonzero. -/
+theorem actual_theta_relation_full_support (g : Ray) :
+    (g.core 0 : ℚ) ≠ 0 ∧
+      ∀ r : Fin 3, (g.thetaData).prefixScale r ≠ 0 := by
+  constructor
+  · exact_mod_cast (g.core_pos 0).ne'
+  · exact g.theta_prefixScale_ne_zero
+
 /-- Any proof of the exact four-value independence statement rules out the
 literal period-three EC17 ray. -/
 theorem false_of_thetaIndependent (g : Ray)
     (hind : g.ThetaIndependent) : False := by
-  have hrelation :
-      (g.core 0 : ℚ_[2]) + ∑ r : Fin 3,
-        ((g.thetaData).prefixScale r : ℚ_[2]) *
-          g.padicVaananenSum r = 0 := by
-    have hcand := g.padicCandidate_eq_initial
-    rw [padicCandidate, g.padicWeightedSum_eq_scaled_vaananenSums] at hcand
-    linear_combination -hcand
-  have hcore : (g.core 0 : ℚ) ≠ 0 := by
-    exact_mod_cast (g.core_pos 0).ne'
-  exact hind (g.core 0) (g.thetaData).prefixScale (Or.inl hcore) hrelation
+  exact hind (g.core 0) (g.thetaData).prefixScale
+    (Or.inl g.actual_theta_relation_full_support.1) g.actual_theta_relation
 
 /-- Citation-boundary audit.  The desired relation has four values in total,
 but the 1989 parameter `ell` counts the three theta values (not the additional
