@@ -59,6 +59,52 @@ theorem boundaryOdometer_modEq {c c' : ℤ} {n K d : ℕ}
     ring
   · ring
 
+/-- The elementary `3`-adic LTE identity behind the boundary clock.  It
+shows that the precision gained by `4^K - 1` is exactly one plus the
+`3`-adic order of the stride `K`. -/
+theorem four_pow_sub_one_padicValNat {K : ℕ} (hK : K ≠ 0) :
+    padicValNat 3 (4 ^ K - 1) = 1 + padicValNat 3 K := by
+  letI : Fact (Nat.Prime 3) := ⟨Nat.prime_three⟩
+  have h := padicValNat.pow_sub_pow (p := 3) (x := 4) (y := 1)
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num) hK
+  norm_num at h ⊢
+  exact h
+
+/-- Multiplication by `4` has the full `3^(d-1)` clock modulo `3^d`,
+written without truncated subtraction by indexing the modulus as
+`3^(d+1)`. -/
+theorem orderOf_four_threePow (d : ℕ) :
+    orderOf (4 : ZMod (3 ^ (d + 1))) = 3 ^ d := by
+  convert ZMod.orderOf_one_add_prime Nat.prime_three (by norm_num) d using 1 <;>
+    norm_num
+
+/-- Exact period of a stride of `4*K` boundary-clock ticks.  This gcd form
+also covers `K = 0` and is the kernel-level version of the valuation formula
+for a possibly non-primitive stride. -/
+theorem orderOf_four_stride (K d : ℕ) :
+    orderOf ((4 : ZMod (3 ^ (d + 1))) ^ (4 * K)) =
+      3 ^ d / Nat.gcd (3 ^ d) (4 * K) := by
+  by_cases hK : K = 0
+  · subst K
+    simp
+  · rw [orderOf_pow' _ (mul_ne_zero (by norm_num) hK),
+      orderOf_four_threePow]
+
+/-- A stride not divisible by `3` traverses the full boundary clock. -/
+theorem orderOf_four_stride_of_not_three_dvd {K : ℕ} (hK : ¬ 3 ∣ K) (d : ℕ) :
+    orderOf ((4 : ZMod (3 ^ (d + 1))) ^ (4 * K)) = 3 ^ d := by
+  have hc : Nat.Coprime (3 ^ d) (4 * K) := by
+    apply Nat.Coprime.pow_left
+    rw [Nat.prime_three.coprime_iff_not_dvd]
+    intro h
+    rcases Nat.prime_three.dvd_mul.mp h with h4 | hK'
+    · norm_num at h4
+    · exact hK hK'
+  have hc' : Nat.Coprime
+      (orderOf (4 : ZMod (3 ^ (d + 1)))) (4 * K) := by
+    rwa [orderOf_four_threePow]
+  rw [hc'.orderOf_pow, orderOf_four_threePow]
+
 /-- QM144a: the packet/core chart implies the moving-target identity for
 the literal boundary numerator `Z`. -/
 theorem packetChart_identity {K u Z : ℤ} {n : ℕ} (hn : 1 ≤ n)

@@ -14490,3 +14490,34 @@ The full project build and the independent `#print axioms` audit pass.  The
 new declarations use only the standard mathlib axioms (`propext`,
 `Classical.choice`, and `Quot.sound`); there are no project axioms or proof
 holes.
+
+## Round 284 — exact boundary-clock order is now kernel-checked
+
+The orbit theorem mentioned but not supplied in QM143 is now explicit in
+`GliderKLTailSynchronization.lean`:
+
+```text
+v_3(4^K - 1) = 1 + v_3(K)                 (K != 0),
+ord_(3^(d+1))(4) = 3^d,
+ord_(3^(d+1))(4^(4K)) = 3^d / gcd(3^d,4K).
+```
+
+The first theorem is a direct specialization of mathlib's odd-prime LTE;
+the second uses mathlib's audited order theorem for `1+p`; and the third is
+the general order-of-a-power identity.  A separate consumer proves the
+important primitive-stride case:
+
+```text
+3 does not divide K
+  -> ord_(3^(d+1))(4^(4K)) = 3^d.
+```
+
+So the QM143 phrase “full traversal when `3` does not divide `K`” is now a
+Lean theorem, not an informal appeal to an order calculation.  For divisible
+strides the exact gcd formula is safer than prose involving a truncated
+valuation and covers `K=0` without an exception.  Combined with QM143a, this
+classifies the residue clock forced by any supplied pair of boundary links.
+It still does not supply those links, an infinite orbit, or an ordinary
+Collatz counterexample.
+
+Full build and axiom audit pass; only standard mathlib axioms appear.
