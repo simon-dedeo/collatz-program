@@ -51,7 +51,7 @@ the reconstructed core list; their verifiers reconstruct everything.
 
 A stable local `lake build` passes all 8,790 targets.  The Akdeniz run now
 uses the theorem-relevant dyadic subsequence
-`q=5,8,16,...,2048`, not a dense interval, over all positive schedules with
+`q=5,8,16,...,512`, not a dense interval, over all positive schedules with
 increments in `[-1,1]` and starts `1..8`.  It is still finite evidence.  PSC
 is idle because these arbitrary-precision modular inversions are a CPU task,
 not a useful GPU kernel.

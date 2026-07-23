@@ -98,7 +98,7 @@ experiments/kontorovich/breakoff_ether_period3_normalized_crt.py
 ```
 
 Their self-tests and a stable local 8,790-target Lean build pass.  Akdeniz is
-probing the cofinal dyadic indices through `q=2048` for every positive
+probing the cofinal dyadic indices through `q=512` for every positive
 period-three schedule with increments in `[-1,1]` and starting branch at most
 eight.  This bounded run is a theorem-facing diagnostic, not an assertion of
 unbounded failure.  PSC remains unused because arbitrary-precision modular
