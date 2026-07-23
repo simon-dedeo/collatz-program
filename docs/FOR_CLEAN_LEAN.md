@@ -8255,3 +8255,97 @@ This is the precise public-storage dichotomy.  Branch levels need not grow if
 the core payload is unbounded, and conversely, but a genuinely infinite orbit
 cannot live in a finite public state box.  This result is independent of the
 external theta theorem.
+
+## Väänänen--Wallisser formulas (12)--(17), visually checked (2026-07-23)
+
+I downloaded the cited GDZ scan, rendered the original pages at 300 DPI, and
+checked the displayed mathematics visually rather than trusting OCR.  Here is
+the transcription requested in round 185.  I use `ell` for the paper's `l`
+and `nu` for `ν`.
+
+On printed p. 202, after
+
+```text
+P_(mu+1)(x) = (P_mu(q*x)-P_mu(0))/x,   mu=0,...,m-1,    (11)
+```
+
+the initial polynomial is
+
+```text
+P(x) = K*x^(nu+t+1) * product_(j=1)^ell Q_j(x),         (12)
+
+Q_j(x) =
+  product_(a=0)^(nu(j)-1) (x/q^a-alpha_j)^(sigma+1)
+  * product_(b=0)^(sigma-1)
+      (x/q^(nu(j)+b)-alpha_j)^(sigma-b),                (13)
+
+nu(j)=nu+(j-1)(sigma+1),
+m=(sigma+1)*sum_(j=1)^ell nu(j)
+    +ell*binom(sigma+1,2)+nu+t+1.
+```
+
+This product notation is exactly the displayed taper: exponent `sigma+1`
+through `q^(nu(j)-1)`, then exponents `sigma,sigma-1,...,1` at
+`q^nu(j),...,q^(nu(j)+sigma-1)`.
+
+On printed p. 203 choose a prime `rho | r` and write
+
+```text
+nu_rho(q)=f>=1,  nu_rho(alpha_j)=g_j,
+0 <= g_1 <= g_2 <= ... <= g_ell < f.                    (14)
+
+K = q^[binom(t+2,2)-binom(nu+t+2,2)] * rho^[-e(nu,t)],
+e(nu,t)=(sigma+1)*nu*sum_(j=1)^ell g_j+(t+1)*g_1.
+```
+
+Hilfssatz 1 is printed as
+
+```text
+nu_rho(P*^(sigma-i)(alpha_j))
+ = ((nu(j)+i-nu)*f+g_j-g_1)*t + C_(j,i),
+j=1,...,ell,  i=0,...,sigma,  t>=C.
+```
+
+The proof identifies the left side more explicitly with
+`nu_rho(P_(nu(j)+i)^(sigma-i)(alpha_j))`.  For every
+`mu<=nu+t+1`, formula (15), spanning pp. 203--204, is
+
+```text
+P_mu(x) =
+  q^[binom(t+2,2)-binom(nu+t+2-mu,2)]
+  * rho^[-e(nu,t)] * x^(nu+t+1-mu)
+  * product_(j=1)^ell Q_(j,mu)(x),                     (15)
+
+Q_(j,mu)(x) =
+  product_(a=0)^(nu(j)-1)
+      (q^(mu-a)*x-alpha_j)^(sigma+1)
+  * product_(b=0)^(sigma-1)
+      (q^(mu-nu(j)-b)*x-alpha_j)^(sigma-b).
+```
+
+The two potentially dangerous OCR indices are therefore
+`binom(nu+t+2-mu,2)` and the last tapered factor
+`q^(mu-nu(j)-sigma+1)*x-alpha_j`.
+
+Hilfssatz 2 (printed p. 205) is
+
+```text
+nu_rho(P*(0)) = binom(t+2,2)*f - t*g_1 + C_(0,0).
+```
+
+Finally, printed pp. 208--209 give the same exponent in the archimedean and
+nonarchimedean remainder estimates:
+
+```text
+|Delta^(tau)(alpha_j)|_infty
+ <= c_14^(nu+t) * |q|_infty^[binom(t+2,2)-binom(nu+t+2,2)],  (16)
+
+|Delta^(tau)(alpha_j)|_p
+ <= c_18^(nu+t) * |q|_p^[binom(t+2,2)-binom(nu+t+2,2)],      (17)
+
+j=1,...,ell, tau=0,...,sigma.
+```
+
+The printed lower cutoffs are `nu>=c_12` for (16) and `nu>=c_17` for (17).
+Scope: this is a visual transcription of the source formulas, not yet a Lean
+proof of their divisibility or height estimates.
