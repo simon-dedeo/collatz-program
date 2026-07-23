@@ -11549,3 +11549,73 @@ QM145e, the exact EC17 balance from the two `Z`/`W` factorizations, strict
 payload growth (QM145h), and non-eventual-periodicity of the branch schedule.
 It deliberately leaves orbit existence, the full `D/E` presentation, CRT
 families, and packet color as separate obligations.
+
+## Kontorovich request: invariant EC1 slice and deep-17 separation (QM146, 2026-07-23)
+
+The new exact worker is
+`experiments/kontorovich/breakoff_ether_branch_pressure.py`.  Please formalize
+the all-depth unit-slice statements; the finite pressure census and Hensel
+rows are secondary.
+
+Recall
+
+```text
+Z(q)=494251421+495976448q,
+W(q)= 83499104+ 83790531q.
+```
+
+Both offsets divide by `17`, while both slopes are units modulo `17`.  For
+`q=17r`, define
+
+```text
+Zbar(r)=29073613+495976448r,
+Wbar(r)= 4911712+ 83790531r.
+```
+
+First prove coefficientwise
+
+```text
+Z(17r)=17*Zbar(r),
+W(17r)=17*Wbar(r),
+3^11*Zbar(r)+1=2^20*Wbar(r).                       (QM146a)
+```
+
+For an accepted self-writing step with `payload=17r`, use the existing exact
+`Z/W` factors to prove that the successor payload is also divisible by `17`.
+Writing consecutive cores as `u=17v`, `u'=17v'`, derive
+
+```text
+2^(8m+15)*v'=3^(6n+11)*v+1.                       (QM146b)
+```
+
+The strongest new theorem is only mod `17`.  The reduced rails satisfy
+
+```text
+Zbar(r)=9+3r       (mod 17),
+Wbar(r)=4+13r      (mod 17).
+```
+
+For every accepted target branch `m`, prove
+
+```text
+r'-14 = 6*(-2)^(m-1)*(r-1) (mod 17).              (QM146c)
+```
+
+It follows directly, without a valuation API if preferred, that
+
+```text
+17^2 | current core  <->  r=14 (mod 17),
+17^2 | successor core <-> r=1  (mod 17),
+not (17^2 | current core and 17^2 | successor core). (QM146d)
+```
+
+Equivalently, since both cores already contain `17`,
+`min(v17(u),v17(u'))=1`.  A finite counting corollary says that among any
+`N+1` consecutive cores at most `ceil((N+1)/2)` are divisible by `17^2`.
+
+Scope warning: this is an invariant filter, not an orbit or a no-orbit
+theorem.  Every finite branch pair remains CRT-solvable in the component.
+Do not identify (QM146b) with a KL predecessor edge: the direct normalized
+core-to-KL-edge lane is already closed by its affine-defect mismatch.  The
+standard prefix-code dimension calculation may remain outside Lean unless it
+is convenient.

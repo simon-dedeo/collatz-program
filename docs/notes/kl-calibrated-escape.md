@@ -1011,3 +1011,102 @@ self-writing orbit by the two exact `Z`/`W` factorizations.  From that
 hypothesis Lean derives the EC17 balance, strict payload monotonicity, and the
 impossibility of an eventually periodic branch sequence.  The formal
 definition deliberately does not infer an orbit from finite CRT rows.
+
+## 16. Branch pressure and the invariant EC1 component
+
+The useful lesson from the KL paper is thermodynamic rather than a direct
+core-edge identification.  For target branch `m`, put
+
+```text
+P_m=8m+15,        Q_m=6m+11.
+```
+
+Eliminating the affine tail from (15.8) gives
+
+```text
+2^P_m q' = 3^Q_m q + delta_m,
+delta_m=(3^(6m)W0-2^(8m-5)Z0)/473 > 0.             (16.1)
+```
+
+The target cylinders are pairwise disjoint because they prescribe different
+exact values `v_2(W)=8m-5`.  A prescribed target schedule is therefore an
+LSB-first variable-length code with lengths `23,31,39,...`.  Its exact Kraft
+mass and schedule generating function are
+
+```text
+sum_(m>=1) 2^(-P_m) = 1/(255*2^15),
+A(x)=1/(1-sum_(m>=1)x^P_m)=(1-x^8)/(1-x^8-x^23).   (16.2)
+```
+
+Consequently the usual prefix-code pressure dimension is the unique `d>0`
+such that
+
+```text
+sum_(m>=1)2^(-d P_m)=1,
+x^8+x^23=1,  x=2^(-d),
+d=0.07065929109419928758... .                       (16.3)
+```
+
+The exact worker verifies the code-cylinder recurrence and a rational bracket
+for the root of (16.3).  The Hausdorff-dimension interpretation is the standard
+Bowen/prefix-code consequence, not yet a Lean theorem in this repository.
+It explains why a flat branch box is wasteful and why typical infinite
+schedules are only 2-adic: an ordinary seed is an exceptional eventually-zero
+address inside a set of very small dimension.  Dimension alone cannot decide
+whether one such exceptional natural exists.
+
+There is a more arithmetic invariant component.  Both offsets in (15.4) are
+divisible by `17`.  Since the two strides are units modulo `17`,
+
+```text
+17|q  <->  17|Z(q)  <->  17|W(q),
+```
+
+and this condition is preserved and reflected by every accepted step.
+Writing `q=17r` gives
+
+```text
+Zbar(r)=29073613+495976448r,
+Wbar(r)= 4911712+ 83790531r,
+3^11 Zbar(r)+1=2^20 Wbar(r).                        (16.4)
+```
+
+Thus if consecutive normalized cores are `u=17v`, `u'=17v'`, an accepted
+`n -> m` step reduces exactly to
+
+```text
+2^(8m+15)v'=3^(6n+11)v+1,       v,v'=2 (mod 3).    (16.5)
+```
+
+This is the irreducible EC1 unit component.  It is not the KL predecessor
+graph: attaching the KL core-edge tax directly is still invalid for the
+defect reason in the failure ledger.
+
+The unit component nevertheless has a schedule-independent all-depth
+obstruction.  Modulo `17`,
+
+```text
+Zbar(r)=9+3r,       Wbar(r)=4+13r,
+r'-14=6*(-2)^(m-1)*(r-1).                           (16.6)
+```
+
+The current core contains `17^2` exactly when `r=14`; the successor core
+contains `17^2` exactly when `r=1` (equivalently `r'=14`).  These source
+classes are disjoint.  Hence every accepted unit-component step satisfies
+
+```text
+min(v_17(u),v_17(u'))=1.                            (16.7)
+```
+
+Deep `17`-adic core events can never be adjacent and have upper density at
+most one half along any hypothetical orbit.  Restricting to `17|q` does not
+change the dyadic or ternary local code geometry—multiplication by `17` is a
+unit in both residue towers—and every finite `n -> m` link remains CRT
+solvable.  So (16.7) is a real filter for invariant ansatzes, not a no-orbit
+theorem.
+
+The worker
+`experiments/kontorovich/breakoff_ether_branch_pressure.py` checks (16.1)--
+(16.7), constructs 1,278 distinct schedule cylinders through 160 source bits,
+and lifts the higher `17`-adic branch checksum through precision 12.  Its
+artifact has `counterexample:null`.

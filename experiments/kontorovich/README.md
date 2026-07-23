@@ -4868,3 +4868,55 @@ find an infinite accepted orbit; `counterexample:null`.
 Companion commit `7ca6d4f` kernel-checks the determinant identity and proves
 strict payload growth and branch aperiodicity for every supplied infinite
 self-writing orbit.
+
+## Branch pressure and the EC1 unit component
+
+`breakoff_ether_branch_pressure.py` eliminates the affine tail from every
+fixed target branch:
+
+```text
+2^(8m+15)q'=3^(6m+11)q+delta_m,
+delta_m=(3^(6m)W0-2^(8m-5)Z0)/473>0.
+```
+
+The exact target cylinders form an LSB-first prefix code with lengths
+`23,31,39,...`, Kraft mass `1/(255*2^15)`, and schedule generating function
+`(1-x^8)/(1-x^8-x^23)`.  The corresponding pressure root satisfies
+`x^8+x^23=1`, giving the diagnostic dimension
+`0.07065929109419928758...`.  The standard dimension interpretation is not
+part of the executable certificate; the code, recurrence, Kraft identity,
+and rational root bracket are.
+
+The same worker isolates an invariant component `q=17r`:
+
+```text
+Zbar(r)=29073613+495976448r,
+Wbar(r)=4911712+83790531r,
+3^11*Zbar(r)+1=2^20*Wbar(r).
+```
+
+On accepted packet states this reduces EC17 to
+
+```text
+2^(8m+15)v'=3^(6n+11)v+1,   v,v'=2 (mod 3).
+```
+
+The exact residue transport
+
+```text
+r'-14=6*(-2)^(m-1)*(r-1) (mod 17)
+```
+
+proves that consecutive normalized cores can never both contain `17^2`:
+`min(v17(u),v17(u'))=1`.  This all-depth filter leaves every finite branch
+pair CRT-solvable, so it narrows but does not close the live component.
+
+```bash
+python3 breakoff_ether_branch_pressure.py selftest
+python3 breakoff_ether_branch_pressure.py verify \
+  breakoff_ether_branch_pressure_audit.json
+```
+
+The default artifact checks target families through `m=64`, 1,278 distinct
+schedule cylinders through 160 source bits, and the higher 17-adic branch
+clock through precision 12.  It has `counterexample:null`.

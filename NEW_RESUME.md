@@ -1,6 +1,85 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 12:02 EDT
+Updated: 2026-07-23, about 12:46 EDT
+
+### 12:46 EDT continuation -- KL pressure exposes an invariant EC1 component
+
+There is no counterexample.  Do not continue the raw zero-preload scan: the
+first million clock states contain 460 genuine one-step sources and no
+two-step source, but this is only finite codimension evidence.  The exact
+branch algebra is now
+
+```text
+P_m=8m+15, Q_m=6m+11,
+2^P_m q'=3^Q_m q+delta_m,
+delta_m=(3^(6m)W0-2^(8m-5)Z0)/473>0.
+```
+
+The disjoint target cylinders are an LSB-first variable-length code of
+lengths `23,31,39,...`.  Its exact Kraft mass, generating function, and
+pressure equation are
+
+```text
+sum_m 2^(-P_m)=1/(255*2^15),
+A(x)=(1-x^8)/(1-x^8-x^23),
+x^8+x^23=1,
+d=-log_2(x)=0.07065929109419928758... .
+```
+
+Use this pressure cost for bounded falsification, not flat branch boxes.  It
+does not exclude an ordinary ray: a natural seed is an exceptional
+eventually-zero address, and dimension alone cannot decide its existence.
+
+The stronger algebraic result is the invariant component `q=17r`.  Both
+affine offsets divide by `17`:
+
+```text
+Zbar(r)=29073613+495976448r,
+Wbar(r)=4911712+83790531r,
+3^11 Zbar(r)+1=2^20 Wbar(r).
+```
+
+An accepted `n -> m` step becomes
+
+```text
+2^(8m+15)v'=3^(6n+11)v+1,  v,v'=2 mod3.
+```
+
+Modulo `17`,
+
+```text
+r'-14=6*(-2)^(m-1)*(r-1).
+```
+
+Therefore every accepted step in this component satisfies the universal
+filter
+
+```text
+min(v17(u),v17(u'))=1.
+```
+
+Deep `17^2` core events are never adjacent and have upper density at most
+one half.  This component is live: every finite branch pair remains
+CRT-solvable, and the already-closed direct normalized-core-to-KL-edge tax
+must not be retried.  The new worker/artifact are
+
+```bash
+python3 experiments/kontorovich/breakoff_ether_branch_pressure.py selftest
+python3 experiments/kontorovich/breakoff_ether_branch_pressure.py verify \
+  experiments/kontorovich/breakoff_ether_branch_pressure_audit.json
+```
+
+The artifact checks branches through `m=64`, 1,278 exact schedule cylinders
+through 160 bits, and the higher 17-adic checksum clock through precision 12;
+`counterexample:null`.
+
+Companion commits through `8d59350` substantially sharpen the infinite gate:
+for a prescribed branch schedule, eventual zero canonical carry is equivalent
+to existence of a positive bare EC17 ray; packet color zero is reflected as
+well as propagated; and a shifted bare ray promotes to the full self-writing
+map iff every state lies on the exact affine `Z` rail.  Thus search can now
+separate three exact tests: eventual-zero dyadic carry, color zero, and full
+`473*2^20` rail membership.  A witness must pass all three.
 
 ### 12:02 EDT continuation -- the KL center yields one self-writing integer
 
