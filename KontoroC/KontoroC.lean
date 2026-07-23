@@ -148,6 +148,7 @@ import KontoroC.KLCoveringDispatcher
 import KontoroC.ShortcutParityPeriodicNoGo
 import KontoroC.OutwardFirstPassage
 import KontoroC.OutwardCodeCompactness
+import KontoroC.OutwardCodeCounterexample
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
 import KontoroC.TwoRailPrefixCode

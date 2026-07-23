@@ -81,6 +81,25 @@ theorem nested_of_le {n k x : ℕ} (hnk : n ≤ k) (hk : P k x) : P n x := by
   | base => exact hk
   | succ k hnk ih => exact ih (h_nested k x hk)
 
+/-- QM156b in the form stated by the construction worker.  If every member
+of a decreasing family of predicates has a witness in one fixed finite
+window, then one ordinary natural witnesses every member simultaneously. -/
+theorem finiteWindow_nested (B : ℕ)
+    (h_window : ∀ n, ∃ x, x ≤ B ∧ P n x) :
+    ∃ x, x ≤ B ∧ ∀ n, P n x := by
+  let chosen : ℕ → {x : ℕ // x ≤ B} := fun n =>
+    ⟨(h_window n).choose, (h_window n).choose_spec.1⟩
+  obtain ⟨y, hy⟩ := Finite.exists_infinite_fiber chosen
+  have hyset : (chosen ⁻¹' {y} : Set ℕ).Infinite :=
+    Set.infinite_coe_iff.mp hy
+  refine ⟨y.1, y.2, fun n => ?_⟩
+  obtain ⟨k, hk, hnk⟩ := hyset.exists_gt n
+  have hchosen : chosen k = y := by simpa using hk
+  have hPk : P k y.1 := by
+    have hs := (h_window k).choose_spec.2
+    simpa [chosen] using hchosen ▸ hs
+  exact nested_of_le P h_nested hnk.le hPk
+
 theorem leastWitness_mono : Monotone (leastWitness P h_nonempty) := by
   apply monotone_nat_of_le_succ
   intro n

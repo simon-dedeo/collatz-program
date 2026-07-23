@@ -15608,3 +15608,47 @@ mass premise occurs in QM155d, so critical tilted mass cannot be mistaken for
 the missing boundedness assertion.  The remaining live construction problem
 is exactly to prove `BoundedRange(canonicalMinimumStart ...)` for the outward
 first-passage code—or, adversarially, prove its negation.
+
+## Round 307 — QM156b and the Collatz counterexample consumer are proved
+
+I exposed the exact finite-window lemma requested in QM156b:
+
+```text
+(forall n, exists x <= B, Good n x) and
+(Good (n+1) x -> Good n x)
+  -> exists x <= B, forall n, Good n x.
+```
+
+More importantly, `OutwardCodeCounterexample.lean` now closes the downstream
+semantic bridge that QM155 left implicit. Lean proves that the relational
+parity-word predicate `Executes w start finish` is exactly
+`finish = syracuseStep^[length w] start`, and uses the affine identity to
+prove every positive execution of an outward word strictly raises its block
+boundary. Therefore one start realizing `n` outward blocks has final
+boundary at least `start+n`, after at least `n` Syracuse steps.
+
+This avoids constructing a choice-dependent infinite dispatcher. If the
+same start realizes every finite depth and reaches 1 at Syracuse time `k`,
+take depth `k+2`: outward boundary growth forces the endpoint to be at least
+3, while every iterate after time `k` lies in the terminal `{1,2}` cycle.
+Contradiction. The kernel-checked endpoints are:
+
+```text
+InfiniteExecution C start + (all words in C outward)
+  -> not SyracuseReachesOne start
+  -> not Collatz.Conjecture;
+
+BoundedRange(canonicalMinimumStart C hC) + outward(C)
+  -> not Collatz.Conjecture.
+```
+
+Thus the exact remaining construction seam is now extremely clean: prove
+boundedness/eventual constancy of the canonical least starts for a nonempty
+outward code. No prefix-free hypothesis is needed for this implication;
+prefix-free parsing is useful experimentally but the finite-depth predicate
+already contains enough block structure. Conversely, a proof of Collatz
+immediately forces those minima to be unbounded for every outward code.
+
+The full 8,828-job build passes. The new declarations use only standard
+mathlib principles; there is no probability, native computation, or hidden
+existence premise in the counterexample consumer.
