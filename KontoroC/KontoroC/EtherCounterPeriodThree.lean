@@ -187,6 +187,49 @@ theorem quadratic_binaryDigits_growth (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
   EtherCounterAperiodic.TernaryCoreOrbit.exponent_div_41_lt_binaryDigits_of_two_pow_lt_pow_41
     _ _ (g.quadratic_core_growth q hq)
 
+/-- An explicit superlinear endpoint for the literal core size.  Given any
+starting cycle `Q` and affine bit budget `C*q+B`, the displayed cycle already
+exceeds that budget.  This rejects fixed-output-rate literal encodings; it
+does not reject a compressed symbolic representation of the growing core. -/
+theorem binaryDigits_exceeds_affine_after
+    (g : Ray) (Q C B : ℕ) :
+    let q := Q + C + B + 5
+    Q ≤ q ∧ C * q + B < (Nat.log 2 (g.core (3 * q))).succ := by
+  let q := Q + C + B + 5
+  have hq : 5 ≤ q := by simp [q]
+  have hQ : Q ≤ q := by dsimp [q]; omega
+  have hC : C ≤ q := by dsimp [q]; omega
+  have hB : B ≤ q := by dsimp [q]; omega
+  have hq_pos : 0 < q := by omega
+  have hCq : C * q ≤ q * q := Nat.mul_le_mul_right q hC
+  have hBq : B ≤ q * q := by nlinarith
+  have hbudget : 41 * (C * q + B) ≤ q * (84 * q + 23) := by
+    nlinarith
+  have hgain : 84 * q - 412 ≤
+      g.cycleGain * (84 * q - 412) :=
+    Nat.le_mul_of_pos_left _ g.cycleGain_pos
+  have hinner : 84 * q + 23 ≤
+      435 + g.cycleGain * (84 * q - 412) := by
+    omega
+  have hexponent : 41 * (C * q + B) ≤
+      q * (435 + g.cycleGain * (84 * q - 412)) :=
+    hbudget.trans (Nat.mul_le_mul_left q hinner)
+  have hdiv : C * q + B ≤
+      (q * (435 + g.cycleGain * (84 * q - 412))) / 41 := by
+    apply (Nat.le_div_iff_mul_le (by norm_num : 0 < 41)).2
+    simpa [mul_comm] using hexponent
+  refine ⟨hQ, hdiv.trans_lt (g.quadratic_binaryDigits_growth q hq)⟩
+
+/-- Consequently no period-three survivor has an eventually affine upper
+bound on the ordinary binary length of its core. -/
+theorem no_eventually_affine_binaryDigits_bound
+    (g : Ray) (Q C B : ℕ) :
+    ¬ ∀ q, Q ≤ q →
+      (Nat.log 2 (g.core (3 * q))).succ ≤ C * q + B := by
+  intro hlinear
+  obtain ⟨hQ, hgrowth⟩ := g.binaryDigits_exceeds_affine_after Q C B
+  exact (not_lt_of_ge (hlinear _ hQ)) hgrowth
+
 def binaryScale (g : Ray) : ℕ := 2 ^ (8 * g.cycleGain)
 def ternaryScale (g : Ray) : ℕ := 3 ^ (6 * g.cycleGain)
 

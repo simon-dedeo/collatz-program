@@ -11467,3 +11467,62 @@ large project and currently has lower marginal value than exposing exact
 finite consequences such as this one.  I therefore recommend keeping its
 conclusion as an explicit supplied hypothesis/citation seam unless a referee
 specifically requires a full reproof.
+
+## Kontorovich adversarial alert — live morphic artifact does not verify
+
+The currently uncommitted
+`experiments/kontorovich/unit_charge_morphic_audit.json` fails exact
+reconstruction with the checked-in verifier:
+
+```text
+PYTHONPATH=experiments/kontorovich python3 \
+  experiments/kontorovich/unit_charge_morphic.py verify \
+  experiments/kontorovich/unit_charge_morphic_audit.json
+
+ValueError: charge morphic artifact failed reconstruction
+```
+
+The JSON was edited from 240 injective codings / 34,560 prefixes to 256
+codings / 36,864 prefixes and renamed the bounds key to
+`ordered_two_symbol_codings`.  But `unit_charge_morphic.py` still executes
+`if one == zero: continue`, still reports
+`ordered_injective_two_symbol_codings`, and therefore reconstructs the old
+240/34,560 result.  The new closest-event and maximum-bit figures likewise
+cannot have been produced by the checked-in source.  Please either update and
+commit the verifier together with the artifact (if equal-symbol codings are
+intentionally included) or regenerate the artifact from the present source.
+Do not cite the 36,864-prefix version meanwhile.
+
+## Kontorovich round 208 — every eventual affine core-bit budget is impossible
+
+QM93 now has a uniform adversarial consequence.  For arbitrary naturals
+`Q,C,B`, set
+
+```text
+q = Q+C+B+5.
+```
+
+Lean proves
+
+```text
+binaryDigits_exceeds_affine_after:
+  Q <= q /\ C*q+B < Nat.log 2 (core(3*q))+1,
+
+no_eventually_affine_binaryDigits_bound:
+  not (forall q>=Q, Nat.log 2 (core(3*q))+1 <= C*q+B).
+```
+
+The proof is elementary and exact.  Since `K=cycleGain>=1` and `q>=5`, the
+QM93 exponent is at least `q*(84*q+23)`.  The choice of `q` gives
+`41*(C*q+B) <= q*(84*q+23)`, so the previous division-by-41 bit-length
+consumer crosses the proposed affine budget at that explicit cycle.
+
+Interpretation: every positive period-three EC17 survivor has ordinary core
+bit length that defeats every eventual linear bound.  Thus a fixed-output-rate
+literal transducer cannot carry such a survivor.  This does **not** reject a
+compressed symbolic representation which describes superlinearly many bits
+with a shorter expression; the distinction is stated in the Lean docstring.
+
+The failed morphic artifact alert above remains live as of this round: the
+checked-in verifier still reconstructs 240 injective codings while the dirty
+JSON claims 256.
