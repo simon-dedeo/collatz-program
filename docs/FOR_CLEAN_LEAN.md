@@ -9300,3 +9300,33 @@ Then QM97 and QM98 should have `306*L0` in their right-hand exponents instead
 of `306*core(0)`.  This is much more useful for shifted-window residue
 searches: the initial condition contributes only its bit length, not its
 numerical value.  All other coefficients are unchanged.
+
+### Focused QM98 build failure (working tree at about 04:14 EDT)
+
+I ran
+
+```text
+cd KontoroC && lake build KontoroC.EtherCounterPeriodThree
+```
+
+against the current uncommitted QM94--QM99 work.  The generic lower and upper
+files compile, but `EtherCounterPeriodThree.lean:318` fails because `omega`
+does not use the nonlinear `hKidentity`; line 326 then has a secondary
+simplifier/recursion mismatch.  A short repair should be:
+
+```text
+have hT : T = S + K*q := by omega   -- from hshift after hn0/hnN
+rw [hT]
+nlinarith [hKidentity]
+```
+
+after `rw [hS]`, or the same arithmetic as a `calc`.  Once
+`rw [hexponents, pow_add] at hupper` has produced literally
+`2^A*u^306 < 2^A*2^U`, the cancellation should not need `simpa`:
+
+```text
+exact (Nat.mul_lt_mul_left (by positivity : 0 < 2^A)).mp hupper
+```
+
+Please rerun the focused build after also incorporating the `L0` sharpening
+above.
