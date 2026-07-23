@@ -240,5 +240,90 @@ theorem canonical_affine_identity (w : List Bool) :
   simpa only [programData_S, programData_O] using
     program_exact w (canonicalExecution_spec w).2.2
 
+/-! ## Finite min-plus renewal -/
+
+def NextSource (F : Finset (List Bool)) (E : ℕ → Prop) (x : ℕ) : Prop :=
+  ∃ w ∈ F, ∃ y, E y ∧ Executes w x y
+
+def AdmissibleParameter (E : ℕ → Prop) (w : List Bool) (t : ℕ) : Prop :=
+  E ((canonicalExecution w).2 + 3 ^ w.count true * t)
+
+noncomputable def candidateValue (tau : List Bool → ℕ) (w : List Bool) : ℕ :=
+  (canonicalExecution w).1 + 2 ^ w.length * tau w
+
+noncomputable def candidateValues (F : Finset (List Bool))
+    (tau : List Bool → ℕ) : Finset ℕ :=
+  F.image (candidateValue tau)
+
+theorem candidateValues_nonempty {F : Finset (List Bool)}
+    (hF : F.Nonempty) (tau : List Bool → ℕ) :
+    (candidateValues F tau).Nonempty := by
+  obtain ⟨w, hw⟩ := hF
+  exact ⟨candidateValue tau w,
+    Finset.mem_image.mpr ⟨w, hw, rfl⟩⟩
+
+noncomputable def minCandidate (F : Finset (List Bool)) (hF : F.Nonempty)
+    (tau : List Bool → ℕ) : ℕ :=
+  (candidateValues F tau).min' (candidateValues_nonempty hF tau)
+
+/-- Semantic form of the inverse renewal: the next-source set is exactly a
+finite union of affine preimages of the target set. -/
+theorem nextSource_iff_parameters (F : Finset (List Bool)) (E : ℕ → Prop)
+    (x : ℕ) :
+    NextSource F E x ↔
+      ∃ w ∈ F, ∃ t,
+        AdmissibleParameter E w t ∧
+          x = (canonicalExecution w).1 + 2 ^ w.length * t := by
+  constructor
+  · rintro ⟨w, hwF, y, hyE, hxy⟩
+    obtain ⟨t, hx, hy⟩ := (executes_iff_canonical_family w).mp hxy
+    exact ⟨w, hwF, t, by simpa [AdmissibleParameter, hy] using hyE, hx⟩
+  · rintro ⟨w, hwF, t, ht, rfl⟩
+    refine ⟨w, hwF,
+      (canonicalExecution w).2 + 3 ^ w.count true * t, ht, ?_⟩
+    exact (executes_iff_canonical_family w).2 ⟨t, rfl, rfl⟩
+
+/-- QM158b for a finite active code.  If `tau w` is the least target-family
+parameter meeting `E` for every word in `F`, then the displayed min-plus
+quantity is exactly the least next source. -/
+theorem finite_minPlus_renewal
+    (F : Finset (List Bool)) (hF : F.Nonempty)
+    (E : ℕ → Prop) (tau : List Bool → ℕ)
+    (hadm : ∀ w ∈ F, AdmissibleParameter E w (tau w))
+    (hleast : ∀ w ∈ F, ∀ t, AdmissibleParameter E w t → tau w ≤ t) :
+    NextSource F E (minCandidate F hF tau) ∧
+      ∀ x, NextSource F E x → minCandidate F hF tau ≤ x := by
+  have hmem : minCandidate F hF tau ∈ candidateValues F tau :=
+    Finset.min'_mem _ _
+  obtain ⟨w, hwF, hwEq⟩ := Finset.mem_image.mp hmem
+  constructor
+  · apply (nextSource_iff_parameters F E _).2
+    refine ⟨w, hwF, tau w, hadm w hwF, ?_⟩
+    simpa [candidateValue] using hwEq.symm
+  · intro x hx
+    obtain ⟨v, hvF, t, ht, rfl⟩ :=
+      (nextSource_iff_parameters F E x).1 hx
+    have hmin : minCandidate F hF tau ≤ candidateValue tau v := by
+      apply Finset.min'_le
+      exact Finset.mem_image.mpr ⟨v, hvF, rfl⟩
+    have htau : tau v ≤ t := hleast v hvF t ht
+    have hcand : candidateValue tau v ≤
+        (canonicalExecution v).1 + 2 ^ v.length * t := by
+      dsimp [candidateValue]
+      gcongr
+    exact hmin.trans hcand
+
+/-- QM158c: replacing the least family parameter by the least target in its
+triadic residue class gives the expanded quotient formula. -/
+theorem candidate_eq_targetFiber_quotient
+    (w : List Bool) (tau m : ℕ)
+    (hm : m = (canonicalExecution w).2 + 3 ^ w.count true * tau) :
+    (canonicalExecution w).1 + 2 ^ w.length * tau =
+      (canonicalExecution w).1 + 2 ^ w.length *
+        ((m - (canonicalExecution w).2) / 3 ^ w.count true) := by
+  rw [hm]
+  have hpos : 0 < 3 ^ w.count true := by positivity
+  simp [Nat.add_sub_cancel_left, Nat.mul_div_cancel_left _ hpos]
+
 end OutwardCylinderRenewal
 end KontoroC

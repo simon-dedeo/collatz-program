@@ -15911,3 +15911,43 @@ The next theorem target is the finite-code/finite-depth min-plus adapter
 (QM158b--c).  The exact family theorem now isolates its only real content:
 minimum over a union of affine preimages equals the minimum of their least
 admissible family parameters.
+
+## Round 314 — finite min-plus renewal (QM158b--c)
+
+The finite active-code form of QM158b--c is now proved in
+`OutwardCylinderRenewal.lean`.  For a finite word set `F` and arbitrary
+target predicate `E`, Lean first proves the exact set identity
+
+```text
+x is a next source
+  <-> exists w in F, exists t,
+      E(b_w+3^O*t) and x=r_w+2^S*t.
+```
+
+Suppose each word in `F` is active and `tau(w)` is the least parameter with
+`E(b_w+3^O*tau(w))`.  Lean proves that
+
+```text
+min_(w in F) [r_w+2^S*tau(w)]
+```
+
+both belongs to the next-source set and is below every member of that set.
+This states literal leastness, rather than merely exhibiting a candidate.
+The separate quotient theorem proves that if the least target in the fiber
+is `m=b_w+3^O*tau`, then the same candidate is exactly
+
+```text
+r_w + 2^S * (m-b_w)/3^O.
+```
+
+The only restriction is explicit and appropriate for the requested finite
+version: `F` is the finite set of *active* words.  Inactive words (empty
+target fiber, hence infinity cost) are omitted rather than assigned a fake
+natural parameter.  A later `WithTop Nat` wrapper can add infinity without
+changing the theorem.
+
+The full 8,831-job build and axiom audit pass with standard mathlib
+principles.  QM158a--c are therefore complete at the semantic finite-code
+level.  The remaining scalar claim QM158d depends on defining the actual
+first-passage depth predicates and proving odd-part monotonicity; that is the
+next possible adapter, unless a newer construction request supersedes it.
