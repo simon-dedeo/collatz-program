@@ -917,6 +917,27 @@ theorem false_of_cofinally_large_shiftedInitialResidue
 def dyadicBinaryMass (g : Ray) (q : ℕ) : ℕ :=
   EtherCounterResidueBound.binaryMass (shiftedBranch g q) 0 (3 * q)
 
+/-- The exact terminal multiplier between cycle boundaries `q` and `2*q`.
+QM117 says this multiplier vanishes at normalized precision because its
+power of two is already too large.  This stronger identity records the
+complementary fact needed by any state-enriched induction: at greater
+precision the terminal difference is still present, shifted by exactly the
+dyadic binary mass and twisted only by an odd unit. -/
+theorem dyadicBackwardEval_sub_exact
+    (g : Ray) (q P : ℕ) (x y : ZMod (2 ^ P)) :
+    EtherCounterResidueBound.backwardEval
+          (shiftedBranch g q) P (3 * q) 0 x -
+        EtherCounterResidueBound.backwardEval
+          (shiftedBranch g q) P (3 * q) 0 y =
+      (2 : ZMod (2 ^ P)) ^ dyadicBinaryMass g q *
+        ((3 : ZMod (2 ^ P)) ^
+          EtherCounterResidueBound.replayTernaryMass
+            (shiftedBranch g q) 0 (3 * q))⁻¹ *
+        (x - y) := by
+  simpa [dyadicBinaryMass] using
+    EtherCounterResidueBound.backwardEval_sub_exact
+      (shiftedBranch g q) P 0 (3 * q) x y
+
 /-- QM117a: exact binary mass from transition `3q` through `6q-1`. -/
 theorem dyadicBinaryMass_eq (g : Ray) (q : ℕ) :
     dyadicBinaryMass g q =

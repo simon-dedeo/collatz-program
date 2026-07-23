@@ -918,6 +918,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.EtherCounterPeriodicTheta.derivativeThreshold_lt_gamma_of_three_le_slots
 #print axioms KontoroC.EtherCounterResidueBound.backwardEval_sub_factor
+#print axioms KontoroC.EtherCounterResidueBound.backwardEval_sub_exact
 #print axioms KontoroC.EtherCounterResidueBound.initial_core_cast_eq_residue
 #print axioms KontoroC.EtherCounterResidueBound.initialResidue_val_eq_initial_core
 #print axioms
@@ -949,6 +950,23 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.EtherCounterStateNoRepeat.Orbit.false_of_unbounded_residue_obstructions
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.compose_three
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.cycle_balance
+#print axioms KontoroC.EtherCounterPeriodThree.Ray.dyadicBackwardEval_sub_exact
+#print axioms KontoroC.EtherCounterNineCycle.target_cycle_balance
+#print axioms KontoroC.EtherCounterNineCycle.sum_cycleBinaryExponent_nine
+#print axioms KontoroC.EtherCounterNineCycle.sum_cycleTernaryExponent_nine
+#print axioms KontoroC.EtherCounterNineCycle.target_prefix_balance
+#print axioms KontoroC.EtherCounterNineCycle.target_nineCycle_balance
+#print axioms KontoroC.EtherCounterNineCycle.nineCycleBinary_cast_eq_neg_one
+#print axioms KontoroC.EtherCounterNineCycle.nineCycleTernary_cast_eq_zero
+#print axioms KontoroC.EtherCounterNineCycle.nineCycleDefect_cast_eq_fourteen
+#print axioms
+  KontoroC.EtherCounterNineCycle.nineCycleBinaryExponent_lt_sharpUpperBudget
+#print axioms KontoroC.EtherCounterNineCycle.output_mod_twentySeven
+#print axioms
+  KontoroC.EtherCounterNineCycle.target_nineCycle_output_mod_twentySeven
+#print axioms KontoroC.EtherCounterNineCycle.exact_forward_images_compatible
+#print axioms
+  KontoroC.EtherCounterNineCycle.residue_eq_thirteen_iff_carry_eq_zero
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.toTernaryCoreOrbit
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.oneBasedLevelSum_three_mul
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.quadratic_core_growth

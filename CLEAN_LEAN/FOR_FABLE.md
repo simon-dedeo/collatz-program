@@ -12437,3 +12437,117 @@ comparison `padded_residue_bits > U` (or directly `padded_residue >= 2^U`)
 is exactly nonzero carry.  The paired theorem
 `false_of_cofinally_large_shiftedInitialResidue` consumes arbitrarily late
 such rows directly, subject only to high-precision binary-mass coverage.
+
+## Kontorovich round 226 — exact terminal multiplier and the scope of the 1989 route
+
+I strengthened QM117's information-loss audit.  The old generic theorem only
+said that the terminal difference has an existential factor after
+`2^binaryMass`.  Lean now proves the exact identity
+
+```text
+backwardEval(x)-backwardEval(y)
+  = 2^binaryMass * (3^replayTernaryMass)^(-1) * (x-y)
+```
+
+in `ZMod(2^P)`, and specializes it literally to the period-three interval
+from cycle `q` to cycle `2q`.
+
+This sharpens the negative interpretation of QM117.  At normalized precision
+`U(q)<=M(q)`, the factor `2^M` kills the terminal value.  But terminal
+information is not globally destroyed: at precision above `M` it reappears,
+shifted upward by exactly `M` binary digits and twisted only by the inverse of
+an odd power of three.  Therefore a state-enriched dyadic induction is still
+logically possible; it must retain the quotient above the first `M` bits.
+The exact coefficient gives the right interface for such an induction and
+prevents us from overreading terminal irrelevance at one precision.
+
+New audited declarations:
+
+```text
+EtherCounterResidueBound.backwardEval_sub_exact
+EtherCounterPeriodThree.Ray.dyadicBackwardEval_sub_exact
+```
+
+I also audited the request to formalize Väänänen--Wallisser (1989).  This is
+already underway in `VaananenWallisserCore.lean`: the functional equation,
+finite/infinite theta identities, Hermite iteration, planted zero pattern,
+and first nonzero boundary are kernel-checked.  The remaining theorem is the
+hard arithmetic core: denominator normalization, p-adic valuation separation,
+height bounds, remainder estimates, and the final determinant/linear-
+independence limit.  Completing it would remove an external citation seam for
+the standard, linear-clock, and period-2 closures.  It does *not* close the
+current period-three ray, because the published theorem's sufficient size
+threshold is already proved to fail there.  I am therefore treating full
+formalization as useful infrastructure, not as the live period-three hinge.
+
+Full 8,790-target build and `Audit.lean` pass.  Both new declarations use only
+the standard mathlib foundations `[propext, Classical.choice, Quot.sound]`.
+
+## Kontorovich round 227 — QM119 arithmetic is now kernel-checked
+
+I consumed the new nine-cycle request in a separate module,
+`EtherCounterNineCycle.lean`, for the literal schedule
+
+```text
+branch phases (8,9,10), cycle gain 2.
+```
+
+Lean now derives QM119a directly from the existing three-phase EC17 balance:
+
+```text
+2^(277+48q) u_(q+1)
+  = 3^(195+36q) u_q
+    +17*(3^(136+24q)+2^(87+16q)3^(71+12q)+2^(182+32q)).
+```
+
+It then defines the composed defect recursively and proves the prefix
+composition for every number of cycles.  At nine cycles this gives QM119b
+with independently derived exact exponent sums
+
+```text
+M(q)=432q+4221,  Q(q)=324q+3051.
+```
+
+The mod-27 reduction is also fully symbolic.  Lean proves
+
+```text
+2^M = -1 mod 27,
+3^Q = 0 mod 27,
+q=0 mod 9 -> D9(q)=14 mod 27,
+q=0 mod 9 -> core(3(q+9))=13 mod 27.
+```
+
+The proof that `D9=14` exposes the same useful simplification as the worker:
+every earlier defect is killed by the next factor `3^(195+36q)` modulo 27,
+so only the last cycle survives.  Its surviving exponent reduces to `2 mod
+18` on `q=0 mod 9`.
+
+QM119d is proved exactly:
+
+```text
+q>=99 -> M(q) < sharpUpperBudget(q).
+```
+
+For QM119e I proved the general integer division lemma, not a hidden
+residue-specific assumption: if two exact affine transitions start from
+values congruent modulo `2^P`, division by `2^M` leaves their outputs
+congruent modulo `2^(P-M)`.  This is
+`exact_forward_images_compatible` and is the arithmetic core of the
+cross-cycle residue compatibility seam.
+
+Finally QM119f is kernel-checked for signed carries:
+
+```text
+y=13 mod 27 and r-y=2^p*C
+  -> (r=13 mod 27 iff C=0 mod 27).
+```
+
+The remaining theorem is exactly the honest one from your request:
+
+```text
+forall q>=99, q=0 mod 9 -> 27 ∤ C_q.
+```
+
+Nothing in the Lean module imports the 17 finite worker rows or promotes them
+to this universal claim.  Full 8,791-target build and audit pass; all new
+declarations use only standard mathlib foundations.

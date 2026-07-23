@@ -312,6 +312,69 @@ theorem replayTernaryMass_succ (branch : ℕ → ℕ) (start length : ℕ) :
   rw [hsum]
   ac_rfl
 
+/-- Exact affine dependence of a finite backward EC17 evaluation on its
+terminal value.  The earlier divisibility lemma deliberately hid the odd
+factor; this identity exposes it as the inverse of the accumulated power of
+three.  Thus terminal information is shifted upward by exactly
+`binaryMass` binary digits, but is not destroyed at higher precision. -/
+theorem backwardEval_sub_exact (branch : ℕ → ℕ) (P start length : ℕ)
+    (x y : ZMod (2 ^ P)) :
+    backwardEval branch P length start x -
+        backwardEval branch P length start y =
+      (2 : ZMod (2 ^ P)) ^ binaryMass branch start length *
+        ((3 : ZMod (2 ^ P)) ^ replayTernaryMass branch start length)⁻¹ *
+        (x - y) := by
+  induction length generalizing start with
+  | zero => simp [backwardEval, binaryMass, replayTernaryMass]
+  | succ length ih =>
+      rw [backwardEval, backwardEval, binaryMass_succ,
+        replayTernaryMass_succ, pow_add, pow_add]
+      simp only [backStep]
+      have hthree : IsUnit (3 : ZMod (2 ^ P)) :=
+        (ZMod.isUnit_iff_coprime 3 (2 ^ P)).2
+          ((by norm_num : Nat.Coprime 3 2).pow_right P)
+      have hfirst : IsUnit
+          ((3 : ZMod (2 ^ P)) ^ ternaryExponent branch start) :=
+        hthree.pow _
+      have htail : IsUnit
+          ((3 : ZMod (2 ^ P)) ^
+            replayTernaryMass branch (start + 1) length) :=
+        hthree.pow _
+      have inv_mul_of_units (a b : ZMod (2 ^ P))
+          (ha : IsUnit a) (hb : IsUnit b) :
+          (a * b)⁻¹ = b⁻¹ * a⁻¹ := by
+        apply ZMod.inv_eq_of_mul_eq_one
+        calc
+          (a * b) * (b⁻¹ * a⁻¹) = (a * a⁻¹) * (b * b⁻¹) := by ring
+          _ = 1 := by
+            rw [ZMod.mul_inv_of_unit _ ha,
+              ZMod.mul_inv_of_unit _ hb]
+            simp
+      calc
+        (2 ^ binaryExponent branch start *
+              backwardEval branch P length (start + 1) x - 17) *
+                (3 ^ ternaryExponent branch start)⁻¹ -
+            (2 ^ binaryExponent branch start *
+              backwardEval branch P length (start + 1) y - 17) *
+                (3 ^ ternaryExponent branch start)⁻¹ =
+            2 ^ binaryExponent branch start *
+              (backwardEval branch P length (start + 1) x -
+                backwardEval branch P length (start + 1) y) *
+              (3 ^ ternaryExponent branch start)⁻¹ := by ring
+        _ = 2 ^ binaryExponent branch start *
+              (2 ^ binaryMass branch (start + 1) length *
+                (3 ^ replayTernaryMass branch (start + 1) length)⁻¹ *
+                (x - y)) *
+              (3 ^ ternaryExponent branch start)⁻¹ := by
+          rw [ih (start := start + 1)]
+        _ = 2 ^ binaryExponent branch start *
+              2 ^ binaryMass branch (start + 1) length *
+              (3 ^ ternaryExponent branch start *
+                3 ^ replayTernaryMass branch (start + 1) length)⁻¹ *
+              (x - y) := by
+          rw [inv_mul_of_units _ _ hfirst htail]
+          ring
+
 /-- Additive term in the EC17 interval composition, recursively split at the
 first transition so the compact factorization can be decoded inductively. -/
 def replayOffset (branch : ℕ → ℕ) : ℕ → ℕ → ℕ
