@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
 import CleanLean.KL.PredecessorTransfer
+import KontoroC.KLMinusOneRail
 
 /-!
 # Exact dyadic ledger for the three reversed KL branches
@@ -132,6 +133,88 @@ theorem transport_recharge_size (a : ℕ) :
     2 ^ (2 + padicValNat 2 (a + 1)) ≤ transportChild a + 4 := by
   rw [← transport_valuation_balance a]
   exact Nat.le_of_dvd (by positivity) pow_padicValNat_dvd
+
+/-! ## The counter is exactly the next forced odd-burst length -/
+
+/-- Dyadic depth of the translated `-1` coordinate. -/
+def minusOneCounter (n : ℕ) : ℕ := padicValNat 2 (n + 1)
+
+/-- The odd payload left after removing the maximal power of two from
+`n+1`. -/
+def minusOnePayload (n : ℕ) : ℕ := (n + 1).divMaxPow 2
+
+theorem counter_payload_balance (n : ℕ) :
+    2 ^ minusOneCounter n * minusOnePayload n = n + 1 := by
+  simpa [minusOneCounter, minusOnePayload] using
+    (Nat.pow_padicValNat_mul_divMaxPow 2 (n + 1))
+
+theorem minusOnePayload_pos (n : ℕ) : 0 < minusOnePayload n := by
+  have hbalance := counter_payload_balance n
+  have hpow : 0 < 2 ^ minusOneCounter n := by positivity
+  by_contra hzero
+  push Not at hzero
+  have : minusOnePayload n = 0 := by omega
+  rw [this, mul_zero] at hbalance
+  omega
+
+theorem minusOnePayload_odd (n : ℕ) : minusOnePayload n % 2 = 1 := by
+  have hnot : ¬2 ∣ minusOnePayload n := by
+    exact Nat.not_dvd_divMaxPow (p := 2) (n := n + 1)
+      (by norm_num) (by omega)
+  rw [Nat.dvd_iff_mod_eq_zero] at hnot
+  have hlt := Nat.mod_lt (minusOnePayload n) (by norm_num : 0 < 2)
+  omega
+
+theorem eq_counter_payload_sub_one (n : ℕ) :
+    n = 2 ^ minusOneCounter n * minusOnePayload n - 1 := by
+  have hbalance := counter_payload_balance n
+  omega
+
+/-- Every prefix of the forced burst has the closed minus-one-rail form. -/
+theorem syracuse_counter_burst_prefix (n j : ℕ)
+    (hj : j ≤ minusOneCounter n) :
+    syracuseStep^[j] n =
+      KLMinusOneRail.railState (minusOneCounter n) (minusOnePayload n) j := by
+  let r := minusOneCounter n
+  let t := minusOnePayload n
+  change syracuseStep^[j] n = KLMinusOneRail.railState r t j
+  have hn : n = 2 ^ r * t - 1 := by
+    simpa [r, t] using eq_counter_payload_sub_one n
+  conv_lhs => rw [hn]
+  simpa [KLMinusOneRail.railState] using
+    (KLMinusOneRail.syracuse_iterate_railState
+      (L := r) (t := t) (j := j)
+      (by simpa [t] using minusOnePayload_pos n) hj)
+
+/-- Before the counter is exhausted, every Syracuse source is odd. -/
+theorem syracuse_counter_burst_source_odd (n j : ℕ)
+    (hj : j < minusOneCounter n) :
+    (syracuseStep^[j] n) % 2 = 1 := by
+  rw [syracuse_counter_burst_prefix n j hj.le]
+  exact KLMinusOneRail.railState_odd (minusOnePayload_pos n) hj
+
+/-- When the counter is exhausted, the endpoint is even. -/
+theorem syracuse_counter_burst_endpoint_even (n : ℕ) :
+    (syracuseStep^[minusOneCounter n] n) % 2 = 0 := by
+  rw [syracuse_counter_burst_prefix n (minusOneCounter n) (le_refl _)]
+  simp only [KLMinusOneRail.railState, Nat.sub_self, pow_zero, mul_one]
+  have hpayload := minusOnePayload_odd n
+  have hthree : (3 ^ minusOneCounter n) % 2 = 1 := by
+    norm_num [Nat.pow_mod]
+  have hprodmod :
+      (3 ^ minusOneCounter n * minusOnePayload n) % 2 = 1 := by
+    rw [Nat.mul_mod, hthree, hpayload]
+  have hprodpos : 0 < 3 ^ minusOneCounter n * minusOnePayload n := by
+    exact Nat.mul_pos (by positivity) (minusOnePayload_pos n)
+  omega
+
+/-- Operational form of the recharge/discharge law: `v2(n+1)` is exactly the
+number of consecutive odd Syracuse sources starting at `n`. -/
+theorem minusOneCounter_eq_maximal_odd_burst (n : ℕ) :
+    (∀ j < minusOneCounter n, (syracuseStep^[j] n) % 2 = 1) ∧
+      (syracuseStep^[minusOneCounter n] n) % 2 = 0 := by
+  exact ⟨syracuse_counter_burst_source_odd n,
+    syracuse_counter_burst_endpoint_even n⟩
 
 end KLRechargeLedger
 end KontoroC

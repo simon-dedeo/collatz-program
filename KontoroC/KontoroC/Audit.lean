@@ -1286,6 +1286,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.KLRechargeLedger.advanced_shadow_size
 #print axioms KontoroC.KLRechargeLedger.retarded_recharge_size
 #print axioms KontoroC.KLRechargeLedger.transport_recharge_size
+#print axioms KontoroC.KLRechargeLedger.counter_payload_balance
+#print axioms KontoroC.KLRechargeLedger.minusOnePayload_odd
+#print axioms KontoroC.KLRechargeLedger.syracuse_counter_burst_prefix
+#print axioms KontoroC.KLRechargeLedger.syracuse_counter_burst_source_odd
+#print axioms KontoroC.KLRechargeLedger.syracuse_counter_burst_endpoint_even
+#print axioms KontoroC.KLRechargeLedger.minusOneCounter_eq_maximal_odd_burst
 #print axioms KontoroC.KLCalibratedCycle.path_telescoping
 #print axioms KontoroC.KLCalibratedCycle.multiplicative_path_telescoping
 #print axioms KontoroC.KLCalibratedCycle.multiplicative_path_condition_bound

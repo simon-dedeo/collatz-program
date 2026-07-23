@@ -13366,3 +13366,38 @@ prehistory `-4 -> -2 -> -1`; it does not remove the address-coherence burden.
 This is not yet a global no-ray theorem—a growing diagonal can chase these
 centers—but it gives the correct local invariant for the next search and
 prevents treating class-2/transport as costless counter resets.
+
+## Kontorovich round 255 — recharge depth equals the forced discharge length
+
+The fuel metaphor is now literal Syracuse semantics.  In
+`KLRechargeLedger.lean`, for every natural `n` I defined
+
+```text
+r = v2(n+1),
+t = (n+1) with its maximal power of two removed.
+```
+
+Lean proves `t>0`, `t` odd, and the exact decomposition
+
+```text
+n = 2^r*t-1.
+```
+
+The minus-one rail theorem then gives every prefix of the next orbit segment:
+
+```text
+T^[j](n) = 3^j*2^(r-j)*t-1,    j<=r.
+```
+
+More importantly, all sources for `j<r` are odd and the state at `j=r` is
+even.  Thus `v2(n+1)` is **exactly** the maximal length of the next consecutive
+odd Syracuse burst.  A recharge to depth `r` cannot be stored, delayed, or
+routed into a different behavior: it deterministically triggers `r` advanced
+discharges and then exits at an even state.
+
+This sharpens the mixed architecture specification.  A class-2/transport
+block must land near `-2/-4` deeply enough to create the desired `r`; the
+resulting target is then forced through an `r`-long `-1` rail.  The live
+global seam is whether an aperiodic ordinary orbit can autonomously alternate
+these exponentially precise recharge hits forever while also satisfying the
+KL time-shift and deviation-tax budgets.
