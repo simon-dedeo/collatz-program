@@ -1438,6 +1438,27 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.Orbit.unit_slice_successor_core_deep_iff
 #print axioms
   KontoroC.SelfWritingKL.Orbit.unit_slice_consecutive_collision_exact
+#print axioms KontoroC.SelfWritingKL.branchDelta_raw_positive
+#print axioms KontoroC.SelfWritingKL.branchDelta_raw_modEq
+#print axioms KontoroC.SelfWritingKL.branchDelta_factor
+#print axioms KontoroC.SelfWritingKL.branchDelta_positive
+#print axioms KontoroC.SelfWritingKL.Z_odd
+#print axioms KontoroC.SelfWritingKL.Orbit.payload_rail_balance
+#print axioms KontoroC.SelfWritingKL.Orbit.payload_branch_balance_expanded
+#print axioms KontoroC.SelfWritingKL.Orbit.payload_branch_recurrence
+#print axioms KontoroC.SelfWritingKL.Orbit.payload_recurrence_rail_balance
+#print axioms KontoroC.SelfWritingKL.Orbit.payloadStepCore_factor_W
+#print axioms KontoroC.SelfWritingKL.Orbit.payloadStepCore_factor_Z
+#print axioms KontoroC.SelfWritingKL.Orbit.payloadStepCore_odd
+#print axioms KontoroC.SelfWritingKL.Orbit.payloadStepCore_mod_three
+#print axioms KontoroC.SelfWritingKL.Orbit.follows_payloadResetProgram
+#print axioms KontoroC.SelfWritingKL.Orbit.payload_follows_nonnegative
+#print axioms KontoroC.SelfWritingKL.Orbit.payload_toNat_recurrence
+#print axioms
+  KontoroC.SelfWritingKL.Orbit.exists_selfWriting_tail_of_eventuallyZeroPayloadCarry
+#print axioms KontoroC.SelfWritingKL.Orbit.payloadCarry_eventually_zero
+#print axioms
+  KontoroC.SelfWritingKL.Orbit.no_orbit_with_branch_of_nonzero_payload_carries
 #print axioms KontoroC.KLUniversalShadow.DifferenceCocycle.exact
 #print axioms
   KontoroC.KLUniversalShadow.DifferenceCocycle.two_pow_dvd_initial_difference

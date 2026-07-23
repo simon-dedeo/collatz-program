@@ -15080,3 +15080,59 @@ New interfaces are `reducedResidueStep`,
 8,820-job build passes; the focused axiom audit reports only `propext`,
 `Classical.choice`, and `Quot.sound` (and the rail-periodicity/table theorems
 do not need `Classical.choice`).
+
+## Round 297 — exact public-payload carry criterion
+
+I replaced the weaker bare-core carry diagnostic by the literal recurrence
+obeyed by the public self-writing payload.  Define the positive integral
+branch defect
+
+```text
+D(m) = (3^(6m)*83499104 - 2^(8m-5)*494251421) / 473.
+```
+
+Lean proves divisibility by 473, positivity for every positive `m`, and the
+exact orbit identity
+
+```text
+2^(8m+15) * q(t+1) = 3^(6m+11) * q(t) + D(m),
+m = branch(t+1).
+```
+
+This is now packaged as `payloadResetProgramOfBranch`.  It is a branch-only
+canonical dyadic program, and the two directions have been checked with the
+important indexing asymmetry kept explicit:
+
+```text
+every SelfWritingKL orbit
+  -> eventual-zero canonical public-payload carries;
+
+eventual-zero public-payload carries + positive branch schedule
+  -> a SelfWritingKL orbit whose branch is the one-step tail.
+```
+
+The shift is real: the first affine payload step writes the first certified
+branch and supplies the preceding core.  I have deliberately not stated a
+false unshifted equivalence requiring an arbitrary orbit to possess a legal
+predecessor payload.
+
+The adversarial consumer is now direct:
+
+```text
+cofinally nonzero carries of payloadResetProgramOfBranch(branch)
+  -> no orbit has exactly that branch schedule.
+```
+
+This folds the full `Z/W` packet factorization into a single public-address
+condition.  The eight shallow residue rails should therefore be tested
+against `payloadResetProgramOfBranch`, not merely against the defect-17
+bare-core program.  A finite mod-17 pressure graph can pass while this exact
+dyadic address still has infinitely many nonzero carries.
+
+New interfaces include `branchDelta`, `payload_branch_recurrence`,
+`payloadStepCore`, `follows_payloadResetProgram`,
+`exists_selfWriting_tail_of_eventuallyZeroPayloadCarry`,
+`payloadCarry_eventually_zero`, and
+`no_orbit_with_branch_of_nonzero_payload_carries`.  Full 8,820-job build and
+the axiom audit pass; dependencies remain only standard mathlib principles
+(`propext`, `Classical.choice`, `Quot.sound`).

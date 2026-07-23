@@ -30,6 +30,10 @@ payloads of the form `17*r`. -/
 def Zbar (r : ℕ) : ℕ := 29073613 + 495976448 * r
 /-- The `W` rail after dividing out the same factor. -/
 def Wbar (r : ℕ) : ℕ := 4911712 + 83790531 * r
+/-- Positive affine defect of the complete target-`m` payload cylinder.  The
+division by `473` is exact for positive branches; this is proved below. -/
+def branchDelta (m : ℕ) : ℕ :=
+  (3 ^ (6 * m) * 83499104 - 2 ^ (8 * m - 5) * 494251421) / 473
 def coreModulus : ℕ := 473 * 3 ^ 11
 def returnModulus : ℕ := 2 ^ 20
 
@@ -54,6 +58,81 @@ theorem reduced_determinant_identity (r : ℕ) :
     3 ^ 11 * Zbar r + 1 = 2 ^ 20 * Wbar r := by
   simp [Zbar, Wbar]
   ring
+
+/-- For every positive target branch the unscaled affine defect is strictly
+positive.  The proof reduces it to the universal outward coefficient
+inequality `2^(8m+15) < 3^(6m+11)`. -/
+theorem branchDelta_raw_positive {m : ℕ} (hm : 0 < m) :
+    2 ^ (8 * m - 5) * 494251421 < 3 ^ (6 * m) * 83499104 := by
+  have hcoeff :=
+    EtherCounterStateNoRepeat.Orbit.binary_lt_ternary_at_branch m
+  have hscaled := Nat.mul_lt_mul_of_pos_right hcoeff
+    (by norm_num : 0 < 494251421)
+  have hdet : 3 ^ 11 * 494251421 + 17 = 2 ^ 20 * 83499104 := by
+    simpa [Z, W] using determinant_identity 0
+  apply (Nat.mul_lt_mul_left (by positivity : 0 < 2 ^ 20)).mp
+  calc
+    2 ^ 20 * (2 ^ (8 * m - 5) * 494251421) =
+        2 ^ (8 * m + 15) * 494251421 := by
+      rw [← mul_assoc, ← pow_add]
+      congr 2
+      omega
+    _ < 3 ^ (6 * m + 11) * 494251421 := hscaled
+    _ < 3 ^ (6 * m) * (3 ^ 11 * 494251421 + 17) := by
+      rw [pow_add]
+      have hpos : 0 < 3 ^ (6 * m) := by positivity
+      nlinarith
+    _ = 2 ^ 20 * (3 ^ (6 * m) * 83499104) := by
+      rw [hdet]
+      ring
+
+/-- Resonance modulo `473` makes the raw branch defect divisible by `473`
+at every positive height. -/
+theorem branchDelta_raw_modEq {m : ℕ} (hm : 0 < m) :
+    Nat.ModEq 473
+      (2 ^ (8 * m - 5) * 494251421)
+      (3 ^ (6 * m) * 83499104) := by
+  obtain ⟨k, rfl⟩ := Nat.exists_eq_add_of_le hm
+  have hk : Nat.succ 0 + k = k + 1 := by omega
+  simp_rw [hk]
+  rw [← ZMod.natCast_eq_natCast_iff]
+  simp only [Nat.cast_mul, Nat.cast_pow, Nat.cast_ofNat]
+  rw [show 8 * (k + 1) - 5 = 8 * k + 3 by omega,
+    show 6 * (k + 1) = 6 * k + 6 by omega,
+    pow_add, pow_add, pow_mul, pow_mul]
+  have hperiod : (2 : ZMod 473) ^ 8 = 3 ^ 6 := by decide
+  have hbase : (2 : ZMod 473) ^ 3 * 494251421 =
+      3 ^ 6 * 83499104 := by decide
+  rw [hperiod]
+  calc
+    (3 ^ 6 : ZMod 473) ^ k * 2 ^ 3 * 494251421 =
+        (3 ^ 6) ^ k * (2 ^ 3 * 494251421) := by ring
+    _ = (3 ^ 6) ^ k * (3 ^ 6 * 83499104) := by rw [hbase]
+    _ = (3 ^ 6) ^ k * 3 ^ 6 * 83499104 := by ring
+
+/-- Exact factorization defining the natural branch defect. -/
+theorem branchDelta_factor {m : ℕ} (hm : 0 < m) :
+    473 * branchDelta m =
+      3 ^ (6 * m) * 83499104 - 2 ^ (8 * m - 5) * 494251421 := by
+  have hle := (branchDelta_raw_positive hm).le
+  have hdvd : 473 ∣
+      3 ^ (6 * m) * 83499104 - 2 ^ (8 * m - 5) * 494251421 :=
+    (Nat.modEq_iff_dvd' hle).mp (branchDelta_raw_modEq hm)
+  exact Nat.mul_div_cancel' hdvd
+
+theorem branchDelta_positive {m : ℕ} (hm : 0 < m) :
+    0 < branchDelta m := by
+  have hfactor := branchDelta_factor hm
+  have hraw := branchDelta_raw_positive hm
+  by_contra hzero
+  simp only [Nat.not_lt, nonpos_iff_eq_zero] at hzero
+  rw [hzero, mul_zero] at hfactor
+  omega
+
+theorem Z_odd (q : ℕ) : Odd (Z q) := by
+  rw [Nat.odd_iff]
+  simp only [Z]
+  omega
 
 /-- Exact mod-17 root of the reduced `Z` rail. -/
 theorem seventeen_dvd_Zbar_iff (r : ℕ) :
@@ -452,6 +531,192 @@ theorem balance (o : Orbit) (t : ℕ) :
       rw [o.z_factor, ← mul_assoc, ← pow_add]
       congr 3
       omega
+
+/-- Exact public-payload balance for one accepted target branch.  Unlike the
+core recurrence, both exponents are read from the same target branch. -/
+theorem payload_rail_balance (o : Orbit) (t : ℕ) :
+    2 ^ (8 * o.branch (t + 1) - 5) * Z (o.payload (t + 1)) =
+      3 ^ (6 * o.branch (t + 1)) * W (o.payload t) := by
+  rw [o.z_factor (t + 1), o.w_factor t]
+  ring
+
+/-- Expanded coefficient form of the complete target cylinder. -/
+theorem payload_branch_balance_expanded (o : Orbit) (t : ℕ) :
+    2 ^ (8 * o.branch (t + 1) - 5) * 494251421 +
+        473 * 2 ^ (8 * o.branch (t + 1) + 15) * o.payload (t + 1) =
+      3 ^ (6 * o.branch (t + 1)) * 83499104 +
+        473 * 3 ^ (6 * o.branch (t + 1) + 11) * o.payload t := by
+  have hm := o.branch_pos (t + 1)
+  have h := o.payload_rail_balance t
+  simp only [Z, W] at h
+  rw [show 8 * o.branch (t + 1) + 15 =
+      (8 * o.branch (t + 1) - 5) + 20 by omega,
+    show 6 * o.branch (t + 1) + 11 =
+      6 * o.branch (t + 1) + 11 by rfl,
+    pow_add, pow_add]
+  norm_num
+  nlinarith
+
+/-- The public payload itself follows a dyadic affine reset program.  This
+is the exact branch-family identity used by the prefix-code worker, now
+derived from an arbitrary supplied orbit rather than finite samples. -/
+theorem payload_branch_recurrence (o : Orbit) (t : ℕ) :
+    2 ^ (8 * o.branch (t + 1) + 15) * o.payload (t + 1) =
+      3 ^ (6 * o.branch (t + 1) + 11) * o.payload t +
+        branchDelta (o.branch (t + 1)) := by
+  let m := o.branch (t + 1)
+  have hm : 0 < m := o.branch_pos (t + 1)
+  have hexpanded := o.payload_branch_balance_expanded t
+  have hdelta := branchDelta_factor hm
+  change
+    2 ^ (8 * m + 15) * o.payload (t + 1) =
+      3 ^ (6 * m + 11) * o.payload t + branchDelta m
+  change
+    2 ^ (8 * m - 5) * 494251421 +
+        473 * 2 ^ (8 * m + 15) * o.payload (t + 1) =
+      3 ^ (6 * m) * 83499104 +
+        473 * 3 ^ (6 * m + 11) * o.payload t at hexpanded
+  have hraw :
+      3 ^ (6 * m) * 83499104 =
+        2 ^ (8 * m - 5) * 494251421 + 473 * branchDelta m := by
+    have hle := (branchDelta_raw_positive hm).le
+    calc
+      3 ^ (6 * m) * 83499104 =
+          (3 ^ (6 * m) * 83499104 -
+            2 ^ (8 * m - 5) * 494251421) +
+              2 ^ (8 * m - 5) * 494251421 :=
+        (Nat.sub_add_cancel hle).symm
+      _ = 2 ^ (8 * m - 5) * 494251421 + 473 * branchDelta m := by
+        rw [← hdelta]
+        omega
+  rw [hraw] at hexpanded
+  have hcancel :
+      473 * (2 ^ (8 * m + 15) * o.payload (t + 1)) =
+        473 * (3 ^ (6 * m + 11) * o.payload t + branchDelta m) := by
+    nlinarith
+  exact Nat.eq_of_mul_eq_mul_left (by norm_num : 0 < 473) hcancel
+
+/-- Candidate normalized core decoded from one public payload and its target
+branch.  The following lemmas prove this division is exact whenever the
+public affine recurrence is satisfied. -/
+def payloadStepCore (m q : ℕ) : ℕ :=
+  W q / 2 ^ (8 * m - 5)
+
+/-- Converse algebra: the public affine recurrence is equivalent to the
+unscaled `Z/W` rail balance. -/
+theorem payload_recurrence_rail_balance {m q q' : ℕ} (hm : 0 < m)
+    (hrecurrence :
+      2 ^ (8 * m + 15) * q' =
+        3 ^ (6 * m + 11) * q + branchDelta m) :
+    2 ^ (8 * m - 5) * Z q' = 3 ^ (6 * m) * W q := by
+  have hdelta := branchDelta_factor hm
+  have hle := (branchDelta_raw_positive hm).le
+  have hraw :
+      3 ^ (6 * m) * 83499104 =
+        2 ^ (8 * m - 5) * 494251421 + 473 * branchDelta m := by
+    calc
+      3 ^ (6 * m) * 83499104 =
+          (3 ^ (6 * m) * 83499104 -
+            2 ^ (8 * m - 5) * 494251421) +
+              2 ^ (8 * m - 5) * 494251421 :=
+        (Nat.sub_add_cancel hle).symm
+      _ = 2 ^ (8 * m - 5) * 494251421 + 473 * branchDelta m := by
+        rw [← hdelta]
+        omega
+  calc
+    2 ^ (8 * m - 5) * Z q' =
+        2 ^ (8 * m - 5) * 494251421 +
+          473 * 2 ^ (8 * m + 15) * q' := by
+      simp only [Z]
+      rw [show 8 * m + 15 = (8 * m - 5) + 20 by omega, pow_add]
+      norm_num
+      ring
+    _ = 2 ^ (8 * m - 5) * 494251421 +
+          473 * (2 ^ (8 * m + 15) * q') := by ring
+    _ = 2 ^ (8 * m - 5) * 494251421 +
+          473 * (3 ^ (6 * m + 11) * q + branchDelta m) := by
+      rw [hrecurrence]
+    _ = 3 ^ (6 * m) * 83499104 +
+          473 * 3 ^ (6 * m + 11) * q := by
+      rw [hraw]
+      ring
+    _ = 3 ^ (6 * m) * W q := by
+      simp only [W]
+      rw [show 6 * m + 11 = 6 * m + 11 by rfl, pow_add]
+      norm_num
+      ring
+
+theorem payloadStepCore_factor_W {m q q' : ℕ} (hm : 0 < m)
+    (hrecurrence :
+      2 ^ (8 * m + 15) * q' =
+        3 ^ (6 * m + 11) * q + branchDelta m) :
+    W q = 2 ^ (8 * m - 5) * payloadStepCore m q := by
+  have hrail := payload_recurrence_rail_balance hm hrecurrence
+  have hdvdProduct : 2 ^ (8 * m - 5) ∣ 3 ^ (6 * m) * W q := by
+    rw [← hrail]
+    exact dvd_mul_right _ _
+  have hcoprime : Nat.Coprime (2 ^ (8 * m - 5)) (3 ^ (6 * m)) :=
+    (by norm_num : Nat.Coprime 2 3).pow _ _
+  have hdvd : 2 ^ (8 * m - 5) ∣ W q :=
+    hcoprime.dvd_of_dvd_mul_left hdvdProduct
+  exact (Nat.mul_div_cancel' hdvd).symm
+
+theorem payloadStepCore_factor_Z {m q q' : ℕ} (hm : 0 < m)
+    (hrecurrence :
+      2 ^ (8 * m + 15) * q' =
+        3 ^ (6 * m + 11) * q + branchDelta m) :
+    Z q' = 3 ^ (6 * m) * payloadStepCore m q := by
+  have hrail := payload_recurrence_rail_balance hm hrecurrence
+  have hW := payloadStepCore_factor_W hm hrecurrence
+  rw [hW] at hrail
+  apply Nat.mul_left_cancel (by positivity : 0 < 2 ^ (8 * m - 5))
+  calc
+    2 ^ (8 * m - 5) * Z q' =
+        3 ^ (6 * m) *
+          (2 ^ (8 * m - 5) * payloadStepCore m q) := hrail
+    _ = 2 ^ (8 * m - 5) *
+        (3 ^ (6 * m) * payloadStepCore m q) := by ring
+
+theorem payloadStepCore_odd {m q q' : ℕ} (hm : 0 < m)
+    (hrecurrence :
+      2 ^ (8 * m + 15) * q' =
+        3 ^ (6 * m + 11) * q + branchDelta m) :
+    Odd (payloadStepCore m q) := by
+  have hZ := payloadStepCore_factor_Z hm hrecurrence
+  have hodd : Odd (3 ^ (6 * m) * payloadStepCore m q) := by
+    rw [← hZ]
+    exact Z_odd q'
+  exact (Nat.odd_mul.mp hodd).2
+
+theorem payloadStepCore_mod_three {m q q' : ℕ} (hm : 0 < m)
+    (hrecurrence :
+      2 ^ (8 * m + 15) * q' =
+        3 ^ (6 * m + 11) * q + branchDelta m) :
+    payloadStepCore m q % 3 = 1 := by
+  have hW := payloadStepCore_factor_W hm hrecurrence
+  have hcast := congrArg (fun x : ℕ => (x : ZMod 3)) hW
+  simp only [W, Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat, Nat.cast_pow] at hcast
+  have hW0 : (83499104 : ZMod 3) = 2 := by decide
+  have hWs : (83790531 : ZMod 3) = 0 := by decide
+  rw [hW0, hWs, zero_mul, add_zero] at hcast
+  obtain ⟨k, rfl⟩ := Nat.exists_eq_add_of_le hm
+  have hk : Nat.succ 0 + k = k + 1 := by omega
+  simp_rw [hk] at hcast ⊢
+  have hpow : (2 : ZMod 3) ^ (8 * (k + 1) - 5) = 2 := by
+    rw [show 8 * (k + 1) - 5 = 8 * k + 3 by omega,
+      pow_add, pow_mul]
+    have hperiod : (2 : ZMod 3) ^ 8 = 1 := by decide
+    rw [hperiod, one_pow]
+    decide
+  rw [hpow] at hcast
+  have hunit : IsUnit (2 : ZMod 3) := by decide
+  have hcoreCast : ((payloadStepCore (k + 1) q : ℕ) : ZMod 3) = 1 := by
+    apply hunit.mul_right_inj.mp
+    simpa using hcast.symm
+  have hmod := (ZMod.natCast_eq_natCast_iff
+    (payloadStepCore (k + 1) q) 1 3).mp hcoreCast
+  change payloadStepCore (k + 1) q % 3 = 1 % 3 at hmod
+  simpa using hmod
 
 /-- QM146b: after dividing consecutive unit-slice cores by `17`, the EC17
 recurrence has irreducible defect one. -/
@@ -1001,6 +1266,132 @@ theorem no_selfWriting_tail_of_not_onZRail
   exact hfail (hall t)
 
 /-! ## Canonical backward dyadic address -/
+
+/-- Exact public-payload reset program attached to a proposed branch
+schedule.  Step `t` reads the target branch `branch (t+1)`, matching the
+payload recurrence of an orbit with branch sequence `branch`. -/
+def payloadResetProgramOfBranch (branch : ℕ → ℕ) (t : ℕ) :
+    KLDyadicReset.ResetStep where
+  N := 8 * branch (t + 1) + 15
+  O := 6 * branch (t + 1) + 11
+  delta := branchDelta (branch (t + 1))
+
+/-- Every supplied self-writing orbit follows its public-payload reset
+program literally. -/
+theorem follows_payloadResetProgram (o : Orbit) :
+    KLDyadicReset.Follows (payloadResetProgramOfBranch o.branch)
+      (fun t => (o.payload t : ℤ)) := by
+  intro t
+  simp only [payloadResetProgramOfBranch]
+  exact_mod_cast o.payload_branch_recurrence t
+
+/-- Nonnegativity propagates along the public program because every positive
+target branch has a strictly positive affine defect. -/
+theorem payload_follows_nonnegative
+    (branch : ℕ → ℕ) (hbranch : ∀ t, 0 < branch t)
+    (q : ℕ → ℤ)
+    (hq : KLDyadicReset.Follows (payloadResetProgramOfBranch branch) q)
+    (hzero : 0 ≤ q 0) : ∀ t, 0 ≤ q t := by
+  intro t
+  induction t with
+  | zero => exact hzero
+  | succ t ih =>
+      have hstep := hq t
+      simp only [payloadResetProgramOfBranch] at hstep
+      have hdelta : 0 < (branchDelta (branch (t + 1)) : ℤ) := by
+        exact_mod_cast branchDelta_positive (hbranch (t + 1))
+      have hrhs : 0 <
+          (3 : ℤ) ^ (6 * branch (t + 1) + 11) * q t +
+            branchDelta (branch (t + 1)) := by
+        have hproduct : 0 ≤
+            (3 : ℤ) ^ (6 * branch (t + 1) + 11) * q t :=
+          mul_nonneg (by positivity) ih
+        exact add_pos_of_nonneg_of_pos hproduct hdelta
+      have hlhs : 0 <
+          (2 : ℤ) ^ (8 * branch (t + 1) + 15) * q (t + 1) := by
+        rw [hstep]
+        exact hrhs
+      exact nonneg_of_mul_nonneg_right hlhs.le (by positivity)
+
+/-- Cast a nonnegative integer payload chain back to the literal natural
+affine recurrence. -/
+theorem payload_toNat_recurrence
+    (branch : ℕ → ℕ) (q : ℕ → ℤ)
+    (hq : KLDyadicReset.Follows (payloadResetProgramOfBranch branch) q)
+    (hqnonneg : ∀ t, 0 ≤ q t) (t : ℕ) :
+    2 ^ (8 * branch (t + 1) + 15) * (q (t + 1)).toNat =
+      3 ^ (6 * branch (t + 1) + 11) * (q t).toNat +
+        branchDelta (branch (t + 1)) := by
+  have hstep := hq t
+  simp only [payloadResetProgramOfBranch] at hstep
+  apply Nat.cast_injective (R := ℤ)
+  push_cast
+  rw [Int.toNat_of_nonneg (hqnonneg t),
+    Int.toNat_of_nonneg (hqnonneg (t + 1))]
+  exact hstep
+
+/-- Eventual-zero public carry is sufficient to construct a complete
+self-writing orbit after discarding the chain's first payload.  The shift is
+essential: the first affine step writes the first certified ternary branch. -/
+noncomputable def promotePayloadChain
+    (branch : ℕ → ℕ) (hbranch : ∀ t, 0 < branch t)
+    (q : ℕ → ℤ)
+    (hq : KLDyadicReset.Follows (payloadResetProgramOfBranch branch) q)
+    (hzero : 0 ≤ q 0) : Orbit := by
+  have hqnonneg := payload_follows_nonnegative branch hbranch q hq hzero
+  let qNat : ℕ → ℕ := fun t => (q t).toNat
+  have hrec : ∀ t,
+      2 ^ (8 * branch (t + 1) + 15) * qNat (t + 1) =
+        3 ^ (6 * branch (t + 1) + 11) * qNat t +
+          branchDelta (branch (t + 1)) := by
+    intro t
+    exact payload_toNat_recurrence branch q hq hqnonneg t
+  exact
+    { branch := fun t => branch (t + 1)
+      branch_pos := fun t => hbranch (t + 1)
+      payload := fun t => qNat (t + 1)
+      core := fun t => payloadStepCore (branch (t + 1)) (qNat t)
+      core_pos := fun t => Nat.pos_of_ne_zero (fun hcore => by
+        have hodd := payloadStepCore_odd (hbranch (t + 1)) (hrec t)
+        rw [hcore] at hodd
+        norm_num at hodd)
+      core_odd := fun t => payloadStepCore_odd (hbranch (t + 1)) (hrec t)
+      core_mod_three := fun t =>
+        payloadStepCore_mod_three (hbranch (t + 1)) (hrec t)
+      z_factor := fun t => payloadStepCore_factor_Z
+        (hbranch (t + 1)) (hrec t)
+      w_factor := fun t => payloadStepCore_factor_W
+        (hbranch (t + 2)) (hrec (t + 1)) }
+
+/-- Complete sufficient address criterion for a shifted self-writing tail. -/
+theorem exists_selfWriting_tail_of_eventuallyZeroPayloadCarry
+    (branch : ℕ → ℕ) (hbranch : ∀ t, 0 < branch t)
+    (hcarry : KLDyadicReset.EventuallyZeroCarry
+      (payloadResetProgramOfBranch branch)) :
+    ∃ o : Orbit, o.branch = (fun t => branch (t + 1)) := by
+  rw [KLDyadicReset.eventuallyZeroCarry_iff_exists_nonnegative_follows] at hcarry
+  obtain ⟨q, hq, hzero⟩ := hcarry
+  exact ⟨promotePayloadChain branch hbranch q hq hzero, rfl⟩
+
+/-- Necessary public-address condition for every self-writing orbit. -/
+theorem payloadCarry_eventually_zero (o : Orbit) :
+    KLDyadicReset.EventuallyZeroCarry
+      (payloadResetProgramOfBranch o.branch) := by
+  apply KLDyadicReset.eventuallyZeroCarry_of_follows
+    (payloadResetProgramOfBranch o.branch) (fun t => (o.payload t : ℤ))
+      o.follows_payloadResetProgram
+  positivity
+
+/-- Branch-only adversarial consumer for the exact public program. -/
+theorem no_orbit_with_branch_of_nonzero_payload_carries
+    (branch : ℕ → ℕ)
+    (hbad : KLDyadicReset.NonzeroCarriesArbitrarilyLate
+      (payloadResetProgramOfBranch branch)) :
+    ¬ ∃ o : Orbit, o.branch = branch := by
+  rintro ⟨o, rfl⟩
+  obtain ⟨J, hzero⟩ := o.payloadCarry_eventually_zero
+  obtain ⟨K, hJK, hne⟩ := hbad J
+  exact hne (hzero K hJK)
 
 /-- The exact reset program read from an arbitrary proposed branch
 schedule.  It is defined before assuming that the schedule has an orbit, so
