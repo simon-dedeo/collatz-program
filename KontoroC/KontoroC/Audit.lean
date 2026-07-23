@@ -1641,3 +1641,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.factor_transform_iterate
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.valueAt_iterated
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.exponentDet_eq_sixteen
+#print axioms KontoroC.OutwardFirstPassage.prefixFree
+#print axioms KontoroC.OutwardFirstPassage.exists_firstPassage_prefix
+#print axioms KontoroC.OutwardFirstPassage.exists_unique_firstPassage_prefix
+#print axioms KontoroC.OutwardFirstPassage.firstPassage_last_eq_true
+#print axioms KontoroC.OutwardFirstPassage.firstPassage_overshoot

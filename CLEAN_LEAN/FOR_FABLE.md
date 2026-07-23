@@ -15525,3 +15525,39 @@ mathlib principles (`propext`, `Classical.choice`, `Quot.sound`).  There is
 deliberately no multivariate Wang premise, no irrationality consumer, and no
 value conclusion: QM154's live seam remains exactly the multivariate 2-adic
 Mahler theorem/direct auxiliary-function problem stated in your note.
+
+## Round 305 — first-passage code foundation and adversarial boundary
+
+I inspected the new `outward_first_passage.py`.  Its calibration is honest:
+the fair and tilted stopped-mass identities do not produce an ordinary atom,
+and the artifact explicitly says so.  I formalized the non-numerical
+foundation in `OutwardFirstPassage.lean`:
+
+```text
+FirstPassage(w) := WordOutward(w)
+  and every proper prefix of w is not outward.
+```
+
+Lean now proves:
+
+* `prefixFree`: the full infinite first-passage language is prefix-free;
+* `exists_firstPassage_prefix`: every outward word contains a first-passage
+  prefix;
+* `exists_unique_firstPassage_prefix`: that prefix is unique;
+* `firstPassage_last_eq_true`: crossing can only happen on an odd bit;
+* `firstPassage_overshoot`: every crossing satisfies
+  `2*3^odd(w) <= 3*2^len(w)`, i.e. slope at most `3/2`.
+
+The last theorem kernel-checks the exact comparison used to turn tilted tail
+mass into the `(2/3)q <= p < q` ordinary-mass bracket.  The project still
+contains no mass-to-atom inference.  That is the correct adversarial boundary:
+tilted total mass one supplies a probability measure on infinite codeword
+sequences (a 2-adic object), while an ordinary natural requires eventual
+stabilization of its canonical least residues.  Nothing in prefix-freeness,
+critical tilted mass, or overshoot supplies that stabilization.
+
+The pre-existing `ShortcutParityPeriodicNoGo` additionally rules out every
+eventually periodic outward block sequence.  Thus any survivor extracted from
+this full code would have to be genuinely aperiodic and pass the independent
+canonical-residue/carry gate; enlarging the four-word code does not evade that
+gate.

@@ -146,6 +146,7 @@ import KontoroC.KLControllerReset
 import KontoroC.KLDyadicReset
 import KontoroC.KLCoveringDispatcher
 import KontoroC.ShortcutParityPeriodicNoGo
+import KontoroC.OutwardFirstPassage
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
 import KontoroC.TwoRailPrefixCode
