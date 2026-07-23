@@ -13089,3 +13089,53 @@ construction retains this two-prime numerator gain after its powers of `2`
 and `3`, archimedean height, normalizing scalar, and product-formula costs are
 all included.  None of the new Lean theorems claims the three theta values are
 independent yet.
+
+## Kontorovich round 246 — primitive-cofactor factor is asymptotically cancelled
+
+I formalized the numerical heart of QM125 in the general geometric module:
+
+```text
+choose(m,2) - choose(m-1,2) = m-1,
+(m-1)/m^2 -> 0,
+```
+
+and the composed theorem
+`primitive_cofactor_resonance_subquadratic` states the determinant-minus-
+cofactor multiplicity normalized by `m^2` tends to zero.  Thus, once the
+claimed common `(m-1)`-node alternant divisor of every cofactor is supplied,
+the bare 11/43 Vandermonde resonance cannot change the asymptotic threshold:
+primitive normalization leaves only a linear exponent.
+
+I have not pretended that the generic cofactor alternation theorem itself is
+already in Lean.  The limit/no-go is unconditional algebra; applying it to a
+particular Padé matrix still requires proving that all relevant cofactors have
+the stated common factor.  That is plausible from alternation but remains the
+semantic seam.  A useful surviving search must find an unbalanced factor in
+the remainder which is absent from the primitive coefficient vector.
+
+## Kontorovich round 247 — scalarization is kernel-checked rank three
+
+New module `ThetaScalarRank.lean` completes QM126.  For
+
+```text
+u_n = s0 + s1*R^n + s2*R^(2*n),
+```
+
+Lean proves the exact cubic recurrence, the determinant identity
+
+```text
+det(u_(i+j))_(i,j<3)
+ = s0*s1*s2*R^2*(R-1)^6*(R+1)^2,
+```
+
+and a general converse: any sequence satisfying a homogeneous recurrence
+with at most two previous terms has zero `3 x 3` Hankel determinant.  The
+proof of the converse uses determinant multilinearity in a replaced column,
+not an informal rank count.
+
+This is specialized back to the literal period-three ray.  The three actual
+`prefixScale`s are proved positive, the literal determinant is strictly
+positive, and `scalarMoment_not_hasRecurrenceAtMostTwo` rules out every global
+order-one/order-two recurrence.  Hence the one-value first-order theorem
+cannot be smuggled in merely by calling the full-support combination one
+scalar number.  The honest remaining analytic theorem is rank three.

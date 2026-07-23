@@ -976,6 +976,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.GeometricVandermonde.sum_gap_multiplicities
 #print axioms KontoroC.GeometricVandermonde.pow_choose_two_dvd_gapNumerator
 #print axioms KontoroC.GeometricVandermonde.padicValNat_gapNumerator_of_lte
+#print axioms KontoroC.GeometricVandermonde.choose_two_sub_pred_choose_two
+#print axioms KontoroC.GeometricVandermonde.primitive_cofactor_resonance_subquadratic
+#print axioms KontoroC.ThetaScalarRank.moment_recurrence
+#print axioms KontoroC.ThetaScalarRank.det_hankelThree_moment
+#print axioms KontoroC.ThetaScalarRank.det_hankelThree_eq_zero_of_hasRecurrenceAtMostTwo
+#print axioms KontoroC.ThetaScalarRank.not_hasRecurrenceAtMostTwo_of_moment_factors_ne_zero
 #print axioms
   KontoroC.EtherCounterPeriodThreeTheta.Ray.scaled_theta_root_eq_consecutive_grid
 #print axioms
@@ -990,6 +996,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.EtherCounterPeriodThreeTheta.Ray.padicValNat_eleven_full_grid_gapNumerator
 #print axioms
   KontoroC.EtherCounterPeriodThreeTheta.Ray.padicValNat_fortyThree_full_grid_gapNumerator
+#print axioms
+  KontoroC.EtherCounterPeriodThreeTheta.Ray.scalarMoment_recurrence
+#print axioms
+  KontoroC.EtherCounterPeriodThreeTheta.Ray.det_hankelThree_scalarMoment_pos
+#print axioms
+  KontoroC.EtherCounterPeriodThreeTheta.Ray.scalarMoment_not_hasRecurrenceAtMostTwo
 #print axioms
   KontoroC.EtherCounterPeriodThreeTheta.Ray.padicCandidate_eq_initial
 #print axioms

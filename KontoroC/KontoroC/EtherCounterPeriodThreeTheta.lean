@@ -7,6 +7,7 @@ import KontoroC.EtherCounterPeriodThree
 import KontoroC.ChargePhaseUpPeriodicTheta
 import KontoroC.VaananenWallisserCore
 import KontoroC.GeometricVandermonde
+import KontoroC.ThetaScalarRank
 import Mathlib.LinearAlgebra.Vandermonde
 import Mathlib.NumberTheory.Multiplicity
 
@@ -207,6 +208,10 @@ theorem weightedTerm_at (g : Ray) (q : ℕ) (r : Fin 3) :
 
 theorem ratio_pos (g : Ray) : 0 < g.ratio := by simp [ratio]
 theorem ratio_ne_zero (g : Ray) : g.ratio ≠ 0 := ne_of_gt g.ratio_pos
+theorem backwardCoeff_pos (g : Ray) (t : ℕ) : 0 < g.backwardCoeff t := by
+  simp [backwardCoeff]
+theorem backwardDefect_pos (g : Ray) (t : ℕ) : 0 < g.backwardDefect t := by
+  simp [backwardDefect]
 theorem defectRatio_ne_zero (g : Ray) : g.defectRatio ≠ 0 := by
   simp [defectRatio]
 theorem cycleCoeff_ne_zero (g : Ray) : g.cycleCoeff ≠ 0 := by
@@ -761,6 +766,65 @@ noncomputable def padicVaananenSum (g : Ray) (r : Fin 3) : ℚ_[2] :=
 theorem theta_prefixScale_ne_zero (g : Ray) (r : Fin 3) :
     (g.thetaData).prefixScale r ≠ 0 := by
   fin_cases r <;> simp [thetaData, backwardCoeff, backwardDefect]
+
+theorem theta_prefixScale_pos (g : Ray) (r : Fin 3) :
+    0 < (g.thetaData).prefixScale r := by
+  fin_cases r
+  · exact g.backwardDefect_pos 0
+  · exact mul_pos (g.backwardCoeff_pos 0) (g.backwardDefect_pos 1)
+  · exact mul_pos
+      (mul_pos (g.backwardCoeff_pos 0) (g.backwardCoeff_pos 1))
+      (g.backwardDefect_pos 2)
+
+/-- The fixed scalar multiplier retaining all three dilation modes. -/
+def scalarMoment (g : Ray) : ℕ → ℚ :=
+  ThetaScalarRank.moment g.ratio
+    (g.thetaData.prefixScale 0)
+    (g.thetaData.prefixScale 1)
+    (g.thetaData.prefixScale 2)
+
+theorem scalarMoment_recurrence (g : Ray) (n : ℕ) :
+    g.scalarMoment (n + 3) -
+        (1 + g.ratio + g.ratio ^ 2) * g.scalarMoment (n + 2) +
+        (g.ratio + g.ratio ^ 2 + g.ratio ^ 3) * g.scalarMoment (n + 1) -
+        g.ratio ^ 3 * g.scalarMoment n = 0 :=
+  ThetaScalarRank.moment_recurrence _ _ _ _ _
+
+theorem det_hankelThree_scalarMoment (g : Ray) :
+    (ThetaScalarRank.hankelThree g.scalarMoment).det =
+      g.thetaData.prefixScale 0 * g.thetaData.prefixScale 1 *
+        g.thetaData.prefixScale 2 * g.ratio ^ 2 *
+          (g.ratio - 1) ^ 6 * (g.ratio + 1) ^ 2 :=
+  ThetaScalarRank.det_hankelThree_moment _ _ _ _
+
+theorem det_hankelThree_scalarMoment_pos (g : Ray) :
+    0 < (ThetaScalarRank.hankelThree g.scalarMoment).det := by
+  rw [g.det_hankelThree_scalarMoment]
+  have hs₀ := g.theta_prefixScale_pos 0
+  have hs₁ := g.theta_prefixScale_pos 1
+  have hs₂ := g.theta_prefixScale_pos 2
+  have hRm : g.ratio - 1 ≠ 0 :=
+    sub_ne_zero.mpr (ne_of_lt g.ratio_lt_one)
+  have hRp : g.ratio + 1 ≠ 0 :=
+    ne_of_gt (add_pos g.ratio_pos (by norm_num))
+  have hR₂ : 0 < g.ratio ^ 2 := pow_pos g.ratio_pos _
+  have hRm₆ : 0 < (g.ratio - 1) ^ 6 := by
+    rw [show (g.ratio - 1) ^ 6 = ((g.ratio - 1) ^ 3) ^ 2 by ring]
+    exact sq_pos_of_ne_zero (pow_ne_zero _ hRm)
+  have hRp₂ : 0 < (g.ratio + 1) ^ 2 := sq_pos_of_ne_zero hRp
+  positivity
+
+/-- Scalarizing the full-support relation does not reduce it to a rank-one
+or rank-two recurrence problem. -/
+theorem scalarMoment_not_hasRecurrenceAtMostTwo (g : Ray) :
+    ¬ThetaScalarRank.HasRecurrenceAtMostTwo g.scalarMoment := by
+  apply ThetaScalarRank.not_hasRecurrenceAtMostTwo_of_moment_factors_ne_zero
+  · exact g.theta_prefixScale_ne_zero 0
+  · exact g.theta_prefixScale_ne_zero 1
+  · exact g.theta_prefixScale_ne_zero 2
+  · exact g.ratio_ne_zero
+  · exact sub_ne_zero.mpr (ne_of_lt g.ratio_lt_one)
+  · exact ne_of_gt (add_pos g.ratio_pos (by norm_num))
 
 theorem padic_theta_prefixScale_ne_zero (g : Ray) (r : Fin 3) :
     ((g.thetaData).prefixScale r : ℚ_[2]) ≠ 0 := by

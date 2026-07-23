@@ -6,6 +6,7 @@ Authors: Simon DeDeo, OpenAI Codex
 import Mathlib.LinearAlgebra.Vandermonde
 import Mathlib.Algebra.BigOperators.Intervals
 import Mathlib.NumberTheory.Multiplicity
+import Mathlib.Analysis.SpecificLimits.Basic
 
 /-!
 # Vandermonde determinants on a geometric grid
@@ -20,6 +21,7 @@ namespace KontoroC
 namespace GeometricVandermonde
 
 open Finset
+open Filter Topology
 
 /-- Product of geometric gaps grouped by their distance.  A gap of distance
 `d` occurs `m-d` times among `m` consecutive points. -/
@@ -224,6 +226,52 @@ theorem padicValNat_gapNumerator_of_lte {p u v m : ℕ}
               (m - d) * padicValNat p d := by
       rw [Finset.sum_add_distrib, Finset.sum_mul]
     _ = _ := by rw [sum_gap_multiplicities]
+
+/-! ## Primitive-cofactor cancellation scale -/
+
+/-- Removing the common `(m-1)`-node alternant from an `m`-node determinant
+leaves only linear multiplicity. -/
+theorem choose_two_sub_pred_choose_two (m : ℕ) :
+    m.choose 2 - (m - 1).choose 2 = m - 1 := by
+  cases m with
+  | zero => simp
+  | succ m =>
+      rw [show (m + 1).choose 2 = m.choose 2 + m by
+        rw [show m + 1 = m.succ by omega, Nat.choose_succ_succ]
+        simp [Nat.add_comm]]
+      simp
+
+theorem linear_over_quadratic_tendsto_zero :
+    Tendsto (fun m : ℕ => ((m - 1 : ℕ) : ℝ) / (m : ℝ) ^ 2)
+      atTop (𝓝 0) := by
+  have hupper :
+      Tendsto (fun m : ℕ => (m : ℝ) / (m : ℝ) ^ 2)
+        atTop (𝓝 0) := by
+    convert (tendsto_one_div_atTop_nhds_zero_nat :
+      Tendsto (fun m : ℕ => (1 : ℝ) / (m : ℝ)) atTop (𝓝 0)) using 1
+    funext m
+    by_cases hm : m = 0
+    · subst m
+      norm_num
+    · field_simp
+  exact squeeze_zero
+    (fun m => div_nonneg (by positivity) (sq_nonneg _))
+    (fun m => by
+      apply div_le_div_of_nonneg_right _ (sq_nonneg _)
+      exact_mod_cast Nat.sub_le m 1)
+    hupper
+
+/-- Therefore the largest factor left solely by full-determinant versus
+cofactor Vandermonde multiplicity is asymptotically invisible on the
+quadratic Hermite scale (QM125b). -/
+theorem primitive_cofactor_resonance_subquadratic :
+    Tendsto
+      (fun m : ℕ =>
+        ((m.choose 2 - (m - 1).choose 2 : ℕ) : ℝ) / (m : ℝ) ^ 2)
+      atTop (𝓝 0) := by
+  convert linear_over_quadratic_tendsto_zero using 1
+  funext m
+  rw [choose_two_sub_pred_choose_two]
 
 end GeometricVandermonde
 end KontoroC
