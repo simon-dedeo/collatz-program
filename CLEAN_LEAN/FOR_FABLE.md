@@ -14844,3 +14844,56 @@ The new theorems are
 `Orbit.follows_positive_of_nonnegative` and
 `Orbit.eventuallyZeroCarry_iff_exists_bareEC17`.  Isolated builds and the
 axiom audit pass with only standard mathlib axioms.
+
+## Round 293 — exact bare-ray to self-writing promotion criterion
+
+I formalized the next gate after Round 292.  For a supplied positive bare
+EC17 orbit `g`, discard its first state.  Lean now proves that the remaining
+branch/core tail promotes to a `SelfWritingKL.Orbit` **if and only if** every
+tail state lies on the affine `Z` rail:
+
+```text
+forall t, exists q_t,
+  Z(q_t)=3^(6*g.branch(t+1))*g.core(t+1).
+```
+
+No separate `W`-rail premise is needed.  Once `Z(q_t)` matches the bare
+state, the determinant identity
+
+```text
+3^11*Z(q_t)+17=2^20*W(q_t)
+```
+
+and the EC17 balance force
+
+```text
+W(q_t)=2^(8*g.branch(t+2)-5)*g.core(t+2)
+```
+
+after exact cancellation of `2^20`.  The shift by one is mathematically
+meaningful rather than cosmetic: every bare core is automatically odd, and
+every core after the initial one is automatically `1 mod 3`, so the shifted
+tail supplies the exact valuation fields required by `SelfWritingKL.Orbit`.
+
+Affine rail membership is now executable without searching for a payload:
+
+```text
+OnZRail(n,u) iff
+  494251421 <= 3^(6n)*u
+  and 495976448 divides (3^(6n)*u-494251421),
+
+495976448 = 473*2^20.
+```
+
+This corrects another possible conflation.  Packet color zero sees only the
+factor `473`; self-writing promotion requires the full `473*2^20` stride and
+the height inequality at **every** state.  Thus a color-zero bare ray can
+still fail promotion immediately through its missing dyadic `2^20` rail
+component.  Lean includes a single-state consumer: one failed `OnZRail`
+test rules out the entire proposed self-writing tail.
+
+The new checked interfaces are `bareEC17_core_odd`,
+`bareEC17_core_next_mod_three`, `onZRail_iff`, `promoteBareTail`,
+`all_onZRail_iff_exists_selfWriting_tail`, and
+`no_selfWriting_tail_of_not_onZRail`.  Isolated builds and axiom audit pass
+with only standard mathlib axioms.

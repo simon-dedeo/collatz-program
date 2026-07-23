@@ -435,6 +435,138 @@ def ternaryCoreToNormalized (o : EtherCounterAperiodic.TernaryCoreOrbit) :
 def toNormalized (o : Orbit) : EtherCounterAperiodic.NormalizedOrbit :=
   ternaryCoreToNormalized o.toTernaryCore
 
+/-! ## Exact promotion from a bare EC17 tail -/
+
+/-- Every core of a bare positive EC17 orbit is odd.  This reuses the exact
+finite-prefix parity theorem at a prefix long enough to contain the selected
+outgoing transition. -/
+theorem bareEC17_core_odd (g : EtherCounterStateNoRepeat.Orbit) (t : ℕ) :
+    Odd (g.core t) := by
+  rw [Nat.odd_iff]
+  have h := EtherCounterResidueBound.NaturalPrefix.core_mod_two_eq_one
+    (g.toNaturalPrefix (t + 1)) t (by omega)
+  simpa [EtherCounterStateNoRepeat.Orbit.toNaturalPrefix] using h
+
+/-- Zero-based ternary-core presentation of an arbitrary bare positive EC17
+orbit. -/
+def bareEC17ToTernaryCore (g : EtherCounterStateNoRepeat.Orbit) :
+    EtherCounterAperiodic.TernaryCoreOrbit where
+  level t := g.branch t - 1
+  core := g.core
+  core_pos := g.core_pos
+  balance t := by
+    have ht := g.branch_pos t
+    have ht1 := g.branch_pos (t + 1)
+    rw [show 8 * (g.branch (t + 1) - 1) + 23 =
+        8 * g.branch (t + 1) + 15 by omega,
+      show 6 * (g.branch t - 1) + 17 =
+        6 * g.branch t + 11 by omega]
+    exact g.balance t
+
+/-- Every core after the initial one is `1 mod 3`; hence discarding one
+state supplies the exact ternary valuation field required by the
+self-writing structure. -/
+theorem bareEC17_core_next_mod_three
+    (g : EtherCounterStateNoRepeat.Orbit) (t : ℕ) :
+    g.core (t + 1) % 3 = 1 := by
+  simpa [bareEC17ToTernaryCore] using
+    (bareEC17ToTernaryCore g).core_next_mod_three t
+
+/-- Membership of one branch/core state in the affine `Z` payload rail. -/
+def OnZRail (n u : ℕ) : Prop :=
+  ∃ q, Z q = 3 ^ (6 * n) * u
+
+/-- Divisibility-and-height form of affine rail membership.  This removes
+the existential payload from adversarial checks: the centered state must be
+at least the rail base and its excess must be divisible by the full stride
+`473 * 2^20`, not merely by the packet-color modulus `473`. -/
+theorem onZRail_iff (n u : ℕ) :
+    OnZRail n u ↔
+      494251421 ≤ 3 ^ (6 * n) * u ∧
+      495976448 ∣ 3 ^ (6 * n) * u - 494251421 := by
+  constructor
+  · rintro ⟨q, hq⟩
+    constructor
+    · rw [← hq]
+      simp [Z]
+    · use q
+      rw [← hq]
+      simp [Z]
+  · rintro ⟨hle, q, hq⟩
+    refine ⟨q, ?_⟩
+    simp only [Z]
+    omega
+
+theorem zRail_stride_factorization :
+    495976448 = 473 * 2 ^ 20 := by norm_num
+
+/-- If every state of a bare EC17 tail lies on the affine `Z` rail, the
+entire self-writing orbit is forced.  The `W` factor is not an extra
+assumption: it follows from the determinant identity and the bare EC17
+balance after cancelling the common factor `2^20`. -/
+noncomputable def promoteBareTail
+    (g : EtherCounterStateNoRepeat.Orbit)
+    (hrail : ∀ t, OnZRail (g.branch (t + 1)) (g.core (t + 1))) :
+    SelfWritingKL.Orbit where
+  branch t := g.branch (t + 1)
+  branch_pos t := g.branch_pos (t + 1)
+  core t := g.core (t + 1)
+  core_pos t := g.core_pos (t + 1)
+  core_odd t := bareEC17_core_odd g (t + 1)
+  core_mod_three t := bareEC17_core_next_mod_three g t
+  payload t := (hrail t).choose
+  z_factor t := (hrail t).choose_spec
+  w_factor t := by
+    apply Nat.mul_left_cancel (by positivity : 0 < 2 ^ 20)
+    calc
+      2 ^ 20 * W (hrail t).choose =
+          3 ^ 11 * Z (hrail t).choose + 17 :=
+        (determinant_identity (hrail t).choose).symm
+      _ = 3 ^ (6 * g.branch (t + 1) + 11) *
+          g.core (t + 1) + 17 := by
+        rw [(hrail t).choose_spec, ← mul_assoc, ← pow_add]
+        congr 3
+        omega
+      _ = 2 ^ (8 * g.branch (t + 2) + 15) * g.core (t + 2) :=
+        (g.balance (t + 1)).symm
+      _ = 2 ^ 20 *
+          (2 ^ (8 * g.branch (t + 2) - 5) * g.core (t + 2)) := by
+        rw [← mul_assoc, ← pow_add]
+        congr 2
+        have hpos := g.branch_pos (t + 2)
+        omega
+
+/-- Exact promotion criterion.  A bare positive EC17 ray becomes a
+self-writing orbit after discarding its first state if and only if every
+remaining state belongs to the affine `Z` rail.  Packet color zero is only a
+necessary congruence shadow of this stronger all-time rail condition. -/
+theorem all_onZRail_iff_exists_selfWriting_tail
+    (g : EtherCounterStateNoRepeat.Orbit) :
+    (∀ t, OnZRail (g.branch (t + 1)) (g.core (t + 1))) ↔
+      ∃ o : SelfWritingKL.Orbit,
+        o.branch = (fun t => g.branch (t + 1)) ∧
+        o.core = (fun t => g.core (t + 1)) := by
+  constructor
+  · intro hrail
+    exact ⟨promoteBareTail g hrail, rfl, rfl⟩
+  · rintro ⟨o, hbranch, hcore⟩
+    intro t
+    refine ⟨o.payload t, ?_⟩
+    simpa [hbranch, hcore] using o.z_factor t
+
+/-- Single-state adversarial consumer.  Failure of the full affine rail at
+any time prevents the given bare ray from being the tail of a self-writing
+orbit, even if its dyadic address stabilizes and its packet color vanishes. -/
+theorem no_selfWriting_tail_of_not_onZRail
+    (g : EtherCounterStateNoRepeat.Orbit) (t : ℕ)
+    (hfail : ¬ OnZRail (g.branch (t + 1)) (g.core (t + 1))) :
+    ¬ ∃ o : SelfWritingKL.Orbit,
+      o.branch = (fun j => g.branch (j + 1)) ∧
+      o.core = (fun j => g.core (j + 1)) := by
+  intro hexists
+  have hall := (all_onZRail_iff_exists_selfWriting_tail g).mpr hexists
+  exact hfail (hall t)
+
 /-! ## Canonical backward dyadic address -/
 
 /-- The exact reset program read from an arbitrary proposed branch
