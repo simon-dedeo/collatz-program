@@ -990,6 +990,14 @@ theorem three_pow_41_lt_two_pow_65 : 3 ^ 41 < 2 ^ 65 := by norm_num
 /-- QM90: the lower dyadic convergent used to reverse the scale budget. -/
 theorem two_pow_64_lt_three_pow_41 : 2 ^ 64 < 3 ^ 41 := by norm_num
 
+set_option exponentiation.threshold 1100 in
+/-- QM94a: near-optimal lower continued-fraction separator. -/
+theorem two_pow_1054_lt_three_pow_665 : 2 ^ 1054 < 3 ^ 665 := by norm_num
+
+set_option exponentiation.threshold 1100 in
+/-- QM94b: near-optimal upper continued-fraction separator. -/
+theorem three_pow_306_lt_two_pow_485 : 3 ^ 306 < 2 ^ 485 := by norm_num
+
 /-- QM91: every positive EC17 execution must put enough size into its
 terminal core to compensate for a small cumulative backward coefficient. -/
 theorem core_power_lower
@@ -1044,6 +1052,170 @@ theorem core_power_lower
         omega
   simpa [S, T, u] using hden.trans_le hscaled
 
+/-- QM95: the near-optimal lower core-power estimate obtained from
+`2^1054 < 3^665`. -/
+theorem core_power_lower_665
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) (hN : 0 < N) :
+    2 ^ (6324 * o.oneBasedLevelSum N + 11594 * N) <
+      2 ^ (5320 * o.nextOneBasedLevelSum N + 9975 * N) *
+        o.core N ^ 665 := by
+  let S := o.oneBasedLevelSum N
+  let T := o.nextOneBasedLevelSum N
+  let u := o.core N
+  have htrap := (o.general_cumulativeScale_trap N).1
+  have hcore0 : (1 : ℚ) ≤ o.core 0 := by
+    exact_mod_cast o.core_pos 0
+  have hone : (1 : ℚ) ≤
+      backwardPrefixProduct o.generalBackwardCoeff N * o.core N :=
+    hcore0.trans htrap
+  have hclosed := o.generalBackwardPrefixProduct_eq_closed N
+  have hcrossQ :
+      (3 : ℚ) ^ (6 * S + 11 * N) ≤
+        (2 : ℚ) ^ (8 * T + 15 * N) * u := by
+    rw [hclosed] at hone
+    have hone' : (1 : ℚ) ≤
+        ((2 : ℚ) ^ (8 * T + 15 * N) * u) /
+          (3 : ℚ) ^ (6 * S + 11 * N) := by
+      simpa [S, T, u, div_mul_eq_mul_div, mul_assoc] using hone
+    have h := (le_div_iff₀ (by positivity :
+      (0 : ℚ) < 3 ^ (6 * S + 11 * N))).mp hone'
+    simpa using h
+  have hcrossNat :
+      3 ^ (6 * S + 11 * N) ≤ 2 ^ (8 * T + 15 * N) * u := by
+    exact_mod_cast hcrossQ
+  have hcrossPow := Nat.pow_le_pow_left hcrossNat 665
+  have hscaled :
+      3 ^ (3990 * S + 7315 * N) ≤
+        2 ^ (5320 * T + 9975 * N) * u ^ 665 := by
+    rw [mul_pow, ← pow_mul, ← pow_mul] at hcrossPow
+    simpa only [show (6 * S + 11 * N) * 665 =
+        3990 * S + 7315 * N by omega,
+      show (8 * T + 15 * N) * 665 =
+        5320 * T + 9975 * N by omega] using hcrossPow
+  let k := 6 * S + 11 * N
+  have hk : 0 < k := by simp [k]; omega
+  have hden : 2 ^ (6324 * S + 11594 * N) <
+      3 ^ (3990 * S + 7315 * N) := by
+    calc
+      2 ^ (6324 * S + 11594 * N) = (2 ^ 1054) ^ k := by
+        rw [show 6324 * S + 11594 * N = 1054 * k by simp [k]; omega,
+          pow_mul]
+      _ < (3 ^ 665) ^ k :=
+        Nat.pow_lt_pow_left two_pow_1054_lt_three_pow_665 hk.ne'
+      _ = 3 ^ (3990 * S + 7315 * N) := by
+        rw [← pow_mul]
+        congr 1
+        simp [k]
+        omega
+  simpa [S, T, u] using hden.trans_le hscaled
+
+/-- Cancellation form of QM95 with the exact terminal exponent exposed. -/
+theorem terminalExponent_core_power_lower_665
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) (hN : 0 < N)
+    (hterminal :
+      5320 * o.oneBasedLevel N ≤
+        1004 * o.oneBasedLevelSum N + 5320 * o.oneBasedLevel 0 +
+          1619 * N) :
+    2 ^ (1004 * o.oneBasedLevelSum N + 5320 * o.oneBasedLevel 0 +
+        1619 * N - 5320 * o.oneBasedLevel N) <
+      o.core N ^ 665 := by
+  let S := o.oneBasedLevelSum N
+  let T := o.nextOneBasedLevelSum N
+  let n₀ := o.oneBasedLevel 0
+  let nN := o.oneBasedLevel N
+  let E := 1004 * S + 5320 * n₀ + 1619 * N - 5320 * nN
+  have hshift : T + n₀ = S + nN := by
+    simpa [S, T, n₀, nN] using o.nextSum_add_initial_eq_sum_add_terminal N
+  have hterminal' :
+      5320 * nN ≤ 1004 * S + 5320 * n₀ + 1619 * N := by
+    simpa [S, n₀, nN] using hterminal
+  have hexponents :
+      6324 * S + 11594 * N = 5320 * T + 9975 * N + E := by
+    simp only [E]
+    omega
+  have hlower := o.core_power_lower_665 N hN
+  change 2 ^ (6324 * S + 11594 * N) <
+    2 ^ (5320 * T + 9975 * N) * o.core N ^ 665 at hlower
+  rw [hexponents, pow_add] at hlower
+  have hcancel : 2 ^ E < o.core N ^ 665 := by
+    exact (Nat.mul_lt_mul_left
+      (by positivity : 0 < 2 ^ (5320 * T + 9975 * N))).mp
+        (by simpa [mul_comm, mul_left_comm, mul_assoc] using hlower)
+  simpa [E, S, n₀, nN] using hcancel
+
+/-- QM97: the near-optimal upper core-power estimate obtained from the upper
+half of the scale trap and `3^306 < 2^485`. -/
+theorem core_power_upper_306
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (N : ℕ) (hN : 0 < N) :
+    2 ^ (2448 * o.nextOneBasedLevelSum N + 4590 * N) *
+        o.core N ^ 306 <
+      2 ^ (306 * (Nat.log 2 (o.core 0)).succ +
+        2910 * o.oneBasedLevelSum N + 5335 * N) := by
+  let S := o.oneBasedLevelSum N
+  let T := o.nextOneBasedLevelSum N
+  let u := o.core N
+  let u₀ := o.core 0
+  let L₀ := (Nat.log 2 u₀).succ
+  have htrap := (o.general_cumulativeScale_trap N).2
+  have hcoreTwoNat : u₀ + 1 ≤ 2 ^ L₀ := by
+    exact (Nat.add_one_le_iff).2
+      (by simpa [L₀] using Nat.lt_pow_succ_log_self Nat.one_lt_two u₀)
+  have hcoreTwo : (u₀ : ℚ) + 1 ≤ (2 : ℚ) ^ L₀ := by
+    exact_mod_cast hcoreTwoNat
+  have hclosed := o.generalBackwardPrefixProduct_eq_closed N
+  have hcrossQ :
+      (2 : ℚ) ^ (8 * T + 15 * N) * u <
+        (2 : ℚ) ^ L₀ * (3 : ℚ) ^ (6 * S + 11 * N) := by
+    rw [hclosed] at htrap
+    have hratio :
+        ((2 : ℚ) ^ (8 * T + 15 * N) * u) /
+            (3 : ℚ) ^ (6 * S + 11 * N) < (2 : ℚ) ^ L₀ := by
+      have htrap' :
+          ((2 : ℚ) ^ (8 * T + 15 * N) * u) /
+              (3 : ℚ) ^ (6 * S + 11 * N) < (u₀ : ℚ) + 1 := by
+        simpa [S, T, u, u₀, div_mul_eq_mul_div, mul_assoc] using htrap
+      exact htrap'.trans_le hcoreTwo
+    exact (div_lt_iff₀ (by positivity :
+      (0 : ℚ) < 3 ^ (6 * S + 11 * N))).mp hratio
+  have hcrossNat :
+      2 ^ (8 * T + 15 * N) * u <
+        2 ^ L₀ * 3 ^ (6 * S + 11 * N) := by
+    exact_mod_cast hcrossQ
+  have hcrossPow := Nat.pow_lt_pow_left hcrossNat (by norm_num : 306 ≠ 0)
+  have hraised :
+      2 ^ (2448 * T + 4590 * N) * u ^ 306 <
+        2 ^ (306 * L₀) * 3 ^ (1836 * S + 3366 * N) := by
+    rw [mul_pow, mul_pow, ← pow_mul, ← pow_mul, ← pow_mul] at hcrossPow
+    simpa only [show (8 * T + 15 * N) * 306 =
+        2448 * T + 4590 * N by omega,
+      show L₀ * 306 = 306 * L₀ by omega,
+      show (6 * S + 11 * N) * 306 =
+        1836 * S + 3366 * N by omega] using hcrossPow
+  let k := 6 * S + 11 * N
+  have hk : 0 < k := by simp [k]; omega
+  have hden : 3 ^ (1836 * S + 3366 * N) <
+      2 ^ (2910 * S + 5335 * N) := by
+    calc
+      3 ^ (1836 * S + 3366 * N) = (3 ^ 306) ^ k := by
+        rw [show 1836 * S + 3366 * N = 306 * k by simp [k]; omega,
+          pow_mul]
+      _ < (2 ^ 485) ^ k :=
+        Nat.pow_lt_pow_left three_pow_306_lt_two_pow_485 hk.ne'
+      _ = 2 ^ (2910 * S + 5335 * N) := by
+        rw [← pow_mul]
+        congr 1
+        simp [k]
+        omega
+  calc
+    2 ^ (2448 * T + 4590 * N) * u ^ 306 <
+        2 ^ (306 * L₀) * 3 ^ (1836 * S + 3366 * N) := hraised
+    _ < 2 ^ (306 * L₀) * 2 ^ (2910 * S + 5335 * N) :=
+      Nat.mul_lt_mul_of_pos_left hden (by positivity)
+    _ = 2 ^ (306 * L₀ + 2910 * S + 5335 * N) := by
+      rw [← pow_add]
+      congr 1
+      omega
+
 /-- QM92: cancellation form of `core_power_lower`, with an explicit
 nonnegative terminal exponent. -/
 theorem terminalExponent_core_power_lower
@@ -1076,23 +1248,41 @@ theorem terminalExponent_core_power_lower
       (by simpa [mul_comm, mul_left_comm, mul_assoc] using hlower)
   simpa [E, S, n₀, nN] using hcancel
 
-/-- Convert a `2^E < u^41` certificate into a lower bound on the ordinary
+/-- Convert a `2^E < u^p` certificate into a lower bound on the ordinary
 binary digit length of `u`, without constructing either giant power. -/
-theorem exponent_div_41_lt_binaryDigits_of_two_pow_lt_pow_41
-    (E u : ℕ) (h : 2 ^ E < u ^ 41) :
-    E / 41 < (Nat.log 2 u).succ := by
+theorem exponent_div_lt_binaryDigits_of_two_pow_lt_pow
+    (p E u : ℕ) (hp : 0 < p) (h : 2 ^ E < u ^ p) :
+    E / p < (Nat.log 2 u).succ := by
   let L := (Nat.log 2 u).succ
   have hu : u < 2 ^ L := by
     simpa [L] using Nat.lt_pow_succ_log_self Nat.one_lt_two u
-  have hupow : u ^ 41 < 2 ^ (L * 41) := by
+  have hupow : u ^ p < 2 ^ (L * p) := by
     calc
-      u ^ 41 < (2 ^ L) ^ 41 :=
-        Nat.pow_lt_pow_left hu (by norm_num)
-      _ = 2 ^ (L * 41) := by rw [pow_mul]
-  have hpow : 2 ^ E < 2 ^ (L * 41) := h.trans hupow
-  have hexponent : E < L * 41 :=
+      u ^ p < (2 ^ L) ^ p := Nat.pow_lt_pow_left hu hp.ne'
+      _ = 2 ^ (L * p) := by rw [pow_mul]
+  have hpow : 2 ^ E < 2 ^ (L * p) := h.trans hupow
+  have hexponent : E < L * p :=
     (Nat.pow_lt_pow_iff_right (by norm_num)).1 hpow
-  exact (Nat.div_lt_iff_lt_mul (by norm_num : 0 < 41)).2 hexponent
+  exact (Nat.div_lt_iff_lt_mul hp).2 hexponent
+
+/-- Convert an upper certificate `u^p < 2^E` into an upper bound on the
+binary logarithm of `u`. -/
+theorem power_mul_binaryLog_lt_exponent_of_pow_lt_two_pow
+    (p E u : ℕ) (hu : u ≠ 0) (h : u ^ p < 2 ^ E) :
+    p * Nat.log 2 u < E := by
+  have hbase : 2 ^ Nat.log 2 u ≤ u := Nat.pow_log_le_self 2 hu
+  have hlower : 2 ^ (Nat.log 2 u * p) ≤ u ^ p := by
+    rw [pow_mul]
+    exact Nat.pow_le_pow_left hbase p
+  have hexponent : Nat.log 2 u * p < E :=
+    (Nat.pow_lt_pow_iff_right Nat.one_lt_two).1 (hlower.trans_lt h)
+  simpa [mul_comm] using hexponent
+
+/-- Fixed-exponent compatibility wrapper retained for QM93. -/
+theorem exponent_div_41_lt_binaryDigits_of_two_pow_lt_pow_41
+    (E u : ℕ) (h : 2 ^ E < u ^ 41) :
+    E / 41 < (Nat.log 2 u).succ :=
+  exponent_div_lt_binaryDigits_of_two_pow_lt_pow 41 E u (by norm_num) h
 
 /-- QM89: a sharp integral ceiling on every one-based branch history.  It is
 obtained from the universal product budget using `3^41 < 2^65`. -/

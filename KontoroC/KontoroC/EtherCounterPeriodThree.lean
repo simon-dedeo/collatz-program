@@ -187,6 +187,187 @@ theorem quadratic_binaryDigits_growth (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
   EtherCounterAperiodic.TernaryCoreOrbit.exponent_div_41_lt_binaryDigits_of_two_pow_lt_pow_41
     _ _ (g.quadratic_core_growth q hq)
 
+/-- QM96: near-optimal lower quadratic core growth at a period-three cycle
+boundary. -/
+theorem sharp_quadratic_core_growth_lower (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    2 ^ (q * (7869 + g.cycleGain * (1506 * q - 6826))) <
+      g.core (3 * q) ^ 665 := by
+  let o := g.toTernaryCoreOrbit
+  let S := o.oneBasedLevelSum (3 * q)
+  let n₀ := o.oneBasedLevel 0
+  let nN := o.oneBasedLevel (3 * q)
+  let K := g.cycleGain
+  let B := g.branch 0 + g.branch 1 + g.branch 2
+  have hS : S = q * B + 3 * K * q.choose 2 := by
+    simpa [o, S, B, K] using g.oneBasedLevelSum_three_mul q
+  have hn₀ : n₀ = g.branch 0 := by
+    simpa [o, n₀] using g.toTernaryCoreOrbit_oneBasedLevel 0
+  have hnN : nN = g.branch 0 + K * q := by
+    simpa [o, nN, K] using
+      (g.toTernaryCoreOrbit_oneBasedLevel (3 * q)).trans (g.branch_zero q)
+  have hB : 3 ≤ B := by
+    dsimp only [B]
+    have h0 := g.branch_pos 0
+    have h1 := g.branch_pos 1
+    have h2 := g.branch_pos 2
+    omega
+  have hchoose := two_mul_choose_two q
+  have hchooseK : 3012 * K * q.choose 2 =
+      1506 * K * q * (q - 1) := by
+    calc
+      3012 * K * q.choose 2 = 1506 * K * (2 * q.choose 2) := by ring
+      _ = 1506 * K * (q * (q - 1)) := by rw [hchoose]
+      _ = 1506 * K * q * (q - 1) := by ring
+  have hKidentity :
+      5320 * K * q + q * K * (1506 * q - 6826) =
+        3012 * K * q.choose 2 := by
+    calc
+      5320 * K * q + q * K * (1506 * q - 6826) =
+          q * K * (5320 + (1506 * q - 6826)) := by ring
+      _ = q * K * (1506 * q - 1506) := by
+        rw [show 5320 + (1506 * q - 6826) = 1506 * q - 1506 by omega]
+      _ = 1506 * K * q * (q - 1) := by
+        rw [show 1506 * q - 1506 = 1506 * (q - 1) by omega]
+        ring
+      _ = 3012 * K * q.choose 2 := hchooseK.symm
+  have hBmul : 3012 * q ≤ 1004 * q * B := by
+    nlinarith [Nat.mul_le_mul_left (1004 * q) hB]
+  have hstrong :
+      5320 * nN + q * (7869 + K * (1506 * q - 6826)) ≤
+        1004 * S + 5320 * n₀ + 1619 * (3 * q) := by
+    rw [hS, hn₀, hnN]
+    calc
+      5320 * (g.branch 0 + K * q) +
+            q * (7869 + K * (1506 * q - 6826)) =
+          5320 * g.branch 0 + 7869 * q +
+            (5320 * K * q + q * K * (1506 * q - 6826)) := by ring
+      _ = 5320 * g.branch 0 + 7869 * q + 3012 * K * q.choose 2 := by
+        rw [hKidentity]
+      _ ≤ 5320 * g.branch 0 + (4857 * q + 1004 * q * B) +
+            3012 * K * q.choose 2 := by omega
+      _ = 1004 * (q * B + 3 * K * q.choose 2) +
+            5320 * g.branch 0 + 1619 * (3 * q) := by ring
+  have hterminal :
+      5320 * nN ≤ 1004 * S + 5320 * n₀ + 1619 * (3 * q) :=
+    le_trans (Nat.le_add_right _ _) hstrong
+  have hgeneral := o.terminalExponent_core_power_lower_665 (3 * q)
+    (by omega) (by simpa [S, n₀, nN] using hterminal)
+  have hexponent :
+      q * (7869 + K * (1506 * q - 6826)) ≤
+        1004 * S + 5320 * n₀ + 1619 * (3 * q) - 5320 * nN := by
+    omega
+  have hpow :
+      2 ^ (q * (7869 + K * (1506 * q - 6826))) ≤
+        2 ^ (1004 * S + 5320 * n₀ + 1619 * (3 * q) - 5320 * nN) :=
+    Nat.pow_le_pow_right (by norm_num) hexponent
+  have hgeneral' :
+      2 ^ (1004 * S + 5320 * n₀ + 1619 * (3 * q) - 5320 * nN) <
+        g.core (3 * q) ^ 665 := by
+    simpa [S, n₀, nN, o, toTernaryCoreOrbit] using hgeneral
+  exact lt_of_le_of_lt hpow hgeneral'
+
+/-- QM98: matching upper quadratic core growth at a period-three boundary. -/
+theorem sharp_quadratic_core_growth_upper (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    g.core (3 * q) ^ 306 <
+      2 ^ (306 * (Nat.log 2 (g.core 0)).succ +
+        q * (462 * (g.branch 0 + g.branch 1 + g.branch 2) + 2235 +
+          g.cycleGain * (693 * q - 3141))) := by
+  let o := g.toTernaryCoreOrbit
+  let S := o.oneBasedLevelSum (3 * q)
+  let T := o.nextOneBasedLevelSum (3 * q)
+  let n₀ := o.oneBasedLevel 0
+  let nN := o.oneBasedLevel (3 * q)
+  let K := g.cycleGain
+  let B := g.branch 0 + g.branch 1 + g.branch 2
+  let L₀ := (Nat.log 2 (g.core 0)).succ
+  let U := 306 * L₀ + q * (462 * B + 2235 + K * (693 * q - 3141))
+  have hS : S = q * B + 3 * K * q.choose 2 := by
+    simpa [o, S, B, K] using g.oneBasedLevelSum_three_mul q
+  have hn₀ : n₀ = g.branch 0 := by
+    simpa [o, n₀] using g.toTernaryCoreOrbit_oneBasedLevel 0
+  have hnN : nN = g.branch 0 + K * q := by
+    simpa [o, nN, K] using
+      (g.toTernaryCoreOrbit_oneBasedLevel (3 * q)).trans (g.branch_zero q)
+  have hshift : T + n₀ = S + nN := by
+    simpa [S, T, n₀, nN] using
+      o.nextSum_add_initial_eq_sum_add_terminal (3 * q)
+  have hT : T = q * B + 3 * K * q.choose 2 + K * q := by
+    rw [hS, hn₀, hnN] at hshift
+    omega
+  have hchoose := two_mul_choose_two q
+  have hchooseK : 1386 * K * q.choose 2 =
+      693 * K * q * (q - 1) := by
+    calc
+      1386 * K * q.choose 2 = 693 * K * (2 * q.choose 2) := by ring
+      _ = 693 * K * (q * (q - 1)) := by rw [hchoose]
+      _ = 693 * K * q * (q - 1) := by ring
+  have hKidentity :
+      2448 * K * q + q * K * (693 * q - 3141) =
+        1386 * K * q.choose 2 := by
+    calc
+      2448 * K * q + q * K * (693 * q - 3141) =
+          q * K * (2448 + (693 * q - 3141)) := by ring
+      _ = q * K * (693 * q - 693) := by
+        rw [show 2448 + (693 * q - 3141) = 693 * q - 693 by omega]
+      _ = 693 * K * q * (q - 1) := by
+        rw [show 693 * q - 693 = 693 * (q - 1) by omega]
+        ring
+      _ = 1386 * K * q.choose 2 := hchooseK.symm
+  have hexponents :
+      306 * L₀ + 2910 * S + 5335 * (3 * q) =
+        2448 * T + 4590 * (3 * q) + U := by
+    rw [hS, hT]
+    dsimp only [U]
+    calc
+      306 * L₀ + 2910 * (q * B + 3 * K * q.choose 2) +
+            5335 * (3 * q) =
+          306 * L₀ + 2910 * q * B + 8730 * K * q.choose 2 +
+            16005 * q := by ring
+      _ = 306 * L₀ + 2910 * q * B +
+            7344 * K * q.choose 2 + 1386 * K * q.choose 2 +
+            16005 * q := by ring
+      _ = 306 * L₀ + 2910 * q * B +
+            7344 * K * q.choose 2 +
+              (2448 * K * q + q * K * (693 * q - 3141)) +
+            16005 * q := by rw [hKidentity]
+      _ = 2448 * (q * B + 3 * K * q.choose 2 + K * q) +
+            4590 * (3 * q) +
+            (306 * L₀ +
+              q * (462 * B + 2235 + K * (693 * q - 3141))) := by
+        ring
+  have hupper := o.core_power_upper_306 (3 * q) (by omega)
+  change 2 ^ (2448 * T + 4590 * (3 * q)) * g.core (3 * q) ^ 306 <
+    2 ^ (306 * L₀ + 2910 * S + 5335 * (3 * q)) at hupper
+  have hrhs :
+      2 ^ (306 * L₀ + 2910 * S + 5335 * (3 * q)) =
+        2 ^ (2448 * T + 4590 * (3 * q)) * 2 ^ U := by
+    rw [hexponents, pow_add]
+  rw [hrhs] at hupper
+  have hcancel : g.core (3 * q) ^ 306 < 2 ^ U := by
+    exact (Nat.mul_lt_mul_left
+      (by positivity : 0 < 2 ^ (2448 * T + 4590 * (3 * q)))).mp hupper
+  simpa [U, L₀, B, K] using hcancel
+
+/-- QM99 lower bit-length consumer. -/
+theorem sharp_quadratic_binaryDigits_lower (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    (q * (7869 + g.cycleGain * (1506 * q - 6826))) / 665 <
+      (Nat.log 2 (g.core (3 * q))).succ :=
+  EtherCounterAperiodic.TernaryCoreOrbit.exponent_div_lt_binaryDigits_of_two_pow_lt_pow
+    665 _ _ (by norm_num) (g.sharp_quadratic_core_growth_lower q hq)
+
+/-- QM99 upper bit-length consumer.  The additive `306` accounts exactly
+for passing from the binary logarithm to the positive integer digit count. -/
+theorem sharp_quadratic_binaryDigits_upper (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    306 * (Nat.log 2 (g.core (3 * q))).succ <
+      306 * (Nat.log 2 (g.core 0)).succ +
+        q * (462 * (g.branch 0 + g.branch 1 + g.branch 2) + 2235 +
+          g.cycleGain * (693 * q - 3141)) + 306 := by
+  have hlog :=
+    EtherCounterAperiodic.TernaryCoreOrbit.power_mul_binaryLog_lt_exponent_of_pow_lt_two_pow
+      306 _ _ (g.core_pos (3 * q)).ne'
+      (g.sharp_quadratic_core_growth_upper q hq)
+  omega
+
 /-- An explicit superlinear endpoint for the literal core size.  Given any
 starting cycle `Q` and affine bit budget `C*q+B`, the displayed cycle already
 exceeds that budget.  This rejects fixed-output-rate literal encodings; it

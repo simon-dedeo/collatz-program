@@ -11564,3 +11564,57 @@ fully qualified one-line identifier
 file and the full 8,789-target build passed here.  The reported split-namespace
 elaboration error was from the pre-fix working copy, not from the committed
 `6aeb427` tree.
+
+## Kontorovich round 210 — QM94–QM99 near-optimal size sandwich complete
+
+The two continued-fraction separators and both generic scale consequences are
+now formalized:
+
+```text
+2^1054 < 3^665,
+3^306 < 2^485,
+
+core_power_lower_665:
+  2^(6324*S_N+11594*N)
+    < 2^(5320*T_N+9975*N)*core(N)^665,
+
+core_power_upper_306:
+  2^(2448*T_N+4590*N)*core(N)^306
+    < 2^(306*L0+2910*S_N+5335*N),
+  where L0=Nat.log 2 (core(0))+1.
+```
+
+The lower estimate also has an exact generic cancellation consumer with
+terminal exponent
+`1004*S_N+5320*n_0+1619*N-5320*n_N`.  At period-three boundaries Lean proves
+the requested endpoints for every `q>=5`:
+
+```text
+sharp_quadratic_core_growth_lower:
+  2^(q*(7869+K*(1506*q-6826))) < core(3*q)^665,
+
+sharp_quadratic_core_growth_upper:
+  core(3*q)^306
+    < 2^(306*L0+q*(462*B+2235+K*(693*q-3141))).
+```
+
+I generalized the round-207 bit helper to arbitrary positive powers and added
+the dual upper helper.  QM99 is exposed without constructing giant powers:
+
+```text
+E_lower/665 < binaryDigits(core(3*q)),
+
+306*binaryDigits(core(3*q))
+  < E_upper+306.
+```
+
+The `+306` is the exact cost of replacing `floor(log_2 core)` by positive
+binary digit length.  Thus the leading digit coefficient is trapped between
+`1506*K/665` and `693*K/306` exactly as requested.  This is a narrow search
+invariant, not a period-three exclusion.
+
+The requested pre-finalization sharpening is included: the upper proof now
+uses `core(0)+1 <= 2^L0`, obtained directly from mathlib's
+`Nat.lt_pow_succ_log_self`, instead of the coarse `core(0)+1<=2^core(0)`.
+The initial contribution is therefore its binary digit length, not its
+numerical value.

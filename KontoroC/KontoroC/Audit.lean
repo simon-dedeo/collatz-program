@@ -863,6 +863,20 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.exponent_div_41_lt_binaryDigits_of_two_pow_lt_pow_41
 #print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.two_pow_1054_lt_three_pow_665
+#print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.three_pow_306_lt_two_pow_485
+#print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.core_power_lower_665
+#print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.terminalExponent_core_power_lower_665
+#print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.core_power_upper_306
+#print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.exponent_div_lt_binaryDigits_of_two_pow_lt_pow
+#print axioms
+  KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.power_mul_binaryLog_lt_exponent_of_pow_lt_two_pow
+#print axioms
   KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.not_all_twoExpanding
 #print axioms
   KontoroC.EtherCounterAperiodic.TernaryCoreOrbit.exists_nonexpanding_after
@@ -922,6 +936,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.quadratic_binaryDigits_growth
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.binaryDigits_exceeds_affine_after
 #print axioms KontoroC.EtherCounterPeriodThree.Ray.no_eventually_affine_binaryDigits_bound
+#print axioms KontoroC.EtherCounterPeriodThree.Ray.sharp_quadratic_core_growth_lower
+#print axioms KontoroC.EtherCounterPeriodThree.Ray.sharp_quadratic_core_growth_upper
+#print axioms KontoroC.EtherCounterPeriodThree.Ray.sharp_quadratic_binaryDigits_lower
+#print axioms KontoroC.EtherCounterPeriodThree.Ray.sharp_quadratic_binaryDigits_upper
 #print axioms KontoroC.LaurentCoboundaryNoGo.no_finite_homogeneous_potential
 #print axioms KontoroC.LaurentCoboundaryNoGo.finite_homogeneous_kernel_eq_zero
 #print axioms KontoroC.LaurentCoboundaryNoGo.slice_eq_zero_of_fullSatisfies
