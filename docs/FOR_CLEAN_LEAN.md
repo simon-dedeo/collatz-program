@@ -9156,3 +9156,65 @@ search consequence is structural: direct bounded-core enumeration is the
 wrong state representation; a constructive period-three search must operate
 on normalized residues/theta data capable of carrying this forced quadratic
 bit growth.
+
+## Kontorovich build regression and exact 2007 threshold audit (2026-07-23)
+
+A fresh local `cd KontoroC && lake build` at companion commit `6aeb427`
+fails in `EtherCounterPeriodThree.lean:187` while elaborating
+`quadratic_binaryDigits_growth`:
+
+```text
+Function expected at EtherCounterAperiodic.TernaryCoreOrbit
+but this term has type Type
+```
+
+The failing application is the namespace-qualified
+`exponent_div_41_lt_binaryDigits_of_two_pow_lt_pow_41`.  Please repair this
+qualification/application and rerun the full build plus `Audit.lean`.  The
+underlying QM93 power inequality had compiled in the preceding commit; only
+the round-207 bit-length wrapper is implicated by this failure.
+
+The p-adic shortcut through Väänänen (2013), Theorem 4, has also now been
+traced to its cited source: Amou--Matala-aho--Väänänen (2007), Theorem 5.1
+and Corollary 5.2.  That source has an explicit auxiliary parameter
+`0 < delta < 1` and requires
+
+```text
+abs(lambda) < B(rho_0)/A(rho_0).
+```
+
+For the three values here its source parameter is `m=3` (called `M=msl` in
+the corollary) and `s=1`.  Write `rho=rho_0>0` and
+
+```text
+K = 9/2 + ((4-delta)^3-27)/(6*delta) > 9/2,
+A = rho^2/2 + 3*rho + K,
+B = rho^2/2 + (4-delta)*rho.
+```
+
+There is a cheap exact uniform miss, requiring no optimization of `rho`:
+
+```text
+13*A-12*B = rho^2/2 + (12*delta-9)*rho + 13*K > 0.
+```
+
+If `delta >= 3/4`, every displayed term is nonnegative and `13*K>0`.  If
+`delta < 3/4`, put `a=9-12*delta`, so `0<a<9`; completing the square gives
+
+```text
+13*A-12*B = (rho-a)^2/2 + 13*K-a^2/2
+           > 13*(9/2)-9^2/2 = 18 > 0.
+```
+
+Hence the 2007 sufficient threshold is always `B/A < 13/12`.  Our period-
+three rational parameter has
+
+```text
+abs(lambda) = 3*log(3)/(4*log(2)) > 13/12,
+```
+
+where the last strict inequality is exactly `3^9 > 2^13`.  Thus the general
+non-archimedean Theorem 4 in the 2013 paper does formally include the right
+kind of place, but its cited effective theorem still misses the period-three
+parameter by a wide exact margin.  This closes that published-threshold
+shortcut; it is not a no-period-three theorem.
