@@ -1338,6 +1338,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.KLControllerReset.numerator_modEq_injective
 #print axioms KontoroC.KLControllerReset.exists_unique_numerator_input_class
 #print axioms KontoroC.KLControllerReset.exists_dyadic_and_numerator_input
+#print axioms KontoroC.KLControllerReset.legalWord_iff_terminalCylinder
+#print axioms KontoroC.KLControllerReset.exists_unique_positive_legal_input_for_target
 #print axioms KontoroC.KLControllerReset.endpoint_modEq_iff_numerator_modEq
 #print axioms KontoroC.KLControllerReset.endpoint_target_initial_modEq
 #print axioms KontoroC.KLControllerReset.exact_reset_recurrence

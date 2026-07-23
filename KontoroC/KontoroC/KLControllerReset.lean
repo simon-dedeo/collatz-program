@@ -48,6 +48,36 @@ def accumulate : List CenterMove → ControllerData → ControllerData
 def wordData (w : List CenterMove) : ControllerData :=
   accumulate w initialData
 
+theorem accumulate_append (u v : List CenterMove) (d : ControllerData) :
+    accumulate (u ++ v) d = accumulate v (accumulate u d) := by
+  induction u generalizing d with
+  | nil => rfl
+  | cons m u ih =>
+      simp only [List.cons_append, accumulate]
+      exact ih (d.step m)
+
+theorem runCenter_append (u v : List CenterMove) (h : ℕ) :
+    runCenter (u ++ v) h = runCenter v (runCenter u h) := by
+  induction u generalizing h with
+  | nil => rfl
+  | cons m u ih =>
+      simp only [List.cons_append, runCenter]
+      exact ih (m.apply h)
+
+theorem legalWord_append (u v : List CenterMove) (h : ℕ) :
+    LegalWord (u ++ v) h ↔
+      LegalWord u h ∧ LegalWord v (runCenter u h) := by
+  induction u generalizing h with
+  | nil => simp [LegalWord, runCenter]
+  | cons m u ih =>
+      simp only [List.cons_append, LegalWord, runCenter]
+      rw [ih]
+      tauto
+
+theorem wordData_append_singleton (w : List CenterMove) (m : CenterMove) :
+    wordData (w ++ [m]) = (wordData w).step m := by
+  simp [wordData, accumulate_append, accumulate]
+
 /-- Binary scaling exponent in the homogeneous numerator coefficient. -/
 def scaleBits : List CenterMove → ℕ
   | [] => 0
@@ -87,6 +117,9 @@ theorem wordData_A (w : List CenterMove) :
 theorem wordData_r (w : List CenterMove) :
     (wordData w).r = dividedCount w := by
   simpa [wordData, initialData] using accumulate_r w initialData
+
+theorem dividedCount_eq_wordData_r (w : List CenterMove) :
+    dividedCount w = (wordData w).r := (wordData_r w).symm
 
 /-- In particular the numerator slope is invertible at every ternary
 precision. -/
@@ -248,6 +281,274 @@ theorem wordData_exact (w : List CenterMove) {h : ℕ}
   simpa [wordData, initialData] using
     accumulate_invariant w initialData (origin := h) (h := h) (by rfl) hw
 
+/-! ## Legality and the terminal ternary digit -/
+
+/-- Each legal center move preserves the distinguished center class
+`1 mod 3`. -/
+theorem apply_mod_three_eq_one (m : CenterMove) {h : ℕ}
+    (hm : m.Legal h) (hh : h % 3 = 1) :
+    m.apply h % 3 = 1 := by
+  cases m with
+  | transport =>
+      simp [CenterMove.apply, transportCenter]
+      omega
+  | retarded =>
+      have hh9 : h % 9 = 7 := hm
+      simp only [CenterMove.apply, retardedCenter]
+      omega
+  | advanced =>
+      have hh9 : h % 9 = 1 := hm
+      simp only [CenterMove.apply, advancedCenter]
+      omega
+
+theorem legalWord_preserves_mod_three_one
+    (w : List CenterMove) {h : ℕ} (hw : LegalWord w h)
+    (hh : h % 3 = 1) :
+    runCenter w h % 3 = 1 := by
+  induction w generalizing h with
+  | nil => simpa [runCenter]
+  | cons m w ih =>
+      rcases hw with ⟨hm, hw⟩
+      simp only [runCenter]
+      exact ih hw (apply_mod_three_eq_one m hm hh)
+
+/-- If a legal word contains a divided letter, its input was already in the
+distinguished class `1 mod 3`. -/
+theorem legalWord_input_mod_three_one_of_divided
+    (w : List CenterMove) {h : ℕ} (hw : LegalWord w h)
+    (hr : 0 < dividedCount w) :
+    h % 3 = 1 := by
+  induction w generalizing h with
+  | nil => simp [dividedCount] at hr
+  | cons m w ih =>
+      rcases hw with ⟨hm, hw⟩
+      cases m with
+      | transport =>
+          simp only [dividedCount] at hr
+          have hnext := ih hw hr
+          simp only [CenterMove.apply, transportCenter] at hnext
+          omega
+      | retarded =>
+          have hh9 : h % 9 = 7 := hm
+          omega
+      | advanced =>
+          have hh9 : h % 9 = 1 := hm
+          omega
+
+/-- The terminal-cylinder congruence appearing in QM137. -/
+def TerminalCylinder (w : List CenterMove) (h : ℕ) : Prop :=
+  (wordData w).A * h + (wordData w).B ≡
+    3 ^ (wordData w).r [MOD 3 ^ ((wordData w).r + 1)]
+
+/-- Multiplication by four does not change the terminal base-three digit at
+depth `r`, since `4 ≡ 1 (mod 3)`. -/
+theorem four_mul_terminal_modEq_iff (P r : ℕ) :
+    4 * P ≡ 3 ^ r [MOD 3 ^ (r + 1)] ↔
+      P ≡ 3 ^ r [MOD 3 ^ (r + 1)] := by
+  have hfour : 4 * 3 ^ r ≡ 3 ^ r [MOD 3 ^ (r + 1)] := by
+    have h := Nat.ModEq.modulus_mul_add
+      (m := 3 ^ (r + 1)) (a := 1) (b := 3 ^ r)
+    convert h using 1
+    rw [pow_succ]
+    ring
+  constructor
+  · intro h
+    have hmul : 4 * P ≡ 4 * 3 ^ r [MOD 3 ^ (r + 1)] :=
+      h.trans hfour.symm
+    apply modEq_of_mul_modEq_mul_of_coprime _ hmul
+    simpa [show 4 = 2 ^ 2 by norm_num] using
+      (Nat.coprime_pow_primes 2 (r + 1)
+        Nat.prime_two Nat.prime_three (by norm_num))
+  · intro h
+    exact (h.mul_left 4).trans hfour
+
+/-- Pull an advanced final-letter congruence back to the prefix cylinder. -/
+theorem advanced_terminal_implies_prefix
+    {P r : ℕ}
+    (h : 2 * P + 3 ^ r ≡ 3 ^ (r + 1) [MOD 3 ^ (r + 2)]) :
+    P ≡ 3 ^ r [MOD 3 ^ (r + 1)] := by
+  have hrhs : 3 ^ (r + 1) = 2 * 3 ^ r + 3 ^ r := by
+    rw [pow_succ]
+    ring
+  have hadd : 2 * P + 3 ^ r ≡
+      2 * 3 ^ r + 3 ^ r [MOD 3 ^ (r + 2)] := by
+    rwa [← hrhs]
+  have hmul : 2 * P ≡ 2 * 3 ^ r [MOD 3 ^ (r + 2)] :=
+    Nat.ModEq.add_right_cancel' (3 ^ r) hadd
+  have hsmall : 2 * P ≡ 2 * 3 ^ r [MOD 3 ^ (r + 1)] := by
+    have hmul' : 2 * P ≡ 2 * 3 ^ r [MOD 3 * 3 ^ (r + 1)] := by
+      simpa only [show 3 ^ (r + 2) = 3 * 3 ^ (r + 1) by
+        rw [show r + 2 = 1 + (r + 1) by omega, pow_add]; norm_num]
+        using hmul
+    exact hmul'.of_mul_left 3
+  apply modEq_of_mul_modEq_mul_of_coprime _ hsmall
+  simpa using (Nat.coprime_pow_primes 1 (r + 1)
+    Nat.prime_two Nat.prime_three (by norm_num))
+
+/-- Pull a retarded final-letter congruence back to the prefix cylinder. -/
+theorem retarded_terminal_implies_prefix
+    {P r : ℕ}
+    (h : 4 * P + 2 * 3 ^ r ≡ 3 ^ (r + 1) [MOD 3 ^ (r + 2)]) :
+    P ≡ 3 ^ r [MOD 3 ^ (r + 1)] := by
+  have hrhs : 3 ^ (r + 1) = 3 ^ r + 2 * 3 ^ r := by
+    rw [pow_succ]
+    ring
+  have hadd : 4 * P + 2 * 3 ^ r ≡
+      3 ^ r + 2 * 3 ^ r [MOD 3 ^ (r + 2)] := by
+    rwa [← hrhs]
+  have hmul : 4 * P ≡ 3 ^ r [MOD 3 ^ (r + 2)] :=
+    Nat.ModEq.add_right_cancel' (2 * 3 ^ r) hadd
+  have hsmall : 4 * P ≡ 3 ^ r [MOD 3 ^ (r + 1)] := by
+    have hmul' : 4 * P ≡ 3 ^ r [MOD 3 * 3 ^ (r + 1)] := by
+      simpa only [show 3 ^ (r + 2) = 3 * 3 ^ (r + 1) by
+        rw [show r + 2 = 1 + (r + 1) by omega, pow_add]; norm_num]
+        using hmul
+    exact hmul'.of_mul_left 3
+  exact (four_mul_terminal_modEq_iff P r).mp hsmall
+
+/-- Once the prefix numerator is exact, the advanced terminal congruence
+forces the last source to be `1 mod 9`. -/
+theorem advanced_terminal_forces_legal_source
+    {endpoint r : ℕ}
+    (h : 2 * (3 ^ r * endpoint) + 3 ^ r ≡
+      3 ^ (r + 1) [MOD 3 ^ (r + 2)]) :
+    endpoint % 9 = 1 := by
+  have hrhs : 3 ^ (r + 1) = 2 * 3 ^ r + 3 ^ r := by
+    rw [pow_succ]
+    ring
+  have hadd : 2 * (3 ^ r * endpoint) + 3 ^ r ≡
+      2 * 3 ^ r + 3 ^ r [MOD 3 ^ (r + 2)] := by
+    rwa [← hrhs]
+  have hmul : 2 * (3 ^ r * endpoint) ≡
+      2 * 3 ^ r [MOD 3 ^ (r + 2)] :=
+    Nat.ModEq.add_right_cancel' (3 ^ r) hadd
+  have hmodulus : 3 ^ (r + 2) = 3 ^ r * 9 := by
+    rw [pow_add]
+    norm_num
+  rw [hmodulus] at hmul
+  have hfactored : 3 ^ r * (2 * endpoint) ≡
+      3 ^ r * 2 [MOD 3 ^ r * 9] := by
+    convert hmul using 1 <;> ring
+  have hmod9 : 2 * endpoint ≡ 2 [MOD 9] :=
+    Nat.ModEq.mul_left_cancel' (by positivity : 3 ^ r ≠ 0) hfactored
+  change (2 * endpoint) % 9 = 2 % 9 at hmod9
+  omega
+
+/-- Once the prefix numerator is exact, the retarded terminal congruence
+forces the last source to be `7 mod 9`. -/
+theorem retarded_terminal_forces_legal_source
+    {endpoint r : ℕ}
+    (h : 4 * (3 ^ r * endpoint) + 2 * 3 ^ r ≡
+      3 ^ (r + 1) [MOD 3 ^ (r + 2)]) :
+    endpoint % 9 = 7 := by
+  have hrhs : 3 ^ (r + 1) = 3 ^ r + 2 * 3 ^ r := by
+    rw [pow_succ]
+    ring
+  have hadd : 4 * (3 ^ r * endpoint) + 2 * 3 ^ r ≡
+      3 ^ r + 2 * 3 ^ r [MOD 3 ^ (r + 2)] := by
+    rwa [← hrhs]
+  have hmul : 4 * (3 ^ r * endpoint) ≡
+      3 ^ r [MOD 3 ^ (r + 2)] :=
+    Nat.ModEq.add_right_cancel' (2 * 3 ^ r) hadd
+  have hmodulus : 3 ^ (r + 2) = 3 ^ r * 9 := by
+    rw [pow_add]
+    norm_num
+  rw [hmodulus] at hmul
+  have hfactored : 3 ^ r * (4 * endpoint) ≡
+      3 ^ r * 1 [MOD 3 ^ r * 9] := by
+    convert hmul using 1 <;> ring
+  have hmod9 : 4 * endpoint ≡ 1 [MOD 9] :=
+    Nat.ModEq.mul_left_cancel' (by positivity : 3 ^ r ≠ 0) hfactored
+  change (4 * endpoint) % 9 = 1 % 9 at hmod9
+  omega
+
+/-- Hard direction of QM137, strengthened to all words: the terminal
+numerator digit reconstructs every local residue check.  For transport-only
+words the congruence is stronger than legality, but still implies it. -/
+theorem legalWord_of_terminalCylinder
+    (w : List CenterMove) {h : ℕ} (htc : TerminalCylinder w h) :
+    LegalWord w h := by
+  induction w using List.reverseRecOn generalizing h with
+  | nil => simp [LegalWord]
+  | append_singleton u m ih =>
+      let d := wordData u
+      let P := d.A * h + d.B
+      have htc' := htc
+      rw [TerminalCylinder, wordData_append_singleton] at htc'
+      cases m with
+      | transport =>
+          simp only [ControllerData.step] at htc'
+          have hfull : 4 * P ≡ 3 ^ d.r [MOD 3 ^ (d.r + 1)] := by
+            convert htc' using 1 <;> dsimp [P, d] <;> ring
+          have hpref : P ≡ 3 ^ d.r [MOD 3 ^ (d.r + 1)] :=
+            (four_mul_terminal_modEq_iff P d.r).mp hfull
+          have hpref' : TerminalCylinder u h := by
+            simpa [TerminalCylinder, P, d] using hpref
+          have hlu := ih hpref'
+          rw [legalWord_append]
+          exact ⟨hlu, by simp [LegalWord, CenterMove.Legal]⟩
+      | retarded =>
+          simp only [ControllerData.step] at htc'
+          have hfull : 4 * P + 2 * 3 ^ d.r ≡
+              3 ^ (d.r + 1) [MOD 3 ^ (d.r + 2)] := by
+            convert htc' using 1 <;> dsimp [P, d] <;> ring
+          have hpref : P ≡ 3 ^ d.r [MOD 3 ^ (d.r + 1)] :=
+            retarded_terminal_implies_prefix hfull
+          have hpref' : TerminalCylinder u h := by
+            simpa [TerminalCylinder, P, d] using hpref
+          have hlu := ih hpref'
+          have hexact := wordData_exact u hlu
+          have hlast := hfull
+          change 3 ^ d.r * runCenter u h = P at hexact
+          rw [← hexact] at hlast
+          have hres : runCenter u h % 9 = 7 :=
+            retarded_terminal_forces_legal_source hlast
+          rw [legalWord_append]
+          refine ⟨hlu, ?_⟩
+          simp [LegalWord, CenterMove.Legal, hres]
+      | advanced =>
+          simp only [ControllerData.step] at htc'
+          have hfull : 2 * P + 3 ^ d.r ≡
+              3 ^ (d.r + 1) [MOD 3 ^ (d.r + 2)] := by
+            convert htc' using 1 <;> dsimp [P, d] <;> ring
+          have hpref : P ≡ 3 ^ d.r [MOD 3 ^ (d.r + 1)] :=
+            advanced_terminal_implies_prefix hfull
+          have hpref' : TerminalCylinder u h := by
+            simpa [TerminalCylinder, P, d] using hpref
+          have hlu := ih hpref'
+          have hexact := wordData_exact u hlu
+          have hlast := hfull
+          change 3 ^ d.r * runCenter u h = P at hexact
+          rw [← hexact] at hlast
+          have hres : runCenter u h % 9 = 1 :=
+            advanced_terminal_forces_legal_source hlast
+          rw [legalWord_append]
+          refine ⟨hlu, ?_⟩
+          simp [LegalWord, CenterMove.Legal, hres]
+
+/-- Easy direction of QM137: legality plus one divided letter forces the
+terminal numerator digit to be exactly one. -/
+theorem terminalCylinder_of_legalWord
+    (w : List CenterMove) {h : ℕ} (hw : LegalWord w h)
+    (hr : 0 < dividedCount w) :
+    TerminalCylinder w h := by
+  have hinput := legalWord_input_mod_three_one_of_divided w hw hr
+  have hend := legalWord_preserves_mod_three_one w hw hinput
+  have hendMod : runCenter w h ≡ 1 [MOD 3] := by
+    simpa [Nat.ModEq] using hend
+  have hscaled := hendMod.mul_left' (3 ^ (wordData w).r)
+  have hexact := wordData_exact w hw
+  rw [hexact] at hscaled
+  simpa [TerminalCylinder, pow_succ] using hscaled
+
+/-- QM137a exactly: for a word containing a divided letter, legality is
+equivalent to its single terminal ternary cylinder. -/
+theorem legalWord_iff_terminalCylinder
+    (w : List CenterMove) {h : ℕ} (hr : 0 < dividedCount w) :
+    LegalWord w h ↔ TerminalCylinder w h :=
+  ⟨fun hw => terminalCylinder_of_legalWord w hw hr,
+    legalWord_of_terminalCylinder w⟩
+
 /-- Multiplying both values and the modulus by `3^r` is reversible. -/
 theorem three_pow_mul_modEq_iff (h' g k r : ℕ) :
     h' ≡ g [MOD 3 ^ k] ↔
@@ -282,6 +583,57 @@ theorem endpoint_target_initial_modEq
   have hnum₂ :=
     (endpoint_modEq_iff_numerator_modEq w hw₂).mp htarget₂
   exact numerator_modEq_injective w (hnum₁.trans hnum₂.symm)
+
+/-- QM137b: every word containing a divided letter has one legal positive
+input class reaching any prescribed target class `g = 1 mod 3`.  The class
+is unique modulo `3^(k+r)`. -/
+theorem exists_unique_positive_legal_input_for_target
+    (w : List CenterMove) {g k : ℕ}
+    (hr : 0 < dividedCount w) (hg : g % 3 = 1) (hk : 1 ≤ k) :
+    ∃ h : ℕ, 0 < h ∧ LegalWord w h ∧
+      runCenter w h ≡ g [MOD 3 ^ k] ∧
+      ∀ h' : ℕ, LegalWord w h' →
+        runCenter w h' ≡ g [MOD 3 ^ k] →
+        h' ≡ h [MOD 3 ^ (k + (wordData w).r)] := by
+  obtain ⟨h₀, hh₀, hunique⟩ :=
+    exists_unique_numerator_input_class w g k
+  let modulus := 3 ^ (k + (wordData w).r)
+  let h := h₀ + modulus
+  have hmod : h ≡ h₀ [MOD modulus] := by
+    have hm := Nat.ModEq.modulus_mul_add
+      (m := modulus) (a := 1) (b := h₀)
+    simpa [h, add_comm] using hm
+  have hh : (wordData w).A * h + (wordData w).B ≡
+      3 ^ (wordData w).r * g
+        [MOD 3 ^ (k + (wordData w).r)] := by
+    change _ ≡ _ [MOD modulus]
+    exact ((hmod.mul_left (wordData w).A).add_right
+      (wordData w).B).trans hh₀
+  have hsmall : (wordData w).A * h + (wordData w).B ≡
+      3 ^ (wordData w).r * g
+        [MOD 3 ^ ((wordData w).r + 1)] := by
+    apply hh.of_dvd
+    exact pow_dvd_pow 3 (by omega)
+  have hgMod : g ≡ 1 [MOD 3] := by
+    simpa [Nat.ModEq] using hg
+  have htargetSmall : 3 ^ (wordData w).r * g ≡
+      3 ^ (wordData w).r
+        [MOD 3 ^ ((wordData w).r + 1)] := by
+    simpa [pow_succ] using
+      hgMod.mul_left' (3 ^ (wordData w).r)
+  have htc : TerminalCylinder w h :=
+    hsmall.trans htargetSmall
+  have hlegal : LegalWord w h :=
+    (legalWord_iff_terminalCylinder w hr).mpr htc
+  have hendpoint : runCenter w h ≡ g [MOD 3 ^ k] :=
+    (endpoint_modEq_iff_numerator_modEq w hlegal).mpr hh
+  refine ⟨h, ?_, hlegal, hendpoint, ?_⟩
+  · dsimp [h, modulus]
+    positivity
+  · intro h' hlegal' hendpoint'
+    have hnum' :=
+      (endpoint_modEq_iff_numerator_modEq w hlegal').mp hendpoint'
+    exact (hunique h' hnum').trans hmod.symm
 
 /-! ## Abstract reset recurrence -/
 

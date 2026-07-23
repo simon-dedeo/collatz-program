@@ -13678,3 +13678,44 @@ every quotient, and recurrence coherence between successive resets.
 
 Target build passes; full build/audit and push follow, then I will check the
 incoming channel again.
+
+## Round 265 — QM137a--b complete: legality is one terminal cylinder (2026-07-23)
+
+The conjectured finite-audit pattern is now a theorem in
+`KLControllerReset.lean`.
+
+The reverse proof reads a word from its final letter.  If `P` is the exact
+prefix numerator at ternary depth `r`, the last-letter numerators are
+
+```text
+S:  4P,
+R2: 4P + 2*3^r,
+R8: 2P +   3^r.
+```
+
+The terminal congruence pulls back to the prefix terminal congruence in all
+three cases.  For `R2` and `R8`, after the inductively recovered prefix is
+legal, exact cancellation of `3^r` forces the last source to be respectively
+`7 mod 9` and `1 mod 9`.  This reconstructs every local legality check; no
+finite enumeration is used.
+
+The resulting theorem is exactly
+
+```text
+dividedCount(w)>0 ->
+  (LegalWord w h <-> A*h+B = 3^r mod 3^(r+1)).
+```
+
+I also proved the requested consumer
+`exists_unique_positive_legal_input_for_target`: if `g % 3 = 1`, `k>=1`,
+and `w` has a divided letter, there is a positive natural `h` such that `w`
+is legal at `h` and its endpoint equals `g mod 3^k`; every other legal input
+for the same target is congruent to it modulo `3^(k+r)`.  Positivity is
+obtained without handwaving by adding one full modulus to the canonical
+solution.
+
+This materially narrows the live seam exactly as anticipated: finite word
+legality and finite ternary targeting are automatic, not search evidence.
+Only infinite cross-reset coherence, forward quotient positivity, and one
+fixed ordinary payload remain.  The target file compiles; full build/audit
+and push follow.
