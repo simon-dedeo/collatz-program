@@ -1,4 +1,12 @@
 {
+  "bare_promotion_regression": {
+    "branch_bounds": [
+      1,
+      32
+    ],
+    "color_zero_positive_bare_steps_promoted": 1024,
+    "row_sha256": "25c633e908bf811fcbf62d5b12084ff28ab73b5c4078693738de219d40b6dff5"
+  },
   "constants": {
     "W(q)": "83499104+83790531*q",
     "Z(q)": "494251421+495976448*q",
@@ -23,7 +31,16 @@
     "row_sha256": "41e9eee9159423206fa2f2dfbaa4994adfbcae00a2c255cb14b7fd1f7fce9898"
   },
   "ordinary_gate": "one initial packet unit condition, then exact branch valuations and the fixed q' return cylinder",
-  "schema": "collatz-breakoff-ether-self-writing-kl-v1",
+  "promotion_gate": {
+    "automatic_dyadic_rail": "every positive bare EC17 step n->m satisfies 2^20 | 3^(6n)u-Z0",
+    "color_equivalence": "473 | 3^(6n)u-Z0 iff 2^(8n-5)u+291427=0 (mod 473)",
+    "height_gate": "0<Z0<473*2^20 and 3 does not divide Z0",
+    "preferred_public_payload_gate": "for 2^(8m+15)q'=3^(6m+11)q+delta_m, eventual-zero canonical public carry constructs a shifted self-writing tail",
+    "promotion_reduction": "a positive bare EC17 ray plus packet color zero at one state lies on the full nonnegative Z rail at every state and promotes to the self-writing packet map",
+    "remaining_bare_core_gate": "eventual zero canonical bare-core carry plus one color-zero seed",
+    "subtraction_identity": "3^11*(3^(6n)u-Z0)=2^20*(2^(8m-5)u'-W0)"
+  },
+  "schema": "collatz-breakoff-ether-self-writing-kl-v2",
   "scope": "universal exact affine identities, complete fixed-target CRT families through the displayed branch bound, and bounded literal packet-link replay; no infinite accepted q orbit and no Collatz counterexample",
   "strict_payload_growth": true,
   "target_families": [
@@ -393,5 +410,5 @@
     "transition": "R'=E^m(D(R))",
     "two_rail_identity": "3^11*Z(q)+17=2^20*W(q)"
   },
-  "worker_sha256": "0d04fad28de45e1e5550dec1a6afc4a3136c9fb1907ccde1192551b289480c2e"
+  "worker_sha256": "fa35c18fc183c25bc0650cc6a599508cf6d5ac604a2fe7cfd454a05aeef910a8"
 }

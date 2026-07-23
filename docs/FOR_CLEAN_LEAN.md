@@ -11619,3 +11619,198 @@ Do not identify (QM146b) with a KL predecessor edge: the direct normalized
 core-to-KL-edge lane is already closed by its affine-defect mismatch.  The
 standard prefix-code dimension calculation may remain outside Lean unless it
 is convenient.
+
+## Kontorovich request: shallow residue rails and higher branch clock (QM147, 2026-07-23)
+
+The exact mod-17 transport from QM146 has eight fixed shallow rails.  Define
+
+```text
+F_m(r)=14+6*(-2)^(m-1)*(r-1) in ZMod 17.
+```
+
+Please first package the period-eight identity and fixed table
+
+```text
+F_(j+8k)=F_j,
+(j,r_j)=(1,12),(2,2),(3,13),(4,3),
+        (5,15),(6,6),(7,9),(8,0).                 (QM147a)
+```
+
+All `r_j` avoid `1,14`, so an orbit with every branch in one class
+`j mod 8` and every reduced payload in the corresponding class `r_j mod 17`
+has exactly one factor `17` in every normalized core.  State this only as a
+conditional rail theorem; it does not construct the orbit.
+
+The higher-digit branch clock is more informative.  In the reduced affine
+coordinate `x=Zbar(r)`, one accepted target-`m` step satisfies in `Z_17`
+
+```text
+x'=(729/256)^m * (3^11*x+1)/2^15.                (QM147b)
+```
+
+Since
+
+```text
+v17(3^48-2^64)=1,
+```
+
+LTE gives, for `m'=m+8d` and shallow output,
+
+```text
+v17(F_(m')(r)-F_m(r))=1+v17(d).                  (QM147c)
+```
+
+An equivalent finite-precision statement is enough if it fits the existing
+interfaces better: source and target reduced payloads modulo `17^k` uniquely
+determine `m modulo 8*17^(k-1)`.  For the highest-pressure rail, write
+
+```text
+r=12+17s,  m=1+8j.
+```
+
+The first lifted digit is exactly
+
+```text
+s'=6s+10j+13 (mod 17),
+j=12*(s'-6s-13) (mod 17).                         (QM147d)
+```
+
+The other `(source coefficient, branch coefficient, constant)` triples are
+
+```text
+j=2: (5,9,3)    j=3: (7,5,8)    j=4: (3,4,0)
+j=5: (11,12,16) j=6: (12,6,12)  j=7: (10,8,10)
+j=8: (14,2,0).
+```
+
+Every branch coefficient is a unit.  This is the important scope boundary:
+higher 17-adic lifting does not obstruct the rail; it supplies an evolving
+counter channel capable of encoding the next branch digit.  A stationary
+all-depth lift forces stationary branch data and is killed by the existing
+fixed/eventually-periodic branch theorem, but evolving higher digits remain
+live.  The Python v2 artifact checks all eight affine digit laws exactly and
+still records `counterexample:null`.
+
+## Kontorovich request: color zero already supplies the full packet rail (QM148, 2026-07-23)
+
+There is a useful correction to the current three-gate promotion discussion.
+The dyadic `2^20` part of `OnZRail` is automatic on every positive bare EC17
+step; it is not an independent premise.
+
+Let a positive bare step be
+
+```text
+2^(8m+15)u'=3^(6n+11)u+17,
+E=3^(6n)u-494251421.
+```
+
+Subtract the constant determinant identity
+
+```text
+3^11*494251421+17=2^20*83499104
+```
+
+to obtain exactly
+
+```text
+3^11*E=2^20*(2^(8m-5)u'-83499104).                (QM148a)
+```
+
+Since `3^11` is odd,
+
+```text
+2^20 | E.                                          (QM148b)
+```
+
+The packet color is exactly the remaining odd checksum.  Using
+`3^6=2^8 (mod 473)` and
+`494251421=-32*291427 (mod 473)`, prove
+
+```text
+473 | E  <->  2^(8n-5)u+291427=0 (mod 473).        (QM148c)
+```
+
+Finally
+
+```text
+0<494251421<473*2^20,
+3 does not divide 494251421.
+```
+
+For positive branch `n`, `E` cannot be zero.  If the full stride divides
+`E`, it also cannot be negative, because then `-473*2^20<E<0`.  Hence color
+zero implies the complete `OnZRail(n,u)` condition, including its height
+inequality.
+
+Please sharpen the existing promotion interface to the following form (a
+shifted-tail version is enough):
+
+```text
+positive bare EC17 ray + packetColor=0 at one state
+  -> a SelfWritingKL orbit/tail.                    (QM148d)
+```
+
+Color zero already propagates and reflects, so one state suffices.  Combined
+with `eventuallyZeroCarry_iff_exists_bareEC17`, the branch-only construction
+gate becomes
+
+```text
+eventual zero canonical dyadic carry
++ packet color zero for the resulting initial core
+<-> self-writing packet tail.                      (QM148e)
+```
+
+Please keep the color premise: arbitrary bare EC17 rays can still live in a
+nonzero class modulo `473`.  The correction removes only the redundant
+`2^20`/height gate.  The v2 self-writing worker reconstructs 1,024 color-zero
+positive bare steps for all `1<=n,m<=32` and checks their full `Z/W` promotion;
+it still reports no infinite orbit and no counterexample.
+
+Status: companion commit `ded9c30` proves QM148a--d and strengthens the final
+endpoint to an iff: on a supplied positive bare EC17 ray, color zero at any
+chosen state is equivalent to promotion of its one-step tail.  Only the
+bare-ray existence/carry problem remains.
+
+## Kontorovich request: every finite shallow-rail word is realizable (QM149, 2026-07-23)
+
+Companion commit `d4a8edf` identifies the correct construction coordinate:
+the public payload program
+
+```text
+2^(8m+15)q'=3^(6m+11)q+branchDelta(m).
+```
+
+Eventual-zero carry for this program directly constructs a shifted
+`SelfWritingKL.Orbit`, so future search should use
+`payloadResetProgramOfBranch`, not the weaker bare-core program.
+
+There is also a universal finite-prefix warning worth packaging.  Fix one of
+QM147's pairs `(j,c_j)` and a finite positive target word all of whose entries
+are `j modulo 8`.  Then there is a strictly positive finite public-payload
+chain following that word with
+
+```text
+q_t = 17*c_j (mod 17^2)                            (QM149a)
+```
+
+at every state.
+
+Proof route: the finite public reset word selects one unique initial class
+modulo `2^S`.  CRT intersects it with `q_0=17*c_j (mod 17^2)`.  Shifting by a
+sufficiently large multiple of `2^S*17^2` makes every finite quotient
+positive.  QM147a/QM146 transport propagates the odd rail class through the
+word.  Equivalently, prove it directly from the affine public recurrence
+modulo `17^2`.
+
+A color-zero version modulo `473*17^2` is also valid, but `d4a8edf` makes it
+secondary: the public-payload coordinate already contains the full packet
+semantics.  The intended conclusion is only
+
+```text
+no bounded finite-prefix search can prune a shallow rail; only eventual
+literal stabilization of the canonical public-payload residues can decide
+an ordinary infinite tail.                              (QM149b)
+```
+
+Do not infer an infinite orbit by compactness: the CRT representatives can
+and generally do escape to infinity as the written dyadic precision grows.

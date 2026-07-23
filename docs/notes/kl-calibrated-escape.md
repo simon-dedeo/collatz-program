@@ -1110,3 +1110,123 @@ The worker
 (16.7), constructs 1,278 distinct schedule cylinders through 160 source bits,
 and lifts the higher `17`-adic branch checksum through precision 12.  Its
 artifact has `counterexample:null`.
+
+## 17. Shallow rails are writable, and color zero closes the packet rail
+
+The finite mod-17 system does not merely alternate shallow and deep cores.
+Removing the two residues `1,14` gives one strongly connected 15-state graph,
+and each branch class modulo eight has a fixed shallow residue:
+
+```text
+j                 1  2  3  4  5  6  7  8
+r_j              12  2 13  3 15  6  9  0.         (17.1)
+```
+
+Thus the conditional language
+
+```text
+m_t=j (mod 8),       q_t/17=r_j (mod 17)            (17.2)
+```
+
+keeps every normalized core at exact 17-adic depth one.  Its branch alphabet
+has lengths `P_(j+8k)=8j+15+64k`, hence
+
+```text
+K_j=2^(-(8j+15))/(1-2^-64),
+A_j(x)=(1-x^64)/(1-x^64-x^(8j+15)),
+x^64+x^(8j+15)=1.                                  (17.3)
+```
+
+The largest pressure dimension is `0.0250459467556681664...`, for `j=1`.
+This is a rigorous search compression, not an exclusion: a countable set of
+ordinary integers can meet a set of arbitrarily small Hausdorff dimension.
+
+The first higher digit makes the constructive meaning explicit.  On the
+`j=1` rail, write
+
+```text
+r=12+17s,       m=1+8ell.
+```
+
+Then
+
+```text
+s'=6s+10ell+13 (mod 17).                           (17.4)
+```
+
+The branch coefficient `10` is invertible.  The other seven rails have the
+same property, with coefficient triples
+
+```text
+(6,10,13), (5,9,3), (7,5,8), (3,4,0),
+(11,12,16), (12,6,12), (10,8,10), (14,2,0).        (17.5)
+```
+
+In `x=Zbar(r)` coordinates the complete higher clock is
+
+```text
+x'=(729/256)^m (3^11*x+1)/2^15.                   (17.6)
+```
+
+Because `v_17(3^48-2^64)=1`, LTE says that changing `m` by `8d`
+changes a shallow output at exact valuation `1+v_17(d)`.  Consequently
+source and target residues modulo `17^k` decode `m modulo 8*17^(k-1)`.
+Higher payload digits are a writable branch counter.  A stationary all-depth
+lift forces stationary branch data and is impossible for a positive orbit;
+an evolving aperiodic counter is not.
+
+The packet-promotion conditions also collapse.  For any positive bare EC17
+step
+
+```text
+2^(8m+15)u'=3^(6n+11)u+17,
+E=3^(6n)u-494251421,
+```
+
+subtracting (15.5) gives
+
+```text
+3^11 E=2^20(2^(8m-5)u'-83499104).                 (17.7)
+```
+
+Thus the factor `2^20` in `OnZRail` is automatic.  Moreover
+
+```text
+473|E  <->  2^(8n-5)u+291427=0 (mod 473),          (17.8)
+```
+
+which is exactly packet color zero.  Since
+`0<494251421<473*2^20` and the constant is not divisible by three, a positive
+branch cannot give `E=0`, and a stride-divisible `E` cannot be negative.
+Therefore a positive bare EC17 ray plus color zero at one state already lies
+on the full nonnegative packet rail.  The live ordinary construction gate is
+
+```text
+eventual zero canonical dyadic carry + one color-zero seed. (17.9)
+```
+
+Companion commit `ded9c30` kernel-checks the stronger iff: for any supplied
+positive bare ray, color zero at a chosen state is equivalent to promotion of
+its one-step tail.
+
+There is an even cleaner equivalent construction coordinate.  The public
+payload itself obeys the branch-only reset program
+
+```text
+2^(8m+15)q'=3^(6m+11)q+delta_m.                   (17.10)
+```
+
+Companion commit `d4a8edf` proves that eventual-zero canonical carry for
+(17.10) constructs a self-writing orbit after the necessary one-state shift,
+and that every supplied self-writing orbit has eventual-zero public carry.
+Thus (17.10), rather than the bare defect-one core program, is the primary
+search and falsification interface; it folds color and full packet semantics
+into one ordinary-address condition.
+
+The shallow odd checksums do not help at finite depth.  By CRT, every finite
+dyadic reset cylinder can be intersected with a prescribed color and shallow
+residue class, then shifted high enough to make all finite quotients positive.
+Only literal stabilization of the least dyadic representatives can decide an
+ordinary infinite seed.  The theorem-driven role of (17.4)--(17.6) is to
+select schedules for that carry problem, not to replace it with a residue
+scan.

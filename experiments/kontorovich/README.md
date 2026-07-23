@@ -4862,12 +4862,28 @@ python3 breakoff_ether_self_writing_kl.py verify \
   breakoff_ether_self_writing_kl_audit.json
 ```
 
-The artifact checks all target families through `m=32` and 4,096 literal
-linked packet transitions.  Every accepted step has `q'>q`.  It does not
-find an infinite accepted orbit; `counterexample:null`.
+The v2 artifact checks all target families through `m=32`, 4,096 literal
+linked packet transitions, and 1,024 color-zero positive bare EC17 steps.
+For a bare step it certifies the promotion identity
+
+```text
+3^11*(3^(6n)u-Z0)=2^20*(2^(8m-5)u'-W0).
+```
+
+Thus the `2^20` rail factor is automatic; packet color zero supplies the
+remaining `473`, and the exact height window makes the packet coordinate
+nonnegative.  A positive bare ray plus color zero at one state already
+promotes to the full self-writing rail.  Every accepted step has `q'>q`.
+The artifact does not find an infinite accepted orbit; `counterexample:null`.
 Companion commit `7ca6d4f` kernel-checks the determinant identity and proves
 strict payload growth and branch aperiodicity for every supplied infinite
-self-writing orbit.
+self-writing orbit.  Companion commit `d4a8edf` independently packages the exact public
+program `2^(8m+15)q'=3^(6m+11)q+delta_m`: eventual-zero canonical carry for
+that branch-only program constructs a shifted self-writing orbit, and every
+supplied orbit has eventual-zero public carry.  This is the preferred search
+interface because it already includes color and packet-rail semantics.
+Companion commit `ded9c30` completes QM148 and proves the sharper bare-ray iff:
+color zero at one state is equivalent to promotion of the one-step tail.
 
 ## Branch pressure and the EC1 unit component
 
@@ -4910,6 +4926,22 @@ r'-14=6*(-2)^(m-1)*(r-1) (mod 17)
 proves that consecutive normalized cores can never both contain `17^2`:
 `min(v17(u),v17(u'))=1`.  This all-depth filter leaves every finite branch
 pair CRT-solvable, so it narrows but does not close the live component.
+
+The v2 audit also certifies the complete shallow graph and eight invariant
+rails
+
+```text
+m mod 8:       1  2  3  4  5  6  7  0
+r=q/17 mod17: 12  2 13  3 15  6  9  0.
+```
+
+For `m=1+8j`, `r=12+17s`, the next digit is
+`s'=6s+10j+13 (mod17)`; all other rails likewise have a unit branch-digit
+coefficient.  At depth `17^k` this becomes an exact branch clock modulo
+`8*17^(k-1)`.  The per-rail code has generating function
+`(1-x^64)/(1-x^64-x^(8j+15))`; the maximal diagnostic dimension is
+`0.0250459467556681664...`.  These are exact selectors for a canonical-carry
+analysis, not evidence that an ordinary infinite address exists.
 
 ```bash
 python3 breakoff_ether_branch_pressure.py selftest

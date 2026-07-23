@@ -28,7 +28,7 @@ from breakoff_ether_counter import REGISTER_OFFSET, REGISTER_STRIDE
 from breakoff_ether_glider import glider_macro, link_macros
 
 
-SCHEMA = "collatz-breakoff-ether-self-writing-kl-v1"
+SCHEMA = "collatz-breakoff-ether-self-writing-kl-v2"
 Z0 = 494_251_421
 Z_STRIDE = 473 * (1 << 20)
 W0 = 83_499_104
@@ -249,6 +249,124 @@ def verify_affine_theorems() -> dict[str, object]:
     }
 
 
+def promotion_gate_theorems() -> dict[str, object]:
+    """Exact algebra reducing full packet promotion to one odd checksum.
+
+    For a positive bare EC17 step
+
+        2^(8m+15) u' = 3^(6n+11) u + 17,
+
+    subtraction of the determinant identity forces
+
+        3^11 (3^(6n)u-Z0) = 2^20 (2^(8m-5)u'-W0).
+
+    Thus the dyadic factor in the affine Z rail is automatic.  Packet color
+    zero is exactly the remaining factor 473, and the narrow inequality
+    ``0 < Z0 < 473*2^20`` turns divisibility into positive rail height.
+    """
+
+    if not 0 < Z0 < Z_STRIDE:
+        raise AssertionError("promotion height window changed")
+    if Z0 % 3 == 0:
+        raise AssertionError("zero affine height became a positive branch")
+    if (Z0 + 32 * 291_427) % 473:
+        raise AssertionError("packet color is not the 473 rail checksum")
+    if 3**11 * Z0 + 17 != (1 << 20) * W0:
+        raise AssertionError("promotion determinant identity failed")
+    return {
+        "automatic_dyadic_rail": (
+            "every positive bare EC17 step n->m satisfies "
+            "2^20 | 3^(6n)u-Z0"
+        ),
+        "subtraction_identity": (
+            "3^11*(3^(6n)u-Z0)="
+            "2^20*(2^(8m-5)u'-W0)"
+        ),
+        "color_equivalence": (
+            "473 | 3^(6n)u-Z0 iff "
+            "2^(8n-5)u+291427=0 (mod 473)"
+        ),
+        "height_gate": "0<Z0<473*2^20 and 3 does not divide Z0",
+        "promotion_reduction": (
+            "a positive bare EC17 ray plus packet color zero at one state "
+            "lies on the full nonnegative Z rail at every state and promotes "
+            "to the self-writing packet map"
+        ),
+        "remaining_bare_core_gate": (
+            "eventual zero canonical bare-core carry plus one color-zero seed"
+        ),
+        "preferred_public_payload_gate": (
+            "for 2^(8m+15)q'=3^(6m+11)q+delta_m, eventual-zero "
+            "canonical public carry constructs a shifted self-writing tail"
+        ),
+    }
+
+
+def bare_promotion_regression(maximum_branch: int) -> dict[str, object]:
+    """Construct one color-zero positive bare step for every bounded n,m."""
+
+    if maximum_branch < 1:
+        raise ValueError("branch bound must be positive")
+    digest = hashlib.sha256()
+    checks = 0
+    for source in range(1, maximum_branch + 1):
+        for target in range(1, maximum_branch + 1):
+            odd_exponent = 6 * source + 11
+            binary_exponent = 8 * target + 15
+            binary_modulus = 1 << binary_exponent
+            core_base = (
+                -17 * pow(3**odd_exponent, -1, binary_modulus)
+            ) % binary_modulus
+
+            # Choose the affine lift simultaneously in the core unit class
+            # u=1 mod3 and in packet color zero mod473.
+            lift_mod_three = (
+                (1 - core_base) * pow(binary_modulus, -1, 3)
+            ) % 3
+            color_core = (
+                -291_427 * pow(1 << (8 * source - 5), -1, 473)
+            ) % 473
+            lift_mod_473 = (
+                (color_core - core_base)
+                * pow(binary_modulus, -1, 473)
+            ) % 473
+            lift = lift_mod_three + 3 * (
+                (lift_mod_473 - lift_mod_three) * pow(3, -1, 473) % 473
+            )
+            core = core_base + binary_modulus * lift
+            numerator = 3**odd_exponent * core + 17
+            if numerator % binary_modulus:
+                raise AssertionError("constructed bare step is not integral")
+            core_next = numerator // binary_modulus
+            if (
+                core <= 0
+                or core_next <= 0
+                or core % 3 != 1
+                or core_next % 3 != 1
+            ):
+                raise AssertionError(
+                    "constructed bare step left the positive unit class"
+                )
+
+            excess = 3 ** (6 * source) * core - Z0
+            if excess <= 0 or excess % Z_STRIDE:
+                raise AssertionError("color-zero bare step did not promote")
+            q = excess // Z_STRIDE
+            if Z0 + Z_STRIDE * q != 3 ** (6 * source) * core:
+                raise AssertionError("promoted source missed the Z rail")
+            if W0 + W_STRIDE * q != (1 << (8 * target - 5)) * core_next:
+                raise AssertionError("promoted target missed the W rail")
+            digest.update(
+                f"{source},{target},{core},{core_next},{q}\n".encode()
+            )
+            checks += 1
+    return {
+        "branch_bounds": [1, maximum_branch],
+        "color_zero_positive_bare_steps_promoted": checks,
+        "row_sha256": digest.hexdigest(),
+    }
+
+
 def linked_regression(maximum_branch: int, lifts: int) -> dict[str, object]:
     digest = hashlib.sha256()
     checks = 0
@@ -324,6 +442,8 @@ def build_certificate(maximum_branch: int, lifts: int) -> dict[str, object]:
             "return_modulus": str(Z_STRIDE),
         },
         "theorems": verify_affine_theorems(),
+        "promotion_gate": promotion_gate_theorems(),
+        "bare_promotion_regression": bare_promotion_regression(maximum_branch),
         "decoder": (
             "n=v3(Z)/6; m=(v2(W)+5)/8; h=W/2^(8m-5); "
             "q'=(729^m*h-Z0)/(473*2^20)"
@@ -350,6 +470,8 @@ def render(value: dict[str, object]) -> str:
 
 def selftest() -> None:
     verify_affine_theorems()
+    promotion_gate_theorems()
+    bare_promotion_regression(2)
     first = target_family(1)
     if int(first["source_q_stride"]) != 1 << 23:
         raise AssertionError("first target-family source stride changed")

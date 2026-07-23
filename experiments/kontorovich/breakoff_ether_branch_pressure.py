@@ -28,6 +28,13 @@ This is the pressure/Bowen object suggested by the Krasikov--Lagarias
 thermodynamic formalism.  It measures the full 2-adic schedule set; it does
 not turn a 2-adic schedule into an ordinary natural seed.
 
+The blocks recorded by ``Prefix.address_digits`` are also the canonical carry
+digits of the exact public-payload reset program.  Lean commit ``d4a8edf``
+proves the sharp ordinary gate: eventual-zero public carry constructs a
+shifted self-writing orbit, while every supplied orbit has eventual-zero
+public carry.  Thus these are the primary construction digits, not merely a
+coding diagnostic.
+
 There is also an invariant arithmetic slice that removes the collision
 particle.  Both affine offsets are divisible by 17.  Thus ``q=17*r`` gives
 
@@ -43,7 +50,18 @@ coordinates this is the irreducible unit law
 Higher powers of 17 expose a precise branch checksum.  A standard LTE/order
 calculation reduces preservation of ``17^s | q`` to one target residue modulo
 ``8*17^(s-2)``.  The executable audit constructs the unique Hensel lifts and
-checks the equivalence at finite precision.  None of these statements supplies
+checks the equivalence at finite precision.
+
+At exact 17-adic depth one, the mod-17 transport has a finite safe graph.  It
+is strongly connected and, more usefully, contains eight constant-residue
+rails: for each target class ``m=j (mod 8)`` there is a shallow residue fixed
+by every such branch.  Restricting the branch alphabet to one rail changes the
+pressure equation to
+
+    x^64 + x^(8*j+15) = 1.
+
+The audit certifies the graph, all eight rails, their Kraft masses, and exact
+rational brackets for these pressure roots.  None of these statements supplies
 an infinite accepted orbit or a Collatz counterexample.
 """
 
@@ -52,6 +70,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from dataclasses import asdict, dataclass
 from fractions import Fraction
 from functools import cache
@@ -67,7 +86,7 @@ from breakoff_ether_self_writing_kl import (
 )
 
 
-SCHEMA = "collatz-breakoff-ether-branch-pressure-v1"
+SCHEMA = "collatz-breakoff-ether-branch-pressure-v2"
 COLLISION = 17
 RESONANCE = 473
 MINIMUM_CODE_BITS = 23
@@ -300,6 +319,230 @@ def pressure_certificate() -> dict[str, Any]:
     }
 
 
+def unit_residue_transition(source: int, target_class: int) -> int:
+    """Transport r modulo 17 for a target branch m=target_class (mod 8)."""
+
+    if not 0 <= source < COLLISION:
+        raise ValueError("source residue must be modulo 17")
+    if not 1 <= target_class <= 8:
+        raise ValueError("target class must use representatives 1,...,8")
+    return (
+        14
+        + 6
+        * pow(-2, target_class - 1, COLLISION)
+        * (source - 1)
+    ) % COLLISION
+
+
+def unit_transition_mod(source: int, target: int, precision: int) -> int:
+    """Exact reduced affine transition modulo ``17^precision``."""
+
+    if precision < 1:
+        raise ValueError("17-adic precision must be positive")
+    row = branch_row(target)
+    unit_delta = row["delta"] // COLLISION
+    modulus = COLLISION**precision
+    return (
+        (3 ** row["trits"] * source + unit_delta)
+        * pow(1 << row["bits"], -1, modulus)
+    ) % modulus
+
+
+def pressure_root_bracket(first_length: int, period: int = 64) -> tuple[Fraction, Fraction]:
+    """Exact dyadic bracket for x^period+x^first_length=1 in (0,1)."""
+
+    lower = Fraction(0)
+    upper = Fraction(1)
+    for _ in range(96):
+        middle = (lower + upper) / 2
+        value = middle**period + middle**first_length - 1
+        if value < 0:
+            lower = middle
+        elif value > 0:
+            upper = middle
+        else:
+            return middle, middle
+    if not lower**period + lower**first_length < 1:
+        raise AssertionError("restricted pressure lower bracket failed")
+    if not upper**period + upper**first_length > 1:
+        raise AssertionError("restricted pressure upper bracket failed")
+    return lower, upper
+
+
+def unit_residue_rails() -> dict[str, Any]:
+    """Certify the shallow mod-17 graph and its eight invariant rails."""
+
+    # r=14 means that the current normalized core has a second factor 17;
+    # r=1 maps to r'=14 on every branch.  Remove both to obtain the graph in
+    # which consecutive cores stay at exact 17-adic depth one.
+    safe_states = tuple(residue for residue in range(COLLISION) if residue not in (1, 14))
+    safe_set = set(safe_states)
+    adjacency: dict[int, list[tuple[int, int]]] = {}
+    reverse: dict[int, set[int]] = {residue: set() for residue in safe_states}
+    for source in safe_states:
+        edges = []
+        for target_class in range(1, 9):
+            target = unit_residue_transition(source, target_class)
+            if target in safe_set:
+                edges.append((target_class, target))
+                reverse[target].add(source)
+        if len(edges) not in (7, 8):
+            raise AssertionError("unexpected shallow-graph out-degree")
+        adjacency[source] = edges
+
+    def reachable(start: int, neighbors: dict[int, set[int]]) -> set[int]:
+        visited: set[int] = set()
+        stack = [start]
+        while stack:
+            state = stack.pop()
+            if state in visited:
+                continue
+            visited.add(state)
+            stack.extend(neighbors[state] - visited)
+        return visited
+
+    forward = {
+        source: {target for _, target in edges}
+        for source, edges in adjacency.items()
+    }
+    anchor = safe_states[0]
+    if reachable(anchor, forward) != safe_set or reachable(anchor, reverse) != safe_set:
+        raise AssertionError("shallow residue graph is not strongly connected")
+
+    fixed_residues = {1: 12, 2: 2, 3: 13, 4: 3, 5: 15, 6: 6, 7: 9, 8: 0}
+    expected_second_digits = {
+        1: (6, 10, 13),
+        2: (5, 9, 3),
+        3: (7, 5, 8),
+        4: (3, 4, 0),
+        5: (11, 12, 16),
+        6: (12, 6, 12),
+        7: (10, 8, 10),
+        8: (14, 2, 0),
+    }
+    rails: list[dict[str, Any]] = []
+    for target_class, fixed in fixed_residues.items():
+        if fixed not in safe_set:
+            raise AssertionError("rail is not at exact 17-adic depth one")
+        if unit_residue_transition(fixed, target_class) != fixed:
+            raise AssertionError("claimed unit-residue rail is not invariant")
+        # The transition depends only on m modulo 8, so check several literal
+        # positive branches against the complete affine map as well.
+        for target in (target_class, target_class + 8, target_class + 16):
+            row = branch_row(target)
+            unit_delta = row["delta"] // COLLISION
+            direct = (
+                (3 ** row["trits"] * fixed + unit_delta)
+                * pow(1 << row["bits"], -1, COLLISION)
+            ) % COLLISION
+            if direct != fixed:
+                raise AssertionError("literal branch left its residue rail")
+
+        # Lift one digit.  Write r=fixed+17*s and m=target_class+8*j.
+        # The next digit is affine, s'=A*s+B*j+C (mod 17), and B is a
+        # unit.  Hence the next payload digit can decode/choose the next
+        # branch-clock digit; the shallow rail does not become stationary.
+        def next_second_digit(source_digit: int, branch_digit: int) -> int:
+            source = fixed + COLLISION * source_digit
+            target = target_class + 8 * branch_digit
+            following = unit_transition_mod(source, target, 2)
+            if (following - fixed) % COLLISION:
+                raise AssertionError("second-digit lift left the base rail")
+            return ((following - fixed) // COLLISION) % COLLISION
+
+        constant = next_second_digit(0, 0)
+        source_coefficient = (next_second_digit(1, 0) - constant) % COLLISION
+        branch_coefficient = (next_second_digit(0, 1) - constant) % COLLISION
+        formula = (source_coefficient, branch_coefficient, constant)
+        if formula != expected_second_digits[target_class]:
+            raise AssertionError("second-digit rail formula changed")
+        if branch_coefficient == 0:
+            raise AssertionError("branch digit stopped being decodable")
+        for source_digit in range(COLLISION):
+            for branch_digit in range(COLLISION):
+                expected_digit = (
+                    source_coefficient * source_digit
+                    + branch_coefficient * branch_digit
+                    + constant
+                ) % COLLISION
+                if next_second_digit(source_digit, branch_digit) != expected_digit:
+                    raise AssertionError("second-digit affine law failed")
+
+        first_length = branch_bits(target_class)
+        kraft = Fraction(1, 1 << first_length) / (
+            1 - Fraction(1, 1 << 64)
+        )
+        lower, upper = pressure_root_bracket(first_length)
+        root_midpoint = float((lower + upper) / 2)
+        rails.append(
+            {
+                "target_class_mod_8": target_class % 8,
+                "positive_representative": target_class,
+                "fixed_r_mod_17": fixed,
+                "second_digit_transport": (
+                    f"s'={source_coefficient}*s+{branch_coefficient}*j+"
+                    f"{constant} (mod 17), for r={fixed}+17s and "
+                    f"m={target_class}+8j"
+                ),
+                "branch_digit_coefficient_is_unit": True,
+                "branch_lengths": f"{first_length}+64k, k>=0",
+                "kraft_mass": str(kraft),
+                "schedule_generating_function": (
+                    f"(1-x^64)/(1-x^64-x^{first_length})"
+                ),
+                "pressure_equation": f"x^64+x^{first_length}=1",
+                "root_x_exact_dyadic_bracket": [str(lower), str(upper)],
+                "dimension_decimal_diagnostic": format(
+                    -math.log2(root_midpoint), ".18g"
+                ),
+            }
+        )
+
+    return {
+        "safe_states_r_mod_17": list(safe_states),
+        "excluded_residues": {
+            "14": "current core is divisible by 17^2",
+            "1": "successor core is divisible by 17^2",
+        },
+        "safe_graph_strongly_connected": True,
+        "safe_graph_out_degrees": {
+            str(source): len(edges) for source, edges in adjacency.items()
+        },
+        "labeled_safe_adjacency": {
+            str(source): [
+                {"target_class_representative": label, "target_r": target}
+                for label, target in edges
+            ]
+            for source, edges in adjacency.items()
+        },
+        "invariant_rails": rails,
+        "higher_digit_clock": {
+            "coordinate_law": (
+                "for x=Zbar(r), x'=(729/256)^m*(3^11*x+1)/2^15 "
+                "in Z_17"
+            ),
+            "primitive_lte_input": "v17(3^48-2^64)=1",
+            "branch_decoder": (
+                "at precision k, consecutive shallow r residues determine "
+                "m modulo 8*17^(k-1); changing m by 8d changes the output "
+                "at exact valuation 1+v17(d)"
+            ),
+            "consequence": (
+                "a stationary all-depth 17-adic rail forces stationary "
+                "branch data and is incompatible with a positive fixed-branch "
+                "orbit; evolving higher 17-adic digits remain a live counter "
+                "channel"
+            ),
+        },
+        "interpretation": (
+            "each rail permits arbitrary positive target branches in one "
+            "class modulo 8 while every normalized core has exactly one "
+            "factor 17; this is an arithmetic selector, not an existence "
+            "proof for an ordinary infinite orbit"
+        ),
+    }
+
+
 def unit_slice_theorems(maximum_branch: int) -> dict[str, Any]:
     if Z0 % COLLISION or W0 % COLLISION:
         raise AssertionError("the affine offsets lost their factor 17")
@@ -473,9 +716,21 @@ def build_audit(
             "2^(8m+15)q'=3^(6m+11)q+delta_m, "
             "delta_m=(3^(6m)W0-2^(8m-5)Z0)/473>0"
         ),
+        "ordinary_address_gate": {
+            "canonical_digits": (
+                "Prefix.address_digits are the successive carry digits of "
+                "the public reset program with instruction (P_m,Q_m,delta_m)"
+            ),
+            "eventual_zero_meaning": (
+                "kernel-checked in companion commit d4a8edf: sufficient for "
+                "a shifted self-writing tail and necessary for every "
+                "supplied self-writing orbit"
+            ),
+        },
         "pressure": pressure_certificate(),
         "prefix_regression": exhaustive_prefix_regression(prefix_bit_budget),
         "unit_slice": unit_slice_theorems(maximum_branch),
+        "unit_residue_rails": unit_residue_rails(),
         "higher_17_adic_clock": hensel_branch_clock(hensel_precision),
         "claim_scope": (
             "universal algebraic branch/unit-slice identities, exact finite "
@@ -538,6 +793,9 @@ def verify_artifact(path: Path) -> dict[str, Any]:
 def selftest() -> None:
     branch_row(1)
     unit_slice_theorems(3)
+    rails = unit_residue_rails()
+    if len(rails["invariant_rails"]) != 8:
+        raise AssertionError("unit-residue rail census changed")
     hensel_branch_clock(4)
     regression = exhaustive_prefix_regression(80)
     if regression["schedule_cylinders_including_root"] != 28:

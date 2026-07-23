@@ -1,6 +1,82 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 12:46 EDT
+Updated: 2026-07-23, about 13:13 EDT
+
+### 13:13 EDT continuation -- shallow rails are writable; color closes the packet gate
+
+There is still no counterexample.  The safe mod-17 graph is strongly
+connected and contains eight exact invariant rails:
+
+```text
+m mod 8       1  2  3  4  5  6  7  0
+r=q/17 mod17 12  2 13  3 15  6  9  0.
+```
+
+Every core on one such rail has exactly one factor `17`.  For the most
+permissive rail,
+
+```text
+r=12+17s, m=1+8j  ->  s'=6s+10j+13 (mod17).
+```
+
+All eight second-digit laws have a unit coefficient on `j`.  At precision
+`17^k`, consecutive reduced payloads determine the target branch modulo
+`8*17^(k-1)`.  This is a writable branch counter: higher 17-adic lifting does
+not close the component.  An increasingly stationary lift forces unbounded
+branch values (unless higher payload digits change cofinally), which is the
+precise conditional sense in which this ansatz needs growing counters.
+
+Restricting schedules to one branch class gives code lengths
+`8j+15+64k`, generating function
+
+```text
+(1-x^64)/(1-x^64-x^(8j+15)),
+```
+
+and pressure equation `x^64+x^(8j+15)=1`.  The largest dimension is
+`0.0250459467556681664...` for `j=1`.  Use these rails as exact search
+selectors; their small dimension and finite strong connectivity are not
+existence or no-existence proofs.
+
+The promotion gate is simpler than the 12:46 note below says.  For every
+positive bare EC17 step, with `E=3^(6n)u-494251421`,
+
+```text
+3^11*E=2^20*(2^(8m-5)u'-83499104).
+```
+
+Thus `2^20|E` is automatic.  Packet color zero is exactly `473|E`; the
+constant inequality `0<494251421<473*2^20` then forces nonnegative affine
+rail height.  One color-zero state on a positive bare ray therefore promotes
+the whole tail.  In bare-core coordinates the construction test is:
+
+```text
+eventual-zero canonical dyadic carry + one color-zero seed.
+```
+
+Companion commit `d4a8edf` packages the cleaner public-payload version.  Its
+target-`m` reset instruction is exactly
+
+```text
+2^(8m+15)q'=3^(6m+11)q+delta_m.
+```
+
+Eventual-zero canonical carry for this branch-only public program directly
+constructs a self-writing tail, with a real one-step branch shift; every
+supplied orbit has eventual-zero public carry.  Use
+`payloadResetProgramOfBranch` for construction and falsification.  It absorbs
+the bare-core color/rail conditions into one exact ordinary-address gate.
+Companion commit `ded9c30` separately kernel-checks the bare-coordinate
+equivalence: on any supplied positive EC17 ray, color zero at a chosen state
+is equivalent to promotion of its one-step tail.
+
+No bounded finite-prefix CRT audit can settle either condition: every finite
+dyadic reset cylinder remains compatible with the odd color/shallow checksum.
+Track canonical height/carry as the primary state and use the writable
+17-adic clock only as a selector.  Updated v2 artifacts reconstruct all eight
+digit laws and 1,024 color-zero positive bare-step promotions; both retain
+`counterexample:null`.  QM148 is complete in `ded9c30`; QM147/QM149 retain the
+higher-clock and universal finite-prefix rail targets.
 
 ### 12:46 EDT continuation -- KL pressure exposes an invariant EC1 component
 
@@ -73,13 +149,14 @@ The artifact checks branches through `m=64`, 1,278 exact schedule cylinders
 through 160 bits, and the higher 17-adic checksum clock through precision 12;
 `counterexample:null`.
 
-Companion commits through `8d59350` substantially sharpen the infinite gate:
+Companion commits through `8d59350` substantially sharpened the infinite gate:
 for a prescribed branch schedule, eventual zero canonical carry is equivalent
 to existence of a positive bare EC17 ray; packet color zero is reflected as
 well as propagated; and a shifted bare ray promotes to the full self-writing
-map iff every state lies on the exact affine `Z` rail.  Thus search can now
-separate three exact tests: eventual-zero dyadic carry, color zero, and full
-`473*2^20` rail membership.  A witness must pass all three.
+map iff every state lies on the exact affine `Z` rail.  The 13:13 identity
+above subsequently proves that, on a positive bare ray, color zero already
+implies that full rail membership.  Do not continue treating the `2^20`
+factor as a third independent gate.
 
 ### 12:02 EDT continuation -- the KL center yields one self-writing integer
 

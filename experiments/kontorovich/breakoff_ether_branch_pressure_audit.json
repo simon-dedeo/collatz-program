@@ -1,5 +1,5 @@
 {
-  "artifact_sha256": "61e78b7c28fc1f748f1de80726dbeac507182eb7fd1001a9a8f47e4319253c06",
+  "artifact_sha256": "602ca2e9c52df75167e98ffdb38cc96aadc44d3bc8c9f139a6796f23c645598e",
   "audit": {
     "branch_affine_law": "2^(8m+15)q'=3^(6m+11)q+delta_m, delta_m=(3^(6m)W0-2^(8m-5)Z0)/473>0",
     "claim_scope": "universal algebraic branch/unit-slice identities, exact finite prefix-tree regression at the stated bit budget, and exact 17-adic Hensel lifts through the stated precision; no infinite accepted orbit and no Collatz counterexample",
@@ -73,6 +73,10 @@
         "v17(29073613-32*4911712)": 1,
         "v17(3^48-2^64)": 1
       }
+    },
+    "ordinary_address_gate": {
+      "canonical_digits": "Prefix.address_digits are the successive carry digits of the public reset program with instruction (P_m,Q_m,delta_m)",
+      "eventual_zero_meaning": "kernel-checked in companion commit d4a8edf: sufficient for a shifted self-writing tail and necessary for every supplied self-writing orbit"
     },
     "prefix_regression": {
       "bit_budget": 160,
@@ -159,6 +163,664 @@
         "238050689/250000000"
       ],
       "schedule_generating_function": "(1-x^8)/(1-x^8-x^23)"
+    },
+    "unit_residue_rails": {
+      "excluded_residues": {
+        "1": "successor core is divisible by 17^2",
+        "14": "current core is divisible by 17^2"
+      },
+      "higher_digit_clock": {
+        "branch_decoder": "at precision k, consecutive shallow r residues determine m modulo 8*17^(k-1); changing m by 8d changes the output at exact valuation 1+v17(d)",
+        "consequence": "a stationary all-depth 17-adic rail forces stationary branch data and is incompatible with a positive fixed-branch orbit; evolving higher 17-adic digits remain a live counter channel",
+        "coordinate_law": "for x=Zbar(r), x'=(729/256)^m*(3^11*x+1)/2^15 in Z_17",
+        "primitive_lte_input": "v17(3^48-2^64)=1"
+      },
+      "interpretation": "each rail permits arbitrary positive target branches in one class modulo 8 while every normalized core has exactly one factor 17; this is an arithmetic selector, not an existence proof for an ordinary infinite orbit",
+      "invariant_rails": [
+        {
+          "branch_digit_coefficient_is_unit": true,
+          "branch_lengths": "23+64k, k>=0",
+          "dimension_decimal_diagnostic": "0.0250459467556681664",
+          "fixed_r_mod_17": 12,
+          "kraft_mass": "2199023255552/18446744073709551615",
+          "positive_representative": 1,
+          "pressure_equation": "x^64+x^23=1",
+          "root_x_exact_dyadic_bracket": [
+            "4866536890220551473869024621/4951760157141521099596496896",
+            "77864590243528823581904393937/79228162514264337593543950336"
+          ],
+          "schedule_generating_function": "(1-x^64)/(1-x^64-x^23)",
+          "second_digit_transport": "s'=6*s+10*j+13 (mod 17), for r=12+17s and m=1+8j",
+          "target_class_mod_8": 1
+        },
+        {
+          "branch_digit_coefficient_is_unit": true,
+          "branch_lengths": "31+64k, k>=0",
+          "dimension_decimal_diagnostic": "0.0220044614537050938",
+          "fixed_r_mod_17": 2,
+          "kraft_mass": "8589934592/18446744073709551615",
+          "positive_representative": 2,
+          "pressure_equation": "x^64+x^31=1",
+          "root_x_exact_dyadic_bracket": [
+            "78028917292139475631682028585/79228162514264337593543950336",
+            "39014458646069737815841014293/39614081257132168796771975168"
+          ],
+          "schedule_generating_function": "(1-x^64)/(1-x^64-x^31)",
+          "second_digit_transport": "s'=5*s+9*j+3 (mod 17), for r=2+17s and m=2+8j",
+          "target_class_mod_8": 2
+        },
+        {
+          "branch_digit_coefficient_is_unit": true,
+          "branch_lengths": "39+64k, k>=0",
+          "dimension_decimal_diagnostic": "0.0198288906950681403",
+          "fixed_r_mod_17": 13,
+          "kraft_mass": "33554432/18446744073709551615",
+          "positive_representative": 3,
+          "pressure_equation": "x^64+x^39=1",
+          "root_x_exact_dyadic_bracket": [
+            "39073336470784575252051655419/39614081257132168796771975168",
+            "78146672941569150504103310839/79228162514264337593543950336"
+          ],
+          "schedule_generating_function": "(1-x^64)/(1-x^64-x^39)",
+          "second_digit_transport": "s'=7*s+5*j+8 (mod 17), for r=13+17s and m=3+8j",
+          "target_class_mod_8": 3
+        },
+        {
+          "branch_digit_coefficient_is_unit": true,
+          "branch_lengths": "47+64k, k>=0",
+          "dimension_decimal_diagnostic": "0.0181666327010945594",
+          "fixed_r_mod_17": 3,
+          "kraft_mass": "131072/18446744073709551615",
+          "positive_representative": 4,
+          "pressure_equation": "x^64+x^47=1",
+          "root_x_exact_dyadic_bracket": [
+            "19559191151103903974840543529/19807040628566084398385987584",
+            "78236764604415615899362174117/79228162514264337593543950336"
+          ],
+          "schedule_generating_function": "(1-x^64)/(1-x^64-x^47)",
+          "second_digit_transport": "s'=3*s+4*j+0 (mod 17), for r=3+17s and m=4+8j",
+          "target_class_mod_8": 4
+        },
+        {
+          "branch_digit_coefficient_is_unit": true,
+          "branch_lengths": "55+64k, k>=0",
+          "dimension_decimal_diagnostic": "0.0168401572946980972",
+          "fixed_r_mod_17": 15,
+          "kraft_mass": "512/18446744073709551615",
+          "positive_representative": 5,
+          "pressure_equation": "x^64+x^55=1",
+          "root_x_exact_dyadic_bracket": [
+            "1223573936021880130703479211/1237940039285380274899124224",
+            "78308731905400328365022669505/79228162514264337593543950336"
+          ],
+          "schedule_generating_function": "(1-x^64)/(1-x^64-x^55)",
+          "second_digit_transport": "s'=11*s+12*j+16 (mod 17), for r=15+17s and m=5+8j",
+          "target_class_mod_8": 5
+        },
+        {
+          "branch_digit_coefficient_is_unit": true,
+          "branch_lengths": "63+64k, k>=0",
+          "dimension_decimal_diagnostic": "0.0157483698964152041",
+          "fixed_r_mod_17": 6,
+          "kraft_mass": "2/18446744073709551615",
+          "positive_representative": 6,
+          "pressure_equation": "x^64+x^63=1",
+          "root_x_exact_dyadic_bracket": [
+            "78368015983440779112115435485/79228162514264337593543950336",
+            "39184007991720389556057717743/39614081257132168796771975168"
+          ],
+          "schedule_generating_function": "(1-x^64)/(1-x^64-x^63)",
+          "second_digit_transport": "s'=12*s+6*j+12 (mod 17), for r=6+17s and m=6+8j",
+          "target_class_mod_8": 6
+        },
+        {
+          "branch_digit_coefficient_is_unit": true,
+          "branch_lengths": "71+64k, k>=0",
+          "dimension_decimal_diagnostic": "0.0148286420992047065",
+          "fixed_r_mod_17": 9,
+          "kraft_mass": "1/2361183241434822606720",
+          "positive_representative": 7,
+          "pressure_equation": "x^64+x^71=1",
+          "root_x_exact_dyadic_bracket": [
+            "39208996024677931822329493649/39614081257132168796771975168",
+            "78417992049355863644658987299/79228162514264337593543950336"
+          ],
+          "schedule_generating_function": "(1-x^64)/(1-x^64-x^71)",
+          "second_digit_transport": "s'=10*s+8*j+10 (mod 17), for r=9+17s and m=7+8j",
+          "target_class_mod_8": 7
+        },
+        {
+          "branch_digit_coefficient_is_unit": true,
+          "branch_lengths": "79+64k, k>=0",
+          "dimension_decimal_diagnostic": "0.0140397101203078647",
+          "fixed_r_mod_17": 0,
+          "kraft_mass": "1/604462909807314587320320",
+          "positive_representative": 8,
+          "pressure_equation": "x^64+x^79=1",
+          "root_x_exact_dyadic_bracket": [
+            "78460886340035036108669770953/79228162514264337593543950336",
+            "39230443170017518054334885477/39614081257132168796771975168"
+          ],
+          "schedule_generating_function": "(1-x^64)/(1-x^64-x^79)",
+          "second_digit_transport": "s'=14*s+2*j+0 (mod 17), for r=0+17s and m=8+8j",
+          "target_class_mod_8": 0
+        }
+      ],
+      "labeled_safe_adjacency": {
+        "0": [
+          {
+            "target_class_representative": 1,
+            "target_r": 8
+          },
+          {
+            "target_class_representative": 2,
+            "target_r": 9
+          },
+          {
+            "target_class_representative": 3,
+            "target_r": 7
+          },
+          {
+            "target_class_representative": 4,
+            "target_r": 11
+          },
+          {
+            "target_class_representative": 5,
+            "target_r": 3
+          },
+          {
+            "target_class_representative": 6,
+            "target_r": 2
+          },
+          {
+            "target_class_representative": 7,
+            "target_r": 4
+          },
+          {
+            "target_class_representative": 8,
+            "target_r": 0
+          }
+        ],
+        "10": [
+          {
+            "target_class_representative": 1,
+            "target_r": 0
+          },
+          {
+            "target_class_representative": 2,
+            "target_r": 8
+          },
+          {
+            "target_class_representative": 3,
+            "target_r": 9
+          },
+          {
+            "target_class_representative": 4,
+            "target_r": 7
+          },
+          {
+            "target_class_representative": 5,
+            "target_r": 11
+          },
+          {
+            "target_class_representative": 6,
+            "target_r": 3
+          },
+          {
+            "target_class_representative": 7,
+            "target_r": 2
+          },
+          {
+            "target_class_representative": 8,
+            "target_r": 4
+          }
+        ],
+        "11": [
+          {
+            "target_class_representative": 1,
+            "target_r": 6
+          },
+          {
+            "target_class_representative": 2,
+            "target_r": 13
+          },
+          {
+            "target_class_representative": 3,
+            "target_r": 16
+          },
+          {
+            "target_class_representative": 4,
+            "target_r": 10
+          },
+          {
+            "target_class_representative": 5,
+            "target_r": 5
+          },
+          {
+            "target_class_representative": 6,
+            "target_r": 15
+          },
+          {
+            "target_class_representative": 7,
+            "target_r": 12
+          }
+        ],
+        "12": [
+          {
+            "target_class_representative": 1,
+            "target_r": 12
+          },
+          {
+            "target_class_representative": 3,
+            "target_r": 6
+          },
+          {
+            "target_class_representative": 4,
+            "target_r": 13
+          },
+          {
+            "target_class_representative": 5,
+            "target_r": 16
+          },
+          {
+            "target_class_representative": 6,
+            "target_r": 10
+          },
+          {
+            "target_class_representative": 7,
+            "target_r": 5
+          },
+          {
+            "target_class_representative": 8,
+            "target_r": 15
+          }
+        ],
+        "13": [
+          {
+            "target_class_representative": 2,
+            "target_r": 6
+          },
+          {
+            "target_class_representative": 3,
+            "target_r": 13
+          },
+          {
+            "target_class_representative": 4,
+            "target_r": 16
+          },
+          {
+            "target_class_representative": 5,
+            "target_r": 10
+          },
+          {
+            "target_class_representative": 6,
+            "target_r": 5
+          },
+          {
+            "target_class_representative": 7,
+            "target_r": 15
+          },
+          {
+            "target_class_representative": 8,
+            "target_r": 12
+          }
+        ],
+        "15": [
+          {
+            "target_class_representative": 1,
+            "target_r": 13
+          },
+          {
+            "target_class_representative": 2,
+            "target_r": 16
+          },
+          {
+            "target_class_representative": 3,
+            "target_r": 10
+          },
+          {
+            "target_class_representative": 4,
+            "target_r": 5
+          },
+          {
+            "target_class_representative": 5,
+            "target_r": 15
+          },
+          {
+            "target_class_representative": 6,
+            "target_r": 12
+          },
+          {
+            "target_class_representative": 8,
+            "target_r": 6
+          }
+        ],
+        "16": [
+          {
+            "target_class_representative": 1,
+            "target_r": 2
+          },
+          {
+            "target_class_representative": 2,
+            "target_r": 4
+          },
+          {
+            "target_class_representative": 3,
+            "target_r": 0
+          },
+          {
+            "target_class_representative": 4,
+            "target_r": 8
+          },
+          {
+            "target_class_representative": 5,
+            "target_r": 9
+          },
+          {
+            "target_class_representative": 6,
+            "target_r": 7
+          },
+          {
+            "target_class_representative": 7,
+            "target_r": 11
+          },
+          {
+            "target_class_representative": 8,
+            "target_r": 3
+          }
+        ],
+        "2": [
+          {
+            "target_class_representative": 1,
+            "target_r": 3
+          },
+          {
+            "target_class_representative": 2,
+            "target_r": 2
+          },
+          {
+            "target_class_representative": 3,
+            "target_r": 4
+          },
+          {
+            "target_class_representative": 4,
+            "target_r": 0
+          },
+          {
+            "target_class_representative": 5,
+            "target_r": 8
+          },
+          {
+            "target_class_representative": 6,
+            "target_r": 9
+          },
+          {
+            "target_class_representative": 7,
+            "target_r": 7
+          },
+          {
+            "target_class_representative": 8,
+            "target_r": 11
+          }
+        ],
+        "3": [
+          {
+            "target_class_representative": 1,
+            "target_r": 9
+          },
+          {
+            "target_class_representative": 2,
+            "target_r": 7
+          },
+          {
+            "target_class_representative": 3,
+            "target_r": 11
+          },
+          {
+            "target_class_representative": 4,
+            "target_r": 3
+          },
+          {
+            "target_class_representative": 5,
+            "target_r": 2
+          },
+          {
+            "target_class_representative": 6,
+            "target_r": 4
+          },
+          {
+            "target_class_representative": 7,
+            "target_r": 0
+          },
+          {
+            "target_class_representative": 8,
+            "target_r": 8
+          }
+        ],
+        "4": [
+          {
+            "target_class_representative": 1,
+            "target_r": 15
+          },
+          {
+            "target_class_representative": 2,
+            "target_r": 12
+          },
+          {
+            "target_class_representative": 4,
+            "target_r": 6
+          },
+          {
+            "target_class_representative": 5,
+            "target_r": 13
+          },
+          {
+            "target_class_representative": 6,
+            "target_r": 16
+          },
+          {
+            "target_class_representative": 7,
+            "target_r": 10
+          },
+          {
+            "target_class_representative": 8,
+            "target_r": 5
+          }
+        ],
+        "5": [
+          {
+            "target_class_representative": 1,
+            "target_r": 4
+          },
+          {
+            "target_class_representative": 2,
+            "target_r": 0
+          },
+          {
+            "target_class_representative": 3,
+            "target_r": 8
+          },
+          {
+            "target_class_representative": 4,
+            "target_r": 9
+          },
+          {
+            "target_class_representative": 5,
+            "target_r": 7
+          },
+          {
+            "target_class_representative": 6,
+            "target_r": 11
+          },
+          {
+            "target_class_representative": 7,
+            "target_r": 3
+          },
+          {
+            "target_class_representative": 8,
+            "target_r": 2
+          }
+        ],
+        "6": [
+          {
+            "target_class_representative": 1,
+            "target_r": 10
+          },
+          {
+            "target_class_representative": 2,
+            "target_r": 5
+          },
+          {
+            "target_class_representative": 3,
+            "target_r": 15
+          },
+          {
+            "target_class_representative": 4,
+            "target_r": 12
+          },
+          {
+            "target_class_representative": 6,
+            "target_r": 6
+          },
+          {
+            "target_class_representative": 7,
+            "target_r": 13
+          },
+          {
+            "target_class_representative": 8,
+            "target_r": 16
+          }
+        ],
+        "7": [
+          {
+            "target_class_representative": 1,
+            "target_r": 16
+          },
+          {
+            "target_class_representative": 2,
+            "target_r": 10
+          },
+          {
+            "target_class_representative": 3,
+            "target_r": 5
+          },
+          {
+            "target_class_representative": 4,
+            "target_r": 15
+          },
+          {
+            "target_class_representative": 5,
+            "target_r": 12
+          },
+          {
+            "target_class_representative": 7,
+            "target_r": 6
+          },
+          {
+            "target_class_representative": 8,
+            "target_r": 13
+          }
+        ],
+        "8": [
+          {
+            "target_class_representative": 1,
+            "target_r": 5
+          },
+          {
+            "target_class_representative": 2,
+            "target_r": 15
+          },
+          {
+            "target_class_representative": 3,
+            "target_r": 12
+          },
+          {
+            "target_class_representative": 5,
+            "target_r": 6
+          },
+          {
+            "target_class_representative": 6,
+            "target_r": 13
+          },
+          {
+            "target_class_representative": 7,
+            "target_r": 16
+          },
+          {
+            "target_class_representative": 8,
+            "target_r": 10
+          }
+        ],
+        "9": [
+          {
+            "target_class_representative": 1,
+            "target_r": 11
+          },
+          {
+            "target_class_representative": 2,
+            "target_r": 3
+          },
+          {
+            "target_class_representative": 3,
+            "target_r": 2
+          },
+          {
+            "target_class_representative": 4,
+            "target_r": 4
+          },
+          {
+            "target_class_representative": 5,
+            "target_r": 0
+          },
+          {
+            "target_class_representative": 6,
+            "target_r": 8
+          },
+          {
+            "target_class_representative": 7,
+            "target_r": 9
+          },
+          {
+            "target_class_representative": 8,
+            "target_r": 7
+          }
+        ]
+      },
+      "safe_graph_out_degrees": {
+        "0": 8,
+        "10": 8,
+        "11": 7,
+        "12": 7,
+        "13": 7,
+        "15": 7,
+        "16": 8,
+        "2": 8,
+        "3": 8,
+        "4": 7,
+        "5": 8,
+        "6": 7,
+        "7": 7,
+        "8": 7,
+        "9": 8
+      },
+      "safe_graph_strongly_connected": true,
+      "safe_states_r_mod_17": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        16
+      ]
     },
     "unit_slice": {
       "adjacent_deep_core_theorem": "for every accepted unit-slice step, min(v17(u),v17(u'))=1; equivalently consecutive normalized cores cannot both be divisible by 17^2",
@@ -629,6 +1291,6 @@
     "maximum_branch": 64,
     "prefix_bit_budget": 160
   },
-  "schema": "collatz-breakoff-ether-branch-pressure-v1",
-  "worker_sha256": "c835405769537cc2c525585f59eadd541e4a6aafd70b01475df5467df46e501a"
+  "schema": "collatz-breakoff-ether-branch-pressure-v2",
+  "worker_sha256": "1cf2642ba9615741d8764b318c8479fdfd9aae6c836be72316f7a5ecfa108fed"
 }

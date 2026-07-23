@@ -33,6 +33,70 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 13:13 EDT
+
+There is still no counterexample, but the theorem-driven unit slice has now
+separated a writable counter from the true ordinary-address obstruction and
+removed one redundant promotion gate.
+
+The mod-17 transport has one shallow fixed rail for every target branch class:
+
+```text
+m mod 8       1  2  3  4  5  6  7  0
+r=q/17 mod17 12  2 13  3 15  6  9  0.
+```
+
+All eight avoid the two deep-core residues `1,14`.  Thus, conditionally on
+remaining in one rail, every normalized core contains exactly one factor of
+`17`.  The safe graph on the other 15 residues is strongly connected, so the
+base checksum is a live component rather than a no-go.
+
+For the highest-pressure rail, write `r=12+17s`, `m=1+8j`.  The next digit is
+
+```text
+s'=6s+10j+13 (mod 17).
+```
+
+The coefficient of `j` is a unit; the seven other rails have the same
+property.  More generally, the source and target payloads modulo `17^k`
+decode the branch modulo `8*17^(k-1)`.  Higher 17-adic precision is therefore
+a writable branch clock, not an obstruction.  A stationary all-depth lift
+would force stationary branch data and is impossible, but an evolving
+aperiodic counter remains live.  Restricting to one rail changes the pressure
+equation to `x^64+x^(8j+15)=1`; its largest dimension is
+`0.0250459467556681664...` on the `m=1 mod 8` rail.
+
+The more important simplification concerns promotion.  For any positive bare
+EC17 step,
+
+```text
+2^(8m+15)u'=3^(6n+11)u+17,
+E=3^(6n)u-494251421,
+```
+
+subtraction of the determinant identity gives
+
+```text
+3^11*E=2^20*(2^(8m-5)u'-83499104).
+```
+
+Hence `2^20|E` is automatic.  Packet color zero is exactly `473|E`, and
+`0<494251421<473*2^20` makes the resulting affine height positive.  Therefore
+a positive bare EC17 ray plus color zero at one state already lies on the full
+self-writing packet rail.  In bare-core coordinates this leaves two gates:
+eventual-zero canonical dyadic carry and one color-zero seed.
+
+Companion commit `d4a8edf` then folds both into the correct public coordinate.
+For the branch-only program with step defect `D(m)=delta_m`, eventual-zero
+canonical **public-payload** carry directly constructs a self-writing tail,
+with a necessary one-step shift in the branch sequence; every supplied orbit
+has eventual-zero public carry.  This is now the single exact search target.
+The updated exact workers certify all eight lifted digit laws and 1,024
+bounded color-zero bare-step promotions; both artifacts still record
+`counterexample:null`.  Companion commits `13a7ce3`, `519063b`, `d4a8edf`,
+and `ded9c30` kernel-check the base unit slice, all shallow rails, the
+public-payload carry criterion, and the exact one-color promotion iff.
+
 ### 2026-07-23 12:46 EDT
 
 There is still no counterexample.  Re-reading the Krasikov--Lagarias work as
@@ -5464,7 +5528,7 @@ identically `x`.
 | Periodic or ultimately periodic path in the four-word signed thin language | Closed.  The exact bounded controller audit extracts the proper code `{1,011,001111,010111}` with ordinary mass `21/32`, tilted mass `1905/2048`, and 41,328 literal growing reset checks.  Commit `1aa3e52` proves that any nonempty periodic concatenation of outward shortcut blocks gives an expanding coprime affine recurrence and cannot persist on positive naturals; an arbitrary finite prefix does not help.  Genuinely aperiodic paths with eventually zero address carry remain open. | [`kl_signed_thin_residue.json`](experiments/kontorovich/kl_signed_thin_residue.json), [`ShortcutParityPeriodicNoGo.lean`](KontoroC/KontoroC/ShortcutParityPeriodicNoGo.lean) |
 | EC17 normalized core boundary as a KL full-lift path | Closed as a semantic identification.  The boundary clock is a genuine ternary odometer and is cofinal on `Y_d` when `3` does not divide the period-three gain.  Nevertheless each phase has only one class-2 and one class-8 KL chord over a full orbit; almost all pairs are nonedges.  More decisively, a KL word with `r` chords has defect at least `3^r-2^r`, while one normalized EC17 core step has `r>=17` and defect 34.  No KL/Haar tax may be attached directly to the core clock.  This does not close the actual packet compiler, whose ordinary endpoints must be expanded and sampled separately. | [`breakoff_ether_period3_kl_bridge_audit.json`](experiments/kontorovich/breakoff_ether_period3_kl_bridge_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md) |
 | Free/Haar packet-tail model for one linked EC17 ray | Closed.  Free packet tails have an exact geometric `v_3(Z)` histogram, but EC17 linkage forces every successor to `v_3(Z')=2`, fixes `q' mod 3^d` from the target branch whenever `d<=6n+1`, and places the literal boundary at exact 3-adic distance `6n` from `-881/473`.  The post-initial edge counts are `(R2,R8,S)=(2n+4,4n+7,0)`, and fixed-level KL tax is the deterministic rational ether-cycle factor, not a Haar average.  This sharply narrows but does not construct or exclude a positive infinite EC17 chain. | [`breakoff_ether_glider_kl_tail_chart_audit.json`](experiments/kontorovich/breakoff_ether_glider_kl_tail_chart_audit.json), [`kl_rational_ether_cycle.json`](experiments/kontorovich/kl_rational_ether_cycle.json) |
-| Using linked `r=2` or the factor `473` as an all-depth carry obstruction | Closed.  The packet color evolves bijectively as `chi' = 316*chi (mod 473)`; genuine packets are the invariant color zero, but dyadic future residues do not determine this coprime color.  After imposing color zero, the system becomes the exact self-writing two-rail map `3^11*Z(q)+17=2^20*W(q)`.  Every fixed finite `n -> m` branch link still has an infinite CRT family.  The theorem supplies a missing packet-validity premise and a smaller search coordinate, not a no-ray result. | [`breakoff_ether_self_writing_kl_audit.json`](experiments/kontorovich/breakoff_ether_self_writing_kl_audit.json) |
+| Using linked `r=2`, the factor `473`, or a finite shallow-rail prefix as an all-depth carry obstruction | Closed.  The packet color evolves bijectively as `chi' = 316*chi (mod 473)`.  On every positive bare EC17 step the balance equation already forces the missing `2^20` affine-rail factor, so color zero is equivalent to full packet promotion; it is a construction premise, not an obstruction.  The eight mod-17 shallow rails have writable higher branch digits.  Every finite reset cylinder remains CRT-compatible with color zero and any one shallow odd checksum, and can be shifted to make all finite quotients positive.  Only eventual stabilization of the least dyadic representatives can decide an ordinary infinite seed; do not widen finite rail-prefix scans. | [`breakoff_ether_self_writing_kl_audit.json`](experiments/kontorovich/breakoff_ether_self_writing_kl_audit.json), [`breakoff_ether_branch_pressure_audit.json`](experiments/kontorovich/breakoff_ether_branch_pressure_audit.json) |
 | Treating small branch pressure/dimension as an ordinary-seed exclusion | Invalid.  The exact target code has lengths `23,31,39,...`, Kraft mass `1/(255*2^15)`, and pressure dimension `0.070659291094...`.  This proves the infinite 2-adic survivor language is very thin and supplies the correct cost measure for searches.  A countable set of ordinary naturals can still intersect a positive-dimensional thin set, so dimension alone cannot exclude or construct the required eventually-zero address. | [`breakoff_ether_branch_pressure_audit.json`](experiments/kontorovich/breakoff_ether_branch_pressure_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md) |
 | Proper whole-word YAH context splash with canonical endpoints | Universally closed.  Commit `9ca4360` proves over the pinned 11 rules that if a nonempty derivation starts and ends at canonical `/digits.` words and claims `endpoint=left++start++right`, then both contexts are empty.  The earlier generic/flank theorem and the worker's 825,708 bounded rule checks remain diagnostics for noncanonical charts.  This is not YAH termination; internal/morphic templates remain live. | [`yah_context_loop_audit.json`](experiments/kontorovich/yah_context_loop_audit.json), [`YahRewriteSystem.lean`](KontoroC/KontoroC/YahRewriteSystem.lean) |
 | Delimiter-fixing independent YAH digit morphism | Closed completely in the stated productive/nonerasing class.  The exact worker finds identity as the unique width-one simulation and none among all 9,765,625 width-two maps; commit `2d50381` excludes every uniform width `w>=3`.  Commit `bfe12f0` removes the common-width premise: over the pinned 11 rules, any marker-fixed morphism with nonempty digit-only images and nonempty simulations of all rules is literally identity.  Delimiter-changing and context-dependent/coordinated multi-block maps are not excluded. | [`yah_context_loop_audit.json`](experiments/kontorovich/yah_context_loop_audit.json), [`YahVariableMorphismRigidity.lean`](KontoroC/KontoroC/YahVariableMorphismRigidity.lean) |
