@@ -971,6 +971,25 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.EtherCounterPeriodThreeTheta.Ray.fixed_cost_div_sq_tendsto_zero
 #print axioms
   KontoroC.EtherCounterPeriodThreeTheta.Ray.theta_argument_vandermonde_log_cost_subquadratic
+#print axioms KontoroC.GeometricVandermonde.gapProductSub_succ
+#print axioms KontoroC.GeometricVandermonde.det_geometric
+#print axioms KontoroC.GeometricVandermonde.sum_gap_multiplicities
+#print axioms KontoroC.GeometricVandermonde.pow_choose_two_dvd_gapNumerator
+#print axioms KontoroC.GeometricVandermonde.padicValNat_gapNumerator_of_lte
+#print axioms
+  KontoroC.EtherCounterPeriodThreeTheta.Ray.scaled_theta_root_eq_consecutive_grid
+#print axioms
+  KontoroC.EtherCounterPeriodThreeTheta.Ray.rootGridIndex_bijective
+#print axioms
+  KontoroC.EtherCounterPeriodThreeTheta.Ray.full_root_grid_vandermonde_formula
+#print axioms
+  KontoroC.EtherCounterPeriodThreeTheta.Ray.eleven_pow_choose_two_dvd_full_grid_gapNumerator
+#print axioms
+  KontoroC.EtherCounterPeriodThreeTheta.Ray.fortyThree_pow_choose_two_dvd_full_grid_gapNumerator
+#print axioms
+  KontoroC.EtherCounterPeriodThreeTheta.Ray.padicValNat_eleven_full_grid_gapNumerator
+#print axioms
+  KontoroC.EtherCounterPeriodThreeTheta.Ray.padicValNat_fortyThree_full_grid_gapNumerator
 #print axioms
   KontoroC.EtherCounterPeriodThreeTheta.Ray.padicCandidate_eq_initial
 #print axioms

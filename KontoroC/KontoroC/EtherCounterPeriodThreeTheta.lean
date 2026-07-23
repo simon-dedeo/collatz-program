@@ -6,7 +6,9 @@ Authors: Simon DeDeo, OpenAI Codex
 import KontoroC.EtherCounterPeriodThree
 import KontoroC.ChargePhaseUpPeriodicTheta
 import KontoroC.VaananenWallisserCore
+import KontoroC.GeometricVandermonde
 import Mathlib.LinearAlgebra.Vandermonde
+import Mathlib.NumberTheory.Multiplicity
 
 /-!
 # The literal period-three EC17 ray as three p-adic theta values
@@ -346,6 +348,214 @@ theorem theta_argument_vandermonde_log_cost_subquadratic (g : Ray) :
           (ν : ℝ) ^ 2)
       atTop (𝓝 0) :=
   fixed_cost_div_sq_tendsto_zero _
+
+/-! ## The full consecutive Hermite root grid
+
+The three arguments are not merely a geometric triple.  Since the paper
+parameter is the inverse cube of `ratio`, the three length-`ν` root strings
+interlace into one consecutive length-`3ν` geometric grid.  Unlike the fixed
+three-point determinant, this geometry persists with quadratic multiplicity
+as the auxiliary degree grows.
+-/
+
+/-- Exact natural-exponent normalization of one point in the interlaced
+three-phase Skolem root grid (QM123a). -/
+theorem scaled_theta_root_eq_consecutive_grid (g : Ray) (ν a : ℕ)
+    (ha : a < ν) (r : Fin 3) :
+    g.ratio ^ (3 * (ν - 1)) *
+          (g.thetaData.parameterInverse⁻¹) ^ a * g.thetaData.argument r =
+      g.thetaData.argumentCommon *
+        g.ratio ^ (3 * (ν - 1 - a) + (r : ℕ)) := by
+  rw [g.thetaData.argument_eq_common_mul]
+  simp only [thetaData, PeriodicPhaseUp.ThetaResidueData.parameterInverse]
+  have hsplit : 3 * (ν - 1) = 3 * a + 3 * (ν - 1 - a) := by omega
+  rw [hsplit, pow_add, inv_pow, pow_mul]
+  have hratio : g.ratio ≠ 0 := g.ratio_ne_zero
+  rw [pow_add]
+  field_simp [pow_ne_zero _ hratio]
+
+/-- Address map from the three phasewise root strings to the single
+consecutive grid.  The first coordinate is reversed because the natural
+normalization clears the largest negative exponent. -/
+def rootGridIndex (ν : ℕ) (ar : Fin ν × Fin 3) : Fin (3 * ν) :=
+  ⟨3 * (ν - 1 - (ar.1 : ℕ)) + (ar.2 : ℕ), by
+    have ha := ar.1.isLt
+    have hr := ar.2.isLt
+    omega⟩
+
+theorem rootGridIndex_injective (ν : ℕ) :
+    Function.Injective (rootGridIndex ν) := by
+  rintro ⟨a, r⟩ ⟨b, s⟩ h
+  have hv := congrArg Fin.val h
+  change 3 * (ν - 1 - (a : ℕ)) + (r : ℕ) =
+    3 * (ν - 1 - (b : ℕ)) + (s : ℕ) at hv
+  have ha := a.isLt
+  have hb := b.isLt
+  have hr := r.isLt
+  have hs := s.isLt
+  have hab : (a : ℕ) = (b : ℕ) := by omega
+  have hrs : (r : ℕ) = (s : ℕ) := by omega
+  have hab' : a = b := Fin.ext hab
+  have hrs' : r = s := Fin.ext hrs
+  subst b
+  subst s
+  rfl
+
+/-- The interlacing address is a bijection onto all `3 * ν` consecutive
+exponents, so no root is omitted or repeated. -/
+theorem rootGridIndex_bijective (ν : ℕ) :
+    Function.Bijective (rootGridIndex ν) := by
+  apply (Fintype.bijective_iff_injective_and_card _).2
+  constructor
+  · exact rootGridIndex_injective ν
+  · simp [Nat.mul_comm]
+
+/-- Exact determinant of the complete `3 * ν` consecutive root grid.  The
+gap of distance `d` occurs with multiplicity `3 * ν - d`, exposing the
+quadratic-order arithmetic absent from the fixed three-point determinant. -/
+theorem full_root_grid_vandermonde_formula (g : Ray) (ν : ℕ) :
+    (Matrix.vandermonde
+      (fun i : Fin (3 * ν) =>
+        g.thetaData.argumentCommon * g.ratio ^ (i : ℕ))).det =
+      g.thetaData.argumentCommon ^ ((3 * ν).choose 2) *
+        g.ratio ^ ((3 * ν).choose 3) *
+          GeometricVandermonde.gapProductSub g.ratio (3 * ν) :=
+  GeometricVandermonde.det_geometric _ _ _
+
+def ratioNumerator (g : Ray) : ℕ := 2 ^ (8 * g.cycleGain)
+def ratioDenominator (g : Ray) : ℕ := 3 ^ (6 * g.cycleGain)
+
+theorem ratio_eq_numerator_div_denominator (g : Ray) :
+    g.ratio = (g.ratioNumerator : ℚ) / g.ratioDenominator := by
+  simp [ratio, ratioNumerator, ratioDenominator]
+
+theorem ratioNumerator_le_ratioDenominator (g : Ray) :
+    g.ratioNumerator ≤ g.ratioDenominator := by
+  rw [ratioNumerator, ratioDenominator]
+  calc
+    2 ^ (8 * g.cycleGain) = (2 ^ 8) ^ g.cycleGain := by rw [pow_mul]
+    _ ≤ (3 ^ 6) ^ g.cycleGain :=
+      Nat.pow_le_pow_left (by norm_num) g.cycleGain
+    _ = 3 ^ (6 * g.cycleGain) := by rw [pow_mul]
+
+theorem ratioNumerator_lt_ratioDenominator (g : Ray) :
+    g.ratioNumerator < g.ratioDenominator := by
+  rw [ratioNumerator, ratioDenominator]
+  calc
+    2 ^ (8 * g.cycleGain) = (2 ^ 8) ^ g.cycleGain := by rw [pow_mul]
+    _ < (3 ^ 6) ^ g.cycleGain :=
+      Nat.pow_lt_pow_left (by norm_num) g.cycleGain_pos.ne'
+    _ = 3 ^ (6 * g.cycleGain) := by rw [pow_mul]
+
+/-- The first auxiliary prime in `3^6 - 2^8 = 473 = 11 * 43`
+divides the active base gap at every positive cycle gain. -/
+theorem eleven_dvd_ratio_base_gap (g : Ray) :
+    11 ∣ g.ratioDenominator - g.ratioNumerator := by
+  have hbase : 2 ^ 8 ≡ 3 ^ 6 [MOD 11] := by norm_num [Nat.ModEq]
+  have hpow := hbase.pow g.cycleGain
+  rw [← pow_mul, ← pow_mul] at hpow
+  exact (Nat.modEq_iff_dvd' g.ratioNumerator_le_ratioDenominator).1 hpow
+
+/-- The second auxiliary prime in the same base gap. -/
+theorem fortyThree_dvd_ratio_base_gap (g : Ray) :
+    43 ∣ g.ratioDenominator - g.ratioNumerator := by
+  have hbase : 2 ^ 8 ≡ 3 ^ 6 [MOD 43] := by norm_num [Nat.ModEq]
+  have hpow := hbase.pow g.cycleGain
+  rw [← pow_mul, ← pow_mul] at hpow
+  exact (Nat.modEq_iff_dvd' g.ratioNumerator_le_ratioDenominator).1 hpow
+
+/-- Exact LTE valuation of the active base gap at `11`. -/
+theorem padicValNat_eleven_ratio_base_gap (g : Ray) :
+    padicValNat 11 (g.ratioDenominator - g.ratioNumerator) =
+      1 + padicValNat 11 g.cycleGain := by
+  letI : Fact (Nat.Prime 11) := ⟨by norm_num⟩
+  rw [ratioDenominator, ratioNumerator]
+  rw [show 3 ^ (6 * g.cycleGain) = (3 ^ 6) ^ g.cycleGain by rw [pow_mul],
+    show 2 ^ (8 * g.cycleGain) = (2 ^ 8) ^ g.cycleGain by rw [pow_mul]]
+  rw [padicValNat.pow_sub_pow (p := 11) (x := 3 ^ 6) (y := 2 ^ 8)
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+      g.cycleGain_pos.ne']
+  have hbase : padicValNat 11 (3 ^ 6 - 2 ^ 8) = 1 := by
+    norm_num only [Nat.reducePow, Nat.reduceSub]
+    rw [show 473 = 11 * 43 by norm_num,
+      padicValNat.mul (by norm_num) (by norm_num),
+      padicValNat_self,
+      padicValNat.eq_zero_of_not_dvd (by norm_num)]
+  rw [hbase]
+
+/-- Exact LTE valuation of the same gap at `43`. -/
+theorem padicValNat_fortyThree_ratio_base_gap (g : Ray) :
+    padicValNat 43 (g.ratioDenominator - g.ratioNumerator) =
+      1 + padicValNat 43 g.cycleGain := by
+  letI : Fact (Nat.Prime 43) := ⟨by norm_num⟩
+  rw [ratioDenominator, ratioNumerator]
+  rw [show 3 ^ (6 * g.cycleGain) = (3 ^ 6) ^ g.cycleGain by rw [pow_mul],
+    show 2 ^ (8 * g.cycleGain) = (2 ^ 8) ^ g.cycleGain by rw [pow_mul]]
+  rw [padicValNat.pow_sub_pow (p := 43) (x := 3 ^ 6) (y := 2 ^ 8)
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+      g.cycleGain_pos.ne']
+  have hbase : padicValNat 43 (3 ^ 6 - 2 ^ 8) = 1 := by
+    norm_num only [Nat.reducePow, Nat.reduceSub]
+    rw [show 473 = 11 * 43 by norm_num,
+      padicValNat.mul (by norm_num) (by norm_num),
+      padicValNat_self,
+      padicValNat.eq_zero_of_not_dvd (by norm_num)]
+  rw [hbase]
+
+/-- After clearing the powers of `2` and `3`, the full root-grid gap
+numerator contains at least one factor `11` per unordered pair. -/
+theorem eleven_pow_choose_two_dvd_full_grid_gapNumerator
+    (g : Ray) (ν : ℕ) :
+    11 ^ ((3 * ν).choose 2) ∣
+      GeometricVandermonde.gapNumerator
+        g.ratioNumerator g.ratioDenominator (3 * ν) :=
+  GeometricVandermonde.pow_choose_two_dvd_gapNumerator
+    g.ratioNumerator_le_ratioDenominator g.eleven_dvd_ratio_base_gap
+
+/-- The identical quadratic lower bound at the independent auxiliary prime
+`43`. -/
+theorem fortyThree_pow_choose_two_dvd_full_grid_gapNumerator
+    (g : Ray) (ν : ℕ) :
+    43 ^ ((3 * ν).choose 2) ∣
+      GeometricVandermonde.gapNumerator
+        g.ratioNumerator g.ratioDenominator (3 * ν) :=
+  GeometricVandermonde.pow_choose_two_dvd_gapNumerator
+    g.ratioNumerator_le_ratioDenominator g.fortyThree_dvd_ratio_base_gap
+
+/-- Exact auxiliary-prime valuation of the complete cleared grid numerator
+at `11` (QM123d). -/
+theorem padicValNat_eleven_full_grid_gapNumerator (g : Ray) (ν : ℕ) :
+    padicValNat 11
+        (GeometricVandermonde.gapNumerator
+          g.ratioNumerator g.ratioDenominator (3 * ν)) =
+      ((3 * ν).choose 2) * (1 + padicValNat 11 g.cycleGain) +
+        ∑ d ∈ Finset.Ico 1 (3 * ν),
+          (3 * ν - d) * padicValNat 11 d := by
+  letI : Fact (Nat.Prime 11) := ⟨by norm_num⟩
+  rw [GeometricVandermonde.padicValNat_gapNumerator_of_lte
+    (p := 11) (by norm_num) g.ratioNumerator_lt_ratioDenominator
+    g.eleven_dvd_ratio_base_gap]
+  · rw [g.padicValNat_eleven_ratio_base_gap]
+  · intro hdiv
+    have := (show Nat.Prime 11 by norm_num).dvd_of_dvd_pow hdiv
+    norm_num [ratioDenominator] at this
+
+/-- Exact companion formula at `43`. -/
+theorem padicValNat_fortyThree_full_grid_gapNumerator (g : Ray) (ν : ℕ) :
+    padicValNat 43
+        (GeometricVandermonde.gapNumerator
+          g.ratioNumerator g.ratioDenominator (3 * ν)) =
+      ((3 * ν).choose 2) * (1 + padicValNat 43 g.cycleGain) +
+        ∑ d ∈ Finset.Ico 1 (3 * ν),
+          (3 * ν - d) * padicValNat 43 d := by
+  letI : Fact (Nat.Prime 43) := ⟨by norm_num⟩
+  rw [GeometricVandermonde.padicValNat_gapNumerator_of_lte
+    (p := 43) (by norm_num) g.ratioNumerator_lt_ratioDenominator
+    g.fortyThree_dvd_ratio_base_gap]
+  · rw [g.padicValNat_fortyThree_ratio_base_gap]
+  · intro hdiv
+    have := (show Nat.Prime 43 by norm_num).dvd_of_dvd_pow hdiv
+    norm_num [ratioDenominator] at this
 
 theorem step_backward (g : Ray) (t : ℕ) :
     (g.core t : ℚ) =

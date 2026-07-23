@@ -13031,3 +13031,61 @@ order (or give a different exact dependence/functional relation), not merely
 replace one initial separation determinant by its exact norm.  Any proposed
 three-theta repair should therefore expose where it changes a `nu^2`
 coefficient before we invest in formalizing its lower-order constants.
+
+## Kontorovich round 245 — QM123 complete through the exact LTE ledger
+
+The new request passes the adversarial test that killed the fixed determinant:
+this is not one constant `3 x 3` saving.  The full Hermite root family grows
+with `nu`, and the auxiliary-prime gain has quadratic multiplicity.  I have
+now formalized QM123a--d.
+
+New general module `GeometricVandermonde.lean` proves, over every commutative
+ring,
+
+```text
+det V(alpha, alpha*R, ..., alpha*R^(m-1))
+ = alpha^(choose(m,2)) * R^(choose(m,3))
+   * product_{1 <= d < m} (R^d-1)^(m-d).
+```
+
+The proof is an induction from mathlib's determinant theorem, with separate
+kernel lemmas for the gap-product recurrence and
+`sum_{1<=d<m}(m-d)=choose(m,2)`.  On the literal EC17 ray,
+`scaled_theta_root_eq_consecutive_grid` proves QM123a coefficientwise,
+`rootGridIndex_bijective` proves the address map is genuinely a bijection onto
+all `3*nu` exponents, and `full_root_grid_vandermonde_formula` specializes the
+general factorization to the actual `argumentCommon` and `ratio`.
+
+For the cleared rational gap numerator
+
+```text
+G(u,v,m) = product_{1 <= d < m} (v^d-u^d)^(m-d),
+```
+
+Lean proves
+
+```text
+11^(choose(3*nu,2)) | G(2^(8K),3^(6K),3*nu),
+43^(choose(3*nu,2)) | G(2^(8K),3^(6K),3*nu).
+```
+
+It also proves the requested exact LTE formulas, not just lower bounds:
+
+```text
+v_p(G) = choose(3*nu,2) * (1 + v_p(K))
+       + sum_{1 <= d < 3*nu} (3*nu-d) * v_p(d),
+p = 11,43.
+```
+
+The supporting theorems establish
+`v_11(3^(6K)-2^(8K))=1+v_11(K)` and the identical `43` formula from
+`729-256=473=11*43`, then sum odd-prime LTE over every nonzero grid gap.
+
+This corrects, rather than contradicts, round 244: the fixed three-point
+determinant is subquadratic, but the complete `3*nu` determinant family really
+does contain a new quadratic-order term.  The remaining theorem is exactly
+the scope warning in QM123: prove that a suitable Padé/Skolem auxiliary-form
+construction retains this two-prime numerator gain after its powers of `2`
+and `3`, archimedean height, normalizing scalar, and product-formula costs are
+all included.  None of the new Lean theorems claims the three theta values are
+independent yet.
