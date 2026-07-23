@@ -50,6 +50,18 @@ def accumulate : List ResetStep → ResetData → ResetData
 def programData (w : List ResetStep) : ResetData :=
   accumulate w initialData
 
+theorem accumulate_append (u v : List ResetStep) (d : ResetData) :
+    accumulate (u ++ v) d = accumulate v (accumulate u d) := by
+  induction u generalizing d with
+  | nil => rfl
+  | cons e u ih =>
+      simp only [List.cons_append, accumulate]
+      exact ih (d.step e)
+
+theorem programData_append_singleton (w : List ResetStep) (e : ResetStep) :
+    programData (w ++ [e]) = (programData w).step e := by
+  simp [programData, accumulate_append, accumulate]
+
 /-- A finite payload chain obeys the reset instructions exactly. -/
 def Obeys : List ResetStep → ℤ → ℤ → Prop
   | [], mStart, mEnd => mEnd = mStart
@@ -58,6 +70,28 @@ def Obeys : List ResetStep → ℤ → ℤ → Prop
         (2 : ℤ) ^ e.N * mMiddle =
           (3 : ℤ) ^ e.O * mStart + e.delta ∧
         Obeys w mMiddle mEnd
+
+theorem obeys_append (u v : List ResetStep) (mStart mEnd : ℤ) :
+    Obeys (u ++ v) mStart mEnd ↔
+      ∃ mMiddle : ℤ,
+        Obeys u mStart mMiddle ∧ Obeys v mMiddle mEnd := by
+  induction u generalizing mStart with
+  | nil =>
+      simp only [Obeys]
+      constructor
+      · intro h
+        exact ⟨mStart, rfl, h⟩
+      · rintro ⟨middle, hmiddle, htail⟩
+        subst middle
+        exact htail
+  | cons e u ih =>
+      simp only [List.cons_append, Obeys]
+      constructor
+      · rintro ⟨next, hstep, hrest⟩
+        obtain ⟨middle, hu, hv⟩ := (ih next).mp hrest
+        exact ⟨middle, ⟨next, hstep, hu⟩, hv⟩
+      · rintro ⟨middle, ⟨next, hstep, hu⟩, hv⟩
+        exact ⟨next, hstep, (ih next).mpr ⟨middle, hu, hv⟩⟩
 
 /-- One reset step preserves the accumulated affine invariant. -/
 theorem ResetData.step_invariant (d : ResetData) (e : ResetStep)
@@ -131,6 +165,236 @@ theorem initial_modEq_neg_defect
     _ = -((2 : ℤ) ^ (programData w).S * mEnd) := by rw [← hexact]
     _ = (2 : ℤ) ^ (programData w).S * -mEnd := by ring
 
+/-- Terminal dyadic cylinder in divisibility form. -/
+def TerminalDivisible (w : List ResetStep) (mStart : ℤ) : Prop :=
+  (2 : ℤ) ^ (programData w).S ∣
+    (3 : ℤ) ^ (programData w).P * mStart + (programData w).D
+
+theorem terminalDivisible_of_obeys
+    (w : List ResetStep) {mStart mEnd : ℤ}
+    (hw : Obeys w mStart mEnd) :
+    TerminalDivisible w mStart := by
+  use mEnd
+  exact (program_exact w hw).symm
+
+/-- QM138e: the one accumulated dyadic cylinder reconstructs every
+intermediate integral quotient of the finite reset block. -/
+theorem exists_obeys_of_terminalDivisible
+    (w : List ResetStep) {mStart : ℤ}
+    (hterm : TerminalDivisible w mStart) :
+    ∃ mEnd : ℤ, Obeys w mStart mEnd := by
+  induction w using List.reverseRecOn generalizing mStart with
+  | nil =>
+      exact ⟨mStart, rfl⟩
+  | append_singleton u e ih =>
+      let d := programData u
+      let prefixNumerator :=
+        (3 : ℤ) ^ d.P * mStart + d.D
+      have hfull := hterm
+      rw [TerminalDivisible, programData_append_singleton] at hfull
+      simp only [ResetData.step] at hfull
+      have hfull' : (2 : ℤ) ^ (d.S + e.N) ∣
+          (3 : ℤ) ^ e.O * prefixNumerator +
+            (2 : ℤ) ^ d.S * e.delta := by
+        convert hfull using 1 <;> dsimp [prefixNumerator, d] <;>
+          rw [pow_add] <;> ring
+      have hsmallDivisor : (2 : ℤ) ^ d.S ∣
+          (2 : ℤ) ^ (d.S + e.N) := by
+        exact_mod_cast pow_dvd_pow 2 (Nat.le_add_right d.S e.N)
+      have hsmallFull : (2 : ℤ) ^ d.S ∣
+          (3 : ℤ) ^ e.O * prefixNumerator +
+            (2 : ℤ) ^ d.S * e.delta :=
+        hsmallDivisor.trans hfull'
+      have hdelta : (2 : ℤ) ^ d.S ∣ (2 : ℤ) ^ d.S * e.delta :=
+        dvd_mul_right _ _
+      have hoddProduct : (2 : ℤ) ^ d.S ∣
+          (3 : ℤ) ^ e.O * prefixNumerator := by
+        have hsub := Int.dvd_sub hsmallFull hdelta
+        convert hsub using 1 <;> ring
+      have hcopNat : (3 ^ e.O).Coprime (2 ^ d.S) := by
+        exact (by norm_num : Nat.Coprime 3 2).pow _ _
+      have hprefix : (2 : ℤ) ^ d.S ∣ prefixNumerator :=
+        hcopNat.isCoprime.symm.dvd_of_dvd_mul_left hoddProduct
+      have hprefixTerm : TerminalDivisible u mStart := by
+        simpa [TerminalDivisible, prefixNumerator, d] using hprefix
+      obtain ⟨middle, hu⟩ := ih hprefixTerm
+      have hexact := program_exact u hu
+      change (2 : ℤ) ^ d.S * middle = prefixNumerator at hexact
+      have hfullFactored :
+          (2 : ℤ) ^ d.S * (2 : ℤ) ^ e.N ∣
+            (2 : ℤ) ^ d.S *
+              ((3 : ℤ) ^ e.O * middle + e.delta) := by
+        rw [← pow_add]
+        convert hfull' using 1 <;> rw [← hexact] <;> ring
+      have hnextDiv : (2 : ℤ) ^ e.N ∣
+          (3 : ℤ) ^ e.O * middle + e.delta :=
+        Int.dvd_of_mul_dvd_mul_left
+          (pow_ne_zero d.S (by norm_num : (2 : ℤ) ≠ 0)) hfullFactored
+      obtain ⟨mEnd, hmEnd⟩ := hnextDiv
+      refine ⟨mEnd, (obeys_append u [e] mStart mEnd).mpr ?_⟩
+      refine ⟨middle, hu, ?_⟩
+      exact ⟨mEnd, hmEnd.symm, rfl⟩
+
+theorem terminalDivisible_iff_exists_obeys
+    (w : List ResetStep) (mStart : ℤ) :
+    TerminalDivisible w mStart ↔ ∃ mEnd : ℤ, Obeys w mStart mEnd :=
+  ⟨exists_obeys_of_terminalDivisible w,
+    fun ⟨mEnd, hw⟩ => terminalDivisible_of_obeys w hw⟩
+
+/-! ## Positive finite realizations -/
+
+/-- A reset chain all of whose payloads, including both endpoints, are
+strictly positive. -/
+def ObeysPositive : List ResetStep → ℤ → ℤ → Prop
+  | [], mStart, mEnd => mEnd = mStart ∧ 0 < mStart
+  | e :: w, mStart, mEnd =>
+      0 < mStart ∧ ∃ mMiddle : ℤ,
+        (2 : ℤ) ^ e.N * mMiddle =
+          (3 : ℤ) ^ e.O * mStart + e.delta ∧
+        ObeysPositive w mMiddle mEnd
+
+theorem obeysPositive_obeys
+    (w : List ResetStep) {mStart mEnd : ℤ}
+    (hw : ObeysPositive w mStart mEnd) :
+    Obeys w mStart mEnd := by
+  induction w generalizing mStart with
+  | nil => exact hw.1
+  | cons e w ih =>
+      exact ⟨hw.2.choose, hw.2.choose_spec.1,
+        ih hw.2.choose_spec.2⟩
+
+/-- The accumulated written and odd exponents split additively across an
+arbitrary initial accumulator. -/
+theorem accumulate_S (w : List ResetStep) (d : ResetData) :
+    (accumulate w d).S = d.S + (w.map ResetStep.N).sum := by
+  induction w generalizing d with
+  | nil => simp [accumulate]
+  | cons e w ih =>
+      simp only [accumulate, ih, ResetData.step, List.map_cons,
+        List.sum_cons]
+      omega
+
+theorem accumulate_P (w : List ResetStep) (d : ResetData) :
+    (accumulate w d).P = d.P + (w.map ResetStep.O).sum := by
+  induction w generalizing d with
+  | nil => simp [accumulate]
+  | cons e w ih =>
+      simp only [accumulate, ih, ResetData.step, List.map_cons,
+        List.sum_cons]
+      omega
+
+theorem programData_cons_S (e : ResetStep) (w : List ResetStep) :
+    (programData (e :: w)).S = e.N + (programData w).S := by
+  simp [programData, initialData, accumulate, accumulate_S,
+    ResetData.step]
+
+theorem programData_cons_P (e : ResetStep) (w : List ResetStep) :
+    (programData (e :: w)).P = e.O + (programData w).P := by
+  simp [programData, initialData, accumulate, accumulate_P,
+    ResetData.step]
+
+/-- The exact affine symmetry of a finite reset chain.  Its initial payload
+may be shifted by the full dyadic cylinder width; every later payload shifts
+by the corresponding positive prefix coefficient. -/
+theorem obeys_shift
+    (w : List ResetStep) {mStart mEnd : ℤ}
+    (hw : Obeys w mStart mEnd) (t : ℤ) :
+    Obeys w
+      (mStart + (2 : ℤ) ^ (programData w).S * t)
+      (mEnd + (3 : ℤ) ^ (programData w).P * t) := by
+  induction w generalizing mStart t with
+  | nil =>
+      simpa [Obeys, programData, initialData, accumulate] using hw
+  | cons e w ih =>
+      obtain ⟨middle, hstep, htail⟩ := hw
+      rw [programData_cons_S, programData_cons_P]
+      refine ⟨middle + (2 : ℤ) ^ (programData w).S *
+          ((3 : ℤ) ^ e.O * t), ?_, ?_⟩
+      · rw [pow_add]
+        calc
+          (2 : ℤ) ^ e.N *
+              (middle + (2 : ℤ) ^ (programData w).S *
+                ((3 : ℤ) ^ e.O * t)) =
+              (2 : ℤ) ^ e.N * middle +
+                (3 : ℤ) ^ e.O *
+                  ((2 : ℤ) ^ e.N *
+                    (2 : ℤ) ^ (programData w).S * t) := by ring
+          _ = (3 : ℤ) ^ e.O * mStart + e.delta +
+                (3 : ℤ) ^ e.O *
+                  ((2 : ℤ) ^ e.N *
+                    (2 : ℤ) ^ (programData w).S * t) := by rw [hstep]
+          _ = (3 : ℤ) ^ e.O *
+                (mStart +
+                  ((2 : ℤ) ^ e.N *
+                    (2 : ℤ) ^ (programData w).S) * t) +
+                e.delta := by ring
+      · convert ih htail ((3 : ℤ) ^ e.O * t) using 1 <;>
+          rw [pow_add] <;> ring
+
+/-- A quantitative form of finite positivity: after a large enough
+nonnegative cylinder shift, the entire realized chain is positive. -/
+theorem obeysPositive_shift_eventually
+    (w : List ResetStep) {mStart mEnd : ℤ}
+    (hw : Obeys w mStart mEnd) :
+    ∃ T : ℕ, ∀ t : ℕ, T ≤ t →
+      ObeysPositive w
+        (mStart + (2 : ℤ) ^ (programData w).S * t)
+        (mEnd + (3 : ℤ) ^ (programData w).P * t) := by
+  induction w generalizing mStart with
+  | nil =>
+      simp only [Obeys] at hw
+      subst mEnd
+      refine ⟨mStart.natAbs + 1, fun t ht => ?_⟩
+      simp only [programData, accumulate, initialData, pow_zero, one_mul,
+        ObeysPositive]
+      refine ⟨True.intro, ?_⟩
+      have habs : mStart ≤ (mStart.natAbs : ℤ) := Int.le_natAbs
+      have ht' : (mStart.natAbs : ℤ) + 1 ≤ (t : ℤ) := by exact_mod_cast ht
+      omega
+  | cons e w ih =>
+      obtain ⟨middle, hstep, htail⟩ := hw
+      obtain ⟨Ttail, hTtail⟩ := ih htail
+      refine ⟨max (mStart.natAbs + 1) Ttail, fun t ht => ?_⟩
+      have hstartBound : mStart.natAbs + 1 ≤ t :=
+        le_trans (Nat.le_max_left _ _) ht
+      have htailBound : Ttail ≤ t :=
+        le_trans (Nat.le_max_right _ _) ht
+      have htailScale : Ttail ≤ 3 ^ e.O * t := by
+        exact le_trans htailBound (Nat.le_mul_of_pos_left t (by positivity))
+      have htailPositive := hTtail (3 ^ e.O * t) htailScale
+      rw [programData_cons_S, programData_cons_P]
+      refine ⟨?_, middle + (2 : ℤ) ^ (programData w).S *
+          ((3 : ℤ) ^ e.O * t), ?_, ?_⟩
+      · have habs : mStart ≤ (mStart.natAbs : ℤ) := Int.le_natAbs
+        have ht' : (mStart.natAbs : ℤ) + 1 ≤ (t : ℤ) := by
+          exact_mod_cast hstartBound
+        have hp : (1 : ℤ) ≤ (2 : ℤ) ^ (e.N + (programData w).S) := by
+          exact one_le_pow₀ (by norm_num)
+        have ht0 : (0 : ℤ) ≤ (t : ℤ) := Int.natCast_nonneg t
+        have hprod : (t : ℤ) ≤
+            (2 : ℤ) ^ (e.N + (programData w).S) * (t : ℤ) := by
+          nlinarith
+        omega
+      · rw [pow_add]
+        calc
+          (2 : ℤ) ^ e.N *
+              (middle + (2 : ℤ) ^ (programData w).S *
+                ((3 : ℤ) ^ e.O * (t : ℤ))) =
+              (2 : ℤ) ^ e.N * middle +
+                (3 : ℤ) ^ e.O *
+                  ((2 : ℤ) ^ e.N *
+                    (2 : ℤ) ^ (programData w).S * (t : ℤ)) := by ring
+          _ = (3 : ℤ) ^ e.O * mStart + e.delta +
+                (3 : ℤ) ^ e.O *
+                  ((2 : ℤ) ^ e.N *
+                    (2 : ℤ) ^ (programData w).S * (t : ℤ)) := by rw [hstep]
+          _ = (3 : ℤ) ^ e.O *
+                (mStart +
+                  ((2 : ℤ) ^ e.N *
+                    (2 : ℤ) ^ (programData w).S) * (t : ℤ)) +
+                e.delta := by ring
+      · convert htailPositive using 1 <;> norm_cast <;> ring
+
 /-- The odd slope in the initial cylinder is coprime to its dyadic modulus. -/
 theorem three_pow_coprime_two_pow (P S : ℕ) :
     (3 ^ P).Coprime (2 ^ S) := by
@@ -169,6 +433,27 @@ theorem exists_initial_payload_class (w : List ResetStep) :
       rw [ZMod.coe_mul_inv_eq_one _
         (three_pow_coprime_two_pow
           (programData w).P (programData w).S), one_mul]
+
+theorem exists_terminalDivisible (w : List ResetStep) :
+    ∃ mStart : ℤ, TerminalDivisible w mStart := by
+  obtain ⟨m, hm⟩ := exists_initial_payload_class w
+  refine ⟨m, ?_⟩
+  rw [Int.modEq_iff_dvd] at hm
+  rw [TerminalDivisible]
+  have hneg := dvd_neg.mpr hm
+  simpa [sub_eq_add_neg] using hneg
+
+/-- QM138f: every finite reset instruction word, without any sign condition
+on its affine defects, is realized by a chain of strictly positive integer
+payloads.  Thus positivity creates no finite-cylinder obstruction. -/
+theorem exists_positive_obeys (w : List ResetStep) :
+    ∃ mStart mEnd : ℤ, ObeysPositive w mStart mEnd := by
+  obtain ⟨mStart, hterm⟩ := exists_terminalDivisible w
+  obtain ⟨mEnd, hw⟩ := exists_obeys_of_terminalDivisible w hterm
+  obtain ⟨T, hT⟩ := obeysPositive_shift_eventually w hw
+  exact ⟨mStart + (2 : ℤ) ^ (programData w).S * T,
+    mEnd + (3 : ℤ) ^ (programData w).P * T,
+    hT T le_rfl⟩
 
 /-- The selected initial dyadic class is unique. -/
 theorem initial_payload_class_unique

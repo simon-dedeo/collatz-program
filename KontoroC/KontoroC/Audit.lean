@@ -1346,7 +1346,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.KLDyadicReset.ResetData.step_invariant
 #print axioms KontoroC.KLDyadicReset.program_exact
 #print axioms KontoroC.KLDyadicReset.initial_modEq_neg_defect
+#print axioms KontoroC.KLDyadicReset.terminalDivisible_iff_exists_obeys
+#print axioms KontoroC.KLDyadicReset.obeys_shift
+#print axioms KontoroC.KLDyadicReset.obeysPositive_shift_eventually
 #print axioms KontoroC.KLDyadicReset.exists_initial_payload_class
+#print axioms KontoroC.KLDyadicReset.exists_positive_obeys
 #print axioms KontoroC.KLDyadicReset.initial_payload_class_unique
 #print axioms KontoroC.KLDyadicReset.two_pow_dvd_initial_difference
 #print axioms KontoroC.KLDyadicReset.cumulative_exact

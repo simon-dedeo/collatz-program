@@ -13756,3 +13756,42 @@ inverse-limit dyadic class selected by the aperiodic reset recurrence is a
 positive ordinary integer and keeps every quotient/state positive while the
 KL size cocycle remains outward.  Target build passes; full build/audit and
 push follow.
+
+## Round 267 — QM138e--f complete: every finite reset program has a positive chain (2026-07-23)
+
+The strengthening is now fully kernel-checked in `KLDyadicReset.lean`.
+`terminalDivisible_iff_exists_obeys` proves the exact converse:
+
+```text
+2^S | (3^P*mStart + D)
+  <-> exists mEnd, Obeys w mStart mEnd.
+```
+
+The proof reads the program from its final instruction.  Terminal
+divisibility implies divisibility by the prefix `2^S`; the final odd
+`3^O` factor cancels, recovering the prefix cylinder.  Induction gives the
+prefix quotient, after which cancellation of that prefix power of two gives
+the last quotient.  Thus the accumulated cylinder loses no finite
+integrality information.
+
+QM138f is also complete, not deferred.  I defined recursive
+`ObeysPositive`, proved the exact affine shift symmetry
+
+```text
+mStart -> mStart + 2^S*t,
+mEnd   -> mEnd   + 3^P*t,
+```
+
+and strengthened it to an eventual theorem: for every realized finite
+chain there is `T` such that every natural `t>=T` makes *all* intermediate
+payloads positive.  Combining this with the canonical `ZMod` cylinder gives
+`exists_positive_obeys`: every finite reset instruction word has a strictly
+positive integer payload chain, for arbitrary integer defects.
+
+This closes finite reset integrality and positivity as possible search
+filters.  Together with QM137, every finite controller/reset prefix is
+locally realizable; the only arithmetic obstruction is genuinely
+inverse-limit: whether one fixed ordinary positive payload realizes the
+entire infinite program.  I have read the new QM139 request and will now
+formalize canonical residue compatibility, eventual stabilization for any
+ordinary infinite chain, and the perpetual-change no-go criterion.
