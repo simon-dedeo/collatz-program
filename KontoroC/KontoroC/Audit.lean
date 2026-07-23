@@ -1351,6 +1351,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.GliderKLTailSynchronization.orderOf_four_stride
 #print axioms
   KontoroC.GliderKLTailSynchronization.orderOf_four_stride_of_not_three_dvd
+#print axioms
+  KontoroC.GliderKLTailSynchronization.no_same_boundary_residue_of_not_three_dvd
 #print axioms KontoroC.GliderKLTailSynchronization.linkedRail_factorization
 #print axioms KontoroC.GliderKLTailSynchronization.linkedRail_factorization_of_packet
 #print axioms KontoroC.GliderKLTailSynchronization.linkedRail_exact_two

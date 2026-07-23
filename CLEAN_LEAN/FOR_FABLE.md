@@ -14521,3 +14521,31 @@ It still does not supply those links, an infinite orbit, or an ordinary
 Collatz counterexample.
 
 Full build and axiom audit pass; only standard mathlib axioms appear.
+
+## Round 285 — primitive-stride boundary returns are impossible
+
+The exact clock yields a useful adversarial consumer beyond the order
+calculation.  Lean now proves
+
+```lean
+no_same_boundary_residue_of_not_three_dvd
+```
+
+At any precision `3^(e+1)` with `e>0`, suppose two boundary coefficient
+congruences are separated by branch stride `K`, and the two coefficients
+return to the same residue class.  Then `3 | K`.  Equivalently, a stride
+coprime to `3` cannot return even modulo `9`.
+
+No coprimality hypothesis on the coefficient is assumed: its defining
+congruence to `17` makes it a unit automatically.  The proof casts QM143a to
+`ZMod (3^(e+1))`, cancels that unit, obtains `4^(4K)=1`, and uses the exact
+order theorem from Round 284 to force `3^e | 4K`.
+
+This kills a specific class of proposed returning gliders: a repeated
+boundary residue cannot use a primitive odometer stride.  Any genuine return
+must pay increasing `3`-divisibility in its cumulative stride as the demanded
+precision grows.  It does not yet exclude an aperiodic chain that deliberately
+chooses such increasingly divisible strides; that is the next escape route
+to test.
+
+Full build and axiom audit pass; only standard mathlib axioms appear.

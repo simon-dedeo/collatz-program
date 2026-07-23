@@ -105,6 +105,56 @@ theorem orderOf_four_stride_of_not_three_dvd {K : ℕ} (hK : ¬ 3 ∣ K) (d : �
     rwa [orderOf_four_threePow]
   rw [hc'.orderOf_pow, orderOf_four_threePow]
 
+/-- Adversarial return obstruction for the true boundary clock.  At
+precision at least `3^2`, two coefficient states in the same residue class
+cannot be separated by a stride coprime to `3`.  The boundary congruence
+itself makes the coefficient a unit, so no extra coprimality premise on
+`c` is hidden here. -/
+theorem no_same_boundary_residue_of_not_three_dvd
+    {c c' : ℤ} {n K e : ℕ}
+    (he : 0 < e) (hK : ¬ 3 ∣ K)
+    (h₁ : Int.ModEq (3 ^ (e + 1)) (2 ^ (8 * n + 15) * c) 17)
+    (h₂ : Int.ModEq (3 ^ (e + 1))
+      (2 ^ (8 * (n + K) + 15) * c') 17)
+    (hcc : Int.ModEq (3 ^ (e + 1)) c' c) :
+    False := by
+  have hclock := boundaryOdometer_modEq h₁ h₂
+  have hccZ : (c' : ZMod (3 ^ (e + 1))) = c :=
+    (ZMod.intCast_eq_intCast_iff _ _ _).2 hcc
+  have hclockZ :
+      (4 : ZMod (3 ^ (e + 1))) ^ (4 * K) * (2 * c) = (2 * c) := by
+    simpa only [Int.cast_mul, Int.cast_pow, Int.cast_ofNat, hccZ] using
+      (ZMod.intCast_eq_intCast_iff _ _ _).2 hclock
+  have h₁Z :
+      (2 : ZMod (3 ^ (e + 1))) ^ (8 * n + 15) * c = 17 := by
+    simpa only [Int.cast_mul, Int.cast_pow, Int.cast_ofNat] using
+      (ZMod.intCast_eq_intCast_iff _ _ _).2 h₁
+  have h17 : IsUnit (17 : ZMod (3 ^ (e + 1))) := by
+    change IsUnit ((17 : ℕ) : ZMod (3 ^ (e + 1)))
+    rw [ZMod.isUnit_iff_coprime]
+    exact (by norm_num : Nat.Coprime 17 3).pow_right (e + 1)
+  have hc : IsUnit (c : ZMod (3 ^ (e + 1))) := by
+    have hp : IsUnit
+        ((2 : ZMod (3 ^ (e + 1))) ^ (8 * n + 15) * c) := by
+      rw [h₁Z]
+      exact h17
+    exact isUnit_of_mul_isUnit_right hp
+  have h2 : IsUnit (2 : ZMod (3 ^ (e + 1))) := by
+    change IsUnit ((2 : ℕ) : ZMod (3 ^ (e + 1)))
+    rw [ZMod.isUnit_iff_coprime]
+    exact (by norm_num : Nat.Coprime 2 3).pow_right (e + 1)
+  have h2c : IsUnit (2 * c : ZMod (3 ^ (e + 1))) := h2.mul hc
+  have hpowe : (4 : ZMod (3 ^ (e + 1))) ^ (4 * K) = 1 := by
+    rw [← h2c.mul_left_inj]
+    simpa using hclockZ
+  have hdiv : 3 ^ e ∣ 4 * K := by
+    rw [← orderOf_four_threePow e]
+    exact orderOf_dvd_of_pow_eq_one hpowe
+  have h3 : 3 ∣ 4 * K := (dvd_pow_self 3 he.ne').trans hdiv
+  rcases Nat.prime_three.dvd_mul.mp h3 with h4 | hK'
+  · norm_num at h4
+  · exact hK hK'
+
 /-- QM144a: the packet/core chart implies the moving-target identity for
 the literal boundary numerator `Z`. -/
 theorem packetChart_identity {K u Z : ℤ} {n : ℕ} (hn : 1 ≤ n)
