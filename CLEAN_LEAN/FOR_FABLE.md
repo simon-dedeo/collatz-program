@@ -13271,3 +13271,26 @@ factor may absorb longer and longer apparent drift.  A useful next theorem
 must either control the condition number after a canonical renormalization or
 prove that one ordinary-natural path cannot cofinally occupy the exceptional
 high-potential fibers.  The current finite data establishes neither branch.
+
+## Kontorovich round 252 — exact size cost of chasing the `-1` spike
+
+I added the elementary but conceptually relevant ordinary/3-adic seam to
+`KLMinusOneRail.lean`.  Lean now proves
+
+```text
+n mod 3^k = 3^k-1  ->  3^k <= n+1.
+```
+
+It follows constructively that every fixed ordinary natural eventually
+avoids the all-`2` (`-1`) ternary spine, and no natural has that inverse-limit
+address at every precision.  This does **not** exclude a diagonal sequence
+`n_k` which grows while tracking the spike.  Instead it quantifies the exact
+remaining loophole: cofinal spike tracking at precision `k` costs at least
+exponential ordinary size `3^k-1`.
+
+Combined with QM128, a pure class-8 diagonal spends a finite dyadic counter;
+combined with QM130, an aperiodic fixed-level path pays deviation tax.  A live
+mixed counterexample architecture must now both recharge the dyadic counter
+and grow fast enough to keep pace with the moving 3-adic precision.  Turning
+that conjunction into a contradiction would require a cross-precision bound;
+none of the present theorems silently supplies it.

@@ -1271,6 +1271,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.KLMinusOneRail.no_infinite_positive_splice_chain
 #print axioms KontoroC.KLMinusOneRail.r8_iterate_add_one
 #print axioms KontoroC.KLMinusOneRail.r8_periodic_only_minusOne
+#print axioms KontoroC.KLMinusOneRail.minusOne_residue_forces_scale
+#print axioms KontoroC.KLMinusOneRail.ordinary_eventually_avoids_minusOne_spine
+#print axioms KontoroC.KLMinusOneRail.no_ordinary_minusOne_inverseLimit_address
 #print axioms KontoroC.KLCalibratedCycle.path_telescoping
 #print axioms KontoroC.KLCalibratedCycle.multiplicative_path_telescoping
 #print axioms KontoroC.KLCalibratedCycle.multiplicative_path_condition_bound

@@ -175,5 +175,37 @@ theorem r8_periodic_only_minusOne {L : ℕ} {x : ℚ}
     pow_lt_one₀ (by norm_num) (by norm_num) hL.ne'
   nlinarith
 
+/-! ## Ordinary naturals cannot remain on the 3-adic spine -/
+
+/-- Matching the `-1` residue at precision `3^k` already forces exponential
+ordinary size. -/
+theorem minusOne_residue_forces_scale {n k : ℕ}
+    (hresidue : n % 3 ^ k = 3 ^ k - 1) :
+    3 ^ k ≤ n + 1 := by
+  have hle := Nat.mod_le n (3 ^ k)
+  rw [hresidue] at hle
+  omega
+
+/-- A fixed ordinary natural eventually differs from `-1` at every finer
+ternary precision.  Thus the exact exceptional spine is genuinely 3-adic;
+only a growing diagonal sequence of naturals can chase it. -/
+theorem ordinary_eventually_avoids_minusOne_spine (n : ℕ) :
+    ∃ K : ℕ, ∀ k : ℕ, K ≤ k → n % 3 ^ k ≠ 3 ^ k - 1 := by
+  refine ⟨n + 1, ?_⟩
+  intro k hk hresidue
+  have hscale := minusOne_residue_forces_scale hresidue
+  have hbase : n + 1 < 3 ^ (n + 1) := Nat.lt_pow_self (by omega)
+  have hmono : 3 ^ (n + 1) ≤ 3 ^ k :=
+    Nat.pow_le_pow_right (by omega) hk
+  omega
+
+/-- In particular, no single ordinary natural represents the all-`2`
+ternary address at every precision. -/
+theorem no_ordinary_minusOne_inverseLimit_address (n : ℕ) :
+    ¬∀ k : ℕ, n % 3 ^ k = 3 ^ k - 1 := by
+  intro hall
+  obtain ⟨K, hK⟩ := ordinary_eventually_avoids_minusOne_spine n
+  exact hK K (le_refl K) (hall K)
+
 end KLMinusOneRail
 end KontoroC
