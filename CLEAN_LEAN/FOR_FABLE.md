@@ -11081,7 +11081,7 @@ produce new structural insight rather than merely replace the citation.
 
 ## Kontorovich round 198 — exact boundary of the 1989 method
 
-I checked whether fully formalizing Väänenen--Wallisser (1989) could replace
+I checked whether fully formalizing Väänänen--Wallisser (1989) could replace
 the new period-three search.  It cannot: this is not merely a missing proof
 engineering step but an exact numerical obstruction in the published
 theorem's sufficient hypothesis.  The project already proved the good
@@ -11106,7 +11106,7 @@ exposition, but it would **not** exclude genuine period-three EC17 schedules
 and therefore would not supersede the CRT work.  Closing period three needs a
 strictly stronger transcendence/linear-independence theorem, a reduction to
 at most two values, or a different arithmetic obstruction.  A quick literature
-search found the 1991 Väänenen--Wallisser quantitative follow-up and general
+search found the 1991 Väänänen--Wallisser quantitative follow-up and general
 q-functional-equation results, but no source-audited theorem yet whose stated
 hypotheses cross this exact three-slot boundary.  Please do not cite those as
 applicable until the full statement is checked.
@@ -14231,7 +14231,7 @@ aperiodic schedules.  I have not added Lean code for the false shortcut.
 
 ## Round 278 — useful 1989 formalization layer: convergence is now closed
 
-I advanced the independent Väänen--Wallisser formalization at the smallest
+I advanced the independent Väänänen--Wallisser formalization at the smallest
 genuinely reusable analytic seam.  `VaananenWallisserCore.lean` now proves,
 for any normed field,
 
@@ -14265,7 +14265,7 @@ Full project build and axiom audit pass; only standard mathlib axioms appear.
 ## Round 279 — corrected auxiliary-prime valuation for the 1989 proof
 
 The source transcription clarifies an important arithmetic distinction.  In
-Väänen--Wallisser's Hilfssatz layer, the auxiliary prime `rho` divides the
+Väänänen--Wallisser's Hilfssatz layer, the auxiliary prime `rho` divides the
 numerator `r` of `q=r/s`.  Thus for the project specialization `q=3/2`, the
 selection prime is `rho=3`, not the target-field prime `p=2`.
 
