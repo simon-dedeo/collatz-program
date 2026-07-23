@@ -1211,6 +1211,41 @@ theorem exists_branch_ceiling_after
   obtain ⟨t, ht, hslow⟩ := o.exists_nonexpanding_after K
   exact ⟨t, ht, o.branch_ceiling_of_nonexpanding t hslow⟩
 
+/-- Above the small explicit threshold `40`, the exact branch ceiling forces
+the more memorable strict ratio `n_(t+1) / n_t < 6 / 5`. -/
+theorem branch_ratio_lt_six_fifths_of_ceiling
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (t : ℕ)
+    (hlarge : 40 ≤ o.oneBasedLevel t)
+    (hceiling :
+      328 * o.oneBasedLevel (t + 1) <
+        390 * o.oneBasedLevel t + 141) :
+    5 * o.oneBasedLevel (t + 1) < 6 * o.oneBasedLevel t := by
+  omega
+
+/-- If the branch is eventually at least `40`, then arbitrarily late steps
+grow by strictly less than the factor `6 / 5`.  Thus an eventually uniform
+`6 / 5` growth rule cannot underlie a literal positive EC17 execution. -/
+theorem exists_branch_ratio_lt_six_fifths_after
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (K : ℕ)
+    (hlarge : ∀ t, K ≤ t → 40 ≤ o.oneBasedLevel t) :
+    ∃ t, K ≤ t ∧
+      5 * o.oneBasedLevel (t + 1) < 6 * o.oneBasedLevel t := by
+  obtain ⟨t, ht, hceiling⟩ := o.exists_branch_ceiling_after K
+  exact ⟨t, ht,
+    o.branch_ratio_lt_six_fifths_of_ceiling t (hlarge t ht) hceiling⟩
+
+/-- Search-facing negation form of
+`exists_branch_ratio_lt_six_fifths_after`. -/
+theorem no_eventual_six_fifths_growth
+    (o : EtherCounterAperiodic.TernaryCoreOrbit) (K : ℕ)
+    (hlarge : ∀ t, K ≤ t → 40 ≤ o.oneBasedLevel t) :
+    ¬ ∀ t, K ≤ t →
+      6 * o.oneBasedLevel t ≤ 5 * o.oneBasedLevel (t + 1) := by
+  intro hgrowth
+  obtain ⟨t, ht, hslow⟩ :=
+    o.exists_branch_ratio_lt_six_fifths_after K hlarge
+  exact (not_lt_of_ge (hgrowth t ht)) hslow
+
 /-- A literal ternary-core orbit on a geometric one-based level schedule is
 exactly the abstract EC17 ray used by the Mahler reduction. -/
 def toGeometricMahlerRay

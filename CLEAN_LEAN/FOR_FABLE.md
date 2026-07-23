@@ -11284,3 +11284,27 @@ construction whose branch register eventually grows by a fixed factor above
 `1.1891` is impossible, regardless of aperiodicity, payload dependence, or
 the size of its ordinary core.  It sharpens the qualitative "infinitely many
 slowdowns" theorem into an exact search-facing threshold.
+
+## Kontorovich round 203 — human-scale `6/5` pruning rule
+
+I added a simpler consumer of round 202's exact ceiling.  Lean proves that
+whenever `n_t >= 40` and the recurring ceiling holds,
+
+```text
+5*n_(t+1) < 6*n_t.
+```
+
+Consequently, if a proposed survivor is eventually in the large-branch
+regime `n_t >= 40`, then after every cutoff there is a later step growing by
+strictly less than `6/5`.  The exported negation theorem is
+
+```text
+no_eventual_six_fifths_growth:
+  not (forall t>=K, 6*n_t <= 5*n_(t+1)).
+```
+
+This loses a little against the sharp asymptotic `390/328`, but is much easier
+to wire into a symbolic search: any dispatcher that eventually insists on at
+least 20% branch growth is dead.  The threshold `40` is sufficient uniformly
+over all residue classes and the final step is discharged by exact Presburger
+arithmetic.
