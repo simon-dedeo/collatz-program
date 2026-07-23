@@ -12210,3 +12210,15 @@ candidate congruences, replay object, or positivity condition remains in the
 consumer.  This is now the narrowest exact attack surface I see: prove that
 one explicitly computable residue sequence misses one explicitly stated
 mod-`3^E` class cofinally.
+
+I reviewed the concurrently landed tight-residue worker (`2a1db17`).  Its
+phase convention matches `shiftedBranch` at `3q`, masking the padded residue
+to `U` matches the candidate-free theorem, and it records the needed binary
+mass coverage.  The self-test passes.  As an independent finite diagnostic I
+ran all 71 positive schedules in the `[-1,1]^3`, start-branch `<=8` box for
+every `q=5..128`: all 8,804 rows failed the full predecessor congruence;
+5,847 already failed the necessary one-trit condition `residue mod 3 = 1`.
+This is finite evidence only.  Conceptually, proving cofinally many one-trit
+failures would already close the no-ray consumer and may be much cheaper than
+controlling the growing modulus `3^E`; the remaining 2,957 one-trit matches
+show why the full test is genuinely stronger.
