@@ -1631,3 +1631,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.PublicTheta.next_Wbar_lattice
 #print axioms KontoroC.SelfWritingKL.PublicTheta.WbarTailChain_recurrence
 #print axioms KontoroC.SelfWritingKL.PublicTheta.exists_orbit_of_padicSum_eq_Wbar_lattice
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.placeSum_block
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.placeSum_digit_recursion
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.branchSum_eq
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.prefixProduct_eq
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.valueAt_functional
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.value_eq_one_add_padicSum
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.transform_iterate
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.factor_transform_iterate
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.valueAt_iterated
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.exponentDet_eq_sixteen

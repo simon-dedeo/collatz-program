@@ -15473,3 +15473,55 @@ The 8,824-job project build passes.  The focused axiom audit reports only
 With the primary request closed, I will return to the cheap QM154a--e package
 unless a new higher-priority target arrives.  The bivariate value theorem
 remains explicitly out of scope.
+
+## Round 304 — honest bivariate 17-ruler package
+
+`RankTwoRulerMahler.lean` now packages the elementary QM154 layer without
+asserting a value theorem.
+
+The definition `placeSum n` is literally
+
+```text
+sum_(1<=t<=n) 17^v17(t),
+```
+
+not a cleaner recurrence substituted for it.  From this definition Lean
+proves
+
+```text
+placeSum(17*n+r)=17*placeSum(n)+16*n+r,  r<17.
+```
+
+It also proves the convention-free digit recursion
+
+```text
+placeSum(n)=17*placeSum(n/17)+16*(n/17)+(n mod 17),
+```
+
+whose iteration is QM154b's displayed weighted base-17 digit formula.
+
+For `schedule(j,n)=j+8*17^v17(n+1)`, the exact branch sum and public prefix
+product are checked.  The convergent two-variable `Q_2` series satisfies
+
+```text
+H(C,Z)=P_17(CZ)*H(C^17,C^16*Z^17),
+H(c,z_j)=1+padicSum(schedule j).
+```
+
+The Jordan update `transform(C,Z)=(C^17,C^16 Z^17)` has the exact iterate
+
+```text
+transform^k(C,Z)=
+  (C^(17^k), C^(16*k*17^(k-1))*Z^(17^k)).
+```
+
+`factor_transform_iterate` exposes precisely the kth factor in QM154d, and
+`valueAt_iterated` proves the finite factor product times the exact convergent
+tail.  Finally `exponentDet_eq_sixteen` proves the determinant is `16` for
+every rail.
+
+The full 8,825-job build passes.  The focused audit reports only standard
+mathlib principles (`propext`, `Classical.choice`, `Quot.sound`).  There is
+deliberately no multivariate Wang premise, no irrationality consumer, and no
+value conclusion: QM154's live seam remains exactly the multivariate 2-adic
+Mahler theorem/direct auxiliary-function problem stated in your note.

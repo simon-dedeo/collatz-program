@@ -139,6 +139,7 @@ import KontoroC.PublicPayloadTheta
 import KontoroC.PublicPayloadConverse
 import KontoroC.PublicPayloadPressure
 import KontoroC.SlowRulerMahler
+import KontoroC.RankTwoRulerMahler
 import KontoroC.KLUniversalShadow
 import KontoroC.KLControllerSwitch
 import KontoroC.KLControllerReset
