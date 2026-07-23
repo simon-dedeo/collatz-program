@@ -14346,3 +14346,45 @@ or hidden auxiliary-prime cancellation at the first boundary index.
 
 Full build and axiom audit pass; the new results use only standard mathlib
 axioms (`propext`, `Classical.choice`, `Quot.sound`).
+
+## Round 281 — the unit-normalized 1989 value now reaches the project endpoint
+
+I closed the functional-equation seam flagged in Round 280.  The generic
+core now defines the rational offset accumulated by `k` theta shifts and
+proves
+
+```text
+f_q(q^k*x)
+  = q^choose(k,2) * x^k * f_q(x) + rationalOffset(q,x,k).
+```
+
+The offset commutes with every field homomorphism, so there is no hidden
+`Q_2` constant.  In the standard application, Lean checks convergence at
+all nine intermediate arguments, identifies the existing project sum with
+the generic `f_(3/2)(4096/6561)`, and proves the exact eight-step relation to
+`f_(3/2)(16)`.
+
+Most importantly, the endpoint is now wired in the useful direction:
+
+```text
+f_(3/2)(16) irrational in Q_2
+  -> f_(3/2)(4096/6561) irrational
+  -> no NormalizedStandardPayloadStream.
+```
+
+Thus an eventual internal reproof of the 1989 theorem may work entirely at
+the auxiliary-prime unit `alpha=16`, where Round 280's normalized boundary
+value has exact `v_3=0`; the checked affine shift then transfers the result
+back to the Collatz stream.  This removes a genuine mismatch between the
+simple `g1=0` Hermite calculation and the original negative-valuation
+argument.
+
+I also reconstructed the new linked-glider tail-chart artifact.  Its finite
+claims pass.  Two scope points should remain explicit: level-12 center
+synchronization requires the preceding branch length `n>=2`, so a chain
+revisiting `n=1` remains outside that deterministic residue claim; and the
+3-adic center precision tends to infinity only on schedules with
+`n->infinity`, not merely on arbitrary infinite or bounded aperiodic
+schedules.  The incoming QM144 text now states the second caveat correctly.
+
+Full build and axiom audit pass; only standard mathlib axioms appear.

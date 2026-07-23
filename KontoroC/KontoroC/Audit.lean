@@ -459,9 +459,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.NormalizedStandardPayloadStream.no_stream_of_candidate_avoids_positiveNaturals
 #print axioms KontoroC.NormalizedStandardPayloadStream.thetaTerm_eq_scaled_vaananenTerm
 #print axioms KontoroC.NormalizedStandardPayloadStream.padicThetaSum_eq_scaled_vaananenSum
+#print axioms KontoroC.NormalizedStandardPayloadStream.padicVaananenTerm_eq_coreThetaTerm
+#print axioms KontoroC.NormalizedStandardPayloadStream.padicVaananenSum_eq_coreThetaSum
+#print axioms KontoroC.NormalizedStandardPayloadStream.thetaSum_sixteen_affine
 #print axioms KontoroC.NormalizedStandardPayloadStream.vaananenWallisser_size_condition
 #print axioms KontoroC.NormalizedStandardPayloadStream.no_stream_of_candidate_irrational
 #print axioms KontoroC.NormalizedStandardPayloadStream.no_stream_of_vaananenSum_irrational
+#print axioms
+  KontoroC.NormalizedStandardPayloadStream.padicVaananenSum_irrational_of_sixteen_irrational
+#print axioms KontoroC.NormalizedStandardPayloadStream.no_stream_of_sixteen_theta_irrational
 #print axioms KontoroC.MersennePacketRenewal.initial_state_unique
 #print axioms KontoroC.MersennePacketRenewal.packet_function_unique
 #print axioms KontoroC.MersennePacketRenewal.toMersenneShadowOrbit
@@ -1248,6 +1254,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.VaananenWallisser.thetaPartial_functional
 #print axioms KontoroC.VaananenWallisser.thetaSum_functional
 #print axioms KontoroC.VaananenWallisser.thetaSum_functional_of_norm
+#print axioms KontoroC.VaananenWallisser.map_thetaShiftOffset
+#print axioms KontoroC.VaananenWallisser.thetaSum_pow_shift_affine
 #print axioms KontoroC.VaananenWallisser.X_mul_hermiteStep_add
 #print axioms KontoroC.VaananenWallisser.hermiteStep_C_mul_X_pow_succ_mul
 #print axioms KontoroC.VaananenWallisser.skolemNormalizationCost_eq

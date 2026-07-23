@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.StandardTwoRailTheta
+import KontoroC.VaananenWallisserCore
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 
 /-!
@@ -94,6 +95,89 @@ theorem padicVaananenTerm_summable : Summable padicVaananenTerm := by
 noncomputable def padicVaananenSum : ℚ_[2] :=
   ∑' n, padicVaananenTerm n
 
+/-- The project-specific series is definitionally the generic theta series
+from `VaananenWallisserCore` at the paper's original rational argument. -/
+theorem padicVaananenTerm_eq_coreThetaTerm (n : ℕ) :
+    padicVaananenTerm n =
+      VaananenWallisser.thetaTerm
+        ((((3 : ℚ) / 2 : ℚ) : ℚ_[2]))
+        ((((4096 : ℚ) / 6561 : ℚ) : ℚ_[2])) n := by
+  simp [padicVaananenTerm, vaananenTerm, vaananenExponent,
+    VaananenWallisser.thetaTerm, VaananenWallisser.exponent,
+    Rat.cast_mul, Rat.cast_div, Rat.cast_pow, Rat.cast_ofNat]
+  norm_num
+
+theorem padicVaananenSum_eq_coreThetaSum :
+    padicVaananenSum =
+      VaananenWallisser.thetaSum
+        ((((3 : ℚ) / 2 : ℚ) : ℚ_[2]))
+        ((((4096 : ℚ) / 6561 : ℚ) : ℚ_[2])) := by
+  apply tsum_congr
+  exact padicVaananenTerm_eq_coreThetaTerm
+
+/-- In `Q_2`, the paper parameter `q=3/2` has norm two. -/
+theorem norm_padic_threeHalves :
+    ‖(((3 : ℚ) / 2 : ℚ) : ℚ_[2])‖ = 2 := by
+  rw [Rat.cast_div, norm_div]
+  have h3 : ‖((3 : ℚ) : ℚ_[2])‖ = 1 := by
+    rw [show ((3 : ℚ) : ℚ_[2]) = (3 : ℚ_[2]) by norm_num]
+    exact Padic.norm_natCast_eq_one_iff.mpr (by norm_num)
+  have h2 : ‖((2 : ℚ) : ℚ_[2])‖ = (2 : ℝ)⁻¹ := by
+    simpa using (Padic.norm_p (p := 2))
+  rw [h3, h2]
+  norm_num
+
+/-- Every intermediate argument from the original point through its eighth
+`q`-shift remains in the closed 2-adic unit ball. -/
+theorem norm_padic_vaananen_shift_le_one (j : ℕ) (hj : j < 9) :
+    ‖((((3 : ℚ) / 2 : ℚ) : ℚ_[2]) ^ j *
+      (((4096 : ℚ) / 6561 : ℚ) : ℚ_[2]))‖ ≤ 1 := by
+  rw [norm_mul, norm_pow, norm_padic_threeHalves]
+  have ha : ‖(((4096 : ℚ) / 6561 : ℚ) : ℚ_[2])‖ =
+      (2 : ℝ) ^ (-12 : ℤ) := by
+    rw [show (4096 : ℚ) / 6561 = 2 ^ 12 / 3 ^ 8 by norm_num,
+      Rat.cast_div, Rat.cast_pow, Rat.cast_pow, norm_div, norm_pow, norm_pow]
+    have h3 : ‖((3 : ℚ) : ℚ_[2])‖ = 1 := by
+      rw [show ((3 : ℚ) : ℚ_[2]) = (3 : ℚ_[2]) by norm_num]
+      exact Padic.norm_natCast_eq_one_iff.mpr (by norm_num)
+    have h2 : ‖((2 : ℚ) : ℚ_[2])‖ = (2 : ℝ)⁻¹ := by
+      simpa using (Padic.norm_p (p := 2))
+    rw [h2, h3]
+    norm_num
+  rw [ha]
+  have hj' : j ≤ 8 := by omega
+  rw [← zpow_natCast, ← zpow_add₀ (by norm_num : (2 : ℝ) ≠ 0)]
+  norm_num
+  omega
+
+theorem padic_vaananen_intermediate_summable (j : ℕ) (hj : j < 9) :
+    Summable (VaananenWallisser.thetaTerm
+      ((((3 : ℚ) / 2 : ℚ) : ℚ_[2]))
+      ((((3 : ℚ) / 2 : ℚ) : ℚ_[2]) ^ j *
+        (((4096 : ℚ) / 6561 : ℚ) : ℚ_[2]))) := by
+  apply VaananenWallisser.thetaTerm_summable_of_norm
+  · rw [norm_padic_threeHalves]
+    norm_num
+  · exact norm_padic_vaananen_shift_le_one j hj
+
+/-- Eight exact functional-equation steps move the original argument
+`4096/6561` to the auxiliary-prime unit `16`. -/
+theorem thetaSum_sixteen_affine :
+    VaananenWallisser.thetaSum
+      ((((3 : ℚ) / 2 : ℚ) : ℚ_[2])) (16 : ℚ_[2]) =
+      (((((3 : ℚ) / 2 : ℚ) : ℚ_[2])) ^ ((8 : ℕ).choose 2) *
+        ((((4096 : ℚ) / 6561 : ℚ) : ℚ_[2])) ^ 8) *
+          padicVaananenSum +
+        VaananenWallisser.thetaShiftOffset
+          ((((3 : ℚ) / 2 : ℚ) : ℚ_[2]))
+          ((((4096 : ℚ) / 6561 : ℚ) : ℚ_[2])) 8 := by
+  have h := VaananenWallisser.thetaSum_pow_shift_affine
+    ((((3 : ℚ) / 2 : ℚ) : ℚ_[2]))
+    ((((4096 : ℚ) / 6561 : ℚ) : ℚ_[2])) (by norm_num) 8
+    (fun j hj => padic_vaananen_intermediate_summable j (by omega))
+  rw [← padicVaananenSum_eq_coreThetaSum] at h
+  convert h using 1 <;> norm_num
+
 /-- Equality of the completed 2-adic sums, not merely of finite
 coefficients. -/
 theorem padicThetaSum_eq_scaled_vaananenSum :
@@ -162,6 +246,42 @@ theorem vaananenWallisser_size_condition :
 def IsPadicIrrational (x : ℚ_[2]) : Prop :=
   ∀ q : ℚ, x ≠ (q : ℚ_[2])
 
+/-- Irrationality at the auxiliary-prime unit argument `16` implies
+irrationality at the project's original argument.  The eight functional
+equations express the shifted value as a rational affine function of the
+original one, so a rational original value would force a rational shifted
+value. -/
+theorem padicVaananenSum_irrational_of_sixteen_irrational
+    (hirr : IsPadicIrrational
+      (VaananenWallisser.thetaSum
+        ((((3 : ℚ) / 2 : ℚ) : ℚ_[2])) (16 : ℚ_[2]))) :
+    IsPadicIrrational padicVaananenSum := by
+  let a : ℚ := ((3 : ℚ) / 2) ^ ((8 : ℕ).choose 2) *
+    ((4096 : ℚ) / 6561) ^ 8
+  let b : ℚ := VaananenWallisser.thetaShiftOffset
+    ((3 : ℚ) / 2) ((4096 : ℚ) / 6561) 8
+  have hb :
+      (b : ℚ_[2]) =
+        VaananenWallisser.thetaShiftOffset
+          ((((3 : ℚ) / 2 : ℚ) : ℚ_[2]))
+          ((((4096 : ℚ) / 6561 : ℚ) : ℚ_[2])) 8 := by
+    simpa [b] using
+      (VaananenWallisser.map_thetaShiftOffset
+        (algebraMap ℚ ℚ_[2]) ((3 : ℚ) / 2) ((4096 : ℚ) / 6561) 8)
+  have ha :
+      (a : ℚ_[2]) =
+        (((((3 : ℚ) / 2 : ℚ) : ℚ_[2])) ^ ((8 : ℕ).choose 2) *
+          ((((4096 : ℚ) / 6561 : ℚ) : ℚ_[2])) ^ 8) := by
+    simp [a, Rat.cast_mul, Rat.cast_div, Rat.cast_pow, Rat.cast_ofNat]
+  have hrel :
+      VaananenWallisser.thetaSum
+        ((((3 : ℚ) / 2 : ℚ) : ℚ_[2])) (16 : ℚ_[2]) =
+        (a : ℚ_[2]) * padicVaananenSum + (b : ℚ_[2]) := by
+    rw [thetaSum_sixteen_affine, ha, hb]
+  intro r hr
+  apply hirr (a * r + b)
+  rw [Rat.cast_add, Rat.cast_mul, hrel, hr]
+
 /-- The exact logical bridge from the 1989 paper's stated conclusion to the
 project's citation seam.  Since `f_q(0)=1`, linear independence of
 `f_q(0), f_q(α)` over `ℚ` is precisely p-adic irrationality of `f_q(α)`.
@@ -206,6 +326,17 @@ theorem no_stream_of_vaananenSum_irrational
     ¬Nonempty NormalizedStandardPayloadStream :=
   no_stream_of_candidate_irrational
     (padicThetaCandidate_irrational_of_vaananenSum_irrational hirr)
+
+/-- Citation endpoint after auxiliary-prime normalization: it is enough to
+prove irrationality of the theta value at `16`.  The checked eight-step
+functional-equation bridge then returns to the project's original value. -/
+theorem no_stream_of_sixteen_theta_irrational
+    (hirr : IsPadicIrrational
+      (VaananenWallisser.thetaSum
+        ((((3 : ℚ) / 2 : ℚ) : ℚ_[2])) (16 : ℚ_[2]))) :
+    ¬Nonempty NormalizedStandardPayloadStream :=
+  no_stream_of_vaananenSum_irrational
+    (padicVaananenSum_irrational_of_sixteen_irrational hirr)
 
 /-- Citation endpoint in the literal language of Väänänen--Wallisser:
 their linear-independence conclusion for `1` and the displayed theta value
