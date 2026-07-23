@@ -209,6 +209,19 @@ noncomputable def hermiteIter {K : Type*} [Field K]
     (q : K) (μ : ℕ) (P : K[X]) : K[X] :=
   (hermiteStep q)^[μ] P
 
+/-- Sum of the first `M` members of the Hermite family.  This is the
+polynomial denoted `P*` in equation (6) of Väänänen--Wallisser when `M` is
+one more than the degree of the source polynomial.  Keeping `M` explicit
+also gives an exact identity before the terminal iterate is known to vanish. -/
+noncomputable def hermitePartial {K : Type*} [Field K]
+    (q : K) (M : ℕ) (P : K[X]) : K[X] :=
+  ∑ μ ∈ Finset.range M, hermiteIter q μ P
+
+theorem hermiteIter_succ {K : Type*} [Field K]
+    (q : K) (μ : ℕ) (P : K[X]) :
+    hermiteIter q (μ + 1) P = hermiteStep q (hermiteIter q μ P) := by
+  simp [hermiteIter, Function.iterate_succ_apply']
+
 /-- Exact polynomial form of `(P(qx)-P(0))/x`; this avoids informal
 division by `x` at the zero coefficient. -/
 theorem X_mul_hermiteStep_add {K : Type*} [Field K]
@@ -217,6 +230,167 @@ theorem X_mul_hermiteStep_add {K : Type*} [Field K]
   have h := Polynomial.X_mul_divX_add (P.comp (C q * X))
   simpa [hermiteStep, Polynomial.coeff_zero_eq_eval_zero,
     Polynomial.eval_comp] using h
+
+/-- Coefficient action of one Hermite step. -/
+theorem coeff_hermiteStep {K : Type*} [Field K]
+    (q : K) (P : K[X]) (n : ℕ) :
+    (hermiteStep q P).coeff n = P.coeff (n + 1) * q ^ (n + 1) := by
+  simp [hermiteStep, Polynomial.comp_C_mul_X_coeff]
+
+/-- Closed coefficient formula for the whole Hermite recursion.  Besides
+giving termination, this is the exact source of the powers of `q` entering
+the paper's denominator and height estimates. -/
+theorem coeff_hermiteIter {K : Type*} [Field K]
+    (q : K) (P : K[X]) (M n : ℕ) :
+    (hermiteIter q M P).coeff n =
+      P.coeff (n + M) * q ^ (M * n + exponent M) := by
+  induction M generalizing n with
+  | zero => simp [hermiteIter, exponent_zero]
+  | succ M ih =>
+      rw [hermiteIter_succ, coeff_hermiteStep, ih]
+      have hindex : n + 1 + M = n + (M + 1) := by omega
+      have hexponent :
+          M * (n + 1) + exponent M + (n + 1) =
+            (M + 1) * n + exponent (M + 1) := by
+        rw [exponent_succ]
+        ring
+      rw [mul_assoc, ← pow_add, hindex, hexponent]
+
+/-- After one more step than the source degree the Hermite family vanishes
+identically.  Thus `hermitePartial` with this cutoff is literally the
+paper's finite `P*`. -/
+theorem hermiteIter_natDegree_add_one_eq_zero {K : Type*} [Field K]
+    (q : K) (P : K[X]) :
+    hermiteIter q (P.natDegree + 1) P = 0 := by
+  ext n
+  rw [coeff_hermiteIter]
+  have hdegree : P.natDegree < n + (P.natDegree + 1) := by omega
+  rw [P.coeff_eq_zero_of_natDegree_lt hdegree]
+  simp
+
+/-- Exact telescoping of equations (6) and (11), with the terminal Hermite
+iterate displayed rather than silently discarded. -/
+theorem hermitePartial_comp {K : Type*} [Field K]
+    (q : K) (M : ℕ) (P : K[X]) :
+    (hermitePartial q M P).comp (C q * X) =
+      X * (hermitePartial q M P - P + hermiteIter q M P) +
+        C ((hermitePartial q M P).eval 0) := by
+  induction M with
+  | zero => simp [hermitePartial, hermiteIter]
+  | succ M ih =>
+      have hpartial : hermitePartial q M.succ P =
+          hermitePartial q M P + hermiteIter q M P := by
+        rw [show M.succ = M + 1 by omega]
+        exact Finset.sum_range_succ _ _
+      rw [hpartial, Polynomial.add_comp, Polynomial.eval_add,
+        Polynomial.C_add]
+      rw [ih, ← X_mul_hermiteStep_add q (hermiteIter q M P)]
+      rw [← hermiteIter_succ q M P,
+        show M + 1 = M.succ by omega]
+      ring
+
+/-- Evaluation form of `hermitePartial_comp`. -/
+theorem eval_hermitePartial_mul {K : Type*} [Field K]
+    (q : K) (M : ℕ) (P : K[X]) (x : K) :
+    (hermitePartial q M P).eval (q * x) =
+      x * ((hermitePartial q M P).eval x - P.eval x +
+        (hermiteIter q M P).eval x) +
+          (hermitePartial q M P).eval 0 := by
+  have h := congrArg (fun R : K[X] => R.eval x)
+    (hermitePartial_comp q M P)
+  simpa [Polynomial.eval_comp] using h
+
+/-- The exact analytic remainder in equation (7), normalized by
+`f_q(0)=1`. -/
+noncomputable def hermiteDefect {K : Type*} [Field K]
+    [TopologicalSpace K] (q : K) (M : ℕ) (P : K[X]) (x : K) : K :=
+  (hermitePartial q M P).eval x -
+    (hermitePartial q M P).eval 0 * thetaSum q x
+
+/-- Functional recurrence for the Hermite remainder.  When the terminal
+iterate vanishes this is exactly the recurrence used to obtain the tail
+formula and estimates (16)--(17) in the 1989 paper. -/
+theorem hermiteDefect_mul {K : Type*} [NormedField K]
+    [CompleteSpace K] (q : K) (M : ℕ) (P : K[X]) (x : K)
+    (hq : q ≠ 0) (hs : Summable (thetaTerm q x)) :
+    hermiteDefect q M P (q * x) =
+      x * (hermiteDefect q M P x - P.eval x +
+        (hermiteIter q M P).eval x) := by
+  rw [hermiteDefect, eval_hermitePartial_mul,
+    thetaSum_functional q x hq hs, hermiteDefect]
+  ring
+
+/-- The completed finite Hermite polynomial `P*` from equation (6). -/
+noncomputable def hermiteStar {K : Type*} [Field K]
+    (q : K) (P : K[X]) : K[X] :=
+  hermitePartial q (P.natDegree + 1) P
+
+/-- Terminal form of the Hermite telescoping identity. -/
+theorem hermiteStar_comp {K : Type*} [Field K]
+    (q : K) (P : K[X]) :
+    (hermiteStar q P).comp (C q * X) =
+      X * (hermiteStar q P - P) + C ((hermiteStar q P).eval 0) := by
+  rw [hermiteStar, hermitePartial_comp,
+    hermiteIter_natDegree_add_one_eq_zero]
+  ring
+
+/-- Coefficient recurrence behind Perron's form of Hermite's method. -/
+theorem coeff_hermiteStar_succ {K : Type*} [Field K]
+    (q : K) (P : K[X]) (n : ℕ) :
+    (hermiteStar q P).coeff (n + 1) * q ^ (n + 1) =
+      (hermiteStar q P).coeff n - P.coeff n := by
+  have h := congrArg (fun R : K[X] => R.coeff (n + 1))
+    (hermiteStar_comp q P)
+  rw [Polynomial.comp_C_mul_X_coeff] at h
+  simp only [Polynomial.coeff_add, Polynomial.coeff_X_mul,
+    Polynomial.coeff_sub, Polynomial.coeff_C,
+    if_neg (Nat.succ_ne_zero n)] at h
+  simpa [mul_comm] using h
+
+/-- If the source polynomial has an initial coefficient gap of length `N`,
+then `P*` agrees coefficientwise through degree `N` with its constant term
+times the theta series.  This is the exact finite vanishing statement behind
+equation (7). -/
+theorem coeff_hermiteStar_eq_theta_of_coeff_zero_below
+    {K : Type*} [Field K] (q : K) (P : K[X]) (hq : q ≠ 0)
+    (N : ℕ) (hP : ∀ n < N, P.coeff n = 0) :
+    ∀ n ≤ N,
+      (hermiteStar q P).coeff n =
+        (hermiteStar q P).eval 0 * q⁻¹ ^ exponent n := by
+  intro n hn
+  induction n with
+  | zero => simp [exponent_zero, Polynomial.coeff_zero_eq_eval_zero]
+  | succ n ih =>
+      have hnN : n < N := by omega
+      have hrec := coeff_hermiteStar_succ q P n
+      rw [hP n hnN, sub_zero, ih (by omega)] at hrec
+      apply (mul_right_cancel₀ (pow_ne_zero (n + 1) hq))
+      rw [hrec, exponent_succ, pow_add]
+      have hcancel : q⁻¹ ^ (n + 1) * q ^ (n + 1) = 1 := by
+        rw [← mul_pow, inv_mul_cancel₀ hq, one_pow]
+      calc
+        (hermiteStar q P).eval 0 * q⁻¹ ^ exponent n =
+            (hermiteStar q P).eval 0 * q⁻¹ ^ exponent n * 1 := by ring
+        _ = (hermiteStar q P).eval 0 * q⁻¹ ^ exponent n *
+            (q⁻¹ ^ (n + 1) * q ^ (n + 1)) := by rw [hcancel]
+        _ = (hermiteStar q P).eval 0 *
+            (q⁻¹ ^ exponent n * q⁻¹ ^ (n + 1)) * q ^ (n + 1) := by ac_rfl
+
+/-- The paper's exact remainder `Δ(x)=P*(x)-P*(0)f_q(x)`. -/
+noncomputable def hermiteRemainder {K : Type*} [Field K]
+    [TopologicalSpace K] (q : K) (P : K[X]) (x : K) : K :=
+  (hermiteStar q P).eval x - (hermiteStar q P).eval 0 * thetaSum q x
+
+/-- Equation (7)'s remainder recurrence, obtained without coefficient
+expansions or asymptotics. -/
+theorem hermiteRemainder_mul {K : Type*} [NormedField K]
+    [CompleteSpace K] (q : K) (P : K[X]) (x : K)
+    (hq : q ≠ 0) (hs : Summable (thetaTerm q x)) :
+    hermiteRemainder q P (q * x) =
+      x * (hermiteRemainder q P x - P.eval x) := by
+  have h := hermiteDefect_mul q (P.natDegree + 1) P x hq hs
+  rw [hermiteIter_natDegree_add_one_eq_zero] at h
+  simpa [hermiteRemainder, hermiteStar, hermiteDefect] using h
 
 /-- One closed recurrence step on the monomial-times-polynomial shape used
 in (12).  This is the algebraic engine behind the paper's formula (15). -/
@@ -352,6 +526,26 @@ normalization of `κ` is intentionally separate from this polynomial shape. -/
 noncomputable def skolemInitial {K : Type*} [Field K]
     (q α κ : K) (ν t : ℕ) : K[X] :=
   C κ * X ^ (ν + t + 1) * skolemRootProduct q α ν
+
+theorem skolemInitial_coeff_eq_zero_of_lt {K : Type*} [Field K]
+    (q α κ : K) (ν t n : ℕ) (hn : n < ν + t + 1) :
+    (skolemInitial q α κ ν t).coeff n = 0 := by
+  rw [skolemInitial]
+  have hreorder : C κ * X ^ (ν + t + 1) * skolemRootProduct q α ν =
+      (C κ * skolemRootProduct q α ν) * X ^ (ν + t + 1) := by ring
+  rw [hreorder, Polynomial.coeff_mul_X_pow', if_neg (by omega)]
+
+/-- For the one-value Skolem source, the finite polynomial `P*` matches its
+constant term times the theta series through the full planted zero range. -/
+theorem coeff_hermiteStar_skolemInitial_eq_theta
+    {K : Type*} [Field K] (q α κ : K) (hq : q ≠ 0)
+    (ν t n : ℕ) (hn : n ≤ ν + t + 1) :
+    (hermiteStar q (skolemInitial q α κ ν t)).coeff n =
+      (hermiteStar q (skolemInitial q α κ ν t)).eval 0 *
+        q⁻¹ ^ exponent n := by
+  exact coeff_hermiteStar_eq_theta_of_coeff_zero_below q
+    (skolemInitial q α κ ν t) hq (ν + t + 1)
+    (fun d hd => skolemInitial_coeff_eq_zero_of_lt q α κ ν t d hd) n hn
 
 /-- Structural specialization of formula (15).  The remaining work in the
 1989 theorem is arithmetic: choose `κ`, prove valuation separation, and

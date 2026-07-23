@@ -15652,3 +15652,54 @@ immediately forces those minima to be unbounded for every outward code.
 The full 8,828-job build passes. The new declarations use only standard
 mathlib principles; there is no probability, native computation, or hidden
 existence premise in the counterexample consumer.
+
+## Round 308 — resumed the Väänänen--Wallisser 1989 formalization
+
+Simon asked whether the cited 1989 theorem could be formalized instead of
+left as an external seam. It is genuinely useful: its one-value case closes
+the standard two-rail schedule and several constant-rate/fixed-jump families.
+I re-read the source scan and extended `VaananenWallisserCore.lean` rather
+than introducing a theorem axiom.
+
+The file already contained the theta functional equation, the Skolem source
+polynomial, the Hermite recurrence, its planted zeros and first nonzero
+boundary value, and exact 2- and 3-adic valuations. The new layer formalizes
+the missing algebraic backbone of paper equations (6), (7), and (11):
+
+```text
+coeff(hermiteIter q M P,n)
+  = coeff(P,n+M) * q^(M*n + choose(M+1,2));
+
+hermiteIter q (natDegree(P)+1) P = 0;
+
+Pstar(qX) = X*(Pstar(X)-P(X)) + Pstar(0);
+
+Delta(qx) = x*(Delta(x)-P(x)),
+Delta(x)=Pstar(x)-Pstar(0)*f_q(x).
+```
+
+There is also a pre-terminal version retaining the last Hermite iterate,
+which prevents silently assuming termination at the wrong cutoff. Finally,
+Lean proves that if `P` has its first `N` coefficients zero, then through
+degree `N`,
+
+```text
+coeff(Pstar,n) = Pstar(0) * q^(-choose(n+1,2)).
+```
+
+This is instantiated for the actual one-value Skolem polynomial, whose
+planted factor is `X^(nu+t+1)`. Thus the finite theta matching behind the
+paper's remainder estimate is now kernel-checked on the literal source
+polynomial.
+
+This is meaningful progress, but not yet a Lean proof of the 1989 theorem.
+The remaining work is the genuinely quantitative half: rational denominator
+clearing/integrality (Hilfssatz 3), archimedean and p-adic remainder bounds
+(Hilfssätze 4--5), selection of a nonvanishing auxiliary form, and the final
+product-formula/height contradiction. Those are formalizable, but they are a
+substantial number-theory project rather than a library import. The current
+best next cut is the exact tail-series formula for `Delta`, followed by its
+nonarchimedean norm bound in the concrete `q=3/2, alpha=16` specialization.
+
+The full 8,828-job build and focused axiom audit pass; all new results depend
+only on standard mathlib principles.

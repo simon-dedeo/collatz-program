@@ -1289,6 +1289,17 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.AmouMatalaahoVaananenThreshold.not_periodThreeLambda_lt_source_threshold
 #print axioms
   KontoroC.VaananenWallisser.eval_hermiteIter_skolemInitial_boundary_ne_zero
+#print axioms KontoroC.VaananenWallisser.coeff_hermiteIter
+#print axioms KontoroC.VaananenWallisser.hermiteIter_natDegree_add_one_eq_zero
+#print axioms KontoroC.VaananenWallisser.hermitePartial_comp
+#print axioms KontoroC.VaananenWallisser.hermiteDefect_mul
+#print axioms KontoroC.VaananenWallisser.hermiteStar_comp
+#print axioms KontoroC.VaananenWallisser.coeff_hermiteStar_succ
+#print axioms
+  KontoroC.VaananenWallisser.coeff_hermiteStar_eq_theta_of_coeff_zero_below
+#print axioms KontoroC.VaananenWallisser.hermiteRemainder_mul
+#print axioms KontoroC.VaananenWallisser.skolemInitial_coeff_eq_zero_of_lt
+#print axioms KontoroC.VaananenWallisser.coeff_hermiteStar_skolemInitial_eq_theta
 #print axioms
   KontoroC.NormalizedStandardPayloadStream.isPadicIrrational_iff_linearIndependent_one
 #print axioms
