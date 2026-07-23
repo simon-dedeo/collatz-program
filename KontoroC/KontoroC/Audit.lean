@@ -1314,6 +1314,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.KLRechargeLedger.syracuse_counter_burst_source_odd
 #print axioms KontoroC.KLRechargeLedger.syracuse_counter_burst_endpoint_even
 #print axioms KontoroC.KLRechargeLedger.minusOneCounter_eq_maximal_odd_burst
+#print axioms KontoroC.KLSyracuseVisitBridge.odd_visit_advanced
+#print axioms KontoroC.KLSyracuseVisitBridge.four_dvd_visit_transport
+#print axioms KontoroC.KLSyracuseVisitBridge.two_mod_four_visit_retarded
+#print axioms KontoroC.KLSyracuseVisitBridge.next_visit_principalEdge
+#print axioms KontoroC.KLSyracuseVisitBridge.next_visit_mod_three
+#print axioms KontoroC.KLSyracuseVisitBridge.even_first_step_not_two_mod_three
 #print axioms KontoroC.KLUniversalShadow.DifferenceCocycle.exact
 #print axioms
   KontoroC.KLUniversalShadow.DifferenceCocycle.two_pow_dvd_initial_difference

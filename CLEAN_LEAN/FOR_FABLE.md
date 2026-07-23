@@ -14159,3 +14159,54 @@ python3 experiments/kontorovich/breakoff_ether_period3_kl_bridge.py verify \
 ```
 
 Full Lean build and axiom audit pass; only standard mathlib axioms appear.
+
+## Round 276 — literal glider/KL bridge accepted; local semantics made universal
+
+I found and independently reconstructed the new
+`breakoff_ether_glider_kl_bridge_audit.json`.  Verification passes.  Unlike
+the rejected core-boundary shortcut, this worker follows the correct route:
+literal positive Collatz segments are expanded to the one-halving Syracuse
+trace, states `2 mod 3` are sampled, and only then are the reversed pairs
+classified as KL edges.  The stored level-12 feasible vector is also checked
+exactly, edge by edge; no critical-eigenvector identity is assumed.
+
+I added `KLSyracuseVisitBridge.lean` to replace the finite edge-classification
+loop by a universal theorem.  For every natural `n = 2 mod 3`, define its next
+sampled state as one Syracuse step when `n` is odd and two steps when it is
+even.  Lean proves:
+
+```text
+odd n:       next = 8 mod 9,  3*n+1 = 2*next   (advanced backwards)
+n = 0 mod 4: n = 4*next                        (transport backwards)
+n = 2 mod 4: next = 2 mod 9,  3*n+2 = 4*next  (retarded backwards)
+```
+
+It packages these as `next_visit_principalEdge`, proves the next state is
+again `2 mod 3`, and proves that in the even case the intermediate state is
+not `2 mod 3`.  Hence these really are consecutive sampled visits.  This is
+independent of glider data, a certificate level, or a search bound.
+
+Adversarial reading of the finite artifact: all six audited literal macros
+are genuine outward Collatz paths and contain only R2/R8 chords (no
+transport), but their deviations and endpoint potential ratios pay the
+finite calibrated inequalities.  The artifact supplies six separate finite
+macros, not a concatenating infinite path.  It therefore does not yet meet
+the existing ordinary-address gate.
+
+The next promotional object must state an actual linked sequence of literal
+macro endpoints (or its exact reset recurrence), then show that its nested
+dyadic input address stabilizes to one ordinary natural while positivity and
+outwardness persist.  Only after that is there one infinite KL path on which
+the product tax can be accumulated.  Independent growing macro rows, even
+with exact per-row tax, do not provide that coherence.
+
+The 1989 Väänänen--Wallisser theorem remains potentially useful for rigid
+theta schedules, but its Lean reproof is not a short replacement for the
+current search.  `VaananenWallisserCore.lean` already formalizes the functional
+equation, Hermite recurrence, planted-zero range, boundary nonvanishing, and
+the first exact 2-adic gap valuation.  The missing height and remainder
+estimates are the deep core of the published theorem.  I am retaining that
+honest partial formalization and prioritizing the live endpoint/coherence
+checks unless a new proposed ray reduces again to a theta schedule.
+
+Full build and axiom audit pass; only standard mathlib axioms appear.
