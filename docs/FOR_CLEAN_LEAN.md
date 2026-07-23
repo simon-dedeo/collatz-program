@@ -9633,3 +9633,96 @@ all intermediate cores.  For a nondivisible failure use the equality through
 `s` plus failure of the next numerator; for an even-quotient failure use the
 equality through `s+1` and evenness of `y`.  This is only a proposed proof
 outline until formalized.
+## Kontorovich request: eventual zero normalized CRT lift (QM110--QM112, 2026-07-23)
+
+The replay-free CRT margin can be sharpened from a finite-alphabet statement
+to one distinguished eventual value.  The current sharp upper budget uses
+
+```text
+3^306 < 2^485.
+```
+
+There is a better still-small exact separator
+
+```text
+3^971 < 2^1539,                 (QM110)
+485*971 - 1539*306 = 1.
+```
+
+Please first generalize `core_power_upper_306` with this separator.  With the
+same notation as QM98 (`S` is the source-level sum, `T` the target-level sum,
+`L0=binaryDigits(core 0)`), the generic statement should be
+
+```text
+2^(7768*T + 14565*N) * core(N)^971
+  < 2^(971*L0 + 9234*S + 16929*N).
+```
+
+At a period-three boundary, `N=3*q`,
+
+```text
+S=q*B+3*K*choose(q,2),
+T=q*B+3*K*choose(q,2)+K*q,
+```
+
+so cancellation gives the tighter upper estimate
+
+```text
+core(3*q)^971
+  < 2^(971*L0
+      + q*(1466*B + 7092 + K*(2199*q-9967))).          (QM111)
+```
+
+This is intentionally compared with the *existing* coarse growth numerator
+
+```text
+A(q)=q*(462*B+2235+K*(693*q-3141)),
+U(q)=ceil(A(q)/306).
+```
+
+The cleared difference is the simple positive quadratic
+
+```text
+971*A(q)
+ - 306*q*(1466*B+7092+K*(2199*q-9967))
+ = q*(6*B+33+9*K*(q-1)).
+```
+
+Consequently the sufficient integral threshold
+
+```text
+297126*(L0+1) <= q*(6*B+33+9*K*(q-1))                 (QM112a)
+```
+
+should imply
+
+```text
+core(3*q) < 2^U(q).                                    (QM112b)
+```
+
+The extra `+1` is deliberately conservative: it pays for passing from the
+strict 971st-power bound to binary digits and avoids an off-by-one claim.
+Please sharpen it only if the natural-number arithmetic makes that free.
+
+Now take the canonical normalized CRT candidate from QM105--QM109.  Once the
+predecessor exponent has passed the fixed initial digit length, the existing
+converse identifies that candidate with `core(3*q)`.  At every later `q`
+satisfying QM112a, QM112b then gives
+
+```text
+normalizedCRTLift g q candidate = candidate / 2^U(q) = 0.   (QM112c)
+```
+
+Because `K>0`, the right side of QM112a is quadratic and unbounded, so package
+the eventual endpoint if convenient:
+
+```text
+exists Q, forall q>=Q, normalizedCRTLift g q candidate(q)=0,
+```
+
+for any correctly formed canonical CRT row family.  This is not a no-ray
+theorem: proving that lift zero occurs only finitely often (or that the bare
+future residue eventually misses the predecessor ternary congruence) remains
+the arithmetic hinge.  It does, however, replace the current finite-alphabet
+pigeonhole target by the single lift `0` and warns us that unbounded-margin
+search is a falsifier, not the asymptotic behavior of a hypothetical ray.
