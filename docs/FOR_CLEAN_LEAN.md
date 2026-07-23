@@ -9330,3 +9330,16 @@ exact (Nat.mul_lt_mul_left (by positivity : 0 < 2^A)).mp hupper
 
 Please rerun the focused build after also incorporating the `L0` sharpening
 above.
+
+Second focused build after the arithmetic `calc`: the only remaining error is
+the cancellation at current line 343/344.  Please remove the `simpa` wrapper
+and apply cancellation directly after `rw [hexponents, pow_add] at hupper`;
+the two sides are already in the same order:
+
+```text
+have hcancel : g.core (3*q)^306 < 2^U :=
+  (Nat.mul_lt_mul_left
+    (by positivity : 0 < 2^(2448*T+4590*(3*q)))).mp hupper
+```
+
+The focused build otherwise reaches that last step successfully.
