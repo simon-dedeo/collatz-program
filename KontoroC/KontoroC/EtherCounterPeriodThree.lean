@@ -85,6 +85,20 @@ theorem oneBasedLevelSum_three_mul (g : Ray) (q : ℕ) :
         simp [Nat.add_comm]]
       ring
 
+/-- Closed next-level prefix sum over complete period-three cycles. -/
+theorem nextOneBasedLevelSum_three_mul (g : Ray) (q : ℕ) :
+    g.toTernaryCoreOrbit.nextOneBasedLevelSum (3 * q) =
+      q * (g.branch 0 + g.branch 1 + g.branch 2) +
+        3 * g.cycleGain * q.choose 2 + g.cycleGain * q := by
+  have hsum := g.oneBasedLevelSum_three_mul q
+  have hinitial := g.toTernaryCoreOrbit_oneBasedLevel 0
+  have hterminal :=
+    (g.toTernaryCoreOrbit_oneBasedLevel (3 * q)).trans (g.branch_zero q)
+  have hshift :=
+    g.toTernaryCoreOrbit.nextSum_add_initial_eq_sum_add_terminal (3 * q)
+  rw [hsum, hinitial, hterminal] at hshift
+  omega
+
 theorem two_mul_choose_two (q : ℕ) :
     2 * q.choose 2 = q * (q - 1) := by
   induction q with
@@ -744,6 +758,133 @@ def shiftedInitialResidue (g : Ray) (q R length : ℕ) :
   EtherCounterResidueBound.initialResidue (shiftedBranch g q)
     (normalizedPrecision g q R) length
 
+/-! ## QM117: why naive dyadic residue induction loses its terminal value -/
+
+/-- Binary precision accumulated between cycle boundaries `q` and `2q`. -/
+def dyadicBinaryMass (g : Ray) (q : ℕ) : ℕ :=
+  EtherCounterResidueBound.binaryMass (shiftedBranch g q) 0 (3 * q)
+
+/-- QM117a: exact binary mass from transition `3q` through `6q-1`. -/
+theorem dyadicBinaryMass_eq (g : Ray) (q : ℕ) :
+    dyadicBinaryMass g q =
+      q * (36 * g.cycleGain * q + 8 * phaseSum g -
+        4 * g.cycleGain + 45) := by
+  let o := g.toTernaryCoreOrbit
+  let tail := ∑ i ∈ Finset.range (3 * q),
+    o.oneBasedLevel (3 * q + (i + 1))
+  have hmass : dyadicBinaryMass g q = 8 * tail + 15 * (3 * q) := by
+    rw [dyadicBinaryMass, EtherCounterResidueBound.binaryMass]
+    simp only [EtherCounterResidueBound.binaryExponent, shiftedBranch,
+      zero_add]
+    calc
+      (∑ i ∈ Finset.range (3 * q),
+          (8 * g.branch (3 * q + (i + 1)) + 15)) =
+          ∑ i ∈ Finset.range (3 * q),
+            (8 * o.oneBasedLevel (3 * q + (i + 1)) + 15) := by
+        apply Finset.sum_congr rfl
+        intro i _hi
+        rw [g.toTernaryCoreOrbit_oneBasedLevel]
+      _ = 8 * tail + 15 * (3 * q) := by
+        simp [tail, Finset.sum_add_distrib, Finset.mul_sum]
+        ring
+  have hsplit : o.nextOneBasedLevelSum (6 * q) =
+      o.nextOneBasedLevelSum (3 * q) + tail := by
+    rw [show 6 * q = 3 * q + 3 * q by ring]
+    simp [EtherCounterAperiodic.TernaryCoreOrbit.nextOneBasedLevelSum,
+      Finset.sum_range_add, tail, Nat.add_assoc]
+  have hTq : o.nextOneBasedLevelSum (3 * q) =
+      q * phaseSum g + 3 * g.cycleGain * q.choose 2 +
+        g.cycleGain * q := by
+    simpa [o, phaseSum] using g.nextOneBasedLevelSum_three_mul q
+  have hT2q : o.nextOneBasedLevelSum (6 * q) =
+      (2 * q) * phaseSum g + 3 * g.cycleGain * (2 * q).choose 2 +
+        g.cycleGain * (2 * q) := by
+    simpa [o, phaseSum, show 3 * (2 * q) = 6 * q by ring] using
+      g.nextOneBasedLevelSum_three_mul (2 * q)
+  have hchooseq := two_mul_choose_two q
+  have hchoose2q := two_mul_choose_two (2 * q)
+  rw [hmass]
+  cases q with
+  | zero => simp [tail]
+  | succ q =>
+      rw [show q + 1 - 1 = q by omega] at hchooseq
+      rw [show 2 * (q + 1) - 1 = 2 * q + 1 by omega] at hchoose2q
+      rw [show 36 * g.cycleGain * (q + 1) =
+        36 * g.cycleGain * q + 36 * g.cycleGain by ring]
+      rw [show
+        36 * g.cycleGain * q + 36 * g.cycleGain + 8 * phaseSum g -
+            4 * g.cycleGain =
+          36 * g.cycleGain * q + 32 * g.cycleGain + 8 * phaseSum g by
+        omega]
+      nlinarith
+
+/-- QM117b in subtraction-free form.  The displayed right summand is exactly
+`306*M(q)-G0(q)` in the research notation. -/
+theorem dyadicBinaryMass_gap_identity
+    (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    306 * dyadicBinaryMass g q =
+      sharpGrowthExponent g q +
+        q * (10323 * g.cycleGain * q + 1986 * phaseSum g +
+          1917 * g.cycleGain + 11535) := by
+  let r := q - 5
+  have hqrep : q = r + 5 := by dsimp only [r]; omega
+  rw [dyadicBinaryMass_eq]
+  simp only [sharpGrowthExponent]
+  rw [hqrep]
+  rw [show 36 * g.cycleGain * (r + 5) =
+    36 * g.cycleGain * r + 180 * g.cycleGain by ring]
+  rw [show
+    36 * g.cycleGain * r + 180 * g.cycleGain + 8 * phaseSum g -
+        4 * g.cycleGain =
+      36 * g.cycleGain * r + 176 * g.cycleGain + 8 * phaseSum g by
+    omega]
+  rw [show 693 * (r + 5) - 3141 = 693 * r + 324 by omega]
+  ring
+
+/-- The dyadic interval contains more than one full coarse rounding unit of
+extra binary mass. -/
+theorem sharpGrowthExponent_add_305_lt_scaled_dyadicBinaryMass
+    (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    sharpGrowthExponent g q + 305 < 306 * dyadicBinaryMass g q := by
+  rw [g.dyadicBinaryMass_gap_identity q hq]
+  apply Nat.add_lt_add_left
+  let factor := 10323 * g.cycleGain * q + 1986 * phaseSum g +
+    1917 * g.cycleGain + 11535
+  have hfactor : 305 < factor := by dsimp only [factor]; omega
+  have hq_pos : 0 < q := by omega
+  exact hfactor.trans_le (Nat.le_mul_of_pos_left factor hq_pos)
+
+/-- QM117c: unrolling from cycle `q` to cycle `2q` already covers the entire
+coarse binary precision used by the normalized residue. -/
+theorem sharpUpperBudget_le_dyadicBinaryMass
+    (g : Ray) (q : ℕ) (hq : 5 ≤ q) :
+    sharpUpperBudget g q ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g q) 0 (3 * q) := by
+  change sharpGrowthExponent g q ⌈/⌉ 306 ≤ dyadicBinaryMass g q
+  apply (ceilDiv_le_iff_le_mul (by norm_num : 0 < (306 : ℕ))).2
+  have hgap := g.sharpGrowthExponent_add_305_lt_scaled_dyadicBinaryMass q hq
+  omega
+
+/-- Formal information-loss statement requested in QM117: at precision
+`U(q)`, every possible terminal residue at cycle `2q` has the same backward
+image at cycle `q`, namely the canonical zero-terminal residue.  This says
+nothing about more elaborate induction schemes. -/
+theorem shiftedBackwardEval_to_double_terminal_irrelevant
+    (g : Ray) (q : ℕ) (hq : 5 ≤ q)
+    (terminal : ZMod (2 ^ sharpUpperBudget g q)) :
+    EtherCounterResidueBound.backwardEval (shiftedBranch g q)
+        (sharpUpperBudget g q) (3 * q) 0 terminal =
+      shiftedInitialResidue g q 0 (3 * q) := by
+  have hcoverage := g.sharpUpperBudget_le_dyadicBinaryMass q hq
+  have hzero := EtherCounterResidueBound.backwardEval_eq_zero_terminal
+    (shiftedBranch g q) (sharpUpperBudget g q) 0 (3 * q) terminal hcoverage
+  change EtherCounterResidueBound.backwardEval (shiftedBranch g q)
+      (sharpUpperBudget g q) (3 * q) 0 terminal =
+    EtherCounterResidueBound.backwardEval (shiftedBranch g q)
+      (sharpUpperBudget g q) (3 * q) 0 0
+  exact hzero
+
 /-- QM101: every positive forced residue at precision `U(q)+R` obeys the
 same bit budget as the actual cycle-boundary core.  The proof bootstraps the
 unknown comparison between the initial bit length and `R`: an oversized
@@ -1342,6 +1483,158 @@ theorem shiftedInitialResidue_mod_three_eq_one_of_predecessorCongruence
     Nat.ModEq.cancel_left_of_coprime (by norm_num) hscaled
   simpa [Nat.ModEq] using hcancel
 
+/-- Every shallower ternary window is a sound finite observation of the full
+predecessor congruence.  The depth may vary with the cycle index. -/
+theorem shiftedInitialResidue_predecessorCongruenceAtDepth
+    (g : Ray) (q R length depth : ℕ)
+    (hdepth : depth ≤ 6 * g.branch (3 * q - 1) + 11)
+    (hcongruence :
+      2 ^ (8 * g.branch (3 * q) + 15) *
+          (shiftedInitialResidue g q R length).val ≡ 17
+        [MOD 3 ^ (6 * g.branch (3 * q - 1) + 11)]) :
+    2 ^ (8 * g.branch (3 * q) + 15) *
+        (shiftedInitialResidue g q R length).val ≡ 17
+      [MOD 3 ^ depth] := by
+  exact Nat.ModEq.of_dvd (pow_dvd_pow 3 hdepth) hcongruence
+
+/-- Euler's theorem in the exact exponent shape generated by one period-three
+cycle.  This is the finite-depth clock behind the required ternary residue
+class. -/
+theorem two_pow_eight_mul_three_pow_modEq_one (d K : ℕ) :
+    2 ^ (8 * K * 3 ^ d) ≡ 1 [MOD 3 ^ (d + 1)] := by
+  have hcop : (2 : ℕ).Coprime (3 ^ (d + 1)) :=
+    (by norm_num : Nat.Coprime 2 3).pow_right _
+  have hEuler := Nat.ModEq.pow_totient hcop
+  have hp := hEuler.pow (4 * K)
+  rw [Nat.totient_prime_pow_succ (by norm_num : Nat.Prime 3) d] at hp
+  have hp' : 2 ^ ((3 ^ d * 2) * (4 * K)) ≡ 1
+      [MOD 3 ^ (d + 1)] := by
+    simpa only [← pow_mul, one_pow] using hp
+  convert hp' using 1 <;> ring
+
+/-- At ternary depth `d+1`, the multiplied predecessor coefficient is
+periodic in the cycle index with period `3^d`.  Thus the target side of every
+fixed-depth obstruction is a genuinely finite periodic clock; all remaining
+complexity lies in the canonical binary residue. -/
+theorem predecessorCoefficient_period_three_pow
+    (g : Ray) (q d : ℕ) :
+    2 ^ (8 * g.branch (3 * (q + 3 ^ d)) + 15) ≡
+      2 ^ (8 * g.branch (3 * q) + 15)
+        [MOD 3 ^ (d + 1)] := by
+  have hbranch : g.branch (3 * (q + 3 ^ d)) =
+      g.branch (3 * q) + g.cycleGain * 3 ^ d := by
+    rw [g.branch_zero (q + 3 ^ d), g.branch_zero q]
+    ring
+  rw [hbranch]
+  calc
+    2 ^ (8 * (g.branch (3 * q) + g.cycleGain * 3 ^ d) + 15) =
+        2 ^ (8 * g.branch (3 * q) + 15) *
+          2 ^ (8 * g.cycleGain * 3 ^ d) := by
+      rw [← pow_add]
+      congr 1
+      ring
+    _ ≡ 2 ^ (8 * g.branch (3 * q) + 15) * 1
+        [MOD 3 ^ (d + 1)] :=
+      (Nat.ModEq.refl _).mul (two_pow_eight_mul_three_pow_modEq_one d g.cycleGain)
+    _ = 2 ^ (8 * g.branch (3 * q) + 15) := by simp
+
+/-- QM118 finite-extension freedom guardrail.  Any prescribed class modulo
+`3^d` can be hit by appending a sufficiently wide binary block.  The final
+strict bound records that the chosen coefficient really fits inside the next
+`Delta` bits, rather than merely solving an abstract congruence. -/
+theorem exists_fixedDepth_binaryExtension
+    (d P Δ R c : ℕ) (hR : R < 2 ^ P) (hsize : 3 ^ d ≤ 2 ^ Δ) :
+    ∃ a : ℕ, a < 2 ^ Δ ∧ R + 2 ^ P * a < 2 ^ (P + Δ) ∧
+      R + 2 ^ P * a ≡ c [MOD 3 ^ d] := by
+  let m := 3 ^ d
+  have hmpos : 0 < m := by positivity
+  let u : ZMod m := (2 ^ P : ℕ)
+  have hu : IsUnit u := by
+    apply (ZMod.isUnit_iff_coprime (2 ^ P) m).2
+    exact (by norm_num : Nat.Coprime 2 3).pow P d
+  let z : ZMod m := ((c : ZMod m) - (R : ZMod m)) * u⁻¹
+  let a := z.val
+  have ha_m : a < m := ZMod.val_lt z
+  have ha_delta : a < 2 ^ Δ := ha_m.trans_le hsize
+  have heqZ : ((R + 2 ^ P * a : ℕ) : ZMod m) = (c : ZMod m) := by
+    rw [Nat.cast_add, Nat.cast_mul]
+    rw [show (a : ZMod m) = z by exact ZMod.natCast_zmod_val z]
+    change (R : ZMod m) + u * (((c : ZMod m) - R) * u⁻¹) = c
+    calc
+      (R : ZMod m) + u * (((c : ZMod m) - R) * u⁻¹) =
+          R + (c - R) * (u * u⁻¹) := by ring
+      _ = R + (c - R) * 1 := by rw [ZMod.mul_inv_of_unit u hu]
+      _ = c := by ring
+  have hmod : R + 2 ^ P * a ≡ c [MOD m] := by
+    rw [← ZMod.natCast_eq_natCast_iff]
+    exact heqZ
+  have ha_succ : a + 1 ≤ 2 ^ Δ := by omega
+  have hprefix : R + 2 ^ P * a < 2 ^ P + 2 ^ P * a :=
+    Nat.add_lt_add_right hR _
+  have hblock : 2 ^ P + 2 ^ P * a ≤ 2 ^ P * 2 ^ Δ := by
+    rw [show 2 ^ P + 2 ^ P * a = 2 ^ P * (a + 1) by ring]
+    exact Nat.mul_le_mul_left _ ha_succ
+  refine ⟨a, ha_delta, ?_, by simpa [m] using hmod⟩
+  rw [pow_add]
+  exact hprefix.trans_le hblock
+
+/-- Every fixed ternary window eventually agrees with its periodic required
+class under a hypothetical ray.  Unlike the variable-depth consumer below,
+this theorem needs no global depth-side hypothesis: the predecessor exponent
+grows past every fixed `depth`. -/
+theorem shiftedInitialResidue_eventually_predecessorCongruenceAtFixedDepth
+    (g : Ray) (length : ℕ → ℕ) (depth : ℕ)
+    (hprecision : ∀ q, normalizedPrecision g q 0 ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g q) 0 (length q)) :
+    ∃ Q, ∀ q, Q ≤ q →
+      2 ^ (8 * g.branch (3 * q) + 15) *
+          (shiftedInitialResidue g q 0 (length q)).val ≡ 17
+        [MOD 3 ^ depth] := by
+  obtain ⟨Qfull, hfull⟩ :=
+    g.shiftedInitialResidue_eventually_predecessorCongruence length hprecision
+  let Q := max Qfull (max 1 depth)
+  refine ⟨Q, ?_⟩
+  intro q hQq
+  have hQfull : Qfull ≤ q :=
+    (le_max_left Qfull (max 1 depth)).trans hQq
+  have hq_pos : 1 ≤ q :=
+    (le_max_left 1 depth).trans
+      ((le_max_right Qfull (max 1 depth)).trans hQq)
+  have hdepthq : depth ≤ q :=
+    (le_max_right 1 depth).trans
+      ((le_max_right Qfull (max 1 depth)).trans hQq)
+  have hbranch : q ≤ g.branch (3 * q - 1) :=
+    by
+      have hindex : 3 * q - 1 = 3 * (q - 1) + 2 := by omega
+      rw [hindex, g.branch_two]
+      have hgain : q - 1 ≤ g.cycleGain * (q - 1) :=
+        Nat.le_mul_of_pos_left _ g.cycleGain_pos
+      have hbase := g.branch_pos 2
+      omega
+  apply g.shiftedInitialResidue_predecessorCongruenceAtDepth
+    q 0 (length q) depth (by omega)
+  exact hfull q hQfull
+
+/-- Fixed-depth attack surface: one finite ternary window whose failures
+recur arbitrarily late is already incompatible with every period-three ray.
+The required coefficient has the explicit period proved above. -/
+theorem false_of_fixedDepth_cofinally_failed_shiftedResidueCongruence
+    (g : Ray) (length : ℕ → ℕ) (depth : ℕ)
+    (hprecision : ∀ q, normalizedPrecision g q 0 ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g q) 0 (length q))
+    (hfail : ∀ Q, ∃ q, Q ≤ q ∧ ¬
+      2 ^ (8 * g.branch (3 * q) + 15) *
+          (shiftedInitialResidue g q 0 (length q)).val ≡ 17
+        [MOD 3 ^ depth]) :
+    False := by
+  obtain ⟨Q, heventual⟩ :=
+    g.shiftedInitialResidue_eventually_predecessorCongruenceAtFixedDepth
+      length depth hprecision
+  obtain ⟨q, hQq, hne⟩ := hfail Q
+  exact hne (heventual q hQq)
+
 /-- Direct no-ray consumer for the candidate-free formulation: arbitrarily
 late failures of the raw predecessor congruence contradict the eventual
 congruence forced by every period-three ray. -/
@@ -1380,6 +1673,32 @@ theorem false_of_cofinally_shiftedInitialResidue_mod_three_ne_one
   exact hmod3
     (g.shiftedInitialResidue_mod_three_eq_one_of_predecessorCongruence
       q 0 (length q) hcongruence)
+
+/-- Finite-window hierarchy for symbolic attacks.  At any requested ternary
+depth not exceeding the actual predecessor exponent, cofinally many failures
+already exclude the ray.  A proof may therefore fix a small depth, increase
+depth slowly, or use an automaton-selected depth without constructing the
+full exponentially large modulus. -/
+theorem false_of_cofinally_failed_shiftedResidue_congruenceAtDepth
+    (g : Ray) (length depth : ℕ → ℕ)
+    (hprecision : ∀ q, normalizedPrecision g q 0 ≤
+      EtherCounterResidueBound.binaryMass
+        (shiftedBranch g q) 0 (length q))
+    (hdepth : ∀ q, depth q ≤ 6 * g.branch (3 * q - 1) + 11)
+    (hfail : ∀ Q, ∃ q, Q ≤ q ∧ ¬
+      2 ^ (8 * g.branch (3 * q) + 15) *
+          (shiftedInitialResidue g q 0 (length q)).val ≡ 17
+        [MOD 3 ^ depth q]) :
+    False := by
+  apply g.false_of_cofinally_failed_shiftedResidue_predecessorCongruence
+    length hprecision
+  intro Q
+  obtain ⟨q, hQq, hne⟩ := hfail Q
+  refine ⟨q, hQq, ?_⟩
+  intro hfull
+  exact hne
+    (g.shiftedInitialResidue_predecessorCongruenceAtDepth
+      q 0 (length q) (depth q) (hdepth q) hfull)
 
 /-- QM108: the replay-free normalized candidate margin lower-bounds the
 same fixed initial-core bit length. -/

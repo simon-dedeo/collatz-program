@@ -1009,15 +1009,41 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.EtherCounterPeriodThree.Ray.normalizedCRTLift_lt_two_pow_initialDigits
 #print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.nextOneBasedLevelSum_three_mul
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.dyadicBinaryMass_eq
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.dyadicBinaryMass_gap_identity
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.sharpGrowthExponent_add_305_lt_scaled_dyadicBinaryMass
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.sharpUpperBudget_le_dyadicBinaryMass
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.shiftedBackwardEval_to_double_terminal_irrelevant
+#print axioms
   KontoroC.EtherCounterPeriodThree.Ray.normalizedCRTLift_eq_zero_iff_shiftedResidue_predecessorCongruence
 #print axioms
   KontoroC.EtherCounterPeriodThree.Ray.shiftedInitialResidue_eventually_predecessorCongruence
 #print axioms
   KontoroC.EtherCounterPeriodThree.Ray.shiftedInitialResidue_mod_three_eq_one_of_predecessorCongruence
 #print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.shiftedInitialResidue_predecessorCongruenceAtDepth
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.two_pow_eight_mul_three_pow_modEq_one
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.predecessorCoefficient_period_three_pow
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.exists_fixedDepth_binaryExtension
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.shiftedInitialResidue_eventually_predecessorCongruenceAtFixedDepth
+#print axioms
   KontoroC.EtherCounterPeriodThree.Ray.false_of_cofinally_failed_shiftedResidue_predecessorCongruence
 #print axioms
   KontoroC.EtherCounterPeriodThree.Ray.false_of_cofinally_shiftedInitialResidue_mod_three_ne_one
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.false_of_fixedDepth_cofinally_failed_shiftedResidueCongruence
+#print axioms
+  KontoroC.EtherCounterPeriodThree.Ray.false_of_cofinally_failed_shiftedResidue_congruenceAtDepth
 #print axioms
   KontoroC.EtherCounterPeriodThree.Ray.exists_cofinally_constant_normalizedCRTLift
 #print axioms

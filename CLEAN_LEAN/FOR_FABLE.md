@@ -12246,3 +12246,123 @@ modulus: proving that the low-`U(q)` 2-adic residue representative is not
 eventually `1 mod 3` is sufficient.  The `5..128` box had 5,847 such cheap
 failures among 8,804 rows, consistent with this being a plausible but still
 nontrivial equidistribution/nonstabilization target.
+
+## Kontorovich round 222 — finite-depth clock hierarchy
+
+I pushed the one-trit idea to its natural exact hierarchy.  Lean now proves
+that the full predecessor congruence descends to every ternary depth
+`d <= E(q)`, with `d` allowed to vary by row.  It packages both variable- and
+fixed-depth no-ray consumers: cofinally many failures in **one fixed finite
+window** `mod 3^d` already exclude a period-three ray.  For fixed `d` the
+side condition `d<=E(q)` is discharged automatically at sufficiently large
+`q`, since the predecessor branch grows at least linearly.
+
+The target clock is also exact and finite.  Euler's theorem gives
+
+```text
+2^(8*K*3^d) = 1  (mod 3^(d+1)),
+```
+
+and the affine branch law therefore gives
+
+```text
+2^(8*branch(3*(q+3^d))+15)
+  = 2^(8*branch(3*q)+15)  (mod 3^(d+1)).
+```
+
+So at depth `d+1` the required predecessor coefficient has period dividing
+`3^d` in `q`.  This separates the problem cleanly: the target side is a
+finite periodic clock; the only nonperiodic object that needs analysis is
+the canonical low-`U(q)` binary residue.  A symbolic worker should therefore
+try small fixed depths first and, within each of the `3^(d-1)` clock phases,
+prove that residue mismatches recur cofinally.  Any single phase with such a
+proof feeds the new fixed-depth consumer; there is no need to control the
+full growing modulus.
+
+New audited theorems in `EtherCounterPeriodThree.lean`:
+
+```text
+shiftedInitialResidue_predecessorCongruenceAtDepth
+two_pow_eight_mul_three_pow_modEq_one
+predecessorCoefficient_period_three_pow
+shiftedInitialResidue_eventually_predecessorCongruenceAtFixedDepth
+false_of_fixedDepth_cofinally_failed_shiftedResidueCongruence
+false_of_cofinally_failed_shiftedResidue_congruenceAtDepth
+```
+
+## Kontorovich round 223 — QM117 dyadic information-loss audit complete
+
+The incoming QM117 request is kernel-checked.  I first added the closed
+next-level prefix sum
+
+```text
+T(3q)=q*B+3*K*choose(q,2)+K*q,
+```
+
+then split `T(6q)` at `3q` to derive the literal shifted binary mass
+
+```text
+binaryMass(shiftedBranch(q),0,3q)
+  = q*(36*K*q+8*B-4*K+45).                 (QM117a)
+```
+
+Natural subtraction is handled honestly: the proof separates `q=0`, then
+normalizes the positive successor case before polynomial arithmetic.  For
+`q>=5`, Lean proves the subtraction-free exact identity
+
+```text
+306*M(q)
+ = G0(q)+q*(10323*K*q+1986*B+1917*K+11535),           (QM117b)
+```
+
+and hence `G0(q)+305 < 306*M(q)`.  The standard `ceilDiv` Galois law then
+gives exactly
+
+```text
+sharpUpperBudget(q)
+ <= binaryMass(shiftedBranch(q),0,3q).                 (QM117c)
+```
+
+Finally,
+`shiftedBackwardEval_to_double_terminal_irrelevant` states the intended
+negative result without research overreach: for every possible terminal
+`ZMod(2^U)` value at cycle `2q`, backward evaluation through those `3q`
+transitions equals the canonical zero-terminal residue at cycle `q`.
+Therefore a direct dyadic induction on the terminal residue value has no
+value left to propagate.  The theorem deliberately does **not** claim that
+state-enriched or carry-enriched induction is impossible.
+
+All QM117 declarations are added to the axiom-audit surface.
+
+## Kontorovich round 224 — QM118 finite extension guardrail complete
+
+The incoming fixed-depth freedom lemma is now kernel-checked, in a slightly
+stronger bit-block form.  Given
+
+```text
+R < 2^P,  3^d <= 2^Delta,
+```
+
+Lean constructs the least representative of
+`(c-R)*(2^P)^(-1)` in `ZMod(3^d)` and proves there is an `a` with
+
+```text
+a < 2^Delta,
+R + 2^P*a < 2^(P+Delta),
+R + 2^P*a = c (mod 3^d).
+```
+
+The middle inequality is extra bookkeeping that verifies `a` really is an
+appended `Delta`-bit block; it uses `R<2^P` and is not merely an abstract CRT
+solution.  The inverse is justified from the exact coprimality of powers of
+two and three, and no inverse convention appears in the theorem statement.
+
+This formally validates the requested strategic warning: matching any one
+periodic fixed-depth ternary clock is freely enforceable by sufficiently wide
+binary extensions.  Therefore fixed-depth eventual matching cannot by
+itself imply rationality, periodicity, or automaticity.  A successful
+cofinal-mismatch theorem must constrain how the canonical EC17 residue carry
+evolves between cycle indices.  I did not formalize the stronger research-side
+infinite nonrational construction, as requested.
+
+The new audited theorem is `Ray.exists_fixedDepth_binaryExtension`.
