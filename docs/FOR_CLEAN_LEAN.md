@@ -9365,3 +9365,78 @@ change still not reflected in that passing working tree.
 
 After the `L0` strengthening landed in the working tree, I reran the same
 8,717-target focused build; it passes as well.
+
+## Kontorovich request: normalized residue margins (QM100--QM103, 2026-07-23)
+
+The sharp QM99 upper bound turns the old finite residue sieve into a
+potential all-precision obstruction.  Please formalize the implication before
+we run the new worker; this is intended to prevent another undirected
+precision sweep.
+
+For a period-three `Ray g`, `q>=5`, put
+
+```text
+A(q) = q*(462*(g.branch 0+g.branch 1+g.branch 2)+2235
+            +g.cycleGain*(693*q-3141)),
+U(q) = (A(q)+305)/306,               -- ceil(A/306)
+L0   = Nat.log 2 (g.core 0)+1.
+```
+
+First derive directly from `sharp_quadratic_binaryDigits_upper` the exact
+integer endpoint
+
+```text
+Nat.log 2 (g.core (3*q))+1 <= L0+U(q).                 (QM100)
+```
+
+Now shift the existing residue interface to the cycle boundary.  Define
+`branchQ(t)=g.branch(3*q+t)` and the evident `NaturalPrefix branchQ length`
+with core `g.core(3*q+t)`.  Let
+
+```text
+P = U(q)+R,
+r = (initialResidue branchQ P length).val,
+```
+
+and assume `P <= binaryMass branchQ 0 length`.  ZMod gives `r<2^P`
+automatically.  The desired finite theorem is
+
+```text
+Nat.log 2 r+1 <= U(q)+L0.                              (QM101)
+```
+
+Please either prove `0<r` from `P>0` (the backward EC17 residue is odd), or
+take `0<r` as an explicit checker premise.  The latter is completely fine.
+The proof is a useful bootstrap: if `digits(r)>U+L0`, then `r<2^P` forces
+`P>U+L0`; QM100 gives `core(3q)<2^P`; QM62 therefore identifies `r` with the
+actual core, contradicting QM100.  This avoids assuming the unknown `L0<R`
+in advance.
+
+Expose the search-facing corollary
+
+```text
+(Nat.log 2 r+1)-U(q) <= L0.                            (QM102)
+```
+
+For positive `r`, the left side is exactly
+`R-leadingZeroBits(r among P bits)` whenever it is positive.  Thus each
+exact residue row certifies a lower bound on the *same fixed* initial bit
+length.  Finally package the abstract cofinal consumer: if supplied
+`q_j>=5`, `R_j`, `length_j`, the precision hypotheses above, positive
+residues, and
+
+```text
+forall M, exists j,
+  M < (Nat.log 2 r_j+1)-U(q_j),
+```
+
+then no such `Ray` exists (QM103), by applying the premise at `M=L0` and
+QM102.  This is the exact theorem that would promote unbounded computed
+margins to a universal schedule exclusion.
+
+Off-by-one audit: Python's `int.bit_length()` agrees with
+`Nat.log 2 r+1` only for `r>0`; the worker must record/check positivity.  Also
+the shifted future begins at branch `g.branch(3*q)`, not at its predecessor,
+and it must accumulate at least `P` binary exponent before zeroing the
+terminal residue.  This theorem supplies no counterexample and does not
+assert that the margins are unbounded.
