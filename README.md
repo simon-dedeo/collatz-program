@@ -33,6 +33,99 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 05:45 EDT
+
+There is still no counterexample.  The period-three search has been reduced
+from product-modulus CRT growth to one explicit ternary digit of one canonical
+future residue.
+
+Companion commit `5a3413a` kernel-checks the next exact upper separator
+
+```text
+3^971 < 2^1539,        485*971-1539*306=1.
+```
+
+Put
+
+```text
+G0(q)=q*(462*B+2235+K*(693*q-3141)),       U(q)=ceil(G0(q)/306),
+G1(q)=q*(1466*B+7092+K*(2199*q-9967)),     V(q)=ceil(G1(q)/971).
+```
+
+Lean proves
+
+```text
+core(3q)^971 < 2^(971*L0+G1(q)),
+
+971*G0(q)-306*G1(q)
+  =q*(6*B+33+9*K*(q-1)).
+```
+
+The positive quadratic gap eventually pays for the fixed initial bit length,
+so every hypothetical period-three ray eventually has
+
+```text
+core(3q) < 2^U(q).
+```
+
+Consequently its canonical normalized CRT lift is eventually exactly zero.
+This strengthens the earlier bounded-lift pigeonhole result: the only
+asymptotic lift that matters is `0`.
+
+Commits `78a6d05` and `43cdba7` eliminate the CRT candidate itself.  Let
+`r_q` be the canonical future-forced residue modulo `2^U`.  A ray forces,
+eventually,
+
+```text
+2^(8*branch(3q)+15)*r_q
+  = 17  (mod 3^(6*branch(3q-1)+11)).
+```
+
+Commit `d9398a8` reduces this further.  The power-of-two exponent is odd, so
+the displayed congruence implies simply
+
+```text
+r_q = 1 (mod 3).
+```
+
+Lean now proves that arbitrarily late failures of even this one-trit condition
+exclude the entire prescribed period-three ray.  The open hinge is therefore
+an exact nonstabilization/equidistribution statement for the canonical
+`U(q)`-bit representatives, not an unstructured seed search.
+
+Three Akdeniz artifacts have been independently reconstructed.  They cover
+the nine genuine positive-gain increment words in `[-1,1]^3`, all 71 positive
+starts through branch eight, and `q=5,8,16,...,512` (568 exact rows each):
+
+```text
+normalized residues failing replay                 568 / 568
+weakest replay-derived initial-core bound           1,057 bits
+normalized CRT representatives failing replay       568 / 568
+weakest CRT-derived initial-core bound               3,084 bits
+raw U-bit residues missing the full predecessor class 568 / 568
+raw U-bit residues already missing r_q=1 mod 3       350 / 568
+counterexample                                             null
+```
+
+The other 218 raw residues match the first trit but fail at a higher ternary
+digit.  All figures are finite diagnostics: they do not establish arbitrarily
+late failure.  The exact artifact hashes are
+
+```text
+normalized margin  2c51f510e4b86f0fafae489df8ad54749eb78e4aadf70511dcf5b0bcd073b720
+normalized CRT     f0754083c04d5912b7719f6f7c72455905d7eb23d265efde2eeb9b5d612da20c
+tight raw residue  c964e93d7290832cb61f3beac17892b148b8319096411865e07c9dbb46c2832a
+```
+
+A research-side exact-algebra audit, not yet kernel-checked, explains why the
+dyadic sampling should be treated as a probe rather than an induction: its
+formula says that the binary mass between `q` and `2q` already exceeds
+`U(q)`, so reduction modulo `2^U` erases all terminal information from cycle
+`2q`.  Until that audit is formalized, use it only as search guidance.  Its
+warning is that a proof of one-trit nonstabilization must control the canonical
+reduction carry rather than infer the next ternary digit from a naive dyadic
+residue recurrence.
+
 ### 2026-07-23 04:55 EDT
 
 There is still no counterexample.  The period-three search is now driven by
@@ -4511,19 +4604,19 @@ identically `x`.
   candidate.  For periodic or morphic controllers, the remaining arithmetic
   task is to prove that candidate is not a negative ordinary integer.  This
   can eliminate an infinite program family without enumerating any seeds.
-- **Normalized period-three residue margins.**  The sharp Lean sandwich in
-  commit `e385967` determines the core's quadratic bit budget up to a very
-  narrow interval.  At cycle `q`, compute the forced future residue only after
-  subtracting the explicit upper budget
-  `U(q)=ceil(q*(462B+2235+G*(693q-3141))/306)`.  Its excess bit length over
-  `U(q)` is a certified lower bound on the one fixed initial bit length; an
-  unbounded sequence of such margins excludes that schedule.  Formalize this
-  implication first, then search margins.  Commits `52cd3e1`/`44c43b0` now
-  formalize both the implication and exact replay-failure semantics.  The
-  stronger normalized CRT version adds the predecessor modulus and turns
-  each failed row into `6*n_previous+11<bits(core(0))`; cofinal failed rows
-  exclude the schedule.  Raw precision widening without normalization remains
-  only a finite lower-bound exercise.
+- **Normalized period-three residues and the one-trit hinge.**  Commits
+  `e385967`/`5a3413a` give adjacent exact upper budgets `U(q)` and `V(q)` whose
+  difference grows quadratically.  Every hypothetical ray eventually has
+  `core(3q)<2^U`, so its normalized CRT lift is eventually exactly zero.
+  Commits `78a6d05`/`43cdba7` identify this with one raw future-residue
+  congruence, without constructing a CRT candidate.  Commit `d9398a8` proves
+  the cheapest necessary consequence: the canonical `U(q)`-bit residue must
+  eventually equal `1 mod 3`.  The live target is to prove cofinally many
+  failures of this single trit, or of the full predecessor congruence, for
+  every positive-gain period-three word.  The exact dyadic audit through
+  `q=512` finds 568/568 full-congruence failures and 350/568 one-trit failures,
+  but this finite sample is not a nonstabilization theorem.  Do not return to
+  raw precision widening; it only raises finite lower bounds.
 - **Partial-theta integrality sieves.**  The standard two-rail schedule reduces
   to the sole 2-adic initial value
   `-(23/3^8) F(2/3,2^13/3^9)`.  Väänänen--Wallisser's full-source 1989 theorem

@@ -9766,3 +9766,45 @@ predecessor congruence modulo `3^E`, then again `P-V(q)<L0`; otherwise a core
 smaller than `2^P` would equal that residue and inherit the congruence.  These
 are finite lower bounds only.  Cofinal failures make `P-V` unbounded and
 exclude the ray.
+## Kontorovich request: dyadic residue information-loss audit (QM117, 2026-07-23)
+
+The new one-trit endpoint makes it tempting to induct along `q -> 2*q`.
+There is an exact reason that the naive induction loses the required carry.
+Please check the cheap part so it can enter the failure ledger.
+
+For a period-three `Ray`, let `B=phaseSum g`, `K=cycleGain`, and sum the
+binary exponents from transition `3*q` through `6*q-1`.  The exact mass is
+
+```text
+M(q)=q*(36*K*q+8*B-4*K+45).                            (QM117a)
+```
+
+With the existing coarse numerator
+
+```text
+G0(q)=q*(462*B+2235+K*(693*q-3141)),
+U(q)=ceil(G0(q)/306),
+```
+
+direct expansion gives
+
+```text
+306*M(q)-G0(q)
+ =q*(10323*K*q+1986*B+1917*K+11535) > 305.            (QM117b)
+```
+
+Hence `U(q)<=M(q)`.  Please expose this as the literal shifted binary-mass
+coverage statement
+
+```text
+sharpUpperBudget g q <=
+  binaryMass (shiftedBranch g q) 0 (3*q).              (QM117c)
+```
+
+The interpretation is deliberately negative: computing the forced residue at
+cycle `q` modulo `2^U` by unrolling exactly to cycle `2*q` already kills the
+terminal core completely.  Thus the residue at `q` contains no residue value
+from `2*q` on which a dyadic induction could operate.  A useful theorem need
+only certify QM117a--c and state this terminal-annihilation consequence using
+the existing initial-residue interface; do not attempt to formalize the
+research-side claim that no more elaborate induction is possible.

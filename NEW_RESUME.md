@@ -1,6 +1,63 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 04:55 EDT
+Updated: 2026-07-23, about 05:45 EDT
+
+### 05:45 EDT continuation — eventual zero lift and the one-trit hinge
+
+There is no counterexample.  Companion commit `5a3413a` proves the sharper
+separator `3^971<2^1539`, the tight 971st-power core bound, and the exact gap
+
+```text
+971*G0(q)-306*G1(q)=q*(6*B+33+9*K*(q-1)),
+
+G0=q*(462*B+2235+K*(693*q-3141)),
+G1=q*(1466*B+7092+K*(2199*q-9967)).
+```
+
+With `U=ceil(G0/306)` and `V=ceil(G1/971)`, the gap eventually forces
+`core(3q)<2^U`.  Hence every hypothetical period-three ray eventually has
+normalized CRT lift exactly zero.  QM116 also strengthens every exact replay
+or raw-congruence failure at precision `P` to the finite bound `P-V<L0`.
+
+Commits `78a6d05` and `43cdba7` remove the CRT candidate from the decisive
+endpoint.  If `r_q` is the canonical future residue modulo `2^U`, a ray must
+eventually satisfy
+
+```text
+2^(8*branch(3q)+15)*r_q
+  =17 (mod 3^(6*branch(3q-1)+11)).
+```
+
+Commit `d9398a8` proves the one-trit consequence `r_q=1 mod 3` and a direct
+no-ray consumer for arbitrarily late violations.  This is the preferred live
+target: prove, for every positive period-three schedule,
+
+```text
+forall Q, exists q>=Q, r_q % 3 != 1.
+```
+
+The exact Akdeniz dyadic artifacts cover all nine positive-gain words in
+`[-1,1]^3`, all 71 positive starts through eight, and
+`q=5,8,16,...,512` (568 rows each).  Every normalized residue and every CRT
+candidate fails replay; every raw `U`-bit residue misses the full predecessor
+class; 350/568 already miss `1 mod 3`.  The weakest replay, CRT, normalized-
+gap, and padded-gap initial-core bounds are respectively 1,057, 3,084, 9,
+and 1,065 bits.  Every artifact says `counterexample:null`; all have been
+independently reconstructed.
+
+```text
+normalized margin artifact  2c51f510e4b86f0fafae489df8ad54749eb78e4aadf70511dcf5b0bcd073b720
+normalized CRT artifact     f0754083c04d5912b7719f6f7c72455905d7eb23d265efde2eeb9b5d612da20c
+tight raw-residue artifact  c964e93d7290832cb61f3beac17892b148b8319096411865e07c9dbb46c2832a
+```
+
+Do not infer cofinality from the dyadic rows.  A research-side exact-algebra
+derivation, not yet kernel-checked, says that the binary mass from `q` to
+`2q` already exceeds `U(q)`, so the terminal residue at `2q` is completely
+erased modulo `2^U`.  Treat this as guidance against a dyadic induction until
+formalized.  The missing theorem appears to require control of the canonical
+reduction carry (equivalently the next Hensel digit of the finite three-theta
+defect), not just the low-bit recurrence.
 
 ### 04:55 EDT continuation — normalized residue and CRT no-ray consumers
 
