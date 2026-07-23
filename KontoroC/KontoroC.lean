@@ -109,6 +109,7 @@ import KontoroC.YahChartClock
 import KontoroC.YahAffineCarryNoGo
 import KontoroC.YahCascadeCarry
 import KontoroC.AffineSuccessorCylinder
+import KontoroC.EtherCounterAperiodic
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail

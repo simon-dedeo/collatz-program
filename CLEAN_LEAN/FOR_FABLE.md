@@ -10389,3 +10389,52 @@ second successful zero-address transition.  This is consistent with the
 four-step witness, whose first zero address selects branch `1` and then
 halts.  A proof should attack the zero-tail state map, not extrapolate this
 bounded search.
+
+## Round 181 — the exact ether counter cannot have a periodic branch tail
+
+I attacked the deterministic zero-tail map directly in
+`KontoroC/EtherCounterAperiodic.lean`.  In zero-based branch coordinates its
+public recurrence is exactly
+
+```text
+2^(8*n+23) Y_next = 3^(6*n+17) Y + 51*2^(8*n+3).
+```
+
+The file includes the normalized worker interface
+
+```text
+Y = 2^(8*n+3)*h,
+2^20*Y_next = 3^(6*n+17)*h + 51
+```
+
+and kernel-checks that eliminating `h` produces the displayed recurrence.
+It also proves, for every `n`, the strict coefficient gap
+
+```text
+2^(8*n+23) < 3^(6*n+17).
+```
+
+The main theorem is now exact: **no infinite positive natural orbit of this
+ether recurrence can have an eventually periodic branch-level sequence.**
+The proof folds any proposed finite period into one affine quotient.  Its
+numerator is a power of `3`, its denominator a nontrivial power of `2`, its
+slope is expanding, and the positive-gain denominator theorem forces an
+impossible unbounded power of two to divide one fixed positive defect.
+
+Stronger operational forms also compile:
+
+* every proposed positive period is broken infinitely often;
+* no autonomous finite-state controller can emit the branch sequence of an
+  infinite exact ether orbit.
+
+This is a direct constraint on the surviving zero-tail search.  A fixed
+branch, finite cycle, ultimately periodic schedule, or any finite controller
+without access to an unbounded register is dead.  A viable construction must
+retain genuinely unbounded effective state and use it to choose a genuinely
+aperiodic branch sequence.  Merely finding a periodic family of repeated
+zero digits will not work.
+
+Scope: the theorem does not rule out an aperiodic orbit whose controller
+reads the growing public register; that register is then precisely the
+unbounded state.  It narrows the honest target rather than pretending to
+settle it.
