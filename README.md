@@ -33,6 +33,96 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 11:28 EDT
+
+There is still no counterexample, but the KL paper has now identified the
+correct rigid spine inside the returning-glider compiler.  For a free
+branch-`n` packet tail
+
+```text
+K=R_n+2^(8n+15)q,
+Z(K)=2^35*K-358513857,
+r=v_3(Z),
+C(K)+1=3*2^(r+1)*(Z/3^r),
+```
+
+the coefficient of `q` in `Z` is a 3-adic unit.  Thus free tails have the
+exact geometric valuation histogram
+`#(r=j)=2*3^(d-j-1)` modulo `3^d`, with one depth-`d` root cylinder.  That
+distribution is not a law along a linked orbit.  The normalized core is
+
+```text
+u=u_base(n)+473*2^20*3^10*q,
+```
+
+so `u=1 mod 3` is automatic and imposes no condition `q=1 mod 3`.
+
+The coherent-chain algebra collapses the apparent randomness completely.
+Using `9591553=17*(2^15+3^12)`, every linked EC17 transition satisfies
+
+```text
+2^(8m+15)u'=3^(6n+11)u+17,
+2^(8m+30)u'-9591553
+  =3^12*(2^15*3^(6n-1)u-17).
+```
+
+The bracket is a 3-adic unit for every positive branch `n`.  Hence every
+genuine successor has exactly `r'=2`, not a random rail.  Its literal Collatz
+boundary obeys the sharper identity
+
+```text
+473*C'+881=2^18*3^(6n)u,
+v_3(473*C'+881)=6n.
+```
+
+Thus any linked chain with unbounded branch lengths approaches the explicit
+3-adic center `-881/473`.  At every fixed depth `d<=6n+1`, the successor
+macro tail modulo `3^d` is already fixed by the target branch `m`; there is
+no exceptional free tail left to choose at that precision.
+
+The router skeleton is now symbolic.  Every post-initial length-`n` macro has
+
+```text
+R2=2n+4,  R8=4n+7,  S=0,
+odd steps=6n+11,  halvings=8n+15.
+```
+
+One repeated ether cell is the exact six-edge KL cycle with two class-2 and
+four class-8 chords and affine map
+
+```text
+F_E(x)=(729*x+881)/256,
+fixed point x=-881/473.
+```
+
+At the exactly reverified level-12 certificate, linked macros `n=2..6`
+factor as `Dev(n)=Dev_base*Dev_E^n`; the exact ether factor is
+`Dev_E=2.973148268...`, with one selected and five nonselected lifts and
+calibrated slack `Dev_E/W_E=1.217522341...`.  This is fixed-precision exact
+calibration, not a critical-limit theorem.
+
+The rational cycle was then audited independently against every stored exact
+certificate at `k=12..19`.  Its exact `Dev_E/W_E` ratios are all greater than
+one and strictly decrease, by integer cross-products, through
+
+```text
+1.217522341, 1.164166565, 1.148289542, 1.113495646,
+1.097093460, 1.076368695, 1.066265371, 1.051569573.
+```
+
+The selected/nonselected split changes from `1/5` at `k=12..15` to `2/4` at
+`k=16..19`.  This is unusually coherent finite evidence that the ether spine
+is approaching a KL-critical direction, but the artifact explicitly records
+`limit_theorem:null`; no convergence or critical tower is claimed.
+
+The artifact checks 1,200 affine chart instances, 192 lifted macro links,
+the synchronization theorem through depth 49 in its bounded box, literal
+router skeletons, and exact certificate products.  It records
+`counterexample:null`.  The remaining existential seam is now clean: build
+one positive infinite EC17/glider chain.  The existing all-branch Lyapunov
+theorem would make any such chain an outward Collatz escape, but no chain or
+ordinary initial seed is known.
+
 ### 2026-07-23 10:54 EDT
 
 There is still no counterexample.  The reset-cylinder program now has an
@@ -108,6 +198,10 @@ prescribed chord lift passes its exact rational potential inequality before a
 tax row is emitted.  Each finite packet is outward and pays nonselected-lift
 tax.  This restores KL as a valid finite calibration on the actual compiler,
 but it is not a coherent period-three ray or a precision-uniform theorem.
+Companion commit `82c01dd` upgrades the sampled-edge classification from the
+six traces to all positive Syracuse trajectories: successive visits to
+`2 mod 3`, read backwards, are exactly the KL transport, class-2, or class-8
+principal edges.
 The next KL question is whether the actual macro-tail dependence forces these
 lift choices to spread across fibers, or permits one exceptional ordinary
 tail to track the low-tax lifts cofinally.
@@ -5190,8 +5284,15 @@ identically `x`.
   must instead expand the actual packet-level Collatz path.  The new literal
   bridge does so for ether lengths `1..6` at KL level 12: all exact edge and
   path-product inequalities pass, with class-8-heavy chord paths and no
-  transports.  The live theorem must relate those actual chord fibers to the
-  macro tails forced by the EC17 schedule; the raw core odometer cannot do it.
+  transports.  The tail-chart theorem now relates those actual fibers to
+  EC17 exactly: every linked successor has rail `r=2`, fixed-depth tails
+  synchronize from the target branch, and unbounded branches approach the
+  KL ether center `-881/473`.  At level 12 the mature tax is an exact repeated
+  six-edge cycle factor, not a Haar average.  Across the stored `k=12..19`
+  certificates its exact tax/weight ratio decreases from `1.21752` to
+  `1.05157`, finite evidence of near-critical alignment but not a limit
+  theorem.  What remains is the original
+  hard seam—one positive infinite EC17 chain whose dyadic addresses cohere.
   The missing construction must self-write a genuinely aperiodic sequence of
   increasingly precise reset cylinders whose inverse limit is one positive
   ordinary payload and whose real KL cocycle stays outward.
@@ -5211,6 +5312,7 @@ identically `x`.
 | Prefix-complete uniformly outward valuation ISA | Closed for finite positive prefix-free codes.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, every outward leaf has `q(w)>p(w)`; `p`-completeness and the `q`-Kraft bound are inconsistent.  Commit `da9fa59` constructs explicit binary and four-letter compilers, derives both Kraft inequalities from prefix-freeness, and proves the full finite contradiction and quantitative mass bound in Lean.  The countably infinite prefix-free theorem still uses an abstract `tsum` interface.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |
 | Periodic or ultimately periodic path in the four-word signed thin language | Closed.  The exact bounded controller audit extracts the proper code `{1,011,001111,010111}` with ordinary mass `21/32`, tilted mass `1905/2048`, and 41,328 literal growing reset checks.  Commit `1aa3e52` proves that any nonempty periodic concatenation of outward shortcut blocks gives an expanding coprime affine recurrence and cannot persist on positive naturals; an arbitrary finite prefix does not help.  Genuinely aperiodic paths with eventually zero address carry remain open. | [`kl_signed_thin_residue.json`](experiments/kontorovich/kl_signed_thin_residue.json), [`ShortcutParityPeriodicNoGo.lean`](KontoroC/KontoroC/ShortcutParityPeriodicNoGo.lean) |
 | EC17 normalized core boundary as a KL full-lift path | Closed as a semantic identification.  The boundary clock is a genuine ternary odometer and is cofinal on `Y_d` when `3` does not divide the period-three gain.  Nevertheless each phase has only one class-2 and one class-8 KL chord over a full orbit; almost all pairs are nonedges.  More decisively, a KL word with `r` chords has defect at least `3^r-2^r`, while one normalized EC17 core step has `r>=17` and defect 34.  No KL/Haar tax may be attached directly to the core clock.  This does not close the actual packet compiler, whose ordinary endpoints must be expanded and sampled separately. | [`breakoff_ether_period3_kl_bridge_audit.json`](experiments/kontorovich/breakoff_ether_period3_kl_bridge_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md) |
+| Free/Haar packet-tail model for one linked EC17 ray | Closed.  Free packet tails have an exact geometric `v_3(Z)` histogram, but EC17 linkage forces every successor to `v_3(Z')=2`, fixes `q' mod 3^d` from the target branch whenever `d<=6n+1`, and places the literal boundary at exact 3-adic distance `6n` from `-881/473`.  The post-initial edge counts are `(R2,R8,S)=(2n+4,4n+7,0)`, and fixed-level KL tax is the deterministic rational ether-cycle factor, not a Haar average.  This sharply narrows but does not construct or exclude a positive infinite EC17 chain. | [`breakoff_ether_glider_kl_tail_chart_audit.json`](experiments/kontorovich/breakoff_ether_glider_kl_tail_chart_audit.json), [`kl_rational_ether_cycle.json`](experiments/kontorovich/kl_rational_ether_cycle.json) |
 | Proper whole-word YAH context splash with canonical endpoints | Universally closed.  Commit `9ca4360` proves over the pinned 11 rules that if a nonempty derivation starts and ends at canonical `/digits.` words and claims `endpoint=left++start++right`, then both contexts are empty.  The earlier generic/flank theorem and the worker's 825,708 bounded rule checks remain diagnostics for noncanonical charts.  This is not YAH termination; internal/morphic templates remain live. | [`yah_context_loop_audit.json`](experiments/kontorovich/yah_context_loop_audit.json), [`YahRewriteSystem.lean`](KontoroC/KontoroC/YahRewriteSystem.lean) |
 | Delimiter-fixing independent YAH digit morphism | Closed completely in the stated productive/nonerasing class.  The exact worker finds identity as the unique width-one simulation and none among all 9,765,625 width-two maps; commit `2d50381` excludes every uniform width `w>=3`.  Commit `bfe12f0` removes the common-width premise: over the pinned 11 rules, any marker-fixed morphism with nonempty digit-only images and nonempty simulations of all rules is literally identity.  Delimiter-changing and context-dependent/coordinated multi-block maps are not excluded. | [`yah_context_loop_audit.json`](experiments/kontorovich/yah_context_loop_audit.json), [`YahVariableMorphismRigidity.lean`](KontoroC/KontoroC/YahVariableMorphismRigidity.lean) |
 | Perpetual one-cell YAH macro reproduction | Universally closed for ordinary natural seeds.  Commit `64bccb8` proves that every `+1` queue macro has `4*(N_next+1)=9*(N+1)`; an infinite all-growing macro orbit would force every power of four to divide one fixed positive `N+1`.  Commit `db13d82` gives the finite form: an `r`-macro growth burst forces `4^r | N+1`.  This does not close intermittent growth: a survivor must include neutral/shrinking collision phases which recharge enough dyadic battery to fund later cells. | [`YahPerpetualGrowthNoGo.lean`](KontoroC/KontoroC/YahPerpetualGrowthNoGo.lean), [closure doctrine](docs/notes/kontorovich-closure-principles.md#56-macro-space-conservation-exposes-the-nonlocal-instruction-bit) |

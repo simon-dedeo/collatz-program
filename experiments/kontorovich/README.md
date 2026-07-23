@@ -4759,4 +4759,67 @@ All paths are outward and contain only chord edges; their `(R2,R8)` counts are
 `(6,9),(8,13),(10,18),(12,22),(14,25),(16,29)`.  Every exact edge inequality
 and telescoped product passes.  This is finite packet-level calibration only;
 it does not supply an infinite macro schedule, a precision-uniform KL bound,
-or a Collatz counterexample.  `counterexample:null`.
+or a Collatz counterexample.  Companion commit `82c01dd` separately proves
+that successive `2 mod 3` Syracuse visits always give KL principal edges;
+the worker's remaining finite obligations are compiled macro linkage and the
+certificate-specific tax.  `counterexample:null`.
+
+## Linked glider tail chart and deterministic KL ether cycle
+
+`breakoff_ether_glider_kl_tail_chart.py` resolves the free-tail versus linked-
+tail distinction left open by the literal KL bridge.  It first verifies the
+true packet chart
+
+```text
+Z=2^35*K-358513857,
+r=v_3(Z),
+C+1=3*2^(r+1)*(Z/3^r).
+```
+
+Free `q mod 3^d` has an exact geometric rail histogram because its coefficient
+in `Z` is a 3-adic unit.  A genuine linked successor is not free: substitution
+of EC17 gives
+
+```text
+2^(8m+30)u'-9591553
+ =3^12*(2^15*3^(6n-1)u-17),
+```
+
+so every positive-branch successor has `r'=2`.  It also verifies
+`v_3(473*C'+881)=6n` and fixed-target synchronization of `q' mod 3^d` for
+every `d<=6n+1`.
+
+```bash
+python3 breakoff_ether_glider_kl_tail_chart.py selftest
+python3 breakoff_ether_glider_kl_tail_chart.py verify \
+  breakoff_ether_glider_kl_tail_chart_audit.json
+```
+
+The default artifact checks free branches `n=1..12` modulo `3^5`, 192 lifted
+links with both branch lengths in `1..8`, synchronization through depth 49,
+1,200 piecewise-affine chart instances, and literal router skeletons for
+`n=1..4`, tails `0..8`.  Every linked post-initial length-`n` macro has
+`(R2,R8,S)=(2n+4,4n+7,0)`.  The repeated ether cell is the exact KL cycle
+`F_E(x)=(729*x+881)/256` at `x=-881/473`.  At the reverified level-12
+certificate, linked macros `n=2..6` have exact factorization
+`Dev(n)=Dev_base*Dev_E^n`, with one selected and five nonselected lifts per
+ether cell.  This is a fixed-precision calibration and supplies no infinite
+EC17 chain.  `counterexample:null`.
+
+`kl_rational_ether_cycle.py` independently isolates the same rational cycle
+without replaying a glider macro.  It derives its six rational centers,
+SHA-checks the stored certificate manifests and sidecars at `k=12..19`,
+memory-maps the large vectors, reconstructs every chord fiber, and compares
+the exact cycle deviation `D_E` with
+`W_E=(B2/SC_W)^2*(B8/SC_W)^4`.
+
+```bash
+python3 kl_rational_ether_cycle.py selftest
+python3 kl_rational_ether_cycle.py verify kl_rational_ether_cycle.json
+```
+
+All eight exact ratios `D_E/W_E` exceed one and decrease strictly from
+`1.217522341...` at level 12 to `1.051569573...` at level 19; each comparison
+is certified by a positive integer cross-product.  The artifact independently
+matches the level-12 literal tail-chart factor.  It records
+`finite_evidence_only:true`, `limit_theorem:null`, and `counterexample:null`.

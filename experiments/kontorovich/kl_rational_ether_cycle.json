@@ -1,0 +1,2148 @@
+{
+  "counterexample": null,
+  "finite_evidence_only": true,
+  "limit_theorem": null,
+  "literal_level_12_crosscheck": {
+    "artifact_path": "experiments/kontorovich/breakoff_ether_glider_kl_tail_chart_audit.json",
+    "artifact_sha256": "a2c7fc016305f882d8c21eba8439db3a09f772550a7809824731e2e6f61846b7",
+    "certified_weight_equal": true,
+    "deviation_factor_equal": true,
+    "selected_nonselected_counts_equal": true
+  },
+  "monotonicity": {
+    "comparisons": [
+      {
+        "from_level": 12,
+        "left_cross_product": 172691608155688366031486445485639256866929770836497018523166591644693656437507019357600343125209845174756220126084820430294554488321188831160875160772733969173887031254108109363239051671050567715616847498922011247578125000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "positive_difference": 7567906140433128049593891143257816354562364740925797718933993288858518363139916916790675947455595258579490351932830294661398004677117934310071603158928811846262066793142969581834591162838070703339250919607503814678125000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "right_cross_product": 165123702015255237981892554342381440512367406095571220804232598355835138074367102440809667177754249916176729774151990135633156483644070896850803557613805157327624964460965139781404460508212497012277596579314507432900000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "to_level": 13
+      },
+      {
+        "from_level": 13,
+        "left_cross_product": 1091407087868128882513273286464808823862136598871701262720941690853824300913810125251186177206863108618744094094369502922482559293499821460243350148981783678640247467439778818467814452092276016643426161472121228692860700000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "positive_difference": 14884722324186835805215128080518315664717290891044394218990966481930402918738778310141187286878662849337451531797063375587388129163007471934092867140621522629597268140561903644338298744991676998016603025290892636298200000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "right_cross_product": 1076522365543942046708058158384290508197419307980656868501950724371893897995071346941044989919984445769406642562572439546895171164336813988309257281841162156010650199299216914823476153347284339645409558446830336056562500000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "to_level": 14
+      },
+      {
+        "from_level": 14,
+        "left_cross_product": 49357159493433549740550064780866109928791982398038037868653798695851775295948691253518762468583291624778516395521840983730018177534619740546934523329083666678613315211532814020563822682878168314071450362801122925387314687500000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "positive_difference": 1495552986798649372623110938736293686056240449552900283835576136726287760073399116360035623557029504792437514086931391427307508099042560212247346313401522015605703830314449440056140023919514326540259061201716290220298087500000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "right_cross_product": 47861606506634900367926953842129816242735741948485137584818222559125487535875292137158726845026262119986078881434909592302710669435577180334687177015682144663007611381218364580507682658958653987531191301599406635167016600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "to_level": 15
+      },
+      {
+        "from_level": 15,
+        "left_cross_product": 425314810880194545968985351902096795026884875276027090177686860604282999315655607534379843616648831685249953567676288663004952295318932292321412427199205174497444055459091990101498557136666498605922580915369400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "positive_difference": 6265037986174084584058386310898465533233823394102292745377051089386591179969432924566335197429819856690653480054491915476032796021013247990694682843409368391441739495155582510500444237722246929816897810709400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "right_cross_product": 419049772894020461384926965591198329493651051881924797432309809514896408135686174609813508419219011828559300087621796747528919499297919044330717744355795806106002315963936407590998112898944251676105683104660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "to_level": 16
+      },
+      {
+        "from_level": 16,
+        "left_cross_product": 171397863884735891998971926656013108520322162417663643157111523728996565250351642049616964269107111814538436079555640266500692497990966447525119675699074342128152148765887361397595426839782194660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "positive_difference": 3237810304647690787255378302566760069412494504441501378267894530779728166754388036333261976697964721175372648831903073445977274600600543387599876174336407855493706869231071483749367064622120347558240000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "right_cross_product": 168160053580088201211716548353446348450909667913222141778843629198216837083597254013283702292409147093363063430723737193054715223390365904137519799524737934272658441896656289913846059775160074312441760000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "to_level": 17
+      },
+      {
+        "from_level": 17,
+        "left_cross_product": 8621441984646455066597155729150475983620532759907171949593940842079655682231484762670334155557876911352657938629884108910571246531635885282763493612633592894477487853130989246871690639812731054466720000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "positive_difference": 80925080080976982601264484009549672627500660007333228475213691835683937213894794919895100982207208405012182673251623648668676103501528550279248282755488391069432928173432609256502264432690479173751250000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "right_cross_product": 8540516904565478083995891245140926310993032099899838721118727150243971745017589967750439054575669702947645755956632485261902570428134356732484245329878104503408054924957556637615188375380040575292968750000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "to_level": 18
+      },
+      {
+        "from_level": 18,
+        "left_cross_product": 6440444968791248917433293232429097854360929436211722488868847262102133013008624815388739553661290778498663903062566760839034578515031317249794481923619531931547327053288840270864275609477968724723730468750000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "positive_difference": 88765402625062686230462177456234470329609022952951907036864855131284591663157808256397996388683625672315715383853837030282996902771165570529538692223728665496664048063988300254990923049775660579171093750000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "right_cross_product": 6351679566166186231202831054972863384031320413258770581831982406970848421345467007132341557272607152826348187678712923808751581612260151679264943231395803266050663005224851970609284686428193064144559375000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "to_level": 19
+      }
+    ],
+    "method": "a/b > c/d certified by exact integer comparison a*d > c*b",
+    "strictly_decreasing_at_every_stored_step": true
+  },
+  "rational_cycle": {
+    "counts": {
+      "R2": 2,
+      "R8": 4
+    },
+    "cyclic_word": [
+      "R2",
+      "R8",
+      "R2",
+      "R8",
+      "R8",
+      "R8"
+    ],
+    "edges": [
+      {
+        "branch": "R2",
+        "index": 0,
+        "negative_state_source_mod_9": 2,
+        "positive_center_source": {
+          "denominator": 473,
+          "numerator": 881
+        },
+        "positive_center_source_mod_9": 7,
+        "positive_center_target": {
+          "denominator": 473,
+          "numerator": 1490
+        }
+      },
+      {
+        "branch": "R8",
+        "index": 1,
+        "negative_state_source_mod_9": 8,
+        "positive_center_source": {
+          "denominator": 473,
+          "numerator": 1490
+        },
+        "positive_center_source_mod_9": 1,
+        "positive_center_target": {
+          "denominator": 473,
+          "numerator": 1151
+        }
+      },
+      {
+        "branch": "R2",
+        "index": 2,
+        "negative_state_source_mod_9": 2,
+        "positive_center_source": {
+          "denominator": 473,
+          "numerator": 1151
+        },
+        "positive_center_source_mod_9": 7,
+        "positive_center_target": {
+          "denominator": 473,
+          "numerator": 1850
+        }
+      },
+      {
+        "branch": "R8",
+        "index": 3,
+        "negative_state_source_mod_9": 8,
+        "positive_center_source": {
+          "denominator": 473,
+          "numerator": 1850
+        },
+        "positive_center_source_mod_9": 1,
+        "positive_center_target": {
+          "denominator": 473,
+          "numerator": 1391
+        }
+      },
+      {
+        "branch": "R8",
+        "index": 4,
+        "negative_state_source_mod_9": 8,
+        "positive_center_source": {
+          "denominator": 473,
+          "numerator": 1391
+        },
+        "positive_center_source_mod_9": 1,
+        "positive_center_target": {
+          "denominator": 473,
+          "numerator": 1085
+        }
+      },
+      {
+        "branch": "R8",
+        "index": 5,
+        "negative_state_source_mod_9": 8,
+        "positive_center_source": {
+          "denominator": 473,
+          "numerator": 1085
+        },
+        "positive_center_source_mod_9": 1,
+        "positive_center_target": {
+          "denominator": 473,
+          "numerator": 881
+        }
+      }
+    ],
+    "fixed_negative_center": {
+      "denominator": 473,
+      "numerator": -881
+    },
+    "fixed_point_identity": "F_E(-881/473)=-881/473",
+    "fixed_positive_center": {
+      "denominator": 473,
+      "numerator": 881
+    },
+    "inverse_ether_map": "F_E(c)=(729*c+881)/256",
+    "negative_state_predecessor_composition": "c |-> (256*c-881)/729",
+    "positive_center_predecessor_composition": "h |-> (256*h+881)/729"
+  },
+  "rows": [
+    {
+      "D_E": {
+        "denominator": 3137573309695691502427175535115716589770818923892711022740092007075,
+        "numerator": 9328470651936333242507525779856593064167506513063486385601850214344
+      },
+      "D_E_over_W_E": {
+        "denominator": 8313636738398649463788713107309486157381970369290136819831712776206725591702119981003816008786113837227815638439225470309520030744096677190936223136187,
+        "numerator": 10122038467812861591262506271545782404695645087959512137154785388828125000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      },
+      "W_E": {
+        "denominator": 244140625000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "numerator": 596183126736605150726484716938965856639183852980221338438894594792229810824856718093801
+      },
+      "center_residue_mod_3^k": 17975,
+      "certificate_weights": {
+        "B2_over_SC_W": {
+          "denominator": 62500000000000,
+          "numerator": 48897910719051
+        },
+        "B8_over_SC_W": {
+          "denominator": 500000000000000,
+          "numerator": 706642523717051
+        },
+        "formula": "W_E=(B2/SC_W)^2*(B8/SC_W)^4"
+      },
+      "edges": [
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 62500000000000,
+            "numerator": 48897910719051
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 22560594664649,
+            "numerator": 28493550899307
+          },
+          "fiber_potential_integers": [
+            49376038710320,
+            56987101798614,
+            45121189329298
+          ],
+          "fiber_states": [
+            23966,
+            201113,
+            378260
+          ],
+          "index": 0,
+          "local_calibration_margin": {
+            "denominator": 705018583270281250000000000,
+            "numerator": 1995175702464176637332799349759026872607
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 37542014513804,
+          "source_state_mod_3^k": 17975,
+          "target_state_mod_3^k": 201113
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 706642523717051
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 19861393419755,
+            "numerator": 20458286721923
+          },
+          "fiber_potential_integers": [
+            39722786839510,
+            40916573443846,
+            51980122554553
+          ],
+          "fiber_states": [
+            134075,
+            311222,
+            488369
+          ],
+          "index": 1,
+          "local_calibration_margin": {
+            "denominator": 993069670987750000000000000,
+            "numerator": 866900583047772814912452047939659912577
+          },
+          "minimum_lift_indices": [
+            0
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 56987101798614,
+          "source_state_mod_3^k": 201113,
+          "target_state_mod_3^k": 311222
+        },
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 62500000000000,
+            "numerator": 48897910719051
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 6818958720967,
+            "numerator": 9604088021467
+          },
+          "fiber_potential_integers": [
+            67228616150269,
+            47732711046769,
+            52551955544428
+          ],
+          "fiber_states": [
+            60668,
+            237815,
+            414962
+          ],
+          "index": 2,
+          "local_calibration_margin": {
+            "denominator": 426184920060437500000000000,
+            "numerator": 2144170247441938212543331761331809066727
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 40916573443846,
+          "source_state_mod_3^k": 311222,
+          "target_state_mod_3^k": 60668
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 706642523717051
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 1,
+            "numerator": 1
+          },
+          "fiber_potential_integers": [
+            47240358786785,
+            59640300245336,
+            49078366492288
+          ],
+          "fiber_states": [
+            40445,
+            217592,
+            394739
+          ],
+          "index": 3,
+          "local_calibration_margin": {
+            "denominator": 100000000000000,
+            "numerator": 46452344148356406604405793
+          },
+          "minimum_lift_indices": [
+            0
+          ],
+          "selected_lift": true,
+          "source_potential_integer": 67228616150269,
+          "source_state_mod_3^k": 60668,
+          "target_state_mod_3^k": 40445
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 706642523717051
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 33144408161099,
+            "numerator": 44383434783378
+          },
+          "fiber_potential_integers": [
+            44383434783378,
+            36500094274730,
+            33144408161099
+          ],
+          "fiber_states": [
+            26963,
+            204110,
+            381257
+          ],
+          "index": 4,
+          "local_calibration_margin": {
+            "denominator": 8286102040274750000000000000,
+            "numerator": 4414624156919005465209220692103312696239
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 47240358786785,
+          "source_state_mod_3^k": 40445,
+          "target_state_mod_3^k": 26963
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 706642523717051
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 30981703622245,
+            "numerator": 37542014513804
+          },
+          "fiber_potential_integers": [
+            37542014513804,
+            31185747209107,
+            30981703622245
+          ],
+          "fiber_states": [
+            17975,
+            195122,
+            372269
+          ],
+          "index": 5,
+          "local_calibration_margin": {
+            "denominator": 774542590556125000000000000,
+            "numerator": 560742836557293785733782674826346593551
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 44383434783378,
+          "source_state_mod_3^k": 26963,
+          "target_state_mod_3^k": 17975
+        }
+      ],
+      "inputs": {
+        "certificate_path": "experiments/kl/cert_k12.json",
+        "certificate_sha256": "a6386bfc8d0410a3dd82a98d765690e53c620259e6b7c4a5359f150ce6d1459f",
+        "vector_length": 177147,
+        "vector_storage": "inline_json"
+      },
+      "level": 12,
+      "nonselected_edges": 5,
+      "selected_edges": 1,
+      "strict_tax_numerator": 1808401729414212127473793164236296247313674718669375317323072612621399408297880018996183991213886162772184361560774529690479969255903322809063776863813
+    },
+    {
+      "D_E": {
+        "denominator": 69147752667281519303749534999000409326875456353211297927228825,
+        "numerator": 198617893962806131798515611387127951393029887662681766503425467
+      },
+      "D_E_over_W_E": {
+        "denominator": 17060951576585247705963968641065603417441598315438432416761736015456349133297784918236879421697393805521360801828110859578878206627755748269970547697,
+        "numerator": 19861789396280613179851561138712795139302988766268176650342546700000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      },
+      "W_E": {
+        "denominator": 2500000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "numerator": 6168295757447638038971487812915992260540673437460071767198696430763708659163053744206449
+      },
+      "center_residue_mod_3^k": 549416,
+      "certificate_weights": {
+        "B2_over_SC_W": {
+          "denominator": 200000000000000,
+          "numerator": 156029674415263
+        },
+        "B8_over_SC_W": {
+          "denominator": 500000000000000,
+          "numerator": 709475979287317
+        },
+        "formula": "W_E=(B2/SC_W)^2*(B8/SC_W)^4"
+      },
+      "edges": [
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 200000000000000,
+            "numerator": 156029674415263
+          },
+          "desired_lift_index": 2,
+          "deviation": {
+            "denominator": 60465097569045,
+            "numerator": 61636577761549
+          },
+          "fiber_potential_integers": [
+            60465097569045,
+            77226770492260,
+            61636577761549
+          ],
+          "fiber_states": [
+            201113,
+            732554,
+            1263995
+          ],
+          "index": 0,
+          "local_calibration_margin": {
+            "denominator": 806201300920600000000000000,
+            "numerator": 1960041415424462596292291274326861152639
+          },
+          "minimum_lift_indices": [
+            0
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 49556745297513,
+          "source_state_mod_3^k": 549416,
+          "target_state_mod_3^k": 1263995
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 709475979287317
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 21411722675540,
+            "numerator": 29409964784679
+          },
+          "fiber_potential_integers": [
+            46370297906723,
+            58819929569358,
+            42823445351080
+          ],
+          "fiber_states": [
+            311222,
+            842663,
+            1374104
+          ],
+          "index": 1,
+          "local_calibration_margin": {
+            "denominator": 4387648089250000000000000,
+            "numerator": 5256224285746410440858340042854145249
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 61636577761549,
+          "source_state_mod_3^k": 1263995,
+          "target_state_mod_3^k": 842663
+        },
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 200000000000000,
+            "numerator": 156029674415263
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 1,
+            "numerator": 1
+          },
+          "fiber_potential_integers": [
+            70703272949954,
+            73492440493822,
+            88685786206809
+          ],
+          "fiber_states": [
+            60668,
+            592109,
+            1123550
+          ],
+          "index": 2,
+          "local_calibration_margin": {
+            "denominator": 100000000000000,
+            "numerator": 366088627698402914993626049
+          },
+          "minimum_lift_indices": [
+            0
+          ],
+          "selected_lift": true,
+          "source_potential_integer": 58819929569358,
+          "source_state_mod_3^k": 842663,
+          "target_state_mod_3^k": 60668
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 709475979287317
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 24740407548481,
+            "numerator": 32972889934202
+          },
+          "fiber_potential_integers": [
+            65945779868404,
+            49480815096962,
+            54195431150024
+          ],
+          "fiber_states": [
+            40445,
+            571886,
+            1103327
+          ],
+          "index": 3,
+          "local_calibration_margin": {
+            "denominator": 3092550943560125000000000000,
+            "numerator": 2029371972433595325180065961021848277823
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 70703272949954,
+          "source_state_mod_3^k": 60668,
+          "target_state_mod_3^k": 40445
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 709475979287317
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 15399350546191,
+            "numerator": 18553610829692
+          },
+          "fiber_potential_integers": [
+            55660832489076,
+            46198051638573,
+            46547067792932
+          ],
+          "fiber_states": [
+            26963,
+            558404,
+            1089845
+          ],
+          "index": 4,
+          "local_calibration_margin": {
+            "denominator": 1924918818273875000000000000,
+            "numerator": 911362672112617292392800076888409147857
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 65945779868404,
+          "source_state_mod_3^k": 40445,
+          "target_state_mod_3^k": 26963
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 709475979287317
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 1436651941662,
+            "numerator": 1835435011019
+          },
+          "fiber_potential_integers": [
+            42826735335576,
+            49556745297513,
+            38789602424874
+          ],
+          "fiber_states": [
+            17975,
+            549416,
+            1080857
+          ],
+          "index": 5,
+          "local_calibration_margin": {
+            "denominator": 119720995138500000000000000,
+            "numerator": 94869070988059939697996818370249903983
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 55660832489076,
+          "source_state_mod_3^k": 26963,
+          "target_state_mod_3^k": 549416
+        }
+      ],
+      "inputs": {
+        "certificate_path": "experiments/kl/cert_k13.json",
+        "certificate_sha256": "32f22a8bfc6e7962443ce0da0fd28bdb5d2a56748e0ea832a9135a45391fc7b7",
+        "vector_length": 531441,
+        "vector_storage": "inline_json"
+      },
+      "level": 13,
+      "nonselected_edges": 5,
+      "selected_edges": 1,
+      "strict_tax_numerator": 2800837819695365473887592497647191721861390450829744233580810684543650866702215081763120578302606194478639198171889140421121793372244251730029452303
+    },
+    {
+      "D_E": {
+        "denominator": 2469834476102598218098196240089736195666175227259335092826236740912,
+        "numerator": 7067044554911849520485105091416199383602484222661514031276747995055
+      },
+      "D_E_over_W_E": {
+        "denominator": 54950088639672592539202937317201366248879040481089012084292328220525140154644876614914850794974707340206767240185484842203849795627266533323157255230021421,
+        "numerator": 63098612097427227861474152601930351639307894845192089564970964241562500000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      },
+      "W_E": {
+        "denominator": 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "numerator": 2491830925186126906937164566796800073275343927642059307709213472667892557252045604541382521
+      },
+      "center_residue_mod_3^k": 2143739,
+      "certificate_weights": {
+        "B2_over_SC_W": {
+          "denominator": 1000000000000000,
+          "numerator": 778031091330171
+        },
+        "B8_over_SC_W": {
+          "denominator": 1000000000000000,
+          "numerator": 1424397381530503
+        },
+        "formula": "W_E=(B2/SC_W)^2*(B8/SC_W)^4"
+      },
+      "edges": [
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 778031091330171
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 32340656508786,
+            "numerator": 44641351028215
+          },
+          "fiber_potential_integers": [
+            89282702056430,
+            70168799161490,
+            64681313017572
+          ],
+          "fiber_states": [
+            1263995,
+            2858318,
+            4452641
+          ],
+          "index": 0,
+          "local_calibration_margin": {
+            "denominator": 1617032825439300000000000000,
+            "numerator": 5409907823243380238432297059563178441471
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 52747793029523,
+          "source_state_mod_3^k": 2143739,
+          "target_state_mod_3^k": 1263995
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 1424397381530503
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 1,
+            "numerator": 1
+          },
+          "fiber_potential_integers": [
+            78353839758609,
+            62013589564924,
+            63911417179890
+          ],
+          "fiber_states": [
+            842663,
+            2436986,
+            4031309
+          ],
+          "index": 1,
+          "local_calibration_margin": {
+            "denominator": 250000000000000,
+            "numerator": 237676865211232407748780807
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": true,
+          "source_potential_integer": 89282702056430,
+          "source_state_mod_3^k": 1263995,
+          "target_state_mod_3^k": 2436986
+        },
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 778031091330171
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 10703616048218,
+            "numerator": 14415758065421
+          },
+          "fiber_potential_integers": [
+            100910306457947,
+            82212124219063,
+            74925312337526
+          ],
+          "fiber_states": [
+            60668,
+            1654991,
+            3249314
+          ],
+          "index": 2,
+          "local_calibration_margin": {
+            "denominator": 5351808024109000000000000000,
+            "numerator": 26808747693234298905036353169736533247867
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 62013589564924,
+          "source_state_mod_3^k": 2436986,
+          "target_state_mod_3^k": 60668
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 1424397381530503
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 70498593405103,
+            "numerator": 84066874890290
+          },
+          "fiber_potential_integers": [
+            84066874890290,
+            71092663952984,
+            70498593405103
+          ],
+          "fiber_states": [
+            40445,
+            1634768,
+            3229091
+          ],
+          "index": 3,
+          "local_calibration_margin": {
+            "denominator": 7049859340510300000000000000,
+            "numerator": 4138566939935787162486586934533257051539
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 100910306457947,
+          "source_state_mod_3^k": 60668,
+          "target_state_mod_3^k": 40445
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 1424397381530503
+          },
+          "desired_lift_index": 2,
+          "deviation": {
+            "denominator": 19578322350024,
+            "numerator": 24764742578611
+          },
+          "fiber_potential_integers": [
+            64172952623583,
+            58734967050072,
+            74294227735833
+          ],
+          "fiber_states": [
+            26963,
+            1621286,
+            3215609
+          ],
+          "index": 4,
+          "local_calibration_margin": {
+            "denominator": 2447290293753000000000000000,
+            "numerator": 1253534371983632611065660041425930951753
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 84066874890290,
+          "source_state_mod_3^k": 40445,
+          "target_state_mod_3^k": 3215609
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 1424397381530503
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 51693098904645,
+            "numerator": 52747793029523
+          },
+          "fiber_potential_integers": [
+            66560390757319,
+            52747793029523,
+            51693098904645
+          ],
+          "fiber_states": [
+            549416,
+            2143739,
+            3738062
+          ],
+          "index": 5,
+          "local_calibration_margin": {
+            "denominator": 3446206593643000000000000000,
+            "numerator": 2330443256018437792933436075327027318633
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 74294227735833,
+          "source_state_mod_3^k": 3215609,
+          "target_state_mod_3^k": 2143739
+        }
+      ],
+      "inputs": {
+        "certificate_path": "experiments/kl/cert_k14.json",
+        "certificate_sha256": "08ac51b3f259798b9bf979388ec5f7f590c26025cc323ee331867d20d616285f",
+        "vector_length": 1594323,
+        "vector_storage": "inline_json"
+      },
+      "level": 14,
+      "nonselected_edges": 5,
+      "selected_edges": 1,
+      "strict_tax_numerator": 8148523457754635322271215284728985390428854364103077480678636021037359845355123385085149205025292659793232759814515157796150204372733466676842744769978579
+    },
+    {
+      "D_E": {
+        "denominator": 1990646324766258162081178941536059594104038528071841741431815842851,
+        "numerator": 5574409236190241485444803919646274311710307988738154426879096861440
+      },
+      "D_E_over_W_E": {
+        "denominator": 782222585454395917125612789466416026306911485549968617005642335625348175999315848818593764894006374468361760960371347100441386374013711780991570290412259,
+        "numerator": 871001443154725232100750612444730361204735623240336629199858884600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      },
+      "W_E": {
+        "denominator": 156250000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "numerator": 392949051633390753459361626311502109959410173392207265257275344688070550670338681516609
+      },
+      "center_residue_mod_3^k": 11709677,
+      "certificate_weights": {
+        "B2_over_SC_W": {
+          "denominator": 200000000000000,
+          "numerator": 155212964504753
+        },
+        "B8_over_SC_W": {
+          "denominator": 250000000000000,
+          "numerator": 357371622851993
+        },
+        "formula": "W_E=(B2/SC_W)^2*(B8/SC_W)^4"
+      },
+      "edges": [
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 200000000000000,
+            "numerator": 155212964504753
+          },
+          "desired_lift_index": 2,
+          "deviation": {
+            "denominator": 1,
+            "numerator": 1
+          },
+          "fiber_potential_integers": [
+            119950064872837,
+            95876278890687,
+            93176835726701
+          ],
+          "fiber_states": [
+            1263995,
+            6046964,
+            10829933
+          ],
+          "index": 0,
+          "local_calibration_margin": {
+            "denominator": 200000000000000,
+            "numerator": 498318564579356484676490147
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": true,
+          "source_potential_integer": 74802857304465,
+          "source_state_mod_3^k": 11709677,
+          "target_state_mod_3^k": 10829933
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 250000000000000,
+            "numerator": 357371622851993
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 64480000371709,
+            "numerator": 85466103791416
+          },
+          "fiber_potential_integers": [
+            64480000371709,
+            85466103791416,
+            71191491518787
+          ],
+          "fiber_states": [
+            2436986,
+            7219955,
+            12002924
+          ],
+          "index": 1,
+          "local_calibration_margin": {
+            "denominator": 2015000011615906250000000000,
+            "numerator": 2680287068691699936447143662643862982701
+          },
+          "minimum_lift_indices": [
+            0
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 93176835726701,
+          "source_state_mod_3^k": 10829933,
+          "target_state_mod_3^k": 7219955
+        },
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 200000000000000,
+            "numerator": 155212964504753
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 52561490578443,
+            "numerator": 63819683106176
+          },
+          "fiber_potential_integers": [
+            127639366212352,
+            105122981156886,
+            107021797866705
+          ],
+          "fiber_states": [
+            60668,
+            4843637,
+            9626606
+          ],
+          "index": 2,
+          "local_calibration_margin": {
+            "denominator": 41063664514408593750000000,
+            "numerator": 193645675036553165372083986167678186407
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 85466103791416,
+          "source_state_mod_3^k": 7219955,
+          "target_state_mod_3^k": 60668
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 250000000000000,
+            "numerator": 357371622851993
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 44456303226843,
+            "numerator": 55862910162217
+          },
+          "fiber_potential_integers": [
+            95569302314496,
+            111725820324434,
+            88912606453686
+          ],
+          "fiber_states": [
+            40445,
+            4823414,
+            9606383
+          ],
+          "index": 3,
+          "local_calibration_margin": {
+            "denominator": 5557037903355375000000000000,
+            "numerator": 3770721094680289759798828752945796324517
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 127639366212352,
+          "source_state_mod_3^k": 60668,
+          "target_state_mod_3^k": 4823414
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 250000000000000,
+            "numerator": 357371622851993
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 77871746578138,
+            "numerator": 79241660182647
+          },
+          "fiber_potential_integers": [
+            79241660182647,
+            99590228388039,
+            77871746578138
+          ],
+          "fiber_states": [
+            3215609,
+            7998578,
+            12781547
+          ],
+          "index": 4,
+          "local_calibration_margin": {
+            "denominator": 9733968322267250000000000000,
+            "numerator": 4053315206714063815850498700584266263501
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 111725820324434,
+          "source_state_mod_3^k": 4823414,
+          "target_state_mod_3^k": 3215609
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 250000000000000,
+            "numerator": 357371622851993
+          },
+          "desired_lift_index": 2,
+          "deviation": {
+            "denominator": 54970938421478,
+            "numerator": 74802857304465
+          },
+          "fiber_potential_integers": [
+            59198402890438,
+            54970938421478,
+            74802857304465
+          ],
+          "fiber_states": [
+            2143739,
+            6926708,
+            11709677
+          ],
+          "index": 5,
+          "local_calibration_margin": {
+            "denominator": 1374273460536950000000000000,
+            "numerator": 1236951809499128920244383447360107105489
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 79241660182647,
+          "source_state_mod_3^k": 3215609,
+          "target_state_mod_3^k": 11709677
+        }
+      ],
+      "inputs": {
+        "certificate_path": "experiments/kl/cert_k15.json",
+        "certificate_sha256": "fdf28dbd79aa50334e4f643e51232bebb46d32e6e18d40acd144101613c87ae1",
+        "manifest_vector_sha256": "fa65959e13cb445e50c92a447a924658b45aae943873e38d774a0b79aa85cda4",
+        "vector_length": 4782969,
+        "vector_path": "experiments/kl/cert_k15_C.npy",
+        "vector_sha256": "fa65959e13cb445e50c92a447a924658b45aae943873e38d774a0b79aa85cda4",
+        "vector_storage": "numpy_mmap"
+      },
+      "level": 15,
+      "nonselected_edges": 5,
+      "selected_edges": 1,
+      "strict_tax_numerator": 88778857700329314975137822978314334897824137690368012194216548974651824000684151181406235105993625531638239039628652899558613625986288219008429709587741
+    },
+    {
+      "D_E": {
+        "denominator": 192544456857538441882882407129955645072827499794527601,
+        "numerator": 535716790446024949625579705282075930016302818698587740
+      },
+      "D_E_over_W_E": {
+        "denominator": 488305518002042347201992056009253879237103699073691209605410258564894558806378885249616735832525684428783386951821295130745803616124229725148489,
+        "numerator": 535716790446024949625579705282075930016302818698587740000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      },
+      "W_E": {
+        "denominator": 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "numerator": 2536066350449830456430469405782957134161004708624584001499663718988903023203801853432992089
+      },
+      "center_residue_mod_3^k": 40407491,
+      "certificate_weights": {
+        "B2_over_SC_W": {
+          "denominator": 1000000000000000,
+          "numerator": 774276634661717
+        },
+        "B8_over_SC_W": {
+          "denominator": 1000000000000000,
+          "numerator": 1434141740409001
+        },
+        "formula": "W_E=(B2/SC_W)^2*(B8/SC_W)^4"
+      },
+      "edges": [
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 774276634661717
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 97123214816209,
+            "numerator": 127892620135776
+          },
+          "fiber_potential_integers": [
+            127892620135776,
+            97123214816209,
+            106625454634823
+          ],
+          "fiber_states": [
+            10829933,
+            25178840,
+            39527747
+          ],
+          "index": 0,
+          "local_calibration_margin": {
+            "denominator": 3035100463006531250000000000,
+            "numerator": 10651876023984248349282367336877575595721
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 77865440775605,
+          "source_state_mod_3^k": 40407491,
+          "target_state_mod_3^k": 10829933
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 1434141740409001
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 88467962450228,
+            "numerator": 106865189885147
+          },
+          "fiber_potential_integers": [
+            90184784543848,
+            106865189885147,
+            88467962450228
+          ],
+          "fiber_states": [
+            7219955,
+            21568862,
+            35917769
+          ],
+          "index": 1,
+          "local_calibration_margin": {
+            "denominator": 22116990612557000000000000000,
+            "numerator": 27171075563984376814464935034892264498121
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 127892620135776,
+          "source_state_mod_3^k": 10829933,
+          "target_state_mod_3^k": 21568862
+        },
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 774276634661717
+          },
+          "desired_lift_index": 2,
+          "deviation": {
+            "denominator": 33248041266663,
+            "numerator": 41874595417117
+          },
+          "fiber_potential_integers": [
+            142727818735558,
+            132992165066652,
+            167498381668468
+          ],
+          "fiber_states": [
+            60668,
+            14409575,
+            28758482
+          ],
+          "index": 2,
+          "local_calibration_margin": {
+            "denominator": 8312010316665750000000000000,
+            "numerator": 40748837547778474204872234880145870769593
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 106865189885147,
+          "source_state_mod_3^k": 21568862,
+          "target_state_mod_3^k": 28758482
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 1434141740409001
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 1,
+            "numerator": 1
+          },
+          "fiber_potential_integers": [
+            116397198408333,
+            116877969621846,
+            148525472295513
+          ],
+          "fiber_states": [
+            4823414,
+            19172321,
+            33521228
+          ],
+          "index": 3,
+          "local_calibration_margin": {
+            "denominator": 1000000000000000,
+            "numerator": 568300964409510334373394667
+          },
+          "minimum_lift_indices": [
+            0
+          ],
+          "selected_lift": true,
+          "source_potential_integer": 167498381668468,
+          "source_state_mod_3^k": 28758482,
+          "target_state_mod_3^k": 4823414
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 1434141740409001
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 16175850441074,
+            "numerator": 22465398636865
+          },
+          "fiber_potential_integers": [
+            88713952658311,
+            112326993184325,
+            80879252205370
+          ],
+          "fiber_states": [
+            3215609,
+            17564516,
+            31913423
+          ],
+          "index": 4,
+          "local_calibration_margin": {
+            "denominator": 323517008821480000000000000,
+            "numerator": 181918906630820138160518215071745231699
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 116397198408333,
+          "source_state_mod_3^k": 4823414,
+          "target_state_mod_3^k": 17564516
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 1434141740409001
+          },
+          "desired_lift_index": 2,
+          "deviation": {
+            "denominator": 1,
+            "numerator": 1
+          },
+          "fiber_potential_integers": [
+            98439770561037,
+            80782987855336,
+            77865440775605
+          ],
+          "fiber_states": [
+            11709677,
+            26058584,
+            40407491
+          ],
+          "index": 5,
+          "local_calibration_margin": {
+            "denominator": 200000000000000,
+            "numerator": 131382886536970520927355879
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": true,
+          "source_potential_integer": 112326993184325,
+          "source_state_mod_3^k": 17564516,
+          "target_state_mod_3^k": 40407491
+        }
+      ],
+      "inputs": {
+        "certificate_path": "experiments/kl/cert_k16.json",
+        "certificate_sha256": "5e4aa8081659c0d33ce0b50a6c3a211d62c508fcccc602dd2b33fa07dede170e",
+        "manifest_vector_sha256": "180c4856ee6cffdf08a2feedea15a17bab9f0d8bf2702808b4ae2512a41d300b",
+        "vector_length": 14348907,
+        "vector_path": "experiments/kl/cert_k16_C.npy",
+        "vector_sha256": "180c4856ee6cffdf08a2feedea15a17bab9f0d8bf2702808b4ae2512a41d300b",
+        "vector_storage": "numpy_mmap"
+      },
+      "level": 16,
+      "nonselected_edges": 4,
+      "selected_edges": 2,
+      "strict_tax_numerator": 47411272443982602423587649272822050779199119624896530394589741435105441193621114750383264167474315571216613048178704869254196383875770274851511
+    },
+    {
+      "D_E": {
+        "denominator": 1564881168899457526431992210946263626956421023587644395,
+        "numerator": 4304683425146776361019223124247238895304665694523822498
+      },
+      "D_E_over_W_E": {
+        "denominator": 319941183366745219623732589339185902722234728188578133583386432863732291245382438671792492286796220799990109621189570418393568638154718715759,
+        "numerator": 344374674011742108881537849939779111624373255561905799840000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      },
+      "W_E": {
+        "denominator": 400000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "numerator": 1022253924851533590367998404497716222077352878651469836655005273046282218306810999286721
+      },
+      "center_residue_mod_3^k": 40407491,
+      "certificate_weights": {
+        "B2_over_SC_W": {
+          "denominator": 500000000000000,
+          "numerator": 386321154834911
+        },
+        "B8_over_SC_W": {
+          "denominator": 200000000000000,
+          "numerator": 287683829599457
+        },
+        "formula": "W_E=(B2/SC_W)^2*(B8/SC_W)^4"
+      },
+      "edges": [
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 386321154834911
+          },
+          "desired_lift_index": 2,
+          "deviation": {
+            "denominator": 44276753600405,
+            "numerator": 53661102532433
+          },
+          "fiber_potential_integers": [
+            136518351633582,
+            132830260801215,
+            160983307597299
+          ],
+          "fiber_states": [
+            10829933,
+            53876654,
+            96923375
+          ],
+          "index": 0,
+          "local_calibration_margin": {
+            "denominator": 4427675360040500000000000000,
+            "numerator": 14964100847418609813992649510389394983491
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 105418910396219,
+          "source_state_mod_3^k": 40407491,
+          "target_state_mod_3^k": 96923375
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 200000000000000,
+            "numerator": 287683829599457
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 111210406664559,
+            "numerator": 139515453787343
+          },
+          "fiber_potential_integers": [
+            139515453787343,
+            119358675657356,
+            111210406664559
+          ],
+          "fiber_states": [
+            21568862,
+            64615583,
+            107662304
+          ],
+          "index": 1,
+          "local_calibration_margin": {
+            "denominator": 7414027110970600000000000000,
+            "numerator": 9451048377854107948805066345957140289397
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 160983307597299,
+          "source_state_mod_3^k": 96923375,
+          "target_state_mod_3^k": 21568862
+        },
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 386321154834911
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 1,
+            "numerator": 1
+          },
+          "fiber_potential_integers": [
+            176250569807723,
+            175416852070074,
+            227696424966032
+          ],
+          "fiber_states": [
+            28758482,
+            71805203,
+            114851924
+          ],
+          "index": 2,
+          "local_calibration_margin": {
+            "denominator": 250000000000000,
+            "numerator": 995243012227882037963223293
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": true,
+          "source_potential_integer": 139515453787343,
+          "source_state_mod_3^k": 21568862,
+          "target_state_mod_3^k": 71805203
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 200000000000000,
+            "numerator": 287683829599457
+          },
+          "desired_lift_index": 2,
+          "deviation": {
+            "denominator": 3920536459811,
+            "numerator": 5454322178618
+          },
+          "fiber_potential_integers": [
+            132824290893701,
+            121536630254141,
+            169083987537158
+          ],
+          "fiber_states": [
+            4823414,
+            47870135,
+            90916856
+          ],
+          "index": 3,
+          "local_calibration_margin": {
+            "denominator": 392053645981100000000000000,
+            "numerator": 325206285369596778213425542334124262967
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 175416852070074,
+          "source_state_mod_3^k": 71805203,
+          "target_state_mod_3^k": 90916856
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 200000000000000,
+            "numerator": 287683829599457
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 1,
+            "numerator": 1
+          },
+          "fiber_potential_integers": [
+            148134941984447,
+            117253617641801,
+            120939927732077
+          ],
+          "fiber_states": [
+            17564516,
+            60611237,
+            103657958
+          ],
+          "index": 4,
+          "local_calibration_margin": {
+            "denominator": 200000000000000,
+            "numerator": 84827749847835993269897943
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": true,
+          "source_potential_integer": 169083987537158,
+          "source_state_mod_3^k": 90916856,
+          "target_state_mod_3^k": 60611237
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 200000000000000,
+            "numerator": 287683829599457
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 81061505993691,
+            "numerator": 105418910396219
+          },
+          "fiber_potential_integers": [
+            105418910396219,
+            81061505993691,
+            88371023280825
+          ],
+          "fiber_states": [
+            40407491,
+            83454212,
+            126500933
+          ],
+          "index": 5,
+          "local_calibration_margin": {
+            "denominator": 16212301198738200000000000000,
+            "numerator": 13771826411177128101850092739389131700647
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 117253617641801,
+          "source_state_mod_3^k": 60611237,
+          "target_state_mod_3^k": 40407491
+        }
+      ],
+      "inputs": {
+        "certificate_path": "experiments/kl/cert_k17.json",
+        "certificate_sha256": "56cf23c9ea2e61006535a3a65f952136c671d8f770df37dbc647d0133c462183",
+        "manifest_vector_sha256": "72da89e5733d56855d7514107b690c9127ca243ac65f6ad2873c9eeff0a770d2",
+        "vector_length": 43046721,
+        "vector_path": "experiments/kl/cert_k17_C.npy",
+        "vector_sha256": "72da89e5733d56855d7514107b690c9127ca243ac65f6ad2873c9eeff0a770d2",
+        "vector_storage": "numpy_mmap"
+      },
+      "level": 17,
+      "nonselected_edges": 4,
+      "selected_edges": 2,
+      "strict_tax_numerator": 24433490644996889257805260600593208902138527373327666256613567136267708754617561328207507713203779200009890378810429581606431361845281284241
+    },
+    {
+      "D_E": {
+        "denominator": 39845127396001222820949769065549268902264518005221105657,
+        "numerator": 109338713050269454998701503994029433745969637325667499600
+      },
+      "D_E_over_W_E": {
+        "denominator": 25035063944198436090303537468244423109749428733926775494422308703799332504134304148560389409934660604064071340851127453647623048353278877980833,
+        "numerator": 26694021740788441161792359373542342223137118487711791894531250000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      },
+      "W_E": {
+        "denominator": 244140625000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "numerator": 628309296024760733093614519845603095745040440809829718871950444368272420521111731566569
+      },
+      "center_residue_mod_3^k": 169547654,
+      "certificate_weights": {
+        "B2_over_SC_W": {
+          "denominator": 1000000000000000,
+          "numerator": 771159589766627
+        },
+        "B8_over_SC_W": {
+          "denominator": 125000000000000,
+          "numerator": 180289834268809
+        },
+        "formula": "W_E=(B2/SC_W)^2*(B8/SC_W)^4"
+      },
+      "edges": [
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 771159589766627
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 83636708366841,
+            "numerator": 104235480436517
+          },
+          "fiber_potential_integers": [
+            180388213598355,
+            208470960873034,
+            167273416733682
+          ],
+          "fiber_states": [
+            96923375,
+            226063538,
+            355203701
+          ],
+          "index": 0,
+          "local_calibration_margin": {
+            "denominator": 41818354183420500000000000000,
+            "numerator": 146634847250897791619669851845416739834281
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 131808029841935,
+          "source_state_mod_3^k": 169547654,
+          "target_state_mod_3^k": 226063538
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 125000000000000,
+            "numerator": 180289834268809
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 1,
+            "numerator": 1
+          },
+          "fiber_potential_integers": [
+            145453654044035,
+            143814899109416,
+            186969958460469
+          ],
+          "fiber_states": [
+            21568862,
+            150709025,
+            279849188
+          ],
+          "index": 1,
+          "local_calibration_margin": {
+            "denominator": 15625000000000,
+            "numerator": 16313222913394038544124307
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": true,
+          "source_potential_integer": 208470960873034,
+          "source_state_mod_3^k": 226063538,
+          "target_state_mod_3^k": 150709025
+        },
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 1000000000000000,
+            "numerator": 771159589766627
+          },
+          "desired_lift_index": 2,
+          "deviation": {
+            "denominator": 181283362320573,
+            "numerator": 252983473080340
+          },
+          "fiber_potential_integers": [
+            181283362320573,
+            197941324535287,
+            252983473080340
+          ],
+          "fiber_states": [
+            71805203,
+            200945366,
+            330085529
+          ],
+          "index": 2,
+          "local_calibration_margin": {
+            "denominator": 9064168116028650000000000000,
+            "numerator": 50805352738054266059066396340199296172393
+          },
+          "minimum_lift_indices": [
+            0
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 143814899109416,
+          "source_state_mod_3^k": 150709025,
+          "target_state_mod_3^k": 330085529
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 125000000000000,
+            "numerator": 180289834268809
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 1,
+            "numerator": 1
+          },
+          "fiber_potential_integers": [
+            174987783666654,
+            222059423984339,
+            181933209573584
+          ],
+          "fiber_states": [
+            90916856,
+            220057019,
+            349197182
+          ],
+          "index": 3,
+          "local_calibration_margin": {
+            "denominator": 62500000000000,
+            "numerator": 37207809357623932457202457
+          },
+          "minimum_lift_indices": [
+            0
+          ],
+          "selected_lift": true,
+          "source_potential_integer": 252983473080340,
+          "source_state_mod_3^k": 330085529,
+          "target_state_mod_3^k": 90916856
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 125000000000000,
+            "numerator": 180289834268809
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 121017305612391,
+            "numerator": 157287558300860
+          },
+          "fiber_potential_integers": [
+            157287558300860,
+            132463596609198,
+            121017305612391
+          ],
+          "fiber_states": [
+            60611237,
+            189751400,
+            318891563
+          ],
+          "index": 4,
+          "local_calibration_margin": {
+            "denominator": 252119386692481250000000000,
+            "numerator": 144922097576243049582704344469963661761
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 174987783666654,
+          "source_state_mod_3^k": 90916856,
+          "target_state_mod_3^k": 60611237
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 125000000000000,
+            "numerator": 180289834268809
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 21715651359139,
+            "numerator": 26361605968387
+          },
+          "fiber_potential_integers": [
+            108578256795695,
+            131808029841935,
+            111421698520805
+          ],
+          "fiber_states": [
+            40407491,
+            169547654,
+            298687817
+          ],
+          "index": 5,
+          "local_calibration_margin": {
+            "denominator": 542891283978475000000000000,
+            "numerator": 450197521143392674826485408337852592463
+          },
+          "minimum_lift_indices": [
+            0
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 157287558300860,
+          "source_state_mod_3^k": 60611237,
+          "target_state_mod_3^k": 169547654
+        }
+      ],
+      "inputs": {
+        "certificate_path": "experiments/kl/cert_k18.json",
+        "certificate_sha256": "4c064a165c680f4eab05b58b1cd49ba27de37fa15c3b093ea70bda711b406a6f",
+        "manifest_vector_sha256": "e3d998ff0e34ae16ec7f2a53be4f48bcedc3b106f5b7316f3b558e97c34522ef",
+        "vector_length": 129140163,
+        "vector_path": "experiments/kl/cert_k18_C.npy",
+        "vector_sha256": "e3d998ff0e34ae16ec7f2a53be4f48bcedc3b106f5b7316f3b558e97c34522ef",
+        "vector_storage": "numpy_mmap"
+      },
+      "level": 18,
+      "nonselected_edges": 4,
+      "selected_edges": 2,
+      "strict_tax_numerator": 1658957796590005071488821905297919113387689753785016400108941296200667495865695851439610590065339395935928659148872546352376951646721122019167
+    },
+    {
+      "D_E": {
+        "denominator": 29807387804469192607364151932360901167999690966681960355,
+        "numerator": 81187628108463242297123205973479411743858042219238848723
+      },
+      "D_E_over_W_E": {
+        "denominator": 241269188709405102851412822678578973213964640819375232068823312048654482561186460171630634985586720783645342955519267042951674029643836357090079,
+        "numerator": 253711337838947632178510018667123161699556381935121402259375000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      },
+      "W_E": {
+        "denominator": 15625000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        "numerator": 40471374125784720665936322760424066828728980951393675120564292918109961483225518630516649
+      },
+      "center_residue_mod_3^k": 169547654,
+      "certificate_weights": {
+        "B2_over_SC_W": {
+          "denominator": 500000000000000,
+          "numerator": 384898360988723
+        },
+        "B8_over_SC_W": {
+          "denominator": 500000000000000,
+          "numerator": 722959479654303
+        },
+        "formula": "W_E=(B2/SC_W)^2*(B8/SC_W)^4"
+      },
+      "edges": [
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 384898360988723
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 1,
+            "numerator": 1
+          },
+          "fiber_potential_integers": [
+            215400523748304,
+            217707672844555,
+            280156695398930
+          ],
+          "fiber_states": [
+            226063538,
+            613484027,
+            1000904516
+          ],
+          "index": 0,
+          "local_calibration_margin": {
+            "denominator": 31250000000000,
+            "numerator": 89943251879736598535351513
+          },
+          "minimum_lift_indices": [
+            0
+          ],
+          "selected_lift": true,
+          "source_potential_integer": 168692801153821,
+          "source_state_mod_3^k": 169547654,
+          "target_state_mod_3^k": 226063538
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 722959479654303
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 148229657868255,
+            "numerator": 206046233720846
+          },
+          "fiber_potential_integers": [
+            162673614768896,
+            206046233720846,
+            148229657868255
+          ],
+          "fiber_states": [
+            150709025,
+            538129514,
+            925550003
+          ],
+          "index": 1,
+          "local_calibration_margin": {
+            "denominator": 2470494297804250000000000000,
+            "numerator": 3682908516446611403307440928135914734327
+          },
+          "minimum_lift_indices": [
+            2
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 215400523748304,
+          "source_state_mod_3^k": 226063538,
+          "target_state_mod_3^k": 538129514
+        },
+        {
+          "branch": "R2",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 384898360988723
+          },
+          "desired_lift_index": 1,
+          "deviation": {
+            "denominator": 1,
+            "numerator": 1
+          },
+          "fiber_potential_integers": [
+            333420298759684,
+            262334290899039,
+            272815838757553
+          ],
+          "fiber_states": [
+            330085529,
+            717506018,
+            1104926507
+          ],
+          "index": 2,
+          "local_calibration_margin": {
+            "denominator": 500000000000000,
+            "numerator": 2051078262244016223389462803
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": true,
+          "source_potential_integer": 206046233720846,
+          "source_state_mod_3^k": 538129514,
+          "target_state_mod_3^k": 717506018
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 722959479654303
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 180970555380490,
+            "numerator": 235381901473709
+          },
+          "fiber_potential_integers": [
+            235381901473709,
+            180970555380490,
+            197599546119523
+          ],
+          "fiber_states": [
+            90916856,
+            478337345,
+            865757834
+          ],
+          "index": 3,
+          "local_calibration_margin": {
+            "denominator": 9048527769024500000000000000,
+            "numerator": 7832730540829075239941633433917650302477
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 262334290899039,
+          "source_state_mod_3^k": 717506018,
+          "target_state_mod_3^k": 90916856
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 722959479654303
+          },
+          "desired_lift_index": 2,
+          "deviation": {
+            "denominator": 162478250403677,
+            "numerator": 198465741997090
+          },
+          "fiber_potential_integers": [
+            162478250403677,
+            167611906850914,
+            198465741997090
+          ],
+          "fiber_states": [
+            60611237,
+            448031726,
+            835452215
+          ],
+          "index": 4,
+          "local_calibration_margin": {
+            "denominator": 8123912520183850000000000000,
+            "numerator": 4480550085417001198589135725700960790121
+          },
+          "minimum_lift_indices": [
+            0
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 235381901473709,
+          "source_state_mod_3^k": 90916856,
+          "target_state_mod_3^k": 835452215
+        },
+        {
+          "branch": "R8",
+          "certified_weight_lower": {
+            "denominator": 500000000000000,
+            "numerator": 722959479654303
+          },
+          "desired_lift_index": 0,
+          "deviation": {
+            "denominator": 136777812687554,
+            "numerator": 168692801153821
+          },
+          "fiber_potential_integers": [
+            168692801153821,
+            136777812687554,
+            146117960505571
+          ],
+          "fiber_states": [
+            169547654,
+            556968143,
+            944388632
+          ],
+          "index": 5,
+          "local_calibration_margin": {
+            "denominator": 34194453171888500000000000000,
+            "numerator": 29357161966803464426386442303175837341149
+          },
+          "minimum_lift_indices": [
+            1
+          ],
+          "selected_lift": false,
+          "source_potential_integer": 198465741997090,
+          "source_state_mod_3^k": 835452215,
+          "target_state_mod_3^k": 169547654
+        }
+      ],
+      "inputs": {
+        "certificate_path": "experiments/kl/cert_k19.json",
+        "certificate_sha256": "a37716cc508410ec6043ff153c2f2b2527b25b53220fa9827d79d3145f0641fb",
+        "manifest_vector_sha256": "052c7e75907c99ec4c05dca550adcf23e4dad264175d3f559f4b5a9da5b4d517",
+        "vector_length": 387420489,
+        "vector_path": "experiments/kl/cert_k19_C.npy",
+        "vector_sha256": "052c7e75907c99ec4c05dca550adcf23e4dad264175d3f559f4b5a9da5b4d517",
+        "vector_storage": "numpy_mmap"
+      },
+      "level": 19,
+      "nonselected_edges": 4,
+      "selected_edges": 2,
+      "strict_tax_numerator": 12442149129542529327097195988544188485591741115746170190551687951345517438813539828369365014413279216354657044480732957048325970356163642909921
+    }
+  ],
+  "schema": "kl-rational-ether-cycle-v1",
+  "scope": {
+    "exact_finite_claim": "For the theorem-derived rational six-chord ether cycle, every displayed D_E, W_E, and D_E/W_E is reconstructed exactly from the SHA-pinned stored KL certificate at that level; adjacent displayed ratios decrease by exact positive cross products.",
+    "levels": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "nonclaim": "Finite monotonicity at k=12..19 is not a k-to-infinity limit theorem, does not construct an infinite linked glider chain, and does not disprove Collatz."
+  },
+  "worker_sha256": "d5465643815df807b2c2bea5f10add46a54beb9d48feecb66faf9425cffd8522"
+}

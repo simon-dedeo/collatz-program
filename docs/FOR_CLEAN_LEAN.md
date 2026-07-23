@@ -11352,3 +11352,83 @@ upgraded to the universal kernel-checked no-go.  The packet-level bridge is
 separate: `breakoff_ether_glider_kl_bridge.py` now expands the true ordinary
 Collatz chart for finite macros and should not be conflated with the rejected
 raw-core normalization.
+
+Companion commit `82c01dd` also proves the local semantic bridge universally:
+successive positive Syracuse visits to `2 mod 3`, read backwards, are exactly
+the three KL principal edge types.  The remaining packet problem is therefore
+cross-macro endpoint/address coherence and tax accumulation, not the local
+KL graph convention.
+
+## Kontorovich request: linked glider rail synchronization (QM144, 2026-07-23)
+
+The true packet chart has now collapsed to a small universal identity.  Please
+formalize the algebra separately from the bounded Python audit.  Constants are
+
+```text
+83790531=473*3^11,
+9591553=17*(2^15+3^12).
+```
+
+For a branch-`n` packet/core satisfying
+
+```text
+83790531*K-874281=3*2^(8n-5)*u,
+Z=2^35*K-358513857,
+```
+
+prove
+
+```text
+473*3^10*Z=2^(8n+30)*u-9591553.                    (QM144a)
+```
+
+If two positive branches `n,m>=1` additionally satisfy the exact EC17 link
+
+```text
+2^(8m+15)*u'=3^(6n+11)*u+17,
+```
+
+then substitution gives
+
+```text
+473*Z'=9*(2^15*3^(6n-1)*u-17).                     (QM144b)
+```
+
+The bracket is congruent to `-17`, hence to `1`, modulo `3`, so in
+divisibility language the desired conclusion is
+
+```text
+9 divides Z' and 27 does not divide Z'.             (QM144c)
+```
+
+Equivalently `v_3(Z')=2`; a factorization theorem avoiding a large valuation
+API is perfectly adequate.
+
+The literal chart then has `C'+1=8*Z'/3`.  Derive
+
+```text
+473*C'+881=2^18*3^(6n)*u,                           (QM144d)
+```
+
+and, using `u=1 mod 3`, exact precision
+`v_3(473*C'+881)=6n`.  This identifies the rational 3-adic center
+`-881/473`; convergence is claimed only along chains with `n -> infinity`.
+
+Finally, a reusable fixed-depth form would be valuable.  If `d<=6n+1`, EC17
+modulo `3^(d+10)` fixes
+
+```text
+u' = 17*2^(-(8m+15)) (mod 3^(d+10)).                (QM144e)
+```
+
+Writing `u'=U_m+473*2^20*3^10*q'`, cancel the common `3^10` and prove that
+`q' mod 3^d` is unique and depends only on `(m,d)`, not on the source core or
+affine lift.  This is the exact synchronization interface needed by any
+fixed-level KL audit.
+
+The reconstructive worker and artifact are
+`breakoff_ether_glider_kl_tail_chart.py` and
+`breakoff_ether_glider_kl_tail_chart_audit.json`.  They also check the linked
+router count formulas and the level-12 ether-cycle tax, but QM144a--e are the
+small load-bearing theorem.  Do not infer an infinite EC17 chain or a Collatz
+counterexample; the artifact has `counterexample:null`.

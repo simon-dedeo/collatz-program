@@ -1,6 +1,107 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 10:54 EDT
+Updated: 2026-07-23, about 11:28 EDT
+
+### 11:28 EDT continuation -- linked tails collapse to one KL ether spine
+
+There is no counterexample.  The correct packet-level KL chart is now exact.
+For a free length-`n` packet
+
+```text
+K=R_n+2^(8n+15)q,
+Z=2^35*K-358513857,
+r=v_3(Z),
+C+1=3*2^(r+1)*(Z/3^r),
+```
+
+the tail coefficient `2^(8n+50)` is a 3-adic unit, so free `q mod 3^d`
+has the geometric valuation counts `2*3^(d-r-1)` plus one root cylinder.
+Do not use this as a Haar model for one execution.  The glider tail and EC17
+core are different coordinates:
+
+```text
+u=u_base(n)+473*2^20*3^10*q.
+```
+
+In particular `u=1 mod 3` is automatic and does not restrict `q mod 3`.
+
+The linked transition theorem removes the free-tail distribution from the
+coherent problem.  Exact cancellation gives
+
+```text
+473*3^10*Z=2^(8n+30)u-9591553,
+9591553=17*(2^15+3^12).
+```
+
+If a branch `n` links to branch `m` by EC17, then
+
+```text
+2^(8m+30)u'-9591553
+ =3^12*(2^15*3^(6n-1)u-17).
+```
+
+The bracket is a 3-adic unit for every `n>=1`.  Therefore every genuine
+successor has `v_3(Z')=2` exactly.  Its true Collatz boundary satisfies
+
+```text
+473*C'+881=2^18*3^(6n)u,
+v_3(473*C'+881)=6n.
+```
+
+Hence unbounded linked branches approach `-881/473` in `Q_3`.  More
+strongly, for `d<=6n+1`, `q' mod 3^d` depends only on the target branch `m`,
+not on the source core or the affine lift.  The artifact checks this through
+depth 49 on 192 lifted links.
+
+The linked router rail vector is
+
+```text
+[2,0,2,0,1,0]+[2,0]^(n-1),
+```
+
+so every post-initial macro has `(R2,R8,S)=(2n+4,4n+7,0)`, exactly
+`6n+11` odd steps and `8n+15` halvings.  Each extra ether cell is the genuine
+six-edge KL cycle
+
+```text
+F_E(x)=(729*x+881)/256,  x_*=-881/473,
+```
+
+with two class-2 and four class-8 chords.  At certified level 12, synchronized
+macros `n=2..6` satisfy the exact factorization
+`Dev(n)=Dev_base*Dev_E^n`; `Dev_E=2.973148268...`, one of its six lifts is
+selected, and `Dev_E/W_E=1.217522341...`.  This is a finite-precision
+subeigenvector statement, not a tower limit.
+
+The separate exact worker `kl_rational_ether_cycle.py` reconstructs this
+rational six-edge cycle from all stored certificate vectors `k=12..19`,
+SHA-checking and memory-mapping the large sidecars.  Exact cross-products
+prove that `Dev_E/W_E>1` at every level and decreases strictly as
+
+```text
+1.217522341, 1.164166565, 1.148289542, 1.113495646,
+1.097093460, 1.076368695, 1.066265371, 1.051569573.
+```
+
+This finite trend says the ether spine is close to the KL critical policy;
+it does not prove a limit.  The artifact has `finite_evidence_only:true`,
+`limit_theorem:null`, and `counterexample:null`.
+
+Reconstruct with
+
+```bash
+python3 experiments/kontorovich/breakoff_ether_glider_kl_tail_chart.py selftest
+python3 experiments/kontorovich/breakoff_ether_glider_kl_tail_chart.py verify \
+  experiments/kontorovich/breakoff_ether_glider_kl_tail_chart_audit.json
+python3 experiments/kontorovich/kl_rational_ether_cycle.py verify \
+  experiments/kontorovich/kl_rational_ether_cycle.json
+```
+
+The artifact has `counterexample:null`.  The fixed-depth KL-fiber question is
+settled: there is no tail choice after synchronization.  The remaining task
+is to construct one positive infinite EC17 chain and pass the ordinary
+dyadic-address gate.  Existing Lean already proves that any such chain is an
+outward escape; the witness is missing.
 
 ### 10:54 EDT continuation -- exact height gate, proper thin language, and the failed EC17/KL bridge
 
@@ -83,6 +184,12 @@ than one, and every edge and telescoped product inequality passes in exact
 rational arithmetic.  The artifact has `counterexample:null`.  This is the
 valid way to use KL on the ether program; it remains finite and says nothing
 yet about the macro tails forced by one infinite period-three execution.
+Companion commit `82c01dd` proves the semantic classification universally:
+the next `2 mod 3` visit occurs after one Syracuse step from an odd state and
+two from an even state, and the reversed pair is respectively advanced,
+transport, or retarded according to the exact parity class.  The finite
+worker is therefore checking packet linkage and certificate tax, not merely
+guessing the KL graph convention.
 
 ### 08:59 EDT continuation -- special-theta audit and KL-calibrated escape
 

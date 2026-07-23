@@ -1,0 +1,1041 @@
+{
+  "bounds": {
+    "affine_lifts_per_link": 3,
+    "free_tail_residue_depth": 5,
+    "maximum_free_ether_cells": 12,
+    "maximum_link_ether_cells": 8
+  },
+  "closed_chart": {
+    "boundary": "C(K)+1=3*2^(r+1)*(Z/3^r), r=v3(Z)",
+    "breakoff_state": "kappa=72*c-1",
+    "chart_numerator": "Z=(8*kappa-1)/9=64*c-1=2^35*K-358513857",
+    "ether_coefficient": "c=13+512*(-10941+2^20*K)",
+    "literal_checks": {
+      "ether_cells": [
+        1,
+        4
+      ],
+      "tails": [
+        0,
+        1,
+        2
+      ]
+    }
+  },
+  "counterexample": null,
+  "fixed_precision_kl_tax": {
+    "center_residue_mod_3^k": 17975,
+    "certificate_level": 12,
+    "certificate_path": "experiments/kl/cert_k12.json",
+    "current_ether_cells": [
+      2,
+      6
+    ],
+    "deviation_products": {
+      "2": {
+        "denominator": "7913591144240459328417514795424792205745276367210076480533505192820633788268297260242241212951655793569416825636395617340147397387647487091376857804311831959040451512728329958639204784572848779749030486590491032567326553944673742809631253644375",
+        "numerator": "441613203675359593918576492609246594942282621597054840290676680745071731764304136239295514479109992932734572319217773986681590724697604975753568808291498184323302996649228863765405445389685600012518855105067365970243226702425158652846407520616448"
+      },
+      "3": {
+        "denominator": "24829472358013052379473895961322029655068463345553668405694651358331401751534612438659265218408747169612031554180409326189989732623358331255498009533673556719347853719571730322607575334051077690407577052583040565866099027674266913559266159312316151970615703837368965086274578774179879214168574951563902033953125",
+        "numerator": "4119575809993174426672204744683764831812327998644792636406805694261903512149725165375397960823348715067299186911552200395985468675439369250403466930484825362751655042816951752322936416719289867421991906985572851691106059747177471468703296661722075031495623961785313724123379182061563228480391907053862827811930112"
+      },
+      "4": {
+        "denominator": "77904289764328698348676360717142884304836012805547720292726427496830088516668307606824690518699871028426447363974660299801559806405861140801643912995407897983145780745133230838414114896584013492730558441069629136661504699424156217100253307462451661195379215422850154883568960205813843742615663603462235923790378675094495283540767304955322362369188141318047085270793077718359375",
+        "numerator": "38429342041948175925461889492688067151356864636235292914444527202978281707251181095531245180341827551719968069014402876234940195212435105293390021936803953033973691329253579390907729984891505331078612340332378937921147325014514914979580992928696119231097335583041078866226824573738356058940288026520357127328127594308052270034906250571983898285777266745966627155309222427547926528"
+      },
+      "5": {
+        "denominator": "244430420275356976633187189709146144006326696312995371600594572932713030989566481038867612054652925068411823913723764138784634534741947309490256132367325134493779172055356024320135914609844597127448903424572992921381312494069015881633478991974939958189240328676722622372029392688560829741072735230743987067099427397223233331032497203807810409774870512712278749822977154289920522087218576502220573663750102256465984182350069585128301419892578125",
+        "numerator": "358486989411536640425224117101035501373336700826606039170638333954085412845980276993072049360292768175190990751838495287038120973676356090508200585867789620787285342723009826798413809094779193920007373885829461579517158898470565278018189622577348635201499898023295229014584090440305545435634388319731038113822474370416430193244612305479234515504436796614380787307572776575423165401291882475830810848279595635482244145065005629128012871209563717632"
+      },
+      "6": {
+        "denominator": "766918362733660646651493854271942432150212373682862587527709660506819374772626585125145143030907046883604407008342763712730969969566179489942669437666057353917967147831392753509961032106616019681192239302871398776345033258259142119854887800901997268795717566282438658291110427043815394910965552854119325374293231218326315275081058614231920693101554946716298972579186547249609788943495804858244430763363792967829195674537184566610046359338551101149455647132228065219613490433651222205731092417464225427490234375",
+        "numerator": "3344135359826530596210308500075067586155109214786506403533036607461730257142695961041839811091092550723776034478598906677747358746511020789503350331464732355202307327832069201930840006764624138875952172133481302330766902258843571649600247568387059913178088519106865453978151049815471673448481020195559343562186362894261254048021455333814934013804717458958714234487543017802350736226812236897809038322753664923250801757827299968705053997633127961453551644612061575140987400904558722170679831427883230319544692113408"
+      }
+    },
+    "ether_cycle": {
+      "affine_map": "F_E(x)=(729*x+881)/256",
+      "calibrated_slack_factor": {
+        "denominator": "8313636738398649463788713107309486157381970369290136819831712776206725591702119981003816008786113837227815638439225470309520030744096677190936223136187",
+        "numerator": "10122038467812861591262506271545782404695645087959512137154785388828125000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "certified_lower_weight_product": {
+        "denominator": "244140625000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "numerator": "596183126736605150726484716938965856639183852980221338438894594792229810824856718093801"
+      },
+      "deviation_factor": {
+        "denominator": "3137573309695691502427175535115716589770818923892711022740092007075",
+        "numerator": "9328470651936333242507525779856593064167506513063486385601850214344"
+      },
+      "fixed_point": "-881/473",
+      "nonselected_edges": 5,
+      "reverse_KL_cycle_edges": [
+        {
+          "kind": "r2",
+          "source_residue": 17975,
+          "target_residue": 201113
+        },
+        {
+          "kind": "r8",
+          "source_residue": 201113,
+          "target_residue": 311222
+        },
+        {
+          "kind": "r2",
+          "source_residue": 311222,
+          "target_residue": 60668
+        },
+        {
+          "kind": "r8",
+          "source_residue": 60668,
+          "target_residue": 40445
+        },
+        {
+          "kind": "r8",
+          "source_residue": 40445,
+          "target_residue": 26963
+        },
+        {
+          "kind": "r8",
+          "source_residue": 26963,
+          "target_residue": 17975
+        }
+      ],
+      "selected_edges": 1
+    },
+    "exact_verification_passed": true,
+    "factorization": "Dev(n)=Dev_base*Dev_E^n for synchronized n=2..6",
+    "interpretation": "fixed-level exact rational calibration for the stored feasible subeigenvector; not a critical-tower or infinite-orbit theorem",
+    "selected_nonselected_counts": {
+      "2": [
+        4,
+        19
+      ],
+      "3": [
+        5,
+        24
+      ],
+      "4": [
+        6,
+        29
+      ],
+      "5": [
+        7,
+        34
+      ],
+      "6": [
+        8,
+        39
+      ]
+    },
+    "stable_base": {
+      "R2": 4,
+      "R8": 7,
+      "calibrated_slack_factor": {
+        "denominator": "63374404896752104586013672174663824071933368897223166567355348117922141942728003513441444219039374506670960955693169630567614159926534139284635952095090476422105869545558153876829778593805119021889653204418075401385250071770986572364592358353329056377296756847125099740675484039",
+        "numerator": "94819946836949398481269221403114406717749386824461078650754408953904043922256119644597395484284876812180901842657484375000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "certified_lower_weight_product": {
+        "denominator": "119209289550781250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "numerator": "502990279633603816277364838236719254056558105789926940476901388270873514388582061804638364157582242720660732334816140484003767446740716382721667864276981158051"
+      },
+      "deviation_factor": {
+        "denominator": "125995287509166771764274609501646856639524697097525371471718770141175428831435771904988857416535043903488719833247792589",
+        "numerator": "795407364596008419695162840815936737107766248310768800058347640985991094078589063299626868538635991905675210644531314688"
+      },
+      "nonselected_edges": 9,
+      "selected_edges": 2
+    },
+    "synchronized_predecessor_ether_cells": 2
+  },
+  "free_tail_chart": {
+    "rows": [
+      {
+        "R_n_mod_3": 2,
+        "Z_base": "120970845909779263",
+        "Z_tail_coefficient": "288230376151711744",
+        "core_mod_3_is_automatic_not_a_q_restriction": true,
+        "core_tail_first_changed_trit": 10,
+        "ether_cells": 1,
+        "normalized_core_base": "12291774103141",
+        "normalized_core_tail_coefficient": "29286913277952",
+        "q_equals_1_mod_3_diagnostic_histogram": {
+          "0": 81
+        },
+        "root_mod_3": 2,
+        "root_mod_3_to_depth": 233,
+        "valuation_histogram_capped_at_depth": {
+          "0": 162,
+          "1": 54,
+          "2": 18,
+          "3": 6,
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "R_n_mod_3": 2,
+        "Z_base": "63844502865417700159",
+        "Z_tail_coefficient": "73786976294838206464",
+        "core_mod_3_is_automatic_not_a_q_restriction": true,
+        "core_tail_first_changed_trit": 10,
+        "ether_cells": 2,
+        "normalized_core_base": "25340629370989",
+        "normalized_core_tail_coefficient": "29286913277952",
+        "q_equals_1_mod_3_diagnostic_histogram": {
+          "0": 81
+        },
+        "root_mod_3": 2,
+        "root_mod_3_to_depth": 167,
+        "valuation_histogram_capped_at_depth": {
+          "0": 162,
+          "1": 54,
+          "2": 18,
+          "3": 6,
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "R_n_mod_3": 0,
+        "Z_base": "36423421740498125631",
+        "Z_tail_coefficient": "18889465931478580854784",
+        "core_mod_3_is_automatic_not_a_q_restriction": true,
+        "core_tail_first_changed_trit": 10,
+        "ether_cells": 3,
+        "normalized_core_base": "56472194485",
+        "normalized_core_tail_coefficient": "29286913277952",
+        "q_equals_1_mod_3_diagnostic_histogram": {
+          "0": 81
+        },
+        "root_mod_3": 0,
+        "root_mod_3_to_depth": 132,
+        "valuation_histogram_capped_at_depth": {
+          "0": 162,
+          "1": 54,
+          "2": 18,
+          "3": 6,
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "R_n_mod_3": 0,
+        "Z_base": "1708733160854738517984063",
+        "Z_tail_coefficient": "4835703278458516698824704",
+        "core_mod_3_is_automatic_not_a_q_restriction": true,
+        "core_tail_first_changed_trit": 10,
+        "ether_cells": 4,
+        "normalized_core_base": "10348757360701",
+        "normalized_core_tail_coefficient": "29286913277952",
+        "q_equals_1_mod_3_diagnostic_histogram": {
+          "0": 81
+        },
+        "root_mod_3": 0,
+        "root_mod_3_to_depth": 57,
+        "valuation_histogram_capped_at_depth": {
+          "0": 162,
+          "1": 54,
+          "2": 18,
+          "3": 6,
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "R_n_mod_3": 2,
+        "Z_base": "765553886783319341938082623",
+        "Z_tail_coefficient": "1237940039285380274899124224",
+        "core_mod_3_is_automatic_not_a_q_restriction": true,
+        "core_tail_first_changed_trit": 10,
+        "ether_cells": 5,
+        "normalized_core_base": "18111305540101",
+        "normalized_core_tail_coefficient": "29286913277952",
+        "q_equals_1_mod_3_diagnostic_histogram": {
+          "0": 81
+        },
+        "root_mod_3": 2,
+        "root_mod_3_to_depth": 164,
+        "valuation_histogram_capped_at_depth": {
+          "0": 162,
+          "1": 54,
+          "2": 18,
+          "3": 6,
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "R_n_mod_3": 2,
+        "Z_base": "35505920357044732948149011263",
+        "Z_tail_coefficient": "316912650057057350374175801344",
+        "core_mod_3_is_automatic_not_a_q_restriction": true,
+        "core_tail_first_changed_trit": 10,
+        "ether_cells": 6,
+        "normalized_core_base": "3281215849741",
+        "normalized_core_tail_coefficient": "29286913277952",
+        "q_equals_1_mod_3_diagnostic_histogram": {
+          "0": 81
+        },
+        "root_mod_3": 2,
+        "root_mod_3_to_depth": 125,
+        "valuation_histogram_capped_at_depth": {
+          "0": 162,
+          "1": 54,
+          "2": 18,
+          "3": 6,
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "R_n_mod_3": 0,
+        "Z_base": "34803763678763247866416661103423",
+        "Z_tail_coefficient": "81129638414606681695789005144064",
+        "core_mod_3_is_automatic_not_a_q_restriction": true,
+        "core_tail_first_changed_trit": 10,
+        "ether_cells": 7,
+        "normalized_core_base": "12563778521941",
+        "normalized_core_tail_coefficient": "29286913277952",
+        "q_equals_1_mod_3_diagnostic_histogram": {
+          "0": 81
+        },
+        "root_mod_3": 0,
+        "root_mod_3_to_depth": 192,
+        "valuation_histogram_capped_at_depth": {
+          "0": 162,
+          "1": 54,
+          "2": 18,
+          "3": 6,
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "R_n_mod_3": 2,
+        "Z_base": "19105912172894173218368762071319359",
+        "Z_tail_coefficient": "20769187434139310514121985316880384",
+        "core_mod_3_is_automatic_not_a_q_restriction": true,
+        "core_tail_first_changed_trit": 10,
+        "ether_cells": 8,
+        "normalized_core_base": "26941506242269",
+        "normalized_core_tail_coefficient": "29286913277952",
+        "q_equals_1_mod_3_diagnostic_histogram": {
+          "0": 81
+        },
+        "root_mod_3": 2,
+        "root_mod_3_to_depth": 119,
+        "valuation_histogram_capped_at_depth": {
+          "0": 162,
+          "1": 54,
+          "2": 18,
+          "3": 6,
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "R_n_mod_3": 1,
+        "Z_base": "3830552932776133742740861729888109375",
+        "Z_tail_coefficient": "5316911983139663491615228241121378304",
+        "core_mod_3_is_automatic_not_a_q_restriction": true,
+        "core_tail_first_changed_trit": 10,
+        "ether_cells": 9,
+        "normalized_core_base": "21099666856357",
+        "normalized_core_tail_coefficient": "29286913277952",
+        "q_equals_1_mod_3_diagnostic_histogram": {
+          "1": 54,
+          "2": 18,
+          "3": 6,
+          "4": 2,
+          "5": 1
+        },
+        "root_mod_3": 1,
+        "root_mod_3_to_depth": 238,
+        "valuation_histogram_capped_at_depth": {
+          "0": 162,
+          "1": 54,
+          "2": 18,
+          "3": 6,
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "R_n_mod_3": 2,
+        "Z_base": "595776546084982031621774758450447876927",
+        "Z_tail_coefficient": "1361129467683753853853498429727072845824",
+        "core_mod_3_is_automatic_not_a_q_restriction": true,
+        "core_tail_first_changed_trit": 10,
+        "ether_cells": 10,
+        "normalized_core_base": "12819100939693",
+        "normalized_core_tail_coefficient": "29286913277952",
+        "q_equals_1_mod_3_diagnostic_histogram": {
+          "0": 81
+        },
+        "root_mod_3": 2,
+        "root_mod_3_to_depth": 77,
+        "valuation_histogram_capped_at_depth": {
+          "0": 162,
+          "1": 54,
+          "2": 18,
+          "3": 6,
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "R_n_mod_3": 1,
+        "Z_base": "234981398315740318887411229807544266490687",
+        "Z_tail_coefficient": "348449143727040986586495598010130648530944",
+        "core_mod_3_is_automatic_not_a_q_restriction": true,
+        "core_tail_first_changed_trit": 10,
+        "ether_cells": 11,
+        "normalized_core_base": "19750026534133",
+        "normalized_core_tail_coefficient": "29286913277952",
+        "q_equals_1_mod_3_diagnostic_histogram": {
+          "1": 54,
+          "2": 18,
+          "3": 6,
+          "4": 2,
+          "5": 1
+        },
+        "root_mod_3": 1,
+        "root_mod_3_to_depth": 127,
+        "valuation_histogram_capped_at_depth": {
+          "0": 162,
+          "1": 54,
+          "2": 18,
+          "3": 6,
+          "4": 2,
+          "5": 1
+        }
+      },
+      {
+        "R_n_mod_3": 0,
+        "Z_base": "50200963162318772211015699563996615446463295",
+        "Z_tail_coefficient": "89202980794122492566142873090593446023921664",
+        "core_mod_3_is_automatic_not_a_q_restriction": true,
+        "core_tail_first_changed_trit": 10,
+        "ether_cells": 12,
+        "normalized_core_base": "16481862394237",
+        "normalized_core_tail_coefficient": "29286913277952",
+        "q_equals_1_mod_3_diagnostic_histogram": {
+          "0": 81
+        },
+        "root_mod_3": 0,
+        "root_mod_3_to_depth": 117,
+        "valuation_histogram_capped_at_depth": {
+          "0": 162,
+          "1": 54,
+          "2": 18,
+          "3": 6,
+          "4": 2,
+          "5": 1
+        }
+      }
+    ],
+    "universal_histogram": "#v3(Z)=r is 2*3^(d-r-1) for r<d, with one root class >=d",
+    "warning": "the geometric distribution is over a complete free q residue system and is not a distribution along one linked EC17 ray"
+  },
+  "linked_ray_synchronization": {
+    "boundary_contraction": "473*C'+881=2^18*3^(6n)*u",
+    "boundary_limit_Q3": "v3(473*C'+881)=6n exactly; hence C' -> -881/473 along any linked chain with n -> infinity",
+    "bounds": {
+      "affine_lifts_per_link": 3,
+      "current_ether_cells": [
+        1,
+        8
+      ],
+      "previous_ether_cells": [
+        1,
+        8
+      ]
+    },
+    "checks": 192,
+    "finite_precision_synchronization": "if 6n+11>=d+10 then u' mod 3^(d+10), hence the successor tail chart mod 3^d, is fixed by m",
+    "fixed_depth_synchronization_checks": 5376,
+    "maximum_synchronization_depth_checked": 49,
+    "moving_target": "r+10=v3(2^(8n+30)u-9591553), equivalently the target is alpha_n=9591553/2^(8n+30) in Q_3",
+    "rows": [
+      {
+        "current_ether_cells": 1,
+        "least_current_tail": "74584052",
+        "least_previous_tail": "4844785",
+        "lifts_checked": 3,
+        "previous_ether_cells": 1,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 2,
+        "least_current_tail": "4265645",
+        "least_previous_tail": "70933817",
+        "lifts_checked": 3,
+        "previous_ether_cells": 1,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 3,
+        "least_current_tail": "124712151",
+        "least_previous_tail": "530905556281",
+        "lifts_checked": 3,
+        "previous_ether_cells": 1,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 4,
+        "least_current_tail": "63103908",
+        "least_previous_tail": "68770902566201",
+        "lifts_checked": 3,
+        "previous_ether_cells": 1,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 5,
+        "least_current_tail": "96702437",
+        "least_previous_tail": "26979000299021625",
+        "lifts_checked": 3,
+        "previous_ether_cells": 1,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 6,
+        "least_current_tail": "67239809",
+        "least_previous_tail": "4802361718618973497",
+        "lifts_checked": 3,
+        "previous_ether_cells": 1,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 7,
+        "least_current_tail": "34564503",
+        "least_previous_tail": "631973232409862202681",
+        "lifts_checked": 3,
+        "previous_ether_cells": 1,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 8,
+        "least_current_tail": "31712852",
+        "least_previous_tail": "148437503166725479720249",
+        "lifts_checked": 3,
+        "previous_ether_cells": 1,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 1,
+        "least_current_tail": "86460874100",
+        "least_previous_tail": "7704077",
+        "lifts_checked": 3,
+        "previous_ether_cells": 2,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 2,
+        "least_current_tail": "17323643525",
+        "least_previous_tail": "395166613",
+        "lifts_checked": 3,
+        "previous_ether_cells": 2,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 3,
+        "least_current_tail": "59689660443",
+        "least_previous_tail": "348562033557",
+        "lifts_checked": 3,
+        "previous_ether_cells": 2,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 4,
+        "least_current_tail": "20903724561",
+        "least_previous_tail": "31249610738581",
+        "lifts_checked": 3,
+        "previous_ether_cells": 2,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 5,
+        "least_current_tail": "72359895422",
+        "least_previous_tail": "27692287608916885",
+        "lifts_checked": 3,
+        "previous_ether_cells": 2,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 6,
+        "least_current_tail": "74934519938",
+        "least_previous_tail": "7341466098806721429",
+        "lifts_checked": 3,
+        "previous_ether_cells": 2,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 7,
+        "least_current_tail": "64132848867",
+        "least_previous_tail": "1608501113495607217045",
+        "lifts_checked": 3,
+        "previous_ether_cells": 2,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 8,
+        "least_current_tail": "63203623382",
+        "least_previous_tail": "405810028686311257443221",
+        "lifts_checked": 3,
+        "previous_ether_cells": 2,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 1,
+        "least_current_tail": "60725308550390",
+        "least_previous_tail": "7422381",
+        "lifts_checked": 3,
+        "previous_ether_cells": 3,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 2,
+        "least_current_tail": "1075740476243",
+        "least_previous_tail": "33660533",
+        "lifts_checked": 3,
+        "previous_ether_cells": 3,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 3,
+        "least_current_tail": "25796538145104",
+        "least_previous_tail": "206640227957",
+        "lifts_checked": 3,
+        "previous_ether_cells": 3,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 4,
+        "least_current_tail": "31612699353378",
+        "least_previous_tail": "64826860611189",
+        "lifts_checked": 3,
+        "previous_ether_cells": 3,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 5,
+        "least_current_tail": "63123493203893",
+        "least_previous_tail": "33137855437973109",
+        "lifts_checked": 3,
+        "previous_ether_cells": 3,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 6,
+        "least_current_tail": "9521885005802",
+        "least_previous_tail": "1279664942445733493",
+        "lifts_checked": 3,
+        "previous_ether_cells": 3,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 7,
+        "least_current_tail": "42444871650984",
+        "least_previous_tail": "1460288045544644781685",
+        "lifts_checked": 3,
+        "previous_ether_cells": 3,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 8,
+        "least_current_tail": "16874811937469",
+        "least_previous_tail": "148625117882472026056309",
+        "lifts_checked": 3,
+        "previous_ether_cells": 3,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 1,
+        "least_current_tail": "38373127598192813",
+        "least_previous_tail": "6433883",
+        "lifts_checked": 3,
+        "previous_ether_cells": 4,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 2,
+        "least_current_tail": "40450437533097140",
+        "least_previous_tail": "1736237667",
+        "lifts_checked": 3,
+        "previous_ether_cells": 4,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 3,
+        "least_current_tail": "12967550078914896",
+        "least_previous_tail": "142489823843",
+        "lifts_checked": 3,
+        "previous_ether_cells": 4,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 4,
+        "least_current_tail": "40505458692038097",
+        "least_previous_tail": "113940844915299",
+        "lifts_checked": 3,
+        "previous_ether_cells": 4,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 5,
+        "least_current_tail": "3792953038614131",
+        "least_previous_tail": "2731387464854115",
+        "lifts_checked": 3,
+        "previous_ether_cells": 4,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 6,
+        "least_current_tail": "23698890848436380",
+        "least_previous_tail": "4368917384490527331",
+        "lifts_checked": 3,
+        "previous_ether_cells": 4,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 7,
+        "least_current_tail": "49015359222832812",
+        "least_previous_tail": "2313225476863685962339",
+        "lifts_checked": 3,
+        "previous_ether_cells": 4,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 8,
+        "least_current_tail": "25297939933718141",
+        "least_previous_tail": "305640498493652582410851",
+        "lifts_checked": 3,
+        "previous_ether_cells": 4,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 1,
+        "least_current_tail": "107409356206999010",
+        "least_previous_tail": "24703",
+        "lifts_checked": 3,
+        "previous_ether_cells": 5,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 2,
+        "least_current_tail": "19881550149346214564",
+        "least_previous_tail": "1170600391",
+        "lifts_checked": 3,
+        "previous_ether_cells": 5,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 3,
+        "least_current_tail": "6203701262612211585",
+        "least_previous_tail": "93508106695",
+        "lifts_checked": 3,
+        "previous_ether_cells": 5,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 4,
+        "least_current_tail": "26324408938924963596",
+        "least_previous_tail": "101577374071239",
+        "lifts_checked": 3,
+        "previous_ether_cells": 5,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 5,
+        "least_current_tail": "26629241860892450702",
+        "least_previous_tail": "26304928168049095",
+        "lifts_checked": 3,
+        "previous_ether_cells": 5,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 6,
+        "least_current_tail": "3854859224797175633",
+        "least_previous_tail": "974825331385727431",
+        "lifts_checked": 3,
+        "previous_ether_cells": 5,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 7,
+        "least_current_tail": "32137523645027862711",
+        "least_previous_tail": "2080514073128130607559",
+        "lifts_checked": 3,
+        "previous_ether_cells": 5,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 8,
+        "least_current_tail": "24250018119576522437",
+        "least_previous_tail": "401892851463507004914119",
+        "lifts_checked": 3,
+        "previous_ether_cells": 5,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 1,
+        "least_current_tail": "24275505124726911143513",
+        "least_previous_tail": "7658773",
+        "lifts_checked": 3,
+        "previous_ether_cells": 6,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 2,
+        "least_current_tail": "5080021372243681296890",
+        "least_previous_tail": "410295197",
+        "lifts_checked": 3,
+        "previous_ether_cells": 6,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 3,
+        "least_current_tail": "8079378439692495833844",
+        "least_previous_tail": "167050896285",
+        "lifts_checked": 3,
+        "previous_ether_cells": 6,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 4,
+        "least_current_tail": "13345286267776850494554",
+        "least_previous_tail": "70638052729757",
+        "lifts_checked": 3,
+        "previous_ether_cells": 6,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 5,
+        "least_current_tail": "6940993715929822229678",
+        "least_previous_tail": "9405295412011933",
+        "lifts_checked": 3,
+        "previous_ether_cells": 6,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 6,
+        "least_current_tail": "17524224982852167361121",
+        "least_previous_tail": "6078964052037100445",
+        "lifts_checked": 3,
+        "previous_ether_cells": 6,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 7,
+        "least_current_tail": "12877523012818088389299",
+        "least_previous_tail": "1143570793287884891037",
+        "lifts_checked": 3,
+        "previous_ether_cells": 6,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 8,
+        "least_current_tail": "6135213500049335561930",
+        "least_previous_tail": "139476283314587929568157",
+        "lifts_checked": 3,
+        "previous_ether_cells": 6,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 1,
+        "least_current_tail": "9376534893889445386457798",
+        "least_previous_tail": "4057941",
+        "lifts_checked": 3,
+        "previous_ether_cells": 7,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 2,
+        "least_current_tail": "19238009213884295492392775",
+        "least_previous_tail": "2131392797",
+        "lifts_checked": 3,
+        "previous_ether_cells": 7,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 3,
+        "least_current_tail": "13945224056606783230660359",
+        "least_previous_tail": "395520344349",
+        "lifts_checked": 3,
+        "previous_ether_cells": 7,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 4,
+        "least_current_tail": "5000739359146111652792484",
+        "least_previous_tail": "36309269840157",
+        "lifts_checked": 3,
+        "previous_ether_cells": 7,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 5,
+        "least_current_tail": "17166445183068270729935285",
+        "least_previous_tail": "31908297487515933",
+        "lifts_checked": 3,
+        "previous_ether_cells": 7,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 6,
+        "least_current_tail": "8344846486590670663020080",
+        "least_previous_tail": "3970832597174550813",
+        "lifts_checked": 3,
+        "previous_ether_cells": 7,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 7,
+        "least_current_tail": "6967118451081617737231674",
+        "least_previous_tail": "848704268099710451997",
+        "lifts_checked": 3,
+        "previous_ether_cells": 7,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 8,
+        "least_current_tail": "11896377511132220693673593",
+        "least_previous_tail": "370986319310576121119005",
+        "lifts_checked": 3,
+        "previous_ether_cells": 7,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 1,
+        "least_current_tail": "10831946381067971932703898668",
+        "least_previous_tail": "6430464",
+        "lifts_checked": 3,
+        "previous_ether_cells": 8,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 2,
+        "least_current_tail": "8221708667162011431604453187",
+        "least_previous_tail": "1249504776",
+        "lifts_checked": 3,
+        "previous_ether_cells": 8,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 3,
+        "least_current_tail": "3417156555172752615344290653",
+        "least_previous_tail": "132947654152",
+        "lifts_checked": 3,
+        "previous_ether_cells": 8,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 4,
+        "least_current_tail": "5613843835702915550110546599",
+        "least_previous_tail": "55913424893448",
+        "lifts_checked": 3,
+        "previous_ether_cells": 8,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 5,
+        "least_current_tail": "3296596997749245088926588284",
+        "least_previous_tail": "8405462052779528",
+        "lifts_checked": 3,
+        "previous_ether_cells": 8,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 6,
+        "least_current_tail": "9594282723618190250622747914",
+        "least_previous_tail": "6262506800039605768",
+        "lifts_checked": 3,
+        "previous_ether_cells": 8,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 7,
+        "least_current_tail": "8248522348735974100071106095",
+        "least_previous_tail": "1378325589264874878472",
+        "lifts_checked": 3,
+        "previous_ether_cells": 8,
+        "successor_rail": 2
+      },
+      {
+        "current_ether_cells": 8,
+        "least_current_tail": "7172959989149264274699281933",
+        "least_previous_tail": "306841457750931993277960",
+        "lifts_checked": 3,
+        "previous_ether_cells": 8,
+        "successor_rail": 2
+      }
+    ],
+    "theorem": "EC17 substitution gives 2^(8m+30)u'-9591553=3^12*(2^15*3^(6n-1)u-17), with unit bracket; hence r'=2"
+  },
+  "literal_kl_structure": {
+    "general_counts": {
+      "R2": "2n+4",
+      "R8": "r+4n+5",
+      "S": 0
+    },
+    "linked_post_initial_counts": {
+      "R2": "2n+4",
+      "R8": "4n+7",
+      "leading_multiplier": "3^(6n+11)/2^(8n+15)",
+      "odd_steps": "6n+11",
+      "one_halving_steps": "8n+15"
+    },
+    "literal_bounds": {
+      "ether_cells": [
+        1,
+        4
+      ],
+      "tails": [
+        0,
+        8
+      ]
+    },
+    "literal_checks": 36,
+    "rail_vector": "[r,0,2,0,1,0]+[2,0]^(n-1)"
+  },
+  "piecewise_affine_chart": {
+    "bijective_at_each_bound": true,
+    "boundary": "C=-1+3*2^(r+1)*h, excluding the one h=0 mod 3 class",
+    "bounds": {
+      "ether_cells": [
+        1,
+        3
+      ],
+      "k": [
+        2,
+        5
+      ],
+      "rail": [
+        0,
+        4
+      ]
+    },
+    "chart": "q=rho_(n,r)+3^r*t; h=h_(n,r)+2^(8n+50)*t",
+    "checks": 1200,
+    "image_mod_3^k": "{C: v3(C+1)=1}={C=2 or 5 mod 9}"
+  },
+  "schema": "collatz-breakoff-ether-glider-kl-tail-chart-v1",
+  "scope": "universal exact algebra plus bounded literal reconstruction at the stated bounds; fixed k=12 feasible-certificate calibration; no infinite linked EC17 ray and no Collatz counterexample",
+  "sources_sha256": {
+    "counter": "ac560b6b088d62c685fa7382af7cc5e75a8f0039d9ea55558a00a237214f9dfe",
+    "glider": "0f933e8330e33f0c65c3a6b51d30f0983b504492183ca39ef8a4f6c2f3d76dce",
+    "kl_certificate": "a6386bfc8d0410a3dd82a98d765690e53c620259e6b7c4a5359f150ce6d1459f",
+    "kl_verifier": "32c8f52fa7f9f43b66901edc249700cac7949369aa0aa81667004389b6cff261",
+    "literal_kl_bridge": "b89bf48332a5f0edf0a0a3d01f7b24fb75a3bfcd34064010b8eef372d14c2b26",
+    "router": "2b0d7a00e5921c4342f6ab8b9ebcb1f002d6de35ae62ba4d3b8286785382304d",
+    "worker": "c9ca36b6d7b9ae3c5f9cc653b6c29109bc37e301c33a35161e708583ccc88055"
+  },
+  "verdict": {
+    "counterexample_found": false,
+    "fixed_precision_tax_random_over_linked_tails": false,
+    "free_Haar_tail_model_for_a_coherent_chain": false,
+    "post_initial_linked_rail": 2,
+    "remaining_seam": "construct one positive infinite EC17/glider chain.  The chart now fixes its post-initial KL skeleton and fixed-precision tax; the existing all-branch Lyapunov theorem would make any such chain an outward Collatz escape, but no chain is supplied."
+  }
+}

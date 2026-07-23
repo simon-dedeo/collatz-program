@@ -746,6 +746,14 @@ assumed: the stored vector is a feasible subeigenvector with certified lower
 weights, and a failed inequality suppresses the tax row.  All six rows pass
 and all contain nonselected lifts.
 
+Companion commit `82c01dd` makes the edge semantics independent of this
+finite worker.  For every positive state `n=2 mod 3`, Lean identifies the
+next visit to the same residue class and proves that the reversed pair is
+exactly one KL principal edge: odd `n` gives the advanced chord, `n=0 mod 4`
+gives transport, and `n=2 mod 4` gives the retarded chord.  It also proves
+that the intermediate even-case state is not another `2 mod 3` visit.  Thus
+literal Syracuse replay is sufficient to obtain a genuine KL path.
+
 Equation (13.5) is finite calibration, not an obstruction to an infinite
 ether ray.  The live theorem is now correctly posed: express the prescribed
 KL lift sequence as a function of the actual macro tail, then determine
@@ -753,3 +761,138 @@ whether the period-three arithmetic forces typical/averaged tax or permits
 one ordinary tail to track the exceptional low-tax fibers indefinitely.  The
 variable ternary valuation inside the true endpoint chart is precisely why
 the core odometer does not answer this automatically.
+
+## 14. EC17 synchronization selects the rational ether cycle
+
+The endpoint valuation is variable only before macro linkage is imposed.  For
+a free length-`n` packet write
+
+```text
+K=R_n+2^(8n+15)q,
+Z(K)=2^35*K-358513857,
+r=v_3(Z),
+C(K)+1=3*2^(r+1)*(Z/3^r).                         (14.1)
+```
+
+Because the coefficient of `q` in `Z` is `2^(8n+50)`, a 3-adic unit, the
+complete system `q mod 3^d` has exact capped histogram
+
+```text
+# {q: v_3(Z)=j}=2*3^(d-j-1),  0<=j<d,
+# {q: v_3(Z)>=d}=1.                                   (14.2)
+```
+
+Conditional on a finite rail, (14.1) is affine and uniform on
+`{C:v_3(C+1)=1}={2,5 mod 9}`.  This is a free-tail chart theorem, not an
+orbit distribution.
+
+The EC17 core is related to `q` only after ten fixed ternary digits:
+
+```text
+u=u_base(n)+473*2^20*3^10*q.                       (14.3)
+```
+
+Thus the core condition `u=1 mod 3` is automatic and does not mean
+`q=1 mod 3`.  Using `83790531=473*3^11`, direct cancellation gives
+
+```text
+473*3^10*Z=2^(8n+30)u-9591553,
+9591553=17*(2^15+3^12).                            (14.4)
+```
+
+Now impose one genuine linked step
+
+```text
+2^(8m+15)u'=3^(6n+11)u+17.                         (14.5)
+```
+
+Equations (14.4)--(14.5) yield
+
+```text
+2^(8m+30)u'-9591553
+ =3^12*(2^15*3^(6n-1)u-17).                        (14.6)
+```
+
+For `n>=1`, the bracket is `-17 mod 3`, hence a unit.  Therefore every
+linked successor has
+
+```text
+v_3(Z')=2.                                         (14.7)
+```
+
+This is the decisive distinction between free tails and a coherent ray.  The
+literal boundary formula simplifies further to
+
+```text
+473*C'+881=2^18*3^(6n)u,
+v_3(473*C'+881)=6n.                                (14.8)
+```
+
+Consequently any linked chain with `n -> infinity` approaches the rational
+3-adic center `-881/473`.  Also, if `d<=6n+1`, reducing (14.5) modulo
+`3^(d+10)` annihilates the source term; after dividing the fixed `3^10` in
+(14.3), `q' mod 3^d` is determined only by the target branch `m`.  There is
+no exceptional tail choice at fixed precision once the preceding branch is
+wide enough.
+
+The literal router skeleton becomes
+
+```text
+[2,0,2,0,1,0]+[2,0]^(n-1),                         (14.9)
+```
+
+and hence
+
+```text
+N_2=2n+4,  N_8=4n+7,  N_S=0,
+N_odd=6n+11,  N_half=8n+15.                        (14.10)
+```
+
+The repeated pair `[2,0]` is a six-edge KL cycle (in reverse KL direction a
+cyclic word with two `R2` and four `R8` edges) whose ordinary affine map is
+
+```text
+F_E(x)=(729*x+881)/256,
+F_E(-881/473)=-881/473.                             (14.11)
+```
+
+At level 12 the exact feasible certificate gives, for synchronized macros
+`n=2..6`,
+
+```text
+Dev(n)=Dev_base*Dev_E^n,                            (14.12)
+Dev_E=2.973148268...,
+Dev_E/W_E=1.217522341....
+```
+
+The ether cycle has one selected and five nonselected lifts at this level.
+All decimals in (14.12) are renderings of exact rational products stored in
+the artifact.  This does not prove a critical-vector limit and does not
+construct a ray.  It does show that KL is no longer an undirected diagnostic:
+the period-three compiler is forced onto one explicit rational 3-adic KL
+spine.  The remaining obstruction is entirely the existence and ordinary
+dyadic coherence of one positive infinite EC17 chain.
+
+The independent exact cycle worker extends (14.12) across all stored
+certificate levels `12..19`.  It derives the rational centers
+
+```text
+881,1490,1151,1850,1391,1085,881  (all divided by 473)
+```
+
+and reconstructs every three-lift fiber from the SHA-pinned potential vectors.
+The exact ratios `Dev_E/W_E` remain greater than one and decrease strictly:
+
+```text
+k       12       13       14       15
+ratio   1.21752  1.16417  1.14829  1.11350
+
+k       16       17       18       19
+ratio   1.09709  1.07637  1.06627  1.05157.         (14.13)
+```
+
+Every adjacent inequality in (14.13) is stored as a positive exact integer
+cross-product difference.  The cycle has one selected lift through `k=15`
+and two from `k=16` onward.  The downward trend is evidence that the ether
+cycle is a near-critical KL direction, not proof that the ratio tends to one
+or that a compatible infinite ordinary path exists.
