@@ -1,7 +1,17 @@
 {
-  "artifact_sha256": "d3fc40180317e7794015f6cd88048b694545a1c6a8d7c869f4ecd6ecf4e06977",
+  "artifact_sha256": "77428e2ae528c78eaf3cc821d7033100daf2e1c162e5102f94e22daf3fc64f95",
   "audit": {
     "bound": 256,
+    "carry_growth_criterion": {
+      "deterministic_sufficient_conditions": [
+        "rho_n=o(2^n)",
+        "limsup rho_n^(1/n)<2"
+      ],
+      "formalization_status": "requested from the companion Lean worker",
+      "identity": "rho_(n+1)=rho_n+2^L_n*ell_n, ell_n>=0, L_n>=n",
+      "measure_sufficient_condition": "sum_n E[rho_(n+1)]/2^n<infinity; Markov plus Borel-Cantelli then gives eventual zero carry almost surely",
+      "nonzero_carry_bound": "ell_n>0 implies rho_(n+1)>=2^n"
+    },
     "claim_scope": "exact finite first-passage and stopped-mass identities at the stated bound; no infinite ordinary survivor and no Collatz counterexample",
     "counterexample": null,
     "crossing_by_length": [
@@ -695,7 +705,7 @@
       "upper_decimal_diagnostic": "0.713684640996637644"
     },
     "infinite_theorem_boundary": "the fair-parity slope is a nonnegative martingale; on uncrossed paths it is at most one and tends to zero almost surely by the negative log drift, so dominated convergence gives total tilted first-passage mass exactly one",
-    "mass_to_atom_gate": "branching criticality alone does not give an ordinary seed; a projectively consistent schedule measure would suffice if the nondecreasing canonical least residues had uniformly bounded first moment, because then one residue tower is eventually constant",
+    "mass_to_atom_gate": "branching criticality alone does not give an ordinary seed; a coherent path with rho_n=o(2^n) suffices, since every nonzero extension carry makes rho_(n+1)>=2^n; measure-theoretically, sum_n E[rho_(n+1)]/2^n<infinity forces eventual zero carry",
     "maximality": "every outward parity word has a unique first-passage prefix, so replacing it by that prefix shows this code dominates every outward prefix-free code in both ordinary and tilted mass",
     "minimal_layers": {
       "length_word_counts": [
@@ -894,86 +904,606 @@
       "block_depth": 37,
       "strictly_greater_than": 300000
     },
+    "post_address_renewal": {
+      "champion": {
+        "address_stabilization": {
+          "accelerated_steps": 15,
+          "block_depth": 8,
+          "shortcut_steps": 20,
+          "state": 3698459
+        },
+        "post_address_first_passage_extensions": 28,
+        "source": 270271
+      },
+      "meaning": "after source<2^L, the accumulated parity cylinder has the displayed source as its canonical residue; later completed blocks are literal zero-carry renewals rather than preloaded address bits",
+      "record_rows": [
+        {
+          "address_stabilization_block_depth": 1,
+          "address_stabilization_shortcut_steps": 1,
+          "first_passage_blocks": 1,
+          "post_address_first_passage_extensions": 0,
+          "source": 1
+        },
+        {
+          "address_stabilization_block_depth": 2,
+          "address_stabilization_shortcut_steps": 4,
+          "first_passage_blocks": 3,
+          "post_address_first_passage_extensions": 1,
+          "source": 9
+        },
+        {
+          "address_stabilization_block_depth": 3,
+          "address_stabilization_shortcut_steps": 5,
+          "first_passage_blocks": 15,
+          "post_address_first_passage_extensions": 12,
+          "source": 27
+        },
+        {
+          "address_stabilization_block_depth": 7,
+          "address_stabilization_shortcut_steps": 13,
+          "first_passage_blocks": 21,
+          "post_address_first_passage_extensions": 14,
+          "source": 6121
+        },
+        {
+          "address_stabilization_block_depth": 4,
+          "address_stabilization_shortcut_steps": 14,
+          "first_passage_blocks": 19,
+          "post_address_first_passage_extensions": 15,
+          "source": 10881
+        },
+        {
+          "address_stabilization_block_depth": 8,
+          "address_stabilization_shortcut_steps": 16,
+          "first_passage_blocks": 24,
+          "post_address_first_passage_extensions": 16,
+          "source": 31911
+        },
+        {
+          "address_stabilization_block_depth": 7,
+          "address_stabilization_shortcut_steps": 30,
+          "first_passage_blocks": 24,
+          "post_address_first_passage_extensions": 17,
+          "source": 60975
+        },
+        {
+          "address_stabilization_block_depth": 9,
+          "address_stabilization_shortcut_steps": 18,
+          "first_passage_blocks": 27,
+          "post_address_first_passage_extensions": 18,
+          "source": 134379
+        },
+        {
+          "address_stabilization_block_depth": 8,
+          "address_stabilization_shortcut_steps": 20,
+          "first_passage_blocks": 36,
+          "post_address_first_passage_extensions": 28,
+          "source": 270271
+        }
+      ],
+      "visualizer_post_address_prefix": {
+        "accelerated_steps": 72,
+        "collatz_source": 3698459,
+        "collatz_target": 8216025965,
+        "first_passage_extensions": 27,
+        "scope": "exact finite prefix beginning only after the canonical ordinary address has stabilized; the full orbit dies"
+      }
+    },
     "record_rows": [
       {
         "accelerated_steps_to_terminal_cycle": 1,
+        "common_first_passage_prefix_blocks": 0,
         "first_passage_blocks": 1,
+        "previous_record_source": null,
         "shortcut_steps_to_terminal_cycle": 1,
         "source": 1
       },
       {
         "accelerated_steps_to_terminal_cycle": 2,
+        "common_first_passage_prefix_blocks": 1,
         "first_passage_blocks": 2,
+        "previous_record_source": 1,
         "shortcut_steps_to_terminal_cycle": 4,
         "source": 3
       },
       {
         "accelerated_steps_to_terminal_cycle": 5,
+        "common_first_passage_prefix_blocks": 2,
         "first_passage_blocks": 3,
+        "previous_record_source": 3,
         "shortcut_steps_to_terminal_cycle": 10,
         "source": 7
       },
       {
         "accelerated_steps_to_terminal_cycle": 5,
+        "common_first_passage_prefix_blocks": 3,
         "first_passage_blocks": 4,
+        "previous_record_source": 7,
         "shortcut_steps_to_terminal_cycle": 11,
         "source": 15
       },
       {
         "accelerated_steps_to_terminal_cycle": 41,
+        "common_first_passage_prefix_blocks": 2,
         "first_passage_blocks": 15,
+        "previous_record_source": 15,
         "shortcut_steps_to_terminal_cycle": 69,
         "source": 27
       },
       {
         "accelerated_steps_to_terminal_cycle": 62,
+        "common_first_passage_prefix_blocks": 2,
         "first_passage_blocks": 16,
+        "previous_record_source": 27,
         "shortcut_steps_to_terminal_cycle": 107,
         "source": 703
       },
       {
         "accelerated_steps_to_terminal_cycle": 73,
+        "common_first_passage_prefix_blocks": 5,
         "first_passage_blocks": 19,
+        "previous_record_source": 703,
         "shortcut_steps_to_terminal_cycle": 127,
         "source": 4255
       },
       {
         "accelerated_steps_to_terminal_cycle": 61,
+        "common_first_passage_prefix_blocks": 4,
         "first_passage_blocks": 21,
+        "previous_record_source": 4255,
         "shortcut_steps_to_terminal_cycle": 108,
         "source": 4591
       },
       {
         "accelerated_steps_to_terminal_cycle": 56,
+        "common_first_passage_prefix_blocks": 3,
         "first_passage_blocks": 24,
+        "previous_record_source": 4591,
         "shortcut_steps_to_terminal_cycle": 103,
         "source": 31911
       },
       {
         "accelerated_steps_to_terminal_cycle": 83,
+        "common_first_passage_prefix_blocks": 4,
         "first_passage_blocks": 25,
+        "previous_record_source": 31911,
         "shortcut_steps_to_terminal_cycle": 147,
         "source": 77671
       },
       {
         "accelerated_steps_to_terminal_cycle": 89,
+        "common_first_passage_prefix_blocks": 5,
         "first_passage_blocks": 27,
+        "previous_record_source": 77671,
         "shortcut_steps_to_terminal_cycle": 157,
         "source": 113383
       },
       {
         "accelerated_steps_to_terminal_cycle": 64,
+        "common_first_passage_prefix_blocks": 3,
         "first_passage_blocks": 29,
+        "previous_record_source": 113383,
         "shortcut_steps_to_terminal_cycle": 118,
         "source": 159487
       },
       {
         "accelerated_steps_to_terminal_cycle": 150,
+        "common_first_passage_prefix_blocks": 6,
         "first_passage_blocks": 36,
+        "previous_record_source": 159487,
         "shortcut_steps_to_terminal_cycle": 255,
         "source": 270271
       }
     ],
+    "survivor_counts_by_depth": [
+      {
+        "block_depth": 1,
+        "density_decimal_diagnostic": "0.713900000000",
+        "survivors": 214170
+      },
+      {
+        "block_depth": 2,
+        "density_decimal_diagnostic": "0.508843333333",
+        "survivors": 152653
+      },
+      {
+        "block_depth": 3,
+        "density_decimal_diagnostic": "0.362670000000",
+        "survivors": 108801
+      },
+      {
+        "block_depth": 4,
+        "density_decimal_diagnostic": "0.257810000000",
+        "survivors": 77343
+      },
+      {
+        "block_depth": 5,
+        "density_decimal_diagnostic": "0.182630000000",
+        "survivors": 54789
+      },
+      {
+        "block_depth": 6,
+        "density_decimal_diagnostic": "0.129070000000",
+        "survivors": 38721
+      },
+      {
+        "block_depth": 7,
+        "density_decimal_diagnostic": "0.091786666666",
+        "survivors": 27536
+      },
+      {
+        "block_depth": 8,
+        "density_decimal_diagnostic": "0.065020000000",
+        "survivors": 19506
+      },
+      {
+        "block_depth": 9,
+        "density_decimal_diagnostic": "0.046016666666",
+        "survivors": 13805
+      },
+      {
+        "block_depth": 10,
+        "density_decimal_diagnostic": "0.031960000000",
+        "survivors": 9588
+      },
+      {
+        "block_depth": 11,
+        "density_decimal_diagnostic": "0.021976666666",
+        "survivors": 6593
+      },
+      {
+        "block_depth": 12,
+        "density_decimal_diagnostic": "0.015283333333",
+        "survivors": 4585
+      },
+      {
+        "block_depth": 13,
+        "density_decimal_diagnostic": "0.010540000000",
+        "survivors": 3162
+      },
+      {
+        "block_depth": 14,
+        "density_decimal_diagnostic": "0.007326666666",
+        "survivors": 2198
+      },
+      {
+        "block_depth": 15,
+        "density_decimal_diagnostic": "0.005196666666",
+        "survivors": 1559
+      },
+      {
+        "block_depth": 16,
+        "density_decimal_diagnostic": "0.003716666666",
+        "survivors": 1115
+      },
+      {
+        "block_depth": 17,
+        "density_decimal_diagnostic": "0.002506666666",
+        "survivors": 752
+      },
+      {
+        "block_depth": 18,
+        "density_decimal_diagnostic": "0.001683333333",
+        "survivors": 505
+      },
+      {
+        "block_depth": 19,
+        "density_decimal_diagnostic": "0.001136666666",
+        "survivors": 341
+      },
+      {
+        "block_depth": 20,
+        "density_decimal_diagnostic": "0.000773333333",
+        "survivors": 232
+      },
+      {
+        "block_depth": 21,
+        "density_decimal_diagnostic": "0.000510000000",
+        "survivors": 153
+      },
+      {
+        "block_depth": 22,
+        "density_decimal_diagnostic": "0.000326666666",
+        "survivors": 98
+      },
+      {
+        "block_depth": 23,
+        "density_decimal_diagnostic": "0.000210000000",
+        "survivors": 63
+      },
+      {
+        "block_depth": 24,
+        "density_decimal_diagnostic": "0.000120000000",
+        "survivors": 36
+      },
+      {
+        "block_depth": 25,
+        "density_decimal_diagnostic": "0.000083333333",
+        "survivors": 25
+      },
+      {
+        "block_depth": 26,
+        "density_decimal_diagnostic": "0.000050000000",
+        "survivors": 15
+      },
+      {
+        "block_depth": 27,
+        "density_decimal_diagnostic": "0.000026666666",
+        "survivors": 8
+      },
+      {
+        "block_depth": 28,
+        "density_decimal_diagnostic": "0.000016666666",
+        "survivors": 5
+      },
+      {
+        "block_depth": 29,
+        "density_decimal_diagnostic": "0.000013333333",
+        "survivors": 4
+      },
+      {
+        "block_depth": 30,
+        "density_decimal_diagnostic": "0.000006666666",
+        "survivors": 2
+      },
+      {
+        "block_depth": 31,
+        "density_decimal_diagnostic": "0.000006666666",
+        "survivors": 2
+      },
+      {
+        "block_depth": 32,
+        "density_decimal_diagnostic": "0.000006666666",
+        "survivors": 2
+      },
+      {
+        "block_depth": 33,
+        "density_decimal_diagnostic": "0.000006666666",
+        "survivors": 2
+      },
+      {
+        "block_depth": 34,
+        "density_decimal_diagnostic": "0.000006666666",
+        "survivors": 2
+      },
+      {
+        "block_depth": 35,
+        "density_decimal_diagnostic": "0.000006666666",
+        "survivors": 2
+      },
+      {
+        "block_depth": 36,
+        "density_decimal_diagnostic": "0.000003333333",
+        "survivors": 1
+      },
+      {
+        "block_depth": 37,
+        "density_decimal_diagnostic": "0.000000000000",
+        "survivors": 0
+      }
+    ],
+    "triadic_min_plus_reduction": {
+      "certified_rows": [
+        {
+          "block_depth": 1,
+          "least_survivor_congruent_2_mod_3": 2,
+          "minimum_address": 1,
+          "target_depth": 0
+        },
+        {
+          "block_depth": 2,
+          "least_survivor_congruent_2_mod_3": 5,
+          "minimum_address": 3,
+          "target_depth": 1
+        },
+        {
+          "block_depth": 3,
+          "least_survivor_congruent_2_mod_3": 11,
+          "minimum_address": 7,
+          "target_depth": 2
+        },
+        {
+          "block_depth": 4,
+          "least_survivor_congruent_2_mod_3": 23,
+          "minimum_address": 15,
+          "target_depth": 3
+        },
+        {
+          "block_depth": 5,
+          "least_survivor_congruent_2_mod_3": 41,
+          "minimum_address": 27,
+          "target_depth": 4
+        },
+        {
+          "block_depth": 6,
+          "least_survivor_congruent_2_mod_3": 41,
+          "minimum_address": 27,
+          "target_depth": 5
+        },
+        {
+          "block_depth": 7,
+          "least_survivor_congruent_2_mod_3": 41,
+          "minimum_address": 27,
+          "target_depth": 6
+        },
+        {
+          "block_depth": 8,
+          "least_survivor_congruent_2_mod_3": 41,
+          "minimum_address": 27,
+          "target_depth": 7
+        },
+        {
+          "block_depth": 9,
+          "least_survivor_congruent_2_mod_3": 41,
+          "minimum_address": 27,
+          "target_depth": 8
+        },
+        {
+          "block_depth": 10,
+          "least_survivor_congruent_2_mod_3": 41,
+          "minimum_address": 27,
+          "target_depth": 9
+        },
+        {
+          "block_depth": 11,
+          "least_survivor_congruent_2_mod_3": 41,
+          "minimum_address": 27,
+          "target_depth": 10
+        },
+        {
+          "block_depth": 12,
+          "least_survivor_congruent_2_mod_3": 41,
+          "minimum_address": 27,
+          "target_depth": 11
+        },
+        {
+          "block_depth": 13,
+          "least_survivor_congruent_2_mod_3": 41,
+          "minimum_address": 27,
+          "target_depth": 12
+        },
+        {
+          "block_depth": 14,
+          "least_survivor_congruent_2_mod_3": 41,
+          "minimum_address": 27,
+          "target_depth": 13
+        },
+        {
+          "block_depth": 15,
+          "least_survivor_congruent_2_mod_3": 41,
+          "minimum_address": 27,
+          "target_depth": 14
+        },
+        {
+          "block_depth": 16,
+          "least_survivor_congruent_2_mod_3": 1055,
+          "minimum_address": 703,
+          "target_depth": 15
+        },
+        {
+          "block_depth": 17,
+          "least_survivor_congruent_2_mod_3": 6383,
+          "minimum_address": 4255,
+          "target_depth": 16
+        },
+        {
+          "block_depth": 18,
+          "least_survivor_congruent_2_mod_3": 6383,
+          "minimum_address": 4255,
+          "target_depth": 17
+        },
+        {
+          "block_depth": 19,
+          "least_survivor_congruent_2_mod_3": 6383,
+          "minimum_address": 4255,
+          "target_depth": 18
+        },
+        {
+          "block_depth": 20,
+          "least_survivor_congruent_2_mod_3": 6887,
+          "minimum_address": 4591,
+          "target_depth": 19
+        },
+        {
+          "block_depth": 21,
+          "least_survivor_congruent_2_mod_3": 6887,
+          "minimum_address": 4591,
+          "target_depth": 20
+        },
+        {
+          "block_depth": 22,
+          "least_survivor_congruent_2_mod_3": 47867,
+          "minimum_address": 31911,
+          "target_depth": 21
+        },
+        {
+          "block_depth": 23,
+          "least_survivor_congruent_2_mod_3": 47867,
+          "minimum_address": 31911,
+          "target_depth": 22
+        },
+        {
+          "block_depth": 24,
+          "least_survivor_congruent_2_mod_3": 47867,
+          "minimum_address": 31911,
+          "target_depth": 23
+        },
+        {
+          "block_depth": 25,
+          "least_survivor_congruent_2_mod_3": 116507,
+          "minimum_address": 77671,
+          "target_depth": 24
+        },
+        {
+          "block_depth": 26,
+          "least_survivor_congruent_2_mod_3": 170075,
+          "minimum_address": 113383,
+          "target_depth": 25
+        },
+        {
+          "block_depth": 27,
+          "least_survivor_congruent_2_mod_3": 170075,
+          "minimum_address": 113383,
+          "target_depth": 26
+        },
+        {
+          "block_depth": 28,
+          "least_survivor_congruent_2_mod_3": 239231,
+          "minimum_address": 159487,
+          "target_depth": 27
+        },
+        {
+          "block_depth": 29,
+          "least_survivor_congruent_2_mod_3": 239231,
+          "minimum_address": 159487,
+          "target_depth": 28
+        },
+        {
+          "block_depth": 30,
+          "least_survivor_congruent_2_mod_3": 405407,
+          "minimum_address": 270271,
+          "target_depth": 29
+        },
+        {
+          "block_depth": 31,
+          "least_survivor_congruent_2_mod_3": 405407,
+          "minimum_address": 270271,
+          "target_depth": 30
+        },
+        {
+          "block_depth": 32,
+          "least_survivor_congruent_2_mod_3": 405407,
+          "minimum_address": 270271,
+          "target_depth": 31
+        },
+        {
+          "block_depth": 33,
+          "least_survivor_congruent_2_mod_3": 405407,
+          "minimum_address": 270271,
+          "target_depth": 32
+        },
+        {
+          "block_depth": 34,
+          "least_survivor_congruent_2_mod_3": 405407,
+          "minimum_address": 270271,
+          "target_depth": 33
+        },
+        {
+          "block_depth": 35,
+          "least_survivor_congruent_2_mod_3": 405407,
+          "minimum_address": 270271,
+          "target_depth": 34
+        },
+        {
+          "block_depth": 36,
+          "least_survivor_congruent_2_mod_3": 405407,
+          "minimum_address": 270271,
+          "target_depth": 35
+        }
+      ],
+      "identity": "h_(n+1)=(2*m_n-1)/3 where m_n is the least member of E_n congruent to 2 mod 3",
+      "proof_boundary": "a least source is odd because deleting initial even steps cannot reduce its first-passage record count; its forced first word is 1 and bijects odd sources with targets 2 mod 3"
+    },
     "visualizer_prefix": {
       "accelerated_steps": 87,
       "collatz_source": 270271,
@@ -983,6 +1513,935 @@
       "shortcut_steps": 123
     }
   },
-  "schema": "collatz-outward-first-passage-v2",
-  "worker_sha256": "62075652fd83be6ffe82b199a6d539ed28e0a09b37e97e8640ae068d820a46db"
+  "odd_charge_recurrence": {
+    "record_champion": {
+      "all_completed_boundaries_are_2_mod_3": true,
+      "boundary_coordinate": "x=3H-1",
+      "counterexample": null,
+      "final_odd_charge_with_undefined_next_recharge": 4108012983,
+      "recharge_rows": [
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 1,
+          "forced_1_blocks": 0,
+          "input_block_depth": 6,
+          "input_charge": 1026189,
+          "input_v3": 5,
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 1154463,
+          "output_v3": 1,
+          "pre_drain_charge": 1154463,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 3,
+          "word": "011"
+        },
+        {
+          "affine_constant": 14476,
+          "first_passage_blocks_consumed": 3,
+          "forced_1_blocks": 2,
+          "input_block_depth": 7,
+          "input_charge": 1154463,
+          "input_v3": 1,
+          "length": 11,
+          "odd_count": 7,
+          "output_charge": 2773845,
+          "output_v3": 6,
+          "pre_drain_charge": 1232820,
+          "recharge_defect": 4779,
+          "shortcut_steps_consumed": 13,
+          "word": "00111001111"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 7,
+          "forced_1_blocks": 6,
+          "input_block_depth": 10,
+          "input_charge": 2773845,
+          "input_v3": 6,
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 35545311,
+          "output_v3": 7,
+          "pre_drain_charge": 3120576,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 9,
+          "word": "011"
+        },
+        {
+          "affine_constant": 11596,
+          "first_passage_blocks_consumed": 3,
+          "forced_1_blocks": 2,
+          "input_block_depth": 17,
+          "input_charge": 35545311,
+          "input_v3": 7,
+          "length": 11,
+          "odd_count": 7,
+          "output_charge": 85405077,
+          "output_v3": 3,
+          "pre_drain_charge": 37957812,
+          "recharge_defect": 3819,
+          "shortcut_steps_consumed": 13,
+          "word": "00111011011"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 4,
+          "forced_1_blocks": 3,
+          "input_block_depth": 20,
+          "input_charge": 85405077,
+          "input_v3": 3,
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 324272403,
+          "output_v3": 4,
+          "pre_drain_charge": 96080712,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 6,
+          "word": "011"
+        },
+        {
+          "affine_constant": 20632,
+          "first_passage_blocks_consumed": 1,
+          "forced_1_blocks": 0,
+          "input_block_depth": 24,
+          "input_charge": 324272403,
+          "input_v3": 4,
+          "length": 11,
+          "odd_count": 7,
+          "output_charge": 346281129,
+          "output_v3": 3,
+          "pre_drain_charge": 346281129,
+          "recharge_defect": 6831,
+          "shortcut_steps_consumed": 11,
+          "word": "00011101111"
+        },
+        {
+          "affine_constant": 3862,
+          "first_passage_blocks_consumed": 1,
+          "forced_1_blocks": 0,
+          "input_block_depth": 25,
+          "input_charge": 346281129,
+          "input_v3": 3,
+          "length": 9,
+          "odd_count": 6,
+          "output_charge": 493044813,
+          "output_v3": 5,
+          "pre_drain_charge": 493044813,
+          "recharge_defect": 1215,
+          "shortcut_steps_consumed": 9,
+          "word": "010011111"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 1,
+          "forced_1_blocks": 0,
+          "input_block_depth": 26,
+          "input_charge": 493044813,
+          "input_v3": 5,
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 554675415,
+          "output_v3": 1,
+          "pre_drain_charge": 554675415,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 3,
+          "word": "011"
+        },
+        {
+          "affine_constant": 10154428,
+          "first_passage_blocks_consumed": 1,
+          "forced_1_blocks": 0,
+          "input_block_depth": 27,
+          "input_charge": 554675415,
+          "input_v3": 1,
+          "length": 19,
+          "odd_count": 12,
+          "output_charge": 562243005,
+          "output_v3": 3,
+          "pre_drain_charge": 562243005,
+          "recharge_defect": 3382425,
+          "shortcut_steps_consumed": 19,
+          "word": "0010101101011101111"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 1,
+          "forced_1_blocks": 0,
+          "input_block_depth": 28,
+          "input_charge": 562243005,
+          "input_v3": 3,
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 632523381,
+          "output_v3": 1,
+          "pre_drain_charge": 632523381,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 3,
+          "word": "011"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 3,
+          "forced_1_blocks": 2,
+          "input_block_depth": 29,
+          "input_charge": 632523381,
+          "input_v3": 1,
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 1601074809,
+          "output_v3": 3,
+          "pre_drain_charge": 711588804,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 5,
+          "word": "011"
+        },
+        {
+          "affine_constant": 19610422,
+          "first_passage_blocks_consumed": 1,
+          "forced_1_blocks": 0,
+          "input_block_depth": 32,
+          "input_charge": 1601074809,
+          "input_v3": 3,
+          "length": 19,
+          "odd_count": 12,
+          "output_charge": 1622918709,
+          "output_v3": 2,
+          "pre_drain_charge": 1622918709,
+          "recharge_defect": 6534423,
+          "shortcut_steps_consumed": 19,
+          "word": "0100001011111110111"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 3,
+          "forced_1_blocks": 2,
+          "input_block_depth": 33,
+          "input_charge": 1622918709,
+          "input_v3": 2,
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 4108012983,
+          "output_v3": 3,
+          "pre_drain_charge": 1825783548,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 5,
+          "word": "011"
+        }
+      ],
+      "shallow_011_rows": [
+        {
+          "c": 5,
+          "next_c": 1,
+          "next_u": 384821,
+          "u": 4223
+        },
+        {
+          "c": 6,
+          "next_c": 7,
+          "next_u": 16253,
+          "u": 3805
+        },
+        {
+          "c": 3,
+          "next_c": 4,
+          "next_u": 4003363,
+          "u": 3163151
+        },
+        {
+          "c": 5,
+          "next_c": 1,
+          "next_u": 184891805,
+          "u": 2028991
+        },
+        {
+          "c": 3,
+          "next_c": 1,
+          "next_u": 210841127,
+          "u": 20823815
+        },
+        {
+          "c": 1,
+          "next_c": 3,
+          "next_u": 59299067,
+          "u": 210841127
+        },
+        {
+          "c": 2,
+          "next_c": 3,
+          "next_u": 152148629,
+          "u": 180324301
+        }
+      ],
+      "source": 270271,
+      "theorem_boundary": "an infinite ordinary first-passage execution exists iff the partial compressed recharge map has an infinite orbit on positive odd H; this artifact checks finite literal instances only",
+      "transition_rows": [
+        {
+          "input_charge": 135136,
+          "kind": "forced_1_drain",
+          "output_charge": 202704,
+          "word": "1"
+        },
+        {
+          "input_charge": 202704,
+          "kind": "forced_1_drain",
+          "output_charge": 304056,
+          "word": "1"
+        },
+        {
+          "input_charge": 304056,
+          "kind": "forced_1_drain",
+          "output_charge": 456084,
+          "word": "1"
+        },
+        {
+          "input_charge": 456084,
+          "kind": "forced_1_drain",
+          "output_charge": 684126,
+          "word": "1"
+        },
+        {
+          "input_charge": 684126,
+          "kind": "forced_1_drain",
+          "output_charge": 1026189,
+          "word": "1"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 1,
+          "forced_1_blocks": 0,
+          "input_block_depth": 6,
+          "input_charge": 1026189,
+          "input_v3": 5,
+          "kind": "nontrivial_recharge",
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 1154463,
+          "output_v3": 1,
+          "pre_drain_charge": 1154463,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 3,
+          "word": "011"
+        },
+        {
+          "affine_constant": 14476,
+          "first_passage_blocks_consumed": 3,
+          "forced_1_blocks": 2,
+          "input_block_depth": 7,
+          "input_charge": 1154463,
+          "input_v3": 1,
+          "kind": "nontrivial_recharge",
+          "length": 11,
+          "odd_count": 7,
+          "output_charge": 2773845,
+          "output_v3": 6,
+          "pre_drain_charge": 1232820,
+          "recharge_defect": 4779,
+          "shortcut_steps_consumed": 13,
+          "word": "00111001111"
+        },
+        {
+          "input_charge": 1232820,
+          "kind": "forced_1_drain",
+          "output_charge": 1849230,
+          "word": "1"
+        },
+        {
+          "input_charge": 1849230,
+          "kind": "forced_1_drain",
+          "output_charge": 2773845,
+          "word": "1"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 7,
+          "forced_1_blocks": 6,
+          "input_block_depth": 10,
+          "input_charge": 2773845,
+          "input_v3": 6,
+          "kind": "nontrivial_recharge",
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 35545311,
+          "output_v3": 7,
+          "pre_drain_charge": 3120576,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 9,
+          "word": "011"
+        },
+        {
+          "input_charge": 3120576,
+          "kind": "forced_1_drain",
+          "output_charge": 4680864,
+          "word": "1"
+        },
+        {
+          "input_charge": 4680864,
+          "kind": "forced_1_drain",
+          "output_charge": 7021296,
+          "word": "1"
+        },
+        {
+          "input_charge": 7021296,
+          "kind": "forced_1_drain",
+          "output_charge": 10531944,
+          "word": "1"
+        },
+        {
+          "input_charge": 10531944,
+          "kind": "forced_1_drain",
+          "output_charge": 15797916,
+          "word": "1"
+        },
+        {
+          "input_charge": 15797916,
+          "kind": "forced_1_drain",
+          "output_charge": 23696874,
+          "word": "1"
+        },
+        {
+          "input_charge": 23696874,
+          "kind": "forced_1_drain",
+          "output_charge": 35545311,
+          "word": "1"
+        },
+        {
+          "affine_constant": 11596,
+          "first_passage_blocks_consumed": 3,
+          "forced_1_blocks": 2,
+          "input_block_depth": 17,
+          "input_charge": 35545311,
+          "input_v3": 7,
+          "kind": "nontrivial_recharge",
+          "length": 11,
+          "odd_count": 7,
+          "output_charge": 85405077,
+          "output_v3": 3,
+          "pre_drain_charge": 37957812,
+          "recharge_defect": 3819,
+          "shortcut_steps_consumed": 13,
+          "word": "00111011011"
+        },
+        {
+          "input_charge": 37957812,
+          "kind": "forced_1_drain",
+          "output_charge": 56936718,
+          "word": "1"
+        },
+        {
+          "input_charge": 56936718,
+          "kind": "forced_1_drain",
+          "output_charge": 85405077,
+          "word": "1"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 4,
+          "forced_1_blocks": 3,
+          "input_block_depth": 20,
+          "input_charge": 85405077,
+          "input_v3": 3,
+          "kind": "nontrivial_recharge",
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 324272403,
+          "output_v3": 4,
+          "pre_drain_charge": 96080712,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 6,
+          "word": "011"
+        },
+        {
+          "input_charge": 96080712,
+          "kind": "forced_1_drain",
+          "output_charge": 144121068,
+          "word": "1"
+        },
+        {
+          "input_charge": 144121068,
+          "kind": "forced_1_drain",
+          "output_charge": 216181602,
+          "word": "1"
+        },
+        {
+          "input_charge": 216181602,
+          "kind": "forced_1_drain",
+          "output_charge": 324272403,
+          "word": "1"
+        },
+        {
+          "affine_constant": 20632,
+          "first_passage_blocks_consumed": 1,
+          "forced_1_blocks": 0,
+          "input_block_depth": 24,
+          "input_charge": 324272403,
+          "input_v3": 4,
+          "kind": "nontrivial_recharge",
+          "length": 11,
+          "odd_count": 7,
+          "output_charge": 346281129,
+          "output_v3": 3,
+          "pre_drain_charge": 346281129,
+          "recharge_defect": 6831,
+          "shortcut_steps_consumed": 11,
+          "word": "00011101111"
+        },
+        {
+          "affine_constant": 3862,
+          "first_passage_blocks_consumed": 1,
+          "forced_1_blocks": 0,
+          "input_block_depth": 25,
+          "input_charge": 346281129,
+          "input_v3": 3,
+          "kind": "nontrivial_recharge",
+          "length": 9,
+          "odd_count": 6,
+          "output_charge": 493044813,
+          "output_v3": 5,
+          "pre_drain_charge": 493044813,
+          "recharge_defect": 1215,
+          "shortcut_steps_consumed": 9,
+          "word": "010011111"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 1,
+          "forced_1_blocks": 0,
+          "input_block_depth": 26,
+          "input_charge": 493044813,
+          "input_v3": 5,
+          "kind": "nontrivial_recharge",
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 554675415,
+          "output_v3": 1,
+          "pre_drain_charge": 554675415,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 3,
+          "word": "011"
+        },
+        {
+          "affine_constant": 10154428,
+          "first_passage_blocks_consumed": 1,
+          "forced_1_blocks": 0,
+          "input_block_depth": 27,
+          "input_charge": 554675415,
+          "input_v3": 1,
+          "kind": "nontrivial_recharge",
+          "length": 19,
+          "odd_count": 12,
+          "output_charge": 562243005,
+          "output_v3": 3,
+          "pre_drain_charge": 562243005,
+          "recharge_defect": 3382425,
+          "shortcut_steps_consumed": 19,
+          "word": "0010101101011101111"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 1,
+          "forced_1_blocks": 0,
+          "input_block_depth": 28,
+          "input_charge": 562243005,
+          "input_v3": 3,
+          "kind": "nontrivial_recharge",
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 632523381,
+          "output_v3": 1,
+          "pre_drain_charge": 632523381,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 3,
+          "word": "011"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 3,
+          "forced_1_blocks": 2,
+          "input_block_depth": 29,
+          "input_charge": 632523381,
+          "input_v3": 1,
+          "kind": "nontrivial_recharge",
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 1601074809,
+          "output_v3": 3,
+          "pre_drain_charge": 711588804,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 5,
+          "word": "011"
+        },
+        {
+          "input_charge": 711588804,
+          "kind": "forced_1_drain",
+          "output_charge": 1067383206,
+          "word": "1"
+        },
+        {
+          "input_charge": 1067383206,
+          "kind": "forced_1_drain",
+          "output_charge": 1601074809,
+          "word": "1"
+        },
+        {
+          "affine_constant": 19610422,
+          "first_passage_blocks_consumed": 1,
+          "forced_1_blocks": 0,
+          "input_block_depth": 32,
+          "input_charge": 1601074809,
+          "input_v3": 3,
+          "kind": "nontrivial_recharge",
+          "length": 19,
+          "odd_count": 12,
+          "output_charge": 1622918709,
+          "output_v3": 2,
+          "pre_drain_charge": 1622918709,
+          "recharge_defect": 6534423,
+          "shortcut_steps_consumed": 19,
+          "word": "0100001011111110111"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 3,
+          "forced_1_blocks": 2,
+          "input_block_depth": 33,
+          "input_charge": 1622918709,
+          "input_v3": 2,
+          "kind": "nontrivial_recharge",
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 4108012983,
+          "output_v3": 3,
+          "pre_drain_charge": 1825783548,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 5,
+          "word": "011"
+        },
+        {
+          "input_charge": 1825783548,
+          "kind": "forced_1_drain",
+          "output_charge": 2738675322,
+          "word": "1"
+        },
+        {
+          "input_charge": 2738675322,
+          "kind": "forced_1_drain",
+          "output_charge": 4108012983,
+          "word": "1"
+        }
+      ]
+    },
+    "shallow_011_record": {
+      "all_completed_boundaries_are_2_mod_3": true,
+      "boundary_coordinate": "x=3H-1",
+      "counterexample": null,
+      "final_odd_charge_with_undefined_next_recharge": 2867062959,
+      "recharge_rows": [
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 2,
+          "forced_1_blocks": 1,
+          "input_block_depth": 8,
+          "input_charge": 1362501,
+          "input_v3": 7,
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 2299221,
+          "output_v3": 2,
+          "pre_drain_charge": 1532814,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 4,
+          "word": "011"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 12,
+          "forced_1_blocks": 11,
+          "input_block_depth": 10,
+          "input_charge": 2299221,
+          "input_v3": 2,
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 223736661,
+          "output_v3": 12,
+          "pre_drain_charge": 2586624,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 14,
+          "word": "011"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 7,
+          "forced_1_blocks": 6,
+          "input_block_depth": 22,
+          "input_charge": 223736661,
+          "input_v3": 12,
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 2867062959,
+          "output_v3": 7,
+          "pre_drain_charge": 251703744,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 9,
+          "word": "011"
+        }
+      ],
+      "shallow_011_rows": [
+        {
+          "c": 7,
+          "next_c": 2,
+          "next_u": 255469,
+          "u": 623
+        },
+        {
+          "c": 2,
+          "next_c": 12,
+          "next_u": 421,
+          "u": 255469
+        },
+        {
+          "c": 12,
+          "next_c": 7,
+          "next_u": 1310957,
+          "u": 421
+        }
+      ],
+      "source": 159487,
+      "theorem_boundary": "an infinite ordinary first-passage execution exists iff the partial compressed recharge map has an infinite orbit on positive odd H; this artifact checks finite literal instances only",
+      "transition_rows": [
+        {
+          "input_charge": 79744,
+          "kind": "forced_1_drain",
+          "output_charge": 119616,
+          "word": "1"
+        },
+        {
+          "input_charge": 119616,
+          "kind": "forced_1_drain",
+          "output_charge": 179424,
+          "word": "1"
+        },
+        {
+          "input_charge": 179424,
+          "kind": "forced_1_drain",
+          "output_charge": 269136,
+          "word": "1"
+        },
+        {
+          "input_charge": 269136,
+          "kind": "forced_1_drain",
+          "output_charge": 403704,
+          "word": "1"
+        },
+        {
+          "input_charge": 403704,
+          "kind": "forced_1_drain",
+          "output_charge": 605556,
+          "word": "1"
+        },
+        {
+          "input_charge": 605556,
+          "kind": "forced_1_drain",
+          "output_charge": 908334,
+          "word": "1"
+        },
+        {
+          "input_charge": 908334,
+          "kind": "forced_1_drain",
+          "output_charge": 1362501,
+          "word": "1"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 2,
+          "forced_1_blocks": 1,
+          "input_block_depth": 8,
+          "input_charge": 1362501,
+          "input_v3": 7,
+          "kind": "nontrivial_recharge",
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 2299221,
+          "output_v3": 2,
+          "pre_drain_charge": 1532814,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 4,
+          "word": "011"
+        },
+        {
+          "input_charge": 1532814,
+          "kind": "forced_1_drain",
+          "output_charge": 2299221,
+          "word": "1"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 12,
+          "forced_1_blocks": 11,
+          "input_block_depth": 10,
+          "input_charge": 2299221,
+          "input_v3": 2,
+          "kind": "nontrivial_recharge",
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 223736661,
+          "output_v3": 12,
+          "pre_drain_charge": 2586624,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 14,
+          "word": "011"
+        },
+        {
+          "input_charge": 2586624,
+          "kind": "forced_1_drain",
+          "output_charge": 3879936,
+          "word": "1"
+        },
+        {
+          "input_charge": 3879936,
+          "kind": "forced_1_drain",
+          "output_charge": 5819904,
+          "word": "1"
+        },
+        {
+          "input_charge": 5819904,
+          "kind": "forced_1_drain",
+          "output_charge": 8729856,
+          "word": "1"
+        },
+        {
+          "input_charge": 8729856,
+          "kind": "forced_1_drain",
+          "output_charge": 13094784,
+          "word": "1"
+        },
+        {
+          "input_charge": 13094784,
+          "kind": "forced_1_drain",
+          "output_charge": 19642176,
+          "word": "1"
+        },
+        {
+          "input_charge": 19642176,
+          "kind": "forced_1_drain",
+          "output_charge": 29463264,
+          "word": "1"
+        },
+        {
+          "input_charge": 29463264,
+          "kind": "forced_1_drain",
+          "output_charge": 44194896,
+          "word": "1"
+        },
+        {
+          "input_charge": 44194896,
+          "kind": "forced_1_drain",
+          "output_charge": 66292344,
+          "word": "1"
+        },
+        {
+          "input_charge": 66292344,
+          "kind": "forced_1_drain",
+          "output_charge": 99438516,
+          "word": "1"
+        },
+        {
+          "input_charge": 99438516,
+          "kind": "forced_1_drain",
+          "output_charge": 149157774,
+          "word": "1"
+        },
+        {
+          "input_charge": 149157774,
+          "kind": "forced_1_drain",
+          "output_charge": 223736661,
+          "word": "1"
+        },
+        {
+          "affine_constant": 10,
+          "first_passage_blocks_consumed": 7,
+          "forced_1_blocks": 6,
+          "input_block_depth": 22,
+          "input_charge": 223736661,
+          "input_v3": 12,
+          "kind": "nontrivial_recharge",
+          "length": 3,
+          "odd_count": 2,
+          "output_charge": 2867062959,
+          "output_v3": 7,
+          "pre_drain_charge": 251703744,
+          "recharge_defect": 3,
+          "shortcut_steps_consumed": 9,
+          "word": "011"
+        },
+        {
+          "input_charge": 251703744,
+          "kind": "forced_1_drain",
+          "output_charge": 377555616,
+          "word": "1"
+        },
+        {
+          "input_charge": 377555616,
+          "kind": "forced_1_drain",
+          "output_charge": 566333424,
+          "word": "1"
+        },
+        {
+          "input_charge": 566333424,
+          "kind": "forced_1_drain",
+          "output_charge": 849500136,
+          "word": "1"
+        },
+        {
+          "input_charge": 849500136,
+          "kind": "forced_1_drain",
+          "output_charge": 1274250204,
+          "word": "1"
+        },
+        {
+          "input_charge": 1274250204,
+          "kind": "forced_1_drain",
+          "output_charge": 1911375306,
+          "word": "1"
+        },
+        {
+          "input_charge": 1911375306,
+          "kind": "forced_1_drain",
+          "output_charge": 2867062959,
+          "word": "1"
+        }
+      ]
+    }
+  },
+  "renewal_calibration": {
+    "classical_survival_conditioning": {
+      "block_law": "p_hat(w)=p(w)/P",
+      "diffuseness_bound": "for each fixed B, the conditioned product law obeys nu{rho_n<=B}<=B*(1/(2P))^n",
+      "largest_probability_bracket": {
+        "lower": "13093562431584567480052758787310396608866568184172259157933165472384535185618698219533080369303616628603546736510240284036869026183541572213314110357504/18689348806704987777583952740994163396533145420614725313783770279887135466941626370572217094496207725208120594824236576026505687076013552551474745509763",
+        "lower_decimal_diagnostic": "0.700589547929",
+        "upper": "19640343647376851220079138180965594913299852276258388736899748208576802778428047329299620553955424942905320104765360426055303539275312358319971165536256/28034020387680410592545864273861948468252625653335891723469819279173593387523150699122380754898877850421472392998677895874139115257169601133039602567043",
+        "upper_decimal_diagnostic": "0.700589618462"
+      },
+      "largest_single_block_probability": "1/(2P)"
+    },
+    "defective_geometric_law": "under fair parity, disjoint prefix cylinders give p(F^n)=P^n and p(exactly n completed blocks)=(1-P)P^n",
+    "maximum_seed_times_P_to_depth_bracket": {
+      "exact_lower_expression": "300000*(28034020387680410592545864273861948468252625653335891723469819279173593387523150699122380754898877850421472392998677895874139115257169601133039602567043/39280687294753702440158276361931189826599704552516777473799496417153605556856094658599241107910849885810640209530720852110607078550624716639942331072512)^36",
+      "exact_upper_expression": "300000*(18689348806704987777583952740994163396533145420614725313783770279887135466941626370572217094496207725208120594824236576026505687076013552551474745509763/26187124863169134960105517574620793217733136368344518315866330944769070371237396439066160738607233257207093473020480568073738052367083144426628220715008)^36",
+      "lower_decimal_diagnostic": "1.597159539438",
+      "upper_decimal_diagnostic": "1.597165328140"
+    },
+    "minimum_address_times_P_to_depth_bracket": {
+      "exact_lower_expression": "270271*(28034020387680410592545864273861948468252625653335891723469819279173593387523150699122380754898877850421472392998677895874139115257169601133039602567043/39280687294753702440158276361931189826599704552516777473799496417153605556856094658599241107910849885810640209530720852110607078550624716639942331072512)^36",
+      "exact_upper_expression": "270271*(18689348806704987777583952740994163396533145420614725313783770279887135466941626370572217094496207725208120594824236576026505687076013552551474745509763/26187124863169134960105517574620793217733136368344518315866330944769070371237396439066160738607233257207093473020480568073738052367083144426628220715008)^36",
+      "lower_decimal_diagnostic": "1.438886352945",
+      "upper_decimal_diagnostic": "1.438891568006"
+    },
+    "record_depth": 36,
+    "record_minimum_address": 270271,
+    "scope": "P^n is a fixed-depth asymptotic density law, not a uniform short-interval estimate when depth grows with the seed bound; the displayed finite survivor counts are the exact comparison"
+  },
+  "schema": "collatz-outward-first-passage-v3",
+  "worker_sha256": "f025ea46c75bd3804ccb1158bc62cb2e5b41cb336f223aa74c2784cb0735401b"
 }

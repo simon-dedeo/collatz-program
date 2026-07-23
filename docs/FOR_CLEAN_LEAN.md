@@ -12434,3 +12434,194 @@ through `300000`.  It certifies the full `h_n` sequence through `n=36` and
 `h_37>300000`; the last record is `h_30=...=h_36=270271`, and that source
 still reaches the terminal cycle.  These finite rows may be useful `example`
 tests for the adapter, but they are not premises for QM156b--c.
+
+## Kontorovich follow-up: carry threshold and odd-charge renewal (QM157, 2026-07-23)
+
+Round 307 closes the bounded-minimum consumer.  Thank you.  The raw system
+now has two sharper coordinates that should be cheaper than any YAH/tag
+formalization.
+
+First, isolate the quantitative carry threshold.  Along a coherent nested
+parity path let `L_n` be its length after `n` nonempty blocks and let `rho_n`
+be its canonical least source residue.  Exact cylinder extension gives
+
+```text
+L_n>=n,
+rho_(n+1)=rho_n+2^L_n*ell_n,   ell_n>=0.          (QM157a)
+```
+
+Please prove the elementary consequence
+
+```text
+ell_n>0 -> rho_(n+1)>=2^n,
+(eventually rho_(n+1)<2^n) -> (eventually ell_n=0). (QM157b)
+```
+
+Thus `rho_n=o(2^n)`, or the stronger
+`limsup rho_n^(1/n)<2`, is already sufficient for an ordinary survivor; a
+uniform bound is not necessary.  The probabilistic corollary
+
+```text
+sum_n E[rho_(n+1)]/2^n < infinity
+  -> ell_n=0 eventually almost surely                    (QM157c)
+```
+
+is just Markov plus Borel--Cantelli and may remain research-side if the
+measure library makes it expensive.  QM157a--b are the high-value kernel
+target.
+
+Second, compress the literal first-passage dynamics.  Existing theorem
+`firstPassage_last_eq_true` implies every completed boundary is
+
+```text
+x=3H-1,  H=(x+1)/3>0.                              (QM157d)
+```
+
+At a boundary, even `H` forces the next codeword to be `[true]` and acts by
+
+```text
+H |-> 3H/2.                                        (QM157e)
+```
+
+It therefore drains exactly `v2(H)` such one-letter blocks.  A nontrivial
+first-passage word starts in `false` and ends in `[true,true]`: if its
+penultimate bit were false, the last two slope factors could reach at most
+`3/4`, contradicting first passage.
+
+For affine data
+
+```text
+2^S*T^S(x)=3^O*x+A_w,
+e_w=(A_w+2^S-3^O)/3,
+```
+
+please package
+
+```text
+e_w>0,  3 divides e_w,
+2^S*K=3^O*H+e_w                                   (QM157f)
+```
+
+when `w` maps boundary `3H-1` to `3K-1`.  The divisibility follows cheaply
+from the defect recurrence
+
+```text
+E_(w0)=E_w+2^S,   E_(w1)=3E_w,
+E_w=A_w+2^S-3^O,
+```
+
+and the terminal `11`.  For odd `H`, put
+
+```text
+K=(3^O*H+e_w)/2^S,  a=v2(K),
+R(H)=3^a*K/2^a.                                   (QM157g)
+```
+
+Then `R(H)` is positive odd, `R(H)>H`, the macro consumes `1+a` codewords,
+and
+
+```text
+v3(R(H))>=a+1,
+3*R(H)-1 = -1 (mod 3^(a+2)).                      (QM157h)
+```
+
+The desired semantic wrapper is
+
+```text
+an infinite ordinary first-passage execution
+  <-> the partial map R has an infinite orbit on positive odd H. (QM157i)
+```
+
+One direction discards the first boundary and its finite forced-`1` drain;
+the other concatenates each recharge word with its forced drain.  The v3
+bound is a useful cross-prime invariant, not an existence claim.
+
+The shallow branch `w=011` has `S=3,O=2,e=3`.  Writing
+`H=3^c*u` and `R(H)=3^c'*u'`, its complete recharge/drain macro is exactly
+
+```text
+2^(c'+2)*u' = 3^(c+1)*u+1,
+v2(3^(c+1)*u+1)=c'+2.                             (QM157j)
+```
+
+An infinite positive solution already gives a survivor in the `{1,011}`
+subsystem.  The v3 artifact checks the finite exponent return
+`7 -> 2 -> 12 -> 7` on seed `159487`; its attempted repetition then fails,
+so do not assert a cycle.
+
+Two optional structural lemmas may help later.  A completed first-passage
+boundary is a strict maximum over every state inside its block: every proper
+prefix has nonpositive log slope, so the remaining suffix is outward and has
+nonnegative affine offset.  Also, for `O=k>=2`, a possible first-passage
+length is exactly `S=floor(k*log_2(3))` at a Beatty jump of size two.  These
+explain the maximum-excursion record overlap and sparse word lengths, but do
+not solve the carry gate.
+
+## Kontorovich follow-up: exact min-plus triadic renewal (QM158, 2026-07-23)
+
+The scalar minimum `h_n` discards the target's triadic phase.  There is an
+exact inverse recurrence that retains precisely that missing state.
+
+For any parity word `w` with length `S`, odd count `O`, canonical source
+residue `r_w in [0,2^S)`, and its canonical target `b_w=T^S(r_w)`, prove
+
+```text
+0<=b_w<3^O,
+2^S*b_w=3^O*r_w+A_w,
+all executions of w are exactly
+  (source,target)=(r_w+2^S*t, b_w+3^O*t), t>=0.   (QM158a)
+```
+
+Let `E_n` be the positive seeds completing `n` first-passage blocks, and
+define
+
+```text
+m_n(k,a)=min(E_n intersect {x:x=a mod 3^k}),
+```
+
+with an infinity value when the fiber is empty.  Equivalently put
+
+```text
+tau_n(w)=min {t>=0 : b_w+3^O*t in E_n}.
+```
+
+Then the exact min-plus first-passage renewal is
+
+```text
+h_(n+1)=min_(w in F) (r_w+2^S*tau_n(w)).          (QM158b)
+```
+
+In expanded fiber notation the same term is
+
+```text
+r_w + 2^S*(m_n(O,b_w)-b_w)/3^O.                  (QM158c)
+```
+
+The congruence makes the quotient integral.  A finite-code / finite-depth
+version is enough initially.  This theorem turns future search into a
+min-plus dynamic program on 3-adic class profiles rather than another seed
+sweep.  A constructive proof seeks one coherent branch with sub-`2^n`
+source carry; a Collatz proof would seek a coercive Lyapunov/barrier for this
+operator.  The current artifact has `counterexample:null`.
+
+There is a particularly sharp scalar corollary.  Deleting an initial even
+shortcut step translates every later log-slope height by a constant, so it
+preserves all old strict record times (and may create extra ones).  Therefore
+the odd part of a source completes at least as many first-passage blocks, and
+every least source `h_n` is odd.  Its first word is forced to be `1`.  If
+
+```text
+m_n=min {y in E_n : y=2 mod 3},
+```
+
+then odd sources and targets in that class are bijected by
+`y=(3h+1)/2`, giving
+
+```text
+h_(n+1)=(2*m_n-1)/3.                              (QM158d)
+```
+
+Please prove the odd-part monotonicity and QM158d if cheap.  Schema v3 checks
+the identity on all certified minima through `h_36`; the theorem, rather than
+the finite rows, is what licenses calling the displayed target the least
+triadic-slice survivor.

@@ -1,6 +1,90 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 15:27 EDT
+Updated: 2026-07-23, about 15:56 EDT
+
+### 15:56 EDT continuation -- odd charge and triadic min-plus renewal
+
+There is no counterexample.  Do not widen the raw seed scan next.  The
+first-passage system has now been reduced to two exact theorem-driven
+coordinates.
+
+At every completed block boundary write `x=3H-1`.  Even `H` forces the next
+word `1` and sends `H` to `3H/2`, draining exactly one factor of two.  For a
+nontrivial recharge word with
+
+```text
+2^S T^S(x)=3^O x+A_w,   e_w=(A_w+2^S-3^O)/3,
+```
+
+the word starts `0`, ends `11`, has `e_w>0` and `3|e_w`, and sends
+
+```text
+2^S K=3^O H+e_w.
+```
+
+Put `a=v2(K)` and compress the recharge plus its `a` forced `1` drains:
+
+```text
+R(H)=3^a K/2^a,
+R(H)>H,  v3(R(H))>=a+1.                              (PT15)
+```
+
+Research-side, an infinite ordinary first-passage execution is equivalent to
+an infinite orbit of this partial map on positive odd `H`.  The shallow
+`011` branch is the exact two-counter recurrence
+
+```text
+2^(c'+2)u'=3^(c+1)u+1.                              (PT16)
+```
+
+Source `159487` realizes only the finite exponent return
+`7 -> 2 -> 12 -> 7`; repetition then fails.
+
+Schema v3 of `outward_first_passage_audit.json` checks the full charge
+itinerary of `270271`.  Its canonical source address is consumed at block 8
+and state `3698459`, after which it executes 28 further zero-carry blocks.
+The 36 blocks compress to 13 nontrivial recharges and then die.  The preferred
+visualizer prefix is the genuinely post-address triple
+
+```text
+3698459 -> 8216025965
+```
+
+in 72 accelerated steps and 27 extensions.  It is finite evidence, not an
+escape.
+
+The carry threshold is sharper than boundedness as a proof input.  A coherent
+path satisfies
+
+```text
+rho_(n+1)=rho_n+2^L_n ell_n, L_n>=n.
+```
+
+Thus any nonzero carry makes `rho_(n+1)>=2^n`; constructing
+`rho_n=o(2^n)` already forces eventual zero carry and a counterexample.
+Companion commit `e48bd60` kernel-checks this threshold and its
+frequent-carry contrapositive.
+
+The inverse search should retain triadic phase.  Every word has all executions
+
+```text
+(source,target)=(r_w+2^S t,b_w+3^O t),
+```
+
+so `h_(n+1)` is an exact min-plus renewal over minima of `E_n` in classes
+modulo `3^O`.  Moreover every `h_n` is odd, and the forced first word gives
+
+```text
+h_(n+1)=(2m_n-1)/3,
+m_n=min {y in E_n:y=2 mod 3}.                      (PT17)
+```
+
+The v3 artifact checks PT17 through `h_36`.  QM157's carry threshold is done;
+its charge half and QM158's min-plus recurrence remain with the companion
+Lean worker.  The next
+constructive search should propagate these 3-adic class minima and seek a
+coherent sub-2-growth carry branch.  The opposing theorem target is a
+coercive Archimedean--2-adic--3-adic barrier for `R` or the min-plus operator.
 
 ### 15:27 EDT continuation -- strip YAH to the critical raw controller
 

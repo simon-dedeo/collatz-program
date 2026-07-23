@@ -47,7 +47,7 @@ from pathlib import Path
 from typing import Any, Sequence
 
 
-SCHEMA = "collatz-outward-first-passage-v2"
+SCHEMA = "collatz-outward-first-passage-v3"
 
 
 def canonical_json(value: Any) -> bytes:
@@ -77,6 +77,40 @@ def accelerated_odd_step(value: int) -> int:
     return value
 
 
+def v2(value: int) -> int:
+    """Exact 2-adic valuation of a positive integer."""
+
+    if value <= 0:
+        raise ValueError("v2 requires a positive integer")
+    return (value & -value).bit_length() - 1
+
+
+def v3(value: int) -> int:
+    """Exact 3-adic valuation of a positive integer."""
+
+    if value <= 0:
+        raise ValueError("v3 requires a positive integer")
+    exponent = 0
+    while value % 3 == 0:
+        value //= 3
+        exponent += 1
+    return exponent
+
+
+def word_affine_constant(word: str) -> int:
+    """Return A_w in 2^S T^S(x)=3^O x+A_w for a parity word."""
+
+    constant = 0
+    length = 0
+    for bit in word:
+        if bit == "1":
+            constant = 3 * constant + 2**length
+        elif bit != "0":
+            raise ValueError("parity words must contain only 0 and 1")
+        length += 1
+    return constant
+
+
 def source_profile(
     source: int, maximum_shortcut_steps: int, keep_boundaries: bool = False
 ) -> dict[str, Any]:
@@ -100,50 +134,67 @@ def source_profile(
     block_count = 0
     shortcut_steps = 0
     accelerated_steps = 0
-    boundaries: list[dict[str, int]] = []
+    block_word: list[str] = []
+    boundaries: list[dict[str, Any]] = []
+    stabilization: dict[str, int] | None = None
 
     def record_boundary() -> None:
+        nonlocal stabilization
+        if stabilization is None and source < 2**shortcut_steps:
+            stabilization = {
+                "block_depth": block_count,
+                "shortcut_steps": shortcut_steps,
+                "accelerated_steps": accelerated_steps,
+                "state": value,
+            }
         if keep_boundaries:
-            boundaries.append(
-                {
-                    "block_depth": block_count,
-                    "shortcut_steps": shortcut_steps,
-                    "accelerated_steps": accelerated_steps,
-                    "state": value,
-                    "block_length": block_length,
-                    "block_odd_count": block_odds,
-                }
-            )
+            row = {
+                "block_depth": block_count,
+                "shortcut_steps": shortcut_steps,
+                "accelerated_steps": accelerated_steps,
+                "state": value,
+                "block_length": block_length,
+                "block_odd_count": block_odds,
+                "word": "".join(block_word),
+            }
+            boundaries.append(row)
+
+    def result() -> dict[str, Any]:
+        stabilization_depth = (
+            int(stabilization["block_depth"]) if stabilization is not None else None
+        )
+        return {
+            "source": source,
+            "first_passage_blocks": block_count,
+            "shortcut_steps_to_terminal_cycle": shortcut_steps,
+            "accelerated_steps_to_terminal_cycle": accelerated_steps,
+            "terminal_cycle_state": value,
+            "address_stabilization": stabilization,
+            "post_address_first_passage_extensions": (
+                block_count - stabilization_depth
+                if stabilization_depth is not None
+                else 0
+            ),
+            "boundaries": boundaries,
+        }
 
     while shortcut_steps < maximum_shortcut_steps:
         if value == 1:
             if 3 ** (block_odds + 1) > 2 ** (block_length + 1):
                 block_length += 1
                 block_odds += 1
+                block_word.append("1")
                 shortcut_steps += 1
                 accelerated_steps += 1
                 value = 2
                 block_count += 1
                 record_boundary()
-            return {
-                "source": source,
-                "first_passage_blocks": block_count,
-                "shortcut_steps_to_terminal_cycle": shortcut_steps,
-                "accelerated_steps_to_terminal_cycle": accelerated_steps,
-                "terminal_cycle_state": value,
-                "boundaries": boundaries,
-            }
+            return result()
         if value == 2:
-            return {
-                "source": source,
-                "first_passage_blocks": block_count,
-                "shortcut_steps_to_terminal_cycle": shortcut_steps,
-                "accelerated_steps_to_terminal_cycle": accelerated_steps,
-                "terminal_cycle_state": value,
-                "boundaries": boundaries,
-            }
+            return result()
 
         odd = value % 2
+        block_word.append(str(odd))
         block_length += 1
         shortcut_steps += 1
         if odd:
@@ -158,6 +209,7 @@ def source_profile(
             record_boundary()
             block_length = 0
             block_odds = 0
+            block_word = []
 
     raise AssertionError(
         f"source {source} did not reach the terminal cycle within "
@@ -173,31 +225,74 @@ def minimum_address_regression(
     if maximum_seed < 1:
         raise ValueError("maximum seed must be positive")
 
-    record_rows: list[dict[str, int]] = []
+    record_rows: list[dict[str, Any]] = []
+    post_address_record_rows: list[dict[str, int]] = []
     certified_h: list[dict[str, int]] = []
+    survivor_counts = [0]
     record_depth = 0
+    post_address_record = -1
     for source in range(1, maximum_seed + 1):
         profile = source_profile(source, maximum_shortcut_steps)
         depth = int(profile["first_passage_blocks"])
-        if depth <= record_depth:
-            continue
-        record_rows.append(
-            {
-                "source": source,
-                "first_passage_blocks": depth,
-                "shortcut_steps_to_terminal_cycle": int(
-                    profile["shortcut_steps_to_terminal_cycle"]
-                ),
-                "accelerated_steps_to_terminal_cycle": int(
-                    profile["accelerated_steps_to_terminal_cycle"]
-                ),
-            }
-        )
-        for block_depth in range(record_depth + 1, depth + 1):
-            certified_h.append(
-                {"block_depth": block_depth, "minimum_address": source}
+        while len(survivor_counts) <= depth:
+            survivor_counts.append(0)
+        for block_depth in range(1, depth + 1):
+            survivor_counts[block_depth] += 1
+
+        extensions = int(profile["post_address_first_passage_extensions"])
+        if extensions > post_address_record:
+            stabilization = profile["address_stabilization"]
+            if stabilization is None:
+                raise AssertionError("post-address record has no stabilization row")
+            post_address_record_rows.append(
+                {
+                    "source": source,
+                    "post_address_first_passage_extensions": extensions,
+                    "first_passage_blocks": depth,
+                    "address_stabilization_block_depth": int(
+                        stabilization["block_depth"]
+                    ),
+                    "address_stabilization_shortcut_steps": int(
+                        stabilization["shortcut_steps"]
+                    ),
+                }
             )
-        record_depth = depth
+            post_address_record = extensions
+
+        if depth > record_depth:
+            record_rows.append(
+                {
+                    "source": source,
+                    "first_passage_blocks": depth,
+                    "shortcut_steps_to_terminal_cycle": int(
+                        profile["shortcut_steps_to_terminal_cycle"]
+                    ),
+                    "accelerated_steps_to_terminal_cycle": int(
+                        profile["accelerated_steps_to_terminal_cycle"]
+                    ),
+                }
+            )
+            for block_depth in range(record_depth + 1, depth + 1):
+                certified_h.append(
+                    {"block_depth": block_depth, "minimum_address": source}
+                )
+            record_depth = depth
+
+    previous_words: list[str] | None = None
+    previous_source: int | None = None
+    for row in record_rows:
+        profile = source_profile(int(row["source"]), maximum_shortcut_steps, True)
+        words = [str(boundary["word"]) for boundary in profile["boundaries"]]
+        common = 0
+        if previous_words is not None:
+            for left, right in zip(previous_words, words):
+                if left != right:
+                    break
+                common += 1
+        row["previous_record_source"] = previous_source
+        row["common_first_passage_prefix_blocks"] = common
+        previous_words = words
+        previous_source = int(row["source"])
 
     champion = source_profile(
         int(record_rows[-1]["source"]), maximum_shortcut_steps, True
@@ -214,6 +309,69 @@ def minimum_address_regression(
     if replay != int(visual["state"]):
         raise AssertionError("accelerated visualizer witness did not replay")
 
+    stabilization = champion["address_stabilization"]
+    if stabilization is None:
+        raise AssertionError("record seed never reached its canonical address")
+    post_address_visual = [
+        row
+        for row in odd_boundaries
+        if int(row["block_depth"]) > int(stabilization["block_depth"])
+    ][-1]
+    replay = int(stabilization["state"])
+    post_address_accelerated_steps = int(
+        post_address_visual["accelerated_steps"]
+    ) - int(stabilization["accelerated_steps"])
+    for _ in range(post_address_accelerated_steps):
+        replay = accelerated_odd_step(replay)
+    if replay != int(post_address_visual["state"]):
+        raise AssertionError("post-address visualizer witness did not replay")
+
+    survivor_rows = [
+        {
+            "block_depth": depth,
+            "survivors": (
+                survivor_counts[depth] if depth < len(survivor_counts) else 0
+            ),
+            "density_decimal_diagnostic": decimal_ratio(
+                survivor_counts[depth] if depth < len(survivor_counts) else 0,
+                maximum_seed,
+                12,
+            ),
+        }
+        for depth in range(1, record_depth + 2)
+    ]
+
+    triadic_slice_rows: list[dict[str, int]] = []
+    for row in certified_h:
+        block_depth = int(row["block_depth"])
+        minimum = int(row["minimum_address"])
+        if minimum % 2 != 1:
+            raise AssertionError("a certified minimum address is not odd")
+        minimum_profile = source_profile(
+            minimum, maximum_shortcut_steps, True
+        )
+        first_boundary = minimum_profile["boundaries"][0]
+        target = (3 * minimum + 1) // 2
+        if str(first_boundary["word"]) != "1" or int(
+            first_boundary["state"]
+        ) != target:
+            raise AssertionError("odd minimum did not begin with forced word 1")
+        if target % 3 != 2:
+            raise AssertionError("first-block target is not in class 2 mod 3")
+        target_profile = source_profile(target, maximum_shortcut_steps)
+        if int(target_profile["first_passage_blocks"]) < block_depth - 1:
+            raise AssertionError("triadic target lost a required block")
+        if 3 * minimum != 2 * target - 1:
+            raise AssertionError("triadic slice recurrence failed")
+        triadic_slice_rows.append(
+            {
+                "block_depth": block_depth,
+                "minimum_address": minimum,
+                "target_depth": block_depth - 1,
+                "least_survivor_congruent_2_mod_3": target,
+            }
+        )
+
     return {
         "meaning": (
             "h_n is the least positive ordinary seed completing n successive "
@@ -225,6 +383,19 @@ def minimum_address_regression(
         "all_scanned_sources_reached_terminal_cycle": True,
         "record_rows": record_rows,
         "certified_h_values": certified_h,
+        "survivor_counts_by_depth": survivor_rows,
+        "triadic_min_plus_reduction": {
+            "identity": (
+                "h_(n+1)=(2*m_n-1)/3 where m_n is the least member of "
+                "E_n congruent to 2 mod 3"
+            ),
+            "proof_boundary": (
+                "a least source is odd because deleting initial even steps "
+                "cannot reduce its first-passage record count; its forced "
+                "first word is 1 and bijects odd sources with targets 2 mod 3"
+            ),
+            "certified_rows": triadic_slice_rows,
+        },
         "greatest_certified_block_depth": record_depth,
         "next_minimum_address_strict_lower_bound": {
             "block_depth": record_depth + 1,
@@ -241,6 +412,237 @@ def minimum_address_regression(
                 "the complete ordinary orbit reaches the 1--2 cycle"
             ),
         },
+        "post_address_renewal": {
+            "meaning": (
+                "after source<2^L, the accumulated parity cylinder has the "
+                "displayed source as its canonical residue; later completed "
+                "blocks are literal zero-carry renewals rather than preloaded "
+                "address bits"
+            ),
+            "record_rows": post_address_record_rows,
+            "champion": {
+                "source": int(champion["source"]),
+                "address_stabilization": stabilization,
+                "post_address_first_passage_extensions": int(
+                    champion["post_address_first_passage_extensions"]
+                ),
+            },
+            "visualizer_post_address_prefix": {
+                "collatz_source": int(stabilization["state"]),
+                "collatz_target": int(post_address_visual["state"]),
+                "accelerated_steps": post_address_accelerated_steps,
+                "first_passage_extensions": int(
+                    post_address_visual["block_depth"]
+                )
+                - int(stabilization["block_depth"]),
+                "scope": (
+                    "exact finite prefix beginning only after the canonical "
+                    "ordinary address has stabilized; the full orbit dies"
+                ),
+            },
+        },
+    }
+
+
+def charge_recurrence_audit(profile: dict[str, Any]) -> dict[str, Any]:
+    """Audit the canonical odd-charge compression of one literal orbit."""
+
+    boundaries = profile["boundaries"]
+    if not boundaries:
+        raise ValueError("charge audit requires retained first-passage boundaries")
+    for row in boundaries:
+        if int(row["state"]) % 3 != 2:
+            raise AssertionError("completed first-passage boundary is not 2 mod 3")
+
+    transitions: list[dict[str, Any]] = []
+    recharges: list[dict[str, Any]] = []
+    for index in range(len(boundaries) - 1):
+        current = boundaries[index]
+        following = boundaries[index + 1]
+        charge = (int(current["state"]) + 1) // 3
+        next_charge = (int(following["state"]) + 1) // 3
+        word = str(following["word"])
+        if charge % 2 == 0:
+            if word != "1" or 2 * next_charge != 3 * charge:
+                raise AssertionError("even charge did not take its forced 1 drain")
+            transitions.append(
+                {
+                    "input_charge": charge,
+                    "kind": "forced_1_drain",
+                    "word": word,
+                    "output_charge": next_charge,
+                }
+            )
+            continue
+
+        length = len(word)
+        odds = word.count("1")
+        constant = word_affine_constant(word)
+        defect_numerator = constant + 2**length - 3**odds
+        if defect_numerator <= 0 or defect_numerator % 3:
+            raise AssertionError("nontrivial recharge defect is not positive /3")
+        defect = defect_numerator // 3
+        if word == "1" or not word.startswith("0") or not word.endswith("11"):
+            raise AssertionError("odd charge did not take a nontrivial 0...11 word")
+        numerator = 3**odds * charge + defect
+        if numerator % 2**length:
+            raise AssertionError("recharge branch failed its dyadic legality test")
+        endpoint_charge = numerator // 2**length
+        if endpoint_charge != next_charge or endpoint_charge % 3:
+            raise AssertionError("recharge endpoint identity failed")
+
+        drain = v2(endpoint_charge)
+        terminal_index = index + 1 + drain
+        if terminal_index >= len(boundaries):
+            raise AssertionError("literal orbit omitted a forced charge drain")
+        for offset in range(drain):
+            if str(boundaries[index + 2 + offset]["word"]) != "1":
+                raise AssertionError("recharge drain contains a non-1 block")
+        odd_output = (
+            int(boundaries[terminal_index]["state"]) + 1
+        ) // 3
+        expected_output = 3**drain * endpoint_charge // 2**drain
+        if odd_output != expected_output or odd_output % 2 != 1:
+            raise AssertionError("compressed odd-charge output identity failed")
+        if odd_output <= charge or v3(odd_output) < drain + 1:
+            raise AssertionError("charge growth or ternary recharge bound failed")
+
+        recharge = {
+            "input_block_depth": int(current["block_depth"]),
+            "input_charge": charge,
+            "input_v3": v3(charge),
+            "word": word,
+            "length": length,
+            "odd_count": odds,
+            "affine_constant": constant,
+            "recharge_defect": defect,
+            "pre_drain_charge": endpoint_charge,
+            "forced_1_blocks": drain,
+            "output_charge": odd_output,
+            "output_v3": v3(odd_output),
+            "first_passage_blocks_consumed": 1 + drain,
+            "shortcut_steps_consumed": length + drain,
+        }
+        recharges.append(recharge)
+        transitions.append({"kind": "nontrivial_recharge", **recharge})
+
+    shallow_rows: list[dict[str, int]] = []
+    for row in recharges:
+        if row["word"] != "011":
+            continue
+        charge = int(row["input_charge"])
+        odd_output = int(row["output_charge"])
+        c = v3(charge)
+        c_prime = int(row["forced_1_blocks"]) + 1
+        primitive = charge // 3**c
+        next_primitive = odd_output // 3**c_prime
+        if (
+            2 ** (c_prime + 2) * next_primitive
+            != 3 ** (c + 1) * primitive + 1
+        ):
+            raise AssertionError("011 primitive two-counter recurrence failed")
+        shallow_rows.append(
+            {
+                "c": c,
+                "u": primitive,
+                "next_c": c_prime,
+                "next_u": next_primitive,
+            }
+        )
+
+    final_charge = (int(boundaries[-1]["state"]) + 1) // 3
+    return {
+        "source": int(profile["source"]),
+        "boundary_coordinate": "x=3H-1",
+        "all_completed_boundaries_are_2_mod_3": True,
+        "transition_rows": transitions,
+        "recharge_rows": recharges,
+        "shallow_011_rows": shallow_rows,
+        "final_odd_charge_with_undefined_next_recharge": final_charge,
+        "theorem_boundary": (
+            "an infinite ordinary first-passage execution exists iff the "
+            "partial compressed recharge map has an infinite orbit on positive "
+            "odd H; this artifact checks finite literal instances only"
+        ),
+        "counterexample": None,
+    }
+
+
+def renewal_calibration(
+    audit: dict[str, Any], regression: dict[str, Any]
+) -> dict[str, Any]:
+    """Exact finite calibration of the defective renewal and address records."""
+
+    bracket = audit["full_ordinary_kraft_bracket"]
+    lower = Fraction(str(bracket["lower"]))
+    upper = Fraction(str(bracket["upper"]))
+    depth = int(regression["greatest_certified_block_depth"])
+    minimum_address = int(regression["certified_h_values"][-1]["minimum_address"])
+    scaled_lower = minimum_address * lower**depth
+    scaled_upper = minimum_address * upper**depth
+    expected_lower = int(regression["maximum_seed"]) * lower**depth
+    expected_upper = int(regression["maximum_seed"]) * upper**depth
+    doob_max_lower = 1 / (2 * upper)
+    doob_max_upper = 1 / (2 * lower)
+
+    return {
+        "defective_geometric_law": (
+            "under fair parity, disjoint prefix cylinders give p(F^n)=P^n "
+            "and p(exactly n completed blocks)=(1-P)P^n"
+        ),
+        "record_depth": depth,
+        "record_minimum_address": minimum_address,
+        "minimum_address_times_P_to_depth_bracket": {
+            "exact_lower_expression": (
+                f"{minimum_address}*({bracket['lower']})^{depth}"
+            ),
+            "exact_upper_expression": (
+                f"{minimum_address}*({bracket['upper']})^{depth}"
+            ),
+            "lower_decimal_diagnostic": decimal_ratio(
+                scaled_lower.numerator, scaled_lower.denominator, 12
+            ),
+            "upper_decimal_diagnostic": decimal_ratio(
+                scaled_upper.numerator, scaled_upper.denominator, 12
+            ),
+        },
+        "maximum_seed_times_P_to_depth_bracket": {
+            "exact_lower_expression": (
+                f"{regression['maximum_seed']}*({bracket['lower']})^{depth}"
+            ),
+            "exact_upper_expression": (
+                f"{regression['maximum_seed']}*({bracket['upper']})^{depth}"
+            ),
+            "lower_decimal_diagnostic": decimal_ratio(
+                expected_lower.numerator, expected_lower.denominator, 12
+            ),
+            "upper_decimal_diagnostic": decimal_ratio(
+                expected_upper.numerator, expected_upper.denominator, 12
+            ),
+        },
+        "classical_survival_conditioning": {
+            "block_law": "p_hat(w)=p(w)/P",
+            "largest_single_block_probability": "1/(2P)",
+            "largest_probability_bracket": {
+                "lower": str(doob_max_lower),
+                "upper": str(doob_max_upper),
+                "lower_decimal_diagnostic": decimal_ratio(
+                    doob_max_lower.numerator, doob_max_lower.denominator, 12
+                ),
+                "upper_decimal_diagnostic": decimal_ratio(
+                    doob_max_upper.numerator, doob_max_upper.denominator, 12
+                ),
+            },
+            "diffuseness_bound": (
+                "for each fixed B, the conditioned product law obeys "
+                "nu{rho_n<=B}<=B*(1/(2P))^n"
+            ),
+        },
+        "scope": (
+            "P^n is a fixed-depth asymptotic density law, not a uniform "
+            "short-interval estimate when depth grows with the seed bound; "
+            "the displayed finite survivor counts are the exact comparison"
+        ),
     }
 
 
@@ -397,11 +799,23 @@ def first_passage_audit(maximum_length: int) -> dict[str, Any]:
         ),
         "mass_to_atom_gate": (
             "branching criticality alone does not give an ordinary seed; a "
-            "projectively consistent schedule measure would suffice if the "
-            "nondecreasing canonical least residues had uniformly bounded "
-            "first moment, because then one residue tower is eventually "
-            "constant"
+            "coherent path with rho_n=o(2^n) suffices, since every nonzero "
+            "extension carry makes rho_(n+1)>=2^n; measure-theoretically, "
+            "sum_n E[rho_(n+1)]/2^n<infinity forces eventual zero carry"
         ),
+        "carry_growth_criterion": {
+            "identity": "rho_(n+1)=rho_n+2^L_n*ell_n, ell_n>=0, L_n>=n",
+            "nonzero_carry_bound": "ell_n>0 implies rho_(n+1)>=2^n",
+            "deterministic_sufficient_conditions": [
+                "rho_n=o(2^n)",
+                "limsup rho_n^(1/n)<2",
+            ],
+            "measure_sufficient_condition": (
+                "sum_n E[rho_(n+1)]/2^n<infinity; Markov plus "
+                "Borel-Cantelli then gives eventual zero carry almost surely"
+            ),
+            "formalization_status": "requested from the companion Lean worker",
+        },
         "claim_scope": (
             "exact finite first-passage and stopped-mass identities at the "
             "stated bound; no infinite ordinary survivor and no Collatz "
@@ -414,13 +828,25 @@ def first_passage_audit(maximum_length: int) -> dict[str, Any]:
 def build_artifact(
     maximum_length: int, maximum_seed: int, maximum_shortcut_steps: int
 ) -> dict[str, Any]:
+    audit = first_passage_audit(maximum_length)
+    regression = minimum_address_regression(
+        maximum_seed, maximum_shortcut_steps
+    )
+    champion_source = int(regression["record_rows"][-1]["source"])
+    champion_profile = source_profile(
+        champion_source, maximum_shortcut_steps, True
+    )
+    shallow_profile = source_profile(159_487, 10_000, True)
     data = {
         "schema": SCHEMA,
         "worker_sha256": source_sha256(),
-        "audit": first_passage_audit(maximum_length),
-        "minimum_address_regression": minimum_address_regression(
-            maximum_seed, maximum_shortcut_steps
-        ),
+        "audit": audit,
+        "minimum_address_regression": regression,
+        "renewal_calibration": renewal_calibration(audit, regression),
+        "odd_charge_recurrence": {
+            "record_champion": charge_recurrence_audit(champion_profile),
+            "shallow_011_record": charge_recurrence_audit(shallow_profile),
+        },
     }
     data["artifact_sha256"] = hashlib.sha256(canonical_json(data)).hexdigest()
     return data
@@ -472,6 +898,16 @@ def selftest() -> None:
         "minimum_address": 27,
     }:
         raise AssertionError("tiny minimum-address record changed")
+    if addresses["post_address_renewal"]["champion"][
+        "post_address_first_passage_extensions"
+    ] != 12:
+        raise AssertionError("tiny post-address renewal record changed")
+    shallow = charge_recurrence_audit(source_profile(159_487, 10_000, True))
+    cycle_prefix = [
+        (row["c"], row["next_c"]) for row in shallow["shallow_011_rows"][:3]
+    ]
+    if cycle_prefix != [(7, 2), (2, 12), (12, 7)]:
+        raise AssertionError("shallow 011 exponent prefix changed")
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:

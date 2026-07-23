@@ -1759,3 +1759,287 @@ larger tag program.  It is an arithmetic, necessarily atomic, aperiodic
 selector proving `sup_n h_n<infinity`.  Any proposed Doob transform must be
 audited against (22.11): if it remains uniformly diffuse, it cannot solve the
 ordinary-seed problem.
+
+## 23. Odd-charge compression and triadic min-plus renewal
+
+Section 22 identifies the atom gate.  It can be sharpened in both the forward
+and inverse directions without returning to YAH hardware.
+
+### 23.1 A sub-`2^n` carry bound is enough
+
+Along a coherent concatenation, let `L_n` be the total shortcut length after
+`n` nonempty first-passage words and let `rho_n` be the canonical least
+source residue.  Cylinder extension is
+
+```text
+rho_(n+1)=rho_n+2^L_n ell_n,   ell_n>=0,
+L_n>=n.                                                   (23.1)
+```
+
+Thus every nonzero carry obeys
+
+```text
+ell_n>0  =>  rho_(n+1)>=2^n.                              (23.2)
+```
+
+This yields a substantially weaker sufficient condition than uniform
+tightness:
+
+```text
+rho_n=o(2^n), or limsup rho_n^(1/n)<2,
+  => ell_n=0 eventually
+  => one ordinary infinite first-passage execution.       (23.3)
+```
+
+For a projectively consistent selector measure, Markov's inequality gives
+
+```text
+Pr(ell_n>0)<=E[rho_(n+1)]/2^n.                            (23.4)
+```
+
+Hence summability of the right side forces eventual zero carry almost surely
+by Borel--Cantelli.  This is not a constructed selector.  Companion commit
+`e48bd60` kernel-checks the elementary deterministic core (23.1)--(23.3) and
+its frequent-carry contrapositive; the measure corollary remains
+research-side.
+
+The ordinary renewal law also calibrates proposed selectors.  Put
+`P=sum_F p(w)`.  Prefix-freeness gives the exact defective geometric law
+
+```text
+p(complete at least n blocks)=P^n,
+p(complete exactly n blocks)=(1-P)P^n.                    (23.5)
+```
+
+Conditioning fair parity on `n` completed blocks factorizes as the product
+law
+
+```text
+p_hat(w)=p(w)/P.                                          (23.6)
+```
+
+Its projective survival limit is still diffuse.  Its largest block atom is
+the word `1`, with probability
+
+```text
+max_w p_hat(w)=1/(2P)=0.7005895... .                       (23.7)
+```
+
+At most `B` deterministic word paths can have positive canonical residue at
+most `B`, so
+
+```text
+nu_hat{rho_n<=B}<=B*(1/(2P))^n.                           (23.8)
+```
+
+The classical ladder-epoch Doob process therefore does not produce an
+ordinary atom.  A viable arithmetic kernel must place positive mass on one
+path, which for transition probabilities `k_n` requires
+`product k_n>0`, equivalently `sum(1-k_n)<infinity` after excluding zero
+terms.  In operational language, it must become summably deterministic along
+one genuinely aperiodic arithmetic trajectory.  Equations (23.5)--(23.8) are
+an exact research-side derivation; the artifact checks the rational `P`
+bracket and its numerical consequences, while QM157 records the formal seam.
+
+At depth 36 the exact bracket gives
+
+```text
+1.438886352945... < 270271*P^36 < 1.438891568006....       (23.9)
+```
+
+This explains why the record scale is not astronomically anomalous under a
+renewal heuristic, but it is not a uniform density theorem.  Exact replay in
+`[1,300000]` finds survivor counts
+
+```text
+depth 1: 214170,   depth 15: 1559,
+depth 30: 2,       depth 36: 1,       depth 37: 0.         (23.10)
+```
+
+The fixed-depth natural density is `P^n`; using it uniformly at
+`n` comparable to `log B` would require a new short-interval discrepancy
+theorem for parity cylinders.
+
+### 23.2 The canonical odd-charge map
+
+Every first-passage word ends in an odd shortcut step, so its endpoint is
+`2 mod 3`.  Write every completed boundary uniquely as
+
+```text
+x=3H-1,    H=(x+1)/3>0.                                  (23.11)
+```
+
+If `H` is even, then `x` is odd.  The next word is forced to be `1`, and its
+charge action is
+
+```text
+H |-> 3H/2.                                               (23.12)
+```
+
+Consequently the run of one-letter blocks has length exactly `v_2(H)`.
+Every infinite execution must contain infinitely many nontrivial recharge
+words.
+
+Let a nontrivial word `w` have affine data
+
+```text
+2^S T^S(x)=3^O x+A_w
+```
+
+and define
+
+```text
+e_w=(A_w+2^S-3^O)/3.                                    (23.13)
+```
+
+Such a word starts in `0`: otherwise its first bit would already be the word
+`1`.  It ends in `11`: if the penultimate bit were zero, the last two slope
+factors could raise a nonoutward prefix only to `3/4`.  For
+`E_w=A_w+2^S-3^O`, appending a bit gives
+
+```text
+E_(w0)=E_w+2^S,       E_(w1)=3E_w.                       (23.14)
+```
+
+The initial zero makes the defect positive and the terminal two ones make
+`3|e_w`.  If `w` maps `3H-1` to `3K-1`, substitution into its affine identity
+gives
+
+```text
+2^S K=3^O H+e_w.                                        (23.15)
+```
+
+In particular `3|K`.  On an odd input charge, take the unique literal
+nontrivial first-passage word, put
+
+```text
+K=(3^O H+e_w)/2^S,   a=v_2(K),
+R(H)=3^a K/2^a.                                         (23.16)
+```
+
+This compresses the recharge and its `a` forced one-letter drains.  It maps
+positive odd charges to positive odd charges, consumes `1+a` first-passage
+blocks, and satisfies
+
+```text
+R(H)>H,
+v_3(R(H))=a+v_3(K)>=a+1,
+3R(H)-1 == -1 (mod 3^(a+2)).                            (23.17)
+```
+
+Thus dyadic recharge becomes exact ternary proximity to the signed fixed
+point `-1`.  Discarding the first completed boundary and its finite initial
+drain proves, research-side,
+
+```text
+ordinary infinite first-passage execution
+  <-> infinite orbit of the partial map R on positive odd H.              (23.18)
+```
+
+QM157 asks for the kernel-checked package.  Schema v3 independently replays
+every displayed finite identity.
+
+For the shallow word `011`, `S=3`, `O=2`, and `e=3`.  Legality is
+`H=5 mod 8`, and
+
+```text
+K=3(3H+1)/8,
+a=v_2(3H+1)-3.                                          (23.19)
+```
+
+Writing `H=3^c u` and `R(H)=3^c' u'`, with primitive odd cofactors, gives
+
+```text
+2^(c'+2)u'=3^(c+1)u+1,
+v_2(3^(c+1)u+1)=c'+2.                                  (23.20)
+```
+
+An infinite solution would already be a counterexample in the `{1,011}`
+subsystem.  The finite source `159487` realizes
+
+```text
+(c,u): (7,623) -> (2,255469) -> (12,421) -> (7,1310957), (23.21)
+```
+
+after which the next repetition is illegal.  This is not a cycle.
+
+### 23.3 Exact inverse renewal on triadic fibers
+
+For any parity word `w`, let `r_w in [0,2^S)` be its canonical source
+residue and let `b_w=T^S(r_w)`.  Induction on bits gives
+
+```text
+0<=b_w<3^O,
+2^S b_w=3^O r_w+A_w,
+(source,target)=(r_w+2^S t,b_w+3^O t), t>=0.             (23.22)
+```
+
+Let `E_n` be the set of positive seeds completing `n` blocks.  If
+
+```text
+m_n(k,a)=min(E_n intersect {x:x=a mod 3^k}),
+tau_n(w)=min {t>=0:b_w+3^O t in E_n},                    (23.23)
+```
+
+with infinity for an empty fiber, then the first-block decomposition is the
+exact min-plus recurrence
+
+```text
+h_(n+1)=min_(w in F) [r_w+2^S tau_n(w)]
+       =min_(w in F)
+          [r_w+2^S(m_n(O,b_w)-b_w)/3^O].                 (23.24)
+```
+
+This exposes why scalar record minima are not a coherent selector: they throw
+away the target's triadic phase.  Successive record seeds share only
+`2,2,5,4,3,4,5,3,6` first-passage blocks after the initial records, while
+the last seed's exceptional tail comes from literal post-address renewal.
+
+There is a sharper scalar slice.  The first-passage boundaries are successive
+strict record highs of the cumulative log slope.  Deleting an initial even
+step preserves every later strict record, and may add records.  Therefore the
+odd part of a source completes at least as many blocks, so every `h_n` is odd.
+Its first word is `1`.  With
+
+```text
+m_n=min {y in E_n:y=2 mod 3},
+```
+
+the bijection `y=(3h+1)/2` gives
+
+```text
+h_(n+1)=(2m_n-1)/3.                                     (23.25)
+```
+
+Schema v3 checks (23.25) on every certified minimum through `h_36`.  QM158
+requests the general Lean theorem.  The resulting search program is
+principled: propagate finite approximations to the min-plus 3-adic profile,
+look for a coherent branch satisfying (23.3), and use `R` as the smallest
+forward state.  A proof in the opposite direction would seek a coercive
+Archimedean--2-adic--3-adic barrier for (23.16) or (23.24).  Merely widening
+the seed scan does neither.
+
+### 23.4 What the record orbit proves
+
+For `270271`, the first block reaches `H=135136`; five forced `1` drains give
+the first odd charge `H_0=1026189`.  The artifact then checks 13 nontrivial
+recharges, whose output charges end at
+
+```text
+1154463, 2773845, 35545311, 85405077, 324272403,
+346281129, 493044813, 554675415, 562243005, 632523381,
+1601074809, 1622918709, 4108012983.                       (23.26)
+```
+
+The source address is fully consumed at block eight and state `3698459`.
+There are then 28 complete zero-carry extensions.  The last odd visualizer
+boundary after stabilization is
+
+```text
+3698459 -> 8216025965
+```
+
+in 72 accelerated steps and 27 completed extensions.  The next recharge is
+undefined and the orbit reaches the terminal cycle.  These are exact finite
+renewal data and a useful target for the bit visualizer; they do not imply an
+infinite escape.  The artifact continues to record `counterexample:null`.

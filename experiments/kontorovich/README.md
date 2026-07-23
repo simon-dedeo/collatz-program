@@ -5080,7 +5080,7 @@ mass is `0.000000215554558648...`.  The full tilted mass is one by the
 positive-drift stopped-martingale argument recorded in the artifact.  This is
 critical ensemble conservation, not an ordinary survivor.
 
-Schema v2 also scans the exact monotone construction variable, not an
+Schema v3 also scans the exact monotone construction variable, not an
 unstructured seed record.  It replays every positive source through `300000`
 to the terminal cycle and thereby certifies `h_n` through block depth 36 and
 the strict lower bound `h_37>300000`.  The successive record sources are
@@ -5090,9 +5090,45 @@ the strict lower bound `h_37>300000`.  The successive record sources are
 113383, 159487, 270271.
 ```
 
-The final source completes 36 blocks before reaching the `1--2` cycle.  A
-nested `visualizer_prefix` object supplies the exactly replayed odd-map triple
-`270271 -> 8216025965` in 87 accelerated steps, covering 35 complete blocks.
+The final source completes 36 blocks before reaching the `1--2` cycle.  Its
+canonical address is already fixed after block eight, so the remaining 28
+blocks are genuine zero-carry renewals.  The more informative nested
+visualizer object replays
+
+```text
+3698459 -> 8216025965
+```
+
+in 72 accelerated steps and 27 post-address complete extensions.
+
+The worker also compresses every completed boundary as `x=3H-1`.  Even `H`
+forces a one-letter block and drains one factor of two.  A nontrivial recharge
+word has
+
+```text
+2^S K=3^O H+e_w,   e_w>0, 3|e_w,
+R(H)=3^a K/2^a,    a=v_2(K), v_3(R(H))>=a+1.
+```
+
+The record orbit's 36 blocks become 13 exact recharge rows.  The shallow
+`011` branch is separately checked as
+`2^(c'+2)u'=3^(c+1)u+1`, including the finite exponent return
+`7 -> 2 -> 12 -> 7` on source `159487`; neither finite trajectory survives.
+
+Every certified minimum address is odd.  Its forced first block gives the
+exact triadic-slice reduction
+
+```text
+h_(n+1)=(2m_n-1)/3,
+m_n=min {y completing n blocks : y=2 mod 3}.
+```
+
+All rows through `h_36` are audited.  More generally, the artifact records
+the theorem target that nonzero extension carry forces
+`rho_(n+1)>=2^n`; sub-`2^n` canonical-address growth therefore suffices for
+eventual zero carry.  Companion commit `e48bd60` kernel-checks this carry
+threshold.  The odd-charge identities and QM158's full min-plus 3-adic class
+recurrence remain formalization targets.
 
 ```bash
 python3 outward_first_passage.py selftest
@@ -5103,5 +5139,6 @@ The construction target is the monotone minimum canonical address `h_n`.
 Boundedness/eventual constancy of `h_n` is equivalent to an ordinary infinite
 strictly growing shortcut orbit.  Companion commit `8959436` kernel-checks the
 finite-window compactness and minimum-start equivalence for literal shortcut
-executions.  Diffuse critical flow fails this gate; the artifact makes no
-orbit claim and stores `counterexample:null`.
+executions.  The next search should propagate triadic class minima or iterate
+the odd-charge map, not widen the seed bound.  Diffuse critical flow fails the
+gate; the artifact makes no orbit claim and stores `counterexample:null`.

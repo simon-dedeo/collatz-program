@@ -33,6 +33,108 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 15:56 EDT
+
+There is still no counterexample.  The raw first-passage lane now has a much
+smaller theorem-driven state space.  Every completed block boundary is
+`x=3H-1`.  If `H` is even, the next block is forced to be `1` and sends
+`H` to `3H/2`, so a finite charge supports exactly `v_2(H)` consecutive
+one-letter drains.  A nontrivial first-passage word starts in `0`, ends in
+`11`, and, for
+
+```text
+2^S T^S(x)=3^O x+A_w,   e_w=(A_w+2^S-3^O)/3,
+```
+
+obeys `e_w>0`, `3|e_w`, and
+
+```text
+2^S K=3^O H+e_w.
+```
+
+After the recharge, put `a=v_2(K)` and drain the next `a` forced `1`
+blocks.  The resulting canonical partial map on positive odd charges is
+
+```text
+R(H)=3^a K/2^a.
+```
+
+It is strictly increasing and converts dyadic charge into ternary depth:
+
+```text
+v_3(R(H))>=a+1,
+3R(H)-1 == -1 (mod 3^(a+2)).                     (KC-FP4)
+```
+
+Research-side derivation gives an exact equivalence: an ordinary infinite
+first-passage execution exists iff this partial odd-charge map has an
+infinite orbit.  QM157 asks the companion Lean worker to kernel-check the
+general statement.  This removes both the tag machine and the word tree from
+the primary construction target.
+
+Schema v3 of the exact artifact audits the full charge recurrence on the
+record seed.  Source `270271` consumes its canonical preloaded address after
+block eight at state `3698459`; it then executes 28 further zero-carry blocks.
+Its 36 blocks compress to 13 nontrivial recharge macros, ending at odd charge
+`4108012983`, where the next recharge is undefined and the ordinary orbit
+eventually reaches `1`.  The post-address visualizer triple is now the more
+honest
+
+```text
+3698459 -> 8216025965
+```
+
+in 72 accelerated odd steps and 27 completed extensions.  This is unusually
+long literal self-renewal, but it is finite and is not a counterexample.
+
+The shallow `{1,011}` subsystem reduces further.  Writing
+`H=3^c u` and `R(H)=3^c' u'` gives the two-counter law
+
+```text
+2^(c'+2)u'=3^(c+1)u+1.                           (KC-FP5)
+```
+
+Seed `159487` realizes the finite exponent return `7 -> 2 -> 12 -> 7`, but
+the attempted repetition then fails its dyadic congruence, as required by the
+existing periodic-word no-go.
+
+There is also a sharper atom criterion.  Along any coherent path,
+
+```text
+rho_(n+1)=rho_n+2^L_n ell_n,   L_n>=n, ell_n>=0.
+```
+
+Hence a nonzero carry forces `rho_(n+1)>=2^n`.  It is enough to construct a
+path with `rho_n=o(2^n)` (or `limsup rho_n^(1/n)<2`); eventual zero carry and
+an ordinary seed then follow.  Companion commit `e48bd60` kernel-checks the
+pointwise bound, its eventual-zero consequence, and its frequent-carry
+contrapositive.  For a selector measure, the summability
+condition `sum E[rho_(n+1)]/2^n<infinity` suffices by Markov and
+Borel--Cantelli.  This is weaker and more useful than asking for a uniform
+moment bound.
+
+Finally, the scalar minima `h_n` discard the target's 3-adic phase.  If a
+word has canonical execution
+
+```text
+(source,target)=(r_w+2^S t, b_w+3^O t),
+```
+
+then the next minimum is an exact min-plus renewal over the least survivor in
+the class `b_w mod 3^O`.  In fact every `h_n` is odd, so the forced first
+word `1` gives the sharp scalar slice law
+
+```text
+h_(n+1)=(2m_n-1)/3,
+m_n=min {y in E_n:y=2 mod 3}.                     (KC-FP6)
+```
+
+Schema v3 checks this identity on all certified minima through `h_36`.
+QM158 asks Lean to package the general recurrence.  It suggests the next
+principled search: propagate a 3-adic class profile and seek a coherent
+sub-`2^n` carry branch, rather than scan more starting integers.  The artifact
+still records `counterexample:null`.
+
 ### 2026-07-23 15:27 EDT
 
 There is still no counterexample.  Simon's observation that the YAH/tag
@@ -5683,9 +5785,15 @@ identically `x`.
   and tilted mass exactly one.  For the least compatible initial residues,
   `h_n=min_(u in F^n)r(u)` is nondecreasing, and boundedness is equivalent to
   an ordinary infinite strictly growing shortcut orbit.  Diffuse critical
-  flow is insufficient (`mu_q{r_n<=B}<=B(3/4)^n`).  Seek an arithmetic,
-  necessarily atomic and aperiodic selector proving `sup_n h_n<infinity`;
-  do not promote critical pressure or longer finite survival by itself.
+  flow is insufficient (`mu_q{r_n<=B}<=B(3/4)^n`).  Compress completed
+  boundaries as `x=3H-1`: forced `1` blocks drain `v_2(H)`, while every
+  nontrivial recharge defines a strictly increasing partial map `R` on odd
+  `H` with `v_3(R(H))>=v_2(K)+1`.  An infinite `R`-orbit is exactly the
+  counterexample target.  In the inverse direction, propagate the min-plus
+  profile of least survivors in classes modulo `3^k`; the scalar `h_n` loses
+  this phase.  Seek a coherent path with `rho_n=o(2^n)`, which already forces
+  eventual zero carry.  Do not promote critical pressure or longer finite
+  survival by itself.
 - **Parametric gliders.**  Search for a finite symbolic transducer, substitution,
   or arithmetic family `x_t` with a machine-checkable macrostep
   `T^(ell(t))(x_t)=x_(t+1)` and `x_(t+1)>x_t`.  The existing exhaustive
@@ -5873,7 +5981,7 @@ identically `x`.
 
 | Ansatz or route | Calibrated verdict | Exact record |
 |---|---|---|
-| Treating critical first-passage/KL mass as an ordinary survivor | Invalid.  For the canonical maximal outward first-passage code, the slope-tilted Kraft mass is exactly one at every block depth, but its natural product flow satisfies `mu_q{r_n<=B}<=B(3/4)^n`.  Thus conserved first moment and positive pressure are compatible with exponential escape from every bounded ordinary residue window.  Any successful selector must create an atom, equivalently prove the monotone minimum address `h_n` stays bounded; more diffuse branching search cannot cross this gate. | [`outward_first_passage_audit.json`](experiments/kontorovich/outward_first_passage_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#22-the-minimal-raw-outward-system-is-critical-and-an-orbit-is-an-atom) |
+| Treating critical first-passage/KL mass as an ordinary survivor | Invalid.  For the canonical maximal outward first-passage code, the slope-tilted Kraft mass is exactly one at every block depth, but its natural product flow satisfies `mu_q{r_n<=B}<=B(3/4)^n`.  Conditioning fair renewal on arbitrarily long survival gives the product block law `p(w)/P`, which is also diffuse, with fixed-window bound `B(1/(2P))^n`.  Thus conserved mass and the classical survival Doob transform both escape every bounded ordinary residue window.  Any successful selector must create an atom; a useful sufficient proof input is the weaker growth condition `rho_n=o(2^n)`, which forces eventual zero carry. | [`outward_first_passage_audit.json`](experiments/kontorovich/outward_first_passage_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#23-odd-charge-compression-and-triadic-min-plus-renewal) |
 | Prefix-complete uniformly outward valuation ISA | Closed for finite positive prefix-free codes.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, every outward leaf has `q(w)>p(w)`; `p`-completeness and the `q`-Kraft bound are inconsistent.  Commit `da9fa59` constructs explicit binary and four-letter compilers, derives both Kraft inequalities from prefix-freeness, and proves the full finite contradiction and quantitative mass bound in Lean.  The countably infinite prefix-free theorem still uses an abstract `tsum` interface.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |
 | Periodic or ultimately periodic path in the four-word signed thin language | Closed.  The exact bounded controller audit extracts the proper code `{1,011,001111,010111}` with ordinary mass `21/32`, tilted mass `1905/2048`, and 41,328 literal growing reset checks.  Commit `1aa3e52` proves that any nonempty periodic concatenation of outward shortcut blocks gives an expanding coprime affine recurrence and cannot persist on positive naturals; an arbitrary finite prefix does not help.  Genuinely aperiodic paths with eventually zero address carry remain open. | [`kl_signed_thin_residue.json`](experiments/kontorovich/kl_signed_thin_residue.json), [`ShortcutParityPeriodicNoGo.lean`](KontoroC/KontoroC/ShortcutParityPeriodicNoGo.lean) |
 | EC17 normalized core boundary as a KL full-lift path | Closed as a semantic identification.  The boundary clock is a genuine ternary odometer and is cofinal on `Y_d` when `3` does not divide the period-three gain.  Nevertheless each phase has only one class-2 and one class-8 KL chord over a full orbit; almost all pairs are nonedges.  More decisively, a KL word with `r` chords has defect at least `3^r-2^r`, while one normalized EC17 core step has `r>=17` and defect 34.  No KL/Haar tax may be attached directly to the core clock.  This does not close the actual packet compiler, whose ordinary endpoints must be expanded and sampled separately. | [`breakoff_ether_period3_kl_bridge_audit.json`](experiments/kontorovich/breakoff_ether_period3_kl_bridge_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md) |
