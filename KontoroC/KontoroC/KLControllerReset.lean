@@ -5,6 +5,7 @@ Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.KLControllerSwitch
 import Mathlib.Data.Nat.ModEq
+import Mathlib.Data.ZMod.Units
 
 /-!
 # Exact affine data for a KL controller word
@@ -105,6 +106,30 @@ theorem modEq_of_mul_modEq_mul_of_coprime
     convert hmul using 1 <;> push_cast <;> ring
   exact hcop.isCoprime.symm.dvd_of_dvd_mul_left hmul'
 
+/-- A linear congruence with invertible slope always has a solution. -/
+theorem exists_affine_modEq_of_coprime
+    (A B target modulus : ℕ) (hmodulus : 0 < modulus)
+    (hcop : A.Coprime modulus) :
+    ∃ h : ℕ, A * h + B ≡ target [MOD modulus] := by
+  letI : NeZero modulus := ⟨Nat.ne_of_gt hmodulus⟩
+  let z : ZMod modulus :=
+    (A : ZMod modulus)⁻¹ *
+      ((target : ZMod modulus) - (B : ZMod modulus))
+  refine ⟨z.val, ?_⟩
+  rw [← ZMod.natCast_eq_natCast_iff]
+  push_cast
+  rw [ZMod.natCast_zmod_val]
+  dsimp only [z]
+  calc
+    (A : ZMod modulus) *
+          ((A : ZMod modulus)⁻¹ *
+            ((target : ZMod modulus) - (B : ZMod modulus))) + B =
+        ((A : ZMod modulus) * (A : ZMod modulus)⁻¹) *
+            ((target : ZMod modulus) - (B : ZMod modulus)) + B := by ring
+    _ = (target : ZMod modulus) - (B : ZMod modulus) + B := by
+      rw [ZMod.coe_mul_inv_eq_one A hcop, one_mul]
+    _ = target := by ring
+
 /-- A fixed controller word has at most one initial ternary residue class
 producing any prescribed numerator residue.  This is the ternary analogue
 of the exact dyadic cylinder theorem for shortcut parity words. -/
@@ -118,6 +143,52 @@ theorem numerator_modEq_injective
     Nat.ModEq.add_right_cancel' (wordData w).B hnum
   exact modEq_of_mul_modEq_mul_of_coprime
     (wordData_A_coprime_three_pow w k) hmul
+
+/-- QM136a: the numerator congruence of a fixed word and target has exactly
+one solution class.  This theorem makes no claim that a representative in
+that class makes the word legal. -/
+theorem exists_unique_numerator_input_class
+    (w : List CenterMove) (g k : ℕ) :
+    ∃ h : ℕ,
+      ((wordData w).A * h + (wordData w).B ≡
+        3 ^ (wordData w).r * g
+          [MOD 3 ^ (k + (wordData w).r)]) ∧
+      ∀ h' : ℕ,
+        (wordData w).A * h' + (wordData w).B ≡
+          3 ^ (wordData w).r * g
+            [MOD 3 ^ (k + (wordData w).r)] →
+        h' ≡ h [MOD 3 ^ (k + (wordData w).r)] := by
+  obtain ⟨h, hh⟩ := exists_affine_modEq_of_coprime
+    (wordData w).A (wordData w).B (3 ^ (wordData w).r * g)
+    (3 ^ (k + (wordData w).r))
+    (by positivity)
+    (wordData_A_coprime_three_pow w (k + (wordData w).r))
+  refine ⟨h, hh, ?_⟩
+  intro h' hh'
+  exact numerator_modEq_injective w (hh'.trans hh.symm)
+
+/-- Optional CRT consumer of QM132d and QM136a: any prescribed dyadic
+shortcut cylinder and the unique ternary numerator cylinder have a common
+natural representative.  This proves local congruence compatibility only;
+it supplies neither positivity of later quotients nor controller legality. -/
+theorem exists_dyadic_and_numerator_input
+    (w : List CenterMove) (dyadicClass N g k : ℕ) :
+    ∃ z : ℕ,
+      z ≡ dyadicClass [MOD 2 ^ N] ∧
+      (wordData w).A * z + (wordData w).B ≡
+        3 ^ (wordData w).r * g
+          [MOD 3 ^ (k + (wordData w).r)] := by
+  obtain ⟨h, hh, _hunique⟩ :=
+    exists_unique_numerator_input_class w g k
+  have hcop : (2 ^ N).Coprime (3 ^ (k + (wordData w).r)) :=
+    Nat.coprime_pow_primes N (k + (wordData w).r)
+      Nat.prime_two Nat.prime_three (by norm_num)
+  let z := Nat.chineseRemainder hcop dyadicClass h
+  refine ⟨z, z.property.1, ?_⟩
+  have hztern : (z : ℕ) ≡ h [MOD 3 ^ (k + (wordData w).r)] :=
+    z.property.2
+  exact ((hztern.mul_left (wordData w).A).add_right
+    (wordData w).B).trans hh
 
 /-- One legal controller step preserves the affine numerator invariant. -/
 theorem ControllerData.step_invariant (d : ControllerData)

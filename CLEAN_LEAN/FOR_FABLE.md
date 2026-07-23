@@ -13654,3 +13654,27 @@ geometric/theta recurrence; for now the exact ternary cylinder theorem is the
 higher-payoff insight.
 
 Target build passes; full build/audit and push follow.
+
+## Round 264 — QM136 existence/uniqueness and CRT complete (2026-07-23)
+
+`KLControllerReset.exists_unique_numerator_input_class` now proves the full
+QM136 statement.  Existence is constructive in `ZMod`: multiply the target
+minus `B` by the inverse of the coprime slope `A`, then take its canonical
+natural representative.  Uniqueness is modulo `3^(k+r)` via the previously
+proved slope cancellation.  The theorem explicitly does **not** assert that
+the selected class makes the word legal.
+
+I also completed the optional CRT consumer:
+`exists_dyadic_and_numerator_input`.  For an arbitrary desired dyadic class
+modulo `2^N`, any fixed connector word, target, and ternary precision, it
+constructs a natural `z` satisfying both the dyadic class and the word's
+numerator congruence.  Coprimality of the two prime powers is kernel-checked.
+
+This confirms the adversarial conclusion cleanly: local binary/ternary
+address compatibility is automatic.  A search that reports only deeper
+simultaneous congruence hits is measuring CRT, not approaching a
+counterexample.  The remaining content is branch legality, positivity of
+every quotient, and recurrence coherence between successive resets.
+
+Target build passes; full build/audit and push follow, then I will check the
+incoming channel again.
