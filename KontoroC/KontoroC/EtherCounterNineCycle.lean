@@ -379,6 +379,44 @@ theorem residue_eq_required_iff_carry_eq_zero
     rw [hC, mul_zero] at h
     exact sub_eq_zero.mp h
 
+/-- Explicit form of the same reduction: modulo an odd target modulus, the
+signed carry is merely the target-residue mismatch multiplied by a unit.  In
+particular the block composition contributes no independent nonvanishing
+mechanism; that must come from the canonical future-residue sequence. -/
+theorem carry_cast_eq_inv_pow_mul_residue_sub
+    (N required p : ℕ) (r y C : ℤ)
+    (htwo : IsUnit (2 : ZMod N))
+    (hy : (y : ZMod N) = required)
+    (hcarry : r - y = (2 : ℤ) ^ p * C) :
+    (C : ZMod N) = ((2 : ZMod N) ^ p)⁻¹ *
+      ((r : ZMod N) - required) := by
+  have hpow : IsUnit ((2 : ZMod N) ^ p) := htwo.pow _
+  have h := congrArg (fun z : ℤ => (z : ZMod N)) hcarry
+  simp only [Int.cast_sub, Int.cast_mul, Int.cast_pow, Int.cast_ofNat] at h
+  rw [hy] at h
+  calc
+    (C : ZMod N) = 1 * C := by simp
+    _ = (((2 : ZMod N) ^ p)⁻¹ * 2 ^ p) * C := by
+      rw [ZMod.inv_mul_of_unit _ hpow]
+    _ = ((2 : ZMod N) ^ p)⁻¹ * (2 ^ p * C) := by ring
+    _ = ((2 : ZMod N) ^ p)⁻¹ * ((r : ZMod N) - required) := by
+      rw [← h]
+
+/-- Local arithmetic alone always admits the zero-carry branch: take the
+future residue equal to the exact forward image. -/
+theorem zero_carry_locally_compatible (p : ℕ) (y : ℤ) :
+    y - y = (2 : ℤ) ^ p * 0 := by ring
+
+/-- Formal guardrail: the signed carry equation by itself can never imply a
+nonzero carry modulo any modulus.  Any such theorem must use an additional
+property selecting the canonical future residue. -/
+theorem local_carry_relation_does_not_force_nonzero
+    (N p : ℕ) (y : ℤ) :
+    ¬ ∀ r C : ℤ,
+      r - y = (2 : ℤ) ^ p * C → (C : ZMod N) ≠ 0 := by
+  intro h
+  exact h y 0 (zero_carry_locally_compatible p y) (by norm_num)
+
 theorem residue_eq_thirteen_iff_carry_eq_zero
     (p : ℕ) (r y C : ℤ)
     (hy : (y : ZMod 27) = 13)

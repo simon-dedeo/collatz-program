@@ -115,6 +115,7 @@ import KontoroC.EtherCounterGeometricMahler
 import KontoroC.EtherCounterPeriodicTheta
 import KontoroC.EtherCounterResidueBound
 import KontoroC.EtherCounterStateNoRepeat
+import KontoroC.EtherCounterBareGlue
 import KontoroC.EtherCounterPeriodThree
 import KontoroC.EtherCounterNineCycle
 import KontoroC.EtherCounterDepthFour

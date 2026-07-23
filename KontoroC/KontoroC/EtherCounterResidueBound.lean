@@ -75,6 +75,111 @@ theorem ternary_isUnit (branch : ℕ → ℕ) (P t : ℕ) :
       ((by norm_num : Nat.Coprime 3 2).pow_right P)
   exact hthree.pow _
 
+/-- Backward evaluation splits exactly at any transition boundary.  This is
+pure recursion and does not assume the existence of a natural orbit. -/
+theorem backwardEval_add (branch : ℕ → ℕ) (P front tail start : ℕ)
+    (x : ZMod (2 ^ P)) :
+    backwardEval branch P (front + tail) start x =
+      backwardEval branch P front start
+        (backwardEval branch P tail (start + front) x) := by
+  induction front generalizing start with
+  | zero => simp [backwardEval]
+  | succ front ih =>
+      rw [show front + 1 + tail = (front + tail) + 1 by omega,
+        backwardEval, backwardEval]
+      rw [ih (start := start + 1)]
+      congr 3
+      omega
+
+/-- Reduction from a higher binary precision to a lower one commutes with
+finite backward EC17 evaluation.  Unlike the older nesting theorem, this is
+proved directly from the recurrence and does not use a pre-existing natural
+prefix. -/
+theorem backwardEval_castHom (branch : ℕ → ℕ)
+    (P P' start length : ℕ) (hPP' : P ≤ P')
+    (x : ZMod (2 ^ P')) :
+    ZMod.castHom (Nat.pow_dvd_pow 2 hPP') (ZMod (2 ^ P))
+        (backwardEval branch P' length start x) =
+      backwardEval branch P length start
+        (ZMod.castHom (Nat.pow_dvd_pow 2 hPP') (ZMod (2 ^ P)) x) := by
+  let f := ZMod.castHom (Nat.pow_dvd_pow 2 hPP') (ZMod (2 ^ P))
+  have hseventeen : f (17 : ZMod (2 ^ P')) = (17 : ZMod (2 ^ P)) := by
+    simpa using map_natCast f 17
+  have hinv (t : ℕ) :
+      f (((3 : ZMod (2 ^ P')) ^ ternaryExponent branch t)⁻¹) =
+        ((3 : ZMod (2 ^ P)) ^ ternaryExponent branch t)⁻¹ := by
+    let a : ZMod (2 ^ P') :=
+      (3 : ZMod (2 ^ P')) ^ ternaryExponent branch t
+    have ha : IsUnit a := ternary_isUnit branch P' t
+    have hmul : a * a⁻¹ = 1 := ZMod.mul_inv_of_unit a ha
+    have hmapped := congrArg f hmul
+    have hfA : f a = (3 : ZMod (2 ^ P)) ^ ternaryExponent branch t := by
+      change f ((3 : ZMod (2 ^ P')) ^ ternaryExponent branch t) = _
+      rw [map_pow, map_ofNat]
+    have hone : f a * f a⁻¹ = 1 := by
+      simpa [map_mul, map_one] using hmapped
+    exact (ZMod.inv_eq_of_mul_eq_one (2 ^ P) (f a) (f a⁻¹) hone).symm.trans
+      (by rw [hfA])
+  induction length generalizing start with
+  | zero => simp [backwardEval, f]
+  | succ length ih =>
+      rw [backwardEval, backwardEval]
+      simp only [backStep]
+      rw [map_mul, map_sub, map_mul, map_pow, map_ofNat,
+        hinv, ih (start := start + 1), hseventeen]
+
+/-- Canonical zero-terminal residues are compatible under every reduction of
+binary precision, without any semantic orbit hypothesis. -/
+theorem initialResidue_castHom (branch : ℕ → ℕ)
+    (P P' length : ℕ) (hPP' : P ≤ P') :
+    ZMod.castHom (Nat.pow_dvd_pow 2 hPP') (ZMod (2 ^ P))
+        (initialResidue branch P' length) =
+      initialResidue branch P length := by
+  simpa [initialResidue] using
+    backwardEval_castHom branch P P' 0 length hPP'
+      (0 : ZMod (2 ^ P'))
+
+/-- The zero-terminal canonical residue at an arbitrary time.  This is a
+purely finite object attached to a bare branch schedule; it does not assume
+that the schedule is realized by any natural orbit. -/
+def residueAt (branch : ℕ → ℕ) (P start length : ℕ) : ZMod (2 ^ P) :=
+  backwardEval branch P length start 0
+
+/-- Reducing a bare canonical residue to fewer binary digits commutes with
+its construction. -/
+theorem residueAt_castHom (branch : ℕ → ℕ)
+    (P P' start length : ℕ) (hPP' : P ≤ P') :
+    ZMod.castHom (Nat.pow_dvd_pow 2 hPP') (ZMod (2 ^ P))
+        (residueAt branch P' start length) =
+      residueAt branch P start length := by
+  simpa [residueAt] using
+    backwardEval_castHom branch P P' start length hPP'
+      (0 : ZMod (2 ^ P'))
+
+/-- A canonical residue over a concatenated interval splits at the interval
+boundary. -/
+theorem residueAt_add (branch : ℕ → ℕ) (P start front tail : ℕ) :
+    residueAt branch P start (front + tail) =
+      backwardEval branch P front start
+        (residueAt branch P (start + front) tail) := by
+  simpa [residueAt] using
+    backwardEval_add branch P front tail start (0 : ZMod (2 ^ P))
+
+/-- Bare cross-boundary coherence.  A high-precision source residue for a
+finite interval, reduced to `p` bits, is the backward image of the reduced
+high-precision residue for the suffix.  This is the non-circular algebraic
+core of QM121b. -/
+theorem residueAt_split_cast (branch : ℕ → ℕ)
+    (P Pnext p start front tail : ℕ)
+    (hpP : p ≤ P) (hpNext : p ≤ Pnext) :
+    ZMod.castHom (Nat.pow_dvd_pow 2 hpP) (ZMod (2 ^ p))
+        (residueAt branch P start (front + tail)) =
+      backwardEval branch p front start
+        (ZMod.castHom (Nat.pow_dvd_pow 2 hpNext) (ZMod (2 ^ p))
+          (residueAt branch Pnext (start + front) tail)) := by
+  rw [residueAt_castHom branch p P start (front + tail) hpP,
+    residueAt_add, residueAt_castHom branch p Pnext (start + front) tail hpNext]
+
 /-- A literal natural EC17 prefix on a prescribed branch schedule. -/
 structure NaturalPrefix (branch : ℕ → ℕ) (length : ℕ) where
   branch_pos : ∀ t ≤ length, 0 < branch t
@@ -176,6 +281,16 @@ theorem backwardEval_eq_zero_terminal (branch : ℕ → ℕ)
   rw [hu, two_pow_binaryMass_eq_zero branch P start length hprecision]
   simp
 
+/-- Once an initial interval already covers the requested precision,
+extending the finite horizon cannot alter its canonical residue. -/
+theorem residueAt_extend (branch : ℕ → ℕ)
+    (P start length extra : ℕ)
+    (hprecision : P ≤ binaryMass branch start length) :
+    residueAt branch P start (length + extra) =
+      residueAt branch P start length := by
+  rw [residueAt_add]
+  exact backwardEval_eq_zero_terminal branch P start length _ hprecision
+
 /-- QM58: every natural EC17 prefix on the schedule has the unique initial
 residue computed by the zero-terminal backward recurrence. -/
 theorem initial_core_cast_eq_residue (g : NaturalPrefix branch length) (P : ℕ)
@@ -250,6 +365,25 @@ structure ExactReplayTo (branch : ℕ → ℕ) (candidate steps : ℕ) where
   balance : ∀ t < steps,
     2 ^ binaryExponent branch t * core (t + 1) =
       3 ^ ternaryExponent branch t * core t + 17
+
+/-- Positivity propagates through every decoded exact replay. -/
+theorem ExactReplayTo.core_pos
+    {branch : ℕ → ℕ} {candidate steps : ℕ}
+    (c : ExactReplayTo branch candidate steps) (hcandidate : 0 < candidate) :
+    ∀ t ≤ steps, 0 < c.core t := by
+  intro t ht
+  induction t with
+  | zero => simpa [c.initial] using hcandidate
+  | succ t ih =>
+      have htlt : t < steps := by omega
+      have hprev : 0 < c.core t := ih (by omega)
+      have hright :
+          0 < 3 ^ ternaryExponent branch t * c.core t + 17 := by positivity
+      have hleft :
+          0 < 2 ^ binaryExponent branch t * c.core (t + 1) := by
+        rw [c.balance t htlt]
+        exact hright
+      exact Nat.pos_of_mul_pos_left hleft
 
 /-- The exact necessary predicate used by CRT consumers: some positive EC17
 prefix on the prescribed branch schedule starts from `candidate`. -/

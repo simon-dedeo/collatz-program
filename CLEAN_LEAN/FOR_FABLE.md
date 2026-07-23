@@ -12579,3 +12579,109 @@ r-y=2^p*C, y=10 mod81 -> (r=10 mod81 iff C=0 mod81).
 This checks the modular/budget/carry interface requested in QM120.  The file
 does not import the two-plus-three finite rows and does not assert either
 all-phase nondivisibility claim.  Full 8,792-target build and audit pass.
+
+## Kontorovich round 229 — the carry is not an independent rigidity source
+
+I adversarially isolated what the QM119 signed carry actually adds.  For an
+arbitrary odd target modulus `N`, Lean now proves the explicit identity
+
+```text
+C mod N = (2^p)^(-1) * (r-required) mod N
+```
+
+from only
+
+```text
+y=required mod N,   r-y=2^p*C.
+```
+
+Thus `C!=0 mod N` is *exactly* the original target-residue mismatch, up to an
+invertible scalar.  The nine/27-cycle composition identifies the required
+class and the number of consumed binary bits, but it supplies no independent
+nonvanishing mechanism.  I also kernel-checked the formal local no-go:
+
+```text
+not (forall r C, r-y=2^p*C -> C!=0 mod N),
+```
+
+because the locally compatible choice `r=y,C=0` always exists.  Therefore
+any proof of the universal carry claim must use a genuinely global property
+selecting the canonical future residue; it cannot follow from the signed
+carry equation, the block balance, and the mod-27/mod-81 output class alone.
+
+New declarations:
+
+```text
+residue_eq_required_iff_carry_eq_zero
+carry_cast_eq_inv_pow_mul_residue_sub
+zero_carry_locally_compatible
+local_carry_relation_does_not_force_nonzero
+```
+
+I extended the exact QM119 worker adversarially through every source
+`q=99,108,...,540` (50 rows).  No zero carry occurred, so the finite signal
+survives, but the target residues wander through many mod-27 classes without
+an evident recurrence.  This is still only a finite streak; I created no
+repository artifact and make no cofinal claim from it.  Strategically, the
+next proof needs structure in the canonical least representatives themselves
+(or a p-adic/automatic obstruction), not more block-composition algebra.
+
+## Kontorovich round 230 — bare residue coherence and exact replay gluing
+
+I have now kernel-checked the non-circular part of QM121.  In
+`EtherCounterResidueBound.lean`, the following statements are proved directly
+from the finite backward recurrence, with no `Ray` or natural prefix in their
+hypotheses:
+
+```text
+backwardEval_add
+backwardEval_castHom
+initialResidue_castHom
+residueAt_castHom
+residueAt_add
+residueAt_split_cast
+residueAt_extend
+```
+
+The strongest useful formulation is `residueAt_split_cast`: a source residue
+over `front+tail`, reduced from precision `P` to `p`, is exactly the
+`front`-step backward image of the suffix residue reduced independently from
+precision `Pnext` to `p`.  This is an algebraic identity when both finite
+residues use the same terminal horizon.  Separately, `residueAt_extend` proves
+that once a segment's binary mass covers `p`, extending that horizon cannot
+change the low `p` bits.  This cleanly separates exact splitting from the
+coverage argument and avoids the circular old Ray theorem.
+
+I also proved the construction endpoint of QM121d in the new module
+`EtherCounterBareGlue.lean`.  `ExactReplayTo.core_pos` first proves that a
+positive boundary value makes every decoded intermediate positive.  Then
+`ThreeReplayChain.toOrbit` glues compatible three-step cells, and the final
+theorem states:
+
+```text
+positive branch schedule
++ positive boundary sequence
++ ComposedReplayFactor branch (3*q) 3 (boundary q) (boundary (q+1)) for all q
+-> exists an infinite positive EC17 Orbit with those cycle boundaries.
+```
+
+This theorem decodes every compact factor, handles the cross-cell `2 -> 0`
+boundary explicitly, and constructs the literal infinite core by quotient and
+remainder modulo three.  Oddness is not required by the `Orbit` structure and
+is already forced at every state having an outgoing positive EC17 balance, so
+it is not an extra construction premise.
+
+What remains between the requested zero-carry worker interface and this
+theorem is now sharply isolated: prove that one zero carry yields the exact
+`ComposedReplayFactor`, after translating least representatives and the
+one-cycle affine equation.  The gluing itself is finished.
+
+On the Väänänen--Wallisser (1989) question: the repository already contains
+the useful independent beginning (`VaananenWallisserCore.lean`: functional
+equation, Hermite iteration, planted-zero and first-nonzero algebra) and an
+exact application seam.  A full proof still needs the paper's p-adic
+valuation/height estimates and determinant nonvanishing.  That is much larger
+than the current residue bridge and does not address period three because the
+paper's sufficient size inequality provably fails there.  I therefore did not
+pretend that completing the 1989 theorem was the shortest path; the new bare
+gluing theorem is directly relevant to the active construction search.

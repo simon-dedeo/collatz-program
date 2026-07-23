@@ -919,6 +919,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.EtherCounterPeriodicTheta.derivativeThreshold_lt_gamma_of_three_le_slots
 #print axioms KontoroC.EtherCounterResidueBound.backwardEval_sub_factor
 #print axioms KontoroC.EtherCounterResidueBound.backwardEval_sub_exact
+#print axioms KontoroC.EtherCounterResidueBound.backwardEval_add
+#print axioms KontoroC.EtherCounterResidueBound.backwardEval_castHom
+#print axioms KontoroC.EtherCounterResidueBound.initialResidue_castHom
+#print axioms KontoroC.EtherCounterResidueBound.residueAt_castHom
+#print axioms KontoroC.EtherCounterResidueBound.residueAt_add
+#print axioms KontoroC.EtherCounterResidueBound.residueAt_split_cast
+#print axioms KontoroC.EtherCounterResidueBound.residueAt_extend
 #print axioms KontoroC.EtherCounterResidueBound.initial_core_cast_eq_residue
 #print axioms KontoroC.EtherCounterResidueBound.initialResidue_val_eq_initial_core
 #print axioms
@@ -926,12 +933,19 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.EtherCounterResidueBound.NaturalPrefix.core_mod_two_eq_one
 #print axioms KontoroC.EtherCounterResidueBound.ExactReplayTo.core_eq
+#print axioms KontoroC.EtherCounterResidueBound.ExactReplayTo.core_pos
 #print axioms
   KontoroC.EtherCounterResidueBound.composedReplayFactor_succ_iff
 #print axioms
   KontoroC.EtherCounterResidueBound.exactReplayTo_of_composedReplayFactor
 #print axioms
   KontoroC.EtherCounterResidueBound.NondivisibleReplayFailure.not_admitsNaturalPrefix
+#print axioms KontoroC.EtherCounterBareGlue.ThreeReplayChain.balance
+#print axioms KontoroC.EtherCounterBareGlue.ThreeReplayChain.toOrbit
+#print axioms
+  KontoroC.EtherCounterBareGlue.exists_shiftedReplay_of_composedFactor
+#print axioms
+  KontoroC.EtherCounterBareGlue.exists_orbit_of_composedReplayFactors
 #print axioms
   KontoroC.EtherCounterResidueBound.EvenQuotientReplayFailure.not_admitsNaturalPrefix
 #print axioms
@@ -967,6 +981,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.EtherCounterNineCycle.exact_forward_images_compatible
 #print axioms
   KontoroC.EtherCounterNineCycle.residue_eq_thirteen_iff_carry_eq_zero
+#print axioms
+  KontoroC.EtherCounterNineCycle.residue_eq_required_iff_carry_eq_zero
+#print axioms
+  KontoroC.EtherCounterNineCycle.carry_cast_eq_inv_pow_mul_residue_sub
+#print axioms KontoroC.EtherCounterNineCycle.zero_carry_locally_compatible
+#print axioms
+  KontoroC.EtherCounterNineCycle.local_carry_relation_does_not_force_nonzero
 #print axioms KontoroC.EtherCounterDepthFour.cellA_mass_cast_eq_neg_one
 #print axioms KontoroC.EtherCounterDepthFour.cellB_mass_cast_eq_neg_one
 #print axioms KontoroC.EtherCounterDepthFour.cellA_defect_cast_eq_neg_one
