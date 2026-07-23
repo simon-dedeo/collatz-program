@@ -199,6 +199,27 @@ theorem publicPrefixProduct_factor (m : ℕ → ℕ) (N : ℕ) :
         publicAlpha_factor, pow_succ, pow_add]
       ring
 
+/-- Removing the first multiplier from a prefix product. -/
+theorem publicPrefixProduct_succ_shift (m : ℕ → ℕ) (N : ℕ) :
+    publicPrefixProduct m (N + 1) =
+      publicAlpha (m 0) *
+        publicPrefixProduct (fun j => m (j + 1)) N := by
+  induction N with
+  | zero => simp [publicPrefixProduct_succ]
+  | succ N ih =>
+      have hleft := publicPrefixProduct_succ m (N + 1)
+      have hright := publicPrefixProduct_succ (fun j => m (j + 1)) N
+      calc
+        publicPrefixProduct m (N + 2) =
+            publicPrefixProduct m (N + 1) * publicAlpha (m (N + 1)) := by
+          simpa [Nat.add_assoc] using hleft
+        _ = publicAlpha (m 0) *
+              (publicPrefixProduct (fun j => m (j + 1)) N *
+                publicAlpha (m (N + 1))) := by rw [ih]; ring
+        _ = publicAlpha (m 0) *
+              publicPrefixProduct (fun j => m (j + 1)) (N + 1) := by
+          rw [hright]
+
 /-- Exact small difference between the two rational centers. -/
 theorem publicEpsilon_eq :
     publicEpsilon = 17 / (473 * (2 : ℚ) ^ 20 * (3 : ℚ) ^ 11) := by

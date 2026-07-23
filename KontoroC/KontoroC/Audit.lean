@@ -1497,6 +1497,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.PublicTheta.norm_publicAlpha
 #print axioms KontoroC.SelfWritingKL.PublicTheta.norm_publicPrefixProduct_le
 #print axioms KontoroC.SelfWritingKL.PublicTheta.padicTerm_summable
+#print axioms KontoroC.SelfWritingKL.publicPrefixProduct_succ_shift
+#print axioms KontoroC.SelfWritingKL.PublicTheta.padicSum_functional
+#print axioms KontoroC.SelfWritingKL.PublicTheta.norm_padicSum_eq_first
+#print axioms KontoroC.SelfWritingKL.PublicTheta.padicTail_functional
+#print axioms KontoroC.SelfWritingKL.PublicTheta.norm_padicTail_eq_branch
+#print axioms KontoroC.SelfWritingKL.PublicTheta.negative_integer_tail_step
+#print axioms
+  KontoroC.SelfWritingKL.PublicTheta.all_tails_negative_integers_of_initial
 #print axioms KontoroC.SelfWritingKL.PublicTheta.padicPartial_tendsto_sum
 #print axioms KontoroC.SelfWritingKL.PublicTheta.norm_padic_publicB
 #print axioms KontoroC.SelfWritingKL.PublicTheta.norm_padic_publicEpsilon
@@ -1508,6 +1516,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.SelfWritingKL.PublicTheta.no_orbit_with_targetBranch_of_avoidsOrdinaryLattice
 #print axioms
   KontoroC.SelfWritingKL.PublicTheta.no_orbit_with_targetBranch_of_padic_irrational
+#print axioms KontoroC.SelfWritingKL.PublicPressure.separator_power
+#print axioms KontoroC.SelfWritingKL.PublicPressure.powered_pressure_gate
+#print axioms KontoroC.SelfWritingKL.PublicPressure.fresh_excess_power_lt
+#print axioms KontoroC.SelfWritingKL.PublicPressure.freshExcess_formula
+#print axioms
+  KontoroC.SelfWritingKL.PublicPressure.schedule_fresh_excess_power_lt
+#print axioms KontoroC.SelfWritingKL.PublicPressure.no_gate_of_excess_power_ge
 #print axioms KontoroC.KLUniversalShadow.DifferenceCocycle.exact
 #print axioms
   KontoroC.KLUniversalShadow.DifferenceCocycle.two_pow_dvd_initial_difference

@@ -74,6 +74,43 @@ theorem padicTerm_summable
   apply NonarchimedeanAddGroup.summable_of_tendsto_cofinite_zero
   simpa only [Nat.cofinite_eq_atTop] using padicTerm_tendsto_zero m hm
 
+@[simp] theorem padicTerm_zero (m : ℕ → ℕ) :
+    padicTerm m 0 = (publicAlpha (m 0) : ℚ_[2]) := by
+  have h := congrArg (fun q : ℚ => (q : ℚ_[2]))
+    (publicPrefixProduct_succ_shift m 0)
+  simpa [padicTerm] using h
+
+theorem padicTerm_succ (m : ℕ → ℕ) (j : ℕ) :
+    padicTerm m (j + 1) =
+      (publicAlpha (m 0) : ℚ_[2]) *
+        padicTerm (fun k => m (k + 1)) j := by
+  have h := congrArg (fun q : ℚ => (q : ℚ_[2]))
+    (publicPrefixProduct_succ_shift m (j + 1))
+  simpa [padicTerm, Rat.cast_mul] using h
+
+/-- QM150f: removing the first public branch from the convergent theta
+series gives the exact affine tail equation. -/
+theorem padicSum_functional
+    (m : ℕ → ℕ) (hm : ∀ t, 0 < m t) :
+    padicSum m = (publicAlpha (m 0) : ℚ_[2]) *
+      (1 + padicSum (fun k => m (k + 1))) := by
+  have hsum := (padicTerm_summable m hm).sum_add_tsum_nat_add 1
+  have hshift :
+      (∑' j : ℕ, padicTerm m (j + 1)) =
+        (publicAlpha (m 0) : ℚ_[2]) *
+          padicSum (fun k => m (k + 1)) := by
+    rw [show (fun j : ℕ => padicTerm m (j + 1)) =
+        fun j => (publicAlpha (m 0) : ℚ_[2]) *
+          padicTerm (fun k => m (k + 1)) j by
+      funext j
+      exact padicTerm_succ m j]
+    exact (padicTerm_summable (fun k => m (k + 1))
+      (fun k => hm (k + 1))).tsum_mul_left _
+  rw [Finset.sum_range_one, padicTerm_zero, hshift] at hsum
+  change (∑' j : ℕ, padicTerm m j) = _
+  rw [← hsum]
+  ring
+
 theorem padicPartial_eq_sum (m : ℕ → ℕ) (N : ℕ) :
     padicPartial m N = ∑ j ∈ Finset.range N, padicTerm m j := by
   induction N with
@@ -92,6 +129,132 @@ theorem padicPartial_tendsto_sum
     exact padicPartial_eq_sum m N
   rw [heq]
   simpa only [padicSum] using hsum
+
+theorem norm_padicSum_le_rho
+    (m : ℕ → ℕ) (hm : ∀ t, 0 < m t) :
+    ‖padicSum m‖ ≤ ((2 : ℝ)⁻¹) ^ 23 := by
+  let ρ : ℝ := ((2 : ℝ)⁻¹) ^ 23
+  have hρnonneg : 0 ≤ ρ := by positivity
+  have hρle : ρ ≤ 1 := by
+    dsimp [ρ]
+    norm_num
+  have hterm : ∀ j : ℕ, ‖padicTerm m j‖ ≤ ρ := by
+    intro j
+    apply (norm_padicTerm_le m hm j).trans
+    rw [pow_succ]
+    exact mul_le_of_le_one_left hρnonneg (pow_le_one₀ hρnonneg hρle)
+  have hpartial : ∀ N : ℕ, ‖padicPartial m N‖ ≤ ρ := by
+    intro N
+    rw [padicPartial_eq_sum]
+    exact IsUltrametricDist.norm_sum_le_of_forall_le_of_nonneg hρnonneg
+      (fun j _ => hterm j)
+  have htendsto : Tendsto (fun N => ‖padicPartial m N‖) atTop
+      (nhds ‖padicSum m‖) :=
+    (padicPartial_tendsto_sum m hm).norm
+  exact le_of_tendsto htendsto (Eventually.of_forall hpartial)
+
+theorem norm_padicSum_lt_one
+    (m : ℕ → ℕ) (hm : ∀ t, 0 < m t) :
+    ‖padicSum m‖ < 1 :=
+  (norm_padicSum_le_rho m hm).trans_lt (by norm_num)
+
+/-- The valuation clause in QM150f, stated without any convention-dependent
+valuation API: the tail factor is a 2-adic unit, so the theta norm is exactly
+the norm of its first public multiplier. -/
+theorem norm_padicSum_eq_first
+    (m : ℕ → ℕ) (hm : ∀ t, 0 < m t) :
+    ‖padicSum m‖ = ((2 : ℝ)⁻¹) ^ (8 * m 0 + 15) := by
+  have hmshift : ∀ k, 0 < m (k + 1) := fun k => hm (k + 1)
+  have htail := norm_padicSum_lt_one (fun k => m (k + 1)) hmshift
+  have hunit : ‖1 + padicSum (fun k => m (k + 1))‖ = 1 := by
+    rw [IsUltrametricDist.norm_add_eq_max_of_norm_ne_norm]
+    · simp [max_eq_left htail.le]
+    · simpa only [norm_one] using ne_of_gt htail
+  rw [padicSum_functional m hm, norm_mul, norm_publicAlpha, hunit, mul_one]
+
+noncomputable def padicTail (m : ℕ → ℕ) (t : ℕ) : ℚ_[2] :=
+  padicSum (fun j => m (t + j))
+
+theorem padicTail_functional
+    (m : ℕ → ℕ) (hm : ∀ t, 0 < m t) (t : ℕ) :
+    padicTail m t = (publicAlpha (m t) : ℚ_[2]) *
+      (1 + padicTail m (t + 1)) := by
+  have h := padicSum_functional (fun j => m (t + j))
+    (fun j => hm (t + j))
+  unfold padicTail
+  have htail :
+      padicSum (fun k => m (t + (k + 1))) =
+        padicSum (fun j => m (t + 1 + j)) := by
+    congr 1
+    funext k
+    congr 1
+    omega
+  simpa only [Nat.add_zero, htail] using h
+
+theorem norm_padicTail_eq_branch
+    (m : ℕ → ℕ) (hm : ∀ t, 0 < m t) (t : ℕ) :
+    ‖padicTail m t‖ = ((2 : ℝ)⁻¹) ^ (8 * m t + 15) := by
+  simpa only [padicTail, Nat.add_zero] using
+    norm_padicSum_eq_first (fun j => m (t + j)) (fun j => hm (t + j))
+
+/-- QM151a, one suffix at a time: if a public theta suffix happens to be a
+negative ordinary integer, its exact 2-adic norm forces the required power
+of two to divide that integer, and the next suffix is automatically a
+negative ordinary integer as well. -/
+theorem negative_integer_tail_step
+    (m : ℕ → ℕ) (hm : ∀ t, 0 < m t) (t X : ℕ)
+    (hX : padicTail m t = -(X : ℚ_[2])) :
+    ∃ h : ℕ,
+      X = 2 ^ (8 * m t + 15) * h ∧
+      padicTail m (t + 1) =
+        -((3 ^ (6 * m t + 11) * h + 1 : ℕ) : ℚ_[2]) := by
+  let P := 8 * m t + 15
+  let Q := 6 * m t + 11
+  have hnorm := norm_padicTail_eq_branch m hm t
+  rw [hX, norm_neg] at hnorm
+  have hle : ‖((X : ℤ) : ℚ_[2])‖ ≤ (2 : ℝ) ^ (-(P : ℤ)) := by
+    change ‖(X : ℚ_[2])‖ ≤ (2 : ℝ) ^ (-(P : ℤ))
+    rw [hnorm]
+    simp only [P, zpow_neg, zpow_natCast, inv_pow]
+    exact le_rfl
+  have hdvdInt : ((2 : ℤ) ^ P) ∣ (X : ℤ) :=
+    (Padic.norm_int_le_pow_iff_dvd (p := 2) (X : ℤ) P).mp hle
+  have hdvd : 2 ^ P ∣ X := by
+    exact_mod_cast hdvdInt
+  obtain ⟨h, hfactor⟩ := hdvd
+  refine ⟨h, ?_, ?_⟩
+  · simpa [P] using hfactor
+  · have hfun := padicTail_functional m hm t
+    rw [hX, hfactor] at hfun
+    unfold publicAlpha at hfun
+    norm_num only [Rat.cast_div, Rat.cast_pow, Rat.cast_ofNat,
+      Nat.cast_mul, Nat.cast_pow, Nat.cast_add, Nat.cast_one] at hfun ⊢
+    change -(2 ^ P * (h : ℚ_[2])) =
+      (2 ^ P / 3 ^ Q) * (1 + padicTail m (t + 1)) at hfun
+    field_simp at hfun
+    have hnext : padicTail m (t + 1) =
+        -(3 ^ Q * (h : ℚ_[2]) + 1) := by
+      calc
+        padicTail m (t + 1) =
+            (1 + padicTail m (t + 1)) - 1 := by ring
+        _ = -((h : ℚ_[2]) * 3 ^ Q) - 1 := by rw [← hfun]
+        _ = -(3 ^ Q * (h : ℚ_[2]) + 1) := by ring
+    exact hnext
+
+/-- The first half of the QM151 converse: one ordinary negative value at
+the initial suffix propagates to every later suffix.  No separate suffix
+integrality hypothesis is used. -/
+theorem all_tails_negative_integers_of_initial
+    (m : ℕ → ℕ) (hm : ∀ t, 0 < m t) (X₀ : ℕ)
+    (h₀ : padicTail m 0 = -(X₀ : ℚ_[2])) :
+    ∀ t : ℕ, ∃ X : ℕ, padicTail m t = -(X : ℚ_[2]) := by
+  intro t
+  induction t with
+  | zero => exact ⟨X₀, h₀⟩
+  | succ t ih =>
+      obtain ⟨X, hX⟩ := ih
+      obtain ⟨h, _, hnext⟩ := negative_integer_tail_step m hm t X hX
+      exact ⟨3 ^ (6 * m t + 11) * h + 1, hnext⟩
 
 theorem norm_padic_publicB : ‖(publicB : ℚ_[2])‖ = (2 : ℝ) ^ 20 := by
   have htwo : ‖(2 : ℚ_[2])‖ = (2 : ℝ)⁻¹ := Padic.norm_p

@@ -15321,3 +15321,65 @@ Addendum after the channel recheck: QM150d-unit is now also checked as
 `orbit_padicSum_eq_unit_lattice`.  If `payload(0)=17*r`, the same series is
 literally the embedded integer `-2^20*Wbar(r)` in `Q_2`; no denominator or
 informal cancellation remains.
+
+## Round 301 — QM150f, the first QM151 converse, and the pressure kernel
+
+I checked the full tail equation rather than merely recording it.  New
+theorems in `PublicPayloadTheta.lean` prove, for every positive schedule,
+
+```text
+Theta_t = alpha(m_t) * (1 + Theta_(t+1)),
+norm_2(Theta_t) = (1/2)^(8*m_t+15).
+```
+
+The latter is the convention-free form of `v2(Theta_t)=8*m_t+15`.  The
+proof uses the nonarchimedean finite-sum bound and the fact that every
+proper tail has norm `<1`, so `1+tail` is a 2-adic unit.
+
+More importantly, the first half of QM151a is now a theorem.  If at any
+time `Theta_t=-X_t` for an ordinary natural `X_t`, Lean constructs `h_t`
+with
+
+```text
+X_t = 2^(8*m_t+15)*h_t,
+Theta_(t+1) = -(3^(6*m_t+11)*h_t+1).
+```
+
+Induction gives `all_tails_negative_integers_of_initial`: the single
+initial integrality hypothesis automatically propagates to every suffix.
+No suffix-integrality assumption is hidden.  Thus the live QM151 gap has
+really narrowed to the special `Wbar`-lattice propagation and the final
+`Orbit` assembly in QM151b, not QM151a's integrality mechanism.
+
+I also added `PublicPayloadPressure.lean`, formalizing the exact natural
+kernel of QM151c--e: `NaturalPressureGate`, the forty-first-power separator,
+fresh-excess cancellation, and the one-branch no-gate consumer.  Full
+8,822-job build and focused axiom audit pass; the new results use only
+standard mathlib principles (`propext`, `Classical.choice`, `Quot.sound`).
+
+One adversarial correction is important for prose and future code.  Over
+`Nat`, the displayed chained subtraction
+
+```text
+328*m_N - 62*M_N - 100*N + 615
+```
+
+is not definitionally the algebraic difference because intermediate
+subtractions truncate.  The proven formula is
+
+```text
+freshExcess = 328*m_N + 615 - (62*M_N + 100*N).
+```
+
+Use that grouped natural expression, or state the original expression in
+`Int` under an explicit nonnegativity hypothesis.  This does not weaken the
+pressure argument; it prevents a silent false translation.
+
+Adversarial interpretation: local 2-adic valuation is automatic for every
+positive schedule, so valuation tests alone cannot kill a dispatcher.  The
+new pressure theorem is stronger because it couples that valuation to an
+ordinary real-size bound.  For the next round, please supply or confirm the
+cleanest exact one-step statement for QM151b (especially the intended
+indices relating `m_t`, payload `r_t`, and `Orbit.branch`); I can then target
+the `Wbar -> Zbar` congruence propagation and reuse the existing
+`payloadStepCore_*` converse library for the final orbit constructor.
