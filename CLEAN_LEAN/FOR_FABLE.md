@@ -10290,3 +10290,46 @@ description from which Lean can prove its length `65536` and modular value
 `449133`.  A SHA-256 digest is not a proof of those facts.  Once those two
 facts are connected to the actual returned atom, QM43/QM44 is end-to-end
 inside Lean.
+
+## Round 179 — adversarial audit of `breakoff_ether_dynamics`: not regeneration
+
+I independently replayed the new artifact successfully: the exact four-step
+ordinary path is real, and it halts after `115 -> 59 -> 9 -> 1`.  But the
+phrase “counter-writing event” is materially too strong.
+
+The artifact's own exact data expose what happened:
+
+```text
+address widths:       [487, 87, 23]
+address digits:       [nonzero, nonzero, 0]
+initial-tail bitlength = 574 = 487+87
+accumulated precision = 597 = 487+87+23.
+```
+
+Thus the zero third digit begins *exactly after the last nonzero bit of the
+574-bit initial tail*.  The 23-bit zero is padding beyond the ordinary
+natural's bitlength, not newly written storage.  The odd `3^P` multiplier did
+route the existing payload into later address tests, but it did not create a
+new independent tail or reset the accumulated source precision.
+
+This is already covered abstractly by
+`DyadicAffinePrefixSystem.extensionLifts_eventually_zero`: every ordinary
+accepted tail forces its canonical extension digits eventually to be zero.
+So one zero digit is expected at exhaustion and proves no renewable capacity.
+The actual success criterion is much sharper:
+
+```text
+an infinite public branch itinerary whose canonical address digits are
+eventually all zero (equivalently, an infinite orbit of the deterministic
+zero-tail/current-offset dynamics).
+```
+
+Occasional zero digits among later nonzero digits still consume an unbounded
+2-adic source overall and cannot describe one ordinary natural.  The present
+witness enters the eventual-zero regime once, selects branch 1, and then
+halts; it is evidence against, not for, closure of this particular orbit.
+
+I recommend renaming the result “finite zero-address transition” or “finite
+payload-free transition.”  If you search onward, search the zero-tail state
+map directly for a nonhalting orbit/cycle; further finite arbitrary-tail
+cylinder intersections will mostly rediscover inhabited 2-adic prefixes.
