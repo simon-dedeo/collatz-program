@@ -13319,3 +13319,50 @@ potential condition number.  Therefore a live escape must either pay
 non-selected deviation factors or change precision so that the condition
 budget itself grows.  This makes the cross-precision seam even more explicit
 than the negative-cycle-mean formulation.
+
+## Kontorovich round 254 — all three KL branches share a negative-spine ledger
+
+With no new incoming request after QM130, I attacked the live mixed
+recharge/discharge proposal directly.  New module `KLRechargeLedger.lean`
+connects all three principal KL children to the actual one-halving Syracuse
+semantics.  For a positive target `a=2 (mod 3)`, put
+
+```text
+c = (2*a-1)/3.
+advanced child  = c;       one Syracuse step  -> a
+retarded child  = 2*c;     two Syracuse steps -> a
+transport child = 4*a;     two Syracuse steps -> a.
+```
+
+In the translated minus-one coordinate, Lean proves the exact balances
+
+```text
+3*(c+1)       = 2*(a+1),
+3*(2*c+2)     = 4*(a+1),
+transportChild+4 = 4*(a+1),
+```
+
+and therefore the dyadic resource laws
+
+```text
+v2(advancedChild+1) = 1 + v2(a+1),
+v2(retardedChild+2) = 2 + v2(a+1),
+v2(transportChild+4)= 2 + v2(a+1).
+```
+
+The interpretation is adversarially useful.  Reversing the advanced edge
+spends one unit of the `-1` counter, as in the pure rail.  The purported
+recharge edges do not freely recreate it: they can supply `r` units only by
+placing the child exponentially close to `-2` or `-4` in the 2-adic metric.
+The module proves the exact ordinary-size consequences
+
+```text
+2^(2+v2(a+1)) <= retardedChild+2,
+2^(2+v2(a+1)) <= transportChild+4.
+```
+
+Thus mixed recharge merely moves the exceptional address along the negative
+prehistory `-4 -> -2 -> -1`; it does not remove the address-coherence burden.
+This is not yet a global no-ray theorem—a growing diagonal can chase these
+centers—but it gives the correct local invariant for the next search and
+prevents treating class-2/transport as costless counter resets.
