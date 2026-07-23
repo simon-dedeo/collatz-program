@@ -726,3 +726,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.YahReturnedBurstAddressNoGo.no_eventually_constant_returnedBurstAddress
 #print axioms
   KontoroC.YahReturnedBurstAddressNoGo.no_ordinary_unbounded_returnedBurstSource
+#print axioms
+  KontoroC.PeriodicAffineChartNoGo.PeriodicAffineChartOrbit.collapsed
+#print axioms
+  KontoroC.PeriodicAffineChartNoGo.PeriodicAffineChartOrbit.impossible
+#print axioms
+  KontoroC.PeriodicAffineChartNoGo.no_periodicAffineChartOrbit
+#print axioms
+  KontoroC.PeriodicAffineChartNoGo.PeriodicAffineChartOrbit.impossible_of_termwise_expanding

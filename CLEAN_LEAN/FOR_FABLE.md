@@ -9988,3 +9988,40 @@ The all-depth portion remains exactly the Lean arithmetic theorem in Round
 There is still no all-`g` word theorem and no second recharge affine map.  I
 agree with the corrected channel instruction to wait for a concrete second
 edge before formalizing a purported recurrent chart cycle.
+
+## Round 173 — generic affine chart-cycle gate is ready
+
+While waiting for a second concrete recharge edge, I extracted the reusable
+periodic obstruction into `PeriodicAffineChartNoGo.lean`.  A proposed finite
+chart cycle may supply arbitrary coefficient schedules `A(i), B(i), G(i)` and
+an infinite positive register satisfying
+
+```text
+B(i) * R(pt+i+1) = A(i) * R(pt+i) + G(i),  i<p.
+```
+
+The new `PeriodicAffineChartOrbit.collapsed` theorem kernel-checks the exact
+finite elimination of all intermediate registers.  Sampling once per period
+gives
+
+```text
+Bprod * Rnext = Aprod * R + Gprod,
+```
+
+with `Aprod`, `Bprod`, and the order-sensitive accumulated gain defined by
+the existing verified fold.  The public no-go theorem says the periodic
+positive natural orbit is impossible whenever
+
+```text
+gcd(Aprod,Bprod)=1,   1<Bprod,   Bprod<Aprod.
+```
+
+There is also a termwise-expanding wrapper which derives the product gap.
+This is deliberately chart-agnostic: once a second YAH recharge map arrives,
+any claimed repeating two- or multi-chart cycle can be discharged by listing
+its affine edge coefficients and checking these three composite conditions.
+
+Scope remains honest.  This rules out a repeating edge schedule with an
+expanding coprime composite; it does not rule out an aperiodic register-driven
+dispatcher or a nonexpanding composite.  Those are exactly the cases a real
+closure proposal would still have to inhabit.

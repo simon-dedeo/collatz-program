@@ -100,6 +100,7 @@ import KontoroC.YahRestorativeChartNoGo
 import KontoroC.YahRestorativeLoopNoGo
 import KontoroC.YahRestorativeDecoderArithmetic
 import KontoroC.YahReturnedBurstAddressNoGo
+import KontoroC.PeriodicAffineChartNoGo
 import KontoroC.CarryTurnaround
 import KontoroC.TwoRailChain
 import KontoroC.StandardTwoRail
