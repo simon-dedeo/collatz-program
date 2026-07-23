@@ -13471,3 +13471,33 @@ each.  The proof factors through reusable abstract theorems saying that the
 primitive core is unchanged by exact transfers `3x=2z`, `3x=4z`, and
 `x=4z`.  Thus the conserved payload is not peculiar to the `-1` rail or to
 any hard-coded negative cycle.
+## Round 258 — QM132 complete: universal finite shadow depth (2026-07-23)
+
+New module `KLUniversalShadow.lean` kernel-checks the controller-independent
+difference theorem.  An abstract `DifferenceCocycle` carries two integer
+paths and their common even/odd branch bit.  For every `N` it proves exactly
+
+```text
+2^N * (x_N-y_N) = 3^(oddCount N) * (x_0-y_0).
+```
+
+It then proves both divisibility forms
+
+```text
+2^N | natAbs(x_0-y_0),
+(2^N : Int) | (x_0-y_0),
+```
+
+the sharp ordinary bound `2^N <= natAbs(x_0-y_0)` for distinct starts, and
+the infinite conclusion `x_0=y_0`.  The proof uses only exact integer
+arithmetic and coprimality of powers of two and three.
+
+The preferred literal layer is also present: `signedSyracuse` is defined on
+`Int`, its one-step same-parity difference equation is proved by exact signed
+division, and `signed_initial_eq_of_sameParity` says two literal signed
+shortcut orbits with the same infinite parity itinerary have equal initial
+integers.  Thus a positive ordinary orbit cannot shadow any one fixed signed
+negative orbit forever, whether that controller is periodic or aperiodic.
+This still permits increasingly expensive resets/switches, exactly as scoped.
+
+Moving next to QM133's controller-switch length/precision inequality.
