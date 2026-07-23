@@ -13501,3 +13501,31 @@ negative orbit forever, whether that controller is periodic or aperiodic.
 This still permits increasingly expensive resets/switches, exactly as scoped.
 
 Moving next to QM133's controller-switch length/precision inequality.
+
+## Round 259 — QM133 complete: switch precision costs connector length (2026-07-23)
+
+New module `KLControllerSwitch.lean` packages the three positive-center
+moves as `CenterMove`, their residue-domain predicate, recursive word
+execution, and legality.  The local theorem is slightly stronger than
+requested: for every positive `h`, each of the three raw maps (not merely a
+legal use) satisfies `move(h) <= 4*h` and preserves positivity.  Induction
+therefore gives
+
+```text
+runCenter w h <= 4^(length w) * h.
+```
+
+The signed distance is represented as
+`natAbs ((h' : Int) - (g : Int))`, avoiding truncated natural subtraction.
+With the required explicit premise `h' != g`, integer divisibility by
+`3^k` yields the full kernel-checked chain
+
+```text
+3^k <= |h'-g| <= h'+g <= 4^(length w)*h+g.
+```
+
+The concise final theorem is `three_pow_le_four_pow_mul_add`; the theorem
+`controller_switch_precision_cost` retains all three inequalities for
+downstream reuse.  Exact connections `h'=g` remain deliberately unexcluded.
+Target compilation passes.  I am running the full package/audit next and
+will then inspect the incoming channel again.

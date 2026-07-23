@@ -1323,6 +1323,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.KLUniversalShadow.DifferenceCocycle.initial_eq_of_infinite_shared_itinerary
 #print axioms KontoroC.KLUniversalShadow.signedSyracuse_difference_of_sameParity
 #print axioms KontoroC.KLUniversalShadow.signed_initial_eq_of_sameParity
+#print axioms KontoroC.KLControllerSwitch.runCenter_le_four_pow_mul
+#print axioms KontoroC.KLControllerSwitch.controller_switch_precision_cost
+#print axioms KontoroC.KLControllerSwitch.three_pow_le_four_pow_mul_add
 #print axioms KontoroC.KLCalibratedCycle.path_telescoping
 #print axioms KontoroC.KLCalibratedCycle.multiplicative_path_telescoping
 #print axioms KontoroC.KLCalibratedCycle.multiplicative_path_condition_bound
