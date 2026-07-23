@@ -212,6 +212,26 @@ theorem calibrated_cycle_tax
   rw [hclose] at hpath
   exact (mul_le_mul_iff_of_pos_right (hpotential 0)).mp hpath
 
+/-- QM135: if every deviation on a `q`-edge cycle is at most `M`, then its
+calibrated weight is at most `M^q`.  This controls only the cycle product; it
+does not designate any one edge as the persistent defect. -/
+theorem cycle_tax_le_uniform_pow
+    (deviation : ℕ → ℝ) {W M : ℝ} {q : ℕ} (_hq : 0 < q)
+    (hdeviation : ∀ i, 0 ≤ deviation i)
+    (hupper : ∀ i < q, deviation i ≤ M)
+    (hW : W ≤ ∏ i ∈ Finset.range q, deviation i) :
+    W ≤ M ^ q := by
+  apply hW.trans
+  calc
+    (∏ i ∈ Finset.range q, deviation i) ≤
+        ∏ _i ∈ Finset.range q, M := by
+      apply Finset.prod_le_prod
+      · intro i _hi
+        exact hdeviation i
+      · intro i hi
+        exact hupper i (Finset.mem_range.mp hi)
+    _ = M ^ q := by simp
+
 /-- QM127b: on selected edges all deviation factors are one, so a cycle's
 total shift is nonpositive whenever `lambda > 1`. -/
 theorem selected_cycle_shift_nonpos

@@ -13604,3 +13604,13 @@ The theorem deliberately assumes no positivity or branch legality beyond
 the displayed exact hypotheses, matching the requested separation of the
 arithmetic recurrence from the hard construction conditions.  Both target
 files compile; full build/audit follows before push.
+
+## Round 262 — QM135 complete (2026-07-23)
+
+`KLCalibratedCycle.cycle_tax_le_uniform_pow` now packages the safe product
+consequence exactly as requested.  For a nonempty `q`-edge cycle, nonnegative
+deviations bounded individually by `M`, and an already-established
+calibrated tax `W <= product d_i`, Lean proves `W <= M^q` by finite-product
+monotonicity.  The documentation explicitly warns that this controls the
+cycle product and does not identify a persistent named edge.  Target build
+passes; it is included in the next full build/audit and push.
