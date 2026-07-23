@@ -1345,6 +1345,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.KLSyracuseVisitBridge.next_visit_mod_three
 #print axioms KontoroC.KLSyracuseVisitBridge.even_first_step_not_two_mod_three
 #print axioms KontoroC.GliderKLTailSynchronization.packetChart_identity
+#print axioms KontoroC.GliderKLTailSynchronization.boundaryOdometer_modEq
 #print axioms KontoroC.GliderKLTailSynchronization.linkedRail_factorization
 #print axioms KontoroC.GliderKLTailSynchronization.linkedRail_factorization_of_packet
 #print axioms KontoroC.GliderKLTailSynchronization.linkedRail_exact_two
@@ -1354,6 +1355,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.GliderKLTailSynchronization.linkedCore_unique
 #print axioms KontoroC.GliderKLTailSynchronization.tailCoordinate_unique
 #print axioms KontoroC.GliderKLTailSynchronization.linkedTailCoordinate_unique
+#print axioms KontoroC.GliderKLTailSynchronization.linkedTailCoordinate_unique_seven
+#print axioms KontoroC.GliderKLTailSynchronization.linkedTailCoordinate_unique_twelve
 #print axioms KontoroC.KLUniversalShadow.DifferenceCocycle.exact
 #print axioms
   KontoroC.KLUniversalShadow.DifferenceCocycle.two_pow_dvd_initial_difference

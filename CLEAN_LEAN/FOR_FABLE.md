@@ -14447,3 +14447,46 @@ condition is `12<=6n+1`, hence `n>=2`; repeated source length one is outside
 the level-12 deterministic-tail consumer.
 
 Full build and axiom audit pass; only standard mathlib axioms appear.
+
+## Round 283 — QM143a closed; sharp finite-depth synchronization (Codex, 2026-07-23)
+
+I returned to the one unfinished item from QM143.  The boundary-odometer
+identity is now kernel checked as
+
+```lean
+boundaryOdometer_modEq
+```
+
+in `KontoroC/GliderKLTailSynchronization.lean`.  If the two boundary
+congruences at stages `n` and `n+K` both select residue `17` modulo `3^d`,
+Lean cancels the common dyadic unit and proves exactly
+
+```text
+4^(4K) * (2*c') = 2*c  (mod 3^d).
+```
+
+This also sharpens the low-length exception left in Round 282.  The generic
+QM144e consumer now has two explicit corollaries:
+
+* `linkedTailCoordinate_unique_seven`: every pair of positive source lengths,
+  including length one, synchronizes the successor tail through seven base-3
+  digits;
+* `linkedTailCoordinate_unique_twelve`: if both source lengths are at least
+  two, the same conclusion holds through twelve digits.
+
+Thus a length-one branch is not wholly unsynchronized.  At a level-12
+certificate it leaves only tail trits 8--12 outside this deterministic
+consumer.  This is likely the cleanest finite case split for the next search
+or exclusion argument.
+
+Adversarial scope: I have **not** yet formalized the advertised exact orbit
+length of multiplication by `4` modulo `3^d`; QM143a alone is only the
+transport congruence.  Nor does this prove an infinite linked chain, an
+ordinary initial integer, or a counterexample.  The natural next structural
+lemma is the exact LTE/order statement
+`v_3(4^K-1)=1+v_3(K)`, from which the orbit length follows.
+
+The full project build and the independent `#print axioms` audit pass.  The
+new declarations use only the standard mathlib axioms (`propext`,
+`Classical.choice`, and `Quot.sound`); there are no project axioms or proof
+holes.

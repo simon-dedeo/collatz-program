@@ -25,6 +25,40 @@ The main conclusions are:
 namespace KontoroC
 namespace GliderKLTailSynchronization
 
+/-- QM143a: consecutive EC17 coefficient congruences induce the boundary
+odometer step.  This is the universal algebraic clock; no claim about the
+existence of a linked infinite orbit is used. -/
+theorem boundaryOdometer_modEq {c c' : ℤ} {n K d : ℕ}
+    (h₁ : Int.ModEq (3 ^ d) (2 ^ (8 * n + 15) * c) 17)
+    (h₂ : Int.ModEq (3 ^ d) (2 ^ (8 * (n + K) + 15) * c') 17) :
+    Int.ModEq (3 ^ d) (4 ^ (4 * K) * (2 * c')) (2 * c) := by
+  have hexp : (2 : ℤ) ^ (8 * (n + K) + 15) =
+      2 ^ (8 * n + 15) * 2 ^ (8 * K) := by
+    rw [← pow_add]
+    congr 1
+    omega
+  have hfactor : Int.ModEq (3 ^ d)
+      (2 ^ (8 * n + 15) * (2 ^ (8 * K) * c'))
+      (2 ^ (8 * n + 15) * c) := by
+    rw [← mul_assoc, ← hexp]
+    exact h₂.trans h₁.symm
+  rw [Int.modEq_iff_dvd] at hfactor
+  have hcoprime : IsCoprime ((3 : ℤ) ^ d) (2 ^ (8 * n + 15)) :=
+    (by norm_num : IsCoprime (3 : ℤ) 2).pow
+  have hcancelDvd : (3 : ℤ) ^ d ∣ c - 2 ^ (8 * K) * c' := by
+    apply hcoprime.dvd_of_dvd_mul_left
+    simpa [mul_sub] using hfactor
+  have hcancel : Int.ModEq (3 ^ d) (2 ^ (8 * K) * c') c := by
+    rwa [Int.modEq_iff_dvd]
+  have hdouble := hcancel.mul_right 2
+  convert hdouble using 1
+  · rw [show (4 : ℤ) ^ (4 * K) = 2 ^ (8 * K) by
+      rw [show (4 : ℤ) = 2 ^ 2 by norm_num, ← pow_mul]
+      congr 1
+      omega]
+    ring
+  · ring
+
 /-- QM144a: the packet/core chart implies the moving-target identity for
 the literal boundary numerator `Z`. -/
 theorem packetChart_identity {K u Z : ℤ} {n : ℕ} (hn : 1 ≤ n)
@@ -262,6 +296,36 @@ theorem linkedTailCoordinate_unique
   apply tailCoordinate_unique
     (linkedCore_unique (linkedCore_modEq hd₁ hlink₁)
       (linkedCore_modEq hd₂ hlink₂)) hu₁' hu₂'
+
+/-- Every pair of positive source branches synchronizes the first seven
+tail trits, including the exceptional source length one. -/
+theorem linkedTailCoordinate_unique_seven
+    {u₁ u₂ u₁' u₂' U q₁ q₂ : ℤ} {n₁ n₂ m : ℕ}
+    (hn₁ : 1 ≤ n₁) (hn₂ : 1 ≤ n₂)
+    (hlink₁ :
+      2 ^ (8 * m + 15) * u₁' = 3 ^ (6 * n₁ + 11) * u₁ + 17)
+    (hlink₂ :
+      2 ^ (8 * m + 15) * u₂' = 3 ^ (6 * n₂ + 11) * u₂ + 17)
+    (hu₁' : u₁' = U + 473 * 2 ^ 20 * 3 ^ 10 * q₁)
+    (hu₂' : u₂' = U + 473 * 2 ^ 20 * 3 ^ 10 * q₂) :
+    Int.ModEq (3 ^ 7) q₁ q₂ := by
+  exact linkedTailCoordinate_unique (by omega) (by omega)
+    hlink₁ hlink₂ hu₁' hu₂'
+
+/-- At level twelve, synchronization holds uniformly once both source
+branches contain at least two ether cells. -/
+theorem linkedTailCoordinate_unique_twelve
+    {u₁ u₂ u₁' u₂' U q₁ q₂ : ℤ} {n₁ n₂ m : ℕ}
+    (hn₁ : 2 ≤ n₁) (hn₂ : 2 ≤ n₂)
+    (hlink₁ :
+      2 ^ (8 * m + 15) * u₁' = 3 ^ (6 * n₁ + 11) * u₁ + 17)
+    (hlink₂ :
+      2 ^ (8 * m + 15) * u₂' = 3 ^ (6 * n₂ + 11) * u₂ + 17)
+    (hu₁' : u₁' = U + 473 * 2 ^ 20 * 3 ^ 10 * q₁)
+    (hu₂' : u₂' = U + 473 * 2 ^ 20 * 3 ^ 10 * q₂) :
+    Int.ModEq (3 ^ 12) q₁ q₂ := by
+  exact linkedTailCoordinate_unique (by omega) (by omega)
+    hlink₁ hlink₂ hu₁' hu₂'
 
 end GliderKLTailSynchronization
 end KontoroC
