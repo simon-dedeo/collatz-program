@@ -371,6 +371,43 @@ theorem padicValRat_threeHalves_pow_sub_one (d : ℕ) (hd : 0 < d) :
   rw [sub_eq_add_neg]
   rw [padicValRat.add_eq_of_lt hgap hpow (by norm_num) hlt, hvalpow]
 
+/-- The auxiliary prime in the Skolem--Hermite proof divides the numerator
+of `q`.  For the project's `q=3/2` specialization this is `rho=3`, not the
+target-field prime two.  Every power gap is a 3-adic unit, so the entire gap
+product contributes no hidden `rho`-valuation. -/
+theorem padicValRat_three_threeHalves_pow_sub_one (d : ℕ) (hd : 0 < d) :
+    padicValRat 3 (((3 : ℚ) / 2) ^ d - 1) = 0 := by
+  have hq : (3 : ℚ) / 2 ≠ 0 := by norm_num
+  have hpow : ((3 : ℚ) / 2) ^ d ≠ 0 := pow_ne_zero d hq
+  have hgt : (1 : ℚ) < ((3 : ℚ) / 2) ^ d := by
+    exact one_lt_pow₀ (by norm_num) hd.ne'
+  have hgap : (-1 : ℚ) + ((3 : ℚ) / 2) ^ d ≠ 0 := by
+    rw [add_comm]
+    simpa only [sub_eq_add_neg] using sub_ne_zero.mpr (ne_of_gt hgt)
+  have hvalq : padicValRat 3 ((3 : ℚ) / 2) = 1 := by
+    rw [padicValRat.div (by norm_num) (by norm_num)]
+    have hval3 : padicValRat 3 (3 : ℚ) = 1 := by
+      rw [show (3 : ℚ) = ((3 : ℕ) : ℚ) by norm_num,
+        padicValRat.of_nat]
+      simpa using (padicValNat.prime_pow (p := 3) 1)
+    have hval2 : padicValRat 3 (2 : ℚ) = 0 := by
+      rw [show (2 : ℚ) = ((2 : ℕ) : ℚ) by norm_num,
+        padicValRat.of_nat]
+      exact_mod_cast padicValNat.eq_zero_of_not_dvd
+        (p := 3) (n := 2) (by norm_num)
+    rw [hval3, hval2]
+    norm_num
+  have hvalpow : padicValRat 3 (((3 : ℚ) / 2) ^ d) = (d : ℤ) := by
+    rw [padicValRat.pow, hvalq]
+    simp
+  have hlt : padicValRat 3 (-1 : ℚ) <
+      padicValRat 3 (((3 : ℚ) / 2) ^ d) := by
+    rw [padicValRat.neg, padicValRat.one, hvalpow]
+    exact_mod_cast hd
+  rw [sub_eq_add_neg, add_comm]
+  rw [padicValRat.add_eq_of_lt hgap (by norm_num) hpow hlt,
+    padicValRat.neg, padicValRat.one]
+
 /-- The same noncancellation fact without mentioning valuations. -/
 theorem threeHalves_pow_sub_one_ne_zero (d : ℕ) (hd : 0 < d) :
     ((3 : ℚ) / 2) ^ d - 1 ≠ 0 := by
@@ -412,6 +449,26 @@ theorem padicValRat_threeHalvesGapProduct (ν : ℕ) :
       push_cast
       omega
 
+/-- At the paper's auxiliary prime `rho=3`, the complete boundary gap
+product is a unit. -/
+theorem padicValRat_three_threeHalvesGapProduct (ν : ℕ) :
+    padicValRat 3 (threeHalvesGapProduct ν) = 0 := by
+  induction ν with
+  | zero => simp [threeHalvesGapProduct]
+  | succ ν ih =>
+      have hsucc : threeHalvesGapProduct (ν + 1) =
+          threeHalvesGapProduct ν * (((3 : ℚ) / 2) ^ (ν + 1) - 1) := by
+        rw [threeHalvesGapProduct, show ν + 1 = ν.succ by omega,
+          Finset.prod_range_succ]
+        rfl
+      rw [hsucc]
+      rw [padicValRat.mul
+        (threeHalvesGapProduct_ne_zero ν)
+        (threeHalves_pow_sub_one_ne_zero (ν + 1) (by omega))]
+      rw [ih, padicValRat_three_threeHalves_pow_sub_one
+        (ν + 1) (by omega)]
+      norm_num
+
 /-- The decreasing address order produced by the Hermite recurrence is
 exactly the increasing gap product above.  This is the bookkeeping bridge
 between the generic boundary formula and its 2-adic specialization. -/
@@ -446,6 +503,15 @@ theorem padicValRat_boundaryGapProduct_threeHalves (ν : ℕ) :
       -(exponent ν : ℤ) := by
   rw [boundaryGapProduct_threeHalves,
     padicValRat_threeHalvesGapProduct]
+
+/-- The literal decreasing-order boundary product is likewise a unit at the
+paper's auxiliary prime. -/
+theorem padicValRat_three_boundaryGapProduct_threeHalves (ν : ℕ) :
+    padicValRat 3
+      (∏ a ∈ Finset.range ν,
+        ((((3 : ℚ) / 2) ^ a)⁻¹ * ((3 : ℚ) / 2) ^ ν - 1)) = 0 := by
+  rw [boundaryGapProduct_threeHalves,
+    padicValRat_three_threeHalvesGapProduct]
 
 /-- Consequently every source polynomial `P_μ(α)` with `μ<ν` vanishes
 exactly.  This proves the zero pattern used before the paper's genuinely

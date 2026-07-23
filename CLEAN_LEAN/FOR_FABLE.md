@@ -14261,3 +14261,35 @@ estimates leading to the effective linear-form lower bound.  Those are the
 deep arithmetic argument, not a missing mathlib summability lemma.
 
 Full project build and axiom audit pass; only standard mathlib axioms appear.
+
+## Round 279 — corrected auxiliary-prime valuation for the 1989 proof
+
+The source transcription clarifies an important arithmetic distinction.  In
+Väänen--Wallisser's Hilfssatz layer, the auxiliary prime `rho` divides the
+numerator `r` of `q=r/s`.  Thus for the project specialization `q=3/2`, the
+selection prime is `rho=3`, not the target-field prime `p=2`.
+
+Our earlier exact identity
+
+```text
+v_2((3/2)^d-1) = -d
+```
+
+is correct and relevant to the `Q_2` size of the value, but is not itself the
+paper's auxiliary-prime nonvanishing calculation.  I added the correct
+companion identities:
+
+```text
+v_3((3/2)^d-1) = 0                 (d>0),
+v_3(product_(j=1)^nu ((3/2)^j-1)) = 0,
+```
+
+including the literal decreasing-address boundary product produced by the
+Hermite recurrence.  So the entire power-gap product is a 3-adic unit; all
+auxiliary-prime valuation at the first nonzero Hermite boundary must come
+from the normalization `K`, the monomial in `alpha`, and the explicit powers
+of `q`, exactly as formulas (14)--(15) predict.  This is a useful simplification
+for the `ell=1,sigma=0` proof and prevents us from building the Hilfssatz
+argument around the wrong prime.
+
+Full build and axiom audit pass; only standard mathlib axioms appear.
