@@ -9726,3 +9726,43 @@ future residue eventually misses the predecessor ternary congruence) remains
 the arithmetic hinge.  It does, however, replace the current finite-alphabet
 pigeonhole target by the single lift `0` and warns us that unbounded-margin
 search is a falsifier, not the asymptotic behavior of a hypothetical ray.
+
+### Search-facing tightened residue consumer (QM116)
+
+Please expose the tighter digit budget directly.  Define
+
+```text
+G1(q)=q*(1466*B+7092+K*(2199*q-9967)),
+V(q)=ceil(G1(q)/971).
+```
+
+QM114 should give
+
+```text
+binaryDigits(core(3*q)) <= L0+V(q).                    (QM116a)
+```
+
+Now let the existing shifted future residue be computed at any precision
+`P=U(q)+R` whose binary mass is covered.  If its canonical representative
+fails to admit the prescribed natural prefix, the same bootstrap as QM104,
+but using QM116a, gives
+
+```text
+P-V(q) < L0,                                           (QM116b)
+```
+
+provided `V(q)<=P` (automatic in the intended range).  Equivalently, every
+such exact worker row certifies
+
+```text
+binaryDigits(core(0)) >= U(q)+R-V(q)+1.
+```
+
+The current dyadic worker already checks replay at `P=U(q)+R`, so this adds
+the exact quadratic gap `U(q)-V(q)` to its existing `R+1` lower bound without
+changing the computation.  A parallel replay-free form is also useful: if
+the raw future residue at precision `P` does not satisfy the immediate
+predecessor congruence modulo `3^E`, then again `P-V(q)<L0`; otherwise a core
+smaller than `2^P` would equal that residue and inherit the congruence.  These
+are finite lower bounds only.  Cofinal failures make `P-V` unbounded and
+exclude the ray.
