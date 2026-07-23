@@ -214,5 +214,146 @@ theorem signed_initial_eq_of_sameParity (x y : ℤ)
   change signedOrbit x 0 = signedOrbit y 0 at h
   simpa [signedOrbit] using h
 
+/-! ## Converse: dyadic cylinders are exact
+
+The divisibility obstruction above is sharp at every finite depth.  Two
+integers congruent modulo `2^N` necessarily have the same first `N` branch
+choices.  Thus finite signed shadows can always be manufactured; only a
+single coherent infinite shadow is excluded by the preceding theorem.
+-/
+
+/-- One dyadic digit of agreement gives the same parity, and removing that
+digit by one shortcut step leaves the remaining dyadic agreement. -/
+theorem sameParity_and_next_dvd_of_two_pow_succ_dvd {x y : ℤ} {N : ℕ}
+    (hdiv : (((2 ^ (N + 1) : ℕ) : ℤ)) ∣ x - y) :
+    (Even x ↔ Even y) ∧
+      (((2 ^ N : ℕ) : ℤ)) ∣ signedSyracuse x - signedSyracuse y := by
+  rcases hdiv with ⟨t, ht⟩
+  have htwo : Even (x - y) := by
+    refine ⟨((2 : ℤ) ^ N) * t, ?_⟩
+    rw [ht]
+    push_cast
+    rw [pow_succ]
+    ring
+  have hsame : Even x ↔ Even y := Int.even_sub.mp htwo
+  refine ⟨hsame, ?_⟩
+  use (if Even x then 1 else 3) * t
+  apply mul_left_cancel₀ (by norm_num : (2 : ℤ) ≠ 0)
+  calc
+    2 * (signedSyracuse x - signedSyracuse y) =
+        (if Even x then 1 else 3) * (x - y) :=
+      signedSyracuse_difference_of_sameParity hsame
+    _ = (if Even x then 1 else 3) *
+        (((2 : ℤ) ^ (N + 1)) * t) := by
+      rw [ht]
+      push_cast
+      rfl
+    _ = 2 * (((2 : ℤ) ^ N) *
+        ((if Even x then 1 else 3) * t)) := by
+      rw [pow_succ]
+      ring
+
+/-- Sufficiency direction: congruence modulo `2^N` fixes every one of the
+first `N` shortcut parity labels. -/
+theorem sameParity_of_two_pow_dvd (N : ℕ) (x y : ℤ)
+    (hdiv : (((2 ^ N : ℕ) : ℤ)) ∣ x - y) :
+    ∀ j < N, Even (signedOrbit x j) ↔ Even (signedOrbit y j) := by
+  induction N generalizing x y with
+  | zero => simp
+  | succ N ih =>
+      have hsplit :=
+        sameParity_and_next_dvd_of_two_pow_succ_dvd (N := N) hdiv
+      intro j hj
+      cases j with
+      | zero => simpa [signedOrbit] using hsplit.1
+      | succ j =>
+          have hjN : j < N := by omega
+          have htail := ih (signedSyracuse x) (signedSyracuse y) hsplit.2 j hjN
+          simpa [signedOrbit, Function.iterate_succ_apply] using htail
+
+/-- Necessity direction, localized to a finite common itinerary. -/
+theorem two_pow_dvd_of_sameParity (N : ℕ) (x y : ℤ)
+    (hsame : ∀ j < N,
+      Even (signedOrbit x j) ↔ Even (signedOrbit y j)) :
+    (((2 ^ N : ℕ) : ℤ)) ∣ x - y := by
+  induction N generalizing x y with
+  | zero => simp
+  | succ N ih =>
+      have hhead : Even x ↔ Even y := by
+        simpa [signedOrbit] using hsame 0 (by omega)
+      have htail : ∀ j < N,
+          Even (signedOrbit (signedSyracuse x) j) ↔
+            Even (signedOrbit (signedSyracuse y) j) := by
+        intro j hj
+        have h := hsame (j + 1) (by omega)
+        simpa [signedOrbit, Function.iterate_succ_apply] using h
+      rcases ih (signedSyracuse x) (signedSyracuse y) htail with ⟨t, ht⟩
+      have hstep := signedSyracuse_difference_of_sameParity hhead
+      have hmul : (((2 ^ (N + 1) : ℕ) : ℤ)) ∣
+          (if Even x then 1 else 3) * (x - y) := by
+        use t
+        push_cast
+        rw [pow_succ]
+        calc
+          (if Even x then 1 else 3) * (x - y) =
+              2 * (signedSyracuse x - signedSyracuse y) := hstep.symm
+          _ = 2 * (((2 : ℤ) ^ N) * t) := by
+            rw [ht]
+            push_cast
+            rfl
+          _ = ((2 : ℤ) ^ N * 2) * t := by ring
+      by_cases hx : Even x
+      · simpa [hx] using hmul
+      · have hcop : Nat.Coprime (2 ^ (N + 1)) 3 :=
+          Nat.Coprime.pow_left (N + 1) (by norm_num)
+        have hmul' : (((2 ^ (N + 1) : ℕ) : ℤ)) ∣ 3 * (x - y) := by
+          simpa [hx] using hmul
+        rw [Int.natCast_dvd] at hmul' ⊢
+        rw [Int.natAbs_mul] at hmul'
+        norm_num at hmul'
+        exact hcop.dvd_of_dvd_mul_left hmul'
+
+/-- Exact finite cylinder theorem: the first `N` signed shortcut choices are
+equal exactly when the starts agree modulo `2^N`. -/
+theorem two_pow_dvd_iff_sameParity (N : ℕ) (x y : ℤ) :
+    (((2 ^ N : ℕ) : ℤ)) ∣ x - y ↔
+      ∀ j < N, Even (signedOrbit x j) ↔ Even (signedOrbit y j) := by
+  exact ⟨sameParity_of_two_pow_dvd N x y,
+    two_pow_dvd_of_sameParity N x y⟩
+
+/-- A canonical negative representative of the depth-`N` dyadic cylinder
+containing `x`. -/
+def negativeShadow (x : ℤ) (N : ℕ) : ℤ :=
+  x - (2 : ℤ) ^ N * ((x.natAbs : ℤ) + 1)
+
+theorem negativeShadow_lt_zero (x : ℤ) (N : ℕ) :
+    negativeShadow x N < 0 := by
+  have hx : x ≤ (x.natAbs : ℤ) := by
+    rw [Int.natCast_natAbs]
+    exact le_abs_self x
+  have hp : (1 : ℤ) ≤ (2 : ℤ) ^ N :=
+    one_le_pow₀ (by norm_num)
+  have ha : (0 : ℤ) ≤ (x.natAbs : ℤ) + 1 := by positivity
+  have hmul := mul_le_mul_of_nonneg_right hp ha
+  dsimp [negativeShadow]
+  omega
+
+theorem two_pow_dvd_sub_negativeShadow (x : ℤ) (N : ℕ) :
+    (2 : ℤ) ^ N ∣ x - negativeShadow x N := by
+  use (x.natAbs : ℤ) + 1
+  simp [negativeShadow]
+
+/-- Every signed shortcut cylinder has negative representatives.  Therefore
+finite positive/negative shadowing alone is not evidence for an exceptional
+orbit; a construction must add coherence or an independent controller
+constraint. -/
+theorem exists_negative_sameParity_prefix (x : ℤ) (N : ℕ) :
+    ∃ y < 0, ∀ j < N,
+      Even (signedOrbit x j) ↔ Even (signedOrbit y j) := by
+  refine ⟨negativeShadow x N, negativeShadow_lt_zero x N, ?_⟩
+  apply sameParity_of_two_pow_dvd N
+  change (2 : ℤ) ^ N ∣ x - negativeShadow x N
+  exact two_pow_dvd_sub_negativeShadow x N
+
 end KLUniversalShadow
 end KontoroC

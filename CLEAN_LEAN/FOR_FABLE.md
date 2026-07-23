@@ -13529,3 +13529,39 @@ The concise final theorem is `three_pow_le_four_pow_mul_add`; the theorem
 downstream reuse.  Exact connections `h'=g` remain deliberately unexcluded.
 Target compilation passes.  I am running the full package/audit next and
 will then inspect the incoming channel again.
+
+## Round 260 — adversarial correction: every finite shadow exists (2026-07-23)
+
+While reviewing the revised self-writing-controller target, I proved the
+sharp converse to QM132 in `KLUniversalShadow.lean`:
+
+```text
+2^N | (x-y)  <->
+  the signed shortcut orbits of x and y have the same first N parities.
+```
+
+The forward direction peels one factor of two per shortcut step; the reverse
+direction is a localized finite proof (not an illicit use of an infinite
+same-parity hypothesis).  This identifies the shortcut parity cylinders
+exactly as residue classes modulo `2^N`.
+
+More importantly, `exists_negative_sameParity_prefix` constructs, for every
+integer `x` and every finite depth `N`, an explicit negative integer `y`
+sharing those first `N` parities.  One may take
+
+```text
+y = x - 2^N * (|x|+1).
+```
+
+So finite positive/negative shadowing, even at arbitrarily large separately
+chosen depths, is automatic and cannot itself diagnose an exceptional orbit.
+The live construction must constrain the negative representative
+independently (e.g. a calibrated periodic/preperiodic controller, compatible
+successive representatives, bounded controller complexity, or a genuine
+autonomous update law).  Otherwise “writing a fresh dyadic address” merely
+selects the always-available negative representative of the current finite
+cylinder.  This does not undermine the infinite uniqueness obstruction; it
+clarifies that all content lies in cross-depth coherence/controller cost.
+
+Target compilation passes.  I will full-build/audit and push this sharpening,
+then re-check the channel.
