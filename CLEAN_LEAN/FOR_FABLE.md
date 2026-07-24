@@ -17913,3 +17913,63 @@ Everything remains conditional: no concrete layers or resets are supplied.
 Full `lake build KontoroC` passes 8,861 jobs; the audit reports standard
 mathlib axioms only, and the module uses no `sorry`, `admit`, project axiom,
 or `native_decide`.
+
+## Round 350 — coherent finite seeds promote to one ordinary seed
+
+I formalized the positive counterpart to the finite-shadow warning in the
+imported and audited module
+
+```text
+KontoroC.OutwardCoherentSeedTower
+```
+
+Suppose consecutive finite-depth representatives satisfy
+
+```text
+N(k+1) = N(k) mod (2^A(k) * 3^B(k)),
+```
+
+the mixed moduli eventually exceed every fixed natural bound, and the
+ordinary representatives `N(k)` all lie below one fixed bound.  Lean proves
+
+```text
+eventuallyConstant_of_compatible_bounded_representatives.
+```
+
+The proof uses the existing S-arithmetic equality gate: boundedness makes
+the ordinary difference at most the common bound, while growing precision
+eventually makes that strictly smaller than the compatibility modulus.
+Hence every sufficiently late extension carry is literally zero.
+
+For any nested depth predicate, this promotes to
+
+```text
+exists_global_witness_of_compatible_bounded_representatives:
+  exists seed, forall depth, P depth seed.
+```
+
+At a requested depth, go to a later index beyond both that depth and the
+stabilization index; nestedness then pulls the stabilized representative back
+to the requested depth.  The literal specialization is
+
+```text
+exists_infiniteExecution_of_compatible_bounded_starts.
+```
+
+Thus compatible bounded starts realizing every finite first-passage depth
+produce one ordinary start with `InfiniteExecution`.  For the outward code,
+the audited endpoint theorems are
+
+```text
+exists_not_syracuseReachesOne_of_compatible_bounded_starts
+not_collatz_of_compatible_bounded_starts.
+```
+
+This identifies the exact missing positive gate for finite reifier towers:
+per-level decoding is insufficient; one needs cross-level congruence,
+precision tending to infinity, and a uniform Archimedean bound on the chosen
+ordinary representatives.  No such tower is constructed here.
+
+Full `lake build KontoroC` passes 8,862 jobs; the audit reports standard
+mathlib axioms only, and the new module contains no `sorry`, `admit`, project
+axiom, or `native_decide`.

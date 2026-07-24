@@ -2123,5 +2123,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardRankedLayerReset.rankedLayers_give_not_syracuseReachesOne
 #print axioms KontoroC.OutwardRankedLayerReset.rankedLayers_give_not_collatz
+#print axioms
+  KontoroC.OutwardCoherentSeedTower.eventuallyConstant_of_compatible_bounded_representatives
+#print axioms
+  KontoroC.OutwardCoherentSeedTower.exists_global_witness_of_compatible_bounded_representatives
+#print axioms
+  KontoroC.OutwardCoherentSeedTower.exists_infiniteExecution_of_compatible_bounded_starts
+#print axioms
+  KontoroC.OutwardCoherentSeedTower.exists_not_syracuseReachesOne_of_compatible_bounded_starts
+#print axioms
+  KontoroC.OutwardCoherentSeedTower.not_collatz_of_compatible_bounded_starts
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
