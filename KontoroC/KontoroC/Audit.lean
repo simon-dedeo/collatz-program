@@ -2159,5 +2159,23 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardFeaturePolicyGap.badFeatures_nonempty_iff_exists_featureGap
 #print axioms
   KontoroC.OutwardFeaturePolicyGap.no_featurePolicy_sameLayer_literalRecharge
+#print axioms
+  KontoroC.OutwardOrdinaryRootDichotomy.boundedRange_of_eventuallyConstant
+#print axioms
+  KontoroC.OutwardOrdinaryRootDichotomy.eventuallyConstant_iff_boundedRange
+#print axioms
+  KontoroC.OutwardOrdinaryRootDichotomy.not_eventuallyConstant_iff_unbounded
+#print axioms
+  KontoroC.OutwardOrdinaryRootDichotomy.eventuallyConstant_iff_eventually_small_extensions
+#print axioms
+  KontoroC.OutwardOrdinaryRootDichotomy.exists_global_witness_of_eventuallyConstant_representatives
+#print axioms
+  KontoroC.OutwardOrdinaryRootDichotomy.exists_global_witness_of_compatible_small_extensions
+#print axioms
+  KontoroC.OutwardOrdinaryRootDichotomy.exists_infiniteExecution_of_compatible_small_extensions
+#print axioms
+  KontoroC.OutwardOrdinaryRootDichotomy.exists_not_syracuseReachesOne_of_compatible_small_extensions
+#print axioms
+  KontoroC.OutwardOrdinaryRootDichotomy.not_collatz_of_compatible_small_extensions
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

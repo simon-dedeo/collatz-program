@@ -18084,3 +18084,62 @@ cross-layer or use lifted states with distinct source/target interpretations.
 Full `lake build KontoroC` passes 8,864 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, or `native_decide`.
+
+## Round 353 — exact ordinary-root dichotomy
+
+I sharpened the all-place seed gate in the imported and audited module
+
+```text
+KontoroC.OutwardOrdinaryRootDichotomy
+```
+
+For representatives compatible modulo `2^A(k)*3^B(k)` with those moduli
+eventually exceeding every fixed bound, Lean now proves the equivalence
+
+```text
+eventuallyConstant_iff_boundedRange.
+```
+
+Thus bounded Archimedean height is not merely a convenient sufficient
+condition in this setting: it is exactly equivalent to stabilization at one
+ordinary natural.  The adversarial form
+
+```text
+not_eventuallyConstant_iff_unbounded
+```
+
+says that any compatible growing-precision tower which fails to encode an
+ordinary root must have representatives above every natural bound.  This is
+the clean all-place dichotomy for the current tower search.
+
+There is also an exact local form:
+
+```text
+eventuallyConstant_iff_eventually_small_extensions.
+```
+
+Under compatibility, stabilization is equivalent to the consecutive
+ordinary difference eventually being strictly smaller than the current mixed
+modulus.  In other words, every sufficiently late extension carry must be
+zero.  This is a useful certificate target, but the equivalence makes clear
+that it is not a hidden shortcut around the ordinary-root problem.
+
+The promotion chain is now exposed independently of the original uniform
+bound proof:
+
+```text
+exists_global_witness_of_eventuallyConstant_representatives
+exists_global_witness_of_compatible_small_extensions
+exists_infiniteExecution_of_compatible_small_extensions
+exists_not_syracuseReachesOne_of_compatible_small_extensions
+not_collatz_of_compatible_small_extensions.
+```
+
+So a worker may certify either uniform height plus growing precision or the
+more local eventual zero-extension-carry inequality; both feed a literal
+nested finite-depth tower into the existing Syracuse/Collatz endpoint.  No
+such tower or carry estimate is asserted here.
+
+Full `lake build KontoroC` passes 8,865 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, or `native_decide`.
