@@ -28,7 +28,7 @@ cap is 4,000 tokens per talk, but the schema asks for short fields.  Actual
 usage and estimated cost will be added after completion; no further API work
 will be started if total projected spending approaches $1,000.
 
-## Lead A: a recursively parameterized valuation selector
+## Lead A: a mixed dyadic--triadic recursive valuation selector
 
 **Source.** Rachel Greenfeld, *Einstein, P-adic Sudoku, Domino, and
 Decidability*, IAS, 4 Dec. 2023,
@@ -65,19 +65,40 @@ Equivalently, synthesize a finite recursive valuation transducer whose
 effective modulus is unbounded.  It can inspect `v3(L_i(X))` and the primitive
 residue of finitely many affine forms `L_i` in the full state
 `X=(charge,address,carry,chart)`.  This architecture is outside the proved
-open-hole theorem for any fixed finite congruence-cylinder selector.
+open-hole theorem for any fixed finite congruence-cylinder selector only if
+it also binds fresh dyadic data at each recursive layer.
 
-**Exact CEGIS obligation.** Add grammar nodes
+There is now a kernel-checked obstruction to the pure ternary version.
+`KontoroC.OutwardValuationSelectorNoGo` proves that every exact primitive
+layer
+
+```text
+n = center + 3^depth*digit  (mod 3^(depth+1)),  digit in {1,2},
+```
+
+contains arbitrarily large ordinary members where any chart selected from
+`(depth,digit)` is illegal.  Each layer is still a full ternary cylinder, and
+CRT exposes the dyadic hole inside it.  A `Layer` node whose regular branch
+leaves the dyadic coefficient free is therefore dead even when the chart
+varies arbitrarily with depth and primitive digit.  A surviving transfer must
+make the state genuinely mixed-base: the regular and exceptional branches
+must both impose or update dyadic address/carry restrictions before selecting
+the chart.  A local build of `KontoroC.OutwardValuationSelectorNoGo` passes.
+
+**Exact CEGIS obligation.** Add mixed-base grammar nodes
 
 ```text
 Layer(L,a,regular_table,exceptional_child)
 ```
 
 with exact semantics: inspect `L(X) mod 3^a`; dispatch on nonexceptional
-residues; on the unique divisible class replace the designated coordinate by
-`L(X)/3^a` and enter `exceptional_child`.  Enumerate only small finite graphs
-of these nodes.  For every candidate, return the least ordinary state where
-the selected first-passage word is illegal or invariant closure fails.
+residues; bind a dyadic address/carry cylinder on every outgoing branch; on
+the unique divisible class replace the designated coordinate by `L(X)/3^a`
+and enter `exceptional_child`.  Enumerate only small finite graphs of these
+nodes.  Reject a node immediately if any regular branch is a full ternary
+layer with no dyadic binder.  For every remaining candidate, return the least
+ordinary state where the selected first-passage word is illegal or invariant
+closure fails.
 
 A successful object must prove all of:
 
@@ -141,6 +162,82 @@ and certified zero ordinary-root carry at infinitely many endpoints.  Those
 resets are the arithmetic substitute for the geometric transverse freedom in
 Arnold diffusion.  Without them the shadow can again be merely `2`-adic.
 
+## Lead D: clean catalytic macros for ordinary-seed coherence
+
+**Source.** James Cook, *Borrowing memory that's being used: catalytic
+approaches to the Tree Evaluation Problem*, IAS, 6 Apr. 2020,
+[video](https://www.ias.edu/video/csdm/2020/0406-JamesCook), key
+`62fe994bc97f7e36b22ecea9ea707a40`.  Raw transcript checked at S4--S5,
+1,444--2,584 seconds, especially 1,500--2,550 seconds.
+
+Cook's clean subroutines may use registers whose initial contents are
+arbitrary, but must restore those contents after placing the answer in a
+designated output register.  Compute--copy--uncompute makes this possible;
+the product lemma composes recursive calls while reusing the same registers,
+so recursion depth need not consume fresh workspace.
+
+The exact Collatz transfer is a stronger macro specification than low carry.
+Split a first-passage state into payload `P`, an ordinary-root/address
+catalyst `C`, and bounded chart data `Z`.  Seek a forward-legal word family
+with
+
+```text
+(P,C,Z) -> (F(P),C,Z')
+```
+
+on a recursively described invariant set, with `F(P)>P`.  The identity on
+`C` is the clean-reset condition: an infinite recursive composition then
+reuses one ordinary seed rather than consuming an infinite `2`-adic tape.
+The first exact experiment should enumerate short legal block pairs whose
+affine action on the root-address coordinate composes to the identity, then
+ask CEGIS for a payload-dependent recursive rule that closes under those
+pairs.
+
+The mismatch is sharp.  Cook can explicitly run an inverse instruction
+sequence; Collatz supplies only forward-legal words.  The proposed
+"uncompute" must itself be compiled into another forward Collatz block on the
+same invariant family.  Repeating one fixed clean block would also fall into
+the existing eventual-periodicity no-go.  Any live version must therefore be
+payload-dependent and recursively clean, not merely a zero-carry loop found
+at one bounded depth.
+
+## Lead E: turn anomalous carry concentration into algebraic structure
+
+**Source.** Guy Moshkovitz, *Structure and Randomness for Finite-field
+Polynomials are (almost) Equivalent*, IAS, 13 Jan. 2025,
+[video](https://www.ias.edu/video/structure-and-randomness-finite-field-polynomials-are-almost-equivalent),
+key `e71017370c27ed97e3367f54c6e3fc2b`.  Raw transcript checked across S1--S7,
+especially 500--1,700 and 2,300--3,600 seconds.
+
+The theorem says, quantitatively and uniformly over finite fields up to a
+logarithmic loss, that a bounded-degree polynomial system whose solution
+density deviates from the random benchmark has a low-rank algebraic
+explanation.  Analytic rank measures bias; partition rank expresses the
+multilinearized polynomial as few reducible pieces; local rank bridges the
+two.
+
+This suggests an inverse-search lane, not another trajectory predictor.
+For a bounded block architecture, encode the exact carry/legality defect as a
+finite-field polynomial or tensor in its block-choice variables.  If exact
+counting finds far more zero/small-carry choices than the random baseline,
+attempt to recover a low partition-rank decomposition and translate its
+factors into a smaller recursive selector.  A successful bounded theorem
+would have the form
+
+```text
+anomalous exact zero-carry density
+    -> bounded-rank factorization
+    -> explicit parametric macro family to replay by exact arithmetic.
+```
+
+This route has a decisive preliminary gate: dyadic valuations and carries are
+discontinuous, and their exact polynomial representation over a fixed finite
+field may have degree growing with block depth.  Unless one proves a
+depth-uniform bounded-degree encoding (or a suitable replacement inverse
+theorem), Moshkovitz's theorem cannot be applied.  It is nevertheless a
+principled stopping rule for search: exceptional concentration should be
+factorized and explained rather than merely used to extend a beam.
+
 ## Other promoted talks (transfer ledger)
 
 | Status | Talk and raw spans | Concrete transfer | Principal mismatch |
@@ -152,11 +249,15 @@ Arnold diffusion.  Without them the shadow can again be merely `2`-adic.
 | background/warning | Umberto Zannier, *On a Problem of Polya and Some of its Evolutions*, key `8c6e7ea43c9de3b12a756caab4bc5ea0`, S2--S7, 711--3,601 s | Search for a finite-dimensional obstruction module in which closure modulo all `3^k` forces exact closure; require prime-power precision, not scattered mod-prime successes. | Pólya/Grothendieck--Katz use algebraic differential equations, integrality, and transcendence tools absent from the current recharge system. |
 | background | Philipp Habegger, *The Dynamical Schinzel-Zassenhaus Conjecture and the Transfinite Diameter of Trees*, key `4b080d81929fc490575d04cec24a3754`, S2--S8, 443--3,600 s | A complexity-growth gap (core entropy below degree) plus a global capacity threshold converts many local near-solutions into a rigid preperiodic conclusion; look for an address-complexity versus branching gap. | Existing Collatz height/correspondence approaches degenerate, and this theorem concerns algebraic polynomial dynamics, not a piecewise-affine integer map. |
 | targeted | Rafael de la Llave, *Some geometric mechanisms for Arnold diffusion*, key `06c75558ea7a67c26523d60637d5f0af`, S4/S6, 2,016--2,483 and 3,033--3,267 s | Replace lucky symbolic prefixes by exact covering relations between charge/address/carry windows; require recurring zero-root-carry endpoints in the shadowing theorem. | Collatz lacks the continuous transverse freedom and hyperbolicity that make geometric covering windows work. |
+| targeted | James Cook, *Borrowing memory that's being used*, key `62fe994bc97f7e36b22ecea9ea707a40`, S4--S5, 1,444--2,584 s | Search for payload-dependent clean macros whose forward action restores the ordinary-root/address catalyst exactly, allowing recursive reuse without an infinite tape. | Collatz has no freely available inverse/uncompute instruction; it must be realized by another forward-legal word, and a fixed repeated macro is already excluded. |
+| conditional | Guy Moshkovitz, *Structure and Randomness for Finite-field Polynomials are (almost) Equivalent*, key `e71017370c27ed97e3367f54c6e3fc2b`, S1--S7 | Treat anomalous exact zero-carry density as an inverse problem and factor a bounded-degree defect tensor into a small parametric architecture. | Exact valuation/carry predicates may require degree growing with depth, blocking direct use of the finite-field theorem. |
 
 ## Negative lessons already extracted
 
 - Greenfeld's hierarchy explains why a finite residue table is the wrong
-  endpoint: a finite *recursive* table can have unbounded scale.
+  endpoint: a finite *recursive* table can have unbounded scale.  The new Lean
+  obstruction shows that ternary scale alone is insufficient: every regular
+  layer must also bind fresh dyadic address/carry information.
 - Zannier's countercases show why infinitely many isolated modular successes
   are weaker than coherent success through all prime powers.
 - Markoff-surface talks in the corpus include explicit finite-field solutions
@@ -186,5 +287,11 @@ Arnold diffusion.  Without them the shadow can again be merely `2`-adic.
   `4b080d81929fc490575d04cec24a3754`.
 - Rafael de la Llave, *Some geometric mechanisms for Arnold diffusion*, IAS,
   10 Apr. 2018, key `06c75558ea7a67c26523d60637d5f0af`.
+- James Cook, *Borrowing memory that's being used: catalytic approaches to the
+  Tree Evaluation Problem*, IAS, 6 Apr. 2020, key
+  `62fe994bc97f7e36b22ecea9ea707a40`.
+- Guy Moshkovitz, *Structure and Randomness for Finite-field Polynomials are
+  (almost) Equivalent*, IAS, 13 Jan. 2025, key
+  `e71017370c27ed97e3367f54c6e3fc2b`.
 
 `counterexample: null`

@@ -33,6 +33,41 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 22:20 EDT
+
+There is still no counterexample.  Transcript checks added two more
+theorem-shaped transfers to the IAS audit.  James Cook's catalytic-memory
+construction (S4--S5, 1,444--2,584 seconds) suggests a precise ordinary-seed
+target: a forward-legal Collatz macro may borrow the address/carry coordinate
+only if it restores that coordinate exactly while advancing the payload.
+Recursive clean macros could then reuse one ordinary seed rather than consume
+an infinite `2`-adic tape.  The crucial mismatch is that Collatz has no free
+inverse or uncompute instruction; it must realize the cleanup by another
+forward-legal word, and a fixed repeated clean macro is already blocked by the
+eventual-periodicity theorem.
+
+Guy Moshkovitz's finite-field bias-versus-structure theorem (S1--S7; raw
+transcript checked at 500--1,700 and 2,300--3,600 seconds) supplies a different
+search discipline.  If exact block counting finds anomalously many zero- or
+small-carry choices, try to factor the resulting defect tensor into a
+bounded-rank parametric family instead of extending the beam.  This transfer
+is conditional: exact dyadic valuation and carry predicates may have
+polynomial degree growing with depth, so a uniform bounded-degree encoding is
+a necessary gate.  The single remote corpus batch is still healthy, with 50
+of 1,025 requests complete and no failures at this checkpoint; no second
+corpus-wide call has been made.  Full source provenance and both failure modes
+are in [`docs/notes/ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md).
+`counterexample:null`.
+
+The independent Lean formalizer simultaneously closed the pure ternary form
+of the Greenfeld selector.  `OutwardValuationSelectorNoGo` proves that every
+last-nonzero-ternary-digit layer contains arbitrarily large ordinary members
+where an arbitrarily depth/digit-selected writer--decoder chart is illegal:
+the layer remains dyadically unrestricted, so CRT reaches the existing open
+hole.  A local `lake build KontoroC.OutwardValuationSelectorNoGo` passes.  The
+live transfer is therefore narrower: every regular and exceptional recursive
+branch must bind fresh dyadic address/carry data as well as ternary valuation.
+
 ### 2026-07-23 22:04 EDT
 
 There is still no counterexample.  At Simon's direction, all active research
@@ -5618,11 +5653,13 @@ identically `x`.
 **Active 24-hour reverse-mining audit (started 2026-07-23 21:40 EDT).**  The
 implementation/search lanes below are paused while all resources examine the
 1,025-talk IAS corpus.  The first live architecture is a recursively
-parameterized valuation selector modeled on Greenfeld's last-nonzero-digit
-hierarchy, preceded by an exact weighted Kraft/core-entropy pruning test and
-followed by an ordinary zero-carry shadowing obligation.  It is not a
-counterexample or an invariant: it becomes relevant only if exact CEGIS finds
-and certifies closure on the full charge/address/carry state.  See
+parameterized **mixed dyadic--triadic** valuation selector modeled on
+Greenfeld's last-nonzero-digit hierarchy, preceded by an exact weighted
+Kraft/core-entropy pruning test and followed by an ordinary zero-carry
+shadowing obligation.  Lean now rules out the pure ternary form: every
+recursive branch must bind fresh dyadic address/carry data.  The mixed form is
+not a counterexample or an invariant; it becomes relevant only if exact CEGIS
+finds and certifies closure on the full charge/address/carry state.  See
 [`docs/notes/ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md).
 
 #### Live disproof programs
@@ -6475,6 +6512,7 @@ and certifies closure on the full charge/address/carry state.  See
 | Finite survival of alternating writer--decoder schedules | Non-discriminating, and both displayed selector architectures fail the ordinary-address gate.  Every finite `(c,b)` word has one coherent nested exponent cylinder by KC-FP12.  The address beam checks 8,883 edges through depth ten, exhaustive through depth three, with no zero exponent carry; a semantic beam checks 3,546 frontiers through depth eight and has best decoder shortfall 41 bits.  The exact normalized criterion is `r_infinity=-3^C` in `Q_2`.  Every finite rational-coboundary tail is universally closed; the bounded open case must be aperiodic, have factor complexity at least `k+1`, and evade finite rational coboundaries.  Legal counters also obey `9H>2^(4*3^c+c+4+b)`, so scale-only counter search is unjustified.  This is not a no-invariant theorem. | [`outward_writer_decoder_cegis_audit.json`](experiments/kontorovich/outward_writer_decoder_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#29-two-place-normalization-and-the-height-budget) |
 | Fixed-precision writer--decoder payload predicates | Inadequate.  In exact triples `H=(2^D Q-B)/9`, the base predicate fails at `(p,b,Q)=(2,0,7)` and an exact-next-writer refinement fails at `Q=187` with a 48-bit decoder shortfall.  A residue-preserving perturbation defeats any fixed `Q mod 2^k3^ell` guard that is asked to force a larger target valuation; exact rows cover `7<=k<=16`.  The corrected mandatory ternary quotient has three nodes, but all 81 displayed source/target symbol pairs have exact ordinary edges, so it does not close the dynamics.  A live predicate needs runtime dyadic precision and a genuinely aperiodic/unbounded symbol update.  The general perturbation and edge formulas are research-side pending QM169; no recursive invariant is certified. | [`outward_writer_decoder_invariant_cegis_audit.json`](experiments/kontorovich/outward_writer_decoder_invariant_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#31-exact-invariant-cegis-on-payload-triples) |
 | Pure ternary-cylinder and finite-depth open-tail writer--decoder selectors | Universally inadequate for the exact coarse-gate model.  The two-edge map gives `n=n0+2^D''*m`, `u=u0+3^(g+2)*m`.  Modulo `2^54`, counters `2..50` contribute at most 49 decoder classes and every `p>=51` shares one writer class.  Hence the full target alphabet occupies at most 50 classes, leaving a dyadic-open hole inside every ternary cylinder.  Lean kernel-checks the affine-gate uniqueness, 50-class cover, CRT, and positive open-tail no-go; the concrete bridge from literal writer--decoder semantics remains research-side, with schema v2 checking 729 coefficient maps and 729 canonical failures.  A live invariant must be genuinely infinitely recursive and prove an ordinary root; none is certified. | [`OutwardCoarseHole.lean`](KontoroC/KontoroC/OutwardCoarseHole.lean), [`outward_writer_decoder_invariant_cegis_audit.json`](experiments/kontorovich/outward_writer_decoder_invariant_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#32-the-exact-two-edge-parameter-map-and-a-finite-cylinder-obstruction) |
+| Pure last-nonzero-ternary-digit recursive selector | Universally inadequate for the literal writer--decoder architecture.  Every exact primitive layer still contains a full range of dyadic classes.  Lean proves that, even when the selected chart is an arbitrary function of valuation depth and primitive digit, each regular layer contains arbitrarily large ordinary states where that chart is illegal.  Greenfeld's hierarchy remains relevant only after adding a fresh dyadic address/carry binder inside every regular and exceptional branch. | [`OutwardValuationSelectorNoGo.lean`](KontoroC/KontoroC/OutwardValuationSelectorNoGo.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#lead-a-a-mixed-dyadic--triadic-recursive-valuation-selector) |
 | Treating critical first-passage/KL mass as an ordinary survivor | Invalid.  For the canonical maximal outward first-passage code, the slope-tilted Kraft mass is exactly one at every block depth, but its natural product flow satisfies `mu_q{r_n<=B}<=B(3/4)^n`.  Conditioning fair renewal on arbitrarily long survival gives the product block law `p(w)/P`, which is also diffuse, with fixed-window bound `B(1/(2P))^n`.  Thus conserved mass and the classical survival Doob transform both escape every bounded ordinary residue window.  Any successful selector must create an atom; a useful sufficient proof input is the weaker growth condition `rho_n=o(2^n)`, which forces eventual zero carry. | [`outward_first_passage_audit.json`](experiments/kontorovich/outward_first_passage_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#23-odd-charge-compression-and-triadic-min-plus-renewal) |
 | Fixed-precision triadic min-plus controller | Does not close the unbounded raw renewal.  The exact dual-residue update for a source phase modulo `3^k` queries the target profile modulo `3^(O(w)+k)`; already word `1` requires precision `k+1`.  Finite height closes with the complete table `W_B`, explicit target bound `C(B)`, and a membership precision `3^K>C(B)`, but `K` grows with height.  Thus a successful phase selector needs genuinely growing arithmetic state, not one fixed residue automaton. | [`outward_minplus_profile_audit.json`](experiments/kontorovich/outward_minplus_profile_audit.json), companion commits `a0e460d`/`8d79424`, [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#24-growing-phase-precision-and-directed-carry-repair) |
 | Prefix-complete uniformly outward valuation ISA | Closed for finite positive prefix-free codes.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, every outward leaf has `q(w)>p(w)`; `p`-completeness and the `q`-Kraft bound are inconsistent.  Commit `da9fa59` constructs explicit binary and four-letter compilers, derives both Kraft inequalities from prefix-freeness, and proves the full finite contradiction and quantitative mass bound in Lean.  The countably infinite prefix-free theorem still uses an abstract `tsum` interface.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |
@@ -7099,6 +7137,22 @@ existing lines of work; the closest ancestors, and what each contributes:
   low-address/low-carry hits as an inverse problem and extracting a parametric
   word family instead of extending a beam; the required Collatz analogue has
   not been proved.
+- **J. Cook, [“Borrowing memory that's being used: catalytic approaches to
+  the Tree Evaluation Problem”](https://www.ias.edu/video/csdm/2020/0406-JamesCook),
+  IAS talk (6 Apr. 2020), corpus key `62fe994bc97f7e36b22ecea9ea707a40`,
+  S4--S5 at 1,444--2,584 seconds** — reversible clean subroutines borrow
+  arbitrary workspace and restore it after computing an output.  This
+  motivates payload-dependent forward macros which restore the exact
+  ordinary-root/address catalyst.  Collatz provides no inverse instruction,
+  so the cleanup block and its recursive closure remain unproved.
+- **G. Moshkovitz, [“Structure and Randomness for Finite-field Polynomials
+  are (almost) Equivalent”](https://www.ias.edu/video/structure-and-randomness-finite-field-polynomials-are-almost-equivalent),
+  IAS talk (13 Jan. 2025), corpus key `e71017370c27ed97e3367f54c6e3fc2b`,
+  S1--S7** — anomalous solution density for a bounded-degree finite-field
+  system forces low-rank algebraic structure.  This motivates factoring any
+  exceptional exact zero-carry concentration into a compact selector rather
+  than treating it as a search score.  A depth-uniform low-degree encoding of
+  Collatz carries is not known and is a prerequisite for the transfer.
 - **U. Zannier, [“On a Problem of Polya and Some of its
   Evolutions”](https://www.ias.edu/video/problem-polya-and-some-its-evolutions),
   IAS talk (8 Apr. 2026), corpus key `8c6e7ea43c9de3b12a756caab4bc5ea0`,
