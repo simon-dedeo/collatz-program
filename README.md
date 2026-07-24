@@ -35,7 +35,7 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ### 2026-07-24 00:45 EDT
 
-There is still no Collatz counterexample.  The IAS audit now has 109
+There is still no Collatz counterexample.  The IAS audit now has 115
 authoritative transcript-checked release talks.  The one deliberately broad
 Batch API triage has terminated: 976 requests completed and 49 returned an
 HTTP-500 server error; among the completed requests, 892 supplied a
@@ -190,6 +190,70 @@ a literal recharge macro.  A symbolic graph may retain transitive skips, but
 cannot count them as independent ordinary futures without a separate literal
 state refinement.  The theorem neither constructs an infinite chain nor an
 ordinary counterexample.
+
+Kevin Ford supplies the strongest adversarial audit yet for aggregate
+selector statistics.  Below the genuine half-level of Type-I information, he
+constructs a normalized nonnegative weight that vanishes on every prime while
+satisfying all of the stipulated Type-I marginals and uniform Type-II
+bilinear tests.  At bounded Collatz precision, put rational weight on the
+complete set of literally replayed route records, impose every claimed
+residue/carry marginal and prefix--suffix bilinear constraint, and require
+zero mass on all outward records.  A feasible exact LP is a fake-sieve
+obstruction; infeasibility needs a rational Farkas certificate.  Even a
+projectively compatible family of measures need not have an atom or a
+deterministic section, so passing population tests is strictly weaker than an
+ordinary counterexample.
+
+Jared Weinstein gives a geometric version of the same distinction.  Along
+every compatible irreducible-component chain in his semistable Lubin--Tate
+tower, transition maps are eventually purely inseparable, stabilizing genus
+and `l`-adic cohomology.  Yet the space of component chains is explicitly
+uncountable/profinite.  A finite Collatz tower should therefore test the
+pointwise legal-lift relation inside each component and demand commuting
+functional sections; the first empty fiber or failed transition square is an
+exact rejection witness.  Stabilized component invariants contain neither a
+literal decoder, a coercive counter, nor an ordinary root.
+
+Alireza Salehi Golsefidy provides a rare genuine lifting theorem, but only in
+a sharply delimited category.  On the absolutely irreducible `SL_2`
+character locus over a compact discrete valuation ring, finite trace
+characters lift to ring-valued representations, and a character fiber is one
+`GL_2` conjugacy orbit.  Thus a bona fide character-variety encoding could
+certify a compatible `p`-adic representation tower after exact Fricke,
+discriminant-unit, determinant, and surface-relation checks.  Trace conjugacy
+does not decode directed recharge words, and a `Z_p` representation is not a
+positive ordinary seed.
+
+Joseph Fluegemann contributes a useful correction to local uniqueness claims.
+At a torus fixed chart of a positroid variety, local multiplicity equals the
+number of affine pipe-dream representatives; exactly one representative is
+equivalent to smoothness there.  Two explicit representatives can therefore
+reject a claimed multiplicity-one positroid encoding.  But multiplicity one
+means a smooth local variety, not a unique point or selector, and distinct
+pipe dreams are not automatically distinct literal macros.  General affine,
+directed, or carry constraints are not covered by the positroid theorem.
+
+Daniel Halpern-Leistner's degeneration spaces suggest how a canonical outer
+selector would have to be justified.  In the relevant weakly reductive moduli
+settings, rational degeneration rays form a convex complex and a normalized
+cohomological score is strictly convex on its simplices; suitable boundedness
+then gives a unique maximizer.  For a bounded arithmetic analogue, enumerate
+the entire rational refinement complex and exact-check positivity of the
+normalizer, score comparisons, ties, escape rays, and projection of the
+maximizer to lower precision.  Collatz has no known weak-reductivity,
+valuative-properness, or convexity theorem, and a unique maximizing `2`-adic
+ray could still fail the ordinary-root gate.
+
+Ananth Shankar shows what a successful formal-to-algebraic promotion actually
+costs.  For an irreducible subvariety of a characteristic-`p` algebraic torus
+through the identity, containment of its formal completion in a proper formal
+subgroup forces containment in a proper algebraic subtorus.  The proof uses
+finite rational-jet classes from `p`-power collapse, compatible jets of every
+order, local-to-global extraction of `p`-power roots, and boundary valuations.
+This is an attractive template for extracting a monomial invariant, but none
+of those hypotheses follows from a mixed `2`/`3` Collatz residue tower.  A
+formal/profinite relation is not promoted without an equally rigid
+algebraization theorem.
 `counterexample:null`.
 
 ### 2026-07-24 00:12 EDT
@@ -8811,6 +8875,53 @@ existing lines of work; the closest ancestors, and what each contributes:
   greedy density loss into a book-step-or-clustering mechanism.  The bounded
   Collatz analogue must be exact-checked and remains a population refinement,
   not an infinite selector.
+- **K. Ford, [“Toward a Theory of Prime Detecting
+  Sieves”](https://www.ias.edu/video/toward-theory-prime-detecting-sieves),
+  IAS talk (17 Nov. 2022), corpus key
+  `790f605e1b37954b6d7cdb45d2a0cf88`, S1--S2/S4--S5 at 29--628 and
+  1,190--1,908 seconds** — below a genuine Type-I half-level, explicit
+  normalized prime-free weights satisfy all allowed Type-I and Type-II data.
+  The finite Collatz transfer is an exact adversarial weighted LP/Farkas
+  audit, not a weighted construction of one route.
+- **J. Weinstein, [“A Semistable Model for the Tower of Modular
+  Cures”](https://www.ias.edu/video/galois/weinstein), IAS talk (27 Oct.
+  2010), corpus key `67890192e874c122bcf0beb64cc09964`, S4--S7 at
+  970--2,869 seconds** — transition maps along component chains in the
+  semistable Lubin--Tate tower become purely inseparable and stabilize
+  component invariants.  The chain space remains profinite; component
+  coherence is not a pointwise legal section.
+- **A. Salehi Golsefidy, [“Closure of Orbits of the Pure Mapping Class Group
+  on the Character
+  Variety”](https://www.ias.edu/video/closure-orbits-pure-mapping-class-group-character-variety),
+  IAS talk (15 Oct. 2024), corpus key
+  `37c31c67ac4156a53cecd977cff16edf`, S3 at 1,525--2,376 seconds** — on the
+  absolutely irreducible `SL_2` character locus over a compact DVR, finite
+  character data lift and fibers are single conjugacy orbits.  This is a
+  conditional `p`-adic coherence interface, not a literal Collatz decoder or
+  an ordinary root.
+- **J. Fluegemann, [“Singular Points on Positroid Varieties and Physics
+  Applications”](https://www.ias.edu/video/singular-points-positroid-varieties-and-physics-applications),
+  IAS talk (18 Dec. 2024), corpus key
+  `4903bf3128b02b0bce74af1c89a0c11f`, S3 at 1,227--1,726 seconds** — local
+  multiplicity at a positroid torus-fixed chart counts affine pipe-dream
+  representatives, so multiple diagrams certify singularity.  Smoothness or
+  multiplicity one is not uniqueness of a legal selector point.
+- **D. Halpern-Leistner, [“The structure of instability in moduli
+  theory”](https://www.ias.edu/video/tav/2014/1021-DanielHalpernLeistner),
+  IAS talk (21 Oct. 2014), corpus key
+  `1d273101a11b6c01941920678b4f60fa`, S3--S7 at 1,474--3,835 seconds** —
+  canonical maximizing degenerations rely on a convex degeneration space,
+  strict normalized-score convexity, boundedness, and weak reductivity.  A
+  finite selector complex can audit those premises; Collatz does not inherit
+  them.
+- **A. Shankar, [“Tori in Positive
+  Characteristic”](https://www.ias.edu/video/tori-positive-characteristic),
+  IAS talk (26 Feb. 2026), corpus key
+  `fd4a818dd539de1d73620d316e5d23a2`, S2/S5--S8 at 396--680 and
+  1,529--3,537 seconds** — a proper formal-subgroup relation algebraizes for
+  a characteristic-`p` torus subvariety under the source hypotheses.  Its
+  finite-jet, `p`-power, and valuation proof identifies the missing rigidity
+  in a Collatz formal-residue tower.
 - **S. Fenner, [“Bipartite perfect matching is in
   quasi-NC”](https://www.ias.edu/video/csdm/2016/0208-Fenner), IAS talk
   (8 Feb. 2016), corpus key `83398a9013343939af42951fafbfdaa1`, S2--S8 at
