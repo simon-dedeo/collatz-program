@@ -22,11 +22,15 @@ import hashlib
 import json
 from dataclasses import dataclass
 from fractions import Fraction
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Sequence
 
 from outward_charge_invariant_cegis import integer_sha256
 from outward_writer_decoder_cegis import Cell, make_cell
+
+
+make_cell = lru_cache(maxsize=None)(make_cell)
 
 
 SCHEMA = "collatz-outward-writer-decoder-invariant-cegis-v2"
@@ -271,6 +275,7 @@ def mod9_quotient(maximum_p: int) -> dict[str, Any]:
     }
 
 
+@lru_cache(maxsize=None)
 def construct_edge(p: int, b: int, next_p: int, next_b: int) -> dict[str, Any]:
     source = make_cell(p, b)
     target = make_cell(next_p, next_b)
@@ -348,6 +353,7 @@ def edge_family_regression(maximum_p: int, maximum_b: int) -> dict[str, Any]:
     }
 
 
+@lru_cache(maxsize=None)
 def two_edge_parameter_map(
     p: int,
     b: int,
@@ -575,18 +581,71 @@ def B_mod_power_of_two(p: int, exponent: int) -> int:
     return (7 + 2 ** (p + 4) * d_mod) % modulus
 
 
-def all_symbol_coarse_dyadic_cover() -> dict[str, Any]:
+def coarse_next_failure(p: int, b: int, Q: int) -> dict[str, Any]:
+    """Certify failure below the universal target depth without building huge B."""
+
+    current = make_cell(p, b)
+    g = p + current.o + b
+    writer_v2, _ = v2(3 ** (g + 2) * Q + 7)
+    derived_p = writer_v2 - 4
+    if derived_p < 2:
+        return {
+            "kind": "next_writer_undefined",
+            "g": g,
+            "v2_9Hprime_plus_7": writer_v2,
+            "derived_p": derived_p,
+        }
+    if derived_p >= 51:
+        return {
+            "kind": "coarse_inconclusive",
+            "g": g,
+            "v2_9Hprime_plus_7": writer_v2,
+            "derived_p": derived_p,
+            "reason": "writer lies in the p>=51 coarse tail class",
+        }
+    modulus = 2**55
+    composite_residue = (
+        3 ** (g + 2) * Q + B_mod_power_of_two(derived_p, 55)
+    ) % modulus
+    if composite_residue == 0:
+        return {
+            "kind": "coarse_inconclusive",
+            "g": g,
+            "v2_9Hprime_plus_7": writer_v2,
+            "derived_p": derived_p,
+            "reason": "composite reaches the universal 55-bit decoder floor",
+        }
+    composite_v2, _ = v2(composite_residue)
+    return {
+        "kind": "next_decoder_below_universal_floor",
+        "g": g,
+        "derived_p": derived_p,
+        "v2_composite_gate": composite_v2,
+        "universal_required_lower_bound": 55,
+        "shortfall_from_universal_floor": 55 - composite_v2,
+    }
+
+
+@lru_cache(maxsize=None)
+def all_symbol_coarse_dyadic_cover(
+    p: int = 2,
+    b: int = 0,
+    next_p: int = 2,
+    next_b: int = 0,
+) -> dict[str, Any]:
     """Cover every possible next symbol by 50 classes modulo 2^54."""
 
     precision = 55
     parameter_exponent = precision - 1
     parameter_modulus = 2**parameter_exponent
-    first = construct_edge(2, 0, 2, 0)
+    first = construct_edge(p, b, next_p, next_b)
     Q_prime_base = int(first["Q_prime"])
-    source = make_cell(2, 0)
-    g = 2 + source.o
+    source = make_cell(p, b)
+    middle = make_cell(next_p, next_b)
+    g = p + source.o + b
     Q_prime_stride_half = 3 ** (g + 4)
-    next_writer_multiplier = 3 ** (g + 2)
+    middle_g = next_p + middle.o + next_b
+    next_writer_multiplier = 3 ** (middle_g + 2)
     parameter_coefficient = (
         next_writer_multiplier * Q_prime_stride_half
     ) % parameter_modulus
@@ -596,9 +655,9 @@ def all_symbol_coarse_dyadic_cover() -> dict[str, Any]:
 
     rows: list[dict[str, Any]] = []
     residues: set[int] = set()
-    for next_p in range(2, precision - 4):
-        B_mod = B_mod_power_of_two(next_p, precision)
-        if next_p <= 4 and B_mod != make_cell(next_p, 0).Bg % 2**precision:
+    for target_p in range(2, precision - 4):
+        B_mod = B_mod_power_of_two(target_p, precision)
+        if target_p <= 4 and B_mod != make_cell(target_p, 0).Bg % 2**precision:
             raise AssertionError("modular B formula disagrees with the exact cell")
         constant = (
             next_writer_multiplier * Q_prime_base + B_mod
@@ -611,7 +670,7 @@ def all_symbol_coarse_dyadic_cover() -> dict[str, Any]:
         residues.add(residue)
         rows.append(
             {
-                "target_p": next_p,
+                "target_p": target_p,
                 "necessary_parameter_residue_mod_2^54": str(residue),
                 "source": "decoder divisibility modulo 2^55",
             }
@@ -647,12 +706,12 @@ def all_symbol_coarse_dyadic_cover() -> dict[str, Any]:
     Q_prime = (
         Q_prime_base + 2 * Q_prime_stride_half * complement_residue
     )
-    diagnostic = next_diagnostic(make_triple(2, 0, Q_prime))
-    if diagnostic["kind"] == "defined_triple_transition":
+    diagnostic = coarse_next_failure(next_p, next_b, Q_prime)
+    if diagnostic["kind"] == "coarse_inconclusive":
         raise AssertionError("coarse complement unexpectedly has a legal target")
 
     return {
-        "current_edge": [[2, 0], [2, 0]],
+        "current_edge": [[p, b], [next_p, next_b]],
         "parameter_modulus": "2^54",
         "cover_rows": rows,
         "cover_rows_sha256": hashlib.sha256(canonical_json(rows)).hexdigest(),
@@ -672,6 +731,107 @@ def all_symbol_coarse_dyadic_cover() -> dict[str, Any]:
             "parameters where writer--decoder continuation is undefined"
         ),
         "status": "research theorem pending Lean",
+    }
+
+
+def open_tail_closure_witness(
+    p: int,
+    b: int,
+    next_p: int,
+    next_b: int,
+    final_p: int,
+    final_b: int,
+) -> dict[str, Any]:
+    """Construct a third-step failure inside one unrestricted edge tail."""
+
+    parameter_map = two_edge_parameter_map(
+        p, b, next_p, next_b, final_p, final_b
+    )
+    cover = all_symbol_coarse_dyadic_cover(
+        next_p, next_b, final_p, final_b
+    )
+    complement_residue = int(cover["least_displayed_complement_residue"])
+    modulus = 2**54
+    source = make_cell(p, b)
+    g = p + source.o + b
+    n0 = int(parameter_map["intersection"]["n0"])
+    u0 = int(parameter_map["intersection"]["u0"])
+    u_multiplier = 3 ** (g + 2)
+    m = (
+        (complement_residue - u0)
+        * pow(u_multiplier, -1, modulus)
+    ) % modulus
+    u = u0 + u_multiplier * m
+    if u % modulus != complement_residue:
+        raise AssertionError("open-tail parameter missed the coarse hole")
+    n = n0 + 2 ** make_cell(final_p, final_b).Dg * m
+
+    first = construct_edge(p, b, next_p, next_b)
+    Q = int(first["Q"]) + 9 * 2 ** (make_cell(next_p, next_b).Dg + 1) * n
+    source_triple = make_triple(p, b, Q)
+    first_diagnostic = next_diagnostic(source_triple)
+    if first_diagnostic["kind"] != "defined_triple_transition":
+        raise AssertionError("open-tail witness lost its first edge")
+    middle_triple = make_triple(
+        next_p, next_b, int(first_diagnostic["target"]["Q"])
+    )
+    second_diagnostic = next_diagnostic(middle_triple)
+    if second_diagnostic["kind"] != "defined_triple_transition":
+        raise AssertionError("open-tail witness lost its second edge")
+    final_target = second_diagnostic["target"]
+    if (
+        int(final_target["p"]) != final_p
+        or int(final_target["b"]) != final_b
+    ):
+        raise AssertionError("open-tail witness reached the wrong second symbol")
+    final_triple = make_triple(final_p, final_b, int(final_target["Q"]))
+    failure = coarse_next_failure(final_p, final_b, final_triple.Q)
+    if failure["kind"] == "coarse_inconclusive":
+        raise AssertionError("open-tail coarse-hole witness did not fail")
+
+    return {
+        "prescribed_symbols": [[p, b], [next_p, next_b], [final_p, final_b]],
+        "canonical_CRT_parameters": {
+            "n": str(n),
+            "m": str(m),
+            "u": str(u),
+            "u_mod_2^54": str(complement_residue),
+        },
+        "source": triple_record(source_triple),
+        "last_legal_triple": triple_record(final_triple),
+        "first_closure_failure": failure,
+    }
+
+
+def open_tail_closure_regression(
+    maximum_p: int, maximum_b: int
+) -> dict[str, Any]:
+    rows = [
+        open_tail_closure_witness(p, b, next_p, next_b, final_p, final_b)
+        for p in range(2, maximum_p + 1)
+        for b in range(maximum_b + 1)
+        for next_p in range(2, maximum_p + 1)
+        for next_b in range(maximum_b + 1)
+        for final_p in range(2, maximum_p + 1)
+        for final_b in range(maximum_b + 1)
+    ]
+    return {
+        "architecture": (
+            "two prescribed exact dyadic binders followed by one unrestricted tail"
+        ),
+        "exact_CRT_closure_failures": len(rows),
+        "failures_sha256": hashlib.sha256(canonical_json(rows)).hexdigest(),
+        "sample_rows": rows[: min(9, len(rows))],
+        "universal_rejection": (
+            "after any finite prescribed edge prefix, leaving the remaining "
+            "coefficient tail unrestricted produces a ternary progression at "
+            "the next edge, and the all-symbol coarse hole supplies an exact "
+            "undefined continuation"
+        ),
+        "scope": (
+            "the displayed rows check bounded symbol triples; the all-prefix "
+            "open-tail theorem is a research derivation pending Lean"
+        ),
     }
 
 
@@ -874,6 +1034,9 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
             args.maximum_edge_counter
         ),
         "all_symbol_coarse_dyadic_cover": all_symbol_coarse_dyadic_cover(),
+        "open_tail_closure_regression": open_tail_closure_regression(
+            args.maximum_edge_counter, args.maximum_edge_drain
+        ),
         "ternary_cylinder_architecture_cegis": ternary_cylinder_cegis(
             args.maximum_ternary_selector_precision
         ),
@@ -933,6 +1096,9 @@ def report(artifact: dict[str, Any]) -> dict[str, Any]:
         "all_symbol_coarse_cover_classes": audit[
             "all_symbol_coarse_dyadic_cover"
         ]["number_of_distinct_residues"],
+        "open_tail_architectures_rejected": audit[
+            "open_tail_closure_regression"
+        ]["exact_CRT_closure_failures"],
         "universal_invariant": audit["universal_invariant"],
         "counterexample": audit["counterexample"],
     }
@@ -967,6 +1133,8 @@ def selftest() -> None:
         raise AssertionError("two-edge parameter regression count changed")
     if len(audit["ternary_cylinder_architecture_cegis"]["rows"]) != 3:
         raise AssertionError("ternary architecture CEGIS count changed")
+    if audit["open_tail_closure_regression"]["exact_CRT_closure_failures"] != 64:
+        raise AssertionError("open-tail closure regression count changed")
 
 
 def add_bounds(command: argparse.ArgumentParser) -> None:

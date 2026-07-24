@@ -5379,6 +5379,9 @@ failure for anchored one-step-memory ternary cylinders through precision six.
 It also constructs the 50-class coarse cover modulo `2^54`: the full
 unbounded next-symbol family lies in those classes, so every displayed
 ternary cylinder has an exact CRT witness where continuation is undefined.
+For each of the 729 bounded two-edge families it then leaves the final
+coefficient tail unrestricted, transports it by the exact ternary multiplier,
+and constructs a canonical CRT member whose third transition is undefined.
 
 ```bash
 PYTHONPATH=experiments/kontorovich \
@@ -5394,5 +5397,11 @@ QM169--QM170.  QM170's writer-specific coarse cover and CRT argument
 universally reject pure ternary-cylinder predicates even with an unbounded
 target-symbol binder.  It does not reject a mixed recursive predicate that
 uses the exact new dyadic binder at every node.  No such invariant is
-synthesized.  The artifact records
+synthesized; in particular, no finite-depth cylinder tree can close by
+leaving an unrestricted tail at a leaf.  The artifact records
 `universal_invariant:null` and `counterexample:null`.
+
+`KontoroC.OutwardCoarseHole` kernel-checks the abstract affine-gate,
+50-class, CRT, and open-tail conclusions.  Connecting every literal
+writer--decoder cell to that coarse predicate remains a separate semantic
+bridge; the worker verifies the displayed bounded instances exactly.

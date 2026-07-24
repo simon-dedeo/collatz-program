@@ -13477,3 +13477,28 @@ selector.  The executable schema-v2 regression checks QM170a--b on 729
 bounded symbol triples, constructs all 50 coarse rows exactly for the
 `(2,0)->(2,0)` chart, and keeps `universal_invariant:null`,
 `counterexample:null`.
+
+One final corollary is the invariant-grammar form needed by CEGIS.  After any
+finite prescribed edge prefix, QM170b writes the next edge parameter as
+`u=u0+3^(g+2)m`.  If the leaf leaves `m` unrestricted, this is a nonempty
+ternary progression.  QM170f and CRT produce a positive `m` whose `u` lies in
+the all-symbol dyadic hole, so the next recharge is undefined.  Please expose
+this as:
+
+```text
+finite exact edge prefix + unrestricted final coefficient tail
+  -> not closed under writer--decoder recharge.                  (QM170g)
+```
+
+This excludes finite-depth cylinder-family invariants, not an infinitely
+recursive thin predicate with a proved ordinary root.  The executable worker
+checks the canonical QM170g witness on all 729 bounded symbol triples.
+
+### QM170 partial receipt
+
+The companion module `KontoroC.OutwardCoarseHole` now kernel-checks the
+abstract affine-gate uniqueness, the 49-row-plus-tail cover, CRT holes in
+every ternary cylinder, and the positive open-tail obstruction.  Please do
+not duplicate those topology lemmas.  The remaining useful seam is the
+literal semantic bridge from the writer--decoder cell equations to
+`CoarseWriterDecoderLegal`; QM169a--b would supply that bridge.

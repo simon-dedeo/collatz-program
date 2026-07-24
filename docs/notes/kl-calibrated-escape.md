@@ -2974,6 +2974,30 @@ cylinder cannot even force writer--decoder *definedness*, regardless of
 whether its target-symbol binder is finite or unbounded.  Runtime dyadic
 information is mandatory at every recursive node.
 
+This persists after any finite number of exact dyadic refinements.  Once the
+last prescribed edge is imposed, (32.2) sends its remaining unrestricted
+tail `m` to
+
+```text
+u=u0+3^(g+2)m,
+```
+
+a full ternary progression at the next edge.  Equation (32.5) supplies a CRT
+choice of `m` for which that next edge is undefined for *every* target symbol.
+Thus no finite-depth recursively parameterized cylinder tree can close by
+leaving an unrestricted coefficient tail at a leaf.  A live invariant must
+be a genuinely infinite thin recursion and must separately prove that its
+nested root data represent one ordinary integer rather than only a 2-adic
+point.  Schema v2 constructs and exact-replays this canonical third-step
+failure for all 729 bounded ordered symbol triples.
+
+`OutwardCoarseHole.lean` now kernel-checks the abstract theorem behind this
+conclusion: uniqueness of each affine dyadic gate, the 49-small-rows-plus-one-
+tail cover, CRT holes in every ternary cylinder, and the positive open-tail
+failure.  The remaining formal seam is the concrete bridge identifying every
+literal writer--decoder continuation with that coarse legality predicate;
+the exact worker checks that bridge on the displayed rows.
+
 Schema v2 checks (32.1)--(32.2) on all 729 ordered symbol triples with
 `2<=p,p',p''<=4`, `0<=b,b',b''<=2`.  It also gives the exact first closure
 failure for the anchored `(2,0)->(2,0)` ternary selector at every precision

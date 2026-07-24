@@ -1,6 +1,33 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 21:27 EDT
+Updated: 2026-07-23, about 21:47 EDT
+
+### 21:47 EDT continuation -- open-tail closure and scope of `010111`
+
+There is no counterexample.  PT29--31 now close every finite-depth version of
+the current cylinder grammar.  After any finite prescribed edge prefix, an
+unrestricted final coefficient tail is transported as
+`u=u0+3^(g+2)m`, a full ternary progression.  PT31 and CRT choose an exact
+`m` in the all-symbol dyadic hole, so the following writer--decoder cell is
+undefined.  Schema v2 constructs and replays this third-step failure for all
+729 bounded ordered symbol triples.  A live predicate inside this subsystem
+must be genuinely infinitely recursive and still prove ordinary-root
+stabilization; `universal_invariant:null`, `counterexample:null` remain.
+`OutwardCoarseHole.lean` kernel-checks the abstract affine-gate uniqueness,
+50-class/CRT obstruction, and positive open-tail theorem.  The concrete
+writer--decoder-to-coarse-gate bridge remains research-side; the executable
+artifact checks its displayed instances.
+
+Scope is crucial: **Collatz trajectories do not have to start with or keep
+using `010111`.**  That word was chosen only as a clean arithmetic writer,
+because it exposes `p=v2(9H+7)-4`; the resonant decoder then gives the exact
+payload triple.  The full first-passage map also uses `1`, `011`, and
+infinitely many longer words.  PT27--31 close selector architectures only for
+the alternating `010111` writer/resonant-decoder subsystem.  They are not a
+no-go theorem for the full recharge map.  Do not let this convenient
+instruction set consume the entire 24-hour first-crossing time box; the next
+strategic pivot should return these lessons to the full first-passage
+language.
 
 ### 21:27 EDT continuation -- the unbounded alphabet still has an open hole
 
