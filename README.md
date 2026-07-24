@@ -33,6 +33,77 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-24 02:28 EDT
+
+There is still no Collatz counterexample.  The IAS audit now has 225
+authoritative transcript-checked release talks.  A process audit also found no
+Collatz, Lean, or corpus-analysis computation consuming the Mac; only the
+interactive Codex/Claude clients and ordinary desktop services were active.
+
+Ashwin Iyengar proves that framed local Galois deformation rings are flat
+complete intersections of the expected dimension and controls their
+components through determinant data, using tangent--obstruction theory,
+pseudorepresentations, and a finite-type representation space.  The useful
+Collatz transfer is to compute an exact obstruction to extending a literal
+depth-`N` cylinder solution to depth `N+1`, instead of treating survival as
+evidence.  The elementary congruence `x^2+1=0 mod 2` has a solution but none
+modulo four, while identity and nontrivial unipotent matrices have the same
+characteristic polynomial.  Thus both lift obstructions and full carry state
+must survive any compressed deformation model; even unobstructed completion
+may still end at the nonordinary 2-adic root `-1`.
+
+Tsachik Gelander proves Haar ergodicity of the Nielsen action on `G^n` for a
+compact connected Lie group and `n>=3`, using almost-sure dense generation,
+Fubini, and dense translation invariance.  This can motivate generic rewrite
+diagnostics only after a measure-preservation theorem.  A conull set may miss
+the entire countable ordinary-root set, and an invariant probability system
+cannot have a uniformly positive drift in an integrable height because the
+integral of `h o T-h` is zero.  The stronger claim that every dense
+representation is redundant is explicitly conjectural in the talk.
+
+Siavosh Benabbas compares exact Hamming-sphere averaging with product noise in
+their common Fourier basis; averaging adjacent spheres cancels a parity
+obstruction and transfers constant-density stability.  Exact prefix families
+could be analyzed by the same character method, but a single depth-`H`
+all-odd cylinder has density `2^(-(H+1))`, below the theorem's polynomial-error
+resolution.  The exact witnesses `2^(H+1)-1` still grow without bound and
+converge only to `-1`; even constant density at every depth would not force
+nested coherence.
+
+Jean-Pierre Marco proves persistence and symplectic/KAM compactification of a
+normally hyperbolic invariant cylinder.  Every fixed Collatz valuation word
+already has an exact affine straightening about its rational fixed point.  For
+`w=123`, that point is `23/37` and the real multiplier is `27/64`, so the
+three rational branches form a real attracting cycle; its 2-adic multiplier
+norm is instead `64`, and the fixed point is not a natural number.  Real
+hyperbolicity therefore supplies neither dyadic compactness nor an ordinary
+seed.  The transcript stops after the cylinder construction, so no
+homoclinic-drift theorem is attributed to it here.
+
+Vitaly Bergelson explains how independent polynomial iterates give joint
+ergodicity and correct finite-ring pattern statistics, but in fixed
+characteristic ordinary polynomial independence must be strengthened because
+Frobenius/additive degeneracies survive.  This suggests an exact Smith-normal-
+form or character audit for hidden dyadic/triadic carry relations before any
+equidistribution heuristic.  Correct statistics in every quotient still do
+not choose one nested seed or prove height drift; ordered carries already
+separate words such as `12` and `21` that coarse aggregate data identify.
+
+Dylan Cant proves that an extensible positive boundary loop forces symplectic
+cohomology to vanish: iteration gives a cofinal Floer sequence, naturality
+identifies it with every tail, and a late-born unit contradicts surjectivity
+from every initial group.  This is a sharp model for refuting a finite
+self-renewing Collatz architecture, but only after an exact full-state tail
+isomorphism and a genuine late-born obstruction are proved.  The literal word
+`222` cycles at seed `1`, while repeating `123` renews only at the rational
+2-adic root `23/37`; tail renewal alone is neither escape nor ordinary-root
+realization.
+
+These talks strengthen obstruction-first lifting, finite-character, and
+tail-renewal audits.  None proves perpetual definedness, coercive counter
+growth, a coherent bounded ordinary seed, or a positive-root extraction
+theorem.  `counterexample:null`.
+
 ### 2026-07-24 02:21 EDT
 
 There is still no Collatz counterexample.  The IAS audit now has 219
@@ -10861,6 +10932,51 @@ existing lines of work; the closest ancestors, and what each contributes:
   S5--S8 at 2,254--3,582 seconds** — excess finite complexity forces a small
   rational circuit or an independent-class decomposition.  Coarse block
   circuits do not preserve Collatz's semidirect carry composition.
+- **A. Iyengar, [“Local (\(\ell=p\)) Galois Deformation
+  Rings”](https://www.ias.edu/video/local-ell-p-galois-deformation-rings), IAS
+  talk (10 Feb. 2022), corpus key `c3f072b02d3b4278a434396b38e39170`,
+  S4--S7 at 1,639--3,653 seconds** — tangent--obstruction theory and
+  finite-type stratification suggest exact next-precision lift obstructions.
+  Pseudorepresentation compression can discard literal carry state, and a
+  complete local point need not be a positive integer.
+- **T. Gelander, [“The Weigold--Goldman Conjecture for Compact Lie
+  Groups”](https://www.ias.edu/video/weigold-goldman-conjecture-compact-lie-groups),
+  IAS talk (28 Apr. 2026), corpus key `fe7c8e193f349b36140cace0795d42eb`,
+  S3--S6 at 1,541--3,196 seconds** — Haar ergodicity follows from generic dense
+  generation, but conull behavior need not meet any ordinary seed and cannot
+  support uniform positive drift of an integrable height.  Dense redundancy
+  is conjectural, not a theorem of the talk.
+- **S. Benabbas, [“An Isoperimetric Inequality for the Hamming Cube and
+  Integrality Gaps in Bounded-Degree
+  Graphs”](https://www.ias.edu/video/csdm/benabbas), IAS talk (21 Nov. 2011),
+  corpus key `da00989e17b9e99162589154a1bd4844`, S1--S4 at 18--1,313
+  seconds** — Fourier comparison transfers constant-density product-noise
+  stability to exact Hamming spheres.  Individual Collatz cylinders have
+  exponentially small density, and levelwise density does not imply a nested
+  ordinary root.
+- **J.-P. Marco, [“Symplectic geometry of hyperbolic cylinders and their
+  homoclinic
+  intersections”](https://www.ias.edu/video/emergingtopics/2018/0409-Jean-PierreMarco),
+  IAS talk (9 Apr. 2018), corpus key `201ec82ce44d5482af7a63218ca63edf`,
+  S2/S5--S8 at 703--1,945 and 2,937--4,051 seconds** — invariant-cylinder
+  persistence motivates exact affine straightening, but real attraction may
+  be 2-adic repulsion and a rational periodic point need not be natural.  The
+  audited transcript does not reach the advertised homoclinic-drift proof.
+- **V. Bergelson, [“Asymptotic Total Ergodicity and Polynomial Patterns in
+  Finite
+  Fields”](https://www.ias.edu/video/asymptotic-total-ergodicity-and-polynomial-patterns-finite-fields),
+  IAS talk (3 Mar. 2023), corpus key `06b4f76cdbe42ce4ccffdf4503505398`,
+  S5--S7 at 1,813--3,245 seconds** — fixed-characteristic Frobenius
+  degeneracies show that naive independence can miss exact arithmetic
+  relations.  Finite-quotient pattern statistics still do not select a
+  coherent, height-coercive ordinary orbit.
+- **D. Cant, [“Extensible positive loops and vanishing of symplectic
+  cohomology”](https://www.ias.edu/video/extensible-positive-loops-and-vanishing-symplectic-cohomology),
+  IAS talk (9 Feb. 2024), corpus key `ea105497a83bb1ce70c855a59ed48df1`,
+  S2--S5 at 1,787--3,273 seconds** — cofinality, tail naturality, and a
+  late-born unit obstruct a self-renewing Floer architecture.  A Collatz
+  transfer requires literal full-state tail isomorphisms and a separate
+  ordinary-root/coercivity theorem.
 - **S. Fenner, [“Bipartite perfect matching is in
   quasi-NC”](https://www.ias.edu/video/csdm/2016/0208-Fenner), IAS talk
   (8 Feb. 2016), corpus key `83398a9013343939af42951fafbfdaa1`, S2--S8 at
