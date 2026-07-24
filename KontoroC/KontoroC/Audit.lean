@@ -2228,5 +2228,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardKernelDecoderGap.nondeterministicRows_eq_empty_iff_pointwise
 #print axioms
   KontoroC.OutwardKernelDecoderGap.supported_pair_obstructs_pointwise
+#print axioms
+  KontoroC.OutwardJacobianRigidityGap.squareSystem_hasUniqueZero
+#print axioms
+  KontoroC.OutwardJacobianRigidityGap.squareJacobianAtZero_hasNonzeroTangent
+#print axioms
+  KontoroC.OutwardJacobianRigidityGap.squareSystem_displacement_is_quadratic
+#print axioms
+  KontoroC.OutwardJacobianRigidityGap.nonzeroTangent_does_not_imply_secondOrdinaryPoint
+#print axioms
+  KontoroC.OutwardJacobianRigidityGap.uniqueOrdinaryPoint_and_nonzeroTangent
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

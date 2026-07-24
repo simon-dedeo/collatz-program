@@ -189,6 +189,7 @@ import KontoroC.OutwardLiteralMacroOrbit
 import KontoroC.OutwardLinearRoutingBottleneck
 import KontoroC.OutwardBoundedErrorGrowth
 import KontoroC.OutwardKernelDecoderGap
+import KontoroC.OutwardJacobianRigidityGap
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail

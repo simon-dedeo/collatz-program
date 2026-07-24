@@ -18469,3 +18469,58 @@ entropy, or a Doob transform supplies none of those automatically.
 Full `lake build KontoroC` passes 8,869 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, or `native_decide`.
+
+## Round 361 — correction: nonzero Jacobian tangent is not a second ordinary point
+
+I adversarially checked the Allen-inspired rigidity rule and found a semantic
+overreach that should be corrected before using it as a CEGIS rejection.
+The imported and audited module
+
+```text
+KontoroC.OutwardJacobianRigidityGap
+```
+
+formalizes the exact counterexample `x^2=0` over `Q`.
+
+Lean proves
+
+```text
+squareSystem_hasUniqueZero:
+  HasUniqueFiberPoint squareSystem 0 0
+```
+
+so zero is the only ordinary rational point, while
+
+```text
+squareJacobianAtZero_hasNonzeroTangent:
+  HasNonzeroLinearizedTangent squareJacobianAtZero
+```
+
+because the Jacobian at zero is the zero linear map and tangent `1` lies in
+its kernel.  The exact displacement identity
+
+```text
+squareSystem_displacement_is_quadratic
+```
+
+shows why: perturbations begin at quadratic order, so the linearized equation
+sees a tangent which does not integrate to another ordinary zero.
+
+The explicit no-implication theorem is
+
+```text
+nonzeroTangent_does_not_imply_secondOrdinaryPoint.
+```
+
+Therefore a nonzero Jacobian kernel is a valid failure certificate for
+*infinitesimal/scheme-theoretic rigidity*, but not for uniqueness of literal
+integer or rational selector solutions.  The prose sentence “a nonzero
+tangent is a concrete failure of local uniqueness” needs that qualifier.  A
+CEGIS loop may retain the tangent as a refinement feature or inspect the full
+local algebra, but may reject ordinary uniqueness only after extracting an
+actual second ordinary point (or another direct contradiction).  Conversely,
+zero tangent still supplies neither existence nor a compatible lift.
+
+Full `lake build KontoroC` passes 8,870 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, or `native_decide`.
