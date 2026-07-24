@@ -142,6 +142,28 @@ theorem syracuse_iterate_le_two_of_reachesOne {start k t : ℕ}
     _ = syracuseStep^[t - k] 1 := by rw [hreach]
     _ ≤ 2 := syracuse_iterate_one_le_two _
 
+/-- Every all-finite-depth execution through an outward code makes the actual
+deterministic Syracuse orbit unbounded.  No separate infinite choice of code
+words is needed: at requested depth `bound + 1`, the literal block endpoint
+is already a genuine Syracuse iterate larger than `bound`. -/
+theorem syracuseOrbit_unbounded_of_infiniteExecution
+    {C : Set (List Bool)}
+    (hout : ∀ w ∈ C, WordOutward w)
+    {start : ℕ} (hinfinite : InfiniteExecution C start) :
+    ∀ bound, ∃ time,
+      bound < syracuseStep^[time] start := by
+  intro bound
+  obtain ⟨hstart, words, hlength, hwords, hexec⟩ :=
+    hinfinite (bound + 1)
+  obtain ⟨finish, hflatten, hgrowth⟩ :=
+    executesBlocks_growth hout hstart hwords hexec
+  have hfinish : finish =
+      syracuseStep^[(flattenWords words).length] start :=
+    executes_eq_syracuse_iterate _ hflatten
+  refine ⟨(flattenWords words).length, ?_⟩
+  rw [← hfinish]
+  omega
+
 /-- The all-finite-depth execution supplied by finite-window compactness is
 already a genuine Syracuse counterexample when every codeword is outward. -/
 theorem not_syracuseReachesOne_of_infiniteExecution

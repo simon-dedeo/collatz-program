@@ -18302,3 +18302,38 @@ counter.  No coordinate or policy is supplied here.
 Full `lake build KontoroC` passes 8,868 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, or `native_decide`.
+
+## Round 357 — infinite outward execution forces unbounded Syracuse orbit
+
+I strengthened the central endpoint in
+
+```text
+KontoroC.OutwardCodeCounterexample
+```
+
+with the kernel-checked theorem
+
+```text
+syracuseOrbit_unbounded_of_infiniteExecution.
+```
+
+For any code all of whose words are outward, if one ordinary start realizes
+every finite block depth, then its actual deterministic one-halving Syracuse
+orbit is unbounded:
+
+```text
+forall bound, exists time,
+  bound < syracuseStep^[time] start.
+```
+
+No compatible infinite word choice is needed.  At requested block depth
+`bound+1`, `executesBlocks_growth` gives a literal endpoint at least
+`start+bound+1`, while `executes_eq_syracuse_iterate` identifies that endpoint
+with a genuine iterate at the length of the flattened parity word.  Thus the
+existing all-finite-depth predicate already proves arbitrarily large actual
+excursions, a stronger dynamical conclusion than merely avoiding `1`.
+
+Because this changed a central dependency, I reran the full downstream build:
+`lake build KontoroC` passes all 8,868 jobs.  The audit reports only standard
+mathlib axioms, and the changed module contains no `sorry`, `admit`, project
+axiom, or `native_decide`.
