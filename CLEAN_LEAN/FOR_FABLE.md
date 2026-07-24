@@ -18337,3 +18337,47 @@ Because this changed a central dependency, I reran the full downstream build:
 `lake build KontoroC` passes all 8,868 jobs.  The audit reports only standard
 mathlib axioms, and the changed module contains no `sorry`, `admit`, project
 axiom, or `native_decide`.
+
+## Round 358 — unboundedness transfers to the standard Collatz orbit
+
+I completed the quantitative Syracuse-to-standard bridge in
+
+```text
+KontoroC.OutwardCodeCounterexample.
+```
+
+The new exact embedding theorem is
+
+```text
+exists_step_iterate_eq_syracuse_iterate:
+  forall start n, exists time,
+    step^[time] start = syracuseStep^[n] start.
+```
+
+The induction records the real timing: an even Syracuse state consumes one
+unaccelerated Collatz step, while an odd Syracuse state consumes the odd
+`3n+1` step and its immediately forced halving.  Therefore every finite
+Syracuse value occurs literally on the standard Collatz orbit.
+
+Lean then proves
+
+```text
+collatzOrbit_unbounded_of_syracuseOrbit_unbounded
+collatzOrbit_unbounded_of_infiniteExecution.
+```
+
+Thus one ordinary start realizing every finite depth of any outward code has
+not only an unbounded one-halving Syracuse orbit but an unbounded orbit under
+the standard unaccelerated Collatz map itself:
+
+```text
+forall bound, exists time, bound < step^[time] start.
+```
+
+This is stronger than the existing nonarrival-at-one endpoint and removes a
+possible prose ambiguity about which normalization is unbounded.
+
+The full dependency rebuild again passes all 8,868 jobs.  The audit reports
+only standard mathlib axioms, including only `propext`/`Quot.sound` for the
+finite-iterate embedding itself, and the changed module contains no `sorry`,
+`admit`, project axiom, or `native_decide`.

@@ -49,6 +49,34 @@ theorem executes_eq_syracuse_iterate (w : List Bool) {start finish : ℕ}
         _ = syracuseStep^[(odd :: w).length] start := by
           rw [List.length_cons, Function.iterate_succ_apply]
 
+/-- Every finite Syracuse iterate occurs at an ordinary unaccelerated Collatz
+time.  An even Syracuse step consumes one standard step; an odd Syracuse step
+consumes the odd step and its immediately forced halving. -/
+theorem exists_step_iterate_eq_syracuse_iterate (start n : ℕ) :
+    ∃ time, step^[time] start = syracuseStep^[n] start := by
+  induction n with
+  | zero => exact ⟨0, rfl⟩
+  | succ n ih =>
+      obtain ⟨time, htime⟩ := ih
+      let current := syracuseStep^[n] start
+      by_cases heven : current % 2 = 0
+      · refine ⟨time + 1, ?_⟩
+        calc
+          step^[time + 1] start = step^[1] (step^[time] start) := by
+            rw [Nat.add_comm, Function.iterate_add_apply]
+          _ = step current := by simp [htime, current]
+          _ = syracuseStep current := (syracuseStep_of_even heven).symm
+          _ = syracuseStep^[n + 1] start := by
+            simp [current, Function.iterate_succ_apply']
+      · refine ⟨time + 2, ?_⟩
+        calc
+          step^[time + 2] start = step^[2] (step^[time] start) := by
+            rw [Nat.add_comm, Function.iterate_add_apply]
+          _ = step^[2] current := by rw [htime]
+          _ = syracuseStep current := two_steps_of_odd heven
+          _ = syracuseStep^[n + 1] start := by
+            simp [current, Function.iterate_succ_apply']
+
 /-- Every outward parity block strictly increases a positive natural at its
 boundary.  This is a consequence of the exact affine execution identity,
 not a heuristic comparison of logarithmic slopes. -/
@@ -163,6 +191,30 @@ theorem syracuseOrbit_unbounded_of_infiniteExecution
   refine ⟨(flattenWords words).length, ?_⟩
   rw [← hfinish]
   omega
+
+/-- Unboundedness of the one-halving Syracuse orbit transfers to the standard
+unaccelerated Collatz orbit because every Syracuse iterate is one of its
+values. -/
+theorem collatzOrbit_unbounded_of_syracuseOrbit_unbounded
+    (start : ℕ)
+    (hunbounded : ∀ bound, ∃ time,
+      bound < syracuseStep^[time] start) :
+    ∀ bound, ∃ time, bound < step^[time] start := by
+  intro bound
+  obtain ⟨syracuseTime, hsyracuse⟩ := hunbounded bound
+  obtain ⟨collatzTime, hcollatz⟩ :=
+    exists_step_iterate_eq_syracuse_iterate start syracuseTime
+  exact ⟨collatzTime, by simpa [hcollatz] using hsyracuse⟩
+
+/-- Therefore every infinite execution through an outward code makes the
+actual standard unaccelerated Collatz orbit unbounded as well. -/
+theorem collatzOrbit_unbounded_of_infiniteExecution
+    {C : Set (List Bool)}
+    (hout : ∀ w ∈ C, WordOutward w)
+    {start : ℕ} (hinfinite : InfiniteExecution C start) :
+    ∀ bound, ∃ time, bound < step^[time] start := by
+  exact collatzOrbit_unbounded_of_syracuseOrbit_unbounded start
+    (syracuseOrbit_unbounded_of_infiniteExecution hout hinfinite)
 
 /-- The all-finite-depth execution supplied by finite-window compactness is
 already a genuine Syracuse counterexample when every codeword is outward. -/
