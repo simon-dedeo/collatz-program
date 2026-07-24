@@ -2544,3 +2544,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardIteratedKraftGap.finite_nMacro_card_bound_of_fixed_bitLength
 #print axioms
   KontoroC.OutwardIteratedKraftGap.finite_nMacro_coveredAtDepth_card_bound
+#print axioms
+  KontoroC.OutwardFiniteChartPortfolioNoGo.literalCandidate_portfolio_card_lower_bound_of_ternary_total
+#print axioms
+  KontoroC.OutwardFiniteChartPortfolioNoGo.literalCandidate_portfolio_card_lower_bound_of_open_tail_total

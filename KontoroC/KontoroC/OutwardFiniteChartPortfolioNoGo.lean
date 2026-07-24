@@ -231,5 +231,48 @@ theorem exists_positive_open_tail_without_literalCandidate_in_portfolio_of_card_
     charts g q stride correction hstride
       (fifty_mul_card_lt_twoPow_fiftyFour hcard) k u₀
 
+/-- Exact chart-rank lower bound: a literal portfolio total on one complete
+ternary cylinder must contain at least `360287970190` charts. -/
+theorem literalCandidate_portfolio_card_lower_bound_of_ternary_total
+    (charts : Finset ι)
+    (g q stride : ι → ℕ)
+    (correction : ι → ℕ → ℕ)
+    (hstride : ∀ i ∈ charts, Odd (stride i))
+    (k a : ℕ)
+    (htotal : ∀ n, n ≡ a [MOD 3 ^ k] →
+      ∃ i ∈ charts,
+        LiteralWriterDecoderCandidate
+          (g i) (q i) (stride i) (correction i) n) :
+    360287970190 ≤ charts.card := by
+  by_contra hnot
+  have hcard : charts.card ≤ 360287970189 := by omega
+  obtain ⟨n, _, hn3, hnone⟩ :=
+    exists_large_without_literalCandidate_in_portfolio_of_card_le
+      charts g q stride correction hstride hcard k a 0
+  obtain ⟨i, hi, hcand⟩ := htotal n hn3
+  exact hnone i hi hcand
+
+/-- The same rank lower bound for a dispatcher claimed total on every
+positive point of one open ternary tail. -/
+theorem literalCandidate_portfolio_card_lower_bound_of_open_tail_total
+    (charts : Finset ι)
+    (g q stride : ι → ℕ)
+    (correction : ι → ℕ → ℕ)
+    (hstride : ∀ i ∈ charts, Odd (stride i))
+    (k u₀ : ℕ)
+    (htotal : ∀ m, 0 < m →
+      ∃ i ∈ charts,
+        LiteralWriterDecoderCandidate
+          (g i) (q i) (stride i) (correction i)
+          (u₀ + 3 ^ k * m)) :
+    360287970190 ≤ charts.card := by
+  by_contra hnot
+  have hcard : charts.card ≤ 360287970189 := by omega
+  obtain ⟨m, hmpos, hnone⟩ :=
+    exists_positive_open_tail_without_literalCandidate_in_portfolio_of_card_le
+      charts g q stride correction hstride hcard k u₀
+  obtain ⟨i, hi, hcand⟩ := htotal m hmpos
+  exact hnone i hi hcand
+
 end OutwardFiniteChartPortfolioNoGo
 end KontoroC

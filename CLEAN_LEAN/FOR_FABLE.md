@@ -20271,3 +20271,29 @@ by a finite automaton. Again, zero density is not emptiness; an exceptional
 ordinary root could occupy one nested cylinder at every depth.
 
 The full audit remains green (8,890 jobs), with standard mathlib axioms only.
+
+## Round 396 — an exact 360-billion-chart rank lower bound
+
+The portfolio hole now has its direct complexity form:
+
+```text
+literalCandidate_portfolio_card_lower_bound_of_ternary_total
+literalCandidate_portfolio_card_lower_bound_of_open_tail_total.
+```
+
+If a finite family of literal writer--decoder charts is claimed to accept
+every parameter in even one complete ternary cylinder, or every positive
+coefficient in one open ternary tail, Lean proves
+
+```text
+360287970190 <= charts.card.
+```
+
+This is the contrapositive of the exact fifty-row-per-chart cover modulo
+`2^54`, not a computational estimate. It gives the CEGIS architecture a
+clean rank certificate: any realistically sized flat chart portfolio is
+provably incapable of totality. A surviving construction must use a genuinely
+recursive mixed dyadic binder (or otherwise leave the hypotheses of the
+literal chart model), rather than enumerate more top-level charts.
+
+The full audit passes (8,890 jobs), with standard mathlib axioms only.
