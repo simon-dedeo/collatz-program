@@ -2761,3 +2761,21 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardFiniteSubcodeCarry.uniformCarryBudget_iff_exists_zeroCarryTail
 #print axioms
   KontoroC.OutwardFiniteSubcodeCarry.infiniteExecution_iff_exists_zeroCarryTail
+#print axioms
+  KontoroC.OutwardZeroCarrySemantics.exists_executes_iff_source_mod
+#print axioms
+  KontoroC.OutwardZeroCarrySemantics.extensionCarry_eq_zero_iff_executes
+#print axioms
+  KontoroC.OutwardZeroCarrySemantics.extensionCarry_eq_zero_iff_target_mod
+#print axioms
+  KontoroC.OutwardZeroCarrySemantics.zeroCarryChildren_card_le_one
+#print axioms
+  KontoroC.OutwardZeroCarrySemantics.carrySumFrom_eq_zero_iff_executesBlocks
+#print axioms
+  KontoroC.OutwardZeroCarrySemantics.zeroCarry_suffix_unique
+#print axioms
+  KontoroC.OutwardZeroCarrySemantics.zeroCarry_suffix_prefix
+#print axioms
+  KontoroC.OutwardZeroCarrySemantics.zeroCarryTail_iff_infiniteExecution
+#print axioms
+  KontoroC.OutwardZeroCarrySemantics.infiniteExecution_iff_exists_canonicalTarget_infiniteExecution

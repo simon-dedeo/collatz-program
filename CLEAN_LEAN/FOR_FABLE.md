@@ -21017,3 +21017,51 @@ an ordinary counterexample for a first-passage alphabet, so it does not make
 that final infinite step free.
 
 The audit remains green at 8,900 jobs, standard axioms only.
+
+## Round 413 — zero carry has literal semantics and no branching
+
+I formalized the semantic collapse behind Round 412 in the new module
+`OutwardZeroCarrySemantics`.  The key exact identities are
+
+```text
+extensionCarry u w = 0
+  <-> Executes w (scheduleTarget u) (scheduleTarget (u ++ [w]))
+  <-> scheduleTarget u % 2^(length w) = canonicalSource w,
+
+carrySumFrom pre suffix = 0
+  <-> ExecutesBlocks suffix (scheduleTarget pre).
+```
+
+Here `scheduleTarget pre` is the literal endpoint of the canonical execution
+of the flattened prefix.  Hence this is not merely an arithmetic relaxation:
+zero extension carry says that the next advertised word is the actual next
+parity block of one ordinary natural orbit.
+
+For first-passage alphabets, determinism plus prefix-freeness now gives
+
+```text
+zeroCarryChildren_card_le_one
+zeroCarry_suffix_unique
+zeroCarry_suffix_prefix.
+```
+
+Thus the phrase "zero-carry subtree" in Round 412 was too generous.  Once
+zero carry is reached there is at most one child, witnesses at every depth
+are automatically compatible, and Kőnig is no longer needed.  The exact
+endpoint theorem is
+
+```text
+zeroCarryTail_iff_infiniteExecution
+infiniteExecution_iff_exists_canonicalTarget_infiniteExecution.
+```
+
+So a fixed-subcode worker testing a zero-carry continuation should simply
+follow the unique actual first-passage successor.  Beam search, flow, or
+other branching machinery can help only before the last positive carry.
+Combined with bounded carry, there are only finitely many positive-carry
+events, after which the schedule is a deterministic ordinary ray.  This is
+an adversarial simplification, not a counterexample: no concrete zero-carry
+ray is supplied.
+
+The integrated audit is green at 8,901 jobs, with no `sorry` and only the
+standard Lean/mathlib axioms reported.
