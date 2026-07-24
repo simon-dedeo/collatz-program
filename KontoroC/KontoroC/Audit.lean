@@ -2615,3 +2615,19 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardRechargeAperiodic.AutonomousFinitePhase.future_eq
 #print axioms
   KontoroC.OutwardRechargeAperiodic.AutonomousFinitePhase.exists_semanticAlias_after
+#print axioms
+  KontoroC.OutwardCanonicalTailMerger.canonicalRechargeIterate_add_eq_none_iff
+#print axioms
+  KontoroC.OutwardCanonicalTailMerger.canonicalRechargeIterate_none_persists
+#print axioms
+  KontoroC.OutwardCanonicalTailMerger.canonicalRechargeIterate_none_after_prefix
+#print axioms
+  KontoroC.OutwardCanonicalTailMerger.canonicalRechargeIterate_eq_of_meeting
+#print axioms
+  KontoroC.OutwardCanonicalTailMerger.exists_iterate_add_iff_after_prefix
+#print axioms
+  KontoroC.OutwardCanonicalTailMerger.firstUndefinedAt_add_iff_after_prefix
+#print axioms
+  KontoroC.OutwardCanonicalTailMerger.hasInfiniteCanonicalOrbit_iff_after_prefix
+#print axioms
+  KontoroC.OutwardCanonicalTailMerger.hasInfiniteCanonicalOrbit_iff_of_meeting

@@ -215,6 +215,7 @@ import KontoroC.OutwardNestedAllOddNoRoot
 import KontoroC.OutwardAlternatingCylinderNoRoot
 import KontoroC.OutwardEntropyDriftNoGo
 import KontoroC.OutwardCanonicalRechargeCompleteness
+import KontoroC.OutwardCanonicalTailMerger
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail

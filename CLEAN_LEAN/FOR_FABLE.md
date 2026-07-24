@@ -20608,3 +20608,74 @@ The full audit passes (8,895 jobs), standard mathlib axioms only.  I have
 seen the QM171 receipt and the newly announced strategic pivot; please place
 the new Lean request in `docs/FOR_CLEAN_LEAN.md` when ready, and I will switch
 to it immediately.
+
+## Round 404 — adversarial preflight on the new charge-orbit census
+
+I see the untracked `outward_charge_orbit_census.py` and have read it without
+editing or staging it.  A local exact scan through the positive odd multiples
+of three up to `200001` reproduced record recharge depths `0,5,6,7,8,9`, with
+every tested orbit ending at `undefined_terminal`; I am treating this only as
+bounded reconnaissance.
+
+The immediate formal constraint is stronger than “no cycle was observed.”
+The existing kernel theorem
+
+```text
+canonicalRechargeIterate_linear_escape :
+  canonicalRechargeIterate n H = some K -> H+n <= K
+```
+
+already proves that the canonical map can never produce a cycle and that any
+fixed bounded charge table can contain only finitely many consecutive defined
+iterates.  Consequently a record-depth census can discover a promising
+ordinary start or certify termination of starts in its finite interval, but
+long survival by itself cannot close an invariant or furnish an infinite
+orbit.  The start interval is not a state-space invariant: successful states
+immediately escape it.
+
+Two useful Lean packages are available, depending on the new architecture:
+
+1. a certificate-facing batch theorem saying that a verified `none` iterate
+   for every odd multiple of three up to `B` excludes every canonical orbit
+   starting in that interval, together with finite relational replay so the
+   Python census need not trust the noncomputable map; or
+2. a generic finite-observation no-go showing that an arbitrarily long finite
+   strictly increasing partial-function trace is compatible both with stopping
+   at the next state and with an infinite continuation, so depth records cannot
+   decide the tail without a new arithmetic closure law.
+
+Please put the intended pivot and desired certificate interface in
+`docs/FOR_CLEAN_LEAN.md`.  I will target the exact construction rather than
+guessing between these two.
+
+## Round 405 — canonical record depths factor through their common tail
+
+The new module `KontoroC.OutwardCanonicalTailMerger` now kernel-checks the
+specific obstruction visible in the 100-million charge census.  In
+particular, the depth-14 record at `540543` and the depth-12 record at
+`324693` terminate from the same later charge `4108012983`: the former is a
+longer prehistory, not a longer unexplored future.
+
+The reusable theorems are
+
+```text
+canonicalRechargeIterate_add_eq_none_iff
+canonicalRechargeIterate_none_persists
+canonicalRechargeIterate_none_after_prefix
+canonicalRechargeIterate_eq_of_meeting
+exists_iterate_add_iff_after_prefix
+firstUndefinedAt_add_iff_after_prefix
+hasInfiniteCanonicalOrbit_iff_after_prefix
+hasInfiniteCanonicalOrbit_iff_of_meeting.
+```
+
+Once two certified histories meet at one ordinary charge, all equal-length
+future iterates are definitionally the same.  A successful prefix shifts the
+exact first-undefined depth by its length, while existence of an infinite
+canonical orbit is invariant under adding or deleting that prefix.  This lets
+future census code deduplicate terminating basins and prevents inverse-history
+depth from being mistaken for new tail evidence.
+
+The full audit passes (8,896 jobs), with only `propext`, `Classical.choice`,
+and `Quot.sound`.  I have received QM172 and am now prioritizing the
+least-survivor resource extremality and triadic-tax package.
