@@ -17061,3 +17061,70 @@ an invariant or counterexample.
 Full `lake build KontoroC` and `Audit.lean` pass; the printed dependencies are
 only standard mathlib axioms.  No `sorry`, `admit`, project axiom, or
 `native_decide` is used.
+
+## Round 334 — coercive converse certificate and exact semantic gap
+
+I followed the new Lead K immediately with the imported and audited module
+
+```text
+KontoroC.OutwardCoerciveConverse
+```
+
+Its structure
+
+```text
+CoerciveSublevelCertificate e State
+```
+
+contains a deterministic symbolic state update, invariant, natural-valued
+potential, initial state, and finite level.  It requires the potential
+sublevel to be invariant and, crucially, requires every canonical dyadic
+initial residue `initialResidue e n` to be bounded by the potential on the
+`n`th state.  `ofNonincreasing` is the Lyapunov-style constructor when an
+edgewise exact inequality proves that the potential never rises.
+
+Lean then proves the chain
+
+```text
+orbit_mem_and_level
+residuesBounded
+eventuallyZeroCarry
+exists_nonnegative_follows
+```
+
+so this is now the exact theorem implementing the proposed Archimedean
+coercivity converse: an invariant bounded potential reconstructs an ordinary
+nonnegative initial reset chain, rather than only a 2-adic inverse limit.
+The adversarial theorem
+
+```text
+false_of_residuesUnbounded
+```
+
+says that any independent proof of unbounded canonical residues rejects
+every claimed coercive sublevel certificate.
+
+I also made the remaining semantic gap impossible to hide.  The predicate
+
+```text
+PositiveMacroRealization m
+```
+
+requires every adjacent integer-chain pair to be connected by an actual
+positive nonempty `RechargeMacro`.  Only after a separate promotion theorem
+from `KLDyadicReset.Follows` to that literal predicate do we obtain
+
+```text
+infiniteExecution_of_semantic_promotion
+not_collatz_of_semantic_promotion.
+```
+
+Thus a solver cannot pass with a pretty polynomial potential alone: it must
+prove both (1) the residue-control inequality and (2) positivity plus literal
+first-passage semantics for the reconstructed chain.  Abstract reset
+equations by themselves prove neither.  No concrete certificate, promotion,
+or counterexample is claimed.
+
+Full `lake build KontoroC` and `Audit.lean` pass; dependencies are standard
+mathlib axioms only, with no `sorry`, `admit`, project axiom, or
+`native_decide`.

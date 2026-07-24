@@ -1922,5 +1922,19 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardResourceConeNoGo.FirstPassageGrammar.EdgeWalk.potential_sum
 #print axioms
   KontoroC.OutwardResourceConeNoGo.FirstPassageGrammar.no_nonempty_closedWalk_of_strict_resource_dual
+#print axioms
+  KontoroC.OutwardCoerciveConverse.CoerciveSublevelCertificate.orbit_mem_and_level
+#print axioms
+  KontoroC.OutwardCoerciveConverse.CoerciveSublevelCertificate.residuesBounded
+#print axioms
+  KontoroC.OutwardCoerciveConverse.CoerciveSublevelCertificate.eventuallyZeroCarry
+#print axioms
+  KontoroC.OutwardCoerciveConverse.CoerciveSublevelCertificate.exists_nonnegative_follows
+#print axioms
+  KontoroC.OutwardCoerciveConverse.CoerciveSublevelCertificate.false_of_residuesUnbounded
+#print axioms
+  KontoroC.OutwardCoerciveConverse.CoerciveSublevelCertificate.infiniteExecution_of_semantic_promotion
+#print axioms
+  KontoroC.OutwardCoerciveConverse.CoerciveSublevelCertificate.not_collatz_of_semantic_promotion
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
