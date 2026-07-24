@@ -33,6 +33,87 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-24 00:45 EDT
+
+There is still no Collatz counterexample.  The IAS audit now has 103
+authoritative transcript-checked release talks.  The one deliberately broad
+Batch API triage has terminated: 976 requests completed and 49 returned an
+HTTP-500 server error; among the completed requests, 892 supplied a
+schema-valid assessment and 84 exhausted the 4,000-token allowance in
+reasoning without returning content.  Thus 133 talks remain unclassified by
+that batch, rather than being silently scored.  The usable scores were one
+talk at relevance 1, 844 at relevance 2, and 47 at relevance 3, with none at
+4 or 5.  Those 47 have been materialized as raw-transcript reading packets;
+the scores are routing hints only.  No failure was resubmitted and no second
+broad batch will be run.  Exact usage was 2,270,113 prompt tokens and
+2,440,009 completion tokens, of which 1,800,811 were reasoning tokens; the
+estimated Batch API cost is $84.55 (or $169.10 under a deliberately
+conservative doubled-rate bound), well below the user-set $1,000 ceiling.
+
+Agustin Moreno's holomorphic-shadow construction gives the sharpest new
+quotient warning.  Every original Reeb orbit projects to an orbit of a cone
+field on a lower-dimensional moduli space, but the speaker explicitly says
+that a cone orbit need not lift to an original orbit and that the averaged
+shadow dynamics may be far from the original dynamics.  The exact finite
+Collatz transfer is therefore a *lift audit*: for every proposed quotient
+path, recursively compute the set of literal recharge states in the current
+fiber that realize the next shadow edge.  The first empty fiber is a finite
+nonlifting certificate.  Nonempty fibers at separate depths still require a
+compatible section, literal word replay, counter growth, and one ordinary
+root.
+
+Julian Chaidez supplies a conditional barrier-certificate architecture.  On
+a convex hypersurface, compact invariant Liouville sets of negative and
+positive sign cannot be joined by the relevant characteristic heteroclinic;
+the dividing set orients the prohibited crossing.  A finite selector graph
+can imitate this only after exact certificates assign invariant strongly
+connected pieces to negative/positive regions and verify every directed edge
+against an explicit divider.  One reachable negative-to-positive path
+rejects the proposed barrier.  The contact-geometric theorem does not apply
+to a recharge graph without that encoding and constructs no escaping path.
+
+Hao Shen's renormalized Yang--Mills dynamics suggests a useful exact
+symmetry-repair test.  Regularizing the noise and adding the mass
+renormalization separately break gauge symmetry, while one unique finite
+shift makes the two defects cancel in the limiting process.  For a bounded
+Collatz architecture, introduce only a complexity-charged correction family
+`F_c` and solve the complete exact defect table
+`g(F_c(x))-F_c(g(x))=0`.  No common `c` rejects the architecture, uniqueness
+fixes the correction, and several values expose unresolved gauge freedom.
+The talk's cancellation occurs only in an analytic limit, and its local
+short-time construction explicitly lacks the global control needed for an
+infinite orbit.
+
+Jonghyeon Ahn's barcode-entropy proof bounds the number of sufficiently long
+persistence bars by a finite count of transverse diagonal/graph
+intersections and then by graph volume, under closed symplectically
+aspherical ambient-manifold, Liouville-domain, index-bounded boundary,
+collar, and action-window hypotheses.  If a finite selector complex is
+genuinely encoded as that
+filtered Floer complex, exact boundary-matrix reduction and exact
+intersection enumeration give a bounded rejection certificate.  Without
+the geometric encoding, only the barcode reduction remains.  A bar is a
+noncanonical homology class, not a literal macro, and aggregate long-bar
+growth supplies neither a nested path nor an ordinary seed.
+
+Jeroen Zuiddam's account of Strassen's asymptotic spectrum gives a different
+all-depth population bound.  A verified spectral point on the graph semiring
+implies `alpha(G^{⊠n}) <= phi(G)^n` for every strong power.  This can constrain a
+macro-conflict model only after proving that depth-`n` compatibility is
+*exactly* independence in `G^n`; carry or memory dependence usually breaks
+that premise.  Even then, maximizing independent sets at successive powers
+need not be nested--the talk notes that Shannon capacity's finite-power
+supremum need not be attained--so the theorem controls branch populations,
+not one coherent recharge trajectory.
+
+Formalizer commit `ac43799` independently kernel-checks Rubinstein's
+single-path checksum: arbitrary sharding and edge order preserve the XOR of
+the known start and terminal, including repeated vertices and loops.  Its
+explicit permutation premise is essential; branching data yield only the
+XOR of odd-incidence boundary vertices.  This is a distributed data-integrity
+certificate after literal path extraction, not a path constructor.
+`counterexample:null`.
+
 ### 2026-07-24 00:12 EDT
 
 There is still no Collatz counterexample.  The IAS audit now has 98
@@ -8565,6 +8646,46 @@ existing lines of work; the closest ancestors, and what each contributes:
   but entropy growth can count only dead ends or incompatible paths.  The
   smoothing definition is an explicit warning: a complexity lower bound need
   not retain one literal limiting dynamics.
+- **A. Moreno, [“A (slightly deeper) look into the restricted 3-body
+  problem”](https://www.ias.edu/video/slightly-deeper-look-restricted-3-body-problem),
+  IAS talk (4 Nov. 2021), corpus key
+  `14c017ce17fb0fd6623dbaaa2b463bcb`, S4--S7 at 1,289--2,307 seconds** —
+  original Reeb orbits project to cone-field shadow orbits, but shadow orbits
+  need not lift.  This supplies an exact finite fiber-lifting audit for a
+  quotient selector, not a converse shadowing theorem or a Collatz path.
+- **J. Chaidez, [“Non-convex Hypersurfaces And Robust Heterodimensional
+  Cycles”](https://www.ias.edu/video/non-convex-hypersurfaces-and-robust-heterodimensional-cycles),
+  IAS talk (24 Mar. 2026), corpus key
+  `2b5c2626dc91cc8ba7680ac2a1234727`, S3--S6 at 900--2,589 seconds** — a
+  convex hypersurface cannot have the specified characteristic heteroclinic
+  from a negative compact invariant Liouville set to a positive one.  A
+  finite selector can use this only as a conditional, exact directed-barrier
+  audit after proving the corresponding sign/divider encoding.
+- **H. Shen, [“Langevin Dynamics of Yang-Mills in 2D and
+  3D”](https://www.ias.edu/video/langevin-dynamics-yang-mills-2d-and-3d),
+  IAS talk (20 Jan. 2023), corpus key
+  `5171cdf4f2ae5908a6084625a4bba1b1`, S5/S8 at 2,190--2,665 and
+  3,180--3,620 seconds** — one unique finite mass shift cancels two
+  gauge-symmetry defects in the limiting regularized dynamics.  This
+  motivates an exact bounded equivariance-defect equation for selector
+  corrections; the analytic cancellation is not finite-stage and the talk's
+  construction is local in time.
+- **J. Ahn, [“Barcode Entropy and Relative Symplectic
+  Cohomology”](https://www.ias.edu/video/barcode-entropy-and-relative-symplectic-cohomology),
+  IAS talk (6 Mar. 2026), corpus key
+  `66ae302a7e1022c2c72a4faf01acbf49`, S3--S7 at 1,200--2,911 seconds** —
+  under the stated Floer-geometric hypotheses, sufficiently long persistence
+  bars are bounded by a finite transverse intersection count and ultimately
+  by graph volume.  Barcodes can audit a genuine filtered-complex encoding,
+  but their aggregate classes are not literal macros or a nested seed path.
+- **J. Zuiddam, [“Asymptotic Spectrum and Approximation Approaches to
+  Direct-sum Problems”](https://www.ias.edu/video/asymptotic-spectrum-and-approximation-approaches-direct-sum-problems),
+  IAS talk (29 Sept. 2025), corpus key
+  `739bd4a66a3801d9236bb3eab56b3605`, S2 at 700--1,176 seconds** — one
+  verified graph spectral point gives an exact independence-number upper
+  bound in every strong power.  It applies to recharge macros only after an
+  exact strong-product conflict encoding, and controls populations rather
+  than a compatible infinite selector.
 - **S. Fenner, [“Bipartite perfect matching is in
   quasi-NC”](https://www.ias.edu/video/csdm/2016/0208-Fenner), IAS talk
   (8 Feb. 2016), corpus key `83398a9013343939af42951fafbfdaa1`, S2--S8 at
