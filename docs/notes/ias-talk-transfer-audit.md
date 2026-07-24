@@ -492,12 +492,25 @@ key `1046f78390fd05e12d05a3413a3ddf7b`, S3--S6; raw checked at
 3,506--3,690 seconds.  Record for each exact macro its height margin, dyadic
 precision consumed, triadic precision transported, counter-scale change, and
 rigorous carry bounds.  Any recurrent grammar has a nonnegative conserved
-edge flow satisfying the tropicalized resource inequalities.  Solve this
-rational polyhedral cone first.  An exact Farkas dual which strictly decreases
-on every edge closes the architecture; an extremal feasible ray identifies a
-small block support for semantic testing.  A feasible ray is not an ordered
-trajectory, and tropicalization can discard the valuation cancellations that
-matter.
+edge flow satisfying the tropicalized resource inequalities.  The exact dual
+preflight is now kernel-checked in `KontoroC.OutwardResourceConeNoGo`.
+
+For a finite first-passage grammar, Lean defines nonnegative nonzero rational
+circulations with flow conservation at every state.  Given a rational vertex
+potential, or a vector of edge resources with nonnegative rational
+multipliers, it proves that no resource-admissible nonzero circulation exists
+when every edge has strictly negative reduced score
+
+```text
+potential(target e)-potential(source e)+combinedScore(e) < 0.
+```
+
+The proof is exact telescoping; an external LP may propose the rational
+certificate, but no solver or floating optimization is trusted.  The semantic
+layer must still prove that a proposed recurrent architecture has the assumed
+coordinatewise nonnegative aggregate budgets.  A feasible ray is not an
+ordered trajectory, bounded survival does not imply a circulation, and
+tropicalization can discard the valuation cancellations that matter.
 
 **Local support before a local limit.** Swastik Kopparty, *A local central
 limit theorem for triangles in a random graph*, IAS, 28 Mar. 2016,
