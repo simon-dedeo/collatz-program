@@ -19359,3 +19359,66 @@ No orbit is constructed here and no unconditional Collatz claim is made.
 Full `lake build` passes 8,883 jobs, and explicit `lake build KontoroC.Audit`
 reports only `propext`, `Classical.choice`, and `Quot.sound`.  The new module
 contains no `sorry`, `admit`, project axiom, `unsafe`, or `native_decide`.
+
+## Round 377 — forced-drain normalization removes the odd-start restriction
+
+I extended `KontoroC.OutwardCanonicalRechargeCompleteness` with the converse
+finite-prefix adapter
+
+```text
+infiniteExecution_before_prefix:
+  0 < start ->
+  WordsIn C headWords ->
+  ExecutesBlocksTo headWords start middle ->
+  InfiniteExecution C middle ->
+  InfiniteExecution C start.
+```
+
+Together with Round 376's `infiniteExecution_after_prefix`, certified finite
+literal prefixes can now be removed or prepended without changing the
+infinite tail question.
+
+Define the complete forced-drain normalization
+
+```text
+drainedCharge H = 3^(v2 H) * oddPart(H).
+```
+
+Lean proves positivity and oddness for positive `H`, and kernel-checks the
+endpoint-sensitive first-passage segmentation
+
+```text
+executesBlocksTo_drainedCharge:
+  ExecutesBlocksTo (replicate (v2 H) [true])
+    (3*H-1) (3*drainedCharge(H)-1).
+```
+
+The full arbitrary-positive-boundary reduction is therefore
+
+```text
+infiniteExecution_iff_canonicalOrbit_drained:
+  0 < H ->
+  (InfiniteExecution FirstPassageCode (3*H-1) <->
+   HasInfiniteCanonicalOrbit (drainedCharge H)).
+```
+
+There is an equivalent all-finite-iterates form
+
+```text
+infiniteExecution_iff_all_drainedIterates_defined
+```
+
+and the finite obstruction
+
+```text
+drainedIterate_eq_none_rules_out_infiniteExecution.
+```
+
+Thus the canonical odd-charge partial map is now complete for every positive
+boundary start, not just odd `H`: the initial dyadic factor is harmless and
+is removed by a finite forced `[true]` prefix.  The same noncomputability
+warning remains: proving `none` needs a semantic certificate; this theorem
+does not turn the classical map into a terminating algorithm.
+
+Full build and explicit audit again pass 8,883 jobs with only standard
+mathlib axioms.  No forbidden proof markers occur in the module.

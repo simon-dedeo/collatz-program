@@ -83,6 +83,35 @@ theorem infiniteExecution_after_prefix
       exact ⟨hmiddle, suffix, hsuffixLength, hsuffixWords,
         hsuffixTo.executesBlocks⟩
 
+/-- Conversely, prepending one certified finite execution to an infinite
+execution at its endpoint gives an infinite execution at the original
+source.  No prefix-free hypothesis is needed in this direction. -/
+theorem infiniteExecution_before_prefix
+    {C : Set (List Bool)} {headWords : List (List Bool)}
+    {start middle : ℕ}
+    (hstart : 0 < start)
+    (hprefixWords : WordsIn C headWords)
+    (hprefixExec : ExecutesBlocksTo headWords start middle)
+    (hinfinite : InfiniteExecution C middle) :
+    InfiniteExecution C start := by
+  intro n
+  obtain ⟨_, tailWords, htailLength, htailWordsIn, htailExec⟩ :=
+    hinfinite n
+  obtain ⟨finish, htailTo⟩ :=
+    executesBlocks_iff_exists_endpoint.mp htailExec
+  have hcombinedWords : WordsIn C (headWords ++ tailWords) :=
+    wordsIn_append hprefixWords htailWordsIn
+  have hcombinedTo :
+      ExecutesBlocksTo (headWords ++ tailWords) start finish :=
+    (executesBlocksTo_append headWords tailWords).mpr
+      ⟨middle, hprefixExec, htailTo⟩
+  have hnle : n ≤ (headWords ++ tailWords).length := by
+    simp only [List.length_append, htailLength]
+    omega
+  exact ⟨hstart, (headWords ++ tailWords).take n,
+    List.length_take_of_le hnle, wordsIn_take hcombinedWords,
+    executesBlocks_take hcombinedTo.executesBlocks⟩
+
 /-- A first-passage word executed from a positive boundary ends at another
 positive boundary. -/
 theorem firstPassage_execution_from_boundary_has_boundary_target
@@ -313,6 +342,99 @@ theorem canonicalOrbit_gives_not_collatz
     ¬ CleanLean.Collatz.Conjecture := by
   exact OutwardCodeCounterexample.not_conjecture_of_infiniteExecution
     (fun _ hw => hw.1) (canonicalOrbit_gives_infiniteExecution horbit)
+
+/-! ## Arbitrary positive boundary charges -/
+
+/-- Complete forced one-letter draining replaces the dyadic factor of a
+boundary charge by the same power of three. -/
+def drainedCharge (H : ℕ) : ℕ :=
+  3 ^ padicValNat 2 H * H.divMaxPow 2
+
+theorem drainedCharge_pos {H : ℕ} (hH : 0 < H) :
+    0 < drainedCharge H := by
+  have hprops := OutwardBoundaryRenewal.canonical_drain H hH
+  dsimp only at hprops
+  obtain ⟨_, _, _, hodd⟩ := hprops
+  obtain ⟨k, hk⟩ := hodd
+  dsimp [drainedCharge]
+  omega
+
+theorem drainedCharge_odd {H : ℕ} (hH : 0 < H) :
+    Odd (drainedCharge H) := by
+  have hprops := OutwardBoundaryRenewal.canonical_drain H hH
+  dsimp only at hprops
+  exact hprops.2.2.2
+
+/-- The complete forced drain, segmented into first-passage singleton
+blocks, is an exact endpoint-sensitive execution. -/
+theorem executesBlocksTo_drainedCharge {H : ℕ} (hH : 0 < H) :
+    ExecutesBlocksTo
+      (List.replicate (padicValNat 2 H) [true])
+      (3 * H - 1) (3 * drainedCharge H - 1) := by
+  have hprops := OutwardBoundaryRenewal.canonical_drain H hH
+  dsimp only at hprops
+  apply executesBlocksTo_iff_flatten.mpr
+  simpa [drainedCharge] using hprops.2.2.1
+
+theorem drain_wordsIn_firstPassageCode (H : ℕ) :
+    WordsIn FirstPassageCode
+      (List.replicate (padicValNat 2 H) [true]) := by
+  intro word hword
+  have hwordEq : word = [true] := (List.mem_replicate.mp hword).2
+  subst word
+  constructor
+  · norm_num [WordOutward]
+  · intro u hu
+    have hlen := properPrefix_length_lt hu
+    have hueq : u = [] :=
+      List.eq_nil_of_length_eq_zero (by simpa using hlen)
+    subst u
+    norm_num [WordOutward]
+
+/-- Full normalization theorem: for every positive boundary charge, outward
+first-passage infinity is exactly an ordinary infinite orbit of the canonical
+partial map starting at the completely drained odd charge. -/
+theorem infiniteExecution_iff_canonicalOrbit_drained
+    {H : ℕ} (hH : 0 < H) :
+    InfiniteExecution FirstPassageCode (3 * H - 1) ↔
+      HasInfiniteCanonicalOrbit (drainedCharge H) := by
+  have hRpos := drainedCharge_pos hH
+  have hRodd := drainedCharge_odd hH
+  have hwords := drain_wordsIn_firstPassageCode H
+  have hexec := executesBlocksTo_drainedCharge hH
+  constructor
+  · intro hinfinite
+    have htail :
+        InfiniteExecution FirstPassageCode (3 * drainedCharge H - 1) :=
+      infiniteExecution_after_prefix hinfinite hwords hexec
+    exact (infiniteExecution_iff_canonicalOrbit hRpos hRodd).mp htail
+  · intro horbit
+    have htail :
+        InfiniteExecution FirstPassageCode (3 * drainedCharge H - 1) :=
+      canonicalOrbit_gives_infiniteExecution horbit
+    have hstart : 0 < 3 * H - 1 := by omega
+    exact infiniteExecution_before_prefix hstart hwords hexec htail
+
+/-- The arbitrary-positive-boundary version in finite partial-iterate form. -/
+theorem infiniteExecution_iff_all_drainedIterates_defined
+    {H : ℕ} (hH : 0 < H) :
+    InfiniteExecution FirstPassageCode (3 * H - 1) ↔
+      ∀ n, ∃ K,
+        canonicalRechargeIterate n (drainedCharge H) = some K := by
+  exact (infiniteExecution_iff_canonicalOrbit_drained hH).trans
+    canonicalOrbit_iff_all_iterates_defined
+
+/-- One undefined finite iterate after forced normalization rules out
+infinite outward execution from any positive boundary charge. -/
+theorem drainedIterate_eq_none_rules_out_infiniteExecution
+    {H n : ℕ} (hH : 0 < H)
+    (hnone : canonicalRechargeIterate n (drainedCharge H) = none) :
+    ¬ InfiniteExecution FirstPassageCode (3 * H - 1) := by
+  intro hinfinite
+  obtain ⟨K, hsome⟩ :=
+    (infiniteExecution_iff_all_drainedIterates_defined hH).mp hinfinite n
+  rw [hnone] at hsome
+  simp at hsome
 
 end OutwardCanonicalRechargeCompleteness
 end KontoroC
