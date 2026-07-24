@@ -21119,3 +21119,22 @@ shift" concerns inverse 2-adic coding.  It does not show that the survivor
 set contains an ordinary natural; that intersection is exactly the remaining
 hard obligation.  Nothing here supplies an infinite orbit.  The integrated
 audit is green at 8,902 jobs with standard axioms only.
+
+I also closed the forward semantic endpoint explicitly.  The predicate
+`HasInfiniteThreeWordOrbit H` requires an ordinary natural charge sequence
+and branch sequence satisfying the displayed relation at every time.  Lean
+recursively concatenates their variable-length parity words and proves
+
+```text
+threeWordOrbit_gives_infiniteExecution :
+  HasInfiniteThreeWordOrbit H ->
+  InfiniteExecution ThreeWordCode (3*H-1),
+
+not_conjecture_of_threeWordOrbit :
+  HasInfiniteThreeWordOrbit H -> not Collatz.Conjecture.
+```
+
+So a future constructor cannot accidentally prove a merely 2-adic orbit or
+an arithmetic recurrence detached from literal parity semantics: the final
+consumer demands ordinary `Nat` charges and compiles directly to the existing
+Collatz counterexample theorem.

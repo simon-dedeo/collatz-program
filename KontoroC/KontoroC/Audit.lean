@@ -2797,3 +2797,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardThreeWordZeroCarry.orbit_charge_add_le
 #print axioms
   KontoroC.OutwardThreeWordZeroCarry.nonA_branch_times_infinite
+#print axioms
+  KontoroC.OutwardThreeWordZeroCarry.orbitWords_executesBlocks
+#print axioms
+  KontoroC.OutwardThreeWordZeroCarry.threeWordOrbit_gives_infiniteExecution
+#print axioms
+  KontoroC.OutwardThreeWordZeroCarry.not_conjecture_of_threeWordOrbit

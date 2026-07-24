@@ -296,5 +296,91 @@ theorem nonA_branch_times_infinite
       (hpos _) (hpos _)).mp hs
     simpa [Nat.add_assoc] using hexec
 
+/-! ## Exact infinite-orbit consumer -/
+
+/-- Set-valued form of the three-word alphabet. -/
+def ThreeWordCode : Set (List Bool) :=
+  {w | ∃ b : Branch, w = b.word}
+
+theorem threeWordCode_firstPassage {w : List Bool}
+    (hw : w ∈ ThreeWordCode) : FirstPassage w := by
+  obtain ⟨b, rfl⟩ := hw
+  exact branch_word_firstPassage b
+
+/-- First `n` literal words emitted by a labeled charge orbit. -/
+def orbitWords (branch : ℕ → Branch) : ℕ → List (List Bool)
+  | 0 => []
+  | n + 1 => (branch 0).word :: orbitWords (fun t ↦ branch (t + 1)) n
+
+@[simp] theorem orbitWords_length (branch : ℕ → Branch) (n : ℕ) :
+    (orbitWords branch n).length = n := by
+  induction n generalizing branch with
+  | zero => rfl
+  | succ n ih => simp [orbitWords, ih]
+
+theorem orbitWords_wordsIn (branch : ℕ → Branch) (n : ℕ) :
+    WordsIn ThreeWordCode (orbitWords branch n) := by
+  induction n generalizing branch with
+  | zero => simp [orbitWords, WordsIn]
+  | succ n ih =>
+      intro w hw
+      simp only [orbitWords, List.mem_cons] at hw
+      rcases hw with rfl | hw
+      · exact ⟨branch 0, rfl⟩
+      · exact ih (fun t ↦ branch (t + 1)) w hw
+
+/-- Every finite prefix of a charge orbit is a literal block execution. -/
+theorem orbitWords_executesBlocks
+    (charge : ℕ → ℕ) (branch : ℕ → Branch)
+    (hpos : ∀ n, 0 < charge n)
+    (hstep : ∀ n, (branch n).Step (charge n) (charge (n + 1)))
+    (n : ℕ) :
+    ExecutesBlocks (orbitWords branch n) (3 * charge 0 - 1) := by
+  induction n generalizing charge branch with
+  | zero => simp [orbitWords, ExecutesBlocks]
+  | succ n ih =>
+      simp only [orbitWords, ExecutesBlocks]
+      refine ⟨3 * charge 1 - 1,
+        (branch_step_iff_executes (branch 0) (hpos 0) (hpos 1)).mp
+          (hstep 0), ?_⟩
+      have htail := ih (fun t ↦ charge (t + 1))
+        (fun t ↦ branch (t + 1)) (fun t ↦ hpos (t + 1))
+        (fun t ↦ by simpa [Nat.add_assoc] using hstep (t + 1))
+      simpa using htail
+
+/-- A positive ordinary infinite orbit of the relational charge map. -/
+def HasInfiniteThreeWordOrbit (H : ℕ) : Prop :=
+  ∃ charge : ℕ → ℕ, ∃ branch : ℕ → Branch,
+    charge 0 = H ∧
+    (∀ n, 0 < charge n) ∧
+    ∀ n, (branch n).Step (charge n) (charge (n + 1))
+
+/-- Constructing one such ordinary charge orbit is already enough to obtain
+an infinite execution of the three-word first-passage code. -/
+theorem threeWordOrbit_gives_infiniteExecution {H : ℕ}
+    (horbit : HasInfiniteThreeWordOrbit H) :
+    InfiniteExecution ThreeWordCode (3 * H - 1) := by
+  obtain ⟨charge, branch, hzero, hpos, hstep⟩ := horbit
+  intro n
+  have hstart : 0 < 3 * H - 1 := by
+    have hthree : 3 ≤ 3 * H := by
+      rw [← hzero]
+      exact Nat.mul_le_mul_left 3 (hpos 0)
+    exact Nat.sub_pos_of_lt (by omega)
+  refine ⟨hstart,
+    orbitWords branch n, orbitWords_length branch n,
+    orbitWords_wordsIn branch n, ?_⟩
+  simpa [hzero] using orbitWords_executesBlocks charge branch hpos hstep n
+
+/-- Conditional counterexample endpoint for the exact three-word map. -/
+theorem not_conjecture_of_threeWordOrbit {H : ℕ}
+    (horbit : HasInfiniteThreeWordOrbit H) :
+    ¬ CleanLean.Collatz.Conjecture := by
+  apply OutwardCodeCounterexample.not_conjecture_of_infiniteExecution
+    (C := ThreeWordCode)
+  · intro w hw
+    exact (threeWordCode_firstPassage hw).1
+  · exact threeWordOrbit_gives_infiniteExecution horbit
+
 end OutwardThreeWordZeroCarry
 end KontoroC
