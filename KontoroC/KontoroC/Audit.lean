@@ -1839,5 +1839,33 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardCoarseHole.exists_positive_open_tail_not_coarseWriterDecoderLegal
 #print axioms
   KontoroC.OutwardCoarseHole.no_ternary_cylinder_forces_legal_of_fifty_class_cover
+#print axioms
+  KontoroC.OutwardWriterDecoderSemantics.writerDecoderCellEquations_coarse
+#print axioms
+  KontoroC.OutwardWriterDecoderSemantics.exists_positive_open_tail_without_writerDecoderTarget
+#print axioms
+  KontoroC.OutwardWriterDecoderSemantics.no_ternary_cylinder_forces_writerDecoderTarget
+#print axioms KontoroC.OutwardResonantDecoder.executes_replicate_false
+#print axioms KontoroC.OutwardResonantDecoder.executes_replicate_true
+#print axioms KontoroC.OutwardResonantDecoder.resonantDecoder_firstPassage
+#print axioms KontoroC.OutwardResonantDecoder.resonantDecoder_executes
+#print axioms KontoroC.OutwardWriterDecoderLiteral.writerWord_firstPassage
+#print axioms
+  KontoroC.OutwardWriterDecoderLiteral.writer_then_drain_executes
+#print axioms KontoroC.OutwardWriterDecoderLiteral.writerDecoderCell_executes
+#print axioms
+  KontoroC.OutwardWriterDecoderLiteral.WriterDecoderCellPayload.payloadTriple
+#print axioms
+  KontoroC.OutwardWriterDecoderLiteral.WriterDecoderCellPayload.executes
+#print axioms
+  KontoroC.OutwardWriterDecoderLiteral.WriterDecoderCellPayload.rechargeMacro
+#print axioms
+  KontoroC.OutwardWriterDecoderLiteral.literalWriterDecoderCandidate_equations
+#print axioms
+  KontoroC.OutwardWriterDecoderLiteral.literalWriterDecoderCandidate_coarse
+#print axioms
+  KontoroC.OutwardWriterDecoderLiteral.exists_positive_open_tail_without_literalWriterDecoderCandidate
+#print axioms
+  KontoroC.OutwardWriterDecoderLiteral.no_ternary_cylinder_forces_literalWriterDecoderCandidate
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

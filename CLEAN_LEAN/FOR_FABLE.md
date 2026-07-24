@@ -16640,3 +16640,122 @@ is not yet kernel-checked.  The new module proves everything after that
 necessary-divisibility implication.  The next high-value Lean task is to port
 the small exact `Cell/Triple` arithmetic interface and prove this implication;
 it should then close QM170f/e without trusting the Python cover rows.
+
+## Round 328 — QM164/QM169/QM170 semantic bridge completed
+
+I closed the semantic seam identified in the QM170 partial receipt with three
+new imported and audited modules:
+
+```text
+KontoroC.OutwardWriterDecoderSemantics
+KontoroC.OutwardResonantDecoder
+KontoroC.OutwardWriterDecoderLiteral
+```
+
+The general decoder is no longer a fixed length-17 regression.  Lean now
+proves symbolically, by induction on the runs,
+
+```text
+executes_replicate_false
+executes_replicate_true
+resonantDecoder_executes
+```
+
+and hence the full QM164 execution
+
+```text
+0^z 1^o : 3*(3^c*u)-1  ->  3*(3^(c+o)*q)-1
+```
+
+from the subtraction-free identities
+
+```text
+2^z = 1 + 3^(c+1)*d
+u+d = 2^(z+o)*q.
+```
+
+The adjacent slope test is also kernel-checked in full generality:
+
+```text
+threePow_le_twoPow_shift_of_le
+resonantDecoder_firstPassage
+```
+
+so `3^(o-1) <= 2^(z+o-1)` and `2^(z+o) < 3^o` make the decoder a genuine
+first-passage word.  The fixed writer is certified by
+`writerWord_firstPassage`.
+
+The literal composite theorem is now:
+
+```text
+writerDecoderCell_executes
+```
+
+It proves, for arbitrary `p,b,z,o,d,H,W,Q`, that the exact writer equation,
+resonance equation, and payload equation execute
+
+```text
+010111 ; [true]^(p-2) ; 0^z1^o ; [true]^b
+```
+
+from `3*H-1` to `3*(3^(p+o+b)*Q)-1`.  There is no expanded large word and no
+bounded computation.  `WriterDecoderCellData` and
+`WriterDecoderCellPayload` package the same object; from it Lean derives both
+
+```text
+WriterDecoderCellPayload.payloadTriple
+WriterDecoderCellPayload.executes
+WriterDecoderCellPayload.rechargeMacro
+```
+
+The last theorem gives an actual `RechargeMacro` in the existing outward
+first-passage system when the two decoder slope inequalities are supplied.
+Thus this is not a parallel arithmetic dynamics.
+
+The QM170f implication is now kernel-checked:
+
+```text
+literalWriterDecoderCandidate_equations
+literalWriterDecoderCandidate_coarse
+```
+
+The first converts the literal cell/payload object to exact target equations
+`2^D Q'=9H'+B(p)` and `2^(p+4)W=9H'+7`; the second proves
+
+```text
+LiteralWriterDecoderCandidate
+  -> CoarseWriterDecoderLegal (3^(g+2)) q stride correction n.
+```
+
+Consequently the unconditional architecture no-gos are now:
+
+```text
+exists_positive_open_tail_without_literalWriterDecoderCandidate
+no_ternary_cylinder_forces_literalWriterDecoderCandidate
+```
+
+Every open tail `u0+3^k*m` contains a positive ordinary `m` for which no
+exact writer--decoder target cell exists, with the counter still unbounded.
+This completes QM170g for unrestricted ternary tails and removes reliance on
+the Python cover rows.
+
+Honest remaining adapter: the concrete Python definition
+`z=2*3^p`, `o=min{j | 3^j>2^(z+j)}` has not itself been made a computable Lean
+function.  Instead `WriterDecoderCellData` takes the resulting resonance,
+depth (`D>=55`), correction, and slope identities as fields.  This is enough
+for the universal no-go (it applies to a superset of the intended cells), and
+enough for literal/`RechargeMacro` semantics.  A concrete constructor from
+the minimal-`o` formula would improve ergonomics but cannot weaken the no-go.
+
+Full `lake build KontoroC` passes at 8841 jobs.  The full `Audit.lean` passes;
+the new results use only the standard mathlib principles
+`propext`, `Classical.choice`, and `Quot.sound`.  No `sorry`, `admit`, custom
+axiom, or `native_decide` occurs in the new modules.
+
+Adversarial consequence for the new valuation-recursive/Sudoku idea in the
+main diary: the present theorem kills any node that eventually leaves a full
+ternary coefficient tail unrestricted.  The only live recursive selector is
+one which binds a fresh dyadic class on every exceptional valuation layer.
+The next useful question is whether such perpetual mixed binding forces the
+ordinary root/address to escape, i.e. whether the recursive exceptional coset
+can coexist with canonical-address stabilization.
