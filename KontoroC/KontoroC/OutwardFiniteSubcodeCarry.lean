@@ -665,6 +665,88 @@ theorem not_conjecture_of_bounded_finiteHorizonCost
     (C := (↑F : Set (List Bool)))
     (fun w hw ↦ (hfirst w hw).1) hinfinite
 
+/-! ## Finite reachability to a zero-carry ray -/
+
+/-- A uniformly bounded carry branch eventually enters a prefix from which
+arbitrarily long suffixes cost exactly zero.  This is the search-theoretic
+normal form of the integer fact that a bounded sum has only finitely many
+positive summands. -/
+theorem uniformCarryBudget_iff_exists_zeroCarryTail
+    (F : Finset (List Bool)) :
+    (∃ K, ∀ n, ∃ u : List (List Bool),
+      u.length = n ∧ WordsIn (↑F : Set (List Bool)) u ∧ carrySum u ≤ K) ↔
+      ∃ pre : List (List Bool), WordsIn (↑F : Set (List Bool)) pre ∧
+        ∀ r, ∃ suffix : List (List Bool), suffix.length = r ∧
+          WordsIn (↑F : Set (List Bool)) suffix ∧
+          carrySumFrom pre suffix = 0 := by
+  constructor
+  · rintro ⟨K, hK⟩
+    obtain ⟨f, hf⟩ := exists_coherent_boundedSchedules hK
+    let c : ℕ → ℕ := fun n ↦ carrySum (coherentPrefix f n)
+    have hcMono : Monotone c := by
+      apply monotone_nat_of_le_succ
+      intro n
+      dsimp [c]
+      rw [coherentPrefix_succ]
+      exact carrySum_mono_prefix (List.prefix_append _ _)
+    have hcBound : BoundedRange c :=
+      ⟨K, fun n ↦ coherentPrefix_carry_le hf n⟩
+    obtain ⟨N, hN⟩ :=
+      (eventuallyConstant_iff_boundedRange_of_monotone hcMono).2 hcBound
+    refine ⟨coherentPrefix f N, coherentPrefix_wordsIn hf N, fun r ↦ ?_⟩
+    let full := coherentPrefix f (N + r)
+    let suffix := full.drop N
+    have hNle : N ≤ N + r := Nat.le_add_right _ _
+    have htake : full.take N = coherentPrefix f N := by
+      exact coherentPrefix_take f hNle
+    have happ : coherentPrefix f N ++ suffix = full := by
+      dsimp [suffix]
+      rw [← htake]
+      exact List.take_append_drop N full
+    have hsuffixLen : suffix.length = r := by
+      simp [suffix, full, coherentPrefix_length]
+    have hfullWords : WordsIn (↑F : Set (List Bool)) full :=
+      coherentPrefix_wordsIn hf (N + r)
+    have hsuffixWords : WordsIn (↑F : Set (List Bool)) suffix := by
+      intro w hw
+      exact hfullWords w (List.mem_of_mem_drop hw)
+    refine ⟨suffix, hsuffixLen, hsuffixWords, ?_⟩
+    have hcEq : carrySum full = carrySum (coherentPrefix f N) := by
+      exact (hN (N + r) hNle).trans (hN N rfl.le).symm
+    rw [← happ, carrySum_append] at hcEq
+    omega
+  · rintro ⟨pre, hpreWords, htail⟩
+    refine ⟨carrySum pre, fun n ↦ ?_⟩
+    rcases le_total n pre.length with hn | hn
+    · let u := pre.take n
+      refine ⟨u, by simp [u, hn], ?_, ?_⟩
+      · intro w hw
+        exact hpreWords w (List.mem_of_mem_take hw)
+      · exact carrySum_mono_prefix (List.take_prefix n pre)
+    · obtain ⟨suffix, hlen, hwords, hzero⟩ := htail (n - pre.length)
+      let u := pre ++ suffix
+      refine ⟨u, ?_, ?_, ?_⟩
+      · simp [u, hlen, Nat.add_sub_of_le hn]
+      · intro w hw
+        simp only [u, List.mem_append] at hw
+        exact hw.elim (hpreWords w) (hwords w)
+      · change carrySum (pre ++ suffix) ≤ carrySum pre
+        rw [carrySum_append, hzero, Nat.add_zero]
+
+/-- First-passage specialization: a finite subcode supports an ordinary
+infinite execution exactly when some finite schedule reaches an
+arbitrarily-deep zero-carry tail tree. -/
+theorem infiniteExecution_iff_exists_zeroCarryTail
+    (F : Finset (List Bool))
+    (hfirst : ∀ w ∈ F, FirstPassage w) :
+    (∃ start, InfiniteExecution (↑F : Set (List Bool)) start) ↔
+      ∃ pre : List (List Bool), WordsIn (↑F : Set (List Bool)) pre ∧
+        ∀ r, ∃ suffix : List (List Bool), suffix.length = r ∧
+          WordsIn (↑F : Set (List Bool)) suffix ∧
+          carrySumFrom pre suffix = 0 := by
+  exact (infiniteExecution_iff_uniformCarryBudget F hfirst).trans
+    (uniformCarryBudget_iff_exists_zeroCarryTail F)
+
 end
 
 end OutwardFiniteSubcodeCarry

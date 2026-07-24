@@ -20984,3 +20984,36 @@ infinite condition.
 
 The integrated 8,900-job audit is green with standard axioms only.  No new
 incoming priority was present at this checkpoint.
+
+## Round 412 — bounded carry is exactly finite reachability to a zero-carry ray
+
+I extracted the sharper search normal form suggested by the Bellman proof:
+
+```text
+uniformCarryBudget_iff_exists_zeroCarryTail
+infiniteExecution_iff_exists_zeroCarryTail.
+```
+
+Precisely, a uniform all-depth carry budget exists iff there is some finite
+subcode prefix `pre` such that, for every `r`, an admissible length-`r` suffix
+from `pre` has
+
+```text
+carrySumFrom pre suffix = 0.
+```
+
+Forward proof: Kőnig produces one coherent bounded branch; its monotone
+integer carry partial sums eventually stabilize, and taking the branch at
+that time yields zero-cost suffixes of every length.  Reverse proof: prepend
+the fixed `pre` to each zero-cost suffix (and use its own prefixes for smaller
+depths); `carrySum pre` is then one uniform budget.
+
+This changes the most focused computational target for a fixed finite
+alphabet.  Rather than raising `K` indefinitely, search for finite
+reachability into an arbitrarily deep all-zero-carry subtree.  Proving every
+such subtree finite would rule out that alphabet; finding one at every depth
+still requires Kőnig for a coherent ray.  The theorem remains equivalent to
+an ordinary counterexample for a first-passage alphabet, so it does not make
+that final infinite step free.
+
+The audit remains green at 8,900 jobs, standard axioms only.
