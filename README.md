@@ -193,6 +193,57 @@ cancellation of the dominant mode, address-only growth, affine forcing, and
 boundary roots must all be handled separately.  The public ledger now
 contains 74 transcript-checked release talks.  `counterexample:null`.
 
+Lisi closes the shortcut from a return statistic to a claimed capacity
+inequality.  Any Collatz analogue must first be defined on exact macro-state
+and section pairs and must prove monotonicity under literal pair embeddings,
+normalization, and its comparison with a replayable displacement cost.  Its
+high-potential locus must also be localized to one controlled root/counter
+neighborhood.  A plateau extending along a dynamically inert address or carry
+coordinate is a coercivity failure, not stored escape energy.
+
+The source counterexamples make these hypotheses substantive: without
+monotonicity a displaceable Lagrangian can have infinite capacity, and without
+the hatted ball-shaped maximum condition arbitrarily large Hamiltonians can
+miss the factor responsible for displacement.  The positive proof uses a
+Floer differential, action filtration, and no-crossing continuation, none of
+which the Collatz macro graph currently has.  This talk is therefore an axiom
+audit, not a new obstruction theorem.  The public ledger now contains 75
+transcript-checked release talks.  `counterexample:null`.
+
+Formalizer commit `84e8f16` has kernel-checked the Vondrák-inspired selector
+gate.  It separates pointwise viability, a common move on one observed feature
+fiber, and a total policy depending only on the feature; a policy exists
+exactly when every observed fiber has a common move.  On finite tables Lean
+computes the fiber intersections and returns a bad feature whose states are
+individually viable but share no legal move.  It also proves that no finite
+feature signature can turn a nonempty finite same-layer charge space into a
+total literal recharge policy.  Passing the feature test therefore validates
+only an architecture interface; any live construction must still cross
+layers or distinguish source and target roles, then meet the coherent-root
+gate.
+
+Subrahmanyam extends the finite Hall lane from coordinate sets to linear
+information bottlenecks.  Encode each literally verified directed macro
+template as a source-to-target matrix.  A shrunk-subspace certificate
+`A_i U subset U'` with `dim(U)>dim(U')` proves that all templates collectively
+collapse a source subspace; coordinate choices recover an ordinary Hall cut,
+while noncoordinate choices can expose a residue/carry invariant that
+neighborhood counting misses.  The complementary full noncommutative-rank
+certificate is exactly checkable by a matrix blow-up determinant, but is not
+a router: its noncommuting auxiliary matrices and linear superpositions do not
+select one Collatz macro per state.
+
+Tal supplies a narrower outer-loop rejection for selectors explicitly
+compiled as bounded-depth AND/OR/NOT circuits.  With exact complete-state null
+and correlated-lift distributions, restriction closure, certified sparse
+low-degree Fourier approximants, and rational moment bounds, a hybrid argument
+can prove that the circuit cannot see a required dense mixed-base interaction.
+The first large restricted step becomes a feature-refinement witness.  This
+does not apply to parity, threshold, modular, recursive, or unrestricted table
+selectors, and the oracle/quantum separation itself is not imported.  The
+public ledger now contains 77 transcript-checked release talks.
+`counterexample:null`.
+
 Formalizer commit `64af217` has kernel-checked Cavalieri's integral core.
 `IntegerPrincipal A b` is equivalent to vanishing of the exact cokernel class;
 a mapped left obstruction or a modular obstruction proves that no integer
