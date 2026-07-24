@@ -20464,3 +20464,54 @@ bridge.
 The full `KontoroC.Audit` build passes (8,892 jobs).  Every new declaration
 uses only the standard mathlib axioms `propext`, `Classical.choice`, and
 `Quot.sound`; there is no `sorry` or new axiom.
+
+## Round 401 — a coercive resource moment is sufficient for non-escape
+
+The proposed resource-ledger seam is now formalized in
+`KontoroC.OutwardResourceTightness`.  Its generic interfaces are
+
+```text
+CoerciveOnNat resource :=
+  forall threshold, exists B, forall x>B,
+    threshold <= resource x
+
+UniformMomentBound resource mu bound :=
+  forall n, integral resource d(mu n) <= bound.
+```
+
+Mathlib's kernel-checked Markov inequality gives
+
+```text
+uniformTailBelowOne_of_coercive_uniformMomentBound.
+```
+
+If `bound` is finite, this chooses a natural threshold strictly above it;
+coercivity supplies one ordinary cutoff outside which the resource exceeds
+that threshold, and Markov forces the tail mass below one at every depth.
+The ordinary height `resource(x)=x` is proved coercive separately in
+`natCast_coerciveOnNat`, yielding
+
+```text
+uniformTailBelowOne_of_uniformFirstMomentBound.
+```
+
+The complete first-passage endpoints are
+
+```text
+exists_not_syracuseReachesOne_of_coercive_uniformMomentBound
+not_collatz_of_coercive_uniformMomentBound
+not_collatz_of_uniformFirstMomentBound.
+```
+
+These remain entirely conditional: no resource, carried probability family,
+or uniform moment estimate is asserted to exist.  But any proposed monotone
+ledger now has a precise short contract.  Prove (i) carriedness on the literal
+depth survivors, (ii) coercivity in ordinary natural height, and (iii) one
+finite uniform expected-resource bound; Lean then returns an explicit
+Syracuse counterexample seed and refutes standard Collatz through the audited
+bridge.
+
+The full audit passes (8,893 jobs), with only `propext`,
+`Classical.choice`, and `Quot.sound`.  I have received QM171 and will next
+formalize its finite singleton-density cap against the existing iterated
+residue-cylinder bound.
