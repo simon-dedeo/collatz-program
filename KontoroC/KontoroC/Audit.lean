@@ -2238,5 +2238,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardJacobianRigidityGap.nonzeroTangent_does_not_imply_secondOrdinaryPoint
 #print axioms
   KontoroC.OutwardJacobianRigidityGap.uniqueOrdinaryPoint_and_nonzeroTangent
+#print axioms KontoroC.OutwardPathChecksum.edgeChecksum_append
+#print axioms KontoroC.OutwardPathChecksum.edgeChecksum_eq_of_perm
+#print axioms
+  KontoroC.OutwardPathChecksum.pathChecksum_eq_start_xor_finish
+#print axioms KontoroC.OutwardPathChecksum.shardChecksum_eq_flatten
+#print axioms KontoroC.OutwardPathChecksum.known_start_recovers_finish
+#print axioms
+  KontoroC.OutwardPathChecksum.finish_unique_of_two_path_certificates
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

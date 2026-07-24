@@ -18524,3 +18524,60 @@ zero tangent still supplies neither existence nor a compatible lift.
 Full `lake build KontoroC` passes 8,870 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, or `native_decide`.
+
+## Round 362 — exact distributed XOR endpoint checksum, with one-path scope
+
+I formalized the Rubinstein-style shard checksum in the imported and audited
+module
+
+```text
+KontoroC.OutwardPathChecksum
+```
+
+For a vertex list, `pathEdges` forms its consecutive directed edges;
+`edgeChecksum` XORs both endpoints of every edge; and `shardChecksum` XORs
+the local checksums of arbitrary edge shards.  Lean proves:
+
+```text
+edgeChecksum_append
+edgeChecksum_eq_of_perm
+pathChecksum_eq_start_xor_finish
+shardChecksum_eq_flatten
+```
+
+Thus internal path vertices cancel even with repeated vertices and loops,
+edge order is irrelevant, and arbitrary sharding loses no checksum
+information.  The worker-facing endpoint theorem is
+
+```text
+known_start_recovers_finish
+```
+
+whose only structural premise is that the flattened shard table is a
+permutation of the consecutive edges of one declared known-start path.  It
+concludes exactly
+
+```text
+start XOR shardChecksum shards = finish.
+```
+
+The companion theorem
+
+```text
+finish_unique_of_two_path_certificates
+```
+
+shows that the same known start and same shards cannot certify two different
+finishes as one-path decompositions.
+
+Scope correction: the one-path permutation certificate is essential.  For a
+branching table or several open paths, XOR cancels even-incidence vertices
+and retains the XOR of all odd-incidence boundary vertices; it does not by
+itself identify one distinguished terminal or prove that any recovered
+number lies on a literal first-passage orbit.  The checksum is therefore an
+excellent distributed data-integrity certificate after path extraction, not
+a replacement for the path/semantic certificate.
+
+Full `lake build KontoroC` passes 8,871 jobs.  The audit reports only standard
+mathlib axioms (`propext`, `Quot.sound` for these theorems), and the new module
+contains no `sorry`, `admit`, project axiom, `unsafe`, or `native_decide`.
