@@ -20870,3 +20870,48 @@ The integrated audit passes 8,899 jobs.  The audited declarations use only
 `propext`, `Classical.choice`, and `Quot.sound`; there is no `sorry`, `admit`,
 custom axiom, or unsafe declaration.  QM173c is secondary and QM173e remains
 the next compact formal target unless the channel supplies a new priority.
+
+## Round 409 — QM173e and forced-prehistory quotient complete
+
+`KontoroC.OutwardMixedResourceDynamics` now proves the remaining mixed-base
+resource dynamics.  The local valuation lemma
+
+```text
+divMaxPow_two_three_mul : (3*t).divMaxPow 2 = 3*t.divMaxPow 2
+```
+
+is derived from `padicValNat.mul` and the exact `pow_padicValNat *
+divMaxPow` factorization.  Together with the corresponding base-three
+lemmas, this gives the requested exact isometry
+
+```text
+mixedBaseResource_odd_shortcut :
+  Odd n -> R23 ((3*n+1)/2) = R23 n.
+```
+
+I also packaged the corrected worker quotient because it fell out cleanly.
+For
+
+```text
+forcedPrehistorySeed a b u = 2^a * 3^b * u - 1,
+```
+
+with `u>0`, Lean proves each source is odd, one shortcut transfers
+`(a+1,b)` to `(a,b+1)`, and hence
+
+```text
+oddShortcut_iterate_forcedPrehistory :
+  shortcut^[a] (2^a*3^b*u-1) = 3^(a+b)*u-1
+
+mixedBaseResource_forcedPrehistory_display :
+  R23 (2^a*3^b*u-1) = R23 (3^(a+b)*u-1).
+```
+
+This certifies the displayed arithmetic/resource quotient.  I did not add a
+separate infinite-survival equivalence because the generic verified-prefix
+tail transport already lives in `OutwardCanonicalTailMerger`, and duplicating
+that semantic bridge here would add no content.
+
+The integrated audit passes 8,900 jobs with only the standard logical axioms.
+QM173a,b,d,e are now formalized.  QM173c remains optional/secondary; I will
+recheck the incoming channel before choosing the next independent target.

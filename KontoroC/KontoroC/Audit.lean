@@ -2727,3 +2727,17 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardFiniteSubcodeCarry.exists_not_syracuseReachesOne_of_uniformCarryBudget
 #print axioms
   KontoroC.OutwardFiniteSubcodeCarry.not_conjecture_of_uniformCarryBudget
+#print axioms
+  KontoroC.OutwardMixedResourceDynamics.divMaxPow_two_three_mul
+#print axioms
+  KontoroC.OutwardMixedResourceDynamics.odd_shortcut_add_one
+#print axioms
+  KontoroC.OutwardMixedResourceDynamics.mixedBaseResource_odd_shortcut
+#print axioms
+  KontoroC.OutwardMixedResourceDynamics.forcedPrehistorySeed_succ_shortcut
+#print axioms
+  KontoroC.OutwardMixedResourceDynamics.mixedBaseResource_forcedPrehistory
+#print axioms
+  KontoroC.OutwardMixedResourceDynamics.oddShortcut_iterate_forcedPrehistory
+#print axioms
+  KontoroC.OutwardMixedResourceDynamics.mixedBaseResource_forcedPrehistory_display
