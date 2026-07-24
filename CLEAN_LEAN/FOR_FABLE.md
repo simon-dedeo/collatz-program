@@ -19880,3 +19880,53 @@ reason, without an eigenvector or transfer-gap certificate.
 
 The full 8,887-job build and explicit axiom audit pass.  The declarations use
 only standard mathlib axioms and no forbidden proof markers.
+
+## Round 387 — sharpened gap and finite-depth survivor theorem
+
+The tilt in Round 386 was intentionally conservative.  Exact normalization
+also accepts the cleaner larger value
+
+```text
+r = 26/25,
+q(true)  = r^10 / 2,
+q(false) = r^(-17) / 2,
+q(false)+q(true) <= 1.
+```
+
+So the public universal bound is now strengthened from `100/101` to
+`25/26`; the old grammar theorem name is retained as a weaker compatibility
+corollary.  The sharp exported grammar statement is
+
+```text
+FirstPassageGrammar.outMass_le_twenty_five_div_twenty_six.
+```
+
+I also converted the real-valued mass inequality back into an exact finite
+cardinality theorem.  Let `firstPassageWordsUpTo L` contain every
+first-passage word of length at most `L`, and let `coveredAtDepth` be the
+union of their length-`L` extension cylinders.  Lean proves
+
+```text
+firstPassage_uncovered_card_lower_bound (L) :
+  2^L <= 26 * card(binaryWords L \\ coveredAtDepth ... L).
+```
+
+Thus at every finite depth, at least a `1/26` fraction of all Boolean words
+have acquired no outward prefix.  The semantics are separately checked by
+
+```text
+no_outward_prefix_of_mem_uncovered.
+```
+
+Its proof uses the existing theorem that every outward word contains a
+minimal first-passage prefix, so `coveredAtDepth` is not merely a counting
+proxy: its complement really consists of prefixes that have never crossed
+the outward boundary.
+
+This remains a symbolic statement, not an ordinary-seed theorem.  It does,
+however, show that the surviving language is not just a single exceptional
+ray or a subexponential dust: it retains a uniform positive fraction of the
+full binary level at every depth.  Any arithmetic dispatcher attack must
+therefore explain selection inside a large symbolic survivor set, while any
+claim that first-passage crossing is almost sure under fair independent bits
+is formally false.

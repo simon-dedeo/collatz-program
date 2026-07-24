@@ -223,7 +223,7 @@ theorem weightedKraft_finite
   · exact hpf
 
 /-- The small rational tilt used to obtain a strict uniform defect. -/
-noncomputable def biasBase : ℝ := 101 / 100
+noncomputable def biasBase : ℝ := 26 / 25
 
 /-- A subprobability on the Boolean alphabet.  Relative to a fair bit, a
 true letter earns `biasBase^10` and a false letter pays
@@ -268,7 +268,7 @@ theorem biasedWeight_eq (w : List Bool) :
   rw [pow_add, pow_mul, pow_mul]
   ring
 
-/-- Every outward word gains the fixed factor `101/100` under the tilted
+/-- Every outward word gains the fixed factor `26/25` under the tilted
 subprobability. -/
 theorem biasBase_mul_dyadicWeight_le_of_outward
     {w : List Bool} (hout : WordOutward w) :
@@ -304,7 +304,7 @@ theorem finite_outward_dyadicMass_le
     (C : Finset (List Bool))
     (hpf : PrefixFree (C : Set (List Bool)))
     (hout : ∀ w ∈ C, WordOutward w) :
-    ∑ w ∈ C, dyadicWeight w ≤ (100 : ℝ) / 101 := by
+    ∑ w ∈ C, dyadicWeight w ≤ (25 : ℝ) / 26 := by
   have hpoint :
       ∑ w ∈ C, biasBase * dyadicWeight w ≤
         ∑ w ∈ C, wordWeight biasedLetter w :=
@@ -326,7 +326,7 @@ outward bound automatically. -/
 theorem finite_firstPassage_dyadicMass_le
     (C : Finset (List Bool))
     (hfirst : ∀ w ∈ C, FirstPassage w) :
-    ∑ w ∈ C, dyadicWeight w ≤ (100 : ℝ) / 101 := by
+    ∑ w ∈ C, dyadicWeight w ≤ (25 : ℝ) / 26 := by
   apply finite_outward_dyadicMass_le C
   · intro u hu v hv huv
     exact OutwardFirstPassage.prefixFree (hfirst u hu) (hfirst v hv) huv
@@ -355,7 +355,7 @@ theorem firstPassageWeight_nonneg (w : List Bool) :
   · exact le_rfl
 
 theorem finite_firstPassageWeight_sum_le (U : Finset (List Bool)) :
-    ∑ w ∈ U, firstPassageWeight w ≤ (100 : ℝ) / 101 := by
+    ∑ w ∈ U, firstPassageWeight w ≤ (25 : ℝ) / 26 := by
   classical
   let C := U.filter FirstPassage
   have hfirst : ∀ w ∈ C, FirstPassage w := by
@@ -371,13 +371,163 @@ theorem summable_firstPassageWeight : Summable firstPassageWeight := by
 
 /-- Uniform strict defect for the full countable first-passage code. -/
 theorem tsum_firstPassageWeight_le :
-    ∑' w : List Bool, firstPassageWeight w ≤ (100 : ℝ) / 101 := by
+    ∑' w : List Bool, firstPassageWeight w ≤ (25 : ℝ) / 26 := by
   exact summable_firstPassageWeight.tsum_le_of_sum_le
     finite_firstPassageWeight_sum_le
 
 theorem tsum_firstPassageWeight_lt_one :
     ∑' w : List Bool, firstPassageWeight w < 1 := by
   exact tsum_firstPassageWeight_le.trans_lt (by norm_num)
+
+/-! ## Finite-depth survivor counts -/
+
+open OutwardFiniteStateKraftGap.FirstPassageGrammar
+
+/-- Boolean words of length at most `L`. -/
+def boolWordsUpTo (L : ℕ) : Finset (List Bool) :=
+  (Finset.range (L + 1)).biUnion binaryWords
+
+theorem mem_boolWordsUpTo_iff {L : ℕ} {w : List Bool} :
+    w ∈ boolWordsUpTo L ↔ w.length ≤ L := by
+  constructor
+  · intro hw
+    rcases Finset.mem_biUnion.mp hw with ⟨n, hn, hwn⟩
+    have hnlt : n < L + 1 := Finset.mem_range.mp hn
+    have hlen : w.length = n := mem_binaryWords_iff.mp hwn
+    omega
+  · intro hw
+    apply Finset.mem_biUnion.mpr
+    exact ⟨w.length, Finset.mem_range.mpr (by omega),
+      mem_binaryWords_iff.mpr rfl⟩
+
+/-- All first-passage words visible by depth `L`. -/
+noncomputable def firstPassageWordsUpTo (L : ℕ) : Finset (List Bool) := by
+  classical
+  exact (boolWordsUpTo L).filter FirstPassage
+
+theorem mem_firstPassageWordsUpTo_iff {L : ℕ} {w : List Bool} :
+    w ∈ firstPassageWordsUpTo L ↔ FirstPassage w ∧ w.length ≤ L := by
+  classical
+  rw [firstPassageWordsUpTo, Finset.mem_filter, mem_boolWordsUpTo_iff]
+  tauto
+
+/-- Length-`L` cylinders caught by a finite prefix family. -/
+def coveredAtDepth (C : Finset (List Bool)) (L : ℕ) :
+    Finset (List Bool) :=
+  C.biUnion fun w => extensions w (L - w.length)
+
+theorem coveredAtDepth_subset_binaryWords
+    (C : Finset (List Bool)) (L : ℕ)
+    (hlen : ∀ w ∈ C, w.length ≤ L) :
+    coveredAtDepth C L ⊆ binaryWords L := by
+  intro z hz
+  rcases Finset.mem_biUnion.mp hz with ⟨w, hw, hzw⟩
+  rcases Finset.mem_image.mp hzw with ⟨tail, htail, rfl⟩
+  have htailLen : tail.length = L - w.length :=
+    mem_binaryWords_iff.mp htail
+  have hwlen := hlen w hw
+  apply mem_binaryWords_iff.mpr
+  simp only [List.length_append, htailLen]
+  omega
+
+/-- Quantitative finite-depth form of the strict Kraft gap. -/
+theorem coveredAtDepth_card_bound
+    (C : Finset (List Bool)) (L : ℕ)
+    (hlen : ∀ w ∈ C, w.length ≤ L)
+    (hpf : PrefixFree (C : Set (List Bool)))
+    (hout : ∀ w ∈ C, WordOutward w) :
+    26 * (coveredAtDepth C L).card ≤ 25 * 2 ^ L := by
+  have hmass := finite_outward_dyadicMass_le C hpf hout
+  have hscaled : ∀ w ∈ C,
+      dyadicWeight w = (2 ^ (L - w.length) : ℝ) / 2 ^ L := by
+    intro w hw
+    have hq := dyadicWeight_eq_scaled w L (hlen w hw)
+    have hr := congrArg (fun x : ℚ => (x : ℝ)) hq
+    norm_num at hr
+    simpa [dyadicWeight, one_div] using hr
+  have hmass' :
+      (∑ w ∈ C, (2 ^ (L - w.length) : ℝ)) / 2 ^ L ≤
+        (25 : ℝ) / 26 := by
+    rw [Finset.sum_div]
+    calc
+      (∑ w ∈ C, (2 ^ (L - w.length) : ℝ) / 2 ^ L) =
+          ∑ w ∈ C, dyadicWeight w := by
+            apply Finset.sum_congr rfl
+            intro w hw
+            exact (hscaled w hw).symm
+      _ ≤ (25 : ℝ) / 26 := hmass
+  have hden : (0 : ℝ) < 2 ^ L := by positivity
+  have hcross := (div_le_iff₀ hden).mp hmass'
+  have hsumR :
+      (26 : ℝ) * (∑ w ∈ C, (2 ^ (L - w.length) : ℝ)) ≤
+        25 * 2 ^ L := by
+    nlinarith
+  have hsumN :
+      26 * (∑ w ∈ C, 2 ^ (L - w.length)) ≤ 25 * 2 ^ L := by
+    exact_mod_cast hsumR
+  have hcard :
+      (coveredAtDepth C L).card ≤ ∑ w ∈ C, 2 ^ (L - w.length) := by
+    calc
+      (coveredAtDepth C L).card ≤
+          ∑ w ∈ C, (extensions w (L - w.length)).card :=
+        Finset.card_biUnion_le
+      _ = ∑ w ∈ C, 2 ^ (L - w.length) := by
+        apply Finset.sum_congr rfl
+        intro w _
+        rw [card_extensions]
+  omega
+
+/-- At every depth, at least a `1/26` fraction of Boolean words avoid all
+outward first-passage cylinders visible by that depth. -/
+theorem firstPassage_uncovered_card_lower_bound (L : ℕ) :
+    2 ^ L ≤ 26 *
+      (binaryWords L \ coveredAtDepth (firstPassageWordsUpTo L) L).card := by
+  let C := firstPassageWordsUpTo L
+  have hlen : ∀ w ∈ C, w.length ≤ L := by
+    intro w hw
+    exact (mem_firstPassageWordsUpTo_iff.mp hw).2
+  have hpf : PrefixFree (C : Set (List Bool)) := by
+    intro u hu v hv huv
+    exact OutwardFirstPassage.prefixFree
+      (mem_firstPassageWordsUpTo_iff.mp hu).1
+      (mem_firstPassageWordsUpTo_iff.mp hv).1 huv
+  have hout : ∀ w ∈ C, WordOutward w := by
+    intro w hw
+    exact (mem_firstPassageWordsUpTo_iff.mp hw).1.1
+  have hcovered := coveredAtDepth_card_bound C L hlen hpf hout
+  have hsubset := coveredAtDepth_subset_binaryWords C L hlen
+  rw [Finset.card_sdiff_of_subset hsubset, card_binaryWords]
+  have hcard := Finset.card_le_card hsubset
+  rw [card_binaryWords] at hcard
+  omega
+
+/-- Membership in the uncovered family has the intended prefix semantics:
+no prefix has yet become outward. -/
+theorem no_outward_prefix_of_mem_uncovered
+    {L : ℕ} {z : List Bool}
+    (hz : z ∈ binaryWords L \
+      coveredAtDepth (firstPassageWordsUpTo L) L) :
+    ∀ u, u <+: z → ¬ WordOutward u := by
+  intro u huz huout
+  have hzlen : z.length = L := mem_binaryWords_iff.mp
+    (Finset.mem_sdiff.mp hz).1
+  obtain ⟨v, hvu, hvfirst⟩ := exists_firstPassage_prefix u huout
+  have hvz : v <+: z := hvu.trans huz
+  have hvlen : v.length ≤ L := hvz.length_le.trans_eq hzlen
+  have hvC : v ∈ firstPassageWordsUpTo L :=
+    mem_firstPassageWordsUpTo_iff.mpr ⟨hvfirst, hvlen⟩
+  rcases hvz with ⟨tail, htail⟩
+  have htailLen : tail.length = L - v.length := by
+    have hlength := congrArg List.length htail
+    simp only [List.length_append] at hlength
+    omega
+  have htailMem : tail ∈ binaryWords (L - v.length) :=
+    mem_binaryWords_iff.mpr htailLen
+  have hzCovered : z ∈ coveredAtDepth (firstPassageWordsUpTo L) L := by
+    apply Finset.mem_biUnion.mpr
+    refine ⟨v, hvC, Finset.mem_image.mpr ⟨tail, htailMem, ?_⟩⟩
+    exact htail
+  exact (Finset.mem_sdiff.mp hz).2 hzCovered
 
 /-! ## Consequences for finite first-passage grammars -/
 
@@ -389,9 +539,9 @@ variable [Fintype Edge] [DecidableEq Edge]
 
 /-- Every state of every finite first-passage grammar has the same universal
 rational Kraft defect.  No transfer supersolution is needed. -/
-theorem FirstPassageGrammar.outMass_le_hundred_div_one_hundred_one
+theorem FirstPassageGrammar.outMass_le_twenty_five_div_twenty_six
     (G : FirstPassageGrammar State Edge) (i : State) :
-    G.outMass i ≤ (100 : ℚ) / 101 := by
+    G.outMass i ≤ (25 : ℚ) / 26 := by
   rw [G.outMass_eq_sum_outgoingWords i]
   have hfirst : ∀ w ∈ G.outgoingWords i, FirstPassage w := by
     intro w hw
@@ -403,10 +553,17 @@ theorem FirstPassageGrammar.outMass_le_hundred_div_one_hundred_one
   norm_num
   simpa [dyadicWeight] using h
 
+/-- Compatibility corollary retaining the first, weaker public constant. -/
+theorem FirstPassageGrammar.outMass_le_hundred_div_one_hundred_one
+    (G : FirstPassageGrammar State Edge) (i : State) :
+    G.outMass i ≤ (100 : ℚ) / 101 := by
+  exact (FirstPassageGrammar.outMass_le_twenty_five_div_twenty_six G i).trans
+    (by norm_num)
+
 theorem FirstPassageGrammar.outMass_lt_one_uniform
     (G : FirstPassageGrammar State Edge) (i : State) :
     G.outMass i < 1 := by
-  exact (FirstPassageGrammar.outMass_le_hundred_div_one_hundred_one G i).trans_lt
+  exact (FirstPassageGrammar.outMass_le_twenty_five_div_twenty_six G i).trans_lt
     (by norm_num)
 
 /-- Consequently every state misses a concrete fixed-depth binary cylinder,

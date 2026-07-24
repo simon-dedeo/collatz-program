@@ -2483,6 +2483,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardStrictKraftGap.finite_firstPassage_dyadicMass_le
 #print axioms KontoroC.OutwardStrictKraftGap.summable_firstPassageWeight
 #print axioms KontoroC.OutwardStrictKraftGap.tsum_firstPassageWeight_le
+#print axioms KontoroC.OutwardStrictKraftGap.coveredAtDepth_card_bound
+#print axioms KontoroC.OutwardStrictKraftGap.firstPassage_uncovered_card_lower_bound
+#print axioms KontoroC.OutwardStrictKraftGap.no_outward_prefix_of_mem_uncovered
+#print axioms
+  KontoroC.OutwardStrictKraftGap.FirstPassageGrammar.outMass_le_twenty_five_div_twenty_six
 #print axioms
   KontoroC.OutwardStrictKraftGap.FirstPassageGrammar.outMass_le_hundred_div_one_hundred_one
 #print axioms
