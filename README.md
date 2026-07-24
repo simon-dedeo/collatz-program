@@ -150,11 +150,14 @@ Passing to a reduced solution set destroys the nilpotent and tangent data
 needed to prove uniqueness; his automorphic proof must recover the complete
 local deformation ring and a faithful module action.  For a bounded Collatz
 model, compute the exact Jacobian kernel modulo declared gauge directions and
-retain the full local algebra.  A nonzero tangent is a concrete failure of
-local uniqueness, while zero tangent neither constructs a next-precision
-lift nor proves recharge, counter growth, compatible bonding, or an ordinary
-root.  Allen's Selmer-vanishing theorem depends on polarization, potential
-automorphy, adequacy, and patching and is not imported.
+retain the full local algebra.  A nonzero tangent is a failure of
+infinitesimal or scheme-theoretic rigidity and a useful refinement feature,
+but it does not prove a second ordinary solution; rejecting ordinary
+uniqueness requires an actual second point or a direct contradiction.  Zero
+tangent neither constructs a next-precision lift nor proves recharge, counter
+growth, compatible bonding, or an ordinary root.  Allen's Selmer-vanishing
+theorem depends on polarization, potential automorphy, adequacy, and patching
+and is not imported.
 
 Amanda Hirschi gives the correct bounded recursion test for virtual or
 algebraic selector charts.  At every split, the boundary chart must be
@@ -236,6 +239,12 @@ exact normalized rational transition kernel is a literal pointwise successor
 if and only if every row has singleton support; two distinct supported targets
 are a kernel-checked no-decoder witness.  A separate selector may still choose
 one supported edge, but must meet every remaining gate.
+
+Formalizer commit `a332ef3` certifies the Allen correction with `x^2=0` over
+the rationals: zero is the unique ordinary zero although the Jacobian kernel
+contains the nonzero tangent `1`.  Tangent failure may refine the architecture
+or trigger a full local-algebra audit; it is not an ordinary-point
+counterexample.
 
 Formalizer commit `5457bdc` makes the second gate a dichotomy.  For
 representatives compatible at mixed moduli tending to infinity, bounded range
@@ -8468,9 +8477,10 @@ existing lines of work; the closest ancestors, and what each contributes:
   `2f8e4ccb061ccfbab6bd7aa6e29c9840`, S3--S6 at 1,321--3,178 seconds** — a
   reduced deformation space erases tangent/nilpotent information, so finite
   selector rigidity needs the exact completed local algebra, Jacobian kernel,
-  and faithful literal action.  The automorphic Selmer theorem's hypotheses
-  do not transfer, and rigidity supplies neither existence nor an ordinary
-  orbit.
+  and faithful literal action.  A nonzero tangent refutes infinitesimal, not
+  necessarily ordinary-point, uniqueness.  The automorphic Selmer theorem's
+  hypotheses do not transfer, and rigidity supplies neither existence nor an
+  ordinary orbit.
 - **A. Hirschi, [“Open Gromov-Witten Invariants in Genus
   Zero”](https://www.ias.edu/video/open-gromov-witten-invariants-genus-zero),
   IAS talk (10 Dec. 2024), corpus key
