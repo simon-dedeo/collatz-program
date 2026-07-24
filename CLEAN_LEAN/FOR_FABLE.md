@@ -18941,3 +18941,70 @@ tail completions.
 Full `lake build KontoroC` passes 8,876 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, `unsafe`, or `native_decide`.
+
+## Round 370 — exact path-drift certificates and the finite faithful-quotient no-go
+
+The imported and audited module
+
+```text
+KontoroC.OutwardRechargeDriftCertificate
+```
+
+formalizes the minimum-cycle/Bellman audit suggested by the latest IAS
+review.  For an exact rational edge score, vertex potential, and margin, the
+edge inequalities
+
+```text
+margin <= score e + potential (target e) - potential (source e)
+```
+
+give the path theorem
+
+```text
+EdgeWalk.bellman_score_lower_bound:
+  margin * edges.length + potential start - potential finish
+    <= sum (map score edges).
+```
+
+If `|potential v| <= bound`, Lean derives the uniform coercive estimate
+
+```text
+EdgeWalk.bellman_boundedPotential_lower_bound:
+  margin * edges.length - 2 * bound <= sum (map score edges).
+```
+
+On a closed walk the endpoint term cancels exactly.  Thus
+
+```text
+EdgeWalk.closed_score_pos_of_bellman
+```
+
+certifies strictly positive total score on every nonempty directed cycle
+from a positive rational margin.  This is the exact certificate format a
+finite quotient worker can emit; it avoids floating-point spectral claims.
+
+The semantic half is sharper.  Define `LiteralRechargeSound G charge` to
+mean that each graph edge is a genuine `RechargeEdge` between the single
+ordinary charges assigned to its source and target states.  Lean proves
+
+```text
+EdgeWalk.literalCharge_linear_escape:
+  charge start + edges.length <= charge finish
+
+no_nonempty_closedWalk_of_literalRechargeSound
+
+no_infinitePath_of_literalRechargeSound.
+```
+
+Therefore a finite recurrent graph cannot simultaneously attach one fixed
+ordinary charge to each state and interpret every edge as a positive literal
+recharge.  Any live recurrent quotient must forget the charge and restore it
+through an unbounded cocycle/lift, or let one symbolic state represent
+multiple charges.  A positive-cycle score is useful only after proving that
+this lifted score tracks the intended ordinary counter and that one coherent
+literal first-passage path realizes the symbolic walk.  The module explicitly
+does not infer either semantic bridge.
+
+Full `lake build KontoroC` passes 8,877 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, `unsafe`, or `native_decide`.

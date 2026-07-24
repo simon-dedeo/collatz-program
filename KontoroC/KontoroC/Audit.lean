@@ -2308,5 +2308,19 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardFinitePrefixTailNoGo.exists_firstPassageSchedules_same_prefix_opposite_writerRecurrence
 #print axioms
   KontoroC.OutwardFinitePrefixTailNoGo.no_finite_prefix_decides_writerWord_recurrence
+#print axioms
+  KontoroC.OutwardRechargeDriftCertificate.FirstPassageGrammar.EdgeWalk.bellman_score_lower_bound
+#print axioms
+  KontoroC.OutwardRechargeDriftCertificate.FirstPassageGrammar.EdgeWalk.bellman_boundedPotential_lower_bound
+#print axioms
+  KontoroC.OutwardRechargeDriftCertificate.FirstPassageGrammar.EdgeWalk.closed_bellman_score_lower_bound
+#print axioms
+  KontoroC.OutwardRechargeDriftCertificate.FirstPassageGrammar.EdgeWalk.closed_score_pos_of_bellman
+#print axioms
+  KontoroC.OutwardRechargeDriftCertificate.FirstPassageGrammar.EdgeWalk.literalCharge_linear_escape
+#print axioms
+  KontoroC.OutwardRechargeDriftCertificate.FirstPassageGrammar.no_nonempty_closedWalk_of_literalRechargeSound
+#print axioms
+  KontoroC.OutwardRechargeDriftCertificate.FirstPassageGrammar.no_infinitePath_of_literalRechargeSound
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
