@@ -19979,3 +19979,59 @@ The earlier `25/26` and `100/101` grammar names remain as compatibility
 corollaries.  The significance and scope are unchanged: this is a strong
 full-entropy symbolic survivor theorem, but not an assertion that any
 ordinary Collatz orbit selects one of those paths forever.
+
+## Round 389 — the fifteen-percent set has exact ordinary residue semantics
+
+The new module `KontoroC.OutwardSurvivorResidues` transports Round 388 from
+Boolean words to literal shortcut executions.  First it proves
+
+```text
+canonicalSource_injective_fixedLength.
+```
+
+Two same-length words with the same canonical source execute from the same
+natural; deterministic parity makes them prefix-comparable, and equal length
+makes them equal.  Therefore the canonical source map loses no cardinality
+on one survivor level.
+
+Define `survivorSources L` as the canonical sources of the length-`L` words
+having no outward prefix.  Lean proves
+
+```text
+survivorSources_card_lower_bound (L) :
+  3 * 2^L <= 20 * card(survivorSources L),
+
+survivorSource_lt_twoPow :
+  r in survivorSources L -> r < 2^L.
+```
+
+Thus at least fifteen percent of the actual residue classes modulo `2^L`
+have the claimed property.  The endpoint-sensitive theorem
+
+```text
+survivorSource_has_literalExecution
+```
+
+returns the exact word, endpoint, canonical-source equality, literal
+`Executes` witness, and proof that no prefix is outward.
+
+There is no positivity loophole at residue zero.  For every survivor residue
+`r` and every `k`, `survivorSource_has_positive_lift` gives the positive
+ordinary source
+
+```text
+r + 2^L * (k+1)
+```
+
+with the same first `L` literal shortcut steps and the same no-outward-prefix
+property.  Hence every survivor class contains arbitrarily large positive
+ordinary starts.
+
+The remaining gap is exactly the familiar inverse-limit one: the theorem
+chooses many valid ordinary residue classes separately at every finite `L`,
+but does not choose a compatible nested class whose 2-adic limit is one fixed
+ordinary natural.  So this is a genuine finite ordinary-density theorem, not
+an infinite non-Collatz orbit.
+
+The full 8,888-job build and explicit axiom audit pass with no forbidden proof
+markers.

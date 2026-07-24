@@ -167,6 +167,7 @@ import KontoroC.OutwardValuationSelectorNoGo
 import KontoroC.OutwardValuationCutoffAlias
 import KontoroC.OutwardFiniteStateKraftGap
 import KontoroC.OutwardStrictKraftGap
+import KontoroC.OutwardSurvivorResidues
 import KontoroC.OutwardResourceConeNoGo
 import KontoroC.OutwardCoerciveConverse
 import KontoroC.OutwardSArithmeticStabilization

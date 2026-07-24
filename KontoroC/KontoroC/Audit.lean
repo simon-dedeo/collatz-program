@@ -2494,3 +2494,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardStrictKraftGap.FirstPassageGrammar.outMass_le_hundred_div_one_hundred_one
 #print axioms
   KontoroC.OutwardStrictKraftGap.FirstPassageGrammar.exists_uncovered_word_uniform
+#print axioms
+  KontoroC.OutwardSurvivorResidues.canonicalSource_injective_fixedLength
+#print axioms KontoroC.OutwardSurvivorResidues.card_survivorSources
+#print axioms KontoroC.OutwardSurvivorResidues.survivorSources_card_lower_bound
+#print axioms KontoroC.OutwardSurvivorResidues.survivorSource_lt_twoPow
+#print axioms KontoroC.OutwardSurvivorResidues.survivorSource_has_literalExecution
+#print axioms KontoroC.OutwardSurvivorResidues.survivorSource_has_positive_lift
