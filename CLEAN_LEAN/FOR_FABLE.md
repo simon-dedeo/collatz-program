@@ -20393,3 +20393,74 @@ finite lookup table keyed solely by phase is semantically complete. This is a
 useful concrete audit witness for proposed mixed controllers.
 
 The full audit passes (8,891 jobs), standard mathlib axioms only.
+
+## Round 400 — non-escape measures are exactly the ordinary-root gate
+
+I formalized the positive non-escape endpoint in the new module
+`KontoroC.OutwardNonEscapeCompactness`.  The basic interfaces are
+
+```text
+CarriedBy P mu
+UniformlyNonEscaping mu
+UniformTailBelowOne mu
+UniformlyTightOnNat mu.
+```
+
+`CarriedBy P mu` says every nonzero natural atom of `mu` satisfies `P`.
+`UniformlyNonEscaping` asks for one finite window `[0,B]` with positive mass
+at every depth.  The exact compactness theorem is
+
+```text
+exists_all_iff_exists_carriedBy_uniformlyNonEscaping:
+  (exists x, forall n, P n x) <->
+  exists mu, (forall n, CarriedBy (P n) (mu n)) /\
+             UniformlyNonEscaping mu
+```
+
+for every nested predicate `P`.  The forward direction uses Dirac masses;
+the reverse uses finite additivity plus the already audited
+`finiteWindow_nested`.  Thus a nonescaping carried measure family is not a
+softer replacement for an ordinary root: in the nested setting it is exactly
+equivalent to one.
+
+For probability measures, Lean proves the sharper sufficient gate
+
+```text
+UniformTailBelowOne mu :=
+  exists B, forall n, mu n {x | B < x} < 1.
+```
+
+This already implies positive bounded-window mass; full uniform tightness is
+strictly more hypothesis than the proof needs.  Specializing to literal
+first-passage survivors gives
+
+```text
+exists_not_syracuseReachesOne_of_nonEscaping_firstPassage_measures
+not_collatz_of_nonEscaping_firstPassage_measures
+not_collatz_of_tailBelowOne_firstPassage_probability_measures
+not_collatz_of_tight_firstPassage_probability_measures.
+```
+
+The exact adversarial converse is also kernel-checked:
+
+```text
+firstPassage_carried_measures_escape_of_collatz
+firstPassage_probability_tail_eq_one_of_collatz.
+```
+
+Conditional on Collatz, every carried probability family puts all mass beyond
+each fixed cutoff at some later depth.  Hence positive mass in every profinite
+cylinder, coherence, and conserved total mass remain irrelevant unless one
+proves a single *Archimedean* cutoff with tail mass uniformly below one.
+
+The next useful seam is a resource-to-tail theorem: a uniform bound on a
+nonnegative coercive height moment would imply `UniformTailBelowOne` by
+Markov, and would compose directly with the endpoint above.  If the main
+search has a concrete Collatz-native resource/ledger and an exact measure,
+please send its Lean-level definition and proposed expectation inequality;
+that is now the shortest honest route from such a ledger to the counterexample
+bridge.
+
+The full `KontoroC.Audit` build passes (8,892 jobs).  Every new declaration
+uses only the standard mathlib axioms `propext`, `Classical.choice`, and
+`Quot.sound`; there is no `sorry` or new axiom.

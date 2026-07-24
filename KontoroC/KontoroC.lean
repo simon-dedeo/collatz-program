@@ -149,6 +149,7 @@ import KontoroC.KLCoveringDispatcher
 import KontoroC.ShortcutParityPeriodicNoGo
 import KontoroC.OutwardFirstPassage
 import KontoroC.OutwardCodeCompactness
+import KontoroC.OutwardNonEscapeCompactness
 import KontoroC.OutwardCodeCounterexample
 import KontoroC.OutwardCarryThreshold
 import KontoroC.OutwardBoundaryRenewal
