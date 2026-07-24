@@ -13726,3 +13726,11 @@ are not requested as a Lean theorem; QM173d--e explain why the enumeration is
 a principled coercive sublevel audit rather than an interval scan.
 
 No uniform carry budget or resource bound is asserted.  `counterexample:null`.
+
+### QM173 finite calibration
+
+The exact worker now exhausts the finite subcode `{1,011,010111}` under total
+carry budget 28.  It checks 57,045,660 coherent prefix nodes, finds one node
+at depth 120 and none at depth 121.  This is a bounded test of QM173's intended
+semantics, not a premise: the formal theorem should quantify over arbitrary
+`K` and finite `F0` and must not import these rows.

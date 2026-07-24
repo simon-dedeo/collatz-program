@@ -1,0 +1,1036 @@
+{
+  "artifact_sha256": "425cc052b1a9448d909904f4700e889c50e40389d8a43345b7e3a7a4388407e8",
+  "audit": {
+    "bounded_conclusion": "no schedule in the displayed finite subcode reaches depth 121 with total carry <= 28",
+    "bounds": {
+      "carry_budget": 28,
+      "depth_cap": 200,
+      "maximum_word_length": 14,
+      "source_residue_bound": 50
+    },
+    "claim_scope": "exhaustive exact finite-subcode tree below the displayed carry and depth bounds; no conclusion for larger budgets or the full language",
+    "counterexample": null,
+    "deepest_nonempty_depth": 120,
+    "deepest_replay_witness": {
+      "canonical_target": "8468638959213583827754201861207949592965634741001030438595584332506",
+      "depth": 120,
+      "ordinary_shortcut_steps_to_terminal_cycle": 1380,
+      "ordinary_terminal_cycle_state": 2,
+      "ordinary_total_first_passage_blocks": 120,
+      "schedule_indices": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        2,
+        1,
+        0,
+        0,
+        1,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "schedule_sha256": "c2b205772bedff50dd1067a13603e1cb612219beeff9f600f0c56f03f6ef2d8b",
+      "seed": "5846196105700336507223709767248470050869934588775",
+      "seed_bits": 163,
+      "seed_sha256": "b949cade41c98e4ada4a241555977cb0a959d31f3656c61874642c5a5ee365af",
+      "total_bit_length": 179,
+      "total_carry": 28,
+      "total_odd_count": 151
+    },
+    "depth_rows": [
+      {
+        "depth": 1,
+        "maximum_total_carry": 18,
+        "minimum_seed_bits": 1,
+        "minimum_total_carry": 1,
+        "population": 3
+      },
+      {
+        "depth": 2,
+        "maximum_total_carry": 22,
+        "minimum_seed_bits": 2,
+        "minimum_total_carry": 2,
+        "population": 6
+      },
+      {
+        "depth": 3,
+        "maximum_total_carry": 26,
+        "minimum_seed_bits": 3,
+        "minimum_total_carry": 3,
+        "population": 13
+      },
+      {
+        "depth": 4,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 4,
+        "minimum_total_carry": 4,
+        "population": 24
+      },
+      {
+        "depth": 5,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 5,
+        "minimum_total_carry": 5,
+        "population": 44
+      },
+      {
+        "depth": 6,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 5,
+        "minimum_total_carry": 6,
+        "population": 87
+      },
+      {
+        "depth": 7,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 7,
+        "minimum_total_carry": 7,
+        "population": 166
+      },
+      {
+        "depth": 8,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 7,
+        "minimum_total_carry": 8,
+        "population": 319
+      },
+      {
+        "depth": 9,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 7,
+        "minimum_total_carry": 8,
+        "population": 584
+      },
+      {
+        "depth": 10,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 7,
+        "minimum_total_carry": 9,
+        "population": 1074
+      },
+      {
+        "depth": 11,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 10,
+        "minimum_total_carry": 9,
+        "population": 1901
+      },
+      {
+        "depth": 12,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 10,
+        "minimum_total_carry": 10,
+        "population": 3269
+      },
+      {
+        "depth": 13,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 10,
+        "minimum_total_carry": 10,
+        "population": 5491
+      },
+      {
+        "depth": 14,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 13,
+        "minimum_total_carry": 10,
+        "population": 8908
+      },
+      {
+        "depth": 15,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 13,
+        "minimum_total_carry": 10,
+        "population": 13933
+      },
+      {
+        "depth": 16,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 13,
+        "minimum_total_carry": 10,
+        "population": 21128
+      },
+      {
+        "depth": 17,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 13,
+        "minimum_total_carry": 11,
+        "population": 31179
+      },
+      {
+        "depth": 18,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 13,
+        "minimum_total_carry": 11,
+        "population": 45010
+      },
+      {
+        "depth": 19,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 13,
+        "minimum_total_carry": 11,
+        "population": 63357
+      },
+      {
+        "depth": 20,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 13,
+        "minimum_total_carry": 11,
+        "population": 87363
+      },
+      {
+        "depth": 21,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 13,
+        "minimum_total_carry": 11,
+        "population": 118116
+      },
+      {
+        "depth": 22,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 15,
+        "minimum_total_carry": 11,
+        "population": 156989
+      },
+      {
+        "depth": 23,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 15,
+        "minimum_total_carry": 11,
+        "population": 203903
+      },
+      {
+        "depth": 24,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 15,
+        "minimum_total_carry": 12,
+        "population": 260886
+      },
+      {
+        "depth": 25,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 18,
+        "minimum_total_carry": 12,
+        "population": 327736
+      },
+      {
+        "depth": 26,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 18,
+        "minimum_total_carry": 12,
+        "population": 405307
+      },
+      {
+        "depth": 27,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 18,
+        "minimum_total_carry": 13,
+        "population": 493477
+      },
+      {
+        "depth": 28,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 18,
+        "minimum_total_carry": 13,
+        "population": 592513
+      },
+      {
+        "depth": 29,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 18,
+        "minimum_total_carry": 14,
+        "population": 701126
+      },
+      {
+        "depth": 30,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 22,
+        "minimum_total_carry": 14,
+        "population": 818813
+      },
+      {
+        "depth": 31,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 22,
+        "minimum_total_carry": 14,
+        "population": 944426
+      },
+      {
+        "depth": 32,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 23,
+        "minimum_total_carry": 14,
+        "population": 1075237
+      },
+      {
+        "depth": 33,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 23,
+        "minimum_total_carry": 14,
+        "population": 1208993
+      },
+      {
+        "depth": 34,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 23,
+        "minimum_total_carry": 14,
+        "population": 1344660
+      },
+      {
+        "depth": 35,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 26,
+        "minimum_total_carry": 14,
+        "population": 1475880
+      },
+      {
+        "depth": 36,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 26,
+        "minimum_total_carry": 14,
+        "population": 1602067
+      },
+      {
+        "depth": 37,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 26,
+        "minimum_total_carry": 14,
+        "population": 1720791
+      },
+      {
+        "depth": 38,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 27,
+        "minimum_total_carry": 14,
+        "population": 1827224
+      },
+      {
+        "depth": 39,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 27,
+        "minimum_total_carry": 15,
+        "population": 1921481
+      },
+      {
+        "depth": 40,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 27,
+        "minimum_total_carry": 15,
+        "population": 2000691
+      },
+      {
+        "depth": 41,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 27,
+        "minimum_total_carry": 15,
+        "population": 2063766
+      },
+      {
+        "depth": 42,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 27,
+        "minimum_total_carry": 15,
+        "population": 2109041
+      },
+      {
+        "depth": 43,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 27,
+        "minimum_total_carry": 16,
+        "population": 2134817
+      },
+      {
+        "depth": 44,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 27,
+        "minimum_total_carry": 16,
+        "population": 2142911
+      },
+      {
+        "depth": 45,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 31,
+        "minimum_total_carry": 16,
+        "population": 2130755
+      },
+      {
+        "depth": 46,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 32,
+        "minimum_total_carry": 16,
+        "population": 2100763
+      },
+      {
+        "depth": 47,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 32,
+        "minimum_total_carry": 16,
+        "population": 2051242
+      },
+      {
+        "depth": 48,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 32,
+        "minimum_total_carry": 17,
+        "population": 1987810
+      },
+      {
+        "depth": 49,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 32,
+        "minimum_total_carry": 17,
+        "population": 1910290
+      },
+      {
+        "depth": 50,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 37,
+        "minimum_total_carry": 17,
+        "population": 1822320
+      },
+      {
+        "depth": 51,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 37,
+        "minimum_total_carry": 18,
+        "population": 1725684
+      },
+      {
+        "depth": 52,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 39,
+        "minimum_total_carry": 18,
+        "population": 1620779
+      },
+      {
+        "depth": 53,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 39,
+        "minimum_total_carry": 18,
+        "population": 1510652
+      },
+      {
+        "depth": 54,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 39,
+        "minimum_total_carry": 19,
+        "population": 1398820
+      },
+      {
+        "depth": 55,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 42,
+        "minimum_total_carry": 19,
+        "population": 1286113
+      },
+      {
+        "depth": 56,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 42,
+        "minimum_total_carry": 19,
+        "population": 1173315
+      },
+      {
+        "depth": 57,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 42,
+        "minimum_total_carry": 19,
+        "population": 1063473
+      },
+      {
+        "depth": 58,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 45,
+        "minimum_total_carry": 20,
+        "population": 958613
+      },
+      {
+        "depth": 59,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 45,
+        "minimum_total_carry": 20,
+        "population": 858451
+      },
+      {
+        "depth": 60,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 46,
+        "minimum_total_carry": 20,
+        "population": 764073
+      },
+      {
+        "depth": 61,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 48,
+        "minimum_total_carry": 20,
+        "population": 677093
+      },
+      {
+        "depth": 62,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 50,
+        "minimum_total_carry": 20,
+        "population": 595861
+      },
+      {
+        "depth": 63,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 50,
+        "minimum_total_carry": 20,
+        "population": 521601
+      },
+      {
+        "depth": 64,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 50,
+        "minimum_total_carry": 20,
+        "population": 453971
+      },
+      {
+        "depth": 65,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 50,
+        "minimum_total_carry": 20,
+        "population": 393331
+      },
+      {
+        "depth": 66,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 54,
+        "minimum_total_carry": 20,
+        "population": 338119
+      },
+      {
+        "depth": 67,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 54,
+        "minimum_total_carry": 20,
+        "population": 289927
+      },
+      {
+        "depth": 68,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 54,
+        "minimum_total_carry": 20,
+        "population": 247339
+      },
+      {
+        "depth": 69,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 54,
+        "minimum_total_carry": 21,
+        "population": 210170
+      },
+      {
+        "depth": 70,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 54,
+        "minimum_total_carry": 22,
+        "population": 177223
+      },
+      {
+        "depth": 71,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 59,
+        "minimum_total_carry": 22,
+        "population": 149026
+      },
+      {
+        "depth": 72,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 59,
+        "minimum_total_carry": 22,
+        "population": 124810
+      },
+      {
+        "depth": 73,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 61,
+        "minimum_total_carry": 22,
+        "population": 104069
+      },
+      {
+        "depth": 74,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 61,
+        "minimum_total_carry": 22,
+        "population": 86474
+      },
+      {
+        "depth": 75,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 61,
+        "minimum_total_carry": 22,
+        "population": 71506
+      },
+      {
+        "depth": 76,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 66,
+        "minimum_total_carry": 22,
+        "population": 58954
+      },
+      {
+        "depth": 77,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 69,
+        "minimum_total_carry": 22,
+        "population": 48214
+      },
+      {
+        "depth": 78,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 69,
+        "minimum_total_carry": 22,
+        "population": 39451
+      },
+      {
+        "depth": 79,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 70,
+        "minimum_total_carry": 22,
+        "population": 32072
+      },
+      {
+        "depth": 80,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 70,
+        "minimum_total_carry": 23,
+        "population": 26139
+      },
+      {
+        "depth": 81,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 70,
+        "minimum_total_carry": 23,
+        "population": 21106
+      },
+      {
+        "depth": 82,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 70,
+        "minimum_total_carry": 23,
+        "population": 16939
+      },
+      {
+        "depth": 83,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 71,
+        "minimum_total_carry": 24,
+        "population": 13761
+      },
+      {
+        "depth": 84,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 71,
+        "minimum_total_carry": 24,
+        "population": 10927
+      },
+      {
+        "depth": 85,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 71,
+        "minimum_total_carry": 24,
+        "population": 8601
+      },
+      {
+        "depth": 86,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 71,
+        "minimum_total_carry": 24,
+        "population": 6802
+      },
+      {
+        "depth": 87,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 79,
+        "minimum_total_carry": 24,
+        "population": 5355
+      },
+      {
+        "depth": 88,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 81,
+        "minimum_total_carry": 25,
+        "population": 4236
+      },
+      {
+        "depth": 89,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 88,
+        "minimum_total_carry": 25,
+        "population": 3358
+      },
+      {
+        "depth": 90,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 88,
+        "minimum_total_carry": 25,
+        "population": 2632
+      },
+      {
+        "depth": 91,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 88,
+        "minimum_total_carry": 25,
+        "population": 2075
+      },
+      {
+        "depth": 92,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 93,
+        "minimum_total_carry": 25,
+        "population": 1605
+      },
+      {
+        "depth": 93,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 97,
+        "minimum_total_carry": 25,
+        "population": 1222
+      },
+      {
+        "depth": 94,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 97,
+        "minimum_total_carry": 25,
+        "population": 932
+      },
+      {
+        "depth": 95,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 97,
+        "minimum_total_carry": 25,
+        "population": 719
+      },
+      {
+        "depth": 96,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 97,
+        "minimum_total_carry": 25,
+        "population": 539
+      },
+      {
+        "depth": 97,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 107,
+        "minimum_total_carry": 25,
+        "population": 419
+      },
+      {
+        "depth": 98,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 108,
+        "minimum_total_carry": 25,
+        "population": 300
+      },
+      {
+        "depth": 99,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 112,
+        "minimum_total_carry": 26,
+        "population": 220
+      },
+      {
+        "depth": 100,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 115,
+        "minimum_total_carry": 26,
+        "population": 158
+      },
+      {
+        "depth": 101,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 118,
+        "minimum_total_carry": 26,
+        "population": 124
+      },
+      {
+        "depth": 102,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 120,
+        "minimum_total_carry": 26,
+        "population": 96
+      },
+      {
+        "depth": 103,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 120,
+        "minimum_total_carry": 26,
+        "population": 74
+      },
+      {
+        "depth": 104,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 127,
+        "minimum_total_carry": 26,
+        "population": 61
+      },
+      {
+        "depth": 105,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 127,
+        "minimum_total_carry": 26,
+        "population": 50
+      },
+      {
+        "depth": 106,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 127,
+        "minimum_total_carry": 27,
+        "population": 36
+      },
+      {
+        "depth": 107,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 127,
+        "minimum_total_carry": 27,
+        "population": 24
+      },
+      {
+        "depth": 108,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 127,
+        "minimum_total_carry": 27,
+        "population": 19
+      },
+      {
+        "depth": 109,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 138,
+        "minimum_total_carry": 27,
+        "population": 14
+      },
+      {
+        "depth": 110,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 138,
+        "minimum_total_carry": 27,
+        "population": 13
+      },
+      {
+        "depth": 111,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 139,
+        "minimum_total_carry": 27,
+        "population": 9
+      },
+      {
+        "depth": 112,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 145,
+        "minimum_total_carry": 28,
+        "population": 5
+      },
+      {
+        "depth": 113,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 145,
+        "minimum_total_carry": 28,
+        "population": 5
+      },
+      {
+        "depth": 114,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 145,
+        "minimum_total_carry": 28,
+        "population": 3
+      },
+      {
+        "depth": 115,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 145,
+        "minimum_total_carry": 28,
+        "population": 2
+      },
+      {
+        "depth": 116,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 163,
+        "minimum_total_carry": 28,
+        "population": 1
+      },
+      {
+        "depth": 117,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 163,
+        "minimum_total_carry": 28,
+        "population": 1
+      },
+      {
+        "depth": 118,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 163,
+        "minimum_total_carry": 28,
+        "population": 1
+      },
+      {
+        "depth": 119,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 163,
+        "minimum_total_carry": 28,
+        "population": 1
+      },
+      {
+        "depth": 120,
+        "maximum_total_carry": 28,
+        "minimum_seed_bits": 163,
+        "minimum_total_carry": 28,
+        "population": 1
+      },
+      {
+        "depth": 121,
+        "maximum_total_carry": null,
+        "minimum_seed_bits": null,
+        "minimum_total_carry": null,
+        "population": 0
+      }
+    ],
+    "finite_subcode": [
+      {
+        "O": 1,
+        "S": 1,
+        "b": 2,
+        "r": 1,
+        "word": "1"
+      },
+      {
+        "O": 2,
+        "S": 3,
+        "b": 8,
+        "r": 6,
+        "word": "011"
+      },
+      {
+        "O": 4,
+        "S": 6,
+        "b": 26,
+        "r": 18,
+        "word": "010111"
+      }
+    ],
+    "finite_subcode_sha256": "733f616ebe458b16881c1598323a3641169791d10d969d60ab32a58d4f966221",
+    "first_empty_depth": 121,
+    "maximum_layer_population": 2142911,
+    "status": "exhausted",
+    "theorem_interface": "for a fixed finite first-passage subcode, an ordinary infinite execution exists iff one natural K bounds cumulative exact extension carry on some compatible prefix at every depth",
+    "total_prefix_nodes_checked": 57045660,
+    "unselected_nonoutward_prefix_frontier": 5055
+  },
+  "dependency_sha256": {
+    "outward_coherent_cegis.py": "99a0e9718c557765cfc786fbccc64dd171ce10ec7884da68b5658c972525da75",
+    "outward_first_passage.py": "1cbeefd64fca173b7323c7961b807e0ddf2b93e7c454e73f78340ded1697a849"
+  },
+  "schema": "collatz-outward-carry-budget-v1",
+  "worker_sha256": "827c667014ccd827ac535c38ca8d06eea2a1c50a3dbf922833cbf9caabf1403c"
+}

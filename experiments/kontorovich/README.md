@@ -5432,3 +5432,30 @@ python3 outward_resource_sublevel.py selftest
 python3 outward_resource_sublevel.py verify \
   outward_resource_sublevel_audit.json
 ```
+
+### Coherent finite-subcode carry budget
+
+`outward_carry_budget.py` implements the exact dynamic-programming objective
+suggested by the canonical cylinder law.  If a prefix `u` has source residue
+`rho_u` and bit length `L_u`, each child has a unique natural carry
+
+```text
+rho_(u*w)=rho_u+2^L_u*q(u,w).
+```
+
+For a fixed finite first-passage subcode, an ordinary infinite execution
+exists exactly when one constant bounds cumulative carry on some compatible
+prefix at every depth.  Positive carries are integers, so a bounded total
+forces eventual zero carry and stabilization to one ordinary seed.
+
+The default artifact uses the complete code with canonical word-source
+residue at most 50, namely `{1,011,010111}`.  It exhausts 57,045,660 coherent
+prefixes under total carry 28.  The final layer counts are one at depth 120
+and zero at depth 121.  Thus budgets through 28 are excluded for this subcode.
+The result does not exclude budget 29, any larger finite code, or the full
+first-passage language, and records `counterexample:null`.
+
+```bash
+python3 outward_carry_budget.py selftest
+python3 outward_carry_budget.py verify outward_carry_budget_audit.json
+```

@@ -89,6 +89,19 @@ artifact retain `counterexample:null`:
 [`outward_resource_sublevel.py`](experiments/kontorovich/outward_resource_sublevel.py),
 [`outward_resource_sublevel_audit.json`](experiments/kontorovich/outward_resource_sublevel_audit.json).
 
+The first exact DP audit uses the complete three-word subcode selected by
+canonical source residue at most 50,
+`{1,011,010111}`.  It exhausts 57,045,660 coherent schedule prefixes below
+total carry 28.  There is one survivor at depth 120 and none at depth 121, so
+every infinite schedule in this subcode would need total carry at least 29.
+The deepest prefix is the ordinary 163-bit seed
+`5846196105700336507223709767248470050869934588775`; literal replay confirms
+exactly 120 blocks and then termination.  This rejects budgets `0,...,28` for
+one finite subcode, not all budgets or the full language.  The artifact digest
+is `425cc052b1a9448d909904f4700e889c50e40389d8a43345b7e3a7a4388407e8`:
+[`outward_carry_budget.py`](experiments/kontorovich/outward_carry_budget.py),
+[`outward_carry_budget_audit.json`](experiments/kontorovich/outward_carry_budget_audit.json).
+
 ### 2026-07-24 03:51 EDT
 
 There is still no Collatz counterexample.  The IAS transcript audit is ended;
