@@ -175,6 +175,7 @@ import KontoroC.OutwardSUnitSyntaxGate
 import KontoroC.OutwardDirectedPathExpansion
 import KontoroC.OutwardRechargeMatching
 import KontoroC.OutwardFrozenTernaryResidue
+import KontoroC.OutwardBinaryRepairCokernel
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail

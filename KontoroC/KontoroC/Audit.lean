@@ -2050,5 +2050,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardFrozenTernaryResidue.no_targetRepair_of_not_threePow_dvd
 #print axioms
   KontoroC.OutwardFrozenTernaryResidue.targetIncrement_eq_zero_of_lt_threePow
+#print axioms
+  KontoroC.OutwardBinaryRepairCokernel.linearRepair_or_cokernelWitness
+#print axioms
+  KontoroC.OutwardBinaryRepairCokernel.matrixRepair_or_columnCokernel
+#print axioms
+  KontoroC.OutwardBinaryRepairCokernel.binaryRepair_or_cokernel
+#print axioms
+  KontoroC.OutwardBinaryRepairCokernel.no_matrixRepair_of_columnCokernel
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

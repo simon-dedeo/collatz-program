@@ -17445,6 +17445,56 @@ increments; signed or word-changing repairs need a separate formulation.
 It gives cross-scale coherence for one fixed word, not positivity, invariant
 closure, bounded carry, or an infinite ordinary seed.
 
+## Round 344 — exact binary repair or cokernel witness
+
+I formalized the finite linear-algebra core of Lead Q in
+
+```text
+KontoroC.OutwardBinaryRepairCokernel
+```
+
+The generic theorem
+
+```text
+linearRepair_or_cokernelWitness
+```
+
+works over any field.  For a linear repair map `T : X → Y` and target `b`,
+it proves exactly one of the useful certificate outcomes:
+
+```text
+∃ x, T x = b
+```
+
+or
+
+```text
+∃ f : Y →ₗ K,  (∀ x, f(Tx)=0) ∧ f(b)≠0.
+```
+
+The proof uses mathlib's audited dual separation theorem on `range(T)`; no
+home-grown Gaussian elimination or rank convention is involved.
+
+The matrix adapters are
+
+```text
+matrixRepair_or_columnCokernel
+binaryRepair_or_cokernel
+no_matrixRepair_of_columnCokernel.
+```
+
+For an `F₂` effect matrix they return either an exact coefficient vector or
+a functional which kills every macro column and detects the requested target.
+The last theorem is the small replay checker: column annihilation plus target
+detection refutes every coefficient vector.
+
+Semantic boundary: the positive branch certifies only the finite additive
+surrogate.  It does not prove that selected macros compose literally, stay
+positive/first-passage, or have zero ordinary carry.  Conversely, a cokernel
+witness is a genuine architecture obstruction for the supplied exact effect
+table.  The all-height rank-one-cokernel claim remains a separate open theorem
+about concrete Collatz macro columns.
+
 ## Round 339 — executable selector indistinguishability CEGIS
 
 I formalized the bounded exact core of Lead M in the imported and audited
