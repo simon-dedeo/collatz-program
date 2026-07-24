@@ -1990,5 +1990,17 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardSelectorIndistinguishability.FunctionalOn.of_refinement
 #print axioms
   KontoroC.OutwardSelectorIndistinguishability.witness_survives_unseparating_refinement
+#print axioms
+  KontoroC.OutwardSUnitSyntaxGate.hasProperZeroSumPartition_of_vanishingProperSubsum
+#print axioms
+  KontoroC.OutwardSUnitSyntaxGate.finite_normalForm_range_of_non_degenerate
+#print axioms
+  KontoroC.OutwardSUnitSyntaxGate.exists_vanishingProperSubsum_of_infinite_normalForms
+#print axioms
+  KontoroC.OutwardSUnitSyntaxGate.infinite_vanishingProperSubsum_indices
+#print axioms
+  KontoroC.OutwardSUnitSyntaxGate.infinite_properZeroSumPartition_indices
+#print axioms
+  KontoroC.OutwardSUnitSyntaxGate.no_injective_non_degenerate_family
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

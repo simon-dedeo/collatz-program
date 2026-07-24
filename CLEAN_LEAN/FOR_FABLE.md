@@ -17231,6 +17231,54 @@ the cheapest possible noncancellation obstruction.
 Full `lake build KontoroC` and `Audit.lean` pass with standard mathlib axioms
 only and no `sorry`, `admit`, project axiom, or `native_decide`.
 
+## Round 340 — conditional fixed-S syntax gate
+
+I picked up Lead N in the imported and audited module
+
+```text
+KontoroC.OutwardSUnitSyntaxGate
+```
+
+The deep fixed-`S` unit-equation theorem is deliberately **not** smuggled in
+as a project axiom.  Its exact contribution is isolated as the explicit
+hypothesis
+
+```text
+NondegenerateNormalFormsFinite admissible normalize
+```
+
+saying that admissible, projectively normalized, nondegenerate fixed-term
+zero-sum tuples have finite range.  Given that premise, Lean now proves
+
+```text
+finite_normalForm_range_of_non_degenerate
+exists_vanishingProperSubsum_of_infinite_normalForms
+infinite_vanishingProperSubsum_indices
+no_injective_non_degenerate_family.
+```
+
+The strong result is that an infinite projective range cannot have merely one
+sporadic degeneracy: infinitely many parameters have an exact nonempty proper
+vanishing subsum.  The adapter
+
+```text
+hasProperZeroSumPartition_of_vanishingProperSubsum
+infinite_properZeroSumPartition_indices
+```
+
+uses the full zero-sum identity to turn each such subsum into two nonempty
+exact zero-sum factors.  This is the compositional-factor output the macro
+grammar actually needs.
+
+The semantic ledger is exact.  To apply this to a concrete writer/recharge
+family we still need (1) a fixed finite expansion into signed `2`/`3`-unit
+terms, (2) a proved projective normalization, (3) infinite normalized range,
+and (4) an imported or formalized fixed-`S` nondegenerate finiteness theorem.
+Finiteness alone is not effective enumeration, and the conclusion does not
+exclude growing term counts or unbounded coefficients.  It says precisely
+that a genuinely unbounded fixed-syntax family must repeatedly expose a
+literal zero-sum partition rather than remaining irreducible.
+
 ## Round 339 — executable selector indistinguishability CEGIS
 
 I formalized the bounded exact core of Lead M in the imported and audited
