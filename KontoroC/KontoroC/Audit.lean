@@ -1904,5 +1904,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardResourceConeNoGo.FirstPassageGrammar.combinedScore_total_nonneg
 #print axioms
   KontoroC.OutwardResourceConeNoGo.FirstPassageGrammar.no_nonzeroCirculation_of_strict_vector_resource_dual
+#print axioms
+  KontoroC.OutwardResourceConeNoGo.FirstPassageGrammar.EdgeWalk.potential_sum
+#print axioms
+  KontoroC.OutwardResourceConeNoGo.FirstPassageGrammar.no_nonempty_closedWalk_of_strict_resource_dual
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

@@ -16989,3 +16989,16 @@ trajectory, and the theorem does not infer a circulation from bounded CEGIS
 survival.  The semantic layer must separately prove that any proposed
 recurrent architecture has the coordinatewise nonnegative aggregate budgets
 fed to the dual theorem.
+
+An ordered companion now avoids averaging when a candidate actually returns
+to a graph state.  `EdgeWalk` records a composable edge list with exact source
+and target, `EdgeWalk.potential_sum` telescopes vertex potentials, and
+
+```text
+no_nonempty_closedWalk_of_strict_resource_dual
+```
+
+rules out every nonempty closed macro walk with nonnegative total selected
+resource score under the same strict dual inequality.  This does not turn a
+circulation into an orbit; it gives a separate exact rejection path for an
+ordered recurrent candidate.

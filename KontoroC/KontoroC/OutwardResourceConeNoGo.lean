@@ -220,6 +220,61 @@ theorem no_nonzeroCirculation_of_strict_vector_resource_dual {d : ℕ}
       hmultiplier hresource)
     hdual
 
+/-! ## Ordered closed-walk form -/
+
+/-- A composable finite edge walk, retaining its initial and terminal state. -/
+inductive EdgeWalk (G : FirstPassageGrammar State Edge) :
+    State → State → List Edge → Prop
+  | nil (i : State) : EdgeWalk G i i []
+  | cons {i j : State} (e : Edge) (edges : List Edge)
+      (hsource : G.source e = i)
+      (tail : EdgeWalk G (G.target e) j edges) :
+      EdgeWalk G i j (e :: edges)
+
+/-- Vertex potential differences telescope along a composable walk. -/
+theorem EdgeWalk.potential_sum
+    (G : FirstPassageGrammar State Edge) (potential : State → ℚ)
+    {i j : State} {edges : List Edge} (walk : EdgeWalk G i j edges) :
+    (edges.map fun e =>
+      potential (G.target e) - potential (G.source e)).sum =
+      potential j - potential i := by
+  induction walk with
+  | nil i => simp
+  | cons e edges hsource tail ih =>
+      simp only [List.map_cons, List.sum_cons]
+      rw [hsource, ih]
+      ring
+
+/-- Direct ordered no-go: a strict resource dual excludes every nonempty
+closed macro walk whose total selected resource score is nonnegative. -/
+theorem no_nonempty_closedWalk_of_strict_resource_dual
+    (G : FirstPassageGrammar State Edge)
+    (potential : State → ℚ) (score : Edge → ℚ)
+    {i : State} {edges : List Edge}
+    (hne : edges ≠ []) (walk : EdgeWalk G i i edges)
+    (hresource : 0 ≤ (edges.map score).sum)
+    (hdual : ∀ e,
+      potential (G.target e) - potential (G.source e) + score e < 0) :
+    False := by
+  let adjusted : Edge → ℚ := fun e =>
+    potential (G.target e) - potential (G.source e) + score e
+  have hsum_lt : (edges.map adjusted).sum < 0 := by
+    have hle : ∀ e ∈ edges, adjusted e ≤ 0 := by
+      intro e _
+      exact (hdual e).le
+    obtain ⟨e₀, he₀⟩ := List.exists_mem_of_ne_nil edges hne
+    have hstrict : adjusted e₀ < 0 := hdual e₀
+    have hsum := List.sum_lt_sum adjusted (fun _ => (0 : ℚ))
+      (fun e he => hle e he) ⟨e₀, he₀, hstrict⟩
+    simpa using hsum
+  have hpotential := walk.potential_sum G potential
+  change
+    (edges.map fun e =>
+      (potential (G.target e) - potential (G.source e)) + score e).sum < 0
+      at hsum_lt
+  rw [List.sum_map_add, hpotential, sub_self, zero_add] at hsum_lt
+  exact (not_lt_of_ge hresource) hsum_lt
+
 end FirstPassageGrammar
 end OutwardResourceConeNoGo
 end KontoroC
