@@ -199,6 +199,7 @@ import KontoroC.OutwardFinitePrefixTailNoGo
 import KontoroC.OutwardRechargeDriftCertificate
 import KontoroC.OutwardRecurrentFiberNoGo
 import KontoroC.OutwardPositiveCycleSemanticGap
+import KontoroC.OutwardMultiplicativeHolonomyNoGo
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail

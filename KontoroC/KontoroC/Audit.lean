@@ -2340,5 +2340,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardPositiveCycleSemanticGap.unitLoop_no_literalRechargeSound
 #print axioms
   KontoroC.OutwardPositiveCycleSemanticGap.positiveCycle_does_not_force_literalRecharge
+#print axioms
+  KontoroC.OutwardMultiplicativeHolonomyNoGo.FirstPassageGrammar.EdgeWalk.gauge_product
+#print axioms
+  KontoroC.OutwardMultiplicativeHolonomyNoGo.FirstPassageGrammar.EdgeWalk.closed_gauge_product_eq_one
+#print axioms
+  KontoroC.OutwardMultiplicativeHolonomyNoGo.FirstPassageGrammar.closed_product_eq_one_of_isMultiplicativeGauge
+#print axioms
+  KontoroC.OutwardMultiplicativeHolonomyNoGo.FirstPassageGrammar.nontrivialHolonomy_not_multiplicativeGauge
+#print axioms
+  KontoroC.OutwardMultiplicativeHolonomyNoGo.FirstPassageGrammar.closed_product_eq_one_of_edge_balance
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

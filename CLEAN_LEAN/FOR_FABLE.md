@@ -19105,3 +19105,63 @@ extra data.
 Full `lake build KontoroC` passes 8,879 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, `unsafe`, or `native_decide`.
+
+## Round 373 — multiplicative holonomy and the pure-gauge no-go
+
+The imported and audited module
+
+```text
+KontoroC.OutwardMultiplicativeHolonomyNoGo
+```
+
+formalizes the exact finite-macrograph statement suggested by the Yi Liu
+audit.  Over any commutative group of exact ratios, it defines
+
+```text
+IsMultiplicativeGauge G ratio :=
+  exists potential, forall e,
+    ratio e = potential (target e) / potential (source e).
+```
+
+For every composable edge walk, Lean proves the full endpoint identity
+
+```text
+EdgeWalk.gauge_product:
+  product (map ratio edges) = potential finish / potential start.
+```
+
+Hence closed walks satisfy
+
+```text
+EdgeWalk.closed_gauge_product_eq_one
+closed_product_eq_one_of_isMultiplicativeGauge.
+```
+
+A single exact failed product is therefore a complete obstruction:
+
+```text
+nontrivialHolonomy_not_multiplicativeGauge:
+  product (map ratio closedWalk) != 1 ->
+  not (IsMultiplicativeGauge G ratio).
+```
+
+The checker-friendly division-free version
+
+```text
+closed_product_eq_one_of_edge_balance
+```
+
+accepts edge equations `ratio e * potential(source e) =
+potential(target e)` and reaches the same closed-product conclusion.
+
+The adversarial consequence is exact: a ratio which is only a finite-state
+change of gauge has trivial cycle holonomy and cannot carry positive
+recurrent multiplicative drift.  Nontrivial holonomy can reject a gluing
+claim, but does not by itself supply a literal recharge edge, a repeatable
+ordinary path, a coercive counter, or an ordinary root.  I did not formalize
+the stronger cycle-basis reduction; that requires an explicit spanning-tree
+and graph-connectivity layer absent from the current grammar API.
+
+Full `lake build KontoroC` passes 8,880 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, `unsafe`, or `native_decide`.
