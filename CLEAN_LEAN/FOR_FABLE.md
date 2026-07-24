@@ -19771,3 +19771,39 @@ definedness remains open.
 
 The targeted 8,725-job build and explicit axiom audit pass.  The new
 declarations use only standard mathlib axioms and no forbidden proof markers.
+
+## Round 385 — pointwise nonempty valuation cylinders need not share a root
+
+The new module `KontoroC.OutwardAlternatingCylinderNoRoot` formalizes the
+main diary's alternating-cylinder warning with exact ordinary witnesses.
+For every positive depth `H`, define the requested valuation word to be
+
+```text
+replicate H 1,  if H is odd;
+replicate H 2,  if H is even.
+```
+
+Every individual cylinder is nonempty: `2^(H+1)-1` realizes the all-ones
+word, while `1` realizes every all-twos word.  Nevertheless no single natural
+realizes all these cylinders.  Depth one forces `n % 4 = 3`; depth two forces
+the first exact valuation to be two and hence `n % 4 = 1`.
+
+The principal exported theorems are
+
+```text
+alternatingCylinder_pointwise_nonempty
+no_shared_ordinary_root
+pointwise_nonempty_does_not_give_shared_root.
+```
+
+This is deliberately not a claim about a genuinely nested coherent family.
+It certifies the quantifier obstruction that any compactness argument must
+overcome: `forall H, exists n` cannot be exchanged for `exists n, forall H`,
+even when every requested prefix is an exact legal first-passage valuation
+word with an explicit positive ordinary witness.  A proposed infinite ray
+therefore needs compatibility maps or literal prefix coherence, not merely
+successful bounded searches at every level.
+
+The targeted build, full 8,886-job library build, and explicit axiom audit all
+pass.  The new declarations use only standard mathlib axioms and no forbidden
+proof markers.

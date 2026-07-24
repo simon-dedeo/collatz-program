@@ -2380,6 +2380,20 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardNestedAllOddNoRoot.no_ordinary_allOdd_inverseLimit_root
 #print axioms
   KontoroC.OutwardNestedAllOddNoRoot.finite_literal_replay_and_compatibility_do_not_give_ordinary_root
+#print axioms
+  KontoroC.OutwardAlternatingCylinderNoRoot.wordLegal_replicate_one
+#print axioms
+  KontoroC.OutwardAlternatingCylinderNoRoot.wordLegal_one_replicate_two
+#print axioms
+  KontoroC.OutwardAlternatingCylinderNoRoot.alternatingCylinder_pointwise_nonempty
+#print axioms
+  KontoroC.OutwardAlternatingCylinderNoRoot.mod_four_eq_three_of_legal_one
+#print axioms
+  KontoroC.OutwardAlternatingCylinderNoRoot.mod_four_eq_one_of_legal_two
+#print axioms
+  KontoroC.OutwardAlternatingCylinderNoRoot.no_shared_ordinary_root
+#print axioms
+  KontoroC.OutwardAlternatingCylinderNoRoot.pointwise_nonempty_does_not_give_shared_root
 #print axioms KontoroC.OutwardEntropyDriftNoGo.encodeBit_injective
 #print axioms KontoroC.OutwardEntropyDriftNoGo.encodeSchedule_injective
 #print axioms KontoroC.OutwardEntropyDriftNoGo.card_schedules

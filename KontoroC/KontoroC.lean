@@ -203,6 +203,7 @@ import KontoroC.OutwardRecurrentFiberNoGo
 import KontoroC.OutwardPositiveCycleSemanticGap
 import KontoroC.OutwardMultiplicativeHolonomyNoGo
 import KontoroC.OutwardNestedAllOddNoRoot
+import KontoroC.OutwardAlternatingCylinderNoRoot
 import KontoroC.OutwardEntropyDriftNoGo
 import KontoroC.OutwardCanonicalRechargeCompleteness
 import KontoroC.OutwardChartRankNoGo
