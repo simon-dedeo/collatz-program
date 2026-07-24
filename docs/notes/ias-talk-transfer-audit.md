@@ -511,6 +511,11 @@ layer must still prove that a proposed recurrent architecture has the assumed
 coordinatewise nonnegative aggregate budgets.  A feasible ray is not an
 ordered trajectory, bounded survival does not imply a circulation, and
 tropicalization can discard the valuation cancellations that matter.
+Commit `f0576d6` adds the ordered companion: `EdgeWalk` records a composable
+edge list, vertex potentials telescope along it, and the same strict dual
+excludes every nonempty closed macro walk with nonnegative total selected
+resource score.  This rejects an actual returned graph-state candidate
+without first replacing it by an averaged circulation.
 
 Josephine Yu, *Tropicalizing Principal Minors of Positive Definite Matrices*,
 IAS, 22 Oct. 2024,
