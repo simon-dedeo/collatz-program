@@ -17002,3 +17002,62 @@ rules out every nonempty closed macro walk with nonnegative total selected
 resource score under the same strict dual inequality.  This does not turn a
 circulation into an orbit; it gives a separate exact rejection path for an
 ordered recurrent candidate.
+
+## Round 333 — exact writer--decoder finite-height alphabet (QM168)
+
+I formalized QM168 directly against the literal payload interface in the new
+imported and audited module
+
+```text
+KontoroC.OutwardWriterDecoderEnvelope
+```
+
+The two principal native-interface theorems are
+
+```text
+writerDecoderCell_counter_budget_of_outward
+writerDecoderCell_output_envelope_of_firstPassage
+```
+
+For a `WriterDecoderCellPayload` with the standard resonance length
+`zeroCount = 2*3^counter`, the first proves exactly
+
+```text
+2^(4*3^counter + counter + 4 + drain) < 9*H.
+```
+
+The second proves exactly
+
+```text
+16*(3^(counter+oneCount+drain)*targetQuotient)*2^(counter+drain)
+  < 27*H*3^(counter+drain).
+```
+
+Its hypotheses are the same two adjacent slope inequalities already used to
+prove the resonant decoder is first passage.  Supporting lemmas kernel-check
+the previously informal strict steps: outward slope forces
+`zeroCount < oneCount`; resonance gives `decoderQuotient < 2^zeroCount`;
+therefore the writer quotient dominates the decoder correction; hence the
+static correction is `< 9H`.
+
+The module also defines the executable finite set
+
+```text
+heightAdmissibleSymbols H : Finset (Nat × Nat)
+```
+
+and proves
+
+```text
+WriterDecoderCellPayload.symbol_mem_heightAdmissibleSymbols_of_outward
+```
+
+so every literal legal `(counter,drain)` at a fixed source charge belongs to
+that set.  This turns fixed-height counter/drain enumeration into an
+exhaustive search with no arbitrary cutoff.  It does not bound symbols
+uniformly along an outward orbit, since `H` may grow, and it does not supply
+an invariant or counterexample.
+
+Full `lake build KontoroC` and `Audit.lean` pass; the printed dependencies are
+only standard mathlib axioms.  No `sorry`, `admit`, project axiom, or
+`native_decide` is used.

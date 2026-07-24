@@ -161,6 +161,7 @@ import KontoroC.OutwardCoarseHole
 import KontoroC.OutwardWriterDecoderSemantics
 import KontoroC.OutwardResonantDecoder
 import KontoroC.OutwardWriterDecoderLiteral
+import KontoroC.OutwardWriterDecoderEnvelope
 import KontoroC.OutwardValuationSelectorNoGo
 import KontoroC.OutwardFiniteStateKraftGap
 import KontoroC.OutwardResourceConeNoGo
