@@ -35,7 +35,7 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ### 2026-07-24 00:12 EDT
 
-There is still no Collatz counterexample.  The IAS audit now has 93
+There is still no Collatz counterexample.  The IAS audit now has 98
 authoritative transcript-checked release talks.  Its strongest common lesson
 is a two-gate architecture: every aggregate or quotient object--entropy law,
 spectral mode, stationary kernel, word relation, local weak limit, or
@@ -178,6 +178,37 @@ rule class must fail at some finite depth.  There is no uniform failure depth,
 and the coloring sees no interior word, so this is a conditional syntax
 no-go—not a no-go for arbitrary selectors and not a construction.
 
+Alexei Skorobogatov gives the right local--global audit when a selector
+parameter space genuinely reduces to conic or norm-form equations: compute
+the explicit Brauer classes and the sum of their local Hilbert-symbol
+invariants.  A nonzero sum rejects a global lift despite local solutions.
+His positive density theorem assumes a split linear fibration over
+`P^1` and Green--Tao--Ziegler input and yields rational points, not integral
+Collatz seeds.  More generally even Brauer--Manin and finite descent can be
+silent: his higher-genus-base example has adelic points passing those tests
+but no rational point.
+
+Si-Ying Lee's doubled Jacquet--Langlands transfer becomes a finite algebraic
+preflight: exact-check the rank of `(J,UJ)`, invariance of its image, and the
+quadratic operator relation there.  Her middle-degree case shows the map can
+collapse completely.  Only positive monomial intertwiners of literal states
+could transport a Collatz execution; a linear cohomology class remains a
+superposition.  Jean-Louis Colliot-Thélène supplies an even sharper category
+warning: specialization of universal `CH_0`-triviality transports formal
+zero-cycles modulo rational equivalence, not one rational point, integer seed,
+directed path, or compatible inverse-system section.
+
+Aviad Rubinstein's endpoint checksum defeats a misleading distributed-search
+story.  For one directed path with known start and arbitrarily partitioned
+edges, XORing each shard's endpoint XOR recovers the unknown terminal vertex;
+we can then exact-replay its incoming edge and test the failure.  Branching or
+multiple open paths changes the claim.  Ke Li gives the complementary CEGIS
+warning: a recurrent selector with enough memory can identify one of `N`
+training instances by an adaptive decision tree and return a stored passing
+macro, often in logarithmic depth.  Every bounded suite should therefore be
+audited for a depth-`T` identification tree and exact-tested on held-out
+witnesses; blocking that attack alone proves no generalization.
+
 Formalizer commit `10aa678` independently turns Subrahmanyam's shrunk-subspace
 lesson into an exact finite rejection certificate: if every linearized macro
 template maps a source subspace into one of smaller dimension, no scalar
@@ -199,6 +230,12 @@ adapters: every Syracuse iterate occurs on the standard unaccelerated Collatz
 orbit, and an ordinary charge sequence with one literal positive recharge
 macro at every index directly yields unbounded orbits for both maps.  No such
 charge sequence or macro family has been constructed.
+
+Formalizer commit `0fe6aed` makes Zheng's decoder warning executable.  An
+exact normalized rational transition kernel is a literal pointwise successor
+if and only if every row has singleton support; two distinct supported targets
+are a kernel-checked no-decoder witness.  A separate selector may still choose
+one supported edge, but must meet every remaining gate.
 
 Formalizer commit `5457bdc` makes the second gate a dichotomy.  For
 representatives compatible at mixed moduli tending to infinity, bounded range
@@ -8450,6 +8487,42 @@ existing lines of work; the closest ancestors, and what each contributes:
   one coherent increasing address-pair family from keeping all cross pairs
   and additive splices in a fixed finite rule class.  The theorem is
   conditional on that endpoint syntax and sees no literal macro interior.
+- **A. Skorobogatov, [“Applications of Additive Combinatorics to Diophantine
+  Equations”](https://www.ias.edu/video/jointiasnts/2014/0410-AlexeiSkorobogatov),
+  IAS talk (10 Apr. 2014), corpus key
+  `9a311be82af03b5f5ce0e232018a6b47`, S2--S5/S8 at 304--2,799 and
+  3,567--4,076 seconds** — explicit Brauer/Hilbert-symbol invariants can
+  reject global lifts despite local solutions in a narrow norm-fibration
+  class.  The positive theorem yields rational points under strong
+  hypotheses; a higher-genus example shows the obstruction is not complete.
+- **S.-Y. Lee, [“Higher Coherent Cohomology in Weight
+  One”](https://www.ias.edu/video/higher-coherent-cohomology-weight-one), IAS
+  talk (24 Feb. 2025), corpus key `9d3c9aa28bd5d62cd3764c97e58c8888`,
+  S3--S8 at 1,319--3,827 seconds** — a doubled transfer has exact injectivity,
+  invariant-image, and quadratic-relation tests, with a genuine middle-degree
+  collapse.  Only positive monomial literal intertwiners could transport a
+  selector path.
+- **J.-L. Colliot-Thélène, [“Many Quartic Threefolds Are Not Stably
+  Rational”](https://www.ias.edu/video/wcgmdc/2015/0309-JeanLouisColliotTh%C3%A9l%C3%A8ne),
+  IAS talk (9 Mar. 2015), corpus key
+  `5b1b918ea4f55ea5a35226e87ee3b09d`, S3--S4 at 2,039--2,901 seconds** —
+  specialization of universal `CH_0`-triviality is an exact stable-rationality
+  obstruction, but zero-cycles are formal combinations and do not provide one
+  ordinary seed or directed execution.
+- **A. Rubinstein, [“Communication Complexity of Approximate Nash
+  Equilibria”](https://www.ias.edu/video/csdm/2016/1031-AviadRubinstein), IAS
+  talk (31 Oct. 2016), corpus key
+  `78bfb36560f2f4b59dc0e89e80700228`, S3/E4 at 1,298--1,651 seconds** — in a
+  partitioned single-path End-of-Line instance, an endpoint-XOR checksum
+  recovers the terminal exactly.  Communication hardness needs a genuine
+  lifting gadget and does not replace literal terminal replay.
+- **K. Li, [“Meta-Learning: Why It's Hard and What We Can
+  Do”](https://www.ias.edu/video/machinelearning/2020/0409-KeLi), IAS talk
+  (9 Apr. 2020), corpus key `31281eb19019e1ce5d9baf8d340c39cb`, S4 at
+  1,725--1,926 seconds** — a history-dependent optimizer can identify a
+  finite training objective and return its memorized optimum.  Exact
+  decision-tree identification is therefore a required bounded CEGIS
+  anti-memorization audit, not a generalization theorem.
 - **J. Wang, [“Lorentzian Polynomials and the Incidence Geometry of Tropical
   Linear Spaces”](https://www.ias.edu/video/lorentzian-polynomials-and-incidence-geometry-tropical-linear-spaces),
   IAS talk (13 Feb. 2025), corpus key
