@@ -18193,3 +18193,51 @@ constructed here.
 Full `lake build KontoroC` passes 8,866 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, or `native_decide`.
+
+## Round 355 — collective linear routing bottleneck
+
+I formalized the exact Subrahmanyam-inspired obstruction core in the imported
+and audited module
+
+```text
+KontoroC.OutwardLinearRoutingBottleneck.
+```
+
+`IsShrunkFamily indices template U U'` means that every exact linear macro
+template in the finite family maps the source subspace `U` into the target
+subspace `U'`.  Lean proves
+
+```text
+linearCombination_mapsSubspace:
+  every ordinary scalar linear combination of the templates still maps
+  U into U'.
+```
+
+The dimension certificate is then kernel-checked by
+
+```text
+not_injective_of_mapsSubspace_of_finrank_lt.
+```
+
+If `finrank U' < finrank U`, restricting an allegedly injective map to `U`
+would give a range with the full dimension of `U`, but that range lies inside
+the smaller `U'`, a contradiction.  Consequently
+
+```text
+linearCombination_not_injective_of_shrunk
+linearCombination_not_bijective_of_shrunk
+```
+
+exclude every ordinary scalar combination in the template span.  General
+subspaces can expose residue/carry bottlenecks that coordinate Hall subsets
+miss.
+
+The module deliberately proves no converse.  Full noncommutative rank or an
+invertible matrix blow-up uses auxiliary matrices and linear superposition;
+it does not choose one literal directed recharge macro per state.  This is an
+exact rejection certificate only, and it creates neither a router nor an
+ordinary root.
+
+Full `lake build KontoroC` passes 8,867 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, or `native_decide`.

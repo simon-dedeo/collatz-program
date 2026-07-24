@@ -2185,5 +2185,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardLiteralMacroOrbit.orbit_gives_not_syracuseReachesOne
 #print axioms KontoroC.OutwardLiteralMacroOrbit.orbit_gives_not_collatz
+#print axioms
+  KontoroC.OutwardLinearRoutingBottleneck.linearCombination_mapsSubspace
+#print axioms
+  KontoroC.OutwardLinearRoutingBottleneck.not_injective_of_mapsSubspace_of_finrank_lt
+#print axioms
+  KontoroC.OutwardLinearRoutingBottleneck.linearCombination_not_injective_of_shrunk
+#print axioms
+  KontoroC.OutwardLinearRoutingBottleneck.linearCombination_not_bijective_of_shrunk
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
