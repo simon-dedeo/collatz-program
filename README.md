@@ -168,6 +168,28 @@ distinct Collatz words cannot be summed or averaged.  This is a precise
 min-plus architecture change, not a counterexample.  The checked ledger is
 now 36 talks.  `counterexample:null`.
 
+The compactness re-audit makes the coercive lane stricter.  Adve's actual
+converse uses a complete infinite multiplication table, absolute convergence,
+a discrete no-accumulation spectrum, and bounds uniform in both indices.  A
+finite SOS fit is therefore only interpolation data: the Collatz potential
+must have cutoff-independent degree/constants, a symbolic all-height identity,
+and proper address sublevels.  Lubotzky explains why asymptotic finite tables
+become exact only in an ultraproduct unless a separate stability theorem lifts
+them.  Glebsky's compactness solves equations over a product quotient or
+overgroup, where a kernel may erase precisely the seed error.  Petrov shows
+that even preserved finite-coefficient cohomology can hide new higher
+coherence after profinite completion.  The resulting exact preflight is to
+audit relator two-cocycles, uniform correction, and kernel-triviality on the
+ordinary catalyst—not to infer a discrete controller from compatible shadows.
+
+Kaveh's cheapest rejection has meanwhile become kernel-checked in formalizer
+commit `d8e789a`.  A claimed zero affine relation cannot have exactly one term
+at the lowest divisibility level at either `p=2` or `p=3`; Lean proves the
+contradiction directly from integer divisibility.  Passing both tests remains
+only necessary.  These three new transcript warnings bring the checked ledger
+to 39 talks.  The sole corpus batch is at 710/1,025 with zero failures, and no
+second broad API run exists.  `counterexample:null`.
+
 ### 2026-07-23 22:24 EDT
 
 There is still no counterexample.  Twelve further transcript-checked talks
@@ -5909,6 +5931,11 @@ residue increments below the old modulus force zero extension carry.  A talk-
 derived architecture should therefore attempt to prove either this pointwise
 increment bound or the stronger coercive-potential certificate; finite-level
 compatibility alone is no longer an acceptable proxy.
+The converse certificate must moreover be globally uniform and proper: finite
+SOS fits, ultraproduct solutions, and product-quotient solutions remain
+profinite shadows until a cutoff-independent lift with kernel-trivial ordinary
+root is proved.  Exact paired `2`-/`3`-adic unique-circuit-minimum rejection
+from `d8e789a` now runs before this more expensive synthesis.
 
 #### Live disproof programs
 

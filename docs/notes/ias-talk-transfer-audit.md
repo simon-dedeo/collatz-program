@@ -640,6 +640,34 @@ reset chain.  The theorem does not derive this pointwise bound; average or
 metric estimates and a bound with an unspecified constant do not meet its
 hypothesis.
 
+The transcript re-audit sharpens Adve's missing hypothesis to **global uniform
+properness**.  The actual converse uses a complete infinite multiplication
+table, absolute convergence, a discrete spectrum with no finite accumulation,
+and multiplier bounds uniform in both indices.  A bounded SOS/CEGIS fit is
+therefore interpolation data only.  A faithful Collatz certificate must have
+cutoff-independent degree/constants, a symbolic all-height identity over the
+complete `heightAdmissibleSymbols H`, and proper address sublevels while charge
+remains unbounded.
+
+Lubotzky, Glebsky, and Petrov give three complementary reasons not to weaken
+that clause.  Metric ultraproducts make asymptotic equations exact only in the
+ultraproduct; stability is the additional lifting theorem back to genuine
+maps.  Product/profinite compactness may solve equations only in a quotient or
+overgroup, where a kernel can erase the seed error.  Even finite-coefficient
+cohomology can survive completion while higher coherence changes: a
+topological `K(pi,1)` may acquire profinite `pi_2`.  For a recursive macro
+presentation, the exact audit is therefore to track relator two-cocycles,
+prove a uniform correction/stability theorem if one exists, and check that its
+kernel is trivial on the catalyst and ordinary root.  These are architecture
+filters, not a path from finite shadows to an integer.
+
+Formalizer commit `d8e789a` also kernel-checks the core of Kaveh's circuit
+preflight.  An exact zero sum cannot have one supported term divisible by
+`p^k` but not `p^(k+1)` while all other supported terms are divisible by
+`p^(k+1)`.  Worker-facing theorems specialize this unique-minimum rejection to
+`p=2` and `p=3`, including affine coefficient-times-value terms.  Passing the
+paired tests supplies no lift or trajectory.
+
 ## Lead L: quotient min-plus states by exact aliases, but retain every boundary tie
 
 Percy Deift, *Toeplitz Matrices and Determinants Under the Impetus of the
@@ -724,6 +752,9 @@ state-quotient proposal.
 | warning/exact target | Shreyasi Datta, *S-arithmetic Diophantine Approximation*, key `07617502569abfc23a09496b2fa3e3d7`, S1--S3/S7--S8/E1/E4, 15--3,972 s | Package dyadic/triadic divisibility and Archimedean address height together; the exact desired estimate is `abs(N_(k+1)-N_k) < 2^A_k*3^B_k`, which forces the integer extension carry to vanish and the ordinary representative to stabilize. | The talk proves metric/nondivergence statements for typical approximation, not the exceptional exact inequality needed here; measure zero neither constructs nor excludes a counterexample. |
 | conditional architecture | Ana Rita Pires, *Symplectic Embeddings and Infinite Staircases*, key `5f0bc63953693792769f40cc44603678`, S4--S7/E3--E5/E7, 2,287--3,531 s | Seek a macro family whose integer parameters obey a proved second-order recurrence `A_n=K*A_(n-1)-A_(n-2)` and whose ratios converge to a quadratic resource-balance point; prove legality, clean reset, and invariant closure for all `n` by exact induction. | The talk's existence proof deliberately does not construct all staircase corners, and infinitely many active obstructions do not compose into one orbit; OEIS recognition or asymptotic accumulation is not an exact Collatz family. |
 | targeted min-plus normalization | Percy Deift, *Toeplitz Matrices and Determinants Under the Impetus of the Ising Model*, key `e832f96f0127827a297b644c18151b91`, S4/S6--S7/E2/E5, 1,111--1,914 and 2,255--2,971 s | Prove an exact semantic alias relation and exchange-generated zero-sum carry orbit; quotient only certified aliases, use the unique interior minimizer, and retain the full exchange-connected set at a boundary tie. | Determinant contributions may be summed, but Collatz co-minimizers are distinct executable choices and cannot be averaged; the finite alias action itself is not yet proved for recharge cylinders. |
+| conditional stability filter | Alexander Lubotzky, *Stability, Non-approximated Groups and High-dimensional Expanders*, key `6b1b831e4b3dd5445ae97fcd580d1eb2`, S1/S3--S4/S6--S7/E4/E6, 52--610 and 1,587--3,440 s | Linearize controller relators, compute the degree-two defect cocycle, and require a uniform stability/correction theorem whose kernel is trivial on the seed coordinate before promoting asymptotically consistent tables. | The talk concerns total unitary group maps with metric error; Collatz macros are partial and valuation-discontinuous, and stability of a controller action still does not make its seed ordinary. |
+| warning | Lev Glebsky, *Approximations of Groups, Subquotients of Infinite Direct Products and Equations over Groups*, key `02dcdc750c5e506010b7ccfae677d308`, S2--S3/S5--S8, 37--1,290 and 2,504--3,463 s | Measure the least finite quotient through which every selector function factors; a stable level plus kernel-triviality and bounded canonical representatives is the required discrete-lift gate. | Compactness deliberately produces a solution over an overgroup/product quotient, where growing finite dependence is exactly an infinite profinite tape. |
+| warning/coherence audit | Alexander Petrov, *Galois Action on Higher Etale Homotopy Groups*, key `e76667fa26f053d772a9d6b48a8190ab`, S3--S6/E4--E5, 834--1,230 and 1,620--3,620 s | Attach a transition 2-complex to claimed commuting repair/descent squares and test comparison cocycles or `p`-good/`K(pi,1)` behavior before treating finite shadows as a discrete controller. | The arithmetic higher-homotopy obstruction need not occur in the Collatz graph, and detecting one only rejects gluing; it constructs neither a seed nor an orbit. |
 
 ## Negative lessons already extracted
 
@@ -823,5 +854,13 @@ state-quotient proposal.
 - Percy Deift, *Toeplitz Matrices and Determinants Under the Impetus of the
   Ising Model*, IAS, 29 Jan. 2013, key
   `e832f96f0127827a297b644c18151b91`.
+- Alexander Lubotzky, *Stability, Non-approximated Groups and
+  High-dimensional Expanders*, IAS, 12 Oct. 2020, key
+  `6b1b831e4b3dd5445ae97fcd580d1eb2`.
+- Lev Glebsky, *Approximations of Groups, Subquotients of Infinite Direct
+  Products and Equations over Groups*, IAS, 25 Nov. 2020, key
+  `02dcdc750c5e506010b7ccfae677d308`.
+- Alexander Petrov, *Galois Action on Higher Etale Homotopy Groups*, IAS,
+  9 Mar. 2026, key `e76667fa26f053d772a9d6b48a8190ab`.
 
 `counterexample: null`
