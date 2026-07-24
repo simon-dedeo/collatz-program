@@ -116,6 +116,18 @@ changing the endpoint.  All four are transcript-timed in the audit and added
 to its bibliography; the public checked ledger is now 34 talks.
 `counterexample:null`.
 
+Formalizer commit `acbcf84`, independently rebuilt locally, now turns the
+Adve-derived coercivity principle into an exact acceptance contract.
+`CoerciveSublevelCertificate` contains a symbolic update, invariant, natural
+potential, finite sublevel, and a proof that the potential dominates every
+canonical initial residue.  Lean proves bounded residues, eventual zero carry,
+and existence of an ordinary nonnegative reset chain.  It also exposes the
+remaining semantic premise as `PositiveMacroRealization`: every adjacent pair
+of that integer chain must be linked by an actual positive nonempty
+first-passage macro.  Only with that separate promotion theorem does Lean
+derive an infinite execution and `not Collatz.Conjecture`.  No concrete
+certificate or semantic promotion has been supplied.
+
 ### 2026-07-23 22:24 EDT
 
 There is still no counterexample.  Twelve further transcript-checked talks
@@ -5846,7 +5858,12 @@ symbolic skeleton and seek an exact factor or coefficient-span certificate.
 If no bounded-degree encoding exists, record that resource failure rather than
 substitute a deeper word search.  A lifted local-verifier/sunflower grammar is
 the conditional next architecture only after exact catalyst restoration is
-part of every local test.
+part of every local test.  Commit `acbcf84` adds the exact converse gate for
+any surviving architecture: a closed finite sublevel potential which controls
+all canonical root residues reconstructs one ordinary reset chain, but a
+separate literal positive-macro promotion is still mandatory.  This makes the
+current synthesis target a coercive invariant plus semantic realization, not
+another long compatible cylinder tower.
 
 #### Live disproof programs
 

@@ -615,6 +615,22 @@ resource filters.  This permits exhaustive bounded synthesis of candidate
 potentials on the complete local alphabet, but gives no uniform alphabet or
 address bound as `H` grows.
 
+Formalizer commit `acbcf84` kernel-checks the converse interface itself.
+`CoerciveSublevelCertificate` requires a closed invariant sublevel of a
+natural-valued potential and an inequality bounding every canonical initial
+residue by that potential along the symbolic orbit.  Lean derives bounded
+residues, eventual zero extension carry, and an ordinary nonnegative reset
+chain.  Its final conditional endpoint deliberately requires a separate
+`PositiveMacroRealization` theorem for every adjacent pair; abstract reset
+equations alone do not prove positivity or literal first-passage execution.
+Thus the remaining synthesis obligations are now formally separated:
+
+1. construct and exactly verify the coercive residue-controlling invariant;
+2. promote its reset chain to positive literal recharge macros.
+
+Only their conjunction yields an infinite execution.  No candidate currently
+satisfies either unbounded obligation.
+
 ## Other promoted talks (transfer ledger)
 
 | Status | Talk and raw spans | Concrete transfer | Principal mismatch |
