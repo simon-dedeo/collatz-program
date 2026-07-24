@@ -153,6 +153,21 @@ bound.  A metric nondivergence estimate, average smallness, or
 `O(2^A*3^B)` control cannot replace the strict pointwise constant `1`, and
 positivity/literal first-passage promotion remains separate.
 
+Deift's Fisher--Hartwig transcript gives a direct correction to the triadic
+min-plus implementation.  One semantic object may have several zero-sum
+integer-shifted presentations; selecting an arbitrary presentation can give a
+provably false answer.  The repair is a discrete minimization over the entire
+alias orbit: the subcritical minimizer is unique, while every boundary
+co-minimizer is retained and connected by local exchanges.  For Collatz we
+must first prove that proposed phase/carry records really define the same
+source cylinder and endpoint map, and that local carry exchanges generate all
+such presentations.  Only then may they be quotient states.  At a tie the
+beam must preserve the whole face and send each member through the factor,
+resource, coercivity, and literal-execution gates.  Unlike determinant terms,
+distinct Collatz words cannot be summed or averaged.  This is a precise
+min-plus architecture change, not a counterexample.  The checked ledger is
+now 36 talks.  `counterexample:null`.
+
 ### 2026-07-23 22:24 EDT
 
 There is still no counterexample.  Twelve further transcript-checked talks

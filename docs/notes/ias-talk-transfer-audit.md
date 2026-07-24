@@ -640,6 +640,52 @@ reset chain.  The theorem does not derive this pointwise bound; average or
 metric estimates and a bound with an unspecified constant do not meet its
 hypothesis.
 
+## Lead L: quotient min-plus states by exact aliases, but retain every boundary tie
+
+Percy Deift, *Toeplitz Matrices and Determinants Under the Impetus of the
+Ising Model*, IAS, 29 Jan. 2013, key
+`e832f96f0127827a297b644c18151b91`, gives a surprisingly direct rule for the
+triadic min-plus lane.  S4 and E2/E5 show that one Fisher--Hartwig symbol can
+have many integer-shifted presentations.  Applying the one-representation
+formula to an arbitrary presentation gives contradictory answers, including
+decay for a symbol which is identically one.  The Basor--Tracy repair is to
+minimize a quadratic cost over the whole zero-sum integer-shift orbit and sum
+the contributions of every minimizing alias.  The raw transcript was checked
+at 1,111--1,914 seconds.
+
+S6--S7 solve the discrete alias problem by local exchanges.  Every orbit has a
+representative of seminorm at most one.  Below the boundary the minimizer is
+unique; at seminorm one all minimizers are connected by exchanges, and the
+proof retains the entire tied family.  The transcript at 2,255--2,971 seconds
+is explicit that strict convexity in the continuous problem does not prevent
+multiple discrete minimizers.
+
+The Collatz obligation is to decide first whether multiple first-passage
+phase/carry records are presentations of the *same semantic cylinder*.  Define
+an alias relation only from proved equality of their affine source set and
+literal endpoint map.  Seek a finite collection of local integer carry
+exchanges which generates every presentation of one semantic object.  Then
+minimize the exact address/resource score over the complete alias orbit:
+
+```text
+strict interior minimum  -> one canonical normal form;
+boundary minimum         -> retain every exchange-connected co-minimizer.
+```
+
+This changes the EM/CEGIS implementation in a falsifiable way.  Deduplicate
+states only after an exact alias certificate, and never let beam width discard
+a tied boundary face.  Feed the entire co-minimizer set to the clean-factor,
+resource, coercivity, and literal semantic gates.  A disagreement between two
+claimed aliases on one exact source is the smallest rejection witness.
+
+The principal mismatch is also decisive.  Deift sums alias contributions to
+one determinant asymptotic; a Collatz counterexample must select one executable
+word, so co-minimizers may not be averaged or spliced.  Fisher--Hartwig has a
+fixed finite singularity vector and a proved zero-sum shift action, whereas
+Collatz's valuation dimension and exponent costs may grow.  The required
+semantic alias/exchange theorem is new; without it this is only a disciplined
+state-quotient proposal.
+
 ## Other promoted talks (transfer ledger)
 
 | Status | Talk and raw spans | Concrete transfer | Principal mismatch |
@@ -677,6 +723,7 @@ hypothesis.
 | preflight | Kiumars Kaveh, *Tropical Vector Bundles and Matroids*, key `6fbcec9c48581879e3e6864fff4761a1`, S2--S5/S8/E3, 1,055--3,739 s | Compute exact circuits of a candidate affine relation and reject it whenever the `v_2` or `v_3` weighted circuit has a unique minimum, which cannot cancel; survivors need an explicit representable lift over `Q` or `Z[1/6]`. | Abstract Bergman/matroid consistency can be nonrepresentable and tropicalization forgets units and signs; passing both valuation tests is necessary, never constructive by itself. |
 | warning/exact target | Shreyasi Datta, *S-arithmetic Diophantine Approximation*, key `07617502569abfc23a09496b2fa3e3d7`, S1--S3/S7--S8/E1/E4, 15--3,972 s | Package dyadic/triadic divisibility and Archimedean address height together; the exact desired estimate is `abs(N_(k+1)-N_k) < 2^A_k*3^B_k`, which forces the integer extension carry to vanish and the ordinary representative to stabilize. | The talk proves metric/nondivergence statements for typical approximation, not the exceptional exact inequality needed here; measure zero neither constructs nor excludes a counterexample. |
 | conditional architecture | Ana Rita Pires, *Symplectic Embeddings and Infinite Staircases*, key `5f0bc63953693792769f40cc44603678`, S4--S7/E3--E5/E7, 2,287--3,531 s | Seek a macro family whose integer parameters obey a proved second-order recurrence `A_n=K*A_(n-1)-A_(n-2)` and whose ratios converge to a quadratic resource-balance point; prove legality, clean reset, and invariant closure for all `n` by exact induction. | The talk's existence proof deliberately does not construct all staircase corners, and infinitely many active obstructions do not compose into one orbit; OEIS recognition or asymptotic accumulation is not an exact Collatz family. |
+| targeted min-plus normalization | Percy Deift, *Toeplitz Matrices and Determinants Under the Impetus of the Ising Model*, key `e832f96f0127827a297b644c18151b91`, S4/S6--S7/E2/E5, 1,111--1,914 and 2,255--2,971 s | Prove an exact semantic alias relation and exchange-generated zero-sum carry orbit; quotient only certified aliases, use the unique interior minimizer, and retain the full exchange-connected set at a boundary tie. | Determinant contributions may be summed, but Collatz co-minimizers are distinct executable choices and cannot be averaged; the finite alias action itself is not yet proved for recharge cylinders. |
 
 ## Negative lessons already extracted
 
@@ -773,5 +820,8 @@ hypothesis.
   key `07617502569abfc23a09496b2fa3e3d7`.
 - Ana Rita Pires, *Symplectic Embeddings and Infinite Staircases*, IAS,
   15 Apr. 2016, key `5f0bc63953693792769f40cc44603678`.
+- Percy Deift, *Toeplitz Matrices and Determinants Under the Impetus of the
+  Ising Model*, IAS, 29 Jan. 2013, key
+  `e832f96f0127827a297b644c18151b91`.
 
 `counterexample: null`
