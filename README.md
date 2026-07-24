@@ -68,6 +68,28 @@ The public transcript-checked ledger now contains 55 authoritative release
 talks.  The sole remote batch remains at 881/1,025 with zero failures; no
 second broad API run has been launched.  `counterexample:null`.
 
+George Boxer's nonregular modularity-lifting talk supplies the next
+architecture refinement.  At finite precision, local selector solutions are
+`H^0`; their failure to agree on valuation/residue/carry overlaps is an `H^1`
+class.  The talk's lesson is to patch the full two-degree obstruction complex,
+not merely a table of locally successful next words.  For a complete bounded
+Collatz chart cover, place chart corrections in `C^0`, literal overlap and
+edge-carry defects in `C^1`, and solve `delta u=kappa` exactly.  Commits
+`3e90286` and `b4c5a7d` already provide the finite correction-or-dual-cocycle
+dichotomy.  A candidate whose required cohomological amplitude grows with
+precision has not found a fixed architecture; independently solvable finite
+complexes still need compatible bonding and one ordinary root.
+
+Formalizer commit `ed4c83b` also completes the Naryshkin-inspired finite
+capacity gate.  It expands every target into its exact number of slots and
+returns either a literal injective recharge assignment or a concrete
+Hall-deficient source family.  Capacity cannot rescue a same-layer positive
+recharge router: the maximum-charge source has no higher target in the finite
+layer.  Only cross-layer towers remain live, and a successful finite
+assignment proves neither compatible unbounded height nor ordinary-root
+stabilization.  With Boxer, the public transcript-checked ledger is now 56
+authoritative release talks; `counterexample:null` remains.
+
 ### 2026-07-23 23:30 EDT
 
 There is still no counterexample.  The most useful new transfer comes from
@@ -7914,6 +7936,14 @@ existing lines of work; the closest ancestors, and what each contributes:
   representations, and characteristic-polynomial data can miss a discrete
   kernel or monodromy class.  Any Collatz certificate built from these shadows
   still needs literal carry replay and an ordinary-root kernel theorem.
+- **G. Boxer, [“Modularity lifting theorems for non-regular symplectic
+  representations”](https://www.ias.edu/video/MotivesGaloisRepsandCohomology/2017/1107-GeorgeBoxer),
+  IAS talk (7 Nov. 2017), corpus key `82d072493863a41d68666b415a295ec7`,
+  S4--S6 at 2,219--3,790 seconds** — local lifts can hide a genuine `H^1`
+  obstruction, so bounded selector CEGIS should patch an exact two-degree
+  chart complex and return its first dual cocycle rather than count locally
+  successful words.  The automorphic/Galois lifting theorem itself does not
+  transfer.
 - **A. V. Kontorovich & Ya. G. Sinai, [“Structure Theorem for
   `(d,g,h)`-Maps”](https://arxiv.org/abs/math/0601622), Bull. Braz. Math. Soc.
   33 (2002), 213–224** — the exact arithmetic-progressions theorem for every

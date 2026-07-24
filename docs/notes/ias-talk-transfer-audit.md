@@ -1113,6 +1113,47 @@ stabilization.  The source concerns invertible amenable group actions, whereas
 Collatz macros are partial noninvertible semigroup maps; the max-flow test is a
 new exact finite substitute, not a consequence of the Rokhlin theorem.
 
+## Lead V: patch the obstruction complex, not only its local solutions
+
+George Boxer, *Modularity lifting theorems for non-regular symplectic
+representations*, IAS, 7 Nov. 2017, key
+`82d072493863a41d68666b415a295ec7`, isolates a lifting failure which is
+invisible if one records only successful sections.  At 2,219--2,350 seconds,
+the cokernel of reduction is exactly the torsion in `H^1`, so a mod-`p`
+solution need not lift even though the visible `H^0` table looks correct.  At
+2,922--2,976 seconds the Calegari--Geraghty response is to patch the whole
+cohomology complex.  The full higher-degree strategy is unavailable for the
+`GSp_4` problem (3,115--3,338 seconds), but Boxer explains at
+3,374--3,790 seconds that two-degree complexes can be patched on restricted
+local charts and then combined by a separate gluing argument.
+
+The exact bounded Collatz transfer is a selector-architecture test.  Cover the
+complete height-admissible state set by certified valuation/residue/carry
+charts.  Let `C^0` contain the chartwise correction data and let `C^1` contain
+all replayed overlap disagreements and edge carry defects.  Do not accept
+nonempty local solution tables as evidence of a global policy: solve the
+single exact equation
+
+```text
+delta u = kappa.
+```
+
+The general finite cokernel theorem in formalizer commit `3e90286`, and its
+policy-lift specialization in `b4c5a7d`, already return either a correction or
+a dual functional annihilating every coboundary while detecting `kappa`.
+Thus the first cohomology obstruction is an exact CEGIS witness.  If a proposed
+architecture needs higher overlap degrees, those degrees must be represented
+rather than silently projected away; a useful architecture should have a
+uniformly bounded complex and one literal gluing rule.
+
+This imports no modularity theorem.  Boxer's positive result uses Galois
+representations, big residual image, Taylor--Wiles patching, ordinary
+projectors, and `p`-adic gluing.  In Collatz, every local cochain entry must
+already decode to a positive first-passage macro, and overlap equality must
+include the word, ternary boundary residue, and ordinary-root carry.  Exact
+solvability at one finite bound, or even independently at every bound, still
+does not supply compatible bonding maps or one ordinary integer seed.
+
 ## Other promoted talks (transfer ledger)
 
 | Status | Talk and raw spans | Concrete transfer | Principal mismatch |
@@ -1312,5 +1353,9 @@ new exact finite substitute, not a consequence of the Rokhlin theorem.
 - Hélène Esnault, *Integrality Properties of Topological Fundamental
   Groups*, IAS, 19 June 2023, key `d3a6c2def4c89952472373e2cb74937b`,
   https://www.ias.edu/video/integrality-properties-topological-fundamental-groups.
+- George Boxer, *Modularity lifting theorems for non-regular symplectic
+  representations*, IAS, 7 Nov. 2017, key
+  `82d072493863a41d68666b415a295ec7`,
+  https://www.ias.edu/video/MotivesGaloisRepsandCohomology/2017/1107-GeorgeBoxer.
 
 `counterexample: null`
