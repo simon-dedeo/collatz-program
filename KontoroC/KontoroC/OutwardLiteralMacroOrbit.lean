@@ -80,6 +80,30 @@ theorem orbit_gives_infiniteExecution
     obtain ⟨n, rfl⟩ := hH
     exact ⟨charge (n + 1), words n, hmacro n, ⟨n + 1, rfl⟩⟩
 
+/-- The actual one-halving Syracuse orbit generated from the initial boundary
+of a literal recharge orbit is unbounded. -/
+theorem orbit_gives_unbounded_syracuseOrbit
+    (charge : ℕ → ℕ) (words : ℕ → List (List Bool))
+    (hmacro : ∀ n,
+      RechargeMacro (charge n) (charge (n + 1)) (words n)) :
+    ∀ bound, ∃ time,
+      bound < syracuseStep^[time] (3 * charge 0 - 1) := by
+  exact syracuseOrbit_unbounded_of_infiniteExecution
+    (fun _ hw ↦ hw.1)
+    (orbit_gives_infiniteExecution charge words hmacro)
+
+/-- The actual standard unaccelerated Collatz orbit generated from the
+initial boundary of a literal recharge orbit is unbounded. -/
+theorem orbit_gives_unbounded_collatzOrbit
+    (charge : ℕ → ℕ) (words : ℕ → List (List Bool))
+    (hmacro : ∀ n,
+      RechargeMacro (charge n) (charge (n + 1)) (words n)) :
+    ∀ bound, ∃ time,
+      bound < step^[time] (3 * charge 0 - 1) := by
+  exact collatzOrbit_unbounded_of_infiniteExecution
+    (fun _ hw ↦ hw.1)
+    (orbit_gives_infiniteExecution charge words hmacro)
+
 /-- Direct Syracuse endpoint for a literal recharge orbit. -/
 theorem orbit_gives_not_syracuseReachesOne
     (charge : ℕ → ℕ) (words : ℕ → List (List Bool))

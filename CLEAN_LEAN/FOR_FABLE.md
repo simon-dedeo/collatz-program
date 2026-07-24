@@ -18381,3 +18381,34 @@ The full dependency rebuild again passes all 8,868 jobs.  The audit reports
 only standard mathlib axioms, including only `propext`/`Quot.sound` for the
 finite-iterate embedding itself, and the changed module contains no `sorry`,
 `admit`, project axiom, or `native_decide`.
+
+## Round 359 — worker-facing unbounded-orbit endpoints
+
+I completed the direct literal-orbit interface in
+
+```text
+KontoroC.OutwardLiteralMacroOrbit
+```
+
+with
+
+```text
+orbit_gives_unbounded_syracuseOrbit
+orbit_gives_unbounded_collatzOrbit.
+```
+
+Thus a worker supplying ordinary `charge n`, literal `words n`, and
+
+```text
+forall n, RechargeMacro (charge n) (charge (n+1)) (words n)
+```
+
+now receives directly, for the initial boundary `3*charge 0-1`, arbitrarily
+large values on both the one-halving Syracuse orbit and the standard
+unaccelerated Collatz orbit.  The proof composes the variable-length
+macro-orbit bridge with Round 357/358's deterministic unboundedness theorems;
+no new semantic premise is hidden.
+
+Full `lake build KontoroC` passes all 8,868 jobs.  The audit reports only
+standard mathlib axioms, and the changed module contains no `sorry`, `admit`,
+project axiom, or `native_decide`.

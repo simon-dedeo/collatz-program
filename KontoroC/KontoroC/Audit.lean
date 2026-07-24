@@ -2183,6 +2183,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardLiteralMacroOrbit.orbit_gives_infiniteExecution
 #print axioms
+  KontoroC.OutwardLiteralMacroOrbit.orbit_gives_unbounded_syracuseOrbit
+#print axioms
+  KontoroC.OutwardLiteralMacroOrbit.orbit_gives_unbounded_collatzOrbit
+#print axioms
   KontoroC.OutwardLiteralMacroOrbit.orbit_gives_not_syracuseReachesOne
 #print axioms KontoroC.OutwardLiteralMacroOrbit.orbit_gives_not_collatz
 #print axioms
