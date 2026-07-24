@@ -2760,8 +2760,10 @@ The legal gate gives `9H+Bg>=2^Dg`, while `Bg<2^(Dg-1)`.  Since
 
 Thus `c=O(log log H)` and decoder drain is paid directly from binary charge
 height.  Schema v3 of the exact artifact regression-checks the ingredients
-through `c<=8`.  Equations (29.1)--(29.6) are universal research derivations
-pending QM167; `universal_invariant` and `counterexample` remain null.
+through `c<=8`.  Commit `af4c46f` kernel-checks (29.6) directly for the literal
+writer--decoder payload interface; the two-place normalization and coboundary
+claims (29.1)--(29.5) retain their separately stated proof status.
+`universal_invariant` and `counterexample` remain null.
 
 ## 30. The charge-dependent alphabet and output envelope
 
@@ -2809,7 +2811,13 @@ variable-ratio expansion eventually periodic or give a finite rational
 coboundary.  Excluding that class would require a tailored
 Mahler/automatic-value nonexceptionality theorem.  Treating rational target
 as periodic digits is therefore a rejected inference, not a closed lane.
-Equations (30.1)--(30.3) are research derivations pending QM168.
+Commit `af4c46f` discharges QM168 against the literal payload semantics.  Its
+theorems `writerDecoderCell_counter_budget_of_outward` and
+`writerDecoderCell_output_envelope_of_firstPassage` prove (30.2) and (30.1),
+respectively.  The executable `heightAdmissibleSymbols H` and theorem
+`WriterDecoderCellPayload.symbol_mem_heightAdmissibleSymbols_of_outward`
+make the fixed-`H` alphabet exhaustive.  This does not give a uniform alphabet
+along a growing orbit.
 
 ## 31. Exact invariant CEGIS on payload triples
 
@@ -2848,8 +2856,9 @@ v2(9H'+7)=2.                                     (31.4)
 ```
 
 PT26 reduces the claimed least-source check to finitely many symbol
-cylinders; this global minimality remains research-side pending QM168, while
-the witness and failure are checked exact arithmetic.  Adding the exact next
+cylinders; `af4c46f` now proves the required finite symbol envelope, but the
+global least-source comparison itself remains research-side.  The witness and
+failure are checked exact arithmetic.  Adding the exact next
 writer gives the canonical CRT witness
 
 ```text

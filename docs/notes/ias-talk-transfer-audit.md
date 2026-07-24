@@ -607,6 +607,14 @@ permitting unbounded outward payload.  The transcript nevertheless changes
 the search objective from “more compatible finite levels” to the exact missing
 converse hypothesis: a globally verified Archimedean coercivity certificate.
 
+Formalizer commit `af4c46f` now makes the local enumeration premise exact:
+`heightAdmissibleSymbols H` is an executable finite set containing every
+literal outward first-passage `(counter,drain)` at fixed source charge `H`.
+The same module proves the counter budget and output envelope used by the
+resource filters.  This permits exhaustive bounded synthesis of candidate
+potentials on the complete local alphabet, but gives no uniform alphabet or
+address bound as `H` grows.
+
 ## Other promoted talks (transfer ledger)
 
 | Status | Talk and raw spans | Concrete transfer | Principal mismatch |
