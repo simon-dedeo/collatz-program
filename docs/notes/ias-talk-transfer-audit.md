@@ -1154,6 +1154,42 @@ include the word, ternary boundary residue, and ordinary-root carry.  Exact
 solvability at one finite bound, or even independently at every bound, still
 does not supply compatible bonding maps or one ordinary integer seed.
 
+## Lead Y: consume a finite rank, then prove a literal counter reset
+
+Ilya Volkovich, *Upper and Lower Bounds for the Linear Ordering Principle*,
+IAS, 9 Feb. 2026, key `558421665a5af3c98104e05ef9732e36`,
+starts from the exact total-search dichotomy: a succinct alleged strict order
+must yield either its minimum or an order-law violation (139--824 seconds).
+At 3,560--3,898 seconds, once violations are excluded, order rank can be
+halved by adaptively restricting a bit to the subcube of smaller average
+rank; after at most `n+1` rounds the rank is zero.  The implementation uses
+approximate counting through a PromiseSBP oracle, and the Q&A explicitly
+leaves a nonadaptive version open (3,898--4,263 seconds).
+
+For Collatz, let `S_(K,c)` be the complete finite set of exact reset states at
+precision `K` and counter layer `c`.  A proposed architecture supplies a fixed
+finite-description comparison relation and literal macros which send every
+nonminimum state to a strictly smaller one.  Exact enumeration or checkable
+SAT certificates must return either the first irreflexivity,
+incomparability/asymmetry, or transitivity witness, or the genuine minimum.
+The crucial additional obligation is
+
+```text
+minimum in S_(K,c)  --clean literal reset-->  S_(K,c+1).
+```
+
+With all hypotheses checked, descent reaches the minimum in at most
+`|S_(K,c)|-1` selected steps and the reset makes the counter grow.  A missing
+minimum reset is the architecture's smallest closure failure; search effort
+should be concentrated there rather than on already ranked interior states.
+
+This is still bounded rank-or-refute, not an escape theorem.  The source's
+approximate ranks are not exact arithmetic certificates.  One fixed order and
+reset law must work for every counter, commute with precision projections,
+replay positive first-passage words with zero carry, and share one ordinary
+positive seed.  Without those unbounded obligations, the construction is only
+a family of finite rankings.
+
 ## Lead W: demand integral principality before trusting a valuation potential
 
 Renzo Cavalieri, *Tropical Psi Classes and Tropicalizations of Psi Classes*,
@@ -1185,6 +1221,14 @@ holonomy.  Corrections on overlapping stars must then pass the two-term
 integer gluing test from Lead V.  This rejects a false valuation invariant
 without extending any trajectory.
 
+Formalizer commit `64af217` kernel-checks the algebraic boundary over the
+integers: principality is equivalent to vanishing of the cokernel class, and
+either a mapped left obstruction or a modular obstruction refutes an integer
+solution.  The modular certificate may use a composite modulus, so it detects
+torsion failures such as `2*a=1` which a rational left kernel misses.  Lean
+does not yet generate Smith normal form executably; a search worker must emit
+the proof-carrying witness for verification.
+
 Passing principality is only a preflight.  The resulting literal potential
 must include affine translation and ordinary carry, prove the macro inequality
 on the full first-passage alphabet, and have sublevel sets which bound the
@@ -1193,6 +1237,47 @@ with a toroidal algebraic scheme and an actual line bundle; no theorem says
 the Collatz chart complex has such a lift.  The search target is therefore an
 integer-principal **and coercive** mixed-valuation potential, not another fit
 of branchwise slopes.
+
+## Lead X: enumerate motif grammars for locally consistent coarse states
+
+Facundo Mémoli, *Hierarchical clustering on asymmetric networks*, IAS, 7 Nov.
+2015, key `d2d50ba64aefb3df34cc2d9d058a8742`, replaces an arbitrary hierarchy by
+an axiomatized architecture.  At 1,372--1,685 seconds weight-nonincreasing
+maps make networks into a category and a clustering rule is required to be
+functorial.  With the prescribed two-node behavior, every such rule lies
+between two explicit asymmetric extremal methods (1,685--1,799 seconds).
+Excision means that rerunning the method on one dendrogram block reproduces
+the restricted hierarchy (2,124--2,299 seconds).  Finally, at
+2,442--3,221 seconds, factoring through symmetric single linkage by a family
+of finite directed motifs is equivalent to excision plus linear scale
+invariance.
+
+This suggests an exact outer loop for bounded selector CEGIS.  Give the
+complete state table an asymmetric integer or rational dissimilarity, such as
+the least certified resource threshold at which one cross-layer interface can
+simulate another.  Propose a finite motif family `Q`, compute exactly the
+minimum expansion factor of every motif map covering each state pair, and
+apply single linkage to the resulting symmetric weights.  Rank `Q` by number
+and size of motifs.  The architecture must satisfy:
+
+```text
+weight-decreasing maps preserve clusters;
+positive rescaling only reparametrizes the hierarchy;
+every extracted block reclusters to its restriction.
+```
+
+Failure returns a smallest exact morphism or block violating functoriality or
+excision; passing extracts a compact motif grammar rather than a residue
+lookup table.  The characterization theorem justifies this search only for
+architectures satisfying the stated axioms; nonexcisive rules lie outside it.
+
+The hierarchy is a compression device, not dynamics.  Motif occurrence need
+not decode to a legal macro, and a cluster need not contain any compatible
+nested ray.  Moreover, finite same-layer literal recharge is acyclic by
+commit `31b8466`, so Mémoli's loop-based lower method has no nontrivial literal
+same-layer component.  Use motifs only on cross-layer interfaces or exact
+feature relations, then replay every chosen transition and separately prove
+unbounded counter growth and ordinary-root stabilization.
 
 ## Other promoted talks (transfer ledger)
 
@@ -1243,6 +1328,7 @@ of branchwise slopes.
 | exact finite path certificate | Yuval Wigderson, *Color-avoiding Paths*, key `a153fe90d9b0b97f818aadc105403504`, S3/S6--S7, 911--1,442 and 3,004--4,109 s | In any exact oriented clean-macro graph, take an inclusion-maximal acyclic subgraph.  Longest-path labels properly color the full underlying graph, so an exact certificate `chi(U)>=r` yields a replayable directed path on at least `r` vertices. | The headline color theorem needs a tournament or near-complete digraph and explicitly fails for sparse forward bipartite examples.  Chromatic complexity gives only a finite path and no cross-scale or ordinary-seed compatibility. |
 | warning / mixed-place preflight | Matthew Emerton, *Local-Global Compatibility in the p-Adic Langlands Program for GL(2) over Q*, key `054ae194a1654549d78821a8534db66b`, S3--S7/E4--E5, 1,650--3,740 s | Before multiplying separate dyadic, triadic, and Archimedean route counts, build the exact joint compatibility tensor and exhibit a nonzero flattening minor whenever local choices do not recombine into literal macros. | Emerton's positive factorization uses linear completed cohomology, commuting group actions, and `p>2`, excluding the controlling dyadic place.  It is rejected as a construction analogy; vanishing bounded minors would still not prove an unbounded factorization or ordinary seed. |
 | conditional routing certificate | Julia Chuzhoy, *Polynomial Bounds for the Grid-Minor Theorem*, key `d9f6f01263bfc6a0d0fc3a35eccb90ae`, S1--S7/E6--E7, 15--3,658 s | Use exact tree-decomposition bags as compact interface bottlenecks, or require an explicitly oriented path-of-sets: ordered disjoint clean clusters, disjoint forward bundles, and an exact ledger proving a positive route reservoir survives every stitch. | The theorem is undirected; minors and well-linkedness erase direction, word order, drift, and carry.  High finite treewidth is not infinity, low treewidth does not exclude long paths, and systems at successive precisions may be incompatible. |
+| incremental implementation of the Hall lane | Vijay Vazirani, *Matching: A New Proof for an Ancient Algorithm*, key `f72f878a92a697521442ae7e19a1e359`, S1--S7/E1--E8, 192--4,135 s | Maintain a cross-layer bipartite clean router by exact alternating-path flips; one augmentation covers one more source while preserving slot capacities.  If none exists, verify the reachable Hall-deficient source set.  Record every flip as a replayable router-repair certificate. | This refines the already formalized Hall alternative but creates no legal macro edge.  Merging source and target roles invalidates naive BFS: the talk requires even/odd levels, tenacity, bases, blossoms, and a lower-tenacity-first schedule, after which Collatz direction must still be restored.  Finite routers need compatible bonding and an ordinary root. |
 
 ## Negative lessons already extracted
 
@@ -1405,5 +1491,14 @@ of branchwise slopes.
   Reeb Flows*, IAS, 24 Nov. 2023, key
   `38037e3d560c09b82b6c2c0beae915f0`,
   https://www.ias.edu/video/c0-stability-topological-entropy-3-dimensional-reeb-flows.
+- Facundo Mémoli, *Hierarchical clustering on asymmetric networks*, IAS,
+  7 Nov. 2015, key `d2d50ba64aefb3df34cc2d9d058a8742`,
+  https://www.ias.edu/video/wtiocs-M%C3%A9moli.
+- Vijay Vazirani, *Matching: A New Proof for an Ancient Algorithm*, IAS,
+  10 Dec. 2012, key `f72f878a92a697521442ae7e19a1e359`,
+  https://www.ias.edu/video/1213/csdm/VijayVazirani1210.
+- Ilya Volkovich, *Upper and Lower Bounds for the Linear Ordering Principle*,
+  IAS, 9 Feb. 2026, key `558421665a5af3c98104e05ef9732e36`,
+  https://www.ias.edu/video/upper-and-lower-bounds-linear-ordering-principle.
 
 `counterexample: null`

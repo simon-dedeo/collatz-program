@@ -113,6 +113,57 @@ or carry merger.  Separate per-level transducers and a growing spectral radius
 still produce at most a profinite family.  These two transcript-checked entries
 raise the authoritative public ledger to 58 talks.  `counterexample:null`.
 
+Mémoli turns the architecture outer loop into a finite motif search.  For a
+complete asymmetric state table, require the proposed hierarchy to be
+functorial under weight-decreasing maps, invariant under linear rescaling, and
+excisive: reclustering any block must reproduce its restricted hierarchy.  His
+classification then represents the rule by symmetric single linkage after a
+family of finite directed motifs.  We can therefore enumerate motif families
+by explicit description complexity and return the first failed morphism or
+excision block, instead of fitting arbitrary cluster trees.  This compresses
+cross-layer interfaces only; same-layer literal recharge is acyclic, and no
+cluster supplies a legal macro, nested ray, growing counter, or ordinary seed
+without separate exact replay.
+
+Formalizer commit `1fc0402` now makes Esnault's warning executable on any
+complete finite table.  It distinguishes recovery of the ordinary-seed
+coordinate from faithfulness of the entire exact state, enumerates every pair
+of distinct states with the same proposed shadow, and turns one collision
+into a proof that no reifier of that architecture exists.  When the seed
+coordinate itself is injective, Lean proves seed recovery equivalent to full
+kernel triviality.  Independent finite reifiers remain weaker than one
+coherent unbounded decoder.  The authoritative transcript-checked ledger is
+now 59 talks; `counterexample:null`.
+
+Volkovich makes the user's counter-growth requirement into the transition
+between finite ranks.  At counter layer `c`, exact-check a fixed strict order
+on the complete bounded reset states and require every nonminimum state to
+have a clean order-decreasing macro.  The finite rank is deliberately
+consumed; the minimum must then have a separately replayed zero-carry macro
+into layer `c+1`.  An order-law witness or missing minimum reset is the exact
+CEGIS failure.  Only one uniform all-counter reset law compatible across
+precisions could support an escape, and it would still need one ordinary
+positive seed.
+
+Vazirani adds an implementation discipline to the existing Hall lane:
+alternating-path flips repair a cross-layer bipartite router one source at a
+time, and failure returns the reachable Hall-deficient source family.  This
+does not add an existence theorem beyond the kernel-checked Hall alternative.
+It does add a sharp warning: if source and target roles are collapsed, naive
+BFS is unsound; parity levels, tenacity, blossoms, and the lower-tenacity-first
+schedule must be certified, after which the chosen edge still needs its
+original Collatz direction and literal replay.  The public authoritative
+ledger now contains 61 transcript-checked release talks.
+`counterexample:null`.
+
+Formalizer commit `64af217` has kernel-checked Cavalieri's integral core.
+`IntegerPrincipal A b` is equivalent to vanishing of the exact cokernel class;
+a mapped left obstruction or a modular obstruction proves that no integer
+correction exists.  Composite-modulus witnesses are supported, so torsion
+failures invisible over the rationals are retained.  The module verifies
+proof-carrying certificates but does not yet compute Smith normal form, and
+principality still proves neither coercivity nor recharge closure.
+
 ### 2026-07-23 23:30 EDT
 
 There is still no counterexample.  The most useful new transfer comes from
@@ -7981,6 +8032,26 @@ existing lines of work; the closest ancestors, and what each contributes:
   precision have no cross-precision force without a certified continuation
   transducer preserving literal projection, legality, separation, and a
   uniform length bound.
+- **F. Mémoli, [“Hierarchical clustering on asymmetric
+  networks”](https://www.ias.edu/video/wtiocs-M%C3%A9moli), IAS talk (7 Nov.
+  2015), corpus key `d2d50ba64aefb3df34cc2d9d058a8742`, S3--S7 at
+  1,372--3,221 seconds** — functorial, excisive, linearly scale-invariant
+  hierarchies are represented by finite directed motif families, giving a
+  complexity-ranked outer CEGIS grammar and exact failed-block witnesses.
+  Clustering itself creates no legal transition or ordinary orbit.
+- **V. Vazirani, [“Matching: A New Proof for an Ancient
+  Algorithm”](https://www.ias.edu/video/1213/csdm/VijayVazirani1210), IAS talk
+  (10 Dec. 2012), corpus key `f72f878a92a697521442ae7e19a1e359`, S1--S7 at
+  192--4,135 seconds** — alternating paths give replayable incremental repairs
+  of the exact bipartite Hall router; the general-graph theory warns that
+  parity/blossom schedules and a separate direction lift cannot be skipped.
+- **I. Volkovich, [“Upper and Lower Bounds for the Linear Ordering
+  Principle”](https://www.ias.edu/video/upper-and-lower-bounds-linear-ordering-principle),
+  IAS talk (9 Feb. 2026), corpus key `558421665a5af3c98104e05ef9732e36`,
+  S1/S7--S8 at 139--824 and 2,957--4,263 seconds** — certify a finite strict
+  rank inside each counter layer, descend to its minimum, and require an exact
+  clean reset to the next counter.  Uniformity, bonding, zero carry, and an
+  ordinary root remain the unbounded theorem.
 - **A. V. Kontorovich & Ya. G. Sinai, [“Structure Theorem for
   `(d,g,h)`-Maps”](https://arxiv.org/abs/math/0601622), Bull. Braz. Math. Soc.
   33 (2002), 213–224** — the exact arithmetic-progressions theorem for every
