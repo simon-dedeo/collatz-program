@@ -35,7 +35,7 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ### 2026-07-24 00:45 EDT
 
-There is still no Collatz counterexample.  The IAS audit now has 115
+There is still no Collatz counterexample.  The IAS audit now has 121
 authoritative transcript-checked release talks.  The one deliberately broad
 Batch API triage has terminated: 976 requests completed and 49 returned an
 HTTP-500 server error; among the completed requests, 892 supplied a
@@ -254,6 +254,77 @@ This is an attractive template for extracting a monomial invariant, but none
 of those hypotheses follows from a mixed `2`/`3` Collatz residue tower.  A
 formal/profinite relation is not promoted without an equally rigid
 algebraization theorem.
+
+Thomas Hales's account of Presburger and `p`-adic quantifier elimination
+provides a rigorous finite certificate compiler.  Once a macro word and all
+exponents are fixed, its affine transitions, intermediate positivity,
+congruences, first-passage inequalities, carries, and a bounded counter demand
+are a Presburger sentence in the ordinary integer variables.  Quantifier
+elimination can return an exact semilinear root condition or prove the family
+empty; bounded exponent choices can be split into finitely many fixed cases.
+Variable exponentiation, an infinite horizon, and selection of one compatible
+ordinary root lie outside the theorem.  The talk also notes that practical
+complexity bounds for the broader `p`-adic procedure were unavailable.
+
+Peter Sarnak's exact metric-graph trace formula is an executable warning about
+spectral summaries.  A spectral atom at length `L` is a signed sum over every
+closed walk of that length, with products of scattering amplitudes.  Exact
+enumeration can therefore find `C_L != 0` even when every contributing walk
+fails Collatz replay or has nonpositive counter drift; conversely, a literal
+positive walk can be hidden by cancellation.  The only promotable object is
+an individually replayed closed macro walk with a complete state/carry reset
+and positive counter sum, not the spectral coefficient that suggested it.
+
+Lee Mosher's Two Over All theorem gives a conditional flaring certificate.
+For a foldable map of marked graphs that is sufficiently distant in the free
+splitting complex, two source edges cross every target edge exponentially many
+times.  A finite selector substitution can exact-check foldability, its
+reduced occurrence matrix, and a supplied distance *lower* certificate; an
+upper-bound path is insufficient.  Exponential word occurrence is still an
+aggregate substitution count.  It neither makes the edge words legal
+Syracuse macros nor chooses the same edge across precision or supplies an
+ordinary root.
+
+Dragomir Šarić gives a decisive finite-prefix no-go for recurrence claims.  A
+zero-twist hyperbolic flute is null-Green/ergodic exactly when
+`sum exp(-ell_n/2)` diverges, equivalently when the surface is complete.
+After any fixed finite cuff-length prefix, one continuation
+`ell_n=2 log(n+1)` has a divergent tail while another
+`ell_n=4 log(n+1)` has a convergent tail.  Hence no finite prefix or large
+partial sum determines the limiting class without a proved tail law.  The
+same logic applies to Collatz recurrence scores: bounded survival statistics
+cannot settle an infinite condition.
+
+Daniel Spielman's interlacing-family principle is the first clean positive
+interface from an aggregate certificate to one finite object.  When every
+sibling family has a common interlacing, one can descend the decision tree to
+a leaf whose largest polynomial root is no worse than the averaged root.
+For literal macro prefixes, exact characteristic polynomials, Sturm/root
+certificates, and sibling interlacing could therefore select one balanced
+finite route from an average spectral bound.  Generic expectations do not
+qualify.  Even a valid leaf supplies balanced error rather than positive
+charge drift, and separately selected leaves at increasing depths need not
+form one ordinary execution.
+
+Thomas Rothvoss gives a lower-bound language for overly compact linear
+selector architectures.  Yannakakis identifies a polytope's extension
+complexity with the nonnegative rank of its slack matrix; Rothvoss's rational
+hyperplane functional is large on the matching slack matrix but tiny on every
+rank-one rectangle, forcing exponential rank.  For a bounded Collatz
+polyhedral model, a fully checked rational functional and exhaustive rectangle
+bound would be an exact rejection certificate for a claimed small LP lift.
+It constrains only that representation class and says nothing about existence
+of a literal path.
+
+Formalizer commit `0363e19` turns Moreno's warning into an exact finite
+algorithm.  Recursive frontiers retain precisely the exact states that can
+lift the entire shadow prefix; a nonempty terminal frontier is equivalent to
+a compatible lift, while the first empty frontier obstructs every extension.
+Lean also gives a two-state counterexample where every raw shadow fiber is
+nonempty but no compatible path lift exists.  Commit `4c7bc75` makes the
+recharge-chain theorem search-facing: any finite antichain of literal
+descendants from one ordinary source has cardinality at most one.  Both are
+finite semantic audits, not all-depth or ordinary-root proofs.
 `counterexample:null`.
 
 ### 2026-07-24 00:12 EDT
@@ -8922,6 +8993,48 @@ existing lines of work; the closest ancestors, and what each contributes:
   a characteristic-`p` torus subvariety under the source hypotheses.  Its
   finite-jet, `p`-power, and valuation proof identifies the missing rigidity
   in a Collatz formal-residue tower.
+- **T. Hales, [“Automorphic Forms - Can p-adic integrals be
+  computed?”](https://www.ias.edu/video/Automorphic-Forms-duke-hales), IAS
+  talk (6 Apr. 2001), corpus key `ccc0b0e6ac2c063d4f1dd1808f68bc5c`, S1
+  at 136--827 and the complexity comment at 3,416--3,453 seconds** —
+  Presburger elimination exactly decides fixed-coefficient additive integer
+  formulas.  It can compile bounded literal macro constraints, not variable
+  exponentiation or one coherent infinite orbit.
+- **P. Sarnak, [“Spectra of metric graphs and crystalline
+  measures”](https://www.ias.edu/video/members/2020/0210-PeterSarnak), IAS
+  talk (10 Feb. 2020), corpus key `20a5f1daec904c51a73553af6c6e6fa8`,
+  S2/S6 at 490--1,420 and 2,196--2,881 seconds** — the exact trace formula
+  makes each spectral length coefficient a signed aggregate over closed
+  walks.  Cancellation and invalid contributors prevent it from serving as a
+  literal cycle decoder.
+- **L. Mosher, [“Aspects of the large scale geometry of
+  Out(Fn)”](https://www.ias.edu/video/aspects-large-scale-geometry-outfn), IAS
+  talk (6 May 2025), corpus key `fa593ad747800a26f458a8eb33853ee3`,
+  S5/S7 at 2,726--2,949 and 3,275--3,601 seconds** — a sufficiently distant
+  foldable marked-graph map has two edges whose images cross every target
+  edge exponentially often.  This validates flaring only after exact graph
+  and distance certificates and does not select a Collatz orbit.
+- **D. Šarić, [“When is the Geodesic Flow
+  Ergodic?”](https://www.ias.edu/video/when-geodesic-flow-ergodic), IAS talk
+  (9 Dec. 2025), corpus key `fba4b9954bf05e9c9006f7c141d796d7`, S4--S5
+  at 1,980--2,760 seconds** — zero-twist flute ergodicity is equivalent to
+  divergence of an explicit infinite cuff series.  Identical finite prefixes
+  admit both convergent and divergent completions, so a tail theorem is
+  indispensable.
+- **D. Spielman, [“The solution of the Kadison-Singer
+  problem”](https://www.ias.edu/video/weyl/2014/1105-DanielSpielman), IAS talk
+  (5 Nov. 2014), corpus key `08b259601ed1389b935832113da1337c`, S2/S5--S7
+  at 399--1,017 and 1,860--3,588 seconds** — common interlacing promotes an
+  averaged polynomial root bound to one leaf of a finite decision tree.  It
+  is a precise bounded selector interface when real-rootedness and literal
+  leaves are exact-checked.
+- **T. Rothvoss, [“The matching polytope has exponential extension
+  complexity”](https://www.ias.edu/video/csdm/2014/0317-ThomasRothvoss), IAS
+  talk (17 Mar. 2014), corpus key `eed982b23e01b6989587191d75e5d536`,
+  S1--S4 at 20--2,421 seconds** — nonnegative slack rank equals linear
+  extension complexity, and a rectangle-separating functional certifies a
+  large lower bound.  This can reject a compact LP selector encoding, not a
+  general invariant or path.
 - **S. Fenner, [“Bipartite perfect matching is in
   quasi-NC”](https://www.ias.edu/video/csdm/2016/0208-Fenner), IAS talk
   (8 Feb. 2016), corpus key `83398a9013343939af42951fafbfdaa1`, S2--S8 at
