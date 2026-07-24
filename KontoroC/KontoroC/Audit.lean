@@ -2143,5 +2143,21 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardWordQuotientKernel.relationFailures_eq_empty_iff_sound
 #print axioms
   KontoroC.OutwardWordQuotientKernel.exists_failed_relation_of_not_sound
+#print axioms
+  KontoroC.OutwardFeaturePolicyGap.featurePolicyOn_iff_commonMoveOn_observed
+#print axioms
+  KontoroC.OutwardFeaturePolicyGap.not_featurePolicyOn_iff_exists_featureGap
+#print axioms
+  KontoroC.OutwardFeaturePolicyGap.featurePolicyOn_or_featureGap
+#print axioms
+  KontoroC.OutwardFeaturePolicyGap.featurePolicyOn_of_injectiveOn
+#print axioms
+  KontoroC.OutwardFeaturePolicyGap.commonMoves_nonempty_iff
+#print axioms
+  KontoroC.OutwardFeaturePolicyGap.badFeatures_eq_empty_iff_featurePolicyOn
+#print axioms
+  KontoroC.OutwardFeaturePolicyGap.badFeatures_nonempty_iff_exists_featureGap
+#print axioms
+  KontoroC.OutwardFeaturePolicyGap.no_featurePolicy_sameLayer_literalRecharge
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

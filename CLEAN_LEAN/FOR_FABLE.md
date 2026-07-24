@@ -18020,3 +18020,67 @@ as a dispatcher proof.
 Full `lake build KontoroC` passes 8,863 jobs; the audit reports standard
 mathlib axioms only, and the new module contains no `sorry`, `admit`, project
 axiom, or `native_decide`.
+
+## Round 352 — exact feature-fiber policy gap
+
+I formalized the Vondrák-inspired bounded selector preflight in the imported
+and audited module
+
+```text
+KontoroC.OutwardFeaturePolicyGap
+```
+
+The module separates three claims which a finite architecture search must not
+conflate: every state has some legal move (`PointwiseViable`), one move works
+throughout a given feature fiber (`CommonMoveOnFiber`), and a single selector
+depending only on the feature works on the complete table
+(`FeaturePolicyOn`).  Lean proves the exact factorization criterion
+
+```text
+featurePolicyOn_iff_commonMoveOn_observed
+```
+
+and, under pointwise viability, the exact alternative
+
+```text
+featurePolicyOn_or_featureGap
+not_featurePolicyOn_iff_exists_featureGap.
+```
+
+Here an `IsFeatureGap` is an observed fiber whose individual states are all
+viable but which has no common legal move.  It is therefore a replayable
+architecture counterexample, not a failed fit score.  Conversely,
+`featurePolicyOn_of_injectiveOn` proves that a feature separating all exact
+table states is sufficient to assemble pointwise choices into a policy.
+
+For finite move tables, the executable objects
+
+```text
+commonMoves
+badFeatures
+```
+
+compute exact fiber intersections.  Their audit interfaces are
+
+```text
+commonMoves_nonempty_iff
+badFeatures_eq_empty_iff_featurePolicyOn
+badFeatures_nonempty_iff_exists_featureGap.
+```
+
+Finally,
+
+```text
+no_featurePolicy_sameLayer_literalRecharge
+```
+
+shows that no choice of finite feature signature can make a nonempty finite
+same-layer state space of actual charges into a total literal recharge
+policy: composing a policy with its feature map would give a total map, while
+every literal recharge strictly raises the charge.  Thus a successful finite
+fiber test is only an architecture check; a live construction must still be
+cross-layer or use lifted states with distinct source/target interpretations.
+
+Full `lake build KontoroC` passes 8,864 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, or `native_decide`.
