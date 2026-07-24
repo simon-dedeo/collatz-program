@@ -57,15 +57,36 @@ stabilization.  Jutla's theorem is over large characteristic-two fields, so
 the mixed-valuation encoding and its unbounded uniformity theorem remain to be
 proved.
 
+Matthiesen's smooth-number transcript adds a complementary fixed-syntax
+filter.  The additive transference method only reaches smoothness bounds at
+least a large power of `log N` and explicitly does not reach the super-sparse
+transition; Collatz macro terms use only the fixed primes `2` and `3`.  For a
+fixed symbolic skeleton, expand the exact reset defect into signed
+`2^a 3^b` terms and remove their common scale.  The classical fixed-`S`
+unit-equation theorem then says that a nondegenerate fixed-term equation has
+only finitely many projective solutions.  Hence an unbounded parametric macro
+family must reveal an exact vanishing proper subsum (a candidate compositional
+factor), grow its term count, or introduce the already-known unbounded-
+coefficient obstruction.  This does not close recursive growing grammars, but
+it rejects fixed-shape searches before they consume trajectory effort.
+
 Formalizer commit `1c1794d` independently closes one tempting misuse of the
 Pires staircase.  For `K>=3`, an increasing natural recurrence
 `A_(n+2)+A_n=K*A_(n+1)` more than doubles at every step; Lean proves it
 unbounded and therefore proves that it cannot itself be the canonical root
 address of one ordinary seed or satisfy the coercive sublevel certificate.
 The recurrence may still drive counter, payload, or macro-shape data, but a
-separate address coordinate must stabilize.  The transcript-checked ledger is
-now 40 talks.  The sole corpus batch is at 730/1,025 with zero failures, no
-second broad run exists, and the worst-case quoted spend remains below $135.
+separate address coordinate must stabilize.
+
+Formalizer commit `af90376` also resolves Deift's semantic-alias gate more
+strongly than expected.  Two positive literal recharge macros with the same
+source and target charges must have exactly the same first-passage block list.
+Thus phase/carry records may be deduplicated only after they decode to that
+identical word.  Equal-cost distinct words are different executable choices
+and must all survive the beam; there is no literal alias orbit over which they
+may be averaged or silently identified.  The transcript-checked ledger is now
+41 talks.  The sole corpus batch is at 769/1,025 with zero failures, no second
+broad run exists, and the worst-case quoted spend remains below $135.
 `counterexample:null`.
 
 ### 2026-07-23 22:50 EDT
@@ -6827,6 +6848,7 @@ from `d8e789a` now runs before this more expensive synthesis.
 | Pure last-nonzero-ternary-digit recursive selector | Universally inadequate for the literal writer--decoder architecture.  Every exact primitive layer still contains a full range of dyadic classes.  Lean proves that, even when the selected chart is an arbitrary function of valuation depth and primitive digit, each regular layer contains arbitrarily large ordinary states where that chart is illegal.  Greenfeld's hierarchy remains relevant only after adding a fresh dyadic address/carry binder inside every regular and exceptional branch. | [`OutwardValuationSelectorNoGo.lean`](KontoroC/KontoroC/OutwardValuationSelectorNoGo.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#lead-a-a-mixed-dyadic--triadic-recursive-valuation-selector) |
 | Treating critical first-passage/KL mass as an ordinary survivor | Invalid.  For the canonical maximal outward first-passage code, the slope-tilted Kraft mass is exactly one at every block depth, but its natural product flow satisfies `mu_q{r_n<=B}<=B(3/4)^n`.  Conditioning fair renewal on arbitrarily long survival gives the product block law `p(w)/P`, which is also diffuse, with fixed-window bound `B(1/(2P))^n`.  Thus conserved mass and the classical survival Doob transform both escape every bounded ordinary residue window.  Any successful selector must create an atom; a useful sufficient proof input is the weaker growth condition `rho_n=o(2^n)`, which forces eventual zero carry. | [`outward_first_passage_audit.json`](experiments/kontorovich/outward_first_passage_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#23-odd-charge-compression-and-triadic-min-plus-renewal) |
 | Fixed-precision triadic min-plus controller | Does not close the unbounded raw renewal.  The exact dual-residue update for a source phase modulo `3^k` queries the target profile modulo `3^(O(w)+k)`; already word `1` requires precision `k+1`.  Finite height closes with the complete table `W_B`, explicit target bound `C(B)`, and a membership precision `3^K>C(B)`, but `K` grows with height.  Thus a successful phase selector needs genuinely growing arithmetic state, not one fixed residue automaton. | [`outward_minplus_profile_audit.json`](experiments/kontorovich/outward_minplus_profile_audit.json), companion commits `a0e460d`/`8d79424`, [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#24-growing-phase-precision-and-directed-carry-repair) |
+| Distinct executable alias orbit at fixed recharge endpoints | Closed.  Determinism makes two literal executions from the same source to the same target prefix-comparable; prefix-free first-passage decoding aligns their block lists, and a proper suffix would be a forbidden positive recharge from the target to itself.  Symbolic phase/carry records may be deduplicated only when they decode to the identical word.  Equal-cost distinct words are genuinely different choices and cannot be averaged. | [`OutwardSemanticAliasNoGo.lean`](KontoroC/KontoroC/OutwardSemanticAliasNoGo.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#lead-l-quotient-min-plus-states-by-exact-aliases-but-retain-every-boundary-tie) |
 | Prefix-complete uniformly outward valuation ISA | Closed for finite positive prefix-free codes.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, every outward leaf has `q(w)>p(w)`; `p`-completeness and the `q`-Kraft bound are inconsistent.  Commit `da9fa59` constructs explicit binary and four-letter compilers, derives both Kraft inequalities from prefix-freeness, and proves the full finite contradiction and quantitative mass bound in Lean.  The countably infinite prefix-free theorem still uses an abstract `tsum` interface.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |
 | Periodic or ultimately periodic path in the four-word signed thin language | Closed.  The exact bounded controller audit extracts the proper code `{1,011,001111,010111}` with ordinary mass `21/32`, tilted mass `1905/2048`, and 41,328 literal growing reset checks.  Commit `1aa3e52` proves that any nonempty periodic concatenation of outward shortcut blocks gives an expanding coprime affine recurrence and cannot persist on positive naturals; an arbitrary finite prefix does not help.  Genuinely aperiodic paths with eventually zero address carry remain open. | [`kl_signed_thin_residue.json`](experiments/kontorovich/kl_signed_thin_residue.json), [`ShortcutParityPeriodicNoGo.lean`](KontoroC/KontoroC/ShortcutParityPeriodicNoGo.lean) |
 | EC17 normalized core boundary as a KL full-lift path | Closed as a semantic identification.  The boundary clock is a genuine ternary odometer and is cofinal on `Y_d` when `3` does not divide the period-three gain.  Nevertheless each phase has only one class-2 and one class-8 KL chord over a full orbit; almost all pairs are nonedges.  More decisively, a KL word with `r` chords has defect at least `3^r-2^r`, while one normalized EC17 core step has `r>=17` and defect 34.  No KL/Haar tax may be attached directly to the core clock.  This does not close the actual packet compiler, whose ordinary endpoints must be expanded and sampled separately. | [`breakoff_ether_period3_kl_bridge_audit.json`](experiments/kontorovich/breakoff_ether_period3_kl_bridge_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md) |
@@ -7587,6 +7609,13 @@ existing lines of work; the closest ancestors, and what each contributes:
   fixed-program uniformity rule rejects precision-dependent lookup tables;
   the characteristic-two theorem still needs a proved mixed-valuation Collatz
   analogue.
+- **L. Matthiesen, [“Linear equations in smooth
+  numbers”](https://www.ias.edu/video/linear-equations-smooth-numbers), IAS
+  talk (18 Oct. 2022), corpus key `87c95bd0494bd525290bc695733fc58a`,
+  S2--S4/S8 at 245--1,965 and 2,790--3,287 seconds** — the failure of additive
+  transference in the super-sparse smooth regime redirects fixed-shape
+  `2`/`3`-power macro identities to an S-unit finiteness/subsum gate.  That
+  gate prunes bounded term syntax; it does not construct a growing grammar.
 - **A. V. Kontorovich & Ya. G. Sinai, [“Structure Theorem for
   `(d,g,h)`-Maps”](https://arxiv.org/abs/math/0601622), Bull. Braz. Math. Soc.
   33 (2002), 213–224** — the exact arithmetic-progressions theorem for every
