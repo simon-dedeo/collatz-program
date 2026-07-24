@@ -2501,3 +2501,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardSurvivorResidues.survivorSource_lt_twoPow
 #print axioms KontoroC.OutwardSurvivorResidues.survivorSource_has_literalExecution
 #print axioms KontoroC.OutwardSurvivorResidues.survivorSource_has_positive_lift
+#print axioms KontoroC.OutwardSurvivorResidues.prefix_append_singleton_cases
+#print axioms KontoroC.OutwardSurvivorResidues.survivorWords_append_false
+#print axioms KontoroC.OutwardSurvivorResidues.canonicalSource_append_false_mod
+#print axioms KontoroC.OutwardSurvivorResidues.twoPow_dvd_of_executes_replicate_false
+#print axioms KontoroC.OutwardSurvivorResidues.no_positive_all_false_tail

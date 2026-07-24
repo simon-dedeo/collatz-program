@@ -132,5 +132,92 @@ theorem survivorSource_has_positive_lift
   · have hshift := executes_shift w (canonicalExecution_spec w).2.2 (k + 1)
     simpa [target, hwlen, hsource] using hshift
 
+/-! ## The canonical safe extension is a 2-adic artifact -/
+
+theorem prefix_append_singleton_cases {α : Type*}
+    {u w : List α} {a : α} (h : u <+: w ++ [a]) :
+    u <+: w ∨ u = w ++ [a] := by
+  by_cases hlen : u.length ≤ w.length
+  · left
+    apply List.prefix_iff_eq_take.mpr
+    have hu := List.prefix_iff_eq_take.mp h
+    rw [List.take_append_of_le_length hlen] at hu
+    exact hu
+  · right
+    apply h.eq_of_length
+    have hp := h.length_le
+    have hfullLen : (w ++ [a]).length = w.length + 1 := by simp
+    rw [hfullLen] at hp
+    omega
+
+theorem not_outward_append_false {w : List Bool}
+    (hw : ¬ WordOutward w) :
+    ¬ WordOutward (w ++ [false]) := by
+  intro hout
+  simp [WordOutward] at hw hout
+  have hpow : 2 ^ w.length ≤ 2 ^ (w.length + 1) :=
+    Nat.pow_le_pow_right (by omega) (by omega)
+  omega
+
+/-- Every finite survivor has a survivor child obtained by appending one even
+shortcut bit. -/
+theorem survivorWords_append_false
+    {L : ℕ} {w : List Bool} (hw : w ∈ survivorWords L) :
+    w ++ [false] ∈ survivorWords (L + 1) := by
+  apply mem_survivorWords_iff.mpr
+  refine ⟨by simpa using congrArg Nat.succ (mem_survivorWords_iff.mp hw).1,
+    ?_⟩
+  intro u hu
+  rcases prefix_append_singleton_cases hu with huw | rfl
+  · exact (mem_survivorWords_iff.mp hw).2 u huw
+  · exact not_outward_append_false
+      ((mem_survivorWords_iff.mp hw).2 w (List.prefix_refl w))
+
+/-- Canonical source residues along the safe even child are genuinely nested
+modulo the preceding dyadic precision. -/
+theorem canonicalSource_append_false_mod (w : List Bool) :
+    (canonicalExecution (w ++ [false])).1 % 2 ^ w.length =
+      (canonicalExecution w).1 := by
+  have hfull := (canonicalExecution_spec (w ++ [false])).2.2
+  obtain ⟨middle, hprefix, _⟩ := (executes_append w [false]).mp hfull
+  have hmod := executes_source_modEq w hprefix
+    (canonicalExecution_spec w).2.2
+  have hrlt := (canonicalExecution_spec w).1
+  simpa only [Nat.ModEq, Nat.mod_eq_of_lt hrlt] using hmod
+
+/-- Executing `n` consecutive even shortcut bits forces divisibility by
+`2^n` at their source. -/
+theorem twoPow_dvd_of_executes_replicate_false
+    {n source target : ℕ}
+    (h : Executes (List.replicate n false) source target) :
+    2 ^ n ∣ source := by
+  induction n generalizing source target with
+  | zero => simp
+  | succ n ih =>
+      rw [List.replicate_succ] at h
+      obtain ⟨middle, hstep, htail⟩ := h
+      simp only [Bool.false_eq_true, ↓reduceIte] at hstep
+      obtain ⟨q, hq⟩ := ih htail
+      refine ⟨q, ?_⟩
+      rw [← hstep, hq, pow_succ]
+      ring
+
+/-- A positive endpoint after a fixed prefix cannot support arbitrarily long
+all-even continuations.  This is the elementary ordinary-height obstruction
+behind the apparently safe infinite branch. -/
+theorem no_positive_all_false_tail
+    {w : List Bool} {source finish : ℕ}
+    (hfinish : 0 < finish) (hbase : Executes w source finish) :
+    ¬ ∀ n, ∃ target,
+      Executes (w ++ List.replicate n false) source target := by
+  intro hall
+  obtain ⟨target, hfull⟩ := hall finish
+  obtain ⟨middle, hprefix, htail⟩ := (executes_append w _).mp hfull
+  have hmiddle : middle = finish := executes_target_unique w hprefix hbase
+  subst middle
+  have hdvd := twoPow_dvd_of_executes_replicate_false htail
+  have hle : 2 ^ finish ≤ finish := Nat.le_of_dvd hfinish hdvd
+  exact (Nat.lt_two_pow_self.trans_le hle).false
+
 end OutwardSurvivorResidues
 end KontoroC

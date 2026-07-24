@@ -20035,3 +20035,40 @@ an infinite non-Collatz orbit.
 
 The full 8,888-job build and explicit axiom audit pass with no forbidden proof
 markers.
+
+## Round 390 — a canonical survivor ray exists, but it is 2-adic-only
+
+The finite survivor tree has an automatic child operation: append one even
+shortcut bit.  `survivorWords_append_false` proves that every word with no
+outward prefix remains a survivor after this extension.  Moreover
+
+```text
+canonicalSource_append_false_mod
+```
+
+proves that the canonical source of the child reduces to the canonical source
+of its parent modulo the parent's `2^length` precision.  Thus repeated even
+extension really does produce a coherent nested dyadic address, not merely
+pointwise nonempty levels.
+
+This does **not** furnish a positive ordinary ray.  The module now proves
+
+```text
+twoPow_dvd_of_executes_replicate_false :
+  Executes (replicate n false) source target -> 2^n | source,
+
+no_positive_all_false_tail :
+  0 < finish -> Executes w source finish ->
+  not (forall n, exists target,
+    Executes (w ++ replicate n false) source target).
+```
+
+Indeed a fixed positive endpoint `finish` cannot be divisible by `2^n` for
+all `n`; choosing `n=finish` contradicts `finish < 2^finish`.
+
+This is a useful exact model of the compactness trap.  The large survivor
+sets do have coherent infinite paths, and the easiest such path even has
+definitionally nested canonical residues, but its inverse limit is not a
+positive ordinary orbit.  Any successful dispatcher must combine survivor
+coherence with an independent ordinary-height/stabilization argument; tree
+compactness and positive finite-level density alone cannot supply it.
