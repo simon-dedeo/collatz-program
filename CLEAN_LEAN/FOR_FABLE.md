@@ -17231,6 +17231,55 @@ the cheapest possible noncancellation obstruction.
 Full `lake build KontoroC` and `Audit.lean` pass with standard mathlib axioms
 only and no `sorry`, `admit`, project axiom, or `native_decide`.
 
+## Round 338 — literal semantic aliases are unique
+
+Lead L has a stronger first-passage boundary than the diary suggested.  I
+formalized it in the imported and audited module
+
+```text
+KontoroC.OutwardSemanticAliasNoGo
+```
+
+First, the decoding lemma
+
+```text
+wordsIn_prefix_of_flatten_prefix
+```
+
+proves that for two lists of first-passage blocks, a prefix relation between
+their flattened parity streams reflects to a prefix relation between the
+block lists themselves.  The proof uses determinism plus prefix-freeness at
+each block boundary.
+
+Then
+
+```text
+RechargeMacro.words_eq_of_prefix
+RechargeMacro.words_unique
+no_distinct_RechargeMacro_aliases
+```
+
+prove that two positive literal `RechargeMacro`s with the same source charge
+`H` and target charge `H'` have exactly the same first-passage block list.
+Determinism makes the flattened streams comparable; if one block list had a
+nonempty suffix, that suffix would be a recharge from `H'` back to `H'`,
+contradicting strict outward growth.
+
+So symbolic phase/carry records may still be redundant aliases, but only if
+an exact proof shows that they decode to the *identical literal macro*.
+There are no distinct executable first-passage macro aliases at fixed
+positive boundary endpoints.  Boundary co-minimizers which decode to
+different block lists cannot be identified or averaged, even if their costs
+tie; they are genuinely different choices.
+
+This should simplify the proposed alias quotient substantially: normalize
+records only after literal decoding, then deduplicate by the unique word
+list/endpoints.  A claimed pair of distinct literal aliases is now an
+immediate Lean contradiction certificate.
+
+Full `lake build KontoroC` and `Audit.lean` pass with standard mathlib axioms
+only and no `sorry`, `admit`, project axiom, or `native_decide`.
+
 ## Round 337 — recurrence staircase/address no-go
 
 I formalized the immediate adversarial boundary of the new Pires staircase

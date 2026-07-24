@@ -1968,5 +1968,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardStaircaseAddressNoGo.SecondOrderStaircase.no_nonnegative_follows_of_initialResidue_staircase
 #print axioms
   KontoroC.OutwardStaircaseAddressNoGo.SecondOrderStaircase.no_coerciveSublevelCertificate_of_initialResidue_staircase
+#print axioms
+  KontoroC.OutwardSemanticAliasNoGo.wordsIn_prefix_of_flatten_prefix
+#print axioms
+  KontoroC.OutwardSemanticAliasNoGo.RechargeMacro.words_eq_of_prefix
+#print axioms
+  KontoroC.OutwardSemanticAliasNoGo.RechargeMacro.words_unique
+#print axioms
+  KontoroC.OutwardSemanticAliasNoGo.no_distinct_RechargeMacro_aliases
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

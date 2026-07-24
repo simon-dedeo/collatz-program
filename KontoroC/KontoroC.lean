@@ -169,6 +169,7 @@ import KontoroC.OutwardCoerciveConverse
 import KontoroC.OutwardSArithmeticStabilization
 import KontoroC.OutwardCircuitValuationNoGo
 import KontoroC.OutwardStaircaseAddressNoGo
+import KontoroC.OutwardSemanticAliasNoGo
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
