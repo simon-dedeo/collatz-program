@@ -33,6 +33,67 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-24 01:47 EDT
+
+There is still no Collatz counterexample.  The IAS audit now has 183
+authoritative transcript-checked release talks.
+
+Lauren Williams proves equality between Newton--Okounkov and tropicalized
+superpotential polytopes in every cluster seed, backed by a special
+Plücker-coordinate realization theorem.  The realization is essential:
+`P(x,y)=1+x^2+y^2` has `(1,1)` in its Newton polytope but zero `xy`
+coefficient.  Tropical/convex feasibility can prune Collatz counter profiles,
+but it cannot assert a word until a supported monomial is extracted and
+literal-replayed with compatible backpointers.
+
+Michele Caselli obtains uniform BV/perimeter bounds from bounded Morse index
+by weakening stability quantitatively and finding a good ball among every
+separated collection.  This suggests a new theorem-shaped Collatz lane, not a
+result: define an exact combinatorial index of independent adverse recharge
+blocks and try to prove bounded index bounds total height variation
+`sum |h_(j+1)-h_j|`.  Since this variation dominates `|h_N-h_0|`, such a
+theorem would force every escape to exhibit unboundedly many separated
+instability witnesses and would guide search toward growing index.
+
+David Geraghty's potential-automorphy proof requires exact local deformation-
+component matching, not just compatible Frobenius statistics.  Ordered
+Collatz carries behave the same way.  Selectors `123` and `132` have identical
+total and multiset of valuations and the same multiplier `27/64`, but their
+exact rational fixed roots are `23/37` and `31/37`, with distinct translations.
+Both replay and are coherent 2-adically; neither is an ordinary integer.
+
+Patrick Lopatto's Lévy-matrix proof succeeds only after comparing the small-
+entry noise back into the large-entry backbone with controlled error.  A
+finite Collatz valuation cutoff has no analogous exact comparison.  For even
+`m>K`, set `x=(2^m-1)/3` and `y=x+2^K`.  They agree modulo `2^K`, but
+`v2(3x+1)=m`, `T(x)=1`, while `v2(3y+1)=K` and
+`T(y)=2^(m-K)+3`.  Clipping both valuations at `K` identifies seeds with
+arbitrarily different next states.  Exceptional large carries must be
+reinserted exactly, not replaced by noise.
+
+Lynnelle Ye bounds eigenvariety slopes through Fredholm-coefficient valuations
+and then constructs many small-slope forms by detecting a principal-series
+local type.  The latter is the semantic decoder.  The matrices
+`diag(1,0)` and `diag(0,1)` have the same characteristic/Fredholm polynomial,
+but from the distinguished first state only the former has a recurrent loop.
+Global Newton polygons forget accessibility.  A Collatz spectral lane should
+use an exact pointed start-to-start generating function on a nonnegative
+literal quotient, followed by replay, rather than global spectrum alone.
+
+Chi Cheuk Tsang reduces braid entropy to pseudo-Anosov train-track blocks and
+their transition-matrix spectral radii.  This supports minimizing a Collatz
+grammar to accessible strongly connected components before computing entropy
+or pressure.  It does not couple complexity to arithmetic growth: the
+kernel-checked first-passage example with `2^N` schedules and drift `-N` on
+every schedule remains the exact countermodel.  Entropy must be paired with
+the actual charge cocycle and an ordinary root.
+
+Formalizer commit `f865ab9` now kernel-checks the accelerated period-three
+theorem from the previous audit.  It derives the coercive bounds, expands all
+36 triples with kernel tactics rather than an external enumeration, and
+literal-replays the surviving fixed point `n=1`, word `222`.  Scope remains
+period dividing three only.  `counterexample:null`.
+
 ### 2026-07-24 01:42 EDT
 
 There is still no Collatz counterexample.  The IAS audit now has 177
@@ -10144,6 +10205,43 @@ existing lines of work; the closest ancestors, and what each contributes:
   at 1,770--2,268 and 3,313--3,966 seconds** — Fourier resonance identifies
   measure-zero non-equidistributing extension speeds.  It can flag exceptional
   finite quotients but does not select a literal Collatz seed.
+- **L. Williams, [“Mirror Symmetry for the Grassmannian and Its Schubert
+  Varieties”](https://www.ias.edu/video/mirror-symmetry-grassmannian-and-its-schubert-varieties),
+  IAS talk (6 Feb. 2025), corpus key `e81f6a10712337336a99eaff10bf408c`,
+  S3--S7 at 1,990--3,272 and 3,860--3,904 seconds** — a special realization
+  theorem makes tropicalized superpotential inequalities exact.  Generic
+  Newton-polytope membership need not correspond to a supported path monomial.
+- **M. Caselli, [“Existence and Regularity of Nonlocal Minimal
+  Surfaces”](https://www.ias.edu/video/existence-and-regularity-nonlocal-minimal-surfaces),
+  IAS talk (24 Mar. 2026), corpus key `e992c54018b8bb5a9fbc95cfff092242`,
+  S3--S6 at 868--1,954 seconds** — bounded index yields uniform variation
+  bounds through quantitative stability and a separated-ball covering lemma.
+  This motivates an exact adverse-block index for recharge paths.
+- **D. Geraghty, [“Potential Automorphy for Compatible Systems of l-Adic
+  Galois Representations”](https://www.ias.edu/video/galois/geraghty), IAS talk
+  (18 Nov. 2010), corpus key `3addb52140384028c479f5e61da5827e`,
+  S2--S3/S6--S8 at 504--1,005 and 2,454--3,734 seconds** — weak aggregate
+  compatibility is insufficient; modularity lifting matches exact local
+  deformation components.  Ordered Collatz carries cannot be replaced by a
+  valuation multiset.
+- **P. Lopatto, [“Spectral Statistics of Lévy
+  Matrices”](https://www.ias.edu/video/spectral-statistics-levy-matrices), IAS
+  talk (19 Oct. 2020), corpus key `5b21d6a77a3dd14385d2bef44bad6312`,
+  S6--S8 at 2,019--3,437 seconds** — a small/large decomposition becomes valid
+  only after a controlled comparison-back theorem.  Truncated Collatz
+  valuations can hide arbitrarily large one-step discrepancies.
+- **L. Ye, [“Slopes in eigenvarieties for definite unitary
+  groups”](https://www.ias.edu/video/puias/2018/1206-LynnelleYe), IAS talk
+  (6 Dec. 2018), corpus key `ae4d74132e19e8070195d3cecf0a4de5`, S4--S7 at
+  2,136--3,498 seconds** — Fredholm valuations bound an aggregate spectrum,
+  while a local representation type realizes the relevant forms.  Collatz
+  spectral data must retain designated-start accessibility.
+- **C. C. Tsang, [“Minimum Entropies of
+  Braids”](https://www.ias.edu/video/minimum-entropies-braids), IAS talk
+  (18 Feb. 2025), corpus key `bc6de995bff76b43288c45229f690735`, S5--S7 at
+  3,049--3,672 seconds** — train-track reduction isolates essential
+  pseudo-Anosov blocks and their spectral radii.  Symbolic entropy remains
+  independent of arithmetic drift and root semantics.
 - **S. Fenner, [“Bipartite perfect matching is in
   quasi-NC”](https://www.ias.edu/video/csdm/2016/0208-Fenner), IAS talk
   (8 Feb. 2016), corpus key `83398a9013343939af42951fafbfdaa1`, S2--S8 at
