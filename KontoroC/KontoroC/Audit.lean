@@ -22,6 +22,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.not_conjecture_of_legal_cycle
 #print axioms KontoroC.CycleCertificate.not_conjecture_of_check
 #print axioms KontoroC.CycleArtifact.not_conjecture_of_checkNontrivial
+#print axioms KontoroC.AcceleratedPeriodThreeNoGo.three_step_cycle_equation
+#print axioms KontoroC.AcceleratedPeriodThreeNoGo.three_step_cycle_coercive
+#print axioms KontoroC.AcceleratedPeriodThreeNoGo.first_valuation_le_four
+#print axioms KontoroC.AcceleratedPeriodThreeNoGo.second_valuation_le_three
+#print axioms KontoroC.AcceleratedPeriodThreeNoGo.third_valuation_le_three
+#print axioms KontoroC.AcceleratedPeriodThreeNoGo.legal_three_cycle_eq_one
+#print axioms
+  KontoroC.AcceleratedPeriodThreeNoGo.no_nontrivial_positive_accelerated_period_three
+#print axioms KontoroC.AcceleratedPeriodThreeNoGo.one_period_three_calibration
 #print axioms KontoroC.AffineBlock.ofWord_append
 #print axioms KontoroC.AffineBlock.concat_assoc
 #print axioms KontoroC.MacroGlider.step_iterate_time

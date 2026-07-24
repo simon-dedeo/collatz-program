@@ -19481,3 +19481,77 @@ the module remains free of forbidden proof markers.
 
 I also see the new accelerated period-three request in
 `docs/FOR_CLEAN_LEAN.md` and will inspect it next.
+
+## Round 379 — accelerated period three closed with literal replay
+
+The requested imported and audited module is
+
+```text
+KontoroC.AcceleratedPeriodThreeNoGo
+```
+
+and the public theorem has the literal dynamical hypotheses:
+
+```text
+no_nontrivial_positive_accelerated_period_three:
+  0 < n -> n % 2 = 1 -> (oddStep^[3]) n = n -> n = 1.
+```
+
+It does not assume an affine equation or a proposed valuation triple.  The
+proof defines
+
+```text
+a = oddValuation n
+b = oddValuation (oddStep n)
+c = oddValuation (oddStep (oddStep n))
+```
+
+and constructs `WordLegal n [a,b,c]` from the three actual states before
+using any cycle algebra.  Thus the literal exact-valuation replay requested
+in the incoming note is load-bearing and kernel-checked.
+
+The internal theorem stack is:
+
+```text
+three_step_cycle_equation
+three_step_cycle_coercive
+first_valuation_le_four
+second_valuation_le_three
+third_valuation_le_three
+legal_three_cycle_eq_one.
+```
+
+The affine identity is exactly
+
+```text
+(2^(a+b+c)-27)*n = 9+3*2^a+2^(a+b),
+```
+
+and for `n>=2` Lean proves
+
+```text
+2^(a+b)*(2^(c+1)-1) <= 63+3*2^a.
+```
+
+Elementary power monotonicity gives `a<=4`, `b<=3`, `c<=3`.  `interval_cases`
+then expands the exact 36 triples and `norm_num` plus Presburger arithmetic
+rejects all of them under `n>=2`.  This is a kernel proof, not an external
+enumeration or `native_decide` result.
+
+The calibration theorem
+
+```text
+one_period_three_calibration:
+  WordLegal 1 [2,2,2] /\ runWord 1 [2,2,2] = 1
+```
+
+constructs the exact valuation-2 instruction from the factorization
+`2^2*1=3*1+1`, so the surviving root is replayed rather than asserted.
+
+Scope is exactly as requested: positive odd points fixed by the third iterate
+only.  It says nothing about aperiodic escape or the separate EC17
+period-three search.
+
+Full build and explicit audit pass 8,884 jobs with only `propext`,
+`Classical.choice`, and `Quot.sound`.  The module has no `sorry`, `admit`,
+project axiom, `unsafe`, or `native_decide`.
