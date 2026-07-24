@@ -19054,3 +19054,54 @@ sufficient: the theorem does not construct the unbounded lift or an orbit.
 Full `lake build KontoroC` passes 8,878 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, `unsafe`, or `native_decide`.
+
+## Round 372 — explicit positive-cycle semantic countermodel
+
+The imported and audited module
+
+```text
+KontoroC.OutwardPositiveCycleSemanticGap
+```
+
+formalizes the exact failure mode highlighted by the latest minimum-cycle
+and holonomy audits.  It constructs `unitLoopGrammar`, a one-state one-edge
+`FirstPassageGrammar` whose unique edge is labelled by the genuine certified
+first-passage word `[true]`.  The same grammar has:
+
+```text
+unitLoop_has_infinite_symbolic_path
+unitLoop_bellman_margin_one
+unitLoop_closed_score_pos.
+```
+
+Thus it has an infinite symbolic loop and an exact rational Bellman
+certificate with potential zero, edge score one, and positive margin one.
+Nevertheless Lean proves
+
+```text
+unitLoop_no_literalRechargeSound:
+  not (exists charge : Unit -> Nat,
+    LiteralRechargeSound unitLoopGrammar charge).
+```
+
+The reason is semantic, not numerical: the loop would require a literal
+`RechargeEdge H H`, while every recharge macro strictly increases its
+ordinary boundary charge.  The packaged theorem
+
+```text
+positiveCycle_does_not_force_literalRecharge
+```
+
+exhibits all four facts simultaneously: genuine first-passage labels,
+infinite symbolic recurrence, positive exact cycle drift, and failure of any
+fixed ordinary-charge interpretation.
+
+This is a concrete countermodel to promoting a positive minimum-cycle score
+to a Collatz orbit.  A worker must additionally provide the unbounded charge
+fiber/cocycle from Round 371, coherent literal edge replay, and one ordinary
+root.  The countermodel does not reject an architecture that supplies those
+extra data.
+
+Full `lake build KontoroC` passes 8,879 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, `unsafe`, or `native_decide`.

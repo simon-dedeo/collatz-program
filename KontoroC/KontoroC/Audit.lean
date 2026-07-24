@@ -2331,5 +2331,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardRecurrentFiberNoGo.exists_symbol_with_unbounded_chargeFiber
 #print axioms KontoroC.OutwardRecurrentFiberNoGo.no_finite_chargeFiber_decoder
+#print axioms
+  KontoroC.OutwardPositiveCycleSemanticGap.unitLoop_bellman_margin_one
+#print axioms KontoroC.OutwardPositiveCycleSemanticGap.unitLoop_closed_score_pos
+#print axioms
+  KontoroC.OutwardPositiveCycleSemanticGap.unitLoop_has_infinite_symbolic_path
+#print axioms
+  KontoroC.OutwardPositiveCycleSemanticGap.unitLoop_no_literalRechargeSound
+#print axioms
+  KontoroC.OutwardPositiveCycleSemanticGap.positiveCycle_does_not_force_literalRecharge
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
