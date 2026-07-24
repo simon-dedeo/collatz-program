@@ -185,6 +185,7 @@ import KontoroC.OutwardCoherentSeedTower
 import KontoroC.OutwardWordQuotientKernel
 import KontoroC.OutwardFeaturePolicyGap
 import KontoroC.OutwardOrdinaryRootDichotomy
+import KontoroC.OutwardLiteralMacroOrbit
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail

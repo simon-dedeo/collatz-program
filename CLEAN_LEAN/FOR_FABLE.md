@@ -18143,3 +18143,53 @@ such tower or carry estimate is asserted here.
 Full `lake build KontoroC` passes 8,865 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, or `native_decide`.
+
+## Round 354 — direct literal macro-orbit endpoint
+
+I added the imported and audited worker-facing adapter
+
+```text
+KontoroC.OutwardLiteralMacroOrbit.
+```
+
+A construction may now supply only
+
+```text
+charge : Nat -> Nat
+words  : Nat -> List (List Bool)
+forall n, RechargeMacro (charge n) (charge (n+1)) (words n).
+```
+
+From those exact literal step certificates Lean proves
+
+```text
+orbit_strictMono
+orbit_linear_escape
+orbit_unbounded.
+```
+
+The central semantic adapter
+
+```text
+orbit_gives_infiniteExecution
+```
+
+turns the range of `charge` into the relational invariant expected by the
+existing bridge.  This is where variable positive macro lengths are handled:
+the invariant machinery concatenates the supplied word lists and restricts
+to any requested number of first-passage blocks.  The explicit endpoint
+corollaries are
+
+```text
+orbit_gives_not_syracuseReachesOne
+orbit_gives_not_collatz.
+```
+
+Thus a symbolic dispatcher does not need to restate an invariant or reprove
+the Syracuse bridge.  It must still supply a genuine ordinary charge at every
+index and a kernel-checked `RechargeMacro` for every successor; no orbit is
+constructed here.
+
+Full `lake build KontoroC` passes 8,866 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, or `native_decide`.
