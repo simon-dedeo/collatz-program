@@ -646,6 +646,7 @@ address bound as `H` grows.
 | preflight | Swastik Kopparty, *A local central limit theorem for triangles in a random graph*, key `69956d38eef0339ec0f4207f78499dcd`, S1--S2/S4--S7/E2 | Establish exact modular/lattice support of carry zero conditional on interfaces before any local-limit or entropy argument. | Collatz word contributions are dependent, and a finite zero-carry block does not supply a prefix-compatible infinite orbit. |
 | warning | Alexander Gamburd, *Varieties of Markoff Type*, key `76f210c2e1fbd9df473b9ca8890f1e5a`, and Daniel Martin, *Arithmetic on Markoff Surfaces*, key `dfe6aa197a4b6c233c6312357c4670a6` | Use finite residue components and dual obstruction vectors as exact features, but demand a separate edge-lifting and ordinary-integral theorem. | Many finite-field points can have no integer lift; Markoff's reversible group action is unlike the Collatz semigroup. |
 | conditional/converse | Anshul Adve, *A Converse Theorem for Hyperbolic Surface Spectra and the Conformal Bootstrap*, key `d76cbe86eae9244183aa6bd456d03039`, S4/S6--S8, 2,268--3,064 and 3,341--3,489 s | Pair exact local identities with a coercive global bound; synthesize an exact potential whose invariant sublevel set uniformly bounds canonical root residues, so the existing stabilization theorem reconstructs one ordinary seed. | No Collatz positivity identity is known that controls address while allowing unbounded charge, and fixed-degree/fixed-alphabet SOS may fall inside already-closed finite-state lanes. |
+| warning/refinement | Danny Neftin, *Reducible Fibers and Monodromy of Polynomial Maps*, key `7eabb36b0c76b7dfc5ea3b5a15aa8aa9`, S2/S5--S7, 503--1,120 and 2,429--3,453 s | Strengthen the clean-factor gate by asking whether source, target, and reset maps share a genuine left compositional factor; infinite exceptional fiber families should come from such structure rather than isolated hits. | The large-monodromy theorem deliberately excludes the solvable power/Chebyshev cases, while Collatz macro matrices are upper triangular and built from powers of `2` and `3`; generic monodromy therefore misses the hard regime rather than solving it. |
 
 ## Negative lessons already extracted
 
@@ -730,5 +731,7 @@ address bound as `H` grows.
 - Anshul Adve, *A Converse Theorem for Hyperbolic Surface Spectra and the
   Conformal Bootstrap*, IAS, 15 Apr. 2026, key
   `d76cbe86eae9244183aa6bd456d03039`.
+- Danny Neftin, *Reducible Fibers and Monodromy of Polynomial Maps*, IAS,
+  28 Oct. 2021, key `7eabb36b0c76b7dfc5ea3b5a15aa8aa9`.
 
 `counterexample: null`

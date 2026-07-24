@@ -78,6 +78,20 @@ the complete local alphabet without guessed cutoffs.  This does not bound the
 alphabet uniformly along an outward orbit, because `H` may grow, and it does
 not provide the coercive address bound or an invariant.
 
+Neftin's transcript on reducible polynomial fibers sharpens the algebraic
+factor lane but also closes off an attractive detour.  Outside explicit
+exceptions, large monodromy forces infinite reducible-fiber families to come
+from the expected compositional factors.  The exceptions are precisely the
+solvable power/Chebyshev side, however, and Collatz's upper-triangular macro
+semigroup is built from powers of `2` and `3`.  Generic large-monodromy
+machinery therefore misses our hard regime.  The retained exact test is
+narrower: before searching a parametric macro family deeply, compute whether
+its source, target, and returned-catalyst maps share a genuine left
+compositional factor.  Isolated fiber hits do not define an invariant, and the
+power-map exception supplies no counterexample.  The public transcript-checked
+ledger now contains 30 talks.  The sole batch has advanced to 670/1,025 with
+zero failures.  `counterexample:null`.
+
 ### 2026-07-23 22:24 EDT
 
 There is still no counterexample.  Twelve further transcript-checked talks
