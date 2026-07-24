@@ -1,0 +1,297 @@
+<div id="collatzMemoryEntropy">
+  <style>
+    #collatzMemoryEntropy {
+      color: var(--foreground);
+      width: 100%;
+    }
+    #collatzMemoryEntropy .cme-chart {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+    #collatzMemoryEntropy .cme-axis,
+    #collatzMemoryEntropy .cme-grid,
+    #collatzMemoryEntropy .cme-boundary {
+      stroke: var(--border);
+      fill: none;
+      vector-effect: non-scaling-stroke;
+    }
+    #collatzMemoryEntropy .cme-grid {
+      stroke-width: 1;
+    }
+    #collatzMemoryEntropy .cme-boundary {
+      stroke-width: 2;
+    }
+    #collatzMemoryEntropy .cme-width {
+      stroke: var(--viz-series-3);
+      fill: none;
+      stroke-width: 2;
+      vector-effect: non-scaling-stroke;
+    }
+    #collatzMemoryEntropy .cme-h1 {
+      stroke: var(--viz-series-1);
+      fill: none;
+      stroke-width: 2;
+      vector-effect: non-scaling-stroke;
+    }
+    #collatzMemoryEntropy .cme-h2 {
+      stroke: var(--viz-series-2);
+      fill: none;
+      stroke-width: 2;
+      vector-effect: non-scaling-stroke;
+    }
+    #collatzMemoryEntropy .cme-memory {
+      stroke: var(--viz-series-4);
+      fill: none;
+      stroke-width: 2;
+      vector-effect: non-scaling-stroke;
+    }
+    #collatzMemoryEntropy .cme-one {
+      fill: var(--foreground);
+    }
+    #collatzMemoryEntropy .cme-zero {
+      fill: var(--background);
+    }
+    #collatzMemoryEntropy .cme-raster-frame {
+      fill: none;
+      stroke: var(--border);
+      vector-effect: non-scaling-stroke;
+    }
+    #collatzMemoryEntropy .cme-label,
+    #collatzMemoryEntropy .cme-tick,
+    #collatzMemoryEntropy .cme-annotation {
+      fill: var(--foreground);
+      font-weight: 400;
+    }
+    #collatzMemoryEntropy .cme-tick,
+    #collatzMemoryEntropy .cme-annotation {
+      fill: var(--muted-foreground);
+    }
+    #collatzMemoryEntropy .cme-annotation-strong {
+      fill: var(--foreground);
+      font-weight: 500;
+    }
+    #collatzMemoryEntropy .cme-marker {
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 2;
+      vector-effect: non-scaling-stroke;
+    }
+    #collatzMemoryEntropy .cme-dot {
+      fill: var(--primary);
+      stroke: var(--primary-foreground);
+      stroke-width: 1;
+      vector-effect: non-scaling-stroke;
+    }
+    #collatzMemoryEntropy .cme-controls {
+      margin-top: 0.5rem;
+    }
+    #collatzMemoryEntropy .cme-detail {
+      margin-top: 0.25rem;
+      min-height: 1.5em;
+      color: var(--foreground);
+      font-variant-numeric: tabular-nums;
+    }
+    @media (max-width: 480px) {
+      #collatzMemoryEntropy .cme-label,
+      #collatzMemoryEntropy .cme-tick,
+      #collatzMemoryEntropy .cme-annotation {
+        font-size: 11px;
+      }
+    }
+  </style>
+  <svg class="cme-chart" viewBox="0 0 736 500" role="img" aria-labelledby="cmeTitle cmeDesc">
+    <title id="cmeTitle">Mersenne terminal orbit: binary texture, entropy, width, and exact controller memory</title>
+    <desc id="cmeDesc">Aligned lanes show the low sixteen bits, active bit width, empirical one-bit and incremental two-block entropy, and exact trailing-one controller depth over 198 accelerated Collatz steps. At step 46 the exact memory falls from thirteen to three while entropy approaches one and width increases.</desc>
+    <g id="cmePlot"></g>
+  </svg>
+  <div class="viz-controls cme-controls">
+    <label class="form-label" for="cmeStep">Inspect accelerated step <span id="cmeStepValue">46</span></label>
+    <input class="form-range" id="cmeStep" type="range" min="0" max="198" value="46" step="1">
+  </div>
+  <div id="cmeDetail" class="cme-detail" aria-live="polite"></div>
+</div>
+<script>
+(() => {
+  const root = document.getElementById("collatzMemoryEntropy");
+  const plot = root.querySelector("#cmePlot");
+  const slider = root.querySelector("#cmeStep");
+  const stepValue = root.querySelector("#cmeStepValue");
+  const detail = root.querySelector("#cmeDetail");
+  const NS = "http://www.w3.org/2000/svg";
+  const seed = 265296544373759n;
+  const lastStep = 198;
+  const controlledEnd = 46;
+  const macroSteps = [0, 10, 21, 33, 46];
+  const W = 736;
+  const left = 82;
+  const right = 26;
+  const innerW = W - left - right;
+  const lanes = {
+    raster: { top: 28, bottom: 157 },
+    width: { top: 198, bottom: 258 },
+    entropy: { top: 300, bottom: 360 },
+    memory: { top: 402, bottom: 462 }
+  };
+
+  const svgNode = (name, attributes = {}, text = "") => {
+    const node = document.createElementNS(NS, name);
+    Object.entries(attributes).forEach(([key, value]) => node.setAttribute(key, String(value)));
+    if (text) node.textContent = text;
+    return node;
+  };
+
+  const accelerated = value => {
+    let next = 3n * value + 1n;
+    while ((next & 1n) === 0n) next >>= 1n;
+    return next;
+  };
+
+  const v2PlusOne = value => {
+    let x = value + 1n;
+    let count = 0;
+    while ((x & 1n) === 0n) {
+      x >>= 1n;
+      count += 1;
+    }
+    return count;
+  };
+
+  const entropy = counts => {
+    const total = counts.reduce((sum, value) => sum + value, 0);
+    if (!total) return 0;
+    return counts.reduce((answer, count) => {
+      if (!count) return answer;
+      const p = count / total;
+      return answer - p * Math.log2(p);
+    }, 0);
+  };
+
+  const metrics = (value, step) => {
+    const bits = value.toString(2);
+    const ones = [...bits].filter(bit => bit === "1").length;
+    const h1 = entropy([bits.length - ones, ones]);
+    const pairs = [0, 0, 0, 0];
+    for (let i = 0; i + 1 < bits.length; i += 1) {
+      pairs[Number.parseInt(bits.slice(i, i + 2), 2)] += 1;
+    }
+    const h2Increment = entropy(pairs) - h1;
+    return {
+      step,
+      value,
+      width: bits.length,
+      h1,
+      h2Increment,
+      memory: v2PlusOne(value),
+      low16: (value & 65535n).toString(2).padStart(16, "0")
+    };
+  };
+
+  const rows = [];
+  let state = seed;
+  for (let step = 0; step <= lastStep; step += 1) {
+    rows.push(metrics(state, step));
+    if (step < lastStep) state = accelerated(state);
+  }
+
+  const x = step => left + ((step + 0.5) / (lastStep + 1)) * innerW;
+  const linePath = (key, top, bottom, min, max) => rows.map((row, index) => {
+    const px = x(row.step);
+    const py = bottom - ((row[key] - min) / (max - min)) * (bottom - top);
+    return `${index === 0 ? "M" : "L"}${px.toFixed(2)},${py.toFixed(2)}`;
+  }).join(" ");
+  const yFor = (value, top, bottom, min, max) => bottom - ((value - min) / (max - min)) * (bottom - top);
+
+  [0, 46, 100, 150, 198].forEach(step => {
+    plot.appendChild(svgNode("line", { x1: x(step), y1: lanes.raster.top, x2: x(step), y2: lanes.memory.bottom, class: "cme-grid" }));
+    const anchor = step === 0 ? "start" : step === 198 ? "end" : "middle";
+    plot.appendChild(svgNode("text", { x: x(step), y: 489, "text-anchor": anchor, class: "cme-tick" }, String(step)));
+  });
+
+  Object.values(lanes).forEach(lane => {
+    plot.appendChild(svgNode("line", { x1: left, y1: lane.bottom, x2: W - right, y2: lane.bottom, class: "cme-axis" }));
+  });
+
+  const rasterHeight = lanes.raster.bottom - lanes.raster.top;
+  const cellH = rasterHeight / 16;
+  const cellW = innerW / (lastStep + 1);
+  rows.forEach(row => {
+    [...row.low16].forEach((bit, bitIndex) => {
+      plot.appendChild(svgNode("rect", {
+        x: x(row.step) - cellW / 2,
+        y: lanes.raster.top + bitIndex * cellH,
+        width: Math.max(1, cellW + 0.15),
+        height: cellH + 0.15,
+        class: bit === "1" ? "cme-one" : "cme-zero"
+      }));
+    });
+  });
+  plot.appendChild(svgNode("rect", { x: left, y: lanes.raster.top, width: innerW, height: rasterHeight, class: "cme-raster-frame" }));
+
+  plot.appendChild(svgNode("path", { d: linePath("width", lanes.width.top, lanes.width.bottom, 1, 70), class: "cme-width" }));
+  plot.appendChild(svgNode("path", { d: linePath("h1", lanes.entropy.top, lanes.entropy.bottom, 0, 1), class: "cme-h1" }));
+  plot.appendChild(svgNode("path", { d: linePath("h2Increment", lanes.entropy.top, lanes.entropy.bottom, 0, 1), class: "cme-h2" }));
+  plot.appendChild(svgNode("path", { d: linePath("memory", lanes.memory.top, lanes.memory.bottom, 0, 14), class: "cme-memory" }));
+
+  const labels = [
+    [lanes.raster.top + 10, "low 16 bits"],
+    [lanes.width.top + 9, "active width"],
+    [lanes.entropy.top + 9, "entropy"],
+    [lanes.memory.top + 9, "exact memory"]
+  ];
+  labels.forEach(([y, label]) => plot.appendChild(svgNode("text", { x: 0, y, class: "cme-label" }, label)));
+  plot.appendChild(svgNode("text", { x: 0, y: lanes.raster.bottom, class: "cme-tick" }, "bit 0 →"));
+  plot.appendChild(svgNode("text", { x: W - right, y: lanes.width.top + 9, "text-anchor": "end", class: "cme-annotation" }, "bit length"));
+  plot.appendChild(svgNode("text", { x: W - right, y: lanes.entropy.top + 9, "text-anchor": "end", class: "cme-annotation" }, "H₁ solid · ΔH₂ second line"));
+  plot.appendChild(svgNode("text", { x: W - right, y: lanes.memory.top + 9, "text-anchor": "end", class: "cme-annotation" }, "v₂(n+1) trailing-one depth"));
+  plot.appendChild(svgNode("text", { x: W - right, y: 489, "text-anchor": "end", class: "cme-tick" }, "accelerated step"));
+
+  macroSteps.forEach(step => {
+    const row = rows[step];
+    const py = yFor(row.memory, lanes.memory.top, lanes.memory.bottom, 0, 14);
+    plot.appendChild(svgNode("circle", { cx: x(step), cy: py, r: 3.5, class: "cme-dot" }));
+    plot.appendChild(svgNode("text", { x: x(step), y: Math.max(lanes.memory.top + 10, py - 7), "text-anchor": "middle", class: "cme-annotation-strong" }, String(row.memory)));
+  });
+
+  plot.appendChild(svgNode("line", { x1: x(controlledEnd), y1: lanes.raster.top, x2: x(controlledEnd), y2: lanes.memory.bottom, class: "cme-boundary" }));
+  plot.appendChild(svgNode("text", { x: x(controlledEnd) + 5, y: 17, class: "cme-annotation-strong" }, "controller ends: memory 13 → 3"));
+
+  const marker = svgNode("line", { x1: x(controlledEnd), y1: lanes.raster.top, x2: x(controlledEnd), y2: lanes.memory.bottom, class: "cme-marker" });
+  plot.appendChild(marker);
+  const dots = [
+    ["width", lanes.width, 1, 70],
+    ["h1", lanes.entropy, 0, 1],
+    ["h2Increment", lanes.entropy, 0, 1],
+    ["memory", lanes.memory, 0, 14]
+  ].map(([key, lane, min, max]) => {
+    const dot = svgNode("circle", { r: 4, class: "cme-dot" });
+    plot.appendChild(dot);
+    return { key, lane, min, max, dot };
+  });
+
+  const selectStep = requested => {
+    const step = Math.max(0, Math.min(lastStep, Number(requested)));
+    const row = rows[step];
+    const px = x(step);
+    slider.value = String(step);
+    stepValue.textContent = String(step);
+    marker.setAttribute("x1", px);
+    marker.setAttribute("x2", px);
+    dots.forEach(item => {
+      item.dot.setAttribute("cx", px);
+      item.dot.setAttribute("cy", yFor(row[item.key], item.lane.top, item.lane.bottom, item.min, item.max));
+    });
+    const phase = step <= controlledEnd ? "certified construction" : "ordinary continuation";
+    detail.textContent = `Step ${step} · ${phase} · width ${row.width} · H₁ ${row.h1.toFixed(3)} · ΔH₂ ${row.h2Increment.toFixed(3)} · exact memory ${row.memory}`;
+  };
+
+  slider.addEventListener("input", event => selectStep(event.target.value));
+  root.querySelector(".cme-chart").addEventListener("pointermove", event => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const svgX = ((event.clientX - bounds.left) / bounds.width) * W;
+    selectStep(Math.round(((svgX - left) / innerW) * lastStep));
+  });
+  selectStep(controlledEnd);
+})();
+</script>

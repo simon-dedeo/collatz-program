@@ -1,12 +1,12 @@
 {
   "bounds": {
-    "compiled_prefixes": 34560,
+    "compiled_prefixes": 36864,
     "opcode_h_max": 4,
     "opcode_h_min": 1,
     "opcode_m_max": 4,
     "opcode_m_min": 1,
     "opcodes": 16,
-    "ordered_injective_two_symbol_codings": 240,
+    "ordered_two_symbol_codings": 256,
     "prefix_depth": 48,
     "sequences": [
       "fibonacci",
@@ -17,21 +17,21 @@
   "canonical_address_stabilizations": 0,
   "claim_scope": "exact canonical-address audit of three named aperiodic binary clocks, all two-symbol codings by bounded (m,h) opcodes, and finite prefix depth; not a seed range or an all-morphic theorem",
   "closest_nonstabilizing_event": {
-    "current_address_bits": 34092,
+    "current_address_bits": 34461,
     "one_opcode": [
-      3,
+      4,
       4
     ],
     "prefix_depth": 48,
-    "previous_address_bits": 33386,
-    "sequence": "period_doubling",
-    "shared_low_bits": 33128,
+    "previous_address_bits": 33753,
+    "sequence": "thue_morse",
+    "shared_low_bits": 33497,
     "zero_opcode": [
       4,
       4
     ]
   },
-  "maximum_canonical_address_bits": 34092,
+  "maximum_canonical_address_bits": 34461,
   "schema": "collatz-unit-charge-morphic-v1",
   "verifier_sha256": "8103734360b9d601a3f2032a283bed30fc84ae3930eb661cf564e3c53cf0ccfb"
 }

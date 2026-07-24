@@ -429,14 +429,16 @@ they expose controller failure modes cheaply and exactly.
 <!-- visualizer-monitor:start -->
 ## Automated monitor status
 
-Last change scan: `2026-07-23T19:40:52+00:00`. This block is a machine alert, not a research result.
+Last change scan: `2026-07-23T21:20:12+00:00`. This block is a machine alert, not a research result.
 
 Changed monitored files:
 
-- `CLEAN_LEAN/FOR_FABLE.md`
+- `experiments/kontorovich/outward_coherent_cegis.py`
+- `experiments/kontorovich/outward_coherent_cegis_audit.json`
 
 Keyword alerts for visual review:
 
-- `CLEAN_LEAN/FOR_FABLE.md`: 27: the advanced-fiber root law, the root self-loop counterexample, mixer | 28: bounds/counterexample, and rational pressure-row/Chernoff-gap checkers are | 184: ("selection") needs primitivity, and the branch residues cycle 5→2→8 (mod
+- `experiments/kontorovich/outward_coherent_cegis.py`: 2: """Bounded exact EM/CEGIS on coherent first-passage seed cylinders. | 18: Collatz counterexample, and every artifact records ``counterexample: null``. | 164: def seed(self) -> int:
+- `experiments/kontorovich/outward_coherent_cegis_audit.json`: 21: "cegis_counterexamples": [ | 293: "carry_bits": 17, | 301: "zero_carry_suffix": 12
 
 <!-- visualizer-monitor:end -->
