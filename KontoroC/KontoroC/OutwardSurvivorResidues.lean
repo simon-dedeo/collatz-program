@@ -219,5 +219,78 @@ theorem no_positive_all_false_tail
   have hle : 2 ^ finish ≤ finish := Nat.le_of_dvd hfinish hdvd
   exact (Nat.lt_two_pow_self.trans_le hle).false
 
+/-! ## Calibration: a positive survivor ray may be the trivial cycle -/
+
+/-- Append any bit which leaves the full new word non-outward.  Earlier
+prefixes are inherited from the parent survivor. -/
+theorem survivorWords_append_of_not_outward
+    {L : ℕ} {w : List Bool} {b : Bool}
+    (hw : w ∈ survivorWords L) (hfull : ¬ WordOutward (w ++ [b])) :
+    w ++ [b] ∈ survivorWords (L + 1) := by
+  apply mem_survivorWords_iff.mpr
+  refine ⟨by simpa using congrArg Nat.succ (mem_survivorWords_iff.mp hw).1,
+    ?_⟩
+  intro u hu
+  rcases prefix_append_singleton_cases hu with huw | rfl
+  · exact (mem_survivorWords_iff.mp hw).2 u huw
+  · exact hfull
+
+/-- The first `n` periods of the positive shortcut cycle `2 -> 1 -> 2`. -/
+def trivialCyclePrefix : ℕ → List Bool
+  | 0 => []
+  | n + 1 => trivialCyclePrefix n ++ [false, true]
+
+@[simp] theorem trivialCyclePrefix_length (n : ℕ) :
+    (trivialCyclePrefix n).length = 2 * n := by
+  induction n with
+  | zero => simp [trivialCyclePrefix]
+  | succ n ih => simp [trivialCyclePrefix, ih]; omega
+
+@[simp] theorem trivialCyclePrefix_count_true (n : ℕ) :
+    (trivialCyclePrefix n).count true = n := by
+  induction n with
+  | zero => simp [trivialCyclePrefix]
+  | succ n ih => simp [trivialCyclePrefix, ih]
+
+theorem trivialCyclePrefix_not_outward (n : ℕ) :
+    ¬ WordOutward (trivialCyclePrefix n) := by
+  simp only [WordOutward, trivialCyclePrefix_length,
+    trivialCyclePrefix_count_true]
+  have hp : 3 ^ n ≤ 4 ^ n := Nat.pow_le_pow_left (by omega) n
+  have hpow : 2 ^ (2 * n) = 4 ^ n := by norm_num [pow_mul]
+  omega
+
+theorem trivialCyclePrefix_executes (n : ℕ) :
+    Executes (trivialCyclePrefix n) 2 2 := by
+  induction n with
+  | zero => simp [trivialCyclePrefix, Executes]
+  | succ n ih =>
+      rw [trivialCyclePrefix, executes_append]
+      exact ⟨2, ih, by norm_num [Executes]⟩
+
+/-- Every finite prefix of the ordinary positive `2 <-> 1` cycle lies in the
+no-outward-prefix survivor tree. -/
+theorem trivialCyclePrefix_mem_survivorWords (n : ℕ) :
+    trivialCyclePrefix n ∈ survivorWords (2 * n) := by
+  induction n with
+  | zero =>
+      apply mem_survivorWords_iff.mpr
+      constructor
+      · simp [trivialCyclePrefix]
+      · intro u hu
+        have : u = [] := by
+          simpa [trivialCyclePrefix] using hu.eq_of_length
+            (by simpa [trivialCyclePrefix] using hu.length_le)
+        subst u
+        norm_num [WordOutward]
+  | succ n ih =>
+      have hfalse := survivorWords_append_false ih
+      have hfull :
+          ¬ WordOutward ((trivialCyclePrefix n ++ [false]) ++ [true]) := by
+        simpa [List.append_assoc, trivialCyclePrefix] using
+          trivialCyclePrefix_not_outward (n + 1)
+      have htrue := survivorWords_append_of_not_outward hfalse hfull
+      simpa [trivialCyclePrefix, Nat.mul_add] using htrue
+
 end OutwardSurvivorResidues
 end KontoroC

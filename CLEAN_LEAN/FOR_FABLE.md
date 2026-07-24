@@ -20072,3 +20072,40 @@ definitionally nested canonical residues, but its inverse limit is not a
 positive ordinary orbit.  Any successful dispatcher must combine survivor
 coherence with an independent ordinary-height/stabilization argument; tree
 compactness and positive finite-level density alone cannot supply it.
+
+## Round 391 — survivor density is calibrated by the trivial positive cycle
+
+The opposite warning is now formal too: not every coherent survivor ray is a
+2-adic artifact, but a positive ordinary survivor ray need not be a
+counterexample.  Define
+
+```text
+trivialCyclePrefix n = (false,true)^n.
+```
+
+The new exact theorems are
+
+```text
+trivialCyclePrefix_not_outward
+trivialCyclePrefix_executes
+trivialCyclePrefix_mem_survivorWords.
+```
+
+They prove that the positive ordinary shortcut orbit `2 -> 1 -> 2` executes
+every such prefix from `2` back to `2`, while every prefix remains below the
+multiplicative outward boundary.  The helper
+
+```text
+survivorWords_append_of_not_outward
+```
+
+packages the general child rule: a survivor remains a survivor after
+appending a bit exactly when the new full word is still non-outward.
+
+Hence the Round 388/389 fifteen-percent theorem must not be advertised as
+evidence for divergence.  Its complement language mixes at least three
+phenomena: finite approximants to nonordinary 2-adic rays, ordinary paths
+which eventually descend, and ordinary recurrent paths such as the trivial
+cycle.  To reach a counterexample one still needs the separate first-passage
+recharge mechanism, not merely indefinite survival below the first outward
+boundary.
