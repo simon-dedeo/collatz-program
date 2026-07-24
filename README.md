@@ -227,6 +227,27 @@ because we have a directed macro graph.  These two talks are therefore exact
 preflights, not escape mechanisms.  The public ledger now contains 67
 transcript-checked release talks.  `counterexample:null`.
 
+Szachniewicz's globally valued fields supply an all-place formulation of the
+ordinary-root obstruction.  A tower should carry not only its dyadic and
+triadic precision but also the Archimedean height of its canonical ordinary
+representative and any other prime valuations introduced by its affine
+coefficients.  If two representatives are congruent modulo
+`M=2^A*3^B`, their difference is either zero or has absolute value at least
+`M`; a nonzero extension carry cannot disappear when viewed globally.  Thus
+small global height is a principled search objective, while growing local
+precision with unbounded height may simply converge to a nonordinary
+profinite point.
+
+Formalizer commit `8c8f249` proves the exact positive endpoint.  Cross-level
+congruence, mixed precision tending to infinity, and a uniform bound on the
+ordinary representatives force eventual literal constancy; any nested finite
+first-passage predicate is then realized by one ordinary seed, and a tower of
+literal finite executions promotes to an infinite execution.  No such tower
+has been constructed.  The talk's product-formula framework explains why the
+uniform Archimedean bound is a separate all-place obligation, not a consequence
+of `2`/`3`-adic coherence.  The public ledger now contains 68
+transcript-checked release talks.  `counterexample:null`.
+
 ### 2026-07-23 23:30 EDT
 
 There is still no counterexample.  The most useful new transfer comes from
