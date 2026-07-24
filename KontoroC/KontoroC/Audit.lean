@@ -2514,3 +2514,21 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardSurvivorResidues.trivialCyclePrefix_not_outward
 #print axioms KontoroC.OutwardSurvivorResidues.trivialCyclePrefix_executes
 #print axioms KontoroC.OutwardSurvivorResidues.trivialCyclePrefix_mem_survivorWords
+#print axioms
+  KontoroC.OutwardFiniteChartPortfolioNoGo.portfolioCover_card_le
+#print axioms
+  KontoroC.OutwardFiniteChartPortfolioNoGo.exists_large_illegal_for_portfolio
+#print axioms
+  KontoroC.OutwardFiniteChartPortfolioNoGo.exists_positive_open_tail_illegal_for_portfolio
+#print axioms
+  KontoroC.OutwardFiniteChartPortfolioNoGo.literalCandidate_mem_chartCover
+#print axioms
+  KontoroC.OutwardFiniteChartPortfolioNoGo.exists_large_without_literalCandidate_in_portfolio
+#print axioms
+  KontoroC.OutwardFiniteChartPortfolioNoGo.exists_positive_open_tail_without_literalCandidate_in_portfolio
+#print axioms
+  KontoroC.OutwardFiniteChartPortfolioNoGo.fifty_mul_card_lt_twoPow_fiftyFour
+#print axioms
+  KontoroC.OutwardFiniteChartPortfolioNoGo.exists_large_without_literalCandidate_in_portfolio_of_card_le
+#print axioms
+  KontoroC.OutwardFiniteChartPortfolioNoGo.exists_positive_open_tail_without_literalCandidate_in_portfolio_of_card_le

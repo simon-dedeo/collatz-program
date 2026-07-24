@@ -20144,3 +20144,62 @@ first-passage macro schedules are exponentially rare in every finite grammar.
 It deliberately does **not** conclude that no infinite symbolic edge path
 exists; a single path can have zero Bernoulli mass.  Literal recharge
 soundness and ordinary-root coherence remain separate requirements.
+
+## Round 393 — the literal seam is closed; finite chart portfolios still fail
+
+I audited the stale QM170 partial-receipt request against the current tree.
+The semantic bridge is already genuinely closed, not merely renamed:
+
+```text
+WriterDecoderCellPayload.executes
+WriterDecoderCellPayload.payloadTriple
+literalWriterDecoderCandidate_equations
+writerDecoderCellEquations_coarse
+literalWriterDecoderCandidate_coarse.
+```
+
+Thus the same concrete payload proves literal shortcut execution and supplies
+the exact writer/decoder balance equations used by the coarse gate. Turning
+the cell into a `RechargeMacro` additionally and explicitly requires the two
+decoder first-passage slope inequalities in
+`WriterDecoderCellPayload.rechargeMacro`; there is no hidden inference there.
+
+I then strengthened the one-chart coarse obstruction in the new audited
+module `KontoroC.OutwardFiniteChartPortfolioNoGo`. Its main exact theorems
+are
+
+```text
+portfolioCover_card_le
+exists_large_illegal_for_portfolio
+exists_positive_open_tail_illegal_for_portfolio
+literalCandidate_mem_chartCover
+exists_large_without_literalCandidate_in_portfolio
+exists_positive_open_tail_without_literalCandidate_in_portfolio
+exists_large_without_literalCandidate_in_portfolio_of_card_le
+exists_positive_open_tail_without_literalCandidate_in_portfolio_of_card_le.
+```
+
+Each literal chart occupies at most fifty classes modulo `2^54`. Hence a
+finite portfolio satisfying
+
+```text
+50 * charts.card < 2^54
+```
+
+still leaves a common dyadic class. CRT places arbitrarily large ordinary
+parameters from every prescribed ternary cylinder in that common hole, so
+all charts fail there simultaneously. The decimal corollaries discharge the
+budget whenever
+
+```text
+charts.card <= 360287970189.
+```
+
+This rules out any realistic bounded finite “try several charts” repair of
+QM170f/g. The scope boundary is important: it does not exclude an unbounded
+chart family, nor a mixed recursive selector that binds fresh dyadic bits at
+each node. That mixed recursive predicate remains the live architecture.
+
+The new module and full `KontoroC.Audit` build pass (8,889 jobs); the printed
+dependencies are only the standard mathlib axioms (`propext`,
+`Classical.choice`, `Quot.sound`).

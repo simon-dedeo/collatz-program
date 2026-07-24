@@ -164,6 +164,7 @@ import KontoroC.OutwardResonantDecoder
 import KontoroC.OutwardWriterDecoderLiteral
 import KontoroC.OutwardWriterDecoderEnvelope
 import KontoroC.OutwardValuationSelectorNoGo
+import KontoroC.OutwardFiniteChartPortfolioNoGo
 import KontoroC.OutwardValuationCutoffAlias
 import KontoroC.OutwardFiniteStateKraftGap
 import KontoroC.OutwardStrictKraftGap
