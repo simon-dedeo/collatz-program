@@ -35,7 +35,7 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ### 2026-07-24 00:12 EDT
 
-There is still no Collatz counterexample.  The IAS audit now has 84
+There is still no Collatz counterexample.  The IAS audit now has 89
 authoritative transcript-checked release talks.  Its strongest common lesson
 is a two-gate architecture: every aggregate or quotient object--entropy law,
 spectral mode, stationary kernel, word relation, local weak limit, or
@@ -84,6 +84,55 @@ exponentially many atoms is not an escape certificate.  Only compatible
 prefix extension, literal replay, counter growth, and ordinary-root
 stabilization could promote one nested atom chain.
 
+Kris Shaw supplies a decisive veto against treating even a well-behaved
+tropical selector complex as a literal semantic model.  A smooth
+four-punctured curve and a singular nodal curve in the talk have the same
+cross-shaped tropicalization but different cohomology.  Her positive
+if-and-only-if theorem assumes a schön algebraic variety, checks comparison
+maps on every stratum, local tropical Poincaré duality, and connected pure
+strata.  Those hypotheses have no automatic Collatz analogue.  A proposed
+cellular/min-plus compression should therefore exact-check its comparison map
+and every local link; passing that finite audit still does not supply a
+pointwise decoder, a legal orbit, or an ordinary seed.
+
+Henri Darmon contributes an exact coherence obstruction that does transfer
+to a finite selector architecture.  A projective family of transition
+multipliers has a computable two-cocycle; a nontrivial cohomology class blocks
+any globally coherent lift, while a vanishing class still leaves an `H^1`
+torsor unless uniqueness is separately proved.  We can run this calculation
+over each complete route groupoid and require naturality across precision.
+It coheres weights, not choices: it neither selects a literal recharge macro
+nor proves counter growth or an ordinary root.
+
+John Bergdall supplies the complementary local-component warning.  His exact
+equality between modular points on a generic component and its special-fiber
+Hilbert--Samuel multiplicity depends on Taylor--Wiles--Kisin patching,
+away-from-`p` smoothness, and multiplicity one.  No Collatz analogue is
+available.  Nonempty, thick, or even unique `p`-adic solution components of a
+finite selector equation therefore cannot be counted as ordinary seeds; a
+unique compatible residue tower can still have unbounded representatives and
+fail the ordinary-root gate.
+
+Jaiung Jun makes period-three orbit reduction exact rather than visual.  For
+candidate valuated-matroid recharge weights, a phase permutation is a weak
+automorphism only when its basis-weight difference is an elementwise
+tropical twist; this is one finite linear system, followed by the exact
+order-three check.  His theorem then identifies weak finite-group actions
+with tropical subrepresentations up to conjugacy.  Passing legitimizes a
+finite symmetry quotient only inside that encoding.  Literal Syracuse words,
+counter coercivity, cross-precision naturality, and the ordinary seed remain
+independent obligations.
+
+Alex Fink's Q&A suggests excluding binary/graphic matroid supports from any
+min-plus architecture that needs a nontrivial subdivision: he states that
+binary matroid base polytopes admit no nontrivial matroid subdivision.  The
+transcript does not prove that assertion, so it is not adopted as a theorem.
+For any bounded candidate we can instead certify its binary representation
+and exhaustively check the lower hull and valuated exchange relations; weights
+that reduce to coordinate lineality create no genuine competing selector
+cells.  Until that exact check or a primary proof is supplied, this remains a
+search-pruning lead, not a rejection certificate.
+
 Formalizer commit `10aa678` independently turns Subrahmanyam's shrunk-subspace
 lesson into an exact finite rejection certificate: if every linearized macro
 template maps a source subspace into one of smaller dimension, no scalar
@@ -93,6 +142,12 @@ positive interface: an exact recurrence `u_(n+1) >= lambda*u_n-C` with
 `lambda>1`, a start above its affine fixed threshold, and counter coercivity
 force the intended natural counter to be unbounded.  No coordinate, selector,
 or recharge orbit is supplied.
+
+Formalizer commit `aecf07d` sharpens the common endpoint further.  One
+ordinary start that realizes every finite depth of outward literal blocks has
+an actually unbounded deterministic Syracuse orbit; no separately chosen
+infinite word is needed.  Again, the theorem assumes the all-depth ordinary
+execution and constructs none.
 
 Formalizer commit `5457bdc` makes the second gate a dichotomy.  For
 representatives compatible at mixed moduli tending to infinity, bounded range
@@ -8270,6 +8325,47 @@ existing lines of work; the closest ancestors, and what each contributes:
   their quiver prevarieties can contain nonrealizable points already in size
   two.  Ground-set maps with translations give a controlled low-complexity
   selector grammar, but still require literal replay and an ordinary root.
+- **K. Shaw, [“Cohomologically Tropical
+  Varieties”](https://www.ias.edu/video/cohomologically-tropical-varieties),
+  IAS talk (22 Oct. 2024), corpus key
+  `11a5dacd39e78c57fa10f5aa93fc5559`, S1/E2 and S5--S7 at 304--355 and
+  1,815--3,299 seconds** — the same tropical cross can come from a smooth and
+  a nodal curve with different cohomology.  Recovery requires stratumwise
+  comparison plus strong local-duality, connectedness, and purity hypotheses;
+  a Collatz min-plus shadow has no literal semantics without analogous exact
+  checks and still needs a pointwise section.
+- **H. Darmon, [“Topological and Arithmetic Intersection Numbers Attached to
+  Real Quadratic
+  Cycles”](https://www.ias.edu/video/MotivesGaloisRepsandCohomology/2017/1108-HenriDarmon),
+  IAS talk (8 Nov. 2017), corpus key
+  `286fcd00596bfc23c8cfb2546d64230e`, S2--S4 at 355--1,326 and
+  1,456--1,647 seconds** — a projective transition cocycle has an exact
+  `H^2` lifting obstruction, and vanishing `H^1` makes an existing lift
+  unique.  This gives a finite route-coherence test, not a selector, recharge
+  word, growing counter, or ordinary root.
+- **J. Bergdall, [“On the Distribution of Modular Points on Deformation
+  Rings”](https://www.ias.edu/video/distribution-modular-points-deformation-rings),
+  IAS talk (1 May 2026), corpus key
+  `e4f2059451b59f74ea0fc5fb267bdbc8`, S2--S5 at 1,118--3,020 seconds** — a
+  componentwise modular-point/multiplicity equality rests on strong global
+  patching and multiplicity-one hypotheses.  Local component nonemptiness or
+  thickness alone cannot promote a `p`-adic selector family to one ordinary
+  Collatz seed.
+- **J. Jun, [“Tropical Subrepresentations and
+  Matroids”](https://www.ias.edu/video/tropical-subrepresentations-and-matroids),
+  IAS talk (28 May 2025), corpus key
+  `7f75bc0c1da612a867c9af7f88fb0029`, S7 at 2,870--3,174 and
+  3,254--3,367 seconds** — weak finite-group actions are exactly testable by
+  basis-weight twists and classify tropical subrepresentations up to
+  conjugacy.  This can certify a finite period-three symmetry quotient, not
+  its Collatz semantics or all-depth ordinary realization.
+- **A. Fink, [“Products of Chern Classes of Matroid Tautological
+  Bundles”](https://www.ias.edu/video/products-chern-classes-matroid-tautological-bundles),
+  IAS talk (29 Jan. 2025), corpus key
+  `b626881a707b1f5c5fa22a4ed06f3f19`, S2 at 1,590--2,051 seconds** — the
+  Q&A states that binary matroid base polytopes have no nontrivial matroid
+  subdivisions.  Because no proof is given there, the public use is only a
+  prompt for exact bounded lower-hull/exchange checks, not a general no-go.
 - **J. Wang, [“Lorentzian Polynomials and the Incidence Geometry of Tropical
   Linear Spaces”](https://www.ias.edu/video/lorentzian-polynomials-and-incidence-geometry-tropical-linear-spaces),
   IAS talk (13 Feb. 2025), corpus key
