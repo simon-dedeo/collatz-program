@@ -2810,3 +2810,97 @@ coboundary.  Excluding that class would require a tailored
 Mahler/automatic-value nonexceptionality theorem.  Treating rational target
 as periodic digits is therefore a rejected inference, not a closed lane.
 Equations (30.1)--(30.3) are research derivations pending QM168.
+
+## 31. Exact invariant CEGIS on payload triples
+
+The cell gate itself supplies a better invariant coordinate than a long
+canonical exponent prefix.  For `p>=2`, `b>=0`, and positive odd `Q`, put
+
+```text
+H(p,b,Q)=(2^D(p,b)Q-B(p))/9,                     (31.1)
+```
+
+subject to `2^D Q=B(p) mod9`.  Positivity is automatic from `B(p)<2^D`.
+The complete writer and decoder execute coefficientwise and give
+
+```text
+H(p,b,Q) -> 3^(p+o(p)+b)Q.                       (31.2)
+```
+
+Writing `g=p+o(p)+b`, the next symbol is deterministic:
+
+```text
+p'=v2(3^(g+2)Q+7)-4,
+b'=v2(3^(g+2)Q+B(p'))-(S(p')+p'+4).              (31.3)
+```
+
+Either negative value is the exact first failure; otherwise the odd quotient
+defines `Q'` and (31.1) holds at the output.
+
+`outward_writer_decoder_invariant_cegis.py` makes the requested architecture
+outer loop explicit.  The base integrality predicate fails at
+
+```text
+(p,b,Q)=(2,0,7),
+H=28022397681347377,
+H'=38913423965888661=3^33*7,
+v2(9H'+7)=2.                                     (31.4)
+```
+
+PT26 reduces the claimed least-source check to finitely many symbol
+cylinders; this global minimality remains research-side pending QM168, while
+the witness and failure are checked exact arithmetic.  Adding the exact next
+writer gives the canonical CRT witness
+
+```text
+Q=187, v2(9H'+7)=6,
+v2(9H'+B(2))=7 <55.                              (31.5)
+```
+
+Thus next-word re-entry alone leaves a 48-bit decoder failure.
+
+No fixed primitive precision can certify the missing bits.  If a branch
+requires target valuation `D'>k`, replacing a valid payload by
+
+```text
+Q -> Q+9*3^ell*2^k*T,  T odd,                    (31.6)
+```
+
+preserves `Q mod 2^k 3^ell` but makes the target affine expression have
+valuation exactly `k` (once the lower writer valuation is protected).  The
+artifact checks (31.6) for the `(2,0)->(2,0)` edge and `7<=k<=16`; the
+all-precision derivation is pending Lean.
+
+The mod-nine part does give a mandatory quotient.  The recurrence
+
+```text
+d_(p+1)=d_p+3^(p+1)d_p^2+3^(2p+1)d_p^3
+```
+
+and `d_2=7 mod9` show `d_p=7 mod9`, hence
+`B(p)=7(1+2^(p+4)) mod9`.  Care is essential: the resulting quotient has
+three nodes,
+
+```text
+p even          => v3(Q)=0,
+p=1 or 3 mod 6  => v3(Q)=1,
+p=5 mod 6       => v3(Q)>=2.                     (31.7)
+```
+
+The executable regression caught the false two-node claim that `v3(Q)=1`
+never occurs.
+
+Finally, local symbolic edges always exist.  For prescribed source and
+target symbols, choose `Q'` in the unique class
+
+```text
+2^(D+D')Q' = 2^D B(p')+3^(g+2)B(p) mod 3^(g+4), (31.8)
+```
+
+choose an odd positive lift, and set
+`Q=(2^D'Q'-B(p'))/3^(g+2)`.  Schema v1 checks all 81 pairs through
+`2<=p,p'<=4`, `0<=b,b'<=2`.  This proves the displayed finite rows, not the
+universal formula or an invariant.  The next grammar must combine (31.7)
+with unbounded valuation binders, runtime dyadic precision at least `D(p,b)`,
+and a genuinely aperiodic or unbounded parameter update.  The artifact has
+`universal_invariant:null` and `counterexample:null`.

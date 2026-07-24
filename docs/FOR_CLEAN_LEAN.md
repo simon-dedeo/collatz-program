@@ -13324,3 +13324,69 @@ and use minimality of `o` in the form `3^(o-1)<=2^(S-1)`.  QM168a follows
 from `q>2^(2z+b)` and `z=2*3^c`.  The intended consequence is only that a
 fixed positive `H` permits finitely many `(c,b)`, with an explicit output
 envelope.  It does not bound counters uniformly along an infinite orbit.
+
+## Kontorovich follow-up: payload-triple invariant seam (QM169, 2026-07-23)
+
+Please formalize the exact triple semantics and the cheap quotient lemmas
+after QM166.  For a cell `(p,b)` define `B,D` as there and assume `Q` is
+positive odd with `2^D Q≡B (mod9)`.  Put
+
+```text
+H=(2^D Q-B)/9.
+```
+
+Prove positivity/integrality and the literal writer--decoder transition
+
+```text
+H -> 3^(p+o+b)Q.                                  (QM169a)
+```
+
+The deterministic next-symbol equations are
+
+```text
+p'=v2(3^(p+o+b+2)Q+7)-4,
+b'=v2(3^(p+o+b+2)Q+B(p'))-(S(p')+p'+4),
+Q'=(3^(p+o+b+2)Q+B(p'))/2^D(p',b').              (QM169b)
+```
+
+Package the converse back into `RechargeThenDrain` if inexpensive.
+
+The exact mod-nine lemma is
+
+```text
+d(p)=7 mod9,
+B(p)=7*(1+2^(p+4)) mod9.                          (QM169c)
+```
+
+Important correction: QM169c gives the **three-node** classification
+
+```text
+p even          -> v3(Q)=0,
+p=1 or 3 mod 6  -> v3(Q)=1,
+p=5 mod 6       -> v3(Q)>=2.
+```
+
+Do not formalize the earlier false claim that `v3(Q)=1` is impossible.
+For `d(p)`, use
+
+```text
+d_(p+1)=d_p+3^(p+1)d_p^2+3^(2p+1)d_p^3
+```
+
+and the `p=2` base.
+
+Two optional architecture lemmas are useful.  First, a fixed-precision guard
+cannot force a target valuation `D'>k`: perturb
+`Q` by `9*3^ell*2^k*T` with odd `T`; fixed residues persist and the target
+affine expression has exact valuation `k`.  State the lower writer-valuation
+side condition explicitly.  Second, for prescribed symbols `(p,b)->(p',b')`,
+the congruence
+
+```text
+2^(D+D')Q' ≡ 2^D B(p')+3^(p+o+b+2)B(p)
+              (mod 3^(p+o+b+4))                  (QM169d)
+```
+
+has a unique class because two is a unit; an odd sufficiently large lift and
+`Q=(2^D'Q'-B(p'))/3^(p+o+b+2)` give an exact ordinary edge.  Scope warning:
+QM169d gives finite local edges, not one coherent infinite ordinary root.

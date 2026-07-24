@@ -1,6 +1,45 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 20:40 EDT
+Updated: 2026-07-23, about 20:57 EDT
+
+### 20:57 EDT continuation -- invariant CEGIS in payload triples
+
+There is no counterexample.  The complete writer--decoder cell now has the
+exact public coordinates
+
+```text
+H(p,b,Q)=(2^D(p,b)Q-B(p))/9  ->  3^(p+o(p)+b)Q.   (PT27)
+```
+
+The new reconstructible invariant lane does not search trajectories.  It
+tests predicate architectures on `(p,b,Q)`, derives the next `p',b'` by exact
+valuations, and records the first closure failure.
+
+The base predicate fails at the exact ordinary charge
+`H=28022397681347377`, `(p,b,Q)=(2,0,7)`: its output is `3^33*7` and the next
+writer valuation is only two.  Adding the exact next-writer binder fails at
+the canonical CRT payload `Q=187`; the writer valuation is six but the
+composite valuation is seven rather than the required 55, a 48-bit decoder
+shortfall.  Fixed `Q mod 2^k 3^ell` guards are structurally inadequate:
+an exact residue-preserving perturbation drops any demanded target valuation
+above `k`.  The artifact checks this for `7<=k<=16`.
+
+An arithmetic audit corrected an initially proposed false theorem.  The
+mandatory mod-nine quotient has **three**, not two, nodes:
+
+```text
+p even          => v3(Q)=0,
+p=1 or 3 mod 6  => v3(Q)=1,
+p=5 mod 6       => v3(Q)>=2.                     (PT28)
+```
+
+All 81 prescribed symbol pairs with `2<=p,p'<=4`, `0<=b,b'<=2` receive an
+exact ordinary coefficientwise edge.  Thus local edges and the ternary
+quotient are not the obstruction.  The next viable grammar must be a
+recursive mixed-base predicate with runtime dyadic precision, exact unbounded
+valuation binders, and a genuinely aperiodic/unbounded symbol update.  The
+artifact retains `universal_invariant:null`, `counterexample:null`; PT27--28
+and the general perturbation/edge formulas are pending QM169.
 
 ### 20:40 EDT continuation -- exact charge-dependent alphabet
 

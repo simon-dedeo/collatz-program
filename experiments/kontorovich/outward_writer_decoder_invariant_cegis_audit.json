@@ -1,0 +1,2295 @@
+{
+  "artifact_sha256": "b970128241e849637e8a3d6f2a2c7d3b6ae083c141875779944d4605353bd1df",
+  "audit": {
+    "architecture_failures": [
+      {
+        "architecture": "all_positive_integral_payload_triples",
+        "first_failure": {
+          "derived_p": -2,
+          "g": 33,
+          "kind": "next_writer_undefined",
+          "v2_9Hprime_plus_7": 2
+        },
+        "globally_smallest_source_with_PT26_research_bound": true,
+        "minimality_bound": {
+          "PT26_candidate_symbols": [
+            {
+              "b": 0,
+              "least_source": "28022397681347377",
+              "p": 2,
+              "source_modulus_bits": 57
+            },
+            {
+              "b": 1,
+              "least_source": "136108788738239281",
+              "p": 2,
+              "source_modulus_bits": 58
+            },
+            {
+              "b": 2,
+              "least_source": "208166382776167217",
+              "p": 2,
+              "source_modulus_bits": 59
+            },
+            {
+              "b": 3,
+              "least_source": "352281570852023089",
+              "p": 2,
+              "source_modulus_bits": 60
+            },
+            {
+              "b": 4,
+              "least_source": "64051194700311345",
+              "p": 2,
+              "source_modulus_bits": 61
+            },
+            {
+              "b": 5,
+              "least_source": "640511947003734833",
+              "p": 2,
+              "source_modulus_bits": 62
+            },
+            {
+              "b": 6,
+              "least_source": "1793433451610581809",
+              "p": 2,
+              "source_modulus_bits": 63
+            },
+            {
+              "b": 7,
+              "least_source": "8710962479251663665",
+              "p": 2,
+              "source_modulus_bits": 64
+            },
+            {
+              "b": 8,
+              "least_source": "13322648497679051569",
+              "p": 2,
+              "source_modulus_bits": 65
+            },
+            {
+              "b": 9,
+              "least_source": "22546020534533827377",
+              "p": 2,
+              "source_modulus_bits": 66
+            },
+            {
+              "b": 10,
+              "least_source": "4099276460824275761",
+              "p": 2,
+              "source_modulus_bits": 67
+            },
+            {
+              "b": 11,
+              "least_source": "40992764608243378993",
+              "p": 2,
+              "source_modulus_bits": 68
+            },
+            {
+              "b": 12,
+              "least_source": "114779740903081585457",
+              "p": 2,
+              "source_modulus_bits": 69
+            },
+            {
+              "b": 13,
+              "least_source": "557501598672110824241",
+              "p": 2,
+              "source_modulus_bits": 70
+            },
+            {
+              "b": 14,
+              "least_source": "852649503851463650097",
+              "p": 2,
+              "source_modulus_bits": 71
+            },
+            {
+              "b": 15,
+              "least_source": "1442945314210169301809",
+              "p": 2,
+              "source_modulus_bits": 72
+            }
+          ],
+          "floor_log2_9H": 57,
+          "scope": "finite candidates checked exactly; global minimality additionally uses the universal PT26 research derivation pending QM168"
+        },
+        "status": "universally_rejected_by_exact_witness",
+        "witness": {
+          "H": "28022397681347377",
+          "H_bits": 55,
+          "H_sha256": "d4873f0b94d624a011541e43a92bb2c3e907eed91de04daea538f61ee465b79f",
+          "Q": "7",
+          "Q_bits": 3,
+          "Q_sha256": "ca358758f6d27e6cf45272937977a748fd88391db679ceda7dc7bf1f005ee879",
+          "b": 0,
+          "output": "38913423965888661",
+          "output_bits": 56,
+          "output_sha256": "6dfa7b06abcf990f02ff406be408e4fa7c7ac393da16330759a5d1b6297ba427",
+          "p": 2
+        }
+      },
+      {
+        "CRT_modulus": 2304,
+        "architecture": "base_triple_plus_exact_next_writer_binder",
+        "canonical_Q": "187",
+        "first_failure": {
+          "derived_p": 2,
+          "g": 33,
+          "kind": "next_decoder_shortfall",
+          "required": 55,
+          "shortfall": 48,
+          "v2_composite_gate": 7
+        },
+        "status": "rejected_by_exact_witness",
+        "witness": {
+          "H": "748598338060626737",
+          "H_bits": 60,
+          "H_sha256": "d7623abdcd8076b6ad1bb25afee41870602dd603b3b652817a42029fdd33fd85",
+          "Q": "187",
+          "Q_bits": 8,
+          "Q_sha256": "cbecda1c7d37d4c0aa5466243bb4a0018c31bf06d74fa7338290dd3068db4fed",
+          "b": 0,
+          "output": "1039544325945882801",
+          "output_bits": 60,
+          "output_sha256": "2a2d568716648c5ba7a3fc96d1b33e5518482ac18e47906e1d46dd1a78abcc47",
+          "p": 2
+        }
+      },
+      {
+        "architecture": "fixed_Q_residues_mod_2k_3ell",
+        "base_exact_edge": {
+          "H": "1371090774138833916079656756128561",
+          "H_bits": 111,
+          "H_prime": "1903971144666380128363339529923377",
+          "H_prime_bits": 111,
+          "H_prime_sha256": "7226fa0a000b473acaf21d55b0d66f3a5662496ec9a0ca85c4abc07c288e9594",
+          "H_sha256": "3b6f21d4967d2819b0674a06ee4411c8f94646f16973e03f31f95da995d4d80d",
+          "Q": "342498722917514299",
+          "Q_bits": 59,
+          "Q_prime": "475612335681869257",
+          "Q_prime_bits": 59,
+          "Q_prime_sha256": "7dc245467b74b7f9fb34ee2496a71fbaec16a3ae550e37bb969b3aa6a93b4684",
+          "Q_sha256": "0168faf65b18ac14dc3b13afc29e1405b990b046c6bddb4aaab937a9511d7425",
+          "coefficient_congruence_modulus_bits": 59,
+          "source_symbol": [
+            2,
+            0
+          ],
+          "target_symbol": [
+            2,
+            0
+          ]
+        },
+        "rows": [
+          {
+            "decoder_shortfall": 48,
+            "ell": 3,
+            "k": 7,
+            "next_writer_v2": 6,
+            "perturbed_Q_bits": 59,
+            "perturbed_Q_sha256": "f9c7809f168b261943805bbe9c0e5156fb684d1cc044841f953485e151f0ccdf",
+            "preserved_mod_2k": true,
+            "preserved_mod_3ell": true,
+            "source_H_bits": 111,
+            "target_composite_v2": 7,
+            "target_required_v2": 55
+          },
+          {
+            "decoder_shortfall": 47,
+            "ell": 3,
+            "k": 8,
+            "next_writer_v2": 6,
+            "perturbed_Q_bits": 59,
+            "perturbed_Q_sha256": "9128834c1e3780763e1548236547364046adf737f789b068b8509a6893a5dfdc",
+            "preserved_mod_2k": true,
+            "preserved_mod_3ell": true,
+            "source_H_bits": 111,
+            "target_composite_v2": 8,
+            "target_required_v2": 55
+          },
+          {
+            "decoder_shortfall": 46,
+            "ell": 3,
+            "k": 9,
+            "next_writer_v2": 6,
+            "perturbed_Q_bits": 59,
+            "perturbed_Q_sha256": "ab4552e1aba5c60c844ae6d7cc68658939f5cfa03a62eb1af702a7d1cb7a07fb",
+            "preserved_mod_2k": true,
+            "preserved_mod_3ell": true,
+            "source_H_bits": 111,
+            "target_composite_v2": 9,
+            "target_required_v2": 55
+          },
+          {
+            "decoder_shortfall": 45,
+            "ell": 3,
+            "k": 10,
+            "next_writer_v2": 6,
+            "perturbed_Q_bits": 59,
+            "perturbed_Q_sha256": "a3ee9ae56f754f65ef4df9cff618b4531d99c0ddb83d833a6b1105f51f22a5ca",
+            "preserved_mod_2k": true,
+            "preserved_mod_3ell": true,
+            "source_H_bits": 111,
+            "target_composite_v2": 10,
+            "target_required_v2": 55
+          },
+          {
+            "decoder_shortfall": 44,
+            "ell": 3,
+            "k": 11,
+            "next_writer_v2": 6,
+            "perturbed_Q_bits": 59,
+            "perturbed_Q_sha256": "78171ce47d6524af006af74553171728f0cf4fdf2e8cf0ca2b9627466b5cf6f1",
+            "preserved_mod_2k": true,
+            "preserved_mod_3ell": true,
+            "source_H_bits": 111,
+            "target_composite_v2": 11,
+            "target_required_v2": 55
+          },
+          {
+            "decoder_shortfall": 43,
+            "ell": 3,
+            "k": 12,
+            "next_writer_v2": 6,
+            "perturbed_Q_bits": 59,
+            "perturbed_Q_sha256": "ea083b24da273fb515f944d989ac78e94c58101d3c2544e0ac33d68d6b2b36ec",
+            "preserved_mod_2k": true,
+            "preserved_mod_3ell": true,
+            "source_H_bits": 111,
+            "target_composite_v2": 12,
+            "target_required_v2": 55
+          },
+          {
+            "decoder_shortfall": 42,
+            "ell": 3,
+            "k": 13,
+            "next_writer_v2": 6,
+            "perturbed_Q_bits": 59,
+            "perturbed_Q_sha256": "073f735270addedea7838f169b4573354b2c28ef239f753ccb6850dd907eedab",
+            "preserved_mod_2k": true,
+            "preserved_mod_3ell": true,
+            "source_H_bits": 111,
+            "target_composite_v2": 13,
+            "target_required_v2": 55
+          },
+          {
+            "decoder_shortfall": 41,
+            "ell": 3,
+            "k": 14,
+            "next_writer_v2": 6,
+            "perturbed_Q_bits": 59,
+            "perturbed_Q_sha256": "d176037981f725b669d45e86dedf805a4601c6f89ce99beba39009241fade2db",
+            "preserved_mod_2k": true,
+            "preserved_mod_3ell": true,
+            "source_H_bits": 111,
+            "target_composite_v2": 14,
+            "target_required_v2": 55
+          },
+          {
+            "decoder_shortfall": 40,
+            "ell": 3,
+            "k": 15,
+            "next_writer_v2": 6,
+            "perturbed_Q_bits": 59,
+            "perturbed_Q_sha256": "069b460b54823dadfbde402696c72e909011a1a000f03cc33480e6f236e03743",
+            "preserved_mod_2k": true,
+            "preserved_mod_3ell": true,
+            "source_H_bits": 111,
+            "target_composite_v2": 15,
+            "target_required_v2": 55
+          },
+          {
+            "decoder_shortfall": 39,
+            "ell": 3,
+            "k": 16,
+            "next_writer_v2": 6,
+            "perturbed_Q_bits": 59,
+            "perturbed_Q_sha256": "06567b5498949acf6b88a3f39e650ed4398184159f1042d91c427631b0057b57",
+            "preserved_mod_2k": true,
+            "preserved_mod_3ell": true,
+            "source_H_bits": 111,
+            "target_composite_v2": 16,
+            "target_required_v2": 55
+          }
+        ],
+        "scope": "rows regression-check p'=2 for 7<=k<55; the all-precision statement is an exact research derivation pending Lean",
+        "status": "research_rejection_with_bounded_exact_regression",
+        "universal_perturbation": "Q -> Q+9*3^ell*2^k*T preserves fixed residues; when a branch requires D'>k and T is odd, the target affine valuation drops to k"
+      },
+      {
+        "architecture": "fixed_or_eventually_periodic_symbols",
+        "reason": "a fixed symbol would require (2^D-3^(p+o+b+2))*Q=B(p) although the cell is outward; eventual periods are covered by ShortcutParityPeriodicNoGo",
+        "status": "universally_rejected"
+      }
+    ],
+    "bounds": {
+      "maximum_edge_counter": 4,
+      "maximum_edge_drain": 2,
+      "maximum_mod9_counter": 6,
+      "maximum_perturb_precision": 16,
+      "minimum_perturb_precision": 7
+    },
+    "claim_scope": "exact arithmetic failures and local edge witnesses; universal algebraic statements remain research derivations pending Lean, and no recursive mixed-base invariant or nonterminating ordinary orbit is claimed",
+    "counterexample": null,
+    "local_edge_family_regression": {
+      "edges_sha256": "c4af4df1ea3d707fcd7ed791a61efc89009f505139e0655363ea03804b86897a",
+      "exact_ordinary_edges": 81,
+      "scope": "displayed edges checked exactly; the all-symbol construction is a research derivation pending Lean",
+      "symbols": {
+        "b_interval": [
+          0,
+          2
+        ],
+        "p_interval": [
+          2,
+          4
+        ]
+      },
+      "universal_statement": "the displayed construction works coefficientwise for every prescribed pair of legal symbols; finite local edge existence is not invariant closure",
+      "witnesses": [
+        {
+          "H": "1371090774138833916079656756128561",
+          "H_bits": 111,
+          "H_prime": "1903971144666380128363339529923377",
+          "H_prime_bits": 111,
+          "H_prime_sha256": "7226fa0a000b473acaf21d55b0d66f3a5662496ec9a0ca85c4abc07c288e9594",
+          "H_sha256": "3b6f21d4967d2819b0674a06ee4411c8f94646f16973e03f31f95da995d4d80d",
+          "Q": "342498722917514299",
+          "Q_bits": 59,
+          "Q_prime": "475612335681869257",
+          "Q_prime_bits": 59,
+          "Q_prime_sha256": "7dc245467b74b7f9fb34ee2496a71fbaec16a3ae550e37bb969b3aa6a93b4684",
+          "Q_sha256": "0168faf65b18ac14dc3b13afc29e1405b990b046c6bddb4aaab937a9511d7425",
+          "coefficient_congruence_modulus_bits": 59,
+          "source_symbol": [
+            2,
+            0
+          ],
+          "target_symbol": [
+            2,
+            0
+          ]
+        },
+        {
+          "H": "73016559505127008947032673823537",
+          "H_bits": 106,
+          "H_prime": "101394761749378161552873254366001",
+          "H_prime_bits": 107,
+          "H_prime_sha256": "a3d2e73909ad4eb54a7275d11391660158383ed3efaba74d842a41ecc766bf2c",
+          "H_sha256": "0966606ddf176d21eb9fafdbec09ea2ccfd4ce1eff2d317e10c7ac70f3ddc12c",
+          "Q": "18239549746838587",
+          "Q_bits": 55,
+          "Q_prime": "12664214895435947",
+          "Q_prime_bits": 54,
+          "Q_prime_sha256": "6ec96d083aff464a8e29c86887b5e34a981a9cd3834d9ce3df38d060e28ae464",
+          "Q_sha256": "1ef4bc3c170504ca19257dbb79854721b89cf8b8004fbce6f39f943acd8b01d3",
+          "coefficient_congruence_modulus_bits": 59,
+          "source_symbol": [
+            2,
+            0
+          ],
+          "target_symbol": [
+            2,
+            1
+          ]
+        },
+        {
+          "H": "2669164988772540823212280838433585",
+          "H_bits": 112,
+          "H_prime": "3706547527583382095173805805480753",
+          "H_prime_bits": 112,
+          "H_prime_sha256": "5beb89c697f4b48073feb0a677d8e8d5f748ad4d6953cf7982e7f5c377236349",
+          "H_sha256": "63b0329825e721850b7031e1011416a2174655d9658f08fade6b2ed518680f20",
+          "Q": "666757896088190011",
+          "Q_bits": 60,
+          "Q_prime": "231474060393216655",
+          "Q_prime_bits": 58,
+          "Q_prime_sha256": "6351db693a62ce74efb21da964a6dab7709123c7b674816936891cf299f07acb",
+          "Q_sha256": "7820f6cd36443d8ec55f32501a97c517c677cbc0e5e688f9ec34a1805ec6510d",
+          "coefficient_congruence_modulus_bits": 59,
+          "source_symbol": [
+            2,
+            0
+          ],
+          "target_symbol": [
+            2,
+            2
+          ]
+        },
+        {
+          "H": "375463838901600946421114421443102223762227888041487069206096689",
+          "H_bits": 208,
+          "H_prime": "521389486836360226497796029143454448864836470298501101917688049",
+          "H_prime_bits": 209,
+          "H_prime_sha256": "74ae3f33d76e47bbcd04eb1844f83d34f185860898900734bee75eb08c312cfd",
+          "H_sha256": "087325d6cf01159b53c8d622734eecb43fe02159ad0041bc6cb17a475d2f8e91",
+          "Q": "93790934744109281045732756459607504624932688763",
+          "Q_bits": 157,
+          "Q_prime": "205487518280314503",
+          "Q_prime_bits": 58,
+          "Q_prime_sha256": "7fc8fb3405f6becfa55649cfc6702b68c38827d9ece40722cadc19399e04485f",
+          "Q_sha256": "9252c1ee231768ff25b9678edcdcbda3b285b140764ca49ba947b26e22a0d163",
+          "coefficient_congruence_modulus_bits": 59,
+          "source_symbol": [
+            2,
+            0
+          ],
+          "target_symbol": [
+            3,
+            0
+          ]
+        },
+        {
+          "H": "1198216117562203967498599012721777476253595820858277000880401201",
+          "H_bits": 210,
+          "H_prime": "1663908003717344337724649588853953681519644386171637672017514737",
+          "H_prime_bits": 211,
+          "H_prime_sha256": "8f5f72e8cbe541a640f5f503461f03fbeda258650a84875f5b321a7c86ad991d",
+          "H_sha256": "7050de3c0bd97a09b0ec72151c14d49eea5a5302cc4ef86cf9c90f5038ae26dd",
+          "Q": "299314602493767503918125936060334804264048202619",
+          "Q_bits": 158,
+          "Q_prime": "327885712085655933",
+          "Q_prime_bits": 59,
+          "Q_prime_sha256": "3dabdb844f93b54a980a5078ca7137d56449c383b800516fe9900d1df690483b",
+          "Q_sha256": "98743bc902c4d1aeb88920526c5a00a4c8a0859c6871bdc997812fe7bb316bc7",
+          "coefficient_congruence_modulus_bits": 59,
+          "source_symbol": [
+            2,
+            0
+          ],
+          "target_symbol": [
+            3,
+            1
+          ]
+        },
+        {
+          "H": "6134729789525822093963506560393828991201803417759016590926228273",
+          "H_bits": 212,
+          "H_prime": "8519019105003249005085770947116949077448491881410457092616474865",
+          "H_prime_bits": 213,
+          "H_prime_sha256": "c6da82f2b88b7431f48cf5ed117b4457f97aedb5e7389f84b0bf12b0345b9e9a",
+          "H_sha256": "fa57cfcdbe8bc476e73843d5fbae8184af17bdaab6fca408a1d1823640624d40",
+          "Q": "1532456608991716841152485013664698602098741285755",
+          "Q_bits": 161,
+          "Q_prime": "839368714879324011",
+          "Q_prime_bits": 60,
+          "Q_prime_sha256": "9c7a70afdd393022da60a6d13165e7c9c9cbebc954dc3a3638f196b82da978b0",
+          "Q_sha256": "5ce4df72183dfb6a06f2394b1d4886c850907c7b29ca1bed48747e10f8e124fc",
+          "coefficient_congruence_modulus_bits": 59,
+          "source_symbol": [
+            2,
+            0
+          ],
+          "target_symbol": [
+            3,
+            2
+          ]
+        },
+        {
+          "H": "18656500514678131485504188828867162023810876242363351012384225405415831768717295068026645925300634321248533347951833262970890016430062371000921218689841",
+          "H_bits": 503,
+          "H_prime": "25907430281347514925732841358017981479775124445065111853773444872833717695013513969097750776980025304840813879508939470025104553742119784613424807690097",
+          "H_prime_bits": 503,
+          "H_prime_sha256": "cd86b2771335dd8799a2605198b93cb7fdade361b5f66f5aa053e717a9533097",
+          "H_sha256": "fe6e52a8d1274a545e332d6e07d0591d7eba0f1fc0aab0ee5c99079a1210f42b",
+          "Q": "4660397196823517589601640327962152560556327201592712292417764703665386147825468332934745566911874628291867498674119745425914744459698939",
+          "Q_bits": 451,
+          "Q_prime": "641591771979661777",
+          "Q_prime_bits": 60,
+          "Q_prime_sha256": "71bc7bd71d82019828a8510e7bf9bba66818781c12a49476ab22ab5f6086a927",
+          "Q_sha256": "4399129f32623e0ac2c9796f429930538f1071d953a1f1791d5d203571e4e402",
+          "coefficient_congruence_modulus_bits": 59,
+          "source_symbol": [
+            2,
+            0
+          ],
+          "target_symbol": [
+            4,
+            0
+          ]
+        },
+        {
+          "H": "5562938083093564005451430041556765414944308058191091854451059933031296583098596848493565555997017692644986611441592978934020990246520798787607108332337",
+          "H_bits": 501,
+          "H_prime": "7724998074199979831559125175275891554897628761679755077067496797313225237879332519239823568937863606641576783584860020594522348807670542154377927737201",
+          "H_prime_bits": 502,
+          "H_prime_sha256": "5b5d19f30f0f56e6ed12d760bc57c906f74a2472c476d9b5386dc511d0533d9c",
+          "H_sha256": "53c101b3c5418a76ceb8dc7ba0075196643951e64fe948e719b5f25bcbcd5da8",
+          "Q": "1389622937493286582129683192466132155964941078499781021151058807352509351315177677966885838699938583268436151445921944725009037130932987",
+          "Q_bits": 449,
+          "Q_prime": "95653933044332207",
+          "Q_prime_bits": 57,
+          "Q_prime_sha256": "214b3f89630926fe18186259c76e88fbcb17d5d564fb73bf9bc36977cfbb4c98",
+          "Q_sha256": "d56bef2da30456cb13c4d411848eeb5ea1037167cb7597cb314a868b090cc511",
+          "coefficient_congruence_modulus_bits": 59,
+          "source_symbol": [
+            2,
+            0
+          ],
+          "target_symbol": [
+            4,
+            1
+          ]
+        },
+        {
+          "H": "31750062946262698965556947616177558632677444426535610170317390877800366954335993287559726294604250949852080084462073547007759042613603943214235329047345",
+          "H_bits": 504,
+          "H_prime": "44089862488495050019906557540760071404652620128450468630479392948354210152147695418955677985022187003040050975433018919455686758676569027072471687642993",
+          "H_prime_bits": 504,
+          "H_prime_sha256": "8966f070413c1b8be845197fca7b9748f51702efeee6712ad24e1a92fa3324a0",
+          "H_sha256": "feda6e04c88ee5a8d05eab64ba662a756b14dc8ea4df8c27340c3c00a6c5d787",
+          "Q": "7931171456153748597073597463458172965147713324685643563684470599978262944335758987902605295123810673315298845902317546126820451788464891",
+          "Q_bits": 452,
+          "Q_prime": "272968919467664785",
+          "Q_prime_bits": 58,
+          "Q_prime_sha256": "356f1ca8f7e18182eebf37291c9d183344cbf7480a38e09eb8c726b5c854962a",
+          "Q_sha256": "826929824bff87c2795fdcd63fedc8cb2b8ee35df375ec876cf780694512efb8",
+          "coefficient_congruence_modulus_bits": 59,
+          "source_symbol": [
+            2,
+            0
+          ],
+          "target_symbol": [
+            4,
+            2
+          ]
+        },
+        {
+          "H": "4760206337229465298520138822003505",
+          "H_bits": 112,
+          "H_prime": "9915421735408611091965411865733937",
+          "H_prime_bits": 113,
+          "H_prime_sha256": "0c7ac2db47b3270064ced4f6f7639d4589d888bc059c59f2805ce679de36ec3a",
+          "H_sha256": "8e651468abdf59782a3ba0aa7201fa97dc529b254993b4a0a180a19e63bb325b",
+          "Q": "594550201225357673",
+          "Q_bits": 60,
+          "Q_prime": "2476874139641857537",
+          "Q_prime_bits": 62,
+          "Q_prime_sha256": "f94f0d55e2425910e8b58526975878219b4349e51ad4d42a5cf9d6fe30e5ae4c",
+          "Q_sha256": "52bdad59093ae19bd1d8b62956023b2a84fdd30b2b1c4e38236aecb3b212cc76",
+          "coefficient_congruence_modulus_bits": 61,
+          "source_symbol": [
+            2,
+            1
+          ],
+          "target_symbol": [
+            2,
+            0
+          ]
+        },
+        {
+          "H": "7356354766496879112785386986613553",
+          "H_bits": 113,
+          "H_prime": "15323150884159616992396810692406065",
+          "H_prime_bits": 114,
+          "H_prime_sha256": "b49874e7f4f675860e1f7209fae5e8ce885cbb34048d4f38df5366a7315a7be6",
+          "H_sha256": "f0f159a337c0ad1d9a1b73509c8fc28246e5b69548a931b76bb750d97f729dbc",
+          "Q": "918809374396033385",
+          "Q_bits": 60,
+          "Q_prime": "1913862928657424813",
+          "Q_prime_bits": 61,
+          "Q_prime_sha256": "98c5ad3625cff41d2c1ec99df608117075dd6becba175db0c9ed7b7ffc9e7ea4",
+          "Q_sha256": "467a96bb72c08ab7fb300f345c51cf60173a62abd7f9bd31d7aaf345fa822136",
+          "coefficient_congruence_modulus_bits": 61,
+          "source_symbol": [
+            2,
+            1
+          ],
+          "target_symbol": [
+            2,
+            1
+          ]
+        },
+        {
+          "H": "12548651625031706741315883315833649",
+          "H_bits": 114,
+          "H_prime": "26138609181661628793259608345750321",
+          "H_prime_bits": 115,
+          "H_prime_sha256": "006f77eea60f2a157385c04d1d08a6cb1cf45be56d15ff18baf0a1e7e433798c",
+          "H_sha256": "b9defc927ce20e93c7ace47d1bf781455a7866b48f5b524b7e9f341ec2a50f31",
+          "Q": "1567327720737384809",
+          "Q_bits": 61,
+          "Q_prime": "1632357323165208451",
+          "Q_prime_bits": 61,
+          "Q_prime_sha256": "58f6a0774e01a6217fed5ed4c5702e824fd59ef4357c145f2d95197c4021f226",
+          "Q_sha256": "e969b74236d17b93da09501d43d01d3c2ef0665d4c1a6a7a1d3903bf97c3b698",
+          "coefficient_congruence_modulus_bits": 61,
+          "source_symbol": [
+            2,
+            1
+          ],
+          "target_symbol": [
+            2,
+            2
+          ]
+        },
+        {
+          "H": "6530772997925661739266031694312518807005871193053621937580849",
+          "H_bits": 203,
+          "H_prime": "13603479333700621508083335938788123240477396577107070762209521",
+          "H_prime_bits": 204,
+          "H_prime_sha256": "f52bd420d00c69a2acd894b1170cb82e5a7e2f5e41ae2b62848933169bab47dc",
+          "H_sha256": "24410705e877ee2d5dea74c05b958250cb87ca6cba783506b1578f927c337bc7",
+          "Q": "815694136975949552667484804946605298812301609",
+          "Q_bits": 150,
+          "Q_prime": "5361337884315675",
+          "Q_prime_bits": 53,
+          "Q_prime_sha256": "4a945894870eb005a3cc50c79ef98eac21fd4de5e1b5744d5bcd8b804f40ac9a",
+          "Q_sha256": "4076b656a8e2dbee66755dda83f91804ec55aed8ad0efd67cec96069d042b92f",
+          "coefficient_congruence_modulus_bits": 61,
+          "source_symbol": [
+            2,
+            1
+          ],
+          "target_symbol": [
+            3,
+            0
+          ]
+        },
+        {
+          "H": "4943044444961543788204173579366364033755213468093793211983407921",
+          "H_bits": 212,
+          "H_prime": "10296270131262557622549765373333281217133748639435336201660649713",
+          "H_prime_bits": 213,
+          "H_prime_sha256": "15c0a1eb34f971e0ff5482fab5112a2ad6ebd7d0c41501175aececf88997d339",
+          "H_sha256": "89f1c7e677515e26875fd9fb6fc49dace2501a63bdba4e19d6d18fed36f9cfa7",
+          "Q": "617386697385950618169847023607128504216158843177",
+          "Q_bits": 159,
+          "Q_prime": "2028958245451645971",
+          "Q_prime_bits": 61,
+          "Q_prime_sha256": "c5da41dae7fea686d98296ffcba01b747727fd8498b4d123f0b3d09fe34068dc",
+          "Q_sha256": "5dedaa6bb99547323a7446cd37024a719b93937abb480967f65fc028feea6577",
+          "coefficient_congruence_modulus_bits": 61,
+          "source_symbol": [
+            2,
+            1
+          ],
+          "target_symbol": [
+            3,
+            1
+          ]
+        },
+        {
+          "H": "1652035330319131703894235214251663023789741736826633485286189873",
+          "H_bits": 211,
+          "H_prime": "3441159029976652955188644015070285821204901144196516781061689585",
+          "H_prime_bits": 212,
+          "H_prime_sha256": "c6a56ab1c65de207fbe8f9cbec932eef8ee0523c25094b31fdddbf7a3fb332d1",
+          "H_sha256": "0cb6e8549b8e0ce735d2443d06c2cb803158f15dc6c6144f6e12866779241726",
+          "Q": "206339361886634172425060664405673904937927815465",
+          "Q_bits": 158,
+          "Q_prime": "339053263889326941",
+          "Q_prime_bits": 59,
+          "Q_prime_sha256": "5cff839955ca7508cdbd18ddda0d9da6cd13e42ec38ce7adfdeec97cdb13afcb",
+          "Q_sha256": "1ff9d340ff6c9c18d778b9f480ba5cce71f9d03f3c6fe9331b4c3d0c5675fc75",
+          "coefficient_congruence_modulus_bits": 61,
+          "source_symbol": [
+            2,
+            1
+          ],
+          "target_symbol": [
+            3,
+            2
+          ]
+        },
+        {
+          "H": "39594685386405264652667773741073745426856429284303215965450863842630331193761422648827115827274590703121193241026164986649655028222942619331932300585777",
+          "H_bits": 504,
+          "H_prime": "82474997148028735218717736148771150134949555460041777381303061107786360894986522924211302090888972810349551511272742201586915857982628538930459545321329",
+          "H_prime_bits": 505,
+          "H_prime_sha256": "4ffd95b7cb09322d41fbe2e350e30919485598c2debea4f76005024a8db8b8b2",
+          "H_sha256": "504b944d74368206752ed531feedce7b7fe64b1a4ccdd5ed8d3850b08a57a7ee",
+          "Q": "4945379778987338019097391212798072013835768750405055045452875830731445393804346419833806758968188182047514267053948745498466389086768041",
+          "Q_bits": 451,
+          "Q_prime": "2042475034751653573",
+          "Q_prime_bits": 61,
+          "Q_prime_sha256": "6793193583174af9d9cc2b40f546827052ec814602529f13a567019faa19e0cf",
+          "Q_sha256": "0fda90e9c3487591abd27162859a7bea0f0304cbcc6e56cbe0e2d19040345142",
+          "coefficient_congruence_modulus_bits": 61,
+          "source_symbol": [
+            2,
+            1
+          ],
+          "target_symbol": [
+            4,
+            0
+          ]
+        },
+        {
+          "H": "65781810249574399612773291315694538644589565652647734281317194787399401564998819087893276565881823960328286714046645554723393080590025763758560521300785",
+          "H_bits": 505,
+          "H_prime": "137022293769471340501238884696997419909582042510197847711420905334347838266389067273785083715015457904947262799044980549878662472785976266307600185180017",
+          "H_prime_bits": 506,
+          "H_prime_sha256": "4e096b1ee1a30240b06a11fd1e83611defee94bd4a04edbbd9965d83c0b5712b",
+          "H_sha256": "4214776bd911db280119fd5656174da086eef4afc67ac865a13c3ebbd783b3ab",
+          "Q": "8216154038317569026569348348294092418427154873497986316719581727044322190314637074801666487180124227070945614282146546199372096415533993",
+          "Q_bits": 452,
+          "Q_prime": "1696663376212322831",
+          "Q_prime_bits": 61,
+          "Q_prime_sha256": "1b8da90a13835a07a3d3b14bce4b3260dab2fbfb2978a3d662aaeb4021936c1b",
+          "Q_sha256": "f0e9593d48e486b0987fb8a4780cce59b5c1b0210350b0676dc6c3012c9aff0f",
+          "coefficient_congruence_modulus_bits": 61,
+          "source_symbol": [
+            2,
+            1
+          ],
+          "target_symbol": [
+            4,
+            1
+          ]
+        },
+        {
+          "H": "13407560523236129692562256166452952209123292915958697649584532897861260822524026209760955088667357445914099768005684418575916975855859474905304079870769",
+          "H_bits": 503,
+          "H_prime": "27927700526586129936196587600544880360317068409885707051185216881224883523583978574637520466762487715751840223500503853295169243179280811553318905462641",
+          "H_prime_bits": 504,
+          "H_prime_sha256": "1b050a2782b0e389649606258f890091784c9b1486ec509a78a6cfa59539750f",
+          "H_sha256": "f54bc1264bb80b7cda642dc1d3fd5b2467397e2a050bdeb9436f51994661ff55",
+          "Q": "1674605519657107011625434077302051609244382627312123774186169934418568597294055764865947030756252137024082919825750944797560681758002089",
+          "Q_bits": 450,
+          "Q_prime": "172905829269665371",
+          "Q_prime_bits": 58,
+          "Q_prime_sha256": "afb00c4d0dce254cc246cf2f04a5c562c1ddfd7ef2f51ea7b052c639590067f0",
+          "Q_sha256": "329c130391ee2d8338f2912fd6ff02a61b969bc2fadda1d703fa17caf4d18edc",
+          "coefficient_congruence_modulus_bits": 61,
+          "source_symbol": [
+            2,
+            1
+          ],
+          "target_symbol": [
+            4,
+            2
+          ]
+        },
+        {
+          "H": "3558085473600001134460129313106737",
+          "H_bits": 112,
+          "H_prime": "11117139324019945736505722716105521",
+          "H_prime_bits": 114,
+          "H_prime_sha256": "6820c9b561c46c9e356c9b51be77b379220a2afc23e438cd65addd8caad12496",
+          "H_sha256": "babf4ccb5e5fd106ada42412411fdc428a29ae8553f8e8fee32e0af645328f46",
+          "Q": "222202598421095203",
+          "Q_bits": 58,
+          "Q_prime": "2777063410235855779",
+          "Q_prime_bits": 62,
+          "Q_prime_sha256": "aa9f3d18cfc6573da2aaaa46402d38bce3aaec7cb3551896bcfa412b73ee6a14",
+          "Q_sha256": "d95f0e10b7e7402b451e72652a7c591fcd1d00169b5a2ebd23a823f2ed7fbfbf",
+          "coefficient_congruence_modulus_bits": 62,
+          "source_symbol": [
+            2,
+            2
+          ],
+          "target_symbol": [
+            2,
+            0
+          ]
+        },
+        {
+          "H": "8750382332134828762990625642326833",
+          "H_bits": 113,
+          "H_prime": "27340326770272963437799919196121905",
+          "H_prime_bits": 115,
+          "H_prime_sha256": "7b7d911dd29ce8c75aaad29a0c339107f4766540ac4a945f87f6f969fc9d7692",
+          "H_sha256": "031ac8a2a5e65885d5b174a3c8bd035ae0fcdd8e52ed85db8fbc6fbb7b356ca1",
+          "Q": "546461771591770915",
+          "Q_bits": 59,
+          "Q_prime": "3414809281627416023",
+          "Q_prime_bits": 62,
+          "Q_prime_sha256": "16056ce637b1c867ed13033814495c80f6c0915e3ebb25af1bee732ab6726091",
+          "Q_sha256": "b9905ec14e25e7d71e9a7d5b833c75a0690089d967a929edc3cc0caca1a62895",
+          "coefficient_congruence_modulus_bits": 62,
+          "source_symbol": [
+            2,
+            2
+          ],
+          "target_symbol": [
+            2,
+            1
+          ]
+        },
+        {
+          "H": "19134976049204484020051618300767025",
+          "H_bits": 114,
+          "H_prime": "59786701662778998840388312156154673",
+          "H_prime_bits": 116,
+          "H_prime_sha256": "7f897bac2d4c4bd60d7b4676d9f5f9a6907a107c3ef933ca6d0f1423dbf41966",
+          "H_sha256": "aa5ee62bc01bac245f60f3d7194887a97765b26b2771df5f83669d4c91d5aa48",
+          "Q": "1194980117933122339",
+          "Q_bits": 61,
+          "Q_prime": "3733682217323196145",
+          "Q_prime_bits": 62,
+          "Q_prime_sha256": "ab507290c8675b9491c6555a79655c186767c7869d5d4b385c296a1da9e8393d",
+          "Q_sha256": "4125951555d3b53be2a64671a1500eb91743ee8a76d2c29082c94657505b65cc",
+          "coefficient_congruence_modulus_bits": 62,
+          "source_symbol": [
+            2,
+            2
+          ],
+          "target_symbol": [
+            2,
+            2
+          ]
+        },
+        {
+          "H": "6342593625013632973904577168757854735434467989161750777153006385",
+          "H_bits": 212,
+          "H_prime": "19817257771937425216106878370920774822590481271711474285825872113",
+          "H_prime_bits": 214,
+          "H_prime_sha256": "13a20658c23d06fd17206838894e1e37a8395c2e3f138d6e7540d8a6707525ac",
+          "H_sha256": "486dd36e1190ad5e179ef03b8b66aa2ef39ae2671c08895969e58520e6b23882",
+          "Q": "396095258156111523531053803795642186256419164259",
+          "Q_bits": 159,
+          "Q_prime": "7810282373328269967",
+          "Q_prime_bits": 63,
+          "Q_prime_sha256": "bab382be4c45d7d6f05fca1a3737fe62eea4ee82939d80ff37594dd27fce35a4",
+          "Q_sha256": "b5abd173dd5d4d57272c9ed0eeb47f7f9027b536748bc383043092fde0188ff3",
+          "coefficient_congruence_modulus_bits": 62,
+          "source_symbol": [
+            2,
+            2
+          ],
+          "target_symbol": [
+            3,
+            0
+          ]
+        },
+        {
+          "H": "9633602739656045058214515533872555745399939720428910503850224433",
+          "H_bits": 213,
+          "H_prime": "30099924423866282217148560408315267916483752514569703416724312305",
+          "H_prime_bits": 215,
+          "H_prime_sha256": "dd603c1210437215f72bbd410ba1b0e6ac03e8fc9e086cecf566ee4aa5c75f36",
+          "H_sha256": "d5a40c75186928086e1c0f4134bcc07479abdfb2dbd834d99e19b6bbabb51dd9",
+          "Q": "601618925905769746403446983396369485895534678115",
+          "Q_bits": 159,
+          "Q_prime": "5931418763173623117",
+          "Q_prime_bits": 63,
+          "Q_prime_sha256": "a21e42f0a7d2ec3a08bdb9640d79940577cdd6bf80b232e00ed9041346238f7f",
+          "Q_sha256": "da79a96c3110134d6b778f082017bb132691bfe80e0d5f4698e98a5496e3cb3e",
+          "coefficient_congruence_modulus_bits": 62,
+          "source_symbol": [
+            2,
+            2
+          ],
+          "target_symbol": [
+            3,
+            1
+          ]
+        },
+        {
+          "H": "3051584510371220889594638803643153725468996257894591050455788337",
+          "H_bits": 211,
+          "H_prime": "9534591120008568215065196333526281728697210028853245154927431921",
+          "H_prime_bits": 213,
+          "H_prime_sha256": "af8b5c7b4511e1a422d049912a7a83154520ec12bdac474cfebd93d054595939",
+          "H_sha256": "b55a8832ca75b08b410510dcefb73cb9245bb39cd100e90a7ae23228a8620b5b",
+          "Q": "190571590406453300658660624194914886617303650403",
+          "Q_bits": 158,
+          "Q_prime": "939431805077323425",
+          "Q_prime_bits": 60,
+          "Q_prime_sha256": "b3504c0ce244ce631b1cb16d8a17d065e527060fea160abd3e0bf3ad4d1ce34a",
+          "Q_sha256": "b4275f093e370c583cef38e2ecdc9d35717deef6919c2a85a8648abc7f7a8396",
+          "coefficient_congruence_modulus_bits": 62,
+          "source_symbol": [
+            2,
+            2
+          ],
+          "target_symbol": [
+            3,
+            2
+          ]
+        },
+        {
+          "H": "88469641785115533377584187115372525319197646470055817021983730727132091305440702954782310080066872633979091133769693559867149105907640310788110649469745",
+          "H_bits": 505,
+          "H_prime": "276420940690935776223237375431353442666976176082818916332833173913338280437751125056029192310005364257808080534462922995513126043950087125160292931485553",
+          "H_prime_bits": 507,
+          "H_prime_sha256": "b391478377deb4bb2c29c98e3d2e80033c3e30ec2e13eb6fd4f2db43fb3518dd",
+          "H_sha256": "ffe80f430ec0eb782d5e80b35e1058eceedb5ee669ee598b541fae57e3816105",
+          "Q": "5524933122572349422628857379668714854498010173800714669985573005873891334539571064350954523462801743673238204251402530811673338381534179",
+          "Q_bits": 451,
+          "Q_prime": "6845503364255625445",
+          "Q_prime_bits": 63,
+          "Q_prime_sha256": "afe788a67c13a4446b1236b4929547a5815bd9443bd22af22f5b3277c0ab63dc",
+          "Q_sha256": "cc6f7cd90c5d3ec8ac70e1d76a17b2da1a1eed61cee84101f6350d91b4d01e42",
+          "coefficient_congruence_modulus_bits": 62,
+          "source_symbol": [
+            2,
+            2
+          ],
+          "target_symbol": [
+            4,
+            0
+          ]
+        },
+        {
+          "H": "36095392058777263457373151966130938883731373733366780390251068837593950562965910076649988602852406119564904187728732423719673001173474021934854208039729",
+          "H_bits": 504,
+          "H_prime": "112779050826607960375673929786674633343078714932350705342479641233653848323543492007307847437625908974014946671146207950637886199540043943028871011909489",
+          "H_prime_bits": 506,
+          "H_prime_sha256": "8e94c57aa109c49565029caeef58bcfb2fa42893cccce399dd66fa024a70c304",
+          "H_sha256": "d0579877aa93a8be5e460246e925de8b4aa211669ea7e14bbaad82bc202eb785",
+          "Q": "2254158863242118415156900244172694449906624050707783398718867109561014538029280409383094795250865698649806857023204730110767631052768227",
+          "Q_bits": 450,
+          "Q_prime": "1396474105618324589",
+          "Q_prime_bits": 61,
+          "Q_prime_sha256": "9e133392290ffd19fd347600d9f8b45d6c51a7ec9997b87d803d42a87f8f632e",
+          "Q_sha256": "2eee086a017cbae6be499dfaf13a5b239c1cf4839d7ed6c0e4a21988e3238d8f",
+          "coefficient_congruence_modulus_bits": 62,
+          "source_symbol": [
+            2,
+            2
+          ],
+          "target_symbol": [
+            4,
+            1
+          ]
+        },
+        {
+          "H": "350340890416806882978639362861580457496529010153501000180647040174822795017814667345443917466139205206050025863974499240604529629578471755054392856619825",
+          "H_bits": 507,
+          "H_prime": "1094630390012574855461054603654747489286463481835159971284600837311760441008789290299635916671902640676773749851046498219889325266000303035817402529365873",
+          "H_prime_bits": 509,
+          "H_prime_sha256": "2513a6ef27b69a76a5de31f89052dd5aebfe36c9c88e89140e953e6c5f834da8",
+          "H_sha256": "7e6ba20ecf45ef92b7aff817d9a62ace1f67552d0799fd9ff7671fec225809e8",
+          "Q": "21878804419223504459988643057148816877454940789265371026319102487438275317091024339190253164522481968790394940392391534316201875025363939",
+          "Q_bits": 453,
+          "Q_prime": "6777069782337626695",
+          "Q_prime_bits": 63,
+          "Q_prime_sha256": "d4d1f3c0ed02aac16c76aa231216b0ecc6a2c935865acbbad23646f7451024be",
+          "Q_sha256": "644248732dc4e65657c4ae64b9d5564608e7d7a27efc874778d5635f8cc7e770",
+          "coefficient_congruence_modulus_bits": 62,
+          "source_symbol": [
+            2,
+            2
+          ],
+          "target_symbol": [
+            4,
+            2
+          ]
+        },
+        {
+          "H": "1018210418755501929146823355001820014330697488004159097930109169",
+          "H_bits": 210,
+          "H_prime": "2553296011829208379258139754921779085769646077183613405347261233",
+          "H_prime_bits": 211,
+          "H_prime_sha256": "c6352c29e2057badd3431f6ff36de2b34e90b94d598231e4801aacfc35ac85ff",
+          "H_sha256": "889fdbeaf1fdf7005de8e828a0e788636cbaf7fbbefdf4dc7728a2015f034528",
+          "Q": "401292195795453873",
+          "Q_bits": 59,
+          "Q_prime": "637813804728683969950210835683668591287365642735",
+          "Q_prime_bits": 159,
+          "Q_prime_sha256": "7de32d47ffbf61209673f478a89c2ecee7a93d53d97d8da72c7ae1b61e90e5ba",
+          "Q_sha256": "1f50aa38f867de8dc8c1f92d3ba67438adafaa6f915569aaa394507a3f0d451d",
+          "coefficient_congruence_modulus_bits": 159,
+          "source_symbol": [
+            3,
+            0
+          ],
+          "target_symbol": [
+            2,
+            0
+          ]
+        },
+        {
+          "H": "195458140094898908069338763723144761839329555187369166255804657",
+          "H_bits": 207,
+          "H_prime": "490136891541371661625511188240769962304650221851490807926565681",
+          "H_prime_bits": 209,
+          "H_prime_sha256": "17ab65dd0ffa63be59a3cad37ce6376de85d43404a71f190b102db828aaf2809",
+          "H_sha256": "faf03524fd7a66d0d01cea5b6785efb9084de023b9f7a1e2e392a01d610c99ba",
+          "Q": "77033022624778161",
+          "Q_bits": 57,
+          "Q_prime": "61218141998336319456874852959023659292629060367",
+          "Q_prime_bits": 156,
+          "Q_prime_sha256": "f9031056ef420ac0e0b3bd20228b2b1843e673020ab49937b2eb4f4d65a09d8f",
+          "Q_sha256": "4c286acc5a8c9ed26acb70710028adbcd334414bdc70f036c35fe8241b853cdb",
+          "coefficient_congruence_modulus_bits": 159,
+          "source_symbol": [
+            3,
+            0
+          ],
+          "target_symbol": [
+            2,
+            1
+          ]
+        },
+        {
+          "H": "5131971812058517034534246311395196276787537152088108756301631729",
+          "H_bits": 212,
+          "H_prime": "12869091613268391967421282588326824703094625353844226392450738993",
+          "H_prime_bits": 213,
+          "H_prime_sha256": "f7054a5334d6c9081c3b2f473e0759cf6550bb61e5bbbc09763558f429e84342",
+          "H_sha256": "fba70216a74e58d6db5395188c34ec19d5d2d778a144c7b31061642cbe6648c2",
+          "Q": "2022588061648832433",
+          "Q_bits": 61,
+          "Q_prime": "803675352097185156283129121127943738699475813185",
+          "Q_prime_bits": 160,
+          "Q_prime_sha256": "0018f282107f1c2949b451ad27d0236d452a8ce829eefb025e081bfb002f2d94",
+          "Q_sha256": "c080141b11b72924a86717503cf1d4afa9cd2a3126d16935b34b3d2b559e4a07",
+          "coefficient_congruence_modulus_bits": 159,
+          "source_symbol": [
+            3,
+            0
+          ],
+          "target_symbol": [
+            2,
+            2
+          ]
+        },
+        {
+          "H": "518035163364273503628090232259213247201671462492802736791387040515347561560333865820651639025",
+          "H_bits": 308,
+          "H_prime": "1299041035370612331207975616005105198289002317766863477415754523103610577317456752472296378609",
+          "H_prime_bits": 310,
+          "H_prime_sha256": "4748de09576cc13cc497a7801acb0e3860185964a09231d1e37e3e9cae976ad7",
+          "H_sha256": "c2572d12c6b731ae8f08be18223a6cc77cb4ade84d4ede5578bee8669a32f124",
+          "Q": "204165528437422180549524469902005644628693929329",
+          "Q_bits": 158,
+          "Q_prime": "511971808488682340975626909987213742227511098563",
+          "Q_prime_bits": 159,
+          "Q_prime_sha256": "7573a32fdef21d6a219376fa1cd5a1d0f706793a74171783aafb934abe8c9a15",
+          "Q_sha256": "7bdff04f710b397a35f631e7251432f949efb56be2b7a10dbfd081710268a37e",
+          "coefficient_congruence_modulus_bits": 159,
+          "source_symbol": [
+            3,
+            0
+          ],
+          "target_symbol": [
+            3,
+            0
+          ]
+        },
+        {
+          "H": "2082478793189158817882256520957615674889199188828241777279942905619512399778576456169500823793",
+          "H_bits": 310,
+          "H_prime": "5222088381169445269745160394048783742071009176979030343048554136787671726366936746429034909937",
+          "H_prime_bits": 312,
+          "H_prime_sha256": "7a453a60b99eb1a3bc11cb556167dfaea20859eef3918393462c2863e8532565",
+          "H_sha256": "bdcbee5a77c656aa53137eaa962e73be1175d49a3174162ba5aacd5db4f4402f",
+          "Q": "820736531686396849166704008704187543546040470897",
+          "Q_bits": 160,
+          "Q_prime": "1029052185342358167042505149642038780166916832283",
+          "Q_prime_bits": 160,
+          "Q_prime_sha256": "9f0ef9cf2c034a58b652a2bc0d135d37ab48a874d5382002ad00f7aeead019fd",
+          "Q_sha256": "c08ac2398c812b215154450a3f320d9ef5650a2f64ac87efdd7723d4a9b9909b",
+          "coefficient_congruence_modulus_bits": 159,
+          "source_symbol": [
+            3,
+            0
+          ],
+          "target_symbol": [
+            3,
+            1
+          ]
+        },
+        {
+          "H": "1039516373305901941712812328492014056430847371271282416954238995550069174299748062603601367281",
+          "H_bits": 309,
+          "H_prime": "2606723483970223310720370542019664712883004604170919099293354394331630960333950083791209222385",
+          "H_prime_bits": 311,
+          "H_prime_sha256": "5e5ac51a281d48a141a38bc505f96e8f94bd6d10fe1d87783d22e7cc691c339f",
+          "H_sha256": "56ebe6c76e65ae3995ea6b77e88d477d5726ea4ad240cf0d65e68a8156201dfc",
+          "Q": "409689196187080403421917649502732944267809443185",
+          "Q_bits": 159,
+          "Q_prime": "256837332305173418003022009938208753732404655141",
+          "Q_prime_bits": 158,
+          "Q_prime_sha256": "6d3660818e379e9346295be8b9b60e2e845e4d2c05d80841894bf3ebfef22bb0",
+          "Q_sha256": "798aaeeaeded9d700516bc865973558d3b1a1d7de9a380f2f204db14833df2fa",
+          "coefficient_congruence_modulus_bits": 159,
+          "source_symbol": [
+            3,
+            0
+          ],
+          "target_symbol": [
+            3,
+            2
+          ]
+        },
+        {
+          "H": "6336115065718492356831324516278764255041625560431253401628487710087634574912935892655290119922530451523311044178765560297892847519249430325920567482347514282914171387916813312839921",
+          "H_bits": 601,
+          "H_prime": "15888638566047447375365057968520165033991929092527309060819689609894742354718071810654360310443979116764877748329513830996794841210946118868924748424637730292781329029664056298323825",
+          "H_prime_bits": 602,
+          "H_prime_sha256": "1878f1890c5ca491b69de97967f3608a8553677a38456a660c835860fe990a06",
+          "H_sha256": "d820005c629461a766c2c3ccb0df4921d5d16d120ffc503cf91fb3992d53a20c",
+          "Q": "2497159212574685831073525941224712765822515559263759340604027631396626896206250847593562432027556419563153219562199586630662226220579825",
+          "Q_bits": 450,
+          "Q_prime": "393478614483588058017972981212417747638937182861",
+          "Q_prime_bits": 159,
+          "Q_prime_sha256": "80794683f309c3ef2df871dd1bbeeeeca269c7ace0df204a759722c96be60095",
+          "Q_sha256": "7c729fb370b6008f654d6d2819bb4454e050580d98f4ede2bf8591201848de26",
+          "coefficient_congruence_modulus_bits": 159,
+          "source_symbol": [
+            3,
+            0
+          ],
+          "target_symbol": [
+            4,
+            0
+          ]
+        },
+        {
+          "H": "14635146203480478273856140243661086557066518024916127201619802369468940197738752185454704217816738040099706817401367138662683149670072980941694317150575441657036534994719832360210673",
+          "H_bits": 602,
+          "H_prime": "36699546327130103384625754648257876286214570701014538285331743371715545326773562101146933464835698927981705291108561769646430036768373256769143244073000319267846581986317779557826417",
+          "H_prime_bits": 604,
+          "H_prime_sha256": "63c8828e30c2a675b7751f0bd9aa499e9431e9f74a8721a5d59ca7e3a3e3dfc2",
+          "H_sha256": "ba71eb3379f94184f3b62b158480325c05916ab7cb328cb269059abcd34042a3",
+          "Q": "5767933471904916838545483076720733170413901682356690611870733527709503692716541502561422160239492464586584566790397387331567933549345777",
+          "Q_bits": 451,
+          "Q_prime": "454428067607799694527217055489019510170522352431",
+          "Q_prime_bits": 159,
+          "Q_prime_sha256": "4a86b2767b3ac1bb4e57211aee05515a393923876f00a28178f2eac513becd5f",
+          "Q_sha256": "b4b2e6e4bfe4eddb1784d935fdfd7083d6a7ef30524428d9a3693e3ae3d51ab2",
+          "coefficient_congruence_modulus_bits": 159,
+          "source_symbol": [
+            3,
+            0
+          ],
+          "target_symbol": [
+            4,
+            1
+          ]
+        },
+        {
+          "H": "64429333030052393776005034607955020369215872811825370001567690325756773934693649942251188805181983571558081456736976608851424962575014284636336815159943005901770716635537946644435185",
+          "H_bits": 604,
+          "H_prime": "161564992893626039440189934726684143799550420351937913632404065942640363159106503844102372391186017795282670547782849401544241210112936084170454217963175853118238099726240119114841969",
+          "H_prime_bits": 606,
+          "H_prime_sha256": "bb2604de3f6c6bd2b1d2ce75f2969ad796888dff25f6d1e59ec6853c716521cc",
+          "H_sha256": "0bb0a33ef858a89393af9c63540ef29d9191df24753081f39f136f6f8705f87b",
+          "Q": "25392579027886302883377225889696855597962218420914278239470968905586764471778285432368580529511108734727172650159584191537002177521941489",
+          "Q_bits": 454,
+          "Q_prime": "1000280314901916843818300222392941664138422459217",
+          "Q_prime_bits": 160,
+          "Q_prime_sha256": "439c39d15246ae051571024ebe649925ded754a17d78ea677d444a1d512de368",
+          "Q_sha256": "a6ea71d6885305b8853a6a85961ae26be80c076e28e46bc76030be2fe35cfe91",
+          "coefficient_congruence_modulus_bits": 159,
+          "source_symbol": [
+            3,
+            0
+          ],
+          "target_symbol": [
+            4,
+            2
+          ]
+        },
+        {
+          "H": "2507145342860563555158959106176047237312393731594584906131689713",
+          "H_bits": 211,
+          "H_prime": "9430493079455330771366901643858476163986298928290688730082913073",
+          "H_prime_bits": 213,
+          "H_prime_sha256": "a817edf83a815473dc28dd62dbbf5262d6e1d0ae1ec3b8cde93a3afa22b912cf",
+          "H_sha256": "19f0e2abb11eeea7f8c522b019211398a4f01eab60a98593fa952dd2fb669fe1",
+          "Q": "494052035454790971",
+          "Q_bits": 59,
+          "Q_prime": "2355738873835388406738414601569072833627724049405",
+          "Q_prime_bits": 161,
+          "Q_prime_sha256": "6cc74a1c8fc89c9711ef1c7caf3d441f9761e730ad86ee1546b6b97f79da8007",
+          "Q_sha256": "24becb90f9ac8130db9c11691b76d81fc9ed3770ceabe7bae43d8c315504edca",
+          "coefficient_congruence_modulus_bits": 161,
+          "source_symbol": [
+            3,
+            1
+          ],
+          "target_symbol": [
+            2,
+            0
+          ]
+        },
+        {
+          "H": "861640785539357513003989923618696732329657865961005042783080689",
+          "H_bits": 210,
+          "H_prime": "3241015718591820618469015943815448793591311362294320937820826417",
+          "H_prime_bits": 211,
+          "H_prime_sha256": "5cbac66cb9055259fe6c8cda63c4085e35943751f8864ffebe63896a8ea81ee4",
+          "H_sha256": "9fa31ac443d816915b7b67771858754a29253c950f95f5cb5511bcc9a5ab3e5b",
+          "Q": "169792862284115259",
+          "Q_bits": 58,
+          "Q_prime": "404803155819677206814515606136104507760700741701",
+          "Q_prime_bits": 159,
+          "Q_prime_sha256": "978ae230757b5b6623a4cd5826e2ca67cafd1e1a255ac56755a7182ba0e46050",
+          "Q_sha256": "0677021f561ff9a3a6d13ad1c38bcb3ab1e183067c0665ab0f1714ec2f52cd32",
+          "coefficient_congruence_modulus_bits": 161,
+          "source_symbol": [
+            3,
+            1
+          ],
+          "target_symbol": [
+            2,
+            1
+          ]
+        },
+        {
+          "H": "10734668129466593765933805018962799762226073059762484222874734833",
+          "H_bits": 213,
+          "H_prime": "40377879883772881535856330144073613015961236758272527691393346353",
+          "H_prime_bits": 215,
+          "H_prime_sha256": "7cab01a7aa609fa21519f97773a4693c877dbeac9da3043c7f0825e9c84b2bd9",
+          "H_sha256": "68ccf4b7ce13be628ada0cabc3b8e57812c162ecf0d0e0688dec00949d420a9e",
+          "Q": "2115347901308169531",
+          "Q_bits": 61,
+          "Q_prime": "2521600421203889593071332887013347981039834219855",
+          "Q_prime_bits": 161,
+          "Q_prime_sha256": "0ec21ff6f119b6700b81ea722bb35734d115f05fe0f542511645f31ea2156b66",
+          "Q_sha256": "97b85a31b333c2e155860672d1eafa04f3b674ba697a8c14ffcdc33230c26886",
+          "coefficient_congruence_modulus_bits": 161,
+          "source_symbol": [
+            3,
+            1
+          ],
+          "target_symbol": [
+            2,
+            2
+          ]
+        },
+        {
+          "H": "1967742762061248587571195565341522460180772691194916385034241887118254502896176801753402298609",
+          "H_bits": 310,
+          "H_prime": "7401559128835463568932485270739716266394346320985789712844553922167705698061092298627222982897",
+          "H_prime_bits": 312,
+          "H_prime_sha256": "6414d27ea73b871854391c6684526defc29efbaace163ec327439a168a6f0df6",
+          "H_sha256": "fb2fa8ecebae87aba51ebe047196c3904be5928f17d1171acc4c043ee5fe57ce",
+          "Q": "387758659311942406873564213790688792092633220219",
+          "Q_bits": 159,
+          "Q_prime": "2917066905238068552479112182226779681504012867901",
+          "Q_prime_bits": 161,
+          "Q_prime_sha256": "9e44ea8791076a42e5798752ffafd1bad964d93752b3cf28ce4e23751fe5e338",
+          "Q_sha256": "e9a39ef199702c8c2033931700684093304c424cc296e516067db0a67cfa451a",
+          "coefficient_congruence_modulus_bits": 161,
+          "source_symbol": [
+            3,
+            1
+          ],
+          "target_symbol": [
+            3,
+            0
+          ]
+        },
+        {
+          "H": "924780342177991711401751372875920841722420873637957024708537977048811277417348408187502842097",
+          "H_bits": 309,
+          "H_prime": "3478511783036630630395300492696037722612339461773622847211754308483644549011612304670484451569",
+          "H_prime_bits": 311,
+          "H_prime_sha256": "caade2a40095b2eec35cd2f5de4530b645e7cdba585f8d8a02bd89ba46a97198",
+          "H_sha256": "9bdfa5b72236626146d161718d6db4c5afe1b01a60e3b3b04805acd93a5fe6d6",
+          "Q": "182234991562284184001171034189961492453517706363",
+          "Q_bits": 157,
+          "Q_prime": "685467171521017279684864396464957931698845150949",
+          "Q_prime_bits": 159,
+          "Q_prime_sha256": "7d2460e871b487f288df3099efe4f779c17893677fc59c53af3abe552781260f",
+          "Q_sha256": "a97ec963e1f41e8b19479aebd2810ccc53f4fdf44fa184083c3eb6915a7a7862",
+          "coefficient_congruence_modulus_bits": 161,
+          "source_symbol": [
+            3,
+            1
+          ],
+          "target_symbol": [
+            3,
+            1
+          ]
+        },
+        {
+          "H": "7182554861477532968418416527669530552472531778979713186662761437465470630290318769582899581169",
+          "H_bits": 312,
+          "H_prime": "27016795857829628261618409160958108985304380617046624041008551990588011443308492268410915639537",
+          "H_prime_bits": 314,
+          "H_prime_sha256": "ebf0d61a9aac90dfc20bd8e151fe48489fd083395ebd6aba5f00e3a08651b556",
+          "H_sha256": "66dcab8265f64bba1c76bbfbc868cca438ae049fe6ff20f3365215fd29db6f4b",
+          "Q": "1415376998060233521235530111794325290288210789499",
+          "Q_bits": 160,
+          "Q_prime": "2661932429054559629506507282177774693008906424479",
+          "Q_prime_bits": 161,
+          "Q_prime_sha256": "906a5ddc8d352d27bc92fc13d4e5f610cd5eb02c5f48f8ae74ff324471375274",
+          "Q_sha256": "1e12d39b7f0d773e1f5f1bdb04012797bf42634c90b77ad995a989c2cd253bc7",
+          "coefficient_congruence_modulus_bits": 161,
+          "source_symbol": [
+            3,
+            1
+          ],
+          "target_symbol": [
+            3,
+            2
+          ]
+        },
+        {
+          "H": "11600993277378537941909608101859018216272099230940723423300160392841805825787127299814117055854315935305670272317045109856186611369120554097968155804434278298940437463603996263829745",
+          "H_bits": 602,
+          "H_prime": "43636515580824322054379320208170446703622117903843614693502427958989146317458725531311124516299605531720647805368244415862975101954182302735882742622454515592868332971869020644327281",
+          "H_prime_bits": 604,
+          "H_prime_sha256": "d49377dbbf3feb3673ed158f997a72a163efbbfca6596ca5625e8936eba9e03f",
+          "H_sha256": "4a6b584f732f64585f9766b0a6e41c90bfa04a06c8157d333425e14050f817f5",
+          "Q": "2286063852782775724789822929517579990648121241129222567430989608826820874962212795850236245436712604309242783066598884743956611997422587",
+          "Q_bits": 450,
+          "Q_prime": "1080648642126269832733254487566579444575080545529",
+          "Q_prime_bits": 160,
+          "Q_prime_sha256": "54ab42f61736d7744c55c9d9840bc0c129b394cb0943175c187ab3a69d79f625",
+          "Q_sha256": "cf3aeacd78d18d373abfa11f4e0ac013afff6d7ba37e3e5ea8946123a87d9c18",
+          "coefficient_congruence_modulus_bits": 161,
+          "source_symbol": [
+            3,
+            1
+          ],
+          "target_symbol": [
+            4,
+            0
+          ]
+        },
+        {
+          "H": "61395180103950453444058502466152952028421454017849966223248048349129639562742025056610601643219561466764044911652654580044928424274061857792610653813801842543674619104422110548054257",
+          "H_bits": 604,
+          "H_prime": "230934685430568226137725590325809847973625892380228677714110911815376373065958138145744282905825083832672095690379675863709691861971026543837849203457717816368455609581752529979850609",
+          "H_prime_bits": 606,
+          "H_prime_sha256": "5241a136e498bc1b611a30b74a6d39b504849bcaf0d97003955ae0959f0d7981",
+          "H_sha256": "9c99a10e49e5d850ba112e00bd094c6ff1aff58e3880859e50f95c40b780a851",
+          "Q": "12098386630773468747205694336005641204422279610408016381231107297765451264493084760753815430072520739379536824751192286846673733983720443",
+          "Q_bits": 453,
+          "Q_prime": "2859523164357185906030702327728585449447024121769",
+          "Q_prime_bits": 161,
+          "Q_prime_sha256": "26f2cbd9f6551403b1a77a1c5ef50faf613620f018413f40486854d09ff2fd8b",
+          "Q_sha256": "1772736cfc8379d4d97da1e56a5616f42c7a8c6ee7873e4a238b9affdabc113d",
+          "coefficient_congruence_modulus_bits": 161,
+          "source_symbol": [
+            3,
+            1
+          ],
+          "target_symbol": [
+            4,
+            1
+          ]
+        },
+        {
+          "H": "28199055552902509775959239556623662820321884159910471023282789711604417071438759885412945251642731112458461818762248266585767215670767655329515655140890133047185164677210034358571249",
+          "H_bits": 603,
+          "H_prime": "106069238864072290082161410247383580460290042729305302367038589244451555233625196402788843979474764965371130433705388231811880688626463716436538229567542282518064091841830190422835057",
+          "H_prime_bits": 605,
+          "H_prime_sha256": "e897cd1de13dcf95d8426b880678a36c6120d6cc5bbdf9b808004213eaf12a63",
+          "H_sha256": "cfada81a6762c30bbb86401e413ea4fdfa15c757837ee633973667556ab3f77a",
+          "Q": "5556838112113006732261780065013600395239507364222153838697695505139697671472503450818095973648648649332674130294796685444862319326188539",
+          "Q_bits": 451,
+          "Q_prime": "656695301080575956460659469215860815670350777883",
+          "Q_prime_bits": 159,
+          "Q_prime_sha256": "f4c3e9dae22186a3b81174d509e8bf5c2ed23ea19caa2674ea3241ff05c6ae6e",
+          "Q_sha256": "34308788f75c8039f8cd228ed1672bc290a4d5b7f84a1b249417a3761b923070",
+          "coefficient_congruence_modulus_bits": 161,
+          "source_symbol": [
+            3,
+            1
+          ],
+          "target_symbol": [
+            4,
+            2
+          ]
+        },
+        {
+          "H": "4596771663811408667270362395330432389288681804410588687165149425",
+          "H_bits": 212,
+          "H_prime": "25935766041758024512427930177306549151706265770947669509448477489",
+          "H_prime_bits": 214,
+          "H_prime_sha256": "b4c99a55da2ecdde283033a8e847687950fedaae8d417847df976c806dc7efe2",
+          "H_sha256": "e0ccc60686ec7ea53ecf96aff3417386675cb91b01dc3dcd39ec1afc0d7bb3b4",
+          "Q": "452914387969975401",
+          "Q_bits": 59,
+          "Q_prime": "6478759039691479055030103639694043015244584225413",
+          "Q_prime_bits": 163,
+          "Q_prime_sha256": "ea722d7be3ea417c1164f5a94d4de8d1aa9e2ad56874061e1fc909ce75f4887b",
+          "Q_sha256": "68c9198a07f46379ca8e719f49dae18fe1ad9af832771c9e54ec34c0786588ad",
+          "coefficient_congruence_modulus_bits": 162,
+          "source_symbol": [
+            3,
+            2
+          ],
+          "target_symbol": [
+            2,
+            0
+          ]
+        },
+        {
+          "H": "7887780778453820751580300760445133399254153535677748413862367473",
+          "H_bits": 213,
+          "H_prime": "44504198124348554971121587277435631262891228468936772886234737457",
+          "H_prime_bits": 215,
+          "H_prime_sha256": "8489b5e14404418099ad36818724f087f403c717f59c95e1c8604f91f0ff122b",
+          "H_sha256": "c3b03cdd65077e2ed062180342dc7fdf0bbe5e314d832c415c31c5214327aa1f",
+          "Q": "777173561140651113",
+          "Q_bits": 60,
+          "Q_prime": "5558578363139790517179126903792317234781775961711",
+          "Q_prime_bits": 162,
+          "Q_prime_sha256": "4e07c435355877851e8439dd833ed76089d21e887fadb8f031a269faf6d966d2",
+          "Q_sha256": "115e9c656a6f7e5b0001bf3fe694226c05687a0946efc50440bfa6f62be6866e",
+          "coefficient_congruence_modulus_bits": 162,
+          "source_symbol": [
+            3,
+            2
+          ],
+          "target_symbol": [
+            2,
+            1
+          ]
+        },
+        {
+          "H": "1305762549168996582960424030215731379323210073143428960467931377",
+          "H_bits": 210,
+          "H_prime": "7367333959167494053734273077177467040521303072958566132662217521",
+          "H_prime_bits": 213,
+          "H_prime_sha256": "1b38346aa4f5a46ac338de9425b6e3a8be963f8fb78971e8f2938fcdc7ac8081",
+          "H_sha256": "65a61eeb5df21f6e9209de96b31fe4aa03ed7b1106d577c0da8b136066105540",
+          "Q": "128655214799299689",
+          "Q_bits": 57,
+          "Q_prime": "460090338275844268925488367950862890231404131851",
+          "Q_prime_bits": 159,
+          "Q_prime_sha256": "d60eaf68626b43ed6748121659bf0f23b6f82c41b11ba7d0f54e54f958ff801d",
+          "Q_sha256": "20ccc90fd53515f6f1514a19f9741e13ae7046a41afc109542d49b4f8b9b16cb",
+          "coefficient_congruence_modulus_bits": 162,
+          "source_symbol": [
+            3,
+            2
+          ],
+          "target_symbol": [
+            2,
+            2
+          ]
+        },
+        {
+          "H": "3629522774448069894312895249040129681139074722034298390746614391566487947439291021419169042673",
+          "H_bits": 311,
+          "H_prime": "20478383614831573364056434530885311412334369185026345931620552634447909528226025611816351420657",
+          "H_prime_bits": 314,
+          "H_prime_sha256": "a37c9d6d3bb3ada19845734b6cb7fde5a4f3521ffd3eb2584e12f294521bf108",
+          "H_sha256": "488d727db828654ee970587e545482dfb7d80b40c6a6c25b4ad40e18383bc017",
+          "Q": "357612517270267716593847159708815485852117199913",
+          "Q_bits": 158,
+          "Q_prime": "8070842112558181862843723479882992408525088087911",
+          "Q_prime_bits": 163,
+          "Q_prime_sha256": "0e8f020ffb1fd2897e5dd00e92c51cef55bc2900db9ea3a12a00f35a16271ad3",
+          "Q_sha256": "e56cce31f8ef9898de534d7e3cf2b276e154bc77ded7f43fe560e27c420fb0d7",
+          "coefficient_congruence_modulus_bits": 162,
+          "source_symbol": [
+            3,
+            2
+          ],
+          "target_symbol": [
+            3,
+            0
+          ]
+        },
+        {
+          "H": "1543597934681556141974006864108926444222371086920379670095206571427601496481634234287370129649",
+          "H_bits": 310,
+          "H_prime": "8709241577435074548444880196754275780988348607389845334722153793395726081077585629946135826673",
+          "H_prime_bits": 313,
+          "H_prime_sha256": "29bf9c4a2c8a5f14874f02fb53597a20ed97a9ffbfa82aa26f7bb6b15196b749",
+          "H_sha256": "e10c0ec934d4a4c894bfff32296ee7094da723c8eb583684139c0a1ec1f65718",
+          "Q": "152088849520609493721453980108088186213001686057",
+          "Q_bits": 157,
+          "Q_prime": "1716222212985039941757786655996200477103060194951",
+          "Q_prime_bits": 161,
+          "Q_prime_sha256": "66720ee572cc6604ed823d3dfc09618173e1d4a1313c19dc5d404da6ad56c992",
+          "Q_sha256": "2a077545ba302fb8cdc7f131c491a0003348f4b79944b97490c1cc1c8d9b6108",
+          "coefficient_congruence_modulus_bits": 162,
+          "source_symbol": [
+            3,
+            2
+          ],
+          "target_symbol": [
+            3,
+            1
+          ]
+        },
+        {
+          "H": "14059146973280638656007337173696145865722592897603891994003653492260920202227574957078163607793",
+          "H_bits": 313,
+          "H_prime": "79324093801814067442114206201540489569064472073208848916112546839708826763968225521167429390577",
+          "H_prime_bits": 316,
+          "H_prime_sha256": "73ed07ae83245944fa8903b987dd406b0c8e5a5c594b2912b232a32a29488cb3",
+          "H_sha256": "a877d231c4ea039daeff0bb8d33c4741004f241020ed2a13b7548420c731f4b1",
+          "Q": "1385230856018558830955813057712451984047694769193",
+          "Q_bits": 160,
+          "Q_prime": "7815707636374672939871118579833987420029981644489",
+          "Q_prime_bits": 163,
+          "Q_prime_sha256": "9e9cf2648784eab2bdb268fcf64cec0f21c53a31ef16a6d99da3f784e271fded",
+          "Q_sha256": "cd65e1f1ffafb3ef7539afd7cc0390a13e16bfd046cccee66b06267dd8254e06",
+          "coefficient_congruence_modulus_bits": 162,
+          "source_symbol": [
+            3,
+            2
+          ],
+          "target_symbol": [
+            3,
+            2
+          ]
+        },
+        {
+          "H": "59372411486549159889427481038284906467891841488533030371034953698044883314774275132850210201911280063568020548263106560840597398740093573230126546249707733638277220750344886483800305",
+          "H_bits": 604,
+          "H_prime": "334989224235981506184029073724498404234739100422664823836671180624480387926235589598207148677783682888756233404274915556957867839758162233338941681699530761243781874365021146277363569",
+          "H_prime_bits": 607,
+          "H_prime_sha256": "a17d7cc7e3f572b478e5c160a61a0bb0641f10f711bf16e4fa4e8a5e3958043d",
+          "H_sha256": "800c148adcfc2d681957b93078320665048a94e32e482edc24b107bfd1f0cb81",
+          "Q": "5849892354330173475441874298388558404024863271854300611114094597206748641781189728566749436808582493695085245599396207116061082066110121",
+          "Q_bits": 452,
+          "Q_prime": "8295933932374428467243710304285277262404585853543",
+          "Q_prime_bits": 163,
+          "Q_prime_sha256": "ad32c20c8af4c4eba2e128daf86d4763c0cf14e8fcf4f2b1971bf72a95e0a585",
+          "Q_sha256": "90f976a6b7e987b46161361cb08f087300a6805ddcab688d6532e1bd1b6a2a6b",
+          "coefficient_congruence_modulus_bits": 162,
+          "source_symbol": [
+            3,
+            2
+          ],
+          "target_symbol": [
+            4,
+            0
+          ]
+        },
+        {
+          "H": "26176286935501216221328218128755617259792271630593535171069695060519660823471009961652553810334449709262437455372700247381436190136799370767031547576796024141787766323132810294317297",
+          "H_bits": 603,
+          "H_prime": "147691054386237602100682803606859002964735325946279760816062696768093161177736176983773990288258204587804785519263484109111151079741317992236975220864267460468194597755137636941840241",
+          "H_prime_bits": 606,
+          "H_prime_sha256": "8425853e954b2543f641824fd66336395a9b9c0bc51ab036c336723a21b86eec",
+          "H_sha256": "8585af7ae387e77fb377d02a3135dd31bb929b483579269a62ad8d66ac530cc5",
+          "Q": "2579118094999942467969917162892537999433477148761369339847388700893871845270899073598889708596646448671653898371198406415155374737344169",
+          "Q_bits": 450,
+          "Q_prime": "1828768122893163243957780068197342904042809077767",
+          "Q_prime_bits": 161,
+          "Q_prime_sha256": "dd266cff219b2e6f860aa84c6f22d90c82d20723a28b8b96eede42ee11e7e072",
+          "Q_sha256": "1b8cdaa5b8f5b35e9419847e564b3c9d790b96ebd626f180e60890babcc63cb0",
+          "coefficient_congruence_modulus_bits": 162,
+          "source_symbol": [
+            3,
+            2
+          ],
+          "target_symbol": [
+            4,
+            1
+          ]
+        },
+        {
+          "H": "225353034241788878229923795585931352508389690778230506370861246885670995771290600988838492159795431835095936012715138128136403441756564585545601539614266281120724492886405267431215345",
+          "H_bits": 606,
+          "H_prime": "1271480073484701026600760424312695410584757972804590138939713599906416521668732652670372940625411074393513472829332072796191451639842383438848773985875847265121718257414438692954980209",
+          "H_prime_bits": 609,
+          "H_prime_sha256": "4032d5cf71e139a3fe8dd5f17babc5eb6ce8dd30a32fb66ac8c29dc30bcc5883",
+          "H_sha256": "1cb0e1360a4958c2d7812b953f348fbf7cad96c2ce430108bc0008193b81dac2",
+          "Q": "22203763650981328512801659975868660426981793887318956967447624078771132624332643003406048077868262718812241981740385210620589618709939881",
+          "Q_bits": 453,
+          "Q_prime": "7871980591328734590971115285934558633499856085897",
+          "Q_prime_bits": 163,
+          "Q_prime_sha256": "c7831aa806da5ad809c732ecaeeb5609fb0202d57f99a9784388def848e6a3a2",
+          "Q_sha256": "a9038e303d10a3be27f476cb7f81e0086d72d6dae7b4aeb94227e145bc0a33f4",
+          "coefficient_congruence_modulus_bits": 162,
+          "source_symbol": [
+            3,
+            2
+          ],
+          "target_symbol": [
+            4,
+            2
+          ]
+        },
+        {
+          "H": "11091702633248061868998777521944858097448019849661041289000275153976744913409707103811050205166926060416731022810671354161285990769254349084252082421617",
+          "H_bits": 502,
+          "H_prime": "32352305993658530131890248854180715348740815294741780941349607796932965275719334140469136828437059330521991762040618766366335405240061428408017629293361",
+          "H_prime_bits": 504,
+          "H_prime_sha256": "998f21fb94e79b3bb1bdfd5af44b6476e62c1868657194d8c0e21f8ef32d2472",
+          "H_sha256": "9a6f3c347886833cb110dafee77c9ef20a883da637a3b01eae846ec44d32849b",
+          "Q": "274683558710978587",
+          "Q_bits": 58,
+          "Q_prime": "8081611878122584613132535205293939199429823984429544738498820415706266547847092176055156838463775891687133230933003627463523905948299199",
+          "Q_prime_bits": 452,
+          "Q_prime_sha256": "f41ce48cd1f4dd4e7659082fb0155ad47d71e4caf41a76205a1fd2d8c18c4bb6",
+          "Q_sha256": "cf8ba85d1447f87e080d0951abd33b81bf5d2266f42ee7ccfb77bf4652216b52",
+          "coefficient_congruence_modulus_bits": 452,
+          "source_symbol": [
+            4,
+            0
+          ],
+          "target_symbol": [
+            2,
+            0
+          ]
+        },
+        {
+          "H": "24185265064832629349051536309255254706314588033833300446933440626361280099028405323344130574470542689020277759320911638198155016952795921297566192779121",
+          "H_bits": 503,
+          "H_prime": "70543641656039855556505821693725423317466438590702597965655169439302534901257086891731049783400910292612406589088819479042651440227848977176694801378097",
+          "H_prime_bits": 505,
+          "H_prime_sha256": "5637342e7c7af76f63cfc05ddb77f984ca9bcecdef0b1af0d9eef6ada7110b00",
+          "H_sha256": "0d295e2d1ba74185b62cb77a683df229ad191110fff99a89ca08c1847f217956",
+          "Q": "598942731881654299",
+          "Q_bits": 60,
+          "Q_prime": "8810907210837197467542153340218769178820961520075585616958109904574597744266098192999762229318919013375417105562994670045260700048254121",
+          "Q_prime_bits": 452,
+          "Q_prime_sha256": "365148ee166d5ee6ccd84489f77853258c835b2fc003c02669a4c4c29693a0c0",
+          "Q_sha256": "54873254c67e74d0b32ddf12ae78d88fe6ecce64265139c719c7251d1e20b10c",
+          "coefficient_congruence_modulus_bits": 452,
+          "source_symbol": [
+            4,
+            0
+          ],
+          "target_symbol": [
+            2,
+            1
+          ]
+        },
+        {
+          "H": "102746639654340034229368089033117634359513997138866855394532433460668491212740594640542612790292242460641558178382353342419369174054045354577450854924145",
+          "H_bits": 505,
+          "H_prime": "299691655630327808104199258730993671129820178366467500111488539293519952654483603399302527513184016065154895551378023755100547650154574269788757833886513",
+          "H_prime_bits": 507,
+          "H_prime_sha256": "ff39b083b6ea2f5e8929d0976a499cc339f089032143c91c211d7a33bb291ab8",
+          "H_sha256": "b7cf4f5e1c5e87bbbd84914b0431c74076d59fe937d0b863f78a0aa4c08c5245",
+          "Q": "2544497770905708571",
+          "Q_bits": 62,
+          "Q_prime": "18715757420746314216698733882824783326728629343620232551605154042451692283160705411416432544920552709283260023070975903963126591246440625",
+          "Q_prime_bits": 453,
+          "Q_prime_sha256": "8c55b0165fbb0f6a213472022a6dc227f00c3df10e3e3a5c032a8c7feb5dcd5f",
+          "Q_sha256": "a45cfd5ece3e16cb4567e2668e42ece8641d809991124093632525333596b19f",
+          "coefficient_congruence_modulus_bits": 452,
+          "source_symbol": [
+            4,
+            0
+          ],
+          "target_symbol": [
+            2,
+            2
+          ]
+        },
+        {
+          "H": "5247870635001215359625250441008328483332725721027886613711653982132749530521472125608068946144403238602042502387462875771921818039386879052821778828811854043979515656500788895039345",
+          "H_bits": 601,
+          "H_prime": "15307002199082245501147056851766423315990960374010221361697254933649611145700752358535184016525905918747544914021198177843827105563643649415787978778752807323458990000698060145283313",
+          "H_prime_bits": 602,
+          "H_prime_sha256": "5523cbe1c1d45bec8b81167bc7b12525279788246f9c691fb88e3c5158fee3c1",
+          "H_sha256": "d0e55eb9a53b2a5431cc317285ef4397795c8789d272f782691ca83a14ea5752",
+          "Q": "129962353782906191419457803226215099063923214171",
+          "Q_bits": 157,
+          "Q_prime": "6032722127341091751381730342494461007296445955405972257883256077429930753336721836481704586517067375991590949610101721175532081577676167",
+          "Q_prime_bits": 452,
+          "Q_prime_sha256": "803ee436518f0aef5e0a72cabab606244b4ed303fa687823132485bb25ed63b7",
+          "Q_sha256": "c4ffdf8ecf7f2887044e90cdd39f5dc83dd0cf293ea31d7d5098f293470ea6f6",
+          "coefficient_congruence_modulus_bits": 452,
+          "source_symbol": [
+            4,
+            0
+          ],
+          "target_symbol": [
+            3,
+            0
+          ]
+        },
+        {
+          "H": "13546901772763201276650066168390650785357618185512760413702968641514055153347288418407483044038610827178438275610064454136712120190210429668595528497039781418101879263303807942410097",
+          "H_bits": 602,
+          "H_prime": "39513636987049980643094143179633513369706407724454794157729159854240544576617598989676189282936164347488338056583079002464996895785711925846205200332689487461847535923189819886653681",
+          "H_prime_bits": 604,
+          "H_prime_sha256": "0210d55a806afce231cbb3a35f6eeae7016d247f0e29231a8a36f447abac3f32",
+          "H_sha256": "bb07ca013a5dace448b67f0082a5fe8cb6a065db4c1423a242b9ff11fe22afe4",
+          "Q": "335486021532564414291850982826942398703038728027",
+          "Q_bits": 158,
+          "Q_prime": "7786462335446451036666750908819030082754272505563799376650327735436429847010913023213036103345564755527645964901543716901264787862942605",
+          "Q_prime_bits": 452,
+          "Q_prime_sha256": "01ec37d7c4fbcc99177dc7c14f57ee7456aeee62dad9e5f8395b1790444a8538",
+          "Q_sha256": "b5de98d160bbabd96728395ee57db4c11687e122d0968a387c4d7590631cb23c",
+          "coefficient_congruence_modulus_bits": 452,
+          "source_symbol": [
+            4,
+            0
+          ],
+          "target_symbol": [
+            3,
+            1
+          ]
+        },
+        {
+          "H": "63341088599335116778798960532684584597506972972422003213650856597801888890302186175203967631403856358636812914945673924325453933095151733363238026506407345662836060904121922226634609",
+          "H_bits": 604,
+          "H_prime": "184753445714856391494776661146836053691999091827122230933920589377786145162118678776522220881397714919933096911954363950192015637118121584428708529656309568292178811458140378334875889",
+          "H_prime_bits": 606,
+          "H_prime_sha256": "815623113d48500cd99bfb066991beb9dd20e5ba70ec7c1fe2c95aebd17288b3",
+          "H_sha256": "6859e995c16a74f7c495458caa6a3d171e13b5f5de8faf5f2bfe076980b5553b",
+          "Q": "1568628028030513751526210060431306196537731811163",
+          "Q_bits": 161,
+          "Q_prime": "18203534983050941001261032667124913778695284836364339431451262957882608334533112826523069481933875580359374452740250427391128635153784867",
+          "Q_prime_bits": 453,
+          "Q_prime_sha256": "d0b4abc137363d60d795d3522c95fdb0b3c8ce8a96700d8f51e4a83a9e88532a",
+          "Q_sha256": "65fb8d4e7f024b16190e7330c2a9310246fb1cd9a1e46c4cb9f0fa8eb847b7e4",
+          "coefficient_congruence_modulus_bits": 452,
+          "source_symbol": [
+            4,
+            0
+          ],
+          "target_symbol": [
+            3,
+            2
+          ]
+        },
+        {
+          "H": "161555347270835123368776699201738536982562419475196463270217447078128131372731683236984786440504539076034779906527882772228937200249692164492310503151161653484810153624137090445164092555872022899885305988542674707245127148807453009579761007996303782508517553085098639217",
+          "H_bits": 895,
+          "H_prime": "471225041153781485046487350631702679898120755800634990332685419951469253798994984854357488704888077142782089843642837802842050870441097322372525973841781025896539158934218910035920112557393407743943459729689703722736221495220715053813144394865538678476369487603175931761",
+          "H_prime_bits": 896,
+          "H_prime_sha256": "5e65bdca9271da91a6cbc7c1edbf26e8ecca07beed5ce07d2b12b3dc733a2995",
+          "H_sha256": "edbd0a8a4dd7c68932c0a483d47943affaa0f44fb2449df1d6ff64e01bb5bb5d",
+          "Q": "4000882387895920386457717088105903383934474507081954235964887051038879467101726272963523900724051710670187356077455783699518758448711387",
+          "Q_bits": 451,
+          "Q_prime": "11669783759785476482432972970047128538491905197383309924685855482602865217056359755782855344358822881587096416970369026436506335549536719",
+          "Q_prime_bits": 453,
+          "Q_prime_sha256": "5909e459d84352d71c61eea03bc9828a0e9a613475fa829931fc4036521c0cfb",
+          "Q_sha256": "8c3878ea5732da659ea3ff4910081d13e512b008045cd435df3eb4b863175690",
+          "coefficient_congruence_modulus_bits": 452,
+          "source_symbol": [
+            4,
+            0
+          ],
+          "target_symbol": [
+            4,
+            0
+          ]
+        },
+        {
+          "H": "293628980054751434956861645430867688612274250984226843802207624334796607011912898105589100412418836049703378654842164941949524090125363548804945247766896547711906824623888361487346971974978633163141364215595471808282134221995343444289360232688062901630902198309533138801",
+          "H_bits": 896,
+          "H_prime": "856457743724720476791351537349577129331613026091931877196111123838152679032981893941017026801889671047881272720954334866755841512424486284009565084004282660744411470439289634833445256326832978045724510182923761048433720748844374476196107745602526457457531622896708239217",
+          "H_prime_bits": 897,
+          "H_prime_sha256": "6fa609f97b5fd68ca7e549000de392c998f553e3b52e22da5a6c5df03d6171d4",
+          "H_sha256": "7f457375fe5c615d1d447f40e1e35959fe36f15003385464b35130b13124cac5",
+          "Q": "7271656647226151393929674223601923788525860630174885507231592947351756263612016927931383628935987755693618703305653584400424465777477339",
+          "Q_bits": 452,
+          "Q_prime": "10604993151668643402192372222595363848352002126552468210051627438022897078870731982863611482266442508325398698581677369531751914848872881",
+          "Q_prime_bits": 452,
+          "Q_prime_sha256": "0909e42295e017f0d76604d96a913a1626a3e846c6fd4f94df10d6b13528c9c6",
+          "Q_sha256": "8f7fed4b81ff891c47f3b0d4063e3bf959fe8adec9bc0bf679898dd454201150",
+          "coefficient_congruence_modulus_bits": 452,
+          "source_symbol": [
+            4,
+            0
+          ],
+          "target_symbol": [
+            4,
+            1
+          ]
+        },
+        {
+          "H": "29481714486918811780691752972609385352850587966166082738227269821459655733550468368380472468590242102366181158213600602508350310374020780179675758535426759257713482624385819402981213136765412636629247761489877606208120075619562574870161783304544663386132907860664139633",
+          "H_bits": 892,
+          "H_prime": "85992338582842493301623163913828230464628485509338103469259716064785828565008075767697950607886483237682906966331340738928260228457708360735486863679279391048666847429148185238394968787953837442162409276455646397038722241597055631430181044128550899495207352309643624305",
+          "H_prime_bits": 894,
+          "H_prime_sha256": "aff915dc0c6658955ed6efa302932fdf67582886271761d1ea43f743e347caf5",
+          "H_sha256": "c8a45187c6ec06ed39faece3b7841f39040661b49f1a10eee8a805ad68f91031",
+          "Q": "730108128565689378985759952609882979343088383989022964698181154726002670591435617995664172512115665646756008849257982998613051119945435",
+          "Q_bits": 449,
+          "Q_prime": "532395304058416540120300373725882345069951535415420857317114022289984069092813886459621931046190186630848859194345828452377210350331919",
+          "Q_prime_bits": 448,
+          "Q_prime_sha256": "94a3ad54a3b418c779e979cd389349353af9a1077ad00d168f4954b087549add",
+          "Q_sha256": "6169b0032b651666e82c28ef26548ff63ef5914cc9144ac592dceb595760efdd",
+          "coefficient_congruence_modulus_bits": 452,
+          "source_symbol": [
+            4,
+            0
+          ],
+          "target_symbol": [
+            4,
+            2
+          ]
+        },
+        {
+          "H": "22912764637376713814950602836627412490288686636570779120587638810662464236339743366431758352248903748252166489742551151834159106532424373512135567097713",
+          "H_bits": 503,
+          "H_prime": "100248013837891997553429045013371307293141923376449900095670606272256644610008672364934759859483905485349395899015197811124230578551683737330110379666225",
+          "H_prime_bits": 505,
+          "H_prime_sha256": "30bf94b6cf20b42bf725fe6960e64ad6bed13d8e74a86f5672925b884cc816ae",
+          "H_sha256": "ac28771d6e760be095ed4beaca3ff9b651009fd18ad237e429f4e6694b9c9c8a",
+          "Q": "283714770338134025",
+          "Q_bits": 58,
+          "Q_prime": "25041971955548025185491240049993671036251333416823547397018641559604806886842832993734032607662108576244823862387200449911519451100670831",
+          "Q_prime_bits": 454,
+          "Q_prime_sha256": "7eba3f4b9be503f31ae6bef7d231fafa465bb0da8b13eb19016a5b61ae10cf68",
+          "Q_sha256": "943bca447c32cd7d3f193d53a2a6cfc2304ab18d0d60c6897279c8a2cab902f7",
+          "coefficient_congruence_modulus_bits": 454,
+          "source_symbol": [
+            4,
+            1
+          ],
+          "target_symbol": [
+            2,
+            0
+          ]
+        },
+        {
+          "H": "101474139226884118695267155560489792143488095741604334068186631644969675350051932683630240568070603519873446908803992856055373263633673806792020229242737",
+          "H_bits": 505,
+          "H_prime": "443970034799323926374969200569273679011672533040097253314420661053582771239848447126291976454158564144163129342449004225211074893441771676248204928428849",
+          "H_prime_bits": 508,
+          "H_prime_sha256": "05d3c92a77183a4ab33d4c85d4f59b3e35f9409fe61688db72a7fdfadaa7fe24",
+          "H_sha256": "6cdcaac8f348d3221aa1e5e30b9d83d47fc790833c7c9cd744d1cc2097d9322e",
+          "Q": "1256492289850161161",
+          "Q_bits": 61,
+          "Q_prime": "55451897423757159041528591663143031730080112459159092927887618050295583676504385441616670594614333895909066342062035931777248449217276109",
+          "Q_prime_bits": 455,
+          "Q_prime_sha256": "e60fd28aba519d52dc02da88508f45cec819ea548233cd55ef1e8d355d2436a2",
+          "Q_sha256": "ee2ee6ea9b6db4c6775595fb87e8442c052fa30b1345653f801b7ca2886ed0ed",
+          "coefficient_congruence_modulus_bits": 454,
+          "source_symbol": [
+            4,
+            1
+          ],
+          "target_symbol": [
+            2,
+            1
+          ]
+        },
+        {
+          "H": "153848388953222388615478190709731378578954368478293370699919293534507816092526725561762562045285070034287633854844953992202849368367840095645276670672753",
+          "H_bits": 506,
+          "H_prime": "673118048773611878922662637606541926824026272815862155460254030907800188993074963633863454183941669916705618304738208501268971103368496968860267960937265",
+          "H_prime_bits": 508,
+          "H_prime_sha256": "c600fd49cdeea50956c1d4685447cfd3d5aec1b631bfda79465c9bb8ecefc0a4",
+          "H_sha256": "d67221c93f3d6daf86dabfe63f0c33322b0a607f63ae28ac8670c3e673fe734e",
+          "Q": "1905010636191512585",
+          "Q_bits": 61,
+          "Q_prime": "42036252527206295003691953044286914602358204813161986207069908115312185249279849035724886727568260150550084641320496534829120465830951619",
+          "Q_prime_bits": 454,
+          "Q_prime_sha256": "4037cd537cd4bfcaa41ae2ff782c32d68af44ab35bf382fc326ebeec50c8655e",
+          "Q_sha256": "782a56f266cf3add52b5180f44ad9378cfcf6d6a543f1507fbb1a6284177358d",
+          "coefficient_congruence_modulus_bits": 454,
+          "source_symbol": [
+            4,
+            1
+          ],
+          "target_symbol": [
+            2,
+            2
+          ]
+        },
+        {
+          "H": "15793441368166715302009153223460844621517954131773959668387494742727470980089598147145252035050650438440466517476977588832822400397848136623180411603080363220784495391837779011190641",
+          "H_bits": 602,
+          "H_prime": "69099523950121656927696137580359956768691954486109272019545932534962796547738189316626306830770924649282640786380933343668648861612684263705604026676389874297655758717346415126106353",
+          "H_prime_bits": 605,
+          "H_prime_sha256": "1551d4859e2f01016d6a5fba2ef3cc25e7a6bbe6e604a16b9c827cb1379e1353",
+          "H_sha256": "221a1e3a886474316c68ea173284cd50ca432dafcf94bff7d913b6985dd9655e",
+          "Q": "195560538482937784452703104483351180902134044617",
+          "Q_bits": 158,
+          "Q_prime": "27233172224122892466830111398369125803323332745898475581033032507303106177081397858580299298014983231688704238927847749235526513018140707",
+          "Q_prime_bits": 454,
+          "Q_prime_sha256": "ce3e85bd138b7887f32275acece75e353cf0fb52eaa48b08f8cca64e22c9e311",
+          "Q_sha256": "d55831272f0b60a3e97a8c15aaac8b0574c7c29a0e7d5b0d2dd4784c25a11b13",
+          "coefficient_congruence_modulus_bits": 454,
+          "source_symbol": [
+            4,
+            1
+          ],
+          "target_symbol": [
+            3,
+            0
+          ]
+        },
+        {
+          "H": "65587628194738630804158047587754778433667308918683202468335382699015304717044495903941736622415895969898841156812587059021564213302789440317822909612447927465518677032655893295415153",
+          "H_bits": 604,
+          "H_prime": "286959237041831273205219914531163767252130980640110427183833076820281197425989808996895354228463250507949779069437860765259176973611298751579359020661819995543152672019772252798439665",
+          "H_prime_bits": 607,
+          "H_prime_sha256": "d46eae858043b73c1f2e2863490f8dd4d47334fb3ed0be04c938132d026007e0",
+          "H_sha256": "ed84f5ad6bdb5732405261833842637828dd4399fddd3d660d3c40ca5c1138b7",
+          "Q": "812131541731912453069882643285533079819480586185",
+          "Q_bits": 160,
+          "Q_prime": "56547497558044592682198027337330759113616112123696557019894813524144733321623667874039803939790771223631006530332359581439251980176011047",
+          "Q_prime_bits": 455,
+          "Q_prime_sha256": "e7a290371227c7b751a777396cd563d31ef75994ceac2061b465ff558a914e59",
+          "Q_sha256": "ef9decd276198ffe820fae759b0c200c1cb76fccdc69f61a3de228a02ea1932a",
+          "coefficient_congruence_modulus_bits": 454,
+          "source_symbol": [
+            4,
+            1
+          ],
+          "target_symbol": [
+            3,
+            1
+          ]
+        },
+        {
+          "H": "32391503643690687136058784678225489225567739060743707268370124061490082225741230732744080230839065615593258063922180745562403004699495237854727910939536217969029222605443817105932145",
+          "H_bits": 603,
+          "H_prime": "141719428314024862353537396563961226929838296537442990407641647296735596840488729210049322630001699935505020214066575817532158232278889092996855691338199914712821396484821694350217457",
+          "H_prime_bits": 606,
+          "H_prime_sha256": "79d05728822ecd3058b0421f4b7630530b897f7be0db472a349af63c4f049134",
+          "H_sha256": "4e3d83f290bf6e2d3a5b4978cef281a1906b29e7223d018f3d97b9bd095c8d6f",
+          "Q": "401084206232596007325096284084078480541249558473",
+          "Q_bits": 159,
+          "Q_prime": "13963444963694580858171356455949980819489907478265838766821307671907973249784177622103350539634292409219951794876701221779129748865691959",
+          "Q_prime_bits": 453,
+          "Q_prime_sha256": "d3b18aec0b15b6fb5952de647297b10817f8a9607068f21b02fdad08e31c7139",
+          "Q_sha256": "3da02d4c05992e7dd424dbec32e5d20bc42c22b506c29cad9574ae98dd29fad1",
+          "coefficient_congruence_modulus_bits": 454,
+          "source_symbol": [
+            4,
+            1
+          ],
+          "target_symbol": [
+            3,
+            2
+          ]
+        },
+        {
+          "H": "322934670124716664093100674804184308792349782850032336380425253581471084919746064906826517433085584081853495675678900198808396028111999995208056215548638707730327269971241613106259272609125454214118595177188563599112614810838613978843174054433706443781027067795488522097",
+          "H_bits": 896,
+          "H_prime": "1412904980771632353756155362608729111846657416512694047109948251674473182148740762621747470719780862244135647988182052847964650217511603673040843798683451688858004809279947348429870463993801246259408249726484066074441219670745215864082610363333731027096988040542921572209",
+          "H_prime_bits": 898,
+          "H_prime_sha256": "6f0942413eb669bd7a5730cbfa5c6f3412edb186353b38d9dcf52859bd9678a2",
+          "H_sha256": "9447930d592d6b9109246a8ef1a01a0c28ea3329c2237463dc843d676378d0d1",
+          "Q": "3998702785049198727500092991624651087274843158214150966353759747341970545449701143183875152858483643946191697915461246989466458787824201",
+          "Q_bits": 451,
+          "Q_prime": "34990278866245457269426192131509259814121480666925063580150609555463358183175503380091309527006530322853921035219889657302500210134047713",
+          "Q_prime_bits": 454,
+          "Q_prime_sha256": "ab58ecbe77cef005d08a8f9e909c582cc74d5a20996da989fc417131599cdf6b",
+          "Q_sha256": "8baec3c3327cabbc22d0e09e9319162ca6db810018be4cacec360e1b4790e393",
+          "coefficient_congruence_modulus_bits": 454,
+          "source_symbol": [
+            4,
+            1
+          ],
+          "target_symbol": [
+            4,
+            0
+          ]
+        },
+        {
+          "H": "587081935692549287269270567262442612051773445868093097444405608094808036198108494644035145376914178029190693172307464538249569807863342763833325704780108496184520611970744155190625031447338674740630711631294157801186628957214394848262372503817224682025796358244357521265",
+          "H_bits": 897,
+          "H_prime": "2568603088484449328990747922762352460147134227386584707700225363334523457850701489881726085010785643959433196620116544039706022143461770557951961129170956593401621743795159522822445895302119957164751401086186238051533717431616194131231500415544694364040474446423518494577",
+          "H_prime_bits": 899,
+          "H_prime_sha256": "048af1848fe9597215dddd0e412cfc54a4e56717e921a85bd3845e28ce2a5308",
+          "H_sha256": "0b25c2f01dac886c3adbb65d9a16ea622d06c6d83e7bdedcad2f51cabd2464cd",
+          "Q": "7269477044379429734972050127120671491866229281307082237620465643654847341959991798151734881070419688969623045143659047690372166116590153",
+          "Q_bits": 452,
+          "Q_prime": "31805443248450444117640753278470028644378888917044971533201403867896072502615408004962206193764358364022511987899423397591746346289337421",
+          "Q_prime_bits": 454,
+          "Q_prime_sha256": "e8d284609730b0486dcf3e1389e7a9e9a9562bd56f0c74fc692680a35caf6a29",
+          "Q_sha256": "8e7c881ef11099246949625f763d977338659af215dc38db936d04dc35330b55",
+          "coefficient_congruence_modulus_bits": 454,
+          "source_symbol": [
+            4,
+            1
+          ],
+          "target_symbol": [
+            4,
+            1
+          ]
+        },
+        {
+          "H": "1115376466828214533621610352178959218570620771904214619572366317121481938754833354118452401264571365923865088165564593217131917367366028301083864683243048073092907295969749239359356549123765115793654944539505346205334657249965956587100769402584261158515334939142095519601",
+          "H_bits": 898,
+          "H_prime": "4879999303910083279459933043069599156748087849134366028880779586654624009254622944401683313592795207390028293883985526423188765995362104327774195790145966402488855612825583871607596757918757378975437703805590582005718712953358150665529280519966621037927447258184712339313",
+          "H_prime_bits": 900,
+          "H_prime_sha256": "24dcf5123c763f5f6915e45dde5fa4575cabb17e486e3b6566aae2f8c066dd63",
+          "H_sha256": "ac193dc9baeb86079a04bb5627694bae178b64f97019cd41d269727c983e28a3",
+          "Q": "13811025563039891749915964398112712301049001527492944780153877436280600934980573108087454337494291779016485739600054649092183580774122057",
+          "Q_bits": 453,
+          "Q_prime": "30213025439552937541748033851950413059507593042104925509726801024112429662335360317397654527143272384606807464239190267736369414366982275",
+          "Q_prime_bits": 454,
+          "Q_prime_sha256": "25ad19d6cc39e84efe8802d4030311cea80be6916fce74b5000ecb504f363174",
+          "Q_sha256": "c92f296fb2004476ed702e01e4772837b221beed2ed25c9ebf94cddca6d61758",
+          "coefficient_congruence_modulus_bits": 454,
+          "source_symbol": [
+            4,
+            1
+          ],
+          "target_symbol": [
+            4,
+            2
+          ]
+        },
+        {
+          "H": "65709639124354661725725843145910173042493312985636628762800989174811704279942962793600444768446533216418581431724445107714391920197315249032895517835121",
+          "H_bits": 505,
+          "H_prime": "431239589578530151233430676289425443022097325274776980972985473839459581364669196209204672135837280490132991066766270654318969548445842493325312537733937",
+          "H_prime_bits": 508,
+          "H_prime_sha256": "947625e2fefcc66a8e5c6d05153aa038711772fa1cf8016190d15f1a00812b9f",
+          "H_sha256": "d77063e76da4be4bc979efc708d7b5a58ebae11808496a694afec6c45e65630e",
+          "Q": "406821164277065731",
+          "Q_bits": 59,
+          "Q_prime": "107723727332997047975739926167904863740756191899744310357302769636110191039447069479918551982503980413463565690726409959345497733718482537",
+          "Q_prime_bits": 456,
+          "Q_prime_sha256": "2ab542f048f51c4d71c8f90e725048d0d0fe5959ecd231c6882a17a463b2c7f1",
+          "Q_sha256": "b2b7df0c2b26706cab53fde59de6e664cec1fc0fad5028b37c3ae8c13f7719ca",
+          "coefficient_congruence_modulus_bits": 455,
+          "source_symbol": [
+            4,
+            2
+          ],
+          "target_symbol": [
+            2,
+            0
+          ]
+        },
+        {
+          "H": "13335389398016391805514807996668586607027040248947592131068327285273563537468169915468123291232066702004394485683483971566915815463148960179639076405105",
+          "H_bits": 503,
+          "H_prime": "87517568617098222411890520733523071303566715611129627754235419058133454734829421447847455541162621831319257623332464240232125233555754554407217988971313",
+          "H_prime_bits": 505,
+          "H_prime_sha256": "ab5bce1016c512db4522b9a92598238772f0a7bf91ebc789a69ecd759297e06a",
+          "H_sha256": "31a5ca1c33a1f119a569ce382df416b22a0f67ff4598bf17db9d0d57456d5162",
+          "Q": "82561991106390019",
+          "Q_bits": 57,
+          "Q_prime": "10930952220515377539086991445806235658423650199124835949273087547561915286640565795209621700468710598945128434494769272851260143192300575",
+          "Q_prime_bits": 452,
+          "Q_prime_sha256": "cd65a7a11ca3e9aa892287a3eae8d48ec4e8222c95f9f71c7213f3f43d0547df",
+          "Q_sha256": "69d61887f18602a7e92d97c650ba26b5c05de1c7411fa3e1fd2dca26a6f3530e",
+          "coefficient_congruence_modulus_bits": 455,
+          "source_symbol": [
+            4,
+            2
+          ],
+          "target_symbol": [
+            2,
+            1
+          ]
+        },
+        {
+          "H": "118083888850692931645936878295151759477959585722325665394533651064349845022417755671732766245660999730832768377765406243861868024931481537886151959265137",
+          "H_bits": 506,
+          "H_prime": "774961610539962080054970831845327814740627934938424334191735528620785707994508970970561888730511939148946724510200077068405813863335930432243407086496561",
+          "H_prime_bits": 508,
+          "H_prime_sha256": "2b14259f83fae654d280ce8e5b9e16d8727d6f74a9cb92c28dacb9de31993d76",
+          "H_sha256": "e73d98097644bb5c358f5b754fc5e23a889253af1c7594ee9eab4dca6267ba71",
+          "Q": "731080337447741443",
+          "Q_bits": 60,
+          "Q_prime": "48396387556240835218326467361049314041166270850309737204014841044274137876403251842354465141017634907259218628115820343247118795263090981",
+          "Q_prime_bits": 455,
+          "Q_prime_sha256": "3fa5fc65e6c12790a27fdba3b6bcea6bb1a8e9a952aff8975d72291fc6bf55f2",
+          "Q_sha256": "37a0a04788e884b137001f837781694bb60805630e59c10f6d1ae9b433dc25f9",
+          "coefficient_congruence_modulus_bits": 455,
+          "source_symbol": [
+            4,
+            2
+          ],
+          "target_symbol": [
+            2,
+            2
+          ]
+        },
+        {
+          "H": "22823821856943715263598421745095855380308106405604675038171388583123951946468348828170040760988148571666082527536654064206756121970155641670086166785926036005321148548729105755291505",
+          "H_bits": 603,
+          "H_prime": "149788306576680774067519758673250256947743445654257848006318948936932574650794344753762991052138452745085284594920536092405881495686245185140328098522845474758950911792318947597340913",
+          "H_prime_bits": 606,
+          "H_prime_sha256": "82e957a121a7681c875b25e7ef54ceffef0864fb4faaef81e10c7880a6d24735",
+          "H_sha256": "48fad5796729cc60e7a31467b75999dcb4546af99c46c7c4c624c92195a81c6b",
+          "Q": "141306723105297121807342953198423467574457834819",
+          "Q_bits": 157,
+          "Q_prime": "59033847369295593540002682982181122997363662931637230565757697152112869312698411891728191365261857015234374172904466791325518160178837517",
+          "Q_prime_bits": 455,
+          "Q_prime_sha256": "820a0d31ac4f958cf269b84f1f563df23bd3ac2f04cb6454f8ef05a31500e8ec",
+          "Q_sha256": "22f8d5b58bf05dff5da38111a2f43d875253a445b12defa5dd3708f8a734896e",
+          "coefficient_congruence_modulus_bits": 455,
+          "source_symbol": [
+            4,
+            2
+          ],
+          "target_symbol": [
+            3,
+            0
+          ]
+        },
+        {
+          "H": "122412195510087546267896210473683723004606815979423160638067164495699619420378144341763009935718639634582831806207873004584239747780038249059371162804661164494789511830365334323740529",
+          "H_bits": 605,
+          "H_prime": "803367445851809622900091089525661688398060524116261313499180381792887777285549203794570133245215430321086699444091318357177465831682088648761593080479135838495441651699596460614340849",
+          "H_prime_bits": 608,
+          "H_prime_sha256": "be2611ce9dcd20ec5451ef1fb20ebca4ed69cb78929b070e418dc1c0b16489c6",
+          "H_sha256": "1fe6008ef6f14db5e922db6ea96efb0d652141850b3284208661114d1eb00bd7",
+          "Q": "757877726354271790424522492000605366491804376387",
+          "Q_bits": 160,
+          "Q_prime": "158309658022597236116350256405529150134545168718060572971013740387535975355598112780113058554980767330977150319057540516127225251090240839",
+          "Q_prime_bits": 456,
+          "Q_prime_sha256": "3bb0a431b055db006092646b840134f58f86e2e3170e6bd2cd60b8898f43a61e",
+          "Q_sha256": "02d2d2387baaf7367c90f03c8de7f3f6c0eef504693271716b233f814387d10f",
+          "coefficient_congruence_modulus_bits": 455,
+          "source_symbol": [
+            4,
+            2
+          ],
+          "target_symbol": [
+            3,
+            1
+          ]
+        },
+        {
+          "H": "188804444612183433604094736292742301420805955695302151037997681770750064402984674684158322718872300343193997991988685631502562164986626653985561160150484583487768420684789486702706545",
+          "H_bits": 606,
+          "H_prime": "1239086872035228855455138643427269309364938576424263623827754670363524579042052443155108228040600082038420976010205173200358522055679317624509103068449996080986435478304448135959007473",
+          "H_prime_bits": 609,
+          "H_prime_sha256": "8cf95a1454d0c751b0165327e1b46e75ab91710ca297505c8d2360a3cbd44fd8",
+          "H_sha256": "3e5d5faf79484c565ceba867837667114332d00ed3da47494a1ff5b0a8a711d2",
+          "Q": "1168925061853588236169308851202059965770035404099",
+          "Q_bits": 160,
+          "Q_prime": "122085740457281764506958099840910771279227030109777605714885167464261167910882025334806183568273663273275229570397205964885101349212061113",
+          "Q_prime_bits": 456,
+          "Q_prime_sha256": "9c2a79047c718f585843b3b24ac2151198a8034945175bcbfd28ab5c4421fb5e",
+          "Q_sha256": "961f6b762f938c0ef66540050d51a1e9e55897e95bfb48a8fed12bde26260ef9",
+          "coefficient_congruence_modulus_bits": 455,
+          "source_symbol": [
+            4,
+            2
+          ],
+          "target_symbol": [
+            3,
+            2
+          ]
+        },
+        {
+          "H": "254422708315415942458536730233642621159258916421215744411243554908141753098847366195248586132253884787507841190693868923567252726852643369935040364325976884924543119536309600157412220085818928072599377000215426725641597154608867378739317119136296059132853883969835777905",
+          "H_bits": 895,
+          "H_prime": "1669726782485591681586064820420645411468985596706891971685565387598928798971398702012853829451115258180868436573056384223907177312167196314132203205458452778756586350283327831628220559840094293127262283361973437624906219173160988812337919263825056213084429464071943110513",
+          "H_prime_bits": 898,
+          "H_prime_sha256": "496105a069b4cc92c154d5c8c67ad8e052591b6d3572fdcbfe9b8e75cd34ed73",
+          "H_sha256": "311cc78485804d6f6f9986fe2ed28dc5e662e6f21f3cd5bd110da5d706f561b8",
+          "Q": "1575180503114935206016472266504218540542828172967156342211749982174203277854366355503355401190749069835651406507242474974333686805479619",
+          "Q_bits": 450,
+          "Q_prime": "41350413895279997484060706448271659252929546704072814577095542484425310810298906186720887940455905079563055022015213465720498539566187075",
+          "Q_prime_bits": 454,
+          "Q_prime_sha256": "8135e38fc04e112e615adbaf81dc9d8b7bf7c9102770cc914ac7e0f1adf70847",
+          "Q_sha256": "1f371c121ecd5c2a9a9b7e4ed348da2707b7f3a97fe31d02efabd90a0ef635ad",
+          "coefficient_congruence_modulus_bits": 455,
+          "source_symbol": [
+            4,
+            2
+          ],
+          "target_symbol": [
+            4,
+            0
+          ]
+        },
+        {
+          "H": "782717239451081188810876515150159227678106242457337266539204263934815655655572225669665842019911072682182236183950997602449600286355328907185579342788916461832929803535314684326143737762245369125623609908426615129789625447360429117577714017903332535622392464867573776241",
+          "H_bits": 897,
+          "H_prime": "5136821105624042607289842500881515456370416029328563953456396722579079626077280883792789672324129603326761082468859857799131293090017696968865555196920967492387437153828964354805946853765050425843291737441079953556183712455773923613784589420457946223914888681713733877617",
+          "H_prime_bits": 900,
+          "H_prime_sha256": "ae7311b26d0977ac0e25831ba85ec16f1f394b452a8a674f4dfa6ddd2ac4feeb",
+          "H_sha256": "7747300683a5af42a8bcd6372042d0a499c6a5a959052be06a400c11f65b70b0",
+          "Q": "4845954762445166213488429402000238945134214296060087613478455878487080074364657010471215129402685114859082753735440275675239394134245571",
+          "Q_bits": 451,
+          "Q_prime": "63606118393623145190813324862282025838419219102783726517926068512705835638232422038110098261011232147568181921876042439681737993450034231",
+          "Q_prime_bits": 455,
+          "Q_prime_sha256": "9fd36f897bf2389384105885a67f72822d8aab5601ca946249e63786b3a57539",
+          "Q_sha256": "ee9d6707d0444e12b371388cb09ada848242cf2cad93beadc9bb87dda86b1132",
+          "coefficient_congruence_modulus_bits": 455,
+          "source_symbol": [
+            4,
+            2
+          ],
+          "target_symbol": [
+            4,
+            1
+          ]
+        },
+        {
+          "H": "1839306301722411681515556084983192440715800894529580310795125681988163460769021944618500353795225448471531026170465254960214295405360699981686657299714795615649703171533324852663606773115098251231672075724848991938085682032863552595254507815437405488601469626663049772913",
+          "H_bits": 898,
+          "H_prime": "12071009751900944458697397861803255546173276894571907916998059392539381280289045247352661358070158293618546374260466804949579524645718698278332259179845996919649138760920237401161399441614962691275350645599292985418738699020999793216677929733723726245575807116997315411825",
+          "H_prime_bits": 901,
+          "H_prime_sha256": "59bc9ded23b4029b21af996382da27421de77b0e8914a2eee6f8ceb0eba4df4b",
+          "H_sha256": "1e3999b6cc9f8e4a20ce4e799e9f0dfc197ed739c64e17ed24998e543c2c953f",
+          "Q": "11387503281105628228432343672992279754316986542245950156011867671112833667385238320406934585826557204905945448191835877077050808791777475",
+          "Q_bits": 452,
+          "Q_prime": "74733970642794719044189634069287209131164055302139182488341331526846098052199179963804703421288895681570745371806456926662357720391957809",
+          "Q_prime_bits": 455,
+          "Q_prime_sha256": "5e4badd9cb1941a1089b3b4936d155837e837872d8c32517e1e17126f46814d1",
+          "Q_sha256": "c87793c0b99307e76ff50a8e0763ad40d20c30b7b9597697374d1d064a81e8c6",
+          "coefficient_congruence_modulus_bits": 455,
+          "source_symbol": [
+            4,
+            2
+          ],
+          "target_symbol": [
+            4,
+            2
+          ]
+        }
+      ]
+    },
+    "mandatory_ternary_quotient": {
+      "architecture": "mandatory_mod9_three_node_quotient",
+      "closure_scope": "mandatory exact quotient only; it does not force the next dyadic gate",
+      "rows": [
+        {
+          "B_mod_9": 5,
+          "Q_mod_9": 7,
+          "d_mod_9": 7,
+          "node": "v3_Q_eq_0",
+          "p": 2,
+          "p_mod_6": 2
+        },
+        {
+          "B_mod_9": 3,
+          "Q_mod_9": 3,
+          "d_mod_9": 7,
+          "node": "v3_Q_eq_1",
+          "p": 3,
+          "p_mod_6": 3
+        },
+        {
+          "B_mod_9": 8,
+          "Q_mod_9": 1,
+          "d_mod_9": 7,
+          "node": "v3_Q_eq_0",
+          "p": 4,
+          "p_mod_6": 4
+        },
+        {
+          "B_mod_9": 0,
+          "Q_mod_9": 0,
+          "d_mod_9": 7,
+          "node": "v3_Q_ge_2",
+          "p": 5,
+          "p_mod_6": 5
+        },
+        {
+          "B_mod_9": 2,
+          "Q_mod_9": 1,
+          "d_mod_9": 7,
+          "node": "v3_Q_eq_0",
+          "p": 6,
+          "p_mod_6": 0
+        }
+      ],
+      "universal_derivation": {
+        "B_formula": "B(p)=7*(1+2^(p+4)) mod 9",
+        "base": "d_2=9709=7 mod 9",
+        "classification": {
+          "p_even": "v3(Q)=0",
+          "p_mod_6_eq_5": "v3(Q)>=2",
+          "p_mod_6_in_{1,3}": "v3(Q)=1"
+        },
+        "recurrence": "d_(p+1)=d_p+3^(p+1)d_p^2+3^(2p+1)d_p^3",
+        "status": "research derivation pending Lean"
+      }
+    },
+    "meaning": "exact invariant-CEGIS on charge-dependent writer--decoder payload triples",
+    "next_architecture": {
+      "predicate": "recursive mixed-base family P(p,b,Q)",
+      "required_features": [
+        "the mandatory three-node mod-nine quotient",
+        "unbounded exact next-p and next-b valuation binders",
+        "runtime dyadic precision growing at least as D(p,b)",
+        "a genuinely aperiodic or unbounded symbol update",
+        "coefficientwise triple recurrence and explicit ordinary root"
+      ],
+      "status": "not_synthesized"
+    },
+    "triple_semantics": {
+      "next_b": "v2(3^(p+o+b+2)*Q+B(p'))-(S(p')+p'+4)",
+      "next_p": "v2(3^(p+o+b+2)*Q+7)-4",
+      "output": "H'=3^(p+o(p)+b)*Q",
+      "source": "H=(2^D(p,b)*Q-B(p))/9",
+      "source_conditions": "p>=2, b>=0, Q positive odd, 2^D Q=B(p) mod9"
+    },
+    "universal_invariant": null
+  },
+  "schema": "collatz-outward-writer-decoder-invariant-cegis-v1",
+  "worker_sha256": "2dc00b21adf776acb58681d8d77d483f15e712855c44e8af4b3785f899b63930"
+}

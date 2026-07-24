@@ -5357,3 +5357,32 @@ PYTHONPATH=experiments/kontorovich \
 The artifact records `universal_invariant:null` and `counterexample:null`.
 The current worker and artifact SHA-256 values are printed by `verify` and
 recorded in the repository history.
+
+### Writer--decoder payload invariant CEGIS
+
+`outward_writer_decoder_invariant_cegis.py` moves the invariant lane to the
+exact payload triple
+
+```text
+H(p,b,Q)=(2^D Q-B(p))/9 -> 3^(p+o+b)Q.
+```
+
+The default reconstructible artifact records two exact architecture failures:
+the base triple `(2,0,7)` leaves the writer family, while the exact-next-writer
+payload `Q=187` has a 48-bit decoder shortfall.  It checks fixed-precision
+residue-preserving perturbations for `7<=k<=16`, the corrected three-node
+mod-nine quotient through `p=6`, and 81 exact coefficientwise ordinary edges
+for all symbol pairs `2<=p,p'<=4`, `0<=b,b'<=2`.
+
+```bash
+PYTHONPATH=experiments/kontorovich \
+  python3 experiments/kontorovich/outward_writer_decoder_invariant_cegis.py selftest
+PYTHONPATH=experiments/kontorovich \
+  python3 experiments/kontorovich/outward_writer_decoder_invariant_cegis.py verify \
+  experiments/kontorovich/outward_writer_decoder_invariant_cegis_audit.json
+```
+
+The finite rows are exact arithmetic, but the general perturbation,
+mod-nine, and edge-family formulas remain research derivations pending QM169.
+No recursive mixed-base invariant is synthesized.  The artifact records
+`universal_invariant:null` and `counterexample:null`.
