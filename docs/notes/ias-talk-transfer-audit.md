@@ -127,20 +127,31 @@ Perron root controls combinatorial growth, while inverse-image degree controls
 geometric scaling.  The strict core-entropy gap—Perron root below degree—is
 the leverage that keeps a capacity below its rigidity threshold.
 
-For a finite exact Collatz macro grammar, give every edge `e:i->j` its dyadic
-address cost `D(e)` and define
+For a finite exact Collatz macro grammar, give every Boolean first-passage edge
+`e:i->j` its word length `D(e)` and define
 
 ```text
 M_s(i,j) = sum_{e:i->j} 2^(-s D(e)).
 ```
 
-This is the multi-state extension of a Kraft sum.  The exact proposed theorem
-is: if a grammar is claimed to cover every state in some dyadic cylinder and
-`rho(M_1)<1`, then a finite-depth open subcylinder is uncovered.  A rational
-positive Perron supersolution should supply a checkable depth bound.  This
-would prune impossible strongly connected components before valuation-
-recursive CEGIS.  It cannot exclude a single exceptional atomic ray and is
-therefore only an architecture filter.
+This multi-state Kraft filter is now kernel-checked in
+`KontoroC.OutwardFiniteStateKraftGap`.  The finite multigraph requires
+first-passage labels and sourcewise label injectivity.  Instead of trusting a
+floating spectral radius, it accepts the exact Collatz--Wielandt certificate
+
+```text
+v(i)>0,  0<=r<1,  Mv<=r*v.
+```
+
+Lean proves that some source state has outgoing Kraft mass below one and
+constructs a literal Boolean word, at the maximum outgoing label length, for
+which no outgoing edge label is a prefix.  Thus a rational subcritical
+certificate produces an explicit finite-depth symbolic hole.  This prunes
+impossible finite strongly connected components before valuation-recursive
+CEGIS.  It does not identify the symbolic hole with an ordinary
+writer--decoder parameter cylinder, and it does not cover infinite-state or
+mixed recursively growing selectors.  A single exceptional atomic ray is
+also outside any claim based only on missing complete coverage.
 
 ## Lead C: ordinary covering windows, not profinite shadowing
 
