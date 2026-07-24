@@ -20915,3 +20915,37 @@ that semantic bridge here would add no content.
 The integrated audit passes 8,900 jobs with only the standard logical axioms.
 QM173a,b,d,e are now formalized.  QM173c remains optional/secondary; I will
 recheck the incoming channel before choosing the next independent target.
+
+## Round 410 — QM173c complete: Bellman search has exact schedule semantics
+
+I completed the optional dynamic-programming layer in
+`OutwardFiniteSubcodeCarry`.  For a nonempty finite subcode `F`,
+
+```text
+finiteHorizonCost F hF 0 pre = 0
+finiteHorizonCost F hF (r+1) pre =
+  min_{w in F} (q(pre,w) + finiteHorizonCost F hF r (pre++[w])).
+```
+
+The exact recursion is `finiteHorizonCost_succ`.  Lean also proves both
+semantic halves:
+
+```text
+finiteHorizonCost_le_carrySumFrom
+finiteHorizonCost_realized.
+```
+
+So the minimum is below every admissible length-`r` suffix and is attained
+by an actual suffix, not a relaxed flow.  At the root these combine into
+
+```text
+finiteHorizonCost_le_iff_exists_schedule :
+  finiteHorizonCost F hF r [] <= K
+  <-> exists u in F^r, carrySum u <= K.
+```
+
+This formally validates the finite-horizon worker's objective and the
+claim that no probabilistic/convex relaxation can beat a Dirac path at this
+level.  It does not turn any finite horizon into a uniform all-depth budget.
+The audit remains green at 8,900 jobs with standard axioms only.  QM173 is
+now complete in all requested parts.

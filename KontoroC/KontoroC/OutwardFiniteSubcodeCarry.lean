@@ -493,6 +493,116 @@ theorem not_conjecture_of_uniformCarryBudget
     (C := (↑F : Set (List Bool)))
     (fun w hw ↦ (hfirst w hw).1) hinfinite
 
+/-! ## Exact finite-horizon dynamic program -/
+
+/-- Bellman value for `r` further finite-subcode edges after `pre`. -/
+noncomputable def finiteHorizonCost
+    (F : Finset (List Bool)) (hF : F.Nonempty) :
+    ℕ → List (List Bool) → ℕ
+  | 0, _ => 0
+  | r + 1, pre =>
+      let costs := F.image fun w ↦
+        extensionCarry pre w + finiteHorizonCost F hF r (pre ++ [w])
+      costs.min' (hF.image _)
+
+@[simp] theorem finiteHorizonCost_zero
+    (F : Finset (List Bool)) (hF : F.Nonempty) (pre : List (List Bool)) :
+    finiteHorizonCost F hF 0 pre = 0 := rfl
+
+/-- QM173c, the exact Bellman recursion. -/
+theorem finiteHorizonCost_succ
+    (F : Finset (List Bool)) (hF : F.Nonempty)
+    (r : ℕ) (pre : List (List Bool)) :
+    finiteHorizonCost F hF (r + 1) pre =
+      (F.image fun w ↦ extensionCarry pre w +
+        finiteHorizonCost F hF r (pre ++ [w])).min' (hF.image _) := rfl
+
+theorem finiteHorizonCost_le_choice
+    (F : Finset (List Bool)) (hF : F.Nonempty)
+    {r : ℕ} {pre : List (List Bool)} {w : List Bool} (hw : w ∈ F) :
+    finiteHorizonCost F hF (r + 1) pre ≤
+      extensionCarry pre w + finiteHorizonCost F hF r (pre ++ [w]) := by
+  rw [finiteHorizonCost_succ]
+  apply Finset.min'_le
+  exact Finset.mem_image.mpr ⟨w, hw, rfl⟩
+
+theorem exists_choice_finiteHorizonCost_eq
+    (F : Finset (List Bool)) (hF : F.Nonempty)
+    (r : ℕ) (pre : List (List Bool)) :
+    ∃ w ∈ F, finiteHorizonCost F hF (r + 1) pre =
+      extensionCarry pre w + finiteHorizonCost F hF r (pre ++ [w]) := by
+  rw [finiteHorizonCost_succ]
+  have hmem := Finset.min'_mem
+    (F.image fun w ↦ extensionCarry pre w +
+      finiteHorizonCost F hF r (pre ++ [w])) (hF.image _)
+  obtain ⟨w, hw, heq⟩ := Finset.mem_image.mp hmem
+  exact ⟨w, hw, heq.symm⟩
+
+/-- The Bellman value is below the carry cost of every admissible suffix. -/
+theorem finiteHorizonCost_le_carrySumFrom
+    (F : Finset (List Bool)) (hF : F.Nonempty)
+    {r : ℕ} {pre suffix : List (List Bool)}
+    (hlen : suffix.length = r)
+    (hwords : WordsIn (↑F : Set (List Bool)) suffix) :
+    finiteHorizonCost F hF r pre ≤ carrySumFrom pre suffix := by
+  induction suffix generalizing r pre with
+  | nil =>
+      subst r
+      simp [carrySumFrom]
+  | cons w suffix ih =>
+      have hw : w ∈ F := hwords w (by simp)
+      have htail : WordsIn (↑F : Set (List Bool)) suffix := by
+        intro v hv
+        exact hwords v (by simp [hv])
+      cases r with
+      | zero => simp at hlen
+      | succ r =>
+          have hlen' : suffix.length = r := by simpa using hlen
+          calc
+            finiteHorizonCost F hF (r + 1) pre ≤
+                extensionCarry pre w +
+                  finiteHorizonCost F hF r (pre ++ [w]) :=
+              finiteHorizonCost_le_choice F hF hw
+            _ ≤ extensionCarry pre w +
+                carrySumFrom (pre ++ [w]) suffix :=
+              Nat.add_le_add_left (ih hlen' htail) _
+            _ = carrySumFrom pre (w :: suffix) := rfl
+
+/-- The Bellman minimum is attained by an actual finite schedule. -/
+theorem finiteHorizonCost_realized
+    (F : Finset (List Bool)) (hF : F.Nonempty)
+    (r : ℕ) (pre : List (List Bool)) :
+    ∃ suffix : List (List Bool), suffix.length = r ∧
+      WordsIn (↑F : Set (List Bool)) suffix ∧
+      carrySumFrom pre suffix = finiteHorizonCost F hF r pre := by
+  induction r generalizing pre with
+  | zero => exact ⟨[], rfl, by simp [WordsIn], by simp [carrySumFrom]⟩
+  | succ r ih =>
+      obtain ⟨w, hw, hcost⟩ := exists_choice_finiteHorizonCost_eq F hF r pre
+      obtain ⟨suffix, hlen, hwords, htailCost⟩ := ih (pre ++ [w])
+      refine ⟨w :: suffix, by simp [hlen], ?_, ?_⟩
+      · intro v hv
+        simp only [List.mem_cons] at hv
+        rcases hv with rfl | hv
+        · exact hw
+        · exact hwords v hv
+      · simp only [carrySumFrom]
+        rw [htailCost, hcost]
+
+/-- Exact finite-horizon decision form used by a bounded-carry searcher. -/
+theorem finiteHorizonCost_le_iff_exists_schedule
+    (F : Finset (List Bool)) (hF : F.Nonempty) (r K : ℕ) :
+    finiteHorizonCost F hF r [] ≤ K ↔
+      ∃ u : List (List Bool), u.length = r ∧
+        WordsIn (↑F : Set (List Bool)) u ∧ carrySum u ≤ K := by
+  constructor
+  · intro hcost
+    obtain ⟨u, hlen, hwords, heq⟩ := finiteHorizonCost_realized F hF r []
+    exact ⟨u, hlen, hwords, by simpa [carrySum] using heq.le.trans hcost⟩
+  · rintro ⟨u, hlen, hwords, hcarry⟩
+    exact (finiteHorizonCost_le_carrySumFrom F hF hlen hwords).trans <| by
+      simpa [carrySum] using hcarry
+
 end
 
 end OutwardFiniteSubcodeCarry

@@ -2741,3 +2741,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardMixedResourceDynamics.oddShortcut_iterate_forcedPrehistory
 #print axioms
   KontoroC.OutwardMixedResourceDynamics.mixedBaseResource_forcedPrehistory_display
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.finiteHorizonCost_succ
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.finiteHorizonCost_le_carrySumFrom
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.finiteHorizonCost_realized
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.finiteHorizonCost_le_iff_exists_schedule
