@@ -194,6 +194,7 @@ import KontoroC.OutwardPathChecksum
 import KontoroC.OutwardRechargeChain
 import KontoroC.OutwardShadowPathLift
 import KontoroC.OutwardFiniteGroupDriftNoGo
+import KontoroC.OutwardRechargeSemilinearOrder
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail

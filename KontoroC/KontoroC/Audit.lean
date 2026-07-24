@@ -2284,5 +2284,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardFiniteGroupDriftNoGo.finite_group_translation_has_zero_int_drift
 #print axioms
   KontoroC.OutwardFiniteGroupDriftNoGo.no_positive_homomorphic_int_drift
+#print axioms
+  KontoroC.OutwardRechargeSemilinearOrder.RechargeReachable.trans
+#print axioms
+  KontoroC.OutwardRechargeSemilinearOrder.RechargeReachable.antisymm
+#print axioms
+  KontoroC.OutwardRechargeSemilinearOrder.upperCone_total
+#print axioms
+  KontoroC.OutwardRechargeSemilinearOrder.between_iff_le_of_common_source
+#print axioms
+  KontoroC.OutwardRechargeSemilinearOrder.edge_iff_lt_of_common_source
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

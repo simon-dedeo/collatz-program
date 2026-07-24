@@ -18789,3 +18789,51 @@ proofs.  The result does not reject those extensions.
 Full `lake build KontoroC` passes 8,874 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, `unsafe`, or `native_decide`.
+
+## Round 367 — recharge reachability is a semilinear order
+
+The imported and audited module
+
+```text
+KontoroC.OutwardRechargeSemilinearOrder
+```
+
+packages the chain result as an exact order structure.  It defines
+
+```text
+RechargeReachable H K := H = K \/ RechargeEdge H K
+```
+
+and proves reflexivity, transitivity, and antisymmetry.  The structural
+theorem
+
+```text
+upperCone_total
+```
+
+says that if `K` and `L` are both reachable from one ordinary source `H`,
+then either `K` reaches `L` or `L` reaches `K`.  Thus every principal upper
+cone is a chain: literal recharge reachability is a semilinear partial order.
+
+The numerical identification is exact:
+
+```text
+between_iff_le_of_common_source:
+  RechargeReachable K L <-> K <= L
+
+edge_iff_lt_of_common_source:
+  RechargeEdge K L <-> K < L
+```
+
+under the premise that both endpoints are descendants of the same source.
+Therefore a finite ordinary-charge worker may sort all retained descendants
+numerically; every strict consecutive pair is guaranteed to have the exact
+literal suffix recharge already supplied abstractly by Round 363.  Apparent
+branching among ordinary descendants is precisely transitive skipping along
+one forced orbit.  Symbolic annotations may branch, but only after a separate
+reification explains why that is more than duplicated descriptions of this
+one chain.
+
+Full `lake build KontoroC` passes 8,875 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, `unsafe`, or `native_decide`.
