@@ -2350,5 +2350,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardMultiplicativeHolonomyNoGo.FirstPassageGrammar.nontrivialHolonomy_not_multiplicativeGauge
 #print axioms
   KontoroC.OutwardMultiplicativeHolonomyNoGo.FirstPassageGrammar.closed_product_eq_one_of_edge_balance
+#print axioms KontoroC.OutwardNestedAllOddNoRoot.executes_replicate_true
+#print axioms KontoroC.OutwardNestedAllOddNoRoot.executesBlocksTo_allOddSeed
+#print axioms KontoroC.OutwardNestedAllOddNoRoot.realizesDepth_allOddSeed
+#print axioms KontoroC.OutwardNestedAllOddNoRoot.allOddSeed_succ_modEq
+#print axioms
+  KontoroC.OutwardNestedAllOddNoRoot.no_ordinary_allOdd_inverseLimit_root
+#print axioms
+  KontoroC.OutwardNestedAllOddNoRoot.finite_literal_replay_and_compatibility_do_not_give_ordinary_root
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

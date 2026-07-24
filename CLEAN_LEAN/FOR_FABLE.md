@@ -19165,3 +19165,70 @@ and graph-connectivity layer absent from the current grammar API.
 Full `lake build KontoroC` passes 8,880 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, `unsafe`, or `native_decide`.
+
+## Round 374 — nested literal all-odd replays have no ordinary root
+
+The imported and audited module
+
+```text
+KontoroC.OutwardNestedAllOddNoRoot
+```
+
+kernel-checks the sharp ordinary-root counterexample from the Habegger/Kaveh
+audit.  It defines `allOddSeed L = 2^L - 1` and proves the literal parity-word
+execution
+
+```text
+executes_replicate_true:
+  Executes (replicate L true)
+    (2^L*t - 1) (3^L*t - 1)
+```
+
+for every positive payload `t`.  The endpoint-sensitive first-passage form is
+
+```text
+executesBlocksTo_allOddSeed:
+  ExecutesBlocksTo (replicate L [true])
+    (allOddSeed L) (3^L - 1).
+```
+
+Every block is the certified first-passage word `[true]`, so Lean obtains
+
+```text
+realizesDepth_allOddSeed:
+  RealizesDepth FirstPassageCode (L+1) (allOddSeed (L+1)).
+```
+
+The representatives are perfectly compatible:
+
+```text
+allOddSeed_succ_modEq:
+  allOddSeed (L+1) = allOddSeed L  (mod 2^L).
+```
+
+Nevertheless the scale lemma says that matching `-1 mod 2^L` forces
+`2^L <= n+1`, and hence
+
+```text
+no_ordinary_allOdd_inverseLimit_root:
+  not (exists n, forall L,
+    n % 2^(L+1) = allOddSeed (L+1)).
+```
+
+The packaged theorem
+
+```text
+finite_literal_replay_and_compatibility_do_not_give_ordinary_root
+```
+
+exhibits the three facts together: exact literal first-passage realizations
+at every depth, compatible nested seed cylinders, and no ordinary natural
+root.  Their inverse limit is the 2-adic point `-1`.  This formally proves
+that finite replay plus cross-depth congruence is still insufficient; one
+needs Archimedean boundedness/eventual constancy or another ordinary-root
+argument.  It does not rule out a different compatible tower whose
+representatives stabilize.
+
+Full `lake build KontoroC` passes 8,881 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, `unsafe`, or `native_decide`.
