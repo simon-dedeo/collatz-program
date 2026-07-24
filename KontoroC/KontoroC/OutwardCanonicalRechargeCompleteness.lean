@@ -112,12 +112,12 @@ theorem infiniteExecution_before_prefix
     List.length_take_of_le hnle, wordsIn_take hcombinedWords,
     executesBlocks_take hcombinedTo.executesBlocks⟩
 
-/-- A first-passage word executed from a positive boundary ends at another
-positive boundary. -/
-theorem firstPassage_execution_from_boundary_has_boundary_target
-    {w : List Bool} {H finish : ℕ}
-    (hH : 0 < H) (hfirst : FirstPassage w)
-    (hexec : Executes w (3 * H - 1) finish) :
+/-- Every first-passage execution from a positive source ends at a positive
+boundary state, because the last instruction is odd. -/
+theorem firstPassage_execution_has_boundary_target
+    {w : List Bool} {start finish : ℕ}
+    (hstart : 0 < start) (hfirst : FirstPassage w)
+    (hexec : Executes w start finish) :
     ∃ K, 0 < K ∧ finish = 3 * K - 1 := by
   let hne := firstPassage_ne_nil hfirst
   let u := w.dropLast
@@ -132,7 +132,7 @@ theorem firstPassage_execution_from_boundary_has_boundary_target
   simp only [Executes] at hlastExec
   obtain ⟨target, hstep, hend⟩ := hlastExec
   subst target
-  have hfinish : 0 < finish := executes_pos (by omega) hexec
+  have hfinish : 0 < finish := executes_pos hstart hexec
   have hmod : finish % 3 = 2 := by
     have hcongr := congrArg (fun z : ℕ => z % 3) hstep
     simp [Nat.add_mod, Nat.mul_mod] at hcongr
@@ -147,6 +147,14 @@ theorem firstPassage_execution_from_boundary_has_boundary_target
     exact Nat.mul_div_cancel' hdiv
   have hK : 0 < K := by omega
   exact ⟨K, hK, by omega⟩
+
+/-- Boundary-specialized wrapper used by the canonical recharge extraction. -/
+theorem firstPassage_execution_from_boundary_has_boundary_target
+    {w : List Bool} {H finish : ℕ}
+    (hH : 0 < H) (hfirst : FirstPassage w)
+    (hexec : Executes w (3 * H - 1) finish) :
+    ∃ K, 0 < K ∧ finish = 3 * K - 1 := by
+  exact firstPassage_execution_has_boundary_target (by omega) hfirst hexec
 
 /-- At an odd charge the first executable first-passage word cannot be the
 one-letter drain word. -/
@@ -435,6 +443,83 @@ theorem drainedIterate_eq_none_rules_out_infiniteExecution
     (infiniteExecution_iff_all_drainedIterates_defined hH).mp hinfinite n
   rw [hnone] at hsome
   simp at hsome
+
+/-! ## Global existential reduction and determinism -/
+
+/-- Every infinite first-passage execution, from an arbitrary ordinary
+positive start, enters a canonical odd-charge orbit after its first block and
+the complete forced drain of that block's boundary target. -/
+theorem infiniteExecution_gives_some_canonicalOrbit
+    {start : ℕ} (hinfinite : InfiniteExecution FirstPassageCode start) :
+    ∃ H, HasInfiniteCanonicalOrbit H := by
+  obtain ⟨hstart, words, hlength, hwords, hexecBlocks⟩ := hinfinite 1
+  cases words with
+  | nil => simp at hlength
+  | cons w tail =>
+      have htail : tail = [] := by
+        have : tail.length = 0 := by simpa using hlength
+        exact List.eq_nil_of_length_eq_zero this
+      subst tail
+      obtain ⟨finish, hw, _⟩ := hexecBlocks
+      have hfirst : FirstPassage w := hwords w (by simp)
+      obtain ⟨K, hK, hfinish⟩ :=
+        firstPassage_execution_has_boundary_target hstart hfirst hw
+      rw [hfinish] at hw
+      have honeWords : WordsIn FirstPassageCode [w] := by
+        intro word hword
+        simp only [List.mem_singleton] at hword
+        subst word
+        exact hfirst
+      have honeExec : ExecutesBlocksTo [w] start (3 * K - 1) := by
+        exact ⟨3 * K - 1, hw, rfl⟩
+      have htailInfinite :
+          InfiniteExecution FirstPassageCode (3 * K - 1) :=
+        infiniteExecution_after_prefix hinfinite honeWords honeExec
+      exact ⟨drainedCharge K,
+        (infiniteExecution_iff_canonicalOrbit_drained hK).mp htailInfinite⟩
+
+/-- Global exact reduction: the first-passage code has an infinite ordinary
+execution iff the deterministic canonical recharge map has an infinite
+ordinary charge orbit. -/
+theorem exists_infiniteExecution_iff_exists_canonicalOrbit :
+    (∃ start, InfiniteExecution FirstPassageCode start) ↔
+      ∃ H, HasInfiniteCanonicalOrbit H := by
+  constructor
+  · rintro ⟨start, hinfinite⟩
+    exact infiniteExecution_gives_some_canonicalOrbit hinfinite
+  · rintro ⟨H, horbit⟩
+    exact ⟨3 * H - 1, canonicalOrbit_gives_infiniteExecution horbit⟩
+
+/-- Two sequences following the canonical partial map and starting at the
+same charge agree pointwise.  There is no hidden symbolic branch choice. -/
+theorem canonicalOrbit_sequence_unique
+    {left right : ℕ → ℕ} {H : ℕ}
+    (hleftZero : left 0 = H) (hrightZero : right 0 = H)
+    (hleft : ∀ n,
+      canonicalRechargeMap (left n) = some (left (n + 1)))
+    (hright : ∀ n,
+      canonicalRechargeMap (right n) = some (right (n + 1))) :
+    left = right := by
+  funext n
+  induction n with
+  | zero => exact hleftZero.trans hrightZero.symm
+  | succ n ih =>
+      have hl := hleft n
+      have hr := hright n
+      rw [ih] at hl
+      exact Option.some.inj (hl.symm.trans hr)
+
+/-- Equivalent global formulation using only definedness of every finite
+canonical partial iterate. -/
+theorem exists_infiniteExecution_iff_exists_all_iterates_defined :
+    (∃ start, InfiniteExecution FirstPassageCode start) ↔
+      ∃ H, ∀ n, ∃ K, canonicalRechargeIterate n H = some K := by
+  exact exists_infiniteExecution_iff_exists_canonicalOrbit.trans <| by
+    constructor
+    · rintro ⟨H, horbit⟩
+      exact ⟨H, canonicalOrbit_iff_all_iterates_defined.mp horbit⟩
+    · rintro ⟨H, hdefined⟩
+      exact ⟨H, canonicalOrbit_iff_all_iterates_defined.mpr hdefined⟩
 
 end OutwardCanonicalRechargeCompleteness
 end KontoroC

@@ -19422,3 +19422,62 @@ does not turn the classical map into a terminating algorithm.
 
 Full build and explicit audit again pass 8,883 jobs with only standard
 mathlib axioms.  No forbidden proof markers occur in the module.
+
+## Round 378 — global canonical-orbit reduction and uniqueness
+
+I completed the conceptual reduction in
+`KontoroC.OutwardCanonicalRechargeCompleteness`.  First, the boundary-target
+lemma is now stated from an arbitrary positive source:
+
+```text
+firstPassage_execution_has_boundary_target:
+  0 < start -> FirstPassage w -> Executes w start finish ->
+  exists K>0, finish = 3*K-1.
+```
+
+Consequently any infinite first-passage execution, no matter what its initial
+residue is, executes one block to a positive boundary, survives after that
+literal prefix, drains to an odd charge, and enters the canonical map:
+
+```text
+infiniteExecution_gives_some_canonicalOrbit:
+  InfiniteExecution FirstPassageCode start ->
+  exists H, HasInfiniteCanonicalOrbit H.
+```
+
+The global exact equivalence is
+
+```text
+exists_infiniteExecution_iff_exists_canonicalOrbit:
+  (exists start, InfiniteExecution FirstPassageCode start) <->
+  (exists H, HasInfiniteCanonicalOrbit H).
+```
+
+Thus arbitrary initial residue classes and arbitrary symbolic block schedules
+do not enlarge the existential search problem: every survivor is represented
+by one ordinary natural-valued orbit of the canonical odd-charge partial map.
+
+The determinism is explicit:
+
+```text
+canonicalOrbit_sequence_unique
+```
+
+proves that two natural sequences starting at the same charge and satisfying
+the canonical successor equation are equal as functions.  There is no hidden
+symbolic branch choice to recover later.  The equivalent global finite-depth
+form is
+
+```text
+exists_infiniteExecution_iff_exists_all_iterates_defined.
+```
+
+This is still an exact reduction, not a construction or decision procedure:
+the canonical map remains noncomputable at the “does another outward boundary
+exist?” gate.
+
+Full build and audit pass 8,883 jobs with only the standard mathlib axioms;
+the module remains free of forbidden proof markers.
+
+I also see the new accelerated period-three request in
+`docs/FOR_CLEAN_LEAN.md` and will inspect it next.

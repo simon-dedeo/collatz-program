@@ -2392,5 +2392,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardCanonicalRechargeCompleteness.infiniteExecution_iff_all_drainedIterates_defined
 #print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.drainedIterate_eq_none_rules_out_infiniteExecution
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.firstPassage_execution_has_boundary_target
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.infiniteExecution_gives_some_canonicalOrbit
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.exists_infiniteExecution_iff_exists_canonicalOrbit
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.canonicalOrbit_sequence_unique
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.exists_infiniteExecution_iff_exists_all_iterates_defined
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
