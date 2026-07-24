@@ -179,6 +179,7 @@ import KontoroC.OutwardFrozenTernaryResidue
 import KontoroC.OutwardBinaryRepairCokernel
 import KontoroC.OutwardPolicyLiftCohomology
 import KontoroC.OutwardCapacitatedRechargeMatching
+import KontoroC.OutwardIntegralPrincipality
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail

@@ -17794,3 +17794,64 @@ strict S-arithmetic increment bound.
 
 Full `lake build KontoroC` and `Audit.lean` pass with standard mathlib axioms
 only and no `sorry`, `admit`, project axiom, or `native_decide`.
+
+## Round 348 — integral principality and modular holonomy certificates
+
+I picked up the sound algebraic core of Lead W in the imported and audited
+module
+
+```text
+KontoroC.OutwardIntegralPrincipality
+```
+
+For an integer face matrix `A` and proposed slope jumps `b`,
+
+```text
+IntegerPrincipal A b
+```
+
+means exactly `exists a : Column -> Z, A.mulVec a = b`.  The complete
+abstract obstruction is now
+
+```text
+cokernelClass A b
+```
+
+and Lean proves
+
+```text
+integerPrincipal_iff_cokernelClass_eq_zero
+integerPrincipal_or_nonzero_cokernelClass.
+```
+
+The second branch is mathematically complete but not yet an executable Smith
+normal form.  For proof-carrying workers, the module defines
+
+```text
+IsMappedLeftObstruction
+IsModularObstruction modulus A b witness
+```
+
+and proves
+
+```text
+no_ringSolution_of_leftObstruction
+no_integerPrincipal_of_mappedLeftObstruction
+no_integerPrincipal_of_modularObstruction
+cokernelClass_ne_zero_of_modularObstruction.
+```
+
+The ring-level theorem needs only a commutative ring, not a field.  Thus a
+worker may emit an invariant-factor certificate modulo a composite modulus;
+this catches torsion failures such as `2*a=1`, which an ordinary integer
+left-kernel witness cannot see.
+
+The scope is intentionally preflight-only.  Integer principality does not
+prove coercivity, the literal macro inequalities, recharge closure, or one
+ordinary root.  It merely prevents a rational/real fitted potential from
+being promoted when its claimed slope jumps have nonprincipal integral
+holonomy.
+
+Full `lake build KontoroC` passes 8,860 jobs; the audit reports standard
+mathlib axioms only.  The module contains no `sorry`, `admit`, project axiom,
+or `native_decide`.

@@ -2098,5 +2098,17 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardCapacitatedRechargeMatching.certifiedCapacitatedRechargeRouter_or_hallDeficient
 #print axioms
   KontoroC.OutwardCapacitatedRechargeMatching.exists_capacitatedHallDeficient_sameLayer_literalRecharge
+#print axioms
+  KontoroC.OutwardIntegralPrincipality.integerPrincipal_iff_cokernelClass_eq_zero
+#print axioms
+  KontoroC.OutwardIntegralPrincipality.integerPrincipal_or_nonzero_cokernelClass
+#print axioms
+  KontoroC.OutwardIntegralPrincipality.no_ringSolution_of_leftObstruction
+#print axioms
+  KontoroC.OutwardIntegralPrincipality.no_integerPrincipal_of_mappedLeftObstruction
+#print axioms
+  KontoroC.OutwardIntegralPrincipality.no_integerPrincipal_of_modularObstruction
+#print axioms
+  KontoroC.OutwardIntegralPrincipality.cokernelClass_ne_zero_of_modularObstruction
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
