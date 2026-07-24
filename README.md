@@ -33,6 +33,73 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-24 01:37 EDT
+
+There is still no Collatz counterexample.  The IAS audit now has 171
+authoritative transcript-checked release talks.  This group did produce one
+complete small-period theorem for the ordinary accelerated map.
+
+Victoria Hoskins explains a genuine realization-lifting theorem: Betti
+realization is conservative after restricting to abelian motives.  The
+restriction is the substance.  Collatz parity realization is not conservative:
+the exact paths `1 -> 4 -> 2` and `3 -> 10 -> 5` both realize as `OE` but have
+different states.  Any spectrum, counter polynomial, or residue trace used by
+the search needs a proved conservative subcategory before identities can be
+lifted back to literal paths.
+
+Georgios Dimitroglou-Rizell's neck-stretching proof first receives possibly
+broken limits from SFT compactness, then excludes the bad buildings by index,
+area, and intersection arguments, and finally proves an evaluation map is a
+diffeomorphism.  The Collatz broken-limit model is exact:
+`F^j(2^N-1)=3^j*2^(N-j)-1` for `0 <= j <= N`, so every finite all-odd segment
+replays and the residues are nested, but their compact 2-adic limit is `-1`.
+An arithmetic compactness proof needs an evaluation theorem landing in
+positive integers, not merely in `Z_2`.
+
+Miguel Walsh's polynomial noncontainment/root-count principle leads to a
+complete accelerated period-three calculation.  For a valuation triple
+`(a,b,c)`, its only possible fixed point is
+
+`n=(9+3*2^a+2^(a+b))/(2^(a+b+c)-27)`.
+
+If `n >= 2` is integral and positive, exact rearrangement gives
+`2^(a+b)*(2^(c+1)-1) <= 63+3*2^a`, hence `a <= 4`, `b <= 3`, and `c <= 3`.
+Exhaustive exact-fraction replay of all 36 triples in that box finds none.
+The remaining `n=1` has word `222` and is the known fixed point.  Thus the
+accelerated Collatz map has no nontrivial positive integer orbit of period
+dividing three.  This does not concern aperiodic escape.
+
+Mark Sellke's overlap-gap obstruction relies on continuity of a stable
+algorithm along an interpolation of random Hamiltonians.  Selector space has
+no such topology for free.  Along `111 -> 211 -> 221 -> 222`, the exact
+rational periodic roots are `-1`, `-29/11`, `37/5`, and `1`; each replays its
+word and is coherent at every dyadic precision, but the roots jump and only
+the last is a positive integer.  Literal rational replay plus 2-adic coherence
+still does not supply an ordinary counterexample.
+
+David Zywina assembles prime-by-prime maximal Galois images only after a
+Goursat-style independence step, and the rational base field has an additional
+commutator obstruction.  This is the right CEGIS refinement rule when every
+marginal feature passes: add the missing joint relation.  The diagonal subgroup
+of `C2 x C2` projects surjectively onto both factors but is not their product;
+full local projections do not prove a global fiber product, a path, or a root.
+
+David Steurer's SDP/SOS framework makes pseudo-witnesses explicit.  For the
+triangle MaxCut, the exact moment matrix with diagonal `1` and off-diagonal
+`-1/2` is positive semidefinite (principal minors `1`, `3/4`, and `0`) and has
+relaxed value `9/4`, although every literal cut has value at most `2`.
+Therefore SDP feasibility or a pseudo-distribution is not a Collatz witness.
+Small moment architectures should be refined by exact carry relations or
+degree only when their first CEGIS failure identifies that missing semantic
+feature.
+
+Formalizer commit `a902820` now kernel-checks the canonical reduction that the
+odd-charge recharge map is complete for literal infinite first-passage
+execution: infinite execution is equivalent to an ordinary natural-valued
+canonical recharge orbit, and one proved undefined finite iterate rules it
+out.  The map is noncomputable, so this is a proof interface rather than a
+search oracle; no orbit is constructed.  `counterexample:null`.
+
 ### 2026-07-24 01:30 EDT
 
 There is still no Collatz counterexample.  The IAS audit now has 165
@@ -9941,6 +10008,44 @@ existing lines of work; the closest ancestors, and what each contributes:
   1,460--3,381 seconds** — analytic bias forces partition-rank structure, but
   a tensor decomposition does not impose shared endpoints or select a literal
   path unless those semantics were encoded beforehand.
+- **V. Hoskins, [“Moduli spaces with abelian
+  motives”](https://www.ias.edu/video/moduli-spaces-abelian-motives), IAS talk
+  (24 Mar. 2025), corpus key `9810798de4d0e74e1eb686f5c1674558`, S3 at
+  1,639--1,979 and S7 at 3,323--3,655 seconds** — Betti realization is
+  conservative only on a proved abelian-motive subcategory.  A compressed
+  Collatz realization similarly needs a conservativity theorem before it can
+  recover literal paths.
+- **G. Dimitroglou-Rizell, [“Classification results for two-dimensional
+  Lagrangian tori”](https://www.ias.edu/video/puias/2016/0407-Dimitroglou-Rizell),
+  IAS talk (7 Apr. 2016), corpus key `a2e75197ff44152144d013e6d9950fa3`,
+  S4--S7 at 1,508--3,352 seconds** — compactness first permits broken
+  buildings; separate index, intersection, and evaluation arguments exclude
+  them.  A Collatz inverse limit must likewise be proved ordinary.
+- **M. Walsh, [“The Polynomial Method and High-degree
+  Varieties”](https://www.ias.edu/video/polynomial-method-and-high-degree-varieties),
+  IAS talk (24 Oct. 2022), corpus key `c93956b461f4aa74f54eea0117cddc9e`,
+  S3--S4/S7 at 350--1,248 and 1,916--2,638 seconds** — a noncontained line has
+  at most degree-many intersections with a hypersurface.  Applied to each
+  affine selector equation and followed by exact replay, this closes every
+  nontrivial accelerated period-three positive integer cycle.
+- **M. Sellke, [“Algorithmic Thresholds for Mean-Field Spin
+  Glasses”](https://www.ias.edu/video/algorithmic-thresholds-mean-field-spin-glasses),
+  IAS talk (23 Sept. 2022), corpus key `e175b6cdc4523c96513b67611b6d5c72`,
+  S3/S6--S7 at 917--1,268 and 2,636--3,755 seconds** — overlap-gap hardness
+  depends on stability and continuity through an interpolation.  Discrete
+  Collatz selector roots can jump among coherent rational 2-adic points.
+- **D. Zywina, [“Abelian varieties with maximal Galois action on their torsion
+  points”](https://www.ias.edu/video/1213/jointiaspu/0124-DavidZywina), IAS talk
+  (24 Jan. 2013), corpus key `05cf9f5ee4a07a50554e8e2d1635757b`,
+  S3--S7 at 1,491--3,225 seconds** — maximal local images require an
+  independence theorem to assemble, and global commutator obstructions can
+  remain.  Marginal Collatz residue features do not establish joint gluing.
+- **D. Steurer, [“Lower bounds on the size of semidefinite programming
+  relaxations”](https://www.ias.edu/video/csdm/2015/1130-Steurer), IAS talk
+  (30 Nov. 2015), corpus key `80f4c6e355487a5a36cd223237e00ca4`,
+  S5--S8 at 1,609--3,551 seconds** — SDP failure certificates dualize to
+  pseudo-distributions, and small SDP certificates are simulated by
+  low-degree SOS.  Relaxed moment feasibility is not a literal path witness.
 - **S. Fenner, [“Bipartite perfect matching is in
   quasi-NC”](https://www.ias.edu/video/csdm/2016/0208-Fenner), IAS talk
   (8 Feb. 2016), corpus key `83398a9013343939af42951fafbfdaa1`, S2--S8 at

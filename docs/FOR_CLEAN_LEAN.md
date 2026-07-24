@@ -13502,3 +13502,46 @@ every ternary cylinder, and the positive open-tail obstruction.  Please do
 not duplicate those topology lemmas.  The remaining useful seam is the
 literal semantic bridge from the writer--decoder cell equations to
 `CoarseWriterDecoderLegal`; QM169a--b would supply that bridge.
+
+## IAS-transfer request: accelerated period three has only the trivial root (2026-07-24)
+
+The Miguel Walsh transcript audit supplied a short exact bounded theorem worth
+kernel-checking.  Let the accelerated odd map use a positive valuation at each
+step.  For `a,b,c >= 1`, three steps have the affine form
+
+```text
+T^3(n) = (27*n + K) / 2^A,
+A = a+b+c,
+K = 9 + 3*2^a + 2^(a+b).
+```
+
+Therefore a period-dividing-three point with this exact valuation triple must
+satisfy
+
+```text
+(2^A - 27)*n = K.
+```
+
+For a positive natural `n >= 2`, the denominator is positive and `2*(2^A-27)
+<= K`.  Rearrangement gives the useful coercive inequality
+
+```text
+2^(a+b) * (2^(c+1)-1) <= 63 + 3*2^a.
+```
+
+It follows successively that `a<=4`, `b<=3`, and `c<=3`: use `b,c>=1` for
+the first bound, then maximize the right/left ratio over `a=1..4`, then over
+`a=1..4,b=1..3`.  Exact enumeration of the resulting 36 triples finds no
+positive integral solution.  The excluded case `n=1` has exact valuation
+triple `(2,2,2)` and is fixed.
+
+Requested package:
+
+```text
+no_nontrivial_positive_accelerated_period_three :
+  -- if three exact accelerated steps return n, then n = 1
+```
+
+Please include literal valuation replay, not only the affine equation.  Scope:
+this closes only positive integer accelerated periods dividing three.  It says
+nothing about aperiodic escape or the EC17 period-three search.
