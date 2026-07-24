@@ -1991,6 +1991,32 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardSelectorIndistinguishability.witness_survives_unseparating_refinement
 #print axioms
+  KontoroC.OutwardFiniteShadowFaithfulness.faithfulOn_iff_functionalOn_id
+#print axioms
+  KontoroC.OutwardFiniteShadowFaithfulness.coordinateRecoverableOn_iff_functionalOn
+#print axioms
+  KontoroC.OutwardFiniteShadowFaithfulness.coordinateRecoverableOn_of_faithfulOn
+#print axioms
+  KontoroC.OutwardFiniteShadowFaithfulness.faithfulOn_of_coordinateRecoverableOn_of_injective
+#print axioms
+  KontoroC.OutwardFiniteShadowFaithfulness.faithfulOn_iff_coordinateRecoverableOn_of_injective
+#print axioms
+  KontoroC.OutwardFiniteShadowFaithfulness.no_coordinateDecoder_of_collision
+#print axioms
+  KontoroC.OutwardFiniteShadowFaithfulness.no_reifier_of_kernelPair
+#print axioms
+  KontoroC.OutwardFiniteShadowFaithfulness.faithfulOn_iff_exists_reifier
+#print axioms
+  KontoroC.OutwardFiniteShadowFaithfulness.mem_kernelPairs_iff
+#print axioms
+  KontoroC.OutwardFiniteShadowFaithfulness.kernelPairs_eq_empty_iff_faithfulOn
+#print axioms
+  KontoroC.OutwardFiniteShadowFaithfulness.kernelPairs_nonempty_iff_not_faithfulOn
+#print axioms
+  KontoroC.OutwardFiniteShadowFaithfulness.FaithfulOn.of_refinement
+#print axioms
+  KontoroC.OutwardFiniteShadowFaithfulness.kernelPair_survives_unseparating_refinement
+#print axioms
   KontoroC.OutwardSUnitSyntaxGate.hasProperZeroSumPartition_of_vanishingProperSubsum
 #print axioms
   KontoroC.OutwardSUnitSyntaxGate.finite_normalForm_range_of_non_degenerate

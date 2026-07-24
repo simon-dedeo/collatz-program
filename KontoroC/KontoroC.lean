@@ -171,6 +171,7 @@ import KontoroC.OutwardCircuitValuationNoGo
 import KontoroC.OutwardStaircaseAddressNoGo
 import KontoroC.OutwardSemanticAliasNoGo
 import KontoroC.OutwardSelectorIndistinguishability
+import KontoroC.OutwardFiniteShadowFaithfulness
 import KontoroC.OutwardSUnitSyntaxGate
 import KontoroC.OutwardDirectedPathExpansion
 import KontoroC.OutwardRechargeMatching

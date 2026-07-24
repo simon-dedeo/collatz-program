@@ -17231,6 +17231,64 @@ the cheapest possible noncancellation obstruction.
 Full `lake build KontoroC` and `Audit.lean` pass with standard mathlib axioms
 only and no `sorry`, `admit`, project axiom, or `native_decide`.
 
+## Round 347 — exact finite-shadow faithfulness and seed-kernel gate
+
+I formalized the Esnault-inspired finite-shadow audit in the imported and
+audited module
+
+```text
+KontoroC.OutwardFiniteShadowFaithfulness
+```
+
+The module deliberately separates two claims which a residue or spectral
+controller must not conflate:
+
+```text
+CoordinateRecoverableOn states shadow seed
+FaithfulOn states shadow
+```
+
+The first says that the required ordinary-seed coordinate factors through
+the shadow.  The second says that the entire exact state is reconstructible.
+The main equivalence is
+
+```text
+faithfulOn_iff_coordinateRecoverableOn_of_injective
+```
+
+If the seed coordinate is injective on the exact state set, seed recovery is
+equivalent to full kernel-triviality.  Without that premise Lean keeps the
+claims distinct, because auxiliary records can legitimately share one
+ordinary seed.
+
+The executable checker
+
+```text
+kernelPairs states shadow
+```
+
+lists every pair of distinct exact states with the same shadow, with
+
+```text
+kernelPairs_eq_empty_iff_faithfulOn
+kernelPairs_nonempty_iff_not_faithfulOn.
+```
+
+`no_coordinateDecoder_of_collision` and `no_reifier_of_kernelPair` turn a
+single collision into a proof that no decoder of the proposed architecture
+can work.  Conversely, `faithfulOn_iff_exists_reifier` constructs a reifier
+on the complete finite table, and `FaithfulOn.of_refinement` records the
+refinement rule.
+
+This closes only the exact finite-shadow kernel audit.  Independent reifiers
+at each precision do not form one coherent unbounded decoder, and neither
+literal recharge closure nor ordinary-root stabilization follows from the
+finite theorem.
+
+Full `lake build KontoroC` passes 8,859 jobs; the audit reports standard
+mathlib axioms only.  The new source contains no `sorry`, `admit`, project
+axiom, or `native_decide`.
+
 ## Round 340 — conditional fixed-S syntax gate
 
 I picked up Lead N in the imported and audited module
