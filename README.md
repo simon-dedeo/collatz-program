@@ -33,6 +33,81 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-24 03:06 EDT
+
+There is still no Collatz counterexample.  The IAS audit now has 255
+authoritative transcript-checked release talks.
+
+Dima Sinapova separates several exact reflection principles at successors of
+singular cardinals.  Countable simultaneous reflection forces SCH at a
+countable-cofinality singular, while relative-consistency results obtain
+failure of SCH with every fixed finite simultaneous reflection; her new
+uncountable-cofinality theorem proves ordinary reflection, while the advertised
+generalization and countable simultaneous version are not yet checked.  The
+Collatz lesson is the quantifier order: every fixed finite family of checks may
+share a depth-dependent bound `B_r` although no single finite `B` handles all
+checks.  Increasing audit depth cannot replace one cutoff-independent repair
+map or potential.
+
+Andrei Rapinchuk proves finiteness of the genus of a division algebra over a
+finitely generated field by showing that equal maximal-subfield data forces
+the same ramification support and leaves only a finite unramified Brauer
+kernel.  Related algebraic-group results use good reduction, while several
+general triviality statements remain conjectural.  A Collatz local fingerprint
+can similarly narrow a controller only to a certified finite ambiguity class.
+Every residual representative must still be replayed; equality of tested local
+data is singleton identification only after the kernel is proved trivial.
+
+Florian Richter proves that every positive-density subset of the naturals
+contains `B_1+...+B_k` with all `B_i` infinite, using correspondence, Host--Kra
+cubes, and a continuous disintegration that pins the first coordinate to a
+specified transitive point.  The conclusion is automatic for every finite
+Collatz cylinder: if `C={r mod q}`, take `B_1={r+qm:m>=1}` and
+`B_i={qm:m>=1}`.  The all-odd cylinders have this richness at every depth yet
+nest only to `-1`, so higher-order recurrence does not furnish cross-depth
+ordinary coherence.
+
+Lap Chi Lau solves the Paulsen problem up to a polynomial dimension factor by
+replacing zigzagging discrete operator scaling with a continuous gradient flow
+and a capacity invariant.  The exact arithmetic transfer is a gap certificate.
+For a fixed word let `R(n)=(2^A-3^k)n-B`; a proof that the integer `R(n)` has
+absolute value below one forces `R(n)=0`.  Continuous convergence alone is
+insufficient: for word `123`, `R(n)=37n-23` vanishes at the coherent rational
+cycle root `23/37` and at no integer.
+
+Philip Engel turns an assumed algebraic curve on a matroidal degeneration into
+a universal colored graph and then a finite-field linear/quadratic obstruction,
+proving integral-Hodge and stable-irrationality consequences.  This is a useful
+one-way architecture test if every ordinary Collatz realization is first
+proved to induce the graph.  Local solvability cannot reverse the implication:
+`(x^2-13)(x^2-17)(x^2-221)` has a root over every `Z_p` but no integer root.
+A family of satisfiable modular carry systems therefore is not an ordinary
+seed.
+
+Ofer Gabber presents the finiteness proof for étale cohomology over excellent
+schemes by controlled alterations, log-regular models, purity, and descent.
+The proof move suggests auxiliary finite carry charts only with an exact
+projection/descent theorem.  Its splitting step is explicitly prime to the
+coefficient characteristic: for a two-sheeted cover with `F_2` coefficients,
+pullback followed by trace is multiplication by two and hence zero.  Collatz's
+critical branching is dyadic, so tame prime-to-two alteration cannot be
+assumed to regularize it, and adic approximation alone supplies no Archimedean
+root bound.
+
+Formalizer commit `8927732` closes the literal writer--decoder seam and rules
+out a vast finite-chart repair.  Every literal coarse chart occupies at most
+50 classes modulo `2^54`; any portfolio of at most `360,287,970,189` charts
+leaves a common dyadic class, and CRT places arbitrarily large ordinary
+parameters from every prescribed ternary cylinder in that common hole.
+Commit `d2375b2` separately removes the finite-grammar hypothesis from the
+Kraft decay: every finite family of schedules with exactly `n` first-passage
+blocks has total dyadic mass at most `(17/20)^n`.  Commit `fc295a0` gives the
+literal cylinder form: at dyadic depth `L`, the proportion of residue classes
+beginning `n` complete recharges is at most `(17/20)^n`.  The modules rebuild.
+These are an exact finite-portfolio no-go and full-language density theorems,
+not an exclusion of an unbounded recursive selector or one measure-zero
+infinite schedule with an ordinary root.  `counterexample:null`.
+
 ### 2026-07-24 03:00 EDT
 
 There is still no Collatz counterexample.  The IAS audit now has 249
@@ -9367,11 +9442,11 @@ from `d8e789a` now runs before this more expensive synthesis.
 | First bounded odd-charge invariant grammar | All eight implemented architectures are rejected within their stated exact domains.  The grammar combines exact `Cell(w,a)` branches, `v3`/primitive/dyadic cylinders, and the recursive pure-power/resonant families; CEGIS compares excluding a bad source with adjoining its target by description complexity.  Through `H<=200001`, family parameter 800, four ternary digits and eight dyadic bits, the least stored failures are `3,15,3,15,189,82701,23541,333`.  No recursive-family transition is universally certified, so this is a bounded grammar verdict, not a no-invariant theorem. | [`outward_charge_invariant_cegis_audit.json`](experiments/kontorovich/outward_charge_invariant_cegis_audit.json), [`OutwardInvariantBridge.lean`](KontoroC/KontoroC/OutwardInvariantBridge.lean), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#26-selector-architecture-and-invariant-cegis) |
 | Fixed-precision primitive guard partitions | Inadequate as invariant certificates.  On 178 exact states descended from the theorem-mandated `C=12 mod16` roots, bounded charge/ternary guards retain 74 minority transition errors.  Ten dyadic plus ten exponent-residue bits separate the displayed sample, but only as a finite lookup: unbounded word coverage, exact valuation binders, target inclusion, and ordinary root closure remain unproved.  The coherent exponent address moves to `700`, and the record's chart depth grows to 105 while height stays nearly fixed.  The replacement grammar uses finite LOW/HIGH/RESONANT predicate types with unbounded `v2`/`v3` binders. | [`outward_primitive_invariant_cegis_audit.json`](experiments/kontorovich/outward_primitive_invariant_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#27-primitive-coordinate-invariant-types-and-the-growing-rank-obstruction) |
 | Finite graph of fixed one-exponential chart instances | Universally closed.  With integer rank `chi=v2(alpha)-d`, every coefficient-matched recharge edge has `chi'=chi-(S+a)<chi`.  Lean proves the exact balance law and excludes a finite nonempty graph with an outgoing edge at every node by following an edge from a minimum-rank node.  The theorem deliberately does not cover finite chart *types* carrying unbounded runtime denominator/rank state; that is the live grammar. | [`OutwardChartRankNoGo.lean`](KontoroC/KontoroC/OutwardChartRankNoGo.lean), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#27-primitive-coordinate-invariant-types-and-the-growing-rank-obstruction) |
-| Complete finite-state first-passage router | Closed unconditionally.  Commits `cb8e92a`--`ed3576c` prove from exact `3^3<2^5` and a weighted Kraft tilt that every prefix-free outward family has fair dyadic mass at most `17/20`; the complete countable first-passage code obeys the same bound.  Commit `a0fba3a` proves that at every depth at least `3/20` of actual residue classes modulo `2^L` have literal no-outward-prefix shortcut executions and arbitrarily large positive ordinary lifts.  Commits `c5f8b92`/`d8fa08e` calibrate both compactness traps: repeated even extension is coherent but nonordinary, while the known positive `2 -> 1 -> 2` cycle is an infinite survivor ray.  Commit `29ac135` proves every finite grammar's length-`n` macro-path mass is at most `(17/20)^n`; this is exponential rarity, not exclusion of one zero-mass path.  Neither abundant finite witnesses nor an infinite survivor branch implies an escaping writer--decoder orbit. | [`OutwardStrictKraftGap.lean`](KontoroC/KontoroC/OutwardStrictKraftGap.lean), [`OutwardSurvivorResidues.lean`](KontoroC/KontoroC/OutwardSurvivorResidues.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#lead-b-weighted-core-entropy-before-recursive-search) |
+| Complete finite-state first-passage router and full finite `n`-macro schedule families | Closed unconditionally at the density level.  Commits `cb8e92a`--`ed3576c` prove from exact `3^3<2^5` and a weighted Kraft tilt that every prefix-free outward family has fair dyadic mass at most `17/20`; the complete countable first-passage code obeys the same bound.  Commit `a0fba3a` proves that at every depth at least `3/20` of actual residue classes modulo `2^L` have literal no-outward-prefix executions and arbitrarily large positive ordinary lifts.  Commits `c5f8b92`/`d8fa08e` calibrate coherent nonordinary and trivial-cycle survivor rays.  Commit `29ac135` gives finite-grammar length-`n` mass at most `(17/20)^n`; commit `d2375b2` removes the grammar and proves the same bound for every finite family of uniquely parsed `n`-block schedules, with fixed-length integer bound `20^n*card<=17^n*2^L`.  Commit `fc295a0` unions their extension cylinders: at depth `L`, residue classes beginning `n` complete recharges have proportion at most `(17/20)^n`.  This is exponential rarity, not exclusion of one zero-mass infinite path or proof of its ordinary root. | [`OutwardStrictKraftGap.lean`](KontoroC/KontoroC/OutwardStrictKraftGap.lean), [`OutwardIteratedKraftGap.lean`](KontoroC/KontoroC/OutwardIteratedKraftGap.lean), [`OutwardSurvivorResidues.lean`](KontoroC/KontoroC/OutwardSurvivorResidues.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#lead-b-weighted-core-entropy-before-recursive-search) |
 | Finite resource grammar with a strict rational dual | Closed under the stated aggregate-budget premise.  Lean defines exact nonnegative conserved edge circulations and proves that a rational vertex potential plus nonnegative multipliers for height/precision/carry resource coordinates excludes every nonzero circulation when all reduced edge scores are strictly negative.  The ordered companion directly excludes every nonempty closed macro walk with nonnegative total selected resource.  The worker must separately justify the aggregate budgets; bounded survival supplies neither a circulation nor a closed walk. | [`OutwardResourceConeNoGo.lean`](KontoroC/KontoroC/OutwardResourceConeNoGo.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#preflight-filters-j-resource-cones-lattice-support-and-honest-integral-lifting) |
 | Finite survival of alternating writer--decoder schedules | Non-discriminating, and both displayed selector architectures fail the ordinary-address gate.  Every finite `(c,b)` word has one coherent nested exponent cylinder by KC-FP12.  The address beam checks 8,883 edges through depth ten, exhaustive through depth three, with no zero exponent carry; a semantic beam checks 3,546 frontiers through depth eight and has best decoder shortfall 41 bits.  The exact normalized criterion is `r_infinity=-3^C` in `Q_2`.  Every finite rational-coboundary tail is universally closed; the bounded open case must be aperiodic, have factor complexity at least `k+1`, and evade finite rational coboundaries.  Commit `af4c46f` kernel-checks `9H>2^(4*3^c+c+4+b)` and an explicit exhaustive finite `(c,b)` alphabet at every fixed `H`, so scale-only counter search is unjustified.  This is not a no-invariant theorem, and the alphabet need not be uniform as `H` grows. | [`OutwardWriterDecoderEnvelope.lean`](KontoroC/KontoroC/OutwardWriterDecoderEnvelope.lean), [`outward_writer_decoder_cegis_audit.json`](experiments/kontorovich/outward_writer_decoder_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#29-two-place-normalization-and-the-height-budget) |
 | Fixed-precision writer--decoder payload predicates | Inadequate.  In exact triples `H=(2^D Q-B)/9`, the base predicate fails at `(p,b,Q)=(2,0,7)` and an exact-next-writer refinement fails at `Q=187` with a 48-bit decoder shortfall.  A residue-preserving perturbation defeats any fixed `Q mod 2^k3^ell` guard that is asked to force a larger target valuation; exact rows cover `7<=k<=16`.  The corrected mandatory ternary quotient has three nodes, but all 81 displayed source/target symbol pairs have exact ordinary edges, so it does not close the dynamics.  A live predicate needs runtime dyadic precision and a genuinely aperiodic/unbounded symbol update.  The general perturbation and edge formulas are research-side pending QM169; no recursive invariant is certified. | [`outward_writer_decoder_invariant_cegis_audit.json`](experiments/kontorovich/outward_writer_decoder_invariant_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#31-exact-invariant-cegis-on-payload-triples) |
-| Pure ternary-cylinder and finite-depth open-tail writer--decoder selectors | Universally inadequate for the exact coarse-gate model.  The two-edge map gives `n=n0+2^D''*m`, `u=u0+3^(g+2)*m`.  Modulo `2^54`, counters `2..50` contribute at most 49 decoder classes and every `p>=51` shares one writer class.  Hence the full target alphabet occupies at most 50 classes, leaving a dyadic-open hole inside every ternary cylinder.  Lean kernel-checks the affine-gate uniqueness, 50-class cover, CRT, and positive open-tail no-go; the concrete bridge from literal writer--decoder semantics remains research-side, with schema v2 checking 729 coefficient maps and 729 canonical failures.  A live invariant must be genuinely infinitely recursive and prove an ordinary root; none is certified. | [`OutwardCoarseHole.lean`](KontoroC/KontoroC/OutwardCoarseHole.lean), [`outward_writer_decoder_invariant_cegis_audit.json`](experiments/kontorovich/outward_writer_decoder_invariant_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#32-the-exact-two-edge-parameter-map-and-a-finite-cylinder-obstruction) |
+| Pure ternary-cylinder, finite-depth open-tail, and bounded finite-portfolio writer--decoder selectors | Universally inadequate for the exact coarse-gate model.  The two-edge map gives `n=n0+2^D''*m`, `u=u0+3^(g+2)*m`.  Modulo `2^54`, counters `2..50` contribute at most 49 decoder classes and every `p>=51` shares one writer class, so each literal chart occupies at most 50 classes.  Commit `8927732` closes the literal semantic bridge and proves that any portfolio with `50*charts.card<2^54` has a common dyadic hole inside every ternary cylinder; the decimal corollary covers at most `360287970189` charts and gives arbitrarily large positive ordinary failures by CRT.  Promoting a literal cell to a recharge macro still explicitly requires both decoder first-passage slope inequalities.  A live invariant must use an unbounded recursively parameterized family binding fresh dyadic state and prove an ordinary root; none is certified. | [`OutwardCoarseHole.lean`](KontoroC/KontoroC/OutwardCoarseHole.lean), [`OutwardFiniteChartPortfolioNoGo.lean`](KontoroC/KontoroC/OutwardFiniteChartPortfolioNoGo.lean), [`outward_writer_decoder_invariant_cegis_audit.json`](experiments/kontorovich/outward_writer_decoder_invariant_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#32-the-exact-two-edge-parameter-map-and-a-finite-cylinder-obstruction) |
 | Pure last-nonzero-ternary-digit recursive selector | Universally inadequate for the literal writer--decoder architecture.  Every exact primitive layer still contains a full range of dyadic classes.  Lean proves that, even when the selected chart is an arbitrary function of valuation depth and primitive digit, each regular layer contains arbitrarily large ordinary states where that chart is illegal.  Greenfeld's hierarchy remains relevant only after adding a fresh dyadic address/carry binder inside every regular and exceptional branch. | [`OutwardValuationSelectorNoGo.lean`](KontoroC/KontoroC/OutwardValuationSelectorNoGo.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#lead-a-a-mixed-dyadic--triadic-recursive-valuation-selector) |
 | Treating critical first-passage/KL mass as an ordinary survivor | Invalid.  For the canonical maximal outward first-passage code, the slope-tilted Kraft mass is exactly one at every block depth, but its natural product flow satisfies `mu_q{r_n<=B}<=B(3/4)^n`.  Conditioning fair renewal on arbitrarily long survival gives the product block law `p(w)/P`, which is also diffuse, with fixed-window bound `B(1/(2P))^n`.  Thus conserved mass and the classical survival Doob transform both escape every bounded ordinary residue window.  Any successful selector must create an atom; a useful sufficient proof input is the weaker growth condition `rho_n=o(2^n)`, which forces eventual zero carry. | [`outward_first_passage_audit.json`](experiments/kontorovich/outward_first_passage_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#23-odd-charge-compression-and-triadic-min-plus-renewal) |
 | Fixed-precision triadic min-plus controller | Does not close the unbounded raw renewal.  The exact dual-residue update for a source phase modulo `3^k` queries the target profile modulo `3^(O(w)+k)`; already word `1` requires precision `k+1`.  Finite height closes with the complete table `W_B`, explicit target bound `C(B)`, and a membership precision `3^K>C(B)`, but `K` grows with height.  Thus a successful phase selector needs genuinely growing arithmetic state, not one fixed residue automaton. | [`outward_minplus_profile_audit.json`](experiments/kontorovich/outward_minplus_profile_audit.json), companion commits `a0e460d`/`8d79424`, [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#24-growing-phase-precision-and-directed-carry-repair) |
@@ -11458,6 +11533,53 @@ existing lines of work; the closest ancestors, and what each contributes:
   stationary base measure and projective-fiber nonconcentration, yielding a
   sharp Lyapunov lower bound.  Deterministic Collatz retains singular atomic
   invariant orbits that every typical-state estimate may miss.
+- **D. Sinapova, [“Combinatorics of Singular
+  Cardinals”](https://www.ias.edu/video/combinatorics-singular-cardinals), IAS
+  talk (6 Apr. 2026), corpus key `046391ca22a18d609fd6375741264028`, S2--S8
+  at 521--4,259 seconds** — ZFC and relative-consistency results sharply
+  separate finite, countable, and ordinary stationary reflection at successors
+  of singulars; some uncountable-cofinality extensions are explicitly
+  unchecked.  Passing every fixed finite Collatz audit has the wrong
+  quantifier order for one cutoff-independent all-depth certificate.
+- **A. Rapinchuk, [“On the notion of genus for division algebras and
+  algebraic groups”](https://www.ias.edu/video/puias/2017/1102-AndreiRapinchuk),
+  IAS talk (2 Nov. 2017), corpus key `c1b7ac1b1b8bebe1f3ae69e4244457b3`,
+  S2--S8 at 846--3,309 seconds** — ramification support plus a finite
+  unramified kernel proves finite genus over finitely generated fields, with
+  group analogues via good reduction.  Local Collatz fingerprints identify at
+  most a finite ambiguity class unless kernel triviality, replay, and an
+  ordinary-root bound are separately proved.
+- **F. K. Richter, [“Higher Order Sumsets in Sets of Positive
+  Density”](https://www.ias.edu/video/higher-order-sumsets-sets-positive-density),
+  IAS talk (2 Mar. 2023), corpus key `8824db3f2907e88de617042e795eb866`,
+  S1--S7 at 39--3,340 seconds** — correspondence and Host--Kra cubes prove
+  infinite `k`-fold sumsets inside every positive-density subset of the
+  naturals.  Every finite arithmetic Collatz cylinder already has this
+  property, including the all-odd tower whose only coherent root is `-1`.
+- **L. C. Lau, [“Solution to the Paulsen problem (via operator
+  scaling)”](https://www.ias.edu/video/OCIT/2018/0606-LapChiLau), IAS talk
+  (7 June 2018), corpus key `d351230825c66e79deea88d501cb0875`, S1--S8 at
+  92--4,283 seconds** — continuous operator scaling, an invariant capacity,
+  and smoothed analysis bound movement to an exact balanced frame.  For
+  Collatz a useful defect must be integer-valued with an explicit gap;
+  continuous balance can converge to a nonintegral rational cycle.
+- **P. Engel, [“Matroids and the Integral Hodge Conjecture for Abelian
+  Varieties”](https://www.ias.edu/video/matroids-and-integral-hodge-conjecture-abelian-varieties),
+  IAS talk (9 Mar. 2026), corpus key `58452424cf273fb4af4cb256fa921ca9`,
+  S1--S7 at 30--3,740 seconds** — degeneration and monodromy turn a putative
+  algebraic curve into a universal colored-graph system with finite-field
+  obstructions.  Such an obstruction can reject a Collatz architecture only
+  after an exact ordinary-seed-to-graph implication; local solvability does
+  not reverse to an integer realization.
+- **O. Gabber, [“Geometry and Arithmetic - Finiteness Theorems for Etale
+  Cohomolgy of
+  Excellent”](https://www.ias.edu/video/Geometry-and-Arithmetic-Gabber), IAS
+  talk (17 Oct. 2005), corpus key `8dc5047e0adbab544f20bc09d787aa98`,
+  S1--S8 at 11--3,893 seconds** — alterations, log-regularization, purity, and
+  descent prove constructibility and boundedness without general resolution
+  of singularities.  Prime-to-coefficient trace splitting and noetherian finite
+  presentation do not automatically control Collatz's wild dyadic branching
+  or its Archimedean ordinary-root gate.
 - **S. Fenner, [“Bipartite perfect matching is in
   quasi-NC”](https://www.ias.edu/video/csdm/2016/0208-Fenner), IAS talk
   (8 Feb. 2016), corpus key `83398a9013343939af42951fafbfdaa1`, S2--S8 at
