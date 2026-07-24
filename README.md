@@ -33,6 +33,47 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 23:10 EDT
+
+There is still no counterexample.  Three more transcript-checked talks sharpen
+the search without enlarging a seed or word beam.  Dimitrov's arithmetic
+holonomy theorem suggests a class-level no-go for automatic or substitutive
+selectors: under the ordinary equation `r_infinity=-3^C`, construct one
+rational-coefficient auxiliary series, prove its exact denominator and
+all-place overconvergence bounds, use conformal size to bound the dimension of
+its `Q(x)` solution space, and contradict that bound with independent
+controller transforms.  The transfer fails cleanly if the Collatz system is
+only Mahler/noncommutative or lacks the special rational-coefficient
+implication.  It is an exclusion program, not a construction.
+
+Krivelevich supplies the more immediate finite experiment.  At one exact
+precision, build the **directed** graph of root-clean positive-drift reset
+macros and certify the minimum out-neighborhood of every `k`-set.  Directed
+DFS converts a lower bound `ell` into a replayable path of length at least
+`ell`; failure returns a minimum cut whose residue/carry boundary is a compact
+candidate invariant or obstruction.  The talk's bipartite and subdivided
+examples explicitly warn that expansion does not remove parity or congruence
+obstructions.  Increasingly long finite paths still do not give compatible
+bonding maps or one ordinary seed.
+
+Bansal's discrepancy rounding is retained only behind a stronger clean-pair
+gate: every alternative must already have identical exact boundary action and
+zero ordinary carry, after which dyadic-interval rows can control all prefix
+resource errors.  The new literal-alias theorem makes that gate empty for two
+distinct macros with fixed exact source and target, so only a genuinely
+parametric/coarser interface could make this lane nonvacuous.
+
+Formalizer commit `4b88221` has meanwhile kernel-checked the bounded Jutla
+core: an executable `witnessPairs` set is nonempty exactly when the required
+target is not a function of the current features, and emptiness is equivalent
+to an actual decoder on the complete finite state set.  Lean also proves that
+a witness survives every refinement which still assigns its two states the
+same signature.  This makes the outer loop exact at each bound; it does not
+supply the mixed-valuation encoding or one uniform unbounded selector.  The
+public checked ledger is now 44 talks; the single corpus batch is at
+769/1,025 with zero failures and remains below the stated cost ceiling.
+`counterexample:null`.
+
 ### 2026-07-23 23:03 EDT
 
 There is still no counterexample.  Jutla's pseudo-linear completeness talk
@@ -7616,6 +7657,26 @@ existing lines of work; the closest ancestors, and what each contributes:
   transference in the super-sparse smooth regime redirects fixed-shape
   `2`/`3`-power macro identities to an S-unit finiteness/subsum gate.  That
   gate prunes bounded term syntax; it does not construct a growing grammar.
+- **V. Dimitrov, [“Arithmetic holonomy bounds and Apéry
+  limits”](https://www.ias.edu/video/arithmetic-holonomy-bounds-and-apery-limits),
+  IAS talk (22 Sept. 2022), corpus key `a7862ba15fb9251b3b0efb9ee64f9d71`,
+  S3--S4/S7 at 2,400--3,760 seconds** — denominator growth plus all-place
+  overconvergence bounds a holonomic solution space, enabling a
+  dimension-versus-derivatives contradiction.  A Collatz transfer first needs
+  an explicit D-finite auxiliary series; a Mahler system is not enough.
+- **M. Krivelevich, [“Paths and cycles in
+  expanders”](https://www.ias.edu/video/csdm/2020/0210-MichaelKrivelevich), IAS
+  talk (10 Feb. 2020), corpus key `234d35e01cff3446271f60df1cf2d860`,
+  S2--S7/E2--E3/E5--E6 at 563--3,376 seconds** — a one-scale neighborhood
+  certificate turns exact directed reset-graph expansion into a verified long
+  finite macro path; its minimum cut is the more useful failure witness.
+- **N. Bansal, [“On Beck-Fiala and Komlós
+  Conjectures”](https://www.ias.edu/video/beck-fiala-and-komlos-conjectures),
+  IAS talk (10 Nov. 2025), corpus key `d676051521258c7e0c738f0c67a82327`,
+  S2--S7/E4--E6 at 923--3,528 seconds** — safe-subspace and covariance
+  discrepancy ideas motivate prefix-balanced resource batches only after
+  exact clean boundary compatibility.  Real discrepancy never repairs a
+  valuation or carry error.
 - **A. V. Kontorovich & Ya. G. Sinai, [“Structure Theorem for
   `(d,g,h)`-Maps”](https://arxiv.org/abs/math/0601622), Bull. Braz. Math. Soc.
   33 (2002), 213–224** — the exact arithmetic-progressions theorem for every

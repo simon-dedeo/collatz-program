@@ -764,6 +764,16 @@ For iterated calls the talk introduces superguards and randomized/stateful
 extensions; the raw discussion at 3,098--3,645 seconds also rejects exhaustive
 field enumeration as a security-parameter-dependent, nonuniform program.
 
+Formalizer commit `4b88221` kernel-checks the architecture-independent finite
+core.  `witnessPairs` executablely enumerates every exact pair with equal
+features and unequal required targets.  Lean proves that it is nonempty
+exactly when the target is not functional on the complete finite state set,
+and that an empty witness set is equivalent to existence of an actual decoder
+on that set.  It also proves that feature refinement preserves functionality
+and that an old witness survives every refinement which still fails to
+separate its two states.  This certifies the bounded CEGIS logic, not the
+pseudo-linear encoding or one precision-uniform Collatz selector.
+
 The mismatch sets the unbounded acceptance gate.  Collatz legality uses mixed
 `2`- and `3`-adic valuations rather than characteristic-two linear guards, is
 partial, and has precision that grows along the candidate orbit.  Separately
@@ -825,6 +835,53 @@ the full linear-forms condition (2,792--3,267 seconds).  Likewise, entropy or
 equidistribution of recharge features cannot replace exact lattice support,
 closure, and ordinary-seed realization.
 
+## Lead O: holonomy bounds as a no-go for rational structured selectors
+
+Vesselin Dimitrov, *Arithmetic holonomy bounds and Apéry limits*, IAS,
+22 Sept. 2022, key `a7862ba15fb9251b3b0efb9ee64f9d71`, supplies a
+four-gate contradiction template for bounded automatic or substitutive
+selector schedules.  S3--S4 package rational-coefficient formal power series
+with LCM denominator growth and analytic pullbacks at all places.  When total
+conformal size strictly beats denominator and approximation cost, the
+admissible space is finite-dimensional over `Q(x)`, hence holonomic, with an
+explicit dimension bound.  The raw statement and formula were checked at
+2,400--2,800 and 2,880--3,260 seconds.
+
+S7 makes the method operational.  A modular overconvergent function contains
+one conjecturally irrational 2-adic zeta-five constant.  If that constant were
+rational, the function would have rational coefficients with LCM denominator
+exponent five and sufficiently large analytic radius.  The bound permits at
+most five independent functions, while the function and its derivatives give
+six.  The transcript at 3,308--3,670 seconds gives the contradiction, and the
+Q&A at 3,692--3,760 limits the claim to zeta five rather than a generic odd
+zeta theorem.
+
+For a fixed finite-kernel or constant-length substitution controller, first
+construct its exact state-indexed generating system for the normalized
+selector tail `r_infinity`.  Ordinary realization requires
+`r_infinity=-3^C` in `Q_2`.  A Dimitrov-style exclusion is accepted only if all
+four gates are proved:
+
+1. rationality of `r_infinity` forces rational coefficients of one explicit
+   auxiliary formal function;
+2. its denominator-growth exponent and all-place analytic pullbacks are
+   bounded exactly;
+3. the explicit conformal-size inequality gives a finite `Q(x)`-dimension
+   bound;
+4. controller transforms or derivatives give more symbolically independent
+   functions than that bound.
+
+This is an architecture synthesizer for **no-go theorems**, not a trajectory
+search: every failure names the missing property (non-D-finiteness, excessive
+denominators, inadequate overconvergence, or insufficient independent
+transforms).  The principal mismatch is severe.  Collatz tails use
+symbol-dependent cumulative exponents and may satisfy only a Mahler or
+noncommutative system, not a differential equation.  Rationality of one
+`Q_2` value does not itself imply rational coefficients or complex
+overconvergence; Dimitrov obtains that implication from special modular
+structure.  Success would exclude a certified structured selector class, not
+construct an escape.
+
 ## Other promoted talks (transfer ledger)
 
 | Status | Talk and raw spans | Concrete transfer | Principal mismatch |
@@ -866,6 +923,8 @@ closure, and ordinary-seed realization.
 | conditional stability filter | Alexander Lubotzky, *Stability, Non-approximated Groups and High-dimensional Expanders*, key `6b1b831e4b3dd5445ae97fcd580d1eb2`, S1/S3--S4/S6--S7/E4/E6, 52--610 and 1,587--3,440 s | Linearize controller relators, compute the degree-two defect cocycle, and require a uniform stability/correction theorem whose kernel is trivial on the seed coordinate before promoting asymptotically consistent tables. | The talk concerns total unitary group maps with metric error; Collatz macros are partial and valuation-discontinuous, and stability of a controller action still does not make its seed ordinary. |
 | warning | Lev Glebsky, *Approximations of Groups, Subquotients of Infinite Direct Products and Equations over Groups*, key `02dcdc750c5e506010b7ccfae677d308`, S2--S3/S5--S8, 37--1,290 and 2,504--3,463 s | Measure the least finite quotient through which every selector function factors; a stable level plus kernel-triviality and bounded canonical representatives is the required discrete-lift gate. | Compactness deliberately produces a solution over an overgroup/product quotient, where growing finite dependence is exactly an infinite profinite tape. |
 | warning/coherence audit | Alexander Petrov, *Galois Action on Higher Etale Homotopy Groups*, key `e76667fa26f053d772a9d6b48a8190ab`, S3--S6/E4--E5, 834--1,230 and 1,620--3,620 s | Attach a transition 2-complex to claimed commuting repair/descent squares and test comparison cocycles or `p`-good/`K(pi,1)` behavior before treating finite shadows as a discrete controller. | The arithmetic higher-homotopy obstruction need not occur in the Collatz graph, and detecting one only rejects gluing; it constructs neither a seed nor an orbit. |
+| exact finite directed-search certificate | Michael Krivelevich, *Paths and cycles in expanders*, key `234d35e01cff3446271f60df1cf2d860`, S2--S7/E2--E3/E5--E6, 563--3,376 s | On a fixed exact root-clean positive-drift reset graph, certify `min_(|S|=k)|N^+(S)|>=ell`; directed DFS then returns a replayable directed path of length at least `ell`.  A minimizing cut instead exposes the smallest residue/carry bottleneck for invariant synthesis. | Expansion does not erase parity or modulus obstructions, as the talk's bipartite and subdivided examples show.  One-scale long paths do not bond across scales and can converge only profinitely. |
+| conditional finite balancing | Nikhil Bansal, *On Beck-Fiala and Komlós Conjectures*, key `d676051521258c7e0c738f0c67a82327`, S2--S7/E4--E6, 923--3,528 s | For an independently proved library of paired macros with identical exact boundary action, put resource differences on dyadic interval rows and use exact sign/MILP replay to bound every prefix; SDP is discovery only. | Collatz legality is adaptive and exact, while discrepancy rounds a fixed real matrix.  Commit `af90376` makes the identical-fixed-endpoint pair gate empty for distinct literal macros; only a genuinely parametric/coarser interface could remain. |
 
 ## Negative lessons already extracted
 
@@ -970,6 +1029,12 @@ closure, and ordinary-seed realization.
   `6e4ef815ee2322a047f36de5410f05f6`.
 - Lilian Matthiesen, *Linear equations in smooth numbers*, IAS, 18 Oct. 2022,
   key `87c95bd0494bd525290bc695733fc58a`.
+- Vesselin Dimitrov, *Arithmetic holonomy bounds and Apéry limits*, IAS,
+  22 Sept. 2022, key `a7862ba15fb9251b3b0efb9ee64f9d71`.
+- Michael Krivelevich, *Paths and cycles in expanders*, IAS, 10 Feb. 2020,
+  key `234d35e01cff3446271f60df1cf2d860`.
+- Nikhil Bansal, *On Beck-Fiala and Komlós Conjectures*, IAS, 10 Nov. 2025,
+  key `d676051521258c7e0c738f0c67a82327`.
 - Alexander Lubotzky, *Stability, Non-approximated Groups and
   High-dimensional Expanders*, IAS, 12 Oct. 2020, key
   `6b1b831e4b3dd5445ae97fcd580d1eb2`.
