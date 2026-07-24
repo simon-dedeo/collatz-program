@@ -17185,3 +17185,48 @@ of later chain entries and literal first-passage semantics remain separate.
 
 Full `lake build KontoroC` and `Audit.lean` pass with only standard mathlib
 axioms and no `sorry`, `admit`, project axiom, or `native_decide`.
+
+## Round 336 — exact paired-valuation circuit rejection
+
+The Kaveh/Bergman preflight now has a kernel-checkable core in the imported
+and audited module
+
+```text
+KontoroC.OutwardCircuitValuationNoGo
+```
+
+The certificate predicate
+
+```text
+HasUniqueDivisibilityMinimumAt p k support term i
+```
+
+asserts, by raw integer divisibility, that `term i` is divisible by `p^k`
+but not `p^(k+1)`, while every other supported term is divisible by
+`p^(k+1)`.  Lean proves
+
+```text
+sum_ne_zero_of_uniqueDivisibilityMinimum
+no_uniqueDivisibilityMinimum_of_sum_eq_zero
+```
+
+and the worker-facing specializations
+
+```text
+no_unique_twoAdic_minimum_of_sum_eq_zero
+no_unique_threeAdic_minimum_of_sum_eq_zero.
+```
+
+There is also an affine adapter for terms `coefficient i * value i`.
+Primality is not trusted or even needed after the exact divisibility witness
+is supplied: the proof deletes the unique term, proves the rest of the sum is
+divisible by `p^(k+1)`, and derives the forbidden divisibility of the unique
+term from a claimed zero sum.
+
+This is a sharp rejection theorem only.  Passing both the 2-adic and 3-adic
+tests does not provide a rational/integer lift, positivity, or an ordered
+trajectory; it merely prevents a candidate affine relation from failing by
+the cheapest possible noncancellation obstruction.
+
+Full `lake build KontoroC` and `Audit.lean` pass with standard mathlib axioms
+only and no `sorry`, `admit`, project axiom, or `native_decide`.

@@ -1946,5 +1946,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardSArithmeticStabilization.eventuallyZeroCarry_of_residue_increment_eventually_lt
 #print axioms
   KontoroC.OutwardSArithmeticStabilization.exists_nonnegative_follows_of_residue_increment_eventually_lt
+#print axioms
+  KontoroC.OutwardCircuitValuationNoGo.sum_ne_zero_of_uniqueDivisibilityMinimum
+#print axioms
+  KontoroC.OutwardCircuitValuationNoGo.no_uniqueDivisibilityMinimum_of_sum_eq_zero
+#print axioms
+  KontoroC.OutwardCircuitValuationNoGo.no_unique_twoAdic_minimum_of_sum_eq_zero
+#print axioms
+  KontoroC.OutwardCircuitValuationNoGo.no_unique_threeAdic_minimum_of_sum_eq_zero
+#print axioms
+  KontoroC.OutwardCircuitValuationNoGo.affine_sum_ne_zero_of_uniqueDivisibilityMinimum
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
