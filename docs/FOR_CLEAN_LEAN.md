@@ -13390,3 +13390,69 @@ the congruence
 has a unique class because two is a unit; an odd sufficiently large lift and
 `Q=(2^D'Q'-B(p'))/3^(p+o+b+2)` give an exact ordinary edge.  Scope warning:
 QM169d gives finite local edges, not one coherent infinite ordinary root.
+
+## Kontorovich follow-up: two-edge parameter/Kraft seam (QM170, 2026-07-23)
+
+Please formalize the exact parameter map following QM169d.  This is now the
+smallest theorem-shaped invariant-CEGIS architecture filter.
+
+Fix three symbols `s=(p,b)`, `s'=(p',b')`, `s''=(p'',b'')`, and put
+`g=p+o(p)+b`.  Choose positive base solutions for the two QM169d edge
+families.  The first family has the exact coefficient form
+
+```text
+Q =q0 +9*2^(D'+1)n,
+Q'=q0'+2*3^(g+4)n.                              (QM170a)
+```
+
+If the second family writes its middle source as
+`Q'=r0+9*2^(D''+1)u`, then `q0'=r0 (mod18)`.  With
+`delta=(r0-q0')/18`, intersection is equivalent to
+
+```text
+3^(g+2)n-delta=2^D''*u.
+```
+
+Since `3` is a unit modulo `2^D''`, there are unique canonical `n0,u0` and
+all intersections are exactly
+
+```text
+n=n0+2^D''*m,
+u=u0+3^(g+2)*m.                                 (QM170b)
+```
+
+Please note that the last exponent is the preceding `g`, not `g'`.
+
+The architecture no-go is also compact.  For fixed current edge data and a
+candidate target symbol `t=(p'',b'')`, its odd-quotient gate becomes one
+dyadic parameter cylinder
+
+```text
+n=n_t mod 2^D(t).                               (QM170c)
+```
+
+Distinct target-symbol guards are disjoint because the writer and decoder
+valuations determine at most one target symbol.  Prove the elementary Kraft
+bound
+
+```text
+sum_(p>=2,b>=0) 2^(-D(p,b)) < 2^(-53).          (QM170d)
+```
+
+One proof uses `S(p)>=49`, hence `D(p,b)>=p+53+b`, with strict inequality in
+the tail after `p=2`.  For any fixed finite target list, its finite union of
+dyadic cylinders therefore has a nonempty dyadic-open complement.  CRT makes
+every nonempty congruence cylinder modulo `3^k` meet that complement in
+arbitrarily large naturals.  Conclude:
+
+```text
+no nonempty finite union of ternary parameter cylinders can force
+the next symbol to lie in a fixed finite target-symbol list.      (QM170e)
+```
+
+Scope warning: do **not** infer the same conclusion for the infinite union of
+all symbols.  The Kraft bound gives positive 2-adic complement measure, but
+that complement need not be open or meet the recursively required ordinary
+progression.  An unbounded target-symbol binder remains live.  The executable
+schema-v2 regression checks QM170a--b on 729 bounded symbol triples and keeps
+`universal_invariant:null`, `counterexample:null`.

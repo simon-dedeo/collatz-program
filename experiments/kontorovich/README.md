@@ -5372,7 +5372,10 @@ the base triple `(2,0,7)` leaves the writer family, while the exact-next-writer
 payload `Q=187` has a 48-bit decoder shortfall.  It checks fixed-precision
 residue-preserving perturbations for `7<=k<=16`, the corrected three-node
 mod-nine quotient through `p=6`, and 81 exact coefficientwise ordinary edges
-for all symbol pairs `2<=p,p'<=4`, `0<=b,b'<=2`.
+for all symbol pairs `2<=p,p'<=4`, `0<=b,b'<=2`.  Schema v2 additionally
+checks the exact two-edge coefficient map on all 729 ordered symbol triples,
+records the dyadic resource/Kraft ledger, and gives the smallest closure
+failure for anchored one-step-memory ternary cylinders through precision six.
 
 ```bash
 PYTHONPATH=experiments/kontorovich \
@@ -5382,7 +5385,10 @@ PYTHONPATH=experiments/kontorovich \
   experiments/kontorovich/outward_writer_decoder_invariant_cegis_audit.json
 ```
 
-The finite rows are exact arithmetic, but the general perturbation,
-mod-nine, and edge-family formulas remain research derivations pending QM169.
-No recursive mixed-base invariant is synthesized.  The artifact records
+The finite rows are exact arithmetic.  The general perturbation, mod-nine,
+edge-family, and two-edge formulas remain research derivations pending
+QM169--QM170.  QM170's CRT argument universally rejects finite unions of
+ternary parameter cylinders with a fixed finite target-symbol alphabet; it
+does not reject an unbounded recursive symbol binder.  No recursive
+mixed-base invariant is synthesized.  The artifact records
 `universal_invariant:null` and `counterexample:null`.

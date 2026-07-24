@@ -1,5 +1,5 @@
 {
-  "artifact_sha256": "b970128241e849637e8a3d6f2a2c7d3b6ae083c141875779944d4605353bd1df",
+  "artifact_sha256": "83bc25c3613229f70b9ffa7cc952ee21665ffa8136edbf5475978fcbddb145b4",
   "audit": {
     "architecture_failures": [
       {
@@ -327,10 +327,50 @@
       "maximum_edge_drain": 2,
       "maximum_mod9_counter": 6,
       "maximum_perturb_precision": 16,
+      "maximum_ternary_selector_precision": 6,
       "minimum_perturb_precision": 7
     },
     "claim_scope": "exact arithmetic failures and local edge witnesses; universal algebraic statements remain research derivations pending Lean, and no recursive mixed-base invariant or nonterminating ordinary orbit is claimed",
     "counterexample": null,
+    "fixed_symbol_kraft_ledger": {
+      "all_symbol_bound": {
+        "derivation": "S(p)>=49 gives D(p,b)>=p+53+b; equality in S occurs only at p=2",
+        "inequality": "sum_(p>=2,b>=0) 2^-D(p,b) < 2^-53",
+        "status": "research derivation pending Lean"
+      },
+      "displayed_p_rows": [
+        {
+          "D_at_b_0": 55,
+          "S": 49,
+          "all_b_dyadic_mass": "2^-54",
+          "p": 2
+        },
+        {
+          "D_at_b_0": 154,
+          "S": 147,
+          "all_b_dyadic_mass": "2^-153",
+          "p": 3
+        },
+        {
+          "D_at_b_0": 447,
+          "S": 439,
+          "all_b_dyadic_mass": "2^-446",
+          "p": 4
+        }
+      ],
+      "displayed_partial_mass": {
+        "denominator": "181709681073901722637330951972001133588410340171829515070372549795159822028349480831547762678440891390190630401566544483383650407153664",
+        "numerator": "10086913586276986678343434265652679477665526425788126578935461378370119370328801043480147008511119507950897833535602689"
+      },
+      "finite_architecture_obstruction": {
+        "does_not_exclude": "an unbounded recursively selected target symbol; the global Kraft bound alone does not make the infinite-union complement open",
+        "proof": "a finite target list is a finite union of disjoint dyadic cylinders with nonempty dyadic-open complement; CRT makes every nonempty ternary cylinder meet that complement in arbitrarily large positive parameters",
+        "status": "research theorem pending Lean",
+        "theorem": "no nonempty finite union of ternary parameter cylinders can force the next symbol to lie in a fixed finite target-symbol list"
+      },
+      "guard_for_target_symbol": "after division by two, n=n0(p,b) mod 2^D(p,b)",
+      "guards_are_disjoint": "the deterministic next writer/decoder valuations select at most one symbol"
+    },
     "local_edge_family_regression": {
       "edges_sha256": "c4af4df1ea3d707fcd7ed791a61efc89009f505139e0655363ea03804b86897a",
       "exact_ordinary_edges": 81,
@@ -2271,6 +2311,7 @@
     },
     "meaning": "exact invariant-CEGIS on charge-dependent writer--decoder payload triples",
     "next_architecture": {
+      "exact_parameter_seam": "n=n0+2^D''*m and u=u0+3^(g+2)*m",
       "predicate": "recursive mixed-base family P(p,b,Q)",
       "required_features": [
         "the mandatory three-node mod-nine quotient",
@@ -2281,6 +2322,210 @@
       ],
       "status": "not_synthesized"
     },
+    "ternary_cylinder_architecture_cegis": {
+      "meaning": "complexity ladder for a legal anchored edge with one-step memory and successively finer pure ternary parameter cylinders",
+      "rows": [
+        {
+          "architecture": "one_step_symbol_memory_plus_parameter_mod_3^k",
+          "failure_triple": {
+            "H": "1903971144666380128363339529923377",
+            "H_bits": 111,
+            "H_sha256": "7226fa0a000b473acaf21d55b0d66f3a5662496ec9a0ca85c4abc07c288e9594",
+            "Q": "475612335681869257",
+            "Q_bits": 59,
+            "Q_sha256": "7dc245467b74b7f9fb34ee2496a71fbaec16a3ae550e37bb969b3aa6a93b4684",
+            "b": 0,
+            "output": "2643957780256447699311418517256411",
+            "output_bits": 112,
+            "output_sha256": "453873acd03450b7e613f60217178adb4c82057bb5789374726363792ac7cc55",
+            "p": 2
+          },
+          "first_failure": {
+            "derived_p": -3,
+            "g": 33,
+            "kind": "next_writer_undefined",
+            "v2_9Hprime_plus_7": 1
+          },
+          "legal_anchor_n": "15400082691250851",
+          "precision_k": 0,
+          "predicate": "current_edge=(2,0)->(2,0), n=0 mod 3^0",
+          "representatives_tested_through_first_failure": 1,
+          "smallest_closure_failure_n": "0",
+          "status": "rejected_by_exact_witness"
+        },
+        {
+          "architecture": "one_step_symbol_memory_plus_parameter_mod_3^k",
+          "failure_triple": {
+            "H": "1903971144666380128363339529923377",
+            "H_bits": 111,
+            "H_sha256": "7226fa0a000b473acaf21d55b0d66f3a5662496ec9a0ca85c4abc07c288e9594",
+            "Q": "475612335681869257",
+            "Q_bits": 59,
+            "Q_sha256": "7dc245467b74b7f9fb34ee2496a71fbaec16a3ae550e37bb969b3aa6a93b4684",
+            "b": 0,
+            "output": "2643957780256447699311418517256411",
+            "output_bits": 112,
+            "output_sha256": "453873acd03450b7e613f60217178adb4c82057bb5789374726363792ac7cc55",
+            "p": 2
+          },
+          "first_failure": {
+            "derived_p": -3,
+            "g": 33,
+            "kind": "next_writer_undefined",
+            "v2_9Hprime_plus_7": 1
+          },
+          "legal_anchor_n": "15400082691250851",
+          "precision_k": 1,
+          "predicate": "current_edge=(2,0)->(2,0), n=0 mod 3^1",
+          "representatives_tested_through_first_failure": 1,
+          "smallest_closure_failure_n": "0",
+          "status": "rejected_by_exact_witness"
+        },
+        {
+          "architecture": "one_step_symbol_memory_plus_parameter_mod_3^k",
+          "failure_triple": {
+            "H": "12719429442168391929226137183267633",
+            "H_bits": 114,
+            "H_sha256": "ed961a15b1eefa1f4a112ac0e348b244000ad91fbe6f0c764a10a15c174747ed",
+            "Q": "3177315771027853435",
+            "Q_bits": 62,
+            "Q_sha256": "157b6f3cfa46d6e18dc01244733371dfb21d5e7e5bb3ff6accba87513464485e",
+            "b": 0,
+            "output": "17662890810215897307204850433771505",
+            "output_bits": 114,
+            "output_sha256": "560fa8fce7772bf22d89a5b83d367495622295a938eb4f9b1cdbe4a3d323c991",
+            "p": 2
+          },
+          "first_failure": {
+            "derived_p": 3,
+            "g": 33,
+            "kind": "next_decoder_shortfall",
+            "required": 154,
+            "shortfall": 146,
+            "v2_composite_gate": 8
+          },
+          "legal_anchor_n": "15400082691250851",
+          "precision_k": 2,
+          "predicate": "current_edge=(2,0)->(2,0), n=3 mod 3^2",
+          "representatives_tested_through_first_failure": 1,
+          "smallest_closure_failure_n": "3",
+          "status": "rejected_by_exact_witness"
+        },
+        {
+          "architecture": "one_step_symbol_memory_plus_parameter_mod_3^k",
+          "failure_triple": {
+            "H": "77612179227180462734402923103333169",
+            "H_bits": 116,
+            "H_sha256": "ab6f58ec5dea92789cb31aa1cf2b6b2f8ed42f90fed922836a7c33d829023cb9",
+            "Q": "19387536383103758503",
+            "Q_bits": 65,
+            "Q_sha256": "e960368c7ecede26e9b1f7ff2ebbbf866334e3b8dbfc8014ba2e272aaf8a5a48",
+            "b": 0,
+            "output": "107776488989972594954565441932862069",
+            "output_bits": 117,
+            "output_sha256": "af8a1ad774806044933fd230e48c0fe7f94bf735ab027aeb08d3ecea1aa81c1b",
+            "p": 2
+          },
+          "first_failure": {
+            "derived_p": -2,
+            "g": 33,
+            "kind": "next_writer_undefined",
+            "v2_9Hprime_plus_7": 2
+          },
+          "legal_anchor_n": "15400082691250851",
+          "precision_k": 3,
+          "predicate": "current_edge=(2,0)->(2,0), n=21 mod 3^3",
+          "representatives_tested_through_first_failure": 1,
+          "smallest_closure_failure_n": "21",
+          "status": "rejected_by_exact_witness"
+        },
+        {
+          "architecture": "one_step_symbol_memory_plus_parameter_mod_3^k",
+          "failure_triple": {
+            "H": "174951303904698568942168101983431473",
+            "H_bits": 118,
+            "H_sha256": "b9939d1a3cd1426998915a6664c4d97ddca5192b24c25daf79cf998ce705cd87",
+            "Q": "43702867301217616105",
+            "Q_bits": 66,
+            "Q_sha256": "735d1d8e1bc5847ac9b6ce8d287986d0027c2a60789803b23570a873c344d081",
+            "b": 0,
+            "output": "242946886259607641425606329181497915",
+            "output_bits": 118,
+            "output_sha256": "3a4c676a56897263a9c812dce11d5a2a01ac9d188947f4ef2fef668594e7f4e0",
+            "p": 2
+          },
+          "first_failure": {
+            "derived_p": -3,
+            "g": 33,
+            "kind": "next_writer_undefined",
+            "v2_9Hprime_plus_7": 1
+          },
+          "legal_anchor_n": "15400082691250851",
+          "precision_k": 4,
+          "predicate": "current_edge=(2,0)->(2,0), n=48 mod 3^4",
+          "representatives_tested_through_first_failure": 1,
+          "smallest_closure_failure_n": "48",
+          "status": "rejected_by_exact_witness"
+        },
+        {
+          "architecture": "one_step_symbol_memory_plus_parameter_mod_3^k",
+          "failure_triple": {
+            "H": "174951303904698568942168101983431473",
+            "H_bits": 118,
+            "H_sha256": "b9939d1a3cd1426998915a6664c4d97ddca5192b24c25daf79cf998ce705cd87",
+            "Q": "43702867301217616105",
+            "Q_bits": 66,
+            "Q_sha256": "735d1d8e1bc5847ac9b6ce8d287986d0027c2a60789803b23570a873c344d081",
+            "b": 0,
+            "output": "242946886259607641425606329181497915",
+            "output_bits": 118,
+            "output_sha256": "3a4c676a56897263a9c812dce11d5a2a01ac9d188947f4ef2fef668594e7f4e0",
+            "p": 2
+          },
+          "first_failure": {
+            "derived_p": -3,
+            "g": 33,
+            "kind": "next_writer_undefined",
+            "v2_9Hprime_plus_7": 1
+          },
+          "legal_anchor_n": "15400082691250851",
+          "precision_k": 5,
+          "predicate": "current_edge=(2,0)->(2,0), n=48 mod 3^5",
+          "representatives_tested_through_first_failure": 1,
+          "smallest_closure_failure_n": "48",
+          "status": "rejected_by_exact_witness"
+        },
+        {
+          "architecture": "one_step_symbol_memory_plus_parameter_mod_3^k",
+          "failure_triple": {
+            "H": "174951303904698568942168101983431473",
+            "H_bits": 118,
+            "H_sha256": "b9939d1a3cd1426998915a6664c4d97ddca5192b24c25daf79cf998ce705cd87",
+            "Q": "43702867301217616105",
+            "Q_bits": 66,
+            "Q_sha256": "735d1d8e1bc5847ac9b6ce8d287986d0027c2a60789803b23570a873c344d081",
+            "b": 0,
+            "output": "242946886259607641425606329181497915",
+            "output_bits": 118,
+            "output_sha256": "3a4c676a56897263a9c812dce11d5a2a01ac9d188947f4ef2fef668594e7f4e0",
+            "p": 2
+          },
+          "first_failure": {
+            "derived_p": -3,
+            "g": 33,
+            "kind": "next_writer_undefined",
+            "v2_9Hprime_plus_7": 1
+          },
+          "legal_anchor_n": "15400082691250851",
+          "precision_k": 6,
+          "predicate": "current_edge=(2,0)->(2,0), n=48 mod 3^6",
+          "representatives_tested_through_first_failure": 1,
+          "smallest_closure_failure_n": "48",
+          "status": "rejected_by_exact_witness"
+        }
+      ],
+      "universal_class_rejection": "the finite-symbol CRT obstruction rejects every finite precision and every nonempty finite union, not only the displayed anchors"
+    },
     "triple_semantics": {
       "next_b": "v2(3^(p+o+b+2)*Q+B(p'))-(S(p')+p'+4)",
       "next_p": "v2(3^(p+o+b+2)*Q+7)-4",
@@ -2288,8 +2533,373 @@
       "source": "H=(2^D(p,b)*Q-B(p))/9",
       "source_conditions": "p>=2, b>=0, Q positive odd, 2^D Q=B(p) mod9"
     },
+    "two_edge_parameter_regression": {
+      "exact_two_edge_maps": 729,
+      "maps_sha256": "f79d41d1335fd22af51ddef4e704f4968d287ba28b2cee6cbe7ae7c22780a4f5",
+      "negative_u0_rows": 0,
+      "sample_rows": [
+        {
+          "D_double_prime": 55,
+          "D_prime": 55,
+          "first_progression": {
+            "Q_base": "342498722917514299",
+            "Q_prime_base": "475612335681869257",
+            "Q_prime_stride": "900567811781994726",
+            "Q_stride": "648518346341351424"
+          },
+          "g": 33,
+          "intersection": {
+            "m_to_n_multiplier": "36028797018963968",
+            "m_to_u_multiplier": "50031545098999707",
+            "n0": "15400082691250851",
+            "n0_bits": 54,
+            "n_modulus": "36028797018963968",
+            "n_modulus_bits": 56,
+            "u0": "21385391560259141"
+          },
+          "symbols": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "D_double_prime": 56,
+          "D_prime": 55,
+          "first_progression": {
+            "Q_base": "342498722917514299",
+            "Q_prime_base": "475612335681869257",
+            "Q_prime_stride": "900567811781994726",
+            "Q_stride": "648518346341351424"
+          },
+          "g": 33,
+          "intersection": {
+            "m_to_n_multiplier": "72057594037927936",
+            "m_to_u_multiplier": "50031545098999707",
+            "n0": "69443278219696803",
+            "n0_bits": 56,
+            "n_modulus": "72057594037927936",
+            "n_modulus_bits": 57,
+            "u0": "48216354604379351"
+          },
+          "symbols": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ]
+        },
+        {
+          "D_double_prime": 57,
+          "D_prime": 55,
+          "first_progression": {
+            "Q_base": "342498722917514299",
+            "Q_prime_base": "475612335681869257",
+            "Q_prime_stride": "900567811781994726",
+            "Q_stride": "648518346341351424"
+          },
+          "g": 33,
+          "intersection": {
+            "m_to_n_multiplier": "144115188075855872",
+            "m_to_u_multiplier": "50031545098999707",
+            "n0": "105472075238660771",
+            "n0_bits": 57,
+            "n_modulus": "144115188075855872",
+            "n_modulus_bits": 58,
+            "u0": "36616063576939602"
+          },
+          "symbols": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ]
+        },
+        {
+          "D_double_prime": 154,
+          "D_prime": 55,
+          "first_progression": {
+            "Q_base": "342498722917514299",
+            "Q_prime_base": "475612335681869257",
+            "Q_prime_stride": "900567811781994726",
+            "Q_stride": "648518346341351424"
+          },
+          "g": 33,
+          "intersection": {
+            "m_to_n_multiplier": "22835963083295358096932575511191922182123945984",
+            "m_to_u_multiplier": "50031545098999707",
+            "n0": "22816482508940474359800649504872976147639818371",
+            "n0_bits": 154,
+            "n_modulus": "22835963083295358096932575511191922182123945984",
+            "n_modulus_bits": 155,
+            "u0": "49988864909386695"
+          },
+          "symbols": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "D_double_prime": 155,
+          "D_prime": 55,
+          "first_progression": {
+            "Q_base": "342498722917514299",
+            "Q_prime_base": "475612335681869257",
+            "Q_prime_stride": "900567811781994726",
+            "Q_stride": "648518346341351424"
+          },
+          "g": 33,
+          "intersection": {
+            "m_to_n_multiplier": "45671926166590716193865151022383844364247891968",
+            "m_to_u_multiplier": "50031545098999707",
+            "n0": "34234464050588153408266937260468937238701791363",
+            "n0_bits": 155,
+            "n_modulus": "45671926166590716193865151022383844364247891968",
+            "n_modulus_bits": 156,
+            "u0": "37502318729443274"
+          },
+          "symbols": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              3,
+              1
+            ]
+          ]
+        },
+        {
+          "D_double_prime": 156,
+          "D_prime": 55,
+          "first_progression": {
+            "Q_base": "342498722917514299",
+            "Q_prime_base": "475612335681869257",
+            "Q_prime_stride": "900567811781994726",
+            "Q_stride": "648518346341351424"
+          },
+          "g": 33,
+          "intersection": {
+            "m_to_n_multiplier": "91343852333181432387730302044767688728495783936",
+            "m_to_u_multiplier": "50031545098999707",
+            "n0": "57070427133883511505199512771660859420825737347",
+            "n0_bits": 156,
+            "n_modulus": "91343852333181432387730302044767688728495783936",
+            "n_modulus_bits": 157,
+            "u0": "31259045639471563"
+          },
+          "symbols": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              3,
+              2
+            ]
+          ]
+        },
+        {
+          "D_double_prime": 447,
+          "D_prime": 55,
+          "first_progression": {
+            "Q_base": "342498722917514299",
+            "Q_prime_base": "475612335681869257",
+            "Q_prime_stride": "900567811781994726",
+            "Q_stride": "648518346341351424"
+          },
+          "g": 33,
+          "intersection": {
+            "m_to_n_multiplier": "363419362147803445274661903944002267176820680343659030140745099590319644056698961663095525356881782780381260803133088966767300814307328",
+            "m_to_u_multiplier": "50031545098999707",
+            "n0": "144553886619362082330974122791418431690301662160449840782838743688975219425501578989186674195438080006990095546037582402138862587642307",
+            "n0_bits": 446,
+            "n_modulus": "363419362147803445274661903944002267176820680343659030140745099590319644056698961663095525356881782780381260803133088966767300814307328",
+            "n_modulus_bits": 448,
+            "u0": "19900575068124550"
+          },
+          "symbols": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              4,
+              0
+            ]
+          ]
+        },
+        {
+          "D_double_prime": 448,
+          "D_prime": 55,
+          "first_progression": {
+            "Q_base": "342498722917514299",
+            "Q_prime_base": "475612335681869257",
+            "Q_prime_stride": "900567811781994726",
+            "Q_stride": "648518346341351424"
+          },
+          "g": 33,
+          "intersection": {
+            "m_to_n_multiplier": "726838724295606890549323807888004534353641360687318060281490199180639288113397923326191050713763565560762521606266177933534601628614656",
+            "m_to_u_multiplier": "50031545098999707",
+            "n0": "326263567693263804968305074763419565278712002332279355853211293484135041453851059820734436873878971397180725947604126885522512994795971",
+            "n0_bits": 447,
+            "n_modulus": "726838724295606890549323807888004534353641360687318060281490199180639288113397923326191050713763565560762521606266177933534601628614656",
+            "n_modulus_bits": 449,
+            "u0": "22458173808812202"
+          },
+          "symbols": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              4,
+              1
+            ]
+          ]
+        },
+        {
+          "D_double_prime": 449,
+          "D_prime": 55,
+          "first_progression": {
+            "Q_base": "342498722917514299",
+            "Q_prime_base": "475612335681869257",
+            "Q_prime_stride": "900567811781994726",
+            "Q_stride": "648518346341351424"
+          },
+          "g": 33,
+          "intersection": {
+            "m_to_n_multiplier": "1453677448591213781098647615776009068707282721374636120562980398361278576226795846652382101427527131121525043212532355867069203257229312",
+            "m_to_u_multiplier": "50031545098999707",
+            "n0": "1416521654136674140792290786595426366809174043363256446275446592255093973623947944810021012944524319738324508357003393785824415437717955",
+            "n0_bits": 449,
+            "n_modulus": "1453677448591213781098647615776009068707282721374636120562980398361278576226795846652382101427527131121525043212532355867069203257229312",
+            "n_modulus_bits": 450,
+            "u0": "48752745728655881"
+          },
+          "symbols": [
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              4,
+              2
+            ]
+          ]
+        }
+      ],
+      "scope": "all displayed coefficient maps are exact; bounded absence of n0=0 is not promoted to a universal nonzero-carry theorem",
+      "smallest_n0_row": {
+        "D_double_prime": 56,
+        "D_prime": 449,
+        "first_progression": {
+          "Q_base": "1674605519657107011625434077302051609244382627312123774186169934418568597294055764865947030756252137024082919825750944797560681758002089",
+          "Q_prime_base": "172905829269665371",
+          "Q_prime_stride": "2701703435345984178",
+          "Q_stride": "26166194074641848059775657083968163236731088984743450170133647170503014372082325239742877825695488360187450777825582405607245658630127616"
+        },
+        "g": 34,
+        "intersection": {
+          "m_to_n_multiplier": "72057594037927936",
+          "m_to_u_multiplier": "150094635296999121",
+          "n0": "65052069560564",
+          "n0_bits": 46,
+          "n_modulus": "72057594037927936",
+          "n_modulus_bits": 57,
+          "u0": "135502257414653"
+        },
+        "symbols": [
+          [
+            2,
+            1
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            2,
+            1
+          ]
+        ]
+      },
+      "symbols": {
+        "b_interval": [
+          0,
+          2
+        ],
+        "p_interval": [
+          2,
+          4
+        ]
+      },
+      "universal_formula": {
+        "first_edge": "Q=q0+9*2^(D'+1)*n; Q'=q0'+2*3^(g+4)*n",
+        "next_edge": "n=n0+2^D''*m; u=u0+3^(g+2)*m",
+        "resource_reading": "the following symbol consumes D'' dyadic bits of n and the next edge parameter receives a 3^(g+2)-scaled free tail",
+        "status": "research derivation pending Lean"
+      },
+      "zero_n0_rows": 0
+    },
     "universal_invariant": null
   },
-  "schema": "collatz-outward-writer-decoder-invariant-cegis-v1",
-  "worker_sha256": "2dc00b21adf776acb58681d8d77d483f15e712855c44e8af4b3785f899b63930"
+  "schema": "collatz-outward-writer-decoder-invariant-cegis-v2",
+  "worker_sha256": "e44878b50e226b43be53fb67ee64d60890b8783401967f3a65fa522cebba492a"
 }

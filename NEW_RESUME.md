@@ -1,6 +1,49 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 20:57 EDT
+Updated: 2026-07-23, about 21:16 EDT
+
+### 21:16 EDT continuation -- two-edge resource map and finite-cylinder no-go
+
+There is no counterexample.  The payload-triple lane now has an exact
+coefficient map across two prescribed transitions.  If the first edge has
+free parameter `n`, then
+
+```text
+Q=q0+9*2^(D'+1)n,  Q'=q0'+2*3^(g+4)n.
+```
+
+Imposing the following symbol is equivalent to
+
+```text
+n=n0+2^D''*m,  u=u0+3^(g+2)*m.                 (PT29)
+```
+
+Thus a symbol consumes exactly `D''` dyadic parameter bits and transports
+the free tail with ternary coefficient `3^(g+2)`.  Schema v2 checks all 729
+ordered symbol triples with `2<=p<=4`, `0<=b<=2`; the bounded facts that none
+of those rows has `n0=0` and none has `u0<0` are not promoted to universal
+claims.
+
+PT29 also closes a whole selector architecture.  Each fixed next symbol is
+one dyadic parameter cylinder of mass `2^-D`.  The guards are disjoint and
+
+```text
+sum_(p>=2,b>=0) 2^-D(p,b) < 2^-53.              (PT30)
+```
+
+Any finite target alphabet therefore leaves a dyadic-open hole.  CRT puts a
+positive integer from that hole inside every nonempty ternary parameter
+cylinder.  Hence no nonempty finite union of pure ternary cylinders, even
+with one-step symbol memory, can be invariant into a fixed finite symbol
+list.  Exact anchored CEGIS rows give the first failure at each precision
+`0<=k<=6`.
+
+This does **not** close an unbounded recursive symbol binder: the complement
+of the infinite guard union need not be open, and the small Kraft mass alone
+does not settle ordinary-integer compatibility.  The next live object is the
+mixed-base recursive constructor in PT29 with a proof of eventual zero root
+carry.  QM170 requests PT29--30 in Lean.  The artifact retains
+`universal_invariant:null`, `counterexample:null`.
 
 ### 20:57 EDT continuation -- invariant CEGIS in payload triples
 

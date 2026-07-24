@@ -8,9 +8,11 @@ A complete writer--resonant-decoder cell has the exact coordinates
 This worker audits the smallest predicate refinements on ``(p,b,Q)``.  It
 does not rank long trajectories.  It records exact closure witnesses for the
 base and next-writer architectures, checks the mandatory mod-nine quotient,
-exhibits coefficientwise ordinary one-edge cylinders, and regression-checks
-the fixed-precision perturbation obstruction.  No bounded row is promoted to
-an invariant or a Collatz counterexample.
+exhibits coefficientwise ordinary one-edge cylinders, derives the exact
+two-edge mixed-base parameter map, rejects finite ternary-cylinder selectors
+with a fixed symbol alphabet, and regression-checks the fixed-precision
+perturbation obstruction.  No bounded row is promoted to an invariant or a
+Collatz counterexample.
 """
 
 from __future__ import annotations
@@ -19,6 +21,7 @@ import argparse
 import hashlib
 import json
 from dataclasses import dataclass
+from fractions import Fraction
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -26,7 +29,7 @@ from outward_charge_invariant_cegis import integer_sha256
 from outward_writer_decoder_cegis import Cell, make_cell
 
 
-SCHEMA = "collatz-outward-writer-decoder-invariant-cegis-v1"
+SCHEMA = "collatz-outward-writer-decoder-invariant-cegis-v2"
 
 
 def canonical_json(value: Any) -> bytes:
@@ -345,6 +348,276 @@ def edge_family_regression(maximum_p: int, maximum_b: int) -> dict[str, Any]:
     }
 
 
+def two_edge_parameter_map(
+    p: int,
+    b: int,
+    next_p: int,
+    next_b: int,
+    final_p: int,
+    final_b: int,
+) -> dict[str, Any]:
+    """Return the exact mixed-base parameter map for two prescribed edges."""
+
+    first = construct_edge(p, b, next_p, next_b)
+    second = construct_edge(next_p, next_b, final_p, final_b)
+    source = make_cell(p, b)
+    middle = make_cell(next_p, next_b)
+    final = make_cell(final_p, final_b)
+    g = p + source.o + b
+
+    first_Q = int(first["Q"])
+    first_Q_prime = int(first["Q_prime"])
+    second_Q = int(second["Q"])
+    difference = second_Q - first_Q_prime
+    if difference % 18:
+        raise AssertionError("consecutive edge bases miss their common mod-18 class")
+
+    parameter_modulus = 2**final.Dg
+    n0 = (
+        difference
+        // 18
+        * pow(3 ** (g + 2), -1, parameter_modulus)
+    ) % parameter_modulus
+    numerator = (
+        first_Q_prime
+        + 2 * 3 ** (g + 4) * n0
+        - second_Q
+    )
+    next_stride = 9 * 2 ** (final.Dg + 1)
+    if numerator % next_stride:
+        raise AssertionError("two-edge parameter intersection is not integral")
+    u0 = numerator // next_stride
+
+    # Check both affine progressions, the exact triple transitions, and the
+    # parameter update on several coefficients.  This is not a trajectory
+    # search: every check is coefficientwise in the free parameter m.
+    for m in range(3):
+        n = n0 + 2**final.Dg * m
+        u = u0 + 3 ** (g + 2) * m
+        Q = first_Q + 9 * 2 ** (middle.Dg + 1) * n
+        Q_prime_left = first_Q_prime + 2 * 3 ** (g + 4) * n
+        Q_prime_right = second_Q + next_stride * u
+        if Q_prime_left != Q_prime_right:
+            raise AssertionError("two-edge parameter map lost coefficient equality")
+        first_transition = next_diagnostic(make_triple(p, b, Q))
+        if first_transition["kind"] != "defined_triple_transition":
+            raise AssertionError("first member of the two-edge family is undefined")
+        first_target = first_transition["target"]
+        if (
+            int(first_target["p"]) != next_p
+            or int(first_target["b"]) != next_b
+            or int(first_target["Q"]) != Q_prime_left
+        ):
+            raise AssertionError("first family edge landed at the wrong triple")
+        second_transition = next_diagnostic(
+            make_triple(next_p, next_b, Q_prime_left)
+        )
+        if second_transition["kind"] != "defined_triple_transition":
+            raise AssertionError("second member of the two-edge family is undefined")
+        second_target = second_transition["target"]
+        if (
+            int(second_target["p"]) != final_p
+            or int(second_target["b"]) != final_b
+        ):
+            raise AssertionError("second family edge landed at the wrong symbol")
+
+    return {
+        "symbols": [[p, b], [next_p, next_b], [final_p, final_b]],
+        "g": g,
+        "D_prime": middle.Dg,
+        "D_double_prime": final.Dg,
+        "first_progression": {
+            "Q_base": str(first_Q),
+            "Q_stride": str(9 * 2 ** (middle.Dg + 1)),
+            "Q_prime_base": str(first_Q_prime),
+            "Q_prime_stride": str(2 * 3 ** (g + 4)),
+        },
+        "intersection": {
+            "n0": str(n0),
+            "n0_bits": n0.bit_length(),
+            "n_modulus": str(parameter_modulus),
+            "n_modulus_bits": parameter_modulus.bit_length(),
+            "u0": str(u0),
+            "m_to_n_multiplier": str(2**final.Dg),
+            "m_to_u_multiplier": str(3 ** (g + 2)),
+        },
+    }
+
+
+def two_edge_parameter_regression(
+    maximum_p: int, maximum_b: int
+) -> dict[str, Any]:
+    rows = [
+        two_edge_parameter_map(p, b, next_p, next_b, final_p, final_b)
+        for p in range(2, maximum_p + 1)
+        for b in range(maximum_b + 1)
+        for next_p in range(2, maximum_p + 1)
+        for next_b in range(maximum_b + 1)
+        for final_p in range(2, maximum_p + 1)
+        for final_b in range(maximum_b + 1)
+    ]
+    smallest = min(
+        rows,
+        key=lambda row: (
+            int(row["intersection"]["n0"]),
+            row["symbols"],
+        ),
+    )
+    return {
+        "symbols": {
+            "p_interval": [2, maximum_p],
+            "b_interval": [0, maximum_b],
+        },
+        "exact_two_edge_maps": len(rows),
+        "maps_sha256": hashlib.sha256(canonical_json(rows)).hexdigest(),
+        "zero_n0_rows": sum(
+            int(row["intersection"]["n0"]) == 0 for row in rows
+        ),
+        "negative_u0_rows": sum(
+            int(row["intersection"]["u0"]) < 0 for row in rows
+        ),
+        "smallest_n0_row": smallest,
+        "sample_rows": rows[: min(9, len(rows))],
+        "universal_formula": {
+            "first_edge": (
+                "Q=q0+9*2^(D'+1)*n; Q'=q0'+2*3^(g+4)*n"
+            ),
+            "next_edge": (
+                "n=n0+2^D''*m; u=u0+3^(g+2)*m"
+            ),
+            "resource_reading": (
+                "the following symbol consumes D'' dyadic bits of n and the "
+                "next edge parameter receives a 3^(g+2)-scaled free tail"
+            ),
+            "status": "research derivation pending Lean",
+        },
+        "scope": (
+            "all displayed coefficient maps are exact; bounded absence of n0=0 "
+            "is not promoted to a universal nonzero-carry theorem"
+        ),
+    }
+
+
+def fixed_symbol_kraft_ledger(maximum_p: int) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    partial = Fraction(0, 1)
+    for p in range(2, maximum_p + 1):
+        cell = make_cell(p, 0)
+        # Summing b>=0 gives sum_b 2^-(D(p,0)+b)=2^(1-D(p,0)).
+        mass = Fraction(1, 2 ** (cell.Dg - 1))
+        partial += mass
+        rows.append(
+            {
+                "p": p,
+                "S": cell.S,
+                "D_at_b_0": cell.Dg,
+                "all_b_dyadic_mass": f"2^-{cell.Dg - 1}",
+            }
+        )
+    if not partial < Fraction(1, 2**53):
+        raise AssertionError("displayed writer--decoder Kraft mass bound failed")
+    return {
+        "guard_for_target_symbol": (
+            "after division by two, n=n0(p,b) mod 2^D(p,b)"
+        ),
+        "guards_are_disjoint": (
+            "the deterministic next writer/decoder valuations select at most one symbol"
+        ),
+        "displayed_p_rows": rows,
+        "displayed_partial_mass": {
+            "numerator": str(partial.numerator),
+            "denominator": str(partial.denominator),
+        },
+        "all_symbol_bound": {
+            "inequality": (
+                "sum_(p>=2,b>=0) 2^-D(p,b) < 2^-53"
+            ),
+            "derivation": (
+                "S(p)>=49 gives D(p,b)>=p+53+b; equality in S occurs only at p=2"
+            ),
+            "status": "research derivation pending Lean",
+        },
+        "finite_architecture_obstruction": {
+            "theorem": (
+                "no nonempty finite union of ternary parameter cylinders can "
+                "force the next symbol to lie in a fixed finite target-symbol list"
+            ),
+            "proof": (
+                "a finite target list is a finite union of disjoint dyadic "
+                "cylinders with nonempty dyadic-open complement; CRT makes every "
+                "nonempty ternary cylinder meet that complement in arbitrarily "
+                "large positive parameters"
+            ),
+            "does_not_exclude": (
+                "an unbounded recursively selected target symbol; the global "
+                "Kraft bound alone does not make the infinite-union complement open"
+            ),
+            "status": "research theorem pending Lean",
+        },
+    }
+
+
+def ternary_cylinder_cegis(maximum_precision: int) -> dict[str, Any]:
+    """Reject anchored ternary-only refinements with exact first witnesses."""
+
+    first = construct_edge(2, 0, 2, 0)
+    parameter_map = two_edge_parameter_map(2, 0, 2, 0, 2, 0)
+    anchor = int(parameter_map["intersection"]["n0"])
+    Q_prime_base = int(first["Q_prime"])
+    Q_prime_stride = 2 * 3 ** (2 + make_cell(2, 0).o + 4)
+
+    anchor_Q_prime = Q_prime_base + Q_prime_stride * anchor
+    anchor_diagnostic = next_diagnostic(make_triple(2, 0, anchor_Q_prime))
+    if anchor_diagnostic["kind"] != "defined_triple_transition":
+        raise AssertionError("ternary CEGIS anchor is not a legal second edge")
+    if (
+        int(anchor_diagnostic["target"]["p"]) != 2
+        or int(anchor_diagnostic["target"]["b"]) != 0
+    ):
+        raise AssertionError("ternary CEGIS anchor landed at the wrong symbol")
+
+    rows: list[dict[str, Any]] = []
+    for precision in range(maximum_precision + 1):
+        modulus = 3**precision
+        residue = anchor % modulus
+        parameter = residue
+        tested = 0
+        while True:
+            Q_prime = Q_prime_base + Q_prime_stride * parameter
+            triple = make_triple(2, 0, Q_prime)
+            diagnostic = next_diagnostic(triple)
+            tested += 1
+            if diagnostic["kind"] != "defined_triple_transition":
+                break
+            parameter += modulus
+        rows.append(
+            {
+                "architecture": (
+                    "one_step_symbol_memory_plus_parameter_mod_3^k"
+                ),
+                "precision_k": precision,
+                "predicate": f"current_edge=(2,0)->(2,0), n={residue} mod 3^{precision}",
+                "legal_anchor_n": str(anchor),
+                "smallest_closure_failure_n": str(parameter),
+                "representatives_tested_through_first_failure": tested,
+                "failure_triple": triple_record(triple),
+                "first_failure": diagnostic,
+                "status": "rejected_by_exact_witness",
+            }
+        )
+    return {
+        "meaning": (
+            "complexity ladder for a legal anchored edge with one-step memory "
+            "and successively finer pure ternary parameter cylinders"
+        ),
+        "rows": rows,
+        "universal_class_rejection": (
+            "the finite-symbol CRT obstruction rejects every finite precision "
+            "and every nonempty finite union, not only the displayed anchors"
+        ),
+    }
+
+
 def fixed_precision_regression(minimum_k: int, maximum_k: int) -> dict[str, Any]:
     base = construct_edge(2, 0, 2, 0)
     Q = int(base["Q"])
@@ -401,6 +674,8 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         raise ValueError("edge drain bound must be nonnegative")
     if not 7 <= args.minimum_perturb_precision <= args.maximum_perturb_precision < 55:
         raise ValueError("perturbation precisions must lie in [7,54]")
+    if args.maximum_ternary_selector_precision < 0:
+        raise ValueError("ternary selector precision must be nonnegative")
     return {
         "meaning": (
             "exact invariant-CEGIS on charge-dependent writer--decoder payload triples"
@@ -411,6 +686,9 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
             "maximum_edge_drain": args.maximum_edge_drain,
             "minimum_perturb_precision": args.minimum_perturb_precision,
             "maximum_perturb_precision": args.maximum_perturb_precision,
+            "maximum_ternary_selector_precision": (
+                args.maximum_ternary_selector_precision
+            ),
         },
         "triple_semantics": {
             "source": "H=(2^D(p,b)*Q-B(p))/9",
@@ -444,6 +722,15 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         "local_edge_family_regression": edge_family_regression(
             args.maximum_edge_counter, args.maximum_edge_drain
         ),
+        "two_edge_parameter_regression": two_edge_parameter_regression(
+            args.maximum_edge_counter, args.maximum_edge_drain
+        ),
+        "fixed_symbol_kraft_ledger": fixed_symbol_kraft_ledger(
+            args.maximum_edge_counter
+        ),
+        "ternary_cylinder_architecture_cegis": ternary_cylinder_cegis(
+            args.maximum_ternary_selector_precision
+        ),
         "next_architecture": {
             "predicate": "recursive mixed-base family P(p,b,Q)",
             "required_features": [
@@ -453,6 +740,9 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
                 "a genuinely aperiodic or unbounded symbol update",
                 "coefficientwise triple recurrence and explicit ordinary root",
             ],
+            "exact_parameter_seam": (
+                "n=n0+2^D''*m and u=u0+3^(g+2)*m"
+            ),
             "status": "not_synthesized",
         },
         "universal_invariant": None,
@@ -488,6 +778,12 @@ def report(artifact: dict[str, Any]) -> dict[str, Any]:
         "exact_local_edges": audit["local_edge_family_regression"][
             "exact_ordinary_edges"
         ],
+        "exact_two_edge_maps": audit["two_edge_parameter_regression"][
+            "exact_two_edge_maps"
+        ],
+        "ternary_architectures_rejected": len(
+            audit["ternary_cylinder_architecture_cegis"]["rows"]
+        ),
         "universal_invariant": audit["universal_invariant"],
         "counterexample": audit["counterexample"],
     }
@@ -511,12 +807,17 @@ def selftest() -> None:
         maximum_edge_drain=1,
         minimum_perturb_precision=7,
         maximum_perturb_precision=10,
+        maximum_ternary_selector_precision=2,
     )
     audit = build_audit(args)
     if audit["counterexample"] is not None or audit["universal_invariant"] is not None:
         raise AssertionError("triple invariant CEGIS overclaimed")
     if audit["local_edge_family_regression"]["exact_ordinary_edges"] != 16:
         raise AssertionError("local edge regression count changed")
+    if audit["two_edge_parameter_regression"]["exact_two_edge_maps"] != 64:
+        raise AssertionError("two-edge parameter regression count changed")
+    if len(audit["ternary_cylinder_architecture_cegis"]["rows"]) != 3:
+        raise AssertionError("ternary architecture CEGIS count changed")
 
 
 def add_bounds(command: argparse.ArgumentParser) -> None:
@@ -525,6 +826,9 @@ def add_bounds(command: argparse.ArgumentParser) -> None:
     command.add_argument("--maximum-edge-drain", type=int, default=2)
     command.add_argument("--minimum-perturb-precision", type=int, default=7)
     command.add_argument("--maximum-perturb-precision", type=int, default=16)
+    command.add_argument(
+        "--maximum-ternary-selector-precision", type=int, default=6
+    )
 
 
 def parser() -> argparse.ArgumentParser:

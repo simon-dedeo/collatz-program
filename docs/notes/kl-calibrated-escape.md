@@ -2898,9 +2898,73 @@ target symbols, choose `Q'` in the unique class
 ```
 
 choose an odd positive lift, and set
-`Q=(2^D'Q'-B(p'))/3^(g+2)`.  Schema v1 checks all 81 pairs through
+`Q=(2^D'Q'-B(p'))/3^(g+2)`.  Schema v2 checks all 81 pairs through
 `2<=p,p'<=4`, `0<=b,b'<=2`.  This proves the displayed finite rows, not the
 universal formula or an invariant.  The next grammar must combine (31.7)
 with unbounded valuation binders, runtime dyadic precision at least `D(p,b)`,
 and a genuinely aperiodic or unbounded parameter update.  The artifact has
+`universal_invariant:null` and `counterexample:null`.
+
+## 32. The exact two-edge parameter map and a finite-cylinder obstruction
+
+The free coefficient in (31.8) has an exact mixed-base evolution.  For a
+prescribed edge `(p,b)->(p',b')`, choose one positive base solution and write
+`g=p+o(p)+b`.  Every solution is then
+
+```text
+Q =q0 +9*2^(D'+1)n,
+Q'=q0'+2*3^(g+4)n.                              (32.1)
+```
+
+Now prescribe `(p',b')->(p'',b'')`.  The two middle-payload progressions
+intersect exactly when
+
+```text
+n=n0+2^D''*m,
+u=u0+3^(g+2)*m.                                 (32.2)
+```
+
+The exponent in the second formula is the preceding `g`, not the middle
+`g'`.  The two middle bases agree modulo 18, and after dividing their equality
+by 18 one obtains `3^(g+2)n-delta=2^D''*u`.  Thus the next symbol consumes
+exactly `D''` dyadic digits of the current free parameter, while the surviving
+tail is transported to the next edge with ternary coefficient `3^(g+2)`.
+This is the first exact resource ledger for the recursive invariant grammar;
+it is not merely a next-word predictor.
+
+There is also a universal obstruction to a tempting finite architecture.
+For a fixed candidate next symbol `(p'',b'')`, substituting (32.1) into its
+odd-quotient gate and dividing by two leaves one congruence
+
+```text
+n=n0(p'',b'') mod 2^D(p'',b'').                 (32.3)
+```
+
+The guards for distinct target symbols are disjoint because the actual writer
+and decoder valuations determine at most one symbol.  Their dyadic Kraft
+ledger satisfies
+
+```text
+sum_(p>=2,b>=0) 2^-D(p,b) < 2^-53,              (32.4)
+```
+
+using `S(p)>=49` and `D=S+p+4+b`, with strictness after `p=2`.
+Consequently every *finite* target-symbol list leaves a nonempty dyadic-open
+parameter class.  Every nonempty ternary parameter cylinder meets that class
+in arbitrarily large positive integers by CRT.  Hence no nonempty finite
+union of pure ternary parameter cylinders, even with one-step symbol memory,
+can force closure into a fixed finite target alphabet.
+
+Schema v2 checks (32.1)--(32.2) on all 729 ordered symbol triples with
+`2<=p,p',p''<=4`, `0<=b,b',b''<=2`.  It also gives the exact first closure
+failure for the anchored `(2,0)->(2,0)` ternary selector at every precision
+`0<=k<=6`.  The legal anchor parameter is `n=15400082691250851`; each
+cylinder containing it already contains a much smaller exact failure.  These
+rows are regression checks, while the finite-cylinder obstruction is the
+general research theorem pending Lean.
+
+Do not extend (32.4) too far.  The complement of an infinite open union need
+not be open, and positive 2-adic measure alone does not place an ordinary
+integer in the required recursively changing ternary classes.  An unbounded
+symbol binder coupled by (32.2) remains live.  The artifact therefore keeps
 `universal_invariant:null` and `counterexample:null`.
