@@ -512,6 +512,22 @@ coordinatewise nonnegative aggregate budgets.  A feasible ray is not an
 ordered trajectory, bounded survival does not imply a circulation, and
 tropicalization can discard the valuation cancellations that matter.
 
+Josephine Yu, *Tropicalizing Principal Minors of Positive Definite Matrices*,
+IAS, 22 Oct. 2024,
+[video](https://www.ias.edu/video/tropicalizing-principal-minors-positive-definite-matrices),
+key `0eab2f1bcd5d53ef12cbbbd88b961671`, supplies the next gate after a
+feasible resource ray.  S5--S8 at 2,181--3,758 seconds (raw checked at
+2,150--3,780) distinguish the easy outer tropical cone from the smaller
+representable tropicalization; slice-wise representability need not glue to
+one global lift.  Positivity and Cauchy--Binet eliminate valuation
+cancellation, and tropical equalities are explained by sharp algebraic
+inequalities upstairs.  For a Collatz macro library, a feasible tropical
+resource vector should therefore be promoted only after deriving an actual
+positive-semiring macro representation or exact lifted inequalities which
+certify realizability.  Returned-catalyst defects involve subtraction, so the
+no-cancellation hypothesis may fail precisely where a reset occurs.  This is
+a realizability filter, not a route from a cone ray to a trajectory.
+
 **Local support before a local limit.** Swastik Kopparty, *A local central
 limit theorem for triangles in a random graph*, IAS, 28 Mar. 2016,
 [video](https://www.ias.edu/video/csdm/2016/0328-SwastikKopparty), key
@@ -567,6 +583,7 @@ compatible finite levels still need one eventually stable ordinary root.
 | conditional | Elad Haramaty, *On the Structure of Cubic and Quartic Polynomials*, key `63ed799a0a626b68c9ed383b4c711805`, S5--S8/E3 | Refine the bias-to-structure lane: biased derivatives, a Bogolyubov subspace, and a shared low-rank linear basis can recover a compact carry grammar. | Carry degree may grow, modular structure may not lift, and the talk's quartic counterexample blocks naive inverse claims. |
 | conditional | Joana Kulaga-Przymus, *Thermodynamic Formalism for B-free Dynamical Systems*, key `d99bbc3ba5e7f41c084fc87c8fb505c5`, S1--S3/S7 | Use nested mixed-base periodic skeletons with recursively resolved holes, and require a state-derived clean clock whose every value is eventually assigned. | An external Toeplitz schedule is a preloaded tape; density and pressure do not prove semantic closure or an ordinary seed. |
 | preflight | Annie Raymond, *Graph Density Inequalities, Sums of Squares and Tropicalization*, key `1046f78390fd05e12d05a3413a3ddf7b`, S3--S6 | Solve the rational cone of height, dyadic/triadic precision, counter scale, and carry resources; export a Farkas no-go or a minimal feasible support. | Flow loses word order and tropicalization loses exact cancellation; a feasible ray is not a trajectory. |
+| preflight | Josephine Yu, *Tropicalizing Principal Minors of Positive Definite Matrices*, key `0eab2f1bcd5d53ef12cbbbd88b961671`, S5--S8 | After cone feasibility, require membership in a realizable tropicalization via a positive-semiring representation or exact lifted inequalities. | Collatz clean-reset defects contain subtraction/cancellation, and slice-wise lifts need not glue globally. |
 | preflight | Swastik Kopparty, *A local central limit theorem for triangles in a random graph*, key `69956d38eef0339ec0f4207f78499dcd`, S1--S2/S4--S7/E2 | Establish exact modular/lattice support of carry zero conditional on interfaces before any local-limit or entropy argument. | Collatz word contributions are dependent, and a finite zero-carry block does not supply a prefix-compatible infinite orbit. |
 | warning | Alexander Gamburd, *Varieties of Markoff Type*, key `76f210c2e1fbd9df473b9ca8890f1e5a`, and Daniel Martin, *Arithmetic on Markoff Surfaces*, key `dfe6aa197a4b6c233c6312357c4670a6` | Use finite residue components and dual obstruction vectors as exact features, but demand a separate edge-lifting and ordinary-integral theorem. | Many finite-field points can have no integer lift; Markoff's reversible group action is unlike the Collatz semigroup. |
 
@@ -642,6 +659,8 @@ compatible finite levels still need one eventually stable ordinary root.
 - Annie Raymond, *Graph Density Inequalities, Sums of Squares and
   Tropicalization*, IAS, 1 Feb. 2021, key
   `1046f78390fd05e12d05a3413a3ddf7b`.
+- Josephine Yu, *Tropicalizing Principal Minors of Positive Definite
+  Matrices*, IAS, 22 Oct. 2024, key `0eab2f1bcd5d53ef12cbbbd88b961671`.
 - Swastik Kopparty, *A local central limit theorem for triangles in a random
   graph*, IAS, 28 Mar. 2016, key `69956d38eef0339ec0f4207f78499dcd`.
 - Alexander Gamburd, *Varieties of Markoff Type: Arithmetic, Combinatorics,

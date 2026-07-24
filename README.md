@@ -116,6 +116,14 @@ certificate, but none of its numerics are trusted.  The semantic premise and
 scope remain explicit: bounded survival does not imply a circulation, and a
 feasible circulation would still not be an ordered trajectory.
 
+Yu's tropical-principal-minor talk adds the realizability gate after cone
+feasibility.  An outer tropical cone can be strictly larger than the
+tropicalization of actual positive objects, and compatible slice lifts need
+not glue globally.  A surviving Collatz resource ray must therefore receive a
+positive-semiring macro realization or exact lifted inequalities before any
+word search.  Clean-reset defects contain subtraction, so the talk's
+no-cancellation mechanism may fail exactly at the desired reset.
+
 ### 2026-07-23 22:20 EDT
 
 There is still no counterexample.  Transcript checks added two more
@@ -7329,6 +7337,12 @@ existing lines of work; the closest ancestors, and what each contributes:
   S3--S6** — tropical/polyhedral relaxation motivates an exact rational
   resource cone and Farkas preflight.  A feasible edge flow is not an ordered
   orbit and can erase valuation cancellation.
+- **J. Yu, [“Tropicalizing Principal Minors of Positive Definite
+  Matrices”](https://www.ias.edu/video/tropicalizing-principal-minors-positive-definite-matrices),
+  IAS talk (22 Oct. 2024), corpus key `0eab2f1bcd5d53ef12cbbbd88b961671`,
+  S5--S8** — a feasible tropical profile need not lift to one representable
+  object; positivity and lifted inequalities certify realizability in the
+  talk's setting.  Collatz catalyst resets may violate no-cancellation.
 - **S. Kopparty, [“A local central limit theorem for triangles in a random
   graph”](https://www.ias.edu/video/csdm/2016/0328-SwastikKopparty), IAS talk
   (28 Mar. 2016), corpus key `69956d38eef0339ec0f4207f78499dcd`,
