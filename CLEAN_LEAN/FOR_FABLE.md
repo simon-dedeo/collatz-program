@@ -20203,3 +20203,45 @@ each node. That mixed recursive predicate remains the live architecture.
 The new module and full `KontoroC.Audit` build pass (8,889 jobs); the printed
 dependencies are only the standard mathlib axioms (`propext`,
 `Classical.choice`, `Quot.sound`).
+
+## Round 394 — exponential rarity belongs to the full language, not finite states
+
+The new module `KontoroC.OutwardIteratedKraftGap` removes the finite-grammar
+hypothesis from Round 392. For an arbitrary finite family of schedules, each
+consisting of exactly `n` first-passage blocks, Lean now proves
+
+```text
+finite_nMacro_dyadicMass_le :
+  sum (dyadicWeight of flattened schedules) <= (17/20)^n.
+```
+
+The proof is structural. `wordsIn_prefix_of_flatten_prefix` makes flattening
+injective at fixed block depth and makes the resulting parity-word family
+prefix-free. The biased subprobability gains one factor `20/17` separately on
+each block, so weighted Kraft gives the `n`th power. The supporting exact
+theorems are
+
+```text
+bias_pow_mul_dyadicWeight_flatten_le
+flattenedSchedules_prefixFree
+flattenWords_injOn_equalDepth
+flattenedSchedules_card_eq
+finite_nMacro_dyadicMass_lt_one.
+```
+
+For residue computations there is also an integer-only form. If every
+flattened schedule has the same bit length `L`, then
+
+```text
+finite_nMacro_card_bound_of_fixed_bitLength :
+  20^n * schedules.card <= 17^n * 2^L.
+```
+
+So adding states or a more elaborate finite grammar cannot evade the
+exponential scarcity: it is intrinsic to the full first-passage language and
+unique parsing. The limitation remains exact and important. This is a density
+statement; it does not eliminate a single measure-zero infinite symbolic
+schedule, and still does not construct or rule out its ordinary root.
+
+The full `KontoroC.Audit` build passes (8,890 jobs), with only standard
+mathlib axioms in the printed dependency ledger.

@@ -2532,3 +2532,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardFiniteChartPortfolioNoGo.exists_large_without_literalCandidate_in_portfolio_of_card_le
 #print axioms
   KontoroC.OutwardFiniteChartPortfolioNoGo.exists_positive_open_tail_without_literalCandidate_in_portfolio_of_card_le
+#print axioms
+  KontoroC.OutwardIteratedKraftGap.bias_pow_mul_dyadicWeight_flatten_le
+#print axioms
+  KontoroC.OutwardIteratedKraftGap.flattenedSchedules_prefixFree
+#print axioms KontoroC.OutwardIteratedKraftGap.flattenWords_injOn_equalDepth
+#print axioms KontoroC.OutwardIteratedKraftGap.flattenedSchedules_card_eq
+#print axioms KontoroC.OutwardIteratedKraftGap.finite_nMacro_dyadicMass_le
+#print axioms KontoroC.OutwardIteratedKraftGap.finite_nMacro_dyadicMass_lt_one
+#print axioms
+  KontoroC.OutwardIteratedKraftGap.finite_nMacro_card_bound_of_fixed_bitLength
