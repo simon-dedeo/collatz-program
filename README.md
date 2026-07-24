@@ -92,6 +92,30 @@ power-map exception supplies no counterexample.  The public transcript-checked
 ledger now contains 30 talks.  The sole batch has advanced to 670/1,025 with
 zero failures.  `counterexample:null`.
 
+Four further priority transcripts have now been reconciled rather than opened
+as four competing lanes.  Leake's polynomial-capacity method can certify a
+positive target coefficient—and hence one finite clean macro—only after the
+exact block generating polynomial is proved homogeneous and real stable with
+positive target capacity and correct lattice support.  Kaveh supplies a
+cheaper paired-valuation rejection: a genuine affine relation cannot have a
+unique minimum in any exact circuit at either `v_2` or `v_3`; passing this
+tropical test still requires a representable rational lift.  Robere's monotone
+CSP machinery is retained only for extracting small separators from bounded
+unsatisfiable templates; proof hardness is not construction.  Datta's
+S-arithmetic language isolates the missing ordinary condition as the strict
+integer inequality
+
+```text
+abs(N_(k+1)-N_k) < 2^A_k*3^B_k,
+```
+
+which forces the extension carry to be zero, but her metric nondivergence
+theorems do not prove this exceptional bound.  These talks therefore refine
+the capacity, realizability, bounded-CEGIS, and coercivity gates without
+changing the endpoint.  All four are transcript-timed in the audit and added
+to its bibliography; the public checked ledger is now 34 talks.
+`counterexample:null`.
+
 ### 2026-07-23 22:24 EDT
 
 There is still no counterexample.  Twelve further transcript-checked talks

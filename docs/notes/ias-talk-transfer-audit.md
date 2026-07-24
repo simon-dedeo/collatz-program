@@ -647,6 +647,10 @@ address bound as `H` grows.
 | warning | Alexander Gamburd, *Varieties of Markoff Type*, key `76f210c2e1fbd9df473b9ca8890f1e5a`, and Daniel Martin, *Arithmetic on Markoff Surfaces*, key `dfe6aa197a4b6c233c6312357c4670a6` | Use finite residue components and dual obstruction vectors as exact features, but demand a separate edge-lifting and ordinary-integral theorem. | Many finite-field points can have no integer lift; Markoff's reversible group action is unlike the Collatz semigroup. |
 | conditional/converse | Anshul Adve, *A Converse Theorem for Hyperbolic Surface Spectra and the Conformal Bootstrap*, key `d76cbe86eae9244183aa6bd456d03039`, S4/S6--S8, 2,268--3,064 and 3,341--3,489 s | Pair exact local identities with a coercive global bound; synthesize an exact potential whose invariant sublevel set uniformly bounds canonical root residues, so the existing stabilization theorem reconstructs one ordinary seed. | No Collatz positivity identity is known that controls address while allowing unbounded charge, and fixed-degree/fixed-alphabet SOS may fall inside already-closed finite-state lanes. |
 | warning/refinement | Danny Neftin, *Reducible Fibers and Monodromy of Polynomial Maps*, key `7eabb36b0c76b7dfc5ea3b5a15aa8aa9`, S2/S5--S7, 503--1,120 and 2,429--3,453 s | Strengthen the clean-factor gate by asking whether source, target, and reset maps share a genuine left compositional factor; infinite exceptional fiber families should come from such structure rather than isolated hits. | The large-monodromy theorem deliberately excludes the solvable power/Chebyshev cases, while Collatz macro matrices are upper triangular and built from powers of `2` and `3`; generic monodromy therefore misses the hard regime rather than solving it. |
+| conditional finite existence | Jonathan Leake, *Polynomial Capacity and its Applications: To TSP and Beyond*, key `5aa2491ca875be21405d16cbf769efcd`, S1--S2/S4--S5/S7, 42--1,053 and 1,538--4,027 s | Encode exact resource vectors of a finite legal block library as exponents of a nonnegative generating polynomial; if homogeneity, real stability, positive target capacity, and support are proved, a coefficient lower bound certifies at least one finite clean macro. | Valuation/carry restrictions may destroy real stability or create lattice holes; approximate marginals do not imply a target coefficient, and one finite word gives neither recursive closure nor an infinite orbit. |
+| architecture filter | Robert Robere, *Applications of Monotone Constraint Satisfaction*, key `7d3a4068c31f8f6add2e2191289f4896`, S4--S8/E4/E7, 988--3,922 s | Compile a bounded macro topology into exact local constraints and mine replayable refutations for small arithmetic separators that can be promoted independently as CEGIS features or no-go lemmas. | Exponential proof/circuit complexity is only hardness, not satisfiability or construction; Collatz is deterministic, unbounded, and not monotone under freely adding transitions. |
+| preflight | Kiumars Kaveh, *Tropical Vector Bundles and Matroids*, key `6fbcec9c48581879e3e6864fff4761a1`, S2--S5/S8/E3, 1,055--3,739 s | Compute exact circuits of a candidate affine relation and reject it whenever the `v_2` or `v_3` weighted circuit has a unique minimum, which cannot cancel; survivors need an explicit representable lift over `Q` or `Z[1/6]`. | Abstract Bergman/matroid consistency can be nonrepresentable and tropicalization forgets units and signs; passing both valuation tests is necessary, never constructive by itself. |
+| warning/exact target | Shreyasi Datta, *S-arithmetic Diophantine Approximation*, key `07617502569abfc23a09496b2fa3e3d7`, S1--S3/S7--S8/E1/E4, 15--3,972 s | Package dyadic/triadic divisibility and Archimedean address height together; the exact desired estimate is `abs(N_(k+1)-N_k) < 2^A_k*3^B_k`, which forces the integer extension carry to vanish and the ordinary representative to stabilize. | The talk proves metric/nondivergence statements for typical approximation, not the exceptional exact inequality needed here; measure zero neither constructs nor excludes a counterexample. |
 
 ## Negative lessons already extracted
 
@@ -733,5 +737,13 @@ address bound as `H` grows.
   `d76cbe86eae9244183aa6bd456d03039`.
 - Danny Neftin, *Reducible Fibers and Monodromy of Polynomial Maps*, IAS,
   28 Oct. 2021, key `7eabb36b0c76b7dfc5ea3b5a15aa8aa9`.
+- Jonathan Leake, *Polynomial Capacity and its Applications: To TSP and
+  Beyond*, IAS, 8 Apr. 2024, key `5aa2491ca875be21405d16cbf769efcd`.
+- Robert Robere, *Applications of Monotone Constraint Satisfaction*, IAS,
+  28 Mar. 2017, key `7d3a4068c31f8f6add2e2191289f4896`.
+- Kiumars Kaveh, *Tropical Vector Bundles and Matroids*, IAS, 21 Oct. 2024,
+  key `6fbcec9c48581879e3e6864fff4761a1`.
+- Shreyasi Datta, *S-arithmetic Diophantine Approximation*, IAS, 2 Dec. 2022,
+  key `07617502569abfc23a09496b2fa3e3d7`.
 
 `counterexample: null`
