@@ -426,6 +426,49 @@ currently has no analogue of the cohomological relations and deformation
 theory that manufacture Sweeting's top object, so this is a certificate
 architecture and a false-lift detector, not evidence that it closes.
 
+## Lead I: a mixed-base Toeplitz skeleton needs an internal clean clock
+
+**Source.** Joana Kulaga-Przymus, *Thermodynamic Formalism for B-free
+Dynamical Systems*, IAS, 1 Mar. 2023,
+[video](https://www.ias.edu/video/thermodynamic-formalism-b-free-dynamical-systems),
+key `d99bbc3ba5e7f41c084fc87c8fb505c5`, S1--S3 at 35--1,480 seconds and
+S7 at 2,537--2,969 seconds.  Raw transcript checked at 430--1,510 and
+2,537--2,750 seconds.
+
+A `B`-admissible binary sequence omits at least one residue class modulo every
+`b in B`.  In the Toeplitz regime every position is periodic, but the period
+may depend on the position; regularity means that positions already fixed by
+periods up to `K` have density tending to one.  Thus a globally nonperiodic
+object can be specified by nested periodic skeletons with a shrinking set of
+unresolved holes.  Periodic approximants then support exact transfer-matrix
+and pressure calculations.
+
+This is a natural language for the surviving part of Greenfeld's idea.  Build
+periods `M_k | M_(k+1)` with both dyadic and triadic factors.  At level `k`,
+assign clean macro types on some residue classes modulo `M_k`; unresolved
+classes recurse to level `k+1`, and assignments never change.  The pure
+ternary form is already closed by `OutwardValuationSelectorNoGo`, so every
+assigned regular class must include the dyadic address/carry binder required
+by its macro.
+
+An external Toeplitz word is still a preloaded instruction tape.  A valid
+Collatz certificate therefore needs an internal ordinary clock `tau(X)` with
+
+```text
+tau(X_0)=0,
+selected clean macro sends X to X',
+tau(X')=tau(X)+1,
+the root/address catalyst is restored exactly.
+```
+
+Every clock value must be assigned at a finite skeleton level, and the macro
+must prove exact legality, payload progress, and invariant closure on the
+whole corresponding mixed residue class.  A bounded pilot should synthesize
+nested skeletons, return the first uncovered clock or semantic counterexample,
+and compute exact weighted pressure only after closure.  Density-one periodic
+skeletons or nonempty `B`-free subshifts do not supply one Collatz orbit; the
+internal clean clock and ordinary root remain the decisive obligations.
+
 ## Other promoted talks (transfer ledger)
 
 | Status | Talk and raw spans | Concrete transfer | Principal mismatch |
@@ -451,6 +494,7 @@ architecture and a false-lift detector, not evidence that it closes.
 | warning | Alan Reid, *Profinite rigidity and flexibility for compact 3-manifold groups*, key `752f9598c8fc447ea9edf6f2e2ffe372`, S1/S3/S5--S7 | Define the finite-portrait genus of a controller and seek quotient separation only inside a sharply restricted class. | Profinite rigidity gives uniqueness of an already existing discrete object, not existence of an ordinary realization. |
 | conditional | Richard Ehrenborg, *Counting Pattern Avoiding Permutations Via Integral Operators*, key `e5d73aeba9471656ab49c2384cd0b4f3`, S2/S7 | Build an exact overlap graph of universally clean macros and certify primitivity, positive resource-cycle mean, and compatible unbounded-scale bonding maps. | Fixed-state graphs favor periodic paths and cannot absorb indefinitely fresh dyadic precision. |
 | conditional | Elad Haramaty, *On the Structure of Cubic and Quartic Polynomials*, key `63ed799a0a626b68c9ed383b4c711805`, S5--S8/E3 | Refine the bias-to-structure lane: biased derivatives, a Bogolyubov subspace, and a shared low-rank linear basis can recover a compact carry grammar. | Carry degree may grow, modular structure may not lift, and the talk's quartic counterexample blocks naive inverse claims. |
+| conditional | Joana Kulaga-Przymus, *Thermodynamic Formalism for B-free Dynamical Systems*, key `d99bbc3ba5e7f41c084fc87c8fb505c5`, S1--S3/S7 | Use nested mixed-base periodic skeletons with recursively resolved holes, and require a state-derived clean clock whose every value is eventually assigned. | An external Toeplitz schedule is a preloaded tape; density and pressure do not prove semantic closure or an ordinary seed. |
 
 ## Negative lessons already extracted
 
@@ -519,5 +563,7 @@ architecture and a false-lift detector, not evidence that it closes.
   Operators*, IAS, 23 Nov. 2010, key `e5d73aeba9471656ab49c2384cd0b4f3`.
 - Elad Haramaty, *On the Structure of Cubic and Quartic Polynomials*, IAS,
   1 Nov. 2010, key `63ed799a0a626b68c9ed383b4c711805`.
+- Joana Kulaga-Przymus, *Thermodynamic Formalism for B-free Dynamical
+  Systems*, IAS, 1 Mar. 2023, key `d99bbc3ba5e7f41c084fc87c8fb505c5`.
 
 `counterexample: null`

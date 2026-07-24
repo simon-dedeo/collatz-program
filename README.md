@@ -72,6 +72,20 @@ raw spans, exact proposed tests, and principal mismatches are in
 The sole corpus batch is at 282/1,025 with zero failures; no additional broad
 API call has been made.  `counterexample:null`.
 
+Kulaga-Przymus's B-free dynamics talk adds one disciplined version of the
+aperiodic-schedule idea: nested periodic Toeplitz skeletons can resolve every
+position at a finite but position-dependent scale.  For Collatz, every
+skeleton class must be mixed dyadic--triadic after the new no-go, and the
+schedule needs a state-derived clock incremented by forward macros which
+restore the ordinary-root catalyst.  An external Toeplitz word is merely
+another preloaded tape; density, entropy, and a nonempty subshift do not give
+semantic closure.  Independently, formalizer commit `f491b20` supplies the
+exact conditional endpoint: an invariant containing one `H0` and returning a
+larger `WriterDecoderRecharge` successor at every member constructs an
+infinite execution and a Collatz counterexample.  It does not provide such an
+invariant, but it is now the acceptance contract for every talk-derived
+architecture.
+
 ### 2026-07-23 22:20 EDT
 
 There is still no counterexample.  Transcript checks added two more
@@ -7270,6 +7284,13 @@ existing lines of work; the closest ancestors, and what each contributes:
   low-degree derivatives can share a bounded-rank basis, refining the
   carry-structure recovery lane; the quartic counterexample blocks a naive
   universal inverse statement.
+- **J. Kulaga-Przymus, [“Thermodynamic Formalism for B-free Dynamical
+  Systems”](https://www.ias.edu/video/thermodynamic-formalism-b-free-dynamical-systems),
+  IAS talk (1 Mar. 2023), corpus key `d99bbc3ba5e7f41c084fc87c8fb505c5`,
+  S1--S3/S7** — nested periodic skeletons describe nonperiodic Toeplitz
+  sequences with position-dependent periods.  A Collatz transfer requires a
+  mixed-base internal clean clock; an external schedule and density-one
+  periodic approximation do not establish one ordinary orbit.
 - **U. Zannier, [“On a Problem of Polya and Some of its
   Evolutions”](https://www.ias.edu/video/problem-polya-and-some-its-evolutions),
   IAS talk (8 Apr. 2026), corpus key `8c6e7ea43c9de3b12a756caab4bc5ea0`,
