@@ -156,6 +156,27 @@ original Collatz direction and literal replay.  The public authoritative
 ledger now contains 61 transcript-checked release talks.
 `counterexample:null`.
 
+Babai makes the architecture outer loop canonical.  A permutation of residue
+or carry features is a usable symmetry only after exact replay proves that it
+is an automorphism of the complete directed, word- and carry-labeled macro
+table.  Local fullness must be backed by actual global automorphisms;
+nonfullness must include a proved containment.  Aggregation runs over every
+ordered test tuple, and if there are several incomparable maximal block
+systems we retain the entire canonical set instead of choosing one by
+enumeration order.  The first failed global extension or cross-precision
+naturality square becomes the CEGIS witness.
+
+Chapman's graph-limit talk gives a particularly sharp infinite-versus-finite
+warning.  A sequence of finite cycles can label almost every edge as counter
+`+1` while hiding one wraparound reset whose density tends to zero.  Every
+fixed-radius rooted view then converges to an apparently outward infinite
+line, although no finite model has an unbounded counter.  We may maintain
+exact rational rooted-ball frequencies and seek either explicit finite
+approximants or a universally proved separating cylinder functional, but
+local weak convergence cannot certify escape.  Uniform rerooting also erases
+the distinguished ordinary seed.  The ledger now contains 73
+transcript-checked release talks.  `counterexample:null`.
+
 Formalizer commit `64af217` has kernel-checked Cavalieri's integral core.
 `IntegerPrincipal A b` is equivalent to vanishing of the exact cokernel class;
 a mapped left obstruction or a modular obstruction proves that no integer
@@ -226,6 +247,33 @@ crossing energy, boundary depth, and index recurrence do not exist merely
 because we have a directed macro graph.  These two talks are therefore exact
 preflights, not escape mechanisms.  The public ledger now contains 67
 transcript-checked release talks.  `counterexample:null`.
+
+Potrie suggests a sharper potential grammar than monotone scalar height.
+Search for a rational mixed coordinate `u(address,carry,chart,counter)` and
+uniform `lambda>1`, `C>=0` such that every selected literal edge satisfies
+`u(next)>=lambda*u-C`.  A start strictly above `C/(lambda-1)` makes `u`
+unbounded by an exact induction, but a separate coercivity theorem must say
+that bounded counter forces bounded `u`; growth hidden only in the root
+address is irrelevant.  His collapsed-Anosov theorem adds the semantic gate:
+expansion on a quotient model transfers only through a compatible literal
+section of every selected fiber.  A semiconjugacy that collapses two states
+does not choose either Collatz execution.
+
+Chaika's rank-one construction gives a complementary recursive syntax:
+variable-base first-return words with explicitly replayed spacer blocks and
+mixed-base root carries.  Its theorem is measure-theoretic, however, and the
+Q&A makes the failure concrete.  The interesting self-joining is a weak-star
+limit of powers but has two atoms over each fiber, so it is not a graph of one
+pointwise decoder.  We retain the first-return grammar and singleton-fiber
+test, not the mixing or joining conclusion.
+
+Formalizer commit `d1e5335` has meanwhile kernel-checked the Schlotterer gate:
+a linear evaluator descends through a proposed relation quotient exactly when
+every relation generator evaluates to zero, and a finite failed list yields a
+concrete nonzero relation.  The induced map is explicitly aggregate-only and
+does not identify word order, legality, carry, or seed execution.  With these
+two talks, the public ledger now contains 71 transcript-checked release talks.
+`counterexample:null`.
 
 Klein's geometric vertex decomposition gives the algebraic architecture loop
 a safer recursion.  For a bounded exact parameter ideal, select the newest
