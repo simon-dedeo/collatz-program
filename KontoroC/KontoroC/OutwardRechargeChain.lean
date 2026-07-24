@@ -169,5 +169,21 @@ theorem RechargeEdge.target_eq_of_no_cross_edges
   · exact (hnotKL hforward).elim
   · exact (hnotLK hbackward).elim
 
+/-- A finite family of pairwise recharge-incomparable literal descendants
+of one ordinary charge has width at most one. -/
+theorem commonSource_incomparableTargets_card_le_one
+    (H : ℕ) (targets : Finset ℕ)
+    (hroot : ∀ K ∈ targets, RechargeEdge H K)
+    (hincomparable : ∀ K ∈ targets, ∀ L ∈ targets, K ≠ L →
+      ¬RechargeEdge K L ∧ ¬RechargeEdge L K) :
+    targets.card ≤ 1 := by
+  rw [Finset.card_le_one_iff]
+  intro K L hK hL
+  by_contra hne
+  obtain ⟨hnotKL, hnotLK⟩ :=
+    hincomparable K hK L hL hne
+  exact hne (RechargeEdge.target_eq_of_no_cross_edges
+    (hroot K hK) (hroot L hL) hnotKL hnotLK)
+
 end OutwardRechargeChain
 end KontoroC

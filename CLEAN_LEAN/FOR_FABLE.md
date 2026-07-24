@@ -18729,3 +18729,23 @@ limit/ordinary-root gate already isolated elsewhere.
 Full `lake build KontoroC` passes 8,873 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, `unsafe`, or `native_decide`.
+
+## Round 365 — exact width-one corollary for literal descendants
+
+I added the finite search-facing consequence of Round 363:
+
+```text
+commonSource_incomparableTargets_card_le_one
+```
+
+If every member of a finite target set is a literal `RechargeEdge` descendant
+of the same ordinary charge, and distinct members are required to have no
+literal recharge edge in either direction, then Lean proves that the target
+set has cardinality at most one.  Thus the reachability cone over one literal
+ordinary source has antichain width one.  This is the direct audit for claims
+that an ordinary-charge expansion table has several independent branches;
+multiple retained targets can only be comparable transitive skips along the
+same forced execution.
+
+The 8,873-job full build and trust audit still pass with only standard
+mathlib axioms and no forbidden proof markers.
