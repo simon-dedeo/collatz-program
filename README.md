@@ -33,6 +33,75 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-24 02:06 EDT
+
+There is still no Collatz counterexample.  The IAS audit now has 201
+authoritative transcript-checked release talks.
+
+Elon Lindenstrauss proves an effective density-or-periodic-obstruction
+alternative for unipotent orbit segments.  This is a principled template for
+sorting long finite survivors: either establish quantitative coverage or
+extract and classify a controlled low-complexity shadow.  But density and
+recurrence do not imply escape.  The exact two-state system `A -> B -> A` with
+height increments `+1,-1` visits every state with positive frequency while
+all partial heights are bounded.  Any Collatz use needs an exact cocycle
+theorem giving positive-frequency *and positive mean drift* along one coherent
+ordinary orbit.
+
+Edward Belbruno works target-first, propagating a desired weak-stability
+boundary backward to obtain low-energy capture trajectories, while explicitly
+separating the numerical construction from rigorous stability.  The exact
+Collatz analogue is attractive only after proving a forward-invariant target
+`G` on which canonical recharge is always defined and charge grows uniformly;
+exact inverse cylinders could then search for a positive ordinary predecessor
+and replay it forward.  No such `G` is known, and long finite residence near a
+cycle is not an infinite trajectory.
+
+Thomas Scanlon's definable quotient constructions depend essentially on the
+choice of fundamental domain.  The all-odd Collatz cylinder makes the danger
+literal: at depth `H` its standard nonnegative representative is
+`2^(H+1)-1`, which grows exponentially, while its compatible balanced
+representative is always the single 2-adic point `-1`.  Apparent growth of a
+chosen representative is therefore not an invariant.  A quotient-based
+search must lift to one nested positive seed and certify its actual charge,
+not the size of a changing fundamental-domain representative.
+
+Richard Hind's shape invariant packages which cohomology classes occur while
+the proof still needs family-level control.  Pointwise nonemptiness has the
+same exact failure here.  Let `C_H` be the all-ones word cylinder at odd `H`
+and the all-twos word cylinder at even `H`.  Every `C_H` is nonempty: use
+`2^(H+1)-1` for ones and `1` for twos.  Yet their residues modulo four
+alternate between `3` and `1`, so no seed belongs to the whole family.  Search
+states must carry the restriction maps or a literal shared-root certificate.
+
+Michael Hopkins develops an obstruction-theoretic lifting program in which
+ordinary Chern-class shadows are too coarse and special Rees bundles lift only
+after a further torsion operation corrects the weight.  Collatz likewise needs
+an obstruction tower, but it has a sharp limitation: no predicate factoring
+through residue modulo `2^k` can separate the 2-adic point `-1` from the
+positive integer `2^k-1`.  Every finite dyadic stage accepts a positive
+approximant.  An ordinary-root certificate therefore needs an Archimedean
+boundedness/eventual-constancy stage; endlessly refining purely dyadic
+obstructions cannot supply it.
+
+Mario Sanchez categorifies valuative polytope shadows by a derived category
+and a quiver with relations, retaining generators, paths, and composition.
+The support loss is exact: `1+x^2+y^2` and `1+x^2+xy+y^2` have the same Newton
+polytope, but only the second contains the `xy` monomial.  Thus a Collatz
+min-plus or tropical profile should be lifted to an exact path structure whose
+vertices are cylinders and whose arrows are literal affine recharge
+certificates.  This preserves composition but does not itself prove that the
+deterministic canonical path is infinite or has an ordinary root.
+
+Formalizer commits `a9f60fc` and `b4089d2` close a proposed finite-feature
+shortcut.  For every fixed dyadic precision and valuation cutoff, Lean builds
+positive odd seeds with identical visible features whose exact accelerated
+successors are `1` and arbitrarily large.  More strongly, no predictor
+constant on those feature classes can approximate every successor with any
+uniform additive error.  A sound finite abstraction must retain an unbounded
+carry correction or prove a domain theorem excluding this family.
+`counterexample:null`.
+
 ### 2026-07-24 01:56 EDT
 
 There is still no Collatz counterexample.  The IAS audit now has 195
@@ -10447,6 +10516,43 @@ existing lines of work; the closest ancestors, and what each contributes:
   S3--S7 at 1,587--3,413 seconds** — stability promotes asymptotic maps to
   genuine homomorphisms in the ambient metric category.  A 2-adic lift need
   not remain in the nonclosed positive integers.
+- **E. Lindenstrauss, [“Effective density of unipotent
+  orbits”](https://www.ias.edu/video/analysisbeyond/2016/0524-ElonLindenstrauss),
+  IAS talk (24 May 2016), corpus key `796758521d74e3e98e19954d3a30b110`,
+  S3--S8 at 1,564--3,043 seconds** — a quantitative orbit segment is either
+  dense or close to controlled periodic homogeneous data.  Collatz still
+  needs a positive-drift cocycle theorem on one coherent ordinary orbit.
+- **E. Belbruno, [“Designing low energy capture transfers for spacecraft to
+  the Moon and
+  Mars”](https://www.ias.edu/video/pisgs/2014/1028-EdwardBelbruno), IAS talk
+  (28 Oct. 2014), corpus key `7bd492937b04766640215026f8f06631`, S2--S8 at
+  659--3,955 seconds** — backward propagation from a target can organize an
+  exact inverse-cylinder search only after a rigorous forward-invariant,
+  uniformly growing Collatz target has been proved.
+- **T. Scanlon, [“Definable Quotient Spaces for Unlikely Intersection
+  Problems”](https://www.ias.edu/video/definable-quotient-spaces-unlikely-intersection-problems),
+  IAS talk (10 Mar. 2026), corpus key `9a4bcca2d028c079d6f1306543ddfa39`,
+  S3--S7 at 1,000--2,305 seconds** — quotient descriptions depend on a
+  fundamental domain.  Growth of nonnegative representatives of a Collatz
+  cylinder can hide the constant compatible 2-adic representative `-1`.
+- **R. Hind, [“The Shape Invariant and Lagrangian
+  Intersections”](https://www.ias.edu/video/shape-invariant-and-lagrangian-intersections),
+  IAS talk (14 Feb. 2025), corpus key `f80d707202f49b212e9204d582705084`,
+  S2--S7 at 194--917 and 3,594--3,661 seconds** — set-valued existence data
+  needs family coherence.  Alternating nonempty Collatz cylinders can have
+  incompatible residues modulo four and no shared seed.
+- **M. Hopkins, [“Even spaces and motivic
+  resolutions”](https://www.ias.edu/video/VoevodskyMemConf-2018/0913-MichaelHopkins),
+  IAS talk (13 Sept. 2018), corpus key `0dc2a7f1516b5e71ecc9e20f832d2c33`,
+  S4--S8 at 1,555--3,381 seconds** — finer obstruction operations can repair
+  failed lifts, but no finite purely dyadic obstruction separates `-1` from
+  its positive natural approximants.
+- **M. Sanchez, [“Derived Categories of the Permutahedral
+  Varieties”](https://www.ias.edu/video/derived-categories-permutahedral-varieties),
+  IAS talk (25 Oct. 2024), corpus key `117b558361794ff121d0bcdee8092a14`,
+  S3--S8 at 1,117--2,697 seconds** — categorical/quiver data retains path and
+  composition information discarded by Newton-polytope shadows.  Exact
+  recharge arrows still need infinite-path and ordinary-root theorems.
 - **S. Fenner, [“Bipartite perfect matching is in
   quasi-NC”](https://www.ias.edu/video/csdm/2016/0208-Fenner), IAS talk
   (8 Feb. 2016), corpus key `83398a9013343939af42951fafbfdaa1`, S2--S8 at
