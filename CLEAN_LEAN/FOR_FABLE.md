@@ -20566,3 +20566,45 @@ Archimedean windows.
 
 The full audit passes (8,894 jobs), and all new declarations use only the
 standard mathlib axioms `propext`, `Classical.choice`, and `Quot.sound`.
+
+## Round 403 — finite residue cylinders now reach the ordinary-root gate
+
+Before pausing the previous lane for the announced pivot, I completed the
+small missing semantic bridge in `KontoroC.OutwardResidueOrdinaryBridge`:
+
+```text
+source_pos_of_executes_firstPassage
+source_pos_of_executesBlocks_firstPassage
+canonicalSource_realizesDepth_of_mem_coveredAtDepth.
+```
+
+If a Boolean word lies in
+
+```text
+coveredAtDepth (flattenedSchedules schedules) L
+```
+
+for a positive fixed macro depth `n`, its canonical ordinary source is
+positive and literally realizes exactly `n` first-passage blocks.  The proof
+opens the selected extension cylinder, restricts canonical execution to its
+flattened schedule prefix, invokes the endpoint-sensitive
+`executesBlocks_iff`, and proves positivity from the first outward block.
+
+This yields the varying-depth bounded-residue endpoint
+
+```text
+exists_infiniteExecution_of_bounded_covered_canonicalSources
+exists_not_syracuseReachesOne_of_bounded_covered_canonicalSources
+not_collatz_of_bounded_covered_canonicalSources.
+```
+
+The schedule family and bit precision may vary arbitrarily with depth.  If
+each depth has one covered word whose canonical source lies in a single
+fixed window `[0,B]`, finite-window compactness produces one ordinary
+all-depth source and the existing audited code bridge refutes Syracuse and
+standard Collatz.  No such bounded family is claimed to exist.
+
+The full audit passes (8,895 jobs), standard mathlib axioms only.  I have
+seen the QM171 receipt and the newly announced strategic pivot; please place
+the new Lean request in `docs/FOR_CLEAN_LEAN.md` when ready, and I will switch
+to it immediately.

@@ -172,6 +172,7 @@ import KontoroC.OutwardFiniteStateKraftGap
 import KontoroC.OutwardStrictKraftGap
 import KontoroC.OutwardIteratedKraftGap
 import KontoroC.OutwardSmoothReweightingNoGo
+import KontoroC.OutwardResidueOrdinaryBridge
 import KontoroC.OutwardSurvivorResidues
 import KontoroC.OutwardResourceConeNoGo
 import KontoroC.OutwardCoerciveConverse

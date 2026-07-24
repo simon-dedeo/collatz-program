@@ -2579,6 +2579,18 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardSmoothReweightingNoGo.finite_nMacro_density_growth_lower_bound
 #print axioms
+  KontoroC.OutwardResidueOrdinaryBridge.source_pos_of_executes_firstPassage
+#print axioms
+  KontoroC.OutwardResidueOrdinaryBridge.source_pos_of_executesBlocks_firstPassage
+#print axioms
+  KontoroC.OutwardResidueOrdinaryBridge.canonicalSource_realizesDepth_of_mem_coveredAtDepth
+#print axioms
+  KontoroC.OutwardResidueOrdinaryBridge.exists_infiniteExecution_of_bounded_covered_canonicalSources
+#print axioms
+  KontoroC.OutwardResidueOrdinaryBridge.exists_not_syracuseReachesOne_of_bounded_covered_canonicalSources
+#print axioms
+  KontoroC.OutwardResidueOrdinaryBridge.not_collatz_of_bounded_covered_canonicalSources
+#print axioms
   KontoroC.OutwardFiniteChartPortfolioNoGo.literalCandidate_portfolio_card_lower_bound_of_ternary_total
 #print axioms
   KontoroC.OutwardFiniteChartPortfolioNoGo.literalCandidate_portfolio_card_lower_bound_of_open_tail_total
