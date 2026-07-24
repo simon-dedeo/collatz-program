@@ -158,13 +158,13 @@ and every edge is a sound positive recharge.  A recurrent abstraction must
 therefore represent the ordinary charge in an unbounded lift (or make the
 charge assignment state-dependent in some richer sense). -/
 theorem no_infinitePath_of_literalRechargeSound
-    [DecidableEq State]
     (G : FirstPassageGrammar State Edge) (charge : State → ℕ)
     (hsound : LiteralRechargeSound G charge)
     (state : ℕ → State) (edge : ℕ → Edge)
     (hsource : ∀ n, G.source (edge n) = state n)
     (htarget : ∀ n, G.target (edge n) = state (n + 1)) :
     False := by
+  classical
   have hstep : ∀ n, charge (state n) < charge (state (n + 1)) := by
     intro n
     have h := (hsound (edge n)).lt

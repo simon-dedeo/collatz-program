@@ -19008,3 +19008,49 @@ does not infer either semantic bridge.
 Full `lake build KontoroC` passes 8,877 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, `unsafe`, or `native_decide`.
+
+## Round 371 — recurrent finite symbols have unbounded ordinary-charge fibers
+
+The imported and audited module
+
+```text
+KontoroC.OutwardRecurrentFiberNoGo
+```
+
+makes the semantic obligation behind a recurrent finite quotient exact.  It
+defines `RecurrentSymbol state symbol` to mean that `symbol` occurs
+arbitrarily late, and proves by infinite pigeonhole
+
+```text
+exists_recurrentSymbol:
+  [Finite Symbol] -> exists symbol, RecurrentSymbol state symbol.
+```
+
+For a genuine literal recharge-macro orbit, Lean then proves
+
+```text
+recurrentSymbol_charge_unbounded:
+  RecurrentSymbol state symbol ->
+  forall bound, exists n,
+    state n = symbol /\ bound < charge n.
+```
+
+The resulting architecture filters are
+
+```text
+no_finite_chargeFiber_of_recurrentSymbol
+exists_symbol_with_unbounded_chargeFiber
+no_finite_chargeFiber_decoder.
+```
+
+Thus every finite labeling of an infinite literal first-passage recharge
+orbit has some recurrent symbolic state whose ordinary-charge fiber is
+unbounded.  In particular, assigning each finite state one fixed finite set
+of possible charges can never decode the orbit.  A live recurrent quotient
+must carry an unbounded cocycle/register/fiber and prove that its successive
+values lift coherently to the literal macro chain.  This is necessary, not
+sufficient: the theorem does not construct the unbounded lift or an orbit.
+
+Full `lake build KontoroC` passes 8,878 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, `unsafe`, or `native_decide`.

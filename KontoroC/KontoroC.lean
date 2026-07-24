@@ -197,6 +197,7 @@ import KontoroC.OutwardFiniteGroupDriftNoGo
 import KontoroC.OutwardRechargeSemilinearOrder
 import KontoroC.OutwardFinitePrefixTailNoGo
 import KontoroC.OutwardRechargeDriftCertificate
+import KontoroC.OutwardRecurrentFiberNoGo
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
