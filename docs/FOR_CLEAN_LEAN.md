@@ -13725,6 +13725,17 @@ seeds), proves all terminate, and finds maximum first-passage depth 136 at
 are not requested as a Lean theorem; QM173d--e explain why the enumeration is
 a principled coercive sublevel audit rather than an interval scan.
 
+The corrected artifact now also quotients the exact forced prehistory
+
+```text
+2^a*3^b*u-1 --a word-1 blocks--> 3^(a+b)*u-1.
+```
+
+This preserves `R23` and infinite-survival status.  Only 2,773 distinct tails
+remain at `B=128`, with maximum depth 18.  The generic finite-prefix/tail
+equivalence is already covered by the canonical tail-merger module; package
+this displayed algebra only if it is essentially free.
+
 No uniform carry budget or resource bound is asserted.  `counterexample:null`.
 
 ### QM173 finite calibration

@@ -1,5 +1,5 @@
 {
-  "artifact_sha256": "e105f1dba604357f2c3b640d2cba2a4f4f47c78fbf96b5b845e10a2f1e06ded7",
+  "artifact_sha256": "050fb5d17485e65b6b4301345574281564cffbc7282b0893c0acf8e5b97148a4",
   "audit": {
     "all_terminated": true,
     "champion": {
@@ -52,6 +52,83 @@
         "word": "011"
       },
       "meaning": "R is a coercive seed moment, not a branchwise Lyapunov function"
+    },
+    "forced_one_prehistory_quotient": {
+      "champion": {
+        "accelerated_steps_to_terminal_cycle": 216,
+        "address_stabilization": null,
+        "exponent_a_plus_b": 47,
+        "failed_tail": {
+          "exact_non_crossing": "3^190<=2^390",
+          "length": 390,
+          "odd_count": 190
+        },
+        "first_passage_blocks": 18,
+        "post_address_first_passage_extensions": 0,
+        "resource": 108,
+        "seed": "1621917675896407700555006",
+        "seed_sha256": "73d4347bcf13c082806c1b36e873ca325be9c091888f393ac83693a6cc744436",
+        "shortcut_steps_to_terminal_cycle": 422,
+        "terminal_cycle_state": 2,
+        "unit": 61
+      },
+      "coordinates": "c=a+b, u coprime to 6, c+u<=B",
+      "maximum_tail_first_passage_depth": 18,
+      "maximum_tail_shortcut_steps": 1167,
+      "meaning": "2^a*3^b*u-1 executes exactly a initial word-1 blocks and then reaches the quotient tail 3^(a+b)*u-1 with the same resource",
+      "record_rows": [
+        {
+          "depth": 0,
+          "exponent_a_plus_b": 0,
+          "resource": 5,
+          "seed": "4",
+          "unit": 5
+        },
+        {
+          "depth": 1,
+          "exponent_a_plus_b": 0,
+          "resource": 7,
+          "seed": "6",
+          "unit": 7
+        },
+        {
+          "depth": 3,
+          "exponent_a_plus_b": 0,
+          "resource": 31,
+          "seed": "30",
+          "unit": 31
+        },
+        {
+          "depth": 14,
+          "exponent_a_plus_b": 0,
+          "resource": 55,
+          "seed": "54",
+          "unit": 55
+        },
+        {
+          "depth": 15,
+          "exponent_a_plus_b": 14,
+          "resource": 37,
+          "seed": "110008286",
+          "unit": 23
+        },
+        {
+          "depth": 16,
+          "exponent_a_plus_b": 23,
+          "resource": 84,
+          "seed": "5742733908446",
+          "unit": 61
+        },
+        {
+          "depth": 18,
+          "exponent_a_plus_b": 47,
+          "resource": 108,
+          "seed": "1621917675896407700555006",
+          "unit": 61
+        }
+      ],
+      "scope": "exact quotient of the displayed resource sublevel; finite tail depth is not an infinite-orbit conclusion",
+      "unique_tail_coordinates": 2773
     },
     "max_depth": 136,
     "maximum_terminal_steps": 1288,
@@ -1660,5 +1737,5 @@
     "step_cap": 50000
   },
   "schema": "collatz-outward-resource-sublevel-v1",
-  "worker_sha256": "3cfbcdc2b44044c5d8c26afccb8e6f3bf1a22128758ba53fc0c4a5ee6d472058"
+  "worker_sha256": "3a6b60abf4f8313aaec985b2976f0592b3c7c73373d1aa98d5dfcc510a5955ed"
 }

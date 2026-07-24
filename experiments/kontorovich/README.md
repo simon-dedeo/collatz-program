@@ -5427,6 +5427,13 @@ finite obstruction to that particular uniform-moment proposal, not an
 infinite ordinary survivor or a Collatz counterexample.  The artifact records
 `counterexample:null`.
 
+The artifact also removes forced inverse history exactly.  Every row
+`2^a*3^b*u-1` executes `a` initial one-letter blocks and then reaches the tail
+`3^(a+b)*u-1`, preserving both `R` and infinite-survival status.  There are
+only 2,773 distinct quotient tails at `B=128`, and their maximum first-passage
+depth is 18 (first at `3^47*61-1`).  This is the future-facing calibration;
+the 136-block row spends 120 blocks only on its forced prehistory.
+
 ```bash
 python3 outward_resource_sublevel.py selftest
 python3 outward_resource_sublevel.py verify \

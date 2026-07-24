@@ -218,6 +218,64 @@ def profile_summary(profile: Profile) -> dict[str, Any]:
     }
 
 
+def tail_quotient(resource_bound: int, step_cap: int) -> dict[str, Any]:
+    """Remove the forced initial word-1 prehistory from the resource sublevel."""
+
+    count = 0
+    maximum_depth = -1
+    maximum_steps = -1
+    champion: Profile | None = None
+    champion_coordinates: tuple[int, int] | None = None
+    records: list[dict[str, Any]] = []
+    for exponent in range(resource_bound):
+        for unit in range(1, resource_bound - exponent + 1):
+            if math.gcd(unit, 6) != 1:
+                continue
+            seed = 3**exponent * unit - 1
+            if seed < 1:
+                continue
+            count += 1
+            profile = source_profile(seed, step_cap)
+            maximum_steps = max(maximum_steps, profile.shortcut_steps)
+            if profile.depth > maximum_depth:
+                maximum_depth = profile.depth
+                champion = profile
+                champion_coordinates = (exponent, unit)
+                records.append(
+                    {
+                        "depth": profile.depth,
+                        "exponent_a_plus_b": exponent,
+                        "unit": unit,
+                        "seed": str(seed),
+                        "resource": exponent + unit,
+                    }
+                )
+    if champion is None or champion_coordinates is None:
+        raise AssertionError("resource tail quotient was empty")
+    traced = source_profile(champion.seed, step_cap, True)
+    return {
+        "meaning": (
+            "2^a*3^b*u-1 executes exactly a initial word-1 blocks and then "
+            "reaches the quotient tail 3^(a+b)*u-1 with the same resource"
+        ),
+        "unique_tail_coordinates": count,
+        "coordinates": "c=a+b, u coprime to 6, c+u<=B",
+        "maximum_tail_first_passage_depth": maximum_depth,
+        "maximum_tail_shortcut_steps": maximum_steps,
+        "record_rows": records,
+        "champion": {
+            **profile_summary(traced),
+            "exponent_a_plus_b": champion_coordinates[0],
+            "unit": champion_coordinates[1],
+            "resource": champion_coordinates[0] + champion_coordinates[1],
+        },
+        "scope": (
+            "exact quotient of the displayed resource sublevel; finite tail "
+            "depth is not an infinite-orbit conclusion"
+        ),
+    }
+
+
 def enumerate_sublevel(resource_bound: int, step_cap: int) -> dict[str, Any]:
     if resource_bound < 2 or step_cap < 1:
         raise ValueError("invalid resource or replay bound")
@@ -322,6 +380,7 @@ def enumerate_sublevel(resource_bound: int, step_cap: int) -> dict[str, Any]:
                 "hence R(S(n))=R(n)"
             ),
         },
+        "forced_one_prehistory_quotient": tail_quotient(resource_bound, step_cap),
         "moment_optimization": {
             "resource_minimum_at_maximum_depth": best[maximum_depth][0],
             "minimizing_seed": str(best[maximum_depth][1]),
@@ -410,6 +469,9 @@ def report(artifact: dict[str, Any]) -> dict[str, Any]:
         "resource_bound": audit["resource_bound"],
         "enumerated": audit["enumerated"],
         "maximum_depth": audit["max_depth"],
+        "maximum_quotient_tail_depth": audit["forced_one_prehistory_quotient"][
+            "maximum_tail_first_passage_depth"
+        ],
         "champion_seed": audit["champion"]["seed"],
         "champion_resource": audit["champion"]["resource"],
         "next_depth_resource_lower_bound": audit["moment_optimization"][
@@ -450,6 +512,8 @@ def selftest() -> None:
     tiny = enumerate_sublevel(8, 1_000)
     if tiny["enumerated"] != 48 or tiny["max_depth"] != 14:
         raise AssertionError("tiny resource-sublevel enumeration changed")
+    if tiny["forced_one_prehistory_quotient"]["maximum_tail_first_passage_depth"] != 9:
+        raise AssertionError("tiny forced-one tail quotient changed")
     increase = source_profile(134, 1_000, True)
     decrease = source_profile(6, 1_000, True)
     if increase.boundaries[0].word != "011" or increase.boundaries[0].state != 152:

@@ -57,7 +57,15 @@ with 136 first-passage blocks.  Exhaustive emptiness at the next depth proves
 that every depth-137 carried probability law has `R23`-moment at least 129.
 This rejects the candidate uniform bound 128; it does not prove divergence
 of the minima.  The artifact digest is
-`e105f1dba604357f2c3b640d2cba2a4f4f47c78fbf96b5b845e10a2f1e06ded7`.
+`050fb5d17485e65b6b4301345574281564cffbc7282b0893c0acf8e5b97148a4`.
+
+The tail-merger theorem gives the essential correction.  A resource seed
+`2^a*3^b*u-1` spends exactly `a` initial word-`1` blocks before reaching
+`3^(a+b)*u-1`, with unchanged resource and identical infinite-survival
+status.  Quotienting those cheap prehistories reduces the 120,668 rows to
+2,773 distinct tails; their maximum depth is only 18, attained first at
+`3^47*61-1`.  Thus the 136-block headline is mostly inverse history, not a
+new long future.  Future resource searches will rank quotient tails.
 
 More importantly, the coherent-cylinder search now has a decisive integer
 objective.  For a finite first-passage subcode and a schedule prefix `u`, let
