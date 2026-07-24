@@ -667,6 +667,7 @@ satisfies either unbounded obligation.
 | architecture filter | Robert Robere, *Applications of Monotone Constraint Satisfaction*, key `7d3a4068c31f8f6add2e2191289f4896`, S4--S8/E4/E7, 988--3,922 s | Compile a bounded macro topology into exact local constraints and mine replayable refutations for small arithmetic separators that can be promoted independently as CEGIS features or no-go lemmas. | Exponential proof/circuit complexity is only hardness, not satisfiability or construction; Collatz is deterministic, unbounded, and not monotone under freely adding transitions. |
 | preflight | Kiumars Kaveh, *Tropical Vector Bundles and Matroids*, key `6fbcec9c48581879e3e6864fff4761a1`, S2--S5/S8/E3, 1,055--3,739 s | Compute exact circuits of a candidate affine relation and reject it whenever the `v_2` or `v_3` weighted circuit has a unique minimum, which cannot cancel; survivors need an explicit representable lift over `Q` or `Z[1/6]`. | Abstract Bergman/matroid consistency can be nonrepresentable and tropicalization forgets units and signs; passing both valuation tests is necessary, never constructive by itself. |
 | warning/exact target | Shreyasi Datta, *S-arithmetic Diophantine Approximation*, key `07617502569abfc23a09496b2fa3e3d7`, S1--S3/S7--S8/E1/E4, 15--3,972 s | Package dyadic/triadic divisibility and Archimedean address height together; the exact desired estimate is `abs(N_(k+1)-N_k) < 2^A_k*3^B_k`, which forces the integer extension carry to vanish and the ordinary representative to stabilize. | The talk proves metric/nondivergence statements for typical approximation, not the exceptional exact inequality needed here; measure zero neither constructs nor excludes a counterexample. |
+| conditional architecture | Ana Rita Pires, *Symplectic Embeddings and Infinite Staircases*, key `5f0bc63953693792769f40cc44603678`, S4--S7/E3--E5/E7, 2,287--3,531 s | Seek a macro family whose integer parameters obey a proved second-order recurrence `A_n=K*A_(n-1)-A_(n-2)` and whose ratios converge to a quadratic resource-balance point; prove legality, clean reset, and invariant closure for all `n` by exact induction. | The talk's existence proof deliberately does not construct all staircase corners, and infinitely many active obstructions do not compose into one orbit; OEIS recognition or asymptotic accumulation is not an exact Collatz family. |
 
 ## Negative lessons already extracted
 
@@ -761,5 +762,7 @@ satisfies either unbounded obligation.
   key `6fbcec9c48581879e3e6864fff4761a1`.
 - Shreyasi Datta, *S-arithmetic Diophantine Approximation*, IAS, 2 Dec. 2022,
   key `07617502569abfc23a09496b2fa3e3d7`.
+- Ana Rita Pires, *Symplectic Embeddings and Infinite Staircases*, IAS,
+  15 Apr. 2016, key `5f0bc63953693792769f40cc44603678`.
 
 `counterexample: null`

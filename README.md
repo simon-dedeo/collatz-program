@@ -128,6 +128,20 @@ first-passage macro.  Only with that separate promotion theorem does Lean
 derive an infinite execution and `not Collatz.Conjecture`.  No concrete
 certificate or semantic promotion has been supplied.
 
+Pires's infinite-staircase transcript adds one compact generator worth testing
+after those gates: an unbounded family of exact parameter regimes can be
+encoded by a second-order integer recurrence
+`A_n=K*A_(n-1)-A_(n-2)`, with ratios approaching a quadratic resource-balance
+point.  The Collatz version would synthesize recurrence-parametrized macro
+data and prove literal legality, catalyst reset, coercive address control, and
+invariant closure for every `n` by induction.  This is attractive precisely
+because the counters can grow while the description stays finite.  The talk
+also supplies the warning: its proof of an infinite staircase is
+nonconstructive and does not identify or compose every corner.  OEIS pattern
+recognition, a limiting quadratic, or infinitely many separately valid macros
+would not give one orbit.  The checked ledger is now 35 talks; the sole batch
+is at 688/1,025 with zero failures.  `counterexample:null`.
+
 ### 2026-07-23 22:24 EDT
 
 There is still no counterexample.  Twelve further transcript-checked talks
