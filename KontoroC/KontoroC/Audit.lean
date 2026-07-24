@@ -2565,6 +2565,20 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardIteratedKraftGap.finite_nMacro_coveredAtDepth_card_bound
 #print axioms
+  KontoroC.OutwardSmoothReweightingNoGo.finiteMass_le_density_mul
+#print axioms
+  KontoroC.OutwardSmoothReweightingNoGo.fairResidueMass_eq
+#print axioms
+  KontoroC.OutwardSmoothReweightingNoGo.finite_nMacro_fairResidueMass_le
+#print axioms
+  KontoroC.OutwardSmoothReweightingNoGo.finite_nMacro_fairResidueMass_scaled_le
+#print axioms
+  KontoroC.OutwardSmoothReweightingNoGo.finite_nMacro_smooth_reweighting_mass_le
+#print axioms
+  KontoroC.OutwardSmoothReweightingNoGo.finite_nMacro_smooth_reweighting_mass_scaled_le
+#print axioms
+  KontoroC.OutwardSmoothReweightingNoGo.finite_nMacro_density_growth_lower_bound
+#print axioms
   KontoroC.OutwardFiniteChartPortfolioNoGo.literalCandidate_portfolio_card_lower_bound_of_ternary_total
 #print axioms
   KontoroC.OutwardFiniteChartPortfolioNoGo.literalCandidate_portfolio_card_lower_bound_of_open_tail_total

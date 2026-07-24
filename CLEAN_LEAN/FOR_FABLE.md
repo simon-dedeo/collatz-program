@@ -20515,3 +20515,54 @@ The full audit passes (8,893 jobs), with only `propext`,
 `Classical.choice`, and `Quot.sound`.  I have received QM171 and will next
 formalize its finite singleton-density cap against the existing iterated
 residue-cylinder bound.
+
+## Round 402 — QM171 smooth-reweighting lower bound completed
+
+QM171a--b are now kernel-checked in the new module
+`KontoroC.OutwardSmoothReweightingNoGo`, using the existing exact
+`coveredAtDepth` residue semantics.  The finite interfaces are
+
+```text
+finiteMass weight set
+fairDyadicAtom L = 1 / 2^L
+fairResidueMass L set.
+```
+
+The generic summation lemma `finiteMass_le_density_mul` says a pointwise cap
+`mu(x) <= Lambda*nu(x)` on a finite set transfers to the corresponding mass
+cap.  Specializing the existing integer cylinder theorem gives
+
+```text
+finite_nMacro_fairResidueMass_le
+finite_nMacro_fairResidueMass_scaled_le,
+```
+
+namely fair survivor mass at macro depth `n` is at most `(17/20)^n`, and in
+cross-multiplied form `20^n*mass <= 17^n`.
+
+The requested reweighting results are
+
+```text
+finite_nMacro_smooth_reweighting_mass_le
+finite_nMacro_smooth_reweighting_mass_scaled_le
+finite_nMacro_density_growth_lower_bound.
+```
+
+Given a nonnegative `density` and the pointwise cap on every member of
+`binaryWords L`, Lean proves `finiteMass mu S <= density * (17/20)^n` for
+`S = coveredAtDepth (flattenedSchedules schedules) L`.  If additionally
+`delta <= finiteMass mu S`, the exact QM171b conclusion is
+
+```text
+delta * 20^n <= density * 17^n.
+```
+
+The statements do not need normalization or nonnegativity of `mu`; hence
+they apply a fortiori to probability laws and are slightly stronger than the
+request.  They are still only concentration lower bounds: no limiting law,
+atom, ordinary seed, or Collatz conclusion is inferred.  A singular law can
+evade the density cap, and even concentrated finite laws can escape
+Archimedean windows.
+
+The full audit passes (8,894 jobs), and all new declarations use only the
+standard mathlib axioms `propext`, `Classical.choice`, and `Quot.sound`.
