@@ -5376,6 +5376,9 @@ for all symbol pairs `2<=p,p'<=4`, `0<=b,b'<=2`.  Schema v2 additionally
 checks the exact two-edge coefficient map on all 729 ordered symbol triples,
 records the dyadic resource/Kraft ledger, and gives the smallest closure
 failure for anchored one-step-memory ternary cylinders through precision six.
+It also constructs the 50-class coarse cover modulo `2^54`: the full
+unbounded next-symbol family lies in those classes, so every displayed
+ternary cylinder has an exact CRT witness where continuation is undefined.
 
 ```bash
 PYTHONPATH=experiments/kontorovich \
@@ -5387,8 +5390,9 @@ PYTHONPATH=experiments/kontorovich \
 
 The finite rows are exact arithmetic.  The general perturbation, mod-nine,
 edge-family, and two-edge formulas remain research derivations pending
-QM169--QM170.  QM170's CRT argument universally rejects finite unions of
-ternary parameter cylinders with a fixed finite target-symbol alphabet; it
-does not reject an unbounded recursive symbol binder.  No recursive
-mixed-base invariant is synthesized.  The artifact records
+QM169--QM170.  QM170's writer-specific coarse cover and CRT argument
+universally reject pure ternary-cylinder predicates even with an unbounded
+target-symbol binder.  It does not reject a mixed recursive predicate that
+uses the exact new dyadic binder at every node.  No such invariant is
+synthesized.  The artifact records
 `universal_invariant:null` and `counterexample:null`.

@@ -13450,9 +13450,30 @@ no nonempty finite union of ternary parameter cylinders can force
 the next symbol to lie in a fixed finite target-symbol list.      (QM170e)
 ```
 
-Scope warning: do **not** infer the same conclusion for the infinite union of
-all symbols.  The Kraft bound gives positive 2-adic complement measure, but
-that complement need not be open or meet the recursively required ordinary
-progression.  An unbounded target-symbol binder remains live.  The executable
-schema-v2 regression checks QM170a--b on 729 bounded symbol triples and keeps
-`universal_invariant:null`, `counterexample:null`.
+The Kraft argument alone does not control the topology of the infinite union,
+but the writer gives a stronger finite coarse cover.  Work modulo `2^55`.
+For each `2<=p<=50`, decoder divisibility gives at most one parameter class
+modulo `2^54`.  For all `p>=51`, writer valuation `p+4>=55` first forces
+
+```text
+3^(g'+2)Q'(n)+7=0 mod 2^55,
+```
+
+which is one *common* class modulo `2^54` because the coefficient of `n` has
+valuation one.  Hence every legal target in the full unbounded alphabet lies
+in at most 50 of the `2^54` coarse classes:
+
+```text
+legalNext(n) -> n mod 2^54 belongs to CoarseCover,
+card CoarseCover <= 50.                           (QM170f)
+```
+
+The complement is now genuinely dyadic-open, so CRT proves that every
+nonempty ternary cylinder contains arbitrarily large parameters where the
+next writer--decoder cell is undefined, even if the selector may return an
+unbounded symbol.  What remains live is a *mixed* recursive predicate using
+the exact dyadic binder in QM170b at every node, not an unbounded ternary-only
+selector.  The executable schema-v2 regression checks QM170a--b on 729
+bounded symbol triples, constructs all 50 coarse rows exactly for the
+`(2,0)->(2,0)` chart, and keeps `universal_invariant:null`,
+`counterexample:null`.

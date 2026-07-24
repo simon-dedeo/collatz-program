@@ -1,6 +1,28 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 21:16 EDT
+Updated: 2026-07-23, about 21:27 EDT
+
+### 21:27 EDT continuation -- the unbounded alphabet still has an open hole
+
+There is no counterexample.  A writer-specific refinement strengthens PT30.
+Modulo `2^55`, each prospective counter `2<=p<=50` contributes at most one
+necessary decoder class for the free parameter `n` modulo `2^54`.  Every
+`p>=51` first requires writer divisibility by `2^55`, so all such counters
+share one common coarse class.  Therefore
+
+```text
+the full legal next-symbol domain occupies at most 50 of 2^54 classes.
+                                                               (PT31)
+```
+
+Its complement is genuinely dyadic-open.  CRT puts an arbitrarily large
+member of that complement inside every nonempty ternary cylinder.  Thus an
+unbounded target-symbol output does not rescue a ternary-only selector: a
+live invariant must introduce the exact dyadic binder in PT29 at every
+recursive node.  Schema v2 constructs the 50 coarse rows exactly for the
+anchored `(2,0)->(2,0)` edge and records semantic open-hole witnesses through
+ternary precision six.  PT31 is research-side pending the expanded QM170;
+`universal_invariant:null`, `counterexample:null` remain unchanged.
 
 ### 21:16 EDT continuation -- two-edge resource map and finite-cylinder no-go
 
@@ -38,11 +60,12 @@ with one-step symbol memory, can be invariant into a fixed finite symbol
 list.  Exact anchored CEGIS rows give the first failure at each precision
 `0<=k<=6`.
 
-This does **not** close an unbounded recursive symbol binder: the complement
-of the infinite guard union need not be open, and the small Kraft mass alone
-does not settle ordinary-integer compatibility.  The next live object is the
-mixed-base recursive constructor in PT29 with a proof of eventual zero root
-carry.  QM170 requests PT29--30 in Lean.  The artifact retains
+PT30 alone does **not** close an unbounded recursive symbol binder: a small
+Kraft mass need not make an infinite-union complement open.  PT31 above uses
+the writer equation to close the ternary-only version even with unbounded
+symbols.  The live object is the mixed-base recursive constructor in PT29,
+with a fresh dyadic binder at every node and a proof of eventual zero root
+carry.  QM170 requests PT29--31 in Lean.  The artifact retains
 `universal_invariant:null`, `counterexample:null`.
 
 ### 20:57 EDT continuation -- invariant CEGIS in payload triples

@@ -2955,6 +2955,25 @@ in arbitrarily large positive integers by CRT.  Hence no nonempty finite
 union of pure ternary parameter cylinders, even with one-step symbol memory,
 can force closure into a fixed finite target alphabet.
 
+The special writer structure sharpens this from a finite-alphabet theorem to
+an all-symbol theorem.  Work modulo `2^55`, the minimum decoder depth.  For
+each `2<=p<=50`, decoder legality places `n` in at most one class modulo
+`2^54`.  For every `p>=51`, the writer condition
+`v2(3^(g'+2)Q'(n)+7)=p+4` first forces the same divisibility by `2^55`, so
+all those counters lie in one common class modulo `2^54`.  Therefore
+
+```text
+all legal next symbols occupy at most 50 of the 2^54 classes mod 2^54.
+                                                               (32.5)
+```
+
+This finite coarse cover has a dyadic-open complement.  CRT puts an
+arbitrarily large member of that complement in every nonempty ternary
+cylinder.  Thus a selector whose invariant predicate contains a pure ternary
+cylinder cannot even force writer--decoder *definedness*, regardless of
+whether its target-symbol binder is finite or unbounded.  Runtime dyadic
+information is mandatory at every recursive node.
+
 Schema v2 checks (32.1)--(32.2) on all 729 ordered symbol triples with
 `2<=p,p',p''<=4`, `0<=b,b',b''<=2`.  It also gives the exact first closure
 failure for the anchored `(2,0)->(2,0)` ternary selector at every precision
@@ -2963,8 +2982,9 @@ cylinder containing it already contains a much smaller exact failure.  These
 rows are regression checks, while the finite-cylinder obstruction is the
 general research theorem pending Lean.
 
-Do not extend (32.4) too far.  The complement of an infinite open union need
-not be open, and positive 2-adic measure alone does not place an ordinary
-integer in the required recursively changing ternary classes.  An unbounded
-symbol binder coupled by (32.2) remains live.  The artifact therefore keeps
+The Kraft estimate (32.4) alone would not make the complement of an arbitrary
+infinite open union open; (32.5) is the extra writer-specific finite cover
+that closes that loophole here.  A genuinely mixed recursive predicate which
+uses the exact dyadic binder in (32.2), then transports its free tail to the
+next node, remains live.  The artifact therefore keeps
 `universal_invariant:null` and `counterexample:null`.

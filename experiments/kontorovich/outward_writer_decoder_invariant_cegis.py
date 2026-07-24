@@ -549,11 +549,129 @@ def fixed_symbol_kraft_ledger(maximum_p: int) -> dict[str, Any]:
                 "large positive parameters"
             ),
             "does_not_exclude": (
-                "an unbounded recursively selected target symbol; the global "
-                "Kraft bound alone does not make the infinite-union complement open"
+                "by itself, an unbounded recursively selected target symbol; "
+                "the separate writer-specific coarse cover closes the pure "
+                "ternary version by making the complement open"
             ),
             "status": "research theorem pending Lean",
         },
+    }
+
+
+def B_mod_power_of_two(p: int, exponent: int) -> int:
+    """Compute B(p) modulo 2^exponent without constructing 2^(2*3^p)."""
+
+    if p < 2 or exponent < 1:
+        raise ValueError("modular B requires p>=2 and positive precision")
+    modulus = 2**exponent
+    if p + 4 >= exponent:
+        return 7 % modulus
+    quotient_exponent = exponent - (p + 4)
+    quotient_modulus = 2**quotient_exponent
+    z = 2 * 3**p
+    numerator = (pow(2, z, quotient_modulus) - 1) % quotient_modulus
+    denominator = pow(3, p + 1, quotient_modulus)
+    d_mod = numerator * pow(denominator, -1, quotient_modulus) % quotient_modulus
+    return (7 + 2 ** (p + 4) * d_mod) % modulus
+
+
+def all_symbol_coarse_dyadic_cover() -> dict[str, Any]:
+    """Cover every possible next symbol by 50 classes modulo 2^54."""
+
+    precision = 55
+    parameter_exponent = precision - 1
+    parameter_modulus = 2**parameter_exponent
+    first = construct_edge(2, 0, 2, 0)
+    Q_prime_base = int(first["Q_prime"])
+    source = make_cell(2, 0)
+    g = 2 + source.o
+    Q_prime_stride_half = 3 ** (g + 4)
+    next_writer_multiplier = 3 ** (g + 2)
+    parameter_coefficient = (
+        next_writer_multiplier * Q_prime_stride_half
+    ) % parameter_modulus
+    if parameter_coefficient % 2 == 0:
+        raise AssertionError("coarse parameter coefficient is not a unit")
+    coefficient_inverse = pow(parameter_coefficient, -1, parameter_modulus)
+
+    rows: list[dict[str, Any]] = []
+    residues: set[int] = set()
+    for next_p in range(2, precision - 4):
+        B_mod = B_mod_power_of_two(next_p, precision)
+        if next_p <= 4 and B_mod != make_cell(next_p, 0).Bg % 2**precision:
+            raise AssertionError("modular B formula disagrees with the exact cell")
+        constant = (
+            next_writer_multiplier * Q_prime_base + B_mod
+        ) % 2**precision
+        if constant % 2:
+            raise AssertionError("target composite constant is not even")
+        residue = (
+            -(constant // 2) * coefficient_inverse
+        ) % parameter_modulus
+        residues.add(residue)
+        rows.append(
+            {
+                "target_p": next_p,
+                "necessary_parameter_residue_mod_2^54": str(residue),
+                "source": "decoder divisibility modulo 2^55",
+            }
+        )
+
+    # For every p>=51, writer_v2=p+4 already implies writer divisibility by
+    # 2^55.  All such counters therefore share one coarse parameter class.
+    writer_constant = (
+        next_writer_multiplier * Q_prime_base + 7
+    ) % 2**precision
+    if writer_constant % 2:
+        raise AssertionError("writer constant is not even")
+    tail_residue = (
+        -(writer_constant // 2) * coefficient_inverse
+    ) % parameter_modulus
+    residues.add(tail_residue)
+    rows.append(
+        {
+            "target_p": ">=51",
+            "necessary_parameter_residue_mod_2^54": str(tail_residue),
+            "source": "writer divisibility modulo 2^55",
+        }
+    )
+
+    if len(rows) != 50 or len(residues) > 50:
+        raise AssertionError("coarse all-symbol cover count changed")
+    complement_residue = next(
+        residue for residue in range(51) if residue not in residues
+    )
+
+    # The chosen complement class must fail the complete deterministic target
+    # diagnostic.  This checks the semantic bridge, not just the congruence.
+    Q_prime = (
+        Q_prime_base + 2 * Q_prime_stride_half * complement_residue
+    )
+    diagnostic = next_diagnostic(make_triple(2, 0, Q_prime))
+    if diagnostic["kind"] == "defined_triple_transition":
+        raise AssertionError("coarse complement unexpectedly has a legal target")
+
+    return {
+        "current_edge": [[2, 0], [2, 0]],
+        "parameter_modulus": "2^54",
+        "cover_rows": rows,
+        "cover_rows_sha256": hashlib.sha256(canonical_json(rows)).hexdigest(),
+        "number_of_rows": len(rows),
+        "number_of_distinct_residues": len(residues),
+        "ambient_residue_count": str(parameter_modulus),
+        "least_displayed_complement_residue": str(complement_residue),
+        "complement_semantic_failure": diagnostic,
+        "universal_theorem": (
+            "for any fixed current edge, all legal next writer--decoder symbols "
+            "lie in at most 50 parameter classes modulo 2^54: p=2..50 give "
+            "one decoder class each and every p>=51 lies in one common writer class"
+        ),
+        "consequence": (
+            "the full unbounded target alphabet has a dyadic-open complement, "
+            "so every nonempty pure ternary cylinder contains arbitrarily large "
+            "parameters where writer--decoder continuation is undefined"
+        ),
+        "status": "research theorem pending Lean",
     }
 
 
@@ -565,6 +683,9 @@ def ternary_cylinder_cegis(maximum_precision: int) -> dict[str, Any]:
     anchor = int(parameter_map["intersection"]["n0"])
     Q_prime_base = int(first["Q_prime"])
     Q_prime_stride = 2 * 3 ** (2 + make_cell(2, 0).o + 4)
+    coarse_cover = all_symbol_coarse_dyadic_cover()
+    complement_residue = int(coarse_cover["least_displayed_complement_residue"])
+    dyadic_modulus = 2**54
 
     anchor_Q_prime = Q_prime_base + Q_prime_stride * anchor
     anchor_diagnostic = next_diagnostic(make_triple(2, 0, anchor_Q_prime))
@@ -590,6 +711,24 @@ def ternary_cylinder_cegis(maximum_precision: int) -> dict[str, Any]:
             if diagnostic["kind"] != "defined_triple_transition":
                 break
             parameter += modulus
+        crt_multiplier = (
+            (residue - complement_residue)
+            * pow(dyadic_modulus, -1, modulus)
+            % modulus
+            if modulus > 1
+            else 0
+        )
+        open_hole_parameter = complement_residue + dyadic_modulus * crt_multiplier
+        if (
+            open_hole_parameter % modulus != residue
+            or open_hole_parameter % dyadic_modulus != complement_residue
+        ):
+            raise AssertionError("ternary/dyadic CRT witness failed")
+        open_hole_Q_prime = Q_prime_base + Q_prime_stride * open_hole_parameter
+        open_hole_triple = make_triple(2, 0, open_hole_Q_prime)
+        open_hole_diagnostic = next_diagnostic(open_hole_triple)
+        if open_hole_diagnostic["kind"] == "defined_triple_transition":
+            raise AssertionError("coarse open-hole witness acquired a legal target")
         rows.append(
             {
                 "architecture": (
@@ -602,6 +741,12 @@ def ternary_cylinder_cegis(maximum_precision: int) -> dict[str, Any]:
                 "representatives_tested_through_first_failure": tested,
                 "failure_triple": triple_record(triple),
                 "first_failure": diagnostic,
+                "all_symbol_open_hole_witness": {
+                    "n": str(open_hole_parameter),
+                    "n_mod_2^54": str(complement_residue),
+                    "triple": triple_record(open_hole_triple),
+                    "first_failure": open_hole_diagnostic,
+                },
                 "status": "rejected_by_exact_witness",
             }
         )
@@ -612,8 +757,8 @@ def ternary_cylinder_cegis(maximum_precision: int) -> dict[str, Any]:
         ),
         "rows": rows,
         "universal_class_rejection": (
-            "the finite-symbol CRT obstruction rejects every finite precision "
-            "and every nonempty finite union, not only the displayed anchors"
+            "the all-symbol coarse dyadic cover rejects every finite precision "
+            "and every nonempty finite union, even with an unbounded target alphabet"
         ),
     }
 
@@ -728,6 +873,7 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         "fixed_symbol_kraft_ledger": fixed_symbol_kraft_ledger(
             args.maximum_edge_counter
         ),
+        "all_symbol_coarse_dyadic_cover": all_symbol_coarse_dyadic_cover(),
         "ternary_cylinder_architecture_cegis": ternary_cylinder_cegis(
             args.maximum_ternary_selector_precision
         ),
@@ -784,6 +930,9 @@ def report(artifact: dict[str, Any]) -> dict[str, Any]:
         "ternary_architectures_rejected": len(
             audit["ternary_cylinder_architecture_cegis"]["rows"]
         ),
+        "all_symbol_coarse_cover_classes": audit[
+            "all_symbol_coarse_dyadic_cover"
+        ]["number_of_distinct_residues"],
         "universal_invariant": audit["universal_invariant"],
         "counterexample": audit["counterexample"],
     }
