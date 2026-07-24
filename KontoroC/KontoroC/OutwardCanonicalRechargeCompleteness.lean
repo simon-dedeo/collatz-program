@@ -275,6 +275,54 @@ noncomputable def canonicalRechargeIterate : ℕ → ℕ → Option ℕ
   | n + 1, H =>
       (canonicalRechargeIterate n H).bind canonicalRechargeMap
 
+/-- A purely relational certificate for exactly `n` canonical recharge-and-
+drain steps from `H` to `K`.  Unlike `canonicalRechargeIterate`, this object
+contains only finite semantic witnesses and does not invoke a global
+existence decision. -/
+def CanonicalRechargeChain : ℕ → ℕ → ℕ → Prop
+  | 0, H, K => K = H
+  | n + 1, H, K =>
+      ∃ J, CanonicalRechargeChain n H J ∧ RechargeThenDrain J K
+
+@[simp] theorem canonicalRechargeChain_zero_iff {H K : ℕ} :
+    CanonicalRechargeChain 0 H K ↔ K = H := by
+  rfl
+
+@[simp] theorem canonicalRechargeChain_succ_iff {n H K : ℕ} :
+    CanonicalRechargeChain (n + 1) H K ↔
+      ∃ J, CanonicalRechargeChain n H J ∧ RechargeThenDrain J K := by
+  rfl
+
+/-- Finite option-valued computation is exactly finite relational semantic
+certification.  This is the verification bridge for external workers: they
+may supply the intermediate charges and literal recharge witnesses without
+deciding whether arbitrary future recharges exist. -/
+theorem canonicalRechargeIterate_eq_some_iff_chain
+    {n H K : ℕ} :
+    canonicalRechargeIterate n H = some K ↔
+      CanonicalRechargeChain n H K := by
+  induction n generalizing K with
+  | zero =>
+      simp only [canonicalRechargeIterate, CanonicalRechargeChain,
+        Option.some.injEq]
+      exact eq_comm
+  | succ n ih =>
+      constructor
+      · intro hiterate
+        simp only [canonicalRechargeIterate] at hiterate
+        cases hprevious : canonicalRechargeIterate n H with
+        | none => simp [hprevious] at hiterate
+        | some J =>
+            have hmap : canonicalRechargeMap J = some K := by
+              simpa [hprevious] using hiterate
+            exact ⟨J, ih.mp hprevious,
+              canonicalRechargeMap_eq_some_iff.mp hmap⟩
+      · rintro ⟨J, hchain, hstep⟩
+        have hprevious : canonicalRechargeIterate n H = some J :=
+          ih.mpr hchain
+        simp only [canonicalRechargeIterate, hprevious, Option.bind_some]
+        exact canonicalRechargeMap_eq_some_iff.mpr hstep
+
 /-- Exact composition law for finite canonical recharge computations.  It is
 the partial-map analogue of the iterate addition law: first run `m` macros,
 then run `n` macros from the unique intermediate ordinary charge. -/
@@ -315,6 +363,24 @@ theorem canonicalRechargeIterate_prefix_of_add_eq_some
       canonicalRechargeIterate m H = some J ∧
       canonicalRechargeIterate n J = some K :=
   canonicalRechargeIterate_add_eq_some_iff.mp hiterate
+
+/-- Relational recharge certificates concatenate exactly at their ordinary
+intermediate endpoint. -/
+theorem canonicalRechargeChain_add_iff
+    {m n H K : ℕ} :
+    CanonicalRechargeChain (m + n) H K ↔
+      ∃ J,
+        CanonicalRechargeChain m H J ∧
+        CanonicalRechargeChain n J K := by
+  rw [← canonicalRechargeIterate_eq_some_iff_chain,
+    canonicalRechargeIterate_add_eq_some_iff]
+  constructor
+  · rintro ⟨J, hm, hn⟩
+    exact ⟨J, canonicalRechargeIterate_eq_some_iff_chain.mp hm,
+      canonicalRechargeIterate_eq_some_iff_chain.mp hn⟩
+  · rintro ⟨J, hm, hn⟩
+    exact ⟨J, canonicalRechargeIterate_eq_some_iff_chain.mpr hm,
+      canonicalRechargeIterate_eq_some_iff_chain.mpr hn⟩
 
 /-- An infinite canonical orbit makes every finite partial iterate defined,
 at exactly the corresponding ordinary charge. -/
@@ -380,6 +446,25 @@ theorem canonicalRechargeIterate_linear_escape
           have hHJ : H + n ≤ J := ih hprevious
           omega
 
+/-- Every finite relational certificate carries the same exact linear escape
+bound, with no reference to the noncomputable partial map in its statement. -/
+theorem canonicalRechargeChain_linear_escape
+    {n H K : ℕ} (hchain : CanonicalRechargeChain n H K) :
+    H + n ≤ K := by
+  exact canonicalRechargeIterate_linear_escape
+    (canonicalRechargeIterate_eq_some_iff_chain.mpr hchain)
+
+/-- Exact relational certificates of one fixed depth and source have a unique
+ordinary endpoint. -/
+theorem CanonicalRechargeChain.right_unique
+    {n H K L : ℕ}
+    (hK : CanonicalRechargeChain n H K)
+    (hL : CanonicalRechargeChain n H L) :
+    K = L := by
+  have hK' := canonicalRechargeIterate_eq_some_iff_chain.mpr hK
+  have hL' := canonicalRechargeIterate_eq_some_iff_chain.mpr hL
+  exact Option.some.inj (hK'.symm.trans hL')
+
 /-- A positive number of successful canonical recharge steps strictly raises
 the ordinary boundary charge. -/
 theorem canonicalRechargeIterate_strict
@@ -436,6 +521,26 @@ theorem canonicalRechargeIterate_no_positive_period
     canonicalRechargeIterate n H ≠ some H := by
   intro hperiod
   exact (Nat.lt_irrefl H) (canonicalRechargeIterate_strict hn hperiod)
+
+/-- No positive-length finite relational certificate can return to its
+ordinary starting charge. -/
+theorem canonicalRechargeChain_no_positive_period
+    {n H : ℕ} (hn : 0 < n) :
+    ¬ CanonicalRechargeChain n H H := by
+  intro hchain
+  have hlinear := canonicalRechargeChain_linear_escape hchain
+  omega
+
+/-- Relational certificate endpoints from one source are strictly ordered by
+their successful depths. -/
+theorem canonicalRechargeChain_endpoint_strictMono
+    {m n H J K : ℕ} (hmn : m < n)
+    (hm : CanonicalRechargeChain m H J)
+    (hn : CanonicalRechargeChain n H K) :
+    J < K := by
+  exact canonicalRechargeIterate_endpoint_strictMono hmn
+    (canonicalRechargeIterate_eq_some_iff_chain.mpr hm)
+    (canonicalRechargeIterate_eq_some_iff_chain.mpr hn)
 
 /-- If every successfully computed canonical charge is claimed to remain
 below a fixed bound, some finite iterate must be undefined.  The witness

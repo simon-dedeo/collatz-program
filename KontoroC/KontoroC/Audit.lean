@@ -2399,13 +2399,21 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.canonicalOrbit_iff_all_iterates_defined
 #print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeIterate_eq_some_iff_chain
+#print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeIterate_add
 #print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeIterate_add_eq_some_iff
 #print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeIterate_prefix_of_add_eq_some
 #print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeChain_add_iff
+#print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeIterate_linear_escape
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeChain_linear_escape
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.CanonicalRechargeChain.right_unique
 #print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeIterate_strict
 #print axioms
@@ -2414,6 +2422,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeIterate_endpoint_strictMono
 #print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeIterate_no_positive_period
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeChain_no_positive_period
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeChain_endpoint_strictMono
 #print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeIterate_undefined_of_bounded
 #print axioms

@@ -19726,3 +19726,48 @@ prove some stronger domain restriction excluding this exact family.
 
 The targeted build and explicit axiom audit pass.  Both theorems use only the
 standard mathlib axioms and no forbidden proof markers.
+
+## Round 384 — finite canonical verification no longer needs the noncomputable map
+
+`OutwardCanonicalRechargeCompleteness` now exports the purely relational
+certificate type
+
+```text
+CanonicalRechargeChain n H K
+```
+
+defined recursively as exactly `n` semantic `RechargeThenDrain` steps from
+ordinary charge `H` to ordinary charge `K`.  Its definition contains no
+global existence test or choice of a future recharge.
+
+The key completeness theorem is
+
+```text
+canonicalRechargeIterate_eq_some_iff_chain:
+  canonicalRechargeIterate n H = some K
+    <-> CanonicalRechargeChain n H K.
+```
+
+Thus an external worker need not evaluate the noncomputable canonical map.
+It can return intermediate ordinary charges together with each literal
+first-passage recharge-and-drain witness; Lean checks the finite relational
+chain and obtains the unique option-valued endpoint theorem afterward.
+
+The supporting certificate algebra is:
+
+```text
+canonicalRechargeChain_add_iff
+canonicalRechargeChain_linear_escape
+CanonicalRechargeChain.right_unique
+canonicalRechargeChain_no_positive_period
+canonicalRechargeChain_endpoint_strictMono.
+```
+
+So relational certificates concatenate at an explicit intermediate charge,
+have unique endpoints at fixed depth, escape by `H+n<=K`, and are strictly
+ordered across depths.  This is the appropriate serialization target for
+GPU/CEGIS results: finite checking is constructive even though perpetual
+definedness remains open.
+
+The targeted 8,725-job build and explicit axiom audit pass.  The new
+declarations use only standard mathlib axioms and no forbidden proof markers.
