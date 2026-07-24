@@ -33,6 +33,38 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 20:18 EDT
+
+There is still no counterexample.  The writer--decoder chart now has an exact
+selector criterion rather than only a sequence of failed predictors.  With
+
+```text
+r_n=B_n/3^A_n,  x_n=2^D_n/3^A_n,
+```
+
+the chart recurrence is `r_(n+1)=r_n+x_n*Bg_n/9`.  One fixed natural root
+exponent `C` executes every prescribed cell exactly iff
+`r_infinity=-3^C` in `Q_2`.  For bounded symbols the same positive increments
+converge over the reals.  There is no sign contradiction because rational
+sequences can have different real and 2-adic limits.  There is, however, a
+clean obstruction: any finite rational coboundary would telescope to the
+same rational tail value at both places.  Therefore every eventually
+periodic schedule, and more generally every finite-rational-coboundary tail,
+is impossible.  The live bounded case is a genuinely aperiodic “two-place
+chameleon” with factor complexity at least `k+1`.
+
+An elementary size estimate supplies a second theorem-shaped filter.  Every
+legal cell with writer counter `c` and decoder drain `b` satisfies
+
+```text
+9H > 2^(4*3^c+c+4+b).
+```
+
+So large counters require doubly exponential charge and should not be probed
+by an undirected sweep.  Artifact schema v3 regression-checks the bounded
+ingredients; the universal derivations are research-side pending QM167.
+The record remains `universal_invariant:null`, `counterexample:null`.
+
 ### 2026-07-23 20:09 EDT
 
 There is still no counterexample.  Exact replay of the first writer--decoder
@@ -6321,7 +6353,7 @@ identically `x`.
 | First bounded odd-charge invariant grammar | All eight implemented architectures are rejected within their stated exact domains.  The grammar combines exact `Cell(w,a)` branches, `v3`/primitive/dyadic cylinders, and the recursive pure-power/resonant families; CEGIS compares excluding a bad source with adjoining its target by description complexity.  Through `H<=200001`, family parameter 800, four ternary digits and eight dyadic bits, the least stored failures are `3,15,3,15,189,82701,23541,333`.  No recursive-family transition is universally certified, so this is a bounded grammar verdict, not a no-invariant theorem. | [`outward_charge_invariant_cegis_audit.json`](experiments/kontorovich/outward_charge_invariant_cegis_audit.json), [`OutwardInvariantBridge.lean`](KontoroC/KontoroC/OutwardInvariantBridge.lean), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#26-selector-architecture-and-invariant-cegis) |
 | Fixed-precision primitive guard partitions | Inadequate as invariant certificates.  On 178 exact states descended from the theorem-mandated `C=12 mod16` roots, bounded charge/ternary guards retain 74 minority transition errors.  Ten dyadic plus ten exponent-residue bits separate the displayed sample, but only as a finite lookup: unbounded word coverage, exact valuation binders, target inclusion, and ordinary root closure remain unproved.  The coherent exponent address moves to `700`, and the record's chart depth grows to 105 while height stays nearly fixed.  The replacement grammar uses finite LOW/HIGH/RESONANT predicate types with unbounded `v2`/`v3` binders. | [`outward_primitive_invariant_cegis_audit.json`](experiments/kontorovich/outward_primitive_invariant_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#27-primitive-coordinate-invariant-types-and-the-growing-rank-obstruction) |
 | Finite graph of fixed one-exponential chart instances | Universally closed.  With integer rank `chi=v2(alpha)-d`, every coefficient-matched recharge edge has `chi'=chi-(S+a)<chi`.  Lean proves the exact balance law and excludes a finite nonempty graph with an outgoing edge at every node by following an edge from a minimum-rank node.  The theorem deliberately does not cover finite chart *types* carrying unbounded runtime denominator/rank state; that is the live grammar. | [`OutwardChartRankNoGo.lean`](KontoroC/KontoroC/OutwardChartRankNoGo.lean), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#27-primitive-coordinate-invariant-types-and-the-growing-rank-obstruction) |
-| Finite survival of alternating writer--decoder schedules | Non-discriminating, and both displayed selector architectures fail the ordinary-address gate.  Every finite `(c,b)` word has one coherent nested exponent cylinder by KC-FP12.  The address beam checks 8,883 edges through depth ten, exhaustive through depth three, with no zero exponent carry; all 12 final canonical replays then have `v2(9H+7)` only one or two.  A failure-driven semantic beam checks 3,546 frontiers through depth eight, exhaustive through depth two; it repeatedly restores writer re-entry but finds zero valid decoders, with best exact decoder shortfall 41 bits.  Eventually periodic streams are universally closed; bounded genuinely aperiodic streams remain open and require factor complexity at least `k+1`.  This is not a no-invariant theorem. | [`outward_writer_decoder_cegis_audit.json`](experiments/kontorovich/outward_writer_decoder_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#28-the-writer-decoder-chart-type-and-the-only-ordinary-gate) |
+| Finite survival of alternating writer--decoder schedules | Non-discriminating, and both displayed selector architectures fail the ordinary-address gate.  Every finite `(c,b)` word has one coherent nested exponent cylinder by KC-FP12.  The address beam checks 8,883 edges through depth ten, exhaustive through depth three, with no zero exponent carry; a semantic beam checks 3,546 frontiers through depth eight and has best decoder shortfall 41 bits.  The exact normalized criterion is `r_infinity=-3^C` in `Q_2`.  Every finite rational-coboundary tail is universally closed; the bounded open case must be aperiodic, have factor complexity at least `k+1`, and evade finite rational coboundaries.  Legal counters also obey `9H>2^(4*3^c+c+4+b)`, so scale-only counter search is unjustified.  This is not a no-invariant theorem. | [`outward_writer_decoder_cegis_audit.json`](experiments/kontorovich/outward_writer_decoder_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#29-two-place-normalization-and-the-height-budget) |
 | Treating critical first-passage/KL mass as an ordinary survivor | Invalid.  For the canonical maximal outward first-passage code, the slope-tilted Kraft mass is exactly one at every block depth, but its natural product flow satisfies `mu_q{r_n<=B}<=B(3/4)^n`.  Conditioning fair renewal on arbitrarily long survival gives the product block law `p(w)/P`, which is also diffuse, with fixed-window bound `B(1/(2P))^n`.  Thus conserved mass and the classical survival Doob transform both escape every bounded ordinary residue window.  Any successful selector must create an atom; a useful sufficient proof input is the weaker growth condition `rho_n=o(2^n)`, which forces eventual zero carry. | [`outward_first_passage_audit.json`](experiments/kontorovich/outward_first_passage_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#23-odd-charge-compression-and-triadic-min-plus-renewal) |
 | Fixed-precision triadic min-plus controller | Does not close the unbounded raw renewal.  The exact dual-residue update for a source phase modulo `3^k` queries the target profile modulo `3^(O(w)+k)`; already word `1` requires precision `k+1`.  Finite height closes with the complete table `W_B`, explicit target bound `C(B)`, and a membership precision `3^K>C(B)`, but `K` grows with height.  Thus a successful phase selector needs genuinely growing arithmetic state, not one fixed residue automaton. | [`outward_minplus_profile_audit.json`](experiments/kontorovich/outward_minplus_profile_audit.json), companion commits `a0e460d`/`8d79424`, [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#24-growing-phase-precision-and-directed-carry-repair) |
 | Prefix-complete uniformly outward valuation ISA | Closed for finite positive prefix-free codes.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, every outward leaf has `q(w)>p(w)`; `p`-completeness and the `q`-Kraft bound are inconsistent.  Commit `da9fa59` constructs explicit binary and four-letter compilers, derives both Kraft inequalities from prefix-freeness, and proves the full finite contradiction and quantitative mass bound in Lean.  The countably infinite prefix-free theorem still uses an abstract `tsum` interface.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |

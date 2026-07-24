@@ -2693,3 +2693,72 @@ which makes (28.1) hold at the already fixed canonical `C`, so that the next
 carry is exactly zero, together with a proof that the resulting aperiodic
 symbol law recurs forever.  QM166 asks the companion Lean worker to package
 the chart update and address theorem.
+
+## 29. Two-place normalization and the height budget
+
+The coefficient chart has a simpler normalized form.  Define
+
+```text
+r_n=B_n/3^A_n,             x_n=2^D_n/3^A_n.
+```
+
+Equation (28.3) gives exactly
+
+```text
+r_(n+1)=r_n+x_n*Bg_n/9,                         (29.1)
+H_n=3^A_n*(3^C+r_n)/2^D_n.                      (29.2)
+```
+
+The increment in (29.1) has exact 2-adic valuation `D_n`, and these depths
+strictly increase.  Hence `r_n` converges in `Q_2`.  All prescribed cells
+execute for one fixed root exponent `C` iff
+
+```text
+r_infinity=-3^C in Q_2.                         (29.3)
+```
+
+Necessity is `v_2(3^C+r_n)=D_n -> infinity`.  Conversely, after substituting
+(29.3), the first term of the tail has valuation exactly `D_n` and every
+later term has larger valuation, recovering every exact gate.
+
+Write `lambda_n=x_(n+1)/x_n=2^Dg_n/3^(c_n+o_n+b_n+2)`.  Each cell is outward,
+so `lambda_n<1`; on a bounded alphabet the positive series
+
+```text
+r_infinity-r_0
+ =x_0*sum_n (Bg_n/9)*product_(j<n) lambda_j      (29.4)
+```
+
+converges over the reals as well.  Its positive real value and the negative
+2-adic target in (29.3) are not a contradiction: the two completions can
+assign different limits to one rational sequence.  A contradiction does
+follow if the tail has a finite rational coboundary
+
+```text
+R_n=Bg_n/9+lambda_n R_(n+1).                     (29.5)
+```
+
+Then `x_n R_n` tends to zero at both places and (29.5) telescopes to the same
+rational tail value.  This excludes all eventually periodic tails and,
+more generally, every bounded tail whose `R_n` range is a finite rational
+set.  A viable bounded schedule must therefore have factor complexity at
+least `k+1` and evade every finite rational coboundary.  This precisely names
+the remaining “two-place chameleon” case; it does not exclude it.
+
+There is also an elementary counter budget.  For `c>=2`,
+
+```text
+Bg<2^(z+2),  o>z,  Dg-1>=2z+c+4+b.
+```
+
+The legal gate gives `9H+Bg>=2^Dg`, while `Bg<2^(Dg-1)`.  Since
+`z=2*3^c`, every legal cell obeys
+
+```text
+9H>2^(Dg-1)>=2^(4*3^c+c+4+b).                   (29.6)
+```
+
+Thus `c=O(log log H)` and decoder drain is paid directly from binary charge
+height.  Schema v3 of the exact artifact regression-checks the ingredients
+through `c<=8`.  Equations (29.1)--(29.6) are universal research derivations
+pending QM167; `universal_invariant` and `counterexample` remain null.

@@ -1,6 +1,42 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 20:09 EDT
+Updated: 2026-07-23, about 20:18 EDT
+
+### 20:18 EDT continuation -- exact two-place selector criterion
+
+There is no counterexample.  Normalize a writer--decoder chart by
+
+```text
+r_n=B_n/3^A_n,  x_n=2^D_n/3^A_n.
+```
+
+Then `r_(n+1)=r_n+x_n*Bg_n/9`, and the complete prescribed infinite
+schedule at one fixed ordinary exponent `C` is legal **if and only if**
+
+```text
+r_infinity=-3^C in Q_2.
+```
+
+This is the exact selector target, not a prediction score.  On a bounded
+symbol alphabet the same increments form a positive convergent real series.
+The differing real and 2-adic limits are not themselves contradictory, but
+they exclude every tail admitting a finite rational coboundary; eventual
+periodicity is the simplest special case.  The unresolved bounded case must
+be an aperiodic two-place chameleon with factor complexity at least `k+1`
+and no finite rational coboundary.
+
+Basic height arithmetic also gives the universal necessary budget
+
+```text
+legal cell (c,b) => 9H > 2^(4*3^c+c+4+b).
+```
+
+Thus large writer counters require doubly exponential current charge, and
+decoder drain is paid directly in binary height.  Do not widen counter scans;
+use this as an outer-loop admissibility filter.  Artifact schema v3 adds a
+bounded exact regression of the ingredients and retains
+`universal_invariant:null`, `counterexample:null`.  QM167 requests the
+two-place and height statements in Lean.
 
 ### 20:09 EDT continuation -- semantic CEGIS rejects its first refinement
 

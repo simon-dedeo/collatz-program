@@ -13257,3 +13257,47 @@ with slope greater than one and positive constant.  A period composes to
 `2^(rL) | (3^P-2^L)H+K` for every `r`, hence a contradiction for positive
 `H`.  Scope warning: bounded genuinely aperiodic `(c,b)` streams are not
 excluded, and QM166 does not construct an invariant or ordinary orbit.
+
+## Kontorovich follow-up: two-place selector and height budget (QM167, 2026-07-23)
+
+After QM166, please formalize these two compact consequences if feasible.
+They are theorem-shaped search filters, not a counterexample claim.
+
+For an infinite writer--decoder symbol schedule and its chart recurrence, put
+
+```text
+r_n=B_n/3^A_n,  x_n=2^D_n/3^A_n.
+```
+
+Then prove `r_(n+1)=r_n+x_n*Bg_n/9` and
+`H_n=3^A_n*(3^C+r_n)/2^D_n`.  In `Q_2`, `r_n` converges because its nth
+increment has valuation exactly `D_n`.  The desired equivalence is
+
+```text
+all prescribed gates execute at fixed C
+  <-> r_infinity=-3^C in Q_2.                    (QM167a)
+```
+
+The converse uses the tail expansion: its first summand has valuation `D_n`
+and all later summands have larger valuation.  If a full `Q_2` limit package
+is expensive, the finite-tail valuation lemma is the useful core.
+
+For the elementary height bound, prove for every `c>=2`, `b>=0`:
+
+```text
+Bg<2^(z+2),  o>z,  Dg-1>=4*3^c+c+4+b.
+```
+
+Since a legal gate has `9H+Bg>=2^Dg` and `Bg<2^(Dg-1)`, conclude
+
+```text
+9H>2^(4*3^c+c+4+b).                              (QM167b)
+```
+
+The real/2-adic finite-rational-coboundary obstruction may be skipped unless
+the necessary real and padic series libraries make it cheap.  Its statement
+is: for bounded symbols, a finite rational-range solution of
+`R_n=Bg_n/9+(2^Dg_n/3^p_n)R_(n+1)` would telescope to the same rational tail
+value over both completions, contradicting the positive real series and
+`-3^C` in `Q_2`.  Scope warning: no bounded aperiodic tail of unbounded
+coboundary complexity is excluded.

@@ -5316,6 +5316,24 @@ bounds are depth eight, beam 64, and derived counters through six.  It checks
 found; the best exact decoder shortfall is 41 bits (`14` available versus
 `55` required for `c=2`).
 
+The chart also has a closed-form infinite selector target.  Put
+`r_n=B_n/3^A_n` and `x_n=2^D_n/3^A_n`.  Then
+`r_(n+1)=r_n+x_n*Bg_n/9`, and a prescribed schedule executes at one fixed
+natural exponent `C` exactly iff `r_infinity=-3^C` in `Q_2`.  On a bounded
+alphabet the same series is positive and convergent over the reals.  This
+excludes finite rational-coboundary tails, including eventual periods, but
+does not exclude an aperiodic sequence with unbounded coboundary complexity.
+
+The universal necessary height budget
+
+```text
+9H > 2^(4*3^c+c+4+b)
+```
+
+follows from `Bg<2^(z+2)`, `o>z`, and the exact gate.  The artifact checks
+these ingredients through its stated counter bound and uses the theorem as a
+principled reason not to widen the generic counter scan.
+
 ```bash
 PYTHONPATH=experiments/kontorovich \
   python3 experiments/kontorovich/outward_writer_decoder_cegis.py selftest
@@ -5325,9 +5343,5 @@ PYTHONPATH=experiments/kontorovich \
 ```
 
 The artifact records `universal_invariant:null` and `counterexample:null`.
-Worker SHA-256:
-`76e10be068fe04f5e97460bc10de09f306b3a041021f909e1055b53ef9c86b1f`.
-Canonical internal artifact SHA-256:
-`1c23b457167d439c03bcc364a822f3d1bcf931941a16db1c23eac06fcb55960b`.
-Pretty-printed artifact file SHA-256:
-`c5d95612d6935b8030e88e5f3a541d1d145a584d3e1e927ef2bfd5e51e051949`.
+The current worker and artifact SHA-256 values are printed by `verify` and
+recorded in the repository history.

@@ -1,11 +1,12 @@
 {
-  "artifact_sha256": "1c23b457167d439c03bcc364a822f3d1bcf931941a16db1c23eac06fcb55960b",
+  "artifact_sha256": "2a46c6df2673cab5193ddefb7611eb4a170c6ffee3b8294b5208e55ae7a9efcf",
   "audit": {
     "bounds": {
       "beam_width": 128,
       "canonical_replay_candidates": 12,
       "champions_per_depth": 5,
       "final_beam_witnesses": 12,
+      "height_budget_maximum_counter": 8,
       "maximum_canonical_replay_counter": 6,
       "maximum_canonical_replay_drain": 64,
       "maximum_canonical_replay_steps": 4,
@@ -4047,12 +4048,101 @@
         "gate": "v2(9H+Bg)=Dg=S+c+4+b",
         "writer_output": "3^c*q, q=(9H+7)/2^(c+4)"
       },
+      "height_counter_budget": {
+        "Bg_bound": "Bg<2^(z+2)",
+        "gate_lower_bound": "legal gate implies 9H+Bg>=2^Dg",
+        "interpretation": "c is at most doubly logarithmic in the current charge, while b is paid linearly in its binary height",
+        "status": "elementary research derivation; companion Lean request QM167",
+        "terminal_ones_bound": "o>z",
+        "universal_consequence": "9H>2^(4*3^c+c+4+b)"
+      },
+      "normalized_two_place_selector": {
+        "charge_identity": "H_n=3^A_n*(3^C+r_n)/2^D_n",
+        "coordinates": "r_n=B_n/3^A_n, x_n=2^D_n/3^A_n",
+        "finite_rational_coboundary_no_go": "if R_n=Bg_n/9+lambda_n*R_(n+1), R_n has finite rational range, and the symbols are bounded, telescoping forces the same rational tail value over R and Q_2, contradicting positive real and negative fixed-C Q_2 values",
+        "fixed_C_equivalence": "every prescribed cell executes iff r_infinity=-3^C in Q_2",
+        "q2_limit": "r_n converges in Q_2 because each increment has exact 2-adic valuation D_n and D_n strictly increases",
+        "real_series": "for a bounded symbol alphabet, r_infinity-r_0 is the positive real series x_0*sum_n (Bg_n/9)*product_(j<n) lambda_j, lambda_j=2^Dg_j/3^(c_j+o_j+b_j+2)<1",
+        "recurrence": "r_(n+1)=r_n+x_n*Bg_n/9",
+        "remaining_case": "a bounded viable selector must be aperiodic, have factor complexity p(k)>=k+1, and evade every finite rational coboundary",
+        "status": "research derivation; companion Lean request QM167"
+      },
       "selector_complexity": {
         "bounded_aperiodic_symbols": "not excluded; Morse-Hedlund forces factor complexity p(k)>=k+1",
         "counter_growth_scope": "c_n or b_n need not tend to infinity; what must grow is runtime chart depth, and a bounded selector must retain unbounded word complexity",
         "eventually_periodic_symbols": "universally impossible: a period composes to (3^P*H+K)/2^L with 3^P>2^L and K>0",
         "kernel_checked_support": "ShortcutParityPeriodicNoGo already excludes periodic and ultimately periodic concatenations of outward shortcut blocks"
       }
+    },
+    "height_budget_regression": {
+      "maximum_counter": 8,
+      "rows": [
+        {
+          "Bg_bits": 20,
+          "Bg_sha256": "999d9c5999890942bd09b4b7e779fac23f6e12735d0ab9ff66b0f87326fd3726",
+          "Dg_at_b_0": 55,
+          "c": 2,
+          "certified_budget_exponent_at_b_0": 42,
+          "o": 31,
+          "z": 18
+        },
+        {
+          "Bg_bits": 55,
+          "Bg_sha256": "17ffb131b8e2a8f070cde509597c8ea287ee9e4d7ff77c6cf0d7f97c15717d89",
+          "Dg_at_b_0": 154,
+          "c": 3,
+          "certified_budget_exponent_at_b_0": 115,
+          "o": 93,
+          "z": 54
+        },
+        {
+          "Bg_bits": 163,
+          "Bg_sha256": "0726d5d924dc2ceff48631c45bb734487ce7d128bcf3ce8fc8612df918542372",
+          "Dg_at_b_0": 447,
+          "c": 4,
+          "certified_budget_exponent_at_b_0": 332,
+          "o": 277,
+          "z": 162
+        },
+        {
+          "Bg_bits": 486,
+          "Bg_sha256": "04aad9a225113e8f828db3cc15adfb126b19bd5216aa1501d4eceb8e937beeea",
+          "Dg_at_b_0": 1326,
+          "c": 5,
+          "certified_budget_exponent_at_b_0": 981,
+          "o": 831,
+          "z": 486
+        },
+        {
+          "Bg_bits": 1457,
+          "Bg_sha256": "88cebc8ddf2c2b096efd46b7c49296011d5bec9fa3321276bd2efde9802306d3",
+          "Dg_at_b_0": 3961,
+          "c": 6,
+          "certified_budget_exponent_at_b_0": 2926,
+          "o": 2493,
+          "z": 1458
+        },
+        {
+          "Bg_bits": 4373,
+          "Bg_sha256": "defa6b680bc2eaff1cb05769599ec2af82e5ff82d2639c9069e30c08c8406804",
+          "Dg_at_b_0": 11863,
+          "c": 7,
+          "certified_budget_exponent_at_b_0": 8759,
+          "o": 7478,
+          "z": 4374
+        },
+        {
+          "Bg_bits": 13120,
+          "Bg_sha256": "70e506dead85a0fb8272c0e9e16a87b2639b591e14283aad781502d0912d2246",
+          "Dg_at_b_0": 35567,
+          "c": 8,
+          "certified_budget_exponent_at_b_0": 26256,
+          "o": 22433,
+          "z": 13122
+        }
+      ],
+      "scope": "the displayed finite rows regression-check the ingredients; the all-c,b implication is an elementary research derivation pending Lean",
+      "universal_statement": "legal cell (c,b) implies 9*H>2^(4*3^c+c+4+b)"
     },
     "meaning": "bounded exact arithmetic CEGIS on coherent nested exponent cylinders for alternating writer--resonant-decoder cells",
     "selector_architecture_outer_loop": [
@@ -6571,6 +6661,6 @@
     "unbounded_invariant_closed": false,
     "universal_invariant": null
   },
-  "schema": "collatz-outward-writer-decoder-cegis-v2",
-  "worker_sha256": "76e10be068fe04f5e97460bc10de09f306b3a041021f909e1055b53ef9c86b1f"
+  "schema": "collatz-outward-writer-decoder-cegis-v3",
+  "worker_sha256": "ade37a5471f0c3692acb858d2b33e0598a7d7f893d4a991cc0886b78a1e6c820"
 }

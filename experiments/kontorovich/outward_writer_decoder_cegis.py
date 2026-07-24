@@ -30,7 +30,7 @@ from outward_charge_invariant_cegis import integer_sha256
 from outward_primitive_invariant_cegis import minimal_terminal_ones
 
 
-SCHEMA = "collatz-outward-writer-decoder-cegis-v2"
+SCHEMA = "collatz-outward-writer-decoder-cegis-v3"
 ROOT_WORD = "010111"
 
 
@@ -137,6 +137,43 @@ def make_cell(c: int, b: int) -> Cell:
     if not 3 ** (c + o + b + 2) > 2**Dg:
         raise AssertionError("composite cell is not outward")
     return Cell(c, b, z, o, S, d, Bg, Dg)
+
+
+def height_budget_regression(maximum_counter: int) -> dict[str, Any]:
+    """Check finite instances of the universal cell height inequalities."""
+
+    if maximum_counter < 2:
+        raise ValueError("height-budget counter bound must be at least two")
+    rows: list[dict[str, Any]] = []
+    for c in range(2, maximum_counter + 1):
+        cell = make_cell(c, 0)
+        budget_exponent = 4 * 3**c + c + 4
+        if not cell.Bg < 2 ** (cell.z + 2):
+            raise AssertionError("Bg height bound failed")
+        if not cell.o > cell.z:
+            raise AssertionError("terminal-one height bound failed")
+        if not cell.Dg - 1 >= budget_exponent:
+            raise AssertionError("cell depth budget failed")
+        rows.append(
+            {
+                "c": c,
+                "z": cell.z,
+                "o": cell.o,
+                "Dg_at_b_0": cell.Dg,
+                "Bg_bits": cell.Bg.bit_length(),
+                "Bg_sha256": integer_sha256(cell.Bg),
+                "certified_budget_exponent_at_b_0": budget_exponent,
+            }
+        )
+    return {
+        "maximum_counter": maximum_counter,
+        "rows": rows,
+        "universal_statement": "legal cell (c,b) implies 9*H>2^(4*3^c+c+4+b)",
+        "scope": (
+            "the displayed finite rows regression-check the ingredients; the "
+            "all-c,b implication is an elementary research derivation pending Lean"
+        ),
+    }
 
 
 @dataclass(frozen=True)
@@ -762,6 +799,45 @@ def theorem_record() -> dict[str, Any]:
                 "chart depth, and a bounded selector must retain unbounded word complexity"
             ),
         },
+        "normalized_two_place_selector": {
+            "coordinates": "r_n=B_n/3^A_n, x_n=2^D_n/3^A_n",
+            "recurrence": "r_(n+1)=r_n+x_n*Bg_n/9",
+            "charge_identity": "H_n=3^A_n*(3^C+r_n)/2^D_n",
+            "q2_limit": (
+                "r_n converges in Q_2 because each increment has exact "
+                "2-adic valuation D_n and D_n strictly increases"
+            ),
+            "fixed_C_equivalence": (
+                "every prescribed cell executes iff r_infinity=-3^C in Q_2"
+            ),
+            "real_series": (
+                "for a bounded symbol alphabet, r_infinity-r_0 is the positive "
+                "real series x_0*sum_n (Bg_n/9)*product_(j<n) lambda_j, "
+                "lambda_j=2^Dg_j/3^(c_j+o_j+b_j+2)<1"
+            ),
+            "finite_rational_coboundary_no_go": (
+                "if R_n=Bg_n/9+lambda_n*R_(n+1), R_n has finite rational "
+                "range, and the symbols are bounded, telescoping forces the same "
+                "rational tail value over R and Q_2, contradicting positive real "
+                "and negative fixed-C Q_2 values"
+            ),
+            "remaining_case": (
+                "a bounded viable selector must be aperiodic, have factor "
+                "complexity p(k)>=k+1, and evade every finite rational coboundary"
+            ),
+            "status": "research derivation; companion Lean request QM167",
+        },
+        "height_counter_budget": {
+            "Bg_bound": "Bg<2^(z+2)",
+            "terminal_ones_bound": "o>z",
+            "gate_lower_bound": "legal gate implies 9H+Bg>=2^Dg",
+            "universal_consequence": "9H>2^(4*3^c+c+4+b)",
+            "interpretation": (
+                "c is at most doubly logarithmic in the current charge, while b "
+                "is paid linearly in its binary height"
+            ),
+            "status": "elementary research derivation; companion Lean request QM167",
+        },
     }
 
 
@@ -832,6 +908,8 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         raise ValueError("semantic beam bounds must be positive")
     if args.semantic_maximum_counter < 2:
         raise ValueError("semantic counter bound must be at least two")
+    if args.height_budget_maximum_counter < 2:
+        raise ValueError("height-budget counter bound must be at least two")
     beam = bounded_beam(args)
     semantic = semantic_frontier_beam(args)
     return {
@@ -856,8 +934,12 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
             "semantic_maximum_depth": args.semantic_maximum_depth,
             "semantic_beam_width": args.semantic_beam_width,
             "semantic_maximum_counter": args.semantic_maximum_counter,
+            "height_budget_maximum_counter": args.height_budget_maximum_counter,
         },
         "exact_semantics_and_theorems": theorem_record(),
+        "height_budget_regression": height_budget_regression(
+            args.height_budget_maximum_counter
+        ),
         "coherent_cylinder_beam": beam,
         "semantic_frontier_beam": semantic,
         "selector_architecture_outer_loop": architecture_record(beam, semantic),
@@ -957,6 +1039,7 @@ def selftest() -> None:
         semantic_maximum_depth=3,
         semantic_beam_width=16,
         semantic_maximum_counter=5,
+        height_budget_maximum_counter=5,
     )
     audit = build_audit(args)
     if audit["counterexample"] is not None or audit["universal_invariant"] is not None:
@@ -980,6 +1063,7 @@ def add_bounds(command: argparse.ArgumentParser) -> None:
     command.add_argument("--semantic-maximum-depth", type=int, default=8)
     command.add_argument("--semantic-beam-width", type=int, default=64)
     command.add_argument("--semantic-maximum-counter", type=int, default=6)
+    command.add_argument("--height-budget-maximum-counter", type=int, default=8)
 
 
 def parser() -> argparse.ArgumentParser:
