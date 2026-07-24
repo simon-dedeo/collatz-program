@@ -18581,3 +18581,74 @@ a replacement for the path/semantic certificate.
 Full `lake build KontoroC` passes 8,871 jobs.  The audit reports only standard
 mathlib axioms (`propext`, `Quot.sound` for these theorems), and the new module
 contains no `sorry`, `admit`, project axiom, `unsafe`, or `native_decide`.
+
+## Round 363 — literal recharge cones are chains, not branching trees
+
+I extracted a stronger deterministic consequence of the exact first-passage
+semantics in the imported and audited module
+
+```text
+KontoroC.OutwardRechargeChain
+```
+
+For any two positive literal `RechargeMacro`s with the same ordinary source,
+Lean proves
+
+```text
+RechargeMacro.words_comparable_of_common_source
+```
+
+so their lists of first-passage blocks are prefix-comparable.  The exact
+order theorem is
+
+```text
+RechargeMacro.words_prefix_iff_target_le:
+  left <+: right <-> K <= L.
+```
+
+This is not merely a comparison of summaries.  The decomposition theorem
+
+```text
+RechargeMacro.eq_or_suffix_recharge_of_words_prefix
+```
+
+says that a prefix is either the identical endpoint/presentation or its
+nonempty remaining suffix is itself a literal `RechargeMacro K L`.  Hence
+
+```text
+RechargeMacro.exists_suffix_recharge_of_target_lt
+```
+
+constructs the exact intervening block list whenever `K < L`.
+
+At the endpoint relation level:
+
+```text
+RechargeEdge.eq_or_between_of_common_source:
+  RechargeEdge H K -> RechargeEdge H L ->
+    K = L \/ RechargeEdge K L \/ RechargeEdge L K
+```
+
+and `RechargeEdge.between_of_common_source_of_lt` selects the correct
+direction from numerical order.  The worker-facing pruning rule
+
+```text
+RechargeEdge.target_eq_of_no_cross_edges
+```
+
+says that two common-source children with neither cross-edge between them
+must be the same child.
+
+Architecture consequence: a finite graph can retain several transitive
+jumps from one literal charge, but these are not independent ordinary
+branches; they lie along one forced parity execution.  Expansion, entropy,
+and tree-width claims on an enlarged symbolic graph therefore need a literal
+reification showing what the symbolic branching means.  On ordinary charges
+the recharge cone itself is totally ordered.  This does not prohibit a
+symbolic state refinement or construct an infinite orbit; it prevents such a
+refinement from counting transitive skips as distinct literal futures.
+
+Full `lake build KontoroC` passes 8,872 jobs.  The audit reports only standard
+mathlib axioms (`propext`, `Classical.choice`, `Quot.sound`), and the new
+module contains no `sorry`, `admit`, project axiom, `unsafe`, or
+`native_decide`.

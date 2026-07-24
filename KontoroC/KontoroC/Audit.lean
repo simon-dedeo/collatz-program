@@ -2246,5 +2246,19 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardPathChecksum.known_start_recovers_finish
 #print axioms
   KontoroC.OutwardPathChecksum.finish_unique_of_two_path_certificates
+#print axioms
+  KontoroC.OutwardRechargeChain.RechargeMacro.words_comparable_of_common_source
+#print axioms
+  KontoroC.OutwardRechargeChain.RechargeMacro.eq_or_suffix_recharge_of_words_prefix
+#print axioms
+  KontoroC.OutwardRechargeChain.RechargeMacro.words_prefix_iff_target_le
+#print axioms
+  KontoroC.OutwardRechargeChain.RechargeMacro.exists_suffix_recharge_of_target_lt
+#print axioms
+  KontoroC.OutwardRechargeChain.RechargeEdge.eq_or_between_of_common_source
+#print axioms
+  KontoroC.OutwardRechargeChain.RechargeEdge.between_of_common_source_of_lt
+#print axioms
+  KontoroC.OutwardRechargeChain.RechargeEdge.target_eq_of_no_cross_edges
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

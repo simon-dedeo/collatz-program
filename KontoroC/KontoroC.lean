@@ -191,6 +191,7 @@ import KontoroC.OutwardBoundedErrorGrowth
 import KontoroC.OutwardKernelDecoderGap
 import KontoroC.OutwardJacobianRigidityGap
 import KontoroC.OutwardPathChecksum
+import KontoroC.OutwardRechargeChain
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
