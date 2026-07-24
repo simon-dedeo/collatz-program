@@ -33,6 +33,68 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-24 01:42 EDT
+
+There is still no Collatz counterexample.  The IAS audit now has 177
+authoritative transcript-checked release talks.
+
+Eduardo Fernández proves a weak equivalence between standard and smooth
+annulus-embedding spaces from density plus a local-equivalence theorem.  For
+finite discrete Collatz certificate spaces, the safe analogue is stronger: an
+actual literal bijection natural under precision reduction.  Even taking the
+identical singleton spaces `{-1 mod 2^k}` at every level gives perfect natural
+equivalence and exact finite replay, but its inverse limit is still not a
+positive integer.  Valid compression and ordinary-root descent are separate.
+
+Joni Teräväinen's short-interval theorem gives strong uniform cancellation
+after removing an exceptionally small set of interval starts.  A Collatz
+candidate can live entirely in such a nested exceptional set.  The singleton
+`{-1 mod 2^N}` has density `2^-N` among dyadic residues yet supports the
+coherent positive representative `2^N-1` and `N` exact all-odd macros.  No
+almost-all theorem can decide a dynamically selected path without a theorem
+excluding that exceptional structure pointwise.
+
+Gregory Berkolaiko's local-to-global spectral-minimality theorem works only
+with bipartiteness, equipartition, and the complete deformation/Hessian
+structure.  Naive Collatz local descent has no such protection.  For the
+period-three affine defect `D`, the candidate `(a,b,c,n)=(1,2,2,5)` has defect
+`2`, while all seven legal one-coordinate neighbors have defects
+`148,74,154,78,162,8,12`.  It is a strict local minimum, but seed `5` actually
+has valuation word `422`, not `122`; the point is not even a literal
+certificate.  Scalar defect minima must never be promoted without replay.
+
+Ye Tian's CM converse theorem uses a norm-compatible anticyclotomic family,
+a characteristic-ideal identity, and then a separate descent/control theorem
+to prove the base Heegner class non-torsion.  The all-odd Collatz cylinders are
+the exact warning against omitting descent: they are norm-like compatible and
+literal at every finite height, while their least positive representatives
+grow and their specialization is only `-1` in `Z_2`.  A bounded-representative
+control theorem is the missing arithmetic analogue.
+
+Adam Kanigowski separates ordinary from sparse orbit averages.  The exact
+three-point cycle is uniquely ergodic and every ordinary time average is
+uniform, yet sampling only times `3k` returns the starting point forever.
+Thus distribution at ordinary times, including entropy or bit-balance, does
+not control the dynamically selected recharge times.  Sparse first-passage
+claims require correlations at their growing arithmetic scales or exact
+pointwise replay.
+
+Jayadev Athreya's Furstenberg Fourier criterion identifies exceptional speeds
+in a circle extension through exact resonance with base eigenvalues; almost
+every other speed is equidistributed.  Resonance is a useful finite-quotient
+diagnostic, not an escape theorem.  For example
+`S(i,theta)=(i+1,theta+1/3)` on `C3 x (R/Z)` preserves
+`exp(2*pi*i*(theta-i/3))`, trapping orbits in level sets.  Ordinary Collatz
+seeds may likewise lie in a measure-zero exceptional set, but a spectral mode
+neither decodes a literal route nor supplies a positive root.
+
+Formalizer commit `f34caef` upgrades the canonical-recharge theorem globally:
+an infinite literal first-passage execution exists from some arbitrary start
+if and only if an ordinary natural-valued infinite canonical odd-charge orbit
+exists.  The canonical sequence is unique from its charge, so symbolic branch
+choice adds no existential power.  Its successor remains noncomputable and no
+surviving charge is known.  `counterexample:null`.
+
 ### 2026-07-24 01:37 EDT
 
 There is still no Collatz counterexample.  The IAS audit now has 171
@@ -10046,6 +10108,42 @@ existing lines of work; the closest ancestors, and what each contributes:
   S5--S8 at 1,609--3,551 seconds** — SDP failure certificates dualize to
   pseudo-distributions, and small SDP certificates are simulated by
   low-degree SOS.  Relaxed moment feasibility is not a literal path witness.
+- **E. Fernández, [“Cabling Families of Legendrian
+  Embeddings”](https://www.ias.edu/video/cabling-families-legendrian-embeddings),
+  IAS talk (19 Jan. 2024), corpus key `9a89894a3a156c321d89235c6f66b6ac`,
+  S7 at 2,915--3,403 seconds** — density and local equivalence prove a weak
+  equivalence of embedding spaces.  A finite Collatz compression needs a
+  literal, reduction-natural bijection and still needs ordinary-root descent.
+- **J. Teräväinen, [“Gowers Uniformity of Arithmetic Functions in Short
+  Intervals”](https://www.ias.edu/video/gowers-uniformity-arithmetic-functions-short-intervals),
+  IAS talk (2 Mar. 2023), corpus key `b08433f2c765654ddebafc6de8f344b8`,
+  S2--S4 at 741--1,716 seconds** — almost-all short-interval cancellation can
+  miss a nested zero-density exceptional residue carrying every cofinal
+  finite witness.
+- **G. Berkolaiko, [“Spectral Minimal Partitions: Local vs Global
+  Minimality”](https://www.ias.edu/video/spectral-minimal-partitions-local-vs-global-minimality),
+  IAS talk (10 Dec. 2024), corpus key `e3a10c4b8dd5f3ba79ebb958aa28d26b`,
+  S5--S8 at 1,359--1,933 and 3,194--3,597 seconds** — local spectral
+  minimality becomes global only under strong structural hypotheses.  A naive
+  Collatz defect has strict local minima that fail literal selector replay.
+- **Y. Tian, [“A converse theorem of Gross-Zagier and Kolyvagin: CM
+  case”](https://www.ias.edu/video/puias/2017/1026-YeTian), IAS talk (26 Oct.
+  2017), corpus key `1af870445bf18db2b4761e88e0ef20bf`, S5--S7 at
+  2,576--3,700 seconds** — a compatible big Heegner class reaches a nonzero
+  base class only through a main-conjecture identity and descent/control.
+  Coherent Collatz cylinders likewise need an ordinary-root control theorem.
+- **A. Kanigowski, [“Sparse distribution problems for some dynamical
+  systems”](https://www.ias.edu/video/sparse-distribution-problems-some-dynamical-systems),
+  IAS talk (4 Oct. 2022), corpus key `3094e07b305d50252158b098e2fb7288`,
+  S1--S2/S4/S6 at 15--1,121, 1,619--2,184, and 2,552--2,825 seconds** — unique
+  ergodicity controls ordinary averages, not sparse dynamically selected
+  times.  Recharge statistics require their own scale-dependent theorem.
+- **J. Athreya, [“Linear Flows on Translation
+  Prisms”](https://www.ias.edu/video/linear-flows-translation-prisms), IAS talk
+  (13 May 2025), corpus key `5a05ee09be8b3431c4e703e5cfaaae8a`, S3--S4/S6--S7
+  at 1,770--2,268 and 3,313--3,966 seconds** — Fourier resonance identifies
+  measure-zero non-equidistributing extension speeds.  It can flag exceptional
+  finite quotients but does not select a literal Collatz seed.
 - **S. Fenner, [“Bipartite perfect matching is in
   quasi-NC”](https://www.ias.edu/video/csdm/2016/0208-Fenner), IAS talk
   (8 Feb. 2016), corpus key `83398a9013343939af42951fafbfdaa1`, S2--S8 at
