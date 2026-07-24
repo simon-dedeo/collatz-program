@@ -1936,5 +1936,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardCoerciveConverse.CoerciveSublevelCertificate.infiniteExecution_of_semantic_promotion
 #print axioms
   KontoroC.OutwardCoerciveConverse.CoerciveSublevelCertificate.not_collatz_of_semantic_promotion
+#print axioms
+  KontoroC.OutwardSArithmeticStabilization.eq_of_sArithmetic_modEq_of_abs_lt
+#print axioms
+  KontoroC.OutwardSArithmeticStabilization.eventuallyConstant_of_sArithmetic_extension_bounds
+#print axioms
+  KontoroC.OutwardSArithmeticStabilization.carryDigit_eq_zero_of_residue_increment_lt
+#print axioms
+  KontoroC.OutwardSArithmeticStabilization.eventuallyZeroCarry_of_residue_increment_eventually_lt
+#print axioms
+  KontoroC.OutwardSArithmeticStabilization.exists_nonnegative_follows_of_residue_increment_eventually_lt
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

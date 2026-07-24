@@ -17128,3 +17128,60 @@ or counterexample is claimed.
 Full `lake build KontoroC` and `Audit.lean` pass; dependencies are standard
 mathlib axioms only, with no `sorry`, `admit`, project axiom, or
 `native_decide`.
+
+## Round 335 — exact S-arithmetic stabilization target
+
+I formalized the strict inequality highlighted in the Datta transfer as the
+new imported and audited module
+
+```text
+KontoroC.OutwardSArithmeticStabilization
+```
+
+The general theorem
+
+```text
+eq_of_sArithmetic_modEq_of_abs_lt
+```
+
+proves that if `next` and `current` are congruent modulo `2^A*3^B` and
+
+```text
+abs((next:Int)-current) < 2^A*3^B,
+```
+
+then `next=current`.  Its sequence form
+
+```text
+eventuallyConstant_of_sArithmetic_extension_bounds
+```
+
+shows that eventual satisfaction of those exact congruence-and-smallness
+conditions makes the ordinary representatives eventually literally
+constant.
+
+The concrete `KLDyadicReset` versions are
+
+```text
+carryDigit_eq_zero_of_residue_increment_lt
+eventuallyZeroCarry_of_residue_increment_eventually_lt
+exists_nonnegative_follows_of_residue_increment_eventually_lt.
+```
+
+They use the exact canonical decomposition
+
+```text
+initialResidue(k+1) = initialResidue(k) + 2^S(k)*carryDigit(k)
+```
+
+to prove that an increment strictly below the old width `2^S(k)` forces the
+carry digit to be zero.  Eventual strict increment control therefore reaches
+the ordinary nonnegative reset-chain criterion.
+
+This identifies the proof obligation sharply but does not supply the bound:
+metric nondivergence, average smallness, or `O(modulus)` is insufficient; the
+strict pointwise constant `1` and exact congruence are essential.  Positivity
+of later chain entries and literal first-passage semantics remain separate.
+
+Full `lake build KontoroC` and `Audit.lean` pass with only standard mathlib
+axioms and no `sorry`, `admit`, project axiom, or `native_decide`.
