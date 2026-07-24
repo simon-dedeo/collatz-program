@@ -17397,6 +17397,54 @@ allowed to differ; otherwise the no-go applies.
 This remains finite.  Cross-scale bonding compatibility and one common
 zero-carry ordinary root are separate obligations.
 
+## Round 343 — frozen ternary residue and inverse-flow veto
+
+I formalized Lead S at the literal parity-word level in
+
+```text
+KontoroC.OutwardFrozenTernaryResidue
+```
+
+The exact new statements are
+
+```text
+executes_target_modEq
+execution_increment_balance
+threePow_dvd_targetIncrement
+twoPow_dvd_sourceIncrement
+inputIncrement_eq_twoPow_mul_targetQuotient
+no_targetRepair_of_not_threePow_dvd
+targetIncrement_eq_zero_of_lt_threePow.
+```
+
+For a fixed parity word `w`, write `S=|w|` and `O=count(true,w)`.  Any two
+literal executions have targets congruent modulo `3^O`.  More sharply, if an
+execution is changed by nonnegative increments `inputDelta` and
+`outputDelta`, Lean proves the exact affine difference law
+
+```text
+3^O * inputDelta = 2^S * outputDelta.
+```
+
+It follows that `3^O | outputDelta`, `2^S | inputDelta`, and
+
+```text
+inputDelta = 2^S * (outputDelta / 3^O).
+```
+
+Therefore a deeper source choice in the same coarse word cylinder cannot
+repair a desired low ternary correction unless that correction is divisible
+by the entire frozen modulus.  If `0 <= outputDelta < 3^O`, the only possible
+repair is `outputDelta=0`.  `no_targetRepair_of_not_threePow_dvd` is the direct
+CEGIS rejection certificate.
+
+This is stronger and cleaner than an approximate renormalization statement:
+it is just the exact literal affine law already behind
+`executes_iff_canonical_family`.  It applies to nonnegative forward
+increments; signed or word-changing repairs need a separate formulation.
+It gives cross-scale coherence for one fixed word, not positivity, invariant
+closure, bounded carry, or an infinite ordinary seed.
+
 ## Round 339 — executable selector indistinguishability CEGIS
 
 I formalized the bounded exact core of Lead M in the imported and audited

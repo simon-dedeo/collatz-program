@@ -2036,5 +2036,19 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardRechargeMatching.exists_hallDeficient_sameLayer_literalRecharge
 #print axioms
   KontoroC.OutwardRechargeMatching.certifiedRechargeRouter_or_hallDeficient
+#print axioms
+  KontoroC.OutwardFrozenTernaryResidue.executes_target_modEq
+#print axioms
+  KontoroC.OutwardFrozenTernaryResidue.execution_increment_balance
+#print axioms
+  KontoroC.OutwardFrozenTernaryResidue.threePow_dvd_targetIncrement
+#print axioms
+  KontoroC.OutwardFrozenTernaryResidue.twoPow_dvd_sourceIncrement
+#print axioms
+  KontoroC.OutwardFrozenTernaryResidue.inputIncrement_eq_twoPow_mul_targetQuotient
+#print axioms
+  KontoroC.OutwardFrozenTernaryResidue.no_targetRepair_of_not_threePow_dvd
+#print axioms
+  KontoroC.OutwardFrozenTernaryResidue.targetIncrement_eq_zero_of_lt_threePow
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
