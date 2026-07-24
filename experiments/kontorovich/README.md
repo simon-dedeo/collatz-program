@@ -5334,6 +5334,18 @@ follows from `Bg<2^(z+2)`, `o>z`, and the exact gate.  The artifact checks
 these ingredients through its stated counter bound and uses the theorem as a
 principled reason not to widen the generic counter scan.
 
+For future bounded invariant enumeration, the sharper exact pair is
+
+```text
+2^(4*3^c+c+4+b) < 9H,
+16*H'*2^(c+b) < 27*H*3^(c+b).
+```
+
+It makes the symbol alphabet finite and exhaustive at each fixed input
+height, while bounding every legal output.  This should replace arbitrary
+counter/drain cutoffs in the next architecture; it does not give a uniform
+bound along an infinite growing orbit.
+
 ```bash
 PYTHONPATH=experiments/kontorovich \
   python3 experiments/kontorovich/outward_writer_decoder_cegis.py selftest

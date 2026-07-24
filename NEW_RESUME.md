@@ -1,6 +1,28 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 20:18 EDT
+Updated: 2026-07-23, about 20:40 EDT
+
+### 20:40 EDT continuation -- exact charge-dependent alphabet
+
+There is no counterexample.  A second elementary law removes arbitrary
+counter cutoffs from finite-height invariant CEGIS.  If a legal cell sends
+`H` to `H'`, then
+
+```text
+2^(4*3^c+c+4+b) < 9H,
+16*H'*2^(c+b) < 27*H*3^(c+b).                    (PT26)
+```
+
+Thus every fixed input height has an explicit finite legal symbol range, and
+every candidate output has an exact multiplicative envelope.  Future bounded
+invariant enumeration should derive its alphabet from PT26 rather than use a
+generic `maximum_counter` or `maximum_decoder_drain`.
+
+Do not claim more: the two-place criterion excludes finite rational
+coboundaries and sublinear factor complexity, but it does not yet exclude
+bounded automatic or substitutive aperiodic schedules.  “Rational mixed-base
+value implies periodic selector” is an unjustified leap without a tailored
+Mahler/automatic-value theorem.  PT26 is research-side pending QM168.
 
 ### 20:18 EDT continuation -- exact two-place selector criterion
 

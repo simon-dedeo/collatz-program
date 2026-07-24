@@ -13301,3 +13301,26 @@ is: for bounded symbols, a finite rational-range solution of
 value over both completions, contradicting the positive real series and
 `-3^C` in `Q_2`.  Scope warning: no bounded aperiodic tail of unbounded
 coboundary complexity is excluded.
+
+## Kontorovich follow-up: writer--decoder output envelope (QM168, 2026-07-23)
+
+Please add this elementary finite-height pruning lemma after QM166/QM167.
+For a legal cell `(c,b)` at charge `H` with output `H'`, prove
+
+```text
+2^(4*3^c+c+4+b) < 9H,                            (QM168a)
+16*H'*2^(c+b) < 27*H*3^(c+b).                    (QM168b)
+```
+
+For QM168b, write `q=(9H+7)/2^(c+4)` and use
+`q+d=2^(S+b)Q`, with `Q` odd positive.  Since `d<2^z` and `S>2z`, one gets
+`q>d`, hence `Bg<9H`.  Substitute the exact output
+
+```text
+H'=3^(c+o+b)*(9H+Bg)/2^(S+c+4+b)
+```
+
+and use minimality of `o` in the form `3^(o-1)<=2^(S-1)`.  QM168a follows
+from `q>2^(2z+b)` and `z=2*3^c`.  The intended consequence is only that a
+fixed positive `H` permits finitely many `(c,b)`, with an explicit output
+envelope.  It does not bound counters uniformly along an infinite orbit.

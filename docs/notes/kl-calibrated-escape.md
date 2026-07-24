@@ -2762,3 +2762,51 @@ Thus `c=O(log log H)` and decoder drain is paid directly from binary charge
 height.  Schema v3 of the exact artifact regression-checks the ingredients
 through `c<=8`.  Equations (29.1)--(29.6) are universal research derivations
 pending QM167; `universal_invariant` and `counterexample` remain null.
+
+## 30. The charge-dependent alphabet and output envelope
+
+The same cell identities give an exact finite-height pruning theorem.  Write
+
+```text
+q=(9H+7)/2^(c+4),  q+d=2^(S+b)Q,  Q odd positive.
+```
+
+Since `d<2^z` and `S=z+o>2z`, legality gives `q>d`, hence `Bg<9H`.
+The cell output therefore satisfies
+
+```text
+H'=3^(c+o+b)(9H+Bg)/2^(S+c+4+b).
+```
+
+Minimality of `o` gives `3^(o-1)<=2^(S-1)`.  Substitution yields the exact
+integer inequality
+
+```text
+16*H'*2^(c+b) < 27*H*3^(c+b).                    (30.1)
+```
+
+The same gate has `q>2^(2z+b)`, so with `z=2*3^c`,
+
+```text
+2^(4*3^c+c+4+b) < 9H.                            (30.2)
+```
+
+Consequently a fixed positive charge has a finite explicit symbol alphabet:
+
+```text
+4*3^c+c+4+b < log_2(9H).                         (30.3)
+```
+
+Equations (30.1)--(30.3) turn bounded-height invariant CEGIS into an
+exhaustive dynamic enumeration without arbitrary counter or drain cutoffs.
+They are not an infinite obstruction: a growing charge can fund a growing
+alphabet.
+
+The natural next rigidity claim does not currently follow.  Automatic and
+substitutive sequences may be bounded, aperiodic, and have linear factor
+complexity.  The rational 2-adic target in (29.3) does not by itself make the
+variable-ratio expansion eventually periodic or give a finite rational
+coboundary.  Excluding that class would require a tailored
+Mahler/automatic-value nonexceptionality theorem.  Treating rational target
+as periodic digits is therefore a rejected inference, not a closed lane.
+Equations (30.1)--(30.3) are research derivations pending QM168.

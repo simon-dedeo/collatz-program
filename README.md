@@ -33,6 +33,29 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 20:40 EDT
+
+There is still no counterexample.  Basic cell arithmetic now replaces the
+arbitrary finite counter alphabet by a charge-dependent exhaustive one.  If
+a legal writer--decoder cell sends `H` to `H'`, then
+
+```text
+2^(4*3^c+c+4+b) < 9H,
+16*H'*2^(c+b) < 27*H*3^(c+b).                    (KC-FP15)
+```
+
+The first inequality gives finite exact `c,b` bounds at every fixed height;
+the second bounds the output of every surviving symbol.  This is the proper
+pruning rule for the next bounded invariant-CEGIS pass: enumerate the complete
+height-permitted alphabet, not a hand-chosen counter box.
+
+The accompanying rigidity audit also prevents an overclaim.  Eventual
+periods, finite rational coboundaries, and bounded sublinear-complexity words
+are excluded, but bounded automatic or substitutive aperiodic schedules are
+not.  Rationality of the mixed dyadic--triadic limit does not alone imply
+periodicity.  KC-FP15 is a universal research derivation pending QM168; the
+artifact remains `counterexample:null`.
+
 ### 2026-07-23 20:18 EDT
 
 There is still no counterexample.  The writer--decoder chart now has an exact
