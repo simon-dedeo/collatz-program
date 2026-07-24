@@ -166,6 +166,7 @@ import KontoroC.OutwardWriterDecoderEnvelope
 import KontoroC.OutwardValuationSelectorNoGo
 import KontoroC.OutwardValuationCutoffAlias
 import KontoroC.OutwardFiniteStateKraftGap
+import KontoroC.OutwardStrictKraftGap
 import KontoroC.OutwardResourceConeNoGo
 import KontoroC.OutwardCoerciveConverse
 import KontoroC.OutwardSArithmeticStabilization

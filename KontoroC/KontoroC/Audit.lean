@@ -2476,3 +2476,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardCanonicalRechargeCompleteness.exists_infiniteExecution_iff_exists_all_iterates_defined
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
+#print axioms KontoroC.OutwardStrictKraftGap.outward_false_true_slope
+#print axioms KontoroC.OutwardStrictKraftGap.weightedKraft_finite
+#print axioms KontoroC.OutwardStrictKraftGap.biasBase_mul_dyadicWeight_le_of_outward
+#print axioms KontoroC.OutwardStrictKraftGap.finite_outward_dyadicMass_le
+#print axioms KontoroC.OutwardStrictKraftGap.finite_firstPassage_dyadicMass_le
+#print axioms KontoroC.OutwardStrictKraftGap.summable_firstPassageWeight
+#print axioms KontoroC.OutwardStrictKraftGap.tsum_firstPassageWeight_le
+#print axioms
+  KontoroC.OutwardStrictKraftGap.FirstPassageGrammar.outMass_le_hundred_div_one_hundred_one
+#print axioms
+  KontoroC.OutwardStrictKraftGap.FirstPassageGrammar.exists_uncovered_word_uniform

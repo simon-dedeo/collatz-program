@@ -19807,3 +19807,76 @@ successful bounded searches at every level.
 The targeted build, full 8,886-job library build, and explicit axiom audit all
 pass.  The new declarations use only standard mathlib axioms and no forbidden
 proof markers.
+
+## Round 386 — a universal strict Kraft gap for first-passage words
+
+The new module `KontoroC.OutwardStrictKraftGap` proves a stronger scarcity
+theorem than the existing finite-state Perron filter.  The arithmetic input is
+the exact integral implication
+
+```text
+WordOutward w -> 17 * count(false,w) < 10 * count(true,w).
+```
+
+It follows by raising outwardness to the seventeenth power and using the
+literal integer inequality `3^17 < 2^27`.  No logarithms or approximations
+enter the proof.
+
+I then proved a general finite weighted Kraft inequality for arbitrary
+Boolean subprobabilities.  Apply it to the exact rational tilt with
+
+```text
+r = 101/100,
+q(true)  = r^10 / 2,
+q(false) = r^(-17) / 2.
+```
+
+Lean verifies `q(false)+q(true) <= 1` by exact normalization.  The integral
+slope inequality makes every outward word's tilted cylinder weight at least
+`r` times its fair-bit weight.  Consequently every finite prefix-free outward
+family `C` satisfies
+
+```text
+sum_{w in C} 2^(-length w) <= 100/101.
+```
+
+The main exported statements are
+
+```text
+outward_false_true_slope
+weightedKraft_finite
+biasBase_mul_dyadicWeight_le_of_outward
+finite_outward_dyadicMass_le
+finite_firstPassage_dyadicMass_le.
+```
+
+The finite bounds imply summability of the complete countable first-passage
+code, yielding
+
+```text
+tsum_firstPassageWeight_le :
+  sum' firstPassageWeight <= 100/101
+```
+
+and hence strict total mass below one.  At the purely symbolic fair-Bernoulli
+level, at least `1/101` of infinite Boolean paths never acquire an outward
+prefix.
+
+This also eliminates the Perron-certificate hypothesis from one earlier
+finite-grammar conclusion.  For every state of every finite
+`FirstPassageGrammar`, unconditionally,
+
+```text
+FirstPassageGrammar.outMass_le_hundred_div_one_hundred_one
+FirstPassageGrammar.exists_uncovered_word_uniform.
+```
+
+Thus every state misses a concrete maximum-depth binary cylinder.  The scope
+warning is essential: this is a symbolic scarcity theorem.  It neither says
+that an ordinary Collatz parity path lies in the surviving mass nor rules out
+a thin exact arithmetic dispatcher.  But any proposed finite grammar claiming
+local coverage by first-passage blocks is now impossible for a universal
+reason, without an eigenvector or transfer-gap certificate.
+
+The full 8,887-job build and explicit axiom audit pass.  The declarations use
+only standard mathlib axioms and no forbidden proof markers.
