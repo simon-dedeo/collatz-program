@@ -17973,3 +17973,50 @@ ordinary representatives.  No such tower is constructed here.
 Full `lake build KontoroC` passes 8,862 jobs; the audit reports standard
 mathlib axioms only, and the new module contains no `sorry`, `admit`, project
 axiom, or `native_decide`.
+
+## Round 351 — exact kernel gate for linear word quotients
+
+I formalized the algebraic prerequisite behind the proposed Schlotterer-style
+word quotient in the imported and audited module
+
+```text
+KontoroC.OutwardWordQuotientKernel
+```
+
+For a linear evaluator from the free relation module into an additive effect
+space, the central exact criterion is
+
+```text
+span_relations_le_ker_iff
+```
+
+which says that the evaluator descends through the quotient precisely when
+every proposed relation generator has zero evaluated effect.  Under that
+hypothesis, `quotientEvaluator` constructs the induced linear map and
+`quotientEvaluator_mkQ` proves that it agrees with the original evaluator on
+every representative.
+
+The complementary audit interface is
+
+```text
+relationFailures
+mem_relationFailures_iff
+relationFailures_eq_empty_iff_sound
+exists_failed_relation_of_not_sound
+```
+
+so a finite proposed relation list is sound exactly when its failure set is
+empty; otherwise Lean extracts a concrete proposed generator with nonzero
+effect.  The generic failure filter is noncomputable because it assumes only
+decidable equality abstractly; a concrete worker may compute candidates and
+replay each equality as a certificate.
+
+This quotient is deliberately only an aggregate linear quotient.  It does
+not identify literal word execution, order, legality, carries, or seed
+replay.  Those remain governed by the existing semantic-alias no-go and
+literal execution relations, so no commutative quotient is being smuggled in
+as a dispatcher proof.
+
+Full `lake build KontoroC` passes 8,863 jobs; the audit reports standard
+mathlib axioms only, and the new module contains no `sorry`, `admit`, project
+axiom, or `native_decide`.

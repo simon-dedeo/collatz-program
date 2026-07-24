@@ -2133,5 +2133,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardCoherentSeedTower.exists_not_syracuseReachesOne_of_compatible_bounded_starts
 #print axioms
   KontoroC.OutwardCoherentSeedTower.not_collatz_of_compatible_bounded_starts
+#print axioms
+  KontoroC.OutwardWordQuotientKernel.span_relations_le_ker_iff
+#print axioms
+  KontoroC.OutwardWordQuotientKernel.quotientEvaluator_mkQ
+#print axioms
+  KontoroC.OutwardWordQuotientKernel.mem_relationFailures_iff
+#print axioms
+  KontoroC.OutwardWordQuotientKernel.relationFailures_eq_empty_iff_sound
+#print axioms
+  KontoroC.OutwardWordQuotientKernel.exists_failed_relation_of_not_sound
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

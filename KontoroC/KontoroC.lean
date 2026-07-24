@@ -182,6 +182,7 @@ import KontoroC.OutwardCapacitatedRechargeMatching
 import KontoroC.OutwardIntegralPrincipality
 import KontoroC.OutwardRankedLayerReset
 import KontoroC.OutwardCoherentSeedTower
+import KontoroC.OutwardWordQuotientKernel
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
