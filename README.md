@@ -177,6 +177,22 @@ local weak convergence cannot certify escape.  Uniform rerooting also erases
 the distinguished ordinary seed.  The ledger now contains 73
 transcript-checked release talks.  `counterexample:null`.
 
+Holtz provides the exact spectral tool that the Bordenave warning left open.
+After a proposed literal policy is proved to induce a rational linear
+recurrence, a Sturm sequence can count and isolate its real characteristic
+roots, while Hurwitz principal minors can certify a half-plane condition and,
+after a Cayley transform, a unit-disk condition.  No floating eigensolver is
+needed.  To turn an expanding root into counter growth, exact replay must also
+show that the initial state has a nonzero coefficient in that mode and that a
+bounded counter would bound the chosen mixed coordinate.
+
+The semantic precondition is decisive.  Applied merely to a nondeterministic
+transfer matrix, an expanding eigenvalue may count exponentially many finite
+paths without selecting one nested path.  Nonnormal pseudospectra,
+cancellation of the dominant mode, address-only growth, affine forcing, and
+boundary roots must all be handled separately.  The public ledger now
+contains 74 transcript-checked release talks.  `counterexample:null`.
+
 Formalizer commit `64af217` has kernel-checked Cavalieri's integral core.
 `IntegerPrincipal A b` is equivalent to vanishing of the exact cokernel class;
 a mapped left obstruction or a modular obstruction proves that no integer
