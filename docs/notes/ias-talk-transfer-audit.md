@@ -714,6 +714,56 @@ Collatz's valuation dimension and exponent costs may grow.  The required
 semantic alias/exchange theorem is new; without it this is only a disciplined
 state-quotient proposal.
 
+## Lead M: refine selector architectures by exact indistinguishability witnesses
+
+Charanjit Jutla, *A Completeness Theorem for Pseudo-Linear Functions with
+Applications to UC Security*, IAS, 28 Feb. 2010, key
+`6e4ef815ee2322a047f36de5410f05f6`, gives a theorem-shaped outer loop for the
+requested selector CEGIS.  The talk studies uniform finite branching programs
+whose values are characteristic-two linear expressions and whose guards test
+linear equalities.  The monolithic completeness theorem says that a
+pseudo-linear target which is any function of pseudo-linear observations is
+already pseudo-linearly expressible from them.  The raw transcript was checked
+at 1,792--3,095 seconds.
+
+The effective criterion is especially useful here.  Partition the exact
+finite state space by every zero/nonzero guard signature.  On each row the
+target must be a linear combination of the observed features, and isomorphic
+rows must use the same coefficients.  If either requirement fails, the proof
+constructs two points on which every observed input feature agrees but the
+target differs.  The transcript states the row and isomorphic-row tests at
+2,271--2,526 and 2,977--3,024 seconds, then states the two-point witness at
+3,026--3,095 seconds.
+
+For one bounded exact recharge problem, let `X_k` be the complete
+height-admissible state set, let `F_k(x)` contain the chosen valuations,
+residues, carry and memory features plus their guard signature, and let
+`T_k(x)` be the exact next legal action or target.  Before fitting a selector,
+test the necessary functionality condition
+
+```text
+F_k(x) = F_k(y)  ->  T_k(x) = T_k(y).
+```
+
+Under a proved pseudo-linear finite-field encoding, Jutla's criterion either
+extracts the smallest row-coherent selector or returns an exact pair `(x,y)`
+which the present architecture cannot separate.  That pair is a better CEGIS
+counterexample than a late trajectory failure: add one carry bit, residue, or
+memory feature specifically chosen to separate it, then rerun exact replay.
+For iterated calls the talk introduces superguards and randomized/stateful
+extensions; the raw discussion at 3,098--3,645 seconds also rejects exhaustive
+field enumeration as a security-parameter-dependent, nonuniform program.
+
+The mismatch sets the unbounded acceptance gate.  Collatz legality uses mixed
+`2`- and `3`-adic valuations rather than characteristic-two linear guards, is
+partial, and has precision that grows along the candidate orbit.  Separately
+successful selectors for each `k` may therefore be another Frankenstein
+inverse system.  A live result needs one fixed guard grammar and one fixed
+coefficient rule, independent of `k`, followed by literal first-passage
+replay, invariant closure, and the existing ordinary-seed stabilization gate.
+The talk supplies an exact architecture-refinement principle, not that
+uniform theorem and not a Collatz counterexample.
+
 ## Other promoted talks (transfer ledger)
 
 | Status | Talk and raw spans | Concrete transfer | Principal mismatch |
@@ -854,6 +904,9 @@ state-quotient proposal.
 - Percy Deift, *Toeplitz Matrices and Determinants Under the Impetus of the
   Ising Model*, IAS, 29 Jan. 2013, key
   `e832f96f0127827a297b644c18151b91`.
+- Charanjit Jutla, *A Completeness Theorem for Pseudo-Linear Functions with
+  Applications to UC Security*, IAS, 28 Feb. 2010, key
+  `6e4ef815ee2322a047f36de5410f05f6`.
 - Alexander Lubotzky, *Stability, Non-approximated Groups and
   High-dimensional Expanders*, IAS, 12 Oct. 2020, key
   `6b1b831e4b3dd5445ae97fcd580d1eb2`.
