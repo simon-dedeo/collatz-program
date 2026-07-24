@@ -301,6 +301,74 @@ theorem WriterDecoderCellPayload.rechargeMacro
     rw [cell.flatten_blocks]
     exact payload.executes
 
+/-! ## Direct invariant endpoint -/
+
+/-- One exact writer--decoder boundary recharge, including the hypotheses
+which make its resonant decoder a first-passage word. -/
+def WriterDecoderRecharge (H H' : ℕ) : Prop :=
+  ∃ (cell : WriterDecoderCellData)
+      (payload : WriterDecoderCellPayload cell H),
+    0 < cell.zeroCount ∧
+    0 < cell.oneCount ∧
+    3 ^ (cell.oneCount - 1) ≤
+      2 ^ (cell.zeroCount + cell.oneCount - 1) ∧
+    2 ^ (cell.zeroCount + cell.oneCount) < 3 ^ cell.oneCount ∧
+    H' = 3 ^ (cell.counter + cell.oneCount + cell.drain) *
+      payload.targetQuotient
+
+theorem WriterDecoderRecharge.exists_macro
+    {H H' : ℕ} (h : WriterDecoderRecharge H H') :
+    ∃ words, RechargeMacro H H' words := by
+  rcases h with
+    ⟨cell, payload, hzero, hone, hprevious, houtward, rfl⟩
+  exact ⟨cell.blocks,
+    payload.rechargeMacro hzero hone hprevious houtward⟩
+
+theorem WriterDecoderRecharge.lt
+    {H H' : ℕ} (h : WriterDecoderRecharge H H') : H < H' := by
+  obtain ⟨words, hmacro⟩ := h.exists_macro
+  exact hmacro.lt
+
+/-- Closure of any predicate under exact writer--decoder recharges supplies
+arbitrarily deep literal first-passage execution. -/
+theorem writerDecoderInvariant_gives_infiniteExecution
+    (I : ℕ → Prop) (H₀ : ℕ)
+    (h₀pos : 0 < H₀) (h₀ : I H₀)
+    (hclosed : ∀ H, I H →
+      ∃ H', WriterDecoderRecharge H H' ∧ I H') :
+    InfiniteExecution FirstPassageCode (3 * H₀ - 1) := by
+  apply invariant_gives_infiniteExecution I H₀ h₀pos h₀
+  intro H hI
+  obtain ⟨H', hstep, hI'⟩ := hclosed H hI
+  obtain ⟨words, hmacro⟩ := hstep.exists_macro
+  exact ⟨H', words, hmacro, hI'⟩
+
+theorem writerDecoderInvariant_gives_not_syracuseReachesOne
+    (I : ℕ → Prop) (H₀ : ℕ)
+    (h₀pos : 0 < H₀) (h₀ : I H₀)
+    (hclosed : ∀ H, I H →
+      ∃ H', WriterDecoderRecharge H H' ∧ I H') :
+    ¬ CleanLean.Collatz.SyracuseReachesOne (3 * H₀ - 1) := by
+  apply OutwardCodeCounterexample.not_syracuseReachesOne_of_infiniteExecution
+    (C := FirstPassageCode)
+  · intro w hw
+    exact hw.1
+  · exact writerDecoderInvariant_gives_infiniteExecution
+      I H₀ h₀pos h₀ hclosed
+
+theorem writerDecoderInvariant_gives_not_collatz
+    (I : ℕ → Prop) (H₀ : ℕ)
+    (h₀pos : 0 < H₀) (h₀ : I H₀)
+    (hclosed : ∀ H, I H →
+      ∃ H', WriterDecoderRecharge H H' ∧ I H') :
+    ¬ CleanLean.Collatz.Conjecture := by
+  apply OutwardCodeCounterexample.not_conjecture_of_infiniteExecution
+    (C := FirstPassageCode)
+  · intro w hw
+    exact hw.1
+  · exact writerDecoderInvariant_gives_infiniteExecution
+      I H₀ h₀pos h₀ hclosed
+
 /-- A candidate next cell for an affine quotient family, using the same
 static and dynamic objects which have literal semantics above. -/
 def LiteralWriterDecoderCandidate

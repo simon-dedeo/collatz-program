@@ -16820,3 +16820,53 @@ leaves the dyadic coefficient free is theoremically dead at once.
 Full build passes at 8842 jobs and the full axiom audit reports only standard
 mathlib principles.  No finite search, `sorry`, custom axiom, or trusted
 native computation is involved.
+
+## Round 330 — direct writer--decoder invariant endpoint
+
+The literal cell semantics now connect directly to the generic invariant
+bridge.  In `KontoroC.OutwardWriterDecoderLiteral` the exact relation
+
+```text
+WriterDecoderRecharge H H'
+```
+
+packages a `WriterDecoderCellData`, its positive odd payload at `H`, the two
+adjacent resonant-decoder slope inequalities, and its exact target charge
+`H'`.  It is deliberately relational: there is no uniqueness or computability
+claim.  Lean proves:
+
+```text
+WriterDecoderRecharge.exists_macro
+WriterDecoderRecharge.lt
+```
+
+so every such arithmetic recharge is a genuine nonempty `RechargeMacro` and
+strictly increases the boundary charge.  The endpoint theorems are:
+
+```text
+writerDecoderInvariant_gives_infiniteExecution
+writerDecoderInvariant_gives_not_syracuseReachesOne
+writerDecoderInvariant_gives_not_collatz
+```
+
+Thus a future certificate needs only provide
+
+```text
+I H0
+forall H, I H -> exists H', WriterDecoderRecharge H H' /\ I H'.
+```
+
+The first theorem invokes the already-formalized variable-length macro
+concatenation theorem; the latter two invoke the existing outward-code
+Syracuse/Collatz bridge.  There is no duplicate trajectory argument here.
+
+This endpoint is entirely conditional.  It neither defines nor instantiates
+a concrete invariant, and it draws no conclusion from bounded CEGIS output.
+Focused build and the complete `Audit.lean` pass; the new declarations report
+only standard mathlib principles (`propext`, `Classical.choice`, `Quot.sound`).
+
+For current search design, this gives a clean acceptance test: a proposed
+mixed recursive invariant is useful exactly when its closure proof can return
+an inhabitant of `WriterDecoderRecharge`.  The valuation-only theorem from
+Round 329 still shows that a regular ternary layer with a free dyadic
+coefficient cannot meet this contract everywhere.

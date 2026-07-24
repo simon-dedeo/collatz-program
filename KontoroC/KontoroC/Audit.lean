@@ -1860,6 +1860,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardWriterDecoderLiteral.WriterDecoderCellPayload.rechargeMacro
 #print axioms
+  KontoroC.OutwardWriterDecoderLiteral.WriterDecoderRecharge.exists_macro
+#print axioms KontoroC.OutwardWriterDecoderLiteral.WriterDecoderRecharge.lt
+#print axioms
+  KontoroC.OutwardWriterDecoderLiteral.writerDecoderInvariant_gives_infiniteExecution
+#print axioms
+  KontoroC.OutwardWriterDecoderLiteral.writerDecoderInvariant_gives_not_syracuseReachesOne
+#print axioms
+  KontoroC.OutwardWriterDecoderLiteral.writerDecoderInvariant_gives_not_collatz
+#print axioms
   KontoroC.OutwardWriterDecoderLiteral.literalWriterDecoderCandidate_equations
 #print axioms
   KontoroC.OutwardWriterDecoderLiteral.literalWriterDecoderCandidate_coarse
