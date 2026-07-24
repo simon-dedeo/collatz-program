@@ -2276,5 +2276,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardShadowPathLift.certifiedLift_gives_literalRechargeLift
 #print axioms
   KontoroC.OutwardShadowPathLift.bool_nonempty_rawFibers_but_no_compatibleLift
+#print axioms
+  KontoroC.OutwardFiniteGroupDriftNoGo.finite_addGroup_hom_torsionFree_eq_zero
+#print axioms
+  KontoroC.OutwardFiniteGroupDriftNoGo.finite_addGroup_hom_int_eq_zero
+#print axioms
+  KontoroC.OutwardFiniteGroupDriftNoGo.finite_group_translation_has_zero_int_drift
+#print axioms
+  KontoroC.OutwardFiniteGroupDriftNoGo.no_positive_homomorphic_int_drift
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

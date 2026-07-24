@@ -18749,3 +18749,43 @@ same forced execution.
 
 The 8,873-job full build and trust audit still pass with only standard
 mathlib axioms and no forbidden proof markers.
+
+## Round 366 — finite group coordinates carry no homomorphic integer drift
+
+The imported and audited module
+
+```text
+KontoroC.OutwardFiniteGroupDriftNoGo
+```
+
+formalizes the precise limitation in the Chernikov-style group-coordinate
+architecture.  The general theorem
+
+```text
+finite_addGroup_hom_torsionFree_eq_zero
+```
+
+says that every additive homomorphism from a finite additive group to any
+torsion-free additive group is the zero map.  The source need not even be
+commutative.  The proof uses mathlib's finite-group torsion theorem and
+torsion-free injectivity of nonzero scalar multiplication.
+
+The exact integer specializations are
+
+```text
+finite_addGroup_hom_int_eq_zero
+finite_addGroup_hom_int_apply_eq_zero
+finite_group_translation_has_zero_int_drift
+no_positive_homomorphic_int_drift.
+```
+
+Consequently a finite group law recovered from a bounded relation may encode
+phase or symmetry, but no homomorphic integer-valued coordinate on it can
+increase under recharge: every translation increment is zero.  Positive
+escape must live in a separate nonhomomorphic cocycle or unbounded extension,
+which then needs its own literal recharge, coherence, and ordinary-root
+proofs.  The result does not reject those extensions.
+
+Full `lake build KontoroC` passes 8,874 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, `unsafe`, or `native_decide`.
