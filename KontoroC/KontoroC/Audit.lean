@@ -2193,5 +2193,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardLinearRoutingBottleneck.linearCombination_not_injective_of_shrunk
 #print axioms
   KontoroC.OutwardLinearRoutingBottleneck.linearCombination_not_bijective_of_shrunk
+#print axioms KontoroC.OutwardBoundedErrorGrowth.height_lower_bound
+#print axioms
+  KontoroC.OutwardBoundedErrorGrowth.height_unbounded_of_boundedErrorGrowth
+#print axioms
+  KontoroC.OutwardBoundedErrorGrowth.counter_unbounded_of_heightUnbounded
+#print axioms
+  KontoroC.OutwardBoundedErrorGrowth.boundedErrorGrowth_gives_counter_unbounded
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

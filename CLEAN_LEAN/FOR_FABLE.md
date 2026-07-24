@@ -18241,3 +18241,64 @@ ordinary root.
 Full `lake build KontoroC` passes 8,867 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, or `native_decide`.
+
+## Round 356 — exact bounded-error growth with coercivity
+
+I formalized the Potrie/Holtz growth interface over exact rationals in the
+imported and audited module
+
+```text
+KontoroC.OutwardBoundedErrorGrowth.
+```
+
+For a distinguished state orbit and rational coordinate `u`, the predicate
+
+```text
+HasBoundedErrorGrowth orbit u lambda C
+```
+
+is the exact recurrence
+
+```text
+lambda * u(orbit n) - C <= u(orbit (n+1)).
+```
+
+If `lambda > 1`, Lean proves the closed lower bound
+
+```text
+height_lower_bound:
+  C/(lambda-1) + lambda^n * (u(orbit 0)-C/(lambda-1))
+    <= u(orbit n).
+```
+
+Consequently a start strictly above the affine fixed threshold makes the
+coordinate unbounded:
+
+```text
+height_unbounded_of_boundedErrorGrowth.
+```
+
+The semantic gate is kept separate as
+
+```text
+CounterCoercive counter u :=
+  forall B, exists U, forall state,
+    counter state <= B -> u state <= U.
+```
+
+Lean then proves
+
+```text
+counter_unbounded_of_heightUnbounded
+boundedErrorGrowth_gives_counter_unbounded.
+```
+
+This prevents an expanding address, carry-only coordinate, or spectral
+superposition from being silently called counter growth.  A worker must prove
+the exact recurrence on its literal selected orbit, nonzero excess above the
+fixed threshold, and the coercivity implication for the intended natural
+counter.  No coordinate or policy is supplied here.
+
+Full `lake build KontoroC` passes 8,868 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, or `native_decide`.
