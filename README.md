@@ -201,6 +201,32 @@ remaining all-counter closure and ordinary-root obligations rather than
 discharging them.  With Schlotterer, the public authoritative ledger now
 contains 63 transcript-checked release talks.  `counterexample:null`.
 
+Two further talks sharpen the selector-architecture outer loop.  Vondrák's
+symmetry-gap argument suggests grouping the complete bounded state table by a
+candidate feature map `phi` and intersecting the exact legal positive-margin
+macro sets within each fiber.  If every state has some safe move but one
+fiber has no common move, that fiber is a finite certificate that `phi`
+discarded necessary residue or carry information.  A rational robust-policy
+LP can quantify the same failure, but expected margin is not a literal orbit.
+Göös gives the complementary recursion gate: a successful parent certificate
+must use only positively certified child macros.  His explicit three-bit
+example shows why a recursion can fail when a parent success relies on a hard
+zero child.  We will therefore SAT-check positive-certificate unambiguity,
+weighted zero coverage, and depth-two one-sided composition before enlarging
+any recursive counter grammar.
+
+Schlag and Ginzburg delimit two more ambitious transfers.  An exact rational
+intertwiner may transport spectra or linear inequalities, but it transports a
+Collatz execution only if it and its inverse are positive monomial maps of
+literal states; a signed average turns one seed into a superposition.  A
+filtered-complex contradiction is even more conditional: it is admissible
+only after a genuine Collatz refinement differential satisfies `d^2=0` and
+acyclicity is independently certified.  The source's Floer differential,
+crossing energy, boundary depth, and index recurrence do not exist merely
+because we have a directed macro graph.  These two talks are therefore exact
+preflights, not escape mechanisms.  The public ledger now contains 67
+transcript-checked release talks.  `counterexample:null`.
+
 ### 2026-07-23 23:30 EDT
 
 There is still no counterexample.  The most useful new transfer comes from
