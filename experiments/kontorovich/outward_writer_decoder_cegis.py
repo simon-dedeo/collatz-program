@@ -30,7 +30,7 @@ from outward_charge_invariant_cegis import integer_sha256
 from outward_primitive_invariant_cegis import minimal_terminal_ones
 
 
-SCHEMA = "collatz-outward-writer-decoder-cegis-v1"
+SCHEMA = "collatz-outward-writer-decoder-cegis-v2"
 ROOT_WORD = "010111"
 
 
@@ -410,6 +410,199 @@ def canonical_replay(state: ChartState, args: argparse.Namespace) -> dict[str, A
     }
 
 
+def semantic_frontier(state: ChartState, maximum_counter: int) -> dict[str, Any]:
+    """Classify the exact next-cell failure at the canonical exponent."""
+
+    verify_state(state)
+    exponent = state.C + state.A
+    writer_constant = 9 * state.B + 7 * 2**state.D
+    writer_numerator_v2 = exact_v2_affine_power3(
+        exponent,
+        9,
+        writer_constant,
+        state.D + 1,
+    )
+    writer_value_v2 = writer_numerator_v2 - state.D
+    c = writer_value_v2 - 4
+    if c < 2:
+        return {
+            "kind": "writer_shortfall",
+            "v2_9H_plus_7": writer_value_v2,
+            "derived_c": c,
+            "writer_shortfall": 6 - writer_value_v2,
+        }
+    if c > maximum_counter:
+        return {
+            "kind": "counter_above_semantic_bound",
+            "v2_9H_plus_7": writer_value_v2,
+            "derived_c": c,
+            "maximum_counter": maximum_counter,
+        }
+    base_cell = make_cell(c, 0)
+    pair_constant = 9 * state.B + 2**state.D * base_cell.Bg
+    pair_numerator_v2 = exact_v2_affine_power3(
+        exponent,
+        9,
+        pair_constant,
+        state.D + c + 4,
+    )
+    pair_value_v2 = pair_numerator_v2 - state.D
+    required = base_cell.S + c + 4
+    if pair_value_v2 < required:
+        return {
+            "kind": "decoder_shortfall",
+            "derived_c": c,
+            "v2_9H_plus_Bg": pair_value_v2,
+            "required": required,
+            "decoder_shortfall": required - pair_value_v2,
+        }
+    b = pair_value_v2 - required
+    cell = make_cell(c, b)
+    child, carry = extend_state(state, cell)
+    if carry != 0 or child.C != state.C:
+        raise AssertionError("valid semantic frontier was not a zero-carry cell")
+    return {
+        "kind": "valid_zero_carry_cell",
+        "derived_c": c,
+        "derived_b": b,
+        "v2_9H_plus_Bg": pair_value_v2,
+        "required": required,
+        "target_D": child.D,
+        "target_A": child.A,
+        "target_B_bits": child.B.bit_length(),
+        "target_B_sha256": integer_sha256(child.B),
+    }
+
+
+def semantic_score(
+    state: ChartState, diagnostic: dict[str, Any]
+) -> tuple[int, int, int, tuple[int, int, int, int, tuple[tuple[int, int], ...]]]:
+    kind = diagnostic["kind"]
+    if kind == "valid_zero_carry_cell":
+        frontier_score = (0, int(diagnostic["derived_b"]), int(diagnostic["derived_c"]))
+    elif kind == "decoder_shortfall":
+        frontier_score = (
+            1,
+            int(diagnostic["decoder_shortfall"]),
+            int(diagnostic["derived_c"]),
+        )
+    elif kind == "writer_shortfall":
+        frontier_score = (
+            2,
+            int(diagnostic["writer_shortfall"]),
+            -int(diagnostic["v2_9H_plus_7"]),
+        )
+    else:
+        frontier_score = (3, int(diagnostic["derived_c"]), 0)
+    return (*frontier_score, state_score(state))
+
+
+def semantic_frontier_beam(args: argparse.Namespace) -> dict[str, Any]:
+    """CEGIS refinement ranked by exact next-writer/decoder failure."""
+
+    alphabet = [
+        make_cell(c, b)
+        for c in range(args.minimum_counter, args.maximum_counter + 1)
+        for b in range(args.maximum_decoder_drain + 1)
+    ]
+    beam = [ROOT]
+    rows: list[dict[str, Any]] = []
+    all_previous_states_retained = True
+    tested_hasher = hashlib.sha256()
+    least_failures: dict[str, dict[str, Any]] = {}
+    for depth in range(1, args.semantic_maximum_depth + 1):
+        candidates: list[tuple[ChartState, dict[str, Any]]] = []
+        for parent in beam:
+            for cell in alphabet:
+                child, carry = extend_state(parent, cell)
+                diagnostic = semantic_frontier(
+                    child, args.semantic_maximum_counter
+                )
+                candidates.append((child, diagnostic))
+                tested_hasher.update(
+                    canonical_json(
+                        {
+                            "path": child.path,
+                            "C": str(child.C),
+                            "K": child.K,
+                            "last_carry": carry,
+                            "frontier": diagnostic,
+                        }
+                    )
+                    + b"\n"
+                )
+                kind = str(diagnostic["kind"])
+                failure_row = {
+                    "depth": depth,
+                    "state": state_summary(child, carry),
+                    "frontier": diagnostic,
+                }
+                if kind not in least_failures or (
+                    child.C,
+                    child.path,
+                ) < (
+                    int(least_failures[kind]["state"]["canonical_C"]),
+                    tuple(tuple(symbol) for symbol in least_failures[kind]["state"]["path"]),
+                ):
+                    least_failures[kind] = failure_row
+        candidates.sort(key=lambda row: semantic_score(row[0], row[1]))
+        counts = {
+            kind: sum(diagnostic["kind"] == kind for _, diagnostic in candidates)
+            for kind in sorted({diagnostic["kind"] for _, diagnostic in candidates})
+        }
+        decoder_shortfalls = [
+            int(diagnostic["decoder_shortfall"])
+            for _, diagnostic in candidates
+            if diagnostic["kind"] == "decoder_shortfall"
+        ]
+        valid = [
+            (state, diagnostic)
+            for state, diagnostic in candidates
+            if diagnostic["kind"] == "valid_zero_carry_cell"
+        ]
+        rows.append(
+            {
+                "depth": depth,
+                "parents_expanded": len(beam),
+                "tested_edges": len(candidates),
+                "exhaustive_over_full_alphabet_at_this_depth": (
+                    all_previous_states_retained
+                ),
+                "frontier_kind_counts": counts,
+                "minimum_decoder_shortfall": (
+                    min(decoder_shortfalls) if decoder_shortfalls else None
+                ),
+                "valid_zero_carry_cells": len(valid),
+                "champions": [
+                    {
+                        "state": state_summary(state),
+                        "frontier": diagnostic,
+                    }
+                    for state, diagnostic in candidates[: args.champions_per_depth]
+                ],
+            }
+        )
+        retained = min(args.semantic_beam_width, len(candidates))
+        all_previous_states_retained = (
+            all_previous_states_retained and retained == len(candidates)
+        )
+        beam = [state for state, _ in candidates[:retained]]
+    return {
+        "architecture": (
+            "rank canonical prefixes first by exact writer re-entry, then by "
+            "resonant-decoder valuation shortfall"
+        ),
+        "depth_rows": rows,
+        "tested_frontiers_sha256": tested_hasher.hexdigest(),
+        "least_failure_by_kind": dict(sorted(least_failures.items())),
+        "bounded_verdict": (
+            "no valid zero-carry writer--decoder frontier in the semantic beam"
+            if all(row["valid_zero_carry_cells"] == 0 for row in rows)
+            else "finite valid zero-carry cells found; infinite recurrence unproved"
+        ),
+    }
+
+
 def bounded_beam(args: argparse.Namespace) -> dict[str, Any]:
     alphabet = [
         make_cell(c, b)
@@ -572,7 +765,9 @@ def theorem_record() -> dict[str, Any]:
     }
 
 
-def architecture_record(beam: dict[str, Any]) -> list[dict[str, Any]]:
+def architecture_record(
+    beam: dict[str, Any], semantic: dict[str, Any]
+) -> list[dict[str, Any]]:
     replay_failures = [
         {
             "fixed_canonical_C": row["fixed_canonical_C"],
@@ -603,6 +798,15 @@ def architecture_record(beam: dict[str, Any]) -> list[dict[str, Any]]:
             "smallest_closure_failure": least_replay_failure,
         },
         {
+            "architecture": "semantic_writer_reentry_then_decoder_shortfall",
+            "description_complexity": (
+                "exact v2(9H+7) counter followed by exact decoder valuation"
+            ),
+            "status": "bounded_CEGIS_only",
+            "smallest_closure_failure": semantic["least_failure_by_kind"],
+            "bounded_verdict": semantic["bounded_verdict"],
+        },
+        {
             "architecture": "unbounded_arithmetic_counter_selector",
             "description_complexity": "pending parametric recurrence",
             "status": "not_rejected_and_not_certified",
@@ -624,7 +828,12 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
         raise ValueError("canonical replay counter bound must be at least two")
     if args.maximum_canonical_replay_drain < 0:
         raise ValueError("canonical replay drain bound must be nonnegative")
+    if args.semantic_maximum_depth < 1 or args.semantic_beam_width < 1:
+        raise ValueError("semantic beam bounds must be positive")
+    if args.semantic_maximum_counter < 2:
+        raise ValueError("semantic counter bound must be at least two")
     beam = bounded_beam(args)
+    semantic = semantic_frontier_beam(args)
     return {
         "meaning": (
             "bounded exact arithmetic CEGIS on coherent nested exponent cylinders "
@@ -644,10 +853,14 @@ def build_audit(args: argparse.Namespace) -> dict[str, Any]:
                 args.maximum_canonical_replay_counter
             ),
             "maximum_canonical_replay_drain": args.maximum_canonical_replay_drain,
+            "semantic_maximum_depth": args.semantic_maximum_depth,
+            "semantic_beam_width": args.semantic_beam_width,
+            "semantic_maximum_counter": args.semantic_maximum_counter,
         },
         "exact_semantics_and_theorems": theorem_record(),
         "coherent_cylinder_beam": beam,
-        "selector_architecture_outer_loop": architecture_record(beam),
+        "semantic_frontier_beam": semantic,
+        "selector_architecture_outer_loop": architecture_record(beam, semantic),
         "symbolic_transition_algebra_closed": True,
         "unbounded_invariant_closed": False,
         "universal_invariant": None,
@@ -687,6 +900,17 @@ def report(artifact: dict[str, Any]) -> dict[str, Any]:
         ],
         "maximum_successful_zero_carry_replay_cells": beam[
             "maximum_successful_zero_carry_replay_cells"
+        ],
+        "semantic_bounded_verdict": audit["semantic_frontier_beam"][
+            "bounded_verdict"
+        ],
+        "semantic_valid_zero_carry_cells_by_depth": [
+            row["valid_zero_carry_cells"]
+            for row in audit["semantic_frontier_beam"]["depth_rows"]
+        ],
+        "semantic_minimum_decoder_shortfall_by_depth": [
+            row["minimum_decoder_shortfall"]
+            for row in audit["semantic_frontier_beam"]["depth_rows"]
         ],
         "universal_invariant": audit["universal_invariant"],
         "counterexample": audit["counterexample"],
@@ -730,6 +954,9 @@ def selftest() -> None:
         maximum_canonical_replay_steps=2,
         maximum_canonical_replay_counter=5,
         maximum_canonical_replay_drain=16,
+        semantic_maximum_depth=3,
+        semantic_beam_width=16,
+        semantic_maximum_counter=5,
     )
     audit = build_audit(args)
     if audit["counterexample"] is not None or audit["universal_invariant"] is not None:
@@ -750,6 +977,9 @@ def add_bounds(command: argparse.ArgumentParser) -> None:
     command.add_argument("--maximum-canonical-replay-steps", type=int, default=4)
     command.add_argument("--maximum-canonical-replay-counter", type=int, default=6)
     command.add_argument("--maximum-canonical-replay-drain", type=int, default=64)
+    command.add_argument("--semantic-maximum-depth", type=int, default=8)
+    command.add_argument("--semantic-beam-width", type=int, default=64)
+    command.add_argument("--semantic-maximum-counter", type=int, default=6)
 
 
 def parser() -> argparse.ArgumentParser:

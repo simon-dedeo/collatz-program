@@ -1,5 +1,5 @@
 {
-  "artifact_sha256": "c475d26fe7e303a4f5927db9dceadb23040268f2f638b686522caadcb2f82e9a",
+  "artifact_sha256": "1c23b457167d439c03bcc364a822f3d1bcf931941a16db1c23eac06fcb55960b",
   "audit": {
     "bounds": {
       "beam_width": 128,
@@ -12,7 +12,10 @@
       "maximum_counter": 4,
       "maximum_decoder_drain": 2,
       "maximum_depth": 10,
-      "minimum_counter": 2
+      "minimum_counter": 2,
+      "semantic_beam_width": 64,
+      "semantic_maximum_counter": 6,
+      "semantic_maximum_depth": 8
     },
     "claim_scope": "every displayed edge is an exact all-members cylinder identity; the beam coverage is exhaustive only where explicitly marked, and finite cylinder existence is not ordinary nontermination",
     "coherent_cylinder_beam": {
@@ -4117,16 +4120,2457 @@
         "status": "bounded_CEGIS_only"
       },
       {
+        "architecture": "semantic_writer_reentry_then_decoder_shortfall",
+        "bounded_verdict": "no valid zero-carry writer--decoder frontier in the semantic beam",
+        "description_complexity": "exact v2(9H+7) counter followed by exact decoder valuation",
+        "smallest_closure_failure": {
+          "counter_above_semantic_bound": {
+            "depth": 8,
+            "frontier": {
+              "derived_c": 7,
+              "kind": "counter_above_semantic_bound",
+              "maximum_counter": 6,
+              "v2_9H_plus_7": 11
+            },
+            "state": {
+              "A": 536,
+              "B_bits": 902,
+              "B_sha256": "5b6c0c7981ea72f4829551928246f36b4ada4239b87682ba5d79f8714e0d3e91",
+              "D": 840,
+              "canonical_C": "1766431298976231169797347039352270116481066107150868163631659515514004177581760960814517840397016738308654776874375725129038224319200593075703492006741591870462308536606254332637641535584167749771331460161957862310166718465785664258173252653586422250060",
+              "canonical_C_bits": 838,
+              "exponent_precision_K": 839,
+              "factor_complexity_through_5": {
+                "1": 4,
+                "2": 7,
+                "3": 6,
+                "4": 5,
+                "5": 4
+              },
+              "last_exponent_carry": "17361216412320888",
+              "last_exponent_carry_bits": 54,
+              "least_prefix_period": 8,
+              "nonzero_carries": 7,
+              "path": [
+                [
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  3,
+                  0
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 46,
+              "path_sha256": "c74123447f0cabd496e08058e1cf989c42772d6d03c8f56149c2797cba6e157b",
+              "zero_carry_suffix": 0
+            }
+          },
+          "decoder_shortfall": {
+            "depth": 3,
+            "frontier": {
+              "decoder_shortfall": 48,
+              "derived_c": 2,
+              "kind": "decoder_shortfall",
+              "required": 55,
+              "v2_9H_plus_Bg": 7
+            },
+            "state": {
+              "A": 169,
+              "B_bits": 320,
+              "B_sha256": "419a46d154814fa2d882c9ec7642410767b89423579b384a93156744612202ca",
+              "D": 265,
+              "canonical_C": "288595598990417915035510181795446667012249174898527115875934778730196244707916",
+              "canonical_C_bits": 258,
+              "exponent_precision_K": 264,
+              "factor_complexity_through_5": {
+                "1": 3,
+                "2": 2,
+                "3": 1
+              },
+              "last_exponent_carry": "350768519851730",
+              "last_exponent_carry_bits": 49,
+              "least_prefix_period": 3,
+              "nonzero_carries": 2,
+              "path": [
+                [
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 20,
+              "path_sha256": "436cfeb87358903a152a7f7aa5ee0dd9acdb3266ffe2684b1b1bc552bbddb052",
+              "zero_carry_suffix": 0
+            }
+          },
+          "writer_shortfall": {
+            "depth": 1,
+            "frontier": {
+              "derived_c": -3,
+              "kind": "writer_shortfall",
+              "v2_9H_plus_7": 1,
+              "writer_shortfall": 5
+            },
+            "state": {
+              "A": 35,
+              "B_bits": 72,
+              "B_sha256": "410aebbd8a378e12f6af63fc346cf8121ba0b379a0601ba6e90d762b34102973",
+              "D": 55,
+              "canonical_C": "7848752615831324",
+              "canonical_C_bits": 53,
+              "exponent_precision_K": 54,
+              "factor_complexity_through_5": {
+                "1": 1
+              },
+              "last_exponent_carry": null,
+              "last_exponent_carry_bits": null,
+              "least_prefix_period": 1,
+              "nonzero_carries": 0,
+              "path": [
+                [
+                  2,
+                  0
+                ]
+              ],
+              "path_description_cost": 6,
+              "path_sha256": "75273ac17054d9569884ac48ff9b17db6fa1c1d2d11d07fbe72cbe7bbf6df493",
+              "zero_carry_suffix": 0
+            }
+          }
+        },
+        "status": "bounded_CEGIS_only"
+      },
+      {
         "architecture": "unbounded_arithmetic_counter_selector",
         "description_complexity": "pending parametric recurrence",
         "smallest_closure_failure": null,
         "status": "not_rejected_and_not_certified"
       }
     ],
+    "semantic_frontier_beam": {
+      "architecture": "rank canonical prefixes first by exact writer re-entry, then by resonant-decoder valuation shortfall",
+      "bounded_verdict": "no valid zero-carry writer--decoder frontier in the semantic beam",
+      "depth_rows": [
+        {
+          "champions": [
+            {
+              "frontier": {
+                "derived_c": 1,
+                "kind": "writer_shortfall",
+                "v2_9H_plus_7": 5,
+                "writer_shortfall": 1
+              },
+              "state": {
+                "A": 284,
+                "B_bits": 610,
+                "B_sha256": "37e5011961b57c373666df3a394d3c5dfa7dcf7cf14cb0d218e07955d4d7b2ea",
+                "D": 448,
+                "canonical_C": "41858251983921377678433098384876640062294770321681151332326510538513513094153061837480018712052379675360680748110287507333015798544492",
+                "canonical_C_bits": 444,
+                "exponent_precision_K": 447,
+                "factor_complexity_through_5": {
+                  "1": 1
+                },
+                "last_exponent_carry": null,
+                "last_exponent_carry_bits": null,
+                "least_prefix_period": 1,
+                "nonzero_carries": 0,
+                "path": [
+                  [
+                    4,
+                    1
+                  ]
+                ],
+                "path_description_cost": 6,
+                "path_sha256": "6a3266ae70e7604bafe1ced885beda0fb1265d229529f3457594fb0d0a473873",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "derived_c": 0,
+                "kind": "writer_shortfall",
+                "v2_9H_plus_7": 4,
+                "writer_shortfall": 2
+              },
+              "state": {
+                "A": 100,
+                "B_bits": 210,
+                "B_sha256": "2db045f0067234c8bed99143b6af653ca0697bbd11df62ba1d2b45d4afa6d704",
+                "D": 156,
+                "canonical_C": "29987258611527836274960450440541735214936832588",
+                "canonical_C_bits": 155,
+                "exponent_precision_K": 155,
+                "factor_complexity_through_5": {
+                  "1": 1
+                },
+                "last_exponent_carry": null,
+                "last_exponent_carry_bits": null,
+                "least_prefix_period": 1,
+                "nonzero_carries": 0,
+                "path": [
+                  [
+                    3,
+                    2
+                  ]
+                ],
+                "path_description_cost": 6,
+                "path_sha256": "11b8fdac1a63a8bac69ae8bb2e7d45da5233eee87403861f14c17e9e6d9c0f6c",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "derived_c": -2,
+                "kind": "writer_shortfall",
+                "v2_9H_plus_7": 2,
+                "writer_shortfall": 4
+              },
+              "state": {
+                "A": 36,
+                "B_bits": 74,
+                "B_sha256": "e438b6abc86b72bc07c349cfe7386b91a6ad00ce6c32936c7543e89af4bf7b04",
+                "D": 56,
+                "canonical_C": "16855951870572316",
+                "canonical_C_bits": 54,
+                "exponent_precision_K": 55,
+                "factor_complexity_through_5": {
+                  "1": 1
+                },
+                "last_exponent_carry": null,
+                "last_exponent_carry_bits": null,
+                "least_prefix_period": 1,
+                "nonzero_carries": 0,
+                "path": [
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "path_description_cost": 6,
+                "path_sha256": "7fb2d3bfd3e120ae769d22fcf1abc7708f6405a8139e2440fc4a38ff4800016c",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "derived_c": -2,
+                "kind": "writer_shortfall",
+                "v2_9H_plus_7": 2,
+                "writer_shortfall": 4
+              },
+              "state": {
+                "A": 283,
+                "B_bits": 608,
+                "B_sha256": "b45ff84ca0df026d4c6417f288ef1fa70f4d147789941b0224a190a4957568e2",
+                "D": 447,
+                "canonical_C": "132713092520872238997098574370877206856499940407595908867512785436093424108327802253253900051272825370455995948893559749024841002121324",
+                "canonical_C_bits": 446,
+                "exponent_precision_K": 446,
+                "factor_complexity_through_5": {
+                  "1": 1
+                },
+                "last_exponent_carry": null,
+                "last_exponent_carry_bits": null,
+                "least_prefix_period": 1,
+                "nonzero_carries": 0,
+                "path": [
+                  [
+                    4,
+                    0
+                  ]
+                ],
+                "path_description_cost": 6,
+                "path_sha256": "21f5f2213d85c2042f9e2413c57d2adbf3a3278b0ae4bfda9f843299ae3edb71",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "derived_c": -2,
+                "kind": "writer_shortfall",
+                "v2_9H_plus_7": 2,
+                "writer_shortfall": 4
+              },
+              "state": {
+                "A": 285,
+                "B_bits": 611,
+                "B_sha256": "48cd4843dad45511a99ebd75aefa0fddfc7eba9fd67dae87bf87974e596d9290",
+                "D": 449,
+                "canonical_C": "223567933057823100315764050356877773650705110493510666402699060333673335122502542669027781390493271065551311149676831990716666205698156",
+                "canonical_C_bits": 447,
+                "exponent_precision_K": 448,
+                "factor_complexity_through_5": {
+                  "1": 1
+                },
+                "last_exponent_carry": null,
+                "last_exponent_carry_bits": null,
+                "least_prefix_period": 1,
+                "nonzero_carries": 0,
+                "path": [
+                  [
+                    4,
+                    2
+                  ]
+                ],
+                "path_description_cost": 6,
+                "path_sha256": "77814b822d773941d6e57072aefe7478d21b9ccb31adacd8b0b9fd575cdebf83",
+                "zero_carry_suffix": 0
+              }
+            }
+          ],
+          "depth": 1,
+          "exhaustive_over_full_alphabet_at_this_depth": true,
+          "frontier_kind_counts": {
+            "writer_shortfall": 9
+          },
+          "minimum_decoder_shortfall": null,
+          "parents_expanded": 1,
+          "tested_edges": 9,
+          "valid_zero_carry_cells": 0
+        },
+        {
+          "champions": [
+            {
+              "frontier": {
+                "decoder_shortfall": 145,
+                "derived_c": 3,
+                "kind": "decoder_shortfall",
+                "required": 154,
+                "v2_9H_plus_Bg": 9
+              },
+              "state": {
+                "A": 384,
+                "B_bits": 766,
+                "B_sha256": "4e5d592f0ba8acd73975bafd71426db0c0eb2c5ef493761cfa0ad29cf802520a",
+                "D": 604,
+                "canonical_C": "31780435292517594216400775175026826942196626154684986788382844293690444041542339588643652367548178370373803088537671070734357765210403732370541575990479557213718006175829643531205196",
+                "canonical_C_bits": 603,
+                "exponent_precision_K": 603,
+                "factor_complexity_through_5": {
+                  "1": 2,
+                  "2": 1
+                },
+                "last_exponent_carry": "695841799546548802700224624805063916672865634406512104844998148792831527473951654933416544057598830040498834053469056153462414491036856",
+                "last_exponent_carry_bits": 448,
+                "least_prefix_period": 2,
+                "nonzero_carries": 1,
+                "path": [
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    4,
+                    1
+                  ]
+                ],
+                "path_description_cost": 13,
+                "path_sha256": "b970afdee2bc03f207a0b9d7b22180e1ee6b11cf5b2f85db338e11526481b5b3",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "derived_c": 1,
+                "kind": "writer_shortfall",
+                "v2_9H_plus_7": 5,
+                "writer_shortfall": 1
+              },
+              "state": {
+                "A": 71,
+                "B_bits": 130,
+                "B_sha256": "84af0e2347f6de4e5bdd42c72c1268eda493faf43b1e481d231195cfc7d69216",
+                "D": 111,
+                "canonical_C": "1287357964113709542004354471999260",
+                "canonical_C_bits": 110,
+                "exponent_precision_K": 110,
+                "factor_complexity_through_5": {
+                  "1": 2,
+                  "2": 1
+                },
+                "last_exponent_carry": "35731361317340158",
+                "last_exponent_carry_bits": 55,
+                "least_prefix_period": 2,
+                "nonzero_carries": 1,
+                "path": [
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ]
+                ],
+                "path_description_cost": 13,
+                "path_sha256": "097d1884fe8a70c42e9e2153974bca4e1bc08f53bb6c47ea3a71da55b2493022",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "derived_c": 1,
+                "kind": "writer_shortfall",
+                "v2_9H_plus_7": 5,
+                "writer_shortfall": 1
+              },
+              "state": {
+                "A": 198,
+                "B_bits": 366,
+                "B_sha256": "82ac83861ea6f6fec4959223af956f3ae6294ab32096bac8baa563ed6ed6a58e",
+                "D": 310,
+                "canonical_C": "1034411874183711035382754298705666951209547671783100233321452801649663481025051012537207831116",
+                "canonical_C_bits": 309,
+                "exponent_precision_K": 309,
+                "factor_complexity_through_5": {
+                  "1": 2,
+                  "2": 1
+                },
+                "last_exponent_carry": "22648746418327971293793465009300022116895282296",
+                "last_exponent_carry_bits": 154,
+                "least_prefix_period": 2,
+                "nonzero_carries": 1,
+                "path": [
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    3,
+                    0
+                  ]
+                ],
+                "path_description_cost": 13,
+                "path_sha256": "e52ec61743263af1b39124d908b802b01a670365fdcea2c6875d8717e8bb42a1",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "derived_c": 1,
+                "kind": "writer_shortfall",
+                "v2_9H_plus_7": 5,
+                "writer_shortfall": 1
+              },
+              "state": {
+                "A": 199,
+                "B_bits": 368,
+                "B_sha256": "73139867f5937810befc96c65124f02b12628866ddbacd6769530e068b1abdd7",
+                "D": 311,
+                "canonical_C": "1555893084125339473467476394938467760438723580561579913484304756684385093764465209320157559372",
+                "canonical_C_bits": 310,
+                "exponent_precision_K": 310,
+                "factor_complexity_through_5": {
+                  "1": 2,
+                  "2": 1
+                },
+                "last_exponent_carry": "34066727959975650342259752764895983207957255288",
+                "last_exponent_carry_bits": 155,
+                "least_prefix_period": 2,
+                "nonzero_carries": 1,
+                "path": [
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "path_description_cost": 13,
+                "path_sha256": "3262346e92d44ab1b430c25f17498763fd898c6b041b9d4ea32b32a874535cd5",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "derived_c": 0,
+                "kind": "writer_shortfall",
+                "v2_9H_plus_7": 4,
+                "writer_shortfall": 2
+              },
+              "state": {
+                "A": 134,
+                "B_bits": 264,
+                "B_sha256": "b6f1692a8eff12ea4150070a2cc9fee628bdd03c6cec20aa4b67b2a11fb95c16",
+                "D": 210,
+                "canonical_C": "553483131372134209720441815667732226503285097282565273313950284",
+                "canonical_C_bits": 209,
+                "exponent_precision_K": 209,
+                "factor_complexity_through_5": {
+                  "1": 2,
+                  "2": 1
+                },
+                "last_exponent_carry": "24237345688170707",
+                "last_exponent_carry_bits": 55,
+                "least_prefix_period": 2,
+                "nonzero_carries": 1,
+                "path": [
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ]
+                ],
+                "path_description_cost": 13,
+                "path_sha256": "1afa647d31a816c0bd8acad6e7567a5ec60fafe8e00cc2146f1254e94d84014e",
+                "zero_carry_suffix": 0
+              }
+            }
+          ],
+          "depth": 2,
+          "exhaustive_over_full_alphabet_at_this_depth": true,
+          "frontier_kind_counts": {
+            "decoder_shortfall": 1,
+            "writer_shortfall": 80
+          },
+          "minimum_decoder_shortfall": 145,
+          "parents_expanded": 9,
+          "tested_edges": 81,
+          "valid_zero_carry_cells": 0
+        },
+        {
+          "champions": [
+            {
+              "frontier": {
+                "decoder_shortfall": 45,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 10
+              },
+              "state": {
+                "A": 853,
+                "B_bits": 1512,
+                "B_sha256": "d97ff47abd38273d4a03209ece991ab263a100b302b8175b676c8291b0d06fac",
+                "D": 1345,
+                "canonical_C": "61877745474914984329609604135452604774741705026364338639821976195793539052950223350974611056429635766652292491223095396118903926574863026342203383257582927432211296345020118058215271592203382059957953329820217506532620165425133782735708651586811366510557595586314716967270650506108932865084891672119320948178714747292591732930112387972452047147966874605393603419649675738401687229968086675141576053487724",
+                "canonical_C_bits": 1342,
+                "exponent_precision_K": 1344,
+                "factor_complexity_through_5": {
+                  "1": 2,
+                  "2": 2,
+                  "3": 1
+                },
+                "last_exponent_carry": "234254726589342155176079427989774139653572983799295103339544984881633247213057119401695708140135687990436602545268647929404253953156424",
+                "last_exponent_carry_bits": 447,
+                "least_prefix_period": 3,
+                "nonzero_carries": 2,
+                "path": [
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    4,
+                    2
+                  ]
+                ],
+                "path_description_cost": 17,
+                "path_sha256": "f4d60d3a0f5fd9b710418842a9e706633c68a4db8634d33116e4e1e78a63f92a",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 45,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 10
+              },
+              "state": {
+                "A": 667,
+                "B_bits": 1215,
+                "B_sha256": "9a047a527b0be160f617795fedcd5fe39a3ee4362eddf8ac077871240215d13a",
+                "D": 1051,
+                "canonical_C": "2980547063625223856509313355323062382480966836335526431816473679230341053180937835341918929768233980319078815650626330661968893230086237767852437183815194241327512707877859516391482497066913608966355804573339963536013873953637705946387249059274600504814709145862015185620218836634496345663307031444243847495957953100",
+                "canonical_C_bits": 1048,
+                "exponent_precision_K": 1050,
+                "factor_complexity_through_5": {
+                  "1": 3,
+                  "2": 2,
+                  "3": 1
+                },
+                "last_exponent_carry": "359143978875224842094978406437489904413343928992826957671511566012612360885455522042950000001739233858903760385760624224728702584000926",
+                "last_exponent_carry_bits": 447,
+                "least_prefix_period": 3,
+                "nonzero_carries": 2,
+                "path": [
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    4,
+                    2
+                  ]
+                ],
+                "path_description_cost": 20,
+                "path_sha256": "ae164958228d8cabb75edcda39dd605fd78e7c0e8245b0c7e6291c48371020c8",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 46,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 9
+              },
+              "state": {
+                "A": 667,
+                "B_bits": 1217,
+                "B_sha256": "73306af33ca27310cef073005d6f126f63889b6d39f78663150b655836ee282b",
+                "D": 1051,
+                "canonical_C": "554573880300274684944871110274742092382705974057832432901247635084730471557634019992023194119077202572865660736560181234909360839920349868370719397767916340598883480673314037720833082317480778589488255353120850196121661444355569643053543818542645121849722704585451883539934542968488083401589132609908816334080964716",
+                "canonical_C_bits": 1046,
+                "exponent_precision_K": 1050,
+                "factor_complexity_through_5": {
+                  "1": 3,
+                  "2": 2,
+                  "3": 1
+                },
+                "last_exponent_carry": "33411965270070524315050484885419802068789787657607698759536882031086575637297996926774469500014145650316469208754997122243533221800129",
+                "last_exponent_carry_bits": 444,
+                "least_prefix_period": 3,
+                "nonzero_carries": 2,
+                "path": [
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    3,
+                    0
+                  ],
+                  [
+                    4,
+                    1
+                  ]
+                ],
+                "path_description_cost": 20,
+                "path_sha256": "0f21d3464ea31756fca1763c6bcf8dde8b496a490abdf7b3f586bd8f104c4e8c",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 47,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 8
+              },
+              "state": {
+                "A": 420,
+                "B_bits": 824,
+                "B_sha256": "c28f1e7a7b409822e73ce89316bd68c683ec1cd325234f3294e55d105402d5d6",
+                "D": 660,
+                "canonical_C": "1987125923104300003385743384339341650265187868272928709958466481261489999171089834422711110986524124530367418590303883491638314482781504287746985477755408639721877541170945516547970528286843306817308",
+                "canonical_C_bits": 659,
+                "exponent_precision_K": 659,
+                "factor_complexity_through_5": {
+                  "1": 3,
+                  "2": 2,
+                  "3": 1
+                },
+                "last_exponent_carry": "37940895258400283356336877727194276528083341352",
+                "last_exponent_carry_bits": 155,
+                "least_prefix_period": 3,
+                "nonzero_carries": 2,
+                "path": [
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "path_description_cost": 20,
+                "path_sha256": "a9a0f3f9fe7152c052c24d9f58a596df9d651bc0bb890ee715c95f208f99ed1a",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 48,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 7
+              },
+              "state": {
+                "A": 169,
+                "B_bits": 320,
+                "B_sha256": "419a46d154814fa2d882c9ec7642410767b89423579b384a93156744612202ca",
+                "D": 265,
+                "canonical_C": "288595598990417915035510181795446667012249174898527115875934778730196244707916",
+                "canonical_C_bits": 258,
+                "exponent_precision_K": 264,
+                "factor_complexity_through_5": {
+                  "1": 3,
+                  "2": 2,
+                  "3": 1
+                },
+                "last_exponent_carry": "350768519851730",
+                "last_exponent_carry_bits": 49,
+                "least_prefix_period": 3,
+                "nonzero_carries": 2,
+                "path": [
+                  [
+                    3,
+                    0
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ]
+                ],
+                "path_description_cost": 20,
+                "path_sha256": "436cfeb87358903a152a7f7aa5ee0dd9acdb3266ffe2684b1b1bc552bbddb052",
+                "zero_carry_suffix": 0
+              }
+            }
+          ],
+          "depth": 3,
+          "exhaustive_over_full_alphabet_at_this_depth": false,
+          "frontier_kind_counts": {
+            "decoder_shortfall": 20,
+            "writer_shortfall": 556
+          },
+          "minimum_decoder_shortfall": 45,
+          "parents_expanded": 64,
+          "tested_edges": 576,
+          "valid_zero_carry_cells": 0
+        },
+        {
+          "champions": [
+            {
+              "frontier": {
+                "decoder_shortfall": 47,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 8
+              },
+              "state": {
+                "A": 455,
+                "B_bits": 876,
+                "B_sha256": "6fa25d15d5bfe527f467fff995ac1aaa2cb0c84b2ecb6fcdebb8ccbf74b951fb",
+                "D": 715,
+                "canonical_C": "16126872733767304306519538353002554928834351458091486736399481819368428343109711454703571109235898477318588209135910101048899854853675872070804545097305610089108197207601654721806658098574201164451406638705393841948",
+                "canonical_C_bits": 712,
+                "exponent_precision_K": 714,
+                "factor_complexity_through_5": {
+                  "1": 4,
+                  "2": 3,
+                  "3": 2,
+                  "4": 1
+                },
+                "last_exponent_carry": "68005073825864832320836984292794554628455100521311493275531340746561103738420860253253362403179086449913350700937536464274108379106808",
+                "last_exponent_carry_bits": 445,
+                "least_prefix_period": 4,
+                "nonzero_carries": 3,
+                "path": [
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    0
+                  ]
+                ],
+                "path_description_cost": 27,
+                "path_sha256": "aa96ad43b3eb71d27c5c34510dbe6ac540343aeff7bdcbd0bc6adf368de7a224",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 48,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 7
+              },
+              "state": {
+                "A": 392,
+                "B_bits": 779,
+                "B_sha256": "1c6464d4c9c247a3e4761d4a2831521d98e2cd2c808be685174592320d76ad86",
+                "D": 616,
+                "canonical_C": "44245798273618546526178237699626357615518245582482448321343586375023477075578238598542093497446355051991207598539635775369026046866132834807312932673579570044452627977340354766671755036",
+                "canonical_C_bits": 614,
+                "exponent_precision_K": 615,
+                "factor_complexity_through_5": {
+                  "1": 3,
+                  "2": 3,
+                  "3": 2,
+                  "4": 1
+                },
+                "last_exponent_carry": "46895854587858848",
+                "last_exponent_carry_bits": 56,
+                "least_prefix_period": 4,
+                "nonzero_carries": 3,
+                "path": [
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "path_description_cost": 24,
+                "path_sha256": "8115d9a7e4690cdb510f52c1b6917f13305083ec3b20023c71230005caa0cca4",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 48,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 7
+              },
+              "state": {
+                "A": 701,
+                "B_bits": 1271,
+                "B_sha256": "62bfcc8c77ad502f88fb68ff472221ebbd1e768aa927666f3ab2f534e325024e",
+                "D": 1105,
+                "canonical_C": "216818469860404552070911147704248156697449512595144408251132445510571474643199192821420382458027625393050266031678211314960263780363684792103959356814794968122219071634413171394173939111768737950614201314206276013512021868902216091231046396270284818509756832398947526406607529638121062910792781143612803964994669792486002459456305260",
+                "canonical_C_bits": 1104,
+                "exponent_precision_K": 1104,
+                "factor_complexity_through_5": {
+                  "1": 3,
+                  "2": 3,
+                  "3": 2,
+                  "4": 1
+                },
+                "last_exponent_carry": "71888731319892064",
+                "last_exponent_carry_bits": 56,
+                "least_prefix_period": 4,
+                "nonzero_carries": 3,
+                "path": [
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "path_description_cost": 25,
+                "path_sha256": "497741ed34611f9cbd0715834ef91ca1f8c166d10c7a759050555061cf56835c",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 145,
+                "derived_c": 3,
+                "kind": "decoder_shortfall",
+                "required": 154,
+                "v2_9H_plus_Bg": 9
+              },
+              "state": {
+                "A": 395,
+                "B_bits": 782,
+                "B_sha256": "c9f02508896e73282825867c8a5d999676fe67276119696fc3d7852665014611",
+                "D": 619,
+                "canonical_C": "297999582656462307968505477984008178517129851531907011296244441685160938627258234102176471086645026539959355901378477174155504251343273289446867865190523551695440699388051738693197149980",
+                "canonical_C_bits": 617,
+                "exponent_precision_K": 618,
+                "factor_complexity_through_5": {
+                  "1": 3,
+                  "2": 3,
+                  "3": 2,
+                  "4": 1
+                },
+                "last_exponent_carry": "19740497460739408",
+                "last_exponent_carry_bits": 55,
+                "least_prefix_period": 4,
+                "nonzero_carries": 3,
+                "path": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "path_description_cost": 24,
+                "path_sha256": "a219e53e8bb494ef69d0c41c9c8bf264413ee3f4f1cf3c27e52fe6d650cd6b16",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 146,
+                "derived_c": 3,
+                "kind": "decoder_shortfall",
+                "required": 154,
+                "v2_9H_plus_Bg": 8
+              },
+              "state": {
+                "A": 453,
+                "B_bits": 876,
+                "B_sha256": "d97145c6c18559290694e14b8281d07a427b2f8891c8c16dbe60805110d7686a",
+                "D": 713,
+                "canonical_C": "19655951071652867189106289052782187494580385316741296352234347293822325957214235860726541432998592627877639350191512097357179710250686801467437727905961378086401324821821402755680564457551927388863175209487840098076",
+                "canonical_C_bits": 712,
+                "exponent_precision_K": 712,
+                "factor_complexity_through_5": {
+                  "1": 4,
+                  "2": 3,
+                  "3": 2,
+                  "4": 1
+                },
+                "last_exponent_carry": "32869031770706552",
+                "last_exponent_carry_bits": 55,
+                "least_prefix_period": 4,
+                "nonzero_carries": 3,
+                "path": [
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ]
+                ],
+                "path_description_cost": 27,
+                "path_sha256": "bed150287a0737f64636569df565dd9ea1700c4f1e8a7cdba55160bcc29bed8e",
+                "zero_carry_suffix": 0
+              }
+            }
+          ],
+          "depth": 4,
+          "exhaustive_over_full_alphabet_at_this_depth": false,
+          "frontier_kind_counts": {
+            "counter_above_semantic_bound": 1,
+            "decoder_shortfall": 11,
+            "writer_shortfall": 564
+          },
+          "minimum_decoder_shortfall": 47,
+          "parents_expanded": 64,
+          "tested_edges": 576,
+          "valid_zero_carry_cells": 0
+        },
+        {
+          "champions": [
+            {
+              "frontier": {
+                "decoder_shortfall": 41,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 14
+              },
+              "state": {
+                "A": 494,
+                "B_bits": 939,
+                "B_sha256": "4377d815add15c77bf933293418da09b2e71642895572ed8555e7d3c87d17f83",
+                "D": 774,
+                "canonical_C": "40070543447355944046315552275074718747753677651636897561067458693332980295478159783364859179533035211013332263470847747508127472797087995054514518901148092713040493404272513431540623168174542145859045519689987003083684785614361245468",
+                "canonical_C_bits": 773,
+                "exponent_precision_K": 773,
+                "factor_complexity_through_5": {
+                  "1": 4,
+                  "2": 4,
+                  "3": 3,
+                  "4": 2,
+                  "5": 1
+                },
+                "last_exponent_carry": "36837310279560582654196906365826837472910391552",
+                "last_exponent_carry_bits": 155,
+                "least_prefix_period": 5,
+                "nonzero_carries": 4,
+                "path": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "path_description_cost": 31,
+                "path_sha256": "47a48d900b731a0761e52cc190e955527f59633201f735cedd38bd0715b99084",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 44,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 11
+              },
+              "state": {
+                "A": 493,
+                "B_bits": 938,
+                "B_sha256": "f2b6c298090ebc7ebdad15696971a45170877a34023f541ab8605f36974dffc6",
+                "D": 773,
+                "canonical_C": "2810109232138929602740044551974657421588413240836178893730209780707757431005114511423777367645519740201626726739701990560009551738332449659851624300159745372133573979772115698334256313016179470052733539040791753062256461122775856924",
+                "canonical_C_bits": 769,
+                "exponent_precision_K": 772,
+                "factor_complexity_through_5": {
+                  "1": 4,
+                  "2": 4,
+                  "3": 3,
+                  "4": 2,
+                  "5": 1
+                },
+                "last_exponent_carry": "2583365654617545508798043099038954199724472576",
+                "last_exponent_carry_bits": 151,
+                "least_prefix_period": 5,
+                "nonzero_carries": 4,
+                "path": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    3,
+                    0
+                  ]
+                ],
+                "path_description_cost": 31,
+                "path_sha256": "1ffb0d34419a1ad2908a3fc52cc9e20e1448b01a856f908c7a501f3b209f5ea6",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 45,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 10
+              },
+              "state": {
+                "A": 495,
+                "B_bits": 941,
+                "B_sha256": "8c1931fe64416ca0696e1e601dbd1c33acb4bc4638adccb0df7823a17d6d9453",
+                "D": 775,
+                "canonical_C": "64910832924167287008699224090474759631863853925504043339292291301749795538460189964658913720791378858221135954624944918806872753502925025317623115301806990940311773020606111920344867738280117263063253506789450503097970335275418171164",
+                "canonical_C_bits": 774,
+                "exponent_precision_K": 774,
+                "factor_complexity_through_5": {
+                  "1": 4,
+                  "2": 4,
+                  "3": 3,
+                  "4": 2,
+                  "5": 1
+                },
+                "last_exponent_carry": "59673273362855940751129481877018759655034337536",
+                "last_exponent_carry_bits": 156,
+                "least_prefix_period": 5,
+                "nonzero_carries": 4,
+                "path": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    3,
+                    2
+                  ]
+                ],
+                "path_description_cost": 31,
+                "path_sha256": "633df5572004749c5d7bf086346b2b0f54eaacea86cd9a8d701738ef95c1566a",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 46,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 9
+              },
+              "state": {
+                "A": 428,
+                "B_bits": 836,
+                "B_sha256": "4f16eea338bbbdfc9d9ea64724600cc3c0d0de7320fff2b4046e6e4f37eea4c0",
+                "D": 672,
+                "canonical_C": "4148052330824449200176825365481257342899758900669634268970059743191243094933892647295917292472386778524674206542880056774390749037002219730833125772827327027659429575307315274284274123313723458394306332",
+                "canonical_C_bits": 670,
+                "exponent_precision_K": 671,
+                "factor_complexity_through_5": {
+                  "1": 3,
+                  "2": 4,
+                  "3": 3,
+                  "4": 2,
+                  "5": 1
+                },
+                "last_exponent_carry": "30506816752747072",
+                "last_exponent_carry_bits": 55,
+                "least_prefix_period": 4,
+                "nonzero_carries": 4,
+                "path": [
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "path_description_cost": 25,
+                "path_sha256": "caff86640243a042da9d9a1ba26e36f9627eef294e194469b21019de715f9e88",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 46,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 9
+              },
+              "state": {
+                "A": 490,
+                "B_bits": 935,
+                "B_sha256": "752a0b88393950b1567313195cff673d3b63a1da6c67e50013eb6ef7ee0fecb5",
+                "D": 770,
+                "canonical_C": "1001014288063962575049758421720779696819999697581289259580493702905511656149223204306743849160707078492476219352844791095190285364004695566812971247937925886374360590221984285913876240337571361096126559238935608267960903486886426396",
+                "canonical_C_bits": 768,
+                "exponent_precision_K": 769,
+                "factor_complexity_through_5": {
+                  "1": 5,
+                  "2": 4,
+                  "3": 3,
+                  "4": 2,
+                  "5": 1
+                },
+                "last_exponent_carry": "46460444843245920",
+                "last_exponent_carry_bits": 56,
+                "least_prefix_period": 5,
+                "nonzero_carries": 4,
+                "path": [
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "path_description_cost": 34,
+                "path_sha256": "eba6123055c9603d136cf376d9a8d5c3ea905e3cd9057e9f72d6325749c77d18",
+                "zero_carry_suffix": 0
+              }
+            }
+          ],
+          "depth": 5,
+          "exhaustive_over_full_alphabet_at_this_depth": false,
+          "frontier_kind_counts": {
+            "decoder_shortfall": 20,
+            "writer_shortfall": 556
+          },
+          "minimum_decoder_shortfall": 41,
+          "parents_expanded": 64,
+          "tested_edges": 576,
+          "valid_zero_carry_cells": 0
+        },
+        {
+          "champions": [
+            {
+              "frontier": {
+                "decoder_shortfall": 46,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 9
+              },
+              "state": {
+                "A": 776,
+                "B_bits": 1387,
+                "B_sha256": "6632c66f0861498d69567de3990587c1e53f1277cfb84894907170277eb4b8f1",
+                "D": 1220,
+                "canonical_C": "815326399414818491884746518723861118875104503149646005459585189717956962387517768446134205238419374944328456068997365785580969052462133473087624142518794115291853522118865130911177138060508505893691658435089312432956829197053516796101808440839113308237133381313979445658856564391802295479082261749711405505751379418933269457470959833466933425519342534747350659282716",
+                "canonical_C_bits": 1216,
+                "exponent_precision_K": 1219,
+                "factor_complexity_through_5": {
+                  "1": 6,
+                  "2": 5,
+                  "3": 4,
+                  "4": 3,
+                  "5": 2
+                },
+                "last_exponent_carry": "6507985060905488",
+                "last_exponent_carry_bits": 53,
+                "least_prefix_period": 6,
+                "nonzero_carries": 5,
+                "path": [
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "path_description_cost": 41,
+                "path_sha256": "29575bbf25d0adee2528d9d1a644510679d81eb06255b4b86716c6b0b0a65bad",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 46,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 9
+              },
+              "state": {
+                "A": 338,
+                "B_bits": 588,
+                "B_sha256": "5209860a4f6760cbb742168854a4a8d3c39f4f2ad05814852ebda4888886afaa",
+                "D": 530,
+                "canonical_C": "876485967336705629168815784252318689208452539934733213086395490807171538546384855237593982244281099925488340718536510187705262966513767922838480457432958057036",
+                "canonical_C_bits": 528,
+                "exponent_precision_K": 529,
+                "factor_complexity_through_5": {
+                  "1": 3,
+                  "2": 4,
+                  "3": 4,
+                  "4": 3,
+                  "5": 2
+                },
+                "last_exponent_carry": "11389288480378382319725354515035818306459903712",
+                "last_exponent_carry_bits": 153,
+                "least_prefix_period": 5,
+                "nonzero_carries": 5,
+                "path": [
+                  [
+                    3,
+                    0
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    3,
+                    0
+                  ]
+                ],
+                "path_description_cost": 29,
+                "path_sha256": "d051c4a2b7145fec8ff0832a4b343a08e7f842d1cb08635e39d66566676afc46",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 47,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 8
+              },
+              "state": {
+                "A": 962,
+                "B_bits": 1684,
+                "B_sha256": "6dd4677404b6ee99eb795b1ac09bda5d6d1de97bcf68b61556a574ff1b7da221",
+                "D": 1514,
+                "canonical_C": "21151129294217652562654598341587563597052422666872923793495127894028107624509948033500767480167176485462660385038431683186924078261088861749743065729458991186216861719280079643780786436309916673988968699866096281373293512226305144794382956406644689249843439291557203540618070052310196183580836381198532283371426236733246805952334898525775154880031122292672304135198135197705272625699327081082343521155037686295851484646878382435233193403977518300140402796",
+                "canonical_C_bits": 1510,
+                "exponent_precision_K": 1513,
+                "factor_complexity_through_5": {
+                  "1": 4,
+                  "2": 4,
+                  "3": 4,
+                  "4": 3,
+                  "5": 2
+                },
+                "last_exponent_carry": "10608643938516608",
+                "last_exponent_carry_bits": 54,
+                "least_prefix_period": 6,
+                "nonzero_carries": 5,
+                "path": [
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "path_description_cost": 37,
+                "path_sha256": "626ca56b3e9e5d7dc34aacca26f28b40c9bb1f266335c2895a40fcb985f2b3be",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 47,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 8
+              },
+              "state": {
+                "A": 714,
+                "B_bits": 1291,
+                "B_sha256": "1bdd97a37e8b81eac90bacb6578cf4839033b06a73c3f4b056e61da2f4129103",
+                "D": 1122,
+                "canonical_C": "5162147934592592525711659959619045563583316423443503100307730046121928871903888791947282263037402197827122433875821168565963959760285931897974141908657320551679626961878132527452432628838576766679302015655368954634506303712760946128735383226415898925013495548530497345942159723464141648199870670733866258786116827296887897857082741487724",
+                "canonical_C_bits": 1119,
+                "exponent_precision_K": 1121,
+                "factor_complexity_through_5": {
+                  "1": 5,
+                  "2": 5,
+                  "3": 4,
+                  "4": 3,
+                  "5": 2
+                },
+                "last_exponent_carry": "26116505121101272",
+                "last_exponent_carry_bits": 55,
+                "least_prefix_period": 6,
+                "nonzero_carries": 5,
+                "path": [
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "path_description_cost": 39,
+                "path_sha256": "df4c502c16b6577dd4b7895cf82a06e282bc890687ded4a628127d623933b239",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 47,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 8
+              },
+              "state": {
+                "A": 592,
+                "B_bits": 1094,
+                "B_sha256": "b081adab1eca9202411ee220278c7ccf240dc05c1f51989db868b3cf48db4bcf",
+                "D": 928,
+                "canonical_C": "612036515552522369753053969937404535380799457052059977018965810643958150589251098237516801545706740067689403541208292451907018024050811634832530710539499608171376880860060831882536374592141846117628163974048005464965624270780909373490189089487895919939632570730062794942680971036",
+                "canonical_C_bits": 927,
+                "exponent_precision_K": 927,
+                "factor_complexity_through_5": {
+                  "1": 5,
+                  "2": 5,
+                  "3": 4,
+                  "4": 3,
+                  "5": 2
+                },
+                "last_exponent_carry": "12319432028436394393960850541476929637470897504",
+                "last_exponent_carry_bits": 154,
+                "least_prefix_period": 6,
+                "nonzero_carries": 5,
+                "path": [
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    3,
+                    0
+                  ]
+                ],
+                "path_description_cost": 38,
+                "path_sha256": "d721cfd14e016eddd73689ab547331e3c70b83ea04b43f714f94b1beaf88c4ae",
+                "zero_carry_suffix": 0
+              }
+            }
+          ],
+          "depth": 6,
+          "exhaustive_over_full_alphabet_at_this_depth": false,
+          "frontier_kind_counts": {
+            "decoder_shortfall": 16,
+            "writer_shortfall": 560
+          },
+          "minimum_decoder_shortfall": 46,
+          "parents_expanded": 64,
+          "tested_edges": 576,
+          "valid_zero_carry_cells": 0
+        },
+        {
+          "champions": [
+            {
+              "frontier": {
+                "decoder_shortfall": 46,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 9
+              },
+              "state": {
+                "A": 938,
+                "B_bits": 1640,
+                "B_sha256": "73dc75a0ba222d283981d6230c278f7af39dca35314bfdd6f4aece23d9602d5b",
+                "D": 1474,
+                "canonical_C": "83074886305447193504250488559360169752028328419649533635754650446592598318149942479899898608693482737356909801262047119901647012738743253188812566441747235223644631258424509222329494293292584668835933912285003633354365966744625175169545950545972515489590343833500831892642603361434655090881769607492716226637810609172068228999823806074186193539334657108421496651581347834446128183044742687114417001837394497693033742981554478277501160926558796",
+                "canonical_C_bits": 1472,
+                "exponent_precision_K": 1473,
+                "factor_complexity_through_5": {
+                  "1": 5,
+                  "2": 6,
+                  "3": 5,
+                  "4": 4,
+                  "5": 3
+                },
+                "last_exponent_carry": "11453438918384160",
+                "last_exponent_carry_bits": 54,
+                "least_prefix_period": 7,
+                "nonzero_carries": 6,
+                "path": [
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ]
+                ],
+                "path_description_cost": 43,
+                "path_sha256": "c9b043e0d3da5acf37658b67f1812a691bb5c12fdafad599a9c7e3b5bdab3eab",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 47,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 8
+              },
+              "state": {
+                "A": 1060,
+                "B_bits": 1835,
+                "B_sha256": "26dee7a32fac451be43b8770d0113fc90dc7841a370a312237c99b5d05733fb9",
+                "D": 1668,
+                "canonical_C": "601608478789213329028156596202776427453313258438250213866141798868064201449986201848570521993575546684470691959751638357177663612485805200072136670882365547835438295828971247799632751060157588107745982438703627083547955266022268905936580499863334466310965036877946851446245864718459392258722636170368918053564165705065326297347779798718173356308154806371521665765586459582233442373777957475845681488554811351360107879859026379023536774296149623062046022354804371456447392523440642630611645181069932316",
+                "canonical_C_bits": 1664,
+                "exponent_precision_K": 1667,
+                "factor_complexity_through_5": {
+                  "1": 5,
+                  "2": 6,
+                  "3": 5,
+                  "4": 4,
+                  "5": 3
+                },
+                "last_exponent_carry": "13213593111167520",
+                "last_exponent_carry_bits": 54,
+                "least_prefix_period": 7,
+                "nonzero_carries": 6,
+                "path": [
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "path_description_cost": 43,
+                "path_sha256": "172b02fc133bd12add2c5cb9b8e1d18f6b92b90b644ea631c2a83a69070d741e",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 47,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 8
+              },
+              "state": {
+                "A": 874,
+                "B_bits": 1540,
+                "B_sha256": "26f2a94a1f56452f7faaf9853eb3314414837e4405ee12d8cf4da401235944b1",
+                "D": 1374,
+                "canonical_C": "18501607861446969085246773236405166491802134190077251894193638351169879387122494448294212253027111448477476234127204766737143308029521429467821766642903907437424151264032811993059656846548813267152042343892389446873544825897168018600203516833826150840942377242564439102799897370237105948976892019785426111985246040997057961321113154570882359904693594575724666865973607782545523548288339527200448677856020732098332",
+                "canonical_C_bits": 1370,
+                "exponent_precision_K": 1373,
+                "factor_complexity_through_5": {
+                  "1": 5,
+                  "2": 6,
+                  "3": 5,
+                  "4": 4,
+                  "5": 3
+                },
+                "last_exponent_carry": "8197940253377339403276156697926206711949540200",
+                "last_exponent_carry_bits": 153,
+                "least_prefix_period": 7,
+                "nonzero_carries": 6,
+                "path": [
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    3,
+                    2
+                  ]
+                ],
+                "path_description_cost": 43,
+                "path_sha256": "b51aa12c744ad82e6845771d636d681390bc05fa2f6a397c87b3b71632cd31f0",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 47,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 8
+              },
+              "state": {
+                "A": 691,
+                "B_bits": 1249,
+                "B_sha256": "125dbcbc31b6f5a0f4a2096cb6bf39af899486a5f0c5115223062606ed01e6b8",
+                "D": 1083,
+                "canonical_C": "48065727615014248019552691072373948246316654438436355420907995123056645576565839779955147261164833832754859895815851182770533266188143685515890237716384476998718948843942851897506802837037657457984841680119459626265281727308503423408152340908232629067863635230124734889866463158082567989232622145699606278554888147559960885836",
+                "canonical_C_bits": 1082,
+                "exponent_precision_K": 1082,
+                "factor_complexity_through_5": {
+                  "1": 6,
+                  "2": 6,
+                  "3": 5,
+                  "4": 4,
+                  "5": 3
+                },
+                "last_exponent_carry": "21183589150994762916627149320414323796364982352",
+                "last_exponent_carry_bits": 154,
+                "least_prefix_period": 7,
+                "nonzero_carries": 6,
+                "path": [
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    3,
+                    0
+                  ]
+                ],
+                "path_description_cost": 46,
+                "path_sha256": "8bca6937f4e0139edcb41f8552bb12b34524e135d0c5678e4c241cb839704525",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 47,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 8
+              },
+              "state": {
+                "A": 1306,
+                "B_bits": 2229,
+                "B_sha256": "c135a5eb1c175391ed30ddb0f3664cdae208314d26b98ab535035e6400683563",
+                "D": 2058,
+                "canonical_C": "11747565110026901141885501786947891964821985199454202427247012660613408925925442578602274679179197312000276102238945134519308145146167757472567660008517539064813676790209486617416836980057473060289775361807064703407514350593666558068333856021822934616727579218394197141632313406500605421471366392258259164131025501411093780961119935249246668733563157745590542998587018532029738600585478041007595520643145972548501730108894134539995526759204829558615179857792188818561849583968190783546953896074717162156844683615476512495808600077047459565301946423244595197590371531968465784400861448212086395472466462130537000983066732",
+                "canonical_C_bits": 2057,
+                "exponent_precision_K": 2057,
+                "factor_complexity_through_5": {
+                  "1": 6,
+                  "2": 6,
+                  "3": 5,
+                  "4": 4,
+                  "5": 3
+                },
+                "last_exponent_carry": "258020873846810828867384654189358369733919577295631890199157293542190976541856161926367145304720762802663552006274457817815378295730800",
+                "last_exponent_carry_bits": 447,
+                "least_prefix_period": 7,
+                "nonzero_carries": 6,
+                "path": [
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    4,
+                    0
+                  ]
+                ],
+                "path_description_cost": 45,
+                "path_sha256": "a6233a70b03eaac32858a1349cf95ca6d3737f9a5bdb11e8f5a44d28ea7ce56d",
+                "zero_carry_suffix": 0
+              }
+            }
+          ],
+          "depth": 7,
+          "exhaustive_over_full_alphabet_at_this_depth": false,
+          "frontier_kind_counts": {
+            "decoder_shortfall": 21,
+            "writer_shortfall": 555
+          },
+          "minimum_decoder_shortfall": 46,
+          "parents_expanded": 64,
+          "tested_edges": 576,
+          "valid_zero_carry_cells": 0
+        },
+        {
+          "champions": [
+            {
+              "frontier": {
+                "decoder_shortfall": 46,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 9
+              },
+              "state": {
+                "A": 1222,
+                "B_bits": 2092,
+                "B_sha256": "2ecd84ae264d5fbc6e09006a8f98e8a214b67a7788ef7d6bb70bb438f5968899",
+                "D": 1922,
+                "canonical_C": "161269544738557793399439177678174087293288708693818679734581039962264557035792516431424766436800162404700257837731551081541430152335216127531157073473954760965251116093010357526723057467681302784997315806274171849863271112460658951349224173791438563538047388337324784652159039358691139217741495971286997432759418853181691850628289150578090582693612321511573145830863775275909336769605147082392776558614232163144818181916206781142926926396895151104933451344974731184650889421650788644512900271070322162398074974400796291348745805094207322927838053333396702111370738047187893172812",
+                "canonical_C_bits": 1921,
+                "exponent_precision_K": 1921,
+                "factor_complexity_through_5": {
+                  "1": 6,
+                  "2": 7,
+                  "3": 6,
+                  "4": 5,
+                  "5": 4
+                },
+                "last_exponent_carry": "19388759412656342030497647099945207714941836968",
+                "last_exponent_carry_bits": 154,
+                "least_prefix_period": 8,
+                "nonzero_carries": 7,
+                "path": [
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    3,
+                    0
+                  ]
+                ],
+                "path_description_cost": 50,
+                "path_sha256": "71dc80ebba5d5f6f0f16c7633d2276d049e61f0115828b60a5790372e95251d2",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 46,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 9
+              },
+              "state": {
+                "A": 909,
+                "B_bits": 1600,
+                "B_sha256": "a4d4a25584b112681dbeca9b2cce6fe4ce185c04243826d5be27c53e3b3989d8",
+                "D": 1429,
+                "canonical_C": "6775113314076335528290308672817756676684433869928672170497160004556154547403754442475722581721394386322369325817220499975256546644641761976956233714432031352061976020257476454367017573345635042980346150944246039278225256705617822901714553617132197779484565992431385231555865235941981752611975436633308605404825875166679142395083483843744813684627650455372109154791875907852958653192021600008074422915468728446553527239372435093612",
+                "canonical_C_bits": 1428,
+                "exponent_precision_K": 1428,
+                "factor_complexity_through_5": {
+                  "1": 7,
+                  "2": 7,
+                  "3": 6,
+                  "4": 5,
+                  "5": 4
+                },
+                "last_exponent_carry": "41661229530604856202099233005075955414624968096",
+                "last_exponent_carry_bits": 155,
+                "least_prefix_period": 8,
+                "nonzero_carries": 7,
+                "path": [
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    3,
+                    0
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    3,
+                    1
+                  ]
+                ],
+                "path_description_cost": 53,
+                "path_sha256": "1d043eb2d3fe5d2683e055dcd01e7e9a780e4b0405792e30a1f360b8bdcf5339",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 47,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 8
+              },
+              "state": {
+                "A": 787,
+                "B_bits": 1399,
+                "B_sha256": "b10bb909f6515ba70c63cd5ff9ab7bec5a7323494ea237814624423627657180",
+                "D": 1235,
+                "canonical_C": "198385168799710118531432633933653731280354125988490584121319168137346368569053461806043898376847089016113048268084177919661699539086885378188025589162372101900127773642307395398049645357316679867393355911556847825505489122618397298427689216624032582310928513532842652188141615601801228581722102219213790830917131454343897009693117327271219822622729720376291593508347787852",
+                "canonical_C_bits": 1234,
+                "exponent_precision_K": 1234,
+                "factor_complexity_through_5": {
+                  "1": 5,
+                  "2": 7,
+                  "3": 6,
+                  "4": 5,
+                  "5": 4
+                },
+                "last_exponent_carry": "61259560342720933246187570158000453567886500560",
+                "last_exponent_carry_bits": 156,
+                "least_prefix_period": 8,
+                "nonzero_carries": 7,
+                "path": [
+                  [
+                    3,
+                    0
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    3,
+                    0
+                  ],
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    3,
+                    2
+                  ]
+                ],
+                "path_description_cost": 48,
+                "path_sha256": "885927e4a364945a7a04bfc581e7d7acb7aad0a817e9aaf10ce5947e1053730a",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 48,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 7
+              },
+              "state": {
+                "A": 787,
+                "B_bits": 1404,
+                "B_sha256": "2045bcc2a303c71a770cd81c27b5cb2d922a330506459edc1adc6729c7540e06",
+                "D": 1235,
+                "canonical_C": "13407437379711340513743464086786927400367354447235317834411837838823709738052482735429771732128908480618913749154564184117646266882591393566766663792326049266091733958677621693010643158124782181980016946251459412693524561626690999960780934426734735515102022274009925148579748852008536478902081396852127182208752267831895417864916445225079073268331941905661586112973453900",
+                "canonical_C_bits": 1230,
+                "exponent_precision_K": 1234,
+                "factor_complexity_through_5": {
+                  "1": 6,
+                  "2": 7,
+                  "3": 6,
+                  "4": 5,
+                  "5": 4
+                },
+                "last_exponent_carry": "6531920356140064",
+                "last_exponent_carry_bits": 53,
+                "least_prefix_period": 8,
+                "nonzero_carries": 7,
+                "path": [
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    3,
+                    0
+                  ],
+                  [
+                    4,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    3,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    3,
+                    2
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "path_description_cost": 51,
+                "path_sha256": "6a78cf83760df4525de373e138d2d8fbb8a07ec5ead6bc8b272f985a04db50aa",
+                "zero_carry_suffix": 0
+              }
+            },
+            {
+              "frontier": {
+                "decoder_shortfall": 48,
+                "derived_c": 2,
+                "kind": "decoder_shortfall",
+                "required": 55,
+                "v2_9H_plus_Bg": 7
+              },
+              "state": {
+                "A": 847,
+                "B_bits": 1502,
+                "B_sha256": "3c5de1195b6e32ad4fdef038761067276517bb79fd51c5bc584ec011e440923b",
+                "D": 1331,
+                "canonical_C": "2492124478934088784273372313582087518101858873688789266473392879130643332143133697737795117157090014429962213183790630941565685981221852839457797120069230578502365849470631042201946284142953747268855419520465119405620222561376289409948619647233125397741766293264810301666740051198804241454380935272585678877583563381208078704669044274766782072368600971682999464718140473298196908314952926417282398316",
+                "canonical_C_bits": 1327,
+                "exponent_precision_K": 1330,
+                "factor_complexity_through_5": {
+                  "1": 6,
+                  "2": 7,
+                  "3": 6,
+                  "4": 5,
+                  "5": 4
+                },
+                "last_exponent_carry": "15324462503084608",
+                "last_exponent_carry_bits": 54,
+                "least_prefix_period": 8,
+                "nonzero_carries": 7,
+                "path": [
+                  [
+                    4,
+                    2
+                  ],
+                  [
+                    3,
+                    0
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    0
+                  ],
+                  [
+                    4,
+                    0
+                  ],
+                  [
+                    2,
+                    2
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    2,
+                    2
+                  ]
+                ],
+                "path_description_cost": 51,
+                "path_sha256": "79ee8353aebbddc4ebf076c7c859a3b1119f6f4356bb81ba67c197dba177e1d6",
+                "zero_carry_suffix": 0
+              }
+            }
+          ],
+          "depth": 8,
+          "exhaustive_over_full_alphabet_at_this_depth": false,
+          "frontier_kind_counts": {
+            "counter_above_semantic_bound": 2,
+            "decoder_shortfall": 15,
+            "writer_shortfall": 559
+          },
+          "minimum_decoder_shortfall": 46,
+          "parents_expanded": 64,
+          "tested_edges": 576,
+          "valid_zero_carry_cells": 0
+        }
+      ],
+      "least_failure_by_kind": {
+        "counter_above_semantic_bound": {
+          "depth": 8,
+          "frontier": {
+            "derived_c": 7,
+            "kind": "counter_above_semantic_bound",
+            "maximum_counter": 6,
+            "v2_9H_plus_7": 11
+          },
+          "state": {
+            "A": 536,
+            "B_bits": 902,
+            "B_sha256": "5b6c0c7981ea72f4829551928246f36b4ada4239b87682ba5d79f8714e0d3e91",
+            "D": 840,
+            "canonical_C": "1766431298976231169797347039352270116481066107150868163631659515514004177581760960814517840397016738308654776874375725129038224319200593075703492006741591870462308536606254332637641535584167749771331460161957862310166718465785664258173252653586422250060",
+            "canonical_C_bits": 838,
+            "exponent_precision_K": 839,
+            "factor_complexity_through_5": {
+              "1": 4,
+              "2": 7,
+              "3": 6,
+              "4": 5,
+              "5": 4
+            },
+            "last_exponent_carry": "17361216412320888",
+            "last_exponent_carry_bits": 54,
+            "least_prefix_period": 8,
+            "nonzero_carries": 7,
+            "path": [
+              [
+                3,
+                0
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                2,
+                0
+              ],
+              [
+                2,
+                0
+              ],
+              [
+                3,
+                0
+              ],
+              [
+                3,
+                2
+              ],
+              [
+                3,
+                0
+              ],
+              [
+                2,
+                0
+              ]
+            ],
+            "path_description_cost": 46,
+            "path_sha256": "c74123447f0cabd496e08058e1cf989c42772d6d03c8f56149c2797cba6e157b",
+            "zero_carry_suffix": 0
+          }
+        },
+        "decoder_shortfall": {
+          "depth": 3,
+          "frontier": {
+            "decoder_shortfall": 48,
+            "derived_c": 2,
+            "kind": "decoder_shortfall",
+            "required": 55,
+            "v2_9H_plus_Bg": 7
+          },
+          "state": {
+            "A": 169,
+            "B_bits": 320,
+            "B_sha256": "419a46d154814fa2d882c9ec7642410767b89423579b384a93156744612202ca",
+            "D": 265,
+            "canonical_C": "288595598990417915035510181795446667012249174898527115875934778730196244707916",
+            "canonical_C_bits": 258,
+            "exponent_precision_K": 264,
+            "factor_complexity_through_5": {
+              "1": 3,
+              "2": 2,
+              "3": 1
+            },
+            "last_exponent_carry": "350768519851730",
+            "last_exponent_carry_bits": 49,
+            "least_prefix_period": 3,
+            "nonzero_carries": 2,
+            "path": [
+              [
+                3,
+                0
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                2,
+                0
+              ]
+            ],
+            "path_description_cost": 20,
+            "path_sha256": "436cfeb87358903a152a7f7aa5ee0dd9acdb3266ffe2684b1b1bc552bbddb052",
+            "zero_carry_suffix": 0
+          }
+        },
+        "writer_shortfall": {
+          "depth": 1,
+          "frontier": {
+            "derived_c": -3,
+            "kind": "writer_shortfall",
+            "v2_9H_plus_7": 1,
+            "writer_shortfall": 5
+          },
+          "state": {
+            "A": 35,
+            "B_bits": 72,
+            "B_sha256": "410aebbd8a378e12f6af63fc346cf8121ba0b379a0601ba6e90d762b34102973",
+            "D": 55,
+            "canonical_C": "7848752615831324",
+            "canonical_C_bits": 53,
+            "exponent_precision_K": 54,
+            "factor_complexity_through_5": {
+              "1": 1
+            },
+            "last_exponent_carry": null,
+            "last_exponent_carry_bits": null,
+            "least_prefix_period": 1,
+            "nonzero_carries": 0,
+            "path": [
+              [
+                2,
+                0
+              ]
+            ],
+            "path_description_cost": 6,
+            "path_sha256": "75273ac17054d9569884ac48ff9b17db6fa1c1d2d11d07fbe72cbe7bbf6df493",
+            "zero_carry_suffix": 0
+          }
+        }
+      },
+      "tested_frontiers_sha256": "600ac15c061ba6861fbd23c56d40f618603dd5e085e159b3104817199ea2ee5a"
+    },
     "symbolic_transition_algebra_closed": true,
     "unbounded_invariant_closed": false,
     "universal_invariant": null
   },
-  "schema": "collatz-outward-writer-decoder-cegis-v1",
-  "worker_sha256": "13605545857ba73a9aba7ea57ed835da60ca73622697e2d5bff07202446509f8"
+  "schema": "collatz-outward-writer-decoder-cegis-v2",
+  "worker_sha256": "76e10be068fe04f5e97460bc10de09f306b3a041021f909e1055b53ef9c86b1f"
 }

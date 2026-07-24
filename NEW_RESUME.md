@@ -1,6 +1,29 @@
 # NEW_RESUME — Kontorovich counterexample-search handoff
 
-Updated: 2026-07-23, about 19:34 EDT
+Updated: 2026-07-23, about 20:09 EDT
+
+### 20:09 EDT continuation -- semantic CEGIS rejects its first refinement
+
+There is no counterexample.  Exact replay of the address-ranked beam showed
+how to refine the selector architecture: derive the canonical next writer
+counter from `v2(9H+7)-4`, retain actual `010111` re-entry, then minimize the
+resonant-decoder valuation shortfall.
+
+The new reconstructible lane uses the same nine prefix symbols, depth eight,
+beam 64, and derived frontier counters through six.  It checks 3,546
+frontiers, exhaustive through depth two.  It finds writer-compatible prefixes
+at every depth after one but no valid decoder.  The minimum exact shortfalls
+are
+
+```text
+null,145,45,47,41,46,46,46.
+```
+
+The best row has derived `c=2` and only 14 of the 55 required valuation bits.
+This rejects the semantic score at its bounds, not the infinite architecture.
+Do not enlarge the beam; seek an arithmetic law forcing the decoder
+congruence at a fixed canonical exponent.  Artifact schema v2 retains
+`universal_invariant:null` and `counterexample:null`.
 
 ### 19:34 EDT continuation -- the writer--decoder chart and address theorem
 

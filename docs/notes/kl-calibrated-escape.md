@@ -2665,6 +2665,29 @@ a bounded failure of the displayed selectors rather than an unbounded
 exclusion.  The source and artifact are self-digesting and retain
 `universal_invariant:null` and `counterexample:null`.
 
+The artifact's outer loop then changes architectures in direct response to
+that failure.  Instead of minimizing the last exponent carry, the semantic
+beam ranks each canonical prefix by:
+
+1. whether `v_2(9H+7)>=6`, which derives the unique writer counter
+   `c=v_2(9H+7)-4`; and
+2. if so, the exact shortfall of `v_2(9H+Bg)` below `S+c+4`.
+
+At depth eight and beam 64 it checks 3,546 frontiers, exhaustive through depth
+two and beam-bounded afterward.  The exact minimum decoder shortfalls by
+depth are
+
+```text
+null, 145, 45, 47, 41, 46, 46, 46.
+```
+
+There are zero valid zero-carry cells.  The best displayed case occurs at
+depth five with derived `c=2` and valuation 14 against the required 55.
+Thus writer re-entry is separable by the refined architecture, but the
+decoder still asks for a fresh block of roughly forty dyadic bits.  The
+finite margin is a CEGIS diagnosis, not a probabilistic or unbounded lower
+bound.
+
 The next justified step is not a wider beam.  It is an arithmetic selector
 which makes (28.1) hold at the already fixed canonical `C`, so that the next
 carry is exactly zero, together with a proof that the resulting aperiodic

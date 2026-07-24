@@ -5308,6 +5308,14 @@ orbit.  The worker also exact-replays the 12 leading final cylinders at their
 canonical ordinary exponents.  Each completes the stored ten-cell prefix and
 then leaves the writer family with `v2(9H+7)` equal to one or two.
 
+The stored outer-loop refinement uses those failures to change the score.  A
+second beam derives the canonical next writer counter exactly and, after
+writer re-entry, minimizes the decoder valuation shortfall.  Its separate
+bounds are depth eight, beam 64, and derived counters through six.  It checks
+3,546 frontiers, exhaustive through depth two.  No valid zero-carry cell is
+found; the best exact decoder shortfall is 41 bits (`14` available versus
+`55` required for `c=2`).
+
 ```bash
 PYTHONPATH=experiments/kontorovich \
   python3 experiments/kontorovich/outward_writer_decoder_cegis.py selftest
@@ -5318,8 +5326,8 @@ PYTHONPATH=experiments/kontorovich \
 
 The artifact records `universal_invariant:null` and `counterexample:null`.
 Worker SHA-256:
-`13605545857ba73a9aba7ea57ed835da60ca73622697e2d5bff07202446509f8`.
+`76e10be068fe04f5e97460bc10de09f306b3a041021f909e1055b53ef9c86b1f`.
 Canonical internal artifact SHA-256:
-`c475d26fe7e303a4f5927db9dceadb23040268f2f638b686522caadcb2f82e9a`.
+`1c23b457167d439c03bcc364a822f3d1bcf931941a16db1c23eac06fcb55960b`.
 Pretty-printed artifact file SHA-256:
-`06c2704cb10bc578e99887cac319cbe633d9b6fbf388931d3ae39fa37cee82b6`.
+`c5d95612d6935b8030e88e5f3a541d1d145a584d3e1e927ef2bfd5e51e051949`.
