@@ -5405,3 +5405,30 @@ leaving an unrestricted tail at a leaf.  The artifact records
 50-class, CRT, and open-tail conclusions.  Connecting every literal
 writer--decoder cell to that coarse predicate remains a separate semantic
 bridge; the worker verifies the displayed bounded instances exactly.
+
+### Coercive mixed-base resource sublevel
+
+`outward_resource_sublevel.py` uses the unique factorization
+
+```text
+n+1=2^a*3^b*u,  gcd(u,6)=1,  R(n)=a+b+u.
+```
+
+The bound `R(n)<=B` makes the search finite: it is exactly the set of triples
+`a,b>=0`, `u>=1`, `gcd(u,6)=1`, `a+b+u<=B`, and it also implies
+`n+1<=B*6^B`.  The worker enumerates this sublevel and literally replays every
+seed, rather than imposing an arbitrary interval cutoff.
+
+At `B=128` the artifact checks 120,668 positive seeds.  Its deepest survivor
+is `7*2^120-1`, with resource 127 and 136 completed first-passage blocks.
+No seed of resource at most 128 survives 137 blocks, so any probability
+carried by depth-137 survivors has expected resource at least 129.  This is a
+finite obstruction to that particular uniform-moment proposal, not an
+infinite ordinary survivor or a Collatz counterexample.  The artifact records
+`counterexample:null`.
+
+```bash
+python3 outward_resource_sublevel.py selftest
+python3 outward_resource_sublevel.py verify \
+  outward_resource_sublevel_audit.json
+```

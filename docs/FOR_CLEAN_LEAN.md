@@ -13660,3 +13660,69 @@ odd multiples of three terminating and a maximum of 18 defined recharges.
 The existing linear-escape theorem already explains why depth alone cannot
 decide the tail; no batch-census formalization is requested unless it is
 essentially free.  Please prioritize QM172.
+
+## Post-IAS pivot: finite-subcode carry budget and mixed resource (QM173, 2026-07-24)
+
+After QM172, the most useful positive endpoint is a coherent finite-subcode
+criterion which is strictly sharper than optimizing independent survivor
+minima.
+
+Fix a nonempty finite `F0` of literal first-passage words.  For a schedule
+prefix `u`, let `L u` be its flattened bit length and `rho u` its canonical
+source residue.  Existing cylinder extension gives the unique natural carry
+
+```text
+rho (u++[w]) = rho u + 2^(L u) * q(u,w),
+0 <= q(u,w) < 2^(length w).                         (QM173a)
+```
+
+Please prove the equivalence
+
+```text
+there exists one positive ordinary seed with an infinite F0 execution
+<->
+there exists K such that for every N there is u in F0^N with
+    sum_{edges of u} q <= K.                         (QM173b)
+```
+
+The forward direction uses eventual stabilization of canonical residues for
+one fixed seed.  For the reverse direction, take the prefix-closed tree of
+finite schedules with total carry at most `K`.  It is finitely branching and
+has a node at every depth, so König gives an infinite branch.  Since positive
+`q` are integers, only finitely many are positive; `rho` therefore stabilizes
+to one positive ordinary seed, and the existing literal execution consumer
+refutes Collatz.  If the available König lemma is awkward, a finite-alphabet
+dependent-choice/diagonal proof is fine.
+
+This licenses the exact finite-horizon dynamic program
+
+```text
+C 0 u = 0,
+C (r+1) u = min_{w in F0} (q(u,w) + C r (u++[w])).  (QM173c)
+```
+
+A probability-flow formulation cannot lower this objective: a finite tree
+flow is a convex combination of root-to-leaf paths, so its minimum is a Dirac
+path.  This observation is secondary; QM173a--b are the priority.
+
+There is also a concrete resource worth packaging.  Factor uniquely
+
+```text
+n+1=2^a*3^b*u,  gcd(u,6)=1,
+R23(n)=a+b+u.
+```
+
+Then
+
+```text
+R23(n)<=B -> n+1<=B*6^B,                           (QM173d)
+n odd -> R23((3*n+1)/2)=R23(n).                    (QM173e)
+```
+
+The exact worker enumerates the full `R23<=128` sublevel (120,668 positive
+seeds), proves all terminate, and finds maximum first-passage depth 136 at
+`7*2^120-1`.  Hence no `R23<=128` seed reaches depth 137.  These finite data
+are not requested as a Lean theorem; QM173d--e explain why the enumeration is
+a principled coercive sublevel audit rather than an interval scan.
+
+No uniform carry budget or resource bound is asserted.  `counterexample:null`.

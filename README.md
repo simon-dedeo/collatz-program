@@ -33,6 +33,62 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-24 04:06 EDT
+
+There is still no Collatz counterexample.  The first theorem-driven resource
+sublevel audit has replaced another interval scan.  Factor uniquely
+
+```text
+n+1=2^a*3^b*u,  gcd(u,6)=1,  R23(n)=a+b+u.
+```
+
+`R23` is coercive because `R23(n)<=B` implies `n+1<=B*6^B`, and it is an
+exact isometry on every odd shortcut step: multiplying `n+1` by `3/2`
+changes `(a,b)` to `(a-1,b+1)`.  The exact `B=128` sublevel contains 120,668
+positive seeds, including values far beyond an interval scan.  Every one
+terminates.  The deepest is
+
+```text
+n=7*2^120-1=9304595970494411110326649421962412031,
+R23(n)=127,
+```
+
+with 136 first-passage blocks.  Exhaustive emptiness at the next depth proves
+that every depth-137 carried probability law has `R23`-moment at least 129.
+This rejects the candidate uniform bound 128; it does not prove divergence
+of the minima.  The artifact digest is
+`e105f1dba604357f2c3b640d2cba2a4f4f47c78fbf96b5b845e10a2f1e06ded7`.
+
+More importantly, the coherent-cylinder search now has a decisive integer
+objective.  For a finite first-passage subcode and a schedule prefix `u`, let
+the exact extension carry be
+
+```text
+rho_(u*w)=rho_u+2^L(u)*q(u,w),  q(u,w) in N.
+```
+
+There is an ordinary infinite execution in that subcode **if and only if**
+one constant `K` bounds the total carry `sum q` for some compatible prefix at
+every depth.  The reverse direction uses the finite-branching tree of
+`K`-budget prefixes; an infinite branch has only finitely many positive
+integer carries, so its canonical residue eventually stabilizes to one
+ordinary seed.  The finite-horizon optimizer is therefore the exact dynamic
+program
+
+```text
+C_0(u)=0,
+C_(r+1)(u)=min_w [q(u,w)+C_r(u*w)].
+```
+
+Probability/EM gives no finite-horizon improvement because the equivalent
+flow LP has a Dirac path optimum.  The live search is to synthesize a compact
+arithmetic supersolution or policy giving an all-depth bound, while every
+finite DP run remains only CEGIS evidence.  QM173 requests the compactness,
+resource-isometry, and optimizer package.  The exact resource worker and
+artifact retain `counterexample:null`:
+[`outward_resource_sublevel.py`](experiments/kontorovich/outward_resource_sublevel.py),
+[`outward_resource_sublevel_audit.json`](experiments/kontorovich/outward_resource_sublevel_audit.json).
+
 ### 2026-07-24 03:51 EDT
 
 There is still no Collatz counterexample.  The IAS transcript audit is ended;
