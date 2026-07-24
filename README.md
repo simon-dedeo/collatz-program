@@ -35,7 +35,7 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ### 2026-07-24 00:12 EDT
 
-There is still no Collatz counterexample.  The IAS audit now has 79
+There is still no Collatz counterexample.  The IAS audit now has 84
 authoritative transcript-checked release talks.  Its strongest common lesson
 is a two-gate architecture: every aggregate or quotient object--entropy law,
 spectral mode, stationary kernel, word relation, local weak limit, or
@@ -50,6 +50,49 @@ concatenates the variable-length literal word lists, proves linear escape,
 and derives both nontermination of the Syracuse orbit and failure of Collatz.
 It constructs no such charge orbit; this is an exact interface for judging
 what an IAS-derived selector or invariant would actually have to deliver.
+
+Victoria Schleis's tropical-quiver talk gives a precise outer-loop
+restriction for min-plus selector architectures.  An arbitrary tropical
+matrix can send a tropical linear space to a cut-off object that is no longer
+tropical linear, and the resulting quiver prevariety already contains
+nonrealizable points in ground-set size two over a nontrivially valued field.
+The controlled ground-set-map-plus-translation subclass instead has an exact
+valuated-matroid morphism/containment criterion.  We can pilot that subclass
+as a low-complexity deterministic selector grammar, but must still reject any
+candidate lacking a literal Collatz section or an ordinary root; tropical
+closure is not arithmetic realizability.
+
+Jayden Wang and Cynthia Vinzant give two conditional local-to-global
+validators for that grammar.  Once a finite recharge profile has genuinely
+been encoded as a corank-one valuated-matroid quotient, Wang's theorem says
+linear tropical incidence relations with at most three terms already imply
+the quadratic relations.  Once legal binary selector configurations and
+their exact costs genuinely form the support of a valuated Delta-matroid,
+Vinzant's theorem reduces the global valuated exchange test to every
+four-coordinate face.  Neither hypothesis is automatic for Collatz.  The
+tests see exchange feasibility, not directed legal words, positive recharge,
+composition, growing counters, carries, or an ordinary root.
+
+Jonathan Chaika's rational-polygon unfolding supplies a second compact
+architecture worth testing: replace branch reflections by a finite sheet
+coordinate on which motion is common and straight.  Its arithmetic analogue
+must be an exact finite-sheet conjugacy for every complete branch domain,
+with bijective sheet changes and literal replay on return; partial affine
+Collatz macros need not admit one.  Marcelo Alves's refined-cover itineraries
+give exact finite word atoms for any total selector, but positive entropy or
+exponentially many atoms is not an escape certificate.  Only compatible
+prefix extension, literal replay, counter growth, and ordinary-root
+stabilization could promote one nested atom chain.
+
+Formalizer commit `10aa678` independently turns Subrahmanyam's shrunk-subspace
+lesson into an exact finite rejection certificate: if every linearized macro
+template maps a source subspace into one of smaller dimension, no scalar
+combination can be injective or bijective.  It proves no converse and creates
+no literal router.  Commit `2dbfa55` formalizes the complementary Potrie/Holtz
+positive interface: an exact recurrence `u_(n+1) >= lambda*u_n-C` with
+`lambda>1`, a start above its affine fixed threshold, and counter coercivity
+force the intended natural counter to be unbounded.  No coordinate, selector,
+or recharge orbit is supplied.
 
 Formalizer commit `5457bdc` makes the second gate a dichotomy.  For
 representatives compatible at mixed moduli tending to infinity, bounded range
@@ -8219,6 +8262,46 @@ existing lines of work; the closest ancestors, and what each contributes:
   seconds** — compatible circuit/matroid towers need not be classically
   realizable.  Coefficient-level product closure is therefore mandatory
   before a tropical Collatz architecture is treated as an arithmetic family.
+- **V. Schleis, [“Tropical Quiver
+  Representations”](https://www.ias.edu/video/tropical-quiver-representations),
+  IAS talk (25 Oct. 2024), corpus key
+  `091c3473712fc257bff3ac39eacfdb3f`, S3--S6/E4 at 862--3,022 seconds** —
+  arbitrary tropical matrices can leave the tropical-linear category, and
+  their quiver prevarieties can contain nonrealizable points already in size
+  two.  Ground-set maps with translations give a controlled low-complexity
+  selector grammar, but still require literal replay and an ordinary root.
+- **J. Wang, [“Lorentzian Polynomials and the Incidence Geometry of Tropical
+  Linear Spaces”](https://www.ias.edu/video/lorentzian-polynomials-and-incidence-geometry-tropical-linear-spaces),
+  IAS talk (13 Feb. 2025), corpus key
+  `1d3bead5392464a9b8c7913d9142e2c6`, S3/S5 at 812--2,225 seconds** — for a
+  genuinely encoded corank-one valuated-matroid quotient, at-most-three-term
+  tropical incidence relations imply the quadratic relations.  Establishing
+  that encoding and a directed Collatz lift remains prior work.
+- **C. Vinzant, [“Valuated Delta Matroids and Principal
+  Minors”](https://www.ias.edu/video/valuated-delta-matroids-and-principal-minors),
+  IAS talk (24 Oct. 2024), corpus key
+  `8e07a1f258bcca96c81b14a9d8db3851`, S3--S6 at 1,556--2,922 and
+  3,917--4,017 seconds** — support exchange plus every four-coordinate face
+  certifies a global valuated Delta-matroid architecture.  This can validate
+  an exact binary selector cost system, not its direction, recharge, carry,
+  compatible counter growth, or ordinary seed.
+- **J. Chaika, [“Billiards in
+  Polygons”](https://www.ias.edu/video/billiards-polygons), IAS talk
+  (6 Oct. 2025), corpus key `a472c501d96282a34ccfbca3035ee171`, S2--S3 at
+  714--1,472 seconds** — rational-angle reflection unfolding replaces
+  branchwise motion by straight motion on finitely many sheets.  A Collatz
+  analogue must exact-check finite sheet closure, every conjugacy equation,
+  singular states, and return-word replay; measure-theoretic mixing does not
+  select a recharge orbit.
+- **M. Alves, [“Polytopes and C0-Riemannian Metrics with Positive
+  Topological
+  Entropy”](https://www.ias.edu/video/polytopes-and-c0-riemannian-metrics-positive-topological-entropy),
+  IAS talk (17 Apr. 2026), corpus key
+  `0cd56a39b3e539e0f853a3f8881b313a`, S1/S3/S5--S7 at 65--502 and
+  1,060--2,344 seconds** — refined covers give exact finite itinerary atoms,
+  but entropy growth can count only dead ends or incompatible paths.  The
+  smoothing definition is an explicit warning: a complexity lower bound need
+  not retain one literal limiting dynamics.
 - **S. Fenner, [“Bipartite perfect matching is in
   quasi-NC”](https://www.ias.edu/video/csdm/2016/0208-Fenner), IAS talk
   (8 Feb. 2016), corpus key `83398a9013343939af42951fafbfdaa1`, S2--S8 at
