@@ -33,6 +33,81 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-24 02:54 EDT
+
+There is still no Collatz counterexample.  The IAS audit now has 243
+authoritative transcript-checked release talks.
+
+Huacheng Yu proves tight multiscale cell-probe lower bounds for dynamic
+succinct dictionaries.  The proof charges each repeated memory access to the
+least common ancestor of that access and its previous touch, then uses an
+injective communication encoding to force linearly many charges at every
+scale.  This suggests an exact controller audit: log literal address/carry
+register accesses and reject a bounded-memory selector when two replayable
+histories reach the same controller state but require different next opcodes.
+The theorem concerns random online workloads and service cost, however; it
+does not forbid one exceptional orbit, growing work, or a preloaded 2-adic
+address.
+
+Lijie Chen derives strong average-case circuit lower bounds from nontrivial
+circuit-acceptance algorithms by nondeterministic generators, input-length
+alignment, and approximate linear sums.  For a fixed finite selector grammar,
+pointwise approximation is an exact rational linear program: feasibility is
+checked at every state and infeasibility has a rational Farkas certificate.
+That can reject an entire ensemble rather than one fitted rule.  Average-case
+agreement still may discard the unique state needed by a Collatz orbit, and a
+real-valued linear sum is not an executable opcode.
+
+Daniel Remenik derives exact ASEP moment and generating-function formulas by
+free evolution, exclusion boundary conditions, and residue cancellations.
+The bounded tau-deformed observable rigorously determines the half-flat
+distribution; the continuum replica summation is explicitly unjustified
+because its moments grow like `exp(n^3)`, and the stated Airy asymptotics remain
+formal.  Exact rational generating functions could organize complete Collatz
+word/carry certificates, but the all-odd cylinders already have
+`sum_H (2^(H+1)-1) z^H = 2/(1-2z)-1/(1-z)`: the pole records exponentially
+growing least representatives while their coherent 2-adic limit is only
+`-1`.
+
+Elia Bruè bounds asymptotic mixing by the spatially averaged top Lyapunov
+exponent for periodic incompressible flows, and extends the framework to
+DiPerna--Lions flows for `p>1`; the `p=1` endpoint remains open.  A Collatz word
+has the literal affine cocycle `(3^k*n+B)/2^A`, but its derivative exponent
+does not control the carry or the ordinary root.  For a repeated length-three
+valuation word the fixed point is `B/(2^A-27)`: if `A<=4` it is negative, and
+if `A>=5` any integer realization is periodic and bounded.  Thus an exactly
+period-three word cannot itself be the desired escaping positive orbit.
+
+Nicki Magill proves subleading ECH-capacity and affine-perimeter obstructions
+for generalized convex toric domains, along with filling and staircase
+consequences.  This reinforces a useful obstruction architecture but also a
+sharp no-go.  The singleton cylinders `1 mod 2^m` and `-1 mod 2^m` have equal
+dyadic density and edge perimeter two, while only the former stabilizes to an
+ordinary natural.  Any Collatz capacity built only from volume and
+translation-invariant boundary size is therefore blind to the required
+height/location distinction.
+
+Noah Kravitz proves a quantitative polynomial-corners theorem by repairing
+both Archimedean sparsity and local congruence bias before box-norm inversion,
+PET induction, concatenation, and degree lowering.  This is a disciplined
+model for exact preprocessing, but no fixed `W`-trick determines Collatz's
+next valuation.  For any fixed dyadic/triadic modulus one can choose odd
+`n` and `n+2^q*3^b` with identical recorded residues while their quotients
+after `q` divisions have opposite parity.  Local conditioning merely moves
+the carry ambiguity to higher precision and does not select a nested orbit.
+
+Formalizer commits `c5f8b92`, `d8fa08e`, and `29ac135` supply the essential
+calibrations for the new survivor-density theorem.  Repeated even extension is
+a coherent nested dyadic address but cannot remain a positive ordinary
+execution; every finite prefix of the ordinary cycle `2 -> 1 -> 2`, by
+contrast, is a positive no-outward survivor.  Finally every finite
+first-passage grammar has length-`n` macro-path mass at most `(17/20)^n`.
+Thus compactness may select a nonordinary address or the known bounded cycle,
+and exponential rarity does not exclude a single measure-zero path.  A
+successful theorem still needs literal recharge closure, proper height
+growth, compatible all-depth realization, and a positive ordinary root.
+`counterexample:null`.
+
 ### 2026-07-24 02:47 EDT
 
 There is still no Collatz counterexample.  The IAS audit now has 237
@@ -9224,7 +9299,7 @@ from `d8e789a` now runs before this more expensive synthesis.
 | First bounded odd-charge invariant grammar | All eight implemented architectures are rejected within their stated exact domains.  The grammar combines exact `Cell(w,a)` branches, `v3`/primitive/dyadic cylinders, and the recursive pure-power/resonant families; CEGIS compares excluding a bad source with adjoining its target by description complexity.  Through `H<=200001`, family parameter 800, four ternary digits and eight dyadic bits, the least stored failures are `3,15,3,15,189,82701,23541,333`.  No recursive-family transition is universally certified, so this is a bounded grammar verdict, not a no-invariant theorem. | [`outward_charge_invariant_cegis_audit.json`](experiments/kontorovich/outward_charge_invariant_cegis_audit.json), [`OutwardInvariantBridge.lean`](KontoroC/KontoroC/OutwardInvariantBridge.lean), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#26-selector-architecture-and-invariant-cegis) |
 | Fixed-precision primitive guard partitions | Inadequate as invariant certificates.  On 178 exact states descended from the theorem-mandated `C=12 mod16` roots, bounded charge/ternary guards retain 74 minority transition errors.  Ten dyadic plus ten exponent-residue bits separate the displayed sample, but only as a finite lookup: unbounded word coverage, exact valuation binders, target inclusion, and ordinary root closure remain unproved.  The coherent exponent address moves to `700`, and the record's chart depth grows to 105 while height stays nearly fixed.  The replacement grammar uses finite LOW/HIGH/RESONANT predicate types with unbounded `v2`/`v3` binders. | [`outward_primitive_invariant_cegis_audit.json`](experiments/kontorovich/outward_primitive_invariant_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#27-primitive-coordinate-invariant-types-and-the-growing-rank-obstruction) |
 | Finite graph of fixed one-exponential chart instances | Universally closed.  With integer rank `chi=v2(alpha)-d`, every coefficient-matched recharge edge has `chi'=chi-(S+a)<chi`.  Lean proves the exact balance law and excludes a finite nonempty graph with an outgoing edge at every node by following an edge from a minimum-rank node.  The theorem deliberately does not cover finite chart *types* carrying unbounded runtime denominator/rank state; that is the live grammar. | [`OutwardChartRankNoGo.lean`](KontoroC/KontoroC/OutwardChartRankNoGo.lean), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#27-primitive-coordinate-invariant-types-and-the-growing-rank-obstruction) |
-| Complete finite-state first-passage router | Closed unconditionally.  Commits `cb8e92a`--`ed3576c` prove from exact `3^3<2^5` and a weighted Kraft tilt that every prefix-free outward family has fair dyadic mass at most `17/20`; the complete countable first-passage code obeys the same bound.  Commit `a0fba3a` then proves that at every depth at least `3/20` of the actual residue classes modulo `2^L` have literal no-outward-prefix shortcut executions and arbitrarily large positive ordinary lifts.  Every finite first-passage grammar state misses a maximum-depth cylinder, with no Perron hypothesis.  Infinite-state mixed recursion and a compatible nested choice selecting one fixed natural remain outside the theorem; abundant finite ordinary witnesses are not one infinite writer--decoder orbit. | [`OutwardStrictKraftGap.lean`](KontoroC/KontoroC/OutwardStrictKraftGap.lean), [`OutwardSurvivorResidues.lean`](KontoroC/KontoroC/OutwardSurvivorResidues.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#lead-b-weighted-core-entropy-before-recursive-search) |
+| Complete finite-state first-passage router | Closed unconditionally.  Commits `cb8e92a`--`ed3576c` prove from exact `3^3<2^5` and a weighted Kraft tilt that every prefix-free outward family has fair dyadic mass at most `17/20`; the complete countable first-passage code obeys the same bound.  Commit `a0fba3a` proves that at every depth at least `3/20` of actual residue classes modulo `2^L` have literal no-outward-prefix shortcut executions and arbitrarily large positive ordinary lifts.  Commits `c5f8b92`/`d8fa08e` calibrate both compactness traps: repeated even extension is coherent but nonordinary, while the known positive `2 -> 1 -> 2` cycle is an infinite survivor ray.  Commit `29ac135` proves every finite grammar's length-`n` macro-path mass is at most `(17/20)^n`; this is exponential rarity, not exclusion of one zero-mass path.  Neither abundant finite witnesses nor an infinite survivor branch implies an escaping writer--decoder orbit. | [`OutwardStrictKraftGap.lean`](KontoroC/KontoroC/OutwardStrictKraftGap.lean), [`OutwardSurvivorResidues.lean`](KontoroC/KontoroC/OutwardSurvivorResidues.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#lead-b-weighted-core-entropy-before-recursive-search) |
 | Finite resource grammar with a strict rational dual | Closed under the stated aggregate-budget premise.  Lean defines exact nonnegative conserved edge circulations and proves that a rational vertex potential plus nonnegative multipliers for height/precision/carry resource coordinates excludes every nonzero circulation when all reduced edge scores are strictly negative.  The ordered companion directly excludes every nonempty closed macro walk with nonnegative total selected resource.  The worker must separately justify the aggregate budgets; bounded survival supplies neither a circulation nor a closed walk. | [`OutwardResourceConeNoGo.lean`](KontoroC/KontoroC/OutwardResourceConeNoGo.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#preflight-filters-j-resource-cones-lattice-support-and-honest-integral-lifting) |
 | Finite survival of alternating writer--decoder schedules | Non-discriminating, and both displayed selector architectures fail the ordinary-address gate.  Every finite `(c,b)` word has one coherent nested exponent cylinder by KC-FP12.  The address beam checks 8,883 edges through depth ten, exhaustive through depth three, with no zero exponent carry; a semantic beam checks 3,546 frontiers through depth eight and has best decoder shortfall 41 bits.  The exact normalized criterion is `r_infinity=-3^C` in `Q_2`.  Every finite rational-coboundary tail is universally closed; the bounded open case must be aperiodic, have factor complexity at least `k+1`, and evade finite rational coboundaries.  Commit `af4c46f` kernel-checks `9H>2^(4*3^c+c+4+b)` and an explicit exhaustive finite `(c,b)` alphabet at every fixed `H`, so scale-only counter search is unjustified.  This is not a no-invariant theorem, and the alphabet need not be uniform as `H` grows. | [`OutwardWriterDecoderEnvelope.lean`](KontoroC/KontoroC/OutwardWriterDecoderEnvelope.lean), [`outward_writer_decoder_cegis_audit.json`](experiments/kontorovich/outward_writer_decoder_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#29-two-place-normalization-and-the-height-budget) |
 | Fixed-precision writer--decoder payload predicates | Inadequate.  In exact triples `H=(2^D Q-B)/9`, the base predicate fails at `(p,b,Q)=(2,0,7)` and an exact-next-writer refinement fails at `Q=187` with a 48-bit decoder shortfall.  A residue-preserving perturbation defeats any fixed `Q mod 2^k3^ell` guard that is asked to force a larger target valuation; exact rows cover `7<=k<=16`.  The corrected mandatory ternary quotient has three nodes, but all 81 displayed source/target symbol pairs have exact ordinary edges, so it does not close the dynamics.  A live predicate needs runtime dyadic precision and a genuinely aperiodic/unbounded symbol update.  The general perturbation and edge formulas are research-side pending QM169; no recursive invariant is certified. | [`outward_writer_decoder_invariant_cegis_audit.json`](experiments/kontorovich/outward_writer_decoder_invariant_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#31-exact-invariant-cegis-on-payload-triples) |
@@ -11224,6 +11299,52 @@ existing lines of work; the closest ancestors, and what each contributes:
   joining correlations of visible measures.  Zero-density but infinite bad
   events are invisible to those measures, so the method cannot certify
   perpetual literal legality; the Möbius application is conjectural.
+- **H. Yu, [“Tight Cell-Probe Lower Bounds for Dynamic Succinct
+  Dictionaries”](https://www.ias.edu/video/tight-cell-probe-lower-bounds-dynamic-succinct-dictionaries),
+  IAS talk (1 Apr. 2024), corpus key `4049eecf356c3b3c88e4a6720e59de8b`,
+  S1/S3/S5--S8 at 14--881 and 1,647--4,067 seconds** — hierarchical
+  previous-access charging plus injective communication encoding proves tight
+  multiscale memory lower bounds.  The ledger can reject bounded Collatz
+  controllers, but random-workload service cost does not exclude an
+  exceptional orbit or a growing/profinite address.
+- **L. Chen, [“Strong Average-Case Circuit Lower Bounds from Non-trivial
+  Derandomization”](https://www.ias.edu/video/csdm/2020/0224-LijieChen), IAS
+  talk (24 Feb. 2020), corpus key `309a32e9dd19c42d17d8e59ef7dd4537`,
+  S1--S7 at 15--4,024 seconds** — nondeterministic generators, length
+  alignment, and approximate linear sums transfer acceptance algorithms to
+  strong average-case lower bounds.  Exact rational LP/Farkas certificates can
+  reject bounded selector ensembles, but average agreement may sacrifice the
+  one required state and does not execute a transition.
+- **D. Remenik, [“Exact formulas for random growth off a flat
+  interface”](https://www.ias.edu/video/nedrm/2014/0122-DanielRemenik), IAS
+  talk (22 Jan. 2014), corpus key `bdafd4e930018f10676b84edb35c2a36`,
+  S2--S6 at 559--3,567 seconds** — boundary-value uniqueness and exact residue
+  cancellations produce ASEP formulas and a rigorous bounded-observable
+  generating function.  The continuum replica summation is explicitly
+  unjustified; an exact Collatz generating function still needs coefficient
+  bounds that prove ordinary-root compatibility and coercive height.
+- **E. Bruè, [“Lyapunov Exponents and Mixing in DiPerna-Lions
+  Flows”](https://www.ias.edu/video/lyapunov-exponents-and-mixing-diperna-lions-flows),
+  IAS talk (27 Jan. 2026), corpus key `727c170c858b101803cb28a182966f4b`,
+  S3--S8 at 1,099--3,746 seconds** — Lyapunov exponents bound asymptotic
+  mixing for periodic smooth and `W^{1,p}`, `p>1`, incompressible flows; the
+  `p=1` endpoint is open.  Collatz's affine cocycle shows that derivative
+  growth alone misses carry, integrality, and the ordinary root.
+- **N. Magill, [“Generalized convex toric domains and symplectic embedding
+  problems”](https://www.ias.edu/video/generalized-convex-toric-domains-and-symplectic-embedding-problems),
+  IAS talk (12 Dec. 2025), corpus key `7793ae9b6d947c74fe2e421c614b122b`,
+  S2--S8 at 531--3,617 seconds** — subleading ECH capacities yield affine-
+  perimeter filling and staircase obstructions.  Volume plus
+  translation-invariant boundary size cannot distinguish the ordinary
+  cylinder at `1` from the dyadic tower converging to `-1`.
+- **N. Kravitz, [“Corners with Polynomial Side
+  Length”](https://www.ias.edu/video/corners-polynomial-side-length), IAS talk
+  (10 Dec. 2024), corpus key `011a458a23725e54ae0231e6f01d05c5`, S1--S6 at
+  44--3,362 seconds** — smooth Archimedean weights and a `W`-trick correct the
+  naive polynomial-corner model before box-norm/PET analysis.  Any fixed
+  dyadic--triadic Collatz conditioning still aliases states with different
+  next valuations, so precision must grow and nested realization remains
+  separate.
 - **S. Fenner, [“Bipartite perfect matching is in
   quasi-NC”](https://www.ias.edu/video/csdm/2016/0208-Fenner), IAS talk
   (8 Feb. 2016), corpus key `83398a9013343939af42951fafbfdaa1`, S2--S8 at
