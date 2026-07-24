@@ -156,6 +156,34 @@ original Collatz direction and literal replay.  The public authoritative
 ledger now contains 61 transcript-checked release talks.
 `counterexample:null`.
 
+Zheng's stationary-action framework is useful only after an atom-level audit.
+For a randomized finite macro policy, verify the rational stationary kernel,
+stationary law, cross-precision factor equations, and lumpability of every
+proposed feature partition.  Entropy decodes a literal successor only when
+the conditional edge support is a singleton; otherwise a separate compatible
+legal selector is required.  An entropy interval or Doob-transformed path law
+does not identify one ordinary feedback-selected orbit.
+
+Zelada closes the direct strong-mixing tower lane.  A strongly mixing
+probability-preserving transformation has no nontrivial finite factor: the
+factor map is a permutation, some positive power is the identity, and a
+nontrivial factor set then has correlation `mu(A)` rather than `mu(A)^2` along
+those powers.  Our coherent residue projections are precisely nontrivial
+finite factors.  In addition, the polynomial PET proof requires total
+commuting bijections and every generated inverse/difference direction, whereas
+literal macros are partial and feedback-selected.  Correlation fitting on
+this tower is therefore structurally mis-specified, not merely underpowered.
+
+Formalizer commit `5457bdc` sharpens the ordinary-root endpoint to an exact
+dichotomy.  For compatible representatives at growing mixed precision,
+bounded range is equivalent to eventual constancy; failure to encode an
+ordinary root is equivalent to the representatives being unbounded.  The
+local form says the same thing as eventual extension differences smaller than
+the current mixed modulus, i.e. eventual zero extension carry.  Either this
+local certificate or a uniform height bound promotes a nested literal tower,
+but no such tower has been supplied.  The public ledger now contains 79
+transcript-checked release talks.  `counterexample:null`.
+
 Babai makes the architecture outer loop canonical.  A permutation of residue
 or carry features is a usable symmetry only after exact replay proves that it
 is an automorphism of the complete directed, word- and carry-labeled macro
