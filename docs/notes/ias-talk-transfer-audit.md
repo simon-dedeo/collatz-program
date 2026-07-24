@@ -631,6 +631,15 @@ Thus the remaining synthesis obligations are now formally separated:
 Only their conjunction yields an infinite execution.  No candidate currently
 satisfies either unbounded obligation.
 
+Formalizer commit `b620786` separately kernel-checks the strict S-arithmetic
+stabilization route suggested by Datta.  Congruence of two naturals modulo
+`2^A*3^B` plus `abs(next-current)<2^A*3^B` forces equality.  On canonical
+reset residues, an eventual increment strictly below the old dyadic width
+forces every later carry digit to vanish and supplies an ordinary nonnegative
+reset chain.  The theorem does not derive this pointwise bound; average or
+metric estimates and a bound with an unspecified constant do not meet its
+hypothesis.
+
 ## Other promoted talks (transfer ledger)
 
 | Status | Talk and raw spans | Concrete transfer | Principal mismatch |

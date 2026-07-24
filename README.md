@@ -142,6 +142,17 @@ recognition, a limiting quadratic, or infinitely many separately valid macros
 would not give one orbit.  The checked ledger is now 35 talks; the sole batch
 is at 688/1,025 with zero failures.  `counterexample:null`.
 
+Formalizer commit `b620786`, also rebuilt locally, makes Datta's strict target
+literal.  If two ordinary representatives are congruent modulo `2^A*3^B` and
+their integer difference has absolute value below that modulus, Lean proves
+they are equal.  For the canonical reset tower it proves the sharper native
+form: if the next residue increment is eventually strictly below the current
+dyadic width, every later carry digit is zero and an ordinary nonnegative
+reset chain exists.  This is an exact stabilization theorem, not the missing
+bound.  A metric nondivergence estimate, average smallness, or
+`O(2^A*3^B)` control cannot replace the strict pointwise constant `1`, and
+positivity/literal first-passage promotion remains separate.
+
 ### 2026-07-23 22:24 EDT
 
 There is still no counterexample.  Twelve further transcript-checked talks
@@ -5877,7 +5888,12 @@ any surviving architecture: a closed finite sublevel potential which controls
 all canonical root residues reconstructs one ordinary reset chain, but a
 separate literal positive-macro promotion is still mandatory.  This makes the
 current synthesis target a coercive invariant plus semantic realization, not
-another long compatible cylinder tower.
+another long compatible cylinder tower.  Commit `b620786` supplies an
+alternative exact route to the same ordinary gate: eventual strict canonical
+residue increments below the old modulus force zero extension carry.  A talk-
+derived architecture should therefore attempt to prove either this pointwise
+increment bound or the stronger coercive-potential certificate; finite-level
+compatibility alone is no longer an acceptable proxy.
 
 #### Live disproof programs
 
