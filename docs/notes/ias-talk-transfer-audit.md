@@ -1154,6 +1154,46 @@ include the word, ternary boundary residue, and ordinary-root carry.  Exact
 solvability at one finite bound, or even independently at every bound, still
 does not supply compatible bonding maps or one ordinary integer seed.
 
+## Lead W: demand integral principality before trusting a valuation potential
+
+Renzo Cavalieri, *Tropical Psi Classes and Tropicalizations of Psi Classes*,
+IAS, 4 Feb. 2025, key `68250a0dd2074dd65c33b744c55b11a4`,
+distinguishes a coherent-looking piecewise-linear class from one which
+actually lifts.  At 1,336--1,730 seconds a tropical family carries an
+integral-affine sheaf and the combinatorial psi class detects slope changes,
+but no algebraic identification has yet been proved.  At 1,793--2,299 seconds
+principal boundary divisors define affine functions, and a line bundle is
+visible near a boundary stratum only under the stronger
+``combinatorially-principal'' condition.  The conormal/psi comparison at
+2,303--2,585 seconds holds precisely after that condition; the Q&A at
+2,780--2,985 seconds stresses that non-boundary algebraic information can be
+missed.
+
+For a synthesized Collatz potential, build the finite face complex of its
+fixed valuation, branch, and carry charts.  On every face `tau`, put the
+primitive normal rays in an integer matrix `A_tau` and the claimed slope jumps
+in `b_tau`.  The proposed chart formulas can be restrictions of one integral
+affine correction only if
+
+```text
+A_tau * a_tau = b_tau  over Z.
+```
+
+Smith normal form gives an exact synthesis gate: either produce `a_tau`, or
+return a left-kernel or invariant-factor congruence which proves nonprincipal
+holonomy.  Corrections on overlapping stars must then pass the two-term
+integer gluing test from Lead V.  This rejects a false valuation invariant
+without extending any trajectory.
+
+Passing principality is only a preflight.  The resulting literal potential
+must include affine translation and ordinary carry, prove the macro inequality
+on the full first-passage alphabet, and have sublevel sets which bound the
+canonical root address while allowing charge to diverge.  Cavalieri begins
+with a toroidal algebraic scheme and an actual line bundle; no theorem says
+the Collatz chart complex has such a lift.  The search target is therefore an
+integer-principal **and coercive** mixed-valuation potential, not another fit
+of branchwise slopes.
+
 ## Other promoted talks (transfer ledger)
 
 | Status | Talk and raw spans | Concrete transfer | Principal mismatch |
@@ -1196,6 +1236,7 @@ does not supply compatible bonding maps or one ordinary integer seed.
 | warning | Lev Glebsky, *Approximations of Groups, Subquotients of Infinite Direct Products and Equations over Groups*, key `02dcdc750c5e506010b7ccfae677d308`, S2--S3/S5--S8, 37--1,290 and 2,504--3,463 s | Measure the least finite quotient through which every selector function factors; a stable level plus kernel-triviality and bounded canonical representatives is the required discrete-lift gate. | Compactness deliberately produces a solution over an overgroup/product quotient, where growing finite dependence is exactly an infinite profinite tape. |
 | warning/coherence audit | Alexander Petrov, *Galois Action on Higher Etale Homotopy Groups*, key `e76667fa26f053d772a9d6b48a8190ab`, S3--S6/E4--E5, 834--1,230 and 1,620--3,620 s | Attach a transition 2-complex to claimed commuting repair/descent squares and test comparison cocycles or `p`-good/`K(pi,1)` behavior before treating finite shadows as a discrete controller. | The arithmetic higher-homotopy obstruction need not occur in the Collatz graph, and detecting one only rejects gluing; it constructs neither a seed nor an orbit. |
 | warning / finite-shadow kernel audit | Hélène Esnault, *Integrality Properties of Topological Fundamental Groups*, key `d3a6c2def4c89952472373e2cb74937b`, S3/S8 and the singular-surface example, 1,330--1,577, 3,109--3,230, and 3,665--3,778 s | Require every residue-, representation-, or spectrum-based controller certificate to be accompanied by literal word/carry replay and an injectivity or kernel-triviality proof for the ordinary-seed coordinate.  The talk gives two precise failure models: linear representations factor through a profinite completion and can miss its kernel, while Frobenius characteristic polynomials can miss discrete monodromy around a singular exceptional cycle. | The positive integrality theorem assumes a smooth quasiprojective variety and uses companions, arithmetic/geometric Langlands, and compact `l`-adic groups.  A stabilized `l`-adic lattice is not one ordinary integer seed, and the talk supplies no Collatz kernel theorem. |
+| reject entropy-only persistence / conditional continuation test | Matthias Meiwes, *C0 Stability of Topological Entropy for 3-Dimensional Reeb Flows*, key `38037e3d560c09b82b6c2c0beae915f0`, S3--S8/E1--E4, 1,760--3,640 s | Before transferring exponential clean-macro growth from precision `k` to `k+1`, certify a finite-state lift transducer whose outputs project literally to their inputs, preserve positivity/first passage and distinct route classes, and increase length by at most one uniform affine bound.  Failure returns the first collision, illegal edge, or carry merger. | The Reeb theorem uses exact symplectic cobordisms, hypertightness, nondegeneracy, holomorphic-curve compactness, and isotopy.  The new link may change components and unique classes may cease to be unique.  Increasing Collatz precision is not a `C0` perturbation; entropy without a uniform compatible transducer proves no nested ordinary ray. |
 | exact finite directed-search certificate | Michael Krivelevich, *Paths and cycles in expanders*, key `234d35e01cff3446271f60df1cf2d860`, S2--S7/E2--E3/E5--E6, 563--3,376 s | Formalizer commit `c17eb6f` proves the sound directed specialization: minimum retained out-degree at least `d` in a loopless exact reset graph gives a replayable vertex-simple path of exactly `d` edges; failure returns an exact vertex with out-degree below `d`. | The initially proposed arbitrary `k`-set out-neighborhood/minimum-cut implication omitted a directed separator/active-stack term and is withdrawn.  Even the corrected one-scale paths need not bond across scales or share an ordinary seed. |
 | conditional finite balancing | Nikhil Bansal, *On Beck-Fiala and Komlós Conjectures*, key `d676051521258c7e0c738f0c67a82327`, S2--S7/E4--E6, 923--3,528 s | For an independently proved library of paired macros with identical exact boundary action, put resource differences on dyadic interval rows and use exact sign/MILP replay to bound every prefix; SDP is discovery only. | Collatz legality is adaptive and exact, while discrepancy rounds a fixed real matrix.  Commit `af90376` makes the identical-fixed-endpoint pair gate empty for distinct literal macros; only a genuinely parametric/coarser interface could remain. |
 | tropical realizability gate | Felipe Rincón, *Tropical Ideals*, key `3fed4a408fef28d0dd296c03734f33e6`, S2--S6, 606--3,272 s | Treat support/circuit constraints across growing term degree as a matroid tower, but require coefficient-level multiplication closure.  Multiply every forced low-degree Collatz relation by the allowed monomials and use the first forbidden support, rank, or tensor-product obstruction as an exact architecture witness. | The talk constructs compatible elimination-closed matroid towers with Hilbert polynomial and balanced tropical variety which still come from no classical ideal.  Genuine Collatz identities are realizable automatically; this gate rejects only tropical/valuation relaxations. |
@@ -1357,5 +1398,12 @@ does not supply compatible bonding maps or one ordinary integer seed.
   representations*, IAS, 7 Nov. 2017, key
   `82d072493863a41d68666b415a295ec7`,
   https://www.ias.edu/video/MotivesGaloisRepsandCohomology/2017/1107-GeorgeBoxer.
+- Renzo Cavalieri, *Tropical Psi Classes and Tropicalizations of Psi Classes*,
+  IAS, 4 Feb. 2025, key `68250a0dd2074dd65c33b744c55b11a4`,
+  https://www.ias.edu/video/tropical-psi-classes-and-tropicalizations-psi-classes.
+- Matthias Meiwes, *C0 Stability of Topological Entropy for 3-Dimensional
+  Reeb Flows*, IAS, 24 Nov. 2023, key
+  `38037e3d560c09b82b6c2c0beae915f0`,
+  https://www.ias.edu/video/c0-stability-topological-entropy-3-dimensional-reeb-flows.
 
 `counterexample: null`

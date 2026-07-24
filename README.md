@@ -90,6 +90,29 @@ assignment proves neither compatible unbounded height nor ordinary-root
 stabilization.  With Boxer, the public transcript-checked ledger is now 56
 authoritative release talks; `counterexample:null` remains.
 
+Cavalieri supplies a stronger preflight for the mixed-valuation invariant
+lane.  Branchwise integral-affine formulas do not constitute one global
+potential: on every face of the valuation/branch/carry complex, the claimed
+normal slope jumps must be an integral principal divisor.  Encode that demand
+as `A_tau a=b_tau` over the integers.  Smith normal form either constructs the
+correction or emits an invariant-factor congruence/left-kernel witness to
+nonprincipal holonomy; overlap corrections then enter the Boxer two-term
+gluing complex.  Even a pass does not yet see affine translations, ordinary
+carry, positivity, or the root address.  The live target is an
+integer-principal and coercive literal potential whose bounded sublevels force
+ordinary-root stabilization while charge can still grow.
+
+Meiwes closes the entropy shortcut unless a much stronger certificate is
+provided.  His Reeb-flow continuation can retain exponential class growth
+while the new link changes, components merge, and uniqueness of an orbit in a
+class disappears.  Therefore clean-macro entropy at precision `k` transfers
+to `k+1` only through a machine-checked lift transducer that projects exactly,
+preserves positive first passage and class separation, and has one uniform
+length bound.  Failure should return the first collision, illegal transition,
+or carry merger.  Separate per-level transducers and a growing spectral radius
+still produce at most a profinite family.  These two transcript-checked entries
+raise the authoritative public ledger to 58 talks.  `counterexample:null`.
+
 ### 2026-07-23 23:30 EDT
 
 There is still no counterexample.  The most useful new transfer comes from
@@ -7944,6 +7967,20 @@ existing lines of work; the closest ancestors, and what each contributes:
   chart complex and return its first dual cocycle rather than count locally
   successful words.  The automorphic/Galois lifting theorem itself does not
   transfer.
+- **R. Cavalieri, [“Tropical Psi Classes and Tropicalizations of Psi
+  Classes”](https://www.ias.edu/video/tropical-psi-classes-and-tropicalizations-psi-classes),
+  IAS talk (4 Feb. 2025), corpus key `68250a0dd2074dd65c33b744c55b11a4`,
+  S4--S8 at 1,336--2,985 seconds** — branchwise integral-affine slope data
+  must pass an exact integer-principality and overlap-holonomy test before it
+  can be promoted to a global valuation potential; coercivity and literal
+  carry remain separate.
+- **M. Meiwes, [“C0 Stability of Topological Entropy for 3-Dimensional Reeb
+  Flows”](https://www.ias.edu/video/c0-stability-topological-entropy-3-dimensional-reeb-flows),
+  IAS talk (24 Nov. 2023), corpus key `38037e3d560c09b82b6c2c0beae915f0`,
+  S3--S8 at 1,760--3,640 seconds** — entropy or unique macro classes at one
+  precision have no cross-precision force without a certified continuation
+  transducer preserving literal projection, legality, separation, and a
+  uniform length bound.
 - **A. V. Kontorovich & Ya. G. Sinai, [“Structure Theorem for
   `(d,g,h)`-Maps”](https://arxiv.org/abs/math/0601622), Bull. Braz. Math. Soc.
   33 (2002), 213–224** — the exact arithmetic-progressions theorem for every
