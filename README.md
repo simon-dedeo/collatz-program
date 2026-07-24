@@ -86,6 +86,16 @@ infinite execution and a Collatz counterexample.  It does not provide such an
 invariant, but it is now the acceptance contract for every talk-derived
 architecture.
 
+Three preflight filters from Raymond, Kopparty, and the Gamburd--Martin Markoff
+talks are now explicitly credited as well.  Before enumerating words, solve
+the exact rational cone of height/precision/carry resources and retain its
+Farkas certificate or smallest feasible support.  Before invoking a local
+limit, prove that carry zero lies in the exact interface-conditioned lattice.
+Before treating finite residue connectivity as a lift, confront Martin's raw
+countercase: many finite-field points can coexist with no integer point.  A
+feasible flow, Gaussian bulk law, or connected finite graph is never promoted
+to a trajectory.
+
 ### 2026-07-23 22:20 EDT
 
 There is still no counterexample.  Transcript checks added two more
@@ -7291,6 +7301,27 @@ existing lines of work; the closest ancestors, and what each contributes:
   sequences with position-dependent periods.  A Collatz transfer requires a
   mixed-base internal clean clock; an external schedule and density-one
   periodic approximation do not establish one ordinary orbit.
+- **A. Raymond, [“Graph Density Inequalities, Sums of Squares and
+  Tropicalization”](https://www.ias.edu/video/graph-density-inequalities-sums-squares-and-tropicalization),
+  IAS talk (1 Feb. 2021), corpus key `1046f78390fd05e12d05a3413a3ddf7b`,
+  S3--S6** — tropical/polyhedral relaxation motivates an exact rational
+  resource cone and Farkas preflight.  A feasible edge flow is not an ordered
+  orbit and can erase valuation cancellation.
+- **S. Kopparty, [“A local central limit theorem for triangles in a random
+  graph”](https://www.ias.edu/video/csdm/2016/0328-SwastikKopparty), IAS talk
+  (28 Mar. 2016), corpus key `69956d38eef0339ec0f4207f78499dcd`,
+  S1--S2/S4--S7/E2** — a global CLT misses elementary lattice obstructions.
+  Exact modular support of carry zero, conditional on macro interfaces, must
+  precede any local-limit argument.
+- **A. Gamburd, [“Varieties of Markoff Type: Arithmetic, Combinatorics,
+  Dynamics”](https://www.ias.edu/video/varieties-markoff-type-arithmetic-combinatorics-dynamics),
+  IAS talk (12 Dec. 2022), corpus key `76f210c2e1fbd9df473b9ca8890f1e5a`,
+  S4--S8/E3--E5**, and **D. Martin, [“Arithmetic on Markoff
+  Surfaces”](https://www.ias.edu/video/arithmetic-markoff-surfaces), IAS talk
+  (7 Apr. 2026), key `dfe6aa197a4b6c233c6312357c4670a6`, S2/S4--S6/E4** —
+  finite-field components and dual obstruction vectors can organize exact
+  residue searches, but Martin's E4 has many finite-field triples and no
+  integer lift.  The Collatz semigroup lacks Markoff's reversible group action.
 - **U. Zannier, [“On a Problem of Polya and Some of its
   Evolutions”](https://www.ias.edu/video/problem-polya-and-some-its-evolutions),
   IAS talk (8 Apr. 2026), corpus key `8c6e7ea43c9de3b12a756caab4bc5ea0`,

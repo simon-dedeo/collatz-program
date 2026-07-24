@@ -469,6 +469,53 @@ and compute exact weighted pressure only after closure.  Density-one periodic
 skeletons or nonempty `B`-free subshifts do not supply one Collatz orbit; the
 internal clean clock and ordinary root remain the decisive obligations.
 
+## Preflight filters J: resource cones, lattice support, and honest integral lifting
+
+Three previously transcript-checked mechanisms should run before any costly
+selector search.
+
+**Exact rational resource cone.** Annie Raymond, *Graph Density Inequalities,
+Sums of Squares and Tropicalization*, IAS, 1 Feb. 2021,
+[video](https://www.ias.edu/video/graph-density-inequalities-sums-squares-and-tropicalization),
+key `1046f78390fd05e12d05a3413a3ddf7b`, S3--S6; raw checked at
+3,506--3,690 seconds.  Record for each exact macro its height margin, dyadic
+precision consumed, triadic precision transported, counter-scale change, and
+rigorous carry bounds.  Any recurrent grammar has a nonnegative conserved
+edge flow satisfying the tropicalized resource inequalities.  Solve this
+rational polyhedral cone first.  An exact Farkas dual which strictly decreases
+on every edge closes the architecture; an extremal feasible ray identifies a
+small block support for semantic testing.  A feasible ray is not an ordered
+trajectory, and tropicalization can discard the valuation cancellations that
+matter.
+
+**Local support before a local limit.** Swastik Kopparty, *A local central
+limit theorem for triangles in a random graph*, IAS, 28 Mar. 2016,
+[video](https://www.ias.edu/video/csdm/2016/0328-SwastikKopparty), key
+`69956d38eef0339ec0f4207f78499dcd`, S1--S2/S4--S7 and E2; raw checked at
+826--1,020 seconds.  A global CLT cannot detect even an odd/even support
+obstruction.  For an exact block ensemble, compute the carry support modulo
+powers of `2` and `3` and condition on every interface residue before using
+Fourier decay or a Gaussian heuristic.  Only after zero is in the exact local
+lattice should one seek a pointwise lower bound at zero.  Independent random
+blocks and prefix-compatible Collatz blocks are very different, so even a
+finite reset-block local limit would still need a clean recursive grammar.
+
+**Finite-field connectivity is not an integral lift.** Alexander Gamburd,
+*Varieties of Markoff Type: Arithmetic, Combinatorics, Dynamics*, IAS,
+12 Dec. 2022,
+[video](https://www.ias.edu/video/varieties-markoff-type-arithmetic-combinatorics-dynamics),
+key `76f210c2e1fbd9df473b9ca8890f1e5a`, S4--S8/E3--E5, and Daniel Martin,
+*Arithmetic on Markoff Surfaces*, IAS, 7 Apr. 2026,
+[video](https://www.ias.edu/video/arithmetic-markoff-surfaces), key
+`dfe6aa197a4b6c233c6312357c4670a6`, S2/S4--S6 and E4.  Martin's raw E4 span
+at 2,045--2,158 seconds explicitly gives a parameter with many finite-field
+Markoff triples but no integer triples.  Finite residue graphs of the recharge
+map may still be useful for computing component-frequency vectors and their
+exact orthogonal obstruction space, but edge lifting and positivity must be
+proved separately.  The reversible Markoff group action has structural tools
+that the one-way, changing-precision Collatz semigroup may not possess, and
+compatible finite levels still need one eventually stable ordinary root.
+
 ## Other promoted talks (transfer ledger)
 
 | Status | Talk and raw spans | Concrete transfer | Principal mismatch |
@@ -495,6 +542,9 @@ internal clean clock and ordinary root remain the decisive obligations.
 | conditional | Richard Ehrenborg, *Counting Pattern Avoiding Permutations Via Integral Operators*, key `e5d73aeba9471656ab49c2384cd0b4f3`, S2/S7 | Build an exact overlap graph of universally clean macros and certify primitivity, positive resource-cycle mean, and compatible unbounded-scale bonding maps. | Fixed-state graphs favor periodic paths and cannot absorb indefinitely fresh dyadic precision. |
 | conditional | Elad Haramaty, *On the Structure of Cubic and Quartic Polynomials*, key `63ed799a0a626b68c9ed383b4c711805`, S5--S8/E3 | Refine the bias-to-structure lane: biased derivatives, a Bogolyubov subspace, and a shared low-rank linear basis can recover a compact carry grammar. | Carry degree may grow, modular structure may not lift, and the talk's quartic counterexample blocks naive inverse claims. |
 | conditional | Joana Kulaga-Przymus, *Thermodynamic Formalism for B-free Dynamical Systems*, key `d99bbc3ba5e7f41c084fc87c8fb505c5`, S1--S3/S7 | Use nested mixed-base periodic skeletons with recursively resolved holes, and require a state-derived clean clock whose every value is eventually assigned. | An external Toeplitz schedule is a preloaded tape; density and pressure do not prove semantic closure or an ordinary seed. |
+| preflight | Annie Raymond, *Graph Density Inequalities, Sums of Squares and Tropicalization*, key `1046f78390fd05e12d05a3413a3ddf7b`, S3--S6 | Solve the rational cone of height, dyadic/triadic precision, counter scale, and carry resources; export a Farkas no-go or a minimal feasible support. | Flow loses word order and tropicalization loses exact cancellation; a feasible ray is not a trajectory. |
+| preflight | Swastik Kopparty, *A local central limit theorem for triangles in a random graph*, key `69956d38eef0339ec0f4207f78499dcd`, S1--S2/S4--S7/E2 | Establish exact modular/lattice support of carry zero conditional on interfaces before any local-limit or entropy argument. | Collatz word contributions are dependent, and a finite zero-carry block does not supply a prefix-compatible infinite orbit. |
+| warning | Alexander Gamburd, *Varieties of Markoff Type*, key `76f210c2e1fbd9df473b9ca8890f1e5a`, and Daniel Martin, *Arithmetic on Markoff Surfaces*, key `dfe6aa197a4b6c233c6312357c4670a6` | Use finite residue components and dual obstruction vectors as exact features, but demand a separate edge-lifting and ordinary-integral theorem. | Many finite-field points can have no integer lift; Markoff's reversible group action is unlike the Collatz semigroup. |
 
 ## Negative lessons already extracted
 
@@ -565,5 +615,14 @@ internal clean clock and ordinary root remain the decisive obligations.
   1 Nov. 2010, key `63ed799a0a626b68c9ed383b4c711805`.
 - Joana Kulaga-Przymus, *Thermodynamic Formalism for B-free Dynamical
   Systems*, IAS, 1 Mar. 2023, key `d99bbc3ba5e7f41c084fc87c8fb505c5`.
+- Annie Raymond, *Graph Density Inequalities, Sums of Squares and
+  Tropicalization*, IAS, 1 Feb. 2021, key
+  `1046f78390fd05e12d05a3413a3ddf7b`.
+- Swastik Kopparty, *A local central limit theorem for triangles in a random
+  graph*, IAS, 28 Mar. 2016, key `69956d38eef0339ec0f4207f78499dcd`.
+- Alexander Gamburd, *Varieties of Markoff Type: Arithmetic, Combinatorics,
+  Dynamics*, IAS, 12 Dec. 2022, key `76f210c2e1fbd9df473b9ca8890f1e5a`.
+- Daniel Martin, *Arithmetic on Markoff Surfaces*, IAS, 7 Apr. 2026, key
+  `dfe6aa197a4b6c233c6312357c4670a6`.
 
 `counterexample: null`
