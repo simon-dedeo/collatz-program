@@ -56,6 +56,17 @@ examples explicitly warn that expansion does not remove parity or congruence
 obstructions.  Increasingly long finite paths still do not give compatible
 bonding maps or one ordinary seed.
 
+Rincón's tropical-ideal counterexample now strengthens the realizability
+preflight.  A valuation architecture can satisfy circuit elimination at every
+degree, form a compatible infinite matroid tower, have the expected Hilbert
+polynomial, and define a balanced tropical variety, yet fail to come from any
+classical ideal.  Therefore every synthesized Collatz circuit tower must also
+retain coefficient-level multiplication closure: multiply forced low-degree
+relations by allowed monomials and reject the first forbidden support, rank,
+or tensor-product pattern.  This is a no-go for coherent tropical shadows,
+not a construction; actual exact Collatz polynomial identities are realizable
+by definition.
+
 Bansal's discrepancy rounding is retained only behind a stronger clean-pair
 gate: every alternative must already have identical exact boundary action and
 zero ordinary carry, after which dyadic-interval rows can control all prefix
@@ -70,7 +81,7 @@ to an actual decoder on the complete finite state set.  Lean also proves that
 a witness survives every refinement which still assigns its two states the
 same signature.  This makes the outer loop exact at each bound; it does not
 supply the mixed-valuation encoding or one uniform unbounded selector.  The
-public checked ledger is now 44 talks; the single corpus batch is at
+public checked ledger is now 45 talks; the single corpus batch is at
 769/1,025 with zero failures and remains below the stated cost ceiling.
 `counterexample:null`.
 
@@ -7677,6 +7688,12 @@ existing lines of work; the closest ancestors, and what each contributes:
   discrepancy ideas motivate prefix-balanced resource batches only after
   exact clean boundary compatibility.  Real discrepancy never repairs a
   valuation or carry error.
+- **F. Rincón, [“Tropical
+  Ideals”](https://www.ias.edu/video/tropical-ideals), IAS talk (30 Jan. 2025),
+  corpus key `3fed4a408fef28d0dd296c03734f33e6`, S2--S6 at 606--3,272
+  seconds** — compatible circuit/matroid towers need not be classically
+  realizable.  Coefficient-level product closure is therefore mandatory
+  before a tropical Collatz architecture is treated as an arithmetic family.
 - **A. V. Kontorovich & Ya. G. Sinai, [“Structure Theorem for
   `(d,g,h)`-Maps”](https://arxiv.org/abs/math/0601622), Bull. Braz. Math. Soc.
   33 (2002), 213–224** — the exact arithmetic-progressions theorem for every

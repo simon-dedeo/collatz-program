@@ -925,6 +925,7 @@ construct an escape.
 | warning/coherence audit | Alexander Petrov, *Galois Action on Higher Etale Homotopy Groups*, key `e76667fa26f053d772a9d6b48a8190ab`, S3--S6/E4--E5, 834--1,230 and 1,620--3,620 s | Attach a transition 2-complex to claimed commuting repair/descent squares and test comparison cocycles or `p`-good/`K(pi,1)` behavior before treating finite shadows as a discrete controller. | The arithmetic higher-homotopy obstruction need not occur in the Collatz graph, and detecting one only rejects gluing; it constructs neither a seed nor an orbit. |
 | exact finite directed-search certificate | Michael Krivelevich, *Paths and cycles in expanders*, key `234d35e01cff3446271f60df1cf2d860`, S2--S7/E2--E3/E5--E6, 563--3,376 s | On a fixed exact root-clean positive-drift reset graph, certify `min_(|S|=k)|N^+(S)|>=ell`; directed DFS then returns a replayable directed path of length at least `ell`.  A minimizing cut instead exposes the smallest residue/carry bottleneck for invariant synthesis. | Expansion does not erase parity or modulus obstructions, as the talk's bipartite and subdivided examples show.  One-scale long paths do not bond across scales and can converge only profinitely. |
 | conditional finite balancing | Nikhil Bansal, *On Beck-Fiala and Komlós Conjectures*, key `d676051521258c7e0c738f0c67a82327`, S2--S7/E4--E6, 923--3,528 s | For an independently proved library of paired macros with identical exact boundary action, put resource differences on dyadic interval rows and use exact sign/MILP replay to bound every prefix; SDP is discovery only. | Collatz legality is adaptive and exact, while discrepancy rounds a fixed real matrix.  Commit `af90376` makes the identical-fixed-endpoint pair gate empty for distinct literal macros; only a genuinely parametric/coarser interface could remain. |
+| tropical realizability gate | Felipe Rincón, *Tropical Ideals*, key `3fed4a408fef28d0dd296c03734f33e6`, S2--S6, 606--3,272 s | Treat support/circuit constraints across growing term degree as a matroid tower, but require coefficient-level multiplication closure.  Multiply every forced low-degree Collatz relation by the allowed monomials and use the first forbidden support, rank, or tensor-product obstruction as an exact architecture witness. | The talk constructs compatible elimination-closed matroid towers with Hilbert polynomial and balanced tropical variety which still come from no classical ideal.  Genuine Collatz identities are realizable automatically; this gate rejects only tropical/valuation relaxations. |
 
 ## Negative lessons already extracted
 
@@ -1035,6 +1036,8 @@ construct an escape.
   key `234d35e01cff3446271f60df1cf2d860`.
 - Nikhil Bansal, *On Beck-Fiala and Komlós Conjectures*, IAS, 10 Nov. 2025,
   key `d676051521258c7e0c738f0c67a82327`.
+- Felipe Rincón, *Tropical Ideals*, IAS, 30 Jan. 2025, key
+  `3fed4a408fef28d0dd296c03734f33e6`.
 - Alexander Lubotzky, *Stability, Non-approximated Groups and
   High-dimensional Expanders*, IAS, 12 Oct. 2020, key
   `6b1b831e4b3dd5445ae97fcd580d1eb2`.
