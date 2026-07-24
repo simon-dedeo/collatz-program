@@ -16556,3 +16556,87 @@ immediate search reduction is rigorous now: after the first returned edge,
 candidate invariant states may be restricted to positive odd multiples of
 three.  Focused compilation, root compilation, and the axiom audit pass; the
 new results use only standard mathlib principles.
+
+## Round 327 — QM170 coarse dyadic hole and open-tail obstruction
+
+I audited the newest writer--decoder selector claim and formalized its
+universal arithmetic/topological core in the new imported module
+`OutwardCoarseHole.lean`.
+
+The one-class mechanism is now kernel-checked:
+
+```text
+twoAdic_linear_gate_right_unique
+AffineCoarseGate.right_unique
+```
+
+If an affine gate is tested modulo `2^(d+1)` and its parameter coefficient is
+`2` times an odd number, any two solutions are congruent modulo `2^d`.  The
+writer--decoder specialization uses modulus `2^55`, hence one class modulo
+`2^54` per correction.  Also:
+
+```text
+large_writer_correction_mod_twoPow
+```
+
+proves that `7 + 2^(p+4)q = 7 (mod 2^55)` for every `p>=51`; this is the
+common large-counter tail mechanism, independent of the quotient `q`.
+
+I then encoded the exact 49-plus-one cover architecture.  `Fin 49` indexes
+the counters `p=2,...,50`, and the large-counter writer gate supplies the
+last class:
+
+```text
+fiftyClassCover
+fiftyClassCover_card_le
+CoarseWriterDecoderLegal
+coarseWriterDecoderLegal_classified
+```
+
+Here `CoarseWriterDecoderLegal A q stride correction n` allows an unbounded
+target counter.  Small counters use their arbitrary individual correction;
+all counters at least 51 use correction 7.  When `A` and `stride` are odd,
+Lean proves that every such legal parameter lies in at most fifty classes
+modulo `2^54`.  No enumeration of the actual residues is needed.
+
+The CRT conclusion is also fully formalized, including the quantifier that
+matters for an ordinary ray:
+
+```text
+exists_large_in_ternary_and_dyadic_classes
+exists_large_outside_dyadic_cover
+exists_positive_parameter_outside_dyadic_cover
+exists_large_not_coarseWriterDecoderLegal
+exists_positive_open_tail_not_coarseWriterDecoderLegal
+```
+
+Thus every ternary cylinder contains arbitrarily large parameters outside
+the coarse legal set.  More directly, for every open tail
+
+```text
+u = u0 + 3^k*m
+```
+
+there is a strictly positive **ordinary natural** `m` for which no target
+counter, even an unbounded one, satisfies the coarse next-cell gate.  This is
+stronger than producing a 2-adic or abstract congruence witness and exactly
+matches the free tail in QM170b.
+
+Adversarial verdict: the pure ternary-selector architecture is genuinely
+dead once the advertised necessary gate is connected to the literal cell
+semantics.  The scope warning also survives exactly: this does not exclude a
+recursive predicate that binds the fresh dyadic class at every level.
+
+One semantic seam remains explicit rather than hidden.  The repository has
+no Lean definition yet for the Python worker's `Cell`, `Triple`, or
+`next_diagnostic`, so the implication
+
+```text
+literal legal next writer--decoder cell
+  -> CoarseWriterDecoderLegal A q stride correction n
+```
+
+is not yet kernel-checked.  The new module proves everything after that
+necessary-divisibility implication.  The next high-value Lean task is to port
+the small exact `Cell/Triple` arithmetic interface and prove this implication;
+it should then close QM170f/e without trusting the Python cover rows.

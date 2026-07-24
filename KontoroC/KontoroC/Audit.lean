@@ -1812,5 +1812,32 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_not_syracuseReachesOne
 #print axioms
   KontoroC.OutwardInvariantBridge.canonicalRechargeMap_invariant_gives_not_collatz
+#print axioms KontoroC.OutwardCoarseHole.twoAdic_linear_gate_right_unique
+#print axioms KontoroC.OutwardCoarseHole.large_writer_correction_mod_twoPow
+#print axioms KontoroC.OutwardCoarseHole.fiftyClassCover_card_le
+#print axioms KontoroC.OutwardCoarseHole.mem_fiftyClassCover_of_classified
+#print axioms KontoroC.OutwardCoarseHole.AffineCoarseGate.right_unique
+#print axioms KontoroC.OutwardCoarseHole.AffineCoarseGate.modEq_representative
+#print axioms KontoroC.OutwardCoarseHole.coarseWriterDecoderLegal_classified
+#print axioms KontoroC.OutwardCoarseHole.exists_residue_not_mem
+#print axioms
+  KontoroC.OutwardCoarseHole.exists_large_in_ternary_and_dyadic_classes
+#print axioms KontoroC.OutwardCoarseHole.exists_large_outside_dyadic_cover
+#print axioms
+  KontoroC.OutwardCoarseHole.exists_positive_parameter_outside_dyadic_cover
+#print axioms
+  KontoroC.OutwardCoarseHole.exists_large_illegal_in_every_ternary_cylinder
+#print axioms KontoroC.OutwardCoarseHole.fifty_lt_two_pow_fiftyFour
+#print axioms
+  KontoroC.OutwardCoarseHole.exists_large_illegal_of_fifty_class_cover
+#print axioms
+  KontoroC.OutwardCoarseHole.exists_large_illegal_of_fifty_class_classification
+#print axioms
+  KontoroC.OutwardCoarseHole.exists_positive_open_tail_failure_of_fifty_class_cover
+#print axioms KontoroC.OutwardCoarseHole.exists_large_not_coarseWriterDecoderLegal
+#print axioms
+  KontoroC.OutwardCoarseHole.exists_positive_open_tail_not_coarseWriterDecoderLegal
+#print axioms
+  KontoroC.OutwardCoarseHole.no_ternary_cylinder_forces_legal_of_fifty_class_cover
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
