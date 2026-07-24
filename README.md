@@ -33,6 +33,47 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 22:04 EDT
+
+There is still no counterexample.  At Simon's direction, all active research
+has moved for the next 24 hours to a transfer audit of 1,025 IAS mathematics
+talks in `/Users/simon/Desktop/DANIEL`.  The authoritative release provides
+7,628 proof stages, 6,359 coded examples, and a word-timed raw transcript for
+every talk.  One conservative Batch-API pass (2,314,492 approximate input
+tokens, 1,025 requests, no further corpus-wide model pass planned) is assigning
+every talk a sourced Collatz-transfer obligation and a principal mismatch.
+Independent local triage and transcript reading provide a check against
+model-generated analogies.  The API spending ceiling for this lane is $1,000;
+actual token usage and estimated cost will be recorded after the batch returns.
+
+The first transcript-checked lead is Rachel Greenfeld's IAS talk
+*Einstein, P-adic Sudoku, Domino, and Decidability*, especially S3--S5
+(1,308--2,471 seconds).  Its last-nonzero-base-`p`-digit function is periodic
+off one exceptional coset, then repeats the same structure after dividing that
+coset by `p`.  It is therefore finitely described and locally approximable by
+periodic functions, yet globally aperiodic.  For `p=3` its primitive digit is
+exactly `(H/3^v3(H)) mod 3`.  This supplies a concrete selector architecture
+that the fixed-cylinder open-hole theorem does **not** exclude: a finite
+recursive valuation transducer with one exceptional coset at each scale.
+
+The proposed exact test is to extend invariant-CEGIS with nodes that inspect
+the valuation and primitive residue of finitely many affine forms in the full
+charge/address/carry state, dispatch on regular residue layers, and recurse on
+the uniquely divisible exceptional layer.  A successful certificate would
+still have to prove legal recharge, invariant closure, and ordinary dyadic
+seed coherence; the Sudoku construction proves none of those Collatz claims.
+It only identifies a principled unbounded-scale grammar worth testing.  The
+independent corpus audits added two theorem-shaped gates before scaling this
+search: Habegger's core-entropy comparison suggests pruning a macro grammar by
+the Perron radius of its dyadic-cost matrix
+`M_s(i,j)=sum_(e:i->j) 2^(-s D(e))`, while de la Llave's infinite-itinerary
+shadowing theorem isolates the missing Collatz analogue—covering relations
+with infinitely recurring **zero ordinary-root carry**, not profinite
+compactness alone.  Neither transfer is yet proved for Collatz.  The
+talk ledger, raw-span provenance, negative lessons, and evolving bibliography
+are in [`docs/notes/ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md).
+`counterexample:null`.
+
 ### 2026-07-23 20:57 EDT
 
 There is still no counterexample.  The invariant outer loop now works in the
@@ -5574,6 +5615,16 @@ identically `x`.
 
 ### KC Strategy and failure map
 
+**Active 24-hour reverse-mining audit (started 2026-07-23 21:40 EDT).**  The
+implementation/search lanes below are paused while all resources examine the
+1,025-talk IAS corpus.  The first live architecture is a recursively
+parameterized valuation selector modeled on Greenfeld's last-nonzero-digit
+hierarchy, preceded by an exact weighted Kraft/core-entropy pruning test and
+followed by an ordinary zero-carry shadowing obligation.  It is not a
+counterexample or an invariant: it becomes relevant only if exact CEGIS finds
+and certifies closure on the full charge/address/carry state.  See
+[`docs/notes/ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md).
+
 #### Live disproof programs
 
 - **Thin invariant program languages.**  The two-Kraft obstruction rules out
@@ -7003,6 +7054,59 @@ their idea; the errors are ours.* Our approach is, honestly, an assembly of
 existing lines of work; the closest ancestors, and what each contributes:
 
 **The Kontorovich challenge and disproof frame.**
+- **R. Greenfeld, [“Einstein, P-adic Sudoku, Domino, and
+  Decidability”](https://www.ias.edu/video/einstein-p-adic-sudoku-domino-and-decidability),
+  IAS talk (4 Dec. 2023), corpus key `306cad1983df747b3cb7e38d2b9fea54`,
+  S3--S5 at 1,308--2,471 seconds** — constructs an aperiodic hierarchy from
+  the last nonzero base-`p` digit and recursively removes each regular layer.
+  This directly motivates the valuation-recursive selector grammar now under
+  audit; it does not supply Collatz closure or ordinary-seed coherence.
+- **R. de la Llave, [“Geometric and Numerical Approaches to KAM
+  Theory”](https://www.ias.edu/video/symplectic/llave), IAS talk (8 Feb.
+  2012), corpus key `e056004f8e81393a47abd4fb4dcce613`, S1--S4 at
+  16--2,283 seconds** — the parametrized invariance equation and a posteriori
+  Newton theorem motivate searching for a compact invariant equation plus a
+  checkable residual/nondegeneracy certificate.  The smooth analytic KAM
+  hypotheses do not transfer to the discontinuous arithmetic Collatz map.
+- **R. de la Llave, [“Some geometric mechanisms for Arnold
+  diffusion”](https://www.ias.edu/video/emergingtopics/2018/0410-RafaeldelaLlave),
+  IAS talk (10 Apr. 2018), corpus key `06c75558ea7a67c26523d60637d5f0af`,
+  S4 and S6 at 2,016--2,483 and 3,033--3,267 seconds** — proves that a
+  possibly infinite multi-channel pseudo-itinerary is shadowed by a true
+  orbit using covering windows.  The proposed arithmetic analogue must add
+  compatible ordinary-root projections and infinitely recurring zero-carry
+  resets; otherwise compactness again yields only a `2`-adic shadow.
+- **B. Chazelle, [“The mathematics of natural
+  algorithms”](https://www.ias.edu/video/csdm/2016/1114-BernardChazelle),
+  IAS talk (14 Nov. 2016), corpus key `5e0929aceb9d14462b6a9a4d3dd8d8ff`,
+  S5--S7 at 1,978--3,695 seconds** — cell decomposition, orbit splitting,
+  entropy-versus-contraction, and graph-sequence grammars suggest an exact
+  renormalized language for changing recharge graphs.  No Collatz contraction
+  or grammar closure follows from the talk.
+- **J. Bourgain, [“On Zaremba's Conjecture on Continued
+  Fractions”](https://www.ias.edu/video/analysis/bourgain), IAS talk (14 Feb.
+  2012), corpus key `181d4aa312ac43061b3a703420b6a846`, S3--S8 at
+  1,533--3,986 seconds** — the finitely generated matrix-semigroup,
+  multilinear-block, renewal, and local-to-global architecture is a model for
+  grouping legal-word products into coherent ensembles.  Its density-one
+  conclusion and expanding `SL_2` setting do not address stabilization to one
+  ordinary Collatz seed.
+- **H. H. Nguyen, [“A New Approach to the Inverse Littlewood-Offord
+  Problem”](https://www.ias.edu/video/csdm/invlittlewoodofford), IAS talk
+  (1 Feb. 2010), corpus key `b5044a0a3573537d667f9fcd9e06bae6`, S2--S7 at
+  718--3,442 seconds** — large concentration forces bounded-rank generalized
+  arithmetic-progression structure.  This suggests treating repeated
+  low-address/low-carry hits as an inverse problem and extracting a parametric
+  word family instead of extending a beam; the required Collatz analogue has
+  not been proved.
+- **U. Zannier, [“On a Problem of Polya and Some of its
+  Evolutions”](https://www.ias.edu/video/problem-polya-and-some-its-evolutions),
+  IAS talk (8 Apr. 2026), corpus key `8c6e7ea43c9de3b12a756caab4bc5ea0`,
+  S2--S7 at 711--3,601 seconds** — its local--global examples show why
+  reductions modulo infinitely many primes or at one prime level can miss a
+  global obstruction, while all prime powers plus finite-dimensional
+  obstruction theory can be decisive.  This is presently a warning about
+  invariant-CEGIS precision, not a transferred theorem.
 - **A. V. Kontorovich & Ya. G. Sinai, [“Structure Theorem for
   `(d,g,h)`-Maps”](https://arxiv.org/abs/math/0601622), Bull. Braz. Math. Soc.
   33 (2002), 213–224** — the exact arithmetic-progressions theorem for every
