@@ -20332,3 +20332,31 @@ periodic search outputs cannot be repaired merely by attaching a changing
 ordinary charge.
 
 The full audit passes (8,891 jobs), with only standard mathlib axioms.
+
+## Round 398 — autonomous finite controllers fail even with an unbounded charge lift
+
+`OutwardRechargeAperiodic` now packages the finite-memory consequence at the
+literal first-passage interface:
+
+```text
+AutonomousFiniteRechargeController
+AutonomousFiniteRechargeController.phase_future_eq
+AutonomousFiniteRechargeController.impossible
+AutonomousFiniteRechargeController.no_controller.
+```
+
+The controller has a finite phase type, an autonomous transition, and emits
+the next `List (List Bool)` solely from that phase. The actual ordinary charge
+is deliberately *not* attached to the finite state; it may be a separate,
+unbounded sequence. Even so, finite pigeonhole plus autonomous determinism
+makes the complete emitted future eventually periodic after a repeated phase,
+contradicting Round 397.
+
+This closes a real loophole in the older finite-state fixed-charge no-go. A
+finite controller cannot be rescued merely by saying “the symbolic state is
+finite but the ordinary payload keeps growing” if the payload does not feed
+back into macro selection. A live selector must read genuinely unbounded
+arithmetic information (or have an infinite effective state); in that case it
+is outside this theorem by design.
+
+The full audit remains green (8,891 jobs), with standard mathlib axioms only.

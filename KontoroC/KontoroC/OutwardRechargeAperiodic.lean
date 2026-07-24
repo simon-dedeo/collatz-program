@@ -196,5 +196,96 @@ theorem exists_periodBreak_after
     (periodBreaks_infinite charge words hmacro hp).exists_gt depth
   exact ⟨t, ht, htmem⟩
 
+/-! ## Autonomous finite controllers -/
+
+/-- A factorization of the emitted recharge block lists through an
+autonomous finite state machine.  The ordinary charge is deliberately not a
+field: it may be an independent unbounded lift supplied to the impossibility
+theorem below. -/
+structure AutonomousFiniteRechargeController
+    (words : ℕ → List (List Bool)) (State : Type*) [Finite State] where
+  phase : ℕ → State
+  next : State → State
+  emit : State → List (List Bool)
+  phase_succ : ∀ t, phase (t + 1) = next (phase t)
+  words_eq : ∀ t, words t = emit (phase t)
+
+namespace AutonomousFiniteRechargeController
+
+variable {State : Type*} [Finite State]
+variable {words : ℕ → List (List Bool)}
+
+/-- Once an autonomous phase repeats, determinism makes its complete future
+phase trajectory repeat. -/
+theorem phase_future_eq
+    (controller : AutonomousFiniteRechargeController words State)
+    {i j : ℕ} (hij : controller.phase i = controller.phase j) (t : ℕ) :
+    controller.phase (i + t) = controller.phase (j + t) := by
+  induction t with
+  | zero => simpa using hij
+  | succ t ih =>
+      calc
+        controller.phase (i + (t + 1)) =
+            controller.next (controller.phase (i + t)) := by
+              simpa [Nat.add_assoc] using controller.phase_succ (i + t)
+        _ = controller.next (controller.phase (j + t)) :=
+          congrArg controller.next ih
+        _ = controller.phase (j + (t + 1)) := by
+              simpa [Nat.add_assoc] using
+                (controller.phase_succ (j + t)).symm
+
+/-- No autonomous finite-state machine can emit the macro schedule of a
+literal recharge orbit, even when the ordinary charge is retained as a
+separate unbounded sequence. -/
+theorem impossible
+    (controller : AutonomousFiniteRechargeController words State)
+    (charge : ℕ → ℕ)
+    (hmacro : ∀ n,
+      RechargeMacro (charge n) (charge (n + 1)) (words n)) : False := by
+  obtain ⟨i, j, hne, hij⟩ :=
+    Finite.exists_ne_map_eq_of_infinite controller.phase
+  rcases lt_or_gt_of_ne hne with hlt | hgt
+  · apply no_eventuallyPeriodic_rechargeMacro_schedule
+      charge words hmacro i (p := j - i) (by omega)
+    intro t
+    rw [controller.words_eq, controller.words_eq]
+    apply congrArg controller.emit
+    have hji : i + (j - i) = j :=
+      Nat.add_sub_of_le (Nat.le_of_lt hlt)
+    calc
+      controller.phase (i + (t + (j - i))) =
+          controller.phase ((i + (j - i)) + t) := by
+            congr 1
+            ac_rfl
+      _ = controller.phase (j + t) := by rw [hji]
+      _ = controller.phase (i + t) :=
+        (controller.phase_future_eq hij t).symm
+  · apply no_eventuallyPeriodic_rechargeMacro_schedule
+      charge words hmacro j (p := i - j) (by omega)
+    intro t
+    rw [controller.words_eq, controller.words_eq]
+    apply congrArg controller.emit
+    have hij' : j + (i - j) = i :=
+      Nat.add_sub_of_le (Nat.le_of_lt hgt)
+    calc
+      controller.phase (j + (t + (i - j))) =
+          controller.phase ((j + (i - j)) + t) := by
+            congr 1
+            ac_rfl
+      _ = controller.phase (i + t) := by rw [hij']
+      _ = controller.phase (j + t) :=
+        (controller.phase_future_eq hij.symm t).symm
+
+/-- Negated-existence packaging for architecture audits. -/
+theorem no_controller
+    (charge : ℕ → ℕ)
+    (hmacro : ∀ n,
+      RechargeMacro (charge n) (charge (n + 1)) (words n)) :
+    ¬ Nonempty (AutonomousFiniteRechargeController words State) := by
+  rintro ⟨controller⟩
+  exact controller.impossible charge hmacro
+
+end AutonomousFiniteRechargeController
+
 end OutwardRechargeAperiodic
 end KontoroC
