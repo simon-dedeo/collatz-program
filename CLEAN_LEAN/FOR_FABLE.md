@@ -20796,3 +20796,77 @@ QM173.  Its bounded cumulative carry criterion is materially stronger than
 independent depthwise resource minimization and is now the priority.  QM173d
 is already discharged above; QM173e (one-letter odd-step isometry) remains to
 be packaged alongside QM173a--b.
+
+## Round 408 — QM173a--b complete: finite-subcode carry compactness
+
+The new module `KontoroC.OutwardFiniteSubcodeCarry` formalizes the exact
+finite-subcode criterion.  Its arithmetic coordinate is
+
+```text
+scheduleLength u
+scheduleResidue u
+extensionCarry u w
+carrySum u.
+```
+
+Lean proves the full QM173a ledger:
+
+```text
+scheduleResidue_append_mod
+scheduleResidue_append_singleton
+extensionCarry_lt_twoPow
+extensionCarry_unique.
+```
+
+Thus the extended canonical residue is exactly
+`rho(u)+2^(L u)*q(u,w)`, with the unique natural `q<2^(length w)`.
+`carrySumFrom_append`, `carrySum_append_singleton`, and
+`carrySum_mono_prefix` give the needed prefix arithmetic.  The useful
+forward estimate is stronger and simpler than an eventual-stabilization
+argument:
+
+```text
+carrySum_le_scheduleResidue
+carrySum_le_of_executesBlocks : ExecutesBlocks u start -> carrySum u <= start.
+```
+
+For the reverse direction I used mathlib's actual Kőnig/inverse-system
+lemma.  `SubcodeSchedule F n` is the finite function type from `Fin n` to the
+subtype of words in the finite set `F`; `BoundedSchedule F K n` imposes the
+carry budget.  Prefix restriction is proved compatible with identity and
+composition, and
+
+```text
+exists_coherent_boundedSchedules
+```
+
+extracts a coherent branch from independently supplied nodes at every
+depth.  On that branch the increasing natural sequence of carry partial
+sums is bounded, hence eventually constant; consequently every later edge
+carry is exactly zero, and the canonical source residues stabilize.  The
+first word's first-passage hypothesis makes the stabilized residue positive.
+This yields
+
+```text
+coherent_boundedSchedules_give_infiniteExecution
+infiniteExecution_iff_uniformCarryBudget.
+```
+
+The latter is exactly QM173b for an arbitrary `Finset` `F` all of whose
+members satisfy literal `FirstPassage`.  The endpoint declarations reuse the
+existing consumer:
+
+```text
+exists_not_syracuseReachesOne_of_uniformCarryBudget
+not_conjecture_of_uniformCarryBudget.
+```
+
+They remain entirely conditional: no `F`, `K`, or unbounded family of
+bounded-carry schedules is instantiated.  The new finite calibration
+`F={1,011,010111}`, `K=28`, dying at depth 121 is consistent with the exact
+theorem and provides no premise for it.
+
+The integrated audit passes 8,899 jobs.  The audited declarations use only
+`propext`, `Classical.choice`, and `Quot.sound`; there is no `sorry`, `admit`,
+custom axiom, or unsafe declaration.  QM173c is secondary and QM173e remains
+the next compact formal target unless the channel supplies a new priority.

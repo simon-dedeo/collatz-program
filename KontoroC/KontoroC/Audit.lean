@@ -2709,3 +2709,21 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardResourceMinimumCompactness.firstPassage_not_exists_allDepth_iff_mixedBaseResourceEscapes
 #print axioms
   KontoroC.OutwardResourceMinimumCompactness.allDepth_mixedBaseResource_gt_of_empty_sublevel
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.scheduleResidue_append_singleton
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.extensionCarry_lt_twoPow
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.extensionCarry_unique
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.exists_coherent_boundedSchedules
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.carrySum_le_of_executesBlocks
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.coherent_boundedSchedules_give_infiniteExecution
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.infiniteExecution_iff_uniformCarryBudget
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.exists_not_syracuseReachesOne_of_uniformCarryBudget
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.not_conjecture_of_uniformCarryBudget
