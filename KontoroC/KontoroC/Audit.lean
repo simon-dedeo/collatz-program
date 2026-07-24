@@ -2542,3 +2542,5 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.OutwardIteratedKraftGap.finite_nMacro_dyadicMass_lt_one
 #print axioms
   KontoroC.OutwardIteratedKraftGap.finite_nMacro_card_bound_of_fixed_bitLength
+#print axioms
+  KontoroC.OutwardIteratedKraftGap.finite_nMacro_coveredAtDepth_card_bound

@@ -20245,3 +20245,29 @@ schedule, and still does not construct or rule out its ordinary root.
 
 The full `KontoroC.Audit` build passes (8,890 jobs), with only standard
 mathlib axioms in the printed dependency ledger.
+
+## Round 395 — direct dyadic-residue bound after `n` complete recharges
+
+Round 394 now has the cylinder form needed by an actual residue search:
+
+```text
+finite_nMacro_coveredAtDepth_card_bound :
+  20^n * card (length-L parity words beginning with a selected
+    exact n-first-passage schedule)
+  <= 17^n * 2^L.
+```
+
+The selected schedules may have different total bit lengths, provided each
+is at most `L`; their length-`L` extension cylinders are unioned by the
+existing `coveredAtDepth`. Unique first-passage parsing supplies prefix
+freeness, while `card_biUnion_le` keeps the conclusion valid even before
+using disjointness explicitly.
+
+This is the most concrete form of the intrinsic rarity result: among dyadic
+residue classes modulo `2^L`, the proportion which can begin `n` complete
+outward recharges is at most `(17/20)^n`. It applies to arbitrary finite
+collections from the full first-passage language, not merely paths retained
+by a finite automaton. Again, zero density is not emptiness; an exceptional
+ordinary root could occupy one nested cylinder at every depth.
+
+The full audit remains green (8,890 jobs), with standard mathlib axioms only.

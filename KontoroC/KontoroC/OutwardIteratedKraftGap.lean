@@ -29,6 +29,7 @@ open scoped BigOperators
 open ShortcutParityPeriodicNoGo PrefixKraft OutwardFirstPassage
   OutwardCodeCompactness OutwardOddSlice OutwardStrictKraftGap
   OutwardSemanticAliasNoGo
+  OutwardFiniteStateKraftGap.FirstPassageGrammar
 
 /-- Flatten all block schedules in a finite family, identifying only equal
 literal parity words. -/
@@ -262,6 +263,76 @@ theorem finite_nMacro_card_bound_of_fixed_bitLength
         (17 : ℝ) ^ n * (2 : ℝ) ^ L := by
     simpa [mul_comm] using hcross
   exact_mod_cast hcross'
+
+/-- Cylinder form of the same bound. If every selected `n`-macro prefix has
+total bit length at most `L`, then at most an `(17/20)^n` fraction of all
+length-`L` parity words begin with one of those schedules. -/
+theorem finite_nMacro_coveredAtDepth_card_bound
+    (schedules : Finset (List (List Bool))) (n L : ℕ)
+    (hwords : ∀ words ∈ schedules,
+      WordsIn FirstPassageCode words)
+    (hmacroLength : ∀ words ∈ schedules, words.length = n)
+    (hbitLength : ∀ words ∈ schedules,
+      (flattenWords words).length ≤ L) :
+    20 ^ n *
+        (coveredAtDepth (flattenedSchedules schedules) L).card ≤
+      17 ^ n * 2 ^ L := by
+  let C := flattenedSchedules schedules
+  have hClength : ∀ w ∈ C, w.length ≤ L := by
+    intro w hw
+    rcases mem_flattenedSchedules_iff.mp hw with
+      ⟨words, hmem, hflat⟩
+    rw [← hflat]
+    exact hbitLength words hmem
+  have hmass := finite_nMacro_dyadicMass_le
+    schedules n hwords hmacroLength
+  have hscaled : ∀ w ∈ C,
+      dyadicWeight w = (2 ^ (L - w.length) : ℝ) / 2 ^ L := by
+    intro w hw
+    have hq := dyadicWeight_eq_scaled w L (hClength w hw)
+    have hr := congrArg (fun x : ℚ => (x : ℝ)) hq
+    norm_num at hr
+    simpa [dyadicWeight, one_div] using hr
+  have hratio :
+      (∑ w ∈ C, (2 ^ (L - w.length) : ℝ)) / (2 : ℝ) ^ L ≤
+        (17 : ℝ) ^ n / (20 : ℝ) ^ n := by
+    have hmass' :
+        ∑ w ∈ C, dyadicWeight w ≤ ((17 : ℝ) / 20) ^ n := by
+      simpa [C] using hmass
+    rw [Finset.sum_div]
+    calc
+      ∑ w ∈ C, (2 ^ (L - w.length) : ℝ) / (2 : ℝ) ^ L =
+          ∑ w ∈ C, dyadicWeight w := by
+            apply Finset.sum_congr rfl
+            intro w hw
+            exact (hscaled w hw).symm
+      _ ≤ ((17 : ℝ) / 20) ^ n := hmass'
+      _ = (17 : ℝ) ^ n / (20 : ℝ) ^ n := by rw [div_pow]
+  have hcross :
+      (∑ w ∈ C, (2 ^ (L - w.length) : ℝ)) * (20 : ℝ) ^ n ≤
+        (17 : ℝ) ^ n * (2 : ℝ) ^ L :=
+    (div_le_div_iff₀ (by positivity) (by positivity)).mp hratio
+  have hsumNat :
+      (∑ w ∈ C, 2 ^ (L - w.length)) * 20 ^ n ≤
+        17 ^ n * 2 ^ L := by
+    exact_mod_cast hcross
+  have hcovered :
+      (coveredAtDepth C L).card ≤
+        ∑ w ∈ C, 2 ^ (L - w.length) := by
+    calc
+      (coveredAtDepth C L).card ≤
+          ∑ w ∈ C, (extensions w (L - w.length)).card :=
+        Finset.card_biUnion_le
+      _ = ∑ w ∈ C, 2 ^ (L - w.length) := by
+        apply Finset.sum_congr rfl
+        intro w _
+        rw [card_extensions]
+  calc
+    20 ^ n * (coveredAtDepth C L).card ≤
+        20 ^ n * ∑ w ∈ C, 2 ^ (L - w.length) :=
+      Nat.mul_le_mul_left _ hcovered
+    _ = (∑ w ∈ C, 2 ^ (L - w.length)) * 20 ^ n := by ring
+    _ ≤ 17 ^ n * 2 ^ L := hsumNat
 
 end OutwardIteratedKraftGap
 end KontoroC
