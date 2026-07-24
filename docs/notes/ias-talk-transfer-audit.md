@@ -965,6 +965,15 @@ Collatz.  Exact macro effects may also cease to add linearly once positivity,
 first passage, and carry are imposed.  Consequently the matrix is a
 theorem-driven architecture test, not evidence that its desired rank holds.
 
+Formalizer commit `3e90286` now checks the finite additive alternative over
+any field and supplies matrix adapters over `F_2`: either an exact coefficient
+vector realizes the requested target, or a linear functional annihilates
+every macro-effect column while detecting that target.  The latter is a
+genuine obstruction for the supplied table.  The positive branch still does
+not prove that the chosen macros compose literally, remain first-passage and
+positive, or have zero ordinary carry; the all-height rank claim also remains
+open.
+
 ## Lead R: compress a stationary controller to its exact boundary determinant
 
 Charles Bordenave, *Random Perturbation of Toeplitz Matrices*, IAS, 20 Oct.

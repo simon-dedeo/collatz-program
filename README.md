@@ -64,12 +64,16 @@ near-unit-circle numerical spectrum under ordinary eigensolvers even though
 every exact eigenvalue is zero.  Floating spectra of nonnormal Collatz
 transfer matrices are therefore diagnostics only.
 
-Pilloni suggests testing every selector lift from `2^k` to `2^(k+1)` by its
-literal new-bit carry defect.  On a fixed certified branch chart, solve the
-finite cochain equation `delta u=kappa`; row reduction returns either a lift
-correction or a dual cocycle proving the policy cannot extend.  The talk's own
-Q&A says iteration through higher prime powers is not established, matching
-our separate need for compatible choices and an ordinary-root bound.
+Formalizer commit `3e90286` now checks the finite additive core shared by the
+Chao Li and Pilloni lanes: for any exact `F_2` macro-effect matrix and target,
+Lean returns either a realizing coefficient vector or a dual functional which
+kills every column and detects the target.  Pilloni suggests specializing this
+to each selector lift from `2^k` to `2^(k+1)` using its literal new-bit carry
+defect.  On a fixed certified branch chart, solve `delta u=kappa`; the talk's
+own Q&A says iteration through higher prime powers is not established,
+matching our separate need for compatible choices and an ordinary-root bound.
+The positive linear certificate still requires literal composition,
+positivity, first passage, and zero-carry replay.
 Naryshkin turns completion of finite first-passage towers into a capacitated
 Hall/max-flow problem: saturate every uncovered state with a clean repair, or
 return the exact deficient cut.  Tower heights must grow compatibly, but tall
