@@ -2548,3 +2548,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardFiniteChartPortfolioNoGo.literalCandidate_portfolio_card_lower_bound_of_ternary_total
 #print axioms
   KontoroC.OutwardFiniteChartPortfolioNoGo.literalCandidate_portfolio_card_lower_bound_of_open_tail_total
+#print axioms KontoroC.OutwardRechargeAperiodic.segment_rechargeMacro
+#print axioms
+  KontoroC.OutwardRechargeAperiodic.segmentWords_eq_of_periodic_mul
+#print axioms
+  KontoroC.OutwardRechargeAperiodic.no_constant_rechargeMacro_orbit
+#print axioms
+  KontoroC.OutwardRechargeAperiodic.no_periodic_rechargeMacro_schedule
+#print axioms
+  KontoroC.OutwardRechargeAperiodic.no_eventuallyPeriodic_rechargeMacro_schedule
+#print axioms KontoroC.OutwardRechargeAperiodic.periodBreaks_infinite
+#print axioms KontoroC.OutwardRechargeAperiodic.exists_periodBreak_after

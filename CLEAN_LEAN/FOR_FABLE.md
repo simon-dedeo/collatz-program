@@ -20297,3 +20297,38 @@ recursive mixed dyadic binder (or otherwise leave the hypotheses of the
 literal chart model), rather than enumerate more top-level charts.
 
 The full audit passes (8,890 jobs), with standard mathlib axioms only.
+
+## Round 397 — literal recharge schedules must break every period infinitely often
+
+The new module `KontoroC.OutwardRechargeAperiodic` closes the periodic
+schedule loophole directly at `RechargeMacro` semantics. Its main chain is
+
+```text
+segmentWords
+segment_rechargeMacro
+no_constant_rechargeMacro_orbit
+no_periodic_rechargeMacro_schedule
+no_eventuallyPeriodic_rechargeMacro_schedule
+periodBreaks_infinite
+exists_periodBreak_after.
+```
+
+Any positive-length segment of a literal recharge orbit composes to one exact
+endpoint-sensitive recharge macro. If the emitted block lists had period
+`p>0`, all period-aligned segments would be the same literal block list.
+Grouping each period would therefore execute one fixed outward parity word
+forever on positive ordinary naturals, contradicting the existing exact
+coprime affine-gain theorem.
+
+The conclusion is stronger than “charges cannot cycle.” The ordinary charge
+may keep growing and may encode unbounded hidden data; nevertheless the
+emitted literal macro schedule cannot be eventually periodic. Moreover every
+proposed positive period has infinitely many break times, and a break occurs
+beyond every requested depth.
+
+This formally validates the “genuinely aperiodic dispatcher” requirement.
+It does not rule out such a dispatcher; it proves that periodic or eventually
+periodic search outputs cannot be repaired merely by attaching a changing
+ordinary charge.
+
+The full audit passes (8,891 jobs), with only standard mathlib axioms.

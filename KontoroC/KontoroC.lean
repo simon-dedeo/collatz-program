@@ -192,6 +192,7 @@ import KontoroC.OutwardWordQuotientKernel
 import KontoroC.OutwardFeaturePolicyGap
 import KontoroC.OutwardOrdinaryRootDichotomy
 import KontoroC.OutwardLiteralMacroOrbit
+import KontoroC.OutwardRechargeAperiodic
 import KontoroC.OutwardLinearRoutingBottleneck
 import KontoroC.OutwardBoundedErrorGrowth
 import KontoroC.OutwardKernelDecoderGap

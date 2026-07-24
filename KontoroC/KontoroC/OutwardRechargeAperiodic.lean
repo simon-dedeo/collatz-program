@@ -1,0 +1,200 @@
+/-
+Copyright (c) 2026 Simon DeDeo. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Simon DeDeo, OpenAI Codex
+-/
+import KontoroC.OutwardLiteralMacroOrbit
+
+/-!
+# Literal first-passage recharge schedules are genuinely aperiodic
+
+A fixed nonempty outward parity program cannot execute forever on positive
+ordinary naturals.  This file lifts that obstruction to a sequence of exact
+`RechargeMacro` witnesses.  A finite period of possibly different macros is
+concatenated into one fixed outward super-macro, contradicting the repeated
+outward-word theorem.
+
+Consequently every proposed positive period is broken infinitely often in
+the emitted macro schedule.  The ordinary boundary charge is allowed to grow
+and is not attached to a finite symbolic state, so this is stronger than the
+finite-state fixed-charge obstruction.  It does not rule out a genuinely
+aperiodic schedule.
+-/
+
+namespace KontoroC
+namespace OutwardRechargeAperiodic
+
+open ShortcutParityPeriodicNoGo OutwardCodeCompactness
+  OutwardCodeCounterexample OutwardInvariantBridge OutwardOddSlice
+
+/-- Concatenate `n` successive block lists beginning at macro time `t`. -/
+def segmentWords (words : ℕ → List (List Bool)) (t : ℕ) :
+    ℕ → List (List Bool)
+  | 0 => []
+  | n + 1 => words t ++ segmentWords words (t + 1) n
+
+@[simp] theorem segmentWords_zero
+    (words : ℕ → List (List Bool)) (t : ℕ) :
+    segmentWords words t 0 = [] := rfl
+
+@[simp] theorem segmentWords_succ
+    (words : ℕ → List (List Bool)) (t n : ℕ) :
+    segmentWords words t (n + 1) =
+      words t ++ segmentWords words (t + 1) n := rfl
+
+/-- A positive-length segment of a literal recharge orbit is itself one
+literal recharge macro, obtained by exact endpoint-sensitive composition. -/
+theorem segment_rechargeMacro
+    (charge : ℕ → ℕ) (words : ℕ → List (List Bool))
+    (hmacro : ∀ n,
+      RechargeMacro (charge n) (charge (n + 1)) (words n))
+    (t n : ℕ) (hn : 0 < n) :
+    RechargeMacro (charge t) (charge (t + n))
+      (segmentWords words t n) := by
+  induction n generalizing t with
+  | zero => exact (Nat.lt_irrefl 0 hn).elim
+  | succ n ih =>
+      cases n with
+      | zero =>
+          simpa using hmacro t
+      | succ n =>
+          have hhead := hmacro t
+          have htail := ih (t + 1) (by omega)
+          have happ := hhead.append htail
+          have hend : t + 1 + (n + 1) = t + (n + 2) := by omega
+          rw [hend] at happ
+          simpa [segmentWords, Nat.add_assoc] using happ
+
+/-- Periodicity by `p` propagates to every multiple of `p`. -/
+theorem words_eq_of_periodic_mul
+    (words : ℕ → List (List Bool)) {p : ℕ}
+    (hperiod : ∀ t, words (t + p) = words t)
+    (k t : ℕ) :
+    words (k * p + t) = words t := by
+  induction k with
+  | zero => simp
+  | succ k ih =>
+      calc
+        words ((k + 1) * p + t) =
+            words ((k * p + t) + p) := by
+              congr 1
+              simp [Nat.succ_mul, Nat.add_comm,
+                Nat.add_left_comm]
+        _ = words (k * p + t) := hperiod _
+        _ = words t := ih
+
+/-- Period-aligned finite segments are the same literal block list. -/
+theorem segmentWords_eq_of_periodic_mul
+    (words : ℕ → List (List Bool)) {p : ℕ}
+    (hperiod : ∀ t, words (t + p) = words t)
+    (k t n : ℕ) :
+    segmentWords words (k * p + t) n = segmentWords words t n := by
+  induction n generalizing t with
+  | zero => simp
+  | succ n ih =>
+      rw [segmentWords_succ, segmentWords_succ,
+        words_eq_of_periodic_mul words hperiod k t]
+      congr 1
+      simpa [Nat.add_assoc] using ih (t + 1)
+
+/-- One fixed first-passage block list cannot be the literal recharge macro
+at every step of a positive ordinary charge orbit. -/
+theorem no_constant_rechargeMacro_orbit
+    (blocks : List (List Bool)) :
+    ¬ ∃ charge : ℕ → ℕ,
+      ∀ n, RechargeMacro (charge n) (charge (n + 1)) blocks := by
+  rintro ⟨charge, hmacro⟩
+  have hzero := hmacro 0
+  have hout : WordOutward (flattenWords blocks) := by
+    apply wordOutward_join hzero.words_ne_nil
+    intro w hw
+    exact (hzero.wordsIn w hw).1
+  apply no_positive_repeated_outward_word
+    (flattenWords blocks) (wordOutward_ne_nil hout) hout
+  refine ⟨fun n ↦ 3 * charge n - 1, ?_, ?_⟩
+  · intro n
+    have hpos := (hmacro n).source_pos
+    have hthree : 3 ≤ 3 * charge n :=
+      Nat.mul_le_mul_left 3 hpos
+    exact Nat.sub_pos_of_lt ((by norm_num : 1 < 3).trans_le hthree)
+  · intro n
+    exact executesBlocksTo_iff_flatten.mp (hmacro n).executesTo
+
+/-- The block-list schedule of a literal recharge orbit cannot have a
+positive period from its start.  A whole period is grouped into one fixed
+outward super-macro. -/
+theorem no_periodic_rechargeMacro_schedule
+    (charge : ℕ → ℕ) (words : ℕ → List (List Bool))
+    (hmacro : ∀ n,
+      RechargeMacro (charge n) (charge (n + 1)) (words n))
+    {p : ℕ} (hp : 0 < p)
+    (hperiod : ∀ t, words (t + p) = words t) : False := by
+  let cycle := segmentWords words 0 p
+  let groupedCharge : ℕ → ℕ := fun k ↦ charge (k * p)
+  apply no_constant_rechargeMacro_orbit cycle
+  refine ⟨groupedCharge, fun k ↦ ?_⟩
+  have hsegment := segment_rechargeMacro charge words hmacro (k * p) p hp
+  have hcycle : segmentWords words (k * p) p = cycle := by
+    simpa [cycle] using
+      segmentWords_eq_of_periodic_mul words hperiod k 0 p
+  dsimp only [groupedCharge]
+  rw [hcycle] at hsegment
+  simpa [Nat.succ_mul] using hsegment
+
+/-- Removing any finite transient does not rescue periodicity. -/
+theorem no_eventuallyPeriodic_rechargeMacro_schedule
+    (charge : ℕ → ℕ) (words : ℕ → List (List Bool))
+    (hmacro : ∀ n,
+      RechargeMacro (charge n) (charge (n + 1)) (words n))
+    (t₀ : ℕ) {p : ℕ} (hp : 0 < p)
+    (hperiod : ∀ t,
+      words (t₀ + (t + p)) = words (t₀ + t)) : False := by
+  let tailCharge : ℕ → ℕ := fun t ↦ charge (t₀ + t)
+  let tailWords : ℕ → List (List Bool) := fun t ↦ words (t₀ + t)
+  apply no_periodic_rechargeMacro_schedule tailCharge tailWords
+    (p := p) (by
+      intro n
+      dsimp only [tailCharge, tailWords]
+      simpa [Nat.add_assoc] using hmacro (t₀ + n)) hp
+  intro t
+  exact hperiod t
+
+/-- Macro-times at which a proposed period fails. -/
+def periodBreaks (words : ℕ → List (List Bool)) (p : ℕ) : Set ℕ :=
+  {t | words (t + p) ≠ words t}
+
+/-- Every positive proposed period is broken infinitely often along a
+literal recharge orbit. -/
+theorem periodBreaks_infinite
+    (charge : ℕ → ℕ) (words : ℕ → List (List Bool))
+    (hmacro : ∀ n,
+      RechargeMacro (charge n) (charge (n + 1)) (words n))
+    {p : ℕ} (hp : 0 < p) :
+    (periodBreaks words p).Infinite := by
+  intro hfinite
+  obtain ⟨M, hM⟩ := hfinite.exists_le
+  apply no_eventuallyPeriodic_rechargeMacro_schedule
+    charge words hmacro (M + 1) hp
+  intro t
+  by_contra hne
+  have hmem : M + 1 + t ∈ periodBreaks words p := by
+    change words ((M + 1 + t) + p) ≠ words (M + 1 + t)
+    intro heq
+    exact hne (by simpa [Nat.add_assoc] using heq)
+  have := hM (M + 1 + t) hmem
+  omega
+
+/-- Operational form: beyond every requested depth there is a later failure
+of the proposed positive period. -/
+theorem exists_periodBreak_after
+    (charge : ℕ → ℕ) (words : ℕ → List (List Bool))
+    (hmacro : ∀ n,
+      RechargeMacro (charge n) (charge (n + 1)) (words n))
+    {p : ℕ} (hp : 0 < p) (depth : ℕ) :
+    ∃ t, depth < t ∧ words (t + p) ≠ words t := by
+  obtain ⟨t, htmem, ht⟩ :=
+    (periodBreaks_infinite charge words hmacro hp).exists_gt depth
+  exact ⟨t, ht, htmem⟩
+
+end OutwardRechargeAperiodic
+end KontoroC
