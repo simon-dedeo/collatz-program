@@ -33,6 +33,69 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-24 01:56 EDT
+
+There is still no Collatz counterexample.  The IAS audit now has 195
+authoritative transcript-checked release talks.
+
+Sebastian Haney repairs noninvariant disk counts by encoding boundary bubbles
+in a curved `A_infinity` algebra, solving a Maurer--Cartan equation, and adding
+higher homotopy-cyclic corrections.  This suggests searching exact finite
+carry/interface correction equations rather than pretending block scores
+compose.  If `a(x)=h(Tx)-h(x)+G(Tx)-G(x)` with bounded `G`, literal paths
+receive a controlled telescoping height bound.  But a pure coboundary
+`a(x)=G(Tx)-G(x)` is perfectly coherent with bounded partial sums: cancellation
+is not coercivity, and one universal bounded correction hierarchy must work
+at every depth.
+
+Haohua Deng constructs a global completion by patching Stein factorizations
+of local period-map extensions when the full local fans do not patch.  A
+similar quotient architecture may reconcile local Collatz residue/carry
+charts, but it needs an exact path-lifting theorem: quotient agreement can
+erase the labels causing incompatibility.  Completion also deliberately adds
+boundary points; the coherent point `-1` in `Z_2` remains the exact example of
+a patched limit with no positive ordinary root.
+
+Rajat Mittal proves SDP product multiplicativity only under strong block,
+duality, and positive-cone hypotheses.  Exact Collatz block composition is
+semidirect, not scalar: for affine data `(A_w,B_w)`, concatenation has
+`B_(uv)=3^|v|*B_u+2^A_u*B_v`.  Words `13` and `31` share multiplier `9/16`
+but have carries `5` and `11` and fixed roots `5/7` and `11/7`.  Composable
+certificates must retain the full affine pair and prove literal interface
+compatibility.
+
+László Erdős shows that a leading universal random-matrix term can vanish or
+miss a larger uncancelled correction.  Period-three Collatz arithmetic gives
+an exact analogue: `222` and `123` both have total valuation six, multiplier
+`27/64`, and denominator gap `37`, but carries `37` and `23`.  The first gives
+the integer fixed point `1`; the second only the rational 2-adic cycle rooted
+at `23/37`.  Leading drift/parity statistics cannot discard the ordered
+additive carry.
+
+Emmanuel Lecouturier's weak p-Selmer BSD criterion intentionally combines
+rational points and Tate--Shafarevich obstructions; nonzero Selmer does not say
+which exists and does not construct a point.  Similarly, selector `123` has a
+unique compatible solution modulo every `2^k`, represented 2-adically by
+`23/37`, but no positive integral periodic root.  A modular obstruction or
+nonzero compatible class needs a separate point-construction and integrality
+theorem.
+
+Alexander Lubotzky's stability theorem turns asymptotic homomorphisms into
+nearby genuine homomorphisms by an ultraproduct lifting argument, under a
+cohomological criterion.  This identifies the exact missing theorem behind
+finite-prefix heuristics: a shadowing/lifting result in the correct state
+space.  Stability only in `Z_2` is insufficient because the positive integers
+are not closed there; the nested all-odd prefixes stabilize to the genuine
+2-adic orbit `-1` while their ordinary representatives diverge.
+
+Formalizer commit `e18fbff` supplies the finite algebra for sharded canonical
+search.  Canonical recharge certificates compose by depth addition, every
+successful long certificate has a unique ordinary intermediate charge, and
+endpoints from one source are strictly ordered by depth.  Parallel workers can
+now be checked segmentwise and inconsistent overlaps rejected exactly; this
+still assumes each finite noncomputable recharge step has been certified.
+`counterexample:null`.
+
 ### 2026-07-24 01:52 EDT
 
 There is still no Collatz counterexample.  The IAS audit now has 189
@@ -10347,6 +10410,43 @@ existing lines of work; the closest ancestors, and what each contributes:
   S3/S5--S8 at 1,110--1,377 and 1,964--3,896 seconds** — the effective
   alternative is equidistribution or proximity to a small periodic orbit.
   Long finite Collatz survivors may merely shadow nonordinary 2-adic cycles.
+- **S. Haney, [“Infinity Inner Products and Open Gromov-Witten
+  Invariants”](https://www.ias.edu/video/infinity-inner-products-and-open-gromov-witten-invariants),
+  IAS talk (4 Mar. 2025), corpus key `92e35bffb28d359cad1a74e4d64ab1f0`,
+  S2--S6 at 582--3,587 and 3,684--4,092 seconds** — higher homotopy-cyclic
+  corrections cancel boundary defects and restore an invariant potential.
+  Exact Collatz carry corrections still need boundedness and coercivity.
+- **H. Deng, [“On the Completions of General Period
+  Mappings”](https://www.ias.edu/video/completions-general-period-mappings),
+  IAS talk (12 Mar. 2026), corpus key `a193a16bdd94686844f157c4d5583780`,
+  S4--S7 at 1,538--3,568 seconds** — local fan extensions patch only after
+  Stein factorization of the period image.  A patched Collatz quotient still
+  needs literal path lifting and an ordinary-root theorem.
+- **R. Mittal, [“Product Rules in Semidefinite
+  Programming”](https://www.ias.edu/video/csdm/semidefiniteprogramming), IAS
+  talk (22 Mar. 2010), corpus key `9299318c66ea2396100b8c373f504f21`,
+  S2--S8 at 1,088--3,025 seconds** — exact tensor-product multiplicativity
+  requires strong dual and positive-cone structure.  Collatz block composition
+  has an essential semidirect carry term.
+- **L. Erdős, [“New corrections to mesoscopic level statistics for random band
+  matrices”](https://www.ias.edu/video/nedrm/2013/1108-LaszloErdos), IAS talk
+  (8 Nov. 2013), corpus key `0dc57071d2d8494a0144b755827295d9`, S4--S7 at
+  1,645--2,640 seconds** — rigorous subleading terms survive predicted
+  cancellations.  In Collatz the additive carry can decide integrality when
+  the leading multiplier is identical.
+- **E. Lecouturier, [“On the BSD conjecture for certain families of abelian
+  varieties with rational
+  torsion”](https://www.ias.edu/video/bsd-conjecture-certain-families-abelian-varieties-rational-torsion),
+  IAS talk (24 Mar. 2022), corpus key `47e68bcee51904334c41a77cf9b3a66e`,
+  S2--S4 at 410--2,449 seconds** — a nonzero Selmer group combines rational
+  points with other obstructions and does not construct a point.  Compatible
+  modular Collatz solutions likewise need integrality realization.
+- **A. Lubotzky, [“Stability, non-approximated groups and high-dimensional
+  expanders”](https://www.ias.edu/video/members/2020/1012-AlexanderLubotzky),
+  IAS talk (12 Oct. 2020), corpus key `6b1b831e4b3dd5445ae97fcd580d1eb2`,
+  S3--S7 at 1,587--3,413 seconds** — stability promotes asymptotic maps to
+  genuine homomorphisms in the ambient metric category.  A 2-adic lift need
+  not remain in the nonclosed positive integers.
 - **S. Fenner, [“Bipartite perfect matching is in
   quasi-NC”](https://www.ias.edu/video/csdm/2016/0208-Fenner), IAS talk
   (8 Feb. 2016), corpus key `83398a9013343939af42951fafbfdaa1`, S2--S8 at
