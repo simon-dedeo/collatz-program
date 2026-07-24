@@ -2675,3 +2675,37 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardLeastSurvivorResource.eventuallyConstant_leastSurvivor_iff_exists_allDepth
 #print axioms
   KontoroC.OutwardLeastSurvivorResource.leastSurvivor_triadicTax_equivalences
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.minimumResource_spec
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.minimumResource_le
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.minimumResource_mono
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.exists_all_iff_bounded_minimumResource
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.exists_all_iff_eventuallyConstant_minimumResource
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.allDepth_resource_gt_of_empty_sublevel
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.not_exists_all_iff_resourceEscapes
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.resourceEscapes_iff_not_bounded_minimumResource
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.firstPassage_exists_allDepth_iff_bounded_resourceMinimum
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.firstPassage_not_exists_allDepth_iff_resourceEscapes
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.not_collatz_of_bounded_firstPassage_resourceMinimum
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.mixedBase_decomposition
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.add_one_le_resource_mul_six_pow
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.mixedBaseResource_boundedSublevels
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.firstPassage_exists_allDepth_iff_bounded_mixedBaseMinimum
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.firstPassage_not_exists_allDepth_iff_mixedBaseResourceEscapes
+#print axioms
+  KontoroC.OutwardResourceMinimumCompactness.allDepth_mixedBaseResource_gt_of_empty_sublevel

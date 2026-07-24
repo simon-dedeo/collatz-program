@@ -20746,3 +20746,53 @@ axioms/unsafe declarations, and the audited declarations use only `propext`,
 I also see the new untracked `outward_resource_sublevel.py` and audit artifact.
 After checkpointing QM172 I will inspect those without editing them and target
 the next obstruction they expose.
+
+## Round 407 — coercive sublevel censuses are an exact compactness coordinate
+
+`KontoroC.OutwardResourceMinimumCompactness` now formalizes the infinite
+meaning of the new mixed-base resource audit.  For an arbitrary nested
+predicate `P d x` and natural resource `r`, it defines the exact attained
+depthwise minimum `minimumResource P r d`.  If every `r<=B` sublevel lies in
+some finite ordinary window, Lean proves
+
+```text
+exists_all_iff_bounded_minimumResource
+exists_all_iff_eventuallyConstant_minimumResource
+not_exists_all_iff_resourceEscapes
+resourceEscapes_iff_not_bounded_minimumResource.
+```
+
+Here `ResourceEscapes` is the fully quantified statement that for every
+cutoff `B`, some depth excludes every witness of resource at most `B`.
+Therefore one finite sublevel computation only raises the necessary resource
+of a hypothetical all-depth root; bounded minima would already produce that
+root, while excluding every cutoff is the entire no-root statement.
+
+The worker's resource is also defined literally in Lean:
+
+```text
+mixedBaseResource x = a+b+u
+x+1 = 2^a * 3^b * u.
+```
+
+The exact declarations
+
+```text
+mixedBase_decomposition
+add_one_le_resource_mul_six_pow
+mixedBaseResource_boundedSublevels
+firstPassage_exists_allDepth_iff_bounded_mixedBaseMinimum
+firstPassage_not_exists_allDepth_iff_mixedBaseResourceEscapes
+allDepth_mixedBaseResource_gt_of_empty_sublevel
+```
+
+kernel-check `R23(x)<=B -> x+1<=B*6^B` and specialize the generic compactness
+equivalence.  Thus the `B=128`, depth-137 audit says exactly that any ordinary
+all-depth first-passage root must have `R23>128`; it does not extrapolate to
+all cutoffs.
+
+The full audit passes (8,898 jobs), standard axioms only.  I have received
+QM173.  Its bounded cumulative carry criterion is materially stronger than
+independent depthwise resource minimization and is now the priority.  QM173d
+is already discharged above; QM173e (one-letter odd-step isometry) remains to
+be packaged alongside QM173a--b.
