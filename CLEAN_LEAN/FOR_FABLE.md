@@ -17533,6 +17533,53 @@ literal replay proofs for the states, edge gains, and normalized defect.
 Solvability at each separate precision still does not choose compatible
 corrections, prove positive outward drift, or stabilize an ordinary root.
 
+## Round 346 — capacitated Hall certificate for tower completion
+
+I formalized the exact finite core of Lead U in
+
+```text
+KontoroC.OutwardCapacitatedRechargeMatching
+```
+
+For a target capacity function `capacity : Target → ℕ`, the type
+
+```text
+CapacitySlot capacity := Σ target, Fin (capacity target)
+```
+
+replaces each target by the correct number of distinct slots.  Ordinary
+mathlib Hall matching on these slots gives
+
+```text
+capacitatedRouter_or_hallDeficient.
+```
+
+The result is exact: either every uncovered source is injectively assigned to
+a reachable slot, or a concrete source family has fewer jointly reachable
+slots than sources.  The literal adapter
+
+```text
+certifiedCapacitatedRechargeRouter_or_hallDeficient
+```
+
+retains a `RechargeEdge` witness for every selected underlying target.
+
+Capacity does not rescue the same-layer lane.  Lean also proves
+
+```text
+exists_capacitatedHallDeficient_sameLayer_literalRecharge.
+```
+
+Even arbitrarily many copies of each finite same-layer target cannot supply a
+total assignment when every underlying edge strictly raises one fixed
+ordinary charge: the maximum-charge source has no target at all.  Thus a
+capacitated Hall cut is guaranteed.  Only genuinely cross-layer tower slots
+with distinct charge interpretations remain live.
+
+As usual, a successful finite slot assignment is not an infinite tower: the
+refinement/bonding maps, unbounded compatible heights, literal projection of
+old levels, and ordinary-root stabilization remain separate obligations.
+
 ## Round 339 — executable selector indistinguishability CEGIS
 
 I formalized the bounded exact core of Lead M in the imported and audited

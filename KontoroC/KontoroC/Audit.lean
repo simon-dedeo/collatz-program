@@ -2066,5 +2066,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardPolicyLiftCohomology.binaryPolicyLift_or_cocycleObstruction
 #print axioms
   KontoroC.OutwardPolicyLiftCohomology.no_policyLift_of_cocycleObstruction
+#print axioms
+  KontoroC.OutwardCapacitatedRechargeMatching.capacitatedRouter_or_hallDeficient
+#print axioms
+  KontoroC.OutwardCapacitatedRechargeMatching.certifiedCapacitatedRechargeRouter_or_hallDeficient
+#print axioms
+  KontoroC.OutwardCapacitatedRechargeMatching.exists_capacitatedHallDeficient_sameLayer_literalRecharge
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
