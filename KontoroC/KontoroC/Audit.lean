@@ -2020,5 +2020,21 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardDirectedPathExpansion.exists_literalRechargePath_of_minOutdegree
 #print axioms
   KontoroC.OutwardDirectedPathExpansion.exists_literalRechargePath_of_certified_minOutdegree
+#print axioms KontoroC.OutwardRechargeMatching.mem_acceptedTargets_iff
+#print axioms KontoroC.OutwardRechargeMatching.mem_hallDeficientSets_iff
+#print axioms
+  KontoroC.OutwardRechargeMatching.hallCondition_iff_collisionFreeRouter
+#print axioms
+  KontoroC.OutwardRechargeMatching.collisionFreeRouter_or_hallDeficient
+#print axioms
+  KontoroC.OutwardRechargeMatching.hallDeficientSets_eq_empty_iff_collisionFreeRouter
+#print axioms
+  KontoroC.OutwardRechargeMatching.no_total_sameLayer_literalRecharge
+#print axioms
+  KontoroC.OutwardRechargeMatching.no_collisionFreeRouter_sameLayer_literalRecharge
+#print axioms
+  KontoroC.OutwardRechargeMatching.exists_hallDeficient_sameLayer_literalRecharge
+#print axioms
+  KontoroC.OutwardRechargeMatching.certifiedRechargeRouter_or_hallDeficient
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

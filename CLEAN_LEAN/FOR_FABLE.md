@@ -17341,6 +17341,62 @@ Full `lake build KontoroC` and `Audit.lean` pass with standard mathlib axioms
 only and no `sorry`, `admit`, project axiom, or soundness use of
 `native_decide`.
 
+## Round 342 — Hall routers and the same-layer recharge no-go
+
+I formalized Lead P in
+
+```text
+KontoroC.OutwardRechargeMatching
+```
+
+using mathlib's existing finite Hall theorem.  The generic exact interface is
+
+```text
+acceptedTargets
+HallDeficient
+CollisionFreeRouter
+hallDeficientSets
+hallCondition_iff_collisionFreeRouter
+collisionFreeRouter_or_hallDeficient
+hallDeficientSets_eq_empty_iff_collisionFreeRouter.
+```
+
+Thus the finite checker enumerates every deficient source family.  Empty
+output is equivalent to an actual injective accepted router; otherwise it
+returns an explicit `S` with `|N(S)|<|S|`.
+
+The adversarial first-passage specialization is stronger than the current
+diary wording.  Lean proves
+
+```text
+no_total_sameLayer_literalRecharge
+no_collisionFreeRouter_sameLayer_literalRecharge
+exists_hallDeficient_sameLayer_literalRecharge.
+```
+
+If a finite same-layer state type has one fixed ordinary charge per state and
+every accepted edge decodes to a positive literal `RechargeEdge`, there cannot
+even be a total self-router; injectivity is irrelevant.  Negated charge is a
+strictly descending rank along every edge, contradicting finiteness.  Hence an
+exact Hall-deficient subset must always exist.  The same-layer lane is not
+merely "a permutation, hence periodic": for actual fixed charges it is empty
+before cycle analysis.
+
+The live formulation is genuinely cross-layer.  The theorem
+
+```text
+certifiedRechargeRouter_or_hallDeficient
+```
+
+takes distinct source and target types/charge interpretations and returns
+either an injective router whose every chosen edge retains a literal recharge
+witness, or the exact Hall obstruction.  A same residue/window label may be
+used across layers only when its source and target charge interpretations are
+allowed to differ; otherwise the no-go applies.
+
+This remains finite.  Cross-scale bonding compatibility and one common
+zero-carry ordinary root are separate obligations.
+
 ## Round 339 — executable selector indistinguishability CEGIS
 
 I formalized the bounded exact core of Lead M in the imported and audited

@@ -173,6 +173,7 @@ import KontoroC.OutwardSemanticAliasNoGo
 import KontoroC.OutwardSelectorIndistinguishability
 import KontoroC.OutwardSUnitSyntaxGate
 import KontoroC.OutwardDirectedPathExpansion
+import KontoroC.OutwardRechargeMatching
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
