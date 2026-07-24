@@ -16870,3 +16870,61 @@ mixed recursive invariant is useful exactly when its closure proof can return
 an inhabitant of `WriterDecoderRecharge`.  The valuation-only theorem from
 Round 329 still shows that a regular ternary layer with a free dyadic
 coefficient cannot meet this contract everywhere.
+
+## Round 331 — finite-state first-passage transfer gaps produce literal holes
+
+I formalized Lead B's finite transition-matrix filter in the new imported and
+audited module
+
+```text
+KontoroC.OutwardFiniteStateKraftGap
+```
+
+`FirstPassageGrammar State Edge` is a finite directed multigraph whose edge
+labels are Boolean `FirstPassage` words.  It requires labels to be injective
+among edges with the same source so nondeterministic duplicate labels cannot
+artificially inflate mass.  The exact rational definitions are:
+
+```text
+edgeWeight(e) = (1/2)^length(word(e))
+outMass(i)    = sum_{e: source(e)=i} edgeWeight(e)
+adjacency(i,j)= sum_{e:i->j} edgeWeight(e)
+transfer(v,i)= sum_{e:source(e)=i} edgeWeight(e)*v(target(e)).
+```
+
+Lean proves `transfer_eq_adjacency_mulVec`, so a worker can export a rational
+positive vector without any spectral-radius library or floating point.
+`outMass_le_one` follows from the already-proved global prefix-freeness of
+first-passage words plus mathlib's Kraft--McMillan theorem.
+
+The certificate predicate is
+
+```text
+HasRationalKraftGap G v r :=
+  (forall i, 0 < v i) /\ 0 <= r /\ r < 1 /\
+  (forall i, transfer G v i <= r*v i).
+```
+
+The main results are:
+
+```text
+exists_state_outMass_lt_one_of_rationalKraftGap
+exists_uncovered_word_of_outMass_lt_one
+exists_state_and_uncovered_word_of_rationalKraftGap
+no_every_state_outMass_eq_one_of_rationalKraftGap
+```
+
+The strongest conclusion is literal, not just measure language: the strict
+transfer supersolution yields a state `i` and a Boolean word `z` at the
+maximum outgoing label length such that no outgoing edge word at `i` is a
+prefix of `z`.  The finite-depth hole is obtained by a new exact counting
+lemma (`one_le_dyadicMass_of_coversAtDepth`): if every length-`L` Boolean word
+is covered by a prefix in a finite family whose lengths are at most `L`, its
+dyadic Kraft mass is at least one.
+
+This establishes the proposed `rho(M)<1 -> finite-depth open subcylinder is
+uncovered` mechanism whenever `rho(M)<1` is supplied in the checkable
+Collatz--Wielandt form `M v <= r v`, `v>0`, `r<1`.  It remains only an
+architecture filter: a genuinely infinite-state/mixed recursive selector is
+outside the theorem, and the uncovered symbolic cylinder has not been
+identified with an ordinary writer--decoder parameter cylinder.

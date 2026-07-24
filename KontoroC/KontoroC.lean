@@ -162,6 +162,7 @@ import KontoroC.OutwardWriterDecoderSemantics
 import KontoroC.OutwardResonantDecoder
 import KontoroC.OutwardWriterDecoderLiteral
 import KontoroC.OutwardValuationSelectorNoGo
+import KontoroC.OutwardFiniteStateKraftGap
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail

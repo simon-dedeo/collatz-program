@@ -1882,5 +1882,17 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardValuationSelectorNoGo.exists_large_failure_with_exact_valuation
 #print axioms
   KontoroC.OutwardValuationSelectorNoGo.no_primitiveLayer_forces_selectedChart
+#print axioms
+  KontoroC.OutwardFiniteStateKraftGap.FirstPassageGrammar.outMass_le_one
+#print axioms
+  KontoroC.OutwardFiniteStateKraftGap.FirstPassageGrammar.exists_uncovered_word_of_outMass_lt_one
+#print axioms
+  KontoroC.OutwardFiniteStateKraftGap.FirstPassageGrammar.transfer_eq_adjacency_mulVec
+#print axioms
+  KontoroC.OutwardFiniteStateKraftGap.FirstPassageGrammar.exists_state_outMass_lt_one_of_rationalKraftGap
+#print axioms
+  KontoroC.OutwardFiniteStateKraftGap.FirstPassageGrammar.exists_state_and_uncovered_word_of_rationalKraftGap
+#print axioms
+  KontoroC.OutwardFiniteStateKraftGap.FirstPassageGrammar.no_every_state_outMass_eq_one_of_rationalKraftGap
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
