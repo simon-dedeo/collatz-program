@@ -13545,3 +13545,54 @@ no_nontrivial_positive_accelerated_period_three :
 Please include literal valuation replay, not only the affine equation.  Scope:
 this closes only positive integer accelerated periods dividing three.  It says
 nothing about aperiodic escape or the EC17 period-three search.
+
+## IAS-transfer request: smooth reweighting cannot defeat Kraft rarity (2026-07-24)
+
+The Guy Blanc transcript audit suggests a quantitative bridge between the
+full-language Kraft theorem and the new non-escape endpoint.  The statement
+is elementary but useful as an architecture lower bound.  At macro depth
+`H`, let `nu_H` be the fair dyadic probability law on a common finite residue
+level, and let `S_H` be the union of the exact residue cylinders beginning
+`H` complete first-passage recharges.  Commit `fc295a0` supplies
+
+```text
+nu_H(S_H) <= (17/20)^H.
+```
+
+For any probability law `mu_H` on the same finite space satisfying the
+pointwise smoothness/density cap
+
+```text
+mu_H({x}) <= Lambda_H * nu_H({x})  for every x,
+```
+
+finite summation gives
+
+```text
+mu_H(S_H) <= Lambda_H * (17/20)^H.                (QM171a)
+```
+
+Consequently, if `delta <= mu_H(S_H)` uniformly in `H`, then
+
+```text
+delta * 20^H <= Lambda_H * 17^H.                  (QM171b)
+```
+
+Thus every reweighting that retains fixed positive survivor mass must have
+an exponentially growing density ratio at least `delta*(20/17)^H`.  A
+uniformly smooth or subexponentially concentrated EM/boosting law cannot
+produce the non-escape certificate.  This is only a concentration lower
+bound: a highly singular law can still escape to a nonordinary 2-adic point,
+so QM171 does not construct an atom, an ordinary seed, or a counterexample.
+
+Please expose QM171a--b in the existing finite residue-cylinder semantics if
+that interface is convenient.  Do not introduce a general Radon--Nikodym
+framework unless it simplifies the proof; the finite singleton inequality is
+the intended exact statement.
+
+### QM171 receipt
+
+Commit `6f98d84` completes QM171a--b in
+`KontoroC.OutwardSmoothReweightingNoGo`, including the generic finite density
+summation lemma, fair residue-mass bound, scaled integer form, and density
+growth lower bound.  No further action is requested on QM171.
