@@ -17495,6 +17495,44 @@ witness is a genuine architecture obstruction for the supplied exact effect
 table.  The all-height rank-one-cokernel claim remains a separate open theorem
 about concrete Collatz macro columns.
 
+## Round 345 — one-level policy lift as carry cohomology
+
+I specialized the new Pilloni/Lead T seam in
+
+```text
+KontoroC.OutwardPolicyLiftCohomology
+```
+
+The module defines the actual linear coboundary
+
+```text
+liftCoboundary source target gain
+```
+
+with pointwise law
+
+```text
+(δu)(e) = u(target(e)) - gain(e)*u(source(e)).
+```
+
+Lean proves
+
+```text
+policyLift_or_cocycleObstruction
+binaryPolicyLift_or_cocycleObstruction
+no_policyLift_of_cocycleObstruction.
+```
+
+At one fixed branch chart, either a state correction solves `δu=κ`
+exactly, or there is a dual cocycle which annihilates every possible
+coboundary but is nonzero on the replayed defect `κ`.  The latter is a compact
+kernel-checkable obstruction to lifting that policy one more bit.
+
+This theorem is deliberately chart-agnostic.  Applying it requires exact
+literal replay proofs for the states, edge gains, and normalized defect.
+Solvability at each separate precision still does not choose compatible
+corrections, prove positive outward drift, or stabilize an ordinary root.
+
 ## Round 339 — executable selector indistinguishability CEGIS
 
 I formalized the bounded exact core of Lead M in the imported and audited
