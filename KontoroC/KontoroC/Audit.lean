@@ -2565,3 +2565,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardRechargeAperiodic.AutonomousFiniteRechargeController.impossible
 #print axioms
   KontoroC.OutwardRechargeAperiodic.AutonomousFiniteRechargeController.no_controller
+#print axioms
+  KontoroC.OutwardRechargeAperiodic.AutonomousFinitePhase.future_eq
+#print axioms
+  KontoroC.OutwardRechargeAperiodic.AutonomousFinitePhase.exists_semanticAlias_after

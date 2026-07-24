@@ -287,5 +287,104 @@ theorem no_controller
 
 end AutonomousFiniteRechargeController
 
+/-! ## Forced semantic aliases in every finite phase abstraction -/
+
+/-- An autonomous finite phase abstraction with no assumption that the
+emitted macro is determined by the phase. -/
+structure AutonomousFinitePhase (State : Type*) [Finite State] where
+  phase : ℕ → State
+  next : State → State
+  phase_succ : ∀ t, phase (t + 1) = next (phase t)
+
+namespace AutonomousFinitePhase
+
+variable {State : Type*} [Finite State]
+
+theorem future_eq (phaseSystem : AutonomousFinitePhase State)
+    {i j : ℕ} (hij : phaseSystem.phase i = phaseSystem.phase j) (t : ℕ) :
+    phaseSystem.phase (i + t) = phaseSystem.phase (j + t) := by
+  induction t with
+  | zero => simpa using hij
+  | succ t ih =>
+      calc
+        phaseSystem.phase (i + (t + 1)) =
+            phaseSystem.next (phaseSystem.phase (i + t)) := by
+              simpa [Nat.add_assoc] using phaseSystem.phase_succ (i + t)
+        _ = phaseSystem.next (phaseSystem.phase (j + t)) :=
+          congrArg phaseSystem.next ih
+        _ = phaseSystem.phase (j + (t + 1)) := by
+              simpa [Nat.add_assoc] using
+                (phaseSystem.phase_succ (j + t)).symm
+
+/-- Every autonomous finite phase abstraction aliases distinct literal
+macros arbitrarily far out along a recharge orbit.  Thus any missing
+information really must be carried by an unbounded payload which affects
+macro selection inside the same finite phase. -/
+theorem exists_semanticAlias_after
+    (phaseSystem : AutonomousFinitePhase State)
+    (charge : ℕ → ℕ) (words : ℕ → List (List Bool))
+    (hmacro : ∀ n,
+      RechargeMacro (charge n) (charge (n + 1)) (words n))
+    (depth : ℕ) :
+    ∃ i j,
+      depth < i ∧ depth < j ∧
+      phaseSystem.phase i = phaseSystem.phase j ∧
+      words i ≠ words j := by
+  obtain ⟨a, b, habNe, habPhase⟩ :=
+    Finite.exists_ne_map_eq_of_infinite phaseSystem.phase
+  rcases lt_or_gt_of_ne habNe with hab | hba
+  · let p := b - a
+    have hp : 0 < p := by dsimp [p]; omega
+    obtain ⟨t, htlarge, htbreak⟩ :=
+      exists_periodBreak_after charge words hmacro hp (max depth a)
+    have hat : a ≤ t := (Nat.le_max_right depth a).trans htlarge.le
+    let s := t - a
+    have has : a + s = t := by
+      dsimp [s]
+      exact Nat.add_sub_of_le hat
+    have habp : a + p = b := by
+      dsimp [p]
+      exact Nat.add_sub_of_le hab.le
+    have hphase : phaseSystem.phase t = phaseSystem.phase (t + p) := by
+      calc
+        phaseSystem.phase t = phaseSystem.phase (a + s) := by rw [has]
+        _ = phaseSystem.phase (b + s) :=
+          phaseSystem.future_eq habPhase s
+        _ = phaseSystem.phase (t + p) := by
+          congr 1
+          omega
+    exact ⟨t, t + p,
+      (Nat.le_max_left depth a).trans_lt htlarge,
+      ((Nat.le_max_left depth a).trans_lt htlarge).trans_le
+        (Nat.le_add_right t p),
+      hphase, Ne.symm htbreak⟩
+  · let p := a - b
+    have hp : 0 < p := by dsimp [p]; omega
+    obtain ⟨t, htlarge, htbreak⟩ :=
+      exists_periodBreak_after charge words hmacro hp (max depth b)
+    have hbt : b ≤ t := (Nat.le_max_right depth b).trans htlarge.le
+    let s := t - b
+    have hbs : b + s = t := by
+      dsimp [s]
+      exact Nat.add_sub_of_le hbt
+    have hbap : b + p = a := by
+      dsimp [p]
+      exact Nat.add_sub_of_le hba.le
+    have hphase : phaseSystem.phase t = phaseSystem.phase (t + p) := by
+      calc
+        phaseSystem.phase t = phaseSystem.phase (b + s) := by rw [hbs]
+        _ = phaseSystem.phase (a + s) :=
+          phaseSystem.future_eq habPhase.symm s
+        _ = phaseSystem.phase (t + p) := by
+          congr 1
+          omega
+    exact ⟨t, t + p,
+      (Nat.le_max_left depth b).trans_lt htlarge,
+      ((Nat.le_max_left depth b).trans_lt htlarge).trans_le
+        (Nat.le_add_right t p),
+      hphase, Ne.symm htbreak⟩
+
+end AutonomousFinitePhase
+
 end OutwardRechargeAperiodic
 end KontoroC

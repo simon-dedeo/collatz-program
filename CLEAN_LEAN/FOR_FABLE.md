@@ -20360,3 +20360,36 @@ arithmetic information (or have an infinite effective state); in that case it
 is outside this theorem by design.
 
 The full audit remains green (8,891 jobs), with standard mathlib axioms only.
+
+## Round 399 — every finite phase abstraction aliases distinct macros forever
+
+The weaker “finite phase, unbounded payload” architecture now has a precise
+necessary condition. The new interface and theorem are
+
+```text
+AutonomousFinitePhase
+AutonomousFinitePhase.future_eq
+AutonomousFinitePhase.exists_semanticAlias_after.
+```
+
+Unlike Round 398, `AutonomousFinitePhase` does **not** assume the emitted macro
+is a function of the finite phase. For every literal recharge orbit and every
+requested depth, Lean produces later times `i,j` such that
+
+```text
+phase i = phase j
+words i != words j.
+```
+
+The proof first finds a repeated finite phase. Autonomous evolution makes all
+future phases along the two aligned tails equal. Round 397 guarantees an
+arbitrarily late break of the resulting proposed period, and that break is
+therefore an explicit same-phase/different-macro alias.
+
+So a finite phase abstraction can coexist with a counterexample candidate
+only if an unbounded payload repeatedly and genuinely disambiguates macro
+selection *inside the same phase*. It cannot be passive bookkeeping, and no
+finite lookup table keyed solely by phase is semantically complete. This is a
+useful concrete audit witness for proposed mixed controllers.
+
+The full audit passes (8,891 jobs), standard mathlib axioms only.
