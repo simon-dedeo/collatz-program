@@ -17230,3 +17230,51 @@ the cheapest possible noncancellation obstruction.
 
 Full `lake build KontoroC` and `Audit.lean` pass with standard mathlib axioms
 only and no `sorry`, `admit`, project axiom, or `native_decide`.
+
+## Round 337 — recurrence staircase/address no-go
+
+I formalized the immediate adversarial boundary of the new Pires staircase
+lane in the imported and audited module
+
+```text
+KontoroC.OutwardStaircaseAddressNoGo
+```
+
+`SecondOrderStaircase` uses the subtraction-free natural recurrence
+
+```text
+A(n+2)+A(n)=K*A(n+1),  K>=3,  A(0)<A(1).
+```
+
+Lean proves
+
+```text
+two_mul_lt_next
+strictMono
+twoPow_mul_seed_le
+values_unbounded.
+```
+
+In fact every entry after the first more than doubles the preceding entry,
+so `2^n*A(1) <= A(n+1)`.  This is then connected to the existing ordinary
+root gate by
+
+```text
+no_nonnegative_follows_of_initialResidue_staircase
+no_coerciveSublevelCertificate_of_initialResidue_staircase.
+```
+
+Therefore a `K>=3` increasing recurrence may safely parameterize growing
+counter, payload, or macro-shape data, but it cannot itself be identified
+with the canonical dyadic root/address residues of one ordinary seed.  Any
+worker making that identification is rejected before macro search: the
+address is provably unbounded, so neither an ordinary nonnegative reset chain
+nor an Archimedean coercive sublevel certificate exists.
+
+This does not reject recurrence-parametrized macro families in general; it
+forces a clean coordinate separation.  The recurrence may drive outward
+payload while a different address coordinate must stabilize or satisfy the
+strict S-arithmetic increment bound.
+
+Full `lake build KontoroC` and `Audit.lean` pass with standard mathlib axioms
+only and no `sorry`, `admit`, project axiom, or `native_decide`.
