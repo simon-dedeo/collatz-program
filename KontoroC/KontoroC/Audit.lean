@@ -1894,5 +1894,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardFiniteStateKraftGap.FirstPassageGrammar.exists_state_and_uncovered_word_of_rationalKraftGap
 #print axioms
   KontoroC.OutwardFiniteStateKraftGap.FirstPassageGrammar.no_every_state_outMass_eq_one_of_rationalKraftGap
+#print axioms
+  KontoroC.OutwardResourceConeNoGo.FirstPassageGrammar.circulation_potential_sum_eq_zero
+#print axioms
+  KontoroC.OutwardResourceConeNoGo.FirstPassageGrammar.no_nonzeroCirculation_of_strict_resource_dual
+#print axioms
+  KontoroC.OutwardResourceConeNoGo.FirstPassageGrammar.no_resource_admissible_nonzeroCirculation_of_strict_dual
+#print axioms
+  KontoroC.OutwardResourceConeNoGo.FirstPassageGrammar.combinedScore_total_nonneg
+#print axioms
+  KontoroC.OutwardResourceConeNoGo.FirstPassageGrammar.no_nonzeroCirculation_of_strict_vector_resource_dual
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

@@ -16928,3 +16928,64 @@ Collatz--Wielandt form `M v <= r v`, `v>0`, `r<1`.  It remains only an
 architecture filter: a genuinely infinite-state/mixed recursive selector is
 outside the theorem, and the uncovered symbolic cylinder has not been
 identified with an ordinary writer--decoder parameter cylinder.
+
+## Round 332 — exact resource-cone/Farkas preflight
+
+I also formalized Preflight J's resource-cone dual in the new imported and
+audited module
+
+```text
+KontoroC.OutwardResourceConeNoGo
+```
+
+For a finite `FirstPassageGrammar`, it defines incoming/outgoing rational
+flow, and
+
+```text
+IsNonzeroCirculation G flow
+```
+
+means: every edge flow is nonnegative, at least one is positive, and flow is
+conserved at every state.  The exact telescoping lemma is
+
+```text
+circulation_potential_sum_eq_zero
+```
+
+for arbitrary rational vertex potentials.  The scalar dual no-go is
+
+```text
+no_nonzeroCirculation_of_strict_resource_dual
+```
+
+If an admissible circulation must have nonnegative total resource score, but
+
+```text
+potential(target e) - potential(source e) + score(e) < 0
+```
+
+on every edge, Lean derives contradiction.  The worker-facing existential
+negation is
+
+```text
+no_resource_admissible_nonzeroCirculation_of_strict_dual.
+```
+
+The module also supports a finite vector of exact resources and nonnegative
+rational dual multipliers:
+
+```text
+combinedScore_total_nonneg
+no_nonzeroCirculation_of_strict_vector_resource_dual
+```
+
+Thus a preflight worker may record height margin, dyadic/triadic precision,
+counter scale, and carry as separate coordinates, then export a rational
+potential/multiplier certificate.  No LP solver or approximate optimization
+is trusted by the theorem.
+
+Scope remains deliberately sharp: a feasible circulation is not an ordered
+trajectory, and the theorem does not infer a circulation from bounded CEGIS
+survival.  The semantic layer must separately prove that any proposed
+recurrent architecture has the coordinatewise nonnegative aggregate budgets
+fed to the dual theorem.
