@@ -86,11 +86,14 @@ proves the exact Hall-router dichotomy and shows that a finite same-layer
 literal recharge self-router cannot exist at all because charge strictly
 increases; only cross-layer routing remains live.
 
-One worker-proposed Dinur entry was rejected before publication because its
-claimed key has no JSON, transcript, or index record in the DANIEL corpus; a
-provenance retraction has been requested.  The public transcript-checked
-ledger is therefore 54 talks, not 55.  The single remote batch is at
-881/1,025 with zero failures and no second broad API run.  `counterexample:null`.
+One worker-proposed Dinur entry was rejected before publication because it
+belongs to a broader 1,250-record pre-release pool, not the authoritative
+1,025-record release used for this run.  The worker had read a pre-release
+structure JSON and embedded timestamped transcript without first checking the
+release paths/index; it has removed the entry and recorded the provenance
+error without substitution.  The public transcript-checked ledger is
+therefore 54 talks, not 55.  The single remote batch is at 881/1,025 with zero
+failures and no second broad API run.  `counterexample:null`.
 
 ### 2026-07-23 23:21 EDT
 
