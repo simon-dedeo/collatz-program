@@ -170,6 +170,7 @@ import KontoroC.OutwardSArithmeticStabilization
 import KontoroC.OutwardCircuitValuationNoGo
 import KontoroC.OutwardStaircaseAddressNoGo
 import KontoroC.OutwardSemanticAliasNoGo
+import KontoroC.OutwardSelectorIndistinguishability
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail

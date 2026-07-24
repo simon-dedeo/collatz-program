@@ -1976,5 +1976,19 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardSemanticAliasNoGo.RechargeMacro.words_unique
 #print axioms
   KontoroC.OutwardSemanticAliasNoGo.no_distinct_RechargeMacro_aliases
+#print axioms
+  KontoroC.OutwardSelectorIndistinguishability.mem_witnessPairs_iff
+#print axioms
+  KontoroC.OutwardSelectorIndistinguishability.not_functionalOn_iff_exists_witness
+#print axioms
+  KontoroC.OutwardSelectorIndistinguishability.witnessPairs_nonempty_iff_not_functionalOn
+#print axioms
+  KontoroC.OutwardSelectorIndistinguishability.witnessPairs_eq_empty_iff_functionalOn
+#print axioms
+  KontoroC.OutwardSelectorIndistinguishability.functionalOn_iff_exists_decoder
+#print axioms
+  KontoroC.OutwardSelectorIndistinguishability.FunctionalOn.of_refinement
+#print axioms
+  KontoroC.OutwardSelectorIndistinguishability.witness_survives_unseparating_refinement
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

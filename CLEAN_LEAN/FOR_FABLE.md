@@ -17231,6 +17231,66 @@ the cheapest possible noncancellation obstruction.
 Full `lake build KontoroC` and `Audit.lean` pass with standard mathlib axioms
 only and no `sorry`, `admit`, project axiom, or `native_decide`.
 
+## Round 339 — executable selector indistinguishability CEGIS
+
+I formalized the bounded exact core of Lead M in the imported and audited
+module
+
+```text
+KontoroC.OutwardSelectorIndistinguishability
+```
+
+For a complete finite `states` set, feature map `F`, and required target `T`,
+the predicate
+
+```text
+FunctionalOn states F T
+```
+
+means exactly `F(x)=F(y) -> T(x)=T(y)` on the set.  The executable finset
+
+```text
+witnessPairs states F T
+```
+
+contains every exact pair with equal current signatures and unequal required
+targets.  Lean proves
+
+```text
+mem_witnessPairs_iff
+not_functionalOn_iff_exists_witness
+witnessPairs_nonempty_iff_not_functionalOn
+witnessPairs_eq_empty_iff_functionalOn.
+```
+
+Thus failure returns the actual separating pair, while empty output is a
+theorem, not a score.  The positive theorem
+
+```text
+functionalOn_iff_exists_decoder
+```
+
+proves that functionality is equivalent to existence of a decoder on the
+finite state set (unused feature signatures may be filled arbitrarily).
+Finally,
+
+```text
+FunctionalOn.of_refinement
+witness_survives_unseparating_refinement
+```
+
+formalize the refinement loop: adding information preserves a working
+selector, and an old obstruction pair remains fatal until a new feature
+actually separates it.
+
+The unbounded uniformity gap stays explicit.  A separate decoder extracted at
+each precision is not one fixed mixed-base grammar; this module certifies only
+the complete bounded table presented to it.  Literal recharge closure and
+ordinary-seed stabilization still follow afterward.
+
+Full `lake build KontoroC` and `Audit.lean` pass with standard mathlib axioms
+only and no `sorry`, `admit`, project axiom, or `native_decide`.
+
 ## Round 338 — literal semantic aliases are unique
 
 Lead L has a stronger first-passage boundary than the diary suggested.  I
