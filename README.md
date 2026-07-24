@@ -227,6 +227,25 @@ because we have a directed macro graph.  These two talks are therefore exact
 preflights, not escape mechanisms.  The public ledger now contains 67
 transcript-checked release talks.  `counterexample:null`.
 
+Klein's geometric vertex decomposition gives the algebraic architecture loop
+a safer recursion.  For a bounded exact parameter ideal, select the newest
+feature or carry variable `y`, compute a `y`-compatible Gröbner basis, and
+verify that the initial ideal is exactly the intersection of its link/colon
+and deletion pieces before recursing.  A nonlinear-in-`y` generator, a
+mixed-height component, or a failed intersection equality is then a concrete
+CEGIS witness that the proposed architecture bit does not split independently.
+The talk's small ideal `(xy,yz)` is an important warning: one valid
+decomposition does not imply unmixedness, and only a recursive unmixed
+decomposition supports the radical/Cohen--Macaulay conclusion.
+
+This is a finite symbolic organizer, not a semantic shortcut.  An algebraic
+variety does not by itself preserve congruence cylinders, inequalities,
+valuation branches, directed first passage, or ordinary integral points.  We
+must extract each surviving parameter tuple exactly and replay its literal
+macros; absence over an algebraic closure can be a strong rejection, whereas
+algebraic existence is only a candidate.  The public ledger now contains 69
+transcript-checked release talks.  `counterexample:null`.
+
 Szachniewicz's globally valued fields supply an all-place formulation of the
 ordinary-root obstruction.  A tower should carry not only its dyadic and
 triadic precision but also the Archimedean height of its canonical ordinary
