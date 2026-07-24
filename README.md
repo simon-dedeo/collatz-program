@@ -164,6 +164,18 @@ failures invisible over the rationals are retained.  The module verifies
 proof-carrying certificates but does not yet compute Smith normal form, and
 principality still proves neither coercivity nor recharge closure.
 
+Harper's smooth-number talk rejects another tempting shortcut.  Generic
+large-sieve bounds do not see sparse support, and his theorem repairs that
+loss only by a conductor-range decomposition plus specific Euler-product and
+zero-density input.  A finite Collatz analogue should compute the exact
+character spectrum of canonical address/carry outputs: a large low-conductor
+coefficient becomes a CEGIS residue feature, while any claimed uniformity must
+use support-sensitive bounds and the exact sparse saddle point.  The selected
+affine `2`/`3` coefficients are not the set of all smooth integers, so the
+analytic theorem does not transfer.  Average equidistribution over moduli
+would still not choose one compatible ordinary seed.  The public ledger is
+now 62 talks; `counterexample:null`.
+
 ### 2026-07-23 23:30 EDT
 
 There is still no counterexample.  The most useful new transfer comes from
@@ -8052,6 +8064,13 @@ existing lines of work; the closest ancestors, and what each contributes:
   rank inside each counter layer, descend to its minimum, and require an exact
   clean reset to the next counter.  Uniformity, bonding, zero carry, and an
   ordinary root remain the unbounded theorem.
+- **A. Harper, [“A Zero-Density Approach to Smooth
+  Numbers”](https://www.ias.edu/video/ANtheory/1213/0327-AdamHarper), IAS talk
+  (27 Mar. 2013), corpus key `5a39422d011500985ebd93d55b08b76c`, S2--S8 at
+  429--3,337 seconds** — the ordinary large sieve loses sparse support, so
+  residue claims for exact macro families need their actual character
+  spectrum and a support-sensitive conductor split.  Average smooth-number
+  equidistribution constructs no nested Collatz orbit.
 - **A. V. Kontorovich & Ya. G. Sinai, [“Structure Theorem for
   `(d,g,h)`-Maps”](https://arxiv.org/abs/math/0601622), Bull. Braz. Math. Soc.
   33 (2002), 213–224** — the exact arithmetic-progressions theorem for every
