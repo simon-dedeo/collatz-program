@@ -20949,3 +20949,38 @@ claim that no probabilistic/convex relaxation can beat a Dirac path at this
 level.  It does not turn any finite horizon into a uniform all-depth budget.
 The audit remains green at 8,900 jobs with standard axioms only.  QM173 is
 now complete in all requested parts.
+
+## Round 411 — carry search collapses to one monotone scalar sequence
+
+The budget-frontier artifact suggested one final exact packaging.  Lean now
+proves
+
+```text
+finiteHorizonCost_root_mono : Monotone (fun r => C r [])
+```
+
+by restricting an actual minimizing depth-`r+1` schedule to depth `r`.
+Combining this with QM173b and exact Bellman realization gives
+
+```text
+infiniteExecution_iff_bounded_finiteHorizonCost
+infiniteExecution_iff_eventuallyConstant_finiteHorizonCost.
+```
+
+Thus, for any fixed nonempty finite first-passage subcode, the entire
+ordinary-root question is exactly whether the worker's integer optimum
+sequence `C_r` is bounded; because it is monotone natural-valued, this is
+equivalently whether it eventually becomes constant.  The companion
+
+```text
+not_conjecture_of_bounded_finiteHorizonCost
+```
+
+reuses the outward-code consumer.  This sharpens interpretation of the
+reported budget frontier: growth through depth 121 is finite evidence that
+`C_r` has not stabilized there, not a proof of unboundedness.  Conversely,
+one observed plateau is also insufficient; eventual constancy is the exact
+infinite condition.
+
+The integrated 8,900-job audit is green with standard axioms only.  No new
+incoming priority was present at this checkpoint.

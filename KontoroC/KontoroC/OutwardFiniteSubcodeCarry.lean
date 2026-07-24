@@ -603,6 +603,68 @@ theorem finiteHorizonCost_le_iff_exists_schedule
     exact (finiteHorizonCost_le_carrySumFrom F hF hlen hwords).trans <| by
       simpa [carrySum] using hcarry
 
+/-- The optimal carry required to reach depth `r` is nondecreasing in the
+horizon.  A deeper minimizing path restricts to a shallower admissible path. -/
+theorem finiteHorizonCost_root_mono
+    (F : Finset (List Bool)) (hF : F.Nonempty) :
+    Monotone (fun r ↦ finiteHorizonCost F hF r []) := by
+  apply monotone_nat_of_le_succ
+  intro r
+  obtain ⟨u, hlen, hwords, hcost⟩ := finiteHorizonCost_realized F hF (r + 1) []
+  let pre := u.take r
+  have hpreLen : pre.length = r := by
+    simp [pre, hlen]
+  have hpreWords : WordsIn (↑F : Set (List Bool)) pre := by
+    intro w hw
+    exact hwords w (List.mem_of_mem_take hw)
+  calc
+    finiteHorizonCost F hF r [] ≤ carrySumFrom [] pre :=
+      finiteHorizonCost_le_carrySumFrom F hF hpreLen hpreWords
+    _ ≤ carrySumFrom [] u := by
+      exact carrySum_mono_prefix (List.take_prefix r u)
+    _ = finiteHorizonCost F hF (r + 1) [] := hcost
+
+/-- Scalar Bellman form of QM173b: a finite subcode has one ordinary
+infinite execution exactly when its optimal finite-horizon carry costs are
+uniformly bounded. -/
+theorem infiniteExecution_iff_bounded_finiteHorizonCost
+    (F : Finset (List Bool)) (hF : F.Nonempty)
+    (hfirst : ∀ w ∈ F, FirstPassage w) :
+    (∃ start, InfiniteExecution (↑F : Set (List Bool)) start) ↔
+      BoundedRange (fun r ↦ finiteHorizonCost F hF r []) := by
+  rw [infiniteExecution_iff_uniformCarryBudget F hfirst]
+  constructor
+  · rintro ⟨K, hK⟩
+    refine ⟨K, fun r ↦ ?_⟩
+    exact (finiteHorizonCost_le_iff_exists_schedule F hF r K).2 (hK r)
+  · rintro ⟨K, hK⟩
+    refine ⟨K, fun r ↦ ?_⟩
+    exact (finiteHorizonCost_le_iff_exists_schedule F hF r K).1 (hK r)
+
+/-- Since the Bellman values form a monotone natural sequence, boundedness
+is equivalently eventual constancy. -/
+theorem infiniteExecution_iff_eventuallyConstant_finiteHorizonCost
+    (F : Finset (List Bool)) (hF : F.Nonempty)
+    (hfirst : ∀ w ∈ F, FirstPassage w) :
+    (∃ start, InfiniteExecution (↑F : Set (List Bool)) start) ↔
+      EventuallyConstant (fun r ↦ finiteHorizonCost F hF r []) := by
+  rw [eventuallyConstant_iff_boundedRange_of_monotone
+    (finiteHorizonCost_root_mono F hF)]
+  exact infiniteExecution_iff_bounded_finiteHorizonCost F hF hfirst
+
+/-- Conditional Collatz endpoint stated only in terms of the scalar Bellman
+sequence. -/
+theorem not_conjecture_of_bounded_finiteHorizonCost
+    (F : Finset (List Bool)) (hF : F.Nonempty)
+    (hfirst : ∀ w ∈ F, FirstPassage w)
+    (hbounded : BoundedRange (fun r ↦ finiteHorizonCost F hF r [])) :
+    ¬ CleanLean.Collatz.Conjecture := by
+  obtain ⟨start, hinfinite⟩ :=
+    (infiniteExecution_iff_bounded_finiteHorizonCost F hF hfirst).2 hbounded
+  exact OutwardCodeCounterexample.not_conjecture_of_infiniteExecution
+    (C := (↑F : Set (List Bool)))
+    (fun w hw ↦ (hfirst w hw).1) hinfinite
+
 end
 
 end OutwardFiniteSubcodeCarry

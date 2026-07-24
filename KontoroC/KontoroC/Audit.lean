@@ -2749,3 +2749,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardFiniteSubcodeCarry.finiteHorizonCost_realized
 #print axioms
   KontoroC.OutwardFiniteSubcodeCarry.finiteHorizonCost_le_iff_exists_schedule
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.finiteHorizonCost_root_mono
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.infiniteExecution_iff_bounded_finiteHorizonCost
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.infiniteExecution_iff_eventuallyConstant_finiteHorizonCost
+#print axioms
+  KontoroC.OutwardFiniteSubcodeCarry.not_conjecture_of_bounded_finiteHorizonCost
