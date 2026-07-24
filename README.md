@@ -33,6 +33,74 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-24 03:00 EDT
+
+There is still no Collatz counterexample.  The IAS audit now has 249
+authoritative transcript-checked release talks.
+
+Simon Marshall announces a power-saving period theorem for compatible
+microlocal vectors on `U(n) x U(n+1)` and its conditional Ichino--Ikeda
+subconvex consequence; the talk says the result was not yet written up.
+Microlocal support makes the off-diagonal Hecke translates transverse, which
+is the crucial input rather than amplification alone.  A bounded Collatz
+analogue is an exact Gram/SOS certificate for a family of literal
+legality-preserving transforms.  If all transforms are merely the identity,
+target gain and collision energy scale by the same square, so amplification
+gives no saving and no orbit.
+
+Trevor Wooley proves an optimal mean-value estimate after deleting the linear
+term from a Vinogradov system.  He restores shift structure by adjoining every
+possible linear defect, averages over shifts, and embeds the count with exact
+multiplicity in a derivative-closed envelope.  This is a sound model for
+Collatz carry augmentation only when exact lift/project maps and a constant
+fiber count are certified.  Hensel refinement also needs a unit derivative:
+for `phi(x)=x^2` at `p=2`, `phi(0)=phi(2) mod 4` although `0 != 2 mod 4`, so a
+valuation-singular branch must be split rather than silently refined.
+
+Lev Borisov proves that, for the stated sufficiently large `n`, a generic
+realization of the cyclic collinearity pattern reconstructs an elliptic curve
+with an order-`n` point; normalization, a uniquely forced cubic, and modular-
+form identities promote local incidence data to a global object.  Applied to
+a repeated Collatz valuation word, the analogous zero-dimensional affine
+system reconstructs a unique formal cycle.  Word `123` gives
+`T_w(x)=(27x+23)/64` and the exact cycle
+`23/37 -> 53/37 -> 49/37 -> 23/37`.  Reconstruction passes rational 2-adic
+coherence but fails elementary integer realization.
+
+Peter Pach proves the Alon--Jaeger--Tarsi conjecture for primes greater than
+`61` except `79`, using a structured group-ring zero identity, small
+arithmetic-progression sets, and factor-deletion induction; the full prime-
+field statement remains conjectural.  Ordinary commutative group rings erase
+the order that Collatz carries require: words `123` and `132` have the same
+valuation multiset but carries `23` and `31`.  Modular lifting is also unsafe:
+`(1-g)^2=0` in `F_2[C_2]`, whereas `(1-g)^2=2(1-g)` in `Z[C_2]`.  Only ordered
+integer affine products can certify replay.
+
+Alexandru Zaharescu explains how one sufficiently strong hypothetical
+Landau--Siegel zero forces a character to mimic the Möbius function and proves
+conditional nonvanishing/rank conclusions over a finite power range; existence
+of such zeros remains open.  The mechanism is a useful exceptional-case
+dichotomy but not an all-depth selector.  Exactly, a statement true on
+`1-2^-m` of residue classes at every depth can fail precisely on the nested
+cylinder of one fixed ordinary seed.  Vanishing error density therefore can
+miss the only orbit the challenge needs.
+
+Alex Blumenthal proves near-`log L` top Lyapunov exponents for sufficiently
+small iid absolutely continuous perturbations of predominantly hyperbolic
+maps.  The proof lifts to the projective direction bundle and uses stationarity
+plus noise-induced nonconcentration to shear mass away from contracting
+directions; the corresponding deterministic Standard Map problem remains
+open.  Collatz has no such smoothing: the invariant atomic measure on the
+positive `2 <-> 1` cycle is singular and survives every typical-state
+estimate.  An exact carry-bundle average can reject generic cancellation but
+cannot exclude or construct the required exceptional atom.
+
+The durable transfers are finite certificate architectures: transverse
+amplifier Gram forms, constant-fiber envelopes, and algebraic reconstruction
+followed by explicit sign/divisibility tests.  None supplies recharge closure,
+coercive height, a compatible all-depth selector, or a positive ordinary root.
+`counterexample:null`.
+
 ### 2026-07-24 02:54 EDT
 
 There is still no Collatz counterexample.  The IAS audit now has 243
@@ -11345,6 +11413,51 @@ existing lines of work; the closest ancestors, and what each contributes:
   dyadic--triadic Collatz conditioning still aliases states with different
   next valuations, so precision must grow and nested realization remains
   separate.
+- **S. Marshall, [“Subconvexity for L-functions on `U(n) x
+  U(n+1)`”](https://www.ias.edu/video/subconvexity-l-functions-un-x-un1), IAS
+  talk (6 Apr. 2023), corpus key `03b9d846689a70c2be8535790a155fab`,
+  S2--S8 at 73--3,903 seconds** — an announced power-saving period theorem
+  combines compatible microlocal types, Hecke amplification, and transverse
+  off-diagonal support; the talk says the write-up was pending.  A Collatz
+  Gram/amplifier certificate is useful only for literal transforms with exact
+  alias accounting and supplies no ordinary orbit.
+- **T. Wooley, [“Beyond Translation-Invariance in Arithmetic Harmonic
+  Analysis”](https://www.ias.edu/video/beyond-translation-invariance-arithmetic-harmonic-analysis),
+  IAS talk (2 Mar. 2026), corpus key `2a78853a8f99d000395a752ad3b8cf37`,
+  S3--S7 at 1,308--4,010 seconds** — auxiliary defects and exact multiplicity
+  embed a non-translation-invariant moment in a derivative-closed envelope.
+  A Collatz transfer needs certified lift/project fibers, and Hensel refinement
+  fails across nonunit valuation branches.
+- **L. Borisov, [“Modular Curves `X1(n)` as Moduli of Point
+  Arrangements”](https://www.ias.edu/video/modular-curves-x1n-moduli-point-arrangements),
+  IAS talk (14 May 2025), corpus key `114d77cb749f4eaf7ece34be6e79cd01`,
+  S1--S7 at 57--4,092 seconds** — normalized finite incidence data uniquely
+  reconstruct a cubic and then a modular curve in the proved range.  The same
+  move reconstructs formal Collatz word cycles, but exact rational 2-adic
+  coherence can still fail sign or integer divisibility.
+- **P. Pach, [“The Alon-Jaeger-Tarsi Conjecture via Group Ring
+  Identities”](https://www.ias.edu/video/alon-jaeger-tarsi-conjecture-group-ring-identities),
+  IAS talk (25 Oct. 2022), corpus key `8b52212bcb68d8cc472117b713b1ad14`,
+  S1--S7 at 37--3,589 seconds** — structured group-ring vanishing and
+  factor-deletion induction prove the conjecture for primes above `61` except
+  `79`; the full statement remains open.  Commutative identities lose ordered
+  Collatz carries, and characteristic-two vanishing need not lift to integers.
+- **A. Zaharescu, [“Some remarks on Landau--Siegel
+  zeros”](https://www.ias.edu/video/some-remarks-landau-siegel-zeros), IAS talk
+  (11 Mar. 2021), corpus key `f39aeeac8faf5b80ee25e261268635a5`, S1--S7 at
+  15--3,357 seconds** — a hypothetical strong exceptional zero forces
+  Möbius-like character behavior and conditional finite-range nonvanishing and
+  rank results.  An asymptotically negligible nested exception can contain the
+  unique ordinary Collatz seed, so almost-all control is not an orbit theorem.
+- **A. Blumenthal, [“Lyapunov exponents for small random perturbations of
+  predominantly hyperbolic two dimensional volume-preserving diffeomorphisms,
+  including the Standard
+  Map”](https://www.ias.edu/video/SympDynaGeo/2018-1119-AlexBlumenthal), IAS
+  talk (19 Nov. 2018), corpus key `99e64a0456ef97c98d144dce920067c5`, S1--S8
+  at 35--3,619 seconds** — absolutely continuous noise gives a unique
+  stationary base measure and projective-fiber nonconcentration, yielding a
+  sharp Lyapunov lower bound.  Deterministic Collatz retains singular atomic
+  invariant orbits that every typical-state estimate may miss.
 - **S. Fenner, [“Bipartite perfect matching is in
   quasi-NC”](https://www.ias.edu/video/csdm/2016/0208-Fenner), IAS talk
   (8 Feb. 2016), corpus key `83398a9013343939af42951fafbfdaa1`, S2--S8 at
