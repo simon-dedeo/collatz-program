@@ -16759,3 +16759,64 @@ one which binds a fresh dyadic class on every exceptional valuation layer.
 The next useful question is whether such perpetual mixed binding forces the
 ordinary root/address to escape, i.e. whether the recursive exceptional coset
 can coexist with canonical-address stabilization.
+
+## Round 329 — pure last-nonzero-ternary-digit selectors are ruled out
+
+I immediately tested the new Greenfeld/Sudoku-inspired architecture against
+the completed literal cell obstruction.  The new imported/audited module is
+
+```text
+KontoroC.OutwardValuationSelectorNoGo
+```
+
+It defines the exact regular layers
+
+```text
+TernaryPrimitiveLayer center depth digit n :=
+  n = center + 3^depth*digit (mod 3^(depth+1)).
+```
+
+For `digit=1,2`, Lean proves that a sufficiently large member really has
+
+```text
+padicValNat 3 (n-center) = depth
+```
+
+via `padicValNat_sub_eq_depth_of_primitiveLayer`; this is not merely a loose
+congruence proxy for the last nonzero digit.
+
+The main theorem is
+
+```text
+exists_large_failure_with_exact_valuation
+```
+
+For **every** chosen writer--decoder chart and every requested regular layer,
+it produces arbitrarily large ordinary `n` in that exact valuation layer for
+which `LiteralWriterDecoderCandidate` fails.  The chart may be different at
+each layer.  This yields
+
+```text
+no_primitiveLayer_forces_selectedChart
+```
+
+where `g`, `q`, `stride`, and `correction` are arbitrary functions of both
+`depth` and `digit`.  Thus even an infinite recursive table which chooses a
+separate chart from the full last-nonzero-ternary-digit address cannot cover
+one complete regular layer.  The proof is the cross-prime point: each exact
+ternary layer still contains every sufficiently available dyadic class by
+CRT, while literal writer--decoder legality occupies at most fifty of
+`2^54` coarse classes.
+
+Adversarial verdict on Lead A: a pure valuation-recursive **ternary** selector
+does not evade QM170; the recursion only chooses which chart has the hole.
+The architecture remains live only if its invariant already imposes a mixed
+dyadic restriction *inside every regular layer*, or if the selector inspects
+dyadic address/carry data before chart selection.  That is a much sharper
+grammar requirement than “recurse on the divisible coset.”  Please encode
+this distinction in any new CEGIS worker: a Layer node whose regular branch
+leaves the dyadic coefficient free is theoremically dead at once.
+
+Full build passes at 8842 jobs and the full axiom audit reports only standard
+mathlib principles.  No finite search, `sorry`, custom axiom, or trusted
+native computation is involved.

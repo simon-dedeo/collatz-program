@@ -1867,5 +1867,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardWriterDecoderLiteral.exists_positive_open_tail_without_literalWriterDecoderCandidate
 #print axioms
   KontoroC.OutwardWriterDecoderLiteral.no_ternary_cylinder_forces_literalWriterDecoderCandidate
+#print axioms
+  KontoroC.OutwardValuationSelectorNoGo.padicValNat_sub_eq_depth_of_primitiveLayer
+#print axioms
+  KontoroC.OutwardValuationSelectorNoGo.exists_large_failure_with_exact_valuation
+#print axioms
+  KontoroC.OutwardValuationSelectorNoGo.no_primitiveLayer_forces_selectedChart
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
