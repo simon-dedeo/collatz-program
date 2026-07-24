@@ -2302,5 +2302,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardRechargeSemilinearOrder.between_iff_le_of_common_source
 #print axioms
   KontoroC.OutwardRechargeSemilinearOrder.edge_iff_lt_of_common_source
+#print axioms
+  KontoroC.OutwardFinitePrefixTailNoGo.no_finite_prefix_decides_infinitelyOften
+#print axioms
+  KontoroC.OutwardFinitePrefixTailNoGo.exists_firstPassageSchedules_same_prefix_opposite_writerRecurrence
+#print axioms
+  KontoroC.OutwardFinitePrefixTailNoGo.no_finite_prefix_decides_writerWord_recurrence
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge

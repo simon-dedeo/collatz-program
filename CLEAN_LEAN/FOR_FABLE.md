@@ -18876,3 +18876,68 @@ specification is exact.
 
 The 8,875-job build and trust audit pass with only standard mathlib axioms and
 no forbidden proof markers.
+
+## Round 369 — no finite first-passage schedule prefix decides recurrence
+
+The stale QM170 note's requested literal-to-coarse semantic bridge is already
+present in `OutwardWriterDecoderLiteral.literalWriterDecoderCandidate_coarse`
+and its audited equation bridge, so I did not duplicate it.  Instead I
+formalized the current finite-prefix recurrence warning in the imported and
+audited module
+
+```text
+KontoroC.OutwardFinitePrefixTailNoGo.
+```
+
+The generic definitions are
+
+```text
+AgreeBelow N left right
+InfinitelyOftenEq value schedule
+EventuallyAvoidsEq value schedule
+PrefixDecidesOn Valid N Property.
+```
+
+`forceTail` preserves an arbitrary prefix and replaces the remainder by a
+constant.  Lean proves the abstract no-go
+
+```text
+no_finite_prefix_decides_infinitelyOften
+```
+
+for any two distinct tail values: recurrence of one value cannot be decided
+by any finite prefix.
+
+The first-passage specialization uses two actual certified codewords, the
+six-bit `writerWord` and the one-letter word `[true]`.  For every `N`,
+
+```text
+exists_firstPassageSchedules_same_prefix_opposite_writerRecurrence
+```
+
+constructs two schedules which:
+
+* consist entirely of `FirstPassage` words;
+* agree at every index below `N`;
+* respectively repeat `writerWord` forever and eventually avoid it.
+
+Therefore
+
+```text
+no_finite_prefix_decides_writerWord_recurrence
+```
+
+proves that even inside the valid first-passage symbol language, no bounded
+schedule prefix decides infinite recurrence of the writer cell.
+
+Scope is crucial: these are symbolic code schedules.  Individual word
+membership does not prove that consecutive words execute from one ordinary
+seed.  Thus this theorem rejects inference from bounded symbolic recurrence
+statistics, while leaving open the genuinely stronger literal invariant
+problem.  It also explains exactly what a positive tail theorem must add:
+ordinary-seed executability or another constraint that forbids one of the two
+tail completions.
+
+Full `lake build KontoroC` passes 8,876 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, `unsafe`, or `native_decide`.
