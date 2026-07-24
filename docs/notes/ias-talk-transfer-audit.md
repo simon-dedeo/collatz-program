@@ -561,6 +561,52 @@ proved separately.  The reversible Markoff group action has structural tools
 that the one-way, changing-precision Collatz semigroup may not possess, and
 compatible finite levels still need one eventually stable ordinary root.
 
+## Lead K: a converse/bootstrap theorem must include Archimedean coercivity
+
+Anshul Adve, *A Converse Theorem for Hyperbolic Surface Spectra and the
+Conformal Bootstrap*, IAS, 15 Apr. 2026, key
+`d76cbe86eae9244183aa6bd456d03039`, supplies a useful reconstruction pattern
+which is stronger than another local-consistency test.  S4 and S6--S8 state
+algebraic bootstrap identities for candidate structure constants, construct an
+abstract representation and multiplication, use positivity identities to
+bound all multiplication operators, and then apply Gelfand duality.  The
+resulting compact `G`-space is forced to be homogeneous because every
+`G`-smooth vector is bounded.  The raw transcript was checked at
+2,268--3,064 seconds.  In the discussion at 3,341--3,489 seconds, inverse
+limits of towers are given as explicit pathological solutions once the
+discreteness condition is relaxed.
+
+The exact Collatz analogue is now visible.  First-passage and cylinder
+equations are the local bootstrap identities, but by themselves their inverse
+limit may be only a `2`-adic seed.  The already-formalized ordinary-ray gate
+says that the canonical root residues are nondecreasing and that any uniform
+Archimedean bound forces eventual constancy, equivalently eventual zero
+extension carry and one ordinary natural seed.  Therefore an invariant-CEGIS
+candidate should not merely close under recharge.  It should export a
+coercive exact certificate controlling the root residue uniformly along the
+whole invariant.
+
+A concrete next architecture is a polynomial/SOS extension of the current
+linear resource dual.  Synthesize a low-description semialgebraic potential
+`V(H,address,carry,chart)` together with exact identities showing that (i) its
+sublevel set is closed under every selected legal macro, and (ii) membership
+in that sublevel set bounds the canonical root residue by one fixed natural
+`B`, while allowing the charge/counter coordinate to grow.  Clear all
+denominators and check the resulting polynomial identities exactly; a first
+negative point or nonzero residual is the CEGIS counterexample.  If such a
+certificate exists, the existing bounded-residue theorem supplies the
+ordinary seed and the writer--decoder invariant endpoint supplies the infinite
+orbit.  This is a conditional proof architecture, not a current invariant.
+
+The main risk is severe: the Collatz macro relation is piecewise exponential
+in valuation parameters, not a fixed-degree commutative multiplication table.
+A finite-degree SOS ansatz may cover only a fixed alphabet, where the Kraft and
+resource no-go theorems already apply.  Unlike Adve's associativity equations,
+no positive quadratic identity is presently known that bounds address while
+permitting unbounded outward payload.  The transcript nevertheless changes
+the search objective from “more compatible finite levels” to the exact missing
+converse hypothesis: a globally verified Archimedean coercivity certificate.
+
 ## Other promoted talks (transfer ledger)
 
 | Status | Talk and raw spans | Concrete transfer | Principal mismatch |
@@ -591,6 +637,7 @@ compatible finite levels still need one eventually stable ordinary root.
 | preflight | Josephine Yu, *Tropicalizing Principal Minors of Positive Definite Matrices*, key `0eab2f1bcd5d53ef12cbbbd88b961671`, S5--S8 | After cone feasibility, require membership in a realizable tropicalization via a positive-semiring representation or exact lifted inequalities. | Collatz clean-reset defects contain subtraction/cancellation, and slice-wise lifts need not glue globally. |
 | preflight | Swastik Kopparty, *A local central limit theorem for triangles in a random graph*, key `69956d38eef0339ec0f4207f78499dcd`, S1--S2/S4--S7/E2 | Establish exact modular/lattice support of carry zero conditional on interfaces before any local-limit or entropy argument. | Collatz word contributions are dependent, and a finite zero-carry block does not supply a prefix-compatible infinite orbit. |
 | warning | Alexander Gamburd, *Varieties of Markoff Type*, key `76f210c2e1fbd9df473b9ca8890f1e5a`, and Daniel Martin, *Arithmetic on Markoff Surfaces*, key `dfe6aa197a4b6c233c6312357c4670a6` | Use finite residue components and dual obstruction vectors as exact features, but demand a separate edge-lifting and ordinary-integral theorem. | Many finite-field points can have no integer lift; Markoff's reversible group action is unlike the Collatz semigroup. |
+| conditional/converse | Anshul Adve, *A Converse Theorem for Hyperbolic Surface Spectra and the Conformal Bootstrap*, key `d76cbe86eae9244183aa6bd456d03039`, S4/S6--S8, 2,268--3,064 and 3,341--3,489 s | Pair exact local identities with a coercive global bound; synthesize an exact potential whose invariant sublevel set uniformly bounds canonical root residues, so the existing stabilization theorem reconstructs one ordinary seed. | No Collatz positivity identity is known that controls address while allowing unbounded charge, and fixed-degree/fixed-alphabet SOS may fall inside already-closed finite-state lanes. |
 
 ## Negative lessons already extracted
 
@@ -672,5 +719,8 @@ compatible finite levels still need one eventually stable ordinary root.
   Dynamics*, IAS, 12 Dec. 2022, key `76f210c2e1fbd9df473b9ca8890f1e5a`.
 - Daniel Martin, *Arithmetic on Markoff Surfaces*, IAS, 7 Apr. 2026, key
   `dfe6aa197a4b6c233c6312357c4670a6`.
+- Anshul Adve, *A Converse Theorem for Hyperbolic Surface Spectra and the
+  Conformal Bootstrap*, IAS, 15 Apr. 2026, key
+  `d76cbe86eae9244183aa6bd456d03039`.
 
 `counterexample: null`
