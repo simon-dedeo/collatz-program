@@ -1916,6 +1916,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardValuationCutoffAlias.exists_cutoff_alias_with_arbitrarily_large_successor
 #print axioms
+  KontoroC.OutwardValuationCutoffAlias.no_uniformly_bounded_cutoff_predictor
+#print axioms KontoroC.OutwardValuationCutoffAlias.no_exact_cutoff_predictor
+#print axioms
   KontoroC.OutwardFiniteStateKraftGap.FirstPassageGrammar.outMass_le_one
 #print axioms
   KontoroC.OutwardFiniteStateKraftGap.FirstPassageGrammar.exists_uncovered_word_of_outMass_lt_one

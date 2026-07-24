@@ -187,5 +187,47 @@ theorem exists_cutoff_alias_with_arbitrarily_large_successor
   · rw [halias.2.2.2.2]
     omega
 
+/-- No function which is constant on the visible cutoff features can
+approximate the exact accelerated successor with a uniform additive error.
+The predictor is otherwise completely arbitrary; finiteness or computability
+is not assumed. -/
+theorem no_uniformly_bounded_cutoff_predictor
+    (K : ℕ) (hK : 0 < K) (predict : ℕ → ℕ) (error : ℕ)
+    (hfeature : ∀ x y,
+      x ≡ y [MOD 2 ^ K] →
+      min K (oddValuation x) = min K (oddValuation y) →
+      predict x = predict y)
+    (haccurate : ∀ n, 0 < n → n % 2 = 1 →
+      oddStep n ≤ predict n + error ∧
+      predict n ≤ oddStep n + error) :
+    False := by
+  obtain ⟨x, y, hxpos, hypos, hxodd, hyodd, hmod, hclip,
+      hxstep, hystep⟩ :=
+    exists_cutoff_alias_with_arbitrarily_large_successor
+      K (2 * error + 1) hK
+  have hpredict : predict x = predict y :=
+    hfeature x y hmod hclip
+  have hxupper := (haccurate x hxpos hxodd).2
+  have hylower := (haccurate y hypos hyodd).1
+  rw [hxstep] at hxupper
+  rw [← hpredict] at hylower
+  omega
+
+/-- In particular, the cutoff features do not determine the exact successor.
+This is the zero-error specialization of the stronger bounded-approximation
+obstruction. -/
+theorem no_exact_cutoff_predictor
+    (K : ℕ) (hK : 0 < K) (predict : ℕ → ℕ)
+    (hfeature : ∀ x y,
+      x ≡ y [MOD 2 ^ K] →
+      min K (oddValuation x) = min K (oddValuation y) →
+      predict x = predict y)
+    (hexact : ∀ n, 0 < n → n % 2 = 1 → predict n = oddStep n) :
+    False := by
+  apply no_uniformly_bounded_cutoff_predictor K hK predict 0 hfeature
+  intro n hn hodd
+  rw [hexact n hn hodd]
+  omega
+
 end OutwardValuationCutoffAlias
 end KontoroC

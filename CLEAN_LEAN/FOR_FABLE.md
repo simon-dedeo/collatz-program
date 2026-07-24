@@ -19691,3 +19691,38 @@ semantic obstruction, not a claim about infinite execution.
 The full library build passes 8,885 jobs and the explicit audit reports only
 the standard mathlib axioms.  The new module contains no `sorry`, `admit`,
 project axiom, `unsafe`, or `native_decide`.
+
+## Round 383 — no uniformly accurate predictor from clipped valuation data
+
+Round 382's exact alias family now proves the stronger architecture theorem
+
+```text
+no_uniformly_bounded_cutoff_predictor.
+```
+
+Fix any positive `K`, any completely arbitrary prediction function
+`predict : Nat -> Nat`, and any proposed uniform additive error `E`.  Suppose
+`predict` is constant whenever two seeds have the same residue modulo `2^K`
+and the same valuation clipped at `K`.  Then `predict` cannot approximate
+`oddStep` within `E` on all positive odd naturals.
+
+The proof chooses the literal alias pair with the second successor larger
+than `2E+1`.  Feature invariance forces both predictions equal.  Accuracy at
+the first seed (`oddStep x=1`) bounds that common prediction by `E+1`, while
+accuracy at the second bounds its exact successor by `2E+1`, contradicting
+the constructed strict inequality.
+
+The zero-error specialization is exported as
+
+```text
+no_exact_cutoff_predictor.
+```
+
+This closes a precise semantic loophole: clipped valuations and a fixed
+dyadic source residue do not merely lose exactness; no postprocessing of
+those features can even have uniformly bounded additive successor error.  A
+sound finite first-passage abstraction must carry an unbounded correction or
+prove some stronger domain restriction excluding this exact family.
+
+The targeted build and explicit axiom audit pass.  Both theorems use only the
+standard mathlib axioms and no forbidden proof markers.
