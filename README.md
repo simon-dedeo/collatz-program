@@ -33,6 +33,53 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-24 03:51 EDT
+
+There is still no Collatz counterexample.  The IAS transcript audit is ended;
+the construction/search program has resumed.
+
+The first post-audit calculation closes a tempting relaxation.  Let `E_d` be
+the ordinary seeds realizing `d` literal first-passage blocks, let
+`h_d=min E_d`, and put `H_d=(h_d+1)/2` (the minima are odd).  For the coercive
+resource `R(x)=floor((x+1)/2)`, every probability measure carried by `E_d`
+has expectation at least `H_d`, while the Dirac mass at `h_d` attains it.
+Thus a uniformly bounded carried resource moment exists exactly when the
+least-survivor sequence is bounded.  The non-escape measure endpoint is
+correct, but this natural resource does not soften the ordinary-root problem.
+
+The exact residue-two slice makes the remaining scalar obstruction explicit.
+If `m_d=min{x in E_d:x=2 mod 3}`, then the kernel-checked renewal identity is
+`h_(d+1)=(2*m_d-1)/3`.  Hence
+
+```text
+H_(d+1)=H_d+sigma_d,
+sigma_d=(2*m_d-3*h_d-1)/6 in N.
+```
+
+The taxes telescope.  Eventual `sigma_d=0`, bounded `H_d`, eventual
+stabilization of the least ordinary seed, and an all-depth execution are
+equivalent.  This is deliberately a target, not progress toward proving the
+taxes vanish: average phase information that does not control the selected
+residue-two minimum cannot decide it.  QM172 asks Lean to package the
+resource extremality and tax equivalences.
+
+A new exact sharded census then tested every positive odd multiple of three
+`H<=100000000`, 16,666,667 starts, under the deterministic recharge map.  All
+ended at an exactly replayable undefined transition.  The unique final depth
+record in the tested interval is `H=26356797`, with 18 defined recharges;
+its trace digest is
+`2d4588860bb57056abe2929cd1e44b5d3b0199a9ef64e414b6395ed09c63fd86`.
+The merged artifact digest is
+`ba22d20fee4e69c2e2ca266fd4e83c65b54184e5f583cc8a20f2a266ee9b3213`.
+This bounded failure and the existing linear-escape theorem make a wider
+generic charge scan low-value.  The live computation is now the exact
+growing-precision triadic min-plus profile and its selected slice, seeking a
+compact arithmetic reason for zero tax rather than a longer trajectory.
+[`outward_charge_orbit_census.py`](experiments/kontorovich/outward_charge_orbit_census.py)
+and
+[`outward_charge_orbit_census_audit.json`](experiments/kontorovich/outward_charge_orbit_census_audit.json)
+retain all bounds and `counterexample:null`.
+
 ### 2026-07-24 03:40 EDT
 
 There is still no Collatz counterexample.  The IAS audit now has 276
@@ -8811,9 +8858,10 @@ identically `x`.
 
 ### KC Strategy and failure map
 
-**Active 24-hour reverse-mining audit (started 2026-07-23 21:40 EDT).**  The
-implementation/search lanes below are paused while all resources examine the
-1,025-talk IAS corpus.  The first live architecture is a recursively
+**The 24-hour reverse-mining audit ended early at the user's direction on
+2026-07-24 03:40 EDT.**  Its 276 transcript-checked talks remain a source of
+architectures, but implementation and exact search have resumed.  The first
+retained architecture is a recursively
 parameterized **mixed dyadic--triadic** valuation selector modeled on
 Greenfeld's last-nonzero-digit hierarchy, preceded by the kernel-checked
 rational weighted Kraft/core-entropy pruning test and followed by an ordinary zero-carry

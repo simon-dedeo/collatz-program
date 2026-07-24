@@ -13596,3 +13596,67 @@ Commit `6f98d84` completes QM171a--b in
 `KontoroC.OutwardSmoothReweightingNoGo`, including the generic finite density
 summation lemma, fair residue-mass bound, scaled integer form, and density
 growth lower bound.  No further action is requested on QM171.
+
+## Post-IAS pivot: least-survivor resource extremality and triadic tax (QM172, 2026-07-24)
+
+The IAS audit has ended and the active objective is again an actual
+counterexample.  Please package the following exact collapse before we spend
+more time on measure synthesis.
+
+Let `E d` be the positive ordinary seeds realizing `d` literal first-passage
+blocks and let `h d` be their least member (all these sets are nonempty at
+finite depth).  Existing odd-part monotonicity proves `h d` odd.  Define
+
+```text
+resource x = floor ((x+1)/2),
+H d = (h d+1)/2.
+```
+
+For any probability measure `mu d` carried by `E d`, monotonicity of
+`resource` gives
+
+```text
+H d <= integral resource d(mu d).                 (QM172a)
+```
+
+Dirac mass at `h d` attains equality.  Consequently the infimum carried
+resource moment is exactly `H d`, and a family of carried probability
+measures with one uniform resource-moment bound exists if and only if `H d`
+is uniformly bounded.  A finite-sum/probability-mass formulation is fine if
+it avoids unnecessary integration infrastructure; the key statement is that
+reweighting cannot beat the least survivor.
+
+Now use the existing scalar slice theorem.  Put
+
+```text
+m d = min {x in E d | x = 2 mod 3},
+h (d+1) = (2*m d-1)/3,
+sigma d = (2*m d-3*h d-1)/6.
+```
+
+Please prove that `sigma d` is a natural number and
+
+```text
+H (d+1) = H d + sigma d.                          (QM172b)
+```
+
+Therefore the following are equivalent:
+
+```text
+H is bounded;
+the partial sums of sigma are bounded;
+sigma is eventually zero;
+h is eventually constant;
+one ordinary seed realizes every depth.           (QM172c)
+```
+
+The nontrivial semantic endpoint in the last equivalence may reuse the
+existing bounded-minimum compactness theorem.  This package is diagnostic,
+not a counterexample: it identifies the selected residue-two tax as the
+smallest scalar obstruction.  Do not assert that the tax vanishes.
+
+The 32-core exact census through `H<=100000000` found all 16,666,667 tested
+odd multiples of three terminating and a maximum of 18 defined recharges.
+The existing linear-escape theorem already explains why depth alone cannot
+decide the tail; no batch-census formalization is requested unless it is
+essentially free.  Please prioritize QM172.
