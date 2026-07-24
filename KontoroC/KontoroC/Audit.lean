@@ -2779,3 +2779,21 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardZeroCarrySemantics.zeroCarryTail_iff_infiniteExecution
 #print axioms
   KontoroC.OutwardZeroCarrySemantics.infiniteExecution_iff_exists_canonicalTarget_infiniteExecution
+#print axioms
+  KontoroC.OutwardThreeWordZeroCarry.branch_word_firstPassage
+#print axioms
+  KontoroC.OutwardThreeWordZeroCarry.branch_step_iff_executes
+#print axioms
+  KontoroC.OutwardThreeWordZeroCarry.branch_defined_iff
+#print axioms
+  KontoroC.OutwardThreeWordZeroCarry.branch_unique_of_steps
+#print axioms
+  KontoroC.OutwardThreeWordZeroCarry.exists_threeWordStep_iff
+#print axioms
+  KontoroC.OutwardThreeWordZeroCarry.threeWordStep_right_unique
+#print axioms
+  KontoroC.OutwardThreeWordZeroCarry.extensionCarry_eq_zero_iff_branchStep
+#print axioms
+  KontoroC.OutwardThreeWordZeroCarry.orbit_charge_add_le
+#print axioms
+  KontoroC.OutwardThreeWordZeroCarry.nonA_branch_times_infinite

@@ -21065,3 +21065,57 @@ ray is supplied.
 
 The integrated audit is green at 8,901 jobs, with no `sorry` and only the
 standard Lean/mathlib axioms reported.
+
+## Round 414 — preflight formalization of the three-word zero-carry pivot
+
+I saw the new `outward_zero_carry_map.py` worker and formalized its exact
+arithmetic reduction in `OutwardThreeWordZeroCarry`, without consuming its
+finite artifact.  There are three labeled relations
+
+```text
+A: 2 H'  = 3 H
+B: 8 H'  = 9 H + 3
+C: 64 H' = 81 H + 63
+```
+
+and Lean proves, for positive endpoints,
+
+```text
+Branch.Step b H H'
+  <-> Executes (Branch.word b) (3*H-1) (3*H'-1).
+```
+
+It also proves each word is genuinely first-passage and the exact domains
+
+```text
+A defined <-> H % 2  = 0
+B defined <-> H % 8  = 5
+C defined <-> H % 64 = 49.
+```
+
+The domains are disjoint, each target is unique, and their union is the
+partial relation `ThreeWordStep`.  `extensionCarry_eq_zero_iff_branchStep`
+connects this directly to the canonical zero-carry definition from Round
+413, so there is no semantic gap between the worker's charge map and literal
+shortcut execution.
+
+Two infinite-orbit consequences are now formal as well:
+
+```text
+orbit_charge_add_le:
+  charge 0 + n <= charge n,
+
+nonA_branch_times_infinite:
+  {n | branch n != A}.Infinite.
+```
+
+Thus every positive orbit grows at least linearly, and it must use `B` or
+`C` infinitely often; an eventually all-`A` drain tail is impossible.  The
+stronger universal eventual-periodic-address obstruction was already proved
+in `OutwardRechargeAperiodic`, so I did not duplicate it here.
+
+Adversarial qualification: the worker's phrase "three-branch 2-adic full
+shift" concerns inverse 2-adic coding.  It does not show that the survivor
+set contains an ordinary natural; that intersection is exactly the remaining
+hard obligation.  Nothing here supplies an infinite orbit.  The integrated
+audit is green at 8,902 jobs with standard axioms only.
