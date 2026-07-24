@@ -18652,3 +18652,80 @@ Full `lake build KontoroC` passes 8,872 jobs.  The audit reports only standard
 mathlib axioms (`propext`, `Classical.choice`, `Quot.sound`), and the new
 module contains no `sorry`, `admit`, project axiom, `unsafe`, or
 `native_decide`.
+
+## Round 364 — exact finite lifting audit for quotient paths
+
+The new imported and audited module
+
+```text
+KontoroC.OutwardShadowPathLift
+```
+
+formalizes the Moreno-style lift check which was absent from the existing
+pointwise shadow-faithfulness audit.  Given a finite exact state set, shadow
+map, decidable exact edge table, and proposed shadow path, it defines:
+
+```text
+FollowsTo
+LiftsShadowPath
+advance
+reachableAfter
+initialFiber
+terminalFiber
+```
+
+`advance` retains exactly those exact states in the next shadow fiber which
+have an accepted edge from the current compatible frontier.  The central
+semantic exactness theorems are
+
+```text
+mem_reachableAfter_iff
+terminalFiber_nonempty_iff_liftsShadowPath
+terminalFiber_eq_empty_iff_not_liftsShadowPath.
+```
+
+Thus this is not a heuristic pruning pass: nonempty output is equivalent to
+a complete compatible exact lift, while empty output is equivalent to no
+lift through the declared finite table.
+
+Frontier computation composes under path concatenation.  In particular:
+
+```text
+empty_prefix_frontier_obstructs_every_extension
+empty_terminalFiber_gives_no_extendedLift
+```
+
+prove that the first empty exact fiber is a permanent, replayable nonlifting
+certificate for every longer shadow continuation with that prefix.
+
+`LiftsShadowPath.mono` transports lifts through a sound strengthening of the
+edge relation.  Its literal specialization
+
+```text
+certifiedLift_gives_literalRechargeLift
+```
+
+says that a lift through a finite worker table whose every accepted edge has
+a `RechargeEdge` witness is genuinely a lift through literal first-passage
+recharge semantics.
+
+Finally,
+
+```text
+bool_nonempty_rawFibers_but_no_compatibleLift
+```
+
+is an exact two-state counterexample to the common quantifier error: every
+raw shadow fiber can be nonempty while the path `false -> true` has no lift
+when exact edges preserve the state.  Separate-depth nonemptiness is
+therefore insufficient; the recursive compatible frontier is the right
+object.
+
+This module handles finite proposed paths.  Nonempty frontiers at every
+separately searched depth still do not provide one compatible infinite
+section unless the paths/frontiers bond coherently; that remains the inverse-
+limit/ordinary-root gate already isolated elsewhere.
+
+Full `lake build KontoroC` passes 8,873 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, `unsafe`, or `native_decide`.
