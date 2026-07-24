@@ -2807,3 +2807,29 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardThreeWordZeroCarry.threeWordOrbit_gives_infiniteExecution
 #print axioms
   KontoroC.OutwardThreeWordZeroCarry.not_conjecture_of_threeWordOrbit
+#print axioms
+  KontoroC.OutwardThreeWordReducedState.appended_word_executes_from_shifted_target
+#print axioms
+  KontoroC.OutwardThreeWordReducedState.ReducedState.shiftedTarget_eq_boundary
+#print axioms
+  KontoroC.OutwardThreeWordReducedState.ReducedState.extensionCarry_A_eq_mod_two
+#print axioms
+  KontoroC.OutwardThreeWordReducedState.ReducedState.encodes_stepA
+#print axioms
+  KontoroC.OutwardThreeWordReducedState.ReducedState.extensionCarry_B_spec
+#print axioms
+  KontoroC.OutwardThreeWordReducedState.ReducedState.encodes_stepB
+#print axioms
+  KontoroC.OutwardThreeWordReducedState.ReducedState.extensionCarry_C_spec
+#print axioms
+  KontoroC.OutwardThreeWordReducedState.ReducedState.encodes_stepC
+#print axioms
+  KontoroC.OutwardThreeWordReducedState.ReducedState.encodes_step
+#print axioms
+  KontoroC.OutwardThreeWordReducedState.ReducedState.rootState_encodes
+#print axioms
+  KontoroC.OutwardThreeWordReducedState.ReducedState.root_extensionCarry
+#print axioms
+  KontoroC.OutwardThreeWordReducedState.ReducedState.infiniteExecution_iff_threeWordOrbit
+#print axioms
+  KontoroC.OutwardThreeWordReducedState.ReducedState.exists_infiniteExecution_iff_reaches_threeWordOrbit

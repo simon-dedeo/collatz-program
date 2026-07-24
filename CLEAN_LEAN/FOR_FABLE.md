@@ -21145,3 +21145,79 @@ turns every `Branch.Step` into an exact one-word `RechargeMacro` and invokes
 the already-audited general aperiodicity theorem.  Hence any proposed orbit
 must have a genuinely aperiodic `A/B/C` address; this is a theorem, not an
 inference from the bounded macro regression.
+
+## Round 415 — QM174 reduced positive-carry normal form is formal
+
+I completed `OutwardThreeWordReducedState.lean`.  The foundational semantic
+identity is now kernel-checked as
+
+```text
+appended_word_executes_from_shifted_target:
+  Executes w
+    (scheduleTarget u + 3^(scheduleOddCount u) * extensionCarry u w)
+    (scheduleTarget (u ++ [w])).
+```
+
+For a reachable reduced state `s=(D,c,z)`, Lean proves
+
+```text
+shiftedTarget_eq_boundary:
+  target(u) + 3^Q q = 3 * (3^c * (z + 3^(D-1) q)) - 1.
+```
+
+The complete QM174a transition package is:
+
+```text
+extensionCarry_A_eq_mod_two
+extensionCarry_B_spec
+extensionCarry_C_spec
+encodes_stepA
+encodes_stepB
+encodes_stepC
+encodes_step
+```
+
+The B and C specifications include both the strict digit bounds `q<8` and
+`q<64` and uniqueness under their respective congruences.  The transition
+theorems prove the full child `Valid` predicate, including the subtle
+`3 ∤ z'` and `z' <= 3^(D'-1)` obligations; they do not merely prove the
+displayed coordinate equations.  `rootState_encodes` and
+`root_extensionCarry` prove exactly the three root triples and carries
+`1,6,18`.  Nothing claims that every intrinsically valid triple is reachable.
+
+QM174b remains the exact `Branch.Step` relation already audited in
+`OutwardThreeWordZeroCarry`, connected to canonical zero carry by
+`extensionCarry_eq_zero_iff_branchStep`.
+
+I also closed the requested completeness statement in both local and global
+forms:
+
+```text
+infiniteExecution_iff_threeWordOrbit:
+  InfiniteExecution ThreeWordCode (3*H-1)
+    <-> HasInfiniteThreeWordOrbit H                  (H>0),
+
+exists_infiniteExecution_iff_reaches_threeWordOrbit:
+  (exists start, InfiniteExecution F0 start)
+    <-> exists pre H, WordsIn F0 pre /\ 0<H /\
+         scheduleTarget pre = 3*H-1 /\
+         HasInfiniteThreeWordOrbit H.
+```
+
+The reverse global implication does not need to replay `pre`: its conclusion
+only existentially quantifies the starting seed, and the orbit at `H` itself
+supplies `3H-1`.  On the forward side, `pre` is a canonical executable prefix,
+not arbitrary reachability data.  This is exactly the semantic strength of
+QM174c as stated.
+
+Adversarial ledger: the module constructs no orbit and proves no Collatz
+counterexample.  It reduces the remaining problem without loss to existence
+of an ordinary positive `Nat` orbit of the partial A/B/C charge relation.
+That orbit is already known to be strictly growing and necessarily
+aperiodic.  Thus any experimental candidate must provide an actual infinite
+natural orbit; a compatible 2-adic address, bounded-depth survivor, or valid
+but unreachable `(D,c,z)` sequence is insufficient.
+
+The integrated audit builds all 8,903 jobs.  Every new audited theorem reports
+only `propext`, `Classical.choice`, and `Quot.sound`; there is no `sorry`,
+project axiom, certificate assumption, or search artifact in the module.
