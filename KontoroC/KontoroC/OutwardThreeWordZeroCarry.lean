@@ -5,6 +5,7 @@ Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC.OutwardZeroCarrySemantics
 import KontoroC.OutwardWriterDecoderLiteral
+import KontoroC.OutwardRechargeAperiodic
 
 /-!
 # The exact three-word zero-carry charge map
@@ -21,6 +22,7 @@ namespace OutwardThreeWordZeroCarry
 open ShortcutParityPeriodicNoGo OutwardCodeCompactness
   OutwardFirstPassage OutwardBoundaryRenewal OutwardWriterDecoderLiteral
   OutwardFiniteSubcodeCarry OutwardZeroCarrySemantics
+  OutwardInvariantBridge
 
 /-- The three branches of the smallest finite alphabet used by the exact
 carry worker. -/
@@ -295,6 +297,34 @@ theorem nonA_branch_times_infinite
     have hexec := (branch_step_iff_executes Branch.A
       (hpos _) (hpos _)).mp hs
     simpa [Nat.add_assoc] using hexec
+
+/-- A labeled charge step is one exact nonempty recharge macro. -/
+theorem branchStep_rechargeMacro {b : Branch} {H H' : ℕ}
+    (hH : 0 < H) (hH' : 0 < H') (hstep : b.Step H H') :
+    RechargeMacro H H' [b.word] := by
+  refine ⟨hH, hH', by simp, ?_, ?_⟩
+  · intro w hw
+    have hwEq : w = b.word := by simpa using hw
+    subst w
+    exact branch_word_firstPassage b
+  · refine ⟨3 * H' - 1,
+      (branch_step_iff_executes b hH hH').mp hstep, rfl⟩
+
+/-- Specialized form of the universal obstruction: the branch address of a
+positive ordinary orbit cannot become periodic after any finite transient. -/
+theorem no_eventuallyPeriodic_branch_orbit
+    (charge : ℕ → ℕ) (branch : ℕ → Branch)
+    (hpos : ∀ n, 0 < charge n)
+    (hstep : ∀ n, (branch n).Step (charge n) (charge (n + 1)))
+    (t₀ : ℕ) {p : ℕ} (hp : 0 < p)
+    (hperiod : ∀ t, branch (t₀ + (t + p)) = branch (t₀ + t)) :
+    False := by
+  apply OutwardRechargeAperiodic.no_eventuallyPeriodic_rechargeMacro_schedule
+    charge (fun n ↦ [(branch n).word])
+    (fun n ↦ branchStep_rechargeMacro (hpos n) (hpos (n + 1)) (hstep n))
+    t₀ hp
+  intro t
+  rw [hperiod t]
 
 /-! ## Exact infinite-orbit consumer -/
 

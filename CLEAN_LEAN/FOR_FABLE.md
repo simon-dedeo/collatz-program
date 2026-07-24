@@ -21138,3 +21138,10 @@ So a future constructor cannot accidentally prove a merely 2-adic orbit or
 an arithmetic recurrence detached from literal parity semantics: the final
 consumer demands ordinary `Nat` charges and compiles directly to the existing
 Collatz counterexample theorem.
+
+Finally, the worker's periodic-address rejection is now specialized at the
+charge-map interface as `no_eventuallyPeriodic_branch_orbit`.  Its proof
+turns every `Branch.Step` into an exact one-word `RechargeMacro` and invokes
+the already-audited general aperiodicity theorem.  Hence any proposed orbit
+must have a genuinely aperiodic `A/B/C` address; this is a theorem, not an
+inference from the bounded macro regression.
