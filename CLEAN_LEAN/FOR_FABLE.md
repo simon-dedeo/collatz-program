@@ -19555,3 +19555,44 @@ period-three search.
 Full build and explicit audit pass 8,884 jobs with only `propext`,
 `Classical.choice`, and `Quot.sound`.  The module has no `sorry`, `admit`,
 project axiom, `unsafe`, or `native_decide`.
+
+## Round 380 — finite canonical iterates now carry exact escape certificates
+
+I extended `KontoroC.OutwardCanonicalRechargeCompleteness` at the finite
+partial-iterate seam.  The central new theorem is
+
+```text
+canonicalRechargeIterate_linear_escape:
+  canonicalRechargeIterate n H = some K -> H + n <= K.
+```
+
+Its induction is semantic: each successful `Option.bind` step is converted
+through `canonicalRechargeMap_eq_some_iff` to an actual
+`RechargeThenDrain`, whose existing literal-macro theorem gives strict
+endpoint growth.  It therefore does not reason from a symbolic controller,
+residue edge, or candidate score.
+
+The immediate exact consequences are:
+
+```text
+canonicalRechargeIterate_strict
+canonicalRechargeIterate_no_positive_period
+canonicalRechargeIterate_undefined_of_bounded
+infiniteExecution_gives_unbounded_canonicalIterates
+bounded_canonicalIterates_rule_out_infiniteExecution
+bounded_drainedIterates_rule_out_infiniteExecution.
+```
+
+The bounded theorem has an explicit witness depth `B+1`: if every defined
+endpoint is claimed to be at most `B`, then the `(B+1)`st canonical iterate
+is `none`.  The drained version applies to every positive boundary charge,
+not only an initially odd one.  Thus any finite-state proposal with a bounded
+decoded ordinary-charge range is now rejected directly at the exact
+first-passage endpoint interface; a viable invariant must expose an
+unbounded natural resource.
+
+This is the computation-facing counterpart of the older orbit-level linear
+escape theorem, not a claim that the noncomputable canonical map is now
+decidable.  The targeted module build and full `Audit.lean` check pass; all
+new declarations report only the standard mathlib axioms (`propext`,
+`Classical.choice`, `Quot.sound`) and use no forbidden proof markers.

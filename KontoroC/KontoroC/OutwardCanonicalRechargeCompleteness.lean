@@ -314,6 +314,64 @@ theorem canonicalOrbit_iff_all_iterates_defined {H : ℕ} :
         Option.bind_some] at hnext
       exact hnext
 
+/-- Every defined finite iterate of the canonical recharge map escapes at
+least linearly.  This is the finite, computation-facing form of strict
+outward growth: after `n` successful recharge macros the boundary charge has
+increased by at least `n`. -/
+theorem canonicalRechargeIterate_linear_escape
+    {n H K : ℕ}
+    (hiterate : canonicalRechargeIterate n H = some K) :
+    H + n ≤ K := by
+  induction n generalizing K with
+  | zero =>
+      simp only [canonicalRechargeIterate, Option.some.injEq] at hiterate
+      omega
+  | succ n ih =>
+      simp only [canonicalRechargeIterate] at hiterate
+      cases hprevious : canonicalRechargeIterate n H with
+      | none =>
+          simp [hprevious] at hiterate
+      | some J =>
+          have hmap : canonicalRechargeMap J = some K := by
+            simpa [hprevious] using hiterate
+          have hJK : J < K :=
+            (canonicalRechargeMap_eq_some_iff.mp hmap).lt
+          have hHJ : H + n ≤ J := ih hprevious
+          omega
+
+/-- A positive number of successful canonical recharge steps strictly raises
+the ordinary boundary charge. -/
+theorem canonicalRechargeIterate_strict
+    {n H K : ℕ} (hn : 0 < n)
+    (hiterate : canonicalRechargeIterate n H = some K) :
+    H < K := by
+  have hlinear := canonicalRechargeIterate_linear_escape hiterate
+  omega
+
+/-- The exact canonical partial map has no positive-period ordinary charge,
+even at a finite depth.  Thus a periodic symbolic or residue controller is
+not by itself an endpoint-correct recharge orbit. -/
+theorem canonicalRechargeIterate_no_positive_period
+    {n H : ℕ} (hn : 0 < n) :
+    canonicalRechargeIterate n H ≠ some H := by
+  intro hperiod
+  exact (Nat.lt_irrefl H) (canonicalRechargeIterate_strict hn hperiod)
+
+/-- If every successfully computed canonical charge is claimed to remain
+below a fixed bound, some finite iterate must be undefined.  The witness
+depth `B + 1` is explicit. -/
+theorem canonicalRechargeIterate_undefined_of_bounded
+    {H B : ℕ}
+    (hbounded : ∀ n K,
+      canonicalRechargeIterate n H = some K → K ≤ B) :
+    canonicalRechargeIterate (B + 1) H = none := by
+  cases hiterate : canonicalRechargeIterate (B + 1) H with
+  | none => rfl
+  | some K =>
+      have hlinear := canonicalRechargeIterate_linear_escape hiterate
+      have hupper := hbounded (B + 1) K hiterate
+      omega
+
 /-- Exact finite-definedness formulation of the outward counterexample
 problem at a positive odd boundary. -/
 theorem infiniteExecution_iff_all_canonicalIterates_defined
@@ -335,6 +393,33 @@ theorem iterate_eq_none_rules_out_infiniteExecution
       hinfinite n
   rw [hnone] at hsome
   simp at hsome
+
+/-- Infinite literal execution forces the finite canonical iterates to attain
+arbitrarily large ordinary charges.  This formulation exposes both the depth
+and the exact endpoint certificate. -/
+theorem infiniteExecution_gives_unbounded_canonicalIterates
+    {H : ℕ} (hH : 0 < H) (hodd : Odd H)
+    (hinfinite : InfiniteExecution FirstPassageCode (3 * H - 1)) :
+    ∀ B, ∃ n K,
+      canonicalRechargeIterate n H = some K ∧ B < K := by
+  intro B
+  let n := B + 1
+  obtain ⟨K, hiterate⟩ :=
+    (infiniteExecution_iff_all_canonicalIterates_defined hH hodd).mp
+      hinfinite n
+  have hlinear := canonicalRechargeIterate_linear_escape hiterate
+  exact ⟨n, K, hiterate, by dsimp [n] at hlinear ⊢; omega⟩
+
+/-- A globally bounded family of finite canonical endpoints cannot support an
+infinite literal first-passage execution.  In particular, no finite-state
+model whose decoded charge range is bounded can close the semantic gap. -/
+theorem bounded_canonicalIterates_rule_out_infiniteExecution
+    {H B : ℕ} (hH : 0 < H) (hodd : Odd H)
+    (hbounded : ∀ n K,
+      canonicalRechargeIterate n H = some K → K ≤ B) :
+    ¬ InfiniteExecution FirstPassageCode (3 * H - 1) := by
+  exact iterate_eq_none_rules_out_infiniteExecution hH hodd
+    (canonicalRechargeIterate_undefined_of_bounded hbounded)
 
 /-- A canonical orbit reaches the existing Syracuse counterexample endpoint. -/
 theorem canonicalOrbit_gives_not_syracuseReachesOne
@@ -443,6 +528,16 @@ theorem drainedIterate_eq_none_rules_out_infiniteExecution
     (infiniteExecution_iff_all_drainedIterates_defined hH).mp hinfinite n
   rw [hnone] at hsome
   simp at hsome
+
+/-- Arbitrary positive boundary charges inherit the same finite bounded-range
+obstruction after their forced one-letter drain normalization. -/
+theorem bounded_drainedIterates_rule_out_infiniteExecution
+    {H B : ℕ} (hH : 0 < H)
+    (hbounded : ∀ n K,
+      canonicalRechargeIterate n (drainedCharge H) = some K → K ≤ B) :
+    ¬ InfiniteExecution FirstPassageCode (3 * H - 1) := by
+  exact drainedIterate_eq_none_rules_out_infiniteExecution hH
+    (canonicalRechargeIterate_undefined_of_bounded hbounded)
 
 /-! ## Global existential reduction and determinism -/
 

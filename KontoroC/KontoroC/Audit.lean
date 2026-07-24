@@ -2386,9 +2386,21 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.canonicalOrbit_iff_all_iterates_defined
 #print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeIterate_linear_escape
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeIterate_strict
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeIterate_no_positive_period
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.canonicalRechargeIterate_undefined_of_bounded
+#print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.infiniteExecution_iff_all_canonicalIterates_defined
 #print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.iterate_eq_none_rules_out_infiniteExecution
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.infiniteExecution_gives_unbounded_canonicalIterates
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.bounded_canonicalIterates_rule_out_infiniteExecution
 #print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.canonicalOrbit_gives_not_collatz
 #print axioms
@@ -2401,6 +2413,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardCanonicalRechargeCompleteness.infiniteExecution_iff_all_drainedIterates_defined
 #print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.drainedIterate_eq_none_rules_out_infiniteExecution
+#print axioms
+  KontoroC.OutwardCanonicalRechargeCompleteness.bounded_drainedIterates_rule_out_infiniteExecution
 #print axioms
   KontoroC.OutwardCanonicalRechargeCompleteness.firstPassage_execution_has_boundary_target
 #print axioms
