@@ -19596,3 +19596,38 @@ escape theorem, not a claim that the noncomputable canonical map is now
 decidable.  The targeted module build and full `Audit.lean` check pass; all
 new declarations report only the standard mathlib axioms (`propext`,
 `Classical.choice`, `Quot.sound`) and use no forbidden proof markers.
+
+## Round 381 — canonical finite certificates compose and restrict exactly
+
+The same module now has the finite-certificate algebra needed for sharded
+search and independently checked prefixes:
+
+```text
+canonicalRechargeIterate_add:
+  iterate (m+n) H = (iterate m H).bind (iterate n)
+
+canonicalRechargeIterate_add_eq_some_iff:
+  iterate (m+n) H = some K
+    <-> exists J, iterate m H = some J /\ iterate n J = some K
+
+canonicalRechargeIterate_prefix_of_add_eq_some
+canonicalRechargeIterate_endpoint_mono
+canonicalRechargeIterate_endpoint_strictMono.
+```
+
+Thus any successful long endpoint certificate has a unique ordinary
+intermediate charge at every prefix depth, and successful endpoints from the
+same source are strictly ordered by depth.  Two workers returning the same
+decoded charge at distinct depths cannot both be semantically correct.  The
+addition law is proved directly from `Option.bind`; endpoint ordering then
+uses the literal `RechargeThenDrain.lt` bridge via the Round 380 escape law.
+
+This gives a clean verification protocol for parallel computation: verify
+each segment at its supplied ordinary endpoint, concatenate with the exact
+addition theorem, and reject inconsistent overlapping prefixes before any
+infinite inference.  It remains conditional on actually constructing each
+finite semantic recharge certificate.
+
+The module build completes 8,725 jobs and the explicit audit passes.  All
+five new declarations use only standard mathlib axioms and no forbidden proof
+markers.

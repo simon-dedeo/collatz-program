@@ -275,6 +275,47 @@ noncomputable def canonicalRechargeIterate : ℕ → ℕ → Option ℕ
   | n + 1, H =>
       (canonicalRechargeIterate n H).bind canonicalRechargeMap
 
+/-- Exact composition law for finite canonical recharge computations.  It is
+the partial-map analogue of the iterate addition law: first run `m` macros,
+then run `n` macros from the unique intermediate ordinary charge. -/
+theorem canonicalRechargeIterate_add (m n H : ℕ) :
+    canonicalRechargeIterate (m + n) H =
+      (canonicalRechargeIterate m H).bind
+        (canonicalRechargeIterate n) := by
+  induction n with
+  | zero =>
+      simp [canonicalRechargeIterate]
+  | succ n ih =>
+      rw [Nat.add_succ]
+      simp only [canonicalRechargeIterate, ih]
+      cases hprefix : canonicalRechargeIterate m H <;>
+        simp
+
+/-- A successful long finite computation exposes an exact successful prefix
+and an exact suffix computation from its endpoint.  This is the reusable
+certificate-sharding direction of `canonicalRechargeIterate_add`. -/
+theorem canonicalRechargeIterate_add_eq_some_iff
+    {m n H K : ℕ} :
+    canonicalRechargeIterate (m + n) H = some K ↔
+      ∃ J,
+        canonicalRechargeIterate m H = some J ∧
+        canonicalRechargeIterate n J = some K := by
+  rw [canonicalRechargeIterate_add]
+  cases hprefix : canonicalRechargeIterate m H with
+  | none => simp
+  | some J => simp
+
+/-- Prefix restriction for finite canonical certificates: if a depth
+`m+n` endpoint exists, the depth-`m` endpoint exists as an ordinary natural
+and the remaining `n` steps start there. -/
+theorem canonicalRechargeIterate_prefix_of_add_eq_some
+    {m n H K : ℕ}
+    (hiterate : canonicalRechargeIterate (m + n) H = some K) :
+    ∃ J,
+      canonicalRechargeIterate m H = some J ∧
+      canonicalRechargeIterate n J = some K :=
+  canonicalRechargeIterate_add_eq_some_iff.mp hiterate
+
 /-- An infinite canonical orbit makes every finite partial iterate defined,
 at exactly the corresponding ordinary charge. -/
 theorem canonicalOrbit_gives_iterate_eq_some
@@ -346,6 +387,45 @@ theorem canonicalRechargeIterate_strict
     (hiterate : canonicalRechargeIterate n H = some K) :
     H < K := by
   have hlinear := canonicalRechargeIterate_linear_escape hiterate
+  omega
+
+/-- Endpoint charges are monotone with successful computation depth.  This
+compares two independently supplied finite certificates from the same
+ordinary source. -/
+theorem canonicalRechargeIterate_endpoint_mono
+    {m n H J K : ℕ} (hmn : m ≤ n)
+    (hm : canonicalRechargeIterate m H = some J)
+    (hn : canonicalRechargeIterate n H = some K) :
+    J ≤ K := by
+  have hlong :
+      canonicalRechargeIterate (m + (n - m)) H = some K := by
+    rw [Nat.add_sub_of_le hmn]
+    exact hn
+  obtain ⟨L, hprefix, hsuffix⟩ :=
+    canonicalRechargeIterate_prefix_of_add_eq_some hlong
+  have hL : L = J := Option.some.inj (hprefix.symm.trans hm)
+  subst L
+  have hlinear := canonicalRechargeIterate_linear_escape hsuffix
+  omega
+
+/-- Successful endpoints at genuinely different depths are strictly
+ordered.  Equal decoded charges at two depths therefore certify a semantic
+failure in at least one proposed computation. -/
+theorem canonicalRechargeIterate_endpoint_strictMono
+    {m n H J K : ℕ} (hmn : m < n)
+    (hm : canonicalRechargeIterate m H = some J)
+    (hn : canonicalRechargeIterate n H = some K) :
+    J < K := by
+  have hlong :
+      canonicalRechargeIterate (m + (n - m)) H = some K := by
+    rw [Nat.add_sub_of_le hmn.le]
+    exact hn
+  obtain ⟨L, hprefix, hsuffix⟩ :=
+    canonicalRechargeIterate_prefix_of_add_eq_some hlong
+  have hL : L = J := Option.some.inj (hprefix.symm.trans hm)
+  subst L
+  have hlinear := canonicalRechargeIterate_linear_escape hsuffix
+  have hgap : 0 < n - m := Nat.sub_pos_of_lt hmn
   omega
 
 /-- The exact canonical partial map has no positive-period ordinary charge,
