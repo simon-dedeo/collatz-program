@@ -17855,3 +17855,61 @@ holonomy.
 Full `lake build KontoroC` passes 8,860 jobs; the audit reports standard
 mathlib axioms only.  The module contains no `sorry`, `admit`, project axiom,
 or `native_decide`.
+
+## Round 349 — finite ranked layers and literal counter resets
+
+I formalized the exact core of Lead Y in the imported and audited module
+
+```text
+KontoroC.OutwardRankedLayerReset
+```
+
+For a finite state set, distinguished minimum, deterministic next-state map,
+and integer rank, `IsRankedLayer` requires every nonminimum transition to stay
+inside the layer and strictly lower rank.  Lean proves the sharp bound
+
+```text
+exists_iterate_eq_minimum_lt_card
+```
+
+from every state: there is `steps < states.card` with
+`next^[steps] start = minimum`.  The proof is a finite pigeonhole argument;
+if the first `card` transitions missed the minimum, the `card+1` orbit states
+would all lie in the layer while strict rank descent made them injective.
+
+The literal dynamic interface is:
+
+```text
+LayerInvariant
+layerInvariant_closed
+literalLayers_give_infiniteExecution.
+```
+
+Every nonminimum state must have a literal `RechargeMacro` to its selected
+same-layer successor, and each minimum must have a literal reset macro into
+the next layer.  The union of layers is then exactly closed under recharge,
+so the existing invariant bridge applies.  The combined theorem
+
+```text
+rankedLayers_reach_minimum_and_give_infiniteExecution
+```
+
+returns both the cardinality bound in every layer and the infinite literal
+first-passage execution.  Explicit projections prove
+
+```text
+rankedLayers_give_not_syracuseReachesOne
+rankedLayers_give_not_collatz.
+```
+
+One conceptual simplification emerged: rank is essential for certifying that
+the deterministic interior policy actually consumes a finite layer and
+reaches its reset, but it is not load-bearing for the counterexample bridge
+once every interior edge and reset is already a literal macro.  Literal
+closure alone suffices at that point, and the module exposes that weaker
+theorem rather than hiding it.
+
+Everything remains conditional: no concrete layers or resets are supplied.
+Full `lake build KontoroC` passes 8,861 jobs; the audit reports standard
+mathlib axioms only, and the module uses no `sorry`, `admit`, project axiom,
+or `native_decide`.

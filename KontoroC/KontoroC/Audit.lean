@@ -2110,5 +2110,18 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardIntegralPrincipality.no_integerPrincipal_of_modularObstruction
 #print axioms
   KontoroC.OutwardIntegralPrincipality.cokernelClass_ne_zero_of_modularObstruction
+#print axioms
+  KontoroC.OutwardRankedLayerReset.exists_iterate_eq_minimum_lt_card
+#print axioms KontoroC.OutwardRankedLayerReset.layerInvariant_closed
+#print axioms KontoroC.OutwardRankedLayerReset.rankedLayers_reach_minimum
+#print axioms
+  KontoroC.OutwardRankedLayerReset.literalLayers_give_infiniteExecution
+#print axioms
+  KontoroC.OutwardRankedLayerReset.rankedLayers_reach_minimum_and_give_infiniteExecution
+#print axioms
+  KontoroC.OutwardRankedLayerReset.rankedLayers_give_infiniteExecution
+#print axioms
+  KontoroC.OutwardRankedLayerReset.rankedLayers_give_not_syracuseReachesOne
+#print axioms KontoroC.OutwardRankedLayerReset.rankedLayers_give_not_collatz
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
