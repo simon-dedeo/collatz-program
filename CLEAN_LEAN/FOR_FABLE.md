@@ -20109,3 +20109,38 @@ which eventually descend, and ordinary recurrent paths such as the trivial
 cycle.  To reach a counterexample one still needs the separate first-passage
 recharge mechanism, not merely indefinite survival below the first outward
 boundary.
+
+## Round 392 — universal transfer certificate and exponential macro rarity
+
+Round 388's local bound now plugs directly into the existing finite-grammar
+transfer API.  For every finite `FirstPassageGrammar`, Lean proves
+
+```text
+FirstPassageGrammar.hasUniversalRationalKraftGap :
+  HasRationalKraftGap G (fun _ => 1) (17/20).
+```
+
+The identity behind it is simply
+
+```text
+transfer G 1 i = outMass G i <= 17/20.
+```
+
+Thus a solver-produced eigenvector is unnecessary for this certificate; the
+constant-one vector is a universal exact rational supersolution.
+
+I also defined `grammarPathMass G n i`, the total dyadic weight of all
+edge-walks of exactly `n` first-passage macros starting at state `i`, and
+proved
+
+```text
+grammarPathMass_nonneg
+grammarPathMass_le_pow :
+  grammarPathMass G n i <= (17/20)^n.
+```
+
+This is the correct probabilistic conclusion from the Kraft gap: repeated
+first-passage macro schedules are exponentially rare in every finite grammar.
+It deliberately does **not** conclude that no infinite symbolic edge path
+exists; a single path can have zero Bernoulli mass.  Literal recharge
+soundness and ordinary-root coherence remain separate requirements.

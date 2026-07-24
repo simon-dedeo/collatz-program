@@ -582,5 +582,70 @@ theorem FirstPassageGrammar.exists_uncovered_word_uniform
   exact G.exists_uncovered_word_of_outMass_lt_one i
     (FirstPassageGrammar.outMass_lt_one_uniform G i)
 
+/-- On the constant-one vector, transfer is exactly outgoing Kraft mass. -/
+theorem FirstPassageGrammar.transfer_one_eq_outMass
+    (G : FirstPassageGrammar State Edge) (i : State) :
+    G.transfer (fun _ => 1) i = G.outMass i := by
+  simp [OutwardFiniteStateKraftGap.FirstPassageGrammar.transfer,
+    OutwardFiniteStateKraftGap.FirstPassageGrammar.outMass]
+
+/-- Every finite first-passage grammar carries the same exact rational
+transfer supersolution; no solver-produced Perron vector is required. -/
+theorem FirstPassageGrammar.hasUniversalRationalKraftGap
+    (G : FirstPassageGrammar State Edge) :
+    G.HasRationalKraftGap (fun _ => 1) ((17 : ℚ) / 20) := by
+  refine ⟨fun _ => by norm_num, by norm_num, by norm_num, ?_⟩
+  intro i
+  rw [FirstPassageGrammar.transfer_one_eq_outMass]
+  simpa using FirstPassageGrammar.outMass_le_seventeen_div_twenty G i
+
+/-- Total dyadic weight of all edge walks of a specified macro depth from one
+state. -/
+noncomputable def grammarPathMass
+    (G : FirstPassageGrammar State Edge) : ℕ → State → ℚ
+  | 0, _ => 1
+  | n + 1, i => G.transfer (grammarPathMass G n) i
+
+theorem grammarPathMass_nonneg
+    (G : FirstPassageGrammar State Edge) (n : ℕ) (i : State) :
+    0 ≤ grammarPathMass G n i := by
+  induction n generalizing i with
+  | zero => simp [grammarPathMass]
+  | succ n ih =>
+      simp only [grammarPathMass,
+        OutwardFiniteStateKraftGap.FirstPassageGrammar.transfer]
+      apply Finset.sum_nonneg
+      intro e _
+      exact mul_nonneg (G.edgeWeight_nonneg e) (ih (G.target e))
+
+/-- Repeated first-passage macro mass contracts geometrically at the universal
+rate `(17/20)^n`, even though individual infinite symbolic paths may remain. -/
+theorem grammarPathMass_le_pow
+    (G : FirstPassageGrammar State Edge) (n : ℕ) (i : State) :
+    grammarPathMass G n i ≤ ((17 : ℚ) / 20) ^ n := by
+  induction n generalizing i with
+  | zero => simp [grammarPathMass]
+  | succ n ih =>
+      simp only [grammarPathMass,
+        OutwardFiniteStateKraftGap.FirstPassageGrammar.transfer]
+      calc
+        (∑ e ∈ G.outgoing i,
+            G.edgeWeight e * grammarPathMass G n (G.target e)) ≤
+            ∑ e ∈ G.outgoing i,
+              G.edgeWeight e * ((17 : ℚ) / 20) ^ n := by
+          apply Finset.sum_le_sum
+          intro e _
+          exact mul_le_mul_of_nonneg_left (ih (G.target e))
+            (G.edgeWeight_nonneg e)
+        _ = ((17 : ℚ) / 20) ^ n * G.outMass i := by
+          simp only [OutwardFiniteStateKraftGap.FirstPassageGrammar.outMass,
+            Finset.mul_sum]
+          ring
+        _ ≤ ((17 : ℚ) / 20) ^ n * ((17 : ℚ) / 20) := by
+          exact mul_le_mul_of_nonneg_left
+            (FirstPassageGrammar.outMass_le_seventeen_div_twenty G i)
+            (by positivity)
+        _ = ((17 : ℚ) / 20) ^ (n + 1) := by rw [pow_succ]
+
 end OutwardStrictKraftGap
 end KontoroC
