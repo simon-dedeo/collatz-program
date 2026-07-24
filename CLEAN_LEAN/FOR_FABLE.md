@@ -18412,3 +18412,60 @@ no new semantic premise is hidden.
 Full `lake build KontoroC` passes all 8,868 jobs.  The audit reports only
 standard mathlib axioms, and the changed module contains no `sorry`, `admit`,
 project axiom, or `native_decide`.
+
+## Round 360 — stationary kernel is a decoder iff every support row is singleton
+
+I formalized the Zheng/entropy semantic gate in the imported and audited
+module
+
+```text
+KontoroC.OutwardKernelDecoderGap.
+```
+
+For an exact rational finite kernel, `support kernel source` is the executable
+nonzero support of one row and `RowNormalized` asserts row sum one.  The
+predicate
+
+```text
+IsPointwiseKernel kernel
+```
+
+means that the kernel is literally a deterministic `0/1` graph for some
+successor function.  Lean proves the exact equivalence
+
+```text
+pointwise_iff_support_card_eq_one:
+  IsPointwiseKernel kernel <->
+    forall source, (support kernel source).card = 1.
+```
+
+The nontrivial direction uses normalization: once a row has exactly one
+nonzero target, its total mass-one equation forces that weight to be exactly
+one.  `support_nonempty_of_normalized` excludes empty rows.
+
+The worker-facing exact alternative is
+
+```text
+pointwise_or_exists_nondeterministic_row:
+  IsPointwiseKernel kernel \/
+    exists source, 1 < (support kernel source).card.
+```
+
+The executable table `nondeterministicRows` satisfies
+
+```text
+nondeterministicRows_eq_empty_iff_pointwise,
+```
+
+and `supported_pair_obstructs_pointwise` turns two distinct supported targets
+in one row into a direct no-decoder certificate.
+
+This rejects only the claim that the stationary/randomized kernel itself is
+a literal successor.  A separate selector may still choose one supported
+legal edge, but must then prove pointwise legality, cross-precision
+compatibility, counter escape, and the ordinary-root gate; stationarity,
+entropy, or a Doob transform supplies none of those automatically.
+
+Full `lake build KontoroC` passes 8,869 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, or `native_decide`.

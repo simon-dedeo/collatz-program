@@ -2212,5 +2212,21 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardCodeCounterexample.collatzOrbit_unbounded_of_syracuseOrbit_unbounded
 #print axioms
   KontoroC.OutwardCodeCounterexample.collatzOrbit_unbounded_of_infiniteExecution
+#print axioms
+  KontoroC.OutwardKernelDecoderGap.support_eq_singleton_of_pointwise
+#print axioms
+  KontoroC.OutwardKernelDecoderGap.pointwise_of_normalized_support_singleton
+#print axioms
+  KontoroC.OutwardKernelDecoderGap.pointwise_iff_support_card_eq_one
+#print axioms
+  KontoroC.OutwardKernelDecoderGap.support_nonempty_of_normalized
+#print axioms
+  KontoroC.OutwardKernelDecoderGap.pointwise_or_exists_nondeterministic_row
+#print axioms
+  KontoroC.OutwardKernelDecoderGap.mem_nondeterministicRows_iff
+#print axioms
+  KontoroC.OutwardKernelDecoderGap.nondeterministicRows_eq_empty_iff_pointwise
+#print axioms
+  KontoroC.OutwardKernelDecoderGap.supported_pair_obstructs_pointwise
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
