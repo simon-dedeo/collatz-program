@@ -1906,6 +1906,16 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardValuationSelectorNoGo.no_primitiveLayer_forces_selectedChart
 #print axioms
+  KontoroC.OutwardValuationCutoffAlias.three_dvd_twoPow_even_sub_one
+#print axioms
+  KontoroC.OutwardValuationCutoffAlias.three_mul_cutoffAliasSeed_add_one
+#print axioms KontoroC.OutwardValuationCutoffAlias.cutoffAliasSeed_instruction
+#print axioms
+  KontoroC.OutwardValuationCutoffAlias.cutoffAliasPerturbation_instruction
+#print axioms KontoroC.OutwardValuationCutoffAlias.cutoffAlias_exact
+#print axioms
+  KontoroC.OutwardValuationCutoffAlias.exists_cutoff_alias_with_arbitrarily_large_successor
+#print axioms
   KontoroC.OutwardFiniteStateKraftGap.FirstPassageGrammar.outMass_le_one
 #print axioms
   KontoroC.OutwardFiniteStateKraftGap.FirstPassageGrammar.exists_uncovered_word_of_outMass_lt_one

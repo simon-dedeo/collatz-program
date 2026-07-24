@@ -19631,3 +19631,63 @@ finite semantic recharge certificate.
 The module build completes 8,725 jobs and the explicit audit passes.  All
 five new declarations use only standard mathlib axioms and no forbidden proof
 markers.
+
+## Round 382 — finite valuation cutoffs provably alias unbounded exact carries
+
+The new imported and audited module is
+
+```text
+KontoroC.OutwardValuationCutoffAlias.
+```
+
+For `t>0` and `0<K<2t`, it constructs the literal positive odd naturals
+
+```text
+x = (2^(2t)-1)/3,
+y = x + 2^K,
+```
+
+and kernel-checks the exact accelerated instructions
+
+```text
+oddValuation x = 2t,  oddStep x = 1,
+oddValuation y = K,   oddStep y = 2^(2t-K)+3.
+```
+
+The proof does not assume these formulas from rational algebra.  It first
+proves `3 | 2^(2t)-1`, proves both sources and both cofactors odd, then feeds
+the two exact factorizations of `3n+1` through
+`legalInstruction_of_step_equation`.  Hence the valuations are maximal and
+the successors are the literal `oddStep` values.
+
+The central finite package is
+
+```text
+cutoffAlias_exact:
+  x == y (mod 2^K) /\
+  min K (oddValuation x) = K /\
+  min K (oddValuation y) = K /\
+  oddStep x = 1 /\
+  oddStep y = 2^(2t-K)+3.
+```
+
+The quantified no-go endpoint is
+
+```text
+exists_cutoff_alias_with_arbitrarily_large_successor:
+  0<K -> forall B, exists positive odd x y,
+    x == y (mod 2^K) /\
+    clippedValuation_K x = clippedValuation_K y /\
+    oddStep x = 1 /\ B < oddStep y.
+```
+
+So a controller that retains only the source residue modulo `2^K` and the
+valuation clipped at `K` cannot soundly predict even one exact accelerated
+successor: one visible state aliases outcomes with unbounded separation.  A
+finite model can survive only by reintroducing the discarded large carry via
+a separately proved exact comparison/correction theorem.  This is a one-step
+semantic obstruction, not a claim about infinite execution.
+
+The full library build passes 8,885 jobs and the explicit audit reports only
+the standard mathlib axioms.  The new module contains no `sorry`, `admit`,
+project axiom, `unsafe`, or `native_decide`.
