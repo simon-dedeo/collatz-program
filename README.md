@@ -35,7 +35,7 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ### 2026-07-24 00:12 EDT
 
-There is still no Collatz counterexample.  The IAS audit now has 89
+There is still no Collatz counterexample.  The IAS audit now has 93
 authoritative transcript-checked release talks.  Its strongest common lesson
 is a two-gate architecture: every aggregate or quotient object--entropy law,
 spectral mode, stationary kernel, word relation, local weak limit, or
@@ -133,6 +133,51 @@ that reduce to coordinate lineality create no genuine competing selector
 cells.  Until that exact check or a primary proof is supplied, this remains a
 search-pruning lead, not a rejection certificate.
 
+Alex Kontorovich's sphere-packing construction suggests a genuinely recursive
+integrality strategy.  Prove a finite seed architecture *superintegral* under
+every auxiliary symmetry used by the recursion, then permit only growth
+operations whose entire superlanguage embeds into the seed superlanguage.
+His packings inherit integrality because the growth superpacking is literally
+contained in the seed superpacking.  Mere integrality of the selected orbit is
+insufficient: the hexagonal-prism packing develops powers of three in the
+denominator after adding the reflection closure, and a cyclic Gram product is
+`4/3`.  Any Collatz groupification or symmetry quotient must therefore exact-
+replay every added move.  The talk's local--global theorem also requires a
+congruence stabilizer, a condition that fails for infinitely many packings.
+
+Patrick Allen gives a finite rigidity audit for algebraic selector models.
+Passing to a reduced solution set destroys the nilpotent and tangent data
+needed to prove uniqueness; his automorphic proof must recover the complete
+local deformation ring and a faithful module action.  For a bounded Collatz
+model, compute the exact Jacobian kernel modulo declared gauge directions and
+retain the full local algebra.  A nonzero tangent is a concrete failure of
+local uniqueness, while zero tangent neither constructs a next-precision
+lift nor proves recharge, counter growth, compatible bonding, or an ordinary
+root.  Allen's Selmer-vanishing theorem depends on polarization, potential
+automorphy, adequacy, and patching and is not imported.
+
+Amanda Hirschi gives the correct bounded recursion test for virtual or
+algebraic selector charts.  At every split, the boundary chart must be
+equivalent to the fiber product of the two component charts over their exact
+evaluation maps, and the equivalences must agree on all iterated corners.
+For finite literal macro sets this becomes an exhaustive bijection and
+associativity check.  The talk's crucial warning is cross-cutoff: compatible
+choices exist only for finitely many thickenings at once, and pseudo-isotopy
+is needed to obtain one actual structure.  Separate successful bounded
+charts therefore prove neither an infinite selector nor ordinary-root
+coherence.
+
+Maria-Romina Ivan supplies a genuine binary carry obstruction for one broad
+recursive syntax.  A fixed five-bit coloring of positive address pairs makes
+it impossible for two increasing sequences `a_n<b_n` to keep both every
+cross pair `(a_n,b_m)` and every additive splice
+`(a_n+a_m,b_n+b_m)`, `n<m`, in one color.  The proof uses valuation parity,
+the next binary bit, and interleaving of support intervals.  Thus any coherent
+Collatz grammar with exactly these increasing endpoints and one fixed finite
+rule class must fail at some finite depth.  There is no uniform failure depth,
+and the coloring sees no interior word, so this is a conditional syntax
+no-go—not a no-go for arbitrary selectors and not a construction.
+
 Formalizer commit `10aa678` independently turns Subrahmanyam's shrunk-subspace
 lesson into an exact finite rejection certificate: if every linearized macro
 template maps a source subspace into one of smaller dimension, no scalar
@@ -148,6 +193,12 @@ ordinary start that realizes every finite depth of outward literal blocks has
 an actually unbounded deterministic Syracuse orbit; no separately chosen
 infinite word is needed.  Again, the theorem assumes the all-depth ordinary
 execution and constructs none.
+
+Commits `ca4d77d` and `5631b26` finish the normalization and worker-facing
+adapters: every Syracuse iterate occurs on the standard unaccelerated Collatz
+orbit, and an ordinary charge sequence with one literal positive recharge
+macro at every index directly yields unbounded orbits for both maps.  No such
+charge sequence or macro family has been constructed.
 
 Formalizer commit `5457bdc` makes the second gate a dichotomy.  For
 representatives compatible at mixed moduli tending to infinity, bounded range
@@ -8366,6 +8417,39 @@ existing lines of work; the closest ancestors, and what each contributes:
   Q&A states that binary matroid base polytopes have no nontrivial matroid
   subdivisions.  Because no proof is given there, the public use is only a
   prompt for exact bounded lower-hull/exchange checks, not a general no-go.
+- **A. Kontorovich, [“Geometry and Arithmetic of Sphere
+  Packings”](https://www.ias.edu/video/membsem/2017/1023-AlexKontorovich), IAS
+  talk (23 Oct. 2017), corpus key `f8df60d950daf6b03c6d08e51ceaab01`,
+  S4/S7--S8 at 1,560--1,989 and 2,973--3,669 seconds** — a recursive growth
+  inherits integrality from literal containment in a superintegral seed
+  superpacking.  The integral-but-not-superintegral hexagonal example warns
+  that adjoining symmetry moves can introduce denominators; local--global
+  transfer additionally needs a congruence stabilizer.
+- **P. Allen, [“Adjoint Selmer Groups for Polarized Automorphic Galois
+  Representations”](https://www.ias.edu/video/jointnts/2015/1015-PatrickAllen),
+  IAS talk (15 Oct. 2015), corpus key
+  `2f8e4ccb061ccfbab6bd7aa6e29c9840`, S3--S6 at 1,321--3,178 seconds** — a
+  reduced deformation space erases tangent/nilpotent information, so finite
+  selector rigidity needs the exact completed local algebra, Jacobian kernel,
+  and faithful literal action.  The automorphic Selmer theorem's hypotheses
+  do not transfer, and rigidity supplies neither existence nor an ordinary
+  orbit.
+- **A. Hirschi, [“Open Gromov-Witten Invariants in Genus
+  Zero”](https://www.ias.edu/video/open-gromov-witten-invariants-genus-zero),
+  IAS talk (10 Dec. 2024), corpus key
+  `f853fe176d51ba092e5b4f3e1a1fa7ac`, S3--S4/S6 at 1,613--2,511 and
+  2,877--3,396 seconds** — boundary charts compose as fiber products only up
+  to controlled equivalence, and finite-cutoff choices require explicit
+  pseudo-isotopy to define one coherent structure.  This yields a bounded
+  recursive-selector gluing test, not an all-depth orbit.
+- **M.-R. Ivan, [“Monochromatic Sums and Products over the
+  Rationals”](https://www.ias.edu/video/monochromatic-sums-and-products-over-rationals),
+  IAS talk (11 Feb. 2025), corpus key
+  `abb6a46692c2c9e7a4204f0973dfbddc`, S4/S6--S7 at 1,803--2,266 and
+  2,806--3,554 seconds** — a proved five-bit valuation/carry coloring forbids
+  one coherent increasing address-pair family from keeping all cross pairs
+  and additive splices in a fixed finite rule class.  The theorem is
+  conditional on that endpoint syntax and sees no literal macro interior.
 - **J. Wang, [“Lorentzian Polynomials and the Incidence Geometry of Tropical
   Linear Spaces”](https://www.ias.edu/video/lorentzian-polynomials-and-incidence-geometry-tropical-linear-spaces),
   IAS talk (13 Feb. 2025), corpus key
