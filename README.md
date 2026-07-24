@@ -33,6 +33,90 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-24 02:38 EDT
+
+There is still no Collatz counterexample.  The IAS audit now has 231
+authoritative transcript-checked release talks.
+
+Anshul Adve proves a genuine converse theorem: an infinite candidate
+multiplicative spectrum satisfying six hyperbolic bootstrap identities
+reconstructs a compact hyperbolic surface.  The proof builds the full unitary
+representation and multiplication, obtains cutoff-independent operator
+bounds, takes a commutative C-star closure, and uses Gelfand duality plus a
+homogeneity argument.  This is the standard a Collatz local-identity program
+would have to meet: a complete infinite table, uniform bounds, and a literal
+realization theorem.  Compatible finite tables can still converge to a
+profinite object, and a compact reconstruction cannot itself carry continuous
+uniform positive drift; an external proper natural-valued height and
+ordinary-root theorem remain necessary.
+
+Sergio Fenley proves that a pseudo-Anosov flow on a closed hyperbolic
+3-manifold is quasigeodesic exactly when one uniform constant bounds the size
+of every closed-orbit free-homotopy class.  The hard direction reconstructs
+the ideal boundary, proves a uniform convergence-group action, and identifies
+it with the Gromov boundary.  An exact Collatz analogue would be powerful: if
+the literal nonnegative counter satisfied
+`|H_j-H_i| >= a*(j-i)-b` with one `a>0,b` at all depths, then the negative
+alternative is eventually impossible and `H_j` grows linearly.  Counts of
+tested period-three loops do not supply that theorem; even an isometric ray in
+`Z^2` can have the desired coordinate identically zero unless metric
+displacement is proved height-coercive.
+
+Wilhelm Schlag upgrades a first-Born formula to a nonperturbative wave-operator
+structure theorem by building a convolution algebra and applying a
+Wiener-type inverse, with zero-energy resonance explicitly excluded.  Fixed
+Collatz words already have the analogous exact conjugacy
+`F_w^m(n)=x_w+(3^k/2^A)^m*(n-x_w)`.  For `w=123`, inversion produces
+`x_w=23/37`: the real geometric series converges, its 2-adic version diverges,
+and the rational branches nevertheless replay exactly.  A perfect algebraic
+inverse is therefore not an integrality theorem; the missing divisibility is
+simply `37` not dividing `23`.
+
+Peter Nandori proves an exponential first-collision law for two rare-interacting
+billiard particles and recalls rigorous diffusion limits for noninteracting
+Lorentz gases.  The extension past first collision to a Markov energy process
+is explicitly unproved, and the particle--piston limit is work in progress.
+The exact all-odd Collatz cylinder already has exponential probability
+`2^(-(H+1))` under uniform depth-`H` residues, with positive witness
+`2^(H+1)-1`; its coherent limit is only `-1`.  Thus even an exact
+memoryless-survival law neither constructs nor excludes an ordinary infinite
+survivor.
+
+Andrew Wiles organizes a genus-one curve as a torsor for its Jacobian and uses
+Kummer descent plus CM/Kolyvagin classes to obtain a point over a solvable
+extension for the stated locally soluble, semistable case.  The suggested
+removal of those hypotheses by solvable totally real base change is described
+as not written out.  Collatz seed cylinders have no established cohomological
+duality or Selmer group, and their only substantive local datum is dyadic;
+the missing gate is Archimedean bounded height.  The all-odd tower is already
+locally compatible and globally 2-adic, while its least positive
+representatives diverge.
+
+Anna Erschler reduces the Liouville property for triangular linear-group walks
+to all valid two-by-two blocks, with a positive-characteristic classification;
+the characteristic-zero polynomial step remains conjectural.  Naive pairwise
+Collatz reduction fails exactly.  For words `111,121,211,221`, let
+`x=a_1-1`, `y=a_2-1`, and let `z` record whether the affine carry `B` is `2`
+rather than `1 mod 3`.  Their carries are `19,23,29,37`, their positive seed
+cylinders are respectively `15 mod 16`, `27 mod 32`, `9 mod 32`, and
+`33 mod 64`, and exact replay gives `z=x XOR y`.  Every pair projection
+contains all four bit pairs, but the triple `(0,0,1)` is impossible.  Pairwise
+legality therefore cannot replace a full-state lift theorem.
+
+Formalizer commits `cb8e92a` and `e789979` now kernel-check a universal
+first-passage scarcity theorem.  Exact `3^17 < 2^27` gives
+`17*false < 10*true` for every outward word; a rational weighted Kraft proof
+then bounds the complete prefix-free first-passage mass by `25/26`.  At every
+finite depth at least `1/26` of all Boolean words have no outward prefix.
+This eliminates the old Perron-certificate hypothesis for finite
+first-passage routers, but it is symbolic survivor density, not arithmetic
+selection of an ordinary seed.  The module rebuild passes.
+
+These results sharpen sufficient-reconstruction, uniform-coercivity, and
+higher-order carry gates.  None supplies perpetual literal recharge, one
+all-depth coercive estimate, bounded seed stabilization, or a positive
+ordinary root.  `counterexample:null`.
+
 ### 2026-07-24 02:28 EDT
 
 There is still no Collatz counterexample.  The IAS audit now has 225
@@ -9066,7 +9150,7 @@ from `d8e789a` now runs before this more expensive synthesis.
 | First bounded odd-charge invariant grammar | All eight implemented architectures are rejected within their stated exact domains.  The grammar combines exact `Cell(w,a)` branches, `v3`/primitive/dyadic cylinders, and the recursive pure-power/resonant families; CEGIS compares excluding a bad source with adjoining its target by description complexity.  Through `H<=200001`, family parameter 800, four ternary digits and eight dyadic bits, the least stored failures are `3,15,3,15,189,82701,23541,333`.  No recursive-family transition is universally certified, so this is a bounded grammar verdict, not a no-invariant theorem. | [`outward_charge_invariant_cegis_audit.json`](experiments/kontorovich/outward_charge_invariant_cegis_audit.json), [`OutwardInvariantBridge.lean`](KontoroC/KontoroC/OutwardInvariantBridge.lean), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#26-selector-architecture-and-invariant-cegis) |
 | Fixed-precision primitive guard partitions | Inadequate as invariant certificates.  On 178 exact states descended from the theorem-mandated `C=12 mod16` roots, bounded charge/ternary guards retain 74 minority transition errors.  Ten dyadic plus ten exponent-residue bits separate the displayed sample, but only as a finite lookup: unbounded word coverage, exact valuation binders, target inclusion, and ordinary root closure remain unproved.  The coherent exponent address moves to `700`, and the record's chart depth grows to 105 while height stays nearly fixed.  The replacement grammar uses finite LOW/HIGH/RESONANT predicate types with unbounded `v2`/`v3` binders. | [`outward_primitive_invariant_cegis_audit.json`](experiments/kontorovich/outward_primitive_invariant_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#27-primitive-coordinate-invariant-types-and-the-growing-rank-obstruction) |
 | Finite graph of fixed one-exponential chart instances | Universally closed.  With integer rank `chi=v2(alpha)-d`, every coefficient-matched recharge edge has `chi'=chi-(S+a)<chi`.  Lean proves the exact balance law and excludes a finite nonempty graph with an outgoing edge at every node by following an edge from a minimum-rank node.  The theorem deliberately does not cover finite chart *types* carrying unbounded runtime denominator/rank state; that is the live grammar. | [`OutwardChartRankNoGo.lean`](KontoroC/KontoroC/OutwardChartRankNoGo.lean), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#27-primitive-coordinate-invariant-types-and-the-growing-rank-obstruction) |
-| Subcritical finite-state first-passage router | Closed as a complete router.  For a finite sourcewise-injective graph of Boolean first-passage labels, Lean accepts an exact rational certificate `v>0`, `0<=r<1`, `Mv<=r*v`; it proves some source has outgoing Kraft mass below one and constructs a literal word at the maximum label length uncovered by every outgoing prefix.  Infinite-state mixed recursion and one exceptional atomic ray remain outside the theorem, and the symbolic hole is not yet an ordinary writer--decoder cylinder. | [`OutwardFiniteStateKraftGap.lean`](KontoroC/KontoroC/OutwardFiniteStateKraftGap.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#lead-b-weighted-core-entropy-before-recursive-search) |
+| Complete finite-state first-passage router | Closed unconditionally.  Commits `cb8e92a`/`e789979` prove from exact `3^17<2^27` and a weighted Kraft tilt that every prefix-free outward family has fair dyadic mass at most `25/26`; the complete countable first-passage code obeys the same bound.  At every finite depth at least `1/26` of all Boolean words have no outward prefix, and every state of every finite first-passage grammar misses a literal maximum-depth cylinder.  No Perron vector or finite-state contraction hypothesis remains.  Infinite-state mixed recursion and arithmetic selection inside the large symbolic survivor language remain outside the theorem; symbolic noncrossing is not an ordinary writer--decoder orbit. | [`OutwardStrictKraftGap.lean`](KontoroC/KontoroC/OutwardStrictKraftGap.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#lead-b-weighted-core-entropy-before-recursive-search) |
 | Finite resource grammar with a strict rational dual | Closed under the stated aggregate-budget premise.  Lean defines exact nonnegative conserved edge circulations and proves that a rational vertex potential plus nonnegative multipliers for height/precision/carry resource coordinates excludes every nonzero circulation when all reduced edge scores are strictly negative.  The ordered companion directly excludes every nonempty closed macro walk with nonnegative total selected resource.  The worker must separately justify the aggregate budgets; bounded survival supplies neither a circulation nor a closed walk. | [`OutwardResourceConeNoGo.lean`](KontoroC/KontoroC/OutwardResourceConeNoGo.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#preflight-filters-j-resource-cones-lattice-support-and-honest-integral-lifting) |
 | Finite survival of alternating writer--decoder schedules | Non-discriminating, and both displayed selector architectures fail the ordinary-address gate.  Every finite `(c,b)` word has one coherent nested exponent cylinder by KC-FP12.  The address beam checks 8,883 edges through depth ten, exhaustive through depth three, with no zero exponent carry; a semantic beam checks 3,546 frontiers through depth eight and has best decoder shortfall 41 bits.  The exact normalized criterion is `r_infinity=-3^C` in `Q_2`.  Every finite rational-coboundary tail is universally closed; the bounded open case must be aperiodic, have factor complexity at least `k+1`, and evade finite rational coboundaries.  Commit `af4c46f` kernel-checks `9H>2^(4*3^c+c+4+b)` and an explicit exhaustive finite `(c,b)` alphabet at every fixed `H`, so scale-only counter search is unjustified.  This is not a no-invariant theorem, and the alphabet need not be uniform as `H` grows. | [`OutwardWriterDecoderEnvelope.lean`](KontoroC/KontoroC/OutwardWriterDecoderEnvelope.lean), [`outward_writer_decoder_cegis_audit.json`](experiments/kontorovich/outward_writer_decoder_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#29-two-place-normalization-and-the-height-budget) |
 | Fixed-precision writer--decoder payload predicates | Inadequate.  In exact triples `H=(2^D Q-B)/9`, the base predicate fails at `(p,b,Q)=(2,0,7)` and an exact-next-writer refinement fails at `Q=187` with a 48-bit decoder shortfall.  A residue-preserving perturbation defeats any fixed `Q mod 2^k3^ell` guard that is asked to force a larger target valuation; exact rows cover `7<=k<=16`.  The corrected mandatory ternary quotient has three nodes, but all 81 displayed source/target symbol pairs have exact ordinary edges, so it does not close the dynamics.  A live predicate needs runtime dyadic precision and a genuinely aperiodic/unbounded symbol update.  The general perturbation and edge formulas are research-side pending QM169; no recursive invariant is certified. | [`outward_writer_decoder_invariant_cegis_audit.json`](experiments/kontorovich/outward_writer_decoder_invariant_cegis_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#31-exact-invariant-cegis-on-payload-triples) |
@@ -10977,6 +11061,52 @@ existing lines of work; the closest ancestors, and what each contributes:
   late-born unit obstruct a self-renewing Floer architecture.  A Collatz
   transfer requires literal full-state tail isomorphisms and a separate
   ordinary-root/coercivity theorem.
+- **A. Adve, [“A Converse Theorem for Hyperbolic Surface Spectra and the
+  Conformal
+  Bootstrap”](https://www.ias.edu/video/converse-theorem-hyperbolic-surface-spectra-and-conformal-bootstrap),
+  IAS talk (23 Mar. 2026), corpus key `d76cbe86eae9244183aa6bd456d03039`,
+  S4/S6--S8 at 378--3,489 seconds** — complete infinite bootstrap identities,
+  uniform operator bounds, and Gelfand reconstruction turn necessary local
+  relations into a sufficient realization theorem.  Finite truncations and
+  compact reconstruction alone do not give an ordinary root or proper escape
+  height.
+- **S. Fenley, [“Quasigeodesic pseudo-Anosov flows in hyperbolic
+  3-manifolds”](https://www.ias.edu/video/workshop/2015/1208-SergioFenley), IAS
+  talk (8 Dec. 2015), corpus key `1fa5260d3d757c4cca5a35e7765e651b`,
+  S2/S4--S7 at 946--3,090 seconds** — one uniform free-homotopy multiplicity
+  bound yields a global quasigeodesic theorem under the pseudo-Anosov and
+  hyperbolic hypotheses.  Collatz needs literal replay and a proper comparison
+  between metric displacement and its actual counter.
+- **W. Schlag, [“Structure theorems for intertwining wave
+  operators”](https://www.ias.edu/video/analysis/2017/1101-WilhelmSchlag), IAS
+  talk (1 Nov. 2017), corpus key `44aba5cde9dbcabf32295833522cd5e9`,
+  S3--S7 at 893--3,596 seconds** — a custom algebra and Wiener inversion sum a
+  nonperturbative expansion.  Exact affine inversion for a repeated Collatz
+  word can yield a rational 2-adic orbit while failing the elementary
+  divisibility needed for an integer seed.
+- **P. Nandori, [“From hyperbolic billiards to statistical
+  physics”](https://www.ias.edu/video/hyperbolic-billiards-statistical-physics),
+  IAS talk (19 Apr. 2021), corpus key `889aea5b63a556d351ad14e2b21ceca4`,
+  S2--S7 at 530--3,741 seconds** — mixing gives rigorous first-collision and
+  noninteracting diffusion laws, but the post-collision Markov limit is not
+  proved.  Exponential finite-prefix survival does not select an ordinary
+  infinite Collatz seed.
+- **A. Wiles, [“Geometry and Arithmetic - Curves of genus
+  one”](https://www.ias.edu/video/Geometry-and-Arithmetic-Wiles), IAS talk
+  (18 Oct. 2005), corpus key `d2964e7bbe663bd20dd62ae8612b4c8c`, S3--S7 at
+  1,847--3,552 seconds** — torsors, Kummer descent, and Selmer trapping
+  separate local solubility from global realization.  Collatz lacks the
+  required cohomological structure, and dyadic compatibility still needs an
+  Archimedean bounded-height gate.  The proposed general base-change extension
+  is explicitly unwritten in the talk.
+- **A. Erschler, [“Poisson Boundary, Liouville Property and Asymptotic
+  Geometry of Linear
+  Groups”](https://www.ias.edu/video/poisson-boundary-liouville-property-and-asymptotic-geometry-linear-groups),
+  IAS talk (9 Dec. 2024), corpus key `1bbed85053bbc6849daa29a7d5ca887a`,
+  S5--S7 at 2,421--3,461 seconds** — a special triangular-group theorem reduces
+  Liouville behavior to valid two-coordinate blocks.  Collatz carries have an
+  exact three-way XOR obstruction, so pairwise projections do not lift without
+  a new theorem; the characteristic-zero source classification is also open.
 - **S. Fenner, [“Bipartite perfect matching is in
   quasi-NC”](https://www.ias.edu/video/csdm/2016/0208-Fenner), IAS talk
   (8 Feb. 2016), corpus key `83398a9013343939af42951fafbfdaa1`, S2--S8 at
