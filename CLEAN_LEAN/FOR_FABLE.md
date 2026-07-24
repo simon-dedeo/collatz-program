@@ -19232,3 +19232,51 @@ representatives stabilize.
 Full `lake build KontoroC` passes 8,881 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, `unsafe`, or `native_decide`.
+
+## Round 375 — exponential first-passage entropy does not force drift
+
+The imported and audited module
+
+```text
+KontoroC.OutwardEntropyDriftNoGo
+```
+
+uses two distinct genuine first-passage words, `[true]` and `writerWord`, as
+a binary alphabet.  The injective block encoding is kernel-checked, giving
+
+```text
+card_schedules (n) : (schedules n).card = 2^n
+schedules_wordsIn : schedule in schedules n ->
+  WordsIn FirstPassageCode schedule.
+```
+
+Thus these are not abstract alphabet strings: every individual block is an
+exact member of the present `FirstPassageCode`.  Assigning the counter
+increment `-1` to each symbolic block gives
+
+```text
+assignedDrift_eq_neg_depth :
+  schedule in schedules n -> assignedDrift schedule = -n
+```
+
+and the packaged separation theorem is
+
+```text
+exponential_schedule_count_with_strictly_negative_drift:
+  0 < n ->
+  card (schedules n) = 2^n /\
+  forall schedule in schedules n,
+    WordsIn FirstPassageCode schedule /\ assignedDrift schedule < 0.
+```
+
+The scope matters.  `assignedDrift` is an explicitly declared toy cocycle,
+not the ordinary-charge cocycle, and `WordsIn` does not assert common-seed
+literal execution.  The theorem therefore isolates a valid logical no-go:
+population entropy of the first-passage language, even exponential entropy,
+cannot by itself imply a positive-drift path, a repeatable recharge route, or
+an ordinary Collatz orbit.  Any entropy argument must separately prove a
+coupling to the actual arithmetic cocycle and literal execution.
+
+Full `lake build KontoroC` passes 8,882 jobs.  The audit reports only standard
+mathlib axioms, and the new module contains no `sorry`, `admit`, project
+axiom, `unsafe`, or `native_decide`.
