@@ -19280,3 +19280,82 @@ coupling to the actual arithmetic cocycle and literal execution.
 Full `lake build KontoroC` passes 8,882 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, `unsafe`, or `native_decide`.
+
+## Round 376 — canonical recharge is complete, not merely sound
+
+The imported and audited module
+
+```text
+KontoroC.OutwardCanonicalRechargeCompleteness
+```
+
+closes a semantic direction which the existing invariant bridge did not
+state.  The key reusable continuation theorem is
+
+```text
+infiniteExecution_after_prefix:
+  InfiniteExecution FirstPassageCode start ->
+  WordsIn FirstPassageCode headWords ->
+  ExecutesBlocksTo headWords start middle ->
+  InfiniteExecution FirstPassageCode middle.
+```
+
+Its proof uses determinism plus prefix-freeness: compare the certified prefix
+with a realization having `headWords.length+n` blocks, reflect flattened-word
+prefix order back to block-prefix order, and remove the exact literal prefix.
+Thus independently chosen finite witnesses in `InfiniteExecution` cannot hide
+an incompatibility.
+
+For a positive odd boundary charge, Lean then extracts the first nontrivial
+first-passage word, proves that its target is another positive boundary,
+performs the complete forced `[true]` drain, and retains infinite execution at
+the drained endpoint:
+
+```text
+infiniteExecution_has_canonical_step:
+  0 < H -> Odd H ->
+  InfiniteExecution FirstPassageCode (3*H-1) ->
+  exists R,
+    canonicalRechargeMap H = some R /\
+    InfiniteExecution FirstPassageCode (3*R-1).
+```
+
+Writing `HasInfiniteCanonicalOrbit H` for an ordinary natural-valued sequence
+whose successive entries follow `canonicalRechargeMap`, the main exact
+reduction is
+
+```text
+infiniteExecution_iff_canonicalOrbit:
+  0 < H -> Odd H ->
+  (InfiniteExecution FirstPassageCode (3*H-1) <->
+   HasInfiniteCanonicalOrbit H).
+```
+
+So the prose claim that the odd-charge map is the complete deterministic
+first-passage model is now a theorem, not only a one-way construction
+principle.  Symbolic branching has no extra counterexample power once literal
+ordinary execution is required.
+
+The same file defines the finite partial iterates `canonicalRechargeIterate`
+and proves
+
+```text
+canonicalOrbit_iff_all_iterates_defined
+infiniteExecution_iff_all_canonicalIterates_defined
+iterate_eq_none_rules_out_infiniteExecution.
+```
+
+Hence one proved `none` at any finite canonical recharge depth excludes an
+infinite first-passage execution from that positive odd charge.  Important
+scope warning: `canonicalRechargeMap` is noncomputable because its definition
+classically asks whether a future outward boundary exists.  The iterate API
+is therefore a proof/certificate interface, not an executable global decider;
+a worker still needs a sound finite certificate of `some` or `none`.
+
+Finally, `canonicalOrbit_gives_not_syracuseReachesOne` and
+`canonicalOrbit_gives_not_collatz` reuse the existing audited endpoint bridge.
+No orbit is constructed here and no unconditional Collatz claim is made.
+
+Full `lake build` passes 8,883 jobs, and explicit `lake build KontoroC.Audit`
+reports only `propext`, `Classical.choice`, and `Quot.sound`.  The new module
+contains no `sorry`, `admit`, project axiom, `unsafe`, or `native_decide`.

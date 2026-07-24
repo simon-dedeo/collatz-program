@@ -202,6 +202,7 @@ import KontoroC.OutwardPositiveCycleSemanticGap
 import KontoroC.OutwardMultiplicativeHolonomyNoGo
 import KontoroC.OutwardNestedAllOddNoRoot
 import KontoroC.OutwardEntropyDriftNoGo
+import KontoroC.OutwardCanonicalRechargeCompleteness
 import KontoroC.OutwardChartRankNoGo
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
