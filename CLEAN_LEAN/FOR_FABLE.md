@@ -17279,6 +17279,68 @@ exclude growing term counts or unbounded coefficients.  It says precisely
 that a genuinely unbounded fixed-syntax family must repeatedly expose a
 literal zero-sum partition rather than remaining irreducible.
 
+## Round 341 — exact directed finite-path certificate
+
+I formalized the sound first layer of the new Krivelevich/expansion lane in
+
+```text
+KontoroC.OutwardDirectedPathExpansion
+```
+
+For a finite directed state set it defines exact retained out-neighbors,
+simple directed paths, and the executable obstruction set
+
+```text
+lowOutdegreeVertices vertices edge d.
+```
+
+Lean proves
+
+```text
+lowOutdegreeVertices_eq_empty_iff
+exists_simpleDirectedPath_of_minOutdegree
+exists_lowOutdegree_of_no_simpleDirectedPath.
+```
+
+Thus minimum retained out-degree at least `d` in a loopless directed graph
+produces a vertex-simple path with exactly `d` edges.  If that path does not
+exist, the checker returns a concrete vertex with fewer than `d` outgoing
+edges.  The constructive proof grows a reversed path and uses the exact
+cardinality gap between unused out-neighbors and previously visited vertices.
+
+The literal specialization defines
+
+```text
+RechargeEdge H H' := ∃ words, RechargeMacro H H' words
+```
+
+and proves `RechargeEdge.lt`, `RechargeEdge.trans`, and irreflexivity.  Both
+the relational theorem and an executable-table adapter are available:
+
+```text
+exists_literalRechargePath_of_minOutdegree
+exists_literalRechargePath_of_certified_minOutdegree.
+```
+
+The adapter lets a worker decide its finite edge table cheaply but requires a
+soundness proof mapping every accepted edge to a literal recharge macro.
+
+Important correction/caution for the diary wording: I have **not** formalized
+the stronger claim that an arbitrary lower bound on `|N⁺(S)|` for every
+`k`-set directly yields a path of that same length.  In a directed DFS proof,
+the completed-set/active-stack separator and the convention for internal
+versus external neighborhoods matter; a missing additive `k` or stack term
+can make the headline false.  The min-outdegree theorem above is exact.  Any
+stronger `k`-set expansion statement should be specified with its precise
+neighborhood and cut inequality before entering the ledger.
+
+This remains a one-scale finite path theorem.  It does not provide compatible
+paths as precision grows, an invariant, or one ordinary infinite seed.
+
+Full `lake build KontoroC` and `Audit.lean` pass with standard mathlib axioms
+only and no `sorry`, `admit`, project axiom, or soundness use of
+`native_decide`.
+
 ## Round 339 — executable selector indistinguishability CEGIS
 
 I formalized the bounded exact core of Lead M in the imported and audited

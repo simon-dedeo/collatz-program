@@ -2002,5 +2002,23 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardSUnitSyntaxGate.infinite_properZeroSumPartition_indices
 #print axioms
   KontoroC.OutwardSUnitSyntaxGate.no_injective_non_degenerate_family
+#print axioms
+  KontoroC.OutwardDirectedPathExpansion.mem_lowOutdegreeVertices_iff
+#print axioms
+  KontoroC.OutwardDirectedPathExpansion.lowOutdegreeVertices_eq_empty_iff
+#print axioms
+  KontoroC.OutwardDirectedPathExpansion.exists_simpleDirectedPath_of_minOutdegree
+#print axioms
+  KontoroC.OutwardDirectedPathExpansion.exists_lowOutdegree_of_no_simpleDirectedPath
+#print axioms
+  KontoroC.OutwardDirectedPathExpansion.RechargeEdge.lt
+#print axioms
+  KontoroC.OutwardDirectedPathExpansion.RechargeEdge.trans
+#print axioms
+  KontoroC.OutwardDirectedPathExpansion.rechargeEdge_irrefl
+#print axioms
+  KontoroC.OutwardDirectedPathExpansion.exists_literalRechargePath_of_minOutdegree
+#print axioms
+  KontoroC.OutwardDirectedPathExpansion.exists_literalRechargePath_of_certified_minOutdegree
 #print axioms KontoroC.OutwardChartRankNoGo.chartRank_drop_of_leading_balance
 #print axioms KontoroC.OutwardChartRankNoGo.no_finite_total_fixedChart_recharge
