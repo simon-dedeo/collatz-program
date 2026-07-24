@@ -176,6 +176,31 @@ analytic theorem does not transfer.  Average equidistribution over moduli
 would still not choose one compatible ordinary seed.  The public ledger is
 now 62 talks; `counterexample:null`.
 
+Schlotterer's word algebra identifies the exact precondition for quotienting
+a finite macro language.  In the amplitude setting, pure shuffles vanish
+under the Parke--Taylor evaluator, while an `s`-bracket combination becomes a
+total derivative whose boundary terms vanish.  Those facts, not the formal
+appearance of shuffle or Jacobi identities, make the quotient sound.  For any
+Collatz linearized effect map `E`, a proposed relation module must therefore
+be proved exactly to lie in `ker(E)` before it is used even to compress an
+aggregate generating function.  Every literal word in its support must still
+be retained for legality, carry, and seed replay.  Commit `af90376` makes the
+executable version especially rigid: fixed positive recharge endpoints admit
+only one literal first-passage block list.  Thus shuffle compression can yield
+a finite dual obstruction or smaller exact calculation, but cannot manufacture
+a new selector choice or orbit.
+
+Formalizer commit `afad9f3` has now kernel-checked Volkovich's ranked-layer
+bridge.  Every nonminimum state in a finite layer strictly lowers an integer
+rank and hence reaches the distinguished minimum in fewer than the layer's
+cardinality many steps.  Supplying a literal recharge macro for every interior
+transition and a literal reset from each minimum into the next layer gives an
+infinite literal execution and, conditionally, a Collatz counterexample.  No
+such layers or resets have been constructed: the formal result isolates the
+remaining all-counter closure and ordinary-root obligations rather than
+discharging them.  With Schlotterer, the public authoritative ledger now
+contains 63 transcript-checked release talks.  `counterexample:null`.
+
 ### 2026-07-23 23:30 EDT
 
 There is still no counterexample.  The most useful new transfer comes from
