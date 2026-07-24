@@ -919,12 +919,17 @@ obstruction for CEGIS.  On success, Fenner's modular circulation weights and
 lexicographic composition isolate one matching canonically, after which every
 edge is replayed exactly.  Thus both outcomes are useful and certified.
 
-Isolation does not create Hall coverage.  If source and target are the same
-finite state family, a matching is only a permutation and hence decomposes
-into the already-closed periodic lane.  Routers at different precisions may
-also be mutually incompatible or converge only profinitely.  The live use is
-therefore cross-scale: prove explicit bonding compatibility and one common
-zero-carry ordinary-root projection in addition to each finite matching.
+Isolation does not create Hall coverage.  Formalizer commit `31b8466` proves
+the exact Hall dichotomy and a stronger same-layer no-go: if one finite state
+type carries one fixed positive ordinary charge per state, no total literal
+recharge self-router exists at all, because every selected edge strictly
+increases charge and a finite total function would create an impossible
+cycle.  Hence a Hall-deficient source subset must exist; the same-layer lane
+is empty before permutation analysis.  The live use is genuinely cross-layer,
+with distinct source/target charge interpretations.  Such routers may still
+be mutually incompatible or converge only profinitely, so explicit bonding
+compatibility and one common zero-carry ordinary-root projection remain
+mandatory.
 
 ## Lead Q: test binary repair capacity by an exact cokernel
 
@@ -959,6 +964,145 @@ Chebotarev, twisting, and reciprocity; none is presently available for
 Collatz.  Exact macro effects may also cease to add linearly once positivity,
 first passage, and carry are imposed.  Consequently the matrix is a
 theorem-driven architecture test, not evidence that its desired rank holds.
+
+## Lead R: compress a stationary controller to its exact boundary determinant
+
+Charles Bordenave, *Random Perturbation of Toeplitz Matrices*, IAS, 20 Oct.
+2025, key `7d917e77db1f51976d3253a965edd879`, separates a stable
+translation-invariant bulk from a finite-rank boundary defect.  At
+1,173--1,739 seconds the Laurent-symbol winding number distinguishes
+well-conditioned and exponentially ill-conditioned Toeplitz regimes.  At
+1,739--2,442 seconds a banded Toeplitz matrix is written as a circulant matrix
+minus `PQ`, with `rank(PQ)` bounded by the band width; Sylvester's identity
+then reduces the large characteristic determinant to
+
+```text
+det(S-z-PQ) = det(S-z) det(I-Q(S-z)^(-1)P).
+```
+
+The second determinant has only the boundary-defect dimension.  The
+higher-adjugate analysis at 2,456--3,232 seconds explains why its first
+nonzero term is controlled by the defect kernel dimension.
+
+This gives an exact preflight for a genuinely stationary finite-memory
+Collatz controller.  If its bounded transition equations can be proved to be
+a banded translation-invariant bulk plus a fixed-rank initial/terminal carry
+correction, compute the small Schur/Sylvester determinant exactly over the
+chosen rational or finite coefficient ring.  A nonzero boundary minor is a
+compact obstruction to the claimed global kernel; a zero with an extracted
+kernel vector gives only a candidate controller, which must still be decoded
+and replayed.  If the defect rank grows with precision, the architecture has
+failed the promised finite-boundary compression rather than found a fixed
+rule.
+
+The numerical warning is more immediate.  At 153--490 seconds an exactly
+nilpotent Toeplitz shift, whose true eigenvalues are all zero, produces an
+apparently structured near-root-of-unity numerical spectrum after a basis
+change.  Therefore floating eigenvalues or pseudospectra of a nonnormal
+Collatz transfer matrix are discovery diagnostics only.  The talk's random
+noise regularization, asymptotic outlier process, and winding theorem do not
+transfer unless their full Toeplitz and analytic hypotheses are first proved.
+
+## Lead S: pull every fine repair through the exact coarse cylinder
+
+Scott Armstrong, *Renormalization Group and Homogenization*, IAS, 1 Dec.
+2023, key `df980373a403d081ec128e7ac7fde48d`, identifies the main failure mode
+of a naive multiscale sum.  At 1,487--1,977 seconds the proof renormalizes from
+fine to coarse scale while controlling the product of finite errors.  At
+2,515--3,050 seconds the scale recurrences require enough separation for each
+homogenization step to finish.  Most importantly, at 3,457--3,909 seconds the
+naive sum of fine shears fails because the coarse drift washes them out; the
+repair is to compose every new fine shear with the inverse flow of the already
+constructed coarse field.
+
+The Collatz version is exact in kernel-checked theorem
+`executes_iff_canonical_family` (`OutwardCylinderRenewal`), and formalizer
+commit `9412825` now exposes the direct repair-veto interface.  For a parity
+word `w`, with `S=|w|` and `O` odd steps, every literal execution is uniquely
+parameterized by
+
+```text
+source = r_w + 2^S t,
+target = b_w + 3^O t.
+```
+
+Thus deeper dyadic choices inside the same coarse cylinder cannot alter the
+target modulo `3^O`.  Pulling a desired output correction `Delta` back through
+the coarse affine map would require an input change
+`2^S Delta / 3^O`, which is integral only if `3^O` divides `Delta`.  Unlike
+Armstrong's flow, the Collatz semigroup supplies no free inverse coordinate
+change.  Lean theorem `no_targetRepair_of_not_threePow_dvd` returns the exact
+CEGIS rejection, and `targetIncrement_eq_zero_of_lt_threePow` proves that a
+nonnegative correction below the frozen modulus must be zero.  Signed or
+word-changing repairs remain outside this statement.
+
+This is a direct search restriction.  A coherent nested-cylinder beam must
+store the post-prefix ternary boundary residue and enforce its bonding law;
+it may not choose a new low-`3`-adic optimum independently at greater dyadic
+precision.  An outer CEGIS architecture is rejected at the first state where
+it promises to repair a frozen low ternary digit using only deeper seed bits.
+Conversely, a recurring compatible residue is a compact feature worth fitting.
+The theorem gives cross-scale coherence, not positive drift, invariant
+closure, bounded ordinary carry, or an infinite ordinary seed.
+
+## Lead T: lift a selector by killing its exact carry-extension class
+
+Vincent Pilloni, *Frobenius Lifting and a Geometric Theory of Companion
+Forms*, IAS, 8 Dec. 2025, key `2b732a2bdb7cecc9e5a84fed018cce79`,
+turns a lifting question into a finite obstruction class rather than a search
+over all lifts.  At 645--1,210 seconds the filtered inverse-Cartier component
+is identified with the obstruction to lifting Frobenius modulo `p^2`.  At
+1,790--2,480 seconds the formula `f -> f^p+p*g(f)/Ha` makes `g mod Ha` the
+derivation measuring failure to extend, and an extension complex retains the
+integral data.  The Q&A at 3,410--3,580 seconds explicitly says iteration to
+higher powers of `p` has not been worked out.
+
+For a Collatz policy valid modulo `2^k`, fix a complete finite branch chart
+and canonical lifts of its states to `2^(k+1)`.  Literal replay of each
+selected edge gives a normalized new-bit defect `kappa_k(e)`.  Changing the
+state lifts by bits `u(s)` changes that defect by a computable affine
+coboundary
+
+```text
+(delta u)(e) = u(target(e)) - A_e u(source(e))  in F_2.
+```
+
+The one-level lift exists only if `delta u=kappa_k`, together with all literal
+branch and positivity constraints.  Exact row reduction returns either the
+correction cochain or a dual cocycle annihilating `im(delta)` and pairing
+nontrivially with `kappa_k`; the latter is a compact carry obstruction for
+CEGIS.  This specializes the Chao Li rank test to coherence between adjacent
+precisions.  It is valid only on a certified branch chart, and solvability at
+each level still needs compatible choices, an ordinary-root bound, and
+positive outward growth.  Pilloni's own theorem supplies no unbounded
+iteration.
+
+## Lead U: exact tower completion is a capacitated Hall problem
+
+Petr Naryshkin, *Topological Versions of the Rokhlin Lemma*, IAS, 27 Jan.
+2026, key `e642e869e0f7b849949f65d2c14e605a`, distinguishes an almost-cover from
+an exact decomposition.  At 800--1,360 seconds clopen Rokhlin castles leave a
+remainder uniformly small for every invariant measure.  At 1,330--1,980
+seconds comparison partitions and translates that remainder into available
+tower space; in the zero-dimensional setting this is equivalent to empty
+remainder.  At 1,940--2,570 seconds a nonempty remainder leaves the associated
+finite-dimensional unit at norm distance one from the full unit, so
+measure-small cannot be silently promoted to exact.
+
+At one bounded Collatz precision, let the bases and literal intermediate
+states of clean first-passage macros form disjoint finite towers.  Connect each
+uncovered state to every capacity-limited clean top slot reachable by an
+exactly replayed repair macro.  Maximum flow either absorbs the entire
+remainder or returns a Hall/min-cut source set with insufficient legal target
+capacity.  This is a compact carry/interface obstruction, not a trajectory
+minimum.  Across precisions, every tower must refine its predecessor, old
+levels must project literally, a nested base atom must persist, and some tower
+height must tend to infinity.  This makes the user's counter-growth condition
+precise: unbounded compatible heights are necessary, but even empty finite
+remainders do not imply one ordinary orbit without canonical-root
+stabilization.  The source concerns invertible amenable group actions, whereas
+Collatz macros are partial noninvertible semigroup maps; the max-flow test is a
+new exact finite substitute, not a consequence of the Rokhlin theorem.
 
 ## Other promoted talks (transfer ledger)
 
@@ -1001,11 +1145,12 @@ theorem-driven architecture test, not evidence that its desired rank holds.
 | conditional stability filter | Alexander Lubotzky, *Stability, Non-approximated Groups and High-dimensional Expanders*, key `6b1b831e4b3dd5445ae97fcd580d1eb2`, S1/S3--S4/S6--S7/E4/E6, 52--610 and 1,587--3,440 s | Linearize controller relators, compute the degree-two defect cocycle, and require a uniform stability/correction theorem whose kernel is trivial on the seed coordinate before promoting asymptotically consistent tables. | The talk concerns total unitary group maps with metric error; Collatz macros are partial and valuation-discontinuous, and stability of a controller action still does not make its seed ordinary. |
 | warning | Lev Glebsky, *Approximations of Groups, Subquotients of Infinite Direct Products and Equations over Groups*, key `02dcdc750c5e506010b7ccfae677d308`, S2--S3/S5--S8, 37--1,290 and 2,504--3,463 s | Measure the least finite quotient through which every selector function factors; a stable level plus kernel-triviality and bounded canonical representatives is the required discrete-lift gate. | Compactness deliberately produces a solution over an overgroup/product quotient, where growing finite dependence is exactly an infinite profinite tape. |
 | warning/coherence audit | Alexander Petrov, *Galois Action on Higher Etale Homotopy Groups*, key `e76667fa26f053d772a9d6b48a8190ab`, S3--S6/E4--E5, 834--1,230 and 1,620--3,620 s | Attach a transition 2-complex to claimed commuting repair/descent squares and test comparison cocycles or `p`-good/`K(pi,1)` behavior before treating finite shadows as a discrete controller. | The arithmetic higher-homotopy obstruction need not occur in the Collatz graph, and detecting one only rejects gluing; it constructs neither a seed nor an orbit. |
-| exact finite directed-search certificate | Michael Krivelevich, *Paths and cycles in expanders*, key `234d35e01cff3446271f60df1cf2d860`, S2--S7/E2--E3/E5--E6, 563--3,376 s | On a fixed exact root-clean positive-drift reset graph, certify `min_(|S|=k)|N^+(S)|>=ell`; directed DFS then returns a replayable directed path of length at least `ell`.  A minimizing cut instead exposes the smallest residue/carry bottleneck for invariant synthesis. | Expansion does not erase parity or modulus obstructions, as the talk's bipartite and subdivided examples show.  One-scale long paths do not bond across scales and can converge only profinitely. |
+| exact finite directed-search certificate | Michael Krivelevich, *Paths and cycles in expanders*, key `234d35e01cff3446271f60df1cf2d860`, S2--S7/E2--E3/E5--E6, 563--3,376 s | Formalizer commit `c17eb6f` proves the sound directed specialization: minimum retained out-degree at least `d` in a loopless exact reset graph gives a replayable vertex-simple path of exactly `d` edges; failure returns an exact vertex with out-degree below `d`. | The initially proposed arbitrary `k`-set out-neighborhood/minimum-cut implication omitted a directed separator/active-stack term and is withdrawn.  Even the corrected one-scale paths need not bond across scales or share an ordinary seed. |
 | conditional finite balancing | Nikhil Bansal, *On Beck-Fiala and Komlós Conjectures*, key `d676051521258c7e0c738f0c67a82327`, S2--S7/E4--E6, 923--3,528 s | For an independently proved library of paired macros with identical exact boundary action, put resource differences on dyadic interval rows and use exact sign/MILP replay to bound every prefix; SDP is discovery only. | Collatz legality is adaptive and exact, while discrepancy rounds a fixed real matrix.  Commit `af90376` makes the identical-fixed-endpoint pair gate empty for distinct literal macros; only a genuinely parametric/coarser interface could remain. |
 | tropical realizability gate | Felipe Rincón, *Tropical Ideals*, key `3fed4a408fef28d0dd296c03734f33e6`, S2--S6, 606--3,272 s | Treat support/circuit constraints across growing term degree as a matroid tower, but require coefficient-level multiplication closure.  Multiply every forced low-degree Collatz relation by the allowed monomials and use the first forbidden support, rank, or tensor-product obstruction as an exact architecture witness. | The talk constructs compatible elimination-closed matroid towers with Hilbert polynomial and balanced tropical variety which still come from no classical ideal.  Genuine Collatz identities are realizable automatically; this gate rejects only tropical/valuation relaxations. |
 | exact finite path certificate | Yuval Wigderson, *Color-avoiding Paths*, key `a153fe90d9b0b97f818aadc105403504`, S3/S6--S7, 911--1,442 and 3,004--4,109 s | In any exact oriented clean-macro graph, take an inclusion-maximal acyclic subgraph.  Longest-path labels properly color the full underlying graph, so an exact certificate `chi(U)>=r` yields a replayable directed path on at least `r` vertices. | The headline color theorem needs a tournament or near-complete digraph and explicitly fails for sparse forward bipartite examples.  Chromatic complexity gives only a finite path and no cross-scale or ordinary-seed compatibility. |
 | warning / mixed-place preflight | Matthew Emerton, *Local-Global Compatibility in the p-Adic Langlands Program for GL(2) over Q*, key `054ae194a1654549d78821a8534db66b`, S3--S7/E4--E5, 1,650--3,740 s | Before multiplying separate dyadic, triadic, and Archimedean route counts, build the exact joint compatibility tensor and exhibit a nonzero flattening minor whenever local choices do not recombine into literal macros. | Emerton's positive factorization uses linear completed cohomology, commuting group actions, and `p>2`, excluding the controlling dyadic place.  It is rejected as a construction analogy; vanishing bounded minors would still not prove an unbounded factorization or ordinary seed. |
+| conditional routing certificate | Julia Chuzhoy, *Polynomial Bounds for the Grid-Minor Theorem*, key `d9f6f01263bfc6a0d0fc3a35eccb90ae`, S1--S7/E6--E7, 15--3,658 s | Use exact tree-decomposition bags as compact interface bottlenecks, or require an explicitly oriented path-of-sets: ordered disjoint clean clusters, disjoint forward bundles, and an exact ledger proving a positive route reservoir survives every stitch. | The theorem is undirected; minors and well-linkedness erase direction, word order, drift, and carry.  High finite treewidth is not infinity, low treewidth does not exclude long paths, and systems at successive precisions may be incompatible. |
 
 ## Negative lessons already extracted
 
@@ -1131,6 +1276,21 @@ theorem-driven architecture test, not evidence that its desired rank holds.
   Program for GL(2) over Q*, IAS, 3 Nov. 2010, key
   `054ae194a1654549d78821a8534db66b`,
   https://www.ias.edu/video/galois/emerton2.
+- Charles Bordenave, *Random Perturbation of Toeplitz Matrices*, IAS, 20 Oct.
+  2025, key `7d917e77db1f51976d3253a965edd879`,
+  https://www.ias.edu/video/random-perturbation-toeplitz-matrices.
+- Scott Armstrong, *Renormalization Group and Homogenization*, IAS, 1 Dec.
+  2023, key `df980373a403d081ec128e7ac7fde48d`,
+  https://www.ias.edu/video/renormalization-group-and-homogenization.
+- Vincent Pilloni, *Frobenius Lifting and a Geometric Theory of Companion
+  Forms*, IAS, 8 Dec. 2025, key `2b732a2bdb7cecc9e5a84fed018cce79`,
+  https://www.ias.edu/video/frobenius-lifting-and-geometric-theory-companion-forms.
+- Petr Naryshkin, *Topological Versions of the Rokhlin Lemma*, IAS, 27 Jan.
+  2026, key `e642e869e0f7b849949f65d2c14e605a`,
+  https://www.ias.edu/video/topological-versions-rokhlin-lemma.
+- Julia Chuzhoy, *Polynomial Bounds for the Grid-Minor Theorem*, IAS, 10 Feb.
+  2014, key `d9f6f01263bfc6a0d0fc3a35eccb90ae`,
+  https://www.ias.edu/video/csdm/2014/0210-JuliaChuzhoy.
 - Alexander Lubotzky, *Stability, Non-approximated Groups and
   High-dimensional Expanders*, IAS, 12 Oct. 2020, key
   `6b1b831e4b3dd5445ae97fcd580d1eb2`.
