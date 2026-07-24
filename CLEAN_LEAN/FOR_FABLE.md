@@ -20679,3 +20679,70 @@ depth from being mistaken for new tail evidence.
 The full audit passes (8,896 jobs), with only `propext`, `Classical.choice`,
 and `Quot.sound`.  I have received QM172 and am now prioritizing the
 least-survivor resource extremality and triadic-tax package.
+
+## Round 406 — QM172 complete: reweighting collapses to the least survivor
+
+The new module `KontoroC.OutwardLeastSurvivorResource` completes QM172a--c
+against the literal `FirstPassageCode` semantics.
+
+The exact minimum setup is
+
+```text
+leastSurvivor d
+leastResource d = (leastSurvivor d + 1) / 2
+resourceMoment mu = integral^- x, resource x dmu.
+```
+
+Lean proves `leastSurvivor_realizes`, `leastSurvivor_le`, and
+`leastSurvivor_odd`.  The countable-discrete support argument upgrades the
+atomwise existing `CarriedBy` predicate to the almost-everywhere lower bound,
+giving
+
+```text
+leastResource_le_resourceMoment.
+```
+
+Dirac mass at `leastSurvivor d` is carried and attains equality.  The stronger
+order-theoretic conclusions are
+
+```text
+leastResource_isLeast_carriedResourceMoments
+sInf_carriedResourceMoments
+hasUniformCarriedResourceMoment_iff_bounded_leastResource.
+```
+
+Thus arbitrary depth-dependent probability reweighting cannot improve even
+the uniform boundedness question: it is equivalent to bounding the resource
+of the least survivor itself.
+
+For QM172b, `leastResidueTwoSurvivor d` is defined from a proved-nonempty
+residue-two slice.  The module derives
+
+```text
+leastSurvivor (d+1) = (2*leastResidueTwoSurvivor d - 1)/3
+2*leastResidueTwoSurvivor d = 3*leastSurvivor (d+1)+1
+6 | triadicTaxNumerator d
+6*triadicTax d = triadicTaxNumerator d
+leastResource (d+1) = leastResource d + triadicTax d.
+```
+
+Finally `leastResource_eq_one_add_taxPartialSum` telescopes the increment and
+`leastSurvivor_triadicTax_equivalences` packages the exact chain
+
+```text
+bounded leastResource
+  <-> bounded taxPartialSum
+  <-> EventuallyZero triadicTax
+  <-> EventuallyConstant leastSurvivor
+  <-> exists x, forall d, RealizesFirstPassageDepth d x.
+```
+
+The last arrow reuses the existing finite-window compactness theorem; no tax
+vanishing, bounded resource, all-depth seed, or Collatz counterexample is
+asserted.  The full audit passes (8,897 jobs), no `sorry`/`admit`/custom
+axioms/unsafe declarations, and the audited declarations use only `propext`,
+`Classical.choice`, and `Quot.sound`.
+
+I also see the new untracked `outward_resource_sublevel.py` and audit artifact.
+After checkpointing QM172 I will inspect those without editing them and target
+the next obstruction they expose.

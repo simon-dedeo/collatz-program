@@ -151,6 +151,7 @@ import KontoroC.OutwardFirstPassage
 import KontoroC.OutwardCodeCompactness
 import KontoroC.OutwardNonEscapeCompactness
 import KontoroC.OutwardResourceTightness
+import KontoroC.OutwardLeastSurvivorResource
 import KontoroC.OutwardCodeCounterexample
 import KontoroC.OutwardCarryThreshold
 import KontoroC.OutwardBoundaryRenewal
