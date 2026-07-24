@@ -33,6 +33,96 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-24 03:31 EDT
+
+There is still no Collatz counterexample.  The IAS audit now has 269
+authoritative transcript-checked release talks.  No additional API request
+was made.
+
+Kai Zehmisch proves a higher-dimensional Reeb-orbit obstruction by assuming
+there is no contractible closed orbit, using that assumption to compactify a
+holomorphic-disc moduli space, and converting its degree-one evaluation map
+into a topological splitting and spherical-summand conclusion.  The proof
+move is powerful but does not transfer for free: the exact Collatz prefix
+spaces have no analogue of the bounded area that prevents escape and
+bubbling.  Moreover, the forced object is a periodic Reeb orbit, whereas Lean
+now proves that every literal all-depth recharge schedule is strongly
+aperiodic.
+
+Melanie Matchett Wood constructs an explicit limiting distribution on finite
+quotients of profinite three-manifold groups.  Surjection moments determine
+the law only after orientation and cohomological support restrictions are
+added.  Every admissible finite-level open set has positive probability, yet
+every individual profinite group has probability zero.  This is the exact
+calibration needed after the non-escape audit: positive mass in every finite
+Collatz cylinder, even under one coherent limiting law, does not create an
+atom or an ordinary seed.  Archimedean tightness must be proved before taking
+the profinite limit.
+
+Tongmu He constructs coordinate-independent Sen operators by checking a
+noncanonical formula at every height-one special-fiber prime and using
+normality to inject the global object into the product of its completed local
+realizations.  This supplies a rigorous architecture for cross-precision
+descent of an unbounded arithmetic selector.  It cannot supply the ordinary
+root: the cylinders `n=-1 mod 2^(H+1)` glue perfectly at every level to
+`-1` in `Z_2`, while their least positive representatives
+`2^(H+1)-1` escape.
+
+Yilin Wang proves, for sufficiently smooth Jordan curves, that one quarter of
+Loewner energy equals a renormalized volume between canonical Epstein
+surfaces; for general Weil--Petersson curves only the one-sided inequality is
+proved.  Matching first variations plus the round-circle base case is the
+central move.  Möbius invariance makes the energy unusable as an ordinary
+height: unit circles centered at `2^(H+1)-1` all have exactly zero energy
+while their centers escape to infinity.
+
+Terence Tao proves conditional Hardy--Littlewood--Chowla asymptotics in one
+Siegel-zero conductor window, for any number of Liouville factors but at most
+two von Mangoldt factors.  The exceptional character gives a structured
+approximant and its complement is controlled uniformly.  An exact finite
+Collatz analogue would decompose failed edge indicators into low-conductor
+characters and a residual, then promote only compatible character towers.
+The talk itself explains the decisive failure: a sparse polynomial target can
+concentrate on a negligible exceptional set.  One exceptional Collatz path is
+thinner still, so average uniformity cannot decide it.
+
+Elon Lindenstrauss proves an exponential-resolution local central limit
+theorem for Euclidean-isometry walks with rotational spectral gap and no
+common fixed point, and smoothness of associated near-isometric self-similar
+measures.  The Fourier-side two-radius gap and Bourgain--Gamburd bootstrap are
+strong anti-concentration tools.  Their Collatz conclusion is negative:
+absolute continuity and exponentially small point neighborhoods certify a
+diffuse randomized architecture, not absence of a probability-zero infinite
+word.  The natural Collatz affine semigroup also lacks the required compact
+rotational spectral gap.
+
+Rachel Zhang proves the optimal randomized binary interactive-coding
+thresholds of `1/6` adversarial errors and `1/2` erasures.  The protocol echoes
+the current question, distinguishes the three competing answers only within
+that question fiber, and uses next-bit/backspace updates.  This suggests that
+a Collatz CEGIS engine should compare macros only inside an exact arithmetic
+state fiber.  Backspace, randomized expected progress, and a finite error
+budget are not forward Collatz dynamics, so the theorem supplies no selector
+or seed.
+
+Gillat Kol beats the classical binary interactive thresholds by using
+location-sensitive codes: different-location candidates are far apart, while
+same-location candidates may be close only when an earlier error has already
+spent part of a conserved corruption budget.  The exact transfer is a
+state-merging test.  Whenever a proposed abstraction merges two literal
+prefixes, require one common legal macro and uniform arithmetic resource
+inequality, or return that pair as a CEGIS refinement witness.  Collatz has no
+proved analogue of the Hamming-error ledger, and the code is finite-stage and
+existential.
+
+Formalizer commit `38cf044` sharpens the finite-controller no-go: every finite
+phase abstraction of a literal recharge orbit has arbitrarily late pairs with
+the same phase but different emitted macros.  Thus an unbounded payload must
+repeatedly disambiguate selection inside the same finite phase.  Combined
+with the talks above, the live target is now explicit: coordinate-independent
+unbounded arithmetic feedback, a Collatz-native monotone resource ledger, and
+uniform Archimedean tightness or an atom.  `counterexample:null`.
+
 ### 2026-07-24 03:17 EDT
 
 There is still no Collatz counterexample.  The IAS audit now has 261
@@ -8689,6 +8779,24 @@ autonomous finite controller whose unbounded ordinary payload does not feed
 back into selection.  The remaining architecture therefore needs both an
 atom-producing ordinary-root mechanism and genuinely unbounded arithmetic
 feedback.
+Wood's profinite distribution supplies the sharp converse warning: a coherent
+law may give positive mass to every admissible finite-level open set while
+giving mass zero to every individual limit object.  Therefore cylinder
+positivity, full profinite support, and exact compatibility cannot substitute
+for the uniform Archimedean tightness condition above.  He's height-one
+localization can certify coordinate-independent cross-precision descent, but
+the compatible all-odd cylinders demonstrate that such descent may still
+land at `-1` in `Z_2`.  The two obligations must remain separate.
+
+Commits `38cf044` and the IAS coding audit give a concrete CEGIS refinement
+rule for the required feedback.  A finite phase abstraction necessarily
+aliases distinct macros arbitrarily late.  Whenever two exact arithmetic
+histories are merged, require a single legal next macro and a single monotone
+resource inequality for both; otherwise record the smallest same-state pair
+as the architecture counterexample and refine with the missing unbounded
+payload feature.  Hamming distance is not that resource: a Collatz-native
+ledger must be derived from the exact affine, carry, address, and recharge
+equations.
 
 #### Live disproof programs
 
@@ -9545,7 +9653,7 @@ feedback.
 | Pure last-nonzero-ternary-digit recursive selector | Universally inadequate for the literal writer--decoder architecture.  Every exact primitive layer still contains a full range of dyadic classes.  Lean proves that, even when the selected chart is an arbitrary function of valuation depth and primitive digit, each regular layer contains arbitrarily large ordinary states where that chart is illegal.  Greenfeld's hierarchy remains relevant only after adding a fresh dyadic address/carry binder inside every regular and exceptional branch. | [`OutwardValuationSelectorNoGo.lean`](KontoroC/KontoroC/OutwardValuationSelectorNoGo.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#lead-a-a-mixed-dyadic--triadic-recursive-valuation-selector) |
 | Treating critical first-passage/KL mass as an ordinary survivor | Invalid.  For the canonical maximal outward first-passage code, the slope-tilted Kraft mass is exactly one at every block depth, but its natural product flow satisfies `mu_q{r_n<=B}<=B(3/4)^n`.  Conditioning fair renewal on arbitrarily long survival gives the product block law `p(w)/P`, which is also diffuse, with fixed-window bound `B(1/(2P))^n`.  Thus conserved mass and the classical survival Doob transform both escape every bounded ordinary residue window.  Any successful selector must create an atom; a useful sufficient proof input is the weaker growth condition `rho_n=o(2^n)`, which forces eventual zero carry. | [`outward_first_passage_audit.json`](experiments/kontorovich/outward_first_passage_audit.json), [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#23-odd-charge-compression-and-triadic-min-plus-renewal) |
 | Fixed-precision triadic min-plus controller | Does not close the unbounded raw renewal.  The exact dual-residue update for a source phase modulo `3^k` queries the target profile modulo `3^(O(w)+k)`; already word `1` requires precision `k+1`.  Finite height closes with the complete table `W_B`, explicit target bound `C(B)`, and a membership precision `3^K>C(B)`, but `K` grows with height.  Thus a successful phase selector needs genuinely growing arithmetic state, not one fixed residue automaton. | [`outward_minplus_profile_audit.json`](experiments/kontorovich/outward_minplus_profile_audit.json), companion commits `a0e460d`/`8d79424`, [`kl-calibrated-escape.md`](docs/notes/kl-calibrated-escape.md#24-growing-phase-precision-and-directed-carry-repair) |
-| Periodic literal recharge schedules and autonomous finite recharge controllers | Impossible.  Any positive-length segment of a literal recharge orbit composes to one exact recharge macro.  An eventually periodic emitted block schedule would therefore iterate one fixed expanding outward parity word forever, contradicting the coprime affine-gain theorem.  Lean proves that every proposed positive period breaks infinitely often.  Finite pigeonhole then excludes any autonomous finite phase controller even if the ordinary charge is stored as a separate unbounded payload, provided that payload does not feed back into macro selection.  A selector reading unbounded arithmetic state remains outside the theorem. | [`OutwardRechargeAperiodic.lean`](KontoroC/KontoroC/OutwardRechargeAperiodic.lean), commits `77d2766`/`a0c2703` |
+| Periodic literal recharge schedules and autonomous finite recharge controllers | Impossible.  Any positive-length segment of a literal recharge orbit composes to one exact recharge macro.  An eventually periodic emitted block schedule would therefore iterate one fixed expanding outward parity word forever, contradicting the coprime affine-gain theorem.  Lean proves that every proposed positive period breaks infinitely often.  Finite pigeonhole then excludes any autonomous finite phase controller even if the ordinary charge is stored as a separate unbounded payload, provided that payload does not feed back into macro selection.  Commit `38cf044` proves the stronger audit witness: every finite phase abstraction has arbitrarily late same-phase states that require different literal macros.  A live selector must use the unbounded payload to disambiguate repeatedly inside a phase. | [`OutwardRechargeAperiodic.lean`](KontoroC/KontoroC/OutwardRechargeAperiodic.lean), commits `77d2766`/`a0c2703`/`38cf044` |
 | Distinct executable alias orbit at fixed recharge endpoints | Closed.  Determinism makes two literal executions from the same source to the same target prefix-comparable; prefix-free first-passage decoding aligns their block lists, and a proper suffix would be a forbidden positive recharge from the target to itself.  Symbolic phase/carry records may be deduplicated only when they decode to the identical word.  Equal-cost distinct words are genuinely different choices and cannot be averaged. | [`OutwardSemanticAliasNoGo.lean`](KontoroC/KontoroC/OutwardSemanticAliasNoGo.lean), [`ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md#lead-l-quotient-min-plus-states-by-exact-aliases-but-retain-every-boundary-tie) |
 | Prefix-complete uniformly outward valuation ISA | Closed for finite positive prefix-free codes.  With `p(w)=2^-sum(w)` and `q(w)=3^length(w)/4^sum(w)`, every outward leaf has `q(w)>p(w)`; `p`-completeness and the `q`-Kraft bound are inconsistent.  Commit `da9fa59` constructs explicit binary and four-letter compilers, derives both Kraft inequalities from prefix-freeness, and proves the full finite contradiction and quantitative mass bound in Lean.  The countably infinite prefix-free theorem still uses an abstract `tsum` interface.  This does not touch a proper zero-measure trapping sublanguage containing one ordinary self-written orbit. | [Closure doctrine](docs/notes/kontorovich-closure-principles.md#53-two-kraft-measures-forbid-a-complete-all-outward-isa) |
 | Periodic or ultimately periodic path in the four-word signed thin language | Closed.  The exact bounded controller audit extracts the proper code `{1,011,001111,010111}` with ordinary mass `21/32`, tilted mass `1905/2048`, and 41,328 literal growing reset checks.  Commit `1aa3e52` proves that any nonempty periodic concatenation of outward shortcut blocks gives an expanding coprime affine recurrence and cannot persist on positive naturals; an arbitrary finite prefix does not help.  Genuinely aperiodic paths with eventually zero address carry remain open. | [`kl_signed_thin_residue.json`](experiments/kontorovich/kl_signed_thin_residue.json), [`ShortcutParityPeriodicNoGo.lean`](KontoroC/KontoroC/ShortcutParityPeriodicNoGo.lean) |
@@ -11676,6 +11784,72 @@ existing lines of work; the closest ancestors, and what each contributes:
   of singularities.  Prime-to-coefficient trace splitting and noetherian finite
   presentation do not automatically control Collatz's wild dyadic branching
   or its Archimedean ordinary-root gate.
+- **K. Zehmisch, [“Disc filling and connected
+  sum”](https://www.ias.edu/video/puias/2015/0227-KaiZehmisch), IAS talk (27
+  Feb. 2015), corpus key `1d0b42115e0abdea2be06c1a47c46631`, S1--S7 at
+  36--4,025 seconds** — no contractible Reeb orbit makes a holomorphic-disc
+  moduli space compact enough for a degree-one evaluation argument and a
+  spherical-summand conclusion.  Exact Collatz prefix spaces lack the energy
+  bound preventing escape, and the forced object is periodic rather than the
+  kernel-required aperiodic recharge schedule.
+- **M. M. Wood, [“A visit to 3-manifolds in the quest to understand random
+  Galois groups”](https://www.ias.edu/video/visit-3-manifolds-quest-understand-random-galois-groups),
+  IAS talk (13 Oct. 2022), corpus key `916d07299320addd8558019515eca668`,
+  S1--S7 at 65--3,738 seconds** — orientation and exact cohomological support
+  restrictions make surjection moments determine an explicit profinite law.
+  Every admissible finite open has positive mass but every individual point
+  has mass zero, sharply separating finite-cylinder support from an ordinary
+  Collatz atom.
+- **T. He, [“Sen Operators and Lie Algebras Arising From Galois
+  Representations Over p-adic
+  Varieties”](https://www.ias.edu/video/sen-operators-and-lie-algebras-arising-galois-representations-over-p-adic-varieties),
+  IAS talk (31 Jan. 2024), corpus key
+  `fcd2e6627d64d27f8aad7f62d9ce1c9a`, S1--S7 at 41--4,078 seconds** —
+  height-one localization and normality make locally defined Sen operators
+  coordinate-independent and global.  This is a model for exact selector
+  descent across precision, but compatible dyadic cylinders may still glue
+  to a nonordinary point such as `-1` in `Z_2`.
+- **Y. Wang, [“Holography of the Loewner
+  Energy”](https://www.ias.edu/video/holography-loewner-energy), IAS talk (14
+  Apr. 2023), corpus key `b66cfe07273b9f590e6e9dde07c12a08`, S1--S7 at
+  38--3,748 seconds** — matching first variations identifies Loewner energy
+  with a renormalized three-dimensional volume for sufficiently smooth
+  curves; only one inequality is proved at general Weil--Petersson
+  regularity.  Möbius invariance permits zero-energy circles whose centers
+  escape, so this energy cannot serve as an ordinary-height certificate.
+- **T. Tao, [“Hardy-Littlewood and Chowla Type Conjectures in the Presence of
+  a Siegel
+  Zero”](https://www.ias.edu/video/hardy-littlewood-and-chowla-type-conjectures-presence-siegel-zero),
+  IAS talk (27 Feb. 2023), corpus key
+  `abd466fc6cbb6dd8318ff16a33baba24`, S1--S7 at 15--2,971 seconds** — an
+  exceptional character supplies structured approximants and uniform control
+  of their complement in one conductor window, conditionally for at most two
+  von Mangoldt factors.  A sparse exceptional set can contain the entire
+  target, so average uniformity cannot decide one infinite Collatz path.
+- **E. Lindenstrauss, [“On random walks in the group of Euclidean
+  isometries”](https://www.ias.edu/video/MML/2015/0306-ElonLindenstrauss), IAS
+  talk (6 Mar. 2015), corpus key `dffe87bb277e1017ef3cdcec67a3fe80`, S1--S7
+  at 14--3,954 seconds** — a rotational spectral gap yields an
+  exponential-resolution local central limit theorem and smooth
+  self-similar measures.  The resulting anti-concentration diagnoses diffuse
+  randomized selector laws; zero mass of a word neither proves nor disproves
+  its existence, and the Collatz affine semigroup lacks the hypotheses.
+- **R. Zhang, [“The Optimal Error Resilience of Interactive Communication
+  over the Binary
+  Alphabet”](https://www.ias.edu/video/optimal-error-resilience-interactive-communication-over-binary-alphabet),
+  IAS talk (17 Oct. 2022), corpus key `3d2591893849abbb138cfc483e917750`,
+  S1--S8 at 43--3,207 seconds** — echoing the current question permits strong
+  discrimination only among answers in the same state fiber and achieves the
+  optimal randomized binary thresholds.  Backtracking, expected progress,
+  and a finite error budget do not define a forward all-depth Collatz orbit.
+- **G. Kol, [“The Error Resilience of Binary Codes with
+  Interaction”](https://www.ias.edu/video/error-resilience-binary-codes-interaction),
+  IAS talk (10 Feb. 2025), corpus key `0dbcef8e700494e8da4df5625bdb4af0`,
+  S1--S8 at 70--3,950 seconds** — location-sensitive codes spend a conserved
+  prior corruption budget to permit close same-location candidates.  This
+  motivates an exact state-merging CEGIS witness, but Collatz needs a proved
+  arithmetic resource ledger and an executable infinite selector rather than
+  an existential finite-stage code.
 - **A. Salehi Golsefidy, [“Combinatorial affine
   sieve”](https://www.ias.edu/video/wstg/2016/0329-Golsefidy), IAS talk (29 Mar.
   2016), corpus key `541afe4cee0db1818d56f22534b07746`, S1--S8 at 16--3,177
