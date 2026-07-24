@@ -238,6 +238,194 @@ theorem), Moshkovitz's theorem cannot be applied.  It is nevertheless a
 principled stopping rule for search: exceptional concentration should be
 factorized and explained rather than merely used to extend a beam.
 
+## Composite lead F: lift a clean local verifier, then amplify or expose its boundary
+
+This architecture combines four transcript-checked talks.
+
+- Madhu Sudan, *New Locally Decodable Codes from Lifting*, IAS, 25 Mar.
+  2013, [video](https://www.ias.edu/video/csdm/1213/0325-MadhuSudan), key
+  `3068276612d77bb8c917f3d60bce089b`, S6--S7 at 2,646--3,660 seconds (raw
+  checked at 2,580--3,700).  The decisive reversal is to fix a local test and
+  define the global code to be everything whose affine restrictions pass it.
+  Local correction and testing are inherited from the base code; Lucas-type
+  digit conditions and carry avoidance identify a large monomial basis.
+- Emmanuel Abbe, *A Proof of the RM Code Capacity Conjecture*, IAS, 23 Oct.
+  2023, [video](https://www.ias.edu/video/proof-rm-code-capacity-conjecture),
+  key `f73def25cf4813d4304ad78e0fa763a1`, S6--S8 at 2,476--3,735 seconds
+  (raw checked at 2,420--3,780).  A weak local advantage is amplified by
+  recursively restricting to self-similar subspaces.  Many subspaces are
+  packed as sunflower petals; their overlap is concentrated in one common
+  kernel, and conditioning on that kernel makes the petals sufficiently
+  independent for boosting.
+- Jit Wu Yap, *Ultrafilters in Arithmetic Dynamics*, IAS, 7 Oct. 2025,
+  [video](https://www.ias.edu/video/ultrafilters-arithmetic-dynamics), key
+  `85dfdad85fdf0ab9bc2da969014af1c1`, S5--S7 at 2,236--3,581 seconds (raw
+  checked at 2,180--3,620).  A pointwise positive energy separation over
+  every characteristic-zero valued field becomes a uniform bound by taking
+  a rescaled ultralimit of any putative sequence with vanishing normalized
+  separation and deriving a contradiction at the nonarchimedean boundary.
+- Peter Sarnak, *Pseudorandomness -- Substitution Sequences at Primes*, IAS,
+  3 Dec. 2008,
+  [video](https://www.ias.edu/video/pseudorandomness-substitution-sequences-primes),
+  key `51ef6ccdfe811aca02e4380ca93f0867`, E1/S2 near 701 seconds (raw checked
+  at 620--790).  His doubling-map example is the exact anti-cheating warning:
+  an exceptional real starting point can preload any desired infinite word
+  in its dyadic expansion, so apparent symbolic generation may be tautological.
+
+The proposed Collatz object is a **lifted clean selector**.  Start with a
+small exact base verifier `B` for policy tables on a bounded mixed residue
+window.  Rather than guess one large table, define a level-`m` policy to be
+admissible when every allowed low-dimensional affine slice restricts to an
+element of `B`.  The domain should carry both dyadic and triadic coordinates;
+a field-only lift is already inadequate after the pure ternary no-go.
+
+Now concentrate all overlap between recursive slices in a common kernel `K`
+containing the ordinary-root/address catalyst.  Every accepted petal macro
+must be forward-legal and restore `K` exactly, in Cook's sense.  If an exact
+count shows a weak surplus of good petals for each kernel value and symmetry
+prevents the surplus from concentrating on one exceptional slice, a sunflower
+argument can select a good compatible petal at the next scale.  Selection,
+not majority voting, is the relevant conclusion; a deterministic least-good-
+petal rule must then itself be exact-replayed.  Because the catalyst is
+restored, recursive selection reuses state rather than reading fresh high bits
+of a preloaded `2`-adic seed.
+
+The bounded CEGIS pilot would therefore:
+
+1. synthesize the smallest base verifier `B` from exact legal block tables;
+2. enumerate its mixed affine slices and reject any slice leaving the dyadic
+   coefficient unrestricted;
+3. require identity action on the catalyst and positive payload progress;
+4. count good petals conditional on every kernel value and test an exact
+   sunflower dispersion inequality;
+5. if concentration is anomalous, invoke the Moshkovitz/Nguyen structure lane
+   to factor it into a smaller parametric verifier;
+6. exact-replay the least selected petal and return the first semantic or
+   closure failure.
+
+Yap's mechanism supplies a separate completeness target for an architecture
+class.  Compactify normalized base verifiers and define an exact nonnegative
+failure energy.  If one can prove pointwise positive energy for every
+ordinary and nonarchimedean boundary verifier, an ultralimit contradiction
+would give a uniform finite failure bound.  If pointwise separation fails,
+the boundary zero exposes the specific degeneration that the architecture
+must represent rather than encouraging a larger blind search.
+
+Every arrow above is conditional.  Sudan and Abbe work over affine finite-
+field codes and probabilistic channels, whereas exact Collatz legality mixes
+`2`- and `3`-adic divisibility and is not affine-invariant.  Yap's pointwise
+boundary-separation theorem has not been proved for any Collatz selector
+space.  Most importantly, a lifted policy without exact catalyst restoration
+would reproduce Sarnak's preloaded-bit example in `2`-adic form and would not
+define an ordinary counterexample.
+
+## Lead G: extract an exact clean-macro factor before searching words
+
+Three transcript-checked talks give complementary algebraic gates.
+
+- Prahladh Harsha, *An Improved Line-Point Low-Degree Test*, IAS, 23 Sept.
+  2024,
+  [video](https://www.ias.edu/video/improved-line-point-low-degree-test), key
+  `b5a7f9887daa1ac832aca5a35895482f`, S5--S7/E3--E4.  Raw spans checked at
+  1,577--1,770, 1,880--2,010, 2,106--2,285, and 2,778--3,441 seconds.  Local
+  polynomial roots on slices glue only after a simple-root/discriminant gate,
+  uniqueness under Hensel lifting, and enough independent directions; the
+  raw talk gives explicit one- and two-direction counterexamples to naive
+  gluing.
+- Rafael Oliveira, *Factors of polynomials of low individual degree*, IAS,
+  12 Oct. 2015,
+  [video](https://www.ias.edu/video/csdm/2015/1012-RafaelOliveira), key
+  `5f48881ff6900ff31b1b09211f54361b`, S3--S5 at 1,077--2,482 seconds.
+  Separated roots are recovered one homogeneous component at a time by
+  Hensel/Newton lifting and exact interpolation; reversal moves a destructive
+  recursive leading-coefficient blowup to a manageable constant interface.
+- Michael Forbes, *Polynomial Identity Testing of Read-Once Oblivious
+  Algebraic Branching Programs*, IAS, 26 Nov. 2012,
+  [video](https://www.ias.edu/video/csdm/forbes), key
+  `e94e440f44f7a0396ffcc58c9bcdd99c`, S3--S5/E6--E7 at 1,399--2,782
+  seconds.  Recursive merging must preserve the full coefficient-matrix span;
+  preserving nonzeroness of the two halves separately is not compositional.
+
+For a fixed symbolic macro skeleton `T`, clear denominators and form the exact
+returned-catalyst defect
+
+```text
+R_T(x_1,...,x_s,y).
+```
+
+The `x_i` are payload/interface parameters and `y` is the proposed returned
+root/address coordinate.  A polynomial clean family `y=g(x)` requires the
+exact factor relation
+
+```text
+y-g(x) divides R_T(x,y),
+```
+
+plus the separate valuation-legality and positive-payload identities.  The
+pilot should derive `R_T` coefficientwise, test a simple root at a chosen
+center, lift its homogeneous pieces only through an a priori degree bound,
+and then verify `R_T(x,g(x))=0` as an integer polynomial identity.  The first
+nonzero residual is an exact architecture counterexample, not a poor score.
+
+For a recursively composed finite block library, encode each position by a
+polynomial matrix `A_i(X_i)` whose coefficient matrices are the homogeneous
+affine actions on `(payload,address,triadic quotient,root carry,1)`.  Compute
+the exact coefficient-matrix span `S` of `prod_i A_i`, and let `C` be the
+linear subspace satisfying the homogenized clean-catalyst equations.  Then
+
+```text
+S subset C       => every encoded word is clean,
+S intersect C=0  => no encoded word is clean.
+```
+
+The intermediate case is honestly inconclusive because a clean linear
+combination need not be an actual word.  These are useful universal/no-go
+certificates before any word enumeration.
+
+The main risk is bounded degree.  Collatz counters occur inside `2^D` and
+`3^G`; unbounded templates may have growing degree, and high-valuation points
+may be exactly where the derivative vanishes.  A formal or rational factor
+also need not preserve integrality, forward legality, outward progress, or an
+ordinary seed.  This lane is therefore restricted to fixed symbolic skeletons
+with explicit degree and integrality bounds.
+
+## Lead H: higher-congruence descent must begin with one genuine top lift
+
+**Source.** Naomi Sweeting, *Kolyvagin's conjecture and higher congruences of
+modular forms*, IAS, 22 Apr. 2021,
+[video](https://www.ias.edu/video/kolyvagins-conjecture-and-higher-congruences-modular-forms),
+key `2ec6065ba6553d6058a1b3551199f757`, S3--S4 and S6--S7; E3/E5.  Raw
+transcript checked at 884--1,280, 1,470--1,952, 2,597--3,540, and
+3,640--3,810 seconds.
+
+The raw talk exhibits a map modulo `p^2` that mixes two genuine eigenvalues
+but has no characteristic-zero lift.  Sweeting repairs this by adding an
+auxiliary level index, constructing horizontal and vertical compatibility
+relations with quantified loss of `p`-adic precision, producing a genuine
+characteristic-zero object at the top, and descending only after budgeting
+more precision than all losses.  She explicitly notes that `p=2` is harder.
+
+The exact Collatz analogue uses two indices.  Let `C_m(n,q)` mean that one
+specified canonical root makes a length-`n` macro prefix with repair level
+`q` legal modulo `2^m`.  Horizontal relations extend or modify the prefix;
+vertical relations remove repair levels while losing at most `e(q)` bits.
+The certificate target is
+
+```text
+C_(m + sum e(q_i))(n_top,q_top) from one fixed ordinary seed
+  + exact commuting horizontal/vertical relations
+  -> C_m(n_base,1) for that same seed.
+```
+
+Enumerate commuting macro squares and compute their precision loss exactly.
+Reject a square if its two routes yield different canonical ordinary roots.
+Most importantly, separately optimized residue roots at each `m` are not a
+top lift.  Unbounded depth must descend from the same explicit positive
+ordinary seed, or the diagram is another profinite approximation.  Collatz
+currently has no analogue of the cohomological relations and deformation
+theory that manufacture Sweeting's top object, so this is a certificate
+architecture and a false-lift detector, not evidence that it closes.
+
 ## Other promoted talks (transfer ledger)
 
 | Status | Talk and raw spans | Concrete transfer | Principal mismatch |
@@ -251,6 +439,18 @@ factorized and explained rather than merely used to extend a beam.
 | targeted | Rafael de la Llave, *Some geometric mechanisms for Arnold diffusion*, key `06c75558ea7a67c26523d60637d5f0af`, S4/S6, 2,016--2,483 and 3,033--3,267 s | Replace lucky symbolic prefixes by exact covering relations between charge/address/carry windows; require recurring zero-root-carry endpoints in the shadowing theorem. | Collatz lacks the continuous transverse freedom and hyperbolicity that make geometric covering windows work. |
 | targeted | James Cook, *Borrowing memory that's being used*, key `62fe994bc97f7e36b22ecea9ea707a40`, S4--S5, 1,444--2,584 s | Search for payload-dependent clean macros whose forward action restores the ordinary-root/address catalyst exactly, allowing recursive reuse without an infinite tape. | Collatz has no freely available inverse/uncompute instruction; it must be realized by another forward-legal word, and a fixed repeated macro is already excluded. |
 | conditional | Guy Moshkovitz, *Structure and Randomness for Finite-field Polynomials are (almost) Equivalent*, key `e71017370c27ed97e3367f54c6e3fc2b`, S1--S7 | Treat anomalous exact zero-carry density as an inverse problem and factor a bounded-degree defect tensor into a small parametric architecture. | Exact valuation/carry predicates may require degree growing with depth, blocking direct use of the finite-field theorem. |
+| composite/conditional | Madhu Sudan, *New Locally Decodable Codes from Lifting*, key `3068276612d77bb8c917f3d60bce089b`, S6--S7, 2,646--3,660 s | Define a growing policy language by one small exact local verifier on every mixed affine slice, rather than by a large residue lookup table. | The field-affine lifting theorem does not cover mixed dyadic--triadic valuation guards or dynamical closure. |
+| composite/conditional | Emmanuel Abbe, *A Proof of the RM Code Capacity Conjecture*, key `f73def25cf4813d4304ad78e0fa763a1`, S6--S8, 2,476--3,735 s | Pack self-similar policy slices as sunflower petals around one clean address/carry kernel and amplify a weak exact surplus of good compatible extensions. | Channel decoders can vote; one Collatz orbit must select and replay one petal, and the needed independence/dispersion theorem is absent. |
+| architecture filter | Jit Wu Yap, *Ultrafilters in Arithmetic Dynamics*, key `85dfdad85fdf0ab9bc2da969014af1c1`, S5--S7, 2,236--3,581 s | Turn pointwise positive failure energy on every valued-field boundary model into a uniform bounded failure depth for a compact selector class. | No Collatz compactification or boundary-separation theorem is known; an ultralimit alone produces another nonordinary object. |
+| warning | Peter Sarnak, *Pseudorandomness -- Substitution Sequences at Primes*, key `51ef6ccdfe811aca02e4380ca93f0867`, E1/S2 near 701 s | Reject selectors that merely preload their instruction stream in the high dyadic bits of an exceptional starting point; require a finite ordinary root and clean reusable catalyst. | The doubling-map example is a warning, not a construction or no-go for a self-writing Collatz policy. |
+| targeted | Prahladh Harsha, *An Improved Line-Point Low-Degree Test*, key `b5a7f9887daa1ac832aca5a35895482f`, S5--S7/E3--E4 | Glue slice-wise prefix selectors only after bounded-degree encoding, enough directions, and a uniform simple-root Hensel gate; then verify the global identity exactly. | Valuation gates may be singular, and a global formal root still need not be an ordinary seed. |
+| targeted | Rafael Oliveira, *Factors of polynomials of low individual degree*, key `5f48881ff6900ff31b1b09211f54361b`, S3--S5, 1,077--2,482 s | Recover a clean returned-catalyst factor degree by degree and use its first nonzero residual as an exact macro-architecture obstruction. | Unbounded powers `2^D,3^G` generally destroy bounded degree and simple-root separation. |
+| architecture filter | Michael Forbes, *Polynomial Identity Testing of Read-Once Oblivious Algebraic Branching Programs*, key `e94e440f44f7a0396ffcc58c9bcdd99c`, S3--S5/E6--E7, 1,399--2,782 s | Preserve the complete coefficient-matrix span of a recursive macro product; span containment proves universal cleanliness and trivial intersection proves a no-go. | A clean span element need not be an actual word, and width may grow with precision. |
+| targeted/warning | Naomi Sweeting, *Kolyvagin's conjecture and higher congruences of modular forms*, key `2ec6065ba6553d6058a1b3551199f757`, S3--S4/S6--S7 | Use a two-index exact descent with quantified bit loss and require all finite congruence certificates to descend from one genuine ordinary top seed. | Collatz lacks the horizontal/vertical relations and deformation theory that produce the top lift. |
+| warning | Andreas Wieser, *Local-Global Principles and Effective Rates of Equidistribution For Semisimple Orbits*, key `d6a6f21ab12a4e96856899c8b8d76b88`, S1--S4/S6 | Before invoking local-global lifting, test whether prefix varieties have a semisimple algebraic stabilizer and sufficient intermediate-orbit complexity to force an integral target hit. | Collatz macro actions are largely solvable/noninvertible; even integral lifts at each depth need not share one ordinary seed. |
+| warning | Alan Reid, *Profinite rigidity and flexibility for compact 3-manifold groups*, key `752f9598c8fc447ea9edf6f2e2ffe372`, S1/S3/S5--S7 | Define the finite-portrait genus of a controller and seek quotient separation only inside a sharply restricted class. | Profinite rigidity gives uniqueness of an already existing discrete object, not existence of an ordinary realization. |
+| conditional | Richard Ehrenborg, *Counting Pattern Avoiding Permutations Via Integral Operators*, key `e5d73aeba9471656ab49c2384cd0b4f3`, S2/S7 | Build an exact overlap graph of universally clean macros and certify primitivity, positive resource-cycle mean, and compatible unbounded-scale bonding maps. | Fixed-state graphs favor periodic paths and cannot absorb indefinitely fresh dyadic precision. |
+| conditional | Elad Haramaty, *On the Structure of Cubic and Quartic Polynomials*, key `63ed799a0a626b68c9ed383b4c711805`, S5--S8/E3 | Refine the bias-to-structure lane: biased derivatives, a Bogolyubov subspace, and a shared low-rank linear basis can recover a compact carry grammar. | Carry degree may grow, modular structure may not lift, and the talk's quartic counterexample blocks naive inverse claims. |
 
 ## Negative lessons already extracted
 
@@ -293,5 +493,31 @@ factorized and explained rather than merely used to extend a beam.
 - Guy Moshkovitz, *Structure and Randomness for Finite-field Polynomials are
   (almost) Equivalent*, IAS, 13 Jan. 2025, key
   `e71017370c27ed97e3367f54c6e3fc2b`.
+- Madhu Sudan, *New Locally Decodable Codes from Lifting*, IAS, 25 Mar. 2013,
+  key `3068276612d77bb8c917f3d60bce089b`.
+- Emmanuel Abbe, *A Proof of the RM Code Capacity Conjecture*, IAS, 23 Oct.
+  2023, key `f73def25cf4813d4304ad78e0fa763a1`.
+- Jit Wu Yap, *Ultrafilters in Arithmetic Dynamics*, IAS, 7 Oct. 2025, key
+  `85dfdad85fdf0ab9bc2da969014af1c1`.
+- Peter Sarnak, *Pseudorandomness -- Substitution Sequences at Primes*, IAS,
+  3 Dec. 2008, key `51ef6ccdfe811aca02e4380ca93f0867`.
+- Prahladh Harsha, *An Improved Line-Point Low-Degree Test*, IAS, 23 Sept.
+  2024, key `b5a7f9887daa1ac832aca5a35895482f`.
+- Rafael Oliveira, *Factors of polynomials of low individual degree*, IAS,
+  12 Oct. 2015, key `5f48881ff6900ff31b1b09211f54361b`.
+- Michael Forbes, *Polynomial Identity Testing of Read-Once Oblivious
+  Algebraic Branching Programs*, IAS, 26 Nov. 2012, key
+  `e94e440f44f7a0396ffcc58c9bcdd99c`.
+- Naomi Sweeting, *Kolyvagin's conjecture and higher congruences of modular
+  forms*, IAS, 22 Apr. 2021, key `2ec6065ba6553d6058a1b3551199f757`.
+- Andreas Wieser, *Local-Global Principles and Effective Rates of
+  Equidistribution For Semisimple Orbits*, IAS, 14 Nov. 2024, key
+  `d6a6f21ab12a4e96856899c8b8d76b88`.
+- Alan Reid, *Profinite rigidity and flexibility for compact 3-manifold
+  groups*, IAS, 2 Feb. 2016, key `752f9598c8fc447ea9edf6f2e2ffe372`.
+- Richard Ehrenborg, *Counting Pattern Avoiding Permutations Via Integral
+  Operators*, IAS, 23 Nov. 2010, key `e5d73aeba9471656ab49c2384cd0b4f3`.
+- Elad Haramaty, *On the Structure of Cubic and Quartic Polynomials*, IAS,
+  1 Nov. 2010, key `63ed799a0a626b68c9ed383b4c711805`.
 
 `counterexample: null`

@@ -33,6 +33,45 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-23 22:24 EDT
+
+There is still no counterexample.  Twelve further transcript-checked talks
+now organize the IAS audit into two construction gates and four explicit
+warnings.  Sudan's lifted codes suggest defining a growing policy language by
+one small exact local verifier; Abbe's sunflower proof suggests arranging
+self-similar candidate extensions around one common kernel; Cook's catalytic
+criterion then requires every chosen petal to restore that ordinary
+address/carry kernel exactly.  Yap's ultrafilter argument supplies a possible
+uniform-failure theorem for a compact architecture class, while Sarnak's
+doubling-map example states the anti-cheating rule sharply: an instruction
+stream hidden in the high bits of an exceptional point is preloaded data, not
+autonomous generation.
+
+The more immediate algebraic gate comes from Harsha, Oliveira, and Forbes.
+For a fixed symbolic macro skeleton, form the exact returned-catalyst defect
+`R_T(x,y)`.  A parametric clean macro must make `y-g(x)` an actual factor;
+simple-root Hensel lifting can recover the candidate degree by degree, and the
+first nonzero residual rejects it exactly.  For recursive product libraries,
+the complete coefficient-matrix span gives two safe conclusions: containment
+in the clean subspace proves every encoded word clean, while trivial
+intersection proves none is.  Intermediate intersection is not an existence
+proof.  Sweeting's higher-congruence talk adds the cross-precision rule:
+separately successful maps modulo `2^m` may be non-liftable “Frankenstein”
+objects, so every descent diagram must begin with one explicit ordinary top
+seed and budget every lost bit.
+
+The worker audit also recorded Wieser's semisimple local-global target-hitting,
+Reid's restricted profinite rigidity, Ehrenborg's primitive overlap graphs,
+and Haramaty's derivative-rank recovery.  They respectively warn that the
+solvable Collatz macro action may lack the orbit-mixing needed for integral
+lifts, uniqueness in finite quotients does not imply ordinary existence,
+finite primitive graphs favor already-excluded periodic paths, and biased
+low-degree carry tables need not admit a naive inverse theorem.  All sources,
+raw spans, exact proposed tests, and principal mismatches are in
+[`docs/notes/ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md).
+The sole corpus batch is at 282/1,025 with zero failures; no additional broad
+API call has been made.  `counterexample:null`.
+
 ### 2026-07-23 22:20 EDT
 
 There is still no counterexample.  Transcript checks added two more
@@ -5661,6 +5700,13 @@ recursive branch must bind fresh dyadic address/carry data.  The mixed form is
 not a counterexample or an invariant; it becomes relevant only if exact CEGIS
 finds and certifies closure on the full charge/address/carry state.  See
 [`docs/notes/ias-talk-transfer-audit.md`](docs/notes/ias-talk-transfer-audit.md).
+Before scaling such CEGIS, the transcript audit now imposes an algebraic clean-
+macro gate: derive a bounded-degree returned-catalyst defect for each fixed
+symbolic skeleton and seek an exact factor or coefficient-span certificate.
+If no bounded-degree encoding exists, record that resource failure rather than
+substitute a deeper word search.  A lifted local-verifier/sunflower grammar is
+the conditional next architecture only after exact catalyst restoration is
+part of every local test.
 
 #### Live disproof programs
 
@@ -7153,6 +7199,77 @@ existing lines of work; the closest ancestors, and what each contributes:
   exceptional exact zero-carry concentration into a compact selector rather
   than treating it as a search score.  A depth-uniform low-degree encoding of
   Collatz carries is not known and is a prerequisite for the transfer.
+- **M. Sudan, [“New Locally Decodable Codes from
+  Lifting”](https://www.ias.edu/video/csdm/1213/0325-MadhuSudan), IAS talk
+  (25 Mar. 2013), corpus key `3068276612d77bb8c917f3d60bce089b`, S6--S7 at
+  2,646--3,660 seconds** — defining the large code by one local affine test
+  motivates a lifted selector language.  Mixed valuation guards and dynamical
+  closure are not covered by the field-affine theorem.
+- **E. Abbe, [“A Proof of the RM Code Capacity
+  Conjecture”](https://www.ias.edu/video/proof-rm-code-capacity-conjecture),
+  IAS talk (23 Oct. 2023), corpus key `f73def25cf4813d4304ad78e0fa763a1`,
+  S6--S8 at 2,476--3,735 seconds** — sunflower petals amplify a weak local
+  advantage while concentrating overlap in one kernel.  A Collatz transfer
+  must select and exactly replay one clean petal; it cannot vote probabilistically.
+- **J. W. Yap, [“Ultrafilters in Arithmetic
+  Dynamics”](https://www.ias.edu/video/ultrafilters-arithmetic-dynamics), IAS
+  talk (7 Oct. 2025), corpus key `85dfdad85fdf0ab9bc2da969014af1c1`,
+  S5--S7 at 2,236--3,581 seconds** — pointwise separation on every
+  nonarchimedean boundary model can yield a uniform bound by contradiction.
+  No analogous Collatz boundary-separation theorem is known.
+- **P. Sarnak, [“Pseudorandomness -- Substitution Sequences at
+  Primes”](https://www.ias.edu/video/pseudorandomness-substitution-sequences-primes),
+  IAS talk (3 Dec. 2008), corpus key `51ef6ccdfe811aca02e4380ca93f0867`,
+  E1/S2 near 701 seconds** — the doubling-map counterexample shows that an
+  exceptional point can simply preload a desired sequence in its binary
+  expansion.  This is the exact warning behind the ordinary-root/clean-catalyst
+  requirement.
+- **P. Harsha, [“An Improved Line-Point Low-Degree
+  Test”](https://www.ias.edu/video/improved-line-point-low-degree-test), IAS
+  talk (23 Sept. 2024), corpus key `b5a7f9887daa1ac832aca5a35895482f`,
+  S5--S7/E3--E4** — slice-wise roots glue only after bounded degree, enough
+  directions, and a common simple-root Hensel gate.  Valuation singularities
+  and ordinary-root stabilization remain separate.
+- **R. Oliveira, [“Factors of polynomials of low individual
+  degree”](https://www.ias.edu/video/csdm/2015/1012-RafaelOliveira), IAS talk
+  (12 Oct. 2015), corpus key `5f48881ff6900ff31b1b09211f54361b`, S3--S5
+  at 1,077--2,482 seconds** — homogeneous Hensel/Newton recovery and reversal
+  motivate extracting a returned-catalyst factor exactly before searching
+  its integer points.  Unbounded macro exponents may destroy bounded degree.
+- **M. Forbes, [“Polynomial Identity Testing of Read-Once Oblivious Algebraic
+  Branching Programs”](https://www.ias.edu/video/csdm/forbes), IAS talk
+  (26 Nov. 2012), corpus key `e94e440f44f7a0396ffcc58c9bcdd99c`, S3--S5**
+  — full coefficient-matrix spans, rather than separate nonzeroness tests,
+  compose under recursive products.  Span intersection alone does not prove
+  that an actual clean word exists.
+- **N. Sweeting, [“Kolyvagin's conjecture and higher congruences of modular
+  forms”](https://www.ias.edu/video/kolyvagins-conjecture-and-higher-congruences-modular-forms),
+  IAS talk (22 Apr. 2021), corpus key `2ec6065ba6553d6058a1b3551199f757`,
+  S3--S4/S6--S7** — non-liftable finite-congruence maps motivate a two-index
+  descent with explicit precision loss and one genuine ordinary top lift.
+- **A. Wieser, [“Local-Global Principles and Effective Rates of
+  Equidistribution For Semisimple Orbits”](https://www.ias.edu/video/local-global-principles-and-effective-rates-equidistribution-semisimple-orbits),
+  IAS talk (14 Nov. 2024), corpus key `d6a6f21ab12a4e96856899c8b8d76b88`,
+  S1--S4/S6** — target hitting can turn adelic solutions into integral ones
+  on semisimple homogeneous spaces.  Collatz macro actions appear largely
+  solvable and noninvertible, and independent finite lifts do not make one atom.
+- **A. Reid, [“Profinite rigidity and flexibility for compact 3-manifold
+  groups”](https://www.ias.edu/video/geostruct/2016/0202-Reid), IAS talk
+  (2 Feb. 2016), corpus key `752f9598c8fc447ea9edf6f2e2ffe372`, S1/S3/S5--S7**
+  — finite quotients determine a discrete object only inside restricted
+  rigidity classes; even uniqueness does not prove existence of an ordinary
+  seed.
+- **R. Ehrenborg, [“Counting Pattern Avoiding Permutations Via Integral
+  Operators”](https://www.ias.edu/video/csdm/ehrenborg), IAS talk (23 Nov.
+  2010), corpus key `e5d73aeba9471656ab49c2384cd0b4f3`, S2/S7** — primitive
+  overlap graphs can certify abundant locally composable macro words, but a
+  fixed graph favors periodic paths and cannot fund unbounded address precision.
+- **E. Haramaty, [“On the Structure of Cubic and Quartic
+  Polynomials”](https://www.ias.edu/video/csdm/haramaty), IAS talk (1 Nov.
+  2010), corpus key `63ed799a0a626b68c9ed383b4c711805`, S5--S8/E3** — biased
+  low-degree derivatives can share a bounded-rank basis, refining the
+  carry-structure recovery lane; the quartic counterexample blocks a naive
+  universal inverse statement.
 - **U. Zannier, [“On a Problem of Polya and Some of its
   Evolutions”](https://www.ias.edu/video/problem-polya-and-some-its-evolutions),
   IAS talk (8 Apr. 2026), corpus key `8c6e7ea43c9de3b12a756caab4bc5ea0`,
