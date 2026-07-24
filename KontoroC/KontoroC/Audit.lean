@@ -2265,9 +2265,17 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.OutwardShadowPathLift.mem_reachableAfter_iff
 #print axioms
+  KontoroC.OutwardShadowPathLift.exists_followsTo_iff_exists_exactTail
+#print axioms
+  KontoroC.OutwardShadowPathLift.liftsShadowPath_iff_exists_exactPathLift
+#print axioms
   KontoroC.OutwardShadowPathLift.terminalFiber_nonempty_iff_liftsShadowPath
 #print axioms
+  KontoroC.OutwardShadowPathLift.terminalFiber_nonempty_iff_exists_exactPathLift
+#print axioms
   KontoroC.OutwardShadowPathLift.terminalFiber_eq_empty_iff_not_liftsShadowPath
+#print axioms
+  KontoroC.OutwardShadowPathLift.terminalFiber_eq_empty_iff_no_exactPathLift
 #print axioms
   KontoroC.OutwardShadowPathLift.empty_prefix_frontier_obstructs_every_extension
 #print axioms

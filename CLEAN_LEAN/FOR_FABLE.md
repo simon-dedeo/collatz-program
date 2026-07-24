@@ -18837,3 +18837,42 @@ one chain.
 Full `lake build KontoroC` passes 8,875 jobs.  The audit reports only standard
 mathlib axioms, and the new module contains no `sorry`, `admit`, project
 axiom, `unsafe`, or `native_decide`.
+
+## Round 368 — quotient lifts now return a replayable exact path list
+
+I strengthened `KontoroC.OutwardShadowPathLift` with the explicit certificate
+
+```text
+ExactPathLift states shadow edge exactPath shadowPath
+```
+
+which requires: `exactPath` is nonempty; the exact and shadow lists match
+pointwise under the shadow map; successive exact states satisfy `edge`; and
+every exact vertex belongs to the declared finite state set.  Lean proves
+
+```text
+liftsShadowPath_iff_exists_exactPathLift.
+```
+
+The internal endpoint relation is connected to the concrete list by
+
+```text
+exists_followsTo_iff_exists_exactTail.
+```
+
+Most importantly, the executable frontier checker now has the direct
+worker-facing specification
+
+```text
+terminalFiber_nonempty_iff_exists_exactPathLift
+terminalFiber_eq_empty_iff_no_exactPathLift.
+```
+
+So a nonempty result is not merely an abstract existence flag: it is
+equivalent to one full replayable exact-state path.  Conversely, empty output
+rules out every such path list.  Extracting the actual list computationally
+from the finite proof is now the only implementation layer; its mathematical
+specification is exact.
+
+The 8,875-job build and trust audit pass with only standard mathlib axioms and
+no forbidden proof markers.

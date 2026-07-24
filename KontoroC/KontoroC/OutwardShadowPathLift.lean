@@ -47,6 +47,106 @@ def LiftsShadowPath (states : Finset Exact) (shadow : Exact → Shadow)
       ∃ source ∈ states, shadow source = firstShadow ∧
         ∃ terminal, FollowsTo states shadow edge source rest terminal
 
+/-- A fully replayable exact path certificate: exact and shadow vertex lists
+match pointwise, every exact vertex is in the declared state set, and all
+successive exact vertices satisfy the edge relation. -/
+def ExactPathLift (states : Finset Exact) (shadow : Exact → Shadow)
+    (edge : Exact → Exact → Prop)
+    (exactPath : List Exact) (shadowPath : List Shadow) : Prop :=
+  exactPath ≠ [] ∧
+  exactPath.Forall₂ (fun exactState shadowState =>
+    shadow exactState = shadowState) shadowPath ∧
+  exactPath.IsChain edge ∧
+  ∀ exactState ∈ exactPath, exactState ∈ states
+
+/-- Endpoint-sensitive future execution is equivalent, after forgetting the
+chosen endpoint, to an explicit exact-state tail. -/
+theorem exists_followsTo_iff_exists_exactTail
+    (states : Finset Exact) (shadow : Exact → Shadow)
+    (edge : Exact → Exact → Prop) (source : Exact) (rest : List Shadow) :
+    (∃ terminal, FollowsTo states shadow edge source rest terminal) ↔
+      ∃ exactTail,
+        exactTail.Forall₂ (fun exactState shadowState =>
+          shadow exactState = shadowState) rest ∧
+        (source :: exactTail).IsChain edge ∧
+        ∀ exactState ∈ exactTail, exactState ∈ states := by
+  induction rest generalizing source with
+  | nil => simp [FollowsTo]
+  | cons nextShadow rest ih =>
+      constructor
+      · rintro ⟨terminal, next, hstates, hedge, hshadow, hfollow⟩
+        obtain ⟨tail, htailShadow, htailChain, htailStates⟩ :=
+          (ih next).mp ⟨terminal, hfollow⟩
+        refine ⟨next :: tail, ?_, ?_, ?_⟩
+        · exact htailShadow.cons hshadow
+        · rw [List.isChain_cons_cons]
+          exact ⟨hedge, htailChain⟩
+        · intro exactState hmem
+          simp only [List.mem_cons] at hmem
+          rcases hmem with rfl | hmem
+          · exact hstates
+          · exact htailStates exactState hmem
+      · rintro ⟨exactTail, htailShadow, htailChain, htailStates⟩
+        cases exactTail with
+        | nil => cases htailShadow
+        | cons next tail =>
+            cases htailShadow with
+            | cons hshadow hrestShadow =>
+                rw [List.isChain_cons_cons] at htailChain
+                obtain ⟨hedge, hrestChain⟩ := htailChain
+                have hnextStates : next ∈ states :=
+                  htailStates next (by simp)
+                have htailStates' :
+                    ∀ exactState ∈ tail, exactState ∈ states := by
+                  intro exactState hmem
+                  exact htailStates exactState (by simp [hmem])
+                obtain ⟨terminal, hfollow⟩ :=
+                  (ih next).mpr ⟨tail, hrestShadow,
+                    hrestChain, htailStates'⟩
+                exact ⟨terminal, next, hnextStates, hedge,
+                  hshadow, hfollow⟩
+
+/-- The relational lift predicate is exactly existence of one fully
+replayable exact-state path list. -/
+theorem liftsShadowPath_iff_exists_exactPathLift
+    (states : Finset Exact) (shadow : Exact → Shadow)
+    (edge : Exact → Exact → Prop) (shadowPath : List Shadow) :
+    LiftsShadowPath states shadow edge shadowPath ↔
+      ∃ exactPath, ExactPathLift states shadow edge exactPath shadowPath := by
+  cases shadowPath with
+  | nil =>
+      simp [LiftsShadowPath, ExactPathLift]
+  | cons firstShadow rest =>
+      constructor
+      · rintro ⟨source, hsource, hshadow, terminal, hfollow⟩
+        obtain ⟨tail, htailShadow, hchain, htailStates⟩ :=
+          (exists_followsTo_iff_exists_exactTail
+            states shadow edge source rest).mp ⟨terminal, hfollow⟩
+        refine ⟨source :: tail, by simp, ?_, hchain, ?_⟩
+        · exact htailShadow.cons hshadow
+        · intro exactState hmem
+          simp only [List.mem_cons] at hmem
+          rcases hmem with rfl | hmem
+          · exact hsource
+          · exact htailStates exactState hmem
+      · rintro ⟨exactPath, hne, hpointwise, hchain, hstates⟩
+        cases exactPath with
+        | nil => exact (hne rfl).elim
+        | cons source tail =>
+            cases hpointwise with
+            | cons hshadow htailShadow =>
+                have hsource : source ∈ states :=
+                  hstates source (by simp)
+                have htailStates :
+                    ∀ exactState ∈ tail, exactState ∈ states := by
+                  intro exactState hmem
+                  exact hstates exactState (by simp [hmem])
+                obtain ⟨terminal, hfollow⟩ :=
+                  (exists_followsTo_iff_exists_exactTail
+                    states shadow edge source rest).mpr
+                    ⟨tail, htailShadow, hchain, htailStates⟩
+                exact ⟨source, hsource, hshadow, terminal, hfollow⟩
+
 section Computable
 
 variable [Fintype Exact] [DecidableEq Exact] [DecidableEq Shadow]
@@ -157,6 +257,19 @@ theorem terminalFiber_nonempty_iff_liftsShadowPath
         exact ⟨source, mem_initialFiber_iff.mpr
           ⟨hstates, hshadow⟩, hfollow⟩
 
+/-- Computable frontier output is nonempty exactly when there is a concrete,
+fully replayable exact-state path certificate. -/
+theorem terminalFiber_nonempty_iff_exists_exactPathLift
+    (states : Finset Exact) (shadow : Exact → Shadow)
+    (edge : Exact → Exact → Prop) [DecidableRel edge]
+    (path : List Shadow) :
+    (terminalFiber states shadow edge path).Nonempty ↔
+      ∃ exactPath, ExactPathLift states shadow edge exactPath path :=
+  (terminalFiber_nonempty_iff_liftsShadowPath
+    states shadow edge path).trans
+    (liftsShadowPath_iff_exists_exactPathLift
+      states shadow edge path)
+
 /-- Empty terminal frontier is exactly failure of the finite lift. -/
 theorem terminalFiber_eq_empty_iff_not_liftsShadowPath
     (states : Finset Exact) (shadow : Exact → Shadow)
@@ -166,6 +279,17 @@ theorem terminalFiber_eq_empty_iff_not_liftsShadowPath
       ¬LiftsShadowPath states shadow edge path := by
   rw [← Finset.not_nonempty_iff_eq_empty,
     terminalFiber_nonempty_iff_liftsShadowPath]
+
+/-- Empty checker output is equivalently the nonexistence of any replayable
+exact-state path list. -/
+theorem terminalFiber_eq_empty_iff_no_exactPathLift
+    (states : Finset Exact) (shadow : Exact → Shadow)
+    (edge : Exact → Exact → Prop) [DecidableRel edge]
+    (path : List Shadow) :
+    terminalFiber states shadow edge path = ∅ ↔
+      ¬∃ exactPath, ExactPathLift states shadow edge exactPath path := by
+  rw [terminalFiber_eq_empty_iff_not_liftsShadowPath,
+    liftsShadowPath_iff_exists_exactPathLift]
 
 @[simp] theorem advance_empty
     (states : Finset Exact) (shadow : Exact → Shadow)
