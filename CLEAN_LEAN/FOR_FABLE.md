@@ -19930,3 +19930,52 @@ full binary level at every depth.  Any arithmetic dispatcher attack must
 therefore explain selection inside a large symbolic survivor set, while any
 claim that first-passage crossing is almost sure under fair independent bits
 is formally false.
+
+## Round 388 — the gap is actually fifteen percent
+
+Round 387's `25/26` bound was still far from the best elementary integral
+compression.  The much smaller exact comparison
+
+```text
+3^3 < 2^5
+```
+
+already turns outwardness into
+
+```text
+3 * count(false,w) < 2 * count(true,w).
+```
+
+Using the exact rational tilt
+
+```text
+r = 20/17,
+q(true)  = r^2 / 2,
+q(false) = r^(-3) / 2,
+q(false)+q(true) <= 1
+```
+
+strengthens the universal first-passage Kraft mass bound to
+
+```text
+sum 2^(-length w) <= 17/20.
+```
+
+The finite-depth cardinal theorem is correspondingly now
+
+```text
+firstPassage_uncovered_card_lower_bound (L) :
+  3 * 2^L <= 20 * card(uncovered length-L words).
+```
+
+So at least fifteen percent of every Boolean level has no outward prefix.
+The sharp grammar corollary is
+
+```text
+FirstPassageGrammar.outMass_le_seventeen_div_twenty.
+```
+
+The earlier `25/26` and `100/101` grammar names remain as compatibility
+corollaries.  The significance and scope are unchanged: this is a strong
+full-entropy symbolic survivor theorem, but not an assertion that any
+ordinary Collatz orbit selects one of those paths forever.

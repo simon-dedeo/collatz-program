@@ -9,8 +9,8 @@ import KontoroC.OutwardFiniteStateKraftGap
 # A uniform Kraft gap for outward first-passage words
 
 This file extracts a quantitative scarcity consequence from outwardness.
-The elementary rational comparison `3^17 < 2^27` implies that every outward
-Boolean word has strictly fewer than `10/17` as many false letters as true
+The elementary rational comparison `3^3 < 2^5` implies that every outward
+Boolean word has strictly fewer than `2/3` as many false letters as true
 letters.  A slightly biased subprobability on the two letters can therefore
 dominate ordinary dyadic mass by a fixed factor on every outward word.
 
@@ -27,7 +27,7 @@ open ShortcutParityPeriodicNoGo PrefixKraft OutwardFirstPassage
 
 /-- Exact integral slope consequence of outwardness. -/
 theorem outward_false_true_slope {w : List Bool} (hout : WordOutward w) :
-    17 * w.count false < 10 * w.count true := by
+    3 * w.count false < 2 * w.count true := by
   have hodd : 0 < w.count true := by
     by_contra h
     have hz : w.count true = 0 := Nat.eq_zero_of_not_pos h
@@ -35,19 +35,19 @@ theorem outward_false_true_slope {w : List Bool} (hout : WordOutward w) :
     have : 1 ≤ 2 ^ w.length := Nat.one_le_pow w.length 2 (by omega)
     omega
   by_contra hnot
-  have h10 : 10 * w.count true ≤ 17 * w.count false := by omega
+  have h2 : 2 * w.count true ≤ 3 * w.count false := by omega
   have hlen := List.count_true_add_count_false w
-  have hexp : 27 * w.count true ≤ 17 * w.length := by omega
-  have hraise := Nat.pow_lt_pow_left hout (by omega : 17 ≠ 0)
-  have hbase : 3 ^ 17 < 2 ^ 27 := by norm_num
+  have hexp : 5 * w.count true ≤ 3 * w.length := by omega
+  have hraise := Nat.pow_lt_pow_left hout (by omega : 3 ≠ 0)
+  have hbase : 3 ^ 3 < 2 ^ 5 := by norm_num
   have hbaseRaise := Nat.pow_lt_pow_left hbase (Nat.ne_of_gt hodd)
-  have hmono : 2 ^ (27 * w.count true) ≤ 2 ^ (17 * w.length) :=
+  have hmono : 2 ^ (5 * w.count true) ≤ 2 ^ (3 * w.length) :=
     Nat.pow_le_pow_right (by omega) hexp
   have hbaseRaise' :
-      3 ^ (17 * w.count true) < 2 ^ (27 * w.count true) := by
+      3 ^ (3 * w.count true) < 2 ^ (5 * w.count true) := by
     simpa [pow_mul] using hbaseRaise
   have hraise' :
-      2 ^ (17 * w.length) < 3 ^ (17 * w.count true) := by
+      2 ^ (3 * w.length) < 3 ^ (3 * w.count true) := by
     simpa [pow_mul, Nat.mul_comm] using hraise
   exact (lt_irrefl _ (hbaseRaise'.trans (hmono.trans_lt hraise')))
 
@@ -223,14 +223,14 @@ theorem weightedKraft_finite
   · exact hpf
 
 /-- The small rational tilt used to obtain a strict uniform defect. -/
-noncomputable def biasBase : ℝ := 26 / 25
+noncomputable def biasBase : ℝ := 20 / 17
 
 /-- A subprobability on the Boolean alphabet.  Relative to a fair bit, a
-true letter earns `biasBase^10` and a false letter pays
-`biasBase^(-17)`. -/
+true letter earns `biasBase^2` and a false letter pays
+`biasBase^(-3)`. -/
 noncomputable def biasedLetter (b : Bool) : ℝ :=
-  if b then biasBase ^ 10 * (2 : ℝ)⁻¹
-  else (biasBase⁻¹) ^ 17 * (2 : ℝ)⁻¹
+  if b then biasBase ^ 2 * (2 : ℝ)⁻¹
+  else (biasBase⁻¹) ^ 3 * (2 : ℝ)⁻¹
 
 /-- Ordinary fair-bit cylinder weight. -/
 noncomputable def dyadicWeight (w : List Bool) : ℝ :=
@@ -255,12 +255,12 @@ theorem biasedLetter_sum_le_one :
 
 theorem biasedWeight_eq (w : List Bool) :
     wordWeight biasedLetter w = dyadicWeight w *
-      (biasBase ^ (10 * w.count true) *
-        (biasBase⁻¹) ^ (17 * w.count false)) := by
+      (biasBase ^ (2 * w.count true) *
+        (biasBase⁻¹) ^ (3 * w.count false)) := by
   rw [wordWeight_eq_counts]
-  rw [show biasedLetter true = biasBase ^ 10 * (2 : ℝ)⁻¹ by
+  rw [show biasedLetter true = biasBase ^ 2 * (2 : ℝ)⁻¹ by
         simp [biasedLetter],
-      show biasedLetter false = (biasBase⁻¹) ^ 17 * (2 : ℝ)⁻¹ by
+      show biasedLetter false = (biasBase⁻¹) ^ 3 * (2 : ℝ)⁻¹ by
         simp [biasedLetter]]
   simp only [dyadicWeight]
   rw [show w.length = w.count true + w.count false by
@@ -268,30 +268,30 @@ theorem biasedWeight_eq (w : List Bool) :
   rw [pow_add, pow_mul, pow_mul]
   ring
 
-/-- Every outward word gains the fixed factor `26/25` under the tilted
+/-- Every outward word gains the fixed factor `20/17` under the tilted
 subprobability. -/
 theorem biasBase_mul_dyadicWeight_le_of_outward
     {w : List Bool} (hout : WordOutward w) :
     biasBase * dyadicWeight w ≤ wordWeight biasedLetter w := by
   have hslope := outward_false_true_slope hout
-  have hexp : 17 * w.count false + 1 ≤ 10 * w.count true := by omega
+  have hexp : 3 * w.count false + 1 ≤ 2 * w.count true := by omega
   have hp := pow_le_pow_right₀
     (show (1 : ℝ) ≤ biasBase by norm_num [biasBase]) hexp
   have hmul := mul_le_mul_of_nonneg_right hp
-    (show 0 ≤ (biasBase⁻¹) ^ (17 * w.count false) by
+    (show 0 ≤ (biasBase⁻¹) ^ (3 * w.count false) by
       apply pow_nonneg
       exact inv_nonneg.mpr (by norm_num [biasBase]))
   have hleft :
-      biasBase ^ (17 * w.count false + 1) *
-          (biasBase⁻¹) ^ (17 * w.count false) = biasBase := by
+      biasBase ^ (3 * w.count false + 1) *
+          (biasBase⁻¹) ^ (3 * w.count false) = biasBase := by
     rw [pow_succ]
     calc
-      biasBase ^ (17 * w.count false) * biasBase *
-          biasBase⁻¹ ^ (17 * w.count false) =
-          biasBase * (biasBase ^ (17 * w.count false) *
-            biasBase⁻¹ ^ (17 * w.count false)) := by ring
+      biasBase ^ (3 * w.count false) * biasBase *
+          biasBase⁻¹ ^ (3 * w.count false) =
+          biasBase * (biasBase ^ (3 * w.count false) *
+            biasBase⁻¹ ^ (3 * w.count false)) := by ring
       _ = biasBase * (biasBase * biasBase⁻¹) ^
-          (17 * w.count false) := by rw [mul_pow]
+          (3 * w.count false) := by rw [mul_pow]
       _ = biasBase := by simp [biasBase]
   rw [hleft] at hmul
   rw [biasedWeight_eq]
@@ -304,7 +304,7 @@ theorem finite_outward_dyadicMass_le
     (C : Finset (List Bool))
     (hpf : PrefixFree (C : Set (List Bool)))
     (hout : ∀ w ∈ C, WordOutward w) :
-    ∑ w ∈ C, dyadicWeight w ≤ (25 : ℝ) / 26 := by
+    ∑ w ∈ C, dyadicWeight w ≤ (17 : ℝ) / 20 := by
   have hpoint :
       ∑ w ∈ C, biasBase * dyadicWeight w ≤
         ∑ w ∈ C, wordWeight biasedLetter w :=
@@ -326,7 +326,7 @@ outward bound automatically. -/
 theorem finite_firstPassage_dyadicMass_le
     (C : Finset (List Bool))
     (hfirst : ∀ w ∈ C, FirstPassage w) :
-    ∑ w ∈ C, dyadicWeight w ≤ (25 : ℝ) / 26 := by
+    ∑ w ∈ C, dyadicWeight w ≤ (17 : ℝ) / 20 := by
   apply finite_outward_dyadicMass_le C
   · intro u hu v hv huv
     exact OutwardFirstPassage.prefixFree (hfirst u hu) (hfirst v hv) huv
@@ -355,7 +355,7 @@ theorem firstPassageWeight_nonneg (w : List Bool) :
   · exact le_rfl
 
 theorem finite_firstPassageWeight_sum_le (U : Finset (List Bool)) :
-    ∑ w ∈ U, firstPassageWeight w ≤ (25 : ℝ) / 26 := by
+    ∑ w ∈ U, firstPassageWeight w ≤ (17 : ℝ) / 20 := by
   classical
   let C := U.filter FirstPassage
   have hfirst : ∀ w ∈ C, FirstPassage w := by
@@ -371,7 +371,7 @@ theorem summable_firstPassageWeight : Summable firstPassageWeight := by
 
 /-- Uniform strict defect for the full countable first-passage code. -/
 theorem tsum_firstPassageWeight_le :
-    ∑' w : List Bool, firstPassageWeight w ≤ (25 : ℝ) / 26 := by
+    ∑' w : List Bool, firstPassageWeight w ≤ (17 : ℝ) / 20 := by
   exact summable_firstPassageWeight.tsum_le_of_sum_le
     finite_firstPassageWeight_sum_le
 
@@ -436,7 +436,7 @@ theorem coveredAtDepth_card_bound
     (hlen : ∀ w ∈ C, w.length ≤ L)
     (hpf : PrefixFree (C : Set (List Bool)))
     (hout : ∀ w ∈ C, WordOutward w) :
-    26 * (coveredAtDepth C L).card ≤ 25 * 2 ^ L := by
+    20 * (coveredAtDepth C L).card ≤ 17 * 2 ^ L := by
   have hmass := finite_outward_dyadicMass_le C hpf hout
   have hscaled : ∀ w ∈ C,
       dyadicWeight w = (2 ^ (L - w.length) : ℝ) / 2 ^ L := by
@@ -447,7 +447,7 @@ theorem coveredAtDepth_card_bound
     simpa [dyadicWeight, one_div] using hr
   have hmass' :
       (∑ w ∈ C, (2 ^ (L - w.length) : ℝ)) / 2 ^ L ≤
-        (25 : ℝ) / 26 := by
+        (17 : ℝ) / 20 := by
     rw [Finset.sum_div]
     calc
       (∑ w ∈ C, (2 ^ (L - w.length) : ℝ) / 2 ^ L) =
@@ -455,15 +455,15 @@ theorem coveredAtDepth_card_bound
             apply Finset.sum_congr rfl
             intro w hw
             exact (hscaled w hw).symm
-      _ ≤ (25 : ℝ) / 26 := hmass
+      _ ≤ (17 : ℝ) / 20 := hmass
   have hden : (0 : ℝ) < 2 ^ L := by positivity
   have hcross := (div_le_iff₀ hden).mp hmass'
   have hsumR :
-      (26 : ℝ) * (∑ w ∈ C, (2 ^ (L - w.length) : ℝ)) ≤
-        25 * 2 ^ L := by
+      (20 : ℝ) * (∑ w ∈ C, (2 ^ (L - w.length) : ℝ)) ≤
+        17 * 2 ^ L := by
     nlinarith
   have hsumN :
-      26 * (∑ w ∈ C, 2 ^ (L - w.length)) ≤ 25 * 2 ^ L := by
+      20 * (∑ w ∈ C, 2 ^ (L - w.length)) ≤ 17 * 2 ^ L := by
     exact_mod_cast hsumR
   have hcard :
       (coveredAtDepth C L).card ≤ ∑ w ∈ C, 2 ^ (L - w.length) := by
@@ -477,10 +477,10 @@ theorem coveredAtDepth_card_bound
         rw [card_extensions]
   omega
 
-/-- At every depth, at least a `1/26` fraction of Boolean words avoid all
+/-- At every depth, at least a `3/20` fraction of Boolean words avoid all
 outward first-passage cylinders visible by that depth. -/
 theorem firstPassage_uncovered_card_lower_bound (L : ℕ) :
-    2 ^ L ≤ 26 *
+    3 * 2 ^ L ≤ 20 *
       (binaryWords L \ coveredAtDepth (firstPassageWordsUpTo L) L).card := by
   let C := firstPassageWordsUpTo L
   have hlen : ∀ w ∈ C, w.length ≤ L := by
@@ -539,9 +539,9 @@ variable [Fintype Edge] [DecidableEq Edge]
 
 /-- Every state of every finite first-passage grammar has the same universal
 rational Kraft defect.  No transfer supersolution is needed. -/
-theorem FirstPassageGrammar.outMass_le_twenty_five_div_twenty_six
+theorem FirstPassageGrammar.outMass_le_seventeen_div_twenty
     (G : FirstPassageGrammar State Edge) (i : State) :
-    G.outMass i ≤ (25 : ℚ) / 26 := by
+    G.outMass i ≤ (17 : ℚ) / 20 := by
   rw [G.outMass_eq_sum_outgoingWords i]
   have hfirst : ∀ w ∈ G.outgoingWords i, FirstPassage w := by
     intro w hw
@@ -553,17 +553,23 @@ theorem FirstPassageGrammar.outMass_le_twenty_five_div_twenty_six
   norm_num
   simpa [dyadicWeight] using h
 
-/-- Compatibility corollary retaining the first, weaker public constant. -/
+/- Compatibility corollaries retaining the earlier weaker public constants. -/
+theorem FirstPassageGrammar.outMass_le_twenty_five_div_twenty_six
+    (G : FirstPassageGrammar State Edge) (i : State) :
+    G.outMass i ≤ (25 : ℚ) / 26 := by
+  exact (FirstPassageGrammar.outMass_le_seventeen_div_twenty G i).trans
+    (by norm_num)
+
 theorem FirstPassageGrammar.outMass_le_hundred_div_one_hundred_one
     (G : FirstPassageGrammar State Edge) (i : State) :
     G.outMass i ≤ (100 : ℚ) / 101 := by
-  exact (FirstPassageGrammar.outMass_le_twenty_five_div_twenty_six G i).trans
+  exact (FirstPassageGrammar.outMass_le_seventeen_div_twenty G i).trans
     (by norm_num)
 
 theorem FirstPassageGrammar.outMass_lt_one_uniform
     (G : FirstPassageGrammar State Edge) (i : State) :
     G.outMass i < 1 := by
-  exact (FirstPassageGrammar.outMass_le_twenty_five_div_twenty_six G i).trans_lt
+  exact (FirstPassageGrammar.outMass_le_seventeen_div_twenty G i).trans_lt
     (by norm_num)
 
 /-- Consequently every state misses a concrete fixed-depth binary cylinder,
