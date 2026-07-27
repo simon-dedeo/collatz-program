@@ -150,6 +150,47 @@ These are still bounded computations.  A K1b crossing is floating; C2b says
 nothing above its printed source bound; and C3b says nothing about schedules
 past its printed cylinder depth.
 
+## B1 — bouncer backward-cylinder atlas
+
+Worker: `bouncer_atlas.c` (exact GMP arithmetic + OpenMP, four-node array).
+
+This is the first PSC computation aimed directly at the autonomous
+valuation-selected unit-charge bouncer rather than a prescribed opcode
+schedule.  For every triple `(m,h,m')` in a finite box, it derives the exact
+affine family of positive odd fixed-register inputs whose literal bouncer
+step has input phase `m`, collision phase `h`, and next input phase `m'`.
+It then links those families backward by exact generalized CRT.  Failed links
+are genuine empty cylinder intersections; successful links retain the least
+positive ordinary root, the full affine stride, and an exact replay code.
+
+The production array uses
+
+```text
+1 <= m,h,m' <= 12,  five linked bouncer blocks,  four disjoint shards.
+```
+
+There are 1,728 one-block edge families, 248,832 two-block prefix tasks,
+5,159,780,352 possible depth-four paths, and at most 743,008,370,688 linked
+depth-five opcode paths.  The final numbers are upper bounds because
+incompatible intermediate cylinders are pruned.  The
+atlas records link failures, canonical-root stabilizations/decreases,
+nonoutward finite paths, and the least root and least root increment at every
+depth.  These statistics are designed to expose either an unexpectedly
+coherent backward ray or a finite obstruction suitable for a height theorem.
+
+Every edge is independently replayed in C at two affine parameters.  A
+separate Python verifier reconstructs the complete small box from the
+literal bouncer formula and independently recomputes all pairwise links.
+The production shards are SHA-256 pinned; a dependent collector checks their
+partition and identical edge tables before combining them.
+
+This remains a finite atlas, not a counterexample.  In particular, a finite
+root stabilization is not an infinite compatible ray.  The worker receives
+a pre-wall-time signal, checkpoints only completed prefix batches, writes
+`status=partial`, and exits cleanly.  Thus even a wall-time-limited run leaves
+exact linked-cylinder data for later proof iterations, while only full
+coverage can receive `status=complete`.
+
 ## C1 — enlarged exact carry Bellman frontier
 
 Worker: `carry_budget.c` (GMP + OpenMP, at least 1,024 independent prefix
@@ -234,14 +275,22 @@ jobs, and short build/scaling charges keeps the all-caps envelope near the
 11,876-SU grant.  Expected use is around the requested 10k SUs, but actual
 accounting remains runtime-based.
 
+The user has authorized B1 against an additional roughly 2,000 RM SUs expected
+to arrive.  Its four 128-core tasks request four hours each (a 2,048-SU hard
+cap), but signal themselves five minutes before wall time, making the intended
+maximum productive charge about 2,005 SUs plus a negligible shared-node build
+and collector.  If it finishes early, PSC charges only elapsed core-hours.
+
 All production scripts set `OMP_NUM_THREADS=128`, bind one thread per core,
 and log CPU binding plus elapsed time.  File transfer uses the DTN
 `data.bridges2.psc.edu`; jobs are submitted only from the login node.
 
 ## Verification and promotion rules
 
-1. `psc_compile_smoke.sbatch` must compile every worker with GCC and run all
-   seven tiny regressions.
+1. `psc_compile_smoke.sbatch` compiles the original workers with GCC;
+   `psc_bouncer_build.sbatch` separately compiles B1 and runs its independent
+   unsharded, sharded-collector, and scale regressions without disturbing
+   executables needed by already queued jobs.
 2. Production logs must show 128 OpenMP threads and a successful exit.
 3. K1/K2 remain explicitly floating diagnostics.  Any proposed KL promotion
    needs interval or exact certificate verification and then the existing
@@ -299,3 +348,10 @@ allocation.
 | C2b | `psc_c2b_minplus.sbatch` | 1,536 SU | 42720135 | queued: exact B=5.5*10^12 profile |
 | C3b | `psc_c3b_shard.sbatch` | 3 × 832 SU | 42720136_[0-2] | queued: disjoint depth-27 schedule shards |
 | C3b collector | `psc_c3b_collect.sbatch` | 0.33 SU | 42720137 | `afterok:42720136`; verifies/combines all three shards |
+| B1 build | `psc_bouncer_build.sbatch` | 1.33 SU | 42720597 | failed safely: independent replay exposed missing pre-division modulus in edge CRT |
+| B1 build | `psc_bouncer_build.sbatch` | 1.33 SU | 42720641 | cancelled during smoke after task-count name shadowing was diagnosed |
+| B1 build | `psc_bouncer_build.sbatch` | 1.33 SU | 42720651 | C smoke passed; old PSC Python rejected modern annotation syntax |
+| B1 build | `psc_bouncer_build.sbatch` | 1.33 SU | 42720654 | exact C/Python replay and four-shard merge passed |
+| B1 signal build | `psc_bouncer_build.sbatch` | 1.33 SU | 42720663 | exact replay, merge, scale, and clean partial-checkpoint signal tests passed |
+| B1 | `psc_bouncer_atlas.sbatch` | 4 × 512 SU | 42720684_[0-3] | queued: exact `m,h,m'<=12`, depth-five backward-cylinder atlas |
+| B1 collector | `psc_bouncer_collect.sbatch` | 0.33 SU | 42720685 | `afterok:42720684`; verifies hashes and combines complete or exact partial coverage |

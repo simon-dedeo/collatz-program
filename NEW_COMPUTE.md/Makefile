@@ -2,7 +2,7 @@ CC ?= cc
 CFLAGS ?= -O3 -march=native -std=c11 -Wall -Wextra -Wpedantic -fopenmp
 LDLIBS ?= -lm
 
-PROGRAMS = kl_soft_spectrum kl_frustration_scan kl_coercivity_atlas carry_budget minplus_profile zero_carry_champions hensel_atlas
+PROGRAMS = kl_soft_spectrum kl_frustration_scan kl_coercivity_atlas carry_budget minplus_profile zero_carry_champions hensel_atlas bouncer_atlas
 
 .PHONY: all clean smoke
 
@@ -29,6 +29,9 @@ zero_carry_champions: zero_carry_champions.c
 hensel_atlas: hensel_atlas.c
 	$(CC) $(CFLAGS) -o $@ hensel_atlas.c -lgmp $(LDLIBS)
 
+bouncer_atlas: bouncer_atlas.c
+	$(CC) $(CFLAGS) -o $@ bouncer_atlas.c -lgmp $(LDLIBS)
+
 smoke: all
 	mkdir -p results/smoke
 	rm -f results/smoke/*.tsv
@@ -43,6 +46,8 @@ smoke: all
 	./zero_carry_champions 8 64 results/smoke/zero-shard2.tsv 2 3
 	python3 combine_zero_shards.py results/smoke/zero-combined.tsv results/smoke/zero-shard0.tsv results/smoke/zero-shard1.tsv results/smoke/zero-shard2.tsv
 	./hensel_atlas 1000 2 2 2 results/smoke/hensel.tsv
+	./bouncer_atlas 2 2 2 0 1 16 results/smoke/bouncer.tsv smoke
+	python3 verify_bouncer_atlas.py results/smoke/bouncer.tsv
 	python3 verify_smoke.py results/smoke
 
 clean:
