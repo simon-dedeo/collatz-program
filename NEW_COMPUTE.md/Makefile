@@ -2,7 +2,7 @@ CC ?= cc
 CFLAGS ?= -O3 -march=native -std=c11 -Wall -Wextra -Wpedantic -fopenmp
 LDLIBS ?= -lm
 
-PROGRAMS = kl_soft_spectrum kl_frustration_scan carry_budget minplus_profile zero_carry_champions hensel_atlas
+PROGRAMS = kl_soft_spectrum kl_frustration_scan kl_coercivity_atlas carry_budget minplus_profile zero_carry_champions hensel_atlas
 
 .PHONY: all clean smoke
 
@@ -13,6 +13,9 @@ kl_soft_spectrum: kl_soft_spectrum.c npy.h
 
 kl_frustration_scan: kl_frustration_scan.c npy.h
 	$(CC) $(CFLAGS) -o $@ kl_frustration_scan.c $(LDLIBS)
+
+kl_coercivity_atlas: kl_coercivity_atlas.c npy.h
+	$(CC) $(CFLAGS) -o $@ kl_coercivity_atlas.c $(LDLIBS)
 
 carry_budget: carry_budget.c
 	$(CC) $(CFLAGS) -o $@ carry_budget.c -lgmp $(LDLIBS)
@@ -31,6 +34,7 @@ smoke: all
 	rm -f results/smoke/*.tsv
 	./kl_soft_spectrum 8 1.9 4 200 1e-8 results/smoke/kl-soft.tsv -
 	./kl_frustration_scan /ocean/projects/mth260010p/sdedeo/collatz/kl/eigvec_k14.npy 1.8307718 results/smoke/kl-frustration.tsv
+	./kl_coercivity_atlas /ocean/projects/mth260010p/sdedeo/collatz/kl/eigvec_k14.npy 1.8307718 1 results/smoke/kl-coercivity.tsv
 	./carry_budget 50 8 20 results/smoke/carry.tsv
 	./minplus_profile 10000 8 4 10000 results/smoke/minplus.tsv
 	./zero_carry_champions 8 64 results/smoke/zero-champion.tsv

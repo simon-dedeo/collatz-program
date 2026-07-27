@@ -85,6 +85,39 @@ of `G epsilon^2`, and whether the hard/frustration ratios continue the
 selected `k=12,...,15` trend.  Inputs and outputs are floating, so this job
 orients a theorem and cannot establish one.
 
+### K2b — multiscale cold-error and transport-block coercivity atlas
+
+Worker: `kl_coercivity_atlas.c` (OpenMP, five-node Slurm array).
+
+K2 completed far below its wall-time cap because it was a streaming
+first-stage diagnostic.  Its `k=20` pass found hard gain `2.5343` times the
+quadratic target and second-gap frustration `1.5517` times the target, but
+the uniform smoothing allowance still made the conservative finite-beta
+quantity negative at `beta=256`.  K2b attacks that exact separation between
+strong hard signal and weak soft control.
+
+The five array elements scan every branch edge of the existing `k=16,...,20`
+vectors concurrently, one full 128-core RM node per level.  For every
+available projection depth they compute:
+
+- eleven cold scales from `beta=64` through `65536`;
+- the actual absolute cold-to-hard discrepancy and a row-specific safe
+  smoothing envelope, separately from the old global worst-case allowance;
+- hard gain and second-gap frustration arranged around the complete affine
+  transport cycle; and
+- every ternary block length, including minimum/maximum gain relative to its
+  mean, low-gain window fractions, coefficient of variation, and the longest
+  frustration-free run.
+
+This is a direct kill test for the proposed amortized/checkpoint bridge.  If
+transport-block minima stabilize above a positive fraction of their mean,
+they suggest a block coercivity theorem.  If arbitrarily long nearly empty
+blocks persist as the level grows, that simple theorem is not viable.  Later
+projected profiles are supersolutions with inherited slack, so their rows are
+reported separately and are not mislabeled as critical eigenvectors.  All
+K2b quantities remain floating diagnostics; even the integer-input levels
+need an exact follow-up before promotion.
+
 ## C1 — enlarged exact carry Bellman frontier
 
 Worker: `carry_budget.c` (GMP + OpenMP, at least 1,024 independent prefix
@@ -148,8 +181,9 @@ a finite CEGIS witness to replay and extend, not a Collatz counterexample.
 
 The live `projects` ledger on 2026-07-27 showed 11,875 Regular Memory SUs and
 1,993 GPU SUs.  Bridges-2 defines one RM SU as one core-hour; a full RM node is
-128 cores and therefore costs 128 SUs/hour.  Each production script requests
-one full node for 13 hours.  Six simultaneous caps give
+128 cores and therefore costs 128 SUs/hour.  Each of the original six
+production scripts requests one full node for 13 hours.  Their simultaneous
+caps give
 
 ```text
 6 jobs * 128 cores * 13 hours = 9,984 SUs,
@@ -158,6 +192,15 @@ one full node for 13 hours.  Six simultaneous caps give
 leaving 1,891 RM SUs before short smoke-test charges.  See the official
 [Bridges-2 accounting guide](https://www.psc.edu/resources/bridges-2/user-guide/#accounting-for-bridges-2-use).
 
+K2 actually completed in 77 seconds and the original C1 stopped after 22:40,
+so their unused caps were not charged.  The K2b follow-up is a five-element
+array capped at two hours per 128-core element, or 1,280 SUs total.  Counting
+the four still-running original jobs, the C1 resume, the two short completed
+jobs, and K2b gives a conservative production ceiling of about 9,650 SUs,
+plus the small build/scaling charges.  Thus the follow-up reuses released
+capacity rather than silently turning the requested roughly-10k-SU campaign
+into a much larger one.
+
 All production scripts set `OMP_NUM_THREADS=128`, bind one thread per core,
 and log CPU binding plus elapsed time.  File transfer uses the DTN
 `data.bridges2.psc.edu`; jobs are submitted only from the login node.
@@ -165,7 +208,7 @@ and log CPU binding plus elapsed time.  File transfer uses the DTN
 ## Verification and promotion rules
 
 1. `psc_compile_smoke.sbatch` must compile every worker with GCC and run all
-   six tiny regressions.
+   seven tiny regressions.
 2. Production logs must show 128 OpenMP threads and a successful exit.
 3. K1/K2 remain explicitly floating diagnostics.  Any proposed KL promotion
    needs interval or exact certificate verification and then the existing
@@ -183,7 +226,8 @@ and log CPU binding plus elapsed time.  File transfer uses the DTN
 The 13-hour limits are caps, not assumptions that every final box completes.
 K1 appends a valid floating CW bracket every 25 iterations and atomically
 saves a resumable raw vector every 250.  K2 completes and copies a `k=18`
-checkpoint before its `k=20` pass.  C1 runs all budget-28/code-size baselines
+checkpoint before its `k=20` pass.  K2b flushes each complete projection
+stage and each hard/frustration block family before moving onward.  C1 runs all budget-28/code-size baselines
 before harder budgets; C2 runs `B=10^7`, then `10^8`, then `10^9`; C3 writes
 one file per completed prefix depth; and C4 writes one file per completed
 counter triple.  Thus a wall-time exit leaves completed bounded boxes plus
@@ -208,4 +252,7 @@ box exhaustive merely because its job consumed the full allocation.
 | C3 | `psc_c3_champions.sbatch` | 1,664 SU | 42712602 | running; depth-19 and depth-22 outputs and hashes present |
 | C4 | `psc_c4_hensel.sbatch` | 1,664 SU | 42712603 | running; first three B=10^9 boxes and hashes present |
 | rebuild | `psc_compile_smoke.sbatch` | 4 cores × 20 min | 42715864 | fanout fix compiled; six-worker smoke verification passed |
-| C1 resume | `psc_c1_carry_resume.sbatch` | 1,664 SU | 42715865 | dependency released after successful rebuild; pending/runnable |
+| C1 resume | `psc_c1_carry_resume.sbatch` | 1,664 SU | 42715865 | running on `r456` |
+| K2b build | `psc_compile_smoke.sbatch` | 4 cores × 20 min | 42718933 | first atlas smoke passed; exposed a cold-subtraction precision issue |
+| K2b rebuild | `psc_compile_smoke.sbatch` | 4 cores × 20 min | 42718988 | stable `expm1` cold excess; seven-worker smoke verification passed |
+| K2b | `psc_k2b_coercivity.sbatch` | 5 × 256 SU | 42719003_[0-4] | submitted; five levels pending for RM nodes |
