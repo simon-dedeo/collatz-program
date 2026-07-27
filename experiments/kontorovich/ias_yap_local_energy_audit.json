@@ -1,0 +1,240 @@
+{
+  "artifact_sha256": "39a73917faebbc744dcd02054ce18a90393d9ffb7006fa4a65b17d5e19990a62",
+  "audit": {
+    "analytic_extrapolation_status": "conjecture-free standard continued-fraction argument drafted in the companion note, but not machine-checked here",
+    "claim_scope": "complete exact scan only for 1<=L<=max_length; finite near-neutral blocks neither prove an asymptotic no-gap theorem nor construct an infinite compatible ordinary orbit",
+    "counterexample": null,
+    "interpretation": "exact finite obstruction to treating homogeneous Archimedean multiplier drift as a visibly uniform Yap-style local energy",
+    "lengths_exhausted": 10000,
+    "max_length": 10000,
+    "records": [
+      {
+        "R23_change": "0",
+        "canonical_seed": "1",
+        "canonical_seed_bits": 1,
+        "closed_form": {
+          "canonical_seed": "2^(L-O)*(2^O-1)",
+          "literal_endpoint": "3^O-1"
+        },
+        "endpoint_n_plus_one_factorization": [
+          0,
+          1,
+          "1"
+        ],
+        "length": 1,
+        "literal_endpoint": "2",
+        "literal_parity_replay_checked": true,
+        "multiplier_excess": {
+          "decimal_diagnostic": "5.00000000000000000000E-1",
+          "denominator": "2",
+          "numerator": "1"
+        },
+        "odd_count": 1,
+        "source_n_plus_one_factorization": [
+          1,
+          0,
+          "1"
+        ],
+        "strict_first_passage_checked": true,
+        "word_sha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+        "word_shape": "0^01^1"
+      },
+      {
+        "R23_change": "-4",
+        "canonical_seed": "6",
+        "canonical_seed_bits": 3,
+        "closed_form": {
+          "canonical_seed": "2^(L-O)*(2^O-1)",
+          "literal_endpoint": "3^O-1"
+        },
+        "endpoint_n_plus_one_factorization": [
+          0,
+          2,
+          "1"
+        ],
+        "length": 3,
+        "literal_endpoint": "8",
+        "literal_parity_replay_checked": true,
+        "multiplier_excess": {
+          "decimal_diagnostic": "1.25000000000000000000E-1",
+          "denominator": "8",
+          "numerator": "1"
+        },
+        "odd_count": 2,
+        "source_n_plus_one_factorization": [
+          0,
+          0,
+          "7"
+        ],
+        "strict_first_passage_checked": true,
+        "word_sha256": "fbb59ed10e9cd4ff45a12c5bb92cbd80df984ba1fe60f26a30febf218e2f0f5e",
+        "word_shape": "0^11^2"
+      },
+      {
+        "R23_change": "-2025",
+        "canonical_seed": "2032",
+        "canonical_seed_bits": 11,
+        "closed_form": {
+          "canonical_seed": "2^(L-O)*(2^O-1)",
+          "literal_endpoint": "3^O-1"
+        },
+        "endpoint_n_plus_one_factorization": [
+          0,
+          7,
+          "1"
+        ],
+        "length": 11,
+        "literal_endpoint": "2186",
+        "literal_parity_replay_checked": true,
+        "multiplier_excess": {
+          "decimal_diagnostic": "6.78710937500000000000E-2",
+          "denominator": "2048",
+          "numerator": "139"
+        },
+        "odd_count": 7,
+        "source_n_plus_one_factorization": [
+          0,
+          0,
+          "2033"
+        ],
+        "strict_first_passage_checked": true,
+        "word_sha256": "5c2a2ef10ac81813f7d8e2b2161df0dbcad80a22780ca56aac8fdbe2715823ba",
+        "word_shape": "0^41^7"
+      },
+      {
+        "R23_change": "-524148",
+        "canonical_seed": "524160",
+        "canonical_seed_bits": 19,
+        "closed_form": {
+          "canonical_seed": "2^(L-O)*(2^O-1)",
+          "literal_endpoint": "3^O-1"
+        },
+        "endpoint_n_plus_one_factorization": [
+          0,
+          12,
+          "1"
+        ],
+        "length": 19,
+        "literal_endpoint": "531440",
+        "literal_parity_replay_checked": true,
+        "multiplier_excess": {
+          "decimal_diagnostic": "1.36432647705078125000E-2",
+          "denominator": "524288",
+          "numerator": "7153"
+        },
+        "odd_count": 12,
+        "source_n_plus_one_factorization": [
+          0,
+          0,
+          "524161"
+        ],
+        "strict_first_passage_checked": true,
+        "word_sha256": "397920a3d2e2ffab841016df0fbd9c86ef2cd35d3c7c7d1eae278a46a1deb3e8",
+        "word_shape": "0^71^12"
+      },
+      {
+        "R23_change": "-2149201457092673849757189",
+        "canonical_seed": "19342813113834064647815168",
+        "canonical_seed_bits": 84,
+        "closed_form": {
+          "canonical_seed": "2^(L-O)*(2^O-1)",
+          "literal_endpoint": "3^O-1"
+        },
+        "endpoint_n_plus_one_factorization": [
+          0,
+          53,
+          "1"
+        ],
+        "length": 84,
+        "literal_endpoint": "19383245667680019896796722",
+        "literal_parity_replay_checked": true,
+        "multiplier_excess": {
+          "decimal_diagnostic": "2.09031404108617259143E-3",
+          "denominator": "19342813113834066795298816",
+          "numerator": "40432553845953101497907"
+        },
+        "odd_count": 53,
+        "source_n_plus_one_factorization": [
+          0,
+          2,
+          "2149201457092673849757241"
+        ],
+        "strict_first_passage_checked": true,
+        "word_sha256": "9b26e749c8a99b46f630f42270d94a4d3bf27f4395091251fc2751a69be97031",
+        "word_shape": "0^311^53"
+      },
+      {
+        "R23_change": "-1932268761508629172347675945465993672149463664853217499328617625725759571144780212268096883290961288981231806370246531267476497175552311270520949353997674740768627058802329",
+        "canonical_seed": "1932268761508629172347675945465993672149463664853217499328617625725759571144780212268096883290961288981231806370246531267476497175552311270520949353997674740768627058802688",
+        "canonical_seed_bits": 569,
+        "closed_form": {
+          "canonical_seed": "2^(L-O)*(2^O-1)",
+          "literal_endpoint": "3^O-1"
+        },
+        "endpoint_n_plus_one_factorization": [
+          0,
+          359,
+          "1"
+        ],
+        "length": 569,
+        "literal_endpoint": "1934329451767021421190980423006270754962252499447372679942534652297789463068718331568475476554301659845788554312924531179306109686817232569946089263295619210341718686733066",
+        "literal_parity_replay_checked": true,
+        "multiplier_excess": {
+          "decimal_diagnostic": "1.06646150858607986824E-3",
+          "denominator": "1932268761508629172347675945465993672149463664853217499328617625725759571144780212268096883290961288981231808015751088588682539330521493827871454336733540374348490407411712",
+          "numerator": "2060690258392248843304477540277082812788834594155180613917026572029891923938119300378593263340370864556746297173442590623570356295738742074634926562078835993228279321355"
+        },
+        "odd_count": 359,
+        "source_n_plus_one_factorization": [
+          0,
+          0,
+          "1932268761508629172347675945465993672149463664853217499328617625725759571144780212268096883290961288981231806370246531267476497175552311270520949353997674740768627058802689"
+        ],
+        "strict_first_passage_checked": true,
+        "word_sha256": "5a6b1f1c8127a19a216418a8bbe5e37df07961d411746fc1ef019b9d6131412c",
+        "word_shape": "0^2101^359"
+      },
+      {
+        "R23_change": "-64341943520644702387649328460349180555202690685317395005830560692923971674599757795957051500141501266221071200153608929758011098666443340577129809042847477570062454311550891038407296416630177924232408636843620137553154493838652494136817836392654936402121062982803414898157419202340079038545433069253384615861148100626",
+        "canonical_seed": "193025830561934107162947985381047541665608072055952185017491682078771915023799273387871154500424503798663213600460826789274033295999330021731389427128542432710187362934652673115221889249890533772697225910530860412659463481515957482410453509177964809206363188948410244694472257607020237115636299207760153847583444303872",
+        "canonical_seed_bits": 1054,
+        "closed_form": {
+          "canonical_seed": "2^(L-O)*(2^O-1)",
+          "literal_endpoint": "3^O-1"
+        },
+        "endpoint_n_plus_one_factorization": [
+          0,
+          665,
+          "1"
+        ],
+        "length": 1054,
+        "literal_endpoint": "193034257116813465350415306746516837350333763798962117430788985740786485136987943002905988649011085058426719117038711696606024631330152759176330399379617346789616335692978372064681236597226671488585092334981423081811727458166457361300251189808300631437024118571790058070714566731059066970852059271394655662607817543842",
+        "literal_parity_replay_checked": true,
+        "multiplier_excess": {
+          "decimal_diagnostic": "4.36550634432030074329E-5",
+          "denominator": "193025830561934107162947985381047541665608072055952185017491682078771915023799273387871154500424503798663213600460826789274033295999330021731389427128542432710187362934652673115221889249890533772697227171395058697282798274445240687006095271729621464100656563293799180557568945517759802372156455525060659659679134121984",
+          "numerator": "8426554879358187467321365469295684725691743009932413297303662014570113188669615034834148586581259763505516577884907331991335330822737444940972251074914079428972758325698949459347347336137715887865163586364384528929183721216674294155918078679167336367555277990877513145621213299264598695603746333996002928683421859"
+        },
+        "odd_count": 665,
+        "source_n_plus_one_factorization": [
+          0,
+          1,
+          "64341943520644702387649328460349180555202690685317395005830560692923971674599757795957051500141501266221071200153608929758011098666443340577129809042847477570062454311550891038407296416630177924232408636843620137553154493838652494136817836392654936402121062982803414898157419202340079038545433069253384615861148101291"
+        ],
+        "strict_first_passage_checked": true,
+        "word_sha256": "edf7737e4f820ff70570d3540916f419d5eb7cd2b7d14c4fc147c6286c8fc3f7",
+        "word_shape": "0^3891^665"
+      }
+    ],
+    "required_next_term": "a mixed dyadic/triadic boundary energy with a global identity and a separately proved uniform positive gap; the existing R23 resource decreases on every nontrivial record in this family",
+    "smallest_exact_multiplier_excess": {
+      "decimal_diagnostic": "4.36550634432030074329E-5",
+      "denominator": "193025830561934107162947985381047541665608072055952185017491682078771915023799273387871154500424503798663213600460826789274033295999330021731389427128542432710187362934652673115221889249890533772697227171395058697282798274445240687006095271729621464100656563293799180557568945517759802372156455525060659659679134121984",
+      "numerator": "8426554879358187467321365469295684725691743009932413297303662014570113188669615034834148586581259763505516577884907331991335330822737444940972251074914079428972758325698949459347347336137715887865163586364384528929183721216674294155918078679167336367555277990877513145621213299264598695603746333996002928683421859"
+    },
+    "strict_record_count": 7,
+    "valid_explicit_first_passage_pairs": 3691
+  },
+  "schema": "collatz-ias-yap-local-energy-v1",
+  "worker_sha256": "5cc6cc3b1903c6053daa602917299edb8ce3c36061882178ddea6e90b194ad3a"
+}
