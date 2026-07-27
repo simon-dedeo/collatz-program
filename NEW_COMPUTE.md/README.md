@@ -191,6 +191,50 @@ a pre-wall-time signal, checkpoints only completed prefix batches, writes
 exact linked-cylinder data for later proof iterations, while only full
 coverage can receive `status=complete`.
 
+The Cook catalytic-memory follow-up changes the interpretation of the fixed
+register.  Exact stride arithmetic gives every consecutive bouncer link a
+tail-refinement index divisible by `2^(154*h'+23*m'')`, hence at least
+`2^177`.  The bounded `m,h,m'<=12` audit checks all 248,832 links and finds
+no index-one clean tail.  Thus the natural affine address tail is consumed,
+not restored as a reusable catalyst.  The backward atlas remains useful as a
+precision/obstruction dataset, but any genuinely autonomous bouncer now needs
+a different nonlinear catalyst coordinate with a fixed interface.  The
+generic algebra is research-side pending formalization; the displayed finite
+scan is exact and rebuildable in `ias_cook_bouncer_catalyst.py`.
+
+## B2 — exact finite Bellman-potential CEGIS
+
+Worker: `carry_policy_cegis.c` (GMP + OpenMP, four-node array).
+
+The extension carry is the natural Yap-style integer local energy.  B2 looks
+for an arithmetic potential `V` and a legal extension at each sampled exact
+state satisfying
+
+```text
+q(s,w) + scale*V(s*w) <= scale*V(s).
+```
+
+Each worker constructs independently seeded training and held-out corpora of
+8,192 literally reachable states.  It evaluates all legal words at each state
+using the same exact carry equation as C1.  The 25-term grammar contains
+`D,c,bitlen(z)`, three capped exact valuations, a quadratic in `(D,c)`, and a
+16-entry `z mod 16` table.  Integer coefficients are searched in parallel;
+the required positive scale is recovered exactly from each strict inequality.
+
+Two shards use the three-word code and two use the larger source-residue-250
+code.  Within each pair, one shard enforces a positive-definite quadratic and
+nonnegative unbounded-feature coefficients, a sufficient lower-boundedness
+gate; the other is relaxed to diagnose which coercivity condition prevents a
+fit.  Every saved candidate is independently reconstructed and rescored in
+Python on both corpora before collection.
+
+This is finite stochastic CEGIS, not an exhaustive coefficient search or an
+all-state certificate.  Even a perfect two-corpus fit is only a conjectured
+formula to attack symbolically.  A miss supplies exact obstruction states and
+grammar diagnostics.  Only a separately proved all-state inequality, literal
+policy closure, and nonnegative potential could bound total carry and promote
+the construction.
+
 ## C1 — enlarged exact carry Bellman frontier
 
 Worker: `carry_budget.c` (GMP + OpenMP, at least 1,024 independent prefix
@@ -281,6 +325,12 @@ cap), but signal themselves five minutes before wall time, making the intended
 maximum productive charge about 2,005 SUs plus a negligible shared-node build
 and collector.  If it finishes early, PSC charges only elapsed core-hours.
 
+B2 adds four two-hour full-node caps (1,024 SUs).  Its workers stop their
+search internally after 6,800 seconds, so intended use is about 967 SUs plus
+verification.  This launch was explicitly requested after the Bellman-energy
+formulation; accounting remains elapsed-time based and the live PSC ledger is
+authoritative.
+
 All production scripts set `OMP_NUM_THREADS=128`, bind one thread per core,
 and log CPU binding plus elapsed time.  File transfer uses the DTN
 `data.bridges2.psc.edu`; jobs are submitted only from the login node.
@@ -355,3 +405,7 @@ allocation.
 | B1 signal build | `psc_bouncer_build.sbatch` | 1.33 SU | 42720663 | exact replay, merge, scale, and clean partial-checkpoint signal tests passed |
 | B1 | `psc_bouncer_atlas.sbatch` | 4 × 512 SU | 42720684_[0-3] | queued: exact `m,h,m'<=12`, depth-five backward-cylinder atlas |
 | B1 collector | `psc_bouncer_collect.sbatch` | 0.33 SU | 42720685 | `afterok:42720684`; verifies hashes and combines complete or exact partial coverage |
+| B2 build | `psc_carry_policy_build.sbatch` | 1.33 SU | 42721689 | cancelled safely: first independent verifier attempted an exponential word generator |
+| B2 build | `psc_carry_policy_build.sbatch` | 1.33 SU | 42721705 | exact C corpus and independent Python reconstruction agreed |
+| B2 | `psc_carry_policy.sbatch` | 4 × 256 SU | 42721735_[0-3] | queued: strict/relaxed exact Bellman-potential CEGIS on two finite subcodes |
+| B2 collector | `psc_carry_policy_collect.sbatch` | 0.5 SU | 42721737 | `afterok:42721735`; hash-checks and independently rebuilds every corpus |

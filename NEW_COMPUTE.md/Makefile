@@ -2,7 +2,7 @@ CC ?= cc
 CFLAGS ?= -O3 -march=native -std=c11 -Wall -Wextra -Wpedantic -fopenmp
 LDLIBS ?= -lm
 
-PROGRAMS = kl_soft_spectrum kl_frustration_scan kl_coercivity_atlas carry_budget minplus_profile zero_carry_champions hensel_atlas bouncer_atlas
+PROGRAMS = kl_soft_spectrum kl_frustration_scan kl_coercivity_atlas carry_budget minplus_profile zero_carry_champions hensel_atlas bouncer_atlas carry_policy_cegis
 
 .PHONY: all clean smoke
 
@@ -31,6 +31,9 @@ hensel_atlas: hensel_atlas.c
 
 bouncer_atlas: bouncer_atlas.c
 	$(CC) $(CFLAGS) -o $@ bouncer_atlas.c -lgmp $(LDLIBS)
+
+carry_policy_cegis: carry_policy_cegis.c
+	$(CC) $(CFLAGS) -o $@ carry_policy_cegis.c -lgmp $(LDLIBS)
 
 smoke: all
 	mkdir -p results/smoke
