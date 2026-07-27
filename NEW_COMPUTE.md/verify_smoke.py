@@ -44,6 +44,10 @@ for depth, h in expected.items():
 champ = (root / "zero-champion.tsv").read_text()
 assert "prefix_depth=8" in champ and "counterexample=null" in champ
 assert "CHAMPION\ttotal_survival=27\tbeyond_prefix=19\tseed=1166377457" in champ
+combined = (root / "zero-combined.tsv").read_text()
+assert [x for x in champ.splitlines() if not x.startswith("#")] == [
+    x for x in combined.splitlines() if not x.startswith("#")
+]
 
 hensel = (root / "hensel.tsv").read_text()
 assert "two_link_hits=0" in hensel and "three_link_hits=0" in hensel

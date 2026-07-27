@@ -16,7 +16,11 @@ static inline double min3(double a,double b,double c){return fmin(a,fmin(b,c));}
 static inline double second3(double a,double b,double c){double lo=min3(a,b,c),hi=fmax(a,fmax(b,c));return a+b+c-lo-hi;}
 static inline unsigned argmin3(double a,double b,double c){return a<=b&&a<=c?0U:(b<=c?1U:2U);}
 static inline double smooth_excess(double a,double b,double c,double beta){
-    double m=min3(a,b,c),s=pow(m/a,beta)+pow(m/b,beta)+pow(m/c,beta);
+    double m=min3(a,b,c);
+    if(!(m>0)||!isfinite(a)||!isfinite(b)||!isfinite(c))return NAN;
+    double lm=log(m);
+    double da=fmax(0.0,log(a)-lm),db=fmax(0.0,log(b)-lm),dc=fmax(0.0,log(c)-lm);
+    double s=exp(-beta*da)+exp(-beta*db)+exp(-beta*dc);
     return m*expm1(-log(s/3.0)/beta);
 }
 static int power3_level(uint64_t n){int e=0;if(!n)return-1;while(n%3==0){n/=3;++e;}return n==1?e+1:-1;}
@@ -83,7 +87,7 @@ static void analyze(FILE*out,unsigned depth,const double*x,const double*g,const 
         unsigned ia=argmin3(A[0],A[1],A[2]),iz=argmin3(Z[0],Z[1],Z[2]);
         if(sig[ia]!=iz){double q=fmin(tau*second3(A[0],A[1],A[2]),w*second3(Z[0],Z[1],Z[2]));frv[r]=q;fr+=q;++mismatch;}
         for(unsigned q=0;q<NB;++q){
-            double be=betas[q],ex=smooth_excess(xx[0],xx[1],xx[2],be),ey=smooth_excess(yy[0],yy[1],yy[2],be),es=smooth_excess(sum[0],sum[1],sum[2],be);
+            double be=betas[q],ex=tau*smooth_excess(a[0],a[1],a[2],be),ey=w*smooth_excess(z[sig[0]],z[sig[1]],z[sig[2]],be),es=smooth_excess(sum[0],sum[1],sum[2],be);
             double delta=es-ex-ey;
             hb[q]+=h+delta;ae[q]+=fabs(delta);safe[q]+=ex+ey+es;
         }
@@ -103,9 +107,10 @@ int main(int argc,char**argv){
     double lambda=strtod(argv[2],0);unsigned maxp=(unsigned)strtoul(argv[3],0,10);if(!(lambda>1&&lambda<2))fail("bad lambda");
     npy_view v;v.fd=-1;int rc=npy_open_1d(argv[1],&v);if(rc){fprintf(stderr,"NPY error %d\n",rc);return 2;}
     int level=power3_level(v.count);if(level<4||level>MAX_LEVEL)fail("unsupported level");uint64_t n0=v.count;
-    double*x0=NULL;if(posix_memalign((void**)&x0,64,(size_t)n0*sizeof(double)))fail("input allocation");
-#pragma omp parallel for schedule(static)
-    for(uint64_t i=0;i<n0;++i)x0[i]=npy_get(&v,i);
+    double*x0=NULL;if(posix_memalign((void**)&x0,64,(size_t)n0*sizeof(double)))fail("input allocation");int bad=0;
+#pragma omp parallel for schedule(static) reduction(|:bad)
+    for(uint64_t i=0;i<n0;++i){x0[i]=npy_get(&v,i);if(!(x0[i]>0)||!isfinite(x0[i]))bad=1;}
+    if(bad)fail("input is not finite and strictly positive");
     npy_close(&v);
     uint64_t lens[MAX_LEVEL]={0},off[MAX_LEVEL]={0},total_hier=0;lens[0]=n0;
     for(int d=1;d<level-1;++d){lens[d]=lens[d-1]/3;off[d]=total_hier;total_hier+=lens[d];}

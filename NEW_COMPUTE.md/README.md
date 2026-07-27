@@ -118,6 +118,38 @@ reported separately and are not mislabeled as critical eigenvectors.  All
 K2b quantities remain floating diagnostics; even the integer-input levels
 need an exact follow-up before promotion.
 
+The first production atlas completed all five levels in 4--93 seconds.  Its
+hard and transport-block columns are finite and reproduce K2 at the shared
+levels.  The cold columns at `k=19,20` are invalid (`NaN`): the first stable
+subtraction fix did not cover the full dynamic range.  Build `42720091`
+therefore adds strict input validation, evaluates conditional ratios in the
+log domain, and uses homogeneity before applying branch weights.  The
+two-level repair array fails loudly if any nonfinite token remains.
+
+### Aggressive follow-up K1b/C2b/C3b
+
+The first jobs established that the useful kernels were much faster than
+their caps.  Three bounded extensions redeploy the released allocation:
+
+- `psc_k1b_frontier.sbatch`: six simultaneous full nodes, one for each
+  `lambda=1.84,...,1.89`, scanning levels 20--22 and
+  `beta=64,...,2048`.  This maps whether the floating soft-to-hard crossing
+  frontier moves toward two.  Every completed case and every 25-iteration
+  bracket survives wall time; no large vectors are saved.
+- `psc_c2b_minplus.sbatch`: an exact exhaustive profile through
+  `B=5.5*10^12`, depth 160, and triadic exponent 10.  The target follows the
+  completed `B=5*10^11` pass, which used 99.48% CPU efficiency and had no
+  surviving global slice at depth 72.
+- `psc_c3b_shard.sbatch`: the exact depth-27 zero-carry census partitioned
+  into three disjoint congruence shards, each on a full node.  A dependent
+  one-core collector checks every shard hash, proves that the shard indices
+  and schedule counts partition `3^27`, sums the histograms, and selects the
+  champion with the same deterministic tie rule as the unsharded worker.
+
+These are still bounded computations.  A K1b crossing is floating; C2b says
+nothing above its printed source bound; and C3b says nothing about schedules
+past its printed cylinder depth.
+
 ## C1 — enlarged exact carry Bellman frontier
 
 Worker: `carry_budget.c` (GMP + OpenMP, at least 1,024 independent prefix
@@ -192,14 +224,15 @@ caps give
 leaving 1,891 RM SUs before short smoke-test charges.  See the official
 [Bridges-2 accounting guide](https://www.psc.edu/resources/bridges-2/user-guide/#accounting-for-bridges-2-use).
 
-K2 actually completed in 77 seconds and the original C1 stopped after 22:40,
-so their unused caps were not charged.  The K2b follow-up is a five-element
-array capped at two hours per 128-core element, or 1,280 SUs total.  Counting
-the four still-running original jobs, the C1 resume, the two short completed
-jobs, and K2b gives a conservative production ceiling of about 9,650 SUs,
-plus the small build/scaling charges.  Thus the follow-up reuses released
-capacity rather than silently turning the requested roughly-10k-SU campaign
-into a much larger one.
+K2 actually completed in 77 seconds, K1 in 75 minutes, C2 in 55 minutes, and
+the original C1 stopped after 22:40, so most of their unused caps were not
+charged.  K2b's five levels then took only 4--93 seconds.  The aggressive
+follow-up caps are 2,304 SUs for six K1b nodes, 1,536 SUs for C2b, 2,496 SUs
+for three C3b shards, and about 85 SUs for the K2b repair.  Adding those caps
+to the three original jobs still running, their elapsed work, the completed
+jobs, and short build/scaling charges keeps the all-caps envelope near the
+11,876-SU grant.  Expected use is around the requested 10k SUs, but actual
+accounting remains runtime-based.
 
 All production scripts set `OMP_NUM_THREADS=128`, bind one thread per core,
 and log CPU binding plus elapsed time.  File transfer uses the DTN
@@ -227,12 +260,16 @@ The 13-hour limits are caps, not assumptions that every final box completes.
 K1 appends a valid floating CW bracket every 25 iterations and atomically
 saves a resumable raw vector every 250.  K2 completes and copies a `k=18`
 checkpoint before its `k=20` pass.  K2b flushes each complete projection
-stage and each hard/frustration block family before moving onward.  C1 runs all budget-28/code-size baselines
-before harder budgets; C2 runs `B=10^7`, then `10^8`, then `10^9`; C3 writes
-one file per completed prefix depth; and C4 writes one file per completed
-counter triple.  Thus a wall-time exit leaves completed bounded boxes plus
-explicit partial diagnostics.  A later driver must never call an interrupted
-box exhaustive merely because its job consumed the full allocation.
+stage and each hard/frustration block family before moving onward.  C1 runs
+all budget-28/code-size baselines before harder budgets; C2 writes and hashes
+each of `B=10^8`, `10^10`, and `5*10^11`; C3 writes one file per completed
+prefix depth; and C4 writes one file per completed counter triple.  K1b
+retains every completed parameter case and live 25-iteration brackets.  C3b
+retains independently hashed shards, but only its dependent collector may
+label their union exhaustive.  Thus a wall-time exit leaves completed bounded
+boxes plus explicit partial diagnostics.  A later driver must never call an
+interrupted box exhaustive merely because its job consumed the full
+allocation.
 
 ## Job ledger
 
@@ -245,14 +282,20 @@ box exhaustive merely because its job consumed the full allocation.
 | build | `psc_compile_smoke.sbatch` | 4 cores × 20 min | 42712182 | six-worker independent smoke verification passed |
 | scale | `psc_scaling.sbatch` | 64 SU | 42712200 | failed safely on old 128-bit word cap |
 | scale | `psc_scaling.sbatch` | 64 SU | 42712368 | six kernels completed; KL used ~111–115 cores |
-| K1 | `psc_k1_soft.sbatch` | 1,664 SU | 42712598 | running on `r302`; brackets/checkpoints present |
+| K1 | `psc_k1_soft.sbatch` | 1,664 SU | 42712598 | completed in 75:02 at 94.03% CPU efficiency; output/hash and four checkpoints present |
 | K2 | `psc_k2_curvature.sbatch` | 1,664 SU | 42712599 | completed in 77 s; output and hashes present |
 | C1 | `psc_c1_carry.sbatch` | 1,664 SU | 42712600 | three K=28 baselines saved; stopped safely at B=500 on a prefix-fanout guard |
-| C2 | `psc_c2_minplus.sbatch` | 1,664 SU | 42712601 | running; B=10^8 and 10^10 outputs and hashes present |
-| C3 | `psc_c3_champions.sbatch` | 1,664 SU | 42712602 | running; depth-19 and depth-22 outputs and hashes present |
+| C2 | `psc_c2_minplus.sbatch` | 1,664 SU | 42712601 | completed through exact B=5*10^11 in 54:31 at 99.48% CPU efficiency |
+| C3 | `psc_c3_champions.sbatch` | 1,664 SU | 42712602 | running depth 26; depth 19, 22, and 24 outputs/hashes present |
 | C4 | `psc_c4_hensel.sbatch` | 1,664 SU | 42712603 | running; first three B=10^9 boxes and hashes present |
 | rebuild | `psc_compile_smoke.sbatch` | 4 cores × 20 min | 42715864 | fanout fix compiled; six-worker smoke verification passed |
 | C1 resume | `psc_c1_carry_resume.sbatch` | 1,664 SU | 42715865 | running on `r456` |
 | K2b build | `psc_compile_smoke.sbatch` | 4 cores × 20 min | 42718933 | first atlas smoke passed; exposed a cold-subtraction precision issue |
 | K2b rebuild | `psc_compile_smoke.sbatch` | 4 cores × 20 min | 42718988 | stable `expm1` cold excess; seven-worker smoke verification passed |
-| K2b | `psc_k2b_coercivity.sbatch` | 5 × 256 SU | 42719003_[0-4] | submitted; five levels pending for RM nodes |
+| K2b | `psc_k2b_coercivity.sbatch` | 5 × 256 SU | 42719003_[0-4] | completed in 4--93 s; hard/block columns valid, cold columns invalid at k=19,20 |
+| aggressive build | `psc_compile_smoke.sbatch` | 4 cores × 20 min | 42720091 | log-domain cold fix and exact three-shard merge regression passed |
+| K2b repair | `psc_k2b_coldfix.sbatch` | 2 × 42.7 SU | 42720120_[0-1] | queued for k=19,20; exits nonzero on any `NaN` |
+| K1b | `psc_k1b_frontier.sbatch` | 6 × 384 SU | 42720134_[0-5] | queued: k=20..22 soft frontier on six lambdas |
+| C2b | `psc_c2b_minplus.sbatch` | 1,536 SU | 42720135 | queued: exact B=5.5*10^12 profile |
+| C3b | `psc_c3b_shard.sbatch` | 3 × 832 SU | 42720136_[0-2] | queued: disjoint depth-27 schedule shards |
+| C3b collector | `psc_c3b_collect.sbatch` | 0.33 SU | 42720137 | `afterok:42720136`; verifies/combines all three shards |

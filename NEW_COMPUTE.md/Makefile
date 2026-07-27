@@ -38,6 +38,10 @@ smoke: all
 	./carry_budget 50 8 20 results/smoke/carry.tsv
 	./minplus_profile 10000 8 4 10000 results/smoke/minplus.tsv
 	./zero_carry_champions 8 64 results/smoke/zero-champion.tsv
+	./zero_carry_champions 8 64 results/smoke/zero-shard0.tsv 0 3
+	./zero_carry_champions 8 64 results/smoke/zero-shard1.tsv 1 3
+	./zero_carry_champions 8 64 results/smoke/zero-shard2.tsv 2 3
+	python3 combine_zero_shards.py results/smoke/zero-combined.tsv results/smoke/zero-shard0.tsv results/smoke/zero-shard1.tsv results/smoke/zero-shard2.tsv
 	./hensel_atlas 1000 2 2 2 results/smoke/hensel.tsv
 	python3 verify_smoke.py results/smoke
 
