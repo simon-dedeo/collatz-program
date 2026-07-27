@@ -201,9 +201,11 @@ box exhaustive merely because its job consumed the full allocation.
 | build | `psc_compile_smoke.sbatch` | 4 cores × 20 min | 42712182 | six-worker independent smoke verification passed |
 | scale | `psc_scaling.sbatch` | 64 SU | 42712200 | failed safely on old 128-bit word cap |
 | scale | `psc_scaling.sbatch` | 64 SU | 42712368 | six kernels completed; KL used ~111–115 cores |
-| K1 | `psc_k1_soft.sbatch` | 1,664 SU | 42712598 | running on `r302`; brackets/checkpoint present |
-| K2 | `psc_k2_curvature.sbatch` | 1,664 SU | 42712599 | running on `r425`; `k=18` checkpoint present |
-| C1 | `psc_c1_carry.sbatch` | 1,664 SU | 42712600 | running on `r173`; first baselines complete |
-| C2 | `psc_c2_minplus.sbatch` | 1,664 SU | 42712601 | pending (Resources) |
-| C3 | `psc_c3_champions.sbatch` | 1,664 SU | 42712602 | pending (Priority) |
-| C4 | `psc_c4_hensel.sbatch` | 1,664 SU | 42712603 | pending (Priority) |
+| K1 | `psc_k1_soft.sbatch` | 1,664 SU | 42712598 | running on `r302`; brackets/checkpoints present |
+| K2 | `psc_k2_curvature.sbatch` | 1,664 SU | 42712599 | completed in 77 s; output and hashes present |
+| C1 | `psc_c1_carry.sbatch` | 1,664 SU | 42712600 | three K=28 baselines saved; stopped safely at B=500 on a prefix-fanout guard |
+| C2 | `psc_c2_minplus.sbatch` | 1,664 SU | 42712601 | running; B=10^8 and 10^10 outputs and hashes present |
+| C3 | `psc_c3_champions.sbatch` | 1,664 SU | 42712602 | running; depth-19 and depth-22 outputs and hashes present |
+| C4 | `psc_c4_hensel.sbatch` | 1,664 SU | 42712603 | running; first three B=10^9 boxes and hashes present |
+| rebuild | `psc_compile_smoke.sbatch` | 4 cores × 20 min | 42715864 | fanout fix compiled; six-worker smoke verification passed |
+| C1 resume | `psc_c1_carry_resume.sbatch` | 1,664 SU | 42715865 | dependency released after successful rebuild; pending/runnable |
