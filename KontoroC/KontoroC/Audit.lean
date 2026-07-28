@@ -2905,6 +2905,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.DoublingQuineNoGo.no_finiteLaurent_functionalEquation
 #print axioms KontoroC.DoublingQuineNoGo.no_doubling_quine_finiteLaurent
 #print axioms
+  KontoroC.DoublingQuineRationalNoGo.squareScale_denom_dvd_X_sq_mul_of_cleared_equation
+#print axioms KontoroC.DoublingQuineRationalNoGo.denom_natDegree_le_two
+#print axioms KontoroC.DoublingQuineRationalNoGo.denom_shape
+#print axioms
+  KontoroC.DoublingQuineRationalNoGo.no_reduced_cleared_solution
+#print axioms
+  KontoroC.DoublingQuineRationalNoGo.no_doubling_quine_rational
+#print axioms
   KontoroC.OutwardThreeWordReducedState.appended_word_executes_from_shifted_target
 #print axioms
   KontoroC.OutwardThreeWordReducedState.ReducedState.shiftedTarget_eq_boundary

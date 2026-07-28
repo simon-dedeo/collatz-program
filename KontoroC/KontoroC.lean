@@ -51,6 +51,7 @@ import KontoroC.MarkerBankInvariantReturn
 import KontoroC.SuccessorQuineNoGo
 import KontoroC.SuccessorQuineRationalNoGo
 import KontoroC.DoublingQuineNoGo
+import KontoroC.DoublingQuineRationalNoGo
 import KontoroC.ChargeBouncerDecoder
 import KontoroC.ChargeBouncerCongruence
 import KontoroC.ChargeBouncerPadic

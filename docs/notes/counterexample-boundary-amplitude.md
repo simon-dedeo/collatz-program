@@ -531,3 +531,52 @@ HS19; it cannot regenerate any.  The live construction must break uniformity
 by selecting a special payload with a nonlinear/automatic return, or enlarge
 the state beyond an affine cylinder.  This is a structural no-go, not evidence
 from testing a finite collection of payloads.
+
+## 13. The base-squaring return has no rational payload
+
+The first special-payload candidate was the legal four-cell return with
+opcode update `g -> 2g`.  In the normalized coordinate it requires
+
+```text
+A f(z)-D z^2 f(kappa z^2)=b0+b1 z+b2 z^2.         (HS20)
+```
+
+The previous finite-Laurent obstruction did not exclude a rational function
+with poles.  That gap is now closed symbolically.  If `f=N/Q` is reduced,
+clearing HS20 and reducing once modulo each denominator gives
+
+```text
+Q(z)             | Q(kappa z^2),
+Q(kappa z^2)     | z^2 Q(z).                       (HS21)
+```
+
+Since substitution doubles degree, the second divisibility implies
+`2 deg Q <= deg Q+2`, hence `deg Q<=2`.  Lean classifies all possibilities
+allowed by both divisibilities:
+
+```text
+Q = q,  qz,  qz^2,  or  q(1-kappa z).              (HS22)
+```
+
+The constant case is polynomial and fails by degree doubling plus the
+nonzero linear forcing.  For `qz`, the degree-two coefficient appears before
+either competing term.  For `qz^2`, cancellation would require
+`A*kappa^2=D`.  The only genuine rational pole is the nonzero fixed point
+`z=1/kappa`; evaluating the canceled equation there shows that its residue
+would require
+
+```text
+2 A kappa^2 = D,                                   (HS23)
+```
+
+which is false for the exact powers of two and three.  All steps, including
+the `RatFunc Q` numerator/denominator bridge, are kernel-checked in
+[`DoublingQuineRationalNoGo.lean`](../../KontoroC/KontoroC/DoublingQuineRationalNoGo.lean).
+
+This does not close genuinely infinite Mahler or automatic payloads.  It
+does identify their indispensable feature: the payload cannot be a rational
+function of the normalized state, and its ordinary positive value must retain
+the homogeneous boundary term that a purely convergent particular solution
+loses.  The next constructive target is therefore an exceptional nonrational
+2-adic value with an independently proved natural-number realization, not a
+higher-degree rational ansatz.

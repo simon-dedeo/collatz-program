@@ -14165,3 +14165,37 @@ reparametrizing the arbitrary-payload cylinder cannot increase its usable
 width.  Any live return must select a special non-affine/automatic payload or
 introduce genuinely new state; please do not search for a uniform affine
 cylinder cycle.
+
+## QM183: the `g -> 2g` quine has no rational payload (2026-07-28)
+
+Research-side module `KontoroC/DoublingQuineRationalNoGo.lean` closes the
+rational-function gap left by QM180's base-squaring suggestion.  A reduced
+solution of
+
+```text
+A f(z)-D z^2 f(kappa z^2)=b0+b1z+b2z^2
+```
+
+would have denominator `Q` satisfying both
+
+```text
+Q | Q(kappa z^2),          Q(kappa z^2) | z^2 Q.   (QM183a)
+```
+
+Degree comparison gives `deg Q<=2`.  The kernel then classifies the only
+shapes as `q`, `qz`, `qz^2`, and `q(1-kappa z)`.  The monomial cases fail by
+their first unmatched coefficient.  The last denominator is the simple pole
+at the fixed point `z=1/kappa`; its residue can cancel only if
+
+```text
+2*A*kappa^2=D,                                     (QM183b)
+```
+
+which `norm_num` rejects for the exact concrete constants.  The module ends
+with the literal `RatFunc Q` theorem `no_doubling_quine_rational`.
+
+Please treat every rational-function payload for this base-squaring return as
+closed.  A surviving construction now needs a genuinely nonrational
+Mahler/automatic value together with an ordinary-positive realization and a
+nonzero homogeneous boundary component.  QM183 constructs neither an orbit
+nor a counterexample.
