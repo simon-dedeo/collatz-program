@@ -458,3 +458,62 @@ own autonomous state space.
 
 The checked congruence, order clock, size window, and universal no-go are in
 [`SignedDebrisReproduction.lean`](../../KontoroC/KontoroC/SignedDebrisReproduction.lean).
+
+## 12. The scalar no-go leaves an exact boundary cylinder
+
+The impossibility of `W=R_next` does **not** destroy the router.  Its natural
+state space was one dimension too small.  Write the checked base collision as
+
+```text
+3^a R_m-1=2^B W.
+```
+
+Then distributivity gives, for arbitrary `w,z : Nat`,
+
+```text
+3^a(R_m+2^(B+w)z)-1=2^B(W+2^w 3^a z).             (HS17)
+```
+
+Lean proves HS17 as a natural-number identity, proves that the output
+cofactor is odd for `w>0`, and proves its exact 2-adic valuation is still
+`B`.  The public router therefore computes on the base rail while carrying
+an arbitrary positive ordinary amplitude on a homogeneous second rail.  It
+does not choose a new congruence class for each `z`.
+
+There is also a direct ordinary interface.  If the requested target label is
+even, then `B=p-(target)` is even.  Reduction of the base factorization modulo
+three gives `W=2 (mod 3)`, and hence
+
+```text
+W+2^w 3^a z = 3(H+2^w 3^(a-1)z)-1.                (HS18)
+```
+
+Thus the entire cylinder is a family of completed Collatz boundaries.  It
+feeds the exact three-word map without a residue conversion.
+
+The finite transport law is now kernel-checked as well.  Give branches A, B,
+C dyadic costs `1,3,6` and ternary gains `1,2,4`.  If a prefix has cumulative
+cost `s_n<=w` and gain `t_n`, its homogeneous coefficient is exactly
+
+```text
+2^w 3^a  ->  2^(w-s_n) 3^(a+t_n).                 (HS19)
+```
+
+The affine offsets are paid entirely by the base charge.  HS19 is proved for
+an arbitrary finite branch function and arbitrary payload, via the exact
+prefix balance rather than sampling trajectories.
+
+This changes the foundational target.  Finite routing and finite ordinary
+transport are no longer missing.  Every nonempty A/B/C prefix spends positive
+dyadic width, so no fixed finite `w` supports an infinite address.  A true
+counterexample construction must couple HS17--HS19 to a return operation that
+regenerates width autonomously.  Equivalently, one needs a stationary cycle
+on a *width-bearing state*, not a scalar debris cycle.  The decisive equation
+should account for net dyadic width over a complete router/ordinary return:
+the return must create at least the `1,3,6` bits spent by its address while
+preserving a positive ordinary boundary coefficient.  This is now the live
+construction problem; another bounded residue search does not address it.
+
+The exact cylinder, completed-boundary conversion, local branch lift, and
+arbitrary finite-prefix resource law are in
+[`SignedDebrisBoundaryLift.lean`](../../KontoroC/KontoroC/SignedDebrisBoundaryLift.lean).

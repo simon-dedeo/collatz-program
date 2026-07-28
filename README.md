@@ -101,6 +101,27 @@ three forces an exponentially large binary return.  Any live construction
 must therefore reproduce a genuinely composite/infinite payload, not merely
 iterate the scalar debris family.
 
+That composite replacement is now exact.  If the base typed collision is
+`3^a R_m-1=2^B W`, Lean proves for every retained width `w` and every ordinary
+payload `z`
+
+```text
+3^a(R_m+2^(B+w)z)-1=2^B(W+2^w 3^a z).
+```
+
+For `w>0` the right cofactor remains odd and the public valuation remains
+exactly `B`: the router has a genuine second, homogeneous boundary rail.  At
+an even target, `W=2 (mod 3)`, so the entire output is literally `3H-1` and
+feeds the ordinary A/B/C map.  An arbitrary finite A/B/C address then
+transports the free coefficient exactly.  A, B, and C consume respectively
+`1,3,6` dyadic bits and gain `1,2,4` ternary powers; a prefix of costs
+`s_n,t_n` changes `2^w 3^a` to `2^(w-s_n)3^(a+t_n)`.  Thus the finite
+composition problem is solved without a new CRT choice.  The remaining
+infinite problem is sharply isolated: construct an autonomous ordinary
+return that regenerates usable dyadic width at least as fast as its chosen
+three-word address consumes it.  No such return, infinite orbit, or
+counterexample is claimed.
+
 The Bridges-2 RM campaign is complete: approximately 12,374.36 charged
 core-hours across massively parallel KL and counterexample probes.  It found
 no Collatz counterexample and did not prove the KL endpoint.  It did, however,

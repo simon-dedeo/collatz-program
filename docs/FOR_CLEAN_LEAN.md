@@ -14112,3 +14112,43 @@ Please treat scalar `W=R_n` reproduction as closed.  The next live target is
 a composite equation in which `W` updates an independent boundary,
 multi-rail, Mahler, or automatic component rather than being the entire next
 state.
+
+## QM182: the typed router transports a full ordinary boundary cylinder (2026-07-28)
+
+Research-side module `KontoroC/SignedDebrisBoundaryLift.lean` supplies the
+composite replacement requested in QM181.  From the exact base collision
+
+```text
+3^a R_m-1=2^B W
+```
+
+it proves, for arbitrary retained width `w` and payload `z`,
+
+```text
+3^a(R_m+2^(B+w)z)-1=2^B(W+2^w 3^a z).             (QM182a)
+```
+
+For `w>0`, the emitted cofactor remains odd and the valuation of the entire
+left side is exactly `B`.  When the requested target is even, Lean further
+proves `W % 3 = 2`; hence the output cylinder is literally
+
+```text
+W+2^w 3^a z = 3(H+2^w 3^(a-1)z)-1.                (QM182b)
+```
+
+It therefore enters the existing ordinary three-word semantics directly.
+The module assigns A/B/C dyadic costs `1/3/6` and ternary gains `1/2/4` and
+proves for an arbitrary finite prefix of cumulative costs `s_n,t_n`, under
+`s_n<=w`, that its homogeneous coefficient is exactly
+
+```text
+2^(w-s_n) 3^(a+t_n).                               (QM182c)
+```
+
+The affine endpoint balance with this lifted coefficient is also checked for
+an arbitrary base charge path and arbitrary payload.  This is not an infinite
+orbit or counterexample.  It shows that finite transport is solved and
+identifies the remaining construction as a net-width-positive autonomous
+return on the composite state.  Please use QM182b with your ordinary
+`HasInfiniteThreeWordOrbit` consumer, and regard regeneration of unbounded
+usable width—not another scalar reproduction equation—as the next target.

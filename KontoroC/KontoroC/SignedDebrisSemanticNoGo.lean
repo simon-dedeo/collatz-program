@@ -433,6 +433,29 @@ theorem routerPrecision_add_two (target : ℕ) :
 theorem routerPrecision_pos (target : ℕ) : 0 < routerPrecision target := by
   simp [routerPrecision, minusBinary]
 
+/-- The explicit witness used by the router has the requested valuation.
+This named form is the interface needed by later boundary-rail constructions. -/
+theorem typedRouter_padicValNat
+    (m target : ℕ) (hm : Odd m)
+    (hroom : minusBinary target < plusBinary m) :
+    padicValNat 2
+        (scaledMinusNumerator
+          (routerLabel (routerPrecision target) m) m) =
+      minusBinary target := by
+  let d := routerPrecision target
+  let ell := routerLabel d m
+  have hd : 0 < d := routerPrecision_pos target
+  have hell : Odd ell := routerLabel_odd hd hm
+  obtain ⟨k, hk⟩ := hm
+  have hmform : m = 2 * k + 1 := by omega
+  subst m
+  have hval := scaledMinusNumerator_odd_level_padicValNat ell k hell
+    (by
+      rw [router_combined_padicValNat]
+      simpa only [d, routerPrecision_add_two] using hroom)
+  rw [hval, router_combined_padicValNat]
+  exact routerPrecision_add_two target
+
 /-- All-parameter valuation router.  Every odd residual level with enough
 binary room has an explicit odd reached label whose actual scaled-minus
 collision lands in any requested public sign-negative target exponent. -/
@@ -445,16 +468,7 @@ theorem exists_typed_scaledMinus_router
   let ell := routerLabel d m
   have hd : 0 < d := routerPrecision_pos target
   have hell : Odd ell := routerLabel_odd hd hm
-  refine ⟨ell, hell, ?_⟩
-  obtain ⟨k, hk⟩ := hm
-  have hmform : m = 2 * k + 1 := by omega
-  subst m
-  have hval := scaledMinusNumerator_odd_level_padicValNat ell k hell
-    (by
-      rw [router_combined_padicValNat]
-      simpa only [d, routerPrecision_add_two] using hroom)
-  rw [hval, router_combined_padicValNat]
-  exact routerPrecision_add_two target
+  exact ⟨ell, hell, typedRouter_padicValNat m target hm hroom⟩
 
 /-- The router leaves an exact positive odd public cofactor, not only a
 matching divisibility exponent.  Reproducing this cofactor is the remaining

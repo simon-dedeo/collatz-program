@@ -2863,6 +2863,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SignedDebrisSemanticNoGo.router_combined_ternary
 #print axioms KontoroC.SignedDebrisSemanticNoGo.router_combined_padicValNat
 #print axioms KontoroC.SignedDebrisSemanticNoGo.routerLabel_odd
+#print axioms KontoroC.SignedDebrisSemanticNoGo.typedRouter_padicValNat
 #print axioms
   KontoroC.SignedDebrisSemanticNoGo.exists_typed_scaledMinus_router
 #print axioms
@@ -2880,6 +2881,22 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.SignedDebrisReproduction.next_le_reached_add_level_add_two_of_reproduces
 #print axioms
   KontoroC.SignedDebrisReproduction.no_explicit_router_reproduces_single_debris
+#print axioms KontoroC.SignedDebrisBoundaryLift.typedRouterCofactor_spec
+#print axioms
+  KontoroC.SignedDebrisBoundaryLift.boundaryNumerator_factorization
+#print axioms
+  KontoroC.SignedDebrisBoundaryLift.boundaryNumerator_padicValNat
+#print axioms
+  KontoroC.SignedDebrisBoundaryLift.typedRouterCofactor_eq_boundary
+#print axioms
+  KontoroC.SignedDebrisBoundaryLift.boundaryOutput_eq_completedBoundary
+#print axioms KontoroC.SignedDebrisBoundaryLift.branchStep_lift_of_dvd
+#print axioms
+  KontoroC.SignedDebrisBoundaryLift.no_fixed_width_covers_all_prefixes
+#print axioms KontoroC.SignedDebrisBoundaryLift.prefixRailCoefficient
+#print axioms KontoroC.SignedDebrisBoundaryLift.prefix_balance_lift_of_dvd
+#print axioms
+  KontoroC.SignedDebrisBoundaryLift.boundaryOutputCharge_prefix_balance
 #print axioms KontoroC.DoublingQuineNoGo.no_finiteLaurent_coefficientLaw
 #print axioms KontoroC.DoublingQuineNoGo.no_finiteLaurent_functionalEquation
 #print axioms KontoroC.DoublingQuineNoGo.no_doubling_quine_finiteLaurent

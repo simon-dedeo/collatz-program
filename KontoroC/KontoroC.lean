@@ -77,6 +77,7 @@ import KontoroC.SignedUnitShuttle
 import KontoroC.SignedDebrisRuler
 import KontoroC.SignedDebrisSemanticNoGo
 import KontoroC.SignedDebrisReproduction
+import KontoroC.SignedDebrisBoundaryLift
 import KontoroC.ChargeTotalAffineGaugeNoGo
 import KontoroC.PrefixKraft
 import KontoroC.TwoKraftObstruction
