@@ -1,0 +1,54 @@
+{
+  "architecture": {
+    "M_c": "2*3^c",
+    "canonical_source": "q=1+3^(c+1)h with h!=2 mod3",
+    "family": "canonical singular alternating links",
+    "fixed_target_counters": [
+      2,
+      2
+    ],
+    "link_equation": "2^(M_d+d+4)q'=3^(M_c+d+1)q+7*3^(d+1)+2^(d+4)"
+  },
+  "artifact_sha256": "3d8ff4086a4b54698778a57b865a4cdf798ebd82f7e87c48b0dc1eadb4852a32",
+  "bounded_conclusion": "the first canonical c->2->2 renewal occurs at c=11626231 and fails before a third singular writer",
+  "claim_scope": "exact modular exhaustive search in one fixed two-link architecture; no conclusion for other counter schedules or the full Collatz map",
+  "counterexample": null,
+  "exact_scan": {
+    "candidates_checked": 11626231,
+    "canonical_sources_requiring_one_ternary_lift": 3875461,
+    "counter_interval_checked": [
+      1,
+      11626231
+    ],
+    "first_two_link_hit": {
+      "A_mod_2^49": 411521850561699,
+      "c": 11626231,
+      "first_numerator_mod_2^49": 221596438495232,
+      "h": 1631776,
+      "q_mod_2^49": 333483331940897,
+      "second_composite_numerator_mod_2^49": 281474976710656,
+      "z_mod_2^49": 145225350952545
+    },
+    "leastness_scope": "exhaustive only for the fixed canonical c->2->2 class; not over other target-counter pairs"
+  },
+  "schema": "collatz-outward-singular-link-cegis-v1",
+  "third_link_failure": {
+    "A_mod_2^52": 3226271617668259,
+    "c": 11626231,
+    "certificate_sha256": "bbd5103db88892a422d112804ae0ea5e6b50f5336557f6675398f1fa8eb1bc0d",
+    "d": 2,
+    "e": 2,
+    "first_numerator_mod_2^52": 221596438495232,
+    "h": 1631776,
+    "minimum_legal_writer_v2": 6,
+    "post_second_payload_mod_16": 9,
+    "precision_bits": 52,
+    "q_mod_2^52": 333483331940897,
+    "second_composite_numerator_mod_2^52": 2533274790395904,
+    "third_link_defined": false,
+    "third_writer_numerator_mod_16": 8,
+    "third_writer_v2": 3,
+    "z_mod_2^52": 1834075211216481
+  },
+  "worker_sha256": "ea8a14887dce3ac644321d8d85479353bf0c85a95db5be08fe28916cb9e97689"
+}

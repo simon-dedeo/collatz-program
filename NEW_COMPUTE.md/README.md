@@ -1,12 +1,18 @@
 # Six Bridges-2 RM computations
 
-Status: implementation and smoke testing in progress, 2026-07-27.
+Status: RM campaign complete, proof-facing synthesis written 2026-07-28.
 
 This directory is intentionally named `NEW_COMPUTE.md/` at the user's
 request.  It contains specifications, native workers, launch files, and the
 eventual job ledger.  Results live on PSC under
 `/ocean/projects/mth260010p/sdedeo/new_compute/results/` and are not claims
 until their stated checks complete.
+
+The campaign charged approximately 12,374.36 RM core-hours.  Its exact finite
+results, floating KL diagnostics, hashes, failed-checkpoint caveats, and two
+new kernel-checked promotion interfaces are summarized in
+[`RM_RESULTS_2026-07-28.md`](RM_RESULTS_2026-07-28.md).  No job found a Collatz
+counterexample.
 
 ## Current mathematical boundary
 
@@ -385,27 +391,27 @@ allocation.
 | K2 | `psc_k2_curvature.sbatch` | 1,664 SU | 42712599 | completed in 77 s; output and hashes present |
 | C1 | `psc_c1_carry.sbatch` | 1,664 SU | 42712600 | three K=28 baselines saved; stopped safely at B=500 on a prefix-fanout guard |
 | C2 | `psc_c2_minplus.sbatch` | 1,664 SU | 42712601 | completed through exact B=5*10^11 in 54:31 at 99.48% CPU efficiency |
-| C3 | `psc_c3_champions.sbatch` | 1,664 SU | 42712602 | running depth 26; depth 19, 22, and 24 outputs/hashes present |
-| C4 | `psc_c4_hensel.sbatch` | 1,664 SU | 42712603 | running; first three B=10^9 boxes and hashes present |
+| C3 | `psc_c3_champions.sbatch` | 1,664 SU | 42712602 | completed depth 26; champion total survival 87; `counterexample=null` |
+| C4 | `psc_c4_hensel.sbatch` | 1,664 SU | 42712603 | completed all seven exact boxes; sparse links, no counterexample |
 | rebuild | `psc_compile_smoke.sbatch` | 4 cores × 20 min | 42715864 | fanout fix compiled; six-worker smoke verification passed |
-| C1 resume | `psc_c1_carry_resume.sbatch` | 1,664 SU | 42715865 | running on `r456` |
+| C1 resume | `psc_c1_carry_resume.sbatch` | 1,664 SU | 42715865 | completed; at B=500, K=29 first empty depth is 171 |
 | K2b build | `psc_compile_smoke.sbatch` | 4 cores × 20 min | 42718933 | first atlas smoke passed; exposed a cold-subtraction precision issue |
 | K2b rebuild | `psc_compile_smoke.sbatch` | 4 cores × 20 min | 42718988 | stable `expm1` cold excess; seven-worker smoke verification passed |
 | K2b | `psc_k2b_coercivity.sbatch` | 5 × 256 SU | 42719003_[0-4] | completed in 4--93 s; hard/block columns valid, cold columns invalid at k=19,20 |
 | aggressive build | `psc_compile_smoke.sbatch` | 4 cores × 20 min | 42720091 | log-domain cold fix and exact three-shard merge regression passed |
-| K2b repair | `psc_k2b_coldfix.sbatch` | 2 × 42.7 SU | 42720120_[0-1] | queued for k=19,20; exits nonzero on any `NaN` |
-| K1b | `psc_k1b_frontier.sbatch` | 6 × 384 SU | 42720134_[0-5] | queued: k=20..22 soft frontier on six lambdas |
-| C2b | `psc_c2b_minplus.sbatch` | 1,536 SU | 42720135 | queued: exact B=5.5*10^12 profile |
-| C3b | `psc_c3b_shard.sbatch` | 3 × 832 SU | 42720136_[0-2] | queued: disjoint depth-27 schedule shards |
-| C3b collector | `psc_c3b_collect.sbatch` | 0.33 SU | 42720137 | `afterok:42720136`; verifies/combines all three shards |
+| K2b repair | `psc_k2b_coldfix.sbatch` | 2 × 42.7 SU | 42720120_[0-1] | completed; valid k=19,20 cold columns and hashes |
+| K1b | `psc_k1b_frontier.sbatch` | 6 × 384 SU | 42720134_[0-5] | timed out safely; each shard retained 16 complete rows, including four floating crossings at lambda 1.89 |
+| C2b | `psc_c2b_minplus.sbatch` | 1,536 SU | 42720135 | completed exact B=5.5*10^12 profile; first null selected slice at depth 88 |
+| C3b | `psc_c3b_shard.sbatch` | 3 × 832 SU | 42720136_[0-2] | timed out; intended checkpoint was not written, so no exhaustive shard result |
+| C3b collector | `psc_c3b_collect.sbatch` | 0.33 SU | 42720137 | stranded `DependencyNeverSatisfied`; no combined claim |
 | B1 build | `psc_bouncer_build.sbatch` | 1.33 SU | 42720597 | failed safely: independent replay exposed missing pre-division modulus in edge CRT |
 | B1 build | `psc_bouncer_build.sbatch` | 1.33 SU | 42720641 | cancelled during smoke after task-count name shadowing was diagnosed |
 | B1 build | `psc_bouncer_build.sbatch` | 1.33 SU | 42720651 | C smoke passed; old PSC Python rejected modern annotation syntax |
 | B1 build | `psc_bouncer_build.sbatch` | 1.33 SU | 42720654 | exact C/Python replay and four-shard merge passed |
 | B1 signal build | `psc_bouncer_build.sbatch` | 1.33 SU | 42720663 | exact replay, merge, scale, and clean partial-checkpoint signal tests passed |
-| B1 | `psc_bouncer_atlas.sbatch` | 4 × 512 SU | 42720684_[0-3] | queued: exact `m,h,m'<=12`, depth-five backward-cylinder atlas |
-| B1 collector | `psc_bouncer_collect.sbatch` | 0.33 SU | 42720685 | `afterok:42720684`; verifies hashes and combines complete or exact partial coverage |
+| B1 | `psc_bouncer_atlas.sbatch` | 4 × 512 SU | 42720684_[0-3] | wall-time partial; exact checkpoints cover 87,040/248,832 prefix tasks |
+| B1 collector | `psc_bouncer_collect.sbatch` | 0.33 SU | 42720685 | combined and hashed the exact partial coverage |
 | B2 build | `psc_carry_policy_build.sbatch` | 1.33 SU | 42721689 | cancelled safely: first independent verifier attempted an exponential word generator |
 | B2 build | `psc_carry_policy_build.sbatch` | 1.33 SU | 42721705 | exact C corpus and independent Python reconstruction agreed |
-| B2 | `psc_carry_policy.sbatch` | 4 × 256 SU | 42721735_[0-3] | queued: strict/relaxed exact Bellman-potential CEGIS on two finite subcodes |
-| B2 collector | `psc_carry_policy_collect.sbatch` | 0.5 SU | 42721737 | `afterok:42721735`; hash-checks and independently rebuilds every corpus |
+| B2 | `psc_carry_policy.sbatch` | 4 × 256 SU | 42721735_[0-3] | completed; strict held-out coverage 8189/8192 and 8190/8192, relaxed 8192/8192 but noncoercive |
+| B2 collector | `psc_carry_policy_collect.sbatch` | 0.5 SU | 42721737 | completed; hashes checked and all four corpora independently rebuilt exactly |

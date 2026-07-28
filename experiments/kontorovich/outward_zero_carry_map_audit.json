@@ -1,0 +1,94 @@
+{
+  "artifact_sha256": "f6c697838f3b272c569caf0dad063de148028e867909a8d9f6bc92b81d72681e",
+  "claim_scope": "exact identities, exact replay of the stated carry witnesses, and a universal periodic-address obstruction; no infinite orbit is supplied",
+  "counterexample": null,
+  "dependency_sha256": {
+    "outward_carry_budget.py": "1d1b9c135e1505ba6f8868b3bd962a2c883018f443b3bc89052dee289d808fc8"
+  },
+  "exact_reduction_validation": {
+    "budget_witnesses_replayed": 28,
+    "carry_artifact_file_sha256": "2a5b8a87ccda6ca2b304f0eacf0df79c653efa97b30de7017defd1580774a598",
+    "carry_artifact_sha256": "a502b111e71460ba4dabfe396b5e17455fb30629cdeb0682963d7b6196f5391f",
+    "maximum_budget_terminal": {
+      "D": 150,
+      "c": 1,
+      "carry_budget": 28,
+      "charge_bits": 221,
+      "depth": 120,
+      "next_carries": [
+        1,
+        4,
+        40
+      ],
+      "z_mod_64": 3,
+      "zero_carry_defined": false
+    },
+    "nonroot_reduced_edges_checked": 1219,
+    "witness_edges_checked": 1247
+  },
+  "schema": "collatz-outward-zero-carry-map-v1",
+  "symbolic_audit": {
+    "architecture_conclusion": "the survivor set is a thin three-branch 2-adic full shift with empty cylinder interior; a positive ordinary orbit requires an aperiodic recursively defined address whose 2-adic code is a nonnegative integer",
+    "branches": [
+      {
+        "domain": "H=0 mod 2",
+        "inverse_coding": "H=(2*H'-0)/3 in Z_2",
+        "map": "H' = (3*H+0)/2",
+        "sample_check": [
+          "A",
+          3
+        ],
+        "strict_growth_numerator": 1,
+        "tag": "A",
+        "word": "1"
+      },
+      {
+        "domain": "H=5 mod 8",
+        "inverse_coding": "H=(8*H'-3)/9 in Z_2",
+        "map": "H' = (9*H+3)/8",
+        "sample_check": [
+          "B",
+          6
+        ],
+        "strict_growth_numerator": 1,
+        "tag": "B",
+        "word": "011"
+      },
+      {
+        "domain": "H=49 mod 64",
+        "inverse_coding": "H=(64*H'-63)/81 in Z_2",
+        "map": "H' = (81*H+63)/64",
+        "sample_check": [
+          "C",
+          63
+        ],
+        "strict_growth_numerator": 17,
+        "tag": "C",
+        "word": "010111"
+      }
+    ],
+    "defined_residue_count_mod_64": 41,
+    "exact_haar_survival_mass_at_block_depth_n": "(41/64)^n",
+    "full_branch_inverse_checks": 1530,
+    "periodic_macro_regression": {
+      "closest_negative_fixed_point": {
+        "macro": "AAAAAAAAAB",
+        "value": "-1536/173051"
+      },
+      "macros_checked": 88572,
+      "macros_with_positive_defect": 88562,
+      "maximum_macro_length": 10,
+      "universal_reason": "for F(H)=(aH+b)/d with a>d and gcd(a,d)=1, integral iteration makes (a-d)H+b divisible by d^n for every n; therefore H=-b/(a-d)<=0"
+    },
+    "similarity_dimension_equation": "2^(-s)+8^(-s)+64^(-s)=1",
+    "undefined_residue_count_mod_64": 23
+  },
+  "theorem_interface": {
+    "bounded_carry_normal_form": "an infinite execution in the three-word subcode exists iff a finite prefix reaches a positive charge with an infinite zero-carry orbit",
+    "counter_growth": "an infinite orbit has H tending to infinity and infinitely many recharge branches; D tends to infinity, while carry is zero and the local v3 counter may reset",
+    "height_growth": "every defined zero-carry branch has H'>H",
+    "ordinary_seed_from_charge": "x=3*H-1",
+    "unbounded_obligation": "construct one positive natural in the thin 2-adic survivor set and prove every branch is defined"
+  },
+  "worker_sha256": "0b287e982ebc0d3b2d762c3afb57624a49854042d6a10d0a643f99db39c4e9ca"
+}

@@ -5466,3 +5466,104 @@ first-passage language, and records `counterexample:null`.
 python3 outward_carry_budget.py selftest
 python3 outward_carry_budget.py verify outward_carry_budget_audit.json
 ```
+
+The enhanced artifact also stores one exact deepest witness for every budget
+`0,...,28`.  Their deepest nonempty depths are
+
+```text
+0,1,2,3,4,5,6,7,9,11,16,23,26,28,38,42,47,50,53,57,
+68,69,79,82,87,98,105,111,120.
+```
+
+This is a calibrated monotone Bellman frontier, not evidence that any budget
+sequence converges or diverges.
+
+### Reduced zero-carry map
+
+`outward_zero_carry_map.py` checks the lossless `(D,c,z)` transition formulas
+against all 1,219 nonroot edges in the per-budget witnesses above.  In the
+zero-carry subsystem, the state collapses to the ordinary positive charge
+`H=(y+1)/3`:
+
+```text
+A: H=0  mod 2  -> 3H/2,
+B: H=5  mod 8  -> (9H+3)/8,
+C: H=49 mod 64 -> (81H+63)/64.
+```
+
+All three branches grow strictly.  The research-side full-branch derivation
+says their source cylinders map bijectively onto `Z_2`; hence finite depth-`n`
+survival has exact Haar mass `(41/64)^n`,
+but the infinite survivor set has empty cylinder interior.  Any eventually
+periodic branch schedule is impossible for positive `H`, because a repeated
+macro `(aH+b)/d` has `a>d` and integral iteration would force the nonpositive
+fixed point `H=-b/(a-d)`.  Commits `12539a0`/`e6791d7`/`1786249` kernel-check
+the exact charge branches, literal first-passage semantics, the ordinary
+counterexample consumer, and this aperiodic-address conclusion.  The full
+inverse-2-adic shift calculation and positive-carry `(D,c,z)` recurrence
+remain research-side.  The live target is one aperiodic recursively coded
+2-adic address which is nevertheless a positive ordinary integer.  The
+artifact does not supply one and records `counterexample:null`.
+
+```bash
+python3 outward_zero_carry_map.py selftest
+python3 outward_zero_carry_map.py verify outward_zero_carry_map_audit.json
+```
+
+### Singular-link invariant CEGIS
+
+`outward_singular_link_cegis.py` tests the canonical singular architecture
+with fixed target counters `c->2->2`.  It never constructs the enormous
+integer.  Instead it updates
+
+```text
+z_c=3^(c+1),
+A_c=3^(2*3^c+3),
+A_(c+1)=A_c^3/3^6
+```
+
+modulo `2^49`, reconstructs the least ordinary ternary-compatible payload,
+and tests the second exact 24-bit division.  The exhaustive interval
+`1<=c<=11626231` has its first hit at
+
+```text
+c=11626231, h=1631776, q=1+3^(c+1)h.
+```
+
+Thus the earlier proposed one-link obstruction is false.  A 52-bit replay
+then proves the third link undefined: the post-second payload is `9 mod 16`,
+so `3^18*q''+7=8 mod16` and has valuation exactly three, below the legal
+minimum six.  Leastness is asserted only inside this fixed `c->2->2` class.
+The artifact records `counterexample:null`.
+
+```bash
+python3 outward_singular_link_cegis.py selftest
+python3 outward_singular_link_cegis.py verify \
+  outward_singular_link_cegis_audit.json
+```
+
+### RM carry-policy potential extraction
+
+The Bridges-2 B2 search tested exact finite Bellman corpora for the three-word
+and 13-word source-bounded first-passage subcodes.  An independent Python
+reconstruction agrees on all four 8,192-row train/held-out corpora.  The two
+strict fits cover `8189/8192` and `8190/8192` held-out rows; all five misses
+reduce to `(D,c,z)=(7,5,5)` or `(6,3,11)`, with best carry `q=1`.  The relaxed
+fits cover every held-out row but are not lower-bounded and therefore cannot
+prove bounded carry.
+
+The exact proof endpoint is now kernel-checked in
+`KontoroC/KontoroC/OutwardCarryPolicyPotential.lean`.  A natural-valued
+potential satisfying
+
+```text
+extensionCarry pre w + V (pre ++ [w]) <= V pre
+```
+
+for some legal child of every reachable prefix telescopes to a uniform carry
+budget.  Existing compactness and first-passage semantics then give one
+ordinary infinite execution and the conditional negation of the Collatz
+conjecture.  No fitted B2 formula satisfies that universal premise.  The next
+exact construction target is a globally natural symbolic correction at the
+two miss states.  See `NEW_COMPUTE.md/RM_RESULTS_2026-07-28.md` for full scope
+and hashes.

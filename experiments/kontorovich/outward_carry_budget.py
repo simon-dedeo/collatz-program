@@ -153,6 +153,9 @@ def exhaust(
     rows: list[dict[str, Any]] = []
     total_nodes = 1
     deepest_layer: list[State] = []
+    budget_frontier: list[tuple[int, State] | None] = [
+        None for _ in range(carry_budget + 1)
+    ]
     status = "depth_cap"
 
     for depth in range(1, depth_cap + 1):
@@ -179,6 +182,28 @@ def exhaust(
                 ),
             }
         )
+        best_at_exact_cost: dict[int, State] = {}
+        for state in layer:
+            previous = best_at_exact_cost.get(state.carry)
+            if previous is None or (
+                state.rho.bit_length(), state.rho, state.path_code
+            ) < (previous.rho.bit_length(), previous.rho, previous.path_code):
+                best_at_exact_cost[state.carry] = state
+        best_so_far: State | None = None
+        for budget in range(carry_budget + 1):
+            candidate = best_at_exact_cost.get(budget)
+            if candidate is not None and (
+                best_so_far is None
+                or (candidate.rho.bit_length(), candidate.rho, candidate.path_code)
+                < (
+                    best_so_far.rho.bit_length(),
+                    best_so_far.rho,
+                    best_so_far.path_code,
+                )
+            ):
+                best_so_far = candidate
+            if best_so_far is not None:
+                budget_frontier[budget] = (depth, best_so_far)
         if not layer:
             status = "exhausted"
             break
@@ -201,6 +226,27 @@ def exhaust(
         }
         for row in words
     ]
+    budget_rows = []
+    for budget, budget_entry in enumerate(budget_frontier):
+        if budget_entry is None:
+            budget_rows.append(
+                {
+                    "carry_budget": budget,
+                    "deepest_nonempty_depth": 0,
+                    "first_empty_depth": 1,
+                    "witness": None,
+                }
+            )
+            continue
+        frontier_depth, frontier_state = budget_entry
+        budget_rows.append(
+            {
+                "carry_budget": budget,
+                "deepest_nonempty_depth": frontier_depth,
+                "first_empty_depth": frontier_depth + 1,
+                "witness": literal_replay(frontier_state, frontier_depth, words),
+            }
+        )
     return {
         "bounds": {
             "maximum_word_length": maximum_word_length,
@@ -217,6 +263,7 @@ def exhaust(
         "maximum_layer_population": max(row["population"] for row in rows),
         "deepest_nonempty_depth": deepest_depth,
         "first_empty_depth": rows[-1]["depth"] if status == "exhausted" else None,
+        "budget_frontier": budget_rows,
         "deepest_replay_witness": literal_replay(deepest, deepest_depth, words),
         "theorem_interface": (
             "for a fixed finite first-passage subcode, an ordinary infinite "
@@ -322,6 +369,16 @@ def selftest() -> None:
     tiny = exhaust(8, 50, 4, 20)
     if tiny["status"] != "exhausted" or tiny["first_empty_depth"] != 5:
         raise AssertionError("tiny carry-budget exhaustion changed")
+    if not isinstance(tiny["unselected_nonoutward_prefix_frontier"], int):
+        raise AssertionError("word-generation frontier was shadowed")
+    if [row["deepest_nonempty_depth"] for row in tiny["budget_frontier"]] != [
+        0,
+        1,
+        2,
+        3,
+        4,
+    ]:
+        raise AssertionError("tiny carry-budget frontier changed")
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:

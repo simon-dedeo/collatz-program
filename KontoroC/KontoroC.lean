@@ -154,6 +154,7 @@ import KontoroC.OutwardResourceTightness
 import KontoroC.OutwardLeastSurvivorResource
 import KontoroC.OutwardResourceMinimumCompactness
 import KontoroC.OutwardFiniteSubcodeCarry
+import KontoroC.OutwardCarryPolicyPotential
 import KontoroC.OutwardZeroCarrySemantics
 import KontoroC.OutwardThreeWordZeroCarry
 import KontoroC.OutwardThreeWordReducedState
@@ -224,6 +225,7 @@ import KontoroC.OutwardEntropyDriftNoGo
 import KontoroC.OutwardCanonicalRechargeCompleteness
 import KontoroC.OutwardCanonicalTailMerger
 import KontoroC.OutwardChartRankNoGo
+import KontoroC.KLColdPowerCertificate
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
 import KontoroC.TwoRailPrefixCode

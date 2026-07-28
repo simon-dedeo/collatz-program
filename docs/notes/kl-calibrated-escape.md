@@ -3021,3 +3021,119 @@ that closes that loophole here.  A genuinely mixed recursive predicate which
 uses the exact dyadic binder in (32.2), then transports its free tail to the
 next node, remains live.  The artifact therefore keeps
 `universal_invariant:null` and `counterexample:null`.
+
+## 33. Bounded carry collapses to a thin zero-carry full shift
+
+For the exact finite subcode `F0={1,011,010111}`, write a nonroot canonical
+boundary as `y=3H-1`, factor `H=3^c z` with `3` not dividing `z`, put
+`D=Q-c`, and `M=3^(D-1)`.  Canonical target range gives `D>=1` and
+`1<=z<=M`.  If `q` is the next natural extension carry, the three exact
+transitions are
+
+```text
+1:      q=z mod2,
+        (D,c,z)->(D,c+1,(z+Mq)/2);
+
+011:    3^c(z+Mq)=5 mod8,
+        (D,c,z)->(D+c+1,1,(3^(c+1)(z+Mq)+1)/8);
+
+010111: 3^c(z+Mq)=49 mod64,
+        (D,c,z)->(D+c+2,2,(3^(c+2)(z+Mq)+7)/64).
+```
+
+Each congruence uniquely determines `q` in the appropriate range.  The exact
+worker checks these formulas on 1,219 nonroot edges from the coherent
+per-budget witnesses.  The existing kernel theorem reduces bounded carry to
+finite reachability of an all-zero-carry ray.  On such a ray the extra
+coordinates disappear, leaving
+
+```text
+R0(H)=3H/2                 if H=0 mod2,
+      (9H+3)/8             if H=5 mod8,
+      (81H+63)/64          if H=49 mod64,
+      undefined            otherwise.                 (33.1)
+```
+
+Every defined branch is strictly increasing.  Research-side, each source
+cylinder maps bijectively onto all of `Z_2`; its inverse contraction is
+respectively
+
+```text
+2K/3, (8K-3)/9, (64K-63)/81.                    (33.2)
+```
+
+Consequently the research derivation gives depth-`n` survival Haar mass
+`(41/64)^n`, and the
+infinite survivor is a three-symbol 2-adic full shift with no cylinder
+interior.  This rejects every finite congruence-cylinder invariant
+architecture, not the thin survivor itself.  A repeated nonempty branch
+macro has `F(H)=(aH+b)/d`, with `a>d`, `gcd(a,d)=1`, and `b>=0`.  If all
+iterates were integral, their successive differences would make
+`(a-d)H+b` divisible by `d^n` for every `n`; hence `H=-b/(a-d)<=0`.
+Thus a positive survivor must have an aperiodic address.  If it exists,
+`x=3H-1` is already one ordinary escaping Collatz seed, and `H` (as well as
+the address gap `D`) grows without bound.  This is the compact unbounded
+obligation, not a counterexample.  Commits
+`12539a0`/`e6791d7`/`1786249` kernel-check the exact charge branches, their
+literal first-passage semantics, strict charge growth, the ordinary
+orbit-to-Collatz consumer, and the periodic-address obstruction.  The
+inverse-2-adic full-shift calculation and positive-carry `(D,c,z)` recurrence
+remain research-side pending the rest of QM174.
+
+The singular alternating family then produced a useful CEGIS correction.
+For `M_j=2*3^j`, an exact link obeys
+
+```text
+2^(M_d+d+4)q'=3^(M_c+d+1)q+7*3^(d+1)+2^(d+4).   (33.3)
+```
+
+Fixing `d=e=2`, an exhaustive 49-bit recurrence over
+`1<=c<=11626231` finds the first canonical two-link renewal at
+
+```text
+c=11626231,
+q=1+1631776*3^(c+1).                              (33.4)
+```
+
+This refutes the proposed universal claim that a canonical least link always
+dies immediately.  It does not survive a third link.  Modulo `2^52`, the
+twice-divided payload is `9 mod16`; since `3^18=9 mod16`, its next writer
+numerator is `9*9+7=8 mod16`, with valuation three instead of the required
+six.  The leastness in (33.4) is only within the fixed `c->2->2` class.  Both
+new artifacts retain `counterexample:null`.
+
+## 34. RM policy potentials: exact endpoint, two finite obstructions
+
+The Bridges-2 B2 probe searched finite-feature Bellman potentials on exact
+finite corpora.  Its proof-relevant inequality is
+
+```text
+q(pre,w) + V(pre++[w]) <= V(pre).                 (34.1)
+```
+
+If `V` is natural-valued and some legal child satisfies (34.1) at every
+reachable prefix, summing along the selected path telescopes total carry to
+at most `V([])`.  `OutwardCarryPolicyPotential.lean` now kernel-checks this
+argument and composes it through uniform carry, eventual zero carry, an
+ordinary infinite first-passage execution, and the conditional negation of
+the Collatz conjecture.  This is an exact endpoint, not an existence theorem
+for `V`.
+
+The four 8,192-row B2 corpora reconstruct exactly under an independent Python
+implementation.  Relaxed fits cover both held-out corpora but can decrease
+without a natural lower bound, so their apparent success cannot telescope.
+Strict fits cover `8189/8192` and `8190/8192`.  Diagnostic replay collapses
+all five misses to two primitive reduced states:
+
+```text
+(D,c,z)=(7,5,5),  best q=1, fitted drop=-26;
+(D,c,z)=(6,3,11), best q=1, fitted drop=-6 or -12.
+```
+
+Thus the useful next probe is symbolic: classify all outgoing inequalities
+near these two small-unit spikes and seek a globally nonnegative bounded
+correction to the structural potential.  Adding arbitrary finite-state
+indicators is not enough unless entry inequalities and a global natural lower
+bound are proved.  The full hashes and numerical scope are recorded in
+`NEW_COMPUTE.md/RM_RESULTS_2026-07-28.md`; every artifact retains
+`counterexample:null`.

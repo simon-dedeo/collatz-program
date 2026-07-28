@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simon DeDeo, OpenAI Codex
 -/
 import KontoroC
+import KontoroC.OutwardCarryPolicyPotential
+import KontoroC.KLColdPowerCertificate
 
 /-!
 # Axiom audit for the Kontorovich certificate seam
@@ -2761,6 +2763,22 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardFiniteSubcodeCarry.uniformCarryBudget_iff_exists_zeroCarryTail
 #print axioms
   KontoroC.OutwardFiniteSubcodeCarry.infiniteExecution_iff_exists_zeroCarryTail
+#print axioms
+  KontoroC.OutwardCarryPolicyPotential.exists_suffix_with_carry_add_potential_le
+#print axioms
+  KontoroC.OutwardCarryPolicyPotential.uniformCarryBudget_of_policyPotential
+#print axioms
+  KontoroC.OutwardCarryPolicyPotential.exists_zeroCarryTail_of_policyPotential
+#print axioms
+  KontoroC.OutwardCarryPolicyPotential.exists_infiniteExecution_of_policyPotential
+#print axioms
+  KontoroC.OutwardCarryPolicyPotential.not_conjecture_of_policyPotential
+#print axioms
+  KontoroC.KLColdPowerCertificate.three_rpow_inv_nat_lt_of_pow_gt
+#print axioms
+  KontoroC.KLColdPowerCertificate.levelFeasible_of_coldSubeigen_natPower
+#print axioms
+  KontoroC.KLColdPowerCertificate.almostLinearPredecessorCounting_of_coldSubeigen_natPower_sequence
 #print axioms
   KontoroC.OutwardZeroCarrySemantics.exists_executes_iff_source_mod
 #print axioms

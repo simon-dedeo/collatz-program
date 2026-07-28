@@ -13745,3 +13745,117 @@ carry budget 28.  It checks 57,045,660 coherent prefix nodes, finds one node
 at depth 120 and none at depth 121.  This is a bounded test of QM173's intended
 semantics, not a premise: the formal theorem should quantify over arbitrary
 `K` and finite `F0` and must not import these rows.
+
+## Reduced three-word zero-carry dynamics (QM174 remainder, 2026-07-24)
+
+Commits `12539a0`/`e6791d7`/`1786249` already package the concrete charge
+branches, literal semantics, strict growth, ordinary counterexample consumer,
+and periodic-address obstruction.  The remaining useful arithmetic request is
+the positive-carry normal form below.  Please package it
+for the concrete subcode `{1,011,010111}`.  For a nonempty reachable canonical
+prefix, let `Q` be its odd count and write its target as
+
+```text
+y=3H-1, H=3^c*z, 3 does not divide z,
+D=Q-c, M=3^(D-1).
+```
+
+Canonical target range gives `D>=1` and `1<=z<=M`.  First prove the semantic
+bridge that if `q=extensionCarry u w`, the intermediate source of the new
+word is exactly `y+3^Q*q`.  Then prove the complete transitions
+
+```text
+1:      q=z mod2,
+        (D,c,z)->(D,c+1,(z+Mq)/2);
+
+011:    q<8 is unique with 3^c(z+Mq)=5 mod8,
+        (D,c,z)->(D+c+1,1,(3^(c+1)(z+Mq)+1)/8);
+
+010111: q<64 is unique with 3^c(z+Mq)=49 mod64,
+        (D,c,z)->(D+c+2,2,(3^(c+2)(z+Mq)+7)/64). (QM174a)
+```
+
+For the word-`1` primitive-factor proof, split `D>=2` from `D=1`; in the
+second case the bound forces `z=1` and the carry is one.  The exact root states
+are `(1,0,1),(1,1,1),(2,2,1)` with root carries `1,6,18`; do not claim every
+algebraic bounded triple is reachable.
+
+At `q=0`, eliminate `(D,c,z)` in favor of `H=3^c*z` and prove the partial map
+
+```text
+H even      -> 3H/2,
+H=5 mod8    -> (9H+3)/8,
+H=49 mod64  -> (81H+63)/64.                      (QM174b)
+```
+
+The domains are disjoint and every defined branch has output strictly larger
+than positive `H`.  Combine this with the existing coherent-tree and
+zero-carry-tail theorems to state safely
+
+```text
+infinite execution in F0
+  <-> some finite prefix reaches an infinite positive orbit of (QM174b).
+                                                               (QM174c)
+```
+
+An orbit at `H` supplies the ordinary seed `x=3H-1`; it is an eventually-zero
+canonical carry path, not necessarily zero-carry from the root.  Keep the
+layerwise `forall depth, exists prefix` statement behind the existing Koenig
+coherence theorem.
+
+If convenient, also prove the periodic obstruction.  A repeated nonempty
+macro has `F(H)=(aH+b)/d`, `a>d`, `gcd(a,d)=1`, `b>=0`.  If every iterate is
+integral, induction on successive differences gives
+`d^n | (a-d)H+b` for every `n`, hence `H=-b/(a-d)<=0`.  Therefore a positive
+zero-carry orbit has no eventually periodic word tail.  This is an
+architecture no-go, not a counterexample.  `counterexample:null`.
+
+## RM proof extraction (QM175--QM176, 2026-07-28)
+
+The research-side `KontoroC` build now contains two exact consumers extracted
+from the Bridges-2 campaign.  The finite/floating RM rows are calibration only
+and are not premises of either theorem.
+
+### QM175: exact cold-power promotion
+
+`KontoroC/KLColdPowerCertificate.lean` proves:
+
+```text
+three_rpow_inv_nat_lt_of_pow_gt
+levelFeasible_of_coldSubeigen_natPower
+almostLinearPredecessorCounting_of_coldSubeigen_natPower_sequence
+```
+
+For natural positive `beta` and nonnegative `r`, the finite exact inequality
+`3 < r^beta` implies `3^(1/beta) < r`.  This removes a transcendental
+comparison from any future rational cold-subeigenvector certificate.  K1b's
+floating `(k,lambda,beta)=(22,1.89,256)` crossing motivates the interface but
+does not instantiate it.  Please review or port only if useful; the
+research-side module already builds and its audit prints the theorem axioms.
+
+### QM176: global policy potential
+
+`KontoroC/OutwardCarryPolicyPotential.lean` defines
+
+```text
+PolicyPotential F V :=
+  forall reachable pre, exists w in F,
+    extensionCarry pre w + V (pre ++ [w]) <= V pre
+```
+
+for `V : List (List Bool) -> Nat`, and proves:
+
+```text
+exists_suffix_with_carry_add_potential_le
+uniformCarryBudget_of_policyPotential
+exists_zeroCarryTail_of_policyPotential
+exists_infiniteExecution_of_policyPotential
+not_conjecture_of_policyPotential
+```
+
+The first theorem telescopes the Bellman inequalities; the others compose
+with the existing finite-subcode compactness and first-passage consumers.  B2
+does not provide the universal `PolicyPotential` premise: strict finite fits
+miss two reduced states and relaxed fits are not lower-bounded.  Again, please
+review/port only if this abstraction belongs in the independent tree; do not
+import any RM data as axioms.

@@ -33,6 +33,89 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-28 EDT
+
+The Bridges-2 RM campaign is complete: approximately 12,374.36 charged
+core-hours across massively parallel KL and counterexample probes.  It found
+no Collatz counterexample and did not prove the KL endpoint.  It did, however,
+sharpen both proof obligations.
+
+On the KL side, timed-out K1b shards retained useful floating rows.  At
+`lambda=1.89`, level 22 crosses the cold threshold at `beta=256` and 512;
+the warmer row has midpoint `r=1.0049297307` versus
+`3^(1/256)=1.0043006757`.  This is not a certificate because no exact vector
+was saved.  `KLColdPowerCertificate.lean` now gives its exact promotion gate:
+for natural `beta`, prove the finite inequality `3<r^beta` and every rational
+cold-subeigenvector row, then Lean supplies hard feasibility and the existing
+counting consumer.  K2b also found that all selected levels `k=16,...,20`
+have 81-edge hard and frustration block minima above one sixth of their means,
+while shorter blocks can vanish.  This is a precise all-level coercivity
+conjecture, still only finite floating evidence.
+
+On the counterexample side, the exact searches extended carry and triadic
+minimum exclusions but every artifact retains `counterexample:null`.  The B2
+Bellman-potential corpus was independently reconstructed exactly.  Strict
+fits miss only the reduced states `(D,c,z)=(7,5,5)` and `(6,3,11)` on held-out
+rows; relaxed perfect fits are noncoercive and cannot prove bounded carry.
+`OutwardCarryPolicyPotential.lean` now proves the exact positive endpoint:
+any globally natural policy potential paying each extension carry from its
+potential decrease telescopes to a uniform carry budget, an eventual
+zero-carry tail, and an ordinary infinite execution.  Thus the next target is
+a symbolic nonnegative small-unit correction at the two miss states, not a
+larger unconstrained regression.  Full numerical scope and hashes are in
+[`RM_RESULTS_2026-07-28.md`](NEW_COMPUTE.md/RM_RESULTS_2026-07-28.md).
+
+### 2026-07-24 04:55 EDT
+
+There is still no Collatz counterexample.  The finite carry search has now
+collapsed to its exact unbounded obligation rather than being widened.  For
+the subcode `{1,011,010111}`, write a nonroot canonical boundary as
+`y=3H-1`, with `H=3^c*z`, `3` not dividing `z`, cumulative odd count `Q`,
+`D=Q-c`, and `M=3^(D-1)`.  Exact replay of 1,219 nonroot edges gives a
+lossless recurrence on `(D,c,z)`; in the eventual-zero-carry subsystem it
+simplifies further to the partial map
+
+```text
+H even       -> 3H/2,
+H=5  mod 8   -> (9H+3)/8,
+H=49 mod 64  -> (81H+63)/64.
+```
+
+Every defined branch strictly increases `H`.  The research-side full-branch
+calculation says each source cylinder maps bijectively onto all of `Z_2`, so
+the depth-`n` Haar survival mass is exactly
+`(41/64)^n`; the infinite survivor set has no dyadic-cylinder interior.  A
+positive ordinary survivor must therefore be a thin, recursively specified
+2-adic address, not a finite congruence predicate.  Moreover no eventually
+periodic branch address can work: a period composes to
+`F(H)=(aH+b)/d` with `a>d`, and integral iteration forces
+`(a-d)H+b` to be divisible by every power of `d`, hence `H<=0`.
+Commits `12539a0`/`e6791d7`/`1786249` kernel-check the three charge branches,
+their exact literal semantics, strict growth, the ordinary-orbit-to-Collatz
+consumer, and the aperiodic-address obstruction.  The full inverse-2-adic
+shift statement and `(D,c,z)` positive-carry recurrence remain research-side.
+The exact finite regression artifact digest is
+`f6c697838f3b272c569caf0dad063de148028e867909a8d9f6bc92b81d72681e`.
+
+This structural reduction paid off immediately in the singular alternating
+lane.  The proposed universal obstruction “the canonical least link always
+dies at the next link” is false.  An exact 49-bit recurrence exhausts
+`1<=c<=11626231` in the fixed `c->2->2` architecture and finds its first
+two-link renewal at
+
+```text
+c=11626231,  h=1631776,
+q=1+3^(c+1)*h.
+```
+
+It is an extraordinarily sparse arithmetic resonance, not an infinite orbit.
+A 52-bit replay gives the first CEGIS failure: after the second link the
+payload is `9 mod 16`, so the next writer numerator is `8 mod 16` and has
+`v2=3`, below the required six.  The exact artifact digest is
+`3d8ff4086a4b54698778a57b865a4cdf798ebd82f7e87c48b0dc1eadb4852a32`;
+its leastness claim is only for the displayed `c->2->2` class.  Both artifacts
+retain `counterexample:null`.
+
 ### 2026-07-24 04:06 EDT
 
 There is still no Collatz counterexample.  The first theorem-driven resource
@@ -105,8 +188,10 @@ every infinite schedule in this subcode would need total carry at least 29.
 The deepest prefix is the ordinary 163-bit seed
 `5846196105700336507223709767248470050869934588775`; literal replay confirms
 exactly 120 blocks and then termination.  This rejects budgets `0,...,28` for
-one finite subcode, not all budgets or the full language.  The artifact digest
-is `425cc052b1a9448d909904f4700e889c50e40389d8a43345b7e3a7a4388407e8`:
+one finite subcode, not all budgets or the full language.  The enhanced
+artifact records one exact deepest witness separately for every budget
+`0,...,28`; its digest is
+`a502b111e71460ba4dabfe396b5e17455fb30629cdeb0682963d7b6196f5391f`:
 [`outward_carry_budget.py`](experiments/kontorovich/outward_carry_budget.py),
 [`outward_carry_budget_audit.json`](experiments/kontorovich/outward_carry_budget_audit.json).
 
@@ -8969,6 +9054,30 @@ SOS fits, ultraproduct solutions, and product-quotient solutions remain
 profinite shadows until a cutoff-independent lift with kernel-trivial ordinary
 root is proved.  Exact paired `2`-/`3`-adic unique-circuit-minimum rejection
 from `d8e789a` now runs before this more expensive synthesis.
+
+The current construction target is now sharper.  For the complete
+source-residue-at-most-50 subcode `{1,011,010111}`, the all-depth carry theorem
+reduces bounded carry to finite reachability of a deterministic zero-carry
+charge map.  Its charge semantics and periodic obstruction are kernel-checked;
+research-side, its three cylinders are full 2-adic branches,
+while its ordinary
+positive survivor set has empty cylinder interior and no eventually periodic
+address.  The live architecture is therefore an aperiodic recursive address
+with a positive fresh-memory ledger, not a larger carry budget or a finite
+residue DNF.  The singular-link CEGIS lane supplies its first rare two-link
+resonance at `c=11626231`, then rejects it at the third writer; future
+refinements vary the counter architecture and must report their first exact
+closure failure.
+The RM policy-potential search now adds a theorem-shaped alternative to
+constructing that zero-carry address directly.  If a natural-valued `V` pays
+`extensionCarry(pre,w)` by decreasing along some legal child at every
+reachable prefix, the inequalities telescope and the existing compactness
+consumer supplies one ordinary infinite execution.  This implication is
+kernel-checked in `OutwardCarryPolicyPotential.lean`; the finite B2 fits do
+not satisfy its universal premise.  Exact held-out replay localizes the strict
+fit failures to `(D,c,z)=(7,5,5)` and `(6,3,11)`, whereas relaxed perfect fits
+are not lower-bounded.  The live grammar is therefore a globally natural
+small-unit correction near those states, not promotion of the relaxed fit.
 The IAS non-escape audit supplies a second exact positive endpoint.  Let
 `S_H` be nested sets of ordinary positive seeds satisfying the first `H`
 literal recharge, positivity, and avoidance obligations, and let `mu_H` be
@@ -10237,6 +10346,7 @@ positive-density conclusion.
 | Coarse-minimum/defect package and conditional counting endpoint | `5a8727f`/`786c02e` prove coarse-minimum order and defect data processing; `ee37cd9`/`27b9e69` expose the exact rowwise mismatch and one-stage canonical frustration seam; `d4b328b` retains inherited supersolution slack. Commits `ca0a6e9`/`e2723e2` isolate the exact all-stage normalized and rowwise slack-gain premises. Exact selected `k=12,...,19` data obey `ε_(j+1)≥ε_j+(3/2)ε_j²`, while an exact feasible `k=3` counterexample rules out a cone-wide theorem. `38f1497` proves the conditional endpoint, `da029d4` composes it to literal almost-linear predecessor counting, and `4419b30` weakens uniform gain to divergent effective intermittent or checkpoint gain. The theorems still assume a positive exact fixed tower, all mass/defect side conditions, and the gain; the certificate records are feasible subeigenvectors, not instances of that tower. See `docs/notes/coarse-minimum-gap.md`. |
 | Information-geometric selected defect | For each carry-aligned transport/branch fiber pair, the local hard slack is the zero-temperature order-θ Rényi separation rate of two residual-cost escorts, uniformly within `log(3)/β`; Lean commits `8c3e1df`--`9ff6d64` check the scalar, multiway, and literal-overlap forms. A `D_KL` projection onto the union of common-minimizer order cones has the exact zero set and satisfies `(3/4)J²≤I≤log(3)J`, but on `k=12,...,14` it is only `3.45%,3.18%,2.98%` of the quadratic target. An exact slowly rotating family has macroscopic fiber defect and vanishing information production, so a selected carry/branch rigidity theorem is still essential. See `docs/notes/information-geometric-defect.md`. |
 | Uniform zero-temperature control and an exact soft-to-hard bridge | For `p=-β`, `F_min≤F_p≤3^(1/β)F_min`; for every fixed `p<1`, power-mean projection proves `ρ_(k-1,λ,p)≤ρ_(k,λ,p)≤s(λ)`, so the fixed-temperature limit exists. Lean commit `4419b30` checks the literal normalized ternary cold mean, replaces only the KL branch-fiber minimum, retains transport, and turns any positive soft subeigenpair `r*x≤F_β(x)` with `3^(1/β)<r` into exact hard feasibility and, along arbitrary witness levels tending to parameter two, almost-linear counting. It does not construct those subeigenvectors or prove fixed-temperature saturation. The two-copy carry audit also closes generic unweighted `L²` contraction; selected/on-code cancellation remains open. See `docs/notes/softmin-replica.md` and `docs/notes/softmin-pair-carry.md`. |
+| RM cold-power and block-coercivity targets | K1b's retained floating rows cross the cold threshold at `(k,lambda,beta)=(22,1.89,256)` and three colder/higher cases, but no exact vector was saved. `KLColdPowerCertificate.lean` replaces the transcendental promotion check by exact `3<r^beta` plus rational row inequalities. K2b finds every selected 81-edge block at `k=16,...,20` above `1/6` of its mean, while shorter blocks can be zero. These are certification and theorem targets, not established KL results. See [`RM_RESULTS_2026-07-28.md`](NEW_COMPUTE.md/RM_RESULTS_2026-07-28.md). |
 | Forward-orbit side-bush capacity | Along an injective Syracuse spine, the inverse basins attached at the odd-step side targets `b_j=6n_j+2` are pairwise disjoint. Lean commits `b47aa31`/`3577b8f` package the side-target identities, disjoint packing, explicit all-`X` KL lower bound, and normalized combined capacity inequality; the full audit and a separate SHA-pinned exact checker pass. The current numerical load is tiny, so this is a new full-proof interface, not a proof of divergence exclusion. See `docs/notes/side-bush-capacity.md`. |
 | Critical base-`3/2` span capacity | The rational-base span is `σ(n)=H(n+1)-H(n)` for a bounded-displacement coordinate satisfying `H(ceil(3n/2))=(3/2)H(n)`. Exact all-level consequences include interval discrepancy at most one, `σ(2n)≥(2/3)K(3)`, and inverse-capacity ratio at least `2/3` (at least `4/3` in residue class two). An independently audited depth-96 checker passes. Explicit exponentially small spans and a telescoping cycle Jacobian kill scalar-Lyapunov and hyperbolicity proofs; only a long-range capacity anti-correlation route survives. See `docs/notes/rational-span-cocycle.md`. |
 
@@ -10265,10 +10375,14 @@ an engineering caveat, not an unproved mathematical premise.
   A useful invariant must see more than `(K,L)`.
 - **Reach the KL endpoint by hard-min pressure.**  Supply the positive exact
   selected tower and a structural intermittent/checkpoint gain whose effective
-  sum diverges.  All downstream telescoping and counting transfer is checked.
+  sum diverges.  The RM-selected 81-block `1/6` lower bound is now the most
+  concrete finite conjecture to test for refinement stability.  All downstream
+  telescoping and counting transfer is checked.
 - **Reach it by finite temperature.**  Prove fixed-temperature saturation or
   certify positive soft subeigenvectors with factor above `3^(1/beta)` along
-  parameters tending to two.  The literal soft-to-hard consumer is checked.
+  parameters tending to two.  First exact-promotion target:
+  `(k,lambda,beta)=(22,1.89,256)`.  The literal soft-to-hard consumer and the
+  exact natural-power threshold conversion are checked.
 - **Bypass selection entirely.**  Construct exact feasible witnesses at
   arbitrary cofinal levels with parameters tending to two.
 
@@ -10286,6 +10400,7 @@ almost-linear predecessor counting and require a separate no-escape argument.
 | Generic local information coercivity | Closed: standard divergences have the wrong hard zero set, and a slowly rotating tie-wall family has macroscopic defect with vanishing production. A selected holonomy theorem remains open. | [Information defect](docs/notes/information-geometric-defect.md) |
 | Natural finite defect automaton | Closed at the tested quotient: carry/policy refinement recovers essentially the full `k=12` Jacobian. | [Defect automaton](docs/notes/same-policy-defect-automaton.md) |
 | Growing bounded-summary predictive memory | Negative at the exact `k=12` checkpoint: next-edge gain is exactly zero and every longer-history gain is negative under origin-digit blocked holdout. | [Exact diagnostic](experiments/kl/diagnose_active_path_memory.py) |
+| Relaxed finite-sample Bellman potential as a counterexample certificate | Invalid.  The relaxed B2 features cover both 8,192-row held-out corpora only because the potential is not lower-bounded, so its decreases cannot telescope.  Strict natural-valued policy potentials remain live; their finite fits miss two reduced states and still require an all-prefix proof. | [RM synthesis](NEW_COMPUTE.md/RM_RESULTS_2026-07-28.md) |
 | Pointwise pressure split `U(21/50)` | Refuted on an exact `k=19` feasible record by ratio `0.542601...>0.42`. Rare violations leave mass-weighted or selected-critical statements open. | [Genealogy note](docs/notes/multiscale-genealogy.md) |
 | Cone-wide coarse-minimum or entropy monotonicity | Refuted by exact positive feasible `k=3` counterexamples. Any endpoint theorem must retain selected critical or vanishing-slack structure. | [Coarse-minimum note](docs/notes/coarse-minimum-gap.md) |
 | Fitted geometric localization envelopes | Closed as all-level critical/vanishing-slack laws by exact low-depth annealed floors. Polynomial or direct selected-family control remains open. | [Terminal statistics](docs/notes/terminal-defect-statistics.md) |

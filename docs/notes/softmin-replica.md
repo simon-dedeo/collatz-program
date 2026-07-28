@@ -783,3 +783,34 @@ burden is the scalar fixed-temperature annealing limit (6.1), or directly a
 cofinal family of certified subeigenvectors satisfying (6.2a); the constrained,
 level-uniform replica lower bound (6.17) for the renewal-min selected family is
 the more local alternative.
+
+## 8. Bridges-2 calibration and exact promotion interface
+
+The RM K1b run timed out, but append-only output retained 16 complete rows in
+each of six lambda shards.  At `lambda=1.89`, floating cold subeigenvalue
+midpoints cross `3^(1/beta)` at level 21 for `beta=1024,2048` and at level 22
+for `beta=256,512`.  The strongest warm target is
+
+```text
+k=22, beta=256:
+r=1.0049297307147178,
+3^(1/beta)=1.0043006757288733.                    (8.1)
+```
+
+No promotable vector was saved, so (8.1) is not a certificate.  The new
+kernel-checked `KLColdPowerCertificate.lean` isolates the exact replacement:
+with natural positive `beta`, an exact positive rational subeigenvector and
+the finite inequality `3<r^beta` imply the existing analytic threshold and
+hence `LevelFeasible`.  A cofinal sequence composes to almost-linear
+predecessor counting.
+
+K2b gives a separate theorem target.  On the selected floating profiles at
+`k=16,...,20`, every cyclic 81-edge block has hard and second-gap frustration
+sum at least `1/6` of the corresponding mean block sum.  The smallest observed
+ratios are `0.195612` (hard) and `0.178754` (frustration), both at `k=20`.
+Shorter blocks can have zero sum, so pointwise or very short-range coercivity
+is excluded by these same profiles.  The live statement is an all-level,
+selected-profile, refinement-stable 81-block inequality; the five floating
+levels neither establish exact finite cases nor prove the uniform theorem.
+Hashes and complete scope are in
+`NEW_COMPUTE.md/RM_RESULTS_2026-07-28.md`.
