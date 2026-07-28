@@ -93,6 +93,13 @@ valuation equals any requested sign-negative target exponent, whenever the
 residual has enough binary room.  It emits an exact positive odd cofactor.
 The remaining closure equation is now to make that cofactor reproduce the
 next residual and transport the independent positive boundary amplitude.
+The most direct scalar version of that equation is now closed: Lean proves
+that the emitted cofactor can never equal any single later positive debris
+`R_next`.  Such an equality would localize `next` to a linear window around
+the reached label, while multiplicative order modulo the common power of
+three forces an exponentially large binary return.  Any live construction
+must therefore reproduce a genuinely composite/infinite payload, not merely
+iterate the scalar debris family.
 
 The Bridges-2 RM campaign is complete: approximately 12,374.36 charged
 core-hours across massively parallel KL and counterexample probes.  It found
@@ -9832,8 +9839,11 @@ needs the independent ordinary-root/tightness proof.
   typed odd-level branch instead reads `2+v2(q(ell)+q(m))`; an explicit Lean
   constructor now routes it to any requested sign-negative public exponent
   and emits a positive odd cofactor, subject only to the exact exponent-room
-  inequality.  The next task is its reproduction equation: identify that
-  cofactor with the next residual/boundary state under the same finite rule.
+  inequality.  Direct scalar reproduction is impossible: a new Lean order
+  argument rules out equality of that cofactor with every later positive
+  debris state.  The next task is therefore a composite reproduction
+  equation in which the cofactor updates an independent boundary/Mahler
+  payload under one autonomous finite rule.
 - **Exact cycle synthesis.**  Search valuation words and cyclic compositions
   for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
   seed whose valuations and closure can be checked directly.  Use modular
@@ -10132,6 +10142,7 @@ needs the independent ordinary-root/tightness proof.
 | Rational successor quine on the legal return bank | Closed in Lean for all rational functions.  Clearing a reduced numerator/denominator pair forces `Q(z) | Q(cz)`; equal degree and `0<c<1` make `Q` a monomial, coprimality plus the lowest coefficient makes it constant, and the nonzero linear forcing followed by the unmatched top-degree term gives a contradiction.  This does not exclude Mahler/automatic payloads or nonlinear opcode updates. | [`SuccessorQuineRationalNoGo.lean`](KontoroC/KontoroC/SuccessorQuineRationalNoGo.lean) |
 | Bare opposite-sign unit shuttle | Closed in Lean as a second-rail architecture.  Eliminating the intermediate packet in either `+`/`-` order gives one rank-one affine balance.  At the first public positive and negative levels its residual power difference is strictly positive and odd in both orders, so sign swapping neither cancels the debris nor opens a dyadic repair register.  This does not exclude promoting that odd debris through a nonlinear public decoder. | [`SignedUnitShuttle.lean`](KontoroC/KontoroC/SignedUnitShuttle.lean) |
 | Even-level raw signed-debris ruler as the next unit collision | Closed in Lean by restoring the actual source scale.  Although `R=3^Q-2^P` has unbounded `v2(R-1)` on even residual levels, a following public cell tests `3^qR+/-1`.  Order-based materialization forces the reached label odd, making the combined ternary exponent odd; the actual minus and plus valuations are then exactly one and two, below every public unit exponent.  The odd-residual scaled-minus branch remains live and now has an explicit typed router. | [`SignedDebrisSemanticNoGo.lean`](KontoroC/KontoroC/SignedDebrisSemanticNoGo.lean) |
+| Explicit typed router reproduces one later positive debris | Closed in Lean for every router parameter satisfying the public exponent-room inequality.  If the emitted cofactor equalled `R_next`, reduction modulo the common source/reproduction power of three would force `3^(K-1)` to divide half the binary return length.  Exact size bounds simultaneously force the reached label to be at most `next` and `next` to be at most `ell+m+2`.  The resulting exponential order lower bound contradicts that linear window.  Composite, multi-rail, or genuinely infinite payload reproduction remains open. | [`SignedDebrisReproduction.lean`](KontoroC/KontoroC/SignedDebrisReproduction.lean) |
 | Base-squaring `g -> 2g` finite-Laurent quine | Closed in Lean for every finitely supported Laurent payload.  The normalized update `z -> kappa*z^2` sends coefficient exponent `j` to `2j+2`; the nonzero linear forcing therefore propagates along the unbounded orbit `1,4,10,22,...`, contradicting finite support.  This does not exclude a genuinely infinite Mahler payload or a different nonlinear canonical encoding. | [`DoublingQuineNoGo.lean`](KontoroC/KontoroC/DoublingQuineNoGo.lean) |
 | Shortest-recharge perfect-23rd-power bouncer quine | Closed.  Lean commit `5fbacf5` proves every accepted `h=1`, `u=F*r^23` reproduction transition supplies an integer solution of `3^15X^23-2^16Y^23=5`.  PARI/GP 2.15.4 checks the associated degree-23 polynomial irreducible, reports attached class number one, and returns the complete empty Thue solution list.  PARI documents this class-number-one fast case as unconditional; that final no-solution step is external-PARI scope, not kernel scope.  Higher recharge and multi-rail/corrected payloads remain open. | [`ChargePowerQuine.lean`](KontoroC/KontoroC/ChargePowerQuine.lean), [`unit_charge_power_quine_thue_audit.txt`](experiments/kontorovich/unit_charge_power_quine_thue_audit.txt) |
 | Pure public-state 23rd-power rail, `m=0 (mod 23)` | Closed for every positive transition in this coefficient class.  Lean commit `4c56925` converts the transition to equal sums of two 23rd powers; exact input valuation makes `s` too large for the discrete gap.  Commits `f61f569`/`9f00894` reduce the remaining classes to scaled norm/cofactor equations and a hidden register.  Commit `07352a9` kernel-checks the elementary Roth approximation and exponent-11 bridge for the other classes; the external theorem and sequence-level finiteness consumer remain explicit seams.  Individual transitions, corrected types, and multi-rail packets remain open. | [`ChargeStatePowerQuine.lean`](KontoroC/KontoroC/ChargeStatePowerQuine.lean), [`ChargeStatePowerRoth.lean`](KontoroC/KontoroC/ChargeStatePowerRoth.lean) |

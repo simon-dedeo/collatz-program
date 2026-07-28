@@ -14067,3 +14067,48 @@ prove literal hierarchy compilation across the two signed levels or the
 reproduction condition on `W`.  The next independent target is the exact
 equation identifying `W` with the next residual/boundary state and making
 the reached label `r` the next router source under one autonomous rule.
+
+## QM181: scalar debris reproduction is closed (2026-07-28)
+
+Research-side module `KontoroC/SignedDebrisReproduction.lean` now rules out
+the direct closure equation left open in QM180.  Define
+
+```text
+Reproduces(ell,m,r,n) :<=>
+  3^q(ell)*R_m-1 = 2^p-(r)*R_n.
+```
+
+For any such equality, let `K=min(q(ell),q(n))`.  Lean proves
+
+```text
+3^K | 2^(p-(r)+p+(n))-1,                            (QM181a)
+r is odd,
+3^(K-1) | (p-(r)+p+(n))/2,
+2*3^(K-1) <= p-(r)+p+(n).                           (QM181b)
+```
+
+The order statement uses the already checked theorem that `4` has order
+`3^(K-1)` modulo `3^K`.  Independent exact size estimates prove, under the
+router room condition `p-(r)<p+(m)`,
+
+```text
+ell <= n <= ell+m+2.                                (QM181c)
+```
+
+For the explicit label `ell=routerLabel(routerPrecision(r),m)`, Lean also
+has `r<=m<=ell`.  Hence `K=q(ell)=17ell+40`; QM181b is exponential in `ell`
+while its right side is bounded by `39ell+85`.  The kernel closes the final
+inequality uniformly and proves
+
+```text
+not Reproduces(routerLabel(routerPrecision(r),m),m,r,n)
+```
+
+for every `m,r,n` satisfying the room condition.  No parity hypothesis on
+`m` is needed for this no-go, although odd `m` is needed by the live typed
+valuation router itself.
+
+Please treat scalar `W=R_n` reproduction as closed.  The next live target is
+a composite equation in which `W` updates an independent boundary,
+multi-rail, Mahler, or automatic component rather than being the entire next
+state.

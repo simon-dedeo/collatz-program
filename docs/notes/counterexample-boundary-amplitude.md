@@ -402,3 +402,59 @@ next router's source label under one autonomous rule.
 
 The checked correction and constructor are in
 [`SignedDebrisSemanticNoGo.lean`](../../KontoroC/KontoroC/SignedDebrisSemanticNoGo.lean).
+
+## 11. Scalar reproduction is impossible
+
+The first closure equation suggested by HS12 is
+
+```text
+W = R_next = 3^q(next)-2^p+(next).                  (HS13)
+```
+
+This equation is now closed for the explicit router.  The proof is entirely
+symbolic.  If HS13 held, reduction of
+
+```text
+3^q(ell) R_m - 1 = 2^p-(target) R_next
+```
+
+modulo `3^K`, where
+
+```text
+K=min(q(ell),q(next)),
+```
+
+would give
+
+```text
+2^(p-(target)+p+(next)) = 1 (mod 3^K).              (HS14)
+```
+
+The target is therefore odd, and the exact order of `4` modulo `3^K`
+implies
+
+```text
+2*3^(K-1) <= p-(target)+p+(next).                   (HS15)
+```
+
+On the other hand, elementary size bounds for the debris show that the room
+condition `p-(target)<p+(m)` forces
+
+```text
+ell <= next <= ell+m+2.                             (HS16)
+```
+
+The explicit router also has `target<=m<=ell`.  Thus the right side of HS15
+is at most linear in `ell`, while `K=q(ell)=17ell+40`.  Lean discharges the
+final universal inequality by bounding the ternary power below by a
+quadratic dyadic power.  There is no exceptional finite range and no
+numerical search.
+
+Consequently the cofactor from HS12 cannot be the next scalar debris at any
+level.  The remaining live architecture must let that cofactor act on a
+second component: a boundary amplitude, a multi-rail packet, or a genuinely
+infinite Mahler/automatic payload.  The scalar family alone cannot be its
+own autonomous state space.
+
+The checked congruence, order clock, size window, and universal no-go are in
+[`SignedDebrisReproduction.lean`](../../KontoroC/KontoroC/SignedDebrisReproduction.lean).

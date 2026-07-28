@@ -2867,6 +2867,19 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.SignedDebrisSemanticNoGo.exists_typed_scaledMinus_router
 #print axioms
   KontoroC.SignedDebrisSemanticNoGo.exists_typed_scaledMinus_router_cofactor
+#print axioms
+  KontoroC.SignedDebrisReproduction.commonTernaryPrecision_dvd_binaryReturn_sub_one
+#print axioms KontoroC.SignedDebrisReproduction.target_odd_of_reproduces
+#print axioms
+  KontoroC.SignedDebrisReproduction.reproduction_clock_divides_half_binaryReturn
+#print axioms
+  KontoroC.SignedDebrisReproduction.two_mul_common_clock_le_binaryReturn
+#print axioms
+  KontoroC.SignedDebrisReproduction.reached_le_next_of_reproduces_of_room
+#print axioms
+  KontoroC.SignedDebrisReproduction.next_le_reached_add_level_add_two_of_reproduces
+#print axioms
+  KontoroC.SignedDebrisReproduction.no_explicit_router_reproduces_single_debris
 #print axioms KontoroC.DoublingQuineNoGo.no_finiteLaurent_coefficientLaw
 #print axioms KontoroC.DoublingQuineNoGo.no_finiteLaurent_functionalEquation
 #print axioms KontoroC.DoublingQuineNoGo.no_doubling_quine_finiteLaurent
