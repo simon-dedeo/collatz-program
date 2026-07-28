@@ -580,3 +580,160 @@ the homogeneous boundary term that a purely convergent particular solution
 loses.  The next constructive target is therefore an exceptional nonrational
 2-adic value with an independently proved natural-number realization, not a
 higher-degree rational ansatz.
+
+## 14. Standard Mahler coordinates: the regular lane is a wall, the boundary lane is not
+
+HS20 was written in a useful computational coordinate, but not in the
+coordinate used by Mahler theory.  Put
+
+```text
+x = kappa*z,
+H(x) = x^2 f(x/kappa),
+alpha = 2^23/3^17,
+lambda = D/(A*kappa^2) = 2^262/3^194.
+```
+
+Then Lean proves the exact identities
+
+```text
+kappa*z_g = alpha^g,
+alpha^(2g) = (alpha^g)^2,
+H(x) = Q(x) + lambda H(x^2),                       (HS24)
+Q(x) = x^2/A * (b0+b1*x/kappa+b2*(x/kappa)^2).
+```
+
+Both `alpha` and `lambda` lie strictly between zero and one in the real
+absolute value.  They are also strictly 2-adically contracting.  Thus the
+legal opcode update is not merely analogous to a Mahler substitution: in the
+standard coordinate it is literally `x -> x^2`.
+
+For every solution of HS24 and every finite `N`, Lean further proves
+
+```text
+H(x) = sum_(j<N) lambda^j Q(x^(2^j))
+       + lambda^N H(x^(2^N)).                       (HS25)
+```
+
+The implementation uses an equivalent recursive finite prefix, so HS25 has
+no convergence premise.  The last summand is exactly the homogeneous
+boundary amplitude in standard coordinates.  The difference `K` of any two
+solutions obeys
+
+```text
+K(x) = lambda^N K(x^(2^N)).                         (HS26)
+```
+
+This makes the literature test decisive.
+
+### 14.1 Mahler transcendence closes the regular analytic payload
+
+There is a unique solution of HS24 holomorphic at zero,
+
+```text
+H_an(x) = sum_(j>=0) lambda^j Q(x^(2^j)).           (HS27)
+```
+
+The matrix system for `(1,H_an)` has constant nonzero determinant `lambda`,
+so every nonzero point of the open unit disk is regular.  The rational
+no-go of Section 13, transported by the invertible rational change of
+coordinate and gauge above, says that `H_an` is not rational.  The
+specialization theorem of Adamczewski--Faverjon therefore applies: for every
+`g>=1`,
+
+```text
+H_an(alpha^g) is transcendental.                   (HS28)
+```
+
+Their homogeneous lifting theorem says that an algebraic linear relation
+between `1` and `H_an(alpha^g)` would lift to a rational-function relation
+between `1` and `H_an`; regularity excludes the exceptional-value escape.
+Since an ordinary payload would give
+
+```text
+H(alpha^g)=alpha^(2g) F(g) in Q,
+```
+
+the regular analytic Mahler solution cannot be that payload.  This is a
+source-audited application of a published transcendence theorem, not a new
+kernel proof of Mahler's method.  The exact coordinate change, finite
+unrolling, and boundary split are kernel-checked in
+[`DoublingQuineMahlerNormalForm.lean`](../../KontoroC/KontoroC/DoublingQuineMahlerNormalForm.lean).
+
+Crucially, HS28 does **not** close the discrete return.  An ordinary solution
+must have
+
+```text
+H = H_an + K,
+K(alpha^(2^N g)) = lambda^(-N) K(alpha^g),          (HS29)
+```
+
+with `K(alpha^g)` canceling the transcendental particular value.  Such a
+`K` cannot be holomorphic at zero.  In the real coordinate
+`t=log(1/x)`, the homogeneous equation is `k(t)=lambda*k(2t)`; its general
+shape is a power of `t` times a one-periodic function of `log_2 t`.
+Therefore the live object is not a more complicated regular power series.
+It is a **log-singular homogeneous boundary section on one dyadic opcode
+ray**, with enough arithmetic structure to make every recovered `F(2^N g)`
+positive odd and to satisfy the exact router valuations.
+
+### 14.2 What `x2/x3` rigidity does and does not close
+
+The constants in `alpha` involve both primes two and three, but HS24 has only
+one dynamical dilation, `x -> x^2`.  Classical `x2/x3` rigidity does not arise
+merely because the evaluation point is an `S`-unit.  Adamczewski--Bell says
+that a characteristic-zero power series which is both 2-Mahler and 3-Mahler
+is rational.  Consequently, if a proposed public payload is also compatible
+with an independent canonical update `g -> 3g` (or otherwise supplies a
+genuine 3-Mahler equation for the same regular germ), rigidity makes it
+rational and Section 13 kills it.
+
+This closes bi-scale automaticity and any attempt to gain regeneration by
+imposing two independent commuting opcode dilations.  It does not touch one
+orbit-specific dyadic ray `g,2g,4g,...`, nor the singular homogeneous section
+in HS29.  The constructive search must therefore be rank one in opcode scale
+and use its unbounded arithmetic payload, not a finite object natural under
+both `x2` and `x3`.
+
+### 14.3 The `5x+1` control identifies the missing invariant
+
+The 5x+1 Terras map is the necessary control.  Its finite parity coding and
+its Haar dynamics on `Z_2` are the same full Bernoulli shift as for 3x+1,
+while its Archimedean cocycle has the opposite mean sign:
+
+```text
+(1/2)log 3 - log 2 < 0,
+(1/2)log 5 - log 2 > 0.                            (HS30)
+```
+
+The first inequality predicts contraction for 3x+1 and the second predicts
+growth for 5x+1; Kontorovich--Lagarias emphasize that the two maps are
+topologically and measurably conjugate on `Z_2` despite this opposite
+integer-side behavior.  It remains open to prove even one specific divergent
+5x+1 orbit, so this is a control, not a theorem that can be imported to finish
+the construction.
+
+The control nevertheless gives a sharp methodological verdict.  Any
+obstruction depending only on the parity address, 2-adic regularity, or a
+regular Mahler germ is missing the invariant that distinguishes 3 from 5.
+The three-word outward code conditions the 3x+1 dynamics onto a positive
+Archimedean cocycle, deliberately making its exceptional orbit look like the
+typical 5x+1 model.  The nonzero boundary term in HS25 is exactly the datum
+that records that distinction.  A successful construction must couple it to
+the **3-specific** divisibility and odd-cofactor laws of the typed router.
+
+The verdict is therefore asymmetric:
+
+- regular analytic Mahler payload: **wall**;
+- simultaneous 2-Mahler/3-Mahler or bi-scale automatic payload: **wall**;
+- singular homogeneous section on one dyadic opcode ray, synchronized with
+  the exact 3x+1 router: **construction site**.
+
+References: B. Adamczewski and C. Faverjon,
+[*Méthode de Mahler: relations linéaires, transcendance et applications aux
+nombres automatiques*](https://arxiv.org/abs/1508.07158), especially the
+regular-point homogeneous lifting theorem and Corollary 1.5; B. Adamczewski
+and J. P. Bell, [*A problem around Mahler
+functions*](https://arxiv.org/abs/1303.2019); A. V. Kontorovich and
+J. C. Lagarias, [*Stochastic Models for the 3x+1 and 5x+1
+Problems*](https://arxiv.org/abs/0910.1944), especially Theorems 2.1, 7.1,
+and Sections 8.2 and 10.

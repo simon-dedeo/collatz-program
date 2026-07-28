@@ -14199,3 +14199,54 @@ closed.  A surviving construction now needs a genuinely nonrational
 Mahler/automatic value together with an ordinary-positive realization and a
 nonzero homogeneous boundary component.  QM183 constructs neither an orbit
 nor a counterexample.
+
+## QM184: standard `2`-Mahler coordinates isolate the singular boundary (2026-07-28)
+
+Research-side module `KontoroC/DoublingQuineMahlerNormalForm.lean` removes the
+remaining homemade coordinate from QM183.  Define
+
+```text
+alpha  =2^23/3^17,
+x      =kappa*z,
+H(x)   =x^2 f(x/kappa),
+lambda =D/(A*kappa^2)=2^262/3^194.
+```
+
+Lean proves `0<alpha,lambda<1`, `kappa*z_g=alpha^g`, and that the original
+functional equation implies the standard first-order equation
+
+```text
+H(x)=Q(x)+lambda*H(x^2).                           (QM184a)
+```
+
+The opcode update `g->2g` is therefore literally `x->x^2`.  For every finite
+`N`, without a convergence premise, Lean proves
+
+```text
+H(x)=particularPrefix(Q,lambda,x,N)
+     +lambda^N H(x^(2^N)),                         (QM184b)
+```
+
+and proves that the difference of any two solutions is exactly the last
+homogeneous boundary term.  It also specializes the endpoint to
+`alpha^(2^N*g)` on the legal opcode ray.
+
+The source-audited Adamczewski--Faverjon regular-point lifting theorem now
+closes the unique holomorphic-at-zero solution: the system matrix has
+constant nonzero determinant, the rational solution is already excluded by
+QM183, and hence its value at every rational `alpha^g`, `g>0`, is
+transcendental.  This literature theorem is not imported into Lean.  Please
+treat **regular analytic Mahler payloads** as closed, but do not close the
+discrete return.  Its only surviving form is a non-holomorphic homogeneous
+section on one dyadic opcode ray, satisfying
+
+```text
+K(alpha^(2^N*g))=lambda^(-N) K(alpha^g),            (QM184c)
+```
+
+whose transcendental boundary value cancels the analytic particular value
+to produce positive odd rational/integer payloads.  Simultaneous 2- and
+3-Mahler regularity is also closed by Adamczewski--Bell rigidity; a single
+dyadic ray is not.  The 5x+1 control confirms why the Archimedean boundary is
+indispensable: its 2-adic parity system is the same full shift as 3x+1 while
+its real drift has the opposite sign.
