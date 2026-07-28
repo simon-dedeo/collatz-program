@@ -75,6 +75,17 @@ debris to its next decoded state while transporting a genuinely infinite
 homogeneous boundary component; sign alternation and finite Laurent syntax
 alone are now closed.
 
+The odd debris itself nevertheless supplies the first genuinely nonlinear
+piece of the shuttle.  On every even public level, Lean proves
+`v2((3^Q-2^P)-1)=2+v2(Q)` for `Q=17n+40`, `P=8n+15`, together with an exact
+positive odd cofactor.  The large `2^P` term lies strictly above the LTE
+valuation and cannot disturb it.  The failed affine sign swap therefore
+contains an intrinsic unbounded ruler decoder, without a fresh CRT choice.
+The missing construction is now a legal fixed-level word which materializes
+the residual as a public work register, promotes its odd cofactor, and
+transports the independent positive boundary amplitude; no such return has
+yet been found.
+
 The Bridges-2 RM campaign is complete: approximately 12,374.36 charged
 core-hours across massively parallel KL and counterexample probes.  It found
 no Collatz counterexample and did not prove the KL endpoint.  It did, however,
@@ -9806,6 +9817,12 @@ needs the independent ordinary-root/tightness proof.
   must use a nonlinear canonical pairing or make the odd debris itself the
   next public work register while a homogeneous component carries the
   ordinary boundary amplitude.
+  The first half of that promotion is now exact: at even levels the positive
+  debris `R=3^Q-2^P` satisfies `v2(R-1)=2+v2(Q)` and leaves a positive odd
+  cofactor.  This is an intrinsic unbounded ruler decoder, not a finite lookup
+  or preloaded address.  The next task is to materialize the affine residual
+  and route that cofactor through one legal fixed-level word while preserving
+  the boundary rail.
 - **Exact cycle synthesis.**  Search valuation words and cyclic compositions
   for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
   seed whose valuations and closure can be checked directly.  Use modular

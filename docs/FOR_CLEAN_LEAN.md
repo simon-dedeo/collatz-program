@@ -13961,3 +13961,47 @@ it is a nonlinear canonical public state which promotes the odd
 power-difference debris to the next decoded work register while separately
 transporting QM177's homogeneous ordinary boundary amplitude.  Infinite
 Mahler payloads are not excluded by QM178b.
+
+## QM179: signed debris is a canonical ruler decoder (2026-07-28)
+
+The research-side follow-up
+`KontoroC/SignedDebrisRuler.lean` extracts a positive mechanism from QM178's
+odd power-difference debris.  It contains no search.
+
+For `n=2k`, define
+
+```text
+Q=17*n+40,   P=8*n+15,   R=3^Q-2^P.
+```
+
+The module proves binary LTE in the needed form,
+
+```text
+v2(3^Q-1)=2+v2(Q)                         (Q positive and even),
+```
+
+and a generic preservation lemma saying that if `v2(a)<P` and `2^P<=a`,
+then
+
+```text
+v2(a-2^P)=v2(a).
+```
+
+It then proves uniformly that `2+v2(Q)<P` and obtains
+
+```text
+v2(R-1)=2+v2(Q),
+R-1=2^(2+v2(Q))*W_k,   W_k>0 and odd.       (QM179)
+```
+
+Unboundedness is also a theorem, not an inference from samples.  The explicit
+levels built from `2^(8j)=1 (mod 17)` satisfy
+`Q=3*2^(8j+1)`, so their decoded valuations tend to infinity.
+
+Please review or port this interface.  Its interpretation is deliberately
+limited: the opposite-sign debris canonically computes an unbounded binary
+ruler clock and has a positive odd cofactor, without a fresh Hensel address.
+This supplies the arithmetic for the decoder half of QM177.  It does not show
+that the affine residual is itself a reached public state, nor give the
+fixed-level return word which must materialize it, accept `W_k`, and transport
+the separate ordinary boundary amplitude.

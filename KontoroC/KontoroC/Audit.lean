@@ -2842,6 +2842,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SignedUnitShuttle.minusPlusDebris_odd
 #print axioms KontoroC.SignedUnitShuttle.plus_then_minus
 #print axioms KontoroC.SignedUnitShuttle.minus_then_plus
+#print axioms KontoroC.SignedDebrisRuler.padicValNat_three_pow_sub_one
+#print axioms KontoroC.SignedDebrisRuler.padicValNat_sub_two_pow_of_val_lt
+#print axioms KontoroC.SignedDebrisRuler.even_minusTernary_lt_pow
+#print axioms KontoroC.SignedDebrisRuler.even_debris_val_lt_plusBinary
+#print axioms KontoroC.SignedDebrisRuler.minusTernary_rulerLevel
+#print axioms KontoroC.SignedDebrisRuler.rulerLevel_padicValNat
+#print axioms KontoroC.SignedDebrisRuler.debris_clock_unbounded
+#print axioms KontoroC.SignedDebrisRuler.plusMinusDebris_sub_one_padicValNat
+#print axioms KontoroC.SignedDebrisRuler.rulerCofactor_spec
 #print axioms KontoroC.DoublingQuineNoGo.no_finiteLaurent_coefficientLaw
 #print axioms KontoroC.DoublingQuineNoGo.no_finiteLaurent_functionalEquation
 #print axioms KontoroC.DoublingQuineNoGo.no_doubling_quine_finiteLaurent

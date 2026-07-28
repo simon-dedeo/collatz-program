@@ -286,3 +286,42 @@ canonical nonlinear public state in which the odd power-difference debris is
 the next work register and a separate homogeneous component transports the
 ordinary boundary amplitude.  Merely alternating signs, or replacing the
 successor quine by the first base-squaring Laurent ansatz, is now closed.
+
+## 9. The debris already contains an unbounded canonical clock
+
+Promoting the power-difference debris is not merely a speculative escape.
+On every even public level `n=2k`, put
+
+```text
+Q=17n+40,   P=8n+15,   R=3^Q-2^P.
+```
+
+Binary LTE and the strict scale separation give the exact identity
+
+```text
+v2(R-1)=v2((3^Q-1)-2^P)=v2(3^Q-1)=2+v2(Q).        (HS6)
+```
+
+The middle equality is not heuristic cancellation: Lean proves that
+`2+v2(Q)<P`, so subtracting `2^P` cannot alter the lower valuation.  It also
+proves the literal factorization
+
+```text
+R-1=2^(2+v2(Q))*W_k,   W_k>0 odd.                  (HS7)
+```
+
+Thus the debris rejected as a second *affine* rail canonically emits an
+unbounded ruler clock and a new positive odd packet *if it is materialized as
+the next work register*.  The clock is intrinsic to the residual family; it
+is not a fresh CRT address.  Explicit levels with `Q=3*2^(8j+1)` prove
+unboundedness in Lean rather than by sampling.  This is the first decoder
+interface of the proposed stationary shuttle to survive its exact kill tests,
+not yet a literal orbit link.
+
+What remains is precise.  One must identify a legal fixed-level word which
+materializes `R`, accepts `W_k`, recovers or updates the public level, and
+carries a separate positive boundary packet.  HS6--HS7 supply the nonlinear
+decoder arithmetic, but not that return or the counterexample.
+
+The checked interface is
+[`SignedDebrisRuler.lean`](../../KontoroC/KontoroC/SignedDebrisRuler.lean).
