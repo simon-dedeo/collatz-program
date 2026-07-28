@@ -35,6 +35,32 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ### 2026-07-28 EDT
 
+The counterexample program has moved from finite search to a foundational
+ordinary-boundary problem.  For every labeled orbit of the exact three-word
+zero-carry map, new Lean theorems compose the first `n` branches as
+
+```text
+D_n H_n=A_n H_0+C_n,
+9^n D_n<=8^n A_n,
+C_n+7D_n<=7A_n.
+```
+
+Hence `9^n H_0<=8^n H_n`, while the renormalized charge
+`(D_n/A_n)H_n` stays in the fixed window `[H_0,H_0+7]`.  This isolates the
+datum absent from every finite cylinder: a positive ordinary orbit must
+transport a nonzero Archimedean boundary amplitude while autonomously writing
+its future dyadic constraints.  More low-bit tests, deeper Hensel prefixes,
+and deeper recursive compiler towers do not address this gate.
+
+The preferred construction is now a **stationary signed Hensel shuttle** at
+one fixed finite compiler level.  One public rail preserves the positive odd
+boundary packet; the other computes the unique next Hensel repair bit from an
+exact `U-1`/`U+1` collision; the two roles then swap.  The exact Hensel child
+recursion and both signed unit-debris cells already exist separately.  The
+missing result is a depth-independent public return identity joining them,
+with no fresh CRT address and with exact Collatz semantics.  See
+[`counterexample-boundary-amplitude.md`](docs/notes/counterexample-boundary-amplitude.md).
+
 The Bridges-2 RM campaign is complete: approximately 12,374.36 charged
 core-hours across massively parallel KL and counterexample probes.  It found
 no Collatz counterexample and did not prove the KL endpoint.  It did, however,
@@ -9742,6 +9768,22 @@ needs the independent ordinary-root/tightness proof.
   ordinary coefficient with a genuinely aperiodic, unbounded collision
   schedule; Lean commit `a1a5fd0` proves eventual periodicity of the opcodes
   impossible for any infinite break-off orbit.
+- **Stationary signed Hensel shuttle (preferred foundational lane).**  The
+  exact three-word balance now separates an address prefix from its ordinary
+  boundary datum: `D_n H_n=A_n H_0+C_n`, with
+  `9^nD_n<=8^nA_n` and `C_n+7D_n<=7A_n`.  Thus the address-dependent term is
+  uniformly bounded after normalization, while every positive orbit retains
+  the nonzero homogeneous amplitude `H_0`.  An externally extended Hensel
+  tower writes only the former.  Work instead at one fixed finite compiler
+  level with two public signed rails: one transports the positive odd
+  boundary packet, the other computes the unique next dyadic Hensel repair
+  through an exact `U-1`/`U+1` collision, after which the roles swap.  The
+  Hensel child recursion and signed unit-debris opcodes are already exact
+  separately.  Promotion requires one depth-independent public return
+  identity with exact valuations, an autonomous odd-cofactor update, and no
+  fresh CRT restriction.  Do not deepen the recursive tower or widen finite
+  prefix searches.  See
+  [`counterexample-boundary-amplitude.md`](docs/notes/counterexample-boundary-amplitude.md).
 - **Exact cycle synthesis.**  Search valuation words and cyclic compositions
   for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
   seed whose valuations and closure can be checked directly.  Use modular

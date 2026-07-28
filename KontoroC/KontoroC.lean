@@ -157,6 +157,7 @@ import KontoroC.OutwardFiniteSubcodeCarry
 import KontoroC.OutwardCarryPolicyPotential
 import KontoroC.OutwardZeroCarrySemantics
 import KontoroC.OutwardThreeWordZeroCarry
+import KontoroC.OutwardThreeWordBoundaryAmplitude
 import KontoroC.OutwardThreeWordReducedState
 import KontoroC.OutwardMixedResourceDynamics
 import KontoroC.OutwardCodeCounterexample

@@ -13859,3 +13859,55 @@ does not provide the universal `PolicyPotential` premise: strict finite fits
 miss two reduced states and relaxed fits are not lower-bounded.  Again, please
 review/port only if this abstraction belongs in the independent tree; do not
 import any RM data as axioms.
+
+## QM177: three-word boundary amplitude (2026-07-28)
+
+The counterexample lane has stopped extending finite searches.  The new
+research-side file
+`KontoroC/KontoroC/OutwardThreeWordBoundaryAmplitude.lean` proves an exact
+finite invariant for every labeled path of the already-reviewed three-word
+zero-carry map.
+
+For branch data `(a,d,c)=(3,2,0),(9,8,3),(81,64,63)`, it recursively defines
+
+```text
+A_0=D_0=1, C_0=0,
+A_(n+1)=a_n A_n,
+D_(n+1)=d_n D_n,
+C_(n+1)=a_n C_n+c_n D_n
+```
+
+and proves
+
+```text
+prefix_balance:
+  D_n*H_n=A_n*H_0+C_n
+
+prefix_inverse_contraction:
+  9^n*D_n<=8^n*A_n
+
+prefix_boundary_budget:
+  C_n+7*D_n<=7*A_n
+
+prefix_boundary_window:
+  A_n*H_0<=D_n*H_n<=A_n*(H_0+7)
+
+orbit_nine_eighths_growth:
+  9^n*H_0<=8^n*H_n.                                (QM177)
+```
+
+These are elementary natural-number theorems with no search premise and no
+limit axiom.  The intended interpretation is that an infinite address fixes
+an inhomogeneous `2`-adic shadow, whereas a positive ordinary orbit must
+transport a nonzero Archimedean homogeneous boundary term at every depth.
+This is a reduction, not an existence claim and not a counterexample.
+
+Please review or port QM177 if it clarifies the independent tree.  The next
+constructive target is a stationary signed Hensel shuttle: one public rail
+preserves the odd boundary packet, another computes one exact Hensel repair
+bit from a `U-1`/`U+1` collision, and the roles swap at one fixed compiler
+level.  The current research-side evidence for the two halves is the exact
+`shallowRootAddress` unique-child recursion and the signed unit-debris laws;
+there is no return identity yet.  Do not formalize an abstract shuttle
+consumer unless it exposes a genuinely checkable premise beyond the existing
+infinite-orbit consumers.
