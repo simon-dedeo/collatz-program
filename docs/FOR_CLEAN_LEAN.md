@@ -14250,3 +14250,58 @@ to produce positive odd rational/integer payloads.  Simultaneous 2- and
 dyadic ray is not.  The 5x+1 control confirms why the Archimedean boundary is
 indispensable: its 2-adic parity system is the same full shift as 3x+1 while
 its real drift has the opposite sign.
+
+## QM185: 2-adic value rigidity closes the QM184 singular section (2026-07-28)
+
+Research side, elementary, please formalize.  Full statement and proof
+sketch in `docs/notes/doubling-payload-rigidity.md`; exact numerics in
+`experiments/doubling-payload/f0_compute.py`.
+
+In the QM184 normal form, `|lambda^(-1)|_2 = 2^262 > 1`.  Two lemmas:
+
+```text
+(U) the homogeneous equation A h(z) = D z^2 h(kappa z^2) has only h = 0
+    among formal power series (coefficient recursion; three lines);
+
+(V) along one dyadic opcode ray {2^N g}, any solution of the return
+    identity A F(g) - D z_g^2 F(2g) = b(z_g) with all values in Z_2
+    equals pointwise the 2-adically convergent particular series F_0,
+    whose terms have exact valuation v2(t_j) = 262 j + 46 g (2^j - 1).
+```
+
+Proof of (V): the difference Delta obeys
+`|Delta(2g)|_2 = 2^(262+46g) |Delta(g)|_2`, unbounded along the ray unless
+zero; integrality bounds `|Delta|_2 <= 1`.  Consequence: the QM184c
+non-holomorphic section `K` vanishes 2-adically on every integer-payload
+ray.  Do NOT treat the discrete return as fully closed: the surviving
+question is exactly whether the explicit 2-adic constant `F_0(g)` is a
+positive integer for some ray.  Exact computation excludes this below
+`2^2048` for `g = 1..6` (digits non-terminating through 4096 bits; no
+rational value of height `<= 2^2040`; reconstruction self-tested against a
+planted rational; cross-checked 2048 vs 4096 bits).  The remaining
+mathematical target, recorded but not externally dispatched, is 2-adic
+irrationality of `F_0(g)`; note the exact Liouville gap `46 / (34 log2 3)
+= 0.8536 < 1`, so partial-sum approximants provably cannot decide it.
+
+## QM186: address repetition bound at Liouville quality (2026-07-28)
+
+Elementary, all ingredients already audited (cylinders, BA3, periodic-point
+rejection).  Statement in `docs/notes/address-repetition-bound.md`,
+verification in `experiments/repetition-bound/verify_bound.py`.  For a
+nonempty A/B/C word `V` (data `3^t_V, 2^s_V, C_V`) and prefix `V'` of width
+`s'`, any positive integer `H` with address beginning `V V'` satisfies
+
+```text
+2^(s_V+s') | (A_V - D_V) H + C_V > 0,
+(s_V + s') log 2 <= t_V log 3 + log(H + 7).
+```
+
+Corollaries worth stating: the audited aperiodicity theorem follows
+quantitatively (`s' -> infinity`); the critical repetition width-exponent
+of integer addresses is `log2 3`; the bound is achieved by minimal cylinder
+elements, so improving the exponent requires subspace-theorem input, not
+tighter constants.  A companion research note
+(`docs/notes/near-critical-shadowing.md`) proves the full-language analogue
+`k <= log2(d x + A_V)/S`, `d = |2^S - 3^n|`, sharp on the `-5` cycle; its
+excluded case is a literal Collatz cycle, so it composes with the `2^71`
+verification and Hercher bounds.

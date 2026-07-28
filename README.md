@@ -190,6 +190,30 @@ a symbolic nonnegative small-unit correction at the two miss states, not a
 larger unconstrained regression.  Full numerical scope and hashes are in
 [`RM_RESULTS_2026-07-28.md`](NEW_COMPUTE.md/RM_RESULTS_2026-07-28.md).
 
+Later the same day, a three-front Diophantine pass (Fable) reduced each open
+counterexample lane to an explicit arithmetic quantity.  (1) A new
+elementary **address repetition bound** — sharp at Liouville quality, with
+critical repetition width-exponent exactly `log2 3` — quantitatively
+subsumes the audited aperiodicity theorem and excludes all high-repetition
+addresses; the automatic-address class is now blocked precisely by the gap
+between this exponent and the small repetitions guaranteed by linear
+complexity, i.e. exactly where a subspace-theorem upgrade would act
+([notes](docs/notes/address-repetition-bound.md), QM186).  (2) For the
+`g -> 2g` doubling return, **2-adic value rigidity** (two elementary
+lemmas) annihilates the QM184c non-holomorphic section on every
+integer-payload ray: any natural-number payload must equal, pointwise, the
+explicit 2-adic constant `F_0(g)`, whose digits are non-terminating through
+4096 bits for `g=1..6` — so any such payload exceeds `2^2048`
+([notes](docs/notes/doubling-payload-rigidity.md), QM185).  (3) In the full
+valuation-word language, the **near-critical shadowing bound**
+`k <= log2(d x + A_V)/S`, `d = |2^S - 3^n|`, is achieved on the `-5` cycle
+and shows the only known soft spot in the transcendence wall is
+logarithmically thin, indexed by the continued-fraction convergents of
+`log2 3` ([notes](docs/notes/near-critical-shadowing.md)).  All three
+obstructions are faces of the multiplicative independence of 2 and 3; the
+sharp open lemmas (2-adic irrationality of `F_0`, subspace-grade repetition
+counting) are recorded in the notes rather than dispatched, per budget.
+
 ### 2026-07-24 04:55 EDT
 
 There is still no Collatz counterexample.  The finite carry search has now
