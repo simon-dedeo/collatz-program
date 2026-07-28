@@ -2851,6 +2851,22 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SignedDebrisRuler.debris_clock_unbounded
 #print axioms KontoroC.SignedDebrisRuler.plusMinusDebris_sub_one_padicValNat
 #print axioms KontoroC.SignedDebrisRuler.rulerCofactor_spec
+#print axioms
+  KontoroC.SignedDebrisSemanticNoGo.target_odd_of_materialization
+#print axioms
+  KontoroC.SignedDebrisSemanticNoGo.scaledMinusNumerator_even_level_padicValNat
+#print axioms
+  KontoroC.SignedDebrisSemanticNoGo.scaledPlusNumerator_even_level_padicValNat
+#print axioms
+  KontoroC.SignedDebrisSemanticNoGo.scaledMinusNumerator_odd_level_padicValNat
+#print axioms KontoroC.SignedDebrisSemanticNoGo.routerBase_identity
+#print axioms KontoroC.SignedDebrisSemanticNoGo.router_combined_ternary
+#print axioms KontoroC.SignedDebrisSemanticNoGo.router_combined_padicValNat
+#print axioms KontoroC.SignedDebrisSemanticNoGo.routerLabel_odd
+#print axioms
+  KontoroC.SignedDebrisSemanticNoGo.exists_typed_scaledMinus_router
+#print axioms
+  KontoroC.SignedDebrisSemanticNoGo.exists_typed_scaledMinus_router_cofactor
 #print axioms KontoroC.DoublingQuineNoGo.no_finiteLaurent_coefficientLaw
 #print axioms KontoroC.DoublingQuineNoGo.no_finiteLaurent_functionalEquation
 #print axioms KontoroC.DoublingQuineNoGo.no_doubling_quine_finiteLaurent

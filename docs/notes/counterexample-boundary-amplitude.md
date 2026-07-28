@@ -325,3 +325,80 @@ decoder arithmetic, but not that return or the counterexample.
 
 The checked interface is
 [`SignedDebrisRuler.lean`](../../KontoroC/KontoroC/SignedDebrisRuler.lean).
+
+## 10. Semantic correction and the odd-level typed router
+
+HS6 is exact but is not the valuation tested by a following public unit cell.
+If the residual `R_m` is reached with public target label `ell`, the next
+cell sees
+
+```text
+3^q(ell)*R_m - 1    or    3^q(ell)*R_m + 1,         (HS8)
+q(x)=17x+40.
+```
+
+The missing source scale is decisive.  Any materialization based on
+`3^T | 2^B-1` has even total binary exponent `B`; because
+`B=p+(m)+p-(ell)`, Lean proves that `ell` must be odd.  When `m` is even,
+`q(ell)+q(m)` is odd, and exact arithmetic gives
+
+```text
+v2(3^q(ell)*R_m-1)=1,
+v2(3^q(ell)*R_m+1)=2.                               (HS9)
+```
+
+Both are below the smallest public unit exponents.  Thus the unbounded raw
+ruler from Section 9 cannot be executed merely by materializing an
+even-level residual and appending another unit cell.  This branch is closed,
+and the correction prevents repeating the earlier source-label mistake.
+
+For odd `m` the minus rail remains live.  Put
+
+```text
+E=q(ell)+q(m).
+```
+
+Whenever `2+v2(E)<p+(m)`, Lean proves the correctly scaled identity
+
+```text
+v2(3^q(ell)*R_m-1)=2+v2(E).                         (HS10)
+```
+
+More strongly, there is now an explicit all-parameter router.  Given an odd
+residual level `m` and requested sign-negative target `r` with
+
+```text
+p-(r)<p+(m),
+```
+
+set `d=p-(r)-2` and construct
+
+```text
+u =17+80*2^(7d+8)+34m,
+G =(2^(8(d+1))-1)/17,
+b =2^d+80G+2m*2^d,
+ell=b-m.
+```
+
+The identities `2^(8j)=1 (mod 17)` and
+
+```text
+q(ell)+q(m)=2^d*u,    u odd,    ell odd             (HS11)
+```
+
+are proved in Lean.  Consequently
+
+```text
+3^q(ell)*R_m-1 = 2^p-(r) * W,
+W>0 odd.                                             (HS12)
+```
+
+This is the first correctly typed nonlinear residual router in the program:
+it uses a closed formula, has exact public valuation, and emits its next odd
+core without a bounded search or fresh CRT choice.  It is still not a
+counterexample.  The remaining reproduction equation is to show that `W`
+is the next residual/boundary state, with its reached target `r` equal to the
+next router's source label under one autonomous rule.
+
+The checked correction and constructor are in
+[`SignedDebrisSemanticNoGo.lean`](../../KontoroC/KontoroC/SignedDebrisSemanticNoGo.lean).

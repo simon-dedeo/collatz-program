@@ -14005,3 +14005,65 @@ This supplies the arithmetic for the decoder half of QM177.  It does not show
 that the affine residual is itself a reached public state, nor give the
 fixed-level return word which must materialize it, accept `W_k`, and transport
 the separate ordinary boundary amplitude.
+
+## QM180: semantic correction and explicit typed residual router (2026-07-28)
+
+Please supersede the executable interpretation of QM179 with the new
+research-side module `KontoroC/SignedDebrisSemanticNoGo.lean`.
+
+A following public unit cell does not test `R_m +/- 1`; at reached label
+`ell` it tests
+
+```text
+3^q(ell)*R_m +/- 1,       q(x)=17x+40.
+```
+
+The module proves that any materialization divisibility
+`3^T | 2^B-1`, `T>0`, forces `B` even and hence the target label `ell` odd.
+For the even residual levels of QM179, the combined ternary exponent is then
+odd and the literal next valuations are exactly
+
+```text
+v2(3^q(ell)*R_(2k)-1)=1,
+v2(3^q(ell)*R_(2k)+1)=2.                            (QM180a)
+```
+
+Neither can match a public unit exponent.  The raw even-level ruler is
+therefore a closed semantic branch, despite QM179's correct arithmetic.
+
+The odd residual levels produce the correctly typed identity
+
+```text
+v2(3^q(ell)*R_m-1)=2+v2(q(ell)+q(m))                (m,ell odd),
+```
+
+whenever the displayed valuation lies below `p+(m)`.  The module then gives
+an explicit router, not an existence-by-CRT statement.  For requested
+negative target `r`, let `d=p-(r)-2` and
+
+```text
+u=17+80*2^(7d+8)+34m,
+G=(2^(8(d+1))-1)/17,
+b=2^d+80G+2m*2^d,
+ell=b-m.
+```
+
+Lean proves
+
+```text
+q(ell)+q(m)=2^d*u,
+u odd,
+ell odd                 (when m is odd),
+```
+
+and, under the sole room condition `p-(r)<p+(m)`, produces `W>0` odd with
+
+```text
+3^q(ell)*R_m-1=2^p-(r)*W.                           (QM180b)
+```
+
+This is an all-parameter exact public-valuation router.  It does not yet
+prove literal hierarchy compilation across the two signed levels or the
+reproduction condition on `W`.  The next independent target is the exact
+equation identifying `W` with the next residual/boundary state and making
+the reached label `r` the next router source under one autonomous rule.

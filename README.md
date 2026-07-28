@@ -75,16 +75,24 @@ debris to its next decoded state while transporting a genuinely infinite
 homogeneous boundary component; sign alternation and finite Laurent syntax
 alone are now closed.
 
-The odd debris itself nevertheless supplies the first genuinely nonlinear
-piece of the shuttle.  On every even public level, Lean proves
+The odd debris itself contains a genuine nonlinear arithmetic signal.  On
+every even public level, Lean proves
 `v2((3^Q-2^P)-1)=2+v2(Q)` for `Q=17n+40`, `P=8n+15`, together with an exact
 positive odd cofactor.  The large `2^P` term lies strictly above the LTE
 valuation and cannot disturb it.  The failed affine sign swap therefore
-contains an intrinsic unbounded ruler decoder, without a fresh CRT choice.
-The missing construction is now a legal fixed-level word which materializes
-the residual as a public work register, promotes its odd cofactor, and
-transports the independent positive boundary amplitude; no such return has
-yet been found.
+contains an intrinsic unbounded *raw* ruler, without a fresh CRT choice.
+
+The literal semantic substitution changes the conclusion.  A next unit cell
+tests `3^q R +/- 1`, not `R +/- 1`.  Any order-based materialization has odd
+target label; for the even residual levels above, Lean proves that the actual
+minus and plus valuations collapse to `1` and `2`, below every public unit
+exponent.  That branch is closed.  On odd residual levels, however, the
+scaled-minus valuation is `2+v2(q(ell)+q(m))`.  A new explicit all-parameter
+constructor uses `2^(8j)=1 (mod 17)` to choose an odd label `ell` so this
+valuation equals any requested sign-negative target exponent, whenever the
+residual has enough binary room.  It emits an exact positive odd cofactor.
+The remaining closure equation is now to make that cofactor reproduce the
+next residual and transport the independent positive boundary amplitude.
 
 The Bridges-2 RM campaign is complete: approximately 12,374.36 charged
 core-hours across massively parallel KL and counterexample probes.  It found
@@ -9817,12 +9825,15 @@ needs the independent ordinary-root/tightness proof.
   must use a nonlinear canonical pairing or make the odd debris itself the
   next public work register while a homogeneous component carries the
   ordinary boundary amplitude.
-  The first half of that promotion is now exact: at even levels the positive
+  The raw promotion signal is exact: at even levels the positive
   debris `R=3^Q-2^P` satisfies `v2(R-1)=2+v2(Q)` and leaves a positive odd
-  cofactor.  This is an intrinsic unbounded ruler decoder, not a finite lookup
-  or preloaded address.  The next task is to materialize the affine residual
-  and route that cofactor through one legal fixed-level word while preserving
-  the boundary rail.
+  cofactor.  But the semantic next-cell factor `3^q` closes this even-level
+  branch: the actual two sign valuations are only `1` and `2`.  The correctly
+  typed odd-level branch instead reads `2+v2(q(ell)+q(m))`; an explicit Lean
+  constructor now routes it to any requested sign-negative public exponent
+  and emits a positive odd cofactor, subject only to the exact exponent-room
+  inequality.  The next task is its reproduction equation: identify that
+  cofactor with the next residual/boundary state under the same finite rule.
 - **Exact cycle synthesis.**  Search valuation words and cyclic compositions
   for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
   seed whose valuations and closure can be checked directly.  Use modular
@@ -10120,6 +10131,7 @@ needs the independent ordinary-root/tightness proof.
 | Outward affine banks without output-to-source closure | Closed as a promotion criterion, not as an architecture.  A bank of exact growing finite branches does not provide a trajectory.  It must exhibit `y_g(v)=x_f(g)(v')` under one autonomous finite rule, with one ordinary initial payload supplying all future addresses.  Fresh CRT extension at each generation is an externally preloaded 2-adic stack.  The corrected reproduction equation makes this missing link explicit. | [`unit_return_quine.py`](experiments/kontorovich/unit_return_quine.py) |
 | Rational successor quine on the legal return bank | Closed in Lean for all rational functions.  Clearing a reduced numerator/denominator pair forces `Q(z) | Q(cz)`; equal degree and `0<c<1` make `Q` a monomial, coprimality plus the lowest coefficient makes it constant, and the nonzero linear forcing followed by the unmatched top-degree term gives a contradiction.  This does not exclude Mahler/automatic payloads or nonlinear opcode updates. | [`SuccessorQuineRationalNoGo.lean`](KontoroC/KontoroC/SuccessorQuineRationalNoGo.lean) |
 | Bare opposite-sign unit shuttle | Closed in Lean as a second-rail architecture.  Eliminating the intermediate packet in either `+`/`-` order gives one rank-one affine balance.  At the first public positive and negative levels its residual power difference is strictly positive and odd in both orders, so sign swapping neither cancels the debris nor opens a dyadic repair register.  This does not exclude promoting that odd debris through a nonlinear public decoder. | [`SignedUnitShuttle.lean`](KontoroC/KontoroC/SignedUnitShuttle.lean) |
+| Even-level raw signed-debris ruler as the next unit collision | Closed in Lean by restoring the actual source scale.  Although `R=3^Q-2^P` has unbounded `v2(R-1)` on even residual levels, a following public cell tests `3^qR+/-1`.  Order-based materialization forces the reached label odd, making the combined ternary exponent odd; the actual minus and plus valuations are then exactly one and two, below every public unit exponent.  The odd-residual scaled-minus branch remains live and now has an explicit typed router. | [`SignedDebrisSemanticNoGo.lean`](KontoroC/KontoroC/SignedDebrisSemanticNoGo.lean) |
 | Base-squaring `g -> 2g` finite-Laurent quine | Closed in Lean for every finitely supported Laurent payload.  The normalized update `z -> kappa*z^2` sends coefficient exponent `j` to `2j+2`; the nonzero linear forcing therefore propagates along the unbounded orbit `1,4,10,22,...`, contradicting finite support.  This does not exclude a genuinely infinite Mahler payload or a different nonlinear canonical encoding. | [`DoublingQuineNoGo.lean`](KontoroC/KontoroC/DoublingQuineNoGo.lean) |
 | Shortest-recharge perfect-23rd-power bouncer quine | Closed.  Lean commit `5fbacf5` proves every accepted `h=1`, `u=F*r^23` reproduction transition supplies an integer solution of `3^15X^23-2^16Y^23=5`.  PARI/GP 2.15.4 checks the associated degree-23 polynomial irreducible, reports attached class number one, and returns the complete empty Thue solution list.  PARI documents this class-number-one fast case as unconditional; that final no-solution step is external-PARI scope, not kernel scope.  Higher recharge and multi-rail/corrected payloads remain open. | [`ChargePowerQuine.lean`](KontoroC/KontoroC/ChargePowerQuine.lean), [`unit_charge_power_quine_thue_audit.txt`](experiments/kontorovich/unit_charge_power_quine_thue_audit.txt) |
 | Pure public-state 23rd-power rail, `m=0 (mod 23)` | Closed for every positive transition in this coefficient class.  Lean commit `4c56925` converts the transition to equal sums of two 23rd powers; exact input valuation makes `s` too large for the discrete gap.  Commits `f61f569`/`9f00894` reduce the remaining classes to scaled norm/cofactor equations and a hidden register.  Commit `07352a9` kernel-checks the elementary Roth approximation and exponent-11 bridge for the other classes; the external theorem and sequence-level finiteness consumer remain explicit seams.  Individual transitions, corrected types, and multi-rail packets remain open. | [`ChargeStatePowerQuine.lean`](KontoroC/KontoroC/ChargeStatePowerQuine.lean), [`ChargeStatePowerRoth.lean`](KontoroC/KontoroC/ChargeStatePowerRoth.lean) |
