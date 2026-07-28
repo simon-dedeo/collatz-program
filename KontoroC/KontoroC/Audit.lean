@@ -2835,6 +2835,16 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardThreeWordBoundaryAmplitude.prefix_boundary_window
 #print axioms
   KontoroC.OutwardThreeWordBoundaryAmplitude.orbit_nine_eighths_growth
+#print axioms KontoroC.SignedUnitShuttle.signedStep_compose
+#print axioms KontoroC.SignedUnitShuttle.plusMinusDebris_pos
+#print axioms KontoroC.SignedUnitShuttle.minusPlusDebris_pos
+#print axioms KontoroC.SignedUnitShuttle.plusMinusDebris_odd
+#print axioms KontoroC.SignedUnitShuttle.minusPlusDebris_odd
+#print axioms KontoroC.SignedUnitShuttle.plus_then_minus
+#print axioms KontoroC.SignedUnitShuttle.minus_then_plus
+#print axioms KontoroC.DoublingQuineNoGo.no_finiteLaurent_coefficientLaw
+#print axioms KontoroC.DoublingQuineNoGo.no_finiteLaurent_functionalEquation
+#print axioms KontoroC.DoublingQuineNoGo.no_doubling_quine_finiteLaurent
 #print axioms
   KontoroC.OutwardThreeWordReducedState.appended_word_executes_from_shifted_target
 #print axioms

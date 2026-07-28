@@ -61,6 +61,20 @@ missing result is a depth-independent public return identity joining them,
 with no fresh CRT address and with exact Collatz semantics.  See
 [`counterexample-boundary-amplitude.md`](docs/notes/counterexample-boundary-amplitude.md).
 
+The first symbolic kill tests have now narrowed that architecture.  Two
+opposite-sign unit cells always eliminate to one affine rail.  At the first
+positive and negative levels their residual is respectively
+`3^(17m+40)-2^(8m+15)` or `2^(23m+54)-3^(6m+11)`; Lean proves both are
+strictly positive and odd.  A bare `U-1`/`U+1` swap therefore creates no new
+dyadic gap and is not an independent second register.  Separately, the legal
+return quine with nonlinear opcode update `g->2g` yields the base-squaring
+equation `A f(z)-D z^2 f(kappa z^2)=b0+b1z+b2z^2`.  Its nonzero exponent-one
+coefficient propagates along `1,4,10,22,...`, so no finite Laurent payload can
+solve it.  The live shuttle must canonically promote the odd power-difference
+debris to its next decoded state while transporting a genuinely infinite
+homogeneous boundary component; sign alternation and finite Laurent syntax
+alone are now closed.
+
 The Bridges-2 RM campaign is complete: approximately 12,374.36 charged
 core-hours across massively parallel KL and counterexample probes.  It found
 no Collatz counterexample and did not prove the KL endpoint.  It did, however,
@@ -9784,6 +9798,14 @@ needs the independent ordinary-root/tightness proof.
   fresh CRT restriction.  Do not deepen the recursive tower or widen finite
   prefix searches.  See
   [`counterexample-boundary-amplitude.md`](docs/notes/counterexample-boundary-amplitude.md).
+  The first exact composition now closes the literal two-cell sign swap:
+  either order is one affine rail with a positive odd power-difference
+  debris, hence no regenerated dyadic gap.  The `g->2g` base-squaring return
+  quine also has no finite Laurent payload, since its exponent-one coefficient
+  propagates through the infinite orbit `j->2j+2`.  The remaining shuttle
+  must use a nonlinear canonical pairing or make the odd debris itself the
+  next public work register while a homogeneous component carries the
+  ordinary boundary amplitude.
 - **Exact cycle synthesis.**  Search valuation words and cyclic compositions
   for which `2^S_N-3^N` divides `A_N`; the quotient is then a candidate cycle
   seed whose valuations and closure can be checked directly.  Use modular
@@ -10080,6 +10102,8 @@ needs the independent ordinary-root/tightness proof.
 | Three-collision synthesized-marker turnaround | **Retracted.**  The raw divisions used `q`-sequence `(57,57,q(g))`, but their state labels were `1 -> 1 -> 1` after the second transition.  A legal unit transition uses the source exponent, so the third step had to use `q(1)=57`, not `q(g)`.  Exact congruences and outward coefficients cannot repair this semantic mismatch.  The replacement audit uses `1 -> 1 -> g -> g -> 1`. | [`unit_return_quine_audit.json`](experiments/kontorovich/unit_return_quine_audit.json) |
 | Outward affine banks without output-to-source closure | Closed as a promotion criterion, not as an architecture.  A bank of exact growing finite branches does not provide a trajectory.  It must exhibit `y_g(v)=x_f(g)(v')` under one autonomous finite rule, with one ordinary initial payload supplying all future addresses.  Fresh CRT extension at each generation is an externally preloaded 2-adic stack.  The corrected reproduction equation makes this missing link explicit. | [`unit_return_quine.py`](experiments/kontorovich/unit_return_quine.py) |
 | Rational successor quine on the legal return bank | Closed in Lean for all rational functions.  Clearing a reduced numerator/denominator pair forces `Q(z) | Q(cz)`; equal degree and `0<c<1` make `Q` a monomial, coprimality plus the lowest coefficient makes it constant, and the nonzero linear forcing followed by the unmatched top-degree term gives a contradiction.  This does not exclude Mahler/automatic payloads or nonlinear opcode updates. | [`SuccessorQuineRationalNoGo.lean`](KontoroC/KontoroC/SuccessorQuineRationalNoGo.lean) |
+| Bare opposite-sign unit shuttle | Closed in Lean as a second-rail architecture.  Eliminating the intermediate packet in either `+`/`-` order gives one rank-one affine balance.  At the first public positive and negative levels its residual power difference is strictly positive and odd in both orders, so sign swapping neither cancels the debris nor opens a dyadic repair register.  This does not exclude promoting that odd debris through a nonlinear public decoder. | [`SignedUnitShuttle.lean`](KontoroC/KontoroC/SignedUnitShuttle.lean) |
+| Base-squaring `g -> 2g` finite-Laurent quine | Closed in Lean for every finitely supported Laurent payload.  The normalized update `z -> kappa*z^2` sends coefficient exponent `j` to `2j+2`; the nonzero linear forcing therefore propagates along the unbounded orbit `1,4,10,22,...`, contradicting finite support.  This does not exclude a genuinely infinite Mahler payload or a different nonlinear canonical encoding. | [`DoublingQuineNoGo.lean`](KontoroC/KontoroC/DoublingQuineNoGo.lean) |
 | Shortest-recharge perfect-23rd-power bouncer quine | Closed.  Lean commit `5fbacf5` proves every accepted `h=1`, `u=F*r^23` reproduction transition supplies an integer solution of `3^15X^23-2^16Y^23=5`.  PARI/GP 2.15.4 checks the associated degree-23 polynomial irreducible, reports attached class number one, and returns the complete empty Thue solution list.  PARI documents this class-number-one fast case as unconditional; that final no-solution step is external-PARI scope, not kernel scope.  Higher recharge and multi-rail/corrected payloads remain open. | [`ChargePowerQuine.lean`](KontoroC/KontoroC/ChargePowerQuine.lean), [`unit_charge_power_quine_thue_audit.txt`](experiments/kontorovich/unit_charge_power_quine_thue_audit.txt) |
 | Pure public-state 23rd-power rail, `m=0 (mod 23)` | Closed for every positive transition in this coefficient class.  Lean commit `4c56925` converts the transition to equal sums of two 23rd powers; exact input valuation makes `s` too large for the discrete gap.  Commits `f61f569`/`9f00894` reduce the remaining classes to scaled norm/cofactor equations and a hidden register.  Commit `07352a9` kernel-checks the elementary Roth approximation and exponent-11 bridge for the other classes; the external theorem and sequence-level finiteness consumer remain explicit seams.  Individual transitions, corrected types, and multi-rail packets remain open. | [`ChargeStatePowerQuine.lean`](KontoroC/KontoroC/ChargeStatePowerQuine.lean), [`ChargeStatePowerRoth.lean`](KontoroC/KontoroC/ChargeStatePowerRoth.lean) |
 | Sum-of-two-squares public type | Universally closed before any search.  Every accepted bouncer state has `2^23 | y+1`, so `y=7 (mod 8)`; the next accepted state and `A^h=1 (mod 8)` force the odd collision quotient to be `7 (mod 8)` as well.  A sum of two squares is never `3 (mod 4)`.  This kills only `d=1`; the hardware-matched `x^2+d u^2` type with `d=7 (mod 8)` is live. | [`unit_charge_quadratic_norm_audit.json`](experiments/kontorovich/unit_charge_quadratic_norm_audit.json) |

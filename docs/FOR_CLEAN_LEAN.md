@@ -13911,3 +13911,53 @@ level.  The current research-side evidence for the two halves is the exact
 there is no return identity yet.  Do not formalize an abstract shuttle
 consumer unless it exposes a genuinely checkable premise beyond the existing
 infinite-orbit consumers.
+
+## QM178: first stationary-shuttle kill tests (2026-07-28)
+
+Two new research-side modules test the first concrete consequences of QM177.
+Neither module contains a finite search or claims a counterexample.
+
+`KontoroC/SignedUnitShuttle.lean` defines the abstract public unit balance
+
+```text
+SignedStep s Q P h h' := 2^P*h'=3^Q*h+s
+```
+
+over the integers and proves the exact two-cell composition
+
+```text
+2^(P0+P1)h2
+ =3^(Q0+Q1)h0+3^Q1*s0+2^P0*s1.                    (QM178a)
+```
+
+For the first sign-positive exponents `(p,q)=(8n+15,6n+11)` and second
+sign-negative exponents `(23n+54,17n+40)`, both sign orders reduce to a
+single affine rail with debris
+
+```text
+3^(17m+40)-2^(8m+15),
+2^(23m+54)-3^(6m+11).
+```
+
+The module proves both debris values strictly positive and odd, then proves
+the specialized composition identities.  Thus a bare `U-1`/`U+1` sign swap
+does not provide a second public register or an already-clean dyadic gap.
+This closes only that literal two-cell shuttle.
+
+`KontoroC/DoublingQuineNoGo.lean` treats the nonlinear return-quine hint
+`g->2g`.  After normalization it induces coefficient transport
+`j->2j+2`.  The nonzero forced coefficient at `j=1` consequently propagates
+through an infinite strictly increasing exponent orbit.  The module proves,
+for generic nonzero coefficients, that no finitely supported Laurent series
+can satisfy this law, and specializes it to
+
+```text
+A=3^114, D=2^154, kappa=3^40/2^54, b1=2^77.         (QM178b)
+```
+
+Please review or port if these reductions clarify the independent tree.  The
+remaining constructive target is not “add another sign” or “square the base”:
+it is a nonlinear canonical public state which promotes the odd
+power-difference debris to the next decoded work register while separately
+transporting QM177's homogeneous ordinary boundary amplitude.  Infinite
+Mahler payloads are not excluded by QM178b.

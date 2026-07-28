@@ -202,3 +202,87 @@ odd cofactor becomes the next public `u'`.  There are three kill tests:
 Failure of one composition should close that algebraic ansatz.  Success would
 be the first result in the program that actually regenerates future address
 information from a finite ordinary payload.
+
+## 7. First kill test: a bare sign swap is still one rail
+
+The first opposite-sign composition can be done without choosing any
+coefficients.  Write a signed unit cell as
+
+```text
+2^P h'=3^Q h+s,   s in {+1,-1}.
+```
+
+Two consecutive cells eliminate their intermediate core exactly:
+
+```text
+2^(P0+P1) h2
+ =3^(Q0+Q1) h0 +3^Q1*s0+2^P0*s1.                 (HS3)
+```
+
+At the first sign-positive level
+
+```text
+p+(n)=8n+15,    q+(n)=6n+11,
+```
+
+and the second sign-negative level
+
+```text
+p-(n)=23n+54,   q-(n)=17n+40.
+```
+
+Lean proves that the two possible internal debris terms are
+
+```text
+R+-(m)=3^(17m+40)-2^(8m+15)  >0 and odd,
+R-+(m)=2^(23m+54)-3^(6m+11)  >0 and odd.           (HS4)
+```
+
+Thus `U-1` and `U+1` are not independent public stores.  The sign swap
+rectifies to another rank-one affine balance, and its residual has no dyadic
+gap of its own.  A following exact division again selects one low-bit
+cylinder of the same surviving core.  This closes the *bare* two-cell sign
+shuttle proposed in Section 3; it does not close a nonlinear public pairing
+or a macro which promotes `R+-(m)`/`R-+(m)` itself to the next decoded state.
+
+The checked algebra is
+[`SignedUnitShuttle.lean`](../../KontoroC/KontoroC/SignedUnitShuttle.lean).
+
+## 8. The first nonlinear quine also needs infinite boundary data
+
+The strongest formula-level escape already suggested by the returning unit
+macro was the opcode update `g -> 2g`.  With
+
+```text
+z_g=2^(23g+54)/3^(17g+40),
+kappa=3^40/2^54,
+```
+
+one has `z_(2g)=kappa*z_g^2`.  A payload `F(g)=f(z_g)` would obey
+
+```text
+3^114 f(z)-2^154 z^2 f(kappa z^2)
+  =(3^57+2^77)+2^77 z+2^77 z^2.                    (HS5)
+```
+
+The nonzero coefficient at exponent one propagates under
+
+```text
+j -> 2j+2:
+1,4,10,22,46,...
+```
+
+and can therefore never have finite support.  Lean now proves that HS5 has
+no finite Laurent-polynomial payload over `Q`.  This is an all-degree
+symbolic obstruction, not a bounded opcode calculation.  It does not exclude
+an infinite Mahler payload or a singular homogeneous boundary term; indeed
+those are precisely where BA4 says an ordinary solution would have to live.
+
+The checked obstruction is
+[`DoublingQuineNoGo.lean`](../../KontoroC/KontoroC/DoublingQuineNoGo.lean).
+
+The revised stationary target is consequently narrower: construct a
+canonical nonlinear public state in which the odd power-difference debris is
+the next work register and a separate homogeneous component transports the
+ordinary boundary amplitude.  Merely alternating signs, or replacing the
+successor quine by the first base-squaring Laurent ansatz, is now closed.

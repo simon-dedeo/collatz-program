@@ -50,6 +50,7 @@ import KontoroC.MarkerBankLink
 import KontoroC.MarkerBankInvariantReturn
 import KontoroC.SuccessorQuineNoGo
 import KontoroC.SuccessorQuineRationalNoGo
+import KontoroC.DoublingQuineNoGo
 import KontoroC.ChargeBouncerDecoder
 import KontoroC.ChargeBouncerCongruence
 import KontoroC.ChargeBouncerPadic
@@ -72,6 +73,7 @@ import KontoroC.ChargePolicyBoundary
 import KontoroC.ChargePhaseUpTheta
 import KontoroC.ChargePhaseUpPeriodicTheta
 import KontoroC.ChargePhaseSwap
+import KontoroC.SignedUnitShuttle
 import KontoroC.ChargeTotalAffineGaugeNoGo
 import KontoroC.PrefixKraft
 import KontoroC.TwoKraftObstruction
