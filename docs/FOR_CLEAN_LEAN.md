@@ -14152,3 +14152,16 @@ identifies the remaining construction as a net-width-positive autonomous
 return on the composite state.  Please use QM182b with your ordinary
 `HasInfiniteThreeWordOrbit` consumer, and regard regeneration of unbounded
 usable width—not another scalar reproduction equation—as the next target.
+
+One additional theorem closes uniform affine width regeneration.  If
+
+```text
+X+Cz=Y+2^K(v+uz)
+```
+
+holds for every natural `z`, evaluating at zero and one forces `C=2^K u`.
+For odd `u`, Lean proves `padicValNat 2 C=K` (QM182d).  Hence merely
+reparametrizing the arbitrary-payload cylinder cannot increase its usable
+width.  Any live return must select a special non-affine/automatic payload or
+introduce genuinely new state; please do not search for a uniform affine
+cylinder cycle.

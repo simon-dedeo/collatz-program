@@ -517,3 +517,17 @@ construction problem; another bounded residue search does not address it.
 The exact cylinder, completed-boundary conversion, local branch lift, and
 arbitrary finite-prefix resource law are in
 [`SignedDebrisBoundaryLift.lean`](../../KontoroC/KontoroC/SignedDebrisBoundaryLift.lean).
+
+There is no width gain hidden in an affine change of payload coordinates.
+Lean proves that any identity valid for every `z`,
+
+```text
+X+Cz = Y+2^K(v+uz),
+```
+
+forces `C=2^K u`.  If `u` is odd, then `K=v2(C)` exactly.  Consequently a
+uniform affine return can only expose dyadic width already present after
+HS19; it cannot regenerate any.  The live construction must break uniformity
+by selecting a special payload with a nonlinear/automatic return, or enlarge
+the state beyond an affine cylinder.  This is a structural no-go, not evidence
+from testing a finite collection of payloads.

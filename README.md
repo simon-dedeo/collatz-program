@@ -122,6 +122,14 @@ return that regenerates usable dyadic width at least as fast as its chosen
 three-word address consumes it.  No such return, infinite orbit, or
 counterexample is claimed.
 
+A further Lean no-go rules out a cosmetic escape: if one affine cylinder is
+re-embedded as another for **every** payload with an odd affine payload
+multiplier, then the new cylinder exponent equals the old homogeneous
+coefficient's exact 2-adic valuation.  Uniform affine reparametrization cannot
+manufacture width.  The remaining candidate must therefore select a special
+non-affine payload/return (or find genuinely new state), rather than preserve
+the whole arbitrary-payload cylinder indefinitely.
+
 The Bridges-2 RM campaign is complete: approximately 12,374.36 charged
 core-hours across massively parallel KL and counterexample probes.  It found
 no Collatz counterexample and did not prove the KL endpoint.  It did, however,

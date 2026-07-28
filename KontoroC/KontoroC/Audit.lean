@@ -2897,6 +2897,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SignedDebrisBoundaryLift.prefix_balance_lift_of_dvd
 #print axioms
   KontoroC.SignedDebrisBoundaryLift.boundaryOutputCharge_prefix_balance
+#print axioms
+  KontoroC.SignedDebrisBoundaryLift.uniformAffineReembedding_coefficient
+#print axioms
+  KontoroC.SignedDebrisBoundaryLift.uniformAffineReembedding_padicValNat
 #print axioms KontoroC.DoublingQuineNoGo.no_finiteLaurent_coefficientLaw
 #print axioms KontoroC.DoublingQuineNoGo.no_finiteLaurent_functionalEquation
 #print axioms KontoroC.DoublingQuineNoGo.no_doubling_quine_finiteLaurent

@@ -571,5 +571,42 @@ theorem boundaryOutputCharge_prefix_balance
   rw [hclosed, hzero] at hlift
   simpa only [boundaryOutputCharge] using hlift
 
+/-! ## Why a uniform affine cylinder cannot regenerate width -/
+
+/-- Equality of two affine cylinder parametrizations for every payload forces
+equality of their homogeneous coefficients.  Evaluating only at zero and one
+is enough; this is a symbolic identity, not a finite search. -/
+theorem uniformAffineReembedding_coefficient
+    (sourceBase coefficient targetBase exponent offset multiplier : ℕ)
+    (hreembed : ∀ z : ℕ,
+      sourceBase + coefficient * z =
+        targetBase + 2 ^ exponent * (offset + multiplier * z)) :
+    coefficient = 2 ^ exponent * multiplier := by
+  have hzero := hreembed 0
+  have hone := hreembed 1
+  simp only [mul_zero, add_zero] at hzero
+  simp only [mul_one] at hone
+  ring_nf at hzero hone
+  have hcoefficient : coefficient = multiplier * 2 ^ exponent := by omega
+  simpa only [mul_comm] using hcoefficient
+
+/-- If the new payload multiplier is odd, the alleged new cylinder exponent
+is exactly the old coefficient's 2-adic valuation.  Uniform affine
+reparametrization can expose existing width but can never manufacture it. -/
+theorem uniformAffineReembedding_padicValNat
+    (sourceBase coefficient targetBase exponent offset multiplier : ℕ)
+    (hreembed : ∀ z : ℕ,
+      sourceBase + coefficient * z =
+        targetBase + 2 ^ exponent * (offset + multiplier * z))
+    (hmultiplier : Odd multiplier) :
+    padicValNat 2 coefficient = exponent := by
+  rw [uniformAffineReembedding_coefficient sourceBase coefficient targetBase
+    exponent offset multiplier hreembed]
+  rw [padicValNat_base_pow_mul (by norm_num) hmultiplier.pos.ne']
+  have hnot : ¬ 2 ∣ multiplier := by
+    simpa only [← Nat.not_even_iff_odd, even_iff_two_dvd] using hmultiplier
+  rw [padicValNat.eq_zero_of_not_dvd hnot]
+  simp
+
 end SignedDebrisBoundaryLift
 end KontoroC
