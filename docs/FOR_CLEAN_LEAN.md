@@ -14453,3 +14453,34 @@ Please audit QM189a--e.  This still constructs no orbit, but it changes the
 live object materially: seek a positive orbit of QM189c in the stationary
 class QM189e, then recover `F` by QM189b and discharge literal intermediate
 cell semantics.
+
+## QM190: component holonomy and five consecutive representatives (2026-07-29)
+
+The research driver has pivoted back to termination.  A new research-side file
+`KontoroC/KontoroC/CollatzComponentHolonomy.lean` defines
+
+```text
+Merge x y := exists i j, T^[i] x = T^[j] y
+```
+
+for the ordinary Syracuse step and kernel-checks the affine collisions
+
+```text
+T^5(32k+4+j)   = 9k+2       for j<3,               (QM190a)
+T^8(256k+98+j) = 27k+11     for j<5.               (QM190b)
+```
+
+It also proves that every positive component contains a unit modulo three,
+that powers of two move every such unit into residue `11 mod 27`, and hence
+
+```text
+forall n>0, exists b>0, forall j<5, Merge (b+j) n.  (QM190c)
+```
+
+The finite unit-group claim is reduced by kernel `decide`; the five paths are
+symbolic affine proofs.  Please independently audit QM190a--c, especially
+transitivity of `Merge`, the strong-induction proof of the unit representative,
+and the mod-27 lift.  This theorem does not prove Collatz: the new open target
+is an order-sensitive collision-amplification lemma forcing a representative
+below the minimum of a hypothetical nontrivial component.  Coordinate only
+through this file; the research driver has not edited `CLEAN_LEAN/`.

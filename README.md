@@ -12,10 +12,11 @@ from the John Templeton Foundation. Additional support from research funds
 of the Laboratory for Social Minds and from the Survival and Flourishing
 Fund. Proofs and Reasons — https://proofsandreasons.io
 
-The proof-directed phase reached a synchronized checkpoint on 2026-07-21.
-Active work has now resumed with the deliberately opposite objective described
-in [The Kontorovich Challenge](#the-kontorovich-challenge): try to construct and
-certify a counterexample.
+The proof-directed phase reached a synchronized checkpoint on 2026-07-21, then
+the program deliberately attacked the opposite objective in
+[The Kontorovich Challenge](#the-kontorovich-challenge).  On 2026-07-29 the
+research driver pivoted back to termination, using the counterexample no-go
+theorems as information about what a proof must exploit.
 
 ## A note from the human
 
@@ -32,6 +33,35 @@ I chose the Collatz Conjecture for three reasons:
 Everything below this line, and everything else in this repo, has been automatically generated. Claude Fable 5 drove the initial numerics and research program; a Codex/GPT instance then served as the successor research driver. A separate GPT instance formalized the work in Lean in `CLEAN_LEAN`; it was told to make something that would not annoy Kevin Buzzard. If you want the inter-company drama, visit https://github.com/simon-dedeo/collatz-program/blob/main/CLEAN_LEAN/FOR_FABLE.md
 
 ## Diary
+
+### 2026-07-29 EDT
+
+The new termination attack changes the unit of study from a forward trajectory
+to its entire Syracuse component.  Different legal inverse words can have the
+same linear part and affine offsets separated by a power of three; this
+*component holonomy* creates exact adjacent preimages.  Lean now checks
+
+```text
+T^5(32k+4+j)   = 9k+2       (0 <= j < 3),
+T^8(256k+98+j) = 27k+11     (0 <= j < 5).
+```
+
+It also checks the global consequence: **every positive Syracuse component
+contains five consecutive positive integers**.  The proof moves any component
+to a unit modulo three, uses powers of two to reach `11 mod 27`, and applies
+the five-way collision.  This is a structural theorem, not Collatz: finite
+thickness does not imply that two components meet.
+
+The proposed full-proof mechanism is now **holonomy descent from a component
+minimum**.  The residue `n=9k+2` already has a same-component mate `8k+1`, with
+`(8k+2)/(9k+3)<8/9` in the exact height `H(n)=n+1`.  The hard obstruction is
+the `-1` shadow: odd steps expand `H` by exactly `3/2`, while long odd runs
+consume exact low-bit precision in `n+1`.  The new target is to spend that
+forced dyadic precision on a growing inverse-word collision fiber and force a
+representative below the component minimum.  This would be a new reason for
+termination; the collision-amplification and charged minimum-crossing lemmas
+are open.  See
+[`component-holonomy-descent.md`](docs/notes/component-holonomy-descent.md).
 
 ### 2026-07-28 EDT
 
@@ -10589,6 +10619,13 @@ an engineering caveat, not an unproved mathematical premise.
 
 ### Surviving proof programs
 
+- **Holonomy descent from a component minimum.**  Lean proves that every
+  positive Syracuse component contains five consecutive integers and that a
+  `2 mod 9` portal exposes an exact same-component `8/9` height contraction.
+  The missing theorem must charge the dyadic precision of long `-1` shadows to
+  amplify an inverse-word collision until one representative crosses below
+  the component minimum.  Thickness without this order comparison is not
+  enough.
 - **Exclude divergent orbits.**  Combine the exact side-bush packing with the
   critical base-`3/2` span capacity or a product-of-places boundary theorem.
   The missing assertion must control one feedback-selected arithmetic orbit,
@@ -10696,23 +10733,29 @@ last live seams and should not be read as background jobs still running.
 
 ## Future directions
 
-If the project resumes, the first two problems are the ones that could address
-the full conjecture; the KL endpoint remains a substantial but strictly weaker
-milestone.
+The first three problems could address the full conjecture; the KL endpoint
+remains a substantial but strictly weaker milestone.
 
-1. **Turn capacity into a no-escape theorem.**  Combine the exact disjoint
+1. **Prove holonomy descent.**  Generalize the checked 2-, 3-, and 5-way
+   affine diamonds to collision fibers whose offset width is controlled by
+   forced `v2(n+1)` precision.  Couple `log(n+1)`, remaining precision, and
+   collision width in one charged-excursion inequality.  The endpoint must
+   produce a legal representative below the component minimum; descent merely
+   below a later portal is insufficient.  Test the proposed lemma against the
+   exact `-1` shadow and against `5x+1` before treating it as Collatz-specific.
+2. **Turn capacity into a no-escape theorem.**  Combine the exact disjoint
    side-bush packing with the critical base-`3/2` span coordinate, and prove
    that one feedback-selected injective Syracuse spine cannot concentrate
    indefinitely on cells whose inverse capacity is summable.  The most
    ambitious candidate is a deterministic, product-of-places/adelic boundary
    statement.  A probabilistic theorem about typical rational affine products
    is not enough: the bridge must control one arithmetic orbit.
-2. **Add a genuinely new obstruction to cycles.**  Relate compatible closed
+3. **Add a genuinely new obstruction to cycles.**  Relate compatible closed
    walks in the ramified ternary refinement tower to the cycle-modulus
    exponential sums.  The target must see more than `(K,L)` and beat the
    existing Baker/Steiner information; separate finite-level cycle counts,
    modular-knot length, and finite-place tests have already failed this test.
-3. **Prove amortized selected pressure.**  For structurally chosen checkpoints
+4. **Prove amortized selected pressure.**  For structurally chosen checkpoints
    `0=t_0<...<t_m`, prove
    `epsilon_(t_(i+1)) >= epsilon_(t_i)+a_i epsilon_(t_i)^2`, with `a_i>=0`
    and divergent `sum a_i/(1+a_i)`.  A plausible stronger statement is that
@@ -10741,7 +10784,7 @@ milestone.
    run law is geometric, so the infinite-measure theorems do not apply
    directly; without those tests this would only repackage the annealed
    surrogate.
-4. **Try the orthogonal soft-to-hard route.**  Prove fixed-temperature spectral
+5. **Try the orthogonal soft-to-hard route.**  Prove fixed-temperature spectral
    saturation, or construct positive soft subeigenvectors whose factor beats
    `3^(1/beta)`.  Commit `4419b30` checks the exact branch-only soft operator,
    hard comparison, sparse-level feasibility transfer, and final counting
@@ -10749,13 +10792,13 @@ milestone.
    or certified soft subeigenvectors crossing that factor; selector regularity
    is not available, and the two-copy fallback is selected/on-code signed
    cancellation.
-5. **Search for a cofinal exact feasible ansatz.**  Exact feasible witnesses at
+6. **Search for a cofinal exact feasible ansatz.**  Exact feasible witnesses at
    arbitrary levels with parameters tending to two bypass fixed-vector
    selection, Brouwer, tie walls, and the entire coarse-minimum pressure route.
    The tested OBDD, aligned grammar, sparse ANF, and tensor-train models failed,
    so a restart should demand a genuinely different symbolic coordinate
    representation rather than another fit to the same finite policies.
-6. **Keep formal and engineering work attached to a live premise.**  The two
+7. **Keep formal and engineering work attached to a live premise.**  The two
    downstream endpoint interfaces are now audited.  Formalize a new theorem
    only when it supplies one of their missing structural inputs, and develop a
    streamed representation only if higher certificate imports become

@@ -2968,3 +2968,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.OutwardThreeWordReducedState.ReducedState.infiniteExecution_iff_threeWordOrbit
 #print axioms
   KontoroC.OutwardThreeWordReducedState.ReducedState.exists_infiniteExecution_iff_reaches_threeWordOrbit
+#print axioms KontoroC.CollatzComponentHolonomy.five_run_hits
+#print axioms KontoroC.CollatzComponentHolonomy.mod_nine_two_portal_descent
+#print axioms
+  KontoroC.CollatzComponentHolonomy.every_positive_component_contains_five_run
