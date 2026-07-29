@@ -54,6 +54,7 @@ import KontoroC.DoublingQuineNoGo
 import KontoroC.DoublingQuineRationalNoGo
 import KontoroC.DoublingQuineMahlerNormalForm
 import KontoroC.DoublingQuineIntegerNoGo
+import KontoroC.LongDoublingQuineThreshold
 import KontoroC.ChargeBouncerDecoder
 import KontoroC.ChargeBouncerCongruence
 import KontoroC.ChargeBouncerPadic

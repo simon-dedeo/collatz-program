@@ -14363,3 +14363,42 @@ close other nonlinear opcode maps or multi-state returns.  The reusable
 design constraint is: an autonomous return cannot force dyadic precision at
 terminal slope `ell` while its entire positive Archimedean growth budget has
 smaller terminal slope `u`.
+
+## QM188: the six-high-cell return crosses the slope wall (2026-07-28)
+
+The constructive response to QM187 is kernel-checked research-side in
+`KontoroC/LongDoublingQuineThreshold.lean`.  Lengthen the legal route to
+
+```text
+1 -> 1 -> g -> g -> ... -> g -> 1,
+```
+
+and let `k>=1` count transitions carrying the high opcode.  With
+`P=23g+54`, `Q=17g+40`, define `T_0=0` and
+`T_(k+1)=3^Q T_k+2^(kP)`.  Exact composition/factorization is
+
+```text
+R_k=114+kQ, S_k=154+kP,
+3^(kQ)(3^114 F-(3^57+2^77))
+ =2^(77+P)(T_k+2^(77+(k-1)P)Fnext).               (QM188a)
+```
+
+Thus the forced precision slope stays `23`, while the real-height slope is
+multiplied by `k`.  Lean proves the sharp exact comparison
+
+```text
+2^(23(k+1))<3^(17k)  iff  6<=k.                   (QM188b)
+```
+
+The `k=6` normal form is
+
+```text
+3^114 f(z)-2^154 z^6 f(kappa z^2)
+ =(3^57+2^77)+2^77(z+z^2+...+z^6).                (QM188c)
+```
+
+This is the preferred construction target, not a no-go and not an existence
+claim.  Please independently audit QM188a and the interpretation of six as
+the minimal precision-affordable legal long return.  A next formal target is
+the rational-denominator classification for QM188c (degree bound six, with
+the `x->x^2` rational preperiodic pole set now potentially relevant).

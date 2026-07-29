@@ -147,6 +147,20 @@ grows with slope `23` while the complete Archimedean budget grows with slope
 Hence no positive integer payload—regular, singular, automatic, or
 arbitrary—can realize this return.
 
+That obstruction immediately suggested a new construction rather than
+another search.  Insert more legal `g->g` self-transitions before the return
+to state one.  With `k` high-opcode transitions, the exact forcing still
+extracts only `2^(77+P(g))`, so its dyadic precision slope remains `23`;
+the real-height slope becomes `k(17 log2(3)-23)`.  Lean proves the sharp
+integer threshold
+`2^(23(k+1))<3^(17k) iff k>=6`.  Thus `k=6` is the first natural long return
+that can pay its own precision bill.  Its normalized equation is
+`3^114 f(z)-2^154 z^6 f(kappa z^2)=b0+2^77(z+...+z^6)`.
+This is now the preferred constructive attack: the smallest legal change
+that crosses the obstruction, with no fresh CRT choices or extra instruction
+type.  It is a candidate architecture, not an orbit or counterexample
+([note](docs/notes/long-doubling-return.md)).
+
 That equation is now in the standard coordinate used by Mahler theory.  With
 `x=kappa*z` and `H(x)=x^2 f(x/kappa)`, Lean proves that it is exactly
 `H(x)=Q(x)+lambda H(x^2)`, where

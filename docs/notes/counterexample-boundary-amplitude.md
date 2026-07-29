@@ -805,3 +805,38 @@ The singular boundary mechanism remains conceptually important for other
 architectures, and the 5x+1 control still rules out parity-only reasoning.
 What is closed is the exact rank-one four-cell `g -> 2g` quine, including
 every arbitrary positive integer section on its opcode ray.
+
+## 16. Constructive response: lengthen the legal return
+
+The slope obstruction points to its own minimal escape.  The four-cell quine
+uses two high-opcode transitions.  Insert further legal `g->g` self-cells in
+the route `1->1->g->...->g->1`, and let `k` count the transitions carrying
+the high opcode.  Exact composition gives
+
+```text
+R_k=114+kQ, S_k=154+kP,
+3^(kQ)(A F-b0)=2^(77+P)(T_k+2^(77+(k-1)P)Fnext).  (HS35)
+```
+
+The forced precision slope is still `23`: the extra self-cells occur inside
+the positive bracket.  The height slope, however, becomes
+`k(17 log2(3)-23)`.  The exact affordability condition is
+
+```text
+2^(23(k+1))<3^(17k),                               (HS36)
+```
+
+and Lean proves HS36 if and only if `k>=6`.  Consequently the six-high-cell
+return is the first member not excluded by HS31--HS34.  Its normalized
+forcing is unusually rigid:
+
+```text
+A f(z)-D z^6 f(kappa z^2)=b0+2^77(z+...+z^6).     (HS37)
+```
+
+This is the preferred new construction attack.  It changes the quantity the
+failure theorem identified—Archimedean regeneration—without changing the
+opcode-doubling mechanism, introducing a new cell, or preloading a CRT stack.
+No integer solution or orbit is claimed.  See
+[`long-doubling-return.md`](long-doubling-return.md) and the kernel-checked
+[`LongDoublingQuineThreshold.lean`](../../KontoroC/KontoroC/LongDoublingQuineThreshold.lean).

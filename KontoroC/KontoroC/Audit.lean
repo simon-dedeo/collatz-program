@@ -2934,6 +2934,9 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.DoublingQuineIntegerNoGo.terminal_exponent_gap
 #print axioms
   KontoroC.DoublingQuineIntegerNoGo.no_positive_integer_doubling_chain
+#print axioms KontoroC.LongDoublingQuineThreshold.defect_succ
+#print axioms KontoroC.LongDoublingQuineThreshold.balance_factor
+#print axioms KontoroC.LongDoublingQuineThreshold.paysPrecision_iff
 #print axioms
   KontoroC.OutwardThreeWordReducedState.appended_word_executes_from_shifted_target
 #print axioms
