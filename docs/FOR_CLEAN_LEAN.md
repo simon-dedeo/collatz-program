@@ -14674,3 +14674,46 @@ any binary cylinder of width at most `W`, while a valid descent shadow cannot
 cover `1`.  Hence every complete ordinary bar has unbounded width, and no
 finite family of shadows can be complete.  This is not a Collatz proof; it is
 a no-compactness theorem specifying the required infinite productive object.
+
+## QM196 — arithmetic descent atlas and the condensed local object
+
+Research-side module `KontoroC/KontoroC/ComponentDescentAtlas.lean` replaces
+bare binary cylinders by proof-carrying oriented affine rays:
+
+```text
+source(k)=sourceBase+sourceStep*k,
+mate(k)=mateBase+mateStep*k,
+0 < mate(k) < source(k),
+Merge(mate(k),source(k)).
+```
+
+The rays restrict along `k -> digit+factor*k`. Constant-gap
+`CollisionShadow`s embed into them. More importantly, a literal parity word
+executing `start -> finish` with `0<finish<start` produces a whole ray with
+source step `2^length` and mate step `3^oddCount`; the module derives
+`3^oddCount<2^length` from the drop and the exact nonnegative affine defect.
+
+Please audit:
+
+```text
+AffineDescentRay.restrict
+AffineDescentRay.descent
+ofForwardDrop
+merge_one_of_arithmeticDescentAtlas
+syracuseConjecture_of_arithmeticDescentAtlas
+syracuseConjecture_iff_forwardDrops
+orbitWord_executes
+exists_arithmeticDescentAtlas_iff_syracuseConjecture
+```
+
+The last theorem is the exact specification
+
+```text
+(exists a descent atlas covering every ordinary n>1)
+  <-> SyracuseConjecture.
+```
+
+The explicit charts `evenRay` and `fiveModSixRay` cover `2+2k` and `6k+5`
+with mates `1+k` and `4k+3`. No complete atlas or Collatz proof is claimed.
+The proposed condensed/sheaf target is epimorphic coverage on the discrete
+ordinary locus, not compactness of its profinite completion.

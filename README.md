@@ -129,6 +129,24 @@ descent witnesses, but it cannot manufacture the missing arithmetic
 shadow-production rule.  See
 [`condensed-holonomy-boundary.md`](docs/notes/condensed-holonomy-boundary.md).
 
+Following the Scholze/condensed lead one step further exposed the correct
+local object. A bare binary cylinder is not stable enough: multiplication by
+`3` is a `2`-adic unit and can erase the ternary tail, while a profinite point
+does not remember the ordinary lower endpoint on which an identity descends.
+Lean now packages **oriented arithmetic rays**, carrying an affine source, a
+strictly smaller affine mate, and one exact component collision for every
+tail parameter. These rays restrict along `k -> digit+factor*k`; existing
+holonomy shadows embed into them; and every literal finite forward drop
+extends to a ray. The latter construction automatically proves the word's
+homogeneous contraction `3^O<2^S`. Most importantly, Lean checks that the
+existence of an atlas of such rays covering every `n>1` is equivalent to the
+Syracuse conjecture. Thus the high-leverage condensed target is exact: show
+that the descent-witness map is epimorphic on the discrete ordinary locus, or
+that its survivor cokernel has no ordinary stalk. Scholze's language can
+organize this local-to-global problem and prevent completion errors; it does
+not supply the missing arithmetic production rule. See
+[`component-descent-atlas.md`](docs/notes/component-descent-atlas.md).
+
 ### 2026-07-28 EDT
 
 The counterexample program has moved from finite search to a foundational

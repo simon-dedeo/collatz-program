@@ -3019,3 +3019,18 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.ComponentHolonomyCondensedBoundary.unbounded_width_of_ordinaryHolonomyBar
 #print axioms
   KontoroC.ComponentHolonomyCondensedBoundary.no_finite_ordinaryHolonomyBar
+#print axioms KontoroC.ComponentDescentAtlas.AffineDescentRay.restrict
+#print axioms KontoroC.ComponentDescentAtlas.AffineDescentRay.descent
+#print axioms
+  KontoroC.ComponentDescentAtlas.merge_one_of_arithmeticDescentAtlas
+#print axioms
+  KontoroC.ComponentDescentAtlas.syracuseConjecture_of_arithmeticDescentAtlas
+#print axioms KontoroC.ComponentDescentAtlas.ofCollisionShadow
+#print axioms KontoroC.ComponentDescentAtlas.ofForwardDrop
+#print axioms KontoroC.ComponentDescentAtlas.fiveModSixRay
+#print axioms KontoroC.ComponentDescentAtlas.evenRay
+#print axioms
+  KontoroC.ComponentDescentAtlas.syracuseConjecture_iff_forwardDrops
+#print axioms KontoroC.ComponentDescentAtlas.orbitWord_executes
+#print axioms
+  KontoroC.ComponentDescentAtlas.exists_arithmeticDescentAtlas_iff_syracuseConjecture
