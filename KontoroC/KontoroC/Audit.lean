@@ -3011,3 +3011,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.ComponentHolonomyBar.minimum_not_one_hundred_one_mod_256
 #print axioms
   KontoroC.ComponentHolonomyBar.minimum_not_sixty_seven_mod_512
+#print axioms
+  KontoroC.ComponentHolonomyCondensedBoundary.ordinaryHolonomyBar_iff_barsThrough
+#print axioms
+  KontoroC.ComponentHolonomyCondensedBoundary.CollisionShadow.not_covers_one
+#print axioms
+  KontoroC.ComponentHolonomyCondensedBoundary.unbounded_width_of_ordinaryHolonomyBar
+#print axioms
+  KontoroC.ComponentHolonomyCondensedBoundary.no_finite_ordinaryHolonomyBar

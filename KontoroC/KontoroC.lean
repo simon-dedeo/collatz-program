@@ -61,6 +61,7 @@ import KontoroC.LongReturnLengthHensel
 import KontoroC.LongReturnOrdinaryRoot
 import KontoroC.CollatzComponentHolonomy
 import KontoroC.ComponentHolonomyBar
+import KontoroC.ComponentHolonomyCondensedBoundary
 import KontoroC.ChargeBouncerDecoder
 import KontoroC.ChargeBouncerCongruence
 import KontoroC.ChargeBouncerPadic

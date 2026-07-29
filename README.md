@@ -115,6 +115,20 @@ literal zero-lift forward chain across genuinely doubled opcodes; it cannot
 camp at one `g` or rely on an infinite preloaded tail.  See
 [`long-return-ordinary-root.md`](docs/notes/long-return-ordinary-root.md).
 
+The condensed-set question has now sharpened the termination target rather
+than providing a compactness shortcut.  A complete holonomy bar is an
+infinite cover of the **discrete ordinary locus** inside `Z_2`, not a finite
+open cover of a compact space.  Since no descent shadow can cover `1` while
+the ordinary points `1+2^W` converge to `1` 2-adically, Lean proves that every
+complete bar must contain shadows of unbounded binary width; in particular no
+finite family can be complete.  It also checks that the global bar is exactly
+the compatible collection of all bounded ordinary stages.  Condensed
+mathematics is therefore useful as a coordinate-free home for the
+ordinary/profinite obstruction (`Z_2/Z_disc`) and for a future sheaf of local
+descent witnesses, but it cannot manufacture the missing arithmetic
+shadow-production rule.  See
+[`condensed-holonomy-boundary.md`](docs/notes/condensed-holonomy-boundary.md).
+
 ### 2026-07-28 EDT
 
 The counterexample program has moved from finite search to a foundational

@@ -14651,3 +14651,26 @@ the affine-defect divisibility argument. This does not close the moving
 forward chain whose longer endpoint already equals the canonical next source
 residue at every doubled opcode, followed by the literal intermediate-cell
 semantic bridge.
+
+## QM195 — condensed boundary forces unbounded holonomy precision
+
+The research-side module is
+`KontoroC/KontoroC/ComponentHolonomyCondensedBoundary.lean`.
+
+The module formalizes the elementary content of viewing the component
+holonomy bar as a cover of the discrete ordinary locus inside `Z_2`:
+
+```text
+BarsThrough shadow B
+ordinaryHolonomyBar_iff_barsThrough
+CollisionShadow.not_covers_one
+CollisionShadow.covers_one_of_covers_one_add_pow
+unbounded_width_of_ordinaryHolonomyBar
+no_finite_ordinaryHolonomyBar
+```
+
+The main exact observation is that `1+2^W` is indistinguishable from `1` by
+any binary cylinder of width at most `W`, while a valid descent shadow cannot
+cover `1`.  Hence every complete ordinary bar has unbounded width, and no
+finite family of shadows can be complete.  This is not a Collatz proof; it is
+a no-compactness theorem specifying the required infinite productive object.
