@@ -2957,6 +2957,18 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.LongReturnLengthHensel.exists_adjacent_return_on_odd_progression
 #print axioms KontoroC.LongReturnLengthHensel.extend_adjacent_return_pair
+#print axioms KontoroC.LongReturnOrdinaryRoot.adjacentSource_iff_mod
+#print axioms
+  KontoroC.LongReturnOrdinaryRoot.adjacentSource_iff_sourceResidue
+#print axioms
+  KontoroC.LongReturnOrdinaryRoot.no_supercritical_affine_division_chain
+#print axioms
+  KontoroC.LongReturnOrdinaryRoot.no_infinite_fixed_opcode_hensel_chain
+#print axioms KontoroC.LongReturnOrdinaryRoot.adjacentSource_of_succ
+#print axioms
+  KontoroC.LongReturnOrdinaryRoot.no_fixed_source_cofinal_adjacent_lengths
+#print axioms
+  KontoroC.LongReturnOrdinaryRoot.eventuallyConstant_iff_eventuallyZero_retroactiveTail
 #print axioms
   KontoroC.OutwardThreeWordReducedState.appended_word_executes_from_shifted_target
 #print axioms

@@ -102,6 +102,19 @@ The final literal intermediate-cell bridge also remains to be audited.  No
 infinite orbit or counterexample is claimed.  See
 [`long-return-length-hensel.md`](docs/notes/long-return-length-hensel.md).
 
+The ordinary-root audit now makes the remaining gate exact.  For fixed
+`(k,g)`, adjacent-return sources form one explicit residue class modulo
+`2^[S(k,g)+P(g)]`, together with one positivity inequality.  Iterated local
+splices change the earlier source by a positive multiple of that modulus;
+Lean proves that the source representatives stabilize to one natural **iff**
+those retroactive tail digits are eventually zero.  It also closes the tempting
+fixed-opcode escape: adjacent-source cylinders are nested in `k`, and
+unbounded supported lengths would force `2^[nP]` to divide one fixed positive
+affine defect for every `n`.  Thus a live construction must eventually be a
+literal zero-lift forward chain across genuinely doubled opcodes; it cannot
+camp at one `g` or rely on an infinite preloaded tail.  See
+[`long-return-ordinary-root.md`](docs/notes/long-return-ordinary-root.md).
+
 ### 2026-07-28 EDT
 
 The counterexample program has moved from finite search to a foundational
@@ -250,10 +263,12 @@ the same source, Lean cancels the full defect and proves that the longer
 return exists exactly when `X=2^[23(g-1)]z` and
 `3^[17g+40]z=1+2^77Y` for odd `z`.  This 77-bit Hensel cell lifts arbitrary
 tails and satisfies `X<Y`, so it is an unbounded positive-growth register.
-The conditional two-level tail splice is checked; the live closure problem is
-to generate its finite base alignment at each `2g` using only the transported
-ordinary payload
-([note](docs/notes/long-return-length-hensel.md)).
+The two-level alignment and source-to-source splice are now unconditional at
+the algebraic level.  The live closure problem is instead ordinary-root
+stabilization: after finitely many setup lifts, the transported endpoint must
+itself lie in the unique adjacent-source cylinder at each next doubled opcode
+([Hensel note](docs/notes/long-return-length-hensel.md),
+[ordinary-root note](docs/notes/long-return-ordinary-root.md)).
 
 That equation is now in the standard coordinate used by Mahler theory.  With
 `x=kappa*z` and `H(x)=x^2 f(x/kappa)`, Lean proves that it is exactly
@@ -10341,6 +10356,7 @@ needs the independent ordinary-root/tightness proof.
 | Even-level raw signed-debris ruler as the next unit collision | Closed in Lean by restoring the actual source scale.  Although `R=3^Q-2^P` has unbounded `v2(R-1)` on even residual levels, a following public cell tests `3^qR+/-1`.  Order-based materialization forces the reached label odd, making the combined ternary exponent odd; the actual minus and plus valuations are then exactly one and two, below every public unit exponent.  The odd-residual scaled-minus branch remains live and now has an explicit typed router. | [`SignedDebrisSemanticNoGo.lean`](KontoroC/KontoroC/SignedDebrisSemanticNoGo.lean) |
 | Explicit typed router reproduces one later positive debris | Closed in Lean for every router parameter satisfying the public exponent-room inequality.  If the emitted cofactor equalled `R_next`, reduction modulo the common source/reproduction power of three would force `3^(K-1)` to divide half the binary return length.  Exact size bounds simultaneously force the reached label to be at most `next` and `next` to be at most `ell+m+2`.  The resulting exponential order lower bound contradicts that linear window.  Composite, multi-rail, or genuinely infinite payload reproduction remains open. | [`SignedDebrisReproduction.lean`](KontoroC/KontoroC/SignedDebrisReproduction.lean) |
 | Base-squaring `g -> 2g` four-cell quine, including arbitrary singular integer payloads | Universally closed for positive natural payloads.  The cleared balance factors as `3^(2Q)(A F-b0)=2^(77+P)(positive)`, forcing `2^(131+23g)<A F(g)`.  Positivity also gives `F(2g)<2^(46+8g)F(g)`.  Iteration along `g,2g,...` makes the first lower exponent outrun the complete second upper budget; Lean contradicts them at depth `F(0)+4`.  This subsumes the earlier rational and regular-Mahler no-gos and needs no external transcendence or 2-adic irrationality theorem.  It closes this exact return, not other nonlinear opcode maps or multi-state returns. | [`DoublingQuineIntegerNoGo.lean`](KontoroC/KontoroC/DoublingQuineIntegerNoGo.lean), [`DoublingQuineMahlerNormalForm.lean`](KontoroC/KontoroC/DoublingQuineMahlerNormalForm.lean) |
+| Fixed-source unbounded adaptive return length | Universally closed at one opcode.  Adjacent-return sources are one exact dyadic cylinder modulo `2^(S+P)`; the cylinders nest as `k` grows.  Cofinal supported lengths would therefore give every length and Hensel cores satisfying `3^Q z_n=1+2^P z_(n+1)`.  The fixed-point defect obeys `2^P w_(n+1)=3^Q w_n`, forcing arbitrarily large powers of two to divide one fixed positive natural.  Iterated local splices stabilize at an ordinary source iff their retroactive tail parameters are eventually zero.  A live construction must cross doubled opcodes in a genuine forward zero-lift chain. | [`LongReturnOrdinaryRoot.lean`](KontoroC/KontoroC/LongReturnOrdinaryRoot.lean), [`long-return-ordinary-root.md`](docs/notes/long-return-ordinary-root.md) |
 | Shortest-recharge perfect-23rd-power bouncer quine | Closed.  Lean commit `5fbacf5` proves every accepted `h=1`, `u=F*r^23` reproduction transition supplies an integer solution of `3^15X^23-2^16Y^23=5`.  PARI/GP 2.15.4 checks the associated degree-23 polynomial irreducible, reports attached class number one, and returns the complete empty Thue solution list.  PARI documents this class-number-one fast case as unconditional; that final no-solution step is external-PARI scope, not kernel scope.  Higher recharge and multi-rail/corrected payloads remain open. | [`ChargePowerQuine.lean`](KontoroC/KontoroC/ChargePowerQuine.lean), [`unit_charge_power_quine_thue_audit.txt`](experiments/kontorovich/unit_charge_power_quine_thue_audit.txt) |
 | Pure public-state 23rd-power rail, `m=0 (mod 23)` | Closed for every positive transition in this coefficient class.  Lean commit `4c56925` converts the transition to equal sums of two 23rd powers; exact input valuation makes `s` too large for the discrete gap.  Commits `f61f569`/`9f00894` reduce the remaining classes to scaled norm/cofactor equations and a hidden register.  Commit `07352a9` kernel-checks the elementary Roth approximation and exponent-11 bridge for the other classes; the external theorem and sequence-level finiteness consumer remain explicit seams.  Individual transitions, corrected types, and multi-rail packets remain open. | [`ChargeStatePowerQuine.lean`](KontoroC/KontoroC/ChargeStatePowerQuine.lean), [`ChargeStatePowerRoth.lean`](KontoroC/KontoroC/ChargeStatePowerRoth.lean) |
 | Sum-of-two-squares public type | Universally closed before any search.  Every accepted bouncer state has `2^23 | y+1`, so `y=7 (mod 8)`; the next accepted state and `A^h=1 (mod 8)` force the odd collision quotient to be `7 (mod 8)` as well.  A sum of two squares is never `3 (mod 4)`.  This kills only `d=1`; the hardware-matched `x^2+d u^2` type with `d=7 (mod 8)` is live. | [`unit_charge_quadratic_norm_audit.json`](experiments/kontorovich/unit_charge_quadratic_norm_audit.json) |

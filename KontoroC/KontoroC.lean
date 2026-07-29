@@ -58,6 +58,7 @@ import KontoroC.LongDoublingQuineThreshold
 import KontoroC.LongDoublingQuineRationalNoGo
 import KontoroC.LongDoublingQuineResidual
 import KontoroC.LongReturnLengthHensel
+import KontoroC.LongReturnOrdinaryRoot
 import KontoroC.CollatzComponentHolonomy
 import KontoroC.ComponentHolonomyBar
 import KontoroC.ChargeBouncerDecoder

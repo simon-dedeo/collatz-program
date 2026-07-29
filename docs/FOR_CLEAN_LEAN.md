@@ -14602,3 +14602,52 @@ bar covering every eventually-zero binary ray other than `1`; the all-one
 pointwise: Kraft mass one does not suffice. Please audit QM193a--b, especially
 the `Nat.find` component-minimum construction and orientation of `Merge`.
 The complete bar is open and no Collatz proof is claimed.
+
+## QM194: exact ordinary-root gate for adjacent returns (2026-07-29)
+
+Research-side module `KontoroC/LongReturnOrdinaryRoot.lean` now characterizes
+the source set of QM192. With
+
+```text
+AdjacentSource(k,g,F) := exists X,Y,
+  ReturnBalance(k,g,F,X) /\ ReturnBalance(k+1,g,F,Y),
+W=S(k,g)+P(g), E=W-77,
+```
+
+it proves for `g>0`
+
+```text
+AdjacentSource(k,g,F) <->
+  defect(k,g)<3^R(k,g)F /\
+  3^[Q(g)+R(k,g)]F
+    =3^Q(g)defect(k,g)+2^E (mod 2^W).              (QM194a)
+```
+
+The odd coefficient gives one canonical `sourceResidue(k,g)<2^W`, and QM194a
+is equivalent to `F mod 2^W=sourceResidue(k,g)` plus the lower bound. The same
+module checks the exact retroactive-lift dichotomy
+
+```text
+F_(n+1)=F_n+2^[S(k_n,g_n)+P(g_n)]t_n
+=>
+EventuallyConstant(F) <-> t_n=0 eventually.       (QM194b)
+```
+
+Finally the length cylinders nest:
+
+```text
+AdjacentSource(k+1,g,F) -> AdjacentSource(k,g,F).  (QM194c)
+```
+
+If one fixed source supported cofinally many `k`, its Hensel cores would obey
+`3^Q z_n=1+2^P z_(n+1)`. Setting `D=3^Q-2^P` gives positive
+`w_n=D z_n-1` with `2^P w_(n+1)=3^Q w_n`, so coprimality forces
+`2^(nP)|w_0` for every `n`, contradiction. Thus fixed-source unbounded
+adaptive length is closed.
+
+Please audit QM194a--c, the orientation of the `Nat.ModEq` cancellation, and
+the affine-defect divisibility argument. This does not close the moving
+`g->2g` diagonal. The live counterexample target is an eventual zero-lift
+forward chain whose longer endpoint already equals the canonical next source
+residue at every doubled opcode, followed by the literal intermediate-cell
+semantic bridge.
