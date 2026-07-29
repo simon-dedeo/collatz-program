@@ -1,9 +1,11 @@
-# 2-adic rigidity of the doubling-quine payload
+# Integer no-go for the doubling-quine payload
 
-This note closes, up to one explicitly computable 2-adic constant per dyadic
-opcode ray, the surviving form of the `g -> 2g` return left open by QM184.
-It is research-side: Lemma V below is elementary and stated for Lean
-formalization in QM185; the numerical floor is exact integer arithmetic.
+This note records the route from 2-adic value rigidity to the complete
+positive-integer no-go for the `g -> 2g` return left open by QM184.  Lemma V
+first reduced the question to one explicit 2-adic constant per ray (QM185).
+Section 7 supersedes that remaining seam by a kernel-checked elementary
+precision-versus-height contradiction (QM187); the numerical floor in between
+remains a reproducible historical check, not a premise of the final theorem.
 
 ## 1. Setting
 
@@ -84,7 +86,7 @@ Archimedean homogeneous direction is expanding too slowly to force anything
 (`|lambda^(-1)|_infinity` acts on values that may grow), but 2-adic
 integrality is a bounded condition, and there rigidity is total.
 
-## 4. What remains, and the numerical floor
+## 4. The former remaining seam, and its numerical floor
 
 By Lemmas U and V the discrete `g -> 2g` return admits an integer payload on
 the ray of odd root `g` **iff the explicit 2-adic constant `F_0(2^N g)` is a
@@ -106,9 +108,10 @@ valuations (V1) asserted term by term, cross-checked at 2048 vs 4096 bits):
   `g <= 6` exceeds `2^2048`; doubling the precision doubles this floor at
   linear cost.
 
-## 5. The sharp open lemma (deliberately not searched further)
+## 5. Former sharp open lemma (now unnecessary)
 
-Full closure needs: `F_0(g)` is irrational (as a 2-adic number) for every
+At this stage of the argument, full closure appeared to need:
+`F_0(g)` is irrational (as a 2-adic number) for every
 `g >= 1`.  The naive route fails by an exact margin worth recording: partial
 sums are rational approximants with 3-power denominators `~ 3^(34 g 2^N)`
 while the 2-adic gap to the limit is `2^(-46 g 2^N)`; the Liouville balance
@@ -120,7 +123,9 @@ This is a bounded, well-posed target: the equation is inhomogeneous
 first-order in Mahler normal form, `Q` is quadratic, and the relevant
 p-adic Mahler literature (Nishioka's method; recent p-adic treatments of
 Mahler values) should be surveyed before any new machinery is invented.
-Per current budget policy this was not dispatched externally.
+Per current budget policy this was not dispatched externally.  Section 7
+shows why it need not be proved: positivity supplies an Archimedean upper
+bound that contradicts the same exact divisibility directly.
 
 ## 6. Kill-test discipline
 
@@ -134,3 +139,55 @@ Ways this note could be wrong, and why they are excluded:
   comparable height (self-test in the script).
 - a payload evading (R): then it is not the `g -> 2g` return; QM184's
   scope, not this note's.
+
+## 7. Complete elementary closure: precision outruns height
+
+Clear denominators in (R), using
+
+```text
+P(g)=23g+54, Q(g)=17g+40,
+R(g)=194+34g, S(g)=262+46g.
+```
+
+The forcing polynomial splits exactly, and the return becomes
+
+```text
+3^(2Q(g)) (A F(g)-b0)
+ = 2^(77+P(g))
+   (3^Q(g)+2^P(g)+2^(77+P(g))F(2g)).               (V2)
+```
+
+For a positive natural payload, the bracket is positive.  Since the left
+factor `3^(2Q)` is coprime to `2^(77+P)`, (V2) implies
+
+```text
+2^(131+23g) < A F(g).                              (V3)
+```
+
+Positivity of the original forcing polynomial gives a real upper bound in
+the other direction.  The checked inequalities `3^34<2^54` and
+`3^194<2^308`, together with `S=262+46g`, yield
+
+```text
+F(2g)<2^(46+8g)F(g).                               (V4)
+```
+
+For `g_n=g_0 2^n`, (V4) iterates to
+
+```text
+F(g_N)<=F(g_0) 2^[46N+8g_0(2^N-1)].               (V5)
+```
+
+The terminal lower exponent in (V3) has slope `23g_0 2^N`; the accumulated
+upper exponent in (V5) has slope only `8g_0 2^N`.  Using `A<2^181` and
+`F(g_0)<2^F(g_0)`, the explicit depth `N=F(g_0)+4` makes the bounds
+incompatible.  No limiting argument, numerical search, Mahler theorem, or
+irrationality input is used.
+
+The complete statement is kernel-checked as
+`DoublingQuineIntegerNoGo.no_positive_integer_doubling_chain` in
+[`DoublingQuineIntegerNoGo.lean`](../../KontoroC/KontoroC/DoublingQuineIntegerNoGo.lean).
+Consequently the exact four-cell base-squaring return is closed for arbitrary
+positive natural payloads.  The broader lesson is a two-place slope test:
+forced dyadic approximation precision must not grow faster than the complete
+Archimedean height budget of an autonomous return.

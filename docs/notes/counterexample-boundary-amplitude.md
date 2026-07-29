@@ -737,3 +737,71 @@ functions*](https://arxiv.org/abs/1303.2019); A. V. Kontorovich and
 J. C. Lagarias, [*Stochastic Models for the 3x+1 and 5x+1
 Problems*](https://arxiv.org/abs/0910.1944), especially Theorems 2.1, 7.1,
 and Sections 8.2 and 10.
+
+## 15. A two-place slope obstruction closes the singular doubling ray
+
+Section 14 correctly identified the logical gap left by regular Mahler
+theory, but its final construction-site verdict for this *particular* return
+is superseded by a direct integer argument.  Write the cleared legal return
+at opcode `g` as
+
+```text
+3^R F(g)=C(g)+2^S F(2g),
+P=23g+54, Q=17g+40, R=194+34g, S=262+46g.
+```
+
+The four monomials of `C` have the exact factorization
+
+```text
+3^(2Q)(A F(g)-b0)
+ =2^(77+P)(3^Q+2^P+2^(77+P)F(2g)),                (HS31)
+A=3^114, b0=3^57+2^77.
+```
+
+For positive natural payloads the right side is positive.  Coprimality of
+two and three therefore gives the strict forced-precision bound
+
+```text
+2^(131+23g)<A F(g).                                (HS32)
+```
+
+The same return supplies the opposite estimate without any asymptotics.
+Because `C(g)>0`, and because the exact coarse comparisons
+`3^34<2^54` and `3^194<2^308` hold,
+
+```text
+F(2g)<2^(46+8g)F(g).                               (HS33)
+```
+
+Along `g_n=g_0 2^n`, iteration of HS33 gives
+
+```text
+F(g_N)<=F(g_0) 2^[46N+8g_0(2^N-1)].               (HS34)
+```
+
+But HS32 at `g_N` has exponent `131+23g_0 2^N`.  After also using
+`A<2^181` and `F(g_0)<2^F(g_0)`, the explicit choice
+`N=F(g_0)+4` makes the HS32 lower bound exceed the complete HS34 upper
+bound.  This is a contradiction.  Lean checks the factorization, both
+bounds, the finite iteration, the explicit exponent gap, and the final
+theorem `no_positive_integer_doubling_chain` in
+[`DoublingQuineIntegerNoGo.lean`](../../KontoroC/KontoroC/DoublingQuineIntegerNoGo.lean).
+
+This is not merely another no-go for a function class.  It is a reusable
+**two-place slope test** for proposed autonomous returns.  A return that
+forces `2^(ell*g)` precision in a fixed nonzero rational approximation while
+allowing only `2^(u*g+O(1))` positive real growth per scale-doubling step is
+impossible whenever `ell>u`: both exponents accumulate at the terminal scale,
+but with incompatible slopes.  Thus a viable counterexample compiler must
+change at least one structural quantity:
+
+- regenerate real height at slope at least the forced dyadic-precision slope;
+- distribute precision across several state variables so it is not a fixed
+  rational approximation by one positive integer; or
+- replace rank-one scale doubling by a return whose accumulated height budget
+  is not dominated by the terminal precision demand.
+
+The singular boundary mechanism remains conceptually important for other
+architectures, and the 5x+1 control still rules out parity-only reasoning.
+What is closed is the exact rank-one four-cell `g -> 2g` quine, including
+every arbitrary positive integer section on its opcode ray.

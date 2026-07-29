@@ -2925,6 +2925,16 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.DoublingQuineMahlerNormalForm.opcode_boundary_split
 #print axioms
+  KontoroC.DoublingQuineIntegerNoGo.balance_factor
+#print axioms
+  KontoroC.DoublingQuineIntegerNoGo.key_power_lt_payload_scale
+#print axioms
+  KontoroC.DoublingQuineIntegerNoGo.payload_next_lt
+#print axioms
+  KontoroC.DoublingQuineIntegerNoGo.terminal_exponent_gap
+#print axioms
+  KontoroC.DoublingQuineIntegerNoGo.no_positive_integer_doubling_chain
+#print axioms
   KontoroC.OutwardThreeWordReducedState.appended_word_executes_from_shifted_target
 #print axioms
   KontoroC.OutwardThreeWordReducedState.ReducedState.shiftedTarget_eq_boundary

@@ -14305,3 +14305,61 @@ tighter constants.  A companion research note
 `k <= log2(d x + A_V)/S`, `d = |2^S - 3^n|`, sharp on the `-5` cycle; its
 excluded case is a literal Collatz cycle, so it composes with the `2^71`
 verification and Hercher bounds.
+
+## QM187: precision-versus-height closes the integer doubling quine (2026-07-28)
+
+Research-side module `KontoroC/DoublingQuineIntegerNoGo.lean` removes the
+remaining 2-adic irrationality seam in QM185.  Please formalize or independently
+audit the following elementary argument; no Mahler or external theorem is
+used.
+
+For a putative positive natural payload on one legal ray `g,2g,4g,...`, the
+cleared four-cell return has
+
+```text
+3^R(g) F(g)=C(g)+2^S(g) F(2g),
+P=23g+54, Q=17g+40, R=194+34g, S=262+46g.
+```
+
+Exact factorization gives
+
+```text
+3^(2Q)(3^114 F(g)-(3^57+2^77))
+ =2^(77+P)(3^Q+2^P+2^(77+P)F(2g)).                (QM187a)
+```
+
+The bracket and the subtracted constant are positive.  Coprimality therefore
+forces
+
+```text
+2^(131+23g)<3^114 F(g).                            (QM187b)
+```
+
+Conversely `C(g)>0`, `3^34<2^54`, and `3^194<2^308` give
+
+```text
+F(2g)<2^(46+8g)F(g).                               (QM187c)
+```
+
+Writing `g_n=g_0 2^n`, finite induction yields
+
+```text
+F(g_N)<=F(g_0) 2^[46N+8g_0(2^N-1)].               (QM187d)
+```
+
+At the explicit depth `N=F(g_0)+4`, use `3^114<2^181` and
+`F(g_0)<2^F(g_0)`.  The upper exponent is then strictly below the QM187b
+lower exponent `131+23g_0 2^N`, contradiction.  The research theorem is
+
+```text
+DoublingQuineIntegerNoGo.no_positive_integer_doubling_chain :
+  not Nonempty Chain.
+```
+
+Please treat the exact rank-one `g->2g` four-cell return as fully closed for
+positive integer payloads, including non-holomorphic/singular sections.  This
+supersedes QM185's request for 2-adic irrationality of `F_0(g)`.  It does not
+close other nonlinear opcode maps or multi-state returns.  The reusable
+design constraint is: an autonomous return cannot force dyadic precision at
+terminal slope `ell` while its entire positive Archimedean growth budget has
+smaller terminal slope `u`.

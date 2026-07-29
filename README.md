@@ -130,18 +130,22 @@ manufacture width.  The remaining candidate must therefore select a special
 non-affine payload/return (or find genuinely new state), rather than preserve
 the whole arbitrary-payload cylinder indefinitely.
 
-The first distinguished nonlinear return has now been audited at full
-rational-function strength.  For the legal base-squaring quine
+The first distinguished nonlinear return has now been closed at full
+positive-integer strength.  For the legal base-squaring quine
 `g -> 2g`, a reduced rational payload `N/Q` forces both
 `Q(z)|Q(kappa z^2)` and `Q(kappa z^2)|z^2 Q(z)`.  Lean derives
 `deg Q<=2` and classifies every survivor: a constant, `z`, `z^2`, or the
 simple fixed pole `1-kappa z`.  The first three reduce to explicit unmatched
 coefficients; cancellation at the fixed pole would require the false identity
 `2*A*kappa^2=D`.  Thus **no rational function** supplies the special payload.
-The live possibility is narrower and genuinely infinite: a nonrational
-Mahler/automatic value that is simultaneously an ordinary positive integer
-and carries a nonvanishing homogeneous boundary component.  No such value is
-known or claimed.
+More decisively, the exact cleared integer balance factors as
+`3^(2Q)(A F-b0)=2^(77+P)(positive)`, forcing
+`2^(131+23g)<A F(g)`.  Positivity of the same return gives the incompatible
+upper law `F(2g)<2^(46+8g)F(g)`.  Along `g,2g,4g,...`, the lower precision
+grows with slope `23` while the complete Archimedean budget grows with slope
+`8`; Lean obtains a contradiction at the explicit depth `N=F(0)+4`.
+Hence no positive integer payload—regular, singular, automatic, or
+arbitrary—can realize this return.
 
 That equation is now in the standard coordinate used by Mahler theory.  With
 `x=kappa*z` and `H(x)=x^2 f(x/kappa)`, Lean proves that it is exactly
@@ -152,13 +156,15 @@ homogeneous boundary `lambda^N H(x^(2^N))`.  The published regular-point
 Mahler lifting theorem then makes the holomorphic particular value at every
 `x_g`, `g>0`, transcendental: the regular analytic payload is a wall, not the
 ordinary program.  Adamczewski--Bell `x2/x3` rigidity also closes any regular
-payload natural under a second independent `g->3g` dilation.  Neither theorem
-touches a log-singular homogeneous section on one dyadic opcode ray.  The
-5x+1 control explains why that exception is essential: 3x+1 and 5x+1 have
-the same solved 2-adic parity dynamics but opposite Archimedean drift.  The
-live construction is therefore a rank-one singular boundary section whose
-values become positive odd integers through the specifically ternary typed
-router.  No such section or counterexample is known or claimed.
+payload natural under a second independent `g->3g` dilation.  Those theorems
+alone do not touch a log-singular homogeneous section on one dyadic opcode
+ray, but the elementary precision-versus-height argument above does:
+integrality is exactly the extra boundedness that destroys it.  The 5x+1
+control still warns that parity or 2-adic dynamics alone cannot settle a
+general construction.  A survivor must evade this new two-place slope
+obstruction—its autonomous return must create at least as much real height as
+the dyadic precision it forces.  No such architecture or counterexample is
+known or claimed.
 
 The Bridges-2 RM campaign is complete: approximately 12,374.36 charged
 core-hours across massively parallel KL and counterexample probes.  It found
@@ -199,12 +205,12 @@ addresses; the automatic-address class is now blocked precisely by the gap
 between this exponent and the small repetitions guaranteed by linear
 complexity, i.e. exactly where a subspace-theorem upgrade would act
 ([notes](docs/notes/address-repetition-bound.md), QM186).  (2) For the
-`g -> 2g` doubling return, **2-adic value rigidity** (two elementary
-lemmas) annihilates the QM184c non-holomorphic section on every
-integer-payload ray: any natural-number payload must equal, pointwise, the
-explicit 2-adic constant `F_0(g)`, whose digits are non-terminating through
-4096 bits for `g=1..6` — so any such payload exceeds `2^2048`
-([notes](docs/notes/doubling-payload-rigidity.md), QM185).  (3) In the full
+`g -> 2g` doubling return, **2-adic value rigidity** first annihilates the
+QM184c non-holomorphic freedom on every integer-payload ray (QM185).  A new
+kernel proof then removes the former irrationality seam altogether: exact
+divisibility forces `23g` dyadic precision, while positivity permits only an
+accumulated `8g` Archimedean exponent, so no positive integer ray exists
+([notes](docs/notes/doubling-payload-rigidity.md), QM187).  (3) In the full
 valuation-word language, the **near-critical shadowing bound**
 `k <= log2(d x + A_V)/S`, `d = |2^S - 3^n|`, is achieved on the `-5` cycle
 and shows the only known soft spot in the transcendence wall is
@@ -10226,7 +10232,7 @@ needs the independent ordinary-root/tightness proof.
 | Bare opposite-sign unit shuttle | Closed in Lean as a second-rail architecture.  Eliminating the intermediate packet in either `+`/`-` order gives one rank-one affine balance.  At the first public positive and negative levels its residual power difference is strictly positive and odd in both orders, so sign swapping neither cancels the debris nor opens a dyadic repair register.  This does not exclude promoting that odd debris through a nonlinear public decoder. | [`SignedUnitShuttle.lean`](KontoroC/KontoroC/SignedUnitShuttle.lean) |
 | Even-level raw signed-debris ruler as the next unit collision | Closed in Lean by restoring the actual source scale.  Although `R=3^Q-2^P` has unbounded `v2(R-1)` on even residual levels, a following public cell tests `3^qR+/-1`.  Order-based materialization forces the reached label odd, making the combined ternary exponent odd; the actual minus and plus valuations are then exactly one and two, below every public unit exponent.  The odd-residual scaled-minus branch remains live and now has an explicit typed router. | [`SignedDebrisSemanticNoGo.lean`](KontoroC/KontoroC/SignedDebrisSemanticNoGo.lean) |
 | Explicit typed router reproduces one later positive debris | Closed in Lean for every router parameter satisfying the public exponent-room inequality.  If the emitted cofactor equalled `R_next`, reduction modulo the common source/reproduction power of three would force `3^(K-1)` to divide half the binary return length.  Exact size bounds simultaneously force the reached label to be at most `next` and `next` to be at most `ell+m+2`.  The resulting exponential order lower bound contradicts that linear window.  Composite, multi-rail, or genuinely infinite payload reproduction remains open. | [`SignedDebrisReproduction.lean`](KontoroC/KontoroC/SignedDebrisReproduction.lean) |
-| Base-squaring `g -> 2g` rational or regular-analytic Mahler quine | Rational functions are kernel-closed: the two denominator divisibilities force degree at most two and coefficient/residue identities exclude every remaining shape.  The exact change `x=kappa*z`, `H=x^2 f(x/kappa)` gives the standard regular system `H(x)=Q(x)+lambda H(x^2)`, with `x_g=(2^23/3^17)^g`; Lean checks its finite boundary split.  Accepting the published Adamczewski--Faverjon regular-point lifting theorem, its unique holomorphic nonrational solution has transcendental value at every `x_g`, `g>0`, and cannot encode an ordinary payload.  This does not close a non-holomorphic homogeneous boundary section on one dyadic opcode ray, or a different nonlinear encoding. | [`DoublingQuineRationalNoGo.lean`](KontoroC/KontoroC/DoublingQuineRationalNoGo.lean), [`DoublingQuineMahlerNormalForm.lean`](KontoroC/KontoroC/DoublingQuineMahlerNormalForm.lean) |
+| Base-squaring `g -> 2g` four-cell quine, including arbitrary singular integer payloads | Universally closed for positive natural payloads.  The cleared balance factors as `3^(2Q)(A F-b0)=2^(77+P)(positive)`, forcing `2^(131+23g)<A F(g)`.  Positivity also gives `F(2g)<2^(46+8g)F(g)`.  Iteration along `g,2g,...` makes the first lower exponent outrun the complete second upper budget; Lean contradicts them at depth `F(0)+4`.  This subsumes the earlier rational and regular-Mahler no-gos and needs no external transcendence or 2-adic irrationality theorem.  It closes this exact return, not other nonlinear opcode maps or multi-state returns. | [`DoublingQuineIntegerNoGo.lean`](KontoroC/KontoroC/DoublingQuineIntegerNoGo.lean), [`DoublingQuineMahlerNormalForm.lean`](KontoroC/KontoroC/DoublingQuineMahlerNormalForm.lean) |
 | Shortest-recharge perfect-23rd-power bouncer quine | Closed.  Lean commit `5fbacf5` proves every accepted `h=1`, `u=F*r^23` reproduction transition supplies an integer solution of `3^15X^23-2^16Y^23=5`.  PARI/GP 2.15.4 checks the associated degree-23 polynomial irreducible, reports attached class number one, and returns the complete empty Thue solution list.  PARI documents this class-number-one fast case as unconditional; that final no-solution step is external-PARI scope, not kernel scope.  Higher recharge and multi-rail/corrected payloads remain open. | [`ChargePowerQuine.lean`](KontoroC/KontoroC/ChargePowerQuine.lean), [`unit_charge_power_quine_thue_audit.txt`](experiments/kontorovich/unit_charge_power_quine_thue_audit.txt) |
 | Pure public-state 23rd-power rail, `m=0 (mod 23)` | Closed for every positive transition in this coefficient class.  Lean commit `4c56925` converts the transition to equal sums of two 23rd powers; exact input valuation makes `s` too large for the discrete gap.  Commits `f61f569`/`9f00894` reduce the remaining classes to scaled norm/cofactor equations and a hidden register.  Commit `07352a9` kernel-checks the elementary Roth approximation and exponent-11 bridge for the other classes; the external theorem and sequence-level finiteness consumer remain explicit seams.  Individual transitions, corrected types, and multi-rail packets remain open. | [`ChargeStatePowerQuine.lean`](KontoroC/KontoroC/ChargeStatePowerQuine.lean), [`ChargeStatePowerRoth.lean`](KontoroC/KontoroC/ChargeStatePowerRoth.lean) |
 | Sum-of-two-squares public type | Universally closed before any search.  Every accepted bouncer state has `2^23 | y+1`, so `y=7 (mod 8)`; the next accepted state and `A^h=1 (mod 8)` force the odd collision quotient to be `7 (mod 8)` as well.  A sum of two squares is never `3 (mod 4)`.  This kills only `d=1`; the hardware-matched `x^2+d u^2` type with `d=7 (mod 8)` is live. | [`unit_charge_quadratic_norm_audit.json`](experiments/kontorovich/unit_charge_quadratic_norm_audit.json) |
