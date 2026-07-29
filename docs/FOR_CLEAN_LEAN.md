@@ -14402,3 +14402,54 @@ claim.  Please independently audit QM188a and the interpretation of six as
 the minimal precision-affordable legal long return.  A next formal target is
 the rational-denominator classification for QM188c (degree bound six, with
 the `x->x^2` rational preperiodic pole set now potentially relevant).
+
+## QM189: denominator collapse and the frozen residual register (2026-07-28)
+
+Two new research-side modules replace the degree-six pole census and expose a
+more constructive state.
+
+First, `LongDoublingQuineRationalNoGo.lean` proves for arbitrary `k` that
+
+```text
+Q(kappa X^2) | X^k Q(X)  ==>  Q=q X^deg(Q).        (QM189a)
+```
+
+The proof compares both `natDegree` and `natTrailingDegree`.  If `T` is the
+quotient, squaring doubles both ends and gives
+`k=deg Q+deg T=ord_0 Q+ord_0 T`; the universal inequalities between trailing
+and top degrees force equality.  This removes every nonzero rational pole for
+every long return, with no algebraic-root classification.
+
+Second, `LongDoublingQuineResidual.lean` defines the exact integer residual
+
+```text
+3^114 F(g)=(3^57+2^77)+2^(131+23g)U(g).           (QM189b)
+```
+
+For `k=j+1`, the long-return balance implies
+
+```text
+3^114 3^(kQ)U
+ =3^114 T_k+2^[77+jP](3^57+2^77)
+  +2^[77+jP+131+46g]U_next.                        (QM189c)
+```
+
+At `k=6`, the output exponent is `478+161g`, the ternary exponent is
+`354+102g`, and Lean proves
+
+```text
+3/2 < 3^102/2^161 < 8/5.                           (QM189d)
+```
+
+Finally set `g_*=2*3^113`.  Since this is `phi(3^114)`, Euler plus opcode
+doubling gives `2^(23g_*2^n)=1 (mod 3^114)` for all `n`.  Lean concludes that
+all payload-recovery gates are the one fixed condition
+
+```text
+3^114 | (3^57+2^77)+2^131 U_n.                    (QM189e)
+```
+
+Please audit QM189a--e.  This still constructs no orbit, but it changes the
+live object materially: seek a positive orbit of QM189c in the stationary
+class QM189e, then recover `F` by QM189b and discharge literal intermediate
+cell semantics.

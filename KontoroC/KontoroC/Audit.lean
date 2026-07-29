@@ -2938,6 +2938,11 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.LongDoublingQuineThreshold.balance_factor
 #print axioms KontoroC.LongDoublingQuineThreshold.paysPrecision_iff
 #print axioms
+  KontoroC.LongDoublingQuineRationalNoGo.denom_eq_monomial_of_reverse
+#print axioms KontoroC.LongDoublingQuineResidual.residual_balance
+#print axioms KontoroC.LongDoublingQuineResidual.residualGate_iff_frozen
+#print axioms KontoroC.LongDoublingQuineResidual.phaseBase_all_gates
+#print axioms
   KontoroC.OutwardThreeWordReducedState.appended_word_executes_from_shifted_target
 #print axioms
   KontoroC.OutwardThreeWordReducedState.ReducedState.shiftedTarget_eq_boundary

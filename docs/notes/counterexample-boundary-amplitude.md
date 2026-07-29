@@ -840,3 +840,27 @@ opcode-doubling mechanism, introducing a new cell, or preloading a CRT stack.
 No integer solution or orbit is claimed.  See
 [`long-doubling-return.md`](long-doubling-return.md) and the kernel-checked
 [`LongDoublingQuineThreshold.lean`](../../KontoroC/KontoroC/LongDoublingQuineThreshold.lean).
+
+The forced block itself is now promoted to the next work register:
+
+```text
+A F(g)=b0+2^(131+23g)U(g).                         (HS38)
+```
+
+Substitution turns HS35 into an exact affine return on `U`.  For the minimal
+`k=6` candidate, the remaining scale ratio is
+`3^102/2^161`, strictly between `3/2` and `8/5`; this is the small positive
+height surplus after the precision bill has been paid.  Moreover the recovery
+condition `A | b0+2^(131+23g)U` can be made stationary.  Taking base opcode
+`g_*=2*3^113`, Euler's theorem freezes `2^(23g_*2^n)` modulo `A=3^114`, so
+every residual lies in the same fixed class
+
+```text
+A | b0+2^131 U.                                    (HS39)
+```
+
+Thus the construction has been reduced from an unspecified singular
+boundary function to a positive orbit of one explicit slow affine residual
+map on one fixed ternary arithmetic progression.  The exact reduction and
+phase freezing are kernel-checked in
+[`LongDoublingQuineResidual.lean`](../../KontoroC/KontoroC/LongDoublingQuineResidual.lean).

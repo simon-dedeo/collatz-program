@@ -138,11 +138,86 @@ route.  The important questions are symbolic, not bounded-search questions:
    the `k=6` height surplus while moving the forced precision into a
    determinant/covolume condition rather than one rational approximation?
 
-The first kill test should be an exact rational-function classification for
-LR4, now with denominator degree at most six.  The two denominator
-divisibilities turn its nonzero poles into a finite set constrained by both
-forward squaring and square-root preimages.  Over the algebraic closure that
-is a multiplicity/cyclotomic question, not merely a census of rational poles,
-and it should be classified rather than guessed.  If rationality is again
-closed, the target remains the singular integer section—but now in a regime
-where height no longer rules it out.
+The first kill test is now done in a form stronger than a degree-six census.
+If `Q` is any reduced rational denominator, reverse divisibility gives
+
+```text
+Q(kappa z^2) | z^k Q(z).                           (LR7)
+```
+
+Write `d=deg Q` and `a=ord_0 Q`.  Both numbers double on the left of LR7.
+If `T` is the quotient, comparison of top and trailing degrees gives
+
+```text
+k=d+deg T=a+ord_0 T.
+```
+
+Since `ord_0 T<=deg T`, while always `a<=d`, equality is forced throughout:
+`a=d`.  Hence `Q=qz^d` is a monomial.  This kills every nonzero pole for
+**every** `k`, without roots, cyclotomic classification, or Mahler theory.
+The argument is kernel-checked in
+[`LongDoublingQuineRationalNoGo.lean`](../../KontoroC/KontoroC/LongDoublingQuineRationalNoGo.lean).
+The remaining rational case is finite Laurent support; the nonzero linear
+forcing again propagates along `j -> 2j+k`, so it is not the construction.
+
+## 6. The residual register: remove the forced bits instead of fearing them
+
+LR3 suggests the right new state variable.  Define `U(g)` exactly by
+
+```text
+3^114 F(g)=(3^57+2^77)+2^(131+23g)U(g).           (LR8)
+```
+
+For `F(g)` to be an integer, `U(g)` must occupy one residue class modulo the
+fixed number `3^114`.  Substituting LR8 at both ends of LR3 gives, for
+`k=j+1`, the exact residual return
+
+```text
+3^114 3^(kQ) U(g)
+ =3^114 T_k+2^[77+(k-1)P](3^57+2^77)
+  +2^[77+(k-1)P+131+46g] U(2g).                   (LR9)
+```
+
+At `k=6`, the output exponent in LR9 is exactly `478+161g`, while the
+ternary exponent is `354+102g`.  The huge original scales cancel to the
+residual growth base
+
+```text
+beta_res=3^102/2^161,     3/2 < beta_res < 8/5.   (LR10)
+```
+
+Both strict comparisons are checked as exact integer inequalities.  This is
+the minimal surplus left after paying the forced `23g` bits: the candidate is
+not a wild huge-growth object in the correct coordinate, but a slow expanding
+register in the classical `3/2`--`8/5` corridor.
+
+There is a second simplification.  Let
+
+```text
+M=3^114, phi(M)=2*3^113.
+```
+
+Choose any base opcode with `phi(M) | 23g`; in particular take
+`g_*=2*3^113`.  Euler's theorem gives
+
+```text
+2^(23 g_* 2^n)=1 (mod M) for every n.              (LR11)
+```
+
+Consequently every changing integrality condition in LR8 becomes the same
+stationary gate
+
+```text
+M | (3^57+2^77)+2^131 U_n,                         (LR12)
+```
+
+independent of `n`.  The moving two-prime problem has become one nonautonomous
+affine recurrence LR9 on a *fixed arithmetic progression* LR12.  Lean checks
+LR9--LR12 in
+[`LongDoublingQuineResidual.lean`](../../KontoroC/KontoroC/LongDoublingQuineResidual.lean).
+
+This is now the preferred construction coordinate.  The next problem is not
+“is a mysterious Mahler value an integer?”  It is: does the slow expanding
+map LR9 preserve a positive orbit in the one frozen residue class LR12, and
+can its quotient be shown to execute the literal intermediate cells?  That is
+a stationary arithmetic-dynamics problem with an exact ordinary consumer.

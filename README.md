@@ -161,6 +161,20 @@ that crosses the obstruction, with no fresh CRT choices or extra instruction
 type.  It is a candidate architecture, not an orbit or counterexample
 ([note](docs/notes/long-doubling-return.md)).
 
+Two further symbolic hacks make that candidate substantially sharper.  First,
+top degree plus trailing degree show that the reverse denominator divisibility
+`Q(kappa z^2)|z^kQ(z)` forces `Q` to be a monomial for **every** return length;
+all nonzero rational poles disappear without a root census.  Second, extract
+the forced bits as a new register by
+`3^114F=b0+2^(131+23g)U`.  The six-high-cell return then reduces exactly to a
+slow affine recurrence whose growth base is
+`3^102/2^161`, kernel-bracketed between `3/2` and `8/5`.  Choosing the explicit
+base opcode `2*3^113` freezes every recovery condition for `F` into one fixed
+residue class modulo `3^114` along the entire doubling ray.  The live target
+is therefore no longer an unspecified “singular Mahler value”: it is a
+positive orbit of one explicit residual recurrence on one stationary
+arithmetic progression.  No such orbit is yet claimed.
+
 That equation is now in the standard coordinate used by Mahler theory.  With
 `x=kappa*z` and `H(x)=x^2 f(x/kappa)`, Lean proves that it is exactly
 `H(x)=Q(x)+lambda H(x^2)`, where
