@@ -2948,7 +2948,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.LongReturnLengthHensel.henselStep_lift_target
 #print axioms KontoroC.LongReturnLengthHensel.henselStep_grows_forced_output
 #print axioms KontoroC.LongReturnLengthHensel.diagonal_hensel_splice
+#print axioms KontoroC.LongReturnLengthHensel.solve_odd_linear_congruence
+#print axioms KontoroC.LongReturnLengthHensel.exists_diagonal_hensel_alignment
+#print axioms KontoroC.LongReturnLengthHensel.exists_diagonal_hensel_splice
 #print axioms KontoroC.LongReturnLengthHensel.returnBalance_succ_iff_hensel
+#print axioms KontoroC.LongReturnLengthHensel.exists_adjacent_return_realization
+#print axioms KontoroC.LongReturnLengthHensel.adjacent_return_realization_lift
+#print axioms
+  KontoroC.LongReturnLengthHensel.exists_adjacent_return_on_odd_progression
+#print axioms KontoroC.LongReturnLengthHensel.extend_adjacent_return_pair
 #print axioms
   KontoroC.OutwardThreeWordReducedState.appended_word_executes_from_shifted_target
 #print axioms
@@ -2979,3 +2987,15 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.CollatzComponentHolonomy.mod_nine_two_portal_descent
 #print axioms
   KontoroC.CollatzComponentHolonomy.every_positive_component_contains_five_run
+#print axioms KontoroC.ComponentHolonomyBar.CollisionShadow.descent
+#print axioms KontoroC.ComponentHolonomyBar.CollisionShadow.oddPullback
+#print axioms KontoroC.ComponentHolonomyBar.exists_componentMinimum
+#print axioms
+  KontoroC.ComponentHolonomyBar.merge_one_of_ordinaryHolonomyBar
+#print axioms KontoroC.ComponentHolonomyBar.minimum_not_five_mod_eight
+#print axioms
+  KontoroC.ComponentHolonomyBar.minimum_not_ninety_nine_mod_256
+#print axioms
+  KontoroC.ComponentHolonomyBar.minimum_not_one_hundred_one_mod_256
+#print axioms
+  KontoroC.ComponentHolonomyBar.minimum_not_sixty_seven_mod_512

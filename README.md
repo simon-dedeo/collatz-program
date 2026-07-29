@@ -63,6 +63,23 @@ termination; the collision-amplification and charged minimum-crossing lemmas
 are open.  See
 [`component-holonomy-descent.md`](docs/notes/component-holonomy-descent.md).
 
+A sharper formulation changes the missing object from a scalar potential to
+a **component-holonomy bar**.  Every non-leftmost member of an affine collision
+fiber has a smaller sibling in the same component, so the fiber deletes a
+whole binary residue cylinder from possible component minima.  Lean now
+packages these `CollisionShadow`s and proves the full reduction: if their
+cylinders bar every eventually-zero binary ray other than `1`, every positive
+integer merges with `1`.  The all-one 2-adic ray `-1` may remain as the unique
+unbarred end.  This turns the formerly fatal `-1` mode into the boundary
+exception separating ordinary naturals from the 2-adic system.  The complete
+productive bar is open.  Checked initial shadows exclude component minima
+congruent to `5 mod 8`, `99 mod 256`, and `101 mod 256`; a new symbolic odd
+pullback rule then generates the exclusion `67 mod 512` without a fresh
+search.  The rule divides the source gap by `3` and multiplies it by `2`,
+exposing the multiplier-specific arithmetic that must fail in the `5x+1`
+control.  See
+[`component-holonomy-bar.md`](docs/notes/component-holonomy-bar.md).
+
 The persistent counterexample objective has also produced a new symbolic
 primitive in the six-high-cell return family.  Comparing return lengths `k`
 and `k+1` from the same source cancels the entire large defect and gives
@@ -75,11 +92,14 @@ with `z` odd.  Lean proves the equivalence in both directions, the full-tail
 lift `z+2^77t -> Y+3^[17g+40]t`, uniqueness of the output, and the exact
 self-supply inequality `X<Y`.  Thus adaptive return length is an unbounded
 77-bit Hensel instruction with positive net growth, not merely extra budget.
-One finite alignment into the next Hensel cylinder now lifts, in Lean, to
-every arbitrary higher tail with the product ternary gain.  The open
-construction is to generate that finite alignment autonomously at each
-doubled opcode, followed by an ordinary-root induction.  No infinite orbit or
-counterexample is yet claimed.  See
+Lean now constructs the finite alignment unconditionally by a dyadic unit
+congruence.  More strongly, every positive odd affine progression contains an
+adjacent return pair, so a current pair can be lifted until its longer endpoint
+is literally the source of the next pair at doubled opcode.  The open gate is
+ordinary-root stabilization: successive lifts modify earlier sources, and an
+infinite compatible 2-adic address need not be one finite positive natural.
+The final literal intermediate-cell bridge also remains to be audited.  No
+infinite orbit or counterexample is claimed.  See
 [`long-return-length-hensel.md`](docs/notes/long-return-length-hensel.md).
 
 ### 2026-07-28 EDT
@@ -10652,9 +10672,12 @@ an engineering caveat, not an unproved mathematical premise.
 - **Holonomy descent from a component minimum.**  Lean proves that every
   positive Syracuse component contains five consecutive integers and that a
   `2 mod 9` portal exposes an exact same-component `8/9` height contraction.
-  The missing theorem must charge the dyadic precision of long `-1` shadows to
-  amplify an inverse-word collision until one representative crosses below
-  the component minimum.  Thickness without this order comparison is not
+  The sharpened target is a productive collision-shadow bar on the binary
+  prefix tree: every eventually-zero ray other than `1` must enter a
+  right-sibling collision cylinder, while the all-one `-1` ray may survive.
+  Lean checks that such a bar proves full component descent.  The missing
+  theorem is the symbolic carry induction constructing the complete bar;
+  thickness or Kraft mass one without pointwise ordinary coverage is not
   enough.
 - **Exclude divergent orbits.**  Combine the exact side-bush packing with the
   critical base-`3/2` span capacity or a product-of-places boundary theorem.

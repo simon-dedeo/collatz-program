@@ -130,14 +130,14 @@ X_n=2^[23(g_n-1)]z_n,
 HenselStep(g_n,z_n,F_(n+1)).
 ```
 
-One part of this splice is already checked.  Suppose one finite base
-alignment at the next opcode satisfies
+The finite base alignment is now unconditional at the Hensel level.  For any
+current output `Y`, a dyadic unit congruence constructs `r,z_next,Y_next` with
 
 ```text
 Y+3^Q r = 2^[P(2g)-77] z_next
 ```
 
-and `z_next` is a valid next Hensel input.  Then **every** higher tail `t`
+and `z_next` a valid next Hensel input.  Then **every** higher tail `t`
 passes through both levels:
 
 ```text
@@ -146,24 +146,26 @@ Y_out = 2^[P(2g)-77](z_next+2^77 3^Q t),
 next output = Y_next+3^Q(2g) 3^Q(g) t.             (RLH6)
 ```
 
-Lean proves this conditional diagonal splice exactly.  After the one finite
+Lean proves this diagonal splice exactly.  After the constructed finite
 alignment, no further choice depends on `t`; the full tail survives with the
 product of two odd ternary gains.
 
-The missing closure is now sharply localized: prove that the free tail in
-(RLH3) admits the required finite base alignment at every level and make
-those alignments an autonomous function of the current payload, rather than
-an externally supplied infinite address.  This is a diagonal
-cylinder-matching problem, not the old scalar quine equation.
+There is also a stronger algebraic result.  Every positive odd affine
+progression of candidate sources contains an adjacent return pair at every
+positive opcode and every chosen return length.  Combining this with the
+full-tail lift proves that any realized adjacent pair at `g` can be lifted so
+that its longer endpoint is **literally the source** of a new adjacent pair at
+`2g`.  This removes the earlier source/output coordinate mismatch and gives
+an unconditional one-step return-to-return splice.
 
-The correct next theorem should be an **all-tail return-length splice**:
-one finite formula selecting `k'` and the next low cylinder from the current
-transported tail, with a residual tail map that is again of the form
-`u -> c+odd*u` and has positive net width.  Once such a splice is proved,
-ordinary-root closure must still be established: an infinite compatible
-2-adic tail is not enough.  A valid induction has to start from one finite
-positive natural and show that the forward cells themselves regenerate every
-later required block.
+The remaining closure is no longer finite alignment.  Iterating the splice
+changes earlier sources by higher tails.  One must prove that a nested family
+stabilizes at one finite positive initial natural, rather than converging only
+to an infinite 2-adic address.  In addition, `ReturnBalance` is the exact
+algebra extracted from the legal long-return family, but the final composite
+theorem must reconnect every balance to the literal intermediate-cell
+semantics.  Until those two gates are discharged this is an algebraic return
+chain, not an ordinary orbit.
 
 ## 6. Falsification gates
 
@@ -180,6 +182,7 @@ Any continuation must pass all of these:
 5. the construction supplies one finite natural root and not only compatible
    residues at every finite depth.
 
-RLH1--RLH6 satisfy the local algebra, resource, and arbitrary-tail transport
-gates.  Unconditional/autonomous base alignment and the ordinary-root
-induction remain open and are the next fundamental target.
+RLH1--RLH6 and the odd-progression theorem satisfy the local algebra,
+unconditional alignment, resource, arbitrary-tail transport, and literal
+endpoint-matching gates.  The ordinary-root stabilization and literal
+intermediate-cell bridge remain open.

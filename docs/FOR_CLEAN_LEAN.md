@@ -14538,3 +14538,67 @@ cylinder at `2g`, with return length selected from the current ordinary
 payload, and the resulting
 recurrence must start from one finite positive natural rather than an
 infinite prescribed address.
+
+## QM192: unconditional adjacent-return splice (2026-07-29)
+
+The finite-alignment premise in QM191 is now removed at the algebraic level.
+`LongReturnLengthHensel.lean` proves a general coprime linear-congruence solver
+using a literal inverse in `ZMod`, then proves:
+
+```text
+exists_adjacent_return_on_odd_progression:
+  0<g -> Odd stride ->
+  exists t,F,X,Y,
+    F=F0+stride*t /\
+    ReturnBalance(k,g,F,X) /\ ReturnBalance(k+1,g,F,Y).       (QM192a)
+```
+
+It also proves exact full-tail lifting of any realized adjacent pair. Combining
+the two gives
+
+```text
+extend_adjacent_return_pair:
+  adjacent pair at (k,g,F)
+  -> after one explicit tail lift, its longer endpoint is literally
+     the source of an adjacent pair at (k',2g).              (QM192b)
+```
+
+Please audit the modular cancellation and source/output indexing. This is an
+unconditional one-step **algebraic** return-to-return splice, not yet an
+ordinary orbit. Two gates remain: iterated lifts must stabilize at one finite
+positive initial source rather than only an inverse-limit 2-adic address, and
+each `ReturnBalance` in the composite chain must be reconnected to the literal
+intermediate-cell semantics of the legal long-return route.
+
+## QM193: component-holonomy bar reduction (2026-07-29)
+
+The termination lane has a sharper endpoint in
+`KontoroC/ComponentHolonomyBar.lean`. It defines a `CollisionShadow` as a
+symbolic all-tail identity
+
+```text
+T^i(2^w*k+r-d)=T^j(2^w*k+r),       0<d<r<2^w,                (QM193a)
+```
+
+and checks that every point in the right cylinder `r mod 2^w` has the smaller
+positive component mate obtained by subtracting `d`. It then uses well-ordering
+to construct the minimum of every positive component and proves:
+
+```text
+OrdinaryHolonomyBar shadows
+  := every natural n>1 is in some right-shadow cylinder
+
+OrdinaryHolonomyBar shadows -> forall n>0, Merge n 1.       (QM193b)
+```
+
+Initial checked shadows exclude minima in the cylinders `5 mod 8`, `99 mod
+256`, and `101 mod 256`. A new generic `CollisionShadow.oddPullback` restricts
+the affine tail modulo three and pulls both sources through the odd Syracuse
+branch; it increases width by one and changes the gap by `d -> 2d/3`. Applied
+to `101 mod 256`, it generates the new exclusion `67 mod 512` without a fresh
+search. The proposed new full-proof theorem is a productive
+bar covering every eventually-zero binary ray other than `1`; the all-one
+2-adic ray `-1` may remain as the unique infinite escape. This is deliberately
+pointwise: Kraft mass one does not suffice. Please audit QM193a--b, especially
+the `Nat.find` component-minimum construction and orientation of `Merge`.
+The complete bar is open and no Collatz proof is claimed.
