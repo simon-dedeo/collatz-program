@@ -63,6 +63,25 @@ termination; the collision-amplification and charged minimum-crossing lemmas
 are open.  See
 [`component-holonomy-descent.md`](docs/notes/component-holonomy-descent.md).
 
+The persistent counterexample objective has also produced a new symbolic
+primitive in the six-high-cell return family.  Comparing return lengths `k`
+and `k+1` from the same source cancels the entire large defect and gives
+
+```text
+X=2^[23(g-1)]z,       3^[17g+40]z=1+2^77Y,
+```
+
+with `z` odd.  Lean proves the equivalence in both directions, the full-tail
+lift `z+2^77t -> Y+3^[17g+40]t`, uniqueness of the output, and the exact
+self-supply inequality `X<Y`.  Thus adaptive return length is an unbounded
+77-bit Hensel instruction with positive net growth, not merely extra budget.
+One finite alignment into the next Hensel cylinder now lifts, in Lean, to
+every arbitrary higher tail with the product ternary gain.  The open
+construction is to generate that finite alignment autonomously at each
+doubled opcode, followed by an ordinary-root induction.  No infinite orbit or
+counterexample is yet claimed.  See
+[`long-return-length-hensel.md`](docs/notes/long-return-length-hensel.md).
+
 ### 2026-07-28 EDT
 
 The counterexample program has moved from finite search to a foundational
@@ -204,6 +223,17 @@ residue class modulo `3^114` along the entire doubling ray.  The live target
 is therefore no longer an unspecified “singular Mahler value”: it is a
 positive orbit of one explicit residual recurrence on one stationary
 arithmetic progression.  No such orbit is yet claimed.
+
+Adaptive return length now exposes internal structure absent from the fixed
+`k=6` equation.  Given length-`k` output `X` and length-`k+1` output `Y` from
+the same source, Lean cancels the full defect and proves that the longer
+return exists exactly when `X=2^[23(g-1)]z` and
+`3^[17g+40]z=1+2^77Y` for odd `z`.  This 77-bit Hensel cell lifts arbitrary
+tails and satisfies `X<Y`, so it is an unbounded positive-growth register.
+The conditional two-level tail splice is checked; the live closure problem is
+to generate its finite base alignment at each `2g` using only the transported
+ordinary payload
+([note](docs/notes/long-return-length-hensel.md)).
 
 That equation is now in the standard coordinate used by Mahler theory.  With
 `x=kappa*z` and `H(x)=x^2 f(x/kappa)`, Lean proves that it is exactly

@@ -14484,3 +14484,57 @@ and the mod-27 lift.  This theorem does not prove Collatz: the new open target
 is an order-sensitive collision-amplification lemma forcing a representative
 below the minimum of a hypothetical nontrivial component.  Coordinate only
 through this file; the research driver has not edited `CLEAN_LEAN/`.
+
+## QM191: adjacent long returns are a 77-bit Hensel instruction (2026-07-29)
+
+The counterexample lane now compares two lengths of the already-legal long
+doubling return instead of fixing `k=6`.  The new research-side module
+`KontoroC/KontoroC/LongReturnLengthHensel.lean` defines
+
+```text
+ReturnBalance(k,g,F,X) :<=>
+  3^R_k(g) F = defect_k(g)+2^S_k(g) X.
+```
+
+Conditional on `g>0` and `ReturnBalance(k,g,F,X)`, it kernel-checks
+
+```text
+ReturnBalance(k+1,g,F,Y)
+  <-> 3^Q(g)X=2^[P(g)-77]+2^P(g)Y                  (QM191a)
+  <-> exists odd z,
+        X=2^[23(g-1)]z /\ 3^Q(g)z=1+2^77Y.        (QM191b)
+```
+
+All large source and defect terms cancel by `defect_succ`; the right side is
+independent of `k` and `F`.  With
+`HenselStep(g,z,Y) :<=> 3^Q(g)z=1+2^77Y`, the module also proves
+
+```text
+HenselStep(g,z,Y) ->
+  HenselStep(g,z+2^77t,Y+3^Q(g)t),                 (QM191c)
+```
+
+and uniqueness of the lifted target.  Finally it proves exactly
+
+```text
+2^[P(g)+1]<3^Q(g),
+X<Y                                                     (QM191d)
+```
+
+under QM191b.  Thus one extra high cell is a full-tail, positive-net-growth
+Hensel decoder after paying its `23(g-1)` forced zero bits.
+
+The same module proves a conditional two-level diagonal splice.  If one base
+alignment places `Y+3^Q(g)r` in the next forced-zero cylinder and its odd core
+is a Hensel input at `2g`, then every higher tail passes through both cells;
+the final tail multiplier is exactly `3^Q(2g) 3^Q(g)`.  No additional address
+depends on that tail.
+
+Please independently audit QM191a--d and whether `ReturnBalance` matches the
+long-return semantic indexing.  This still supplies no infinite orbit.  The
+new open premise is a diagonal all-tail splice: the longer output at `g` must
+autonomously supply the finite base alignment into the adjacent-return source
+cylinder at `2g`, with return length selected from the current ordinary
+payload, and the resulting
+recurrence must start from one finite positive natural rather than an
+infinite prescribed address.

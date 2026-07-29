@@ -864,3 +864,47 @@ boundary function to a positive orbit of one explicit slow affine residual
 map on one fixed ternary arithmetic progression.  The exact reduction and
 phase freezing are kernel-checked in
 [`LongDoublingQuineResidual.lean`](../../KontoroC/KontoroC/LongDoublingQuineResidual.lean).
+
+## 12. Return-length holonomy exposes a self-supplying Hensel cell
+
+The residual attack need not fix the high-cell count.  Compare the legal
+length-`k` and length-`k+1` balances from the same `F(g)`, with candidate
+outputs `X` and `Y`.  The defect recurrence cancels the source and forcing
+exactly, leaving
+
+```text
+3^Q X=2^(P-77)+2^P Y.                              (HS40)
+```
+
+Since `P-77=23(g-1)`, this is equivalent to
+
+```text
+X=2^[23(g-1)]z,   z odd,
+3^[17g+40]z=1+2^77Y.                               (HS41)
+```
+
+Lean proves both equivalences.  It also proves the universal lift
+
+```text
+z -> z+2^77t,       Y -> Y+3^[17g+40]t,            (HS42)
+```
+
+with unique target, and the resource inequality `X<Y`.  The latter follows
+from the stronger exact comparison `2^[P(g)+1]<3^Q(g)`: the extra high cell
+pays the complete forced zero block and still increases the work register.
+
+This changes the live shuttle design.  The two rails can now be two adjacent
+return lengths of the same literal macro family; their difference is a
+stationary 77-bit negative Hensel instruction carrying an arbitrary tail.
+The next target is a diagonal splice whose longer output at opcode `g`
+regenerates the adjacent-return source cylinder at opcode `2g`, with `k` read
+from the transported payload.  This must end in an induction from one finite
+ordinary root; an externally prescribed infinite sequence of return lengths
+would only rename the old 2-adic boundary problem.  See
+[`long-return-length-hensel.md`](long-return-length-hensel.md).
+
+The arbitrary-tail algebra of that splice is now also checked conditionally:
+one finite base alignment into the next forced-zero/Hensel cylinder lifts to
+every higher tail, and the residual tail is multiplied by the product of the
+two ternary gains.  What remains is to produce the base alignment
+autonomously at every doubled opcode and close the ordinary root.

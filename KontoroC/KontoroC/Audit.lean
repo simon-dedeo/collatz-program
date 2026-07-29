@@ -2942,6 +2942,13 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.LongDoublingQuineResidual.residual_balance
 #print axioms KontoroC.LongDoublingQuineResidual.residualGate_iff_frozen
 #print axioms KontoroC.LongDoublingQuineResidual.phaseBase_all_gates
+#print axioms KontoroC.LongReturnLengthHensel.returnBalance_succ_iff
+#print axioms KontoroC.LongReturnLengthHensel.output_equation_iff_hensel
+#print axioms KontoroC.LongReturnLengthHensel.henselStep_lift
+#print axioms KontoroC.LongReturnLengthHensel.henselStep_lift_target
+#print axioms KontoroC.LongReturnLengthHensel.henselStep_grows_forced_output
+#print axioms KontoroC.LongReturnLengthHensel.diagonal_hensel_splice
+#print axioms KontoroC.LongReturnLengthHensel.returnBalance_succ_iff_hensel
 #print axioms
   KontoroC.OutwardThreeWordReducedState.appended_word_executes_from_shifted_target
 #print axioms
