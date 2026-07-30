@@ -15146,3 +15146,69 @@ languages. The live target is now a difference-map/programming-set shift rule
 whose counter-update matrix replenishes the parameter consumed by the next
 dyadic cylinder. Please independently audit these interfaces; literal
 intermediate Collatz semantics are still not claimed.
+
+## QM206 — successor six-cell bouncer (2026-07-30)
+
+The doubling stride wall suggested changing the opcode schedule while keeping
+the legal long-return bank. New research module
+`LongReturnSuccessorBouncer.lean` interprets the boundary output at `g+1`
+rather than `2g` and fixes six total high cells as `TwoRailCode 5 g 0`.
+
+The generic theorem `exists_odd_affine_shiftRule` proves that for odd bases
+and odd coefficient `c`, one finite dyadic alignment automatically lifts to
+the universal rule
+
+```text
+x+2c(r+2^(W-1)s)=y+2^W(q+cs)    for every s>=0.
+```
+
+Specializing `c=3^R6(g)` and `W=S_6(g+1)+1`, the theorem
+`exists_successor_six_shiftRule` constructs complete current and next
+two-rail families and proves every tail `s` gives a genuine `TwoRailStepAt`
+whose boundary output is literally the next ordinary source.
+
+The resource theorem is exact:
+
+```text
+g>=3 -> 2^S6(g+1) < 3^R6(g).
+```
+
+The base is `2^1030<3^660`; propagation uses `2^138<3^102`. Thus after the
+required next-cylinder word is removed, the quotient is multiplied by a
+coefficient larger than the consumed radix. This is the first long-return
+variant with a universal one-generation bouncer rule and positive tail-bit
+reproduction. It is nonlinear and is not excluded by the rational successor
+quine theorem.
+
+`SuccessorSixRay` states the exact all-level target, and its `returnBalance`
+consumer checks every linked ray stage gives the six-cell algebraic return.
+No ray is constructed. The remaining arithmetic problem is an ordinary
+finite tail whose required low words are generated autonomously; varying the
+intrinsic exact-valuation counter `n` is the proposed discontinuous writer.
+
+There is now a checked finite phase alphabet for that writer. If
+`k+n+1=6`, the theorems `sixPhase_sourceWidth` and
+`sixPhase_boundaryOutputStride` give
+
+```text
+twoRailSourceWidth(k,g,n)=S_6(g)+1,
+boundaryOutputStride(k,g,n)=2*3^R_6(g),
+```
+
+and `exists_sixPhase_code` constructs a finite ordinary member. Thus all six
+values `n=0,...,5` change the source residue at identical resource cost. A
+finite-state/ruler grammar on these phases is now the preferred construction
+target.
+
+Please prioritize an independent semantic audit of the other remaining gate:
+prove that the composite `ReturnBalance(6,g,F,Fnext)` plus the two-rail exact
+valuation hypotheses peels into the literal route
+
+```text
+1 -> 1 -> g -> g -> g -> g -> g -> g -> 1
+```
+
+(with the correct count/indexing), then connect an infinite successor ray to
+the existing ordinary Collatz counterexample consumer. The displayed route
+here should be checked rather than trusted; the algebraic module intentionally
+does not claim literal intermediate cells.

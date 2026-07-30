@@ -2995,6 +2995,7 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.LongReturnSelfDelimiting.exists_reattached_selfDelimited_macro
 #print axioms KontoroC.LongReturnTwoRail.twoRail_source_balance
+#print axioms KontoroC.LongReturnTwoRail.TwoRailCode.source_odd
 #print axioms KontoroC.LongReturnTwoRail.twoRailCode_lift
 #print axioms KontoroC.LongReturnTwoRail.boundary_output_lift
 #print axioms
@@ -3002,6 +3003,21 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.LongReturnTwoRail.exists_finite_twoRailCode
 #print axioms
   KontoroC.LongReturnTwoRail.doubledTwoRailStep_realizes_boundary_return
+#print axioms
+  KontoroC.LongReturnTwoRail.twoRailStepAt_realizes_boundary_return
+#print axioms
+  KontoroC.LongReturnSuccessorBouncer.exists_odd_affine_shiftRule
+#print axioms KontoroC.LongReturnSuccessorBouncer.successor_six_gain
+#print axioms
+  KontoroC.LongReturnSuccessorBouncer.successor_six_stride_surplus
+#print axioms KontoroC.LongReturnSuccessorBouncer.sixPhase_sourceWidth
+#print axioms
+  KontoroC.LongReturnSuccessorBouncer.sixPhase_boundaryOutputStride
+#print axioms KontoroC.LongReturnSuccessorBouncer.exists_sixPhase_code
+#print axioms
+  KontoroC.LongReturnSuccessorBouncer.exists_successor_six_shiftRule
+#print axioms
+  KontoroC.LongReturnSuccessorBouncer.SuccessorSixRay.returnBalance
 #print axioms
   KontoroC.OutwardThreeWordReducedState.appended_word_executes_from_shifted_target
 #print axioms

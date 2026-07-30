@@ -129,6 +129,44 @@ semantics still require a separate audit.  See
 [`long-return-self-delimiting.md`](docs/notes/long-return-self-delimiting.md)
 and [`long-return-two-rail.md`](docs/notes/long-return-two-rail.md).
 
+A new attempt now attacks that wall by slowing the opcode clock from `g->2g`
+to `g->g+1` while keeping the same legal six-cell return bank.  Two complete
+source/output families can be aligned once and for all: Lean proves that
+there are positive `r,q` such that every tail `s` obeys
+
+```text
+t      = r + 2^[S_6(g+1)] s,
+t_next = q + 3^[R_6(g)] s,
+```
+
+and the lifted boundary output at `g` is literally the lifted ordinary source
+at `g+1`.  This is a universal BB-style shift rule, not one finite CRT hit.
+More importantly, for every `g>=3` Lean checks
+
+```text
+2^[S_6(g+1)] < 3^[R_6(g)].
+```
+
+The base is the exact inequality `2^1030<3^660`, and each successor multiplies
+the two sides by `2^138` and `3^102`, with `2^138<3^102`.  Thus the quotient
+reproduces more bits than the next alignment word consumes.  The old rational
+successor-quine no-go does not cover this nonlinear digit machine.
+
+This is the first long-return variant to have both a universal one-generation
+family compiler and a positive all-level bit budget.  It still does not give
+an ordinary infinite tail: arbitrary iteration may preload an infinite 2-adic
+address.  The exact new target is a finite substitution/ruler language in
+which the intrinsic valuation counter `n` writes the next required residue.
+This language has a checked six-letter alphabet at no resource penalty: every
+split `k+n+1=6` has source width `S_6(g)+1`, output stride
+`2*3^[R_6(g)]`, and an ordinary finite realization.  Phase switching changes
+the residue word while preserving the positive bit budget.
+Lean packages any successful linked construction as `SuccessorSixRay` and
+checks every stage's six-cell algebraic return.  Literal intermediate Collatz
+semantics remain to be peeled and connected to the existing infinite-execution
+consumer.  See
+[`long-return-successor-bouncer.md`](docs/notes/long-return-successor-bouncer.md).
+
 ### 2026-07-29 EDT
 
 The new termination attack changes the unit of study from a forward trajectory

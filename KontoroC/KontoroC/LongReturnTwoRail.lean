@@ -46,6 +46,17 @@ def TwoRailCode (k g n F u : ℕ) : Prop :=
     coreDefect (3 ^ Q g) (2 ^ P g) z =
       2 ^ (n * P g + 77) * u
 
+/-- Every ordinary boundary source of a two-rail code is odd. -/
+theorem TwoRailCode.source_odd
+    {k g n F u : ℕ} (hcode : TwoRailCode k g n F u) : Odd F := by
+  rcases hcode with ⟨_hu, z, _hz, hbase, _hfactor⟩
+  have heq := hbase
+  simp only [ReturnBalance] at heq
+  rw [Nat.odd_iff]
+  have hmod := congrArg (fun x : ℕ ↦ x % 2) heq
+  simpa [Nat.add_mod, Nat.mul_mod, Nat.pow_mod, S,
+    Nat.odd_iff.mp (longReturn_defect_odd k g)] using hmod
+
 /-- Eliminating the work register gives the exact two-rail source equation.
 It is deliberately not presented as a scalar recurrence: `F` and `u` carry
 independent ternary and dyadic constraints. -/
@@ -302,24 +313,30 @@ theorem exists_finite_twoRailCode
   refine ⟨F, u, hFpos, hu, z, hz, hbase, ?_⟩
   simpa [L] using hfactor
 
-/-- The exact forward-link predicate.  The next stage receives the boundary
+/-- The exact forward-link predicate at an arbitrary next opcode.  The next
+stage receives the boundary
 payload `Fnext`; its new work register remains existentially packaged inside
 the next `TwoRailCode`.  This prevents the unsound scalar identification
 `Fnext = znext`. -/
-def DoubledTwoRailStep
-    (k g n F u knext nnext Fnext unext : ℕ) : Prop :=
+def TwoRailStepAt
+    (k g n F u knext gnext nnext Fnext unext : ℕ) : Prop :=
   TwoRailCode k g n F u ∧
-  TwoRailCode knext (2 * g) nnext Fnext unext ∧
+  TwoRailCode knext gnext nnext Fnext unext ∧
   (3 ^ Q g - 2 ^ P g) * Fnext =
     (3 ^ Q g) ^ (n + 1) * u + 2 ^ (P g - 77)
+
+/-- Doubled-opcode specialization retained for the original architecture. -/
+def DoubledTwoRailStep
+    (k g n F u knext nnext Fnext unext : ℕ) : Prop :=
+  TwoRailStepAt k g n F u knext (2 * g) nnext Fnext unext
 
 /-- A forward-linked two-rail step really reattaches the complete current
 macro to the next ordinary boundary source.  No retroactive source lift is
 used in this theorem. -/
-theorem doubledTwoRailStep_realizes_boundary_return
-    {k g n F u knext nnext Fnext unext : ℕ} (hg : 1 < g)
+theorem twoRailStepAt_realizes_boundary_return
+    {k g n F u knext gnext nnext Fnext unext : ℕ} (hg : 1 < g)
     (hstep :
-      DoubledTwoRailStep k g n F u knext nnext Fnext unext) :
+      TwoRailStepAt k g n F u knext gnext nnext Fnext unext) :
     0 < Fnext ∧ ReturnBalance (k + n + 1) g F Fnext := by
   rcases hstep with ⟨hcurrent, hnext, houtput⟩
   rcases hcurrent with ⟨hu, z, hz, hbase, hfactor⟩
@@ -337,7 +354,7 @@ theorem doubledTwoRailStep_realizes_boundary_return
       hbase hsteps hexit
   have hFnextPos : 0 < Fnext := by
     rcases hnext with ⟨_hunext, znext, _hznext, hnextBase, _hnextFactor⟩
-    have hdefectPos : 0 < defect knext (2 * g) := by
+    have hdefectPos : 0 < defect knext gnext := by
       apply Nat.add_pos_left
       exact Nat.mul_pos (by positivity) (by dsimp [b0]; positivity)
     by_contra hnot
@@ -347,6 +364,14 @@ theorem doubledTwoRailStep_realizes_boundary_return
     omega
   rw [hyEq] at hreturn
   exact ⟨hFnextPos, hreturn⟩
+
+/-- The generic consumer specializes back to the doubled-opcode step. -/
+theorem doubledTwoRailStep_realizes_boundary_return
+    {k g n F u knext nnext Fnext unext : ℕ} (hg : 1 < g)
+    (hstep :
+      DoubledTwoRailStep k g n F u knext nnext Fnext unext) :
+    0 < Fnext ∧ ReturnBalance (k + n + 1) g F Fnext :=
+  twoRailStepAt_realizes_boundary_return hg hstep
 
 end LongReturnTwoRail
 end KontoroC
