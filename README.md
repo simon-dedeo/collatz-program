@@ -67,6 +67,30 @@ to CLEAN Lean as QM203.  Until that argument is kernel-checked, irrationality
 is a research theorem, not a certified project result.  No Collatz theorem or
 counterexample is claimed.
 
+The counterexample program then resumed at the adjacent-long-return seam.
+Adaptive return length is no longer an external instruction: for
+
+```text
+A=3^Q(g), B=2^P(g), w(z)=(A-B)z-1,
+```
+
+Lean proves that `n` consecutive high cells exist exactly when `B^n|w(z)`.
+Thus `v2(w(z))/P(g)` is an intrinsic, finite, self-delimiting counter carried
+by the ordinary payload.  More sharply, a terminal endpoint eligible to be
+the next doubled-opcode adjacent source is odd, forcing
+
+```text
+v2(w(z))=n*P(g)+77.
+```
+
+The machine can therefore grind through `n` complete `P(g)`-bit packets and
+use the final 77-bit packet as its exit instruction; no externally prescribed
+return-length sequence is needed.  This is a kernel-checked construction
+interface, not a counterexample.  The remaining gate is a genuine forward
+zero-lift law: the odd exit must already occupy the unique adjacent-source
+cylinder at opcode `2g`, without retroactively changing the finite root.  See
+[`long-return-self-delimiting.md`](docs/notes/long-return-self-delimiting.md).
+
 ### 2026-07-29 EDT
 
 The new termination attack changes the unit of study from a forward trajectory

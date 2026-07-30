@@ -15024,3 +15024,51 @@ is only an audit; please prove the closed identities for all `k` in Lean.
 Once `IrrationalValue` is closed, the already checked
 `no_orbit_on_eight_place_rulers` is the final Collatz-side consumer.  This
 rules out that counter architecture; it does not prove Collatz.
+
+## QM204 — self-delimiting adjacent-return counter (2026-07-30)
+
+Research-side module `KontoroC/LongReturnSelfDelimiting.lean` removes the
+externally chosen return length from the long-return construction.  For the
+generic cell
+
+```text
+A*z=1+B*z',      w(z)=(A-B)z-1,
+```
+
+it kernel-checks
+
+```text
+B*w(z')=A*w(z),
+(exists out, CoreSteps A B n z out) <-> B^n | w(z)
+```
+
+under `A-B>1`, `gcd(A,B)=1`, and `z>0`.  Specializing
+`A=3^Q(g)`, `B=2^P(g)` gives
+
+```text
+exists n cells <-> n <= selfCellCapacity(g,z),
+selfCellCapacity(g,z)=v2(w(z))/P(g),
+```
+
+with the capacity attainable and capacity-plus-one impossible.
+
+The odd-exit law is the more important construction seam. Every
+`AdjacentSource(k,g,F)` is odd. If `g>1`, an odd terminal Hensel exit
+
+```text
+3^Q(g)*out=1+2^77*y
+```
+
+after `n` complete core cells forces
+
+```text
+v2(w(z))=n*P(g)+77,
+selfCellCapacity(g,z)=n.
+```
+
+The theorem
+`padicVal_source_coreDefect_of_doubled_adjacent_exit` packages this when `y`
+already supports an adjacent pair at opcode `2g`. Please independently audit
+or mirror this interface. The next formal target will be a recurrence for the
+terminal odd cofactor versus `sourceResidue(k,2g)`; no such zero-lift closure
+is claimed yet, and there is still no counterexample.

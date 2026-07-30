@@ -59,6 +59,7 @@ import KontoroC.LongDoublingQuineRationalNoGo
 import KontoroC.LongDoublingQuineResidual
 import KontoroC.LongReturnLengthHensel
 import KontoroC.LongReturnOrdinaryRoot
+import KontoroC.LongReturnSelfDelimiting
 import KontoroC.CollatzComponentHolonomy
 import KontoroC.ComponentHolonomyBar
 import KontoroC.ComponentHolonomyCondensedBoundary
