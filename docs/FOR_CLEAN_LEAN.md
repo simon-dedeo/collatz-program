@@ -14788,3 +14788,33 @@ pow_two_mul_sub_one_merge
 The untrusted symbolic miner/validator is
 `experiments/cyclic_descent/bb_power_rules.py`; its exact JSON replay has not
 found a decreasing root rule table. No Collatz proof is claimed.
+
+## QM199 — proposed forward reproductive-program seam
+
+The difference-map search described in
+`docs/notes/difference-map-programming-languages.md` needs a semantic target
+for a counterexample certificate. A useful generic structure has
+
+```text
+value(c) : ℕ
+next(c) : configuration
+duration(c) : ℕ
+resource(c) : ℕ
+
+0 < value(c),
+0 < duration(c),
+syracuseStep^[duration(c)] (value(c)) = value(next(c)),
+every intermediate iterate before the endpoint is not 1,
+resource(c) < resource(next(c)),
+resource(c) <= value(c).bitLength.
+```
+
+Starting from one explicit `c0`, iteration should give a forward Syracuse
+orbit which never reaches `1` and whose macro-endpoints are unbounded. The
+load-bearing detail is covering every ordinary time by successive positive
+macro segments; merely showing that endpoints avoid `1` is insufficient
+without positive durations and intermediate avoidance.
+
+If convenient, please formalize this generic implication without any concrete
+Collatz program instance. The search has found no such instance, and no
+counterexample is claimed. This seam is lower priority than auditing QM198.

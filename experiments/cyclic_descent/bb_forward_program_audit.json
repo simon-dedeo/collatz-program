@@ -1,0 +1,95 @@
+{
+  "atlas_rules": 947,
+  "claim_scope": "Exact only for the templates and retained rule cap in the source atlas. Empty closure does not rule out a larger forward language.",
+  "format": "collatz-bb-forward-program-audit-v1",
+  "greatest_fixed_point_rounds": [
+    {
+      "remaining": 26,
+      "removed": 22,
+      "removed_templates": [
+        "c_1_2",
+        "c_1_3",
+        "c_2_1",
+        "c_2_3",
+        "c_3_1",
+        "c_3_2",
+        "c_3_3",
+        "c_4_3",
+        "c_5_2",
+        "c_5_3",
+        "tm_1_1",
+        "tm_1_2",
+        "tm_1_3",
+        "tm_1_4",
+        "tm_2_1",
+        "tm_2_3",
+        "tm_3_1",
+        "tm_3_2",
+        "tm_3_3",
+        "tm_4_3",
+        "tm_5_2",
+        "tm_5_3"
+      ],
+      "root_live": true,
+      "round": 1
+    },
+    {
+      "remaining": 2,
+      "removed": 24,
+      "removed_templates": [
+        "c_1_4",
+        "d_1_2",
+        "d_1_3",
+        "d_2_1",
+        "d_2_3",
+        "d_3_1",
+        "d_3_2",
+        "d_3_3",
+        "d_4_3",
+        "d_5_2",
+        "d_5_3",
+        "dm_1_1",
+        "dm_1_2",
+        "dm_1_3",
+        "dm_1_4",
+        "dm_2_1",
+        "dm_2_3",
+        "dm_3_1",
+        "dm_3_2",
+        "dm_3_3",
+        "dm_4_3",
+        "dm_5_2",
+        "dm_5_3",
+        "root"
+      ],
+      "root_live": false,
+      "round": 2
+    },
+    {
+      "remaining": 0,
+      "removed": 2,
+      "removed_templates": [
+        "d_1_1",
+        "d_1_4"
+      ],
+      "root_live": false,
+      "round": 3
+    }
+  ],
+  "greatest_fixed_point_size": 0,
+  "greatest_fixed_point_templates": [],
+  "initially_branch_complete_templates": 26,
+  "positive_time_forward_chain_rules": 243,
+  "positive_time_forward_rules": 357,
+  "root_survives": false,
+  "source_atlas_verification": {
+    "base_safe_templates_rechecked": 24,
+    "residue_automaton_states_replayed": 302,
+    "rules": 947,
+    "rules_using_unbounded_chain": 243,
+    "scope": "symbolic transition atlas only; no root termination certificate",
+    "templates": 48,
+    "verified": true
+  },
+  "templates": 48
+}

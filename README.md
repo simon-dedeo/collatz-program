@@ -181,6 +181,22 @@ genuinely recursive/multiset as in higher-level BB validators. This is a
 symbolic arithmetic wall, not a reason to enlarge the concrete box. See
 [`cyclic-descent-proof-miner.md`](docs/notes/cyclic-descent-proof-miner.md).
 
+Elser's difference-map method now suggests a smarter synthesis architecture
+for the counterexample objective. A candidate finite program is duplicated
+into four constraint copies: exact positive-time forward semantics, total
+language closure, an unbounded reproductive resource, and a literal ordinary
+root. Componentwise projection onto their product is paired with projection
+onto the consensus diagonal. This is the paper's standard reduction of many
+constraints to two, and directly targets the near-solutions on which ordinary
+alternating repair stagnates. A new exact audit shows the need: after inverse
+moves and zero-time identities are forbidden, the current symbolic atlas has
+357 forward rules but its greatest closed subset collapses `48 -> 26 -> 2 ->
+0`; the root disappears in round two. Thus a difference-map engine must be
+allowed to synthesize missing exact rules, not merely select among the present
+947. Any candidate remains subject to exact replay and Lean; no counterexample
+is claimed. See
+[`difference-map-programming-languages.md`](docs/notes/difference-map-programming-languages.md).
+
 ### 2026-07-28 EDT
 
 The counterexample program has moved from finite search to a foundational

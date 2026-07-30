@@ -839,6 +839,84 @@ def verify_report(data: dict) -> dict:
     }
 
 
+def forward_program_audit(data: dict) -> dict:
+    """Audit whether the atlas contains a positive-time forward language.
+
+    Component certificates may use inverse moves and zero-step identities.
+    Neither is legal when the same rules are reinterpreted as a program for a
+    single forward orbit.  This audit keeps only nonempty paths made from E/O
+    or the two forward chain rules, then computes the exact greatest subset
+    having at least one target for each binary tail digit.
+    """
+    verification = verify_report(data)
+    template_names = {item["name"] for item in data["templates"]}
+
+    def positive_forward(rule: dict) -> bool:
+        if not rule["path"]:
+            return False
+        return all(
+            step["kind"] == "chain"
+            or (step["kind"] == "primitive" and step["op"] in ("E", "O"))
+            for step in rule["path"]
+        )
+
+    forward = [rule for rule in data["rules"] if positive_forward(rule)]
+    by_branch: dict[tuple[str, int], list[dict]] = {}
+    for rule in forward:
+        by_branch.setdefault((rule["source"], rule["split"]["digit"]), []).append(rule)
+    initially_complete = {
+        name
+        for name in template_names
+        if all(by_branch.get((name, digit)) for digit in (0, 1))
+    }
+    live = set(template_names)
+    rounds = []
+    while True:
+        dead = {
+            source
+            for source in live
+            if any(
+                not any(
+                    rule["target"] in live
+                    for rule in by_branch.get((source, digit), [])
+                )
+                for digit in (0, 1)
+            )
+        }
+        if not dead:
+            break
+        live.difference_update(dead)
+        rounds.append(
+            {
+                "round": len(rounds) + 1,
+                "removed": len(dead),
+                "remaining": len(live),
+                "root_live": "root" in live,
+                "removed_templates": sorted(dead),
+            }
+        )
+    return {
+        "format": "collatz-bb-forward-program-audit-v1",
+        "claim_scope": (
+            "Exact only for the templates and retained rule cap in the source "
+            "atlas. Empty closure does not rule out a larger forward language."
+        ),
+        "source_atlas_verification": verification,
+        "templates": len(template_names),
+        "atlas_rules": len(data["rules"]),
+        "positive_time_forward_rules": len(forward),
+        "positive_time_forward_chain_rules": sum(
+            any(step["kind"] == "chain" for step in rule["path"])
+            for rule in forward
+        ),
+        "initially_branch_complete_templates": len(initially_complete),
+        "greatest_fixed_point_rounds": rounds,
+        "greatest_fixed_point_templates": sorted(live),
+        "greatest_fixed_point_size": len(live),
+        "root_survives": "root" in live,
+    }
+
+
 def cmd_mine(args: argparse.Namespace) -> int:
     cores, frontier = learn_frontier(args.bound, args.concrete_path_depth)
     templates = build_templates(cores)
@@ -909,6 +987,15 @@ def cmd_verify(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_forward_audit(args: argparse.Namespace) -> int:
+    data = json.loads(Path(args.report).read_text())
+    audit = forward_program_audit(data)
+    if args.output:
+        Path(args.output).write_text(json.dumps(audit, indent=2, sort_keys=True) + "\n")
+    print(json.dumps(audit, indent=2, sort_keys=True))
+    return 0
+
+
 def parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(required=True)
@@ -930,6 +1017,13 @@ def parser() -> argparse.ArgumentParser:
     verify = sub.add_parser("verify", help="independently replay a JSON atlas")
     verify.add_argument("report")
     verify.set_defaults(func=cmd_verify)
+    forward = sub.add_parser(
+        "forward-audit",
+        help="remove inverse/zero-time rules and audit forward closure",
+    )
+    forward.add_argument("report")
+    forward.add_argument("--output")
+    forward.set_defaults(func=cmd_forward_audit)
     return p
 
 
