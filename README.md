@@ -200,9 +200,14 @@ exact recount and 20 emitted cycles replay successfully. A numerical
 difference-map consensus at residual `1.51e-18` is rejected by that exact
 infinite-ordinary check. More fundamentally, every fixed word has slope
 `A/2^L` with `A` odd, so it cannot preserve a full arithmetic ray. The next
-target is therefore a genuinely branching, counter-driven language that
-splits and regroups cylinders, not longer repetitions of one word. Any future
-candidate remains subject to exact replay and Lean;
+target is now fixed: compile an **autonomous 17-adic place-value counter** in
+the evolving public payload. It must implement `n -> n+1`, read the carry
+height, and emit `m_n=j+8*17^v17(n+1)` without an external clock or fresh CRT
+address. This exact aperiodic schedule survives the fixed-word, fixed-jump,
+univariate-Mahler, and public-height obstructions; its rank-two Jordan Mahler
+identities are already kernel-checked in `RankTwoRulerMahler.lean`. The open
+work is the endogenous counter compiler and one ordinary root, not another
+prefix calculation. Any future candidate remains subject to exact replay and Lean;
 `Collatz.no_fixed_odd_word_ray` kernel-checks the coefficient obstruction. No
 counterexample is claimed. See
 [`difference-map-programming-languages.md`](docs/notes/difference-map-programming-languages.md).

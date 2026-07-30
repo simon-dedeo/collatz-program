@@ -2,8 +2,8 @@
 
 Status: RM campaign complete, proof-facing synthesis written 2026-07-28.
 
-The 2026-07-30 difference-map pilot and the launch specification for a
-genuinely branching counter-language worker are in
+The 2026-07-30 difference-map pilot and the launch specification for the
+autonomous 17-adic place-value-counter worker are in
 [`DIFFERENCE_MAP_PROGRAMS.md`](DIFFERENCE_MAP_PROGRAMS.md). The fixed-word PSC
 launch was cancelled after an exact odd-over-`2^L` obstruction; no allocation
 is being spent on that closed sublane.

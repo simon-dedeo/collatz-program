@@ -14852,3 +14852,44 @@ fixed-word arithmetic-ray certificate shape. The exact finite audit is
 `experiments/cyclic_descent/difference_map_program_audit.json`; the Python
 verifier re-enumerates all 102,111 length-six cycles and replays the reported
 rules.
+
+## QM201 — autonomous place-value-counter compiler target
+
+The constructive target after QM200 is now fixed. It is not an arbitrary
+branching table: an ordinary public configuration must store a base-17
+odometer counter, increment it, and use the carry height to select the already
+formalized rank-two ruler branch.
+
+A minimal abstract interface is
+
+```text
+counter : Config -> Nat
+next : Config -> Config
+branch : Config -> Nat
+j : Nat,                    1 <= j <= 8
+
+counter (next c) = counter c + 1
+branch c = j + 8 * 17^(v17 (counter c + 1)).
+```
+
+Together with one initial configuration satisfying `counter c0=0`, induction
+must give
+
+```text
+counter (next^[t] c0) = t,
+branch (next^[t] c0) = j + 8*17^v17(t+1).
+```
+
+The existing `KontoroC/RankTwoRulerMahler.lean` already checks the block law,
+convergent functional equation, defective-Jordan iterates, and rank-two
+determinant for this **external** schedule. QM201 is the causal bridge which a
+future synthesized public transducer must instantiate. It is not itself a
+counterexample: the load-bearing missing fields remain exact positive-time
+Collatz semantics, regeneration of the same decoder, a proper decoded height,
+and one ordinary root as in QM199.
+
+No Lean action is urgent until the research worker has an actual encoding of
+`Config` and its carry update. The important review rule is to reject any
+candidate whose branch uses loop index `t` directly or chooses a fresh CRT
+residue at each step; `t` must be recovered by iterating the public
+`counter -> counter+1` transition from one finite state.

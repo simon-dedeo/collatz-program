@@ -1,8 +1,8 @@
 # PSC difference-map counter-language program
 
 Status: exact Python pilot complete locally; fixed-word production launch
-cancelled on mathematical grounds; branching C worker is the next launch
-gate.
+cancelled on mathematical grounds; the autonomous 17-adic place-value
+counter is the sole B3 launch target.
 
 ## Result of the pilot
 
@@ -38,35 +38,74 @@ greatest closed chart kernel is `48 -> 36 -> 24`, retaining the root. Closure
 alone recodes Syracuse and includes terminal configurations; it is not a
 counterexample language.
 
-## B3 launch target: branching counter language
+## B3 launch target: autonomous 17-adic place-value counter
 
-The next worker must search a finite **counter transducer**, not a repeated
-word. A state contains a power chart, an ordinary counter domain, and a
-resource coordinate. Its two productions are selected by the regenerated low
-bit of the current natural counter. A candidate table must satisfy four
-separate projections:
+The next worker is no longer a generic counter-table search. It must compile
+one specific surviving architecture. An evolving public payload stores an
+unbounded base-17 odometer state `n`; one exact program epoch performs
 
-1. `S`: every selected production is a nonempty exact forward Syracuse macro;
-2. `C`: both regenerated-bit branches of every reachable state return to the
-   selected language;
-3. `R`: a proper decoded-height resource has positive gain on every recurrent
-   kernel, certified by an exact cycle-potential dual;
-4. `O`: one explicit finite root reaches the kernel, every macro duration is
-   positive, and no completion-only tail is introduced.
+```text
+n -> n+1,
+carryHeight = v_17(n+1),
+m = j + 8*17^carryHeight,            1 <= j <= 8,
+```
 
-Unlike a fixed path, a counter transducer can split cylinders and later
-regroup them. The changing state can therefore generate a nonperiodic opcode
-language and is not covered by the odd-over-`2^L` lemma. It is the minimal
-architecture worth sending to PSC.
+and uses `m` as the next exact EC17/public-payload branch. The schedule is
+aperiodic because base-17 carries occur at every scale. More importantly, it
+must be **endogenous**: using loop time to print the already-audited sequence
+is forbidden. The current ordinary state must decode the counter, execute its
+increment, and write the payload from which the next counter and branch are
+decoded.
 
-The C worker will use the Python miner only to emit a versioned exact edge
-table. Each RM core runs an independent difference-map restart over discrete
-rule logits and rationalized resource weights. Candidate extraction writes a
-small certificate containing the selected table, root, exact macro paths,
-and cycle-potential dual. A separate Python checker rebuilds the edge table,
-replays every path, recomputes reachable closure, and verifies the dual with
-integer/rational arithmetic. Lean promotion uses QM199 in
-`docs/FOR_CLEAN_LEAN.md`.
+The external schedule is already mathematically organized. With
+
+```text
+A_n = sum_(1<=t<=n) 17^v_17(t),
+H(C,Z) = sum_(n>=0) C^A_n Z^n,
+```
+
+exact arithmetic gives
+
+```text
+A_(17n+r) = 17*A_n + 16*n + r,
+H(C,Z) = P_17(CZ) H(C^17,C^16 Z^17).
+```
+
+The monomial map `(C,Z)->(C^17,C^16 Z^17)` is a genuine rank-two defective
+Jordan system. The slower ruler `j+8*v_17(n+1)`, every fixed phase increment,
+and fixed words are closed; this place-value ruler survives those exact
+obstructions and the public height gate. `RankTwoRulerMahler.lean` already
+kernel-checks its block law, convergent functional equation, Jordan iterates,
+and multiplicative-rank determinant. What remains open is not another prefix
+of that schedule but its autonomous realization and ordinary root.
+
+The four difference-map copies are therefore fixed as follows:
+
+1. `S` — **semantic compiler:** every selected production is a nonempty exact
+   forward Syracuse/EC17 macro with a literal positive duration;
+2. `C` — **odometer closure:** the public payload implements base-17
+   increment with exact carry propagation and regenerates the same decoder;
+3. `R` — **place-value reproduction:** the carry height emits exactly
+   `j+8*17^v17(n+1)`, while the decoded ordinary height is proper and
+   unbounded;
+4. `O` — **ordinary root:** one finite positive input initializes the public
+   counter, every later instruction is computed from evolved state, and no
+   fresh low bits or independently chosen CRT residues are introduced.
+
+Projection `P_C` is a local carry repair on a candidate base-17 transducer;
+`P_R` repairs its branch-emission and public-height identities; `P_S` selects
+from versioned exact macro fragments; and `P_O` minimizes the canonical
+dyadic lift but accepts only literal eventual stabilization. A candidate is a
+small public transducer plus exact arithmetic annotations, not a long opcode
+word.
+
+Candidate extraction writes the transducer, its counter encoding/decoder,
+all exact macro paths, one root, and a proper-height certificate. A separate
+Python checker must rebuild the edge grammar, replay the counter update and
+every macro with integers, prove that emitted branches equal the place-value
+ruler, and apply the ordinary-root gate. Lean promotion uses QM199 together
+with `RankTwoRulerMahler.lean`; neither the numerical difference-map residual
+nor the externally generated ruler is a certificate.
 
 ## Parallel and checkpoint contract
 
@@ -96,11 +135,16 @@ itself.
 
 Do not queue B3 until all of the following exist:
 
-- a C implementation of all four projections, including a proper resource;
-- a tiny grammar with a planted branching recurrent program recovered by the
-  numerical search;
+- a C implementation of the four specialized odometer projections, including
+  exact base-17 carry and a proper decoded height;
+- a planted public base-17 incrementer recovered from scrambled local carry
+  rules, followed by exact rejection when its decoder or carry write is
+  corrupted;
 - rejection tests for a 2-adic-only root and a dummy growing exponent;
-- an independent exact replay of a multi-state candidate;
+- a rejection test for an externally indexed ruler with no public `n->n+1`
+  implementation;
+- an independent exact replay of the counter, emitted place-value schedule,
+  and multi-state macro candidate;
 - a shared-node smoke test showing all 128 threads write disjoint checkpoints.
 
 The gate deliberately prevents spending the new allocation on the already

@@ -237,13 +237,23 @@ composite affine map has an actual nonnegative integral fixed point. The
 arithmetic implication is kernel-checked as
 `Collatz.no_fixed_odd_word_ray` in `formal/Formal/Collatz.lean`.
 
-This closes the fixed-word version and specifies the next high-leverage
-object: a **branching counter language** whose productions split, transform,
-and later regroup tail cylinders. The state of the program must change with
-the generated counter data; merely increasing cycle length cannot evade the
-odd-over-power-of-two obstruction. PSC work should therefore parallelize
-counter-language synthesis and exact replay, not grind longer repetitions of
-one word.
+This closes the fixed-word version. The next high-leverage object is no longer
+generic: it is the **autonomous 17-adic place-value counter** already isolated
+in the EC17 public-payload lane. The evolving public state must store `n`,
+execute `n -> n+1`, expose `v_17(n+1)`, and emit
+
+```text
+m_n = j + 8*17^v_17(n+1),       1 <= j <= 8.
+```
+
+The externally printed sequence and its rank-two Mahler identities are
+already exact; `RankTwoRulerMahler.lean` checks the latter. They are not a
+program. The construction target is a finite local carry transducer whose
+unbounded tape/register is part of the ordinary evolving payload. This lets
+the language split and regroup cylinders according to regenerated data and
+is not covered by the odd-over-power-of-two lemma. PSC work should therefore
+parallelize synthesis of this public odometer compiler and exact replay, not
+grind longer repetitions of one word or rediscover the external schedule.
 
 ## First implementation
 
