@@ -30,7 +30,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 
-SCHEMA = "collatz-autonomous-17-adic-targeted-prune-v1"
+SCHEMA = "collatz-autonomous-17-adic-targeted-prune-v2"
 Z0 = 494_251_421
 W0 = 83_499_104
 RESONANCE = 473
@@ -176,6 +176,7 @@ def canonical_residue(data: ResetData) -> int:
 @dataclass(frozen=True)
 class RootCapResult:
     rail: int
+    start_index: int
     bit_cap: int
     rejected: bool
     decisive_depth: int | None
@@ -184,20 +185,22 @@ class RootCapResult:
     written_bits: int
 
 
-def prune_root_cap(j: int, bit_cap: int, maximum_steps: int) -> RootCapResult:
+def prune_root_cap(
+    j: int, bit_cap: int, maximum_steps: int, start_index: int = 0
+) -> RootCapResult:
     """Reject every initial payload below ``2^bit_cap`` if possible."""
 
-    if bit_cap <= 0 or maximum_steps <= 0:
-        raise ValueError("bit cap and maximum steps must be positive")
+    if bit_cap <= 0 or maximum_steps <= 0 or start_index < 0:
+        raise ValueError("bit cap/steps must be positive and start index nonnegative")
     data = ResetData()
     residue = 0
     for index in range(maximum_steps):
-        data = append_reset(data, branch(j, index))
+        data = append_reset(data, branch(j, start_index + index))
         residue = canonical_residue(data)
         if residue >= 1 << bit_cap:
-            return RootCapResult(j, bit_cap, True, index + 1, index + 1,
+            return RootCapResult(j, start_index, bit_cap, True, index + 1, index + 1,
                                  residue.bit_length(), data.dyadic_cost)
-    return RootCapResult(j, bit_cap, False, None, maximum_steps,
+    return RootCapResult(j, start_index, bit_cap, False, None, maximum_steps,
                          residue.bit_length(), data.dyadic_cost)
 
 
@@ -208,14 +211,16 @@ class ExplicitRootResult:
     final_payload: str
 
 
-def prune_explicit_root(q0: int, j: int, maximum_steps: int) -> ExplicitRootResult:
+def prune_explicit_root(
+    q0: int, j: int, maximum_steps: int, start_index: int = 0
+) -> ExplicitRootResult:
     """Literally replay a proposed public payload until divisibility fails."""
 
-    if q0 < 0 or maximum_steps <= 0:
-        raise ValueError("root must be nonnegative and steps positive")
+    if q0 < 0 or maximum_steps <= 0 or start_index < 0:
+        raise ValueError("root/start index must be nonnegative and steps positive")
     q = q0
     for index in range(maximum_steps):
-        target = branch(j, index)
+        target = branch(j, start_index + index)
         numerator = 3 ** (6 * target + 11) * q + branch_delta(target)
         denominator = 1 << (8 * target + 15)
         if numerator % denominator:
@@ -254,7 +259,11 @@ def build_audit(maximum_depth: int, root_caps: list[int], root_steps: int) -> di
         rails.append({
             "j": j,
             "signatures": [asdict(row) for row in rows],
-            "root_caps": [asdict(prune_root_cap(j, cap, root_steps)) for cap in root_caps],
+            "root_caps": [
+                asdict(prune_root_cap(j, cap, root_steps, start_index))
+                for start_index in (0, 1)
+                for cap in root_caps
+            ],
         })
 
     return {
@@ -266,7 +275,8 @@ def build_audit(maximum_depth: int, root_caps: list[int], root_steps: int) -> di
             "jordan_prune": "N'=17*N; A'=17*A+16*N; S'=17*S+1024*N; O'=17*O+768*N",
             "ordinary_prune": (
                 "for an asserted root q0<2^B, reject as soon as the monotone "
-                "canonical prefix residue is at least 2^B"
+                "canonical prefix residue is at least 2^B; audit both the "
+                "direct ruler alignment 0 and payloadResetProgram next-branch alignment 1"
             ),
             "substitution_checks": substitution_checks,
             "mutation_rejections": mutation_rejections,
@@ -301,7 +311,7 @@ def verify_artifact(path: Path) -> None:
         raise ValueError("unsupported targeted-prune schema")
     rails = artifact["audit"]["rails"]
     maximum_depth = len(rails[0]["signatures"]) - 1
-    root_caps = [row["bit_cap"] for row in rails[0]["root_caps"]]
+    root_caps = sorted({row["bit_cap"] for row in rails[0]["root_caps"]})
     root_steps = max(row["targets_checked"] for rail in rails for row in rail["root_caps"])
     rebuilt = build_audit(maximum_depth, root_caps, root_steps)
     if rebuilt["audit"] != artifact["audit"]:
@@ -334,6 +344,7 @@ def main() -> None:
     root.add_argument("q0", type=int)
     root.add_argument("--rail", type=int, default=1)
     root.add_argument("--steps", type=int, default=64)
+    root.add_argument("--start-index", type=int, default=0)
     args = parser.parse_args()
     if args.command == "build":
         write_artifact(args.output, args.maximum_depth, args.root_caps, args.root_steps)
@@ -342,7 +353,8 @@ def main() -> None:
         verify_artifact(args.artifact)
         print("autonomous 17-adic targeted-prune verification: PASS")
     else:
-        print(json.dumps(asdict(prune_explicit_root(args.q0, args.rail, args.steps)), sort_keys=True))
+        result = prune_explicit_root(args.q0, args.rail, args.steps, args.start_index)
+        print(json.dumps(asdict(result), sort_keys=True))
 
 
 if __name__ == "__main__":

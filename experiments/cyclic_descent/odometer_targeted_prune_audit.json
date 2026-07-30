@@ -1,5 +1,5 @@
 {
-  "artifact_sha256": "b534181a07c2efd11fb5117d5c20f6db77955509db9ab58cb343cb82eeefc4ae",
+  "artifact_sha256": "f10942a00e7ab44e86def262de89891dcbdcccefb9836541c8b8a488f723b2eb",
   "audit": {
     "branch_language": "m(h)=j+8*17^h; m(h+1)=17*m(h)-16*j",
     "counter_language": "sigma(h)=0^16,(h+1)",
@@ -7,7 +7,7 @@
     "epoch_signature": "S=8*sum(m)+15*N; O=6*sum(m)+11*N; 3*S=4*O+N",
     "jordan_prune": "N'=17*N; A'=17*A+16*N; S'=17*S+1024*N; O'=17*O+768*N",
     "mutation_rejections": 280,
-    "ordinary_prune": "for an asserted root q0<2^B, reject as soon as the monotone canonical prefix residue is at least 2^B",
+    "ordinary_prune": "for an asserted root q0<2^B, reject as soon as the monotone canonical prefix residue is at least 2^B; audit both the direct ruler alignment 0 and payloadResetProgram next-branch alignment 1",
     "rails": [
       {
         "j": 1,
@@ -18,6 +18,7 @@
             "rail": 1,
             "rejected": true,
             "residue_bit_length": 87,
+            "start_index": 0,
             "targets_checked": 1,
             "written_bits": 87
           },
@@ -27,6 +28,7 @@
             "rail": 1,
             "rejected": true,
             "residue_bit_length": 172,
+            "start_index": 0,
             "targets_checked": 2,
             "written_bits": 174
           },
@@ -36,6 +38,7 @@
             "rail": 1,
             "rejected": true,
             "residue_bit_length": 258,
+            "start_index": 0,
             "targets_checked": 3,
             "written_bits": 261
           },
@@ -45,6 +48,7 @@
             "rail": 1,
             "rejected": true,
             "residue_bit_length": 522,
+            "start_index": 0,
             "targets_checked": 6,
             "written_bits": 522
           },
@@ -54,6 +58,7 @@
             "rail": 1,
             "rejected": true,
             "residue_bit_length": 1044,
+            "start_index": 0,
             "targets_checked": 12,
             "written_bits": 1044
           },
@@ -63,6 +68,7 @@
             "rail": 1,
             "rejected": true,
             "residue_bit_length": 2497,
+            "start_index": 0,
             "targets_checked": 17,
             "written_bits": 2503
           },
@@ -72,8 +78,79 @@
             "rail": 1,
             "rejected": true,
             "residue_bit_length": 5005,
+            "start_index": 0,
             "targets_checked": 34,
             "written_bits": 5006
+          },
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 1,
+            "rejected": true,
+            "residue_bit_length": 87,
+            "start_index": 1,
+            "targets_checked": 1,
+            "written_bits": 87
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 2,
+            "rail": 1,
+            "rejected": true,
+            "residue_bit_length": 172,
+            "start_index": 1,
+            "targets_checked": 2,
+            "written_bits": 174
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 3,
+            "rail": 1,
+            "rejected": true,
+            "residue_bit_length": 258,
+            "start_index": 1,
+            "targets_checked": 3,
+            "written_bits": 261
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 6,
+            "rail": 1,
+            "rejected": true,
+            "residue_bit_length": 522,
+            "start_index": 1,
+            "targets_checked": 6,
+            "written_bits": 522
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 12,
+            "rail": 1,
+            "rejected": true,
+            "residue_bit_length": 1044,
+            "start_index": 1,
+            "targets_checked": 12,
+            "written_bits": 1044
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 16,
+            "rail": 1,
+            "rejected": true,
+            "residue_bit_length": 2416,
+            "start_index": 1,
+            "targets_checked": 16,
+            "written_bits": 2416
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 33,
+            "rail": 1,
+            "rejected": true,
+            "residue_bit_length": 4918,
+            "start_index": 1,
+            "targets_checked": 33,
+            "written_bits": 4919
           }
         ],
         "signatures": [
@@ -144,6 +221,7 @@
             "rail": 2,
             "rejected": true,
             "residue_bit_length": 95,
+            "start_index": 0,
             "targets_checked": 1,
             "written_bits": 95
           },
@@ -153,6 +231,7 @@
             "rail": 2,
             "rejected": true,
             "residue_bit_length": 190,
+            "start_index": 0,
             "targets_checked": 2,
             "written_bits": 190
           },
@@ -162,6 +241,7 @@
             "rail": 2,
             "rejected": true,
             "residue_bit_length": 284,
+            "start_index": 0,
             "targets_checked": 3,
             "written_bits": 285
           },
@@ -171,6 +251,7 @@
             "rail": 2,
             "rejected": true,
             "residue_bit_length": 570,
+            "start_index": 0,
             "targets_checked": 6,
             "written_bits": 570
           },
@@ -180,6 +261,7 @@
             "rail": 2,
             "rejected": true,
             "residue_bit_length": 1044,
+            "start_index": 0,
             "targets_checked": 11,
             "written_bits": 1045
           },
@@ -189,6 +271,7 @@
             "rail": 2,
             "rejected": true,
             "residue_bit_length": 2638,
+            "start_index": 0,
             "targets_checked": 17,
             "written_bits": 2639
           },
@@ -198,8 +281,79 @@
             "rail": 2,
             "rejected": true,
             "residue_bit_length": 4159,
+            "start_index": 0,
             "targets_checked": 33,
             "written_bits": 4159
+          },
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 2,
+            "rejected": true,
+            "residue_bit_length": 95,
+            "start_index": 1,
+            "targets_checked": 1,
+            "written_bits": 95
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 2,
+            "rail": 2,
+            "rejected": true,
+            "residue_bit_length": 190,
+            "start_index": 1,
+            "targets_checked": 2,
+            "written_bits": 190
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 3,
+            "rail": 2,
+            "rejected": true,
+            "residue_bit_length": 284,
+            "start_index": 1,
+            "targets_checked": 3,
+            "written_bits": 285
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 6,
+            "rail": 2,
+            "rejected": true,
+            "residue_bit_length": 570,
+            "start_index": 1,
+            "targets_checked": 6,
+            "written_bits": 570
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 11,
+            "rail": 2,
+            "rejected": true,
+            "residue_bit_length": 1044,
+            "start_index": 1,
+            "targets_checked": 11,
+            "written_bits": 1045
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 16,
+            "rail": 2,
+            "rejected": true,
+            "residue_bit_length": 2544,
+            "start_index": 1,
+            "targets_checked": 16,
+            "written_bits": 2544
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 33,
+            "rail": 2,
+            "rejected": true,
+            "residue_bit_length": 5182,
+            "start_index": 1,
+            "targets_checked": 33,
+            "written_bits": 5183
           }
         ],
         "signatures": [
@@ -270,6 +424,7 @@
             "rail": 3,
             "rejected": true,
             "residue_bit_length": 103,
+            "start_index": 0,
             "targets_checked": 1,
             "written_bits": 103
           },
@@ -279,6 +434,7 @@
             "rail": 3,
             "rejected": true,
             "residue_bit_length": 206,
+            "start_index": 0,
             "targets_checked": 2,
             "written_bits": 206
           },
@@ -288,6 +444,7 @@
             "rail": 3,
             "rejected": true,
             "residue_bit_length": 306,
+            "start_index": 0,
             "targets_checked": 3,
             "written_bits": 309
           },
@@ -297,6 +454,7 @@
             "rail": 3,
             "rejected": true,
             "residue_bit_length": 515,
+            "start_index": 0,
             "targets_checked": 5,
             "written_bits": 515
           },
@@ -306,6 +464,7 @@
             "rail": 3,
             "rejected": true,
             "residue_bit_length": 1030,
+            "start_index": 0,
             "targets_checked": 10,
             "written_bits": 1030
           },
@@ -315,6 +474,7 @@
             "rail": 3,
             "rejected": true,
             "residue_bit_length": 2774,
+            "start_index": 0,
             "targets_checked": 17,
             "written_bits": 2775
           },
@@ -324,6 +484,77 @@
             "rail": 3,
             "rejected": true,
             "residue_bit_length": 4113,
+            "start_index": 0,
+            "targets_checked": 30,
+            "written_bits": 4114
+          },
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 3,
+            "rejected": true,
+            "residue_bit_length": 103,
+            "start_index": 1,
+            "targets_checked": 1,
+            "written_bits": 103
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 2,
+            "rail": 3,
+            "rejected": true,
+            "residue_bit_length": 206,
+            "start_index": 1,
+            "targets_checked": 2,
+            "written_bits": 206
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 3,
+            "rail": 3,
+            "rejected": true,
+            "residue_bit_length": 306,
+            "start_index": 1,
+            "targets_checked": 3,
+            "written_bits": 309
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 5,
+            "rail": 3,
+            "rejected": true,
+            "residue_bit_length": 515,
+            "start_index": 1,
+            "targets_checked": 5,
+            "written_bits": 515
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 10,
+            "rail": 3,
+            "rejected": true,
+            "residue_bit_length": 1030,
+            "start_index": 1,
+            "targets_checked": 10,
+            "written_bits": 1030
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 16,
+            "rail": 3,
+            "rejected": true,
+            "residue_bit_length": 2670,
+            "start_index": 1,
+            "targets_checked": 16,
+            "written_bits": 2672
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 30,
+            "rail": 3,
+            "rejected": true,
+            "residue_bit_length": 4113,
+            "start_index": 1,
             "targets_checked": 30,
             "written_bits": 4114
           }
@@ -396,6 +627,7 @@
             "rail": 4,
             "rejected": true,
             "residue_bit_length": 109,
+            "start_index": 0,
             "targets_checked": 1,
             "written_bits": 111
           },
@@ -405,6 +637,7 @@
             "rail": 4,
             "rejected": true,
             "residue_bit_length": 222,
+            "start_index": 0,
             "targets_checked": 2,
             "written_bits": 222
           },
@@ -414,6 +647,7 @@
             "rail": 4,
             "rejected": true,
             "residue_bit_length": 331,
+            "start_index": 0,
             "targets_checked": 3,
             "written_bits": 333
           },
@@ -423,6 +657,7 @@
             "rail": 4,
             "rejected": true,
             "residue_bit_length": 552,
+            "start_index": 0,
             "targets_checked": 5,
             "written_bits": 555
           },
@@ -432,6 +667,7 @@
             "rail": 4,
             "rejected": true,
             "residue_bit_length": 1110,
+            "start_index": 0,
             "targets_checked": 10,
             "written_bits": 1110
           },
@@ -441,6 +677,7 @@
             "rail": 4,
             "rejected": true,
             "residue_bit_length": 2910,
+            "start_index": 0,
             "targets_checked": 17,
             "written_bits": 2911
           },
@@ -450,6 +687,77 @@
             "rail": 4,
             "rejected": true,
             "residue_bit_length": 4129,
+            "start_index": 0,
+            "targets_checked": 28,
+            "written_bits": 4132
+          },
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 4,
+            "rejected": true,
+            "residue_bit_length": 109,
+            "start_index": 1,
+            "targets_checked": 1,
+            "written_bits": 111
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 2,
+            "rail": 4,
+            "rejected": true,
+            "residue_bit_length": 222,
+            "start_index": 1,
+            "targets_checked": 2,
+            "written_bits": 222
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 3,
+            "rail": 4,
+            "rejected": true,
+            "residue_bit_length": 331,
+            "start_index": 1,
+            "targets_checked": 3,
+            "written_bits": 333
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 5,
+            "rail": 4,
+            "rejected": true,
+            "residue_bit_length": 552,
+            "start_index": 1,
+            "targets_checked": 5,
+            "written_bits": 555
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 10,
+            "rail": 4,
+            "rejected": true,
+            "residue_bit_length": 1110,
+            "start_index": 1,
+            "targets_checked": 10,
+            "written_bits": 1110
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 16,
+            "rail": 4,
+            "rejected": true,
+            "residue_bit_length": 2799,
+            "start_index": 1,
+            "targets_checked": 16,
+            "written_bits": 2800
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 28,
+            "rail": 4,
+            "rejected": true,
+            "residue_bit_length": 4132,
+            "start_index": 1,
             "targets_checked": 28,
             "written_bits": 4132
           }
@@ -522,6 +830,7 @@
             "rail": 5,
             "rejected": true,
             "residue_bit_length": 117,
+            "start_index": 0,
             "targets_checked": 1,
             "written_bits": 119
           },
@@ -531,6 +840,7 @@
             "rail": 5,
             "rejected": true,
             "residue_bit_length": 238,
+            "start_index": 0,
             "targets_checked": 2,
             "written_bits": 238
           },
@@ -540,6 +850,7 @@
             "rail": 5,
             "rejected": true,
             "residue_bit_length": 357,
+            "start_index": 0,
             "targets_checked": 3,
             "written_bits": 357
           },
@@ -549,6 +860,7 @@
             "rail": 5,
             "rejected": true,
             "residue_bit_length": 594,
+            "start_index": 0,
             "targets_checked": 5,
             "written_bits": 595
           },
@@ -558,6 +870,7 @@
             "rail": 5,
             "rejected": true,
             "residue_bit_length": 1071,
+            "start_index": 0,
             "targets_checked": 9,
             "written_bits": 1071
           },
@@ -567,6 +880,7 @@
             "rail": 5,
             "rejected": true,
             "residue_bit_length": 3046,
+            "start_index": 0,
             "targets_checked": 17,
             "written_bits": 3047
           },
@@ -576,6 +890,77 @@
             "rail": 5,
             "rejected": true,
             "residue_bit_length": 4117,
+            "start_index": 0,
+            "targets_checked": 26,
+            "written_bits": 4118
+          },
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 5,
+            "rejected": true,
+            "residue_bit_length": 117,
+            "start_index": 1,
+            "targets_checked": 1,
+            "written_bits": 119
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 2,
+            "rail": 5,
+            "rejected": true,
+            "residue_bit_length": 238,
+            "start_index": 1,
+            "targets_checked": 2,
+            "written_bits": 238
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 3,
+            "rail": 5,
+            "rejected": true,
+            "residue_bit_length": 357,
+            "start_index": 1,
+            "targets_checked": 3,
+            "written_bits": 357
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 5,
+            "rail": 5,
+            "rejected": true,
+            "residue_bit_length": 594,
+            "start_index": 1,
+            "targets_checked": 5,
+            "written_bits": 595
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 9,
+            "rail": 5,
+            "rejected": true,
+            "residue_bit_length": 1071,
+            "start_index": 1,
+            "targets_checked": 9,
+            "written_bits": 1071
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 16,
+            "rail": 5,
+            "rejected": true,
+            "residue_bit_length": 2928,
+            "start_index": 1,
+            "targets_checked": 16,
+            "written_bits": 2928
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 26,
+            "rail": 5,
+            "rejected": true,
+            "residue_bit_length": 4118,
+            "start_index": 1,
             "targets_checked": 26,
             "written_bits": 4118
           }
@@ -648,6 +1033,7 @@
             "rail": 6,
             "rejected": true,
             "residue_bit_length": 127,
+            "start_index": 0,
             "targets_checked": 1,
             "written_bits": 127
           },
@@ -657,6 +1043,7 @@
             "rail": 6,
             "rejected": true,
             "residue_bit_length": 254,
+            "start_index": 0,
             "targets_checked": 2,
             "written_bits": 254
           },
@@ -666,6 +1053,7 @@
             "rail": 6,
             "rejected": true,
             "residue_bit_length": 377,
+            "start_index": 0,
             "targets_checked": 3,
             "written_bits": 381
           },
@@ -675,6 +1063,7 @@
             "rail": 6,
             "rejected": true,
             "residue_bit_length": 635,
+            "start_index": 0,
             "targets_checked": 5,
             "written_bits": 635
           },
@@ -684,6 +1073,7 @@
             "rail": 6,
             "rejected": true,
             "residue_bit_length": 1143,
+            "start_index": 0,
             "targets_checked": 9,
             "written_bits": 1143
           },
@@ -693,6 +1083,7 @@
             "rail": 6,
             "rejected": true,
             "residue_bit_length": 3181,
+            "start_index": 0,
             "targets_checked": 17,
             "written_bits": 3183
           },
@@ -702,6 +1093,77 @@
             "rail": 6,
             "rejected": true,
             "residue_bit_length": 4199,
+            "start_index": 0,
+            "targets_checked": 25,
+            "written_bits": 4199
+          },
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 6,
+            "rejected": true,
+            "residue_bit_length": 127,
+            "start_index": 1,
+            "targets_checked": 1,
+            "written_bits": 127
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 2,
+            "rail": 6,
+            "rejected": true,
+            "residue_bit_length": 254,
+            "start_index": 1,
+            "targets_checked": 2,
+            "written_bits": 254
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 3,
+            "rail": 6,
+            "rejected": true,
+            "residue_bit_length": 377,
+            "start_index": 1,
+            "targets_checked": 3,
+            "written_bits": 381
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 5,
+            "rail": 6,
+            "rejected": true,
+            "residue_bit_length": 635,
+            "start_index": 1,
+            "targets_checked": 5,
+            "written_bits": 635
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 9,
+            "rail": 6,
+            "rejected": true,
+            "residue_bit_length": 1143,
+            "start_index": 1,
+            "targets_checked": 9,
+            "written_bits": 1143
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 16,
+            "rail": 6,
+            "rejected": true,
+            "residue_bit_length": 3056,
+            "start_index": 1,
+            "targets_checked": 16,
+            "written_bits": 3056
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 25,
+            "rail": 6,
+            "rejected": true,
+            "residue_bit_length": 4198,
+            "start_index": 1,
             "targets_checked": 25,
             "written_bits": 4199
           }
@@ -774,6 +1236,7 @@
             "rail": 7,
             "rejected": true,
             "residue_bit_length": 135,
+            "start_index": 0,
             "targets_checked": 1,
             "written_bits": 135
           },
@@ -783,6 +1246,7 @@
             "rail": 7,
             "rejected": true,
             "residue_bit_length": 135,
+            "start_index": 0,
             "targets_checked": 1,
             "written_bits": 135
           },
@@ -792,6 +1256,7 @@
             "rail": 7,
             "rejected": true,
             "residue_bit_length": 269,
+            "start_index": 0,
             "targets_checked": 2,
             "written_bits": 270
           },
@@ -801,6 +1266,7 @@
             "rail": 7,
             "rejected": true,
             "residue_bit_length": 540,
+            "start_index": 0,
             "targets_checked": 4,
             "written_bits": 540
           },
@@ -810,6 +1276,7 @@
             "rail": 7,
             "rejected": true,
             "residue_bit_length": 1077,
+            "start_index": 0,
             "targets_checked": 8,
             "written_bits": 1080
           },
@@ -819,6 +1286,7 @@
             "rail": 7,
             "rejected": true,
             "residue_bit_length": 2160,
+            "start_index": 0,
             "targets_checked": 16,
             "written_bits": 2160
           },
@@ -828,6 +1296,77 @@
             "rail": 7,
             "rejected": true,
             "residue_bit_length": 4129,
+            "start_index": 0,
+            "targets_checked": 23,
+            "written_bits": 4129
+          },
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 7,
+            "rejected": true,
+            "residue_bit_length": 135,
+            "start_index": 1,
+            "targets_checked": 1,
+            "written_bits": 135
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 1,
+            "rail": 7,
+            "rejected": true,
+            "residue_bit_length": 135,
+            "start_index": 1,
+            "targets_checked": 1,
+            "written_bits": 135
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 2,
+            "rail": 7,
+            "rejected": true,
+            "residue_bit_length": 269,
+            "start_index": 1,
+            "targets_checked": 2,
+            "written_bits": 270
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 4,
+            "rail": 7,
+            "rejected": true,
+            "residue_bit_length": 540,
+            "start_index": 1,
+            "targets_checked": 4,
+            "written_bits": 540
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 8,
+            "rail": 7,
+            "rejected": true,
+            "residue_bit_length": 1077,
+            "start_index": 1,
+            "targets_checked": 8,
+            "written_bits": 1080
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 16,
+            "rail": 7,
+            "rejected": true,
+            "residue_bit_length": 3183,
+            "start_index": 1,
+            "targets_checked": 16,
+            "written_bits": 3184
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 23,
+            "rail": 7,
+            "rejected": true,
+            "residue_bit_length": 4125,
+            "start_index": 1,
             "targets_checked": 23,
             "written_bits": 4129
           }
@@ -900,6 +1439,7 @@
             "rail": 8,
             "rejected": true,
             "residue_bit_length": 143,
+            "start_index": 0,
             "targets_checked": 1,
             "written_bits": 143
           },
@@ -909,6 +1449,7 @@
             "rail": 8,
             "rejected": true,
             "residue_bit_length": 143,
+            "start_index": 0,
             "targets_checked": 1,
             "written_bits": 143
           },
@@ -918,6 +1459,7 @@
             "rail": 8,
             "rejected": true,
             "residue_bit_length": 286,
+            "start_index": 0,
             "targets_checked": 2,
             "written_bits": 286
           },
@@ -927,6 +1469,7 @@
             "rail": 8,
             "rejected": true,
             "residue_bit_length": 572,
+            "start_index": 0,
             "targets_checked": 4,
             "written_bits": 572
           },
@@ -936,6 +1479,7 @@
             "rail": 8,
             "rejected": true,
             "residue_bit_length": 1135,
+            "start_index": 0,
             "targets_checked": 8,
             "written_bits": 1144
           },
@@ -945,6 +1489,7 @@
             "rail": 8,
             "rejected": true,
             "residue_bit_length": 2144,
+            "start_index": 0,
             "targets_checked": 15,
             "written_bits": 2145
           },
@@ -954,6 +1499,77 @@
             "rail": 8,
             "rejected": true,
             "residue_bit_length": 4169,
+            "start_index": 0,
+            "targets_checked": 22,
+            "written_bits": 4170
+          },
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 8,
+            "rejected": true,
+            "residue_bit_length": 143,
+            "start_index": 1,
+            "targets_checked": 1,
+            "written_bits": 143
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 1,
+            "rail": 8,
+            "rejected": true,
+            "residue_bit_length": 143,
+            "start_index": 1,
+            "targets_checked": 1,
+            "written_bits": 143
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 2,
+            "rail": 8,
+            "rejected": true,
+            "residue_bit_length": 286,
+            "start_index": 1,
+            "targets_checked": 2,
+            "written_bits": 286
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 4,
+            "rail": 8,
+            "rejected": true,
+            "residue_bit_length": 572,
+            "start_index": 1,
+            "targets_checked": 4,
+            "written_bits": 572
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 8,
+            "rail": 8,
+            "rejected": true,
+            "residue_bit_length": 1135,
+            "start_index": 1,
+            "targets_checked": 8,
+            "written_bits": 1144
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 15,
+            "rail": 8,
+            "rejected": true,
+            "residue_bit_length": 2144,
+            "start_index": 1,
+            "targets_checked": 15,
+            "written_bits": 2145
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 22,
+            "rail": 8,
+            "rejected": true,
+            "residue_bit_length": 4170,
+            "start_index": 1,
             "targets_checked": 22,
             "written_bits": 4170
           }
@@ -1042,6 +1658,6 @@
       }
     ]
   },
-  "schema": "collatz-autonomous-17-adic-targeted-prune-v1",
-  "worker_sha256": "e3f1e9ef180f4da7ef8836b255d05047a7e7795a4b5cbcdd4f8a71e25750a2b4"
+  "schema": "collatz-autonomous-17-adic-targeted-prune-v2",
+  "worker_sha256": "cb0ffb7550b616962657ccd0cd426ede2b1350ae5916a58d0f123a9457274c85"
 }

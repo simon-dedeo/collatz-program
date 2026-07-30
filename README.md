@@ -220,6 +220,8 @@ obey `S'=17*S+1024*N` and `O'=17*O+768*N`. These exact rank-two signatures
 are checked before macro replay. A claimed `B`-bit ordinary root is also
 rejected as soon as the monotone canonical prefix residue reaches `2^B`, so
 the ordinary gate moves ahead of the expensive semantic projection. The
+audit checks both the direct ruler alignment and the public-reset theorem's
+next-branch alignment. The
 Python prune oracle is
 [`odometer_targeted_prune.py`](experiments/cyclic_descent/odometer_targeted_prune.py),
 and the three cost identities are kernel-checked in

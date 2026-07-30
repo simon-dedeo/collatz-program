@@ -152,7 +152,8 @@ optimization and full macro replay.
 The executable Python oracle is
 `experiments/cyclic_descent/odometer_targeted_prune.py`; its committed audit
 checks the substitution, all eight rails, exact block signatures, deliberate
-signature corruptions, and bounded ordinary-root exclusions. The identities
+signature corruptions, and bounded ordinary-root exclusions in both the
+direct ruler and `payloadResetProgram` next-branch alignments. The identities
 `three_dyadicCost_eq_four_triadicCost_add`,
 `dyadicCost_seventeen_mul`, and `triadicCost_seventeen_mul` are kernel-checked
 in `KontoroC/RankTwoRulerMahler.lean`. These are necessary prunes, not an
