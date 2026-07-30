@@ -34,6 +34,38 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-07-30 EDT
+
+The boundary-Jordan Mahler lane has a much simpler specialization-specific
+attack than the proposed general lifting theorem.  The exact remainder
+
+```text
+E(C,Z)=(1-CZ)H(C,Z)-1
+```
+
+cancels through `Z^16`; its first nonzero term is
+`C^17(C^16-1)Z^17`.  At the `k`th Jordan iterate this forces exact 2-adic
+precision `17e_k`.  If the original value were rational, clearing the odd
+denominators of the iterated functional equation would bound the same
+nonzero numerator by `(abs(A)+B*17^k)3^G_k`.  Exact simplification gives
+
+```text
+17e_k=2G_k+D_k,   D_k>=17^k.
+```
+
+Since `4>3`, these bounds would force
+`2^D_k<abs(A)+B*17^k`, impossible for large `k`.  This is an elementary
+irrationality proof for all eight place-value specializations and would rule
+out the autonomous 17-adic place-value counter without a general
+multivariate value theorem.  The Padé identity and conditional eight-rail
+consumer are now kernel-checked; a 12-core exact audit replayed 32,776
+integer exponent rows through `k=4096`.  The final all-level rational-height
+argument is written in
+[`boundary-jordan-mahler.md`](docs/notes/boundary-jordan-mahler.md) and sent
+to CLEAN Lean as QM203.  Until that argument is kernel-checked, irrationality
+is a research theorem, not a certified project result.  No Collatz theorem or
+counterexample is claimed.
+
 ### 2026-07-29 EDT
 
 The new termination attack changes the unit of study from a forward trajectory
@@ -232,18 +264,16 @@ nonexistence.
 A more aggressive theorem-first attack now takes priority over that search.
 The place-value series is a first-order Mahler function for the boundary
 Jordan map `T(C,Z)=(C^17,C^16*Z^17)`.  Any ordinary self-writing ruler orbit
-would force its specialized 2-adic value to be rational.  Brechler's 27 July
-2026 multivariate Mahler preprint supplies the functional
-rational--transcendental dichotomy, but its value theorem cannot simply be
-cited: our defective matrix has no strictly positive Perron eigenvector.
-For this exact boundary case, however, the committed Jordan valuation formula
-shows that every finite polynomial has an eventual unique least 2-adic
-monomial along the orbit.  The new target is a bespoke linear lifting theorem
-using that explicit separator.  If it lands, all eight place-value rulers are
-closed without transducer synthesis or PSC.  The exact reduction, elementary
-functional-nonrationality argument, and claim boundary are in
-[`boundary-jordan-mahler.md`](docs/notes/boundary-jordan-mahler.md).  No value
-transcendence theorem is yet claimed.
+would force its specialized 2-adic value to be rational.  Brechler's general
+value theorem cannot simply be cited because the defective matrix has no
+strictly positive Perron eigenvector.  The specialization has a sharper
+elementary feature: `(1-CZ)H-1` cancels through `Z^16`, producing 17 times the
+2-adic precision for one extra height factor.  The resulting exact exponent
+identity forces an impossible `2^D<abs(A)+B*17^k` with `D>=17^k` under any
+rational-value hypothesis.  The Padé identity and conditional Collatz
+consumer are kernel-checked; the final rational-height contradiction is a
+research theorem awaiting Lean.  See
+[`boundary-jordan-mahler.md`](docs/notes/boundary-jordan-mahler.md).
 
 ### 2026-07-28 EDT
 

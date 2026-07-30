@@ -215,6 +215,28 @@ theorem valueAt_functional (C Z : ℚ_[2]) (hC : ‖C‖ ≤ 1) (hZ : ‖Z‖ < 
         valueAt (C ^ 17) (C ^ 16 * Z ^ 17) := by
       simp only [SlowRuler.P17, Finset.sum_mul]
 
+/-- The finite geometric factor is exactly the denominator-clearing factor
+used by the degree-17 Padé remainder. -/
+theorem one_sub_mul_P17 (X : ℚ_[2]) :
+    (1 - X) * SlowRuler.P17 X = 1 - X ^ 17 := by
+  rw [mul_comm, SlowRuler.P17, ← (ZMod.finEquiv 17).toEquiv.sum_comp]
+  change (∑ i : Fin 17, X ^ (i : ℕ)) * (1 - X) = 1 - X ^ 17
+  rw [Fin.sum_univ_eq_sum_range]
+  exact geom_sum_mul_neg X 17
+
+/-- The elementary boundary-Jordan replacement for a general lifting
+theorem.  Multiplication by `1-CZ` cancels the first sixteen coefficients of
+the ruler series, so the remainder begins only in `Z^17`.  This identity is
+the exact analytic input to the precision-versus-height argument; it makes no
+transcendence claim by itself. -/
+theorem valueAt_pade_remainder (C Z : ℚ_[2])
+    (hC : ‖C‖ ≤ 1) (hZ : ‖Z‖ < 1) :
+    (1 - C * Z) * valueAt C Z - 1 =
+      (1 - (C * Z) ^ 17) *
+        valueAt (C ^ 17) (C ^ 16 * Z ^ 17) - 1 := by
+  rw [valueAt_functional C Z hC hZ, ← mul_assoc,
+    one_sub_mul_P17]
+
 noncomputable def value (j : ℕ) : ℚ_[2] :=
   valueAt (c : ℚ_[2]) (z j : ℚ_[2])
 
@@ -246,6 +268,34 @@ theorem value_eq_one_add_padicSum (j : ℕ) (hj : 0 < j) :
       padicSum (schedule j) := by rfl
   rw [htailValue] at hsplit
   exact hsplit.symm
+
+/-- The exact consumer needed from the elementary Padé/height argument. -/
+def IrrationalValue (j : ℕ) : Prop :=
+  ∀ q : ℚ, value j ≠ (q : ℚ_[2])
+
+theorem padicSum_irrational_of_value
+    (j : ℕ) (hj : 0 < j) (hirr : IrrationalValue j) :
+    ∀ q : ℚ, padicSum (schedule j) ≠ (q : ℚ_[2]) := by
+  intro q hq
+  apply hirr (q + 1)
+  rw [value_eq_one_add_padicSum j hj, hq]
+  norm_num
+  ring
+
+/-- Once the explicit bivariate value is proved irrational, the existing
+ordinary-lattice theorem rules out a self-writing orbit on this rail. -/
+theorem no_orbit_of_irrational_value
+    (j : ℕ) (hj : 0 < j) (hirr : IrrationalValue j) :
+    ¬ ∃ o : Orbit, (fun t => o.branch (t + 1)) = schedule j := by
+  apply no_orbit_with_targetBranch_of_padic_irrational
+  exact padicSum_irrational_of_value j hj hirr
+
+theorem no_orbit_on_eight_place_rulers
+    (hirr : ∀ j : ℕ, 1 ≤ j → j ≤ 8 → IrrationalValue j) :
+    ∀ j : ℕ, 1 ≤ j → j ≤ 8 →
+      ¬ ∃ o : Orbit, (fun t => o.branch (t + 1)) = schedule j := by
+  intro j hj h8
+  exact no_orbit_of_irrational_value j (by omega) (hirr j hj h8)
 
 /-- The Jordan-type parameter update in QM154d. -/
 noncomputable def transform (s : ℚ_[2] × ℚ_[2]) : ℚ_[2] × ℚ_[2] :=

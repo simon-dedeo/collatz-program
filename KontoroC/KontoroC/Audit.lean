@@ -1669,7 +1669,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.branchSum_eq
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.prefixProduct_eq
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.valueAt_functional
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.one_sub_mul_P17
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.valueAt_pade_remainder
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.value_eq_one_add_padicSum
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.padicSum_irrational_of_value
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.no_orbit_of_irrational_value
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.no_orbit_on_eight_place_rulers
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.transform_iterate
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.factor_transform_iterate
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.valueAt_iterated

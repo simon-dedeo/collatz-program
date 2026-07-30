@@ -5053,6 +5053,20 @@ after which a chosen finite polynomial has a unique least-valuation monomial.
 This is a rigorous zero-estimate input for a possible direct multivariate
 `Q_2` auxiliary-function argument; it is not itself a special-value theorem.
 
+The later `boundary_jordan_pade_audit.py` finds a specialization-specific
+shortcut.  The exact remainder `(1-CZ)H-1` cancels through `Z^16`, so its
+first nonzero term is `C^17(C^16-1)Z^17`.  The verifier checks the resulting
+closed precision/height identity for all eight rails through `k=4096` using
+32,776 exact-integer rows and a hash-pinned artifact:
+
+```bash
+python3 boundary_jordan_pade_audit.py --verify --workers 12
+```
+
+The all-level irrationality proof is in
+`docs/notes/boundary-jordan-mahler.md`; the bounded audit is not a substitute
+for that argument.
+
 ### Minimal raw outward first-passage code
 
 `outward_first_passage.py` removes the YAH/tag compiler from the construction

@@ -14935,3 +14935,87 @@ monomial support has an eventual unique least 2-adic term along each of the
 eight specialized orbits.  Formalizing functional nonrationality is useful;
 formalizing the external lifting theorem is not requested until its analytic
 proof is complete.
+
+## QM203 — degree-17 Padé remainder supersedes the lifting seam
+
+QM202's general boundary-Jordan lifting theorem is no longer needed for the
+actual place-value series.  The new proof is in
+`docs/notes/boundary-jordan-mahler.md`, Sections 7--8.  Research-side Lean now
+checks
+
+```text
+RankTwoRuler.one_sub_mul_P17
+RankTwoRuler.valueAt_pade_remainder
+RankTwoRuler.padicSum_irrational_of_value
+RankTwoRuler.no_orbit_of_irrational_value
+RankTwoRuler.no_orbit_on_eight_place_rulers.
+```
+
+Please prioritize the missing unconditional theorem
+
+```text
+forall j, 1 <= j -> j <= 8 -> RankTwoRuler.IrrationalValue j
+```
+
+using the following elementary integer argument, not external multivariate
+Mahler theory.
+
+At the `k`th transformed point put `u_k=C_k Z_k=2^e_k/3^f_k`, where
+
+```text
+e_k=(79+8j)17^k+1024*k*17^(k-1),
+f_k=(59+6j)17^k+ 768*k*17^(k-1).
+```
+
+If `value j=A/B` is reduced rational, the iterated functional equation gives
+`H(C_k,Z_k)=(A/B)/Q_k`, `Q_k=prod_(i<k)P17(u_i)`.  The Padé remainder
+
+```text
+R_k=(1-u_k)H(C_k,Z_k)-1
+```
+
+has exact `v2(R_k)=17e_k`.  For the norm proof, rewrite it as
+
+```text
+[H(T(C_k,Z_k))-1] - u_k^17 H(T(C_k,Z_k)).
+```
+
+The second term has norm `norm(u_k)^17`; the first has strictly smaller norm
+because it begins with `C_k^33 Z_k^17`; `H(T(...))` is a unit.
+
+Since `value j` is a unit, `A,B` are odd.  Write
+`P17(u_i)=N_i/3^(16f_i)`.  Each `N_i` is positive odd and
+`N_i<17*3^(16f_i)`.  Clearing the odd denominator gives
+
+```text
+2^(17e_k) <= abs(num R_k)
+            < (abs A+B*17^k)*3^G_k,
+G_k=f_k+16*sum_(i<k)f_i.
+```
+
+Exact simplification gives
+
+```text
+17e_k=2G_k+D_k,
+17D_k=1904*j*17^k+14336*k*17^k+20451*17^k+204*j+374,
+```
+
+so `D_k>=17^k`.  Since `4>3`, the two bounds imply
+
+```text
+2^D_k < abs A+B*17^k,
+```
+
+contradicting eventual domination by `2^(17^k)`.  The exact stdlib verifier
+and hash-pinned audit are
+
+```text
+experiments/kontorovich/boundary_jordan_pade_audit.py
+experiments/kontorovich/boundary_jordan_pade_audit.json
+```
+
+and replay 32,776 integer exponent rows through `k=4096`.  The bounded replay
+is only an audit; please prove the closed identities for all `k` in Lean.
+Once `IrrationalValue` is closed, the already checked
+`no_orbit_on_eight_place_rulers` is the final Collatz-side consumer.  This
+rules out that counter architecture; it does not prove Collatz.
