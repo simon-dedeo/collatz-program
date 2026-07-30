@@ -1,0 +1,3272 @@
+{
+  "best_exactly_replayed_cycles": [
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.5,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441926,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            77,
+            32
+          ]
+        }
+      },
+      "cycle_index": 25798,
+      "edge_indices": [
+        340,
+        126,
+        79,
+        1,
+        299,
+        563
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_3_1",
+          "tail_map": {
+            "u": 1,
+            "v": 1
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_1_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_1_3",
+          "tail_map": {
+            "u": 9,
+            "v": 1
+          },
+          "target": "root"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 3,
+            "v": 0
+          },
+          "target": "c_2_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_3_1"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.5,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441926,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            77,
+            32
+          ]
+        }
+      },
+      "cycle_index": 25887,
+      "edge_indices": [
+        340,
+        127,
+        0,
+        128,
+        556,
+        563
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_3_1",
+          "tail_map": {
+            "u": 1,
+            "v": 1
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 0
+          },
+          "target": "root"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_3_1"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.5,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441926,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            77,
+            32
+          ]
+        }
+      },
+      "cycle_index": 28040,
+      "edge_indices": [
+        341,
+        345,
+        0,
+        128,
+        556,
+        563
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_3_1",
+          "tail_map": {
+            "u": 3,
+            "v": 2
+          },
+          "target": "c_3_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_3_1",
+          "tail_map": {
+            "u": 1,
+            "v": 1
+          },
+          "target": "root"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_3_1"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.5079365079365079,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 738482557104315383980681108612666637188512405231062883867,
+        "ordinary_seed_bits": 189,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            53,
+            64
+          ]
+        }
+      },
+      "cycle_index": 18869,
+      "edge_indices": [
+        129,
+        128,
+        563,
+        344,
+        299,
+        557
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 2
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_3_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_3_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 2
+          },
+          "target": "c_2_3"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 189,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.5053191489361702,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441927,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            137,
+            64
+          ]
+        }
+      },
+      "cycle_index": 5141,
+      "edge_indices": [
+        299,
+        561,
+        445,
+        559,
+        299,
+        564
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_4_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_4_3",
+          "tail_map": {
+            "u": 3,
+            "v": 2
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 9,
+            "v": 6
+          },
+          "target": "c_2_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 2
+          },
+          "target": "c_2_1"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.5053191489361702,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441927,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            137,
+            64
+          ]
+        }
+      },
+      "cycle_index": 5392,
+      "edge_indices": [
+        299,
+        562,
+        77,
+        128,
+        558,
+        344
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 1,
+            "v": 1
+          },
+          "target": "c_1_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_1_3",
+          "tail_map": {
+            "u": 3,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 9,
+            "v": 5
+          },
+          "target": "c_3_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_3_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_1"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.5053191489361702,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441927,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            137,
+            64
+          ]
+        }
+      },
+      "cycle_index": 5263,
+      "edge_indices": [
+        299,
+        561,
+        447,
+        340,
+        128,
+        564
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_4_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_4_3",
+          "tail_map": {
+            "u": 9,
+            "v": 8
+          },
+          "target": "c_3_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_3_1",
+          "tail_map": {
+            "u": 1,
+            "v": 1
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 2
+          },
+          "target": "c_2_1"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.5026455026455027,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 738482557104315383980681108612666637188512405231062883866,
+        "ordinary_seed_bits": 189,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            35,
+            32
+          ]
+        }
+      },
+      "cycle_index": 34910,
+      "edge_indices": [
+        557,
+        128,
+        563,
+        344,
+        299,
+        556
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 2
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_3_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_3_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 189,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.5,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441926,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            77,
+            32
+          ]
+        }
+      },
+      "cycle_index": 25670,
+      "edge_indices": [
+        339,
+        565,
+        0,
+        131,
+        299,
+        563
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_3_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 3
+          },
+          "target": "root"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 9,
+            "v": 6
+          },
+          "target": "c_2_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_3_1"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.4946808510638298,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441928,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            15,
+            8
+          ]
+        }
+      },
+      "cycle_index": 46419,
+      "edge_indices": [
+        0,
+        126,
+        77,
+        129,
+        129,
+        127
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_1_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_1_3",
+          "tail_map": {
+            "u": 3,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 2
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 2
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 0
+          },
+          "target": "root"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.5079365079365079,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 738482557104315383980681108612666637188512405231062883855,
+        "ordinary_seed_bits": 189,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            257,
+            64
+          ]
+        }
+      },
+      "cycle_index": 30453,
+      "edge_indices": [
+        344,
+        301,
+        344,
+        302,
+        299,
+        558
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_3_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 3,
+            "v": 2
+          },
+          "target": "c_3_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_3_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 3,
+            "v": 3
+          },
+          "target": "c_2_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 9,
+            "v": 5
+          },
+          "target": "c_3_1"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 189,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.5026455026455027,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 738482557104315383980681108612666637188512405231062883866,
+        "ordinary_seed_bits": 189,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            35,
+            32
+          ]
+        }
+      },
+      "cycle_index": 33146,
+      "edge_indices": [
+        556,
+        556,
+        562,
+        81,
+        300,
+        128
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 1,
+            "v": 1
+          },
+          "target": "c_1_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_1_3",
+          "tail_map": {
+            "u": 3,
+            "v": 0
+          },
+          "target": "c_2_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 1
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 189,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.5079365079365079,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 738482557104315383980681108612666637188512405231062883867,
+        "ordinary_seed_bits": 189,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            53,
+            64
+          ]
+        }
+      },
+      "cycle_index": 22258,
+      "edge_indices": [
+        131,
+        300,
+        127,
+        3,
+        0,
+        129
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 9,
+            "v": 6
+          },
+          "target": "c_2_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 1
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 0
+          },
+          "target": "root"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "root"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 2
+          },
+          "target": "c_2_3"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 189,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.5053191489361702,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441927,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            137,
+            64
+          ]
+        }
+      },
+      "cycle_index": 10551,
+      "edge_indices": [
+        301,
+        345,
+        0,
+        131,
+        299,
+        564
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 3,
+            "v": 2
+          },
+          "target": "c_3_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_3_1",
+          "tail_map": {
+            "u": 1,
+            "v": 1
+          },
+          "target": "root"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 9,
+            "v": 6
+          },
+          "target": "c_2_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 2
+          },
+          "target": "c_2_1"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.5,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441926,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            77,
+            32
+          ]
+        }
+      },
+      "cycle_index": 28156,
+      "edge_indices": [
+        342,
+        298,
+        1,
+        299,
+        556,
+        563
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_3_1",
+          "tail_map": {
+            "u": 3,
+            "v": 3
+          },
+          "target": "c_2_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "root"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 3,
+            "v": 0
+          },
+          "target": "c_2_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_3_1"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.4946808510638298,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441928,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            15,
+            8
+          ]
+        }
+      },
+      "cycle_index": 46394,
+      "edge_indices": [
+        0,
+        126,
+        77,
+        128,
+        556,
+        565
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_1_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_1_3",
+          "tail_map": {
+            "u": 3,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 3
+          },
+          "target": "root"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.4946808510638298,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441928,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            15,
+            8
+          ]
+        }
+      },
+      "cycle_index": 46395,
+      "edge_indices": [
+        0,
+        126,
+        77,
+        128,
+        557,
+        127
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_1_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_1_3",
+          "tail_map": {
+            "u": 3,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 3,
+            "v": 2
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 0
+          },
+          "target": "root"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.4946808510638298,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441928,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            15,
+            8
+          ]
+        }
+      },
+      "cycle_index": 46398,
+      "edge_indices": [
+        0,
+        126,
+        77,
+        128,
+        558,
+        345
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_1_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_1_3",
+          "tail_map": {
+            "u": 3,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 9,
+            "v": 5
+          },
+          "target": "c_3_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_3_1",
+          "tail_map": {
+            "u": 1,
+            "v": 1
+          },
+          "target": "root"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.4946808510638298,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441928,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            15,
+            8
+          ]
+        }
+      },
+      "cycle_index": 46399,
+      "edge_indices": [
+        0,
+        126,
+        77,
+        128,
+        559,
+        298
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_1_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_1_3",
+          "tail_map": {
+            "u": 3,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 9,
+            "v": 6
+          },
+          "target": "c_2_1"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_2_1",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "root"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    },
+    {
+      "analysis": {
+        "active_exponent": false,
+        "boundary_one_density": 0.4946808510638298,
+        "exponent_delta": 0,
+        "invariant_ray": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_r0": 0,
+        "ordinary_seed": 369241278552157691990340554306333318594256202615531441928,
+        "ordinary_seed_bits": 188,
+        "periodic_point": null,
+        "productive": true,
+        "tail_map": {
+          "alpha": [
+            81,
+            64
+          ],
+          "beta": [
+            15,
+            8
+          ]
+        }
+      },
+      "cycle_index": 46402,
+      "edge_indices": [
+        0,
+        126,
+        77,
+        128,
+        560,
+        3
+      ],
+      "rules": [
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "c_1_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_1_3",
+          "tail_map": {
+            "u": 3,
+            "v": 0
+          },
+          "target": "c_2_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_2_3",
+          "tail_map": {
+            "u": 3,
+            "v": 1
+          },
+          "target": "c_5_3"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 0,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "O"
+            }
+          ],
+          "source": "c_5_3",
+          "tail_map": {
+            "u": 9,
+            "v": 7
+          },
+          "target": "root"
+        },
+        {
+          "counter_delta": 0,
+          "digit": 1,
+          "path": [
+            {
+              "kind": "primitive",
+              "op": "E"
+            }
+          ],
+          "source": "root",
+          "tail_map": {
+            "u": 1,
+            "v": 0
+          },
+          "target": "root"
+        }
+      ],
+      "verification": {
+        "exact_invariant_ray": null,
+        "exact_periodic_point": null,
+        "invariant_ray_obstruction": "The repeated word has slope A/2^L with A odd and L>0; it cannot map any full arithmetic ray to itself.",
+        "ordinary_depth": 32,
+        "ordinary_seed_bits": 188,
+        "positive_time_forward_rules": 6,
+        "productive": true,
+        "verified": true
+      }
+    }
+  ],
+  "claim_scope": "Untrusted nonconvex search in the displayed finite symbolic grammar. Finite ordinary cylinders and their bit lengths are diagnostic only. A result would require an independently replayed nontrivial exact periodic point or invariant ray; none is claimed unless one of those fields is non-null and decodes above 2.",
+  "counterexample_found": false,
+  "cycle_pool": {
+    "cycles": 102111,
+    "exact_invariant_cycles": 0,
+    "ordinary_depth_histogram": {
+      "0": 5,
+      "32": 102106
+    },
+    "ordinary_projection_cycles": 2000,
+    "ordinary_seed_bit_histogram": {
+      "188": 763,
+      "189": 1277,
+      "190": 6297,
+      "191": 7501,
+      "192": 86140,
+      "193": 128
+    },
+    "productive_cycles": 95424
+  },
+  "difference_map_runs": [
+    {
+      "best": {
+        "consensus_cycle": 25798,
+        "iteration": 8,
+        "projection_choices": [
+          -1,
+          25798,
+          25798,
+          25798
+        ],
+        "residual": 1.5114872800106286e-18
+      },
+      "iterations_run": 8,
+      "seed": 4233
+    },
+    {
+      "best": {
+        "consensus_cycle": null,
+        "iteration": 9,
+        "projection_choices": [
+          -1,
+          25887,
+          25887,
+          28040
+        ],
+        "residual": 0.01638243957276635
+      },
+      "iterations_run": 120,
+      "seed": 7260
+    },
+    {
+      "best": {
+        "consensus_cycle": null,
+        "iteration": 5,
+        "projection_choices": [
+          -1,
+          18869,
+          5141,
+          5141
+        ],
+        "residual": 0.023168268228563865
+      },
+      "iterations_run": 120,
+      "seed": 3224
+    },
+    {
+      "best": {
+        "consensus_cycle": null,
+        "iteration": 12,
+        "projection_choices": [
+          -1,
+          5392,
+          5392,
+          5263
+        ],
+        "residual": 0.02590291134000872
+      },
+      "iterations_run": 120,
+      "seed": 1206
+    },
+    {
+      "best": {
+        "consensus_cycle": null,
+        "iteration": 16,
+        "projection_choices": [
+          -1,
+          34910,
+          34910,
+          25670
+        ],
+        "residual": 0.02590291134000872
+      },
+      "iterations_run": 120,
+      "seed": 6251
+    },
+    {
+      "best": {
+        "consensus_cycle": null,
+        "iteration": 9,
+        "projection_choices": [
+          -1,
+          46419,
+          30453,
+          30453
+        ],
+        "residual": 0.02654258571960859
+      },
+      "iterations_run": 120,
+      "seed": 197
+    },
+    {
+      "best": {
+        "consensus_cycle": null,
+        "iteration": 11,
+        "projection_choices": [
+          -1,
+          33146,
+          22258,
+          33146
+        ],
+        "residual": 0.028375217691958287
+      },
+      "iterations_run": 120,
+      "seed": 2215
+    },
+    {
+      "best": {
+        "consensus_cycle": null,
+        "iteration": 10,
+        "projection_choices": [
+          -1,
+          10551,
+          28156,
+          28156
+        ],
+        "residual": 0.028375217691958287
+      },
+      "iterations_run": 120,
+      "seed": 5242
+    }
+  ],
+  "format": "collatz-difference-map-program-search-v1",
+  "jackpot_verifications": [],
+  "library": {
+    "forward_closed_root_survives": true,
+    "forward_closed_templates": 24,
+    "forward_closure_rounds": [
+      {
+        "remaining": 36,
+        "removed": 12,
+        "root_live": true
+      },
+      {
+        "remaining": 24,
+        "removed": 12,
+        "root_live": true
+      }
+    ],
+    "frontier_learning": {
+      "concrete_bounds": {
+        "base_limit": 96,
+        "max_split_power": 4,
+        "path_depth": 14,
+        "step_limit": 96,
+        "walk_base_limit": 768,
+        "walk_step_limit": 1536
+      },
+      "last_round": 7,
+      "learned_dyadic_cores": [
+        {
+          "core": [
+            1,
+            1
+          ],
+          "multiplicity": 7
+        },
+        {
+          "core": [
+            1,
+            2
+          ],
+          "multiplicity": 6
+        },
+        {
+          "core": [
+            1,
+            3
+          ],
+          "multiplicity": 6
+        },
+        {
+          "core": [
+            2,
+            3
+          ],
+          "multiplicity": 6
+        },
+        {
+          "core": [
+            3,
+            2
+          ],
+          "multiplicity": 6
+        },
+        {
+          "core": [
+            3,
+            3
+          ],
+          "multiplicity": 6
+        },
+        {
+          "core": [
+            2,
+            1
+          ],
+          "multiplicity": 6
+        },
+        {
+          "core": [
+            3,
+            1
+          ],
+          "multiplicity": 6
+        },
+        {
+          "core": [
+            1,
+            4
+          ],
+          "multiplicity": 5
+        },
+        {
+          "core": [
+            4,
+            3
+          ],
+          "multiplicity": 5
+        },
+        {
+          "core": [
+            5,
+            2
+          ],
+          "multiplicity": 5
+        },
+        {
+          "core": [
+            5,
+            3
+          ],
+          "multiplicity": 5
+        },
+        {
+          "core": [
+            5,
+            4
+          ],
+          "multiplicity": 5
+        },
+        {
+          "core": [
+            6,
+            3
+          ],
+          "multiplicity": 5
+        },
+        {
+          "core": [
+            4,
+            1
+          ],
+          "multiplicity": 5
+        },
+        {
+          "core": [
+            5,
+            1
+          ],
+          "multiplicity": 5
+        },
+        {
+          "core": [
+            6,
+            1
+          ],
+          "multiplicity": 5
+        },
+        {
+          "core": [
+            5,
+            8
+          ],
+          "multiplicity": 4
+        },
+        {
+          "core": [
+            7,
+            2
+          ],
+          "multiplicity": 4
+        },
+        {
+          "core": [
+            7,
+            3
+          ],
+          "multiplicity": 4
+        }
+      ],
+      "pruning_rounds": 7,
+      "scaling_signals": {
+        "common_power_2": 224,
+        "common_power_3": 22,
+        "odd_run_power_2": 43
+      },
+      "states": 9216,
+      "two_last_round_frontier_states": 366
+    },
+    "positive_forward_canonical_edges": 621,
+    "rules_before_forward_filter": 3389,
+    "symbolic_search": {
+      "base_safe_complete_modes": [
+        "root",
+        "d_1_1",
+        "c_1_2",
+        "d_1_2",
+        "c_1_3",
+        "d_1_3",
+        "c_2_3",
+        "d_2_3",
+        "c_3_2",
+        "d_3_2",
+        "c_3_3",
+        "d_3_3",
+        "c_2_1",
+        "d_2_1",
+        "c_3_1",
+        "d_3_1",
+        "c_1_4",
+        "d_1_4",
+        "c_4_3",
+        "d_4_3",
+        "c_5_2",
+        "d_5_2",
+        "c_5_3",
+        "d_5_3"
+      ],
+      "branches_searched": 96,
+      "rules_retained": 3389,
+      "rules_using_unbounded_chain": 1197,
+      "symbolic_states_explored": 2756,
+      "templates_with_both_binary_branches": [
+        "root",
+        "d_1_1",
+        "dm_1_1",
+        "tm_1_1",
+        "c_1_2",
+        "d_1_2",
+        "dm_1_2",
+        "tm_1_2",
+        "c_1_3",
+        "d_1_3",
+        "dm_1_3",
+        "tm_1_3",
+        "c_2_3",
+        "d_2_3",
+        "dm_2_3",
+        "tm_2_3",
+        "c_3_2",
+        "d_3_2",
+        "dm_3_2",
+        "tm_3_2",
+        "c_3_3",
+        "d_3_3",
+        "dm_3_3",
+        "tm_3_3",
+        "c_2_1",
+        "d_2_1",
+        "dm_2_1",
+        "tm_2_1",
+        "c_3_1",
+        "d_3_1",
+        "dm_3_1",
+        "tm_3_1",
+        "c_1_4",
+        "d_1_4",
+        "dm_1_4",
+        "tm_1_4",
+        "c_4_3",
+        "d_4_3",
+        "dm_4_3",
+        "tm_4_3",
+        "c_5_2",
+        "d_5_2",
+        "dm_5_2",
+        "tm_5_2",
+        "c_5_3",
+        "d_5_3",
+        "dm_5_3",
+        "tm_5_3"
+      ]
+    },
+    "templates": 48
+  },
+  "parameters": {
+    "attempts_factor": 40,
+    "beta": 1.0,
+    "bound": 96,
+    "concrete_path_depth": 14,
+    "cycle_length": 6,
+    "cylinder_depth": 32,
+    "iterations": 120,
+    "max_u": 12,
+    "max_v": 12,
+    "modulus_limit": 64,
+    "ordinary_pool_size": 2000,
+    "output": "experiments/cyclic_descent/difference_map_program_audit.json",
+    "pool_mode": "exhaustive",
+    "pool_size": 20000,
+    "report_cycles": 20,
+    "restarts": 8,
+    "rule_cap": 64,
+    "seed": 197,
+    "symbolic_depth": 6,
+    "symbolic_state_cap": 1200
+  }
+}

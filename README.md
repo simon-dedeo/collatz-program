@@ -181,20 +181,29 @@ genuinely recursive/multiset as in higher-level BB validators. This is a
 symbolic arithmetic wall, not a reason to enlarge the concrete box. See
 [`cyclic-descent-proof-miner.md`](docs/notes/cyclic-descent-proof-miner.md).
 
-Elser's difference-map method now suggests a smarter synthesis architecture
+Elser's difference-map method now supplies a concrete synthesis architecture
 for the counterexample objective. A candidate finite program is duplicated
 into four constraint copies: exact positive-time forward semantics, total
 language closure, an unbounded reproductive resource, and a literal ordinary
 root. Componentwise projection onto their product is paired with projection
-onto the consensus diagonal. This is the paper's standard reduction of many
-constraints to two, and directly targets the near-solutions on which ordinary
-alternating repair stagnates. A new exact audit shows the need: after inverse
-moves and zero-time identities are forbidden, the current symbolic atlas has
-357 forward rules but its greatest closed subset collapses `48 -> 26 -> 2 ->
-0`; the root disappears in round two. Thus a difference-map engine must be
-allowed to synthesize missing exact rules, not merely select among the present
-947. Any candidate remains subject to exact replay and Lean; no counterexample
-is claimed. See
+onto the consensus diagonal. The first engine and exact post-checker are now
+implemented. They also correct a truncation artifact: the old cap-12 forward
+atlas collapsed `48 -> 26 -> 2 -> 0`, but re-mining at depth 6/cap 64 leaves
+621 canonical forward edges and a 24-template closed kernel containing the
+root. Closure alone merely recodes Syracuse and includes terminating states.
+
+The complete length-six fixed-word probe enumerates 102,111 cycles: 95,424
+pass a structural reproductive proxy and 102,106 have exact depth-32 finite
+cylinders, whose least witnesses already require 188--193 bits. No nontrivial
+ordinary periodic point or invariant arithmetic ray exists in the audit; its
+exact recount and 20 emitted cycles replay successfully. A numerical
+difference-map consensus at residual `1.51e-18` is rejected by that exact
+infinite-ordinary check. More fundamentally, every fixed word has slope
+`A/2^L` with `A` odd, so it cannot preserve a full arithmetic ray. The next
+target is therefore a genuinely branching, counter-driven language that
+splits and regroups cylinders, not longer repetitions of one word. Any future
+candidate remains subject to exact replay and Lean; no counterexample is
+claimed. See
 [`difference-map-programming-languages.md`](docs/notes/difference-map-programming-languages.md).
 
 ### 2026-07-28 EDT

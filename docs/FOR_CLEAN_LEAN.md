@@ -14818,3 +14818,36 @@ without positive durations and intermediate avoidance.
 If convenient, please formalize this generic implication without any concrete
 Collatz program instance. The search has found no such instance, and no
 counterexample is claimed. This seam is lower priority than auditing QM198.
+
+## QM200 — fixed-word arithmetic-ray obstruction
+
+The implemented difference-map probe found a small generic lemma that should
+be separated from its untrusted search. Let `L : ℕ` with `0 < L`, let `A,M :
+ℕ` with `Odd A` and `0 < M`, and suppose one fixed positive-time binary word
+acts affinely on a full arithmetic ray `k=a+M*t` and returns it to the same ray
+with natural parameter map `t -> u*t+v`. Comparing coefficients gives
+
+```text
+A * M = 2^L * M * u.
+```
+
+Cancellation of `M` implies `2^L ∣ A`, contradicting `Odd A`. A convenient
+Lean theorem is therefore
+
+```text
+theorem no_fixed_odd_word_ray
+    (L A M u : ℕ) (hL : 0 < L) (hA : Odd A) (hM : 0 < M)
+    (hcoeff : A * M = 2^L * M * u) : False
+```
+
+(Feel free to use a more library-friendly ordering/factorization.) In the
+power-chart atlas, each tail instruction has `k' = u_i*((k-d_i)/2)+v_i` with
+odd `u_i`, so a length-`L` fixed word has composite slope `A/2^L` with odd
+`A=prod u_i`; invariance of a full arithmetic ray supplies `hcoeff`.
+
+This lemma does **not** rule out a branching language whose productions split
+and regroup cylinders, and it does not prove Collatz. It only closes the
+fixed-word arithmetic-ray certificate shape. The exact finite audit is
+`experiments/cyclic_descent/difference_map_program_audit.json`; the Python
+verifier re-enumerates all 102,111 length-six cycles and replays the reported
+rules.

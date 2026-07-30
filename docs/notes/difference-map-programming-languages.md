@@ -177,16 +177,71 @@ rules. In the displayed 48-template, 947-rule grammar it finds:
 greatest closed subset: 48 -> 26 -> 2 -> 0.
 ```
 
-The root disappears in the second pruning round. This is a scoped exact
-diagnostic, not a no-go theorem. It reveals why the earlier Boolean closure
-was misleading for the counterexample objective: inverse component moves and
-zero-step reparametrizations filled the missing program slots.
+The root disappears in the second pruning round. This remains a scoped exact
+statement about the *cap-12 retained atlas*, not a no-go theorem. In
+particular, it is not stable under increasing the rule cap. Re-mining the same
+48 templates at symbolic depth 6 and cap 64 gives 3,389 retained rules. After
+the positive-time and semantically-vacuous-counter filters used by the new
+engine, 621 canonical edges remain, and greatest-fixed-point pruning is
 
-This is also a strong case for the difference map. We have abundant exact
-semantic fragments and abundant nearly closed graph structures, but their
-positive-time forward intersection is empty in the current library. The
-semantic projection must be allowed to invent missing rules; running the
-difference map only on the fixed 947 edges cannot succeed.
+```text
+48 -> 36 -> 24,
+```
+
+with the root still present. Thus the earlier empty closure was substantially
+a truncation artifact. The expanded closure is still not a counterexample:
+it includes terminating configurations (notably the ordinary root `k=0`) and
+its apparent reproductive counters can consume an ever longer finite binary
+tail. The real intersection problem is now reproduction **plus** an ordinary
+root, not missing forward semantics alone.
+
+## Implemented fixed-word probe
+
+`experiments/cyclic_descent/difference_map_programs.py` implements the
+four-copy product-space update on a deliberately restricted first grammar: a
+candidate is one composable cycle of exact positive-time macro-rules. The
+semantic projection selects exact edges; closure selects a directed cycle;
+reproduction selects a cycle with an expanding tail/counter proxy; and the
+ordinary projection selects cycles with low-amplitude exact finite cylinders.
+Every displayed candidate is independently replayed symbolically. Run and
+recheck the committed audit with
+
+```text
+python3 experiments/cyclic_descent/difference_map_programs.py search \
+  --pool-mode exhaustive --cycle-length 6 --cylinder-depth 32 \
+  --ordinary-pool-size 2000 --iterations 120 --restarts 8
+python3 experiments/cyclic_descent/difference_map_programs.py verify \
+  experiments/cyclic_descent/difference_map_program_audit.json
+```
+
+The exact length-six enumeration contains 102,111 based cycles. Of these,
+95,424 satisfy the structural reproductive proxy and 102,106 have a valid
+ordinary witness for 32 repetitions. The least witnesses are already 188--193
+binary digits long. There is no nontrivial exact periodic point and no exact
+invariant arithmetic ray. The full exact recount and all 20 emitted candidates
+pass the verifier.
+
+One of eight numerical restarts reaches residual `1.51e-18`. This is a useful
+calibration failure, not a near-counterexample: the finite-cylinder ordinary
+projection and the reproductive proxy genuinely intersect, but the exact
+infinite-ordinary postcondition rejects their consensus cycle. A small
+difference-map residual therefore cannot replace that postcondition.
+
+The computation also exposes a general fixed-word obstruction. If a word has
+`L>0` binary tail reads and all exact tail multipliers are odd, its composite
+tail slope is `A/2^L` with `A` odd. Preserving a full arithmetic ray would make
+the induced coefficient of its free parameter an integer, which would require
+`2^L | A`. Hence no fixed word in this atlas can reproduce an arithmetic ray.
+Its nested finite cylinders converge only to a 2-adic address unless the
+composite affine map has an actual nonnegative integral fixed point.
+
+This closes the fixed-word version and specifies the next high-leverage
+object: a **branching counter language** whose productions split, transform,
+and later regroup tail cylinders. The state of the program must change with
+the generated counter data; merely increasing cycle length cannot evade the
+odd-over-power-of-two obstruction. PSC work should therefore parallelize
+counter-language synthesis and exact replay, not grind longer repetitions of
+one word.
 
 ## First implementation
 
