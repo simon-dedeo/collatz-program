@@ -1,0 +1,1047 @@
+{
+  "artifact_sha256": "b534181a07c2efd11fb5117d5c20f6db77955509db9ab58cb343cb82eeefc4ae",
+  "audit": {
+    "branch_language": "m(h)=j+8*17^h; m(h+1)=17*m(h)-16*j",
+    "counter_language": "sigma(h)=0^16,(h+1)",
+    "counterexample": null,
+    "epoch_signature": "S=8*sum(m)+15*N; O=6*sum(m)+11*N; 3*S=4*O+N",
+    "jordan_prune": "N'=17*N; A'=17*A+16*N; S'=17*S+1024*N; O'=17*O+768*N",
+    "mutation_rejections": 280,
+    "ordinary_prune": "for an asserted root q0<2^B, reject as soon as the monotone canonical prefix residue is at least 2^B",
+    "rails": [
+      {
+        "j": 1,
+        "root_caps": [
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 1,
+            "rejected": true,
+            "residue_bit_length": 87,
+            "targets_checked": 1,
+            "written_bits": 87
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 2,
+            "rail": 1,
+            "rejected": true,
+            "residue_bit_length": 172,
+            "targets_checked": 2,
+            "written_bits": 174
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 3,
+            "rail": 1,
+            "rejected": true,
+            "residue_bit_length": 258,
+            "targets_checked": 3,
+            "written_bits": 261
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 6,
+            "rail": 1,
+            "rejected": true,
+            "residue_bit_length": 522,
+            "targets_checked": 6,
+            "written_bits": 522
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 12,
+            "rail": 1,
+            "rejected": true,
+            "residue_bit_length": 1044,
+            "targets_checked": 12,
+            "written_bits": 1044
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 17,
+            "rail": 1,
+            "rejected": true,
+            "residue_bit_length": 2497,
+            "targets_checked": 17,
+            "written_bits": 2503
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 34,
+            "rail": 1,
+            "rejected": true,
+            "residue_bit_length": 5005,
+            "targets_checked": 34,
+            "written_bits": 5006
+          }
+        ],
+        "signatures": [
+          {
+            "branch_sum": 9,
+            "depth": 0,
+            "dyadic_cost": 87,
+            "epochs": 1,
+            "place_sum": 1,
+            "triadic_cost": 65
+          },
+          {
+            "branch_sum": 281,
+            "depth": 1,
+            "dyadic_cost": 2503,
+            "epochs": 17,
+            "place_sum": 33,
+            "triadic_cost": 1873
+          },
+          {
+            "branch_sum": 6953,
+            "depth": 2,
+            "dyadic_cost": 59959,
+            "epochs": 289,
+            "place_sum": 833,
+            "triadic_cost": 44897
+          },
+          {
+            "branch_sum": 155193,
+            "depth": 3,
+            "dyadic_cost": 1315239,
+            "epochs": 4913,
+            "place_sum": 18785,
+            "triadic_cost": 985201
+          },
+          {
+            "branch_sum": 3267145,
+            "depth": 4,
+            "dyadic_cost": 27389975,
+            "epochs": 83521,
+            "place_sum": 397953,
+            "triadic_cost": 20521601
+          },
+          {
+            "branch_sum": 66232153,
+            "depth": 5,
+            "dyadic_cost": 551155079,
+            "epochs": 1419857,
+            "place_sum": 8101537,
+            "triadic_cost": 413011345
+          },
+          {
+            "branch_sum": 1307688297,
+            "depth": 6,
+            "dyadic_cost": 10823569911,
+            "epochs": 24137569,
+            "place_sum": 160443841,
+            "triadic_cost": 8111643041
+          }
+        ]
+      },
+      {
+        "j": 2,
+        "root_caps": [
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 2,
+            "rejected": true,
+            "residue_bit_length": 95,
+            "targets_checked": 1,
+            "written_bits": 95
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 2,
+            "rail": 2,
+            "rejected": true,
+            "residue_bit_length": 190,
+            "targets_checked": 2,
+            "written_bits": 190
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 3,
+            "rail": 2,
+            "rejected": true,
+            "residue_bit_length": 284,
+            "targets_checked": 3,
+            "written_bits": 285
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 6,
+            "rail": 2,
+            "rejected": true,
+            "residue_bit_length": 570,
+            "targets_checked": 6,
+            "written_bits": 570
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 11,
+            "rail": 2,
+            "rejected": true,
+            "residue_bit_length": 1044,
+            "targets_checked": 11,
+            "written_bits": 1045
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 17,
+            "rail": 2,
+            "rejected": true,
+            "residue_bit_length": 2638,
+            "targets_checked": 17,
+            "written_bits": 2639
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 33,
+            "rail": 2,
+            "rejected": true,
+            "residue_bit_length": 4159,
+            "targets_checked": 33,
+            "written_bits": 4159
+          }
+        ],
+        "signatures": [
+          {
+            "branch_sum": 10,
+            "depth": 0,
+            "dyadic_cost": 95,
+            "epochs": 1,
+            "place_sum": 1,
+            "triadic_cost": 71
+          },
+          {
+            "branch_sum": 298,
+            "depth": 1,
+            "dyadic_cost": 2639,
+            "epochs": 17,
+            "place_sum": 33,
+            "triadic_cost": 1975
+          },
+          {
+            "branch_sum": 7242,
+            "depth": 2,
+            "dyadic_cost": 62271,
+            "epochs": 289,
+            "place_sum": 833,
+            "triadic_cost": 46631
+          },
+          {
+            "branch_sum": 160106,
+            "depth": 3,
+            "dyadic_cost": 1354543,
+            "epochs": 4913,
+            "place_sum": 18785,
+            "triadic_cost": 1014679
+          },
+          {
+            "branch_sum": 3350666,
+            "depth": 4,
+            "dyadic_cost": 28058143,
+            "epochs": 83521,
+            "place_sum": 397953,
+            "triadic_cost": 21022727
+          },
+          {
+            "branch_sum": 67652010,
+            "depth": 5,
+            "dyadic_cost": 562513935,
+            "epochs": 1419857,
+            "place_sum": 8101537,
+            "triadic_cost": 421530487
+          },
+          {
+            "branch_sum": 1331825866,
+            "depth": 6,
+            "dyadic_cost": 11016670463,
+            "epochs": 24137569,
+            "place_sum": 160443841,
+            "triadic_cost": 8256468455
+          }
+        ]
+      },
+      {
+        "j": 3,
+        "root_caps": [
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 3,
+            "rejected": true,
+            "residue_bit_length": 103,
+            "targets_checked": 1,
+            "written_bits": 103
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 2,
+            "rail": 3,
+            "rejected": true,
+            "residue_bit_length": 206,
+            "targets_checked": 2,
+            "written_bits": 206
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 3,
+            "rail": 3,
+            "rejected": true,
+            "residue_bit_length": 306,
+            "targets_checked": 3,
+            "written_bits": 309
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 5,
+            "rail": 3,
+            "rejected": true,
+            "residue_bit_length": 515,
+            "targets_checked": 5,
+            "written_bits": 515
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 10,
+            "rail": 3,
+            "rejected": true,
+            "residue_bit_length": 1030,
+            "targets_checked": 10,
+            "written_bits": 1030
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 17,
+            "rail": 3,
+            "rejected": true,
+            "residue_bit_length": 2774,
+            "targets_checked": 17,
+            "written_bits": 2775
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 30,
+            "rail": 3,
+            "rejected": true,
+            "residue_bit_length": 4113,
+            "targets_checked": 30,
+            "written_bits": 4114
+          }
+        ],
+        "signatures": [
+          {
+            "branch_sum": 11,
+            "depth": 0,
+            "dyadic_cost": 103,
+            "epochs": 1,
+            "place_sum": 1,
+            "triadic_cost": 77
+          },
+          {
+            "branch_sum": 315,
+            "depth": 1,
+            "dyadic_cost": 2775,
+            "epochs": 17,
+            "place_sum": 33,
+            "triadic_cost": 2077
+          },
+          {
+            "branch_sum": 7531,
+            "depth": 2,
+            "dyadic_cost": 64583,
+            "epochs": 289,
+            "place_sum": 833,
+            "triadic_cost": 48365
+          },
+          {
+            "branch_sum": 165019,
+            "depth": 3,
+            "dyadic_cost": 1393847,
+            "epochs": 4913,
+            "place_sum": 18785,
+            "triadic_cost": 1044157
+          },
+          {
+            "branch_sum": 3434187,
+            "depth": 4,
+            "dyadic_cost": 28726311,
+            "epochs": 83521,
+            "place_sum": 397953,
+            "triadic_cost": 21523853
+          },
+          {
+            "branch_sum": 69071867,
+            "depth": 5,
+            "dyadic_cost": 573872791,
+            "epochs": 1419857,
+            "place_sum": 8101537,
+            "triadic_cost": 430049629
+          },
+          {
+            "branch_sum": 1355963435,
+            "depth": 6,
+            "dyadic_cost": 11209771015,
+            "epochs": 24137569,
+            "place_sum": 160443841,
+            "triadic_cost": 8401293869
+          }
+        ]
+      },
+      {
+        "j": 4,
+        "root_caps": [
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 4,
+            "rejected": true,
+            "residue_bit_length": 109,
+            "targets_checked": 1,
+            "written_bits": 111
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 2,
+            "rail": 4,
+            "rejected": true,
+            "residue_bit_length": 222,
+            "targets_checked": 2,
+            "written_bits": 222
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 3,
+            "rail": 4,
+            "rejected": true,
+            "residue_bit_length": 331,
+            "targets_checked": 3,
+            "written_bits": 333
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 5,
+            "rail": 4,
+            "rejected": true,
+            "residue_bit_length": 552,
+            "targets_checked": 5,
+            "written_bits": 555
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 10,
+            "rail": 4,
+            "rejected": true,
+            "residue_bit_length": 1110,
+            "targets_checked": 10,
+            "written_bits": 1110
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 17,
+            "rail": 4,
+            "rejected": true,
+            "residue_bit_length": 2910,
+            "targets_checked": 17,
+            "written_bits": 2911
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 28,
+            "rail": 4,
+            "rejected": true,
+            "residue_bit_length": 4129,
+            "targets_checked": 28,
+            "written_bits": 4132
+          }
+        ],
+        "signatures": [
+          {
+            "branch_sum": 12,
+            "depth": 0,
+            "dyadic_cost": 111,
+            "epochs": 1,
+            "place_sum": 1,
+            "triadic_cost": 83
+          },
+          {
+            "branch_sum": 332,
+            "depth": 1,
+            "dyadic_cost": 2911,
+            "epochs": 17,
+            "place_sum": 33,
+            "triadic_cost": 2179
+          },
+          {
+            "branch_sum": 7820,
+            "depth": 2,
+            "dyadic_cost": 66895,
+            "epochs": 289,
+            "place_sum": 833,
+            "triadic_cost": 50099
+          },
+          {
+            "branch_sum": 169932,
+            "depth": 3,
+            "dyadic_cost": 1433151,
+            "epochs": 4913,
+            "place_sum": 18785,
+            "triadic_cost": 1073635
+          },
+          {
+            "branch_sum": 3517708,
+            "depth": 4,
+            "dyadic_cost": 29394479,
+            "epochs": 83521,
+            "place_sum": 397953,
+            "triadic_cost": 22024979
+          },
+          {
+            "branch_sum": 70491724,
+            "depth": 5,
+            "dyadic_cost": 585231647,
+            "epochs": 1419857,
+            "place_sum": 8101537,
+            "triadic_cost": 438568771
+          },
+          {
+            "branch_sum": 1380101004,
+            "depth": 6,
+            "dyadic_cost": 11402871567,
+            "epochs": 24137569,
+            "place_sum": 160443841,
+            "triadic_cost": 8546119283
+          }
+        ]
+      },
+      {
+        "j": 5,
+        "root_caps": [
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 5,
+            "rejected": true,
+            "residue_bit_length": 117,
+            "targets_checked": 1,
+            "written_bits": 119
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 2,
+            "rail": 5,
+            "rejected": true,
+            "residue_bit_length": 238,
+            "targets_checked": 2,
+            "written_bits": 238
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 3,
+            "rail": 5,
+            "rejected": true,
+            "residue_bit_length": 357,
+            "targets_checked": 3,
+            "written_bits": 357
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 5,
+            "rail": 5,
+            "rejected": true,
+            "residue_bit_length": 594,
+            "targets_checked": 5,
+            "written_bits": 595
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 9,
+            "rail": 5,
+            "rejected": true,
+            "residue_bit_length": 1071,
+            "targets_checked": 9,
+            "written_bits": 1071
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 17,
+            "rail": 5,
+            "rejected": true,
+            "residue_bit_length": 3046,
+            "targets_checked": 17,
+            "written_bits": 3047
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 26,
+            "rail": 5,
+            "rejected": true,
+            "residue_bit_length": 4117,
+            "targets_checked": 26,
+            "written_bits": 4118
+          }
+        ],
+        "signatures": [
+          {
+            "branch_sum": 13,
+            "depth": 0,
+            "dyadic_cost": 119,
+            "epochs": 1,
+            "place_sum": 1,
+            "triadic_cost": 89
+          },
+          {
+            "branch_sum": 349,
+            "depth": 1,
+            "dyadic_cost": 3047,
+            "epochs": 17,
+            "place_sum": 33,
+            "triadic_cost": 2281
+          },
+          {
+            "branch_sum": 8109,
+            "depth": 2,
+            "dyadic_cost": 69207,
+            "epochs": 289,
+            "place_sum": 833,
+            "triadic_cost": 51833
+          },
+          {
+            "branch_sum": 174845,
+            "depth": 3,
+            "dyadic_cost": 1472455,
+            "epochs": 4913,
+            "place_sum": 18785,
+            "triadic_cost": 1103113
+          },
+          {
+            "branch_sum": 3601229,
+            "depth": 4,
+            "dyadic_cost": 30062647,
+            "epochs": 83521,
+            "place_sum": 397953,
+            "triadic_cost": 22526105
+          },
+          {
+            "branch_sum": 71911581,
+            "depth": 5,
+            "dyadic_cost": 596590503,
+            "epochs": 1419857,
+            "place_sum": 8101537,
+            "triadic_cost": 447087913
+          },
+          {
+            "branch_sum": 1404238573,
+            "depth": 6,
+            "dyadic_cost": 11595972119,
+            "epochs": 24137569,
+            "place_sum": 160443841,
+            "triadic_cost": 8690944697
+          }
+        ]
+      },
+      {
+        "j": 6,
+        "root_caps": [
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 6,
+            "rejected": true,
+            "residue_bit_length": 127,
+            "targets_checked": 1,
+            "written_bits": 127
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 2,
+            "rail": 6,
+            "rejected": true,
+            "residue_bit_length": 254,
+            "targets_checked": 2,
+            "written_bits": 254
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 3,
+            "rail": 6,
+            "rejected": true,
+            "residue_bit_length": 377,
+            "targets_checked": 3,
+            "written_bits": 381
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 5,
+            "rail": 6,
+            "rejected": true,
+            "residue_bit_length": 635,
+            "targets_checked": 5,
+            "written_bits": 635
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 9,
+            "rail": 6,
+            "rejected": true,
+            "residue_bit_length": 1143,
+            "targets_checked": 9,
+            "written_bits": 1143
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 17,
+            "rail": 6,
+            "rejected": true,
+            "residue_bit_length": 3181,
+            "targets_checked": 17,
+            "written_bits": 3183
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 25,
+            "rail": 6,
+            "rejected": true,
+            "residue_bit_length": 4199,
+            "targets_checked": 25,
+            "written_bits": 4199
+          }
+        ],
+        "signatures": [
+          {
+            "branch_sum": 14,
+            "depth": 0,
+            "dyadic_cost": 127,
+            "epochs": 1,
+            "place_sum": 1,
+            "triadic_cost": 95
+          },
+          {
+            "branch_sum": 366,
+            "depth": 1,
+            "dyadic_cost": 3183,
+            "epochs": 17,
+            "place_sum": 33,
+            "triadic_cost": 2383
+          },
+          {
+            "branch_sum": 8398,
+            "depth": 2,
+            "dyadic_cost": 71519,
+            "epochs": 289,
+            "place_sum": 833,
+            "triadic_cost": 53567
+          },
+          {
+            "branch_sum": 179758,
+            "depth": 3,
+            "dyadic_cost": 1511759,
+            "epochs": 4913,
+            "place_sum": 18785,
+            "triadic_cost": 1132591
+          },
+          {
+            "branch_sum": 3684750,
+            "depth": 4,
+            "dyadic_cost": 30730815,
+            "epochs": 83521,
+            "place_sum": 397953,
+            "triadic_cost": 23027231
+          },
+          {
+            "branch_sum": 73331438,
+            "depth": 5,
+            "dyadic_cost": 607949359,
+            "epochs": 1419857,
+            "place_sum": 8101537,
+            "triadic_cost": 455607055
+          },
+          {
+            "branch_sum": 1428376142,
+            "depth": 6,
+            "dyadic_cost": 11789072671,
+            "epochs": 24137569,
+            "place_sum": 160443841,
+            "triadic_cost": 8835770111
+          }
+        ]
+      },
+      {
+        "j": 7,
+        "root_caps": [
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 7,
+            "rejected": true,
+            "residue_bit_length": 135,
+            "targets_checked": 1,
+            "written_bits": 135
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 1,
+            "rail": 7,
+            "rejected": true,
+            "residue_bit_length": 135,
+            "targets_checked": 1,
+            "written_bits": 135
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 2,
+            "rail": 7,
+            "rejected": true,
+            "residue_bit_length": 269,
+            "targets_checked": 2,
+            "written_bits": 270
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 4,
+            "rail": 7,
+            "rejected": true,
+            "residue_bit_length": 540,
+            "targets_checked": 4,
+            "written_bits": 540
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 8,
+            "rail": 7,
+            "rejected": true,
+            "residue_bit_length": 1077,
+            "targets_checked": 8,
+            "written_bits": 1080
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 16,
+            "rail": 7,
+            "rejected": true,
+            "residue_bit_length": 2160,
+            "targets_checked": 16,
+            "written_bits": 2160
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 23,
+            "rail": 7,
+            "rejected": true,
+            "residue_bit_length": 4129,
+            "targets_checked": 23,
+            "written_bits": 4129
+          }
+        ],
+        "signatures": [
+          {
+            "branch_sum": 15,
+            "depth": 0,
+            "dyadic_cost": 135,
+            "epochs": 1,
+            "place_sum": 1,
+            "triadic_cost": 101
+          },
+          {
+            "branch_sum": 383,
+            "depth": 1,
+            "dyadic_cost": 3319,
+            "epochs": 17,
+            "place_sum": 33,
+            "triadic_cost": 2485
+          },
+          {
+            "branch_sum": 8687,
+            "depth": 2,
+            "dyadic_cost": 73831,
+            "epochs": 289,
+            "place_sum": 833,
+            "triadic_cost": 55301
+          },
+          {
+            "branch_sum": 184671,
+            "depth": 3,
+            "dyadic_cost": 1551063,
+            "epochs": 4913,
+            "place_sum": 18785,
+            "triadic_cost": 1162069
+          },
+          {
+            "branch_sum": 3768271,
+            "depth": 4,
+            "dyadic_cost": 31398983,
+            "epochs": 83521,
+            "place_sum": 397953,
+            "triadic_cost": 23528357
+          },
+          {
+            "branch_sum": 74751295,
+            "depth": 5,
+            "dyadic_cost": 619308215,
+            "epochs": 1419857,
+            "place_sum": 8101537,
+            "triadic_cost": 464126197
+          },
+          {
+            "branch_sum": 1452513711,
+            "depth": 6,
+            "dyadic_cost": 11982173223,
+            "epochs": 24137569,
+            "place_sum": 160443841,
+            "triadic_cost": 8980595525
+          }
+        ]
+      },
+      {
+        "j": 8,
+        "root_caps": [
+          {
+            "bit_cap": 64,
+            "decisive_depth": 1,
+            "rail": 8,
+            "rejected": true,
+            "residue_bit_length": 143,
+            "targets_checked": 1,
+            "written_bits": 143
+          },
+          {
+            "bit_cap": 128,
+            "decisive_depth": 1,
+            "rail": 8,
+            "rejected": true,
+            "residue_bit_length": 143,
+            "targets_checked": 1,
+            "written_bits": 143
+          },
+          {
+            "bit_cap": 256,
+            "decisive_depth": 2,
+            "rail": 8,
+            "rejected": true,
+            "residue_bit_length": 286,
+            "targets_checked": 2,
+            "written_bits": 286
+          },
+          {
+            "bit_cap": 512,
+            "decisive_depth": 4,
+            "rail": 8,
+            "rejected": true,
+            "residue_bit_length": 572,
+            "targets_checked": 4,
+            "written_bits": 572
+          },
+          {
+            "bit_cap": 1024,
+            "decisive_depth": 8,
+            "rail": 8,
+            "rejected": true,
+            "residue_bit_length": 1135,
+            "targets_checked": 8,
+            "written_bits": 1144
+          },
+          {
+            "bit_cap": 2048,
+            "decisive_depth": 15,
+            "rail": 8,
+            "rejected": true,
+            "residue_bit_length": 2144,
+            "targets_checked": 15,
+            "written_bits": 2145
+          },
+          {
+            "bit_cap": 4096,
+            "decisive_depth": 22,
+            "rail": 8,
+            "rejected": true,
+            "residue_bit_length": 4169,
+            "targets_checked": 22,
+            "written_bits": 4170
+          }
+        ],
+        "signatures": [
+          {
+            "branch_sum": 16,
+            "depth": 0,
+            "dyadic_cost": 143,
+            "epochs": 1,
+            "place_sum": 1,
+            "triadic_cost": 107
+          },
+          {
+            "branch_sum": 400,
+            "depth": 1,
+            "dyadic_cost": 3455,
+            "epochs": 17,
+            "place_sum": 33,
+            "triadic_cost": 2587
+          },
+          {
+            "branch_sum": 8976,
+            "depth": 2,
+            "dyadic_cost": 76143,
+            "epochs": 289,
+            "place_sum": 833,
+            "triadic_cost": 57035
+          },
+          {
+            "branch_sum": 189584,
+            "depth": 3,
+            "dyadic_cost": 1590367,
+            "epochs": 4913,
+            "place_sum": 18785,
+            "triadic_cost": 1191547
+          },
+          {
+            "branch_sum": 3851792,
+            "depth": 4,
+            "dyadic_cost": 32067151,
+            "epochs": 83521,
+            "place_sum": 397953,
+            "triadic_cost": 24029483
+          },
+          {
+            "branch_sum": 76171152,
+            "depth": 5,
+            "dyadic_cost": 630667071,
+            "epochs": 1419857,
+            "place_sum": 8101537,
+            "triadic_cost": 472645339
+          },
+          {
+            "branch_sum": 1476651280,
+            "depth": 6,
+            "dyadic_cost": 12175273775,
+            "epochs": 24137569,
+            "place_sum": 160443841,
+            "triadic_cost": 9125420939
+          }
+        ]
+      }
+    ],
+    "scope": "necessary exact front-end filters only; a surviving bounded root cap or exact block signature is not an infinite orbit",
+    "substitution_checks": [
+      {
+        "depth": 0,
+        "symbols": 1
+      },
+      {
+        "depth": 1,
+        "symbols": 17
+      },
+      {
+        "depth": 2,
+        "symbols": 289
+      },
+      {
+        "depth": 3,
+        "symbols": 4913
+      },
+      {
+        "depth": 4,
+        "symbols": 83521
+      }
+    ]
+  },
+  "schema": "collatz-autonomous-17-adic-targeted-prune-v1",
+  "worker_sha256": "e3f1e9ef180f4da7ef8836b255d05047a7e7795a4b5cbcdd4f8a71e25750a2b4"
+}

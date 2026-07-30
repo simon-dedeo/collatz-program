@@ -118,6 +118,36 @@ theorem branchSum_eq (j N : ℕ) :
       rw [publicBranchSum_succ, ih, schedule, placeSum_succ, Nat.mul_succ]
       ring
 
+/-! ## Exact cost signatures for the autonomous-counter search -/
+
+/-- Total dyadic precision written by the first `N` public reset epochs. -/
+def dyadicCost (j N : ℕ) : ℕ :=
+  8 * publicBranchSum (schedule j) N + 15 * N
+
+/-- Total ternary exponent accumulated by the first `N` public reset epochs. -/
+def triadicCost (j N : ℕ) : ℕ :=
+  6 * publicBranchSum (schedule j) N + 11 * N
+
+/-- Every candidate public block lies on this exact cost hyperplane.  It is a
+cheap necessary filter before literal macro replay. -/
+theorem three_dyadicCost_eq_four_triadicCost_add (j N : ℕ) :
+    3 * dyadicCost j N = 4 * triadicCost j N + N := by
+  simp only [dyadicCost, triadicCost]
+  ring
+
+/-- The 17-fold block update has the defective-Jordan correction `1024*N` in
+the dyadic coordinate. -/
+theorem dyadicCost_seventeen_mul (j N : ℕ) :
+    dyadicCost j (17 * N) = 17 * dyadicCost j N + 1024 * N := by
+  simp only [dyadicCost, branchSum_eq, placeSum_seventeen_mul]
+  ring
+
+/-- The matching ternary block correction is `768*N`. -/
+theorem triadicCost_seventeen_mul (j N : ℕ) :
+    triadicCost j (17 * N) = 17 * triadicCost j N + 768 * N := by
+  simp only [triadicCost, branchSum_eq, placeSum_seventeen_mul]
+  ring
+
 /-- The inclusive public products are the bivariate place-value
 coefficients from QM154c. -/
 theorem prefixProduct_eq (j N : ℕ) :

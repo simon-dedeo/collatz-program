@@ -212,6 +212,21 @@ prefix calculation. Any future candidate remains subject to exact replay and Lea
 counterexample is claimed. See
 [`difference-map-programming-languages.md`](docs/notes/difference-map-programming-languages.md).
 
+The synthesis front end is now sharply pruned. The base-17 odometer is no
+longer a numerical search variable: its forced substitution is
+`h -> 0^16(h+1)`, and only its arithmetic embedding is searched. Every
+`N`-epoch candidate block must obey `3*S=4*O+N`; a complete 17-fold block must
+obey `S'=17*S+1024*N` and `O'=17*O+768*N`. These exact rank-two signatures
+are checked before macro replay. A claimed `B`-bit ordinary root is also
+rejected as soon as the monotone canonical prefix residue reaches `2^B`, so
+the ordinary gate moves ahead of the expensive semantic projection. The
+Python prune oracle is
+[`odometer_targeted_prune.py`](experiments/cyclic_descent/odometer_targeted_prune.py),
+and the three cost identities are kernel-checked in
+`RankTwoRulerMahler.lean`. This reduces the PSC/local search to embeddings of
+the regular and carry generators; it does not prove existence or
+nonexistence.
+
 ### 2026-07-28 EDT
 
 The counterexample program has moved from finite search to a foundational
