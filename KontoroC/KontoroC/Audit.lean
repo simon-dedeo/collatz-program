@@ -3034,3 +3034,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.ComponentDescentAtlas.orbitWord_executes
 #print axioms
   KontoroC.ComponentDescentAtlas.exists_arithmeticDescentAtlas_iff_syracuseConjecture
+#print axioms KontoroC.ComponentCyclicTail.BinaryTailSystem.merge_one
+#print axioms
+  KontoroC.ComponentCyclicTail.BinaryTailSystem.syracuseConjecture_of_root
+#print axioms KontoroC.ComponentCyclicTail.RadixTailSystem.merge_one
+#print axioms
+  KontoroC.ComponentCyclicTail.RadixTailSystem.syracuseConjecture_of_root
+#print axioms KontoroC.ComponentCyclicTail.RankedTailSystem.merge_one
+#print axioms
+  KontoroC.ComponentCyclicTail.RankedTailSystem.syracuseConjecture_of_root

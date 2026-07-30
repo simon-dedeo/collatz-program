@@ -1,0 +1,28 @@
+{
+  "bounds": {
+    "base_limit": 12,
+    "max_split_power": 1,
+    "path_depth": 6,
+    "step_limit": 12,
+    "walk_base_limit": 72,
+    "walk_step_limit": 144
+  },
+  "claim_scope": "Exact only for the displayed bounded states, component walks, reparameterizations, edge cap, and affine-rank bounds. UNSAT or UNKNOWN is not a Collatz result.",
+  "format": "collatz-ranked-tail-search-audit-v1",
+  "result": "unsat",
+  "solver": {
+    "candidate_edges": 1440,
+    "edge_cap_per_branch": 5,
+    "max_reparam_u": 12,
+    "max_reparam_v": 12,
+    "prepass_live_states": 144,
+    "prepass_root_live": true,
+    "prepass_rounds": 0,
+    "rank_const_limit": 96,
+    "rank_weight_limit": 48,
+    "states": 144,
+    "timeout_ms": 60000,
+    "z3_status": "unsat"
+  },
+  "walk_cache_queries": 222
+}

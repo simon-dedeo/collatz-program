@@ -147,6 +147,24 @@ organize this local-to-global problem and prevent completion errors; it does
 not supply the missing arithmetic production rule. See
 [`component-descent-atlas.md`](docs/notes/component-descent-atlas.md).
 
+A cyclic-proof miner now attacks the missing arithmetic production rule
+directly. A state denotes an infinite affine family `a+b*k`; a rule reads
+finitely many low bits of `k`, transports the resulting subfamily through an
+exact forward/inverse Syracuse-component path, and recurses on a transformed
+tail. Lean proves two soundness theorems: literal tail deletion permits a
+cyclic state graph because the tail shrinks, while the general size-change
+system permits `t -> u*t+v` under any strictly decreasing natural rank. A
+valid finite root system at `1+k` would prove Syracuse. The Python miner
+checks paths and base orbits exactly and uses Z3 only to synthesize the graph
+and state-dependent affine rank. No root certificate was found: the default
+9,216-state concrete grammar collapses after seven greatest-fixed-point
+rounds, and a richer 144-state/1,440-edge affine-rank grammar is UNSAT within
+its displayed bounds. The deepest obligations escape toward growing
+coefficients, identifying the next target as Busy-Beaver-style parametric
+chart types with an unbounded exponent/valuation counter—not a larger finite
+box. See
+[`cyclic-descent-proof-miner.md`](docs/notes/cyclic-descent-proof-miner.md).
+
 ### 2026-07-28 EDT
 
 The counterexample program has moved from finite search to a foundational

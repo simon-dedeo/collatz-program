@@ -63,6 +63,7 @@ import KontoroC.CollatzComponentHolonomy
 import KontoroC.ComponentHolonomyBar
 import KontoroC.ComponentHolonomyCondensedBoundary
 import KontoroC.ComponentDescentAtlas
+import KontoroC.ComponentCyclicTail
 import KontoroC.ChargeBouncerDecoder
 import KontoroC.ChargeBouncerCongruence
 import KontoroC.ChargeBouncerPadic

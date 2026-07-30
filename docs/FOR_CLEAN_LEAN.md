@@ -14717,3 +14717,36 @@ The explicit charts `evenRay` and `fiveModSixRay` cover `2+2k` and `6k+5`
 with mates `1+k` and `4k+3`. No complete atlas or Collatz proof is claimed.
 The proposed condensed/sheaf target is epimorphic coverage on the discrete
 ordinary locus, not compactness of its profinite completion.
+
+## QM197 — cyclic tail and size-change certificate soundness
+
+Research-side module `KontoroC/KontoroC/ComponentCyclicTail.lean` provides
+three increasingly general proof systems for infinite affine families
+`base(i)+step(i)*k`:
+
+```text
+BinaryTailSystem
+RadixTailSystem
+RankedTailSystem
+```
+
+In the radix system, a state reads `k=q*t+d`, transports its source by an
+exact component collision to another state at parameter `t`, and recurses.
+In the ranked system the target parameter is arbitrary and a supplied
+natural rank must strictly decrease. The state graph may be cyclic.
+
+Please audit:
+
+```text
+BinaryTailSystem.merge_one
+BinaryTailSystem.syracuseConjecture_of_root
+RadixTailSystem.merge_one
+RadixTailSystem.syracuseConjecture_of_root
+RankedTailSystem.merge_one
+RankedTailSystem.syracuseConjecture_of_root
+```
+
+The root theorem assumes one state has `base=step=1`, so it parametrizes all
+positive naturals as `1+k`. The companion exact miner is
+`experiments/cyclic_descent/cyclic_descent.py`. It found no root certificate
+in the first bounded grammars; no Collatz proof is claimed.
