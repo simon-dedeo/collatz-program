@@ -391,6 +391,93 @@ theorem padicVal_source_coreDefect_of_doubled_adjacent_exit
   padicVal_source_coreDefect_of_coreSteps_odd_exit
     hg hz hsteps hexit (adjacentSource_odd hnext)
 
+/-- A core cell is not merely a recurrence on an auxiliary register.  After
+restoring the forced zero block, it is exactly the Hensel instruction which
+advances the same ordinary-source return balance by one cell. -/
+theorem henselStep_scaled_of_returnLengthCoreStep
+    {g z znext : ℕ} (hg : 0 < g)
+    (hstep : ReturnLengthCoreStep g z znext) :
+    HenselStep g z (2 ^ (P g - 77) * znext) := by
+  have hP := seventy_seven_le_P hg
+  have hsplit : P g = 77 + (P g - 77) := by omega
+  have hpow : 2 ^ P g = 2 ^ 77 * 2 ^ (P g - 77) := by
+    calc
+      2 ^ P g = 2 ^ (77 + (P g - 77)) := congrArg (2 ^ ·) hsplit
+      _ = 2 ^ 77 * 2 ^ (P g - 77) := pow_add 2 77 (P g - 77)
+  simp only [ReturnLengthCoreStep, CoreStep] at hstep
+  simp only [HenselStep]
+  calc
+    3 ^ Q g * z = 1 + 2 ^ P g * znext := hstep
+    _ = 1 + 2 ^ 77 * (2 ^ (P g - 77) * znext) := by
+      rw [hpow]
+      ring
+
+/-- Reattachment theorem for a finite core trace.  If the initial work
+register occurs as the forced-zero output of one return balance, all core
+cells advance the return length while keeping the ordinary source literally
+unchanged. -/
+theorem returnBalance_add_of_returnLengthCoreSteps
+    {k g F n z out : ℕ} (hg : 0 < g)
+    (hbase : ReturnBalance k g F (2 ^ (P g - 77) * z))
+    (hsteps : ReturnLengthCoreSteps g n z out) :
+    ReturnBalance (k + n) g F (2 ^ (P g - 77) * out) := by
+  induction hsteps generalizing k F with
+  | zero z => simpa using hbase
+  | @succ n z znext out hstep htail ih =>
+      have hcell := henselStep_scaled_of_returnLengthCoreStep hg hstep
+      have hnext :
+          ReturnBalance (k + 1) g F (2 ^ (P g - 77) * znext) :=
+        (returnBalance_succ_iff_hensel hg hbase).2
+          ⟨z, henselStep_odd hcell, rfl, hcell⟩
+      have hrest := ih (k := k + 1) (F := F) hnext
+      simpa [Nat.add_left_comm, Nat.add_comm, Nat.add_assoc] using hrest
+
+/-- Appending the terminal 77-bit exit to a reattached core trace gives the
+longer return balance whose output is the actual next ordinary payload. -/
+theorem returnBalance_exit_of_returnLengthCoreSteps
+    {k g F n z out y : ℕ} (hg : 0 < g)
+    (hbase : ReturnBalance k g F (2 ^ (P g - 77) * z))
+    (hsteps : ReturnLengthCoreSteps g n z out)
+    (hexit : HenselStep g out y) :
+    ReturnBalance (k + n + 1) g F y := by
+  have hlast := returnBalance_add_of_returnLengthCoreSteps hg hbase hsteps
+  exact (returnBalance_succ_iff_hensel hg hlast).2
+    ⟨out, henselStep_odd hexit, rfl, hexit⟩
+
+/-- Exact ternary entrance condition for using `z` as the internal work
+register without changing it by a retroactive Hensel lift. -/
+def EntranceCompatible (k g z : ℕ) : Prop :=
+  3 ^ R k g ∣
+    defect k g + 2 ^ (S k g + (P g - 77)) * z
+
+/-- Entrance compatibility is exactly the existence of an ordinary source
+whose length-`k` return has the required forced-zero output.  This is the
+ternary gate that an internal core trace cannot supply by itself. -/
+theorem entranceCompatible_iff_exists_returnBalance
+    {k g z : ℕ} :
+    EntranceCompatible k g z ↔
+      ∃ F : ℕ,
+        ReturnBalance k g F (2 ^ (P g - 77) * z) := by
+  simp only [EntranceCompatible, ReturnBalance]
+  constructor
+  · rintro ⟨F, hF⟩
+    refine ⟨F, ?_⟩
+    calc
+      3 ^ R k g * F =
+          defect k g + 2 ^ (S k g + (P g - 77)) * z := hF.symm
+      _ = defect k g +
+          2 ^ S k g * (2 ^ (P g - 77) * z) := by
+            rw [pow_add]
+            ring
+  · rintro ⟨F, hF⟩
+    refine ⟨F, ?_⟩
+    calc
+      defect k g + 2 ^ (S k g + (P g - 77)) * z =
+          defect k g + 2 ^ S k g * (2 ^ (P g - 77) * z) := by
+            rw [pow_add]
+            ring
+      _ = 3 ^ R k g * F := hF.symm
+
 /-- The exact source factorization is also sufficient.  Its odd cofactor
 executes all `n` complete cells and then becomes an odd terminal endpoint by
 one final 77-bit Hensel division. -/
@@ -504,6 +591,43 @@ theorem exists_selfDelimited_odd_exit_of_coreDefect_factor
             rw [hsum', pow_succ]
             ring
   exact ⟨out, y, hsteps, hexit, hyOdd, rfl, hclosed⟩
+
+/-- The fully reattached finite compiler.  The ternary entrance congruence
+and the dyadic defect factorization are independent rails: together they
+produce one positive ordinary source, the entire self-delimited core trace,
+and the final longer return balance without altering that source. -/
+theorem exists_reattached_selfDelimited_macro
+    {k g n z u : ℕ} (hg : 1 < g) (hz : 0 < z) (hu : Odd u)
+    (hentrance : EntranceCompatible k g z)
+    (hfactor :
+      coreDefect (3 ^ Q g) (2 ^ P g) z =
+        2 ^ (n * P g + 77) * u) :
+    ∃ F out y : ℕ,
+      0 < F ∧
+      ReturnBalance k g F (2 ^ (P g - 77) * z) ∧
+      ReturnLengthCoreSteps g n z out ∧
+      HenselStep g out y ∧ Odd y ∧
+      ReturnBalance (k + n + 1) g F y ∧
+      y = 2 ^ (P g - 77) * out + (3 ^ Q g) ^ n * u ∧
+      (3 ^ Q g - 2 ^ P g) * y =
+        (3 ^ Q g) ^ (n + 1) * u + 2 ^ (P g - 77) := by
+  obtain ⟨F, hbase⟩ :=
+    entranceCompatible_iff_exists_returnBalance.mp hentrance
+  obtain ⟨out, y, hsteps, hexit, hy, hyFormula, hclosed⟩ :=
+    exists_selfDelimited_odd_exit_of_coreDefect_factor hg hz hu hfactor
+  have hdefectPos : 0 < defect k g := by
+    apply Nat.add_pos_left
+    exact Nat.mul_pos (by positivity) (by dsimp [b0]; positivity)
+  have hFpos : 0 < F := by
+    by_contra hnot
+    have hFzero : F = 0 := Nat.eq_zero_of_not_pos hnot
+    simp only [ReturnBalance] at hbase
+    rw [hFzero, mul_zero] at hbase
+    omega
+  have hfinal :=
+    returnBalance_exit_of_returnLengthCoreSteps (by omega) hbase hsteps hexit
+  exact ⟨F, out, y, hFpos, hbase, hsteps, hexit, hy, hfinal,
+    hyFormula, hclosed⟩
 
 /-- Main self-delimiting-counter theorem: exactly `n` further high cells are
 available precisely when `n` does not exceed the intrinsic capacity. -/

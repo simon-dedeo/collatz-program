@@ -87,17 +87,47 @@ The machine can therefore grind through `n` complete `P(g)`-bit packets and
 use the final 77-bit packet as its exit instruction; no externally prescribed
 return-length sequence is needed.  This is a kernel-checked construction
 interface, not a counterexample.  The sufficient direction is also checked:
-writing the residual as `2^(nP+77)u` with `u` odd forces the complete macro
-and gives the closed odd-cofactor output law
+writing the internal residual as `2^(nP+77)u` with `u` odd forces the complete
+core and gives the closed boundary-output law
 
 ```text
 (3^Q-2^P)y=3^((n+1)Q)u+2^(P-77).
 ```
 
-The remaining gate is a genuine forward
-zero-lift law: the odd exit must already occupy the unique adjacent-source
-cylinder at opcode `2g`, without retroactively changing the finite root.  See
-[`long-return-self-delimiting.md`](docs/notes/long-return-self-delimiting.md).
+The previously separate algebraic reattachment gate is now closed.  An exact
+ternary entrance divisibility condition is equivalent to an ordinary source
+whose shorter output contains the internal register, and Lean inducts across
+every core cell to prove that the same unchanged source has the final longer
+return balance.  Moreover every isolated finite macro shape `(k,g,n)` exists:
+one dyadic unit congruence forces the exact odd cofactor and one independent
+ternary unit congruence installs the ordinary entrance.  Local congruence
+solvability is therefore not the obstruction.
+
+This correction also kills an overly optimistic scalar interpretation.  The
+odd exit `y` is the next ordinary boundary payload; it is not the next
+opcode's work register `z_next`.  The exact public state has two rails `(F,u)`.
+For a fixed macro its natural source family has stride
+
+```text
+2^[S+(n+1)P+1],
+```
+
+but its boundary-output family has stride
+
+```text
+2*3^[R+(n+1)Q],
+```
+
+with exactly one binary factor.  Lean proves that no complete next source
+stride divides this output stride.  Thus a whole one-parameter BB-style
+bouncer language cannot be forward-invariant; restricting it consumes a
+large block of its tail parameter.  Individual zero-lift hits remain possible,
+as do nonlinear or multi-parameter languages.  The high-leverage live target
+is now a difference-map programming set whose counter update replenishes the
+parameter consumed by the next dyadic cylinder.  Literal intermediate Collatz
+semantics still require a separate audit.  See
+[`long-return-self-delimiting.md`](docs/notes/long-return-self-delimiting.md)
+and [`long-return-two-rail.md`](docs/notes/long-return-two-rail.md).
 
 ### 2026-07-29 EDT
 

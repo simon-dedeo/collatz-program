@@ -15089,3 +15089,60 @@ eliminated cofactor law
 
 This formula should be the input coordinate for the next doubled-opcode
 source-residue analysis.
+
+## QM205 — reattached two-rail macro and bouncer-language wall (2026-07-30)
+
+Research-side commits after QM204 correct an important coordinate error and
+close several exact seams. The odd cofactor belongs to an internal work
+register `z`; the Hensel exit `y` is the next ordinary boundary payload and
+must not be identified with the next opcode's new work register.
+
+`LongReturnSelfDelimiting.lean` now defines
+
+```text
+EntranceCompatible(k,g,z) :=
+  3^R(k,g) | defect(k,g)+2^(S(k,g)+P(g)-77)z
+```
+
+and proves it equivalent to the existence of `F` with
+
+```text
+ReturnBalance k g F (2^(P(g)-77)z).
+```
+
+Theorems `returnBalance_add_of_returnLengthCoreSteps` and
+`returnBalance_exit_of_returnLengthCoreSteps` reattach every internal core
+cell and the terminal exit to that same unchanged `F`. The combined theorem
+`exists_reattached_selfDelimited_macro` compiles the entrance congruence plus
+the exact odd-cofactor factorization into the full finite algebraic macro.
+
+New module `LongReturnTwoRail.lean` packages
+
+```text
+TwoRailCode(k,g,n,F,u) := Odd u and exists z,
+  ReturnBalance k g F (2^(P-77)z),
+  (3^Q-2^P)z-1=2^(nP+77)u.
+```
+
+It checks the eliminated source equation, proves
+`exists_finite_twoRailCode` for every `(k,g,n)` by one dyadic and one ternary
+unit congruence, and defines the correct `DoubledTwoRailStep`. Its consumer
+proves the complete current return ends at the next code's ordinary source.
+
+The natural affine code tail is also exact:
+
+```text
+F -> F+2^(S+(n+1)P+1)t,
+u -> u+2(3^Q-2^P)3^R t,
+Y -> Y+2*3^(R+(n+1)Q)t.
+```
+
+Thus the output stride has exactly one binary factor, whereas every next code
+source stride has at least two. The kernel-checked theorem
+`next_sourceStride_not_dvd_boundaryOutputStride` rules out inclusion of a
+whole natural one-parameter bouncer family in one next family. It does not
+rule out individual zero-lift hits, nonlinear selectors, or multi-parameter
+languages. The live target is now a difference-map/programming-set shift rule
+whose counter-update matrix replenishes the parameter consumed by the next
+dyadic cylinder. Please independently audit these interfaces; literal
+intermediate Collatz semantics are still not claimed.

@@ -2989,6 +2989,20 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.LongReturnSelfDelimiting.exists_selfDelimited_odd_exit_of_coreDefect_factor
 #print axioms
+  KontoroC.LongReturnSelfDelimiting.returnBalance_exit_of_returnLengthCoreSteps
+#print axioms
+  KontoroC.LongReturnSelfDelimiting.entranceCompatible_iff_exists_returnBalance
+#print axioms
+  KontoroC.LongReturnSelfDelimiting.exists_reattached_selfDelimited_macro
+#print axioms KontoroC.LongReturnTwoRail.twoRail_source_balance
+#print axioms KontoroC.LongReturnTwoRail.twoRailCode_lift
+#print axioms KontoroC.LongReturnTwoRail.boundary_output_lift
+#print axioms
+  KontoroC.LongReturnTwoRail.next_sourceStride_not_dvd_boundaryOutputStride
+#print axioms KontoroC.LongReturnTwoRail.exists_finite_twoRailCode
+#print axioms
+  KontoroC.LongReturnTwoRail.doubledTwoRailStep_realizes_boundary_return
+#print axioms
   KontoroC.OutwardThreeWordReducedState.appended_word_executes_from_shifted_target
 #print axioms
   KontoroC.OutwardThreeWordReducedState.ReducedState.shiftedTarget_eq_boundary

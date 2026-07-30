@@ -88,7 +88,7 @@ next `AdjacentSource(k_next,2g,...)` condition. This is the precise bouncer
 semantics: consume `P(g)`-bit packets while possible, then use the terminal
 77-bit packet as the exit instruction.
 
-The converse is now checked too.  If the current source has the exact
+The converse is now checked too.  If the current internal register has the exact
 factorization
 
 ```text
@@ -104,27 +104,53 @@ odd-cofactor map
 ```
 
 Thus SD7 is not merely a prune: SD8 is an exact sufficient compiler for the
-self-delimited macro, and SD9 is its output formula.  The grammar search has
-collapsed to an explicit arithmetic dynamical system on `(g,n,u)`.
+internal self-delimited core, and SD9 is its boundary-output formula.  It is
+not a scalar dynamical system on `(g,n,u)`: `y` is the next ordinary boundary
+payload, while the next opcode has a new and generally different work
+register `z_next`.
 
 ## 3. What remains
 
-This is construction progress, not an orbit. The earlier diagonal splice
-proved that a retroactive dyadic lift can always manufacture the next source;
-the ordinary-root theorem proved that infinitely many such repairs yield only
-a 2-adic address. The remaining problem is now narrower:
+The internal/literal algebraic reattachment is now checked.  Define the exact
+ternary entrance gate
+
+```text
+3^R(k,g) | defect(k,g)+2^(S(k,g)+P(g)-77) z.       (SD10)
+```
+
+It is equivalent to the existence of an ordinary `F` with
+
+```text
+ReturnBalance(k,g,F,2^(P(g)-77)z).
+```
+
+Every core cell then advances this same unchanged source by one return length,
+and the terminal Hensel exit gives
+
+```text
+ReturnBalance(k+n+1,g,F,y).                        (SD11)
+```
+
+Thus SD8+SD10 compile the complete finite algebraic macro at one ordinary
+source.  This closes the previously missing reattachment of the internal
+trace to `ReturnBalance`; it does not yet audit literal Collatz states inside
+the long-return balance.
+
+The earlier diagonal splice proved that a retroactive dyadic lift can always
+manufacture the next source; the ordinary-root theorem proved that infinitely
+many such repairs yield only a 2-adic address. The remaining problem is:
 
 ```text
 find one positive ordinary state whose self-delimited odd exit y satisfies
 the adjacent-source cylinder at opcode 2g without changing the old source.
 ```
 
-Equivalently, SD9 must preserve two payload-computed conditions:
-the exact ruler valuation SD7 at the current opcode and the unique source
-residue at the doubled opcode. A proposed selector for `n` is now redundant
-and should be rejected; `n` is already decoded by SD4. The next fundamental
-attack is to express the doubled-opcode source residue in the terminal odd
-cofactor of SD7 and look for a stationary odd-cofactor recurrence. Small
-bounded survival by itself would not address the ordinary-root gate.
+The correct state has two rails `(F,u)`, coupled through `z`; it is developed
+in [`long-return-two-rail.md`](long-return-two-rail.md).  A proposed external
+selector for `n` is redundant because `n` is decoded by SD4, but varying the
+intrinsic `n` across states may still be essential.  A stationary scalar
+odd-cofactor recurrence is invalid because it identifies the boundary payload
+with the next work register.  Small bounded survival by itself would not
+address the ordinary-root gate.
 
 No Collatz theorem, divergent orbit, or counterexample is claimed.
