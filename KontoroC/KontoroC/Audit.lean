@@ -3043,3 +3043,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.ComponentCyclicTail.RankedTailSystem.merge_one
 #print axioms
   KontoroC.ComponentCyclicTail.RankedTailSystem.syracuseConjecture_of_root
+#print axioms KontoroC.ComponentCyclicTail.CounterRuleSystem.merge_one
+#print axioms
+  KontoroC.ComponentCyclicTail.CounterRuleSystem.syracuseConjecture_of_root
+#print axioms KontoroC.ComponentCyclicTail.iterate_pow_two_mul_sub_one
+#print axioms KontoroC.ComponentCyclicTail.pow_two_mul_sub_one_merge

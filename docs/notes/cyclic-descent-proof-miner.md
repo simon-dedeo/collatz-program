@@ -172,21 +172,102 @@ as a symbolic counter. The current ranked theorem already accepts an
 arbitrary target-parameter map and arbitrary natural rank, so this extension
 requires a new miner front end rather than a new soundness argument.
 
-## Next high-leverage move
+## Busy-Beaver power-word extension
 
-Replace concrete coefficient enumeration by CEGIS over a small grammar of
-parametric chart templates:
+The next front end is now implemented in
+`experiments/cyclic_descent/bb_power_rules.py`. It copies the useful proof
+architecture of the bbchallenge rule validator rather than its Turing-machine
+syntax:
 
 ```text
-a(r)=alpha*2^r+beta,
-b(r)=gamma*2^r,
+configuration       A(r)+B(r)*k
+exact simulation    E, O, I0, I1
+chain rules          2^r X -> X
+                     2^r X-1 -> 3^r X-1
+rule application     target(r+delta,u*t+v)
+induction check      one global size-change rank in (r,k)
 ```
 
-and the analogous `3^r`/mixed forms suggested by odd pullback. Candidate
-templates should be learned from the deepest eliminated obligations. Each
-proposed symbolic edge is then proved coefficientwise, and Z3 handles only
-the linear size-change constraints. A successful certificate can be
-translated directly into a `RankedTailSystem` instance in Lean.
+Here `A` and `B` are finite rational linear combinations of `base^r`. This
+class is closed under primitive component operations, counter shifts, and both
+chain rules; second-level rules may therefore contain `6^r`, `9^r`, and other
+product bases without changing the validator.
+
+Operation guards are not checked on a finite sample. If `D` clears the
+coefficients' denominators, the checker follows the finite deterministic state
+
+```text
+(base_1^r,...,base_s^r) mod mD
+```
+
+through its complete preperiod and period. This decides parity, divisibility
+by three, and integrality exactly even for non-coprime bases. Candidate rules
+are then replayed from JSON by a separate verification command.
+
+The template learner used the final two pruning layers of the `96 x 96`
+concrete audit. Of the 366 frontier states, 224 have a nontrivial common
+dyadic scale, 43 have a nontrivial uniform odd-run factor in `gcd(a+1,b)`, and
+only 22 have a common ternary scale. This validates the BB diagnosis: dyadic
+run length is the dominant compressed coordinate, while the odd chain is the
+essential conversion from dyadic to ternary scale.
+
+The calibrated symbolic audit contains:
+
+```text
+48 learned/derived chart templates
+2,110 exact symbolic states explored
+947 retained universal macro-rules
+243 rules using an unbounded chain
+302 residue-automaton states in the independent replay
+```
+
+Every rule is valid for all exponents and tails in its displayed guard. This
+is substantially more information than another larger concrete box, but it is
+not a termination certificate. Restricting to the 24 chart types whose
+zero-tail family is already certified leaves 576 candidate rules. The Boolean
+closure prepass retains all 24, including the root, but Z3 returns `unsat` for
+both a global rank
+
+```text
+R_i(r,k)=e_i*r+w_i*k+c_i,
+0 <= e_i,w_i <= 64,  0 <= c_i <= 128.
+```
+
+and a lexicographic pair of ranks of the same bounded form. The second query
+is the first BB-style nested-induction test; it rules out neither larger
+coefficients nor deeper/multiset orders.
+
+Thus the new atlas separates two obstructions which the concrete miner mixed
+together:
+
+1. exact symbolic transport is abundant and finite;
+2. the transport that uses the crucial odd-chain conversion naturally enters
+   charts `a*3^r-1+b*3^r*k` whose zero-tail arithmetic is not yet uniformly
+   discharged, while the presently certified charts admit neither a bounded
+   affine two-counter rank nor a bounded two-phase lexicographic rank in this
+   grammar.
+
+The second point is the new high-leverage target. It is not “search a larger
+box”; it is first to find reusable base rules for the dyadic-minus/ternary-
+minus charts. If that fails, the next order class is a genuine recursive or
+multiset BB rule level, not merely a second affine lexicographic phase. Those
+experiments directly test whether the power-word lane is a construction site
+or a termination-order wall.
+
+## Lean soundness extension
+
+`CounterRuleSystem` now makes `(chart, exponent, tail)` a first-class
+configuration. A terminal rule may discharge any configuration; a recursive
+rule may change both counters arbitrarily; the only trusted global premise is
+strict decrease of a natural rank. Lean proves that a root chart equal to
+`1+k` at exponent zero implies Syracuse termination. Lean also checks the
+all-odd stride identity
+
+```text
+T^[r](2^r*x-1)=3^r*x-1  (x>0),
+```
+
+and its component-merge form. No Collatz proof is claimed.
 
 ## Artifacts
 
@@ -196,6 +277,8 @@ experiments/cyclic_descent/cyclic_descent.py
 experiments/cyclic_descent/search_audit.json
 experiments/cyclic_descent/z3_search_audit.json
 experiments/cyclic_descent/ranked_search_audit.json
+experiments/cyclic_descent/bb_power_rules.py
+experiments/cyclic_descent/bb_power_rule_audit.json
 ```
 
 No Syracuse certificate or proof of Collatz is claimed.

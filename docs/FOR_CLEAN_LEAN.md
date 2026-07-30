@@ -14750,3 +14750,41 @@ The root theorem assumes one state has `base=step=1`, so it parametrizes all
 positive naturals as `1+k`. The companion exact miner is
 `experiments/cyclic_descent/cyclic_descent.py`. It found no root certificate
 in the first bounded grammars; no Collatz proof is claimed.
+
+## QM198 — Busy-Beaver counter rules and Collatz stride
+
+The research-side module `KontoroC/KontoroC/ComponentCyclicTail.lean` now also
+provides `CounterRuleSystem`. Its configurations are
+
+```text
+(chart, exponent, tail)
+```
+
+with an arbitrary natural value and rank. A configuration is either terminal,
+with a supplied merge to `1`, or rewrites to another configuration in the
+same component with strictly smaller rank. Neither exponent nor tail must
+decrease separately. Please audit:
+
+```text
+CounterRuleSystem.merge_one
+CounterRuleSystem.syracuseConjecture_of_root
+```
+
+The root theorem assumes only `value root 0 k = 1+k`.
+
+The same module checks the Busy-Beaver-style all-odd chain rule
+
+```text
+syracuseStep^[r] (2^r*x-1) = 3^r*x-1       (0<x)
+```
+
+and its `Merge` wrapper:
+
+```text
+iterate_pow_two_mul_sub_one
+pow_two_mul_sub_one_merge
+```
+
+The untrusted symbolic miner/validator is
+`experiments/cyclic_descent/bb_power_rules.py`; its exact JSON replay has not
+found a decreasing root rule table. No Collatz proof is claimed.

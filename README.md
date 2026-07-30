@@ -165,6 +165,22 @@ chart types with an unbounded exponent/valuation counter—not a larger finite
 box. See
 [`cyclic-descent-proof-miner.md`](docs/notes/cyclic-descent-proof-miner.md).
 
+The Busy-Beaver extension now replaces concrete coefficients by symbolic
+power charts `A(r)+B(r)k` and adds the exact chain rules
+`2^r X -> X` and `2^r X-1 -> 3^r X-1`. Guards are proved by complete
+eventual-period automata, not samples, and Lean checks both the all-odd stride
+and the soundness of arbitrary two-counter rule tables under a decreasing
+rank. The audited atlas independently replays 947 universal macro-rules (243
+with an unbounded chain). It still does **not** prove termination: among 24
+charts with certified zero-tail bases, all survive Boolean closure but 576
+candidate transitions admit neither an affine two-counter rank nor a two-phase
+lexicographic rank within the displayed bounds. The decisive gap is now
+sharper: the useful dyadic-to-ternary chain enters `a*3^r-1` base families
+that need their own recursive rules, or else the induction order must become
+genuinely recursive/multiset as in higher-level BB validators. This is a
+symbolic arithmetic wall, not a reason to enlarge the concrete box. See
+[`cyclic-descent-proof-miner.md`](docs/notes/cyclic-descent-proof-miner.md).
+
 ### 2026-07-28 EDT
 
 The counterexample program has moved from finite search to a foundational

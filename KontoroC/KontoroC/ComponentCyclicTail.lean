@@ -244,5 +244,111 @@ theorem syracuseConjecture_of_root (sys : RankedTailSystem ι) (root : ι)
 
 end RankedTailSystem
 
+/-! ## Busy-Beaver-style counter rules
+
+The preceding systems force the zero tail of every chart to be discharged
+directly.  A power-word rule table needs one more degree of freedom: its
+``base case'' may itself rewrite an exponent counter.  The following semantic
+interface makes configurations `(chart, exponent, tail)` first-class.  A
+certificate checker is free to dispatch on residues of both counters, reuse
+stratified macro rules, and reset or increase one counter, provided one global
+natural rank decreases.
+
+This is deliberately independent of the syntax used by a miner.  Lean only
+trusts the terminal merges, transition merges, and rank inequalities emitted
+by the eventual checker.
+-/
+
+/-- A two-counter cyclic proof system.  This is the direct Collatz analogue
+of the BB validator's configurations with symbolic run lengths and an
+`InductiveStep` checked at a smaller measure. -/
+structure CounterRuleSystem (ι : Type) where
+  value : ι → ℕ → ℕ → ℕ
+  terminal : ι → ℕ → ℕ → Prop
+  nextState : ι → ℕ → ℕ → ι
+  nextExponent : ι → ℕ → ℕ → ℕ
+  nextTail : ι → ℕ → ℕ → ℕ
+  rank : ι → ℕ → ℕ → ℕ
+  value_pos : ∀ i exponent tail, 0 < value i exponent tail
+  terminal_merge_one : ∀ i exponent tail,
+    terminal i exponent tail → Merge (value i exponent tail) 1
+  transition_merge : ∀ i exponent tail,
+    ¬ terminal i exponent tail →
+      Merge (value i exponent tail)
+        (value (nextState i exponent tail)
+          (nextExponent i exponent tail) (nextTail i exponent tail))
+  rank_decrease : ∀ i exponent tail,
+    ¬ terminal i exponent tail →
+      rank (nextState i exponent tail)
+          (nextExponent i exponent tail) (nextTail i exponent tail) <
+        rank i exponent tail
+
+namespace CounterRuleSystem
+
+/-- Soundness of an arbitrary rule table on power charts.  In particular,
+neither the exponent counter nor the tail counter must decrease separately;
+only the certificate's global size-change rank does. -/
+theorem merge_one (sys : CounterRuleSystem ι) :
+    ∀ i exponent tail, Merge (sys.value i exponent tail) 1 := by
+  intro i exponent tail
+  induction hrank : sys.rank i exponent tail using Nat.strong_induction_on
+      generalizing i exponent tail with
+  | h rank ih =>
+      by_cases hterminal : sys.terminal i exponent tail
+      · exact sys.terminal_merge_one i exponent tail hterminal
+      · have hnext := sys.transition_merge i exponent tail hterminal
+        have hrankLt := sys.rank_decrease i exponent tail hterminal
+        exact merge_trans hnext
+          (ih _ (hrank.symm ▸ hrankLt) _ _ _ rfl)
+
+/-- A rule table whose distinguished chart at exponent zero is `1+tail`
+proves Syracuse termination. -/
+theorem syracuseConjecture_of_root (sys : CounterRuleSystem ι) (root : ι)
+    (hroot : ∀ k, sys.value root 0 k = 1 + k) : SyracuseConjecture := by
+  intro n hn
+  let k := n - 1
+  have hvalue : sys.value root 0 k = n := by
+    rw [hroot]
+    omega
+  exact syracuseReachesOne_of_merge_one
+    (hvalue ▸ sys.merge_one root 0 k)
+
+end CounterRuleSystem
+
+/-! ## Exact stride rules
+
+These are the two elementary acceleration rules suggested by BB run-length
+validation.  They compress a number of primitive Syracuse steps equal to a
+symbolic exponent. -/
+
+/-- An all-odd run turns a dyadic block into a ternary block:
+`T^[r] (2^r*x-1) = 3^r*x-1`. -/
+theorem iterate_pow_two_mul_sub_one (r x : ℕ) (hx : 0 < x) :
+    syracuseStep^[r] (2 ^ r * x - 1) = 3 ^ r * x - 1 := by
+  induction r generalizing x with
+  | zero => simp
+  | succ r ih =>
+      rw [Function.iterate_succ_apply]
+      have hpow : 0 < 2 ^ r * x := Nat.mul_pos (by positivity) hx
+      have hsource : 2 ^ (r + 1) * x - 1 = 2 * (2 ^ r * x - 1) + 1 := by
+        have hmul : 2 ^ (r + 1) * x = 2 * (2 ^ r * x) := by
+          rw [pow_succ]
+          ring
+        rw [hmul]
+        omega
+      rw [hsource, syracuseStep_two_mul_add_one]
+      have hfirst : 3 * (2 ^ r * x - 1) + 2 = 2 ^ r * (3 * x) - 1 := by
+        have hmul : 2 ^ r * (3 * x) = 3 * (2 ^ r * x) := by ring
+        rw [hmul]
+        omega
+      rw [hfirst, ih (3 * x) (by positivity)]
+      congr 1
+      rw [pow_succ]
+      ring
+
+theorem pow_two_mul_sub_one_merge (r x : ℕ) (hx : 0 < x) :
+    Merge (2 ^ r * x - 1) (3 ^ r * x - 1) := by
+  exact ⟨r, 0, by simpa using iterate_pow_two_mul_sub_one r x hx⟩
+
 end ComponentCyclicTail
 end KontoroC
