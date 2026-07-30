@@ -2987,6 +2987,8 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.LongReturnSelfDelimiting.padicVal_source_coreDefect_of_doubled_adjacent_exit
 #print axioms
+  KontoroC.LongReturnSelfDelimiting.exists_selfDelimited_odd_exit_of_coreDefect_factor
+#print axioms
   KontoroC.OutwardThreeWordReducedState.appended_word_executes_from_shifted_target
 #print axioms
   KontoroC.OutwardThreeWordReducedState.ReducedState.shiftedTarget_eq_boundary

@@ -88,6 +88,25 @@ next `AdjacentSource(k_next,2g,...)` condition. This is the precise bouncer
 semantics: consume `P(g)`-bit packets while possible, then use the terminal
 77-bit packet as the exit instruction.
 
+The converse is now checked too.  If the current source has the exact
+factorization
+
+```text
+w(z_0)=2^(n P(g)+77) u,     u odd,                 (SD8)
+```
+
+then all `n` core cells exist and the final 77-bit division produces an odd
+endpoint.  Eliminating the terminal work register gives the closed
+odd-cofactor map
+
+```text
+(3^Q-2^P)y = 3^((n+1)Q)u + 2^(P-77).              (SD9)
+```
+
+Thus SD7 is not merely a prune: SD8 is an exact sufficient compiler for the
+self-delimited macro, and SD9 is its output formula.  The grammar search has
+collapsed to an explicit arithmetic dynamical system on `(g,n,u)`.
+
 ## 3. What remains
 
 This is construction progress, not an orbit. The earlier diagonal splice
@@ -100,7 +119,7 @@ find one positive ordinary state whose self-delimited odd exit y satisfies
 the adjacent-source cylinder at opcode 2g without changing the old source.
 ```
 
-Equivalently, the exit map must preserve two payload-computed conditions:
+Equivalently, SD9 must preserve two payload-computed conditions:
 the exact ruler valuation SD7 at the current opcode and the unique source
 residue at the doubled opcode. A proposed selector for `n` is now redundant
 and should be rejected; `n` is already decoded by SD4. The next fundamental

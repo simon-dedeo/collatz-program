@@ -15072,3 +15072,20 @@ already supports an adjacent pair at opcode `2g`. Please independently audit
 or mirror this interface. The next formal target will be a recurrence for the
 terminal odd cofactor versus `sourceResidue(k,2g)`; no such zero-lift closure
 is claimed yet, and there is still no counterexample.
+
+The same module now proves the sufficient direction as
+`exists_selfDelimited_odd_exit_of_coreDefect_factor`.  From
+
+```text
+w(z)=2^(n*P(g)+77)*u,   Odd u,
+```
+
+it constructs the complete `n`-cell trace and an odd exit `y`, and checks the
+eliminated cofactor law
+
+```text
+(3^Q(g)-2^P(g))*y = 3^((n+1)*Q(g))*u + 2^(P(g)-77).
+```
+
+This formula should be the input coordinate for the next doubled-opcode
+source-residue analysis.

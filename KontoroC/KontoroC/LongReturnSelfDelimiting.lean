@@ -391,6 +391,120 @@ theorem padicVal_source_coreDefect_of_doubled_adjacent_exit
   padicVal_source_coreDefect_of_coreSteps_odd_exit
     hg hz hsteps hexit (adjacentSource_odd hnext)
 
+/-- The exact source factorization is also sufficient.  Its odd cofactor
+executes all `n` complete cells and then becomes an odd terminal endpoint by
+one final 77-bit Hensel division. -/
+theorem exists_selfDelimited_odd_exit_of_coreDefect_factor
+    {g n z u : ℕ} (hg : 1 < g) (hz : 0 < z) (hu : Odd u)
+    (hfactor :
+      coreDefect (3 ^ Q g) (2 ^ P g) z =
+        2 ^ (n * P g + 77) * u) :
+    ∃ out y : ℕ,
+      ReturnLengthCoreSteps g n z out ∧
+      HenselStep g out y ∧ Odd y ∧
+      y = 2 ^ (P g - 77) * out + (3 ^ Q g) ^ n * u ∧
+      (3 ^ Q g - 2 ^ P g) * y =
+        (3 ^ Q g) ^ (n + 1) * u + 2 ^ (P g - 77) := by
+  have hpowB : (2 ^ P g) ^ n = 2 ^ (n * P g) := by
+    rw [mul_comm, pow_mul]
+  have hdvd : (2 ^ P g) ^ n ∣
+      coreDefect (3 ^ Q g) (2 ^ P g) z := by
+    rw [hfactor, hpowB, pow_add]
+    refine ⟨2 ^ 77 * u, ?_⟩
+    ring
+  obtain ⟨out, hsteps⟩ :=
+    (exists_coreSteps_iff_pow_dvd_coreDefect
+      (A := 3 ^ Q g) (B := 2 ^ P g)
+      (by positivity) (return_core_gap g)
+      (Nat.Coprime.pow (Q g) (P g) (by norm_num)) hz).2 hdvd
+  have hout : 0 < out := coreSteps_out_pos
+    (by positivity) (one_lt_pow₀ (by norm_num) (by simp [Q])) hz hsteps
+  have hbalance := coreSteps_defect_balance
+    (A := 3 ^ Q g) (B := 2 ^ P g)
+    (by positivity) (return_core_gap g) hz hsteps
+  have houtFactor :
+      coreDefect (3 ^ Q g) (2 ^ P g) out =
+        2 ^ 77 * ((3 ^ Q g) ^ n * u) := by
+    rw [hfactor, hpowB, pow_add] at hbalance
+    have hcancel :
+        2 ^ (n * P g) * coreDefect (3 ^ Q g) (2 ^ P g) out =
+          2 ^ (n * P g) * (2 ^ 77 * ((3 ^ Q g) ^ n * u)) := by
+      calc
+        2 ^ (n * P g) * coreDefect (3 ^ Q g) (2 ^ P g) out =
+            (3 ^ Q g) ^ n *
+              (2 ^ (n * P g) * (2 ^ 77 * u)) := by
+                simpa only [mul_assoc] using hbalance
+        _ = 2 ^ (n * P g) * (2 ^ 77 * ((3 ^ Q g) ^ n * u)) := by
+          ring
+    exact Nat.eq_of_mul_eq_mul_left (by positivity) hcancel
+  let y := 2 ^ (P g - 77) * out + (3 ^ Q g) ^ n * u
+  have hP : 77 < P g := by simp [P]; omega
+  have hPsplit : P g = 77 + (P g - 77) := by omega
+  have hsum : 2 ^ P g + (3 ^ Q g - 2 ^ P g) = 3 ^ Q g := by
+    have hlt : 2 ^ P g < 3 ^ Q g :=
+      (Nat.pow_lt_pow_right (by norm_num) (by omega)).trans
+        (double_two_pow_P_lt_three_pow_Q g)
+    exact Nat.add_sub_of_le hlt.le
+  have houtDecomp := coreDefect_decomp (return_core_gap g) hout
+  have hexit : HenselStep g out y := by
+    simp only [HenselStep]
+    have hAout :
+        3 ^ Q g * out =
+          2 ^ P g * out + (3 ^ Q g - 2 ^ P g) * out := by
+      calc
+        3 ^ Q g * out =
+            (2 ^ P g + (3 ^ Q g - 2 ^ P g)) * out := by rw [hsum]
+        _ = 2 ^ P g * out + (3 ^ Q g - 2 ^ P g) * out := by ring
+    rw [hAout, houtDecomp, houtFactor]
+    dsimp [y]
+    have hpPow : 2 ^ P g = 2 ^ 77 * 2 ^ (P g - 77) := by
+      rw [← pow_add, Nat.add_sub_of_le hP.le]
+    rw [hpPow]
+    ring
+  have hfirstEven : Even (2 ^ (P g - 77) * out) := by
+    rw [even_iff_two_dvd]
+    exact (pow_dvd_pow 2 (by omega : 1 ≤ P g - 77)).trans
+      (dvd_mul_right _ _)
+  have hsecondOdd : Odd ((3 ^ Q g) ^ n * u) := by
+    exact (Odd.pow (n := n) (Odd.pow (n := Q g) (by norm_num))).mul hu
+  have hyOdd : Odd y := by
+    dsimp [y]
+    exact hfirstEven.add_odd hsecondOdd
+  have hclosed :
+      (3 ^ Q g - 2 ^ P g) * y =
+        (3 ^ Q g) ^ (n + 1) * u + 2 ^ (P g - 77) := by
+    have houtEq :
+        (3 ^ Q g - 2 ^ P g) * out =
+          1 + 2 ^ 77 * ((3 ^ Q g) ^ n * u) := by
+      calc
+        (3 ^ Q g - 2 ^ P g) * out =
+            1 + coreDefect (3 ^ Q g) (2 ^ P g) out :=
+              (coreDefect_decomp (return_core_gap g) hout)
+        _ = 1 + 2 ^ 77 * ((3 ^ Q g) ^ n * u) := by rw [houtFactor]
+    dsimp [y]
+    have hpPow : 2 ^ P g = 2 ^ (P g - 77) * 2 ^ 77 := by
+      rw [← pow_add, Nat.sub_add_cancel hP.le]
+    have hsum' : (3 ^ Q g - 2 ^ P g) + 2 ^ P g = 3 ^ Q g := by
+      exact Nat.sub_add_cancel
+        ((Nat.pow_lt_pow_right (by norm_num) (by omega)).trans
+          (double_two_pow_P_lt_three_pow_Q g)).le
+    calc
+      (3 ^ Q g - 2 ^ P g) *
+          (2 ^ (P g - 77) * out + (3 ^ Q g) ^ n * u) =
+        2 ^ (P g - 77) * ((3 ^ Q g - 2 ^ P g) * out) +
+          (3 ^ Q g - 2 ^ P g) * ((3 ^ Q g) ^ n * u) := by ring
+      _ = 2 ^ (P g - 77) *
+          (1 + 2 ^ 77 * ((3 ^ Q g) ^ n * u)) +
+          (3 ^ Q g - 2 ^ P g) * ((3 ^ Q g) ^ n * u) := by rw [houtEq]
+      _ = ((3 ^ Q g - 2 ^ P g) + 2 ^ P g) *
+          ((3 ^ Q g) ^ n * u) + 2 ^ (P g - 77) := by
+            rw [hpPow]
+            ring
+      _ = (3 ^ Q g) ^ (n + 1) * u + 2 ^ (P g - 77) := by
+            rw [hsum', pow_succ]
+            ring
+  exact ⟨out, y, hsteps, hexit, hyOdd, rfl, hclosed⟩
+
 /-- Main self-delimiting-counter theorem: exactly `n` further high cells are
 available precisely when `n` does not exceed the intrinsic capacity. -/
 theorem exists_returnLengthCoreSteps_iff_le_capacity

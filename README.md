@@ -86,7 +86,15 @@ v2(w(z))=n*P(g)+77.
 The machine can therefore grind through `n` complete `P(g)`-bit packets and
 use the final 77-bit packet as its exit instruction; no externally prescribed
 return-length sequence is needed.  This is a kernel-checked construction
-interface, not a counterexample.  The remaining gate is a genuine forward
+interface, not a counterexample.  The sufficient direction is also checked:
+writing the residual as `2^(nP+77)u` with `u` odd forces the complete macro
+and gives the closed odd-cofactor output law
+
+```text
+(3^Q-2^P)y=3^((n+1)Q)u+2^(P-77).
+```
+
+The remaining gate is a genuine forward
 zero-lift law: the odd exit must already occupy the unique adjacent-source
 cylinder at opcode `2g`, without retroactively changing the finite root.  See
 [`long-return-self-delimiting.md`](docs/notes/long-return-self-delimiting.md).
