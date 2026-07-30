@@ -242,7 +242,9 @@ ultrametric inequality therefore has unequal sides and gives equality.
 
 `RankTwoRulerMahler.lean::one_sub_mul_P17` and
 `valueAt_pade_remainder` kernel-check the finite-factor and convergent-series
-identities.
+identities.  The all-level arithmetic comparison is now also kernel-checked
+as `rationalHeightExponent_surplus`; its proof uses the charge hyperplane and
+geometric-history bound below rather than a long closed formula.
 
 ## 8. Elementary irrationality proof
 
@@ -298,16 +300,23 @@ G_k = f_k + 16 S_k.                                  (H)
 ```
 
 Because the denominator is odd, (P) says `2^(17e_k)` divides this numerator.
-The exact exponent simplification is
+The clean all-level comparison needs no closed summation.  The charge
+hyperplane and the 17-fold growth recurrence give
 
 ```text
-17 e_k = 2 G_k + D_k,
-
-17 D_k = 1904*j*17^k + 14336*k*17^k + 20451*17^k
-         + 204*j + 374.
+3e_k = 4f_k+17^k,
+f_(k+1) = 17f_k+768*17^k,
+16*sum_(i<k)f_i <= f_k.
 ```
 
-In particular `D_k >= 17^k`.  Combining (P) and (H), and using `4>3`, gives
+Thus `G_k<=2f_k`, and hence
+
+```text
+2G_k+17^k <= 17e_k.
+```
+
+If `D_k=17e_k-2G_k`, then `D_k>=17^k`.  Combining (P) and
+(H), and using `4>3`, gives
 
 ```text
 3^G_k 2^D_k
@@ -351,8 +360,9 @@ aperiodic counters or prove Collatz.
 
 - Machine-checked now: ruler block law, functional equation, Jordan iterates,
   determinant `16`, public-payload rational-value implication, the geometric
-  factor identity, the degree-17 Padé remainder identity, and the conditional
-  eight-rail Collatz consumer.
+  factor identity, the degree-17 Padé remainder identity, the all-level
+  precision/height surplus `2G_k+17^k<=17e_k`, and the conditional eight-rail
+  Collatz consumer.
 - Exactly audited: coefficient cancellation, all displayed exponent formulas,
   contraction inequalities, and 32,776 bounded regression rows.
 - Research theorem awaiting full Lean: irrationality of each `H(c,z_j)` by

@@ -58,9 +58,10 @@ Since `4>3`, these bounds would force
 irrationality proof for all eight place-value specializations and would rule
 out the autonomous 17-adic place-value counter without a general
 multivariate value theorem.  The Padé identity and conditional eight-rail
-consumer are now kernel-checked; a 12-core exact audit replayed 32,776
-integer exponent rows through `k=4096`.  The final all-level rational-height
-argument is written in
+consumer are now kernel-checked, as is the all-level surplus inequality
+`2G_k+17^k<=17e_k`; a 12-core exact audit replayed 32,776 integer exponent
+rows through `k=4096`.  The remaining rational numerator/height packaging is
+written in
 [`boundary-jordan-mahler.md`](docs/notes/boundary-jordan-mahler.md) and sent
 to CLEAN Lean as QM203.  Until that argument is kernel-checked, irrationality
 is a research theorem, not a certified project result.  No Collatz theorem or

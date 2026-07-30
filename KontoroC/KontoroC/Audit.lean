@@ -1676,6 +1676,10 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.no_orbit_of_irrational_value
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.no_orbit_on_eight_place_rulers
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.transform_iterate
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.three_uDyadic_eq_four_uTriadic_add
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.uTriadicExponent_succ
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.sixteen_sum_uTriadic_le
+#print axioms KontoroC.SelfWritingKL.RankTwoRuler.rationalHeightExponent_surplus
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.factor_transform_iterate
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.valueAt_iterated
 #print axioms KontoroC.SelfWritingKL.RankTwoRuler.exponentDet_eq_sixteen

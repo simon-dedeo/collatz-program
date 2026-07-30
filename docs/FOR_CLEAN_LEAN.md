@@ -14993,14 +14993,19 @@ Since `value j` is a unit, `A,B` are odd.  Write
 G_k=f_k+16*sum_(i<k)f_i.
 ```
 
-Exact simplification gives
+The cleaner all-level route is
 
 ```text
-17e_k=2G_k+D_k,
-17D_k=1904*j*17^k+14336*k*17^k+20451*17^k+204*j+374,
+3e_k=4f_k+17^k,
+f_(k+1)=17f_k+768*17^k,
+16*sum_(i<k)f_i<=f_k,
+2G_k+17^k<=17e_k.
 ```
 
-so `D_k>=17^k`.  Since `4>3`, the two bounds imply
+These are now kernel-checked research-side as
+`three_uDyadic_eq_four_uTriadic_add`, `uTriadicExponent_succ`,
+`sixteen_sum_uTriadic_le`, and `rationalHeightExponent_surplus`.  Setting
+`D_k=17e_k-2G_k` gives `D_k>=17^k`.  Since `4>3`, the two bounds imply
 
 ```text
 2^D_k < abs A+B*17^k,

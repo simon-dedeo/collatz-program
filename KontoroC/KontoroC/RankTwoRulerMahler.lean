@@ -314,6 +314,60 @@ theorem jordanExponent_succ (k : ℕ) :
         show k + 1 + 1 - 1 = k + 1 by omega, pow_succ]
       ring
 
+/-! ## Precision versus rational height for the degree-17 remainder -/
+
+/-- Dyadic exponent of `C_k*Z_k` at the `j`th rational specialization. -/
+def uDyadicExponent (j k : ℕ) : ℕ :=
+  (79 + 8 * j) * 17 ^ k + 64 * jordanExponent k
+
+/-- Triadic denominator exponent of `C_k*Z_k`. -/
+def uTriadicExponent (j k : ℕ) : ℕ :=
+  (59 + 6 * j) * 17 ^ k + 48 * jordanExponent k
+
+/-- Exponent in the elementary numerator-height bound: the current
+denominator plus the sixteen denominator powers paid by every earlier
+geometric factor. -/
+def rationalHeightExponent (j k : ℕ) : ℕ :=
+  uTriadicExponent j k +
+    16 * ∑ i ∈ Finset.range k, uTriadicExponent j i
+
+/-- The old charge hyperplane persists at every Jordan iterate.  Its defect
+is exactly the radial `17^k` term. -/
+theorem three_uDyadic_eq_four_uTriadic_add (j k : ℕ) :
+    3 * uDyadicExponent j k =
+      4 * uTriadicExponent j k + 17 ^ k := by
+  simp only [uDyadicExponent, uTriadicExponent]
+  ring
+
+theorem uTriadicExponent_succ (j k : ℕ) :
+    uTriadicExponent j (k + 1) =
+      17 * uTriadicExponent j k + 768 * 17 ^ k := by
+  simp only [uTriadicExponent, pow_succ]
+  rw [← jordanExponent_succ]
+  ring
+
+/-- Because each triadic exponent grows by at least seventeen, all earlier
+height costs together consume at most one sixteenth of the current cost. -/
+theorem sixteen_sum_uTriadic_le (j k : ℕ) :
+    16 * ∑ i ∈ Finset.range k, uTriadicExponent j i ≤
+      uTriadicExponent j k := by
+  induction k with
+  | zero => simp [uTriadicExponent, jordanExponent]
+  | succ k ih =>
+      rw [Finset.sum_range_succ, mul_add, uTriadicExponent_succ]
+      omega
+
+/-- Kernel-checked all-level surplus behind the Padé/height contradiction.
+If `G_k` is the rational-height exponent, `17*e_k` has at least `17^k`
+additional binary digits beyond the crude comparison `3^G < 4^G`. -/
+theorem rationalHeightExponent_surplus (j k : ℕ) :
+    2 * rationalHeightExponent j k + 17 ^ k ≤
+      17 * uDyadicExponent j k := by
+  have hsum := sixteen_sum_uTriadic_le j k
+  have hcharge := three_uDyadic_eq_four_uTriadic_add j k
+  simp only [rationalHeightExponent]
+  omega
+
 /-- Exact iterate formula in QM154d.  The linear factor in `k` is the
 signature of the defective Jordan block. -/
 theorem transform_iterate (C Z : ℚ_[2]) (k : ℕ) :
