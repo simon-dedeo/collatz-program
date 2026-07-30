@@ -7,6 +7,12 @@ consumer are kernel-checked in
 orbit or Collatz counterexample is constructed. Literal intermediate-cell
 semantics remain to be connected to the existing counterexample consumer.
 
+**Successor audit.** The proposed six-phase *writer* interpretation below is
+closed: all phases with six total cells induce the same deterministic ordinary
+boundary map.  The valid reproduction inequality remains useful, but an
+ordinary ray must have eventually zero canonical extension carry.  See
+[`long-return-successor-rigidity.md`](long-return-successor-rigidity.md).
+
 ## 1. Keep the long return; slow the opcode clock
 
 The two-rail audit found that fixed-shape families cannot reproduce along

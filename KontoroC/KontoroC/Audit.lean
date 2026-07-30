@@ -3019,6 +3019,26 @@ regressions.  None is a dependency of the soundness theorems printed here.
 #print axioms
   KontoroC.LongReturnSuccessorBouncer.SuccessorSixRay.returnBalance
 #print axioms
+  KontoroC.LongReturnSuccessorRigidity.returnBalance_output_unique
+#print axioms
+  KontoroC.LongReturnSuccessorRigidity.sixPhase_nextSource_unique
+#print axioms
+  KontoroC.LongReturnSuccessorRigidity.SuccessorSixBalanceRay.follows
+#print axioms
+  KontoroC.LongReturnSuccessorRigidity.nonempty_successorSixBalanceRay_iff_nonnegative_follows
+#print axioms
+  KontoroC.LongReturnSuccessorRigidity.successorSixReset_precision_unbounded
+#print axioms
+  KontoroC.LongReturnSuccessorRigidity.SuccessorSixBalanceRay.eventuallyZeroCarry
+#print axioms
+  KontoroC.LongReturnSuccessorRigidity.SuccessorSixRay.eventuallyZeroCarry
+#print axioms
+  KontoroC.LongReturnSuccessorRigidity.no_successorSixBalanceRay_of_nonzeroCarries
+#print axioms
+  KontoroC.LongReturnSuccessorRigidity.SuccessorSixBalanceRay.initial_unique
+#print axioms
+  KontoroC.LongReturnSuccessorRigidity.SuccessorSixBalanceRay.source_unique
+#print axioms
   KontoroC.OutwardThreeWordReducedState.appended_word_executes_from_shifted_target
 #print axioms
   KontoroC.OutwardThreeWordReducedState.ReducedState.shiftedTarget_eq_boundary

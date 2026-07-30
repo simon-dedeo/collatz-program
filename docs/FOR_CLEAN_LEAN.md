@@ -15212,3 +15212,45 @@ valuation hypotheses peels into the literal route
 the existing ordinary Collatz counterexample consumer. The displayed route
 here should be checked rather than trusted; the algebraic module intentionally
 does not claim literal intermediate cells.
+
+## QM207 — successor phase erasure and zero-carry rigidity (2026-07-30)
+
+The proposed six-phase writer does not survive an exact control audit.  New
+research module `LongReturnSuccessorRigidity.lean` proves that
+`ReturnBalance(k,g,F,-)` has unique output and therefore any two linked phase
+splits with `k+n+1=6` from the same source have the same next ordinary source.
+Phase is an internal valuation witness, not a control letter.
+
+Erasing it gives the fixed signed reset program
+
+```text
+N_t=S_6(g0+t), O_t=R_6(g0+t),
+delta_t=-defect(6,g0+t),
+2^N_t F_(t+1)=3^O_t F_t+delta_t.
+```
+
+The module maps every scalar natural balance ray to `KLDyadicReset.Follows`
+and proves the converse for pointwise nonnegative integer paths. Since every
+`N_t>0`, cumulative precision is unbounded. The generic difference and
+inverse-limit theorems then give:
+
+```text
+SuccessorSixBalanceRay.initial_unique,
+SuccessorSixBalanceRay.source_unique,
+SuccessorSixBalanceRay.eventuallyZeroCarry,
+SuccessorSixRay.eventuallyZeroCarry.
+```
+
+It also proves that canonical nonzero carries arbitrarily late rule out every
+scalar successor ray. Thus the old suggestion to seek a substitution grammar
+which keeps writing residue digits is backwards: such a grammar certifies a
+nonordinary 2-adic preload. The only live construction subcase is an eventual
+zero-carry program whose canonical integer quotients remain nonnegative.
+
+Please independently audit this reduction before working on QM206's literal
+semantic bridge. In particular, check that no freedom hidden in the two-rail
+cofactor can alter the deterministic full boundary output. A useful next
+formal strengthening would show whether a nonnegative full-return ray
+automatically reconstructs `TwoRailCode 5 g 0` at every stage; that would make
+the scalar zero-carry target equivalent to `SuccessorSixRay`, not only
+necessary for it.

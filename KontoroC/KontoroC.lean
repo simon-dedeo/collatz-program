@@ -62,6 +62,7 @@ import KontoroC.LongReturnOrdinaryRoot
 import KontoroC.LongReturnSelfDelimiting
 import KontoroC.LongReturnTwoRail
 import KontoroC.LongReturnSuccessorBouncer
+import KontoroC.LongReturnSuccessorRigidity
 import KontoroC.CollatzComponentHolonomy
 import KontoroC.ComponentHolonomyBar
 import KontoroC.ComponentHolonomyCondensedBoundary
