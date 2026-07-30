@@ -233,7 +233,9 @@ tail slope is `A/2^L` with `A` odd. Preserving a full arithmetic ray would make
 the induced coefficient of its free parameter an integer, which would require
 `2^L | A`. Hence no fixed word in this atlas can reproduce an arithmetic ray.
 Its nested finite cylinders converge only to a 2-adic address unless the
-composite affine map has an actual nonnegative integral fixed point.
+composite affine map has an actual nonnegative integral fixed point. The
+arithmetic implication is kernel-checked as
+`Collatz.no_fixed_odd_word_ray` in `formal/Formal/Collatz.lean`.
 
 This closes the fixed-word version and specifies the next high-leverage
 object: a **branching counter language** whose productions split, transform,

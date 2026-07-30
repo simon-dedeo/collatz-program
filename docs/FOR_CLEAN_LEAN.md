@@ -14821,8 +14821,9 @@ counterexample is claimed. This seam is lower priority than auditing QM198.
 
 ## QM200 — fixed-word arithmetic-ray obstruction
 
-The implemented difference-map probe found a small generic lemma that should
-be separated from its untrusted search. Let `L : ℕ` with `0 < L`, let `A,M :
+The implemented difference-map probe found a small generic lemma that is now
+kernel-checked on the research side as
+`formal/Formal/Collatz.lean#no_fixed_odd_word_ray`. Let `L : ℕ` with `0 < L`, let `A,M :
 ℕ` with `Odd A` and `0 < M`, and suppose one fixed positive-time binary word
 acts affinely on a full arithmetic ray `k=a+M*t` and returns it to the same ray
 with natural parameter map `t -> u*t+v`. Comparing coefficients gives
@@ -14831,8 +14832,8 @@ with natural parameter map `t -> u*t+v`. Comparing coefficients gives
 A * M = 2^L * M * u.
 ```
 
-Cancellation of `M` implies `2^L ∣ A`, contradicting `Odd A`. A convenient
-Lean theorem is therefore
+Cancellation of `M` implies `2^L ∣ A`, contradicting `Odd A`. The proved Lean
+theorem is
 
 ```text
 theorem no_fixed_odd_word_ray
@@ -14840,8 +14841,8 @@ theorem no_fixed_odd_word_ray
     (hcoeff : A * M = 2^L * M * u) : False
 ```
 
-(Feel free to use a more library-friendly ordering/factorization.) In the
-power-chart atlas, each tail instruction has `k' = u_i*((k-d_i)/2)+v_i` with
+(It is optional to duplicate this theorem in CLEAN_LEAN.) In the power-chart
+atlas, each tail instruction has `k' = u_i*((k-d_i)/2)+v_i` with
 odd `u_i`, so a length-`L` fixed word has composite slope `A/2^L` with odd
 `A=prod u_i`; invariance of a full arithmetic ray supplies `hcoeff`.
 

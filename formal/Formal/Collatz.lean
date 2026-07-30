@@ -198,6 +198,29 @@ theorem not_conjecture_of_invariant_set (L : Set ℕ)
   obtain ⟨k, hk⟩ := hC n (hpos n hn)
   exact hone (hk ▸ hiter k)
 
+/-! ## A fixed-word obstruction for arithmetic-ray programs -/
+
+/-- A positive-length binary word with odd affine numerator cannot carry a
+full arithmetic ray to itself with a natural affine tail parameter.  The
+dynamical application supplies the coefficient identity: a length-`L` word
+has slope `A / 2^L`, while invariance of `a + M*t` would make that slope an
+integer `u` on the free parameter. -/
+theorem no_fixed_odd_word_ray
+    (L A M u : ℕ) (hL : 0 < L) (hA : Odd A) (hM : 0 < M)
+    (hcoeff : A * M = 2 ^ L * M * u) : False := by
+  have hcoeff' : A * M = (2 ^ L * u) * M := by
+    calc
+      A * M = 2 ^ L * M * u := hcoeff
+      _ = (2 ^ L * u) * M := by ac_rfl
+  have hAeq : A = 2 ^ L * u := Nat.mul_right_cancel hM hcoeff'
+  have htwo_pow : 2 ∣ 2 ^ L := by
+    obtain ⟨j, rfl⟩ := Nat.exists_eq_succ_of_ne_zero (by omega : L ≠ 0)
+    simp [pow_succ]
+  have htwo_A : 2 ∣ A := by
+    rw [hAeq]
+    exact dvd_mul_of_dvd_left htwo_pow u
+  exact hA.not_two_dvd_nat htwo_A
+
 /-- Every counterexample is divergent or eventually periodic with 1 never visited. -/
 theorem counterexample_shape {n : ℕ} (h : ¬ ReachesOne n) :
     (∀ B, ∃ k, B < step^[k] n) ∨

@@ -202,8 +202,9 @@ infinite-ordinary check. More fundamentally, every fixed word has slope
 `A/2^L` with `A` odd, so it cannot preserve a full arithmetic ray. The next
 target is therefore a genuinely branching, counter-driven language that
 splits and regroups cylinders, not longer repetitions of one word. Any future
-candidate remains subject to exact replay and Lean; no counterexample is
-claimed. See
+candidate remains subject to exact replay and Lean;
+`Collatz.no_fixed_odd_word_ray` kernel-checks the coefficient obstruction. No
+counterexample is claimed. See
 [`difference-map-programming-languages.md`](docs/notes/difference-map-programming-languages.md).
 
 ### 2026-07-28 EDT
