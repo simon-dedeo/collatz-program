@@ -14893,3 +14893,45 @@ No Lean action is urgent until the research worker has an actual encoding of
 candidate whose branch uses loop index `t` directly or chooses a fresh CRT
 residue at each step; `t` must be recovered by iterating the public
 `counter -> counter+1` transition from one finite state.
+
+## QM202 — boundary-Jordan functional nonrationality and value seam
+
+The theorem-first replacement for QM201 is documented in
+`docs/notes/boundary-jordan-mahler.md`.  For
+
+```text
+H(C,Z)=sum_(n>=0) C^(placeSum n) Z^n
+```
+
+please package the elementary functional statement
+
+```text
+H is not rational over Q(C,Z).
+```
+
+A coefficient-recurrence formulation is sufficient.  If rationality supplied
+a fixed recurrence
+
+```text
+sum_(0<=i<=d) R_i(C) C^(placeSum(n+i))=0,   R_d != 0,
+```
+
+choose `n=17^k-d`.  The final exponent is `placeSum(17^k)` and every earlier
+one is at most `placeSum(17^k)-17^k`; for `17^k` above all coefficient
+degrees, the final summand has a unique leading `C` degree.
+
+The load-bearing value theorem remains external and unproved: a 2-adic linear
+lifting theorem for the boundary Jordan matrix
+
+```text
+[[17,16],[0,17]].
+```
+
+Do not assert that the general multivariate theorem applies.  Its admissible
+value class asks for a strictly positive Perron eigenvector, while this
+matrix's eigenvectors have second coordinate zero.  Research-side exact
+arithmetic does prove the proposed replacement zero estimate: every finite
+monomial support has an eventual unique least 2-adic term along each of the
+eight specialized orbits.  Formalizing functional nonrationality is useful;
+formalizing the external lifting theorem is not requested until its analytic
+proof is complete.

@@ -229,6 +229,22 @@ and the three cost identities are kernel-checked in
 the regular and carry generators; it does not prove existence or
 nonexistence.
 
+A more aggressive theorem-first attack now takes priority over that search.
+The place-value series is a first-order Mahler function for the boundary
+Jordan map `T(C,Z)=(C^17,C^16*Z^17)`.  Any ordinary self-writing ruler orbit
+would force its specialized 2-adic value to be rational.  Brechler's 27 July
+2026 multivariate Mahler preprint supplies the functional
+rational--transcendental dichotomy, but its value theorem cannot simply be
+cited: our defective matrix has no strictly positive Perron eigenvector.
+For this exact boundary case, however, the committed Jordan valuation formula
+shows that every finite polynomial has an eventual unique least 2-adic
+monomial along the orbit.  The new target is a bespoke linear lifting theorem
+using that explicit separator.  If it lands, all eight place-value rulers are
+closed without transducer synthesis or PSC.  The exact reduction, elementary
+functional-nonrationality argument, and claim boundary are in
+[`boundary-jordan-mahler.md`](docs/notes/boundary-jordan-mahler.md).  No value
+transcendence theorem is yet claimed.
+
 ### 2026-07-28 EDT
 
 The counterexample program has moved from finite search to a foundational
