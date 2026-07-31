@@ -197,6 +197,26 @@ Collatz semantics.  Conversely, proving nonzero carries arbitrarily late
 closes this successor architecture.  See
 [`long-return-successor-rigidity.md`](docs/notes/long-return-successor-rigidity.md).
 
+The concrete sign gap is now closed: Lean proves
+`defect(6,g)<3^R_6(g)` and that the defect is positive and odd.  Hence a
+signed reset chain with nonnegative initial value must start strictly positive
+and stays strictly positive forever.  For this successor program, eventual
+zero carry is therefore **equivalent** to existence of the unique positive
+natural full-return ray; positivity is not a second open gate.
+
+A literature audit puts the unique 2-adic source into an exact six-value
+Tschakaloff linear form.  The apparent seventh value is removed by
+`f_q(qx)=1+x f_q(x)`, with `q=3^102/2^138`.  The 1989
+Väänänen--Wallisser six-value size bound fails (`gamma=0.146389...` versus
+`Gamma(6,0)=0.079867...`).  Rochev's 2011 theorem is the closest broader
+near-hit: it would handle arbitrary finite families without that rank gate,
+but assumes one expanding place, whereas this `q` expands both really and
+2-adically.  The same inequality `3^17>2^23` which makes the return pay its
+real precision bill creates the second expanding place.  The high-leverage
+arithmetic target is consequently a two-expanding-place, fixed-linear-form
+Hermite--Padé argument, not more finite carry scanning.  See
+[`long-return-successor-literature.md`](docs/notes/long-return-successor-literature.md).
+
 ### 2026-07-29 EDT
 
 The new termination attack changes the unit of study from a forward trajectory
@@ -10648,7 +10668,7 @@ needs the independent ordinary-root/tightness proof.
 | Explicit typed router reproduces one later positive debris | Closed in Lean for every router parameter satisfying the public exponent-room inequality.  If the emitted cofactor equalled `R_next`, reduction modulo the common source/reproduction power of three would force `3^(K-1)` to divide half the binary return length.  Exact size bounds simultaneously force the reached label to be at most `next` and `next` to be at most `ell+m+2`.  The resulting exponential order lower bound contradicts that linear window.  Composite, multi-rail, or genuinely infinite payload reproduction remains open. | [`SignedDebrisReproduction.lean`](KontoroC/KontoroC/SignedDebrisReproduction.lean) |
 | Base-squaring `g -> 2g` four-cell quine, including arbitrary singular integer payloads | Universally closed for positive natural payloads.  The cleared balance factors as `3^(2Q)(A F-b0)=2^(77+P)(positive)`, forcing `2^(131+23g)<A F(g)`.  Positivity also gives `F(2g)<2^(46+8g)F(g)`.  Iteration along `g,2g,...` makes the first lower exponent outrun the complete second upper budget; Lean contradicts them at depth `F(0)+4`.  This subsumes the earlier rational and regular-Mahler no-gos and needs no external transcendence or 2-adic irrationality theorem.  It closes this exact return, not other nonlinear opcode maps or multi-state returns. | [`DoublingQuineIntegerNoGo.lean`](KontoroC/KontoroC/DoublingQuineIntegerNoGo.lean), [`DoublingQuineMahlerNormalForm.lean`](KontoroC/KontoroC/DoublingQuineMahlerNormalForm.lean) |
 | Fixed-source unbounded adaptive return length | Universally closed at one opcode.  Adjacent-return sources are one exact dyadic cylinder modulo `2^(S+P)`; the cylinders nest as `k` grows.  Cofinal supported lengths would therefore give every length and Hensel cores satisfying `3^Q z_n=1+2^P z_(n+1)`.  The fixed-point defect obeys `2^P w_(n+1)=3^Q w_n`, forcing arbitrarily large powers of two to divide one fixed positive natural.  Iterated local splices stabilize at an ordinary source iff their retroactive tail parameters are eventually zero.  A live construction must cross doubled opcodes in a genuine forward zero-lift chain. | [`LongReturnOrdinaryRoot.lean`](KontoroC/KontoroC/LongReturnOrdinaryRoot.lean), [`long-return-ordinary-root.md`](docs/notes/long-return-ordinary-root.md) |
-| Six-phase successor alphabet as an autonomous writer | Closed.  Equal source width and output stride do not create control freedom: every split `k+n+1=6` realizes the same deterministic `ReturnBalance(6,g,F,Fnext)`, so two enabled phases from one source have the same next source.  The phase-erased successor schedule is one fixed signed dyadic-reset program with unbounded cumulative precision.  Any ordinary ray forces its canonical carries eventually to vanish, and at most one ordinary source can realize the program.  The live subcase is an eventual zero-carry tail with nonnegative canonical quotients; perpetual digit writing is a 2-adic preload, not a counterexample. | [`LongReturnSuccessorRigidity.lean`](KontoroC/KontoroC/LongReturnSuccessorRigidity.lean), [`long-return-successor-rigidity.md`](docs/notes/long-return-successor-rigidity.md) |
+| Six-phase successor alphabet as an autonomous writer | Closed.  Equal source width and output stride do not create control freedom: every split `k+n+1=6` realizes the same deterministic `ReturnBalance(6,g,F,Fnext)`, so two enabled phases from one source have the same next source.  The phase-erased successor schedule is one fixed signed dyadic-reset program with unbounded cumulative precision.  At most one ordinary source can realize it.  Lean now proves `defect(6,g)<3^R_6(g)` and oddness, so eventual zero carry is equivalent to existence of the unique positive natural full-return ray, not merely a weak signed chain.  Its exact source is a six-value 2-adic Tschakaloff form; current published sufficient theorems miss because of rank or because `q=3^102/2^138` expands at both the real and 2-adic places. | [`LongReturnSuccessorZeroCarry.lean`](KontoroC/KontoroC/LongReturnSuccessorZeroCarry.lean), [`long-return-successor-literature.md`](docs/notes/long-return-successor-literature.md) |
 | Shortest-recharge perfect-23rd-power bouncer quine | Closed.  Lean commit `5fbacf5` proves every accepted `h=1`, `u=F*r^23` reproduction transition supplies an integer solution of `3^15X^23-2^16Y^23=5`.  PARI/GP 2.15.4 checks the associated degree-23 polynomial irreducible, reports attached class number one, and returns the complete empty Thue solution list.  PARI documents this class-number-one fast case as unconditional; that final no-solution step is external-PARI scope, not kernel scope.  Higher recharge and multi-rail/corrected payloads remain open. | [`ChargePowerQuine.lean`](KontoroC/KontoroC/ChargePowerQuine.lean), [`unit_charge_power_quine_thue_audit.txt`](experiments/kontorovich/unit_charge_power_quine_thue_audit.txt) |
 | Pure public-state 23rd-power rail, `m=0 (mod 23)` | Closed for every positive transition in this coefficient class.  Lean commit `4c56925` converts the transition to equal sums of two 23rd powers; exact input valuation makes `s` too large for the discrete gap.  Commits `f61f569`/`9f00894` reduce the remaining classes to scaled norm/cofactor equations and a hidden register.  Commit `07352a9` kernel-checks the elementary Roth approximation and exponent-11 bridge for the other classes; the external theorem and sequence-level finiteness consumer remain explicit seams.  Individual transitions, corrected types, and multi-rail packets remain open. | [`ChargeStatePowerQuine.lean`](KontoroC/KontoroC/ChargeStatePowerQuine.lean), [`ChargeStatePowerRoth.lean`](KontoroC/KontoroC/ChargeStatePowerRoth.lean) |
 | Sum-of-two-squares public type | Universally closed before any search.  Every accepted bouncer state has `2^23 | y+1`, so `y=7 (mod 8)`; the next accepted state and `A^h=1 (mod 8)` force the odd collision quotient to be `7 (mod 8)` as well.  A sum of two squares is never `3 (mod 4)`.  This kills only `d=1`; the hardware-matched `x^2+d u^2` type with `d=7 (mod 8)` is live. | [`unit_charge_quadratic_norm_audit.json`](experiments/kontorovich/unit_charge_quadratic_norm_audit.json) |
@@ -13184,6 +13204,14 @@ existing lines of work; the closest ancestors, and what each contributes:
   `92416b1` proves `B/A<13/12<3*log(3)/(4*log(2))` from exact ordered-field
   algebra and `2^13<3^9`.  These sufficient theorems do not close period
   three.
+- **I. P. Rochev, [“Linear independence measures for values of certain
+  q-series”](https://arxiv.org/abs/1102.2014) (2011)** — gives a broad local
+  Archimedean-or-p-adic independence theorem for arbitrary finite families,
+  but assumes the q-parameter expands at one chosen place and at no other.
+  The successor parameter `3^102/2^138` expands at both infinity and `2`, so
+  the theorem is a precise near-hit rather than an application.  Adapting its
+  auxiliary forms to these two places and to the one forced coefficient
+  vector is the live literature-driven attack.
 - **K. Väänänen, [“Algebraic independence of certain Mahler
   numbers”](https://arxiv.org/abs/1507.02510) (2015)** — covers Thue--Morse
   and related generating-function values at nonzero algebraic points in the

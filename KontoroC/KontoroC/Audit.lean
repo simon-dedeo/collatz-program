@@ -3038,6 +3038,12 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.LongReturnSuccessorRigidity.SuccessorSixBalanceRay.initial_unique
 #print axioms
   KontoroC.LongReturnSuccessorRigidity.SuccessorSixBalanceRay.source_unique
+#print axioms KontoroC.LongReturnSuccessorZeroCarry.forcingTail_six_le
+#print axioms
+  KontoroC.LongReturnSuccessorZeroCarry.defect_six_lt_three_pow_R
+#print axioms KontoroC.LongReturnSuccessorZeroCarry.follows_pos
+#print axioms
+  KontoroC.LongReturnSuccessorZeroCarry.eventuallyZeroCarry_iff_nonempty_balanceRay
 #print axioms
   KontoroC.OutwardThreeWordReducedState.appended_word_executes_from_shifted_target
 #print axioms

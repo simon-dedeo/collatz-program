@@ -15254,3 +15254,52 @@ formal strengthening would show whether a nonnegative full-return ray
 automatically reconstructs `TwoRailCode 5 g 0` at every stage; that would make
 the scalar zero-carry target equivalent to `SuccessorSixRay`, not only
 necessary for it.
+
+## QM208 — successor zero carry is already a positive ray (2026-07-30)
+
+Research module `LongReturnSuccessorZeroCarry.lean` strengthens QM207 at the
+sign seam.  It proves
+
+```text
+forcingTail_six_le,
+defect_six_lt_three_pow_R,
+follows_initial_pos,
+follows_pos,
+eventuallyZeroCarry_iff_nonempty_balanceRay.
+```
+
+The elementary estimate is deliberately coarse.  From
+`2^(P(g)+1)<3^Q(g)`, every monomial in the six-term geometric tail is at most
+`(3^Q)^5`, hence
+
+```text
+forcingTail(g,6) <= 6*(3^Q(g))^5.
+```
+
+Together with the exact constant inequality
+
+```text
+b0+6*2^77 < 3^114
+```
+
+this gives `defect(6,g)<3^R(6,g)`.  The defect is positive and odd.  A signed
+`Follows(successorSixReset(g0),m)` chain with `m(0)>=0` cannot start at zero,
+because the first reset would make the odd defect divisible by two.  Once
+`m(t)>=1`, the strict defect bound makes the next numerator positive, so
+positivity propagates.
+
+Consequently the generic theorem
+
+```text
+EventuallyZeroCarry(e)
+  iff exists m, Follows(e,m) and 0<=m(0)
+```
+
+specializes to exact existence of a positive natural `SuccessorSixBalanceRay`.
+Please audit this equivalence and, separately, QM207's still-open question
+whether every such balance ray reconstructs the internal `TwoRailCode`.
+
+The companion literature note
+`docs/notes/long-return-successor-literature.md` derives the exact six-value
+Tschakaloff target and records why the closest published theorems do not yet
+apply.  No eventual-zero-carry or nonzero-carry conclusion is asserted.
