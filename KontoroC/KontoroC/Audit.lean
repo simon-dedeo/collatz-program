@@ -24,6 +24,27 @@ regressions.  None is a dependency of the soundness theorems printed here.
   KontoroC.AffineBinaryCounterNoGo.concrete_counterFuel_cell
 #print axioms
   KontoroC.AffineBinaryCounterNoGo.concrete_counterFuel_outward
+#print axioms
+  KontoroC.StoppingTimeScaling.ExactExit.toTerminatingLongRun
+#print axioms KontoroC.StoppingTimeScaling.ExactPrefix.prepend
+#print axioms
+  KontoroC.StoppingTimeScaling.BitLawScalingCertificate.eventually_lifetime_gt_mul_bits
+#print axioms
+  KontoroC.StoppingTimeScaling.RecursiveScalingCertificate.hasTerminatingLongRun_pow
+#print axioms
+  KontoroC.StoppingTimeScaling.EncodedTimeDilationRenormalizer.toRecursiveScalingCertificate
+#print axioms
+  KontoroC.StoppingTimeScaling.TimeDilationRenormalizer.toRecursiveScalingCertificate
+#print axioms
+  KontoroC.StoppingTimeScaling.EncodedDetourWrapper.toAccumulatingScalingCertificate
+#print axioms
+  KontoroC.StoppingTimeScaling.AccumulatingScalingCertificate.hasTerminatingLongRun_sum
+#print axioms
+  KontoroC.StoppingTimeScaling.AccumulatingScalingCertificate.hasTerminatingLongRun_quadratic
+#print axioms
+  KontoroC.StoppingTimeScaling.AccumulatingScalingCertificate.hasTerminatingLongRun_two_pow
+#print axioms KontoroC.StoppingTimeScaling.quadratic_isSuperlinearLaw
+#print axioms KontoroC.StoppingTimeScaling.two_pow_terminatingLongRun
 #print axioms KontoroC.cycle_denominator_mul_seed
 #print axioms KontoroC.cycle_shape_strict
 #print axioms KontoroC.runWord_eq_self_iff_cycle_equation

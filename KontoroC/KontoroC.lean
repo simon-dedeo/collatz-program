@@ -255,6 +255,7 @@ import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
 import KontoroC.AffineBinaryCounterNoGo
 import KontoroC.AffineCounterFuelCell
+import KontoroC.StoppingTimeScaling
 import KontoroC.TwoRailPrefixCode
 import KontoroC.SaturatedBridge
 import KontoroC.SaturatedBridgeChain

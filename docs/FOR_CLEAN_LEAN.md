@@ -15303,3 +15303,47 @@ The companion literature note
 `docs/notes/long-return-successor-literature.md` derives the exact six-value
 Tschakaloff target and records why the closest published theorems do not yet
 apply.  No eventual-zero-carry or nonzero-carry conclusion is asserted.
+
+## QM209 — actual-bit stopping-time scaling interfaces (2026-08-04)
+
+The research side has added
+`KontoroC/KontoroC/StoppingTimeScaling.lean`.  The target is an explicit
+terminating family whose first hitting time of `1` is superlinear in the
+actual binary length of the seed.  The module is kernel-checked and contains
+no claim that such a family has yet been constructed.
+
+The central local seam is
+
+```text
+ExactPrefix n L terminal:
+  n > 0,
+  step^[j] n != 1 for j<L,
+  step^[L] n = terminal.
+```
+
+`ExactPrefix.prepend` proves that this prefix composed with a
+`TerminatingLongRun terminal R` gives a `TerminatingLongRun n (L+R)`.
+`EncodedDetourWrapper State C` packages an encoding, a wrapper transition,
+a delay, an actual-bit cost at most `C`, and an exact prefix from the wrapped
+seed back to the previous seed.  Its iteration produces an
+`AccumulatingScalingCertificate` with duration equal to the initial duration
+plus the sum of inserted delays.
+
+The checked resource consequences are:
+
+```text
+delay_m = 2m+1  => lifetime >= 1+m^2 in B_0+C m bits;
+delay_m >= accumulated_lifetime_m
+                => lifetime >= 2^m in B_0+C m bits.
+```
+
+There is also an encoded multiplicative-renormalizer interface giving
+`q^m` certified steps in `B_0+C m` bits, and a power-of-two calibration
+showing exactly the ordinary linear family `2^m` (at most `m+1` bits and `m`
+steps before `1`).
+
+Please treat the module as the proposed formal vocabulary for future seed
+constructions.  The most useful independent audit is the semantic distinction
+between `ExactPrefix` and `TerminatingLongRun`, especially the proof of
+`ExactPrefix.prepend`; a long prefix alone must never be reported as a
+stopping-time family.

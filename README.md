@@ -36,6 +36,35 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ### 2026-08-04 EDT
 
+The stopping-time target is now stated in actual binary bits: construct an
+explicit terminating family `n_m` with
+`tau(n_m)/bitLength(n_m) -> infinity`.  Quadratic time is already a success;
+`2^m` time in `O(m)` bits is the stronger exponential target.  A new
+kernel-checked module,
+[`StoppingTimeScaling.lean`](KontoroC/KontoroC/StoppingTimeScaling.lean),
+separates a merely long prefix from a terminating long run and proves the
+basic composition law.  Its concrete construction interface is an encoded
+detour wrapper: at bounded added bit cost, the new seed follows an exact
+finite Collatz prefix back to the old terminating seed.  Delays `2m+1` per
+level give a checked quadratic lower bound by summation; a delay at least as
+large as the accumulated lifetime gives a checked doubling law and hence
+exponential time in linear bits.  These are conditional construction
+principles.  No superlinear Collatz family has yet been constructed.
+
+The current families all fail this sharper test.  The standard two-rail
+system uses quadratic bits for quadratic time; the `[1,1,2]` counter/fuel
+system uses four fresh dyadic address bits for each constant-delay cell; and
+the YAH packet stores its apparent binary counter in a unary-size payload.
+The live search target is therefore a bounded-bit literal return gadget
+`new seed -> old seed` whose inserted delay grows with wrapper depth and
+whose address information is regenerated rather than consumed.  The exact
+criteria, present-family audit, and literature comparison are in
+[`stopping-time-scaling-principles.md`](docs/notes/stopping-time-scaling-principles.md).
+The strongest rigorous integer result located in the literature remains
+Applegate--Lagarias's infinite family with stopping time greater than a fixed
+constant times `log n`, still linear in bit length; no published ordinary
+integer family with `tau(n)/log n -> infinity` was found.
+
 The recurrent-boost scaling audit now has an exact answer for the current
 families.  The standard `R`-round two-rail seed has the uniform bounds
 
@@ -11046,6 +11075,15 @@ an engineering caveat, not an unproved mathematical premise.
 
 ### Surviving proof programs
 
+- **Construct superlinear terminating seed families.**  The exact target is
+  `tau(n_m)/bitLength(n_m) -> infinity`, with termination proved for every
+  member.  Lean checks a sufficient local mechanism: a bounded-bit detour
+  wrapper which follows a literal prefix back to the preceding terminating
+  seed.  Level delays `2m+1` give quadratic time; delays dominating the
+  accumulated lifetime give exponential time in linear bits.  The missing
+  object is such a wrapper for the ordinary Collatz map.  The current
+  two-rail and counter/fuel systems consume address bits rather than
+  regenerating them.
 - **Holonomy descent from a component minimum.**  Lean proves that every
   positive Syracuse component contains five consecutive integers and that a
   `2 mod 9` portal exposes an exact same-component `8/9` height contraction.
@@ -11083,6 +11121,7 @@ almost-linear predecessor counting and require a separate no-escape argument.
 
 | Route | Calibrated verdict | Where to inspect |
 |---|---|---|
+| Existing recurrent-boost families as superlinear stopping-time seeds | Closed for the audited designs: standard two-rail has quadratic time in quadratic bits; the `[1,1,2]` cell has constant delay per four consumed dyadic address bits; YAH stores its apparent binary counter in a unary-size packet. A bounded-bit return wrapper with growing delay remains open. | [Scaling principles](docs/notes/stopping-time-scaling-principles.md) |
 | Printed KL advanced elimination | Invalid as stated: exact paths break the history-free deletion, nonempty-minimum, and split-invariant steps. The occurrence-aware replacement and counting transfer are kernel-checked, so the finite certificate consequence survives. | [Termination audit](experiments/kl/TERMINATION_AUDIT.md) |
 | Printed KL equation (2.1) | False as an equality: `phi^7_2(1)=3` while `phi^14_2(0)=2`. A targetwise one-sided repair gives the required lower-bound direction and is checked in Lean. | [Exact obstruction](experiments/kl/verify_equation_2_1_obstruction.py) |
 | Autonomous charged/projective contraction | Structurally closed for every tested admissible window: the `-1` co-spine supplies a marginal mode. This rules out the certificate class, not `lambda_infinity=2`. | [Kill tests](docs/notes/cl-killtests.md) |
