@@ -253,6 +253,8 @@ import KontoroC.OutwardChartRankNoGo
 import KontoroC.KLColdPowerCertificate
 import KontoroC.StandardTwoRail
 import KontoroC.AffineTwoRail
+import KontoroC.AffineBinaryCounterNoGo
+import KontoroC.AffineCounterFuelCell
 import KontoroC.TwoRailPrefixCode
 import KontoroC.SaturatedBridge
 import KontoroC.SaturatedBridgeChain

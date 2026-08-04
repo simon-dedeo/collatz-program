@@ -34,6 +34,54 @@ Everything below this line, and everything else in this repo, has been automatic
 
 ## Diary
 
+### 2026-08-04 EDT
+
+The recurrent-boost scaling audit now has an exact answer for the current
+families.  The standard `R`-round two-rail seed has the uniform bounds
+
+```text
+bits <= (R^2+23R+12)/2,
+accelerated steps = (R^2+13R)/2,
+ordinary steps = R^2+17R.
+```
+
+Thus its controlled time is linear in actual seed bits, while its number of
+regenerated rounds is only square-root in those bits.  The YAH lift parameter
+does not improve this accounting: its packet has exactly `35+256t` ternary
+cells, so storing the apparent `m`-bit counter `t=2^m-1` already costs at
+least `36+256(2^m-1)` actual binary seed bits.
+
+The direct binary-decrement attempt exposed a universal scalar wall.  Every
+fixed finite valuation word obeys `2^S y=3^O x+delta`; applying it to two
+adjacent equal-stride counter states would force `2^S=3^O`, impossible when
+`S>0`.  This scalar obstruction and its affine-counter specialization are
+kernel-checked in
+[`AffineBinaryCounterNoGo.lean`](KontoroC/KontoroC/AffineBinaryCounterNoGo.lean).
+That theorem is deliberately isolated in a small algebra-only module; the
+heavier literal Collatz replay lives separately in
+[`AffineCounterFuelCell.lean`](KontoroC/KontoroC/AffineCounterFuelCell.lean).
+
+A genuine two-coordinate escape does exist.  The exact word `[1,1,2]`
+implements the recurrent counter/fuel cell
+
+```text
+x(c,u)=16c+176u+7,
+16u'=c+27u+2,
+T^3(x(c,u))=x(c-1,u') > x(c,u).
+```
+
+Every linked cell is a literal strict boost.  Exact congruence compilation
+and replay produce arbitrary finite countdowns, checked through 1,024 cells.
+But an `R`-cell run selects one fuel residue modulo `16^R`, giving at most
+`4R+9` seed bits and exactly `7R` ordinary programmed steps.  Writing
+`R=2^m` therefore hides `4R` unary address bits in the fuel; it does not give
+`2^n` time from `n` actual bits.  The live target is now sharply scoped: a
+second writer must regenerate at least the four correct dyadic fuel bits
+consumed by each decoder cell.  See
+[`affine-counter-fuel-scaling.md`](docs/notes/affine-counter-fuel-scaling.md)
+and the [exact artifact](experiments/kontorovich/affine_counter_fuel_audit.json).
+No counterexample or exponential lower bound is claimed.
+
 ### 2026-07-30 EDT
 
 The boundary-Jordan Mahler lane has a much simpler specialization-specific
@@ -10696,6 +10744,7 @@ needs the independent ordinary-root/tightness proof.
 | Three named aperiodic two-opcode bouncer clocks | No canonical ordinary address stabilizes in the exact finite grammar: Thue--Morse, period-doubling, and Fibonacci control words; every injective coding of `0,1` by the 16 pairs `(m,h)` with `1<=m,h<=4`; all 34,560 prefixes through depth 48.  The closest pair shares 33,128 low bits but changes from a 33,386-bit address to a 34,092-bit address.  This closes only these named clocks and bounds, not payload-generated, larger-alphabet, or general morphic bouncers. | [`unit_charge_morphic_audit.json`](experiments/kontorovich/unit_charge_morphic_audit.json) |
 | Bounded zero-extension charge-bouncer tree | Every word of depths `1..4` over the 16 opcodes `(m,h)` with `1<=m,h<=4`, followed by every one of the 16 possible next blocks, was compiled exactly: 69,904 prefixes and 1,118,464 extensions.  Zero canonical lifts found: none.  The closest nonlift agrees in only 16 of 177 required low bits, while the maximum terminal public valuations by depth are `3,9,13,16`; this does not imply a fixed-modulus obstruction or an all-depth theorem. | [`unit_charge_zero_lift_audit.json`](experiments/kontorovich/unit_charge_zero_lift_audit.json) |
 | Standard two-rail schedule `[1]^r[2,2,3]` | Closed at all levels.  Exact affine-family intersection compiles 247 outward rounds from a 10,040-digit seed, but depth 248 changes the seed and exact continuation reaches `1`.  Lean reduces every infinite realization to `2^(r+8)P'=3^(r+3)P+69` and its sole 2-adic Tschakaloff candidate.  Väänänen--Wallisser's 1989 theorem applies at `q=3/2,p=2,alpha=4096/6561` and proves that candidate irrational, so it cannot be an ordinary payload.  This does not close branching or other aperiodic splash programs. | [Finite certificate](experiments/kontorovich/two_rail_chain_247.json), [theorem audit](docs/notes/standard-two-rail-theta.md) |
+| Scalar affine binary decrementer / unary YAH counter | Closed as a route to exponential scaling in actual seed bits.  A fixed word acting on two adjacent equal-stride counter states forces `2^S=3^O`, impossible for `S>0`.  The YAH lift index instead occupies `35+256t` ternary cells, so `t=2^m-1` already costs `Omega(2^m)` actual bits.  A checked two-coordinate `[1,1,2]` counter/fuel cell does boost and decrement for arbitrary finite depth, but its `R`-round fuel address is one residue modulo `16^R`; its programmed time and actual seed bits are both `Theta(R)`.  A live design must regenerate consumed address bits with a second writer rail. | [`AffineBinaryCounterNoGo.lean`](KontoroC/KontoroC/AffineBinaryCounterNoGo.lean), [scaling audit](docs/notes/affine-counter-fuel-scaling.md) |
 | Fixed affine or autonomous finite-state return | Closed as an outward bouncer.  Lean commits `b741a14`/`26f3584` prove fixed affine circuits and every eventually periodic macro-word schedule impossible; `560fcc5` proves an autonomous controller with any finite effective state eventually enters that obstruction.  Coefficientwise, a repeated word would require natural slope `m=3^N/2^S` with `S>0`.  Payload-dependent branching and unbounded shape counters remain open. | [Delocalized tag-ISA note](docs/notes/kontorovich-delocalized-isa.md) |
 | Canonical zero-preload two-rail graph | Exactly checked 128,000 gate shapes in the stated box (`r<=40`, `s<=4`, collision extras `<=4`, output gap `<=41`): 98,760 canonical members are outward, 25 canonical links exist, and the longest linked chain has two gates. Its seed `45247` reaches `1`; a wider targeted audit finds no third canonical gate for that endpoint. This rejects only index-zero links, not branching affine-tail controllers. | [`two_rail_transducer_audit.json`](experiments/kontorovich/two_rail_transducer_audit.json) |
 | Small regular invariant sets | Previously closed only in the stated exhaustive classes: no base-2 DFA divergence certificate through eight states and no base-3 certificate through five. One-counter and genuinely morphic single-orbit certificates remain open. | [Base 2](experiments/dfacert/README.md), [base 3](experiments/dfacert3/README.md) |

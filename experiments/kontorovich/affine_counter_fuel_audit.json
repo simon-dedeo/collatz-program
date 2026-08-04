@@ -1,0 +1,340 @@
+{
+  "artifact_sha256": "21e305cd7d0412e4e8c4d55736c481e1c3d84ff6a59372d03a33aa2712c987eb",
+  "audit": {
+    "closure_status": {
+      "achieved": "an exact recurrent boost cell and arbitrary finite countdowns, with exact linear bit accounting",
+      "counterexample": null,
+      "missing": "a writer which regenerates the four dyadic fuel bits consumed per cell, or a nonlinear/multi-rail encoding avoiding that cost",
+      "two_to_n_steps_from_n_actual_bits": null
+    },
+    "counter_fuel_cell": {
+      "all_cells_strict_boosts": true,
+      "balance": "16*y=27*x+19",
+      "endpoint": "y=x(c-1,u_next)",
+      "link": "16*u_next=c+27*u+2",
+      "rows": [
+        {
+          "accelerated_steps": 3,
+          "all_cells_strict_boosts": true,
+          "dyadic_address_bits": 4,
+          "endpoint_bits": 12,
+          "initial_fuel_bits": 3,
+          "initial_fuel_sha256": "7902699be42c8a8e46fbbb4501726517e86b22c56a189f7625a6da49081b2451",
+          "logical_counter_bits": 1,
+          "ordinary_steps": 7,
+          "peak_bits": 12,
+          "rounds": 1,
+          "seed_bit_cap": 13,
+          "seed_bits": 11,
+          "total_halvings": 4,
+          "trace_sha256": "d6dfde67ab73ea18f07a42774ad2923ffac48992d9e58ee050a5820f24b20b08"
+        },
+        {
+          "accelerated_steps": 6,
+          "all_cells_strict_boosts": true,
+          "dyadic_address_bits": 8,
+          "endpoint_bits": 12,
+          "initial_fuel_bits": 3,
+          "initial_fuel_sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a",
+          "logical_counter_bits": 2,
+          "ordinary_steps": 14,
+          "peak_bits": 12,
+          "rounds": 2,
+          "seed_bit_cap": 17,
+          "seed_bits": 10,
+          "total_halvings": 8,
+          "trace_sha256": "2f7e65e3e0b8e222613ca7349b962da35e571bd0741c884971efae826660d5a1"
+        },
+        {
+          "accelerated_steps": 12,
+          "all_cells_strict_boosts": true,
+          "dyadic_address_bits": 16,
+          "endpoint_bits": 25,
+          "initial_fuel_bits": 15,
+          "initial_fuel_sha256": "a5cf502ec4bf388b4f091f8d4e60fe98b5034e75e98f3703196649b1a82693f7",
+          "logical_counter_bits": 3,
+          "ordinary_steps": 28,
+          "peak_bits": 25,
+          "rounds": 4,
+          "seed_bit_cap": 25,
+          "seed_bits": 22,
+          "total_halvings": 16,
+          "trace_sha256": "acaafe56d1144d75c95975610ef36116f05bc4ffab335d7bb43f83055a69951c"
+        },
+        {
+          "accelerated_steps": 24,
+          "all_cells_strict_boosts": true,
+          "dyadic_address_bits": 32,
+          "endpoint_bits": 43,
+          "initial_fuel_bits": 30,
+          "initial_fuel_sha256": "5cd864b5e8fbb6da6d18d1f07f473602228609e9fb540fcea3033443e3cf8699",
+          "logical_counter_bits": 4,
+          "ordinary_steps": 56,
+          "peak_bits": 43,
+          "rounds": 8,
+          "seed_bit_cap": 41,
+          "seed_bits": 37,
+          "total_halvings": 32,
+          "trace_sha256": "89224bcaa63929796ce0504b45323945e35c5851daed7cade38c7e641009d274"
+        },
+        {
+          "accelerated_steps": 48,
+          "all_cells_strict_boosts": true,
+          "dyadic_address_bits": 64,
+          "endpoint_bits": 83,
+          "initial_fuel_bits": 63,
+          "initial_fuel_sha256": "afc78fc02dcbd9de6ba0f45b0133d729f34165aca9c5b7d16910b24b4e5fb1ff",
+          "logical_counter_bits": 5,
+          "ordinary_steps": 112,
+          "peak_bits": 83,
+          "rounds": 16,
+          "seed_bit_cap": 73,
+          "seed_bits": 71,
+          "total_halvings": 64,
+          "trace_sha256": "3de77250a69e7a54627987248cee011ba965fa5662a98c2ba622e2278f49c37b"
+        },
+        {
+          "accelerated_steps": 96,
+          "all_cells_strict_boosts": true,
+          "dyadic_address_bits": 128,
+          "endpoint_bits": 154,
+          "initial_fuel_bits": 123,
+          "initial_fuel_sha256": "c2e8165dcbbae84f7ca8c9ee2c5749096dcdc46cb983621da3716bd3310f047a",
+          "logical_counter_bits": 6,
+          "ordinary_steps": 224,
+          "peak_bits": 154,
+          "rounds": 32,
+          "seed_bit_cap": 137,
+          "seed_bits": 130,
+          "total_halvings": 128,
+          "trace_sha256": "08b2d5b5c639c312ecfdd93488c58edbcfdd49455682492577c098a9cc833157"
+        },
+        {
+          "accelerated_steps": 192,
+          "all_cells_strict_boosts": true,
+          "dyadic_address_bits": 256,
+          "endpoint_bits": 311,
+          "initial_fuel_bits": 255,
+          "initial_fuel_sha256": "3b7c0efd00e59d41e4d9f4394b4aa9182421a4efd4fa7dcd880c58d75ae482b7",
+          "logical_counter_bits": 7,
+          "ordinary_steps": 448,
+          "peak_bits": 311,
+          "rounds": 64,
+          "seed_bit_cap": 265,
+          "seed_bits": 262,
+          "total_halvings": 256,
+          "trace_sha256": "2a0103c7493a0ae65102aa1fb564aaabd5190427b3539a873693d5893daf5daf"
+        },
+        {
+          "accelerated_steps": 384,
+          "all_cells_strict_boosts": true,
+          "dyadic_address_bits": 512,
+          "endpoint_bits": 614,
+          "initial_fuel_bits": 510,
+          "initial_fuel_sha256": "1aae0539c2865d474c845f479b1033fb9e1df33429027b061682d8147deae412",
+          "logical_counter_bits": 8,
+          "ordinary_steps": 896,
+          "peak_bits": 614,
+          "rounds": 128,
+          "seed_bit_cap": 521,
+          "seed_bits": 517,
+          "total_halvings": 512,
+          "trace_sha256": "f5907a614498f4fa1ee0ea435fa369adbb4c90437158d15bf5a3f41158632d91"
+        },
+        {
+          "accelerated_steps": 741,
+          "all_cells_strict_boosts": true,
+          "dyadic_address_bits": 988,
+          "endpoint_bits": 1176,
+          "initial_fuel_bits": 983,
+          "initial_fuel_sha256": "d8daf400974ccb10be8ebe0199f5b72d4344ad36c2d4da02f101f51b37ca9dca",
+          "logical_counter_bits": 8,
+          "ordinary_steps": 1729,
+          "peak_bits": 1176,
+          "rounds": 247,
+          "seed_bit_cap": 997,
+          "seed_bits": 990,
+          "total_halvings": 988,
+          "trace_sha256": "7602497060b326e103839112b1acf76464000300cfb4284f560bdbf7b7b6def8"
+        },
+        {
+          "accelerated_steps": 1536,
+          "all_cells_strict_boosts": true,
+          "dyadic_address_bits": 2048,
+          "endpoint_bits": 2437,
+          "initial_fuel_bits": 2043,
+          "initial_fuel_sha256": "7c2d82cd5b57c8ac91010bc62a3c066eb2e96995a60b3bd0198c348b01ab0714",
+          "logical_counter_bits": 10,
+          "ordinary_steps": 3584,
+          "peak_bits": 2437,
+          "rounds": 512,
+          "seed_bit_cap": 2057,
+          "seed_bits": 2050,
+          "total_halvings": 2048,
+          "trace_sha256": "76c30eb372b3a45e4e50ce5e2291c3480cd59b41288c6be93d8664763ce8d690"
+        },
+        {
+          "accelerated_steps": 3072,
+          "all_cells_strict_boosts": true,
+          "dyadic_address_bits": 4096,
+          "endpoint_bits": 4875,
+          "initial_fuel_bits": 4095,
+          "initial_fuel_sha256": "e69c56d192b47684e862ee2020390ec8574ba926314730569ec81380cea70432",
+          "logical_counter_bits": 11,
+          "ordinary_steps": 7168,
+          "peak_bits": 4875,
+          "rounds": 1024,
+          "seed_bit_cap": 4105,
+          "seed_bits": 4102,
+          "total_halvings": 4096,
+          "trace_sha256": "66f77d7d9500e87f90cb7e7096e0fef2f247d72f606eae4c0d2e027cf9deb60c"
+        }
+      ],
+      "source": "x(c,u)=16*c+176*u+7",
+      "uniform_bounds": {
+        "accelerated_steps": "3*R",
+        "actual_scaling": "Theta(R)",
+        "logical_counter_warning": "R may be written with log2(R) symbols, but the exact fuel address is a residue modulo 16^R and costs 4R bits",
+        "ordinary_steps": "7*R",
+        "seed_bits": "at most 4*R+9"
+      },
+      "valuation_word": [
+        1,
+        1,
+        2
+      ]
+    },
+    "map": "accelerated_odd_3x_plus_1",
+    "scalar_affine_decrement": {
+      "reason": "two adjacent equal-stride pairs force 2^S=3^O; the universal proof is kernel-checked in AffineBinaryCounterNoGo.lean",
+      "status": "universally impossible for one fixed nonempty word"
+    },
+    "standard_two_rail": {
+      "rows": [
+        {
+          "accelerated_steps": 7,
+          "ordinary_steps": 18,
+          "rounds": 1,
+          "seed_bit_cap": 18,
+          "seed_bits": 17,
+          "strict_outward_rounds": 1,
+          "total_halvings": 11
+        },
+        {
+          "accelerated_steps": 15,
+          "ordinary_steps": 38,
+          "rounds": 2,
+          "seed_bit_cap": 31,
+          "seed_bits": 31,
+          "strict_outward_rounds": 2,
+          "total_halvings": 23
+        },
+        {
+          "accelerated_steps": 34,
+          "ordinary_steps": 84,
+          "rounds": 4,
+          "seed_bit_cap": 60,
+          "seed_bits": 58,
+          "strict_outward_rounds": 4,
+          "total_halvings": 50
+        },
+        {
+          "accelerated_steps": 84,
+          "ordinary_steps": 200,
+          "rounds": 8,
+          "seed_bit_cap": 130,
+          "seed_bits": 129,
+          "strict_outward_rounds": 8,
+          "total_halvings": 116
+        },
+        {
+          "accelerated_steps": 232,
+          "ordinary_steps": 528,
+          "rounds": 16,
+          "seed_bit_cap": 318,
+          "seed_bits": 318,
+          "strict_outward_rounds": 16,
+          "total_halvings": 296
+        },
+        {
+          "accelerated_steps": 2464,
+          "ordinary_steps": 5184,
+          "rounds": 64,
+          "seed_bit_cap": 2790,
+          "seed_bits": 2790,
+          "strict_outward_rounds": 64,
+          "total_halvings": 2720
+        },
+        {
+          "accelerated_steps": 32110,
+          "ordinary_steps": 65208,
+          "rounds": 247,
+          "seed_bit_cap": 33351,
+          "seed_bits": 33351,
+          "strict_outward_rounds": 247,
+          "total_halvings": 33098
+        }
+      ],
+      "uniform_bounds": {
+        "accelerated_steps": "(R^2+13R)/2",
+        "actual_scaling": "Theta(seed_bits)",
+        "ordinary_steps": "R^2+17R",
+        "renewal_scaling": "Theta(sqrt(seed_bits))",
+        "seed_bits": "at most (R^2+23R+12)/2",
+        "strict_regenerated_rounds": "R"
+      }
+    },
+    "yah_lift_parameter": {
+      "accounting": "using t=2^m-1 as an m-bit logical counter costs at least 36+256*(2^m-1) actual binary seed bits",
+      "actual_scaling": "unary, not exponential in actual seed bits",
+      "exact_packet_length": "35+256*t ternary cells",
+      "rows": [
+        {
+          "logical_bits": 1,
+          "maximum_parameter": 1,
+          "packet_trits": 291,
+          "seed_bits_lower_bound": 292
+        },
+        {
+          "logical_bits": 2,
+          "maximum_parameter": 3,
+          "packet_trits": 803,
+          "seed_bits_lower_bound": 804
+        },
+        {
+          "logical_bits": 4,
+          "maximum_parameter": 15,
+          "packet_trits": 3875,
+          "seed_bits_lower_bound": 3876
+        },
+        {
+          "logical_bits": 8,
+          "maximum_parameter": 255,
+          "packet_trits": 65315,
+          "seed_bits_lower_bound": 65316
+        },
+        {
+          "logical_bits": 12,
+          "maximum_parameter": 4095,
+          "packet_trits": 1048355,
+          "seed_bits_lower_bound": 1048356
+        },
+        {
+          "logical_bits": 16,
+          "maximum_parameter": 65535,
+          "packet_trits": 16776995,
+          "seed_bits_lower_bound": 16776996
+        },
+        {
+          "logical_bits": 20,
+          "maximum_parameter": 1048575,
+          "packet_trits": 268435235,
+          "seed_bits_lower_bound": 268435236
+        }
+      ]
+    }
+  },
+  "generated_at_utc": "2026-08-04T18:46:28.988725+00:00",
+  "schema": "collatz-affine-counter-fuel-scaling-v1",
+  "worker_sha256": "54c3edb91d7c76765d7595e7cfc738898b28adae8365d92638e4656741ef8a59"
+}

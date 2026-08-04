@@ -533,6 +533,55 @@ artifact SHA-256  42599de911e74bbb5a5af4ec7da630878d59fe41d2d6d0000fffc83b84a943
 verifier SHA-256  e1006e7bfc4df2ae3fa21467265130c1d2526808f37cf4a2767b8d23b81500bd
 ```
 
+## Recurrent counter/fuel boosts and exact scaling
+
+`affine_counter_fuel.py` tests the proposed binary-decrement route at its
+smallest exact interface.  A fixed scalar affine chart cannot work: applying
+one balance `2^S*y=3^O*x+delta` to two adjacent equal-stride counter states
+would force `2^S=3^O`.  The companion Lean file proves this universally.
+
+Adding a second fuel coordinate does permit a real decrement instruction.
+The worker found and replays
+
+```text
+valuation word [1,1,2],       16*y=27*x+19,
+x(c,u)=16*c+176*u+7,
+16*u_next=c+27*u+2,
+y=x(c-1,u_next)>x.
+```
+
+Every linked cell is a strict Collatz boost.  The compiler solves the unique
+initial fuel class modulo `16^R` for an `R`-cell countdown, chooses its least
+nonnegative representative, and literally replays all `3R` accelerated
+steps.  Uniformly the seed has at most `4R+9` bits and the programmed prefix
+has `7R` ordinary steps.  Thus this is an arbitrary-depth recurrent boost
+system, but it is linear in actual seed bits: a logical choice `R=2^m`
+preloads `4R` address bits in the fuel.
+
+The same artifact independently checks the standard two-rail formulas
+
+```text
+bits <= (R^2+23R+12)/2,
+accelerated=(R^2+13R)/2,
+ordinary=R^2+17R,
+```
+
+through `R=247`, and records the YAH unary-storage identity
+`packet_length=35+256*t`.  It claims neither a counterexample nor `2^n`
+steps from `n` actual bits.
+
+```bash
+python3 affine_counter_fuel.py selftest
+python3 affine_counter_fuel.py build affine_counter_fuel_audit.json \
+  --max-countdown-rounds 1024
+python3 affine_counter_fuel.py verify affine_counter_fuel_audit.json
+```
+
+```text
+artifact SHA-256  21e305cd7d0412e4e8c4d55736c481e1c3d84ff6a59372d03a33aa2712c987eb
+worker SHA-256    54c3edb91d7c76765d7595e7cfc738898b28adae8365d92638e4656741ef8a59
+```
+
 ## Payload-index tag transducers
 
 `two_rail_transducer.py` exposes the programming-language operation hidden in

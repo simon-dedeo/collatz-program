@@ -16,6 +16,14 @@ regressions.  None is a dependency of the soundness theorems printed here.
 
 #print axioms KontoroC.valuationWord_affine_identity
 #print axioms KontoroC.legalInstruction_of_step_equation
+#print axioms
+  KontoroC.AffineBinaryCounterNoGo.no_fixed_word_affine_decrement
+#print axioms
+  KontoroC.AffineBinaryCounterNoGo.counterFuel_decrement_balance
+#print axioms
+  KontoroC.AffineBinaryCounterNoGo.concrete_counterFuel_cell
+#print axioms
+  KontoroC.AffineBinaryCounterNoGo.concrete_counterFuel_outward
 #print axioms KontoroC.cycle_denominator_mul_seed
 #print axioms KontoroC.cycle_shape_strict
 #print axioms KontoroC.runWord_eq_self_iff_cycle_equation
